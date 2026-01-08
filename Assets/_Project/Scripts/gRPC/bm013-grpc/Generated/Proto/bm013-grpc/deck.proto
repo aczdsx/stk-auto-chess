@@ -11,58 +11,59 @@ service DeckService {
   /**
    * 캐릭터 배치 덱 목록 조회
    */
-  rpc ListBattleDeck(DeckListBattleDeckRequest) returns (DeckListBattleDeckResponse);
+  rpc List(DeckListRequest) returns (DeckListResponse);
 
   /**
    * 캐릭터 배치 덱 조회
    */
-  rpc GetBattleDeck(DeckGetBattleDeckRequest) returns (DeckGetBattleDeckResponse);
+  rpc Get(DeckGetRequest) returns (DeckGetResponse);
 
   /**
    * 캐릭터 배치 덱 저장
    */
-  rpc SaveBattleDeck(DeckSaveBattleDeckRequest) returns (DeckSaveBattleDeckResponse);
+  rpc Save(DeckSaveRequest) returns (DeckSaveResponse);
 
   /**
    * 캐릭터 배치 덱 삭제
    */
-  rpc DeleteBattleDeck(DeckDeleteBattleDeckRequest) returns (DeckDeleteBattleDeckResponse);
+  rpc Delete(DeckDeleteRequest) returns (DeckDeleteResponse);
 }
 
 enum DeckErrorCode {
   DECK_UNSPECIFIED = 0;
+
+  DECK_NOT_FOUND = 10130401; // 덱을 찾을 수 없음
 }
 
-message DeckListBattleDeckRequest {}
-message DeckListBattleDeckResponse {
+message DeckListRequest {}
+message DeckListResponse {
   ResponseStatus status = 1;
   repeated DeckData deck_list = 2;
-  uint32 max_deck_slot = 3;
 }
 
-message DeckGetBattleDeckRequest {
+message DeckGetRequest {
   uint32 deck_slot_id = 1;
 }
-message DeckGetBattleDeckResponse {
+message DeckGetResponse {
   ResponseStatus status = 1;
   DeckData deck = 2;
 }
 
-message DeckSaveBattleDeckRequest {
+message DeckSaveRequest {
   uint32 deck_slot_id = 1;
   string deck_name = 2;
   repeated DeckCharacterPlacement character_placements = 3;
   repeated DeckTacticPlacement tactic_placements = 4;
 }
 
-message DeckSaveBattleDeckResponse {
+message DeckSaveResponse {
   ResponseStatus status = 1;
   DeckData deck = 2;
 }
 
-message DeckDeleteBattleDeckRequest {
+message DeckDeleteRequest {
   uint32 deck_slot_id = 1;
 }
-message DeckDeleteBattleDeckResponse {
+message DeckDeleteResponse {
   ResponseStatus status = 1;
 }

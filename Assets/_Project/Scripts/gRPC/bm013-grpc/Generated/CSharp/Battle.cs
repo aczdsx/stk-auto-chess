@@ -31,67 +31,65 @@ namespace Tech.Hive.V1 {
             "dHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjAKB2No",
             "YXB0ZXIYAiABKAsyHy50ZWNoLmhpdmUudjEuQmF0dGxlQ2hhcHRlckRhdGES",
             "NQoKc3RhZ2VfbGlzdBgDIAMoCzIhLnRlY2guaGl2ZS52MS5CYXR0bGVTdGFn",
-            "ZVByb2dyZXNzIhoKGEJhdHRsZUxpc3RDaGFwdGVyUmVxdWVzdCKAAQoZQmF0",
+            "ZVByb2dyZXNzIhoKGEJhdHRsZUxpc3RDaGFwdGVyUmVxdWVzdCKaAQoZQmF0",
             "dGxlTGlzdENoYXB0ZXJSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNo",
             "LmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSNQoMY2hhcHRlcl9saXN0GAIgAygL",
-            "Mh8udGVjaC5oaXZlLnYxLkJhdHRsZUNoYXB0ZXJEYXRhIiwKFkJhdHRsZUxp",
-            "c3RTdGFnZVJlcXVlc3QSEgoKY2hhcHRlcl9pZBgBIAEoDSJ+ChdCYXR0bGVM",
-            "aXN0U3RhZ2VSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUu",
-            "djEuUmVzcG9uc2VTdGF0dXMSNQoKc3RhZ2VfbGlzdBgCIAMoCzIhLnRlY2gu",
-            "aGl2ZS52MS5CYXR0bGVTdGFnZVByb2dyZXNzIoYBChJCYXR0bGVTdGFydFJl",
-            "cXVlc3QSEAoIc3RhZ2VfaWQYASABKAkSLAoKZGlmZmljdWx0eRgCIAEoDjIY",
-            "LnRlY2guaGl2ZS52MS5EaWZmaWN1bHR5EhQKDGRlY2tfc2xvdF9pZBgDIAEo",
-            "DRIaChJvYnNlcnZlcl9za2lsbF9pZHMYBCADKAkicwoTQmF0dGxlU3RhcnRS",
+            "Mh8udGVjaC5oaXZlLnYxLkJhdHRsZUNoYXB0ZXJEYXRhEhgKEHRvdGFsX3N0",
+            "YXJfY291bnQYAyABKA0iLAoWQmF0dGxlTGlzdFN0YWdlUmVxdWVzdBISCgpj",
+            "aGFwdGVyX2lkGAEgASgNIn4KF0JhdHRsZUxpc3RTdGFnZVJlc3BvbnNlEiwK",
+            "BnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxI1",
+            "CgpzdGFnZV9saXN0GAIgAygLMiEudGVjaC5oaXZlLnYxLkJhdHRsZVN0YWdl",
+            "UHJvZ3Jlc3MibAoSQmF0dGxlU3RhcnRSZXF1ZXN0EhIKCmNoYXB0ZXJfaWQY",
+            "ASABKA0SEAoIc3RhZ2VfaWQYAiABKA0SFAoMZGVja19zbG90X2lkGAMgASgN",
+            "EhoKEm9ic2VydmVyX3NraWxsX2lkcxgEIAMoCSKpAQoTQmF0dGxlU3RhcnRS",
             "ZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9u",
             "c2VTdGF0dXMSGQoRYmF0dGxlX3Nlc3Npb25faWQYAiABKAkSEwoLYmF0dGxl",
-            "X3NlZWQYAyABKAQiWQoQQmF0dGxlRW5kUmVxdWVzdBIZChFiYXR0bGVfc2Vz",
-            "c2lvbl9pZBgBIAEoCRIqCgZyZXN1bHQYAiABKAsyGi50ZWNoLmhpdmUudjEu",
-            "QmF0dGxlUmVzdWx0Iq8BCgxCYXR0bGVSZXN1bHQSEgoKaXNfdmljdG9yeRgB",
-            "IAEoCBISCgpjbGVhcl90aW1lGAIgASgEEg0KBXN0YXJzGAMgASgNEjAKCnVu",
-            "aXRfc3RhdHMYBCADKAsyHC50ZWNoLmhpdmUudjEuQmF0dGxlVW5pdFN0YXQS",
-            "GgoSdG90YWxfZGFtYWdlX2RlYWx0GAUgASgEEhoKEnRvdGFsX2RhbWFnZV90",
-            "YWtlbhgGIAEoBCJ/Cg5CYXR0bGVVbml0U3RhdBIdChVjaGFyYWN0ZXJfaW5z",
-            "dGFuY2VfaWQYASABKAkSFAoMZGFtYWdlX2RlYWx0GAIgASgEEhQKDGRhbWFn",
-            "ZV90YWtlbhgDIAEoBBINCgVraWxscxgEIAEoDRITCgtpc19zdXJ2aXZlZBgF",
-            "IAEoCCLFAgoRQmF0dGxlRW5kUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwu",
-            "dGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjMKC3Jld2FyZF90eXBlGAIg",
-            "ASgOMh4udGVjaC5oaXZlLnYxLkJhdHRsZVJld2FyZFR5cGUSNAoPY3VycmVu",
-            "Y3lfZGVsdGFzGAMgAygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGES",
-            "OQoOc3RhZ2VfcHJvZ3Jlc3MYBCABKAsyIS50ZWNoLmhpdmUudjEuQmF0dGxl",
-            "U3RhZ2VQcm9ncmVzcxIZChFwbGF5ZXJfZXhwX2dhaW5lZBgFIAEoBBJBChNj",
-            "aGFyYWN0ZXJfZXhwX2dhaW5zGAYgAygLMiQudGVjaC5oaXZlLnYxLkJhdHRs",
-            "ZUNoYXJhY3RlckV4cEdhaW4idgoWQmF0dGxlQ2hhcmFjdGVyRXhwR2FpbhId",
-            "ChVjaGFyYWN0ZXJfaW5zdGFuY2VfaWQYASABKAkSEgoKZXhwX2dhaW5lZBgC",
-            "IAEoBBIUCgxsZXZlbF9iZWZvcmUYAyABKA0SEwoLbGV2ZWxfYWZ0ZXIYBCAB",
-            "KA0qKQoPQmF0dGxlRXJyb3JDb2RlEhYKEkJBVFRMRV9VTlNQRUNJRklFRBAA",
-            "KmgKEEJhdHRsZVJld2FyZFR5cGUSGwoXUkVXQVJEX1RZUEVfVU5TUEVDSUZJ",
-            "RUQQABIbChdSRVdBUkRfVFlQRV9GSVJTVF9DTEVBUhABEhoKFlJFV0FSRF9U",
-            "WVBFX1RIUkVFX1NUQVIQAjLRAwoNQmF0dGxlU2VydmljZRJwChFHZXRDdXJy",
-            "ZW50Q2hhcHRlchIsLnRlY2guaGl2ZS52MS5CYXR0bGVHZXRDdXJyZW50Q2hh",
-            "cHRlclJlcXVlc3QaLS50ZWNoLmhpdmUudjEuQmF0dGxlR2V0Q3VycmVudENo",
-            "YXB0ZXJSZXNwb25zZRJeCgtMaXN0Q2hhcHRlchImLnRlY2guaGl2ZS52MS5C",
-            "YXR0bGVMaXN0Q2hhcHRlclJlcXVlc3QaJy50ZWNoLmhpdmUudjEuQmF0dGxl",
-            "TGlzdENoYXB0ZXJSZXNwb25zZRJYCglMaXN0U3RhZ2USJC50ZWNoLmhpdmUu",
-            "djEuQmF0dGxlTGlzdFN0YWdlUmVxdWVzdBolLnRlY2guaGl2ZS52MS5CYXR0",
-            "bGVMaXN0U3RhZ2VSZXNwb25zZRJMCgVTdGFydBIgLnRlY2guaGl2ZS52MS5C",
-            "YXR0bGVTdGFydFJlcXVlc3QaIS50ZWNoLmhpdmUudjEuQmF0dGxlU3RhcnRS",
-            "ZXNwb25zZRJGCgNFbmQSHi50ZWNoLmhpdmUudjEuQmF0dGxlRW5kUmVxdWVz",
-            "dBofLnRlY2guaGl2ZS52MS5CYXR0bGVFbmRSZXNwb25zZWIGcHJvdG8z"));
+            "X3NlZWQYAyABKAQSNAoPY3VycmVuY3lfZGVsdGFzGAQgAygLMhsudGVjaC5o",
+            "aXZlLnYxLkN1cnJlbmN5RGVsdGEiWQoQQmF0dGxlRW5kUmVxdWVzdBIZChFi",
+            "YXR0bGVfc2Vzc2lvbl9pZBgBIAEoCRIqCgZyZXN1bHQYAiABKAsyGi50ZWNo",
+            "LmhpdmUudjEuQmF0dGxlUmVzdWx0Iq8BCgxCYXR0bGVSZXN1bHQSEgoKaXNf",
+            "dmljdG9yeRgBIAEoCBISCgpjbGVhcl90aW1lGAIgASgEEg0KBXN0YXJzGAMg",
+            "ASgNEjAKCnVuaXRfc3RhdHMYBCADKAsyHC50ZWNoLmhpdmUudjEuQmF0dGxl",
+            "VW5pdFN0YXQSGgoSdG90YWxfZGFtYWdlX2RlYWx0GAUgASgEEhoKEnRvdGFs",
+            "X2RhbWFnZV90YWtlbhgGIAEoBCJ/Cg5CYXR0bGVVbml0U3RhdBIdChVjaGFy",
+            "YWN0ZXJfaW5zdGFuY2VfaWQYASABKAkSFAoMZGFtYWdlX2RlYWx0GAIgASgE",
+            "EhQKDGRhbWFnZV90YWtlbhgDIAEoBBINCgVraWxscxgEIAEoDRITCgtpc19z",
+            "dXJ2aXZlZBgFIAEoCCLZAQoRQmF0dGxlRW5kUmVzcG9uc2USLAoGc3RhdHVz",
+            "GAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjQKD2N1cnJl",
+            "bmN5X2RlbHRhcxgCIAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRh",
+            "EjkKDnN0YWdlX3Byb2dyZXNzGAMgASgLMiEudGVjaC5oaXZlLnYxLkJhdHRs",
+            "ZVN0YWdlUHJvZ3Jlc3MSJQoHcmV3YXJkcxgEIAMoCzIULnRlY2guaGl2ZS52",
+            "MS5SZXdhcmQidgoWQmF0dGxlQ2hhcmFjdGVyRXhwR2FpbhIdChVjaGFyYWN0",
+            "ZXJfaW5zdGFuY2VfaWQYASABKAkSEgoKZXhwX2dhaW5lZBgCIAEoBBIUCgxs",
+            "ZXZlbF9iZWZvcmUYAyABKA0SEwoLbGV2ZWxfYWZ0ZXIYBCABKA0qZwoPQmF0",
+            "dGxlRXJyb3JDb2RlEhYKEkJBVFRMRV9VTlNQRUNJRklFRBAAEh8KGEJBVFRM",
+            "RV9TRVNTSU9OX05PVF9GT1VORBCZpuoEEhsKFEJBVFRMRV9BTFJFQURZX0VO",
+            "REVEEJqm6gQy0QMKDUJhdHRsZVNlcnZpY2UScAoRR2V0Q3VycmVudENoYXB0",
+            "ZXISLC50ZWNoLmhpdmUudjEuQmF0dGxlR2V0Q3VycmVudENoYXB0ZXJSZXF1",
+            "ZXN0Gi0udGVjaC5oaXZlLnYxLkJhdHRsZUdldEN1cnJlbnRDaGFwdGVyUmVz",
+            "cG9uc2USXgoLTGlzdENoYXB0ZXISJi50ZWNoLmhpdmUudjEuQmF0dGxlTGlz",
+            "dENoYXB0ZXJSZXF1ZXN0GicudGVjaC5oaXZlLnYxLkJhdHRsZUxpc3RDaGFw",
+            "dGVyUmVzcG9uc2USWAoJTGlzdFN0YWdlEiQudGVjaC5oaXZlLnYxLkJhdHRs",
+            "ZUxpc3RTdGFnZVJlcXVlc3QaJS50ZWNoLmhpdmUudjEuQmF0dGxlTGlzdFN0",
+            "YWdlUmVzcG9uc2USTAoFU3RhcnQSIC50ZWNoLmhpdmUudjEuQmF0dGxlU3Rh",
+            "cnRSZXF1ZXN0GiEudGVjaC5oaXZlLnYxLkJhdHRsZVN0YXJ0UmVzcG9uc2US",
+            "RgoDRW5kEh4udGVjaC5oaXZlLnYxLkJhdHRsZUVuZFJlcXVlc3QaHy50ZWNo",
+            "LmhpdmUudjEuQmF0dGxlRW5kUmVzcG9uc2ViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.BattleChapterReflection.Descriptor, global::Tech.Hive.V1.BattleStageReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.BattleErrorCode), typeof(global::Tech.Hive.V1.BattleRewardType), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.BattleErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleGetCurrentChapterRequest), global::Tech.Hive.V1.BattleGetCurrentChapterRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleGetCurrentChapterResponse), global::Tech.Hive.V1.BattleGetCurrentChapterResponse.Parser, new[]{ "Status", "Chapter", "StageList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleListChapterRequest), global::Tech.Hive.V1.BattleListChapterRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleListChapterResponse), global::Tech.Hive.V1.BattleListChapterResponse.Parser, new[]{ "Status", "ChapterList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleListChapterResponse), global::Tech.Hive.V1.BattleListChapterResponse.Parser, new[]{ "Status", "ChapterList", "TotalStarCount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleListStageRequest), global::Tech.Hive.V1.BattleListStageRequest.Parser, new[]{ "ChapterId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleListStageResponse), global::Tech.Hive.V1.BattleListStageResponse.Parser, new[]{ "Status", "StageList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStartRequest), global::Tech.Hive.V1.BattleStartRequest.Parser, new[]{ "StageId", "Difficulty", "DeckSlotId", "ObserverSkillIds" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStartResponse), global::Tech.Hive.V1.BattleStartResponse.Parser, new[]{ "Status", "BattleSessionId", "BattleSeed" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStartRequest), global::Tech.Hive.V1.BattleStartRequest.Parser, new[]{ "ChapterId", "StageId", "DeckSlotId", "ObserverSkillIds" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStartResponse), global::Tech.Hive.V1.BattleStartResponse.Parser, new[]{ "Status", "BattleSessionId", "BattleSeed", "CurrencyDeltas" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleEndRequest), global::Tech.Hive.V1.BattleEndRequest.Parser, new[]{ "BattleSessionId", "Result" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleResult), global::Tech.Hive.V1.BattleResult.Parser, new[]{ "IsVictory", "ClearTime", "Stars", "UnitStats", "TotalDamageDealt", "TotalDamageTaken" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleUnitStat), global::Tech.Hive.V1.BattleUnitStat.Parser, new[]{ "CharacterInstanceId", "DamageDealt", "DamageTaken", "Kills", "IsSurvived" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleEndResponse), global::Tech.Hive.V1.BattleEndResponse.Parser, new[]{ "Status", "RewardType", "CurrencyDeltas", "StageProgress", "PlayerExpGained", "CharacterExpGains" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleEndResponse), global::Tech.Hive.V1.BattleEndResponse.Parser, new[]{ "Status", "CurrencyDeltas", "StageProgress", "Rewards" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleCharacterExpGain), global::Tech.Hive.V1.BattleCharacterExpGain.Parser, new[]{ "CharacterInstanceId", "ExpGained", "LevelBefore", "LevelAfter" }, null, null, null, null)
           }));
     }
@@ -101,21 +99,14 @@ namespace Tech.Hive.V1 {
   #region Enums
   public enum BattleErrorCode {
     [pbr::OriginalName("BATTLE_UNSPECIFIED")] BattleUnspecified = 0,
-  }
-
-  /// <summary>
-  /// 보상 타입
-  /// </summary>
-  public enum BattleRewardType {
-    [pbr::OriginalName("REWARD_TYPE_UNSPECIFIED")] RewardTypeUnspecified = 0,
     /// <summary>
-    /// 첫 클리어 보상
+    /// 전투 세션 없음
     /// </summary>
-    [pbr::OriginalName("REWARD_TYPE_FIRST_CLEAR")] RewardTypeFirstClear = 1,
+    [pbr::OriginalName("BATTLE_SESSION_NOT_FOUND")] BattleSessionNotFound = 10130201,
     /// <summary>
-    /// 3성 클리어 보상
+    /// 전투 이미 종료됨
     /// </summary>
-    [pbr::OriginalName("REWARD_TYPE_THREE_STAR")] RewardTypeThreeStar = 2,
+    [pbr::OriginalName("BATTLE_ALREADY_ENDED")] BattleAlreadyEnded = 10130202,
   }
 
   #endregion
@@ -735,6 +726,7 @@ namespace Tech.Hive.V1 {
     public BattleListChapterResponse(BattleListChapterResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
       chapterList_ = other.chapterList_.Clone();
+      totalStarCount_ = other.totalStarCount_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -767,6 +759,18 @@ namespace Tech.Hive.V1 {
       get { return chapterList_; }
     }
 
+    /// <summary>Field number for the "total_star_count" field.</summary>
+    public const int TotalStarCountFieldNumber = 3;
+    private uint totalStarCount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint TotalStarCount {
+      get { return totalStarCount_; }
+      set {
+        totalStarCount_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -784,6 +788,7 @@ namespace Tech.Hive.V1 {
       }
       if (!object.Equals(Status, other.Status)) return false;
       if(!chapterList_.Equals(other.chapterList_)) return false;
+      if (TotalStarCount != other.TotalStarCount) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -793,6 +798,7 @@ namespace Tech.Hive.V1 {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
       hash ^= chapterList_.GetHashCode();
+      if (TotalStarCount != 0) hash ^= TotalStarCount.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -816,6 +822,10 @@ namespace Tech.Hive.V1 {
         output.WriteMessage(Status);
       }
       chapterList_.WriteTo(output, _repeated_chapterList_codec);
+      if (TotalStarCount != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(TotalStarCount);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -831,6 +841,10 @@ namespace Tech.Hive.V1 {
         output.WriteMessage(Status);
       }
       chapterList_.WriteTo(ref output, _repeated_chapterList_codec);
+      if (TotalStarCount != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(TotalStarCount);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -845,6 +859,9 @@ namespace Tech.Hive.V1 {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
       size += chapterList_.CalculateSize(_repeated_chapterList_codec);
+      if (TotalStarCount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TotalStarCount);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -864,6 +881,9 @@ namespace Tech.Hive.V1 {
         Status.MergeFrom(other.Status);
       }
       chapterList_.Add(other.chapterList_);
+      if (other.TotalStarCount != 0) {
+        TotalStarCount = other.TotalStarCount;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -890,6 +910,10 @@ namespace Tech.Hive.V1 {
             chapterList_.AddEntriesFrom(input, _repeated_chapterList_codec);
             break;
           }
+          case 24: {
+            TotalStarCount = input.ReadUInt32();
+            break;
+          }
         }
       }
     #endif
@@ -914,6 +938,10 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             chapterList_.AddEntriesFrom(ref input, _repeated_chapterList_codec);
+            break;
+          }
+          case 24: {
+            TotalStarCount = input.ReadUInt32();
             break;
           }
         }
@@ -1373,8 +1401,8 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BattleStartRequest(BattleStartRequest other) : this() {
+      chapterId_ = other.chapterId_;
       stageId_ = other.stageId_;
-      difficulty_ = other.difficulty_;
       deckSlotId_ = other.deckSlotId_;
       observerSkillIds_ = other.observerSkillIds_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -1386,36 +1414,33 @@ namespace Tech.Hive.V1 {
       return new BattleStartRequest(this);
     }
 
-    /// <summary>Field number for the "stage_id" field.</summary>
-    public const int StageIdFieldNumber = 1;
-    private string stageId_ = "";
+    /// <summary>Field number for the "chapter_id" field.</summary>
+    public const int ChapterIdFieldNumber = 1;
+    private uint chapterId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string StageId {
-      get { return stageId_; }
+    public uint ChapterId {
+      get { return chapterId_; }
       set {
-        stageId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        chapterId_ = value;
       }
     }
 
-    /// <summary>Field number for the "difficulty" field.</summary>
-    public const int DifficultyFieldNumber = 2;
-    private global::Tech.Hive.V1.Difficulty difficulty_ = global::Tech.Hive.V1.Difficulty.Unspecified;
+    /// <summary>Field number for the "stage_id" field.</summary>
+    public const int StageIdFieldNumber = 2;
+    private uint stageId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.Difficulty Difficulty {
-      get { return difficulty_; }
+    public uint StageId {
+      get { return stageId_; }
       set {
-        difficulty_ = value;
+        stageId_ = value;
       }
     }
 
     /// <summary>Field number for the "deck_slot_id" field.</summary>
     public const int DeckSlotIdFieldNumber = 3;
     private uint deckSlotId_;
-    /// <summary>
-    /// 전투 편성
-    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public uint DeckSlotId {
@@ -1430,9 +1455,6 @@ namespace Tech.Hive.V1 {
     private static readonly pb::FieldCodec<string> _repeated_observerSkillIds_codec
         = pb::FieldCodec.ForString(34);
     private readonly pbc::RepeatedField<string> observerSkillIds_ = new pbc::RepeatedField<string>();
-    /// <summary>
-    /// 관측자 스킬
-    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pbc::RepeatedField<string> ObserverSkillIds {
@@ -1454,8 +1476,8 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (ChapterId != other.ChapterId) return false;
       if (StageId != other.StageId) return false;
-      if (Difficulty != other.Difficulty) return false;
       if (DeckSlotId != other.DeckSlotId) return false;
       if(!observerSkillIds_.Equals(other.observerSkillIds_)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -1465,8 +1487,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (StageId.Length != 0) hash ^= StageId.GetHashCode();
-      if (Difficulty != global::Tech.Hive.V1.Difficulty.Unspecified) hash ^= Difficulty.GetHashCode();
+      if (ChapterId != 0) hash ^= ChapterId.GetHashCode();
+      if (StageId != 0) hash ^= StageId.GetHashCode();
       if (DeckSlotId != 0) hash ^= DeckSlotId.GetHashCode();
       hash ^= observerSkillIds_.GetHashCode();
       if (_unknownFields != null) {
@@ -1487,13 +1509,13 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (StageId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(StageId);
+      if (ChapterId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(ChapterId);
       }
-      if (Difficulty != global::Tech.Hive.V1.Difficulty.Unspecified) {
+      if (StageId != 0) {
         output.WriteRawTag(16);
-        output.WriteEnum((int) Difficulty);
+        output.WriteUInt32(StageId);
       }
       if (DeckSlotId != 0) {
         output.WriteRawTag(24);
@@ -1510,13 +1532,13 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (StageId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(StageId);
+      if (ChapterId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(ChapterId);
       }
-      if (Difficulty != global::Tech.Hive.V1.Difficulty.Unspecified) {
+      if (StageId != 0) {
         output.WriteRawTag(16);
-        output.WriteEnum((int) Difficulty);
+        output.WriteUInt32(StageId);
       }
       if (DeckSlotId != 0) {
         output.WriteRawTag(24);
@@ -1533,11 +1555,11 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (StageId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(StageId);
+      if (ChapterId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ChapterId);
       }
-      if (Difficulty != global::Tech.Hive.V1.Difficulty.Unspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Difficulty);
+      if (StageId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(StageId);
       }
       if (DeckSlotId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(DeckSlotId);
@@ -1555,11 +1577,11 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.StageId.Length != 0) {
-        StageId = other.StageId;
+      if (other.ChapterId != 0) {
+        ChapterId = other.ChapterId;
       }
-      if (other.Difficulty != global::Tech.Hive.V1.Difficulty.Unspecified) {
-        Difficulty = other.Difficulty;
+      if (other.StageId != 0) {
+        StageId = other.StageId;
       }
       if (other.DeckSlotId != 0) {
         DeckSlotId = other.DeckSlotId;
@@ -1580,12 +1602,12 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            StageId = input.ReadString();
+          case 8: {
+            ChapterId = input.ReadUInt32();
             break;
           }
           case 16: {
-            Difficulty = (global::Tech.Hive.V1.Difficulty) input.ReadEnum();
+            StageId = input.ReadUInt32();
             break;
           }
           case 24: {
@@ -1611,12 +1633,12 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            StageId = input.ReadString();
+          case 8: {
+            ChapterId = input.ReadUInt32();
             break;
           }
           case 16: {
-            Difficulty = (global::Tech.Hive.V1.Difficulty) input.ReadEnum();
+            StageId = input.ReadUInt32();
             break;
           }
           case 24: {
@@ -1672,6 +1694,7 @@ namespace Tech.Hive.V1 {
       status_ = other.status_ != null ? other.status_.Clone() : null;
       battleSessionId_ = other.battleSessionId_;
       battleSeed_ = other.battleSeed_;
+      currencyDeltas_ = other.currencyDeltas_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1723,6 +1746,17 @@ namespace Tech.Hive.V1 {
       }
     }
 
+    /// <summary>Field number for the "currency_deltas" field.</summary>
+    public const int CurrencyDeltasFieldNumber = 4;
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CurrencyDelta> _repeated_currencyDeltas_codec
+        = pb::FieldCodec.ForMessage(34, global::Tech.Hive.V1.CurrencyDelta.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> currencyDeltas_ = new pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> CurrencyDeltas {
+      get { return currencyDeltas_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1741,6 +1775,7 @@ namespace Tech.Hive.V1 {
       if (!object.Equals(Status, other.Status)) return false;
       if (BattleSessionId != other.BattleSessionId) return false;
       if (BattleSeed != other.BattleSeed) return false;
+      if(!currencyDeltas_.Equals(other.currencyDeltas_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1751,6 +1786,7 @@ namespace Tech.Hive.V1 {
       if (status_ != null) hash ^= Status.GetHashCode();
       if (BattleSessionId.Length != 0) hash ^= BattleSessionId.GetHashCode();
       if (BattleSeed != 0UL) hash ^= BattleSeed.GetHashCode();
+      hash ^= currencyDeltas_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1781,6 +1817,7 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(24);
         output.WriteUInt64(BattleSeed);
       }
+      currencyDeltas_.WriteTo(output, _repeated_currencyDeltas_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1803,6 +1840,7 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(24);
         output.WriteUInt64(BattleSeed);
       }
+      currencyDeltas_.WriteTo(ref output, _repeated_currencyDeltas_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1822,6 +1860,7 @@ namespace Tech.Hive.V1 {
       if (BattleSeed != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BattleSeed);
       }
+      size += currencyDeltas_.CalculateSize(_repeated_currencyDeltas_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1846,6 +1885,7 @@ namespace Tech.Hive.V1 {
       if (other.BattleSeed != 0UL) {
         BattleSeed = other.BattleSeed;
       }
+      currencyDeltas_.Add(other.currencyDeltas_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1876,6 +1916,10 @@ namespace Tech.Hive.V1 {
             BattleSeed = input.ReadUInt64();
             break;
           }
+          case 34: {
+            currencyDeltas_.AddEntriesFrom(input, _repeated_currencyDeltas_codec);
+            break;
+          }
         }
       }
     #endif
@@ -1904,6 +1948,10 @@ namespace Tech.Hive.V1 {
           }
           case 24: {
             BattleSeed = input.ReadUInt64();
+            break;
+          }
+          case 34: {
+            currencyDeltas_.AddEntriesFrom(ref input, _repeated_currencyDeltas_codec);
             break;
           }
         }
@@ -2911,11 +2959,9 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BattleEndResponse(BattleEndResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
-      rewardType_ = other.rewardType_;
       currencyDeltas_ = other.currencyDeltas_.Clone();
       stageProgress_ = other.stageProgress_ != null ? other.stageProgress_.Clone() : null;
-      playerExpGained_ = other.playerExpGained_;
-      characterExpGains_ = other.characterExpGains_.Clone();
+      rewards_ = other.rewards_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2937,26 +2983,14 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "reward_type" field.</summary>
-    public const int RewardTypeFieldNumber = 2;
-    private global::Tech.Hive.V1.BattleRewardType rewardType_ = global::Tech.Hive.V1.BattleRewardType.RewardTypeUnspecified;
+    /// <summary>Field number for the "currency_deltas" field.</summary>
+    public const int CurrencyDeltasFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CurrencyDelta> _repeated_currencyDeltas_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.CurrencyDelta.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> currencyDeltas_ = new pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta>();
     /// <summary>
     /// 보상
     /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.BattleRewardType RewardType {
-      get { return rewardType_; }
-      set {
-        rewardType_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "currency_deltas" field.</summary>
-    public const int CurrencyDeltasFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CurrencyDelta> _repeated_currencyDeltas_codec
-        = pb::FieldCodec.ForMessage(26, global::Tech.Hive.V1.CurrencyDelta.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> currencyDeltas_ = new pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> CurrencyDeltas {
@@ -2964,7 +2998,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "stage_progress" field.</summary>
-    public const int StageProgressFieldNumber = 4;
+    public const int StageProgressFieldNumber = 3;
     private global::Tech.Hive.V1.BattleStageProgress stageProgress_;
     /// <summary>
     /// 업데이트된 스테이지 진행 정보
@@ -2978,30 +3012,15 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "player_exp_gained" field.</summary>
-    public const int PlayerExpGainedFieldNumber = 5;
-    private ulong playerExpGained_;
-    /// <summary>
-    /// 경험치 획득
-    /// </summary>
+    /// <summary>Field number for the "rewards" field.</summary>
+    public const int RewardsFieldNumber = 4;
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.Reward> _repeated_rewards_codec
+        = pb::FieldCodec.ForMessage(34, global::Tech.Hive.V1.Reward.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.Reward> rewards_ = new pbc::RepeatedField<global::Tech.Hive.V1.Reward>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong PlayerExpGained {
-      get { return playerExpGained_; }
-      set {
-        playerExpGained_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "character_exp_gains" field.</summary>
-    public const int CharacterExpGainsFieldNumber = 6;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.BattleCharacterExpGain> _repeated_characterExpGains_codec
-        = pb::FieldCodec.ForMessage(50, global::Tech.Hive.V1.BattleCharacterExpGain.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.BattleCharacterExpGain> characterExpGains_ = new pbc::RepeatedField<global::Tech.Hive.V1.BattleCharacterExpGain>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.BattleCharacterExpGain> CharacterExpGains {
-      get { return characterExpGains_; }
+    public pbc::RepeatedField<global::Tech.Hive.V1.Reward> Rewards {
+      get { return rewards_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3020,11 +3039,9 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
-      if (RewardType != other.RewardType) return false;
       if(!currencyDeltas_.Equals(other.currencyDeltas_)) return false;
       if (!object.Equals(StageProgress, other.StageProgress)) return false;
-      if (PlayerExpGained != other.PlayerExpGained) return false;
-      if(!characterExpGains_.Equals(other.characterExpGains_)) return false;
+      if(!rewards_.Equals(other.rewards_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3033,11 +3050,9 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
-      if (RewardType != global::Tech.Hive.V1.BattleRewardType.RewardTypeUnspecified) hash ^= RewardType.GetHashCode();
       hash ^= currencyDeltas_.GetHashCode();
       if (stageProgress_ != null) hash ^= StageProgress.GetHashCode();
-      if (PlayerExpGained != 0UL) hash ^= PlayerExpGained.GetHashCode();
-      hash ^= characterExpGains_.GetHashCode();
+      hash ^= rewards_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3060,20 +3075,12 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (RewardType != global::Tech.Hive.V1.BattleRewardType.RewardTypeUnspecified) {
-        output.WriteRawTag(16);
-        output.WriteEnum((int) RewardType);
-      }
       currencyDeltas_.WriteTo(output, _repeated_currencyDeltas_codec);
       if (stageProgress_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(26);
         output.WriteMessage(StageProgress);
       }
-      if (PlayerExpGained != 0UL) {
-        output.WriteRawTag(40);
-        output.WriteUInt64(PlayerExpGained);
-      }
-      characterExpGains_.WriteTo(output, _repeated_characterExpGains_codec);
+      rewards_.WriteTo(output, _repeated_rewards_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -3088,20 +3095,12 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      if (RewardType != global::Tech.Hive.V1.BattleRewardType.RewardTypeUnspecified) {
-        output.WriteRawTag(16);
-        output.WriteEnum((int) RewardType);
-      }
       currencyDeltas_.WriteTo(ref output, _repeated_currencyDeltas_codec);
       if (stageProgress_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(26);
         output.WriteMessage(StageProgress);
       }
-      if (PlayerExpGained != 0UL) {
-        output.WriteRawTag(40);
-        output.WriteUInt64(PlayerExpGained);
-      }
-      characterExpGains_.WriteTo(ref output, _repeated_characterExpGains_codec);
+      rewards_.WriteTo(ref output, _repeated_rewards_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -3115,17 +3114,11 @@ namespace Tech.Hive.V1 {
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
-      if (RewardType != global::Tech.Hive.V1.BattleRewardType.RewardTypeUnspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) RewardType);
-      }
       size += currencyDeltas_.CalculateSize(_repeated_currencyDeltas_codec);
       if (stageProgress_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(StageProgress);
       }
-      if (PlayerExpGained != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PlayerExpGained);
-      }
-      size += characterExpGains_.CalculateSize(_repeated_characterExpGains_codec);
+      size += rewards_.CalculateSize(_repeated_rewards_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -3144,9 +3137,6 @@ namespace Tech.Hive.V1 {
         }
         Status.MergeFrom(other.Status);
       }
-      if (other.RewardType != global::Tech.Hive.V1.BattleRewardType.RewardTypeUnspecified) {
-        RewardType = other.RewardType;
-      }
       currencyDeltas_.Add(other.currencyDeltas_);
       if (other.stageProgress_ != null) {
         if (stageProgress_ == null) {
@@ -3154,10 +3144,7 @@ namespace Tech.Hive.V1 {
         }
         StageProgress.MergeFrom(other.StageProgress);
       }
-      if (other.PlayerExpGained != 0UL) {
-        PlayerExpGained = other.PlayerExpGained;
-      }
-      characterExpGains_.Add(other.characterExpGains_);
+      rewards_.Add(other.rewards_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -3180,27 +3167,19 @@ namespace Tech.Hive.V1 {
             input.ReadMessage(Status);
             break;
           }
-          case 16: {
-            RewardType = (global::Tech.Hive.V1.BattleRewardType) input.ReadEnum();
-            break;
-          }
-          case 26: {
+          case 18: {
             currencyDeltas_.AddEntriesFrom(input, _repeated_currencyDeltas_codec);
             break;
           }
-          case 34: {
+          case 26: {
             if (stageProgress_ == null) {
               StageProgress = new global::Tech.Hive.V1.BattleStageProgress();
             }
             input.ReadMessage(StageProgress);
             break;
           }
-          case 40: {
-            PlayerExpGained = input.ReadUInt64();
-            break;
-          }
-          case 50: {
-            characterExpGains_.AddEntriesFrom(input, _repeated_characterExpGains_codec);
+          case 34: {
+            rewards_.AddEntriesFrom(input, _repeated_rewards_codec);
             break;
           }
         }
@@ -3225,27 +3204,19 @@ namespace Tech.Hive.V1 {
             input.ReadMessage(Status);
             break;
           }
-          case 16: {
-            RewardType = (global::Tech.Hive.V1.BattleRewardType) input.ReadEnum();
-            break;
-          }
-          case 26: {
+          case 18: {
             currencyDeltas_.AddEntriesFrom(ref input, _repeated_currencyDeltas_codec);
             break;
           }
-          case 34: {
+          case 26: {
             if (stageProgress_ == null) {
               StageProgress = new global::Tech.Hive.V1.BattleStageProgress();
             }
             input.ReadMessage(StageProgress);
             break;
           }
-          case 40: {
-            PlayerExpGained = input.ReadUInt64();
-            break;
-          }
-          case 50: {
-            characterExpGains_.AddEntriesFrom(ref input, _repeated_characterExpGains_codec);
+          case 34: {
+            rewards_.AddEntriesFrom(ref input, _repeated_rewards_codec);
             break;
           }
         }

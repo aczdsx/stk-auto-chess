@@ -66,7 +66,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 스테이지 진행 정보 가져오기
         /// </summary>
-        public BattleStageProgress GetStageProgress(string stageId)
+        public BattleStageProgress GetStageProgress(uint stageId)
         {
             return Model?.GetStageProgress(stageId);
         }
@@ -87,7 +87,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 스테이지 클리어 여부
         /// </summary>
-        public bool IsStageCleared(string stageId)
+        public bool IsStageCleared(uint stageId)
         {
             return Model?.IsStageCleared(stageId) ?? false;
         }
@@ -95,7 +95,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 스테이지 최고 별 개수
         /// </summary>
-        public uint GetStageBestStars(string stageId)
+        public uint GetStageBestStars(uint stageId)
         {
             return Model?.GetStageBestStars(stageId) ?? 0;
         }
@@ -116,7 +116,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 스테이지 3성 클리어 여부
         /// </summary>
-        public bool IsStageThreeStarCleared(string stageId)
+        public bool IsStageThreeStarCleared(uint stageId)
         {
             return GetStageBestStars(stageId) >= 3;
         }
@@ -124,19 +124,19 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 첫 클리어 보상 수령 여부
         /// </summary>
-        public bool IsFirstClearRewarded(string stageId)
+        public bool IsFirstClearRewarded(uint stageId)
         {
             var progress = GetStageProgress(stageId);
-            return progress?.IsFirstClearRewarded ?? false;
+            return progress?.IsCleared ?? false;
         }
 
         /// <summary>
         /// 3성 보상 수령 여부
         /// </summary>
-        public bool IsThreeStarRewarded(string stageId)
+        public bool IsThreeStarRewarded(uint stageId)
         {
             var progress = GetStageProgress(stageId);
-            return progress?.IsThreeStarRewarded ?? false;
+            return (progress?.BestStars ?? 0) >= 3;
         }
 
         /// <summary>
@@ -153,8 +153,8 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < allStages.Count; i++)
             {
                 var stage = allStages[i];
-                // StageId 형식: "chapterId-stageNumber" 예: "1-1", "1-2"
-                if (stage.IsCleared && stage.StageId.StartsWith($"{chapterId}-"))
+                var specStage = SpecDataManager.Instance.GetStageData((int)stage.StageId);
+                if (stage.IsCleared && specStage.chapter_id == chapterId)
                 {
                     count++;
                 }
@@ -177,7 +177,8 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < allStages.Count; i++)
             {
                 var stage = allStages[i];
-                if (stage.BestStars >= 3 && stage.StageId.StartsWith($"{chapterId}-"))
+                var specStage = SpecDataManager.Instance.GetStageData((int)stage.StageId);
+                if (stage.BestStars >= 3 && specStage.chapter_id == chapterId)
                 {
                     count++;
                 }

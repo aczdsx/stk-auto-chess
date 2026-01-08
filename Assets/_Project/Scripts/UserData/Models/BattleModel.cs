@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
         private readonly Dictionary<uint, BattleChapterData> _chapters = new (32);
 
         // 스테이지 진행 정보 (StageId -> StageProgress)
-        private readonly Dictionary<string, BattleStageProgress> _stageProgresses = new (128);
+        private readonly Dictionary<uint, BattleStageProgress> _stageProgresses = new (128);
 
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
             // 스테이지 진행 정보 검증
             foreach (var progress in _stageProgresses.Values)
             {
-                if (string.IsNullOrEmpty(progress.StageId))
+                if (progress.StageId == 0)
                 {
                     Debug.LogError("[BattleModel] Invalid stage progress: missing StageId");
                     return false;
@@ -124,7 +124,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 스테이지 진행 정보 가져오기
         /// </summary>
-        public BattleStageProgress GetStageProgress(string stageId)
+        public BattleStageProgress GetStageProgress(uint stageId)
         {
             return _stageProgresses.GetValueOrDefault(stageId);
         }
@@ -153,7 +153,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 스테이지 클리어 여부
         /// </summary>
-        public bool IsStageCleared(string stageId)
+        public bool IsStageCleared(uint stageId)
         {
             var progress = GetStageProgress(stageId);
             return progress?.IsCleared ?? false;
@@ -162,7 +162,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 스테이지 최고 별 개수
         /// </summary>
-        public uint GetStageBestStars(string stageId)
+        public uint GetStageBestStars(uint stageId)
         {
             var progress = GetStageProgress(stageId);
             return progress?.BestStars ?? 0;
@@ -226,7 +226,7 @@ namespace CookApps.AutoBattler
                 for (var i = 0; i < stages.Count; i++)
                 {
                     var stage = stages[i];
-                    if (!string.IsNullOrEmpty(stage.StageId))
+                    if (stage.StageId != 0)
                     {
                         _stageProgresses[stage.StageId] = stage;
                     }
@@ -266,7 +266,7 @@ namespace CookApps.AutoBattler
                 for (var i = 0; i < stages.Count; i++)
                 {
                     var stage = stages[i];
-                    if (!string.IsNullOrEmpty(stage.StageId))
+                    if (stage.StageId != 0)
                     {
                         _stageProgresses[stage.StageId] = stage;
                     }
@@ -281,7 +281,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         internal void UpdateStageProgress(BattleStageProgress progress)
         {
-            if (progress == null || string.IsNullOrEmpty(progress.StageId))
+            if (progress == null || progress.StageId != 0)
             {
                 Debug.LogError("[BattleModel] Invalid stage progress data");
                 return;

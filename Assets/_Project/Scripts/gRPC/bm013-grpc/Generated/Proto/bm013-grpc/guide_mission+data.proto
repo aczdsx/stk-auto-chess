@@ -16,7 +16,6 @@ message GuideMissionData {
 
 enum GuideMissionState {
   GUIDE_MISSION_STATE_UNSPECIFIED = 0;
-  GUIDE_MISSION_STATE_NOT_STARTED = 1; // 미션 시작 전
-  GUIDE_MISSION_STATE_IN_PROGRESS = 2; // 미션 진행 중
-  GUIDE_MISSION_STATE_COMPLETED = 3;   // 미션 완료
+  GUIDE_MISSION_STATE_IN_PROGRESS = 1; // 미션 진행 중
+  GUIDE_MISSION_STATE_COMPLETED = 2;   // 미션 완료
 }

@@ -21,6 +21,9 @@ service GuideMissionService {
 
 enum GuideMissionErrorCode {
   GUIDE_MISSION_UNSPECIFIED = 0;
+
+  GUIDE_MISSION_NOT_FOUND = 10130501; // 가이드 미션 데이터가 없음 (Get 조회시 기본 값 생성)
+  GUIDE_MISSION_NOT_CLEARED = 10130502; // 가이드 미션 클리어 안됨
 }
 
 message GuideMissionGetRequest {}

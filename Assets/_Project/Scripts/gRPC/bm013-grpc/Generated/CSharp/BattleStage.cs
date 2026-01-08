@@ -24,16 +24,15 @@ namespace Tech.Hive.V1 {
     static BattleStageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChJiYXR0bGUrc3RhZ2UucHJvdG8SDHRlY2guaGl2ZS52MSLZAQoTQmF0dGxl",
-            "U3RhZ2VQcm9ncmVzcxIQCghzdGFnZV9pZBgBIAEoCRISCgppc19jbGVhcmVk",
+            "ChJiYXR0bGUrc3RhZ2UucHJvdG8SDHRlY2guaGl2ZS52MSKYAQoTQmF0dGxl",
+            "U3RhZ2VQcm9ncmVzcxIQCghzdGFnZV9pZBgBIAEoDRISCgppc19jbGVhcmVk",
             "GAIgASgIEhMKC2NsZWFyX2NvdW50GAMgASgNEhIKCmJlc3Rfc3RhcnMYBCAB",
-            "KA0SHwoXaXNfZmlyc3RfY2xlYXJfcmV3YXJkZWQYBSABKAgSHgoWaXNfdGhy",
-            "ZWVfc3Rhcl9yZXdhcmRlZBgGIAEoCBIXCg9iZXN0X2NsZWFyX3RpbWUYByAB",
-            "KAQSGQoRYmVzdF9jb21iYXRfcG93ZXIYCCABKARiBnByb3RvMw=="));
+            "KA0SFwoPYmVzdF9jbGVhcl90aW1lGAcgASgEEhkKEWJlc3RfY29tYmF0X3Bv",
+            "d2VyGAggASgEYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStageProgress), global::Tech.Hive.V1.BattleStageProgress.Parser, new[]{ "StageId", "IsCleared", "ClearCount", "BestStars", "IsFirstClearRewarded", "IsThreeStarRewarded", "BestClearTime", "BestCombatPower" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStageProgress), global::Tech.Hive.V1.BattleStageProgress.Parser, new[]{ "StageId", "IsCleared", "ClearCount", "BestStars", "BestClearTime", "BestCombatPower" }, null, null, null, null)
           }));
     }
     #endregion
@@ -82,8 +81,6 @@ namespace Tech.Hive.V1 {
       isCleared_ = other.isCleared_;
       clearCount_ = other.clearCount_;
       bestStars_ = other.bestStars_;
-      isFirstClearRewarded_ = other.isFirstClearRewarded_;
-      isThreeStarRewarded_ = other.isThreeStarRewarded_;
       bestClearTime_ = other.bestClearTime_;
       bestCombatPower_ = other.bestCombatPower_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -97,13 +94,13 @@ namespace Tech.Hive.V1 {
 
     /// <summary>Field number for the "stage_id" field.</summary>
     public const int StageIdFieldNumber = 1;
-    private string stageId_ = "";
+    private uint stageId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string StageId {
+    public uint StageId {
       get { return stageId_; }
       set {
-        stageId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        stageId_ = value;
       }
     }
 
@@ -146,33 +143,6 @@ namespace Tech.Hive.V1 {
       get { return bestStars_; }
       set {
         bestStars_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "is_first_clear_rewarded" field.</summary>
-    public const int IsFirstClearRewardedFieldNumber = 5;
-    private bool isFirstClearRewarded_;
-    /// <summary>
-    /// 보상 수령 정보
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool IsFirstClearRewarded {
-      get { return isFirstClearRewarded_; }
-      set {
-        isFirstClearRewarded_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "is_three_star_rewarded" field.</summary>
-    public const int IsThreeStarRewardedFieldNumber = 6;
-    private bool isThreeStarRewarded_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool IsThreeStarRewarded {
-      get { return isThreeStarRewarded_; }
-      set {
-        isThreeStarRewarded_ = value;
       }
     }
 
@@ -222,8 +192,6 @@ namespace Tech.Hive.V1 {
       if (IsCleared != other.IsCleared) return false;
       if (ClearCount != other.ClearCount) return false;
       if (BestStars != other.BestStars) return false;
-      if (IsFirstClearRewarded != other.IsFirstClearRewarded) return false;
-      if (IsThreeStarRewarded != other.IsThreeStarRewarded) return false;
       if (BestClearTime != other.BestClearTime) return false;
       if (BestCombatPower != other.BestCombatPower) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -233,12 +201,10 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (StageId.Length != 0) hash ^= StageId.GetHashCode();
+      if (StageId != 0) hash ^= StageId.GetHashCode();
       if (IsCleared != false) hash ^= IsCleared.GetHashCode();
       if (ClearCount != 0) hash ^= ClearCount.GetHashCode();
       if (BestStars != 0) hash ^= BestStars.GetHashCode();
-      if (IsFirstClearRewarded != false) hash ^= IsFirstClearRewarded.GetHashCode();
-      if (IsThreeStarRewarded != false) hash ^= IsThreeStarRewarded.GetHashCode();
       if (BestClearTime != 0UL) hash ^= BestClearTime.GetHashCode();
       if (BestCombatPower != 0UL) hash ^= BestCombatPower.GetHashCode();
       if (_unknownFields != null) {
@@ -259,9 +225,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (StageId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(StageId);
+      if (StageId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(StageId);
       }
       if (IsCleared != false) {
         output.WriteRawTag(16);
@@ -274,14 +240,6 @@ namespace Tech.Hive.V1 {
       if (BestStars != 0) {
         output.WriteRawTag(32);
         output.WriteUInt32(BestStars);
-      }
-      if (IsFirstClearRewarded != false) {
-        output.WriteRawTag(40);
-        output.WriteBool(IsFirstClearRewarded);
-      }
-      if (IsThreeStarRewarded != false) {
-        output.WriteRawTag(48);
-        output.WriteBool(IsThreeStarRewarded);
       }
       if (BestClearTime != 0UL) {
         output.WriteRawTag(56);
@@ -301,9 +259,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (StageId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(StageId);
+      if (StageId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(StageId);
       }
       if (IsCleared != false) {
         output.WriteRawTag(16);
@@ -316,14 +274,6 @@ namespace Tech.Hive.V1 {
       if (BestStars != 0) {
         output.WriteRawTag(32);
         output.WriteUInt32(BestStars);
-      }
-      if (IsFirstClearRewarded != false) {
-        output.WriteRawTag(40);
-        output.WriteBool(IsFirstClearRewarded);
-      }
-      if (IsThreeStarRewarded != false) {
-        output.WriteRawTag(48);
-        output.WriteBool(IsThreeStarRewarded);
       }
       if (BestClearTime != 0UL) {
         output.WriteRawTag(56);
@@ -343,8 +293,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (StageId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(StageId);
+      if (StageId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(StageId);
       }
       if (IsCleared != false) {
         size += 1 + 1;
@@ -354,12 +304,6 @@ namespace Tech.Hive.V1 {
       }
       if (BestStars != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(BestStars);
-      }
-      if (IsFirstClearRewarded != false) {
-        size += 1 + 1;
-      }
-      if (IsThreeStarRewarded != false) {
-        size += 1 + 1;
       }
       if (BestClearTime != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BestClearTime);
@@ -379,7 +323,7 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.StageId.Length != 0) {
+      if (other.StageId != 0) {
         StageId = other.StageId;
       }
       if (other.IsCleared != false) {
@@ -390,12 +334,6 @@ namespace Tech.Hive.V1 {
       }
       if (other.BestStars != 0) {
         BestStars = other.BestStars;
-      }
-      if (other.IsFirstClearRewarded != false) {
-        IsFirstClearRewarded = other.IsFirstClearRewarded;
-      }
-      if (other.IsThreeStarRewarded != false) {
-        IsThreeStarRewarded = other.IsThreeStarRewarded;
       }
       if (other.BestClearTime != 0UL) {
         BestClearTime = other.BestClearTime;
@@ -418,8 +356,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            StageId = input.ReadString();
+          case 8: {
+            StageId = input.ReadUInt32();
             break;
           }
           case 16: {
@@ -432,14 +370,6 @@ namespace Tech.Hive.V1 {
           }
           case 32: {
             BestStars = input.ReadUInt32();
-            break;
-          }
-          case 40: {
-            IsFirstClearRewarded = input.ReadBool();
-            break;
-          }
-          case 48: {
-            IsThreeStarRewarded = input.ReadBool();
             break;
           }
           case 56: {
@@ -465,8 +395,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            StageId = input.ReadString();
+          case 8: {
+            StageId = input.ReadUInt32();
             break;
           }
           case 16: {
@@ -479,14 +409,6 @@ namespace Tech.Hive.V1 {
           }
           case 32: {
             BestStars = input.ReadUInt32();
-            break;
-          }
-          case 40: {
-            IsFirstClearRewarded = input.ReadBool();
-            break;
-          }
-          case 48: {
-            IsThreeStarRewarded = input.ReadBool();
             break;
           }
           case 56: {

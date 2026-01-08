@@ -37,6 +37,12 @@ service CommanderService {
 
 enum CommanderErrorCode {
   COMMANDER_UNSPECIFIED = 0;
+  
+  COMMANDER_SKILL_NOT_FOUND = 10130301; // 지휘자 스킬 없음
+  COMMANDER_SKILL_MAX_LEVEL_REACHED = 10130302; // 현재 스킬 레벨이 최대치임.
+
+  COMMANDER_SKILL_PROMOTION_LEVEL_NOT_REACHABLE = 10130303; // 승급할 수 있는 레벨이 아님
+  COMMANDER_SKILL_PROMOTION_OPTION_INVALID = 10130304;   // 잘못된 승급 옵션 ID
 }
 
 message CommanderListSkillRequest {}

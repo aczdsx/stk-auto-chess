@@ -25,91 +25,25 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChBnYWNoYStkYXRhLnByb3RvEgx0ZWNoLmhpdmUudjEaE2N1c3RvbV9jb21t",
-            "b24ucHJvdG8inQIKCUdhY2hhRGF0YRIlCgR0eXBlGAEgASgOMhcudGVjaC5o",
-            "aXZlLnYxLkdhY2hhVHlwZRIQCghnYWNoYV9pZBgCIAEoCRIMCgRuYW1lGAMg",
-            "ASgJEjYKDWNvc3RfY3VycmVuY3kYBCABKA4yHy50ZWNoLmhpdmUudjEuR2Fj",
-            "aGFDb3N0Q3VycmVuY3kSEwoLY29zdF9zaW5nbGUYBSABKA0SEgoKY29zdF9t",
-            "dWx0aRgGIAEoDRISCgpwaXR5X2NvdW50GAcgASgNEhAKCHBpdHlfbWF4GAgg",
-            "ASgNEhwKFHBpY2t1cF9jaGFyYWN0ZXJfaWRzGAkgAygNEhIKCnN0YXJ0X3Rp",
-            "bWUYCiABKAQSEAoIZW5kX3RpbWUYCyABKAQikwEKC0dhY2hhUmVzdWx0EisK",
-            "BHR5cGUYASABKA4yHS50ZWNoLmhpdmUudjEuR2FjaGFSZXN1bHRUeXBlEg8K",
-            "B2l0ZW1faWQYAiABKA0SJAoGcmFyaXR5GAMgASgOMhQudGVjaC5oaXZlLnYx",
-            "LlJhcml0eRIQCghxdWFudGl0eRgEIAEoDRIOCgZpc19uZXcYBSABKAgqhwEK",
-            "CUdhY2hhVHlwZRIaChZHQUNIQV9UWVBFX1VOU1BFQ0lGSUVEEAASFQoRR0FD",
-            "SEFfVFlQRV9OT1JNQUwQARIWChJHQUNIQV9UWVBFX1BSRU1JVU0QAhIVChFH",
-            "QUNIQV9UWVBFX1BJQ0tVUBADEhgKFEdBQ0hBX1RZUEVfRVFVSVBNRU5UEAQq",
-            "lwEKEUdhY2hhQ29zdEN1cnJlbmN5EiMKH0dBQ0hBX0NPU1RfQ1VSUkVOQ1lf",
-            "VU5TUEVDSUZJRUQQABIcChhHQUNIQV9DT1NUX0NVUlJFTkNZX1NPRlQQARIf",
-            "ChtHQUNIQV9DT1NUX0NVUlJFTkNZX1BSRU1JVU0QAhIeChpHQUNIQV9DT1NU",
-            "X0NVUlJFTkNZX1RJQ0tFVBADKpYBCg9HYWNoYVJlc3VsdFR5cGUSIQodR0FD",
-            "SEFfUkVTVUxUX1RZUEVfVU5TUEVDSUZJRUQQABIfChtHQUNIQV9SRVNVTFRf",
-            "VFlQRV9DSEFSQUNURVIQARIfChtHQUNIQV9SRVNVTFRfVFlQRV9FUVVJUE1F",
-            "TlQQAhIeChpHQUNIQV9SRVNVTFRfVFlQRV9DVVJSRU5DWRADYgZwcm90bzM="));
+            "b24ucHJvdG8izwEKCUdhY2hhRGF0YRIQCghnYWNoYV9pZBgBIAEoCRITCgtn",
+            "YWNoYV9jb3VudBgCIAEoDRInCghjb25zdW1lcxgDIAMoCzIVLnRlY2guaGl2",
+            "ZS52MS5Db25zdW1lEiYKBWl0ZW1zGAQgAygLMhcudGVjaC5oaXZlLnYxLkdh",
+            "Y2hhSXRlbRIXCgpzdGFydF90aW1lGAUgASgESACIAQESFQoIZW5kX3RpbWUY",
+            "BiABKARIAYgBAUINCgtfc3RhcnRfdGltZUILCglfZW5kX3RpbWUiRgoJR2Fj",
+            "aGFJdGVtEg8KB2l0ZW1faWQYASABKA0SDQoFY291bnQYAiABKA0SGQoRd2Vp",
+            "Z2h0X3BlcmNlbnRhZ2UYAyABKAIiLQoLR2FjaGFSZXN1bHQSDwoHaXRlbV9p",
+            "ZBgBIAEoDRINCgVjb3VudBgCIAEoDWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.CustomCommonReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.GachaType), typeof(global::Tech.Hive.V1.GachaCostCurrency), typeof(global::Tech.Hive.V1.GachaResultType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GachaData), global::Tech.Hive.V1.GachaData.Parser, new[]{ "Type", "GachaId", "Name", "CostCurrency", "CostSingle", "CostMulti", "PityCount", "PityMax", "PickupCharacterIds", "StartTime", "EndTime" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GachaResult), global::Tech.Hive.V1.GachaResult.Parser, new[]{ "Type", "ItemId", "Rarity", "Quantity", "IsNew" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GachaData), global::Tech.Hive.V1.GachaData.Parser, new[]{ "GachaId", "GachaCount", "Consumes", "Items", "StartTime", "EndTime" }, new[]{ "StartTime", "EndTime" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GachaItem), global::Tech.Hive.V1.GachaItem.Parser, new[]{ "ItemId", "Count", "WeightPercentage" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GachaResult), global::Tech.Hive.V1.GachaResult.Parser, new[]{ "ItemId", "Count" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
-  #region Enums
-  /// <summary>
-  /// 가챠 타입
-  /// </summary>
-  public enum GachaType {
-    [pbr::OriginalName("GACHA_TYPE_UNSPECIFIED")] Unspecified = 0,
-    /// <summary>
-    /// 일반 소환
-    /// </summary>
-    [pbr::OriginalName("GACHA_TYPE_NORMAL")] Normal = 1,
-    /// <summary>
-    /// 프리미엄 소환
-    /// </summary>
-    [pbr::OriginalName("GACHA_TYPE_PREMIUM")] Premium = 2,
-    /// <summary>
-    /// 픽업 소환
-    /// </summary>
-    [pbr::OriginalName("GACHA_TYPE_PICKUP")] Pickup = 3,
-    /// <summary>
-    /// 장비 소환
-    /// </summary>
-    [pbr::OriginalName("GACHA_TYPE_EQUIPMENT")] Equipment = 4,
-  }
-
-  /// <summary>
-  /// 가챠 비용 재화 타입
-  /// </summary>
-  public enum GachaCostCurrency {
-    [pbr::OriginalName("GACHA_COST_CURRENCY_UNSPECIFIED")] Unspecified = 0,
-    /// <summary>
-    /// 소프트 재화 (예: 골드)
-    /// </summary>
-    [pbr::OriginalName("GACHA_COST_CURRENCY_SOFT")] Soft = 1,
-    /// <summary>
-    /// 프리미엄 재화 (예: 다이아)
-    /// </summary>
-    [pbr::OriginalName("GACHA_COST_CURRENCY_PREMIUM")] Premium = 2,
-    /// <summary>
-    /// 전용 티켓
-    /// </summary>
-    [pbr::OriginalName("GACHA_COST_CURRENCY_TICKET")] Ticket = 3,
-  }
-
-  /// <summary>
-  /// 결과 타입
-  /// </summary>
-  public enum GachaResultType {
-    [pbr::OriginalName("GACHA_RESULT_TYPE_UNSPECIFIED")] Unspecified = 0,
-    [pbr::OriginalName("GACHA_RESULT_TYPE_CHARACTER")] Character = 1,
-    [pbr::OriginalName("GACHA_RESULT_TYPE_EQUIPMENT")] Equipment = 2,
-    [pbr::OriginalName("GACHA_RESULT_TYPE_CURRENCY")] Currency = 3,
-  }
-
-  #endregion
-
   #region Messages
   /// <summary>
   /// 가챠 정보
@@ -122,6 +56,7 @@ namespace Tech.Hive.V1 {
   {
     private static readonly pb::MessageParser<GachaData> _parser = new pb::MessageParser<GachaData>(() => new GachaData());
     private pb::UnknownFieldSet _unknownFields;
+    private int _hasBits0;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<GachaData> Parser { get { return _parser; } }
@@ -149,15 +84,11 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GachaData(GachaData other) : this() {
-      type_ = other.type_;
+      _hasBits0 = other._hasBits0;
       gachaId_ = other.gachaId_;
-      name_ = other.name_;
-      costCurrency_ = other.costCurrency_;
-      costSingle_ = other.costSingle_;
-      costMulti_ = other.costMulti_;
-      pityCount_ = other.pityCount_;
-      pityMax_ = other.pityMax_;
-      pickupCharacterIds_ = other.pickupCharacterIds_.Clone();
+      gachaCount_ = other.gachaCount_;
+      consumes_ = other.consumes_.Clone();
+      items_ = other.items_.Clone();
       startTime_ = other.startTime_;
       endTime_ = other.endTime_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -169,20 +100,8 @@ namespace Tech.Hive.V1 {
       return new GachaData(this);
     }
 
-    /// <summary>Field number for the "type" field.</summary>
-    public const int TypeFieldNumber = 1;
-    private global::Tech.Hive.V1.GachaType type_ = global::Tech.Hive.V1.GachaType.Unspecified;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.GachaType Type {
-      get { return type_; }
-      set {
-        type_ = value;
-      }
-    }
-
     /// <summary>Field number for the "gacha_id" field.</summary>
-    public const int GachaIdFieldNumber = 2;
+    public const int GachaIdFieldNumber = 1;
     private string gachaId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -193,126 +112,91 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "name" field.</summary>
-    public const int NameFieldNumber = 3;
-    private string name_ = "";
+    /// <summary>Field number for the "gacha_count" field.</summary>
+    public const int GachaCountFieldNumber = 2;
+    private uint gachaCount_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Name {
-      get { return name_; }
+    public uint GachaCount {
+      get { return gachaCount_; }
       set {
-        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        gachaCount_ = value;
       }
     }
 
-    /// <summary>Field number for the "cost_currency" field.</summary>
-    public const int CostCurrencyFieldNumber = 4;
-    private global::Tech.Hive.V1.GachaCostCurrency costCurrency_ = global::Tech.Hive.V1.GachaCostCurrency.Unspecified;
+    /// <summary>Field number for the "consumes" field.</summary>
+    public const int ConsumesFieldNumber = 3;
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.Consume> _repeated_consumes_codec
+        = pb::FieldCodec.ForMessage(26, global::Tech.Hive.V1.Consume.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.Consume> consumes_ = new pbc::RepeatedField<global::Tech.Hive.V1.Consume>();
     /// <summary>
-    /// 비용
+    /// 소모 아이템 정보
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.GachaCostCurrency CostCurrency {
-      get { return costCurrency_; }
-      set {
-        costCurrency_ = value;
-      }
+    public pbc::RepeatedField<global::Tech.Hive.V1.Consume> Consumes {
+      get { return consumes_; }
     }
 
-    /// <summary>Field number for the "cost_single" field.</summary>
-    public const int CostSingleFieldNumber = 5;
-    private uint costSingle_;
+    /// <summary>Field number for the "items" field.</summary>
+    public const int ItemsFieldNumber = 4;
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.GachaItem> _repeated_items_codec
+        = pb::FieldCodec.ForMessage(34, global::Tech.Hive.V1.GachaItem.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.GachaItem> items_ = new pbc::RepeatedField<global::Tech.Hive.V1.GachaItem>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint CostSingle {
-      get { return costSingle_; }
-      set {
-        costSingle_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "cost_multi" field.</summary>
-    public const int CostMultiFieldNumber = 6;
-    private uint costMulti_;
-    /// <summary>
-    /// 10연차
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint CostMulti {
-      get { return costMulti_; }
-      set {
-        costMulti_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "pity_count" field.</summary>
-    public const int PityCountFieldNumber = 7;
-    private uint pityCount_;
-    /// <summary>
-    /// 보장 카운트
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint PityCount {
-      get { return pityCount_; }
-      set {
-        pityCount_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "pity_max" field.</summary>
-    public const int PityMaxFieldNumber = 8;
-    private uint pityMax_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint PityMax {
-      get { return pityMax_; }
-      set {
-        pityMax_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "pickup_character_ids" field.</summary>
-    public const int PickupCharacterIdsFieldNumber = 9;
-    private static readonly pb::FieldCodec<uint> _repeated_pickupCharacterIds_codec
-        = pb::FieldCodec.ForUInt32(74);
-    private readonly pbc::RepeatedField<uint> pickupCharacterIds_ = new pbc::RepeatedField<uint>();
-    /// <summary>
-    /// 픽업 정보
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<uint> PickupCharacterIds {
-      get { return pickupCharacterIds_; }
+    public pbc::RepeatedField<global::Tech.Hive.V1.GachaItem> Items {
+      get { return items_; }
     }
 
     /// <summary>Field number for the "start_time" field.</summary>
-    public const int StartTimeFieldNumber = 10;
+    public const int StartTimeFieldNumber = 5;
     private ulong startTime_;
-    /// <summary>
-    /// 기간 (픽업 가챠인 경우)
-    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ulong StartTime {
-      get { return startTime_; }
+      get { if ((_hasBits0 & 1) != 0) { return startTime_; } else { return 0UL; } }
       set {
+        _hasBits0 |= 1;
         startTime_ = value;
       }
     }
+    /// <summary>Gets whether the "start_time" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasStartTime {
+      get { return (_hasBits0 & 1) != 0; }
+    }
+    /// <summary>Clears the value of the "start_time" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearStartTime() {
+      _hasBits0 &= ~1;
+    }
 
     /// <summary>Field number for the "end_time" field.</summary>
-    public const int EndTimeFieldNumber = 11;
+    public const int EndTimeFieldNumber = 6;
     private ulong endTime_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ulong EndTime {
-      get { return endTime_; }
+      get { if ((_hasBits0 & 2) != 0) { return endTime_; } else { return 0UL; } }
       set {
+        _hasBits0 |= 2;
         endTime_ = value;
       }
+    }
+    /// <summary>Gets whether the "end_time" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasEndTime {
+      get { return (_hasBits0 & 2) != 0; }
+    }
+    /// <summary>Clears the value of the "end_time" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearEndTime() {
+      _hasBits0 &= ~2;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -330,15 +214,10 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Type != other.Type) return false;
       if (GachaId != other.GachaId) return false;
-      if (Name != other.Name) return false;
-      if (CostCurrency != other.CostCurrency) return false;
-      if (CostSingle != other.CostSingle) return false;
-      if (CostMulti != other.CostMulti) return false;
-      if (PityCount != other.PityCount) return false;
-      if (PityMax != other.PityMax) return false;
-      if(!pickupCharacterIds_.Equals(other.pickupCharacterIds_)) return false;
+      if (GachaCount != other.GachaCount) return false;
+      if(!consumes_.Equals(other.consumes_)) return false;
+      if(!items_.Equals(other.items_)) return false;
       if (StartTime != other.StartTime) return false;
       if (EndTime != other.EndTime) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -348,17 +227,12 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Type != global::Tech.Hive.V1.GachaType.Unspecified) hash ^= Type.GetHashCode();
       if (GachaId.Length != 0) hash ^= GachaId.GetHashCode();
-      if (Name.Length != 0) hash ^= Name.GetHashCode();
-      if (CostCurrency != global::Tech.Hive.V1.GachaCostCurrency.Unspecified) hash ^= CostCurrency.GetHashCode();
-      if (CostSingle != 0) hash ^= CostSingle.GetHashCode();
-      if (CostMulti != 0) hash ^= CostMulti.GetHashCode();
-      if (PityCount != 0) hash ^= PityCount.GetHashCode();
-      if (PityMax != 0) hash ^= PityMax.GetHashCode();
-      hash ^= pickupCharacterIds_.GetHashCode();
-      if (StartTime != 0UL) hash ^= StartTime.GetHashCode();
-      if (EndTime != 0UL) hash ^= EndTime.GetHashCode();
+      if (GachaCount != 0) hash ^= GachaCount.GetHashCode();
+      hash ^= consumes_.GetHashCode();
+      hash ^= items_.GetHashCode();
+      if (HasStartTime) hash ^= StartTime.GetHashCode();
+      if (HasEndTime) hash ^= EndTime.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -377,45 +251,22 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Type != global::Tech.Hive.V1.GachaType.Unspecified) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) Type);
-      }
       if (GachaId.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteString(GachaId);
       }
-      if (Name.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Name);
+      if (GachaCount != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(GachaCount);
       }
-      if (CostCurrency != global::Tech.Hive.V1.GachaCostCurrency.Unspecified) {
-        output.WriteRawTag(32);
-        output.WriteEnum((int) CostCurrency);
-      }
-      if (CostSingle != 0) {
+      consumes_.WriteTo(output, _repeated_consumes_codec);
+      items_.WriteTo(output, _repeated_items_codec);
+      if (HasStartTime) {
         output.WriteRawTag(40);
-        output.WriteUInt32(CostSingle);
-      }
-      if (CostMulti != 0) {
-        output.WriteRawTag(48);
-        output.WriteUInt32(CostMulti);
-      }
-      if (PityCount != 0) {
-        output.WriteRawTag(56);
-        output.WriteUInt32(PityCount);
-      }
-      if (PityMax != 0) {
-        output.WriteRawTag(64);
-        output.WriteUInt32(PityMax);
-      }
-      pickupCharacterIds_.WriteTo(output, _repeated_pickupCharacterIds_codec);
-      if (StartTime != 0UL) {
-        output.WriteRawTag(80);
         output.WriteUInt64(StartTime);
       }
-      if (EndTime != 0UL) {
-        output.WriteRawTag(88);
+      if (HasEndTime) {
+        output.WriteRawTag(48);
         output.WriteUInt64(EndTime);
       }
       if (_unknownFields != null) {
@@ -428,45 +279,22 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Type != global::Tech.Hive.V1.GachaType.Unspecified) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) Type);
-      }
       if (GachaId.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteString(GachaId);
       }
-      if (Name.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Name);
+      if (GachaCount != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(GachaCount);
       }
-      if (CostCurrency != global::Tech.Hive.V1.GachaCostCurrency.Unspecified) {
-        output.WriteRawTag(32);
-        output.WriteEnum((int) CostCurrency);
-      }
-      if (CostSingle != 0) {
+      consumes_.WriteTo(ref output, _repeated_consumes_codec);
+      items_.WriteTo(ref output, _repeated_items_codec);
+      if (HasStartTime) {
         output.WriteRawTag(40);
-        output.WriteUInt32(CostSingle);
-      }
-      if (CostMulti != 0) {
-        output.WriteRawTag(48);
-        output.WriteUInt32(CostMulti);
-      }
-      if (PityCount != 0) {
-        output.WriteRawTag(56);
-        output.WriteUInt32(PityCount);
-      }
-      if (PityMax != 0) {
-        output.WriteRawTag(64);
-        output.WriteUInt32(PityMax);
-      }
-      pickupCharacterIds_.WriteTo(ref output, _repeated_pickupCharacterIds_codec);
-      if (StartTime != 0UL) {
-        output.WriteRawTag(80);
         output.WriteUInt64(StartTime);
       }
-      if (EndTime != 0UL) {
-        output.WriteRawTag(88);
+      if (HasEndTime) {
+        output.WriteRawTag(48);
         output.WriteUInt64(EndTime);
       }
       if (_unknownFields != null) {
@@ -479,35 +307,18 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Type != global::Tech.Hive.V1.GachaType.Unspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
-      }
       if (GachaId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(GachaId);
       }
-      if (Name.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      if (GachaCount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(GachaCount);
       }
-      if (CostCurrency != global::Tech.Hive.V1.GachaCostCurrency.Unspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) CostCurrency);
-      }
-      if (CostSingle != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CostSingle);
-      }
-      if (CostMulti != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CostMulti);
-      }
-      if (PityCount != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PityCount);
-      }
-      if (PityMax != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PityMax);
-      }
-      size += pickupCharacterIds_.CalculateSize(_repeated_pickupCharacterIds_codec);
-      if (StartTime != 0UL) {
+      size += consumes_.CalculateSize(_repeated_consumes_codec);
+      size += items_.CalculateSize(_repeated_items_codec);
+      if (HasStartTime) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(StartTime);
       }
-      if (EndTime != 0UL) {
+      if (HasEndTime) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(EndTime);
       }
       if (_unknownFields != null) {
@@ -522,35 +333,18 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.Type != global::Tech.Hive.V1.GachaType.Unspecified) {
-        Type = other.Type;
-      }
       if (other.GachaId.Length != 0) {
         GachaId = other.GachaId;
       }
-      if (other.Name.Length != 0) {
-        Name = other.Name;
+      if (other.GachaCount != 0) {
+        GachaCount = other.GachaCount;
       }
-      if (other.CostCurrency != global::Tech.Hive.V1.GachaCostCurrency.Unspecified) {
-        CostCurrency = other.CostCurrency;
-      }
-      if (other.CostSingle != 0) {
-        CostSingle = other.CostSingle;
-      }
-      if (other.CostMulti != 0) {
-        CostMulti = other.CostMulti;
-      }
-      if (other.PityCount != 0) {
-        PityCount = other.PityCount;
-      }
-      if (other.PityMax != 0) {
-        PityMax = other.PityMax;
-      }
-      pickupCharacterIds_.Add(other.pickupCharacterIds_);
-      if (other.StartTime != 0UL) {
+      consumes_.Add(other.consumes_);
+      items_.Add(other.items_);
+      if (other.HasStartTime) {
         StartTime = other.StartTime;
       }
-      if (other.EndTime != 0UL) {
+      if (other.HasEndTime) {
         EndTime = other.EndTime;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -568,48 +362,27 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Type = (global::Tech.Hive.V1.GachaType) input.ReadEnum();
-            break;
-          }
-          case 18: {
+          case 10: {
             GachaId = input.ReadString();
             break;
           }
-          case 26: {
-            Name = input.ReadString();
+          case 16: {
+            GachaCount = input.ReadUInt32();
             break;
           }
-          case 32: {
-            CostCurrency = (global::Tech.Hive.V1.GachaCostCurrency) input.ReadEnum();
+          case 26: {
+            consumes_.AddEntriesFrom(input, _repeated_consumes_codec);
+            break;
+          }
+          case 34: {
+            items_.AddEntriesFrom(input, _repeated_items_codec);
             break;
           }
           case 40: {
-            CostSingle = input.ReadUInt32();
-            break;
-          }
-          case 48: {
-            CostMulti = input.ReadUInt32();
-            break;
-          }
-          case 56: {
-            PityCount = input.ReadUInt32();
-            break;
-          }
-          case 64: {
-            PityMax = input.ReadUInt32();
-            break;
-          }
-          case 74:
-          case 72: {
-            pickupCharacterIds_.AddEntriesFrom(input, _repeated_pickupCharacterIds_codec);
-            break;
-          }
-          case 80: {
             StartTime = input.ReadUInt64();
             break;
           }
-          case 88: {
+          case 48: {
             EndTime = input.ReadUInt64();
             break;
           }
@@ -628,48 +401,27 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            Type = (global::Tech.Hive.V1.GachaType) input.ReadEnum();
-            break;
-          }
-          case 18: {
+          case 10: {
             GachaId = input.ReadString();
             break;
           }
-          case 26: {
-            Name = input.ReadString();
+          case 16: {
+            GachaCount = input.ReadUInt32();
             break;
           }
-          case 32: {
-            CostCurrency = (global::Tech.Hive.V1.GachaCostCurrency) input.ReadEnum();
+          case 26: {
+            consumes_.AddEntriesFrom(ref input, _repeated_consumes_codec);
+            break;
+          }
+          case 34: {
+            items_.AddEntriesFrom(ref input, _repeated_items_codec);
             break;
           }
           case 40: {
-            CostSingle = input.ReadUInt32();
-            break;
-          }
-          case 48: {
-            CostMulti = input.ReadUInt32();
-            break;
-          }
-          case 56: {
-            PityCount = input.ReadUInt32();
-            break;
-          }
-          case 64: {
-            PityMax = input.ReadUInt32();
-            break;
-          }
-          case 74:
-          case 72: {
-            pickupCharacterIds_.AddEntriesFrom(ref input, _repeated_pickupCharacterIds_codec);
-            break;
-          }
-          case 80: {
             StartTime = input.ReadUInt64();
             break;
           }
-          case 88: {
+          case 48: {
             EndTime = input.ReadUInt64();
             break;
           }
@@ -680,9 +432,270 @@ namespace Tech.Hive.V1 {
 
   }
 
-  /// <summary>
-  /// 가챠 결과
-  /// </summary>
+  [global::System.SerializableAttribute]
+  public sealed partial class GachaItem : pb::IMessage<GachaItem>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<GachaItem> _parser = new pb::MessageParser<GachaItem>(() => new GachaItem());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<GachaItem> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Tech.Hive.V1.GachaDataReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GachaItem() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GachaItem(GachaItem other) : this() {
+      itemId_ = other.itemId_;
+      count_ = other.count_;
+      weightPercentage_ = other.weightPercentage_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GachaItem Clone() {
+      return new GachaItem(this);
+    }
+
+    /// <summary>Field number for the "item_id" field.</summary>
+    public const int ItemIdFieldNumber = 1;
+    private uint itemId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint ItemId {
+      get { return itemId_; }
+      set {
+        itemId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "count" field.</summary>
+    public const int CountFieldNumber = 2;
+    private uint count_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint Count {
+      get { return count_; }
+      set {
+        count_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "weight_percentage" field.</summary>
+    public const int WeightPercentageFieldNumber = 3;
+    private float weightPercentage_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float WeightPercentage {
+      get { return weightPercentage_; }
+      set {
+        weightPercentage_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as GachaItem);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(GachaItem other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ItemId != other.ItemId) return false;
+      if (Count != other.Count) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(WeightPercentage, other.WeightPercentage)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ItemId != 0) hash ^= ItemId.GetHashCode();
+      if (Count != 0) hash ^= Count.GetHashCode();
+      if (WeightPercentage != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(WeightPercentage);
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (ItemId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(ItemId);
+      }
+      if (Count != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Count);
+      }
+      if (WeightPercentage != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(WeightPercentage);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (ItemId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(ItemId);
+      }
+      if (Count != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Count);
+      }
+      if (WeightPercentage != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(WeightPercentage);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (ItemId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ItemId);
+      }
+      if (Count != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Count);
+      }
+      if (WeightPercentage != 0F) {
+        size += 1 + 4;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(GachaItem other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ItemId != 0) {
+        ItemId = other.ItemId;
+      }
+      if (other.Count != 0) {
+        Count = other.Count;
+      }
+      if (other.WeightPercentage != 0F) {
+        WeightPercentage = other.WeightPercentage;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            ItemId = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Count = input.ReadUInt32();
+            break;
+          }
+          case 29: {
+            WeightPercentage = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            ItemId = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Count = input.ReadUInt32();
+            break;
+          }
+          case 29: {
+            WeightPercentage = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   [global::System.SerializableAttribute]
   public sealed partial class GachaResult : pb::IMessage<GachaResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -698,7 +711,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.GachaDataReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Tech.Hive.V1.GachaDataReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -718,11 +731,8 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GachaResult(GachaResult other) : this() {
-      type_ = other.type_;
       itemId_ = other.itemId_;
-      rarity_ = other.rarity_;
-      quantity_ = other.quantity_;
-      isNew_ = other.isNew_;
+      count_ = other.count_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -732,20 +742,8 @@ namespace Tech.Hive.V1 {
       return new GachaResult(this);
     }
 
-    /// <summary>Field number for the "type" field.</summary>
-    public const int TypeFieldNumber = 1;
-    private global::Tech.Hive.V1.GachaResultType type_ = global::Tech.Hive.V1.GachaResultType.Unspecified;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.GachaResultType Type {
-      get { return type_; }
-      set {
-        type_ = value;
-      }
-    }
-
     /// <summary>Field number for the "item_id" field.</summary>
-    public const int ItemIdFieldNumber = 2;
+    public const int ItemIdFieldNumber = 1;
     private uint itemId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -756,42 +754,15 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "rarity" field.</summary>
-    public const int RarityFieldNumber = 3;
-    private global::Tech.Hive.V1.Rarity rarity_ = global::Tech.Hive.V1.Rarity.Unspecified;
+    /// <summary>Field number for the "count" field.</summary>
+    public const int CountFieldNumber = 2;
+    private uint count_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.Rarity Rarity {
-      get { return rarity_; }
+    public uint Count {
+      get { return count_; }
       set {
-        rarity_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "quantity" field.</summary>
-    public const int QuantityFieldNumber = 4;
-    private uint quantity_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint Quantity {
-      get { return quantity_; }
-      set {
-        quantity_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "is_new" field.</summary>
-    public const int IsNewFieldNumber = 5;
-    private bool isNew_;
-    /// <summary>
-    /// 신규 획득 여부
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool IsNew {
-      get { return isNew_; }
-      set {
-        isNew_ = value;
+        count_ = value;
       }
     }
 
@@ -810,11 +781,8 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Type != other.Type) return false;
       if (ItemId != other.ItemId) return false;
-      if (Rarity != other.Rarity) return false;
-      if (Quantity != other.Quantity) return false;
-      if (IsNew != other.IsNew) return false;
+      if (Count != other.Count) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -822,11 +790,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Type != global::Tech.Hive.V1.GachaResultType.Unspecified) hash ^= Type.GetHashCode();
       if (ItemId != 0) hash ^= ItemId.GetHashCode();
-      if (Rarity != global::Tech.Hive.V1.Rarity.Unspecified) hash ^= Rarity.GetHashCode();
-      if (Quantity != 0) hash ^= Quantity.GetHashCode();
-      if (IsNew != false) hash ^= IsNew.GetHashCode();
+      if (Count != 0) hash ^= Count.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -845,25 +810,13 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Type != global::Tech.Hive.V1.GachaResultType.Unspecified) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) Type);
-      }
       if (ItemId != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(8);
         output.WriteUInt32(ItemId);
       }
-      if (Rarity != global::Tech.Hive.V1.Rarity.Unspecified) {
-        output.WriteRawTag(24);
-        output.WriteEnum((int) Rarity);
-      }
-      if (Quantity != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(Quantity);
-      }
-      if (IsNew != false) {
-        output.WriteRawTag(40);
-        output.WriteBool(IsNew);
+      if (Count != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Count);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -875,25 +828,13 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Type != global::Tech.Hive.V1.GachaResultType.Unspecified) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) Type);
-      }
       if (ItemId != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(8);
         output.WriteUInt32(ItemId);
       }
-      if (Rarity != global::Tech.Hive.V1.Rarity.Unspecified) {
-        output.WriteRawTag(24);
-        output.WriteEnum((int) Rarity);
-      }
-      if (Quantity != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(Quantity);
-      }
-      if (IsNew != false) {
-        output.WriteRawTag(40);
-        output.WriteBool(IsNew);
+      if (Count != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Count);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -905,20 +846,11 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Type != global::Tech.Hive.V1.GachaResultType.Unspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
-      }
       if (ItemId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ItemId);
       }
-      if (Rarity != global::Tech.Hive.V1.Rarity.Unspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Rarity);
-      }
-      if (Quantity != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Quantity);
-      }
-      if (IsNew != false) {
-        size += 1 + 1;
+      if (Count != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Count);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -932,20 +864,11 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.Type != global::Tech.Hive.V1.GachaResultType.Unspecified) {
-        Type = other.Type;
-      }
       if (other.ItemId != 0) {
         ItemId = other.ItemId;
       }
-      if (other.Rarity != global::Tech.Hive.V1.Rarity.Unspecified) {
-        Rarity = other.Rarity;
-      }
-      if (other.Quantity != 0) {
-        Quantity = other.Quantity;
-      }
-      if (other.IsNew != false) {
-        IsNew = other.IsNew;
+      if (other.Count != 0) {
+        Count = other.Count;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -963,23 +886,11 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Type = (global::Tech.Hive.V1.GachaResultType) input.ReadEnum();
-            break;
-          }
-          case 16: {
             ItemId = input.ReadUInt32();
             break;
           }
-          case 24: {
-            Rarity = (global::Tech.Hive.V1.Rarity) input.ReadEnum();
-            break;
-          }
-          case 32: {
-            Quantity = input.ReadUInt32();
-            break;
-          }
-          case 40: {
-            IsNew = input.ReadBool();
+          case 16: {
+            Count = input.ReadUInt32();
             break;
           }
         }
@@ -998,23 +909,11 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Type = (global::Tech.Hive.V1.GachaResultType) input.ReadEnum();
-            break;
-          }
-          case 16: {
             ItemId = input.ReadUInt32();
             break;
           }
-          case 24: {
-            Rarity = (global::Tech.Hive.V1.Rarity) input.ReadEnum();
-            break;
-          }
-          case 32: {
-            Quantity = input.ReadUInt32();
-            break;
-          }
-          case 40: {
-            IsNew = input.ReadBool();
+          case 16: {
+            Count = input.ReadUInt32();
             break;
           }
         }

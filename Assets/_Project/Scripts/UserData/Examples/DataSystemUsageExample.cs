@@ -12,7 +12,7 @@ namespace CookApps.AutoBattler
     public class DataSystemUsageExample : MonoBehaviour
     {
         private CharacterDataBridge _characterBridge;
-        private WalletDataBridge _walletBridge;
+        private InventoryDataBridge _inventoryBridge;
 
         private async void Start()
         {
@@ -44,7 +44,7 @@ namespace CookApps.AutoBattler
 
             // UI 브릿지 생성
             _characterBridge = new CharacterDataBridge();
-            _walletBridge = new WalletDataBridge();
+            _inventoryBridge = new InventoryDataBridge();
 
             Debug.Log("✓ 시스템 초기화 완료");
         }
@@ -99,8 +99,8 @@ namespace CookApps.AutoBattler
             // _characterBridge.OnCharacterUpdated += OnCharacterUpdated;
             //
             // // 통화 변경 이벤트 구독
-            // _walletBridge.OnCurrencyChanged += OnCurrencyChanged;
-            // _walletBridge.OnWalletChanged += OnWalletChanged;
+            // _inventoryBridge.OnCurrencyChanged += OnCurrencyChanged;
+            // _inventoryBridge.OnInventoryChanged += OnInventoryChanged;
 
             Debug.Log("✓ UI 바인딩 설정 완료");
         }
@@ -196,7 +196,7 @@ namespace CookApps.AutoBattler
                     // 통화 변화 적용
                     if (response.CurrencyDeltas.Count > 0)
                     {
-                        ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(response.CurrencyDeltas);
+                        ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(response.CurrencyDeltas);
 
                         Debug.Log("통화 변화:");
                         for (int i = 0; i < response.CurrencyDeltas.Count; i++)
@@ -225,16 +225,16 @@ namespace CookApps.AutoBattler
             Debug.Log("--- 예제 4: 통화 확인 ---");
 
             // 특정 통화 조회 (예: 골드 = ItemID 1)
-            ulong gold = _walletBridge.GetCurrency(1);
+            ulong gold = _inventoryBridge.GetCurrency(1);
             Debug.Log($"보유 골드: {gold}");
 
             // 충분 여부 체크
-            bool hasEnough = _walletBridge.HasEnoughCurrency(1, 1000);
+            bool hasEnough = _inventoryBridge.HasEnoughCurrency(1, 1000);
             Debug.Log($"골드 1000 이상 보유: {hasEnough}");
 
             // 모든 통화 조회
             var allCurrencies = new Dictionary<uint, ulong>();
-            _walletBridge.GetAllCurrencies(allCurrencies);
+            _inventoryBridge.GetAllCurrencies(allCurrencies);
             Debug.Log($"보유 통화 종류: {allCurrencies.Count}");
 
             foreach (var kvp in allCurrencies)
@@ -271,11 +271,11 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// UI 이벤트 핸들러: 지갑 전체 변경
+        /// UI 이벤트 핸들러: 인벤토리 전체 변경
         /// </summary>
-        private void OnWalletChanged()
+        private void OnInventoryChanged()
         {
-            Debug.Log("[UI Event] 지갑 전체 변경됨 - 모든 통화 UI 갱신 필요");
+            Debug.Log("[UI Event] 인벤토리 전체 변경됨 - 모든 통화 UI 갱신 필요");
             // 전체 통화 UI 갱신
         }
     }

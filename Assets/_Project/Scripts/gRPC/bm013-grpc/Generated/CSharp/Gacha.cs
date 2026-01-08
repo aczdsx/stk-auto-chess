@@ -28,24 +28,25 @@ namespace Tech.Hive.V1 {
             "b21fY29tbW9uLnByb3RvGhBnYWNoYStkYXRhLnByb3RvIhIKEEdhY2hhTGlz",
             "dFJlcXVlc3QibgoRR2FjaGFMaXN0UmVzcG9uc2USLAoGc3RhdHVzGAEgASgL",
             "MhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEisKCmdhY2hhX2xpc3QY",
-            "AiADKAsyFy50ZWNoLmhpdmUudjEuR2FjaGFEYXRhIjMKEERyYXdHYWNoYVJl",
-            "cXVlc3QSEAoIZ2FjaGFfaWQYASABKAkSDQoFY291bnQYAiABKA0iuwEKEURy",
-            "YXdHYWNoYVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52",
-            "MS5SZXNwb25zZVN0YXR1cxIqCgdyZXN1bHRzGAIgAygLMhkudGVjaC5oaXZl",
-            "LnYxLkdhY2hhUmVzdWx0EjQKD2N1cnJlbmN5X2RlbHRhcxgDIAMoCzIbLnRl",
-            "Y2guaGl2ZS52MS5DdXJyZW5jeURlbHRhEhYKDm5ld19waXR5X2NvdW50GAQg",
-            "ASgNKicKDkdhY2hhRXJyb3JDb2RlEhUKEUdBQ0hBX1VOU1BFQ0lGSUVEEAAy",
-            "oAEKDEdhY2hhU2VydmljZRJHCgRMaXN0Eh4udGVjaC5oaXZlLnYxLkdhY2hh",
-            "TGlzdFJlcXVlc3QaHy50ZWNoLmhpdmUudjEuR2FjaGFMaXN0UmVzcG9uc2US",
-            "RwoERHJhdxIeLnRlY2guaGl2ZS52MS5EcmF3R2FjaGFSZXF1ZXN0Gh8udGVj",
-            "aC5oaXZlLnYxLkRyYXdHYWNoYVJlc3BvbnNlYgZwcm90bzM="));
+            "AiADKAsyFy50ZWNoLmhpdmUudjEuR2FjaGFEYXRhIiQKEERyYXdHYWNoYVJl",
+            "cXVlc3QSEAoIZ2FjaGFfaWQYASABKAkiowEKEURyYXdHYWNoYVJlc3BvbnNl",
+            "EiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1",
+            "cxIqCgdyZXN1bHRzGAIgAygLMhkudGVjaC5oaXZlLnYxLkdhY2hhUmVzdWx0",
+            "EjQKD2N1cnJlbmN5X2RlbHRhcxgDIAMoCzIbLnRlY2guaGl2ZS52MS5DdXJy",
+            "ZW5jeURlbHRhKlsKDkdhY2hhRXJyb3JDb2RlEhUKEUdBQ0hBX1VOU1BFQ0lG",
+            "SUVEEAASFgoPR0FDSEFfTk9UX0ZPVU5EEKmp6gQSGgoTR0FDSEFfTk9UX0lO",
+            "X1BFUklPRBCqqeoEMqABCgxHYWNoYVNlcnZpY2USRwoETGlzdBIeLnRlY2gu",
+            "aGl2ZS52MS5HYWNoYUxpc3RSZXF1ZXN0Gh8udGVjaC5oaXZlLnYxLkdhY2hh",
+            "TGlzdFJlc3BvbnNlEkcKBERyYXcSHi50ZWNoLmhpdmUudjEuRHJhd0dhY2hh",
+            "UmVxdWVzdBofLnRlY2guaGl2ZS52MS5EcmF3R2FjaGFSZXNwb25zZWIGcHJv",
+            "dG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.GachaDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.GachaErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GachaListRequest), global::Tech.Hive.V1.GachaListRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GachaListResponse), global::Tech.Hive.V1.GachaListResponse.Parser, new[]{ "Status", "GachaList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DrawGachaRequest), global::Tech.Hive.V1.DrawGachaRequest.Parser, new[]{ "GachaId", "Count" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DrawGachaResponse), global::Tech.Hive.V1.DrawGachaResponse.Parser, new[]{ "Status", "Results", "CurrencyDeltas", "NewPityCount" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DrawGachaRequest), global::Tech.Hive.V1.DrawGachaRequest.Parser, new[]{ "GachaId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DrawGachaResponse), global::Tech.Hive.V1.DrawGachaResponse.Parser, new[]{ "Status", "Results", "CurrencyDeltas" }, null, null, null, null)
           }));
     }
     #endregion
@@ -54,6 +55,14 @@ namespace Tech.Hive.V1 {
   #region Enums
   public enum GachaErrorCode {
     [pbr::OriginalName("GACHA_UNSPECIFIED")] GachaUnspecified = 0,
+    /// <summary>
+    /// 가챠 데이터가 없음
+    /// </summary>
+    [pbr::OriginalName("GACHA_NOT_FOUND")] GachaNotFound = 10130601,
+    /// <summary>
+    /// 가챠 기간이 아님
+    /// </summary>
+    [pbr::OriginalName("GACHA_NOT_IN_PERIOD")] GachaNotInPeriod = 10130602,
   }
 
   #endregion
@@ -473,7 +482,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public DrawGachaRequest(DrawGachaRequest other) : this() {
       gachaId_ = other.gachaId_;
-      count_ = other.count_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -495,21 +503,6 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "count" field.</summary>
-    public const int CountFieldNumber = 2;
-    private uint count_;
-    /// <summary>
-    /// 1 or 10
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint Count {
-      get { return count_; }
-      set {
-        count_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -526,7 +519,6 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (GachaId != other.GachaId) return false;
-      if (Count != other.Count) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -535,7 +527,6 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (GachaId.Length != 0) hash ^= GachaId.GetHashCode();
-      if (Count != 0) hash ^= Count.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -558,10 +549,6 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteString(GachaId);
       }
-      if (Count != 0) {
-        output.WriteRawTag(16);
-        output.WriteUInt32(Count);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -576,10 +563,6 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteString(GachaId);
       }
-      if (Count != 0) {
-        output.WriteRawTag(16);
-        output.WriteUInt32(Count);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -592,9 +575,6 @@ namespace Tech.Hive.V1 {
       int size = 0;
       if (GachaId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(GachaId);
-      }
-      if (Count != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Count);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -610,9 +590,6 @@ namespace Tech.Hive.V1 {
       }
       if (other.GachaId.Length != 0) {
         GachaId = other.GachaId;
-      }
-      if (other.Count != 0) {
-        Count = other.Count;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -633,10 +610,6 @@ namespace Tech.Hive.V1 {
             GachaId = input.ReadString();
             break;
           }
-          case 16: {
-            Count = input.ReadUInt32();
-            break;
-          }
         }
       }
     #endif
@@ -654,10 +627,6 @@ namespace Tech.Hive.V1 {
             break;
           case 10: {
             GachaId = input.ReadString();
-            break;
-          }
-          case 16: {
-            Count = input.ReadUInt32();
             break;
           }
         }
@@ -705,7 +674,6 @@ namespace Tech.Hive.V1 {
       status_ = other.status_ != null ? other.status_.Clone() : null;
       results_ = other.results_.Clone();
       currencyDeltas_ = other.currencyDeltas_.Clone();
-      newPityCount_ = other.newPityCount_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -749,21 +717,6 @@ namespace Tech.Hive.V1 {
       get { return currencyDeltas_; }
     }
 
-    /// <summary>Field number for the "new_pity_count" field.</summary>
-    public const int NewPityCountFieldNumber = 4;
-    private uint newPityCount_;
-    /// <summary>
-    /// 업데이트된 보장 카운트
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint NewPityCount {
-      get { return newPityCount_; }
-      set {
-        newPityCount_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -782,7 +735,6 @@ namespace Tech.Hive.V1 {
       if (!object.Equals(Status, other.Status)) return false;
       if(!results_.Equals(other.results_)) return false;
       if(!currencyDeltas_.Equals(other.currencyDeltas_)) return false;
-      if (NewPityCount != other.NewPityCount) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -793,7 +745,6 @@ namespace Tech.Hive.V1 {
       if (status_ != null) hash ^= Status.GetHashCode();
       hash ^= results_.GetHashCode();
       hash ^= currencyDeltas_.GetHashCode();
-      if (NewPityCount != 0) hash ^= NewPityCount.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -818,10 +769,6 @@ namespace Tech.Hive.V1 {
       }
       results_.WriteTo(output, _repeated_results_codec);
       currencyDeltas_.WriteTo(output, _repeated_currencyDeltas_codec);
-      if (NewPityCount != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(NewPityCount);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -838,10 +785,6 @@ namespace Tech.Hive.V1 {
       }
       results_.WriteTo(ref output, _repeated_results_codec);
       currencyDeltas_.WriteTo(ref output, _repeated_currencyDeltas_codec);
-      if (NewPityCount != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(NewPityCount);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -857,9 +800,6 @@ namespace Tech.Hive.V1 {
       }
       size += results_.CalculateSize(_repeated_results_codec);
       size += currencyDeltas_.CalculateSize(_repeated_currencyDeltas_codec);
-      if (NewPityCount != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(NewPityCount);
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -880,9 +820,6 @@ namespace Tech.Hive.V1 {
       }
       results_.Add(other.results_);
       currencyDeltas_.Add(other.currencyDeltas_);
-      if (other.NewPityCount != 0) {
-        NewPityCount = other.NewPityCount;
-      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -913,10 +850,6 @@ namespace Tech.Hive.V1 {
             currencyDeltas_.AddEntriesFrom(input, _repeated_currencyDeltas_codec);
             break;
           }
-          case 32: {
-            NewPityCount = input.ReadUInt32();
-            break;
-          }
         }
       }
     #endif
@@ -945,10 +878,6 @@ namespace Tech.Hive.V1 {
           }
           case 26: {
             currencyDeltas_.AddEntriesFrom(ref input, _repeated_currencyDeltas_codec);
-            break;
-          }
-          case 32: {
-            NewPityCount = input.ReadUInt32();
             break;
           }
         }
