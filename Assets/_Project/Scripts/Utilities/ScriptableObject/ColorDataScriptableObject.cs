@@ -20,12 +20,6 @@ namespace CookApps.AutoBattler
 
         [SerializedDictionary("Color Name","Gradient")]
         public SerializableDictionary<string, Gradient> ItemGradeColorGradientDataDic;
-
-        [SerializedDictionary("Color Name","Gradient")]
-        public SerializableDictionary<SynergyType, Gradient> SynergyGradientDataDic;
-
-        [SerializedDictionary("Color Name","Gradient")]
-        public SerializableDictionary<CharacterPositionType, Gradient> CharacterPositionGradientDataDic;
     }
 }
 
