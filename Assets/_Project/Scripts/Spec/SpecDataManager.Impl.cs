@@ -67,6 +67,7 @@ namespace CookApps.AutoBattler
             await UniTask.Yield();
 #endif
             bool isLoad = Load(json);
+            NetManager.Instance.Spec.CurrentGameSpecVersion = NetManager.Instance.Spec.GetCachedSpecVersion(SpecType.Game);
             await UniTask.Yield();
             GenerateCacheSpecData();
             CustomizeSpecData();
