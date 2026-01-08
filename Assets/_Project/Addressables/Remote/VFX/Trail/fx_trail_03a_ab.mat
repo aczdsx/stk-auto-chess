@@ -12,7 +12,8 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _USESMOOTHDISSOLVE_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -153,7 +154,7 @@ Material:
     - _Usecustomrandom: 0
     - _Usedepth: 0
     - _Useonlycolor: 0
-    - _Usesmoothdissolve: 0
+    - _Usesmoothdissolve: 1
     - _VFlowSpeed: 2
     - _VSpeed: 0
     - _ZWrite: 1
