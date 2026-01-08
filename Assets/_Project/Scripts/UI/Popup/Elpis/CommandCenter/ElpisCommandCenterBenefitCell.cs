@@ -1,3 +1,6 @@
+using Cysharp.Text;
+using Naninovel;
+using R3;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -13,10 +16,19 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image iconImage;
         [SerializeField] private TextMeshProUGUI titleText;
         [SerializeField] private TextMeshProUGUI descriptionText;
+        [SerializeField] private TextMeshProUGUI benefitCountText;
         [SerializeField] private Button shortcutButton;
 
         private ElpisCommandCenterBenefit currentData;
         private int currentIndex;
+
+        private void Awake()
+        {
+            shortcutButton
+                .OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClick())
+                .AddTo(this);
+        }
 
         /// <summary>
         /// 셀 데이터 설정
@@ -29,6 +41,8 @@ namespace CookApps.AutoBattler
             UpdateUI();
         }
 
+        #region Set UI
+
         /// <summary>
         /// UI 업데이트
         /// </summary>
@@ -36,44 +50,87 @@ namespace CookApps.AutoBattler
         {
             if (currentData == null)
                 return;
-
-            // // 아이콘 설정
-            // if (iconImage != null)
-            // {
-            //     if (currentData.icon != null)
-            //     {
-            //         iconImage.sprite = currentData.icon;
-            //         iconImage.gameObject.SetActive(true);
-            //     }
-            //     else
-            //     {
-            //         iconImage.gameObject.SetActive(false);
-            //     }
-            // }
-            //
-            // // 타이틀 설정
-            // if (titleText != null)
-            // {
-            //     titleText.text = currentData.title;
-            // }
-            //
-            // // 설명 설정
-            // if (descriptionText != null)
-            // {
-            //     descriptionText.text = currentData.description;
-            // }
+            
+            SetBenefitCountActive(false);
+            SetTitleText();
+            
+            switch (currentData.benefit_type)
+            {
+                case BenefitType.BUILDING:
+                    SetUIToBuildingBenefit();
+                    break;
+                case BenefitType.MULTI_BUILDING:
+                    SetUIToMultiBuildingBenefit();
+                    break;
+                case BenefitType.MAX_LEVEL_UP:
+                    SetUIToMaxLevelUpBenefit();
+                    break;
+                case BenefitType.AREA_EXPAND:
+                    SetUIToAreaExpandBenefit();
+                    break;
+            }
         }
 
+        private void SetTitleText()
+        {
+            titleText.text = "임시값입니다..";
+            //titleText.text = currentData.benefit_title_token; //TODO : localization
+        }
+
+        private void SetBuildingDescriptionText()
+        {
+            var buildInfo = SpecDataManager.Instance.GetBuildInfo(currentData.build_id);
+            
+            //var descriptionString = currentData.benefit_desc_token;  //TODO : localization
+            var descriptionString = "임시. {0}를 새로 건설할 수 있습니다.";
+            descriptionText.SetTextFormat(descriptionString, buildInfo.buld_name_token);
+        }
+
+        private void SetBenefitCountText()
+        {
+            benefitCountText.SetTextFormat("{0} > {1}", currentData.before_key, currentData.benefit_key);
+            SetBenefitCountActive(true);
+        }
+
+        private void SetUIToBuildingBenefit()
+        {
+            SetBuildingDescriptionText();
+        }
+
+        private void SetUIToMultiBuildingBenefit()
+        {
+            SetBuildingDescriptionText(); 
+            SetBenefitCountText();
+        }
+
+        private void SetUIToMaxLevelUpBenefit()
+        {
+            if (currentData.build_id == 0) //보상이 빌딩 맥스레벨이 아닐 때 처리하면 될듯?
+                return;
+
+            SetBuildingDescriptionText();
+            SetBenefitCountText();
+        }
+
+        private void SetUIToAreaExpandBenefit()
+        {
+            descriptionText.text = currentData.benefit_desc_token; //TODO : localization
+        }
+
+        private void SetBenefitCountActive(bool active)
+        {
+            benefitCountText.gameObject.SetActive(active);
+        }
+
+        #endregion
+
+        private System.Action callback;
         /// <summary>
         /// 바로가기 버튼 콜백 설정
         /// </summary>
         public void SetShortcutCallback(System.Action callback)
         {
-            if (shortcutButton != null)
-            {
-                shortcutButton.onClick.RemoveAllListeners();
-                shortcutButton.onClick.AddListener(() => callback?.Invoke());
-            }
+            this.callback = callback;
         }
 
         /// <summary>
@@ -101,20 +158,9 @@ namespace CookApps.AutoBattler
             }
         }
 
-        /// <summary>
-        /// 이벤트 리스너 정리
-        /// </summary>
-        public void ClearEventListeners()
+        private void OnClick()
         {
-            if (shortcutButton != null)
-            {
-                shortcutButton.onClick.RemoveAllListeners();
-            }
-        }
-
-        private void OnDestroy()
-        {
-            ClearEventListeners();
+            callback?.Invoke();
         }
     }
 }
