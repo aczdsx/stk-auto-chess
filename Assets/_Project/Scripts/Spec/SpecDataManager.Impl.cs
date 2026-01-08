@@ -702,7 +702,7 @@ namespace CookApps.AutoBattler
 
             return result;
         }
-
+        
         public StageInfo GetStageData(int stageID)
         {
             for (int i = 0; i < StageInfo.All.Count; i++)

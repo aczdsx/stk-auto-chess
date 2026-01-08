@@ -25,46 +25,41 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CgpkZWNrLnByb3RvEgx0ZWNoLmhpdmUudjEaCmJhc2UucHJvdG8aD2RlY2sr",
-            "ZGF0YS5wcm90byIbChlEZWNrTGlzdEJhdHRsZURlY2tSZXF1ZXN0IowBChpE",
-            "ZWNrTGlzdEJhdHRsZURlY2tSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50",
-            "ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSKQoJZGVja19saXN0GAIgAygL",
-            "MhYudGVjaC5oaXZlLnYxLkRlY2tEYXRhEhUKDW1heF9kZWNrX3Nsb3QYAyAB",
-            "KA0iMAoYRGVja0dldEJhdHRsZURlY2tSZXF1ZXN0EhQKDGRlY2tfc2xvdF9p",
-            "ZBgBIAEoDSJvChlEZWNrR2V0QmF0dGxlRGVja1Jlc3BvbnNlEiwKBnN0YXR1",
-            "cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIkCgRkZWNr",
-            "GAIgASgLMhYudGVjaC5oaXZlLnYxLkRlY2tEYXRhIsYBChlEZWNrU2F2ZUJh",
-            "dHRsZURlY2tSZXF1ZXN0EhQKDGRlY2tfc2xvdF9pZBgBIAEoDRIRCglkZWNr",
-            "X25hbWUYAiABKAkSQgoUY2hhcmFjdGVyX3BsYWNlbWVudHMYAyADKAsyJC50",
-            "ZWNoLmhpdmUudjEuRGVja0NoYXJhY3RlclBsYWNlbWVudBI8ChF0YWN0aWNf",
-            "cGxhY2VtZW50cxgEIAMoCzIhLnRlY2guaGl2ZS52MS5EZWNrVGFjdGljUGxh",
-            "Y2VtZW50InAKGkRlY2tTYXZlQmF0dGxlRGVja1Jlc3BvbnNlEiwKBnN0YXR1",
-            "cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIkCgRkZWNr",
-            "GAIgASgLMhYudGVjaC5oaXZlLnYxLkRlY2tEYXRhIjMKG0RlY2tEZWxldGVC",
-            "YXR0bGVEZWNrUmVxdWVzdBIUCgxkZWNrX3Nsb3RfaWQYASABKA0iTAocRGVj",
-            "a0RlbGV0ZUJhdHRsZURlY2tSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50",
-            "ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMqJQoNRGVja0Vycm9yQ29kZRIU",
-            "ChBERUNLX1VOU1BFQ0lGSUVEEAAypAMKC0RlY2tTZXJ2aWNlEmMKDkxpc3RC",
-            "YXR0bGVEZWNrEicudGVjaC5oaXZlLnYxLkRlY2tMaXN0QmF0dGxlRGVja1Jl",
-            "cXVlc3QaKC50ZWNoLmhpdmUudjEuRGVja0xpc3RCYXR0bGVEZWNrUmVzcG9u",
-            "c2USYAoNR2V0QmF0dGxlRGVjaxImLnRlY2guaGl2ZS52MS5EZWNrR2V0QmF0",
-            "dGxlRGVja1JlcXVlc3QaJy50ZWNoLmhpdmUudjEuRGVja0dldEJhdHRsZURl",
-            "Y2tSZXNwb25zZRJjCg5TYXZlQmF0dGxlRGVjaxInLnRlY2guaGl2ZS52MS5E",
-            "ZWNrU2F2ZUJhdHRsZURlY2tSZXF1ZXN0GigudGVjaC5oaXZlLnYxLkRlY2tT",
-            "YXZlQmF0dGxlRGVja1Jlc3BvbnNlEmkKEERlbGV0ZUJhdHRsZURlY2sSKS50",
-            "ZWNoLmhpdmUudjEuRGVja0RlbGV0ZUJhdHRsZURlY2tSZXF1ZXN0GioudGVj",
-            "aC5oaXZlLnYxLkRlY2tEZWxldGVCYXR0bGVEZWNrUmVzcG9uc2ViBnByb3Rv",
-            "Mw=="));
+            "ZGF0YS5wcm90byIRCg9EZWNrTGlzdFJlcXVlc3QiawoQRGVja0xpc3RSZXNw",
+            "b25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VT",
+            "dGF0dXMSKQoJZGVja19saXN0GAIgAygLMhYudGVjaC5oaXZlLnYxLkRlY2tE",
+            "YXRhIiYKDkRlY2tHZXRSZXF1ZXN0EhQKDGRlY2tfc2xvdF9pZBgBIAEoDSJl",
+            "Cg9EZWNrR2V0UmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZl",
+            "LnYxLlJlc3BvbnNlU3RhdHVzEiQKBGRlY2sYAiABKAsyFi50ZWNoLmhpdmUu",
+            "djEuRGVja0RhdGEivAEKD0RlY2tTYXZlUmVxdWVzdBIUCgxkZWNrX3Nsb3Rf",
+            "aWQYASABKA0SEQoJZGVja19uYW1lGAIgASgJEkIKFGNoYXJhY3Rlcl9wbGFj",
+            "ZW1lbnRzGAMgAygLMiQudGVjaC5oaXZlLnYxLkRlY2tDaGFyYWN0ZXJQbGFj",
+            "ZW1lbnQSPAoRdGFjdGljX3BsYWNlbWVudHMYBCADKAsyIS50ZWNoLmhpdmUu",
+            "djEuRGVja1RhY3RpY1BsYWNlbWVudCJmChBEZWNrU2F2ZVJlc3BvbnNlEiwK",
+            "BnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIk",
+            "CgRkZWNrGAIgASgLMhYudGVjaC5oaXZlLnYxLkRlY2tEYXRhIikKEURlY2tE",
+            "ZWxldGVSZXF1ZXN0EhQKDGRlY2tfc2xvdF9pZBgBIAEoDSJCChJEZWNrRGVs",
+            "ZXRlUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJl",
+            "c3BvbnNlU3RhdHVzKjwKDURlY2tFcnJvckNvZGUSFAoQREVDS19VTlNQRUNJ",
+            "RklFRBAAEhUKDkRFQ0tfTk9UX0ZPVU5EEOGn6gQyrAIKC0RlY2tTZXJ2aWNl",
+            "EkUKBExpc3QSHS50ZWNoLmhpdmUudjEuRGVja0xpc3RSZXF1ZXN0Gh4udGVj",
+            "aC5oaXZlLnYxLkRlY2tMaXN0UmVzcG9uc2USQgoDR2V0EhwudGVjaC5oaXZl",
+            "LnYxLkRlY2tHZXRSZXF1ZXN0Gh0udGVjaC5oaXZlLnYxLkRlY2tHZXRSZXNw",
+            "b25zZRJFCgRTYXZlEh0udGVjaC5oaXZlLnYxLkRlY2tTYXZlUmVxdWVzdBoe",
+            "LnRlY2guaGl2ZS52MS5EZWNrU2F2ZVJlc3BvbnNlEksKBkRlbGV0ZRIfLnRl",
+            "Y2guaGl2ZS52MS5EZWNrRGVsZXRlUmVxdWVzdBogLnRlY2guaGl2ZS52MS5E",
+            "ZWNrRGVsZXRlUmVzcG9uc2ViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.DeckDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.DeckErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckListBattleDeckRequest), global::Tech.Hive.V1.DeckListBattleDeckRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckListBattleDeckResponse), global::Tech.Hive.V1.DeckListBattleDeckResponse.Parser, new[]{ "Status", "DeckList", "MaxDeckSlot" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckGetBattleDeckRequest), global::Tech.Hive.V1.DeckGetBattleDeckRequest.Parser, new[]{ "DeckSlotId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckGetBattleDeckResponse), global::Tech.Hive.V1.DeckGetBattleDeckResponse.Parser, new[]{ "Status", "Deck" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckSaveBattleDeckRequest), global::Tech.Hive.V1.DeckSaveBattleDeckRequest.Parser, new[]{ "DeckSlotId", "DeckName", "CharacterPlacements", "TacticPlacements" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckSaveBattleDeckResponse), global::Tech.Hive.V1.DeckSaveBattleDeckResponse.Parser, new[]{ "Status", "Deck" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckDeleteBattleDeckRequest), global::Tech.Hive.V1.DeckDeleteBattleDeckRequest.Parser, new[]{ "DeckSlotId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckDeleteBattleDeckResponse), global::Tech.Hive.V1.DeckDeleteBattleDeckResponse.Parser, new[]{ "Status" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckListRequest), global::Tech.Hive.V1.DeckListRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckListResponse), global::Tech.Hive.V1.DeckListResponse.Parser, new[]{ "Status", "DeckList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckGetRequest), global::Tech.Hive.V1.DeckGetRequest.Parser, new[]{ "DeckSlotId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckGetResponse), global::Tech.Hive.V1.DeckGetResponse.Parser, new[]{ "Status", "Deck" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckSaveRequest), global::Tech.Hive.V1.DeckSaveRequest.Parser, new[]{ "DeckSlotId", "DeckName", "CharacterPlacements", "TacticPlacements" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckSaveResponse), global::Tech.Hive.V1.DeckSaveResponse.Parser, new[]{ "Status", "Deck" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckDeleteRequest), global::Tech.Hive.V1.DeckDeleteRequest.Parser, new[]{ "DeckSlotId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckDeleteResponse), global::Tech.Hive.V1.DeckDeleteResponse.Parser, new[]{ "Status" }, null, null, null, null)
           }));
     }
     #endregion
@@ -73,22 +68,26 @@ namespace Tech.Hive.V1 {
   #region Enums
   public enum DeckErrorCode {
     [pbr::OriginalName("DECK_UNSPECIFIED")] DeckUnspecified = 0,
+    /// <summary>
+    /// 덱을 찾을 수 없음
+    /// </summary>
+    [pbr::OriginalName("DECK_NOT_FOUND")] DeckNotFound = 10130401,
   }
 
   #endregion
 
   #region Messages
   [global::System.SerializableAttribute]
-  public sealed partial class DeckListBattleDeckRequest : pb::IMessage<DeckListBattleDeckRequest>
+  public sealed partial class DeckListRequest : pb::IMessage<DeckListRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<DeckListBattleDeckRequest> _parser = new pb::MessageParser<DeckListBattleDeckRequest>(() => new DeckListBattleDeckRequest());
+    private static readonly pb::MessageParser<DeckListRequest> _parser = new pb::MessageParser<DeckListRequest>(() => new DeckListRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<DeckListBattleDeckRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<DeckListRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -104,7 +103,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckListBattleDeckRequest() {
+    public DeckListRequest() {
       OnConstruction();
     }
 
@@ -112,25 +111,25 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckListBattleDeckRequest(DeckListBattleDeckRequest other) : this() {
+    public DeckListRequest(DeckListRequest other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckListBattleDeckRequest Clone() {
-      return new DeckListBattleDeckRequest(this);
+    public DeckListRequest Clone() {
+      return new DeckListRequest(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as DeckListBattleDeckRequest);
+      return Equals(other as DeckListRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(DeckListBattleDeckRequest other) {
+    public bool Equals(DeckListRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -190,7 +189,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(DeckListBattleDeckRequest other) {
+    public void MergeFrom(DeckListRequest other) {
       if (other == null) {
         return;
       }
@@ -232,16 +231,16 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class DeckListBattleDeckResponse : pb::IMessage<DeckListBattleDeckResponse>
+  public sealed partial class DeckListResponse : pb::IMessage<DeckListResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<DeckListBattleDeckResponse> _parser = new pb::MessageParser<DeckListBattleDeckResponse>(() => new DeckListBattleDeckResponse());
+    private static readonly pb::MessageParser<DeckListResponse> _parser = new pb::MessageParser<DeckListResponse>(() => new DeckListResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<DeckListBattleDeckResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<DeckListResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -257,7 +256,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckListBattleDeckResponse() {
+    public DeckListResponse() {
       OnConstruction();
     }
 
@@ -265,17 +264,16 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckListBattleDeckResponse(DeckListBattleDeckResponse other) : this() {
+    public DeckListResponse(DeckListResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
       deckList_ = other.deckList_.Clone();
-      maxDeckSlot_ = other.maxDeckSlot_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckListBattleDeckResponse Clone() {
-      return new DeckListBattleDeckResponse(this);
+    public DeckListResponse Clone() {
+      return new DeckListResponse(this);
     }
 
     /// <summary>Field number for the "status" field.</summary>
@@ -301,27 +299,15 @@ namespace Tech.Hive.V1 {
       get { return deckList_; }
     }
 
-    /// <summary>Field number for the "max_deck_slot" field.</summary>
-    public const int MaxDeckSlotFieldNumber = 3;
-    private uint maxDeckSlot_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint MaxDeckSlot {
-      get { return maxDeckSlot_; }
-      set {
-        maxDeckSlot_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as DeckListBattleDeckResponse);
+      return Equals(other as DeckListResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(DeckListBattleDeckResponse other) {
+    public bool Equals(DeckListResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -330,7 +316,6 @@ namespace Tech.Hive.V1 {
       }
       if (!object.Equals(Status, other.Status)) return false;
       if(!deckList_.Equals(other.deckList_)) return false;
-      if (MaxDeckSlot != other.MaxDeckSlot) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -340,7 +325,6 @@ namespace Tech.Hive.V1 {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
       hash ^= deckList_.GetHashCode();
-      if (MaxDeckSlot != 0) hash ^= MaxDeckSlot.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -364,10 +348,6 @@ namespace Tech.Hive.V1 {
         output.WriteMessage(Status);
       }
       deckList_.WriteTo(output, _repeated_deckList_codec);
-      if (MaxDeckSlot != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(MaxDeckSlot);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -383,10 +363,6 @@ namespace Tech.Hive.V1 {
         output.WriteMessage(Status);
       }
       deckList_.WriteTo(ref output, _repeated_deckList_codec);
-      if (MaxDeckSlot != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(MaxDeckSlot);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -401,9 +377,6 @@ namespace Tech.Hive.V1 {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
       size += deckList_.CalculateSize(_repeated_deckList_codec);
-      if (MaxDeckSlot != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MaxDeckSlot);
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -412,7 +385,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(DeckListBattleDeckResponse other) {
+    public void MergeFrom(DeckListResponse other) {
       if (other == null) {
         return;
       }
@@ -423,9 +396,6 @@ namespace Tech.Hive.V1 {
         Status.MergeFrom(other.Status);
       }
       deckList_.Add(other.deckList_);
-      if (other.MaxDeckSlot != 0) {
-        MaxDeckSlot = other.MaxDeckSlot;
-      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -450,10 +420,6 @@ namespace Tech.Hive.V1 {
           }
           case 18: {
             deckList_.AddEntriesFrom(input, _repeated_deckList_codec);
-            break;
-          }
-          case 24: {
-            MaxDeckSlot = input.ReadUInt32();
             break;
           }
         }
@@ -482,10 +448,6 @@ namespace Tech.Hive.V1 {
             deckList_.AddEntriesFrom(ref input, _repeated_deckList_codec);
             break;
           }
-          case 24: {
-            MaxDeckSlot = input.ReadUInt32();
-            break;
-          }
         }
       }
     }
@@ -494,16 +456,16 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class DeckGetBattleDeckRequest : pb::IMessage<DeckGetBattleDeckRequest>
+  public sealed partial class DeckGetRequest : pb::IMessage<DeckGetRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<DeckGetBattleDeckRequest> _parser = new pb::MessageParser<DeckGetBattleDeckRequest>(() => new DeckGetBattleDeckRequest());
+    private static readonly pb::MessageParser<DeckGetRequest> _parser = new pb::MessageParser<DeckGetRequest>(() => new DeckGetRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<DeckGetBattleDeckRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<DeckGetRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -519,7 +481,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckGetBattleDeckRequest() {
+    public DeckGetRequest() {
       OnConstruction();
     }
 
@@ -527,15 +489,15 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckGetBattleDeckRequest(DeckGetBattleDeckRequest other) : this() {
+    public DeckGetRequest(DeckGetRequest other) : this() {
       deckSlotId_ = other.deckSlotId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckGetBattleDeckRequest Clone() {
-      return new DeckGetBattleDeckRequest(this);
+    public DeckGetRequest Clone() {
+      return new DeckGetRequest(this);
     }
 
     /// <summary>Field number for the "deck_slot_id" field.</summary>
@@ -553,12 +515,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as DeckGetBattleDeckRequest);
+      return Equals(other as DeckGetRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(DeckGetBattleDeckRequest other) {
+    public bool Equals(DeckGetRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -631,7 +593,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(DeckGetBattleDeckRequest other) {
+    public void MergeFrom(DeckGetRequest other) {
       if (other == null) {
         return;
       }
@@ -684,16 +646,16 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class DeckGetBattleDeckResponse : pb::IMessage<DeckGetBattleDeckResponse>
+  public sealed partial class DeckGetResponse : pb::IMessage<DeckGetResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<DeckGetBattleDeckResponse> _parser = new pb::MessageParser<DeckGetBattleDeckResponse>(() => new DeckGetBattleDeckResponse());
+    private static readonly pb::MessageParser<DeckGetResponse> _parser = new pb::MessageParser<DeckGetResponse>(() => new DeckGetResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<DeckGetBattleDeckResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<DeckGetResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -709,7 +671,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckGetBattleDeckResponse() {
+    public DeckGetResponse() {
       OnConstruction();
     }
 
@@ -717,7 +679,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckGetBattleDeckResponse(DeckGetBattleDeckResponse other) : this() {
+    public DeckGetResponse(DeckGetResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
       deck_ = other.deck_ != null ? other.deck_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -725,8 +687,8 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckGetBattleDeckResponse Clone() {
-      return new DeckGetBattleDeckResponse(this);
+    public DeckGetResponse Clone() {
+      return new DeckGetResponse(this);
     }
 
     /// <summary>Field number for the "status" field.</summary>
@@ -756,12 +718,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as DeckGetBattleDeckResponse);
+      return Equals(other as DeckGetResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(DeckGetBattleDeckResponse other) {
+    public bool Equals(DeckGetResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -847,7 +809,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(DeckGetBattleDeckResponse other) {
+    public void MergeFrom(DeckGetResponse other) {
       if (other == null) {
         return;
       }
@@ -929,16 +891,16 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class DeckSaveBattleDeckRequest : pb::IMessage<DeckSaveBattleDeckRequest>
+  public sealed partial class DeckSaveRequest : pb::IMessage<DeckSaveRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<DeckSaveBattleDeckRequest> _parser = new pb::MessageParser<DeckSaveBattleDeckRequest>(() => new DeckSaveBattleDeckRequest());
+    private static readonly pb::MessageParser<DeckSaveRequest> _parser = new pb::MessageParser<DeckSaveRequest>(() => new DeckSaveRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<DeckSaveBattleDeckRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<DeckSaveRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -954,7 +916,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckSaveBattleDeckRequest() {
+    public DeckSaveRequest() {
       OnConstruction();
     }
 
@@ -962,7 +924,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckSaveBattleDeckRequest(DeckSaveBattleDeckRequest other) : this() {
+    public DeckSaveRequest(DeckSaveRequest other) : this() {
       deckSlotId_ = other.deckSlotId_;
       deckName_ = other.deckName_;
       characterPlacements_ = other.characterPlacements_.Clone();
@@ -972,8 +934,8 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckSaveBattleDeckRequest Clone() {
-      return new DeckSaveBattleDeckRequest(this);
+    public DeckSaveRequest Clone() {
+      return new DeckSaveRequest(this);
     }
 
     /// <summary>Field number for the "deck_slot_id" field.</summary>
@@ -1025,12 +987,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as DeckSaveBattleDeckRequest);
+      return Equals(other as DeckSaveRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(DeckSaveBattleDeckRequest other) {
+    public bool Equals(DeckSaveRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1126,7 +1088,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(DeckSaveBattleDeckRequest other) {
+    public void MergeFrom(DeckSaveRequest other) {
       if (other == null) {
         return;
       }
@@ -1208,16 +1170,16 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class DeckSaveBattleDeckResponse : pb::IMessage<DeckSaveBattleDeckResponse>
+  public sealed partial class DeckSaveResponse : pb::IMessage<DeckSaveResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<DeckSaveBattleDeckResponse> _parser = new pb::MessageParser<DeckSaveBattleDeckResponse>(() => new DeckSaveBattleDeckResponse());
+    private static readonly pb::MessageParser<DeckSaveResponse> _parser = new pb::MessageParser<DeckSaveResponse>(() => new DeckSaveResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<DeckSaveBattleDeckResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<DeckSaveResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1233,7 +1195,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckSaveBattleDeckResponse() {
+    public DeckSaveResponse() {
       OnConstruction();
     }
 
@@ -1241,7 +1203,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckSaveBattleDeckResponse(DeckSaveBattleDeckResponse other) : this() {
+    public DeckSaveResponse(DeckSaveResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
       deck_ = other.deck_ != null ? other.deck_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -1249,8 +1211,8 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckSaveBattleDeckResponse Clone() {
-      return new DeckSaveBattleDeckResponse(this);
+    public DeckSaveResponse Clone() {
+      return new DeckSaveResponse(this);
     }
 
     /// <summary>Field number for the "status" field.</summary>
@@ -1280,12 +1242,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as DeckSaveBattleDeckResponse);
+      return Equals(other as DeckSaveResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(DeckSaveBattleDeckResponse other) {
+    public bool Equals(DeckSaveResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1371,7 +1333,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(DeckSaveBattleDeckResponse other) {
+    public void MergeFrom(DeckSaveResponse other) {
       if (other == null) {
         return;
       }
@@ -1453,16 +1415,16 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class DeckDeleteBattleDeckRequest : pb::IMessage<DeckDeleteBattleDeckRequest>
+  public sealed partial class DeckDeleteRequest : pb::IMessage<DeckDeleteRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<DeckDeleteBattleDeckRequest> _parser = new pb::MessageParser<DeckDeleteBattleDeckRequest>(() => new DeckDeleteBattleDeckRequest());
+    private static readonly pb::MessageParser<DeckDeleteRequest> _parser = new pb::MessageParser<DeckDeleteRequest>(() => new DeckDeleteRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<DeckDeleteBattleDeckRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<DeckDeleteRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1478,7 +1440,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckDeleteBattleDeckRequest() {
+    public DeckDeleteRequest() {
       OnConstruction();
     }
 
@@ -1486,15 +1448,15 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckDeleteBattleDeckRequest(DeckDeleteBattleDeckRequest other) : this() {
+    public DeckDeleteRequest(DeckDeleteRequest other) : this() {
       deckSlotId_ = other.deckSlotId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckDeleteBattleDeckRequest Clone() {
-      return new DeckDeleteBattleDeckRequest(this);
+    public DeckDeleteRequest Clone() {
+      return new DeckDeleteRequest(this);
     }
 
     /// <summary>Field number for the "deck_slot_id" field.</summary>
@@ -1512,12 +1474,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as DeckDeleteBattleDeckRequest);
+      return Equals(other as DeckDeleteRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(DeckDeleteBattleDeckRequest other) {
+    public bool Equals(DeckDeleteRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1590,7 +1552,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(DeckDeleteBattleDeckRequest other) {
+    public void MergeFrom(DeckDeleteRequest other) {
       if (other == null) {
         return;
       }
@@ -1643,16 +1605,16 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class DeckDeleteBattleDeckResponse : pb::IMessage<DeckDeleteBattleDeckResponse>
+  public sealed partial class DeckDeleteResponse : pb::IMessage<DeckDeleteResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<DeckDeleteBattleDeckResponse> _parser = new pb::MessageParser<DeckDeleteBattleDeckResponse>(() => new DeckDeleteBattleDeckResponse());
+    private static readonly pb::MessageParser<DeckDeleteResponse> _parser = new pb::MessageParser<DeckDeleteResponse>(() => new DeckDeleteResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<DeckDeleteBattleDeckResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<DeckDeleteResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1668,7 +1630,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckDeleteBattleDeckResponse() {
+    public DeckDeleteResponse() {
       OnConstruction();
     }
 
@@ -1676,15 +1638,15 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckDeleteBattleDeckResponse(DeckDeleteBattleDeckResponse other) : this() {
+    public DeckDeleteResponse(DeckDeleteResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DeckDeleteBattleDeckResponse Clone() {
-      return new DeckDeleteBattleDeckResponse(this);
+    public DeckDeleteResponse Clone() {
+      return new DeckDeleteResponse(this);
     }
 
     /// <summary>Field number for the "status" field.</summary>
@@ -1702,12 +1664,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as DeckDeleteBattleDeckResponse);
+      return Equals(other as DeckDeleteResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(DeckDeleteBattleDeckResponse other) {
+    public bool Equals(DeckDeleteResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1780,7 +1742,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(DeckDeleteBattleDeckResponse other) {
+    public void MergeFrom(DeckDeleteResponse other) {
       if (other == null) {
         return;
       }

@@ -73,7 +73,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 전투 시작
         /// </summary>
-        public async UniTask<BattleStartResponse> StartAsync(string stageId, CancellationToken cancellationToken = default)
+        public async UniTask<BattleStartResponse> StartAsync(uint stageId, CancellationToken cancellationToken = default)
         {
             BattleStartResponse resp = await ExecuteAsync(
                 ServiceClient.StartAsync,
@@ -106,25 +106,7 @@ namespace CookApps.AutoBattler
                 // 통화 변화 적용
                 if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
                 {
-                    ServerDataManager.Instance.Wallet.ApplyCurrencyDeltas(resp.CurrencyDeltas);
-                }
-
-                // 캐릭터 경험치 획득 반영
-                if (resp.CharacterExpGains != null && resp.CharacterExpGains.Count > 0)
-                {
-                    foreach (var expGain in resp.CharacterExpGains)
-                    {
-                        var character = ServerDataManager.Instance.Character.GetCharacter(expGain.CharacterInstanceId);
-                        if (character != null)
-                        {
-                            // 캐릭터 레벨 업데이트 (레벨이 변경된 경우)
-                            if (character.Level != expGain.LevelAfter)
-                            {
-                                character.Level = expGain.LevelAfter;
-                                ServerDataManager.Instance.Character.UpdateCharacter(character);
-                            }
-                        }
-                    }
+                    ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
                 }
             }
 

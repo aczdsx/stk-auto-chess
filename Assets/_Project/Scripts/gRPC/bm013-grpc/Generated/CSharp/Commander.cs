@@ -49,8 +49,12 @@ namespace Tech.Hive.V1 {
             "bl9vcHRpb25faWQYAyABKA0ifgodQ29tbWFuZGVyUHJvbW90ZVNraWxsUmVz",
             "cG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNl",
             "U3RhdHVzEi8KBXNraWxsGAIgASgLMiAudGVjaC5oaXZlLnYxLkNvbW1hbmRl",
-            "clNraWxsRGF0YSovChJDb21tYW5kZXJFcnJvckNvZGUSGQoVQ09NTUFOREVS",
-            "X1VOU1BFQ0lGSUVEEAAykAQKEENvbW1hbmRlclNlcnZpY2USXgoJTGlzdFNr",
+            "clNraWxsRGF0YSriAQoSQ29tbWFuZGVyRXJyb3JDb2RlEhkKFUNPTU1BTkRF",
+            "Ul9VTlNQRUNJRklFRBAAEiAKGUNPTU1BTkRFUl9TS0lMTF9OT1RfRk9VTkQQ",
+            "/abqBBIoCiFDT01NQU5ERVJfU0tJTExfTUFYX0xFVkVMX1JFQUNIRUQQ/qbq",
+            "BBI0Ci1DT01NQU5ERVJfU0tJTExfUFJPTU9USU9OX0xFVkVMX05PVF9SRUFD",
+            "SEFCTEUQ/6bqBBIvCihDT01NQU5ERVJfU0tJTExfUFJPTU9USU9OX09QVElP",
+            "Tl9JTlZBTElEEICn6gQykAQKEENvbW1hbmRlclNlcnZpY2USXgoJTGlzdFNr",
             "aWxsEicudGVjaC5oaXZlLnYxLkNvbW1hbmRlckxpc3RTa2lsbFJlcXVlc3Qa",
             "KC50ZWNoLmhpdmUudjEuQ29tbWFuZGVyTGlzdFNraWxsUmVzcG9uc2USYQoK",
             "RXF1aXBTa2lsbBIoLnRlY2guaGl2ZS52MS5Db21tYW5kZXJFcXVpcFNraWxs",
@@ -84,6 +88,22 @@ namespace Tech.Hive.V1 {
   #region Enums
   public enum CommanderErrorCode {
     [pbr::OriginalName("COMMANDER_UNSPECIFIED")] CommanderUnspecified = 0,
+    /// <summary>
+    /// 지휘자 스킬 없음
+    /// </summary>
+    [pbr::OriginalName("COMMANDER_SKILL_NOT_FOUND")] CommanderSkillNotFound = 10130301,
+    /// <summary>
+    /// 현재 스킬 레벨이 최대치임.
+    /// </summary>
+    [pbr::OriginalName("COMMANDER_SKILL_MAX_LEVEL_REACHED")] CommanderSkillMaxLevelReached = 10130302,
+    /// <summary>
+    /// 승급할 수 있는 레벨이 아님
+    /// </summary>
+    [pbr::OriginalName("COMMANDER_SKILL_PROMOTION_LEVEL_NOT_REACHABLE")] CommanderSkillPromotionLevelNotReachable = 10130303,
+    /// <summary>
+    /// 잘못된 승급 옵션 ID
+    /// </summary>
+    [pbr::OriginalName("COMMANDER_SKILL_PROMOTION_OPTION_INVALID")] CommanderSkillPromotionOptionInvalid = 10130304,
   }
 
   #endregion

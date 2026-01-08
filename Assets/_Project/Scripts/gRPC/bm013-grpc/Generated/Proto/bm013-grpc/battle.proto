@@ -38,6 +38,8 @@ service BattleService {
 
 enum BattleErrorCode {
   BATTLE_UNSPECIFIED = 0;
+  BATTLE_SESSION_NOT_FOUND = 10130201; // 전투 세션 없음
+  BATTLE_ALREADY_ENDED = 10130202; // 전투 이미 종료됨
 }
 
 message BattleGetCurrentChapterRequest {}
@@ -51,6 +53,7 @@ message BattleListChapterRequest {}
 message BattleListChapterResponse {
   ResponseStatus status = 1;
   repeated BattleChapterData chapter_list = 2;
+  uint32 total_star_count = 3;
 }
 
 message BattleListStageRequest {
@@ -63,13 +66,10 @@ message BattleListStageResponse {
 }
 
 message BattleStartRequest {
-  string stage_id = 1;
-  Difficulty difficulty = 2;
+  uint32 chapter_id = 1;
+  uint32 stage_id = 2;
   
-  // 전투 편성
   uint32 deck_slot_id = 3;
-  
-  // 관측자 스킬
   repeated string observer_skill_ids = 4;
 }
 
@@ -81,6 +81,8 @@ message BattleStartResponse {
   
   // 전투 시드 (재현용)
   uint64 battle_seed = 3;
+
+  repeated CurrencyDelta currency_deltas = 4;
   }
 
 // 전투 종료 요청
@@ -119,15 +121,12 @@ message BattleEndResponse {
   ResponseStatus status = 1;
   
   // 보상
-  BattleRewardType reward_type = 2;
-  repeated CurrencyDelta currency_deltas = 3;
+  repeated CurrencyDelta currency_deltas = 2;
   
   // 업데이트된 스테이지 진행 정보
-  BattleStageProgress stage_progress = 4;
+  BattleStageProgress stage_progress = 3;
   
-  // 경험치 획득
-  uint64 player_exp_gained = 5;
-  repeated BattleCharacterExpGain character_exp_gains = 6;
+  repeated Reward rewards = 4;
 }
 
 // 캐릭터 경험치 획득
@@ -136,11 +135,4 @@ message BattleCharacterExpGain {
   uint64 exp_gained = 2;
   uint32 level_before = 3;
   uint32 level_after = 4;
-}
-
-// 보상 타입
-enum BattleRewardType {
-  REWARD_TYPE_UNSPECIFIED = 0;
-  REWARD_TYPE_FIRST_CLEAR = 1;    // 첫 클리어 보상
-  REWARD_TYPE_THREE_STAR = 2;     // 3성 클리어 보상
 }

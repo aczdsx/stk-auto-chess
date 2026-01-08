@@ -24,17 +24,19 @@ namespace Tech.Hive.V1 {
     static CommanderSkillReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChVjb21tYW5kZXIrc2tpbGwucHJvdG8SDHRlY2guaGl2ZS52MSKtAQoSQ29t",
+            "ChVjb21tYW5kZXIrc2tpbGwucHJvdG8SDHRlY2guaGl2ZS52MSLxAQoSQ29t",
             "bWFuZGVyU2tpbGxEYXRhEhoKEmNvbW1hbmRlcl9za2lsbF9pZBgBIAEoDRIN",
-            "CgVsZXZlbBgCIAEoDRITCgtpc191bmxvY2tlZBgDIAEoCBIbChNlcXVpcHBl",
-            "ZF9zbG90X2luZGV4GAQgASgNEhwKFHNlbGVjdGVkX3Byb21vdGlvbl8xGAUg",
-            "ASgNEhwKFHNlbGVjdGVkX3Byb21vdGlvbl8yGAYgASgNIkwKGkNvbW1hbmRl",
-            "ckVxdWlwcGVkU2tpbGxEYXRhEhIKCnNsb3RfaW5kZXgYASABKA0SGgoSY29t",
-            "bWFuZGVyX3NraWxsX2lkGAIgASgNYgZwcm90bzM="));
+            "CgVsZXZlbBgCIAEoDRIgChNlcXVpcHBlZF9zbG90X2luZGV4GAMgASgNSACI",
+            "AQESIQoUc2VsZWN0ZWRfcHJvbW90aW9uXzEYBCABKA1IAYgBARIhChRzZWxl",
+            "Y3RlZF9wcm9tb3Rpb25fMhgFIAEoDUgCiAEBQhYKFF9lcXVpcHBlZF9zbG90",
+            "X2luZGV4QhcKFV9zZWxlY3RlZF9wcm9tb3Rpb25fMUIXChVfc2VsZWN0ZWRf",
+            "cHJvbW90aW9uXzIiTAoaQ29tbWFuZGVyRXF1aXBwZWRTa2lsbERhdGESEgoK",
+            "c2xvdF9pbmRleBgBIAEoDRIaChJjb21tYW5kZXJfc2tpbGxfaWQYAiABKA1i",
+            "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CommanderSkillData), global::Tech.Hive.V1.CommanderSkillData.Parser, new[]{ "CommanderSkillId", "Level", "IsUnlocked", "EquippedSlotIndex", "SelectedPromotion1", "SelectedPromotion2" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CommanderSkillData), global::Tech.Hive.V1.CommanderSkillData.Parser, new[]{ "CommanderSkillId", "Level", "EquippedSlotIndex", "SelectedPromotion1", "SelectedPromotion2" }, new[]{ "EquippedSlotIndex", "SelectedPromotion1", "SelectedPromotion2" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CommanderEquippedSkillData), global::Tech.Hive.V1.CommanderEquippedSkillData.Parser, new[]{ "SlotIndex", "CommanderSkillId" }, null, null, null, null)
           }));
     }
@@ -50,6 +52,7 @@ namespace Tech.Hive.V1 {
   {
     private static readonly pb::MessageParser<CommanderSkillData> _parser = new pb::MessageParser<CommanderSkillData>(() => new CommanderSkillData());
     private pb::UnknownFieldSet _unknownFields;
+    private int _hasBits0;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<CommanderSkillData> Parser { get { return _parser; } }
@@ -77,9 +80,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CommanderSkillData(CommanderSkillData other) : this() {
+      _hasBits0 = other._hasBits0;
       commanderSkillId_ = other.commanderSkillId_;
       level_ = other.level_;
-      isUnlocked_ = other.isUnlocked_;
       equippedSlotIndex_ = other.equippedSlotIndex_;
       selectedPromotion1_ = other.selectedPromotion1_;
       selectedPromotion2_ = other.selectedPromotion2_;
@@ -122,23 +125,8 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "is_unlocked" field.</summary>
-    public const int IsUnlockedFieldNumber = 3;
-    private bool isUnlocked_;
-    /// <summary>
-    /// 잠금 해제 여부
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool IsUnlocked {
-      get { return isUnlocked_; }
-      set {
-        isUnlocked_ = value;
-      }
-    }
-
     /// <summary>Field number for the "equipped_slot_index" field.</summary>
-    public const int EquippedSlotIndexFieldNumber = 4;
+    public const int EquippedSlotIndexFieldNumber = 3;
     private uint equippedSlotIndex_;
     /// <summary>
     /// 장착된 슬롯 인덱스
@@ -146,14 +134,27 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public uint EquippedSlotIndex {
-      get { return equippedSlotIndex_; }
+      get { if ((_hasBits0 & 1) != 0) { return equippedSlotIndex_; } else { return 0; } }
       set {
+        _hasBits0 |= 1;
         equippedSlotIndex_ = value;
       }
     }
+    /// <summary>Gets whether the "equipped_slot_index" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasEquippedSlotIndex {
+      get { return (_hasBits0 & 1) != 0; }
+    }
+    /// <summary>Clears the value of the "equipped_slot_index" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearEquippedSlotIndex() {
+      _hasBits0 &= ~1;
+    }
 
     /// <summary>Field number for the "selected_promotion_1" field.</summary>
-    public const int SelectedPromotion1FieldNumber = 5;
+    public const int SelectedPromotion1FieldNumber = 4;
     private uint selectedPromotion1_;
     /// <summary>
     /// 선택된 승급 옵션 1
@@ -161,14 +162,27 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public uint SelectedPromotion1 {
-      get { return selectedPromotion1_; }
+      get { if ((_hasBits0 & 2) != 0) { return selectedPromotion1_; } else { return 0; } }
       set {
+        _hasBits0 |= 2;
         selectedPromotion1_ = value;
       }
     }
+    /// <summary>Gets whether the "selected_promotion_1" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasSelectedPromotion1 {
+      get { return (_hasBits0 & 2) != 0; }
+    }
+    /// <summary>Clears the value of the "selected_promotion_1" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearSelectedPromotion1() {
+      _hasBits0 &= ~2;
+    }
 
     /// <summary>Field number for the "selected_promotion_2" field.</summary>
-    public const int SelectedPromotion2FieldNumber = 6;
+    public const int SelectedPromotion2FieldNumber = 5;
     private uint selectedPromotion2_;
     /// <summary>
     /// 선택된 승급 옵션 2
@@ -176,10 +190,23 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public uint SelectedPromotion2 {
-      get { return selectedPromotion2_; }
+      get { if ((_hasBits0 & 4) != 0) { return selectedPromotion2_; } else { return 0; } }
       set {
+        _hasBits0 |= 4;
         selectedPromotion2_ = value;
       }
+    }
+    /// <summary>Gets whether the "selected_promotion_2" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasSelectedPromotion2 {
+      get { return (_hasBits0 & 4) != 0; }
+    }
+    /// <summary>Clears the value of the "selected_promotion_2" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearSelectedPromotion2() {
+      _hasBits0 &= ~4;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -199,7 +226,6 @@ namespace Tech.Hive.V1 {
       }
       if (CommanderSkillId != other.CommanderSkillId) return false;
       if (Level != other.Level) return false;
-      if (IsUnlocked != other.IsUnlocked) return false;
       if (EquippedSlotIndex != other.EquippedSlotIndex) return false;
       if (SelectedPromotion1 != other.SelectedPromotion1) return false;
       if (SelectedPromotion2 != other.SelectedPromotion2) return false;
@@ -212,10 +238,9 @@ namespace Tech.Hive.V1 {
       int hash = 1;
       if (CommanderSkillId != 0) hash ^= CommanderSkillId.GetHashCode();
       if (Level != 0) hash ^= Level.GetHashCode();
-      if (IsUnlocked != false) hash ^= IsUnlocked.GetHashCode();
-      if (EquippedSlotIndex != 0) hash ^= EquippedSlotIndex.GetHashCode();
-      if (SelectedPromotion1 != 0) hash ^= SelectedPromotion1.GetHashCode();
-      if (SelectedPromotion2 != 0) hash ^= SelectedPromotion2.GetHashCode();
+      if (HasEquippedSlotIndex) hash ^= EquippedSlotIndex.GetHashCode();
+      if (HasSelectedPromotion1) hash ^= SelectedPromotion1.GetHashCode();
+      if (HasSelectedPromotion2) hash ^= SelectedPromotion2.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -242,20 +267,16 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(16);
         output.WriteUInt32(Level);
       }
-      if (IsUnlocked != false) {
+      if (HasEquippedSlotIndex) {
         output.WriteRawTag(24);
-        output.WriteBool(IsUnlocked);
-      }
-      if (EquippedSlotIndex != 0) {
-        output.WriteRawTag(32);
         output.WriteUInt32(EquippedSlotIndex);
       }
-      if (SelectedPromotion1 != 0) {
-        output.WriteRawTag(40);
+      if (HasSelectedPromotion1) {
+        output.WriteRawTag(32);
         output.WriteUInt32(SelectedPromotion1);
       }
-      if (SelectedPromotion2 != 0) {
-        output.WriteRawTag(48);
+      if (HasSelectedPromotion2) {
+        output.WriteRawTag(40);
         output.WriteUInt32(SelectedPromotion2);
       }
       if (_unknownFields != null) {
@@ -276,20 +297,16 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(16);
         output.WriteUInt32(Level);
       }
-      if (IsUnlocked != false) {
+      if (HasEquippedSlotIndex) {
         output.WriteRawTag(24);
-        output.WriteBool(IsUnlocked);
-      }
-      if (EquippedSlotIndex != 0) {
-        output.WriteRawTag(32);
         output.WriteUInt32(EquippedSlotIndex);
       }
-      if (SelectedPromotion1 != 0) {
-        output.WriteRawTag(40);
+      if (HasSelectedPromotion1) {
+        output.WriteRawTag(32);
         output.WriteUInt32(SelectedPromotion1);
       }
-      if (SelectedPromotion2 != 0) {
-        output.WriteRawTag(48);
+      if (HasSelectedPromotion2) {
+        output.WriteRawTag(40);
         output.WriteUInt32(SelectedPromotion2);
       }
       if (_unknownFields != null) {
@@ -308,16 +325,13 @@ namespace Tech.Hive.V1 {
       if (Level != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Level);
       }
-      if (IsUnlocked != false) {
-        size += 1 + 1;
-      }
-      if (EquippedSlotIndex != 0) {
+      if (HasEquippedSlotIndex) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(EquippedSlotIndex);
       }
-      if (SelectedPromotion1 != 0) {
+      if (HasSelectedPromotion1) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(SelectedPromotion1);
       }
-      if (SelectedPromotion2 != 0) {
+      if (HasSelectedPromotion2) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(SelectedPromotion2);
       }
       if (_unknownFields != null) {
@@ -338,16 +352,13 @@ namespace Tech.Hive.V1 {
       if (other.Level != 0) {
         Level = other.Level;
       }
-      if (other.IsUnlocked != false) {
-        IsUnlocked = other.IsUnlocked;
-      }
-      if (other.EquippedSlotIndex != 0) {
+      if (other.HasEquippedSlotIndex) {
         EquippedSlotIndex = other.EquippedSlotIndex;
       }
-      if (other.SelectedPromotion1 != 0) {
+      if (other.HasSelectedPromotion1) {
         SelectedPromotion1 = other.SelectedPromotion1;
       }
-      if (other.SelectedPromotion2 != 0) {
+      if (other.HasSelectedPromotion2) {
         SelectedPromotion2 = other.SelectedPromotion2;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -374,18 +385,14 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 24: {
-            IsUnlocked = input.ReadBool();
-            break;
-          }
-          case 32: {
             EquippedSlotIndex = input.ReadUInt32();
             break;
           }
-          case 40: {
+          case 32: {
             SelectedPromotion1 = input.ReadUInt32();
             break;
           }
-          case 48: {
+          case 40: {
             SelectedPromotion2 = input.ReadUInt32();
             break;
           }
@@ -413,18 +420,14 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 24: {
-            IsUnlocked = input.ReadBool();
-            break;
-          }
-          case 32: {
             EquippedSlotIndex = input.ReadUInt32();
             break;
           }
-          case 40: {
+          case 32: {
             SelectedPromotion1 = input.ReadUInt32();
             break;
           }
-          case 48: {
+          case 40: {
             SelectedPromotion2 = input.ReadUInt32();
             break;
           }
