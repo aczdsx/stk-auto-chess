@@ -74,6 +74,7 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.Invincibility => "",
                 BuffDebuffType.Misa => InGameVfxNameType.fx_common_debuff_misa_01,
                 BuffDebuffType.NormalAttackShield => InGameVfxNameType.fx_common_job_guardian_01,
+                BuffDebuffType.NoDamageShield => InGameVfxNameType.fx_common_buff_no_damage_shield_01,
                 _ => InGameVfxNameType.NONE
             };
         }
@@ -100,6 +101,7 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.AttackSpeedUp => "",
                 BuffDebuffType.AttackSpeedDown => InGameVfxNameType.fx_common_debuff_spddown_02,
                 BuffDebuffType.CoolTimeDown => InGameVfxNameType.fx_common_debuff_ctup_02,
+                BuffDebuffType.NoDamageShield => InGameVfxNameType.fx_common_buff_no_damage_shield_02,
                 BuffDebuffType.Trap => InGameVfxNameType.fx_common_trap_hold_02,
                 BuffDebuffType.DefenceDown => InGameVfxNameType.fx_common_debuff_dfdown_01,
                 BuffDebuffType.HealDown => InGameVfxNameType.fx_common_debuff_healdown_01,
@@ -116,7 +118,6 @@ namespace CookApps.BattleSystem
                 // BuffDebuffType.Invincibility => "",
                 BuffDebuffType.Misa => InGameVfxNameType.fx_common_debuff_misa_02,
                 BuffDebuffType.Airborne => InGameVfxNameType.fx_common_commander_skill_03,
-
                 _ => InGameVfxNameType.NONE
             };
         }
@@ -191,6 +192,7 @@ namespace CookApps.BattleSystem
                 BuffDebuffType.DefenceDown => "INGAME_UI_DEBUFF_DEF_DOWN",
                 BuffDebuffType.HealDown => "INGAME_UI_DEBUFF_HEAL_DOWN",
                 BuffDebuffType.Silence => "INGAME_UI_DEBUFF_SILENCE",
+                BuffDebuffType.NoDamageShield => "INGAME_UI_NO_DAMAGE_SHIELD_GET",
                 // BuffDebuffType.CriticalProbUp => "",
                 // BuffDebuffType.CriticalProbDown => "",
                 // BuffDebuffType.Slow => "",

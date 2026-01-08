@@ -117,6 +117,8 @@ namespace CookApps.AutoBattler
         DEBUFF_AP_PERCENT_DOWN = 2100000014,
         DEBUFF_RES_PERCENT_DOWN = 2100000015,
         DEBUFF_DEF_PERCENT_DOWN = 2100000016,
+        DEBUFF_MARIE_ARACNE = 2100000017,
+        DEBUFF_ODETTE_COLD = 2100000018,
     }
 
     public enum GradeType
@@ -549,6 +551,7 @@ namespace CookApps.AutoBattler
         Skill_401031_2 = 236,
         fx_common_buff_no_damage_shield_01 = 237,
         fx_common_buff_no_damage_shield_02 = 238,
+        fx_common_debuff_marie_aracne = 239,
     }
 
     public enum GlobalEffectProviderType
@@ -837,6 +840,9 @@ namespace CookApps.AutoBattler
     {
         NONE = 0,
         BUILDING = 1,
+        MULTI_BUILDING = 2,
+        MAX_LEVEL_UP = 3,
+        AREA_EXPAND = 4,
     }
 
     public enum BuildType

@@ -173,7 +173,7 @@ namespace CookApps.BattleSystem
         /// 크리티컬 터질때 호출 된다.
         /// </summary>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnCritical)]
-        public virtual void OnCritical()
+        public virtual void OnCritical(CharacterController target)
         {
         }
         #endregion
@@ -439,11 +439,11 @@ namespace CookApps.BattleSystem
             return deathInfo;
         };
 
-        public static Action<EffectCodeStatBase> CallOnCriticalLambda = x =>
+        public static Action<EffectCodeStatBase, CharacterController> CallOnCriticalLambda = (x, target) =>
         {
             if (x is EffectCodeCharacterBase code)
             {
-                code.OnCritical();
+                code.OnCritical(target);
             }
         };
 

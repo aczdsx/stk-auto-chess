@@ -34,7 +34,7 @@ namespace CookApps.AutoBattler
 
             if (sceneName == "InGame")
             {
-                await UnloadLobbyResources();
+                // await UnloadLobbyResources();
                 await LoadInGameResources(defaultUIData);
             }
         }

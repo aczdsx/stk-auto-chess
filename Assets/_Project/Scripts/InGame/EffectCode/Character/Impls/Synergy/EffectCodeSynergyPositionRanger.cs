@@ -23,9 +23,9 @@ public partial class EffectCodeSynergyPositionRanger : EffectCodeSynergyBase
         statValue = codeInfo.GetCodeStatToFloat(0);
     }
 
-    public override void OnCritical()
+    public override void OnCritical(CharacterController target)
     {
-        base.OnCritical();
+        base.OnCritical(target);
 
         foreach (var skillID in owner.SpecCharacter.skill_ids)
         {

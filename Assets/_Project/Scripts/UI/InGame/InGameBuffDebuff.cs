@@ -27,12 +27,12 @@ public class InGameBuffDebuff : MonoBehaviour
 
         if (_buffStackData.isShowValue)
         {
-            _buffSubText?.gameObject.SetActive(true);
+            _buffSubText.gameObject.SetActive(true);
             _buffSubText.text = $"{(int)_buffStackData.value}";
         }
         else
         {
-            _buffSubText?.gameObject.SetActive(false);
+            _buffSubText.gameObject.SetActive(false);
         }
 
         Debug.Log($"BuffDebuff is On. CodeId : {codeID}");

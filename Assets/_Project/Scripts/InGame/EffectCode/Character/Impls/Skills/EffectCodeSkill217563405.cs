@@ -12,6 +12,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 using UnityEngine.Localization.SmartFormat.Utilities;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 
 /// <summary>
 /// 마리에
@@ -108,12 +109,25 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
                 return;
             }
 
-            InGameVfxNameType skillFxType = (owner.AllianceType == AllianceType.Player)
-                ? InGameVfxNameType.fx_common_assassin_awful
-                : InGameVfxNameType.fx_common_assassin_enemy;
+            // // 두 타일 사이의 경로를 따라 VFX 표시
+            // var grid = InGameObjectManager.Instance.InGameGrid;
+            // var elementType = owner.SpecCharacter.character_element_type;
+            // var startTile = owner.CurrentTile;
+            // var endTile = targetBackTile;
 
-            // 이동 전 자리에 이펙트 추가
-            InGameVfxManager.Instance.AddInGameVfx(skillFxType, owner.GetCharacterView().CachedTr.position);
+            // var pathTiles = GetPathBetweenTiles(grid, startTile, endTile);
+            // foreach (var pathTile in pathTiles)
+            // {
+            //     InGameVfxManager.Instance.AddInGameTileFx(elementType, pathTile);
+            // }
+            
+            
+            // InGameVfxNameType skillFxType = (owner.AllianceType == AllianceType.Player)
+            //     ? InGameVfxNameType.fx_common_assassin_awful
+            //     : InGameVfxNameType.fx_common_assassin_enemy;
+
+            // // 이동 전 자리에 이펙트 추가
+            // InGameVfxManager.Instance.AddInGameVfx(skillFxType, owner.GetCharacterView().CachedTr.position);
 
             // 타일 변경 및 위치 설정
             owner.ChangeOccupiedTile(targetBackTile);
@@ -126,6 +140,49 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
 
         // 이동 완료 후 공격 시작
         StartAttackSequence(executeIndex, totalLength);
+    }
+
+    private List<InGameTile> GetPathBetweenTiles(InGameGrid grid, InGameTile startTile, InGameTile endTile)
+    {
+        var pathTiles = new List<InGameTile>();
+        var startPos = startTile.Int2Index;
+        var endPos = endTile.Int2Index;
+        
+        // Bresenham 알고리즘으로 직선 경로 계산
+        int deltaX = Math.Abs(endPos.x - startPos.x);
+        int deltaY = Math.Abs(endPos.y - startPos.y);
+        int stepX = startPos.x < endPos.x ? 1 : -1;
+        int stepY = startPos.y < endPos.y ? 1 : -1;
+        int error = deltaX - deltaY;
+        
+        int currentX = startPos.x;
+        int currentY = startPos.y;
+        
+        // 시작 타일부터 목표 타일까지 경로 추가
+        while (true)
+        {
+            var pathTile = grid.GetTile(new int2(currentX, currentY));
+            pathTiles.Add(pathTile);
+            
+            // 목표 타일에 도달하면 종료
+            if (currentX == endPos.x && currentY == endPos.y)
+                break;
+            
+            // Bresenham 알고리즘: 다음 타일 결정
+            int error2 = 2 * error;
+            if (error2 > -deltaY)
+            {
+                error -= deltaY;
+                currentX += stepX;
+            }
+            if (error2 < deltaX)
+            {
+                error += deltaX;
+                currentY += stepY;
+            }
+        }
+        
+        return pathTiles;
     }
 
     private CharacterController FindValidTarget()
@@ -203,7 +260,7 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
         int attackCountForThisIndex = baseAttackCount + (executeIndex == 0 ? remainder : 0);
         if(executeIndex == 0)
         {
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], _targetCharacter.GetCharacterView().CachedTr.position);
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], _targetCharacter.SkillMiddleFXTransformFollowable.GetPosition());
         }
 
         // 공격 횟수만큼 공격
