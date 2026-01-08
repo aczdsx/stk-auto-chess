@@ -154,6 +154,7 @@ namespace CookApps.BattleSystem
         Airborne,
         Misa,
         MarieAracne,
+        OdetteCold,
         MAX
     }
 

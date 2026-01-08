@@ -6,7 +6,7 @@ using CookApps.Obfuscator;
 namespace CookApps.BattleSystem
 {
     /// <summary>
-    /// 아트레시아
+    /// 아트레시아 패시브
     /// 범위: 자기 자신
     /// 스킬 사용 시 {0}회 적의 공격을 무시하는 보호막을 획득합니다.
     /// </summary>

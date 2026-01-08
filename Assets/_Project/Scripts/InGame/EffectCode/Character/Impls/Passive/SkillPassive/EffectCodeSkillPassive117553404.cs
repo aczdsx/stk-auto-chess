@@ -6,7 +6,7 @@ using CookApps.Obfuscator;
 namespace CookApps.BattleSystem
 {
     /// <summary>
-    /// 클레이이
+    /// 클레이이 패시브
     /// 범위: 치유 대상
     /// 클레이의 일반 공격으로 치유된 아군의 공격력과 방어력이 {0}% 증가하며, {1}초 동안 유지됩니다.
     /// </summary>

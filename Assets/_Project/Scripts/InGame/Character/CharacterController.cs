@@ -1060,13 +1060,18 @@ namespace CookApps.BattleSystem
             if (target.AllianceType == AllianceType.Neutral)
                 return damageInfo;
 
-            //회피 테스트 진행
-            ProgressAvoidTest(ref damageInfo, target);
-            if (damageInfo.isMissed)
+
+            if (!isSkill)
             {
-                //미스 시 데미지 0으로 처리 + 바로 리턴
-                return damageInfo;
+                //회피 테스트 진행
+                ProgressAvoidTest(ref damageInfo, target);
+                if (damageInfo.isMissed)
+                {
+                    //미스 시 데미지 0으로 처리 + 바로 리턴
+                    return damageInfo;
+                }
             }
+
 
             //속성 상성 데미지 계산
             CalculateElementAdvantageDamage(ref damageInfo, target);
@@ -1240,7 +1245,7 @@ namespace CookApps.BattleSystem
             }
             else
             {
-                ShowStaticNormalText("MISS!!",  "#FF0000FF").Forget();
+                ShowStaticNormalText("MISS!!", "#FF0000FF").Forget();
             }
 
             _currHp -= damageAmount.damageAmount.Value;
