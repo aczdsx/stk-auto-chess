@@ -7,18 +7,18 @@ using UnityEngine;
 namespace CookApps.AutoBattler
 {
     /// <summary>
-    /// 지갑 데이터 브릿지
+    /// 인벤토리 데이터 브릿지
     /// ServerDataManager와 UI 사이의 중간 레이어
     /// </summary>
-    public class WalletDataBridge
+    public class InventoryDataBridge
     {
-        private WalletModel Model;
+        private InventoryModel Model;
         // Public Observable 노출
         public Observable<(uint itemId, ulong oldAmount, ulong newAmount)> OnCurrencyChanged;
 
-        public WalletDataBridge()
+        public InventoryDataBridge()
         {
-            Model = ServerDataManager.Instance.Wallet;
+            Model = ServerDataManager.Instance.Inventory;
             OnCurrencyChanged = Model.OnCurrencyChanged;
         }
 

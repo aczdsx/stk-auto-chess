@@ -5,6 +5,7 @@ package tech.hive.v1;
 import "base.proto";
 
 import "custom_lobby+player_data.proto";
+import "custom_lobby+event.proto";
 
 service CustomLobbyService {
   /**
@@ -16,6 +17,11 @@ service CustomLobbyService {
    * 대표 캐릭터 설정
    */
   rpc SetRepresentativeCharacter(CustomLobbySetRepresentativeCharacterRequest) returns (CustomLobbySetRepresentativeCharacterResponse);
+
+  /**
+   * 이벤트 구독 (request를 주기적으로 날려 ping 처리 해주어야 함)
+   */
+  rpc SubscribeEvent(stream CustomLobbySubscribeEventRequest) returns (stream CustomLobbySubscribeEventResponse);
 }
 
 
@@ -35,4 +41,10 @@ message CustomLobbySetRepresentativeCharacterRequest {
 
 message CustomLobbySetRepresentativeCharacterResponse {
   ResponseStatus status = 1;
+}
+
+message CustomLobbySubscribeEventRequest {}
+message CustomLobbySubscribeEventResponse {
+  ResponseStatus status = 1;
+  BM013Event event = 2;
 }

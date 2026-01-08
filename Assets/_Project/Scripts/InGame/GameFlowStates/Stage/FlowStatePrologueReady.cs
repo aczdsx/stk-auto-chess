@@ -62,10 +62,10 @@ public class FlowStatePrologueReady : StateReadyBase
         // 프롤로그 플레이어 캐릭터 위치 (플레이어 진영 앞쪽)
         var prologueCharacterPositions = new Dictionary<int, int2>
         {
-            { 140103, new int2(2, 2) }, // 클레이, 임시로 오데트
-            { 130601, new int2(1, 2) }, // 유니
-            { 130402, new int2(3, 2) }, // 필리아
-            { 140101, new int2(2, 1) }  // 아트레시아 (중앙 앞)
+            { 117553404, new int2(2, 2) }, 
+            { 115252102, new int2(1, 2) }, // 유니
+            { 115532401, new int2(3, 2) }, // 필리아
+            { 117513401, new int2(2, 1) }  // 아트레시아 (중앙 앞)
         };
 
         // 플레이어 캐릭터 소환
@@ -86,7 +86,7 @@ public class FlowStatePrologueReady : StateReadyBase
 
         //라플라스 마녀 소환 
         //[TODO] 라플라스 마녀의 실제 캐릭터 ID로 변경 필요
-        int laplaceWitchId = 120403; // 임시 ID (Trial 던전 보스)
+        int laplaceWitchId = 350608501; // 임시 ID (Trial 던전 보스)
         int2 witchPosition = new int2(2, 10);
 
         Debug.LogColor($"라플라스 마녀 추가 : {laplaceWitchId} at ({witchPosition.x}, {witchPosition.y})");

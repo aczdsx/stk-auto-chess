@@ -29,10 +29,11 @@ namespace Tech.Hive.V1 {
             "EgwKBGNvZGUYASABKAkigQEKFENvdXBvblJld2FyZFJlc3BvbnNlEiwKBnN0",
             "YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxI7Cg5p",
             "bnZlbnRvcnlfZmxvdxgCIAEoCzIjLnRlY2guaGl2ZS52MS5CYXNlSW52ZW50",
-            "b3J5Rmxvd0RhdGEqigEKD0NvdXBvbkVycm9yQ29kZRIWChJDT1VQT05fVU5T",
+            "b3J5Rmxvd0RhdGEqtwEKD0NvdXBvbkVycm9yQ29kZRIWChJDT1VQT05fVU5T",
             "UEVDSUZJRUQQABIVChBDT1VQT05fTk9UX0ZPVU5EEJgREhgKE0NPVVBPTl9B",
             "TFJFQURZX1VTRUQQmRESEwoOQ09VUE9OX0VYUElSRUQQmhESGQoUQ09VUE9O",
-            "X05PVF9BVkFJTEFCTEUQmxEyYgoNQ291cG9uU2VydmljZRJRCgZSZXdhcmQS",
+            "X05PVF9BVkFJTEFCTEUQmxESFgoRQ09VUE9OX05PVF9BQ1RJVkUQnBESEwoO",
+            "Q09VUE9OX0RFTEVURUQQnREyYgoNQ291cG9uU2VydmljZRJRCgZSZXdhcmQS",
             "IS50ZWNoLmhpdmUudjEuQ291cG9uUmV3YXJkUmVxdWVzdBoiLnRlY2guaGl2",
             "ZS52MS5Db3Vwb25SZXdhcmRSZXNwb25zZSIAYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
@@ -64,6 +65,14 @@ namespace Tech.Hive.V1 {
     /// 사용할 수 없는 쿠폰
     /// </summary>
     [pbr::OriginalName("COUPON_NOT_AVAILABLE")] CouponNotAvailable = 2203,
+    /// <summary>
+    /// 활성 쿠폰이 아님
+    /// </summary>
+    [pbr::OriginalName("COUPON_NOT_ACTIVE")] CouponNotActive = 2204,
+    /// <summary>
+    /// 삭제된 쿠폰
+    /// </summary>
+    [pbr::OriginalName("COUPON_DELETED")] CouponDeleted = 2205,
   }
 
   #endregion

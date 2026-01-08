@@ -68,6 +68,8 @@ enum ElpisErrorCode {
 
   ELPIS_CORE_RESEARCH_UPGRADE_GROUP_NOT_FOUND = 10130108; // 코어 연구 업그레이드 그룹을 스펙에서 찾을 수 없습니다.
   ELPIS_CORE_RESEARCH_MAX_LEVEL_REACHED = 10130109; // 코어 연구 최대 레벨에 도달했습니다.
+
+  ELPIS_FACILITY_BUILD_FAILED = 10130110; // 요청된 건물중에 지을 수 없는 건물이 포함됐습니다. (ONLYONE 타입인데, 이미 있거나 개수를 초과했거나)
 }
 
 message ElpisGetRequest {}

@@ -22,6 +22,9 @@ service GachaService {
 
 enum GachaErrorCode {
   GACHA_UNSPECIFIED = 0;
+
+  GACHA_NOT_FOUND = 10130601; // 가챠 데이터가 없음
+  GACHA_NOT_IN_PERIOD = 10130602;  // 가챠 기간이 아님
 }
 
 message GachaListRequest {}
@@ -32,14 +35,10 @@ message GachaListResponse {
 
 message DrawGachaRequest {
   string gacha_id = 1;
-  uint32 count = 2;  // 1 or 10
 }
 
 message DrawGachaResponse {
   ResponseStatus status = 1;
   repeated GachaResult results = 2;
   repeated CurrencyDelta currency_deltas = 3;
-
-  // 업데이트된 보장 카운트
-  uint32 new_pity_count = 4;
 }

@@ -49,53 +49,53 @@ namespace Tech.Hive.V1 {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckListBattleDeckRequest> __Marshaller_tech_hive_v1_DeckListBattleDeckRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckListBattleDeckRequest.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckListRequest> __Marshaller_tech_hive_v1_DeckListRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckListRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckListBattleDeckResponse> __Marshaller_tech_hive_v1_DeckListBattleDeckResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckListBattleDeckResponse.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckListResponse> __Marshaller_tech_hive_v1_DeckListResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckListResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckGetBattleDeckRequest> __Marshaller_tech_hive_v1_DeckGetBattleDeckRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckGetBattleDeckRequest.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckGetRequest> __Marshaller_tech_hive_v1_DeckGetRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckGetRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckGetBattleDeckResponse> __Marshaller_tech_hive_v1_DeckGetBattleDeckResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckGetBattleDeckResponse.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckGetResponse> __Marshaller_tech_hive_v1_DeckGetResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckGetResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckSaveBattleDeckRequest> __Marshaller_tech_hive_v1_DeckSaveBattleDeckRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckSaveBattleDeckRequest.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckSaveRequest> __Marshaller_tech_hive_v1_DeckSaveRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckSaveRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckSaveBattleDeckResponse> __Marshaller_tech_hive_v1_DeckSaveBattleDeckResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckSaveBattleDeckResponse.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckSaveResponse> __Marshaller_tech_hive_v1_DeckSaveResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckSaveResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckDeleteBattleDeckRequest> __Marshaller_tech_hive_v1_DeckDeleteBattleDeckRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckDeleteBattleDeckRequest.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckDeleteRequest> __Marshaller_tech_hive_v1_DeckDeleteRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckDeleteRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckDeleteBattleDeckResponse> __Marshaller_tech_hive_v1_DeckDeleteBattleDeckResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckDeleteBattleDeckResponse.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.DeckDeleteResponse> __Marshaller_tech_hive_v1_DeckDeleteResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.DeckDeleteResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.DeckListBattleDeckRequest, global::Tech.Hive.V1.DeckListBattleDeckResponse> __Method_ListBattleDeck = new grpc::Method<global::Tech.Hive.V1.DeckListBattleDeckRequest, global::Tech.Hive.V1.DeckListBattleDeckResponse>(
+    static readonly grpc::Method<global::Tech.Hive.V1.DeckListRequest, global::Tech.Hive.V1.DeckListResponse> __Method_List = new grpc::Method<global::Tech.Hive.V1.DeckListRequest, global::Tech.Hive.V1.DeckListResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "ListBattleDeck",
-        __Marshaller_tech_hive_v1_DeckListBattleDeckRequest,
-        __Marshaller_tech_hive_v1_DeckListBattleDeckResponse);
+        "List",
+        __Marshaller_tech_hive_v1_DeckListRequest,
+        __Marshaller_tech_hive_v1_DeckListResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.DeckGetBattleDeckRequest, global::Tech.Hive.V1.DeckGetBattleDeckResponse> __Method_GetBattleDeck = new grpc::Method<global::Tech.Hive.V1.DeckGetBattleDeckRequest, global::Tech.Hive.V1.DeckGetBattleDeckResponse>(
+    static readonly grpc::Method<global::Tech.Hive.V1.DeckGetRequest, global::Tech.Hive.V1.DeckGetResponse> __Method_Get = new grpc::Method<global::Tech.Hive.V1.DeckGetRequest, global::Tech.Hive.V1.DeckGetResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "GetBattleDeck",
-        __Marshaller_tech_hive_v1_DeckGetBattleDeckRequest,
-        __Marshaller_tech_hive_v1_DeckGetBattleDeckResponse);
+        "Get",
+        __Marshaller_tech_hive_v1_DeckGetRequest,
+        __Marshaller_tech_hive_v1_DeckGetResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.DeckSaveBattleDeckRequest, global::Tech.Hive.V1.DeckSaveBattleDeckResponse> __Method_SaveBattleDeck = new grpc::Method<global::Tech.Hive.V1.DeckSaveBattleDeckRequest, global::Tech.Hive.V1.DeckSaveBattleDeckResponse>(
+    static readonly grpc::Method<global::Tech.Hive.V1.DeckSaveRequest, global::Tech.Hive.V1.DeckSaveResponse> __Method_Save = new grpc::Method<global::Tech.Hive.V1.DeckSaveRequest, global::Tech.Hive.V1.DeckSaveResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "SaveBattleDeck",
-        __Marshaller_tech_hive_v1_DeckSaveBattleDeckRequest,
-        __Marshaller_tech_hive_v1_DeckSaveBattleDeckResponse);
+        "Save",
+        __Marshaller_tech_hive_v1_DeckSaveRequest,
+        __Marshaller_tech_hive_v1_DeckSaveResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.DeckDeleteBattleDeckRequest, global::Tech.Hive.V1.DeckDeleteBattleDeckResponse> __Method_DeleteBattleDeck = new grpc::Method<global::Tech.Hive.V1.DeckDeleteBattleDeckRequest, global::Tech.Hive.V1.DeckDeleteBattleDeckResponse>(
+    static readonly grpc::Method<global::Tech.Hive.V1.DeckDeleteRequest, global::Tech.Hive.V1.DeckDeleteResponse> __Method_Delete = new grpc::Method<global::Tech.Hive.V1.DeckDeleteRequest, global::Tech.Hive.V1.DeckDeleteResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "DeleteBattleDeck",
-        __Marshaller_tech_hive_v1_DeckDeleteBattleDeckRequest,
-        __Marshaller_tech_hive_v1_DeckDeleteBattleDeckResponse);
+        "Delete",
+        __Marshaller_tech_hive_v1_DeckDeleteRequest,
+        __Marshaller_tech_hive_v1_DeckDeleteResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -115,7 +115,7 @@ namespace Tech.Hive.V1 {
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.DeckListBattleDeckResponse> ListBattleDeck(global::Tech.Hive.V1.DeckListBattleDeckRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.DeckListResponse> List(global::Tech.Hive.V1.DeckListRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -128,7 +128,7 @@ namespace Tech.Hive.V1 {
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.DeckGetBattleDeckResponse> GetBattleDeck(global::Tech.Hive.V1.DeckGetBattleDeckRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.DeckGetResponse> Get(global::Tech.Hive.V1.DeckGetRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -141,7 +141,7 @@ namespace Tech.Hive.V1 {
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.DeckSaveBattleDeckResponse> SaveBattleDeck(global::Tech.Hive.V1.DeckSaveBattleDeckRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.DeckSaveResponse> Save(global::Tech.Hive.V1.DeckSaveRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -154,7 +154,7 @@ namespace Tech.Hive.V1 {
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.DeckDeleteBattleDeckResponse> DeleteBattleDeck(global::Tech.Hive.V1.DeckDeleteBattleDeckRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.DeckDeleteResponse> Delete(global::Tech.Hive.V1.DeckDeleteRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -198,9 +198,9 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.DeckListBattleDeckResponse ListBattleDeck(global::Tech.Hive.V1.DeckListBattleDeckRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Tech.Hive.V1.DeckListResponse List(global::Tech.Hive.V1.DeckListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return ListBattleDeck(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return List(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
@@ -210,9 +210,9 @@ namespace Tech.Hive.V1 {
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.DeckListBattleDeckResponse ListBattleDeck(global::Tech.Hive.V1.DeckListBattleDeckRequest request, grpc::CallOptions options)
+      public virtual global::Tech.Hive.V1.DeckListResponse List(global::Tech.Hive.V1.DeckListRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_ListBattleDeck, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_List, null, options, request);
       }
       /// <summary>
       ///*
@@ -224,9 +224,9 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckListBattleDeckResponse> ListBattleDeckAsync(global::Tech.Hive.V1.DeckListBattleDeckRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckListResponse> ListAsync(global::Tech.Hive.V1.DeckListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return ListBattleDeckAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return ListAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
@@ -236,9 +236,9 @@ namespace Tech.Hive.V1 {
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckListBattleDeckResponse> ListBattleDeckAsync(global::Tech.Hive.V1.DeckListBattleDeckRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckListResponse> ListAsync(global::Tech.Hive.V1.DeckListRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_ListBattleDeck, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_List, null, options, request);
       }
       /// <summary>
       ///*
@@ -250,9 +250,9 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.DeckGetBattleDeckResponse GetBattleDeck(global::Tech.Hive.V1.DeckGetBattleDeckRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Tech.Hive.V1.DeckGetResponse Get(global::Tech.Hive.V1.DeckGetRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return GetBattleDeck(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return Get(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
@@ -262,9 +262,9 @@ namespace Tech.Hive.V1 {
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.DeckGetBattleDeckResponse GetBattleDeck(global::Tech.Hive.V1.DeckGetBattleDeckRequest request, grpc::CallOptions options)
+      public virtual global::Tech.Hive.V1.DeckGetResponse Get(global::Tech.Hive.V1.DeckGetRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_GetBattleDeck, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_Get, null, options, request);
       }
       /// <summary>
       ///*
@@ -276,9 +276,9 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckGetBattleDeckResponse> GetBattleDeckAsync(global::Tech.Hive.V1.DeckGetBattleDeckRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckGetResponse> GetAsync(global::Tech.Hive.V1.DeckGetRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return GetBattleDeckAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return GetAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
@@ -288,9 +288,9 @@ namespace Tech.Hive.V1 {
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckGetBattleDeckResponse> GetBattleDeckAsync(global::Tech.Hive.V1.DeckGetBattleDeckRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckGetResponse> GetAsync(global::Tech.Hive.V1.DeckGetRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_GetBattleDeck, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_Get, null, options, request);
       }
       /// <summary>
       ///*
@@ -302,9 +302,9 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.DeckSaveBattleDeckResponse SaveBattleDeck(global::Tech.Hive.V1.DeckSaveBattleDeckRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Tech.Hive.V1.DeckSaveResponse Save(global::Tech.Hive.V1.DeckSaveRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return SaveBattleDeck(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return Save(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
@@ -314,9 +314,9 @@ namespace Tech.Hive.V1 {
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.DeckSaveBattleDeckResponse SaveBattleDeck(global::Tech.Hive.V1.DeckSaveBattleDeckRequest request, grpc::CallOptions options)
+      public virtual global::Tech.Hive.V1.DeckSaveResponse Save(global::Tech.Hive.V1.DeckSaveRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_SaveBattleDeck, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_Save, null, options, request);
       }
       /// <summary>
       ///*
@@ -328,9 +328,9 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckSaveBattleDeckResponse> SaveBattleDeckAsync(global::Tech.Hive.V1.DeckSaveBattleDeckRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckSaveResponse> SaveAsync(global::Tech.Hive.V1.DeckSaveRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return SaveBattleDeckAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return SaveAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
@@ -340,9 +340,9 @@ namespace Tech.Hive.V1 {
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckSaveBattleDeckResponse> SaveBattleDeckAsync(global::Tech.Hive.V1.DeckSaveBattleDeckRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckSaveResponse> SaveAsync(global::Tech.Hive.V1.DeckSaveRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_SaveBattleDeck, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_Save, null, options, request);
       }
       /// <summary>
       ///*
@@ -354,9 +354,9 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.DeckDeleteBattleDeckResponse DeleteBattleDeck(global::Tech.Hive.V1.DeckDeleteBattleDeckRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Tech.Hive.V1.DeckDeleteResponse Delete(global::Tech.Hive.V1.DeckDeleteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return DeleteBattleDeck(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return Delete(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
@@ -366,9 +366,9 @@ namespace Tech.Hive.V1 {
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.DeckDeleteBattleDeckResponse DeleteBattleDeck(global::Tech.Hive.V1.DeckDeleteBattleDeckRequest request, grpc::CallOptions options)
+      public virtual global::Tech.Hive.V1.DeckDeleteResponse Delete(global::Tech.Hive.V1.DeckDeleteRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_DeleteBattleDeck, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_Delete, null, options, request);
       }
       /// <summary>
       ///*
@@ -380,9 +380,9 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckDeleteBattleDeckResponse> DeleteBattleDeckAsync(global::Tech.Hive.V1.DeckDeleteBattleDeckRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckDeleteResponse> DeleteAsync(global::Tech.Hive.V1.DeckDeleteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return DeleteBattleDeckAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return DeleteAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
@@ -392,9 +392,9 @@ namespace Tech.Hive.V1 {
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckDeleteBattleDeckResponse> DeleteBattleDeckAsync(global::Tech.Hive.V1.DeckDeleteBattleDeckRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.DeckDeleteResponse> DeleteAsync(global::Tech.Hive.V1.DeckDeleteRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_DeleteBattleDeck, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_Delete, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -410,10 +410,10 @@ namespace Tech.Hive.V1 {
     public static grpc::ServerServiceDefinition BindService(DeckServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_ListBattleDeck, serviceImpl.ListBattleDeck)
-          .AddMethod(__Method_GetBattleDeck, serviceImpl.GetBattleDeck)
-          .AddMethod(__Method_SaveBattleDeck, serviceImpl.SaveBattleDeck)
-          .AddMethod(__Method_DeleteBattleDeck, serviceImpl.DeleteBattleDeck).Build();
+          .AddMethod(__Method_List, serviceImpl.List)
+          .AddMethod(__Method_Get, serviceImpl.Get)
+          .AddMethod(__Method_Save, serviceImpl.Save)
+          .AddMethod(__Method_Delete, serviceImpl.Delete).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -423,10 +423,10 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public static void BindService(grpc::ServiceBinderBase serviceBinder, DeckServiceBase serviceImpl)
     {
-      serviceBinder.AddMethod(__Method_ListBattleDeck, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.DeckListBattleDeckRequest, global::Tech.Hive.V1.DeckListBattleDeckResponse>(serviceImpl.ListBattleDeck));
-      serviceBinder.AddMethod(__Method_GetBattleDeck, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.DeckGetBattleDeckRequest, global::Tech.Hive.V1.DeckGetBattleDeckResponse>(serviceImpl.GetBattleDeck));
-      serviceBinder.AddMethod(__Method_SaveBattleDeck, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.DeckSaveBattleDeckRequest, global::Tech.Hive.V1.DeckSaveBattleDeckResponse>(serviceImpl.SaveBattleDeck));
-      serviceBinder.AddMethod(__Method_DeleteBattleDeck, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.DeckDeleteBattleDeckRequest, global::Tech.Hive.V1.DeckDeleteBattleDeckResponse>(serviceImpl.DeleteBattleDeck));
+      serviceBinder.AddMethod(__Method_List, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.DeckListRequest, global::Tech.Hive.V1.DeckListResponse>(serviceImpl.List));
+      serviceBinder.AddMethod(__Method_Get, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.DeckGetRequest, global::Tech.Hive.V1.DeckGetResponse>(serviceImpl.Get));
+      serviceBinder.AddMethod(__Method_Save, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.DeckSaveRequest, global::Tech.Hive.V1.DeckSaveResponse>(serviceImpl.Save));
+      serviceBinder.AddMethod(__Method_Delete, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.DeckDeleteRequest, global::Tech.Hive.V1.DeckDeleteResponse>(serviceImpl.Delete));
     }
 
   }

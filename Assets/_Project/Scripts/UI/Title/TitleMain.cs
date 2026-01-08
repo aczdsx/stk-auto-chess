@@ -98,7 +98,14 @@ namespace CookApps.AutoBattler
             // 앱이벤트 전송
             AppEventManager.Instance.Login();
 
+            var serverTasks = new UniTask[]
+            {
+                NetManager.Instance.CustomLobby.GetMyPlayerDataAsync(),
+                NetManager.Instance.Inventory.ListAsync(),
+            };
+            NetManager.Instance.Battle.ListChapterAsync().Forget();
             NetManager.Instance.Initialize_Elpis().Forget();
+            await UniTask.WhenAll(serverTasks);
 
             // var transition1 = SceneTransition_FadeInOut.Create();
             // 프롤로그로 진입하게 해줘야함
@@ -107,12 +114,6 @@ namespace CookApps.AutoBattler
             // return;
 
 
-            // SceneTransition.Create<SceneTransition_FadeInOut>();
-            // SceneTransition.FadeInAsync().Forget();
-            // SceneLoading.GoToNextScene("InGame",
-            //         (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0), naninovelScriptName: "Scripts/0-1");
-            // return;
-
             {
                 // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.  
 
@@ -120,12 +121,17 @@ namespace CookApps.AutoBattler
                 var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
                 if (UserDataManager.Instance.IsClearStage(lastTutoStageData.stage_id) == false)
                 {
-                    var lastStageID = UserDataManager.Instance.GetLastPlayStageID();
-                    var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
-                    if (UserDataManager.Instance.IsClearStage(lastStageID)) specStageData = SpecDataManager.Instance.GetNextStageData(lastStageID);
+                    // var lastStageID = UserDataManager.Instance.GetLastPlayStageID();
+                    // var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
+                    // if (UserDataManager.Instance.IsClearStage(lastStageID)) specStageData = SpecDataManager.Instance.GetNextStageData(lastStageID);
 
-                    SceneLoading.GoToNextScene("InGame",
-                        (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), specStageData.stage_id));
+                    // SceneLoading.GoToNextScene("InGame",
+                    //     (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), specStageData.stage_id));
+                    SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+                    await SceneTransition.FadeInAsync();
+                    
+                    SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
+                    return;
                 }
                 else
                 {

@@ -18,6 +18,17 @@ namespace CookApps.AutoBattler
                 new PlayerInventoryListRequest {  },
                 cancellationToken: cancellationToken
             );
+
+            // InventoryModel 갱신
+            if (resp?.Status?.Code == 0 && resp.ItemList != null)
+            {
+                var inventoryModel = ServerDataManager.Instance.Inventory;
+                foreach (var item in resp.ItemList)
+                {
+                    inventoryModel.SetCurrency(item.ItemId, item.Count);
+                }
+            }
+
             return resp;
         }
         
@@ -31,6 +42,17 @@ namespace CookApps.AutoBattler
                 new PlayerInventoryListRequest { ItemIds = { currencyId } },
                 cancellationToken: cancellationToken
             );
+
+            // InventoryModel 갱신
+            if (resp?.Status?.Code == 0 && resp.ItemList != null)
+            {
+                var inventoryModel = ServerDataManager.Instance.Inventory;
+                foreach (var item in resp.ItemList)
+                {
+                    inventoryModel.SetCurrency(item.ItemId, item.Count);
+                }
+            }
+
             return resp;
         }
     }

@@ -48,6 +48,12 @@ namespace CookApps.TeamBattle.UIManagements
         public static Func<string, string> OnGetNaninovelTrigger { get; set; }
 
         /// <summary>
+        /// SPECIAL 타입 나니노벨 트리거를 trigger_key로 검색하는 델리게이트
+        /// 일회성 특수 트리거용 (PrologueStart, PrologueEnd 등)
+        /// </summary>
+        public static Func<string, string> OnGetSpecialNaninovelTrigger { get; set; }
+
+        /// <summary>
         /// 무거운 씬간 전환시 사용, 전환 중간에 가벼운 씬을 둠으로써 무거운 씬2개가 동시에 떠서 메모리가 부족해지는 것을 방지
         /// </summary>
         /// <param name="nextScene">목적지 씬 이름</param>
@@ -57,12 +63,31 @@ namespace CookApps.TeamBattle.UIManagements
         {
             // 트리거 델리게이트가 설정되어 있으면 나니노벨 트리거 검색
             var naninovelScriptName = OnGetNaninovelTrigger?.Invoke(nextScene);
+            GoToNextSceneInternal(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptName);
+        }
 
+        /// <summary>
+        /// SPECIAL 타입 나니노벨 트리거를 지정하여 씬 전환
+        /// 일회성 특수 트리거용 (PrologueStart, PrologueEnd 등)
+        /// </summary>
+        /// <param name="nextScene">목적지 씬 이름</param>
+        /// <param name="specialTriggerKey">SPECIAL 타입 나니노벨 trigger_key</param>
+        /// <param name="nextSceneData">목적지 씬 데이터</param>
+        /// <param name="sceneLoadingEventReceiver">씬 로딩 이벤트 리시버</param>
+        public static void GoToNextSceneWithSpecialTrigger(string nextScene, string specialTriggerKey, object nextSceneData = null, SceneLoadingEventReceiver sceneLoadingEventReceiver = null)
+        {
+            // SPECIAL 트리거 검색
+            var naninovelScriptName = OnGetSpecialNaninovelTrigger?.Invoke(specialTriggerKey);
+            GoToNextSceneInternal(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptName);
+        }
+
+        private static void GoToNextSceneInternal(string nextScene, object nextSceneData, SceneLoadingEventReceiver sceneLoadingEventReceiver, string naninovelScriptName)
+        {
             // 나니노벨이 있으면 나니노벨 씬으로 먼저 이동
             if (!string.IsNullOrEmpty(naninovelScriptName))
             {
-                //GoToNextSceneViaNaninovel(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptName);
-                //return;
+                GoToNextSceneViaNaninovel(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptName);
+                return;
             }
 
             // transition 연출 진행중 다른 씬으로 넘어가는 것을 방지하기 위해

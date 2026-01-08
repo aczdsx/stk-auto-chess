@@ -7,10 +7,10 @@ using UnityEngine;
 namespace CookApps.AutoBattler
 {
     /// <summary>
-    /// 지갑 데이터 모델 (통화 관리)
+    /// 인벤토리 데이터 모델 (통화 관리)
     /// CurrencyDelta를 사용한 델타 업데이트 지원
     /// </summary>
-    public class WalletModel
+    public class InventoryModel
     {
         // 통화 데이터 (ItemId -> Amount)
         private readonly Dictionary<uint, ulong> _currencies = new (16);
@@ -38,7 +38,7 @@ namespace CookApps.AutoBattler
             {
                 if (amount < 0)
                 {
-                    Debug.LogError("[WalletModel] Invalid currency: negative amount");
+                    Debug.LogError("[InventoryModel] Invalid currency: negative amount");
                     return false;
                 }
             }

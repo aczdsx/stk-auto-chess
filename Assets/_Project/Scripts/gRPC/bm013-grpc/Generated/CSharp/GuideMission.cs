@@ -35,14 +35,15 @@ namespace Tech.Hive.V1 {
             "MhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjUKDWd1aWRlX21pc3Np",
             "b24YAiABKAsyHi50ZWNoLmhpdmUudjEuR3VpZGVNaXNzaW9uRGF0YRIlCgdy",
             "ZXdhcmRzGAMgAygLMhQudGVjaC5oaXZlLnYxLlJld2FyZBI0Cg9jdXJyZW5j",
-            "eV9kZWx0YXMYBCADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSo2",
+            "eV9kZWx0YXMYBCADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSp4",
             "ChVHdWlkZU1pc3Npb25FcnJvckNvZGUSHQoZR1VJREVfTUlTU0lPTl9VTlNQ",
-            "RUNJRklFRBAAMtUBChNHdWlkZU1pc3Npb25TZXJ2aWNlElIKA0dldBIkLnRl",
-            "Y2guaGl2ZS52MS5HdWlkZU1pc3Npb25HZXRSZXF1ZXN0GiUudGVjaC5oaXZl",
-            "LnYxLkd1aWRlTWlzc2lvbkdldFJlc3BvbnNlEmoKC0NsYWltUmV3YXJkEiwu",
-            "dGVjaC5oaXZlLnYxLkd1aWRlTWlzc2lvbkNsYWltUmV3YXJkUmVxdWVzdBot",
-            "LnRlY2guaGl2ZS52MS5HdWlkZU1pc3Npb25DbGFpbVJld2FyZFJlc3BvbnNl",
-            "YgZwcm90bzM="));
+            "RUNJRklFRBAAEh4KF0dVSURFX01JU1NJT05fTk9UX0ZPVU5EEMWo6gQSIAoZ",
+            "R1VJREVfTUlTU0lPTl9OT1RfQ0xFQVJFRBDGqOoEMtUBChNHdWlkZU1pc3Np",
+            "b25TZXJ2aWNlElIKA0dldBIkLnRlY2guaGl2ZS52MS5HdWlkZU1pc3Npb25H",
+            "ZXRSZXF1ZXN0GiUudGVjaC5oaXZlLnYxLkd1aWRlTWlzc2lvbkdldFJlc3Bv",
+            "bnNlEmoKC0NsYWltUmV3YXJkEiwudGVjaC5oaXZlLnYxLkd1aWRlTWlzc2lv",
+            "bkNsYWltUmV3YXJkUmVxdWVzdBotLnRlY2guaGl2ZS52MS5HdWlkZU1pc3Np",
+            "b25DbGFpbVJld2FyZFJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.GuideMissionDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.GuideMissionErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -58,6 +59,14 @@ namespace Tech.Hive.V1 {
   #region Enums
   public enum GuideMissionErrorCode {
     [pbr::OriginalName("GUIDE_MISSION_UNSPECIFIED")] GuideMissionUnspecified = 0,
+    /// <summary>
+    /// 가이드 미션 데이터가 없음 (Get 조회시 기본 값 생성)
+    /// </summary>
+    [pbr::OriginalName("GUIDE_MISSION_NOT_FOUND")] GuideMissionNotFound = 10130501,
+    /// <summary>
+    /// 가이드 미션 클리어 안됨
+    /// </summary>
+    [pbr::OriginalName("GUIDE_MISSION_NOT_CLEARED")] GuideMissionNotCleared = 10130502,
   }
 
   #endregion

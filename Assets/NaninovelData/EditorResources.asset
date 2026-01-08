@@ -182,7 +182,7 @@ MonoBehaviour:
     - name: Localization/zh-TW/Scripts/nani_char_get_102900
       pathPrefix: Scripts
       guid: 7e93f3803effb254485be6d5725a6b38
-    - name: Localization/ko/Scripts/0-1
+    - name: "Localization/ko/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C1"
       pathPrefix: Scripts
       guid: 09593713a1deab84eb1dad5675928def
     - name: Scripts/nani_05_05_01
@@ -275,7 +275,7 @@ MonoBehaviour:
     - name: Localization/ko/Scripts/3-5
       pathPrefix: Scripts
       guid: 15b634fe047a7bc44adc7ff24fc2fdca
-    - name: Scripts/0-1
+    - name: "Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C1"
       pathPrefix: Scripts
       guid: 32a65bd9420b96b40ae66c70d725e94f
     - name: Localization/ja/Scripts/nani_sub_002
@@ -467,9 +467,6 @@ MonoBehaviour:
     - name: Localization/ko/Scripts/Sample
       pathPrefix: Scripts
       guid: 5cd7f439b9fd1594690b1555cdb977e5
-    - name: Localization/en/Scripts/0-2-1
-      pathPrefix: Scripts
-      guid: eb4c06422e53ceb469cb918030429cfc
     - name: Scripts/2-2
       pathPrefix: Scripts
       guid: 6e936207a40f190419a520588e70ca9a
@@ -539,7 +536,7 @@ MonoBehaviour:
     - name: Localization/en/Scripts/2-4
       pathPrefix: Scripts
       guid: e919a967fbff0f94ebb061df3f0def99
-    - name: Localization/en/Scripts/0-1
+    - name: "Localization/en/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C1"
       pathPrefix: Scripts
       guid: aa1e071ce27f8d64daca550c9c1a8cd2
     - name: Localization/ja/Scripts/0-0(Closing)
@@ -926,6 +923,15 @@ MonoBehaviour:
     - name: Localization/ko/Scripts/4-5(1)
       pathPrefix: Scripts
       guid: 8fc622bffb4b3a948a8ba2ba1340e7f0
+    - name: "Localization/en/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
+      pathPrefix: Scripts
+      guid: ba7dd6f0859fa4db3947984897040255
+    - name: "Naninovel/ko/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
+      pathPrefix: Scripts
+      guid: 0a019d8da6bb44bccae259e9520de6c6
+    - name: "Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
+      pathPrefix: Scripts
+      guid: 54becdc6deb5141ccb3b49c78cf0b0d5
   - Id: CharacterAvatars
     Resources: []
   - Id: Characters/97730980-6691-4698-b6da-9388d226f1d6

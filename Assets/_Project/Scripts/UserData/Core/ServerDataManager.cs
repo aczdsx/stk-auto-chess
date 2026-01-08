@@ -13,9 +13,10 @@ namespace CookApps.AutoBattler
     {
         // 데이터 모델
         public CharacterModel Character { get; private set; } = new ();
-        public WalletModel Wallet { get; private set; } = new ();
+        public InventoryModel Inventory { get; private set; } = new ();
         public ElpisModel Elpis { get; private set; } = new ();
         public BattleModel Battle { get; private set; } = new ();
+        public PlayerDataModel PlayerData { get; private set; } = new ();
 
         /// <summary>
         /// 모든 데이터 초기화
@@ -23,9 +24,10 @@ namespace CookApps.AutoBattler
         public void ClearAll()
         {
             Character.Reset();
-            Wallet.Reset();
+            Inventory.Reset();
             Elpis.Reset();
             Battle.Reset();
+            PlayerData.Reset();
         }
     }
 }

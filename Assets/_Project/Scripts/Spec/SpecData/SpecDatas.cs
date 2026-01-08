@@ -373,6 +373,8 @@ namespace CookApps.AutoBattler
         public int id;
         /// 캐릭터 레벨
         public int level;
+        /// 돌파 여부
+        public bool IsExceed;
         /// 기본 레벨업 필요 아이템
         public int base_levelup_item_id;
         /// 경험치 필요량
@@ -921,6 +923,8 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.NaninovelTriggerType naninovel_trigger_type;
         /// 나니노벨 키
         public string trigger_key;
+        /// 가이드 미션 ID(state)
+        public int guide_mission_id;
     }
 
     [GeneratorSpecData]
@@ -1008,6 +1012,7 @@ namespace CookApps.AutoBattler
         public int lv;
         public int benefit_group;
         public string benefit_desc_token;
+        public global::CookApps.AutoBattler.BenefitType benefit_type;
         public string benefit_title_token;
         /// 건물 유니크 ID
         public int build_id;

@@ -66,7 +66,7 @@ namespace Tech.Hive.V1 {
             "cG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNl",
             "U3RhdHVzEjAKCnNpbXVsYXRpb24YAiABKAsyHC50ZWNoLmhpdmUudjEuU2lt",
             "dWxhdGlvbkRhdGESNAoPY3VycmVuY3lfZGVsdGFzGAMgAygLMhsudGVjaC5o",
-            "aXZlLnYxLkN1cnJlbmN5RGVsdGEqngMKDkVscGlzRXJyb3JDb2RlEhUKEUVM",
+            "aXZlLnYxLkN1cnJlbmN5RGVsdGEqwgMKDkVscGlzRXJyb3JDb2RlEhUKEUVM",
             "UElTX1VOU1BFQ0lGSUVEEAASJAodRUxQSVNfRkFDSUxJVFlfQ09VTlRfRVhD",
             "RUVERUQQtaXqBBIiChtFTFBJU19GQUNJTElUWV9UWVBFX0lOVkFMSUQQtqXq",
             "BBIfChhFTFBJU19GQUNJTElUWV9OT1RfRk9VTkQQt6XqBBIiChtFTFBJU19G",
@@ -75,26 +75,27 @@ namespace Tech.Hive.V1 {
             "QVhfTEVWRUxfUkVBQ0hFRBC6peoEEi4KJ0VMUElTX0ZBQ0lMSVRZX0NPTU1B",
             "TkRfQ0VOVEVSX05PVF9GT1VORBC7peoEEjIKK0VMUElTX0NPUkVfUkVTRUFS",
             "Q0hfVVBHUkFERV9HUk9VUF9OT1RfRk9VTkQQvKXqBBIsCiVFTFBJU19DT1JF",
-            "X1JFU0VBUkNIX01BWF9MRVZFTF9SRUFDSEVEEL2l6gQyzgYKDEVscGlzU2Vy",
-            "dmljZRJGCgNHZXQSHS50ZWNoLmhpdmUudjEuRWxwaXNHZXRSZXF1ZXN0Gh4u",
-            "dGVjaC5oaXZlLnYxLkVscGlzR2V0UmVzcG9uc2UiABJNCgZFeHBhbmQSIC50",
-            "ZWNoLmhpdmUudjEuRWxwaXNFeHBhbmRSZXF1ZXN0GiEudGVjaC5oaXZlLnYx",
-            "LkVscGlzRXhwYW5kUmVzcG9uc2USYgoNQnVpbGRGYWNpbGl0eRInLnRlY2gu",
-            "aGl2ZS52MS5FbHBpc0J1aWxkRmFjaWxpdHlSZXF1ZXN0GigudGVjaC5oaXZl",
-            "LnYxLkVscGlzQnVpbGRGYWNpbGl0eVJlc3BvbnNlEn0KFkZpbmlzaEJ1aWxk",
-            "aW5nRmFjaWxpdHkSMC50ZWNoLmhpdmUudjEuRWxwaXNGaW5pc2hCdWlsZGlu",
-            "Z0ZhY2lsaXR5UmVxdWVzdBoxLnRlY2guaGl2ZS52MS5FbHBpc0ZpbmlzaEJ1",
-            "aWxkaW5nRmFjaWxpdHlSZXNwb25zZRJoCg9VcGdyYWRlRmFjaWxpdHkSKS50",
-            "ZWNoLmhpdmUudjEuRWxwaXNVcGdyYWRlRmFjaWxpdHlSZXF1ZXN0GioudGVj",
-            "aC5oaXZlLnYxLkVscGlzVXBncmFkZUZhY2lsaXR5UmVzcG9uc2USXwoMUmVz",
-            "ZWFyY2hDb3JlEiYudGVjaC5oaXZlLnYxLkVscGlzUmVzZWFyY2hDb3JlUmVx",
-            "dWVzdBonLnRlY2guaGl2ZS52MS5FbHBpc1Jlc2VhcmNoQ29yZVJlc3BvbnNl",
-            "En0KFkNoYW5nZUZhY2lsaXR5UG9zaXRpb24SMC50ZWNoLmhpdmUudjEuRWxw",
-            "aXNDaGFuZ2VGYWNpbGl0eVBvc2l0aW9uUmVxdWVzdBoxLnRlY2guaGl2ZS52",
-            "MS5FbHBpc0NoYW5nZUZhY2lsaXR5UG9zaXRpb25SZXNwb25zZRJ6ChVDbGFp",
-            "bVNpbXVsYXRpb25SZXdhcmQSLy50ZWNoLmhpdmUudjEuRWxwaXNDbGFpbVNp",
-            "bXVsYXRpb25SZXdhcmRSZXF1ZXN0GjAudGVjaC5oaXZlLnYxLkVscGlzQ2xh",
-            "aW1TaW11bGF0aW9uUmV3YXJkUmVzcG9uc2ViBnByb3RvMw=="));
+            "X1JFU0VBUkNIX01BWF9MRVZFTF9SRUFDSEVEEL2l6gQSIgobRUxQSVNfRkFD",
+            "SUxJVFlfQlVJTERfRkFJTEVEEL6l6gQyzgYKDEVscGlzU2VydmljZRJGCgNH",
+            "ZXQSHS50ZWNoLmhpdmUudjEuRWxwaXNHZXRSZXF1ZXN0Gh4udGVjaC5oaXZl",
+            "LnYxLkVscGlzR2V0UmVzcG9uc2UiABJNCgZFeHBhbmQSIC50ZWNoLmhpdmUu",
+            "djEuRWxwaXNFeHBhbmRSZXF1ZXN0GiEudGVjaC5oaXZlLnYxLkVscGlzRXhw",
+            "YW5kUmVzcG9uc2USYgoNQnVpbGRGYWNpbGl0eRInLnRlY2guaGl2ZS52MS5F",
+            "bHBpc0J1aWxkRmFjaWxpdHlSZXF1ZXN0GigudGVjaC5oaXZlLnYxLkVscGlz",
+            "QnVpbGRGYWNpbGl0eVJlc3BvbnNlEn0KFkZpbmlzaEJ1aWxkaW5nRmFjaWxp",
+            "dHkSMC50ZWNoLmhpdmUudjEuRWxwaXNGaW5pc2hCdWlsZGluZ0ZhY2lsaXR5",
+            "UmVxdWVzdBoxLnRlY2guaGl2ZS52MS5FbHBpc0ZpbmlzaEJ1aWxkaW5nRmFj",
+            "aWxpdHlSZXNwb25zZRJoCg9VcGdyYWRlRmFjaWxpdHkSKS50ZWNoLmhpdmUu",
+            "djEuRWxwaXNVcGdyYWRlRmFjaWxpdHlSZXF1ZXN0GioudGVjaC5oaXZlLnYx",
+            "LkVscGlzVXBncmFkZUZhY2lsaXR5UmVzcG9uc2USXwoMUmVzZWFyY2hDb3Jl",
+            "EiYudGVjaC5oaXZlLnYxLkVscGlzUmVzZWFyY2hDb3JlUmVxdWVzdBonLnRl",
+            "Y2guaGl2ZS52MS5FbHBpc1Jlc2VhcmNoQ29yZVJlc3BvbnNlEn0KFkNoYW5n",
+            "ZUZhY2lsaXR5UG9zaXRpb24SMC50ZWNoLmhpdmUudjEuRWxwaXNDaGFuZ2VG",
+            "YWNpbGl0eVBvc2l0aW9uUmVxdWVzdBoxLnRlY2guaGl2ZS52MS5FbHBpc0No",
+            "YW5nZUZhY2lsaXR5UG9zaXRpb25SZXNwb25zZRJ6ChVDbGFpbVNpbXVsYXRp",
+            "b25SZXdhcmQSLy50ZWNoLmhpdmUudjEuRWxwaXNDbGFpbVNpbXVsYXRpb25S",
+            "ZXdhcmRSZXF1ZXN0GjAudGVjaC5oaXZlLnYxLkVscGlzQ2xhaW1TaW11bGF0",
+            "aW9uUmV3YXJkUmVzcG9uc2ViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.ElpisDataReflection.Descriptor, global::Tech.Hive.V1.ElpisFacilityReflection.Descriptor, global::Tech.Hive.V1.ElpisCoreResearchReflection.Descriptor, global::Tech.Hive.V1.ElpisSimulationReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.ElpisErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -158,6 +159,10 @@ namespace Tech.Hive.V1 {
     /// 코어 연구 최대 레벨에 도달했습니다.
     /// </summary>
     [pbr::OriginalName("ELPIS_CORE_RESEARCH_MAX_LEVEL_REACHED")] ElpisCoreResearchMaxLevelReached = 10130109,
+    /// <summary>
+    /// 요청된 건물중에 지을 수 없는 건물이 포함됐습니다. (ONLYONE 타입인데, 이미 있거나 개수를 초과했거나)
+    /// </summary>
+    [pbr::OriginalName("ELPIS_FACILITY_BUILD_FAILED")] ElpisFacilityBuildFailed = 10130110,
   }
 
   #endregion

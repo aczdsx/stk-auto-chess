@@ -9,6 +9,11 @@ message CurrencyDelta {
   int64 delta = 4;
 }
 
+message Consume {
+  uint32 item_id = 1;
+  uint64 count = 2;
+}
+
 message Reward {
   uint32 item_id = 1;
   uint64 count = 2;

@@ -74,10 +74,10 @@ public class FlowStatePrologueCombat : StateCombatBase
 
 
         // 캐릭터 찾기
-        _clayCharacter = FindCharacterById(AllianceType.Player, 140103); // 클레이
-        _yuniCharacter = FindCharacterById(AllianceType.Player, 130601); // 유니
-        _philiaCharacter = FindCharacterById(AllianceType.Player, 130402); // 필리아
-        _artesiaCharacter = FindCharacterById(AllianceType.Player, 140101); // 아트레시아
+        _clayCharacter = FindCharacterById(AllianceType.Player, 117553404); // 클레이
+        _yuniCharacter = FindCharacterById(AllianceType.Player, 115252102); // 유니
+        _philiaCharacter = FindCharacterById(AllianceType.Player, 115532401); // 필리아
+        _artesiaCharacter = FindCharacterById(AllianceType.Player, 117513401); // 아트레시아
         // 마리에는 6단계에서 합류하므로 초기에는 찾지 않음
 
         // 라플라스 마녀 찾기 (적)
@@ -269,8 +269,8 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         foreach (var effectCode in character.GetEffectCodeContainer().EffectCodes)
         {
-            var characterData = SpecDataManager.Instance.GetCharacterData(character.CharacterId);
-            if (characterData.skill_ids.Any(skillId => skillId == effectCode.CodeId))
+            var specData = SpecDataManager.Instance.GetSpecCharacter(character.CharacterId);
+            if (specData.skill_ids.Any(skillId => skillId == effectCode.CodeId))
             {
                 if (effectCode is EffectCodeCharacterBase characterEffectCode)
                 {
@@ -553,7 +553,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             if (spawnTile != null)
             {
                 // 마리에 소환
-                int marieCharacterId = 130501;
+                int marieCharacterId = 117563405;
                 int marieLevel = 1; // [TODO] 레벨 설정 필요
 
                 var marieStat = new CharacterStatData(marieCharacterId, marieLevel,
@@ -752,24 +752,6 @@ public class FlowStatePrologueCombat : StateCombatBase
 
     private async UniTask ChangeNextState(bool isWin)
     {
-        if (isWin && !_isClearStage)
-        {
-            bool isUsePopup = InGameManager.Instance.SpecStage.chapter_id > 1;
-            if (isUsePopup)
-                SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardIncreasedPopup>().Forget();
-        }
-
-        InGameMainFlowManager.Instance.SetPlaySpeed(0.4f);
-        await UniTask.Delay(1500);
-        InGameMainFlowManager.Instance.SetInGameSpeed(false);
-
-        if (isWin)
-        {
-            InGameMainFlowManager.Instance.AddNextState<FlowStateStageClear>();
-        }
-        else
-        {
-            InGameMainFlowManager.Instance.AddNextState<FlowStateStageFail>();
-        }
+        InGameMainFlowManager.Instance.AddNextState<FlowStatePrologueClear>();
     }
 }

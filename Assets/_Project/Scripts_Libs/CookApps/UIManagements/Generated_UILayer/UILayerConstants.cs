@@ -51,6 +51,7 @@ namespace CookApps.TeamBattle.UIManagements
                 "ElpisBuildLayer" => "Prefabs/UI/Building/BuildingMainLayer.prefab",
                 "ElpisBuildLayer_1" => "Prefabs/UI/CommandCenter/CommandCenterLevel.prefab",
                 "ElpisBuildLayer_2" => "Prefabs/UI/CommandCenter/CommandCenterMainLayer.prefab",
+                "ElpisBuildLayer_3" => "Prefabs/UI/CoreResearch/CoreResearchMainLayer.prefab",
                 "BattleStatisticsPopup" => "Prefabs/UI/InGame/BattleStatisticsPopup.prefab",
                 "SkillTooltipPopup_1" => "Prefabs/UI/InGame/RightSkillTooltipPopup.prefab",
                 "LoadingMain" => "Prefabs/UI/Loading/LoadingMain.prefab",

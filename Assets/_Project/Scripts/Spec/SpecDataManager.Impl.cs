@@ -67,6 +67,7 @@ namespace CookApps.AutoBattler
             await UniTask.Yield();
 #endif
             bool isLoad = Load(json);
+            NetManager.Instance.Spec.CurrentGameSpecVersion = NetManager.Instance.Spec.GetCachedSpecVersion(SpecType.Game);
             await UniTask.Yield();
             GenerateCacheSpecData();
             CustomizeSpecData();
@@ -701,7 +702,7 @@ namespace CookApps.AutoBattler
 
             return result;
         }
-
+        
         public StageInfo GetStageData(int stageID)
         {
             for (int i = 0; i < StageInfo.All.Count; i++)

@@ -54,7 +54,11 @@ namespace CookApps.AutoBattler
             var (scriptName, onEndAction) = ((string, Action))param;
             _onEndAction = onEndAction;
             _currentScriptName = scriptName;
-
+            PreEnterAsync().Forget();
+        }
+        
+        private async UniTask PreEnterAsync() 
+        {
             // 스크립트 실행
             if (!string.IsNullOrEmpty(_currentScriptName))
             {
@@ -66,6 +70,8 @@ namespace CookApps.AutoBattler
                 _onEndAction?.Invoke();
                 _onEndAction = null;
             }
+
+            await SceneTransition.FadeOutAsync();
         }
 
         /// <summary>
@@ -230,13 +236,7 @@ namespace CookApps.AutoBattler
                 return string.Empty;
             }
 
-            var path = scriptName;
-
-            // "Scripts/" 접두사 제거
-            // if (path.StartsWith("Scripts/"))
-            // {
-            //     path = path.Substring(7);
-            // }
+            var path = "Scripts/" + scriptName;
 
             // 확장자 제거 (.nani)
             if (path.EndsWith(".nani"))

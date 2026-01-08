@@ -18,6 +18,8 @@ enum CouponErrorCode {
   COUPON_ALREADY_USED = 2201; // 이미 사용된 쿠폰
   COUPON_EXPIRED = 2202; // 만료된 쿠폰
   COUPON_NOT_AVAILABLE = 2203; // 사용할 수 없는 쿠폰
+  COUPON_NOT_ACTIVE = 2204; // 활성 쿠폰이 아님
+  COUPON_DELETED = 2205; // 삭제된 쿠폰
 }
 
 message CouponRewardRequest {

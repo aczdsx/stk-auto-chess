@@ -29,11 +29,10 @@ namespace Tech.Hive.V1 {
             "ZV9taXNzaW9uX2lkGAEgASgNEg0KBW9yZGVyGAIgASgNEhUKDWN1cnJlbnRf",
             "Y291bnQYAyABKA0SEgoKZ29hbF9jb3VudBgEIAEoDRIuCgVzdGF0ZRgFIAEo",
             "DjIfLnRlY2guaGl2ZS52MS5HdWlkZU1pc3Npb25TdGF0ZRIlCgdyZXdhcmRz",
-            "GAYgAygLMhQudGVjaC5oaXZlLnYxLlJld2FyZCqlAQoRR3VpZGVNaXNzaW9u",
+            "GAYgAygLMhQudGVjaC5oaXZlLnYxLlJld2FyZCqAAQoRR3VpZGVNaXNzaW9u",
             "U3RhdGUSIwofR1VJREVfTUlTU0lPTl9TVEFURV9VTlNQRUNJRklFRBAAEiMK",
-            "H0dVSURFX01JU1NJT05fU1RBVEVfTk9UX1NUQVJURUQQARIjCh9HVUlERV9N",
-            "SVNTSU9OX1NUQVRFX0lOX1BST0dSRVNTEAISIQodR1VJREVfTUlTU0lPTl9T",
-            "VEFURV9DT01QTEVURUQQA2IGcHJvdG8z"));
+            "H0dVSURFX01JU1NJT05fU1RBVEVfSU5fUFJPR1JFU1MQARIhCh1HVUlERV9N",
+            "SVNTSU9OX1NUQVRFX0NPTVBMRVRFRBACYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.CustomCommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.GuideMissionState), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -47,17 +46,13 @@ namespace Tech.Hive.V1 {
   public enum GuideMissionState {
     [pbr::OriginalName("GUIDE_MISSION_STATE_UNSPECIFIED")] Unspecified = 0,
     /// <summary>
-    /// 미션 시작 전
-    /// </summary>
-    [pbr::OriginalName("GUIDE_MISSION_STATE_NOT_STARTED")] NotStarted = 1,
-    /// <summary>
     /// 미션 진행 중
     /// </summary>
-    [pbr::OriginalName("GUIDE_MISSION_STATE_IN_PROGRESS")] InProgress = 2,
+    [pbr::OriginalName("GUIDE_MISSION_STATE_IN_PROGRESS")] InProgress = 1,
     /// <summary>
     /// 미션 완료
     /// </summary>
-    [pbr::OriginalName("GUIDE_MISSION_STATE_COMPLETED")] Completed = 3,
+    [pbr::OriginalName("GUIDE_MISSION_STATE_COMPLETED")] Completed = 2,
   }
 
   #endregion

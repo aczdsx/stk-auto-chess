@@ -1164,13 +1164,13 @@ namespace CookApps.BattleSystem
         {
             if (damageInfo.isAD)
             {
-                var ResistRaw = target.ADReduce * 0.01d;
+                var ResistRaw = target.ADReduce * 0.01f;
                 var EffResist = Mathf.Clamp((float)(ResistRaw * (1f - ADPierce)), 0, RESIST_CAP);
                 damageInfo.damageAmount *= 1f - EffResist;
             }
             else
             {
-                var ResistRaw = target.APReduce * 0.01d;
+                var ResistRaw = target.APReduce * 0.01f;
                 var EffResist = Mathf.Clamp((float)(ResistRaw * (1f - APPierce)), 0, RESIST_CAP);
                 damageInfo.damageAmount *= 1f - EffResist;
             }
@@ -1228,7 +1228,7 @@ namespace CookApps.BattleSystem
             if (damageInfo.isCritical && attacker != null)
             {
                 var effectCodes = attacker.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCritical);
-                EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCriticalLambda);
+                EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnCriticalLambda, attacker);
             }
 
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);

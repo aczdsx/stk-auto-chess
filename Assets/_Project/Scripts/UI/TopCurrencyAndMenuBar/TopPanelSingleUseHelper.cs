@@ -25,9 +25,12 @@ namespace CookApps.AutoBattler
         private Transform topUIOriginTr;
 
         private List<TopCurrencyAndMenuBar> topUIs = new ();
+        private bool _isInitialized = false;
 
         public async UniTask Initialize()
         {
+            if (_isInitialized) return;
+
             topUIOriginHandle = Addressables.InstantiateAsync("Prefabs/UI/Top/TopCurrencyAndMenu.prefab", transform);
             await topUIOriginHandle.WaitUntilDone();
             topUIOriginTr = topUIOriginHandle.Result.transform;
@@ -40,10 +43,13 @@ namespace CookApps.AutoBattler
             }
 
             topUIOriginHandle.Result.SetActive(false);
+            _isInitialized = true;
         }
 
         public void Clear()
         {
+            if (!_isInitialized) return;
+
             foreach ((_, TopPanelBase ui) in panels)
             {
                 if (ui == null) continue;
@@ -53,6 +59,7 @@ namespace CookApps.AutoBattler
             panels.Clear();
 
             topUIOriginHandle.Release();
+            _isInitialized = false;
         }
 
         public TopPanelBase GetPanel(TopPanelType type)
