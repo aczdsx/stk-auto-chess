@@ -91,6 +91,11 @@ namespace CookApps.AutoBattler
         void SetAlertBottomCharacter(int characterID);
     }
 
+    public interface ISkipUI
+    {
+        void OnSkipRequested();
+    }
+
     public class InGameMain : UILayer
     {
         public float InGameTime => _inGameTime;
@@ -267,6 +272,12 @@ namespace CookApps.AutoBattler
         {
             if (_currentGameStateUI is IAlertBottomCharacterUI alert)
                 alert.SetAlertBottomCharacter(characterID);
+        }
+
+        public void Skip()
+        {
+            if (_currentGameStateUI is ISkipUI skip)
+                skip.OnSkipRequested();
         }
     }
 }
