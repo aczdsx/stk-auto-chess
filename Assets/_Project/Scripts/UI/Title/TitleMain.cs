@@ -120,7 +120,7 @@ namespace CookApps.AutoBattler
 
                 // 초반 플로우 체크 및 진행
                 var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
-                if (UserDataManager.Instance.IsClearStage(lastTutoStageData.stage_id) == false)
+                if (ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
                 // if (false)
                 {
                     // var lastStageID = UserDataManager.Instance.GetLastPlayStageID();
