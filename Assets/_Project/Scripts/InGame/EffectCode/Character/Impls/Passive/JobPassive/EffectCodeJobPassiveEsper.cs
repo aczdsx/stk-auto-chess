@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
@@ -13,9 +14,12 @@ namespace CookApps.BattleSystem
     {
         public const int CodeId = (int)EffectCodeNameType.JOBS_ESPER;
         private const InGameVfxNameType _explosionVfxEnum = InGameVfxNameType.fx_common_job_espar_01;
-
         private float _passivePercentage = 0f;
         private float _explosionDamage = 0f;
+
+        private Action<int, InGameTile> _onExplosionDamage;
+
+        public event Action<int, InGameTile> OnExplosionDamage;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
         {
@@ -43,20 +47,28 @@ namespace CookApps.BattleSystem
         }
         public void ProgressExplosionDamage(CharacterController target)
         {
-            Debug.Log("EffectCodePassiveEsper ProgressExplosionDamage: _explosionDamage: " + _explosionDamage);
             //펑 터져서 지워야할 타일들 목록.
             var InGameObjectManagerInstance = InGameObjectManager.Instance;
             var InGameVfxManagerInstance = InGameVfxManager.Instance;
+            var explosionStartTile = target.CurrentTile;
 
             //target에게 폭발 3x3 적용
             var damage = CharacterController.DamageInfo.Create(_explosionDamage, codeId, AttackerType.CHARCTER);
-            var explosionTiles = InGameObjectManagerInstance.InGameGrid.GetTileListByShapeSquare(target.CurrentTile, 1);
+            var explosionTiles = InGameObjectManagerInstance.InGameGrid.GetTileListByShapeSquare(explosionStartTile, 1);
 
             InGameVfxManagerInstance.AddInGameVfx(_explosionVfxEnum, target.CurrentTile.View.CachedTr.position);
+
+            int damagedTargetCount = 0;
             foreach (var explosionTile in explosionTiles)
             {
-                explosionTile.OccupiedCharacter?.GetDamaged(damage, owner);
+                if (explosionTile.OccupiedCharacter == null
+                || explosionTile.OccupiedCharacter.AllianceType == owner.AllianceType)
+                    continue;
+                explosionTile.OccupiedCharacter.GetDamaged(damage, owner);
+                damagedTargetCount++;
             }
+
+            _onExplosionDamage?.Invoke(damagedTargetCount, explosionStartTile);
         }
 
 
