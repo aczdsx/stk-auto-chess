@@ -79,6 +79,13 @@ public class FlowStateStageCombat : StateCombatBase
 
     private async UniTask StartAsync()
     {
+        // 서버에 전투 시작 요청
+        var response = await NetManager.Instance.Battle.StartAsync((uint)InGameManager.Instance.SpecStage.stage_id);
+        if (response != null && response.Status.Code == 0)
+        {
+            InGameManager.Instance.BattleSessionId = response.BattleSessionId;
+        }
+
         // 전투 시작 후 1초는 대기
         await UniTask.Delay(1000);
 
@@ -122,7 +129,7 @@ public class FlowStateStageCombat : StateCombatBase
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         if (characters.Count == 0)
         {
-            _isClearStage = UserDataManager.Instance.IsClearStage(InGameManager.Instance.SpecStage.stage_id);
+            _isClearStage = ServerDataManager.Instance.Battle.IsStageCleared((uint)InGameManager.Instance.SpecStage.stage_id);
             _isEndCombat = true;
             _isWin = true;
             InGameManager.Instance.AppEventResult = (_isClearStage) ? "clear" : "pass"; 

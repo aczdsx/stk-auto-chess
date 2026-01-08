@@ -64,7 +64,7 @@ namespace CookApps.AutoBattler
             _chapterSpriteLoader.SetSprite(SpriteNameParser.GetChapterIcon(_specChapterData.chapter_id)).Forget();
 
             // 진행 상태에 따른 처리
-            _isPlayableChapter = UserDataManager.Instance.IsChapterOpen(_specChapterData.chapter_id, _specChapterData.difficulty_type);
+            _isPlayableChapter = ServerDataManager.Instance.Battle.IsChapterOpen((uint)_specChapterData.chapter_id, _specChapterData.difficulty_type);
 
             if (_isPlayableChapter == false)
             {
@@ -78,7 +78,7 @@ namespace CookApps.AutoBattler
             //_chapterStarLayerObject.SetActive(_isPlayableChapter);
             //_dimmedLayerObject.SetActive(!_isPlayableChapter);
 
-            int currentChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_specChapterData.chapter_id, _specChapterData.difficulty_type);
+            int currentChapterStarCount = (int)ServerDataManager.Instance.Battle.GetTotalChapterStarCount((uint)_specChapterData.chapter_id, _specChapterData.difficulty_type);
             int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(_specChapterData.chapter_id, _specChapterData.difficulty_type);
 
             _chapterStarCountText.text = string.Format("{0}/{1}", currentChapterStarCount, totalChapterStarCount);
@@ -109,7 +109,7 @@ namespace CookApps.AutoBattler
         {
             bool isAvailGetChapterReward = false;
 
-            int totalChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_specChapterData.chapter_id, _specChapterData.difficulty_type);
+            int totalChapterStarCount = (int)ServerDataManager.Instance.Battle.GetTotalChapterStarCount((uint)_specChapterData.chapter_id, _specChapterData.difficulty_type);
             if (totalChapterStarCount > 0)
             {
                 var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(ContentType.STAGE_STAR, _specChapterData.chapter_id, _specChapterData.difficulty_type);
@@ -117,7 +117,7 @@ namespace CookApps.AutoBattler
                 {
                     bool checkGetReward = totalChapterStarCount >= rewardInfoData.sub_value;
 
-                    bool checkAlreadyGetReward = UserDataManager.Instance.IsGetStageAccReward(rewardInfoData.content_key_value,
+                    bool checkAlreadyGetReward = ServerDataManager.Instance.Battle.IsGetStageAccReward(rewardInfoData.content_key_value,
                         rewardInfoData.difficulty_type, rewardInfoData.sub_value);
 
                     if (checkGetReward && !checkAlreadyGetReward)

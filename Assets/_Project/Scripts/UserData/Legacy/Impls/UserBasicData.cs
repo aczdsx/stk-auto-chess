@@ -101,7 +101,7 @@ namespace CookApps.AutoBattler
 
         private async UniTask HandleLoseAsync()
         {
-            var lastPlayStageID = GetLastPlayStageID();
+            var lastPlayStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
             SceneTransition.Create<SceneTransition_FadeInOut>();
             await SceneTransition.FadeInAsync();

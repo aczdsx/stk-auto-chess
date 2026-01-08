@@ -126,13 +126,13 @@ namespace CookApps.AutoBattler
             appEventParameter.Add(AppEventStringConst.SINCE_JOIN_DATE, GetSinceJoinDate());
             var installDateTime = TimeManager.Instance.TimeStampToDateTimeLocal(UserDataManager.Instance.UserBasicData.UserInstallDate);
             appEventParameter.Add(AppEventStringConst.USER_INSTALL_DATE, installDateTime.ToString("yyyyMMdd"));
-            var specBestStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLatestClearUserStageID());
+            var specBestStageData = SpecDataManager.Instance.GetStageData((int)ServerDataManager.Instance.Battle.GetLatestClearedStageId());
             appEventParameter.Add(AppEventStringConst.BEST_STAGE, specBestStageData.id);
             appEventParameter.Add(AppEventStringConst.BEST_MISSION, UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder);
             appEventParameter.Add(AppEventStringConst.USER_POWER, UserDataManager.Instance.GetAllCharacterBattlePower());
             appEventParameter.Add(AppEventStringConst.USER_LEVEL, UserDataManager.Instance.UserBasicData.Level);
             appEventParameter.Add(AppEventStringConst.USER_GRADE, UserDataManager.Instance.UserBasicData.MaxSquadCount);
-            appEventParameter.Add(AppEventStringConst.USER_STAR_AMOUNT, UserDataManager.Instance.GetAllTotalChapterStarCount());
+            appEventParameter.Add(AppEventStringConst.USER_STAR_AMOUNT, (int)ServerDataManager.Instance.Battle.TotalStarCount);
             appEventParameter.Add(AppEventStringConst.USER_ENERGY_AMOUNT, UserDataManager.Instance.UserWallet.Ap);
 
             // yyyyMMddHHmm 에서 뒤에 4자리를 잘라서 yyyyMMdd 바꾸는 부분

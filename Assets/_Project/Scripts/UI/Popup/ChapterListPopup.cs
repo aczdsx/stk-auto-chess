@@ -59,8 +59,11 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            var currentStageId = UserDataManager.Instance.GetLastPlayStageID();
+            var currentStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
             _selectedChapterData = SpecDataManager.Instance.GetChapterDataByStageID(currentStageId);
+
+            // Stage Progress 로드
+            LoadStageProgressAsync((uint)_selectedChapterData.chapter_id).Forget();
 
             SetChapterListUI();
 
@@ -70,6 +73,11 @@ namespace CookApps.AutoBattler
 
             // 연출 적용
             baseAnimator.SetTrigger("SetEntry");
+        }
+
+        private async UniTaskVoid LoadStageProgressAsync(uint chapterId)
+        {
+            await NetManager.Instance.Battle.ListStageAsync(chapterId);
         }
 
         public void RefreshUI()
@@ -125,7 +133,7 @@ namespace CookApps.AutoBattler
             _chapterNumberText.text = $"{chapterString}-{_currentChapterData.chapter_id}-{_currentChapterData.difficulty_type}";
             _chapterNameText.text = LanguageManager.Instance.GetLanguageText(_currentChapterData.name_token);
 
-            int currentChapterStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_currentChapterData.chapter_id, _currentChapterData.difficulty_type);
+            int currentChapterStarCount = (int)ServerDataManager.Instance.Battle.GetTotalChapterStarCount((uint)_currentChapterData.chapter_id, _currentChapterData.difficulty_type);
             int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(_currentChapterData.chapter_id, _currentChapterData.difficulty_type);
 
             _chapterStarCountText.text = string.Format("{0}/{1}", currentChapterStarCount, totalChapterStarCount);
@@ -168,7 +176,7 @@ namespace CookApps.AutoBattler
             _selectedChapterData = SpecDataManager.Instance.GetChapterData(_currentChapterData.chapter_id);
 
             // 유저 챕터 선택 데이터 저장
-            var lastestStageID = UserDataManager.Instance.GetLatestClearUserStageID();
+            var lastestStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
             var lastestSpecStageData = SpecDataManager.Instance.GetStageData(lastestStageID);
             var nextStageData = SpecDataManager.Instance.GetNextStageData(lastestStageID);
 
@@ -184,7 +192,7 @@ namespace CookApps.AutoBattler
             
             // 스테이지 데이터 세팅
             var targetSpecStage = SpecDataManager.Instance.GetStageData(_currentChapterData.chapter_id, targetStageNumber, _currentChapterData.difficulty_type);
-            UserDataManager.Instance.SetLastPlayStageID(targetSpecStage.stage_id, true);
+            LocalDataManager.Instance.SetLastPlayStageId((uint)targetSpecStage.stage_id);
 
             OnClickCloseButton();
 

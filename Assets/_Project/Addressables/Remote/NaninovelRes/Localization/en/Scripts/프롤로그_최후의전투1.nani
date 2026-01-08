@@ -1,55 +1,28 @@
-; Korean <ko> to English <en> localization document for `0-1` naninovel script
+//; Korean <ko> to English <en> localization document for `0-1` naninovel script
+
+@back bg_climax_battle_01 
+@bgm snd_bgm_dialog_mad_002 fade:3
+@char unknowngirl_00 pos:50,-255 scale:1.38 transition:Crossfade time:2
 
 # 8db00a13
-; atresia_00: …
+; unknowngirl_00: 처음부터 이렇게 될 줄 알았다면...
 
 # eef18e3e
-; atresia_00: …님!!
+; unknowngirl_00: 그대를 믿지 않았을 텐데.
 
 # 142997ea
-; atresia_00: 관측자님!!
+; unknowngirl_00: 의미없는 후회라는 건 알아.
 
 # 925692cf
-; atresia_00: 관측자님, 정신이 드시나요?!
+; unknowngirl_00: 종국엔 우린 같은 선택을 하게 될 테니까.
 
 # b098fca5
-; atresia_00: 방금 네피림의 공격을 받고 잠시 정신을 잃으셨어요.
+; unknowngirl_00: 그러니 잠시간의 유예더라도, 그녀를 행복하게 해주길 바래.
 
 # c90590c
-; atresia_00: 네피림들이 몰려들기 전에 얼른 실종자들을 찾으러 이동해야하는데… 이런 상황에서는 어떡해야…….
+; unknowngirl_00: 그것만이 당신과 나의 약속이니까.
 
-# 70440910
-; @choice "\"넌 누구지?\""
+@hidePrinter Dialogue
+@skip false
 
-# d62ab29f
-; atresia_00: 설마, 기억이… 안나세요?
-
-# 75256b86
-; @choice "\"꿈에서 봤던 것 같은데…\""
-
-# 32e6110b
-; @choice "\"우리는 구면이던가?\""
-
-# 58f5021b
-; atresia_00: 네, 관측자님께서 구해주신… 정말 기억나지 않으세요?
-
-# 8db00a13
-; atresia_00: …
-
-# 4dcba008
-; atresia_00: 저는 플레이아데스 소속의 기사, 아트레시아에요.
-
-# 48c9fda2
-; atresia_00: 현재 관측자님의 지휘 아래 실종된 기사와 군인을 찾는 수색 작전 중이었습니다. 하지만 이동 중 습격을 받아 유니와 필리아와도 뿔뿔이 흩어지고 말았어요.
-
-# 5856abbd
-; atresia_00: 지금은 우선 흩어져버린 동료들을 찾는게…
-
-# ff355aaa
-; k_Nephilim: 키에에에엑-!!
-
-# c1891ae6
-; atresia_00: 네, 네피림?! 근처에 아직 한 마리 남아있었나봐요.
-
-# aaaee473
-; atresia_00: 이렇게 된 이상 싸우는 수 밖에 없겠어요. 관측자님, 지휘를 부탁드려요!!
+@end

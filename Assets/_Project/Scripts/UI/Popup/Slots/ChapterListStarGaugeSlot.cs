@@ -58,10 +58,10 @@ namespace CookApps.AutoBattler
             _rewardAmountText.text = $"x{_specRewardInfo.item_count}";
 
             // 보상 수령 상태에 따른 분기처리
-            int totalStarCount = UserDataManager.Instance.GetTotalChapterStarCount(_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type);
+            int totalStarCount = (int)ServerDataManager.Instance.Battle.GetTotalChapterStarCount((uint)_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type);
             _isAvailGetReward = totalStarCount >= _specRewardInfo.sub_value;
 
-            _isAlreadyGetReward = UserDataManager.Instance.IsGetStageAccReward(_specRewardInfo.content_key_value,
+            _isAlreadyGetReward = ServerDataManager.Instance.Battle.IsGetStageAccReward(_specRewardInfo.content_key_value,
                 _specRewardInfo.difficulty_type, _specRewardInfo.sub_value);
 
             _rewardIconUIShiny.Play(_isAvailGetReward && !_isAlreadyGetReward);
@@ -102,7 +102,7 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
 
             // 보상 수령 데이터 처리
-            UserDataManager.Instance.SetStageAccRewardState(_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type, _specRewardInfo.sub_value);
+            ServerDataManager.Instance.Battle.SetStageAccRewardState(_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type, _specRewardInfo.sub_value);
 
             // 보상 지급
             UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);

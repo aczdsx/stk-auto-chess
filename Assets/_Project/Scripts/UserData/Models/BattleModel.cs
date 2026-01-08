@@ -22,6 +22,10 @@ namespace CookApps.AutoBattler
         // 스테이지 진행 정보 (StageId -> StageProgress)
         private readonly Dictionary<uint, BattleStageProgress> _stageProgresses = new (128);
 
+        // 스테이지 누적 보상 (ChapterId -> (DifficultyType -> AccCounts))
+        // TODO: 서버 마이그레이션 후 제거 예정
+        private readonly Dictionary<int, Dictionary<int, HashSet<int>>> _stageAccRewards = new ();
+
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
         public readonly Subject<BattleChapterData> OnCurrentChapterChanged = new();
@@ -35,6 +39,7 @@ namespace CookApps.AutoBattler
             _currentChapter = null;
             _chapters.Clear();
             _stageProgresses.Clear();
+            _stageAccRewards.Clear();
             OnChanged.OnNext(Unit.Default);
         }
 
@@ -203,6 +208,125 @@ namespace CookApps.AutoBattler
                 }
                 return count;
             }
+        }
+
+        /// <summary>
+        /// 스테이지 개방 여부 확인
+        /// 이전 스테이지가 클리어되었거나 챕터의 첫 스테이지인 경우 개방
+        /// </summary>
+        public bool IsStageOpen(uint stageId)
+        {
+            var specData = SpecDataManager.Instance.GetStageData((int)stageId);
+            if (specData == null) return false;
+
+            // 챕터의 1스테이지는 챕터가 열려있으면 개방
+            if (specData.stage_number == 1)
+            {
+                return IsChapterOpen((uint)specData.chapter_id, specData.difficulty_type);
+            }
+
+            // 이전 스테이지 클리어 여부 확인
+            var prevStageData = SpecDataManager.Instance.GetStageData(
+                specData.chapter_id,
+                specData.stage_number - 1,
+                specData.difficulty_type
+            );
+
+            return prevStageData != null && IsStageCleared((uint)prevStageData.stage_id);
+        }
+
+        /// <summary>
+        /// 챕터 개방 여부 확인
+        /// 이전 챕터의 마지막 스테이지가 클리어되었거나 첫 챕터인 경우 개방
+        /// </summary>
+        public bool IsChapterOpen(uint chapterId, DifficultyType difficultyType = DifficultyType.NORMAL)
+        {
+            if (chapterId <= 1) return true;
+
+            uint prevChapterId = chapterId - 1;
+            var lastStageData = SpecDataManager.Instance.GetLastStageData((int)prevChapterId, difficultyType);
+
+            return lastStageData != null && IsStageCleared((uint)lastStageData.stage_id);
+        }
+
+        /// <summary>
+        /// 특정 챕터의 총 별 개수 계산
+        /// </summary>
+        public uint GetTotalChapterStarCount(uint chapterId, DifficultyType difficultyType)
+        {
+            uint totalStars = 0;
+
+            var stageList = SpecDataManager.Instance.GetStageList((int)chapterId, difficultyType);
+            if (stageList == null) return 0;
+
+            for (int i = 0; i < stageList.Count; i++)
+            {
+                var stage = stageList[i];
+                var progress = GetStageProgress((uint)stage.stage_id);
+                if (progress != null)
+                {
+                    totalStars += progress.BestStars;
+                }
+            }
+
+            return totalStars;
+        }
+
+        /// <summary>
+        /// 클리어한 스테이지 중 가장 마지막(높은) 스테이지 ID 반환
+        /// </summary>
+        public uint GetLatestClearedStageId()
+        {
+            uint latestId = 10001; // 기본값
+
+            foreach (var progress in _stageProgresses.Values)
+            {
+                if (progress.IsCleared && progress.StageId > latestId)
+                {
+                    latestId = progress.StageId;
+                }
+            }
+
+            return latestId;
+        }
+
+        #endregion
+
+        #region 스테이지 누적 보상 관련 (TODO: 서버 마이그레이션 예정)
+
+        /// <summary>
+        /// 스테이지 별 누적 보상 상태 데이터 저장
+        /// </summary>
+        public void SetStageAccRewardState(int chapterId, DifficultyType difficultyType, int targetAccCount)
+        {
+            if (!_stageAccRewards.TryGetValue(chapterId, out var difficultyDict))
+            {
+                difficultyDict = new Dictionary<int, HashSet<int>>();
+                _stageAccRewards[chapterId] = difficultyDict;
+            }
+
+            int diffKey = (int)difficultyType;
+            if (!difficultyDict.TryGetValue(diffKey, out var accSet))
+            {
+                accSet = new HashSet<int>();
+                difficultyDict[diffKey] = accSet;
+            }
+
+            accSet.Add(targetAccCount);
+        }
+
+        /// <summary>
+        /// 스테이지 별 누적 보상 획득 여부 체크
+        /// </summary>
+        public bool IsGetStageAccReward(int chapterId, DifficultyType difficultyType, int targetAccCount)
+        {
+            if (!_stageAccRewards.TryGetValue(chapterId, out var difficultyDict))
+                return false;
+
+            if (!difficultyDict.TryGetValue((int)difficultyType, out var accSet))
+                return false;
+
+            return accSet.Contains(targetAccCount);
         }
 
         #endregion

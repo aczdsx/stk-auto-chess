@@ -186,5 +186,81 @@ namespace CookApps.AutoBattler
 
             return count;
         }
+
+        #region UserDataManager 호환 메서드 (마이그레이션용)
+
+        /// <summary>
+        /// 스테이지 개방 여부 (int 오버로드)
+        /// </summary>
+        public bool IsStageOpen(int stageId)
+        {
+            return Model?.IsStageOpen((uint)stageId) ?? false;
+        }
+
+        /// <summary>
+        /// 챕터 개방 여부
+        /// </summary>
+        public bool IsChapterOpen(int chapterId, DifficultyType difficultyType = DifficultyType.NORMAL)
+        {
+            return Model?.IsChapterOpen((uint)chapterId, difficultyType) ?? false;
+        }
+
+        /// <summary>
+        /// 스테이지 클리어 여부 (int 오버로드)
+        /// </summary>
+        public bool IsClearStage(int stageId)
+        {
+            return Model?.IsStageCleared((uint)stageId) ?? false;
+        }
+
+        /// <summary>
+        /// 스테이지 진행 정보 가져오기 (int 오버로드)
+        /// </summary>
+        public BattleStageProgress GetStageProgress(int stageId)
+        {
+            return Model?.GetStageProgress((uint)stageId);
+        }
+
+        /// <summary>
+        /// 특정 챕터의 총 별 개수
+        /// </summary>
+        public int GetTotalChapterStarCount(int chapterId, DifficultyType difficultyType)
+        {
+            return (int)(Model?.GetTotalChapterStarCount((uint)chapterId, difficultyType) ?? 0);
+        }
+
+        /// <summary>
+        /// 전체 별 개수 (int 반환)
+        /// </summary>
+        public int GetAllTotalChapterStarCount()
+        {
+            return (int)(Model?.TotalStarCount ?? 0);
+        }
+
+        /// <summary>
+        /// 클리어한 스테이지 중 가장 마지막(높은) 스테이지 ID
+        /// </summary>
+        public int GetLatestClearUserStageID()
+        {
+            return (int)(Model?.GetLatestClearedStageId() ?? 10001);
+        }
+
+        /// <summary>
+        /// 최근 플레이한 스테이지 ID (로컬 저장)
+        /// </summary>
+        public int GetLastPlayStageID()
+        {
+            return (int)LocalDataManager.Instance.GetLastPlayStageId();
+        }
+
+        /// <summary>
+        /// 최근 플레이한 스테이지 ID 저장 (로컬 저장)
+        /// </summary>
+        public void SetLastPlayStageID(int stageId, bool needSave = true)
+        {
+            LocalDataManager.Instance.SetLastPlayStageId((uint)stageId);
+        }
+
+        #endregion
     }
 }

@@ -29,6 +29,7 @@ namespace CookApps.BattleSystem
 
         public string AppEventResult = string.Empty;
         public string AppEventReason = string.Empty;
+        public string BattleSessionId { get; set; } = string.Empty;
 
         public void ResetRandomGeneratorSeed()
         {
@@ -44,6 +45,7 @@ namespace CookApps.BattleSystem
         {
             IsInGamePlaying = false;
             isGameInfoLoaded = false;
+            BattleSessionId = string.Empty;
         }
 
         // TODO: Add Game Info

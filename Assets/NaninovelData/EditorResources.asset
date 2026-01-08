@@ -926,12 +926,12 @@ MonoBehaviour:
     - name: "Localization/en/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
       pathPrefix: Scripts
       guid: ba7dd6f0859fa4db3947984897040255
-    - name: "Naninovel/ko/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
-      pathPrefix: Scripts
-      guid: 0a019d8da6bb44bccae259e9520de6c6
     - name: "Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
       pathPrefix: Scripts
       guid: 54becdc6deb5141ccb3b49c78cf0b0d5
+    - name: "Localization/ko/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
+      pathPrefix: Scripts
+      guid: 0a019d8da6bb44bccae259e9520de6c6
   - Id: CharacterAvatars
     Resources: []
   - Id: Characters/97730980-6691-4698-b6da-9388d226f1d6
@@ -941,6 +941,12 @@ MonoBehaviour:
       guid: a11d48ced2dc51140a92b94d8ba0da27
   - Id: Backgrounds/d191acc7-7120-48d6-91ca-cf5226389836
     Resources:
+    - name: bg_climax_battle_01
+      pathPrefix: Backgrounds/MainBackground
+      guid: 48c9391c234ac6246a17e584f5890e4f
+    - name: bg_past_ruins_01
+      pathPrefix: Backgrounds/MainBackground
+      guid: 9dcc814883d7e4c4592e0515aa9caf5e
     - name: bg_ruins_00
       pathPrefix: Backgrounds/MainBackground
       guid: 80b22520bb6b5304fad1e1604b96d8b1
@@ -953,15 +959,48 @@ MonoBehaviour:
     - name: bg_ruins_03
       pathPrefix: Backgrounds/MainBackground
       guid: 82e3d7cd7eaea0d48b03821dcf05f560
+    - name: bg_ruins_04
+      pathPrefix: Backgrounds/MainBackground
+      guid: 32078a69862bdf44fa857d72a6aff90e
+    - name: bg_ruins_05
+      pathPrefix: Backgrounds/MainBackground
+      guid: c9d6a8f3940aa894e963407fd36ab0ab
+    - name: bg_ruins_06
+      pathPrefix: Backgrounds/MainBackground
+      guid: d5737ca3e4944c94e82667fb70de917c
     - name: bg_building_01
       pathPrefix: Backgrounds/MainBackground
       guid: cb67eab82ec679b4c81d29eda502eece
     - name: bg_building_02
       pathPrefix: Backgrounds/MainBackground
       guid: ded85b5cfa9633d4f85bbc3c6244bace
+    - name: bg_building_03
+      pathPrefix: Backgrounds/MainBackground
+      guid: 69996c98389b3e04e8097e3915001512
+    - name: bg_abandoned_hospital_01
+      pathPrefix: Backgrounds/MainBackground
+      guid: be9cf0d4428c9154b8325ca8e400f8a1
+    - name: bg_abandoned_hospital_02
+      pathPrefix: Backgrounds/MainBackground
+      guid: 7c6fcb6f5a7574f459d2f059aa521fac
     - name: cbg_00_00
       pathPrefix: Backgrounds/MainBackground
       guid: 3600b19b84fed4a46a92d56e2daa0da4
+    - name: bg_hubble_01
+      pathPrefix: Backgrounds/MainBackground
+      guid: 9dab2ac41e0b7064ea0531c689d60b2a
+    - name: bg_hubble_02
+      pathPrefix: Backgrounds/MainBackground
+      guid: 9d7b081000edb124b9ce3ff871e8e0d2
+    - name: bg_hubble_03
+      pathPrefix: Backgrounds/MainBackground
+      guid: e6b73c59482faa04da12319a04df9b4c
+    - name: bg_black_01
+      pathPrefix: Backgrounds/MainBackground
+      guid: 48c7a90be04cfb74f8ec675cf4eb7784
+    - name: bg_white_01
+      pathPrefix: Backgrounds/MainBackground
+      guid: b2a770babc5d3b04aa66457001f0fd3a
   - Id: Unlockables
     Resources: []
   - Id: Audio
@@ -969,6 +1008,24 @@ MonoBehaviour:
     - name: bgm_happy_001
       pathPrefix: Audio
       guid: 9dce942294325d1498c9dadcbc5d131f
+    - name: snd_bgm_dialog_cozy_001
+      pathPrefix: Audio
+      guid: 26d4d1122b4fac34ab3666aa82f8b6f6
+    - name: snd_bgm_dialog_happy_001
+      pathPrefix: Audio
+      guid: 9dce942294325d1498c9dadcbc5d131f
+    - name: snd_bgm_dialog_happy_002
+      pathPrefix: Audio
+      guid: a055098d0d2b0f648b687d11ecc8e046
+    - name: snd_bgm_dialog_mad_001
+      pathPrefix: Audio
+      guid: cfce8ae1af125084bace55296053e940
+    - name: snd_bgm_dialog_mad_002
+      pathPrefix: Audio
+      guid: 695d9ecd9605bd048bfc612cf0770f30
+    - name: snd_bgm_dialog_sad_001
+      pathPrefix: Audio
+      guid: 4fae4fcfe7ea86b4d96027fdd87816a2
   - Id: TextPrinters/8b9e022e-51ad-4b4c-90ac-e65372924d6c
     Resources:
     - name: CutScene

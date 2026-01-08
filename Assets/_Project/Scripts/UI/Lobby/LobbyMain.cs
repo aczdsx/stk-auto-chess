@@ -120,7 +120,7 @@ namespace CookApps.AutoBattler
         {
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
-            var currentStageData = SpecDataManager.Instance.GetStageData(UserDataManager.Instance.GetLastPlayStageID());
+            var currentStageData = SpecDataManager.Instance.GetStageData((int)LocalDataManager.Instance.GetLastPlayStageId());
             SceneLoading.GoToNextScene("BattleReady", currentStageData.chapter_id);
         }
 

@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -44,7 +44,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private List<GameObject> _bossStarObjectList;
 
         private StageInfo _specStageData;
-        private UserStage _userStageData;
+        private BattleStageProgress _userStageProgress;
 
         private bool _isClearStage;     // 클리어 한 스테이지 여부 체크용
         private bool _isCurrentStage;   // 현재 스테이지 여부 체크용
@@ -70,12 +70,12 @@ namespace CookApps.AutoBattler
             if (data == null) return;
 
             _specStageData = data;
-            _userStageData = UserDataManager.Instance.GetUserStage(_specStageData.stage_id);
+            _userStageProgress = ServerDataManager.Instance.Battle.GetStageProgress((uint)_specStageData.stage_id);
 
-            _isClearStage = UserDataManager.Instance.IsClearStage(_specStageData.stage_id);
+            _isClearStage = ServerDataManager.Instance.Battle.IsStageCleared((uint)_specStageData.stage_id);
             _isCurrentStage = isCurrentStage;
 
-            int lastestStageID = UserDataManager.Instance.GetLatestClearUserStageID();
+            int lastestStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
             var nextStageData = SpecDataManager.Instance.GetNextStageData(lastestStageID);
             _isLatestPlayableStage = nextStageData != null && (nextStageData.stage_id == _specStageData.stage_id);
 
@@ -84,8 +84,9 @@ namespace CookApps.AutoBattler
 
         public void RefershSlot()
         {
-            _isClearStage = UserDataManager.Instance.IsClearStage(_specStageData.stage_id);
-            _isCurrentStage = UserDataManager.Instance.GetLastPlayStageID() == _specStageData.stage_id;
+            _userStageProgress = ServerDataManager.Instance.Battle.GetStageProgress((uint)_specStageData.stage_id);
+            _isClearStage = ServerDataManager.Instance.Battle.IsStageCleared((uint)_specStageData.stage_id);
+            _isCurrentStage = LocalDataManager.Instance.GetLastPlayStageId() == _specStageData.stage_id;
 
             SetStageState();
         }
@@ -95,8 +96,8 @@ namespace CookApps.AutoBattler
             ClearSlot();
 
             _resultCustomHeight = _isClearStage ? _doneStateHeight : (_isCurrentStage ? _currentStateHeight : _normalStateHeight);
-            _isValidStage = _userStageData != null && _userStageData.StarCount > 0;
-            bool isPerfectClear = _isValidStage && _userStageData.StarCount >= 3;
+            _isValidStage = _userStageProgress != null && _userStageProgress.BestStars > 0;
+            bool isPerfectClear = _isValidStage && _userStageProgress.BestStars >= 3;
 
             switch (_specStageData.stage_type)
             {
@@ -135,7 +136,7 @@ namespace CookApps.AutoBattler
             {
                 for (int i = 0; i < _normalStarObjectList.Count; i++)
                 {
-                    _normalStarObjectList[i].SetActive(i < _userStageData.StarCount);
+                    _normalStarObjectList[i].SetActive(i < _userStageProgress.BestStars);
                 }
             }
 
@@ -171,7 +172,7 @@ namespace CookApps.AutoBattler
             {
                 for (int i = 0; i < _bossStarObjectList.Count; i++)
                 {
-                    _bossStarObjectList[i].SetActive(i < _userStageData.StarCount);
+                    _bossStarObjectList[i].SetActive(i < _userStageProgress.BestStars);
                 }
             }
 
@@ -183,14 +184,14 @@ namespace CookApps.AutoBattler
         private void OnClickBottomStageSlot()
         {
             // 스테이지 개방 여부 확인
-            if (UserDataManager.Instance.IsStageOpen(_specStageData.stage_id) == false)
+            if (ServerDataManager.Instance.Battle.IsStageOpen((uint)_specStageData.stage_id) == false)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_LOCK_STAGE");
                 return;
             }
 
             // 유저 데이터 갱신
-            UserDataManager.Instance.SetLastPlayStageID(_specStageData.stage_id, true);
+            LocalDataManager.Instance.SetLastPlayStageId((uint)_specStageData.stage_id);
 
             // 로비 메인 하단 스테이지 UI 갱신
             var battleReadyMain = SceneUILayerManager.Instance.GetUILayer("BattleReadyMain");
