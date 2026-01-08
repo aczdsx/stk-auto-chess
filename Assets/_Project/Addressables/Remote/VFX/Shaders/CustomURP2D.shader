@@ -22,12 +22,11 @@ Shader "Custom/CustomURP2D"
 
         Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
         Cull Off
-        ZWrite Off
+        ZWrite On
 
         Pass
         {
             Tags { "LightMode" = "Universal2D" }
-
             HLSLPROGRAM
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
