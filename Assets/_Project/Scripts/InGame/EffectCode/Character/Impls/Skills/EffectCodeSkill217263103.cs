@@ -47,7 +47,7 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
 
-        _tailVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
+        _tailVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillMiddleFXTransformFollowable);
         for (int i = 0; i < _tailVfx.CachedTr.childCount; i++)
         {
             _tailGameObjects.Add(_tailVfx.CachedTr.GetChild(i).gameObject);
@@ -114,8 +114,8 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
-            owner.GetCharacterView().CachedTr.position);
+        // InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
+        //     owner.GetCharacterView().CachedTr.position);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)

@@ -28,9 +28,19 @@ namespace CookApps.BattleSystem
             _piercePercentage = codeInfo.GetCodeStatToFloat(1);
         }
 
-        public bool IsPierceDamage()
+        private bool IsPierceDamage()
         {
             return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < _piercePercentage * 100;
+        }
+
+        public override CharacterController.DamageTestFlags GetDamageTestFlags()
+        {
+            // 관통 확률 체크 후 저항 관통 테스트 스킵
+            if (IsPierceDamage())
+            {
+                return CharacterController.DamageTestFlags.SkipResistPierce;
+            }
+            return CharacterController.DamageTestFlags.None;
         }
 
         public override void OnPreRemoved()

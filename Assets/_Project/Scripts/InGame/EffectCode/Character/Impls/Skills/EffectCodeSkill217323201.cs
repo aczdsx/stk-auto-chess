@@ -80,8 +80,8 @@ public partial class EffectCodeSkill217323201 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
-            owner.GetCharacterView().CachedTr.position);
+        // InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
+        //     owner.GetCharacterView().CachedTr.position);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -95,7 +95,7 @@ public partial class EffectCodeSkill217323201 : EffectCodeCharacterBase
         if (characterControllers.Count > 0)
         {
             var characterController = characterControllers[0];
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, characterController.CurrentTile);
+            // InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, characterController.CurrentTile);
 
             {
                 Span<double> eccStats = stackalloc double[1];

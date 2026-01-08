@@ -1003,6 +1003,18 @@ namespace CookApps.BattleSystem
             return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < DoubleCriticalProb; // OK
         }
 
+        [Flags]
+        public enum DamageTestFlags
+        {
+            None = 0,
+            SkipAvoidTest = 1 << 0,           // 회피 테스트 스킵
+            SkipElementAdvantage = 1 << 1,    // 속성 상성 계산 스킵
+            SkipBlockingTest = 1 << 2,        // 블록 테스트 스킵
+            SkipCriticalTest = 1 << 3,        // 크리티컬 테스트 스킵
+            SkipResistPierce = 1 << 4,        // 저항 관통 테스트 스킵
+            SkipLevelDiffMul = 1 << 5,         // 레벨 차이 계산 스킵
+        }
+
         public struct DamageInfo
         {
             public AttackerType attackerType;
@@ -1033,17 +1045,17 @@ namespace CookApps.BattleSystem
         /// <summary>
         /// 데미지 계산해서 벹는함수.
         /// 기존에 Pre,Post Calculate 연산이 모두 하나로 통합
-        /// 만약 스킵해야할 데미지 계산이 많아진다면 비트연산자로 만들것.(ispierce)
+        /// 비트 플래그를 사용하여 각 테스트를 선택적으로 스킵할 수 있음
         /// </summary>
         /// <param name="ad"></param>
         /// <param name="ap"></param>
         /// <param name="target"></param>
         /// <param name="source"></param>
         /// <param name="isSkill"></param>
-        /// <param name="isPassResistPierce"></param>
+        /// <param name="skipTests">스킵할 테스트 플래그 (비트 연산으로 조합 가능)</param>
         /// <returns></returns>
         public DamageInfo CalculateDamageAmount(double ad, double ap, CharacterController target, long source,
-        bool isSkill, bool isPassResistPierce = false)
+        bool isSkill, DamageTestFlags skipTests = DamageTestFlags.None)
         {
             var damageInfo = new DamageInfo();
             //일단 공격 타입 결정
@@ -1060,10 +1072,9 @@ namespace CookApps.BattleSystem
             if (target.AllianceType == AllianceType.Neutral)
                 return damageInfo;
 
-
-            if (!isSkill)
+            // 회피 테스트 진행 (스킬이 아니고 스킵 플래그가 없을 때만)
+            if (!isSkill && (skipTests & DamageTestFlags.SkipAvoidTest) == 0)
             {
-                //회피 테스트 진행
                 ProgressAvoidTest(ref damageInfo, target);
                 if (damageInfo.isMissed)
                 {
@@ -1072,27 +1083,38 @@ namespace CookApps.BattleSystem
                 }
             }
 
-
             //속성 상성 데미지 계산
-            CalculateElementAdvantageDamage(ref damageInfo, target);
-
-            //블록 테스트 진행
-            if (ProgressBlockingTest(ref damageInfo, target))
+            if ((skipTests & DamageTestFlags.SkipElementAdvantage) == 0)
             {
-                //블록율 실패 시 크리티컬 체크
-                ProgressCriticalTest(ref damageInfo);
+                CalculateElementAdvantageDamage(ref damageInfo, target);
             }
 
+            //블록 테스트 진행
+            bool isBlocked = false;
+            if ((skipTests & DamageTestFlags.SkipBlockingTest) == 0)
+            {
+                isBlocked = ProgressBlockingTest(ref damageInfo, target);
 
-            //샤프슈터는 뚫음
-            if (!isPassResistPierce)
+                //원래 로직: 블록 성공 시 크리티컬 체크 (크리티컬 테스트 스킵 플래그가 없을 때만)
+                if (isBlocked && (skipTests & DamageTestFlags.SkipCriticalTest) == 0)
+                {
+                    ProgressCriticalTest(ref damageInfo);
+                }
+            }
+
+            //저항 관통 테스트
+            if ((skipTests & DamageTestFlags.SkipResistPierce) == 0)
             {
                 ProgressResistPierce(ref damageInfo, target);
             }
 
-            var targetLevel = target.GetCharacterStat().Level;
-            var attackerLevel = GetCharacterStat().Level;
-            ProgressLevelDiffMul(ref damageInfo, targetLevel, attackerLevel);
+            //레벨 차이 계산
+            if ((skipTests & DamageTestFlags.SkipLevelDiffMul) == 0)
+            {
+                var targetLevel = target.GetCharacterStat().Level;
+                var attackerLevel = GetCharacterStat().Level;
+                ProgressLevelDiffMul(ref damageInfo, targetLevel, attackerLevel);
+            }
 
             if (ecc != null)
             {
@@ -1119,6 +1141,10 @@ namespace CookApps.BattleSystem
             //HitProb, AvoidProb는 성유물, 장비가 추가되면 바뀔수있음.
             var hitProb = HitProb; // 나의 명중률
             var avoidProb = target.AvoidProb; // 타겟의 회피율
+
+            var effectCodes = target.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnModifyAvoidRateAmount);
+            avoidProb = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnModifyAvoidRateAmountLambda, avoidProb);
+            
             var D = hitProb - avoidProb;
             var HitChance = 0.9f + 0.2f * D;
             HitChance = Mathf.Clamp(HitChance, 0.1f, 0.99f);
@@ -1153,15 +1179,24 @@ namespace CookApps.BattleSystem
 
         private void ProgressCriticalTest(ref DamageInfo damageInfo)
         {
-            damageInfo.isCritical = CriticalTest();
-            if (damageInfo.isCritical)
+            if (CriticalTest())
             {
-                damageInfo.damageAmount *= CriticalDamageRate;
-                damageInfo.isDoubleCritical = DoubleCriticalTest();
-                if (damageInfo.isDoubleCritical)
-                {
-                    damageInfo.damageAmount *= DoubleCriticalDamageRate;
-                }
+                ApplyCriticalDamage(ref damageInfo);
+            }
+        }
+
+        /// <summary>
+        /// 크리티컬 데미지를 적용하는 메서드
+        /// </summary>
+        public void ApplyCriticalDamage(ref DamageInfo damageInfo)
+        {
+            damageInfo.isCritical = true;
+            damageInfo.damageAmount *= CriticalDamageRate;
+
+            damageInfo.isDoubleCritical = DoubleCriticalTest();
+            if (damageInfo.isDoubleCritical)
+            {
+                damageInfo.damageAmount *= DoubleCriticalDamageRate;
             }
         }
 
@@ -1388,10 +1423,10 @@ namespace CookApps.BattleSystem
             }
 
             // 속성, 크기, 종족에 따른 회복량 계산이 필요하다면 여기서 할 것
-            {
-                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
-                recoveryAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, recoveryAmount);
-            }
+
+            var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
+            recoveryAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, recoveryAmount);
+
 
             return recoveryAmount;
         }

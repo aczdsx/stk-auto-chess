@@ -79,16 +79,15 @@ public partial class EffectCodeBuffNoDamageShield : EffectCodeBuffBase
         owner.AddBuffStackData(CodeId, buffStackData);
     }
 
-    public override CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageInfo,
-     CharacterController attacker, bool isFirstDamage)
+    public override double ModifyDamageAmount(double damageAmount)
     {
 
-        damageInfo.damageAmount = 0d;
+        damageAmount = 0d;
         --_stackDatas[0].value;
         if (_stackDatas[0].value <= 0)
         {
             RemoveFromContainer();
-            return damageInfo;
+            return damageAmount;
         }
         else
         {
@@ -98,7 +97,7 @@ public partial class EffectCodeBuffNoDamageShield : EffectCodeBuffBase
         var affectText = buffDebuffType.GetAffectToken();
         owner.ShowNormalText(affectText, hexColor: "#5DC9FFFF").Forget();
 
-        return damageInfo;
+        return damageAmount;
 
     }
     public override void OnPreRemoved()
