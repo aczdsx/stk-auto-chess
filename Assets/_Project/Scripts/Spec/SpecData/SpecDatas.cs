@@ -1333,6 +1333,28 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class StageMilestoneReward
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
+        /// 보상 id
+        public int reward_id;
+        /// 컨텐츠 메인 분류
+        public global::CookApps.AutoBattler.ContentType content_type;
+        /// 난이도
+        public global::CookApps.AutoBattler.DifficultyType difficulty_type;
+        /// 컨텐츠 추가 구분 값
+        public int content_key_value;
+        /// 보상 타입_소분류
+        public int sub_value;
+        /// 보상 키 값
+        public int item_id;
+        /// 보상 수량
+        public int item_count;
+    }
+
+    [GeneratorSpecData]
     public partial class GuideMissionInfo
     {
         /// #SheetIndex

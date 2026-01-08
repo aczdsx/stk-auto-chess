@@ -12,20 +12,10 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// </summary>
 public class CharacterStateAttackPierce : CharacterStateAttack
 {
-    private EffectCodeJobPassivePierce _passivePierceEffectCode = null;
     private SpecialAttackDamageInfo _specialAttackInfo = new SpecialAttackDamageInfo();
-    public override void StateInit(object owner)
-    {
-        base.StateInit(owner);
-        _passivePierceEffectCode = characCtrl.GetEffectCodeContainer().GetEffectCode((int)EffectCodeNameType.JOBS_PIERCE) as EffectCodeJobPassivePierce;
-    }
+    
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
     {
-        if (_passivePierceEffectCode == null)
-        {
-            _passivePierceEffectCode = characCtrl.GetEffectCodeContainer().GetEffectCode((int)EffectCodeNameType.JOBS_PIERCE) as EffectCodeJobPassivePierce;
-        }
-
         var outRunningResult = base.CharacterStateRunning(dt);
         if (outRunningResult == CharacterStateRunningResult.CanCallAllWithoutMove)
         {
@@ -37,17 +27,52 @@ public class CharacterStateAttackPierce : CharacterStateAttack
 
     private void PreCalculateDamageInfo()
     {
-        _specialAttackInfo.IsSpecialAttack = _passivePierceEffectCode.IsPierceDamage();
+        // 모든 이펙트 코드에서 DamageTestFlags 수집
+        var skipTests = CharacterController.DamageTestFlags.None;
+        bool isPierceAttack = false;
+        bool isEnhancedAttack = false;
+        
+        var effectCodes = characCtrl.GetEffectCodeContainer()
+            .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyDamageTestFlags);
+        
+        for (int i = 0; i < effectCodes.Count; i++)
+        {
+            if (effectCodes[i] is EffectCodeCharacterBase characterEffectCode)
+            {
+                var flags = characterEffectCode.GetDamageTestFlags();
+                skipTests |= flags;
+                
+                // Pierce 공격 여부 확인 (SkipResistPierce가 설정되어 있으면 Pierce 공격으로 간주)
+                if ((flags & CharacterController.DamageTestFlags.SkipResistPierce) != 0)
+                {
+                    isPierceAttack = true;
+                }
+                
+                // 강화탄 여부 확인 (SkipAvoidTest가 설정되어 있으면 강화탄으로 간주)
+                if ((flags & CharacterController.DamageTestFlags.SkipAvoidTest) != 0)
+                {
+                    isEnhancedAttack = true;
+                }
+            }
+        }
+        
+        _specialAttackInfo.IsSpecialAttack = isPierceAttack || isEnhancedAttack;
 
         if (characCtrl.SpecCharacter.atk_type == AtkType.AD)
         {
             _specialAttackInfo.DamageInfo = characCtrl.CalculateDamageAmount(characCtrl.AD, 0, characCtrl.Target,
-            0, false,isPassResistPierce: _specialAttackInfo.IsSpecialAttack);
+            0, false, skipTests);
         }
         else
         {
             _specialAttackInfo.DamageInfo = characCtrl.CalculateDamageAmount(0, characCtrl.AP, characCtrl.Target,
-            0, false,_specialAttackInfo.IsSpecialAttack);
+            0, false, skipTests);
+        }
+        
+        // 강화탄일 경우 크리티컬 강제 적용 및 크리티컬 데미지 배율 적용
+        if (isEnhancedAttack)
+        {
+            characCtrl.ApplyCriticalDamage(ref _specialAttackInfo.DamageInfo);
         }
     }
 
@@ -139,5 +164,10 @@ public class CharacterStateAttackPierce : CharacterStateAttack
                 characCtrl.Target.GetDamaged(_specialAttackInfo.DamageInfo, characCtrl);
             }
         }
+    }
+    
+    protected override void OnAttackEndProcess()
+    {
+        base.OnAttackEndProcess();
     }
 }

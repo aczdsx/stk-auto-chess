@@ -46,5 +46,5 @@ namespace CookApps.BattleSystem
 
             EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ODETTE_COLD, owner.Target, eccStats, source);
         }
-    }//117613501
+    }//115252102
 }

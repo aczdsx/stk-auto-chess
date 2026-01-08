@@ -61,8 +61,10 @@ namespace CookApps.BattleSystem
         UseOnCombatStart = 1L << 54,
         UseOnAttackEnd = 1L << 55,
         UseAddSkillCooltime = 1L << 56,
+        UseModifyDamageTestFlags = 1L << 57,
+        UseOnModifyAvoidRateAmount = 1L << 58,
         #endregion
-        MAX = 1L << 57,
+        MAX = 1L << 59,
     };
 
     public static class EffectCodeInheritFlagExtensions

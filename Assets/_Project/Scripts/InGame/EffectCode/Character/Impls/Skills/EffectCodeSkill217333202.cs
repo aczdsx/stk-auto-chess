@@ -141,7 +141,8 @@ public partial class EffectCodeSkill217333202 : EffectCodeCharacterBase
                 var inGameTiles3 = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 3, 2);
                 var inGameTiles4 = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 4, 3);
 
-                bool isFx = i % (int) duration == 0;
+                // bool isFx = i % (int) duration == 0;
+                bool isFx = true;
                 
                 
                 List<int> targetCharacterList = new();
