@@ -46,13 +46,13 @@ namespace CookApps.AutoBattler
                 CameraGestureController = controller;
         }
 
-        public static Vector2 WorldPointToLocalPointInRectangle(Vector2 worldPoint, RectTransform parentTr)
+        public static Vector2 WorldPointToLocalPointInRectangle(Vector3 worldPoint, RectTransform parentTr, Camera uiCamera = null)
         {
             var screenPos = MainCamera.WorldToScreenPoint(worldPoint);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 parentTr,
                 screenPos,
-                null,
+                uiCamera,
                 out Vector2 anchoredPos
             );
 
