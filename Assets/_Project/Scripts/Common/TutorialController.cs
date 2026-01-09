@@ -29,27 +29,177 @@ public class TutorialController : MonoBehaviour
 
     private AnimationState _currentState = AnimationState.Idle;
 
-    private Vector3 _currentTargetPosition;
-
     private Vector2 _currentUvPosition;
-    private bool _isAnimating; // 애니메이션 실행 여부 플래그
-    private bool _isSmoothing;
-    private Vector3 _lerpTargetPosition;
     private Vector2 _lerpUvPosition;
-    private Transform _originalParent; // 버튼의 원래 Parent 저장소
-    private Vector3 _originalPosition; // 버튼의 원래 위치 저장소
-    private int _originalSiblingIndex; // 버튼의 원래 Sibling Index 저장소
-    private GameObject _targetUIObj;
-    private GameObject _targetUnmaskObj;
-    private int tutorialListIndex;
+
+    private int _tutorialListIndex;
     public TutorialDialogue CurrentSpecTutorial { get; private set; }
-    
+
     // Manager와의 통신을 위한 콜백 (Manager가 주입)
     private Action _onTutorialCloseRequested;
 
+    // 전략 패턴
+    private ITutorialActionStrategy _currentStrategy;
+    private TutorialActionContext _actionContext;
+
+    // 전략 인스턴스 캐싱
+    private static readonly Dictionary<TutorialActionType, ITutorialActionStrategy> _strategies = new()
+    {   
+        { TutorialActionType.NONE, new TutorialActionNone() },
+        { TutorialActionType.FORCED_TOUCH_UI, new TutorialActionForcedTouchUI() },
+        { TutorialActionType.FOCUS_OBJECT, new TutorialActionFocusObject() }
+    };
+
     protected void Update()
     {
-        if (_targetUnmaskObj == null || !_targetUnmaskObj.activeInHierarchy)
+        UpdateMaskPosition();
+    }
+
+    public void OnClickDimmedBG()
+    {
+        if (!_nextObj.activeSelf) return;
+
+        // 현재 전략에게 딤드 클릭 처리 가능 여부 확인
+        if (_currentStrategy != null && _currentStrategy.CanProceedOnDimmedClick(_actionContext))
+        {
+            ProceedToNext();
+        }
+    }
+
+    /// <summary>
+    /// Manager가 Controller를 초기화할 때 호출. 콜백을 주입받음
+    /// </summary>
+    public void Initialize(Action onTutorialCloseRequested)
+    {
+        _onTutorialCloseRequested = onTutorialCloseRequested;
+        InitializeContext();
+    }
+
+    private void InitializeContext()
+    {
+        _actionContext = new TutorialActionContext
+        {
+            NextObj = _nextObj,
+            ArrowRectTransform = _arrowRectTransform,
+            TargetSpawnTransform = _targetSpawnTransform
+        };
+    }
+
+    public void SetTutorial(List<TutorialDialogue> specTutorialList, bool isLongShow)
+    {
+        _currentSpecTutorialList = specTutorialList;
+        _tutorialListIndex = 0;
+        _actionContext.TargetUnmaskObj = null;
+
+        ShowNextTutorial(_currentSpecTutorialList[_tutorialListIndex]);
+        _tutorialAnimator.SetTrigger(isLongShow ? LongShow : Show);
+    }
+
+    /// <summary>
+    /// 애니메이션 완료 후 호출됨 (Animator Event)
+    /// </summary>
+    public void OnNextObj()
+    {
+        _currentStrategy?.OnNext(_actionContext);
+    }
+
+    public void ShowNextTutorial(TutorialDialogue specTutorial)
+    {
+        // 이전 전략 정리 (버튼 원위치 등)
+        RestorePreviousState();
+
+        CurrentSpecTutorial = specTutorial;
+        _actionContext.CurrentTutorial = specTutorial;
+
+        // 텍스트 설정
+        string tutorialText = LanguageManager.Instance.GetLanguageText(CurrentSpecTutorial.desc_key);
+        _descText.text = tutorialText;
+        _nextObj.SetActive(false);
+        _actionContext.TargetUnmaskObj = null;
+
+        // 말풍선 위치 이동
+        var targetPosition = new Vector3(0, CurrentSpecTutorial.popup_yPos, 0);
+        _bodyRectTransform.DOLocalMove(targetPosition, 0.6f).SetEase(Ease.OutQuad);
+
+        // 전략 선택 및 실행
+        _currentStrategy = GetStrategy(CurrentSpecTutorial.tutorial_action_type);
+        _currentStrategy?.OnShow(_actionContext);
+    }
+
+    /// <summary>
+    /// 튜토리얼 제거 - TutorialManager의 가이드가 다 비었을 때 호출됨
+    /// </summary>
+    public void ClearTutorial()
+    {
+        if (_currentSpecTutorialList == null)
+        {
+            return;
+        }
+
+        _actionContext.TargetUnmaskObj = null;
+
+        // 현재 전략 정리
+        _currentStrategy?.OnClear(_actionContext);
+
+        _tutorialAnimator.SetTrigger(Close);
+
+        _currentSpecTutorialList = null;
+        _currentStrategy = null;
+    }
+
+    /// <summary>
+    /// 다음 튜토리얼로 진행
+    /// </summary>
+    private void ProceedToNext()
+    {
+        if (_tutorialListIndex + 1 >= _currentSpecTutorialList.Count)
+        {
+            _onTutorialCloseRequested?.Invoke();
+        }
+        else
+        {
+            _tutorialListIndex++;
+            ShowNextTutorial(_currentSpecTutorialList[_tutorialListIndex]);
+        }
+    }
+
+    /// <summary>
+    /// 이전 상태 복구 (버튼 원위치 등)
+    /// </summary>
+    private void RestorePreviousState()
+    {
+        if (_actionContext.OriginalParent != null && _actionContext.TargetUIObj != null)
+        {
+            _actionContext.TargetUIObj.transform.SetParent(_actionContext.OriginalParent);
+            _actionContext.TargetUIObj.transform.SetSiblingIndex(_actionContext.OriginalSiblingIndex);
+            _actionContext.TargetUIObj.transform.localPosition = _actionContext.OriginalPosition;
+
+            _actionContext.TargetUIObj = null;
+            _actionContext.OriginalParent = null;
+        }
+    }
+
+    /// <summary>
+    /// 전략 인스턴스 가져오기
+    /// </summary>
+    private ITutorialActionStrategy GetStrategy(TutorialActionType actionType)
+    {
+        if (_strategies.TryGetValue(actionType, out var strategy))
+        {
+            return strategy;
+        }
+
+        Debug.LogWarning($"[TutorialController] 알 수 없는 ActionType: {actionType}, NONE 전략 사용");
+        return _strategies[TutorialActionType.NONE];
+    }
+
+    #region Mask Animation
+
+    private void UpdateMaskPosition()
+    {
+        var targetUnmaskObj = _actionContext?.TargetUnmaskObj;
+
+        if (targetUnmaskObj == null || !targetUnmaskObj.activeInHierarchy)
         {
             if (_currentState != AnimationState.Shrinking && _currentState != AnimationState.IdleAfterShrinking)
             {
@@ -63,38 +213,7 @@ public class TutorialController : MonoBehaviour
                 ChangeState(AnimationState.Growing);
             }
 
-            Vector2 targetUvPosition;
-
-            if (CurrentSpecTutorial != null && CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FOCUS_OBJECT)
-            {
-                var targetRectTransform = _targetUnmaskObj.GetComponent<RectTransform>();
-                if (targetRectTransform == null)
-                {
-                    Debug.LogWarning("UnMaskUI 대상 오브젝트에 RectTransform이 없습니다.");
-                    return;
-                }
-
-                targetUvPosition = GetNormalizedPosition(_canvasRectTransform, targetRectTransform);
-            }
-            else
-            {
-                Vector3 worldPosition = _targetUnmaskObj.transform.position;
-                Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
-
-                if (screenPosition.z < 0)
-                {
-                    Debug.LogWarning("Target object is behind the camera.");
-                    return;
-                }
-
-                Vector2 localPoint;
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRectTransform, screenPosition, null,
-                    out localPoint);
-
-                targetUvPosition = new Vector2(
-                    (localPoint.x + (_canvasRectTransform.rect.width * 0.5f)) / _canvasRectTransform.rect.width,
-                    (localPoint.y + (_canvasRectTransform.rect.height * 0.5f)) / _canvasRectTransform.rect.height);
-            }
+            Vector2 targetUvPosition = CalculateTargetUvPosition(targetUnmaskObj);
 
             // 스무딩 처리
             if (_currentUvPosition != targetUvPosition)
@@ -110,174 +229,56 @@ public class TutorialController : MonoBehaviour
                 _lerpUvPosition = _currentUvPosition;
             }
 
-            float aspectRatio = (float) Screen.width / Screen.height;
+            float aspectRatio = (float)Screen.width / Screen.height;
             _maskMaterial.SetFloat(AspectRatio, aspectRatio);
             _maskMaterial.SetVector(HoleCenter, new Vector4(_lerpUvPosition.x, _lerpUvPosition.y, 0, 0));
         }
     }
 
-    public void OnClickDimmedBG()
+    private Vector2 CalculateTargetUvPosition(GameObject targetObj)
     {
-        if (_nextObj.activeSelf)
+        if (CurrentSpecTutorial != null && CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FOCUS_OBJECT)
         {
-            TutorialActionType currentActionType = _currentSpecTutorialList[tutorialListIndex].tutorial_action_type;
-            bool checkError = currentActionType == TutorialActionType.FORCED_TOUCH_UI && _targetUIObj == null;
-
-            if (currentActionType == TutorialActionType.NONE ||
-                currentActionType == TutorialActionType.FOCUS_OBJECT || checkError)
+            var targetRectTransform = targetObj.GetComponent<RectTransform>();
+            if (targetRectTransform == null)
             {
-                if (tutorialListIndex + 1 >= _currentSpecTutorialList.Count)
-                {
-                    _onTutorialCloseRequested?.Invoke();
-                }
-                else
-                {
-                    tutorialListIndex++;
-                    ShowNextTutorial(_currentSpecTutorialList[tutorialListIndex]);
-                }
+                Debug.LogWarning("UnMaskUI 대상 오브젝트에 RectTransform이 없습니다.");
+                return _currentUvPosition;
             }
+
+            return GetNormalizedPosition(_canvasRectTransform, targetRectTransform);
         }
-    }
-
-    /// <summary>
-    /// Manager가 Controller를 초기화할 때 호출. 콜백을 주입받음
-    /// </summary>
-    public void Initialize(Action onTutorialCloseRequested)
-    {
-        _onTutorialCloseRequested = onTutorialCloseRequested;
-    }
-
-    public void SetTutorial(List<TutorialDialogue> specTutorialList, bool isLongShow)
-    {
-        _currentSpecTutorialList = specTutorialList;
-        tutorialListIndex = 0;
-        _targetUnmaskObj = null;
-
-        ShowNextTutorial(_currentSpecTutorialList[tutorialListIndex]);
-        _tutorialAnimator.SetTrigger(isLongShow ? LongShow : Show);
-    }
-
-    public void OnNextObj()
-    {
-        switch (CurrentSpecTutorial.tutorial_action_type)
+        else
         {
-            case TutorialActionType.NONE:
-                _nextObj.SetActive(true);
-                _arrowRectTransform.gameObject.SetActive(false);
-                break;
-            case TutorialActionType.FORCED_TOUCH_UI:
-                // Target Obj 세팅
-                _targetUIObj = GameObject.Find(CurrentSpecTutorial.tutorial_action_key);
-                if (_targetUIObj == null)
-                {
-                    _nextObj.SetActive(true);
-                }
-                else
-                {
-                    _originalParent = _targetUIObj.transform.parent;
-                    _originalSiblingIndex = _targetUIObj.transform.GetSiblingIndex();
-                    _originalPosition = _targetUIObj.transform.localPosition;
-                    _targetUIObj.transform.SetParent(_targetSpawnTransform, true);
+            Vector3 worldPosition = targetObj.transform.position;
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
 
-                    // Arrow Obj 세팅
-                    _arrowRectTransform.gameObject.SetActive(true);
-                    Vector3 arrowTargetPosition = _targetUIObj.transform.localPosition;
-                    _arrowRectTransform.localPosition = new Vector3(arrowTargetPosition.x,
-                        arrowTargetPosition.y + CurrentSpecTutorial.arrow_yPos, arrowTargetPosition.z);
-                }
+            if (screenPosition.z < 0)
+            {
+                Debug.LogWarning("Target object is behind the camera.");
+                return _currentUvPosition;
+            }
 
-                break;
-            case TutorialActionType.FOCUS_OBJECT:
-                _nextObj.SetActive(true);
-                break;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRectTransform, screenPosition, null,
+                out var localPoint);
+
+            return new Vector2(
+                (localPoint.x + (_canvasRectTransform.rect.width * 0.5f)) / _canvasRectTransform.rect.width,
+                (localPoint.y + (_canvasRectTransform.rect.height * 0.5f)) / _canvasRectTransform.rect.height);
         }
-    }
-
-    public void ShowNextTutorial(TutorialDialogue specTutorial)
-    {
-        CurrentSpecTutorial = specTutorial;
-        // desc_key를 언어 토큰으로 사용하여 텍스트 가져오기 (DialoguePopup 방식 참고)
-        string tutorialText = LanguageManager.Instance.GetLanguageText(CurrentSpecTutorial.desc_key);
-        _descText.text = tutorialText;
-        _nextObj.SetActive(false);
-        _targetUnmaskObj = null;
-        if (_originalParent != null && _targetUIObj != null)
-        {
-            _targetUIObj.transform.SetParent(_originalParent);
-            _targetUIObj.transform.SetSiblingIndex(_originalSiblingIndex);
-            _targetUIObj.transform.localPosition = _originalPosition;
-        }
-
-        var targetPosition = new Vector3(0, CurrentSpecTutorial.popup_yPos, 0);
-
-        _bodyRectTransform.DOLocalMove(targetPosition, 0.6f).SetEase(Ease.OutQuad).OnComplete(() =>
-        {
-            Debug.Log("Movement Complete!");
-        });
-
-        switch (CurrentSpecTutorial.tutorial_action_type)
-        {
-            case TutorialActionType.NONE:
-                _arrowRectTransform.gameObject.SetActive(false);
-                break;
-            case TutorialActionType.FORCED_TOUCH_UI:
-                break;
-            case TutorialActionType.FOCUS_OBJECT:
-                _arrowRectTransform.gameObject.SetActive(false);
-                _targetUnmaskObj = GameObject.Find(CurrentSpecTutorial.tutorial_action_key);
-                break;
-        }
-    }
-
-    /// <summary>
-    /// 튜토리얼 제거 - TutorialManager의 가이드가 다 비었을 때 호출됨
-    /// </summary>
-    public void ClearTutorial()
-    {
-        if (_currentSpecTutorialList == null)
-        {
-            return;
-        }
-
-        _targetUnmaskObj = null;
-        switch (_currentSpecTutorialList[tutorialListIndex].tutorial_action_type)
-        {
-            case TutorialActionType.NONE:
-                _nextObj.SetActive(false);
-                break;
-            case TutorialActionType.FORCED_TOUCH_UI:
-                _arrowRectTransform.gameObject.SetActive(false);
-
-                if (_originalParent != null && _targetUIObj != null)
-                {
-                    _targetUIObj.transform.SetParent(_originalParent);
-                    _targetUIObj.transform.SetSiblingIndex(_originalSiblingIndex);
-                    _targetUIObj.transform.localPosition = _originalPosition;
-                }
-
-                break;
-            case TutorialActionType.FOCUS_OBJECT:
-                _nextObj.SetActive(false);
-                break;
-        }
-
-        _tutorialAnimator.SetTrigger(Close);
-
-        _currentSpecTutorialList = null;
     }
 
     private void ChangeState(AnimationState newState)
     {
         if (_currentState == newState)
         {
-            return; // 같은 상태로는 전환하지 않음
+            return;
         }
 
         _currentState = newState;
 
         if (newState == AnimationState.Growing)
         {
-            // DOTween으로 HoleRadius 증가
             float currentRadius = _maskMaterial.GetFloat(HoleRadius);
             DOTween.To(() => currentRadius, x =>
             {
@@ -285,12 +286,11 @@ public class TutorialController : MonoBehaviour
                 _maskMaterial.SetFloat(HoleRadius, currentRadius);
             }, CurrentSpecTutorial.hole_radius, 0.8f).SetEase(Ease.InOutSine).OnComplete(() =>
             {
-                _currentState = AnimationState.IdleAfterGrowing; // Grow 완료 후 Idle 상태로 전환
+                _currentState = AnimationState.IdleAfterGrowing;
             });
         }
         else if (newState == AnimationState.Shrinking)
         {
-            // DOTween으로 HoleRadius 감소
             float currentRadius = _maskMaterial.GetFloat(HoleRadius);
             DOTween.To(() => currentRadius, x =>
             {
@@ -298,7 +298,7 @@ public class TutorialController : MonoBehaviour
                 _maskMaterial.SetFloat(HoleRadius, currentRadius);
             }, 0.0f, 0.8f).SetEase(Ease.InOutSine).OnComplete(() =>
             {
-                _currentState = AnimationState.IdleAfterShrinking; // Shrink 완료 후 Idle 상태로 전환
+                _currentState = AnimationState.IdleAfterShrinking;
             });
         }
     }
@@ -320,20 +320,9 @@ public class TutorialController : MonoBehaviour
         }
 
         return new Vector2(normalizedX, normalizedY);
-
-        // Vector2 anchorRectSize = (rect.anchorMax - rect.anchorMin) * canvasRect.rect.size;
-        // Vector2 anchorBase = rect.anchorMin * canvasRect.rect.size;
-        // Vector2 pivotOffset = anchorRectSize * rect.pivot;
-        // Vector2 finalLocalPos = anchorBase + pivotOffset + rect.anchoredPosition -
-        //                         (canvasRect.rect.size * canvasRect.pivot);
-        // Vector2 posFromBottomLeft = finalLocalPos + (canvasRect.rect.size * canvasRect.pivot);
-        //
-        // // Canvas 사이즈로 나누어 0~1 사이로 정규화
-        // float normalizedX = posFromBottomLeft.x / canvasRect.rect.size.x;
-        // float normalizedY = posFromBottomLeft.y / canvasRect.rect.size.y;
-        //
-        // return new Vector2(normalizedX, normalizedY);
     }
+
+    #endregion
 
     private enum AnimationState
     {
