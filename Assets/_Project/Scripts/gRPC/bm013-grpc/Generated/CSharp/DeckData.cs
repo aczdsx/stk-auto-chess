@@ -30,15 +30,15 @@ namespace Tech.Hive.V1 {
             "Q2hhcmFjdGVyUGxhY2VtZW50EjwKEXRhY3RpY19wbGFjZW1lbnRzGAQgAygL",
             "MiEudGVjaC5oaXZlLnYxLkRlY2tUYWN0aWNQbGFjZW1lbnQiSAoTRGVja1Rh",
             "Y3RpY1BsYWNlbWVudBIRCgl0YWN0aWNfaWQYASABKAkSDgoGZ3JpZF94GAIg",
-            "ASgFEg4KBmdyaWRfeRgDIAEoBSJPChZEZWNrQ2hhcmFjdGVyUGxhY2VtZW50",
-            "EhUKDWNoYXJhY3Rlcl91aWQYASABKA0SDgoGZ3JpZF94GAIgASgFEg4KBmdy",
-            "aWRfeRgDIAEoBWIGcHJvdG8z"));
+            "ASgFEg4KBmdyaWRfeRgDIAEoBSJOChZEZWNrQ2hhcmFjdGVyUGxhY2VtZW50",
+            "EhQKDGNoYXJhY3Rlcl9pZBgBIAEoDRIOCgZncmlkX3gYAiABKAUSDgoGZ3Jp",
+            "ZF95GAMgASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckData), global::Tech.Hive.V1.DeckData.Parser, new[]{ "DeckSlotId", "DeckName", "CharacterPlacements", "TacticPlacements" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckTacticPlacement), global::Tech.Hive.V1.DeckTacticPlacement.Parser, new[]{ "TacticId", "GridX", "GridY" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckCharacterPlacement), global::Tech.Hive.V1.DeckCharacterPlacement.Parser, new[]{ "CharacterUid", "GridX", "GridY" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckCharacterPlacement), global::Tech.Hive.V1.DeckCharacterPlacement.Parser, new[]{ "CharacterId", "GridX", "GridY" }, null, null, null, null)
           }));
     }
     #endregion
@@ -647,7 +647,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public DeckCharacterPlacement(DeckCharacterPlacement other) : this() {
-      characterUid_ = other.characterUid_;
+      characterId_ = other.characterId_;
       gridX_ = other.gridX_;
       gridY_ = other.gridY_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -659,18 +659,18 @@ namespace Tech.Hive.V1 {
       return new DeckCharacterPlacement(this);
     }
 
-    /// <summary>Field number for the "character_uid" field.</summary>
-    public const int CharacterUidFieldNumber = 1;
-    private uint characterUid_;
+    /// <summary>Field number for the "character_id" field.</summary>
+    public const int CharacterIdFieldNumber = 1;
+    private uint characterId_;
     /// <summary>
     /// 캐릭터 아이디
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint CharacterUid {
-      get { return characterUid_; }
+    public uint CharacterId {
+      get { return characterId_; }
       set {
-        characterUid_ = value;
+        characterId_ = value;
       }
     }
 
@@ -719,7 +719,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (CharacterUid != other.CharacterUid) return false;
+      if (CharacterId != other.CharacterId) return false;
       if (GridX != other.GridX) return false;
       if (GridY != other.GridY) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -729,7 +729,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (CharacterUid != 0) hash ^= CharacterUid.GetHashCode();
+      if (CharacterId != 0) hash ^= CharacterId.GetHashCode();
       if (GridX != 0) hash ^= GridX.GetHashCode();
       if (GridY != 0) hash ^= GridY.GetHashCode();
       if (_unknownFields != null) {
@@ -750,9 +750,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (CharacterUid != 0) {
+      if (CharacterId != 0) {
         output.WriteRawTag(8);
-        output.WriteUInt32(CharacterUid);
+        output.WriteUInt32(CharacterId);
       }
       if (GridX != 0) {
         output.WriteRawTag(16);
@@ -772,9 +772,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CharacterUid != 0) {
+      if (CharacterId != 0) {
         output.WriteRawTag(8);
-        output.WriteUInt32(CharacterUid);
+        output.WriteUInt32(CharacterId);
       }
       if (GridX != 0) {
         output.WriteRawTag(16);
@@ -794,8 +794,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (CharacterUid != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterUid);
+      if (CharacterId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterId);
       }
       if (GridX != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(GridX);
@@ -815,8 +815,8 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.CharacterUid != 0) {
-        CharacterUid = other.CharacterUid;
+      if (other.CharacterId != 0) {
+        CharacterId = other.CharacterId;
       }
       if (other.GridX != 0) {
         GridX = other.GridX;
@@ -840,7 +840,7 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            CharacterUid = input.ReadUInt32();
+            CharacterId = input.ReadUInt32();
             break;
           }
           case 16: {
@@ -867,7 +867,7 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            CharacterUid = input.ReadUInt32();
+            CharacterId = input.ReadUInt32();
             break;
           }
           case 16: {

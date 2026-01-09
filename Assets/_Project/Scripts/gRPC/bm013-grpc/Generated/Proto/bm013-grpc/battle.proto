@@ -119,7 +119,7 @@ message BattleResult {
 
 // 유닛 통계
 message BattleUnitStat {
-  uint32 character_uid = 1;
+  uint32 character_id = 1;
   uint64 damage_dealt = 2;
   uint64 damage_taken = 3;
   uint32 kills = 4;
@@ -141,7 +141,7 @@ message BattleEndResponse {
 
 // 캐릭터 경험치 획득
 message BattleCharacterExpGain {
-  uint32 character_uid = 1;
+  uint32 character_id = 1;
   uint64 exp_gained = 2;
   uint32 level_before = 3;
   uint32 level_after = 4;

@@ -51,42 +51,42 @@ namespace Tech.Hive.V1 {
             "dmljdG9yeRgBIAEoCBISCgpjbGVhcl90aW1lGAIgASgEEg0KBXN0YXJzGAMg",
             "ASgNEjAKCnVuaXRfc3RhdHMYBCADKAsyHC50ZWNoLmhpdmUudjEuQmF0dGxl",
             "VW5pdFN0YXQSGgoSdG90YWxfZGFtYWdlX2RlYWx0GAUgASgEEhoKEnRvdGFs",
-            "X2RhbWFnZV90YWtlbhgGIAEoBCJ3Cg5CYXR0bGVVbml0U3RhdBIVCg1jaGFy",
-            "YWN0ZXJfdWlkGAEgASgNEhQKDGRhbWFnZV9kZWFsdBgCIAEoBBIUCgxkYW1h",
-            "Z2VfdGFrZW4YAyABKAQSDQoFa2lsbHMYBCABKA0SEwoLaXNfc3Vydml2ZWQY",
-            "BSABKAgi2QEKEUJhdHRsZUVuZFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIc",
-            "LnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxI0Cg9jdXJyZW5jeV9kZWx0",
-            "YXMYAiADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YRI5Cg5zdGFn",
-            "ZV9wcm9ncmVzcxgDIAEoCzIhLnRlY2guaGl2ZS52MS5CYXR0bGVTdGFnZVBy",
-            "b2dyZXNzEiUKB3Jld2FyZHMYBCADKAsyFC50ZWNoLmhpdmUudjEuUmV3YXJk",
-            "Im4KFkJhdHRsZUNoYXJhY3RlckV4cEdhaW4SFQoNY2hhcmFjdGVyX3VpZBgB",
-            "IAEoDRISCgpleHBfZ2FpbmVkGAIgASgEEhQKDGxldmVsX2JlZm9yZRgDIAEo",
-            "DRITCgtsZXZlbF9hZnRlchgEIAEoDSJbCihCYXR0bGVDbGFpbUNoYXB0ZXJN",
-            "aWxlc3RvbmVSZXdhcmRSZXF1ZXN0EhIKCmNoYXB0ZXJfaWQYASABKA0SGwoT",
-            "bWlsZXN0b25lX3Jld2FyZF9pZBgCIAEoDSK2AQopQmF0dGxlQ2xhaW1DaGFw",
-            "dGVyTWlsZXN0b25lUmV3YXJkUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwu",
-            "dGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEiUKB3Jld2FyZHMYAiADKAsy",
-            "FC50ZWNoLmhpdmUudjEuUmV3YXJkEjQKD2N1cnJlbmN5X2RlbHRhcxgDIAMo",
-            "CzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhKvQBCg9CYXR0bGVFcnJv",
-            "ckNvZGUSFgoSQkFUVExFX1VOU1BFQ0lGSUVEEAASHwoYQkFUVExFX1NFU1NJ",
-            "T05fTk9UX0ZPVU5EEJmm6gQSGwoUQkFUVExFX0FMUkVBRFlfRU5ERUQQmqbq",
-            "BBIuCidCQVRUTEVfTUlMRVNUT05FX1JFV0FSRF9BTFJFQURZX0NMQUlNRUQQ",
-            "m6bqBBIsCiVCQVRUTEVfTUlMRVNUT05FX1JFV0FSRF9OT1RfQVZBSUxBQkxF",
-            "EJym6gQSLQomQkFUVExFX01JTEVTVE9ORV9SRVdBUkRfSU5GT19OT1RfRk9V",
-            "TkQQnabqBDLiBAoNQmF0dGxlU2VydmljZRJwChFHZXRDdXJyZW50Q2hhcHRl",
-            "chIsLnRlY2guaGl2ZS52MS5CYXR0bGVHZXRDdXJyZW50Q2hhcHRlclJlcXVl",
-            "c3QaLS50ZWNoLmhpdmUudjEuQmF0dGxlR2V0Q3VycmVudENoYXB0ZXJSZXNw",
-            "b25zZRJeCgtMaXN0Q2hhcHRlchImLnRlY2guaGl2ZS52MS5CYXR0bGVMaXN0",
-            "Q2hhcHRlclJlcXVlc3QaJy50ZWNoLmhpdmUudjEuQmF0dGxlTGlzdENoYXB0",
-            "ZXJSZXNwb25zZRJYCglMaXN0U3RhZ2USJC50ZWNoLmhpdmUudjEuQmF0dGxl",
-            "TGlzdFN0YWdlUmVxdWVzdBolLnRlY2guaGl2ZS52MS5CYXR0bGVMaXN0U3Rh",
-            "Z2VSZXNwb25zZRKOAQobQ2xhaW1DaGFwdGVyTWlsZXN0b25lUmV3YXJkEjYu",
-            "dGVjaC5oaXZlLnYxLkJhdHRsZUNsYWltQ2hhcHRlck1pbGVzdG9uZVJld2Fy",
-            "ZFJlcXVlc3QaNy50ZWNoLmhpdmUudjEuQmF0dGxlQ2xhaW1DaGFwdGVyTWls",
-            "ZXN0b25lUmV3YXJkUmVzcG9uc2USTAoFU3RhcnQSIC50ZWNoLmhpdmUudjEu",
-            "QmF0dGxlU3RhcnRSZXF1ZXN0GiEudGVjaC5oaXZlLnYxLkJhdHRsZVN0YXJ0",
-            "UmVzcG9uc2USRgoDRW5kEh4udGVjaC5oaXZlLnYxLkJhdHRsZUVuZFJlcXVl",
-            "c3QaHy50ZWNoLmhpdmUudjEuQmF0dGxlRW5kUmVzcG9uc2ViBnByb3RvMw=="));
+            "X2RhbWFnZV90YWtlbhgGIAEoBCJ2Cg5CYXR0bGVVbml0U3RhdBIUCgxjaGFy",
+            "YWN0ZXJfaWQYASABKA0SFAoMZGFtYWdlX2RlYWx0GAIgASgEEhQKDGRhbWFn",
+            "ZV90YWtlbhgDIAEoBBINCgVraWxscxgEIAEoDRITCgtpc19zdXJ2aXZlZBgF",
+            "IAEoCCLZAQoRQmF0dGxlRW5kUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwu",
+            "dGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjQKD2N1cnJlbmN5X2RlbHRh",
+            "cxgCIAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhEjkKDnN0YWdl",
+            "X3Byb2dyZXNzGAMgASgLMiEudGVjaC5oaXZlLnYxLkJhdHRsZVN0YWdlUHJv",
+            "Z3Jlc3MSJQoHcmV3YXJkcxgEIAMoCzIULnRlY2guaGl2ZS52MS5SZXdhcmQi",
+            "bQoWQmF0dGxlQ2hhcmFjdGVyRXhwR2FpbhIUCgxjaGFyYWN0ZXJfaWQYASAB",
+            "KA0SEgoKZXhwX2dhaW5lZBgCIAEoBBIUCgxsZXZlbF9iZWZvcmUYAyABKA0S",
+            "EwoLbGV2ZWxfYWZ0ZXIYBCABKA0iWwooQmF0dGxlQ2xhaW1DaGFwdGVyTWls",
+            "ZXN0b25lUmV3YXJkUmVxdWVzdBISCgpjaGFwdGVyX2lkGAEgASgNEhsKE21p",
+            "bGVzdG9uZV9yZXdhcmRfaWQYAiABKA0itgEKKUJhdHRsZUNsYWltQ2hhcHRl",
+            "ck1pbGVzdG9uZVJld2FyZFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRl",
+            "Y2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIlCgdyZXdhcmRzGAIgAygLMhQu",
+            "dGVjaC5oaXZlLnYxLlJld2FyZBI0Cg9jdXJyZW5jeV9kZWx0YXMYAyADKAsy",
+            "Gy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSr0AQoPQmF0dGxlRXJyb3JD",
+            "b2RlEhYKEkJBVFRMRV9VTlNQRUNJRklFRBAAEh8KGEJBVFRMRV9TRVNTSU9O",
+            "X05PVF9GT1VORBCZpuoEEhsKFEJBVFRMRV9BTFJFQURZX0VOREVEEJqm6gQS",
+            "LgonQkFUVExFX01JTEVTVE9ORV9SRVdBUkRfQUxSRUFEWV9DTEFJTUVEEJum",
+            "6gQSLAolQkFUVExFX01JTEVTVE9ORV9SRVdBUkRfTk9UX0FWQUlMQUJMRRCc",
+            "puoEEi0KJkJBVFRMRV9NSUxFU1RPTkVfUkVXQVJEX0lORk9fTk9UX0ZPVU5E",
+            "EJ2m6gQy4gQKDUJhdHRsZVNlcnZpY2UScAoRR2V0Q3VycmVudENoYXB0ZXIS",
+            "LC50ZWNoLmhpdmUudjEuQmF0dGxlR2V0Q3VycmVudENoYXB0ZXJSZXF1ZXN0",
+            "Gi0udGVjaC5oaXZlLnYxLkJhdHRsZUdldEN1cnJlbnRDaGFwdGVyUmVzcG9u",
+            "c2USXgoLTGlzdENoYXB0ZXISJi50ZWNoLmhpdmUudjEuQmF0dGxlTGlzdENo",
+            "YXB0ZXJSZXF1ZXN0GicudGVjaC5oaXZlLnYxLkJhdHRsZUxpc3RDaGFwdGVy",
+            "UmVzcG9uc2USWAoJTGlzdFN0YWdlEiQudGVjaC5oaXZlLnYxLkJhdHRsZUxp",
+            "c3RTdGFnZVJlcXVlc3QaJS50ZWNoLmhpdmUudjEuQmF0dGxlTGlzdFN0YWdl",
+            "UmVzcG9uc2USjgEKG0NsYWltQ2hhcHRlck1pbGVzdG9uZVJld2FyZBI2LnRl",
+            "Y2guaGl2ZS52MS5CYXR0bGVDbGFpbUNoYXB0ZXJNaWxlc3RvbmVSZXdhcmRS",
+            "ZXF1ZXN0GjcudGVjaC5oaXZlLnYxLkJhdHRsZUNsYWltQ2hhcHRlck1pbGVz",
+            "dG9uZVJld2FyZFJlc3BvbnNlEkwKBVN0YXJ0EiAudGVjaC5oaXZlLnYxLkJh",
+            "dHRsZVN0YXJ0UmVxdWVzdBohLnRlY2guaGl2ZS52MS5CYXR0bGVTdGFydFJl",
+            "c3BvbnNlEkYKA0VuZBIeLnRlY2guaGl2ZS52MS5CYXR0bGVFbmRSZXF1ZXN0",
+            "Gh8udGVjaC5oaXZlLnYxLkJhdHRsZUVuZFJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.BattleChapterReflection.Descriptor, global::Tech.Hive.V1.BattleStageReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.BattleErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -100,9 +100,9 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStartResponse), global::Tech.Hive.V1.BattleStartResponse.Parser, new[]{ "Status", "BattleSessionId", "BattleSeed", "CurrencyDeltas" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleEndRequest), global::Tech.Hive.V1.BattleEndRequest.Parser, new[]{ "BattleSessionId", "Result" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleResult), global::Tech.Hive.V1.BattleResult.Parser, new[]{ "IsVictory", "ClearTime", "Stars", "UnitStats", "TotalDamageDealt", "TotalDamageTaken" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleUnitStat), global::Tech.Hive.V1.BattleUnitStat.Parser, new[]{ "CharacterUid", "DamageDealt", "DamageTaken", "Kills", "IsSurvived" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleUnitStat), global::Tech.Hive.V1.BattleUnitStat.Parser, new[]{ "CharacterId", "DamageDealt", "DamageTaken", "Kills", "IsSurvived" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleEndResponse), global::Tech.Hive.V1.BattleEndResponse.Parser, new[]{ "Status", "CurrencyDeltas", "StageProgress", "Rewards" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleCharacterExpGain), global::Tech.Hive.V1.BattleCharacterExpGain.Parser, new[]{ "CharacterUid", "ExpGained", "LevelBefore", "LevelAfter" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleCharacterExpGain), global::Tech.Hive.V1.BattleCharacterExpGain.Parser, new[]{ "CharacterId", "ExpGained", "LevelBefore", "LevelAfter" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest), global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest.Parser, new[]{ "ChapterId", "MilestoneRewardId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse), global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse.Parser, new[]{ "Status", "Rewards", "CurrencyDeltas" }, null, null, null, null)
           }));
@@ -2643,7 +2643,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BattleUnitStat(BattleUnitStat other) : this() {
-      characterUid_ = other.characterUid_;
+      characterId_ = other.characterId_;
       damageDealt_ = other.damageDealt_;
       damageTaken_ = other.damageTaken_;
       kills_ = other.kills_;
@@ -2657,15 +2657,15 @@ namespace Tech.Hive.V1 {
       return new BattleUnitStat(this);
     }
 
-    /// <summary>Field number for the "character_uid" field.</summary>
-    public const int CharacterUidFieldNumber = 1;
-    private uint characterUid_;
+    /// <summary>Field number for the "character_id" field.</summary>
+    public const int CharacterIdFieldNumber = 1;
+    private uint characterId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint CharacterUid {
-      get { return characterUid_; }
+    public uint CharacterId {
+      get { return characterId_; }
       set {
-        characterUid_ = value;
+        characterId_ = value;
       }
     }
 
@@ -2732,7 +2732,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (CharacterUid != other.CharacterUid) return false;
+      if (CharacterId != other.CharacterId) return false;
       if (DamageDealt != other.DamageDealt) return false;
       if (DamageTaken != other.DamageTaken) return false;
       if (Kills != other.Kills) return false;
@@ -2744,7 +2744,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (CharacterUid != 0) hash ^= CharacterUid.GetHashCode();
+      if (CharacterId != 0) hash ^= CharacterId.GetHashCode();
       if (DamageDealt != 0UL) hash ^= DamageDealt.GetHashCode();
       if (DamageTaken != 0UL) hash ^= DamageTaken.GetHashCode();
       if (Kills != 0) hash ^= Kills.GetHashCode();
@@ -2767,9 +2767,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (CharacterUid != 0) {
+      if (CharacterId != 0) {
         output.WriteRawTag(8);
-        output.WriteUInt32(CharacterUid);
+        output.WriteUInt32(CharacterId);
       }
       if (DamageDealt != 0UL) {
         output.WriteRawTag(16);
@@ -2797,9 +2797,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CharacterUid != 0) {
+      if (CharacterId != 0) {
         output.WriteRawTag(8);
-        output.WriteUInt32(CharacterUid);
+        output.WriteUInt32(CharacterId);
       }
       if (DamageDealt != 0UL) {
         output.WriteRawTag(16);
@@ -2827,8 +2827,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (CharacterUid != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterUid);
+      if (CharacterId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterId);
       }
       if (DamageDealt != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(DamageDealt);
@@ -2854,8 +2854,8 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.CharacterUid != 0) {
-        CharacterUid = other.CharacterUid;
+      if (other.CharacterId != 0) {
+        CharacterId = other.CharacterId;
       }
       if (other.DamageDealt != 0UL) {
         DamageDealt = other.DamageDealt;
@@ -2885,7 +2885,7 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            CharacterUid = input.ReadUInt32();
+            CharacterId = input.ReadUInt32();
             break;
           }
           case 16: {
@@ -2920,7 +2920,7 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            CharacterUid = input.ReadUInt32();
+            CharacterId = input.ReadUInt32();
             break;
           }
           case 16: {
@@ -3290,7 +3290,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BattleCharacterExpGain(BattleCharacterExpGain other) : this() {
-      characterUid_ = other.characterUid_;
+      characterId_ = other.characterId_;
       expGained_ = other.expGained_;
       levelBefore_ = other.levelBefore_;
       levelAfter_ = other.levelAfter_;
@@ -3303,15 +3303,15 @@ namespace Tech.Hive.V1 {
       return new BattleCharacterExpGain(this);
     }
 
-    /// <summary>Field number for the "character_uid" field.</summary>
-    public const int CharacterUidFieldNumber = 1;
-    private uint characterUid_;
+    /// <summary>Field number for the "character_id" field.</summary>
+    public const int CharacterIdFieldNumber = 1;
+    private uint characterId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint CharacterUid {
-      get { return characterUid_; }
+    public uint CharacterId {
+      get { return characterId_; }
       set {
-        characterUid_ = value;
+        characterId_ = value;
       }
     }
 
@@ -3366,7 +3366,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (CharacterUid != other.CharacterUid) return false;
+      if (CharacterId != other.CharacterId) return false;
       if (ExpGained != other.ExpGained) return false;
       if (LevelBefore != other.LevelBefore) return false;
       if (LevelAfter != other.LevelAfter) return false;
@@ -3377,7 +3377,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (CharacterUid != 0) hash ^= CharacterUid.GetHashCode();
+      if (CharacterId != 0) hash ^= CharacterId.GetHashCode();
       if (ExpGained != 0UL) hash ^= ExpGained.GetHashCode();
       if (LevelBefore != 0) hash ^= LevelBefore.GetHashCode();
       if (LevelAfter != 0) hash ^= LevelAfter.GetHashCode();
@@ -3399,9 +3399,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (CharacterUid != 0) {
+      if (CharacterId != 0) {
         output.WriteRawTag(8);
-        output.WriteUInt32(CharacterUid);
+        output.WriteUInt32(CharacterId);
       }
       if (ExpGained != 0UL) {
         output.WriteRawTag(16);
@@ -3425,9 +3425,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CharacterUid != 0) {
+      if (CharacterId != 0) {
         output.WriteRawTag(8);
-        output.WriteUInt32(CharacterUid);
+        output.WriteUInt32(CharacterId);
       }
       if (ExpGained != 0UL) {
         output.WriteRawTag(16);
@@ -3451,8 +3451,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (CharacterUid != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterUid);
+      if (CharacterId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterId);
       }
       if (ExpGained != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ExpGained);
@@ -3475,8 +3475,8 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.CharacterUid != 0) {
-        CharacterUid = other.CharacterUid;
+      if (other.CharacterId != 0) {
+        CharacterId = other.CharacterId;
       }
       if (other.ExpGained != 0UL) {
         ExpGained = other.ExpGained;
@@ -3503,7 +3503,7 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            CharacterUid = input.ReadUInt32();
+            CharacterId = input.ReadUInt32();
             break;
           }
           case 16: {
@@ -3534,7 +3534,7 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            CharacterUid = input.ReadUInt32();
+            CharacterId = input.ReadUInt32();
             break;
           }
           case 16: {
