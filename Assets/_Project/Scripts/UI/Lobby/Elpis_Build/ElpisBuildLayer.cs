@@ -163,7 +163,7 @@ namespace CookApps.AutoBattler
             }
 
             // NetManager 호출
-            var result = await NetManager.Instance.Elpis.BuildFacilityAsync(facilityType, targetSlotIndex, 0);
+            var result = await NetManager.Instance.Elpis.BuildFacilityAsync(info.build_id, targetSlotIndex, 0);
 
             if (result != null && result.IsSuccess)
             {

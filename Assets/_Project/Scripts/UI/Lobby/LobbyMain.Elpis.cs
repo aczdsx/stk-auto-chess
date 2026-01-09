@@ -131,7 +131,7 @@ namespace CookApps.AutoBattler
                 // 0 레벨 건물 데이터 생성 (UI 표시용)
                 var newFacility = new ElpisFacility
                 {
-                    InstanceId = $"temp_{buildInfo.build_id}",
+                    BuildId = (uint)buildInfo.build_id,
                     Type = buildInfo.facility_type.ToServerType(),
                     Level = 0,
                     MaxLevel = (uint)GetMaxLevelForFacility(buildInfo.build_id),

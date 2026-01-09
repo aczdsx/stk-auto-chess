@@ -77,7 +77,7 @@ namespace CookApps.AutoBattler
         private ElpisData _elpisData = new ();
 
         // 빠른 조회를 위한 캐시
-        private readonly Dictionary<string, ElpisFacility> _facilitiesCache = new (32);
+        private readonly Dictionary<uint, ElpisFacility> _facilitiesCache = new (32);
         private readonly Dictionary<uint, CoreResearch> _coreResearchCache = new (16);
 
         // R3 이벤트
@@ -113,7 +113,7 @@ namespace CookApps.AutoBattler
             for (var i = 0; i < _elpisData.Facilities.Count; i++)
             {
                 var facility = _elpisData.Facilities[i];
-                if (string.IsNullOrEmpty(facility.InstanceId))
+                if (facility.BuildId == 0)
                 {
                     Debug.LogError("[ElpisModel] Invalid facility: missing InstanceId");
                     return false;
@@ -128,9 +128,9 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 시설 가져오기
         /// </summary>
-        public ElpisFacility GetFacility(string instanceId)
+        public ElpisFacility GetFacility(uint buildId)
         {
-            return _facilitiesCache.GetValueOrDefault(instanceId);
+            return _facilitiesCache.GetValueOrDefault(buildId);
         }
 
         /// <summary>
@@ -149,9 +149,9 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 시설 존재 여부
         /// </summary>
-        public bool HasFacility(string instanceId)
+        public bool HasFacility(uint buildId)
         {
-            return _facilitiesCache.ContainsKey(instanceId);
+            return _facilitiesCache.ContainsKey(buildId);
         }
 
         /// <summary>
@@ -280,10 +280,7 @@ namespace CookApps.AutoBattler
             for (var i = 0; i < elpisData.Facilities.Count; i++)
             {
                 var facility = elpisData.Facilities[i];
-                if (!string.IsNullOrEmpty(facility.InstanceId))
-                {
-                    _facilitiesCache[facility.InstanceId] = facility;
-                }
+                _facilitiesCache[facility.BuildId] = facility;
             }
 
             _coreResearchCache.Clear();
@@ -301,22 +298,22 @@ namespace CookApps.AutoBattler
         /// </summary>
         internal void UpdateFacility(ElpisFacility facility)
         {
-            if (facility == null || string.IsNullOrEmpty(facility.InstanceId))
+            if (facility == null)
             {
                 Debug.LogError("[ElpisModel] Invalid facility data");
                 return;
             }
 
-            var previous = _facilitiesCache.GetValueOrDefault(facility.InstanceId);
+            var previous = _facilitiesCache.GetValueOrDefault(facility.BuildId);
             bool isNew = previous == null;
 
-            _facilitiesCache[facility.InstanceId] = facility;
+            _facilitiesCache[facility.BuildId] = facility;
 
             // 프로토콜 데이터도 업데이트
             bool found = false;
             for (int i = 0; i < _elpisData.Facilities.Count; i++)
             {
-                if (_elpisData.Facilities[i].InstanceId == facility.InstanceId)
+                if (_elpisData.Facilities[i].BuildId == facility.BuildId)
                 {
                     _elpisData.Facilities[i] = facility;
                     found = true;

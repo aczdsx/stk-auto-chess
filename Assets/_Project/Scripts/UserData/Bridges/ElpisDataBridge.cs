@@ -34,9 +34,9 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 특정 시설 가져오기
         /// </summary>
-        public ElpisFacility GetFacility(string instanceId)
+        public ElpisFacility GetFacility(uint buildId)
         {
-            return Model?.GetFacility(instanceId);
+            return Model?.GetFacility(buildId);
         }
 
         /// <summary>
@@ -55,9 +55,9 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 시설 존재 여부
         /// </summary>
-        public bool HasFacility(string instanceId)
+        public bool HasFacility(uint buildId)
         {
-            return Model?.HasFacility(instanceId) ?? false;
+            return Model?.HasFacility(buildId) ?? false;
         }
 
         /// <summary>
