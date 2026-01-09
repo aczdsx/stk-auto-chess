@@ -49,19 +49,6 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 캐릭터 승급
-        /// </summary>
-        public async UniTask<CharacterPromoteResponse> PromoteAsync(string instanceId, CancellationToken cancellationToken = default)
-        {
-            CharacterPromoteResponse resp = await ExecuteAsync(
-                ServiceClient.PromoteAsync,
-                new CharacterPromoteRequest { InstanceId = instanceId },
-                cancellationToken: cancellationToken
-            );
-            return resp;
-        }
-
-        /// <summary>
         /// 캐릭터 초월
         /// </summary>
         public async UniTask<CharacterTranscendResponse> TranscendAsync(string instanceId, CancellationToken cancellationToken = default)
@@ -69,33 +56,6 @@ namespace CookApps.AutoBattler
             CharacterTranscendResponse resp = await ExecuteAsync(
                 ServiceClient.TranscendAsync,
                 new CharacterTranscendRequest { InstanceId = instanceId },
-                cancellationToken: cancellationToken
-            );
-            return resp;
-        }
-
-        /// <summary>
-        /// 공명 할당
-        /// </summary>
-        public async UniTask<CharacterAllocateResonanceResponse> AllocateResonanceAsync(
-            string instanceId, string resonanceNodeId, uint targetLevel, CancellationToken cancellationToken = default)
-        {
-            CharacterAllocateResonanceResponse resp = await ExecuteAsync(
-                ServiceClient.AllocateResonanceAsync,
-                new CharacterAllocateResonanceRequest { InstanceId = instanceId, ResonanceNodeId = resonanceNodeId, TargetLevel = targetLevel },
-                cancellationToken: cancellationToken
-            );
-            return resp;
-        }
-
-        /// <summary>
-        /// 공명 리셋
-        /// </summary>
-        public async UniTask<CharacterResetResonanceResponse> ResetResonanceAsync(string instanceId, CancellationToken cancellationToken = default)
-        {
-            CharacterResetResonanceResponse resp = await ExecuteAsync(
-                ServiceClient.ResetResonanceAsync,
-                new CharacterResetResonanceRequest { InstanceId = instanceId },
                 cancellationToken: cancellationToken
             );
             return resp;

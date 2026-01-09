@@ -41,11 +41,11 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 시설 건설
         /// </summary>
-        public async UniTask<ElpisBuildFacilityResponse> BuildFacilityAsync(ElpisFacilityType facilityType, int gridX, int gridY, CancellationToken cancellationToken = default)
+        public async UniTask<ElpisBuildFacilityResponse> BuildFacilityAsync(int buildId, int gridX, int gridY, CancellationToken cancellationToken = default)
         {
             ElpisBuildFacilityResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.BuildFacilityAsync,
-                new ElpisBuildFacilityRequest { FacilityType = facilityType, GridX = gridX, GridY = gridY },
+                new ElpisBuildFacilityRequest { BuildId = (uint)buildId, GridX = gridX, GridY = gridY },
                 cancellationToken: cancellationToken
             );
 
@@ -75,11 +75,11 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 시설 업그레이드
         /// </summary>
-        public async UniTask<ElpisUpgradeFacilityResponse> UpgradeFacilityAsync(string facilityInstanceId, CancellationToken cancellationToken = default)
+        public async UniTask<ElpisUpgradeFacilityResponse> UpgradeFacilityAsync(int buildId, CancellationToken cancellationToken = default)
         {
             ElpisUpgradeFacilityResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.UpgradeFacilityAsync,
-                new ElpisUpgradeFacilityRequest { FacilityInstanceId = facilityInstanceId },
+                new ElpisUpgradeFacilityRequest { BuildId = (uint)buildId },
                 cancellationToken: cancellationToken
             );
 

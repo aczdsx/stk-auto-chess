@@ -37,8 +37,8 @@ namespace Tech.Hive.V1 {
             "ZXdhcmRzGAMgAygLMhQudGVjaC5oaXZlLnYxLlJld2FyZBI0Cg9jdXJyZW5j",
             "eV9kZWx0YXMYBCADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSp4",
             "ChVHdWlkZU1pc3Npb25FcnJvckNvZGUSHQoZR1VJREVfTUlTU0lPTl9VTlNQ",
-            "RUNJRklFRBAAEh4KF0dVSURFX01JU1NJT05fTk9UX0ZPVU5EEMWo6gQSIAoZ",
-            "R1VJREVfTUlTU0lPTl9OT1RfQ0xFQVJFRBDGqOoEMtUBChNHdWlkZU1pc3Np",
+            "RUNJRklFRBAAEh4KF0dVSURFX01JU1NJT05fTk9UX0ZPVU5EEI2q6gQSIAoZ",
+            "R1VJREVfTUlTU0lPTl9OT1RfQ0xFQVJFRBCOquoEMtUBChNHdWlkZU1pc3Np",
             "b25TZXJ2aWNlElIKA0dldBIkLnRlY2guaGl2ZS52MS5HdWlkZU1pc3Npb25H",
             "ZXRSZXF1ZXN0GiUudGVjaC5oaXZlLnYxLkd1aWRlTWlzc2lvbkdldFJlc3Bv",
             "bnNlEmoKC0NsYWltUmV3YXJkEiwudGVjaC5oaXZlLnYxLkd1aWRlTWlzc2lv",
@@ -62,11 +62,11 @@ namespace Tech.Hive.V1 {
     /// <summary>
     /// 가이드 미션 데이터가 없음 (Get 조회시 기본 값 생성)
     /// </summary>
-    [pbr::OriginalName("GUIDE_MISSION_NOT_FOUND")] GuideMissionNotFound = 10130501,
+    [pbr::OriginalName("GUIDE_MISSION_NOT_FOUND")] GuideMissionNotFound = 10130701,
     /// <summary>
     /// 가이드 미션 클리어 안됨
     /// </summary>
-    [pbr::OriginalName("GUIDE_MISSION_NOT_CLEARED")] GuideMissionNotCleared = 10130502,
+    [pbr::OriginalName("GUIDE_MISSION_NOT_CLEARED")] GuideMissionNotCleared = 10130702,
   }
 
   #endregion

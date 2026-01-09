@@ -1931,5 +1931,17 @@ namespace CookApps.AutoBattler
             
             return null;
         }
+        
+        public ElpisBuildInfo GetBuildInfoByType(FacilityType type)
+        {
+            for (int i = 0; i < ElpisBuildInfo.All.Count; i++)
+            {
+                var target = ElpisBuildInfo.All[i];
+                if(target.facility_type == type)
+                    return target;
+            }
+            
+            return null;
+        }
     }
 }

@@ -24,19 +24,19 @@ namespace Tech.Hive.V1 {
     static ElpisFacilityReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChRlbHBpcytmYWNpbGl0eS5wcm90bxIMdGVjaC5oaXZlLnYxIqcBCg1FbHBp",
-            "c0ZhY2lsaXR5EhMKC2luc3RhbmNlX2lkGAEgASgJEi0KBHR5cGUYAiABKA4y",
-            "Hy50ZWNoLmhpdmUudjEuRWxwaXNGYWNpbGl0eVR5cGUSDQoFbGV2ZWwYAyAB",
-            "KA0SEQoJbWF4X2xldmVsGAQgASgNEhAKCGJ1aWx0X2F0GAUgASgEEg4KBmdy",
-            "aWRfeBgGIAEoBRIOCgZncmlkX3kYByABKAUqsgEKEUVscGlzRmFjaWxpdHlU",
-            "eXBlEh0KGUZBQ0lMSVRZX1RZUEVfVU5TUEVDSUZJRUQQABIgChxGQUNJTElU",
-            "WV9UWVBFX0NPTU1BTkRfQ0VOVEVSEAESFgoSRkFDSUxJVFlfVFlQRV9ORVNU",
-            "EAISHwobRkFDSUxJVFlfVFlQRV9ESU1FTlNJT05fTEFCEAMSIwofRkFDSUxJ",
-            "VFlfVFlQRV9TSU1VTEFUSU9OX0NFTlRFUhAEYgZwcm90bzM="));
+            "ChRlbHBpcytmYWNpbGl0eS5wcm90bxIMdGVjaC5oaXZlLnYxIqQBCg1FbHBp",
+            "c0ZhY2lsaXR5EhAKCGJ1aWxkX2lkGAEgASgNEi0KBHR5cGUYAiABKA4yHy50",
+            "ZWNoLmhpdmUudjEuRWxwaXNGYWNpbGl0eVR5cGUSDQoFbGV2ZWwYAyABKA0S",
+            "EQoJbWF4X2xldmVsGAQgASgNEhAKCGJ1aWx0X2F0GAUgASgEEg4KBmdyaWRf",
+            "eBgGIAEoBRIOCgZncmlkX3kYByABKAUqsgEKEUVscGlzRmFjaWxpdHlUeXBl",
+            "Eh0KGUZBQ0lMSVRZX1RZUEVfVU5TUEVDSUZJRUQQABIgChxGQUNJTElUWV9U",
+            "WVBFX0NPTU1BTkRfQ0VOVEVSEAESFgoSRkFDSUxJVFlfVFlQRV9ORVNUEAIS",
+            "HwobRkFDSUxJVFlfVFlQRV9ESU1FTlNJT05fTEFCEAMSIwofRkFDSUxJVFlf",
+            "VFlQRV9TSU1VTEFUSU9OX0NFTlRFUhAEYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.ElpisFacilityType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisFacility), global::Tech.Hive.V1.ElpisFacility.Parser, new[]{ "InstanceId", "Type", "Level", "MaxLevel", "BuiltAt", "GridX", "GridY" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisFacility), global::Tech.Hive.V1.ElpisFacility.Parser, new[]{ "BuildId", "Type", "Level", "MaxLevel", "BuiltAt", "GridX", "GridY" }, null, null, null, null)
           }));
     }
     #endregion
@@ -107,7 +107,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ElpisFacility(ElpisFacility other) : this() {
-      instanceId_ = other.instanceId_;
+      buildId_ = other.buildId_;
       type_ = other.type_;
       level_ = other.level_;
       maxLevel_ = other.maxLevel_;
@@ -123,15 +123,15 @@ namespace Tech.Hive.V1 {
       return new ElpisFacility(this);
     }
 
-    /// <summary>Field number for the "instance_id" field.</summary>
-    public const int InstanceIdFieldNumber = 1;
-    private string instanceId_ = "";
+    /// <summary>Field number for the "build_id" field.</summary>
+    public const int BuildIdFieldNumber = 1;
+    private uint buildId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string InstanceId {
-      get { return instanceId_; }
+    public uint BuildId {
+      get { return buildId_; }
       set {
-        instanceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        buildId_ = value;
       }
     }
 
@@ -228,7 +228,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (InstanceId != other.InstanceId) return false;
+      if (BuildId != other.BuildId) return false;
       if (Type != other.Type) return false;
       if (Level != other.Level) return false;
       if (MaxLevel != other.MaxLevel) return false;
@@ -242,7 +242,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (InstanceId.Length != 0) hash ^= InstanceId.GetHashCode();
+      if (BuildId != 0) hash ^= BuildId.GetHashCode();
       if (Type != global::Tech.Hive.V1.ElpisFacilityType.FacilityTypeUnspecified) hash ^= Type.GetHashCode();
       if (Level != 0) hash ^= Level.GetHashCode();
       if (MaxLevel != 0) hash ^= MaxLevel.GetHashCode();
@@ -267,9 +267,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
+      if (BuildId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(BuildId);
       }
       if (Type != global::Tech.Hive.V1.ElpisFacilityType.FacilityTypeUnspecified) {
         output.WriteRawTag(16);
@@ -305,9 +305,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
+      if (BuildId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(BuildId);
       }
       if (Type != global::Tech.Hive.V1.ElpisFacilityType.FacilityTypeUnspecified) {
         output.WriteRawTag(16);
@@ -343,8 +343,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (InstanceId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(InstanceId);
+      if (BuildId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(BuildId);
       }
       if (Type != global::Tech.Hive.V1.ElpisFacilityType.FacilityTypeUnspecified) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
@@ -376,8 +376,8 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.InstanceId.Length != 0) {
-        InstanceId = other.InstanceId;
+      if (other.BuildId != 0) {
+        BuildId = other.BuildId;
       }
       if (other.Type != global::Tech.Hive.V1.ElpisFacilityType.FacilityTypeUnspecified) {
         Type = other.Type;
@@ -412,8 +412,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            InstanceId = input.ReadString();
+          case 8: {
+            BuildId = input.ReadUInt32();
             break;
           }
           case 16: {
@@ -455,8 +455,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            InstanceId = input.ReadString();
+          case 8: {
+            BuildId = input.ReadUInt32();
             break;
           }
           case 16: {
