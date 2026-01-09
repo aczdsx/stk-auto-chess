@@ -89,15 +89,6 @@ message CharacterLevelUpResponse {
   repeated CurrencyDelta currency_deltas = 3;
 }
 
-message CharacterPromoteRequest {
-  string instance_id = 1;
-}
-message CharacterPromoteResponse {
-  ResponseStatus status = 1;
-  CharacterData character = 2;
-  repeated CurrencyDelta currency_deltas = 3;
-}
-
 message CharacterTranscendRequest {
   string instance_id = 1;
 }
