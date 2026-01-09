@@ -197,7 +197,7 @@ namespace CookApps.AutoBattler
 
                 isAvailLevelup = isEnoughGold && isEnoughExpItem && isEnoughExpItem2 && isAvailLevelup;
 
-                _goldCurrencyUIItem.SetUIItem(ItemIdMap.Gold, _specCharacterLevelExpData.need_gold, isEnoughGold);
+                _goldCurrencyUIItem.SetUIItem(IdMap.Item.Gold, _specCharacterLevelExpData.need_gold, isEnoughGold);
                 _baseExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.base_levelup_item_id, _specCharacterLevelExpData.base_levelup_item_count, isEnoughExpItem);
 
                 // TODO: 체크 필요
@@ -322,7 +322,7 @@ namespace CookApps.AutoBattler
             // TODO: 재료 검사
             return;
             if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterLevelExpData.base_levelup_item_id, _specCharacterLevelExpData.base_levelup_item_count, true)
-                || !UserDataManager.Instance.CheckEnoughItem(ItemIdMap.Gold, _specCharacterLevelExpData.need_gold, true)
+                || !UserDataManager.Instance.CheckEnoughItem(IdMap.Item.Gold, _specCharacterLevelExpData.need_gold, true)
                 || !UserDataManager.Instance.CheckEnoughItem(_specCharacterLevelExpData.sec_levelup_item_id, _specCharacterLevelExpData.sec_levelup_item_count, true))
             {
                 return;
@@ -333,7 +333,7 @@ namespace CookApps.AutoBattler
             // ItemType의 삭제로 인해 변경.(new RewardItem(_specCharacterLevelExpData.base_levelup_item_type, 0, _specCharacterLevelExpData.base_levelup_item_count))
             recipeItemList.Add(new RewardItem((int)_specCharacterLevelExpData.base_levelup_item_id, _specCharacterLevelExpData.base_levelup_item_count));
             // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.GOLD, 0, _specCharacterLevelExpData.need_gold))
-            recipeItemList.Add(new RewardItem((int)ItemIdMap.Gold, _specCharacterLevelExpData.need_gold));
+            recipeItemList.Add(new RewardItem((int)IdMap.Item.Gold, _specCharacterLevelExpData.need_gold));
             if (_specCharacterLevelExpData.sec_levelup_item_count > 0)
             {
                 // ItemType의 삭제로 인해 변경.(new RewardItem(_specCharacterLevelExpData.sec_levelup_item_type, _specCharacterData.character_id, _specCharacterLevelExpData.sec_levelup_item_count))

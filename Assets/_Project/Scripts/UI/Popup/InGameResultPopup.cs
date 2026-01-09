@@ -208,7 +208,7 @@ namespace CookApps.AutoBattler
             if (_isEndChapter) return;
 
             // TODO: 행동력 검사
-            // if (!UserDataManager.Instance.CheckEnoughItem(ItemIdMap.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
+            // if (!UserDataManager.Instance.CheckEnoughItem(IdMap.Item.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
             // {
             //     return;
             // }
@@ -236,7 +236,7 @@ namespace CookApps.AutoBattler
         private void OnClickRetryStageButton()
         {
             // TODO: 행동력 검사
-            // if (!UserDataManager.Instance.CheckEnoughItem(ItemIdMap.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
+            // if (!UserDataManager.Instance.CheckEnoughItem(IdMap.Item.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
             // {
             //     return;
             // }

@@ -93,10 +93,10 @@ namespace CookApps.AutoBattler
             switch (_specEventData.event_type)
             {
                 case EventType.USE_AP:
-                    _needItemSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(ItemIdMap.ActionPoint)).Forget();
+                    _needItemSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(IdMap.Item.ActionPoint)).Forget();
                     break;
                 case EventType.USE_GOLD:
-                    _needItemSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(ItemIdMap.Gold)).Forget();
+                    _needItemSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(IdMap.Item.Gold)).Forget();
                     break;
             }
         }

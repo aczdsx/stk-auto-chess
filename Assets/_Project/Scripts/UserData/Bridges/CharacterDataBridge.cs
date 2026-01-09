@@ -91,26 +91,28 @@ namespace CookApps.AutoBattler
         /// </summary>
         public void GetCharactersByClass(List<CharacterData> output, ClassType classType)
         {
-            if (Model == null || output == null) return;
-
-            output.Clear();
-            using var _ = ListPool<CharacterData>.Get(out var allCharacters);
-            Model.GetAllCharacters(allCharacters);
-
-            for (int i = 0; i < allCharacters.Count; i++)
-            {
-                var character = allCharacters[i];
-                if (character.ClassType == classType)
-                {
-                    output.Add(character);
-                }
-            }
+            return;
+            // if (Model == null || output == null) return;
+            //
+            // output.Clear();
+            // using var _ = ListPool<CharacterData>.Get(out var allCharacters);
+            // Model.GetAllCharacters(allCharacters);
+            //
+            // for (int i = 0; i < allCharacters.Count; i++)
+            // {
+            //     var character = allCharacters[i];
+            //     var specData = SpecDataManager.Instance.GetCharacterData((int)character.CharacterId);
+            //     if (specData != null && specData.character_position_type == classType)
+            //     {
+            //         output.Add(character);
+            //     }
+            // }
         }
 
         /// <summary>
         /// 레어리티로 필터링
         /// </summary>
-        public void GetCharactersByRarity(List<CharacterData> output, Rarity rarity)
+        public void GetCharactersByRarity(List<CharacterData> output, GradeType gradeType)
         {
             if (Model == null || output == null) return;
 
@@ -121,11 +123,172 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < allCharacters.Count; i++)
             {
                 var character = allCharacters[i];
-                // if (character.Rarity == rarity)
-                // {
-                //     output.Add(character);
-                // }
+                var specData = SpecDataManager.Instance.GetCharacterData((int)character.CharacterId);
+                if (specData != null && specData.grade_type == gradeType)
+                {
+                    output.Add(character);
+                }
             }
         }
+
+        #region UserDataManager 호환 메서드 (마이그레이션용)
+
+        /// <summary>
+        /// 캐릭터 보유 여부 (int 오버로드)
+        /// </summary>
+        public bool IsHaveCharacter(int characterId)
+        {
+            return Model?.HasCharacterByCharacterId((uint)characterId) ?? false;
+        }
+
+        /// <summary>
+        /// CharacterId로 캐릭터 가져오기 (UserDataManager 호환)
+        /// </summary>
+        public CharacterData GetUserCharacter(int characterId)
+        {
+            return Model?.GetCharacterByCharacterId((uint)characterId);
+        }
+
+        /// <summary>
+        /// 모든 보유 캐릭터 목록 (UserDataManager 호환)
+        /// </summary>
+        public void GetAllUserCharacterList(List<CharacterData> output)
+        {
+            Model?.GetAllCharacters(output);
+        }
+
+        /// <summary>
+        /// 캐릭터 최대 레벨 계산
+        /// </summary>
+        public int GetCharacterMaxLevel(int characterId)
+        {
+            var character = Model?.GetCharacterByCharacterId((uint)characterId);
+            if (character == null) return 0;
+
+            var specCharacterData = SpecDataManager.Instance.GetCharacterData(characterId);
+            if (specCharacterData == null) return 0;
+
+            var specTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(
+                specCharacterData.grade_type,
+                (int)character.TranscendLevel
+            );
+
+            return specTranscendenceData?.max_level ?? 0;
+        }
+
+        /// <summary>
+        /// 전체 보유 캐릭터 전투력 계산
+        /// </summary>
+        public int GetAllCharacterBattlePower()
+        {
+            if (Model == null) return 0;
+
+            double battlePower = 0;
+
+            using var _ = ListPool<CharacterData>.Get(out var allCharacters);
+            Model.GetAllCharacters(allCharacters);
+
+            for (int i = 0; i < allCharacters.Count; i++)
+            {
+                var character = allCharacters[i];
+                var characterStat = new CharacterStatData(
+                    (int)character.CharacterId,
+                    (int)character.Level,
+                    GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()
+                );
+                battlePower += characterStat.GetAttrValueCP();
+            }
+
+            return (int)battlePower;
+        }
+
+        /// <summary>
+        /// 모든 보유 캐릭터 ID 목록
+        /// </summary>
+        public void GetAllCharacterIds(List<int> output)
+        {
+            if (Model == null || output == null) return;
+
+            output.Clear();
+
+            using var _ = ListPool<CharacterData>.Get(out var allCharacters);
+            Model.GetAllCharacters(allCharacters);
+
+            for (int i = 0; i < allCharacters.Count; i++)
+            {
+                output.Add((int)allCharacters[i].CharacterId);
+            }
+        }
+
+        /// <summary>
+        /// 미보유 캐릭터 목록 (SpecData 기반)
+        /// </summary>
+        public void GetAllNotHaveCharacterList(List<int> output)
+        {
+            if (output == null) return;
+
+            output.Clear();
+
+            var allCharacterList = SpecDataManager.Instance.GetCharacterListByCharacterType(CharacterType.CHARACTER);
+            for (int i = 0; i < allCharacterList.Count; i++)
+            {
+                var specChar = allCharacterList[i];
+                if (!IsHaveCharacter(specChar.character_id))
+                {
+                    output.Add(specChar.character_id);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 캐릭터 레벨 가져오기
+        /// </summary>
+        public int GetCharacterLevel(int characterId)
+        {
+            var character = Model?.GetCharacterByCharacterId((uint)characterId);
+            return (int)(character?.Level ?? 0);
+        }
+
+        /// <summary>
+        /// 캐릭터 초월 레벨 가져오기
+        /// </summary>
+        public int GetTranscendenceLevel(int characterId)
+        {
+            var character = Model?.GetCharacterByCharacterId((uint)characterId);
+            return (int)(character?.TranscendLevel ?? 0);
+        }
+
+        /// <summary>
+        /// 캐릭터 돌파 레벨 가져오기
+        /// </summary>
+        public int GetExceedLevel(int characterId)
+        {
+            var character = Model?.GetCharacterByCharacterId((uint)characterId);
+            return (int)(character?.ExceedLevel ?? 0);
+        }
+
+        /// <summary>
+        /// 캐릭터 조각 개수 가져오기
+        /// TODO: InventoryModel에서 가져오도록 수정 필요 (pieceItemId 계산 방식 확인 후)
+        /// </summary>
+        public int GetCharacterPiece(int characterId)
+        {
+            // TODO: InventoryModel.GetCurrency(pieceItemId) 사용
+            // pieceItemId 계산 방식 확인 필요
+            var legacyData = UserDataManager.Instance.GetUserCharacter(characterId);
+            return legacyData?.CharacterPiece ?? 0;
+        }
+
+        /// <summary>
+        /// 캐릭터 경험치 가져오기 (Legacy fallback)
+        /// TODO: 서버 API 마이그레이션 후 수정 필요
+        /// 굳이 필요 없을지도?
+        /// </summary>
+        public int GetCharacterExp(int characterId)
+        {
+            return 0;
+        }
+
+        #endregion
     }
 }

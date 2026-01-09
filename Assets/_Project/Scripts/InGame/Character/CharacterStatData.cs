@@ -209,8 +209,8 @@ namespace CookApps.AutoBattler
                 var BT = level / 10;
                 breakthroughMultiplier += characterInfo.inc_exceed * BT;
 
-                var userCharacterData = UserDataManager.Instance.GetUserCharacter(characterInfo.GetId());
-                var TR = userCharacterData.TranscendenceLevel + 1;
+                var userCharacterData = ServerDataManager.Instance.Character.GetCharacterByCharacterId((uint)characterInfo.GetId());
+                var TR = (userCharacterData?.TranscendLevel ?? 0) + 1;
                 transcendenceMultiplier += characterInfo.inc_trancendence * TR;
             }
 
