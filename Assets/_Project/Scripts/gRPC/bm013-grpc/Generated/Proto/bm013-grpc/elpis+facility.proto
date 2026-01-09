@@ -13,7 +13,7 @@ enum ElpisFacilityType {
 
 // 시설 정보
 message ElpisFacility {
-  string instance_id = 1;
+  uint32 build_id = 1;
   ElpisFacilityType type = 2;
   
   uint32 level = 3;

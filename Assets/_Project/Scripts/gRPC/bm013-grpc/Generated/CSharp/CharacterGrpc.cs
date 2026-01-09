@@ -57,37 +57,21 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterGetResponse> __Marshaller_tech_hive_v1_CharacterGetResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterGetResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterCreateRequest> __Marshaller_tech_hive_v1_CharacterCreateRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterCreateRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterCreateResponse> __Marshaller_tech_hive_v1_CharacterCreateResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterCreateResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterLevelUpRequest> __Marshaller_tech_hive_v1_CharacterLevelUpRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterLevelUpRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterLevelUpResponse> __Marshaller_tech_hive_v1_CharacterLevelUpResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterLevelUpResponse.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterPromoteRequest> __Marshaller_tech_hive_v1_CharacterPromoteRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterPromoteRequest.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterPromoteResponse> __Marshaller_tech_hive_v1_CharacterPromoteResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterPromoteResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterTranscendRequest> __Marshaller_tech_hive_v1_CharacterTranscendRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterTranscendRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterTranscendResponse> __Marshaller_tech_hive_v1_CharacterTranscendResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterTranscendResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterAllocateResonanceRequest> __Marshaller_tech_hive_v1_CharacterAllocateResonanceRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterAllocateResonanceRequest.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterExceedRequest> __Marshaller_tech_hive_v1_CharacterExceedRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterExceedRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterAllocateResonanceResponse> __Marshaller_tech_hive_v1_CharacterAllocateResonanceResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterAllocateResonanceResponse.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterResetResonanceRequest> __Marshaller_tech_hive_v1_CharacterResetResonanceRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterResetResonanceRequest.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterResetResonanceResponse> __Marshaller_tech_hive_v1_CharacterResetResonanceResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterResetResonanceResponse.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterEquipStellumRequest> __Marshaller_tech_hive_v1_CharacterEquipStellumRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterEquipStellumRequest.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterEquipStellumResponse> __Marshaller_tech_hive_v1_CharacterEquipStellumResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterEquipStellumResponse.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterEquipRelicRequest> __Marshaller_tech_hive_v1_CharacterEquipRelicRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterEquipRelicRequest.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterEquipRelicResponse> __Marshaller_tech_hive_v1_CharacterEquipRelicResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterEquipRelicResponse.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterUnEquipRelicRequest> __Marshaller_tech_hive_v1_CharacterUnEquipRelicRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterUnEquipRelicRequest.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterUnEquipRelicResponse> __Marshaller_tech_hive_v1_CharacterUnEquipRelicResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterUnEquipRelicResponse.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.CharacterExceedResponse> __Marshaller_tech_hive_v1_CharacterExceedResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CharacterExceedResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Tech.Hive.V1.CharacterListRequest, global::Tech.Hive.V1.CharacterListResponse> __Method_List = new grpc::Method<global::Tech.Hive.V1.CharacterListRequest, global::Tech.Hive.V1.CharacterListResponse>(
@@ -106,20 +90,20 @@ namespace Tech.Hive.V1 {
         __Marshaller_tech_hive_v1_CharacterGetResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Tech.Hive.V1.CharacterCreateRequest, global::Tech.Hive.V1.CharacterCreateResponse> __Method_Create = new grpc::Method<global::Tech.Hive.V1.CharacterCreateRequest, global::Tech.Hive.V1.CharacterCreateResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Create",
+        __Marshaller_tech_hive_v1_CharacterCreateRequest,
+        __Marshaller_tech_hive_v1_CharacterCreateResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Tech.Hive.V1.CharacterLevelUpRequest, global::Tech.Hive.V1.CharacterLevelUpResponse> __Method_LevelUp = new grpc::Method<global::Tech.Hive.V1.CharacterLevelUpRequest, global::Tech.Hive.V1.CharacterLevelUpResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "LevelUp",
         __Marshaller_tech_hive_v1_CharacterLevelUpRequest,
         __Marshaller_tech_hive_v1_CharacterLevelUpResponse);
-
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.CharacterPromoteRequest, global::Tech.Hive.V1.CharacterPromoteResponse> __Method_Promote = new grpc::Method<global::Tech.Hive.V1.CharacterPromoteRequest, global::Tech.Hive.V1.CharacterPromoteResponse>(
-        grpc::MethodType.Unary,
-        __ServiceName,
-        "Promote",
-        __Marshaller_tech_hive_v1_CharacterPromoteRequest,
-        __Marshaller_tech_hive_v1_CharacterPromoteResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Tech.Hive.V1.CharacterTranscendRequest, global::Tech.Hive.V1.CharacterTranscendResponse> __Method_Transcend = new grpc::Method<global::Tech.Hive.V1.CharacterTranscendRequest, global::Tech.Hive.V1.CharacterTranscendResponse>(
@@ -130,44 +114,12 @@ namespace Tech.Hive.V1 {
         __Marshaller_tech_hive_v1_CharacterTranscendResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.CharacterAllocateResonanceRequest, global::Tech.Hive.V1.CharacterAllocateResonanceResponse> __Method_AllocateResonance = new grpc::Method<global::Tech.Hive.V1.CharacterAllocateResonanceRequest, global::Tech.Hive.V1.CharacterAllocateResonanceResponse>(
+    static readonly grpc::Method<global::Tech.Hive.V1.CharacterExceedRequest, global::Tech.Hive.V1.CharacterExceedResponse> __Method_Exceed = new grpc::Method<global::Tech.Hive.V1.CharacterExceedRequest, global::Tech.Hive.V1.CharacterExceedResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "AllocateResonance",
-        __Marshaller_tech_hive_v1_CharacterAllocateResonanceRequest,
-        __Marshaller_tech_hive_v1_CharacterAllocateResonanceResponse);
-
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.CharacterResetResonanceRequest, global::Tech.Hive.V1.CharacterResetResonanceResponse> __Method_ResetResonance = new grpc::Method<global::Tech.Hive.V1.CharacterResetResonanceRequest, global::Tech.Hive.V1.CharacterResetResonanceResponse>(
-        grpc::MethodType.Unary,
-        __ServiceName,
-        "ResetResonance",
-        __Marshaller_tech_hive_v1_CharacterResetResonanceRequest,
-        __Marshaller_tech_hive_v1_CharacterResetResonanceResponse);
-
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.CharacterEquipStellumRequest, global::Tech.Hive.V1.CharacterEquipStellumResponse> __Method_EquipStellum = new grpc::Method<global::Tech.Hive.V1.CharacterEquipStellumRequest, global::Tech.Hive.V1.CharacterEquipStellumResponse>(
-        grpc::MethodType.Unary,
-        __ServiceName,
-        "EquipStellum",
-        __Marshaller_tech_hive_v1_CharacterEquipStellumRequest,
-        __Marshaller_tech_hive_v1_CharacterEquipStellumResponse);
-
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.CharacterEquipRelicRequest, global::Tech.Hive.V1.CharacterEquipRelicResponse> __Method_EquipRelic = new grpc::Method<global::Tech.Hive.V1.CharacterEquipRelicRequest, global::Tech.Hive.V1.CharacterEquipRelicResponse>(
-        grpc::MethodType.Unary,
-        __ServiceName,
-        "EquipRelic",
-        __Marshaller_tech_hive_v1_CharacterEquipRelicRequest,
-        __Marshaller_tech_hive_v1_CharacterEquipRelicResponse);
-
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.CharacterUnEquipRelicRequest, global::Tech.Hive.V1.CharacterUnEquipRelicResponse> __Method_UnEquipRelic = new grpc::Method<global::Tech.Hive.V1.CharacterUnEquipRelicRequest, global::Tech.Hive.V1.CharacterUnEquipRelicResponse>(
-        grpc::MethodType.Unary,
-        __ServiceName,
-        "UnEquipRelic",
-        __Marshaller_tech_hive_v1_CharacterUnEquipRelicRequest,
-        __Marshaller_tech_hive_v1_CharacterUnEquipRelicResponse);
+        "Exceed",
+        __Marshaller_tech_hive_v1_CharacterExceedRequest,
+        __Marshaller_tech_hive_v1_CharacterExceedResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -207,6 +159,19 @@ namespace Tech.Hive.V1 {
 
       /// <summary>
       ///*
+      /// 캐릭터 조각 교환을 통한 캐릭터 생성
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.CharacterCreateResponse> Create(global::Tech.Hive.V1.CharacterCreateRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      ///*
       /// 캐릭터 레벨업
       /// </summary>
       /// <param name="request">The request received from the client.</param>
@@ -214,19 +179,6 @@ namespace Tech.Hive.V1 {
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.CharacterLevelUpResponse> LevelUp(global::Tech.Hive.V1.CharacterLevelUpRequest request, grpc::ServerCallContext context)
-      {
-        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-      }
-
-      /// <summary>
-      ///*
-      /// 캐릭터 승급
-      /// </summary>
-      /// <param name="request">The request received from the client.</param>
-      /// <param name="context">The context of the server-side call handler being invoked.</param>
-      /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.CharacterPromoteResponse> Promote(global::Tech.Hive.V1.CharacterPromoteRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -246,65 +198,13 @@ namespace Tech.Hive.V1 {
 
       /// <summary>
       ///*
-      /// 공명 포인트 할당
+      /// 캐릭터 돌파
       /// </summary>
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.CharacterAllocateResonanceResponse> AllocateResonance(global::Tech.Hive.V1.CharacterAllocateResonanceRequest request, grpc::ServerCallContext context)
-      {
-        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-      }
-
-      /// <summary>
-      ///*
-      /// 공명 초기화
-      /// </summary>
-      /// <param name="request">The request received from the client.</param>
-      /// <param name="context">The context of the server-side call handler being invoked.</param>
-      /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.CharacterResetResonanceResponse> ResetResonance(global::Tech.Hive.V1.CharacterResetResonanceRequest request, grpc::ServerCallContext context)
-      {
-        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-      }
-
-      /// <summary>
-      ///*
-      /// 스텔룸 장착
-      /// </summary>
-      /// <param name="request">The request received from the client.</param>
-      /// <param name="context">The context of the server-side call handler being invoked.</param>
-      /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.CharacterEquipStellumResponse> EquipStellum(global::Tech.Hive.V1.CharacterEquipStellumRequest request, grpc::ServerCallContext context)
-      {
-        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-      }
-
-      /// <summary>
-      ///*
-      /// 성유물 장착
-      /// </summary>
-      /// <param name="request">The request received from the client.</param>
-      /// <param name="context">The context of the server-side call handler being invoked.</param>
-      /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.CharacterEquipRelicResponse> EquipRelic(global::Tech.Hive.V1.CharacterEquipRelicRequest request, grpc::ServerCallContext context)
-      {
-        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-      }
-
-      /// <summary>
-      ///*
-      /// 성유물 장착 해제
-      /// </summary>
-      /// <param name="request">The request received from the client.</param>
-      /// <param name="context">The context of the server-side call handler being invoked.</param>
-      /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.CharacterUnEquipRelicResponse> UnEquipRelic(global::Tech.Hive.V1.CharacterUnEquipRelicRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.CharacterExceedResponse> Exceed(global::Tech.Hive.V1.CharacterExceedRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -444,6 +344,58 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
+      /// 캐릭터 조각 교환을 통한 캐릭터 생성
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.CharacterCreateResponse Create(global::Tech.Hive.V1.CharacterCreateRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return Create(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// 캐릭터 조각 교환을 통한 캐릭터 생성
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.CharacterCreateResponse Create(global::Tech.Hive.V1.CharacterCreateRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Create, null, options, request);
+      }
+      /// <summary>
+      ///*
+      /// 캐릭터 조각 교환을 통한 캐릭터 생성
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterCreateResponse> CreateAsync(global::Tech.Hive.V1.CharacterCreateRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return CreateAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// 캐릭터 조각 교환을 통한 캐릭터 생성
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterCreateResponse> CreateAsync(global::Tech.Hive.V1.CharacterCreateRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Create, null, options, request);
+      }
+      /// <summary>
+      ///*
       /// 캐릭터 레벨업
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
@@ -493,58 +445,6 @@ namespace Tech.Hive.V1 {
       public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterLevelUpResponse> LevelUpAsync(global::Tech.Hive.V1.CharacterLevelUpRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_LevelUp, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 캐릭터 승급
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CharacterPromoteResponse Promote(global::Tech.Hive.V1.CharacterPromoteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return Promote(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 캐릭터 승급
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CharacterPromoteResponse Promote(global::Tech.Hive.V1.CharacterPromoteRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_Promote, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 캐릭터 승급
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterPromoteResponse> PromoteAsync(global::Tech.Hive.V1.CharacterPromoteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return PromoteAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 캐릭터 승급
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterPromoteResponse> PromoteAsync(global::Tech.Hive.V1.CharacterPromoteRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_Promote, null, options, request);
       }
       /// <summary>
       ///*
@@ -600,7 +500,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// 공명 포인트 할당
+      /// 캐릭터 돌파
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -608,25 +508,25 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CharacterAllocateResonanceResponse AllocateResonance(global::Tech.Hive.V1.CharacterAllocateResonanceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Tech.Hive.V1.CharacterExceedResponse Exceed(global::Tech.Hive.V1.CharacterExceedRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return AllocateResonance(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return Exceed(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
-      /// 공명 포인트 할당
+      /// 캐릭터 돌파
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CharacterAllocateResonanceResponse AllocateResonance(global::Tech.Hive.V1.CharacterAllocateResonanceRequest request, grpc::CallOptions options)
+      public virtual global::Tech.Hive.V1.CharacterExceedResponse Exceed(global::Tech.Hive.V1.CharacterExceedRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_AllocateResonance, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_Exceed, null, options, request);
       }
       /// <summary>
       ///*
-      /// 공명 포인트 할당
+      /// 캐릭터 돌파
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -634,229 +534,21 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterAllocateResonanceResponse> AllocateResonanceAsync(global::Tech.Hive.V1.CharacterAllocateResonanceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterExceedResponse> ExceedAsync(global::Tech.Hive.V1.CharacterExceedRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return AllocateResonanceAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return ExceedAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
-      /// 공명 포인트 할당
+      /// 캐릭터 돌파
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterAllocateResonanceResponse> AllocateResonanceAsync(global::Tech.Hive.V1.CharacterAllocateResonanceRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterExceedResponse> ExceedAsync(global::Tech.Hive.V1.CharacterExceedRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_AllocateResonance, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 공명 초기화
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CharacterResetResonanceResponse ResetResonance(global::Tech.Hive.V1.CharacterResetResonanceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return ResetResonance(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 공명 초기화
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CharacterResetResonanceResponse ResetResonance(global::Tech.Hive.V1.CharacterResetResonanceRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_ResetResonance, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 공명 초기화
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterResetResonanceResponse> ResetResonanceAsync(global::Tech.Hive.V1.CharacterResetResonanceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return ResetResonanceAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 공명 초기화
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterResetResonanceResponse> ResetResonanceAsync(global::Tech.Hive.V1.CharacterResetResonanceRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_ResetResonance, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 스텔룸 장착
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CharacterEquipStellumResponse EquipStellum(global::Tech.Hive.V1.CharacterEquipStellumRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return EquipStellum(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 스텔룸 장착
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CharacterEquipStellumResponse EquipStellum(global::Tech.Hive.V1.CharacterEquipStellumRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_EquipStellum, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 스텔룸 장착
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterEquipStellumResponse> EquipStellumAsync(global::Tech.Hive.V1.CharacterEquipStellumRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return EquipStellumAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 스텔룸 장착
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterEquipStellumResponse> EquipStellumAsync(global::Tech.Hive.V1.CharacterEquipStellumRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_EquipStellum, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 성유물 장착
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CharacterEquipRelicResponse EquipRelic(global::Tech.Hive.V1.CharacterEquipRelicRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return EquipRelic(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 성유물 장착
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CharacterEquipRelicResponse EquipRelic(global::Tech.Hive.V1.CharacterEquipRelicRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_EquipRelic, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 성유물 장착
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterEquipRelicResponse> EquipRelicAsync(global::Tech.Hive.V1.CharacterEquipRelicRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return EquipRelicAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 성유물 장착
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterEquipRelicResponse> EquipRelicAsync(global::Tech.Hive.V1.CharacterEquipRelicRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_EquipRelic, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 성유물 장착 해제
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CharacterUnEquipRelicResponse UnEquipRelic(global::Tech.Hive.V1.CharacterUnEquipRelicRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return UnEquipRelic(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 성유물 장착 해제
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.CharacterUnEquipRelicResponse UnEquipRelic(global::Tech.Hive.V1.CharacterUnEquipRelicRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_UnEquipRelic, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 성유물 장착 해제
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterUnEquipRelicResponse> UnEquipRelicAsync(global::Tech.Hive.V1.CharacterUnEquipRelicRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return UnEquipRelicAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 성유물 장착 해제
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CharacterUnEquipRelicResponse> UnEquipRelicAsync(global::Tech.Hive.V1.CharacterUnEquipRelicRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_UnEquipRelic, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_Exceed, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -874,14 +566,10 @@ namespace Tech.Hive.V1 {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_List, serviceImpl.List)
           .AddMethod(__Method_Get, serviceImpl.Get)
+          .AddMethod(__Method_Create, serviceImpl.Create)
           .AddMethod(__Method_LevelUp, serviceImpl.LevelUp)
-          .AddMethod(__Method_Promote, serviceImpl.Promote)
           .AddMethod(__Method_Transcend, serviceImpl.Transcend)
-          .AddMethod(__Method_AllocateResonance, serviceImpl.AllocateResonance)
-          .AddMethod(__Method_ResetResonance, serviceImpl.ResetResonance)
-          .AddMethod(__Method_EquipStellum, serviceImpl.EquipStellum)
-          .AddMethod(__Method_EquipRelic, serviceImpl.EquipRelic)
-          .AddMethod(__Method_UnEquipRelic, serviceImpl.UnEquipRelic).Build();
+          .AddMethod(__Method_Exceed, serviceImpl.Exceed).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -893,14 +581,10 @@ namespace Tech.Hive.V1 {
     {
       serviceBinder.AddMethod(__Method_List, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CharacterListRequest, global::Tech.Hive.V1.CharacterListResponse>(serviceImpl.List));
       serviceBinder.AddMethod(__Method_Get, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CharacterGetRequest, global::Tech.Hive.V1.CharacterGetResponse>(serviceImpl.Get));
+      serviceBinder.AddMethod(__Method_Create, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CharacterCreateRequest, global::Tech.Hive.V1.CharacterCreateResponse>(serviceImpl.Create));
       serviceBinder.AddMethod(__Method_LevelUp, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CharacterLevelUpRequest, global::Tech.Hive.V1.CharacterLevelUpResponse>(serviceImpl.LevelUp));
-      serviceBinder.AddMethod(__Method_Promote, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CharacterPromoteRequest, global::Tech.Hive.V1.CharacterPromoteResponse>(serviceImpl.Promote));
       serviceBinder.AddMethod(__Method_Transcend, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CharacterTranscendRequest, global::Tech.Hive.V1.CharacterTranscendResponse>(serviceImpl.Transcend));
-      serviceBinder.AddMethod(__Method_AllocateResonance, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CharacterAllocateResonanceRequest, global::Tech.Hive.V1.CharacterAllocateResonanceResponse>(serviceImpl.AllocateResonance));
-      serviceBinder.AddMethod(__Method_ResetResonance, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CharacterResetResonanceRequest, global::Tech.Hive.V1.CharacterResetResonanceResponse>(serviceImpl.ResetResonance));
-      serviceBinder.AddMethod(__Method_EquipStellum, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CharacterEquipStellumRequest, global::Tech.Hive.V1.CharacterEquipStellumResponse>(serviceImpl.EquipStellum));
-      serviceBinder.AddMethod(__Method_EquipRelic, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CharacterEquipRelicRequest, global::Tech.Hive.V1.CharacterEquipRelicResponse>(serviceImpl.EquipRelic));
-      serviceBinder.AddMethod(__Method_UnEquipRelic, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CharacterUnEquipRelicRequest, global::Tech.Hive.V1.CharacterUnEquipRelicResponse>(serviceImpl.UnEquipRelic));
+      serviceBinder.AddMethod(__Method_Exceed, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CharacterExceedRequest, global::Tech.Hive.V1.CharacterExceedResponse>(serviceImpl.Exceed));
     }
 
   }

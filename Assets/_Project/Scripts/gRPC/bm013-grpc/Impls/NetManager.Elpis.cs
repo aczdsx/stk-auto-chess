@@ -29,7 +29,8 @@ namespace CookApps.AutoBattler
             await Elpis.GetInfoAsync();
             if (ServerDataManager.Instance.Elpis.FacilityCount == 0)
             {
-                await Elpis.BuildFacilityAsync(ElpisFacilityType.FacilityTypeCommandCenter, 0, 0);
+                var commandCenter = SpecDataManager.Instance.GetBuildInfoByType(FacilityType.COMMAND_CENTER);
+                await Elpis.BuildFacilityAsync(commandCenter.build_id, 0, 0);
             }
 
             _elpisInitComplete.TrySetResult();

@@ -31,43 +31,34 @@ namespace Tech.Hive.V1 {
             "EiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1",
             "cxIrCgpxdWVzdF9saXN0GAIgAygLMhcudGVjaC5oaXZlLnYxLlF1ZXN0RGF0",
             "YRIVCg1uZXh0X3Jlc2V0X2F0GAMgASgEEhIKCmRhdGVfaW5kZXgYBCABKA0i",
-            "RQobUXVlc3RMaXN0V2Vla2x5UXVlc3RSZXF1ZXN0EhcKCmRhdGVfaW5kZXgY",
-            "ASABKA1IAIgBAUINCgtfZGF0ZV9pbmRleCKkAQocUXVlc3RMaXN0V2Vla2x5",
-            "UXVlc3RSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEu",
-            "UmVzcG9uc2VTdGF0dXMSKwoKcXVlc3RfbGlzdBgCIAMoCzIXLnRlY2guaGl2",
-            "ZS52MS5RdWVzdERhdGESFQoNbmV4dF9yZXNldF9hdBgDIAEoBBISCgpkYXRl",
-            "X2luZGV4GAQgASgNInsKH1F1ZXN0VXBkYXRlUXVlc3RQcm9ncmVzc1JlcXVl",
-            "c3QSEAoIcXVlc3RfaWQYASABKA0SKwoKcXVlc3RfdHlwZRgCIAEoDjIXLnRl",
-            "Y2guaGl2ZS52MS5RdWVzdFR5cGUSGQoRYWRkX2N1cnJlbnRfY291bnQYAyAB",
-            "KA0ieAogUXVlc3RVcGRhdGVRdWVzdFByb2dyZXNzUmVzcG9uc2USLAoGc3Rh",
-            "dHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEiYKBXF1",
-            "ZXN0GAIgASgLMhcudGVjaC5oaXZlLnYxLlF1ZXN0RGF0YSKFAQocUXVlc3RD",
-            "bGFpbVF1ZXN0UmV3YXJkUmVxdWVzdBIQCghxdWVzdF9pZBgBIAEoDRIrCgpx",
-            "dWVzdF90eXBlGAIgASgOMhcudGVjaC5oaXZlLnYxLlF1ZXN0VHlwZRIXCgpk",
-            "YXRlX2luZGV4GAMgASgNSACIAQFCDQoLX2RhdGVfaW5kZXgi0gEKHVF1ZXN0",
-            "Q2xhaW1RdWVzdFJld2FyZFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRl",
-            "Y2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxImCgVxdWVzdBgCIAEoCzIXLnRl",
-            "Y2guaGl2ZS52MS5RdWVzdERhdGESJQoHcmV3YXJkcxgDIAMoCzIULnRlY2gu",
-            "aGl2ZS52MS5SZXdhcmQSNAoPY3VycmVuY3lfZGVsdGFzGAQgAygLMhsudGVj",
-            "aC5oaXZlLnYxLkN1cnJlbmN5RGVsdGEqJwoOUXVlc3RFcnJvckNvZGUSFQoR",
-            "UVVFU1RfVU5TUEVDSUZJRUQQADLCAwoMUXVlc3RTZXJ2aWNlEmUKDkxpc3RE",
-            "YWlseVF1ZXN0EigudGVjaC5oaXZlLnYxLlF1ZXN0TGlzdERhaWx5UXVlc3RS",
-            "ZXF1ZXN0GikudGVjaC5oaXZlLnYxLlF1ZXN0TGlzdERhaWx5UXVlc3RSZXNw",
-            "b25zZRJoCg9MaXN0V2Vla2x5UXVlc3QSKS50ZWNoLmhpdmUudjEuUXVlc3RM",
-            "aXN0V2Vla2x5UXVlc3RSZXF1ZXN0GioudGVjaC5oaXZlLnYxLlF1ZXN0TGlz",
-            "dFdlZWtseVF1ZXN0UmVzcG9uc2USdAoTVXBkYXRlUXVlc3RQcm9ncmVzcxIt",
-            "LnRlY2guaGl2ZS52MS5RdWVzdFVwZGF0ZVF1ZXN0UHJvZ3Jlc3NSZXF1ZXN0",
-            "Gi4udGVjaC5oaXZlLnYxLlF1ZXN0VXBkYXRlUXVlc3RQcm9ncmVzc1Jlc3Bv",
-            "bnNlEmsKEENsYWltUXVlc3RSZXdhcmQSKi50ZWNoLmhpdmUudjEuUXVlc3RD",
-            "bGFpbVF1ZXN0UmV3YXJkUmVxdWVzdBorLnRlY2guaGl2ZS52MS5RdWVzdENs",
-            "YWltUXVlc3RSZXdhcmRSZXNwb25zZWIGcHJvdG8z"));
+            "ewofUXVlc3RVcGRhdGVRdWVzdFByb2dyZXNzUmVxdWVzdBIQCghxdWVzdF9p",
+            "ZBgBIAEoDRIrCgpxdWVzdF90eXBlGAIgASgOMhcudGVjaC5oaXZlLnYxLlF1",
+            "ZXN0VHlwZRIZChFhZGRfY3VycmVudF9jb3VudBgDIAEoDSJ4CiBRdWVzdFVw",
+            "ZGF0ZVF1ZXN0UHJvZ3Jlc3NSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50",
+            "ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSJgoFcXVlc3QYAiABKAsyFy50",
+            "ZWNoLmhpdmUudjEuUXVlc3REYXRhIoUBChxRdWVzdENsYWltUXVlc3RSZXdh",
+            "cmRSZXF1ZXN0EhAKCHF1ZXN0X2lkGAEgASgNEisKCnF1ZXN0X3R5cGUYAiAB",
+            "KA4yFy50ZWNoLmhpdmUudjEuUXVlc3RUeXBlEhcKCmRhdGVfaW5kZXgYAyAB",
+            "KA1IAIgBAUINCgtfZGF0ZV9pbmRleCLSAQodUXVlc3RDbGFpbVF1ZXN0UmV3",
+            "YXJkUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJl",
+            "c3BvbnNlU3RhdHVzEiYKBXF1ZXN0GAIgASgLMhcudGVjaC5oaXZlLnYxLlF1",
+            "ZXN0RGF0YRIlCgdyZXdhcmRzGAMgAygLMhQudGVjaC5oaXZlLnYxLlJld2Fy",
+            "ZBI0Cg9jdXJyZW5jeV9kZWx0YXMYBCADKAsyGy50ZWNoLmhpdmUudjEuQ3Vy",
+            "cmVuY3lEZWx0YSonCg5RdWVzdEVycm9yQ29kZRIVChFRVUVTVF9VTlNQRUNJ",
+            "RklFRBAAMtgCCgxRdWVzdFNlcnZpY2USZQoOTGlzdERhaWx5UXVlc3QSKC50",
+            "ZWNoLmhpdmUudjEuUXVlc3RMaXN0RGFpbHlRdWVzdFJlcXVlc3QaKS50ZWNo",
+            "LmhpdmUudjEuUXVlc3RMaXN0RGFpbHlRdWVzdFJlc3BvbnNlEnQKE1VwZGF0",
+            "ZVF1ZXN0UHJvZ3Jlc3MSLS50ZWNoLmhpdmUudjEuUXVlc3RVcGRhdGVRdWVz",
+            "dFByb2dyZXNzUmVxdWVzdBouLnRlY2guaGl2ZS52MS5RdWVzdFVwZGF0ZVF1",
+            "ZXN0UHJvZ3Jlc3NSZXNwb25zZRJrChBDbGFpbVF1ZXN0UmV3YXJkEioudGVj",
+            "aC5oaXZlLnYxLlF1ZXN0Q2xhaW1RdWVzdFJld2FyZFJlcXVlc3QaKy50ZWNo",
+            "LmhpdmUudjEuUXVlc3RDbGFpbVF1ZXN0UmV3YXJkUmVzcG9uc2ViBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.QuestDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.QuestErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestListDailyQuestRequest), global::Tech.Hive.V1.QuestListDailyQuestRequest.Parser, new[]{ "DateIndex" }, new[]{ "DateIndex" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestListDailyQuestResponse), global::Tech.Hive.V1.QuestListDailyQuestResponse.Parser, new[]{ "Status", "QuestList", "NextResetAt", "DateIndex" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestListWeeklyQuestRequest), global::Tech.Hive.V1.QuestListWeeklyQuestRequest.Parser, new[]{ "DateIndex" }, new[]{ "DateIndex" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestListWeeklyQuestResponse), global::Tech.Hive.V1.QuestListWeeklyQuestResponse.Parser, new[]{ "Status", "QuestList", "NextResetAt", "DateIndex" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestUpdateQuestProgressRequest), global::Tech.Hive.V1.QuestUpdateQuestProgressRequest.Parser, new[]{ "QuestId", "QuestType", "AddCurrentCount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestUpdateQuestProgressResponse), global::Tech.Hive.V1.QuestUpdateQuestProgressResponse.Parser, new[]{ "Status", "Quest" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestClaimQuestRewardRequest), global::Tech.Hive.V1.QuestClaimQuestRewardRequest.Parser, new[]{ "QuestId", "QuestType", "DateIndex" }, new[]{ "DateIndex" }, null, null, null),
@@ -596,516 +587,6 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class QuestListWeeklyQuestRequest : pb::IMessage<QuestListWeeklyQuestRequest>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<QuestListWeeklyQuestRequest> _parser = new pb::MessageParser<QuestListWeeklyQuestRequest>(() => new QuestListWeeklyQuestRequest());
-    private pb::UnknownFieldSet _unknownFields;
-    private int _hasBits0;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<QuestListWeeklyQuestRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[2]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public QuestListWeeklyQuestRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public QuestListWeeklyQuestRequest(QuestListWeeklyQuestRequest other) : this() {
-      _hasBits0 = other._hasBits0;
-      dateIndex_ = other.dateIndex_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public QuestListWeeklyQuestRequest Clone() {
-      return new QuestListWeeklyQuestRequest(this);
-    }
-
-    /// <summary>Field number for the "date_index" field.</summary>
-    public const int DateIndexFieldNumber = 1;
-    private uint dateIndex_;
-    /// <summary>
-    /// 빈값이면 이번주 기준으로 조회
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint DateIndex {
-      get { if ((_hasBits0 & 1) != 0) { return dateIndex_; } else { return 0; } }
-      set {
-        _hasBits0 |= 1;
-        dateIndex_ = value;
-      }
-    }
-    /// <summary>Gets whether the "date_index" field is set</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool HasDateIndex {
-      get { return (_hasBits0 & 1) != 0; }
-    }
-    /// <summary>Clears the value of the "date_index" field</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void ClearDateIndex() {
-      _hasBits0 &= ~1;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as QuestListWeeklyQuestRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(QuestListWeeklyQuestRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (DateIndex != other.DateIndex) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (HasDateIndex) hash ^= DateIndex.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (HasDateIndex) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(DateIndex);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (HasDateIndex) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(DateIndex);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (HasDateIndex) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(DateIndex);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(QuestListWeeklyQuestRequest other) {
-      if (other == null) {
-        return;
-      }
-      if (other.HasDateIndex) {
-        DateIndex = other.DateIndex;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            DateIndex = input.ReadUInt32();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 8: {
-            DateIndex = input.ReadUInt32();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  [global::System.SerializableAttribute]
-  public sealed partial class QuestListWeeklyQuestResponse : pb::IMessage<QuestListWeeklyQuestResponse>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<QuestListWeeklyQuestResponse> _parser = new pb::MessageParser<QuestListWeeklyQuestResponse>(() => new QuestListWeeklyQuestResponse());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<QuestListWeeklyQuestResponse> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[3]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public QuestListWeeklyQuestResponse() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public QuestListWeeklyQuestResponse(QuestListWeeklyQuestResponse other) : this() {
-      status_ = other.status_ != null ? other.status_.Clone() : null;
-      questList_ = other.questList_.Clone();
-      nextResetAt_ = other.nextResetAt_;
-      dateIndex_ = other.dateIndex_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public QuestListWeeklyQuestResponse Clone() {
-      return new QuestListWeeklyQuestResponse(this);
-    }
-
-    /// <summary>Field number for the "status" field.</summary>
-    public const int StatusFieldNumber = 1;
-    private global::Tech.Hive.V1.ResponseStatus status_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.ResponseStatus Status {
-      get { return status_; }
-      set {
-        status_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "quest_list" field.</summary>
-    public const int QuestListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.QuestData> _repeated_questList_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.QuestData.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.QuestData> questList_ = new pbc::RepeatedField<global::Tech.Hive.V1.QuestData>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.QuestData> QuestList {
-      get { return questList_; }
-    }
-
-    /// <summary>Field number for the "next_reset_at" field.</summary>
-    public const int NextResetAtFieldNumber = 3;
-    private ulong nextResetAt_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong NextResetAt {
-      get { return nextResetAt_; }
-      set {
-        nextResetAt_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "date_index" field.</summary>
-    public const int DateIndexFieldNumber = 4;
-    private uint dateIndex_;
-    /// <summary>
-    /// 이번주 인덱스 (ex. 202523 => 2025년 23주차)
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint DateIndex {
-      get { return dateIndex_; }
-      set {
-        dateIndex_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as QuestListWeeklyQuestResponse);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(QuestListWeeklyQuestResponse other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!object.Equals(Status, other.Status)) return false;
-      if(!questList_.Equals(other.questList_)) return false;
-      if (NextResetAt != other.NextResetAt) return false;
-      if (DateIndex != other.DateIndex) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (status_ != null) hash ^= Status.GetHashCode();
-      hash ^= questList_.GetHashCode();
-      if (NextResetAt != 0UL) hash ^= NextResetAt.GetHashCode();
-      if (DateIndex != 0) hash ^= DateIndex.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (status_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(Status);
-      }
-      questList_.WriteTo(output, _repeated_questList_codec);
-      if (NextResetAt != 0UL) {
-        output.WriteRawTag(24);
-        output.WriteUInt64(NextResetAt);
-      }
-      if (DateIndex != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(DateIndex);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (status_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(Status);
-      }
-      questList_.WriteTo(ref output, _repeated_questList_codec);
-      if (NextResetAt != 0UL) {
-        output.WriteRawTag(24);
-        output.WriteUInt64(NextResetAt);
-      }
-      if (DateIndex != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(DateIndex);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (status_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
-      }
-      size += questList_.CalculateSize(_repeated_questList_codec);
-      if (NextResetAt != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(NextResetAt);
-      }
-      if (DateIndex != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(DateIndex);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(QuestListWeeklyQuestResponse other) {
-      if (other == null) {
-        return;
-      }
-      if (other.status_ != null) {
-        if (status_ == null) {
-          Status = new global::Tech.Hive.V1.ResponseStatus();
-        }
-        Status.MergeFrom(other.Status);
-      }
-      questList_.Add(other.questList_);
-      if (other.NextResetAt != 0UL) {
-        NextResetAt = other.NextResetAt;
-      }
-      if (other.DateIndex != 0) {
-        DateIndex = other.DateIndex;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (status_ == null) {
-              Status = new global::Tech.Hive.V1.ResponseStatus();
-            }
-            input.ReadMessage(Status);
-            break;
-          }
-          case 18: {
-            questList_.AddEntriesFrom(input, _repeated_questList_codec);
-            break;
-          }
-          case 24: {
-            NextResetAt = input.ReadUInt64();
-            break;
-          }
-          case 32: {
-            DateIndex = input.ReadUInt32();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            if (status_ == null) {
-              Status = new global::Tech.Hive.V1.ResponseStatus();
-            }
-            input.ReadMessage(Status);
-            break;
-          }
-          case 18: {
-            questList_.AddEntriesFrom(ref input, _repeated_questList_codec);
-            break;
-          }
-          case 24: {
-            NextResetAt = input.ReadUInt64();
-            break;
-          }
-          case 32: {
-            DateIndex = input.ReadUInt32();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  [global::System.SerializableAttribute]
   public sealed partial class QuestUpdateQuestProgressRequest : pb::IMessage<QuestUpdateQuestProgressRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1120,7 +601,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1384,7 +865,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1630,7 +1111,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1908,7 +1389,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

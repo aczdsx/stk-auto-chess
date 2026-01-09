@@ -18,6 +18,11 @@ service CharacterService {
    * 캐릭터 조회
    */
   rpc Get(CharacterGetRequest) returns (CharacterGetResponse);
+
+  /**
+   * 캐릭터 조각 교환을 통한 캐릭터 생성
+   */
+  rpc Create(CharacterCreateRequest) returns (CharacterCreateResponse);
   
   /**
    * 캐릭터 레벨업
@@ -25,43 +30,31 @@ service CharacterService {
   rpc LevelUp(CharacterLevelUpRequest) returns (CharacterLevelUpResponse);
   
   /**
-   * 캐릭터 승급
-   */
-  rpc Promote(CharacterPromoteRequest) returns (CharacterPromoteResponse);
-  
-  /**
    * 캐릭터 초월
    */
   rpc Transcend(CharacterTranscendRequest) returns (CharacterTranscendResponse);
-  
-  /**
-   * 공명 포인트 할당
-   */
-  rpc AllocateResonance(CharacterAllocateResonanceRequest) returns (CharacterAllocateResonanceResponse);
-  
-  /**
-   * 공명 초기화
-   */
-  rpc ResetResonance(CharacterResetResonanceRequest) returns (CharacterResetResonanceResponse);
 
   /**
-   * 스텔룸 장착
+   * 캐릭터 돌파
    */
-  rpc EquipStellum(CharacterEquipStellumRequest) returns (CharacterEquipStellumResponse);
-
-  /**
-   * 성유물 장착
-   */
-  rpc EquipRelic(CharacterEquipRelicRequest) returns (CharacterEquipRelicResponse);
-
-  /**
-   * 성유물 장착 해제
-   */
-  rpc UnEquipRelic(CharacterUnEquipRelicRequest) returns (CharacterUnEquipRelicResponse);
+  rpc Exceed(CharacterExceedRequest) returns (CharacterExceedResponse);
 }
 
 enum CharacterErrorCode {
   CHARACTER_UNSPECIFIED = 0;
+  CHARACTER_NOT_FOUND = 10130501; // 캐릭터 없음
+
+  CHARACTER_LEVEL_UP_NOT_ENOUGH_GOLD = 10130502; // 레벨업 충분한 골드 없음
+  CHARACTER_LEVEL_UP_NOT_ENOUGH_EXP = 10130503; // 레벨업 충분한 경험치 없음
+  CHARACTER_LEVEL_UP_MAX_LEVEL_REACHED = 10130504; // 레벨업 최대 레벨 도달
+  CHARACTER_LEVEL_UP_NOT_FOUND_NEXT_LEVEL = 10130505; // 레벨업 다음 레벨 데이터 없음
+
+  CHARACTER_PROMOTE_MAX_PROMOTION_LEVEL_REACHED = 10130506; // 승급 최대 승급 레벨 도달
+
+  CHARACTER_EQUIP_STELLUM_NOT_FOUND = 10130507; // 해당하는 Stellum이 없음
+  CHARACTER_EQUIP_RELIC_NOT_FOUND = 10130508; // 해당하는 Relic이 없음
+
+  CHARACTER_ALREADY_EXISTS = 10130509; // 이미 해당 캐릭터가 있음
 }
 
 message CharacterListRequest {}
@@ -76,6 +69,15 @@ message CharacterGetRequest {
 message CharacterGetResponse {
   ResponseStatus status = 1;
   CharacterData character = 2;
+}
+
+message CharacterCreateRequest {
+  uint32 character_id = 1;
+}
+message CharacterCreateResponse {
+  ResponseStatus status = 1;
+  CharacterData character = 2;
+  repeated CurrencyDelta currency_deltas = 3;
 }
 
 message CharacterLevelUpRequest {
@@ -105,52 +107,11 @@ message CharacterTranscendResponse {
   repeated CurrencyDelta currency_deltas = 3;
 }
 
-message CharacterAllocateResonanceRequest {
-  string instance_id = 1;
-  string resonance_node_id = 2;
-  uint32 target_level = 3;
-}
-
-message CharacterAllocateResonanceResponse {
-  ResponseStatus status = 1;
-  CharacterData character = 2;
-}
-
-message CharacterResetResonanceRequest {
+message CharacterExceedRequest {
   string instance_id = 1;
 }
-message CharacterResetResonanceResponse {
+message CharacterExceedResponse {
   ResponseStatus status = 1;
   CharacterData character = 2;
   repeated CurrencyDelta currency_deltas = 3;
-}
-
-message CharacterEquipStellumRequest {
-  string instance_id = 1;
-  string stellum_instance_id = 2;
-}
-
-message CharacterEquipStellumResponse {
-  ResponseStatus status = 1;
-  CharacterData character = 2;
-}
-
-message CharacterEquipRelicRequest {
-  string instance_id = 1;
-  string relic_instance_id = 2;
-}
-
-message CharacterEquipRelicResponse {
-  ResponseStatus status = 1;
-  CharacterData character = 2;
-}
-
-message CharacterUnEquipRelicRequest {
-  string instance_id = 1;
-  string relic_instance_id = 2;
-}
-
-message CharacterUnEquipRelicResponse {
-  ResponseStatus status = 1;
-  CharacterData character = 2;
 }
