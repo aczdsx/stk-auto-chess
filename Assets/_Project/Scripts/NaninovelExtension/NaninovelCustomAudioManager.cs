@@ -55,7 +55,8 @@ namespace CookApps.AutoBattler
             set
             {
                 _voiceVolume = value;
-                SoundManager.Instance?.SetVOXVolume(value);
+                if (SoundManager.Instance != null && SoundManager.Instance.IsReady)
+                    SoundManager.Instance.SetVOXVolume(value);
             }
         }
 

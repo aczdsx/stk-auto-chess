@@ -299,6 +299,8 @@ public class SoundManager : Singleton<SoundManager>
 
     public void SetVOXVolume(float v)
     {
+        if (!_mixer) return;
+
         _voxVolume = v;
         Preference.SavePreference(Pref.VOX_V, v);
 
@@ -311,6 +313,8 @@ public class SoundManager : Singleton<SoundManager>
 
     public void SetVOXUIVolume(float v)
     {
+        if (!_mixer) return;
+        
         int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
         if (this.isReady)
             _mixer.SetFloat("VOX_UI", volume);
