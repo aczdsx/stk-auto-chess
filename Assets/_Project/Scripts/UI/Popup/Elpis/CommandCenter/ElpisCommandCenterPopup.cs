@@ -14,7 +14,7 @@ namespace CookApps.AutoBattler
     public class ElpisCommandCenterPopup : UILayer
     {
         [SerializeField] private CAButton closeButton;
-        
+            
         [Header("배경 & NPC")]
         [SerializeField] private CAButton npcAreaButton;
         [SerializeField] private Transform npcDialogueArea;
@@ -36,6 +36,7 @@ namespace CookApps.AutoBattler
         private int currentCoreAmount;
         private int requiredCoreForUpgrade;
         private bool hasNextUpgrade;
+        private bool isUpgrading;
         private List<ElpisCommandCenterBenefit> currentBenefits = new List<ElpisCommandCenterBenefit>();
 
         // TableView Controller
@@ -44,12 +45,28 @@ namespace CookApps.AutoBattler
         private ElpisDataBridge dataBridge;
         private InventoryDataBridge inventoryDataBridge;
         
+        private LobbyMain lobbyMain;
+        
         protected override void Awake()
         {
             base.Awake();
-
-            InitializeTableView();
             
+            lobbyMain = LobbyMain.GetLobbyMain();
+            
+            InitializeTableView();
+            SubscribeButtons();
+        }
+
+        protected override void OnBackButton(ref bool offPrevUI)
+        {
+            if (isUpgrading)
+                return;
+
+            base.OnBackButton(ref offPrevUI);
+        }
+
+        private void SubscribeButtons()
+        {
             closeButton.OnClickAsObservable()
                 .Subscribe(this, (_, self) => self.CloseThisUILayer())
                 .AddTo(this);
@@ -66,8 +83,6 @@ namespace CookApps.AutoBattler
         protected override void OnDestroy()
         {
             base.OnDestroy();
-
-            // TableView Controller 정리 (필수!)
             benefitController?.Detach();
         }
 
@@ -75,16 +90,23 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
 
-            var facility = param as ElpisFacility;
+            lobbyMain.PlayExitAnimation();
             
             dataBridge = new ElpisDataBridge();
             inventoryDataBridge = new InventoryDataBridge();
             
-            currentElpisLevel = (int)facility.Level;
-            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(IdMap.Item.BuildItem);
+            currentElpisLevel = (int)((ElpisFacility)param).Level;
+            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(21850001);
 
             LoadElpisData();
             UpdateUI();
+        }
+        
+        protected override void OnPreExit()
+        {
+            base.OnPostExit();
+            
+            lobbyMain.PlayEnterAnimation();
         }
         
         private void InitializeTableView()
@@ -102,7 +124,7 @@ namespace CookApps.AutoBattler
                 .OnBind((cell, data, index) =>
                 {
                     cell.SetData(data, index);
-                    // cell.SetShortcutCallback(() => NavigateToBenefit(data.build_id));
+                    cell.SetShortcutCallback(() => NavigateToBenefit(data.build_id));
                 })
                 .OnCellRecycled(cell => cell.ResetState())
                 .Build();
@@ -111,10 +133,38 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 혜택 바로가기 네비게이션
         /// </summary>
-        private void NavigateToBenefit(int buildGroupId)
+        private void NavigateToBenefit(int buildId)
         {
-            // TODO: 건물/콘텐츠로 이동 구현
-            Debug.Log($"혜택 바로가기: {buildGroupId}");
+            var buildInfo = SpecDataManager.Instance.GetBuildInfo(buildId);
+            if (buildInfo == null)
+            {
+                Debug.LogWarning($"BuildInfo not found: {buildId}");
+                return;
+            }
+
+            var facilityType = buildInfo.facility_type.ToServerType();
+            var building = FindBuildingByType(facilityType);
+            if (building == null)
+            {
+                Debug.LogWarning($"Building not found: {facilityType}");
+                return;
+            }
+
+            // 팝업 닫고 건물 위치로 카메라 이동
+            CloseThisUILayer();
+            var cameraController = MainCameraHolder.CameraGestureController;
+            cameraController.MoveAsync(building.CachedTr.position, 0.5f).Forget();
+        }
+
+        private ElpisBuildingBase FindBuildingByType(ElpisFacilityType facilityType)
+        {
+            var buildings = lobbyMain.MainBlock.ElpisBuildings;
+            for (var i = 0; i < buildings.Count; i++)
+            {
+                if (buildings[i].BuildingType == facilityType)
+                    return buildings[i];
+            }
+            return null;
         }
 
         #region 데이터 로딩
@@ -126,7 +176,7 @@ namespace CookApps.AutoBattler
             for (var i = 0; i < SpecDataManager.Instance.ElpisCommandCenterBenefit.All.Count; i++)
             {
                 var benefit = SpecDataManager.Instance.ElpisCommandCenterBenefit.All[i];
-                if (benefit.lv != commandCenter.Level + 1)
+                if (benefit.lv != commandCenter.Level)
                     continue;
                 
                 currentBenefits.Add(benefit);
@@ -137,8 +187,7 @@ namespace CookApps.AutoBattler
             for (var i = 0; i < SpecDataManager.Instance.ElpisBuildInfo.All.Count; i++)
             {
                 var buildInfo = SpecDataManager.Instance.ElpisBuildInfo.All[i];
-                if (buildInfo.facility_type.ToServerType() == ElpisFacilityType.FacilityTypeCommandCenter &&
-                    buildInfo.build_lv == commandCenter.Level)
+                if (buildInfo.facility_type.ToServerType() == ElpisFacilityType.FacilityTypeCommandCenter && buildInfo.build_lv == commandCenter.Level)
                 {
                     requiredCoreForUpgrade = buildInfo.item_INT;
                     hasNextUpgrade = true;
@@ -161,48 +210,31 @@ namespace CookApps.AutoBattler
         private void UpdateLevelDisplay()
         {
             if (benefitsTitle != null)
-            {
-                benefitsTitle.text = $"영지 확장 혜택";
-            }
-
-            if (!elpisLevelText)
-            {
-                elpisLevelText.text = ZString.Concat(currentElpisLevel + 1);
-            }
+                benefitsTitle.text = $"영지 확장 혜택"; //TODO : localization
+            if (elpisLevelText)
+                elpisLevelText.text = ZString.Concat(currentElpisLevel);
         }
 
         private void UpdateBenefitsList()
         {
-            if (benefitController != null)
-            {
-                // TableView 데이터 업데이트
-                benefitController.SetData(currentBenefits);
-            }
+            benefitController?.SetData(currentBenefits);
         }
 
         private void UpdateUpgradeButton()
         {
-            bool canUpgrade = hasNextUpgrade && currentCoreAmount >= requiredCoreForUpgrade;
+            var canUpgrade = hasNextUpgrade && currentCoreAmount >= requiredCoreForUpgrade;
 
-            upgradeButton.SetClickableState(canUpgrade);
+            //upgradeButton.SetClickableState(canUpgrade);
 
-            if (requiredCoreText != null)
-            {
-                requiredCoreText.text = requiredCoreForUpgrade.ToString();
-                requiredCoreTextSwappers.Swap(currentCoreAmount < requiredCoreForUpgrade ? SimpleSwapType.Impossible : SimpleSwapType.Possible);
-            }
-
+            requiredCoreText.text = requiredCoreForUpgrade.ToString();
+            requiredCoreTextSwappers.Swap(canUpgrade ? SimpleSwapType.Possible : SimpleSwapType.Impossible);
+            
             currentCoreText.SetTextFormat("/{0}", currentCoreAmount);
         }
 
         private void UpdateNPCDialogue()
         {
-            if (npcDialogueText != null)
-            {
-                // TODO: 토큰 시스템에서 다이얼로그 로드
-                // 상황에 맞는 다이얼로그 가져오기 (입장, 업그레이드 완료 등)
-                npcDialogueText.text = "커멘드 센터에 오신 것을 환영합니다.";
-            }
+            ShowRandomNPCDialogue();
         }
 
         #endregion
@@ -211,44 +243,100 @@ namespace CookApps.AutoBattler
 
         private async UniTask OnUpgradeButtonClicked()
         {
-            if (currentCoreAmount < requiredCoreForUpgrade)
+            if (!hasNextUpgrade || isUpgrading)
             {
-                Debug.LogWarning("업그레이드를 위한 코어가 부족합니다");
+                if (!hasNextUpgrade)
+                    Debug.LogWarning("다음 업그레이드가 없습니다");
                 return;
             }
 
-            if (!hasNextUpgrade)
+            isUpgrading = true;
+
+            try
             {
-                Debug.LogWarning("다음 업그레이드가 없습니다");
-                return;
+                // 업그레이드 실행
+                var commandCenter = dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
+                var resp = await NetManager.Instance.Elpis.UpgradeFacilityAsync((int)commandCenter.BuildId);
+                //10130102 에러뜸 : facility not invalid 에러임. 걍 로컬로 변경해서 함
+
+                currentElpisLevel = (int)resp.Facility.Level;
+
+                // SubBlock 확장 애니메이션 (레벨 2, 3에서만 실행)
+                var subBlockIndex = currentElpisLevel - 2; // 레벨2 -> 인덱스0, 레벨3 -> 인덱스1
+                if (subBlockIndex >= 0 && subBlockIndex <= 1)
+                {
+                    var mainBlock = lobbyMain.MainBlock;
+                    var cameraController = MainCameraHolder.CameraGestureController;
+                    var mainCamera = MainCameraHolder.MainCamera;
+                    var offsetZoom = mainCamera.orthographicSize;
+                    var offsetPosition = mainCamera.transform.position;
+
+                    await PlayExitAnimationAsync();
+
+                    var subBlock = mainBlock.GetSubBlockInfo(subBlockIndex);
+                    cameraController.SetFollowTarget(subBlock.SubBlock.CachedTr, 2.0f);
+                    await cameraController.ZoomAsync(14.1f, 0.3f);
+                    await mainBlock.AttachSubBlock(subBlockIndex, true);
+
+                    mainBlock.RebuildNavMesh();
+
+                    cameraController.SetFollowTarget(null, 1.0f);
+                    cameraController.MoveAsync(offsetPosition, 0.3f).Forget();
+                    await cameraController.ZoomAsync(offsetZoom, 0.3f);
+                }
+                
+                // 새 데이터로 UI 갱신
+                currentCoreAmount = (int)inventoryDataBridge.GetCurrency(21850001);
+                LoadElpisData();
+                UpdateUI();
+
+                //결과 팝업
+
+                var resultPopup = await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterResultPopup>(currentBenefits);
+                await resultPopup.WaitForExit();
+                UnityEngine.Debug.Log("resultPopup exit");
+
+                await PlayEnterAnimationAsync();
             }
+            finally
+            {
+                isUpgrading = false;
+            }
+        }
 
-            // 업그레이드 실행
-            var commandCenter = dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
-            var resp = await NetManager.Instance.Elpis.UpgradeFacilityAsync((int)commandCenter.BuildId);
+        private UniTask PlayExitAnimationAsync()
+        {
+            var tcs = new UniTaskCompletionSource();
+            StartExitAnimation(_ => tcs.TrySetResult());
+            return tcs.Task;
+        }
 
-            
-            // 2. 업그레이드 애니메이션 재생
-
-            // - 애니메이션 중 UI 숨김 처리
-            // - 확장 비주얼 이펙트 재생
-            // - 필요시 영지 프리팹 업데이트
-
-            // 3. 완료 팝업 표시
-            // 애니메이션 완료 후 호출됨
-            
-            // 새 데이터로 UI 갱신
-            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(IdMap.Item.BuildItem);
-            LoadElpisData();
-            UpdateUI();
+        private UniTask PlayEnterAnimationAsync()
+        {
+            var tcs = new UniTaskCompletionSource();
+            StartEnterAnimation(_ => tcs.TrySetResult());
+            return tcs.Task;
         }
 
         private void OnNPCClicked()
         {
-            // TODO: NPC 다이얼로그 표시
-            // 무작위 또는 상황별 다이얼로그 로드
-            // 애니메이션과 함께 다이얼로그 표시
-            Debug.Log("NPC 클릭 - 다이얼로그 표시");
+            ShowRandomNPCDialogue();
+        }
+
+        private static readonly string[] npcDialogues =
+        {
+            "커맨드 센터에 오신 것을 환영합니다.",
+            "영지를 확장하면 더 많은 건물을 지을 수 있어요.",
+            "오늘도 영지 관리에 힘써주셔서 감사합니다.",
+            "새로운 시설이 기다리고 있어요!"
+        };
+
+        private void ShowRandomNPCDialogue()
+        {
+            if (npcDialogueText == null) return;
+
+            var randomIndex = UnityEngine.Random.Range(0, npcDialogues.Length);
+            npcDialogueText.text = npcDialogues[randomIndex];
         }
 
         #endregion

@@ -48,7 +48,7 @@ namespace CookApps.TeamBattle.UIManagements
 
         public virtual void SetClickableState(bool enabled)
         {
-            isClickable = enabled;
+            interactable = enabled;
             swappers.Swap(enabled ? SimpleSwapType.Normal : SimpleSwapType.Disabled);
         }
 

@@ -1,4 +1,4 @@
-﻿using CookApps.AutoBattler;
+using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -45,6 +45,9 @@ public class CameraGestureController : CachedMonoBehaviour
     private bool needsPositionSmoothing;
     private bool needsZoomSmoothing;
     private bool isAutoMoving; // MoveAsync 실행 중 입력 차단용
+    
+    private Transform followTarget;
+    private float followSpeed;
 
     private void Awake()
     {
@@ -66,7 +69,19 @@ public class CameraGestureController : CachedMonoBehaviour
 #if UNITY_EDITOR
         
         isDragging = false;
-        if (!isAutoMoving) HandleMouseInput();
+        if (!isAutoMoving)
+        {
+            if (followTarget)
+            {
+                UpdateFollowTarget();
+            }
+            else
+            {
+                HandleMouseInput();
+            }
+        }
+
+        
         
 #else
         
@@ -454,7 +469,58 @@ public class CameraGestureController : CachedMonoBehaviour
 
     #endregion
 
+    #region Follow Target
+
+    public void SetFollowTarget(Transform target, float followSpeed)
+    {
+        followTarget = target;
+        this.followSpeed = followSpeed;
+    }
+
+    private void UpdateFollowTarget()
+    {
+        // 카메라 회전을 고려하여 타겟이 화면 중앙에 오도록 카메라 위치 계산
+        var localOffset = mainCameraTransform.InverseTransformPoint(followTarget.position);
+        var cameraTargetPos = mainCameraTransform.position + mainCameraTransform.rotation * new Vector3(localOffset.x, localOffset.y, 0f);
+
+        var newPos = Vector3.Lerp(mainCameraTransform.position, cameraTargetPos, followSpeed * Time.deltaTime);
+        mainCameraTransform.position = newPos;
+        targetPosition = newPos;
+    }
+
+    #endregion
+
     #region Move Task
+
+    public async UniTask ZoomAsync(float targetZoomValue, float duration)
+    {
+        if (isAutoMoving) return;
+
+        isAutoMoving = true;
+
+        var startZoom = mainCamera.orthographicSize;
+        var clampedTargetZoom = Mathf.Clamp(targetZoomValue, minZoom, cachedMaxAllowedZoom);
+        var elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            var t = Mathf.Clamp01(elapsed / duration);
+
+            // EaseOutCubic for smooth deceleration
+            var easeT = 1f - Mathf.Pow(1f - t, 3f);
+
+            mainCamera.orthographicSize = Mathf.Lerp(startZoom, clampedTargetZoom, easeT);
+            targetZoom = mainCamera.orthographicSize;
+
+            await UniTask.Yield();
+        }
+
+        mainCamera.orthographicSize = clampedTargetZoom;
+        targetZoom = clampedTargetZoom;
+
+        isAutoMoving = false;
+    }
 
     public async UniTask MoveAsync(Vector3 targetPos, float duration)
     {

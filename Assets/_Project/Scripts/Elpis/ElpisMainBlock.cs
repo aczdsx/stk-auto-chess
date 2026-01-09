@@ -15,7 +15,7 @@ namespace CookApps.AutoBattler
     public class ElpisMainBlock : CachedMonoBehaviour
     {
         [Serializable]
-        private class SubBlockInfo
+        public class SubBlockInfo
         {
             [SerializeField] private Vector3 worldPointSrc;
             [SerializeField] private Vector3 worldPointDest;
@@ -90,6 +90,11 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public SubBlockInfo GetSubBlockInfo(int index)
+        {
+            return subBlockInfos[index];
+        }
+
         public async UniTask AttachSubBlock(int index, bool withAnimation)
         {
             var dummyBlock = index < dummySubBlocks.Length ? dummySubBlocks[index] : null;
@@ -119,6 +124,7 @@ namespace CookApps.AutoBattler
             for (var i = 0; i < cachedElpisBuildings.Length; i++)
             {
                 cachedElpisBuildings[i].Initialize(i);
+                cachedElpisBuildings[i].gameObject.SetActive(false);
             }
         }
 

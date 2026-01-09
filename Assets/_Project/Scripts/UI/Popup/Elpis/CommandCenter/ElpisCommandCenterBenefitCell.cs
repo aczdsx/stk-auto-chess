@@ -88,6 +88,9 @@ namespace CookApps.AutoBattler
 
         private void SetBenefitCountText()
         {
+            if(!benefitCountText)
+                return;
+            
             benefitCountText.SetTextFormat("{0} > {1}", currentData.before_key, currentData.benefit_key);
             SetBenefitCountActive(true);
         }
@@ -119,7 +122,7 @@ namespace CookApps.AutoBattler
 
         private void SetBenefitCountActive(bool active)
         {
-            benefitCountText.gameObject.SetActive(active);
+            benefitCountText?.gameObject.SetActive(active);
         }
 
         #endregion

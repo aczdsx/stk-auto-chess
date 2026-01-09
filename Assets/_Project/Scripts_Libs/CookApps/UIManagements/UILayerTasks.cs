@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace CookApps.TeamBattle.UIManagements
 {
-    public struct UILayerExitTask
+    public class UILayerExitTask
     {
         public UILayer uiLayer;
 
@@ -18,15 +18,15 @@ namespace CookApps.TeamBattle.UIManagements
         }
     }
 
-    public struct UILayerExitAwaiter : INotifyCompletion
+    public sealed class UILayerExitAwaiter : INotifyCompletion
     {
-        private readonly UILayerExitTask task;
+        private readonly UILayer uiLayer;
         private Action continuation;
 
-        public UILayerExitAwaiter(in UILayerExitTask task) : this()
+        public UILayerExitAwaiter(in UILayerExitTask task)
         {
-            this.task = task;
-            task.uiLayer.ExitEndCallback += OnUILayerClosed;
+            uiLayer = task.uiLayer;
+            SceneUILayerManager.OnUITransitionEvent += OnUILayerClosed;
         }
 
         public bool IsCompleted { get; private set; }
@@ -35,14 +35,28 @@ namespace CookApps.TeamBattle.UIManagements
 
         public void OnCompleted(Action continuation)
         {
-            this.continuation = continuation;
-        }
+            if (IsCompleted)
+            {
+                continuation?.Invoke();
+                return;
+            }
 
-        private void OnUILayerClosed(UILayer obj)
+            this.continuation += continuation;
+        }
+    
+        private void OnUILayerClosed(UILayerTransition transition, string key, UILayer uiLayer)
         {
+            if (transition != UILayerTransition.ExitFinished)
+                return;
+            if (this.uiLayer != uiLayer)
+                return;
+        
+            SceneUILayerManager.OnUITransitionEvent -= OnUILayerClosed;
             IsCompleted = true;
-            task.uiLayer.ExitEndCallback -= OnUILayerClosed;
-            continuation?.Invoke();
+
+            var cachedContinuation = continuation;
+            continuation = null;
+            cachedContinuation?.Invoke();
         }
     }
 }

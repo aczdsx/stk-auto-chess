@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
             public static readonly ItemId CharExp = 810001;
             public static readonly ItemId PvpTicket = 1350001;
             public static readonly ItemId BuildItem = 1620001;
-            public static readonly ItemId 기사공격력큐브 = 1730001;
+            public static readonly ItemId 기사의디멘션큐브 = 1730001;
             public static readonly ItemId 기사방어력큐브 = 1730002;
             public static readonly ItemId 기사체력큐브 = 1730003;
             public static readonly ItemId 불의디멘션큐브 = 1730101;
@@ -37,6 +37,7 @@ namespace CookApps.AutoBattler
             public static readonly ItemId 노블레스디멘션큐브 = 1730201;
             public static readonly ItemId 슈퍼노바디멘션큐브 = 1730202;
             public static readonly ItemId 트러블슈터디멘션큐브 = 1730203;
+            public static readonly ItemId 엘피스코어 = 1850001;
 
             // ==================== Material Items ====================
         }
