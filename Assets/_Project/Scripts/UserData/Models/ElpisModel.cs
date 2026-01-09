@@ -115,7 +115,7 @@ namespace CookApps.AutoBattler
                 var facility = _elpisData.Facilities[i];
                 if (facility.BuildId == 0)
                 {
-                    Debug.LogError("[ElpisModel] Invalid facility: missing InstanceId");
+                    Debug.LogError("[ElpisModel] Invalid facility: missing BuildId");
                     return false;
                 }
             }

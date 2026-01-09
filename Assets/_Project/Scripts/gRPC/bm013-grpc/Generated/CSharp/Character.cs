@@ -29,66 +29,67 @@ namespace Tech.Hive.V1 {
             "Q2hhcmFjdGVyTGlzdFJlcXVlc3QidgoVQ2hhcmFjdGVyTGlzdFJlc3BvbnNl",
             "EiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1",
             "cxIvCgpjaGFyYWN0ZXJzGAIgAygLMhsudGVjaC5oaXZlLnYxLkNoYXJhY3Rl",
-            "ckRhdGEiKgoTQ2hhcmFjdGVyR2V0UmVxdWVzdBITCgtpbnN0YW5jZV9pZBgB",
-            "IAEoCSJ0ChRDaGFyYWN0ZXJHZXRSZXNwb25zZRIsCgZzdGF0dXMYASABKAsy",
-            "HC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSLgoJY2hhcmFjdGVyGAIg",
-            "ASgLMhsudGVjaC5oaXZlLnYxLkNoYXJhY3RlckRhdGEiLgoWQ2hhcmFjdGVy",
-            "Q3JlYXRlUmVxdWVzdBIUCgxjaGFyYWN0ZXJfaWQYASABKA0irQEKF0NoYXJh",
-            "Y3RlckNyZWF0ZVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2",
-            "ZS52MS5SZXNwb25zZVN0YXR1cxIuCgljaGFyYWN0ZXIYAiABKAsyGy50ZWNo",
-            "LmhpdmUudjEuQ2hhcmFjdGVyRGF0YRI0Cg9jdXJyZW5jeV9kZWx0YXMYAyAD",
-            "KAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSIuChdDaGFyYWN0ZXJM",
-            "ZXZlbFVwUmVxdWVzdBITCgtpbnN0YW5jZV9pZBgBIAEoCSKuAQoYQ2hhcmFj",
-            "dGVyTGV2ZWxVcFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2",
-            "ZS52MS5SZXNwb25zZVN0YXR1cxIuCgljaGFyYWN0ZXIYAiABKAsyGy50ZWNo",
-            "LmhpdmUudjEuQ2hhcmFjdGVyRGF0YRI0Cg9jdXJyZW5jeV9kZWx0YXMYAyAD",
-            "KAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSIwChlDaGFyYWN0ZXJU",
-            "cmFuc2NlbmRSZXF1ZXN0EhMKC2luc3RhbmNlX2lkGAEgASgJIrABChpDaGFy",
-            "YWN0ZXJUcmFuc2NlbmRSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNo",
-            "LmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSLgoJY2hhcmFjdGVyGAIgASgLMhsu",
-            "dGVjaC5oaXZlLnYxLkNoYXJhY3RlckRhdGESNAoPY3VycmVuY3lfZGVsdGFz",
-            "GAMgAygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGEiLQoWQ2hhcmFj",
-            "dGVyRXhjZWVkUmVxdWVzdBITCgtpbnN0YW5jZV9pZBgBIAEoCSKtAQoXQ2hh",
-            "cmFjdGVyRXhjZWVkUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5o",
-            "aXZlLnYxLlJlc3BvbnNlU3RhdHVzEi4KCWNoYXJhY3RlchgCIAEoCzIbLnRl",
-            "Y2guaGl2ZS52MS5DaGFyYWN0ZXJEYXRhEjQKD2N1cnJlbmN5X2RlbHRhcxgD",
-            "IAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhKqYDChJDaGFyYWN0",
-            "ZXJFcnJvckNvZGUSGQoVQ0hBUkFDVEVSX1VOU1BFQ0lGSUVEEAASGgoTQ0hB",
-            "UkFDVEVSX05PVF9GT1VORBDFqOoEEikKIkNIQVJBQ1RFUl9MRVZFTF9VUF9O",
-            "T1RfRU5PVUdIX0dPTEQQxqjqBBIoCiFDSEFSQUNURVJfTEVWRUxfVVBfTk9U",
-            "X0VOT1VHSF9FWFAQx6jqBBIrCiRDSEFSQUNURVJfTEVWRUxfVVBfTUFYX0xF",
-            "VkVMX1JFQUNIRUQQyKjqBBIuCidDSEFSQUNURVJfTEVWRUxfVVBfTk9UX0ZP",
-            "VU5EX05FWFRfTEVWRUwQyajqBBI0Ci1DSEFSQUNURVJfUFJPTU9URV9NQVhf",
-            "UFJPTU9USU9OX0xFVkVMX1JFQUNIRUQQyqjqBBIoCiFDSEFSQUNURVJfRVFV",
-            "SVBfU1RFTExVTV9OT1RfRk9VTkQQy6jqBBImCh9DSEFSQUNURVJfRVFVSVBf",
-            "UkVMSUNfTk9UX0ZPVU5EEMyo6gQSHwoYQ0hBUkFDVEVSX0FMUkVBRFlfRVhJ",
-            "U1RTEM2o6gQymQQKEENoYXJhY3RlclNlcnZpY2USTwoETGlzdBIiLnRlY2gu",
-            "aGl2ZS52MS5DaGFyYWN0ZXJMaXN0UmVxdWVzdBojLnRlY2guaGl2ZS52MS5D",
-            "aGFyYWN0ZXJMaXN0UmVzcG9uc2USTAoDR2V0EiEudGVjaC5oaXZlLnYxLkNo",
-            "YXJhY3RlckdldFJlcXVlc3QaIi50ZWNoLmhpdmUudjEuQ2hhcmFjdGVyR2V0",
-            "UmVzcG9uc2USVQoGQ3JlYXRlEiQudGVjaC5oaXZlLnYxLkNoYXJhY3RlckNy",
-            "ZWF0ZVJlcXVlc3QaJS50ZWNoLmhpdmUudjEuQ2hhcmFjdGVyQ3JlYXRlUmVz",
-            "cG9uc2USWAoHTGV2ZWxVcBIlLnRlY2guaGl2ZS52MS5DaGFyYWN0ZXJMZXZl",
-            "bFVwUmVxdWVzdBomLnRlY2guaGl2ZS52MS5DaGFyYWN0ZXJMZXZlbFVwUmVz",
-            "cG9uc2USXgoJVHJhbnNjZW5kEicudGVjaC5oaXZlLnYxLkNoYXJhY3RlclRy",
-            "YW5zY2VuZFJlcXVlc3QaKC50ZWNoLmhpdmUudjEuQ2hhcmFjdGVyVHJhbnNj",
-            "ZW5kUmVzcG9uc2USVQoGRXhjZWVkEiQudGVjaC5oaXZlLnYxLkNoYXJhY3Rl",
-            "ckV4Y2VlZFJlcXVlc3QaJS50ZWNoLmhpdmUudjEuQ2hhcmFjdGVyRXhjZWVk",
-            "UmVzcG9uc2ViBnByb3RvMw=="));
+            "ckRhdGEiLAoTQ2hhcmFjdGVyR2V0UmVxdWVzdBIVCg1jaGFyYWN0ZXJfdWlk",
+            "GAEgASgNInQKFENoYXJhY3RlckdldFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEo",
+            "CzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIuCgljaGFyYWN0ZXIY",
+            "AiABKAsyGy50ZWNoLmhpdmUudjEuQ2hhcmFjdGVyRGF0YSIvChZDaGFyYWN0",
+            "ZXJDcmVhdGVSZXF1ZXN0EhUKDWNoYXJhY3Rlcl91aWQYASABKA0irQEKF0No",
+            "YXJhY3RlckNyZWF0ZVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2gu",
+            "aGl2ZS52MS5SZXNwb25zZVN0YXR1cxIuCgljaGFyYWN0ZXIYAiABKAsyGy50",
+            "ZWNoLmhpdmUudjEuQ2hhcmFjdGVyRGF0YRI0Cg9jdXJyZW5jeV9kZWx0YXMY",
+            "AyADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSIwChdDaGFyYWN0",
+            "ZXJMZXZlbFVwUmVxdWVzdBIVCg1jaGFyYWN0ZXJfdWlkGAEgASgNIq4BChhD",
+            "aGFyYWN0ZXJMZXZlbFVwUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVj",
+            "aC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEi4KCWNoYXJhY3RlchgCIAEoCzIb",
+            "LnRlY2guaGl2ZS52MS5DaGFyYWN0ZXJEYXRhEjQKD2N1cnJlbmN5X2RlbHRh",
+            "cxgDIAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhIjIKGUNoYXJh",
+            "Y3RlclRyYW5zY2VuZFJlcXVlc3QSFQoNY2hhcmFjdGVyX3VpZBgBIAEoDSKw",
+            "AQoaQ2hhcmFjdGVyVHJhbnNjZW5kUmVzcG9uc2USLAoGc3RhdHVzGAEgASgL",
+            "MhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEi4KCWNoYXJhY3RlchgC",
+            "IAEoCzIbLnRlY2guaGl2ZS52MS5DaGFyYWN0ZXJEYXRhEjQKD2N1cnJlbmN5",
+            "X2RlbHRhcxgDIAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhIi8K",
+            "FkNoYXJhY3RlckV4Y2VlZFJlcXVlc3QSFQoNY2hhcmFjdGVyX3VpZBgBIAEo",
+            "DSKtAQoXQ2hhcmFjdGVyRXhjZWVkUmVzcG9uc2USLAoGc3RhdHVzGAEgASgL",
+            "MhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEi4KCWNoYXJhY3RlchgC",
+            "IAEoCzIbLnRlY2guaGl2ZS52MS5DaGFyYWN0ZXJEYXRhEjQKD2N1cnJlbmN5",
+            "X2RlbHRhcxgDIAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhKtED",
+            "ChJDaGFyYWN0ZXJFcnJvckNvZGUSGQoVQ0hBUkFDVEVSX1VOU1BFQ0lGSUVE",
+            "EAASGgoTQ0hBUkFDVEVSX05PVF9GT1VORBDFqOoEEikKIkNIQVJBQ1RFUl9M",
+            "RVZFTF9VUF9OT1RfRU5PVUdIX0dPTEQQxqjqBBIoCiFDSEFSQUNURVJfTEVW",
+            "RUxfVVBfTk9UX0VOT1VHSF9FWFAQx6jqBBIrCiRDSEFSQUNURVJfTEVWRUxf",
+            "VVBfTUFYX0xFVkVMX1JFQUNIRUQQyKjqBBIuCidDSEFSQUNURVJfTEVWRUxf",
+            "VVBfTk9UX0ZPVU5EX05FWFRfTEVWRUwQyajqBBI0Ci1DSEFSQUNURVJfUFJP",
+            "TU9URV9NQVhfUFJPTU9USU9OX0xFVkVMX1JFQUNIRUQQyqjqBBIoCiFDSEFS",
+            "QUNURVJfRVFVSVBfU1RFTExVTV9OT1RfRk9VTkQQy6jqBBImCh9DSEFSQUNU",
+            "RVJfRVFVSVBfUkVMSUNfTk9UX0ZPVU5EEMyo6gQSHwoYQ0hBUkFDVEVSX0FM",
+            "UkVBRFlfRVhJU1RTEM2o6gQSKQoiQ0hBUkFDVEVSX0VYQ0VFRF9MRVZFTF9O",
+            "T1RfUkVBQ0hFRBDOqOoEMpkEChBDaGFyYWN0ZXJTZXJ2aWNlEk8KBExpc3QS",
+            "Ii50ZWNoLmhpdmUudjEuQ2hhcmFjdGVyTGlzdFJlcXVlc3QaIy50ZWNoLmhp",
+            "dmUudjEuQ2hhcmFjdGVyTGlzdFJlc3BvbnNlEkwKA0dldBIhLnRlY2guaGl2",
+            "ZS52MS5DaGFyYWN0ZXJHZXRSZXF1ZXN0GiIudGVjaC5oaXZlLnYxLkNoYXJh",
+            "Y3RlckdldFJlc3BvbnNlElUKBkNyZWF0ZRIkLnRlY2guaGl2ZS52MS5DaGFy",
+            "YWN0ZXJDcmVhdGVSZXF1ZXN0GiUudGVjaC5oaXZlLnYxLkNoYXJhY3RlckNy",
+            "ZWF0ZVJlc3BvbnNlElgKB0xldmVsVXASJS50ZWNoLmhpdmUudjEuQ2hhcmFj",
+            "dGVyTGV2ZWxVcFJlcXVlc3QaJi50ZWNoLmhpdmUudjEuQ2hhcmFjdGVyTGV2",
+            "ZWxVcFJlc3BvbnNlEl4KCVRyYW5zY2VuZBInLnRlY2guaGl2ZS52MS5DaGFy",
+            "YWN0ZXJUcmFuc2NlbmRSZXF1ZXN0GigudGVjaC5oaXZlLnYxLkNoYXJhY3Rl",
+            "clRyYW5zY2VuZFJlc3BvbnNlElUKBkV4Y2VlZBIkLnRlY2guaGl2ZS52MS5D",
+            "aGFyYWN0ZXJFeGNlZWRSZXF1ZXN0GiUudGVjaC5oaXZlLnYxLkNoYXJhY3Rl",
+            "ckV4Y2VlZFJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.CharacterDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.CharacterErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterListRequest), global::Tech.Hive.V1.CharacterListRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterListResponse), global::Tech.Hive.V1.CharacterListResponse.Parser, new[]{ "Status", "Characters" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterGetRequest), global::Tech.Hive.V1.CharacterGetRequest.Parser, new[]{ "InstanceId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterGetRequest), global::Tech.Hive.V1.CharacterGetRequest.Parser, new[]{ "CharacterUid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterGetResponse), global::Tech.Hive.V1.CharacterGetResponse.Parser, new[]{ "Status", "Character" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterCreateRequest), global::Tech.Hive.V1.CharacterCreateRequest.Parser, new[]{ "CharacterId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterCreateRequest), global::Tech.Hive.V1.CharacterCreateRequest.Parser, new[]{ "CharacterUid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterCreateResponse), global::Tech.Hive.V1.CharacterCreateResponse.Parser, new[]{ "Status", "Character", "CurrencyDeltas" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterLevelUpRequest), global::Tech.Hive.V1.CharacterLevelUpRequest.Parser, new[]{ "InstanceId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterLevelUpRequest), global::Tech.Hive.V1.CharacterLevelUpRequest.Parser, new[]{ "CharacterUid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterLevelUpResponse), global::Tech.Hive.V1.CharacterLevelUpResponse.Parser, new[]{ "Status", "Character", "CurrencyDeltas" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterTranscendRequest), global::Tech.Hive.V1.CharacterTranscendRequest.Parser, new[]{ "InstanceId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterTranscendRequest), global::Tech.Hive.V1.CharacterTranscendRequest.Parser, new[]{ "CharacterUid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterTranscendResponse), global::Tech.Hive.V1.CharacterTranscendResponse.Parser, new[]{ "Status", "Character", "CurrencyDeltas" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterExceedRequest), global::Tech.Hive.V1.CharacterExceedRequest.Parser, new[]{ "InstanceId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterExceedRequest), global::Tech.Hive.V1.CharacterExceedRequest.Parser, new[]{ "CharacterUid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterExceedResponse), global::Tech.Hive.V1.CharacterExceedResponse.Parser, new[]{ "Status", "Character", "CurrencyDeltas" }, null, null, null, null)
           }));
     }
@@ -134,6 +135,10 @@ namespace Tech.Hive.V1 {
     /// 이미 해당 캐릭터가 있음
     /// </summary>
     [pbr::OriginalName("CHARACTER_ALREADY_EXISTS")] CharacterAlreadyExists = 10130509,
+    /// <summary>
+    /// 돌파 레벨 도달 안됨
+    /// </summary>
+    [pbr::OriginalName("CHARACTER_EXCEED_LEVEL_NOT_REACHED")] CharacterExceedLevelNotReached = 10130510,
   }
 
   #endregion
@@ -552,7 +557,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CharacterGetRequest(CharacterGetRequest other) : this() {
-      instanceId_ = other.instanceId_;
+      characterUid_ = other.characterUid_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -562,15 +567,15 @@ namespace Tech.Hive.V1 {
       return new CharacterGetRequest(this);
     }
 
-    /// <summary>Field number for the "instance_id" field.</summary>
-    public const int InstanceIdFieldNumber = 1;
-    private string instanceId_ = "";
+    /// <summary>Field number for the "character_uid" field.</summary>
+    public const int CharacterUidFieldNumber = 1;
+    private uint characterUid_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string InstanceId {
-      get { return instanceId_; }
+    public uint CharacterUid {
+      get { return characterUid_; }
       set {
-        instanceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        characterUid_ = value;
       }
     }
 
@@ -589,7 +594,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (InstanceId != other.InstanceId) return false;
+      if (CharacterUid != other.CharacterUid) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -597,7 +602,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (InstanceId.Length != 0) hash ^= InstanceId.GetHashCode();
+      if (CharacterUid != 0) hash ^= CharacterUid.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -616,9 +621,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
+      if (CharacterUid != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(CharacterUid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -630,9 +635,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
+      if (CharacterUid != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(CharacterUid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -644,8 +649,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (InstanceId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(InstanceId);
+      if (CharacterUid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterUid);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -659,8 +664,8 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.InstanceId.Length != 0) {
-        InstanceId = other.InstanceId;
+      if (other.CharacterUid != 0) {
+        CharacterUid = other.CharacterUid;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -677,8 +682,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            InstanceId = input.ReadString();
+          case 8: {
+            CharacterUid = input.ReadUInt32();
             break;
           }
         }
@@ -696,8 +701,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            InstanceId = input.ReadString();
+          case 8: {
+            CharacterUid = input.ReadUInt32();
             break;
           }
         }
@@ -987,7 +992,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CharacterCreateRequest(CharacterCreateRequest other) : this() {
-      characterId_ = other.characterId_;
+      characterUid_ = other.characterUid_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -997,15 +1002,15 @@ namespace Tech.Hive.V1 {
       return new CharacterCreateRequest(this);
     }
 
-    /// <summary>Field number for the "character_id" field.</summary>
-    public const int CharacterIdFieldNumber = 1;
-    private uint characterId_;
+    /// <summary>Field number for the "character_uid" field.</summary>
+    public const int CharacterUidFieldNumber = 1;
+    private uint characterUid_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint CharacterId {
-      get { return characterId_; }
+    public uint CharacterUid {
+      get { return characterUid_; }
       set {
-        characterId_ = value;
+        characterUid_ = value;
       }
     }
 
@@ -1024,7 +1029,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (CharacterId != other.CharacterId) return false;
+      if (CharacterUid != other.CharacterUid) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1032,7 +1037,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (CharacterId != 0) hash ^= CharacterId.GetHashCode();
+      if (CharacterUid != 0) hash ^= CharacterUid.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1051,9 +1056,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (CharacterId != 0) {
+      if (CharacterUid != 0) {
         output.WriteRawTag(8);
-        output.WriteUInt32(CharacterId);
+        output.WriteUInt32(CharacterUid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1065,9 +1070,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CharacterId != 0) {
+      if (CharacterUid != 0) {
         output.WriteRawTag(8);
-        output.WriteUInt32(CharacterId);
+        output.WriteUInt32(CharacterUid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1079,8 +1084,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (CharacterId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterId);
+      if (CharacterUid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterUid);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1094,8 +1099,8 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.CharacterId != 0) {
-        CharacterId = other.CharacterId;
+      if (other.CharacterUid != 0) {
+        CharacterUid = other.CharacterUid;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1113,7 +1118,7 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            CharacterId = input.ReadUInt32();
+            CharacterUid = input.ReadUInt32();
             break;
           }
         }
@@ -1132,7 +1137,7 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            CharacterId = input.ReadUInt32();
+            CharacterUid = input.ReadUInt32();
             break;
           }
         }
@@ -1448,7 +1453,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CharacterLevelUpRequest(CharacterLevelUpRequest other) : this() {
-      instanceId_ = other.instanceId_;
+      characterUid_ = other.characterUid_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1458,15 +1463,15 @@ namespace Tech.Hive.V1 {
       return new CharacterLevelUpRequest(this);
     }
 
-    /// <summary>Field number for the "instance_id" field.</summary>
-    public const int InstanceIdFieldNumber = 1;
-    private string instanceId_ = "";
+    /// <summary>Field number for the "character_uid" field.</summary>
+    public const int CharacterUidFieldNumber = 1;
+    private uint characterUid_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string InstanceId {
-      get { return instanceId_; }
+    public uint CharacterUid {
+      get { return characterUid_; }
       set {
-        instanceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        characterUid_ = value;
       }
     }
 
@@ -1485,7 +1490,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (InstanceId != other.InstanceId) return false;
+      if (CharacterUid != other.CharacterUid) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1493,7 +1498,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (InstanceId.Length != 0) hash ^= InstanceId.GetHashCode();
+      if (CharacterUid != 0) hash ^= CharacterUid.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1512,9 +1517,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
+      if (CharacterUid != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(CharacterUid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1526,9 +1531,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
+      if (CharacterUid != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(CharacterUid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1540,8 +1545,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (InstanceId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(InstanceId);
+      if (CharacterUid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterUid);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1555,8 +1560,8 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.InstanceId.Length != 0) {
-        InstanceId = other.InstanceId;
+      if (other.CharacterUid != 0) {
+        CharacterUid = other.CharacterUid;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1573,8 +1578,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            InstanceId = input.ReadString();
+          case 8: {
+            CharacterUid = input.ReadUInt32();
             break;
           }
         }
@@ -1592,8 +1597,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            InstanceId = input.ReadString();
+          case 8: {
+            CharacterUid = input.ReadUInt32();
             break;
           }
         }
@@ -1909,7 +1914,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CharacterTranscendRequest(CharacterTranscendRequest other) : this() {
-      instanceId_ = other.instanceId_;
+      characterUid_ = other.characterUid_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1919,15 +1924,15 @@ namespace Tech.Hive.V1 {
       return new CharacterTranscendRequest(this);
     }
 
-    /// <summary>Field number for the "instance_id" field.</summary>
-    public const int InstanceIdFieldNumber = 1;
-    private string instanceId_ = "";
+    /// <summary>Field number for the "character_uid" field.</summary>
+    public const int CharacterUidFieldNumber = 1;
+    private uint characterUid_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string InstanceId {
-      get { return instanceId_; }
+    public uint CharacterUid {
+      get { return characterUid_; }
       set {
-        instanceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        characterUid_ = value;
       }
     }
 
@@ -1946,7 +1951,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (InstanceId != other.InstanceId) return false;
+      if (CharacterUid != other.CharacterUid) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1954,7 +1959,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (InstanceId.Length != 0) hash ^= InstanceId.GetHashCode();
+      if (CharacterUid != 0) hash ^= CharacterUid.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1973,9 +1978,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
+      if (CharacterUid != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(CharacterUid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1987,9 +1992,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
+      if (CharacterUid != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(CharacterUid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -2001,8 +2006,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (InstanceId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(InstanceId);
+      if (CharacterUid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterUid);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2016,8 +2021,8 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.InstanceId.Length != 0) {
-        InstanceId = other.InstanceId;
+      if (other.CharacterUid != 0) {
+        CharacterUid = other.CharacterUid;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2034,8 +2039,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            InstanceId = input.ReadString();
+          case 8: {
+            CharacterUid = input.ReadUInt32();
             break;
           }
         }
@@ -2053,8 +2058,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            InstanceId = input.ReadString();
+          case 8: {
+            CharacterUid = input.ReadUInt32();
             break;
           }
         }
@@ -2370,7 +2375,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CharacterExceedRequest(CharacterExceedRequest other) : this() {
-      instanceId_ = other.instanceId_;
+      characterUid_ = other.characterUid_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2380,15 +2385,15 @@ namespace Tech.Hive.V1 {
       return new CharacterExceedRequest(this);
     }
 
-    /// <summary>Field number for the "instance_id" field.</summary>
-    public const int InstanceIdFieldNumber = 1;
-    private string instanceId_ = "";
+    /// <summary>Field number for the "character_uid" field.</summary>
+    public const int CharacterUidFieldNumber = 1;
+    private uint characterUid_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string InstanceId {
-      get { return instanceId_; }
+    public uint CharacterUid {
+      get { return characterUid_; }
       set {
-        instanceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        characterUid_ = value;
       }
     }
 
@@ -2407,7 +2412,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (InstanceId != other.InstanceId) return false;
+      if (CharacterUid != other.CharacterUid) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2415,7 +2420,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (InstanceId.Length != 0) hash ^= InstanceId.GetHashCode();
+      if (CharacterUid != 0) hash ^= CharacterUid.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2434,9 +2439,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
+      if (CharacterUid != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(CharacterUid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -2448,9 +2453,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
+      if (CharacterUid != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(CharacterUid);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -2462,8 +2467,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (InstanceId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(InstanceId);
+      if (CharacterUid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterUid);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2477,8 +2482,8 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.InstanceId.Length != 0) {
-        InstanceId = other.InstanceId;
+      if (other.CharacterUid != 0) {
+        CharacterUid = other.CharacterUid;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2495,8 +2500,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            InstanceId = input.ReadString();
+          case 8: {
+            CharacterUid = input.ReadUInt32();
             break;
           }
         }
@@ -2514,8 +2519,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            InstanceId = input.ReadString();
+          case 8: {
+            CharacterUid = input.ReadUInt32();
             break;
           }
         }

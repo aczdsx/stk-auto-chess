@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -199,7 +200,7 @@ namespace CookApps.AutoBattler
                 amountText.text = $"x{_rewardItemData.Count}";
 
                 // 슬라이더 처리
-                UserCharacter userCharacterData = UserDataManager.Instance.GetUserCharacter(characterData.character_id);
+                CharacterData userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterData.character_id);
 
                 pieceSlider.maxValue = characterData.need_piece;
                 pieceSlider.value = userCharacterData.CharacterPiece;

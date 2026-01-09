@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -94,7 +94,7 @@ namespace CookApps.AutoBattler
         public void OnClickSkillLayerTabButton()
         {
             if (_parentCollectionPopup == null) return;
-            if (UserDataManager.Instance.IsHaveCharacter(_specCharacterData.character_id) == false)
+            if (ServerDataManager.Instance.Character.HasCharacterByCharacterId(_specCharacterData.character_id) == false)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_HAVE_CHARACTER");
                 return;
@@ -126,7 +126,7 @@ namespace CookApps.AutoBattler
             _growLayerTabButton.isOn = _parentCollectionPopup.CurrentTabType == CharacterCollectionPopupTabType.GROW;
             _skillLayerTabButton.isOn = _parentCollectionPopup.CurrentTabType == CharacterCollectionPopupTabType.SKILL;
 
-            bool isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(_specCharacterData.character_id);
+            bool isHaveCharacter = ServerDataManager.Instance.Character.HasCharacterByCharacterId(_specCharacterData.character_id);
             _skillLayerTabButton.interactable = isHaveCharacter;
         }
 
@@ -134,7 +134,7 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null) return;
 
-            bool isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(_specCharacterData.character_id);
+            bool isHaveCharacter = ServerDataManager.Instance.Character.HasCharacterByCharacterId(_specCharacterData.character_id);
 
             // 캐릭터 일러스트 생성
             string illustPrefabName = ZString.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
@@ -168,7 +168,7 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null) return;
 
-            UserCharacter userCharacterData = UserDataManager.Instance.GetUserCharacter(_specCharacterData.character_id);
+            CharacterData userCharacterData = ServerDataManager.Instance.Character.GetCharacterByCharacterId(_specCharacterData.character_id);
 
             if (userCharacterData != null)
             {

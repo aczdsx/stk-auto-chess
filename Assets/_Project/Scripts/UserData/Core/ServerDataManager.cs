@@ -18,6 +18,7 @@ namespace CookApps.AutoBattler
         public BattleModel Battle { get; private set; } = new ();
         public PlayerDataModel PlayerData { get; private set; } = new ();
         public CommanderSkillModel CommanderSkill { get; private set; } = new ();
+        public DeckModel Deck { get; private set; } = new ();
 
         /// <summary>
         /// 모든 데이터 초기화
@@ -30,6 +31,7 @@ namespace CookApps.AutoBattler
             Battle.Reset();
             PlayerData.Reset();
             CommanderSkill.Reset();
+            Deck.Reset();
         }
     }
 }

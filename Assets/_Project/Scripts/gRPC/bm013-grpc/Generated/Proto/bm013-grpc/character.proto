@@ -55,6 +55,8 @@ enum CharacterErrorCode {
   CHARACTER_EQUIP_RELIC_NOT_FOUND = 10130508; // 해당하는 Relic이 없음
 
   CHARACTER_ALREADY_EXISTS = 10130509; // 이미 해당 캐릭터가 있음
+
+  CHARACTER_EXCEED_LEVEL_NOT_REACHED = 10130510; // 돌파 레벨 도달 안됨
 }
 
 message CharacterListRequest {}
@@ -64,7 +66,7 @@ message CharacterListResponse {
 }
 
 message CharacterGetRequest {
-  string instance_id = 1;
+  uint32 character_uid = 1;
 }
 message CharacterGetResponse {
   ResponseStatus status = 1;
@@ -72,7 +74,7 @@ message CharacterGetResponse {
 }
 
 message CharacterCreateRequest {
-  uint32 character_id = 1;
+  uint32 character_uid = 1;
 }
 message CharacterCreateResponse {
   ResponseStatus status = 1;
@@ -81,7 +83,7 @@ message CharacterCreateResponse {
 }
 
 message CharacterLevelUpRequest {
-  string instance_id = 1;
+  uint32 character_uid = 1;
 }
 message CharacterLevelUpResponse {
   ResponseStatus status = 1;
@@ -90,7 +92,7 @@ message CharacterLevelUpResponse {
 }
 
 message CharacterTranscendRequest {
-  string instance_id = 1;
+  uint32 character_uid = 1;
 }
 message CharacterTranscendResponse {
   ResponseStatus status = 1;
@@ -99,7 +101,7 @@ message CharacterTranscendResponse {
 }
 
 message CharacterExceedRequest {
-  string instance_id = 1;
+  uint32 character_uid = 1;
 }
 message CharacterExceedResponse {
   ResponseStatus status = 1;

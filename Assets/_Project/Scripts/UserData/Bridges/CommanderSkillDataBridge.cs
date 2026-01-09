@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using R3;
+using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
@@ -143,6 +145,66 @@ namespace CookApps.AutoBattler
         public bool IsOpenedCommanderSkill(int commanderSkillID)
         {
             return HasSkill(commanderSkillID);
+        }
+
+        /// <summary>
+        /// 지휘자 스킬 장착 (UserDataManager 호환 - Fire and Forget)
+        /// </summary>
+        public void SetEquippedCommanderSkill(int slotIndex, int skillId)
+        {
+            SetEquippedCommanderSkillAsync(slotIndex, skillId).Forget();
+        }
+
+        /// <summary>
+        /// 지휘자 스킬 장착 (서버 API 호출)
+        /// </summary>
+        public async UniTask<bool> SetEquippedCommanderSkillAsync(int slotIndex, int skillId)
+        {
+            try
+            {
+                var response = await NetManager.Instance.Commander.EquipSkillAsync((uint)slotIndex, (uint)skillId);
+                // 서버 응답으로 모델 업데이트는 서버에서 푸시하거나 응답에서 처리
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Failed to equip commander skill: {e.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 지휘자 스킬 장착 해제 (서버 API 호출)
+        /// </summary>
+        public async UniTask<bool> UnEquipCommanderSkillAsync(int slotIndex)
+        {
+            try
+            {
+                var response = await NetManager.Instance.Commander.UnEquipSkillAsync((uint)slotIndex);
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Failed to unequip commander skill: {e.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 지휘자 스킬 레벨업 (서버 API 호출)
+        /// </summary>
+        public async UniTask<bool> LevelUpCommanderSkillAsync(int slotIndex)
+        {
+            try
+            {
+                var response = await NetManager.Instance.Commander.LevelUpSkillAsync((uint)slotIndex);
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Failed to level up commander skill: {e.Message}");
+                return false;
+            }
         }
 
         #endregion

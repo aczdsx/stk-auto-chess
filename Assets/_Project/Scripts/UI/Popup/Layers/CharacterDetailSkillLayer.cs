@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _normalSkillNameText;
 
         private CharacterInfo _specCharacterData;
-        private UserCharacter _userCharacterData;
+        private CharacterData _userCharacterData;
 
         private SkillActive _specSkillBaseData;
 
@@ -41,7 +41,7 @@ namespace CookApps.AutoBattler
             _skillTooltipPopup.gameObject.SetActive(false);
 
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
-            _userCharacterData = UserDataManager.Instance.GetUserCharacter(characterID);
+            _userCharacterData = ServerDataManager.Instance.Character.GetCharacterByCharacterId((uint)characterID);
 
             SetSkillLayer();
 

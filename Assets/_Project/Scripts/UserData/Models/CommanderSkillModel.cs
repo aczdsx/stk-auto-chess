@@ -187,5 +187,59 @@ namespace CookApps.AutoBattler
         public int OwnedSkillCount => _ownedSkills.Count;
 
         #endregion
+
+        #region UserDataManager 호환 메서드 (마이그레이션용)
+
+        /// <summary>
+        /// 장착된 지휘자 스킬 ID 가져오기 (UserDataManager 호환)
+        /// </summary>
+        public int GetEquippedCommanderSkillID(int targetSlot)
+        {
+            return GetEquippedSkillId(targetSlot);
+        }
+
+        /// <summary>
+        /// 지휘자 스킬 레벨 가져오기 (UserDataManager 호환)
+        /// </summary>
+        public int GetUserCommanderSkillLevel(int commanderSkillID)
+        {
+            return GetSkillLevel(commanderSkillID);
+        }
+
+        /// <summary>
+        /// 모든 슬롯에 스킬이 장착되어 있는지 확인 (UserDataManager 호환)
+        /// </summary>
+        public bool IsAllCommanderSkillsEquipped(int slotCount)
+        {
+            return IsAllSlotsEquipped(slotCount);
+        }
+
+        /// <summary>
+        /// 스킬이 장착되어 있는지 확인 (UserDataManager 호환)
+        /// </summary>
+        public bool IsEquippedCommanderSkill(int skillID)
+        {
+            return IsEquipped(skillID);
+        }
+
+        /// <summary>
+        /// 장착된 모든 지휘자 스킬 ID 목록 가져오기 (UserDataManager 호환)
+        /// </summary>
+        public List<int> GetAllEquippedCommanderSkillIDList()
+        {
+            var result = new List<int>();
+            GetAllEquippedSkillIds(result);
+            return result;
+        }
+
+        /// <summary>
+        /// 지휘자 스킬 획득 여부 확인 (UserDataManager 호환)
+        /// </summary>
+        public bool IsOpenedCommanderSkill(int commanderSkillID)
+        {
+            return HasSkill(commanderSkillID);
+        }
+
+        #endregion
     }
 }

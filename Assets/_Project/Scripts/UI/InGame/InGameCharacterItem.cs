@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using CookApps.AutoBattler;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
@@ -99,10 +98,10 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         bool isActiveFocus = spec != null;
         if (isActiveFocus)
         {
-            var userCharacter = UserDataManager.Instance.GetUserCharacter(spec.character_id);
+            var userCharacter = CookApps.AutoBattler.ServerDataManager.Instance.Character.GetCharacterByCharacterId((uint)spec.character_id);
             _focusImageSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(spec.prefab_id)).Forget();
-            _focusText.text = userCharacter.Level.ToString("n0");
-            _lvText.text = userCharacter.Level.ToString("n0");
+            _focusText.text = userCharacter?.Level.ToString("n0") ?? "0";
+            _lvText.text = userCharacter?.Level.ToString("n0") ?? "0";
         }
         else
         {

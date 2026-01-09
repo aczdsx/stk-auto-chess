@@ -6,4 +6,6 @@ package tech.hive.v1;
 message BattleChapterData {
   uint32 chapter_id = 1;
   uint32 star_total_count = 2;
+  
+  repeated uint32 claimed_milestone_reward_ids = 3;
 }

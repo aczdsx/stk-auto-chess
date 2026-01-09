@@ -51,30 +51,42 @@ namespace Tech.Hive.V1 {
             "dmljdG9yeRgBIAEoCBISCgpjbGVhcl90aW1lGAIgASgEEg0KBXN0YXJzGAMg",
             "ASgNEjAKCnVuaXRfc3RhdHMYBCADKAsyHC50ZWNoLmhpdmUudjEuQmF0dGxl",
             "VW5pdFN0YXQSGgoSdG90YWxfZGFtYWdlX2RlYWx0GAUgASgEEhoKEnRvdGFs",
-            "X2RhbWFnZV90YWtlbhgGIAEoBCJ/Cg5CYXR0bGVVbml0U3RhdBIdChVjaGFy",
-            "YWN0ZXJfaW5zdGFuY2VfaWQYASABKAkSFAoMZGFtYWdlX2RlYWx0GAIgASgE",
-            "EhQKDGRhbWFnZV90YWtlbhgDIAEoBBINCgVraWxscxgEIAEoDRITCgtpc19z",
-            "dXJ2aXZlZBgFIAEoCCLZAQoRQmF0dGxlRW5kUmVzcG9uc2USLAoGc3RhdHVz",
-            "GAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjQKD2N1cnJl",
-            "bmN5X2RlbHRhcxgCIAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRh",
-            "EjkKDnN0YWdlX3Byb2dyZXNzGAMgASgLMiEudGVjaC5oaXZlLnYxLkJhdHRs",
-            "ZVN0YWdlUHJvZ3Jlc3MSJQoHcmV3YXJkcxgEIAMoCzIULnRlY2guaGl2ZS52",
-            "MS5SZXdhcmQidgoWQmF0dGxlQ2hhcmFjdGVyRXhwR2FpbhIdChVjaGFyYWN0",
-            "ZXJfaW5zdGFuY2VfaWQYASABKAkSEgoKZXhwX2dhaW5lZBgCIAEoBBIUCgxs",
-            "ZXZlbF9iZWZvcmUYAyABKA0SEwoLbGV2ZWxfYWZ0ZXIYBCABKA0qZwoPQmF0",
-            "dGxlRXJyb3JDb2RlEhYKEkJBVFRMRV9VTlNQRUNJRklFRBAAEh8KGEJBVFRM",
-            "RV9TRVNTSU9OX05PVF9GT1VORBCZpuoEEhsKFEJBVFRMRV9BTFJFQURZX0VO",
-            "REVEEJqm6gQy0QMKDUJhdHRsZVNlcnZpY2UScAoRR2V0Q3VycmVudENoYXB0",
-            "ZXISLC50ZWNoLmhpdmUudjEuQmF0dGxlR2V0Q3VycmVudENoYXB0ZXJSZXF1",
-            "ZXN0Gi0udGVjaC5oaXZlLnYxLkJhdHRsZUdldEN1cnJlbnRDaGFwdGVyUmVz",
-            "cG9uc2USXgoLTGlzdENoYXB0ZXISJi50ZWNoLmhpdmUudjEuQmF0dGxlTGlz",
-            "dENoYXB0ZXJSZXF1ZXN0GicudGVjaC5oaXZlLnYxLkJhdHRsZUxpc3RDaGFw",
-            "dGVyUmVzcG9uc2USWAoJTGlzdFN0YWdlEiQudGVjaC5oaXZlLnYxLkJhdHRs",
-            "ZUxpc3RTdGFnZVJlcXVlc3QaJS50ZWNoLmhpdmUudjEuQmF0dGxlTGlzdFN0",
-            "YWdlUmVzcG9uc2USTAoFU3RhcnQSIC50ZWNoLmhpdmUudjEuQmF0dGxlU3Rh",
-            "cnRSZXF1ZXN0GiEudGVjaC5oaXZlLnYxLkJhdHRsZVN0YXJ0UmVzcG9uc2US",
-            "RgoDRW5kEh4udGVjaC5oaXZlLnYxLkJhdHRsZUVuZFJlcXVlc3QaHy50ZWNo",
-            "LmhpdmUudjEuQmF0dGxlRW5kUmVzcG9uc2ViBnByb3RvMw=="));
+            "X2RhbWFnZV90YWtlbhgGIAEoBCJ3Cg5CYXR0bGVVbml0U3RhdBIVCg1jaGFy",
+            "YWN0ZXJfdWlkGAEgASgNEhQKDGRhbWFnZV9kZWFsdBgCIAEoBBIUCgxkYW1h",
+            "Z2VfdGFrZW4YAyABKAQSDQoFa2lsbHMYBCABKA0SEwoLaXNfc3Vydml2ZWQY",
+            "BSABKAgi2QEKEUJhdHRsZUVuZFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIc",
+            "LnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxI0Cg9jdXJyZW5jeV9kZWx0",
+            "YXMYAiADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YRI5Cg5zdGFn",
+            "ZV9wcm9ncmVzcxgDIAEoCzIhLnRlY2guaGl2ZS52MS5CYXR0bGVTdGFnZVBy",
+            "b2dyZXNzEiUKB3Jld2FyZHMYBCADKAsyFC50ZWNoLmhpdmUudjEuUmV3YXJk",
+            "Im4KFkJhdHRsZUNoYXJhY3RlckV4cEdhaW4SFQoNY2hhcmFjdGVyX3VpZBgB",
+            "IAEoDRISCgpleHBfZ2FpbmVkGAIgASgEEhQKDGxldmVsX2JlZm9yZRgDIAEo",
+            "DRITCgtsZXZlbF9hZnRlchgEIAEoDSJbCihCYXR0bGVDbGFpbUNoYXB0ZXJN",
+            "aWxlc3RvbmVSZXdhcmRSZXF1ZXN0EhIKCmNoYXB0ZXJfaWQYASABKA0SGwoT",
+            "bWlsZXN0b25lX3Jld2FyZF9pZBgCIAEoDSK2AQopQmF0dGxlQ2xhaW1DaGFw",
+            "dGVyTWlsZXN0b25lUmV3YXJkUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwu",
+            "dGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEiUKB3Jld2FyZHMYAiADKAsy",
+            "FC50ZWNoLmhpdmUudjEuUmV3YXJkEjQKD2N1cnJlbmN5X2RlbHRhcxgDIAMo",
+            "CzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhKvQBCg9CYXR0bGVFcnJv",
+            "ckNvZGUSFgoSQkFUVExFX1VOU1BFQ0lGSUVEEAASHwoYQkFUVExFX1NFU1NJ",
+            "T05fTk9UX0ZPVU5EEJmm6gQSGwoUQkFUVExFX0FMUkVBRFlfRU5ERUQQmqbq",
+            "BBIuCidCQVRUTEVfTUlMRVNUT05FX1JFV0FSRF9BTFJFQURZX0NMQUlNRUQQ",
+            "m6bqBBIsCiVCQVRUTEVfTUlMRVNUT05FX1JFV0FSRF9OT1RfQVZBSUxBQkxF",
+            "EJym6gQSLQomQkFUVExFX01JTEVTVE9ORV9SRVdBUkRfSU5GT19OT1RfRk9V",
+            "TkQQnabqBDLiBAoNQmF0dGxlU2VydmljZRJwChFHZXRDdXJyZW50Q2hhcHRl",
+            "chIsLnRlY2guaGl2ZS52MS5CYXR0bGVHZXRDdXJyZW50Q2hhcHRlclJlcXVl",
+            "c3QaLS50ZWNoLmhpdmUudjEuQmF0dGxlR2V0Q3VycmVudENoYXB0ZXJSZXNw",
+            "b25zZRJeCgtMaXN0Q2hhcHRlchImLnRlY2guaGl2ZS52MS5CYXR0bGVMaXN0",
+            "Q2hhcHRlclJlcXVlc3QaJy50ZWNoLmhpdmUudjEuQmF0dGxlTGlzdENoYXB0",
+            "ZXJSZXNwb25zZRJYCglMaXN0U3RhZ2USJC50ZWNoLmhpdmUudjEuQmF0dGxl",
+            "TGlzdFN0YWdlUmVxdWVzdBolLnRlY2guaGl2ZS52MS5CYXR0bGVMaXN0U3Rh",
+            "Z2VSZXNwb25zZRKOAQobQ2xhaW1DaGFwdGVyTWlsZXN0b25lUmV3YXJkEjYu",
+            "dGVjaC5oaXZlLnYxLkJhdHRsZUNsYWltQ2hhcHRlck1pbGVzdG9uZVJld2Fy",
+            "ZFJlcXVlc3QaNy50ZWNoLmhpdmUudjEuQmF0dGxlQ2xhaW1DaGFwdGVyTWls",
+            "ZXN0b25lUmV3YXJkUmVzcG9uc2USTAoFU3RhcnQSIC50ZWNoLmhpdmUudjEu",
+            "QmF0dGxlU3RhcnRSZXF1ZXN0GiEudGVjaC5oaXZlLnYxLkJhdHRsZVN0YXJ0",
+            "UmVzcG9uc2USRgoDRW5kEh4udGVjaC5oaXZlLnYxLkJhdHRsZUVuZFJlcXVl",
+            "c3QaHy50ZWNoLmhpdmUudjEuQmF0dGxlRW5kUmVzcG9uc2ViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.BattleChapterReflection.Descriptor, global::Tech.Hive.V1.BattleStageReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.BattleErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -88,9 +100,11 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleStartResponse), global::Tech.Hive.V1.BattleStartResponse.Parser, new[]{ "Status", "BattleSessionId", "BattleSeed", "CurrencyDeltas" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleEndRequest), global::Tech.Hive.V1.BattleEndRequest.Parser, new[]{ "BattleSessionId", "Result" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleResult), global::Tech.Hive.V1.BattleResult.Parser, new[]{ "IsVictory", "ClearTime", "Stars", "UnitStats", "TotalDamageDealt", "TotalDamageTaken" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleUnitStat), global::Tech.Hive.V1.BattleUnitStat.Parser, new[]{ "CharacterInstanceId", "DamageDealt", "DamageTaken", "Kills", "IsSurvived" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleUnitStat), global::Tech.Hive.V1.BattleUnitStat.Parser, new[]{ "CharacterUid", "DamageDealt", "DamageTaken", "Kills", "IsSurvived" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleEndResponse), global::Tech.Hive.V1.BattleEndResponse.Parser, new[]{ "Status", "CurrencyDeltas", "StageProgress", "Rewards" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleCharacterExpGain), global::Tech.Hive.V1.BattleCharacterExpGain.Parser, new[]{ "CharacterInstanceId", "ExpGained", "LevelBefore", "LevelAfter" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleCharacterExpGain), global::Tech.Hive.V1.BattleCharacterExpGain.Parser, new[]{ "CharacterUid", "ExpGained", "LevelBefore", "LevelAfter" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest), global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest.Parser, new[]{ "ChapterId", "MilestoneRewardId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse), global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse.Parser, new[]{ "Status", "Rewards", "CurrencyDeltas" }, null, null, null, null)
           }));
     }
     #endregion
@@ -107,6 +121,18 @@ namespace Tech.Hive.V1 {
     /// 전투 이미 종료됨
     /// </summary>
     [pbr::OriginalName("BATTLE_ALREADY_ENDED")] BattleAlreadyEnded = 10130202,
+    /// <summary>
+    /// 이미 해당 마일스톤 보상을 받음
+    /// </summary>
+    [pbr::OriginalName("BATTLE_MILESTONE_REWARD_ALREADY_CLAIMED")] BattleMilestoneRewardAlreadyClaimed = 10130203,
+    /// <summary>
+    /// 아직 보상을 받을 수 없음
+    /// </summary>
+    [pbr::OriginalName("BATTLE_MILESTONE_REWARD_NOT_AVAILABLE")] BattleMilestoneRewardNotAvailable = 10130204,
+    /// <summary>
+    /// 해당 마일스톤 보상 정보가 없음
+    /// </summary>
+    [pbr::OriginalName("BATTLE_MILESTONE_REWARD_INFO_NOT_FOUND")] BattleMilestoneRewardInfoNotFound = 10130205,
   }
 
   #endregion
@@ -2617,7 +2643,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BattleUnitStat(BattleUnitStat other) : this() {
-      characterInstanceId_ = other.characterInstanceId_;
+      characterUid_ = other.characterUid_;
       damageDealt_ = other.damageDealt_;
       damageTaken_ = other.damageTaken_;
       kills_ = other.kills_;
@@ -2631,15 +2657,15 @@ namespace Tech.Hive.V1 {
       return new BattleUnitStat(this);
     }
 
-    /// <summary>Field number for the "character_instance_id" field.</summary>
-    public const int CharacterInstanceIdFieldNumber = 1;
-    private string characterInstanceId_ = "";
+    /// <summary>Field number for the "character_uid" field.</summary>
+    public const int CharacterUidFieldNumber = 1;
+    private uint characterUid_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string CharacterInstanceId {
-      get { return characterInstanceId_; }
+    public uint CharacterUid {
+      get { return characterUid_; }
       set {
-        characterInstanceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        characterUid_ = value;
       }
     }
 
@@ -2706,7 +2732,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (CharacterInstanceId != other.CharacterInstanceId) return false;
+      if (CharacterUid != other.CharacterUid) return false;
       if (DamageDealt != other.DamageDealt) return false;
       if (DamageTaken != other.DamageTaken) return false;
       if (Kills != other.Kills) return false;
@@ -2718,7 +2744,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (CharacterInstanceId.Length != 0) hash ^= CharacterInstanceId.GetHashCode();
+      if (CharacterUid != 0) hash ^= CharacterUid.GetHashCode();
       if (DamageDealt != 0UL) hash ^= DamageDealt.GetHashCode();
       if (DamageTaken != 0UL) hash ^= DamageTaken.GetHashCode();
       if (Kills != 0) hash ^= Kills.GetHashCode();
@@ -2741,9 +2767,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (CharacterInstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(CharacterInstanceId);
+      if (CharacterUid != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(CharacterUid);
       }
       if (DamageDealt != 0UL) {
         output.WriteRawTag(16);
@@ -2771,9 +2797,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CharacterInstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(CharacterInstanceId);
+      if (CharacterUid != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(CharacterUid);
       }
       if (DamageDealt != 0UL) {
         output.WriteRawTag(16);
@@ -2801,8 +2827,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (CharacterInstanceId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterInstanceId);
+      if (CharacterUid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterUid);
       }
       if (DamageDealt != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(DamageDealt);
@@ -2828,8 +2854,8 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.CharacterInstanceId.Length != 0) {
-        CharacterInstanceId = other.CharacterInstanceId;
+      if (other.CharacterUid != 0) {
+        CharacterUid = other.CharacterUid;
       }
       if (other.DamageDealt != 0UL) {
         DamageDealt = other.DamageDealt;
@@ -2858,8 +2884,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            CharacterInstanceId = input.ReadString();
+          case 8: {
+            CharacterUid = input.ReadUInt32();
             break;
           }
           case 16: {
@@ -2893,8 +2919,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            CharacterInstanceId = input.ReadString();
+          case 8: {
+            CharacterUid = input.ReadUInt32();
             break;
           }
           case 16: {
@@ -3264,7 +3290,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BattleCharacterExpGain(BattleCharacterExpGain other) : this() {
-      characterInstanceId_ = other.characterInstanceId_;
+      characterUid_ = other.characterUid_;
       expGained_ = other.expGained_;
       levelBefore_ = other.levelBefore_;
       levelAfter_ = other.levelAfter_;
@@ -3277,15 +3303,15 @@ namespace Tech.Hive.V1 {
       return new BattleCharacterExpGain(this);
     }
 
-    /// <summary>Field number for the "character_instance_id" field.</summary>
-    public const int CharacterInstanceIdFieldNumber = 1;
-    private string characterInstanceId_ = "";
+    /// <summary>Field number for the "character_uid" field.</summary>
+    public const int CharacterUidFieldNumber = 1;
+    private uint characterUid_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string CharacterInstanceId {
-      get { return characterInstanceId_; }
+    public uint CharacterUid {
+      get { return characterUid_; }
       set {
-        characterInstanceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        characterUid_ = value;
       }
     }
 
@@ -3340,7 +3366,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (CharacterInstanceId != other.CharacterInstanceId) return false;
+      if (CharacterUid != other.CharacterUid) return false;
       if (ExpGained != other.ExpGained) return false;
       if (LevelBefore != other.LevelBefore) return false;
       if (LevelAfter != other.LevelAfter) return false;
@@ -3351,7 +3377,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (CharacterInstanceId.Length != 0) hash ^= CharacterInstanceId.GetHashCode();
+      if (CharacterUid != 0) hash ^= CharacterUid.GetHashCode();
       if (ExpGained != 0UL) hash ^= ExpGained.GetHashCode();
       if (LevelBefore != 0) hash ^= LevelBefore.GetHashCode();
       if (LevelAfter != 0) hash ^= LevelAfter.GetHashCode();
@@ -3373,9 +3399,9 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (CharacterInstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(CharacterInstanceId);
+      if (CharacterUid != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(CharacterUid);
       }
       if (ExpGained != 0UL) {
         output.WriteRawTag(16);
@@ -3399,9 +3425,9 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CharacterInstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(CharacterInstanceId);
+      if (CharacterUid != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(CharacterUid);
       }
       if (ExpGained != 0UL) {
         output.WriteRawTag(16);
@@ -3425,8 +3451,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (CharacterInstanceId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterInstanceId);
+      if (CharacterUid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterUid);
       }
       if (ExpGained != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ExpGained);
@@ -3449,8 +3475,8 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.CharacterInstanceId.Length != 0) {
-        CharacterInstanceId = other.CharacterInstanceId;
+      if (other.CharacterUid != 0) {
+        CharacterUid = other.CharacterUid;
       }
       if (other.ExpGained != 0UL) {
         ExpGained = other.ExpGained;
@@ -3476,8 +3502,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            CharacterInstanceId = input.ReadString();
+          case 8: {
+            CharacterUid = input.ReadUInt32();
             break;
           }
           case 16: {
@@ -3507,8 +3533,8 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            CharacterInstanceId = input.ReadString();
+          case 8: {
+            CharacterUid = input.ReadUInt32();
             break;
           }
           case 16: {
@@ -3521,6 +3547,484 @@ namespace Tech.Hive.V1 {
           }
           case 32: {
             LevelAfter = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.SerializableAttribute]
+  public sealed partial class BattleClaimChapterMilestoneRewardRequest : pb::IMessage<BattleClaimChapterMilestoneRewardRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<BattleClaimChapterMilestoneRewardRequest> _parser = new pb::MessageParser<BattleClaimChapterMilestoneRewardRequest>(() => new BattleClaimChapterMilestoneRewardRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<BattleClaimChapterMilestoneRewardRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Tech.Hive.V1.BattleReflection.Descriptor.MessageTypes[13]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BattleClaimChapterMilestoneRewardRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BattleClaimChapterMilestoneRewardRequest(BattleClaimChapterMilestoneRewardRequest other) : this() {
+      chapterId_ = other.chapterId_;
+      milestoneRewardId_ = other.milestoneRewardId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BattleClaimChapterMilestoneRewardRequest Clone() {
+      return new BattleClaimChapterMilestoneRewardRequest(this);
+    }
+
+    /// <summary>Field number for the "chapter_id" field.</summary>
+    public const int ChapterIdFieldNumber = 1;
+    private uint chapterId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint ChapterId {
+      get { return chapterId_; }
+      set {
+        chapterId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "milestone_reward_id" field.</summary>
+    public const int MilestoneRewardIdFieldNumber = 2;
+    private uint milestoneRewardId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint MilestoneRewardId {
+      get { return milestoneRewardId_; }
+      set {
+        milestoneRewardId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as BattleClaimChapterMilestoneRewardRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(BattleClaimChapterMilestoneRewardRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ChapterId != other.ChapterId) return false;
+      if (MilestoneRewardId != other.MilestoneRewardId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ChapterId != 0) hash ^= ChapterId.GetHashCode();
+      if (MilestoneRewardId != 0) hash ^= MilestoneRewardId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (ChapterId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(ChapterId);
+      }
+      if (MilestoneRewardId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(MilestoneRewardId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (ChapterId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(ChapterId);
+      }
+      if (MilestoneRewardId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(MilestoneRewardId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (ChapterId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ChapterId);
+      }
+      if (MilestoneRewardId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MilestoneRewardId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(BattleClaimChapterMilestoneRewardRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ChapterId != 0) {
+        ChapterId = other.ChapterId;
+      }
+      if (other.MilestoneRewardId != 0) {
+        MilestoneRewardId = other.MilestoneRewardId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            ChapterId = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            MilestoneRewardId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            ChapterId = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            MilestoneRewardId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.SerializableAttribute]
+  public sealed partial class BattleClaimChapterMilestoneRewardResponse : pb::IMessage<BattleClaimChapterMilestoneRewardResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<BattleClaimChapterMilestoneRewardResponse> _parser = new pb::MessageParser<BattleClaimChapterMilestoneRewardResponse>(() => new BattleClaimChapterMilestoneRewardResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<BattleClaimChapterMilestoneRewardResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Tech.Hive.V1.BattleReflection.Descriptor.MessageTypes[14]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BattleClaimChapterMilestoneRewardResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BattleClaimChapterMilestoneRewardResponse(BattleClaimChapterMilestoneRewardResponse other) : this() {
+      status_ = other.status_ != null ? other.status_.Clone() : null;
+      rewards_ = other.rewards_.Clone();
+      currencyDeltas_ = other.currencyDeltas_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BattleClaimChapterMilestoneRewardResponse Clone() {
+      return new BattleClaimChapterMilestoneRewardResponse(this);
+    }
+
+    /// <summary>Field number for the "status" field.</summary>
+    public const int StatusFieldNumber = 1;
+    private global::Tech.Hive.V1.ResponseStatus status_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Tech.Hive.V1.ResponseStatus Status {
+      get { return status_; }
+      set {
+        status_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "rewards" field.</summary>
+    public const int RewardsFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.Reward> _repeated_rewards_codec
+        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.Reward.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.Reward> rewards_ = new pbc::RepeatedField<global::Tech.Hive.V1.Reward>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Tech.Hive.V1.Reward> Rewards {
+      get { return rewards_; }
+    }
+
+    /// <summary>Field number for the "currency_deltas" field.</summary>
+    public const int CurrencyDeltasFieldNumber = 3;
+    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CurrencyDelta> _repeated_currencyDeltas_codec
+        = pb::FieldCodec.ForMessage(26, global::Tech.Hive.V1.CurrencyDelta.Parser);
+    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> currencyDeltas_ = new pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> CurrencyDeltas {
+      get { return currencyDeltas_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as BattleClaimChapterMilestoneRewardResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(BattleClaimChapterMilestoneRewardResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Status, other.Status)) return false;
+      if(!rewards_.Equals(other.rewards_)) return false;
+      if(!currencyDeltas_.Equals(other.currencyDeltas_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (status_ != null) hash ^= Status.GetHashCode();
+      hash ^= rewards_.GetHashCode();
+      hash ^= currencyDeltas_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (status_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Status);
+      }
+      rewards_.WriteTo(output, _repeated_rewards_codec);
+      currencyDeltas_.WriteTo(output, _repeated_currencyDeltas_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (status_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Status);
+      }
+      rewards_.WriteTo(ref output, _repeated_rewards_codec);
+      currencyDeltas_.WriteTo(ref output, _repeated_currencyDeltas_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (status_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
+      }
+      size += rewards_.CalculateSize(_repeated_rewards_codec);
+      size += currencyDeltas_.CalculateSize(_repeated_currencyDeltas_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(BattleClaimChapterMilestoneRewardResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.status_ != null) {
+        if (status_ == null) {
+          Status = new global::Tech.Hive.V1.ResponseStatus();
+        }
+        Status.MergeFrom(other.Status);
+      }
+      rewards_.Add(other.rewards_);
+      currencyDeltas_.Add(other.currencyDeltas_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (status_ == null) {
+              Status = new global::Tech.Hive.V1.ResponseStatus();
+            }
+            input.ReadMessage(Status);
+            break;
+          }
+          case 18: {
+            rewards_.AddEntriesFrom(input, _repeated_rewards_codec);
+            break;
+          }
+          case 26: {
+            currencyDeltas_.AddEntriesFrom(input, _repeated_currencyDeltas_codec);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (status_ == null) {
+              Status = new global::Tech.Hive.V1.ResponseStatus();
+            }
+            input.ReadMessage(Status);
+            break;
+          }
+          case 18: {
+            rewards_.AddEntriesFrom(ref input, _repeated_rewards_codec);
+            break;
+          }
+          case 26: {
+            currencyDeltas_.AddEntriesFrom(ref input, _repeated_currencyDeltas_codec);
             break;
           }
         }

@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +19,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private SpriteLoader _SynergyClassSpriteLoader;
         [SerializeField] private TextMeshProUGUI _lvText;
 
-        private UserCharacter _userCharacterData;
+        private CharacterData _userCharacterData;
         private CharacterInfo _specCharacterData;
 
         // 자기 자신의 덱 기반 정보로 세팅
@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
             if (characterID <= 0) return;
 
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
-            _userCharacterData = UserDataManager.Instance.GetUserCharacter(characterID);
+            _userCharacterData = ServerDataManager.Instance.Character.GetCharacterByCharacterId((uint)characterID);
 
             _characterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(_specCharacterData.prefab_id)).Forget();
             _SynergySpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specCharacterData.character_element_type)).Forget();
@@ -42,7 +42,7 @@ namespace CookApps.AutoBattler
             if (characterID <= 0) return;
 
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
-            _userCharacterData = UserDataManager.Instance.GetUserCharacter(characterID);
+            _userCharacterData = ServerDataManager.Instance.Character.GetCharacterByCharacterId((uint)characterID);
 
             _characterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(_specCharacterData.prefab_id)).Forget();
             _SynergySpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specCharacterData.character_element_type)).Forget();

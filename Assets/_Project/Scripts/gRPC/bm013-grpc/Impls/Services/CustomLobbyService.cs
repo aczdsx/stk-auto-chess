@@ -31,11 +31,11 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 대표 캐릭터 설정
         /// </summary>
-        public async UniTask<CustomLobbySetRepresentativeCharacterResponse> SetRepresentativeCharacterAsync(string characterInstanceId, CancellationToken cancellationToken = default)
+        public async UniTask<CustomLobbySetRepresentativeCharacterResponse> SetRepresentativeCharacterAsync(uint characterId, CancellationToken cancellationToken = default)
         {
             CustomLobbySetRepresentativeCharacterResponse resp = await ExecuteAsync(
                 ServiceClient.SetRepresentativeCharacterAsync,
-                new CustomLobbySetRepresentativeCharacterRequest { CharacterId = characterInstanceId },
+                new CustomLobbySetRepresentativeCharacterRequest { CharacterId = characterId.ToString() },
                 cancellationToken: cancellationToken
             );
 

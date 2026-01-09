@@ -184,10 +184,11 @@ namespace CookApps.AutoBattler
                         SetGuideMissionState(GuideMissionType.CLEAR_TRIAL, specGuideMissionData.sub_key, MissionStateType.REWARD);
                     break;
                 case GuideMissionType.SUM_CHARACTER_LEVEL:
-                    var allUserCharacterList = GetAllUserCharacterList();
-                    if (allUserCharacterList != null && allUserCharacterList.Count > 0)
+                    var allUserCharacterList = new System.Collections.Generic.List<Tech.Hive.V1.CharacterData>();
+                    ServerDataManager.Instance.Character.GetAllCharacters(allUserCharacterList);
+                    if (allUserCharacterList.Count > 0)
                     {
-                        var totalLevel = allUserCharacterList.Sum(data => data.Level);
+                        var totalLevel = allUserCharacterList.Sum(data => (int)data.Level);
                         if (totalLevel >= specGuideMissionData.need_count)
                         {
                             SetGuideMissionState(GuideMissionType.SUM_CHARACTER_LEVEL, specGuideMissionData.sub_key, MissionStateType.REWARD);
