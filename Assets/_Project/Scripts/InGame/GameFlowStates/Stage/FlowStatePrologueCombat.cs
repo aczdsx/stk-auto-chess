@@ -434,7 +434,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             InGameVfxNameType.fx_common_synergy_lightning_01,
             _witchCharacter.SkillRootTransformFollowable);
 
-        await UniTask.Delay(2000); // 2초 대기
+        await UniTask.Delay(1500); // 1.5초 대기
     }
 
     // 2단계: 클레이 중앙 포지션 이동, 스킬 발동, 마녀 스킬 막기
@@ -462,7 +462,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 라플라스 마녀 스킬 발동 (스킬 - 중)
         ActivateCharacterSkill(_witchCharacter, "마녀 스킬을 찾을 수 없습니다.");
 
-        await UniTask.Delay(2000); // 2초 대기
+        await UniTask.Delay(1500); // 1.5초 대기
     }
 
     // 3단계: 클레이 그로기 모션
@@ -474,13 +474,13 @@ public class FlowStatePrologueCombat : StateCombatBase
         // [TODO] 그로기 모션 재생
         Debug.LogColor("클레이 그로기 모션 재생");
 
-        await UniTask.Delay(2000); // 2초 대기
+        await UniTask.Delay(1000); // 1초 대기
     }
 
-    // 4단계: 클레이+유니+필리아 자유 공격 3초, 마녀 지친 모션
+    // 4단계: 아트레시아+유니+필리아 자유 공격 3초, 마녀 지친 모션
     private async UniTask TriggerFreeAttack3Seconds()
     {
-        // 클레이 + 유니 + 필리아 자유롭게 공격, 스킬 3초
+        // 아트레시아 + 유니 + 필리아 자유롭게 공격 (Idle 상태)
         if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
         {
             _artesiaCharacter.AddNextState<CharacterStateIdle>();
@@ -497,17 +497,22 @@ public class FlowStatePrologueCombat : StateCombatBase
             _philiaCharacter.Target = _witchCharacter;
         }
 
-        // 라플라스 마녀도 평타 때리기 (지친 모션)
+        // 라플라스 마녀도 평타 공격
         if (_witchCharacter != null && _witchCharacter.IsAlive)
         {
             _witchCharacter.AddNextState<CharacterStateIdle>();
+        }
+
+        await UniTask.Delay(3000); // 3초 자유 전투
+
+        // 마녀 지친 모션 (아직 state 개발 안됨)
+        if (_witchCharacter != null && _witchCharacter.IsAlive)
+        {
             // [TODO] 지친 모션 재생
             Debug.LogColor("라플라스 마녀 지친 모션");
         }
 
-        await UniTask.Delay(3000); // 3초 공격
-
-        // 공격 멈춤
+        // 모든 캐릭터 정지
         await StopAllCharacters();
     }
 
@@ -516,12 +521,17 @@ public class FlowStatePrologueCombat : StateCombatBase
     {
         if (_witchCharacter == null) return;
 
+        // 마녀 지친 모션 -> 아이들로 변경
+        _witchCharacter.AddNextState<CharacterStateIdle>();
+
+        await UniTask.Delay(500); // 0.5초 대기
+
         // 라플라스 마녀 광역 스킬 발동
         ActivateCharacterSkill(_witchCharacter, "마녀 광역 스킬을 찾을 수 없습니다.");
 
-        await UniTask.Delay(3000); // 스킬 애니메이션 대기
+        await UniTask.Delay(2000); // 2초 대기
 
-        // 유니, 필리아, 클레이 다운
+        // 유니, 필리아, 클레이 → Dead 상태
         if (_yuniCharacter != null && _yuniCharacter.IsAlive)
             _yuniCharacter.AddNextState<CharacterStateDead>();
         if (_philiaCharacter != null && _philiaCharacter.IsAlive)
@@ -529,7 +539,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         if (_clayCharacter != null && _clayCharacter.IsAlive)
             _clayCharacter.AddNextState<CharacterStateDead>();
 
-        await UniTask.Delay(2000); // 3초 대기
+        await UniTask.Delay(1000); // 1초 대기
     }
 
     // 6단계: 마리에 합류 + 스킬 이펙트
@@ -587,45 +597,50 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 거의 동시에 마리에 스킬 이펙트 (마리에 디버프 스킬 발동)
         ActivateCharacterSkill(_marieCharacter, "마리에 스킬을 찾을 수 없습니다.");
 
-        await UniTask.Delay(2000); // 2초 대기
+        await UniTask.Delay(1500); // 1.5초 대기
     }
 
     // 7단계: 마리에 다운 (아트레시아 기모은 후 따라감, 마리에 먼저 공격)
     private async UniTask TriggerMarieDown()
     {
-        // 아트레시아는 기모은 후 따라간다
-        // [TODO] 아트레시아 기모은 모션
+        // 아트레시아 0.5초 대기 후 마녀 공격
         if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
         {
-            // 아트레시아는 잠시 대기 후 따라감
             await UniTask.Delay(500);
             _artesiaCharacter.AddNextState<CharacterStateIdle>();
             _artesiaCharacter.Target = _witchCharacter;
         }
 
-        // 마리에는 앞에가서 먼저 공격
+        // 마리에 마녀 공격
         if (_marieCharacter != null && _marieCharacter.IsAlive)
         {
             _marieCharacter.AddNextState<CharacterStateIdle>();
             _marieCharacter.Target = _witchCharacter;
         }
 
-        // 라플라스 마녀 공격
+        // 마녀 → 마리에 공격
         if (_witchCharacter != null && _witchCharacter.IsAlive)
         {
             _witchCharacter.AddNextState<CharacterStateIdle>();
             _witchCharacter.Target = _marieCharacter;
         }
 
-        await UniTask.Delay(1000); // 공격 대기
+        await UniTask.Delay(1000); // 1초 대기
 
-        // 마리에 다운
+        // 마리에 → Dead 상태
         if (_marieCharacter != null && _marieCharacter.IsAlive)
         {
             _marieCharacter.AddNextState<CharacterStateDead>();
         }
 
-        await UniTask.Delay(2000); // 2초 대기
+        // 마녀 그로기로 변경 (state 아직 개발 안됨)
+        if (_witchCharacter != null && _witchCharacter.IsAlive)
+        {
+            // [TODO] 그로기 모션 재생
+            Debug.LogColor("라플라스 마녀 그로기 모션");
+        }
+
+        await UniTask.Delay(1000); // 1초 대기
     }
 
     // 8단계: 아트레시아 초신성 모드 진입 + 스킬 발동
@@ -641,7 +656,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 아트레시아 스킬 발동
         ActivateCharacterSkill(_artesiaCharacter, "아트레시아 스킬을 찾을 수 없습니다.");
 
-        await UniTask.Delay(2000); // 2초 대기
+        await UniTask.Delay(1500); // 1.5초 대기
     }
 
     private InGameVfx _witchFinalPrepareFx; // 마녀 최후의 공격 준비 이펙트
@@ -659,7 +674,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // [TODO] 대기 모션 재생
         Debug.LogColor("라플라스 마녀 최후 스킬 대기 모션");
 
-        await UniTask.Delay(2000); // 2초 대기
+        await UniTask.Delay(1500); // 1.5초 대기
     }
 
     // 10단계: 마녀 최후 공격 준비 이펙트
@@ -676,7 +691,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // [TODO] 필요시 더 강력한 이펙트로 변경
         // 예: _witchCharacter.GetCharacterView().PlayEffect("WitchFinalPrepare");
 
-        await UniTask.Delay(2000); // 2초 대기
+        await UniTask.Delay(1000); // 1초 대기
     }
 
     // 11단계: 마녀 최후 공격, 아트레시아 방어, 전투 종료

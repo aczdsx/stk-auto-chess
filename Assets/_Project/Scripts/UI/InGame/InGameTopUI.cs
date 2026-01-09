@@ -16,6 +16,7 @@ public class InGameTopUI : MonoBehaviour
 {
     [Header("Button")]
     [SerializeField] private CAButton _pauseButton;
+    [SerializeField] private CAButton _skipButton;
 
     [Space]
     [SerializeField] private TextMeshProUGUI _timeText;
@@ -79,12 +80,18 @@ public class InGameTopUI : MonoBehaviour
 
     private void Awake()
     {
-        _pauseButton.onClick.AddListener(OnClickPauseButton);
+        if (_pauseButton != null)
+            _pauseButton.onClick.AddListener(OnClickPauseButton);
+        if (_skipButton != null)
+            _skipButton.onClick.AddListener(OnClickSkipButton);
     }
 
     private void OnDestroy()
     {
-        _pauseButton.onClick.RemoveListener(OnClickPauseButton);
+        if (_pauseButton != null)
+            _pauseButton.onClick.RemoveListener(OnClickPauseButton);
+        if (_skipButton != null)
+            _skipButton.onClick.RemoveListener(OnClickSkipButton);
     }
 
     public void UpdateTimeUI(float time)
@@ -260,6 +267,9 @@ public class InGameTopUI : MonoBehaviour
 
     public void UpdateAttrUI(AllianceType type, bool isCombat)
     {
+        if(_combatPlayerAttr == null || _combatEnemyAttr == null)
+            return;
+        
         TextMeshProUGUI textMesh = type == AllianceType.Player ? _playerAttrText : _enemyAttrText;
         if (isCombat)
         {
@@ -458,6 +468,17 @@ public class InGameTopUI : MonoBehaviour
         }
 
         SceneUILayerManager.Instance.PushUILayerAsync<InGameExitPopup>(_failType).Forget();
+    }
+
+    private void OnClickSkipButton()
+    {
+        InGameMain.GetInGameMain().Skip();
+    }
+
+    public void SetSkipButtonVisible(bool visible)
+    {
+        if (_skipButton != null)
+            _skipButton.gameObject.SetActive(visible);
     }
 
     public void InitTopUI(Type type)

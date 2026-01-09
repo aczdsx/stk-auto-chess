@@ -29,12 +29,11 @@ namespace Tech.Hive.V1 {
             "dXJyZW50X2NvdW50GAIgASgNEhIKCmdvYWxfY291bnQYAyABKA0SJQoHcmV3",
             "YXJkcxgEIAMoCzIULnRlY2guaGl2ZS52MS5SZXdhcmQSEgoKZXhwaXJlZF9h",
             "dBgFIAEoBBInCgVzdGF0ZRgGIAEoDjIYLnRlY2guaGl2ZS52MS5RdWVzdFN0",
-            "YXRlKnAKCVF1ZXN0VHlwZRIaChZRVUVTVF9UWVBFX1VOU1BFQ0lGSUVEEAAS",
-            "FAoQUVVFU1RfVFlQRV9EQUlMWRABEhUKEVFVRVNUX1RZUEVfV0VFS0xZEAIS",
-            "GgoWUVVFU1RfVFlQRV9BQ0hJRVZFTUVOVBADKn4KClF1ZXN0U3RhdGUSGwoX",
-            "UVVFU1RfU1RBVEVfVU5TUEVDSUZJRUQQABIbChdRVUVTVF9TVEFURV9OT1Rf",
-            "U1RBUlRFRBABEhsKF1FVRVNUX1NUQVRFX0lOX1BST0dSRVNTEAISGQoVUVVF",
-            "U1RfU1RBVEVfQ09NUExFVEVEEANiBnByb3RvMw=="));
+            "YXRlKj0KCVF1ZXN0VHlwZRIaChZRVUVTVF9UWVBFX1VOU1BFQ0lGSUVEEAAS",
+            "FAoQUVVFU1RfVFlQRV9EQUlMWRABKn4KClF1ZXN0U3RhdGUSGwoXUVVFU1Rf",
+            "U1RBVEVfVU5TUEVDSUZJRUQQABIbChdRVUVTVF9TVEFURV9OT1RfU1RBUlRF",
+            "RBABEhsKF1FVRVNUX1NUQVRFX0lOX1BST0dSRVNTEAISGQoVUVVFU1RfU1RB",
+            "VEVfQ09NUExFVEVEEANiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.CustomCommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.QuestType), typeof(global::Tech.Hive.V1.QuestState), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -54,14 +53,6 @@ namespace Tech.Hive.V1 {
     /// 일일 퀘스트
     /// </summary>
     [pbr::OriginalName("QUEST_TYPE_DAILY")] Daily = 1,
-    /// <summary>
-    /// 주간 퀘스트
-    /// </summary>
-    [pbr::OriginalName("QUEST_TYPE_WEEKLY")] Weekly = 2,
-    /// <summary>
-    /// 업적 퀘스트
-    /// </summary>
-    [pbr::OriginalName("QUEST_TYPE_ACHIEVEMENT")] Achievement = 3,
   }
 
   public enum QuestState {

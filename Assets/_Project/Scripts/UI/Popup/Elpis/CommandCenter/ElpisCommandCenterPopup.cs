@@ -225,7 +225,7 @@ namespace CookApps.AutoBattler
 
             // 업그레이드 실행
             var commandCenter = dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
-            var resp = await NetManager.Instance.Elpis.UpgradeFacilityAsync(commandCenter.InstanceId);
+            var resp = await NetManager.Instance.Elpis.UpgradeFacilityAsync((int)commandCenter.BuildId);
 
             
             // 2. 업그레이드 애니메이션 재생

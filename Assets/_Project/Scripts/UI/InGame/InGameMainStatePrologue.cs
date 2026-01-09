@@ -9,7 +9,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
-    public class InGameMainStatePrologue : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IKillLogUI, IAlertBottomCharacterUI
+    public class InGameMainStatePrologue : IGameStateUICore, IKillLogUI, ISkipUI
     {
         private InGameUI _inGameUI;
 
@@ -19,7 +19,7 @@ namespace CookApps.AutoBattler
 
         public async UniTask Initialize(Transform canvasTransform, int id)
         {
-            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/StageUI.prefab").Task;
+            var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/PrologueUI.prefab").Task;
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
@@ -128,6 +128,11 @@ namespace CookApps.AutoBattler
         public void SetAlertBottomCharacter(int characterID)
         {
             _inGameUI.BottomUI.SetAlertBottomCharacter(characterID);
+        }
+
+        public void OnSkipRequested()
+        {
+            InGameMainFlowManager.Instance.AddNextState<FlowStatePrologueClear>(null);
         }
     }
 }

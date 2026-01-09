@@ -16,7 +16,6 @@ namespace CookApps.AutoBattler
         // 커스텀 서비스를 속성으로 추가
         public CharacterService Character { get; private set; }
         public BattleService Battle { get; private set; }
-        public EquipmentService Equipment { get; private set; }
         public ElpisService Elpis { get; private set; }
         public PlayerInventoryService Inventory { get; private set; }
         public PostService Post { get; private set; }
@@ -62,7 +61,6 @@ namespace CookApps.AutoBattler
             // Custom services (프로젝트 내에서 정의된 서비스만)
             Character.ServiceInterceptor = this;
             Battle.ServiceInterceptor = this;
-            Equipment.ServiceInterceptor = this;
             Elpis.ServiceInterceptor = this;
             Inventory.ServiceInterceptor = this;
             Post.ServiceInterceptor = this;
