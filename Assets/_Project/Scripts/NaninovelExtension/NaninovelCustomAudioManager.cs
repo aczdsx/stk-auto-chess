@@ -32,7 +32,7 @@ namespace CookApps.AutoBattler
             public List<AudioClipState> SfxClips = new();
         }
 
-        public AudioConfiguration Configuration { get; }
+        public Naninovel.AudioConfiguration Configuration { get; }
         public AudioMixer AudioMixer => null; // SoundManager가 AudioMixer를 관리
 
         public float MasterVolume { get; set; } = 1f;
@@ -74,7 +74,7 @@ namespace CookApps.AutoBattler
         private LocalizableResourceLoader<AudioClip> _audioLoader;
         private LocalizableResourceLoader<AudioClip> _voiceLoader;
 
-        public NaninovelCustomAudioManager(AudioConfiguration config, IResourceProviderManager resources, ILocalizationManager l10n)
+        public NaninovelCustomAudioManager(Naninovel.AudioConfiguration config, IResourceProviderManager resources, ILocalizationManager l10n)
         {
             Configuration = config;
             _resources = resources;
