@@ -113,7 +113,7 @@ namespace CookApps.AutoBattler
 
             await UniTask.WhenAll(loadTasks);
             
-            var allBuildings = new List<ElpisBuildingBase>(elpisBuildings);
+            var allBuildings = new List<ElpisBuildingBase>();
             allBuildings.AddRange(elpisBuildings);
             for (var i = 0; i < subBlockInfos.Length; i++)
             {
@@ -124,7 +124,7 @@ namespace CookApps.AutoBattler
             for (var i = 0; i < cachedElpisBuildings.Length; i++)
             {
                 cachedElpisBuildings[i].Initialize(i);
-                cachedElpisBuildings[i].gameObject.SetActive(false);
+                //cachedElpisBuildings[i].gameObject.SetActive(false);
             }
         }
 

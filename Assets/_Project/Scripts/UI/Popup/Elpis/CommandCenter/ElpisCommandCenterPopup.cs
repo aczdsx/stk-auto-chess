@@ -96,7 +96,7 @@ namespace CookApps.AutoBattler
             inventoryDataBridge = new InventoryDataBridge();
             
             currentElpisLevel = (int)((ElpisFacility)param).Level;
-            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(21850001);
+            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(ItemIdMap.BuildItem);
 
             LoadElpisData();
             UpdateUI();
@@ -256,10 +256,11 @@ namespace CookApps.AutoBattler
             {
                 // 업그레이드 실행
                 var commandCenter = dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
-                var resp = await NetManager.Instance.Elpis.UpgradeFacilityAsync((int)commandCenter.BuildId);
+                //var resp = await NetManager.Instance.Elpis.UpgradeFacilityAsync(commandCenter.InstanceId);
                 //10130102 에러뜸 : facility not invalid 에러임. 걍 로컬로 변경해서 함
 
-                currentElpisLevel = (int)resp.Facility.Level;
+                commandCenter.Level++; //TODO : 서버 위 에러 없어지면 삭제
+                currentElpisLevel++;
 
                 // SubBlock 확장 애니메이션 (레벨 2, 3에서만 실행)
                 var subBlockIndex = currentElpisLevel - 2; // 레벨2 -> 인덱스0, 레벨3 -> 인덱스1
@@ -286,7 +287,7 @@ namespace CookApps.AutoBattler
                 }
                 
                 // 새 데이터로 UI 갱신
-                currentCoreAmount = (int)inventoryDataBridge.GetCurrency(21850001);
+                currentCoreAmount = (int)inventoryDataBridge.GetCurrency(ItemIdMap.BuildItem);
                 LoadElpisData();
                 UpdateUI();
 
