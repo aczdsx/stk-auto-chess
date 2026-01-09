@@ -4913,7 +4913,7 @@ GameObject:
   - component: {fileID: 4829104952598516667}
   - component: {fileID: 7938548389715634717}
   m_Layer: 6
-  m_Name: fx_common_buff_no_damage_shield_01
+  m_Name: Skill_401011_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
