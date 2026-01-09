@@ -6,6 +6,7 @@ using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
 /// <summary>
 /// 하티
@@ -84,7 +85,14 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
             var targetCharacters = InGameObjectManager.Instance.GetCharacterListSortedByDistance(owner, false);
             if (targetCharacters.Count > 0)
             {
-                _targetCharacter = targetCharacters[targetCharacters.Count - 1];
+                for (int i = targetCharacters.Count - 1; i >= 0; i--)
+                {
+                    if (targetCharacters[i].IsAlive)
+                    {
+                        _targetCharacter = targetCharacters[i];
+                        break;
+                    }
+                }
             }
         }
 
