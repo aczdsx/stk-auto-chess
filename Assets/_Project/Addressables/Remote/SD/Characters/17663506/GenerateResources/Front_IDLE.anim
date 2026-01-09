@@ -21,7 +21,21 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 03487d5faf9e9af4883d486bc196821e, type: 3}
+      value: {fileID: 21300000, guid: dda52dc49c105a74184f8b8b90cea57e, type: 3}
+    - time: 0.125
+      value: {fileID: 21300000, guid: ddd85c9b705f2cf438a9236b553ba49c, type: 3}
+    - time: 0.25
+      value: {fileID: 21300000, guid: 36fbe495faeefec4ea8b567a608c8685, type: 3}
+    - time: 0.375
+      value: {fileID: 21300000, guid: 626737e57f7eb7340a48238bd9814128, type: 3}
+    - time: 0.5
+      value: {fileID: 21300000, guid: d074bd885d2d3ab40914f10491bb5de1, type: 3}
+    - time: 0.625
+      value: {fileID: 21300000, guid: e46090f424d46614298e034d177542b5, type: 3}
+    - time: 0.75
+      value: {fileID: 21300000, guid: 8d915e6e833e8af48a12da81c73546c4, type: 3}
+    - time: 0.875
+      value: {fileID: 21300000, guid: 1c4adf67a02499b47ba16fa254ec6181, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,13 +58,20 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 03487d5faf9e9af4883d486bc196821e, type: 3}
+    - {fileID: 21300000, guid: dda52dc49c105a74184f8b8b90cea57e, type: 3}
+    - {fileID: 21300000, guid: ddd85c9b705f2cf438a9236b553ba49c, type: 3}
+    - {fileID: 21300000, guid: 36fbe495faeefec4ea8b567a608c8685, type: 3}
+    - {fileID: 21300000, guid: 626737e57f7eb7340a48238bd9814128, type: 3}
+    - {fileID: 21300000, guid: d074bd885d2d3ab40914f10491bb5de1, type: 3}
+    - {fileID: 21300000, guid: e46090f424d46614298e034d177542b5, type: 3}
+    - {fileID: 21300000, guid: 8d915e6e833e8af48a12da81c73546c4, type: 3}
+    - {fileID: 21300000, guid: 1c4adf67a02499b47ba16fa254ec6181, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.125
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -77,7 +98,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.083333336
+  - time: 1
     functionName: InvokeAnimationEvent
     data: 
     objectReferenceParameter: {fileID: 0}

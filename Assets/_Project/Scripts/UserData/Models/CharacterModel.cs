@@ -26,6 +26,7 @@ namespace CookApps.AutoBattler
         public void Reset()
         {
             _characters.Clear();
+            _characterIdToInstanceId.Clear();
             OnChanged.OnNext(Unit.Default);
         }
 
@@ -133,5 +134,73 @@ namespace CookApps.AutoBattler
                 }
             }
         }
+
+        #region CharacterId 기반 조회 (마이그레이션용)
+
+        // CharacterId -> InstanceId 매핑 캐시
+        private readonly Dictionary<uint, string> _characterIdToInstanceId = new(64);
+
+        /// <summary>
+        /// CharacterId로 캐릭터 가져오기
+        /// </summary>
+        public CharacterData GetCharacterByCharacterId(uint characterId)
+        {
+            // 캐시에서 먼저 찾기
+            if (_characterIdToInstanceId.TryGetValue(characterId, out var instanceId))
+            {
+                if (_characters.TryGetValue(instanceId, out var cached))
+                {
+                    return cached;
+                }
+                // 캐시가 유효하지 않으면 제거
+                _characterIdToInstanceId.Remove(characterId);
+            }
+
+            // 전체 순회
+            foreach (var character in _characters.Values)
+            {
+                if (character.CharacterId == characterId)
+                {
+                    _characterIdToInstanceId[characterId] = character.InstanceId;
+                    return character;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// CharacterId로 캐릭터 보유 여부 확인
+        /// </summary>
+        public bool HasCharacterByCharacterId(uint characterId)
+        {
+            return GetCharacterByCharacterId(characterId) != null;
+        }
+
+        /// <summary>
+        /// 모든 보유 캐릭터 ID 목록 가져오기
+        /// </summary>
+        public void GetOwnedCharacterIds(List<uint> output)
+        {
+            if (output == null) return;
+
+            output.Clear();
+            output.Capacity = Math.Max(output.Capacity, _characters.Count);
+
+            foreach (var character in _characters.Values)
+            {
+                output.Add(character.CharacterId);
+            }
+        }
+
+        /// <summary>
+        /// 캐시 초기화 (내부용)
+        /// </summary>
+        internal void ClearCache()
+        {
+            _characterIdToInstanceId.Clear();
+        }
+
+        #endregion
     }
 }

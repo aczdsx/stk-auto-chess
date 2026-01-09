@@ -669,7 +669,7 @@ namespace CookApps.AutoBattler
             if (currentStageData != null)
             {
                 // TODO: 행동력 검사
-                // if (!UserDataManager.Instance.CheckEnoughItem(ItemIdMap.ActionPoint, currentStageData.need_ap, false))
+                // if (!UserDataManager.Instance.CheckEnoughItem(IdMap.Item.ActionPoint, currentStageData.need_ap, false))
                 // {
                 //     SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
                 //     ToastManager.Instance.ShowToastByTokenKey("MSG_GUIDE_IDLE_REWARD_AP");

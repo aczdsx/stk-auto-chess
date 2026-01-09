@@ -42,11 +42,6 @@ namespace Tech.Hive.V1 {
             "dGVyTGV2ZWxVcFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2",
             "ZS52MS5SZXNwb25zZVN0YXR1cxIuCgljaGFyYWN0ZXIYAiABKAsyGy50ZWNo",
             "LmhpdmUudjEuQ2hhcmFjdGVyRGF0YRI0Cg9jdXJyZW5jeV9kZWx0YXMYAyAD",
-            "KAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSIuChdDaGFyYWN0ZXJQ",
-            "cm9tb3RlUmVxdWVzdBITCgtpbnN0YW5jZV9pZBgBIAEoCSKuAQoYQ2hhcmFj",
-            "dGVyUHJvbW90ZVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2",
-            "ZS52MS5SZXNwb25zZVN0YXR1cxIuCgljaGFyYWN0ZXIYAiABKAsyGy50ZWNo",
-            "LmhpdmUudjEuQ2hhcmFjdGVyRGF0YRI0Cg9jdXJyZW5jeV9kZWx0YXMYAyAD",
             "KAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSIwChlDaGFyYWN0ZXJU",
             "cmFuc2NlbmRSZXF1ZXN0EhMKC2luc3RhbmNlX2lkGAEgASgJIrABChpDaGFy",
             "YWN0ZXJUcmFuc2NlbmRSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNo",
@@ -91,8 +86,6 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterCreateResponse), global::Tech.Hive.V1.CharacterCreateResponse.Parser, new[]{ "Status", "Character", "CurrencyDeltas" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterLevelUpRequest), global::Tech.Hive.V1.CharacterLevelUpRequest.Parser, new[]{ "InstanceId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterLevelUpResponse), global::Tech.Hive.V1.CharacterLevelUpResponse.Parser, new[]{ "Status", "Character", "CurrencyDeltas" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterPromoteRequest), global::Tech.Hive.V1.CharacterPromoteRequest.Parser, new[]{ "InstanceId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterPromoteResponse), global::Tech.Hive.V1.CharacterPromoteResponse.Parser, new[]{ "Status", "Character", "CurrencyDeltas" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterTranscendRequest), global::Tech.Hive.V1.CharacterTranscendRequest.Parser, new[]{ "InstanceId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterTranscendResponse), global::Tech.Hive.V1.CharacterTranscendResponse.Parser, new[]{ "Status", "Character", "CurrencyDeltas" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterExceedRequest), global::Tech.Hive.V1.CharacterExceedRequest.Parser, new[]{ "InstanceId" }, null, null, null, null),
@@ -1882,467 +1875,6 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class CharacterPromoteRequest : pb::IMessage<CharacterPromoteRequest>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<CharacterPromoteRequest> _parser = new pb::MessageParser<CharacterPromoteRequest>(() => new CharacterPromoteRequest());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<CharacterPromoteRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.CharacterReflection.Descriptor.MessageTypes[8]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CharacterPromoteRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CharacterPromoteRequest(CharacterPromoteRequest other) : this() {
-      instanceId_ = other.instanceId_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CharacterPromoteRequest Clone() {
-      return new CharacterPromoteRequest(this);
-    }
-
-    /// <summary>Field number for the "instance_id" field.</summary>
-    public const int InstanceIdFieldNumber = 1;
-    private string instanceId_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string InstanceId {
-      get { return instanceId_; }
-      set {
-        instanceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as CharacterPromoteRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(CharacterPromoteRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (InstanceId != other.InstanceId) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (InstanceId.Length != 0) hash ^= InstanceId.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (InstanceId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(InstanceId);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(CharacterPromoteRequest other) {
-      if (other == null) {
-        return;
-      }
-      if (other.InstanceId.Length != 0) {
-        InstanceId = other.InstanceId;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            InstanceId = input.ReadString();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            InstanceId = input.ReadString();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  [global::System.SerializableAttribute]
-  public sealed partial class CharacterPromoteResponse : pb::IMessage<CharacterPromoteResponse>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<CharacterPromoteResponse> _parser = new pb::MessageParser<CharacterPromoteResponse>(() => new CharacterPromoteResponse());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<CharacterPromoteResponse> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.CharacterReflection.Descriptor.MessageTypes[9]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CharacterPromoteResponse() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CharacterPromoteResponse(CharacterPromoteResponse other) : this() {
-      status_ = other.status_ != null ? other.status_.Clone() : null;
-      character_ = other.character_ != null ? other.character_.Clone() : null;
-      currencyDeltas_ = other.currencyDeltas_.Clone();
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CharacterPromoteResponse Clone() {
-      return new CharacterPromoteResponse(this);
-    }
-
-    /// <summary>Field number for the "status" field.</summary>
-    public const int StatusFieldNumber = 1;
-    private global::Tech.Hive.V1.ResponseStatus status_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.ResponseStatus Status {
-      get { return status_; }
-      set {
-        status_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "character" field.</summary>
-    public const int CharacterFieldNumber = 2;
-    private global::Tech.Hive.V1.CharacterData character_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.CharacterData Character {
-      get { return character_; }
-      set {
-        character_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "currency_deltas" field.</summary>
-    public const int CurrencyDeltasFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CurrencyDelta> _repeated_currencyDeltas_codec
-        = pb::FieldCodec.ForMessage(26, global::Tech.Hive.V1.CurrencyDelta.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> currencyDeltas_ = new pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> CurrencyDeltas {
-      get { return currencyDeltas_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as CharacterPromoteResponse);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(CharacterPromoteResponse other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!object.Equals(Status, other.Status)) return false;
-      if (!object.Equals(Character, other.Character)) return false;
-      if(!currencyDeltas_.Equals(other.currencyDeltas_)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (status_ != null) hash ^= Status.GetHashCode();
-      if (character_ != null) hash ^= Character.GetHashCode();
-      hash ^= currencyDeltas_.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (status_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(Status);
-      }
-      if (character_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(Character);
-      }
-      currencyDeltas_.WriteTo(output, _repeated_currencyDeltas_codec);
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (status_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(Status);
-      }
-      if (character_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(Character);
-      }
-      currencyDeltas_.WriteTo(ref output, _repeated_currencyDeltas_codec);
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (status_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
-      }
-      if (character_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Character);
-      }
-      size += currencyDeltas_.CalculateSize(_repeated_currencyDeltas_codec);
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(CharacterPromoteResponse other) {
-      if (other == null) {
-        return;
-      }
-      if (other.status_ != null) {
-        if (status_ == null) {
-          Status = new global::Tech.Hive.V1.ResponseStatus();
-        }
-        Status.MergeFrom(other.Status);
-      }
-      if (other.character_ != null) {
-        if (character_ == null) {
-          Character = new global::Tech.Hive.V1.CharacterData();
-        }
-        Character.MergeFrom(other.Character);
-      }
-      currencyDeltas_.Add(other.currencyDeltas_);
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (status_ == null) {
-              Status = new global::Tech.Hive.V1.ResponseStatus();
-            }
-            input.ReadMessage(Status);
-            break;
-          }
-          case 18: {
-            if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterData();
-            }
-            input.ReadMessage(Character);
-            break;
-          }
-          case 26: {
-            currencyDeltas_.AddEntriesFrom(input, _repeated_currencyDeltas_codec);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            if (status_ == null) {
-              Status = new global::Tech.Hive.V1.ResponseStatus();
-            }
-            input.ReadMessage(Status);
-            break;
-          }
-          case 18: {
-            if (character_ == null) {
-              Character = new global::Tech.Hive.V1.CharacterData();
-            }
-            input.ReadMessage(Character);
-            break;
-          }
-          case 26: {
-            currencyDeltas_.AddEntriesFrom(ref input, _repeated_currencyDeltas_codec);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  [global::System.SerializableAttribute]
   public sealed partial class CharacterTranscendRequest : pb::IMessage<CharacterTranscendRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -2357,7 +1889,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.CharacterReflection.Descriptor.MessageTypes[10]; }
+      get { return global::Tech.Hive.V1.CharacterReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2547,7 +2079,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.CharacterReflection.Descriptor.MessageTypes[11]; }
+      get { return global::Tech.Hive.V1.CharacterReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2818,7 +2350,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.CharacterReflection.Descriptor.MessageTypes[12]; }
+      get { return global::Tech.Hive.V1.CharacterReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3008,7 +2540,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.CharacterReflection.Descriptor.MessageTypes[13]; }
+      get { return global::Tech.Hive.V1.CharacterReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

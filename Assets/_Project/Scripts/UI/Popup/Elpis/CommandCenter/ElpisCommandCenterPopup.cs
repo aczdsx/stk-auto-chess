@@ -81,7 +81,7 @@ namespace CookApps.AutoBattler
             inventoryDataBridge = new InventoryDataBridge();
             
             currentElpisLevel = (int)facility.Level;
-            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(ItemIdMap.BuildItem);
+            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(IdMap.Item.BuildItem);
 
             LoadElpisData();
             UpdateUI();
@@ -238,7 +238,7 @@ namespace CookApps.AutoBattler
             // 애니메이션 완료 후 호출됨
             
             // 새 데이터로 UI 갱신
-            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(ItemIdMap.BuildItem);
+            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(IdMap.Item.BuildItem);
             LoadElpisData();
             UpdateUI();
         }

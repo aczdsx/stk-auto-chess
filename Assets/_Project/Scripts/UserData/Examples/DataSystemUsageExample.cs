@@ -157,14 +157,14 @@ namespace CookApps.AutoBattler
             _characterBridge.GetCharactersByLevelRange(highLevelCharacters, 10, 99);
             Debug.Log($"레벨 10 이상 캐릭터: {highLevelCharacters.Count}명");
 
-            // Guardian 클래스 캐릭터
-            var guardians = new List<CharacterData>();
-            _characterBridge.GetCharactersByClass(guardians, ClassType.Guardian);
-            Debug.Log($"Guardian 클래스 캐릭터: {guardians.Count}명");
+            // // Guardian 클래스 캐릭터
+            // var guardians = new List<CharacterData>();
+            // _characterBridge.GetCharactersByClass(guardians, ClassType.Guardian);
+            // Debug.Log($"Guardian 클래스 캐릭터: {guardians.Count}명");
 
             // UR 등급 캐릭터
             var urCharacters = new List<CharacterData>();
-            _characterBridge.GetCharactersByRarity(urCharacters, Rarity.Ur);
+            _characterBridge.GetCharactersByRarity(urCharacters, GradeType.LEGENDARY);
             Debug.Log($"UR 등급 캐릭터: {urCharacters.Count}명");
         }
 

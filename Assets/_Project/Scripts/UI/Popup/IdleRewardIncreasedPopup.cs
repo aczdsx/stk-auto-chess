@@ -30,15 +30,15 @@ namespace CookApps.AutoBattler
                 double addAmount = item.add_count * (double)totalStageClearCount;
                 double totalAmount = (baseAmount + addAmount) * 60;
                 
-                if (item.item_id == ItemIdMap.ActionPoint)
+                if (item.item_id == IdMap.Item.ActionPoint)
                 {
                     _apText.text = "+" + totalAmount.ToString("n0");
                 }
-                else if (item.item_id == ItemIdMap.Gold)
+                else if (item.item_id == IdMap.Item.Gold)
                 {
                     _coinText.text = "+" + totalAmount.ToString("n0");
                 }
-                else if (item.item_id == ItemIdMap.CharExp)
+                else if (item.item_id == IdMap.Item.CharExp)
                 {
                      _expText.text = "+" + totalAmount.ToString("n0");
                     // _exp2Text.text = "+" + totalAmount.ToString("n0");

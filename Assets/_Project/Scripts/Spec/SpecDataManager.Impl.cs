@@ -589,11 +589,11 @@ namespace CookApps.AutoBattler
             if (levelExpData != null)
             {
                 // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.GOLD, 0, levelExpData.need_gold_sum))
-                RewardItem needGoldItem = new RewardItem(ItemIdMap.Gold, levelExpData.need_gold_sum);
+                RewardItem needGoldItem = new RewardItem(IdMap.Item.Gold, levelExpData.need_gold_sum);
                 resultItemList.Add(needGoldItem);
 
                 // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.CHAR_USER_EXP_ITEM, 0, levelExpData.base_levelup_item_sum))
-                RewardItem needExpItem = new RewardItem(ItemIdMap.CharExp, levelExpData.base_levelup_item_sum);
+                RewardItem needExpItem = new RewardItem(IdMap.Item.CharExp, levelExpData.base_levelup_item_sum);
                 resultItemList.Add(needExpItem);
 
                 if (levelExpData.sec_levelup_item_sum > 0)
@@ -1931,18 +1931,6 @@ namespace CookApps.AutoBattler
             {
                 var target = ElpisBuildInfo.All[i];
                 if(target.build_id == uniqueId)
-                    return target;
-            }
-            
-            return null;
-        }
-        
-        public ElpisBuildInfo GetBuildInfoByType(FacilityType type)
-        {
-            for (int i = 0; i < ElpisBuildInfo.All.Count; i++)
-            {
-                var target = ElpisBuildInfo.All[i];
-                if(target.facility_type == type)
                     return target;
             }
             
