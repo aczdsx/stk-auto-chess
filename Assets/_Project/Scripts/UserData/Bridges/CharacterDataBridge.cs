@@ -121,10 +121,10 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < allCharacters.Count; i++)
             {
                 var character = allCharacters[i];
-                if (character.Rarity == rarity)
-                {
-                    output.Add(character);
-                }
+                // if (character.Rarity == rarity)
+                // {
+                //     output.Add(character);
+                // }
             }
         }
     }

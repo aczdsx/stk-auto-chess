@@ -11,7 +11,7 @@ namespace CookApps.BattleSystem
     /// 클레이의 일반 공격으로 치유된 아군의 공격력과 방어력이 {0}% 증가하며, {1}초 동안 유지됩니다.
     /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodeSkillPassive117553404 : EffectCodeCharacterBase
+    public partial class EffectCodeSkillPassive117553404 : EffectCodeSkillPassiveBase
     {
         public const int CodeId = 117553404;
         private float _attackResUpRate;

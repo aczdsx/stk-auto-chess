@@ -19,16 +19,21 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
 {
     private int _ownedFoxFireCount;
 
-    private int _maxFoxFireCount = 9;
+    private const int _maxFoxFireCount = 9;
+    private float _foxFireDuration; // 각 foxfire의 지속 시간 (이건 패시브에서 부여한다.)
+    public void SetFoxFireDuration(float duration)
+    {
+        _foxFireDuration = duration;
+    }
 
-    private int _increaseFoxFireCount;
+    private int _increaseFoxFireCount;//증분량
     private ObfuscatorFloat _buffTime;
     private ObfuscatorFloat _attackSpeedIncreaseRate;
 
     private InGameVfx _tailVfx;
 
     private List<GameObject> _tailGameObjects = new();
-
+    private List<float> _foxFireTimers = new List<float>(); // 각 foxfire의 개별 타이머
 
     private bool _isReadyToActivate;
     private SkillActive _specSkill;
@@ -54,6 +59,9 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
             _tailGameObjects[i].GetComponent<ParticleSystem>().Play();
             _tailGameObjects[i].SetActive(false);
         }
+        
+        _ownedFoxFireCount = 0;
+        _foxFireTimers.Clear();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -66,17 +74,28 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
 
     public override void OnUpdate(float dt)
     {
-        if (!IsSkillActivated)
+        if (_foxFireTimers.Count == 0)
         {
             return;
         }
 
-        // target check
-        if (false)
+        // 각 foxfire의 타이머 업데이트 및 만료된 fire 제거
+        for (int i = _foxFireTimers.Count - 1; i >= 0; i--)
         {
-            owner.AddNextState<CharacterStateIdle>();
-            CoolTimeElapsedTime = CoolTimeDurationTime;
+            _foxFireTimers[i] += dt;
+            
+            // 5초가 지난 fire 제거
+            if (_foxFireTimers[i] >= _foxFireDuration)
+            {
+                _foxFireTimers.RemoveAt(i);
+            }
         }
+
+        // 활성화된 fire 개수 업데이트
+        _ownedFoxFireCount = _foxFireTimers.Count;
+        
+        // VFX 업데이트
+        UpdateFoxFireVisuals();
     }
 
     public override void OnCooltime(float dt)
@@ -153,11 +172,54 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
 
         base.OnPreRemoved();
     }
-    private void AddFoxFire(int increaseCnt)
+    public void AddFoxFire(int increaseCnt)
     {
-        _ownedFoxFireCount += increaseCnt;
-        Math.Min(_ownedFoxFireCount, _maxFoxFireCount);
+        int currentCount = _foxFireTimers.Count;
+        int totalAfterAdd = currentCount + increaseCnt;
+        
+        // 추가 후 개수가 최대값을 초과하면 초과된 개수만큼 가장 오래된 fire 제거
+        if (totalAfterAdd > _maxFoxFireCount)
+        {
+            int excessCount = totalAfterAdd - _maxFoxFireCount;
+            
+            // 타이머가 가장 큰(가장 오래된) fire부터 제거
+            // 리스트를 정렬하지 않고 직접 찾아서 제거
+            for (int removeCount = 0; removeCount < excessCount && _foxFireTimers.Count > 0; removeCount++)
+            {
+                // 가장 오래된 fire 찾기 (타이머 값이 가장 큰 것)
+                int oldestIndex = 0;
+                float oldestTime = _foxFireTimers[0];
+                for (int i = 1; i < _foxFireTimers.Count; i++)
+                {
+                    if (_foxFireTimers[i] > oldestTime)
+                    {
+                        oldestTime = _foxFireTimers[i];
+                        oldestIndex = i;
+                    }
+                }
+                
+                // 가장 오래된 fire 제거
+                _foxFireTimers.RemoveAt(oldestIndex);
+            }
+        }
+        
+        // 새로운 fire 추가 (각 fire마다 개별 타이머 시작)
+        for (int i = 0; i < increaseCnt; i++)
+        {
+            if (_foxFireTimers.Count < _maxFoxFireCount)
+            {
+                _foxFireTimers.Add(0f); // 새 fire의 타이머를 0으로 시작
+            }
+        }
 
+        _ownedFoxFireCount = _foxFireTimers.Count;
+        
+        // VFX 업데이트
+        UpdateFoxFireVisuals();
+    }
+    
+    private void UpdateFoxFireVisuals()
+    {
         for (int i = 0; i < _tailGameObjects.Count; i++)
         {
             if (i < _ownedFoxFireCount)
@@ -169,6 +231,10 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
                 _tailGameObjects[i].SetActive(false);
             }
         }
+    }
+    public int GetCurrentFoxFireCount()
+    {
+        return _ownedFoxFireCount;
     }
 
     private void IncreaseAttackSpeed()

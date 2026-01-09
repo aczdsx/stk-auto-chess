@@ -12,7 +12,7 @@ namespace CookApps.BattleSystem
     /// #강화탄: 반드시 명중, 크리티컬 히트
     /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodeSkillPassive115532401 : EffectCodeCharacterBase
+    public partial class EffectCodeSkillPassive115532401 : EffectCodeSkillPassiveBase
     {
         public const int CodeId = 115532401;
         private int _requiredAttackCount; // 강화탄 발동에 필요한 공격 횟수

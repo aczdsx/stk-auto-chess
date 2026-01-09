@@ -12,7 +12,7 @@ namespace CookApps.BattleSystem
     /// 중첩 1당 엔키의 치유량이 {1}% 증가하며 전투 종료 시 까지 유지됩니다. 피격 시 조류 중첩이 1 차감됩니다.
     /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodeSkillPassive117653505 : EffectCodeCharacterBase
+    public partial class EffectCodeSkillPassive117653505 : EffectCodeSkillPassiveBase
     {
         public const int CodeId = 117653505;
         private int _healUpMaxCount; // 최대 증가 횟수
@@ -41,6 +41,7 @@ namespace CookApps.BattleSystem
             {
                 ++_currentHealUpCount;
                 _currentHealUpCount = Math.Min(_currentHealUpCount, _healUpMaxCount);
+                owner.GetEffectCodeContainer().SetDirtyFlag(this);
             }
         }
 
@@ -50,13 +51,15 @@ namespace CookApps.BattleSystem
             {
                 --_currentHealUpCount;
                 _currentHealUpCount = Math.Max(_currentHealUpCount, 0);
+
+                owner.GetEffectCodeContainer().SetDirtyFlag(this);
             }
             return damageInfo;
         }
 
-        public override double ModifyHealAmount(double healAmount)
+        public override float GetIncrementPercentGivenHealRate()
         {
-            return healAmount * (1f + _healUpRatePercent * _currentHealUpCount);
+            return _healUpRatePercent * _currentHealUpCount;
         }
-    }
-}//117663506
+    }//117513401
+}

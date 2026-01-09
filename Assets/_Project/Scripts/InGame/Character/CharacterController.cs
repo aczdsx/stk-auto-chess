@@ -1142,9 +1142,6 @@ namespace CookApps.BattleSystem
             var hitProb = HitProb; // 나의 명중률
             var avoidProb = target.AvoidProb; // 타겟의 회피율
 
-            var effectCodes = target.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnModifyAvoidRateAmount);
-            avoidProb = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnModifyAvoidRateAmountLambda, avoidProb);
-            
             var D = hitProb - avoidProb;
             var HitChance = 0.9f + 0.2f * D;
             HitChance = Mathf.Clamp(HitChance, 0.1f, 0.99f);
@@ -1415,18 +1412,13 @@ namespace CookApps.BattleSystem
             {
                 recoveryAmount = EffectCodeJobPassiveRecovery.CalculateOracleSkillRecoveryAmount(this, target, recoveryAmount);
             }
-            else
-            {
-                // 일반 캐릭터 또는 평타 힐량 계산
-                // 주는/받는 회복량 계수로 회복량 계산
-                recoveryAmount = Math.Round(recoveryAmount * GivenHealRate * target.TakenHealRate);
-            }
+            
+            recoveryAmount = Math.Round(recoveryAmount * GivenHealRate * target.TakenHealRate);
 
             // 속성, 크기, 종족에 따른 회복량 계산이 필요하다면 여기서 할 것
 
             var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
             recoveryAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, recoveryAmount);
-
 
             return recoveryAmount;
         }
@@ -1532,7 +1524,7 @@ namespace CookApps.BattleSystem
 
             InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(CurrentTile, target.CurrentTile);
             if (bestTile == CurrentTile)
-            {//이 경우는 다음 타일로 움직이고있는 중이라는 뜻 같다. 근데 얼리리턴함.
+            {
                 if (_notFoundTargetFx == null)
                     _notFoundTargetFx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_01,
                         SkillRootTransformFollowable);

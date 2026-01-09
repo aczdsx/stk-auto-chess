@@ -20,7 +20,7 @@ namespace CookApps.BattleSystem
         StatAP = 1L << 5, //마법공격력
         StatAPReduce = 1L << 6,//마방
         StatAPPierce = 1L << 7,//마관
-        StatRecoveryHP = 1L << 8,//회복력
+        StatRecoveryHP = 1L << 8,//자힐 재생력
         StatMoveSpeed = 1L << 9,
         StatCriticalProb = 1L << 10,
         StatCriticalDamageRate = 1L << 11,
@@ -62,9 +62,8 @@ namespace CookApps.BattleSystem
         UseOnAttackEnd = 1L << 55,
         UseAddSkillCooltime = 1L << 56,
         UseModifyDamageTestFlags = 1L << 57,
-        UseOnModifyAvoidRateAmount = 1L << 58,
         #endregion
-        MAX = 1L << 59,
+        MAX = 1L << 60,
     };
 
     public static class EffectCodeInheritFlagExtensions
@@ -534,12 +533,32 @@ namespace CookApps.BattleSystem
             return 0f;
         }
 
+         /// <summary>
+        /// +일 경우 주는 회복량 배율 증가, -일 경우 주는 회복량 배율 감소
+        /// </summary>
+        /// <returns></returns>
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatGivenHealRate)]
+        public virtual float GetIncrementPercentGivenHealRate()
+        {
+            return 0f;
+        }
+
         /// <summary>
         /// +일 경우 받는 회복량 배율 증가, -일 경우 받는 회복량 배율 감소
         /// </summary>
         /// <returns></returns>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.StatTakenHealRate)]
         public virtual float GetIncrementFixedTakenHealRate()
+        {
+            return 0f;
+        }
+
+        /// <summary>
+        /// +일 경우 받는 회복량 배율 증가, -일 경우 받는 회복량 배율 감소
+        /// </summary>
+        /// <returns></returns>
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.StatTakenHealRate)]
+        public virtual float GetIncrementPercentTakenHealRate()
         {
             return 0f;
         }
@@ -1131,12 +1150,14 @@ namespace CookApps.BattleSystem
             }
 
             float fixedValue = 0;
+            float percentValue = 0;
             for (var i = 0; i < list.Count; i++)
             {
                 fixedValue += list[i].GetIncrementFixedGivenHealRate();
+                percentValue += list[i].GetIncrementPercentGivenHealRate();
             }
 
-            return Mathf.Max(0, basicStat + fixedValue);
+            return Mathf.Max(0, (basicStat + fixedValue) * (1f + percentValue));
         }
 
         public static float CalculateTakenHealRate<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase
@@ -1147,12 +1168,14 @@ namespace CookApps.BattleSystem
             }
 
             float fixedValue = 0;
+            float percentValue = 0;
             for (var i = 0; i < list.Count; i++)
             {
                 fixedValue += list[i].GetIncrementFixedTakenHealRate();
+                percentValue += list[i].GetIncrementPercentTakenHealRate();
             }
 
-            return Mathf.Max(0, basicStat + fixedValue);
+            return Mathf.Max(0, (basicStat + fixedValue) * (1f + percentValue));
         }
 
         public static float CalculateBlockingProb<T>(this IReadOnlyList<T> list, float basicStat) where T : EffectCodeStatBase

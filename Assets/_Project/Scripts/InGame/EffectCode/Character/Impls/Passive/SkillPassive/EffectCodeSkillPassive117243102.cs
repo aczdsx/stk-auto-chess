@@ -14,7 +14,7 @@ namespace CookApps.BattleSystem
     /// #폭염: 3*3 범위에 블린에 공격력의 {1}%에 해당하는 피해를 입히고 {2}초간 {3}%의 위력의 지속피해를 입히는 불지대를 만듭니다. 
     /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodeSkillPassive117243102 : EffectCodeCharacterBase
+    public partial class EffectCodeSkillPassive117243102 : EffectCodeSkillPassiveBase
     {
         public const int CodeId = 117243102;
         private int _overheatMaxCount; // 최대 중첩 횟수

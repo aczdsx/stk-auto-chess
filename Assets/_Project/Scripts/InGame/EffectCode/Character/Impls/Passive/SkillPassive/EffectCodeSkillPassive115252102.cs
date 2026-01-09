@@ -11,7 +11,7 @@ namespace CookApps.BattleSystem
     /// 유니의 치유 대상의 경우 {0}초간 공격력이 {1}% 상승합니다.
     /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodeSkillPassive115252102 : EffectCodeCharacterBase
+    public partial class EffectCodeSkillPassive115252102 : EffectCodeSkillPassiveBase
     {
         public const int CodeId = 115252102;
         public float _duration;

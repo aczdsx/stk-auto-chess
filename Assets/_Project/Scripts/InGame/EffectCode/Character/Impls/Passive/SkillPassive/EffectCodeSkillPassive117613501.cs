@@ -14,7 +14,7 @@ namespace CookApps.BattleSystem
     /// #한기 지속시간: 영구
     /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodeSkillPassive117613501 : EffectCodeCharacterBase
+    public partial class EffectCodeSkillPassive117613501 : EffectCodeSkillPassiveBase
     {
         public const int CodeId = 117613501;
         public int _overlapCount;

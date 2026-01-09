@@ -370,7 +370,7 @@ namespace CookApps.AutoBattler
             if (flags.HasFlag(EffectCodeInheritFlag.StatGivenHealRate))
             {
                 var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatGivenHealRate);
-                GivenHealRate = codes.CalculateGivenHealRate(1f);
+                GivenHealRate = codes.CalculateGivenHealRate(_spec.heal_power);
             }
 
             if (flags.HasFlag(EffectCodeInheritFlag.StatTakenHealRate))

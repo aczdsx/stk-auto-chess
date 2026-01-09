@@ -42,7 +42,7 @@ namespace CookApps.BattleSystem
                 double recoveryAmount = CalculateOracleNormalAttackRecoveryAmount(target);
 
                 var effectCodes = owner.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
-                recoveryAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, recoveryAmount);
+                recoveryAmount = Math.Round(EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, recoveryAmount));
 
                  target.GetHealed(recoveryAmount, owner, codeId, true);
 
@@ -84,7 +84,6 @@ namespace CookApps.BattleSystem
 
             double flatHeal = 0d;
 
-                // 즉시 힐량 계산 (PostCalculateHealAmount에서 오라클 처리)
             return attackpower * healRate + flatHeal;
         }
 

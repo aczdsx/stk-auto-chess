@@ -1030,6 +1030,11 @@ namespace CookApps.AutoBattler
         {
             return skillDic.GetValueOrDefault(skillID);
         }
+        
+         public List<SkillPassive> GetSkillPassiveDataList(long passiveSkillID)
+        {
+            return skillPassiveDic.GetValueOrDefault(passiveSkillID);
+        }
 
         public List<SkillActive> GetSkillDataListByPrefabID(int prefabID)
         {

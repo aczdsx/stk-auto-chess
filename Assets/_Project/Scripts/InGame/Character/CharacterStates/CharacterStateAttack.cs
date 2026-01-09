@@ -8,6 +8,7 @@ public class CharacterStateAttack : CharacterStateBase
 {
     protected bool isAttackAnimRunning;
     public override StatePriority StatePriority => StatePriority.Attack;
+    protected float _vfxProjectileSpeed = 30f;
 
     public override void StateStart()
     {
@@ -71,11 +72,12 @@ public class CharacterStateAttack : CharacterStateBase
         AnimationClip clip = characCtrl.GetCharacterView().PlayAnimation(AnimationKey.ATK);
         // 공격 애니메이션 타임 스케일 계산 방법 : 기본 공격 시간 (atkTime : 1/atkSpeed)이 공격 애니메이션 시간의 1.5배보다 느리면
         // 공격 애니메이션 타임에 공속을 곱함. 아님 1f
+        var attackSpeed = characCtrl.AttackSpeed;
         float animTime = clip.length * 1.5f;
-        float atkTime = 1f / characCtrl.AttackSpeed;
+        float atkTime = 1f / attackSpeed;
         if (animTime > atkTime)
         {
-            characCtrl.GetCharacterView().SetAnimationSpeed(animTime * characCtrl.AttackSpeed);
+            characCtrl.GetCharacterView().SetAnimationSpeed(animTime * attackSpeed);
         }
         else
         {
@@ -136,7 +138,7 @@ public class CharacterStateAttack : CharacterStateBase
                 vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction);
 
                 movement.SetData(vfxProjectile.CachedTr.position,
-                    characCtrl.Target.GetCharacterView().CachedTr.position, 50);
+                    characCtrl.Target.GetCharacterView().CachedTr.position, _vfxProjectileSpeed);
                 vfxProjectile.Initialize(false, movement);
 
                 void OnReachedTargetHandler()

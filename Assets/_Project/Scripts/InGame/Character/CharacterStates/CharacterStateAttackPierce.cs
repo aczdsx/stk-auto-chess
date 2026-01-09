@@ -109,9 +109,9 @@ public class CharacterStateAttackPierce : CharacterStateAttack
             InGameVfxNameType projectile = InGameVfxNameType.NONE;
             if (_specialAttackInfo.IsSpecialAttack)
             {
-                // projectile = characCtrl.SpecCharacter.projectile_vfx_name_type;
-                projectile = characCtrl.SpecCharacter.atk_type is AtkType.AD ?
-                InGameVfxNameType.fx_common_job_sharpshooter_01 : InGameVfxNameType.fx_common_job_sharpshooter_02;
+                projectile = characCtrl.SpecCharacter.projectile_vfx_name_type;
+                // projectile = characCtrl.SpecCharacter.atk_type is AtkType.AD ?
+                // InGameVfxNameType.fx_common_job_sharpshooter_01 : InGameVfxNameType.fx_common_job_sharpshooter_02;
             }
             else
             {
@@ -143,8 +143,7 @@ public class CharacterStateAttackPierce : CharacterStateAttack
                 vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction);
 
                 movement.SetData(vfxProjectile.CachedTr.position,
-                    // characCtrl.Target.GetCharacterView().CachedTr.position, 50);
-                    characCtrl.Target.GetCharacterView().CachedTr.position, 5f);
+                    characCtrl.Target.GetCharacterView().CachedTr.position, base._vfxProjectileSpeed);
                 vfxProjectile.Initialize(false, movement);
 
                 void OnReachedTargetHandler()

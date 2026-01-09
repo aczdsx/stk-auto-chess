@@ -242,12 +242,6 @@ namespace CookApps.BattleSystem
             return CharacterController.DamageTestFlags.None;
         }
 
-        [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnModifyAvoidRateAmount)]
-        public virtual float ModifyAvoidRateAmount(float avoidRateAmount)
-        {
-            return avoidRateAmount;
-        }
-
         #region Active 기능들
         /// <summary>
         /// 액티브 스킬의 경우 스킬 발동 가능할 때 True를 리턴하면 된다.
@@ -288,6 +282,7 @@ namespace CookApps.BattleSystem
         public virtual void OnAttackEnd(CharacterController target)
         {
         }
+
 
 
         #endregion
@@ -427,16 +422,6 @@ namespace CookApps.BattleSystem
             }
 
             return shieldAmount;
-        };
-
-        public static Func<EffectCodeStatBase, float, float> CallOnModifyAvoidRateAmountLambda = (x, avoidRateAmount) =>
-        {
-            if (x is EffectCodeCharacterBase code)
-            {
-                return code.ModifyAvoidRateAmount(avoidRateAmount);
-            }
-
-            return avoidRateAmount;
         };
 
 

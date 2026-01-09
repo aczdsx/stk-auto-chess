@@ -11,7 +11,7 @@ namespace CookApps.BattleSystem
     /// 스킬 사용 시 {0}회 적의 공격을 무시하는 보호막을 획득합니다.
     /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodeSkillPassive117513401 : EffectCodeCharacterBase
+    public partial class EffectCodeSkillPassive117513401 : EffectCodeSkillPassiveBase
     {
         public const int CodeId = 117513401;
         private int _shieldCount;

@@ -11,7 +11,7 @@ namespace CookApps.BattleSystem
     /// 대상에게 크리티컬 히트 적중 시 표식-아라크네를 남깁니다. 표식 아라크네의 중첩이 {0}가 되면 대상이 {1}초간 기절 상태가 됩니다.
     /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodeSkillPassive117563405 : EffectCodeCharacterBase
+    public partial class EffectCodeSkillPassive117563405 : EffectCodeSkillPassiveBase
     {
         public const int CodeId = 117563405;
         public int _overlapCount;
