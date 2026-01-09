@@ -161,9 +161,9 @@ public class SoundManager : Singleton<SoundManager>
     public ClockStone.AudioObject PlayVOX(string voxString, bool forceInSilence = false)
     {
         if (forceInSilence)
-            return this.PlaySFXWithoutSilence(voxString);
+            return this.PlayVOXInternal(voxString, true);
         else
-            return this.PlaySFX(voxString);
+            return this.PlayVOXInternal(voxString, false);
     }
 
     public bool StopSFX(SoundFX sfx)
@@ -299,6 +299,9 @@ public class SoundManager : Singleton<SoundManager>
 
     public void SetVOXVolume(float v)
     {
+        _voxVolume = v;
+        Preference.SavePreference(Pref.VOX_V, v);
+
         int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
         if (this.isReady)
             _mixer.SetFloat("VOX", volume);
@@ -347,10 +350,11 @@ public class SoundManager : Singleton<SoundManager>
     {
         // this.onBGM = Preference.LoadPreference(Pref.BGM_V, true);
         // this.onSFX = Preference.LoadPreference(Pref.SFX_V, true);
-        // this.onSFX = Preference.LoadPreference(Pref.VOX_V, true);
-        
+        // this.onVOX = Preference.LoadPreference(Pref.VOX_V, true);
+
         BGMVolume = Preference.LoadPreference(Pref.BGM_V, 1.0f);
         SFXVolume = Preference.LoadPreference(Pref.SFX_V, 1.0f);
+        _voxVolume = Preference.LoadPreference(Pref.VOX_V, 1.0f);
     }
 
 
@@ -450,4 +454,47 @@ public class SoundManager : Singleton<SoundManager>
 
         return AudioController.Stop(audioID);
     }
+
+    #region VOX (Voice)
+
+    private bool onVOX = true;
+    private float _voxVolume = 1.0f;
+    public float VOXVolume
+    {
+        get => _voxVolume;
+        set => _voxVolume = value;
+    }
+
+    private ClockStone.AudioObject PlayVOXInternal(string audioID, bool forceInSilence)
+    {
+        if (!this.isReady) return null;
+
+        if (!this.onVOX)
+            return null;
+
+        float volume = forceInSilence ? 1f : (this.isSilence ? 0.2f : _voxVolume);
+
+        // VOX 카테고리로 재생 (AudioController에 VOX 카테고리가 등록되어 있어야 함)
+        // 카테고리가 없으면 기본 Play로 재생
+        var audioObject = AudioController.Play(audioID, volume);
+
+        if (audioObject != null)
+        {
+            Debug.Log($"PlayVOX: {audioID}, Volume: {volume}");
+        }
+
+        return audioObject;
+    }
+
+    public void PauseAllVOX()
+    {
+        this.onVOX = false;
+    }
+
+    public void UnPauseAllVOX()
+    {
+        this.onVOX = Preference.LoadPreference(Pref.VOX_V, true);
+    }
+
+    #endregion
 }
