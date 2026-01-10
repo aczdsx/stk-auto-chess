@@ -21,20 +21,20 @@ public partial class SROptions
     public void 게임언어변경()
     {
         LanguageManager.Instance.SetGameLanguage(원하는언어);
-        
+
         ToastManager.Instance.ShowToast("TEST - 치트 적용");
-                
+
         InGameManager.Instance.EndInGame();
         SceneTransition.Create<SceneTransition_FadeInOut>();
         SceneTransition.FadeInAsync().Forget();
         SceneLoading.GoToNextScene("Title");
     }
-    
+
     [Category("시스템 관련")]
     public LanguageType 원하는언어 { get; set; } = LanguageType.KR;
 
     #endregion
-    
+
     #region 계정 관련
 
     [Category("계정 관련")]
@@ -46,7 +46,7 @@ public partial class SROptions
     #endregion
 
     #region 영지 테스트
-    
+
     [Category("영지 테스트")]
     public void 영지_확장_테스트()
     {
@@ -57,9 +57,15 @@ public partial class SROptions
         var mainBlock = lobbyMain.MainBlock;
         mainBlock.AttachSubBlock(영지_확장_인덱스, true).Forget();
     }
-    
+
     [Category("영지 테스트")]
     public int 영지_확장_인덱스 { get; set; } = 0;
+
+    [Category("팝업 테스트")]
+    public void 팝업_테스트()
+    {
+        SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>(null).Forget();
+    }
 
     #endregion
 }
