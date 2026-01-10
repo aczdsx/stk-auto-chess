@@ -25,7 +25,6 @@ namespace CookApps.BattleSystem
         private static readonly float _maxAttackSpeedIncreaseRate = 0.6f;
 
         private InGameTile _prevTile;
-        private bool _isCombatStarted = false;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
         {
@@ -46,15 +45,11 @@ namespace CookApps.BattleSystem
 
         public override void OnCombatStart()
         {
-            _isCombatStarted = true;
             _prevTile = owner.CurrentTile;
         }
 
         public override void OnUpdate(float dt)
         {
-            if (!_isCombatStarted)
-                return;
-
             if (_prevTile == null || owner.CurrentTile == null)
                 return;
 

@@ -135,8 +135,6 @@ public partial class EffectCodeSkill250108001 : EffectCodeCharacterBase
                     tile.OccupiedCharacter.SkillRootTransformFollowable);
                 
                 var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                // var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
                 tile.OccupiedCharacter.GetDamaged(damage, owner);
 
                 var inGameTile =

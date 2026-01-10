@@ -192,7 +192,7 @@ namespace CookApps.BattleSystem
                 BuffDebuffType.DefenceDown => "INGAME_UI_DEBUFF_DEF_DOWN",
                 BuffDebuffType.HealDown => "INGAME_UI_DEBUFF_HEAL_DOWN",
                 BuffDebuffType.Silence => "INGAME_UI_DEBUFF_SILENCE",
-                BuffDebuffType.NoDamageShield => "INGAME_UI_NO_DAMAGE_SHIELD_GET",
+                // BuffDebuffType.NoDamageShield => "INGAME_UI_NO_DAMAGE_SHIELD_GET",
                 // BuffDebuffType.CriticalProbUp => "",
                 // BuffDebuffType.CriticalProbDown => "",
                 // BuffDebuffType.Slow => "",

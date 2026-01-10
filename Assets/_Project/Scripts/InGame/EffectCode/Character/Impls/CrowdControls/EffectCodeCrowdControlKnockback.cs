@@ -5,7 +5,7 @@ using PrimeTween;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 using Mono.Cecil.Cil;
-
+using System;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
 {
@@ -27,6 +27,12 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
 
     private InGameTile _inGameTile;
     private PrimeTween.Ease _ease = Ease.InCirc;
+
+    private event Action<InGameTile> OnKnockbackEnd = null;
+    public void SetOnKnockbackEndHandler(Action<InGameTile> onKnockbackEnd)
+    {
+        OnKnockbackEnd = onKnockbackEnd;
+    }
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -75,6 +81,7 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
                     {
                         owner.AddNextState<CharacterStateIdle>();
                         owner.Position3D = _inGameTile.View.Position;
+                        OnKnockbackEnd?.Invoke(_inGameTile);
                     }
                 }
             );
@@ -162,6 +169,7 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
             owner.ViewPosition3D = pos;
         }
     }
+
 
     public override void OnPreRemoved()
     {
