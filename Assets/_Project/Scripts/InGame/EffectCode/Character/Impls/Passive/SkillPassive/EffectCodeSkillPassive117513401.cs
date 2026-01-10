@@ -39,7 +39,7 @@ namespace CookApps.BattleSystem
 
         public void InjectNoDamageShield()
         {
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.passive_skill_vfxs[0], owner.SkillRootTransformFollowable);
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.passive_skill_vfxs[0], owner.SkillMiddleFXTransformFollowable);
             Span<double> buffStats = stackalloc double[3];
             buffStats.Clear();
             buffStats[0] = codeId;
