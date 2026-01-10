@@ -59,7 +59,7 @@ namespace CookApps.BattleSystem
         private void InjectImmuneBuff()
         {
             // owner.ImmuneSuccessFx = InGameVfxNameType.fx_common_job_striker_01;
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_buff_immune_01, owner.SkillRootTransformFollowable);
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_job_striker_01, owner.SkillRootTransformFollowable);
             Span<double> buffStats = stackalloc double[3];
 
             buffStats.Clear();
