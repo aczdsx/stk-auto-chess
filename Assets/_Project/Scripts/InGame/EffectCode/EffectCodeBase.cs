@@ -56,6 +56,7 @@ namespace CookApps.BattleSystem
         protected EffectCodeInfo codeInfo;
         public EffectCodeInfo CodeInfo => codeInfo;
         public virtual bool IsRemoveWithSource => true;
+                   
 
         /// <summary>
         /// 컨테이너에 AddOrMergeEffectCode가 호출되었을 때 컨테이너에 같은 codeId를 가진 이펙트코드가 없을 경우 호출됩니다.
@@ -89,6 +90,15 @@ namespace CookApps.BattleSystem
                 return false;
 
             return this.source == source;
+        }
+
+        /// <summary>
+        /// 이펙트 코드가 제거될 수 있는지 확인합니다.
+        /// IsNeedToShowIcon이 true이고 owner가 살아있는 경우 false를 반환합니다.
+        /// </summary>
+        public virtual bool CanBeRemoved()
+        {
+            return true;
         }
 
         /// <summary>

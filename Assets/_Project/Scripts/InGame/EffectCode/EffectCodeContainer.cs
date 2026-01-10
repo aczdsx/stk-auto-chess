@@ -143,6 +143,12 @@ namespace CookApps.BattleSystem
         /// <returns></returns>
         public bool RemoveEffectCode(EffectCodeBase effectCode)
         {
+            // IsNeedToShowIcon이 true이고 owner가 살아있는 경우 제거 방지
+            if (!effectCode.CanBeRemoved())
+            {
+                return false;
+            }
+
             bool isRemoved = effectCodes.Remove(effectCode);
 
             if (!isRemoved)
@@ -209,6 +215,12 @@ namespace CookApps.BattleSystem
                 return false;
             }
 
+            // IsNeedToShowIcon이 true이고 owner가 살아있는 경우 제거 방지
+            if (!effectCode.CanBeRemoved())
+            {
+                return false;
+            }
+
             RemoveEffectCode(effectCode);
             return true;
         }
@@ -236,6 +248,12 @@ namespace CookApps.BattleSystem
                 return false;
             }
 
+            // IsNeedToShowIcon이 true이고 owner가 살아있는 경우 제거 방지
+            if (!effectCode.CanBeRemoved())
+            {
+                return false;
+            }
+
             RemoveEffectCode(effectCode);
             return true;
         }
@@ -254,6 +272,12 @@ namespace CookApps.BattleSystem
                 EffectCodeBase effectCode = effectCodes[i];
 
                 if (!effectCode.TryRemoveWithSource(source))
+                {
+                    continue;
+                }
+
+                // IsNeedToShowIcon이 true이고 owner가 살아있는 경우 제거 방지
+                if (!effectCode.CanBeRemoved())
                 {
                     continue;
                 }

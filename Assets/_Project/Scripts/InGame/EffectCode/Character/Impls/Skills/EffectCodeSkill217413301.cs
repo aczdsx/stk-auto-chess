@@ -132,35 +132,41 @@ public partial class EffectCodeSkill217413301 : EffectCodeCharacterBase
         if (directionTile.Count > 0)
         {
             Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
-            vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
-        
+            // vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+            vfx.CachedTr.rotation = Quaternion.LookRotation(direction);
+
             float damageRate = (float)(owner.AD * _damageRate) * (1.0f + (float)owner.ADReduce / _resRate);
             var damage = owner.CalculateDamageAmount(damageRate, 0, _targetCharacter, codeId, true);
             // var damage = owner.PrecalculateDamageAmount(damageRate, 0, _targetCharacter, codeId, true);
             // owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
             _targetCharacter.GetDamaged(damage, owner);
-        
+
             var inGameTile =
                 InGameObjectManager.Instance.InGameGrid.GetTileForKnockBack(owner.CurrentTile, _targetCharacter.CurrentTile,
                     4);
 
-            float knockBackTime = 0.3f;
+            float knockBackTime = 0.1f;
             Span<double> eccStats = stackalloc double[3];
             eccStats.Clear();
             eccStats[0] = knockBackTime;
-            eccStats[1] = 0.2f;
+            eccStats[1] = 0.2f; //heigt
             eccStats[2] = inGameTile.View.ID;
-        
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, _targetCharacter, eccStats, source);
-        
-            // 스턴
-            ApplyStunEffectAsync(inGameTile, knockBackTime).Forget();
+
+            var knockbackEffectCodeBase = EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, _targetCharacter, eccStats, source);
+            if (knockbackEffectCodeBase != null)
+            {
+                var knockbackEffectCode = knockbackEffectCodeBase as EffectCodeCrowdControlKnockback;
+
+                knockbackEffectCode.SetOnKnockbackEndHandler(ApplyAfterKnockBackEffect);
+
+            }
+
         }
 
         IsSkillActivated = false;
     }
-    
-        public override float AddSkillCooltime(float cooltime)
+
+    public override float AddSkillCooltime(float cooltime)
     {
         CoolTimeElapsedTime += cooltime;
         return cooltime;
@@ -171,13 +177,11 @@ public partial class EffectCodeSkill217413301 : EffectCodeCharacterBase
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
     }
-    
-    private async UniTaskVoid ApplyStunEffectAsync(InGameTile inGameTile, float second)
-    {
-        await UniTask.Delay(TimeSpan.FromSeconds(second));
 
-        var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(inGameTile, 1);
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], inGameTile.View.Position);
+    private void ApplyAfterKnockBackEffect(InGameTile finalTile)
+    {
+        var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(finalTile, 1);
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], finalTile.View.Position);
         List<int> targetCharacterList = new();
         foreach (var tile in tileList)
         {
@@ -192,8 +196,8 @@ public partial class EffectCodeSkill217413301 : EffectCodeCharacterBase
             }
         }
     }
-    
-    
+
+
     private void StunCharacter(InGameTile tile)
     {
         float damageRate = (float)(owner.AD * _afterDamageRate) * (1.0f + (float)owner.ADReduce / _resRate);
@@ -201,11 +205,11 @@ public partial class EffectCodeSkill217413301 : EffectCodeCharacterBase
         // var damage = owner.PrecalculateDamageAmount(damageRate, 0, tile.OccupiedCharacter, codeId, true);
         // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
         tile.OccupiedCharacter.GetDamaged(damage, owner);
-        
+
         Span<double> eccStats = stackalloc double[1];
         eccStats.Clear();
         eccStats[0] = _stunTime;
-        
+
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats, source);
     }
 }

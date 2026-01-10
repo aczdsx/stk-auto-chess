@@ -34,11 +34,11 @@ public static class EffectCodeHelper
         EffectCodeNameType.AIRBORNE,
     };
 
-    public static void AddOrMergeEffectCode(EffectCodeNameType effectCodeNameType, CharacterController targetCharacter, Span<double> stats, IEffectCodeSource source)
+    public static EffectCodeBase AddOrMergeEffectCode(EffectCodeNameType effectCodeNameType, CharacterController targetCharacter, Span<double> stats, IEffectCodeSource source)
     {
         var effectCodeContainer = targetCharacter.GetEffectCodeContainer();
         if (effectCodeContainer == null)
-            return;
+            return null;
 
         bool isImmuneType = _immuneTypes.Contains(effectCodeNameType);
         bool hasImmune = targetCharacter.HasBuffDebuffType(BuffDebuffType.Immune);
@@ -47,12 +47,12 @@ public static class EffectCodeHelper
         if (isImmuneType && hasImmune)
         {
             targetCharacter.ShowImmuneSuccessFx();
-            return;
+            return null;
         }
 
         // 이펙트 코드 적용
         var effectCodeInfo = new EffectCodeInfo((long)effectCodeNameType, 0, stats);
-        effectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, source);
+        return effectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, source);
     }
 
     public static void RemoveAllDebuff(CharacterController targetCharacter)

@@ -1046,6 +1046,7 @@ namespace CookApps.BattleSystem
         /// 데미지 계산해서 벹는함수.
         /// 기존에 Pre,Post Calculate 연산이 모두 하나로 통합
         /// 비트 플래그를 사용하여 각 테스트를 선택적으로 스킵할 수 있음
+        /// 일반공격시 source는 0이다.
         /// </summary>
         /// <param name="ad"></param>
         /// <param name="ap"></param>

@@ -63,4 +63,4 @@ namespace CookApps.BattleSystem
             return _avoidSuccessRatePercent * _currentAvoidSuccessCount;
         }
     }
-}//117263103
+}//115362202

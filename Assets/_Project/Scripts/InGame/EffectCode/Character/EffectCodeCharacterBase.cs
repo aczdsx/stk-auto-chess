@@ -50,6 +50,45 @@ namespace CookApps.BattleSystem
             owner = null;
         }
 
+        /// <summary>
+        /// 아이콘 표시가 필요한 경우 true를 반환합니다.
+        /// 이 값이 true이고 owner가 살아있는 경우, 이펙트 코드는 제거되지 않습니다.
+        /// </summary>
+        public virtual bool IsNeedToShowIcon
+        {
+            get
+            {
+                // EffectCodeBuffDebuffBase를 상속한 경우 해당 속성 사용
+                if (this is EffectCodeBuffDebuffBase buffDebuffBase)
+                {
+                    return buffDebuffBase.IsNeedToShowIcon;
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 이펙트 코드가 제거될 수 있는지 확인합니다.
+        /// IsNeedToShowIcon이 true이고 owner가 살아있는 경우 false를 반환합니다.
+        /// owner가 죽은 경우에는 true를 반환합니다.
+        /// </summary>
+        public override bool CanBeRemoved()
+        {
+            // owner가 죽은 경우에는 제거 허용
+            if (owner == null || !owner.IsAlive)
+            {
+                return true;
+            }
+
+            // IsNeedToShowIcon이 true인 경우 제거 방지
+            if (IsNeedToShowIcon)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         protected internal ObfuscatorFloat waitUpdateElapsedTime;
         protected internal ObfuscatorFloat updatePendingTime;
 
@@ -277,6 +316,8 @@ namespace CookApps.BattleSystem
         {
             return false;
         }
+
+
 
         [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnAttackEnd)]
         public virtual void OnAttackEnd(CharacterController target)
