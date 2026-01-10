@@ -36,6 +36,7 @@ namespace CookApps.AutoBattler
             await characterHandle.WaitUntilDone();
             var commandCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
             await MainBlock.LoadAllSubBlocks();
+            return;
             if (commandCenter.Level >= 2)
             {
                 await MainBlock.AttachSubBlock(0, false);

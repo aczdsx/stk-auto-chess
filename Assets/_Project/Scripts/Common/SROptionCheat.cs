@@ -67,6 +67,12 @@ public partial class SROptions
         SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>(null).Forget();
     }
 
+    [Category("캐릭터 테스트")]
+    public void 유저캐릭터가라로생성하기우주가보이면눌러주세요()
+    {
+        UserDataManager.Instance.CreateAllCharacter();
+    }
+
     #endregion
 }
 #endif

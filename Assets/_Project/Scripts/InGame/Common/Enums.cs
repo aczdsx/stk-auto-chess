@@ -248,5 +248,5 @@ namespace CookApps.BattleSystem
         None,
         Nearest,
         Farthest
-    }
+    }    
 }

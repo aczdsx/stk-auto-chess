@@ -35,7 +35,7 @@ namespace CookApps.BattleSystem
 
         private void InjectPassiveBuff(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
-            Span<double> buffStats = stackalloc double[2];
+            Span<double> buffStats = stackalloc double[3];
             buffStats.Clear();
             buffStats[0] = codeId;
             buffStats[1] = codeInfo.GetCodeStatToFloat(0);//_angerRatePercent
