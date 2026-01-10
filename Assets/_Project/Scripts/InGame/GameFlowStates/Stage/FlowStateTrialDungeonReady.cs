@@ -79,7 +79,7 @@ public class FlowStateTrialDungeonReady : StateReadyBase
             if (characterData == null) continue;
 
             Debug.LogColor($"기존 배치 캐릭터 추가 : {characterData.CharacterId}");
-            var characterStat = new CharacterStatData(characterData.GetSpecCharacterIndex(), (int)characterData.Level,
+            var characterStat = new CharacterStatData((int)characterData.CharacterId, (int)characterData.Level,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
             int x = placement.GridX;

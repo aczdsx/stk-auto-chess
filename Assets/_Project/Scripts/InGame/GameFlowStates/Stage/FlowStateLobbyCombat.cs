@@ -38,8 +38,8 @@ public class FlowStateLobbyCombat : StateCombatBase
         // seq 기준으로 내림차순 정렬
         userCharacters.Sort((a, b) =>
         {
-            var aData = SpecDataManager.Instance.GetCharacterData(a.GetSpecCharacterIndex());
-            var bData = SpecDataManager.Instance.GetCharacterData(b.GetSpecCharacterIndex());
+            var aData = SpecDataManager.Instance.GetCharacterData((int)a.CharacterId);
+            var bData = SpecDataManager.Instance.GetCharacterData((int)b.CharacterId);
 
             // GetAllCharacters()에서 이미 필터링되지만 안전을 위해 null 체크
             if (aData == null && bData == null) return 0;
@@ -52,7 +52,7 @@ public class FlowStateLobbyCombat : StateCombatBase
         int count = 0;
         foreach (var character in userCharacters)
         {
-            var characterStat = new CharacterStatData(character.GetSpecCharacterIndex(), (int)character.Level, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
+            var characterStat = new CharacterStatData((int)character.CharacterId, (int)character.Level, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
             if (characterStat.Spec == null)
             {
                 continue;

@@ -56,7 +56,7 @@ namespace CookApps.AutoBattler
                 var characterData = ServerDataManager.Instance.Character.GetCharacter(targetDeckList[i].CharacterId);
                 if (characterData != null)
                 {
-                    sbCharList.Append($"{characterData.GetSpecCharacterIndex()};");
+                    sbCharList.Append($"{characterData.CharacterId};");
                 }
             }
 

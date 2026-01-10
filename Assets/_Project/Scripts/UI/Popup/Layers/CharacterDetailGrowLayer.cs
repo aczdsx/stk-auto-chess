@@ -150,7 +150,7 @@ namespace CookApps.AutoBattler
 
             int userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
 
-            _userStatData = new CharacterStatData(_userCharacterData.GetSpecCharacterIndex(), userLevel, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
+            _userStatData = new CharacterStatData((int)_userCharacterData.CharacterId, userLevel, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
             _levelText.text = $"Lv.{userLevel}/{maxLevel}";
             _battlePointText.text = _userStatData.GetAttrValueCP().ToString("N0");

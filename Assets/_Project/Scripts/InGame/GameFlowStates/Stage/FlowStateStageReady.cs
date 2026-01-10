@@ -102,7 +102,7 @@ public class FlowStateStageReady : StateReadyBase
         for (int i = battleDeckList.Count - 1; i >= 0; i--)
         {
             var characterData = ServerDataManager.Instance.Character.GetCharacter(battleDeckList[i].CharacterId);
-            if (characterData == null || SpecDataManager.Instance.GetCharacterData(characterData.GetSpecCharacterIndex()) == null)
+            if (characterData == null || SpecDataManager.Instance.GetCharacterData((int)characterData.CharacterId) == null)
             {
                 battleDeckList.RemoveAt(i);
             }
@@ -116,7 +116,7 @@ public class FlowStateStageReady : StateReadyBase
             if (characterData == null) continue;
 
             Debug.LogColor($"기존 배치 캐릭터 추가 : {characterData.CharacterId}");
-            var characterStat = new CharacterStatData(characterData.GetSpecCharacterIndex(), (int)characterData.Level,
+            var characterStat = new CharacterStatData((int)characterData.CharacterId, (int)characterData.Level,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
             int x = placement.GridX;
@@ -162,7 +162,7 @@ public class FlowStateStageReady : StateReadyBase
                 for (int i = battleDeckList.Count - 1; i >= 0; i--)
                 {
                     var characterData = ServerDataManager.Instance.Character.GetCharacter(battleDeckList[i].CharacterId);
-                    if (characterData != null && characterData.GetSpecCharacterIndex() == 113252102)
+                    if (characterData != null && characterData.CharacterId == 113252102)
                     {
                         battleDeckList.RemoveAt(i);
                     }

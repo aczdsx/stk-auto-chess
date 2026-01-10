@@ -193,7 +193,7 @@ namespace CookApps.AutoBattler
                 if (characterData == null) continue;
 
                 var characterStat = new CharacterStatData(
-                    characterData.GetSpecCharacterIndex(),
+                    (int)characterData.CharacterId,
                     (int)characterData.Level,
                     GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()
                 );

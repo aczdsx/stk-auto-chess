@@ -218,8 +218,7 @@ public class InGameBottomUI : MonoBehaviour
             var characterData = ServerDataManager.Instance.Character.GetCharacter(battleDeck.CharacterId);
             if (characterData != null)
             {
-                int specIndex = characterData.GetSpecCharacterIndex();
-                _characterStats.RemoveAll(l => l.CharacterId == specIndex);
+                _characterStats.RemoveAll(l => l.CharacterId == characterData.CharacterId);
             }
         }
         UpdateData();
@@ -236,7 +235,7 @@ public class InGameBottomUI : MonoBehaviour
         ServerDataManager.Instance.Character.GetAllCharacters(allCharacters);
         foreach (var character in allCharacters)
         {
-            userCharacters.Add(new CharacterStatData(character.GetSpecCharacterIndex(), (int)character.Level,
+            userCharacters.Add(new CharacterStatData((int)character.CharacterId, (int)character.Level,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         }
 
@@ -307,7 +306,7 @@ public class InGameBottomUI : MonoBehaviour
         ServerDataManager.Instance.Character.GetAllCharacters(userCharacters);
         foreach (var character in userCharacters)
         {
-            var characterStat = new CharacterStatData(character.GetSpecCharacterIndex(), (int)character.Level,
+            var characterStat = new CharacterStatData((int)character.CharacterId, (int)character.Level,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
             _characterStats.Add(characterStat);
         }

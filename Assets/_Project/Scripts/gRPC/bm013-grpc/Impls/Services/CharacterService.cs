@@ -36,6 +36,19 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
+        /// 캐릭터 조각 교환을 통한 캐릭터 생성
+        /// </summary>
+        public async UniTask<CharacterCreateResponse> CreateAsync(uint characterId, CancellationToken cancellationToken = default)
+        {
+            CharacterCreateResponse resp = await ExecuteAsync(
+                ServiceClient.CreateAsync,
+                new CharacterCreateRequest { CharacterId = characterId },
+                cancellationToken: cancellationToken
+            );
+            return resp;
+        }
+
+        /// <summary>
         /// 캐릭터 레벨업
         /// </summary>
         public async UniTask<CharacterLevelUpResponse> LevelUpAsync(uint characterId, CancellationToken cancellationToken = default)
