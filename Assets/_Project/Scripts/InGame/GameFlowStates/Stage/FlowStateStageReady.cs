@@ -99,7 +99,7 @@ public class FlowStateStageReady : StateReadyBase
         // LINQ 제거: 직접 루프로 유효하지 않은 캐릭터 제거
         for (int i = battleDeckList.Count - 1; i >= 0; i--)
         {
-            var characterData = ServerDataManager.Instance.Character.GetCharacterByUid(battleDeckList[i].CharacterUid);
+            var characterData = ServerDataManager.Instance.Character.GetCharacter(battleDeckList[i].CharacterId);
             if (characterData == null || SpecDataManager.Instance.GetCharacterData(characterData.GetSpecCharacterIndex()) == null)
             {
                 battleDeckList.RemoveAt(i);
@@ -110,7 +110,7 @@ public class FlowStateStageReady : StateReadyBase
 
         foreach (var placement in battleDeckList)
         {
-            var characterData = ServerDataManager.Instance.Character.GetCharacterByUid(placement.CharacterUid);
+            var characterData = ServerDataManager.Instance.Character.GetCharacter(placement.CharacterId);
             if (characterData == null) continue;
 
             Debug.LogColor($"기존 배치 캐릭터 추가 : {characterData.CharacterId}");
@@ -152,7 +152,7 @@ public class FlowStateStageReady : StateReadyBase
                 // LINQ 제거: 직접 루프로 특정 캐릭터 제거
                 for (int i = battleDeckList.Count - 1; i >= 0; i--)
                 {
-                    var characterData = ServerDataManager.Instance.Character.GetCharacterByUid(battleDeckList[i].CharacterUid);
+                    var characterData = ServerDataManager.Instance.Character.GetCharacter(battleDeckList[i].CharacterId);
                     if (characterData != null && characterData.GetSpecCharacterIndex() == 113252102)
                     {
                         battleDeckList.RemoveAt(i);
@@ -221,11 +221,11 @@ public class FlowStateStageReady : StateReadyBase
                     placement.GridX = emptyTile.X;
                     placement.GridY = emptyTile.Y;
                     reservedPlayerPositions.Add(new int2(emptyTile.X, emptyTile.Y));
-                    Debug.LogColor($"캐릭터 {placement.CharacterUid} 위치 변경: ({currentPosition.x}, {currentPosition.y}) -> ({emptyTile.X}, {emptyTile.Y})");
+                    Debug.LogColor($"캐릭터 {placement.CharacterId} 위치 변경: ({currentPosition.x}, {currentPosition.y}) -> ({emptyTile.X}, {emptyTile.Y})");
                 }
                 else
                 {
-                    Debug.LogColor($"캐릭터 {placement.CharacterUid} 배치 불가능하여 제거");
+                    Debug.LogColor($"캐릭터 {placement.CharacterId} 배치 불가능하여 제거");
                     battleDeckList.RemoveAt(i);
                 }
             }

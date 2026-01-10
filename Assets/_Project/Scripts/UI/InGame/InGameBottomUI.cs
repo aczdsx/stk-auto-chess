@@ -215,7 +215,7 @@ public class InGameBottomUI : MonoBehaviour
         foreach (var battleDeck in battleDeckList)
         {
             // CharacterUid로 캐릭터 데이터를 찾아서 SpecCharacterIndex 비교
-            var characterData = ServerDataManager.Instance.Character.GetCharacterByUid(battleDeck.CharacterUid);
+            var characterData = ServerDataManager.Instance.Character.GetCharacter(battleDeck.CharacterId);
             if (characterData != null)
             {
                 int specIndex = characterData.GetSpecCharacterIndex();

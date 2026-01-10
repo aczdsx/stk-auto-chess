@@ -81,7 +81,7 @@ namespace CookApps.AutoBattler
             _totalCharacterList = SpecDataManager.Instance.GetCharacterListByCharacterType(CharacterType.CHARACTER);
 
             // 정렬 (획득 여부-> id 값 -> 조각 획득 여부)
-            _totalCharacterList = _totalCharacterList.OrderByDescending(data => ServerDataManager.Instance.Character.HasCharacterByCharacterId(data.character_id))
+            _totalCharacterList = _totalCharacterList.OrderByDescending(data => ServerDataManager.Instance.Character.HasCharacter(data.character_id))
                 .ThenByDescending(data => data.character_id).ToList();
 
 

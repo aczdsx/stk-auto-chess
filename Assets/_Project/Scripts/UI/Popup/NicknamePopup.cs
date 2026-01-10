@@ -67,7 +67,8 @@ namespace CookApps.AutoBattler
                 return;
             }
             
-            UserDataManager.Instance.ChangeNickname(_nicknameInputField.text);
+            // TODO: 닉네임 변경 API 호출
+            // UserDataManager.Instance.ChangeNickname(_nicknameInputField.text);
             
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
             

@@ -41,7 +41,7 @@ namespace CookApps.AutoBattler
             _skillTooltipPopup.gameObject.SetActive(false);
 
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
-            _userCharacterData = ServerDataManager.Instance.Character.GetCharacterByCharacterId((uint)characterID);
+            _userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterID);
 
             SetSkillLayer();
 

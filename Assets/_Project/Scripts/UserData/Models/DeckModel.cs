@@ -189,7 +189,7 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < deckList.Count; i++)
             {
                 var placement = deckList[i];
-                var characterData = ServerDataManager.Instance.Character.GetCharacterByUid(placement.CharacterUid);
+                var characterData = ServerDataManager.Instance.Character.GetCharacter(placement.CharacterId);
                 if (characterData == null) continue;
 
                 var characterStat = new CharacterStatData(

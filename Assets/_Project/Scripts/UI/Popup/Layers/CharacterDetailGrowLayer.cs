@@ -109,9 +109,9 @@ namespace CookApps.AutoBattler
             _parentCollectionPopup = _parentPopup;
 
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
-            _userCharacterData = ServerDataManager.Instance.Character.GetCharacterByCharacterId((uint)characterID);
+            _userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterID);
 
-            _isHaveCharacter = ServerDataManager.Instance.Character.HasCharacterByCharacterId((uint)characterID);
+            _isHaveCharacter = ServerDataManager.Instance.Character.HasCharacter(characterID);
 
             // 스탯 표시 처리 
             SetUserStatLayer();
@@ -148,7 +148,7 @@ namespace CookApps.AutoBattler
 
             int maxLevel = ServerDataManager.Instance.Character.GetCharacterMaxLevel((int)_userCharacterData.CharacterId);
 
-            int userLevel = Mathf.Max(1, _userCharacterData.Level);
+            int userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
 
             _userStatData = new CharacterStatData(_userCharacterData.GetSpecCharacterIndex(), userLevel, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
@@ -185,7 +185,7 @@ namespace CookApps.AutoBattler
             // 레벨업 가능 여부 체크
             int maxLevel = ServerDataManager.Instance.Character.GetCharacterMaxLevel((int)_userCharacterData.CharacterId);
 
-            int userLevel = Mathf.Max(1, _userCharacterData.Level);
+            int userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
 
             // 레벨업에 필요한 자원 정보 세팅
             _specCharacterLevelExpData = SpecDataManager.Instance.GetCharacterLevelExpData(userLevel);
@@ -227,7 +227,7 @@ namespace CookApps.AutoBattler
             var transcendenceDataList = SpecDataManager.Instance.GetCharacterTranscendenceDataList(_specCharacterData.character_element_type, _specCharacterData.grade_type);
             _maxTranscendenceLevel = transcendenceDataList.Max(data => data.star);
             // 초월에 필요한 자원 정보 세팅
-            _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type, _userCharacterData.TranscendLevel);
+            _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type, (int)_userCharacterData.TranscendLevel);
 
             bool isHasPiece = false;
             if (_specCharacterTranscendenceData != null)
@@ -372,7 +372,7 @@ namespace CookApps.AutoBattler
             }
 
             // 레벨업 리셋에 소모된 아이템 반환 아이템 체크
-            var resetRewardItemList = SpecDataManager.Instance.GetCharacterLevelupTotalNeedItemList(_userCharacterData.Level, _userCharacterData.CharacterId);
+            var resetRewardItemList = SpecDataManager.Instance.GetCharacterLevelupTotalNeedItemList((int)_userCharacterData.Level, (int)_userCharacterData.CharacterId);
             if (resetRewardItemList == null || resetRewardItemList.Count <= 0)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_CHARACTER_LV_ITEM_ISSUE");

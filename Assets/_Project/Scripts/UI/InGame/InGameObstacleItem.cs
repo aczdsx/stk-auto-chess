@@ -72,7 +72,7 @@ public class InGameObstacleItem : MonoBehaviour
         if (isActiveFocus)
         {
             _focusImageSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(spec.prefab_id)).Forget();
-            _focusText.text = CookApps.AutoBattler.ServerDataManager.Instance.Character.GetCharacterByCharacterId((uint)spec.character_id)?.Level.ToString("n0") ?? "0";
+            _focusText.text = CookApps.AutoBattler.ServerDataManager.Instance.Character.GetCharacter(spec.character_id)?.Level.ToString("n0") ?? "0";
         }
         _focusObj.SetActive(isActiveFocus);
     }

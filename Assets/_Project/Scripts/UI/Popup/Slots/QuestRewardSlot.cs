@@ -58,7 +58,7 @@ namespace CookApps.AutoBattler
             var specCharacterData = SpecDataManager.Instance.GetCharacterData(rewardPiece.Id);
             if (specCharacterData == null) return;
 
-            var userCharacterData = ServerDataManager.Instance.Character.GetCharacterByCharacterId((uint)specCharacterData.character_id);
+            var userCharacterData = ServerDataManager.Instance.Character.GetCharacter(specCharacterData.character_id);
             if (userCharacterData == null) return;
 
             _rewardCharacterBGObject.SetActive(true);

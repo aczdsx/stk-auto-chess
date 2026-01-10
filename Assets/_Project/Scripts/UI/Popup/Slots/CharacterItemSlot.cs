@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
             if (characterID <= 0) return;
 
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
-            _userCharacterData = ServerDataManager.Instance.Character.GetCharacterByCharacterId((uint)characterID);
+            _userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterID);
 
             _characterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(_specCharacterData.prefab_id)).Forget();
             _SynergySpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specCharacterData.character_element_type)).Forget();
@@ -42,7 +42,7 @@ namespace CookApps.AutoBattler
             if (characterID <= 0) return;
 
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
-            _userCharacterData = ServerDataManager.Instance.Character.GetCharacterByCharacterId((uint)characterID);
+            _userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterID);
 
             _characterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(_specCharacterData.prefab_id)).Forget();
             _SynergySpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_specCharacterData.character_element_type)).Forget();

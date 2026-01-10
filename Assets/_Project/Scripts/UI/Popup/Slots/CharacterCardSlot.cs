@@ -76,9 +76,9 @@ namespace CookApps.AutoBattler
             _parentCollectionPopup = _parentPopup;
 
             _specCharacterData = characterData;
-            _userCharacterData = ServerDataManager.Instance.Character.GetCharacterByCharacterId((uint)_specCharacterData.character_id);
+            _userCharacterData = ServerDataManager.Instance.Character.GetCharacter(_specCharacterData.character_id);
 
-            bool haveCharacter = ServerDataManager.Instance.Character.HasCharacterByCharacterId((uint)_specCharacterData.character_id);
+            bool haveCharacter = ServerDataManager.Instance.Character.HasCharacter(_specCharacterData.character_id);
 
             // 기본 데이터 관련 세팅
             string characterPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
@@ -167,7 +167,7 @@ namespace CookApps.AutoBattler
 
             // TODO: 캐릭터 조각으로 캐릭터 획득 기능 - 서버 API 구현 필요
             // 캐릭터 조각 20개 이상 보유 하여 최초 획득 시 처리
-            // if (ServerDataManager.Instance.Character.HasCharacterByCharacterId((uint)_specCharacterData.character_id) == false)
+            // if (ServerDataManager.Instance.Character.HasCharacter((uint)_specCharacterData.character_id) == false)
             // {
             //     int characterPiece = ServerDataManager.Instance.Inventory.GetCharacterPiece(_specCharacterData.character_id);
             //     if (characterPiece >= _specCharacterData.need_piece)

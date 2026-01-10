@@ -163,7 +163,7 @@ namespace CookApps.AutoBattler
         private void RefreshDimmedLayer()
         {
             // 딤드 레이어 설정
-            bool isHaveCharacter = ServerDataManager.Instance.Character.HasCharacterByCharacterId(_currentCharacterID);
+            bool isHaveCharacter = ServerDataManager.Instance.Character.HasCharacter(_currentCharacterID);
 
             _dimmedBGLayerObject.SetActive(!isHaveCharacter);
         }

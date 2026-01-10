@@ -203,9 +203,10 @@ namespace CookApps.AutoBattler
                 CharacterData userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterData.character_id);
 
                 pieceSlider.maxValue = characterData.need_piece;
-                pieceSlider.value = userCharacterData.CharacterPiece;
-
-                countText.text = $"{userCharacterData.CharacterPiece}/{characterData.need_piece}";
+                // TODO: 수정 필요
+                // pieceSlider.value = userCharacterData.CharacterPiece;
+                //
+                // countText.text = $"{userCharacterData.CharacterPiece}/{characterData.need_piece}";
 
                 // if (DataManager.Instance.UserData.isFirstGacha)
                 // {

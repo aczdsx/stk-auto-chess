@@ -240,6 +240,14 @@ namespace CookApps.AutoBattler
             return HasSkill(commanderSkillID);
         }
 
+        /// <summary>
+        /// 슬롯에 지휘자 스킬 장착 (UserDataManager 호환)
+        /// </summary>
+        public void SetEquippedCommanderSkill(int slotIndex, int skillId)
+        {
+            SetEquippedSkill(slotIndex, skillId);
+        }
+
         #endregion
     }
 }

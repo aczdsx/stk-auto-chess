@@ -29,7 +29,7 @@ namespace CookApps.AutoBattler
         {
             CharacterGetResponse resp = await ExecuteAsync(
                 ServiceClient.GetAsync,
-                new CharacterGetRequest { CharacterUid = characterId },
+                new CharacterGetRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
             );
             return resp;
@@ -42,7 +42,7 @@ namespace CookApps.AutoBattler
         {
             CharacterLevelUpResponse resp = await ExecuteAsync(
                 ServiceClient.LevelUpAsync,
-                new CharacterLevelUpRequest { CharacterUid = characterId },
+                new CharacterLevelUpRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
             );
             return resp;
@@ -55,7 +55,7 @@ namespace CookApps.AutoBattler
         {
             CharacterTranscendResponse resp = await ExecuteAsync(
                 ServiceClient.TranscendAsync,
-                new CharacterTranscendRequest { CharacterUid = characterId },
+                new CharacterTranscendRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
             );
             return resp;

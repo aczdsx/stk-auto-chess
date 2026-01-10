@@ -75,7 +75,7 @@ public class FlowStateTrialDungeonReady : StateReadyBase
 
         foreach (var placement in battleDeckList)
         {
-            var characterData = ServerDataManager.Instance.Character.GetCharacterByUid(placement.CharacterUid);
+            var characterData = ServerDataManager.Instance.Character.GetCharacter(placement.CharacterId);
             if (characterData == null) continue;
 
             Debug.LogColor($"기존 배치 캐릭터 추가 : {characterData.CharacterId}");

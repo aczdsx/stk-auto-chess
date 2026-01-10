@@ -36,7 +36,15 @@ namespace CookApps.AutoBattler
         /// </summary>
         public CharacterData GetCharacter(uint characterId)
         {
-            return _characters.TryGetValue(characterId, out var character) ? character : null;
+            return _characters.GetValueOrDefault(characterId);
+        }
+
+        /// <summary>
+        /// 캐릭터 가져오기 (CharacterId로 조회)
+        /// </summary>
+        public CharacterData GetCharacter(int characterId)
+        {
+            return GetCharacter((uint)characterId);
         }
 
         /// <summary>
@@ -66,6 +74,14 @@ namespace CookApps.AutoBattler
         public bool HasCharacter(uint characterId)
         {
             return _characters.ContainsKey(characterId);
+        }
+        
+        /// <summary>
+        /// 캐릭터 존재 여부
+        /// </summary>
+        public bool HasCharacter(int characterId)
+        {
+            return HasCharacter((uint)characterId);
         }
 
         /// <summary>
@@ -155,33 +171,23 @@ namespace CookApps.AutoBattler
             }
         }
 
-        #region 호환 메서드 (마이그레이션용)
-
         /// <summary>
-        /// CharacterUid로 캐릭터 가져오기 (Deck 배치용)
-        /// CharacterUid = CharacterId
+        /// 캐릭터 최대 레벨 계산
         /// </summary>
-        public CharacterData GetCharacterByUid(uint characterUid)
+        public int GetCharacterMaxLevel(int characterId)
         {
-            return GetCharacter(characterUid);
-        }
+            var character = GetCharacter(characterId);
+            if (character == null) return 0;
 
-        /// <summary>
-        /// CharacterId로 캐릭터 가져오기 (레거시 호환)
-        /// </summary>
-        public CharacterData GetCharacterByCharacterId(uint characterId)
-        {
-            return GetCharacter(characterId);
-        }
+            var specCharacterData = SpecDataManager.Instance.GetCharacterData(characterId);
+            if (specCharacterData == null) return 0;
 
-        /// <summary>
-        /// CharacterId로 캐릭터 보유 여부 확인 (레거시 호환)
-        /// </summary>
-        public bool HasCharacterByCharacterId(uint characterId)
-        {
-            return HasCharacter(characterId);
-        }
+            var specTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(
+                specCharacterData.grade_type,
+                (int)character.TranscendLevel
+            );
 
-        #endregion
+            return specTranscendenceData?.max_level ?? 0;
+        }
     }
 }
