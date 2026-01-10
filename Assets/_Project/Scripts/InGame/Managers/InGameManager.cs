@@ -97,6 +97,7 @@ namespace CookApps.BattleSystem
             InGameVfxManager.Instance.Initialize();
             InGameHpBarViewPool.Instance.Initialize(InGameResourceHolder.HpBarView.CachedGo);
             InGameTextViewPool.Instance.InitializePool(InGameResourceHolder.InGameText.CachedGo);
+            InGameBuffDebuffPool.Instance.Initialize(InGameResourceHolder.InGameBuffDebuff.CachedGo);
             InGameObjectManager.Instance.Initialize();
             InGameCommanderManager.Instance.Initialize();
             InGameSynergyManager.Instance.Initialize();
@@ -110,6 +111,7 @@ namespace CookApps.BattleSystem
             InGameObjectManager.Instance.Clear();
             InGameTextViewPool.Instance.ReleasePool();
             InGameHpBarViewPool.Instance.Clear();
+            InGameBuffDebuffPool.Instance.Clear();
             InGameVfxManager.Instance.Clear();
             InGameStatistics.Instance.Clear();
             InGameSynergyManager.Instance.Clear();
