@@ -67,23 +67,6 @@ public partial class SROptions
         SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>(null).Forget();
     }
 
-    [Category("캐릭터 테스트")]
-    public void 유저캐릭터가라로생성하기우주가보이면눌러주세요()
-    {
-        UserDataManager.Instance.CreateAllCharacter();
-    }
-
-    [Category("캐릭터 테스트")]
-    public void 특정_캐릭터_생성()
-    {
-        UserDataManager.Instance.CreateCharacterByID(캐릭터_ID);
-    }
-
-    [Category("캐릭터 테스트")]
-    public int 캐릭터_ID { get; set; } = 117513401;
-
-    
-
     #endregion
 }
 #endif
