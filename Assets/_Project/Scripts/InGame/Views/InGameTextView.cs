@@ -61,14 +61,31 @@ namespace CookApps.AutoBattler
 
             // await WaitForAnimationEnd();
         }
+
+        public async UniTask ShowNormalTextAddHeightOffset(Vector3 position, float characterHeight, string text, string hexColor = null)
+        {
+            _normalText.text = $"{text}";
+            _normalText.color = hexColor != null && ColorUtility.TryParseHtmlString(hexColor, out Color color)
+                ? color
+                : defaultColor;
+
+            _xOffset = Random.Range(-0.5f, 0.5f);
+
+            Vector3 initialPosition = position + Vector3.up * (characterHeight + _heightOffset);
+            initialPosition.x += _xOffset;
+            _root.position = initialPosition;
+
+            _root.position = initialPosition;
+            _animator.SetTrigger(NormalText);
+        }
         
         public async UniTask ShowNormalText(Vector3 position, float characterHeight, string text, string hexColor = null)
         {
             _normalText.text = $"{text}";
-            _normalText.color = hexColor != null && ColorUtility.TryParseHtmlString(hexColor, out Color color) 
-                ? color 
+            _normalText.color = hexColor != null && ColorUtility.TryParseHtmlString(hexColor, out Color color)
+                ? color
                 : defaultColor;
-            
+
             _xOffset = Random.Range(-0.5f, 0.5f);
 
             Vector3 initialPosition = position + Vector3.up * (characterHeight * 0.5f);

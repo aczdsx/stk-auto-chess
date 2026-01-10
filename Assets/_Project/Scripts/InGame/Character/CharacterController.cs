@@ -380,6 +380,7 @@ namespace CookApps.BattleSystem
         {
             if (_statData != null)
             {
+                _hpBarView?.OnPreReturn();
                 InGameHpBarViewPool.Instance.Return(_hpBarView);
                 ecc.Clear();
                 ecc.OnChangedDirtyFlag -= EffectCodeOnChangedDirtyFlagHandler;
@@ -1287,7 +1288,7 @@ namespace CookApps.BattleSystem
             }
             else
             {
-                ShowStaticNormalText("MISS!!", "#FF0000FF").Forget();
+                ShowStaticNormalTextHeightOffset("MISS!!", "#FF0000FF").Forget();
             }
 
             _currHp -= damageAmount.damageAmount.Value;
@@ -1693,11 +1694,11 @@ namespace CookApps.BattleSystem
             await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, convertText, hexColor);
         }
 
-        public async UniTask ShowStaticNormalText(string text, string hexColor = null)
+        public async UniTask ShowStaticNormalTextHeightOffset(string text, string hexColor = null)
         {
             InGameTextView textView = InGameTextViewPool.Instance.Get();
 
-            await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, text, hexColor);
+            await textView.ShowNormalTextAddHeightOffset(GetCharacterView().CachedTr.position, _statData.Spec.height, text, hexColor);
         }
 
         public InGameVfx ShowImmuneSuccessFx()

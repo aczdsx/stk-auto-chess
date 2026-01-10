@@ -69,7 +69,7 @@ MonoBehaviour:
   m_text: Weak!!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4893e7b44abd61d449f36d05b9d965e2, type: 2}
-  m_sharedMaterial: {fileID: 1255818116291836681, guid: cecdb3caa0de4ac44a0a3ada9838756a, type: 2}
+  m_sharedMaterial: {fileID: 3649824674699541619, guid: 4893e7b44abd61d449f36d05b9d965e2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -649,7 +649,7 @@ MonoBehaviour:
   m_text: 9999
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4893e7b44abd61d449f36d05b9d965e2, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: d97951b7d2b19454a812c23c4bc0d320, type: 2}
+  m_sharedMaterial: {fileID: 3649824674699541619, guid: 4893e7b44abd61d449f36d05b9d965e2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -695,7 +695,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -717,7 +717,7 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_renderer: {fileID: 3124834081349967927}
   m_maskType: 0
 --- !u!23 &3124834081349967927
@@ -1135,13 +1135,13 @@ MonoBehaviour:
   m_text: -999526999999999
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4893e7b44abd61d449f36d05b9d965e2, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: c10a2508887127343ba44d7f770c78af, type: 2}
+  m_sharedMaterial: {fileID: 3649824674699541619, guid: 4893e7b44abd61d449f36d05b9d965e2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 38395903
+    rgba: 4283031551
   m_fontColor: {r: 1, g: 0.87476677, b: 0.28773582, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1181,7 +1181,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -1203,7 +1203,7 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_renderer: {fileID: 8741129002639805287}
   m_maskType: 0
 --- !u!23 &8741129002639805287

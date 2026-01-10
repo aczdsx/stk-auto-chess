@@ -5,58 +5,100 @@ using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Pool;
+using CookApps.TeamBattle.Utility;
 
-public class InGameBuffDebuff : MonoBehaviour
+namespace CookApps.AutoBattler
 {
-    [SerializeField] private SpriteRenderer _baseSprite;
-    [SerializeField] private SpriteLoader _baseSpriteLoader;
-    [SerializeField] private SpriteRenderer _elapsedCheckSprite;
-    [SerializeField] private SpriteLoader _elapsedCheckSpriteLoader;
-    [SerializeField] private SpriteMask _elapsedCheckMask;
-    [SerializeField] private TextMeshPro _buffSubText;
-
-    private int codeID;
-    private BuffStackData _buffStackData;
-    
-    public bool IsWorking { get; private set; }
-
-    public void Set((int, BuffStackData) buffData)
+    public class InGameBuffDebuff : CachedMonoBehaviour
     {
-        codeID = buffData.Item1;
-        _buffStackData = buffData.Item2;
+        [SerializeField] private SpriteRenderer _baseSprite;
+        [SerializeField] private SpriteLoader _baseSpriteLoader;
+        [SerializeField] private SpriteRenderer _elapsedCheckSprite;
+        [SerializeField] private SpriteLoader _elapsedCheckSpriteLoader;
+        [SerializeField] private SpriteMask _elapsedCheckMask;
+        [SerializeField] private TextMeshPro _buffSubText;
 
-        if (_buffStackData.isShowValue)
+        private int codeID;
+        private BuffStackData _buffStackData;
+
+        public bool IsWorking { get; private set; }
+
+        public void Set((int, BuffStackData) buffData)
         {
-            _buffSubText.gameObject.SetActive(true);
-            _buffSubText.text = $"{(int)_buffStackData.value}";
-        }
-        else
-        {
-            _buffSubText.gameObject.SetActive(false);
+            codeID = buffData.Item1;
+            _buffStackData = buffData.Item2;
+
+            if (_buffStackData.isShowValue)
+            {
+                _buffSubText.gameObject.SetActive(true);
+                _buffSubText.text = $"{(int)_buffStackData.value}";
+            }
+            else
+            {
+                _buffSubText.gameObject.SetActive(false);
+            }
+
+            Debug.Log($"BuffDebuff is On. CodeId : {codeID}");
+
+            IsWorking = true;
+            var sprite = SpriteNameParser.GetBuffDebuffSprite(codeID);
+            _baseSpriteLoader.SetSprite(sprite).Forget();
+            _elapsedCheckSpriteLoader.SetSprite(sprite).Forget();
+            _elapsedCheckMask.alphaCutoff = 1.0f;
         }
 
-        Debug.Log($"BuffDebuff is On. CodeId : {codeID}");
-        
-        IsWorking = true;
-        var sprite = SpriteNameParser.GetBuffDebuffSprite(codeID);
-        _baseSpriteLoader.SetSprite(sprite).Forget();
-        _elapsedCheckSpriteLoader.SetSprite(sprite).Forget();
-        _elapsedCheckMask.alphaCutoff = 1.0f;
+        public bool RefreshCoolTime()
+        {
+            if (_buffStackData == null)
+            {
+                IsWorking = false;
+                return true;
+            }
+
+            // 0 ~ 1의 비율 (시간이 지남에 따라 증가)
+            float coolTimeRatio = 1.0f - (_buffStackData.elapsedTime / _buffStackData.duration);
+
+            _elapsedCheckMask.alphaCutoff = coolTimeRatio;
+
+            if (coolTimeRatio >= 1)
+            {
+                IsWorking = false;
+                return true;
+            }
+
+            return false;
+        }
     }
 
-    public bool RefreshCoolTime()
-    {
-        // 0 ~ 1의 비율 (시간이 지남에 따라 증가)
-        float coolTimeRatio = 1.0f - (_buffStackData.elapsedTime / _buffStackData.duration);
 
-        _elapsedCheckMask.alphaCutoff = coolTimeRatio;
-        
-        if (coolTimeRatio >= 1)
+    public class InGameBuffDebuffPool : Singleton<InGameBuffDebuffPool>
+    {
+        private UnityPool<InGameBuffDebuff> _inGameBuffDebuffPool;
+        private GameObject _instance;
+
+        public void Initialize(GameObject instance)
         {
-            IsWorking = false;
-            return true;
+            // TODO: load hp bar prefab from addressable
+            _instance = instance;
+            _inGameBuffDebuffPool = new UnityPool<InGameBuffDebuff>();
+            _inGameBuffDebuffPool.Initialize(_instance);
         }
 
-        return false;
+        public void Clear()
+        {
+            _inGameBuffDebuffPool.ClearPool();
+            _inGameBuffDebuffPool = null;
+        }
+
+        public InGameBuffDebuff Get()
+        {
+            return _inGameBuffDebuffPool.Get(null);
+        }
+
+        public void Return(InGameBuffDebuff inGameBuffDebuff)
+        {
+            _inGameBuffDebuffPool?.Return(inGameBuffDebuff);
+        }
     }
 }

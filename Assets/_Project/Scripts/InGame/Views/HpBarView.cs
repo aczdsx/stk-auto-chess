@@ -32,8 +32,47 @@ namespace CookApps.AutoBattler
         [SerializeField] private SpriteRenderer _hpMarkGuage; // 눈금선용 SpriteRenderer
 
         [Space]
-        [SerializeField] private GameObject _buffObj;
-        [SerializeField] private List<InGameBuffDebuff> _buffDebuffs;
+        [SerializeField] private GameObject _buffObjParent;
+        
+        [System.Serializable]
+        public class BuffIconLayout
+        {
+            [Header("위치 설정")]
+            [Range(-1f, 1f)]
+            [Tooltip("Y 위치 (상하 위치)")]
+            public float yPosition = 0.1f;
+            
+            [Header("간격 설정")]
+            [Range(-1f, 1f)]
+            [Tooltip("시작 X 위치 (첫 번째 아이콘의 위치)")]
+            public float startX = -0.15f;
+            
+            [Range(0f, 0.5f)]
+            [Tooltip("아이콘 사이의 좌우 간격")]
+            public float horizontalSpacing = 0.1f;
+            
+            [Header("커스텀 위치 (간격 대신 직접 지정)")]
+            [Tooltip("각 아이콘의 X 위치 (순서대로, 비어있으면 간격 기반으로 계산)")]
+            public float[] xOffsets = new float[] { -0.15f, -0.05f, 0.15f, 0.05f };
+        }
+
+        [Header("Bottom Layout (아래쪽 버프 아이콘)")]
+        [SerializeField] private BuffIconLayout _bottomLayout = new BuffIconLayout
+        {
+            yPosition = 0.1f,
+            startX = -0.15f,
+            horizontalSpacing = 0.1f,
+            xOffsets = new float[] { -0.15f, -0.05f, 0.15f, 0.05f }
+        };
+
+        [Header("Top Layout (위쪽 버프 아이콘)")]
+        [SerializeField] private BuffIconLayout _topLayout = new BuffIconLayout
+        {
+            yPosition = 0.19f,
+            startX = -0.15f,
+            horizontalSpacing = 0.1f,
+            xOffsets = new float[] { -0.15f, -0.05f, 0.15f, 0.05f }
+        };
 
         [Space]
         [SerializeField] private GameObject _synergyObj;
@@ -46,6 +85,8 @@ namespace CookApps.AutoBattler
         private const float AnimationDuration = 0.4f; // 애니메이션 지속 시간
         private Vector2 _defalutSize;
         private Vector3 _defaultScale;
+
+        private List<InGameBuffDebuff> _buffDebuffList = new List<InGameBuffDebuff>();
 
         public void Initialize(CharacterStatData statData, AllianceType allianceType)
         {
@@ -77,10 +118,48 @@ namespace CookApps.AutoBattler
             }
         }
 
+        /// <summary>
+        /// 버프 아이콘 위치를 가져옵니다. (0~3: bottom, 4~7: top)
+        /// </summary>
+        private Vector2 GetBuffIconPosition(int index)
+        {
+            BuffIconLayout layout;
+            int layoutIndex;
+            
+            if (index < 4)
+            {
+                // Bottom layout
+                layout = _bottomLayout;
+                layoutIndex = index;
+            }
+            else
+            {
+                // Top layout
+                layout = _topLayout;
+                layoutIndex = index - 4;
+            }
+
+            float x;
+            float y = layout.yPosition;
+
+            // xOffsets가 설정되어 있고 해당 인덱스가 있으면 사용, 없으면 간격 기반으로 계산
+            if (layout.xOffsets != null && layout.xOffsets.Length > layoutIndex)
+            {
+                x = layout.xOffsets[layoutIndex];
+            }
+            else
+            {
+                // 간격 기반 자동 계산
+                x = layout.startX + (layoutIndex * layout.horizontalSpacing);
+            }
+            
+            return new Vector2(x, y);
+        }
+
         public void SetHpBarType(HpBarType type = HpBarType.None)
         {
             _hpBarObj.SetActive(type.HasFlag(HpBarType.HpBar));
-            _buffObj.SetActive(type.HasFlag(HpBarType.Buff));
+            _buffObjParent.SetActive(type.HasFlag(HpBarType.Buff));
             _synergyObj.SetActive(type.HasFlag(HpBarType.Synergy));
         }
 
@@ -173,24 +252,60 @@ namespace CookApps.AutoBattler
             float targetRatio = Mathf.Clamp01((float)(current / max));
             _coolTimeGuage.size = new Vector2(_defalutSize.x * targetRatio, _coolTimeGuage.size.y);
         }
-
+#region Buff Icon
         public void RestructBuffIcon(IReadOnlyList<(int, BuffStackData)> buffDebuffs)
         {
-            // 최상위 3개 버프 아이콘만 보여준다.
-            for (int i = 0; i < 3; i++)
+            // 유효한 버프 개수 계산 (codeID가 0이 아닌 것만)
+            int validBuffCount = 0;
+            for (int i = 0; i < buffDebuffs.Count; i++)
             {
-                var inGameBuffDebuff = _buffDebuffs[i];
-                inGameBuffDebuff.gameObject.SetActive(false);
-
-                if (i < buffDebuffs.Count)
+                if (buffDebuffs[i].Item1 != 0)
                 {
-                    int codeID = buffDebuffs[i].Item1;
-                    if (codeID == 0)
-                        continue;
-
-                    inGameBuffDebuff.gameObject.SetActive(true);
-                    inGameBuffDebuff.Set(buffDebuffs[i]);
+                    validBuffCount++;
                 }
+            }
+            
+            int requiredCount = Mathf.Min(validBuffCount, 8); // 최대 8개 (bottom 4개 + top 4개)
+            
+            // 사용하지 않는 아이콘 반환
+            while (_buffDebuffList.Count > requiredCount)
+            {
+                var buffIcon = _buffDebuffList[_buffDebuffList.Count - 1];
+                _buffDebuffList.RemoveAt(_buffDebuffList.Count - 1);
+                InGameBuffDebuffPool.Instance.Return(buffIcon);
+            }
+            
+            // 부족한 아이콘 생성
+            while (_buffDebuffList.Count < requiredCount)
+            {
+                var buffIcon = InGameBuffDebuffPool.Instance.Get();
+                if (buffIcon == null)
+                    break;
+                    
+                buffIcon.CachedTr.SetParent(_buffObjParent.transform, false);
+                _buffDebuffList.Add(buffIcon);
+            }
+
+            // 모든 아이콘 위치 설정 및 데이터 업데이트
+            int buffIndex = 0;
+            for (int i = 0; i < buffDebuffs.Count && buffIndex < _buffDebuffList.Count; i++)
+            {
+                int codeID = buffDebuffs[i].Item1;
+                if (codeID == 0)
+                {
+                    continue; // codeID가 0이면 건너뛰기
+                }
+
+                var inGameBuffDebuff = _buffDebuffList[buffIndex];
+                
+                // 위치 설정
+                Vector2 position = GetBuffIconPosition(buffIndex);
+                inGameBuffDebuff.CachedTr.localPosition = new Vector3(position.x, position.y, inGameBuffDebuff.CachedTr.localPosition.z);
+                
+                inGameBuffDebuff.gameObject.SetActive(true);
+                inGameBuffDebuff.Set(buffDebuffs[i]);
+                
+                buffIndex++;
             }
         }
 
@@ -198,7 +313,7 @@ namespace CookApps.AutoBattler
         {
             isExpired = false;
 
-            foreach (var buffDebuff in _buffDebuffs)
+            foreach (var buffDebuff in _buffDebuffList)
             {
                 if (buffDebuff.IsWorking == false)
                     continue;
@@ -209,6 +324,17 @@ namespace CookApps.AutoBattler
                     isExpired = true;
             }
         }
+
+        public void OnPreReturn()
+        {
+            foreach (var buffDebuff in _buffDebuffList)
+            {
+                InGameBuffDebuffPool.Instance.Return(buffDebuff);
+            }
+            _buffDebuffList.Clear();
+        }
+        
+#endregion
     }
 
     public class InGameHpBarViewPool : Singleton<InGameHpBarViewPool>
