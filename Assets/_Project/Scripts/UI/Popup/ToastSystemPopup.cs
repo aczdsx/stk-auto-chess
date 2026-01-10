@@ -67,7 +67,7 @@ namespace CookApps.AutoBattler
         {
             SceneUILayerManager.Instance.PopUILayer(this);
 
-            ToastManager.Instance.IsShowingToast = false;
+            ToastManager.Instance.NotifyToastClosed();
         }
 
         private void ClosePopupManual()

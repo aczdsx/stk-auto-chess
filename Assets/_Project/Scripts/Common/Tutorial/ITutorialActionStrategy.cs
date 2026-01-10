@@ -15,9 +15,17 @@ namespace CookApps.AutoBattler
         public RectTransform ArrowRectTransform { get; set; }
         public Transform TargetSpawnTransform { get; set; }
 
+        // 3D 타겟용 화살표 (월드 좌표 추적)
+        public RectTransform WorldArrowRectTransform { get; set; }
+        public Canvas TutorialCanvas { get; set; }
+        public Camera MainCamera { get; set; }
+
         // 타겟 관련 (전략에서 설정)
         public GameObject TargetUIObj { get; set; }
         public GameObject TargetUnmaskObj { get; set; }
+
+        // 3D 월드 타겟 (CHARACTER_PLACEMENT에서 사용)
+        public Vector3? WorldTargetPosition { get; set; }
 
         // 버튼 원위치 정보 (FORCED_TOUCH_UI에서 사용)
         public Transform OriginalParent { get; set; }

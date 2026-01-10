@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 222099987480202120}
   - component: {fileID: 114484789301713350}
   - component: {fileID: 598068054235232744}
+  - component: {fileID: 7806616129690370166}
   - component: {fileID: 2030191737194045235}
   - component: {fileID: 2368681435470858792}
   m_Layer: 5
@@ -555,7 +556,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1541708195142626}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8cfcd8cb6e7430479d13b13243b07ca, type: 3}
   m_Name: 
@@ -575,6 +576,31 @@ MonoBehaviour:
       m_Calls: []
   objOn: {fileID: 2676748344083164493}
   objOff: {fileID: 5325852336046113709}
+--- !u!114 &7806616129690370166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541708195142626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5ee7b2efd3fe445683c14065fa438d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableInteraction: 0
+  visibleOnAwake: 1
+  controlOpacity: 1
+  fadeTime: 0.3
+  ignoreTimeScale: 1
+  focusObject: {fileID: 0}
+  focusMode: 0
+  onShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onHide:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2030191737194045235
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 using PrimeTween;
 using UnityEngine.Pool;
+using static CookApps.AutoBattler.TutorialActionCharacterPlacement;
 
 public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 {
@@ -156,6 +157,13 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
             if (InGameMain.GetInGameMain().IsCheckTouchTile(tile) || CheckCanTouchTile(tile, inGameTileView))
             {
+                // 튜토리얼 캐릭터 배치 중일 때 특정 캐릭터만 선택 가능
+                if (tile.OccupiedCharacter != null &&
+                    !TutorialActionCharacterPlacement.CanSelectCharacter(tile.OccupiedCharacter.CharacterId))
+                {
+                    return;
+                }
+
                 _selectedTileView = inGameTileView;
                 SetSelectedCharacter(tile.OccupiedCharacter);
             }
@@ -209,6 +217,13 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         // 같은 타일이면 이동 불가
         if (targetTileView.ID == _selectedTileView.ID)
             return false;
+
+        // 튜토리얼 캐릭터 배치 중일 때 특정 타일로만 이동 가능
+        if (IsActive && TargetTileId >= 0)
+        {
+            if (!CanPlaceOnTile(targetTileView.ID))
+                return false;
+        }
 
         if (isBattleItem)
         {
@@ -557,6 +572,11 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         if (_selectedCharacterController != null)
         {
+            // 튜토리얼 캐릭터 배치 완료 알림 (타일이 변경되었을 때만)
+            bool tileChanged = _selectedFirstTileView != null && _selectedTileView != null &&
+                               _selectedFirstTileView.ID != _selectedTileView.ID;
+            int placedCharacterId = _selectedCharacterController.CharacterId;
+
             _selectedCharacterController.SetSelectedCharacter(false);
             _selectedTileView.SetActiveObj(false);
             _selectedFirstTileID = _selectedFirstTileView.ID;
@@ -567,6 +587,12 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameMain.GetInGameMain().UnSetFocusSlotUI(isDropFx);
             InGameMain.GetInGameMain().CloseSkillTooltip();
             _isMoveEndAnimation = false;
+
+            // 튜토리얼 캐릭터 배치 완료 콜백 호출
+            if (tileChanged && IsActive && CanSelectCharacter(placedCharacterId))
+            {
+                NotifyPlacementCompleted();
+            }
 
             // InGameObjectManager.Instance.DrawPlayerLine(true);
             // InGameObjectManager.Instance.DrawPlayerLine(false);
