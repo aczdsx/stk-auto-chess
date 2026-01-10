@@ -54,5 +54,11 @@ public class DialogueEndButton : ScriptableButton
         // 마지막 명령어(@end)로 점프
         var lastIndex = player.Playlist.Count - 1;
         player.Resume(lastIndex);
+
+        // 입력 대기 해제하여 바로 실행
+        if (player.WaitingForInput)
+        {
+            player.SetWaitingForInputEnabled(false);
+        }
     }
 }

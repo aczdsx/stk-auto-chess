@@ -115,6 +115,7 @@ public class TutorialController : MonoBehaviour
 
     public void ShowNextTutorial(TutorialDialogue specTutorial)
     {
+        Debug.LogColor($"ShowNextTutorial: {specTutorial.tutorial_action_type} {specTutorial.tutorial_action_key} {specTutorial.seq}", "green");
         // 이전 전략 정리 (버튼 원위치 등)
         RestorePreviousState();
 
