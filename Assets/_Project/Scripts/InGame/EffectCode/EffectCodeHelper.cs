@@ -49,7 +49,7 @@ public static class EffectCodeHelper
             targetCharacter.ShowImmuneSuccessFx();
             return null;
         }
-
+        
         // 이펙트 코드 적용
         var effectCodeInfo = new EffectCodeInfo((long)effectCodeNameType, 0, stats);
         return effectCodeContainer.AddOrMergeEffectCode(effectCodeInfo, source);

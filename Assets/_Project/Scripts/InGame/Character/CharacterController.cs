@@ -77,11 +77,18 @@ namespace CookApps.BattleSystem
 
         public CharacterController Target { get; set; }
         public InGameTile CurrentTile { get; set; }
-
         public bool IsAlive { get; set; }
 
-
+        /// <summary>
+        /// 스킬 루트 트랜스폼
+        /// view의 scale이 커져도 위치가 변하지 않는 트랜스폼
+        /// </summary>
         public IFollowable SkillRootTransformFollowable => new SimpleSkillTransformFollowable(this);
+
+        /// <summary>
+        /// 스킬 탑 미들 바텀 FX 트랜스폼
+        /// view의 scale이 커지면 위치가 변하는 트랜스폼
+        /// </summary>
         public IFollowable SkillTopFXTransformFollowable => new SimpleSkillTopFXTransformFollowable(this);
         public IFollowable SkillMiddleFXTransformFollowable => new SimpleSkillMiddleFXTransformFollowable(this);
         public IFollowable SkillBottomFXTransformFollowable => new SimpleSkillBottomFXTransformFollowable(this);
@@ -1693,12 +1700,12 @@ namespace CookApps.BattleSystem
             await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, text, hexColor);
         }
 
-        public void ShowImmuneSuccessFx()
+        public InGameVfx ShowImmuneSuccessFx()
         {
             if (_immuneSuccessFx == InGameVfxNameType.NONE)
-                return;
+                return null;
 
-            InGameVfxManager.Instance.AddInGameVfx(_immuneSuccessFx, _immuneSuccessFxTransformFollowable);
+            return InGameVfxManager.Instance.AddInGameVfx(_immuneSuccessFx, _immuneSuccessFxTransformFollowable);
         }
     }
 }

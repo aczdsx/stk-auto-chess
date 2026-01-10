@@ -66,7 +66,7 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -113,9 +113,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 4
-        width: 1516
-        height: 2042
+        y: 53
+        width: 1479
+        height: 1993
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,10 +134,10 @@ TextureImporter:
       name: 115322201_LD_Idle_1
       rect:
         serializedVersion: 2
-        x: 62
-        y: 3
-        width: 32
-        height: 32
+        x: 61
+        y: 52
+        width: 31
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,10 +156,10 @@ TextureImporter:
       name: 115322201_LD_Idle_2
       rect:
         serializedVersion: 2
-        x: 257
-        y: 4
-        width: 170
-        height: 184
+        x: 250
+        y: 53
+        width: 166
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,10 +178,10 @@ TextureImporter:
       name: 115322201_LD_Idle_3
       rect:
         serializedVersion: 2
-        x: 355
-        y: 4
-        width: 96
-        height: 51
+        x: 347
+        y: 53
+        width: 93
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
