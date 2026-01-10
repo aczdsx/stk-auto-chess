@@ -73,6 +73,17 @@ public partial class SROptions
         UserDataManager.Instance.CreateAllCharacter();
     }
 
+    [Category("캐릭터 테스트")]
+    public void 특정_캐릭터_생성()
+    {
+        UserDataManager.Instance.CreateCharacterByID(캐릭터_ID);
+    }
+
+    [Category("캐릭터 테스트")]
+    public int 캐릭터_ID { get; set; } = 117513401;
+
+    
+
     #endregion
 }
 #endif

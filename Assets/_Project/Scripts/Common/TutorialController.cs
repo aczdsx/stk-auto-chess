@@ -156,6 +156,24 @@ public class TutorialController : MonoBehaviour
         {
             TutorialActionToastMessage.OnToastCompleted = OnToastCompleted;
         }
+
+        // FORCED_TOUCH_UI 전략일 경우 버튼 클릭 콜백 설정
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FORCED_TOUCH_UI)
+        {
+            TutorialActionForcedTouchUI.OnButtonClicked = OnForcedTouchUIButtonClicked;
+        }
+    }
+
+    /// <summary>
+    /// 강제 터치 UI 버튼 클릭 시 호출되는 콜백
+    /// </summary>
+    private void OnForcedTouchUIButtonClicked()
+    {
+        // 콜백 해제
+        TutorialActionForcedTouchUI.OnButtonClicked = null;
+
+        // 다음 튜토리얼로 진행
+        ProceedToNext();
     }
 
     /// <summary>

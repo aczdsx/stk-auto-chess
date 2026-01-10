@@ -251,6 +251,12 @@ public class InGameBottomUI : MonoBehaviour
                 characterItem.SetAlert();
                 _characterStats.Add(characterStat);
                 PlayStageBattleFx();
+
+                // 튜토리얼 중이면 새 캐릭터 아이템에 TutorialTarget 등록
+                if (TutorialManager.Instance.HasTutorialStage)
+                {
+                    RegisterCharacterItemForTutorial(characterItem, characterStat.CharacterId);
+                }
             }
         }
     }
@@ -317,6 +323,12 @@ public class InGameBottomUI : MonoBehaviour
                 _characterItemList.Add(characterItem);
                 characterItem.SetData(this, characterStat, AddCharacterToTile);
             }
+        }
+
+        // 튜토리얼 중이면 캐릭터 아이템에 TutorialTarget 등록
+        if (TutorialManager.Instance.HasTutorialStage)
+        {
+            RegisterCharacterItemsForTutorial();
         }
     }
 
@@ -423,6 +435,8 @@ public class InGameBottomUI : MonoBehaviour
     {
         if (_isRunningAddCharacter)
             return;
+
+        TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.CHARACTER_PLACEMENT, statData.CharacterId);
 
         _isRunningAddCharacter = true;
 
@@ -716,6 +730,95 @@ public class InGameBottomUI : MonoBehaviour
         // UnityEngine.Debug.Log("DETAIL");
         // UnityEngine.Debug.Log("DETAIL");
         // UnityEngine.Debug.Log(result2);
+    }
+
+    /// <summary>
+    /// 튜토리얼용으로 모든 캐릭터 아이템에 TutorialTarget 등록
+    /// 같은 캐릭터ID가 여러 개면 인덱스 추가 (130601_0, 130601_1)
+    /// 유일하면 ID만 사용 (130601)
+    /// </summary>
+    private void RegisterCharacterItemsForTutorial()
+    {
+        // 유효한 캐릭터 아이템만 필터링
+        var validItems = new List<InGameCharacterItem>();
+        foreach (var item in _characterItemList)
+        {
+            if (item != null && item.StatData != null)
+                validItems.Add(item);
+        }
+
+        // 캐릭터 ID별 개수 카운트
+        var idCount = new Dictionary<int, int>();
+        foreach (var item in validItems)
+        {
+            int charId = item.StatData.CharacterId;
+            if (idCount.ContainsKey(charId))
+                idCount[charId]++;
+            else
+                idCount[charId] = 1;
+        }
+
+        // 중복 캐릭터용 인덱스 추적
+        var idIndex = new Dictionary<int, int>();
+
+        foreach (var item in validItems)
+        {
+            int charId = item.StatData.CharacterId;
+
+            var tutorialTarget = item.gameObject.GetComponent<TutorialTarget>();
+            if (tutorialTarget == null)
+            {
+                tutorialTarget = item.gameObject.AddComponent<TutorialTarget>();
+            }
+
+            string targetId;
+            if (idCount[charId] > 1)
+            {
+                // 중복 캐릭터: 인덱스 추가
+                if (!idIndex.ContainsKey(charId))
+                    idIndex[charId] = 0;
+
+                targetId = $"Slot_{charId}_{idIndex[charId]++}";
+            }
+            else
+            {
+                // 유일한 캐릭터: ID만 사용
+                targetId = $"Slot_{charId.ToString()}";
+            }
+
+            tutorialTarget.SetTargetId(targetId);
+        }
+    }
+
+    /// <summary>
+    /// 개별 캐릭터 아이템에 TutorialTarget 등록 (새로 추가된 캐릭터용)
+    /// </summary>
+    private void RegisterCharacterItemForTutorial(InGameCharacterItem item, int characterId)
+    {
+        if (item == null) return;
+
+        var tutorialTarget = item.gameObject.GetComponent<TutorialTarget>();
+        if (tutorialTarget == null)
+        {
+            tutorialTarget = item.gameObject.AddComponent<TutorialTarget>();
+        }
+
+        // 같은 ID가 이미 있는지 확인
+        int existingCount = 0;
+        foreach (var existingItem in _characterItemList)
+        {
+            if (existingItem != item && existingItem.StatData != null &&
+                existingItem.StatData.CharacterId == characterId)
+            {
+                existingCount++;
+            }
+        }
+
+        string targetId = existingCount > 0
+            ? $"Slot_{characterId}_{existingCount}"
+            : characterId.ToString();
+
+        tutorialTarget.SetTargetId(targetId);
     }
 
     [Serializable]

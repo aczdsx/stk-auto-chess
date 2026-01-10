@@ -89,6 +89,26 @@ namespace CookApps.AutoBattler
                 });
         }
 
+        public void CreateCharacterByID(int characterID)
+        {
+            if (userCharacterGroup == null) return;
+            userCharacterGroup.UserCharacters.Clear();
+            
+            var characterData = SpecDataManager.Instance.GetCharacterData(characterID);
+            Debug.LogColor($"CreateCharacterByID: {characterID}");
+            if (characterData == null) return;
+
+            userCharacterGroup.UserCharacters.Add(characterID, new UserCharacter
+            {
+                CharacterId = characterID,
+                Level = 20, // 0: 미획득, 1 이상: 획득
+                Exp = 0,
+                StarLevel = characterData.init_star,
+                CharacterPiece = 0,
+                TranscendenceLevel = 0
+            });
+        }
+
         // 해당 전투 덱의 전투력을 계산 (일반)
         public int GetDeckBattlePower(List<UserCharacterBattleDeck> targetDeckList)
         {
