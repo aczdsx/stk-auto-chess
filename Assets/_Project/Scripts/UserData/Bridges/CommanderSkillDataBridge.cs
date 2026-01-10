@@ -31,33 +31,33 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 슬롯에 장착된 스킬 ID 가져오기
         /// </summary>
-        public int GetEquippedSkillId(int slotIndex)
+        public int GetEquippedCommanderSkillId(int slotIndex)
         {
-            return Model?.GetEquippedSkillId(slotIndex) ?? 0;
+            return Model?.GetEquippedCommanderSkillId(slotIndex) ?? 0;
         }
 
         /// <summary>
         /// 스킬이 장착되어 있는지 확인
         /// </summary>
-        public bool IsEquipped(int skillId)
+        public bool IsEquippedCommanderSkill(int skillId)
         {
-            return Model?.IsEquipped(skillId) ?? false;
+            return Model?.IsEquippedCommanderSkill(skillId) ?? false;
         }
 
         /// <summary>
         /// 모든 슬롯에 스킬이 장착되어 있는지 확인
         /// </summary>
-        public bool IsAllSlotsEquipped(int slotCount)
+        public bool IsAllCommanderSkillsEquipped(int slotCount)
         {
-            return Model?.IsAllSlotsEquipped(slotCount) ?? false;
+            return Model?.IsAllCommanderSkillsEquipped(slotCount) ?? false;
         }
 
         /// <summary>
         /// 장착된 모든 스킬 ID 목록 가져오기
         /// </summary>
-        public void GetAllEquippedSkillIds(List<int> output)
+        public List<int> GetAllEquippedCommanderSkillIdList()
         {
-            Model?.GetAllEquippedSkillIds(output);
+            return Model?.GetAllEquippedCommanderSkillIdList() ?? new List<int>();
         }
 
         #endregion
@@ -67,17 +67,17 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 스킬 보유 여부 확인
         /// </summary>
-        public bool HasSkill(int skillId)
+        public bool IsOpenedCommanderSkill(int skillId)
         {
-            return Model?.HasSkill(skillId) ?? false;
+            return Model?.IsOpenedCommanderSkill(skillId) ?? false;
         }
 
         /// <summary>
         /// 스킬 레벨 가져오기
         /// </summary>
-        public int GetSkillLevel(int skillId)
+        public int GetUserCommanderSkillLevel(int skillId)
         {
-            return Model?.GetSkillLevel(skillId) ?? 0;
+            return Model?.GetUserCommanderSkillLevel(skillId) ?? 0;
         }
 
         /// <summary>
@@ -95,60 +95,10 @@ namespace CookApps.AutoBattler
 
         #endregion
 
-        #region UserDataManager 호환 메서드 (마이그레이션용)
+        #region 서버 API 호출
 
         /// <summary>
-        /// 장착된 지휘자 스킬 ID 가져오기 (UserDataManager 호환)
-        /// </summary>
-        public int GetEquippedCommanderSkillID(int targetSlot)
-        {
-            return GetEquippedSkillId(targetSlot);
-        }
-
-        /// <summary>
-        /// 지휘자 스킬 레벨 가져오기 (UserDataManager 호환)
-        /// </summary>
-        public int GetUserCommanderSkillLevel(int commanderSkillID)
-        {
-            return GetSkillLevel(commanderSkillID);
-        }
-
-        /// <summary>
-        /// 모든 슬롯에 스킬이 장착되어 있는지 확인 (UserDataManager 호환)
-        /// </summary>
-        public bool IsAllCommanderSkillsEquipped(int slotCount)
-        {
-            return IsAllSlotsEquipped(slotCount);
-        }
-
-        /// <summary>
-        /// 스킬이 장착되어 있는지 확인 (UserDataManager 호환)
-        /// </summary>
-        public bool IsEquippedCommanderSkill(int skillID)
-        {
-            return IsEquipped(skillID);
-        }
-
-        /// <summary>
-        /// 장착된 모든 지휘자 스킬 ID 목록 가져오기 (UserDataManager 호환)
-        /// </summary>
-        public List<int> GetAllEquippedCommanderSkillIDList()
-        {
-            var result = new List<int>();
-            GetAllEquippedSkillIds(result);
-            return result;
-        }
-
-        /// <summary>
-        /// 지휘자 스킬 획득 여부 확인 (UserDataManager 호환)
-        /// </summary>
-        public bool IsOpenedCommanderSkill(int commanderSkillID)
-        {
-            return HasSkill(commanderSkillID);
-        }
-
-        /// <summary>
-        /// 지휘자 스킬 장착 (UserDataManager 호환 - Fire and Forget)
+        /// 지휘자 스킬 장착 (Fire and Forget)
         /// </summary>
         public void SetEquippedCommanderSkill(int slotIndex, int skillId)
         {

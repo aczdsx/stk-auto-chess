@@ -299,7 +299,7 @@ public class InGameBottomUI : MonoBehaviour
         UserDataManager userDataManagerInstance = UserDataManager.Instance;
 
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
-            SetCommanderSkillUI(i, ServerDataManager.Instance.CommanderSkill.GetEquippedCommanderSkillID(i));
+            SetCommanderSkillUI(i, ServerDataManager.Instance.CommanderSkill.GetEquippedCommanderSkillId(i));
 
 
         var userCharacters = new List<Tech.Hive.V1.CharacterData>();
@@ -341,7 +341,7 @@ public class InGameBottomUI : MonoBehaviour
         SpecDataManager specDataManagerInstance = SpecDataManager.Instance;
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
         {
-            int equippedCommanderSkillID = ServerDataManager.Instance.CommanderSkill.GetEquippedCommanderSkillID(i);
+            int equippedCommanderSkillID = ServerDataManager.Instance.CommanderSkill.GetEquippedCommanderSkillId(i);
             if (equippedCommanderSkillID != 0)
             {
                 var userSkillLevel = ServerDataManager.Instance.CommanderSkill.GetUserCommanderSkillLevel(equippedCommanderSkillID);

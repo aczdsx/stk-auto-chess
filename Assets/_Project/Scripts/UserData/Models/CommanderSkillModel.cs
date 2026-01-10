@@ -41,15 +41,15 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 슬롯에 장착된 스킬 ID 가져오기
         /// </summary>
-        public int GetEquippedSkillId(int slotIndex)
+        public int GetEquippedCommanderSkillId(int slotIndex)
         {
-            return _equippedSkills.TryGetValue(slotIndex, out var skillId) ? skillId : 0;
+            return _equippedSkills.GetValueOrDefault(slotIndex, 0);
         }
 
         /// <summary>
         /// 슬롯에 스킬 장착
         /// </summary>
-        internal void SetEquippedSkill(int slotIndex, int skillId)
+        public void SetEquippedCommanderSkill(int slotIndex, int skillId)
         {
             _equippedSkills[slotIndex] = skillId;
             OnSkillEquipped.OnNext((slotIndex, skillId));
@@ -59,7 +59,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 스킬이 장착되어 있는지 확인
         /// </summary>
-        public bool IsEquipped(int skillId)
+        public bool IsEquippedCommanderSkill(int skillId)
         {
             foreach (var kvp in _equippedSkills)
             {
@@ -72,7 +72,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 모든 슬롯에 스킬이 장착되어 있는지 확인
         /// </summary>
-        public bool IsAllSlotsEquipped(int slotCount)
+        public bool IsAllCommanderSkillsEquipped(int slotCount)
         {
             for (int i = 0; i < slotCount; i++)
             {
@@ -85,16 +85,15 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 장착된 모든 스킬 ID 목록 가져오기
         /// </summary>
-        public void GetAllEquippedSkillIds(List<int> output)
+        public List<int> GetAllEquippedCommanderSkillIdList()
         {
-            if (output == null) return;
-
-            output.Clear();
+            var result = new List<int>();
             foreach (var kvp in _equippedSkills)
             {
                 if (kvp.Value > 0)
-                    output.Add(kvp.Value);
+                    result.Add(kvp.Value);
             }
+            return result;
         }
 
         /// <summary>
@@ -117,7 +116,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 스킬 보유 여부 확인
         /// </summary>
-        public bool HasSkill(int skillId)
+        public bool IsOpenedCommanderSkill(int skillId)
         {
             return _ownedSkills.ContainsKey(skillId);
         }
@@ -125,7 +124,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 스킬 레벨 가져오기
         /// </summary>
-        public int GetSkillLevel(int skillId)
+        public int GetUserCommanderSkillLevel(int skillId)
         {
             return _ownedSkills.TryGetValue(skillId, out var level) ? level : 0;
         }
@@ -185,68 +184,6 @@ namespace CookApps.AutoBattler
         /// 보유 스킬 개수
         /// </summary>
         public int OwnedSkillCount => _ownedSkills.Count;
-
-        #endregion
-
-        #region UserDataManager 호환 메서드 (마이그레이션용)
-
-        /// <summary>
-        /// 장착된 지휘자 스킬 ID 가져오기 (UserDataManager 호환)
-        /// </summary>
-        public int GetEquippedCommanderSkillID(int targetSlot)
-        {
-            return GetEquippedSkillId(targetSlot);
-        }
-
-        /// <summary>
-        /// 지휘자 스킬 레벨 가져오기 (UserDataManager 호환)
-        /// </summary>
-        public int GetUserCommanderSkillLevel(int commanderSkillID)
-        {
-            return GetSkillLevel(commanderSkillID);
-        }
-
-        /// <summary>
-        /// 모든 슬롯에 스킬이 장착되어 있는지 확인 (UserDataManager 호환)
-        /// </summary>
-        public bool IsAllCommanderSkillsEquipped(int slotCount)
-        {
-            return IsAllSlotsEquipped(slotCount);
-        }
-
-        /// <summary>
-        /// 스킬이 장착되어 있는지 확인 (UserDataManager 호환)
-        /// </summary>
-        public bool IsEquippedCommanderSkill(int skillID)
-        {
-            return IsEquipped(skillID);
-        }
-
-        /// <summary>
-        /// 장착된 모든 지휘자 스킬 ID 목록 가져오기 (UserDataManager 호환)
-        /// </summary>
-        public List<int> GetAllEquippedCommanderSkillIDList()
-        {
-            var result = new List<int>();
-            GetAllEquippedSkillIds(result);
-            return result;
-        }
-
-        /// <summary>
-        /// 지휘자 스킬 획득 여부 확인 (UserDataManager 호환)
-        /// </summary>
-        public bool IsOpenedCommanderSkill(int commanderSkillID)
-        {
-            return HasSkill(commanderSkillID);
-        }
-
-        /// <summary>
-        /// 슬롯에 지휘자 스킬 장착 (UserDataManager 호환)
-        /// </summary>
-        public void SetEquippedCommanderSkill(int slotIndex, int skillId)
-        {
-            SetEquippedSkill(slotIndex, skillId);
-        }
 
         #endregion
     }

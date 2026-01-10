@@ -68,7 +68,7 @@ namespace CookApps.AutoBattler
         {
             StringBuilder sbCharList = new StringBuilder();
 
-            var targetSkillList = ServerDataManager.Instance.CommanderSkill.GetAllEquippedCommanderSkillIDList();
+            var targetSkillList = ServerDataManager.Instance.CommanderSkill.GetAllEquippedCommanderSkillIdList();
 
             for (int i = 0; i < targetSkillList.Count; ++i)
             {
