@@ -15,51 +15,30 @@ namespace CookApps.BattleSystem
     public partial class EffectCodeSkillPassive117653505 : EffectCodeSkillPassiveBase
     {
         public const int CodeId = 117653505;
-        private int _healUpMaxCount; // 최대 증가 횟수
-        private int _currentHealUpCount; // 현재 증가 횟수
-        private float _healUpRatePercent; // 치유량 증가 비율
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
-            _healUpMaxCount = codeInfo.GetCodeStatToInt(0);
-            _currentHealUpCount = 0;
-            _healUpRatePercent = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+            InjectEnkiPassiveHealUp(codeInfo, source);
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
             base.Merge(codeInfo, source);
-            _healUpMaxCount = codeInfo.GetCodeStatToInt(0);
-            _healUpRatePercent = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+            InjectEnkiPassiveHealUp(codeInfo, source);
         }
 
-        public override void OnAttackEnd(CharacterController target)
+        private void InjectEnkiPassiveHealUp(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
-            base.OnAttackEnd(target);
-            if (target.AllianceType == owner.AllianceType)
-            {
-                ++_currentHealUpCount;
-                _currentHealUpCount = Math.Min(_currentHealUpCount, _healUpMaxCount);
-                owner.GetEffectCodeContainer().SetDirtyFlag(this);
-            }
+            Span<double> buffStats = stackalloc double[3];
+            buffStats.Clear();
+            buffStats[0] = codeId;
+            buffStats[1] = codeInfo.GetCodeStatToInt(0);
+            buffStats[2] = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_ENKI_PASSIVE_HEALUP, owner, buffStats, source);
         }
 
-        public override CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageInfo, CharacterController attacker, bool isPure)
-        {
-            if (attacker.AllianceType == owner.AllianceType)
-            {
-                --_currentHealUpCount;
-                _currentHealUpCount = Math.Max(_currentHealUpCount, 0);
-
-                owner.GetEffectCodeContainer().SetDirtyFlag(this);
-            }
-            return damageInfo;
-        }
-
-        public override float GetIncrementPercentGivenHealRate()
-        {
-            return _healUpRatePercent * _currentHealUpCount;
-        }
+        
     }//117513401
 }

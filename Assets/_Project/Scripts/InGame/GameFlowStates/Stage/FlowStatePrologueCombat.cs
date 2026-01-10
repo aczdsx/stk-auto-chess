@@ -119,8 +119,11 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 전투 시작 후 0.5초는 대기
         await UniTask.Delay(500);
 
+        if (characters == null)
+            return;
+
         // 플레이어 캐릭터들 멈춤
-        InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
+            InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
         foreach (CharacterController charac in characters)
         {
             charac.AddNextState<CharacterStateReady>();

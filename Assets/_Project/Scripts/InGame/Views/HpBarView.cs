@@ -81,12 +81,16 @@ namespace CookApps.AutoBattler
         [SerializeField] private SpriteLoader _elementSynergySpriteLoader;
         [SerializeField] private SpriteLoader _positionSynergySpriteLoader;
 
+        [Space]
+        [SerializeField] private GameObject _buffSideBadgeParentObj;
+
         private SpriteRenderer _selectedFillLeft;
         private const float AnimationDuration = 0.4f; // 애니메이션 지속 시간
         private Vector2 _defalutSize;
         private Vector3 _defaultScale;
 
         private List<InGameBuffDebuff> _buffDebuffList = new List<InGameBuffDebuff>();
+        private List<InGameBuffDebuff> _sideBuffDebuffList = new List<InGameBuffDebuff>(); // Side 위치 버프 리스트
 
         public void Initialize(CharacterStatData statData, AllianceType allianceType)
         {
@@ -159,8 +163,9 @@ namespace CookApps.AutoBattler
         public void SetHpBarType(HpBarType type = HpBarType.None)
         {
             _hpBarObj.SetActive(type.HasFlag(HpBarType.HpBar));
-            _buffObjParent.SetActive(type.HasFlag(HpBarType.Buff));
             _synergyObj.SetActive(type.HasFlag(HpBarType.Synergy));
+            _buffObjParent.SetActive(type.HasFlag(HpBarType.Buff));
+            _buffSideBadgeParentObj.SetActive(type.HasFlag(HpBarType.Buff));
         }
 
         public async void SetValue(double currHP, double maxHP, double currShield)
@@ -255,57 +260,116 @@ namespace CookApps.AutoBattler
 #region Buff Icon
         public void RestructBuffIcon(IReadOnlyList<(int, BuffStackData)> buffDebuffs)
         {
-            // 유효한 버프 개수 계산 (codeID가 0이 아닌 것만)
-            int validBuffCount = 0;
+            // Side 버프와 일반 버프 분리
+            var (sideBuffs, normalBuffs) = SeparateBuffsByPosition(buffDebuffs);
+            
+            // Side 버프 처리
+            RestructSideBuffs(sideBuffs);
+            
+            // 일반 버프 처리
+            RestructNormalBuffs(normalBuffs);
+        }
+
+        /// <summary>
+        /// 버프를 Side와 일반으로 분리합니다.
+        /// </summary>
+        private (List<(int, BuffStackData)> sideBuffs, List<(int, BuffStackData)> normalBuffs) SeparateBuffsByPosition(IReadOnlyList<(int, BuffStackData)> buffDebuffs)
+        {
+            List<(int, BuffStackData)> sideBuffs = new List<(int, BuffStackData)>();
+            List<(int, BuffStackData)> normalBuffs = new List<(int, BuffStackData)>();
+            
             for (int i = 0; i < buffDebuffs.Count; i++)
             {
-                if (buffDebuffs[i].Item1 != 0)
+                int codeID = buffDebuffs[i].Item1;
+                if (codeID == 0)
                 {
-                    validBuffCount++;
+                    continue;
+                }
+                
+                var buffData = buffDebuffs[i];
+                if (buffData.Item2.showPosition == BuffStackData.BuffShowPosition.SIDE)
+                {
+                    sideBuffs.Add(buffData);
+                }
+                else
+                {
+                    normalBuffs.Add(buffData);
                 }
             }
             
+            return (sideBuffs, normalBuffs);
+        }
+
+        /// <summary>
+        /// Side 버프 아이콘을 재구성합니다.
+        /// </summary>
+        private void RestructSideBuffs(List<(int, BuffStackData)> sideBuffs)
+        {
+            int sideBuffCount = sideBuffs.Count;
+            
+            // 아이콘 개수 조정
+            AdjustIconCount(_sideBuffDebuffList, sideBuffCount, _buffSideBadgeParentObj.transform);
+            
+            // 아이콘 위치 설정 및 데이터 업데이트
+            float sideSpacing = _bottomLayout.horizontalSpacing;
+            for (int i = 0; i < sideBuffs.Count && i < _sideBuffDebuffList.Count; i++)
+            {
+                var inGameBuffDebuff = _sideBuffDebuffList[i];
+                
+                // Side 버프는 세로로 배치 (horizontalSpacing을 Y 간격으로 사용)
+                inGameBuffDebuff.CachedTr.localPosition = new Vector3(0, i * sideSpacing, 0);
+                inGameBuffDebuff.gameObject.SetActive(true);
+                inGameBuffDebuff.Set(sideBuffs[i]);
+            }
+        }
+
+        /// <summary>
+        /// 일반 버프 아이콘을 재구성합니다.
+        /// </summary>
+        private void RestructNormalBuffs(List<(int, BuffStackData)> normalBuffs)
+        {
+            int validBuffCount = normalBuffs.Count;
             int requiredCount = Mathf.Min(validBuffCount, 8); // 최대 8개 (bottom 4개 + top 4개)
             
-            // 사용하지 않는 아이콘 반환
-            while (_buffDebuffList.Count > requiredCount)
+            // 아이콘 개수 조정
+            AdjustIconCount(_buffDebuffList, requiredCount, _buffObjParent.transform);
+
+            // 아이콘 위치 설정 및 데이터 업데이트
+            for (int i = 0; i < normalBuffs.Count && i < _buffDebuffList.Count; i++)
             {
-                var buffIcon = _buffDebuffList[_buffDebuffList.Count - 1];
-                _buffDebuffList.RemoveAt(_buffDebuffList.Count - 1);
+                var inGameBuffDebuff = _buffDebuffList[i];
+                
+                // 위치 설정
+                Vector2 position = GetBuffIconPosition(i);
+                inGameBuffDebuff.CachedTr.localPosition = new Vector3(position.x, position.y, inGameBuffDebuff.CachedTr.localPosition.z);
+                
+                inGameBuffDebuff.gameObject.SetActive(true);
+                inGameBuffDebuff.Set(normalBuffs[i]);
+            }
+        }
+
+        /// <summary>
+        /// 버프 아이콘 리스트의 개수를 조정합니다 (필요시 생성/반환).
+        /// </summary>
+        private void AdjustIconCount(List<InGameBuffDebuff> iconList, int requiredCount, Transform parent)
+        {
+            // 사용하지 않는 아이콘 반환
+            while (iconList.Count > requiredCount)
+            {
+                var buffIcon = iconList[iconList.Count - 1];
+                iconList.RemoveAt(iconList.Count - 1);
                 InGameBuffDebuffPool.Instance.Return(buffIcon);
             }
             
             // 부족한 아이콘 생성
-            while (_buffDebuffList.Count < requiredCount)
+            while (iconList.Count < requiredCount)
             {
                 var buffIcon = InGameBuffDebuffPool.Instance.Get();
                 if (buffIcon == null)
                     break;
                     
-                buffIcon.CachedTr.SetParent(_buffObjParent.transform, false);
-                _buffDebuffList.Add(buffIcon);
-            }
-
-            // 모든 아이콘 위치 설정 및 데이터 업데이트
-            int buffIndex = 0;
-            for (int i = 0; i < buffDebuffs.Count && buffIndex < _buffDebuffList.Count; i++)
-            {
-                int codeID = buffDebuffs[i].Item1;
-                if (codeID == 0)
-                {
-                    continue; // codeID가 0이면 건너뛰기
-                }
-
-                var inGameBuffDebuff = _buffDebuffList[buffIndex];
-                
-                // 위치 설정
-                Vector2 position = GetBuffIconPosition(buffIndex);
-                inGameBuffDebuff.CachedTr.localPosition = new Vector3(position.x, position.y, inGameBuffDebuff.CachedTr.localPosition.z);
-                
-                inGameBuffDebuff.gameObject.SetActive(true);
-                inGameBuffDebuff.Set(buffDebuffs[i]);
-                
-                buffIndex++;
+                buffIcon.CachedTr.SetParent(parent, false);
+                iconList.Add(buffIcon);
             }
         }
 
@@ -313,7 +377,20 @@ namespace CookApps.AutoBattler
         {
             isExpired = false;
 
+            // 일반 버프 쿨타임 갱신
             foreach (var buffDebuff in _buffDebuffList)
+            {
+                if (buffDebuff.IsWorking == false)
+                    continue;
+
+                bool isBuffExpired = buffDebuff.RefreshCoolTime();
+
+                if (!isExpired && isBuffExpired)
+                    isExpired = true;
+            }
+            
+            // Side 버프 쿨타임 갱신
+            foreach (var buffDebuff in _sideBuffDebuffList)
             {
                 if (buffDebuff.IsWorking == false)
                     continue;
@@ -327,11 +404,19 @@ namespace CookApps.AutoBattler
 
         public void OnPreReturn()
         {
+            // 일반 버프 반환
             foreach (var buffDebuff in _buffDebuffList)
             {
                 InGameBuffDebuffPool.Instance.Return(buffDebuff);
             }
             _buffDebuffList.Clear();
+            
+            // Side 버프 반환
+            foreach (var buffDebuff in _sideBuffDebuffList)
+            {
+                InGameBuffDebuffPool.Instance.Return(buffDebuff);
+            }
+            _sideBuffDebuffList.Clear();
         }
         
 #endregion

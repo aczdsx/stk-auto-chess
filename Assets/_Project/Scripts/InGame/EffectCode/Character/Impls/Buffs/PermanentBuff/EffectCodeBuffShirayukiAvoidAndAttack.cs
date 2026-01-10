@@ -41,7 +41,8 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
         duration: 999f,
         value: 0,
         source: source,
-        isShowValue: true
+        isShowValue: true,
+        showPosition: BuffStackData.BuffShowPosition.SIDE
         );
 
 
