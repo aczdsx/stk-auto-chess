@@ -16355,6 +16355,7 @@ GameObject:
   - component: {fileID: 5017990397599454483}
   - component: {fileID: 1549719144843846291}
   - component: {fileID: 2642003811098809852}
+  - component: {fileID: 4338260908053320625}
   m_Layer: 5
   m_Name: Btn_IngameBattle
   m_TagString: Untagged
@@ -16455,6 +16456,19 @@ MonoBehaviour:
   defaultClickSoundType: 0
   reactionType: 11
   swappers: []
+--- !u!114 &4338260908053320625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700983465422906298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9761b5fa6930744c1bdf307a8b19e2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetId: Game_Start
 --- !u!1 &1728154458286767190
 GameObject:
   m_ObjectHideFlags: 0
