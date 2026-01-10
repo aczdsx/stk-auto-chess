@@ -11,7 +11,7 @@ using Cysharp.Threading.Tasks;
 /// 무조건 한개의 버프 스택만 유지한다.
 /// </summary>.
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeBuffShirayuki : EffectCodeBuffBase
+public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
 {
     private const int CodeId = (int)2000000032;
     // BUFF_SHIRAYUKI
