@@ -4,7 +4,6 @@ using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using Mono.Cecil.Cil;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 
 namespace CookApps.BattleSystem
 {

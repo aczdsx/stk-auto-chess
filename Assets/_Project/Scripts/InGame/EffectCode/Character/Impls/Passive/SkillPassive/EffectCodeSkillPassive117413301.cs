@@ -17,27 +17,32 @@ namespace CookApps.BattleSystem
     public partial class EffectCodeSkillPassive117413301 : EffectCodeSkillPassiveBase
     {
         public const long CodeId = 117413301;
-        private float _angerRatePercent; // 분노 비율
-        private float _attackRatePercent; // 공격력 상승 비율
-        private SkillPassive _specSkill;
-
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
-            _angerRatePercent = codeInfo.GetCodeStatToFloat(0) * 0.01f;
-            _attackRatePercent = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-            _specSkill = base.GetSpecSkillPassive(CodeId);
+
+            InjectPassiveBuff(codeInfo, source);
 
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
             base.Merge(codeInfo, source);
-            _angerRatePercent = codeInfo.GetCodeStatToFloat(0) * 0.01f;
-            _attackRatePercent = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+
+            InjectPassiveBuff(codeInfo, source);
         }
-        
+
+        private void InjectPassiveBuff(EffectCodeInfo codeInfo, IEffectCodeSource source)
+        {
+            Span<double> buffStats = stackalloc double[2];
+            buffStats.Clear();
+            buffStats[0] = codeId;
+            buffStats[1] = codeInfo.GetCodeStatToFloat(0);//_angerRatePercent
+            buffStats[2] = codeInfo.GetCodeStatToFloat(1) * 0.01f;//_attackRatePercent
+
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_TETORRA_ANGER, owner, buffStats, source);
+        }
 
     }
 }//117413301

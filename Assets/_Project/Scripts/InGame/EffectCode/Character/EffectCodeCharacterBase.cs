@@ -303,6 +303,14 @@ namespace CookApps.BattleSystem
 
             SoundManager.Instance.PlaySFX(GetSoundFxName());
         }
+
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnHpChange)]
+        public virtual void OnHpChange()
+        {
+            return;
+        }
+
         #endregion
 
         #region Passive 기능들
@@ -530,5 +538,14 @@ namespace CookApps.BattleSystem
             }
 
         };
+
+        public static Action<EffectCodeStatBase> CallOnHpChangeLambda = (x) =>
+        {
+            if (x is EffectCodeCharacterBase code)
+            {
+                code.OnHpChange();
+            }
+        };
+
     }
 }

@@ -132,9 +132,10 @@ namespace CookApps.BattleSystem
 
         public AllianceType AllianceType => _allianceType;
         public double CurrentHp => _currHp;
-        public InGameVfxNameType ImmuneSuccessFx
+        public void SetImmuneSuccessFx(InGameVfxNameType fx, IFollowable transformFollowable)
         {
-            set => _immuneSuccessFx = value;
+            _immuneSuccessFx = fx;
+            _immuneSuccessFxTransformFollowable = transformFollowable ?? SkillRootTransformFollowable;
         }
 
         private HpBarView _hpBarView;
@@ -183,6 +184,7 @@ namespace CookApps.BattleSystem
         private Vector3 SelectedOffSet;
         private InGameVfx _notFoundTargetFx;
         private InGameVfxNameType _immuneSuccessFx = InGameVfxNameType.NONE;
+        private IFollowable _immuneSuccessFxTransformFollowable;
 
         //캐릭터가 가지고있는 스탯 확률을 건드리지않고, 반드시 크리티컬 확률을 증가시키고 싶을 때 사용하는 변수
         private float _fixedCriticalProb = 0f;
@@ -1344,9 +1346,11 @@ namespace CookApps.BattleSystem
         }
 
         #region Hp
-        public void ForceSetHp(double hp)
+
+
+        public void SetMaxHealth()
         {
-            _currHp = Math.Min(hp, HP);
+            _currHp = HP;
             UpdateHpBar();
         }
 
@@ -1360,6 +1364,9 @@ namespace CookApps.BattleSystem
             if (_hpBarView != null)
             {
                 _hpBarView.SetValue(_currHp, HP, _currShield);
+
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnHpChange);
+                EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnHpChangeLambda);
             }
         }
         #endregion
@@ -1691,7 +1698,7 @@ namespace CookApps.BattleSystem
             if (_immuneSuccessFx == InGameVfxNameType.NONE)
                 return;
 
-            InGameVfxManager.Instance.AddInGameVfx(_immuneSuccessFx, SkillRootTransformFollowable);
+            InGameVfxManager.Instance.AddInGameVfx(_immuneSuccessFx, _immuneSuccessFxTransformFollowable);
         }
     }
 }

@@ -4,35 +4,46 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 using Cysharp.Threading.Tasks;
-
+using System;
 
 /// <summary>
 /// 아이콘을 위해 buff로 처리
 /// 무조건 한개의 버프 스택만 유지한다.
 /// </summary>.
+/// 시라유키 회피율 및 반격 
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
 {
-    private const int CodeId = (int)2000000032;
-    // BUFF_SHIRAYUKI
-    private const BuffDebuffType buffDebuffType = BuffDebuffType.NoDamageShield;
-
+    private const int CodeId = (int)EffectCodeNameType.BUFF_SHIRAYUKI_AVOID_AND_ATTACK;
+    private const BuffDebuffType buffDebuffType = BuffDebuffType.ShirayukiAvoidAndAttack;
     public override bool IsNeedToShowIcon => true;
+
+
+    private int _avoidSuccessMaxCount; // 최대 증가 횟수
+    private float _avoidSuccessRatePercent; // 회피율 증가 비율
+    private int _currentAvoidSuccessCount; // 현재 증가 횟수
+    private float _damageRatePercent; // 반격 데미지 비율
+
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
+        _avoidSuccessRatePercent = codeInfo.GetCodeStatToFloat(1);
+        _avoidSuccessMaxCount = codeInfo.GetCodeStatToInt(2);
+        _damageRatePercent = codeInfo.GetCodeStatToFloat(3);
+        _currentAvoidSuccessCount = 0;
 
         _stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
 
         buffStackData.SetData(
         sourceCodeId: codeInfo.GetCodeStatToInt(0),
-        duration: codeInfo.GetCodeStatToFloat(1),
-        value: codeInfo.GetCodeStat(2),
+        duration: 999f,
+        value: 0,
         source: source,
         isShowValue: true
         );
+
 
         _stackDatas.Add(buffStackData);
 
@@ -46,6 +57,10 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
 
         int newSourceCodeId = codeInfo.GetCodeStatToInt(0);
 
+        _avoidSuccessRatePercent = codeInfo.GetCodeStatToFloat(1);
+        _avoidSuccessMaxCount = codeInfo.GetCodeStatToInt(2);
+        _damageRatePercent = codeInfo.GetCodeStatToFloat(3);
+
         // 같은 source가 있는지 확인
         for (int i = 0; i < _stackDatas.Count; i++)
         {
@@ -53,8 +68,8 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
             {
                 // 같은 source가 있으면 덮어쓰기
                 var stackData = _stackDatas[i];
-                stackData.duration = codeInfo.GetCodeStatToFloat(1);
-                stackData.value = codeInfo.GetCodeStat(2);
+                stackData.duration = 999f;
+                stackData.value = 0;
                 stackData.elapsedTime = 0f;
                 stackData.isShowValue = true;
                 return;
@@ -73,33 +88,54 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
             newSourceCodeId,
-            codeInfo.GetCodeStatToFloat(1),
-            codeInfo.GetCodeStat(2),
+            999f,
+            0,
             source,
             isShowValue: true
         );
         _stackDatas.Add(buffStackData);
         owner.AddBuffStackData(CodeId, buffStackData);
     }
-
-    public override double ModifyDamageAmount(double damageAmount)
+    public override CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageInfo, CharacterController attacker, bool isPure)
     {
-
-        damageAmount = 0d;
-        --_stackDatas[0].value;
-        if (_stackDatas[0].value <= 0)
+        if (damageInfo.isMissed)
         {
-            RemoveFromContainer();
-            return damageAmount;
-        }
-        else
-        {
-            owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
-        }
+            var prevAvoidSuccessCount = _currentAvoidSuccessCount;
+            ++_currentAvoidSuccessCount;
+            _currentAvoidSuccessCount = Math.Min(_currentAvoidSuccessCount, _avoidSuccessMaxCount);
 
-        return damageAmount;
 
+            if (owner.SpecCharacter.atk_type == AtkType.AD)
+            {
+                var damage = owner.CalculateDamageAmount(attacker.AD * _damageRatePercent, 0, attacker, owner.CharacterId, isSkill: true,
+                CharacterController.DamageTestFlags.None);
+                attacker.GetDamaged(damage, owner);
+            }
+            else
+            {
+                var damage = owner.CalculateDamageAmount(0, attacker.AP * _damageRatePercent, attacker, owner.CharacterId, isSkill: true,
+                CharacterController.DamageTestFlags.None);
+                attacker.GetDamaged(damage, owner);
+            }
+
+            if (prevAvoidSuccessCount != _currentAvoidSuccessCount)
+            {
+
+                owner.GetEffectCodeContainer().SetDirtyFlag(this);
+                _stackDatas[0].value = _currentAvoidSuccessCount;
+
+                owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
+            }
+        }
+        return damageInfo;
     }
+
+    public override float GetIncrementPercentAvoidProb()
+    {
+        return _avoidSuccessRatePercent * _currentAvoidSuccessCount;
+    }
+
+
     public override void OnPreRemoved()
     {
         owner.RemoveBuffDebuffType(buffDebuffType);

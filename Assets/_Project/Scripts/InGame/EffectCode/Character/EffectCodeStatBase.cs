@@ -61,7 +61,8 @@ namespace CookApps.BattleSystem
         UseOnCombatStart = 1L << 54,
         UseOnAttackEnd = 1L << 55,
         UseAddSkillCooltime = 1L << 56,
-        UseModifyDamageTestFlags = 1L << 57,
+        UseModifyDamageTestFlags = 1L << 57,// 데미지 테스트 중에 스킵하고 싶은 로직이 있다면 해당 함수 오버라이딩
+        UseOnHpChange = 1L << 58,// 체력 변동 시 호출되는 함수
         #endregion
         MAX = 1L << 59,
     };
