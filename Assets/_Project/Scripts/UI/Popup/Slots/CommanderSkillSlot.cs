@@ -61,9 +61,8 @@ namespace CookApps.AutoBattler
 
         public void RefreshSlot()
         {
-            bool isOpenSkill = UserDataManager.Instance.IsOpenedCommanderSkill(_specCommanderSkillData.commander_skill_id);
-            // bool isEquippedSkill = UserDataManager.Instance.GetEquippedCommanderSkill(_parentPopup.Index) == _specCommanderSkillData.commander_skill_id;
-            bool isEquippedSkill = UserDataManager.Instance.IsEquippedCommanderSkill(_specCommanderSkillData.commander_skill_id);
+            bool isOpenSkill = ServerDataManager.Instance.CommanderSkill.IsOpenedCommanderSkill(_specCommanderSkillData.commander_skill_id);
+            bool isEquippedSkill = ServerDataManager.Instance.CommanderSkill.IsEquippedCommanderSkill(_specCommanderSkillData.commander_skill_id);
 
             _disabledLayerObject.SetActive(!isOpenSkill);
 
@@ -78,7 +77,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
 
-            UserDataManager.Instance.SetEquippedCommanderSkill(_parentPopup.Index, _specCommanderSkillData.commander_skill_id);
+            ServerDataManager.Instance.CommanderSkill.SetEquippedCommanderSkill(_parentPopup.Index, _specCommanderSkillData.commander_skill_id);
 
             _parentPopup.RefreshSkillSlot();
 

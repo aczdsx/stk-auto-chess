@@ -19,7 +19,7 @@ message DeckTacticPlacement {
 
 // 캐릭터 배치 정보
 message DeckCharacterPlacement {
-  uint32 character_uid = 1;      // 캐릭터 아이디
+  uint32 character_id = 1;      // 캐릭터 아이디
   int32 grid_x = 2;    // 배치된 타일 x 좌표
   int32 grid_y = 3;    // 배치된 타일 y 좌표
 }

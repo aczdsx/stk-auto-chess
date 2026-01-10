@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Cookapps.Stkauto.V1;
 using CookApps.BattleSystem;
+using Tech.Hive.V1;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -95,7 +96,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
+        public void InitReadyStateUI(List<DeckCharacterPlacement> battleDeckList)
         {
             _inGameUI.PlayAnimation("SetEntry");
             _inGameUI.BottomUI.InitData();

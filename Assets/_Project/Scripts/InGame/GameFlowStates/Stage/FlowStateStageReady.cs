@@ -7,6 +7,7 @@ using CookApps.BattleSystem;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using Unity.Mathematics;
 using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
@@ -95,13 +96,13 @@ public class FlowStateStageReady : StateReadyBase
                 typeof(CharacterStateReady), false, HpBarType.None));
         }
 
-        var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.STAGE);
+        var battleDeckList = ServerDataManager.Instance.Deck.GetBattleDeckListByInGameType(InGameType.STAGE);
 
         // LINQ 제거: 직접 루프로 유효하지 않은 캐릭터 제거
-
         for (int i = battleDeckList.Count - 1; i >= 0; i--)
         {
-            if (SpecDataManager.Instance.GetCharacterData(battleDeckList[i].CharacterId) == null)
+            var characterData = ServerDataManager.Instance.Character.GetCharacter(battleDeckList[i].CharacterId);
+            if (characterData == null || SpecDataManager.Instance.GetCharacterData(characterData.GetSpecCharacterIndex()) == null)
             {
                 battleDeckList.RemoveAt(i);
             }
@@ -109,27 +110,17 @@ public class FlowStateStageReady : StateReadyBase
 
         CheckOverlapCharacter(battleDeckList);
 
-        // LINQ 제거: 직접 루프로 특정 캐릭터 제거
-        if (_specStage.chapter_id == 2 && _specStage.stage_number == 6)
+        foreach (var placement in battleDeckList)
         {
-            for (int i = battleDeckList.Count - 1; i >= 0; i--)
-            {
-                if (battleDeckList[i].CharacterId == 130601)
-                {
-                    battleDeckList.RemoveAt(i);
-                }
-            }
-        }
+            var characterData = ServerDataManager.Instance.Character.GetCharacter(placement.CharacterId);
+            if (characterData == null) continue;
 
-        foreach (var character in battleDeckList)
-        {
-            var characterData = UserDataManager.Instance.GetUserCharacter(character.CharacterId);
-            Debug.LogColor($"기존 배치 캐릭터 추가 : {character.CharacterId}");
-            var characterStat = new CharacterStatData(characterData.CharacterId, characterData.Level,
+            Debug.LogColor($"기존 배치 캐릭터 추가 : {characterData.CharacterId}");
+            var characterStat = new CharacterStatData(characterData.GetSpecCharacterIndex(), (int)characterData.Level,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
-            int x = character.PositionTileX;
-            int y = character.PositionTileY;
+            int x = placement.GridX;
+            int y = placement.GridY;
 
             int2 coordinate = new int2(x, y);
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, coordinate,
@@ -170,7 +161,8 @@ public class FlowStateStageReady : StateReadyBase
                 // LINQ 제거: 직접 루프로 특정 캐릭터 제거
                 for (int i = battleDeckList.Count - 1; i >= 0; i--)
                 {
-                    if (battleDeckList[i].CharacterId == 113252102)
+                    var characterData = ServerDataManager.Instance.Character.GetCharacter(battleDeckList[i].CharacterId);
+                    if (characterData != null && characterData.GetSpecCharacterIndex() == 113252102)
                     {
                         battleDeckList.RemoveAt(i);
                     }
@@ -191,7 +183,7 @@ public class FlowStateStageReady : StateReadyBase
         }
     }
 
-    private void CheckOverlapCharacter(List<Cookapps.Stkauto.V1.UserCharacterBattleDeck> battleDeckList)
+    private void CheckOverlapCharacter(List<DeckCharacterPlacement> battleDeckList)
     {
         // HashSet 사용으로 Contains 성능 최적화 (O(1))
         var obstacleTileIDs = new HashSet<int>(_specStage.obstacle_grid_id);
@@ -202,8 +194,8 @@ public class FlowStateStageReady : StateReadyBase
         var grid = InGameObjectManager.Instance.InGameGrid;
         for (int i = battleDeckList.Count - 1; i >= 0; i--)
         {
-            var character = battleDeckList[i];
-            var currentPosition = new int2(character.PositionTileX, character.PositionTileY);
+            var placement = battleDeckList[i];
+            var currentPosition = new int2(placement.GridX, placement.GridY);
             var currentTile = grid.GetTile(currentPosition);
             var currentTileID = currentTile.View.ID;
 
@@ -235,14 +227,14 @@ public class FlowStateStageReady : StateReadyBase
 
                 if (emptyTile != null)
                 {
-                    character.PositionTileX = emptyTile.X;
-                    character.PositionTileY = emptyTile.Y;
+                    placement.GridX = emptyTile.X;
+                    placement.GridY = emptyTile.Y;
                     reservedPlayerPositions.Add(new int2(emptyTile.X, emptyTile.Y));
-                    Debug.LogColor($"캐릭터 {character.CharacterId} 위치 변경: ({currentPosition.x}, {currentPosition.y}) -> ({emptyTile.X}, {emptyTile.Y})");
+                    Debug.LogColor($"캐릭터 {placement.CharacterId} 위치 변경: ({currentPosition.x}, {currentPosition.y}) -> ({emptyTile.X}, {emptyTile.Y})");
                 }
                 else
                 {
-                    Debug.LogColor($"캐릭터 {character.CharacterId} 배치 불가능하여 제거");
+                    Debug.LogColor($"캐릭터 {placement.CharacterId} 배치 불가능하여 제거");
                     battleDeckList.RemoveAt(i);
                 }
             }

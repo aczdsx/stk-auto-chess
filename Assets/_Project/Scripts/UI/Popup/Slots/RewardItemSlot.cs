@@ -101,12 +101,14 @@ namespace CookApps.AutoBattler
             _specItemData.GetItemId().GetCharacterIndex(out var charIndex);
             var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
             if (specCharacterData == null) return;
-            var userCharacterData = UserDataManager.Instance.GetUserCharacter(specCharacterData.character_id);
+            var userCharacterData = ServerDataManager.Instance.Character.GetCharacter(specCharacterData.character_id);
             if (userCharacterData == null) return;
 
             _rewardPieceSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.prefab_id)).Forget();
-            _rewardPieceSliderImage.fillAmount = (float)userCharacterData.CharacterPiece / specCharacterData.need_piece;
-            _rewardPieceCountText.text = $"{userCharacterData.CharacterPiece}/{specCharacterData.need_piece}";
+            // TODO: CharacterPiece는 인벤토리에서 가져와야 함
+            int characterPiece = 0; // ServerDataManager.Instance.Inventory.GetCharacterPiece(specCharacterData.character_id);
+            _rewardPieceSliderImage.fillAmount = (float)characterPiece / specCharacterData.need_piece;
+            _rewardPieceCountText.text = $"{characterPiece}/{specCharacterData.need_piece}";
             
             // 레이어 활성화
             _rewardPieceLayerObject.SetActive(true);

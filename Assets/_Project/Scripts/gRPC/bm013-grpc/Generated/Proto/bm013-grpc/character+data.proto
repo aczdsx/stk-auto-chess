@@ -3,18 +3,17 @@ syntax = "proto3";
 package tech.hive.v1;
 
 message CharacterData {
-  string instance_id = 1;        // 유저의 캐릭터 인스턴스 ID
-  uint32 character_id = 2;       // 캐릭터 마스터 데이터 ID
+  uint32 character_id = 1;       // 캐릭터 마스터 데이터 ID
     
   // 성장 정보
-  uint32 level = 3;
+  uint32 level = 2;
     
   // 초월
-  uint32 transcend_level = 4;
+  uint32 transcend_level = 3;
  
   // 돌파 레벨
-  uint32 exceed_level = 5;
+  uint32 exceed_level = 4;
   
   // 획득 시간
-  uint64 obtained_at = 6;
+  uint64 obtained_at = 5;
 }

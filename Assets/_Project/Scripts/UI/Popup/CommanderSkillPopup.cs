@@ -70,12 +70,11 @@ namespace CookApps.AutoBattler
         {
             ClearList();
             var specDataManagerInstance = SpecDataManager.Instance;
-            var userDataManagerInstance = UserDataManager.Instance;
             var commanderSkillCodeIdList = specDataManagerInstance.GetCommanderSkillCodeIdList();
             foreach (var commanderSkillCodeId in commanderSkillCodeIdList)
             {
-                int userSkillLevel= userDataManagerInstance.GetUserCommanderSkillLevel(commanderSkillCodeId);
-                var specTargetCommanderSkill = specDataManagerInstance.GetCommanderSkillListByUserSkillLevel(commanderSkillCodeId,userSkillLevel);
+                int userSkillLevel = ServerDataManager.Instance.CommanderSkill.GetUserCommanderSkillLevel(commanderSkillCodeId);
+                var specTargetCommanderSkill = specDataManagerInstance.GetCommanderSkillListByUserSkillLevel(commanderSkillCodeId, userSkillLevel);
                 if (specTargetCommanderSkill != null)
                 {
                     GameObject newSkillSlot = Instantiate(_skillListSlotObject, _skillListParentObject.transform);
@@ -88,7 +87,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
-            InGameMain.GetInGameMain().SetCommanderSkillUI(_index, UserDataManager.Instance.GetEquippedCommanderSkillID(_index));
+            InGameMain.GetInGameMain().SetCommanderSkillUI(_index, ServerDataManager.Instance.CommanderSkill.GetEquippedCommanderSkillID(_index));
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 

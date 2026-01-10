@@ -17,7 +17,7 @@ namespace CookApps.AutoBattler
         // Public Observable 노출
         public Observable<CharacterData> OnCharacterAdded;
         public Observable<CharacterData> OnCharacterUpdated;
-        public Observable<string> OnCharacterRemoved;
+        public Observable<uint> OnCharacterRemoved;
 
         public CharacterDataBridge()
         {
@@ -36,11 +36,11 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 특정 캐릭터 가져오기
+        /// 특정 캐릭터 가져오기 (CharacterId로 조회)
         /// </summary>
-        public CharacterData GetCharacter(string instanceId)
+        public CharacterData GetCharacter(uint characterId)
         {
-            return Model?.GetCharacter(instanceId);
+            return Model?.GetCharacter(characterId);
         }
 
         /// <summary>
@@ -51,9 +51,9 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 캐릭터 존재 여부
         /// </summary>
-        public bool HasCharacter(string instanceId)
+        public bool HasCharacter(uint characterId)
         {
-            return Model?.HasCharacter(instanceId) ?? false;
+            return Model?.HasCharacter(characterId) ?? false;
         }
 
         /// <summary>
@@ -87,29 +87,6 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 클래스 타입으로 필터링
-        /// </summary>
-        public void GetCharactersByClass(List<CharacterData> output, ClassType classType)
-        {
-            return;
-            // if (Model == null || output == null) return;
-            //
-            // output.Clear();
-            // using var _ = ListPool<CharacterData>.Get(out var allCharacters);
-            // Model.GetAllCharacters(allCharacters);
-            //
-            // for (int i = 0; i < allCharacters.Count; i++)
-            // {
-            //     var character = allCharacters[i];
-            //     var specData = SpecDataManager.Instance.GetCharacterData((int)character.CharacterId);
-            //     if (specData != null && specData.character_position_type == classType)
-            //     {
-            //         output.Add(character);
-            //     }
-            // }
-        }
-
-        /// <summary>
         /// 레어리티로 필터링
         /// </summary>
         public void GetCharactersByRarity(List<CharacterData> output, GradeType gradeType)
@@ -138,7 +115,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public bool IsHaveCharacter(int characterId)
         {
-            return Model?.HasCharacterByCharacterId((uint)characterId) ?? false;
+            return Model?.HasCharacter((uint)characterId) ?? false;
         }
 
         /// <summary>
@@ -146,7 +123,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public CharacterData GetUserCharacter(int characterId)
         {
-            return Model?.GetCharacterByCharacterId((uint)characterId);
+            return Model?.GetCharacter(characterId);
         }
 
         /// <summary>
@@ -162,7 +139,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public int GetCharacterMaxLevel(int characterId)
         {
-            var character = Model?.GetCharacterByCharacterId((uint)characterId);
+            var character = Model?.GetCharacter(characterId);
             if (character == null) return 0;
 
             var specCharacterData = SpecDataManager.Instance.GetCharacterData(characterId);
@@ -245,7 +222,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public int GetCharacterLevel(int characterId)
         {
-            var character = Model?.GetCharacterByCharacterId((uint)characterId);
+            var character = Model?.GetCharacter(characterId);
             return (int)(character?.Level ?? 0);
         }
 
@@ -254,7 +231,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public int GetTranscendenceLevel(int characterId)
         {
-            var character = Model?.GetCharacterByCharacterId((uint)characterId);
+            var character = Model?.GetCharacter(characterId);
             return (int)(character?.TranscendLevel ?? 0);
         }
 
@@ -263,7 +240,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public int GetExceedLevel(int characterId)
         {
-            var character = Model?.GetCharacterByCharacterId((uint)characterId);
+            var character = Model?.GetCharacter(characterId);
             return (int)(character?.ExceedLevel ?? 0);
         }
 
@@ -275,14 +252,14 @@ namespace CookApps.AutoBattler
         {
             // TODO: InventoryModel.GetCurrency(pieceItemId) 사용
             // pieceItemId 계산 방식 확인 필요
-            var legacyData = UserDataManager.Instance.GetUserCharacter(characterId);
-            return legacyData?.CharacterPiece ?? 0;
+            // var legacyData = UserDataManager.Instance.GetUserCharacter(characterId);
+            // return legacyData?.CharacterPiece ?? 0;
+            return 0;
         }
 
         /// <summary>
         /// 캐릭터 경험치 가져오기 (Legacy fallback)
         /// TODO: 서버 API 마이그레이션 후 수정 필요
-        /// 굳이 필요 없을지도?
         /// </summary>
         public int GetCharacterExp(int characterId)
         {

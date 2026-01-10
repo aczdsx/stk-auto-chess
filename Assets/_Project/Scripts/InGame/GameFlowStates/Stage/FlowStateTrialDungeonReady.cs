@@ -7,6 +7,7 @@ using CookApps.BattleSystem;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -58,26 +59,31 @@ public class FlowStateTrialDungeonReady : StateReadyBase
             ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f,
                 new Vector3(0f, 1.5f, -10), 1.0f).Forget();
 
-        var battleDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameResourceHolder.InGameType);
+        var battleDeckList = ServerDataManager.Instance.Deck.GetBattleDeckListByInGameType(InGameResourceHolder.InGameType);
         List<ObfuscatorInt> tileIDList = _specDungeonTrial.obstacle_grid_id.Select(x => new ObfuscatorInt(x)).ToList();
 
-        battleDeckList.RemoveAll(l =>
+        // 장애물 타일과 겹치는 캐릭터 제거
+        for (int i = battleDeckList.Count - 1; i >= 0; i--)
         {
-            return tileIDList.Exists(t =>
-                t.Value == InGameObjectManager.Instance.InGameGrid.GetTile(new int2(l.PositionTileX, l.PositionTileY))
-                    .View
-                    .ID);
-        });
+            var placement = battleDeckList[i];
+            var tile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(placement.GridX, placement.GridY));
+            if (tile != null && tileIDList.Exists(t => t.Value == tile.View.ID))
+            {
+                battleDeckList.RemoveAt(i);
+            }
+        }
 
-        foreach (var character in battleDeckList)
+        foreach (var placement in battleDeckList)
         {
-            var characterData = UserDataManager.Instance.GetUserCharacter(character.CharacterId);
-            Debug.LogColor($"기존 배치 캐릭터 추가 : {character.CharacterId}");
-            var characterStat = new CharacterStatData(characterData.CharacterId, characterData.Level,
+            var characterData = ServerDataManager.Instance.Character.GetCharacter(placement.CharacterId);
+            if (characterData == null) continue;
+
+            Debug.LogColor($"기존 배치 캐릭터 추가 : {characterData.CharacterId}");
+            var characterStat = new CharacterStatData(characterData.GetSpecCharacterIndex(), (int)characterData.Level,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
-            int x = character.PositionTileX;
-            int y = character.PositionTileY;
+            int x = placement.GridX;
+            int y = placement.GridY;
 
             int2 coordinate = new int2(x, y);
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, coordinate,

@@ -24,13 +24,14 @@ namespace Tech.Hive.V1 {
     static BattleChapterReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChRiYXR0bGUrY2hhcHRlci5wcm90bxIMdGVjaC5oaXZlLnYxIkEKEUJhdHRs",
+            "ChRiYXR0bGUrY2hhcHRlci5wcm90bxIMdGVjaC5oaXZlLnYxImcKEUJhdHRs",
             "ZUNoYXB0ZXJEYXRhEhIKCmNoYXB0ZXJfaWQYASABKA0SGAoQc3Rhcl90b3Rh",
-            "bF9jb3VudBgCIAEoDWIGcHJvdG8z"));
+            "bF9jb3VudBgCIAEoDRIkChxjbGFpbWVkX21pbGVzdG9uZV9yZXdhcmRfaWRz",
+            "GAMgAygNYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleChapterData), global::Tech.Hive.V1.BattleChapterData.Parser, new[]{ "ChapterId", "StarTotalCount" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.BattleChapterData), global::Tech.Hive.V1.BattleChapterData.Parser, new[]{ "ChapterId", "StarTotalCount", "ClaimedMilestoneRewardIds" }, null, null, null, null)
           }));
     }
     #endregion
@@ -77,6 +78,7 @@ namespace Tech.Hive.V1 {
     public BattleChapterData(BattleChapterData other) : this() {
       chapterId_ = other.chapterId_;
       starTotalCount_ = other.starTotalCount_;
+      claimedMilestoneRewardIds_ = other.claimedMilestoneRewardIds_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -110,6 +112,17 @@ namespace Tech.Hive.V1 {
       }
     }
 
+    /// <summary>Field number for the "claimed_milestone_reward_ids" field.</summary>
+    public const int ClaimedMilestoneRewardIdsFieldNumber = 3;
+    private static readonly pb::FieldCodec<uint> _repeated_claimedMilestoneRewardIds_codec
+        = pb::FieldCodec.ForUInt32(26);
+    private readonly pbc::RepeatedField<uint> claimedMilestoneRewardIds_ = new pbc::RepeatedField<uint>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<uint> ClaimedMilestoneRewardIds {
+      get { return claimedMilestoneRewardIds_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -127,6 +140,7 @@ namespace Tech.Hive.V1 {
       }
       if (ChapterId != other.ChapterId) return false;
       if (StarTotalCount != other.StarTotalCount) return false;
+      if(!claimedMilestoneRewardIds_.Equals(other.claimedMilestoneRewardIds_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -136,6 +150,7 @@ namespace Tech.Hive.V1 {
       int hash = 1;
       if (ChapterId != 0) hash ^= ChapterId.GetHashCode();
       if (StarTotalCount != 0) hash ^= StarTotalCount.GetHashCode();
+      hash ^= claimedMilestoneRewardIds_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -162,6 +177,7 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(16);
         output.WriteUInt32(StarTotalCount);
       }
+      claimedMilestoneRewardIds_.WriteTo(output, _repeated_claimedMilestoneRewardIds_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -180,6 +196,7 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(16);
         output.WriteUInt32(StarTotalCount);
       }
+      claimedMilestoneRewardIds_.WriteTo(ref output, _repeated_claimedMilestoneRewardIds_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -196,6 +213,7 @@ namespace Tech.Hive.V1 {
       if (StarTotalCount != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(StarTotalCount);
       }
+      size += claimedMilestoneRewardIds_.CalculateSize(_repeated_claimedMilestoneRewardIds_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -214,6 +232,7 @@ namespace Tech.Hive.V1 {
       if (other.StarTotalCount != 0) {
         StarTotalCount = other.StarTotalCount;
       }
+      claimedMilestoneRewardIds_.Add(other.claimedMilestoneRewardIds_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -237,6 +256,11 @@ namespace Tech.Hive.V1 {
             StarTotalCount = input.ReadUInt32();
             break;
           }
+          case 26:
+          case 24: {
+            claimedMilestoneRewardIds_.AddEntriesFrom(input, _repeated_claimedMilestoneRewardIds_codec);
+            break;
+          }
         }
       }
     #endif
@@ -258,6 +282,11 @@ namespace Tech.Hive.V1 {
           }
           case 16: {
             StarTotalCount = input.ReadUInt32();
+            break;
+          }
+          case 26:
+          case 24: {
+            claimedMilestoneRewardIds_.AddEntriesFrom(ref input, _repeated_claimedMilestoneRewardIds_codec);
             break;
           }
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CookApps.Analytics;
-using Cookapps.Stkauto.V1;
+using Tech.Hive.V1;
 using CookApps.TeamBattle;
 using UnityEngine;
 
@@ -44,31 +44,20 @@ namespace CookApps.AutoBattler
             return sbCharList.ToString();
         }
 
-        // PVP 덱의 캐릭터 리스트를 앱이벤트용 문자열로 변환
-        public string GetAppEventTargetDeckList(List<UserPVPCharacterBattleDeck> targetDeckList)
-        {
-            StringBuilder sbCharList = new StringBuilder();
-
-            for (int i = 0; i < targetDeckList.Count; ++i)
-            {
-                //sbCharList.Append($"{i};");
-                sbCharList.Append($"{targetDeckList[i].Id};");
-            }
-
-            return sbCharList.ToString();
-        }
-        
         // 해당 덱의 캐릭터 리스트를 앱이벤트용 문자열로 변환
         public string GetAppEventTargetDeckList(InGameType targetType)
         {
             StringBuilder sbCharList = new StringBuilder();
 
-            var targetDeckList = UserDataManager.Instance.GetUserCharacterBattleDeckList(targetType);
+            var targetDeckList = ServerDataManager.Instance.Deck.GetBattleDeckListByInGameType(targetType);
 
             for (int i = 0; i < targetDeckList.Count; ++i)
             {
-                //sbCharList.Append($"{i};");
-                sbCharList.Append($"{targetDeckList[i].CharacterId};");
+                var characterData = ServerDataManager.Instance.Character.GetCharacter(targetDeckList[i].CharacterId);
+                if (characterData != null)
+                {
+                    sbCharList.Append($"{characterData.GetSpecCharacterIndex()};");
+                }
             }
 
             return sbCharList.ToString();
@@ -79,7 +68,7 @@ namespace CookApps.AutoBattler
         {
             StringBuilder sbCharList = new StringBuilder();
 
-            var targetSkillList = UserDataManager.Instance.GetAllEquippedCommanderSkillIDList();
+            var targetSkillList = ServerDataManager.Instance.CommanderSkill.GetAllEquippedCommanderSkillIDList();
 
             for (int i = 0; i < targetSkillList.Count; ++i)
             {
@@ -129,7 +118,7 @@ namespace CookApps.AutoBattler
             var specBestStageData = SpecDataManager.Instance.GetStageData((int)ServerDataManager.Instance.Battle.GetLatestClearedStageId());
             appEventParameter.Add(AppEventStringConst.BEST_STAGE, specBestStageData.id);
             appEventParameter.Add(AppEventStringConst.BEST_MISSION, UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder);
-            appEventParameter.Add(AppEventStringConst.USER_POWER, UserDataManager.Instance.GetAllCharacterBattlePower());
+            // appEventParameter.Add(AppEventStringConst.USER_POWER, UserDataManager.Instance.GetAllCharacterBattlePower());
             appEventParameter.Add(AppEventStringConst.USER_LEVEL, UserDataManager.Instance.UserBasicData.Level);
             appEventParameter.Add(AppEventStringConst.USER_GRADE, UserDataManager.Instance.UserBasicData.MaxSquadCount);
             appEventParameter.Add(AppEventStringConst.USER_STAR_AMOUNT, (int)ServerDataManager.Instance.Battle.TotalStarCount);
@@ -208,34 +197,34 @@ namespace CookApps.AutoBattler
         
             SendEvent("DUNGEON_END", appEventParameter);
         }
-        
-        // PVP 종료 시 호출 (승리 또는 패배 모두 적용)
-        public void PVPEnd(int season, bool isRevenge, PVPTierType tierType, int ranking, int rankPoint, float playTime, string result, int myPower
-                            ,UserPVPBattleDetailData enemyData)
-        {
-            string battleType = isRevenge ? "revenge" : "normal";
-            // var enemyTierData = SpecDataManager.Instance.GetPVPTierData(enemyData.RankId);
-            
-            AppEventParameter appEventParameter = CreateCommonParam();
-            appEventParameter.Add(AppEventStringConst.SEASON, season);
-            appEventParameter.Add(AppEventStringConst.TYPE, battleType);
-            appEventParameter.Add(AppEventStringConst.GRADE, tierType.ToString());
-            appEventParameter.Add(AppEventStringConst.RANKING, ranking);
-            appEventParameter.Add(AppEventStringConst.POINT, rankPoint);
-            appEventParameter.Add(AppEventStringConst.PLAY_TIME, playTime);
-            appEventParameter.Add(AppEventStringConst.RESULT, result);
-            appEventParameter.Add(AppEventStringConst.DECK, GetAppEventTargetDeckList(InGameType.PVP));
-            appEventParameter.Add(AppEventStringConst.POWER, myPower);
-            
-            appEventParameter.Add(AppEventStringConst.ENEMY_PLAYER_ID, enemyData.PlayerId);
-            appEventParameter.Add(AppEventStringConst.ENEMY_POINT, enemyData.RankPoint);
-            // appEventParameter.Add(AppEventStringConst.ENEMY_GRADE, enemyTierData?.pvp_tier_type.ToString());
-            appEventParameter.Add(AppEventStringConst.ENEMY_DECK, GetAppEventTargetDeckList(enemyData.PvpDeckList.PvpCharacterDecks.ToList()));
-            appEventParameter.Add(AppEventStringConst.ENEMY_DECK_POWER, enemyData.BattlePoint);
-        
-            SendEvent("PVP_END", appEventParameter);
-        }
-        
+
+        // // PVP 종료 시 호출 (승리 또는 패배 모두 적용)
+        // public void PVPEnd(int season, bool isRevenge, PVPTierType tierType, int ranking, int rankPoint, float playTime, string result, int myPower
+        //                     ,UserPVPBattleDetailData enemyData)
+        // {
+        //     string battleType = isRevenge ? "revenge" : "normal";
+        //     // var enemyTierData = SpecDataManager.Instance.GetPVPTierData(enemyData.RankId);
+        //     
+        //     AppEventParameter appEventParameter = CreateCommonParam();
+        //     appEventParameter.Add(AppEventStringConst.SEASON, season);
+        //     appEventParameter.Add(AppEventStringConst.TYPE, battleType);
+        //     appEventParameter.Add(AppEventStringConst.GRADE, tierType.ToString());
+        //     appEventParameter.Add(AppEventStringConst.RANKING, ranking);
+        //     appEventParameter.Add(AppEventStringConst.POINT, rankPoint);
+        //     appEventParameter.Add(AppEventStringConst.PLAY_TIME, playTime);
+        //     appEventParameter.Add(AppEventStringConst.RESULT, result);
+        //     appEventParameter.Add(AppEventStringConst.DECK, GetAppEventTargetDeckList(InGameType.PVP));
+        //     appEventParameter.Add(AppEventStringConst.POWER, myPower);
+        //     
+        //     appEventParameter.Add(AppEventStringConst.ENEMY_PLAYER_ID, enemyData.PlayerId);
+        //     appEventParameter.Add(AppEventStringConst.ENEMY_POINT, enemyData.RankPoint);
+        //     // appEventParameter.Add(AppEventStringConst.ENEMY_GRADE, enemyTierData?.pvp_tier_type.ToString());
+        //     appEventParameter.Add(AppEventStringConst.ENEMY_DECK, GetAppEventTargetDeckList(enemyData.PvpDeckList.PvpCharacterDecks.ToList()));
+        //     appEventParameter.Add(AppEventStringConst.ENEMY_DECK_POWER, enemyData.BattlePoint);
+        //
+        //     SendEvent("PVP_END", appEventParameter);
+        // }
+
         // 가이드 미션 통과 (가이드 미션 완료 시 전송)
         public void GuideMissionClear(int guideID)
         {

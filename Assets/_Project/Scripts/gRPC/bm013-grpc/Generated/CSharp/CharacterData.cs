@@ -24,15 +24,14 @@ namespace Tech.Hive.V1 {
     static CharacterDataReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChRjaGFyYWN0ZXIrZGF0YS5wcm90bxIMdGVjaC5oaXZlLnYxIo0BCg1DaGFy",
-            "YWN0ZXJEYXRhEhMKC2luc3RhbmNlX2lkGAEgASgJEhQKDGNoYXJhY3Rlcl9p",
-            "ZBgCIAEoDRINCgVsZXZlbBgDIAEoDRIXCg90cmFuc2NlbmRfbGV2ZWwYBCAB",
-            "KA0SFAoMZXhjZWVkX2xldmVsGAUgASgNEhMKC29idGFpbmVkX2F0GAYgASgE",
-            "YgZwcm90bzM="));
+            "ChRjaGFyYWN0ZXIrZGF0YS5wcm90bxIMdGVjaC5oaXZlLnYxIngKDUNoYXJh",
+            "Y3RlckRhdGESFAoMY2hhcmFjdGVyX2lkGAEgASgNEg0KBWxldmVsGAIgASgN",
+            "EhcKD3RyYW5zY2VuZF9sZXZlbBgDIAEoDRIUCgxleGNlZWRfbGV2ZWwYBCAB",
+            "KA0SEwoLb2J0YWluZWRfYXQYBSABKARiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterData), global::Tech.Hive.V1.CharacterData.Parser, new[]{ "InstanceId", "CharacterId", "Level", "TranscendLevel", "ExceedLevel", "ObtainedAt" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CharacterData), global::Tech.Hive.V1.CharacterData.Parser, new[]{ "CharacterId", "Level", "TranscendLevel", "ExceedLevel", "ObtainedAt" }, null, null, null, null)
           }));
     }
     #endregion
@@ -74,7 +73,6 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CharacterData(CharacterData other) : this() {
-      instanceId_ = other.instanceId_;
       characterId_ = other.characterId_;
       level_ = other.level_;
       transcendLevel_ = other.transcendLevel_;
@@ -89,23 +87,8 @@ namespace Tech.Hive.V1 {
       return new CharacterData(this);
     }
 
-    /// <summary>Field number for the "instance_id" field.</summary>
-    public const int InstanceIdFieldNumber = 1;
-    private string instanceId_ = "";
-    /// <summary>
-    /// 유저의 캐릭터 인스턴스 ID
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string InstanceId {
-      get { return instanceId_; }
-      set {
-        instanceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     /// <summary>Field number for the "character_id" field.</summary>
-    public const int CharacterIdFieldNumber = 2;
+    public const int CharacterIdFieldNumber = 1;
     private uint characterId_;
     /// <summary>
     /// 캐릭터 마스터 데이터 ID
@@ -120,7 +103,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "level" field.</summary>
-    public const int LevelFieldNumber = 3;
+    public const int LevelFieldNumber = 2;
     private uint level_;
     /// <summary>
     /// 성장 정보
@@ -135,7 +118,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "transcend_level" field.</summary>
-    public const int TranscendLevelFieldNumber = 4;
+    public const int TranscendLevelFieldNumber = 3;
     private uint transcendLevel_;
     /// <summary>
     /// 초월
@@ -150,7 +133,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "exceed_level" field.</summary>
-    public const int ExceedLevelFieldNumber = 5;
+    public const int ExceedLevelFieldNumber = 4;
     private uint exceedLevel_;
     /// <summary>
     /// 돌파 레벨
@@ -165,7 +148,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "obtained_at" field.</summary>
-    public const int ObtainedAtFieldNumber = 6;
+    public const int ObtainedAtFieldNumber = 5;
     private ulong obtainedAt_;
     /// <summary>
     /// 획득 시간
@@ -194,7 +177,6 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (InstanceId != other.InstanceId) return false;
       if (CharacterId != other.CharacterId) return false;
       if (Level != other.Level) return false;
       if (TranscendLevel != other.TranscendLevel) return false;
@@ -207,7 +189,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (InstanceId.Length != 0) hash ^= InstanceId.GetHashCode();
       if (CharacterId != 0) hash ^= CharacterId.GetHashCode();
       if (Level != 0) hash ^= Level.GetHashCode();
       if (TranscendLevel != 0) hash ^= TranscendLevel.GetHashCode();
@@ -231,28 +212,24 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
-      }
       if (CharacterId != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(8);
         output.WriteUInt32(CharacterId);
       }
       if (Level != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteUInt32(Level);
       }
       if (TranscendLevel != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(24);
         output.WriteUInt32(TranscendLevel);
       }
       if (ExceedLevel != 0) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(32);
         output.WriteUInt32(ExceedLevel);
       }
       if (ObtainedAt != 0UL) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(40);
         output.WriteUInt64(ObtainedAt);
       }
       if (_unknownFields != null) {
@@ -265,28 +242,24 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (InstanceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(InstanceId);
-      }
       if (CharacterId != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(8);
         output.WriteUInt32(CharacterId);
       }
       if (Level != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteUInt32(Level);
       }
       if (TranscendLevel != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(24);
         output.WriteUInt32(TranscendLevel);
       }
       if (ExceedLevel != 0) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(32);
         output.WriteUInt32(ExceedLevel);
       }
       if (ObtainedAt != 0UL) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(40);
         output.WriteUInt64(ObtainedAt);
       }
       if (_unknownFields != null) {
@@ -299,9 +272,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (InstanceId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(InstanceId);
-      }
       if (CharacterId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CharacterId);
       }
@@ -328,9 +298,6 @@ namespace Tech.Hive.V1 {
     public void MergeFrom(CharacterData other) {
       if (other == null) {
         return;
-      }
-      if (other.InstanceId.Length != 0) {
-        InstanceId = other.InstanceId;
       }
       if (other.CharacterId != 0) {
         CharacterId = other.CharacterId;
@@ -362,27 +329,23 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            InstanceId = input.ReadString();
-            break;
-          }
-          case 16: {
+          case 8: {
             CharacterId = input.ReadUInt32();
             break;
           }
-          case 24: {
+          case 16: {
             Level = input.ReadUInt32();
             break;
           }
-          case 32: {
+          case 24: {
             TranscendLevel = input.ReadUInt32();
             break;
           }
-          case 40: {
+          case 32: {
             ExceedLevel = input.ReadUInt32();
             break;
           }
-          case 48: {
+          case 40: {
             ObtainedAt = input.ReadUInt64();
             break;
           }
@@ -401,27 +364,23 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            InstanceId = input.ReadString();
-            break;
-          }
-          case 16: {
+          case 8: {
             CharacterId = input.ReadUInt32();
             break;
           }
-          case 24: {
+          case 16: {
             Level = input.ReadUInt32();
             break;
           }
-          case 32: {
+          case 24: {
             TranscendLevel = input.ReadUInt32();
             break;
           }
-          case 40: {
+          case 32: {
             ExceedLevel = input.ReadUInt32();
             break;
           }
-          case 48: {
+          case 40: {
             ObtainedAt = input.ReadUInt64();
             break;
           }

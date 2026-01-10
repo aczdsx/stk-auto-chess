@@ -2,13 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Cookapps.Stkauto.V1;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
+using Tech.Hive.V1;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
@@ -209,11 +209,19 @@ public class InGameBottomUI : MonoBehaviour
             _speedUpButton.gameObject.SetActive(isOn);
     }
 
-    public void InitReadyStateUI(Type combatType, List<UserCharacterBattleDeck> battleDeckList)
+    public void InitReadyStateUI(Type combatType, List<DeckCharacterPlacement> battleDeckList)
     {
         _combatType = combatType;
         foreach (var battleDeck in battleDeckList)
-            _characterStats.RemoveAll(l => l.CharacterId == battleDeck.CharacterId);
+        {
+            // CharacterUid로 캐릭터 데이터를 찾아서 SpecCharacterIndex 비교
+            var characterData = ServerDataManager.Instance.Character.GetCharacter(battleDeck.CharacterId);
+            if (characterData != null)
+            {
+                int specIndex = characterData.GetSpecCharacterIndex();
+                _characterStats.RemoveAll(l => l.CharacterId == specIndex);
+            }
+        }
         UpdateData();
         InGameManager.Instance.UpdateSynergyAndAttr();
         SetCharacterCountText();
@@ -224,9 +232,11 @@ public class InGameBottomUI : MonoBehaviour
     {
         List<CharacterStatData> priorUserCharacters = _characterStats.ToList();
         List<CharacterStatData> userCharacters = new List<CharacterStatData>();
-        foreach (var character in UserDataManager.Instance.GetAllUserCharacterList())
+        var allCharacters = new List<CharacterData>();
+        ServerDataManager.Instance.Character.GetAllCharacters(allCharacters);
+        foreach (var character in allCharacters)
         {
-            userCharacters.Add(new CharacterStatData(character.CharacterId, character.Level,
+            userCharacters.Add(new CharacterStatData(character.GetSpecCharacterIndex(), (int)character.Level,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
         }
 
@@ -290,21 +300,15 @@ public class InGameBottomUI : MonoBehaviour
         UserDataManager userDataManagerInstance = UserDataManager.Instance;
 
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
-            SetCommanderSkillUI(i, userDataManagerInstance.GetEquippedCommanderSkillID(i));
+            SetCommanderSkillUI(i, ServerDataManager.Instance.CommanderSkill.GetEquippedCommanderSkillID(i));
 
 
-        var userCharacters = userDataManagerInstance.GetAllUserCharacterList();
+        var userCharacters = new List<Tech.Hive.V1.CharacterData>();
+        ServerDataManager.Instance.Character.GetAllCharacters(userCharacters);
         foreach (var character in userCharacters)
         {
-            // _characterStats.Add(new CharacterStatData(character.CharacterId, character.Level,
-            //     GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes()));
-
-            var characterStat = new CharacterStatData(character.CharacterId, character.Level,
+            var characterStat = new CharacterStatData(character.GetSpecCharacterIndex(), (int)character.Level,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
-            // if (characterStat.Spec == null)
-            // {
-            //     continue;
-            // }
             _characterStats.Add(characterStat);
         }
 
@@ -338,10 +342,10 @@ public class InGameBottomUI : MonoBehaviour
         SpecDataManager specDataManagerInstance = SpecDataManager.Instance;
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
         {
-            int equippedCommanderSkillID = userDataManagerInstance.GetEquippedCommanderSkillID(i);
+            int equippedCommanderSkillID = ServerDataManager.Instance.CommanderSkill.GetEquippedCommanderSkillID(i);
             if (equippedCommanderSkillID != 0)
             {
-                var userSkillLevel = userDataManagerInstance.GetUserCommanderSkillLevel(equippedCommanderSkillID);
+                var userSkillLevel = ServerDataManager.Instance.CommanderSkill.GetUserCommanderSkillLevel(equippedCommanderSkillID);
                 var dataList = specDataManagerInstance.GetCommanderSkillDataList(equippedCommanderSkillID);
                 CommanderSkillData skillData = InGameCommanderManager.Instance.InitCommanderSkillData(dataList[userSkillLevel - 1]);
 

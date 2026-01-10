@@ -384,7 +384,6 @@ namespace CookApps.BattleSystem
 
             startingPlayerCharacters.Clear();
             startingPlayerCharacters.AddRange(charactersInPlaygroundForUpdate);
-            UserDataManager.Instance.SetUserCharaceterBattleDeckList(InGameResourceHolder.InGameType, startingPlayerCharacters);
 
             charactersInPlaygroundForUpdate = charactersInPlaygroundForUpdate
                 .OrderBy(character => character.SpecCharacter.atk_range).ToList();

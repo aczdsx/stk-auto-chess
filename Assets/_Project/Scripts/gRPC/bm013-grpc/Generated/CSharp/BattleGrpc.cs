@@ -61,6 +61,10 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleListStageResponse> __Marshaller_tech_hive_v1_BattleListStageResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleListStageResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest> __Marshaller_tech_hive_v1_BattleClaimChapterMilestoneRewardRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse> __Marshaller_tech_hive_v1_BattleClaimChapterMilestoneRewardResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleStartRequest> __Marshaller_tech_hive_v1_BattleStartRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleStartRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.BattleStartResponse> __Marshaller_tech_hive_v1_BattleStartResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.BattleStartResponse.Parser));
@@ -92,6 +96,14 @@ namespace Tech.Hive.V1 {
         "ListStage",
         __Marshaller_tech_hive_v1_BattleListStageRequest,
         __Marshaller_tech_hive_v1_BattleListStageResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest, global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse> __Method_ClaimChapterMilestoneReward = new grpc::Method<global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest, global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "ClaimChapterMilestoneReward",
+        __Marshaller_tech_hive_v1_BattleClaimChapterMilestoneRewardRequest,
+        __Marshaller_tech_hive_v1_BattleClaimChapterMilestoneRewardResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Tech.Hive.V1.BattleStartRequest, global::Tech.Hive.V1.BattleStartResponse> __Method_Start = new grpc::Method<global::Tech.Hive.V1.BattleStartRequest, global::Tech.Hive.V1.BattleStartResponse>(
@@ -154,6 +166,19 @@ namespace Tech.Hive.V1 {
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.BattleListStageResponse> ListStage(global::Tech.Hive.V1.BattleListStageRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      ///*
+      /// 챕터 별 마일스톤 보상 수령
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse> ClaimChapterMilestoneReward(global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -371,6 +396,58 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
+      /// 챕터 별 마일스톤 보상 수령
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse ClaimChapterMilestoneReward(global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ClaimChapterMilestoneReward(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// 챕터 별 마일스톤 보상 수령
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse ClaimChapterMilestoneReward(global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_ClaimChapterMilestoneReward, null, options, request);
+      }
+      /// <summary>
+      ///*
+      /// 챕터 별 마일스톤 보상 수령
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse> ClaimChapterMilestoneRewardAsync(global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ClaimChapterMilestoneRewardAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// 챕터 별 마일스톤 보상 수령
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse> ClaimChapterMilestoneRewardAsync(global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_ClaimChapterMilestoneReward, null, options, request);
+      }
+      /// <summary>
+      ///*
       /// 전투 시작
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
@@ -490,6 +567,7 @@ namespace Tech.Hive.V1 {
           .AddMethod(__Method_GetCurrentChapter, serviceImpl.GetCurrentChapter)
           .AddMethod(__Method_ListChapter, serviceImpl.ListChapter)
           .AddMethod(__Method_ListStage, serviceImpl.ListStage)
+          .AddMethod(__Method_ClaimChapterMilestoneReward, serviceImpl.ClaimChapterMilestoneReward)
           .AddMethod(__Method_Start, serviceImpl.Start)
           .AddMethod(__Method_End, serviceImpl.End).Build();
     }
@@ -504,6 +582,7 @@ namespace Tech.Hive.V1 {
       serviceBinder.AddMethod(__Method_GetCurrentChapter, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.BattleGetCurrentChapterRequest, global::Tech.Hive.V1.BattleGetCurrentChapterResponse>(serviceImpl.GetCurrentChapter));
       serviceBinder.AddMethod(__Method_ListChapter, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.BattleListChapterRequest, global::Tech.Hive.V1.BattleListChapterResponse>(serviceImpl.ListChapter));
       serviceBinder.AddMethod(__Method_ListStage, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.BattleListStageRequest, global::Tech.Hive.V1.BattleListStageResponse>(serviceImpl.ListStage));
+      serviceBinder.AddMethod(__Method_ClaimChapterMilestoneReward, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardRequest, global::Tech.Hive.V1.BattleClaimChapterMilestoneRewardResponse>(serviceImpl.ClaimChapterMilestoneReward));
       serviceBinder.AddMethod(__Method_Start, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.BattleStartRequest, global::Tech.Hive.V1.BattleStartResponse>(serviceImpl.Start));
       serviceBinder.AddMethod(__Method_End, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.BattleEndRequest, global::Tech.Hive.V1.BattleEndResponse>(serviceImpl.End));
     }

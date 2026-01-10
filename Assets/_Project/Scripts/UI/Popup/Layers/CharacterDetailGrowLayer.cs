@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -57,7 +57,7 @@ namespace CookApps.AutoBattler
         [Space(10)]
         [SerializeField] private CurrencyUIItem _transcendenceItemCurrencyUIItem;
 
-        private UserCharacter _userCharacterData;
+        private CharacterData _userCharacterData;
         private CharacterInfo _specCharacterData;
 
         private CharacterLevelExp _specCharacterLevelExpData;
@@ -109,9 +109,9 @@ namespace CookApps.AutoBattler
             _parentCollectionPopup = _parentPopup;
 
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
-            _userCharacterData = UserDataManager.Instance.GetUserCharacter(characterID);
+            _userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterID);
 
-            _isHaveCharacter = UserDataManager.Instance.IsHaveCharacter(characterID);
+            _isHaveCharacter = ServerDataManager.Instance.Character.HasCharacter(characterID);
 
             // 스탯 표시 처리 
             SetUserStatLayer();
@@ -146,11 +146,11 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null || _userCharacterData == null) return;
 
-            int maxLevel = UserDataManager.Instance.GetCharacterMaxLevel(_userCharacterData.CharacterId);
+            int maxLevel = ServerDataManager.Instance.Character.GetCharacterMaxLevel((int)_userCharacterData.CharacterId);
 
-            int userLevel = Mathf.Max(1, _userCharacterData.Level);
+            int userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
 
-            _userStatData = new CharacterStatData(_userCharacterData.CharacterId, userLevel, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
+            _userStatData = new CharacterStatData(_userCharacterData.GetSpecCharacterIndex(), userLevel, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
             _levelText.text = $"Lv.{userLevel}/{maxLevel}";
             _battlePointText.text = _userStatData.GetAttrValueCP().ToString("N0");
@@ -170,10 +170,12 @@ namespace CookApps.AutoBattler
             if (_isHaveCharacter == false) return;
 
             _pieceIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacterData.prefab_id)).Forget();
-            _pieceAmountText.text = $"{_userCharacterData.CharacterPiece}<color=#C4CDE2>/{_specCharacterTranscendenceData.piece}</color>";
+            // TODO: CharacterPiece는 인벤토리에서 가져와야 함
+            int characterPiece = 0; // ServerDataManager.Instance.Inventory.GetCharacterPiece(_specCharacterData.character_id);
+            _pieceAmountText.text = $"{characterPiece}<color=#C4CDE2>/{_specCharacterTranscendenceData.piece}</color>";
 
             _pieceSlider.maxValue = _specCharacterTranscendenceData.piece;
-            _pieceSlider.value = _userCharacterData.CharacterPiece;
+            _pieceSlider.value = characterPiece;
         }
 
         private void SetLevelupLayer()
@@ -181,9 +183,9 @@ namespace CookApps.AutoBattler
             if (_specCharacterData == null || _userCharacterData == null) return;
 
             // 레벨업 가능 여부 체크
-            int maxLevel = UserDataManager.Instance.GetCharacterMaxLevel(_userCharacterData.CharacterId);
+            int maxLevel = ServerDataManager.Instance.Character.GetCharacterMaxLevel((int)_userCharacterData.CharacterId);
 
-            int userLevel = Mathf.Max(1, _userCharacterData.Level);
+            int userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
 
             // 레벨업에 필요한 자원 정보 세팅
             _specCharacterLevelExpData = SpecDataManager.Instance.GetCharacterLevelExpData(userLevel);
@@ -225,15 +227,17 @@ namespace CookApps.AutoBattler
             var transcendenceDataList = SpecDataManager.Instance.GetCharacterTranscendenceDataList(_specCharacterData.character_element_type, _specCharacterData.grade_type);
             _maxTranscendenceLevel = transcendenceDataList.Max(data => data.star);
             // 초월에 필요한 자원 정보 세팅
-            _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
+            _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type, (int)_userCharacterData.TranscendLevel);
 
             bool isHasPiece = false;
             if (_specCharacterTranscendenceData != null)
             {
-                isHasPiece = _userCharacterData.CharacterPiece >= _specCharacterTranscendenceData.piece;
+                // TODO: CharacterPiece는 인벤토리에서 가져와야 함
+                int characterPiece = 0; // ServerDataManager.Instance.Inventory.GetCharacterPiece(_specCharacterData.character_id);
+                isHasPiece = characterPiece >= _specCharacterTranscendenceData.piece;
                 _transcendenceItemCurrencyUIItem.SetUIItem(_specCharacterData.character_id, _specCharacterTranscendenceData.piece);
             }
-            bool isAvailTranscendence = _isHaveCharacter && _userCharacterData.TranscendenceLevel < _maxTranscendenceLevel && isHasPiece;
+            bool isAvailTranscendence = _isHaveCharacter && _userCharacterData.TranscendLevel < _maxTranscendenceLevel && isHasPiece;
 
             _activeTranscendenceButton.gameObject.SetActive(isAvailTranscendence);
             _inactiveTranscendenceButton.gameObject.SetActive(!isAvailTranscendence);
@@ -312,57 +316,42 @@ namespace CookApps.AutoBattler
             }
 
             // 최대 레벨 검사
-            int maxLevel = UserDataManager.Instance.GetCharacterMaxLevel(_userCharacterData.CharacterId);
+            int maxLevel = ServerDataManager.Instance.Character.GetCharacterMaxLevel((int)_userCharacterData.CharacterId);
             if (_userCharacterData.Level >= maxLevel)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_MAX_LV_NEED_TRANSCENDENCE");
                 return;
             }
 
-            // TODO: 재료 검사
-            return;
-            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterLevelExpData.base_levelup_item_id, _specCharacterLevelExpData.base_levelup_item_count, true)
-                || !UserDataManager.Instance.CheckEnoughItem(IdMap.Item.Gold, _specCharacterLevelExpData.need_gold, true)
-                || !UserDataManager.Instance.CheckEnoughItem(_specCharacterLevelExpData.sec_levelup_item_id, _specCharacterLevelExpData.sec_levelup_item_count, true))
+            LevelUpCharacterAsync().Forget();
+        }
+
+        private async UniTaskVoid LevelUpCharacterAsync()
+        {
+            try
             {
-                return;
-            }
+                var response = await NetManager.Instance.Character.LevelUpAsync(_userCharacterData.CharacterId);
 
-            // 재료 아이템 소진
-            List<RewardItem> recipeItemList = new List<RewardItem>();
-            // ItemType의 삭제로 인해 변경.(new RewardItem(_specCharacterLevelExpData.base_levelup_item_type, 0, _specCharacterLevelExpData.base_levelup_item_count))
-            recipeItemList.Add(new RewardItem((int)_specCharacterLevelExpData.base_levelup_item_id, _specCharacterLevelExpData.base_levelup_item_count));
-            // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.GOLD, 0, _specCharacterLevelExpData.need_gold))
-            recipeItemList.Add(new RewardItem((int)IdMap.Item.Gold, _specCharacterLevelExpData.need_gold));
-            if (_specCharacterLevelExpData.sec_levelup_item_count > 0)
+                // 가이드 미션 체크
+                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER, 0, 1);
+                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER_TARGET, _specCharacterData.character_id, 1);
+                GuideMissionManager.Instance.RefreshGuideMissionUI();
+
+                // 이펙트 실행
+                PlayLevelUpEffect();
+
+                // 메인 레이어 갱신
+                _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
+
+                // 사운드 플레이
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_char_level_up);
+
+                RefreshLayer();
+            }
+            catch (Exception e)
             {
-                // ItemType의 삭제로 인해 변경.(new RewardItem(_specCharacterLevelExpData.sec_levelup_item_type, _specCharacterData.character_id, _specCharacterLevelExpData.sec_levelup_item_count))
-                recipeItemList.Add(new RewardItem(_specCharacterData.character_id, _specCharacterLevelExpData.sec_levelup_item_count));
+                Debug.LogError($"Failed to level up character: {e.Message}");
             }
-
-            UserDataManager.Instance.DecreaseRewardItemList(recipeItemList, true);
-
-            // 레벨업 진행
-            UserDataManager.Instance.IncreaseCharacterLevel(_specCharacterData.character_id, 1);
-
-            // 가이드 미션 체크
-            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER, 0, 1);
-            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER_TARGET, _specCharacterData.character_id, 1);
-            GuideMissionManager.Instance.RefreshGuideMissionUI();
-
-            // 퀘스트 데이터 갱신
-            UserDataManager.Instance.SetUserQuestActionCount(QuestType.LEVELUP_CHARACTER, 1, true, true);
-
-            // 이펙트 실행
-            PlayLevelUpEffect();
-
-            // 메인 레이어 갱신
-            _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
-
-            // 사운드 플레이
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_char_level_up);
-
-            RefreshLayer();
         }
 
         private void OnClickCharacterResetButton()
@@ -383,7 +372,7 @@ namespace CookApps.AutoBattler
             }
 
             // 레벨업 리셋에 소모된 아이템 반환 아이템 체크
-            var resetRewardItemList = SpecDataManager.Instance.GetCharacterLevelupTotalNeedItemList(_userCharacterData.Level, _userCharacterData.CharacterId);
+            var resetRewardItemList = SpecDataManager.Instance.GetCharacterLevelupTotalNeedItemList((int)_userCharacterData.Level, (int)_userCharacterData.CharacterId);
             if (resetRewardItemList == null || resetRewardItemList.Count <= 0)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_CHARACTER_LV_ITEM_ISSUE");
@@ -394,22 +383,9 @@ namespace CookApps.AutoBattler
             SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
             newPopupData.SetPopupData("시스템 알림", descText, "확인", "취소", () =>
             {
-                SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
-
-                // 캐릭터 레벨 리셋
-                UserDataManager.Instance.SetCharacterLevel(_userCharacterData.CharacterId, 1);
-
-                // 리셋 횟수 증가
-                UserDataManager.Instance.SetResetCharacterCount(1, true, true);
-
-                // 레벨업에 소모된 아이템 반환 적용 처리
-                UserDataManager.Instance.IncreaseRewardItemList(resetRewardItemList, true);
-                SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", resetRewardItemList)).Forget();
-
-                // 팝업 레이어 갱신
-                _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
-
-                RefreshLayer();
+                // TODO: 서버 API로 캐릭터 레벨 리셋 구현 필요
+                // 현재 서버 API가 없음
+                ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_IMPLEMENTED");
             });
 
             SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
@@ -432,7 +408,7 @@ namespace CookApps.AutoBattler
             }
 
             // 최대 초월 레벨 검사
-            if (_maxTranscendenceLevel <= _userCharacterData.TranscendenceLevel)
+            if (_maxTranscendenceLevel <= _userCharacterData.TranscendLevel)
             {
                 return;
             }
@@ -450,15 +426,18 @@ namespace CookApps.AutoBattler
             SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
             newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", () =>
             {
-                // 재료 아이템 소진
-                List<RewardItem> recipeItemList = new List<RewardItem>();
-                // ItemType의 삭제로 인해 변경.(new RewardItem(_specCharacterTranscendenceData.item_type, _specCharacterData.character_id, _specCharacterTranscendenceData.char_transcendence_count))
-                recipeItemList.Add(new RewardItem(_specCharacterData.character_id, _specCharacterTranscendenceData.piece));
+                // 초월 진행 (서버 API 호출)
+                TranscendCharacterAsync().Forget();
+            });
 
-                UserDataManager.Instance.DecreaseRewardItemList(recipeItemList, true);
+            SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+        }
 
-                // 초월 진행
-                UserDataManager.Instance.IncreaseTranscendenceLevel(_specCharacterData.character_id, 1);
+        private async UniTaskVoid TranscendCharacterAsync()
+        {
+            try
+            {
+                var response = await NetManager.Instance.Character.TranscendAsync(_userCharacterData.CharacterId);
 
                 // 메인 레이어 갱신
                 _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
@@ -471,7 +450,7 @@ namespace CookApps.AutoBattler
                 PlayLevelUpEffect();
 
                 var afterTranscenenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type,
-                    _userCharacterData.TranscendenceLevel + 1);
+                    (int)(_userCharacterData.TranscendLevel + 1));
                 if (afterTranscenenceData != null)
                 {
                     string msg =
@@ -482,9 +461,11 @@ namespace CookApps.AutoBattler
                 {
                     ToastManager.Instance.ShowToastByTokenKey("MSG_MAX_LV_UP");
                 }
-            });
-
-            SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Failed to transcend character: {e.Message}");
+            }
         }
 
         private void ClearLayer()

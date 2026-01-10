@@ -51,7 +51,7 @@ public class InGameBottomStageUI : InGameBottomUI
         // 지휘자 스킬 장착 확인
         if (_isOpenCommanderSkill)
         {
-            var isEquippedCommanderSkill = UserDataManager.Instance.IsAllCommanderSkillsEquipped(_specUserGrade.maximum_commander_skill_count);
+            var isEquippedCommanderSkill = ServerDataManager.Instance.CommanderSkill.IsAllCommanderSkillsEquipped(_specUserGrade.maximum_commander_skill_count);
             if (!isEquippedCommanderSkill)
             {
                 string contentText = LanguageManager.Instance.GetLanguageText("MSG_ALERT_EQUIP_COMMAND_SKILL");
