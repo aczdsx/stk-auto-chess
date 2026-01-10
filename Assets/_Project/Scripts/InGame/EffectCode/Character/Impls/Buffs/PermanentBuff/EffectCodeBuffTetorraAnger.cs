@@ -40,7 +40,8 @@ public partial class EffectCodeBuffTetorraAnger : EffectCodeBuffBase
         duration: 999f,
         value: 0,
         source: source,
-        isShowValue: true
+        isShowValue: true,
+        showPosition: BuffStackData.BuffShowPosition.SIDE
         );
 
         _stackDatas.Add(buffStackData);

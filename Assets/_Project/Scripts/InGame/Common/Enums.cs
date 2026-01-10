@@ -135,6 +135,8 @@ namespace CookApps.BattleSystem
         AprilStander,
         TetorraAnger,
         ShirayukiAvoidAndAttack,
+        EnkiPassiveHealUp,
+        AdriaPassiveTeamHelp,
         AttackDown = 1000,
         DefenceDown,
         CoolTimeDown,

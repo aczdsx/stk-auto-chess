@@ -30,7 +30,8 @@ public partial class EffectCodeBuffNoDamageShield : EffectCodeBuffBase
         duration: codeInfo.GetCodeStatToFloat(1),
         value: codeInfo.GetCodeStat(2),
         source: source,
-        isShowValue: true
+        isShowValue: true,
+        showPosition: BuffStackData.BuffShowPosition.SIDE
         );
 
         _stackDatas.Add(buffStackData);
