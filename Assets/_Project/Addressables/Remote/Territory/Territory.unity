@@ -131,6 +131,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2705462533809238898, guid: 4380a77473aabc542822daa529300163, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361798104367841719, guid: 4380a77473aabc542822daa529300163, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586329803522808796, guid: 4380a77473aabc542822daa529300163, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6053491054352455105, guid: 4380a77473aabc542822daa529300163, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -139,13 +151,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainBlock
       objectReference: {fileID: 0}
+    - target: {fileID: 6730058427896518978, guid: 4380a77473aabc542822daa529300163, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7073237502219566829, guid: 4380a77473aabc542822daa529300163, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8106127681187198411, guid: 4380a77473aabc542822daa529300163, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8130631782096282060, guid: 4380a77473aabc542822daa529300163, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8178419663632916888, guid: 4380a77473aabc542822daa529300163, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8888172048253475558, guid: 4380a77473aabc542822daa529300163, type: 3}
       propertyPath: m_LocalPosition.x
@@ -671,7 +695,7 @@ Transform:
   m_GameObject: {fileID: 7101597945257726256}
   serializedVersion: 2
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -415.6, y: 329.71, z: -415.7}
+  m_LocalPosition: {x: -415.6, y: 310.17, z: -415.7}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -712,7 +736,7 @@ Camera:
   far clip plane: 2000
   field of view: 26.991467
   orthographic: 1
-  orthographic size: 14.1
+  orthographic size: 4.6
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
