@@ -74,6 +74,7 @@ namespace CookApps.AutoBattler
 
         private ElpisBuildingBase[] cachedElpisBuildings;
         public IReadOnlyList<ElpisBuildingBase> ElpisBuildings => cachedElpisBuildings;
+        public int MainBlockBuildingCount => elpisBuildings.Length;
         
         private void Awake()
         {
@@ -98,6 +99,7 @@ namespace CookApps.AutoBattler
         public async UniTask AttachSubBlock(int index, bool withAnimation)
         {
             var dummyBlock = index < dummySubBlocks.Length ? dummySubBlocks[index] : null;
+            subBlockInfos[index].SubBlock.gameObject.SetActive(true);
             await subBlockInfos[index].MoveBlock(dummyBlock, withAnimation);
 
             elevatorLinks[index].ActivateElevator();
@@ -105,26 +107,38 @@ namespace CookApps.AutoBattler
         
         public async UniTask LoadAllSubBlocks()
         {
-            var loadTasks = new List<UniTask>();
+            // 크기가 고정된 배열 사용으로 GC 최적화
+            var loadTasks = new UniTask[subBlockInfos.Length];
             for (var i = 0; i < subBlockInfos.Length; i++)
             {
-                loadTasks.Add(subBlockInfos[i].InstantiateAsync());
+                loadTasks[i] = subBlockInfos[i].InstantiateAsync();
             }
 
             await UniTask.WhenAll(loadTasks);
-            
-            var allBuildings = new List<ElpisBuildingBase>();
+
+            for (var i = 0; i < subBlockInfos.Length; i++)
+            {
+                subBlockInfos[i].SubBlock.gameObject.SetActive(false);
+            }
+
+            // 전체 건물 수 미리 계산하여 capacity 설정
+            var totalBuildingCount = elpisBuildings.Length;
+            for (var i = 0; i < subBlockInfos.Length; i++)
+            {
+                totalBuildingCount += subBlockInfos[i].SubBlock.ElpisBuildings.Count;
+            }
+
+            var allBuildings = new List<ElpisBuildingBase>(totalBuildingCount);
             allBuildings.AddRange(elpisBuildings);
             for (var i = 0; i < subBlockInfos.Length; i++)
             {
                 allBuildings.AddRange(subBlockInfos[i].SubBlock.ElpisBuildings);
             }
-            
+
             cachedElpisBuildings = allBuildings.ToArray();
             for (var i = 0; i < cachedElpisBuildings.Length; i++)
             {
                 cachedElpisBuildings[i].Initialize(i);
-                //cachedElpisBuildings[i].gameObject.SetActive(false);
             }
         }
 
