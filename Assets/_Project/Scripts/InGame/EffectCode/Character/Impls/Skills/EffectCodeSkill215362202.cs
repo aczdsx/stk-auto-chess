@@ -14,8 +14,8 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 //     특수 효과 : 피격된 적은 {1}초 동안 침묵 디버프에 걸리게 한다.
 // *침묵 : 스킬 사용 불가능, 스킬 쿨타임 감소 정지
 /// </summary>
-[UseEffectCodeIds(1133622021)]
-public partial class EffectCodeSkill1133622021 : EffectCodeCharacterBase
+[UseEffectCodeIds(215362202)]
+public partial class EffectCodeSkill215362202 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate;
     private ObfuscatorFloat _debuffRate;

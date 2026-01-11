@@ -82,17 +82,15 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
 
         if (_targetCharacter == null)
         {
-            var targetCharacters = InGameObjectManager.Instance.GetCharacterListSortedByDistance(owner, false);
-            if (targetCharacters.Count > 0)
+            var targetCharacter = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(owner);
+            if (targetCharacter != null)
             {
-                for (int i = targetCharacters.Count - 1; i >= 0; i--)
-                {
-                    if (targetCharacters[i].IsAlive)
-                    {
-                        _targetCharacter = targetCharacters[i];
-                        break;
-                    }
-                }
+                _targetCharacter = targetCharacter;
+            }
+            else
+            {
+                Debug.LogError("hati: No target character found");
+                return;
             }
         }
 

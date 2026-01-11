@@ -44,7 +44,7 @@ public partial class EffectCodeSynergyElementWater : EffectCodeSynergyBase
 
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.HP_PERCENT_UP, owner, eccStats, source);
         base.AddSynergyAddEffectCodeIds(EffectCodeNameType.HP_PERCENT_UP);
-        owner.ForceSetHp(owner.HP);
+        owner.SetMaxHealth();
 
         eccStats[0] = _defValue * 0.01f;
         var effectCodeInfo = new EffectCodeInfo((int)EffectCodeNameType.DEF_PERCENT_UP, 0, eccStats);

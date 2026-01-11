@@ -15,12 +15,14 @@ namespace CookApps.BattleSystem
     {
         public const int CodeId = 117513401;
         private int _shieldCount;
+        private SkillPassive _specSkill;
 
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
             _shieldCount = codeInfo.GetCodeStatToInt(0);
+            _specSkill = base.GetSpecSkillPassive(CodeId);
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -37,6 +39,7 @@ namespace CookApps.BattleSystem
 
         public void InjectNoDamageShield()
         {
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.passive_skill_vfxs[0], owner.SkillMiddleFXTransformFollowable);
             Span<double> buffStats = stackalloc double[3];
             buffStats.Clear();
             buffStats[0] = codeId;

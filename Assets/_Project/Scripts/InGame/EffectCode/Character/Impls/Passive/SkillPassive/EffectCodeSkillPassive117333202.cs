@@ -17,75 +17,32 @@ namespace CookApps.BattleSystem
     {
         public const int CodeId = 117333202;
 
-        private float _increaseTime;
-        private float _elapsedTime;
-        private float _attackSpeedIncreaseRate;
-        private float _currentAttackSpeedIncreaseRate;
-
-        private static readonly float _maxAttackSpeedIncreaseRate = 0.6f;
-
-        private InGameTile _prevTile;
-        private bool _isCombatStarted = false;
-
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
-            _increaseTime = codeInfo.GetCodeStatToFloat(0);
-            _attackSpeedIncreaseRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-            _currentAttackSpeedIncreaseRate = 0f;
-            _elapsedTime = 0f;
+
+            InjectPassiveBuff(codeInfo, source);
+
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
             base.Merge(codeInfo, source);
-            _increaseTime = codeInfo.GetCodeStatToFloat(0);
-            _attackSpeedIncreaseRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+            
+            InjectPassiveBuff(codeInfo, source);
         }
 
-
-        public override void OnCombatStart()
+        private void InjectPassiveBuff(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
-            _isCombatStarted = true;
-            _prevTile = owner.CurrentTile;
+            Span<double> buffStats = stackalloc double[3];
+
+            buffStats.Clear();
+            buffStats[0] = codeId;
+            buffStats[1] = codeInfo.GetCodeStatToFloat(0);// increase time
+            buffStats[2] = codeInfo.GetCodeStatToFloat(1) * 0.01f;//_attackSpeedIncreaseRate
+
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_APRIL_STANDER, owner, buffStats, source);
         }
 
-        public override void OnUpdate(float dt)
-        {
-            if (!_isCombatStarted)
-                return;
-
-            if (_prevTile == null || owner.CurrentTile == null)
-                return;
-
-            _elapsedTime += dt;
-            if (_elapsedTime < _increaseTime)
-                return;
-
-            _elapsedTime = 0f;
-            var prevAttackSpeedIncreaseRate = _currentAttackSpeedIncreaseRate;
-
-            if (_prevTile == owner.CurrentTile)
-            {
-                _currentAttackSpeedIncreaseRate += _attackSpeedIncreaseRate;
-            }
-            else
-            {
-                _currentAttackSpeedIncreaseRate -= _attackSpeedIncreaseRate * 0.5f;
-            }
-
-            _currentAttackSpeedIncreaseRate = Mathf.Clamp(_currentAttackSpeedIncreaseRate, 0f, _maxAttackSpeedIncreaseRate);
-            if(prevAttackSpeedIncreaseRate != _currentAttackSpeedIncreaseRate)
-            {
-                owner.GetEffectCodeContainer().SetDirtyFlag(this);
-            }
-
-            _prevTile = owner.CurrentTile;
-        }
-
-        public override float GetIncrementPercentAttackSpeed()
-        {
-            return _currentAttackSpeedIncreaseRate;
-        }
     }
 }//117333202

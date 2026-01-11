@@ -115,7 +115,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.HP_PERCENT_UP, targetCharacter, stats, source);
         base.AddSynergyAddEffectCodeIds(EffectCodeNameType.HP_PERCENT_UP);
 
-        targetCharacter.ForceSetHp(targetCharacter.HP);
+        targetCharacter.SetMaxHealth();
 
     }
 

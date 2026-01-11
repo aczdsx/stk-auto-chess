@@ -7,34 +7,43 @@ using Cysharp.Threading.Tasks;
 using System;
 
 
+
 /// <summary>
-/// 아이콘을 위해 DEBUFF로 처리
+/// 아이콘을 위해 buff로 처리
 /// 무조건 한개의 버프 스택만 유지한다.
 /// </summary>.
+/// 아드리아 패시브 팀 도움
+/// 
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeDebuffOdetteCold : EffectCodeDebuffBase
+public partial class EffectCodeBuffAdriaPassiveTeamHelp : EffectCodeBuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.DEBUFF_ODETTE_COLD;
-    private const BuffDebuffType buffDebuffType = BuffDebuffType.OdetteCold;
-    private int _overlapCount;
-    private float _debuffDuration;
+    private const int CodeId = (int)EffectCodeNameType.BUFF_ADRIA_PASSIVE_TEAM_HELP;
+    private const BuffDebuffType buffDebuffType = BuffDebuffType.AdriaPassiveTeamHelp;
+    public override bool IsNeedToShowIcon => true;
+
+
+    private float _adReduceApReduceRatePercent; // 물리/마법 저항력 증가 비율
+    private float _healRatePercent; // 치유력 증가 비율
+    private int _currentTargetCount;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
+        _currentTargetCount = 0;
+        _adReduceApReduceRatePercent = codeInfo.GetCodeStatToInt(1);
+        _healRatePercent = codeInfo.GetCodeStatToFloat(2);
 
         _stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
 
         buffStackData.SetData(
         sourceCodeId: codeInfo.GetCodeStatToInt(0),
-        duration: codeInfo.GetCodeStatToFloat(1),
-        value: 1,
+        duration: 999f,
+        value: 0,
         source: source,
-        isShowValue: true
+        isShowValue: true,
+        showPosition: BuffStackData.BuffShowPosition.SIDE
         );
-        _overlapCount = codeInfo.GetCodeStatToInt(2);
-        _debuffDuration = codeInfo.GetCodeStatToFloat(3);
 
         _stackDatas.Add(buffStackData);
 
@@ -45,10 +54,13 @@ public partial class EffectCodeDebuffOdetteCold : EffectCodeDebuffBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
+        _currentTargetCount = 0;
+
+        _adReduceApReduceRatePercent = codeInfo.GetCodeStatToFloat(1);
+        _healRatePercent = codeInfo.GetCodeStatToFloat(2);
 
         int newSourceCodeId = codeInfo.GetCodeStatToInt(0);
-        _overlapCount = codeInfo.GetCodeStatToInt(2);
-        _debuffDuration = codeInfo.GetCodeStatToFloat(3);
+
         // 같은 source가 있는지 확인
         for (int i = 0; i < _stackDatas.Count; i++)
         {
@@ -56,8 +68,8 @@ public partial class EffectCodeDebuffOdetteCold : EffectCodeDebuffBase
             {
                 // 같은 source가 있으면 덮어쓰기
                 var stackData = _stackDatas[i];
-                stackData.duration = codeInfo.GetCodeStatToFloat(1);
-                stackData.value += 1;
+                stackData.duration = 999f;
+                stackData.value = 0;
                 stackData.elapsedTime = 0f;
                 stackData.isShowValue = true;
                 return;
@@ -76,34 +88,52 @@ public partial class EffectCodeDebuffOdetteCold : EffectCodeDebuffBase
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
             newSourceCodeId,
-            codeInfo.GetCodeStatToFloat(1),
-            codeInfo.GetCodeStat(2),
+            999f,
+            0,
             source,
             isShowValue: true
         );
         _stackDatas.Add(buffStackData);
         owner.AddBuffStackData(CodeId, buffStackData);
-
-        CheckOverlapCount();
     }
 
-
-    private void CheckOverlapCount()
+    public override void OnUpdate(float dt)
     {
-        if (_stackDatas[0].value >= _overlapCount)
+        base.OnUpdate(dt);
+        int targetCount = 0;
+        var targettiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
+        foreach (var tile in targettiles)
         {
-            Span<double> eccStats = stackalloc double[1];
-            eccStats.Clear();
-            eccStats[0] = _debuffDuration;
+            if (tile.CheckValidTile(owner.AllianceType, false))
+            {
+                targetCount++;
+            }
+        }
 
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, owner, eccStats, source);
-
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02, owner.SkillRootTransformFollowable.GetPosition());
-            RemoveFromContainer();
-            // var affectText = buffDebuffType.GetAffectToken();
-            // owner.ShowNormalText(affectText, hexColor: "#5DC9FFFF").Forget();
+        if (targetCount != _currentTargetCount)
+        {
+            _currentTargetCount = targetCount;
+            _stackDatas[0].value = _currentTargetCount;
+            owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
+            owner.GetEffectCodeContainer().SetDirtyFlag(this);
         }
     }
+
+    public override float GetIncrementPercentGivenHealRate()
+    {
+        return _healRatePercent * _currentTargetCount;
+    }
+
+    public override double GetIncrementPercentADReduce()
+    {
+        return _adReduceApReduceRatePercent * _currentTargetCount;
+    }
+
+    public override double GetIncrementPercentAPReduce()
+    {
+        return _adReduceApReduceRatePercent * _currentTargetCount;
+    }
+
 
     public override void OnPreRemoved()
     {
@@ -112,6 +142,9 @@ public partial class EffectCodeDebuffOdetteCold : EffectCodeDebuffBase
         base.OnPreRemoved();
         ListPool<BuffStackData>.Release(_stackDatas);
     }
+
+
+
 
 
 }

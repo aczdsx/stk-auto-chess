@@ -40,7 +40,9 @@ public class FlowStateStageReady : StateReadyBase
 
     public override async void StateInit(object target)
     {
-        TutorialManager.Instance.CheckAndInitTutorial(_specStage.stage_id).Forget();
+        await TutorialManager.Instance.CheckAndInitTutorial(_specStage.stage_id);
+
+        TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.GAME_START, 0);
 
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         List<StageMonster> monsters =
@@ -135,7 +137,14 @@ public class FlowStateStageReady : StateReadyBase
                 typeof(CharacterStateReady), true, HpBarType.Synergy | HpBarType.HpBar));
         }
 
-        await UniTask.WhenAll(addCharacterTasks);
+        var characters = await UniTask.WhenAll(addCharacterTasks);
+
+        // 튜토리얼 활성화 시 캐릭터들을 TutorialTargetRegistry에 등록
+        if (TutorialManager.Instance.HasTutorialStage)
+        {
+            RegisterCharactersForTutorial(characters);
+        }
+
         InGameMain.GetInGameMain().InitReadyStateUI(battleDeckList);
 
         StartDrawingLinesAsync(2.0f).Forget();
@@ -335,7 +344,63 @@ public class FlowStateStageReady : StateReadyBase
         {
             _specTileEffectCodeDic[specTileEffectCode.id] = specTileEffectCode;
         }
-
     }
 
+    /// <summary>
+    /// 튜토리얼용으로 캐릭터들을 TutorialTargetRegistry에 등록
+    /// 같은 캐릭터ID가 여러 개면 인덱스 추가 (130601_0, 130601_1)
+    /// 유일하면 ID만 사용 (130601)
+    /// </summary>
+    private void RegisterCharactersForTutorial(CharacterController[] characters)
+    {
+        // null 제외한 캐릭터 리스트
+        var validCharacters = new List<CharacterController>();
+        foreach (var character in characters)
+        {
+            if (character != null)
+                validCharacters.Add(character);
+        }
+
+        // 캐릭터 ID별 개수 카운트
+        var idCount = new Dictionary<int, int>();
+        foreach (var character in validCharacters)
+        {
+            if (idCount.ContainsKey(character.CharacterId))
+                idCount[character.CharacterId]++;
+            else
+                idCount[character.CharacterId] = 1;
+        }
+
+        // 중복 캐릭터용 인덱스 추적
+        var idIndex = new Dictionary<int, int>();
+
+        foreach (var character in validCharacters)
+        {
+            var characterView = character.GetCharacterView();
+            if (characterView == null) continue;
+
+            var tutorialTarget = characterView.gameObject.GetComponent<TutorialTarget>();
+            if (tutorialTarget == null)
+            {
+                tutorialTarget = characterView.gameObject.AddComponent<TutorialTarget>();
+            }
+
+            string targetId;
+            if (idCount[character.CharacterId] > 1)
+            {
+                // 중복 캐릭터: 인덱스 추가
+                if (!idIndex.ContainsKey(character.CharacterId))
+                    idIndex[character.CharacterId] = 0;
+
+                targetId = $"{character.CharacterId}_{idIndex[character.CharacterId]++}";
+            }
+            else
+            {
+                // 유일한 캐릭터: ID만 사용
+                targetId = character.CharacterId.ToString();
+            }
+
+            tutorialTarget.SetTargetId(targetId);
+        }
+    }
 }

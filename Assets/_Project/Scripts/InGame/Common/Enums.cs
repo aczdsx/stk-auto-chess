@@ -132,6 +132,11 @@ namespace CookApps.BattleSystem
         TargetImpossible,
         Immune,
         AvoidProbUp,
+        AprilStander,
+        TetorraAnger,
+        ShirayukiAvoidAndAttack,
+        EnkiPassiveHealUp,
+        AdriaPassiveTeamHelp,
         AttackDown = 1000,
         DefenceDown,
         CoolTimeDown,
@@ -245,5 +250,5 @@ namespace CookApps.BattleSystem
         None,
         Nearest,
         Farthest
-    }
+    }    
 }

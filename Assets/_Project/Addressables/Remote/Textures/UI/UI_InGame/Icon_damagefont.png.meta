@@ -1,0 +1,453 @@
+fileFormatVersion: 2
+guid: 933abc2f2d72e1a4e82a9aac1d3fd26f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -27574711998708800
+    second: Icon_damagefont_0
+  - first:
+      213: -8100411285043860291
+    second: Icon_damagefont_1
+  - first:
+      213: 6285715275330830884
+    second: Icon_damagefont_2
+  - first:
+      213: -3781396744961675776
+    second: Icon_damagefont_3
+  - first:
+      213: 983239077804708562
+    second: Icon_damagefont_4
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0, y: 0}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 59, y: 48, z: 59, w: 62}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: 0
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Icon_damagefont_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 120
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c3888e02f80e9ff0800000000000000
+      internalID: -27574711998708800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_damagefont_1
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 120
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbc2564aade859f80800000000000000
+      internalID: -8100411285043860291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_damagefont_2
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 120
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42247516db85b3750800000000000000
+      internalID: 6285715275330830884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_damagefont_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 60
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00eadb5f1b7c58bc0800000000000000
+      internalID: -3781396744961675776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_damagefont_4
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 60
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d215d95bba25ad00800000000000000
+      internalID: 983239077804708562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_damagefont_5
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 60
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de89d926c844faf4cb606f1959c9ddaa
+      internalID: -1460259508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_damagefont_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2e97e2057da7b34b814cbdcb9ca602a
+      internalID: -621913590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_damagefont_7
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 0
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: caacf25c4c692b048993f464e0ab0e3a
+      internalID: -1446113906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_damagefont_8
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 0
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 152546e9543db2a4394cf581fc45f1bf
+      internalID: 1790408480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: -37, y: 44}
+      - {x: -37, y: 79}
+      - {x: -53, y: 86}
+      - {x: -72, y: 86}
+      - {x: -84, y: 78}
+      - {x: -84, y: 59}
+      - {x: -80, y: 39}
+      - {x: -76, y: 35}
+      - {x: -51, y: 35}
+    - - {x: 11, y: 36}
+      - {x: 11, y: 81}
+      - {x: 6, y: 86}
+      - {x: -15, y: 86}
+      - {x: -27, y: 76}
+      - {x: -27, y: 53}
+      - {x: -26, y: 51}
+      - {x: -16, y: 37}
+      - {x: -14, y: 35}
+      - {x: 10, y: 35}
+    - - {x: 71, y: 79}
+      - {x: 57, y: 86}
+      - {x: 50, y: 86}
+      - {x: 33, y: 68}
+      - {x: 33, y: 48}
+      - {x: 40, y: 35}
+      - {x: 71, y: 35}
+    - - {x: -38, y: -13}
+      - {x: -37, y: -4}
+      - {x: -37, y: 20}
+      - {x: -48, y: 25}
+      - {x: -74, y: 25}
+      - {x: -84, y: 18}
+      - {x: -84, y: -10}
+      - {x: -82, y: -17}
+      - {x: -66, y: -27}
+      - {x: -53, y: -27}
+    - - {x: 10, y: -23}
+      - {x: 24, y: -11}
+      - {x: 24, y: 18}
+      - {x: 14, y: 25}
+      - {x: -25, y: 25}
+      - {x: -25, y: -16}
+      - {x: -21, y: -27}
+      - {x: 3, y: -27}
+    customData: 
+    physicsShape:
+    - - {x: -37, y: 44}
+      - {x: -37, y: 79}
+      - {x: -53, y: 86}
+      - {x: -72, y: 86}
+      - {x: -84, y: 78}
+      - {x: -84, y: 59}
+      - {x: -80, y: 39}
+      - {x: -76, y: 35}
+      - {x: -51, y: 35}
+    - - {x: 11, y: 36}
+      - {x: 11, y: 81}
+      - {x: 6, y: 86}
+      - {x: -15, y: 86}
+      - {x: -27, y: 76}
+      - {x: -27, y: 53}
+      - {x: -26, y: 51}
+      - {x: -16, y: 37}
+      - {x: -14, y: 35}
+      - {x: 10, y: 35}
+    - - {x: 71, y: 79}
+      - {x: 57, y: 86}
+      - {x: 50, y: 86}
+      - {x: 33, y: 68}
+      - {x: 33, y: 48}
+      - {x: 40, y: 35}
+      - {x: 71, y: 35}
+    - - {x: -38, y: -13}
+      - {x: -37, y: -4}
+      - {x: -37, y: 20}
+      - {x: -48, y: 25}
+      - {x: -74, y: 25}
+      - {x: -84, y: 18}
+      - {x: -84, y: -10}
+      - {x: -82, y: -17}
+      - {x: -66, y: -27}
+      - {x: -53, y: -27}
+    - - {x: 10, y: -23}
+      - {x: 24, y: -11}
+      - {x: 24, y: 18}
+      - {x: 14, y: 25}
+      - {x: -25, y: 25}
+      - {x: -25, y: -16}
+      - {x: -21, y: -27}
+      - {x: 3, y: -27}
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Icon_damagefont_0: -27574711998708800
+      Icon_damagefont_1: -8100411285043860291
+      Icon_damagefont_2: 6285715275330830884
+      Icon_damagefont_3: -3781396744961675776
+      Icon_damagefont_4: 983239077804708562
+      Icon_damagefont_5: -1460259508
+      Icon_damagefont_6: -621913590
+      Icon_damagefont_7: -1446113906
+      Icon_damagefont_8: 1790408480
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

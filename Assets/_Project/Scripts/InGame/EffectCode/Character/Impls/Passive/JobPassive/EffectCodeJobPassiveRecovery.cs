@@ -68,8 +68,8 @@ namespace CookApps.BattleSystem
             var attackPower = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
             var BaseHealOnHit = attackPower * _recoveryPercentage;
 
-            var HealPowerCaster = owner.SpecCharacter.heal_power;
-            var HealPowerTarget = target.SpecCharacter.heal_power;
+            var HealPowerCaster = owner.GivenHealRate;
+            var HealPowerTarget = target.GivenHealRate;
 
             float HealTakenMul = 1f;
 
@@ -90,8 +90,8 @@ namespace CookApps.BattleSystem
         public static double CalculateOracleSkillRecoveryAmount(CharacterController owner, CharacterController target,
         double baseHealSkill)
         {
-            var HealPowerCaster = owner.SpecCharacter.heal_power;
-            var HealPowerTarget = target.SpecCharacter.heal_power;
+            var HealPowerCaster = owner.GivenHealRate;
+            var HealPowerTarget = target.GivenHealRate;
 
             var AntiHealMul = 1f;
 

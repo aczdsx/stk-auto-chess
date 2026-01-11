@@ -77,11 +77,18 @@ namespace CookApps.BattleSystem
 
         public CharacterController Target { get; set; }
         public InGameTile CurrentTile { get; set; }
-
         public bool IsAlive { get; set; }
 
-
+        /// <summary>
+        /// 스킬 루트 트랜스폼
+        /// view의 scale이 커져도 위치가 변하지 않는 트랜스폼
+        /// </summary>
         public IFollowable SkillRootTransformFollowable => new SimpleSkillTransformFollowable(this);
+
+        /// <summary>
+        /// 스킬 탑 미들 바텀 FX 트랜스폼
+        /// view의 scale이 커지면 위치가 변하는 트랜스폼
+        /// </summary>
         public IFollowable SkillTopFXTransformFollowable => new SimpleSkillTopFXTransformFollowable(this);
         public IFollowable SkillMiddleFXTransformFollowable => new SimpleSkillMiddleFXTransformFollowable(this);
         public IFollowable SkillBottomFXTransformFollowable => new SimpleSkillBottomFXTransformFollowable(this);
@@ -132,9 +139,10 @@ namespace CookApps.BattleSystem
 
         public AllianceType AllianceType => _allianceType;
         public double CurrentHp => _currHp;
-        public InGameVfxNameType ImmuneSuccessFx
+        public void SetImmuneSuccessFx(InGameVfxNameType fx, IFollowable transformFollowable)
         {
-            set => _immuneSuccessFx = value;
+            _immuneSuccessFx = fx;
+            _immuneSuccessFxTransformFollowable = transformFollowable ?? SkillRootTransformFollowable;
         }
 
         private HpBarView _hpBarView;
@@ -183,6 +191,7 @@ namespace CookApps.BattleSystem
         private Vector3 SelectedOffSet;
         private InGameVfx _notFoundTargetFx;
         private InGameVfxNameType _immuneSuccessFx = InGameVfxNameType.NONE;
+        private IFollowable _immuneSuccessFxTransformFollowable;
 
         //캐릭터가 가지고있는 스탯 확률을 건드리지않고, 반드시 크리티컬 확률을 증가시키고 싶을 때 사용하는 변수
         private float _fixedCriticalProb = 0f;
@@ -371,6 +380,7 @@ namespace CookApps.BattleSystem
         {
             if (_statData != null)
             {
+                _hpBarView?.OnPreReturn();
                 InGameHpBarViewPool.Instance.Return(_hpBarView);
                 ecc.Clear();
                 ecc.OnChangedDirtyFlag -= EffectCodeOnChangedDirtyFlagHandler;
@@ -1046,6 +1056,7 @@ namespace CookApps.BattleSystem
         /// 데미지 계산해서 벹는함수.
         /// 기존에 Pre,Post Calculate 연산이 모두 하나로 통합
         /// 비트 플래그를 사용하여 각 테스트를 선택적으로 스킵할 수 있음
+        /// 일반공격시 source는 0이다.
         /// </summary>
         /// <param name="ad"></param>
         /// <param name="ap"></param>
@@ -1277,7 +1288,7 @@ namespace CookApps.BattleSystem
             }
             else
             {
-                ShowStaticNormalText("MISS!!", "#FF0000FF").Forget();
+                ShowStaticNormalTextHeightOffset("MISS!!", "#FF0000FF").Forget();
             }
 
             _currHp -= damageAmount.damageAmount.Value;
@@ -1343,9 +1354,11 @@ namespace CookApps.BattleSystem
         }
 
         #region Hp
-        public void ForceSetHp(double hp)
+
+
+        public void SetMaxHealth()
         {
-            _currHp = Math.Min(hp, HP);
+            _currHp = HP;
             UpdateHpBar();
         }
 
@@ -1359,6 +1372,9 @@ namespace CookApps.BattleSystem
             if (_hpBarView != null)
             {
                 _hpBarView.SetValue(_currHp, HP, _currShield);
+
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnHpChange);
+                EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnHpChangeLambda);
             }
         }
         #endregion
@@ -1678,19 +1694,19 @@ namespace CookApps.BattleSystem
             await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, convertText, hexColor);
         }
 
-        public async UniTask ShowStaticNormalText(string text, string hexColor = null)
+        public async UniTask ShowStaticNormalTextHeightOffset(string text, string hexColor = null)
         {
             InGameTextView textView = InGameTextViewPool.Instance.Get();
 
-            await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, text, hexColor);
+            await textView.ShowNormalTextAddHeightOffset(GetCharacterView().CachedTr.position, _statData.Spec.height, text, hexColor);
         }
 
-        public void ShowImmuneSuccessFx()
+        public InGameVfx ShowImmuneSuccessFx()
         {
             if (_immuneSuccessFx == InGameVfxNameType.NONE)
-                return;
+                return null;
 
-            InGameVfxManager.Instance.AddInGameVfx(_immuneSuccessFx, SkillRootTransformFollowable);
+            return InGameVfxManager.Instance.AddInGameVfx(_immuneSuccessFx, _immuneSuccessFxTransformFollowable);
         }
     }
 }

@@ -71,6 +71,44 @@ namespace CookApps.AutoBattler
             return (int)battlePower;
         }
 
+        public void CreateAllCharacter()
+        {
+            if (userCharacterGroup == null) return;
+            userCharacterGroup.UserCharacters.Clear();
+            // 전체 캐릭터 리스트 생성
+            var allCharacterList = SpecDataManager.Instance.GetCharacterListByCharacterType(CharacterType.CHARACTER);
+            foreach (var character in allCharacterList)
+                userCharacterGroup.UserCharacters.Add(character.character_id, new UserCharacter
+                {
+                    CharacterId = character.character_id,
+                    Level = 3, // 0: 미획득, 1 이상: 획득
+                    Exp = 0,
+                    StarLevel = character.init_star,
+                    CharacterPiece = 0,
+                    TranscendenceLevel = 0
+                });
+        }
+
+        public void CreateCharacterByID(int characterID)
+        {
+            if (userCharacterGroup == null) return;
+            userCharacterGroup.UserCharacters.Clear();
+            
+            var characterData = SpecDataManager.Instance.GetCharacterData(characterID);
+            Debug.LogColor($"CreateCharacterByID: {characterID}");
+            if (characterData == null) return;
+
+            userCharacterGroup.UserCharacters.Add(characterID, new UserCharacter
+            {
+                CharacterId = characterID,
+                Level = 20, // 0: 미획득, 1 이상: 획득
+                Exp = 0,
+                StarLevel = characterData.init_star,
+                CharacterPiece = 0,
+                TranscendenceLevel = 0
+            });
+        }
+
         // 해당 전투 덱의 전투력을 계산 (일반)
         public int GetDeckBattlePower(List<UserCharacterBattleDeck> targetDeckList)
         {
@@ -242,7 +280,7 @@ namespace CookApps.AutoBattler
 
         public void ForceAddNewCharacter(int characterID)
         {
-            if(SpecDataManager.Instance.GetCharacterData(characterID) == null) return;
+            if (SpecDataManager.Instance.GetCharacterData(characterID) == null) return;
             if (UserCharacterDic.ContainsKey(characterID))
             {
                 AddNewCharacter(characterID);

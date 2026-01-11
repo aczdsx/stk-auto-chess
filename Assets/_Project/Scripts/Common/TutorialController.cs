@@ -23,6 +23,10 @@ public class TutorialController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _descText;
     [SerializeField] private Transform _targetSpawnTransform;
 
+    [Header("3D World Target Arrow")]
+    [SerializeField] private RectTransform _worldArrowRectTransform;
+    [SerializeField] private Canvas _tutorialCanvas;
+
     public Material _maskMaterial;
 
     private List<TutorialDialogue> _currentSpecTutorialList;
@@ -44,15 +48,18 @@ public class TutorialController : MonoBehaviour
 
     // 전략 인스턴스 캐싱
     private static readonly Dictionary<TutorialActionType, ITutorialActionStrategy> _strategies = new()
-    {   
+    {
         { TutorialActionType.NONE, new TutorialActionNone() },
         { TutorialActionType.FORCED_TOUCH_UI, new TutorialActionForcedTouchUI() },
-        { TutorialActionType.FOCUS_OBJECT, new TutorialActionFocusObject() }
+        { TutorialActionType.FOCUS_OBJECT, new TutorialActionFocusObject() },
+        { TutorialActionType.CHARACTER_PLACEMENT, new TutorialActionCharacterPlacement() },
+        { TutorialActionType.TOAST_MESSAGE, new TutorialActionToastMessage() }
     };
 
     protected void Update()
     {
         UpdateMaskPosition();
+        UpdateWorldArrowPosition();
     }
 
     public void OnClickDimmedBG()
@@ -81,7 +88,10 @@ public class TutorialController : MonoBehaviour
         {
             NextObj = _nextObj,
             ArrowRectTransform = _arrowRectTransform,
-            TargetSpawnTransform = _targetSpawnTransform
+            TargetSpawnTransform = _targetSpawnTransform,
+            WorldArrowRectTransform = _worldArrowRectTransform,
+            TutorialCanvas = _tutorialCanvas,
+            MainCamera = Camera.main
         };
     }
 
@@ -105,25 +115,89 @@ public class TutorialController : MonoBehaviour
 
     public void ShowNextTutorial(TutorialDialogue specTutorial)
     {
+        Debug.LogColor($"ShowNextTutorial: {specTutorial.tutorial_action_type} {specTutorial.tutorial_action_key} {specTutorial.seq}", "green");
         // 이전 전략 정리 (버튼 원위치 등)
         RestorePreviousState();
 
         CurrentSpecTutorial = specTutorial;
         _actionContext.CurrentTutorial = specTutorial;
 
-        // 텍스트 설정
-        string tutorialText = LanguageManager.Instance.GetLanguageText(CurrentSpecTutorial.desc_key);
-        _descText.text = tutorialText;
         _nextObj.SetActive(false);
         _actionContext.TargetUnmaskObj = null;
 
-        // 말풍선 위치 이동
-        var targetPosition = new Vector3(0, CurrentSpecTutorial.popup_yPos, 0);
-        _bodyRectTransform.DOLocalMove(targetPosition, 0.6f).SetEase(Ease.OutQuad);
+        // TOAST_MESSAGE 타입은 말풍선 숨김
+        bool isToastMessage = CurrentSpecTutorial.tutorial_action_type == TutorialActionType.TOAST_MESSAGE;
+        _bodyRectTransform.gameObject.SetActive(!isToastMessage);
+
+        if (!isToastMessage)
+        {
+            // 텍스트 설정
+            // string tutorialText = LanguageManager.Instance.GetLanguageText(CurrentSpecTutorial.desc_key);
+            string tutorialText = CurrentSpecTutorial.desc_key;
+            _descText.text = tutorialText;
+
+            // 말풍선 위치 이동
+            var targetPosition = new Vector3(0, CurrentSpecTutorial.popup_yPos, 0);
+            _bodyRectTransform.DOLocalMove(targetPosition, 0.6f).SetEase(Ease.OutQuad);
+        }
 
         // 전략 선택 및 실행
         _currentStrategy = GetStrategy(CurrentSpecTutorial.tutorial_action_type);
         _currentStrategy?.OnShow(_actionContext);
+
+        // CHARACTER_PLACEMENT 전략일 경우 배치 완료 콜백 설정
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.CHARACTER_PLACEMENT)
+        {
+            TutorialActionCharacterPlacement.OnCharacterPlacementCompleted = OnCharacterPlacementCompleted;
+        }
+
+        // TOAST_MESSAGE 전략일 경우 토스트 완료 콜백 설정
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.TOAST_MESSAGE)
+        {
+            TutorialActionToastMessage.OnToastCompleted = OnToastCompleted;
+        }
+
+        // FORCED_TOUCH_UI 전략일 경우 버튼 클릭 콜백 설정
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FORCED_TOUCH_UI)
+        {
+            TutorialActionForcedTouchUI.OnButtonClicked = OnForcedTouchUIButtonClicked;
+        }
+    }
+
+    /// <summary>
+    /// 강제 터치 UI 버튼 클릭 시 호출되는 콜백
+    /// </summary>
+    private void OnForcedTouchUIButtonClicked()
+    {
+        // 콜백 해제
+        TutorialActionForcedTouchUI.OnButtonClicked = null;
+
+        // 다음 튜토리얼로 진행
+        ProceedToNext();
+    }
+
+    /// <summary>
+    /// 토스트 메시지 완료 시 호출되는 콜백
+    /// </summary>
+    private void OnToastCompleted()
+    {
+        // 콜백 해제
+        TutorialActionToastMessage.OnToastCompleted = null;
+
+        // 다음 튜토리얼로 진행
+        ProceedToNext();
+    }
+
+    /// <summary>
+    /// 캐릭터 배치 완료 시 호출되는 콜백
+    /// </summary>
+    private void OnCharacterPlacementCompleted()
+    {
+        // 콜백 해제
+        TutorialActionCharacterPlacement.OnCharacterPlacementCompleted = null;
+
+        // 다음 튜토리얼로 진행
+        ProceedToNext();
     }
 
     /// <summary>
@@ -140,6 +214,12 @@ public class TutorialController : MonoBehaviour
 
         // 현재 전략 정리
         _currentStrategy?.OnClear(_actionContext);
+
+        // 월드 화살표 비활성화
+        if (_worldArrowRectTransform != null)
+        {
+            _worldArrowRectTransform.gameObject.SetActive(false);
+        }
 
         _tutorialAnimator.SetTrigger(Close);
 
@@ -193,6 +273,52 @@ public class TutorialController : MonoBehaviour
         return _strategies[TutorialActionType.NONE];
     }
 
+    #region World Arrow
+
+    /// <summary>
+    /// 3D 월드 타겟 화살표 위치 업데이트
+    /// </summary>
+    private void UpdateWorldArrowPosition()
+    {
+        if (_worldArrowRectTransform == null || _actionContext == null)
+            return;
+
+        // CHARACTER_PLACEMENT 전략에서 타겟 타일 위치 가져오기
+        Vector3? worldTargetPos = TutorialActionCharacterPlacement.GetTargetTilePosition();
+
+        if (!worldTargetPos.HasValue || !TutorialActionCharacterPlacement.IsActive)
+        {
+            _worldArrowRectTransform.gameObject.SetActive(false);
+            return;
+        }
+
+        // 월드 좌표 → 스크린 좌표 변환
+        Camera cam = _actionContext.MainCamera ?? Camera.main;
+        if (cam == null) return;
+
+        Vector3 screenPos = cam.WorldToScreenPoint(worldTargetPos.Value);
+
+        // 카메라 뒤에 있으면 숨김
+        if (screenPos.z < 0)
+        {
+            _worldArrowRectTransform.gameObject.SetActive(false);
+            return;
+        }
+
+        // 스크린 좌표 → UI 로컬 좌표 변환
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            _canvasRectTransform,
+            screenPos,
+            _tutorialCanvas?.worldCamera,
+            out Vector2 localPoint))
+        {
+            _worldArrowRectTransform.gameObject.SetActive(true);
+            _worldArrowRectTransform.localPosition = localPoint;
+        }
+    }
+
+    #endregion
+
     #region Mask Animation
 
     private void UpdateMaskPosition()
@@ -237,7 +363,13 @@ public class TutorialController : MonoBehaviour
 
     private Vector2 CalculateTargetUvPosition(GameObject targetObj)
     {
-        if (CurrentSpecTutorial != null && CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FOCUS_OBJECT)
+        if (CurrentSpecTutorial == null)
+        {
+            return _currentUvPosition;
+        }
+
+        // UI 오브젝트 (RectTransform 기반)
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FOCUS_OBJECT)
         {
             var targetRectTransform = targetObj.GetComponent<RectTransform>();
             if (targetRectTransform == null)
@@ -248,24 +380,45 @@ public class TutorialController : MonoBehaviour
 
             return GetNormalizedPosition(_canvasRectTransform, targetRectTransform);
         }
-        else
+
+        // 3D 월드 오브젝트 (CHARACTER_PLACEMENT 등)
+        return CalculateWorldPositionUV(targetObj.transform.position);
+    }
+
+    /// <summary>
+    /// 3D 월드 좌표를 마스크 UV 좌표로 변환
+    /// </summary>
+    private Vector2 CalculateWorldPositionUV(Vector3 worldPosition)
+    {
+        Camera cam = _actionContext?.MainCamera;
+        if (cam == null)
         {
-            Vector3 worldPosition = targetObj.transform.position;
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
-
-            if (screenPosition.z < 0)
-            {
-                Debug.LogWarning("Target object is behind the camera.");
-                return _currentUvPosition;
-            }
-
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRectTransform, screenPosition, null,
-                out var localPoint);
-
-            return new Vector2(
-                (localPoint.x + (_canvasRectTransform.rect.width * 0.5f)) / _canvasRectTransform.rect.width,
-                (localPoint.y + (_canvasRectTransform.rect.height * 0.5f)) / _canvasRectTransform.rect.height);
+            cam = Camera.main;
         }
+
+        if (cam == null)
+        {
+            Debug.LogWarning("[TutorialController] 카메라를 찾을 수 없습니다.");
+            return _currentUvPosition;
+        }
+
+        Vector3 screenPosition = cam.WorldToScreenPoint(worldPosition);
+
+        if (screenPosition.z < 0)
+        {
+            Debug.LogWarning("Target object is behind the camera.");
+            return _currentUvPosition;
+        }
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            _canvasRectTransform,
+            screenPosition,
+            null,
+            out var localPoint);
+
+        return new Vector2(
+            (localPoint.x + (_canvasRectTransform.rect.width * 0.5f)) / _canvasRectTransform.rect.width,
+            (localPoint.y + (_canvasRectTransform.rect.height * 0.5f)) / _canvasRectTransform.rect.height);
     }
 
     private void ChangeState(AnimationState newState)

@@ -101,6 +101,11 @@ namespace CookApps.AutoBattler
         BUFF_ANGER = 2000000027,
         BUFF_NO_DAMAGE_SHIELD = 2000000028,
         BUFF_DEF_PERCENT_UP = 2000000029,
+        BUFF_APRIL_STANDER = 2000000030,
+        BUFF_TETORRA_ANGER = 2000000031,
+        BUFF_SHIRAYUKI_AVOID_AND_ATTACK = 2000000032,
+        BUFF_ENKI_PASSIVE_HEALUP = 2000000033,
+        BUFF_ADRIA_PASSIVE_TEAM_HELP = 2000000034,
         DEBUFF_ATK_SPEED_DOWN = 2100000001,
         DEBUFF_COOL_DOWN_SPEED_PERCENT_DOWN = 2100000002,
         DEBUFF_AD_PERCENT_DOWN = 2100000003,
@@ -553,6 +558,8 @@ namespace CookApps.AutoBattler
         fx_common_buff_no_damage_shield_02 = 238,
         fx_common_debuff_marie_aracne = 239,
         Skill_Passive_17663506 = 240,
+        Skill_Passive_401011 = 241,
+        fx_common_job_striker_02 = 242,
     }
 
     public enum GlobalEffectProviderType

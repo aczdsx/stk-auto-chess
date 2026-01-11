@@ -52,6 +52,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         }
 
         // 튜토리얼 Canvas 동적 생성
+        Debug.LogColor($"튜토리얼 초기화: {tutorialID} {_specTutorialDataList.Count}", "green");
         await CreateTutorialCanvas();
         return true;
     }
@@ -68,7 +69,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
         var handle = Addressables.InstantiateAsync(TUTORIAL_CANVAS_PREFAB_PATH);
         await handle;
-        
+
         if (!handle.IsValid() || handle.Result == null)
         {
             Debug.LogError($"TutorialCanvas prefab 로드 실패: {TUTORIAL_CANVAS_PREFAB_PATH}");
@@ -78,14 +79,14 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         _tutorialCanvasInstance = handle.Result;
         _canvas = _tutorialCanvasInstance.GetComponent<Canvas>();
         _tutorialController = _tutorialCanvasInstance.GetComponentInChildren<TutorialController>();
-        
+
         if (_canvas == null)
         {
             Debug.LogError("TutorialCanvas prefab에 Canvas가 없습니다!");
             DestroyTutorialCanvas();
             return;
         }
-        
+
         if (_tutorialController == null)
         {
             Debug.LogError("TutorialCanvas prefab에 TutorialController가 없습니다!");
@@ -142,6 +143,8 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         {
             return false;
         }
+
+        Debug.LogColor($"튜토리얼 처리: {tutorialTriggerType} {key} {turnTutorialList.Count}", "green");
 
         // 진행한 튜토리얼을 리스트에서 제거
         _specTutorialDataList.RemoveAll(l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);

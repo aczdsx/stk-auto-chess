@@ -4,6 +4,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 
 /// <summary>
@@ -11,10 +12,19 @@ using Cysharp.Threading.Tasks;
 /// 무조건 한개의 버프 스택만 유지한다.
 /// </summary>.
 [UseEffectCodeIds(CodeId)]
-public partial class EffectCodeBuffNoDamageShield : EffectCodeBuffBase
+public partial class EffectCodeBuffAprilStander : EffectCodeBuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.BUFF_NO_DAMAGE_SHIELD;
-    private const BuffDebuffType buffDebuffType = BuffDebuffType.NoDamageShield;
+    private const int CodeId = (int)EffectCodeNameType.BUFF_APRIL_STANDER;
+    private const BuffDebuffType buffDebuffType = BuffDebuffType.AprilStander;
+    public override bool IsNeedToShowIcon => true;
+
+    private float _increaseTime;
+    private float _elapsedTime;
+    private float _attackSpeedIncreaseRate;
+    private float _currentAttackSpeedIncreaseRate;
+
+    private static readonly float _maxAttackSpeedIncreaseRate = 0.6f;
+    private InGameTile _prevTile;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -25,23 +35,35 @@ public partial class EffectCodeBuffNoDamageShield : EffectCodeBuffBase
 
         buffStackData.SetData(
         sourceCodeId: codeInfo.GetCodeStatToInt(0),
-        duration: codeInfo.GetCodeStatToFloat(1),
-        value: codeInfo.GetCodeStat(2),
+        duration: 999f,
+        value: 0,
         source: source,
-        isShowValue: true
+        isShowValue: true,
+        showPosition: BuffStackData.BuffShowPosition.SIDE
         );
 
         _stackDatas.Add(buffStackData);
 
         owner.AddBuffDebuffType(buffDebuffType);
         owner.AddBuffStackData(CodeId, buffStackData);
+
+        _increaseTime = codeInfo.GetCodeStatToFloat(1);
+        _attackSpeedIncreaseRate = codeInfo.GetCodeStatToFloat(2); 
+
+        _currentAttackSpeedIncreaseRate = 0f;
+        _elapsedTime = 0f;
+
     }
 
+    // 사실상 머지콜은 안올것
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
 
         int newSourceCodeId = codeInfo.GetCodeStatToInt(0);
+        
+        _increaseTime = codeInfo.GetCodeStatToFloat(1);
+        _attackSpeedIncreaseRate = codeInfo.GetCodeStatToFloat(2); 
 
         // 같은 source가 있는지 확인
         for (int i = 0; i < _stackDatas.Count; i++)
@@ -50,8 +72,8 @@ public partial class EffectCodeBuffNoDamageShield : EffectCodeBuffBase
             {
                 // 같은 source가 있으면 덮어쓰기
                 var stackData = _stackDatas[i];
-                stackData.duration = codeInfo.GetCodeStatToFloat(1);
-                stackData.value = codeInfo.GetCodeStat(2);
+                stackData.duration = 999f;
+                stackData.value = 0;
                 stackData.elapsedTime = 0f;
                 stackData.isShowValue = true;
                 return;
@@ -70,8 +92,8 @@ public partial class EffectCodeBuffNoDamageShield : EffectCodeBuffBase
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
             newSourceCodeId,
-            codeInfo.GetCodeStatToFloat(1),
-            codeInfo.GetCodeStat(2),
+            999f,
+            0,
             source,
             isShowValue: true
         );
@@ -79,26 +101,50 @@ public partial class EffectCodeBuffNoDamageShield : EffectCodeBuffBase
         owner.AddBuffStackData(CodeId, buffStackData);
     }
 
-    public override double ModifyDamageAmount(double damageAmount)
+    public override void OnCombatStart()
     {
+        _prevTile = owner.CurrentTile;
+    }
 
-        damageAmount = 0d;
-        --_stackDatas[0].value;
-        if (_stackDatas[0].value <= 0)
+    public override void OnUpdate(float dt)
+    {
+        //todo 스텍데이터 업데이트 필요.
+        if (_prevTile == null || owner.CurrentTile == null)
+            return;
+
+        _elapsedTime += dt;
+        if (_elapsedTime < _increaseTime)
+            return;
+
+        _elapsedTime = 0f;
+        var prevAttackSpeedIncreaseRate = _currentAttackSpeedIncreaseRate;
+
+        if (_prevTile == owner.CurrentTile)
         {
-            RemoveFromContainer();
-            return damageAmount;
+            _currentAttackSpeedIncreaseRate += _attackSpeedIncreaseRate;
         }
         else
         {
-            owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
+            _currentAttackSpeedIncreaseRate -= _attackSpeedIncreaseRate * 0.5f;
         }
 
-        var affectText = buffDebuffType.GetAffectToken();
-        owner.ShowNormalText(affectText, hexColor: "#5DC9FFFF").Forget();
+        _currentAttackSpeedIncreaseRate = Mathf.Clamp(_currentAttackSpeedIncreaseRate, 0f, _maxAttackSpeedIncreaseRate);
+        if (prevAttackSpeedIncreaseRate != _currentAttackSpeedIncreaseRate)
+        {
+            owner.GetEffectCodeContainer().SetDirtyFlag(this);
+        }
 
-        return damageAmount;
+        _stackDatas[0].value = Mathf.Round(_currentAttackSpeedIncreaseRate * 100f);
 
+        owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
+
+
+        _prevTile = owner.CurrentTile;
+    }
+
+    public override float GetIncrementPercentAttackSpeed()
+    {
+        return _currentAttackSpeedIncreaseRate;
     }
     public override void OnPreRemoved()
     {
