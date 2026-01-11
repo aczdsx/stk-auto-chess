@@ -95,8 +95,11 @@ namespace CookApps.AutoBattler
 
             int commandCenterLevel = (int)commandCenter.Level;
 
-            // 현재 레벨에서 해금된 build_group_id 목록 수집
+            // 현재 레벨에서 해금된 build_id 목록 수집
             _unlockedBuildIdsCache.Clear();
+
+            _unlockedBuildIdsCache.Add((int)commandCenter.BuildId);
+            
             var benefits = SpecDataManager.Instance.ElpisCommandCenterBenefit.All;
             for (var i = 0; i < benefits.Count; i++)
             {
@@ -115,9 +118,6 @@ namespace CookApps.AutoBattler
 
                 // 1레벨 건물만 확인 (신규 설치 대상)
                 if (buildInfo.build_lv != 1) continue;
-
-                // 해금되지 않은 건물은 스킵
-                if (!_unlockedBuildIdsCache.Contains(buildInfo.build_id)) continue;
 
                 // 이미 설치된 건물인지 확인
                 var existingFacility = elpisDataBridge.GetFacilityByType(buildInfo.facility_type.ToServerType());
