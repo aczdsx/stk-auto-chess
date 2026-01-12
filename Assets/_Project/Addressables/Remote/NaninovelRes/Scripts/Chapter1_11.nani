@@ -1,0 +1,22 @@
+; [META] Chapter1_11 | 가이드: 속성석 돌파
+; [GUIDE] 속성석으로 최대레벨 상향, 아트레시아 10레벨→돌파
+; @forceHighlight ui_knight_atresia_card mode:pulse
+; atresia_00: 스테리아와... 연결이 강해진 것이 느껴져요...!
+; uni_00: (그 모습을 신기한 듯 쳐다보며) 아티는 매번 신기하단 말야.
+; 왜 스테리아가 육안으로 보이지 않는거지?
+; atresia_00: 그건….나도 잘 모르겠어요.
+; 관측자 님께서 무언가 이야기 해주셨었는데, 워낙 어릴때라…
+; philia_00: 마스터 일단 정비도 어느정도 완료된 것 같으니,
+; 우선은 추적을 계속하는게 어떨까 싶습니다.
+; player: 그래. 플레이아데스 성단. 작전을 다시 수행한다.
+; philia_00: 예, 그럼 추적을 속행합니다. 마스터.
+
+
+@back bg_black_01 time:1.5 transition:Crossfade
+;신전환 효과음
+; @hideUI
+; @hidePrinter Dialogue
+; @hideChars
+; @skip false
+
+@end

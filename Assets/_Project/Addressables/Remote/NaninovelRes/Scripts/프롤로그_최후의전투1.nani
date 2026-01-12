@@ -12,8 +12,8 @@
 @spawn DigitalGlitch
 @glitch power:0.1 time:3.33
 @sfx NoiseSFX volume:0.5
-@back bg_climax_battle_01 transition:Ripple time:0.5
-@bgm snd_bgm_dialog_mad_002 volume: 0.3
+@back bg_climax_battle_02 transition:Ripple time:0.5
+@bgm snd_bgm_dialog_mad_002
 
 ; @char laplace_00.ani_idle_thinking pos:50,-255 scale:1.38 transition:Crossfade time:2
 ; @char unknowngirl_00 pos:50,-255 scale:1.38 transition:Crossfade time:2
@@ -47,7 +47,13 @@ unknowngirl_00: 그러니 잠시간의 유예더라도, 그녀를 행복하게 �
 ; @voice unknowngirl_00_Prologue_01_06
 unknowngirl_00: 그것만이 당신과 나의 약속이니까.
 
+
+
+@back bg_black_01 time:1.5 transition:Crossfade
+;신전환 효과음
+@hideUI
 @hidePrinter Dialogue
+@hideChars
 @skip false
 
 @end

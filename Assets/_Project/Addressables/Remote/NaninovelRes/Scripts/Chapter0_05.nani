@@ -1,0 +1,46 @@
+; 신넘버: Chapter0_05 | 구성: 가이드 미션 다이얼로그 | 분량: 튜토리얼 전투 + 15라인 | 키포인트: 속성 시너지/샤프슈터/원거리 학습
+
+; @back bg_Gemini_Generated_Image_k5pxtkk5pxtkk5px time:0.3 transition:Crossfade
+
+atresia_00: 저기에 탄피가 떨어져 있어요!
+atresia_00: 이건…. 필리아가 남긴 탄피?
+근처에 필리아가 있는 것 같아요. 서둘러 찾아봐요.
+; 스테이지 0-3 하이라이트/가이드 마크
+; @bgm bgm_deck_setup fade:0.5 loop:True
+; @spawn cg_image-20251028-103143 time:0.3 layer:cg
+
+philia_00: …..탄피가 거의 다 떨어져가고 있어. 이대로 있다간 위험해지고 말거야.
+uni_00: 이 몸 등장!
+philia_00: 유니?!
+atresia_00: 필리아! 괜찮아?!
+uni_00: 이 몸을 기다린 것인가? 필리여!
+philia_00: 헛소리 하는 것 보니 멀쩡한가 보네요.
+philia_00: 아니라고 하고 싶지만, 위험한 상황이었어 고마워요 모두들.
+atresia_00: 디펜더에요! 강력한 방어력을 지니고 있는 네피림 개체에요.
+uni_00: 관측자! 합류해서 얼른 쓸어버리자고.
+philia_00: 마스터. 제 능력이라면 충분히 상대할 수 있습니다. 스텔라 마타 사용 승인을 부탁드립니다.
+; 가이드: 필리아=긴 사거리/방어 저항 무시 강공
+philia_00: 마스터. 저는 멀리있는 적을 상대할 때 가장 강한 위력을 발휘할 수 있습니다.
+philia_00: 위치를 조정해 적을 공격할 수 있는 위치로 이동시켜주시길 부탁드립니다.
+; 가이드: 필리아는 지형지물 무시 공격 가능 → 위치선정 중요 (덱 셋팅 하이라이트)
+; 가이드: 같은 속성 기사 배치 시 속성 시너지 → 능력치 상승 (속성 시너지 하이라이트)
+philia_00: 마스터. 왠지 더 치명적인 공격을 할 수 있을 것 같습니다.
+philia_00: 그럼 돌입합니다. 인카운터!
+; @stopBgm bgm_deck_setup fade:0.5
+; @bgm bgm_battle_default fade:0.5 loop:True
+; 전투 시작 (전투 중 필리아 스킬 가득차면 화면 정지)
+philia_00: 자고로 명사수라면 아무리 힘든 상황에서도 표적을 놓치지 않는법…!
+; 필리아 스킬 하이라이트 및 사용 연출 → 방어형 네피림 처치
+; 전투 종료
+; @stopBgm bgm_battle_default fade:0.5
+; @despawn cg_image-20251028-103143 time:0.3
+; 나니노벨 → Chapter0_06 시작
+
+@back bg_black_01 time:1.5 transition:Crossfade
+;신전환 효과음
+@hideUI
+@hidePrinter Dialogue
+@hideChars
+@skip false
+
+@end

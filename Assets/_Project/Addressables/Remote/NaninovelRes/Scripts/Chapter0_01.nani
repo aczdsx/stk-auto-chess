@@ -8,60 +8,99 @@ unknown_00: ……!
 ; 조금 더 강한 쉐이킹
 @despawn ShakeCamera
 
-@spawn ShakeCamera
+@spawn cbg_00_01
+
+@spawn ShakeCamera 
+
 unknown_00: ……님!
-@despawn ShakeCamera
+@despawn ShakeCamera params:cbg_00_01,4
 
 ; 흐릿하게 인영이 비추는 연출
 @choice "\"으윽….!(정신을 차리기 위해 노력한다)\""
+@wait 2.0
+
+@back bg_white_01 transition:Crossfade
+@wait 0.5
+
+@despawn cbg_00_01 
+
 @sfx sfx_slap
+
 ; 화면 Vignette 효과
 unknown_00: ….관측자님
+
+Narrator: 강렬한 충격에 순간 정신이 번쩐든다.
+
+@ spawn cbg_00_02
+
 Narrator: 어렵사리 눈을 뜨자 걱정스러운 눈을 한 소녀의 모습이 시야를 가득채운다.
 
-
 ; 완전히 초점이 맞춰지는 연출
-@spawn cbg_00_02 time:0.8 transition:Crossfade
+
 @bgm bgm_happy_001
 atresia_00: (화들짝 놀라며) 관측자님! 정신이 드시나요?!
 Narrator: 차가운 금속 바닥. 뺨에 닿는 감촉이 생생하다. 적색 비상등이 깜빡이며 혼란을 가중한다. 선혈의 냄새와, 부서진 파이프에서 새어 나오는 매캐한 연기가 폐부를 찌른다.
 @choice "\"……여기는?\""
-atresia_00: (깨어난 것을 보고, 진심으로 안도하며) 휴. 다행이네요. 큰 상처는 없는 것 같아요.
+@stop
+@back bg_abandoned_hospital_02 time:0.8 transition:Crossfade
+
+;(깨어난 것을 보고, 진심으로 안도하며)
+atresia_00:  휴. 다행이네요. 큰 상처는 없는 것 같아요.
 Narrator: 자신을 걱정스럽게 바라보는 소녀를 멍하니 올려다본다.
+
 Narrator: 회갈색 머리카락, 순수한 눈동자. 하지만 … 어딘지 모르게 낯설게 느껴진다.
+
+
+@despawn cbg_00_02
 @char atresia_00.Talk pos:50,-235 scale:1.38
-@back bg_abandoned_hospital_02 time:0.5 transition:Crossfade
-@despawn cbg_00_02 time:0.8 transition:Crossfade
-atresia_00: 관측자님 께선 방금 [네피림]의 습격을 받아, 정신을 잃으셨어요.
-atresia_00: (초조한 듯 손가락을 꼼지락거리며)
-\n
-네피림들이 다시 몰려들기 전에 얼른 동료들을 찾아 이동해야 하는데...
-\n
-...이런 상황에서는 어떻게 하랬더라... 전술 교본이...
+
+atresia_00: 관측자님 께선 방금 '네피림'의 습격을 받아, 정신을 잃으셨어요.
+Narrator: 눈 앞의 소녀는 초조한 듯 손가락을 꼼지락거리며 말을 이어나간다.
+atresia_00: 네피림들이 다시 몰려들기 전에 얼른 동료들을 찾아 이동해야 하는데...
+atresia_00: ...이런 상황에서는 어떻게 하랬더라... 전술 교본이...
 Narrator: 예의 소녀가 허둥지둥 허리춤의 소형 단말기를 뒤적거린다.
 Narrator: '유약함'과 '규칙에 의존'하는 모습이 엿보인다.
+
 @choice "\"….. 너는 누구지…?\""
+@stop
+
 atresia_00: (놀라는 호) 네...?!
 atresia_00: 설마, 기억이 안나시는 건가요?
+
 @choice "\"......꿈에서 봤던 것 같은데….\""
+@stop
+
 atresia_00: 관측자 님께서 구해주신 아트레시아에요. 정말 기억나지 않으세요?
 Narrator: 그녀의 간절한 눈빛에 억지로 뇌를 짜내어 봤지만….
+
 @choice "\"…. 미안. 생각해봤지만 역시, 잘 모르겠어.\""
+@stop
+
 atresia_00: (애써 침착하려 하며) 아무래도…. 단기적 기억상실증에 걸리신 것 같아요.
-atresia_00: 저는 당신이 관측자로 소속되어 있는 [플레이아데스]의 성단원 아트레시아에요.
-atresia_00: 현재 관측자님의 지휘 아래 임무 후 복귀 중 실종됬던 함선 [라이트 브링어]로 부터 신호를 수신, 배의 나포 및 작전 데이터 회수를 위해 함선에 진입했습니다만….
-atresia_00: 숨어있던 네피림의 습격을 받아, [플레이아데스]의 다른 기사들과 뿔뿔히 흩어지고 말았어요.
+atresia_00: 저는 당신이 관측자로 소속되어 있는 '플레이아데스'의 성단원 아트레시아에요.
+atresia_00: 현재 관측자님의 지휘 아래 임무 후 복귀 중 실종됬던 함선 '라이트 브링어'로 부터 신호를 수신, 배의 나포 및 작전 데이터 회수를 위해 함선에 진입했습니다만….
+atresia_00: 숨어있던 네피림의 습격을 받아, '플레이아데스'의 다른 기사들과 뿔뿔히 흩어지고 말았어요.
 atresia_00: 전술 교본에 따르면, 지금같은 상황에서는 우선 생존과 합류를 우선하라고…..
 ; 화면 쉐이킹연출
+
+@hideChars
+
 k_Nephilim: 키에에에엑---!!
+
+@char atresia_00.Talk pos:50,-235 scale:1.38
+
 atresia_00: 네피림?! 소형이지만 숫자가 많아요.
 @spawn ShakeCharacter params:atresia_00,4
 atresia_00: 이렇게 된 이상 싸우는 수 밖에 없겠어요.
 관측자님, 지휘를 부탁드려요!
-@camera offset:0 zoom:0 time:0.1
 
+
+@camera offset:0 zoom:0 time:0.1
+@back bg_black_01 time:1.5 transition:Crossfade
+;신전환 효과음
 @hideUI
 @hidePrinter Dialogue
+@hideChars
 @skip false
 
 @end

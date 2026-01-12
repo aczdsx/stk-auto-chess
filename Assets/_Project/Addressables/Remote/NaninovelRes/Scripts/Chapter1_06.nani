@@ -1,0 +1,37 @@
+; [META] Chapter1_06 | 가이드: 자동편성, 함정 활용
+; @back bg_stage_1_1_prep_01 fade:2
+
+
+
+
+asna_00: 조심하세요! 지뢰가 매설되어 있어요!
+
+atresia_00: 지뢰라니…? 아직 네피림으로 부터 저항하는 인류가 아직 사는 것일까요?
+
+@choice "\"  그건 모르겠지만, 저것을 잘 활용하면 네피림들을 일거에 쓸어버릴 수 있을 것 같아.\""
+@stop
+
+uni_00: 그 작전을 쓰자는 거지? 일명 누워서 네피림 괴롭히기 였나?!
+
+philia_00: ...누워서 떡먹기입니다. 유니.
+
+uni_00: 그게 그거지! 어쨋든 저 지뢰에 네피림을 유인하면 되는거잖아!
+
+atresia_00: 그럼 유인은 제가 맡도록 하죠.
+
+asna_00: 역시 관측자 님이에요! 마침 신규 인원도 있으니 한 번 같이 임무를 수행해봐요!
+
+; @forceHighlight ui_auto_formation_button mode:pulse
+; [GUIDE] 숙소 설치 완료 → 추가 기사 배치 가능 / 함정 활용 안내 / 아트레시아 이동해 유인
+atresia_00: 이제 임무를 수행할 준비가 완료되었네요. 그럼 갑니다.
+인카운터!
+; [BATTLE] 1-1 전투 시작/종료
+
+@back bg_black_01 time:1.5 transition:Crossfade
+;신전환 효과음
+@hideUI
+@hidePrinter Dialogue
+@hideChars
+@skip false
+
+@end
