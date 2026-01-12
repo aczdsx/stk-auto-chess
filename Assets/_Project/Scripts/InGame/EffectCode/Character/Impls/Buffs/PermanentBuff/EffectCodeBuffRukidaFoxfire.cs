@@ -20,18 +20,22 @@ public partial class EffectCodeBuffRukidaFoxfire : EffectCodeBuffBase
 
     private const BuffDebuffType buffDebuffType = BuffDebuffType.RukidaFoxfire;
     public override bool IsNeedToShowIcon => true;
-    private float _angerRatePercent;// 몇퍼센트 잃을때마다 분노 1 획득
-    private float _attackRatePercent;// 분노 1 획득 시 공격력 증가 퍼센트
-    private int _angerCount;// 분노 개수
 
-    // 테토라의 체력을 _angerRatePercent% 잃을 때 마다, 분노를 1 획득합니다. 
-    // #분노: 공격력이 _attackRatePercent% 상승합니다.
+
+    private float _successRatePercent; // 성공 확률
+    private float _damageRatePercent; // 추가 피해 비율
+    private float _fireBuffTime; // 지속 시간
+    private EffectCodeSkill217263103 _skillEffectCode;// 루키다 패시브
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        _angerRatePercent = codeInfo.GetCodeStatToFloat(1);
-        _attackRatePercent = codeInfo.GetCodeStatToFloat(2);
+        _successRatePercent = codeInfo.GetCodeStatToFloat(1);
+        _damageRatePercent = codeInfo.GetCodeStatToFloat(2);
+        _fireBuffTime = codeInfo.GetCodeStatToFloat(3);
+        _skillEffectCode = owner.GetEffectCodeContainer().GetEffectCode(codeInfo.GetCodeStatToInt(4)) as EffectCodeSkill217263103;
+        _skillEffectCode.SetFoxFireDuration(_fireBuffTime);
+
 
         _stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
@@ -54,8 +58,12 @@ public partial class EffectCodeBuffRukidaFoxfire : EffectCodeBuffBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        _angerRatePercent = codeInfo.GetCodeStatToFloat(1);
-        _attackRatePercent = codeInfo.GetCodeStatToFloat(2);
+        _successRatePercent = codeInfo.GetCodeStatToFloat(1);
+        _damageRatePercent = codeInfo.GetCodeStatToFloat(2);
+        _fireBuffTime = codeInfo.GetCodeStatToFloat(3);
+        _skillEffectCode = owner.GetEffectCodeContainer().GetEffectCode(codeInfo.GetCodeStatToInt(4)) as EffectCodeSkill217263103;
+        _skillEffectCode.SetFoxFireDuration(_fireBuffTime);
+        
         int newSourceCodeId = codeInfo.GetCodeStatToInt(0);
 
         // 같은 source가 있는지 확인
@@ -94,45 +102,26 @@ public partial class EffectCodeBuffRukidaFoxfire : EffectCodeBuffBase
         owner.AddBuffStackData(CodeId, buffStackData);
     }
 
-    public override void OnHpChange()
+    public override void OnAttack()
     {
-        base.OnHpChange();
-        if (owner == null || owner.HP <= 0d)
+        base.OnAttack();
+        if (InGameRandomManager.GetUniversalRandomValue(0, 100) <= _successRatePercent)
         {
-            return;
-        }
-
-        // HP 비율 계산 (1.0 ~ 0.0)
-        float hpRate = (float)(owner.CurrentHp / owner.HP) * 100f;
-        
-        // 잃은 HP 비율 계산 (0 ~ 100)
-        float lostHpRate = 100f - hpRate;
-        // hpRate가 90이라면?
-        // lostHPRate는 10.0?
-
-        //10을 잃었는데 _angerRatePercent가 3이라면?
-        // _angerRate는 3
-
-        // 분노 개수 계산: 잃은 HP 비율을 _angerRatePercent%로 나눔
-        _angerCount = (int)Math.Round(lostHpRate / (_angerRatePercent));
-
-        // 분노 개수를 스택 데이터에 반영
-        if (_stackDatas.Count > 0)
-        {
-            _stackDatas[0].value = _angerCount;
+            _skillEffectCode.AddFoxFire(1);
+            _stackDatas[0].value = _skillEffectCode.GetCurrentFoxFireCount();
             owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
         }
-
-        // 더티 플래그 설정하여 스탯 재계산
-        owner.GetEffectCodeContainer().SetDirtyFlag(this);
     }
 
-    /// <summary>
-    /// 분노 개수에 따른 공격력 증가 반환
-    /// </summary>
-    public override double GetIncrementPercentAD()
+    public override double ModifyDamageAmount(double damageAmount)
     {
-        return _angerCount * _attackRatePercent;
+        var foxFireCount = _skillEffectCode.GetCurrentFoxFireCount();
+        if (foxFireCount > 0)
+        {
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01, owner.SkillRootTransformFollowable);
+            return damageAmount * (1f + _damageRatePercent * foxFireCount);
+        }
+        return damageAmount;
     }
 
     public override void OnPreRemoved()

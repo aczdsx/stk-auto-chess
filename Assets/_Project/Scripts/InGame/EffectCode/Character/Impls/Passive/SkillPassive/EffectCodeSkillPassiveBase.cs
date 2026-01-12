@@ -12,8 +12,14 @@ namespace CookApps.BattleSystem
     {
         protected virtual EffectCodeBase GetActiveSkillEffectCodeId(long passiveSkillId)
         {
-            int skillEffectCodeId = (int)passiveSkillId + 100000000;
-            return owner.GetEffectCodeContainer().GetEffectCode(skillEffectCodeId) as EffectCodeBase;
+            long skillEffectCodeId = passiveSkillId + 100000000;
+            return owner.GetEffectCodeContainer().GetEffectCode((int)skillEffectCodeId) as EffectCodeBase;
+        }
+
+        protected virtual long GetOnlyActiveSkillEffectCodeId(long passiveSkillId)
+        {
+            long skillEffectCodeId = passiveSkillId + 100000000;
+            return skillEffectCodeId;
         }
 
         protected virtual SkillPassive GetSpecSkillPassive(long passiveSkillId)
