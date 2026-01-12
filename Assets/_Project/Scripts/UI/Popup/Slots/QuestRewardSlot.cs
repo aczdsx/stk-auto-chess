@@ -24,11 +24,11 @@ namespace CookApps.AutoBattler
         {
             ClearSlot();
 
-            if (reward.Id.IsCharacterId())
+            if (reward.Id.IsCharacter())
             {
                 SetRewardCharacter(reward);
             }
-            else if (reward.Id.IsCharacterPieceId())
+            else if (reward.Id.IsCharacterPiece())
             {
                 SetRewardPiece(reward);
             }

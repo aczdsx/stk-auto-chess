@@ -9,9 +9,9 @@ namespace CookApps.AutoBattler
     /// 각종 ID에 쉽게 접근하기 위한 정적 클래스
     /// 사용 예: IdMap.Item.Gold, IdMap.ElpisBuild.CommandCenter
     /// </summary>
-    public static class IdMap
+    public static partial class IdMap
     {
-        public static class Item
+        public static partial class Item
         {
             // ==================== Currency Items ====================
             public static readonly ItemId Jewel = 110001;
@@ -58,5 +58,53 @@ namespace CookApps.AutoBattler
             // ==================== SIMULATION_CENTER ====================
             public const int SimulationCenter = 100201;
         }
+    }
+
+    /// <summary>
+    /// ItemId 확장 메서드
+    /// </summary>
+    public static class ItemIdExtensions
+    {
+        public static bool IsCurrency(this ItemId id)
+        {
+            return id == 110001 || id == 210001;
+        }
+
+        public static bool IsConsumable(this ItemId id)
+        {
+            return id == 350001 || id == 410001 || id == 550001 || id == 650001 || id == 710001 || id == 810001 || id == 1350001 || id == 1620001 || id == 1730001 || id == 1730002 || id == 1730003 || id == 1730101 || id == 1730102 || id == 1730103 || id == 1730104 || id == 1730105 || id == 1730201 || id == 1730202 || id == 1730203 || id == 1850001;
+        }
+
+        public static bool IsMaterial(this ItemId id)
+        {
+            return id == 2101 || id == 2102 || id == 2201 || id == 2202 || id == 2301 || id == 2302 || id == 2401 || id == 2501 || id == 2502 || id == 3101 || id == 3102 || id == 3103 || id == 3201 || id == 3202 || id == 3203 || id == 3204 || id == 3301 || id == 3302 || id == 3303 || id == 3401 || id == 3402 || id == 3403 || id == 3404 || id == 3405 || id == 3501 || id == 3502 || id == 3503 || id == 3504 || id == 3505 || id == 3506 || id == 1032101 || id == 1032102 || id == 1032201 || id == 1032202 || id == 1032301 || id == 1032302 || id == 1032401 || id == 1032501 || id == 1032502 || id == 1053101 || id == 1053102 || id == 1053103 || id == 1053201 || id == 1053202 || id == 1053203 || id == 1053204 || id == 1053301 || id == 1053302 || id == 1053303 || id == 1053401 || id == 1053402 || id == 1053403 || id == 1053404 || id == 1053405 || id == 1053501 || id == 1053502 || id == 1053503 || id == 1053504 || id == 1053505 || id == 1053506 || id == 1130001 || id == 1250001;
+        }
+
+        public static bool IsCharacter(this ItemId id)
+        {
+            return id == 2101 || id == 2102 || id == 2201 || id == 2202 || id == 2301 || id == 2302 || id == 2401 || id == 2501 || id == 2502 || id == 3101 || id == 3102 || id == 3103 || id == 3201 || id == 3202 || id == 3203 || id == 3204 || id == 3301 || id == 3302 || id == 3303 || id == 3401 || id == 3402 || id == 3403 || id == 3404 || id == 3405 || id == 3501 || id == 3502 || id == 3503 || id == 3504 || id == 3505 || id == 3506;
+        }
+
+        public static bool IsCharacterPiece(this ItemId id)
+        {
+            return id == 1032101 || id == 1032102 || id == 1032201 || id == 1032202 || id == 1032301 || id == 1032302 || id == 1032401 || id == 1032501 || id == 1032502 || id == 1053101 || id == 1053102 || id == 1053103 || id == 1053201 || id == 1053202 || id == 1053203 || id == 1053204 || id == 1053301 || id == 1053302 || id == 1053303 || id == 1053401 || id == 1053402 || id == 1053403 || id == 1053404 || id == 1053405 || id == 1053501 || id == 1053502 || id == 1053503 || id == 1053504 || id == 1053505 || id == 1053506;
+        }
+
+        public static bool GetCharacterIndex(this ItemId id, out int charIndex)
+        {
+            charIndex = -1;
+            if (id.IsCharacter())
+            {
+                charIndex = id.Value;
+                return true;
+            }
+            if (id.IsCharacterPiece())
+            {
+                charIndex = id.Value % 10000;
+                return true;
+            }
+            return false;
+        }
+
     }
 }

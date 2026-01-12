@@ -126,6 +126,32 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
+        /// 캐릭터 ID로 새 캐릭터 추가 (보상 획득 시)
+        /// </summary>
+        internal void AddCharacterById(uint characterId)
+        {
+            if (characterId == 0) return;
+
+            // 이미 존재하는 캐릭터면 무시
+            if (_characters.ContainsKey(characterId))
+            {
+                return;
+            }
+
+            // 새 캐릭터 데이터 생성 (기본값)
+            var newCharacter = new CharacterData
+            {
+                CharacterId = characterId,
+                Level = 1,
+                TranscendLevel = 0,
+            };
+
+            _characters[characterId] = newCharacter;
+            OnCharacterAdded.OnNext(newCharacter);
+            OnChanged.OnNext(Unit.Default);
+        }
+
+        /// <summary>
         /// 캐릭터 제거 (서버 응답용)
         /// </summary>
         internal void RemoveCharacter(uint characterId)

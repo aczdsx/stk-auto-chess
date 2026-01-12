@@ -57,6 +57,10 @@ namespace Tech.Hive.V1 {
     static readonly grpc::Marshaller<global::Tech.Hive.V1.CustomLobbySubscribeEventRequest> __Marshaller_tech_hive_v1_CustomLobbySubscribeEventRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CustomLobbySubscribeEventRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.CustomLobbySubscribeEventResponse> __Marshaller_tech_hive_v1_CustomLobbySubscribeEventResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CustomLobbySubscribeEventResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest> __Marshaller_tech_hive_v1_CustomLobbyClaimOtherRewardRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse> __Marshaller_tech_hive_v1_CustomLobbyClaimOtherRewardResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest, global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse> __Method_GetMyPlayerData = new grpc::Method<global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest, global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse>(
@@ -81,6 +85,14 @@ namespace Tech.Hive.V1 {
         "SubscribeEvent",
         __Marshaller_tech_hive_v1_CustomLobbySubscribeEventRequest,
         __Marshaller_tech_hive_v1_CustomLobbySubscribeEventResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest, global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse> __Method_ClaimOtherReward = new grpc::Method<global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest, global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "ClaimOtherReward",
+        __Marshaller_tech_hive_v1_CustomLobbyClaimOtherRewardRequest,
+        __Marshaller_tech_hive_v1_CustomLobbyClaimOtherRewardResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -128,6 +140,19 @@ namespace Tech.Hive.V1 {
       /// <returns>A task indicating completion of the handler.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task SubscribeEvent(grpc::IAsyncStreamReader<global::Tech.Hive.V1.CustomLobbySubscribeEventRequest> requestStream, grpc::IServerStreamWriter<global::Tech.Hive.V1.CustomLobbySubscribeEventResponse> responseStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      ///*
+      /// 기타 보상 수령
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse> ClaimOtherReward(global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -289,6 +314,58 @@ namespace Tech.Hive.V1 {
       {
         return CallInvoker.AsyncDuplexStreamingCall(__Method_SubscribeEvent, null, options);
       }
+      /// <summary>
+      ///*
+      /// 기타 보상 수령
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse ClaimOtherReward(global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ClaimOtherReward(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// 기타 보상 수령
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse ClaimOtherReward(global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_ClaimOtherReward, null, options, request);
+      }
+      /// <summary>
+      ///*
+      /// 기타 보상 수령
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse> ClaimOtherRewardAsync(global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ClaimOtherRewardAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// 기타 보상 수령
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse> ClaimOtherRewardAsync(global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_ClaimOtherReward, null, options, request);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       protected override CustomLobbyServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -305,7 +382,8 @@ namespace Tech.Hive.V1 {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_GetMyPlayerData, serviceImpl.GetMyPlayerData)
           .AddMethod(__Method_SetRepresentativeCharacter, serviceImpl.SetRepresentativeCharacter)
-          .AddMethod(__Method_SubscribeEvent, serviceImpl.SubscribeEvent).Build();
+          .AddMethod(__Method_SubscribeEvent, serviceImpl.SubscribeEvent)
+          .AddMethod(__Method_ClaimOtherReward, serviceImpl.ClaimOtherReward).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -318,6 +396,7 @@ namespace Tech.Hive.V1 {
       serviceBinder.AddMethod(__Method_GetMyPlayerData, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest, global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse>(serviceImpl.GetMyPlayerData));
       serviceBinder.AddMethod(__Method_SetRepresentativeCharacter, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CustomLobbySetRepresentativeCharacterRequest, global::Tech.Hive.V1.CustomLobbySetRepresentativeCharacterResponse>(serviceImpl.SetRepresentativeCharacter));
       serviceBinder.AddMethod(__Method_SubscribeEvent, serviceImpl == null ? null : new grpc::DuplexStreamingServerMethod<global::Tech.Hive.V1.CustomLobbySubscribeEventRequest, global::Tech.Hive.V1.CustomLobbySubscribeEventResponse>(serviceImpl.SubscribeEvent));
+      serviceBinder.AddMethod(__Method_ClaimOtherReward, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest, global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse>(serviceImpl.ClaimOtherReward));
     }
 
   }

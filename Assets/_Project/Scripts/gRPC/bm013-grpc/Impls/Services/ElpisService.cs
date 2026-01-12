@@ -73,6 +73,34 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
+        /// 시설 건설 완료
+        /// </summary>
+        public async UniTask<ElpisFinishBuildingFacilityResponse> FinishBuildingFacilityAsync(int buildId, CancellationToken cancellationToken = default)
+        {
+            ElpisFinishBuildingFacilityResponse resp = await ExecuteWithCommonErrorCheck(
+                ServiceClient.FinishBuildingFacilityAsync,
+                new ElpisFinishBuildingFacilityRequest { BuildId = (uint)buildId },
+                cancellationToken: cancellationToken
+            );
+
+            if (resp == null) return null;
+
+            if (!resp.IsSuccess)
+            {
+                // 커스텀 에러 처리
+                return resp;
+            }
+
+            // 시설 업데이트
+            if (resp.Facility != null)
+            {
+                ServerDataManager.Instance.Elpis.UpdateFacility(resp.Facility);
+            }
+
+            return resp;
+        }
+
+        /// <summary>
         /// 시설 업그레이드
         /// </summary>
         public async UniTask<ElpisUpgradeFacilityResponse> UpgradeFacilityAsync(int buildId, CancellationToken cancellationToken = default)

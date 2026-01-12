@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
             );
 
             // InventoryModel 갱신
-            if (resp?.Status?.Code == 0 && resp.ItemList != null)
+            if (resp != null && resp.IsSuccess && resp.ItemList != null)
             {
                 var inventoryModel = ServerDataManager.Instance.Inventory;
                 foreach (var item in resp.ItemList)
@@ -44,7 +44,7 @@ namespace CookApps.AutoBattler
             );
 
             // InventoryModel 갱신
-            if (resp?.Status?.Code == 0 && resp.ItemList != null)
+            if (resp != null && resp.IsSuccess && resp.ItemList != null)
             {
                 var inventoryModel = ServerDataManager.Instance.Inventory;
                 foreach (var item in resp.ItemList)

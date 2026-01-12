@@ -72,7 +72,7 @@ namespace CookApps.AutoBattler
             // NetManager를 통해 캐릭터 목록 가져오기
             var response = await NetManager.Instance.Character.ListAsync();
 
-            if (response != null && response.Status.Code == 0)
+            if (response != null && response.IsSuccess)
             {
                 // 서버 응답으로 로컬 데이터 갱신
                 var characterModel = ServerDataManager.Instance.Character;
@@ -186,7 +186,7 @@ namespace CookApps.AutoBattler
                 // NetManager를 통해 레벨업 요청
                 var response = await NetManager.Instance.Character.LevelUpAsync(targetCharacter.CharacterId);
 
-                if (response != null && response.Status.Code == 0)
+                if (response != null && response.IsSuccess)
                 {
                     Debug.Log($"✓ 레벨업 성공! 새 레벨: {response.Character.Level}");
 

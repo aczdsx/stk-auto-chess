@@ -55,11 +55,11 @@ namespace CookApps.AutoBattler
 
         public void SetRewardSlot(RewardItem reward)
         {
-            if (reward.Id.IsCharacterId())
+            if (reward.Id.IsCharacter())
             {
                 SetRewardCharacter(reward);
             }
-            else if (reward.Id.IsCharacterPieceId())
+            else if (reward.Id.IsCharacterPiece())
             {
                 SetRewardPiece(reward);
             }
@@ -94,12 +94,11 @@ namespace CookApps.AutoBattler
             ClearSlot();
 
             _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardPiece.Id);
-            if (_specItemData.GetItemId().IsCharacterPieceId())
+            if (_specItemData.GetItemId().IsCharacterPiece())
                 return;
 
             _rewardId = rewardPiece.Id;
-            _specItemData.GetItemId().GetCharacterIndex(out var charIndex);
-            var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
+            var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(_specItemData.GetItemId());
             if (specCharacterData == null) return;
             var userCharacterData = ServerDataManager.Instance.Character.GetCharacter(specCharacterData.character_id);
             if (userCharacterData == null) return;

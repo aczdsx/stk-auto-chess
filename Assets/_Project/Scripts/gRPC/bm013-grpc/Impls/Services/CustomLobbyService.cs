@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
             );
 
             // PlayerDataModel 갱신
-            if (resp?.Status?.Code == 0 && resp.Data != null)
+            if (resp != null && resp.IsSuccess && resp.Data != null)
             {
                 ServerDataManager.Instance.PlayerData.SetPlayerData(resp.Data);
             }
@@ -40,9 +40,59 @@ namespace CookApps.AutoBattler
             );
 
             // 성공 시 플레이어 데이터 다시 가져오기
-            if (resp?.Status?.Code == 0)
+            if (resp != null && resp.IsSuccess)
             {
                 await GetMyPlayerDataAsync(cancellationToken);
+            }
+
+            return resp;
+        }
+
+        /// <summary>
+        /// 기타 보상 수령
+        /// </summary>
+        public async UniTask<CustomLobbyClaimOtherRewardResponse> ClaimOtherRewardAsync(uint rewardId, CancellationToken cancellationToken = default)
+        {
+            CustomLobbyClaimOtherRewardResponse resp = await ExecuteAsync(
+                ServiceClient.ClaimOtherRewardAsync,
+                new CustomLobbyClaimOtherRewardRequest { RewardId = rewardId },
+                cancellationToken: cancellationToken
+            );
+
+            // 서버 응답이 없을 경우 spec에서 읽어서 fallback 처리
+            if (resp == null || resp.Status == null)
+            {
+                resp = CreateFallbackRewardResponse(rewardId);
+            }
+
+            // 통화 변화 적용
+            if (resp != null && resp.IsSuccess && resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+            {
+                ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
+            }
+
+            return resp;
+        }
+
+        private CustomLobbyClaimOtherRewardResponse CreateFallbackRewardResponse(uint rewardId)
+        {
+            var resp = new CustomLobbyClaimOtherRewardResponse
+            {
+                Status = new ResponseStatus { Code = 200 }
+            };
+
+            var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList((int)rewardId);
+            if (rewardInfoList != null)
+            {
+                for (int i = 0; i < rewardInfoList.Count; i++)
+                {
+                    var rewardInfo = rewardInfoList[i];
+                    resp.Rewards.Add(new Reward
+                    {
+                        ItemId = (uint)rewardInfo.item_id,
+                        Count = (ulong)rewardInfo.item_count
+                    });
+                }
             }
 
             return resp;

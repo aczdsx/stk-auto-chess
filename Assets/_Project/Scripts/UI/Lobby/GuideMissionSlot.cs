@@ -102,15 +102,15 @@ namespace CookApps.AutoBattler
         {
             ItemId itemId = _specGuideMissionData.item_id;
             _missionRewardItemImage.gameObject.SetActive(false);
-            _rewardCharacterBGImage.gameObject.SetActive(itemId.IsCharacterId());
-            _missionRewardCharacterImage.gameObject.SetActive(itemId.IsCharacterPieceId());
-            if (itemId.IsCharacterId())
+            _rewardCharacterBGImage.gameObject.SetActive(itemId.IsCharacter());
+            _missionRewardCharacterImage.gameObject.SetActive(itemId.IsCharacterPiece());
+            if (itemId.IsCharacter())
             {
                 itemId.GetCharacterIndex(out var charIndex);
                 var characterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
                 _missionRewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterData.prefab_id)).Forget();
             }
-            else if (itemId.IsCharacterPieceId())
+            else if (itemId.IsCharacterPiece())
             {
                 itemId.GetCharacterIndex(out var charIndex);
                 var characterPieceData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);

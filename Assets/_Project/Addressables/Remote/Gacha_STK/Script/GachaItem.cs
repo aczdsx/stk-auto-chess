@@ -70,7 +70,7 @@ namespace CookApps.AutoBattler
 
             _rewardItemData = _rewardItem;
 
-            if (_rewardItem.Id.IsCharacterPieceId())
+            if (_rewardItem.Id.IsCharacterPiece())
             {
                 characterData = SpecDataManager.Instance.GetCharacterData(_rewardItem.Id);
             }

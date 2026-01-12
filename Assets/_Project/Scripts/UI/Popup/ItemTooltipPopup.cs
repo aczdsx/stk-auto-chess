@@ -63,8 +63,8 @@ namespace CookApps.AutoBattler
         {
             if (_specItemInfo == null) return;
 
-            bool isCharacter = _specItemInfo.GetItemId().IsCharacterId() ||
-                               _specItemInfo.GetItemId().IsCharacterPieceId();
+            bool isCharacter = _specItemInfo.GetItemId().IsCharacter() ||
+                               _specItemInfo.GetItemId().IsCharacterPiece();
 
             _characterInfoObj.SetActive(isCharacter);
             _itemInfoObj.SetActive(!isCharacter);

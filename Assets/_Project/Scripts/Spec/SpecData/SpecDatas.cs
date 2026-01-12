@@ -1594,6 +1594,12 @@ namespace CookApps.AutoBattler
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         public int id;
+        /// 재화의 타입
+/// CHARACTER  9
+/// CHARACTER_PIECE 10
+/// CHAR_USER_EXCEED 11
+/// KNIGHT_PIECE  12
+        public global::CookApps.AutoBattler.MaterialType material_type;
         /// 아이템 아이디
         public int item_id;
         /// 아이템의 그레이드

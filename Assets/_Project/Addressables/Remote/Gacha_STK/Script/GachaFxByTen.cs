@@ -134,7 +134,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < datas.Count; i++)
             {
-                if (datas[i].Id.IsCharacterPieceId())
+                if (datas[i].Id.IsCharacterPiece())
                 {
                     var specData = SpecDataManager.Instance.GetCharacterData(datas[i].Id);
 
@@ -516,7 +516,7 @@ namespace CookApps.AutoBattler
             if (BlockerObject != null)
                 BlockerObject.SetActive(false);
 
-            if (!_datas[cnt].Id.IsCharacterPieceId())
+            if (!_datas[cnt].Id.IsCharacterPiece())
             {
                 cnt++;
                 ShowGetFX();
