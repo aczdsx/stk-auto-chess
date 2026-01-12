@@ -44,7 +44,7 @@ namespace CookApps.BattleSystem
             eccStats[2] = _overlapCount;
             eccStats[3] = _debuffDuration;
 
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ODETTE_COLD, owner.Target, eccStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_SPECIAL_ODETTE_COLD, owner.Target, eccStats, source);
         }
     }//115252102
 }

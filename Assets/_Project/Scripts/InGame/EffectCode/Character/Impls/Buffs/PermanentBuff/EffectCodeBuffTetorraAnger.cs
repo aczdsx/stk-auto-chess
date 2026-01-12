@@ -16,7 +16,7 @@ using System;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffTetorraAnger : EffectCodeBuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.BUFF_TETORRA_ANGER;
+    private const int CodeId = (int)EffectCodeNameType.BUFF_SPECIAL_TETORRA_ANGER;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.TetorraAnger;
     public override bool IsNeedToShowIcon => true;
     private float _angerRatePercent;// 몇퍼센트 잃을때마다 분노 1 획득

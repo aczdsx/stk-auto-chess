@@ -8,7 +8,7 @@ using UnityEngine.Pool;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffTargetImpossible : EffectCodeBuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.TARGET_IMPOSSIBLE;
+    private const int CodeId = (int)EffectCodeNameType.CC_TARGET_IMPOSSIBLE;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.TargetImpossible;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)

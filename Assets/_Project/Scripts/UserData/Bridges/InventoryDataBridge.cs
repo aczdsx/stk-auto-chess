@@ -10,7 +10,7 @@ namespace CookApps.AutoBattler
     /// 인벤토리 데이터 브릿지
     /// ServerDataManager와 UI 사이의 중간 레이어
     /// </summary>
-    public class InventoryDataBridge
+    public class InventoryDataBridge : DataBridgeBase
     {
         private InventoryModel Model;
         // Public Observable 노출

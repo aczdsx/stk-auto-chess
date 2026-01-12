@@ -14,7 +14,7 @@ using System;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.BUFF_SHIRAYUKI_AVOID_AND_ATTACK;
+    private const int CodeId = (int)EffectCodeNameType.BUFF_SPECIAL_SHIRAYUKI_AVOID_AND_ATTACK;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.ShirayukiAvoidAndAttack;
     public override bool IsNeedToShowIcon => true;
 

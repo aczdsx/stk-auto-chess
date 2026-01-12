@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<AnnouncementListResponse> ListAsync(CancellationToken cancellationToken = default)
         {
-            AnnouncementListResponse resp = await ExecuteAsync(
+            AnnouncementListResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ListAsync,
                 new AnnouncementListRequest(),
                 cancellationToken: cancellationToken

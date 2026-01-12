@@ -13,7 +13,7 @@ using Cysharp.Threading.Tasks;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffNoDamageShield : EffectCodeBuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.BUFF_NO_DAMAGE_SHIELD;
+    private const int CodeId = (int)EffectCodeNameType.BUFF_SPECIAL_NO_DAMAGE_SHIELD;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.NoDamageShield;
 
     public override bool IsNeedToShowIcon => true;

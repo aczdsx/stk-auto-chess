@@ -1,0 +1,51 @@
+; [META] Summary=사막에서 바벨(탑) 발견. 바벨 콘텐츠 안내 및 1층 도전 가이드. | KeyPoints=바벨 소개(시련/보상), 유니의 보물 욕심, 바벨 버튼/1층 가이드.
+; L001
+; @back bg_ionia_beta_desert_01 fade:1
+; L002
+; [SYSTEM] 챕터 Idle 화면 → Chapter2_10 시작
+; L003
+; [GUIDE] 바벨 가이드 시작
+; L004
+uni_00: 오잉? 저기 멀리에 저건 뭐지.
+; L005
+atresia_00: ….탑?
+; L006
+philia_00: 이런 사막에 탑이라니 이상하군요. 신기루인 걸까요.
+; L007
+odette_00: 저건 아마….바벨일거에요.
+; L008
+uni_00: 바벨? 그게 뭔데?
+; L009
+odette_00: 여러 행성에 걸쳐 나타나는 특수한 건축물로서, 저기에 들어간 사람들은 '시련'을 받게되고 그것을 이겨낼 경우 엄청난 보상을 받을 수 있다고 해요.
+; L010
+uni_00: 오…! 쉽게 말해 어디든 있는 보물창고잖아!
+; L011
+odette_00: ….역시 저속하네요.
+; L012
+uni_00: 흥! 뭐라하든 저 안에 있는 보물들은 모두 내거야!
+; L013
+philia_00: 잠깐만요. 유니! 그렇게 따로 행동하면 위험해요.
+; L014
+uni_00: 안따라오면 진짜로 보물을 혼자 독차지한다!
+; L015
+; @forceHighlight ui_babel_button mode:pulse
+; L016
+; [GUIDE] 바벨 버튼 하이라이트
+; L017
+; @forceHighlight ui_babel_floor1_button mode:pulse
+; L018
+; [GUIDE] 1층 도전 하이라이트
+; L019
+; [SYSTEM] 1층 클리어
+; L020
+
+
+@back bg_black_01 time:1.5 transition:Crossfade
+;신전환 효과음
+@hideUI
+@hidePrinter Dialogue
+@hideChars
+@skip false
+
+@end
+

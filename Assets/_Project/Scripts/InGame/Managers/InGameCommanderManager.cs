@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CommanderSkillData
+public class CommanderSkillInGameData
 {
     public SkillCommander Spec => _spec;
 
@@ -23,7 +23,7 @@ public class CommanderSkillData
     private SkillCommander _spec;
     private ObfuscatorFloat _elapsedTime;
 
-    public CommanderSkillData(SkillCommander spec)
+    public CommanderSkillInGameData(SkillCommander spec)
     {
         _spec = spec;
         _elapsedTime = 0f;
@@ -41,8 +41,8 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
     private Vector2 _dragStartPosition;
     private InGameTileView _hitTileView;
     private List<InGameTile> _activeTiles = new List<InGameTile>();
-    private List<CommanderSkillData> _commandSkillDataList = new List<CommanderSkillData>();
-    private CommanderSkillData _selectedCommanderSkillData;
+    private List<CommanderSkillInGameData> _commandSkillDataList = new List<CommanderSkillInGameData>();
+    private CommanderSkillInGameData selectedCommanderSkillData;
     private bool isCanUseCommanderSkill = false;
     private Vector2 _offset = new Vector2(-10, 10);
 
@@ -109,12 +109,12 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         if (!newRaycastResult.gameObject.TryGetComponent<CommanderSkillUI>(out var commanderSkillUI))
             return;
 
-        _selectedCommanderSkillData = _commandSkillDataList.Find(l => l.Spec.id == commanderSkillUI.Data.Spec.id);
+        selectedCommanderSkillData = _commandSkillDataList.Find(l => l.Spec.id == commanderSkillUI.Data.Spec.id);
 
-        if (_selectedCommanderSkillData == null)
+        if (selectedCommanderSkillData == null)
             return;
 
-        if (_selectedCommanderSkillData.DurationTime > _selectedCommanderSkillData.ElapsedTime)
+        if (selectedCommanderSkillData.DurationTime > selectedCommanderSkillData.ElapsedTime)
             return;
 
         _isDragging = true;
@@ -157,7 +157,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         if (!_isDragging)
             return;
 
-        if (_selectedCommanderSkillData == null)
+        if (selectedCommanderSkillData == null)
             return;
 
         Vector2 adjustedPosition = eventData.position + _offset;
@@ -189,13 +189,13 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         float distance = Vector2.Distance(eventData.position, _dragStartPosition);
         if (distance >= switchThreshold)
         {
-            var effectCodeInfo = EffectCodeCommanderSkillBase.GenerateEffectCodeInfo(_selectedCommanderSkillData.Spec, _hitTileView);
+            var effectCodeInfo = EffectCodeCommanderSkillBase.GenerateEffectCodeInfo(selectedCommanderSkillData.Spec, _hitTileView);
 
             InGameManager.Instance.TeamEcc.AddOrMergeEffectCode(effectCodeInfo, null);
 
-            _selectedCommanderSkillData.ElapsedTime = 0;
+            selectedCommanderSkillData.ElapsedTime = 0;
             isCanUseCommanderSkill = false;
-            _selectedCommanderSkillData = null;
+            selectedCommanderSkillData = null;
         }
     }
 
@@ -256,9 +256,9 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         }
     }
 
-    public CommanderSkillData InitCommanderSkillData(SkillCommander data)
+    public CommanderSkillInGameData InitCommanderSkillData(SkillCommander data)
     {
-        var commandSkillData = new CommanderSkillData(data);
+        var commandSkillData = new CommanderSkillInGameData(data);
         commandSkillData.ElapsedTime = commandSkillData.DurationTime * 0.5f;
         _commandSkillDataList.Add(commandSkillData);
         return commandSkillData;
@@ -267,7 +267,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
     public void Clear()
     {
         InGameMainFlowManager.Instance.RemoveUpdateListener(ManagedUpdate);
-        _selectedCommanderSkillData = null;
+        selectedCommanderSkillData = null;
         _commandSkillDataList.Clear();
     }
 
@@ -286,7 +286,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
 
                 InGameTile centerTile = InGameObjectManager.Instance.GetInGameTile(_hitTileView.ID);
                 var tiles = new List<InGameTile>();
-                var targetCommanderSkillData = _selectedCommanderSkillData.Spec;
+                var targetCommanderSkillData = selectedCommanderSkillData.Spec;
                 switch (targetCommanderSkillData.commander_range_shape_type)
                 {
                     // case CommanderRangeShapeType.SHAPE_X:
@@ -328,7 +328,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         return _hitTileView != null;
     }
 
-    private void AutoSkill(CommanderSkillData commanderSkillData)
+    private void AutoSkill(CommanderSkillInGameData commanderSkillData)
     {
         if (_effectCodeDictForAutoSkill == null)
         {

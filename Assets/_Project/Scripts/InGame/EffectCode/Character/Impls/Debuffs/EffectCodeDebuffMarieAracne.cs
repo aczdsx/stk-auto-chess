@@ -14,7 +14,7 @@ using System;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeDebuffMarieAracne : EffectCodeDebuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.DEBUFF_MARIE_ARACNE;
+    private const int CodeId = (int)EffectCodeNameType.DEBUFF_SPECIAL_MARIE_ARACNE;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.MarieAracne;
     private int _overlapCount;
     private float _debuffDuration;
@@ -96,7 +96,7 @@ public partial class EffectCodeDebuffMarieAracne : EffectCodeDebuffBase
             eccStats.Clear();
             eccStats[0] = _debuffDuration;
 
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, owner, eccStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, owner, eccStats, source);
 
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_debuff_marie_aracne, owner.SkillTopFXTransformFollowable);
             RemoveFromContainer();

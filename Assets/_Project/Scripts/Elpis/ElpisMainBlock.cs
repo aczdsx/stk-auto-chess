@@ -129,10 +129,19 @@ namespace CookApps.AutoBattler
             }
 
             var allBuildings = new List<ElpisBuildingBase>(totalBuildingCount);
-            allBuildings.AddRange(elpisBuildings);
+            for (var i = 0; i < elpisBuildings.Length; i++)
+            {
+                if (elpisBuildings[i] != null)
+                    allBuildings.Add(elpisBuildings[i]);
+            }
             for (var i = 0; i < subBlockInfos.Length; i++)
             {
-                allBuildings.AddRange(subBlockInfos[i].SubBlock.ElpisBuildings);
+                var subBuildings = subBlockInfos[i].SubBlock.ElpisBuildings;
+                for (var j = 0; j < subBuildings.Count; j++)
+                {
+                    if (subBuildings[j] != null)
+                        allBuildings.Add(subBuildings[j]);
+                }
             }
 
             cachedElpisBuildings = allBuildings.ToArray();

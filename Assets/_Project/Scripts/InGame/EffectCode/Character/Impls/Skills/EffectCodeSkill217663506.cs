@@ -113,7 +113,7 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
         eccStats[0] = codeId;
         eccStats[1] = _targetImpossibleDuration;
         eccStats[2] = 1.0f;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.TARGET_IMPOSSIBLE, owner, eccStats, source);
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_TARGET_IMPOSSIBLE, owner, eccStats, source);
     }
 
     private List<CharacterController> GetLowestHpTargets(int count)

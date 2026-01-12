@@ -8,10 +8,10 @@ public static class EffectCodeHelper
 {
     static readonly HashSet<EffectCodeNameType> _immuneTypes = new HashSet<EffectCodeNameType>
     {
-            EffectCodeNameType.STUN,
-            EffectCodeNameType.KNOCKBACK,
-            EffectCodeNameType.AIRBORNE,
-            EffectCodeNameType.MISA_RESTRAINT,
+            EffectCodeNameType.CC_STUN,
+            EffectCodeNameType.CC_KNOCKBACK,
+            EffectCodeNameType.CC_AIRBORNE,
+            EffectCodeNameType.CC_MISA_RESTRAINT,
             EffectCodeNameType.CHAPTER_ICE,
             EffectCodeNameType.CHAPTER_SANDSTORM,
             EffectCodeNameType.CHAPTER_RANDOM_MOVE,
@@ -30,8 +30,8 @@ public static class EffectCodeHelper
     // 강제 제거 불가능한 CC 타입
     static readonly HashSet<EffectCodeNameType> _cantForceRemoveCCTypes = new HashSet<EffectCodeNameType>
     {
-        EffectCodeNameType.KNOCKBACK,
-        EffectCodeNameType.AIRBORNE,
+        EffectCodeNameType.CC_KNOCKBACK,
+        EffectCodeNameType.CC_AIRBORNE,
     };
 
     public static EffectCodeBase AddOrMergeEffectCode(EffectCodeNameType effectCodeNameType, CharacterController targetCharacter, Span<double> stats, IEffectCodeSource source)

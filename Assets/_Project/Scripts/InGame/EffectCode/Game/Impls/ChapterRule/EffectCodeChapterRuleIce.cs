@@ -96,7 +96,7 @@ namespace CookApps.BattleSystem
                         eccStats.Clear();
                         eccStats[0] = _effectCodeStat;
 
-                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, characterInfo.Controller, eccStats, source);
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, characterInfo.Controller, eccStats, source);
 
                         var moveDuration = SpecOptionCache.DefaultMoveDuration / characterInfo.Controller.GetCharacterStat().MoveSpeed;
 

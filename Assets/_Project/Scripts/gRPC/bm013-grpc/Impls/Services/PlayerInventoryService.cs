@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<PlayerInventoryListResponse> ListAsync(CancellationToken cancellationToken = default)
         {
-            PlayerInventoryListResponse resp = await ExecuteAsync(
+            PlayerInventoryListResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ListAsync,
                 new PlayerInventoryListRequest {  },
                 cancellationToken: cancellationToken
@@ -37,7 +37,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<PlayerInventoryListResponse> GetAsync(uint currencyId, CancellationToken cancellationToken = default)
         {
-            PlayerInventoryListResponse resp = await ExecuteAsync(
+            PlayerInventoryListResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ListAsync,
                 new PlayerInventoryListRequest { ItemIds = { currencyId } },
                 cancellationToken: cancellationToken

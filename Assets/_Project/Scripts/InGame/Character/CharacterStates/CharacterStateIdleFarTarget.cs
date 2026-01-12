@@ -62,7 +62,7 @@ public class CharacterStateIdleFarTarget : CharacterStateIdle
     /// </summary>
     public new static CookApps.BattleSystem.CharacterController FindTarget(CookApps.BattleSystem.CharacterController characCtrl)
     {
-        var target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(characCtrl);
+        var target = InGameObjectManager.Instance.GetFarthestTargetByManhattanDistance(characCtrl);
 
         return target;
     }

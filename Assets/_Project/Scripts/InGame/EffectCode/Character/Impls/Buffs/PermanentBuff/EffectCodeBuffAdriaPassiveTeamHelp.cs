@@ -17,7 +17,7 @@ using System;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffAdriaPassiveTeamHelp : EffectCodeBuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.BUFF_ADRIA_PASSIVE_TEAM_HELP;
+    private const int CodeId = (int)EffectCodeNameType.BUFF_SPECIAL_ADRIA_PASSIVE_TEAM_HELP;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.AdriaPassiveTeamHelp;
     public override bool IsNeedToShowIcon => true;
 

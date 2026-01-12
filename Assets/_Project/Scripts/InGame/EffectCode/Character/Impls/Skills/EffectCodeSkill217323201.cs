@@ -102,7 +102,7 @@ public partial class EffectCodeSkill217323201 : EffectCodeCharacterBase
                 eccStats.Clear();
                 eccStats[0] = _time;
 
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.MISA_RESTRAINT, characterController, eccStats, source);
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_MISA_RESTRAINT, characterController, eccStats, source);
             }
 
             {
@@ -120,7 +120,7 @@ public partial class EffectCodeSkill217323201 : EffectCodeCharacterBase
                 eccStats.Clear();
                 eccStats[0] = _time;
 
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, characterController, eccStats, source);
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, characterController, eccStats, source);
             }
         }
 

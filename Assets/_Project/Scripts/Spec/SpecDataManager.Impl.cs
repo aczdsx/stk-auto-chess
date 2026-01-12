@@ -1167,13 +1167,10 @@ namespace CookApps.AutoBattler
 
         public ISpecCharacterInfo GetSpecCharacter(int characterID)
         {
-            for (int i = 0; i < CharacterInfo.All.Count; i++)
-            {
-                var character = CharacterInfo.All[i];
-                if (character.index == characterID)
-                    return character;
-            }
-
+            var character = CharacterInfo.Get(characterID);
+            if (character != null)
+                return character;
+            
             for (int i = 0; i < MonsterInfo.All.Count; i++)
             {
                 var monster = MonsterInfo.All[i];

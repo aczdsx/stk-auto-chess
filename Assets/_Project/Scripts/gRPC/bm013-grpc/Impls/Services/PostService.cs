@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<PostListResponse> ListAsync(CancellationToken cancellationToken = default)
         {
-            PostListResponse resp = await ExecuteAsync(
+            PostListResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ListAsync,
                 new PostListRequest(),
                 cancellationToken: cancellationToken
@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<PostReadResponse> ReadAsync(string postId, CancellationToken cancellationToken = default)
         {
-            PostReadResponse resp = await ExecuteAsync(
+            PostReadResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ReadAsync,
                 new PostReadRequest { Id = postId },
                 cancellationToken: cancellationToken
@@ -39,7 +39,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<PostRewardResponse> ClaimAsync(string postId, CancellationToken cancellationToken = default)
         {
-            PostRewardResponse resp = await ExecuteAsync(
+            PostRewardResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.RewardAsync,
                 new PostRewardRequest { Id = postId },
                 cancellationToken: cancellationToken

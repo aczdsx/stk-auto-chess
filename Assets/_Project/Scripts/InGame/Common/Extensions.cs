@@ -163,48 +163,48 @@ namespace CookApps.BattleSystem
             };
         }
 
-        public static string GetAffectToken(this BuffDebuffType type)
-        {
-            return type switch
-            {
-                // BuffDebuffType.Meditation => "",
-                BuffDebuffType.Shield => "INGAME_UI_SHIELD_GET",
-                // BuffDebuffType.Bleeding => "",
-                // BuffDebuffType.Poison => "",
-                // BuffDebuffType.Burn => "",
-                BuffDebuffType.AttackUp => "INGAME_UI_BUFF_AD_ATK_UP",
-                BuffDebuffType.AttackDown => "",
-                BuffDebuffType.AttackSpeedUp => "INGAME_UI_BUFF_ATKSPD_UP",
-                BuffDebuffType.CoolTimeUp => "INGAME_UI_DEBUFF_COOLDOWN_SPDDOWN",
-                BuffDebuffType.AbilityPowerUp => "INGAME_UI_BUFF_AP_ATK_UP",
-                BuffDebuffType.Immune => "",
-                // BuffDebuffType.CoolTimeDown => "",
-                // BuffDebuffType.AbilityPowerUp => "", 
-                BuffDebuffType.DefenceUp => "INGAME_UI_BUFF_DEF_UP",
-                BuffDebuffType.ResistanceUp => "INGAME_UI_BUFF_RES_UP",
-                BuffDebuffType.NormalAttackShield => "INGAME_UI_NORMAL_ATTACK_SHIELD_GET",
-                BuffDebuffType.AvoidProbUp => "INGAME_UI_BUFF_AVOID_PROB_UP",
-                // BuffDebuffType.AttackDown => "",
-                BuffDebuffType.ResistanceDown => "INGAME_UI_DEBUFF_RES_DOWN",
-                // BuffDebuffType.AttackSpeedUp => "",
-                BuffDebuffType.AttackSpeedDown => "INGAME_UI_DEBUFF_ATKSPD_DOWN",
-                BuffDebuffType.Trap => "",
-                BuffDebuffType.DefenceDown => "INGAME_UI_DEBUFF_DEF_DOWN",
-                BuffDebuffType.HealDown => "INGAME_UI_DEBUFF_HEAL_DOWN",
-                BuffDebuffType.Silence => "INGAME_UI_DEBUFF_SILENCE",
-                // BuffDebuffType.NoDamageShield => "INGAME_UI_NO_DAMAGE_SHIELD_GET",
-                // BuffDebuffType.CriticalProbUp => "",
-                // BuffDebuffType.CriticalProbDown => "",
-                // BuffDebuffType.Slow => "",
-                // BuffDebuffType.Entangle => "",
-                // BuffDebuffType.Freezing => "",
-                // BuffDebuffType.Stun => "INGAME_UI_DEBUFF_STUN",
-                // BuffDebuffType.Provocation => "",
-                // BuffDebuffType.Sleep => "",
-                // BuffDebuffType.Invincibility => "",
+        // public static string GetAffectToken(this BuffDebuffType type)
+        // {
+        //     return type switch
+        //     {
+        //         // BuffDebuffType.Meditation => "",
+        //         BuffDebuffType.Shield => "INGAME_UI_SHIELD_GET",
+        //         // BuffDebuffType.Bleeding => "",
+        //         // BuffDebuffType.Poison => "",
+        //         // BuffDebuffType.Burn => "",
+        //         BuffDebuffType.AttackUp => "INGAME_UI_BUFF_AD_ATK_UP",
+        //         BuffDebuffType.AttackDown => "",
+        //         BuffDebuffType.AttackSpeedUp => "INGAME_UI_BUFF_ATKSPD_UP",
+        //         BuffDebuffType.CoolTimeUp => "INGAME_UI_DEBUFF_COOLDOWN_SPDDOWN",
+        //         BuffDebuffType.AbilityPowerUp => "INGAME_UI_BUFF_AP_ATK_UP",
+        //         BuffDebuffType.Immune => "",
+        //         // BuffDebuffType.CoolTimeDown => "",
+        //         // BuffDebuffType.AbilityPowerUp => "", 
+        //         BuffDebuffType.DefenceUp => "INGAME_UI_BUFF_DEF_UP",
+        //         BuffDebuffType.ResistanceUp => "INGAME_UI_BUFF_RES_UP",
+        //         BuffDebuffType.NormalAttackShield => "INGAME_UI_NORMAL_ATTACK_SHIELD_GET",
+        //         BuffDebuffType.AvoidProbUp => "INGAME_UI_BUFF_AVOID_PROB_UP",
+        //         // BuffDebuffType.AttackDown => "",
+        //         BuffDebuffType.ResistanceDown => "INGAME_UI_DEBUFF_RES_DOWN",
+        //         // BuffDebuffType.AttackSpeedUp => "",
+        //         BuffDebuffType.AttackSpeedDown => "INGAME_UI_DEBUFF_ATKSPD_DOWN",
+        //         BuffDebuffType.Trap => "",
+        //         BuffDebuffType.DefenceDown => "INGAME_UI_DEBUFF_DEF_DOWN",
+        //         BuffDebuffType.HealDown => "INGAME_UI_DEBUFF_HEAL_DOWN",
+        //         BuffDebuffType.Silence => "INGAME_UI_DEBUFF_SILENCE",
+        //         // BuffDebuffType.NoDamageShield => "INGAME_UI_NO_DAMAGE_SHIELD_GET",
+        //         // BuffDebuffType.CriticalProbUp => "",
+        //         // BuffDebuffType.CriticalProbDown => "",
+        //         // BuffDebuffType.Slow => "",
+        //         // BuffDebuffType.Entangle => "",
+        //         // BuffDebuffType.Freezing => "",
+        //         // BuffDebuffType.Stun => "INGAME_UI_DEBUFF_STUN",
+        //         // BuffDebuffType.Provocation => "",
+        //         // BuffDebuffType.Sleep => "",
+        //         // BuffDebuffType.Invincibility => "",
 
-                _ => "",
-            };
-        }
+        //         _ => "",
+        //     };
+        // }
     }
 }

@@ -1,0 +1,39 @@
+; [META] Summary=아스나가 코어를 지급하며 함선 업그레이드(동력실)를 안내, 시설 확장 동기 부여. | KeyPoints=코어 지급, 동력실 업그레이드 가이드, 숙소 확장 안내.
+; L001
+; @back bg_lightbringer_command_center_01 fade:1
+; L002
+; [SYSTEM] 영지에서 Chapter2_03 시작
+; L003
+asna_00: 그리고 이건….부사령관님의 두번째 선물! 지휘관님, 무려 [코어]라구요!
+; L004
+player: 코어?
+; L005
+asna_00: 코어는 함선의 필수 동력원이에요. [라이트 브링어]의 내부를 복원하고 추가로 이용할 수 있어요.
+; L006
+; [GUIDE] 함선 업그레이드 가이드 진행
+; L007
+asna_00: 관측자님 임무에 투입되기 전 라이트브링어를 업그레이드 하면 어떨까요? 즉시 설치를 위해 함선의 동력실로 이동해보자구요!
+; L008
+; @forceHighlight ui_engine_room_button mode:pulse
+; L009
+; [GUIDE] 동력실 하이라이트 / 네비게이션
+; L010
+; @forceHighlight ui_engine_upgrade_button mode:pulse
+; L011
+; [GUIDE] 동력실 업그레이드 버튼 하이라이트
+; L012
+; [VFX] 동력이 복구되는 연출
+; L013
+asna_00: 우와! 동력이 돌아오고 있어요.
+; L014
+asna_00: 동력에 여유가 생긴만큼 숙소를 늘려 작전에 투입될 기사의 수를 늘려봐요!
+; L015
+
+@back bg_black_01 time:1.5 transition:Crossfade
+;신전환 효과음
+@hideUI
+@hidePrinter Dialogue
+@hideChars
+@skip false
+
+@end

@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<BattleGetCurrentChapterResponse> GetCurrentChapterAsync(CancellationToken cancellationToken = default)
         {
-            BattleGetCurrentChapterResponse resp = await ExecuteAsync(
+            BattleGetCurrentChapterResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.GetCurrentChapterAsync,
                 new BattleGetCurrentChapterRequest(),
                 cancellationToken: cancellationToken
@@ -33,7 +33,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<BattleListChapterResponse> ListChapterAsync(CancellationToken cancellationToken = default)
         {
-            BattleListChapterResponse resp = await ExecuteAsync(
+            BattleListChapterResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ListChapterAsync,
                 new BattleListChapterRequest(),
                 cancellationToken: cancellationToken
@@ -55,7 +55,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<BattleListStageResponse> ListStageAsync(uint chapterId, CancellationToken cancellationToken = default)
         {
-            BattleListStageResponse resp = await ExecuteAsync(
+            BattleListStageResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ListStageAsync,
                 new BattleListStageRequest { ChapterId = chapterId },
                 cancellationToken: cancellationToken
@@ -75,7 +75,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<BattleStartResponse> StartAsync(uint stageId, CancellationToken cancellationToken = default)
         {
-            BattleStartResponse resp = await ExecuteAsync(
+            BattleStartResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.StartAsync,
                 new BattleStartRequest { StageId = stageId },
                 cancellationToken: cancellationToken
@@ -88,7 +88,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<BattleEndResponse> EndAsync(string battleSessionId, BattleResult result, CancellationToken cancellationToken = default)
         {
-            BattleEndResponse resp = await ExecuteAsync(
+            BattleEndResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.EndAsync,
                 new BattleEndRequest {BattleSessionId = battleSessionId, Result = result },
                 cancellationToken: cancellationToken

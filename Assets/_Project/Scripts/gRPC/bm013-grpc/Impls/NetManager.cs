@@ -23,6 +23,7 @@ namespace CookApps.AutoBattler
         public CustomLobbyService CustomLobby { get; private set; }
         public CommanderService Commander { get; private set; }
         public DeckService Deck { get; private set; }
+        public GuideMissionService GuideMission { get; private set; }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ReloadDomain()
@@ -70,6 +71,7 @@ namespace CookApps.AutoBattler
             CustomLobby.ServiceInterceptor = this;
             Commander.ServiceInterceptor = this;
             Deck.ServiceInterceptor = this;
+            GuideMission.ServiceInterceptor = this;
 
             // Base class services는 외부 패키지에 있어서 Source Generator가 적용되지 않을 수 있음
             // Auth.ServiceInterceptor = this;

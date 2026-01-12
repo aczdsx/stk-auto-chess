@@ -9,7 +9,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffMeditation : EffectCodeBuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.BUFF_MEDITATION;
+    private const int CodeId = (int)EffectCodeNameType.BUFF_SPECIAL_MEDITATION;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.Meditation;
 
     private float _healUpdateInterval = 1f;

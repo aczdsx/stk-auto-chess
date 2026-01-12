@@ -77,7 +77,7 @@ namespace CookApps.BattleSystem
                     eccStats.Clear();
                     eccStats[0] = _time;
 
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats, source);
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, tile.OccupiedCharacter, eccStats, source);
 
                     tile.OccupiedCharacter.Position3D = tile.OccupiedCharacter.CurrentTile.View.Position;
                     tile.OccupiedCharacter.GetCharacterView().CachedTr.localPosition = tile.OccupiedCharacter.CurrentTile.View.Position;

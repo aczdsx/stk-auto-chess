@@ -14,7 +14,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<DeckListResponse> ListAsync(CancellationToken cancellationToken = default)
         {
-            DeckListResponse resp = await ExecuteAsync(
+            DeckListResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ListAsync,
                 new DeckListRequest(),
                 cancellationToken: cancellationToken
@@ -27,7 +27,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<DeckGetResponse> GetAsync(uint deckSlotId, CancellationToken cancellationToken = default)
         {
-            DeckGetResponse resp = await ExecuteAsync(
+            DeckGetResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.GetAsync,
                 new DeckGetRequest { DeckSlotId = deckSlotId },
                 cancellationToken: cancellationToken
@@ -61,7 +61,7 @@ namespace CookApps.AutoBattler
                 request.TacticPlacements.AddRange(tacticPlacements);
             }
 
-            DeckSaveResponse resp = await ExecuteAsync(
+            DeckSaveResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.SaveAsync,
                 request,
                 cancellationToken: cancellationToken
@@ -74,7 +74,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<DeckDeleteResponse> DeleteAsync(uint deckSlotId, CancellationToken cancellationToken = default)
         {
-            DeckDeleteResponse resp = await ExecuteAsync(
+            DeckDeleteResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.DeleteAsync,
                 new DeckDeleteRequest { DeckSlotId = deckSlotId },
                 cancellationToken: cancellationToken

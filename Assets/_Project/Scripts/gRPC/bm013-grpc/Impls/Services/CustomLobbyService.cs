@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<CustomLobbyGetMyPlayerDataResponse> GetMyPlayerDataAsync(CancellationToken cancellationToken = default)
         {
-            CustomLobbyGetMyPlayerDataResponse resp = await ExecuteAsync(
+            CustomLobbyGetMyPlayerDataResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.GetMyPlayerDataAsync,
                 new CustomLobbyGetMyPlayerDataRequest(),
                 cancellationToken: cancellationToken
@@ -33,7 +33,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<CustomLobbySetRepresentativeCharacterResponse> SetRepresentativeCharacterAsync(uint characterId, CancellationToken cancellationToken = default)
         {
-            CustomLobbySetRepresentativeCharacterResponse resp = await ExecuteAsync(
+            CustomLobbySetRepresentativeCharacterResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.SetRepresentativeCharacterAsync,
                 new CustomLobbySetRepresentativeCharacterRequest { CharacterId = characterId.ToString() },
                 cancellationToken: cancellationToken
@@ -53,7 +53,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<CustomLobbyClaimOtherRewardResponse> ClaimOtherRewardAsync(uint rewardId, CancellationToken cancellationToken = default)
         {
-            CustomLobbyClaimOtherRewardResponse resp = await ExecuteAsync(
+            CustomLobbyClaimOtherRewardResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ClaimOtherRewardAsync,
                 new CustomLobbyClaimOtherRewardRequest { RewardId = rewardId },
                 cancellationToken: cancellationToken

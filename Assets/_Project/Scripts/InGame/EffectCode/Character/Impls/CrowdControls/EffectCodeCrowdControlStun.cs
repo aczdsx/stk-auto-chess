@@ -5,7 +5,7 @@ using CookApps.BattleSystem;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeCrowdControlStun : EffectCodeCharacterBase
 {
-    public const int CodeId = (int)EffectCodeNameType.STUN;
+    public const int CodeId = (int)EffectCodeNameType.CC_STUN;
     public override bool IsRemoveWithSource { get => false; }
     public override EffectCodeType Type { get => EffectCodeType.CrowdControl; }
 

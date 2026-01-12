@@ -14,7 +14,7 @@ using UnityEngine;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffAprilStander : EffectCodeBuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.BUFF_APRIL_STANDER;
+    private const int CodeId = (int)EffectCodeNameType.BUFF_SPECIAL_APRIL_STANDER;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.AprilStander;
     public override bool IsNeedToShowIcon => true;
 

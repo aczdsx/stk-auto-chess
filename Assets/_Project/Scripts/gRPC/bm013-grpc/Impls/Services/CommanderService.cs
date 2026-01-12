@@ -13,11 +13,18 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<CommanderListSkillResponse> ListSkillAsync(CancellationToken cancellationToken = default)
         {
-            CommanderListSkillResponse resp = await ExecuteAsync(
+            CommanderListSkillResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ListSkillAsync,
                 new CommanderListSkillRequest(),
                 cancellationToken: cancellationToken
             );
+
+            // CommanderSkillModel 갱신
+            if (resp != null && resp.IsSuccess && resp.SkillList != null)
+            {
+                ServerDataManager.Instance.CommanderSkill.SetCommanderSkillList(resp.SkillList);
+            }
+
             return resp;
         }
 
@@ -26,7 +33,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<CommanderEquipSkillResponse> EquipSkillAsync(uint slotIndex, uint commanderSkillId, CancellationToken cancellationToken = default)
         {
-            CommanderEquipSkillResponse resp = await ExecuteAsync(
+            CommanderEquipSkillResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.EquipSkillAsync,
                 new CommanderEquipSkillRequest
                 {
@@ -35,6 +42,13 @@ namespace CookApps.AutoBattler
                 },
                 cancellationToken: cancellationToken
             );
+
+            // CommanderSkillModel 갱신
+            if (resp != null && resp.IsSuccess)
+            {
+                ServerDataManager.Instance.CommanderSkill.SetEquippedCommanderSkill((int)slotIndex, (int)commanderSkillId);
+            }
+
             return resp;
         }
 
@@ -43,11 +57,18 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<CommanderUnEquipSkillResponse> UnEquipSkillAsync(uint slotIndex, CancellationToken cancellationToken = default)
         {
-            CommanderUnEquipSkillResponse resp = await ExecuteAsync(
+            CommanderUnEquipSkillResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.UnEquipSkillAsync,
                 new CommanderUnEquipSkillRequest { SlotIndex = slotIndex },
                 cancellationToken: cancellationToken
             );
+
+            // CommanderSkillModel 갱신
+            if (resp != null && resp.IsSuccess)
+            {
+                ServerDataManager.Instance.CommanderSkill.SetEquippedCommanderSkill((int)slotIndex, 0);
+            }
+
             return resp;
         }
 
@@ -56,11 +77,27 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<CommanderLevelUpSkillResponse> LevelUpSkillAsync(uint slotIndex, CancellationToken cancellationToken = default)
         {
-            CommanderLevelUpSkillResponse resp = await ExecuteAsync(
+            CommanderLevelUpSkillResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.LevelUpSkillAsync,
                 new CommanderLevelUpSkillRequest { SlotIndex = slotIndex },
                 cancellationToken: cancellationToken
             );
+
+            if (resp != null && resp.IsSuccess)
+            {
+                // CommanderSkillModel 갱신
+                if (resp.Skill != null)
+                {
+                    ServerDataManager.Instance.CommanderSkill.SetSkillLevel((int)resp.Skill.CommanderSkillId, (int)resp.Skill.Level);
+                }
+
+                // 통화 변화 적용
+                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+                {
+                    ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
+                }
+            }
+
             return resp;
         }
 
@@ -69,7 +106,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<CommanderPromoteSkillResponse> PromoteSkillAsync(uint commanderSkillId, uint promotionSlot, uint promotionOptionId, CancellationToken cancellationToken = default)
         {
-            CommanderPromoteSkillResponse resp = await ExecuteAsync(
+            CommanderPromoteSkillResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.PromoteSkillAsync,
                 new CommanderPromoteSkillRequest
                 {
@@ -79,6 +116,13 @@ namespace CookApps.AutoBattler
                 },
                 cancellationToken: cancellationToken
             );
+
+            // CommanderSkillModel 갱신
+            if (resp != null && resp.IsSuccess && resp.Skill != null)
+            {
+                ServerDataManager.Instance.CommanderSkill.UpdateSkill(resp.Skill);
+            }
+
             return resp;
         }
     }

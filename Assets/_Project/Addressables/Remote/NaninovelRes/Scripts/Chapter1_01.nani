@@ -1,0 +1,24 @@
+; [META] Chapter1_01 | 키포인트: 클레이 위협 단초, 스텔라나이트=소망 기억 상실
+; @spawn cbg_04_01
+; @wait 0.8
+; @despawn cbg_04_01
+; @back bg_lightbringer_armory_01 fade:2
+ cley_00: ….이런 사실을 잊고 있었다니.
+ cley_00: 모두에게는 미안하지만…….
+ cley_00: 이게 다, …를 위해서니까.
+; @sfx sfx_glass_break volume:0.9
+Narrator: 갑작스럽게 사이렌이 울린다.
+soldier_00: 찾아라! 범인이 근처에 있다.
+cley_00: 이젠… 돌아갈 수 없겠구나.
+cley_00: 관측자…. 그리고 모두….안녕.
+
+
+
+@back bg_black_01 time:1.5 transition:Crossfade
+;신전환 효과음
+@hideUI
+@hidePrinter Dialogue
+@hideChars
+@skip false
+
+@end

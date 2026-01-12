@@ -1,0 +1,50 @@
+; [META] Summary=로비에서 아스나가 재클린의 지원 물품(기억의 조각)을 전달하고, 기사 초월을 안내. | KeyPoints=로비 진입 트리거, 초월 가이드(아트레시아), 패시브 스킬 확인.
+; L001
+; @back bg_territory_01 fade:1
+; L002
+; [SYSTEM] 로비 화면 입장 시 시작
+; L003
+asna_00: 오셨군요 관측자님!
+; L004
+asna_00: 안그래도 재클린 부사령관님이 부탁하신 물품을 전달하기 위해 언제쯤 오시나 기다리고 있었어요!
+; L005
+asna_00: 쨔잔! 이 '기억의 조각'으로 말하자면, 스테리아의 숨겨진 힘을 이끌어내는 소중한 물품이에요! 재정에 엄격하신 재클린 부사령관 님께서 이런 귀한 것을 주시다니….!
+; L006
+asna_00: 역시 플레이아데스 성단의 담당 관측자님 이라니까요?
+; L007
+asna_00: 아 참, 내 정신 좀 봐. 바로 기사들을 강화해보도록 하죠.
+; L008
+; [GUIDE] 초월 가이드 진행
+; L009
+; @forceHighlight ui_knight_manage_button mode:pulse
+; L010
+; [GUIDE] 기사 관리창 하이라이트
+; L011
+; @forceHighlight ui_knight_card_atresia mode:pulse
+; L012
+; [GUIDE] 아트레시아 하이라이트
+; L013
+; @forceHighlight ui_transcend_button mode:pulse
+; L014
+; [GUIDE] 초월 버튼 하이라이트
+; L015
+asna_00: 아트레시아의 [패시브 스킬 이름] 이 성장했어요. 변화된 효과를 확인해보세요!
+; L016
+; @forceHighlight ui_passive_skill_button mode:pulse
+; L017
+; [GUIDE] 패시브 스킬 버튼 하이라이트
+; L018
+atresia_00: 관측자님! 강해진 것 같은 기분이 들어요.
+; L019
+; [SYSTEM] 가이드 미션 초월 종료
+; L020
+
+
+@back bg_black_01 time:1.5 transition:Crossfade
+;신전환 효과음
+@hideUI
+@hidePrinter Dialogue
+@hideChars
+@skip false
+
+@end

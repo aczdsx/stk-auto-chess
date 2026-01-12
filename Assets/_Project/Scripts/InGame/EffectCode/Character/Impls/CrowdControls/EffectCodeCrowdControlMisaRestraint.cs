@@ -8,7 +8,7 @@ using Vector3 = System.Numerics.Vector3;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeCrowdControlMisaRestraint : EffectCodeCharacterBase
 {
-    public const int CodeId = (int)EffectCodeNameType.MISA_RESTRAINT;
+    public const int CodeId = (int)EffectCodeNameType.CC_MISA_RESTRAINT;
     public override bool IsRemoveWithSource { get => false; }
     public override EffectCodeType Type { get => EffectCodeType.CrowdControl; }
 

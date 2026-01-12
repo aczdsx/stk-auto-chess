@@ -41,7 +41,7 @@ namespace CookApps.BattleSystem
             buffStats[1] = codeInfo.GetCodeStatToFloat(0);//_angerRatePercent
             buffStats[2] = codeInfo.GetCodeStatToFloat(1) * 0.01f;//_attackRatePercent
 
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_TETORRA_ANGER, owner, buffStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_SPECIAL_TETORRA_ANGER, owner, buffStats, source);
         }
 
     }

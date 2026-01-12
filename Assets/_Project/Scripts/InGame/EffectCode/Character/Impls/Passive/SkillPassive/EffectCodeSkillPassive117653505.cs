@@ -36,7 +36,7 @@ namespace CookApps.BattleSystem
             buffStats[1] = codeInfo.GetCodeStatToInt(0);
             buffStats[2] = codeInfo.GetCodeStatToFloat(1) * 0.01f;
 
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_ENKI_PASSIVE_HEALUP, owner, buffStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_SPECIAL_ENKI_PASSIVE_HEALUP, owner, buffStats, source);
         }
 
         

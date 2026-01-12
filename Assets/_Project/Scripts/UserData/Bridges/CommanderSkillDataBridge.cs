@@ -9,7 +9,7 @@ namespace CookApps.AutoBattler
     /// 지휘자 스킬 데이터 브릿지
     /// ServerDataManager와 UI 사이의 중간 레이어
     /// </summary>
-    public class CommanderSkillDataBridge
+    public class CommanderSkillDataBridge : DataBridgeBase
     {
         private CommanderSkillModel Model;
 

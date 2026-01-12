@@ -20,3 +20,13 @@ char_uni: 네피림들을 혼내줘! 아티!
 char_atresia: 지휘관, 다시한 번 저에게 스테리아의 발현을…!
 ; 전투 종료 → 결과창 효과음 출력
 ; 가이드미션 다이얼로그 종료, 나니노벨 신 Chapter0_04 시작
+
+
+@back bg_black_01 time:1.5 transition:Crossfade
+;신전환 효과음
+@hideUI
+@hidePrinter Dialogue
+@hideChars
+@skip false
+
+@end

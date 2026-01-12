@@ -41,7 +41,7 @@ namespace CookApps.BattleSystem
             buffStats[1] = codeInfo.GetCodeStatToFloat(0);// increase time
             buffStats[2] = codeInfo.GetCodeStatToFloat(1) * 0.01f;//_attackSpeedIncreaseRate
 
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_APRIL_STANDER, owner, buffStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_SPECIAL_APRIL_STANDER, owner, buffStats, source);
         }
 
     }

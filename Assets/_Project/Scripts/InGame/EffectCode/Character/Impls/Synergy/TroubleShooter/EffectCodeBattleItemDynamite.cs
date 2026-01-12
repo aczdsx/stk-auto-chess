@@ -72,7 +72,7 @@ namespace CookApps.BattleSystem
                 explosionTile.OccupiedCharacter.AllianceType == AllianceType.Neutral)
                     continue;
                 
-                explosionTile.OccupiedCharacter.GetDamaged(damage, _bombController, hexColor: DamageColor);
+                explosionTile.OccupiedCharacter.GetDamaged(damage, _bombController);
             }
             InGameVfxManagerInstance.AddInGameVfx(ExplosionVfxEnum, tile.View.CachedTr.position);
 

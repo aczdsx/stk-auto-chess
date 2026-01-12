@@ -171,7 +171,7 @@ public partial class EffectCodeSkill217523403 : EffectCodeCharacterBase
                     double[] eccStats = new double[1];
                     eccStats[0] = _stunTime;
 
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats,
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, tile.OccupiedCharacter, eccStats,
                         source);
                     
                     _hitCharacters.Add(tile.OccupiedCharacter);

@@ -9,7 +9,7 @@ using System;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
 {
-    public const int CodeId = (int) EffectCodeNameType.KNOCKBACK;
+    public const int CodeId = (int) EffectCodeNameType.CC_KNOCKBACK;
     public override bool IsRemoveWithSource => false;
     public override EffectCodeType Type => EffectCodeType.CrowdControl;
 

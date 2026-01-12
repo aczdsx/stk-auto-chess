@@ -54,7 +54,7 @@ namespace CookApps.BattleSystem
             eccStats[2] = _overlapCount;
             eccStats[3] = _debuffDuration;
 
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_MARIE_ARACNE, target, eccStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_SPECIAL_MARIE_ARACNE, target, eccStats, source);
         }
     }//117613501
 }

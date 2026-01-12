@@ -14,7 +14,7 @@ using System;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeDebuffOdetteCold : EffectCodeDebuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.DEBUFF_ODETTE_COLD;
+    private const int CodeId = (int)EffectCodeNameType.DEBUFF_SPECIAL_ODETTE_COLD;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.OdetteCold;
     private int _overlapCount;
     private float _debuffDuration;
@@ -98,7 +98,7 @@ public partial class EffectCodeDebuffOdetteCold : EffectCodeDebuffBase
             eccStats.Clear();
             eccStats[0] = _debuffDuration;
 
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, owner, eccStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, owner, eccStats, source);
 
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02, owner.SkillRootTransformFollowable.GetPosition());
             RemoveFromContainer();

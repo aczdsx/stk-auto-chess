@@ -11,6 +11,7 @@ namespace CookApps.TeamBattle.UIManagements
         {
             return uiLayerName switch
             {
+                "NicknamePopup" => "Naninovel/Spawn/Etc/NicknamePopup",
                 "BattleReadyMain" => "Prefabs/UI/00_Main/BattleReadyMain.prefab",
                 "InGameMain" => "Prefabs/UI/00_Main/IngameMain.prefab",
                 "LobbyMain" => "Prefabs/UI/00_Main/LobbyMain.prefab",
@@ -40,7 +41,7 @@ namespace CookApps.TeamBattle.UIManagements
                 "InGameExitPopup" => "Prefabs/UI/01_Pops/WindowPopup/InGameExitPopup.prefab",
                 "ItemConsumeEventPopup" => "Prefabs/UI/01_Pops/WindowPopup/ItemConsumeEventPopup.prefab",
                 "ItemTooltipPopup" => "Prefabs/UI/01_Pops/WindowPopup/ItemTooltipPopup.prefab",
-                "NicknamePopup" => "Prefabs/UI/01_Pops/WindowPopup/NicknamePopup.prefab",
+                "NicknamePopup_1" => "Prefabs/UI/01_Pops/WindowPopup/NicknamePopup.prefab",
                 "QuestPopup" => "Prefabs/UI/01_Pops/WindowPopup/QuestPopup.prefab",
                 "RewardResultPopup" => "Prefabs/UI/01_Pops/WindowPopup/RewardResultPopup.prefab",
                 "SessionTimeEventPopup" => "Prefabs/UI/01_Pops/WindowPopup/SessionTimeEventPopup.prefab",

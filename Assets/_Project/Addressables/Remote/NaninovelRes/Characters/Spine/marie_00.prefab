@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 7425215203492267112}
   - component: {fileID: 2581283172451277847}
   - component: {fileID: 4960757396864185766}
+  - component: {fileID: 943522332069564}
+  - component: {fileID: -745829324023239774}
   m_Layer: 0
   m_Name: marie_00
   m_TagString: Untagged
@@ -127,3 +129,35 @@ MonoBehaviour:
   _animationName: 
   loop: 1
   timeScale: 1
+--- !u!114 &943522332069564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953072004641501635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71af8337e9ddf15419f2b82dcf666e04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Size: {x: 1, y: 1}
+  Offset: {x: 0, y: 0}
+--- !u!114 &-745829324023239774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953072004641501635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a1ad1c5289ad745b3e70c386d58c5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onAppearanceChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onIsSpeakingChanged:
+    m_PersistentCalls:
+      m_Calls: []
