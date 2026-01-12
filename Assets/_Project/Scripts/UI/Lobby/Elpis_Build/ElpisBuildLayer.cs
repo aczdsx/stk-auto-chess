@@ -77,7 +77,7 @@ namespace CookApps.AutoBattler
             cells.Clear();
 
             // Load Build Infos
-            var buildInfos = SpecDataManager.Instance.ElpisBuildInfo.All;
+            var buildInfos = SpecDataManager.Instance.GetBuildInfoList(facilityData.Type);
             var commandCenter = dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
             int commandCenterLv = (int)commandCenter.Level;
 
@@ -101,8 +101,12 @@ namespace CookApps.AutoBattler
                 // ElpisCommandCenterBenefit에서 해금 정보를 가져와야 정확함.
                 bool isLocked = !IsUnlockedByCommandCenter(info.build_id, commandCenterLv);
 
+                var inventory = new InventoryDataBridge();
+                var userData = (int)inventory.GetCurrency(ItemIdMap.BuildItem);
+                var targetData = info.item_INT;
+                
                 // Check Cost
-                bool canAfford = true; // TODO: Check actual resources
+                bool canAfford = userData >= targetData;
 
                 cell.SetData(info, isLocked, isInstalled, canAfford, OnInstallRequested);
                 cells.Add(cell);

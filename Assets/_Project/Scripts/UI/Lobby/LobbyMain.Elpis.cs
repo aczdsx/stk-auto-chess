@@ -16,6 +16,10 @@ namespace CookApps.AutoBattler
         private AsyncOperationHandle<GameObject> elpisBgHandle;
         private List<AsyncOperationHandle<GameObject>> characterHandles = new();
 
+        // GC 최적화: 재사용 컬렉션
+        private readonly HashSet<int> _unlockedBuildIdsCache = new();
+        private readonly List<ElpisBuildingBase> _unlockedBuildingsCache = new();
+
         private async UniTask LoadElpis()
         {
             elpisDataBridge = new ElpisDataBridge();
@@ -36,7 +40,7 @@ namespace CookApps.AutoBattler
             await characterHandle.WaitUntilDone();
             var commandCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
             await MainBlock.LoadAllSubBlocks();
-            return;
+            
             if (commandCenter.Level >= 2)
             {
                 await MainBlock.AttachSubBlock(0, false);
@@ -51,7 +55,7 @@ namespace CookApps.AutoBattler
                 .SubscribeAwait(this, (info, self, _) => self.OnFacilityLevelChanged(info))
                 .AddTo(this);
 
-            CreateWorldInteractionSlots(MainBlock.ElpisBuildings);
+            CreateWorldInteractionSlots(GetUnlockedBuildings(commandCenter.Level));
 
             MainBlock.RebuildNavMesh();
         }
@@ -69,23 +73,13 @@ namespace CookApps.AutoBattler
 
         private async UniTask OnFacilityLevelChanged(FacilityChangeInfo info)
         {
-            // 함선 렙업 확장 연출
+            // 커맨드 센터 레벨업 시 처리
             if (info.Current.Type == ElpisFacilityType.FacilityTypeCommandCenter)
             {
                 // 새로 해금된 건물 추가
                 AddUnlockedFacilities();
-
-                for (var i = 0; i < SpecDataManager.Instance.ElpisCommandCenterBenefit.All.Count; i++)
-                {
-                    var benefit = SpecDataManager.Instance.ElpisCommandCenterBenefit[i];
-                    if (benefit.lv == info.Current.Level)
-                    {
-                        // TODO: Focusing
-                        await MainBlock.AttachSubBlock(benefit.benefit_key, true);
-                        MainBlock.RebuildNavMesh();
-                        return;
-                    }
-                }
+                // WorldInteraction 슬롯 갱신
+                CreateWorldInteractionSlots(GetUnlockedBuildings(info.Current.Level));
             }
         }
 
@@ -101,15 +95,18 @@ namespace CookApps.AutoBattler
 
             int commandCenterLevel = (int)commandCenter.Level;
 
-            // 현재 레벨에서 해금된 build_group_id 목록 수집
-            var unlockedBuildIds = new HashSet<int>();
+            // 현재 레벨에서 해금된 build_id 목록 수집
+            _unlockedBuildIdsCache.Clear();
+
+            _unlockedBuildIdsCache.Add((int)commandCenter.BuildId);
+            
             var benefits = SpecDataManager.Instance.ElpisCommandCenterBenefit.All;
             for (var i = 0; i < benefits.Count; i++)
             {
                 var benefit = benefits[i];
                 if (benefit.lv <= commandCenterLevel && benefit.build_id > 0)
                 {
-                    unlockedBuildIds.Add(benefit.build_id);
+                    _unlockedBuildIdsCache.Add(benefit.build_id);
                 }
             }
 
@@ -121,9 +118,6 @@ namespace CookApps.AutoBattler
 
                 // 1레벨 건물만 확인 (신규 설치 대상)
                 if (buildInfo.build_lv != 1) continue;
-
-                // 해금되지 않은 건물은 스킵
-                if (!unlockedBuildIds.Contains(buildInfo.build_id)) continue;
 
                 // 이미 설치된 건물인지 확인
                 var existingFacility = elpisDataBridge.GetFacilityByType(buildInfo.facility_type.ToServerType());
@@ -144,7 +138,9 @@ namespace CookApps.AutoBattler
                 // 서버 데이터 매니저에 추가
                 ServerDataManager.Instance.Elpis.UpdateFacility(newFacility);
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
                 Debug.Log($"[LobbyMain] 해금된 건물 추가: {buildInfo.facility_type} (레벨 0, 슬롯: {buildInfo.slot_index})");
+#endif
             }
         }
 
@@ -162,6 +158,55 @@ namespace CookApps.AutoBattler
                 }
             }
             return maxLevel;
+        }
+
+        /// <summary>
+        /// 해금된 시설 데이터를 추가합니다.
+        /// </summary>
+        public void RefreshUnlockedFacilities()
+        {
+            AddUnlockedFacilities();
+        }
+
+        /// <summary>
+        /// 월드 인터랙션 UI 슬롯을 갱신합니다.
+        /// </summary>
+        public void RefreshWorldInteractionSlots(uint commandCenterLevel)
+        {
+            CreateWorldInteractionSlots(GetUnlockedBuildings(commandCenterLevel));
+        }
+
+        private IReadOnlyList<ElpisBuildingBase> GetUnlockedBuildings(uint commandCenterLevel)
+        {
+            _unlockedBuildingsCache.Clear();
+
+            // 메인 블럭 건물들은 항상 해금
+            var allBuildings = MainBlock.ElpisBuildings;
+            var mainBlockBuildingCount = MainBlock.MainBlockBuildingCount;
+
+            for (var i = 0; i < mainBlockBuildingCount; i++)
+            {
+                _unlockedBuildingsCache.Add(allBuildings[i]);
+            }
+
+            // 서브블럭 건물들은 커맨드 센터 레벨에 따라 해금
+            // 레벨 2 이상: 서브블럭 0 해금
+            // 레벨 3 이상: 서브블럭 1 해금
+            var unlockedSubBlockCount = commandCenterLevel >= 3 ? 2 : commandCenterLevel >= 2 ? 1 : 0;
+
+            for (var subBlockIndex = 0; subBlockIndex < unlockedSubBlockCount; subBlockIndex++)
+            {
+                var subBlock = MainBlock.GetSubBlockInfo(subBlockIndex).SubBlock;
+                if (subBlock == null) continue;
+
+                var subBlockBuildings = subBlock.ElpisBuildings;
+                for (var i = 0; i < subBlockBuildings.Count; i++)
+                {
+                    _unlockedBuildingsCache.Add(subBlockBuildings[i]);
+                }
+            }
+
+            return _unlockedBuildingsCache;
         }
     }
 }

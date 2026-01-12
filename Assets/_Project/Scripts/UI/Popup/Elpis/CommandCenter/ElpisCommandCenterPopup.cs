@@ -96,7 +96,7 @@ namespace CookApps.AutoBattler
             inventoryDataBridge = new InventoryDataBridge();
             
             currentElpisLevel = (int)((ElpisFacility)param).Level;
-            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(ItemIdMap.BuildItem);
+            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(IdMap.Item.엘피스코어);
 
             LoadElpisData();
             UpdateUI();
@@ -249,6 +249,9 @@ namespace CookApps.AutoBattler
                     Debug.LogWarning("다음 업그레이드가 없습니다");
                 return;
             }
+            
+            if(currentCoreAmount < requiredCoreForUpgrade)
+                return;
 
             isUpgrading = true;
 
@@ -256,11 +259,14 @@ namespace CookApps.AutoBattler
             {
                 // 업그레이드 실행
                 var commandCenter = dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
-                //var resp = await NetManager.Instance.Elpis.UpgradeFacilityAsync(commandCenter.InstanceId);
+                var resp = await NetManager.Instance.Elpis.UpgradeFacilityAsync((int)commandCenter.BuildId);
                 //10130102 에러뜸 : facility not invalid 에러임. 걍 로컬로 변경해서 함
 
                 commandCenter.Level++; //TODO : 서버 위 에러 없어지면 삭제
                 currentElpisLevel++;
+
+                // 해금된 시설 데이터 추가
+                lobbyMain.RefreshUnlockedFacilities();
 
                 // SubBlock 확장 애니메이션 (레벨 2, 3에서만 실행)
                 var subBlockIndex = currentElpisLevel - 2; // 레벨2 -> 인덱스0, 레벨3 -> 인덱스1
@@ -285,9 +291,12 @@ namespace CookApps.AutoBattler
                     cameraController.MoveAsync(offsetPosition, 0.3f).Forget();
                     await cameraController.ZoomAsync(offsetZoom, 0.3f);
                 }
+
+                // UI 슬롯 갱신 (서브블록 애니메이션 후)
+                lobbyMain.RefreshWorldInteractionSlots(commandCenter.Level);
                 
                 // 새 데이터로 UI 갱신
-                currentCoreAmount = (int)inventoryDataBridge.GetCurrency(ItemIdMap.BuildItem);
+                currentCoreAmount = (int)inventoryDataBridge.GetCurrency(IdMap.Item.엘피스코어);
                 LoadElpisData();
                 UpdateUI();
 

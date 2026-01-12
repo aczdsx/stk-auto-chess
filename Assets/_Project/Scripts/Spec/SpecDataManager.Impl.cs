@@ -1936,5 +1936,40 @@ namespace CookApps.AutoBattler
             
             return null;
         }
+
+        public IReadOnlyList<ElpisBuildInfo> GetBuildInfoList(ElpisFacilityType facilityType)
+        {
+            var targetType = FacilityType.NONE;
+
+            //TODO : 최적화 필요....
+            switch (facilityType)
+            {
+                case ElpisFacilityType.FacilityTypeCommandCenter:
+                    targetType = FacilityType.COMMAND_CENTER;
+                    break;
+                case ElpisFacilityType.FacilityTypeNest:
+                    targetType = FacilityType.NEST;
+                    break;
+                case ElpisFacilityType.FacilityTypeDimensionLab:
+                    targetType = FacilityType.DIMENSION_LAB;
+                    break;
+                case ElpisFacilityType.FacilityTypeSimulationCenter:
+                    targetType = FacilityType.SIMULATION_CENTER;
+                    break;
+                case ElpisFacilityType.FacilityTypeUnspecified:
+                    targetType = FacilityType.NONE;
+                    break;
+            }
+            
+            var result = new List<ElpisBuildInfo>();
+            for (int i = 0; i < ElpisBuildInfo.All.Count; i++)
+            {
+                var target = ElpisBuildInfo.All[i];
+                if(target.facility_type == targetType)
+                    result.Add(target);
+            }
+
+            return result;
+        }
     }
 }
