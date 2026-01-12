@@ -11,7 +11,7 @@ using UnityEngine.EventSystems;
 
 public class CommanderSkillUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public CommanderSkillData Data => _data;
+    public CommanderSkillInGameData Data => _data;
 
     [SerializeField] private Image _iconImage;
     [SerializeField] private SpriteLoader _iconSpriteLoader;
@@ -22,7 +22,7 @@ public class CommanderSkillUI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     [SerializeField] private GameObject _autoObj;
     [SerializeField] private GameObject _autoActiveObj;
 
-    private CommanderSkillData _data;
+    private CommanderSkillInGameData _data;
     private Pref _preference;
 
     public void OnClickAuto()
@@ -66,7 +66,7 @@ public class CommanderSkillUI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             _activeFx.Play();
     }
 
-    public void SetData(CommanderSkillData data, Pref pref)
+    public void SetData(CommanderSkillInGameData data, Pref pref)
     {
         _data = data;
         _preference = pref;

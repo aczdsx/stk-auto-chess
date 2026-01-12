@@ -346,7 +346,7 @@ public class InGameBottomUI : MonoBehaviour
             {
                 var userSkillLevel = ServerDataManager.Instance.CommanderSkill.GetUserCommanderSkillLevel(equippedCommanderSkillID);
                 var dataList = specDataManagerInstance.GetCommanderSkillDataList(equippedCommanderSkillID);
-                CommanderSkillData skillData = InGameCommanderManager.Instance.InitCommanderSkillData(dataList[userSkillLevel - 1]);
+                CommanderSkillInGameData skillData = InGameCommanderManager.Instance.InitCommanderSkillData(dataList[userSkillLevel - 1]);
 
                 string preferenceKey = $"COMMANDER_AUTO_{(int)(i + 1)}";
 
