@@ -17,101 +17,36 @@ namespace CookApps.BattleSystem
     public partial class EffectCodeSkillPassive117243102 : EffectCodeSkillPassiveBase
     {
         public const int CodeId = 117243102;
-        private int _overheatMaxCount; // 최대 중첩 횟수
-        private int _currentOverheatCount; // 현재 중첩 횟수
-
-
-        private float _overheatDamageRatePercent; // 폭염 데미지 비율
-        private float _overheatDuration; // 지속 시간
-        private float _overheatDurationElapsedTime; // 지속 시간 경과 시간
-        private float _overheatDamageRate; // 지속 데미지 비율
-        private float _overheatDamageElapsedTime; // 지속 데미지 경과 시간
-
-        private List<InGameTile> _overHeatTiles = new List<InGameTile>();
-
+       
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
-            _overheatMaxCount = codeInfo.GetCodeStatToInt(0);
-            _overheatDamageRatePercent = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-            _overheatDuration = codeInfo.GetCodeStatToFloat(2);
-            _overheatDamageRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
 
-            _currentOverheatCount = 0;
-            var jobPassiveEsper = owner.GetEffectCodeContainer().GetEffectCode((int)EffectCodeNameType.JOBS_ESPER) as EffectCodeJobPassiveEsper;
-            jobPassiveEsper.OnExplosionDamage += OnExplosionDamage;
+            InjectPassiveBuff(codeInfo, source);
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
             base.Merge(codeInfo, source);
-            _overheatMaxCount = codeInfo.GetCodeStatToInt(0);
-            _overheatDamageRatePercent = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-            _overheatDuration = codeInfo.GetCodeStatToFloat(2);
-            _overheatDamageRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+
+            InjectPassiveBuff(codeInfo, source);
         }
 
-        public override void OnUpdate(float dt)
+        private void InjectPassiveBuff(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
-            if (_overHeatTiles.Count == 0)
-                return;
-
-            // 지속 시간 경과 시간 증가
-            _overheatDurationElapsedTime += dt;
             
-            // 지속 시간이 지나면 불지대 제거
-            if (_overheatDurationElapsedTime >= _overheatDuration)
-            {
-                _overHeatTiles.Clear();
-                _overheatDurationElapsedTime = 0f;
-                _overheatDamageElapsedTime = 0f;
-                return;
-            }
+            Span<double> buffStats = stackalloc double[5];
+            buffStats.Clear();
+            buffStats[0] = CodeId;
+            buffStats[1] = codeInfo.GetCodeStatToFloat(0);
+            buffStats[2] = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+            buffStats[3] = codeInfo.GetCodeStatToFloat(2);
+            buffStats[4] = codeInfo.GetCodeStatToFloat(3) * 0.01f;
 
-            // 지속 데미지 경과 시간 증가
-            _overheatDamageElapsedTime += dt;
-            
-            // 1초마다 지속 데미지 적용
-            if (_overheatDamageElapsedTime >= 1f)
-            {
-                _overheatDamageElapsedTime -= 1f;
-                
-                foreach (var overHeatTile in _overHeatTiles)
-                {
-                    // 타일 VFX 표시
-                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, overHeatTile);
-                    
-                    // 타일이 유효하고 적군이 있으면 데미지 적용
-                    if (overHeatTile.CheckValidTile(owner.AllianceType, false))
-                    {
-                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                            overHeatTile.OccupiedCharacter.SkillRootTransformFollowable);
-
-                        // 지속 데미지 계산 (공격력의 _overheatDamageRate%만큼)
-                        var defaultDamage = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
-                        var damage = owner.CalculateDamageAmount(defaultDamage * _overheatDamageRate, 0,
-                            overHeatTile.OccupiedCharacter, codeId, true);
-
-                        overHeatTile.OccupiedCharacter.GetDamaged(damage, owner);
-                    }
-                }
-            }
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_SPECIAL_BLIN_HEAT, owner, buffStats, source);
         }
 
-        private void OnExplosionDamage(int damagedTargetCount, InGameTile explosionStartTile)
-        {
-            _currentOverheatCount += damagedTargetCount;
-            _currentOverheatCount = Math.Min(_currentOverheatCount, _overheatMaxCount);
-            
-            if (_currentOverheatCount < _overheatMaxCount)
-            {
-                return;
-            }
-            
-            // 열기 중첩이 최대치에 도달하면 폭염 발동
-            _overHeatTiles.Clear();
-            _overHeatTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(explosionStartTile, 1);
-        }
+    
 
     }
 }//117243102

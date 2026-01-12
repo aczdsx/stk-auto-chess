@@ -12,7 +12,7 @@ using System;
 /// 아이콘을 위해 buff로 처리
 /// 무조건 한개의 버프 스택만 유지한다.
 /// </summary>.
-/// 테토라
+/// 블린 패시브 버프
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffBlinHeat : EffectCodeBuffBase
 {
@@ -20,18 +20,35 @@ public partial class EffectCodeBuffBlinHeat : EffectCodeBuffBase
 
     private const BuffDebuffType buffDebuffType = BuffDebuffType.BlinHeat;
     public override bool IsNeedToShowIcon => true;
-    private float _angerRatePercent;// 몇퍼센트 잃을때마다 분노 1 획득
-    private float _attackRatePercent;// 분노 1 획득 시 공격력 증가 퍼센트
-    private int _angerCount;// 분노 개수
 
-    // 테토라의 체력을 _angerRatePercent% 잃을 때 마다, 분노를 1 획득합니다. 
-    // #분노: 공격력이 _attackRatePercent% 상승합니다.
+
+    private int _overheatMaxCount; // 최대 중첩 횟수
+    private int _currentOverheatCount; // 현재 중첩 횟수
+
+
+    private float _overheatDamageRatePercent; // 폭염 데미지 비율
+    private float _overheatDuration; // 지속 시간
+    private float _overheatDurationElapsedTime; // 지속 시간 경과 시간
+    private float _overheatDamageRate; // 지속 데미지 비율
+    private float _overheatDamageElapsedTime; // 지속 데미지 경과 시간
+
+    private List<InGameTile> _overHeatTiles = new List<InGameTile>();
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        _angerRatePercent = codeInfo.GetCodeStatToFloat(1);
-        _attackRatePercent = codeInfo.GetCodeStatToFloat(2);
+
+
+
+        _overheatMaxCount = codeInfo.GetCodeStatToInt(1);
+        _overheatDamageRatePercent = codeInfo.GetCodeStatToFloat(2);
+        _overheatDuration = codeInfo.GetCodeStatToFloat(3);
+        _overheatDamageRate = codeInfo.GetCodeStatToFloat(4);
+
+
+        _currentOverheatCount = 0;
+        var jobPassiveEsper = owner.GetEffectCodeContainer().GetEffectCode((int)EffectCodeNameType.JOBS_ESPER) as EffectCodeJobPassiveEsper;
+        jobPassiveEsper.OnExplosionDamage += OnExplosionDamage;
 
         _stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
@@ -54,8 +71,11 @@ public partial class EffectCodeBuffBlinHeat : EffectCodeBuffBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        _angerRatePercent = codeInfo.GetCodeStatToFloat(1);
-        _attackRatePercent = codeInfo.GetCodeStatToFloat(2);
+        _overheatMaxCount = codeInfo.GetCodeStatToInt(1);
+        _overheatDamageRatePercent = codeInfo.GetCodeStatToFloat(2);
+        _overheatDuration = codeInfo.GetCodeStatToFloat(3);
+        _overheatDamageRate = codeInfo.GetCodeStatToFloat(4);
+
         int newSourceCodeId = codeInfo.GetCodeStatToInt(0);
 
         // 같은 source가 있는지 확인
@@ -94,45 +114,68 @@ public partial class EffectCodeBuffBlinHeat : EffectCodeBuffBase
         owner.AddBuffStackData(CodeId, buffStackData);
     }
 
-    public override void OnHpChange()
+    public override void OnUpdate(float dt)
     {
-        base.OnHpChange();
-        if (owner == null || owner.HP <= 0d)
+        if (_overHeatTiles.Count == 0)
+            return;
+
+        // 지속 시간 경과 시간 증가
+        _overheatDurationElapsedTime += dt;
+
+        // 지속 시간이 지나면 불지대 제거
+        if (_overheatDurationElapsedTime >= _overheatDuration)
         {
+            _overHeatTiles.Clear();
+            _overheatDurationElapsedTime = 0f;
+            _overheatDamageElapsedTime = 0f;
             return;
         }
 
-        // HP 비율 계산 (1.0 ~ 0.0)
-        float hpRate = (float)(owner.CurrentHp / owner.HP) * 100f;
-        
-        // 잃은 HP 비율 계산 (0 ~ 100)
-        float lostHpRate = 100f - hpRate;
-        // hpRate가 90이라면?
-        // lostHPRate는 10.0?
+        // 지속 데미지 경과 시간 증가
+        _overheatDamageElapsedTime += dt;
 
-        //10을 잃었는데 _angerRatePercent가 3이라면?
-        // _angerRate는 3
-
-        // 분노 개수 계산: 잃은 HP 비율을 _angerRatePercent%로 나눔
-        _angerCount = (int)Math.Round(lostHpRate / (_angerRatePercent));
-
-        // 분노 개수를 스택 데이터에 반영
-        if (_stackDatas.Count > 0)
+        // 1초마다 지속 데미지 적용
+        if (_overheatDamageElapsedTime >= 1f)
         {
-            _stackDatas[0].value = _angerCount;
-            owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
-        }
+            _overheatDamageElapsedTime -= 1f;
 
-        // 더티 플래그 설정하여 스탯 재계산
-        owner.GetEffectCodeContainer().SetDirtyFlag(this);
+            foreach (var overHeatTile in _overHeatTiles)
+            {
+                // 타일 VFX 표시
+                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, overHeatTile);
+
+                // 타일이 유효하고 적군이 있으면 데미지 적용
+                if (overHeatTile.CheckValidTile(owner.AllianceType, false))
+                {
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        overHeatTile.OccupiedCharacter.SkillRootTransformFollowable);
+
+                    // 지속 데미지 계산 (공격력의 _overheatDamageRate%만큼)
+                    var defaultDamage = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
+                    var damage = owner.CalculateDamageAmount(defaultDamage * _overheatDamageRate, 0,
+                        overHeatTile.OccupiedCharacter, codeId, true);
+
+                    overHeatTile.OccupiedCharacter.GetDamaged(damage, owner);
+                }
+            }
+        }
     }
 
-    /// <summary>
-    /// 분노 개수에 따른 공격력 증가 반환
-    /// </summary>
-    public override double GetIncrementPercentAD()
+    private void OnExplosionDamage(int damagedTargetCount, InGameTile explosionStartTile)
     {
-        return _angerCount * _attackRatePercent;
+        _currentOverheatCount += damagedTargetCount;
+        _currentOverheatCount = Math.Min(_currentOverheatCount, _overheatMaxCount);
+
+        if (_currentOverheatCount < _overheatMaxCount)
+        {
+            return;
+        }
+        _stackDatas[0].value = _currentOverheatCount;
+
+        owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
+        // 열기 중첩이 최대치에 도달하면 폭염 발동
+        _overHeatTiles.Clear();
+        _overHeatTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(explosionStartTile, 1);
     }
 
     public override void OnPreRemoved()

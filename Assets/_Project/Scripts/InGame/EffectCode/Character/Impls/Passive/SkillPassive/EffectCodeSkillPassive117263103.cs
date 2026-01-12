@@ -18,50 +18,34 @@ namespace CookApps.BattleSystem
     public partial class EffectCodeSkillPassive117263103 : EffectCodeSkillPassiveBase
     {
         public const long CodeId = 117263103;
-        private float _successRatePercent; // 성공 확률
-        private float _damageRatePercent; // 추가 피해 비율
-        private float _fireBuffTime; // 지속 시간
-        private SkillPassive _specSkill;
-        private EffectCodeSkill217263103 _skillEffectCode;// 루키다 패시브
+
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
-            _successRatePercent = codeInfo.GetCodeStatToFloat(0);
-            _damageRatePercent = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-            _fireBuffTime = codeInfo.GetCodeStatToFloat(2);
-
-            _specSkill = base.GetSpecSkillPassive(CodeId);
-            _skillEffectCode = base.GetActiveSkillEffectCodeId(CodeId) as EffectCodeSkill217263103;
-            _skillEffectCode.SetFoxFireDuration(_fireBuffTime);
+            InjectPassiveBuff(codeInfo, source);
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
             base.Merge(codeInfo, source);
-            _successRatePercent = codeInfo.GetCodeStatToFloat(0);
-            _damageRatePercent = codeInfo.GetCodeStatToFloat(1) * 0.01f;
-            _fireBuffTime = codeInfo.GetCodeStatToFloat(2);
+
+            InjectPassiveBuff(codeInfo, source);
         }
 
-        public override void OnAttack()
+        private void InjectPassiveBuff(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
-            base.OnAttack();
-            if (InGameRandomManager.GetUniversalRandomValue(0, 100) <= _successRatePercent)
-            {
-                _skillEffectCode.AddFoxFire(1);
-            }
-        }
+            long skillEffectCodeId = base.GetOnlyActiveSkillEffectCodeId(CodeId);
 
-        public override double ModifyDamageAmount(double damageAmount)
-        {
-            var foxFireCount = _skillEffectCode.GetCurrentFoxFireCount();
-            if (foxFireCount > 0)
-            {
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01, owner.SkillRootTransformFollowable);
-                return damageAmount * (1f + _damageRatePercent * foxFireCount);
-            }
-            return damageAmount;
+            Span<double> buffStats = stackalloc double[5];
+            buffStats.Clear();
+            buffStats[0] = CodeId;
+            buffStats[1] = codeInfo.GetCodeStatToFloat(1);
+            buffStats[2] = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+            buffStats[3] = codeInfo.GetCodeStatToFloat(3);
+            buffStats[4] = skillEffectCodeId;
+
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_SPECIAL_RUKIDA_FOXFIRE, owner, buffStats, source);
         }
        
     }

@@ -37,7 +37,11 @@ namespace CookApps.AutoBattler
         }
 
         public SerializableDictionary<DamageColorType, TMP_ColorGradient> IconGradients;
-        private static readonly int Normal = Animator.StringToHash("Normal");
+        private static readonly int Normal = Animator.StringToHash("Normal"); // 일반 크리
+        private static readonly int Heal = Animator.StringToHash("Heal"); // 힐 독
+        private static readonly int Miss = Animator.StringToHash("Miss");// 미스, 블락, 레지스트, 레지스트 크리
+        private static readonly int Weak = Animator.StringToHash("Weak");// 위크, 위크크리
+
         
         // 재사용 가능한 리스트 (GC 할당 최소화)
         private readonly List<InGameTextViewSpriteFont.SpriteFontType> _reusableSpriteFontList = new List<InGameTextViewSpriteFont.SpriteFontType>(4);
@@ -85,7 +89,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 위치를 설정하고 애니메이션을 트리거합니다.
         /// </summary>
-        private void SetupPositionAndAnimation(Vector3 position, float characterHeight, bool useHeightOffset = true)
+        private void SetupPositionAndAnimation(Vector3 position, float characterHeight, int triggerHash, bool useHeightOffset = true)
         {
             _xOffset = Random.Range(-0.5f, 0.5f);
             
@@ -94,7 +98,7 @@ namespace CookApps.AutoBattler
             initialPosition.x += _xOffset;
             
             _root.position = initialPosition;
-            _animator.SetTrigger(Normal);
+            _animator.SetTrigger(triggerHash);
         }
         
         /// <summary>
@@ -109,34 +113,51 @@ namespace CookApps.AutoBattler
                 ? SoundFX.snd_sfx_hit_critical1 
                 : SoundFX.snd_sfx_hit_normal1);
         }
-
-        public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage,
-        bool isCritical, ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult)
+        
+        /// <summary>
+        /// 속성 상성 결과에 따른 데미지 타입과 애니메이션 트리거를 결정합니다.
+        /// </summary>
+        private (DamageColorType colorType, int triggerHash) GetDamageTypeAndTrigger(
+            ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult)
+        {
+            return elementAdvantageResult switch
+            {
+                ElementAdvantageHelper.ElementAdvantageResult.ADVANTAGE => (DamageColorType.Weak, Weak),
+                ElementAdvantageHelper.ElementAdvantageResult.RESIST => (DamageColorType.Resist, Miss),
+                _ => (DamageColorType.Normal, Normal)
+            };
+        }
+        
+        /// <summary>
+        /// 데미지 텍스트용 스프라이트 폰트를 구성합니다.
+        /// </summary>
+        private void BuildDamageSpriteFonts(bool isCritical, ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult)
         {
             _reusableSpriteFontList.Clear();
             
-            // 크리티컬 처리
             if (isCritical)
             {
                 _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_CRITICAL);
             }
             
-            // 속성 상성 처리
-            DamageColorType colorType;
             if (elementAdvantageResult == ElementAdvantageHelper.ElementAdvantageResult.ADVANTAGE)
             {
-                colorType = DamageColorType.Weak;
                 _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_WEAK);
             }
             else if (elementAdvantageResult == ElementAdvantageHelper.ElementAdvantageResult.RESIST)
             {
-                colorType = DamageColorType.Resist;
                 _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_RESIST);
             }
-            else
-            {
-                colorType = DamageColorType.Normal;
-            }
+        }
+
+        public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage,
+        bool isCritical, ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult)
+        {
+            // 스프라이트 폰트 구성
+            BuildDamageSpriteFonts(isCritical, elementAdvantageResult);
+            
+            // 데미지 타입과 애니메이션 트리거 결정
+            var (colorType, triggerHash) = GetDamageTypeAndTrigger(elementAdvantageResult);
             
             // 텍스트 설정
             SetTextContent(
@@ -146,7 +167,7 @@ namespace CookApps.AutoBattler
             );
             
             // 위치 및 애니메이션 설정
-            SetupPositionAndAnimation(position, characterHeight);
+            SetupPositionAndAnimation(position, characterHeight, triggerHash);
             
             // 사운드 재생
             PlayDamageSound(isCritical);
@@ -164,18 +185,20 @@ namespace CookApps.AutoBattler
                 DamageColorType.Block
             );
             
-            SetupPositionAndAnimation(position, characterHeight);
+            // 블락 -> Miss
+            SetupPositionAndAnimation(position, characterHeight, Miss);
         }
         public async UniTask ShowMissText(Vector3 position, float characterHeight)
         {
             // MISS는 아이콘 없이 텍스트만 표시
             SetTextContent(
                 string.Empty,
-                "MISS!!",
+                "MISS",
                 DamageColorType.Miss
             );
             
-            SetupPositionAndAnimation(position, characterHeight);
+            // 미스 -> Miss
+            SetupPositionAndAnimation(position, characterHeight, Miss);
         }
 
         public async UniTask ShowHealText(Vector3 position, float characterHeight, double healAmount)
@@ -190,8 +213,9 @@ namespace CookApps.AutoBattler
                 DamageColorType.Heal
             );
             
+            // 힐 독 -> Heal
             // 힐은 heightOffset 없이 표시
-            SetupPositionAndAnimation(position, characterHeight, useHeightOffset: false);
+            SetupPositionAndAnimation(position, characterHeight, Heal, useHeightOffset: false);
         }
 
         public void ReturnTextView()
