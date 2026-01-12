@@ -19,6 +19,13 @@ namespace CookApps.AutoBattler
                 new CharacterListRequest(),
                 cancellationToken: cancellationToken
             );
+
+            // CharacterModel 갱신
+            if (resp != null && resp.IsSuccess && resp.Characters != null)
+            {
+                ServerDataManager.Instance.Character.SetCharacters(resp.Characters);
+            }
+
             return resp;
         }
 
@@ -32,6 +39,13 @@ namespace CookApps.AutoBattler
                 new CharacterGetRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
             );
+
+            // CharacterModel 갱신
+            if (resp != null && resp.IsSuccess && resp.Character != null)
+            {
+                ServerDataManager.Instance.Character.UpdateCharacter(resp.Character);
+            }
+
             return resp;
         }
 
@@ -45,6 +59,22 @@ namespace CookApps.AutoBattler
                 new CharacterCreateRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
             );
+
+            if (resp != null && resp.IsSuccess)
+            {
+                // CharacterModel 갱신
+                if (resp.Character != null)
+                {
+                    ServerDataManager.Instance.Character.UpdateCharacter(resp.Character);
+                }
+
+                // 통화 변화 적용
+                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+                {
+                    ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
+                }
+            }
+
             return resp;
         }
 
@@ -58,6 +88,22 @@ namespace CookApps.AutoBattler
                 new CharacterLevelUpRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
             );
+
+            if (resp != null && resp.IsSuccess)
+            {
+                // CharacterModel 갱신
+                if (resp.Character != null)
+                {
+                    ServerDataManager.Instance.Character.UpdateCharacter(resp.Character);
+                }
+
+                // 통화 변화 적용
+                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+                {
+                    ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
+                }
+            }
+
             return resp;
         }
 
@@ -71,6 +117,22 @@ namespace CookApps.AutoBattler
                 new CharacterTranscendRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
             );
+
+            if (resp != null && resp.IsSuccess)
+            {
+                // CharacterModel 갱신
+                if (resp.Character != null)
+                {
+                    ServerDataManager.Instance.Character.UpdateCharacter(resp.Character);
+                }
+
+                // 통화 변화 적용
+                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+                {
+                    ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
+                }
+            }
+
             return resp;
         }
     }
