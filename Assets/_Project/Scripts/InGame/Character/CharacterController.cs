@@ -310,7 +310,7 @@ namespace CookApps.BattleSystem
             }
 
             // // skill passive 추가
-
+            return;
             Span<double> statsSkillPasive = stackalloc double[8];
 
             var skillDataList = SpecDataManager.Instance.GetSkillPassiveDataList(_statData.Spec.passive_skill_id);
