@@ -53,8 +53,19 @@ namespace CookApps.AutoBattler
             CachedRectTr.anchoredPosition = MainCameraHolder.WorldPointToLocalPointInRectangle(target.CachedTr.position, parentRect);
         }
 
+        private void CameraFocus()
+        {
+            var cameraController = MainCameraHolder.CameraGestureController;
+            var targetFacilityPosition = target.CachedTr.position;
+            var targetZoom = 10.0f;
+
+            cameraController.ZoomAndMoveAsync(targetFacilityPosition, targetZoom, 0.3f).Forget();
+        }
+
         private void OnClick()
         {
+            CameraFocus();
+            
             var isBuiltBuilding = facilityData.Level > 0;
             var buildingLayer = SceneUILayerManager.Instance.GetUILayer<ElpisBuildLayer>();
             if (isBuiltBuilding)

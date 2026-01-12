@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System.IO;
+using CookApps.AutoBattler;
 using Cysharp.Text;
 using UnityEditor;
 using UnityEngine;
@@ -210,6 +211,23 @@ public class GenerateLDResources
             if (skeletonGraphicTransform != null)
             {
                 Object.DestroyImmediate(skeletonGraphicTransform.gameObject);
+            }
+
+            // CharacterIllust에 Image 연결 및 pivot 적용
+            CharacterIllust characterIllust = prefabInstance.GetComponent<CharacterIllust>();
+            if (characterIllust != null && imgTransform != null)
+            {
+                Image image = imgTransform.GetComponent<Image>();
+                if (image != null)
+                {
+                    // SerializedObject를 사용하여 private 필드에 접근
+                    SerializedObject serializedObject = new SerializedObject(characterIllust);
+                    SerializedProperty pivotImageProperty = serializedObject.FindProperty("_pivotReferenceImage");
+                    pivotImageProperty.objectReferenceValue = image;
+                    serializedObject.ApplyModifiedPropertiesWithoutUndo();
+
+                    characterIllust.ApplySpritePivot();
+                }
             }
         }
 

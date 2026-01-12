@@ -14,7 +14,6 @@ namespace CookApps.BattleSystem
     {
         //위 클래스의 codeinfo는 0 데미지 1~n은 생성될 타일인덱스로 관리.
         private const int CodeId = (int)EffectCodeNameType.CHAPTER_TRAP;
-        private const string DamageColor = "#FF550000";
         private const InGameVfxNameType TrapBodyVfxEnum = InGameVfxNameType.fx_common_trap_explosion;
 
         private const InGameVfxNameType ExplosionVfxEnum = InGameVfxNameType.fx_common_hit_02;
@@ -71,7 +70,7 @@ namespace CookApps.BattleSystem
 
             foreach (var explosionTile in explosionTiles)
             {
-                explosionTile.OccupiedCharacter?.GetDamaged(damage, null, hexColor: DamageColor);
+                explosionTile.OccupiedCharacter?.GetDamaged(damage, null);
                 InGameVfxManagerInstance.AddInGameVfx(ExplosionVfxEnum, explosionTile.View.CachedTr.position);
             }
         }

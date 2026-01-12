@@ -547,7 +547,44 @@ public class CameraGestureController : CachedMonoBehaviour
         
         mainCameraTransform.position = targetPos;
         targetPosition = targetPos;
-        
+
+        isAutoMoving = false;
+    }
+
+    public async UniTask ZoomAndMoveAsync(Vector3 worldTargetPos, float targetZoomValue, float duration)
+    {
+        isAutoMoving = true;
+
+        var startZoom = mainCamera.orthographicSize;
+        var startPosition = mainCameraTransform.position;
+        var clampedTargetZoom = Mathf.Clamp(targetZoomValue, minZoom, cachedMaxAllowedZoom);
+
+        // Calculate camera position to center the target (like followTarget)
+        var localOffset = mainCameraTransform.InverseTransformPoint(worldTargetPos);
+        var cameraTargetPos = mainCameraTransform.position + mainCameraTransform.rotation * new Vector3(localOffset.x, localOffset.y, 0f);
+
+        var elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            var t = Mathf.Clamp01(elapsed / duration);
+            var easeT = 1f - Mathf.Pow(1f - t, 3f);
+
+            mainCamera.orthographicSize = Mathf.Lerp(startZoom, clampedTargetZoom, easeT);
+            targetZoom = mainCamera.orthographicSize;
+
+            mainCameraTransform.position = Vector3.Lerp(startPosition, cameraTargetPos, easeT);
+            targetPosition = mainCameraTransform.position;
+
+            await UniTask.Yield();
+        }
+
+        mainCamera.orthographicSize = clampedTargetZoom;
+        targetZoom = clampedTargetZoom;
+        mainCameraTransform.position = cameraTargetPos;
+        targetPosition = cameraTargetPos;
+
         isAutoMoving = false;
     }
 

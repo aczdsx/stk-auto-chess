@@ -281,8 +281,9 @@ namespace CookApps.AutoBattler
                     await PlayExitAnimationAsync();
 
                     var subBlock = mainBlock.GetSubBlockInfo(subBlockIndex);
+                    
+                    await cameraController.ZoomAndMoveAsync(subBlock.SubBlock.CachedTr.position, 14.1f, 0.3f);
                     cameraController.SetFollowTarget(subBlock.SubBlock.CachedTr, 2.0f);
-                    await cameraController.ZoomAsync(14.1f, 0.3f);
                     await mainBlock.AttachSubBlock(subBlockIndex, true);
 
                     mainBlock.RebuildNavMesh();
