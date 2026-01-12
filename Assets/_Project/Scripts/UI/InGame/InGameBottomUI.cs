@@ -549,7 +549,7 @@ public class InGameBottomUI : MonoBehaviour
         {
             if (characterItem.StatData == null)
             {
-                characterItem.SetFocusCharacter(spec);
+                // characterItem.SetFocusCharacter(spec);
                 //RearrangeCharacterList();
                 ScrollTo(characterItem.transform as RectTransform);
                 return;
@@ -585,7 +585,7 @@ public class InGameBottomUI : MonoBehaviour
         {
             if (characterItem.IsFocusSlot)
             {
-                characterItem.SetFocusCharacter(null);
+                // characterItem.SetFocusCharacter(null);
                 if (isDropFx)
                 {
                     characterItem.PlayDropFx();
