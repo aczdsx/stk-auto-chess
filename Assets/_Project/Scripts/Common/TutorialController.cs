@@ -53,7 +53,8 @@ public class TutorialController : MonoBehaviour
         { TutorialActionType.FORCED_TOUCH_UI, new TutorialActionForcedTouchUI() },
         { TutorialActionType.FOCUS_OBJECT, new TutorialActionFocusObject() },
         { TutorialActionType.CHARACTER_PLACEMENT, new TutorialActionCharacterPlacement() },
-        { TutorialActionType.TOAST_MESSAGE, new TutorialActionToastMessage() }
+        { TutorialActionType.TOAST_MESSAGE, new TutorialActionToastMessage() },
+        { TutorialActionType.SHOW_DIALOGUE_POP, new TutorialActionShowDialoguePop() }
     };
 
     protected void Update()
@@ -161,6 +162,13 @@ public class TutorialController : MonoBehaviour
         if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FORCED_TOUCH_UI)
         {
             TutorialActionForcedTouchUI.OnButtonClicked = OnForcedTouchUIButtonClicked;
+        }
+
+        // SHOW_DIALOGUE_POP 전략일 경우 팝업 표시 후 바로 다음으로 진행
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP)
+        {
+            Debug.LogColor($"SHOW_DIALOGUE_POP: {CurrentSpecTutorial.tutorial_action_key}", "green");
+            ProceedToNext();
         }
     }
 

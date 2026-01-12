@@ -901,6 +901,7 @@ namespace CookApps.AutoBattler
         ENEMY_DEAD_ALL = 3,
         MOVE_OBJECT_AFTER = 4,
         SKILL_READY = 5,
+        DIALOGUE_POP_END = 6,
     }
 
     public enum TutorialActionType
@@ -913,6 +914,7 @@ namespace CookApps.AutoBattler
         FOCUS_OBJECT = 5,
         CLEAR_STAGE = 6,
         MOVE_OBJECT = 7,
+        SHOW_DIALOGUE_POP = 8,
     }
 
     public enum FacilityType

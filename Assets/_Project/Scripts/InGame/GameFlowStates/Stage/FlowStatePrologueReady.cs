@@ -62,10 +62,10 @@ public class FlowStatePrologueReady : StateReadyBase
         // 프롤로그 플레이어 캐릭터 위치 (플레이어 진영 앞쪽)
         var prologueCharacterPositions = new Dictionary<int, int2>
         {
-            { 117553404, new int2(2, 2) }, 
-            { 115252102, new int2(1, 2) }, // 유니
-            { 115532401, new int2(3, 2) }, // 필리아
-            { 117513401, new int2(2, 1) }  // 아트레시아 (중앙 앞)
+            { 3404, new int2(2, 2) }, 
+            { 2102, new int2(1, 2) }, // 유니
+            { 2401, new int2(3, 2) }, // 필리아
+            { 3401, new int2(2, 1) }  // 아트레시아 (중앙 앞)
         };
 
         // 플레이어 캐릭터 소환
@@ -91,7 +91,7 @@ public class FlowStatePrologueReady : StateReadyBase
 
         Debug.LogColor($"라플라스 마녀 추가 : {laplaceWitchId} at ({witchPosition.x}, {witchPosition.y})");
 
-        var witchStat = new CharacterStatData(laplaceWitchId, 99, 0.0f, 100.0f);
+        var witchStat = new CharacterStatData(laplaceWitchId, 5, 0.0f, 100.0f);
 
         addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(witchStat, witchPosition,
             AllianceType.Enemy,

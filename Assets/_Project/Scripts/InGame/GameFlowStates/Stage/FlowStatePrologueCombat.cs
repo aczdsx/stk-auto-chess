@@ -74,10 +74,10 @@ public class FlowStatePrologueCombat : StateCombatBase
 
 
         // 캐릭터 찾기
-        _clayCharacter = FindCharacterById(AllianceType.Player, 117553404); // 클레이
-        _yuniCharacter = FindCharacterById(AllianceType.Player, 115252102); // 유니
-        _philiaCharacter = FindCharacterById(AllianceType.Player, 115532401); // 필리아
-        _artesiaCharacter = FindCharacterById(AllianceType.Player, 117513401); // 아트레시아
+        _clayCharacter = FindCharacterById(AllianceType.Player, 3404); // 클레이
+        _yuniCharacter = FindCharacterById(AllianceType.Player, 2102); // 유니
+        _philiaCharacter = FindCharacterById(AllianceType.Player, 2401); // 필리아
+        _artesiaCharacter = FindCharacterById(AllianceType.Player, 3401); // 아트레시아
         // 마리에는 6단계에서 합류하므로 초기에는 찾지 않음
 
         // 라플라스 마녀 찾기 (적)

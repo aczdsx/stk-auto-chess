@@ -106,8 +106,8 @@ namespace CookApps.AutoBattler
             _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStateStageCombat), battleDeckList);
 
             // 다이얼로그 체크
-            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START,
-                InGameManager.Instance.SpecStage.stage_id.ToString());
+            // DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_START,
+            //     InGameManager.Instance.SpecStage.stage_id.ToString());
         }
 
         public void InitCombatStateUI()

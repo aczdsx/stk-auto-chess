@@ -188,9 +188,10 @@ namespace CookApps.AutoBattler
                     {
                         // 가이드 미션 가이드 효과 재생
                         GuideMissionManager.Instance.UpdateGuideMissionAlert();
-                    }).Forget();
+                        InGameMain.GetInGameMain()?.SetInGameBottomUIInGuide();
 
-                    InGameMain.GetInGameMain()?.SetInGameBottomUIInGuide();
+                        TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.DIALOGUE_POP_END, 0);
+                    }).Forget();
                 }
             }
 
