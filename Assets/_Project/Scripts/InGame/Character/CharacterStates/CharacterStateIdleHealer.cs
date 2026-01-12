@@ -54,13 +54,80 @@ public class CharacterStateIdleHealer : CharacterStateIdle
     }
 
     /// <summary>
+    /// 캐릭터가 힐러인지 확인합니다.
+    /// </summary>
+    private static bool IsHealer(CookApps.BattleSystem.CharacterController character)
+    {
+        if (character == null) return false;
+        
+        var idleStateType = character.FindStateType(typeof(CharacterStateIdle));
+        if (idleStateType == typeof(CharacterStateIdleHealer))
+            return true;
+        
+        var attackStateType = character.FindStateType(typeof(CharacterStateAttack));
+        return attackStateType == typeof(CharacterStateAttackHealer);
+    }
+    
+    /// <summary>
+    /// 캐릭터의 체력 비율을 계산합니다 (CurrentHP/HP).
+    /// </summary>
+    private static double GetHpRatio(CookApps.BattleSystem.CharacterController character)
+    {
+        if (character == null) return 0;
+        
+        double maxHp = character.HP;
+        if (maxHp <= 0) return 0;
+        
+        return character.CurrentHp / maxHp;
+    }
+
+    /// <summary>
     /// 힐러 전용 타겟 찾기 (힐할 캐릭터 우선, 없으면 공격 타겟)
     /// </summary>
     public new static CookApps.BattleSystem.CharacterController FindTarget(CookApps.BattleSystem.CharacterController characCtrl)
     {
         CookApps.BattleSystem.CharacterController target = null;
-        // 힐할 캐릭터 찾기
-        var healTarget = InGameObjectManager.Instance.GetLowestHPOurTeam(characCtrl);
+        
+        // 힐할 캐릭터 찾기 (정렬된 리스트에서 필터링)
+        var sortedList = InGameObjectManager.Instance.GetLowestHPOurTeamSorted(characCtrl);
+        
+        CookApps.BattleSystem.CharacterController healTarget = null;
+        
+        if (sortedList != null && sortedList.Count > 0)
+        {
+            // 1차 필터링: 체력 비율 80% 이상이거나 힐러인 캐릭터 제외
+            for (int i = 0; i < sortedList.Count; i++)
+            {
+                var candidate = sortedList[i];
+                if (candidate == null || !candidate.IsAlive)
+                    continue;
+                
+                double hpRatio = GetHpRatio(candidate);
+                bool isHealer = IsHealer(candidate);
+                
+                // 체력 비율 80% 이상이거나 힐러면 제외
+                if (hpRatio >= 0.8 || isHealer)
+                    continue;
+                
+                healTarget = candidate;
+                break;
+            }
+            
+            // 필터링된 대상이 없으면 원래 리스트에서 힐러도 포함하여 선택
+            if (healTarget == null)
+            {
+                for (int i = 0; i < sortedList.Count; i++)
+                {
+                    var candidate = sortedList[i];
+                    if (candidate == null || !candidate.IsAlive)
+                        continue;
+                    
+                    healTarget = candidate;
+                    break;
+                }
+            }
+        }
+        
         //hp가 제일 적은 친구를 찾는다.
         if (healTarget != null && InGameObjectManager.Instance.IsInRange(characCtrl, healTarget))
         {

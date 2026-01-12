@@ -61,7 +61,7 @@ namespace CookApps.BattleSystem
                 eccStats.Clear();
                 eccStats[0] = _effectCodeStat;
 
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, character, eccStats, source);
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, character, eccStats, source);
 
                 _chapterRuleTiles[tile].Remove();
                 _chapterRuleTiles.Remove(tile);

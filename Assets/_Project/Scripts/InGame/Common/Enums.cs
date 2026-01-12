@@ -137,6 +137,8 @@ namespace CookApps.BattleSystem
         ShirayukiAvoidAndAttack,
         EnkiPassiveHealUp,
         AdriaPassiveTeamHelp,
+        BlinHeat,
+        RukidaFoxfire,
         AttackDown = 1000,
         DefenceDown,
         CoolTimeDown,

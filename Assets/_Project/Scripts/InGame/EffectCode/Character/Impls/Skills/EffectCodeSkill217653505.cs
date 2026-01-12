@@ -170,7 +170,7 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
                     eccStats[1] = _buffTime;//duration
                     eccStats[2] = healAmount;//value
 
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_MEDITATION, tile.OccupiedCharacter, eccStats, source);
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_SPECIAL_MEDITATION, tile.OccupiedCharacter, eccStats, source);
 
                     _hitCharacters.Add(tile.OccupiedCharacter);
                 }

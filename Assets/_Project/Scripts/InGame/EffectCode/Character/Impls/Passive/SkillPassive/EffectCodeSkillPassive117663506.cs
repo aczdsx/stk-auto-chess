@@ -44,7 +44,7 @@ namespace CookApps.BattleSystem
             buffStats[2] = codeInfo.GetCodeStatToInt(1);//_avoidSuccessMaxCount
             buffStats[3] = codeInfo.GetCodeStatToFloat(2) * 0.01f;//_DamageRatePercent
 
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_SHIRAYUKI_AVOID_AND_ATTACK, owner, buffStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_SPECIAL_SHIRAYUKI_AVOID_AND_ATTACK, owner, buffStats, source);
         }
     }
 }//115362202

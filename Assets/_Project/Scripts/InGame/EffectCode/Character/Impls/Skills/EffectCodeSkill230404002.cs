@@ -130,7 +130,7 @@ public partial class EffectCodeSkill230404002 : EffectCodeCharacterBase
             eccStats.Clear();
             eccStats[0] = _durationTime;
         
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, _targetCharacter, eccStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, _targetCharacter, eccStats, source);
         }
 
         IsSkillActivated = false;

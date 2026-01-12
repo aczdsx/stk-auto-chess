@@ -39,7 +39,7 @@ namespace CookApps.BattleSystem
             buffStats[1] = codeInfo.GetCodeStatToFloat(0) * 0.01f;
             buffStats[2] = codeInfo.GetCodeStatToFloat(1) * 0.01f;
 
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_ADRIA_PASSIVE_TEAM_HELP, owner, buffStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_SPECIAL_ADRIA_PASSIVE_TEAM_HELP, owner, buffStats, source);
         }
 
         

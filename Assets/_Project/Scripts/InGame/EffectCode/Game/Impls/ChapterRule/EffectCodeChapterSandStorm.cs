@@ -54,7 +54,7 @@ namespace CookApps.BattleSystem
                         eccStats[0] = _effectCodeStat;
                         eccStats[1] = 3.0f;
                         eccStats[2] = tile.View.ID;
-                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AIRBORNE, tile.OccupiedCharacter, eccStats, source);
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_AIRBORNE, tile.OccupiedCharacter, eccStats, source);
                     }
 
 

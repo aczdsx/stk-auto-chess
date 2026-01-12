@@ -791,62 +791,6 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class ObstacleInfo
-    {
-        /// #SheetIndex
-        [GeneratorId(nameof(index), typeof(int))]
-        public int index;
-        /// 개체 타입
-        public global::CookApps.AutoBattler.CharacterType character_type;
-        /// 함정id
-        public int obstacle_id;
-        /// 프리팹id
-        public int prefab_id;
-        /// 캐릭터 이름 토큰
-        public string name_token;
-        /// 캐릭터 설명 토큰
-        public string desc_token;
-        /// 개체 타입
-        public global::CookApps.AutoBattler.ObstacleType obstacle_type;
-        /// 상세 타입
-        public global::CookApps.AutoBattler.ObstacleUseType obstacle_use_type;
-        /// 레벨단위
-        public int lv;
-        /// 설치 위치 구분
-        public global::CookApps.AutoBattler.ObstacleLocationType location_type;
-        /// 크기
-        public int size;
-        /// 코스트
-        public int cost;
-        /// 효과 갱신시간
-        public float continue_time;
-        /// 영구 구분
-        public bool is_perpetual;
-        /// 함정지속시간
-        public int perpetual_time;
-        /// 공격 가능 구분
-        public bool is_destructible;
-        /// 장애물 체력
-        public int obstacle_hp;
-        /// 스킬 효과
-        public global::CookApps.AutoBattler.EffectCodeNameType obstacle_effect_type01;
-        /// #변수 의미
-        public global::CookApps.AutoBattler.SkillValueType skill_value_type0101;
-        /// 효과 벨류
-        public float value_rate0101;
-        /// #변수 의미
-        public global::CookApps.AutoBattler.SkillValueType skill_value_type0102;
-        /// 효과 벨류
-        public float value_rate0102;
-        /// 스킬 효과
-        public global::CookApps.AutoBattler.EffectCodeNameType obstacle_effect_type02;
-        /// #변수 의미
-        public global::CookApps.AutoBattler.SkillValueType skill_value_type0201;
-        /// 효과 벨류
-        public float value_rate0201;
-    }
-
-    [GeneratorSpecData]
     public partial class MapInfo
     {
         /// #SheetIndex
@@ -935,8 +879,6 @@ namespace CookApps.AutoBattler
         public int grade;
         /// 별 입장 조건
         public int need_star;
-        /// 어려움 난이도 행동력
-        public int ap_HARD;
         /// 장애물
         public int[] obstacle_grid_id = global::System.Array.Empty<int>();
         /// 챕터 룰
@@ -1038,6 +980,10 @@ namespace CookApps.AutoBattler
         /// #SheetIndex
         [GeneratorId(nameof(index), typeof(int))]
         public int index;
+        /// 업그레이드 타입
+        public global::CookApps.AutoBattler.DimensionType dimension_type;
+        /// 업그레이드 타입
+        public global::CookApps.AutoBattler.CoreResearchType core_research_type;
         /// 업그레이드 레벨
         public int lv;
         /// 업그레이드 그룹
@@ -1048,11 +994,11 @@ namespace CookApps.AutoBattler
         public int item_id;
         /// 필요 아이템 수량
         public int item_INT;
-        /// 능력치업글 토큰
+        /// 강화효과 타이틀 토큰
         public string upgrade_name_token;
-        /// 능력치 토큰 1
+        /// 강화효과 스탯 이름 토큰1
         public string upgrade_desc_token01;
-        /// 능력치 토큰 2
+        /// 강화효과 스탯 이름 토큰2
         public string upgrade_desc_token02;
         /// 업그레이드 적용 범위
         public global::CookApps.AutoBattler.SynergyCoverType upgrade_cover_type;

@@ -155,7 +155,7 @@ public partial class EffectCodeSkill215322201 : EffectCodeCharacterBase
                         eccStats[1] = 0.3f;
                         eccStats[2] = inGameTile.View.ID;
 
-                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, tile.OccupiedCharacter, eccStats, source);
+                        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_KNOCKBACK, tile.OccupiedCharacter, eccStats, source);
                     }
                 }
             }

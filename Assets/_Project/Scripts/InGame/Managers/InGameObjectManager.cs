@@ -201,11 +201,11 @@ namespace CookApps.BattleSystem
 
             foreach (var character in targetList)
             {
-                if(DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType)) 
+                if (DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType))
                 {
                     value += character.GetCharacterStat().Spec.character_stella_type == synergyType ? 1 : 0;
                 }
-                else if(DistinguishSynergyTypeHelper.IsElementSynergyType(synergyType))
+                else if (DistinguishSynergyTypeHelper.IsElementSynergyType(synergyType))
                 {
                     value += character.GetCharacterStat().Spec.character_element_type == synergyType ? 1 : 0;
                 }
@@ -571,6 +571,59 @@ namespace CookApps.BattleSystem
             return target;
         }
 
+        /// <summary>
+        /// pivot을 기준으로 체력이 낮은 순서대로 정렬된 우리 팀 리스트를 반환
+        /// 자신을 제외합니다.
+        /// </summary>
+        /// <param name="pivot"></param>
+        /// <returns>체력이 낮은 순서대로 정렬된 리스트 (오름차순)</returns>
+        public List<CharacterController> GetLowestHPOurTeamSorted(CharacterController pivot)
+        {
+            reusableList.Clear();
+
+            // 우리 팀 리스트 구성
+            if (pivot.AllianceType == AllianceType.Player)
+            {
+                reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
+            }
+            else if (pivot.AllianceType == AllianceType.Enemy)
+            {
+                reusableList = new List<CharacterController>(enemiesInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
+            }
+
+            // 타겟 불가능한 캐릭터 제거
+            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible));
+
+            // 살아있고, 자신이 아닌 캐릭터만 필터링 (for문으로 최적화)
+            var filteredList = new List<CharacterController>(reusableList.Count);
+            for (int i = 0; i < reusableList.Count; i++)
+            {
+                var character = reusableList[i];
+                if (character.IsAlive && character != pivot)
+                {
+                    filteredList.Add(character);
+                }
+            }
+
+            // 체력 비율(CurrentHP/HP) 기준 오름차순 정렬
+            filteredList.Sort((a, b) =>
+            {
+                // 0으로 나누기 방지
+                double hpA = a.HP;
+                double hpB = b.HP;
+
+                // HP가 0인 경우 처리 (비율을 0으로 처리)
+                double ratioA = hpA > 0 ? a.CurrentHp / hpA : 0;
+                double ratioB = hpB > 0 ? b.CurrentHp / hpB : 0;
+
+                return ratioA.CompareTo(ratioB);
+            });
+
+            return filteredList;
+        }
+
         public CharacterController GetNearestTargetByManhattanDistance(CharacterController pivot)
         {
             CharacterController target = null;
@@ -605,6 +658,47 @@ namespace CookApps.BattleSystem
                 if (minDistance > distance)
                 {
                     minDistance = distance;
+                    target = enemy;
+                }
+            }
+
+            return target;
+        }
+
+        public CharacterController GetFarthestTargetByManhattanDistance(CharacterController pivot)
+        {
+            CharacterController target = null;
+
+            reusableList.Clear();
+            if (pivot.AllianceType == AllianceType.Player)
+            {
+                reusableList = new List<CharacterController>(enemiesInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
+            }
+            else if (pivot.AllianceType == AllianceType.Enemy)
+            {
+                reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
+                reusableList.AddRange(neutralInPlaygroundForUpdate);
+            }
+            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible));
+
+            if (reusableList == null || reusableList.Count == 0)
+            {
+                return null;
+            }
+
+            var maxDistance = float.MinValue;
+            foreach (var enemy in reusableList)
+            {
+                if (enemy.IsAlive == false)
+                {
+                    continue;
+                }
+
+                var distance = _grid.GetManhattanDistance(pivot.CurrentTile, enemy.CurrentTile);
+                if (maxDistance < distance)
+                {
+                    maxDistance = distance;
                     target = enemy;
                 }
             }
@@ -989,6 +1083,6 @@ namespace CookApps.BattleSystem
             enemyTargetLines.Clear();
         }
 
-        
+
     }
 }

@@ -109,7 +109,7 @@ public partial class EffectCodeSkill1202091 : EffectCodeCharacterBase
             eccStats[0] = codeId;
             eccStats[1] = _time;
             eccStats[2] = 1.0f;
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.TARGET_IMPOSSIBLE, owner, eccStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_TARGET_IMPOSSIBLE, owner, eccStats, source);
         }
         AfterAction().Forget();
     }
@@ -207,6 +207,6 @@ public partial class EffectCodeSkill1202091 : EffectCodeCharacterBase
         eccStats.Clear();
         eccStats[0] = _stunTime;
         
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, character, eccStats, source);
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, character, eccStats, source);
     }
 }

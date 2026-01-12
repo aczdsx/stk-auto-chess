@@ -162,7 +162,7 @@ public partial class EffectCodeSkill250208101 : EffectCodeCharacterBase
         eccStats.Clear();
         eccStats[0] = _stunTime;
         
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats, source);
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, tile.OccupiedCharacter, eccStats, source);
     }
 
     public override float AddSkillCooltime(float cooltime)

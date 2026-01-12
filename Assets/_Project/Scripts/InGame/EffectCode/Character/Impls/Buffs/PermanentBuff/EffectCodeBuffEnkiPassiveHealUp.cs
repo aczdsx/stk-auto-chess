@@ -17,7 +17,7 @@ using System;
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffEnkiPassiveHealUp : EffectCodeBuffBase
 {
-    private const int CodeId = (int)EffectCodeNameType.BUFF_ENKI_PASSIVE_HEALUP;
+    private const int CodeId = (int)EffectCodeNameType.BUFF_SPECIAL_ENKI_PASSIVE_HEALUP;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.EnkiPassiveHealUp;
     public override bool IsNeedToShowIcon => true;
 

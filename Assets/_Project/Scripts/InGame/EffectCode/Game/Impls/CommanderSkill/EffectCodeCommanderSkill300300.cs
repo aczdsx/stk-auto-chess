@@ -101,7 +101,7 @@ namespace CookApps.BattleSystem
                 eccStats.Clear();
                 eccStats[0] = _stunDuration;
 
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats, source);
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, tile.OccupiedCharacter, eccStats, source);
                 ProcessKnockBack(tile);
             }
         }
@@ -132,7 +132,7 @@ namespace CookApps.BattleSystem
             eccStats[2] = knockBackFinalTile.View.ID;//tileID
             eccStats[3] = (int)Ease.OutExpo;//ease
             
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, TargetTile.OccupiedCharacter, eccStats, source);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_KNOCKBACK, TargetTile.OccupiedCharacter, eccStats, source);
         }
 
         private void ApplyDamage(InGameTile TargetTile)

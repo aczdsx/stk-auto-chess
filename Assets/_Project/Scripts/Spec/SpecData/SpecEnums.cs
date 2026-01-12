@@ -52,12 +52,20 @@ namespace CookApps.AutoBattler
         TILE_BURN = 1000000001,
         DAMAGE = 1000000002,
         MAX_HP_DAMAGE = 1000000003,
-        STUN = 1100000001,
+        CC_STUN = 1100000001,
         SHIELD = 1100000002,
-        KNOCKBACK = 1100000003,
-        AIRBORNE = 1100000005,
-        MISA_RESTRAINT = 1100000006,
-        TARGET_IMPOSSIBLE = 1100000007,
+        CC_KNOCKBACK = 1100000003,
+        CC_AIRBORNE = 1100000005,
+        CC_MISA_RESTRAINT = 1100000006,
+        CC_TARGET_IMPOSSIBLE = 1100000007,
+        CC_BLIND = 1100000008,
+        CC_SEAL = 1100000009,
+        CC_AGGRO = 1100000010,
+        CC_FREEZ = 1100000011,
+        CC_SLIENCE = 1100000012,
+        CC_PARALYSIS = 1100000013,
+        CC_CHARM = 1100000014,
+        CC_PETRIFY = 1100000015,
         CHAPTER_FIRE = 1200000001,
         CHAPTER_ICE = 1200000002,
         CHAPTER_LANDMINE = 1200000003,
@@ -74,16 +82,18 @@ namespace CookApps.AutoBattler
         JOBS_RECOVERY = 1300000005,
         JOBS_AMBUSH = 1300000006,
         JOBS_CRITICAL_STACK = 1300000007,
-        DEBUFF_MARIE_ARACNE = 1900000017,
-        DEBUFF_ODETTE_COLD = 1900000018,
-        BUFF_MEDITATION = 1900000026,
-        BUFF_ANGER = 1900000027,
-        BUFF_NO_DAMAGE_SHIELD = 1900000028,
-        BUFF_APRIL_STANDER = 1900000030,
-        BUFF_TETORRA_ANGER = 1900000031,
-        BUFF_SHIRAYUKI_AVOID_AND_ATTACK = 1900000032,
-        BUFF_ENKI_PASSIVE_HEALUP = 1900000033,
-        BUFF_ADRIA_PASSIVE_TEAM_HELP = 1900000034,
+        DEBUFF_SPECIAL_MARIE_ARACNE = 1900000017,
+        DEBUFF_SPECIAL_ODETTE_COLD = 1900000018,
+        BUFF_SPECIAL_BLIN_HEAT = 1900000019,
+        BUFF_SPECIAL_RUKIDA_FOXFIRE = 1900000020,
+        BUFF_SPECIAL_MEDITATION = 1900000026,
+        BUFF_SPECIAL_ANGER = 1900000027,
+        BUFF_SPECIAL_NO_DAMAGE_SHIELD = 1900000028,
+        BUFF_SPECIAL_APRIL_STANDER = 1900000030,
+        BUFF_SPECIAL_TETORRA_ANGER = 1900000031,
+        BUFF_SPECIAL_SHIRAYUKI_AVOID_AND_ATTACK = 1900000032,
+        BUFF_SPECIAL_ENKI_PASSIVE_HEALUP = 1900000033,
+        BUFF_SPECIAL_ADRIA_PASSIVE_TEAM_HELP = 1900000034,
         BUFF_AD_UP = 2000000001,
         BUFF_AD_PERCENT_UP = 2000000002,
         BUFF_AP_UP = 2000000003,
@@ -141,6 +151,15 @@ namespace CookApps.AutoBattler
         DEBUFF_CRIT_DOWN = 2100000019,
         DEBUFF_CRI_POWER_DOWN = 2100000020,
         DEBUFF_PIERCE_DOWN = 2100000021,
+        DEBUFF_HIT_DOWN = 2100000022,
+        DEBUFF_AVOID_DOWN = 2100000023,
+        DEBUFF_MOVE_DOWN = 2100000024,
+        DEBUFF_BLOCK_DOWN = 2100000025,
+        DEBUFF_HP_RECOVERT_DOWN = 2100000026,
+        DEBUFF_POISON = 2100000027,
+        DEBUFF_BURN = 2100000028,
+        DEBUFF_BLEEDING = 2100000029,
+        DEBUFF_CHILL = 2100000030,
     }
 
     public enum GradeType
@@ -223,6 +242,7 @@ namespace CookApps.AutoBattler
         BATTLEITEM = 6,
         MONSTER = 7,
         SPECIALBOSS = 8,
+        NPC = 9,
     }
 
     public enum ContentType
@@ -392,11 +412,6 @@ namespace CookApps.AutoBattler
         Skill_403011_1 = 53,
         fx_common_hit_02 = 54,
         fx_common_debuff_stun = 55,
-        fx_common_debuff_spddown_01 = 56,
-        fx_common_debuff_spddown_02 = 57,
-        fx_common_debuff_ctup_01 = 58,
-        fx_common_debuff_ctup_02 = 59,
-        Projectile_103011 = 60,
         Projectile_104011 = 61,
         Projectile_104021 = 62,
         Projectile_203011 = 63,
@@ -575,6 +590,11 @@ namespace CookApps.AutoBattler
         Skill_Passive_17663506 = 240,
         Skill_Passive_401011 = 241,
         fx_common_job_striker_02 = 242,
+        fx_common_debuff_spddown_01 = 243,
+        fx_common_debuff_spddown_02 = 244,
+        fx_common_debuff_ctup_01 = 245,
+        fx_common_debuff_ctup_02 = 246,
+        Projectile_103011 = 247,
     }
 
     public enum GlobalEffectProviderType
@@ -901,6 +921,7 @@ namespace CookApps.AutoBattler
         ENEMY_DEAD_ALL = 3,
         MOVE_OBJECT_AFTER = 4,
         SKILL_READY = 5,
+        DIALOGUE_POP_END = 6,
     }
 
     public enum TutorialActionType
@@ -913,6 +934,7 @@ namespace CookApps.AutoBattler
         FOCUS_OBJECT = 5,
         CLEAR_STAGE = 6,
         MOVE_OBJECT = 7,
+        SHOW_DIALOGUE_POP = 8,
     }
 
     public enum FacilityType
@@ -922,6 +944,22 @@ namespace CookApps.AutoBattler
         NEST = 2,
         DIMENSION_LAB = 3,
         SIMULATION_CENTER = 4,
+    }
+
+    public enum CoreResearchType
+    {
+        NONE = 0,
+        KnightAttack = 1,
+        KnightDefense = 2,
+        KnightHealth = 3,
+        Fire = 4,
+        Wind = 5,
+        Earth = 6,
+        Lightning = 7,
+        Water = 8,
+        Noblesse = 9,
+        Supernova = 10,
+        Troubleshooter = 11,
     }
 
     public enum MaterialType

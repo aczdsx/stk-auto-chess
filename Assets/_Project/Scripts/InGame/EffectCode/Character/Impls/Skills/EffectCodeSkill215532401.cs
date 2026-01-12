@@ -77,7 +77,7 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
     {
         base.Activate();
 
-        owner.Target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(owner);
+        owner.Target = InGameObjectManager.Instance.GetFarthestTargetByManhattanDistance(owner);
 
         var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
         if (!isInRange)
@@ -94,8 +94,6 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        // InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
-        //     owner.GetCharacterView().CachedTr.position);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -105,30 +103,60 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-        // InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, owner.Target.CurrentTile);
-        var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-        if (directionTile.Count > 0)
+        InGameVfxNameType projectile = _specSkill.skill_vfxs[0];
+
+        if (projectile != InGameVfxNameType.NONE)
         {
-            var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
-            Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
-            vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
-
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                owner.Target.SkillRootTransformFollowable);
-
-            var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, owner.Target, codeId, true);
-            var type = owner.Target.GetDamaged(damage, owner);
-
-            if (type == DamageReturnType.Killed)
+            if (owner == null || owner.IsAlive == false)
             {
-                // owner.ShowNormalText("INGAME_UI_BUFF_COOLDOWN_RESET").Forget();
-                isKilled = true;
+                return;
             }
+
+            Transform projectileTransform = owner.GetCharacterView().CachedFront ?
+            owner.GetCharacterView().ProjectileFrontTransform : owner.GetCharacterView().ProjectileBackTransform;
+
+            var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile,
+                projectileTransform.position);
+
+            var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
+
+            Vector3 direction =
+                (owner.Target.CurrentTile.View.CachedTr.position -
+                 owner.CurrentTile.View.CachedTr.position).normalized;
+            vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction);
+
+            movement.SetData(vfxProjectile.CachedTr.position,
+                owner.Target.GetCharacterView().CachedTr.position, 30f);
+            vfxProjectile.Initialize(false, movement);
+
+            void OnReachedTargetHandler()
+            {
+                OnReachedTargetProcess();
+
+                vfxProjectile.Remove();
+            }
+
+            movement.OnReachedTarget += OnReachedTargetHandler;
+
+
+
+
+            IsSkillActivated = false;
         }
+    }
 
-        IsSkillActivated = false;
 
+    virtual protected void OnReachedTargetProcess()
+    {
+        if (owner == null || owner.Target == null || !owner.Target.IsAlive)
+            return;
+        var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, owner.Target, codeId, true);
+        var type = owner.Target.GetDamaged(damage, owner);
 
+        if (type == DamageReturnType.Killed)
+        {
+            isKilled = true;
+        }
     }
 
     public override float AddSkillCooltime(float cooltime)

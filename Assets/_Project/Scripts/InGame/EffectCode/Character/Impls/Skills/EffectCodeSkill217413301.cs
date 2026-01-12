@@ -152,7 +152,7 @@ public partial class EffectCodeSkill217413301 : EffectCodeCharacterBase
             eccStats[1] = 0.2f; //heigt
             eccStats[2] = inGameTile.View.ID;
 
-            var knockbackEffectCodeBase = EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.KNOCKBACK, _targetCharacter, eccStats, source);
+            var knockbackEffectCodeBase = EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_KNOCKBACK, _targetCharacter, eccStats, source);
             if (knockbackEffectCodeBase != null)
             {
                 var knockbackEffectCode = knockbackEffectCodeBase as EffectCodeCrowdControlKnockback;
@@ -210,6 +210,6 @@ public partial class EffectCodeSkill217413301 : EffectCodeCharacterBase
         eccStats.Clear();
         eccStats[0] = _stunTime;
 
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.STUN, tile.OccupiedCharacter, eccStats, source);
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, tile.OccupiedCharacter, eccStats, source);
     }
 }
