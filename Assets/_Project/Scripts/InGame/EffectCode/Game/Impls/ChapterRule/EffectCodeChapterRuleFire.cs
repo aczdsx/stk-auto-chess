@@ -52,7 +52,7 @@ namespace CookApps.BattleSystem
             {
                 CharacterController.DamageInfo damage = CharacterController.DamageInfo.Create(_effectCodeStat, codeId, AttackerType.CHAPTER_RULE);
 
-                character.GetDamaged(damage, null, hexColor: "#FF470000");
+                character.GetDamaged(damage, null);
                 InGameVfxManager.Instance.AddInGameTileFx(SynergyType.FIRE, tile);
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_03,
                     tile.View.CachedTr.position);
@@ -76,7 +76,7 @@ namespace CookApps.BattleSystem
                     {
                         CharacterController.DamageInfo damage = CharacterController.DamageInfo.Create(_effectCodeStat, codeId, AttackerType.CHAPTER_RULE);
 
-                        ruleTile.OccupiedCharacter.GetDamaged(damage, null, hexColor: "#FF470000");
+                        ruleTile.OccupiedCharacter.GetDamaged(damage, null);
                         InGameVfxManager.Instance.AddInGameTileFx(SynergyType.FIRE, ruleTile);
                         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_03,
                             ruleTile.View.CachedTr.position);

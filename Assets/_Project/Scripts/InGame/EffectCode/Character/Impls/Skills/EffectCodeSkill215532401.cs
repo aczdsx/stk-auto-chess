@@ -121,7 +121,7 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
 
             if (type == DamageReturnType.Killed)
             {
-                owner.ShowNormalText("INGAME_UI_BUFF_COOLDOWN_RESET").Forget();
+                // owner.ShowNormalText("INGAME_UI_BUFF_COOLDOWN_RESET").Forget();
                 isKilled = true;
             }
         }

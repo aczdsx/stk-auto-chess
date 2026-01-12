@@ -44,7 +44,6 @@ public partial class EffectCodeBuffShield : EffectCodeBuffBase
         owner.AddBuffDebuffType(BuffDebuffType.Shield);
         owner.UpdateHpBar();
         
-        owner.ShowNormalText("보호막 적용", hexColor : "5DC9FFFF").Forget();
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -62,7 +61,6 @@ public partial class EffectCodeBuffShield : EffectCodeBuffBase
         shields.Add(shieldData);
 
         owner.UpdateHpBar();
-        owner.ShowNormalText("보호막 적용", hexColor : "5#5DC9FFFF").Forget();
     }
 
     public override void OnPreRemoved()
@@ -147,7 +145,7 @@ public partial class EffectCodeBuffShield : EffectCodeBuffBase
 
         var reducedAmount = originDamageAmount.damageAmount - damageInfo.damageAmount;
 
-        owner.ShowShieldText(reducedAmount).Forget();
+        // owner.ShowShieldText(reducedAmount).Forget();
 
         return damageInfo;
     }

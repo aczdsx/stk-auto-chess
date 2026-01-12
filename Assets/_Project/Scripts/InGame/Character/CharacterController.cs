@@ -847,20 +847,20 @@ namespace CookApps.BattleSystem
             if (sfxName != SoundFX.NONE)
                 SoundManager.Instance.PlaySFX(sfxName);
 
-            var affectText = type.GetAffectToken();
-            if (!string.IsNullOrEmpty(affectText))
-            {
-                if (type == BuffDebuffType.Shield)
-                {
-                    string hexColor = "#00ABFF";
-                    ShowNormalText(affectText, hexColor: hexColor).Forget();
-                }
-                else
-                {
-                    string hexColor = (int)type >= 1000 ? "#5DC9FFFF" : "#FF5149";
-                    ShowNormalText(affectText, hexColor: hexColor).Forget();
-                }
-            }
+            // var affectText = type.GetAffectToken();
+            // if (!string.IsNullOrEmpty(affectText))
+            // {
+            //     if (type == BuffDebuffType.Shield)
+            //     {
+            //         string hexColor = "#00ABFF";
+            //         ShowNormalText(affectText, hexColor: hexColor).Forget();
+            //     }
+            //     else
+            //     {
+            //         string hexColor = (int)type >= 1000 ? "#5DC9FFFF" : "#FF5149";
+            //         ShowNormalText(affectText, hexColor: hexColor).Forget();
+            //     }
+            // }
 
             if (!_buffDebuffRefCountDict.TryAdd(type, 1))
             {
@@ -1033,6 +1033,7 @@ namespace CookApps.BattleSystem
             public bool isCritical;
             public bool isDoubleCritical;
             public bool isMissed;// 회피테스트 성공여부
+            public bool isBlocked;// 블록테스트 성공여부
 
             public ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult;
             public long source;
@@ -1048,6 +1049,7 @@ namespace CookApps.BattleSystem
                     isAD = isAD,
                     isCritical = isCritical,
                     isDoubleCritical = isDoubleCritical,
+                    isBlocked = false,
                     isMissed = false
                 };
             }
@@ -1094,24 +1096,29 @@ namespace CookApps.BattleSystem
                 }
             }
 
-            //속성 상성 데미지 계산
-            if ((skipTests & DamageTestFlags.SkipElementAdvantage) == 0)
-            {
-                CalculateElementAdvantageDamage(ref damageInfo, target);
-            }
+
 
             //블록 테스트 진행
-            bool isBlocked = false;
             if ((skipTests & DamageTestFlags.SkipBlockingTest) == 0)
             {
-                isBlocked = ProgressBlockingTest(ref damageInfo, target);
+                ProgressBlockingTest(ref damageInfo, target);
 
                 //원래 로직: 블록 성공 시 크리티컬 체크 (크리티컬 테스트 스킵 플래그가 없을 때만)
-                if (isBlocked && (skipTests & DamageTestFlags.SkipCriticalTest) == 0)
+                if (!damageInfo.isBlocked)
                 {
-                    ProgressCriticalTest(ref damageInfo);
+                    if ((skipTests & DamageTestFlags.SkipCriticalTest) == 0)
+                    {
+                        ProgressCriticalTest(ref damageInfo);
+                    }
+
+                    //속성 상성 데미지 계산
+                    if ((skipTests & DamageTestFlags.SkipElementAdvantage) == 0)
+                    {
+                        CalculateElementAdvantageDamage(ref damageInfo, target);
+                    }
                 }
             }
+
 
             //저항 관통 테스트
             if ((skipTests & DamageTestFlags.SkipResistPierce) == 0)
@@ -1170,18 +1177,18 @@ namespace CookApps.BattleSystem
             }
         }
 
-        private bool ProgressBlockingTest(ref DamageInfo damageInfo, CharacterController target)
+        private void ProgressBlockingTest(ref DamageInfo damageInfo, CharacterController target)
         {
             //타겟의 블록율로 블록율 테스트 
             // 블록 성공시 데미지 50%감소
             if (InGameRandomManager.GetUniversalRandomValue(0f, 100f) < target.BlockingProb * 100f)
             {
                 damageInfo.damageAmount *= 0.5d;
-                return true;
+                damageInfo.isBlocked = true;
             }
             else
             {
-                return false;
+                damageInfo.isBlocked = false;
             }
         }
 
@@ -1247,7 +1254,7 @@ namespace CookApps.BattleSystem
         /// "스킬로 상대를 죽인 경우 쿨타임 초기화" 이런 것을 처리하기 위해 반환값을 사용
         /// </returns>
         public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker,
-        bool isFirstDamage = true, string hexColor = null)
+        bool isFirstDamage = true)
         {
             if (!InGameManager.Instance.IsInGameCombat)
                 return DamageReturnType.Damaging;
@@ -1284,11 +1291,18 @@ namespace CookApps.BattleSystem
 
             if (!damageInfo.isMissed)
             {
-                ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.elementAdvantageResult, hexColor).Forget();
+                if (damageInfo.isBlocked)
+                {
+                    ShowBlockText().Forget();
+                }
+                else
+                {
+                    ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.elementAdvantageResult).Forget();
+                }
             }
-            else
+             else
             {
-                ShowStaticNormalTextHeightOffset("MISS!!", "#FF0000FF").Forget();
+                ShowMissText().Forget();
             }
 
             _currHp -= damageAmount.damageAmount.Value;
@@ -1428,7 +1442,7 @@ namespace CookApps.BattleSystem
             {
                 recoveryAmount = EffectCodeJobPassiveRecovery.CalculateOracleSkillRecoveryAmount(this, target, recoveryAmount);
             }
-            
+
             recoveryAmount = Math.Round(recoveryAmount * GivenHealRate * target.TakenHealRate);
 
             // 속성, 크기, 종족에 따른 회복량 계산이 필요하다면 여기서 할 것
@@ -1480,43 +1494,29 @@ namespace CookApps.BattleSystem
         }
 
         private async UniTask ShowDamageText(double amount, bool isCritical,
-                                            ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult,
-                                            string hexColor = null)
+                                            ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult)
         {
-            if (amount == 0)
-            {
-                return;
-            }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
-            await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical, hexColor);
+            await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical, elementAdvantageResult);
+        }
 
-            if (elementAdvantageResult == ElementAdvantageHelper.ElementAdvantageResult.NONE)
-            {
-                return;
-            }
-            textView.AttachElementAdvanageText(elementAdvantageResult, isCritical);
+        private async UniTask ShowBlockText()
+        {
+            InGameTextView textView = InGameTextViewPool.Instance.Get();
+            await textView.ShowBlockText(GetCharacterView().CachedTr.position, _statData.Spec.height);
         }
 
         private async UniTask ShowHealText(double amount)
         {
-            if (amount == 0)
-            {
-                return;
-            }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
             await textView.ShowHealText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount);
         }
 
-        public async UniTask ShowShieldText(double amount)
+        private async UniTask ShowMissText()
         {
-            if (amount == 0)
-            {
-                return;
-            }
             InGameTextView textView = InGameTextViewPool.Instance.Get();
-            await textView.ShowShieldText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount);
+            await textView.ShowMissText(GetCharacterView().CachedTr.position, _statData.Spec.height);
         }
-
 
         public void MoveToCharacter(bool isInRange, CharacterController target)
         {
@@ -1684,21 +1684,6 @@ namespace CookApps.BattleSystem
             }
 
             return null;
-        }
-
-        public async UniTask ShowNormalText(string token, string hexColor = null)
-        {
-            InGameTextView textView = InGameTextViewPool.Instance.Get();
-
-            string convertText = LanguageManager.Instance.GetLanguageText(token);
-            await textView.ShowNormalText(GetCharacterView().CachedTr.position, _statData.Spec.height, convertText, hexColor);
-        }
-
-        public async UniTask ShowStaticNormalTextHeightOffset(string text, string hexColor = null)
-        {
-            InGameTextView textView = InGameTextViewPool.Instance.Get();
-
-            await textView.ShowNormalTextAddHeightOffset(GetCharacterView().CachedTr.position, _statData.Spec.height, text, hexColor);
         }
 
         public InGameVfx ShowImmuneSuccessFx()

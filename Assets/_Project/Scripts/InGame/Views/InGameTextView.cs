@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.Utility;
+using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -10,12 +12,9 @@ namespace CookApps.AutoBattler
 {
     public class InGameTextView : CachedMonoBehaviour
     {
-        [SerializeField] private TMP_Text _txtDamage;
-        [SerializeField] private TMP_Text _textCritDamage;
-        [SerializeField] private TMP_Text _healDamage;
-        [SerializeField] private TMP_Text _shieldDamage;
-        [SerializeField] private TMP_Text _normalText;
-        [SerializeField] private TMP_Text _advantageText;
+        [SerializeField] private TMP_Text _damageText;
+        [SerializeField] private TMP_Text _iconText;
+
 
         [SerializeField] private Transform _root;
         [SerializeField] private Animator _animator;
@@ -25,122 +24,184 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private Color defaultColor;
 
-        private TMP_Text _damageText;
-        private static readonly int Critical = Animator.StringToHash("Critical");
-        private static readonly int Normal = Animator.StringToHash("Normal");
-        private static readonly int Heal = Animator.StringToHash("Heal");
-        private static readonly int Shield = Animator.StringToHash("Shield");
-        private static readonly int NormalText = Animator.StringToHash("NormalText");
 
-        public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage, bool isCritical, string hexColor = null)
+        public enum DamageColorType
         {
-            _damageText = (isCritical) ? _textCritDamage : _txtDamage;
-            _damageText.text = $"{damage}";
-            _damageText.color = hexColor != null && ColorUtility.TryParseHtmlString(hexColor, out Color color)
-                ? color
-                : defaultColor;
-
-            _xOffset = Random.Range(-0.5f, 0.5f);
-
-            Vector3 initialPosition = position + Vector3.up * (characterHeight + _heightOffset);
-            initialPosition.x += _xOffset;
-            _root.position = initialPosition;
-            _animator.SetTrigger(isCritical ? Critical : Normal);
-
-            if (SoundManager.Instance.IsPlayingGacha == false)
-            {
-                if (isCritical)
-                {
-                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_critical1);
-                }
-                else
-                {
-                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_normal1);
-                }
-            }
-
-            // await WaitForAnimationEnd();
+            Normal, // 일반
+            Weak, // 속성 상성
+            Resist, // 속성 저항
+            Heal, // 힐
+            Miss, // 명중 테스트 실패
+            Block, // 최종 방어력 산정에 블록
+            DotDeal,//화상, 독
         }
 
-        public async UniTask ShowNormalTextAddHeightOffset(Vector3 position, float characterHeight, string text, string hexColor = null)
+        public SerializableDictionary<DamageColorType, TMP_ColorGradient> IconGradients;
+        private static readonly int Normal = Animator.StringToHash("Normal");
+        
+        // 재사용 가능한 리스트 (GC 할당 최소화)
+        private readonly List<InGameTextViewSpriteFont.SpriteFontType> _reusableSpriteFontList = new List<InGameTextViewSpriteFont.SpriteFontType>(4);
+
+        /// <summary>
+        /// 스프라이트 폰트를 조합하여 최적화된 문자열을 생성합니다.
+        /// </summary>
+        private string BuildSpriteText(IReadOnlyList<InGameTextViewSpriteFont.SpriteFontType> spriteFonts)
         {
-            _normalText.text = $"{text}";
-            _normalText.color = hexColor != null && ColorUtility.TryParseHtmlString(hexColor, out Color color)
-                ? color
-                : defaultColor;
-
-            _xOffset = Random.Range(-0.5f, 0.5f);
-
-            Vector3 initialPosition = position + Vector3.up * (characterHeight + _heightOffset);
-            initialPosition.x += _xOffset;
-            _root.position = initialPosition;
-
-            _root.position = initialPosition;
-            _animator.SetTrigger(NormalText);
+            if (spriteFonts == null || spriteFonts.Count == 0)
+                return string.Empty;
+            
+            return InGameTextViewSpriteFont.GetSpriteFonts(spriteFonts);
         }
         
-        public async UniTask ShowNormalText(Vector3 position, float characterHeight, string text, string hexColor = null)
+        /// <summary>
+        /// 숫자 텍스트를 포맷팅하여 생성합니다.
+        /// </summary>
+        private string BuildNumberText(double value, string prefix = null)
         {
-            _normalText.text = $"{text}";
-            _normalText.color = hexColor != null && ColorUtility.TryParseHtmlString(hexColor, out Color color)
-                ? color
-                : defaultColor;
-
+            using var sb = ZString.CreateStringBuilder();
+            
+            // 접두사 추가 (예: "+" for heal)
+            if (!string.IsNullOrEmpty(prefix))
+            {
+                sb.Append(prefix);
+            }
+            
+            // 숫자 값 추가 (천 단위 구분자 포함)
+            sb.Append(value.ToString("N0"));
+            
+            return sb.ToString();
+        }
+        
+        /// <summary>
+        /// 텍스트와 아이콘을 설정합니다.
+        /// </summary>
+        private void SetTextContent(string iconText, string damageText, DamageColorType colorType)
+        {
+            _iconText.text = iconText;
+            _damageText.text = damageText;
+            _damageText.colorGradientPreset = IconGradients[colorType];
+        }
+        
+        /// <summary>
+        /// 위치를 설정하고 애니메이션을 트리거합니다.
+        /// </summary>
+        private void SetupPositionAndAnimation(Vector3 position, float characterHeight, bool useHeightOffset = true)
+        {
             _xOffset = Random.Range(-0.5f, 0.5f);
-
-            Vector3 initialPosition = position + Vector3.up * (characterHeight * 0.5f);
+            
+            float height = useHeightOffset ? characterHeight + _heightOffset : characterHeight;
+            Vector3 initialPosition = position + Vector3.up * height;
+            initialPosition.x += _xOffset;
+            
             _root.position = initialPosition;
-            _animator.SetTrigger(NormalText);
+            _animator.SetTrigger(Normal);
+        }
+        
+        /// <summary>
+        /// 데미지 사운드를 재생합니다.
+        /// </summary>
+        private void PlayDamageSound(bool isCritical)
+        {
+            if (SoundManager.Instance.IsPlayingGacha)
+                return;
+            
+            SoundManager.Instance.PlaySFX(isCritical 
+                ? SoundFX.snd_sfx_hit_critical1 
+                : SoundFX.snd_sfx_hit_normal1);
+        }
+
+        public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage,
+        bool isCritical, ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult)
+        {
+            _reusableSpriteFontList.Clear();
+            
+            // 크리티컬 처리
+            if (isCritical)
+            {
+                _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_CRITICAL);
+            }
+            
+            // 속성 상성 처리
+            DamageColorType colorType;
+            if (elementAdvantageResult == ElementAdvantageHelper.ElementAdvantageResult.ADVANTAGE)
+            {
+                colorType = DamageColorType.Weak;
+                _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_WEAK);
+            }
+            else if (elementAdvantageResult == ElementAdvantageHelper.ElementAdvantageResult.RESIST)
+            {
+                colorType = DamageColorType.Resist;
+                _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_RESIST);
+            }
+            else
+            {
+                colorType = DamageColorType.Normal;
+            }
+            
+            // 텍스트 설정
+            SetTextContent(
+                BuildSpriteText(_reusableSpriteFontList),
+                BuildNumberText(damage),
+                colorType
+            );
+            
+            // 위치 및 애니메이션 설정
+            SetupPositionAndAnimation(position, characterHeight);
+            
+            // 사운드 재생
+            PlayDamageSound(isCritical);
+        }
+
+        public async UniTask ShowBlockText(Vector3 position, float characterHeight)
+        {
+            _reusableSpriteFontList.Clear();
+            _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_BLOCK);
+            
+            // 블록은 아이콘만 표시
+            SetTextContent(
+                BuildSpriteText(_reusableSpriteFontList),
+                string.Empty,
+                DamageColorType.Block
+            );
+            
+            SetupPositionAndAnimation(position, characterHeight);
+        }
+        public async UniTask ShowMissText(Vector3 position, float characterHeight)
+        {
+            // MISS는 아이콘 없이 텍스트만 표시
+            SetTextContent(
+                string.Empty,
+                "MISS!!",
+                DamageColorType.Miss
+            );
+            
+            SetupPositionAndAnimation(position, characterHeight);
         }
 
         public async UniTask ShowHealText(Vector3 position, float characterHeight, double healAmount)
         {
-            _damageText = _healDamage;
-            _damageText.text = $"+{healAmount}";
-
-            _xOffset = Random.Range(-0.5f, 0.5f);
-
-            Vector3 initialPosition = position + Vector3.up * characterHeight;
-            initialPosition.x += _xOffset;
-            _root.position = initialPosition;
-            _animator.SetTrigger(Heal);
-
-            // await WaitForAnimationEnd();
+            _reusableSpriteFontList.Clear();
+            _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_HEAL);
+            
+            // 힐 텍스트 설정 ("+" 접두사 포함)
+            SetTextContent(
+                BuildSpriteText(_reusableSpriteFontList),
+                BuildNumberText(healAmount, "+"),
+                DamageColorType.Heal
+            );
+            
+            // 힐은 heightOffset 없이 표시
+            SetupPositionAndAnimation(position, characterHeight, useHeightOffset: false);
         }
 
-        public async UniTask ShowShieldText(Vector3 position, float characterHeight, double shieldAmount)
-        {
-            _damageText = _shieldDamage;
-            _damageText.text = $"{shieldAmount}";
-
-            _xOffset = Random.Range(-0.5f, 0.5f);
-
-            Vector3 initialPosition = position + Vector3.up * characterHeight;
-            initialPosition.x += _xOffset;
-            _root.position = initialPosition;
-            _animator.SetTrigger(Shield);
-
-            // await WaitForAnimationEnd();
-        }
-
-        public void AttachElementAdvanageText(ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult, bool isCritical)
-        {
-            _advantageText.gameObject.SetActive(true);
-            var TargetAttachText = (isCritical) ? _textCritDamage : _txtDamage;
-            _advantageText.transform.SetParent(TargetAttachText.transform);
-            _advantageText.text = ElementAdvantageHelper.GetElementAdvantageText(elementAdvantageResult);
-        }
         public void ReturnTextView()
         {
+            _reusableSpriteFontList.Clear();
+            _iconText.text = string.Empty;
+            _damageText.text = string.Empty;
             InGameTextViewPool.Instance.Return(this);
-            _advantageText.gameObject.SetActive(false);
         }
 
-        // private async UniTask WaitForAnimationEnd()
-        // {
-        //     AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-        //     await UniTask.WaitUntil(() => stateInfo.normalizedTime >= 1f);
-        // }
     }
 
     public class InGameTextViewPool : Singleton<InGameTextViewPool>
@@ -170,6 +231,47 @@ namespace CookApps.AutoBattler
         {
             if (_textViewPool != null)
                 _textViewPool.Return(textView);
+        }
+    }
+
+    public static class InGameTextViewSpriteFont
+    {
+        public enum SpriteFontType
+        {
+            SPRITE_WEAK = 0,
+            SPRITE_RESIST,
+            SPRITE_CRITICAL,
+            SPRITE_CRITICAL_BIG,
+            SPRITE_BLOCK,
+            SPRITE_HEAL,
+        }
+
+        /// <summary>
+        /// 스프라이트 폰트 태그 문자열을 생성합니다.
+        /// </summary>
+        public static string GetSpriteFont(SpriteFontType spriteFontType)
+        {
+            return ZString.Format("<sprite={0}>", (int)spriteFontType);
+        }
+        
+        /// <summary>
+        /// 여러 스프라이트 폰트를 조합하여 문자열을 생성합니다.
+        /// </summary>
+        public static string GetSpriteFonts(IReadOnlyList<SpriteFontType> spriteFontTypes)
+        {
+            if (spriteFontTypes == null || spriteFontTypes.Count == 0)
+                return string.Empty;
+            
+            using var sb = ZString.CreateStringBuilder();
+            for (int i = 0; i < spriteFontTypes.Count; i++)
+            {
+                sb.Append(GetSpriteFont(spriteFontTypes[i]));
+                if (i < spriteFontTypes.Count - 1)
+                {
+                    sb.Append(' ');
+                }
+            }
+            return sb.ToString();
         }
     }
 }

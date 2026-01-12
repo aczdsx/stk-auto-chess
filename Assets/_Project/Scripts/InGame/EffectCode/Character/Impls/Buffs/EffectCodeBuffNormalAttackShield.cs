@@ -101,8 +101,7 @@ public partial class EffectCodeBuffNormalAttackShield : EffectCodeBuffBase
                 owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
             }
 
-            var affectText = buffDebuffType.GetAffectToken();
-            owner.ShowNormalText(affectText, hexColor: "#5DC9FFFF").Forget();
+
         }
 
 
