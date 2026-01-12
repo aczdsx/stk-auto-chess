@@ -1,0 +1,62 @@
+; [META] Chapter1_04 | 가이드: 영지 설치/관측/숙소/유닛 성장
+; Fade Out/In (영지 화면 진입)
+
+@back bg_hubble_02
+; @back bg_territory_01 fade:2
+
+
+asna_00: 안녕하세요! 관측자님. 무사히 돌아오셔서 다행이에요!
+통신장치의 파괴로 연락을 드릴 수 없어 걱정했거든요!
+asna_00: 아앗…맞다! 기억을 잃으셨다고 했죠?
+asna_00: 저는 플레이아데스 전속 오퍼레이터 아스나에요.
+(방긋 웃으며) 다시 한 번 잘 부탁드릴게요?
+asna_00: 재클린 부함장님이 제게 관측자님 께서 기사들을 모을 수 있도록 도우라는 명령을 내리셨어요.
+그럼 함께 작전을 수행할 기사들을 확인하러 가볼까요?
+; [GUIDE] 가이드 퀘스트: 관측 진행
+asna_00: 관측자님 이건 기억나시나요?
+관측자란, 관측 기구 H.O.P.E를 통해 스텔라 나이트가 될 소녀들을 관측하고,
+그들을 찾아내 힘을 각성시키는 자들을 뜻한다는 것을요.
+asna_00: 하지만 지금은 급한 만큼! 재클린 부함장님 께서 미리 호출해둔 기사들 중 작전에 필요한 인원을 추려봐요.
+; @forceHighlight ui_observe_button mode:pulse
+; [GUIDE] 사전 설정 5종 SSR 중 1명 선택
+asna_00: 작전이 위험할 수 있으니, 대기 인원들도 뽑아보자구요!
+; @forceHighlight ui_beginner_gacha_button mode:pulse
+asna_00: 잘하셨어요! 역시 관측자님이에요.
+; [GUIDE] 가이드 퀘스트: 숙소 복구 진행
+asna_00: 새로운 기사들이 입단한 만큼, 새로운 숙소가 필요할 것 같아요.
+asna_00: 우리가 나포해온 '라이트 브링어'를 임시 함선으로 쓰라고 하셨으니 그곳의 숙소를 복구해볼까요?
+; @forceHighlight ui_dorm_repair_icon mode:pulse
+asna_00: 이곳을 선택하면 수리 드론들이 숙소를 복구해줄거에요.
+asna_00: 원래 복구에는 자원이 들지만 이번엔 특별히 재클린 부함장님 께서  제공해주셨어요
+; [GUIDE] 숙소 복구 연출(드론/효과음/버튼 처리)
+asna_00: 숙소가 커질수록 전투에 참여가능한 인원이 늘어나요!
+asna_00: 하지만, 현재 '라이트 브링어'는 완전히 수리되지 않아서, 추가적인 복구는 힘들 것 같네요.
+; [GUIDE] 가이드 퀘스트: 유닛 성장 진행
+asna_00: 임무을 위해 떠나기 전 마지막으로 현재까지 성단에 참여한 기사들의 상태를 살펴볼까요?
+asna_00: 이 곳 '기사 관리' 버튼을 통해 현재 보유한 기사들의 상태를 살펴볼 수 있어요.
+; @forceHighlight ui_knight_manage_button mode:pulse
+asna_00: 이곳은 기사 관리 창이에요. 이곳에서 기사들의 상태를 살펴보고 성장시킬 수 있어요
+asna_00: 이번엔 아트레시아를 성장시켜 볼까요?
+asna_00: 기사의 성장에는 '전투 데이터'가 필요해요.
+asna_00: '전투 데이터'는 스테이지나 다른 탐험을 통해 획득할 수 있어요.
+asna_00: 그럼 이곳을 눌러 아트레시아를 얼른 성장시켜 봐요.
+; @forceHighlight ui_levelup_max_button mode:pulse
+asna_00: 와아! 기사가 성장했어요. 얼마나 강해졌는지는 이곳을 통해 살펴볼 수 있어요.
+; @forceHighlight ui_growth_result_panel mode:pulse
+asna_00: 그럼 기사들의 준비도 완료 되었겠다.
+클레이가 마지막 목적지로 설정한 '아르케'로 좌표를 설정하겠습니다.
+player: 응, 부탁할게.
+asna_00: 롸저. 시스템 올 그린. 라이트 브링어. 아르케로 출항합니다!
+승무원 여러분 께서는 꽉 잡으세요!
+; [GUIDE] 챕터 1 하이라이트 + 함선 발진 효과음
+; @goto Chapter1_05
+
+
+@back bg_black_01 time:1.5 transition:Crossfade
+;신전환 효과음
+@hideUI
+@hidePrinter Dialogue
+@hideChars
+@skip false
+
+@end

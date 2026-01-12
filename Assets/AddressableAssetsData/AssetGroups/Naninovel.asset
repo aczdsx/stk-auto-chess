@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 062b40594e237324b840f9ab62288705
+    m_Address: Naninovel/Scripts/Chapter0_07
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 063225faa980648419adc8d28248d0af
     m_Address: Naninovel/Characters/odette_00
     m_ReadOnly: 0
@@ -71,6 +77,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4b121aa1be1b7e04480b452c595ff17a
     m_Address: Naninovel/UI/TitleUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4d722d6fd6acc744dae58291793664eb
+    m_Address: Naninovel/Scripts/Chapter0_06
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -155,6 +167,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7fba909c66b25324cb77db18679c2c96
     m_Address: Naninovel/UI/BacklogUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 87683fef9d1e6ae4db989547fbb70e1e
+    m_Address: Naninovel/Scripts/Chapter0_04
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -261,6 +279,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc766d5a62a068f4bb667820bcca6687
+    m_Address: Naninovel/Scripts/Chapter0_08
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dd85ce99288c2f8488447fa511b1c0d6
     m_Address: Naninovel/UI/ToastUI
     m_ReadOnly: 0
@@ -281,6 +305,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ea76638b26a915946b62907dd1e776fd
     m_Address: Naninovel/Spawn/DepthOfField
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec7537f337621d844a67c608e7397e1f
+    m_Address: Naninovel/Scripts/Chapter0_05
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel

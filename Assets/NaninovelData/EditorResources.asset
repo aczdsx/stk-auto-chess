@@ -88,15 +88,57 @@ MonoBehaviour:
     - name: Blur
       pathPrefix: Spawn
       guid: e466d9326b30a4b49a3dad428b4d9968
+    - name: cbg_00_00
+      pathPrefix: Spawn
+      guid: 1f39d8d645f7cea44a78b0fcbfec20a7
+    - name: cbg_00_01
+      pathPrefix: Spawn
+      guid: f08be00b6bdc70b42b5a13780b792956
     - name: cbg_00_02
       pathPrefix: Spawn
       guid: 6b5c3aa62227e284797ac353ac5bfd03
     - name: cbg_00_02_1
       pathPrefix: Spawn
       guid: da48c2d500b152843a29a12764e0d697
-    - name: cbg_00_00
+    - name: cbg_00_03
       pathPrefix: Spawn
-      guid: 1f39d8d645f7cea44a78b0fcbfec20a7
+      guid: d8ef5d430888d1b48b4705581c7405ac
+    - name: cbg_00_04
+      pathPrefix: Spawn
+      guid: 64fd4990d141da64bb1806dfa3078d45
+    - name: cbg_01_01
+      pathPrefix: Spawn
+      guid: 5ec29d4051f68874daa1d8300f807816
+    - name: cbg_01_02
+      pathPrefix: Spawn
+      guid: 78595d4b1beb8f2439620fd5c2392033
+    - name: cbg_02_00
+      pathPrefix: Spawn
+      guid: f5905f415d8c2764a9ab7b0435151c00
+    - name: cbg_02_01
+      pathPrefix: Spawn
+      guid: daceea2c9bcbfd54192d4cb457d748d6
+    - name: cbg_02_02
+      pathPrefix: Spawn
+      guid: 2420046e7b56ba147b3f4bd76caa7444
+    - name: cbg_03_01
+      pathPrefix: Spawn
+      guid: a716cb839f22ba347859b1929273cd80
+    - name: cbg_03_02
+      pathPrefix: Spawn
+      guid: 9425b52a5db1e8d42b3de8db8b084682
+    - name: cbg_04_01
+      pathPrefix: Spawn
+      guid: 025101039d619e64d941772e9a265951
+    - name: cbg_04_02
+      pathPrefix: Spawn
+      guid: e17a0ce4d2ceef347bd8045201001c1b
+    - name: NicknamePopup
+      pathPrefix: Spawn
+      guid: 3053816ab114c294aaff2d3974fe448f
+    - name: NicknamePopup_nani
+      pathPrefix: Spawn
+      guid: a7849c4742558db449e84853bb474d44
   - Id: UI
     Resources:
     - name: ClickThroughPanel
@@ -941,6 +983,111 @@ MonoBehaviour:
     - name: Scripts/Chapter0_03
       pathPrefix: Scripts
       guid: dd3c90870d22c8243a5b0023d6d423b8
+    - name: Scripts/Chapter0_04
+      pathPrefix: Scripts
+      guid: 87683fef9d1e6ae4db989547fbb70e1e
+    - name: Scripts/Chapter0_08
+      pathPrefix: Scripts
+      guid: dc766d5a62a068f4bb667820bcca6687
+    - name: Scripts/Chapter0_05
+      pathPrefix: Scripts
+      guid: ec7537f337621d844a67c608e7397e1f
+    - name: Scripts/Chapter0_07
+      pathPrefix: Scripts
+      guid: 062b40594e237324b840f9ab62288705
+    - name: Scripts/Chapter0_06
+      pathPrefix: Scripts
+      guid: 4d722d6fd6acc744dae58291793664eb
+    - name: Scripts/Chapter1_01
+      pathPrefix: Scripts
+      guid: d435ffd1cb16f44489cc46c1e08243f1
+    - name: Scripts/Chapter1_02
+      pathPrefix: Scripts
+      guid: 2d631e0ad9c97c64d883dc73a9347dff
+    - name: Scripts/Chapter1_05
+      pathPrefix: Scripts
+      guid: 37d0588b93d9ae94ba4568779bec15da
+    - name: Scripts/Chapter1_13
+      pathPrefix: Scripts
+      guid: a94a863343e81a74787df8f6a7e9ba06
+    - name: Scripts/Chapter1_14
+      pathPrefix: Scripts
+      guid: 1388e2cffa70dad44a0c0095cb754ad6
+    - name: Scripts/Chapter1_10
+      pathPrefix: Scripts
+      guid: 909523b307601b44bb2aea79c57723ad
+    - name: Scripts/Chapter1_11
+      pathPrefix: Scripts
+      guid: e3f6807cdd174d347826d8185614ea56
+    - name: Scripts/Chapter1_12
+      pathPrefix: Scripts
+      guid: 1c90d86ed1b93a44eaec0073fee0b147
+    - name: Scripts/Chapter1_03
+      pathPrefix: Scripts
+      guid: bc5ebc907f3b8a340a5e440fda5d8ad9
+    - name: Scripts/Chapter1_08
+      pathPrefix: Scripts
+      guid: 43bacc9a69a324a468878a4a9aeb97ff
+    - name: Scripts/Chapter1_04
+      pathPrefix: Scripts
+      guid: 08c617421b2d3ac43b73cc3542c63b8b
+    - name: Scripts/Chapter1_06
+      pathPrefix: Scripts
+      guid: 8f8c02a5b2885ed42bc7977fc9112d88
+    - name: Scripts/Chapter1_07
+      pathPrefix: Scripts
+      guid: 7074836e4a4577c4eb4f47a437e36b47
+    - name: Scripts/Chapter1_09
+      pathPrefix: Scripts
+      guid: fedcc6d0399f18b4d92de41ce45406cd
+    - name: Scripts/Chapter2_03
+      pathPrefix: Scripts
+      guid: c2c264a458c282f459fb606590f7b6ca
+    - name: Scripts/Chapter2_10
+      pathPrefix: Scripts
+      guid: 937a2eeee53a1704bb91d979c0abdcef
+    - name: Scripts/Chapter2_12
+      pathPrefix: Scripts
+      guid: 040e5280bbce72647b768893efada6a3
+    - name: Scripts/Chapter2_04
+      pathPrefix: Scripts
+      guid: 2d15799fa64d9e642a48898ba9b4aeb8
+    - name: Scripts/Chapter2_01
+      pathPrefix: Scripts
+      guid: 18fe18b124de24441baf3f999dff6cdb
+    - name: Scripts/Chapter2_06
+      pathPrefix: Scripts
+      guid: 84dd7754d1d9671408859edd759d2e98
+    - name: Scripts/Chapter2_07
+      pathPrefix: Scripts
+      guid: 75577c6472635ec41bc5d6fd66eab10f
+    - name: Scripts/Chapter2_09
+      pathPrefix: Scripts
+      guid: bdd62b309481af847a4038c2c0f8a481
+    - name: Scripts/Chapter2_02
+      pathPrefix: Scripts
+      guid: 2c8a567a78f0f534d951b1903ffd0a06
+    - name: Scripts/Chapter2_14
+      pathPrefix: Scripts
+      guid: 642955ce14f3cf644946558c3e5c3b56
+    - name: Scripts/Chapter2_08
+      pathPrefix: Scripts
+      guid: 92095844fb433bd49bb0a2cf00d627c2
+    - name: Scripts/Chapter2_11
+      pathPrefix: Scripts
+      guid: f25f28918006c184785465324e4405ab
+    - name: Scripts/Chapter2_05
+      pathPrefix: Scripts
+      guid: db750d79692695e4fa02e811d8f32025
+    - name: Scripts/Chapter2_13
+      pathPrefix: Scripts
+      guid: baa4c1f4ed0fa7c4dac05a0d32d7f307
+    - name: Scripts/Chapter2_15
+      pathPrefix: Scripts
+      guid: 797be95ad562dc24ab47fb48fcbaa055
+    - name: Scripts/Chapter2_16
+      pathPrefix: Scripts
+      guid: 512afeaecf2810e40890729587809587
   - Id: CharacterAvatars
     Resources: []
   - Id: Characters/97730980-6691-4698-b6da-9388d226f1d6
@@ -1010,6 +1157,30 @@ MonoBehaviour:
     - name: bg_white_01
       pathPrefix: Backgrounds/MainBackground
       guid: b2a770babc5d3b04aa66457001f0fd3a
+    - name: bg_brokenship_01
+      pathPrefix: Backgrounds/MainBackground
+      guid: e2ea718651f254944bdcd828f213b503
+    - name: bg_brokenship_02
+      pathPrefix: Backgrounds/MainBackground
+      guid: f3f13649d10e9664c9012328e3a6b2c9
+    - name: bg_brokenship_03
+      pathPrefix: Backgrounds/MainBackground
+      guid: ab1fb13c71fe2b84e9a3590b37a05075
+    - name: bg_climax_battle_02
+      pathPrefix: Backgrounds/MainBackground
+      guid: adfcddc035efbcd4f8ac9098313f2406
+    - name: bg_hasole_01
+      pathPrefix: Backgrounds/MainBackground
+      guid: 0564ee31b0a588347b719e3cb6195f49
+    - name: bg_hasole_02
+      pathPrefix: Backgrounds/MainBackground
+      guid: 581a0c3c68311a443b99c275f532fddc
+    - name: bg_hasole_03
+      pathPrefix: Backgrounds/MainBackground
+      guid: b10ccb01f9954344fa49211b05a269de
+    - name: bg_rightbringer_01
+      pathPrefix: Backgrounds/MainBackground
+      guid: c436f17640445344a871218eade81b91
   - Id: Unlockables
     Resources: []
   - Id: Audio
@@ -1044,6 +1215,81 @@ MonoBehaviour:
     Resources: []
   - Id: Characters/9f471a03-df95-4385-b9dd-00377a1464ad
     Resources:
-    - name: 
-      pathPrefix: Characters/uni_00
-      guid: 
+    - name: uni_00
+      pathPrefix: Characters
+      guid: 01e6a422fd3a75f4bbfb16867da6d678
+  - Id: Characters/735edf15-068f-4432-b878-ceb2fa5a8257
+    Resources:
+    - name: odette_00
+      pathPrefix: Characters
+      guid: 063225faa980648419adc8d28248d0af
+  - Id: Characters/401e1f1b-0565-49ec-84a2-66e4f4b253c1
+    Resources:
+    - name: laplace_00
+      pathPrefix: Characters
+      guid: 71e9159a7240e2c4a811cf04e098dd8b
+  - Id: Characters/03efa3a9-9f4f-47f8-8a0b-94525b6dfbb6
+    Resources:
+    - name: marie_00
+      pathPrefix: Characters
+      guid: c01189304feb4284b99688eb15d7a4d7
+  - Id: Characters/f36fee46-6adc-4ff8-9b91-ab28e888ed4f
+    Resources:
+    - name: blin_00
+      pathPrefix: Characters
+      guid: f8a8f136f9f2c3e41bfac00cfe24ae82
+  - Id: Characters/da887255-4462-4a09-afa7-1ef10016dbf4
+    Resources:
+    - name: alice_00
+      pathPrefix: Characters
+      guid: 7a512ea30eef16446833d2d016cbf02e
+  - Id: Characters/9e1bedf3-7084-457d-9153-ad4f5c78b0d9
+    Resources:
+    - name: asna_00
+      pathPrefix: Characters
+      guid: 666cacdf07569064fae5d75e9823222a
+  - Id: Characters/2248db6d-f632-45eb-a303-0a73713dcbbe
+    Resources:
+    - name: cley_00
+      pathPrefix: Characters
+      guid: c906d757e64442643a74f5c80cf52f44
+  - Id: Characters/c4298a0f-2063-4b8f-9bd0-b616d124f511
+    Resources:
+    - name: jeacline_00
+      pathPrefix: Characters
+      guid: 15db89af570d8f24ab9dc30aa1490825
+  - Id: Characters/c0dd0b68-63b7-4bcf-adb2-3d87c35a3f8b
+    Resources:
+    - name: kara_00
+      pathPrefix: Characters
+      guid: f4a356dfa5a3140489f97b9983fc67ac
+  - Id: Characters/46ceac0a-575d-4696-ab64-22a659480d7a
+    Resources:
+    - name: may_00
+      pathPrefix: Characters
+      guid: 887d4c2a5ce4abb48b95070cbddab801
+  - Id: Characters/47dd2345-3d64-434b-9651-17d00113ee77
+    Resources:
+    - name: maya_00
+      pathPrefix: Characters
+      guid: ad3c5505442117249a57d5d146f06764
+  - Id: Characters/1f84c30d-8436-4447-99fd-1e41c45aa0dd
+    Resources:
+    - name: philia_00
+      pathPrefix: Characters
+      guid: 99dbbdc076fc135498003192804da833
+  - Id: Characters/5dd17005-2829-4f36-8005-02f70ab7d571
+    Resources:
+    - name: ridia_00
+      pathPrefix: Characters
+      guid: 9fada380c24e1ce49a6f1a78831bc158
+  - Id: Characters/bedad115-cf1e-424f-9bd4-57a00f0588c7
+    Resources:
+    - name: vane_00
+      pathPrefix: Characters
+      guid: ccf7bf98fb3db6a49be07712e55c4f6c
+  - Id: Characters/d81c8129-6216-41fc-addc-6602d39db5e2
+    Resources:
+    - name: seira_00
+      pathPrefix: Characters
+      guid: 3a413678f70313844aba1212a77529b8

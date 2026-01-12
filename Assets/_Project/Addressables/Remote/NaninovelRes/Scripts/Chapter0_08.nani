@@ -1,0 +1,115 @@
+; 신넘버: Chapter0_08 | 구성: 나니노벨 다이얼로그 | 분량: 2분 내외 / 30라인 | 키포인트: 클레이의 비밀 떡밥/사건 발단 암시
+
+
+
+@back bg_brokenship_03 
+@camera offset:0 zoom:0.1 time:0.2
+@char uni_00.Talk pos:30,-240 scale:1.38
+
+uni_00: 허억…. 진짜 이번엔 죽는줄 알았어.
+
+@camera offset:2 zoom:0.1 time:0.2
+@char philia_00.Talk pos:60,-235 scale:1.38
+
+philia_00: 뭐라고 하고 싶지만, 이번만은 유니의 말에 동감입니다.
+
+@camera offset:1 zoom:0.1 time:0.2
+@char atresia_00.Talk pos:90,-235 scale:1.38
+@spawn ShakeCharacter params:atresia_00
+atresia_00: 혈흔이 이쪽으로 이어지고 있어요. 어서 따라가봐요!
+; @sfx sfx_footsteps volume:0.8
+
+@hideChars
+@hideUI
+@hidePrinter Dialogue
+
+@back bg_black_01 time:1.2 transition:Crossfade
+@wait 2.0
+
+@spawn cbg_00_04
+@showPrinter
+@showUI
+
+Narrator: 혈흔의 흔적을 따라가 도착한 지휘실엔 어딘가 매혹적인 분위기를 품기는 소녀가 그곳에 자리하고 있었다.
+
+@back bg_rightbringer_01
+@despawn cbg_00_04
+
+
+@char atresia_00.Talk pos:70,-235 scale:1.38
+atresia_00: 클레이…! 무사했군요. 다행이에요.
+
+Narrator: 자신을 부르자 현실감각이 돌아온듯 깜짝 놀라며 ‘클레이’라 불린 소녀는 일행들을 뒤돌아 본다.
+
+@char cley_00.Talk pos:45,-235,1 scale:1.38
+cley_00: 아트레시아…
+
+@char uni_00.Talk pos:20,-240,-1 scale:1.38
+; @char cley_00.Talk pos:45,-235 scale:1.38
+uni_00: 나도 있다구~ 근데 뭘 보고 있었던 거야?
+
+Narrator: 클레이는 아무것도 아니라는듯. 단말에 연결되 있었던 물체를 제거한 후 자신의 품속으로 집어넣는다.
+
+
+cley_00: 아무것도 아니에요.
+
+uni_00: 뭔데, 뭔데? 치사하게 레이만 재밌는거 봤구나!
+
+@char philia_00.Talk pos:100,-235 scale:1.38
+philia_00: 유니, 그만해요. 클레이가 곤혹스러워 하고 있지 않습니까?
+
+@spawn ShakeCharacter params:uni_00
+;캐릭터 쉐이크 효과음
+uni_00: 치잇.. 필리는 맨날 나한테만 뭐라고 한다니까?!
+
+@camera offset:1 zoom:0.2 time:0.2
+Narrator: 그제서야 클레이의 시선이 %player%를 향한다. 고심하는 표정이다.
+Narrator: 그 시선은 '아트레시아'처럼 당황하지도, '유니'처럼 들뜨지도, '필리아'처럼 재단하지도 않는다. 그저… '쓸쓸함'이 담긴 고요한 시선이었다.
+
+cley_00: …아니, 이건…….
+
+@camera offset:0 zoom:0 time:0.1
+System: 라이트 브링어 자폭 시퀀스 작동 종료. 함선 내 피해가 복구되어 시퀀스를 종료합니다.
+
+atresia_00: 어? 수리 드론이 함선에 복구에 성공했나 봐요.
+
+uni_00: 그럼 우리 이제 돌아갈 수 있는거야?!
+philia_00: 무사히 해결되서 다행입니다.
+
+Narrator: 모두가 다소 들떠 있는 사이. 클레이는 무언가 결정한 듯 %player%에게 다가온다.
+
+cley_00: 저기…. 관측자님 나중에 따로 드릴 말씀이…..
+
+
+@choice "\" 미안하지만, 난 당신이 누군지 몰라, 기억이 온전치 못한 상태라…\""
+@stop
+
+cley_00: 그게 무슨…
+atresia_00: 지휘관님은 현재 충격으로 기억을 잃은 상태에요.
+atresia_00: 그래서 서둘러 클레이를 찾고 있었어요. 당신은 실력있는 '군의관'이기도 하니까.
+
+Narrator: 당혹스러운 표정과는 반대로, 클레이는 %player%의 눈동자, 목의 림프, 손목의 맥박을 꼼꼼히 살핀다.
+그녀의 손길은 '전문가'의 것이다.
+
+uni_00: 레이~ 지휘관은 좀 어떤 것 같아? 역시 같은 충격을 줘야 하는걸까..?
+
+Narrator: 유니의 말을 가볍게 무시하며, 클레이는 진단을 마친다.
+
+@camera offset:1 zoom:0.2 time:0.2
+
+cley_00: 후… 지금 여기에 있는 설비만으로는 정확한 진단이 불가능해요. 얼른 엘피스로 귀환해 정확한 진찰을 할 것을 권고합니다.
+
+@camera offset:0 zoom:0.2 time:0.2
+uni_00: 그럼 정해졌네. 다시 돌아가보자고! 우리들의 제 2의 고향 '엘피스'로!
+@camera offset:0 zoom:0 time:0.2
+
+; Chapter 0. 여명 종료 → Chapter0 클리어/Chapter1 입장 연출
+
+@back bg_black_01 time:1.5 transition:Crossfade
+;신전환 효과음
+@hideUI
+@hidePrinter Dialogue
+@hideChars
+@skip false
+
+@end

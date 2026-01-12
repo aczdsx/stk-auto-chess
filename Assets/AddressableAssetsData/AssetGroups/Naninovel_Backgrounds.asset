@@ -15,14 +15,32 @@ MonoBehaviour:
   m_GroupName: Naninovel_Backgrounds
   m_GUID: 5634f6a3c17a84dd2bef12a64072cdd3
   m_SerializeEntries:
+  - m_GUID: 0564ee31b0a588347b719e3cb6195f49
+    m_Address: Naninovel/Backgrounds/bg_hasole_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 32078a69862bdf44fa857d72a6aff90e
     m_Address: Naninovel/Backgrounds/bg_ruins_04
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48c7a90be04cfb74f8ec675cf4eb7784
+    m_Address: Naninovel/Backgrounds/bg_black_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 48c9391c234ac6246a17e584f5890e4f
     m_Address: Naninovel/Backgrounds/bg_climax_battle_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 581a0c3c68311a443b99c275f532fddc
+    m_Address: Naninovel/Backgrounds/bg_hasole_02
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -69,8 +87,38 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab1fb13c71fe2b84e9a3590b37a05075
+    m_Address: Naninovel/Backgrounds/bg_abandoned_hospital_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: adfcddc035efbcd4f8ac9098313f2406
+    m_Address: Naninovel/Backgrounds/bg_climax_battle_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b10ccb01f9954344fa49211b05a269de
+    m_Address: Naninovel/Backgrounds/bg_hasole_03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b2a770babc5d3b04aa66457001f0fd3a
+    m_Address: Naninovel/Backgrounds/bg_abandoned_hospital_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: be9cf0d4428c9154b8325ca8e400f8a1
     m_Address: Naninovel/Backgrounds/bg_abandoned_hospital_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c436f17640445344a871218eade81b91
+    m_Address: Naninovel/Backgrounds/bg_rightbringer_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -111,8 +159,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e2ea718651f254944bdcd828f213b503
+    m_Address: Naninovel/Backgrounds/bg_brokenship_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e6b73c59482faa04da12319a04df9b4c
     m_Address: Naninovel/Backgrounds/bg_hubble_03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f3f13649d10e9664c9012328e3a6b2c9
+    m_Address: Naninovel/Backgrounds/bg_brokenship_02
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
