@@ -115,7 +115,7 @@ NetManager.Instance.Startup();
 // 캐릭터 목록 가져오기
 var response = await NetManager.Instance.Character.ListAsync();
 
-if (response.Status.Code == 0)
+if (response.IsSuccess)
 {
     // 로컬 데이터 갱신
     var characterModel = ServerDataManager.Instance.GetData<CharacterModel>(CharacterModel.CATEGORY_KEY);
@@ -168,7 +168,7 @@ bool hasEnough = walletBridge.HasEnoughCurrency(1, 1000);
 ```csharp
 // 캐릭터 레벨업
 var response = await NetManager.Instance.Character.LevelUpAsync(instanceId);
-if (response.Status.Code == 0)
+if (response.IsSuccess)
 {
     // 로컬 데이터 갱신
     var characterModel = ServerDataManager.Instance.GetData<CharacterModel>(CharacterModel.CATEGORY_KEY);
@@ -318,7 +318,7 @@ public class MyDataBridge
 var response = await NetManager.Instance.Character.LevelUpAsync(instanceId);
 
 // 2. 에러 체크
-if (response.Status.Code != 0)
+if (!response.IsSuccess)
 {
     Debug.LogError($"레벨업 실패: {response.Status.Message}");
     return;
@@ -372,7 +372,7 @@ characterBridge.GetFilteredCharacters(filteredCharacters, character =>
 2. **Linq 지양**: for문과 Dictionary 사용
 3. **메모리 고려**: 불필요한 할당 최소화
 4. **이벤트 구독 해제**: Dispose() 호출 필수
-5. **서버 응답 체크**: Status.Code == 0 확인
+5. **서버 응답 체크**: IsSuccess 확인
 6. **로컬 데이터 갱신**: 서버 응답 후 반드시 로컬 데이터 업데이트
 
 ---

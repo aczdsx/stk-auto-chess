@@ -18,7 +18,7 @@ namespace CookApps.AutoBattler
 
         public void SetUIItem(ItemId itemId, int amount)
         {
-            if (itemId.IsCharacterPieceId())
+            if (itemId.IsCharacterPiece())
             {
                 itemId.GetCharacterIndex(out var charIndex);
                 var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
@@ -35,7 +35,7 @@ namespace CookApps.AutoBattler
 
         public void SetUIItem(ItemId itemId, int amount, bool isEnough)
         {
-            if (itemId.IsCharacterPieceId())
+            if (itemId.IsCharacterPiece())
             {
                 itemId.GetCharacterIndex(out var charIndex);
                 var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);

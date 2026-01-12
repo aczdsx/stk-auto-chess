@@ -24,11 +24,11 @@ namespace CookApps.AutoBattler
         {
             ClearSlot();
 
-            if (reward.Id.IsCharacterId())
+            if (reward.Id.IsCharacter())
             {
                 SetRewardCharacter(reward);
             }
-            else if (reward.Id.IsCharacterPieceId())
+            else if (reward.Id.IsCharacterPiece())
             {
                 SetRewardPiece(reward);
             }
@@ -58,7 +58,7 @@ namespace CookApps.AutoBattler
             var specCharacterData = SpecDataManager.Instance.GetCharacterData(rewardPiece.Id);
             if (specCharacterData == null) return;
 
-            var userCharacterData = UserDataManager.Instance.GetUserCharacter(specCharacterData.character_id);
+            var userCharacterData = ServerDataManager.Instance.Character.GetCharacter(specCharacterData.character_id);
             if (userCharacterData == null) return;
 
             _rewardCharacterBGObject.SetActive(true);

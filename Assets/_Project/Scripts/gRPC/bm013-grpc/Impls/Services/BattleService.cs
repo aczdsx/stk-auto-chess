@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
             );
 
             // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.Status.Code == 0)
+            if (resp != null && resp.IsSuccess)
             {
                 ServerDataManager.Instance.Battle.SetCurrentChapter(resp.Chapter, resp.StageList);
             }
@@ -40,7 +40,7 @@ namespace CookApps.AutoBattler
             );
 
             // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.Status.Code == 0)
+            if (resp != null && resp.IsSuccess)
             {
                 ServerDataManager.Instance.Battle.SetChapters(
                     resp.ChapterList
@@ -62,7 +62,7 @@ namespace CookApps.AutoBattler
             );
 
             // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.Status.Code == 0)
+            if (resp != null && resp.IsSuccess)
             {
                 ServerDataManager.Instance.Battle.SetStages(resp.StageList);
             }
@@ -95,7 +95,7 @@ namespace CookApps.AutoBattler
             );
 
             // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.Status.Code == 0)
+            if (resp != null && resp.IsSuccess)
             {
                 // 스테이지 진행 정보 업데이트
                 if (resp.StageProgress != null)

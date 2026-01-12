@@ -1,0 +1,176 @@
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using R3;
+using Tech.Hive.V1;
+using UnityEngine;
+
+namespace CookApps.AutoBattler
+{
+    /// <summary>
+    /// 덱 데이터 브릿지
+    /// ServerDataManager와 UI 사이의 중간 레이어
+    /// </summary>
+    public class DeckDataBridge
+    {
+        private DeckModel Model;
+
+        // Public Observable 노출
+        public Observable<Unit> OnChanged;
+        public Observable<DeckData> OnDeckAdded;
+        public Observable<DeckData> OnDeckUpdated;
+        public Observable<uint> OnDeckRemoved;
+
+        public DeckDataBridge()
+        {
+            Model = ServerDataManager.Instance.Deck;
+            OnChanged = Model.OnChanged;
+            OnDeckAdded = Model.OnDeckAdded;
+            OnDeckUpdated = Model.OnDeckUpdated;
+            OnDeckRemoved = Model.OnDeckRemoved;
+        }
+
+        #region 덱 조회
+
+        /// <summary>
+        /// 덱 가져오기
+        /// </summary>
+        public DeckData GetDeck(uint deckSlotId)
+        {
+            return Model?.GetDeck(deckSlotId);
+        }
+
+        /// <summary>
+        /// 모든 덱 가져오기
+        /// </summary>
+        public void GetAllDecks(List<DeckData> output)
+        {
+            Model?.GetAllDecks(output);
+        }
+
+        /// <summary>
+        /// 덱 개수
+        /// </summary>
+        public int DeckCount => Model?.DeckCount ?? 0;
+
+        /// <summary>
+        /// 덱 존재 여부
+        /// </summary>
+        public bool HasDeck(uint deckSlotId)
+        {
+            return Model?.HasDeck(deckSlotId) ?? false;
+        }
+
+        /// <summary>
+        /// 특정 덱의 캐릭터 배치 목록 가져오기
+        /// </summary>
+        public void GetCharacterPlacements(uint deckSlotId, List<DeckCharacterPlacement> output)
+        {
+            Model?.GetCharacterPlacements(deckSlotId, output);
+        }
+
+        /// <summary>
+        /// 특정 덱의 전술 배치 목록 가져오기
+        /// </summary>
+        public void GetTacticPlacements(uint deckSlotId, List<DeckTacticPlacement> output)
+        {
+            Model?.GetTacticPlacements(deckSlotId, output);
+        }
+
+        #endregion
+
+        #region 서버 API 호출
+
+        /// <summary>
+        /// 덱 목록 조회 (서버 API 호출)
+        /// </summary>
+        public async UniTask<bool> LoadDecksAsync()
+        {
+            try
+            {
+                var response = await NetManager.Instance.Deck.ListAsync();
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Failed to load decks: {e.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 덱 저장 (서버 API 호출)
+        /// </summary>
+        public async UniTask<bool> SaveDeckAsync(
+            uint deckSlotId,
+            string deckName,
+            IEnumerable<DeckCharacterPlacement> characterPlacements,
+            IEnumerable<DeckTacticPlacement> tacticPlacements = null)
+        {
+            try
+            {
+                var response = await NetManager.Instance.Deck.SaveAsync(
+                    deckSlotId,
+                    deckName,
+                    characterPlacements,
+                    tacticPlacements
+                );
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Failed to save deck: {e.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 덱 삭제 (서버 API 호출)
+        /// </summary>
+        public async UniTask<bool> DeleteDeckAsync(uint deckSlotId)
+        {
+            try
+            {
+                var response = await NetManager.Instance.Deck.DeleteAsync(deckSlotId);
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Failed to delete deck: {e.Message}");
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region UserDataManager 호환 메서드 (마이그레이션용)
+
+        /// <summary>
+        /// 배틀 덱 목록 가져오기 (UserDataManager 호환)
+        /// </summary>
+        public List<DeckCharacterPlacement> GetBattleDeckList(uint deckSlotId)
+        {
+            var result = new List<DeckCharacterPlacement>();
+            GetCharacterPlacements(deckSlotId, result);
+            return result;
+        }
+
+        /// <summary>
+        /// 배틀 덱 목록 가져오기 (InGameType 기반, UserDataManager 호환)
+        /// TODO: InGameType에 따른 덱 슬롯 매핑 필요
+        /// </summary>
+        public List<DeckCharacterPlacement> GetBattleDeckListByInGameType(InGameType inGameType)
+        {
+            // TODO: InGameType에 따른 덱 슬롯 ID 결정 로직
+            uint deckSlotId = inGameType switch
+            {
+                InGameType.STAGE => 1,
+                InGameType.TRIAL => 2,
+                _ => 1
+            };
+
+            return GetBattleDeckList(deckSlotId);
+        }
+
+        #endregion
+    }
+}

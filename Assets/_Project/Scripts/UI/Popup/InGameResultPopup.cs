@@ -338,8 +338,8 @@ namespace CookApps.AutoBattler
         private void SendStageEndAppEvent(string result, string reason)
         {
             // 앱 이벤트 처리
-            var myDeck = UserDataManager.Instance.GetUserCharacterBattleDeckList(InGameType.STAGE);
-            int myDeckPower = UserDataManager.Instance.GetDeckBattlePower(myDeck);
+            var myDeck = ServerDataManager.Instance.Deck.GetBattleDeckListByInGameType(InGameType.STAGE);
+            int myDeckPower = ServerDataManager.Instance.Deck.GetDeckBattlePower(myDeck);
             int enemyPower = (int)InGameObjectManager.Instance.GetStartingEnemiesAttr();
 
             int starNum1 = _isVictory ? 1 : 0;

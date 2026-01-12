@@ -501,17 +501,19 @@ namespace CookApps.AutoBattler
         private void UpdateReddotState()
         {
             // 캐릭터 버튼 레드닷
+            // TODO: CharacterPiece 마이그레이션 필요
             bool isReadyNewCharacter = false;
-            var notHaveUserCharacterList = UserDataManager.Instance.GetAllNotHaveUserCharacterList();
-            foreach (var userCharacter in notHaveUserCharacterList)
-            {
-                var specCharacterData = SpecDataManager.Instance.GetCharacterData(userCharacter.CharacterId);
-                if (userCharacter.CharacterPiece >= specCharacterData.need_piece)
-                {
-                    isReadyNewCharacter = true;
-                    break;
-                }
-            }
+            // var notHaveUserCharacterList = UserDataManager.Instance.GetAllNotHaveUserCharacterList();
+            // foreach (var userCharacter in notHaveUserCharacterList)
+            // {
+            //     var specCharacterData = SpecDataManager.Instance.GetCharacterData(userCharacter.CharacterId);
+            //     int characterPiece = 0; // ServerDataManager.Instance.Inventory.GetCharacterPiece(specCharacterData.character_id);
+            //     if (characterPiece >= specCharacterData.need_piece)
+            //     {
+            //         isReadyNewCharacter = true;
+            //         break;
+            //     }
+            // }
 
             // _characterReddotObject.SetActive(isReadyNewCharacter);
 

@@ -61,7 +61,7 @@ namespace CookApps.AutoBattler.Editor
             sb.AppendLine("    /// 각종 ID에 쉽게 접근하기 위한 정적 클래스");
             sb.AppendLine("    /// 사용 예: IdMap.Item.Gold, IdMap.ElpisBuild.CommandCenter");
             sb.AppendLine("    /// </summary>");
-            sb.AppendLine("    public static class IdMap");
+            sb.AppendLine("    public static partial class IdMap");
             sb.AppendLine("    {");
 
             // Item 중첩 클래스 생성
@@ -73,6 +73,11 @@ namespace CookApps.AutoBattler.Editor
             GenerateElpisBuildClass(sb, data);
 
             sb.AppendLine("    }");
+            sb.AppendLine();
+
+            // ItemId Extension Methods 생성
+            GenerateItemIdExtensions(sb, data);
+
             sb.AppendLine("}");
 
             // 파일 저장
@@ -126,7 +131,7 @@ namespace CookApps.AutoBattler.Editor
                 }
             }
 
-            sb.AppendLine("        public static class Item");
+            sb.AppendLine("        public static partial class Item");
             sb.AppendLine("        {");
 
             // Currency 섹션
@@ -160,6 +165,116 @@ namespace CookApps.AutoBattler.Editor
             }
 
             sb.AppendLine("        }");
+        }
+
+        private static void GenerateItemIdExtensions(StringBuilder sb, Dictionary<string, object> data)
+        {
+            var items = new List<(string itemCode, int itemId, string itemType)>();
+
+            // ItemCurrencyTable 처리
+            if (data.ContainsKey("ItemCurrencyTable"))
+            {
+                var table = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ItemCurrencyData>>(data["ItemCurrencyTable"].ToString());
+                foreach (var item in table)
+                {
+                    items.Add((item.item_code, item.currency_id, "Currency"));
+                }
+            }
+
+            // ItemConsumableTable 처리
+            if (data.ContainsKey("ItemConsumableTable"))
+            {
+                var table = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ItemConsumableData>>(data["ItemConsumableTable"].ToString());
+                foreach (var item in table)
+                {
+                    items.Add((item.item_code, item.item_id, "Consumable"));
+                }
+            }
+
+            sb.AppendLine("    /// <summary>");
+            sb.AppendLine("    /// ItemId 확장 메서드");
+            sb.AppendLine("    /// </summary>");
+            sb.AppendLine("    public static class ItemIdExtensions");
+            sb.AppendLine("    {");
+
+            // IsCurrency 함수 생성
+            var currencyIds = items.Where(x => x.itemType == "Currency").Select(x => x.itemId).ToList();
+            GenerateExtensionMethod(sb, "IsCurrency", currencyIds);
+
+            // IsConsumable 함수 생성
+            var consumableIds = items.Where(x => x.itemType == "Consumable").Select(x => x.itemId).ToList();
+            GenerateExtensionMethod(sb, "IsConsumable", consumableIds);
+
+            // ItemMaterialTable에서 모든 정보 추출
+            var materialIds = new List<int>();
+            var characterIds = new List<int>();
+            var characterPieceIds = new List<int>();
+            if (data.ContainsKey("ItemMaterialTable"))
+            {
+                var table = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ItemMaterialData>>(data["ItemMaterialTable"].ToString());
+                materialIds = table.Select(x => x.item_id).ToList();
+                characterIds = table.Where(x => x.material_type == (int)MaterialType.CHARACTER).Select(x => x.item_id).ToList();
+                characterPieceIds = table.Where(x => x.material_type == (int)MaterialType.CHARACTER_PIECE).Select(x => x.item_id).ToList();
+            }
+
+            // IsMaterial 함수 생성
+            GenerateExtensionMethod(sb, "IsMaterial", materialIds);
+
+            // IsCharacter 함수 생성
+            GenerateExtensionMethod(sb, "IsCharacter", characterIds);
+
+            // IsCharacterPiece 함수 생성
+            GenerateExtensionMethod(sb, "IsCharacterPiece", characterPieceIds);
+
+            // GetCharacterIndex 함수 생성
+            GenerateGetCharacterIndexMethod(sb, characterIds, characterPieceIds);
+
+            sb.AppendLine("    }");
+        }
+
+        private static void GenerateGetCharacterIndexMethod(StringBuilder sb, List<int> characterIds, List<int> characterPieceIds)
+        {
+            sb.AppendLine("        public static bool GetCharacterIndex(this ItemId id, out int charIndex)");
+            sb.AppendLine("        {");
+            sb.AppendLine("            charIndex = -1;");
+            sb.AppendLine("            if (id.IsCharacter())");
+            sb.AppendLine("            {");
+            sb.AppendLine("                charIndex = id.Value;");
+            sb.AppendLine("                return true;");
+            sb.AppendLine("            }");
+            sb.AppendLine("            if (id.IsCharacterPiece())");
+            sb.AppendLine("            {");
+            sb.AppendLine("                charIndex = id.Value % 10000;");
+            sb.AppendLine("                return true;");
+            sb.AppendLine("            }");
+            sb.AppendLine("            return false;");
+            sb.AppendLine("        }");
+            sb.AppendLine();
+        }
+
+        private static void GenerateExtensionMethod(StringBuilder sb, string methodName, List<int> ids)
+        {
+            sb.AppendLine($"        public static bool {methodName}(this ItemId id)");
+            sb.AppendLine("        {");
+
+            if (ids.Count == 0)
+            {
+                sb.AppendLine("            return false;");
+            }
+            else
+            {
+                sb.Append("            return ");
+                for (int i = 0; i < ids.Count; i++)
+                {
+                    if (i > 0)
+                        sb.Append(" || ");
+                    sb.Append($"id == {ids[i]}");
+                }
+                sb.AppendLine(";");
+            }
+
+            sb.AppendLine("        }");
+            sb.AppendLine();
         }
 
         private static void GenerateElpisBuildClass(StringBuilder sb, Dictionary<string, object> data)
@@ -257,6 +372,14 @@ namespace CookApps.AutoBattler.Editor
         {
             public int item_id;
             public string item_code;
+            public int material_type;
+        }
+
+        private enum MaterialType
+        {
+            NONE = 0,
+            CHARACTER = 1,
+            CHARACTER_PIECE = 2,
         }
 
         private class ElpisBuildData

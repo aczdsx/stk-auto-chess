@@ -1170,7 +1170,7 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < CharacterInfo.All.Count; i++)
             {
                 var character = CharacterInfo.All[i];
-                if (character.character_id == characterID)
+                if (character.index == characterID)
                     return character;
             }
 

@@ -25,11 +25,24 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 특정 캐릭터 정보 가져오기
         /// </summary>
-        public async UniTask<CharacterGetResponse> GetCharacterAsync(string instanceId, CancellationToken cancellationToken = default)
+        public async UniTask<CharacterGetResponse> GetCharacterAsync(uint characterId, CancellationToken cancellationToken = default)
         {
             CharacterGetResponse resp = await ExecuteAsync(
                 ServiceClient.GetAsync,
-                new CharacterGetRequest { InstanceId = instanceId },
+                new CharacterGetRequest { CharacterId = characterId },
+                cancellationToken: cancellationToken
+            );
+            return resp;
+        }
+
+        /// <summary>
+        /// 캐릭터 조각 교환을 통한 캐릭터 생성
+        /// </summary>
+        public async UniTask<CharacterCreateResponse> CreateAsync(uint characterId, CancellationToken cancellationToken = default)
+        {
+            CharacterCreateResponse resp = await ExecuteAsync(
+                ServiceClient.CreateAsync,
+                new CharacterCreateRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
             );
             return resp;
@@ -38,11 +51,11 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 캐릭터 레벨업
         /// </summary>
-        public async UniTask<CharacterLevelUpResponse> LevelUpAsync(string instanceId, CancellationToken cancellationToken = default)
+        public async UniTask<CharacterLevelUpResponse> LevelUpAsync(uint characterId, CancellationToken cancellationToken = default)
         {
             CharacterLevelUpResponse resp = await ExecuteAsync(
                 ServiceClient.LevelUpAsync,
-                new CharacterLevelUpRequest { InstanceId = instanceId },
+                new CharacterLevelUpRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
             );
             return resp;
@@ -51,11 +64,11 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 캐릭터 초월
         /// </summary>
-        public async UniTask<CharacterTranscendResponse> TranscendAsync(string instanceId, CancellationToken cancellationToken = default)
+        public async UniTask<CharacterTranscendResponse> TranscendAsync(uint characterId, CancellationToken cancellationToken = default)
         {
             CharacterTranscendResponse resp = await ExecuteAsync(
                 ServiceClient.TranscendAsync,
-                new CharacterTranscendRequest { InstanceId = instanceId },
+                new CharacterTranscendRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
             );
             return resp;

@@ -72,7 +72,7 @@ namespace CookApps.AutoBattler
             // NetManager를 통해 캐릭터 목록 가져오기
             var response = await NetManager.Instance.Character.ListAsync();
 
-            if (response != null && response.Status.Code == 0)
+            if (response != null && response.IsSuccess)
             {
                 // 서버 응답으로 로컬 데이터 갱신
                 var characterModel = ServerDataManager.Instance.Character;
@@ -141,7 +141,7 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < characters.Count && i < 3; i++)
             {
                 var character = characters[i];
-                Debug.Log($"  [{i}] {character.InstanceId} - Lv.{character.Level}");
+                Debug.Log($"  [{i}] {character.CharacterId} - Lv.{character.Level}");
             }
         }
 
@@ -181,12 +181,12 @@ namespace CookApps.AutoBattler
             if (characters.Count > 0)
             {
                 var targetCharacter = characters[0];
-                Debug.Log($"레벨업 대상: {targetCharacter.InstanceId} (현재 Lv.{targetCharacter.Level})");
+                Debug.Log($"레벨업 대상: {targetCharacter.CharacterId} (현재 Lv.{targetCharacter.Level})");
 
                 // NetManager를 통해 레벨업 요청
-                var response = await NetManager.Instance.Character.LevelUpAsync(targetCharacter.InstanceId);
+                var response = await NetManager.Instance.Character.LevelUpAsync(targetCharacter.CharacterId);
 
-                if (response != null && response.Status.Code == 0)
+                if (response != null && response.IsSuccess)
                 {
                     Debug.Log($"✓ 레벨업 성공! 새 레벨: {response.Character.Level}");
 
@@ -257,7 +257,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         private void OnCharacterUpdated(CharacterData character)
         {
-            Debug.Log($"[UI Event] 캐릭터 업데이트: {character.InstanceId} - Lv.{character.Level}");
+            Debug.Log($"[UI Event] 캐릭터 업데이트: {character.CharacterId} - Lv.{character.Level}");
             // 해당 캐릭터 UI만 갱신
         }
 

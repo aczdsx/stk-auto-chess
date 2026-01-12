@@ -29,61 +29,6 @@ namespace CookApps.AutoBattler
         // 비교 연산자
         public static bool operator ==(ItemId left, ItemId right) => left.Equals(right);
         public static bool operator !=(ItemId left, ItemId right) => !left.Equals(right);
-        
-        /// 캐릭터 ID인지 확인 (범위: 1000000 ~ 1999999)
-        /// </summary>
-        public bool IsCharacterId()
-        {
-            int value = Value;
-            return value >= 1000000 && value < 2000000;
-        }
-
-        /// <summary>
-        /// 캐릭터 조각 ID인지 확인 (범위: 10xxxxx 형태)
-        /// </summary>
-        public bool IsCharacterPieceId()
-        {
-            int value = Value;
-            return value >= 1000000 && value < 2000000;
-        }
-
-        /// <summary>
-        /// 재화(Currency) ID인지 확인 (범위: 100000 ~ 299999)
-        /// </summary>
-        public bool IsCurrencyId()
-        {
-            int value = Value;
-            return value >= 100000 && value < 300000;
-        }
-
-        /// <summary>
-        /// 소비 아이템 ID인지 확인 (범위: 300000 ~ 899999)
-        /// </summary>
-        public bool IsConsumableId()
-        {
-            int value = Value;
-            return value >= 300000 && value < 900000;
-        }
-
-        /// <summary>
-        /// 재료 아이템 ID인지 확인 (범위: 900000 ~ 1999999)
-        /// </summary>
-        public bool IsMaterialId()
-        {
-            int value = Value;
-            return value >= 900000 && value < 2000000;
-        }
-        
-        public bool GetCharacterIndex(out int charIndex)
-        {
-            charIndex = -1;
-            if (IsCharacterId() || IsCharacterPieceId())
-            {
-                charIndex = Value % 10000;
-                return true;
-            }
-            return false;
-        }
     }
 
     /// <summary>

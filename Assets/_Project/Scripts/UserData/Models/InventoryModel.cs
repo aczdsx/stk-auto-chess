@@ -74,6 +74,17 @@ namespace CookApps.AutoBattler
             for (var i = 0; i < deltas.Count; i++)
             {
                 var delta = deltas[i];
+                ItemId itemId = (int)delta.ItemId;
+
+                // 캐릭터인 경우 CharacterModel에 추가
+                if (itemId.IsCharacter())
+                {
+                    itemId.GetCharacterIndex(out var charIndex);
+                    ServerDataManager.Instance.Character.AddCharacterById((uint)charIndex);
+                    continue;
+                }
+
+                // 일반 통화 처리
                 var oldAmount = _currencies.TryGetValue(delta.ItemId, out var current) ? current : 0;
                 _currencies[delta.ItemId] = delta.After;
 

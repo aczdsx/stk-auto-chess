@@ -55,11 +55,11 @@ namespace CookApps.AutoBattler
 
         public void SetRewardSlot(RewardItem reward)
         {
-            if (reward.Id.IsCharacterId())
+            if (reward.Id.IsCharacter())
             {
                 SetRewardCharacter(reward);
             }
-            else if (reward.Id.IsCharacterPieceId())
+            else if (reward.Id.IsCharacterPiece())
             {
                 SetRewardPiece(reward);
             }
@@ -94,19 +94,20 @@ namespace CookApps.AutoBattler
             ClearSlot();
 
             _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardPiece.Id);
-            if (_specItemData.GetItemId().IsCharacterPieceId())
+            if (_specItemData.GetItemId().IsCharacterPiece())
                 return;
 
             _rewardId = rewardPiece.Id;
-            _specItemData.GetItemId().GetCharacterIndex(out var charIndex);
-            var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
+            var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(_specItemData.GetItemId());
             if (specCharacterData == null) return;
-            var userCharacterData = UserDataManager.Instance.GetUserCharacter(specCharacterData.character_id);
+            var userCharacterData = ServerDataManager.Instance.Character.GetCharacter(specCharacterData.character_id);
             if (userCharacterData == null) return;
 
             _rewardPieceSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.prefab_id)).Forget();
-            _rewardPieceSliderImage.fillAmount = (float)userCharacterData.CharacterPiece / specCharacterData.need_piece;
-            _rewardPieceCountText.text = $"{userCharacterData.CharacterPiece}/{specCharacterData.need_piece}";
+            // TODO: CharacterPiece는 인벤토리에서 가져와야 함
+            int characterPiece = 0; // ServerDataManager.Instance.Inventory.GetCharacterPiece(specCharacterData.character_id);
+            _rewardPieceSliderImage.fillAmount = (float)characterPiece / specCharacterData.need_piece;
+            _rewardPieceCountText.text = $"{characterPiece}/{specCharacterData.need_piece}";
             
             // 레이어 활성화
             _rewardPieceLayerObject.SetActive(true);

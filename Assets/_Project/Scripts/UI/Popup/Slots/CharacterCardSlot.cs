@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Coffee.UIEffects;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,7 +49,7 @@ namespace CookApps.AutoBattler
 
 
         private CharacterInfo _specCharacterData;
-        private UserCharacter _userCharacterData;
+        private CharacterData _userCharacterData;
 
         private CharacterCollectionPopup _parentCollectionPopup;
 
@@ -76,9 +76,9 @@ namespace CookApps.AutoBattler
             _parentCollectionPopup = _parentPopup;
 
             _specCharacterData = characterData;
-            _userCharacterData = UserDataManager.Instance.GetUserCharacter(_specCharacterData.character_id);
+            _userCharacterData = ServerDataManager.Instance.Character.GetCharacter(_specCharacterData.character_id);
 
-            bool haveCharacter = UserDataManager.Instance.IsHaveCharacter(_specCharacterData.character_id);
+            bool haveCharacter = ServerDataManager.Instance.Character.HasCharacter(_specCharacterData.character_id);
 
             // 기본 데이터 관련 세팅
             string characterPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
@@ -117,12 +117,14 @@ namespace CookApps.AutoBattler
             SetStarObject(_specCharacterData.grade_type, haveCharacter);
 
             // 캐릭터 조각 슬라이더 관련 처리
-            var specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type, _userCharacterData.TranscendenceLevel);
+            var specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type, (int)(_userCharacterData?.TranscendLevel ?? 0));
 
             if (specCharacterTranscendenceData != null)
             {
-                _characterSliderText.text = $"{_userCharacterData.CharacterPiece}/{specCharacterTranscendenceData.piece}";
-                _characterSliderImage.fillAmount = (float)_userCharacterData.CharacterPiece / specCharacterTranscendenceData.piece;
+                // TODO: CharacterPiece는 인벤토리에서 가져와야 함
+                int characterPiece = 0; // ServerDataManager.Instance.Inventory.GetCharacterPiece(_specCharacterData.character_id);
+                _characterSliderText.text = $"{characterPiece}/{specCharacterTranscendenceData.piece}";
+                _characterSliderImage.fillAmount = (float)characterPiece / specCharacterTranscendenceData.piece;
             }
 
             // 캐릭터 보유 여부 관련 처리
@@ -163,25 +165,16 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
+            // TODO: 캐릭터 조각으로 캐릭터 획득 기능 - 서버 API 구현 필요
             // 캐릭터 조각 20개 이상 보유 하여 최초 획득 시 처리
-            if (UserDataManager.Instance.IsHaveCharacter(_userCharacterData.CharacterId) == false)
-            {
-                if (_userCharacterData.CharacterPiece >= _specCharacterData.need_piece)
-                {
-                    // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.CHARACTER, _userCharacterData.CharacterId, 1))
-                    RewardItem newCharacter = new RewardItem(_userCharacterData.CharacterId, 1);
-                    List<RewardItem> rewardList = new List<RewardItem> { newCharacter };
-
-                    SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardList)).Forget();
-
-                    UserDataManager.Instance.AddNewCharacter(_userCharacterData.CharacterId);
-                    UserDataManager.Instance.DecreaseKnightPieceCount(_userCharacterData.CharacterId, _specCharacterData.need_piece);
-
-                    _parentCollectionPopup.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN);
-
-                    return;
-                }
-            }
+            // if (ServerDataManager.Instance.Character.HasCharacter((uint)_specCharacterData.character_id) == false)
+            // {
+            //     int characterPiece = ServerDataManager.Instance.Inventory.GetCharacterPiece(_specCharacterData.character_id);
+            //     if (characterPiece >= _specCharacterData.need_piece)
+            //     {
+            //         // 서버 API 호출 필요
+            //     }
+            // }
 
             // 상세정보창 진입
             _parentCollectionPopup.SelectCharacterCard(_specCharacterData.character_id);

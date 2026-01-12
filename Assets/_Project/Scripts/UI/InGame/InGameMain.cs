@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cookapps.Stkauto.V1;
 using CookApps.BattleSystem;
+using Tech.Hive.V1;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
@@ -52,7 +53,7 @@ namespace CookApps.AutoBattler
     {
         UniTask Initialize(Transform canvasTransform, int id);
         UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data);
-        void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList);
+        void InitReadyStateUI(List<DeckCharacterPlacement> battleDeckList);
         void InitCombatStateUI();
         void RefreshInGameTopUI(bool isCombat);
         void ManagedUpdate(float dt);
@@ -223,7 +224,7 @@ namespace CookApps.AutoBattler
                 guide.SetInGameBottomUIInGuideUI();
         }
 
-        public void InitReadyStateUI(List<UserCharacterBattleDeck> battleDeckList)
+        public void InitReadyStateUI(List<DeckCharacterPlacement> battleDeckList)
         {
             _currentGameStateUI.InitReadyStateUI(battleDeckList);
         }

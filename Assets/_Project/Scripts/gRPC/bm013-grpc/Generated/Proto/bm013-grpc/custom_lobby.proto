@@ -6,6 +6,7 @@ import "base.proto";
 
 import "custom_lobby+player_data.proto";
 import "custom_lobby+event.proto";
+import "custom_common.proto";
 
 service CustomLobbyService {
   /**
@@ -22,11 +23,18 @@ service CustomLobbyService {
    * 이벤트 구독 (request를 주기적으로 날려 ping 처리 해주어야 함)
    */
   rpc SubscribeEvent(stream CustomLobbySubscribeEventRequest) returns (stream CustomLobbySubscribeEventResponse);
+
+  /**
+   * 기타 보상 수령
+   */
+  rpc ClaimOtherReward(CustomLobbyClaimOtherRewardRequest) returns (CustomLobbyClaimOtherRewardResponse);
 }
 
 
 enum CustomLobbyErrorCode {
   CUSTOM_LOBBY_UNSPECIFIED = 0;
+
+  CUSTOM_LOBBY_ERROR_CODE_ALREADY_RECEIVED_REWARD = 10130901; // 이미 보상 받은 경우
 }
 
 message CustomLobbyGetMyPlayerDataRequest {}
@@ -47,4 +55,14 @@ message CustomLobbySubscribeEventRequest {}
 message CustomLobbySubscribeEventResponse {
   ResponseStatus status = 1;
   BM013Event event = 2;
+}
+
+message CustomLobbyClaimOtherRewardRequest {
+  uint32 reward_id = 1;
+}
+
+message CustomLobbyClaimOtherRewardResponse {
+  ResponseStatus status = 1;
+  repeated Reward rewards = 2;
+  repeated CurrencyDelta currency_deltas = 3;
 }

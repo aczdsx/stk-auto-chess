@@ -32,26 +32,27 @@ public class FlowStateLobbyCombat : StateCombatBase
     private async UniTask StartAsync()
     {
         var addCharacterTasks = new List<UniTask<CharacterController>>();
-        var userCharacters = UserDataManager.Instance.GetAllUserCharacterList();
-        
+        var userCharacters = new List<Tech.Hive.V1.CharacterData>();
+        ServerDataManager.Instance.Character.GetAllCharacters(userCharacters);
+
         // seq 기준으로 내림차순 정렬
         userCharacters.Sort((a, b) =>
         {
-            var aData = SpecDataManager.Instance.GetCharacterData(a.CharacterId);
-            var bData = SpecDataManager.Instance.GetCharacterData(b.CharacterId);
-            
-            // GetAllUserCharacterList()에서 이미 필터링되지만 안전을 위해 null 체크
+            var aData = SpecDataManager.Instance.GetCharacterData((int)a.CharacterId);
+            var bData = SpecDataManager.Instance.GetCharacterData((int)b.CharacterId);
+
+            // GetAllCharacters()에서 이미 필터링되지만 안전을 위해 null 체크
             if (aData == null && bData == null) return 0;
             if (aData == null) return 1;
             if (bData == null) return -1;
-            
+
             return bData.seq.CompareTo(aData.seq); // 내림차순
         });
-            
+
         int count = 0;
         foreach (var character in userCharacters)
         {
-            var characterStat = new CharacterStatData(character.CharacterId, character.Level, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
+            var characterStat = new CharacterStatData((int)character.CharacterId, (int)character.Level, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
             if (characterStat.Spec == null)
             {
                 continue;

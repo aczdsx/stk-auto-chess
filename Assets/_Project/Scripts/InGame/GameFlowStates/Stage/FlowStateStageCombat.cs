@@ -81,7 +81,7 @@ public class FlowStateStageCombat : StateCombatBase
     {
         // 서버에 전투 시작 요청
         var response = await NetManager.Instance.Battle.StartAsync((uint)InGameManager.Instance.SpecStage.stage_id);
-        if (response != null && response.Status.Code == 0)
+        if (response != null && response.IsSuccess)
         {
             InGameManager.Instance.BattleSessionId = response.BattleSessionId;
         }
