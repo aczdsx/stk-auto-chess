@@ -10,7 +10,7 @@ namespace CookApps.AutoBattler
     /// 덱 데이터 브릿지
     /// ServerDataManager와 UI 사이의 중간 레이어
     /// </summary>
-    public class DeckDataBridge
+    public class DeckDataBridge : DataBridgeBase
     {
         private DeckModel Model;
 

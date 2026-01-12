@@ -10,12 +10,12 @@ namespace CookApps.AutoBattler
         {
             _dataBridges = new ();
         }
-        
-        static Dictionary<System.Type, Queue<object>> _dataBridges;
-        
-        public static T GetDataBridge<T>() where T : new()
+
+        static Dictionary<System.Type, Queue<DataBridgeBase>> _dataBridges;
+
+        public static T GetDataBridge<T>() where T : DataBridgeBase, new()
         {
-            Queue<object> queue;
+            Queue<DataBridgeBase> queue;
             if (_dataBridges.TryGetValue(typeof(T), out queue))
             {
                 if (queue.Count > 0)
@@ -26,13 +26,15 @@ namespace CookApps.AutoBattler
 
             return new T();
         }
-        
-        public static void ReleaseDataBridge<T>(T dataBridge)
+
+        public static void ReleaseDataBridge<T>(T dataBridge) where T : DataBridgeBase
         {
-            Queue<object> queue;
+            if (dataBridge == null) return;
+
+            Queue<DataBridgeBase> queue;
             if (!_dataBridges.TryGetValue(typeof(T), out queue))
             {
-                queue = new Queue<object>();
+                queue = new Queue<DataBridgeBase>();
                 _dataBridges[typeof(T)] = queue;
             }
 

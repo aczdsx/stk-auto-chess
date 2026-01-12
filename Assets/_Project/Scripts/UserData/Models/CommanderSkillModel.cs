@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using R3;
+using Tech.Hive.V1;
 
 namespace CookApps.AutoBattler
 {
@@ -184,6 +185,62 @@ namespace CookApps.AutoBattler
         /// 보유 스킬 개수
         /// </summary>
         public int OwnedSkillCount => _ownedSkills.Count;
+
+        #endregion
+
+        #region 서버 데이터 설정
+
+        /// <summary>
+        /// 서버에서 받은 스킬 목록으로 전체 데이터 설정 (내부용)
+        /// </summary>
+        internal void SetCommanderSkillList(IEnumerable<CommanderSkillData> skillList)
+        {
+            _ownedSkills.Clear();
+            _equippedSkills.Clear();
+
+            // 기본 슬롯 초기화
+            _equippedSkills[0] = 0;
+            _equippedSkills[1] = 0;
+
+            foreach (var skill in skillList)
+            {
+                // 보유 스킬 등록
+                _ownedSkills[(int)skill.CommanderSkillId] = (int)skill.Level;
+
+                // 장착된 슬롯이 있으면 등록
+                if (skill.HasEquippedSlotIndex)
+                {
+                    _equippedSkills[(int)skill.EquippedSlotIndex] = (int)skill.CommanderSkillId;
+                }
+            }
+
+            OnChanged.OnNext(Unit.Default);
+        }
+
+        /// <summary>
+        /// 서버에서 받은 단일 스킬 데이터로 업데이트 (내부용)
+        /// </summary>
+        internal void UpdateSkill(CommanderSkillData skill)
+        {
+            if (skill == null) return;
+
+            int skillId = (int)skill.CommanderSkillId;
+            int level = (int)skill.Level;
+
+            // 기존 스킬이 없으면 추가
+            if (!_ownedSkills.ContainsKey(skillId))
+            {
+                _ownedSkills[skillId] = level;
+                OnSkillAdded.OnNext((skillId, level));
+            }
+            else if (_ownedSkills[skillId] != level)
+            {
+                _ownedSkills[skillId] = level;
+                OnSkillLevelChanged.OnNext((skillId, level));
+            }
+
+            OnChanged.OnNext(Unit.Default);
+        }
 
         #endregion
     }

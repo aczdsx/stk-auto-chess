@@ -11,7 +11,7 @@ namespace CookApps.AutoBattler
     /// ServerDataManager와 UI 사이의 중간 레이어
     /// UI가 직접 데이터 모델을 접근하지 않고 브릿지를 통해 접근
     /// </summary>
-    public class ElpisDataBridge
+    public class ElpisDataBridge : DataBridgeBase
     {
         private ElpisModel Model;
         // Public Observable 노출

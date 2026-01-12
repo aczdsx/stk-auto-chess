@@ -14,7 +14,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<CharacterListResponse> ListAsync(CancellationToken cancellationToken = default)
         {
-            CharacterListResponse resp = await ExecuteAsync(
+            CharacterListResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ListAsync,
                 new CharacterListRequest(),
                 cancellationToken: cancellationToken
@@ -34,7 +34,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<CharacterGetResponse> GetCharacterAsync(uint characterId, CancellationToken cancellationToken = default)
         {
-            CharacterGetResponse resp = await ExecuteAsync(
+            CharacterGetResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.GetAsync,
                 new CharacterGetRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
@@ -54,7 +54,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<CharacterCreateResponse> CreateAsync(uint characterId, CancellationToken cancellationToken = default)
         {
-            CharacterCreateResponse resp = await ExecuteAsync(
+            CharacterCreateResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.CreateAsync,
                 new CharacterCreateRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
@@ -83,7 +83,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<CharacterLevelUpResponse> LevelUpAsync(uint characterId, CancellationToken cancellationToken = default)
         {
-            CharacterLevelUpResponse resp = await ExecuteAsync(
+            CharacterLevelUpResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.LevelUpAsync,
                 new CharacterLevelUpRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
@@ -112,7 +112,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask<CharacterTranscendResponse> TranscendAsync(uint characterId, CancellationToken cancellationToken = default)
         {
-            CharacterTranscendResponse resp = await ExecuteAsync(
+            CharacterTranscendResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.TranscendAsync,
                 new CharacterTranscendRequest { CharacterId = characterId },
                 cancellationToken: cancellationToken
