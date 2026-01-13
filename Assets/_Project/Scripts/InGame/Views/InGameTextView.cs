@@ -42,6 +42,8 @@ namespace CookApps.AutoBattler
         private static readonly int Miss = Animator.StringToHash("Miss");// 미스, 블락, 레지스트, 레지스트 크리
         private static readonly int Weak = Animator.StringToHash("Weak");// 위크, 위크크리
 
+        private const string MissText = "MISS";
+
         
         // 재사용 가능한 리스트 (GC 할당 최소화)
         private readonly List<InGameTextViewSpriteFont.SpriteFontType> _reusableSpriteFontList = new List<InGameTextViewSpriteFont.SpriteFontType>(4);
@@ -193,7 +195,7 @@ namespace CookApps.AutoBattler
             // MISS는 아이콘 없이 텍스트만 표시
             SetTextContent(
                 string.Empty,
-                "MISS",
+                MissText,
                 DamageColorType.Miss
             );
             
@@ -209,7 +211,7 @@ namespace CookApps.AutoBattler
             // 힐 텍스트 설정 ("+" 접두사 포함)
             SetTextContent(
                 BuildSpriteText(_reusableSpriteFontList),
-                BuildNumberText(healAmount, "+"),
+                BuildNumberText(healAmount, null),
                 DamageColorType.Heal
             );
             

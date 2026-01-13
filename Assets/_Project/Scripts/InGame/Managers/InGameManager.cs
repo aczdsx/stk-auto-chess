@@ -92,17 +92,17 @@ namespace CookApps.BattleSystem
         }
 
         // 테스트용 StartInGame
-        public void StartInGame<T>(InGameTestConfig testConfig) where T : StateBase, new()
-        {
-            IsInGamePlaying = true;
-            IsInGameCombat = true;
-            IsBlockAmbush = false;
-            AppEventResult = string.Empty;
-            AppEventReason = string.Empty;
-            _teamEcc = new EffectCodeContainerTeam(this);
-            InGameMainFlowManager.Instance.StartInGameMainLoop<T>(testConfig);
-            InitializeInGameComponents(testConfig);
-        }
+        // public void StartInGame<T>(InGameTestConfig testConfig) where T : StateBase, new()
+        // {
+        //     IsInGamePlaying = true;
+        //     IsInGameCombat = true;
+        //     IsBlockAmbush = false;
+        //     AppEventResult = string.Empty;
+        //     AppEventReason = string.Empty;
+        //     _teamEcc = new EffectCodeContainerTeam(this);
+        //     InGameMainFlowManager.Instance.StartInGameMainLoop<T>(testConfig);
+        //     InitializeInGameComponents(testConfig);
+        // }
 
         private void InitializeInGameComponents(object stateData)
         {

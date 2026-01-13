@@ -11,17 +11,14 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// 유니
 // 재사용 시간: {0} 초
 // 체력이 가장 낮은 아군 3인
-// 효과 : 공격력을 {1}초 동안 {2}% 증가시킨다.
-// 대상에게 유니 치유력의 {3}% 만큼 회복 시키고, {4}초간 CC 면역 상태로 만듭니다.
+// 대상에게 유니 치유력의 {1}% 만큼 회복 시키고, {2}개의 디버프 제거 효과를 부여합니다.
 /// </summary>
 [UseEffectCodeIds(215252102)]
 public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
 {
-    private ObfuscatorFloat _duration;
-    private ObfuscatorFloat _atkUpRate;
 
     private float _healRate;
-    private float _ccImmuneDuration;
+    private int _ccRigidCount;
 
     private bool _isReadyToActivate;
     private SkillActive _specSkill;
@@ -34,10 +31,8 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _duration = codeInfo.GetCodeStatToFloat(1);
-        _atkUpRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        _healRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
-        _ccImmuneDuration = codeInfo.GetCodeStatToFloat(4);
+        _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _ccRigidCount = codeInfo.GetCodeStatToInt(2);
 
         _isReadyToActivate = false;
         IsSkillActivated = false;
@@ -49,10 +44,8 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _duration = codeInfo.GetCodeStatToFloat(1);
-        _atkUpRate = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-        _healRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
-        _ccImmuneDuration = codeInfo.GetCodeStatToFloat(4);
+        _healRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _ccRigidCount = codeInfo.GetCodeStatToInt(2);
     }
 
     public override void OnUpdate(float dt)
@@ -127,19 +120,11 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
                 InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], targetCharacters[i].SkillMiddleFXTransformFollowable);
 
 
-                // Span<double> eccStats = stackalloc double[3];
-                // eccStats.Clear();
-                // eccStats[0] = codeId;
-                // eccStats[1] = _duration;
-                // eccStats[2] = _atkUpRate;
-
-                // EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_AD_PERCENT_UP, targetCharacters[i], eccStats, source);
-
                 double healAmount = owner.PostCalculateHealAmount(owner.AP * _healRate, targetCharacters[i], isSkill: true);
                 targetCharacters[i].GetHealed(healAmount, owner, codeId, true);
 
 
-                RemoveDebuffOne(targetCharacters[i]);
+                RemoveDebuffs(targetCharacters[i]);
             }
         }
 
@@ -159,12 +144,15 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
         return cooltime;
     }
 
-    private void RemoveDebuffOne(CharacterController targetCharacter)
+    private void RemoveDebuffs(CharacterController targetCharacter)
     {
-        var debuff = targetCharacter.GetEffectCodeContainer().GetEffectCodesByType(EffectCodeType.Debuff);
-        if (debuff.Count > 0)
+        var debuffs = targetCharacter.GetEffectCodeContainer().GetEffectCodesByType(EffectCodeType.Debuff);
+        if (debuffs.Count > 0)
         {
-            targetCharacter.GetEffectCodeContainer().RemoveEffectCode(debuff[0].CodeId);
+            for (int i = 0; i < _ccRigidCount; i++)
+            {
+                targetCharacter.GetEffectCodeContainer().RemoveEffectCode(debuffs[i].CodeId);
+            }
         }
     }
 
