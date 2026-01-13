@@ -2,6 +2,7 @@ using System;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 
@@ -18,13 +19,12 @@ namespace CookApps.AutoBattler
 
         protected void Awake()
         {
-            enterBtn.onClick.AddListener(OnClickEnter);
+            enterBtn.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickEnter()).AddTo(this);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            enterBtn.onClick.RemoveListener(OnClickEnter);
         }
 
         internal void SetStageData(int chapter, int stageIndex)

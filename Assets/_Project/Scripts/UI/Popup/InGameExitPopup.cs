@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
+using R3;
 using UnityEngine;
 using System;
 using Cysharp.Threading.Tasks;
@@ -20,18 +21,9 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _closeButton.onClick.AddListener(OnClickCloseButton);
-            _exitButton.onClick.AddListener(OnClickExitButton);
-            _continueButton.onClick.AddListener(OnClickCloseButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _closeButton.onClick.RemoveListener(OnClickCloseButton);
-            _exitButton.onClick.RemoveListener(OnClickExitButton);
-            _continueButton.onClick.RemoveListener(OnClickCloseButton);
+            _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            _exitButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickExitButtonAsync(), AwaitOperation.Drop).AddTo(this);
+            _continueButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
         }
 
         protected override void OnPreEnter(object param)
@@ -60,7 +52,7 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.PopUILayer(this);
         }
 
-        private void OnClickExitButton()
+        private async UniTask OnClickExitButtonAsync()
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
@@ -70,12 +62,12 @@ namespace CookApps.AutoBattler
             if (InGameMainFlowManager.Instance.CurrentFlowState is StateReadyBase)
             {
                 InGameManager.Instance.EndInGame();
-                
+
                 int lastPlayStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
                 var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
 
                 SceneTransition.Create<SceneTransition_FadeInOut>();
-                SceneTransition.FadeInAsync().Forget();
+                await SceneTransition.FadeInAsync();
                 SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
             }
             else
@@ -84,7 +76,7 @@ namespace CookApps.AutoBattler
                 {
                     InGameManager.Instance.AppEventResult = "fail";
                     InGameManager.Instance.AppEventReason = "exit";
-                
+
                     InGameMainFlowManager.Instance.AddNextState(_failType);
                 }
             }

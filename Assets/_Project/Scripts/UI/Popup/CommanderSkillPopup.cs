@@ -4,6 +4,7 @@ using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -25,14 +26,7 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _closeButton.onClick.AddListener(OnClickCloseButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _closeButton.onClick.RemoveListener(OnClickCloseButton);
+            _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
         }
 
         protected override void OnPreEnter(object param)

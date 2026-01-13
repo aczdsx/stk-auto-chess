@@ -7,6 +7,7 @@ using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 
@@ -30,14 +31,9 @@ namespace CookApps.AutoBattler
         
         public int ShopID => shopID;
 
-        private void OnEnable()
+        private void Awake()
         {
-            _purchaseButton?.onClick.AddListener(OnClickPurchaseButton);
-        }
-        
-        private void OnDisable()
-        {
-            _purchaseButton?.onClick.RemoveListener(OnClickPurchaseButton);
+            _purchaseButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickPurchaseButton()).AddTo(this);
         }
 
         public void SetShopBannerLayer(ShopBannerPopup parentPopup)

@@ -1,5 +1,6 @@
 using System;
 using CookApps.TeamBattle.UIManagements;
+using R3;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -12,7 +13,7 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            button.onClick.AddListener(OnClick);
+            button.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClick()).AddTo(this);
         }
 
         private void OnClick()

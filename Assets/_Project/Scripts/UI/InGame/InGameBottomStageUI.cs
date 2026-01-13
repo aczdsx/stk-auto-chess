@@ -8,6 +8,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using UnityEngine;
 
 public class InGameBottomStageUI : InGameBottomUI
@@ -15,10 +16,10 @@ public class InGameBottomStageUI : InGameBottomUI
     protected void Awake()
     {
         base.Awake();
-        _startButton?.onClick.AddListener(OnStartButtonClicked);
-        _statisticButton?.onClick.AddListener(OnClickStatisticButton);
-        _recommendButton?.onClick.AddListener(OnClickRecommend);
-        _speedUpButton?.onClick.AddListener(OnClickSpeedUp);
+        _startButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnStartButtonClicked()).AddTo(this);
+        _statisticButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickStatisticButton()).AddTo(this);
+        _recommendButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickRecommend()).AddTo(this);
+        _speedUpButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSpeedUp()).AddTo(this);
     }
     
     protected override bool IsCheckStartBattle()

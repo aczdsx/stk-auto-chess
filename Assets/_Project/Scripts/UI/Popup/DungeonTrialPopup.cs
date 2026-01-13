@@ -5,6 +5,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -64,16 +65,8 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _closeButton.onClick.AddListener(OnClickCloseButton);
-            _EnterDungeonButton.onClick.AddListener(OnClickEnterDungeonButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _closeButton.onClick.RemoveListener(OnClickCloseButton);
-            _EnterDungeonButton.onClick.RemoveListener(OnClickEnterDungeonButton);
+            _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            _EnterDungeonButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickEnterDungeonButtonAsync(), AwaitOperation.Drop).AddTo(this);
         }
 
         protected override void OnPreEnter(object param)
@@ -246,7 +239,7 @@ namespace CookApps.AutoBattler
             _stepSlotList.ForEach(slot => slot.RefreshSlot());
         }
 
-        private void OnClickEnterDungeonButton()
+        private async UniTask OnClickEnterDungeonButtonAsync()
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
@@ -275,7 +268,7 @@ namespace CookApps.AutoBattler
 
             InGameManager.Instance.EndInGame();
             SceneTransition.Create<SceneTransition_FadeInOut>();
-            SceneTransition.FadeInAsync().Forget();
+            await SceneTransition.FadeInAsync();
 
             InGameType inGameType = (_specDungeonTrialData.dungeon_map_id == 1) ? InGameType.TRIAL_BOSS : InGameType.TRIAL;
             SceneLoading.GoToNextScene("InGame",

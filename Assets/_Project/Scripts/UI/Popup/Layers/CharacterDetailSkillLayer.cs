@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
@@ -26,14 +27,7 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _skillInfoButton.onClick.AddListener(OnClickSkillInfoButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _skillInfoButton.onClick.RemoveListener(OnClickSkillInfoButton);
+            _skillInfoButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSkillInfoButton()).AddTo(this);
         }
 
         public void InitLayer(int characterID)

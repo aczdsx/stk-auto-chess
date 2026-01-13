@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,9 +49,9 @@ namespace CookApps.AutoBattler
             else
                 _failStageText.text =  StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial);
 
-            _exitButton?.onClick.AddListener(OnExitButtonClicked);
-            _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
-            _retryStageButton?.onClick.AddListener(OnClickRetryStageButton);
+            _exitButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnExitButtonClickedAsync(), AwaitOperation.Drop).AddTo(this);
+            _nextStageButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnNextStageButtonClicked()).AddTo(this);
+            _retryStageButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickRetryStageButton()).AddTo(this);
 
             if (_specCharacter != null)
             {
@@ -77,7 +78,7 @@ namespace CookApps.AutoBattler
             baseAnimator.SetTrigger(animKey);
         }
 
-        private void OnExitButtonClicked()
+        private async UniTask OnExitButtonClickedAsync()
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
@@ -85,7 +86,7 @@ namespace CookApps.AutoBattler
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
 
             SceneTransition.Create<SceneTransition_FadeInOut>();
-            SceneTransition.FadeInAsync().Forget();
+            await SceneTransition.FadeInAsync();
             SceneLoading.GoToNextScene("Lobby",  specLastStageData.chapter_id);
         }
 

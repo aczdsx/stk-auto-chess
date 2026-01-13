@@ -5,6 +5,7 @@ using System.Linq;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
@@ -74,32 +75,16 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _detailStatButton.onClick.AddListener(OnClickDetailStatButton);
+            _detailStatButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickDetailStatButton()).AddTo(this);
 
             // 레벨업
-            _activeLevelUpButton.onClick.AddListener(OnClickLevelupButton);
-            _inactiveLevelUpButton.onClick.AddListener(OnClickLevelupButton);
-            _activeResetLevelUpButton.onClick.AddListener(OnClickCharacterResetButton);
-            _inactiveResetLevelUpButton.onClick.AddListener(OnClickDimmedResetButton);
+            _activeLevelUpButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickLevelupButtonAsync(), AwaitOperation.Drop).AddTo(this);
+            _inactiveLevelUpButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickLevelupButtonAsync(), AwaitOperation.Drop).AddTo(this);
+            _activeResetLevelUpButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCharacterResetButton()).AddTo(this);
+            _inactiveResetLevelUpButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickDimmedResetButton()).AddTo(this);
 
             // 초월
-            _activeTranscendenceButton.onClick.AddListener(OnClickTranscendenceButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _detailStatButton.onClick.RemoveListener(OnClickDetailStatButton);
-
-            // 레벨업
-            _activeLevelUpButton.onClick.RemoveListener(OnClickLevelupButton);
-            _inactiveLevelUpButton.onClick.AddListener(OnClickLevelupButton);
-            _activeResetLevelUpButton.onClick.RemoveListener(OnClickCharacterResetButton);
-            _inactiveResetLevelUpButton.onClick.RemoveListener(OnClickDimmedResetButton);
-
-            // 초월
-            _activeTranscendenceButton.onClick.RemoveListener(OnClickTranscendenceButton);
+            _activeTranscendenceButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickTranscendenceButton()).AddTo(this);
         }
 
         public void InitLayer(CharacterCollectionPopup _parentPopup, int characterID)
@@ -304,7 +289,7 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.PushUILayerAsync<InfoDetailTooltipPopup>(_userStatData).Forget();
         }
 
-        private void OnClickLevelupButton()
+        private async UniTask OnClickLevelupButtonAsync()
         {
             if (_userCharacterData == null) return;
             if (_specCharacterLevelExpData == null) return;
@@ -323,10 +308,10 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            LevelUpCharacterAsync().Forget();
+            await LevelUpCharacterAsync();
         }
 
-        private async UniTaskVoid LevelUpCharacterAsync()
+        private async UniTask LevelUpCharacterAsync()
         {
             try
             {
@@ -428,7 +413,7 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
         }
 
-        private async UniTaskVoid TranscendCharacterAsync()
+        private async UniTask TranscendCharacterAsync()
         {
             try
             {

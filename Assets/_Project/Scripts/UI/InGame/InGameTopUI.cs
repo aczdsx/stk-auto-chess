@@ -7,6 +7,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -80,18 +81,8 @@ public class InGameTopUI : MonoBehaviour
 
     private void Awake()
     {
-        if (_pauseButton != null)
-            _pauseButton.onClick.AddListener(OnClickPauseButton);
-        if (_skipButton != null)
-            _skipButton.onClick.AddListener(OnClickSkipButton);
-    }
-
-    private void OnDestroy()
-    {
-        if (_pauseButton != null)
-            _pauseButton.onClick.RemoveListener(OnClickPauseButton);
-        if (_skipButton != null)
-            _skipButton.onClick.RemoveListener(OnClickSkipButton);
+        _pauseButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickPauseButton()).AddTo(this);
+        _skipButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSkipButton()).AddTo(this);
     }
 
     public void UpdateTimeUI(float time)

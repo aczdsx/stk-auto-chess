@@ -4,6 +4,7 @@ using System.Threading;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -49,14 +50,7 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _closeButton.onClick.AddListener(OnClickCloseButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _closeButton.onClick.RemoveListener(OnClickCloseButton);
+            _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
         }
 
         protected override void OnPreEnter(object param)

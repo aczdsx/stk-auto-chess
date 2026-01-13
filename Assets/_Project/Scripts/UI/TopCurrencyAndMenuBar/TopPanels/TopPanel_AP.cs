@@ -4,6 +4,7 @@ using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
+using R3;
 
 namespace CookApps.AutoBattler
 {
@@ -13,20 +14,21 @@ namespace CookApps.AutoBattler
 
         public override TopPanelType PanelType => TopPanelType.AP;
 
+        private void Awake()
+        {
+            _topPanelButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickTopPanelButton()).AddTo(this);
+        }
+
         private void OnEnable()
         {
             UserDataManager.OnAPChanged += APChanged;
 
             APChanged(UserDataManager.Instance.UserWallet.Ap);
-
-            _topPanelButton.onClick.AddListener(OnClickTopPanelButton);
         }
 
         private void OnDisable()
         {
             UserDataManager.OnAPChanged -= APChanged;
-
-            _topPanelButton.onClick.RemoveListener(OnClickTopPanelButton);
         }
 
         private void APChanged(int AP)

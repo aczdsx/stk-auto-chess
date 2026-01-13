@@ -8,6 +8,7 @@ using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
+using R3;
 using Tech.Hive.V1;
 using TMPro;
 using Unity.Mathematics;
@@ -78,8 +79,7 @@ public class InGameBottomUI : MonoBehaviour
                 _CommanderSkillButtonList[i].gameObject.SetActive(isOpen);
                 if (isOpen)
                 {
-                    int index = i;
-                    _CommanderSkillButtonList[i]?.onClick.AddListener(() => OnClickCommanderSkillButton(index));
+                    _CommanderSkillButtonList[i]?.OnClickAsObservable().Subscribe((this, i), (_, state) => state.Item1.OnClickCommanderSkillButton(state.i)).AddTo(this);
                 }
             }
         }

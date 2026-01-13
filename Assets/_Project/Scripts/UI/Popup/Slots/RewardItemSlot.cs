@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
+using R3;
 
 namespace CookApps.AutoBattler
 {
@@ -43,14 +44,7 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _rewardSlotButton.onClick.AddListener(OnClickRewardSlotButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _rewardSlotButton.onClick.RemoveListener(OnClickRewardSlotButton);
+            _rewardSlotButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickRewardSlotButton()).AddTo(this);
         }
 
         public void SetRewardSlot(RewardItem reward)
@@ -144,7 +138,7 @@ namespace CookApps.AutoBattler
         {
             if (_specItemData == null) return;
 
-            SceneUILayerManager.Instance.PushUILayerAsync<ItemTooltipPopup>(_specItemData);
+            SceneUILayerManager.Instance.PushUILayerAsync<ItemTooltipPopup>(_specItemData).Forget();
         }
 
         private void ClearSlot()

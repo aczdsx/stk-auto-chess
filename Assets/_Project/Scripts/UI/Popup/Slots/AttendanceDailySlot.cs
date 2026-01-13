@@ -4,6 +4,7 @@ using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,14 +33,7 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _attendanceButton.onClick.AddListener(OnClickAttendanceButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _attendanceButton.onClick.RemoveListener(OnClickAttendanceButton);
+            _attendanceButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickAttendanceButton()).AddTo(this);
         }
 
         public void SetAttendanceSlot(AttendancePopup parent, UserEventData eventData, UserEventConditionData conditionData)

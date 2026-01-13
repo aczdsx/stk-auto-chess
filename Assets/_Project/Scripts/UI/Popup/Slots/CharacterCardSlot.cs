@@ -3,6 +3,7 @@ using Coffee.UIEffects;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
@@ -57,14 +58,7 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _characterCardButton.onClick.AddListener(OnClickCardSlot);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _characterCardButton.onClick.RemoveListener(OnClickCardSlot);
+            _characterCardButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCardSlot()).AddTo(this);
         }
 
         public void SetCharcacterSlot(CharacterInfo characterData, CharacterCollectionPopup _parentPopup)

@@ -4,6 +4,7 @@ using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,14 +37,7 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _claimButton.onClick.AddListener(OnClickGetRewardButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _claimButton.onClick.RemoveListener(OnClickGetRewardButton);
+            _claimButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGetRewardButton()).AddTo(this);
         }
 
         public void SetQuestSlot(QuestPopup parent, QuestInfo data)

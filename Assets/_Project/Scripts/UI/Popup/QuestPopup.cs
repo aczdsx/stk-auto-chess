@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.TeamBattle.UIManagements;
+using R3;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,20 +39,10 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _closeButton.onClick.AddListener(OnClickCloseButton);
-            _dimCloseButton.onClick.AddListener(OnClickCloseButton);
-            _dailyQuestTabButton.onClick.AddListener(OnClickDailyQuestButton);
-            _weeklyQuestTabButton.onClick.AddListener(OnClickWeeklyQuestButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _closeButton.onClick.RemoveListener(OnClickCloseButton);
-            _dimCloseButton.onClick.RemoveListener(OnClickCloseButton);
-            _dailyQuestTabButton.onClick.RemoveListener(OnClickDailyQuestButton);
-            _weeklyQuestTabButton.onClick.RemoveListener(OnClickWeeklyQuestButton);
+            _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            _dimCloseButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            _dailyQuestTabButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickDailyQuestButton()).AddTo(this);
+            _weeklyQuestTabButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickWeeklyQuestButton()).AddTo(this);
         }
 
         protected override void OnPreEnter(object param)

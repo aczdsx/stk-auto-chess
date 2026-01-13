@@ -4,6 +4,7 @@ using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,14 +36,7 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _getRewardButton.onClick.AddListener(OnClickGetRewardButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _getRewardButton.onClick.RemoveListener(OnClickGetRewardButton);
+            _getRewardButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGetRewardButton()).AddTo(this);
         }
 
         public void SetEventSlot(UserEventData eventData, UserEventConditionData conditionData)
