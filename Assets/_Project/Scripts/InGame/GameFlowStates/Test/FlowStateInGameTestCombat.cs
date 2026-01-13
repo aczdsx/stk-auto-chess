@@ -212,6 +212,15 @@ public class FlowStateInGameTestCombat : StateCombatBase
     {
         Debug.LogColor("[Test] 테스트 재시작");
 
-        InGameManager.Instance.StartInGame<FlowStateInGameTestReady>(_testConfig);
+        // 기존 캐릭터 정리
+        InGameObjectManager.Instance.ClearAllCharactersInField(AllianceType.Player);
+        InGameObjectManager.Instance.ClearAllCharactersInField(AllianceType.Enemy);
+        InGameObjectManager.Instance.ClearAllCharactersInField(AllianceType.Neutral);
+
+        // 시너지/이펙트 정리
+        InGameSynergyManager.Instance.ClearSynergyFx();
+
+        // 상태만 전환 (Initialize 재호출 안 함)
+        InGameMainFlowManager.Instance.AddNextState<FlowStateInGameTestReady>((_testConfig));
     }
 }

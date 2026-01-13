@@ -54,6 +54,7 @@ public class InGameBottomUI : MonoBehaviour
     protected bool _isOpenCommanderSkill;
     protected UserGrade _specUserGrade;
     protected Type _combatType;
+    protected object _combatStateData;
 
     private List<CharacterStatData> _characterStats;
     private bool _isRunningAddCharacter;
@@ -177,7 +178,7 @@ public class InGameBottomUI : MonoBehaviour
         {
             _isStartRunningProcess = true;
             _readyUIObj.SetActive(false);
-            InGameMainFlowManager.Instance.AddNextState(stateType);
+            InGameMainFlowManager.Instance.AddNextState(stateType, _combatStateData);
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
         }
     }
@@ -209,9 +210,11 @@ public class InGameBottomUI : MonoBehaviour
             _speedUpButton.gameObject.SetActive(isOn);
     }
 
-    public void InitReadyStateUI(Type combatType, List<DeckCharacterPlacement> battleDeckList)
+    public void InitReadyStateUI(Type combatType, List<DeckCharacterPlacement> battleDeckList, object stateData = null)
     {
         _combatType = combatType;
+        _combatStateData = stateData;
+        _isStartRunningProcess = false;
         foreach (var battleDeck in battleDeckList)
         {
             // CharacterUid로 캐릭터 데이터를 찾아서 SpecCharacterIndex 비교

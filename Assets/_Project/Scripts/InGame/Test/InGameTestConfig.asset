@@ -20,6 +20,12 @@ MonoBehaviour:
     GridY: 2
     MultipleAtk: 1
     MultipleHp: 1
+  - CharacterId: 3401
+    Level: 1
+    GridX: 3
+    GridY: 2
+    MultipleAtk: 1
+    MultipleHp: 1
   EnemyCharacters:
   - CharacterId: 3401
     Level: 1

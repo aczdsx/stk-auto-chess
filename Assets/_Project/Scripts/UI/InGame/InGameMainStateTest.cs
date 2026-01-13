@@ -99,7 +99,7 @@ namespace CookApps.AutoBattler
             InGameMain.GetInGameMain().SetInGameTime(battleTimeLimit);
 
             _inGameUI.TopUI.InitTopUI(typeof(FlowStateInGameTestCombat));
-            _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStateInGameTestCombat), battleDeckList);
+            _inGameUI.BottomUI.InitReadyStateUI(typeof(FlowStateInGameTestCombat), battleDeckList, _testConfig);
         }
 
         public void InitCombatStateUI()

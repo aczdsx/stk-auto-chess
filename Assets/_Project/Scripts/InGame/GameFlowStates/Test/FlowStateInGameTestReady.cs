@@ -101,7 +101,7 @@ public class FlowStateInGameTestReady : StateReadyBase
         Debug.LogColor("[Test] 1초 후 전투 시작...", "cyan");
         // 1초 대기 후 자동 전투 시작
         await UniTask.Delay(1000);
-        InGameMainFlowManager.Instance.AddNextState<FlowStateInGameTestCombat>(_testConfig);
+        InGameMainFlowManager.Instance.AddNextState<FlowStateInGameTestCombat>((_testConfig));
     }
 
     public override void StateStart()
