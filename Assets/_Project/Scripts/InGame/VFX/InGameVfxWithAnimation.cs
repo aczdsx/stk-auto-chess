@@ -113,7 +113,7 @@ namespace CookApps.BattleSystem
         {
             elapsedTime = 0f;
             isRemoved = false;
-            // 콜백 초기화
+            // 콜백 초기화`
             onAnimationStartCallback = null;
             onAnimationEndCallback = null;
             onVfxStartCallback = null;
