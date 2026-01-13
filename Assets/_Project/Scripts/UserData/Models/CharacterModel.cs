@@ -94,7 +94,8 @@ namespace CookApps.AutoBattler
             for (var i = 0; i < characters.Count; i++)
             {
                 var character = characters[i];
-                if (character.CharacterId > 0)
+                var spec = SpecDataManager.Instance.GetSpecCharacter((int)character.CharacterId);
+                if (spec != null)
                 {
                     _characters[character.CharacterId] = character;
                 }
@@ -112,6 +113,12 @@ namespace CookApps.AutoBattler
             {
                 Debug.LogError("[CharacterModel] Invalid character data");
                 return;
+            }
+            var spec = SpecDataManager.Instance.GetSpecCharacter((int)character.CharacterId);
+            if (spec == null)
+            {
+                Debug.LogError($"[CharacterModel] Spec data not found forCharacterId: {character.CharacterId}");
+                return; 
             }
 
             bool isNew = !_characters.ContainsKey(character.CharacterId);
@@ -136,6 +143,13 @@ namespace CookApps.AutoBattler
             if (_characters.ContainsKey(characterId))
             {
                 return;
+            }
+
+            var spec = SpecDataManager.Instance.GetSpecCharacter((int)characterId);
+            if (spec == null)
+            {
+                Debug.LogError($"[CharacterModel] Spec data not found forCharacterId: {characterId}");
+                return; 
             }
 
             // 새 캐릭터 데이터 생성 (기본값)
