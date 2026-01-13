@@ -33,7 +33,9 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
     private InGameVfx _tailVfx;
 
     private List<GameObject> _tailGameObjects = new();
+    private List<ParticleSystem> _tailParticleSystems = new(); // ParticleSystem 컴포넌트 캐싱
     private List<float> _foxFireTimers = new List<float>(); // 각 foxfire의 개별 타이머
+    private int _previousActiveCount = -1; // 이전 활성화된 개수 추적
 
     private bool _isReadyToActivate;
     private SkillActive _specSkill;
@@ -55,12 +57,26 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
         _tailVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillMiddleFXTransformFollowable);
         for (int i = 0; i < _tailVfx.CachedTr.childCount; i++)
         {
-            _tailGameObjects.Add(_tailVfx.CachedTr.GetChild(i).gameObject);
-            _tailGameObjects[i].GetComponent<ParticleSystem>().Play();
-            _tailGameObjects[i].SetActive(false);
+            var childObj = _tailVfx.CachedTr.GetChild(i).gameObject;
+            _tailGameObjects.Add(childObj);
+            
+            // ParticleSystem 컴포넌트 캐싱
+            var particleSystem = childObj.GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+            {
+                _tailParticleSystems.Add(particleSystem);
+                // 초기에는 모두 비활성화 상태
+                childObj.SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning($"ParticleSystem not found on {childObj.name}");
+                _tailParticleSystems.Add(null);
+            }
         }
         
         _ownedFoxFireCount = 0;
+        _previousActiveCount = 0;
         _foxFireTimers.Clear();
     }
 
@@ -166,9 +182,19 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
-        _tailVfx.Remove();
+        // 모든 파티클 정지
+        for (int i = 0; i < _tailParticleSystems.Count; i++)
+        {
+            if (_tailParticleSystems[i] != null)
+            {
+                _tailParticleSystems[i].Stop();
+            }
+        }
+        
+        _tailVfx?.Remove();
         _tailVfx = null;
         _tailGameObjects.Clear();
+        _tailParticleSystems.Clear();
 
         base.OnPreRemoved();
     }
@@ -220,17 +246,31 @@ public partial class EffectCodeSkill217263103 : EffectCodeCharacterBase
     
     private void UpdateFoxFireVisuals()
     {
-        for (int i = 0; i < _tailGameObjects.Count; i++)
+        // 활성화 개수가 변경되지 않았으면 업데이트 불필요
+        if (_previousActiveCount == _ownedFoxFireCount)
+            return;
+
+        // 이전에 활성화되었던 것들 중 비활성화해야 할 것들 처리
+        for (int i = _ownedFoxFireCount; i < _previousActiveCount; i++)
         {
-            if (i < _ownedFoxFireCount)
+            if (i < _tailGameObjects.Count && _tailParticleSystems[i] != null)
             {
-                _tailGameObjects[i].SetActive(true);
-            }
-            else
-            {
+                _tailParticleSystems[i].Stop();
                 _tailGameObjects[i].SetActive(false);
             }
         }
+
+        // 새로 활성화해야 할 것들 처리
+        for (int i = _previousActiveCount; i < _ownedFoxFireCount; i++)
+        {
+            if (i < _tailGameObjects.Count && _tailParticleSystems[i] != null)
+            {
+                _tailGameObjects[i].SetActive(true);
+                _tailParticleSystems[i].Play();
+            }
+        }
+
+        _previousActiveCount = _ownedFoxFireCount;
     }
     public int GetCurrentFoxFireCount()
     {

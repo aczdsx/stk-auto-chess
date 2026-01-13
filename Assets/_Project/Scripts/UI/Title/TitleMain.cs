@@ -294,7 +294,7 @@ namespace CookApps.AutoBattler
             // 테스트 씬으로 전환
             SceneTransition.Create<SceneTransition_FadeInOut>();
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextScene("InGame", (InGameType.STAGE, (IGameStateUICore)new InGameMainStateTest(), 0));
+            // SceneLoading.GoToNextScene("InGame", (InGameType.STAGE, (IGameStateUICore)new InGameMainStateTest(), 0));
         }
     }
 }
