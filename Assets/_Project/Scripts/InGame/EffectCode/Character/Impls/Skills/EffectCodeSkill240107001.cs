@@ -10,16 +10,20 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 라플라스마녀 스페셜2
-/// 대상: 맨허튼거리 2 5x5
-// 효과: 범위 내에 {0}%만큼 피해를 입힌다.
+/// 베놈 
+/// 대상: 가장 가까운 적
+/// {0}쿨타임
+/// 어금니로 상대를 물어 뜯어 {1} % 피해를 입히고 
+/// { 2}초간 {3}%의 피해를 매초 입힙니다.
 /// </summary>
-[UseEffectCodeIds(280109101)]
-public partial class EffectCodeSkill280109101 : EffectCodeCharacterBase
+[UseEffectCodeIds(240107001)]
+public partial class EffectCodeSkill240107001 : EffectCodeCharacterBase
 {
     private bool _isReadyToActivate;
     private SkillActive _specSkill;
     private float _damageRate;
+    private float _debuffTime;
+    private float _debuffDamageRate;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -27,7 +31,11 @@ public partial class EffectCodeSkill280109101 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1);
+        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+
+        _debuffTime = codeInfo.GetCodeStatToFloat(2);
+        _debuffDamageRate = codeInfo.GetCodeStatToFloat(3) *0.01f;
+
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -39,6 +47,10 @@ public partial class EffectCodeSkill280109101 : EffectCodeCharacterBase
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
 
+        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+
+        _debuffTime = codeInfo.GetCodeStatToFloat(2);
+        _debuffDamageRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -75,12 +87,16 @@ public partial class EffectCodeSkill280109101 : EffectCodeCharacterBase
     public override void Activate()
     {
         base.Activate();
+        owner.Target = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(owner);
+        if (owner.Target == null)
+        {
+            return;
+        }
 
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
-            owner.GetCharacterView().CachedTr.position);
+
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -88,39 +104,20 @@ public partial class EffectCodeSkill280109101 : EffectCodeCharacterBase
         base.OnSkillExecute(executeIndex, totalLength);
         if (owner.Target == null)
             return;
-        var targetCharacterList = InGameObjectManager.Instance.GetCharacterListSortedByDistanceDescending(owner, false);
-        if (targetCharacterList.Count == 0)
-            return;
 
-        CharacterController targetCharacter = null;
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.SkillRootTransformFollowable.GetPosition());
 
-        foreach (var player in targetCharacterList)
-        {
-            if (player.IsAlive && player.CurrentTile != null)
-            {
-                targetCharacter = player;
-                break;
-            }
-        }
+        var damageValue = owner.SpecCharacter.atk_type is AtkType.AD ? owner.AD : owner.AP;
 
-        if (targetCharacter == null)
-            return;
+        var damage = owner.CalculateDamageAmount(damageValue * _damageRate, 0, owner.Target, codeId, true);
+        owner.Target.GetDamaged(damage, owner);
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(targetCharacter.CurrentTile, 2);
-
-        foreach (var tile in inGameTiles)
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-
-        foreach (var tile in inGameTiles)
-        {
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-            if (tile.CheckValidTile(owner.AllianceType, false))
-            {
-                var damageValue = owner.SpecCharacter.atk_type is AtkType.AD ? owner.AD : owner.AP;
-                var damage = owner.CalculateDamageAmount(damageValue * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
-            }
-        }
+        Span<double> eccStats = stackalloc double[3];
+        eccStats.Clear();
+        eccStats[0] = codeId;
+        eccStats[1] = _debuffTime;// duration   
+        eccStats[2] = _debuffDamageRate * damageValue; // value
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_POISON, owner.Target, eccStats, source);
 
         IsSkillActivated = false;
     }
