@@ -25,6 +25,8 @@ namespace CookApps.AutoBattler
             // Addressables에서 테스트 설정 로드
             _testConfig = await Addressables.LoadAssetAsync<InGameTestConfig>(TestConfigAddress);
 
+            Debug.LogColor($"[Test] 테스트 설정 로드: {_testConfig.StageChapterId}", "yellow");
+
             // 챕터 ID로 스테이지 ID 찾기
             int chapterId = _testConfig?.StageChapterId ?? 1;
             var stageList = SpecDataManager.Instance.GetStageList(chapterId);

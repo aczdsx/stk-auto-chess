@@ -93,7 +93,7 @@ public class FlowStateInGameTestReady : StateReadyBase
         StartDrawingLinesAsync(2.0f).Forget();
 
         // 테스트에서는 자동으로 전투 시작
-        AutoStartCombatAsync().Forget();
+        // AutoStartCombatAsync().Forget();
     }
 
     private async UniTaskVoid AutoStartCombatAsync()

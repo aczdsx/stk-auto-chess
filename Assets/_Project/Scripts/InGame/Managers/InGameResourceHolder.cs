@@ -62,6 +62,11 @@ namespace CookApps.AutoBattler
                 StagePrefab =
                     await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Prologue.prefab");
             }
+            else if (inGameType == InGameType.TEST)
+            {
+                StagePrefab =
+                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/InGameTest.prefab");
+            }
         }
 
         public static async UniTask LoadBattleReadyResources(int chapter)
@@ -89,5 +94,6 @@ namespace CookApps.AutoBattler
             StagePrefab = null;
             // SpecStage = null;
         }
+
     }
 }

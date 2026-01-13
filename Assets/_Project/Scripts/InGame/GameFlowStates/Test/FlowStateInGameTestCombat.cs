@@ -215,10 +215,6 @@ public class FlowStateInGameTestCombat : StateCombatBase
         // 기존 게임 정리
         InGameManager.Instance.EndInGame();
 
-        // 새로운 게임 시작
-        if (_testConfig != null)
-        {
-            InGameManager.Instance.StartInGame<FlowStateInGameTestReady>(_testConfig);
-        }
+        InGameManager.Instance.StartInGame<FlowStateInGameTestReady>(_testConfig);
     }
 }

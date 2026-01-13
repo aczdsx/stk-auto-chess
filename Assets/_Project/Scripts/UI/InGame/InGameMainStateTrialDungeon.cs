@@ -50,11 +50,6 @@ namespace CookApps.AutoBattler
             InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specTrialDungeon);
         }
 
-        public UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void InitReadyStateUI(List<DeckCharacterPlacement> battleDeckList)
         {
             _inGameUI.BottomUI.InitData();

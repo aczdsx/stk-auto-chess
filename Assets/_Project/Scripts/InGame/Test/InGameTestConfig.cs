@@ -42,8 +42,8 @@ namespace CookApps.AutoBattler
         [Range(0, 4)]
         public int GridX;
 
-        [Tooltip("그리드 Y 좌표 (0~5)")]
-        [Range(0, 5)]
+        [Tooltip("그리드 Y 좌표 (0~6, 3은 중립영역)")]
+        [Range(0, 6)]
         public int GridY;
 
         [Tooltip("공격력 배수 (기본 1.0)")]

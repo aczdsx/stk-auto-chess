@@ -30,9 +30,6 @@ namespace CookApps.AutoBattler
             InGameManager.Instance.StartInGame<FlowStatePrologueReady>(null as StageInfo);
         }
 
-        public async UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data)
-        {
-        }
 
         public void InitCombatStateUI()
         {
