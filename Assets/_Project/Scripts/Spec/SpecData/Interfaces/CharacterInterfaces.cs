@@ -7,15 +7,9 @@ namespace CookApps.AutoBattler
     public interface ISpecCharacterInfo
     {
         /// <summary>
-        /// 캐릭터/몬스터 ID를 반환합니다.
-        /// CharacterInfo는 character_id, MonsterInfo는 monster_id를 반환합니다.
-        /// </summary>
-        int GetId();
-
-        /// <summary>
         /// #SheetIndex
         /// </summary>
-        int index { get; }
+        int id { get; }
 
         /// <summary>
         /// 프리팹 ID
@@ -190,12 +184,10 @@ namespace CookApps.AutoBattler
     /// </summary>
     public partial class CharacterInfo : ISpecCharacterInfo
     {
-        public int GetId() => character_id;
-
         // ========================================
         // 공통 필드 (CharacterInfo, MonsterInfo 모두 존재)
         // ========================================
-        int ISpecCharacterInfo.index => index;
+        int ISpecCharacterInfo.id => id;
         int ISpecCharacterInfo.prefab_id => prefab_id;
         int ISpecCharacterInfo.seq => seq;
         string ISpecCharacterInfo.name_token => name_token;
@@ -251,12 +243,10 @@ namespace CookApps.AutoBattler
     /// </summary>
     public partial class MonsterInfo : ISpecCharacterInfo
     {
-        public int GetId() => monster_id;
-
         // ========================================
         // 공통 필드 (CharacterInfo, MonsterInfo 모두 존재)
         // ========================================
-        int ISpecCharacterInfo.index => index;
+        int ISpecCharacterInfo.id => id;
         int ISpecCharacterInfo.prefab_id => prefab_id;
         int ISpecCharacterInfo.seq => seq;
         string ISpecCharacterInfo.name_token => name_token;
@@ -306,9 +296,7 @@ namespace CookApps.AutoBattler
     /// </summary>
     public partial class BattleItem : ISpecCharacterInfo
     {
-        public int GetId() => prefab_id;
-
-        int ISpecCharacterInfo.index => index;
+        int ISpecCharacterInfo.id => id;
         int ISpecCharacterInfo.prefab_id => prefab_id;
         int ISpecCharacterInfo.seq => 0;
         string ISpecCharacterInfo.name_token => name_token;

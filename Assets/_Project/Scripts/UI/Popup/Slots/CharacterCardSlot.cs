@@ -76,9 +76,9 @@ namespace CookApps.AutoBattler
             _parentCollectionPopup = _parentPopup;
 
             _specCharacterData = characterData;
-            _userCharacterData = ServerDataManager.Instance.Character.GetCharacter(_specCharacterData.character_id);
+            _userCharacterData = ServerDataManager.Instance.Character.GetCharacter(_specCharacterData.id);
 
-            bool haveCharacter = ServerDataManager.Instance.Character.HasCharacter(_specCharacterData.character_id);
+            bool haveCharacter = ServerDataManager.Instance.Character.HasCharacter(_specCharacterData.id);
 
             // 기본 데이터 관련 세팅
             string characterPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
@@ -156,7 +156,7 @@ namespace CookApps.AutoBattler
         {
             if (_characterGuideAlert == null) return;
 
-            _characterGuideAlert.InitAlertWithSubKey(_specCharacterData.character_id);
+            _characterGuideAlert.InitAlertWithSubKey(_specCharacterData.id);
         }
 
         private void OnClickCardSlot()
@@ -177,7 +177,7 @@ namespace CookApps.AutoBattler
             // }
 
             // 상세정보창 진입
-            _parentCollectionPopup.SelectCharacterCard(_specCharacterData.character_id);
+            _parentCollectionPopup.SelectCharacterCard(_specCharacterData.id);
         }
 
         private void ClearCardSlot()

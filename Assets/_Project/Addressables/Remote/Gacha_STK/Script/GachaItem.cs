@@ -200,7 +200,7 @@ namespace CookApps.AutoBattler
                 amountText.text = $"x{_rewardItemData.Count}";
 
                 // 슬라이더 처리
-                CharacterData userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterData.character_id);
+                CharacterData userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterData.id);
 
                 pieceSlider.maxValue = characterData.need_piece;
                 // TODO: 수정 필요

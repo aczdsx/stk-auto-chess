@@ -90,20 +90,58 @@ namespace CookApps.AutoBattler
             return id == 1032101 || id == 1032102 || id == 1032201 || id == 1032202 || id == 1032301 || id == 1032302 || id == 1032401 || id == 1032501 || id == 1032502 || id == 1053101 || id == 1053102 || id == 1053103 || id == 1053201 || id == 1053202 || id == 1053203 || id == 1053204 || id == 1053301 || id == 1053302 || id == 1053303 || id == 1053401 || id == 1053402 || id == 1053403 || id == 1053404 || id == 1053405 || id == 1053501 || id == 1053502 || id == 1053503 || id == 1053504 || id == 1053505 || id == 1053506;
         }
 
-        public static bool GetCharacterIndex(this ItemId id, out int charIndex)
+        public static bool GetCharacterId(this ItemId id, out int charId)
         {
-            charIndex = -1;
+            charId = -1;
             if (id.IsCharacter())
             {
-                charIndex = id.Value;
+                charId = id.Value;
                 return true;
             }
             if (id.IsCharacterPiece())
             {
-                charIndex = id.Value % 10000;
+                charId = id.Value % 10000;
                 return true;
             }
             return false;
+        }
+
+        public static ItemId GetCharacterPieceId(int characterId)
+        {
+            return characterId switch
+            {
+                2101 => 1032101,
+                2102 => 1032102,
+                2201 => 1032201,
+                2202 => 1032202,
+                2301 => 1032301,
+                2302 => 1032302,
+                2401 => 1032401,
+                2501 => 1032501,
+                2502 => 1032502,
+                3101 => 1053101,
+                3102 => 1053102,
+                3103 => 1053103,
+                3201 => 1053201,
+                3202 => 1053202,
+                3203 => 1053203,
+                3204 => 1053204,
+                3301 => 1053301,
+                3302 => 1053302,
+                3303 => 1053303,
+                3401 => 1053401,
+                3402 => 1053402,
+                3403 => 1053403,
+                3404 => 1053404,
+                3405 => 1053405,
+                3501 => 1053501,
+                3502 => 1053502,
+                3503 => 1053503,
+                3504 => 1053504,
+                3505 => 1053505,
+                3506 => 1053506,
+                _ => default
+            };
         }
 
     }

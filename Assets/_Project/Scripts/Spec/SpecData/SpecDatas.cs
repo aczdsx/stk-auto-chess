@@ -219,8 +219,8 @@ namespace CookApps.AutoBattler
     public partial class BattleItem
     {
         /// #SheetIndex
-        [GeneratorId(nameof(index), typeof(int))]
-        public int index;
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
         /// 프리팹id
         public int prefab_id;
         /// 배틀 아이템 이름 토큰
@@ -261,10 +261,8 @@ namespace CookApps.AutoBattler
     public partial class CharacterInfo
     {
         /// #SheetIndex
-        [GeneratorId(nameof(index), typeof(int))]
-        public int index;
-        /// 캐릭터_id
-        public int character_id;
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
         /// 프리팹id
         public int prefab_id;
         /// 캐릭터 등급
@@ -715,10 +713,8 @@ namespace CookApps.AutoBattler
     public partial class MonsterInfo
     {
         /// #SheetIndex
-        [GeneratorId(nameof(index), typeof(int))]
-        public int index;
-        /// 캐릭터_id
-        public int monster_id;
+        [GeneratorId(nameof(id), typeof(int))]
+        public int id;
         /// 프리팹id
         public int prefab_id;
         /// 전체 리스트 출력 순서
@@ -1629,26 +1625,6 @@ namespace CookApps.AutoBattler
         public int item_id;
         /// 보상 수량
         public int item_count;
-    }
-
-    [GeneratorSpecData]
-    public partial class Obstacle
-    {
-        /// #SheetIndex
-        [GeneratorId(nameof(id), typeof(int))]
-        public int id;
-        /// 기믹 id
-        public int obstacle_id;
-        /// 기믹 type
-        public global::CookApps.AutoBattler.ObstacleType obstacle_type;
-        /// 지휘자 스킬 이름 토큰
-        public string name_token;
-        /// 지휘자 스킬 설명 토큰
-        public string desc_token;
-        /// 스킬 벨류 타입
-        public global::CookApps.AutoBattler.SkillValueType skill_value_type;
-        /// 실제 계수
-        public float base_rate;
     }
 
     [GeneratorSpecData]

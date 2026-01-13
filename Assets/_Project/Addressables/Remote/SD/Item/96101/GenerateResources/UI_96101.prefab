@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8062363433781045704
+--- !u!1001 &4181087313479025488
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4178040342508032229, guid: c03d97137812e415c936081684b55d9d, type: 3}
       propertyPath: m_Name
-      value: UI_6101
+      value: UI_96101
       objectReference: {fileID: 0}
     - target: {fileID: 7853415140735013902, guid: c03d97137812e415c936081684b55d9d, type: 3}
       propertyPath: m_Pivot.x

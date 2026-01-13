@@ -46,7 +46,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
         if (InGameSynergyManager.Instance.IsRegisteredBattleItem((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE))
             return;
 
-        var specCharacter = SpecDataManager.Instance.GetBattleItemData((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE);
+        var specCharacter = SpecDataManager.Instance.GetSpecCharacter((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE);
         InGameTile inGameTile = null;
 
         for (int i = 0; i < itemCount; i++)
