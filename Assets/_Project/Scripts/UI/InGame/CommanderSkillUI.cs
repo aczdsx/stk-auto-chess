@@ -74,8 +74,8 @@ public class CommanderSkillUI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         bool isActiveAuto = Preference.LoadPreference(_preference, false);
         SetActiveAuto(isActiveAuto);
 
-        var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-        bool _isCanAutoSkill = userGuideMissionData.MissionId >= 28;
+        var guideMission = ServerDataManager.Instance.GuideMission;
+        bool _isCanAutoSkill = guideMission.GuideMissionId >= 28;
 
         _autoObj.SetActive(_isCanAutoSkill);
     }

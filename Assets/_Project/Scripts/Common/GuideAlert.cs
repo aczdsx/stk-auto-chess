@@ -60,15 +60,15 @@ namespace CookApps.AutoBattler
 
             _guideAlertObject.SetActive(false);
 
-            var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-            if (userGuideMissionData == null) return;
-            
-            var specGuideMissionData = SpecDataManager.Instance.GetGuideMissionDataByOrder(userGuideMissionData.MissionId);
+            var guideMission = ServerDataManager.Instance.GuideMission;
+            if (guideMission.Data == null) return;
+
+            var specGuideMissionData = SpecDataManager.Instance.GetGuideMissionDataByOrder((int)guideMission.GuideMissionId);
 
             if (specGuideMissionData != null)
             {
                 bool isValidType = specGuideMissionData.guide_mission_type == _guideMissionType;
-                bool isValidState = userGuideMissionData.MissionStateType != (int)MissionStateType.REWARD && userGuideMissionData.MissionStateType != (int)MissionStateType.CLEAR;
+                bool isValidState = !guideMission.CanClaimReward && !guideMission.IsCompleted;
                 
                 bool isHaveSubKey = TargetSubKey > 0;
                 bool isValidSubKey = isHaveSubKey && specGuideMissionData.sub_key == TargetSubKey;

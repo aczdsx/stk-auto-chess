@@ -73,7 +73,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 이벤트 구독 (Bidirectional Streaming)
         /// </summary>
-        public AsyncDuplexStreamingCall<CustomLobbySubscribeEventRequest, CustomLobbySubscribeEventResponse> SubscribeEvent(CancellationToken cancellationToken = default)
+        private AsyncDuplexStreamingCall<CustomLobbySubscribeEventRequest, CustomLobbySubscribeEventResponse> SubscribeEvent(CancellationToken cancellationToken = default)
         {
             return ServiceClient.SubscribeEvent(cancellationToken: cancellationToken);
         }

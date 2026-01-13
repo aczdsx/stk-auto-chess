@@ -1797,15 +1797,15 @@ namespace CookApps.AutoBattler
         // }
         public bool GetIsOpenCondition(OpenConditionType conditionType)
         {
+            var guideMission = ServerDataManager.Instance.GuideMission;
+
             // 모든 가이드 미션 클리어 체크
-            if (UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder > GetGuideMissionMaxOrder())
+            if (guideMission.IsAllCompleted)
             {
                 return true;
             }
 
-            var guideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-
-            int currMissionID = guideMissionData.MissionId;
+            int currMissionID = (int)guideMission.GuideMissionId;
             OpenCondition openCondition = null;
             for (int i = 0; i < OpenCondition.All.Count; i++)
             {

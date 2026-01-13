@@ -68,5 +68,50 @@ public partial class SROptions
     }
 
     #endregion
+
+    #region 치트
+
+    [Category("치트")]
+    public void 모든캐릭터획득()
+    {
+        EarnAllCharactersAsync().Forget();
+    }
+
+    private async UniTaskVoid EarnAllCharactersAsync()
+    {
+        var resp = await NetManager.Instance.Cheat.EarnAllCharactersAsync();
+        if (resp != null && resp.IsSuccess)
+        {
+            ToastManager.Instance.ShowToast("모든 캐릭터 획득 완료");
+        }
+    }
+
+    [Category("치트")]
+    public int 재화변경_아이템ID { get; set; } = 1;
+
+    [Category("치트")]
+    public long 재화변경_수량 { get; set; } = 10000;
+
+    [Category("치트")]
+    public void 재화변경()
+    {
+        ChangeCurrencyAsync().Forget();
+    }
+
+    private async UniTaskVoid ChangeCurrencyAsync()
+    {
+        var delta = new Tech.Hive.V1.CurrencyDelta
+        {
+            ItemId = (uint)재화변경_아이템ID,
+            Delta = 재화변경_수량
+        };
+        var resp = await NetManager.Instance.Cheat.ChangeCurrencyAsync(new[] { delta });
+        if (resp != null && resp.IsSuccess)
+        {
+            ToastManager.Instance.ShowToast($"재화 변경 완료: {재화변경_아이템ID} += {재화변경_수량}");
+        }
+    }
+
+    #endregion
 }
 #endif

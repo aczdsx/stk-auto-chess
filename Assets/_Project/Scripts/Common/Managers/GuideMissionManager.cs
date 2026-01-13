@@ -10,25 +10,41 @@ namespace CookApps.AutoBattler
         public Action OnGuideAlertUpdated;  // 가이드 미션 안내용 알림 갱신
 
         /// <summary>
-        /// [DEPRECATED] 서버에서 자동으로 가이드 미션 진행 상황을 추적합니다.
-        /// 기존 호출 코드와의 호환성을 위해 유지되며, 서버에서 가이드 미션 정보를 다시 조회합니다.
+        /// 가이드 미션 액션 값 추가
+        /// 현재 진행 중인 미션 타입이 맞는 경우에만 서버에 완료를 보고합니다.
         /// </summary>
-        [Obsolete("서버에서 자동으로 진행 상황을 추적합니다. 이 메서드는 호환성을 위해 유지됩니다.")]
-        public void AddGuideMissionActionValue(GuideMissionType missonType, int subKey, int actionValue)
+        public void AddGuideMissionActionValue(GuideMissionType missionType, int subKey, int actionValue)
         {
-            // 서버에서 자동으로 진행 상황을 추적하므로, 서버에서 최신 상태를 조회합니다.
-            RefreshGuideMissionFromServerAsync().Forget();
+            var guideMission = ServerDataManager.Instance.GuideMission;
+
+            // 현재 미션이 없거나 이미 완료된 경우 무시
+            if (guideMission.Data == null || guideMission.IsCompleted || guideMission.IsGoalReached)
+                return;
+
+            // 현재 미션의 스펙 데이터 확인
+            var specMission = SpecDataManager.Instance.GuideMissionInfo.Get((int)guideMission.GuideMissionId);
+            if (specMission == null)
+                return;
+
+            // 미션 타입 확인
+            if (specMission.guide_mission_type != missionType)
+                return;
+
+            // 서브 키 확인 (서브 키가 있는 경우에만)
+            if (specMission.sub_key > 0 && specMission.sub_key != subKey)
+                return;
+
+            CompleteActionAsync().Forget();
         }
 
         /// <summary>
-        /// [DEPRECATED] 서버에서 자동으로 가이드 미션 상태를 관리합니다.
-        /// 기존 호출 코드와의 호환성을 위해 유지되며, 서버에서 가이드 미션 정보를 다시 조회합니다.
+        /// 서버에 클라이언트 액션 완료를 보고하고 UI를 갱신합니다.
         /// </summary>
-        [Obsolete("서버에서 자동으로 상태를 관리합니다. 보상 수령은 ClaimRewardAsync를 사용하세요.")]
-        public void ChangeGuideMissionState(GuideMissionType missonType, int subKey, MissionStateType stateType)
+        private async UniTaskVoid CompleteActionAsync()
         {
-            // 서버에서 자동으로 상태를 관리하므로, 서버에서 최신 상태를 조회합니다.
-            RefreshGuideMissionFromServerAsync().Forget();
+            await NetManager.Instance.GuideMission.CompleteActionAsync();
+            RefreshGuideMissionUI();
+            UpdateGuideMissionAlert();
         }
 
         /// <summary>

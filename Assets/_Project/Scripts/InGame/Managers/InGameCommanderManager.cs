@@ -61,8 +61,8 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
         InGameMainFlowManager.Instance.AddUpdateListener(InGameMainFlowManager.UpdatePriority_Objects,
             ManagedUpdate);
 
-        var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-        _isCommanderGuideStage = userGuideMissionData.MissionId == 18;
+        var guideMission = ServerDataManager.Instance.GuideMission;
+        _isCommanderGuideStage = guideMission.GuideMissionId == 18;
         if (_effectCodeDictForAutoSkill == null)
             _effectCodeDictForAutoSkill = new Dictionary<int, EffectCodeCommanderSkillBase>();
         else
