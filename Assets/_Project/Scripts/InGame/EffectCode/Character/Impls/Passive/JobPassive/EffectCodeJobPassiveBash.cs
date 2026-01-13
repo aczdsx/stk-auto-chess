@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using System;
+using UnityEngine;
 
 namespace CookApps.BattleSystem
 {
@@ -32,7 +33,7 @@ namespace CookApps.BattleSystem
             _isReadyToActivate = false;
         }
 
-         public override void OnCooltime(float dt)
+        public override void OnCooltime(float dt)
         {
             base.OnCooltime(dt);
             if (_isReadyToActivate || IsSkillActivated)
@@ -58,7 +59,7 @@ namespace CookApps.BattleSystem
         }
         private void InjectImmuneBuff()
         {
-            owner.SetImmuneSuccessFx(InGameVfxNameType.fx_common_job_striker_02, owner.SkillMiddleFXTransformFollowable);
+            // owner.SetImmuneSuccessFx(InGameVfxNameType.fx_common_job_striker_02, owner.SkillMiddleFXTransformFollowable);
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_job_striker_01, owner.SkillRootTransformFollowable);
             Span<double> buffStats = stackalloc double[3];
 
@@ -68,7 +69,15 @@ namespace CookApps.BattleSystem
             buffStats[2] = 1;//value?
 
             EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_IMMUNE, owner, buffStats, source);
+        }
 
+        public override void OnCanceledCC(CharacterController attacker, EffectCodeNameType effectCodeNameType)
+        {
+            base.OnCanceledCC(attacker, effectCodeNameType);
+
+            var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_job_striker_02, owner.SkillMiddleFXTransformFollowable.GetPosition());
+            vfx.CachedTr.rotation = Quaternion.LookRotation((attacker.ViewPosition3D - owner.ViewPosition3D).normalized) * Quaternion.Euler(0, -90, 0);
+            owner.GetEffectCodeContainer().RemoveEffectCode((long)EffectCodeNameType.BUFF_IMMUNE);
         }
     }
 

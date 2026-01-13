@@ -47,7 +47,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         _specTutorialDataList = SpecDataManager.Instance.GetTutorialDialogueList(tutorialID);
         if (_specTutorialDataList == null || _specTutorialDataList.Count == 0)
         {
-            Debug.LogError($"TutorialData not found: {tutorialID}");
+            Debug.LogColor($"튜토리얼을 진행하는 스테이지가 아닙니다. tutorialID : {tutorialID}", "red");
             return false;
         }
 

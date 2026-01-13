@@ -57,6 +57,7 @@ public partial class EffectCodeBuffNoDamageShield : EffectCodeBuffBase
                 stackData.value = codeInfo.GetCodeStat(2);
                 stackData.elapsedTime = 0f;
                 stackData.isShowValue = true;
+                stackData.showPosition = BuffStackData.BuffShowPosition.SIDE;
                 return;
             }
         }
@@ -76,29 +77,26 @@ public partial class EffectCodeBuffNoDamageShield : EffectCodeBuffBase
             codeInfo.GetCodeStatToFloat(1),
             codeInfo.GetCodeStat(2),
             source,
-            isShowValue: true
+            isShowValue: true,
+            showPosition: BuffStackData.BuffShowPosition.SIDE
         );
         _stackDatas.Add(buffStackData);
         owner.AddBuffStackData(CodeId, buffStackData);
     }
 
-    public override double ModifyDamageAmount(double damageAmount)
+    public override CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageInfo, CharacterController attacker, bool isPure)
     {
-
-        damageAmount = 0d;
+        damageInfo.damageAmount = 0d;
         --_stackDatas[0].value;
         if (_stackDatas[0].value <= 0)
         {
             RemoveFromContainer();
-            return damageAmount;
         }
         else
         {
             owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
         }
-
-        return damageAmount;
-
+        return damageInfo;
     }
     public override void OnPreRemoved()
     {
