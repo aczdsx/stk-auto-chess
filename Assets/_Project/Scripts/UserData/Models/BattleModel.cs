@@ -405,7 +405,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         internal void UpdateStageProgress(BattleStageProgress progress)
         {
-            if (progress == null || progress.StageId != 0)
+            if (progress == null || progress.StageId == 0)
             {
                 Debug.LogError("[BattleModel] Invalid stage progress data");
                 return;

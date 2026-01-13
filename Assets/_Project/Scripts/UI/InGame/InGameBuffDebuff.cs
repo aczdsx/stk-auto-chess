@@ -39,7 +39,6 @@ namespace CookApps.AutoBattler
                 _buffSubText.gameObject.SetActive(false);
             }
 
-            Debug.Log($"BuffDebuff is On. CodeId : {codeID}");
 
             IsWorking = true;
             var sprite = SpriteNameParser.GetBuffDebuffSprite(codeID);

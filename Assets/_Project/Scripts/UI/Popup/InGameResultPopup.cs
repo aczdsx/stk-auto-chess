@@ -4,12 +4,31 @@ using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
+    public readonly struct InGameResultPopupParam
+    {
+        public readonly bool IsVictory;
+        public readonly bool IsStarTime;
+        public readonly bool IsStarNoDeath;
+        public readonly CharacterInfo SpecCharacter;
+        public readonly IReadOnlyList<Reward> Rewards;
+
+        public InGameResultPopupParam(bool isVictory, bool isStarTime, bool isStarNoDeath, CharacterInfo specCharacter, IReadOnlyList<Reward> rewards)
+        {
+            IsVictory = isVictory;
+            IsStarTime = isStarTime;
+            IsStarNoDeath = isStarNoDeath;
+            SpecCharacter = specCharacter;
+            Rewards = rewards;
+        }
+    }
+    
     [Serializable]
     public class InGameResultStarCondition
     {
@@ -38,10 +57,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private GameObject _characterIllustParentObject;
 
-        private bool _isVictory = false;
-        private bool _starTime;
-        private bool _starNoDeath;
-        private int _star;
+        private InGameResultPopupParam _popupParam;
 
         private bool _isPlayingTutorialStage = false;   // 튜토리얼 진행 여부 체크
         private bool _isClearTutorialStage = false;     // 튜토리얼 스테이지 클리어 여부 체크
@@ -50,7 +66,6 @@ namespace CookApps.AutoBattler
         private bool _isEndStage = false;         // 게임의 가장 마지막 스테이지 체크
         private bool _isWaitGuideMissionReward = false;         // 현재 가이드 미션을 클리어한 상태인지 체크
 
-        private CharacterInfo _specCharacter;
 
         protected override void OnPreEnter(object param)
         {
@@ -58,12 +73,12 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.StopBGM();
 
-            (_isVictory, _starTime, _starNoDeath, _specCharacter) = ((bool, bool, bool, CharacterInfo))param;
+            _popupParam = (InGameResultPopupParam)param;
 
-            _failObj.SetActive(!_isVictory);
-            _victoryObj.SetActive(_isVictory);
+            _failObj.SetActive(!_popupParam.IsVictory);
+            _victoryObj.SetActive(_popupParam.IsVictory);
 
-            if (_isVictory)
+            if (_popupParam.IsVictory)
                 _victoryStageText.text = StringUtil.GetStageString(InGameManager.Instance.SpecStage);
             else
                 _failStageText.text = StringUtil.GetStageString(InGameManager.Instance.SpecStage);
@@ -73,18 +88,18 @@ namespace CookApps.AutoBattler
             _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
             _retryStageButton?.onClick.AddListener(OnClickRetryStageButton);
 
-            if (_specCharacter != null)
+            if (_popupParam.SpecCharacter != null)
             {
                 BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
 
-                string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacter.prefab_id);
+                string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _popupParam.SpecCharacter.prefab_id);
                 AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
             }
 
-            _star = _isVictory ? 1 : 0;
-            if (_starTime)
+            var _star = _popupParam.IsVictory ? 1 : 0;
+            if (_popupParam.IsStarTime)
                 _star++;
-            if (_starNoDeath)
+            if (_popupParam.IsStarNoDeath)
                 _star++;
             // 상단 별 상태 갱신
             for (int i = 0; i < _starList.Count; i++)
@@ -93,7 +108,7 @@ namespace CookApps.AutoBattler
             }
 
             // 하단 별+조건 상태 갱신
-            if (_isVictory)
+            if (_popupParam.IsVictory)
             {
                 for (int i = 0; i < _starConditionList.Count; i++)
                 {
@@ -101,9 +116,9 @@ namespace CookApps.AutoBattler
                     _starConditionList[i]._conditionText.text = LanguageManager.Instance.GetLanguageText(resultToken);
                 }
 
-                _starConditionList[0]._starObject.SetActive(_isVictory);
-                _starConditionList[1]._starObject.SetActive(_starTime);
-                _starConditionList[2]._starObject.SetActive(_starNoDeath);
+                _starConditionList[0]._starObject.SetActive(_popupParam.IsVictory);
+                _starConditionList[1]._starObject.SetActive(_popupParam.IsStarTime);
+                _starConditionList[2]._starObject.SetActive(_popupParam.IsStarNoDeath);
             }
             else
             {
@@ -134,10 +149,10 @@ namespace CookApps.AutoBattler
                 _isEndChapter = nextChapterData == null;    // 다음 챕터 데이터 없음 (게임의 마지막 챕터)
             }
 
-            _isClearTutorialStage = _isPlayingTutorialStage && _isPlayingLastStage && _isVictory;
+            _isClearTutorialStage = _isPlayingTutorialStage && _isPlayingLastStage && _popupParam.IsVictory;
 
             // 승리 시 보상 및 각종 데이터 처리
-            if (_isVictory)
+            if (_popupParam.IsVictory)
             {
                 CheckLatestStageClear();
                 CreateRewardItems();
@@ -157,7 +172,7 @@ namespace CookApps.AutoBattler
             _isWaitGuideMissionReward = guideMission.CanClaimReward;
 
             // 애니메이션 연출 적용
-            string animKey = _isVictory ? "InGameResult_Win" : "InGameResult_Lose";
+            string animKey = _popupParam.IsVictory ? "InGameResult_Win" : "InGameResult_Lose";
             baseAnimator.SetTrigger(animKey);
 
             // 버튼 상태 처리
@@ -169,8 +184,8 @@ namespace CookApps.AutoBattler
             }
             else
             {
-                _retryStageButton.gameObject.SetActive(!_isPlayingTutorialStage || !_isVictory);
-                _nextStageButton.gameObject.SetActive(!_isEndChapter && !_isClearTutorialStage && _isVictory);
+                _retryStageButton.gameObject.SetActive(!_isPlayingTutorialStage || !_popupParam.IsVictory);
+                _nextStageButton.gameObject.SetActive(!_isEndChapter && !_isClearTutorialStage && _popupParam.IsVictory);
                 _exitButton.gameObject.SetActive(!_isPlayingTutorialStage || _isClearTutorialStage);
             }
 
@@ -279,40 +294,17 @@ namespace CookApps.AutoBattler
 
         private void CreateRewardItems()
         {
-            var stageProgress = ServerDataManager.Instance.Battle.GetStageProgress((uint)InGameManager.Instance.SpecStage.stage_id);
-            uint prevBestStars = stageProgress?.BestStars ?? 0;
-
-            var rewardList = SpecDataManager.Instance.GetSpecStageReward(InGameManager.Instance.SpecStage.reward_id)
-                .FindAll(l => l.difficulty_type == InGameManager.Instance.SpecStage.difficulty_type);
-
             List<RewardItem> resultItemList = new List<RewardItem>();   // 보상 지급용 리워드 리스트
 
-            foreach (var rewardItem in rewardList)
+            for (var i = 0; i < _popupParam.Rewards.Count; i++)
             {
-                bool shouldCreateRewardItemSlot = false;
+                var rewardItem = _popupParam.Rewards[i];
+                RewardItem newItem = new RewardItem((int)rewardItem.ItemId, (int)rewardItem.Count);
 
-                if (rewardItem.frequency_type == FrequencyType.ONCE)
-                {
-                    if (rewardItem.star_count > _star && prevBestStars > _star)
-                    {
-                        shouldCreateRewardItemSlot = true;
-                    }
-                }
-                else if (rewardItem.frequency_type == FrequencyType.REPEAT)
-                {
-                    shouldCreateRewardItemSlot = true;
-                }
+                var rewardItemSlot = Instantiate(_rewardItemSlotObj, _rewardsTransform).GetComponent<RewardItemSlot>();
+                rewardItemSlot.SetRewardSlot(newItem);
 
-                if (shouldCreateRewardItemSlot)
-                {
-                    // ItemType의 삭제로 인해 변경.(new RewardItem(rewardItem.item_type, rewardItem.item_key, rewardItem.item_count))
-                    RewardItem newItem = new RewardItem(rewardItem.item_id, rewardItem.item_count);
-
-                    var rewardItemSlot = Instantiate(_rewardItemSlotObj, _rewardsTransform).GetComponent<RewardItemSlot>();
-                    rewardItemSlot.SetRewardSlot(newItem);
-
-                    resultItemList.Add(newItem);
-                }
+                resultItemList.Add(newItem);
             }
 
             // 보상 데이터 저장
@@ -330,10 +322,14 @@ namespace CookApps.AutoBattler
             int myDeckPower = ServerDataManager.Instance.Deck.GetDeckBattlePower(myDeck);
             int enemyPower = (int)InGameObjectManager.Instance.GetStartingEnemiesAttr();
 
-            int starNum1 = _isVictory ? 1 : 0;
-            int starNum2 = _star >= 2 ? 1 : 0;
-            int starNum3 = _star >= 3 ? 1 : 0;
-            string clearCondition = AppEventManager.Instance.GetAppEventCustomDataList(starNum1, starNum2, starNum3);
+            int[] starNums = new int[] { 0, 0, 0 };
+            if (_popupParam.IsVictory)
+                starNums[0] = 1;
+            if (_popupParam.IsStarTime)
+                starNums[1] = 1;
+            if (_popupParam.IsStarNoDeath)
+                starNums[2] = 1;
+            string clearCondition = AppEventManager.Instance.GetAppEventCustomDataList(starNums);
 
             var battleTime = 60 - InGameMain.GetInGameMain().InGameTime;
 

@@ -27,7 +27,7 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _damageRate = codeInfo.GetCodeStatToFloat(1);
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
