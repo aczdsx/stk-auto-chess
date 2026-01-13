@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8508718654457203477}
+  - component: {fileID: 585903786845288992}
   m_Layer: 0
   m_Name: TroubleShooterJet
   m_TagString: Untagged
@@ -32,6 +33,23 @@ Transform:
   - {fileID: 8775052332639143294}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &585903786845288992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2847590338628578479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e871cdce18b282b4ca329ce35a348811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 6847842524101352529}
+  animationEventListener: {fileID: 8347636480886321421}
+  _callBackPositions:
+  - {fileID: 4619376639120305589}
+  - {fileID: 3632037307103259064}
 --- !u!1001 &9101078752084238997
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92,7 +110,20 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: be92d3e8f37fe434f844a59292afac6b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6847842524101352529}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: be92d3e8f37fe434f844a59292afac6b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8347636480886321421}
   m_SourcePrefab: {fileID: 100100000, guid: be92d3e8f37fe434f844a59292afac6b, type: 3}
+--- !u!4 &3632037307103259064 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3735155038619890899, guid: be92d3e8f37fe434f844a59292afac6b, type: 3}
+  m_PrefabInstance: {fileID: 9101078752084238997}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4619376639120305589 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4731360764356014304, guid: be92d3e8f37fe434f844a59292afac6b, type: 3}
+  m_PrefabInstance: {fileID: 9101078752084238997}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8254235233056661444 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: be92d3e8f37fe434f844a59292afac6b, type: 3}
@@ -120,6 +151,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8347636480886321421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8254235233056661444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8286ba4dfe97431d83c28289847e618a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8775052332639143294 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: be92d3e8f37fe434f844a59292afac6b, type: 3}

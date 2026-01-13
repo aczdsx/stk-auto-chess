@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using CookApps.Obfuscator;
 using UnityEngine;
 
@@ -8,18 +10,18 @@ namespace CookApps.BattleSystem
     {
         [SerializeField] private Animator animator;
         [SerializeField] private AnimationEventListener animationEventListener;
-        
+        [SerializeField] private List<Transform> _callBackPositions = new();
         private bool isAutoRemove = true;
         private bool isRemoved = false;
         private float animationDuration = 0f;
         private float elapsedTime = 0f;
 
         // 이벤트 콜백
-        private Action onAnimationStartCallback;
-        private Action onAnimationEndCallback;
-        private Action onVfxStartCallback;
-        private Action onVfxEndCallback;
-        private Action<AnimationEventKey> onCustomAnimationEventCallback;
+        private Action<IReadOnlyList<Transform>> onAnimationStartCallback;
+        private Action<IReadOnlyList<Transform>> onAnimationEndCallback;
+        private Action<IReadOnlyList<Transform>> onVfxStartCallback;
+        private Action<IReadOnlyList<Transform>> onVfxEndCallback;
+        private Action<AnimationEventKey, IReadOnlyList<Transform>> onCustomAnimationEventCallback;
 
         private void Awake()
         {
@@ -113,12 +115,14 @@ namespace CookApps.BattleSystem
         {
             elapsedTime = 0f;
             isRemoved = false;
-            // 콜백 초기화`
+            // 콜백 초기화
             onAnimationStartCallback = null;
             onAnimationEndCallback = null;
             onVfxStartCallback = null;
             onVfxEndCallback = null;
             onCustomAnimationEventCallback = null;
+            // VFX 위치 초기화
+            _callBackPositions.Clear();
         }
 
         public override void ManagedUpdate(float dt)
@@ -193,7 +197,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         protected virtual void OnAnimationStart()
         {
-            onAnimationStartCallback?.Invoke();
+            onAnimationStartCallback?.Invoke(_callBackPositions);
         }
 
         /// <summary>
@@ -201,7 +205,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         protected virtual void OnAnimationEnd()
         {
-            onAnimationEndCallback?.Invoke();
+            onAnimationEndCallback?.Invoke(_callBackPositions);
             if (isAutoRemove && !isRemoved)
             {
                 Remove();
@@ -213,7 +217,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         protected virtual void OnVfxStart()
         {
-            onVfxStartCallback?.Invoke();
+            onVfxStartCallback?.Invoke(_callBackPositions);
         }
 
         /// <summary>
@@ -221,7 +225,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         protected virtual void OnVfxEnd()
         {
-            onVfxEndCallback?.Invoke();
+            onVfxEndCallback?.Invoke(_callBackPositions);
         }
 
         /// <summary>
@@ -229,7 +233,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         protected virtual void OnCustomAnimationEvent(AnimationEventKey eventKey)
         {
-            onCustomAnimationEventCallback?.Invoke(eventKey);
+            onCustomAnimationEventCallback?.Invoke(eventKey, _callBackPositions);
         }
 
         /// <summary>
@@ -270,12 +274,52 @@ namespace CookApps.BattleSystem
         /// </summary>
         public AnimationEventListener AnimationEventListener => animationEventListener;
 
+        #region VFX 위치 관리
+
+        /// <summary>
+        /// VFX 위치 설정
+        /// </summary>
+        public void SetVfxPositions(IEnumerable<Transform> positions)
+        {
+            _callBackPositions.Clear();
+            if (positions != null)
+            {
+                _callBackPositions.AddRange(positions);
+            }
+        }
+
+        /// <summary>
+        /// VFX 위치 추가
+        /// </summary>
+        public void AddVfxPosition(Transform position)
+        {
+            _callBackPositions.Add(position);
+        }
+
+        /// <summary>
+        /// VFX 위치 추가 (여러 개)
+        /// </summary>
+        public void AddVfxPositions(IEnumerable<Transform> positions)
+        {
+            if (positions != null)
+            {
+                _callBackPositions.AddRange(positions);
+            }
+        }
+
+        /// <summary>
+        /// VFX 위치 리스트 반환 (읽기 전용)
+        /// </summary>
+        public IReadOnlyList<Transform> GetVfxPositions() => _callBackPositions;
+
+        #endregion
+
         #region 콜백 등록 메서드
 
         /// <summary>
         /// 애니메이션 시작 이벤트 콜백 등록
         /// </summary>
-        public void SetOnAnimationStartCallback(Action callback)
+        public void SetOnAnimationStartCallback(Action<IReadOnlyList<Transform>> callback)
         {
             onAnimationStartCallback = callback;
         }
@@ -283,7 +327,7 @@ namespace CookApps.BattleSystem
         /// <summary>
         /// 애니메이션 종료 이벤트 콜백 등록
         /// </summary>
-        public void SetOnAnimationEndCallback(Action callback)
+        public void SetOnAnimationEndCallback(Action<IReadOnlyList<Transform>> callback)
         {
             onAnimationEndCallback = callback;
         }
@@ -291,7 +335,7 @@ namespace CookApps.BattleSystem
         /// <summary>
         /// VFX 시작 이벤트 콜백 등록
         /// </summary>
-        public void SetOnVfxStartCallback(Action callback)
+        public void SetOnVfxStartCallback(Action<IReadOnlyList<Transform>> callback)
         {
             onVfxStartCallback = callback;
         }
@@ -299,7 +343,7 @@ namespace CookApps.BattleSystem
         /// <summary>
         /// VFX 종료 이벤트 콜백 등록
         /// </summary>
-        public void SetOnVfxEndCallback(Action callback)
+        public void SetOnVfxEndCallback(Action<IReadOnlyList<Transform>> callback)
         {
             onVfxEndCallback = callback;
         }
@@ -307,7 +351,7 @@ namespace CookApps.BattleSystem
         /// <summary>
         /// 커스텀 애니메이션 이벤트 콜백 등록
         /// </summary>
-        public void SetOnCustomAnimationEventCallback(Action<AnimationEventKey> callback)
+        public void SetOnCustomAnimationEventCallback(Action<AnimationEventKey, IReadOnlyList<Transform>> callback)
         {
             onCustomAnimationEventCallback = callback;
         }

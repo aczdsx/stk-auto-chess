@@ -175,12 +175,12 @@ namespace CookApps.BattleSystem
         {
         }
 
-        private void OnVfxStart()
+        private void OnVfxStart(IReadOnlyList<Transform> positions)
         {//콜라이더 껏다키기
             _colliderEnable = true;
 
         }
-        private void OnVfxEnd()
+        private void OnVfxEnd(IReadOnlyList<Transform> positions)
         {//콜라이더 껏다키기
             _colliderEnable = false;
         }
