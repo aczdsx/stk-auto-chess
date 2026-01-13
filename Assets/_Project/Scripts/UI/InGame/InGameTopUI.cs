@@ -267,9 +267,9 @@ public class InGameTopUI : MonoBehaviour
 
     public void UpdateAttrUI(AllianceType type, bool isCombat)
     {
-        if(_combatPlayerAttr == null || _combatEnemyAttr == null)
+        if (_combatPlayerAttr == null || _combatEnemyAttr == null)
             return;
-        
+
         TextMeshProUGUI textMesh = type == AllianceType.Player ? _playerAttrText : _enemyAttrText;
         if (isCombat)
         {
@@ -460,6 +460,21 @@ public class InGameTopUI : MonoBehaviour
 
     private void OnClickPauseButton()
     {
+        // 테스트 모드일 경우 게임 종료
+        if (InGameResourceHolder.InGameType == InGameType.TEST)
+        {
+            Debug.LogColor("[Test] 테스트 재시작 - 씬 재로드");
+
+            // 인게임 정리
+            InGameManager.Instance.EndInGame();
+
+            // 씬 재로드
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            SceneTransition.FadeInAsync().Forget();
+            SceneLoading.GoToNextScene("InGame", (InGameType.TEST, (IGameStateUICore)new InGameMainStateTest(), 0));
+            return;
+        }
+
         // 챕터 1 (튜토리얼 스테이지) 관련 처리
         if (InGameManager.Instance.SpecStage.chapter_id == 1 && !ServerDataManager.Instance.Battle.IsStageCleared((uint)InGameManager.Instance.SpecStage.stage_id))
         {

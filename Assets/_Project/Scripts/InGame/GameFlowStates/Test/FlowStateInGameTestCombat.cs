@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -26,6 +27,9 @@ public class FlowStateInGameTestCombat : StateCombatBase
         _characters = ListPool<CharacterController>.Get();
         _isEndCombat = false;
         _isWin = false;
+
+        // 전투 상태 플래그 설정
+        InGameManager.Instance.IsInGameCombat = true;
 
         InGameSynergyManager.Instance.ClearSynergyFx();
 
@@ -210,17 +214,14 @@ public class FlowStateInGameTestCombat : StateCombatBase
 
     private void RestartTest()
     {
-        Debug.LogColor("[Test] 테스트 재시작");
+        Debug.LogColor("[Test] 테스트 재시작 - 씬 재로드");
 
-        // 기존 캐릭터 정리
-        InGameObjectManager.Instance.ClearAllCharactersInField(AllianceType.Player);
-        InGameObjectManager.Instance.ClearAllCharactersInField(AllianceType.Enemy);
-        InGameObjectManager.Instance.ClearAllCharactersInField(AllianceType.Neutral);
+        // 인게임 정리
+        InGameManager.Instance.EndInGame();
 
-        // 시너지/이펙트 정리
-        InGameSynergyManager.Instance.ClearSynergyFx();
-
-        // 상태만 전환 (Initialize 재호출 안 함)
-        InGameMainFlowManager.Instance.AddNextState<FlowStateInGameTestReady>((_testConfig));
+        // 씬 재로드
+        SceneTransition.Create<SceneTransition_FadeInOut>();
+        SceneTransition.FadeInAsync().Forget();
+        SceneLoading.GoToNextScene("InGame", (InGameType.TEST, (IGameStateUICore)new InGameMainStateTest(), 0));
     }
 }

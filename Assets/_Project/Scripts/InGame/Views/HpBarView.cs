@@ -105,6 +105,11 @@ namespace CookApps.AutoBattler
             _defalutSize = _selectedFillLeft.size;
             _defaultScale = _selectedFillLeft.transform.localScale;
 
+            // HP 바 초기화 (풀에서 재사용 시 이전 값 리셋)
+            _selectedFillLeft.size = _defalutSize;
+            _hpFillSmoothGuage.size = new Vector2(_defalutSize.x, _hpFillSmoothGuage.size.y);
+            _shieldFiilLeft.size = new Vector2(0, _shieldFiilLeft.size.y);
+
             // 눈금선 초기화
             if (_hpMarkGuage != null)
             {

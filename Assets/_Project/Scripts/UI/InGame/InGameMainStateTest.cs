@@ -33,7 +33,7 @@ namespace CookApps.AutoBattler
             int stageId = stageList != null && stageList.Count > 0 ? stageList[0].stage_id : 1;
 
             // InGame 리소스 로드 (기존 흐름 활용)
-            await InGameResourceHolder.LoadResources(InGameType.STAGE, this, stageId);
+            await InGameResourceHolder.LoadResources(InGameType.TEST, this, stageId);
 
             await InitializeInternal(canvasTransform);
         }

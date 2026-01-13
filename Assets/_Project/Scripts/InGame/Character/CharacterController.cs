@@ -385,6 +385,7 @@ namespace CookApps.BattleSystem
 
                 _buffDebuffEffectViewDict.Clear();
                 _view.OnAnimationEvent -= OnAnimationEvent;
+                _view.StopAllTweens();
             }
             Addressables.ReleaseInstance(_viewHandle);
             ClearAllState();

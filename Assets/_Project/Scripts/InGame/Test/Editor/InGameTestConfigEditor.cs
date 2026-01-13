@@ -11,7 +11,7 @@ namespace CookApps.AutoBattler.Editor
     {
         private const int GridWidth = 5;  // 0~4
         private const int GridHeight = 7; // 0~5
-        private const float CellSize = 40f;
+        private const float CellSize = 50f;
         private const float GridPadding = 10f;
 
         private SerializedProperty _stageChapterIdProp;
@@ -402,12 +402,12 @@ namespace CookApps.AutoBattler.Editor
                     else if (hasPlayer)
                     {
                         currentStyle = _playerCellStyle;
-                        label = $"P\n{string.Join(",", playerPositions[pos])}";
+                        label = $"P\n{GetCharacterNamesForCell(playerPositions[pos])}";
                     }
                     else if (hasEnemy)
                     {
                         currentStyle = _enemyCellStyle;
-                        label = $"E\n{string.Join(",", enemyPositions[pos])}";
+                        label = $"E\n{GetCharacterNamesForCell(enemyPositions[pos])}";
                     }
 
                     // 셀 그리기
@@ -646,6 +646,34 @@ namespace CookApps.AutoBattler.Editor
         #endregion
 
         #region Utility
+
+        private string GetCharacterNamesForCell(List<int> characterIds)
+        {
+            var names = new List<string>();
+            foreach (var id in characterIds)
+            {
+                var entry = InGameTestSpecDataHelper.FindById(id);
+                if (entry.HasValue)
+                {
+                    // DisplayName에서 이름 부분만 추출 (예: "[3301] 이름" -> "이름")
+                    string displayName = entry.Value.DisplayName;
+                    int bracketEnd = displayName.IndexOf(']');
+                    if (bracketEnd >= 0 && bracketEnd + 2 < displayName.Length)
+                    {
+                        names.Add(displayName.Substring(bracketEnd + 2));
+                    }
+                    else
+                    {
+                        names.Add(displayName);
+                    }
+                }
+                else
+                {
+                    names.Add(id.ToString());
+                }
+            }
+            return string.Join("\n", names);
+        }
 
         private Texture2D MakeTexture(int width, int height, Color color)
         {

@@ -97,12 +97,18 @@ namespace CookApps.AutoBattler
         }
 
         protected override void OnDestroy()
-        {            
+        {
             base.OnDestroy();
+            StopAllTweens();
             if (_animator != null)
             {
                 _animationEventListener.OnAnimationEvent -= OnFiredAnimationEvent;
             }
+        }
+
+        public void StopAllTweens()
+        {
+            _viewScaleTween.Stop();
         }
 
         public void UpdatePosition(Vector3 position, Vector3 viewPosition, Vector3 selectedOffSet)
