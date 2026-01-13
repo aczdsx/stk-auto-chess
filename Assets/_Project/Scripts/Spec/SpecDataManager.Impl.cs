@@ -481,9 +481,12 @@ namespace CookApps.AutoBattler
                 return default;
             }
 
-            if (typeof(T) == typeof(int) && configData.config_value_type == ConfigValueType.INT) return int.Parse(configData.config_value).ConvertTo<T>();
-            if (typeof(T) == typeof(float) && configData.config_value_type == ConfigValueType.FLOAT) return float.Parse(configData.config_value).ConvertTo<T>();
-            if (typeof(T) == typeof(string) && configData.config_value_type == ConfigValueType.STRING) return configData.config_value.ConvertTo<T>();
+            if (typeof(T) == typeof(int) && configData.config_value_type == ConfigValueType.INT)
+                return int.Parse(configData.config_value).ConvertTo<T>();
+            if (typeof(T) == typeof(float) && configData.config_value_type == ConfigValueType.FLOAT)
+                return float.Parse(configData.config_value).ConvertTo<T>();
+            if (typeof(T) == typeof(string) && configData.config_value_type == ConfigValueType.STRING)
+                return configData.config_value.ConvertTo<T>();
 
             return configData.config_value.ConvertTo<T>();
         }
@@ -493,6 +496,7 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < CharacterInfo.All.Count; i++)
             {
                 var character = CharacterInfo.All[i];
+                
                 if (character.character_id == characterID)
                     return character;
             }
