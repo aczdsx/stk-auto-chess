@@ -246,5 +246,55 @@ namespace CookApps.AutoBattler
                 UserDataManager.Instance.SetUserTotalPlayTime(1, true);
             }
         }
+
+        /// <summary>
+        /// 테스트 모드 버튼 클릭 (Title UI에 버튼 추가 후 연결)
+        /// </summary>
+        public void OnClickTestModeButton()
+        {
+            GoToTestModeAsync().Forget();
+        }
+
+        private async UniTask GoToTestModeAsync()
+        {
+            touchToStart.SetActive(false);
+            guestLoginNode.SetActive(false);
+
+            // 게스트 로그인 처리
+            var popup = await SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+            await LoginManager.Instance.LoginGuest();
+
+            var recentAuthPlatform = LocalDataManager.Instance.GetRecentAuthData();
+            var resp = await NetManager.Instance.Auth.AuthenticateAsync(recentAuthPlatform.Platform, recentAuthPlatform.Id);
+            if (!resp.IsSuccess)
+            {
+                SceneUILayerManager.Instance.PopUILayer(popup);
+                Debug.LogError("[Test Mode] Auth failed");
+                return;
+            }
+
+            // 유저 데이터 초기화
+            bool res = await UserDataManager.Instance.Initialize();
+            if (!res)
+            {
+                SceneUILayerManager.Instance.PopUILayer(popup);
+                Debug.LogError("[Test Mode] UserDataManager init failed");
+                return;
+            }
+
+            // 서버 데이터 가져오기
+            await UniTask.WhenAll(
+                NetManager.Instance.CustomLobby.GetMyPlayerDataAsync(),
+                NetManager.Instance.Inventory.ListAsync(),
+                NetManager.Instance.Character.ListAsync()
+            );
+
+            SceneUILayerManager.Instance.PopUILayer(popup);
+
+            // 테스트 씬으로 전환
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            await SceneTransition.FadeInAsync();
+            SceneLoading.GoToNextScene("InGame", (InGameType.STAGE, (IGameStateUICore)new InGameMainStateTest(), 0));
+        }
     }
 }

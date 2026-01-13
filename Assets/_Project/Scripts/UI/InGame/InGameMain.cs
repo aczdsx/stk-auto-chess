@@ -52,7 +52,6 @@ namespace CookApps.AutoBattler
     public interface IGameStateUICore
     {
         UniTask Initialize(Transform canvasTransform, int id);
-        UniTask Initialize(Transform canvasTransform, UserPVPBattleDetailData data);
         void InitReadyStateUI(List<DeckCharacterPlacement> battleDeckList);
         void InitCombatStateUI();
         void RefreshInGameTopUI(bool isCombat);
@@ -160,11 +159,6 @@ namespace CookApps.AutoBattler
                     _inGameType = inGameType;
                     _currentGameStateUI = gameState;
                     _currentGameStateUI.Initialize(_canvasTransform, id).Forget();
-                    break;
-                case (InGameType inGameType, IGameStateUICore gameState, UserPVPBattleDetailData data):
-                    _inGameType = inGameType;
-                    _currentGameStateUI = gameState;
-                    _currentGameStateUI.Initialize(_canvasTransform, data).Forget();
                     break;
                 default:
                     throw new ArgumentException("Invalid parameter type");

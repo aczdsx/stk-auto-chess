@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -124,8 +125,14 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
     public bool HandleTutorialAction(TutorialTriggerType tutorialTriggerType, int key, bool isLongShow = false)
     {
+        if (!IsTutorial)
+        {
+            return false;
+        }
+        
         if (_specTutorialDataList.Count == 0)
         {
+            Debug.LogColor($"튜토리얼을 진행하는 스테이지가 아닙니다. tutorialTriggerType : {tutorialTriggerType} key : {key}", "red");
             return false;
         }
 
