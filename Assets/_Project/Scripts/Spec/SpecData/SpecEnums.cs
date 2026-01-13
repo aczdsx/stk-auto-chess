@@ -594,6 +594,7 @@ namespace CookApps.AutoBattler
         fx_common_debuff_ctup_01 = 245,
         fx_common_debuff_ctup_02 = 246,
         Projectile_103011 = 247,
+        trouble_shooter_missile = 248,
     }
 
     public enum GlobalEffectProviderType
