@@ -25,6 +25,9 @@ namespace CookApps.AutoBattler
         private ElpisBuildInfo _buildInfo;
         private Action<ElpisBuildInfo> _onInstallClicked;
 
+        public bool IsBuilt { get; private set; }
+        public int BuildLevel { get; private set; }
+
         private void Awake()
         {
             // Bind Button
@@ -38,6 +41,8 @@ namespace CookApps.AutoBattler
         {
             _buildInfo = buildInfo;
             _onInstallClicked = onInstallClicked;
+            IsBuilt = isInstalled;
+            BuildLevel = buildInfo.build_lv;
 
             // Basic Info
             if (!string.IsNullOrEmpty(buildInfo.build_prefab))
@@ -70,6 +75,8 @@ namespace CookApps.AutoBattler
                 _installButton.SetClickableState(canAfford);
                 _conditionText.text = "";
             }
+            
+            CachedGo.SetActive(true);
         }
 
         private void OnInstallClick()

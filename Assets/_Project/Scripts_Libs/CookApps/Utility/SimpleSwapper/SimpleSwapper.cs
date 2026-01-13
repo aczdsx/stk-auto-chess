@@ -29,9 +29,12 @@ namespace CookApps.TeamBattle.Utility
         Custom_7 = 107,
         Custom_8 = 108,
         Custom_9 = 109,
+        Custom_10 = 110,
         
         Possible = 200,
-        Impossible = 201
+        Impossible = 201,
+        
+        Selected = 300,
     }
 
     public abstract class SimpleSwapper : CachedMonoBehaviour

@@ -10494,6 +10494,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildingListItemSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 4679859296773337622, guid: 2c8356abb073bad47bdcf9dc6c8eb07f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8172674440105948405, guid: 2c8356abb073bad47bdcf9dc6c8eb07f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
