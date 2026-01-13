@@ -210,9 +210,9 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < allCharacterList.Count; i++)
             {
                 var specChar = allCharacterList[i];
-                if (!IsHaveCharacter(specChar.character_id))
+                if (!IsHaveCharacter(specChar.id))
                 {
-                    output.Add(specChar.character_id);
+                    output.Add(specChar.id);
                 }
             }
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 
 public static class EffectCodeHelper
 {
@@ -46,7 +47,8 @@ public static class EffectCodeHelper
         // 면역 체크: 면역 타입이고 면역 버프가 있으면 이펙트 코드를 적용하지 않음
         if (isImmuneType && hasImmune)
         {
-            targetCharacter.ShowImmuneSuccessFx();
+            var effectcodes = effectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCanceledCC);
+            EffectCodeForLoopHelper.CallWithArgs(effectcodes, EffectCodeCharacterLambda.CallOnCanceledCCLambda, targetCharacter, effectCodeNameType);
             return null;
         }
         

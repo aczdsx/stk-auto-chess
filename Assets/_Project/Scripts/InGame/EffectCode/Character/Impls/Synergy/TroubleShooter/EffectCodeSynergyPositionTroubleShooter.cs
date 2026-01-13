@@ -46,7 +46,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
         if (InGameSynergyManager.Instance.IsRegisteredBattleItem((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE))
             return;
 
-        var specCharacter = SpecDataManager.Instance.GetBattleItemData((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE);
+        var specCharacter = SpecDataManager.Instance.GetSpecCharacter((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE);
         InGameTile inGameTile = null;
 
         for (int i = 0; i < itemCount; i++)
@@ -149,8 +149,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
     {
         Span<double> stats = stackalloc double[1];
         stats.Clear();
-        // stats[0] = synergyData.effect_stat_value_1;//Time
-        stats[0] = 6f;
+        stats[0] = synergyData.effect_stat_value_1;//Time
         var effectCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.BATTLE_ITEM_SUPPLY,
         0, stats);
 

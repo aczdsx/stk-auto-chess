@@ -79,7 +79,7 @@ namespace CookApps.AutoBattler
                 // 캐릭터인 경우 CharacterModel에 추가
                 if (itemId.IsCharacter())
                 {
-                    itemId.GetCharacterIndex(out var charIndex);
+                    itemId.GetCharacterId(out var charIndex);
                     ServerDataManager.Instance.Character.AddCharacterById((uint)charIndex);
                     continue;
                 }

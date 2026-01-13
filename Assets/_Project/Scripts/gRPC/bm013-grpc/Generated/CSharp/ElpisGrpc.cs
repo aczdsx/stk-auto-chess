@@ -53,10 +53,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisGetResponse> __Marshaller_tech_hive_v1_ElpisGetResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisGetResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisExpandRequest> __Marshaller_tech_hive_v1_ElpisExpandRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisExpandRequest.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisExpandResponse> __Marshaller_tech_hive_v1_ElpisExpandResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisExpandResponse.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisBuildFacilityRequest> __Marshaller_tech_hive_v1_ElpisBuildFacilityRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisBuildFacilityRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisBuildFacilityResponse> __Marshaller_tech_hive_v1_ElpisBuildFacilityResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisBuildFacilityResponse.Parser));
@@ -68,6 +64,10 @@ namespace Tech.Hive.V1 {
     static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisUpgradeFacilityRequest> __Marshaller_tech_hive_v1_ElpisUpgradeFacilityRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisUpgradeFacilityRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisUpgradeFacilityResponse> __Marshaller_tech_hive_v1_ElpisUpgradeFacilityResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisUpgradeFacilityResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisFinishUpgradingFacilityRequest> __Marshaller_tech_hive_v1_ElpisFinishUpgradingFacilityRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisFinishUpgradingFacilityRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisFinishUpgradingFacilityResponse> __Marshaller_tech_hive_v1_ElpisFinishUpgradingFacilityResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisFinishUpgradingFacilityResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.ElpisResearchCoreRequest> __Marshaller_tech_hive_v1_ElpisResearchCoreRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.ElpisResearchCoreRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -88,14 +88,6 @@ namespace Tech.Hive.V1 {
         "Get",
         __Marshaller_tech_hive_v1_ElpisGetRequest,
         __Marshaller_tech_hive_v1_ElpisGetResponse);
-
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.ElpisExpandRequest, global::Tech.Hive.V1.ElpisExpandResponse> __Method_Expand = new grpc::Method<global::Tech.Hive.V1.ElpisExpandRequest, global::Tech.Hive.V1.ElpisExpandResponse>(
-        grpc::MethodType.Unary,
-        __ServiceName,
-        "Expand",
-        __Marshaller_tech_hive_v1_ElpisExpandRequest,
-        __Marshaller_tech_hive_v1_ElpisExpandResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Tech.Hive.V1.ElpisBuildFacilityRequest, global::Tech.Hive.V1.ElpisBuildFacilityResponse> __Method_BuildFacility = new grpc::Method<global::Tech.Hive.V1.ElpisBuildFacilityRequest, global::Tech.Hive.V1.ElpisBuildFacilityResponse>(
@@ -120,6 +112,14 @@ namespace Tech.Hive.V1 {
         "UpgradeFacility",
         __Marshaller_tech_hive_v1_ElpisUpgradeFacilityRequest,
         __Marshaller_tech_hive_v1_ElpisUpgradeFacilityResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Tech.Hive.V1.ElpisFinishUpgradingFacilityRequest, global::Tech.Hive.V1.ElpisFinishUpgradingFacilityResponse> __Method_FinishUpgradingFacility = new grpc::Method<global::Tech.Hive.V1.ElpisFinishUpgradingFacilityRequest, global::Tech.Hive.V1.ElpisFinishUpgradingFacilityResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "FinishUpgradingFacility",
+        __Marshaller_tech_hive_v1_ElpisFinishUpgradingFacilityRequest,
+        __Marshaller_tech_hive_v1_ElpisFinishUpgradingFacilityResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Tech.Hive.V1.ElpisResearchCoreRequest, global::Tech.Hive.V1.ElpisResearchCoreResponse> __Method_ResearchCore = new grpc::Method<global::Tech.Hive.V1.ElpisResearchCoreRequest, global::Tech.Hive.V1.ElpisResearchCoreResponse>(
@@ -170,19 +170,6 @@ namespace Tech.Hive.V1 {
 
       /// <summary>
       ///*
-      /// 함선 확장 (코어 사용)
-      /// </summary>
-      /// <param name="request">The request received from the client.</param>
-      /// <param name="context">The context of the server-side call handler being invoked.</param>
-      /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.ElpisExpandResponse> Expand(global::Tech.Hive.V1.ElpisExpandRequest request, grpc::ServerCallContext context)
-      {
-        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-      }
-
-      /// <summary>
-      ///*
       /// 시설 건설
       /// </summary>
       /// <param name="request">The request received from the client.</param>
@@ -216,6 +203,19 @@ namespace Tech.Hive.V1 {
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.ElpisUpgradeFacilityResponse> UpgradeFacility(global::Tech.Hive.V1.ElpisUpgradeFacilityRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      ///*
+      /// 시설 업그레이드 완료
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.ElpisFinishUpgradingFacilityResponse> FinishUpgradingFacility(global::Tech.Hive.V1.ElpisFinishUpgradingFacilityRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -339,58 +339,6 @@ namespace Tech.Hive.V1 {
       public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.ElpisGetResponse> GetAsync(global::Tech.Hive.V1.ElpisGetRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_Get, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 함선 확장 (코어 사용)
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.ElpisExpandResponse Expand(global::Tech.Hive.V1.ElpisExpandRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return Expand(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 함선 확장 (코어 사용)
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.ElpisExpandResponse Expand(global::Tech.Hive.V1.ElpisExpandRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_Expand, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 함선 확장 (코어 사용)
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.ElpisExpandResponse> ExpandAsync(global::Tech.Hive.V1.ElpisExpandRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return ExpandAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 함선 확장 (코어 사용)
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.ElpisExpandResponse> ExpandAsync(global::Tech.Hive.V1.ElpisExpandRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_Expand, null, options, request);
       }
       /// <summary>
       ///*
@@ -547,6 +495,58 @@ namespace Tech.Hive.V1 {
       public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.ElpisUpgradeFacilityResponse> UpgradeFacilityAsync(global::Tech.Hive.V1.ElpisUpgradeFacilityRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_UpgradeFacility, null, options, request);
+      }
+      /// <summary>
+      ///*
+      /// 시설 업그레이드 완료
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.ElpisFinishUpgradingFacilityResponse FinishUpgradingFacility(global::Tech.Hive.V1.ElpisFinishUpgradingFacilityRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return FinishUpgradingFacility(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// 시설 업그레이드 완료
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Tech.Hive.V1.ElpisFinishUpgradingFacilityResponse FinishUpgradingFacility(global::Tech.Hive.V1.ElpisFinishUpgradingFacilityRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_FinishUpgradingFacility, null, options, request);
+      }
+      /// <summary>
+      ///*
+      /// 시설 업그레이드 완료
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.ElpisFinishUpgradingFacilityResponse> FinishUpgradingFacilityAsync(global::Tech.Hive.V1.ElpisFinishUpgradingFacilityRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return FinishUpgradingFacilityAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      ///*
+      /// 시설 업그레이드 완료
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.ElpisFinishUpgradingFacilityResponse> FinishUpgradingFacilityAsync(global::Tech.Hive.V1.ElpisFinishUpgradingFacilityRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_FinishUpgradingFacility, null, options, request);
       }
       /// <summary>
       ///*
@@ -719,10 +719,10 @@ namespace Tech.Hive.V1 {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Get, serviceImpl.Get)
-          .AddMethod(__Method_Expand, serviceImpl.Expand)
           .AddMethod(__Method_BuildFacility, serviceImpl.BuildFacility)
           .AddMethod(__Method_FinishBuildingFacility, serviceImpl.FinishBuildingFacility)
           .AddMethod(__Method_UpgradeFacility, serviceImpl.UpgradeFacility)
+          .AddMethod(__Method_FinishUpgradingFacility, serviceImpl.FinishUpgradingFacility)
           .AddMethod(__Method_ResearchCore, serviceImpl.ResearchCore)
           .AddMethod(__Method_ChangeFacilityPosition, serviceImpl.ChangeFacilityPosition)
           .AddMethod(__Method_ClaimSimulationReward, serviceImpl.ClaimSimulationReward).Build();
@@ -736,10 +736,10 @@ namespace Tech.Hive.V1 {
     public static void BindService(grpc::ServiceBinderBase serviceBinder, ElpisServiceBase serviceImpl)
     {
       serviceBinder.AddMethod(__Method_Get, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisGetRequest, global::Tech.Hive.V1.ElpisGetResponse>(serviceImpl.Get));
-      serviceBinder.AddMethod(__Method_Expand, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisExpandRequest, global::Tech.Hive.V1.ElpisExpandResponse>(serviceImpl.Expand));
       serviceBinder.AddMethod(__Method_BuildFacility, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisBuildFacilityRequest, global::Tech.Hive.V1.ElpisBuildFacilityResponse>(serviceImpl.BuildFacility));
       serviceBinder.AddMethod(__Method_FinishBuildingFacility, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisFinishBuildingFacilityRequest, global::Tech.Hive.V1.ElpisFinishBuildingFacilityResponse>(serviceImpl.FinishBuildingFacility));
       serviceBinder.AddMethod(__Method_UpgradeFacility, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisUpgradeFacilityRequest, global::Tech.Hive.V1.ElpisUpgradeFacilityResponse>(serviceImpl.UpgradeFacility));
+      serviceBinder.AddMethod(__Method_FinishUpgradingFacility, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisFinishUpgradingFacilityRequest, global::Tech.Hive.V1.ElpisFinishUpgradingFacilityResponse>(serviceImpl.FinishUpgradingFacility));
       serviceBinder.AddMethod(__Method_ResearchCore, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisResearchCoreRequest, global::Tech.Hive.V1.ElpisResearchCoreResponse>(serviceImpl.ResearchCore));
       serviceBinder.AddMethod(__Method_ChangeFacilityPosition, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisChangeFacilityPositionRequest, global::Tech.Hive.V1.ElpisChangeFacilityPositionResponse>(serviceImpl.ChangeFacilityPosition));
       serviceBinder.AddMethod(__Method_ClaimSimulationReward, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.ElpisClaimSimulationRewardRequest, global::Tech.Hive.V1.ElpisClaimSimulationRewardResponse>(serviceImpl.ClaimSimulationReward));

@@ -52,7 +52,8 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         if (InGameSynergyManager.Instance.IsRegisteredBattleItem((int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA))
             return;
 
-        var specCharacter = SpecDataManager.Instance.GetBattleItemData((int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA);
+        var battleItemId = (int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA + _synergyGrade - 1;
+        var specCharacter = SpecDataManager.Instance.GetSpecCharacter(battleItemId);
         InGameTile inGameTile = null;
 
         if (InGameTouchManager.Instance.SelectedFirstTileID != -1)
@@ -65,7 +66,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         }
         int2 pos = new int2(inGameTile.X, inGameTile.Y);
 
-        var statData = new CharacterStatData((int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA, 1, 1, 1);
+        var statData = new CharacterStatData(battleItemId, 1, 1, 1);
         var character = await InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Neutral,
             typeof(CharacterStateReady), false, HpBarType.None);
 

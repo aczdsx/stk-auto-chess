@@ -81,8 +81,8 @@ namespace CookApps.AutoBattler
             _totalCharacterList = SpecDataManager.Instance.GetCharacterListByCharacterType(CharacterType.CHARACTER);
 
             // 정렬 (획득 여부-> id 값 -> 조각 획득 여부)
-            _totalCharacterList = _totalCharacterList.OrderByDescending(data => ServerDataManager.Instance.Character.HasCharacter(data.character_id))
-                .ThenByDescending(data => data.character_id).ToList();
+            _totalCharacterList = _totalCharacterList.OrderByDescending(data => ServerDataManager.Instance.Character.HasCharacter(data.id))
+                .ThenByDescending(data => data.id).ToList();
 
 
             var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
@@ -101,7 +101,7 @@ namespace CookApps.AutoBattler
 
                 if (isGuide && _guideObj != null)
                 {
-                    if (_specGuideMissionData.sub_key == characterData.character_id)
+                    if (_specGuideMissionData.sub_key == characterData.id)
                     {
                         _guideObj.transform.parent = newCardObject.transform;
                         _guideObj.transform.localPosition = Vector3.zero;

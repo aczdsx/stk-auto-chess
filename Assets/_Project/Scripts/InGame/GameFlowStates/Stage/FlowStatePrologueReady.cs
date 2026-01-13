@@ -86,7 +86,7 @@ public class FlowStatePrologueReady : StateReadyBase
 
         //라플라스 마녀 소환 
         //[TODO] 라플라스 마녀의 실제 캐릭터 ID로 변경 필요
-        int laplaceWitchId = 350608501; // 임시 ID (Trial 던전 보스)
+        int laplaceWitchId = 8501; // 임시 ID (Trial 던전 보스)
         int2 witchPosition = new int2(2, 10);
 
         Debug.LogColor($"라플라스 마녀 추가 : {laplaceWitchId} at ({witchPosition.x}, {witchPosition.y})");

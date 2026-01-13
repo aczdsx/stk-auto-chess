@@ -23,6 +23,9 @@ namespace CookApps.BattleSystem
         private float _elapsedTime;
         private float _explosionDamage;
         private int _explosionOneTimeCount;
+        private List<CharacterController> _reuseableBombTargetCharacters = new();
+
+        private static readonly Vector3 JetPlanePosition = new Vector3(28.15f, -20.0f, 23.0f);
 
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
@@ -49,41 +52,124 @@ namespace CookApps.BattleSystem
 
         public override void OnUpdate(float dt)
         {
+            _reuseableBombTargetCharacters.Clear();
             _elapsedTime += dt;
             if (_elapsedTime >= _duration)
             {
                 _elapsedTime = 0f;
-                DroppingBombs();
+                ShootJetPlane();
             }
         }
 
-        private void DroppingBombs()
-        {
-            var enemyCharacterList = InGameObjectManager.Instance.GetCharacterList(allianceType: AllianceType.Enemy);
-            var targetList = new List<CharacterController>();
 
+        private void ShootJetPlane()
+        {
+            //비행기 출발
+            var jetPlaneVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.TroubleShooterJet, JetPlanePosition);
+            if (jetPlaneVfx is InGameVfxWithAnimation)
+            {
+                var animatorVfx = jetPlaneVfx as InGameVfxWithAnimation;
+                animatorVfx.SetOnAnimationStartCallback(OnStartBomb);
+                animatorVfx.SetOnCustomAnimationEventCallback((eventKey, positions) => OnMiddleBomb(eventKey, positions));
+                animatorVfx.SetOnAnimationEndCallback(OnEndBomb);
+            }
+
+        }
+
+        private void ShootMissiles(IReadOnlyList<Transform> positions, int count)
+        {
+            if (positions == null || positions.Count == 0 || count <= 0)
+                return;
+
+            // 타겟 적군 리스트 갱신
+            _reuseableBombTargetCharacters.Clear();
+            var enemyCharacterList = InGameObjectManager.Instance.GetCharacterList(allianceType: AllianceType.Enemy);
             foreach (var enemy in enemyCharacterList)
             {
                 if (enemy == null || enemy.IsAlive is false || enemy.CurrentTile == null)
                     continue;
-                targetList.Add(enemy);
+                _reuseableBombTargetCharacters.Add(enemy);
             }
 
-            if (targetList.Count == 0)
+            //타겟없음.
+            if (_reuseableBombTargetCharacters.Count == 0)
                 return;
 
-            for (int i = 0; i < _explosionOneTimeCount; i++)
+            // 미사일 발사
+            for (int i = 0; i < count; i++)
             {
-                var randomTarget = targetList[InGameRandomManager.GetUniversalRandomValue(targetList.Count - 1)];
-                var explosionTile = randomTarget.CurrentTile;
-                InGameVfxManager.Instance.AddInGameVfx(ExplosionVfxEnum, explosionTile.View.CachedTr.position);
+                // 발사 위치 선택 (positions가 여러 개면 순환 사용)
+                int positionIndex = i % positions.Count;
+                Transform launchPosition = positions[positionIndex];
+                if (launchPosition == null)
+                    continue;
 
-                CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
-                damageInfo.damageAmount = Math.Floor(_explosionDamage);
-                randomTarget. GetDamaged(damageInfo, null);
+                // 타겟 선택 (랜덤)
+                int targetIndex = InGameRandomManager.GetUniversalRandomValue(_reuseableBombTargetCharacters.Count - 1);
+                var target = _reuseableBombTargetCharacters[targetIndex];
+                if (target == null || !target.IsAlive || target.CurrentTile == null)
+                    continue;
+
+                // 미사일 VFX 생성
+                var missileVfx = InGameVfxManager.Instance.AddInGameVfx(
+                    InGameVfxNameType.trouble_shooter_missile, 
+                    launchPosition.position);
+
+                // 미사일 이동 설정
+                var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
+                Vector3 targetPosition = target.CurrentTile.View.CachedTr.position;
+                
+                // 방향 설정
+                Vector3 direction = (targetPosition - launchPosition.position).normalized;
+                missileVfx.CachedTr.rotation = Quaternion.LookRotation(direction);
+
+                // 베지어 곡선 이동 설정
+                movement.SetData(launchPosition.position, targetPosition, 10f);
+                missileVfx.Initialize(false, movement);
+
+                // 목표 도착 시 폭발 처리
+                void OnMissileReachedTarget()
+                {
+                    missileVfx.Remove();
+
+                    if (target != null && target.IsAlive && target.CurrentTile != null)
+                    {
+                        // 폭발 VFX
+                        InGameVfxManager.Instance.AddInGameVfx(
+                            ExplosionVfxEnum, 
+                            target.CurrentTile.View.CachedTr.position);
+
+                        // 데미지 처리
+                        CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
+                        damageInfo.damageAmount = Math.Floor(_explosionDamage);
+                        target.GetDamaged(damageInfo, null);
+                    }
+                }
+
+                movement.OnReachedTarget += OnMissileReachedTarget;
             }
-
-
         }
+
+
+        private void OnStartBomb(IReadOnlyList<Transform> positions)
+        {
+            int missileCount = _explosionOneTimeCount / 3;
+            ShootMissiles(positions, missileCount);
+        }
+
+        private void OnMiddleBomb(AnimationEventKey eventKey, IReadOnlyList<Transform> positions)
+        {
+            int missileCount = _explosionOneTimeCount / 3;
+            ShootMissiles(positions, missileCount);
+        }
+
+        private void OnEndBomb(IReadOnlyList<Transform> positions)
+        {
+            // 나머지 미사일은 마지막 이벤트에서 발사
+            int missileCount = _explosionOneTimeCount - (_explosionOneTimeCount / 3) * 2;
+            ShootMissiles(positions, missileCount);
+        }
+
+        
     }
 }

@@ -71,7 +71,7 @@ namespace CookApps.AutoBattler
 
             if (isCharacter)
             {
-                _specItemInfo.GetItemId().GetCharacterIndex(out var charIndex);
+                _specItemInfo.GetItemId().GetCharacterId(out var charIndex);
                 var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
                 _characterIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id)).Forget();
                 _itemNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);

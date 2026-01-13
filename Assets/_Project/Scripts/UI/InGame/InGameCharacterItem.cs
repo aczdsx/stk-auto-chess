@@ -98,7 +98,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         bool isActiveFocus = spec != null;
         if (isActiveFocus)
         {
-            var userCharacter = CookApps.AutoBattler.ServerDataManager.Instance.Character.GetCharacter(spec.character_id);
+            var userCharacter = ServerDataManager.Instance.Character.GetCharacter(spec.id);
             _focusImageSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(spec.prefab_id)).Forget();
             _focusText.text = userCharacter?.Level.ToString("n0") ?? "0";
             _lvText.text = userCharacter?.Level.ToString("n0") ?? "0";

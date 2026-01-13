@@ -38,10 +38,10 @@ namespace CookApps.AutoBattler
         AVOID_PROB_PERCENT_UP = 27,
         BLOCKING_PROB_PERCENT_UP = 28,
         DEF_PERCENT_UP = 29,
-        BATTLE_ITEM_SUPERNOVA = 6101,
-        BATTLE_ITEM_DYNAMITE = 6102,
-        BATTLE_ITEM_SUPPLY = 6103,
-        DROPPING_BOMBS = 6104,
+        BATTLE_ITEM_SUPERNOVA = 96101,
+        BATTLE_ITEM_DYNAMITE = 96201,
+        BATTLE_ITEM_SUPPLY = 96301,
+        DROPPING_BOMBS = 96401,
         COMMANDER_SKILL_EXPLOSION = 300001,
         COMMANDER_SKILL_FREEZING = 300002,
         COMMANDER_SKILL_AIRBORNE = 300003,
@@ -584,8 +584,7 @@ namespace CookApps.AutoBattler
         fx_common_asterism_sn_aura_03 = 234,
         Skill_401031_1 = 235,
         Skill_401031_2 = 236,
-        fx_common_buff_no_damage_shield_01 = 237,
-        fx_common_buff_no_damage_shield_02 = 238,
+        TroubleShooterJet = 237,
         fx_common_debuff_marie_aracne = 239,
         Skill_Passive_17663506 = 240,
         Skill_Passive_401011 = 241,
@@ -595,6 +594,7 @@ namespace CookApps.AutoBattler
         fx_common_debuff_ctup_01 = 245,
         fx_common_debuff_ctup_02 = 246,
         Projectile_103011 = 247,
+        trouble_shooter_missile = 248,
     }
 
     public enum GlobalEffectProviderType

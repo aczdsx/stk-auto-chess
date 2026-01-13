@@ -139,11 +139,6 @@ namespace CookApps.BattleSystem
 
         public AllianceType AllianceType => _allianceType;
         public double CurrentHp => _currHp;
-        public void SetImmuneSuccessFx(InGameVfxNameType fx, IFollowable transformFollowable)
-        {
-            _immuneSuccessFx = fx;
-            _immuneSuccessFxTransformFollowable = transformFollowable ?? SkillRootTransformFollowable;
-        }
 
         private HpBarView _hpBarView;
 
@@ -190,8 +185,7 @@ namespace CookApps.BattleSystem
 
         private Vector3 SelectedOffSet;
         private InGameVfx _notFoundTargetFx;
-        private InGameVfxNameType _immuneSuccessFx = InGameVfxNameType.NONE;
-        private IFollowable _immuneSuccessFxTransformFollowable;
+
 
         //캐릭터가 가지고있는 스탯 확률을 건드리지않고, 반드시 크리티컬 확률을 증가시키고 싶을 때 사용하는 변수
         private float _fixedCriticalProb = 0f;
@@ -208,7 +202,8 @@ namespace CookApps.BattleSystem
             if (_viewHandle.IsValid())
                 Addressables.ReleaseInstance(_viewHandle);
 
-            var handle = _viewHandle = Addressables.InstantiateAsync(CharacterType.OBSTACLE.ToCharacterResourcePath(id));
+            var prefabId = SpecDataManager.Instance.GetSpecCharacter(id).prefab_id;
+            var handle = _viewHandle = Addressables.InstantiateAsync(CharacterType.OBSTACLE.ToCharacterResourcePath(prefabId));
             await handle.WaitUntilDone();
 
             if (!handle.IsValid())
@@ -310,7 +305,6 @@ namespace CookApps.BattleSystem
             }
 
             // // skill passive 추가
-            return;
             Span<double> statsSkillPasive = stackalloc double[8];
 
             var skillDataList = SpecDataManager.Instance.GetSkillPassiveDataList(_statData.Spec.passive_skill_id);
@@ -1686,12 +1680,5 @@ namespace CookApps.BattleSystem
             return null;
         }
 
-        public InGameVfx ShowImmuneSuccessFx()
-        {
-            if (_immuneSuccessFx == InGameVfxNameType.NONE)
-                return null;
-
-            return InGameVfxManager.Instance.AddInGameVfx(_immuneSuccessFx, _immuneSuccessFxTransformFollowable);
-        }
     }
 }

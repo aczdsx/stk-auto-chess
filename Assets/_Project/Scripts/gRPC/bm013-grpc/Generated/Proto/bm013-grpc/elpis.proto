@@ -18,11 +18,6 @@ service ElpisService {
   rpc Get(ElpisGetRequest) returns (ElpisGetResponse) {}
 
   /**
-   * 함선 확장 (코어 사용)
-   */
-  rpc Expand(ElpisExpandRequest) returns (ElpisExpandResponse);
-
-  /**
    * 시설 건설
    */
   rpc BuildFacility(ElpisBuildFacilityRequest) returns (ElpisBuildFacilityResponse);
@@ -36,6 +31,11 @@ service ElpisService {
    * 시설 업그레이드
    */
   rpc UpgradeFacility(ElpisUpgradeFacilityRequest) returns (ElpisUpgradeFacilityResponse);
+
+  /**
+   * 시설 업그레이드 완료
+   */
+  rpc FinishUpgradingFacility(ElpisFinishUpgradingFacilityRequest) returns (ElpisFinishUpgradingFacilityResponse);
   
   /**
    * 코어 연구소 - 연구 진행
@@ -70,19 +70,13 @@ enum ElpisErrorCode {
   ELPIS_CORE_RESEARCH_MAX_LEVEL_REACHED = 10130109; // 코어 연구 최대 레벨에 도달했습니다.
 
   ELPIS_FACILITY_BUILD_FAILED = 10130110; // 요청된 건물중에 지을 수 없는 건물이 포함됐습니다. (ONLYONE 타입인데, 이미 있거나 개수를 초과했거나)
+  ELPIS_FACILITY_NOT_FINISHED_UPGRADING = 10130111; // 시설 업그레이드가 완료되지 않았습니다.
 }
 
 message ElpisGetRequest {}
 message ElpisGetResponse {
   ResponseStatus status = 1;
   ElpisData elpis = 2;
-}
-
-message ElpisExpandRequest {}
-message ElpisExpandResponse {
-  ResponseStatus status = 1;
-  ElpisFacility facility = 2; // 커맨드센터
-  repeated CurrencyDelta currency_deltas = 3;
 }
 
 message ElpisBuildFacilityRequest {
@@ -102,6 +96,15 @@ message ElpisFinishBuildingFacilityRequest {
 }
 
 message ElpisFinishBuildingFacilityResponse {
+  ResponseStatus status = 1;
+  ElpisFacility facility = 2;
+}
+
+message ElpisFinishUpgradingFacilityRequest {
+  uint32 build_id = 1;
+}
+
+message ElpisFinishUpgradingFacilityResponse {
   ResponseStatus status = 1;
   ElpisFacility facility = 2;
 }

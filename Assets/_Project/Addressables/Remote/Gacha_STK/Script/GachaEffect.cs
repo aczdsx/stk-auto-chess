@@ -39,7 +39,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < result.Count; i++)
             {
-                CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData( result[i].character_id);
+                CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(result[i].id);
                 // GachItems[i].InitItem(idxCharcater, result[i].piece, i);
             }
 

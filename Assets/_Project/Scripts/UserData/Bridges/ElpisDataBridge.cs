@@ -155,17 +155,6 @@ namespace CookApps.AutoBattler
             var research = GetCoreResearch(groupId);
             return research?.Level ?? 0;
         }
-
-        /// <summary>
-        /// 코어 연구가 최대 레벨인지 확인
-        /// </summary>
-        public bool IsCoreResearchMaxLevel(uint groupId)
-        {
-            var research = GetCoreResearch(groupId);
-            if (research == null) return false;
-            return research.Level >= research.MaxLevel;
-        }
-
         #endregion
 
         #region 시뮬레이션 관련

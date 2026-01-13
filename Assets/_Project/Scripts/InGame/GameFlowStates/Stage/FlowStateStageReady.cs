@@ -110,6 +110,8 @@ public class FlowStateStageReady : StateReadyBase
 
         CheckOverlapCharacter(battleDeckList);
 
+    
+
         foreach (var placement in battleDeckList)
         {
             var characterData = ServerDataManager.Instance.Character.GetCharacter(placement.CharacterId);
