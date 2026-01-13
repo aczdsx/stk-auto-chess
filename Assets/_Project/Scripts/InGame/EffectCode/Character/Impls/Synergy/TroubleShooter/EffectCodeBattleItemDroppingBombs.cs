@@ -24,6 +24,8 @@ namespace CookApps.BattleSystem
         private float _explosionDamage;
         private int _explosionOneTimeCount;
 
+        private List<CharacterController> _reuseableBombTargetCharacters = new();
+
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
@@ -49,12 +51,28 @@ namespace CookApps.BattleSystem
 
         public override void OnUpdate(float dt)
         {
+            _reuseableBombTargetCharacters.Clear();
             _elapsedTime += dt;
             if (_elapsedTime >= _duration)
             {
                 _elapsedTime = 0f;
-                DroppingBombs();
+                ShootJetPlane();
+            }//Vector3(28.1499996,-20.0799999,23.0900002)
+        }
+
+
+        private void ShootJetPlane()
+        {
+            var enemyCharacterList = InGameObjectManager.Instance.GetCharacterList(allianceType: AllianceType.Enemy);
+
+            foreach (var enemy in enemyCharacterList)
+            {
+                if (enemy == null || enemy.IsAlive is false || enemy.CurrentTile == null)
+                    continue;
+                _reuseableBombTargetCharacters.Add(enemy);
             }
+
+            // InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.TroubleShooterJet)
         }
 
         private void DroppingBombs()
@@ -80,7 +98,7 @@ namespace CookApps.BattleSystem
 
                 CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
                 damageInfo.damageAmount = Math.Floor(_explosionDamage);
-                randomTarget. GetDamaged(damageInfo, null);
+                randomTarget.GetDamaged(damageInfo, null);
             }
 
 

@@ -149,8 +149,8 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
     {
         Span<double> stats = stackalloc double[1];
         stats.Clear();
-        // stats[0] = synergyData.effect_stat_value_1;//Time
-        stats[0] = 6f;
+        stats[0] = synergyData.effect_stat_value_1;//Time
+        // stats[0] = 6f;
         var effectCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.BATTLE_ITEM_SUPPLY,
         0, stats);
 

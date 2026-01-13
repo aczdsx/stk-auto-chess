@@ -110,20 +110,7 @@ public class FlowStateStageReady : StateReadyBase
 
         CheckOverlapCharacter(battleDeckList);
 
-        if (battleDeckList.Count == 0)
-        {
-            var emptyTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Player);
-            var characterStat = new CharacterStatData(3401, 3,
-                1.0f, 1.0f, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
-
-            int x = emptyTile.X;
-            int y = emptyTile.Y;
-
-            int2 coordinate = new int2(x, y);
-            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, coordinate,
-                AllianceType.Player,
-                typeof(CharacterStateReady), true, HpBarType.Synergy | HpBarType.HpBar));
-        }
+    
 
         foreach (var placement in battleDeckList)
         {
