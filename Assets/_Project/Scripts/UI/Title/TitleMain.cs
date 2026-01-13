@@ -222,7 +222,7 @@ namespace CookApps.AutoBattler
             LanguageManager.Instance.InitLanguage();
 
             // bgm on
-            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash_001);
+            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash01);
         }
 
         // 유저 세션 타임 기록

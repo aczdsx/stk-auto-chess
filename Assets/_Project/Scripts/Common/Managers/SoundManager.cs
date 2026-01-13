@@ -9,7 +9,7 @@ public enum SoundBGM
 {
     NONE = -1,
 
-    snd_bgm_splash_001,
+    snd_bgm_splash01,
     snd_bgm_lobby,
     snd_bgm_chapter0,
     snd_bgm_chapter1,
