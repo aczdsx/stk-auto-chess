@@ -332,6 +332,11 @@ namespace CookApps.BattleSystem
         {
         }
 
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnCanceledCC)]
+        public virtual void OnCanceledCC(CharacterController attacker, EffectCodeNameType effectCodeNameType)
+        {
+        }
+
 
 
         #endregion
@@ -544,6 +549,14 @@ namespace CookApps.BattleSystem
             if (x is EffectCodeCharacterBase code)
             {
                 code.OnHpChange();
+            }
+        };
+
+        public static Action<EffectCodeStatBase, CharacterController, EffectCodeNameType> CallOnCanceledCCLambda = (x, attacker, effectCodeNameType) =>
+        {
+            if (x is EffectCodeCharacterBase code)
+            {
+                code.OnCanceledCC(attacker, effectCodeNameType);
             }
         };
 

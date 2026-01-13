@@ -584,8 +584,6 @@ namespace CookApps.AutoBattler
         fx_common_asterism_sn_aura_03 = 234,
         Skill_401031_1 = 235,
         Skill_401031_2 = 236,
-        fx_common_buff_no_damage_shield_01 = 237,
-        fx_common_buff_no_damage_shield_02 = 238,
         fx_common_debuff_marie_aracne = 239,
         Skill_Passive_17663506 = 240,
         Skill_Passive_401011 = 241,
