@@ -23,14 +23,14 @@ service SpecService {
   rpc GetLanguageData(SpecDataRequest) returns (SpecDataResponse) {}
 
   /**
-   * 우편 언어 데이터를 조회합니다.
+   * 기타 스펙 데이터를 조회합니다.
    */
   rpc GetEtcSpecData(SpecDataRequest) returns (SpecDataResponse) {}
 
   /**
-   * 스펙 링크를 조회합니다.
+   * Streaming 스펙 다운로드
    */
-  rpc GetSpecLink(SpecLinkRequest) returns (SpecLinkResponse) {}
+  rpc DownloadSpecData(DownloadSpecDataRequest) returns (stream DownloadSpecDataResponse) {}
 }
 
 enum SpecErrorCode {
@@ -52,17 +52,17 @@ message SpecDataResponse {
   SpecData data = 2;
 }
 
-message SpecLinkRequest {
-  SpecType spec_type = 1; // 요청하는 스펙 타입
-  uint32 version = 2; // 요청하는 스펙 버전
+
+message DownloadSpecDataRequest {
+  uint32 version = 1;
+  SpecType type = 2;
+  optional uint32 start_offset = 3; // 다운로드 시작 오프셋
 }
 
-message SpecLinkData {
-  string url = 2; // CDN URL
-  string key = 3; // AES-256-CBC 암호화 키
-}
-
-message SpecLinkResponse {
+message DownloadSpecDataResponse {
   ResponseStatus status = 1;
-  SpecLinkData data = 2;
+  bytes data = 2;
+  uint32 total_offset = 3;
+  uint32 total_size = 4;
+  bool is_end = 5;
 }

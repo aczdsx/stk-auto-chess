@@ -1,7 +1,9 @@
+using System;
 using System.Threading;
 using CookApps.NetLite;
 using Tech.Hive.V1;
 using Cysharp.Threading.Tasks;
+using Grpc.Core;
 
 namespace CookApps.AutoBattler
 {
@@ -59,12 +61,6 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            // 서버 응답이 없을 경우 spec에서 읽어서 fallback 처리
-            if (resp == null || resp.Status == null)
-            {
-                resp = CreateFallbackRewardResponse(rewardId);
-            }
-
             // 통화 변화 적용
             if (resp != null && resp.IsSuccess && resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
             {
@@ -74,28 +70,54 @@ namespace CookApps.AutoBattler
             return resp;
         }
 
-        private CustomLobbyClaimOtherRewardResponse CreateFallbackRewardResponse(uint rewardId)
+        /// <summary>
+        /// 이벤트 구독 (Bidirectional Streaming)
+        /// </summary>
+        private AsyncDuplexStreamingCall<CustomLobbySubscribeEventRequest, CustomLobbySubscribeEventResponse> SubscribeEvent(CancellationToken cancellationToken = default)
         {
-            var resp = new CustomLobbyClaimOtherRewardResponse
-            {
-                Status = new ResponseStatus { Code = 200 }
-            };
+            return ServiceClient.SubscribeEvent(cancellationToken: cancellationToken);
+        }
 
-            var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList((int)rewardId);
-            if (rewardInfoList != null)
+        /// <summary>
+        /// 이벤트 구독 시작 및 이벤트 수신 처리
+        /// </summary>
+        public async UniTask SubscribeEventAsync(Action<BM013Event> onEventReceived, CancellationToken cancellationToken = default)
+        {
+            using var call = SubscribeEvent(cancellationToken);
+
+            // 응답 수신 태스크
+            var readTask = ReadEventStreamAsync(call, onEventReceived, cancellationToken);
+
+            // Ping 전송 (연결 유지)
+            var pingTask = SendPingAsync(call, cancellationToken);
+
+            await UniTask.WhenAny(readTask, pingTask);
+        }
+
+        private async UniTask ReadEventStreamAsync(
+            AsyncDuplexStreamingCall<CustomLobbySubscribeEventRequest, CustomLobbySubscribeEventResponse> call,
+            Action<BM013Event> onEventReceived,
+            CancellationToken cancellationToken)
+        {
+            while (await call.ResponseStream.MoveNext(cancellationToken))
             {
-                for (int i = 0; i < rewardInfoList.Count; i++)
+                var response = call.ResponseStream.Current;
+                if (response.IsSuccess && response.Event != BM013Event.Unspecified)
                 {
-                    var rewardInfo = rewardInfoList[i];
-                    resp.Rewards.Add(new Reward
-                    {
-                        ItemId = (uint)rewardInfo.item_id,
-                        Count = (ulong)rewardInfo.item_count
-                    });
+                    onEventReceived?.Invoke(response.Event);
                 }
             }
+        }
 
-            return resp;
+        private async UniTask SendPingAsync(
+            AsyncDuplexStreamingCall<CustomLobbySubscribeEventRequest, CustomLobbySubscribeEventResponse> call,
+            CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                await call.RequestStream.WriteAsync(new CustomLobbySubscribeEventRequest());
+                await UniTask.Delay(TimeSpan.FromSeconds(30), cancellationToken: cancellationToken);
+            }
         }
     }
 }

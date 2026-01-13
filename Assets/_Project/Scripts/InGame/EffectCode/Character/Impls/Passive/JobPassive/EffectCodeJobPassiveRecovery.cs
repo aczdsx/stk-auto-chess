@@ -13,6 +13,7 @@ namespace CookApps.BattleSystem
         public const int CodeId = (int)EffectCodeNameType.JOBS_RECOVERY;
         private float _recoveryPercentage = 0f;//회복비율
         private const InGameVfxNameType _recoveryVfxEnum = InGameVfxNameType.fx_common_buff_heal;
+        private CharacterController _target;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
         {
@@ -29,30 +30,35 @@ namespace CookApps.BattleSystem
             base.Merge(codeInfo, source);
             _recoveryPercentage = codeInfo.GetCodeStatToFloat(1);
         }
+        public override void OnAttack()
+        {
+            base.OnAttack();
+            _target = owner.Target;
+        }
 
         public override void OnAttackEnd(CharacterController target)
         {
-            base.OnAttackEnd(target);
-            if (target.AllianceType == owner.AllianceType)
+            base.OnAttackEnd(_target);
+            if (_target.AllianceType == owner.AllianceType)
             {
                 //target에게 공격력 비례 회복적용
 
                 double attackPower = owner.SpecCharacter.atk_type == AtkType.AD ? owner.AD : owner.AP;
 
-                double recoveryAmount = CalculateOracleNormalAttackRecoveryAmount(target);
+                double recoveryAmount = CalculateOracleNormalAttackRecoveryAmount(_target);
 
                 var effectCodes = owner.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyHealAmount);
                 recoveryAmount = Math.Round(EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyHealAmountLambda, recoveryAmount));
 
-                 target.GetHealed(recoveryAmount, owner, codeId, true);
+                _target.GetHealed(recoveryAmount, owner, codeId, true);
 
-                InGameVfxManager.Instance.AddInGameVfx(_recoveryVfxEnum, target.SkillRootTransformFollowable);
+                InGameVfxManager.Instance.AddInGameVfx(_recoveryVfxEnum, _target.SkillRootTransformFollowable);
             }
             else
             {
                 var stateAttack = owner.GetCurrentState() as CharacterStateAttack;
                 var damageInfo = stateAttack.CalculateNormalAttackDamage();
-                target.GetDamaged(damageInfo, owner);
+                _target.GetDamaged(damageInfo, owner);
             }
         }
         public override void OnPreRemoved()

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package tech.hive.v1;
+
+import "base.proto";
+import "custom_common.proto";
+
+// 치트 서비스, prod에서 비활성화됩니다.
+service CheatService {
+  // 모든 캐릭터 획득
+  rpc EarnAllCharacters(EarnAllCharactersRequest) returns (EarnAllCharactersResponse) {}
+
+  // 재화 변화
+  rpc ChangeCurrency(ChangeCurrencyRequest) returns (ChangeCurrencyResponse) {}
+}
+
+enum CheatErrorCode {
+  CHEAT_UNSPECIFIED = 0;
+}
+
+message EarnAllCharactersRequest {}
+message EarnAllCharactersResponse {
+  ResponseStatus status = 1;
+  repeated CurrencyDelta currency_deltas = 2;
+}
+
+message ChangeCurrencyRequest {
+  repeated CurrencyDelta currency_deltas = 1;
+}
+message ChangeCurrencyResponse {
+  ResponseStatus status = 1;
+  repeated CurrencyDelta currency_deltas = 2;
+}

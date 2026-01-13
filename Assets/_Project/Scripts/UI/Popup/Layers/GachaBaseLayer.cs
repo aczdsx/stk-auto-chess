@@ -94,12 +94,6 @@ namespace CookApps.AutoBattler
 
             // 가챠 진행횟수 유저 데이터 저장
             UserDataManager.Instance.AddUserGachaCount(_currentSpecGachaData.gacha_count);
-
-            // 가이드 미션 체크
-            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.SUMMON_CHARCTER, 0, _currentSpecGachaData.gacha_count);
-
-            // 퀘스트 데이터 갱신
-            UserDataManager.Instance.SetUserQuestActionCount(QuestType.SUMMON_CHARACTER, _currentSpecGachaData.gacha_count, true, true);
             
             SoundManager.Instance.StopBGM();
             SoundManager.Instance.IsPlayingGacha = true;

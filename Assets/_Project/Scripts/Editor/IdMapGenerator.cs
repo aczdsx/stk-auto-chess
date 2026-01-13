@@ -78,6 +78,11 @@ namespace CookApps.AutoBattler.Editor
             // ItemId Extension Methods 생성
             GenerateItemIdExtensions(sb, data);
 
+            sb.AppendLine();
+
+            // CheatCurrencyType enum 생성
+            GenerateCheatCurrencyTypeEnum(sb, data);
+
             sb.AppendLine("}");
 
             // 파일 저장
@@ -386,6 +391,50 @@ namespace CookApps.AutoBattler.Editor
                 FacilityType.SIMULATION_CENTER => "SimulationCenter",
                 _ => $"Unknown_{(int)facilityType}"
             };
+        }
+
+        private static void GenerateCheatCurrencyTypeEnum(StringBuilder sb, Dictionary<string, object> data)
+        {
+            var items = new List<(string itemCode, int itemId)>();
+
+            // ItemCurrencyTable 처리
+            if (data.ContainsKey("ItemCurrencyTable"))
+            {
+                var table = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ItemCurrencyData>>(data["ItemCurrencyTable"].ToString());
+                foreach (var item in table)
+                {
+                    if (!string.IsNullOrEmpty(item.item_code))
+                    {
+                        items.Add((item.item_code, item.currency_id));
+                    }
+                }
+            }
+
+            // ItemConsumableTable 처리
+            if (data.ContainsKey("ItemConsumableTable"))
+            {
+                var table = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ItemConsumableData>>(data["ItemConsumableTable"].ToString());
+                foreach (var item in table)
+                {
+                    if (!string.IsNullOrEmpty(item.item_code))
+                    {
+                        items.Add((item.item_code, item.item_id));
+                    }
+                }
+            }
+
+            sb.AppendLine("    /// <summary>");
+            sb.AppendLine("    /// 치트용 재화 타입 (SROptions 드롭다운용)");
+            sb.AppendLine("    /// </summary>");
+            sb.AppendLine("    public enum CheatCurrencyType");
+            sb.AppendLine("    {");
+
+            foreach (var (itemCode, itemId) in items)
+            {
+                sb.AppendLine($"        {itemCode} = {itemId},");
+            }
+
+            sb.AppendLine("    }");
         }
 
         #region JSON 파싱용 데이터 클래스

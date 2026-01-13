@@ -152,12 +152,9 @@ namespace CookApps.AutoBattler
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_defeat_001);
             }
 
-            var currentMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-            if (currentMissionData != null)
-            {
-                // 가이드 미션이 완료되어 보상 수령 대기상태일 경우 처리
-                _isWaitGuideMissionReward = currentMissionData.MissionStateType == (int)MissionStateType.REWARD;
-            }
+            var guideMission = ServerDataManager.Instance.GuideMission;
+            // 가이드 미션이 완료되어 보상 수령 대기상태일 경우 처리
+            _isWaitGuideMissionReward = guideMission.CanClaimReward;
 
             // 애니메이션 연출 적용
             string animKey = _isVictory ? "InGameResult_Win" : "InGameResult_Lose";
@@ -322,15 +319,6 @@ namespace CookApps.AutoBattler
             if (resultItemList.Count > 0)
             {
                 UserDataManager.Instance.IncreaseRewardItemList(resultItemList, true);
-            }
-
-            // 별 최고기록일 경우 가이드 미션 체크 (스테이지 클리어 데이터는 BattleService.EndAsync에서 서버가 처리)
-            if (_star > prevBestStars)
-            {
-                int currentStageID = InGameManager.Instance.SpecStage.stage_id;
-
-                // 가이드 미션 체크
-                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLEAR_STAGE, currentStageID, 1);
             }
         }
 

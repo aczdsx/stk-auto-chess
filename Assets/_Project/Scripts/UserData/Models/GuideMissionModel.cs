@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using R3;
 using Tech.Hive.V1;
 
@@ -9,12 +10,8 @@ namespace CookApps.AutoBattler
     /// </summary>
     public class GuideMissionModel
     {
-        // 가이드 미션 정보
-        private uint _guideMissionId;
-        private uint _order;
-        private uint _currentCount;
-        private uint _goalCount;
-        private GuideMissionState _state;
+        // 가이드 미션 데이터
+        private GuideMissionData _data;
 
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
@@ -23,88 +20,96 @@ namespace CookApps.AutoBattler
         public readonly Subject<uint> OnProgressChanged = new();
 
         /// <summary>
+        /// 원본 데이터
+        /// </summary>
+        public GuideMissionData Data => _data;
+
+        /// <summary>
         /// 데이터 초기화
         /// </summary>
         public void Reset()
         {
-            _guideMissionId = 0;
-            _order = 0;
-            _currentCount = 0;
-            _goalCount = 0;
-            _state = GuideMissionState.Unspecified;
-
+            _data = null;
             OnChanged.OnNext(Unit.Default);
         }
 
         /// <summary>
-        /// GuideMissionData로부터 데이터 설정
+        /// GuideMissionData 설정
         /// </summary>
         internal void SetGuideMission(GuideMissionData data)
         {
-            if (data == null) return;
+            var prevData = _data;
+            _data = data;
 
-            var missionIdChanged = _guideMissionId != data.GuideMissionId;
-            var stateChanged = _state != data.State;
-            var progressChanged = _currentCount != data.CurrentCount;
-
-            _guideMissionId = data.GuideMissionId;
-            _order = data.Order;
-            _currentCount = data.CurrentCount;
-            _goalCount = data.GoalCount;
-            _state = data.State;
+            if (data == null)
+            {
+                OnChanged.OnNext(Unit.Default);
+                return;
+            }
 
             // 변경 이벤트 발생
-            if (missionIdChanged)
-                OnMissionIdChanged.OnNext(_guideMissionId);
+            if (prevData?.GuideMissionId != data.GuideMissionId)
+                OnMissionIdChanged.OnNext(data.GuideMissionId);
 
-            if (stateChanged)
-                OnStateChanged.OnNext(_state);
+            if (prevData?.State != data.State)
+                OnStateChanged.OnNext(data.State);
 
-            if (progressChanged)
-                OnProgressChanged.OnNext(_currentCount);
+            if (prevData?.CurrentCount != data.CurrentCount)
+                OnProgressChanged.OnNext(data.CurrentCount);
 
             OnChanged.OnNext(Unit.Default);
         }
+
+        #region 속성
 
         /// <summary>
         /// 가이드 미션 ID
         /// </summary>
-        public uint GuideMissionId => _guideMissionId;
+        public uint GuideMissionId => _data?.GuideMissionId ?? 0;
 
         /// <summary>
         /// 미션 순서
         /// </summary>
-        public uint Order => _order;
+        public uint Order => _data?.Order ?? 0;
 
         /// <summary>
         /// 현재 진행 횟수
         /// </summary>
-        public uint CurrentCount => _currentCount;
+        public uint CurrentCount => _data?.CurrentCount ?? 0;
 
         /// <summary>
         /// 목표 횟수
         /// </summary>
-        public uint GoalCount => _goalCount;
+        public uint GoalCount => _data?.GoalCount ?? 0;
 
         /// <summary>
         /// 미션 상태
         /// </summary>
-        public GuideMissionState State => _state;
+        public GuideMissionState State => _data?.State ?? GuideMissionState.Unspecified;
+
+        /// <summary>
+        /// 보상 목록
+        /// </summary>
+        public IReadOnlyList<Reward> Rewards => _data?.Rewards;
+
+        #endregion
+
+        #region 편의 속성
 
         /// <summary>
         /// 미션 완료 여부
         /// </summary>
-        public bool IsCompleted => _state == GuideMissionState.Completed;
+        public bool IsCompleted => State == GuideMissionState.Completed;
 
         /// <summary>
         /// 미션 진행 중 여부
         /// </summary>
-        public bool IsInProgress => _state == GuideMissionState.InProgress;
+        public bool IsInProgress => State == GuideMissionState.InProgress;
 
         /// <summary>
         /// 목표 달성 여부 (보상 수령 가능)
         /// </summary>
-        public bool IsGoalReached => _currentCount >= _goalCount;
+        public bool IsGoalReached => CurrentCount >= GoalCount && GoalCount > 0;
 
         /// <summary>
         /// 진행률 (0.0 ~ 1.0)
@@ -113,11 +118,21 @@ namespace CookApps.AutoBattler
         {
             get
             {
-                if (_goalCount == 0)
-                    return 0f;
-
-                return (float)_currentCount / (float)_goalCount;
+                if (GoalCount == 0) return 0f;
+                return (float)CurrentCount / GoalCount;
             }
         }
+
+        /// <summary>
+        /// 모든 가이드 미션 완료 여부 (더 이상 진행할 미션 없음)
+        /// </summary>
+        public bool IsAllCompleted => _data == null || (GuideMissionId == 0 && State == GuideMissionState.Unspecified);
+
+        /// <summary>
+        /// 보상 수령 가능 여부 (목표 달성 & 완료 상태 아님)
+        /// </summary>
+        public bool CanClaimReward => IsGoalReached && !IsCompleted;
+
+        #endregion
     }
 }

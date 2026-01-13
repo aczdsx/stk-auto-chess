@@ -117,7 +117,7 @@ namespace CookApps.AutoBattler
             appEventParameter.Add(AppEventStringConst.USER_INSTALL_DATE, installDateTime.ToString("yyyyMMdd"));
             var specBestStageData = SpecDataManager.Instance.GetStageData((int)ServerDataManager.Instance.Battle.GetLatestClearedStageId());
             appEventParameter.Add(AppEventStringConst.BEST_STAGE, specBestStageData.id);
-            appEventParameter.Add(AppEventStringConst.BEST_MISSION, UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder);
+            appEventParameter.Add(AppEventStringConst.BEST_MISSION, (int)ServerDataManager.Instance.GuideMission.Order);
             // appEventParameter.Add(AppEventStringConst.USER_POWER, UserDataManager.Instance.GetAllCharacterBattlePower());
             appEventParameter.Add(AppEventStringConst.USER_LEVEL, UserDataManager.Instance.UserBasicData.Level);
             appEventParameter.Add(AppEventStringConst.USER_GRADE, UserDataManager.Instance.UserBasicData.MaxSquadCount);

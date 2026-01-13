@@ -141,8 +141,8 @@ namespace CookApps.AutoBattler
             SceneTransition.FadeInAsync().Forget();
             SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
 
-            var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-            if (userGuideMissionData.MissionStateType != (int)MissionStateType.REWARD)
+            var guideMission = ServerDataManager.Instance.GuideMission;
+            if (!guideMission.CanClaimReward)
                 SceneUILayerManager.OnSceneLoadedEvent += OpenDungeonTrialPopupAction;
         }
 

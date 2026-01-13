@@ -17,6 +17,11 @@ service GuideMissionService {
    * 가이드 미션 보상 수령
    */
   rpc ClaimReward(GuideMissionClaimRewardRequest) returns (GuideMissionClaimRewardResponse);
+
+  /**
+   * 가이드 미션 완료 (클라이언트 전용 미션에서만 사용)
+   */
+  rpc CompleteAction(GuideMissionCompleteActionRequest) returns (GuideMissionCompleteActionResponse);
 }
 
 enum GuideMissionErrorCode {
@@ -41,4 +46,10 @@ message GuideMissionClaimRewardResponse {
   GuideMissionData guide_mission = 2;
   repeated Reward rewards = 3;
   repeated CurrencyDelta currency_deltas = 4;
+}
+
+message GuideMissionCompleteActionRequest {}
+message GuideMissionCompleteActionResponse {
+  ResponseStatus status = 1;
+  GuideMissionData guide_mission = 2;
 }

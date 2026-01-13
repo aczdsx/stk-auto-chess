@@ -10,4 +10,7 @@ enum BM013Event {
 
   // 일일 던전 관련
   BM013_DAILY_DUNGEON_CLEAR = 2;
+
+  // 가이드 미션 관련
+  BM013_GUIDE_MISSION_CLEAR = 3;
 }

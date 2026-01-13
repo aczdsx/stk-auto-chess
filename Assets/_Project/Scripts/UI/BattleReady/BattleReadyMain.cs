@@ -679,14 +679,14 @@ namespace CookApps.AutoBattler
                 // }
 
                 // 게임 플로우 강제성을 위한 예외처리 적용
-                var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-                if (userGuideMissionData != null)
+                var guideMission = ServerDataManager.Instance.GuideMission;
+                if (guideMission.Data != null)
                 {
-                    var specGuideMissionData = SpecDataManager.Instance.GetGuideMissionDataByOrder(userGuideMissionData.MissionId);
-                    if (userGuideMissionData != null && specGuideMissionData != null)
+                    var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)guideMission.GuideMissionId);
+                    if (specGuideMissionData != null)
                     {
                         if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE &&
-                            userGuideMissionData.MissionStateType == (int)MissionStateType.REWARD)
+                            guideMission.CanClaimReward)
                         {
                             ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_1");
                             return;

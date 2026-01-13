@@ -222,7 +222,7 @@ namespace CookApps.AutoBattler
             LanguageManager.Instance.InitLanguage();
 
             // bgm on
-            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash_001);
+            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash01);
         }
 
         // 유저 세션 타임 기록
@@ -294,7 +294,7 @@ namespace CookApps.AutoBattler
             // 테스트 씬으로 전환
             SceneTransition.Create<SceneTransition_FadeInOut>();
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextScene("InGame", (InGameType.TEST, (IGameStateUICore)new InGameMainStateTest(), 0));
+            // SceneLoading.GoToNextScene("InGame", (InGameType.STAGE, (IGameStateUICore)new InGameMainStateTest(), 0));
         }
     }
 }

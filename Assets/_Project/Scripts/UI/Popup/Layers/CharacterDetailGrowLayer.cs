@@ -330,12 +330,7 @@ namespace CookApps.AutoBattler
         {
             try
             {
-                var response = await NetManager.Instance.Character.LevelUpAsync(_userCharacterData.CharacterId);
-
-                // 가이드 미션 체크
-                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER, 0, 1);
-                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER_TARGET, _specCharacterData.id, 1);
-                GuideMissionManager.Instance.RefreshGuideMissionUI();
+                await NetManager.Instance.Character.LevelUpAsync(_userCharacterData.CharacterId);
 
                 // 이펙트 실행
                 PlayLevelUpEffect();

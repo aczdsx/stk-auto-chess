@@ -34,6 +34,7 @@ namespace CookApps.AutoBattler
             CommanderSkill.Reset();
             Deck.Reset();
             GuideMission.Reset();
+            ClientDataManager.Instance.Reset();
         }
     }
 }

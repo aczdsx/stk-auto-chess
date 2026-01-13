@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CharacterStateIdle : CharacterStateBase
 {
-    protected const float ScanTargetInterval = 0.1f;
+    protected float ScanTargetInterval = 0.1f;
     protected float scanTargetTime = 0f;
 
     public override StatePriority StatePriority => StatePriority.Idle;

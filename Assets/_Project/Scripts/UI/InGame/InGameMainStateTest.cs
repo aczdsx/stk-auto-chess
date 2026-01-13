@@ -49,7 +49,7 @@ namespace CookApps.AutoBattler
             _inGameUI.TopUI.SetStageName("Test Battle");
 
             // 테스트 게임 시작
-            InGameManager.Instance.StartInGame<FlowStateInGameTestReady>(_testConfig);
+            InGameManager.Instance.StartInGame<FlowStateInGameTestReady>((_testConfig));
         }
 
         public void RefreshInGameTopUI(bool isCombat)

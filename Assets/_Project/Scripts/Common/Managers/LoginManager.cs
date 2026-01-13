@@ -66,7 +66,7 @@ namespace CookApps.AutoBattler
             if (cachedUserId == null)
                 return null;
 
-            var resp = await NetManager.Instance.Auth.CreateAsync(AuthPlatform.Apple, cachedUserId);
+            var resp = await NetManager.Instance.Auth.BindAsync(AuthPlatform.Apple, cachedUserId);
             if (resp.Exception != null)
             {
                 return null;

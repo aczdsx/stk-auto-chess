@@ -62,6 +62,8 @@ enum HiveResponseStatus {
   COUPON_SERVICE_ALREADY_USED = 2201; // 이미 사용된 쿠폰
   COUPON_SERVICE_EXPIRED = 2202; // 만료된 쿠폰
   COUPON_SERVICE_NOT_AVAILABLE = 2203; // 사용할 수 없는 쿠폰
+  COUPON_SERVICE_NOT_ACTIVE = 2204; // 활성 쿠폰이 아님
+  COUPON_SERVICE_DELETED = 2205; // 삭제된 쿠폰
 
   DEEP_LINK_SERVICE_NOT_FOUND = 2300; // 딥링크 데이터가 없음
   DEEP_LINK_SERVICE_EXPIRED = 2301; // 딥링크 만료

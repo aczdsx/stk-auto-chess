@@ -56,5 +56,24 @@ namespace CookApps.AutoBattler
 
             return resp;
         }
+
+        /// <summary>
+        /// 클라이언트 액션 완료 보고 (CLICK_ATTENDANCE 등 클라이언트에서만 알 수 있는 액션)
+        /// </summary>
+        public async UniTask<GuideMissionCompleteActionResponse> CompleteActionAsync(CancellationToken cancellationToken = default)
+        {
+            GuideMissionCompleteActionResponse resp = await ExecuteWithCommonErrorCheck(
+                ServiceClient.CompleteActionAsync,
+                new GuideMissionCompleteActionRequest(),
+                cancellationToken: cancellationToken
+            );
+
+            if (resp != null && resp.IsSuccess && resp.GuideMission != null)
+            {
+                ServerDataManager.Instance.GuideMission.SetGuideMission(resp.GuideMission);
+            }
+
+            return resp;
+        }
     }
 }
