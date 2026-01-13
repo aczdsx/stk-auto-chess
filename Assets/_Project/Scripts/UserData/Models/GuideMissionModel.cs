@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Google.Protobuf.Collections;
 using R3;
 using Tech.Hive.V1;
 
@@ -15,6 +17,7 @@ namespace CookApps.AutoBattler
         private uint _currentCount;
         private uint _goalCount;
         private GuideMissionState _state;
+        private readonly List<Reward> _rewards = new();
 
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
@@ -32,6 +35,7 @@ namespace CookApps.AutoBattler
             _currentCount = 0;
             _goalCount = 0;
             _state = GuideMissionState.Unspecified;
+            _rewards.Clear();
 
             OnChanged.OnNext(Unit.Default);
         }
@@ -52,6 +56,16 @@ namespace CookApps.AutoBattler
             _currentCount = data.CurrentCount;
             _goalCount = data.GoalCount;
             _state = data.State;
+
+            // 보상 목록 갱신
+            _rewards.Clear();
+            if (data.Rewards != null)
+            {
+                for (int i = 0; i < data.Rewards.Count; i++)
+                {
+                    _rewards.Add(data.Rewards[i]);
+                }
+            }
 
             // 변경 이벤트 발생
             if (missionIdChanged)
@@ -119,5 +133,20 @@ namespace CookApps.AutoBattler
                 return (float)_currentCount / (float)_goalCount;
             }
         }
+
+        /// <summary>
+        /// 보상 목록 (읽기 전용)
+        /// </summary>
+        public IReadOnlyList<Reward> Rewards => _rewards;
+
+        /// <summary>
+        /// 모든 가이드 미션 완료 여부 (더 이상 진행할 미션 없음)
+        /// </summary>
+        public bool IsAllCompleted => _guideMissionId == 0 && _state == GuideMissionState.Unspecified;
+
+        /// <summary>
+        /// 보상 수령 가능 여부 (목표 달성 & 완료 상태 아님)
+        /// </summary>
+        public bool CanClaimReward => IsGoalReached && !IsCompleted;
     }
 }

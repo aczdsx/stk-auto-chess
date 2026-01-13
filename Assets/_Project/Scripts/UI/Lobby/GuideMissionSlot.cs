@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
@@ -9,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using CookApps.BattleSystem;
+using Tech.Hive.V1;
 
 namespace CookApps.AutoBattler
 {
@@ -27,7 +27,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private SpriteLoader _missionRewardCharacterSpriteLoader;
         [SerializeField] private TextMeshProUGUI _missionRewardAmountText;
 
-        private UserGuideMission _userGuideMissionData;
+        private GuideMissionModel GuideMissionModel => ServerDataManager.Instance.GuideMission;
         private GuideMissionInfo _specGuideMissionData;
 
         private void Awake()
@@ -44,20 +44,28 @@ namespace CookApps.AutoBattler
 
         public void InitGuideMissionSlot()
         {
-            int currentOrder = UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder;
+            int currentOrder = (int)GuideMissionModel.Order;
             _specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(currentOrder);
-
-            _userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
 
             SetGuideMissionSlot();
 
             // 다이얼로그 팝업 체크
-            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.GUIDE_START, _specGuideMissionData.id.ToString());
+            if (_specGuideMissionData != null)
+            {
+                DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.GUIDE_START, _specGuideMissionData.id.ToString());
+            }
         }
 
         public void RefreshGuideMissionSlot()
         {
-            int currentOrder = UserDataManager.Instance.UserMissionData.GuideMissionCurrentOrder;
+            // 모든 가이드 미션 완료 시 off 처리
+            if (GuideMissionModel.IsAllCompleted)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
+            int currentOrder = (int)GuideMissionModel.Order;
 
             // 가이드 미션 최대 오더일 경우 off 처리
             if (currentOrder > SpecDataManager.Instance.GetGuideMissionMaxOrder())
@@ -66,28 +74,26 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // 가이드 미션 상태 갱신
-            UserDataManager.Instance.RefreshCurrentGuideMissionData();
-
             // 가이드 미션 슬롯 데이터 세팅
             _specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(currentOrder);
-
-            _userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
 
             SetGuideMissionSlot();
 
             // 다이얼로그 팝업 체크
-            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.GUIDE_START, _specGuideMissionData.id.ToString(),
-                () =>
-                {
-                    if (_specGuideMissionData.id == 1)
-                        SceneUILayerManager.Instance.PushUILayerAsync<NicknamePopup>(true).Forget();
-                });
+            if (_specGuideMissionData != null)
+            {
+                DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.GUIDE_START, _specGuideMissionData.id.ToString(),
+                    () =>
+                    {
+                        if (_specGuideMissionData.id == 1)
+                            SceneUILayerManager.Instance.PushUILayerAsync<NicknamePopup>(true).Forget();
+                    });
+            }
         }
 
         private void SetGuideMissionSlot()
         {
-            if (_specGuideMissionData == null || _userGuideMissionData == null) return;
+            if (_specGuideMissionData == null) return;
 
             _missionTitleText.text = LanguageManager.Instance.GetLanguageText(_specGuideMissionData.name_token);
             _missionDescText.text = LanguageManager.Instance.GetLanguageText(_specGuideMissionData.desc_token);
@@ -95,7 +101,8 @@ namespace CookApps.AutoBattler
             SetGuideMissionRewardImage();
             _missionRewardAmountText.text = $"x{_specGuideMissionData.item_count}";
 
-            _activateLayerObject.SetActive(_userGuideMissionData.MissionStateType == (int)MissionStateType.REWARD);
+            // 보상 수령 가능 여부에 따라 활성화 레이어 표시
+            _activateLayerObject.SetActive(GuideMissionModel.CanClaimReward);
         }
 
         private void SetGuideMissionRewardImage()
@@ -125,80 +132,102 @@ namespace CookApps.AutoBattler
 
         private void OnClickMissionSlotButton()
         {
-            if (_userGuideMissionData == null) return;
             if (_specGuideMissionData == null) return;
 
             // 보상을 받을 수 있는 경우
-            if (_userGuideMissionData.MissionStateType == (int)MissionStateType.REWARD)
+            if (GuideMissionModel.CanClaimReward)
             {
-                // 보상 수령 처리
-                List<RewardItem> rewardItemList = new List<RewardItem>();
-                // ItemType의 삭제로 인해 변경.(new RewardItem(_specGuideMissionData.item_type, _specGuideMissionData.item_key, _specGuideMissionData.item_count))
-                rewardItemList.Add(new RewardItem(_specGuideMissionData.item_id, _specGuideMissionData.item_count));
-                SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), callback =>
-                {
-                    // 다음 가이드 미션 요청
-                    GuideMissionManager.Instance.ChangeGuideMissionState(_specGuideMissionData.guide_mission_type, _specGuideMissionData.sub_key, MissionStateType.CLEAR);
-                }).Forget();
-
-                // 보상 데이터 저장
-                UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
-
-                // 다음 가이드 미션 요청
-                //GuideMissionManager.Instance.ChangeGuideMissionState(_specGuideMissionData.guide_mission_type, MissionStateType.CLEAR);
+                ClaimRewardAsync().Forget();
             }
             else
             {
-                if (_specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE)
-                {
-                    GuideMissionInfo specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(_specGuideMissionData.id);
-
-                    StageInfo guideStageData = SpecDataManager.Instance.GetStageData(_specGuideMissionData.sub_key);
-                    StageInfo currentStageData = SpecDataManager.Instance.GetStageData((int)LocalDataManager.Instance.GetLastPlayStageId());
-
-                    bool isMatchChapter = guideStageData.chapter_id == currentStageData.chapter_id;
-
-                    if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE && !isMatchChapter)
-                    {
-                        // 스테이지 데이터 세팅
-                        var lastestStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
-                        var lastestSpecStageData = SpecDataManager.Instance.GetStageData(lastestStageID);
-                        var nextStageData = SpecDataManager.Instance.GetNextStageData(lastestStageID);
-
-                        // 가장 최신 챕터를 확인하고 플레이 가능한 최대 스테이지 넘버로 이동
-                        int targetStageNumber = 1;
-                        if (lastestSpecStageData != null && lastestSpecStageData.chapter_id == guideStageData.chapter_id)
-                        {
-                            if (nextStageData != null)
-                            {
-                                targetStageNumber = nextStageData.stage_number;
-                            }
-                        }
-                        // 스테이지 데이터 세팅
-                        var targetSpecStage = SpecDataManager.Instance.GetStageData(nextStageData.chapter_id, targetStageNumber, nextStageData.difficulty_type);
-                        LocalDataManager.Instance.SetLastPlayStageId((uint)targetSpecStage.stage_id);
-
-
-                        // 로비 배경 전환
-                        InGameManager.Instance.EndInGame();
-                        // 로비 배경 전환 및 챕터 이동
-                        SceneTransition.Create<SceneTransition_FadeInOut>();
-                        SceneTransition.FadeInAsync().Forget();
-                        SceneLoading.GoToNextScene("Lobby", guideStageData.chapter_id);
-
-                        // 로비 메인 하단 스테이지 UI 갱신
-                        var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
-                        if (battleReadyMain != null)
-                        {
-                            battleReadyMain.RefreshUI(LobbyMainRefreshType.STAGE);
-                        }
-
-                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-                        return;
-                    }
-                }
-                GuideMissionManager.Instance.UpdateGuideMissionAlert();
+                HandleGuideMissionNavigation();
             }
+        }
+
+        private async UniTaskVoid ClaimRewardAsync()
+        {
+            // 서버에 보상 수령 요청
+            var response = await NetManager.Instance.GuideMission.ClaimRewardAsync(GuideMissionModel.GuideMissionId);
+            if (response == null || !response.IsSuccess)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_ERROR_NETWORK");
+                return;
+            }
+
+            // 보상 목록 생성 (서버 응답 기반)
+            List<RewardItem> rewardItemList = new List<RewardItem>();
+            if (response.Rewards != null)
+            {
+                for (int i = 0; i < response.Rewards.Count; i++)
+                {
+                    var reward = response.Rewards[i];
+                    rewardItemList.Add(new RewardItem((int)reward.ItemId, (int)reward.Count));
+                }
+            }
+
+            // 보상 팝업 표시
+            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), callback =>
+            {
+                // UI 갱신
+                GuideMissionManager.Instance.RefreshGuideMissionUI();
+
+                // 앱이벤트 처리
+                AppEventManager.Instance.GuideMissionClear(_specGuideMissionData.order);
+            }).Forget();
+        }
+
+        private void HandleGuideMissionNavigation()
+        {
+            if (_specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE)
+            {
+                GuideMissionInfo specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(_specGuideMissionData.id);
+
+                StageInfo guideStageData = SpecDataManager.Instance.GetStageData(_specGuideMissionData.sub_key);
+                StageInfo currentStageData = SpecDataManager.Instance.GetStageData((int)LocalDataManager.Instance.GetLastPlayStageId());
+
+                bool isMatchChapter = guideStageData.chapter_id == currentStageData.chapter_id;
+
+                if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE && !isMatchChapter)
+                {
+                    // 스테이지 데이터 세팅
+                    var lastestStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
+                    var lastestSpecStageData = SpecDataManager.Instance.GetStageData(lastestStageID);
+                    var nextStageData = SpecDataManager.Instance.GetNextStageData(lastestStageID);
+
+                    // 가장 최신 챕터를 확인하고 플레이 가능한 최대 스테이지 넘버로 이동
+                    int targetStageNumber = 1;
+                    if (lastestSpecStageData != null && lastestSpecStageData.chapter_id == guideStageData.chapter_id)
+                    {
+                        if (nextStageData != null)
+                        {
+                            targetStageNumber = nextStageData.stage_number;
+                        }
+                    }
+                    // 스테이지 데이터 세팅
+                    var targetSpecStage = SpecDataManager.Instance.GetStageData(nextStageData.chapter_id, targetStageNumber, nextStageData.difficulty_type);
+                    LocalDataManager.Instance.SetLastPlayStageId((uint)targetSpecStage.stage_id);
+
+
+                    // 로비 배경 전환
+                    InGameManager.Instance.EndInGame();
+                    // 로비 배경 전환 및 챕터 이동
+                    SceneTransition.Create<SceneTransition_FadeInOut>();
+                    SceneTransition.FadeInAsync().Forget();
+                    SceneLoading.GoToNextScene("Lobby", guideStageData.chapter_id);
+
+                    // 로비 메인 하단 스테이지 UI 갱신
+                    var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
+                    if (battleReadyMain != null)
+                    {
+                        battleReadyMain.RefreshUI(LobbyMainRefreshType.STAGE);
+                    }
+
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+                    return;
+                }
+            }
+            GuideMissionManager.Instance.UpdateGuideMissionAlert();
         }
     }
 }

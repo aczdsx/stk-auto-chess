@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using R3;
 using Tech.Hive.V1;
@@ -74,6 +75,21 @@ namespace CookApps.AutoBattler
         /// 진행률 (0.0 ~ 1.0)
         /// </summary>
         public float Progress => Model?.Progress ?? 0f;
+
+        /// <summary>
+        /// 보상 목록
+        /// </summary>
+        public IReadOnlyList<Reward> Rewards => Model?.Rewards ?? System.Array.Empty<Reward>();
+
+        /// <summary>
+        /// 모든 가이드 미션 완료 여부
+        /// </summary>
+        public bool IsAllCompleted => Model?.IsAllCompleted ?? true;
+
+        /// <summary>
+        /// 보상 수령 가능 여부
+        /// </summary>
+        public bool CanClaimReward => Model?.CanClaimReward ?? false;
 
         #endregion
 

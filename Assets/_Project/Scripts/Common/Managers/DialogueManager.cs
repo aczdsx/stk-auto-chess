@@ -39,9 +39,9 @@ namespace CookApps.AutoBattler
                     }
                     break;
                 case DialogueEventType.GUIDE_START:
-                    var userGuideMissionData = UserDataManager.Instance.GetCurrentGuideMissionData();
-                    var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(userGuideMissionData.MissionId);
-                    if (specGuideMissionData.id.ToString().Equals(subKeyValue))
+                    var guideMissionModel = ServerDataManager.Instance.GuideMission;
+                    var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)guideMissionModel.GuideMissionId);
+                    if (specGuideMissionData != null && specGuideMissionData.id.ToString().Equals(subKeyValue))
                     {
                         SceneUILayerManager.Instance.PushUILayerAsync<DialoguePopup>((dialogueGroupID, onComplete)).Forget();
                     }
