@@ -87,7 +87,7 @@ public partial class SROptions
     }
 
     [Category("치트")]
-    public int 재화변경_아이템ID { get; set; } = 1;
+    public CheatCurrencyType 재화변경_아이템 { get; set; } = CheatCurrencyType.Gold;
 
     [Category("치트")]
     public long 재화변경_수량 { get; set; } = 10000;
@@ -102,13 +102,13 @@ public partial class SROptions
     {
         var delta = new Tech.Hive.V1.CurrencyDelta
         {
-            ItemId = (uint)재화변경_아이템ID,
+            ItemId = (uint)재화변경_아이템,
             Delta = 재화변경_수량
         };
         var resp = await NetManager.Instance.Cheat.ChangeCurrencyAsync(new[] { delta });
         if (resp != null && resp.IsSuccess)
         {
-            ToastManager.Instance.ShowToast($"재화 변경 완료: {재화변경_아이템ID} += {재화변경_수량}");
+            ToastManager.Instance.ShowToast($"재화 변경 완료: {재화변경_아이템} += {재화변경_수량}");
         }
     }
 
