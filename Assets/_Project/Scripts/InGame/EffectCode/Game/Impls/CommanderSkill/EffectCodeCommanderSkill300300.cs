@@ -23,6 +23,8 @@ namespace CookApps.BattleSystem
         private float _stunDuration;
         private const float KNOCKBACK_TIME = 0.3f;
 
+        private bool _colliderEnable = false;
+
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
         {
@@ -80,30 +82,35 @@ namespace CookApps.BattleSystem
             var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByRow(inGameTile,
              _specTargetCommanderSkill.commander_range_size / 2);
 
-            
+
 
             foreach (var tile in tileList)
             {
-                InGameVfxManager.Instance.AddInGameVfx(_tileVfxName, tile.View.CachedTr.position+ Vector3.up * 2.4f);
+                var vfx = InGameVfxManager.Instance.AddInGameVfx(_tileVfxName, tile.View.CachedTr.position + Vector3.up * 2.4f);
+                var animatorvfx = vfx as InGameVfxWithAnimation;
+
+                animatorvfx.OnCollisionWithTile += OnCollision2DEnter;
+
+                animatorvfx.SetOnVfxStartCallback(OnVfxStart);
+                animatorvfx.SetOnVfxEndCallback(OnVfxEnd);
             }
-
-
-            StunCharacter(tileList);
         }
-        private void StunCharacter(List<InGameTile> effectTileList)
+
+        private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
         {
-            foreach (var tile in effectTileList)
-            {
-                if (tile.OccupiedCharacter == null ||tile.CheckValidTile(AllianceType.Player, isCheckSameAllianceType: true)|| tile.OccupiedCharacter.IsAlive == false)
-                    continue;
+            if(!_colliderEnable)
+                return;
 
-                Span<double> eccStats = stackalloc double[1];
-                eccStats.Clear();
-                eccStats[0] = _stunDuration;
+            if (tile.OccupiedCharacter == null || tile.CheckValidTile(AllianceType.Player, isCheckSameAllianceType: true)
+            || tile.OccupiedCharacter.IsAlive == false)
+                return;
 
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, tile.OccupiedCharacter, eccStats, source);
-                ProcessKnockBack(tile);
-            }
+            Span<double> eccStats = stackalloc double[1];
+            eccStats.Clear();
+            eccStats[0] = _stunDuration;
+
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, tile.OccupiedCharacter, eccStats, source);
+            ProcessKnockBack(tile);
         }
 
         private void ProcessKnockBack(InGameTile TargetTile)
@@ -131,8 +138,9 @@ namespace CookApps.BattleSystem
             eccStats[1] = 2.5f;//height
             eccStats[2] = knockBackFinalTile.View.ID;//tileID
             eccStats[3] = (int)Ease.OutExpo;//ease
-            
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_KNOCKBACK, TargetTile.OccupiedCharacter, eccStats, source);
+
+            var knockbackEffectCodeBase = EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_KNOCKBACK, TargetTile.OccupiedCharacter, eccStats, source);
+
         }
 
         private void ApplyDamage(InGameTile TargetTile)
@@ -165,6 +173,16 @@ namespace CookApps.BattleSystem
         }
         protected override void PromotionCommanderSkillCheck(PromotionLevelType firstPromotionLevel, PromotionLevelType secondPromotionLevel)
         {
+        }
+
+        private void OnVfxStart()
+        {//콜라이더 껏다키기
+            _colliderEnable = true;
+
+        }
+        private void OnVfxEnd()
+        {//콜라이더 껏다키기
+            _colliderEnable = false;
         }
     }
 }

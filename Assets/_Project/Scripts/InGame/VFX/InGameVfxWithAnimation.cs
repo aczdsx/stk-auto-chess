@@ -14,6 +14,13 @@ namespace CookApps.BattleSystem
         private float animationDuration = 0f;
         private float elapsedTime = 0f;
 
+        // 이벤트 콜백
+        private Action onAnimationStartCallback;
+        private Action onAnimationEndCallback;
+        private Action onVfxStartCallback;
+        private Action onVfxEndCallback;
+        private Action<AnimationEventKey> onCustomAnimationEventCallback;
+
         private void Awake()
         {
             if (animator == null)
@@ -106,6 +113,12 @@ namespace CookApps.BattleSystem
         {
             elapsedTime = 0f;
             isRemoved = false;
+            // 콜백 초기화
+            onAnimationStartCallback = null;
+            onAnimationEndCallback = null;
+            onVfxStartCallback = null;
+            onVfxEndCallback = null;
+            onCustomAnimationEventCallback = null;
         }
 
         public override void ManagedUpdate(float dt)
@@ -180,6 +193,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         protected virtual void OnAnimationStart()
         {
+            onAnimationStartCallback?.Invoke();
         }
 
         /// <summary>
@@ -187,6 +201,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         protected virtual void OnAnimationEnd()
         {
+            onAnimationEndCallback?.Invoke();
             if (isAutoRemove && !isRemoved)
             {
                 Remove();
@@ -198,6 +213,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         protected virtual void OnVfxStart()
         {
+            onVfxStartCallback?.Invoke();
         }
 
         /// <summary>
@@ -205,6 +221,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         protected virtual void OnVfxEnd()
         {
+            onVfxEndCallback?.Invoke();
         }
 
         /// <summary>
@@ -212,6 +229,7 @@ namespace CookApps.BattleSystem
         /// </summary>
         protected virtual void OnCustomAnimationEvent(AnimationEventKey eventKey)
         {
+            onCustomAnimationEventCallback?.Invoke(eventKey);
         }
 
         /// <summary>
@@ -251,5 +269,61 @@ namespace CookApps.BattleSystem
         /// AnimationEventListener 컴포넌트 반환
         /// </summary>
         public AnimationEventListener AnimationEventListener => animationEventListener;
+
+        #region 콜백 등록 메서드
+
+        /// <summary>
+        /// 애니메이션 시작 이벤트 콜백 등록
+        /// </summary>
+        public void SetOnAnimationStartCallback(Action callback)
+        {
+            onAnimationStartCallback = callback;
+        }
+
+        /// <summary>
+        /// 애니메이션 종료 이벤트 콜백 등록
+        /// </summary>
+        public void SetOnAnimationEndCallback(Action callback)
+        {
+            onAnimationEndCallback = callback;
+        }
+
+        /// <summary>
+        /// VFX 시작 이벤트 콜백 등록
+        /// </summary>
+        public void SetOnVfxStartCallback(Action callback)
+        {
+            onVfxStartCallback = callback;
+        }
+
+        /// <summary>
+        /// VFX 종료 이벤트 콜백 등록
+        /// </summary>
+        public void SetOnVfxEndCallback(Action callback)
+        {
+            onVfxEndCallback = callback;
+        }
+
+        /// <summary>
+        /// 커스텀 애니메이션 이벤트 콜백 등록
+        /// </summary>
+        public void SetOnCustomAnimationEventCallback(Action<AnimationEventKey> callback)
+        {
+            onCustomAnimationEventCallback = callback;
+        }
+
+        /// <summary>
+        /// 모든 콜백 제거
+        /// </summary>
+        public void ClearAllCallbacks()
+        {
+            onAnimationStartCallback = null;
+            onAnimationEndCallback = null;
+            onVfxStartCallback = null;
+            onVfxEndCallback = null;
+            onCustomAnimationEventCallback = null;
+        }
+
+        #endregion
     }
 }
