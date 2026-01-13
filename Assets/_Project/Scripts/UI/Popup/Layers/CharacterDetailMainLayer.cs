@@ -94,7 +94,7 @@ namespace CookApps.AutoBattler
         public void OnClickSkillLayerTabButton()
         {
             if (_parentCollectionPopup == null) return;
-            if (ServerDataManager.Instance.Character.HasCharacter(_specCharacterData.character_id) == false)
+            if (ServerDataManager.Instance.Character.HasCharacter(_specCharacterData.id) == false)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_HAVE_CHARACTER");
                 return;
@@ -107,7 +107,7 @@ namespace CookApps.AutoBattler
         {
             if (_parentCollectionPopup == null) return;
 
-            var leftCharacterID = SpecDataManager.Instance.GetLeftCharacterID(_specCharacterData.character_id, CharacterType.CHARACTER);
+            var leftCharacterID = SpecDataManager.Instance.GetLeftCharacterID(_specCharacterData.id, CharacterType.CHARACTER);
             InitLayer(leftCharacterID, _parentCollectionPopup);
         }
 
@@ -115,7 +115,7 @@ namespace CookApps.AutoBattler
         {
             if (_parentCollectionPopup == null) return;
 
-            var rightCharacterID = SpecDataManager.Instance.GetRightCharacterID(_specCharacterData.character_id, CharacterType.CHARACTER);
+            var rightCharacterID = SpecDataManager.Instance.GetRightCharacterID(_specCharacterData.id, CharacterType.CHARACTER);
             InitLayer(rightCharacterID, _parentCollectionPopup);
         }
 
@@ -126,7 +126,7 @@ namespace CookApps.AutoBattler
             _growLayerTabButton.isOn = _parentCollectionPopup.CurrentTabType == CharacterCollectionPopupTabType.GROW;
             _skillLayerTabButton.isOn = _parentCollectionPopup.CurrentTabType == CharacterCollectionPopupTabType.SKILL;
 
-            bool isHaveCharacter = ServerDataManager.Instance.Character.HasCharacter(_specCharacterData.character_id);
+            bool isHaveCharacter = ServerDataManager.Instance.Character.HasCharacter(_specCharacterData.id);
             _skillLayerTabButton.interactable = isHaveCharacter;
         }
 
@@ -134,7 +134,7 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null) return;
 
-            bool isHaveCharacter = ServerDataManager.Instance.Character.HasCharacter(_specCharacterData.character_id);
+            bool isHaveCharacter = ServerDataManager.Instance.Character.HasCharacter(_specCharacterData.id);
 
             // 캐릭터 일러스트 생성
             string illustPrefabName = ZString.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
@@ -168,7 +168,7 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null) return;
 
-            CharacterData userCharacterData = ServerDataManager.Instance.Character.GetCharacter(_specCharacterData.character_id);
+            CharacterData userCharacterData = ServerDataManager.Instance.Character.GetCharacter(_specCharacterData.id);
 
             if (userCharacterData != null)
             {

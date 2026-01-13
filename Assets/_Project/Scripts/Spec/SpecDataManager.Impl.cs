@@ -4,15 +4,12 @@
 using CookApps.LocalData;
 #endif
 using System.Collections.Generic;
-using System.Linq;
 using BiniLab;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
 using Unity.VisualScripting;
-using Unity.Android.Gradle;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
 namespace CookApps.AutoBattler
 {
@@ -84,8 +81,6 @@ namespace CookApps.AutoBattler
         private Dictionary<DifficultyType, List<StageInfo>> stageDifficultDic = new();             // key : DifficultyType, value : stage list
         private Dictionary<int, List<StageMonster>> stageMonsterDic = new();                       // key : chapter_id, value : stage list
         private Dictionary<int, List<StageReward>> stageRewardDic = new();                         // key : reward_id, value : stage list
-        private Dictionary<int, List<CharacterInfo>> characterDic = new();                         // key : character_id, value : stage list
-        private Dictionary<int, List<MonsterInfo>> monsterDic = new();                             // key : monster_id, value : monster list
         private Dictionary<string, ConfigGame> configDic = new();                                  // key : config_key, value : game config data
         private Dictionary<long, List<SkillActive>> skillDic = new();                              // key : skill_group_id, value : skill list
         private Dictionary<long, List<SkillActive>> skillPrefabIDDic = new();                      // key : prefab_id, value : skill list
@@ -94,10 +89,8 @@ namespace CookApps.AutoBattler
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new(); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, InGameVfxMap> inGameVfxDic = new();                             // key : inGameVfxName, value : SpecInGameVfx
         private Dictionary<SynergyType, List<ISpecSynergyData>> synergyDic = new();                // key : SynergyType, value : ISpecSynergyData
-        private Dictionary<int, List<Obstacle>> obstacleDic = new();                           // key : obstacle_id, value : SpecObstacle
         private Dictionary<EffectCodeNameType, List<SkillJob>> skillJobDic = new();             // key : EffectCodeNameType, value : SkillJob
         private Dictionary<int, List<SkillCommander>> commanderSkillDic = new();                   // key : commander_skill_id, value : SpecCommanderSkill
-        private Dictionary<int, BattleItem> battleItemDic = new();                           // key : battle_item_id, value : BattleItem
         private Dictionary<int, ISpecItemInfo> itemTableKeyMap = new();                      // key : item_id (currency_id/item_id), value : ISpecItemInfo
         private Dictionary<string, DialogueLanguage> dialogueLanguageDic = new();           // key : text_desc_token, value : DialogueLanguage
         private Dictionary<int, List<TutorialDialogue>> tutorialDialogueDic = new();           // key : tutorial_id, value : TutorialDialogue list
@@ -271,34 +264,6 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            // Character
-            characterDic.Clear();
-            for (int i = 0; i < CharacterInfo.All.Count; i++)
-            {
-                var character = CharacterInfo.All[i];
-                if (!characterDic.TryGetValue(character.character_id, out List<CharacterInfo> specCharacter))
-                {
-                    specCharacter = new List<CharacterInfo>();
-                    characterDic.Add(character.character_id, specCharacter);
-                }
-
-                specCharacter.Add(character);
-            }
-
-            // Monster
-            monsterDic.Clear();
-            for (int i = 0; i < MonsterInfo.All.Count; i++)
-            {
-                var monster = MonsterInfo.All[i];
-                if (!monsterDic.TryGetValue(monster.monster_id, out List<MonsterInfo> specMonster))
-                {
-                    specMonster = new List<MonsterInfo>();
-                    monsterDic.Add(monster.monster_id, specMonster);
-                }
-
-                specMonster.Add(monster);
-            }
-
             // InGameVfx
             inGameVfxDic.Clear();
             for (int i = 0; i < InGameVfxMap.All.Count; i++)
@@ -379,30 +344,6 @@ namespace CookApps.AutoBattler
 
             #endregion
 
-            obstacleDic.Clear();
-            for (int i = 0; i < Obstacle.All.Count; i++)
-            {
-                var obstacle = Obstacle.All[i];
-                if (!obstacleDic.TryGetValue(obstacle.obstacle_id, out var list))
-                {
-                    list = new List<Obstacle>();
-                    obstacleDic.Add(obstacle.obstacle_id, list);
-                }
-
-                list.Add(obstacle);
-            }
-
-            battleItemDic.Clear();
-            for (int i = 0; i < BattleItem.All.Count; i++)
-            {
-                var battleItem = BattleItem.All[i];
-                if (!battleItemDic.TryGetValue(battleItem.prefab_id, out var battleItemData))
-                {
-                    battleItemData = battleItem;
-                    battleItemDic.Add(battleItem.prefab_id, battleItem);
-                }
-            }
-
             // TutorialDialogue
             tutorialDialogueDic.Clear();
             for (int i = 0; i < TutorialDialogue.All.Count; i++)
@@ -481,27 +422,19 @@ namespace CookApps.AutoBattler
                 return default;
             }
 
-            if (typeof(T) == typeof(int) && configData.config_value_type == ConfigValueType.INT) return int.Parse(configData.config_value).ConvertTo<T>();
-            if (typeof(T) == typeof(float) && configData.config_value_type == ConfigValueType.FLOAT) return float.Parse(configData.config_value).ConvertTo<T>();
-            if (typeof(T) == typeof(string) && configData.config_value_type == ConfigValueType.STRING) return configData.config_value.ConvertTo<T>();
+            if (typeof(T) == typeof(int) && configData.config_value_type == ConfigValueType.INT)
+                return int.Parse(configData.config_value).ConvertTo<T>();
+            if (typeof(T) == typeof(float) && configData.config_value_type == ConfigValueType.FLOAT)
+                return float.Parse(configData.config_value).ConvertTo<T>();
+            if (typeof(T) == typeof(string) && configData.config_value_type == ConfigValueType.STRING)
+                return configData.config_value.ConvertTo<T>();
 
             return configData.config_value.ConvertTo<T>();
         }
 
-        public CharacterInfo GetCharacterData(int characterID)
+        public CharacterInfo GetCharacterData(int characterId)
         {
-            for (int i = 0; i < CharacterInfo.All.Count; i++)
-            {
-                var character = CharacterInfo.All[i];
-                if (character.character_id == characterID)
-                    return character;
-            }
-            return null;
-        }
-
-        public BattleItem GetBattleItemData(int battleItemID)
-        {
-            return battleItemDic.GetValueOrDefault(battleItemID);
+            return CharacterInfo.Get(characterId);
         }
 
         public List<CharacterInfo> GetCharacterListByCharacterType(CharacterType type)
@@ -1171,18 +1104,13 @@ namespace CookApps.AutoBattler
             if (character != null)
                 return character;
             
-            for (int i = 0; i < MonsterInfo.All.Count; i++)
-            {
-                var monster = MonsterInfo.All[i];
-                if (monster.monster_id == characterID)
-                    return monster;
-            }
-
-            if (battleItemDic.TryGetValue(characterID, out BattleItem battleItem))
-            {
+            var monster = MonsterInfo.Get(characterID);
+            if (monster != null)
+                return monster;
+            
+            var battleItem = BattleItem.Get(characterID);
+            if (battleItem != null)
                 return battleItem;
-            }
-
             // outCharacterInfo = obstacleDic.GetValueOrDefault(characterID);
             // if (outCharacterInfo != null)
             // {
@@ -1207,7 +1135,7 @@ namespace CookApps.AutoBattler
             int idx = -1;
             for (int i = 0; i < targetCharacterList.Count; i++)
             {
-                if (targetCharacterList[i].character_id == characterID)
+                if (targetCharacterList[i].id == characterID)
                 {
                     idx = i;
                     break;
@@ -1215,10 +1143,10 @@ namespace CookApps.AutoBattler
             }
 
             if (idx < 0)
-                return targetCharacterList[0].character_id; // 못 찾으면 첫 번째로
+                return targetCharacterList[0].id; // 못 찾으면 첫 번째로
 
             int leftIdx = (idx == 0) ? targetCharacterList.Count - 1 : idx - 1;
-            return targetCharacterList[leftIdx].character_id;
+            return targetCharacterList[leftIdx].id;
         }
 
         public int GetRightCharacterID(int characterID, CharacterType characterType)
@@ -1236,7 +1164,7 @@ namespace CookApps.AutoBattler
             int idx = -1;
             for (int i = 0; i < targetCharacterList.Count; i++)
             {
-                if (targetCharacterList[i].character_id == characterID)
+                if (targetCharacterList[i].id == characterID)
                 {
                     idx = i;
                     break;
@@ -1244,10 +1172,10 @@ namespace CookApps.AutoBattler
             }
 
             if (idx < 0)
-                return targetCharacterList[0].character_id;
+                return targetCharacterList[0].id;
 
             int rightIdx = (idx == targetCharacterList.Count - 1) ? 0 : idx + 1;
-            return targetCharacterList[rightIdx].character_id;
+            return targetCharacterList[rightIdx].id;
         }
 
         public AccountLevelExp GetAccountLevelExpDataByLevel(int level)
@@ -1676,16 +1604,6 @@ namespace CookApps.AutoBattler
                     result.Add(data);
             }
             return result;
-        }
-
-        public List<Obstacle> GetSpecObstacleList(int obstacleID)
-        {
-            if (obstacleDic.TryGetValue(obstacleID, out List<Obstacle> obstacleList))
-            {
-                return obstacleList;
-            }
-
-            return null;
         }
 
         #region Shop

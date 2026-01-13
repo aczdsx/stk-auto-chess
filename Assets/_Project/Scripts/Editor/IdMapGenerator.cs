@@ -226,28 +226,62 @@ namespace CookApps.AutoBattler.Editor
             // IsCharacterPiece 함수 생성
             GenerateExtensionMethod(sb, "IsCharacterPiece", characterPieceIds);
 
-            // GetCharacterIndex 함수 생성
-            GenerateGetCharacterIndexMethod(sb, characterIds, characterPieceIds);
+            // GetCharacterId 함수 생성
+            GenerateGetCharacterIdMethod(sb, characterIds, characterPieceIds);
+
+            // GetCharacterPieceId 함수 생성
+            GenerateGetCharacterPieceIdMethod(sb, characterIds, characterPieceIds);
 
             sb.AppendLine("    }");
         }
 
-        private static void GenerateGetCharacterIndexMethod(StringBuilder sb, List<int> characterIds, List<int> characterPieceIds)
+        private static void GenerateGetCharacterIdMethod(StringBuilder sb, List<int> characterIds, List<int> characterPieceIds)
         {
-            sb.AppendLine("        public static bool GetCharacterIndex(this ItemId id, out int charIndex)");
+            sb.AppendLine("        public static bool GetCharacterId(this ItemId id, out int charId)");
             sb.AppendLine("        {");
-            sb.AppendLine("            charIndex = -1;");
+            sb.AppendLine("            charId = -1;");
             sb.AppendLine("            if (id.IsCharacter())");
             sb.AppendLine("            {");
-            sb.AppendLine("                charIndex = id.Value;");
+            sb.AppendLine("                charId = id.Value;");
             sb.AppendLine("                return true;");
             sb.AppendLine("            }");
             sb.AppendLine("            if (id.IsCharacterPiece())");
             sb.AppendLine("            {");
-            sb.AppendLine("                charIndex = id.Value % 10000;");
+            sb.AppendLine("                charId = id.Value % 10000;");
             sb.AppendLine("                return true;");
             sb.AppendLine("            }");
             sb.AppendLine("            return false;");
+            sb.AppendLine("        }");
+            sb.AppendLine();
+        }
+
+        private static void GenerateGetCharacterPieceIdMethod(StringBuilder sb, List<int> characterIds, List<int> characterPieceIds)
+        {
+            // characterId -> characterPieceId 매핑 생성
+            var mapping = new Dictionary<int, int>();
+            for (int i = 0; i < characterIds.Count && i < characterPieceIds.Count; i++)
+            {
+                int charId = characterIds[i];
+                // characterPieceId는 characterId + 10000 패턴
+                int pieceId = characterPieceIds.FirstOrDefault(p => p % 10000 == charId);
+                if (pieceId != 0)
+                {
+                    mapping[charId] = pieceId;
+                }
+            }
+
+            sb.AppendLine("        public static ItemId GetCharacterPieceId(int characterId)");
+            sb.AppendLine("        {");
+            sb.AppendLine("            return characterId switch");
+            sb.AppendLine("            {");
+
+            foreach (var kvp in mapping.OrderBy(x => x.Key))
+            {
+                sb.AppendLine($"                {kvp.Key} => {kvp.Value},");
+            }
+
+            sb.AppendLine("                _ => default");
+            sb.AppendLine("            };");
             sb.AppendLine("        }");
             sb.AppendLine();
         }

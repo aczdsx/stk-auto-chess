@@ -15,7 +15,7 @@ namespace CookApps.AutoBattler
         public EffectCodeContainer EffectCodeContainer { get; }
         public ISpecCharacterInfo Spec => _spec;
         public int Level => _level;
-        public int CharacterID => _spec?.GetId() ?? 0;
+        public int CharacterID => _spec.id;
         private ISpecCharacterInfo _spec;
         private int _level;
 
@@ -209,7 +209,7 @@ namespace CookApps.AutoBattler
                 var BT = level / 10;
                 breakthroughMultiplier += characterInfo.inc_exceed * BT;
 
-                var userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterInfo.GetId());
+                var userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterInfo.id);
                 var TR = (userCharacterData?.TranscendLevel ?? 0) + 1;
                 transcendenceMultiplier += characterInfo.inc_trancendence * TR;
             }
@@ -398,7 +398,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        public ObfuscatorInt CharacterId => _spec?.GetId() ?? 0;
+        public ObfuscatorInt CharacterId => _spec?.id ?? 0;
 
         public ObfuscatorDouble HP { get; private set; }
 

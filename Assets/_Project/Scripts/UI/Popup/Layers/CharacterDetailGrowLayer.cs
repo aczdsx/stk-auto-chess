@@ -235,7 +235,7 @@ namespace CookApps.AutoBattler
                 // TODO: CharacterPiece는 인벤토리에서 가져와야 함
                 int characterPiece = 0; // ServerDataManager.Instance.Inventory.GetCharacterPiece(_specCharacterData.character_id);
                 isHasPiece = characterPiece >= _specCharacterTranscendenceData.piece;
-                _transcendenceItemCurrencyUIItem.SetUIItem(_specCharacterData.character_id, _specCharacterTranscendenceData.piece);
+                _transcendenceItemCurrencyUIItem.SetUIItem(_specCharacterData.id, _specCharacterTranscendenceData.piece);
             }
             bool isAvailTranscendence = _isHaveCharacter && _userCharacterData.TranscendLevel < _maxTranscendenceLevel && isHasPiece;
 
@@ -292,7 +292,7 @@ namespace CookApps.AutoBattler
         {
             if (_levelupButtonGuideAlert == null) return;
 
-            _levelupButtonGuideAlert.InitAlertWithSubKey(_specCharacterData.character_id);
+            _levelupButtonGuideAlert.InitAlertWithSubKey(_specCharacterData.id);
         }
 
         private void OnClickDetailStatButton()
@@ -334,7 +334,7 @@ namespace CookApps.AutoBattler
 
                 // 가이드 미션 체크
                 GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER, 0, 1);
-                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER_TARGET, _specCharacterData.character_id, 1);
+                GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.LEVELUP_CHARACTER_TARGET, _specCharacterData.id, 1);
                 GuideMissionManager.Instance.RefreshGuideMissionUI();
 
                 // 이펙트 실행
@@ -415,7 +415,7 @@ namespace CookApps.AutoBattler
 
             // TODO: 재료 검사
             return;
-            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterData.character_id, _specCharacterTranscendenceData.piece, true))
+            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterData.id, _specCharacterTranscendenceData.piece, true))
             {
                 return;
             }

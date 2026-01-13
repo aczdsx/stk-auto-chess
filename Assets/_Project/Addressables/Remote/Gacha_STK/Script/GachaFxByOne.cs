@@ -67,7 +67,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < datas.Count; i++)
             {
-                CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(datas[i].character_id);
+                CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(datas[i].id);
                 // GachItems[i].InitItem(idxCharcater, datas[i].piece, i);
             }
 
@@ -134,7 +134,7 @@ namespace CookApps.AutoBattler
                 return;
             }
             BlockerObject.SetActive(false);
-            CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(_datas[cnt].character_id);
+            CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(_datas[cnt].id);
             if (_datas[cnt].need_piece == 20)
             {
                 if (idxCharcater.grade_type == GradeType.LEGENDARY)

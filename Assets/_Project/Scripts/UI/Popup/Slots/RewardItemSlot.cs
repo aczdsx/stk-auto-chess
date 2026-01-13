@@ -100,7 +100,7 @@ namespace CookApps.AutoBattler
             _rewardId = rewardPiece.Id;
             var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(_specItemData.GetItemId());
             if (specCharacterData == null) return;
-            var userCharacterData = ServerDataManager.Instance.Character.GetCharacter(specCharacterData.character_id);
+            var userCharacterData = ServerDataManager.Instance.Character.GetCharacter(specCharacterData.id);
             if (userCharacterData == null) return;
 
             _rewardPieceSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.prefab_id)).Forget();
@@ -121,7 +121,7 @@ namespace CookApps.AutoBattler
             ClearSlot();
 
             _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardCharacter.Id);
-            _specItemData.GetItemId().GetCharacterIndex(out var charIndex);
+            _specItemData.GetItemId().GetCharacterId(out var charIndex);
             var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
             if (specCharacterData == null) return;
             _rewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id)).Forget();

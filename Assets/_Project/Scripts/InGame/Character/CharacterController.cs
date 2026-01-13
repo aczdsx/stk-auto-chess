@@ -202,7 +202,8 @@ namespace CookApps.BattleSystem
             if (_viewHandle.IsValid())
                 Addressables.ReleaseInstance(_viewHandle);
 
-            var handle = _viewHandle = Addressables.InstantiateAsync(CharacterType.OBSTACLE.ToCharacterResourcePath(id));
+            var prefabId = SpecDataManager.Instance.GetSpecCharacter(id).prefab_id;
+            var handle = _viewHandle = Addressables.InstantiateAsync(CharacterType.OBSTACLE.ToCharacterResourcePath(prefabId));
             await handle.WaitUntilDone();
 
             if (!handle.IsValid())

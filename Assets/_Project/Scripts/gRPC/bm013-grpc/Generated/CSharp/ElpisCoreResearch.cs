@@ -24,13 +24,13 @@ namespace Tech.Hive.V1 {
     static ElpisCoreResearchReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChllbHBpcytjb3JlX3Jlc2VhcmNoLnByb3RvEgx0ZWNoLmhpdmUudjEiSgoM",
+            "ChllbHBpcytjb3JlX3Jlc2VhcmNoLnByb3RvEgx0ZWNoLmhpdmUudjEiNwoM",
             "Q29yZVJlc2VhcmNoEhgKEHVwZ3JhZGVfZ3JvdXBfaWQYASABKA0SDQoFbGV2",
-            "ZWwYAiABKA0SEQoJbWF4X2xldmVsGAMgASgNYgZwcm90bzM="));
+            "ZWwYAiABKA1iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CoreResearch), global::Tech.Hive.V1.CoreResearch.Parser, new[]{ "UpgradeGroupId", "Level", "MaxLevel" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CoreResearch), global::Tech.Hive.V1.CoreResearch.Parser, new[]{ "UpgradeGroupId", "Level" }, null, null, null, null)
           }));
     }
     #endregion
@@ -77,7 +77,6 @@ namespace Tech.Hive.V1 {
     public CoreResearch(CoreResearch other) : this() {
       upgradeGroupId_ = other.upgradeGroupId_;
       level_ = other.level_;
-      maxLevel_ = other.maxLevel_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -111,18 +110,6 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "max_level" field.</summary>
-    public const int MaxLevelFieldNumber = 3;
-    private uint maxLevel_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint MaxLevel {
-      get { return maxLevel_; }
-      set {
-        maxLevel_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -140,7 +127,6 @@ namespace Tech.Hive.V1 {
       }
       if (UpgradeGroupId != other.UpgradeGroupId) return false;
       if (Level != other.Level) return false;
-      if (MaxLevel != other.MaxLevel) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -150,7 +136,6 @@ namespace Tech.Hive.V1 {
       int hash = 1;
       if (UpgradeGroupId != 0) hash ^= UpgradeGroupId.GetHashCode();
       if (Level != 0) hash ^= Level.GetHashCode();
-      if (MaxLevel != 0) hash ^= MaxLevel.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -177,10 +162,6 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(16);
         output.WriteUInt32(Level);
       }
-      if (MaxLevel != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(MaxLevel);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -199,10 +180,6 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(16);
         output.WriteUInt32(Level);
       }
-      if (MaxLevel != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(MaxLevel);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -218,9 +195,6 @@ namespace Tech.Hive.V1 {
       }
       if (Level != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Level);
-      }
-      if (MaxLevel != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MaxLevel);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -239,9 +213,6 @@ namespace Tech.Hive.V1 {
       }
       if (other.Level != 0) {
         Level = other.Level;
-      }
-      if (other.MaxLevel != 0) {
-        MaxLevel = other.MaxLevel;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -266,10 +237,6 @@ namespace Tech.Hive.V1 {
             Level = input.ReadUInt32();
             break;
           }
-          case 24: {
-            MaxLevel = input.ReadUInt32();
-            break;
-          }
         }
       }
     #endif
@@ -291,10 +258,6 @@ namespace Tech.Hive.V1 {
           }
           case 16: {
             Level = input.ReadUInt32();
-            break;
-          }
-          case 24: {
-            MaxLevel = input.ReadUInt32();
             break;
           }
         }

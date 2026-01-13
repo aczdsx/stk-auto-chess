@@ -358,6 +358,7 @@ namespace CookApps.AutoBattler
             {
                 var buffIcon = iconList[iconList.Count - 1];
                 iconList.RemoveAt(iconList.Count - 1);
+                
                 InGameBuffDebuffPool.Instance.Return(buffIcon);
             }
             

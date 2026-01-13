@@ -106,13 +106,13 @@ namespace CookApps.AutoBattler
             _missionRewardCharacterImage.gameObject.SetActive(itemId.IsCharacterPiece());
             if (itemId.IsCharacter())
             {
-                itemId.GetCharacterIndex(out var charIndex);
+                itemId.GetCharacterId(out var charIndex);
                 var characterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
                 _missionRewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterData.prefab_id)).Forget();
             }
             else if (itemId.IsCharacterPiece())
             {
-                itemId.GetCharacterIndex(out var charIndex);
+                itemId.GetCharacterId(out var charIndex);
                 var characterPieceData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
                 _missionRewardItemSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(characterPieceData.prefab_id)).Forget();
             }
