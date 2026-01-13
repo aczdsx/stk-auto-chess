@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
@@ -27,10 +28,10 @@ public class FlowStateStageClear : StateBase
         if (star2) stars++;
         if (star3) stars++;
         ulong clearTimeMs = (ulong)((60 - InGameMain.GetInGameMain().InGameTime) * 1000);
-        await SendEndAsync(stars, clearTimeMs);
+        var resp = await SendEndAsync(stars, clearTimeMs);
 
         // 서버 응답 후 결과 팝업 표시
-        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((true, star2, star3, _mvpCharacterData));
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((true, star2, star3, _mvpCharacterData, (IReadOnlyList<Reward>)resp.Rewards));
 
         // 다이얼로그 체크
         DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_CLEAR, InGameManager.Instance.SpecStage.stage_id.ToString());
@@ -53,7 +54,7 @@ public class FlowStateStageClear : StateBase
     {
     }
 
-    private async UniTask SendEndAsync(uint stars, ulong clearTimeMs)
+    private async UniTask<BattleEndResponse> SendEndAsync(uint stars, ulong clearTimeMs)
     {
         var battleResult = new BattleResult
         {
@@ -61,6 +62,6 @@ public class FlowStateStageClear : StateBase
             Stars = stars,
             ClearTime = clearTimeMs
         };
-        await NetManager.Instance.Battle.EndAsync(InGameManager.Instance.BattleSessionId, battleResult);
+        return await NetManager.Instance.Battle.EndAsync(InGameManager.Instance.BattleSessionId, battleResult);
     }
 }

@@ -23,7 +23,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     private GameObject _tutorialCanvasInstance;
 
     private List<TutorialDialogue> _specTutorialDataList = new();
-    public bool HasTutorialStage => _specTutorialDataList.Count > 0 && _specTutorialDataList[0].tutorial_id > 0;
+    public bool HasTutorialStage => _specTutorialDataList is { Count: > 0 } && _specTutorialDataList[0].tutorial_id > 0;
     public bool IsTutorial { get; private set; }
 
     protected override void Awake()
