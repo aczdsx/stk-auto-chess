@@ -97,15 +97,9 @@ namespace CookApps.AutoBattler
             };
         }
         
-        public static string ToCharacterResourcePath(this CharacterType characterType, int prefabId)
+        public static string ToCharacterResourcePath(this ISpecCharacterInfo characterInfo)
         {
-            return characterType switch
-            {
-                CharacterType.CHARACTER => ZString.Format("SD/{0}/InGame_{0}.prefab", prefabId),
-                CharacterType.OBSTACLE => ZString.Format("SD/{0}/InGame_{0}.prefab", prefabId),
-                CharacterType.BATTLEITEM => ZString.Format("SD/{0}/InGame_{0}.prefab", prefabId),
-                _ => ZString.Format("SD/{0}/InGame_{0}.prefab", prefabId),
-            };
+            return ZString.Format("SD/{0}/InGame_{0}.prefab", characterInfo.prefab_id);
         }
 
         public static Color GetGradeTypeColor(this GradeType gradeType)
