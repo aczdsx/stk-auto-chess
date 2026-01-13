@@ -212,9 +212,6 @@ public class FlowStateInGameTestCombat : StateCombatBase
     {
         Debug.LogColor("[Test] 테스트 재시작");
 
-        // 기존 게임 정리
-        InGameManager.Instance.EndInGame();
-
         InGameManager.Instance.StartInGame<FlowStateInGameTestReady>(_testConfig);
     }
 }
