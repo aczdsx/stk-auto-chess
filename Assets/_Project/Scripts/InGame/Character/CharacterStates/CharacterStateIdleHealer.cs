@@ -22,12 +22,9 @@ public class CharacterStateIdleHealer : CharacterStateIdle
         scanTargetTime = ScanTargetInterval;
 
         // 2. 타겟 찾기
-        if (characCtrl.Target == null)
-        {
-            characCtrl.Target = characCtrl.FindTarget();
-        }
-
-
+        
+        characCtrl.Target = characCtrl.FindTarget();
+        
         if (characCtrl.Target is { IsAlive: false })
         {
             characCtrl.Target = null;

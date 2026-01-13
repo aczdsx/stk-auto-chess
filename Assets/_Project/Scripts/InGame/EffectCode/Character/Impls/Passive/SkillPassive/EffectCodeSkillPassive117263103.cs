@@ -40,9 +40,9 @@ namespace CookApps.BattleSystem
             Span<double> buffStats = stackalloc double[5];
             buffStats.Clear();
             buffStats[0] = CodeId;
-            buffStats[1] = codeInfo.GetCodeStatToFloat(1);
-            buffStats[2] = codeInfo.GetCodeStatToFloat(2) * 0.01f;
-            buffStats[3] = codeInfo.GetCodeStatToFloat(3);
+            buffStats[1] = codeInfo.GetCodeStatToFloat(0);
+            buffStats[2] = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+            buffStats[3] = codeInfo.GetCodeStatToFloat(2);
             buffStats[4] = skillEffectCodeId;
 
             EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_SPECIAL_RUKIDA_FOXFIRE, owner, buffStats, source);

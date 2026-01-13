@@ -13,7 +13,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 public class CharacterStateAttackPierce : CharacterStateAttack
 {
     private SpecialAttackDamageInfo _specialAttackInfo = new SpecialAttackDamageInfo();
-    
+
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
     {
         var outRunningResult = base.CharacterStateRunning(dt);
@@ -31,23 +31,23 @@ public class CharacterStateAttackPierce : CharacterStateAttack
         var skipTests = CharacterController.DamageTestFlags.None;
         bool isPierceAttack = false;
         bool isEnhancedAttack = false;
-        
+
         var effectCodes = characCtrl.GetEffectCodeContainer()
             .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyDamageTestFlags);
-        
+
         for (int i = 0; i < effectCodes.Count; i++)
         {
             if (effectCodes[i] is EffectCodeCharacterBase characterEffectCode)
             {
                 var flags = characterEffectCode.GetDamageTestFlags();
                 skipTests |= flags;
-                
+
                 // Pierce 공격 여부 확인 (SkipResistPierce가 설정되어 있으면 Pierce 공격으로 간주)
                 if ((flags & CharacterController.DamageTestFlags.SkipResistPierce) != 0)
                 {
                     isPierceAttack = true;
                 }
-                
+
                 // 강화탄 여부 확인 (SkipAvoidTest가 설정되어 있으면 강화탄으로 간주)
                 if ((flags & CharacterController.DamageTestFlags.SkipAvoidTest) != 0)
                 {
@@ -55,7 +55,7 @@ public class CharacterStateAttackPierce : CharacterStateAttack
                 }
             }
         }
-        
+
         _specialAttackInfo.IsSpecialAttack = isPierceAttack || isEnhancedAttack;
 
         if (characCtrl.SpecCharacter.atk_type == AtkType.AD)
@@ -68,7 +68,7 @@ public class CharacterStateAttackPierce : CharacterStateAttack
             _specialAttackInfo.DamageInfo = characCtrl.CalculateDamageAmount(0, characCtrl.AP, characCtrl.Target,
             0, false, skipTests);
         }
-        
+
         // 강화탄일 경우 크리티컬 강제 적용 및 크리티컬 데미지 배율 적용
         if (isEnhancedAttack)
         {
@@ -109,18 +109,16 @@ public class CharacterStateAttackPierce : CharacterStateAttack
             InGameVfxNameType projectile = InGameVfxNameType.NONE;
             if (_specialAttackInfo.IsSpecialAttack)
             {
-                projectile = characCtrl.SpecCharacter.projectile_vfx_name_type;
-                // projectile = characCtrl.SpecCharacter.atk_type is AtkType.AD ?
-                // InGameVfxNameType.fx_common_job_sharpshooter_01 : InGameVfxNameType.fx_common_job_sharpshooter_02;
+                // projectile = characCtrl.SpecCharacter.projectile_vfx_name_type;
+                projectile = characCtrl.SpecCharacter.atk_type is AtkType.AD ?
+InGameVfxNameType.fx_common_job_sharpshooter_01 : InGameVfxNameType.fx_common_job_sharpshooter_02;
             }
             else
             {
-                                // projectile = characCtrl.SpecCharacter.projectile_vfx_name_type;
-
                 projectile = characCtrl.SpecCharacter.atk_type is AtkType.AD ?
                 InGameVfxNameType.fx_common_job_sharpshooter_01 : InGameVfxNameType.fx_common_job_sharpshooter_02;
             }
-            
+
 
             if (projectile != InGameVfxNameType.NONE)
             {
@@ -129,7 +127,7 @@ public class CharacterStateAttackPierce : CharacterStateAttack
                     return;
                 }
 
-                Transform projectileTransform = characCtrl.GetCharacterView().CachedFront ? characCtrl.GetCharacterView().ProjectileFrontTransform 
+                Transform projectileTransform = characCtrl.GetCharacterView().CachedFront ? characCtrl.GetCharacterView().ProjectileFrontTransform
                 : characCtrl.GetCharacterView().ProjectileBackTransform;
 
                 var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile,
@@ -164,7 +162,7 @@ public class CharacterStateAttackPierce : CharacterStateAttack
             }
         }
     }
-    
+
     protected override void OnAttackEndProcess()
     {
         base.OnAttackEndProcess();

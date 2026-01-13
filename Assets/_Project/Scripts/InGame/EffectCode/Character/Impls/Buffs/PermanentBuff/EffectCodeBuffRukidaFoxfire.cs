@@ -35,7 +35,11 @@ public partial class EffectCodeBuffRukidaFoxfire : EffectCodeBuffBase
         _fireBuffTime = codeInfo.GetCodeStatToFloat(3);
         _skillEffectCode = owner.GetEffectCodeContainer().GetEffectCode(codeInfo.GetCodeStatToInt(4)) as EffectCodeSkill217263103;
         _skillEffectCode.SetFoxFireDuration(_fireBuffTime);
-
+// buffStats[0] = CodeId;
+//             buffStats[1] = codeInfo.GetCodeStatToFloat(0);
+//             buffStats[2] = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+//             buffStats[3] = codeInfo.GetCodeStatToFloat(2);
+//             buffStats[4] = skillEffectCodeId;
 
         _stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
