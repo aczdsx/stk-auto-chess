@@ -173,10 +173,11 @@ namespace CookApps.AutoBattler
         {
             var commandCenter = dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
             currentBenefits.Clear();
+            var uiLevel = (int)commandCenter.Level + 1;
             for (var i = 0; i < SpecDataManager.Instance.ElpisCommandCenterBenefit.All.Count; i++)
             {
                 var benefit = SpecDataManager.Instance.ElpisCommandCenterBenefit.All[i];
-                if (benefit.lv != commandCenter.Level)
+                if (benefit.lv != uiLevel)
                     continue;
                 
                 currentBenefits.Add(benefit);
@@ -258,14 +259,14 @@ namespace CookApps.AutoBattler
             try
             {
                 var commandCenter = dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
-                var resp = await NetManager.Instance.Elpis.UpgradeFacilityAsync((int)commandCenter.BuildId);
-                if (!resp.IsSuccess)
+                var response = await NetManager.Instance.Elpis.UpgradeFacilityAsync((int)commandCenter.BuildId);
+                if (!response.IsSuccess)
                 {
-                    Debug.LogError($"Command Center Upgrade Error:{resp.Exception}");
+                    Debug.LogError($"Command Center Upgrade Error:{response.Exception}");
                     return;
                 }
 
-                currentElpisLevel++;
+                currentElpisLevel = (int)response.Facility.Level;
 
                 var subBlockIndex = currentElpisLevel - 2; // 레벨2 -> 인덱스0, 레벨3 -> 인덱스1
                 if (subBlockIndex >= 0 && subBlockIndex <= 1)
@@ -298,6 +299,8 @@ namespace CookApps.AutoBattler
                 var resultPopup = await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterResultPopup>(currentBenefits);
                 await resultPopup.WaitForExit();
                 await PlayEnterAnimationAsync();
+
+                lobbyMain.RefreshWorldInteractionSlots((uint)currentElpisLevel);
             }
             finally
             {

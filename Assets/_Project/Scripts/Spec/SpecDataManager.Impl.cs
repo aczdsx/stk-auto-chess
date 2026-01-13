@@ -1886,5 +1886,10 @@ namespace CookApps.AutoBattler
 
             return result;
         }
+        
+        public IReadOnlyList<ElpisDimensionLab> GetAllElpisDimensionLab()
+        {
+            return ElpisDimensionLab.All;
+        }
     }
 }

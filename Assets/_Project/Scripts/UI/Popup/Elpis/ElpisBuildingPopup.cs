@@ -16,9 +16,9 @@ namespace CookApps.AutoBattler
             {
                 // return await SceneUILayerManager.Instance.PushUILayerAsync<ElpisNestPopup>(facilityData);
             }
-            else // ... 
+            else if (facilityData.Type == ElpisFacilityType.FacilityTypeDimensionLab)
             {
-                
+                return await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCoreResearchLayer>();
             }
 
             return null;

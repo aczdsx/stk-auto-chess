@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
@@ -67,6 +68,15 @@ namespace CookApps.AutoBattler
         private bool _isWaitGuideMissionReward = false;         // 현재 가이드 미션을 클리어한 상태인지 체크
 
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            _exitButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnExitButtonClickedAsync(), AwaitOperation.Drop).AddTo(this);
+            _nextStageButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnNextStageButtonClickedAsync(), AwaitOperation.Drop).AddTo(this);
+            _retryStageButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickRetryStageButtonAsync(), AwaitOperation.Drop).AddTo(this);
+        }
+
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
@@ -83,10 +93,6 @@ namespace CookApps.AutoBattler
             else
                 _failStageText.text = StringUtil.GetStageString(InGameManager.Instance.SpecStage);
 
-
-            _exitButton?.onClick.AddListener(OnExitButtonClicked);
-            _nextStageButton?.onClick.AddListener(OnNextStageButtonClicked);
-            _retryStageButton?.onClick.AddListener(OnClickRetryStageButton);
 
             if (_popupParam.SpecCharacter != null)
             {
@@ -196,7 +202,7 @@ namespace CookApps.AutoBattler
             SendStageEndAppEvent(InGameManager.Instance.AppEventResult, InGameManager.Instance.AppEventReason);
         }
 
-        private void OnExitButtonClicked()
+        private async UniTask OnExitButtonClickedAsync()
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
@@ -204,14 +210,14 @@ namespace CookApps.AutoBattler
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
 
             SceneTransition.Create<SceneTransition_FadeInOut>();
-            SceneTransition.FadeInAsync().Forget();
+            await SceneTransition.FadeInAsync();
             SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
         }
 
-        private void OnNextStageButtonClicked()
+        private async UniTask OnNextStageButtonClickedAsync()
         {
             // SceneTransition.Create<SceneTransition_FadeInOut>();
-            SceneTransition.FadeInAsync().Forget();
+            await SceneTransition.FadeInAsync();
             // SceneLoading.GoToNextScene("Lobby", (int)InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
 
             //InGameManager.Instance.EndInGame();
@@ -245,20 +251,22 @@ namespace CookApps.AutoBattler
                 (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), nextStageData.stage_id));
         }
 
-        private void OnClickRetryStageButton()
+        private UniTask OnClickRetryStageButtonAsync()
         {
             // TODO: 행동력 검사
             // if (!UserDataManager.Instance.CheckEnoughItem(IdMap.Item.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
             // {
             //     return;
             // }
-            
+
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             //InGameManager.Instance.EndInGame();
             SceneLoading.GoToNextScene("InGame",
-                (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), (int)InGameManager.Instance.SpecStage.stage_id));
+                (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), InGameManager.Instance.SpecStage.stage_id));
+
+            return UniTask.CompletedTask;
         }
 
         // 가장 높은 스테이지 클리어 여부 체크

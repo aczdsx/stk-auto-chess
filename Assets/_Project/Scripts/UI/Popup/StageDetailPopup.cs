@@ -3,6 +3,7 @@ using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -33,7 +34,7 @@ namespace CookApps.AutoBattler
         protected override void Awake()
         {
             base.Awake();
-            startButton.onClick.AddListener(OnStartButtonClicked);
+            startButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnStartButtonClicked()).AddTo(this);
             tableView.OnGetTotalCellItemCount += OnGetTotalTableViewCellItemCount;
             tableView.OnGetCellItemSize += OnGetTableViewCellItemSize;
             tableView.OnReleaseCellItem += OnReleaseTableViewCellItem;
@@ -63,7 +64,6 @@ namespace CookApps.AutoBattler
             tableView.OnReleaseCellItem -= OnReleaseTableViewCellItem;
             tableView.OnGetCellItem -= OnGetTableViewCellItem;
             rewardSlotPool.Dispose();
-            startButton.onClick.RemoveListener(OnStartButtonClicked);
         }
 
         private GameObject OnGetTableViewCellItem(int idx)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,16 +33,8 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _equipButton.onClick.AddListener(OnClickEquipButton);
-            _skillInfoButton.onClick.AddListener(OnClickSkillInfoButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _equipButton.onClick.RemoveListener(OnClickEquipButton);
-            _skillInfoButton.onClick.RemoveListener(OnClickSkillInfoButton);
+            _equipButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickEquipButton()).AddTo(this);
+            _skillInfoButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSkillInfoButton()).AddTo(this);
         }
 
         public void SetCommanderSkillSlot(CommanderSkillPopup parent, SkillCommander skillData)

@@ -7,7 +7,6 @@ using UnityEngine.UI;
 using TMPro;
 using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
-using System.Linq;
 using R3;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 
@@ -80,37 +79,64 @@ namespace CookApps.AutoBattler
             var buildInfos = SpecDataManager.Instance.GetBuildInfoList(facilityData.Type);
             var commandCenter = dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
             int commandCenterLv = (int)commandCenter.Level;
-
-            foreach (var info in buildInfos)
+            
+            var currentBuildInfo = dataBridge.GetFacilityByType(facilityData.Type);
+            var currentBuildLevel = currentBuildInfo.Level;
+            
+            var inventoryDataBridge = new InventoryDataBridge();
+            var userAssetCount = (int)inventoryDataBridge.GetCurrency(ItemIdMap.BuildItem);
+            
+            foreach (var buildInfo in buildInfos)
             {
-                // Instantiate Cell
-                var cell = Instantiate(cellPrefab, contentRoot);
-
-                // Determine State
-                bool isInstalled = HasFacility(info.build_id);
-                // 설치 조건: 사령부 레벨이 건물 정보의 조건을 만족해야 함 (여기서는 임시로 build_lv를 요구 레벨로 가정하거나 별도 필드 확인)
-                // ElpisBuildInfo의 build_lv가 설치된 건물의 레벨을 의미하는지, 요구 레벨인지 SpecDatas.cs를 다시 봐야 함.
-                // 보통 build_group_id로 묶이고 level별로 존재.
-                // 1레벨 건물 정보를 표시하고, 이미 설치되었으면 업그레이드 or 설치 완료 표시.
-                // 여기서는 "건물 설치" 팝업이므로, 1레벨 건물(신규 설치) 목록만 보여주거나,
-                // 설치되지 않은 건물들만 보여주는 것이 타당함.
-
-                if (info.build_lv != 1) continue; // 1레벨(설치) 정보만 표시
-
-                // Check Lock Condition (Command Center Level Dependency)
-                // ElpisCommandCenterBenefit에서 해금 정보를 가져와야 정확함.
-                bool isLocked = !IsUnlockedByCommandCenter(info.build_id, commandCenterLv);
-
-                var inventory = new InventoryDataBridge();
-                var userData = (int)inventory.GetCurrency(ItemIdMap.BuildItem);
-                var targetData = info.item_INT;
+                var buildLevel = buildInfo.build_lv;
+                var isBuilt = buildLevel <= currentBuildLevel;
                 
-                // Check Cost
-                bool canAfford = userData >= targetData;
-
-                cell.SetData(info, isLocked, isInstalled, canAfford, OnInstallRequested);
+                var isLocked = !IsUnlockedByCommandCenter(buildInfo.build_id, commandCenterLv);
+                var canBuild = userAssetCount >= buildInfo.item_INT;
+                
+                var cell = Instantiate(cellPrefab, contentRoot);
+                cell.SetData(buildInfo, isLocked, isBuilt, canBuild, OnInstallRequested);
                 cells.Add(cell);
             }
+
+            // Sort cells in-place: non-installed first (by level ascending), installed last
+            cells.Sort(CompareBuildCells);
+
+            for (int i = 0; i < cells.Count; i++)
+            {
+                cells[i].transform.SetSiblingIndex(i);
+            }
+
+            // foreach (var info in buildInfos)
+            // {
+            //     // Instantiate Cell
+            //     var cell = Instantiate(cellPrefab, contentRoot);
+            //
+            //     // Determine State
+            //     bool isInstalled = HasFacility(info.build_id);
+            //     // 설치 조건: 사령부 레벨이 건물 정보의 조건을 만족해야 함 (여기서는 임시로 build_lv를 요구 레벨로 가정하거나 별도 필드 확인)
+            //     // ElpisBuildInfo의 build_lv가 설치된 건물의 레벨을 의미하는지, 요구 레벨인지 SpecDatas.cs를 다시 봐야 함.
+            //     // 보통 build_group_id로 묶이고 level별로 존재.
+            //     // 1레벨 건물 정보를 표시하고, 이미 설치되었으면 업그레이드 or 설치 완료 표시.
+            //     // 여기서는 "건물 설치" 팝업이므로, 1레벨 건물(신규 설치) 목록만 보여주거나,
+            //     // 설치되지 않은 건물들만 보여주는 것이 타당함.
+            //
+            //     if (info.build_lv != 1) continue; // 1레벨(설치) 정보만 표시
+            //
+            //     // Check Lock Condition (Command Center Level Dependency)
+            //     // ElpisCommandCenterBenefit에서 해금 정보를 가져와야 정확함.
+            //     bool isLocked = !IsUnlockedByCommandCenter(info.build_id, commandCenterLv);
+            //
+            //     var inventory = new InventoryDataBridge();
+            //     var userData = (int)inventory.GetCurrency(ItemIdMap.BuildItem);
+            //     var targetData = info.item_INT;
+            //     
+            //     // Check Cost
+            //     bool canAfford = userData >= targetData;
+            //
+            //     cell.SetData(info, isLocked, isInstalled, canAfford, OnInstallRequested);
+            //     cells.Add(cell);
+            // }
         }
 
         private bool HasFacility(int buildId)
@@ -125,6 +151,17 @@ namespace CookApps.AutoBattler
             // 여기서는 간단히 구현하고 추후 수정.
             // return facilities.Any(f => f.DataId == buildId.ToString()); 
             return false; // 임시
+        }
+
+        private static int CompareBuildCells(ElpisBuildCell a, ElpisBuildCell b)
+        {
+            // Non-installed (false=0) before installed (true=1)
+            int builtCompare = a.IsBuilt.CompareTo(b.IsBuilt);
+            if (builtCompare != 0)
+                return builtCompare;
+
+            // Lower level first
+            return a.BuildLevel.CompareTo(b.BuildLevel);
         }
 
         private bool IsUnlockedByCommandCenter(int buildId, int commandCenterLv)

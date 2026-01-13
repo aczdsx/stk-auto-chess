@@ -4,6 +4,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,14 +55,7 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _exitButton?.onClick.AddListener(OnClickExitButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _exitButton?.onClick.RemoveListener(OnClickExitButton);
+            _exitButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickExitButtonAsync(), AwaitOperation.Drop).AddTo(this);
         }
 
         protected override void OnPreEnter(object param)
@@ -130,7 +124,7 @@ namespace CookApps.AutoBattler
             SendDungeonEndAppEvent(InGameManager.Instance.AppEventResult, InGameManager.Instance.AppEventReason);
         }
 
-        private void OnClickExitButton()
+        private async UniTask OnClickExitButtonAsync()
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
@@ -138,7 +132,7 @@ namespace CookApps.AutoBattler
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
 
             SceneTransition.Create<SceneTransition_FadeInOut>();
-            SceneTransition.FadeInAsync().Forget();
+            await SceneTransition.FadeInAsync();
             SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
 
             var guideMission = ServerDataManager.Instance.GuideMission;
@@ -154,7 +148,6 @@ namespace CookApps.AutoBattler
 
                 SceneUILayerManager.OnSceneLoadedEvent -= OpenDungeonTrialPopupAction;
             }
-
         }
 
         private void SetRewardInfo()

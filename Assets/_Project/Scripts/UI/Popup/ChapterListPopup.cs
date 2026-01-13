@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,18 +39,9 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _closeButton.onClick.AddListener(OnClickCloseButton);
-            _dimCloseButton.onClick.AddListener(OnClickCloseButton);
-            _moveChapterButton.onClick.AddListener(OnClickMoveChapterButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _closeButton.onClick.RemoveListener(OnClickCloseButton);
-            _dimCloseButton.onClick.RemoveListener(OnClickCloseButton);
-            _moveChapterButton.onClick.RemoveListener(OnClickMoveChapterButton);
+            _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            _dimCloseButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            _moveChapterButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickMoveChapterButtonAsync(), AwaitOperation.Drop).AddTo(this);
         }
 
         protected override void OnPreEnter(object param)
@@ -168,7 +160,7 @@ namespace CookApps.AutoBattler
             BMUtil.RemoveChildObjects(_chapterScrollRect.content);
         }
 
-        private void OnClickMoveChapterButton()
+        private async UniTask OnClickMoveChapterButtonAsync()
         {
             if (_currentChapterData == null) return;
 
@@ -189,7 +181,7 @@ namespace CookApps.AutoBattler
                     targetStageNumber = nextStageData.stage_number;
                 }
             }
-            
+
             // 스테이지 데이터 세팅
             var targetSpecStage = SpecDataManager.Instance.GetStageData(_currentChapterData.chapter_id, targetStageNumber, _currentChapterData.difficulty_type);
             LocalDataManager.Instance.SetLastPlayStageId((uint)targetSpecStage.stage_id);
@@ -199,7 +191,7 @@ namespace CookApps.AutoBattler
             // 로비 배경 전환
             InGameManager.Instance.EndInGame();
             SceneTransition.Create<SceneTransition_FadeInOut>();
-            SceneTransition.FadeInAsync().Forget();
+            await SceneTransition.FadeInAsync();
             SceneLoading.GoToNextScene("Lobby", _selectedChapterData.chapter_id);
 
             // 로비 메인 하단 스테이지 UI 갱신

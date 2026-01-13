@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,16 +27,8 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _dimCloseButton.onClick.AddListener(OnClickCloseButton);
-            _surveyButton.onClick.AddListener(OnClickCloseButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _dimCloseButton.onClick.RemoveListener(OnClickCloseButton);
-            _surveyButton.onClick.RemoveListener(OnClickCloseButton);
+            _dimCloseButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            _surveyButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
         }
 
         protected override void OnPreEnter(object param)

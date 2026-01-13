@@ -103,10 +103,11 @@ namespace CookApps.AutoBattler
                 NetManager.Instance.CustomLobby.GetMyPlayerDataAsync(),
                 NetManager.Instance.Inventory.ListAsync(),
                 NetManager.Instance.Character.ListAsync(),
+                NetManager.Instance.Battle.ListChapterAsync(),
             };
-            NetManager.Instance.Battle.ListChapterAsync().Forget();
-            NetManager.Instance.Initialize_Elpis().Forget();
             await UniTask.WhenAll(serverTasks);
+            await NetManager.Instance.Battle.ListStageAsync(ServerDataManager.Instance.Battle.CurrentChapterId);
+            NetManager.Instance.Initialize_Elpis().Forget();
 
             // var transition1 = SceneTransition_FadeInOut.Create();
             // 프롤로그로 진입하게 해줘야함

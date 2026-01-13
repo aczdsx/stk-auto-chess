@@ -79,7 +79,7 @@ namespace CookApps.AutoBattler
                 // 새로 해금된 건물 추가
                 AddUnlockedFacilities();
                 // WorldInteraction 슬롯 갱신
-                CreateWorldInteractionSlots(GetUnlockedBuildings(info.Current.Level));
+                //CreateWorldInteractionSlots(GetUnlockedBuildings(info.Current.Level));
             }
         }
 

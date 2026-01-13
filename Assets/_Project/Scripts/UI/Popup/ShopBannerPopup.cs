@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
+using R3;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -19,14 +20,7 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _closeButton.onClick.AddListener(OnClickCloseButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _closeButton.onClick.RemoveListener(OnClickCloseButton);
+            _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
         }
 
         protected override void OnPreEnter(object param)

@@ -7,12 +7,13 @@ using Coffee.UIEffects;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using R3;
 using Spine.Unity;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
@@ -56,16 +57,11 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _blockLayerButton.onClick.AddListener(OnClickNextDialogue);
-            _blockLayerButton.onClick.AddListener(OnClickRefreshTextTween);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _blockLayerButton.onClick.RemoveListener(OnClickNextDialogue);
-            _blockLayerButton.onClick.RemoveListener(OnClickRefreshTextTween);
+            _blockLayerButton.OnClickAsObservable().Subscribe(this, (_, self) =>
+            {
+                self.OnClickNextDialogue();
+                self.OnClickRefreshTextTween();
+            }).AddTo(this);
         }
 
         protected override void OnBackButton(ref bool offPrevUI)

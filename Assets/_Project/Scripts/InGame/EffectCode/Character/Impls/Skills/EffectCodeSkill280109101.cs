@@ -137,4 +137,4 @@ public partial class EffectCodeSkill280109101 : EffectCodeCharacterBase
         CoolTimeElapsedTime += cooltime;
         return cooltime;
     }
-}//280109101
+}//240107001

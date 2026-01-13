@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,16 +38,8 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _chapterButton.onClick.AddListener(OnClickChapter);
-            _dimmedButton.onClick.AddListener(OnClickDimmedLayerButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _chapterButton.onClick.RemoveListener(OnClickChapter);
-            _dimmedButton.onClick.RemoveListener(OnClickDimmedLayerButton);
+            _chapterButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickChapter()).AddTo(this);
+            _dimmedButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickDimmedLayerButton()).AddTo(this);
         }
 
         public void SetChapterItemSlot(ChapterInfo data, ChapterListPopup parent)

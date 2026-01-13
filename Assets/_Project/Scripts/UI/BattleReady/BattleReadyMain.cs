@@ -93,35 +93,18 @@ namespace CookApps.AutoBattler
             base.Awake();
 
             _backToLobby.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickGoToLobby()).AddTo(this);
-            _playButton.onClick.AddListener(OnClickStartButton);
-            _stageSelectButton.onClick.AddListener(OnClickChapterStageButton);
-            // _shopButton.onClick.AddListener(OnClickCharacterCollectionButton);
-            _gachaButton.onClick.AddListener(OnClickGachaButton);
-            _idleRewardButton.onClick.AddListener(OnClickIdleRewardButton);
-            _attendanceButton.onClick.AddListener(OnClickAttendanceButton);
-            _questButton.onClick.AddListener(OnClickQuestButton);
-            _trialDungeonButton.onClick.AddListener(OnClickTrialDungeonButton);
-            _sessionEventButton.onClick.AddListener(OnClickSessionEventButton);
-            _consumeAPEventButton.onClick.AddListener(OnClickConsumeAPEventButton);
-            _userAccountLayerButton.onClick.AddListener(OnClickUserAccountLayerButton);
-            _settingButton.onClick.AddListener(OnClickSettingButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            _playButton.onClick.RemoveListener(OnClickStartButton);
-            _stageSelectButton.onClick.RemoveListener(OnClickChapterStageButton);
-            // _shopButton.onClick.RemoveListener(OnClickCharacterCollectionButton);
-            _gachaButton.onClick.RemoveListener(OnClickGachaButton);
-            _idleRewardButton.onClick.RemoveListener(OnClickIdleRewardButton);
-            _attendanceButton.onClick.RemoveListener(OnClickAttendanceButton);
-            _questButton.onClick.RemoveListener(OnClickQuestButton);
-            _trialDungeonButton.onClick.RemoveListener(OnClickTrialDungeonButton);
-            _sessionEventButton.onClick.RemoveListener(OnClickSessionEventButton);
-            _consumeAPEventButton.onClick.RemoveListener(OnClickConsumeAPEventButton);
-            _userAccountLayerButton.onClick.RemoveListener(OnClickUserAccountLayerButton);
-            _settingButton.onClick.RemoveListener(OnClickSettingButton);
+            _playButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickStartButton()).AddTo(this);
+            _stageSelectButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickChapterStageButton()).AddTo(this);
+            // _shopButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCharacterCollectionButton()).AddTo(this);
+            _gachaButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGachaButton()).AddTo(this);
+            _idleRewardButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickIdleRewardButton()).AddTo(this);
+            _attendanceButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickAttendanceButton()).AddTo(this);
+            _questButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickQuestButton()).AddTo(this);
+            _trialDungeonButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickTrialDungeonButton()).AddTo(this);
+            _sessionEventButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSessionEventButton()).AddTo(this);
+            _consumeAPEventButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickConsumeAPEventButton()).AddTo(this);
+            _userAccountLayerButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickUserAccountLayerButton()).AddTo(this);
+            _settingButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSettingButton()).AddTo(this);
         }
 
         protected override void OnBackButton(ref bool offPrevUI)

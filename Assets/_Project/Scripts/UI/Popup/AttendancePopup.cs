@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
+using R3;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -21,19 +22,11 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _closeButton.onClick.AddListener(OnClickCloseButton);
-            _dimCloseButton.onClick.AddListener(OnClickCloseButton);
-            
+            _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            _dimCloseButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+
             // 가이드 미션 체크
             GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLICK_ATTENDANCE, 0, 1);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _closeButton.onClick.RemoveListener(OnClickCloseButton);
-            _dimCloseButton.onClick.RemoveListener(OnClickCloseButton);
         }
 
         protected override void OnPreEnter(object param)

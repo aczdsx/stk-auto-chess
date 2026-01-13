@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
@@ -55,14 +56,12 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _bottomStageSlotButton.onClick.AddListener(OnClickBottomStageSlot);
+            _bottomStageSlotButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickBottomStageSlot()).AddTo(this);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-
-            _bottomStageSlotButton.onClick.RemoveListener(OnClickBottomStageSlot);
         }
 
         public void SetStageItemSlot(StageInfo data, bool isCurrentStage)

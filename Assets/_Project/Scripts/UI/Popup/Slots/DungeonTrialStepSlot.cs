@@ -4,6 +4,7 @@ using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,14 +39,7 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _slotButton.onClick.AddListener(OnClickSlotButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _slotButton.onClick.RemoveListener(OnClickSlotButton);
+            _slotButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSlotButton()).AddTo(this);
         }
 
         public void SetStepSlot(DungeonTrialPopup parent, DungeonBabelInfo specData, UserTrialDungeonData data)

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,18 +36,9 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _closeButton.onClick.AddListener(OnClickCloseButton);
-            _dimCloseButton.onClick.AddListener(OnClickCloseButton);
-            _getRewardButton.onClick.AddListener(OnClickGetRewardButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _closeButton.onClick.RemoveListener(OnClickCloseButton);
-            _dimCloseButton.onClick.RemoveListener(OnClickCloseButton);
-            _getRewardButton.onClick.RemoveListener(OnClickGetRewardButton);
+            _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            _dimCloseButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            _getRewardButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGetRewardButton()).AddTo(this);
         }
 
         protected override void OnPreEnter(object param)
@@ -171,7 +163,7 @@ namespace CookApps.AutoBattler
 
             // 방치 보상 데이터 갱신
             UserDataManager.Instance.RefreshLastRewardGetTime();
-            
+
             // 퀘스트 데이터 갱신
             UserDataManager.Instance.SetUserQuestActionCount(QuestType.GET_IDLE_REWARD, 1, true, true);
 

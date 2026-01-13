@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,14 +33,14 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _guideMissionButton.onClick.AddListener(OnClickMissionSlotButton);
+            _guideMissionButton.OnClickAsObservable()
+                .SubscribeAwait(this, (_, self, _) => self.OnClickMissionSlotButtonAsync(), AwaitOperation.Drop)
+                .AddTo(this);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-
-            _guideMissionButton.onClick.RemoveListener(OnClickMissionSlotButton);
         }
 
         public void InitGuideMissionSlot()
@@ -130,14 +131,14 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private void OnClickMissionSlotButton()
+        private async UniTask OnClickMissionSlotButtonAsync()
         {
             if (_specGuideMissionData == null) return;
 
             // 보상을 받을 수 있는 경우
             if (GuideMissionModel.CanClaimReward)
             {
-                ClaimRewardAsync().Forget();
+                await ClaimRewardAsync();
             }
             else
             {
@@ -145,7 +146,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private async UniTaskVoid ClaimRewardAsync()
+        private async UniTask ClaimRewardAsync()
         {
             // 서버에 보상 수령 요청
             var response = await NetManager.Instance.GuideMission.ClaimRewardAsync(GuideMissionModel.GuideMissionId);

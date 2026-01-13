@@ -5,6 +5,7 @@ using CookApps.Obfuscator;
 using CookApps.SpecData;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using R3;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,14 +42,7 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _backButton.onClick.AddListener(OnClickBackButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _backButton.onClick.RemoveListener(OnClickBackButton);
+            _backButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickBackButton()).AddTo(this);
         }
 
         public void InitLayer(CharacterCollectionPopup _parentPopup)

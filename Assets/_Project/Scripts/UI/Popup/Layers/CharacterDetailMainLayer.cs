@@ -6,6 +6,7 @@ using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
+using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
@@ -52,18 +53,9 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _backButton.onClick.AddListener(OnClickBackButton);
-            _elementSynergyButton.onClick.AddListener(OnClickElementSynergyButton);
-            _asterismSynergyButton.onClick.AddListener(OnClickAsterismSynergyButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _backButton.onClick.RemoveListener(OnClickBackButton);
-            _elementSynergyButton.onClick.RemoveListener(OnClickElementSynergyButton);
-            _asterismSynergyButton.onClick.RemoveListener(OnClickAsterismSynergyButton);
+            _backButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickBackButton()).AddTo(this);
+            _elementSynergyButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickElementSynergyButton()).AddTo(this);
+            _asterismSynergyButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickAsterismSynergyButton()).AddTo(this);
         }
 
         public void InitLayer(int characterID, CharacterCollectionPopup _parentPopup)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,18 +28,9 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _closeButton.onClick.AddListener(OnClickCloseButton);
-            _krLanguageButton.onClick.AddListener(OnClickLanguageKrButton);
-            _enLanguageButton.onClick.AddListener(OnClickLanguageEnButton);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            _closeButton.onClick.RemoveListener(OnClickCloseButton);
-            _krLanguageButton.onClick.RemoveListener(OnClickLanguageKrButton);
-            _enLanguageButton.onClick.RemoveListener(OnClickLanguageEnButton);
+            _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            _krLanguageButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickLanguageKrButton()).AddTo(this);
+            _enLanguageButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickLanguageEnButton()).AddTo(this);
         }
 
         protected override void OnPreEnter(object param)
