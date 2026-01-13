@@ -4,6 +4,7 @@
 @back bg_hubble_02
 ; @back bg_territory_01 fade:2
 
+@char asna_00.Talk pos:60,-240 scale:1.38
 
 asna_00: 안녕하세요! 관측자님. 무사히 돌아오셔서 다행이에요!
 통신장치의 파괴로 연락을 드릴 수 없어 걱정했거든요!

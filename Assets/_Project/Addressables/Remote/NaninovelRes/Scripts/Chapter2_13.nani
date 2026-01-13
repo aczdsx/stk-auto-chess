@@ -4,15 +4,30 @@
 ; L002
 ; [SYSTEM] Chapter2_13 시작
 ; L003
-오데트를 따라 도착한 곳은, 도시의 비교적 깔끔한 외형을 유지하고 있는 건물의 지하. 차갑고... 어두컴컴한 그곳에... ...그녀가 서 있었다.
+
+@back bg_abandoned_hospital_02
+
+Narrator: 오데트를 따라 도착한 곳은, 도시의 비교적 깔끔한 외형을 유지하고 있는 건물의 지하. 
+Narrator: 차갑고... 어두컴컴한 그곳에... ...그녀가 서 있었다.
+
+
+@char atresia_00.Talk pos:75,-235 scale:1.38
 ; L004
 atresia_00: 이곳은……매우 차갑네요.
+@char uni_00.Talk pos:25,-240 scale:1.38
 ; L005
 uni_00: 뭔가 유령같은게 나올 것 같은 분위기야.
+@char marie_00.normal pos:50,-240 scale:1.38
 ; L006
 marie_00: ……저기.
 ; L007
-마리에가 가르킨 곳에는 예의 오데트가 서있었다.
+
+@hideChars
+@char odette_00.normal pos:40,-250 scale:1.38
+Narrator: 마리에가 가르킨 곳에는 예의 오데트가 서있었다.
+odette_00: ......
+@hideChars
+@char philia_00.normal pos:75,-235 scale:1.38
 ; L008
 philia_00: 가까이 접근해보죠.
 ; L009
@@ -20,53 +35,89 @@ philia_00: 가까이 접근해보죠.
 ; L010
 ; [SFX] 다가가는 발소리
 ; L011
+
+@char uni_00.normal pos:40,-240 scale:1.38
 uni_00: 갑자기 그렇게 사라지면 어떻게 하자는 거야!
 ; L012
-오데트는 대답하지 않는다. 그녀의 시선은... 방 중앙을 가득 채운, 수십 개의 '캡슐'에 고정되어 있다.
+
+@hideChars
+@char odette_00.normal pos:40,-250 scale:1.38
+odette_00: ......
+Narrator: 일행의 인기척과 유니의 외침에도 오데트는 대답하지 않는다.
+Narrator: 그녀의 시선은... 방 중앙을 가득 채운, 수십 개의 '캡슐'에 고정되어 있다.
 ; L013
-odette_00: …….
 ; L014
+
+@char philia_00 pos:70,-235 scale:1.38
 philia_00: 이건….무언가를 지키는 캡슐일까요?
+@slide odette_00 to:35,-250 time:0.2
+@slide philia_00 to:90,-235 time:0.2
+@char atresia_00 pos:65,-235,-1 scale:1.38
+
 ; L015
 atresia_00: 안에 무언가 들어 있는 것 같아요.
 ; L016
+
+@spawn ShakeCharacter params:atresia_00
 atresia_00: ………….이건!
 ; L017
 ; [VFX] 주변이 살짝 밝아지는 효과
 ; L018
+@char uni_00.normal pos:15,-240 scale:1.38
+@spawn ShakeCharacter params:uni_00
 uni_00: 으악! 사람들이 누워있잖아?!
 ; L019
-유니가 언급한 대로 그곳에는 사람들이… ‘어른들’만이 잠에 든 듯 누워있었다.
 ; L020
-atresia_00: 설마 여기있는 모든게….?
+atresia_00: 설마 여기있는 모든게….!
 ; L021
 philia_00: 마치... 자고있는 것 같아요...
 ; L022
+@hideChars
+Narrator: 유니가 언급한 대로 그곳에는 사람들이… ‘어른들’만이 잠에 든 듯 누워있었다.
+
+@char odette_00.normal pos:45,-250 scale:1.38
 odette_00: .....옛날에 통신에서 읽은 적 있어요. 한 행성의 도시에서 성인들이 알 수 없는 병에 걸려, 아이들만 살 수 있는 도시가 되었다구요.
 ; L023
 odette_00: 그리고 그 도시가 네피림의 침공을 받아 멸망했다고 말이에요.
+
+@char atresia_00.normal pos:70,-235 scale:1.38
 ; L024
 atresia_00: 설마….그 행성의 이름이.
 ; L025
 odette_00: 예… 이곳 '하솔'인 것 같군요.
+@char marie_00.normal pos:20,-240,-1 scale:1.38
 ; L026
 marie_00: ….그럼 클레이는 왜 이곳에.
 ; L027
 odette_00: 그건, 지금부터 알아봐야 겠……!
 ; L028
-'잠든 관'들이 아닌 외부에서... ...우리가 그토록 찾던 '그녀'의 비명소리가 들려온다!
+@hideChars
+@spawn ShakeCamera
+Narrator: '잠든 관'들이 아닌 외부에서...
+Narrator: ...우리가 그토록 찾던 '그녀'의 비명소리가 들려온다!
 ; L029
 ???: 꺄악…..!
 ; L030
+
+@char atresia_00.normal pos:60,-235 scale:1.38
 atresia_00: 이 소리는….. 클레이야!
 ; L031
+@char odette_00.normal pos:30,-250 scale:1.38
 odette_00: 치잇…..!
+;뛰어가는 효과음
+@slide odette_00 to:-40,-250 time:0.5
+@wait 0.5
 ; L032
+@char uni_00.normal pos:25,-240 scale:1.38
+@hide odette_00
 uni_00: 아니 왜 자꾸 혼자 단독행동을 하는 거야!
 ; L033
+@char philia_00.normal pos:85,-235 scale:1.38
 philia_00: 마스터. 저희도 쫒아가시죠!
 ; L034
-player: 알겠어!
+@choice "\" 알겠어! \""
+@stop
+
 ; L035
 ; @sfx sfx_footsteps volume:0.9
 ; L036

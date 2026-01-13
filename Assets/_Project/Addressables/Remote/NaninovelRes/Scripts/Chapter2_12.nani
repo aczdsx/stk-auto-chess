@@ -4,58 +4,116 @@
 ; L002
 ; [SYSTEM] Chapter2_12 시작
 ; L003
+
+@back bg_hasole_02
+
+@char atresia_00.Talk pos:60,-235,-1 scale:1.38
+
 atresia_00: 역시 마리에에요. 네피림을 순식간에 헤치우다니.
 ; L004
+
+@char uni_00.Talk pos:30,-240 scale:1.38
+@spawn ShakeCharacter params:uni_00
 uni_00: 헤헷 마리는 엄청나다구~!
 ; L005
+
+@char philia_00.normal pos:85,-235 scale:1.38
 philia_00: 유니, 그걸 왜 당신이 자랑스러워 하는 겁니까?
 ; L006
+
 uni_00: 그치만! 마리는 우리 성단원인걸?
 ; L007
+@hideChars
+
+@char marie_00.normal pos:30,-240,-1 scale:1.38
 marie_00: ….유니 그만. 부끄러움은 내 몫.
 ; L008
+
+@char odette_00.normal pos:75,-250 scale:1.38
 odette_00: 작전 수행 중에도 진중함이라고는 하나도 없군요.
+
+@slide marie_00 to:45,-240 time:0.2
+@slide odette_00 to:85,-250 time:0.2
+
+@char uni_00.normal pos:20,-235 scale:1.38
 ; L009
-uni_00: 또, 또! 필리아! 제가 자꾸 시비걸어! 대신 혼재줘!
+uni_00: 또, 또! 필리아! 제가 자꾸 시비걸어! 대신 혼내줘!
 ; L010
+@hideChars
+@char philia_00.normal pos:65,-235 scale:1.38
 philia_00: 유니….. 오데트도 그만하시죠.
 ; L011
+
+
+@char atresia_00 pos:25,-235 scale:1.38
 atresia_00: 맞아요. 현재 우리는 하나의 분대(스쿼드)로 움직이고 있어요.
 ; L012
 atresia_00: 이런 분위기가 지속된다면 작전 수행에 무리가 갈거에요.
+
+@slide philia_00 to:90,-235 time:0.2
+@char odette_00 pos:60,-250 scale:1.38
 ; L013
 odette_00: …..많이 성장했네요. 그런 말도 할 줄 알고. 알겠어요. 자중하도록 하죠.
+
+@hideChars
+@char philia_00 pos:55,-235 scale:1.38
 ; L014
 philia_00: 마스터. 잠시 이야기 가능하겠습니까?
 ; L015
-player: 응, 무슨일이야?
+
+
+@choice "\" 응, 무슨일이야? \""
+@stop
+
 ; L016
 philia_00: 아무래도 네피림들의 움직임이 이상합니다.
+
+
 ; L017
-player: 움직임이?
+@choice "\" 움직임이? \""
+@stop
+
 ; L018
 philia_00: 네, 너무 체계적이에요. 마치 지휘관이 있는듯이.
 ; L019
+
+@slide philia_00 to:75,-235 time:0.5
+@char atresia_00.normal pos:40,-235 scale:1.38
+
 atresia_00: 커맨더 개체가 있는지도 모르겠어요.
 ; L020
 ; @sfx sfx_blanket_rustle volume:0.7
 ; L021
 ; [SFX] 바스락
 ; L022
-odette_00: ……저건… 잠시만 진형에서 이탈할게요.
+@hideChars
+@char odette_00.normal pos:45,-250 scale:1.38
+odette_00: ……저건…
+odette_00: 잠시만 진형에서 이탈할게요.
+@slide odette_00 to:-50,-250 time:0.5
+@wait 0.5
+@hide odette_00
+; 뛰어가는 소리 효과음
 ; L023
-오데트가 갑자기 다른 목표와 다른 방향으로 홀로 이탈해 건물들의 틈새로 달려간다.
+Narrator: 오데트는 갑작스런 이별의 말을 남기고, 의문을 표시하기도 전에 목표와 다른 방향으로 홀로 이탈. 건물들의 틈새로 달려간다.
 ; L024
+@char uni_00 pos:35,-240 scale:1.38
 uni_00: 어엇?! 어디가는 거야!
 ; L025
+@char atresia_00 pos:70,-235 scale:1.38
 atresia_00: 관측자님. 저희도 따라가보죠!
 ; L026
-player: 그래. 놓치기 전에 따라가 보자
+
+@choice "\" 그래. 놓치기 전에 따라가 보자 \""
+@stop
+
 ; L027
 ; @sfx sfx_footsteps volume:0.9
 ; L028
 ; [SFX] 달려가는 발소리
 ; L029
+
+@wait 1.2
 
 @back bg_black_01 time:1.5 transition:Crossfade
 ;신전환 효과음

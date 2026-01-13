@@ -4,18 +4,35 @@
 ; L002
 ; [SYSTEM] 나니노벨 스크립트 Chapter2_09 시작
 ; L003
+
+
+@back bg_ionia_01
+
+@char uni_00.normal pos:45,-240 scale:1.38
+@spawn ShakeCharacter params:uni_00
+
 uni_00: 하하핫! 네피림 들을 날려버리니까 속이 다 시원한데?!
 ; L004
+
+@char philia_00.Talk pos:70,-240 scale:1.38
 philia_00: 그나저나 관측자님, 훌륭한 지휘였습니다.
 ; L005
 philia_00: 어떻게 그런 작전을 바로 생각해 내신 겁니까?
 ; L006
-player: 갑자기 생각이 났어.
+
+@choice "\" 갑자기 생각이 났어. \""
+@stop
+
 ; L007
+@slide uni_00 to:25,-240 time:0.2
+@slide philia_00 to:90,-235 time:0.2
+@char atresia_00.Talk pos:60,-235 scale:1.38
+
 atresia_00: 점점 기억이 돌아오고 계신 걸 지도요.
 ; L008
 atresia_00: 고생하셨어요, 관측자님.
 ; L009
+@spawn ShakeCharacter params:uni_00
 uni_00: 이게 다 내 서포트 덕분이지, 엣헴.
 ; L010
 atresia_00: 그것보다, 무언가 이상해요.
@@ -24,31 +41,47 @@ philia_00: 아트레시아도 느끼셨나요?
 ; L012
 atresia_00: 네… 이건 일반적인 네피림의 움직임이 아니에요. 어딘가 모르게 체계적인…..
 ; L013
-philia_00: 지휘관 개체가 있을지도…. 그렇게 된다면 현재 전력만으론 위험합니다.
+philia_00: 지휘관 개체가 있을지도 모르겠네요…. 그렇게 된다면 현재 전력만으론 위험합니다.
 ; L014
+; 등장 임펙트가 부족함
+@hideChars
+; 발소리 sfx 필요
 ???: 흐응… 겨우 그정도에 고전하다니. 역시 골칫덩어리 성단 답네요.
 ; L015
+@char uni_00.Talk pos:35,-240 scale:1.38
 uni_00: 너…너는!
 ; L016
+@char atresia_00.Talk pos:65,-235 scale:1.38
 atresia_00: 오데트…당신이 왜?
 ; L017
-그녀는 다른 사람따윈 안중에 없다는 듯. 'Player'의 앞에 다가와 눈을 맞추며 인사한다.
+Narrator: 그녀는 다른 사람따윈 안중에 없다는 듯. %player%의 앞에 다가와 눈을 맞추며 인사한다.
 ; L018
+
+@slide uni_00 to:25,-240 time:0.2
+@slide atresia_00 to:80,-235 time:0.2
+@char odette_00.Talk pos:50,-250 scale:1.38
+
 odette_00: (우아하게 인사하며) 반가워요. 그리고 그 외에 몇몇도 반가워요.
 ; L019
 uni_00: 치잇… 재수없어.
 ; L020
-player: 오데트… 너가 왜 여기 있지?
+
+@choice "\" 오데트… 너가 왜 여기 있지? \""
+@stop
+
 ; L021
 odette_00: 부사령관님께서 이야기를 해주시지 않던가요?
 ; L022
-player: ….전력을 보충해주겠다고.
+@choice "\" ….전력을 보충해주겠다고. \""
+@stop
+
 ; L023
 odette_00: 맞아요. 제가 바로 그 ‘추가 전력'이에요.
 ; L024
 odette_00: …그리고 저 말고 다른 한 분도 와있어요.
 ; L025
-philia_00: 다른 한 분?
+
+atresia_00: 다른 한 분?
 ; L026
 odette_00: 제가 껄끄러운지 따로 행동하겠다고 하시더군요.
 ; L027

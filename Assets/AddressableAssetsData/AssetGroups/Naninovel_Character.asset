@@ -21,6 +21,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 033d77ef5c7b616488d17af8967eb742
+    m_Address: Naninovel/Characters/ayami_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 063225faa980648419adc8d28248d0af
+    m_Address: Naninovel/Characters/odette_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0f86bf2b56b0841caa8d783bc818fe73
     m_Address: Naninovel/Character/Characters_15322201
     m_ReadOnly: 0
@@ -35,6 +47,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1e06ce10d62a742098710b8f0891c671
     m_Address: Naninovel/Character/Characters_17363204
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3190d3d48bc5b254095955cf9342d700
+    m_Address: Naninovel/Characters/mensha_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3a413678f70313844aba1212a77529b8
+    m_Address: Naninovel/Characters/seira_00
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -57,6 +81,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 666cacdf07569064fae5d75e9823222a
+    m_Address: Naninovel/Characters/asna_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 693dabdd6baf7401daebe4db6d0b04cd
     m_Address: Naninovel/Character/Characters_17513401
     m_ReadOnly: 0
@@ -69,8 +99,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 887d4c2a5ce4abb48b95070cbddab801
+    m_Address: Naninovel/Characters/may_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 89b22fd0b75f84446b5650f0d0f6ed7c
     m_Address: Naninovel/Character/Characters_17263103
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9fada380c24e1ce49a6f1a78831bc158
+    m_Address: Naninovel/Characters/ridia_00
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -81,14 +123,32 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bad156cd8563b9446814025d5cf6b19a
+    m_Address: Naninovel/Characters/rakiu_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bcb60f801802647d2a0faef5c926af8d
     m_Address: Naninovel/Character/Characters_17553404
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c01189304feb4284b99688eb15d7a4d7
+    m_Address: Naninovel/Characters/marie_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c7b6b55001f3b433ba6d4996d404ba6e
     m_Address: Naninovel/Character/Characters_17663506
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ccf7bf98fb3db6a49be07712e55c4f6c
+    m_Address: Naninovel/Characters/vane_00
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -101,6 +161,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f2411c2476b3047d5bedaa0a1519326e
     m_Address: Naninovel/Character/Characters_17653505
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4a356dfa5a3140489f97b9983fc67ac
+    m_Address: Naninovel/Characters/kara_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8a8f136f9f2c3e41bfac00cfe24ae82
+    m_Address: Naninovel/Characters/blin_00
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel

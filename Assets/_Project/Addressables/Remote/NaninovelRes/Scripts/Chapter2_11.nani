@@ -4,51 +4,94 @@
 ; L002
 ; [SYSTEM] Chapter2_11 시작
 ; L003
+
+
+@back bg_hasole_01
+
+@char uni_00.Talk pos:30,-240,-1 scale:1.38
+
 uni_00: 이 행성에 존재하지 않는 네피림과 위상의 그림자들이 나오다니. 무서운곳이야.
 ; L004
+@char atresia_00.Talk pos:60,-235,-1 scale:1.38
 atresia_00: 그만큼 기사들의 성장에 필요한 많은 재화를 얻을 수 있었지만요.
 ; L005
-odette_00: …..이정도 실력으로 임무를 진행하다니. 당신들은 역시 스텔라 나이트들의 수치에요.
+
+@slide atresia_00 to:70,-235 time:0.2
+@slide uni_00 to:20,-240 time:0.2
+@char odette_00 pos:45,-250 scale:1.38
+
+odette_00: …..이정도 실력으로 임무를 진행하다니. 믿을 수 없군요.
+
+Narrator: 적극적으로 전투에 참여하지 않은채 플레이아데스 성단의 전투를 관찰하던 오데트가 비꼬듯 품평한다.
+
 ; L006
+@char philia_00 pos:90,-235 scale:1.38
 philia_00: 거기까지 하시죠. 오데트씨. 더 이상 이야기 한다면 아무리 저라도 참기 힘듭니다.
 ; L007
 uni_00: 아니 근데, 오데트 넌 왜 그렇게 까지 우릴 미워하는 건데? 혹시 클레이 때문에 그래?
 ; L008
+
 odette_00: ….! 그건….
 ; L009
 ; [VFX] 갑작스럽게 땅이 울리는 연출
 ; L010
+@spawn ShakeCamera
 ; @sfx sfx_big_footstep volume:0.9
 ; L011
-atresia_00: ……이건
+atresia_00: ……이 진동은...?!
 ; L012
+
 uni_00: 꺄악…..!
+@hide uni_00
+
 ; L013
-갑작스럽게 땅 속에서 튀어나온 그것은 순식간의 가녀린 체형의 소녀를 점해간다.
+Narrator: 갑작스럽게 땅 속에서 튀어나온 그것은 순식간의 가녀린 체형의 소녀를 점해간다.
 ; L014
+
+@spawn ShakeCharacter params:philia_00
 philia_00: 유니!
 ; L015
 odette_00: 치잇…!
 ; L016
+@hideChars
+
+@char uni_00.Talk pos:40,-240 scale:1.38
 uni_00: 관측자! 모두들 나 좀 살려줘!
 ; L017
 ; [SFX] 칼로 베는 소리
+; 칼 이펙트
 ; L018
-그 순간 섬광이 샌드웜을 향해 내리 꽃힌다.
+
+Narrator: 그 순간 섬광이 샌드웜을 향해 내리 꽃힌다.
+@wait 1.0
+
 ; L019
-모래 폭풍이 걷힌 그곳에는 샌드웜이었던 것의 사채와 한 명의 인영이 서있었다.
+; 쿠웅 쓰러지는 소리
+Narrator: 모래 폭풍이 걷힌 그곳에는 샌드웜이었던 것의 사채와 한 명의 인영이 서있었다.
+
 ; L020
+@char atresia_00.Talk pos:70,-235 scale:1.38
 atresia_00: 설마…
+
 ; L021
+
 ???: ….오랜만이야.
+@slide uni_00 to:20,-240 time:0.2
+@slide atresia_00 to:80,-235 time:0.2
+@char marie_00.Talk pos:50,-240 scale:1.38
 ; L022
 uni_00: 아앗….! 마리! 보고싶었어!
 ; L023
-달려가서 안기려는 유니의 품을 마리에는 순식간에 빠져나간다.
+Narrator: 달려가서 안기려는 유니의 품을 마리에는 순식간에 빠져나간다.
+@slide uni_00 to:45,-240 time:0.2
+@slide marie_00 to:60,-240 time:0.2
 ; L024
 marie_00: …..미안, 유니. 너 몸 끈적거림.
 ; L025
-philia_00: 오데트 씨가 말한 다른 한 분이 마리에… 너였구나.
+@char philia_00.normal pos:95,-235 scale:1.38
+@slide uni_00 to:25,-240 time:0.2
+@slide marie_00 to:45,-240 time:0.2
+philia_00: 오데트 씨가 말한 다른 한 분이 마리에… 당신이었군요.
 ; L026
 marie_00: …..응. 저 여자 왠지 껄끄러움. 그래서 단독행동 중 유니의 비명을 들음.
 ; L027
@@ -56,25 +99,38 @@ atresia_00: 보고 싶었어요. 마리에.
 ; L028
 marie_00: …그 말에 공감. 나도 보고 싶었음. 아티
 ; L029
-player: 아는 사람이야?
+
+@hideChars
+
+@choice "\" 아는 사람이야? \""
+@stop
+
+@char odette_00.normal pos:45,-250 scale:1.38
+
 ; L030
 odette_00: 그녀의 이름은 마리에. 플레이아데스 성단 소속으로 은밀 기동, 요인 사살에 특화. 즉 '암살'에 특화된 스페셜 리스트에요.
+
+@char uni_00.normal pos:25,-240 scale:1.38
 ; L031
 uni_00: 헤에~ 완전 스토커 처럼 우리에 대해 꽤뚫고 있잖아?
 ; L032
 odette_00: 흥, 매우 저속한 언어 표현이군요.
 ; L033
-odette_00: 전 단지 '최악의 성단'으로 불리는 곳이 어떤 곳인지 궁금했을 뿐이에요.
+odette_00: 전 단지 '최약의 성단'으로 불리는 곳이 어떤 곳인지 궁금했을 뿐이에요.
 ; L034
+@spawn ShakeCharacter params:uni_00
 uni_00: 오호~ 끝까지 우리랑 해보자는거지!
 ; L035
+
+@char philia_00 pos:70,-235 scale:1.38
 philia_00: 잠깐만요. 저기 표지판 같은게 보입니다.
 ; L036
+@slide philia_00 to:90,-235 time:0.2
+@char atresia_00 pos:65,-235 scale:1.38
 atresia_00: …..'하솔'. 클레이가 있는 곳으로 추정되는 도시에 도착했나봐요.
 ; L037
 philia_00: 이 앞쪽으로 많은 네피림이 감지됩니다. 조심해서 접근해야 할 것 같아요.
 ; L038
-
 
 @back bg_black_01 time:1.5 transition:Crossfade
 ;신전환 효과음

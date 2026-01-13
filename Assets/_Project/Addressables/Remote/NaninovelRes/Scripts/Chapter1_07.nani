@@ -1,22 +1,40 @@
 ; [META] Chapter1_07 | 위상의 그림자 소개, 스텔라나이트 붕괴 설정
 ; @back bg_arke_grassland_01 fade:1
+
+
+@back bg_arche_00
+
+; 폭발하는 효과음
+@spawn ShakeCamera
+
+
+@char uni_00.normal pos:30,-240 scale:1.38
 uni_00: 우와! 엄청난 위력이잖아?!
+@char atresia_00.Talk pos:60,-235 scale:1.38
 atresia_00: 꽤나 기술이 발전했던 행성인 것 같네요.
+@char philia_00.Talk pos:90,-235 scale:1.38
 philia_00: 좌표 신호가 가까워 지고 있어요.
+@spawn ShakeCharacter params:uni_00
 uni_00: 엇?! 저기….검은건 뭐지.
 philia_00: 저것은….!
 
+@hideChars
 Narrator: 초원 한가운데, 인간의 형상을 한 '무언가'가 서 있다.
 Narrator: 형체는 스텔라 나이트의 제복과 비슷하지만, 검은 노이즈처럼 격렬하게 일그러지고 있다.
 Narrator: 그것은 마치... '아트레시아'가 들고 있는 것과 비슷한 검을 쥐고 있다.
 
+;쉐도우 캐릭터 필요
 shadow_00: (고통과 증오가 뒤섞인, 뭉개진 목소리) ...죽여버릴거야... ...용서... 못해..
+
+@char atresia_00.sad pos:60,-235 scale:1.38
 atresia_00: '위상의 그림자…..!'
 
 @choice "\" 위상의 그림자?\""
 @stop
 
 atresia_00: 스텔라 나이트의 잔재… 그림자…. 그리고 최후의 모습….
+
+@char uni_00.angry pos:30,-240 scale:1.38
 uni_00: 관측자, 우리에겐 스텔라 마타 라는 성흔이 있다는 것은 알고있지?
 uni_00: 우리는 인간을 뛰어넘은 육체능력과 이능력을 얻는 반면에, 한가지 특성을 가지게 돼.
 
@@ -24,9 +42,7 @@ uni_00: 우리는 인간을 뛰어넘은 육체능력과 이능력을 얻는 반
 @stop
 
 uni_00: 응… 숙명이라고 해야 할까. 인식을 뛰어넘는 힘을 얻은 대가랄까.
-
 uni_00: 우리를 상징해주는 별자리가 소멸하게 되면, 스텔라 나이트는 천천히 붕괴하다가… 우리는 그림자에 삼켜지게 돼.
-
 uni_00: 그리고 얼마 후… 저렇게 인류에 대한 적의만 가진채, 행성을 돌아다니는 존재가 된다는 이야기… 그 뿐인 이야기야.
 
 Narrator: 유니는 억지로 밝은 척 말하고 있지만, 그 목소리는 미세하게 떨리고 있다.
@@ -41,10 +57,19 @@ uni_00: 저 모습이 되는 것 보다….꼭 이뤄내고 싶은 소망들이 
 @choice "\" ……유니 \""
 @stop
 
+@hideChars
+@char asna_00.Talk pos:60,-240 scale:1.38
 asna_00: …..유니
+@hide asna_00
+
+@char uni_00.Talk pos:30,-240 scale:1.38
 uni_00: 헤헷 재미없는 역사수업은 여기까지! 지금은 저녀석 에게 ‘안식’을 선물해줄 때야!
+@char atresia_00.Talk pos:60,-235 scale:1.38
 atresia_00: 맞아요 지휘관님. 저분도 그것을 봐라고 있을 거에요.
+@char philia_00.Talk pos:90,-235 scale:1.38
 philia_00: 지휘관님………명령을.
+
+
 @choice "\" …..인카운터.\""
 @stop
 

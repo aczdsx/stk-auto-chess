@@ -139,6 +139,9 @@ MonoBehaviour:
     - name: NicknamePopup_nani
       pathPrefix: Spawn
       guid: a7849c4742558db449e84853bb474d44
+    - name: cbg_02_03
+      pathPrefix: Spawn
+      guid: 9dd622bf98f25c34791590c834c4c48e
   - Id: UI
     Resources:
     - name: ClickThroughPanel
@@ -1007,21 +1010,6 @@ MonoBehaviour:
     - name: Scripts/Chapter1_05
       pathPrefix: Scripts
       guid: 37d0588b93d9ae94ba4568779bec15da
-    - name: Scripts/Chapter1_13
-      pathPrefix: Scripts
-      guid: a94a863343e81a74787df8f6a7e9ba06
-    - name: Scripts/Chapter1_14
-      pathPrefix: Scripts
-      guid: 1388e2cffa70dad44a0c0095cb754ad6
-    - name: Scripts/Chapter1_10
-      pathPrefix: Scripts
-      guid: 909523b307601b44bb2aea79c57723ad
-    - name: Scripts/Chapter1_11
-      pathPrefix: Scripts
-      guid: e3f6807cdd174d347826d8185614ea56
-    - name: Scripts/Chapter1_12
-      pathPrefix: Scripts
-      guid: 1c90d86ed1b93a44eaec0073fee0b147
     - name: Scripts/Chapter1_03
       pathPrefix: Scripts
       guid: bc5ebc907f3b8a340a5e440fda5d8ad9
@@ -1037,9 +1025,6 @@ MonoBehaviour:
     - name: Scripts/Chapter1_07
       pathPrefix: Scripts
       guid: 7074836e4a4577c4eb4f47a437e36b47
-    - name: Scripts/Chapter1_09
-      pathPrefix: Scripts
-      guid: fedcc6d0399f18b4d92de41ce45406cd
     - name: Scripts/Chapter2_03
       pathPrefix: Scripts
       guid: c2c264a458c282f459fb606590f7b6ca
@@ -1088,6 +1073,27 @@ MonoBehaviour:
     - name: Scripts/Chapter2_16
       pathPrefix: Scripts
       guid: 512afeaecf2810e40890729587809587
+    - name: Scripts/Chapter1_11
+      pathPrefix: Scripts
+      guid: 909523b307601b44bb2aea79c57723ad
+    - name: Scripts/Chapter1_10
+      pathPrefix: Scripts
+      guid: fedcc6d0399f18b4d92de41ce45406cd
+    - name: Scripts/Chapter1_09
+      pathPrefix: Scripts
+      guid: ac96cad5a6e0b1546b76c5043c1104dd
+    - name: Scripts/Chapter1_12
+      pathPrefix: Scripts
+      guid: 196dac9ce6b77f640bbb06d0774e4379
+    - name: Scripts/Chapter1_13
+      pathPrefix: Scripts
+      guid: 1c90d86ed1b93a44eaec0073fee0b147
+    - name: Scripts/Chapter1_14
+      pathPrefix: Scripts
+      guid: a94a863343e81a74787df8f6a7e9ba06
+    - name: Scripts/Chapter1_15
+      pathPrefix: Scripts
+      guid: 1388e2cffa70dad44a0c0095cb754ad6
   - Id: CharacterAvatars
     Resources: []
   - Id: Characters/97730980-6691-4698-b6da-9388d226f1d6
@@ -1181,6 +1187,24 @@ MonoBehaviour:
     - name: bg_rightbringer_01
       pathPrefix: Backgrounds/MainBackground
       guid: c436f17640445344a871218eade81b91
+    - name: bg_hubble_hospitel_01
+      pathPrefix: Backgrounds/MainBackground
+      guid: 5c647506f03c502499b68c03aca3d509
+    - name: bg_hubble_05
+      pathPrefix: Backgrounds/MainBackground
+      guid: a39a039ffc9235b488f11274e6072d2c
+    - name: bg_lightbringer_02
+      pathPrefix: Backgrounds/MainBackground
+      guid: 5c33d32d269c23b49b86954060ec4875
+    - name: bg_arche_00
+      pathPrefix: Backgrounds/MainBackground
+      guid: 186b770e13e323f40b391431f08934e2
+    - name: bg_arche_01
+      pathPrefix: Backgrounds/MainBackground
+      guid: b40efd50a22442049bcb0de85c540928
+    - name: bg_ionia_01
+      pathPrefix: Backgrounds/MainBackground
+      guid: a46a60cf948caa44295cce27497bd11c
   - Id: Unlockables
     Resources: []
   - Id: Audio
