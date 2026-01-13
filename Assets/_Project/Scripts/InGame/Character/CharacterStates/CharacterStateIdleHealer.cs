@@ -161,14 +161,7 @@ public class CharacterStateIdleHealer : CharacterStateIdle
         }
 
 
-        if (target?.AllianceType == characCtrl.AllianceType)
-        {
-            Debug.Log("Healer!! HealMode");
-        }
-        else
-        {
-            Debug.Log("Healer!! AttackMode");
-        }
+
 
         return target;
     }

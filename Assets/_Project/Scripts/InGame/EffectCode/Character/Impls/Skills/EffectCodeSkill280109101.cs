@@ -11,7 +11,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 라플라스마녀 스페셜2
-/// 대상: 5x5 십자 범위
+/// 대상: 맨허튼거리 2 5x5
 // 효과: 범위 내에 {0}%만큼 피해를 입힌다.
 /// </summary>
 [UseEffectCodeIds(280109101)]
@@ -27,7 +27,7 @@ public partial class EffectCodeSkill280109101 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _damageRate = codeInfo.GetCodeStatToFloat(1);
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -106,7 +106,7 @@ public partial class EffectCodeSkill280109101 : EffectCodeCharacterBase
         if (targetCharacter == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(targetCharacter.CurrentTile, 1);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(targetCharacter.CurrentTile, 2);
 
         foreach (var tile in inGameTiles)
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);

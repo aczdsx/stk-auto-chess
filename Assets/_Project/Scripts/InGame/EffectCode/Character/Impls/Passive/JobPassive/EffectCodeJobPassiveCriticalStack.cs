@@ -42,7 +42,6 @@ namespace CookApps.BattleSystem
             {
                 _curCrriticalStackCount = 0;
                 owner.SetFixedCriticalProb(100f);
-                Debug.Log("CriticalStack Passive On ");
             }
         }
     }
