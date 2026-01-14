@@ -26,6 +26,9 @@ namespace CookApps.BattleSystem
         CC = 4,
         Move = 5,
         Dead = 10,
+        
+        Buff = 96,
+        Groggy = 99,
     }
     
     public abstract class CharacterStateBase : StateBase
