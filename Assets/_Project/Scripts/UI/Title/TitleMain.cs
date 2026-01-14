@@ -107,10 +107,10 @@ namespace CookApps.AutoBattler
                 NetManager.Instance.CustomLobby.GetMyPlayerDataAsync(),
                 NetManager.Instance.Inventory.ListAsync(),
                 NetManager.Instance.Character.ListAsync(),
+                NetManager.Instance.Battle.GetCurrentChapterAsync(),
                 NetManager.Instance.Battle.ListChapterAsync(),
             };
             await UniTask.WhenAll(serverTasks);
-            await NetManager.Instance.Battle.ListStageAsync(ServerDataManager.Instance.Battle.CurrentChapterId);
             NetManager.Instance.Initialize_Elpis().Forget();
 
             // var transition1 = SceneTransition_FadeInOut.Create();
@@ -127,22 +127,18 @@ namespace CookApps.AutoBattler
                 var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
                 if (ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
                 {
-                    // var lastStageID = UserDataManager.Instance.GetLastPlayStageID();
-                    // var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
-                    // if (UserDataManager.Instance.IsClearStage(lastStageID)) specStageData = SpecDataManager.Instance.GetNextStageData(lastStageID);
-
-                    SceneLoading.GoToNextScene("InGame",
-                        (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), lastTutoStageData.stage_id));
+                    // SceneLoading.GoToNextScene("InGame",
+                    //     (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), lastTutoStageData.stage_id));
                     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                     await SceneTransition.FadeInAsync();
                     
-                    // SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
+                    SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
                     return;
                 }
                 else
                 {
                     SceneTransition.Create<SceneTransition_FadeInOut>();
-                    SceneTransition.FadeInAsync().Forget();
+                    await SceneTransition.FadeInAsync();
 
                     var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
                     var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);

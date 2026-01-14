@@ -10,6 +10,10 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler.Editor
 {
+    /// <summary>
+    /// 스펙 다운로드 완료 시 Language 스펙을 다운로드하여 파일로 저장합니다.
+    /// 파일 저장 후 LanguageSpecAssetPostprocessor가 자동으로 Localization 임포트를 실행합니다.
+    /// </summary>
     public class LanguageSpecDownloadCallback : ISpecDownloadCallback
     {
         private const string SpecLanguagePath = "Assets/OriginalSpecLanguage.json";
@@ -18,7 +22,7 @@ namespace CookApps.AutoBattler.Editor
         {
             try
             {
-                await DownloadAndImportLanguageSpecAsync();
+                await DownloadLanguageSpecAsync();
             }
             catch (Exception e)
             {
@@ -26,7 +30,7 @@ namespace CookApps.AutoBattler.Editor
             }
         }
 
-        private static async Task DownloadAndImportLanguageSpecAsync()
+        private static async Task DownloadLanguageSpecAsync()
         {
             // 1. SpecDataAsset에서 AppId 가져오기 (internal 클래스이므로 리플렉션)
             uint appId = GetAppIdFromSpecDataAsset();
@@ -60,21 +64,10 @@ namespace CookApps.AutoBattler.Editor
                 return;
             }
 
-            // 5. 파일로 저장
+            // 5. 파일로 저장 (AssetPostprocessor가 변경 감지 후 임포트 실행)
             File.WriteAllText(SpecLanguagePath, languageData);
             AssetDatabase.Refresh();
             Debug.Log($"[LanguageSpecDownloadCallback] Language 스펙 다운로드 완료: {SpecLanguagePath}");
-
-            // 6. Localization 임포트
-            var result = LocalizationImporter.ImportAllFromJsonFile(SpecLanguagePath);
-            if (result.Success)
-            {
-                Debug.Log($"[LanguageSpecDownloadCallback] Localization 임포트 완료\n{result.GetSummary()}");
-            }
-            else
-            {
-                Debug.LogError($"[LanguageSpecDownloadCallback] Localization 임포트 실패: {result.ErrorMessage}");
-            }
         }
 
         /// <summary>

@@ -343,6 +343,57 @@ namespace CookApps.AutoBattler.Editor
         }
 
         /// <summary>
+        /// 에디터에서 Localization 텍스트 가져오기
+        /// </summary>
+        /// <param name="key">토큰 키</param>
+        /// <param name="localeCode">로케일 코드 (ko, en, ja 등). null이면 ko 사용</param>
+        /// <param name="tableName">테이블 이름 (Default, Dialogue). null이면 Default 사용</param>
+        public static string GetText(string key, string localeCode = "ko", string tableName = "Default")
+        {
+            var collections = LocalizationEditorSettings.GetStringTableCollections();
+            foreach (var collection in collections)
+            {
+                if (collection.TableCollectionName != tableName)
+                    continue;
+
+                var locales = LocalizationEditorSettings.GetLocales();
+                foreach (var locale in locales)
+                {
+                    if (locale.Identifier.Code != localeCode)
+                        continue;
+
+                    var table = collection.GetTable(locale.Identifier) as StringTable;
+                    if (table == null)
+                        continue;
+
+                    var entry = table.GetEntry(key);
+                    if (entry != null)
+                    {
+                        return entry.Value;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 에디터에서 Default 테이블의 한국어 텍스트 가져오기
+        /// </summary>
+        public static string GetDefaultText(string key)
+        {
+            return GetText(key, "ko", DefaultTableName);
+        }
+
+        /// <summary>
+        /// 에디터에서 Dialogue 테이블의 한국어 텍스트 가져오기
+        /// </summary>
+        public static string GetDialogueText(string key)
+        {
+            return GetText(key, "ko", DialogueTableName);
+        }
+
+        /// <summary>
         /// StringTableCollection의 모든 엔트리 제거
         /// </summary>
         private static void ClearTableCollection(StringTableCollection collection)

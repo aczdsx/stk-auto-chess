@@ -595,12 +595,12 @@ namespace CookApps.AutoBattler
         fx_common_debuff_ctup_02 = 246,
         Projectile_103011 = 247,
         trouble_shooter_missile = 248,
-        Skill_9001_1 = 249,
-        Skill_9001_2 = 250,
-        Skill_9002 = 251,
+        Skill_9002_1 = 249,
+        Skill_9002_2 = 250,
+        Skill_9001 = 251,
         Skill_7001 = 252,
         Skill_7002 = 253,
-        Projectile_9001 = 254,
+        Projectile_9002 = 254,
     }
 
     public enum GlobalEffectProviderType

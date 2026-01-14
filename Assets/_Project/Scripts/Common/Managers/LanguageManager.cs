@@ -20,10 +20,6 @@ namespace CookApps.AutoBattler
         Default,
         Dialogue
     }
-
-    public class LocalizationLoader
-    {
-    }
     
     public class LanguageManager : Singleton<LanguageManager>
     {        
@@ -31,17 +27,49 @@ namespace CookApps.AutoBattler
         private const string DialogueTableName = "Dialogue";
 
         // 테이블 캐시
-        private StringTable _defaultTable;
-        private StringTable _dialogueTable;
+        private StringTable defaultTable;
+        private StringTable DefaultTable
+        {
+            get
+            {
+#if UNITY_EDITOR
+                if (defaultTable == null)
+                {
+                    var collections = UnityEditor.Localization.LocalizationEditorSettings.GetStringTableCollections();
+                    foreach (var collection in collections)
+                    {
+                        if (collection.TableCollectionName != DefaultTableName)
+                            continue;
+                        var locales = UnityEditor.Localization.LocalizationEditorSettings.GetLocales();
+                        GetLocaleCode(Application.systemLanguage, out var localeCode);
+                        foreach (var locale in locales)
+                        {
+                            if (locale.Identifier.Code != localeCode)
+                                continue;
+
+                            var table = collection.GetTable(locale.Identifier) as StringTable;
+                            if (table == null)
+                                continue;
+
+                            defaultTable = table;
+                        }
+                    }
+                }
+#endif 
+                return defaultTable;
+            }
+            set => defaultTable = value;
+        }
+
+        private StringTable dialogueTable;
+        private StringTable DialogueTable { get; set; }
 
         // 로드 핸들 (Release용)
-        private AsyncOperationHandle<StringTable> _defaultTableHandle;
-        private AsyncOperationHandle<StringTable> _dialogueTableHandle;
-
-        private readonly Dictionary<(string, string), LocalizedString> _localizedStringCache = new();
+        private AsyncOperationHandle<StringTable> defaultTableHandle;
+        private AsyncOperationHandle<StringTable> dialogueTableHandle;
 
         public SystemLanguage CurrentLanguageType { get; private set; }
-        private bool _isInitialized;
+        private bool isInitialized;
 
         private SystemLanguage GetLocaleCode(SystemLanguage language, out string localeCode)
         {
@@ -64,7 +92,7 @@ namespace CookApps.AutoBattler
         
         public async UniTask InitializeAsync()
         {
-            if (_isInitialized)
+            if (isInitialized)
                 return;
             
             InitLanguage();
@@ -79,7 +107,7 @@ namespace CookApps.AutoBattler
             // 테이블 비동기 로드
             await LoadTableAsync();
 
-            _isInitialized = true;
+            isInitialized = true;
             Debug.Log("[LocalizationLoader] 초기화 완료");
         }
 
@@ -100,12 +128,12 @@ namespace CookApps.AutoBattler
         {
             ReleaseDefaultTableHandle();
 
-            _defaultTableHandle = LocalizationSettings.StringDatabase.GetTableAsync(DefaultTableName);
-            await _defaultTableHandle.ToUniTask();
+            defaultTableHandle = LocalizationSettings.StringDatabase.GetTableAsync(DefaultTableName);
+            await defaultTableHandle.ToUniTask();
 
-            if (_defaultTableHandle.Status == AsyncOperationStatus.Succeeded)
+            if (defaultTableHandle.Status == AsyncOperationStatus.Succeeded)
             {
-                _defaultTable = _defaultTableHandle.Result;
+                DefaultTable = defaultTableHandle.Result;
                 Debug.Log($"[LocalizationLoader] {DefaultTableName} 테이블 로드 완료");
             }
             else
@@ -121,12 +149,12 @@ namespace CookApps.AutoBattler
         {
             ReleaseDialogueTableHandle();
 
-            _dialogueTableHandle = LocalizationSettings.StringDatabase.GetTableAsync(DialogueTableName);
-            await _dialogueTableHandle.ToUniTask();
+            dialogueTableHandle = LocalizationSettings.StringDatabase.GetTableAsync(DialogueTableName);
+            await dialogueTableHandle.ToUniTask();
 
-            if (_dialogueTableHandle.Status == AsyncOperationStatus.Succeeded)
+            if (dialogueTableHandle.Status == AsyncOperationStatus.Succeeded)
             {
-                _dialogueTable = _dialogueTableHandle.Result;
+                dialogueTable = dialogueTableHandle.Result;
                 Debug.Log($"[LocalizationLoader] {DialogueTableName} 테이블 로드 완료");
             }
             else
@@ -140,11 +168,11 @@ namespace CookApps.AutoBattler
         /// </summary>
         private void ReleaseDefaultTableHandle()
         {
-            if (_defaultTableHandle.IsValid())
+            if (defaultTableHandle.IsValid())
             {
-                UnityEngine.AddressableAssets.Addressables.Release(_defaultTableHandle);
+                UnityEngine.AddressableAssets.Addressables.Release(defaultTableHandle);
             }
-            _defaultTable = null;
+            defaultTable = null;
         }
 
         /// <summary>
@@ -152,11 +180,11 @@ namespace CookApps.AutoBattler
         /// </summary>
         public void ReleaseDialogueTableHandle()
         {
-            if (_dialogueTableHandle.IsValid())
+            if (dialogueTableHandle.IsValid())
             {
-                UnityEngine.AddressableAssets.Addressables.Release(_dialogueTableHandle);
+                UnityEngine.AddressableAssets.Addressables.Release(dialogueTableHandle);
             }
-            _dialogueTable = null;
+            dialogueTable = null;
         }
 
         /// <summary>
@@ -166,7 +194,7 @@ namespace CookApps.AutoBattler
         {
             ReleaseDefaultTableHandle();
             ReleaseDialogueTableHandle();
-            _isInitialized = false;
+            isInitialized = false;
             Debug.Log("[LocalizationLoader] 리소스 해제 완료");
         }
 
@@ -209,7 +237,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public string GetDefaultText(string tokenKey)
         {
-            return GetTextFromTable(_defaultTable, tokenKey);
+            return GetTextFromTable(DefaultTable, tokenKey);
         }
 
         /// <summary>
@@ -218,7 +246,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public string GetDialogueText(string tokenKey)
         {
-            return GetTextFromTable(_dialogueTable, tokenKey);
+            return GetTextFromTable(DialogueTable, tokenKey);
         }
 
         /// <summary>

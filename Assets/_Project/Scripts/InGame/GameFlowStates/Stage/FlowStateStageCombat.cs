@@ -93,7 +93,11 @@ public class FlowStateStageCombat : StateCombatBase
     private async UniTask StartAsync()
     {
         // 서버에 전투 시작 요청
-        var response = await NetManager.Instance.Battle.StartAsync((uint)InGameManager.Instance.SpecStage.stage_id);
+        var response = await NetManager.Instance.Battle.StartAsync(
+            (uint)InGameManager.Instance.SpecStage.chapter_id,
+            (uint)InGameManager.Instance.SpecStage.stage_id,
+            0,
+            Array.Empty<string>());
         if (response != null && response.IsSuccess)
         {
             InGameManager.Instance.BattleSessionId = response.BattleSessionId;
