@@ -29,6 +29,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private TMP_Text decoText;
         [SerializeField] private SimpleImageSwapper dimensionSwapper;
+        [SerializeField] private CAButton closeButton;
         
         [Header("강화 관련")]
         [SerializeField] private TMP_Text requiredCoreText;
@@ -64,6 +65,7 @@ namespace CookApps.AutoBattler
             inventoryDataBridge = new InventoryDataBridge();
             
             upgradeButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.Upgrade(), AwaitOperation.Drop).AddTo(this);
+            closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.CloseThisUILayer()).AddTo(this);
             
             InitializeToggles();
             InitializeCoreItems();
