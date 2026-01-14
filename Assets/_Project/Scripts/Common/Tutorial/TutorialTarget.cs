@@ -35,6 +35,7 @@ namespace CookApps.AutoBattler
             // 새 ID로 등록 (오브젝트가 활성화 상태일 때만)
             if (gameObject.activeInHierarchy && !string.IsNullOrEmpty(_targetId))
             {
+                Debug.LogColor($"TutorialTarget 등록: {_targetId}", "green");
                 TutorialTargetRegistry.Register(this);
                 _isRegistered = true;
             }

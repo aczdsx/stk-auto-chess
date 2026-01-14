@@ -1156,6 +1156,9 @@ namespace CookApps.AutoBattler
         public int before_key;
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int benefit_key;
+        /// 추가 해금 조건(튜토리얼 ID만 체크)
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
+        public int add_unlock_condition;
     }
 
     [GeneratorSpecData]
@@ -1185,9 +1188,6 @@ namespace CookApps.AutoBattler
         /// 슬롯 고유 Num
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int slot_index;
-        /// 추가 해금 조건(우선 가이드미션)
-        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
-        public int add_unlock_condition;
         /// 필요 아이템 키
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;

@@ -7,6 +7,8 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
+using Cysharp.Threading.Tasks;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using CharacterController = CookApps.BattleSystem.CharacterController;
@@ -711,5 +713,105 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             size = Mathf.Clamp(size, _cameraMinSize, _cameraMaxSize);
             ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(size);
         }
+    }
+
+    /////////////////////////////////////////////////////////////
+    // public - UI 드래그 연동
+
+    /// <summary>
+    /// UI에서 드래그하여 보드에 캐릭터를 배치할 때 호출
+    /// </summary>
+    public async UniTask<bool> StartDragFromUI(CharacterStatData statData, InGameTileView tileView)
+    {
+        if (_selectedCharacterController != null || _isMoveEndAnimation)
+            return false;
+
+        // 타일 유효성 체크
+        if (tileView == null || tileView.AllianceType != AllianceType.Player)
+            return false;
+
+        var inGameTile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
+        if (inGameTile == null)
+            return false;
+
+        // 이미 캐릭터가 있는 타일이면 스왑 대상으로 처리
+        if (inGameTile.OccupiedCharacter != null)
+        {
+            // 빈 타일 찾기
+            var emptyTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(statData.Spec);
+            if (emptyTile == null)
+                return false;
+
+            inGameTile = emptyTile;
+            tileView = emptyTile.View as InGameTileView;
+        }
+
+        // 캐릭터 생성
+        int2 pos = new int2(inGameTile.X, inGameTile.Y);
+        await InGameObjectManager.Instance.AddCharacterToField(
+            statData, pos, AllianceType.Player,
+            typeof(CharacterStateReady), true, HpBarType.Synergy);
+
+        // 생성된 캐릭터 가져오기
+        var character = inGameTile.OccupiedCharacter;
+        if (character == null)
+            return false;
+
+        // selected 상태로 전환
+        _selectedTileView = tileView;
+        SetSelectedCharacter(character);
+
+        return true;
+    }
+
+    /// <summary>
+    /// UI 드래그 중 터치 위치 업데이트 (MoveCharacter 대리 호출)
+    /// </summary>
+    public void UpdateDragPosition(Vector3 screenPosition)
+    {
+        if (_selectedCharacterController == null)
+            return;
+
+        MoveCharacter(screenPosition);
+    }
+
+    /// <summary>
+    /// UI 드래그 종료 (EndedMoveCharacter 대리 호출)
+    /// </summary>
+    public void EndDragFromUI(Vector3 screenPosition)
+    {
+        if (_selectedCharacterController == null)
+            return;
+
+        EndedMoveCharacter(screenPosition);
+    }
+
+    /// <summary>
+    /// UI 드래그 취소 - 캐릭터 제거 및 UI로 복귀
+    /// </summary>
+    public void CancelDragFromUI()
+    {
+        if (_selectedCharacterController == null)
+            return;
+
+        CharacterController characterToRemove = _selectedCharacterController;
+        ReleaseSelectedHero();
+
+        // 캐릭터 제거
+        characterToRemove.CurrentTile.SetUnoccupied();
+        InGameObjectManager.Instance.RemoveCharacterFromField(characterToRemove);
+    }
+
+    /// <summary>
+    /// 스크린 좌표에서 타일뷰 가져오기
+    /// </summary>
+    public InGameTileView GetTileViewFromScreenPosition(Vector3 screenPosition)
+    {
+        Ray ray = MainCameraHolder.MainCamera.ScreenPointToRay(screenPosition);
+        if (Physics.Raycast(ray, out RaycastHit hit) && hit.transform.CompareTag("Slot"))
+        {
+            return hit.transform.GetComponent<InGameTileView>();
+        }
+        return null;
     }
 }
