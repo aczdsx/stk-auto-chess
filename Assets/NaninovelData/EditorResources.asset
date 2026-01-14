@@ -142,6 +142,15 @@ MonoBehaviour:
     - name: cbg_02_03
       pathPrefix: Spawn
       guid: 9dd622bf98f25c34791590c834c4c48e
+    - name: cbg_00_05
+      pathPrefix: Spawn
+      guid: 2185b6ba9f2040c40956701e3e92a519
+    - name: cbg_00_06
+      pathPrefix: Spawn
+      guid: 78595d4b1beb8f2439620fd5c2392033
+    - name: cbg_00_07
+      pathPrefix: Spawn
+      guid: e47c519340396e649b8d3b6f29319758
   - Id: UI
     Resources:
     - name: ClickThroughPanel

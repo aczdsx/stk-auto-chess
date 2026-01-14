@@ -21,8 +21,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 117a427f6e5411e4b80528efd494ca36
+    m_Address: Naninovel/Spawn/CutScene/cbg_01_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1f39d8d645f7cea44a78b0fcbfec20a7
     m_Address: Naninovel/Spawn/CutScene/cbg_00_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2185b6ba9f2040c40956701e3e92a519
+    m_Address: Naninovel/Spawn/CutScene/cbg_00_05
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -58,7 +70,7 @@ MonoBehaviour:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 78595d4b1beb8f2439620fd5c2392033
-    m_Address: Naninovel/Spawn/CutScene/cbg_01_02
+    m_Address: Naninovel/Spawn/CutScene/cbg_00_06
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -107,6 +119,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e17a0ce4d2ceef347bd8045201001c1b
     m_Address: Naninovel/Spawn/CutScene/cbg_04_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e47c519340396e649b8d3b6f29319758
+    m_Address: Naninovel/Spawn/CutScene/cbg_00_07
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
