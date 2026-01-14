@@ -69,6 +69,26 @@ public partial class SROptions
 
     #endregion
 
+    #region UI 테스트
+    
+    [Category("UI 테스트")]
+    public void SafeArea테스트()
+    {
+        var safeAreas = Object.FindObjectsByType<SafeArea>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (var i = 0; i < safeAreas.Length; i++)
+        {
+            safeAreas[i].Refresh(true);
+        }
+
+        var safeAreaMargins = Object.FindObjectsByType<SafeAreaMarginBase>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (var i = 0; i < safeAreaMargins.Length; i++)
+        {
+            safeAreaMargins[i].Refresh(true);
+        }
+    }
+    
+    #endregion
+
     #region 치트
 
     [Category("치트")]
