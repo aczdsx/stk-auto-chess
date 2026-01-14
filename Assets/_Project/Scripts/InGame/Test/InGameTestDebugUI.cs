@@ -321,13 +321,7 @@ namespace CookApps.AutoBattler
             var specCharacter = SpecDataManager.Instance.GetSpecCharacter(characterId);
             if (specCharacter != null)
             {
-                return SpecDataManager.Instance.GetLanguageText(specCharacter.name_token, languageType);
-            }
-
-            var specMonster = SpecDataManager.Instance.GetSpecCharacter(characterId);
-            if (specMonster != null)
-            {
-                return SpecDataManager.Instance.GetLanguageText(specMonster.name_token, languageType);
+                return LanguageManager.Instance.GetDefaultText(specCharacter.name_token);
             }
 
             return $"ID:{characterId}";

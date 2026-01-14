@@ -186,7 +186,7 @@ namespace CookApps.AutoBattler
                         GuideMissionManager.Instance.UpdateGuideMissionAlert();
                         InGameMain.GetInGameMain()?.SetInGameBottomUIInGuide();
 
-                        TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.DIALOGUE_POP_END, 0);
+                        TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.DIALOGUE_POP_END, _dialogueGroupID);
                     }).Forget();
                 }
             }
