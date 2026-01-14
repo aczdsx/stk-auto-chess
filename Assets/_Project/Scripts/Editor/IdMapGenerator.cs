@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+using CookApps.SpecData.Hive.Editor;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -5,32 +7,17 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
+
 namespace CookApps.AutoBattler.Editor
 {
-#if UNITY_EDITOR
-    /// <summary>
-    /// OriginalSpecData.json이 변경될 때 자동으로 IdMap.cs를 생성하는 AssetPostprocessor
-    /// </summary>
-    public class IdMapPostprocessor : AssetPostprocessor
+    public class GameSpecDownloadCallback : ISpecDownloadCallback
     {
-        private static void OnPostprocessAllAssets(
-            string[] importedAssets,
-            string[] deletedAssets,
-            string[] movedAssets,
-            string[] movedFromAssetPaths)
+        public void OnSpecDownloadCompleted()
         {
-            // OriginalSpecData.json이 변경되었는지 확인
-            bool needsRegeneration = importedAssets.Any(path =>
-                path.EndsWith("OriginalSpecData.json", System.StringComparison.OrdinalIgnoreCase));
-
-            if (needsRegeneration)
-            {
-                Debug.Log("[IdMapPostprocessor] OriginalSpecData.json이 변경되었습니다. IdMap.cs를 재생성합니다...");
-                IdMapGenerator.Generate();
-            }
+            Debug.Log("[IdMapPostprocessor] OriginalSpecData.json이 변경되었습니다. IdMap.cs를 재생성합니다...");
+            IdMapGenerator.Generate();
         }
     }
-#endif
 
     public static class IdMapGenerator
     {
@@ -484,3 +471,4 @@ namespace CookApps.AutoBattler.Editor
         #endregion
     }
 }
+#endif

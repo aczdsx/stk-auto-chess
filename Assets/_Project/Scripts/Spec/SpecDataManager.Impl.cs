@@ -41,7 +41,7 @@ namespace CookApps.AutoBattler
             {
                 do
                 {
-                    json = await NetManager.Instance.Spec.GetSpecDataAsync(SpecType.Game, serverSpecVersion);
+                    json = await NetManager.Instance.Spec.GetSpecJsonAsync(SpecType.Game, serverSpecVersion);
                 } while (string.IsNullOrEmpty(json));
 
                 localData.Save(json, "SpecData");
@@ -52,7 +52,7 @@ namespace CookApps.AutoBattler
                 {
                     do
                     {
-                        json = await NetManager.Instance.Spec.GetSpecDataAsync(SpecType.Game, serverSpecVersion);
+                        json = await NetManager.Instance.Spec.GetSpecJsonAsync(SpecType.Game, serverSpecVersion);
                     } while (string.IsNullOrEmpty(json));
 
                     localData.Save(json, "SpecData");

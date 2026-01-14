@@ -12,7 +12,7 @@ using CookApps.SpecData.Hive.Generator;
 namespace CookApps.AutoBattler
 {
     [GeneratorSpecDataResource]
-    public static partial class SpecDataResourceLoader
+    public partial class SpecDataResourceLoader
     {
         private static readonly byte[] _key = {41, 120, 96, 104, 53, 82, 76, 85, 102, 72, 44, 85, 94, 87, 76, 124};
     }
