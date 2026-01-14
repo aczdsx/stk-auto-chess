@@ -20,6 +20,12 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
 
     public Camera MainCamera => _mainCamera;
     public Camera CharacterCamera => _characterCamera;
+
+    public enum CameraPositionMode
+    {
+        Default = 0,
+        LobbyCombat = 1,
+    }
     
     private void Awake()
     {
@@ -97,6 +103,19 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
             return Mathf.Approximately(_mainCamera.orthographicSize, targetSize) &&
                    Mathf.Approximately(_mainCamera.transform.position.y, targetPosition.y);
         });
+    }
+
+    public void SetCameraPositionMode(CameraPositionMode mode)
+    {
+        switch (mode)
+        {
+            case CameraPositionMode.Default:
+                SetCameraSize(6.0f, new Vector3(-15.0f, 10.0f, -12f), 1.0f).Forget();
+                break;
+            case CameraPositionMode.LobbyCombat:
+                SetCameraSize(7.5f, new Vector3(0, 2.0f, -10), 1.0f).Forget();
+                break;
+        }
     }
     public void SetForceCameraRotation(Vector3 targetRotation)
     {

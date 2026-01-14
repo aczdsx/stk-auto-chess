@@ -14,7 +14,8 @@ public class FlowStateStageFail : StateBase
     {
         InGameManager.Instance.EndInGame();
         CharacterInfo mvpCharacterData = null;
-        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((false, false, false, mvpCharacterData));
+        InGameResultPopupParam param = new InGameResultPopupParam(false, false, false, mvpCharacterData, null);
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>(param);
 
         // 행동력 소모 처리
         //UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, InGameManager.Instance.SpecStage.need_ap, true, false);

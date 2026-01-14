@@ -24,10 +24,10 @@ public class FlowStateLobbyCombat : StateCombatBase
 
         _maxEnemySpawnCount = SpecDataManager.Instance.GetGameConfig<int>("max_idle_battle_monster_count");
         // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.5f, new Vector3(0, 2.0f, -10), 1.0f).Forget();
-
+        // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.LobbyCombat);
         MainCameraHolder.MainCamera.transform.rotation = Quaternion.Euler(34f, 45f, 0f);
-        MainCameraHolder.MainCamera.orthographicSize = 7.5f;
         MainCameraHolder.MainCamera.transform.position = new Vector3(0, 2.0f, -10);
+        MainCameraHolder.MainCamera.orthographicSize = 7.5f;
         
     }
 

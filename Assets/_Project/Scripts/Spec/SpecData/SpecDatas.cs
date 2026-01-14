@@ -1626,9 +1626,6 @@ namespace CookApps.AutoBattler
         public string name_token;
         /// 가이드 설명 토큰
         public string desc_token;
-        /// 출력 다이얼로그 id
-        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
-        public int dialogue;
         /// 타겟 id
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int sub_key;

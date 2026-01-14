@@ -31,7 +31,9 @@ public class FlowStateStageClear : StateBase
         var resp = await SendEndAsync(stars, clearTimeMs);
 
         // 서버 응답 후 결과 팝업 표시
-        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>((true, star2, star3, _mvpCharacterData, (IReadOnlyList<Reward>)resp.Rewards));
+
+        InGameResultPopupParam param = new InGameResultPopupParam(true, star2, star3, _mvpCharacterData, (IReadOnlyList<Reward>)resp.Rewards);
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>(param);
 
         // 다이얼로그 체크
         DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_CLEAR, InGameManager.Instance.SpecStage.stage_id.ToString());

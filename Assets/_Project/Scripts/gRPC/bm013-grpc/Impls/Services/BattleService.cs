@@ -73,11 +73,24 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 전투 시작
         /// </summary>
-        public async UniTask<BattleStartResponse> StartAsync(uint stageId, CancellationToken cancellationToken = default)
+        public async UniTask<BattleStartResponse> StartAsync(
+            uint chapterId,
+            uint stageId,
+            uint deckSlotId,
+            string[] observerSkillIds,
+            CancellationToken cancellationToken = default)
         {
+            var request = new BattleStartRequest
+            {
+                ChapterId = chapterId,
+                StageId = stageId,
+                DeckSlotId = deckSlotId,
+            };
+            request.ObserverSkillIds.AddRange(observerSkillIds);
+
             BattleStartResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.StartAsync,
-                new BattleStartRequest { StageId = stageId },
+                request,
                 cancellationToken: cancellationToken
             );
             return resp;

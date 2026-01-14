@@ -40,7 +40,7 @@ public class FlowStateStageCombat : StateCombatBase
         if (isSize75)
         {
             // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.5f, new Vector3(0, 2.0f, -10), 1.0f).Forget();
-            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(6.0f, new Vector3(-15.0f, 10.0f, -12f), 1.0f).Forget();
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
         }
         else
         {
@@ -93,7 +93,11 @@ public class FlowStateStageCombat : StateCombatBase
     private async UniTask StartAsync()
     {
         // 서버에 전투 시작 요청
-        var response = await NetManager.Instance.Battle.StartAsync((uint)InGameManager.Instance.SpecStage.stage_id);
+        var response = await NetManager.Instance.Battle.StartAsync(
+            (uint)InGameManager.Instance.SpecStage.chapter_id,
+            (uint)InGameManager.Instance.SpecStage.stage_id,
+            0,
+            Array.Empty<string>());
         if (response != null && response.IsSuccess)
         {
             InGameManager.Instance.BattleSessionId = response.BattleSessionId;

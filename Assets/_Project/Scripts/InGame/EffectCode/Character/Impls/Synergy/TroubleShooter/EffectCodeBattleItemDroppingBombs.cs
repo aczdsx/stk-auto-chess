@@ -24,14 +24,20 @@ namespace CookApps.BattleSystem
         private float _explosionDamage;
         private int _explosionOneTimeCount;
         private List<CharacterController> _reuseableBombTargetCharacters = new();
-
-        private static readonly Vector3 JetPlanePosition = new Vector3(28.15f, -20.0f, 23.0f);
+        private Vector3 JetPlanePosition = new Vector3(-1.19f, 1.0f, 5.97f);
+        private float JetPlaneHeight = 1.0f;
 
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
+
+            var x = InGameObjectManager.Instance.InGameGrid.Width - 1;
+            var y = InGameObjectManager.Instance.InGameGrid.Height / 2;
+
+            var tile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(x, y));
+            JetPlanePosition = tile.View.CachedTr.position + Vector3.up * JetPlaneHeight;
 
             _duration = codeInfo.GetCodeStatToFloat(0);
             _explosionDamage = codeInfo.GetCodeStatToFloat(1);
@@ -66,6 +72,7 @@ namespace CookApps.BattleSystem
         {
             //비행기 출발
             var jetPlaneVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_jet_01, JetPlanePosition);
+            jetPlaneVfx.Initialize(false);
             if (jetPlaneVfx is InGameVfxWithAnimation)
             {
                 var animatorVfx = jetPlaneVfx as InGameVfxWithAnimation;
@@ -112,7 +119,7 @@ namespace CookApps.BattleSystem
 
                 // 미사일 VFX 생성
                 var missileVfx = InGameVfxManager.Instance.AddInGameVfx(
-                    InGameVfxNameType.trouble_shooter_missile, 
+                    InGameVfxNameType.fx_common_asterism_ts_missile_01, 
                     launchPosition.position);
 
                 // 미사일 이동 설정
@@ -153,18 +160,21 @@ namespace CookApps.BattleSystem
 
         private void OnStartBomb(IReadOnlyList<Transform> positions)
         {
+            Debug.Log("TS!! OnStartBomb");
             int missileCount = _explosionOneTimeCount / 3;
             ShootMissiles(positions, missileCount);
         }
 
         private void OnMiddleBomb(AnimationEventKey eventKey, IReadOnlyList<Transform> positions)
         {
+            Debug.Log("TS!! OnMiddleBomb");
             int missileCount = _explosionOneTimeCount / 3;
             ShootMissiles(positions, missileCount);
         }
 
         private void OnEndBomb(IReadOnlyList<Transform> positions)
         {
+            Debug.Log("TS!! OnEndBomb");
             // 나머지 미사일은 마지막 이벤트에서 발사
             int missileCount = _explosionOneTimeCount - (_explosionOneTimeCount / 3) * 2;
             ShootMissiles(positions, missileCount);

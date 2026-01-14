@@ -51,11 +51,8 @@ public class FlowStateInGameTestCombat : StateCombatBase
             inGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f);
         }
 
-        var inGameCamera = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera);
-        if (inGameCamera != null)
-        {
-            inGameCamera.SetCameraSize(6.0f, new Vector3(0, 3.0f, -10), 1.0f).Forget();
-        }
+        // var inGameCamera = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera);
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
 
         InGameObjectManager.Instance.ClearTargetLine();
 

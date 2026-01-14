@@ -121,8 +121,6 @@ namespace CookApps.BattleSystem
             onVfxStartCallback = null;
             onVfxEndCallback = null;
             onCustomAnimationEventCallback = null;
-            // VFX 위치 초기화
-            _callBackPositions.Clear();
         }
 
         public override void ManagedUpdate(float dt)

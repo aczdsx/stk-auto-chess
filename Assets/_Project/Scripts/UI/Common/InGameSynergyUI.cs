@@ -15,7 +15,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _iconImage;
         [SerializeField] private SpriteLoader _iconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _countText;
-        [SerializeField] private List<Image> _stepImageList;
+        [SerializeField] private Image _gradeGuageImage;
 
 
         private Color _step0Color = new Color32(139, 139, 139, 50); // 그레이 (Gray)
@@ -63,21 +63,14 @@ namespace CookApps.AutoBattler
             _count = count;
             _iconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(synergyType, isActive)).Forget();
 
-            _iconImage.color = (isColorWhite) ? color : Color.white;
+            var lastSynergyData = SpecDataManager.Instance.GetSpecSynergyList(synergyType).Last();
+
+            _gradeGuageImage.fillAmount = (float)data.grade / (float)lastSynergyData.grade;
+            _gradeGuageImage.color = color;
+
+            //  .color = (isColorWhite) ? color : Color.white;
             _countText.text = $"{count}/{nextData.min_int}";
             _countText.color = color;
-
-
-
-            for (int i = 0; i < _stepImageList.Count; i++)
-            {
-                bool isActiveObject = i <= _synergyData.grade - 1;
-                _stepImageList[i].gameObject.SetActive(isActiveObject);
-                if (isActiveObject)
-                {
-                    _stepImageList[i].color = color;
-                }
-            }
         }
 
         public void OnClickSynergy()

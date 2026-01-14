@@ -329,6 +329,12 @@ public class InGameBottomUI : MonoBehaviour
                 var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
                 _characterItemList.Add(characterItem);
                 characterItem.SetData(this, characterStat, AddCharacterToTile);
+
+                // 튜토리얼 중이면 새 캐릭터 아이템에 TutorialTarget 등록
+                if (TutorialManager.Instance.HasTutorialStage)
+                {
+                    RegisterCharacterItemForTutorial(characterItem, characterStat.CharacterId);
+                }
             }
         }
 

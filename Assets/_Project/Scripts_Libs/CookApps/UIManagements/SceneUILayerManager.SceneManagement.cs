@@ -95,7 +95,11 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 if (copy[i].State == UILayerState.Exiting)
                     continue;
-                
+
+                // 이미 파괴된 UI는 스킵 (씬 전환 중 자동 파괴된 경우)
+                if (copy[i].Layer == null || copy[i].Layer.CachedGo == null)
+                    continue;
+
                 copy[i].Layer.OnPreExit();
                 copy[i].State = UILayerState.Exiting;
                 copy[i].Layer.OnPostExit();
