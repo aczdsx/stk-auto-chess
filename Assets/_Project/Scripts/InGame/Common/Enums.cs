@@ -186,11 +186,14 @@ namespace CookApps.BattleSystem
         SKL4,
         SKL5,
         DEAD,
+        BUFF,
+        GROGGY,
+        PARRY,
         Spawn,
         Crying,
-        LongCrying
+        LongCrying,
     }
-
+    
     /// <summary>
     /// 애니메이션 내에 발생하는 이벤트 키
     /// </summary>

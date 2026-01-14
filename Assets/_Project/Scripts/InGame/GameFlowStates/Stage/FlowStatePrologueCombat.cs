@@ -6,10 +6,14 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using Unity.Mathematics;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Pool;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+
+
 
 public class FlowStatePrologueCombat : StateCombatBase
 {
@@ -74,10 +78,10 @@ public class FlowStatePrologueCombat : StateCombatBase
 
 
         // 캐릭터 찾기
-        _clayCharacter = FindCharacterById(AllianceType.Player, 3404); // 클레이
-        _yuniCharacter = FindCharacterById(AllianceType.Player, 2102); // 유니
-        _philiaCharacter = FindCharacterById(AllianceType.Player, 2401); // 필리아
-        _artesiaCharacter = FindCharacterById(AllianceType.Player, 3401); // 아트레시아
+        _clayCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그클레이ID); // 클레이
+        _yuniCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그유니ID); // 유니
+        _philiaCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그필리아ID); // 필리아
+        _artesiaCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그아트레시아ID); // 아트레시아
         // 마리에는 6단계에서 합류하므로 초기에는 찾지 않음
 
         // 라플라스 마녀 찾기 (적)
@@ -272,6 +276,7 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         foreach (var effectCode in character.GetEffectCodeContainer().EffectCodes)
         {
+            Debug.LogColor(character.CharacterId, "cyan");
             var specData = SpecDataManager.Instance.GetSpecCharacter(character.CharacterId);
             if (specData.skill_ids.Any(skillId => skillId == effectCode.CodeId))
             {
@@ -468,14 +473,34 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.Delay(1500); // 1.5초 대기
     }
 
+    /*
+    클레이 애니메이션 순회 0th :  Back_ATK
+    클레이 애니메이션 순회 1th :  Back_DEAD
+    클레이 애니메이션 순회 2th :  Back_IDLE
+    클레이 애니메이션 순회 3th :  Back_MOVE
+    클레이 애니메이션 순회 4th :  Back_SKL
+    클레이 애니메이션 순회 5th :  Front_ATK
+    클레이 애니메이션 순회 6th :  Front_DEAD
+    클레이 애니메이션 순회 7th :  Front_IDLE
+    클레이 애니메이션 순회 8th :  Front_MOVE
+    클레이 애니메이션 순회 9th :  Front_SKL
+    클레이 애니메이션 순회 10th :  Back_GROGGY
+    클레이 애니메이션 순회 11th :  Back_PARRY
+    클레이 애니메이션 순회 12th :  Front_SKL2
+    클레이 애니메이션 순회 13th :  Back_SKL2
+    클레이 애니메이션 순회 14th :  Front_GROGGY
+    클레이 애니메이션 순회 15th :  Front_PARRY
+    클레이 애니메이션 순회 16th :  Back_BUFF
+    클레이 애니메이션 순회 17th :  Front_BUFF
+    */
+
     // 3단계: 클레이 그로기 모션
     private async UniTask TriggerClayGroggy()
     {
         if (_clayCharacter == null) return;
 
-        // 클레이 반동으로 그로기 → 모션 (쉬는 모션)
-        // [TODO] 그로기 모션 재생
-        Debug.LogColor("클레이 그로기 모션 재생");
+        // 그로기 모션 재생
+        _clayCharacter.AddNextState<CharacterStateGroggy>();
 
         await UniTask.Delay(1000); // 1초 대기
     }
@@ -511,8 +536,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 마녀 지친 모션 (아직 state 개발 안됨)
         if (_witchCharacter != null && _witchCharacter.IsAlive)
         {
-            // [TODO] 지친 모션 재생
-            Debug.LogColor("라플라스 마녀 지친 모션");
+            _witchCharacter.AddNextState<CharacterStateGroggy>();
         }
 
         // 모든 캐릭터 정지
@@ -549,7 +573,7 @@ public class FlowStatePrologueCombat : StateCombatBase
     private async UniTask TriggerMarieJoin()
     {
         // 마리에 마녀 뒤쪽에서 전투 합류
-        _marieCharacter = FindCharacterById(AllianceType.Player, 130501);
+        _marieCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그마리에ID);
 
         if (_marieCharacter == null)
         {
@@ -566,7 +590,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             if (spawnTile != null)
             {
                 // 마리에 소환
-                int marieCharacterId = 117563405;
+                int marieCharacterId = PrologueID.프롤로그마리에ID;
                 int marieLevel = 1; // [TODO] 레벨 설정 필요
 
                 var marieStat = new CharacterStatData(marieCharacterId, marieLevel,
@@ -639,8 +663,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 마녀 그로기로 변경 (state 아직 개발 안됨)
         if (_witchCharacter != null && _witchCharacter.IsAlive)
         {
-            // [TODO] 그로기 모션 재생
-            Debug.LogColor("라플라스 마녀 그로기 모션");
+            _witchCharacter.AddNextState<CharacterStateGroggy>();
         }
 
         await UniTask.Delay(1000); // 1초 대기
@@ -654,6 +677,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         if (_artesiaCharacter != null)
         {
             Debug.LogColor("아트레시아 초신성 모드 진입");
+            _artesiaCharacter.AddNextState<CharacterStateBuff>();
         }
 
         // 아트레시아 스킬 발동
@@ -716,8 +740,9 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         // 아트레시아가 마지막 공격을 막아냄
         // [TODO] 방어/막기 애니메이션/이펙트 재생
-        // 예: _artesiaCharacter.GetCharacterView().PlayAnimation("Defend");
+        _artesiaCharacter.GetCharacterView().PlayAnimation(AnimationKey.PARRY);
         Debug.LogColor("아트레시아가 마지막 공격을 막아냄");
+        
 
         await UniTask.Delay(1000); // 방어 애니메이션 대기
 
