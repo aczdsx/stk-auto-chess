@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
             _specCommanderSkillData = skillData;
 
             _skillIconSpriteLoader.SetSprite(SpriteNameParser.GetCommanderSkillSprite(_specCommanderSkillData.commander_skill_id)).Forget();
-            _skillNameText.text = LanguageManager.Instance.GetLanguageText(_specCommanderSkillData.name_token);
+            _skillNameText.text = LanguageManager.Instance.GetDefaultText(_specCommanderSkillData.name_token);
             _skillLevelText.text = _specCommanderSkillData.level.ToString();
 
             RefreshSlot();
@@ -74,8 +74,8 @@ namespace CookApps.AutoBattler
 
             _parentPopup.RefreshSkillSlot();
 
-            string msg = LanguageManager.Instance.GetLanguageText("MSG_EQUIP_COMMAND_SKILL");
-            string skillNameText = LanguageManager.Instance.GetLanguageText(_specCommanderSkillData.name_token);
+            string msg = LanguageManager.Instance.GetDefaultText("MSG_EQUIP_COMMAND_SKILL");
+            string skillNameText = LanguageManager.Instance.GetDefaultText(_specCommanderSkillData.name_token);
 
             ToastManager.Instance.ShowToast(string.Format(msg, skillNameText));
         }

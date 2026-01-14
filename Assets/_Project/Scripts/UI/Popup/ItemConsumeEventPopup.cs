@@ -66,8 +66,8 @@ namespace CookApps.AutoBattler
         private void SetEventPopup()
         {
             _currentConsumeAmountText.text = $"x{_currentUserEventData.ActionCount}";
-            _eventTitleText.text = LanguageManager.Instance.GetLanguageText(_specEventData.name_token);
-            _eventDescText.text = LanguageManager.Instance.GetLanguageText(_specEventData.desc_token);
+            _eventTitleText.text = LanguageManager.Instance.GetDefaultText(_specEventData.name_token);
+            _eventDescText.text = LanguageManager.Instance.GetDefaultText(_specEventData.desc_token);
         }
 
         private void SetEventSlotList()

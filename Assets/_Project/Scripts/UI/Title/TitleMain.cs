@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using CookApps.Auth;
 using CookApps.Build;
 using CookApps.TeamBattle;
@@ -42,12 +43,12 @@ namespace CookApps.AutoBattler
         {
             await UniTask.NextFrame();
 
-            await SceneTransition.FadeOutAsync();
-
-            var tasks = new[] {
+            var tasks = new []
+            {
+                SceneTransition.FadeOutAsync(),
+                LanguageManager.Instance.InitializeAsync(),
                 SpriteManager.Instance.Initialize("Data/SpriteManager.asset"),
                 ConnectAppsflyer(),
-                ConnectWithServer(),
                 SoDataProvider.Instance.LoadSoDataBatch(new () {
                     (typeof(VignetteSO), "Data/VignetteData.asset"),
                     (typeof(Item_Chapter_SO), "Data/UIElementData/Item_Chapter_SO.asset"),
@@ -59,6 +60,8 @@ namespace CookApps.AutoBattler
             SceneLoading.OnStartChangeScene += SceneLoadingTask.HandleLoading;
 
             await UniTask.WhenAll(tasks);
+
+            await ConnectWithServer();
 
             _ = InGameTouchManager.Instance;
             _ = TutorialManager.Instance;
@@ -128,12 +131,12 @@ namespace CookApps.AutoBattler
                     // var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
                     // if (UserDataManager.Instance.IsClearStage(lastStageID)) specStageData = SpecDataManager.Instance.GetNextStageData(lastStageID);
 
-                    // SceneLoading.GoToNextScene("InGame",
-                    //     (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), specStageData.stage_id));
+                    SceneLoading.GoToNextScene("InGame",
+                        (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), lastTutoStageData.stage_id));
                     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                     await SceneTransition.FadeInAsync();
                     
-                    SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
+                    // SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
                     return;
                 }
                 else
@@ -195,7 +198,7 @@ namespace CookApps.AutoBattler
             if (!checkVersionResponse.IsSuccess)
             {
                 // 버전 체크 실패시 처리
-                var toastString = LanguageManager.Instance.GetLanguageText("SERVER_ACCESS_FAIL");
+                var toastString = LanguageManager.Instance.GetDefaultText("SERVER_ACCESS_FAIL");
                 SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>(toastString).Forget();
                 return;
             }
@@ -219,9 +222,6 @@ namespace CookApps.AutoBattler
                 guestLoginNode.SetActive(false);
                 touchToStart.SetActive(true);
             }
-
-            // 언어 설정
-            LanguageManager.Instance.InitLanguage();
 
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash01);

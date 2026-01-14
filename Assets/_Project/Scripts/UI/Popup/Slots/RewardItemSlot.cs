@@ -119,7 +119,7 @@ namespace CookApps.AutoBattler
             var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
             if (specCharacterData == null) return;
             _rewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id)).Forget();
-            _rewardCharacterNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);
+            _rewardCharacterNameText.text = LanguageManager.Instance.GetDefaultText(specCharacterData.name_token);
             _rewardElementSynergyUI.SetSynergyUI(specCharacterData.character_element_type);
             _rewardClassSynergyUI.SetSynergyUI(specCharacterData.character_stella_type);
             

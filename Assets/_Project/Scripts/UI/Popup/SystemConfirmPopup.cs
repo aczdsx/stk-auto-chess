@@ -8,28 +8,17 @@ namespace CookApps.AutoBattler
 {
     public class SystemConfirmPopupData
     {
-        public string titleText;
-        public string descText;
-        public string confirmButtonText;
-        public string cancelButtonText;
-        public Action onConfirmAction;
+        public readonly string titleText;
+        public readonly string descText;
+        public readonly string confirmButtonText;
+        public readonly string cancelButtonText;
 
-        public void SetPopupData(string titleText, string descText, string confirmButtonText, string cancelButtonText, Action onConfirmAction)
+        public SystemConfirmPopupData(string titleTextKey, string descTextKey, string confirmButtonTextKey, string cancelButtonTextKey)
         {
-            this.titleText = titleText;
-            this.descText = descText;
-            this.confirmButtonText = confirmButtonText;
-            this.cancelButtonText = cancelButtonText;
-            this.onConfirmAction = onConfirmAction;
-        }
-
-        public void SetPopupDataByStringKey(string titleTextKey, string descTextKey, string confirmButtonTextKey, string cancelButtonTextKey, Action onConfirmAction)
-        {
-            this.titleText = LanguageManager.Instance.GetLanguageText(titleTextKey);
-            this.descText = LanguageManager.Instance.GetLanguageText(descTextKey);
-            this.confirmButtonText = LanguageManager.Instance.GetLanguageText(confirmButtonTextKey);
-            this.cancelButtonText = LanguageManager.Instance.GetLanguageText(cancelButtonTextKey);
-            this.onConfirmAction = onConfirmAction;
+            titleText = LanguageManager.Instance.GetDefaultText(titleTextKey);
+            descText = LanguageManager.Instance.GetDefaultText(descTextKey);
+            confirmButtonText = LanguageManager.Instance.GetDefaultText(confirmButtonTextKey);
+            cancelButtonText = LanguageManager.Instance.GetDefaultText(cancelButtonTextKey);
         }
     }
 
@@ -67,20 +56,10 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            SetSystemConfirmPopup();
-        }
-
-        // 시스템 컨펌 팝업은 제목, 설명, 확인버튼, 취소버튼, 확인버튼 클릭시 실행할 액션을 받아서 세팅
-        private void SetSystemConfirmPopup()
-        {
-            if (_currentSystemPopupData == null) return;
-
             _titleText.text = _currentSystemPopupData.titleText;
             _descText.text = _currentSystemPopupData.descText;
             _confirmButtonText.text = _currentSystemPopupData.confirmButtonText;
             _cancelButtonText.text = _currentSystemPopupData.cancelButtonText;
-
-            _onConfirmAction = _currentSystemPopupData.onConfirmAction;
         }
 
         private void OnClickConfirmButton()
@@ -89,14 +68,14 @@ namespace CookApps.AutoBattler
 
             _onConfirmAction?.Invoke();
 
-            SceneUILayerManager.Instance.PopUILayer(this);
+            SceneUILayerManager.Instance.PopUILayer(this, true);
         }
 
         private void OnClickCloseButton()
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
 
-            SceneUILayerManager.Instance.PopUILayer(this);
+            SceneUILayerManager.Instance.PopUILayer(this, false);
         }
     }
 }

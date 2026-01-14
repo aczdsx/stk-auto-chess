@@ -26,8 +26,9 @@ namespace CookApps.AutoBattler
         [Header("Version Text")]
         [SerializeField] private TextMeshProUGUI _versionText;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
             _krLanguageButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickLanguageKrButton()).AddTo(this);
             _enLanguageButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickLanguageEnButton()).AddTo(this);
@@ -56,22 +57,18 @@ namespace CookApps.AutoBattler
             _versionText.text = $"{appVersion} ({specVersion} / {serverState} / {uuid})";
         }
 
-        private void ChangeLanguage(LanguageType targetType)
+        private async UniTask ChangeLanguage(SystemLanguage language)
         {
-            string contentText = LanguageManager.Instance.GetLanguageText("MSG_ALARM_LANGUAGE_TEXT_CHANGE");
-
-            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
-            newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", () =>
+            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData("시스템 알림", "MSG_ALARM_LANGUAGE_TEXT_CHANGE", "확인", "취소");
+            var popup = await SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData);
+            var isConfirmed = await popup.WaitForExit();
+            if (isConfirmed is true)
             {
-                LanguageManager.Instance.SetGameLanguage(targetType);
-        
-                InGameManager.Instance.EndInGame();
                 SceneTransition.Create<SceneTransition_FadeInOut>();
-                SceneTransition.FadeInAsync().Forget();
-                SceneLoading.GoToNextScene("Title");
-            });
-
-            SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+                await SceneTransition.FadeInAsync();
+                await LanguageManager.Instance.SetLanguageAsync(language);
+                await SceneTransition.FadeOutAsync();
+            }
         }
 
         public void OnBGMValueChanged()
@@ -86,12 +83,12 @@ namespace CookApps.AutoBattler
 
         private void OnClickLanguageKrButton()
         {
-            ChangeLanguage(LanguageType.KR);
+            ChangeLanguage(SystemLanguage.Korean).Forget();
         }
         
         private void OnClickLanguageEnButton()
         {
-            ChangeLanguage(LanguageType.EN);
+            ChangeLanguage(SystemLanguage.English).Forget();
         }
         
         private void OnClickCloseButton()

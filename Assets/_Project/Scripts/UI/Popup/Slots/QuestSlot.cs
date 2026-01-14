@@ -49,8 +49,8 @@ namespace CookApps.AutoBattler
             _specQuestData = data;
             _userQuestData = UserDataManager.Instance.GetUserQuestData(_specQuestData.quest_id);
 
-            _questTitleText.text = LanguageManager.Instance.GetLanguageText(_specQuestData.name_token);
-            _questDescText.text = LanguageManager.Instance.GetLanguageText(_specQuestData.desc_token);
+            _questTitleText.text = LanguageManager.Instance.GetDefaultText(_specQuestData.name_token);
+            _questDescText.text = LanguageManager.Instance.GetDefaultText(_specQuestData.desc_token);
 
             // 리워드 데이터 세팅
             // ItemType의 삭제로 인해 변경.(new RewardItem(_specQuestData.item_type, _specQuestData.item_key, _specQuestData.item_count))

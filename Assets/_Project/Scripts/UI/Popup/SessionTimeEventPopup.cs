@@ -27,8 +27,9 @@ namespace CookApps.AutoBattler
         private EventInfo _specEventData;
         private List<EventCondition> _specEventConditionDataList;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
             _dimCloseButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
         }

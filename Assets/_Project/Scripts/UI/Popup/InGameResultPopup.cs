@@ -119,7 +119,7 @@ namespace CookApps.AutoBattler
                 for (int i = 0; i < _starConditionList.Count; i++)
                 {
                     string resultToken = string.Format("STAGE_STAR_CONDITON_DESC_{0}", i + 1);
-                    _starConditionList[i]._conditionText.text = LanguageManager.Instance.GetLanguageText(resultToken);
+                    _starConditionList[i]._conditionText.text = LanguageManager.Instance.GetDefaultText(resultToken);
                 }
 
                 _starConditionList[0]._starObject.SetActive(_popupParam.IsVictory);
@@ -133,7 +133,7 @@ namespace CookApps.AutoBattler
                     _starConditionList[i]._starObject.SetActive(false);
 
                     string resultToken = string.Format("STAGE_LOSE_GUIDE_DESC_{0}", i + 1);
-                    _starConditionList[i]._conditionText.text = LanguageManager.Instance.GetLanguageText(resultToken);
+                    _starConditionList[i]._conditionText.text = LanguageManager.Instance.GetDefaultText(resultToken);
                 }
             }
 
@@ -196,7 +196,7 @@ namespace CookApps.AutoBattler
             }
 
             string buttonStringKey = _isPlayingLastStage ? "UI_CHAPTER_NEXT_MOVE" : "UI_STAGE_NEXT_MOVE";
-            _nextStageButtonText.text = LanguageManager.Instance.GetLanguageText(buttonStringKey);
+            _nextStageButtonText.text = LanguageManager.Instance.GetDefaultText(buttonStringKey);
 
             // 앱이벤트 전송
             SendStageEndAppEvent(InGameManager.Instance.AppEventResult, InGameManager.Instance.AppEventReason);

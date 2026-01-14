@@ -27,7 +27,7 @@ namespace CookApps.AutoBattler
             context.ArrowRectTransform.gameObject.SetActive(false);
 
             // 토스트 메시지 표시 (desc_key 사용)
-            string message = LanguageManager.Instance.GetLanguageText(context.CurrentTutorial.desc_key);
+            string message = LanguageManager.Instance.GetDefaultText(context.CurrentTutorial.desc_key);
             ToastManager.Instance.ShowToastWithCallback(message, OnToastClosed);
         }
 

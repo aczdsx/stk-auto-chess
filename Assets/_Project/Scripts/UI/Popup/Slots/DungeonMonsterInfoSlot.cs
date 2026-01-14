@@ -29,7 +29,7 @@ namespace CookApps.AutoBattler
             _statData = data;
 
             _monsterBattlePointText.text = _statData.GetAttrValueCP().ToString("n0");
-            _monsterNameText.text = $"Lv.{_statData.Level} " + LanguageManager.Instance.GetLanguageText(_statData.Spec.name_token);
+            _monsterNameText.text = $"Lv.{_statData.Level} " + LanguageManager.Instance.GetDefaultText(_statData.Spec.name_token);
 
             _characterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(_statData.Spec.prefab_id)).Forget();
             _elementSynergyUI.SetSynergyUI(_statData.Spec.character_element_type);

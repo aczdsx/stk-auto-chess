@@ -63,8 +63,9 @@ namespace CookApps.AutoBattler
 
         public UserTrialDungeonData CurrentUserDungeonData { get; private set; }
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
             _EnterDungeonButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickEnterDungeonButtonAsync(), AwaitOperation.Drop).AddTo(this);
         }

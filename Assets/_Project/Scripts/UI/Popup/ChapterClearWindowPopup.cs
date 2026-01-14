@@ -47,7 +47,7 @@ namespace CookApps.AutoBattler
             int lastClearStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
             var lastClearStageData = SpecDataManager.Instance.GetStageData(lastClearStageID);
 
-            string chpaterClearString = LanguageManager.Instance.GetLanguageText("CHAPTER_CLEAR_GUIDE");
+            string chpaterClearString = LanguageManager.Instance.GetDefaultText("CHAPTER_CLEAR_GUIDE");
             _chapterClearTitleText.text = string.Format(chpaterClearString, lastClearStageData.chapter_id);
 
             int nextChapterID = lastClearStageData.chapter_id + 1;

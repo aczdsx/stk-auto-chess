@@ -67,16 +67,16 @@ namespace CookApps.AutoBattler
                 _specItemInfo.GetItemId().GetCharacterId(out var charIndex);
                 var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
                 _characterIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id)).Forget();
-                _itemNameText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.name_token);
-                _itemDescText.text = LanguageManager.Instance.GetLanguageText(specCharacterData.desc_token);
+                _itemNameText.text = LanguageManager.Instance.GetDefaultText(specCharacterData.name_token);
+                _itemDescText.text = LanguageManager.Instance.GetDefaultText(specCharacterData.desc_token);
                 _characterSynergyUI1.SetSynergyUI(specCharacterData.character_element_type);
                 _characterSynergyUI2.SetSynergyUI(specCharacterData.character_stella_type);
             }
             else
             {
                 _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(_specItemInfo.GetItemId())).Forget();
-                _itemNameText.text = LanguageManager.Instance.GetLanguageText(_specItemInfo.name_token);
-                _itemDescText.text = LanguageManager.Instance.GetLanguageText(_specItemInfo.desc_token);
+                _itemNameText.text = LanguageManager.Instance.GetDefaultText(_specItemInfo.name_token);
+                _itemDescText.text = LanguageManager.Instance.GetDefaultText(_specItemInfo.desc_token);
             }
 
             // TODO: 뭐고 이건

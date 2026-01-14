@@ -43,8 +43,8 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
             _infoSpriteLoader.SetSprite(SpriteNameParser.GetInfoImageSprite(_specImageInfo.image_info_id)).Forget();
-            _titleText.text = LanguageManager.Instance.GetLanguageText(_specImageInfo.title_token);
-            _descText.text = LanguageManager.Instance.GetLanguageText(_specImageInfo.desc_token);
+            _titleText.text = LanguageManager.Instance.GetDefaultText(_specImageInfo.title_token);
+            _descText.text = LanguageManager.Instance.GetDefaultText(_specImageInfo.desc_token);
         }
 
         private void OnClickCloseButton()

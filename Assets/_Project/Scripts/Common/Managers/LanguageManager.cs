@@ -1,87 +1,303 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using System.Collections.Generic;
+using Cysharp.Text;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Tables;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoBattler
 {
-    public class LanguageManager : Singleton<LanguageManager>
+    /// <summary>
+    /// 테이블 타입 열거형
+    /// </summary>
+    public enum LocalizationTableType
     {
-        public LanguageType CurrentLanguageType { get; private set; } = LanguageType.NONE;
+        Default,
+        Dialogue
+    }
 
-        // 언어 환경 세팅
-        public void InitLanguage()
+    public class LocalizationLoader
+    {
+    }
+    
+    public class LanguageManager : Singleton<LanguageManager>
+    {        
+        private const string DefaultTableName = "Default";
+        private const string DialogueTableName = "Dialogue";
+
+        // 테이블 캐시
+        private StringTable _defaultTable;
+        private StringTable _dialogueTable;
+
+        // 로드 핸들 (Release용)
+        private AsyncOperationHandle<StringTable> _defaultTableHandle;
+        private AsyncOperationHandle<StringTable> _dialogueTableHandle;
+
+        private readonly Dictionary<(string, string), LocalizedString> _localizedStringCache = new();
+
+        public SystemLanguage CurrentLanguageType { get; private set; }
+        private bool _isInitialized;
+
+        private SystemLanguage GetLocaleCode(SystemLanguage language, out string localeCode)
         {
-            var settingLanguage = Preference.LoadPreference(Pref.LANGUAGE, (int)LanguageType.NONE);
-
-            if (settingLanguage == (int)LanguageType.NONE)
+            switch (language)
             {
-                settingLanguage = (int)GetSystemLanguageType();
+                case SystemLanguage.Korean:
+                    localeCode = "ko";
+                    break;
+                case SystemLanguage.English:
+                    localeCode = "en";
+                    break;
+                default:
+                    localeCode = "en";
+                    language = SystemLanguage.English;
+                    break;
+            }
+            return language;
+        }
+
+        
+        public async UniTask InitializeAsync()
+        {
+            if (_isInitialized)
+                return;
+            
+            InitLanguage();
+
+            // Unity Localization 초기화 대기
+            var initOperation = LocalizationSettings.InitializationOperation;
+            if (!initOperation.IsDone)
+            {
+                await initOperation.ToUniTask();
             }
 
-            SetGameLanguage((LanguageType)settingLanguage);
+            // 테이블 비동기 로드
+            await LoadTableAsync();
+
+            _isInitialized = true;
+            Debug.Log("[LocalizationLoader] 초기화 완료");
         }
 
-        public void SetGameLanguage(LanguageType type)
+        /// <summary>
+        /// 모든 테이블 비동기 로드
+        /// </summary>
+        private async UniTask LoadTableAsync()
         {
-            Preference.SavePreference(Pref.LANGUAGE, (int)type);
-
-            CurrentLanguageType = type;
-
+            // 기존 핸들 해제
+            ReleaseDefaultTableHandle();
+            await LoadDefaultTableAsync();
         }
 
-        public string GetLanguageText(string tokenKey)
+        /// <summary>
+        /// Default 테이블 로드
+        /// </summary>
+        private async UniTask LoadDefaultTableAsync()
         {
-            return SpecDataManager.Instance.GetLanguageText(tokenKey, CurrentLanguageType);
+            ReleaseDefaultTableHandle();
+
+            _defaultTableHandle = LocalizationSettings.StringDatabase.GetTableAsync(DefaultTableName);
+            await _defaultTableHandle.ToUniTask();
+
+            if (_defaultTableHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+                _defaultTable = _defaultTableHandle.Result;
+                Debug.Log($"[LocalizationLoader] {DefaultTableName} 테이블 로드 완료");
+            }
+            else
+            {
+                Debug.LogWarning($"[LocalizationLoader] {DefaultTableName} 테이블 로드 실패");
+            }
         }
 
+        /// <summary>
+        /// Dialogue 테이블 로드
+        /// </summary>
+        public async UniTask LoadDialogueTableAsync()
+        {
+            ReleaseDialogueTableHandle();
+
+            _dialogueTableHandle = LocalizationSettings.StringDatabase.GetTableAsync(DialogueTableName);
+            await _dialogueTableHandle.ToUniTask();
+
+            if (_dialogueTableHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+                _dialogueTable = _dialogueTableHandle.Result;
+                Debug.Log($"[LocalizationLoader] {DialogueTableName} 테이블 로드 완료");
+            }
+            else
+            {
+                Debug.LogWarning($"[LocalizationLoader] {DialogueTableName} 테이블 로드 실패");
+            }
+        }
+
+        /// <summary>
+        /// Default 테이블 핸들 해제
+        /// </summary>
+        private void ReleaseDefaultTableHandle()
+        {
+            if (_defaultTableHandle.IsValid())
+            {
+                UnityEngine.AddressableAssets.Addressables.Release(_defaultTableHandle);
+            }
+            _defaultTable = null;
+        }
+
+        /// <summary>
+        /// Dialogue 테이블 핸들 해제
+        /// </summary>
+        public void ReleaseDialogueTableHandle()
+        {
+            if (_dialogueTableHandle.IsValid())
+            {
+                UnityEngine.AddressableAssets.Addressables.Release(_dialogueTableHandle);
+            }
+            _dialogueTable = null;
+        }
+
+        /// <summary>
+        /// 리소스 해제 (앱 종료 또는 씬 전환 시 호출)
+        /// </summary>
+        public void Release()
+        {
+            ReleaseDefaultTableHandle();
+            ReleaseDialogueTableHandle();
+            _isInitialized = false;
+            Debug.Log("[LocalizationLoader] 리소스 해제 완료");
+        }
+
+        /// <summary>
+        /// 언어 변경 (테이블 다시 로드)
+        /// </summary>
+        public async UniTask SetLanguageAsync(SystemLanguage language)
+        {
+            language = GetLocaleCode(language, out var localeCode);
+
+            var availableLocales = LocalizationSettings.AvailableLocales;
+            Locale targetLocale = null;
+            foreach (var locale in availableLocales.Locales)
+            {
+                if (locale.Identifier.Code == localeCode)
+                {
+                    targetLocale = locale;
+                    break;
+                }
+            }
+            
+            if (targetLocale == null || LocalizationSettings.SelectedLocale == targetLocale)
+            {
+                Debug.LogWarning($"[LocalizationLoader] 언어 변경 실패: {language} ({localeCode})");
+                return;
+            }
+            
+            LocalizationSettings.SelectedLocale = targetLocale;
+            UpdateLanguage(language);
+
+            // 언어 변경 후 테이블 다시 로드
+            await LoadTableAsync();
+
+            Debug.Log($"[LocalizationLoader] 언어 변경 완료: {language} ({localeCode})");
+        }
+
+        /// <summary>
+        /// Default 테이블에서 텍스트 조회
+        /// 기존 LanguageManager.GetDefaultText() 대체
+        /// </summary>
+        public string GetDefaultText(string tokenKey)
+        {
+            return GetTextFromTable(_defaultTable, tokenKey);
+        }
+
+        /// <summary>
+        /// Dialogue 테이블에서 텍스트 조회
+        /// 기존 LanguageManager.GetDialogueText() 대체
+        /// </summary>
         public string GetDialogueText(string tokenKey)
         {
-            return SpecDataManager.Instance.GetDialogueText(tokenKey, CurrentLanguageType);
+            return GetTextFromTable(_dialogueTable, tokenKey);
         }
 
-        public string GetTimeText(int targetTimeValue, TimeType type, bool isRemain)
+        /// <summary>
+        /// 지정된 테이블 타입에서 텍스트 조회
+        /// </summary>
+        public string GetText(LocalizationTableType tableType, string tokenKey)
         {
-            string formatString = String.Empty;
-
-            switch (type)
+            return tableType switch
             {
-                case TimeType.DAY:
-                    formatString = isRemain ? GetLanguageText("TIME_DAY_REMAIN") : GetLanguageText("TIME_DAY");
-                    return string.Format(formatString, targetTimeValue);
-                case TimeType.HOUR:
-                    formatString = isRemain ? GetLanguageText("TIME_HOUR_REMAIN") : GetLanguageText("TIME_HOUR");
-                    return string.Format(formatString, targetTimeValue);
-                case TimeType.MINUTE:
-                    formatString = isRemain ? GetLanguageText("TIME_MINUTE_REMAIN") : GetLanguageText("TIME_MINUTE");
-                    return string.Format(formatString, targetTimeValue);
-                case TimeType.SECOND:
-                    formatString = isRemain ? GetLanguageText("TIME_SECOND_REMAIN") : GetLanguageText("TIME_SECOND");
-                    return string.Format(formatString, targetTimeValue);
-            }
-
-            return String.Empty;
+                LocalizationTableType.Default => GetDefaultText(tokenKey),
+                LocalizationTableType.Dialogue => GetDialogueText(tokenKey),
+                _ => GetDefaultText(tokenKey)
+            };
         }
 
-        public string GetElementText(SynergyType elementType)
+        /// <summary>
+        /// 테이블에서 텍스트 조회 (내부 헬퍼)
+        /// </summary>
+        private string GetTextFromTable(StringTable table, string tokenKey)
         {
-            switch (elementType)
+            var entry = table.GetEntry(tokenKey);
+            if (entry == null)
             {
-                case SynergyType.FIRE:
-                    return GetLanguageText("SYNERGY_FIRE");
-                case SynergyType.WATER:
-                    return GetLanguageText("SYNERGY_WATER");
-                case SynergyType.EARTH:
-                    return GetLanguageText("SYNERGY_EARTH");
-                case SynergyType.WIND:
-                    return GetLanguageText("SYNERGY_WIND");
-                case SynergyType.LIGHTNING:
-                    return GetLanguageText("SYNERGY_LIGHTNING");
-                default:
-                    return string.Empty;
+                // 엔트리를 찾을 수 없으면 토큰 키 반환
+                return tokenKey;
             }
+
+            return entry.GetLocalizedString() ?? tokenKey;
+        }
+
+        // 언어 환경 세팅
+        private void InitLanguage()
+        {
+            var settingLanguage = Preference.LoadPreference(Pref.LANGUAGE, -1);
+
+            if (settingLanguage == -1)
+            {
+                settingLanguage = Application.systemLanguage switch
+                {
+                    SystemLanguage.Korean => (int)SystemLanguage.Korean,
+                    SystemLanguage.English => (int)SystemLanguage.English,
+                    _ => (int)SystemLanguage.English
+                };
+                UpdateLanguage((SystemLanguage)settingLanguage);
+            }
+        }
+        
+        private void UpdateLanguage(SystemLanguage language)
+        {
+            var settingLanguage = language switch
+            {
+                SystemLanguage.Korean => SystemLanguage.Korean,
+                SystemLanguage.English => SystemLanguage.English,
+                _ => SystemLanguage.English
+            };
+            if (CurrentLanguageType == settingLanguage)
+                return;
+            CurrentLanguageType = CurrentLanguageType;
+            Preference.SavePreference(Pref.LANGUAGE, (int)settingLanguage);
+        }
+
+        private string GetTimeText(int targetTimeValue, TimeType type, bool isRemain)
+        {
+            return type switch
+            {
+                TimeType.DAY => isRemain
+                    ? GetDefaultTextWithFormat("TIME_DAY_REMAIN", targetTimeValue)
+                    : GetDefaultTextWithFormat("TIME_DAY", targetTimeValue),
+                TimeType.HOUR => isRemain
+                    ? GetDefaultTextWithFormat("TIME_HOUR_REMAIN", targetTimeValue)
+                    : GetDefaultTextWithFormat("TIME_HOUR", targetTimeValue),
+                TimeType.MINUTE => isRemain
+                    ? GetDefaultTextWithFormat("TIME_MINUTE_REMAIN", targetTimeValue)
+                    : GetDefaultTextWithFormat("TIME_MINUTE", targetTimeValue),
+                TimeType.SECOND => isRemain
+                    ? GetDefaultTextWithFormat("TIME_SECOND_REMAIN", targetTimeValue)
+                    : GetDefaultTextWithFormat("TIME_SECOND", targetTimeValue),
+                _ => string.Empty
+            };
         }
 
         public string GetSynergyText(SynergyType elementType)
@@ -101,17 +317,17 @@ namespace CookApps.AutoBattler
             switch (positionType)
             {
                 case CharacterPositionType.TANK:
-                    return GetLanguageText("CLASS_TANK");
+                    return GetDefaultText("CLASS_TANK");
                 case CharacterPositionType.GUARDIAN:
-                    return GetLanguageText("CLASS_GUARDIAN");
+                    return GetDefaultText("CLASS_GUARDIAN");
                 case CharacterPositionType.RANGER:
-                    return GetLanguageText("CLASS_RANGER");
+                    return GetDefaultText("CLASS_RANGER");
                 case CharacterPositionType.WIZARD:
-                    return GetLanguageText("CLASS_WIZARD");
+                    return GetDefaultText("CLASS_WIZARD");
                 case CharacterPositionType.SUPPORTER:
-                    return GetLanguageText("CLASS_SUPPORTER");
+                    return GetDefaultText("CLASS_SUPPORTER");
                 case CharacterPositionType.ASSASSIN:
-                    return GetLanguageText("CLASS_ASSASSIN");
+                    return GetDefaultText("CLASS_ASSASSIN");
                 default:
                     return string.Empty;
             }
@@ -122,11 +338,11 @@ namespace CookApps.AutoBattler
             switch (type)
             {
                 case ItemCategoryType.CURRENCY:
-                    return GetLanguageText("UI_ITEM_CATEGORY_NAME_1");
+                    return GetDefaultText("UI_ITEM_CATEGORY_NAME_1");
                 case ItemCategoryType.CHARACTER:
-                    return GetLanguageText("UI_ITEM_CATEGORY_NAME_2");
+                    return GetDefaultText("UI_ITEM_CATEGORY_NAME_2");
                 case ItemCategoryType.ETC:
-                    return GetLanguageText("UI_ITEM_CATEGORY_NAME_3");
+                    return GetDefaultText("UI_ITEM_CATEGORY_NAME_3");
                 default:
                     return string.Empty;
             }
@@ -154,15 +370,15 @@ namespace CookApps.AutoBattler
             switch (type)
             {
                 case PVPTierType.BRONZE:
-                    return GetLanguageText("TIER_BRONZE");
+                    return GetDefaultText("TIER_BRONZE");
                 case PVPTierType.SILVER:
-                    return GetLanguageText("TIER_SILVER");
+                    return GetDefaultText("TIER_SILVER");
                 case PVPTierType.GOLD:
-                    return GetLanguageText("TIER_GOLD");
+                    return GetDefaultText("TIER_GOLD");
                 case PVPTierType.PLATINUM:
-                    return GetLanguageText("TIER_PLATINUM");
+                    return GetDefaultText("TIER_PLATINUM");
                 case PVPTierType.DIAMOND:
-                    return GetLanguageText("TIER_DIAMOND");
+                    return GetDefaultText("TIER_DIAMOND");
                 default:
                     return string.Empty;
             }
@@ -173,108 +389,177 @@ namespace CookApps.AutoBattler
             switch (type)
             {
                 case AtkType.AP:
-                    return GetLanguageText("UI_TYPE_MAGICAL");
+                    return GetDefaultText("UI_TYPE_MAGICAL");
                 case AtkType.AD:
-                    return GetLanguageText("UI_TYPE_PHYSICAL");
+                    return GetDefaultText("UI_TYPE_PHYSICAL");
                 default:
                     return string.Empty;
             }
         }
 
-        public string GetTimeSpanFromNowText(long targetTimestamp)
-        {
-            var timeSpanData = TimeManager.Instance.GetTimeSpanFromNow(targetTimestamp);
-
-            StringBuilder timeTextList = new StringBuilder();
-
-            if (timeSpanData.Days > 0)
-            {
-                timeTextList.Append(GetTimeText(timeSpanData.Days, TimeType.DAY, false));
-            }
-
-            if (timeSpanData.Hours > 0)
-            {
-                timeTextList.Append(GetTimeText(timeSpanData.Hours, TimeType.HOUR, false));
-            }
-
-            timeTextList.Append(GetTimeText(timeSpanData.Minutes, TimeType.MINUTE, true));
-
-            return timeTextList.ToString();
-        }
-
-        public string GetTimeSpanFromTargetText(long targetTimestamp)
-        {
-            var targetTimeSpan = TimeManager.Instance.GetTimeSpanFromTarget(targetTimestamp);
-
-            StringBuilder timeTextList = new StringBuilder();
-
-            bool hasDays = targetTimeSpan.Days > 0;
-            bool hasHours = targetTimeSpan.Hours > 0;
-            bool hasMinutes = targetTimeSpan.Minutes > 0;
-
-            if (hasDays)
-            {
-                timeTextList.Append(GetTimeText(targetTimeSpan.Days, TimeType.DAY, false));
-            }
-
-            if (hasHours)
-            {
-                timeTextList.Append(GetTimeText(targetTimeSpan.Hours, TimeType.HOUR, false));
-            }
-
-            if (hasMinutes)
-            {
-                timeTextList.Append(GetTimeText(targetTimeSpan.Minutes, TimeType.MINUTE, true));
-            }
-
-            if (!hasDays && !hasHours) // 1시간 미만으로 남은 경우 초 단위 표시
-            {
-                timeTextList.Append(GetTimeText(targetTimeSpan.Seconds, TimeType.SECOND, true));
-            }
-
-            return timeTextList.ToString();
-        }
-
         public string GetRemainTimeText(TimeSpan targetTimeSpan)
         {
-            StringBuilder timeTextList = new StringBuilder();
+            using var sb = ZString.CreateStringBuilder();
 
-            bool hasDays = targetTimeSpan.Days > 0;
-            bool hasHours = targetTimeSpan.Hours > 0;
-            bool hasMinutes = targetTimeSpan.Minutes > 0;
+            int days = targetTimeSpan.Days;
+            int hours = targetTimeSpan.Hours;
+            int minutes = targetTimeSpan.Minutes;
+            int seconds = targetTimeSpan.Seconds;
 
-            if (hasDays)
+            if (days > 0)
             {
-                timeTextList.Append(GetTimeText(targetTimeSpan.Days, TimeType.DAY, false));
+                sb.Append(GetTimeText(days, TimeType.DAY, false));
             }
 
-            if (hasHours)
+            if (hours > 0)
             {
-                timeTextList.Append(GetTimeText(targetTimeSpan.Hours, TimeType.HOUR, false));
+                sb.Append(GetTimeText(hours, TimeType.HOUR, false));
             }
 
-            if (hasMinutes)
+            if (minutes > 0)
             {
-                timeTextList.Append(GetTimeText(targetTimeSpan.Minutes, TimeType.MINUTE, true));
+                sb.Append(GetTimeText(minutes, TimeType.MINUTE, true));
             }
 
-            if (!hasDays && !hasHours) // 1시간 미만으로 남은 경우 초 단위 표시
+            // 1시간 미만으로 남은 경우 초 단위 표시
+            if (days == 0 && hours == 0)
             {
-                timeTextList.Append(GetTimeText(targetTimeSpan.Days, TimeType.SECOND, true));
+                sb.Append(GetTimeText(seconds, TimeType.SECOND, true));
             }
 
-            return timeTextList.ToString();
+            return sb.ToString();
         }
 
-        public LanguageType GetSystemLanguageType()
+        #region Format Methods
+
+        /// <summary>
+        /// Default 텍스트 조회 (포맷팅 지원 - 1개 인자)
+        /// </summary>
+        public string GetDefaultTextWithFormat<T0>(string tokenKey, T0 arg0)
         {
-            switch (Application.systemLanguage)
+            string text = GetDefaultText(tokenKey);
+            try
             {
-                case SystemLanguage.Korean:
-                    return LanguageType.KR;
-                default:
-                    return LanguageType.EN;
+                return ZString.Format(text, arg0);
+            }
+            catch
+            {
+                return text;
             }
         }
+
+        /// <summary>
+        /// Default 텍스트 조회 (포맷팅 지원 - 2개 인자)
+        /// </summary>
+        public string GetDefaultTextWithFormat<T0, T1>(string tokenKey, T0 arg0, T1 arg1)
+        {
+            string text = GetDefaultText(tokenKey);
+            try
+            {
+                return ZString.Format(text, arg0, arg1);
+            }
+            catch
+            {
+                return text;
+            }
+        }
+
+        /// <summary>
+        /// Default 텍스트 조회 (포맷팅 지원 - 3개 인자)
+        /// </summary>
+        public string GetDefaultTextWithFormat<T0, T1, T2>(string tokenKey, T0 arg0, T1 arg1, T2 arg2)
+        {
+            string text = GetDefaultText(tokenKey);
+            try
+            {
+                return ZString.Format(text, arg0, arg1, arg2);
+            }
+            catch
+            {
+                return text;
+            }
+        }
+
+        /// <summary>
+        /// Default 텍스트 조회 (포맷팅 지원 - 4개 인자)
+        /// </summary>
+        public string GetDefaultTextWithFormat<T0, T1, T2, T3>(string tokenKey, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+        {
+            string text = GetDefaultText(tokenKey);
+            try
+            {
+                return ZString.Format(text, arg0, arg1, arg2, arg3);
+            }
+            catch
+            {
+                return text;
+            }
+        }
+
+        /// <summary>
+        /// Dialogue 텍스트 조회 (포맷팅 지원 - 1개 인자)
+        /// </summary>
+        public string GetDialogueTextWithFormat<T0>(string tokenKey, T0 arg0)
+        {
+            string text = GetDialogueText(tokenKey);
+            try
+            {
+                return ZString.Format(text, arg0);
+            }
+            catch
+            {
+                return text;
+            }
+        }
+
+        /// <summary>
+        /// Dialogue 텍스트 조회 (포맷팅 지원 - 2개 인자)
+        /// </summary>
+        public string GetDialogueTextWithFormat<T0, T1>(string tokenKey, T0 arg0, T1 arg1)
+        {
+            string text = GetDialogueText(tokenKey);
+            try
+            {
+                return ZString.Format(text, arg0, arg1);
+            }
+            catch
+            {
+                return text;
+            }
+        }
+
+        /// <summary>
+        /// Dialogue 텍스트 조회 (포맷팅 지원 - 3개 인자)
+        /// </summary>
+        public string GetDialogueTextWithFormat<T0, T1, T2>(string tokenKey, T0 arg0, T1 arg1, T2 arg2)
+        {
+            string text = GetDialogueText(tokenKey);
+            try
+            {
+                return ZString.Format(text, arg0, arg1, arg2);
+            }
+            catch
+            {
+                return text;
+            }
+        }
+
+        /// <summary>
+        /// Dialogue 텍스트 조회 (포맷팅 지원 - 4개 인자)
+        /// </summary>
+        public string GetDialogueTextWithFormat<T0, T1, T2, T3>(string tokenKey, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+        {
+            string text = GetDialogueText(tokenKey);
+            try
+            {
+                return ZString.Format(text, arg0, arg1, arg2, arg3);
+            }
+            catch
+            {
+                return text;
+            }
+        }
+
+        #endregion
     }
 }

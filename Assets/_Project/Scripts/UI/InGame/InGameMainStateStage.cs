@@ -29,7 +29,7 @@ namespace CookApps.AutoBattler
             _specStage = SpecDataManager.Instance.GetStageData(id);
             if (_specStage.chapter_id == 1)
             {
-                string defaultName = LanguageManager.Instance.GetLanguageText("STELLA_KNIGHT");
+                string defaultName = LanguageManager.Instance.GetDefaultText("STELLA_KNIGHT");
                 _inGameUI.TopUI.SetMyName(defaultName);
             }
             else
@@ -37,7 +37,7 @@ namespace CookApps.AutoBattler
                 _inGameUI.TopUI.SetMyName(UserDataManager.Instance.UserBasicData.Nickname);
             }
             
-            string stageString = LanguageManager.Instance.GetLanguageText("UI_STAGE");
+            string stageString = LanguageManager.Instance.GetDefaultText("UI_STAGE");
             _inGameUI.TopUI.SetStageName($"{stageString} {_specStage.chapter_id}-{_specStage.stage_number}");
 
             InGameManager.Instance.StartInGame<FlowStateStageReady>(_specStage);

@@ -20,7 +20,7 @@ public partial class SROptions
     [Category("시스템 관련")]
     public void 게임언어변경()
     {
-        LanguageManager.Instance.SetGameLanguage(원하는언어);
+        LanguageManager.Instance.SetLanguageAsync(원하는언어);
 
         ToastManager.Instance.ShowToast("TEST - 치트 적용");
 
@@ -30,8 +30,15 @@ public partial class SROptions
         SceneLoading.GoToNextScene("Title");
     }
 
+    private static readonly SystemLanguage[] 지원하는언어들 = { SystemLanguage.Korean, SystemLanguage.English };
+    private SystemLanguage _원하는언어 = SystemLanguage.Korean;
+
     [Category("시스템 관련")]
-    public LanguageType 원하는언어 { get; set; } = LanguageType.KR;
+    public SystemLanguage 원하는언어
+    {
+        get => _원하는언어;
+        set => _원하는언어 = Array.IndexOf(지원하는언어들, value) >= 0 ? value : _원하는언어;
+    }
 
     #endregion
 

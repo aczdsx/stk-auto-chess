@@ -13,7 +13,7 @@ public static class StringUtil
 
     public static string GetStageString(StageInfo stage)
     {
-        string titleString = LanguageManager.Instance.GetLanguageText("UI_STAGE");
+        string titleString = LanguageManager.Instance.GetDefaultText("UI_STAGE");
         return $"{titleString} {stage.chapter_id}-{stage.stage_number}";
     }
     
@@ -21,12 +21,12 @@ public static class StringUtil
     {
         if (isOnlyNumber)
         {
-            string message = LanguageManager.Instance.GetLanguageText("UI_STAGE_TITLE");
+            string message = LanguageManager.Instance.GetDefaultText("UI_STAGE_TITLE");
             return (trialDungeon.step == 1) ? string.Format(message, $"{trialDungeon.grade}") : string.Format(message, $"{trialDungeon.grade}-{trialDungeon.step}");
         }
         else
         {
-            string message = LanguageManager.Instance.GetLanguageText("UI_TRIAL_STAGE_TITLE");
+            string message = LanguageManager.Instance.GetDefaultText("UI_TRIAL_STAGE_TITLE");
             return (trialDungeon.step == 1) ? string.Format(message, $"{trialDungeon.grade}") : string.Format(message, $"{trialDungeon.grade}-{trialDungeon.step}");
         }
     }
