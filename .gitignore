@@ -86,12 +86,5 @@ Thumbs.db
 # Naninovel .nani
 Assets/NaninovelData/.nani/
 
-# Claude
-.claude/
-CLAUDE.md
-AGENTS.md
-**/AGENTS.md
-plan.md
-
 # MacOS
 .DS_Store
