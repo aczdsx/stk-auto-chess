@@ -65,7 +65,7 @@ namespace CookApps.AutoBattler
 
             var lastSynergyData = SpecDataManager.Instance.GetSpecSynergyList(synergyType).Last();
 
-            _gradeGuageImage.fillAmount = (float)(data.grade / lastSynergyData.grade);
+            _gradeGuageImage.fillAmount = (float)data.grade / (float)lastSynergyData.grade;
             _gradeGuageImage.color = color;
 
             //  .color = (isColorWhite) ? color : Color.white;
