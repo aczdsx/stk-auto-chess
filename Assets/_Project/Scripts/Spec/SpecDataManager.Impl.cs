@@ -963,8 +963,8 @@ namespace CookApps.AutoBattler
         {
             return skillDic.GetValueOrDefault(skillID);
         }
-        
-         public List<SkillPassive> GetSkillPassiveDataList(long passiveSkillID)
+
+        public List<SkillPassive> GetSkillPassiveDataList(long passiveSkillID)
         {
             return skillPassiveDic.GetValueOrDefault(passiveSkillID);
         }
@@ -1103,11 +1103,11 @@ namespace CookApps.AutoBattler
             var character = CharacterInfo.Get(characterID);
             if (character != null)
                 return character;
-            
+
             var monster = MonsterInfo.Get(characterID);
             if (monster != null)
                 return monster;
-            
+
             var battleItem = BattleItem.Get(characterID);
             if (battleItem != null)
                 return battleItem;
@@ -1839,16 +1839,16 @@ namespace CookApps.AutoBattler
             }
             return result;
         }
-        
+
         public ElpisBuildInfo GetBuildInfo(int uniqueId)
         {
             for (int i = 0; i < ElpisBuildInfo.All.Count; i++)
             {
                 var target = ElpisBuildInfo.All[i];
-                if(target.build_id == uniqueId)
+                if (target.build_id == uniqueId)
                     return target;
             }
-            
+
             return null;
         }
 
@@ -1875,18 +1875,18 @@ namespace CookApps.AutoBattler
                     targetType = FacilityType.NONE;
                     break;
             }
-            
+
             var result = new List<ElpisBuildInfo>();
             for (int i = 0; i < ElpisBuildInfo.All.Count; i++)
             {
                 var target = ElpisBuildInfo.All[i];
-                if(target.facility_type == targetType)
+                if (target.facility_type == targetType)
                     result.Add(target);
             }
 
             return result;
         }
-        
+
         public IReadOnlyList<ElpisDimensionLab> GetAllElpisDimensionLab()
         {
             return ElpisDimensionLab.All;

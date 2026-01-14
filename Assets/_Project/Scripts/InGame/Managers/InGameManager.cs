@@ -31,6 +31,8 @@ namespace CookApps.BattleSystem
         public string AppEventReason = string.Empty;
         public string BattleSessionId { get; set; } = string.Empty;
 
+        public InGameTestConfig TestConfig { get; set; }
+
         public void ResetRandomGeneratorSeed()
         {
             randomGeneratorSeed = InGameRandomManager.GetUniversalRandomValue();
@@ -105,12 +107,13 @@ namespace CookApps.BattleSystem
             AppEventReason = string.Empty;
 
             // 테스트 무적 플래그 설정
-            IsPlayerInvincible = testConfig?.PlayerInvincible ?? false;
-            IsEnemyInvincible = testConfig?.EnemyInvincible ?? false;
+            TestConfig = testConfig;
+            IsPlayerInvincible = TestConfig?.PlayerInvincible ?? false;
+            IsEnemyInvincible = TestConfig?.EnemyInvincible ?? false;
 
             _teamEcc = new EffectCodeContainerTeam(this);
-            InGameMainFlowManager.Instance.StartInGameMainLoop<T>(testConfig);
-            InitializeInGameComponents(testConfig);
+            InGameMainFlowManager.Instance.StartInGameMainLoop<T>(TestConfig);
+            InitializeInGameComponents(TestConfig);
         }
 
         private void InitializeInGameComponents(object stateData)
