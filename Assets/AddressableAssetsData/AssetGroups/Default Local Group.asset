@@ -13,6 +13,68 @@ MonoBehaviour:
   m_Name: Default Local Group
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
+  m_GUID: c139e0f31ed074a79bb51afa922c7ccc
+  m_SerializeEntries:
+  - m_GUID: 052c2f93aefb0a743b0c779508223620
+    m_Address: Prefabs/InGame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 277af44f55effe04bb7711cdc1e45a6c
+    m_Address: Prefabs
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 373c7583994f84450abfe73d5a49ef33
+    m_Address: Prefabs/UI/Tutorial/InGameTutorialCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46f4e4165e6300e43ad44acedc6d81e8
+    m_Address: Gacha_VFX_Ver_Final_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5100c209c431a014f9ef841f50964926
+    m_Address: Assets/_Project/Addressables/Remote/SD/Template/BaseCharacterAnimController.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72d7f2b3bd723b647b71e8f74e06e2a4
+    m_Address: Prefabs/Fx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 83987405fb00104499ee6bd75530b4fc
+    m_Address: VFX/Prefab/Prefab_Dungeon_Boss_01.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 986a398388cfe448cb63b561bd9e7cb2
+    m_Address: TestConfig/InGameTestConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a8415e5b1e5758844ab1208786bbeb66
+    m_Address: Assets/_Project/Addressables/Remote/SD/CutScene/97550013
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da76faecfa789fa49ae42631d5b3021d
+    m_Address: Assets/_Project/Addressables/Remote/NaninovelRes/Spawn/Etc/EyeBlink_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5767d31317d9ac4e99017232c96c6ad
+    m_Address: GetNewCharacter
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f94abf99adf954845a7e308b788b1a5d
+    m_Address: Assets/_Project/Splash_STK/Prefab/SplashUI.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_GUID: 4d99a58314db1954c8794b1fbb6d5a3f
   m_SerializeEntries: []
   m_ReadOnly: 0
