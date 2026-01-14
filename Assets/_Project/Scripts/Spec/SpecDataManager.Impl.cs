@@ -1879,5 +1879,18 @@ namespace CookApps.AutoBattler
         {
             return ElpisDimensionLab.All;
         }
+
+        public IReadOnlyList<ElpisBuildInfo> GetSameFacilityTypes(FacilityType facilityType)
+        {
+            var result = new List<ElpisBuildInfo>();
+            var allData = ElpisBuildInfo.All;
+            foreach (var data in allData)
+            {
+                if(data.facility_type == facilityType)
+                    result.Add(data);
+            }
+            
+            return result;
+        }
     }
 }
