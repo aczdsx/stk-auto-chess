@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f0a420108a0bbac48a0385f3ce5fe912
+guid: a46a60cf948caa44295cce27497bd11c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2208905353812641106
-    second: Icon_damagefont_critical1_0
+      213: 2641824943876203350
+    second: bg_ionia_01_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_damagefont_critical1_0
+      name: bg_ionia_01_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 0
-        width: 49
-        height: 50
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 255067c47bb97ae10800000000000000
-      internalID: 2208905353812641106
+      spriteID: 653e18a1ac5a9a420800000000000000
+      internalID: 2641824943876203350
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Icon_damagefont_critical1_0: 2208905353812641106
+      bg_ionia_01_0: 2641824943876203350
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

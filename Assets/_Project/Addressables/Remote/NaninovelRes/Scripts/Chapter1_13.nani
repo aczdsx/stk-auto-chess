@@ -1,34 +1,61 @@
-; [META] Chapter1_13 | 빅마우스 등장, 패턴 안내
+; [META] Chapter1_12 | 지원요청 거절/접근권한 차단 단초
 ; @back bg_arke_grassland_02 fade:1
 
-atresia_00: 저기! 파손된 함선이 보여요!
-
-Narrator: '클레이'가 타고 온 함선 중 일부가, 마치 거대한 짐승에게 물어뜯긴 것처럼 처참하게 부서져 있다.
-
-uni_00: 설마….. 레이가…!
-philia_00: 잠깐…..! 모두들 멈춰요!
-philia_00: 저 발자국은….!
-; @sfx sfx_big_footstep volume:0.9
-@spawn ShakeCamera
-
-atresia_00: 크읔!
-uni_00: 꺄악! 무슨일이 일어난거야!
-
-Narrator: 함선의 잔해를 찢고, 거대한 네피림이 모습을 드러낸다.
-Narrator: 수십 개의 이빨이 달린 거대한 입이 탐스러운 먹이를 발견한 듯 침으로 번들거리고 있다.
 
 
-philia_00: 조심해요.'빅마우스'입니다!
-asna_00: 빅마우스라면.... '수습기사의 사신'으로 불리는 네피림 아닌가요?!
-philia_00: 맞아요. ...아까의 혈흔에서 나는 냄새를 맡고 나타난 것 같습니다!
-atresia_00: 빅마우스는 큰 입과 날렵한 몸을 이용한 돌진으로 강력한 피해를 입힙니다.
-atresia_00: 유니, 필리아. 놈의 정면에 서지 않도록 조심하세요!
-uni_00: 으.... 모르겠다! 이 몸만 믿으라고!
-bigmouth_00: (키에에에엑-!)
+@back bg_arche_01
 
-@choice "\"  …인카운터! \""
+@char uni_00.Talk pos:50,-240 scale:1.38
+uni_00: 신호에 가까이 다가갈수록 네피림들이 많아지고 있어.
+
+@char atresia_00.Talk pos:60,-235,-1 scale:1.38
+@slide uni_00 to:35,-240 time:0.2
+atresia_00: 이래서는… 근처에 접근할 수조차 없겠어요.
+
+@char philia_00.Talk pos:90,-235 scale:1.38
+philia_00: (단말기를 확인하며) 위치 신호는 근처에 표시되고 있는데...
+uni_00: 으에? 네피림들 빼곤 아무것도 없는걸?
+atresia_00: 파편들이 저기로 이어지고 있어요.
+atresia_00: ….추락하면서 신호기가 파손되었나봐요.
+
+@spawn ShakeCharacter params:uni_00
+uni_00: (시무룩해져서) 이럴수가.... 레이... 도대체 어디로 사라져버린거야...
+
+@choice "\" 아스나, 다른 성단에 지원 요청을 보낼 수 있을까? \""
 @stop
 
+
+@hideChars
+@char asna_00.Talk pos:50,-240 scale:1.38
+
+asna_00: 네, 관측자님. 확인해 보겠습니다!
+asna_00: …….어? 이럴리가 없는데…
+asna_00: 죄송해요, 관측자님. 지원 요청이…. 거절되었습니다.
+asna_00: 이번 작전에 대한 '접근 권한'이 막혀있는데... 이상하네요
+
+
+@hideChars
+
+@choice "\" 접근 권한이 막혀있다고? \""
+@stop
+
+@char atresia_00.Talk pos:60,-235,-1 scale:1.38
+
+atresia_00: 아스나, 그게 무슨 뜻…
+
+@char philia_00.Talk pos:90,-235 scale:1.38
+philia_00: …..!
+philia_00: 모두! 이쪽을 와서 이것을 살펴보십시요!
+
+Narrator: 필리아가 가리킨 곳. '클레이'의 함선 파편 근처의 풀숲에, 아직 굳지않은... 선명한 '혈흔'이 묻어있다.
+
+@spawn ShakeCharacter params:atresia_00
+
+atresia_00: 이건…..혈흔?
+
+@char uni_00.Talk pos:30,-240 scale:1.38
+uni_00: 클레이가 위험할지 몰라!
+uni_00: 관측자! 어서 서두르자!
 
 @back bg_black_01 time:1.5 transition:Crossfade
 ;신전환 효과음

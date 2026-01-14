@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 186b770e13e323f40b391431f08934e2
+    m_Address: Naninovel/Backgrounds/bg_arche_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 32078a69862bdf44fa857d72a6aff90e
     m_Address: Naninovel/Backgrounds/bg_ruins_04
     m_ReadOnly: 0
@@ -41,6 +47,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 581a0c3c68311a443b99c275f532fddc
     m_Address: Naninovel/Backgrounds/bg_hasole_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c33d32d269c23b49b86954060ec4875
+    m_Address: Naninovel/Backgrounds/bg_lightbringer_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c647506f03c502499b68c03aca3d509
+    m_Address: Naninovel/Backgrounds/bg_hubble_hospitel_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -87,6 +105,24 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a39a039ffc9235b488f11274e6072d2c
+    m_Address: Naninovel/Backgrounds/bg_hubble_05
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a46a60cf948caa44295cce27497bd11c
+    m_Address: Assets/_Project/Addressables/Remote/NaninovelRes/Backgrounds/bg_ionia_01.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a661a21e6c58ed2479ca4ddf256f2e2f
+    m_Address: Naninovel/Backgrounds/bg_arche_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ab1fb13c71fe2b84e9a3590b37a05075
     m_Address: Naninovel/Backgrounds/bg_abandoned_hospital_01
     m_ReadOnly: 0
@@ -107,6 +143,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b2a770babc5d3b04aa66457001f0fd3a
     m_Address: Naninovel/Backgrounds/bg_abandoned_hospital_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b40efd50a22442049bcb0de85c540928
+    m_Address: Naninovel/Backgrounds/bg_arche_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel

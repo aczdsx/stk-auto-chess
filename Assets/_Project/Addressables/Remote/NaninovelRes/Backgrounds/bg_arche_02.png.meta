@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 20e273027956b9a419c7a167bdfa1621
+guid: a661a21e6c58ed2479ca4ddf256f2e2f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5683505166278846034
-    second: Icon_damagefont_resist_0
+      213: -4777623854301585398
+    second: bg_arche_02_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_damagefont_resist_0
+      name: bg_arche_02_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 0
-        width: 46
-        height: 50
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 256e52316dddfde40800000000000000
-      internalID: 5683505166278846034
+      spriteID: a00ebedda6872bdb0800000000000000
+      internalID: -4777623854301585398
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Icon_damagefont_resist_0: 5683505166278846034
+      bg_arche_02_0: -4777623854301585398
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

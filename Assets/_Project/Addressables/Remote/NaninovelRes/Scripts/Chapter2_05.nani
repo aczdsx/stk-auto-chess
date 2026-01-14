@@ -33,6 +33,14 @@ asna_00: 얼른 '라이트 브링어' 내부에 설치해봐요.
 asna_00: 잘하셨어요. 역시 관측자 님이에요!
 ; L017
 
+asna_00: 디멘션 큐브를 연구할 준비가 완료되었어요. '기사-공격력 증폭' 연구를 진행해봐요.
+; L004
+; @forceHighlight ui_research_attack_boost_button mode:pulse
+; L005
+; [GUIDE] 디멘션 큐브 연구소 - 기사 공격력 증폭 연구 하이라이트
+; L006
+
+
 @back bg_black_01 time:1.5 transition:Crossfade
 ;신전환 효과음
 @hideUI

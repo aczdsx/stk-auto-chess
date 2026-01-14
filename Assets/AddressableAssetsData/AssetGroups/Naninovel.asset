@@ -27,12 +27,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 063225faa980648419adc8d28248d0af
-    m_Address: Naninovel/Characters/odette_00
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1224d69e1592d624cbde93d0f7383d91
     m_Address: Naninovel/Spawn/ShakeCharacter
     m_ReadOnly: 0
@@ -95,12 +89,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 65c37f59e9b266f468dd5381fdc03fc3
     m_Address: Naninovel/UI/SettingsUI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 666cacdf07569064fae5d75e9823222a
-    m_Address: Naninovel/Characters/asna_00
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -317,12 +305,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f5aae572225ee1b4c96d1a17fc5cb073
     m_Address: Naninovel/UI/TipsUI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f8a8f136f9f2c3e41bfac00cfe24ae82
-    m_Address: Naninovel/Characters/blin_00
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel

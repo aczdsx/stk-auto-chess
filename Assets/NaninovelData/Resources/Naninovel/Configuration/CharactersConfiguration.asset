@@ -267,7 +267,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 03efa3a9-9f4f-47f8-8a0b-94525b6dfbb6
       customData:
-        rid: 428703097339511513
+        rid: 428703138515256187
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -396,7 +396,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 9e1bedf3-7084-457d-9153-ad4f5c78b0d9
       customData:
-        rid: 428703097356812406
+        rid: 428703138515256059
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -860,16 +860,10 @@ MonoBehaviour:
     - rid: 428703097319850610
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097339511513
-      type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
-      data: 
     - rid: 428703097339511670
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 428703097339511777
-      type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 428703097356812406
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 428703097356812589
@@ -897,6 +891,12 @@ MonoBehaviour:
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 428703138515255989
+      type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 428703138515256059
+      type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 428703138515256187
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 566546874491470190

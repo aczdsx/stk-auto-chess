@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e6f6244a28157af4cb209474775c9ae2
+guid: 8287add940ea7ae4fad8fd3bab827d6d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3560165589883599304
-    second: Icon_damagefont_block_0
+      213: -2147290539649553236
+    second: cbg_02_03_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_damagefont_block_0
+      name: cbg_02_03_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 0
-        width: 46
-        height: 50
+        width: 915
+        height: 766
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8364b613240c79ec0800000000000000
-      internalID: -3560165589883599304
+      spriteID: caca1aa81aa4332e0800000000000000
+      internalID: -2147290539649553236
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Icon_damagefont_block_0: -3560165589883599304
+      cbg_02_03_0: -2147290539649553236
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
