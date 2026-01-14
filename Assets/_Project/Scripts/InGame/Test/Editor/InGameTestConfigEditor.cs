@@ -21,6 +21,8 @@ namespace CookApps.AutoBattler.Editor
         private SerializedProperty _cameraPositionProp;
         private SerializedProperty _battleTimeLimitProp;
         private SerializedProperty _restartDelayProp;
+        private SerializedProperty _playerInvincibleProp;
+        private SerializedProperty _enemyInvincibleProp;
 
         private bool _showGridVisualization = true;
         private bool _showPresetSection = true;
@@ -45,6 +47,8 @@ namespace CookApps.AutoBattler.Editor
             _cameraPositionProp = serializedObject.FindProperty("CameraPosition");
             _battleTimeLimitProp = serializedObject.FindProperty("BattleTimeLimit");
             _restartDelayProp = serializedObject.FindProperty("RestartDelay");
+            _playerInvincibleProp = serializedObject.FindProperty("PlayerInvincible");
+            _enemyInvincibleProp = serializedObject.FindProperty("EnemyInvincible");
 
             RefreshPresetList();
         }
@@ -132,6 +136,13 @@ namespace CookApps.AutoBattler.Editor
             EditorGUILayout.LabelField("전투 설정", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(_battleTimeLimitProp);
             EditorGUILayout.PropertyField(_restartDelayProp);
+
+            EditorGUILayout.Space(10);
+
+            // 디버그 설정
+            EditorGUILayout.LabelField("디버그 설정", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(_playerInvincibleProp, new GUIContent("플레이어 무적"));
+            EditorGUILayout.PropertyField(_enemyInvincibleProp, new GUIContent("적 무적"));
 
             EditorGUILayout.Space(10);
 
@@ -703,6 +714,8 @@ namespace CookApps.AutoBattler.Editor
             public Vector3 CameraPosition;
             public float BattleTimeLimit;
             public float RestartDelay;
+            public bool PlayerInvincible;
+            public bool EnemyInvincible;
 
             public PresetData() { }
 
@@ -715,6 +728,8 @@ namespace CookApps.AutoBattler.Editor
                 CameraPosition = config.CameraPosition;
                 BattleTimeLimit = config.BattleTimeLimit;
                 RestartDelay = config.RestartDelay;
+                PlayerInvincible = config.PlayerInvincible;
+                EnemyInvincible = config.EnemyInvincible;
             }
 
             public void ApplyTo(InGameTestConfig config)
@@ -726,6 +741,8 @@ namespace CookApps.AutoBattler.Editor
                 config.CameraPosition = CameraPosition;
                 config.BattleTimeLimit = BattleTimeLimit;
                 config.RestartDelay = RestartDelay;
+                config.PlayerInvincible = PlayerInvincible;
+                config.EnemyInvincible = EnemyInvincible;
             }
         }
 

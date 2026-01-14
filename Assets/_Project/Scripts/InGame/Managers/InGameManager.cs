@@ -41,6 +41,10 @@ namespace CookApps.BattleSystem
         public bool IsInGameCombat { get; set; }
         public bool IsBlockAmbush { get; set; }
 
+        // 테스트용 무적 플래그
+        public bool IsPlayerInvincible { get; set; }
+        public bool IsEnemyInvincible { get; set; }
+
         public void Clear()
         {
             IsInGamePlaying = false;
@@ -99,6 +103,11 @@ namespace CookApps.BattleSystem
             IsBlockAmbush = false;
             AppEventResult = string.Empty;
             AppEventReason = string.Empty;
+
+            // 테스트 무적 플래그 설정
+            IsPlayerInvincible = testConfig?.PlayerInvincible ?? false;
+            IsEnemyInvincible = testConfig?.EnemyInvincible ?? false;
+
             _teamEcc = new EffectCodeContainerTeam(this);
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(testConfig);
             InitializeInGameComponents(testConfig);

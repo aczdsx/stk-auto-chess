@@ -1300,6 +1300,14 @@ namespace CookApps.BattleSystem
                 ShowMissText().Forget();
             }
 
+            // 테스트 무적 체크 (데미지 텍스트는 표시되지만 HP 감소 없음)
+            bool isInvincible = (AllianceType == AllianceType.Player && InGameManager.Instance.IsPlayerInvincible)
+                             || (AllianceType == AllianceType.Enemy && InGameManager.Instance.IsEnemyInvincible);
+            if (isInvincible)
+            {
+                return DamageReturnType.Damaging;
+            }
+
             _currHp -= damageAmount.damageAmount.Value;
             Debug.Log($"damageAmount: {damageAmount.damageAmount.Value}, _currHp: {_currHp}");
 

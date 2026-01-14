@@ -27,6 +27,13 @@ namespace CookApps.AutoBattler
 
         [Tooltip("전투 종료 후 재시작 대기 시간 (초)")]
         public float RestartDelay = 2f;
+
+        [Header("디버그 설정")]
+        [Tooltip("플레이어 무적 (데미지 텍스트는 표시, HP 감소 없음)")]
+        public bool PlayerInvincible = false;
+
+        [Tooltip("적 무적 (데미지 텍스트는 표시, HP 감소 없음)")]
+        public bool EnemyInvincible = false;
     }
 
     [Serializable]
