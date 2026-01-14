@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 535a4e062f9e9754b975e995b8d1c8ef
+guid: 672ca3aa80ac92342adc55c517ecaa50
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3744922304382099102
-    second: circle_42_0
+      213: 9212330219768352623
+    second: Ingame_Icon_Time_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +52,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 21, y: 21, z: 21, w: 21}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: circle_42_0
+      name: Ingame_Icon_Time_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 42
-        height: 42
+        x: 3
+        y: 3
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 21, y: 21, z: 21, w: 21}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e9ed1209ef2a8f330800000000000000
-      internalID: 3744922304382099102
+      spriteID: f6f83ee9685c8df70800000000000000
+      internalID: 9212330219768352623
       vertices: []
       indices: 
       edges: []
@@ -151,8 +151,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1abcbd7836470fb4bbdabf2371771dc9
-    internalID: 627645694
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      circle_42_0: 3744922304382099102
+      Ingame_Icon_Time_0: 9212330219768352623
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
