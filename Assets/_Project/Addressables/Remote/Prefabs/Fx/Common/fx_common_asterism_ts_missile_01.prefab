@@ -4906,7 +4906,7 @@ GameObject:
   - component: {fileID: 9184098954590722431}
   - component: {fileID: 8107924069237545274}
   m_Layer: 3
-  m_Name: trouble_shooter_missile
+  m_Name: fx_common_asterism_ts_missile_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

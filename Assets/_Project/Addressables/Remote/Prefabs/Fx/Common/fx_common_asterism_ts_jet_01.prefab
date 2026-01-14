@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8508718654457203477}
-  - component: {fileID: 585903786845288992}
+  - component: {fileID: 5491748173060185401}
   m_Layer: 0
-  m_Name: TroubleShooterJet
+  m_Name: fx_common_asterism_ts_jet_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 8775052332639143294}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &585903786845288992
+--- !u!114 &5491748173060185401
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 6847842524101352529}
-  animationEventListener: {fileID: 8347636480886321421}
+  animationEventListener: {fileID: 1987107156565033335}
   _callBackPositions:
   - {fileID: 4619376639120305589}
   - {fileID: 3632037307103259064}
@@ -112,7 +112,7 @@ PrefabInstance:
       addedObject: {fileID: 6847842524101352529}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: be92d3e8f37fe434f844a59292afac6b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8347636480886321421}
+      addedObject: {fileID: 1987107156565033335}
   m_SourcePrefab: {fileID: 100100000, guid: be92d3e8f37fe434f844a59292afac6b, type: 3}
 --- !u!4 &3632037307103259064 stripped
 Transform:
@@ -151,7 +151,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8347636480886321421
+--- !u!114 &1987107156565033335
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
