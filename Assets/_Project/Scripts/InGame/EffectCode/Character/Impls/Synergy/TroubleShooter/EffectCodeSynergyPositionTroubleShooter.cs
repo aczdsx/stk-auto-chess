@@ -167,7 +167,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
         }
 
         stats.Clear();
-        stats[0] = synergyData.effect_stat_value_1;//Time
+        stats[0] = 3f;//Time
         stats[1] = FinalDamageValue * (double)synergyData.effect_stat_value_3 * 0.01d;//Damage
         stats[2] = synergyData.effect_stat_value_2;//Count
         

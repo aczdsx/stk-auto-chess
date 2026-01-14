@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
@@ -22,6 +23,12 @@ public class FlowStateLobbyCombat : StateCombatBase
         _enemyCharacters = ListPool<CharacterController>.Get();
 
         _maxEnemySpawnCount = SpecDataManager.Instance.GetGameConfig<int>("max_idle_battle_monster_count");
+        // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.5f, new Vector3(0, 2.0f, -10), 1.0f).Forget();
+
+        MainCameraHolder.MainCamera.transform.rotation = Quaternion.Euler(34f, 45f, 0f);
+        MainCameraHolder.MainCamera.orthographicSize = 7.5f;
+        MainCameraHolder.MainCamera.transform.position = new Vector3(0, 2.0f, -10);
+        
     }
 
     public override void StateStart()
