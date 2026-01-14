@@ -198,6 +198,10 @@ public class FlowStateInGameTestCombat : StateCombatBase
             Debug.LogColor("[Test] 패배!", "red");
         }
 
+        // 전투 결과 표시
+        float battleTime = (_testConfig?.BattleTimeLimit ?? 60f) - _remainingTime;
+        InGameTestDebugUI.Instance?.SetBattleResult(_isWin, battleTime);
+
         // 슬로우 모션 효과
         InGameMainFlowManager.Instance.SetPlaySpeed(0.4f);
         await UniTask.Delay(1500);
@@ -222,6 +226,6 @@ public class FlowStateInGameTestCombat : StateCombatBase
         // 씬 재로드
         SceneTransition.Create<SceneTransition_FadeInOut>();
         SceneTransition.FadeInAsync().Forget();
-        SceneLoading.GoToNextScene("InGame", (InGameType.TEST, (IGameStateUICore)new InGameMainStateTest(), 0));
+        SceneLoading.GoToNextScene("InGame", (InGameType.TEST, (IGameStateUICore)new InGameMainStateTest(), _testConfig.StageChapterId));
     }
 }

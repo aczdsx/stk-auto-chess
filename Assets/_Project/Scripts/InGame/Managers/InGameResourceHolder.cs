@@ -64,8 +64,9 @@ namespace CookApps.AutoBattler
             }
             else if (inGameType == InGameType.TEST)
             {
+                // var stageData = SpecDataManager.Instance.GetStageData(id);
                 StagePrefab =
-                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/InGameTest.prefab");
+                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Stage{id}.prefab");
             }
         }
 

@@ -462,7 +462,7 @@ public class InGameTopUI : MonoBehaviour
             // 씬 재로드
             SceneTransition.Create<SceneTransition_FadeInOut>();
             SceneTransition.FadeInAsync().Forget();
-            SceneLoading.GoToNextScene("InGame", (InGameType.TEST, (IGameStateUICore)new InGameMainStateTest(), 0));
+            SceneLoading.GoToNextScene("InGame", (InGameType.TEST, (IGameStateUICore)new InGameMainStateTest(), InGameManager.Instance.TestConfig.StageChapterId));
             return;
         }
 

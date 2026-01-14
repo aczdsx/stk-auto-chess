@@ -24,6 +24,9 @@ public class FlowStateInGameTestReady : StateReadyBase
 
     public override async void StateInit(object target)
     {
+        // 디버그 UI 생성
+        InGameTestDebugUI.Create();
+
         var addCharacterTasks = new List<UniTask<CharacterController>>();
 
         // 카메라 설정
@@ -91,9 +94,6 @@ public class FlowStateInGameTestReady : StateReadyBase
         }
 
         StartDrawingLinesAsync(2.0f).Forget();
-
-        // 테스트에서는 자동으로 전투 시작
-        // AutoStartCombatAsync().Forget();
     }
 
     private async UniTaskVoid AutoStartCombatAsync()
