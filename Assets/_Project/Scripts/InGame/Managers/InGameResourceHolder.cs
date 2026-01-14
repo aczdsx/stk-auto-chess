@@ -60,7 +60,7 @@ namespace CookApps.AutoBattler
             else if (inGameType == InGameType.PROLOGUE)
             {
                 StagePrefab =
-                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Prologue.prefab");
+                    await Addressables.LoadAssetAsync<GameObject>($"Prefabs/Stages/Ingame/Stage0.prefab");
             }
             else if (inGameType == InGameType.TEST)
             {

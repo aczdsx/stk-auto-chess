@@ -566,7 +566,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             if (spawnTile != null)
             {
                 // 마리에 소환
-                int marieCharacterId = 117563405;
+                int marieCharacterId = 3405;
                 int marieLevel = 1; // [TODO] 레벨 설정 필요
 
                 var marieStat = new CharacterStatData(marieCharacterId, marieLevel,
