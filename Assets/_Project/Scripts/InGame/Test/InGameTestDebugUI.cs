@@ -315,13 +315,16 @@ namespace CookApps.AutoBattler
 
         private string GetCharacterName(int characterId)
         {
-            // SpecData에서 이름 가져오기 시도
-            var languageType = LanguageManager.Instance.CurrentLanguageType;
-
             var specCharacter = SpecDataManager.Instance.GetSpecCharacter(characterId);
             if (specCharacter != null)
             {
                 return LanguageManager.Instance.GetDefaultText(specCharacter.name_token);
+            }
+
+            var specMonster = SpecDataManager.Instance.GetSpecCharacter(characterId);
+            if (specMonster != null)
+            {
+                return LanguageManager.Instance.GetDefaultText(specMonster.name_token);
             }
 
             return $"ID:{characterId}";
