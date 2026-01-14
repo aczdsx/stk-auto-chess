@@ -1,0 +1,41 @@
+{
+    "StageChapterId": 1,
+    "PlayerCharacters": [
+        {
+            "CharacterId": 3202,
+            "Level": 1,
+            "GridX": 4,
+            "GridY": 2,
+            "MultipleAtk": 1.0,
+            "MultipleHp": 1.0
+        },
+        {
+            "CharacterId": 3303,
+            "Level": 1,
+            "GridX": 1,
+            "GridY": 2,
+            "MultipleAtk": 1.0,
+            "MultipleHp": 1.0
+        }
+    ],
+    "EnemyCharacters": [
+        {
+            "CharacterId": 9501,
+            "Level": 1,
+            "GridX": 1,
+            "GridY": 4,
+            "MultipleAtk": 1.0,
+            "MultipleHp": 3.0
+        }
+    ],
+    "CameraSize": 7.5,
+    "CameraPosition": {
+        "x": -15.0,
+        "y": 10.0,
+        "z": -12.0
+    },
+    "BattleTimeLimit": 60.0,
+    "RestartDelay": 2.0,
+    "PlayerInvincible": true,
+    "EnemyInvincible": true
+}

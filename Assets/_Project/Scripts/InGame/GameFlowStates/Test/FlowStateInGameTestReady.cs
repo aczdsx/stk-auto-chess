@@ -93,6 +93,10 @@ public class FlowStateInGameTestReady : StateReadyBase
             inGameMain.InitReadyStateUI(new List<Tech.Hive.V1.DeckCharacterPlacement>());
         }
 
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
+        MainCameraHolder.MainCamera.transform.rotation = Quaternion.Euler(30f, 45f, 0f);
+
+
         StartDrawingLinesAsync(2.0f).Forget();
     }
 

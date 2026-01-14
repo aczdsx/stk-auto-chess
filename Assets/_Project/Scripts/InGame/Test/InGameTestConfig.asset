@@ -20,27 +20,21 @@ MonoBehaviour:
     GridY: 2
     MultipleAtk: 1
     MultipleHp: 1
-  - CharacterId: 3103
+  - CharacterId: 3301
     Level: 1
     GridX: 1
     GridY: 2
     MultipleAtk: 1
     MultipleHp: 1
   EnemyCharacters:
-  - CharacterId: 3401
+  - CharacterId: 9501
     Level: 1
     GridX: 1
     GridY: 4
     MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 3401
-    Level: 1
-    GridX: 3
-    GridY: 5
-    MultipleAtk: 1
-    MultipleHp: 1
+    MultipleHp: 3
   CameraSize: 7.5
-  CameraPosition: {x: 0, y: 2, z: -10}
+  CameraPosition: {x: -15, y: 10, z: -12}
   BattleTimeLimit: 60
   RestartDelay: 2
   PlayerInvincible: 1
