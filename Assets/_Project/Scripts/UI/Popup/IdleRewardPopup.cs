@@ -53,7 +53,7 @@ namespace CookApps.AutoBattler
 
         private async void InitIdleRewardData()
         {
-            string maxTimeGuideString = LanguageManager.Instance.GetLanguageText("UI_IDLE_REWARD_MAX_TIME_GUIDE");
+            string maxTimeGuideString = LanguageManager.Instance.GetDefaultText("UI_IDLE_REWARD_MAX_TIME_GUIDE");
             int maxMinute = SpecDataManager.Instance.GetGameConfig<int>("idle_reward_acc_time_limit");
             _maxTimeGuideText.text = string.Format(maxTimeGuideString, maxMinute / 60);
             

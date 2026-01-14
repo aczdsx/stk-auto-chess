@@ -235,7 +235,7 @@ namespace CookApps.AutoBattler
 
             int resultCount = maxResetCount - resetCount;
 
-            string levelResetString = LanguageManager.Instance.GetLanguageText("UI_LEVEL_RESET");
+            string levelResetString = LanguageManager.Instance.GetDefaultText("UI_LEVEL_RESET");
             _resetCountText.text = $"{levelResetString} <color=#C35B79><b>({resultCount})</b></color>";
 
             bool isAvailReset = resultCount > 0;
@@ -334,7 +334,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private void OnClickCharacterResetButton()
+        private async UniTask OnClickCharacterResetButton()
         {
             // 리셋 가능 레벨 체크
             if (_userCharacterData.Level <= 1)
@@ -359,16 +359,17 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            string descText = LanguageManager.Instance.GetLanguageText("MSG_CHARACTER_LV_RESET_ALERT");
-            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
-            newPopupData.SetPopupData("시스템 알림", descText, "확인", "취소", () =>
+            string descText = LanguageManager.Instance.GetDefaultText("MSG_CHARACTER_LV_RESET_ALERT");
+            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData("시스템 알림", descText, "확인", "취소");
+            var popup = await SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData);
+            var isConfirmed = await popup.WaitForExit();
+            
+            if (isConfirmed is true)
             {
                 // TODO: 서버 API로 캐릭터 레벨 리셋 구현 필요
                 // 현재 서버 API가 없음
                 ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_IMPLEMENTED");
-            });
-
-            SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+            }
         }
 
         private void OnClickDimmedResetButton()
@@ -376,7 +377,7 @@ namespace CookApps.AutoBattler
             ToastManager.Instance.ShowToastByTokenKey("MSG_CHARACTER_LV_RESET_END_GUIDE");
         }
 
-        private void OnClickTranscendenceButton()
+        private async UniTask OnClickTranscendenceButton()
         {
             if (_userCharacterData == null) return;
             if (_specCharacterTranscendenceData == null) return;
@@ -400,17 +401,17 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            string characterName = LanguageManager.Instance.GetLanguageText(_specCharacterData.name_token);
-            string contentText = string.Format(LanguageManager.Instance.GetLanguageText("MSG_TRANSCENDENCE_ASK"), characterName);
+            string characterName = LanguageManager.Instance.GetDefaultText(_specCharacterData.name_token);
+            string contentText = string.Format(LanguageManager.Instance.GetDefaultText("MSG_TRANSCENDENCE_ASK"), characterName);
 
-            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
-            newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", () =>
+            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData("시스템 알림", contentText, "확인", "취소");
+            var popup = await SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData);
+            var isConfirmed = await popup.WaitForExit();
+            if (isConfirmed is true)
             {
                 // 초월 진행 (서버 API 호출)
-                TranscendCharacterAsync().Forget();
-            });
-
-            SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+                await TranscendCharacterAsync();
+            }
         }
 
         private async UniTask TranscendCharacterAsync()
@@ -434,7 +435,7 @@ namespace CookApps.AutoBattler
                 if (afterTranscenenceData != null)
                 {
                     string msg =
-                        $"{LanguageManager.Instance.GetLanguageText("MSG_MAX_LV_UP")}\n{_specCharacterTranscendenceData.max_level} -> {afterTranscenenceData.max_level}";
+                        $"{LanguageManager.Instance.GetDefaultText("MSG_MAX_LV_UP")}\n{_specCharacterTranscendenceData.max_level} -> {afterTranscenenceData.max_level}";
                     ToastManager.Instance.ShowToast(msg);
                 }
                 else
@@ -459,7 +460,7 @@ namespace CookApps.AutoBattler
             DateTime currentTime = TimeManager.Instance.UtcNow();
             DateTime nextDayTime = TimeManager.Instance.TommorrowToUtc();
 
-            string msg = LanguageManager.Instance.GetLanguageText("LV_RESET_REMAIN_TIME");
+            string msg = LanguageManager.Instance.GetDefaultText("LV_RESET_REMAIN_TIME");
             while (true)
             {
                 TimeSpan timeRemaining = nextDayTime - currentTime;

@@ -58,7 +58,7 @@ namespace CookApps.AutoBattler
                 _specSkillBaseData = specSkillList[0];
 
                 _normalSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSkillSprite(specSkillList[0].skill_group_id)).Forget();
-                _normalSkillNameText.text = LanguageManager.Instance.GetLanguageText(specSkillList[0].skill_name_token);
+                _normalSkillNameText.text = LanguageManager.Instance.GetDefaultText(specSkillList[0].skill_name_token);
             }
         }
 

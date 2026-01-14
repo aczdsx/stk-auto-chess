@@ -133,7 +133,7 @@ public class TutorialController : MonoBehaviour
         if (!isToastMessage)
         {
             // 텍스트 설정
-            // string tutorialText = LanguageManager.Instance.GetLanguageText(CurrentSpecTutorial.desc_key);
+            // string tutorialText = LanguageManager.Instance.GetDefaultText(CurrentSpecTutorial.desc_key);
             string tutorialText = CurrentSpecTutorial.desc_key;
             _descText.text = tutorialText;
 

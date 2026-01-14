@@ -13,16 +13,16 @@ using UnityEngine;
 
 public class InGameBottomStageUI : InGameBottomUI
 {
-    protected void Awake()
+    protected override void Awake()
     {
         base.Awake();
-        _startButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnStartButtonClicked()).AddTo(this);
+        _startButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnStartButtonClickedAsync(), AwaitOperation.Drop).AddTo(this);
         _statisticButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickStatisticButton()).AddTo(this);
         _recommendButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickRecommend()).AddTo(this);
         _speedUpButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSpeedUp()).AddTo(this);
     }
     
-    protected override bool IsCheckStartBattle()
+    protected override async UniTask<bool> IsCheckStartBattle()
     {
         // 전투 인원 0명 검사
         if (InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count == 0)
@@ -38,14 +38,10 @@ public class InGameBottomStageUI : InGameBottomUI
             bool isAvailableCharacter = _characterItemList.Exists(l => l.StatData != null);
             if (isAvailableCharacter)
             {
-                string contentText = LanguageManager.Instance.GetLanguageText("SYSTEM_MSG_MAX_CHARACTER_ALERT");
-
-                SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
-                newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", () => StartInGameBattle(_combatType));
-
-                SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
-
-                return false;
+                var newPopupData = new SystemConfirmPopupData("시스템 알림", "SYSTEM_MSG_MAX_CHARACTER_ALERT", "확인", "취소");
+                var popup = await SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData);
+                var isConfirmed = await popup.WaitForExit();
+                return isConfirmed is true;
             }
         }
 
@@ -55,13 +51,8 @@ public class InGameBottomStageUI : InGameBottomUI
             var isEquippedCommanderSkill = ServerDataManager.Instance.CommanderSkill.IsAllCommanderSkillsEquipped(_specUserGrade.maximum_commander_skill_count);
             if (!isEquippedCommanderSkill)
             {
-                string contentText = LanguageManager.Instance.GetLanguageText("MSG_ALERT_EQUIP_COMMAND_SKILL");
-
-                SystemConfirmPopupData newPopupData = new SystemConfirmPopupData();
-                newPopupData.SetPopupData("시스템 알림", contentText, "확인", "취소", null);
-
+                var newPopupData = new SystemConfirmPopupData("시스템 알림", "MSG_ALERT_EQUIP_COMMAND_SKILL", "확인", "취소");
                 SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
-
                 return false;
             }
         }

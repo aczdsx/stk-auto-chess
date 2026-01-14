@@ -24,8 +24,9 @@ namespace CookApps.AutoBattler
         private List<CommanderSkillSlot> _commanderSkillSlotList = new List<CommanderSkillSlot>();
         private int _index = 0;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
         }
 

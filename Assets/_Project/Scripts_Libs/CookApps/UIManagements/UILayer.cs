@@ -184,7 +184,12 @@ namespace CookApps.TeamBattle.UIManagements
         {
             return new UILayerExitTask(this);
         }
-        
+
+        public UILayerExitTask<T> WaitForExit<T>()
+        {
+            return new UILayerExitTask<T>(this);
+        }
+
         protected virtual void CloseThisUILayer()
         {
             SceneUILayerManager.Instance.PopUILayer(this);

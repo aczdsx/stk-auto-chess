@@ -41,7 +41,7 @@ namespace CookApps.AutoBattler
             {
                 do
                 {
-                    json = await NetManager.Instance.Spec.GetSpecDataAsync(SpecType.Game, serverSpecVersion);
+                    json = await NetManager.Instance.Spec.GetSpecJsonAsync(SpecType.Game, serverSpecVersion);
                 } while (string.IsNullOrEmpty(json));
 
                 localData.Save(json, "SpecData");
@@ -52,7 +52,7 @@ namespace CookApps.AutoBattler
                 {
                     do
                     {
-                        json = await NetManager.Instance.Spec.GetSpecDataAsync(SpecType.Game, serverSpecVersion);
+                        json = await NetManager.Instance.Spec.GetSpecJsonAsync(SpecType.Game, serverSpecVersion);
                     } while (string.IsNullOrEmpty(json));
 
                     localData.Save(json, "SpecData");
@@ -73,7 +73,7 @@ namespace CookApps.AutoBattler
         }
 
         // SpecData Dictionary Cache Data
-        private Dictionary<string, Language> languageDic = new();                                  // key : token_key, value : language data
+        // languageDic 제거됨 - Unity Localization으로 대체 (LocalizationLoader 사용)
         private Dictionary<int, List<RewardItem>> chestDic = new();                                // key : chest_id, value : chest list
         private Dictionary<int, List<ChapterInfo>> chapterDic = new();                             // key : chapter_id, value : chapter list
         private Dictionary<DifficultyType, List<ChapterInfo>> chapterDifficultDic = new();         // key : DifficultyType, value : chapter list
@@ -99,16 +99,7 @@ namespace CookApps.AutoBattler
         private void CustomizeSpecData()
         {
             # region SpecData Dictionary Cache
-            // Language
-            languageDic.Clear();
-            for (int i = 0; i < Language.All.Count; i++)
-            {
-                var language = Language.All[i];
-                if (!languageDic.ContainsKey(language.token_key))
-                {
-                    languageDic.Add(language.token_key, language);
-                }
-            }
+            // Language - Unity Localization으로 대체됨 (LocalizationLoader 사용)
 
             // DialogueLanguage
             dialogueLanguageDic.Clear();
@@ -394,25 +385,22 @@ namespace CookApps.AutoBattler
             isItemTableKeyMapInitialized = true;
         }
 
-        public string GetLanguageText(string tokenKey, LanguageType targetLanguageType)
+        /// <summary>
+        /// [Deprecated] Unity Localization으로 대체됨
+        /// 기존 호환성을 위해 LanguageManager로 위임
+        /// </summary>
+        public string GetDefaultText(string tokenKey, LanguageType targetLanguageType)
         {
-            if (languageDic.TryGetValue(tokenKey, out var languageData))
-            {
-                switch (targetLanguageType)
-                {
-                    case LanguageType.KR:
-                        return languageData.language_kr;
-                    case LanguageType.EN:
-                        return languageData.language_en;
-                }
-            }
-
-            return string.Empty;
+            return LanguageManager.Instance.GetDefaultText(tokenKey);
         }
 
+        /// <summary>
+        /// [Deprecated] Unity Localization으로 대체됨
+        /// 기존 호환성을 위해 LanguageManager로 위임 (Dialogue 테이블 사용)
+        /// </summary>
         public string GetDialogueText(string tokenKey, LanguageType targetLanguageType)
         {
-            return GetLanguageText(tokenKey, targetLanguageType);
+            return LanguageManager.Instance.GetDialogueText(tokenKey);
         }
 
         public T GetGameConfig<T>(string key)

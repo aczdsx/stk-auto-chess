@@ -26,7 +26,7 @@ public class DialogueEndButton : ScriptableButton
     private void ShowConfirmPopup()
     {
         OnConfirmEnd();
-        var popupData = new SystemConfirmPopupData();
+        // var popupData = new SystemConfirmPopupData();
         // popupData.SetPopupData(
         //     "시스템 알림",
         //     "대화를 종료하시겠습니까?",

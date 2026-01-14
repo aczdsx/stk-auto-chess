@@ -20,22 +20,35 @@ public class FlowStateStageCombat : StateCombatBase
     public override void StateInit(object target)
     {
         characters = ListPool<CharacterController>.Get();
-        
+
         InGameSynergyManager.Instance.ClearSynergyFx();
         InGameMain.GetInGameMain().SetActiveObjectMover(false);
-        InGameMain.GetInGameMain().InitCombatStateUI(); 
+        InGameMain.GetInGameMain().InitCombatStateUI();
         InGameObjectManager.Instance.SaveStartingPlayerCharacter();
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Player);
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
 
         InGameObjectManager.Instance.InGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f);
-        
+
+        // bool isSize75 = InGameManager.Instance.SpecStage.chapter_id == 1 || InGameManager.Instance.SpecStage.chapter_id == 2; // [TODO] 나중에 데이터로 
+        // if (isSize75)
+        //     ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(6.0f, new Vector3(0, 3.0f, -10), 1.0f).Forget();
+        // else
+        //     ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.0f, new Vector3(0, 2.5f, -10), 1.0f).Forget();
+
         bool isSize75 = InGameManager.Instance.SpecStage.chapter_id == 1 || InGameManager.Instance.SpecStage.chapter_id == 2; // [TODO] 나중에 데이터로 
         if (isSize75)
-            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(6.0f, new Vector3(0, 3.0f, -10), 1.0f).Forget();
+        {
+            // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.5f, new Vector3(0, 2.0f, -10), 1.0f).Forget();
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(6.0f, new Vector3(-15.0f, 10.0f, -12f), 1.0f).Forget();
+        }
         else
-            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.0f, new Vector3(0, 2.5f, -10), 1.0f).Forget();
+        {
 
+            // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(6.0f, new Vector3(-12.0f, 10.0f, -12f), 1.0f).Forget();
+
+        }
         InGameObjectManager.Instance.ClearTargetLine();
     }
 
@@ -43,7 +56,7 @@ public class FlowStateStageCombat : StateCombatBase
     {
         // 전투 시작 전까지 아이템이 부여되지 않은 아이템들의 콜백 호출
         InGameSynergyManager.Instance.CheckAndHandleNotAppliedItemsBeforeCombat();
-        
+
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
@@ -55,7 +68,7 @@ public class FlowStateStageCombat : StateCombatBase
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
         {
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
-            var effectCodes =character.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(
+            var effectCodes = character.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(
                 EffectCodeInheritFlag.UseOnCombatStart);
             EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
         }
@@ -132,8 +145,8 @@ public class FlowStateStageCombat : StateCombatBase
             _isClearStage = ServerDataManager.Instance.Battle.IsStageCleared((uint)InGameManager.Instance.SpecStage.stage_id);
             _isEndCombat = true;
             _isWin = true;
-            InGameManager.Instance.AppEventResult = (_isClearStage) ? "clear" : "pass"; 
-            InGameManager.Instance.AppEventReason =  (_isClearStage) ? "clear" : "pass"; 
+            InGameManager.Instance.AppEventResult = (_isClearStage) ? "clear" : "pass";
+            InGameManager.Instance.AppEventReason = (_isClearStage) ? "clear" : "pass";
         }
 
         if (InGameMain.GetInGameMain().InGameTime <= 0)
@@ -176,11 +189,11 @@ public class FlowStateStageCombat : StateCombatBase
             if (isUsePopup)
                 SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardIncreasedPopup>().Forget();
         }
-        
+
         InGameMainFlowManager.Instance.SetPlaySpeed(0.4f);
         await UniTask.Delay(1500);
         InGameMainFlowManager.Instance.SetInGameSpeed(false);
-        
+
         if (isWin)
         {
             InGameMainFlowManager.Instance.AddNextState<FlowStateStageClear>();

@@ -58,7 +58,7 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.OnUITransitionEvent -= OnUITransitionEvent;
         }
 
-        private void OnUITransitionEvent(UILayerTransition transaction, string uiKey, UILayer ui)
+        private void OnUITransitionEvent(UILayerTransition transaction, string uiKey, UILayer ui, object param)
         {
             if (transaction == UILayerTransition.Exiting && ui == targetUI)
             {

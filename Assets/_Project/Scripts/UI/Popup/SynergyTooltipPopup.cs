@@ -55,10 +55,10 @@ namespace CookApps.AutoBattler
             //     _synergyUI.SetSynergyUI(baseSynergyData.synergy_type);
             // }
             //
-            // string synergyName = LanguageManager.Instance.GetLanguageText(baseSynergyData.name_token);
+            // string synergyName = LanguageManager.Instance.GetDefaultText(baseSynergyData.name_token);
             // _synergyNameText.text = synergyName;
-            // _synergyNameTitleText.text = string.Format(LanguageManager.Instance.GetLanguageText("SYNERGY_PLACE_EFFECT"), synergyName);
-            // _synergyDescText.text = LanguageManager.Instance.GetLanguageText(baseSynergyData.desc_token_1);
+            // _synergyNameTitleText.text = string.Format(LanguageManager.Instance.GetDefaultText("SYNERGY_PLACE_EFFECT"), synergyName);
+            // _synergyDescText.text = LanguageManager.Instance.GetDefaultText(baseSynergyData.desc_token_1);
             //
             // for (int i = 0; i < _synergyEffectList.Count; i++)
             // {
@@ -66,7 +66,7 @@ namespace CookApps.AutoBattler
             //     _synergyEffectList[i].gameObject.SetActive(isActive);
             //
             //     if (!isActive) continue;
-            //     string text = LanguageManager.Instance.GetLanguageText(_synergyList[i].desc_token_2);
+            //     string text = LanguageManager.Instance.GetDefaultText(_synergyList[i].desc_token_2);
             //     float statValue = _synergyList[i].skill_value_type == SkillValueType.PERCENT ? _synergyList[i].stat_value * 100f : _synergyList[i].stat_value;
             //
             //     _synergyEffectList[i].text = string.Format(text, _synergyList[i].min_count, statValue);

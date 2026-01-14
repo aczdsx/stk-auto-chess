@@ -45,7 +45,7 @@ namespace CookApps.AutoBattler
             if (_titleText == null) return;
             if (string.IsNullOrWhiteSpace(text)) return;
             
-            _titleText.text = LanguageManager.Instance.GetLanguageText(text);
+            _titleText.text = LanguageManager.Instance.GetDefaultText(text);
         }
 
         private void SetRewardSlotList()

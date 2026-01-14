@@ -98,6 +98,10 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
                    Mathf.Approximately(_mainCamera.transform.position.y, targetPosition.y);
         });
     }
+    public void SetForceCameraRotation(Vector3 targetRotation)
+    {
+        _mainCamera.transform.rotation = Quaternion.Euler(targetRotation);
+    }
 
     private async UniTaskVoid Shake(float duration, float magnitude, CancellationToken cancellationToken)
     {

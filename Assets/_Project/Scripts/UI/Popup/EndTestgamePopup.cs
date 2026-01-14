@@ -32,10 +32,10 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            _titleText.text = LanguageManager.Instance.GetLanguageText("END_TEST_GAME_SURVEY_TITLE");
-            _descText.text = LanguageManager.Instance.GetLanguageText("END_TEST_GAME_SURVEY_DESC");
+            _titleText.text = LanguageManager.Instance.GetDefaultText("END_TEST_GAME_SURVEY_TITLE");
+            _descText.text = LanguageManager.Instance.GetDefaultText("END_TEST_GAME_SURVEY_DESC");
 
-            if (LanguageManager.Instance.CurrentLanguageType == LanguageType.KR)
+            if (LanguageManager.Instance.CurrentLanguageType == SystemLanguage.Korean)
             {
                 _surveyURL = SpecDataManager.Instance.GetGameConfig<string>("survey_link_url");
             }

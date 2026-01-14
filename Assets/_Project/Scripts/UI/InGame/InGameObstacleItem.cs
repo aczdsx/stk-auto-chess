@@ -47,7 +47,7 @@ public class InGameObstacleItem : MonoBehaviour
         bool isExsist = _obstacleData != null;
 
         // 임시처리
-        _nameText.text = LanguageManager.Instance.GetLanguageText("OBSTACLE_COMMON_WALL");
+        _nameText.text = LanguageManager.Instance.GetDefaultText("OBSTACLE_COMMON_WALL");
 
         _body.SetActive(isExsist);
         _emptySlotObj.SetActive(!isExsist);

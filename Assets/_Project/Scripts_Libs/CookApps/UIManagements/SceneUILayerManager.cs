@@ -42,7 +42,7 @@ namespace CookApps.TeamBattle.UIManagements
         private Canvas transitionNodeCanvas;
         public Transform TransitionNode => transitionNode;
 
-        public static event Action<UILayerTransition, string, UILayer> OnUITransitionEvent;
+        public static event Action<UILayerTransition, string, UILayer, object> OnUITransitionEvent;
         public static event Action<string> OnSceneUnloadedEvent;
         public static event Action<string> OnSceneLoadedEvent;
 
@@ -313,7 +313,7 @@ namespace CookApps.TeamBattle.UIManagements
             uiLayerStackData.Layer.CachedGo.SetActive(true);
             uiLayerStackData.Layer.OnPreEnter(data);
             uiLayerStackData.State = UILayerState.Entering;
-            OnUITransitionEvent?.Invoke(UILayerTransition.Entering, uiLayerStackData.Key, uiLayerStackData.Layer);
+            OnUITransitionEvent?.Invoke(UILayerTransition.Entering, uiLayerStackData.Key, uiLayerStackData.Layer, data);
 
             // managing z order
             isDimLayerOn = false;
@@ -380,7 +380,7 @@ namespace CookApps.TeamBattle.UIManagements
 
             uiLayerStacks[index].State = UILayerState.Entered;
             ui.OnPostEnter();
-            OnUITransitionEvent?.Invoke(UILayerTransition.EnterFinished, uiLayerStacks[index].Key, uiLayerStacks[index].Layer);
+            OnUITransitionEvent?.Invoke(UILayerTransition.EnterFinished, uiLayerStacks[index].Key, uiLayerStacks[index].Layer, null);
 
             if (ui.UILayerType != UILayerType.Cover)
             {
@@ -471,10 +471,10 @@ namespace CookApps.TeamBattle.UIManagements
                     uiLayerStacks[i].Layer.OnPreExit();
                 }
 
-                OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerStacks[i].Key, uiLayerStacks[i].Layer);
+                OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerStacks[i].Key, uiLayerStacks[i].Layer, null);
                 uiLayerStacks[i].State = UILayerState.Exiting;
                 uiLayerStacks[i].Layer.OnPostExit();
-                OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayerStacks[i].Key, uiLayerStacks[i].Layer);
+                OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayerStacks[i].Key, uiLayerStacks[i].Layer, null);
                 PoolingUILayer(uiLayerStacks[i].Layer);
             }
 
@@ -492,7 +492,7 @@ namespace CookApps.TeamBattle.UIManagements
             // z order 정렬
             uiLayerStacks[index].Layer.OnPreExit();
             uiLayerStacks[index].State = UILayerState.Exiting;
-            OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerStacks[index].Key, uiLayerStacks[index].Layer);
+            OnUITransitionEvent?.Invoke(UILayerTransition.Exiting, uiLayerStacks[index].Key, uiLayerStacks[index].Layer, null);
             UILayer uiLayer = uiLayerStacks[index].Layer;
             Action<object> callback = uiLayerStacks[index].CloseCallback;
             uiLayerStacks.RemoveAt(index);
@@ -503,7 +503,7 @@ namespace CookApps.TeamBattle.UIManagements
                 PoolingUILayer(ui);
 
                 callback?.Invoke(dataToCloseCallback);
-                OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayer.Key, uiLayer);
+                OnUITransitionEvent?.Invoke(UILayerTransition.ExitFinished, uiLayer.Key, uiLayer, dataToCloseCallback);
             });
 
             CoverState coverState = uiLayer.UILayerType == UILayerType.Cover ? CoverState.Check : CoverState.NoNeedToCheck;

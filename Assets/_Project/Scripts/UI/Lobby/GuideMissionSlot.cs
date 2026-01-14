@@ -96,8 +96,8 @@ namespace CookApps.AutoBattler
         {
             if (_specGuideMissionData == null) return;
 
-            _missionTitleText.text = LanguageManager.Instance.GetLanguageText(_specGuideMissionData.name_token);
-            _missionDescText.text = LanguageManager.Instance.GetLanguageText(_specGuideMissionData.desc_token);
+            _missionTitleText.text = LanguageManager.Instance.GetDefaultText(_specGuideMissionData.name_token);
+            _missionDescText.text = LanguageManager.Instance.GetDefaultText(_specGuideMissionData.desc_token);
 
             SetGuideMissionRewardImage();
             _missionRewardAmountText.text = $"x{_specGuideMissionData.item_count}";

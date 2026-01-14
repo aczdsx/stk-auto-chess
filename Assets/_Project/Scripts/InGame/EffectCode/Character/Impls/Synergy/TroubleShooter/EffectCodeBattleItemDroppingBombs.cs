@@ -65,7 +65,7 @@ namespace CookApps.BattleSystem
         private void ShootJetPlane()
         {
             //비행기 출발
-            var jetPlaneVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.TroubleShooterJet, JetPlanePosition);
+            var jetPlaneVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_jet_01, JetPlanePosition);
             if (jetPlaneVfx is InGameVfxWithAnimation)
             {
                 var animatorVfx = jetPlaneVfx as InGameVfxWithAnimation;

@@ -4,7 +4,9 @@
 // 이진호(jhlee8@cookapps.com)
 // </auto-generated>
 
+using System.Collections.Generic;
 using CookApps.SpecData.Hive.Generator;
+using CookApps.SpecData.Hive.MsgPack;
 
 namespace CookApps.AutoBattler
 {
@@ -14,6 +16,7 @@ namespace CookApps.AutoBattler
     {
         /// 아이디
         [GeneratorId(nameof(ItemId), typeof(uint))]
+        [MessagePack.MessagePackFormatter(typeof(UintFormatter))]
         public uint ItemId;
         /// 카테고리
         public string Category;
@@ -24,6 +27,7 @@ namespace CookApps.AutoBattler
         /// 유니크 여부
         public string IsUnique;
         /// 초기지급 갯수
+        [MessagePack.MessagePackFormatter(typeof(UintArrayFormatter))]
         public uint[] InitCount = global::System.Array.Empty<uint>();
         /// 초기지급 메타데이터(개발자용)
         public string[] InitMetadata = global::System.Array.Empty<string>();
@@ -40,6 +44,7 @@ namespace CookApps.AutoBattler
         /// 상품 이름
         public string Name;
         /// 인앱결제
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool IsCashCheckRequired;
         /// 스토어 상품 id
         [GeneratorIdToData(nameof(ProductId), typeof(ServerPriceTemplate))]
@@ -61,6 +66,7 @@ namespace CookApps.AutoBattler
         [GeneratorId(nameof(Id), typeof(string))]
         public string Id;
         /// 가격 USD
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float Price;
     }
 
@@ -81,8 +87,10 @@ namespace CookApps.AutoBattler
         /// 가챠 횟수
         public string GachaCount;
         /// 소모 목록
+        [MessagePack.MessagePackFormatter(typeof(UintFormatter))]
         public uint PriceItemId;
         /// 소모 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int PriceCount;
         /// 가챠 기간 타입
         public string PeriodType;
@@ -98,14 +106,18 @@ namespace CookApps.AutoBattler
     public partial class ServerGachaList
     {
         [GeneratorId(nameof(index), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int index;
         /// 가챠 키 아이디
         public string GachaGroupId;
         /// 보상 아이템명
+        [MessagePack.MessagePackFormatter(typeof(UintFormatter))]
         public uint RewardItem;
         /// 보상 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int RewardCount;
         /// 확률(만분)
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int Weight;
     }
 
@@ -114,18 +126,24 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 가챠 그룹 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int gacha_group_id;
         /// 가챠 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int gacha_id;
         /// 가챠 타입
         public global::CookApps.AutoBattler.GachaType gacha_type;
         /// 가챠 카운트
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int gacha_count;
         /// 가챠 코스트 아이템 타입
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int gacha_cost_item_id;
         /// 가챠 코스트
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int gacha_cost;
         /// 가챠 기간 타입
         public global::CookApps.AutoBattler.GachaTermType gacha_term_type;
@@ -142,14 +160,19 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 가챠  그룹 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int gacha_group_id;
         /// 가챠 결과 아이템  id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int result_item_key;
         /// 가챠 결과 아이템 갯수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int result_item_count;
         /// 확률
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int weight;
     }
 
@@ -158,12 +181,16 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 가챠 누적 횟수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int gacha_acc_count;
         /// 보상 세부 key
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 보상 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_count;
     }
 
@@ -175,8 +202,10 @@ namespace CookApps.AutoBattler
         public string Id;
         /// 아이템 아이디
         [GeneratorIdToData(nameof(ItemId), typeof(ServerItem))]
+        [MessagePack.MessagePackFormatter(typeof(UintFormatter))]
         public uint ItemId;
         /// 개수
+        [MessagePack.MessagePackFormatter(typeof(UintFormatter))]
         public uint ItemCount;
     }
 
@@ -188,8 +217,10 @@ namespace CookApps.AutoBattler
         public string Id;
         /// 아이템 아이디
         [GeneratorIdToData(nameof(ItemId), typeof(ServerItem))]
+        [MessagePack.MessagePackFormatter(typeof(UintFormatter))]
         public uint ItemId;
         /// 보상 수
+        [MessagePack.MessagePackFormatter(typeof(UintFormatter))]
         public uint ItemCount;
     }
 
@@ -198,20 +229,28 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 계정 레벨
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int lv;
         /// 시작 경험치
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int exp_start;
         /// 마지막 경험치
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int exp_last;
         /// 레벨 당 필요 경험치
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int exp_need;
         /// 행동력 보유 가능 최대량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int ap_max;
         /// 리워드 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int reward_id;
         /// 캐릭터 배치 가능 수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int squad_count;
     }
 
@@ -220,8 +259,10 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 프리팹id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int prefab_id;
         /// 배틀 아이템 이름 토큰
         public string name_token;
@@ -238,10 +279,13 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 챕터 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int chapter_id;
         /// 보여지는 챕터 번호
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int display_number;
         /// 난이도
         public global::CookApps.AutoBattler.DifficultyType difficulty_type;
@@ -250,6 +294,7 @@ namespace CookApps.AutoBattler
         /// 챕터 세부 설명 토큰
         public string desc_token;
         /// 클리어 보상 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int reward_id;
         /// 진입 일러스트 ID
         public string clear_pack_bg_image;
@@ -262,18 +307,22 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 프리팹id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int prefab_id;
         /// 캐릭터 등급
         public global::CookApps.AutoBattler.GradeType grade_type;
         /// 전체 리스트 출력 순서
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int seq;
         /// 캐릭터 이름 토큰
         public string name_token;
         /// 캐릭터 설명 토큰
         public string desc_token;
         /// 해금 필요 조각
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int need_piece;
         /// 개체 타입
         public global::CookApps.AutoBattler.CharacterType character_type;
@@ -286,64 +335,92 @@ namespace CookApps.AutoBattler
         /// 일반 공격 AP AD 판정 유무
         public global::CookApps.AutoBattler.AtkType atk_type;
         /// 사이즈
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int size;
         /// 태생 등급
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int init_star;
         /// 최대 등급
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int max_star;
         /// 초월 성장 비율
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float inc_trancendence;
         /// 돌파 성장비율
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float inc_exceed;
         /// 체력
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int stat_hp;
         /// 공격력
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int stat_atk;
         /// 방어력
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int stat_def;
         /// 공/방/체 1레벨 당 성장율
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float inc_lv_rate;
         /// 체력, 공격력 10레벨 당 성장율
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float inc_lv_bonus_rate;
         /// 물리 저항력
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float ad_reduce;
         /// 마법 방어력
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float ap_reduce;
         /// 물리 관통력
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float stat_atk_pierce;
         /// 마법 관통력
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float stat_res_pierce;
         /// 치명률
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float crit_rate;
         /// 치명타 피해량
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float crit_power;
         /// 공격 속도
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float atk_speed;
         /// 이동 속도
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float move_speed;
         /// 공격 범위
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int atk_range;
         /// 블럭율
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float blocking_rate;
         /// 회피율
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float avoid_rate;
         /// 명중률
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float hit_rate;
         /// 힐파워
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float heal_power;
         /// 이뮨 타입
         public global::CookApps.AutoBattler.ImmuneType immune_type;
         /// 높이
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float height;
         /// 공격 범위 형태
         public global::CookApps.AutoBattler.InGameVfxNameType projectile_vfx_name_type;
         /// 일반 스킬 id
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] skill_ids = global::System.Array.Empty<int>();
         /// 전용 장비 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int equipment_id;
         /// 패시브 스킬 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int passive_skill_id;
         /// 가챠 확률
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float weight;
     }
 
@@ -352,10 +429,12 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 기믹 id
         public global::CookApps.AutoBattler.EffectCodeNameType chapter_rule_effect_code_type;
         /// #이펙트 코드 id
+        [MessagePack.MessagePackFormatter(typeof(LongFormatter))]
         public long effect_code_id;
         /// 챕터 룰 이름
         public string name_token;
@@ -368,26 +447,37 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 캐릭터 레벨
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int level;
         /// 돌파 여부
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool IsExceed;
         /// 기본 레벨업 필요 아이템
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int base_levelup_item_id;
         /// 경험치 필요량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int base_levelup_item_count;
         /// 경험치 아이템 누적 필요량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int base_levelup_item_sum;
         /// 골드 필요량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int need_gold;
         /// 골드 누적 필요량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int need_gold_sum;
         /// 2차 레벨업 필요 아이템
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int sec_levelup_item_id;
         /// 2차 재화 필요량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int sec_levelup_item_count;
         /// 2차 재화 누적 필요량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int sec_levelup_item_sum;
     }
 
@@ -396,14 +486,18 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 캐릭터 등급
         public global::CookApps.AutoBattler.GradeType grade_type;
         /// 태생 별 개수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int star;
         /// 조각 필요량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int piece;
         /// 최대 레벨
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int max_level;
     }
 
@@ -412,8 +506,10 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 유닛 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int prefab_id;
         /// #캐릭터 이름
         public string character_name;
@@ -432,12 +528,14 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 이뮨 타입
         public global::CookApps.AutoBattler.ImmuneType immune_type;
         /// 이펙트 코드
         public global::CookApps.AutoBattler.EffectCodeNameType effect_code;
         /// 이뮨 적용 여부, 트루인 경우 안통한다
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool immune_application;
     }
 
@@ -446,6 +544,7 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 키 값
         public string config_key;
@@ -460,16 +559,20 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 대화 발생 이벤트 타입
         public global::CookApps.AutoBattler.DialogueEventType dialogue_event_type;
         /// 세부 타겟
         public string sub_key_value;
         /// 그룹  ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int dialouge_group_id;
         /// 순서
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int order;
         /// 발화자 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int prefab_id;
         /// 발화자 이름 토큰
         public string character_name_token;
@@ -484,10 +587,13 @@ namespace CookApps.AutoBattler
         /// 다이얼로그 연출
         public global::CookApps.AutoBattler.DialogueAnimationType dialogue_animation_type;
         /// 이미지 크기
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float bg_image_scale;
         /// 대화 종료 시 reward_id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int reward_id;
         /// 대화 종료 시 imageinfo_id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int image_info_id;
     }
 
@@ -496,8 +602,10 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(Index), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int Index;
         /// 시너지 그룹 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int synergy_group_id;
         /// 시너지 타입
         public global::CookApps.AutoBattler.SynergyType synergy_type;
@@ -508,10 +616,13 @@ namespace CookApps.AutoBattler
         /// 시너지 효과토큰
         public string desc_token_2;
         /// 시너지 단계
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int grade;
         /// 대상 인원
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int min_int;
         /// 최대 인원
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int max_int;
         /// 이펙트 트리거
         public string effect_triger;
@@ -520,10 +631,12 @@ namespace CookApps.AutoBattler
         /// 효과 타입
         public global::CookApps.AutoBattler.SkillValueType effect_value_type01;
         /// 스킬밸류
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int effect_stat_value01;
         /// 효과 타입
         public global::CookApps.AutoBattler.SkillValueType effect_value_type02;
         /// 밸류
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int effect_stat_value02;
     }
 
@@ -532,8 +645,10 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(Index), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int Index;
         /// 시너지 그룹 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int synergy_group_id;
         /// 시너지 타입
         public global::CookApps.AutoBattler.SynergyType synergy_type;
@@ -544,10 +659,13 @@ namespace CookApps.AutoBattler
         /// 시너지 효과토큰
         public string desc_token_2;
         /// 시너지 단계
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int grade;
         /// 대상 인원
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int min_int;
         /// 최대 인원
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int max_int;
         /// 이펙트 트리거
         public string effect_triger;
@@ -556,14 +674,17 @@ namespace CookApps.AutoBattler
         /// 효과 타입
         public global::CookApps.AutoBattler.SkillValueType effect_value_type;
         /// 스킬밸류
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int effect_stat_value;
         /// 효과 타입2
         public global::CookApps.AutoBattler.SkillValueType effect_value_type_2;
         /// 스킬밸류2
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int effect_stat_value_2;
         /// 효과 타입3
         public global::CookApps.AutoBattler.SkillValueType effect_value_type_3;
         /// 스킬밸류3
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int effect_stat_value_3;
     }
 
@@ -572,6 +693,7 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(index), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int index;
         /// 패시브 id
         public global::CookApps.AutoBattler.EffectCodeNameType passive_skill_type;
@@ -580,16 +702,19 @@ namespace CookApps.AutoBattler
         /// 패시브 설명 토큰
         public string jobs_desc_token;
         /// 단계
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int lv;
         /// 스킬 이펙트 네임
         public global::CookApps.AutoBattler.InGameVfxNameType[] jobs_skill_vfxs = global::System.Array.Empty<global::CookApps.AutoBattler.InGameVfxNameType>();
         /// 계수 타입
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 패시브 계수
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float passive_rate;
         /// 계수 타입_2
         public global::CookApps.AutoBattler.SkillValueType skill_value_type_2;
         /// 패시브 계수_2
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float passive_rate_2;
     }
 
@@ -598,6 +723,7 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 포지션 타입
         public global::CookApps.AutoBattler.CharacterPositionType position_type;
@@ -610,18 +736,24 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(index), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int index;
         /// 패시브 스킬 Group ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int passive_group_id;
         /// 패시브 스킬id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int passive_skill_id;
         /// 전용장비ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int equipment_id;
         /// 필요 별의(초월) 갯수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int need_trancendence;
         /// 패시브 스킬 타입
         public global::CookApps.AutoBattler.SkillType passive_skill_type;
         /// 캐릭터 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int prefab_id;
         /// 패시브 이름 토큰
         public string passive_name_token;
@@ -632,6 +764,7 @@ namespace CookApps.AutoBattler
         /// 계수 타입
         public global::CookApps.AutoBattler.SkillValueType passive_value_type;
         /// 패시브 계수
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float base_rate;
     }
 
@@ -642,16 +775,21 @@ namespace CookApps.AutoBattler
 /// 캐릭터 스킬 1~10000
 ///몬스터 스킬 20000~40000
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 스킬 그룹 Id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int skill_group_id;
         /// 스킬 타입
         public global::CookApps.AutoBattler.SkillType skill_type;
         /// 캐릭터 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int prefab_id;
         /// 전용 무기 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int weapon_id;
         /// 필요한 전용무기 별수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int need_star;
         /// #스킬 사용자
         public string character_name;
@@ -666,6 +804,7 @@ namespace CookApps.AutoBattler
         /// #변수 의미
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 스킬 계수
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float base_rate;
     }
 
@@ -674,12 +813,16 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 지휘자 스킬 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int commander_skill_id;
         /// 개방 챕터 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int open_key_chapter_id;
         /// 레벨
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int level;
         /// 변주 등급
         public global::CookApps.AutoBattler.PromotionLevelType promotion_level_type;
@@ -692,20 +835,25 @@ namespace CookApps.AutoBattler
         /// 적용 그리드
         public global::CookApps.AutoBattler.CommanderRangeShapeType commander_range_shape_type;
         /// 적용 그리드 갯수 혹은 범위
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int commander_range_size;
         /// 쿨타임
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float cool_time;
         /// 스킬 벨류 타입
         public global::CookApps.AutoBattler.SkillValueType skill_value_type;
         /// 실제 계수
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float base_rate;
         /// 스킬 벨류 타입_2
         public global::CookApps.AutoBattler.SkillValueType skill_value_type_2;
         /// 실제 계수_2
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float base_rate_2;
         /// 스킬 벨류 타입_3
         public global::CookApps.AutoBattler.SkillValueType skill_value_type_3;
         /// 실제 계수_3
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float base_rate_3;
     }
 
@@ -714,10 +862,13 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 프리팹id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int prefab_id;
         /// 전체 리스트 출력 순서
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int seq;
         /// 캐릭터 이름 토큰
         public string name_token;
@@ -732,44 +883,64 @@ namespace CookApps.AutoBattler
         /// 일반 공격 AP AD 판정 유무
         public global::CookApps.AutoBattler.AtkType atk_type;
         /// 사이즈
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int size;
         /// 체력
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int stat_hp;
         /// 공격력
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int stat_atk;
         /// 방어력
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int stat_def;
         /// 체력, 공격력, 방어력 1레벨 당 성장율
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float inc_lv_rate;
         /// 체력, 공격력, 방어력 10레벨 당 성장율
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float inc_lv_bonus_rate;
         /// 물리 저항력
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int ad_reduce;
         /// 마법 방어력
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int ap_reduce;
         /// 물리 관통력
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float stat_atk_pierce;
         /// 마법 관통력
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float stat_res_pierce;
         /// 치명률
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float crit_rate;
         /// 치명타 피해량
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float crit_power;
         /// 공격 속도
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float atk_speed;
         /// 이동 속도
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float move_speed;
         /// 공격 범위
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int atk_range;
         /// 블럭율
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float blocking_rate;
         /// 회피율
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float avoid_rate;
         /// 명중률
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float hit_rate;
         /// 힐파워
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float heal_power;
         /// 높이
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float height;
         /// 이뮨 타입 
 /// 1: NORMAL 
@@ -781,8 +952,10 @@ namespace CookApps.AutoBattler
         /// 공격 범위 형태
         public global::CookApps.AutoBattler.InGameVfxNameType projectile_vfx_name_type;
         /// 일반 스킬 id
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] skill_ids = global::System.Array.Empty<int>();
         /// 패시브 스킬 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int passive_skill_id;
     }
 
@@ -791,45 +964,61 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 맵타입
 /// 1. 일반 스테이지
 /// 2. 웨이브 형식
 /// 3. Boss전
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int map_type;
         /// 맵 아이디 그룹
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int map_id_group;
         /// 배경
         public string tile_set_token;
         /// 순서
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int order;
         /// 행의 크기
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int cols_x;
         /// 열의 크기
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int rows_y;
         /// 플레이어가 배치 가능한 행의 범위
 /// 제일 아래부터 계산
 /// ex) 4 == 0열 부터 3열 까지
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int alliance_tile_cols;
         /// 중립 타일의 행의 범위
 /// 배치타일 부터 계산
 /// ex) 1 == 플레이어 배치타일 +1
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int neutral_tile_cols;
         /// 장애물 (벽) 위치 리스트
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] obstacle_grid_id = global::System.Array.Empty<int>();
         /// 장애물 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int obstacle_id;
         /// 트랩 위치 리스트
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] trap_grid_id = global::System.Array.Empty<int>();
         /// 트랩 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int trap_id;
         /// 버프존 위치 리스트
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] buffzone_grid_id = global::System.Array.Empty<int>();
         /// 버프존 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int buffzone_id;
         /// 디버프존 위치 리스트
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] debuffzone_grid_id = global::System.Array.Empty<int>();
         /// 디버프존 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int debuffzone_id;
     }
 
@@ -838,6 +1027,7 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 나니노벨 네임
         public string naninovel_name;
@@ -846,6 +1036,7 @@ namespace CookApps.AutoBattler
         /// 나니노벨 키
         public string trigger_key;
         /// 가이드 미션 ID(state)
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int guide_mission_id;
     }
 
@@ -854,34 +1045,45 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 던전 타입
         public global::CookApps.AutoBattler.DungeonType dungeon_type;
         /// 던전 맵
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int dungeon_map_id;
         /// 던전 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int dungeon_id;
         /// 던전 순서
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int order;
         /// 공략 desc 토큰
         public string guide_desc_token;
         /// 스테이지 타입
         public global::CookApps.AutoBattler.TrialType trial_type;
         /// 스탭
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int step;
         /// 등급업
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool is_grade_up;
         /// 등급
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int grade;
         /// 별 입장 조건
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int need_star;
         /// 장애물
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] obstacle_grid_id = global::System.Array.Empty<int>();
         /// 챕터 룰
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] chapter_rule_tile = global::System.Array.Empty<int>();
         /// 이펙트 코드
         public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
         /// 이텍트 코드 스텟
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float effect_code_stat;
     }
 
@@ -890,20 +1092,26 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 던전 타입
         public global::CookApps.AutoBattler.DungeonType dungeon_type;
         /// 던전 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int dungeon_id;
         /// 좌표값 (x,y)
         public string coordinate;
         /// 몬스터 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int monster_id;
         /// 몬스터 레벨
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int monster_lv;
         /// 공격력 멀티플
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float multiple_atk;
         /// 체력 멀티플
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float multiple_hp;
     }
 
@@ -912,14 +1120,18 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 던전 타입
         public global::CookApps.AutoBattler.DungeonType dungeon_type;
         /// 던전 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int dungeon_id;
         /// 보상 키 값
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 보상 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_count;
     }
 
@@ -928,15 +1140,21 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int lv;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int benefit_group;
         public string benefit_desc_token;
         public global::CookApps.AutoBattler.BenefitType benefit_type;
         public string benefit_title_token;
         /// 건물 유니크 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int build_id;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int before_key;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int benefit_key;
     }
 
@@ -945,8 +1163,10 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(index), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int index;
         /// 건물 유니크 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int build_id;
         /// 건물 프리펩
         public string build_prefab;
@@ -957,16 +1177,22 @@ namespace CookApps.AutoBattler
         /// 건물 설명
         public string buld_desc_token;
         /// 건물 레벨
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int build_lv;
         /// 설치 필요 시간(초)
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int build_time;
         /// 슬롯 고유 Num
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int slot_index;
         /// 추가 해금 조건(우선 가이드미션)
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int add_unlock_condition;
         /// 필요 아이템 키
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 필요 아이템 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_INT;
     }
 
@@ -975,20 +1201,26 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(index), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int index;
         /// 업그레이드 타입
         public global::CookApps.AutoBattler.DimensionType dimension_type;
         /// 업그레이드 타입
         public global::CookApps.AutoBattler.CoreResearchType core_research_type;
         /// 업그레이드 레벨
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int lv;
         /// 업그레이드 그룹
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int upgrade_group_id;
         /// 업그레이드 요구 레벨
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int need_condition;
         /// 필요 아이템 키
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 필요 아이템 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_INT;
         /// 강화효과 타이틀 토큰
         public string upgrade_name_token;
@@ -1001,10 +1233,12 @@ namespace CookApps.AutoBattler
         /// 효과 타입
         public global::CookApps.AutoBattler.SkillValueType effect_value_type01;
         /// 스킬밸류
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int effect_stat_value01;
         /// 효과 타입
         public global::CookApps.AutoBattler.SkillValueType effect_value_type02;
         /// 밸류
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int effect_stat_value02;
     }
 
@@ -1013,16 +1247,22 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(index), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int index;
         /// 시뮬레이션 레벨
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int simul_lv;
         /// 요구 스타량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int need_star;
         /// 누적 스타량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int acc_star;
         /// 최대 보관시간(초)
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int max_storage_time;
         /// 최대 보관 시간 기준 획득량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int max_storage_amount;
     }
 
@@ -1031,32 +1271,46 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(index), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int index;
         /// 단조 레벨 그룹
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int box_lv;
         /// 필요 아이템 키
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 필요 아이템 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_INT;
         /// 커먼 확률 가중치
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float common_weight;
         /// 언커먼 확률 가중치
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float uncommon_weight;
         /// 노말 확률 가중치
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float normal_weight;
         /// 매직 확률 가중치
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float magic_weight;
         /// 레어 확률 가중치
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float rare_weight;
         /// 에픽 확률 가중치
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float epic_weight;
         /// 유니크 확률 가중치
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float unique_weight;
         /// 레전더리 확률 가중치
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float legendary_weight;
         /// 고대의 확률 가중치
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float ancient_weight;
         /// 신화적인 확률 가중치
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float mythical_weight;
     }
 
@@ -1065,18 +1319,24 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(index), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int index;
         /// 가챠 등급
         public global::CookApps.AutoBattler.GradeType gacha_grade;
         /// 등급 그룹
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int grade_group;
         /// 순서
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int seq;
         /// 필요 아이템 키
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 필요 아이템 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_INT;
         /// 가중치
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int weight;
     }
 
@@ -1085,8 +1345,10 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 이벤트ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int event_id;
         /// 이벤트 타입
         public global::CookApps.AutoBattler.EventType event_type;
@@ -1111,16 +1373,22 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 이벤트ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int event_id;
         /// 이벤트 컨디션 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int event_condition_id;
         /// 필요 조건 값
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int need_count;
         /// 보상 키 값
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 보상 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_count;
     }
 
@@ -1129,6 +1397,7 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 키 값
 /// 시스템: 1~9999
@@ -1157,24 +1426,31 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 튜토리얼 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int tutorial_id;
         /// 턴
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int seq;
         /// 튜토리얼 트리거 타입
         public global::CookApps.AutoBattler.TutorialTriggerType tutorial_trigger_type;
         /// 튜토리얼 트리거 키
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int tutorial_trigger_key;
         /// 튜토리얼 액션 타입
         public global::CookApps.AutoBattler.TutorialActionType tutorial_action_type;
         /// 액션 키
         public string tutorial_action_key;
         /// 하이라이트 크기
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float hole_radius;
         /// 팝업 위치 y 값
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int popup_yPos;
         /// 화살표 위치 y 값
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int arrow_yPos;
         /// 설명 텍스트
         public string desc_key;
@@ -1185,44 +1461,62 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 스테이지 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int stage_id;
         /// 난이도
         public global::CookApps.AutoBattler.DifficultyType difficulty_type;
         /// 챕터
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int chapter_id;
         /// 스테이지 번호
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int stage_number;
         /// 다이얼로그 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int dialogue_id;
         /// 스테이지 타입
         public global::CookApps.AutoBattler.StageType stage_type;
         /// 플레이 제한 횟수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int limit_count;
         /// 행동력
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int need_ap;
         /// 클리어 보상 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int reward_id;
         /// 장애물
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] obstacle_grid_id = global::System.Array.Empty<int>();
         /// 장애물 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int obstacle_id;
         /// 부서지는 장애물
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] neutral_grid_id = global::System.Array.Empty<int>();
         /// 장애물 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int neutral_wall_id;
         /// 이펙트 코드
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int effect_code_id;
         /// 챕터 룰
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] effect_code_rule_tile = global::System.Array.Empty<int>();
         /// 이펙트 코드2
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int effect_code_id_2;
         /// 챕터 룰2
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] effect_code_rule_tile_2 = global::System.Array.Empty<int>();
         /// 이펙트 코드3
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int effect_code_id_3;
         /// 챕터 룰3
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] effect_code_rule_tile_3 = global::System.Array.Empty<int>();
     }
 
@@ -1231,22 +1525,29 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 챕터 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int chapter_id;
         /// 난이도
         public global::CookApps.AutoBattler.DifficultyType difficulty_type;
         /// 스테이지 번호
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int stage_number;
         /// 좌표값 (x,y)
         public string coordinate;
         /// 몬스터 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int monster_id;
         /// 몬스터 레벨
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int monster_lv;
         /// 공격력 멀티플
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float multiple_atk;
         /// 체력 멀티플
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float multiple_hp;
     }
 
@@ -1255,22 +1556,29 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 스테이지 난이도
         public global::CookApps.AutoBattler.DifficultyType difficulty_type;
         /// 스테이지 보상 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int reward_id;
         /// 보상 확률 유무
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool prob_type;
         /// 별 단계 구분
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int star_count;
         /// 보상 획득 빈도
         public global::CookApps.AutoBattler.FrequencyType frequency_type;
         /// 보상 키 값
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 보상 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_count;
         /// 보상 지급 확률
+        [MessagePack.MessagePackFormatter(typeof(DoubleFormatter))]
         public double rate;
     }
 
@@ -1279,20 +1587,26 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 보상 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int reward_id;
         /// 컨텐츠 메인 분류
         public global::CookApps.AutoBattler.ContentType content_type;
         /// 난이도
         public global::CookApps.AutoBattler.DifficultyType difficulty_type;
         /// 컨텐츠 추가 구분 값
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int content_key_value;
         /// 보상 타입_소분류
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int sub_value;
         /// 보상 키 값
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 보상 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_count;
     }
 
@@ -1301,8 +1615,10 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 가이드 순서
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int order;
         /// 가이드 타입
         public global::CookApps.AutoBattler.GuideMissionType guide_mission_type;
@@ -1311,14 +1627,19 @@ namespace CookApps.AutoBattler
         /// 가이드 설명 토큰
         public string desc_token;
         /// 출력 다이얼로그 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int dialogue;
         /// 타겟 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int sub_key;
         /// 필요 행위 횟수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int need_count;
         /// 보상 키 값
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 보상 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_count;
     }
 
@@ -1327,8 +1648,10 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 퀘스트ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int quest_id;
         /// 반복 기간 타입
         public global::CookApps.AutoBattler.TermType term_type;
@@ -1339,12 +1662,16 @@ namespace CookApps.AutoBattler
         /// 퀘스트 설명 토큰
         public string desc_token;
         /// 타겟 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int sub_key;
         /// 필요 행위 횟수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int need_count;
         /// 보상 키 값
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 보상 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_count;
     }
 
@@ -1353,6 +1680,7 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 이펙트 코드
         public global::CookApps.AutoBattler.EffectCodeNameType effect_code_name;
@@ -1361,10 +1689,13 @@ namespace CookApps.AutoBattler
         /// 설명
         public string desc_token;
         /// 이텍트 코드 스텟2
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float effect_code_stat_1;
         /// 이텍트 코드 스텟2
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float effect_code_stat_2;
         /// 이텍트 코드 스텟2
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float effect_code_stat_3;
     }
 
@@ -1373,10 +1704,13 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 상점 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int shop_id;
         /// 보상id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int reward_id;
         /// 메인 그룹 타입
         public global::CookApps.AutoBattler.ShopMainGroupType shop_main_group_type;
@@ -1384,7 +1718,9 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.ShopSubGroupType shop_sub_group_type;
         /// 구매 재화 타입
         public global::CookApps.AutoBattler.PriceType price_type;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int price_item_count;
         /// 판매 기간 유형
         public global::CookApps.AutoBattler.ShopTermType shop_term_type;
@@ -1395,8 +1731,10 @@ namespace CookApps.AutoBattler
         [GeneratorDateTime(nameof(end_at))]
         public string end_at;
         /// 상품 판매 유지 시간(분)
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int duration_time;
         /// 최대 구매 가능 횟수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int buy_limit_count;
     }
 
@@ -1405,16 +1743,20 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 상점 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int shop_id;
         /// 등장 타이밍 타입
         public global::CookApps.AutoBattler.ShopBannerShowType shop_banner_show_type;
         /// 등장 조건 타입
         public global::CookApps.AutoBattler.ShopBannerConditionType shop_banner_condition_type;
         /// 등장 조건 키
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int condition_key;
         /// 등장 조건 카운트
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int condition_count;
     }
 
@@ -1423,19 +1765,23 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(ID), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int ID;
         /// 오픈 컨텐츠 대분류
         public string tuto_group_id;
         /// 다이얼로그 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int dialouge_id;
         /// 다이얼로그 출력 위치
         public string dialouge_location;
         /// 다음 유니크 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int seq;
         public global::CookApps.AutoBattler.TutorialEventType event_type;
         /// 오픈 콘텐츠 타입
         public string tutorial_open_type;
         /// 오픈 대상 세부 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int open_key;
         /// 포커싱 영역
         public string focus_object_name;
@@ -1452,8 +1798,10 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 재화 아이디
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int currency_id;
         /// 클라용 아이템 구분을 위한 텍스트입니다.
         public string item_code;
@@ -1474,18 +1822,25 @@ namespace CookApps.AutoBattler
         /// 쿼런시 백그라운드
         public string item_bg;
         /// 최소 보유량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int min_stock;
         /// 최대 보유량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int max_stock;
         /// 유료 재화 여부
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool is_premium;
         /// 인벤토리 표시 유무
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool info_show;
         /// 사용 가능 유무
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool is_consumable;
         /// 합성 요구량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int merge_count;
         /// 세부 ID 특정 가능 여부
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool is_common;
     }
 
@@ -1494,8 +1849,10 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 아이템 아이디
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 클라용 아이템 구분을 위한 텍스트입니다.
         public string item_code;
@@ -1517,16 +1874,22 @@ namespace CookApps.AutoBattler
         /// 아이템 백그라운드
         public string item_bg;
         /// 최소 보유량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int min_stock;
         /// 최대 보유량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int max_stock;
         /// 인벤토리 표시 유무
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool info_show;
         /// 사용 가능 유무
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool is_consumable;
         /// 합성 요구량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int merge_count;
         /// 세부 ID 특정 가능 여부
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool is_common;
     }
 
@@ -1535,6 +1898,7 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 재화의 타입
 /// CHARACTER  9
@@ -1543,6 +1907,7 @@ namespace CookApps.AutoBattler
 /// KNIGHT_PIECE  12
         public global::CookApps.AutoBattler.MaterialType material_type;
         /// 아이템 아이디
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 아이템의 그레이드
 /// NONE = 0
@@ -1562,18 +1927,25 @@ namespace CookApps.AutoBattler
         /// 쿼런시 백그라운드
         public string currency_bg;
         /// 최소 보유량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int min_stock;
         /// 최대 보유량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int max_stock;
         /// 유료 재화 여부
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool is_premium;
         /// 인벤토리 표시 유무
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool info_show;
         /// 사용 가능 유무
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool is_consumable;
         /// 합성 요구량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int merge_count;
         /// 세부 ID 특정 가능 여부
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
         public bool is_common;
     }
 
@@ -1582,16 +1954,22 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 보상 해금 챕터
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int chapter_id;
         /// 아이템 아이디
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 기본 지급 갯수
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float min_count;
         /// 스테이지 클리어 당 방치 보상 추가량
+        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float add_count;
         /// 지급 기준 시간 (분)
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int supply_time_m;
     }
 
@@ -1600,6 +1978,7 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         public global::CookApps.AutoBattler.InGameVfxNameType vfx_name_type;
         public string addressable_path;
@@ -1610,20 +1989,26 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 보상 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int reward_id;
         /// 컨텐츠 메인 분류
         public global::CookApps.AutoBattler.ContentType content_type;
         /// 난이도
         public global::CookApps.AutoBattler.DifficultyType difficulty_type;
         /// 컨텐츠 추가 구분 값
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int content_key_value;
         /// 보상 타입_소분류
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int sub_value;
         /// 보상 키 값
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
         /// 보상 수량
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_count;
     }
 
@@ -1632,10 +2017,12 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// #origin
         public global::CookApps.AutoBattler.OpenConditionType open_condition_Type;
         /// 가이드 미션 아이디
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int guide_mission_id;
     }
 
@@ -1644,21 +2031,30 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int ranking_id;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int order;
         public global::CookApps.AutoBattler.RankingType ranking_type;
         /// 티어 진입 최소점수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int ranking_min;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int ranking_max;
         public global::CookApps.AutoBattler.PVPTierType pvp_tier_type;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int tier_order;
         public string reward_sheet;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int reward_id;
         public string icon_image;
         public string local_key;
         public string name_color;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int wall_1;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int wall_2;
     }
 
@@ -1667,10 +2063,14 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         public global::CookApps.AutoBattler.PvpRewardType pvp_reward_type;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int ranking_id;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_count;
     }
 
@@ -1679,16 +2079,21 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 랭킹 정산 방식
         public global::CookApps.AutoBattler.RankingType ranking_type;
         public string ranking_title;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int rank_range_start;
         /// 0 : 나머지 그외 모두
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int rank_range_end;
         public string reward_sheet;
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int reward_id;
         /// 1: 우편, 2: 팝업으로 직접보상
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int reward_send_type;
         public string reward_post_title;
         public string reward_post_desc;
@@ -1699,20 +2104,26 @@ namespace CookApps.AutoBattler
     {
         /// 아이디
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 계산 방식
         public global::CookApps.AutoBattler.CalcUnit calc_unit;
         /// 최소 점수 범위
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int minus_range;
         /// 최대 점수 범위
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int plus_range;
         /// 불러올 상대 수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int count;
         /// 추가 계산 방식
         public global::CookApps.AutoBattler.CalcUnit alpha_calc_unit;
         /// 맞는 상대 없을 시 키워나갈 알파값
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int alpha_range;
         /// 추가 최대 검사 횟수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int alpha_max_iteration;
     }
 
@@ -1721,6 +2132,7 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 더미 아이디 (DUMMY_숫자 : 이 포맷을 바꾸면 절대안됨!!)
         public string dummy_id;
@@ -1729,8 +2141,10 @@ namespace CookApps.AutoBattler
         /// 더미 무거운 정보 (실 전투시 사용되는 정보들. 지형지물 등)
         public string dummy_heavy_info;
         /// 더미 전투력
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int power;
         /// PVP 점수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int point;
     }
 
@@ -1739,8 +2153,10 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 인포 아이디
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int image_info_id;
         /// 제목
         public string title_token;
@@ -1753,14 +2169,92 @@ namespace CookApps.AutoBattler
     {
         /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 등급
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int grade;
         /// 캐릭터 배치 가능 인원
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int maximum_character_count;
         /// 지휘자 스킬 장착 갯수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int maximum_commander_skill_count;
         /// 시련 던전 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int dungeon_id;
+    }
+
+    [System.Reflection.Obfuscation(Exclude = false, ApplyToMembers = false)]
+    public partial class InnerDatas
+    {
+        public List<ServerItem> ServerItem = null;
+        public List<ServerShop> ServerShop = null;
+        public List<ServerPriceTemplate> ServerPriceTemplate = null;
+        public List<ServerGachaShop> ServerGachaShop = null;
+        public List<ServerGachaList> ServerGachaList = null;
+        public List<GachaInfo> GachaInfo = null;
+        public List<GachaCharacter> GachaCharacter = null;
+        public List<GachaScenario> GachaScenario = null;
+        public List<ServerShopConsume> ServerShopConsume = null;
+        public List<ServerShopReward> ServerShopReward = null;
+        public List<AccountLevelExp> AccountLevelExp = null;
+        public List<BattleItem> BattleItem = null;
+        public List<ChapterInfo> ChapterInfo = null;
+        public List<CharacterInfo> CharacterInfo = null;
+        public List<ChapterRule> ChapterRule = null;
+        public List<CharacterLevelExp> CharacterLevelExp = null;
+        public List<CharacterTranscendence> CharacterTranscendence = null;
+        public List<CharacterQuotes> CharacterQuotes = null;
+        public List<ImmuneInfo> ImmuneInfo = null;
+        public List<ConfigGame> ConfigGame = null;
+        public List<DialogueLanguage> DialogueLanguage = null;
+        public List<SynergyElemental> SynergyElemental = null;
+        public List<SynergyStarAsterism> SynergyStarAsterism = null;
+        public List<SkillJob> SkillJob = null;
+        public List<SkillJobPassive> SkillJobPassive = null;
+        public List<SkillPassive> SkillPassive = null;
+        public List<SkillActive> SkillActive = null;
+        public List<SkillCommander> SkillCommander = null;
+        public List<MonsterInfo> MonsterInfo = null;
+        public List<MapInfo> MapInfo = null;
+        public List<NaninovelData> NaninovelData = null;
+        public List<DungeonBabelInfo> DungeonBabelInfo = null;
+        public List<DungeonBabelMonster> DungeonBabelMonster = null;
+        public List<DungeonBabelReward> DungeonBabelReward = null;
+        public List<ElpisCommandCenterBenefit> ElpisCommandCenterBenefit = null;
+        public List<ElpisBuildInfo> ElpisBuildInfo = null;
+        public List<ElpisDimensionLab> ElpisDimensionLab = null;
+        public List<ElpisSimulationCenter> ElpisSimulationCenter = null;
+        public List<ElpisSupplyBox> ElpisSupplyBox = null;
+        public List<ElpisBoxGacha> ElpisBoxGacha = null;
+        public List<EventInfo> EventInfo = null;
+        public List<EventCondition> EventCondition = null;
+        public List<Language> Language = null;
+        public List<TutorialDialogue> TutorialDialogue = null;
+        public List<StageInfo> StageInfo = null;
+        public List<StageMonster> StageMonster = null;
+        public List<StageReward> StageReward = null;
+        public List<StageMilestoneReward> StageMilestoneReward = null;
+        public List<GuideMissionInfo> GuideMissionInfo = null;
+        public List<QuestInfo> QuestInfo = null;
+        public List<TileEffectCode> TileEffectCode = null;
+        public List<ShopInfo> ShopInfo = null;
+        public List<ShopBanner> ShopBanner = null;
+        public List<Tutorial> Tutorial = null;
+        public List<ItemCurrencyTable> ItemCurrencyTable = null;
+        public List<ItemConsumableTable> ItemConsumableTable = null;
+        public List<ItemMaterialTable> ItemMaterialTable = null;
+        public List<IdleReward> IdleReward = null;
+        public List<InGameVfxMap> InGameVfxMap = null;
+        public List<RewardInfo> RewardInfo = null;
+        public List<OpenCondition> OpenCondition = null;
+        public List<PVPTier> PVPTier = null;
+        public List<PvpReward> PvpReward = null;
+        public List<PVPRanking> PVPRanking = null;
+        public List<PVPConfig> PVPConfig = null;
+        public List<PVPDummy> PVPDummy = null;
+        public List<ImageInfo> ImageInfo = null;
+        public List<UserGrade> UserGrade = null;
     }
 }

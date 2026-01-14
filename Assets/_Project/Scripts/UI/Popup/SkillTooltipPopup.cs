@@ -52,8 +52,8 @@ namespace CookApps.AutoBattler
 
             _skillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSkillSprite(skillData.skill_group_id)).Forget();
 
-            _skillNameText.text = LanguageManager.Instance.GetLanguageText(skillData.skill_name_token);
-            _skillDescText.text = LanguageManager.Instance.GetLanguageText(skillData.skill_desc_token);
+            _skillNameText.text = LanguageManager.Instance.GetDefaultText(skillData.skill_name_token);
+            _skillDescText.text = LanguageManager.Instance.GetDefaultText(skillData.skill_desc_token);
 
             _skillDamageTypeObject.SetActive(skillData.atk_type != AtkType.NONE);
             _skillDamageAPTypeObject.SetActive(skillData.atk_type == AtkType.AP);
@@ -64,7 +64,7 @@ namespace CookApps.AutoBattler
             var extraSkillData = SpecDataManager.Instance.GetSkillData(skillData.skill_group_id, SkillValueType.COOL);
             if (extraSkillData != null)
             {
-                string cooltimeString = LanguageManager.Instance.GetLanguageText("SKILL_COOLTIME");
+                string cooltimeString = LanguageManager.Instance.GetDefaultText("SKILL_COOLTIME");
                 _skillCoolTimeText.text = string.Format(cooltimeString, extraSkillData.base_rate);
                 Run.NextFrame(() =>
                 {
@@ -80,8 +80,8 @@ namespace CookApps.AutoBattler
 
             _skillIconSpriteLoader.SetSprite(SpriteNameParser.GetCommanderSkillSprite(skillData.commander_skill_id)).Forget();
 
-            _skillNameText.text = LanguageManager.Instance.GetLanguageText(skillData.name_token);
-            _skillDescText.text = LanguageManager.Instance.GetLanguageText(skillData.desc_token);
+            _skillNameText.text = LanguageManager.Instance.GetDefaultText(skillData.name_token);
+            _skillDescText.text = LanguageManager.Instance.GetDefaultText(skillData.desc_token);
 
             // 커맨더 스킬은 타입 off
             _skillDamageTypeObject.SetActive(false);
@@ -89,7 +89,7 @@ namespace CookApps.AutoBattler
             var extraSkillData = SpecDataManager.Instance.GetCommanderSkillDataList(skillData.commander_skill_id)[0];
             if (extraSkillData != null)
             {
-                string cooltimeString = LanguageManager.Instance.GetLanguageText("SKILL_COOLTIME");
+                string cooltimeString = LanguageManager.Instance.GetDefaultText("SKILL_COOLTIME");
                 _skillCoolTimeText.text = string.Format(cooltimeString, extraSkillData.cool_time);
             }
         }

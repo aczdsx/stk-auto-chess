@@ -53,8 +53,9 @@ namespace CookApps.AutoBattler
         private CharacterInfo _specCharacter;
         private DungeonBabelInfo _currentSpecDungeonTrial;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _exitButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickExitButtonAsync(), AwaitOperation.Drop).AddTo(this);
         }
 
@@ -74,7 +75,7 @@ namespace CookApps.AutoBattler
             _beforeLoseObj.SetActive(!_isVictory);
             if (_isVictory)
             {
-                string successString = LanguageManager.Instance.GetLanguageText("TIER_UPGRADE_SUCCESS_MSG");
+                string successString = LanguageManager.Instance.GetDefaultText("TIER_UPGRADE_SUCCESS_MSG");
                 _victoryStageText.text =
                     StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial) + " " + successString;
 
@@ -84,7 +85,7 @@ namespace CookApps.AutoBattler
             }
             else
             {
-                string failString = LanguageManager.Instance.GetLanguageText("TIER_UPGRADE_FAIL_MSG");
+                string failString = LanguageManager.Instance.GetDefaultText("TIER_UPGRADE_FAIL_MSG");
                 _failStageText.text =
                     StringUtil.GetTrialDungeonString(InGameManager.Instance.SpecDungeonTrial) + " " + failString;
 

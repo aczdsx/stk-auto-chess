@@ -35,8 +35,8 @@ public class InGameKillLogItem : MonoBehaviour
             _animator.SetTrigger("SetKill");
         else
             _animator.SetTrigger("SetDead");
-        _killCharacterNameText.text = LanguageManager.Instance.GetLanguageText(kill.SpecCharacter.name_token);
-        _deathCharacterNameText.text = LanguageManager.Instance.GetLanguageText(death.SpecCharacter.name_token);
+        _killCharacterNameText.text = LanguageManager.Instance.GetDefaultText(kill.SpecCharacter.name_token);
+        _deathCharacterNameText.text = LanguageManager.Instance.GetDefaultText(death.SpecCharacter.name_token);
 
         _killCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(kill.SpecCharacter.prefab_id)).Forget();
         _deathCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(death.SpecCharacter.prefab_id)).Forget();
@@ -50,7 +50,7 @@ public class InGameKillLogItem : MonoBehaviour
             _animator.SetTrigger("SetDead");
 
         ExtractSourceData(source);
-        _deathCharacterNameText.text = LanguageManager.Instance.GetLanguageText(death.SpecCharacter.name_token);
+        _deathCharacterNameText.text = LanguageManager.Instance.GetDefaultText(death.SpecCharacter.name_token);
         _deathCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(death.SpecCharacter.prefab_id)).Forget();
     }
 
@@ -61,26 +61,26 @@ public class InGameKillLogItem : MonoBehaviour
             case AttackerType.CHARCTER:
                 if (source.Character != null)
                 {
-                    _killCharacterNameText.text = LanguageManager.Instance.GetLanguageText(source.Character.SpecCharacter.name_token);
+                    _killCharacterNameText.text = LanguageManager.Instance.GetDefaultText(source.Character.SpecCharacter.name_token);
                     _killCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(source.Character.SpecCharacter.prefab_id)).Forget();
                 }
                 else
                 {
-                    _killCharacterNameText.text = LanguageManager.Instance.GetLanguageText(source.Id.ToString());
+                    _killCharacterNameText.text = LanguageManager.Instance.GetDefaultText(source.Id.ToString());
                     _killCharacterSpriteLoader.UnloadSprite();
                 }
                 break;
             case AttackerType.COMMANDER_SKILL:
                 {
                     var data = SpecDataManager.Instance.GetCommanderSkillDataList((int)source.Id);
-                    _killCharacterNameText.text = data != null ? LanguageManager.Instance.GetLanguageText(data[0].name_token) : source.Id.ToString();
+                    _killCharacterNameText.text = data != null ? LanguageManager.Instance.GetDefaultText(data[0].name_token) : source.Id.ToString();
                     _killCharacterSpriteLoader.UnloadSprite();
                 }
                 break;
             case AttackerType.CHAPTER_RULE:
                 {
                     var data = SpecDataManager.Instance.GetChapterRuleData((int)source.Id);
-                    _killCharacterNameText.text = data != null ? LanguageManager.Instance.GetLanguageText(data.name_token) : source.Id.ToString();
+                    _killCharacterNameText.text = data != null ? LanguageManager.Instance.GetDefaultText(data.name_token) : source.Id.ToString();
                     _killCharacterSpriteLoader.UnloadSprite();
                 }
                 break;

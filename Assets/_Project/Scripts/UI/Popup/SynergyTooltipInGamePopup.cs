@@ -70,11 +70,11 @@ namespace CookApps.AutoBattler
             // _synergyUI.SetSynergy(baseSynergyData.synergy_type, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
             //
             // // 시너지 이름 및 설명 설정
-            // string synergyName = LanguageManager.Instance.GetLanguageText(baseSynergyData.name_token);
+            // string synergyName = LanguageManager.Instance.GetDefaultText(baseSynergyData.name_token);
             // _synergyNameText.text = synergyName;
-            // _synergyNameTitleText.text = string.Format(LanguageManager.Instance.GetLanguageText("SYNERGY_PLACE_EFFECT"),
+            // _synergyNameTitleText.text = string.Format(LanguageManager.Instance.GetDefaultText("SYNERGY_PLACE_EFFECT"),
             //     synergyName);
-            // _synergyDescText.text = LanguageManager.Instance.GetLanguageText(baseSynergyData.desc_token_1);
+            // _synergyDescText.text = LanguageManager.Instance.GetDefaultText(baseSynergyData.desc_token_1);
 
             // 강제로 레이아웃 및 캔버스 업데이트
             Canvas.ForceUpdateCanvases();
@@ -87,7 +87,7 @@ namespace CookApps.AutoBattler
                 //
                 // if (!isActive) continue;
                 //
-                // string text = LanguageManager.Instance.GetLanguageText(_synergyList[i].desc_token_2);
+                // string text = LanguageManager.Instance.GetDefaultText(_synergyList[i].desc_token_2);
                 // float statValue = _synergyList[i].skill_value_type == SkillValueType.PERCENT
                 //     ? _synergyList[i].stat_value * 100f
                 //     : _synergyList[i].stat_value;

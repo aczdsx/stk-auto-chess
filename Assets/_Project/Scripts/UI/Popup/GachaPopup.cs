@@ -29,8 +29,9 @@ namespace CookApps.AutoBattler
         
         private GachaPopupTabType _currentTabType = GachaPopupTabType.CommonCharacter;
         
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _backButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
         }
 

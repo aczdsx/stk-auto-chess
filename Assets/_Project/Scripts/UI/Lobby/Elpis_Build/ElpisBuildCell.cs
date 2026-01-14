@@ -51,8 +51,8 @@ namespace CookApps.AutoBattler
                  _iconSpriteLoader.SetSprite(buildInfo.build_prefab).Forget(); 
             }
             
-            _nameText.text = LanguageManager.Instance.GetLanguageText(buildInfo.buld_name_token);
-            // _descText.text = LanguageManager.Instance.GetLanguageText(buildInfo.buld_desc_token);
+            _nameText.text = LanguageManager.Instance.GetDefaultText(buildInfo.buld_name_token);
+            // _descText.text = LanguageManager.Instance.GetDefaultText(buildInfo.buld_desc_token);
             _costText.text = buildInfo.item_INT.ToString();
 
             // State Handling

@@ -50,9 +50,9 @@ namespace CookApps.AutoBattler
             _parentPopup = parent;
 
             // 기본 데이터 세팅
-            string chapterString = LanguageManager.Instance.GetLanguageText("UI_CHAPTER");
+            string chapterString = LanguageManager.Instance.GetDefaultText("UI_CHAPTER");
             _chapterNumberText.text = $"{chapterString}-{_specChapterData.chapter_id}-{_specChapterData.difficulty_type}";
-            _chapterNameText.text = LanguageManager.Instance.GetLanguageText(_specChapterData.name_token);
+            _chapterNameText.text = LanguageManager.Instance.GetDefaultText(_specChapterData.name_token);
 
             _chapterSpriteLoader.SetSprite(SpriteNameParser.GetChapterIcon(_specChapterData.chapter_id)).Forget();
 

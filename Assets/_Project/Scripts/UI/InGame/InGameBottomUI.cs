@@ -62,7 +62,7 @@ public class InGameBottomUI : MonoBehaviour
     private bool _isRunningRecommend;
     private bool _isStartRunningProcess = false;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         var latestClearUserStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
         _isOpenCommanderSkill = latestClearUserStageID >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
@@ -85,11 +85,12 @@ public class InGameBottomUI : MonoBehaviour
         }
     }
 
-    protected void OnStartButtonClicked()
+    protected async UniTask OnStartButtonClickedAsync()
     {
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
-        if (IsCheckStartBattle() && !_isRunningRecommend)
+        var isCheck = await IsCheckStartBattle();
+        if (isCheck && !_isRunningRecommend)
             StartInGameBattle(_combatType);
     }
 
@@ -105,8 +106,8 @@ public class InGameBottomUI : MonoBehaviour
         if (guideMission.GuideMissionId <= missionOrder)
         {
             var missionData = SpecDataManager.Instance.GetGuideMissionDataByOrder(missionOrder);
-            string msg = LanguageManager.Instance.GetLanguageText("MSG_CONTENT_UNLOCK");
-            string titleName = LanguageManager.Instance.GetLanguageText(missionData.name_token);
+            string msg = LanguageManager.Instance.GetDefaultText("MSG_CONTENT_UNLOCK");
+            string titleName = LanguageManager.Instance.GetDefaultText(missionData.name_token);
             ToastManager.Instance.ShowToast(string.Format(msg, titleName));
             return;
         }
@@ -167,9 +168,9 @@ public class InGameBottomUI : MonoBehaviour
     }
 
 
-    protected virtual bool IsCheckStartBattle()
+    protected virtual UniTask<bool> IsCheckStartBattle()
     {
-        return false;
+        return UniTask.FromResult(false);
     }
 
     protected void StartInGameBattle(Type stateType)

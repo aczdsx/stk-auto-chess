@@ -137,7 +137,7 @@ namespace CookApps.AutoBattler
                 var gameObject = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentObject.transform);
             }
 
-            _characterNameText.text = LanguageManager.Instance.GetLanguageText(_currentSpecDialogueData.character_name_token);
+            _characterNameText.text = LanguageManager.Instance.GetDefaultText(_currentSpecDialogueData.character_name_token);
             _dialogueText.text = LanguageManager.Instance.GetDialogueText(_currentSpecDialogueData.text_desc_token);
         }
 

@@ -32,7 +32,7 @@ namespace CookApps.AutoBattler
 
             IsShowingToast = true;
 
-            object message = LanguageManager.Instance.GetLanguageText(tokenKey);
+            object message = LanguageManager.Instance.GetDefaultText(tokenKey);
             SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>((object)(message)).Forget();
         }
 
@@ -59,7 +59,7 @@ namespace CookApps.AutoBattler
             IsShowingToast = true;
             OnToastClosed = onClosed;
 
-            object message = LanguageManager.Instance.GetLanguageText(tokenKey);
+            object message = LanguageManager.Instance.GetDefaultText(tokenKey);
             SceneUILayerManager.Instance.PushUILayerAsync<ToastSystemPopup>((object)(message)).Forget();
         }
 

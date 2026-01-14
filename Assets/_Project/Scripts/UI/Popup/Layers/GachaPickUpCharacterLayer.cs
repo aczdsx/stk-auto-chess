@@ -88,7 +88,7 @@ namespace CookApps.AutoBattler
                 // 시간이 경과하였을 경우 처리
                 if (remainTimeSpan.TotalSeconds <= 0)
                 {
-                    _remainTimeText.text = LanguageManager.Instance.GetLanguageText("PURCHASE_TIME_OVER_ALERT");
+                    _remainTimeText.text = LanguageManager.Instance.GetDefaultText("PURCHASE_TIME_OVER_ALERT");
                 }
             }
             catch (Exception e)

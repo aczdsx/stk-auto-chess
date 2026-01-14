@@ -1103,6 +1103,9 @@ MonoBehaviour:
     - name: Scripts/Chapter1_15
       pathPrefix: Scripts
       guid: 1388e2cffa70dad44a0c0095cb754ad6
+    - name: Scripts/Chapter1_15
+      pathPrefix: Scripts
+      guid: b35b951c40030bb459b3d7a147321a5d
   - Id: CharacterAvatars
     Resources: []
   - Id: Characters/97730980-6691-4698-b6da-9388d226f1d6

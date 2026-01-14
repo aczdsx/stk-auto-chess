@@ -20,8 +20,9 @@ namespace CookApps.AutoBattler
 
         private bool _isFirst;
         
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
             _confirmButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickConfirmButton()).AddTo(this);
         }
