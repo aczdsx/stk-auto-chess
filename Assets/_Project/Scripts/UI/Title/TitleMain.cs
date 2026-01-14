@@ -16,6 +16,7 @@ using UnityEngine.UI;
 using AppsFlyerSDK;
 using R3;
 using CookApps.BattleSystem;
+using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoBattler
 {
@@ -291,11 +292,12 @@ namespace CookApps.AutoBattler
             );
 
             SceneUILayerManager.Instance.PopUILayer(popup);
-
             // 테스트 씬으로 전환
             SceneTransition.Create<SceneTransition_FadeInOut>();
+
+            var testConfig = await Addressables.LoadAssetAsync<InGameTestConfig>("TestConfig/InGameTestConfig.asset");
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextScene("InGame", (InGameType.TEST, (IGameStateUICore)new InGameMainStateTest(), 0));
+            SceneLoading.GoToNextScene("InGame", (InGameType.TEST, (IGameStateUICore)new InGameMainStateTest(), testConfig.StageChapterId));
         }
     }
 }
