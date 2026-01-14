@@ -33,23 +33,22 @@ namespace CookApps.AutoBattler.Editor
         private const string DialogueTableName = "Dialogue";
 
         // JSON 배열 키
-        private const string LanguageArrayKey = "Language";
-        private const string DialogueLanguageArrayKey = "DialogueLanguage";
+        private const string DefaultArrayKey = "Default";
+        private const string DialogueArrayKey = "Dialogue";
 
         // 토큰 키 필드명
-        private const string TokenKeyField = "token_key";
-        private const string DialogueTokenKeyField = "text_desc_token";
+        private const string TokenKeyField = "key";
 
         /// <summary>
         /// 언어 필드명 → 로케일 코드 매핑
         /// </summary>
         private static readonly Dictionary<string, string> LanguageFieldToLocaleCode = new()
         {
-            { "language_kr", "ko" },
-            { "language_en", "en" },
-            { "language_ja", "ja" },
-            { "language_zh", "zh-Hans" },
-            { "language_tw", "zh-Hant" },
+            { "kr", "ko" },
+            { "en", "en" },
+            { "ja", "ja" },
+            { "zh", "zh-Hans" },
+            { "tw", "zh-Hant" },
         };
 
         /// <summary>
@@ -65,22 +64,14 @@ namespace CookApps.AutoBattler.Editor
         };
 
         /// <summary>
-        /// JSON 파일에서 모든 테이블(Default, Dialogue) 임포트
+        /// JSON 문자열에서 모든 테이블(Default, Dialogue) 임포트
         /// </summary>
-        public static ImportResult ImportAllFromJsonFile(string jsonPath)
+        public static ImportResult ImportAllFromJsonString(string json)
         {
             var result = new ImportResult();
 
-            if (!File.Exists(jsonPath))
-            {
-                result.ErrorMessage = $"JSON 파일을 찾을 수 없습니다: {jsonPath}";
-                return result;
-            }
-
             try
             {
-                string json = File.ReadAllText(jsonPath);
-
                 // Default 테이블 임포트
                 var defaultResult = ImportFromJsonString(json, ImportTableType.Default);
 
@@ -124,6 +115,32 @@ namespace CookApps.AutoBattler.Editor
             }
             catch (Exception e)
             {
+                result.ErrorMessage = $"JSON 파싱 실패: {e.Message}";
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// JSON 파일에서 모든 테이블(Default, Dialogue) 임포트
+        /// </summary>
+        public static ImportResult ImportAllFromJsonFile(string jsonPath)
+        {
+            var result = new ImportResult();
+
+            if (!File.Exists(jsonPath))
+            {
+                result.ErrorMessage = $"JSON 파일을 찾을 수 없습니다: {jsonPath}";
+                return result;
+            }
+
+            try
+            {
+                string json = File.ReadAllText(jsonPath);
+                return ImportAllFromJsonString(json);
+            }
+            catch (Exception e)
+            {
                 result.ErrorMessage = $"JSON 파일 읽기 실패: {e.Message}";
             }
 
@@ -163,8 +180,7 @@ namespace CookApps.AutoBattler.Editor
             var result = new ImportResult();
 
             // 테이블 타입에 따른 설정
-            string arrayKey = tableType == ImportTableType.Default ? LanguageArrayKey : DialogueLanguageArrayKey;
-            string tokenField = tableType == ImportTableType.Default ? TokenKeyField : DialogueTokenKeyField;
+            string arrayKey = tableType == ImportTableType.Default ? DefaultArrayKey : DialogueArrayKey;
             string tableName = tableType == ImportTableType.Default ? DefaultTableName : DialogueTableName;
 
             try
@@ -191,7 +207,7 @@ namespace CookApps.AutoBattler.Editor
                 ).ToList();
 
                 // 2. 데이터 파싱
-                var languageData = ParseLanguageData(languageArray, detectedFields, tokenField);
+                var languageData = ParseLanguageData(languageArray, detectedFields, TokenKeyField);
                 result.TotalEntries = languageData.Count;
 
                 // 3. StringTableCollection 가져오기 또는 생성
@@ -202,7 +218,16 @@ namespace CookApps.AutoBattler.Editor
                     return result;
                 }
 
-                // 4. 각 언어별 Locale 및 Table 생성/업데이트
+                // 4. 기존 엔트리 모두 제거
+                ClearTableCollection(tableCollection);
+
+                // 5. 새 키 추가 (SharedTableData에)
+                foreach (var entry in languageData)
+                {
+                    tableCollection.SharedData.AddKey(entry.Key);
+                }
+
+                // 6. 각 언어별 Locale 및 Table 생성/업데이트
                 foreach (var field in detectedFields)
                 {
                     if (!LanguageFieldToLocaleCode.TryGetValue(field, out var localeCode))
@@ -225,9 +250,8 @@ namespace CookApps.AutoBattler.Editor
                         continue;
                     }
 
-                    // 5. 데이터 입력
+                    // 7. 데이터 입력
                     int addedCount = 0;
-                    int updatedCount = 0;
 
                     foreach (var entry in languageData)
                     {
@@ -235,31 +259,11 @@ namespace CookApps.AutoBattler.Editor
                         if (!entry.Value.TryGetValue(field, out var text))
                             continue;
 
-                        var tableEntry = stringTable.GetEntry(tokenKey);
-                        if (tableEntry == null)
-                        {
-                            // SharedTableData에 키 추가
-                            var sharedEntry = tableCollection.SharedData.GetEntry(tokenKey);
-                            if (sharedEntry == null)
-                            {
-                                tableCollection.SharedData.AddKey(tokenKey);
-                            }
-
-                            stringTable.AddEntry(tokenKey, text ?? string.Empty);
-                            addedCount++;
-                        }
-                        else
-                        {
-                            if (tableEntry.Value != text)
-                            {
-                                tableEntry.Value = text ?? string.Empty;
-                                updatedCount++;
-                            }
-                        }
+                        stringTable.AddEntry(tokenKey, text ?? string.Empty);
+                        addedCount++;
                     }
 
                     result.AddedPerLanguage[localeCode] = addedCount;
-                    result.UpdatedPerLanguage[localeCode] = updatedCount;
 
                     EditorUtility.SetDirty(stringTable);
                 }
@@ -296,7 +300,8 @@ namespace CookApps.AutoBattler.Editor
 
             foreach (var prop in firstItem.Properties())
             {
-                if (prop.Name.StartsWith("language_") && LanguageFieldToLocaleCode.ContainsKey(prop.Name))
+                // key 필드 제외, LanguageFieldToLocaleCode에 정의된 언어 필드만 감지
+                if (LanguageFieldToLocaleCode.ContainsKey(prop.Name))
                 {
                     fields.Add(prop.Name);
                 }
@@ -335,6 +340,19 @@ namespace CookApps.AutoBattler.Editor
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// StringTableCollection의 모든 엔트리 제거
+        /// </summary>
+        private static void ClearTableCollection(StringTableCollection collection)
+        {
+            // SharedTableData의 모든 엔트리 제거
+            var entries = collection.SharedData.Entries.ToList();
+            foreach (var entry in entries)
+            {
+                collection.SharedData.RemoveKey(entry.Id);
+            }
         }
 
         /// <summary>

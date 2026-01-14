@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler.Editor
     /// </summary>
     public class LocalizationImportWindow : EditorWindow
     {
-        private const string DefaultJsonPath = "Assets/OriginalSpecData.json";
+        private const string DefaultJsonPath = "Assets/OriginalSpecLanguage.json";
 
         private string _jsonPath = DefaultJsonPath;
         private ImportMode _importMode = ImportMode.All;
@@ -61,7 +61,7 @@ namespace CookApps.AutoBattler.Editor
         {
             EditorGUILayout.LabelField("Unity Localization JSON Importer", EditorStyles.boldLabel);
             EditorGUILayout.HelpBox(
-                "서버 JSON 데이터를 Unity Localization StringTable로 임포트합니다.\n\n" +
+                "로컬 JSON 파일을 Unity Localization StringTable로 임포트합니다.\n\n" +
                 "• Language → Default 테이블 (token_key 사용)\n" +
                 "• DialogueLanguage → Dialogue 테이블 (text_desc_token 사용)",
                 MessageType.Info
@@ -70,10 +70,10 @@ namespace CookApps.AutoBattler.Editor
 
         private void DrawJsonPathSection()
         {
-            EditorGUILayout.LabelField("JSON 소스", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("JSON 파일", EditorStyles.boldLabel);
 
             EditorGUILayout.BeginHorizontal();
-            _jsonPath = EditorGUILayout.TextField("JSON 파일 경로", _jsonPath);
+            _jsonPath = EditorGUILayout.TextField("파일 경로", _jsonPath);
             if (GUILayout.Button("찾기", GUILayout.Width(50)))
             {
                 string selectedPath = EditorUtility.OpenFilePanel("JSON 파일 선택", "Assets", "json");
@@ -115,9 +115,9 @@ namespace CookApps.AutoBattler.Editor
 
             string modeDescription = _importMode switch
             {
-                ImportMode.All => "Language와 DialogueLanguage 모두 임포트합니다.\n→ Default, Dialogue 테이블 생성/업데이트",
-                ImportMode.Default => "Language만 임포트합니다.\n→ Default 테이블 생성/업데이트",
-                ImportMode.Dialogue => "DialogueLanguage만 임포트합니다.\n→ Dialogue 테이블 생성/업데이트",
+                ImportMode.All => "Default, Dialogue 테이블 생성/업데이트",
+                ImportMode.Default => "Default 테이블 생성/업데이트",
+                ImportMode.Dialogue => "Dialogue 테이블 생성/업데이트",
                 _ => ""
             };
             EditorGUILayout.HelpBox(modeDescription, MessageType.None);
@@ -126,11 +126,11 @@ namespace CookApps.AutoBattler.Editor
 
             EditorGUILayout.HelpBox(
                 "지원되는 언어 필드:\n" +
-                "• language_kr → Korean (ko)\n" +
-                "• language_en → English (en)\n" +
-                "• language_ja → Japanese (ja)\n" +
-                "• language_zh → Chinese Simplified (zh-Hans)\n" +
-                "• language_tw → Chinese Traditional (zh-Hant)",
+                "• kr → Korean (ko)\n" +
+                "• en → English (en)\n" +
+                "• ja → Japanese (ja)\n" +
+                "• zh → Chinese Simplified (zh-Hans)\n" +
+                "• tw → Chinese Traditional (zh-Hant)",
                 MessageType.None
             );
         }

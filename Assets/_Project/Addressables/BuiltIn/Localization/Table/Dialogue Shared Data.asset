@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: Default Shared Data
+  m_Name: Dialogue Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: Default
-  m_TableCollectionNameGuidString: fdab95ed1e42f41efb55b1541e124721
+  m_TableCollectionName: Dialogue
+  m_TableCollectionNameGuidString: 8c07de4e6b118478b9e53f481dac2451
   m_Entries:
-  - m_Id: 78702934220800
-    m_Key: ItemName_Gold
+  - m_Id: 751442059264
+    m_Key: HowAreYou
     m_Metadata:
       m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 2768396876238291096
+    rid: 2768396876238291127
   references:
     version: 2
     RefIds:
-    - rid: 2768396876238291096
+    - rid: 2768396876238291127
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1768362331717
+        m_CustomEpoch: 1768380917378
