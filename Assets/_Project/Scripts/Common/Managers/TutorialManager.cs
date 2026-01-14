@@ -100,6 +100,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
         // 초기에는 비활성화 상태로 생성
         _canvas.enabled = false;
+        IsTutorial = true;
     }
 
     /// <summary>
