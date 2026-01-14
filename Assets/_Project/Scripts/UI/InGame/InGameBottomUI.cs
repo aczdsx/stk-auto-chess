@@ -440,6 +440,20 @@ public class InGameBottomUI : MonoBehaviour
         InGameTouchManager.Instance.SelectedFirstTileID = -1;
     }
 
+    /// <summary>
+    /// UI 드래그로 보드에 배치할 때 리스트에서 캐릭터 제거
+    /// </summary>
+    public void RemoveCharacterFromList(CharacterStatData statData)
+    {
+        if (statData == null) return;
+
+        _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
+        UpdateData();
+        InGameManager.Instance.UpdateSynergyAndAttr();
+        SetCharacterCountText();
+        InGameTouchManager.Instance.SelectedFirstTileID = -1;
+    }
+
     public virtual void ReturnObstacle(CharacterController controller)
     {
     }
@@ -829,7 +843,7 @@ public class InGameBottomUI : MonoBehaviour
 
         string targetId = existingCount > 0
             ? $"Slot_{characterId}_{existingCount}"
-            : characterId.ToString();
+            : $"Slot_{characterId.ToString()}";
 
         tutorialTarget.SetTargetId(targetId);
     }
