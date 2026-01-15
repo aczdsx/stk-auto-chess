@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: 87e164e30c58edc4faedc7e1fd3157c9
+guid: 41dc16139949c924aafbe3fcfd3ec870
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -65429689964746129
+    second: 95250010_B_dead2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -95,7 +98,29 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: 95250010_B_dead2_0
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 28
+        width: 76
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6a23eb2b0c871ff0800000000000000
+      internalID: -65429689964746129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -109,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      95250010_B_dead2_0: -65429689964746129
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
