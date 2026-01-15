@@ -96,7 +96,7 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
 
         owner.AddNextState<CharacterStateSkill>(this);
 
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.SkillRootTransformFollowable);
+        // InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.SkillRootTransformFollowable);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -106,13 +106,13 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
         //shooot effect
-        var shootEffect = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillRootTransformFollowable);
+        var shootEffect = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillMiddleFXTransformFollowable);
 
         var direction = (owner.Target.CurrentTile.View.CachedTr.position - owner.CurrentTile.View.CachedTr.position).normalized;
-        shootEffect.CachedTr.rotation = Quaternion.LookRotation(direction);
+        shootEffect.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
         //hit effect
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2],owner.Target.SkillRootTransformFollowable);
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2],owner.Target.SkillMiddleFXTransformFollowable);
 
 
         var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, owner.Target, codeId, true);
