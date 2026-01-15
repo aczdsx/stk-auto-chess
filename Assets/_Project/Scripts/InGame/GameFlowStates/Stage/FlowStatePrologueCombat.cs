@@ -490,8 +490,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         uniTasks.Add(UniTask.Create(async () =>
         {
             await UniTask.Delay(2150);
-            if (_clayCharacter != null)
-                _clayCharacter.AddNextState<CharacterStateGroggy>();
+            _clayCharacter.AddNextState<CharacterStateGroggy>();
         }));
         uniTasks.Add(UniTask.WaitWhile(() => {return (_witchCharacter.GetCurrentState() is CharacterStateSkill);}));
         // 그로기 하면서 뒤로 퍼지기.
@@ -564,7 +563,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.Delay(500); // 0.5초 대기
 
         // 라플라스 마녀 광역 스킬 발동
-        ActivateCharacterSkill(_witchCharacter, "마녀 광역 스킬을 찾을 수 없습니다.", 2);
+        ActivateCharacterSkill(_witchCharacter, "마녀 광역 스킬을 찾을 수 없습니다.", 1);
 
         await UniTask.Delay(2000); // 2초 대기
 
