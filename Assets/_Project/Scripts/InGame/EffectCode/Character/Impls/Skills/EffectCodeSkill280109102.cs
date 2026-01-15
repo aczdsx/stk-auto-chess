@@ -24,7 +24,7 @@ public partial class EffectCodeSkill280109102 : EffectCodeCharacterBase
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        SkillIndex = 1;
+        SkillIndex = 2;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
@@ -109,7 +109,7 @@ public partial class EffectCodeSkill280109102 : EffectCodeCharacterBase
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(targetCharacter.CurrentTile, 2);
 
         foreach (var tile in inGameTiles)
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+            InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, tile);
 
         foreach (var tile in inGameTiles)
         {

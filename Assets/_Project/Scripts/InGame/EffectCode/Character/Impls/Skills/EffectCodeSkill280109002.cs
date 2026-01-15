@@ -109,7 +109,7 @@ public partial class EffectCodeSkill280109002 : EffectCodeCharacterBase
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(targetCharacter.CurrentTile, 1);
 
         foreach (var tile in inGameTiles)
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+            InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, tile);
 
         foreach (var tile in inGameTiles)
         {
