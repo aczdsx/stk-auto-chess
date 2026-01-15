@@ -30,6 +30,7 @@ public class TutorialController : MonoBehaviour
     [SerializeField] private RectTransform _worldArrowRectTransform;
     [SerializeField] private SpriteLoader _spriteLoaderCharacter;
     [SerializeField] private Canvas _tutorialCanvas;
+    [SerializeField] private GameObject _dragObj;
 
     public Material _maskMaterial;
 
@@ -59,9 +60,9 @@ public class TutorialController : MonoBehaviour
         { TutorialActionType.CHARACTER_PLACEMENT, new TutorialActionCharacterPlacement() },
         { TutorialActionType.TOAST_MESSAGE, new TutorialActionToastMessage() },
         { TutorialActionType.SHOW_DIALOGUE_POP, new TutorialActionShowDialoguePop() },
-        { TutorialActionType.CHARACTER_PLACEMENT_UI, new TutorialActionCharacterPlacementUI() }
+        { TutorialActionType.CHARACTER_PLACEMENT_UI, new TutorialActionCharacterPlacementUI() },
+        { TutorialActionType.SPAWN_ENEMY, new TutorialActionSpawnEnemy() }
     };
-
     protected void Update()
     {
         UpdateMaskPosition();
@@ -99,7 +100,8 @@ public class TutorialController : MonoBehaviour
             TutorialCanvas = _tutorialCanvas,
             MainCamera = Camera.main,
             CanvasRectTransform = _canvasRectTransform,
-            MaskMaterial = _maskMaterial
+            MaskMaterial = _maskMaterial,
+            DragObj = _dragObj
         };
     }
 
@@ -180,6 +182,12 @@ public class TutorialController : MonoBehaviour
             TutorialActionCharacterPlacementUI.OnPlacementCompleted = OnCharacterPlacementUICompleted;
         }
 
+        // SPAWN_ENEMY 전략일 경우 스폰 완료 콜백 설정
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SPAWN_ENEMY)
+        {
+            TutorialActionSpawnEnemy.OnSpawnEnemyCompleted = OnSpawnEnemyCompleted;
+        }
+
         // SHOW_DIALOGUE_POP 전략일 경우 팝업 표시 후 바로 다음으로 진행
         if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP)
         {
@@ -231,6 +239,18 @@ public class TutorialController : MonoBehaviour
     {
         // 콜백 해제
         TutorialActionCharacterPlacementUI.OnPlacementCompleted = null;
+
+        // 다음 튜토리얼로 진행
+        ProceedToNext();
+    }
+
+    /// <summary>
+    /// 적 스폰 완료 시 호출되는 콜백
+    /// </summary>
+    private void OnSpawnEnemyCompleted()
+    {
+        // 콜백 해제
+        TutorialActionSpawnEnemy.OnSpawnEnemyCompleted = null;
 
         // 다음 튜토리얼로 진행
         ProceedToNext();
@@ -377,6 +397,12 @@ public class TutorialController : MonoBehaviour
 
     private void UpdateMaskPosition()
     {
+        // 전략에서 마스크 업데이트 건너뛰기 요청 시 (SPAWN_ENEMY, TOAST_MESSAGE 등)
+        if (_actionContext?.SkipMaskUpdate == true)
+        {
+            return;
+        }
+
         var targetUnmaskObj = _actionContext?.TargetUnmaskObj;
 
         if (targetUnmaskObj == null || !targetUnmaskObj.activeInHierarchy)

@@ -43,7 +43,7 @@ public class FlowStateStageReady : StateReadyBase
     {
         await TutorialManager.Instance.CheckAndInitTutorial(_specStage.stage_id);
 
-        TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.GAME_START, 0);
+        TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.GAME_START, "0");
 
         var addCharacterTasks = new List<UniTask<CharacterController>>();
         List<StageMonster> monsters =

@@ -124,7 +124,12 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         }
     }
 
-    public bool HandleTutorialAction(TutorialTriggerType tutorialTriggerType, int key, bool isLongShow = false)
+    public bool IsTutorialAction(TutorialTriggerType tutorialTriggerType)
+    {
+        return _specTutorialDataList.Find(l => l.tutorial_trigger_type == tutorialTriggerType) != null;
+    }
+
+    public bool HandleTutorialAction(TutorialTriggerType tutorialTriggerType, string key, bool isLongShow = false)
     {
         if (!IsTutorial)
         {
@@ -175,6 +180,9 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             _canvas.enabled = false;
         }
         action?.Invoke();
+
+        // SPAWN_ENEMY로 인해 게임이 일시 정지된 경우 재생
+        TutorialActionSpawnEnemy.ResumeGameIfPaused();
 
         // 모든 튜토리얼이 완료되었는지 확인 (리스트가 비어있으면 완료)
         if (_specTutorialDataList.Count == 0)

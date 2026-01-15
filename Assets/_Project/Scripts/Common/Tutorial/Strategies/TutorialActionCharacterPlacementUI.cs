@@ -57,6 +57,12 @@ namespace CookApps.AutoBattler
 
         public void OnShow(TutorialActionContext context)
         {
+            // 드래그 오브젝트 활성화
+            if (context.DragObj != null)
+            {
+                context.DragObj.SetActive(true);
+            }
+
             // UI 타겟 찾기
             var targetKey = context.CurrentTutorial.tutorial_action_key;
             context.TargetUIObj = TutorialTargetRegistry.FindGameObject(targetKey);
@@ -105,6 +111,12 @@ namespace CookApps.AutoBattler
 
         public void OnClear(TutorialActionContext context)
         {
+            // 드래그 오브젝트 비활성화
+            if (context.DragObj != null)
+            {
+                context.DragObj.SetActive(false);
+            }
+
             // 타겟 UI 원위치 복구
             if (context.OriginalParent != null && context.TargetUIObj != null)
             {

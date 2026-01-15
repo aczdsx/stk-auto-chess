@@ -135,7 +135,12 @@ public class FlowStateStageCombat : StateCombatBase
             return;
 
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
-        if (characters.Count == 0)
+        // 튜토리얼에서 CHARACTER_DEAD 트리거를 기다리는 중이면 패배 처리 건너뛰기
+        bool isWaitingCharacterDeadTutorial = TutorialManager.Instance != null
+            && TutorialManager.Instance.IsTutorial
+            && TutorialManager.Instance.IsTutorialAction(TutorialTriggerType.CHARACTER_DEAD);
+
+        if (characters.Count == 0 && !isWaitingCharacterDeadTutorial)
         {
             _isEndCombat = true;
             _isWin = false;

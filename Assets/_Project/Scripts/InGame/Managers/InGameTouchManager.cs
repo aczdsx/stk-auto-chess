@@ -337,10 +337,10 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         }
 
         // BattleItem은 적 타일이 아닌 곳으로 이동 가능
-            // 일반 캐릭터는 플레이어 타일로만 이동 가능
-            return isBattleItem
-                ? targetTileView.AllianceType != AllianceType.Enemy
-                : targetTileView.AllianceType == AllianceType.Player;
+        // 일반 캐릭터는 플레이어 타일로만 이동 가능
+        return isBattleItem
+            ? targetTileView.AllianceType != AllianceType.Enemy
+            : targetTileView.AllianceType == AllianceType.Player;
     }
 
     /// <summary>
@@ -756,6 +756,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             {
                 CookApps.AutoBattler.TutorialActionCharacterPlacementUI.NotifyPlacementCompleted();
             }
+
+            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.CHARACTER_PLACEMENT, placedCharacterId.ToString());
 
             // InGameObjectManager.Instance.DrawPlayerLine(true);
             // InGameObjectManager.Instance.DrawPlayerLine(false);

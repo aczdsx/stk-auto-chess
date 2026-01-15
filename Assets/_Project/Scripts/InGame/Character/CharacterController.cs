@@ -541,7 +541,7 @@ namespace CookApps.BattleSystem
                 RemoveBuffDebuffType(type.ToBuffDebuffType());
                 // }
             }
-        }
+    }
 
         public void LookAtTarget()
         {
@@ -550,7 +550,7 @@ namespace CookApps.BattleSystem
 
         private void OnAnimationEvent(AnimationKey animName, AnimationEventKey eventKey)
         {
-            _currState.AnimationEventCallback(animName, eventKey);
+            _currState?.AnimationEventCallback(animName, eventKey);
         }
 
 
@@ -1321,6 +1321,20 @@ namespace CookApps.BattleSystem
             {
                 _currHp = 0;
                 IsAlive = false;
+
+                if (TutorialManager.Instance.IsTutorialAction(TutorialTriggerType.CHARACTER_DEAD))
+                {
+                    // 튜토리얼 CHARACTER_DEAD 트리거 처리
+                    var tutorialTarget = GetCharacterView().gameObject.GetComponent<TutorialTarget>();
+                    Debug.LogColor($"튜토리얼 CHARACTER_DEAD 트리거 처리: {tutorialTarget.TargetId}", "green");
+                    if (tutorialTarget != null && !string.IsNullOrEmpty(tutorialTarget.TargetId))
+                    {
+                        TutorialManager.Instance.HandleTutorialAction(
+                            TutorialTriggerType.CHARACTER_DEAD,
+                            CharacterId.ToString()
+                        );
+                    }
+                }
 
                 if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
                     || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat)

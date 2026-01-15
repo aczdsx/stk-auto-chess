@@ -526,8 +526,6 @@ public class InGameBottomUI : MonoBehaviour
         if (_isRunningAddCharacter)
             return;
 
-        TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.CHARACTER_PLACEMENT, statData.CharacterId);
-
         _isRunningAddCharacter = true;
 
         var userGrade =
