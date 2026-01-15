@@ -6,6 +6,7 @@ using UnityEngine;
 using TMPro;
 using Cysharp.Threading.Tasks;
 using R3;
+using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
@@ -17,9 +18,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private ElpisBuildCell cellPrefab;
         [SerializeField] private TMP_Text installingTimeText;
         [SerializeField] private GameObject installingTimeTextParent;
+        [SerializeField] private UICircle progressCircle;
 
         private List<ElpisBuildCell> cells = new();
         private ElpisBuildCacheData cachedData;
+        private LobbyBuildingInteractionUI.FacilityInfo installingFacility;
 
         public class ElpisBuildCacheData
         {
@@ -56,7 +59,8 @@ namespace CookApps.AutoBattler
 
         public void RefreshUI()
         {
-            var isContainInstalling = IsContainsInstalling();
+            installingFacility = GetInstallingFacility();
+            var isContainInstalling = installingFacility != null;
             installingTimeTextParent.SetActive(isContainInstalling);
 
             if (isContainInstalling)
@@ -73,17 +77,30 @@ namespace CookApps.AutoBattler
 
         public void UpdateRemainingTime(TimeSpan remainingTime)
         {
+            if (installingFacility != null)
+            {
+                var totalBuildTime = installingFacility.buildInfo.build_time;
+                if (totalBuildTime > 0)
+                {
+                    var progress = (float)remainingTime.TotalSeconds / totalBuildTime;
+                    progressCircle.SetProgress(progress);
+                }
+            }
+            
             installingTimeText.text = remainingTime.ToString(@"mm\:ss");
         }
 
-        private bool IsContainsInstalling()
+        private LobbyBuildingInteractionUI.FacilityInfo GetInstallingFacility()
         {
+            if (cachedData?.facilityInfos == null) return null;
+            
             foreach (var facilityInfo in cachedData.facilityInfos)
             {
                 if (facilityInfo.isInstalling)
-                    return true;
+                    return facilityInfo;
             }
-            return false;
+
+            return null;
         }
 
         private void PopulateBuildList()
