@@ -121,11 +121,35 @@ namespace CookApps.AutoBattler
                 return;
 
             facilityData = facility;
-            buildInfo = SpecDataManager.Instance.GetBuildInfo((int)facilityData.BuildId);
+
+            if (facility.Level >= 1)
+            {
+                buildInfo = SpecDataManager.Instance.GetElpisBuildInfoData((int)facilityData.BuildId, (int)facility.Level);
+            }
+            else
+            {
+                buildInfo = SpecDataManager.Instance.GetBuildInfo((int)facilityData.BuildId);
+            }
+
+
+            if (buildInfo == null)
+                return;
 
             UpdateFacilityInfos();
             UpdateUI();
             StartInstallingTimer();
+
+            // 이미 건설 중인 상태라면 애니메이션 시작
+            var installingFacility = GetInstallingFacility();
+            if (installingFacility != null)
+            {
+                StartConstructionEffect();
+            }
+            // 건설 완료 대기 상태라면 Finish 루프 재생
+            else if (GetJustCompletedFacility() != null)
+            {
+                target?.PlayFinishLoop();
+            }
         }
 
         private void SetData(ElpisBuildingBase target, ElpisFacility facilityData)
@@ -331,6 +355,16 @@ namespace CookApps.AutoBattler
             return null;
         }
 
+        private FacilityInfo GetJustCompletedFacility()
+        {
+            foreach (var info in cachedFacilityInfos)
+            {
+                if (info.isJustCompleted)
+                    return info;
+            }
+            return null;
+        }
+
         private IEnumerator CheckInstallingTime(FacilityInfo installingFacility)
         {
             var completionTime = installingFacility.completionTime;
@@ -365,6 +399,9 @@ namespace CookApps.AutoBattler
             installingFacility.isInstalling = false;
             installingFacility.isJustCompleted = true;
 
+            // Finish 루프 상태로 전환 (애니메이션 시퀀스가 끝나면 자동으로 Finish가 재생되지만, 명시적으로 호출)
+            target?.PlayFinishLoop();
+
             UpdateUI();
             currentBuildLayer?.Close();
         }
@@ -387,6 +424,19 @@ namespace CookApps.AutoBattler
         #endregion
 
         #region Effects
+
+        public void StartConstructionEffect()
+        {
+            var installingFacility = GetInstallingFacility();
+            if (installingFacility == null || target == null)
+                return;
+
+            var totalBuildTime = installingFacility.buildInfo.build_time;
+            var remainingTime = (float)(installingFacility.completionTime - TimeManager.Instance.UtcNow()).TotalSeconds;
+            remainingTime = Mathf.Max(0f, remainingTime);
+
+            target.StartConstructionAnimation(remainingTime, totalBuildTime);
+        }
 
         private void UpdatePosition()
         {
@@ -417,17 +467,18 @@ namespace CookApps.AutoBattler
 
             if (isInstallFinished)
             {
+                // Disappear 애니메이션 재생
+                target?.PlayDisappearAnimation();
+
                 ElpisFacility changedInfo = null;
 
-                if (facilityData.Level > 1)
+                if (facilityData.Level >= 1 && facilityData.IsUpgrading) //TODO : upgrade 인지 체크해야 됨. facilityData.Level >= 1 && facilityData.Is_upgrading 으로 변경 필요
                 {
                     var response = await NetManager.Instance.Elpis.FinishUpgradingFacilityAsync((int)facilityData.BuildId);
                     if (response != null && response.IsSuccess)
                     {
                         changedInfo = response.Facility;
                     }
-
-                    //TODO : 연출
                 }
                 else
                 {
@@ -436,8 +487,6 @@ namespace CookApps.AutoBattler
                     {
                         changedInfo = response.Facility;
                     }
-
-                    //TODO : 연출
                 }
 
                 if (changedInfo != null)
