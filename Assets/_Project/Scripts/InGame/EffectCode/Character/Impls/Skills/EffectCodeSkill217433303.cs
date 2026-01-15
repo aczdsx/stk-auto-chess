@@ -97,9 +97,7 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
         isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-
-        // InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
-        //     owner.GetCharacterView().CachedTr.position);
+        owner.GetCharacterView().LookAt(owner.CurrentTile, _targetCharacter.CurrentTile);
 
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], _targetCharacter.SkillRootTransformFollowable);
@@ -118,8 +116,10 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
             _targetCharacter.SkillRootTransformFollowable);
 
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2],
+        var hitEffect = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2],
             owner.SkillRootTransformFollowable);
+        var direction = (owner.Target.CurrentTile.View.CachedTr.position - owner.CurrentTile.View.CachedTr.position).normalized;
+        hitEffect.CachedTr.rotation = Quaternion.LookRotation(direction);
 
         var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
 

@@ -89,6 +89,7 @@ public partial class EffectCodeBuffBlinHeat : EffectCodeBuffBase
                 stackData.value = 0;
                 stackData.elapsedTime = 0f;
                 stackData.isShowValue = true;
+                owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
                 return;
             }
         }
@@ -135,9 +136,9 @@ public partial class EffectCodeBuffBlinHeat : EffectCodeBuffBase
         _overheatDamageElapsedTime += dt;
 
         // 1초마다 지속 데미지 적용
-        if (_overheatDamageElapsedTime >= 1f)
+        if (_overheatDamageElapsedTime >= 0.5f)
         {
-            _overheatDamageElapsedTime -= 1f;
+            _overheatDamageElapsedTime -= 0.5f;
 
             foreach (var overHeatTile in _overHeatTiles)
             {
@@ -165,16 +166,18 @@ public partial class EffectCodeBuffBlinHeat : EffectCodeBuffBase
     {
         _currentOverheatCount += damagedTargetCount;
         _currentOverheatCount = Math.Min(_currentOverheatCount, _overheatMaxCount);
+        _stackDatas[0].value = _currentOverheatCount;
 
         if (_currentOverheatCount < _overheatMaxCount)
         {
+            owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
             return;
         }
-        _stackDatas[0].value = _currentOverheatCount;
-
         owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
         // 열기 중첩이 최대치에 도달하면 폭염 발동
         _overHeatTiles.Clear();
+        _currentOverheatCount = 0;
+        _stackDatas[0].value = _currentOverheatCount;
         _overHeatTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(explosionStartTile, 1);
     }
 

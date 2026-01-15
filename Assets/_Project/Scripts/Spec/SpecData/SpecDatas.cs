@@ -1448,10 +1448,10 @@ namespace CookApps.AutoBattler
         public float hole_radius;
         /// 팝업 위치 좌표값 (x,y)
         public string coordinate;
-        /// 팝업 x
+        /// #팝업 x
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int x;
-        /// 팝업 y
+        /// #팝업 y
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int y;
         /// 화살표 위치 y 값

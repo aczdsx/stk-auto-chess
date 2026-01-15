@@ -44,11 +44,9 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     private float _pressTime;
 
     // 드래그 기능 관련
-    private const float DRAG_THRESHOLD = 10f;  // 방향 판정 임계값
-    private bool _isDraggingVertical = false;  // 종 드래그 모드인지
-    private bool _isDragDirectionDecided = false;  // 드래그 방향이 결정되었는지
+    private bool _isOverBoard = false;  // 보드 영역에 진입했는지
     private bool _isCharacterSpawned = false;  // 보드에 캐릭터가 생성되었는지
-    private Vector2 _dragStartPosition;
+    private bool _scrollRectDragStarted = false;  // ScrollRect 드래그가 시작되었는지
     private ScrollRect _cachedScrollRect;  // 횡스크롤용 ScrollRect 캐싱
 
     public void SetData(InGameBottomUI parent, CharacterStatData characterStat, Action<CharacterStatData> onSelected)
@@ -152,14 +150,20 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     {
         if (_statData == null) return;
 
-        _dragStartPosition = eventData.position;
-        _isDraggingVertical = false;
-        _isDragDirectionDecided = false;
+        _isOverBoard = false;
         _isCharacterSpawned = false;
+        _scrollRectDragStarted = false;
         _isPressing = false;  // 드래그 시작하면 롱프레스 취소
 
-        // ScrollRect 캐싱 (횡스크롤용)
+        // ScrollRect 캐싱 (스크롤용)
         _cachedScrollRect = GetComponentInParent<ScrollRect>();
+
+        // 일단 ScrollRect 드래그로 시작
+        if (_cachedScrollRect != null)
+        {
+            ExecuteEvents.Execute(_cachedScrollRect.gameObject, eventData, ExecuteEvents.beginDragHandler);
+            _scrollRectDragStarted = true;
+        }
 
         // 튜토리얼: UI 캐릭터 배치 드래그 시작 알림
         if (TutorialActionCharacterPlacementUI.IsActive)
@@ -172,46 +176,39 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     {
         if (_statData == null) return;
 
-        // 드래그 방향이 아직 결정되지 않았으면 판정
-        if (!_isDragDirectionDecided)
+        // 이미 보드 영역에 진입한 경우 → 캐릭터 배치 모드
+        if (_isOverBoard)
         {
-            Vector2 delta = eventData.position - _dragStartPosition;
+            HandleBoardDrag(eventData.position);
+            return;
+        }
 
-            if (delta.magnitude > DRAG_THRESHOLD)
+        // 보드 영역(Slot 또는 Playground) 진입 체크
+        bool isOverBoard = InGameTouchManager.Instance.IsPointOverBoard(eventData.position, out InGameTileView tileView);
+
+        if (isOverBoard)
+        {
+            // 보드 영역 진입 → 배치 모드로 전환
+            _isOverBoard = true;
+
+            // ScrollRect 드래그 중단
+            if (_cachedScrollRect != null && _scrollRectDragStarted)
             {
-                // 종(세로) 방향이 더 크면 캐릭터 배치 모드
-                _isDraggingVertical = Mathf.Abs(delta.y) > Mathf.Abs(delta.x);
-                _isDragDirectionDecided = true;
-
-                if (_isDraggingVertical)
-                {
-                    // ScrollRect 드래그 중단
-                    if (_cachedScrollRect != null)
-                    {
-                        _cachedScrollRect.StopMovement();
-                        _cachedScrollRect.enabled = false;
-                    }
-                }
-                else
-                {
-                    // 횡방향 - ScrollRect에 BeginDrag 이벤트 전달
-                    if (_cachedScrollRect != null)
-                    {
-                        ExecuteEvents.Execute(_cachedScrollRect.gameObject, eventData, ExecuteEvents.beginDragHandler);
-                    }
-                }
+                ExecuteEvents.Execute(_cachedScrollRect.gameObject, eventData, ExecuteEvents.endDragHandler);
+                _cachedScrollRect.StopMovement();
+                _scrollRectDragStarted = false;
             }
-        }
 
-        // 종 드래그 모드일 때만 보드 배치 처리
-        if (_isDraggingVertical)
-        {
-            HandleVerticalDrag(eventData.position);
+            // 캐릭터 배치 처리 시작
+            HandleBoardDrag(eventData.position);
         }
-        else if (_isDragDirectionDecided && _cachedScrollRect != null)
+        else
         {
-            // 횡스크롤 모드 - ScrollRect에 Drag 이벤트 전달
-            ExecuteEvents.Execute(_cachedScrollRect.gameObject, eventData, ExecuteEvents.dragHandler);
+            // 아직 보드 영역이 아님 → ScrollRect 스크롤 계속
+            if (_cachedScrollRect != null && _scrollRectDragStarted)
+            {
+                ExecuteEvents.Execute(_cachedScrollRect.gameObject, eventData, ExecuteEvents.dragHandler);
+            }
         }
     }
 
@@ -219,36 +216,38 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     {
         if (_statData == null) return;
 
-        // ScrollRect 다시 활성화
-        if (_cachedScrollRect != null)
-        {
-            _cachedScrollRect.enabled = true;
-        }
-
-        if (_isDraggingVertical && _isCharacterSpawned)
+        if (_isOverBoard && _isCharacterSpawned)
         {
             // 보드에서 드래그 종료
             InGameTouchManager.Instance.EndDragFromUI(eventData.position);
         }
-        else if (_isDraggingVertical && !_isCharacterSpawned)
+        else if (_isOverBoard && !_isCharacterSpawned)
         {
-            // 보드에 도달하지 못하고 드래그 종료 - 튜토리얼 드래그 취소 알림
+            // 보드 영역에 진입했지만 캐릭터 생성 못함 - 튜토리얼 드래그 취소 알림
             if (TutorialActionCharacterPlacementUI.IsActive)
             {
                 TutorialActionCharacterPlacementUI.OnDragCancel();
             }
         }
-        else if (_isDragDirectionDecided && !_isDraggingVertical && _cachedScrollRect != null)
+        else if (_scrollRectDragStarted && _cachedScrollRect != null)
         {
-            // 횡스크롤 모드 - ScrollRect에 EndDrag 이벤트 전달
+            // 스크롤 모드 - ScrollRect에 EndDrag 이벤트 전달
             ExecuteEvents.Execute(_cachedScrollRect.gameObject, eventData, ExecuteEvents.endDragHandler);
+        }
+        else
+        {
+            // 보드 영역에 도달하지 못하고 종료 - 튜토리얼 드래그 취소 알림
+            if (TutorialActionCharacterPlacementUI.IsActive)
+            {
+                TutorialActionCharacterPlacementUI.OnDragCancel();
+            }
         }
 
         ResetDragState();
         _cachedScrollRect = null;
     }
 
-    private void HandleVerticalDrag(Vector3 screenPosition)
+    private void HandleBoardDrag(Vector3 screenPosition)
     {
         if (_isCharacterSpawned)
         {
@@ -257,12 +256,67 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         }
         else
         {
-            // 보드 타일 위에 있는지 체크
-            var tileView = InGameTouchManager.Instance.GetTileViewFromScreenPosition(screenPosition);
-            if (tileView != null && tileView.AllianceType == AllianceType.Player)
+            // 보드 영역 체크 (Slot 또는 Playground)
+            bool isOverBoard = InGameTouchManager.Instance.IsPointOverBoard(screenPosition, out InGameTileView tileView);
+
+            if (isOverBoard)
             {
-                // 보드에 도달 - 캐릭터 생성
-                SpawnCharacterOnBoard(tileView, screenPosition).Forget();
+                if (tileView != null && tileView.AllianceType == AllianceType.Player)
+                {
+                    // Player 타일 위 - 해당 타일에 캐릭터 생성
+                    SpawnCharacterOnBoard(tileView, screenPosition).Forget();
+                }
+                else
+                {
+                    // Playground 위 - 빈 타일을 찾아서 캐릭터 생성
+                    SpawnCharacterOnPlayground(screenPosition).Forget();
+                }
+            }
+        }
+    }
+
+    private async UniTaskVoid SpawnCharacterOnPlayground(Vector3 screenPosition)
+    {
+        if (_isCharacterSpawned) return;
+
+        // 빈 타일 찾기
+        var emptyTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(_statData.Spec);
+        if (emptyTile == null) return;
+
+        var tileView = emptyTile.View as InGameTileView;
+        if (tileView == null) return;
+
+        // await 전에 플래그 먼저 설정 (중복 호출 방지)
+        _isCharacterSpawned = true;
+        Debug.Log($"[InGameCharacterItem] SpawnCharacterOnPlayground 시작 - CharacterId: {_statData?.CharacterId}");
+
+        bool success = await InGameTouchManager.Instance.StartDragFromUI(_statData, tileView);
+        if (success)
+        {
+            Debug.Log($"[InGameCharacterItem] Playground에서 캐릭터 생성 성공");
+            // 리스트에서 캐릭터 제거
+            _parentUI?.RemoveCharacterFromList(_statData);
+
+            // 생성 후 바로 현재 드래그 위치로 이동
+            InGameTouchManager.Instance.UpdateDragPosition(screenPosition);
+
+            // 튜토리얼: 생성된 캐릭터를 마스크 타겟으로 설정
+            if (TutorialActionCharacterPlacementUI.IsActive)
+            {
+                if (emptyTile.OccupiedCharacter?.GetCharacterView() != null)
+                {
+                    TutorialActionCharacterPlacementUI.UpdateMaskTarget(emptyTile.OccupiedCharacter.GetCharacterView().gameObject);
+                }
+            }
+        }
+        else
+        {
+            Debug.Log($"[InGameCharacterItem] Playground에서 캐릭터 생성 실패 - 플래그 리셋");
+            _isCharacterSpawned = false;
+
+            if (TutorialActionCharacterPlacementUI.IsActive)
+            {
+                TutorialActionCharacterPlacementUI.OnDragCancel();
             }
         }
     }
@@ -308,9 +362,9 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
 
     private void ResetDragState()
     {
-        _isDraggingVertical = false;
-        _isDragDirectionDecided = false;
+        _isOverBoard = false;
         _isCharacterSpawned = false;
+        _scrollRectDragStarted = false;
     }
 
     public int GetDisplayLv()

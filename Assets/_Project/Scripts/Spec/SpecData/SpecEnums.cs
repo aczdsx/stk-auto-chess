@@ -612,6 +612,9 @@ namespace CookApps.AutoBattler
         Skill_7002_1 = 255,
         Skill_80109002_1 = 256,
         Skill_80109002_2 = 257,
+        Skill_304021_1 = 258,
+        Skill_304021_2 = 259,
+        Skill_9002_3 = 260,
     }
 
     public enum GlobalEffectProviderType
@@ -953,6 +956,7 @@ namespace CookApps.AutoBattler
         IDLE_REWARD_CLAIM = 16,
         DIMENSION_UPGRADE_COMPLETE = 17,
         BABEL_STAGE_CLEAR = 18,
+        END_TUTORIAL = 19,
     }
 
     public enum TutorialActionType
@@ -967,6 +971,7 @@ namespace CookApps.AutoBattler
         MOVE_OBJECT = 7,
         SHOW_DIALOGUE_POP = 8,
         CHARACTER_PLACEMENT_UI = 9,
+        FOCUS_UI = 10,
     }
 
     public enum FacilityType
@@ -1016,7 +1021,5 @@ namespace CookApps.AutoBattler
         STAGE_ENTER_NANI = 8,
         ENTER_CHAPTER_NANI = 9,
         ENTER_ELPIS_NANI = 10,
-        GUIDE_COMPLETE = 11,
-        STAGE_CLEAR = 12,
     }
 }

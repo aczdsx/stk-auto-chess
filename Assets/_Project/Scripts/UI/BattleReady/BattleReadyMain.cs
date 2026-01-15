@@ -16,6 +16,36 @@ using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
+    
+    /// <summary>
+    /// 전투 준비 화면(로비)의 메인 UI 레이어를 관리하는 클래스
+    /// 
+    /// [원래 기능]
+    /// - 스테이지 선택 UI 표시 및 관리
+    /// - 유저 정보 표시 (레벨, 경험치, 닉네임)
+    /// - 방치 보상 상태 표시 및 갱신
+    /// - 각종 메뉴 버튼 클릭 처리 (가챠, 출석, 퀘스트, 던전, 이벤트, 설정 등)
+    /// - 레드닷 상태 업데이트 및 표시
+    /// - 챕터 클리어, 계정 레벨업 등 팝업 표시 조건 체크
+    /// - Vignette 효과 적용
+    /// 
+    /// [현재 사용 중인 기능]
+    /// - 스테이지 선택 UI 표시 및 관리 (하단 스크롤 영역)
+    /// - 방치 보상 상태 표시 및 갱신
+    /// - 전투 시작 버튼 클릭 처리
+    /// - 스테이지 선택 버튼 클릭 처리
+    /// - 방치 보상 버튼 클릭 처리
+    /// - 로비로 돌아가기 버튼 클릭 처리
+    /// - 가이드 미션 갱신
+    /// - 챕터 클리어, 계정 레벨업 등 팝업 표시 조건 체크
+    /// - Vignette 효과 적용
+    /// 
+    /// [비활성화된 기능]
+    /// - 유저 정보 표시 (주석 처리됨)
+    /// - 가챠, 출석, 퀘스트, 던전, 이벤트 버튼 (Awake에서 주석 처리됨)
+    /// - 레드닷 표시 (레드닷 오브젝트 주석 처리됨, 상태 계산만 수행)
+    /// - 버튼 오픈 조건 체크 (UpdateOpenCondition 내부 주석 처리됨)
+    /// </summary>
     public class BattleReadyMain : UILayer
     {
         public Transform GetIdleRewardTransform => _idleRewardButton.transform;
@@ -23,27 +53,13 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _backToLobby;
         [SerializeField] private CAButton _playButton;
         [SerializeField] private CAButton _stageSelectButton;
-        [SerializeField] private CAButton _shopButton;
-        [SerializeField] private CAButton _gachaButton;
+
         [SerializeField] private CAButton _idleRewardButton;
-        [SerializeField] private CAButton _attendanceButton;
-        [SerializeField] private CAButton _questButton;
-        [SerializeField] private CAButton _trialDungeonButton;
-        [SerializeField] private CAButton _sessionEventButton;
-        [SerializeField] private CAButton _consumeAPEventButton;
-        [SerializeField] private CAButton _userAccountLayerButton;
-        [SerializeField] private CAButton _settingButton;
+
 
         [Header("Vignette Layer")]
         [SerializeField] private VignetteSO _vignetteData;
         [SerializeField] private RawImage _vignetteImage;
-
-        [Header("User Info Layer")]
-        // [SerializeField] private SpriteLoader _userIconSpriteLoader;
-        [SerializeField] private TextMeshProUGUI _userNameText;
-        [SerializeField] private TextMeshProUGUI _userLevelText;
-        [SerializeField] private TextMeshProUGUI _userExpText;
-        [SerializeField] private Slider _userExpSlider;
 
         [Header("Bottom Stage Select Layer")]
         [SerializeField] private ScrollRect _stageSelectScrollRect;
@@ -96,15 +112,15 @@ namespace CookApps.AutoBattler
             _playButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickStartButton()).AddTo(this);
             _stageSelectButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickChapterStageButton()).AddTo(this);
             // _shopButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCharacterCollectionButton()).AddTo(this);
-            _gachaButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGachaButton()).AddTo(this);
+            // _gachaButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGachaButton()).AddTo(this);
             _idleRewardButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickIdleRewardButton()).AddTo(this);
-            _attendanceButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickAttendanceButton()).AddTo(this);
-            _questButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickQuestButton()).AddTo(this);
-            _trialDungeonButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickTrialDungeonButton()).AddTo(this);
-            _sessionEventButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSessionEventButton()).AddTo(this);
-            _consumeAPEventButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickConsumeAPEventButton()).AddTo(this);
-            _userAccountLayerButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickUserAccountLayerButton()).AddTo(this);
-            _settingButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSettingButton()).AddTo(this);
+            // _attendanceButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickAttendanceButton()).AddTo(this);
+            // _questButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickQuestButton()).AddTo(this);
+            // _trialDungeonButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickTrialDungeonButton()).AddTo(this);
+            // _sessionEventButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSessionEventButton()).AddTo(this);
+            // _consumeAPEventButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickConsumeAPEventButton()).AddTo(this);
+            // _userAccountLayerButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickUserAccountLayerButton()).AddTo(this);
+            // _settingButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSettingButton()).AddTo(this);
         }
 
         protected override void OnBackButton(ref bool offPrevUI)
@@ -211,20 +227,20 @@ namespace CookApps.AutoBattler
             var userBasicData = UserDataManager.Instance.UserBasicData;
 
             // _userIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSubIllustSprite(userBasicData.UserIconId)).Forget();
-            _userNameText.text = (userBasicData.Nickname.Length > 25) ? "닉네임을 설정해주세요." : userBasicData.Nickname;
+            // _userNameText.text = (userBasicData.Nickname.Length > 25) ? "닉네임을 설정해주세요." : userBasicData.Nickname;
 
-            int userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);
-            _userLevelText.text = $"Lv.{userLevel}";
+            // int userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);
+            // _userLevelText.text = $"Lv.{userLevel}";
 
-            var specLevelData = SpecDataManager.Instance.GetAccountLevelExpDataByLevel(userLevel);
-            if (specLevelData != null)
-            {
-                long leftExp = userBasicData.Exp - specLevelData.exp_start;
-                float resultValue = leftExp / (float)specLevelData.exp_need;
+            // var specLevelData = SpecDataManager.Instance.GetAccountLevelExpDataByLevel(userLevel);
+            // if (specLevelData != null)
+            // {
+            //     long leftExp = userBasicData.Exp - specLevelData.exp_start;
+            //     float resultValue = leftExp / (float)specLevelData.exp_need;
 
-                _userExpSlider.value = resultValue;
-                _userExpText.text = string.Format("{0:N2}%", resultValue * 100);
-            }
+            //     _userExpSlider.value = resultValue;
+            //     _userExpText.text = string.Format("{0:N2}%", resultValue * 100);
+            // }
         }
 
         private void SetBottomStageUI()
@@ -636,7 +652,7 @@ namespace CookApps.AutoBattler
                 SceneUILayerManager.Instance.SetEnableFloatingNodeCanvas(true);
             }).Forget();
         }
-        
+
         public async UniTask OnClickGoToLobby()
         {
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
@@ -644,7 +660,7 @@ namespace CookApps.AutoBattler
             InGameManager.Instance.EndInGame();
             SceneLoading.GoToNextScene("Lobby");
         }
-        
+
         private void OnClickStartButton()
         {
             if (SceneTransition.IsFadeProcessing)
@@ -816,12 +832,12 @@ namespace CookApps.AutoBattler
 
         private void UpdateOpenCondition()
         {
-            _attendanceButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.ATTENDANCE));
-            _gachaButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.SUMMON));
-            _questButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.QUEST));
-            _trialDungeonButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.TRIAL_DUNGEON));
-            _sessionEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.SESSION_TIME));
-            _consumeAPEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.AP_USE));
+            // _attendanceButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.ATTENDANCE));
+            // _gachaButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.SUMMON));
+            // _questButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.QUEST));
+            // _trialDungeonButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.TRIAL_DUNGEON));
+            // _sessionEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.SESSION_TIME));
+            // _consumeAPEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.AP_USE));
         }
 
         public void PlayDropFx()
