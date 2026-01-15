@@ -223,6 +223,25 @@ namespace CookApps.AutoBattler
             return IsActive;
         }
 
+        /// <summary>
+        /// 지정된 타일에 배치 가능한지 확인
+        /// </summary>
+        /// <param name="tileId">배치하려는 타일 ID</param>
+        /// <returns>TARGET_TILE_ID와 일치하면 true</returns>
+        public static bool CanPlaceOnTile(int tileId)
+        {
+            if (!IsActive) return true; // 튜토리얼 비활성 시 제한 없음
+            return tileId == TARGET_TILE_ID;
+        }
+
+        /// <summary>
+        /// 타겟 타일 ID 반환
+        /// </summary>
+        public static int GetTargetTileId()
+        {
+            return TARGET_TILE_ID;
+        }
+
         #endregion
 
         #region Second Hole Control

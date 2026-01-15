@@ -361,6 +361,23 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private void HandleCharacterTileChange(InGameTile tile, InGameTileView ingameTileView)
     {
+        // 튜토리얼 UI 캐릭터 배치 - 타겟 타일이 아니면 배치 취소
+        if (CookApps.AutoBattler.TutorialActionCharacterPlacementUI.IsActive)
+        {
+            if (!CookApps.AutoBattler.TutorialActionCharacterPlacementUI.CanPlaceOnTile(tile.View.ID))
+            {
+                // 캐릭터 제거 및 UI로 복귀
+                CharacterController characterToRemove = _selectedCharacterController;
+                ReleaseSelectedHero();
+                characterToRemove.CurrentTile.SetUnoccupied();
+                InGameObjectManager.Instance.RemoveCharacterFromField(characterToRemove);
+                InGameMain.GetInGameMain().ReturnCharacterUI(characterToRemove);
+                // 드래그 취소 처리 (마스크 홀 복원)
+                CookApps.AutoBattler.TutorialActionCharacterPlacementUI.OnDragCancel();
+                return;
+            }
+        }
+
         if (tile.OccupiedCharacter == null)
         {
             HandleEmptyTileMove(tile, ingameTileView);
@@ -574,6 +591,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         if (_selectedCharacterController != null)
         {
+
             // 튜토리얼 캐릭터 배치 완료 알림 (타일이 변경되었을 때만)
             bool tileChanged = _selectedFirstTileView != null && _selectedTileView != null &&
                                _selectedFirstTileView.ID != _selectedTileView.ID;
@@ -597,7 +615,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             }
 
             // 튜토리얼 UI 캐릭터 배치 완료 콜백 호출 (CHARACTER_PLACEMENT_UI)
-            if (CookApps.AutoBattler.TutorialActionCharacterPlacementUI.IsActive)
+            if (tileChanged && CookApps.AutoBattler.TutorialActionCharacterPlacementUI.IsActive)
             {
                 CookApps.AutoBattler.TutorialActionCharacterPlacementUI.NotifyPlacementCompleted();
             }
