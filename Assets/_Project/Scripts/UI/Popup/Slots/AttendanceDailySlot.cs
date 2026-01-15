@@ -85,11 +85,12 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            // 출석 체크 상태 데이터 저장
-            UserDataManager.Instance.SetUserEventConditionState(_currentUserEventData.EventId, _currentUserEventConditionData.EventConditionId, EventStateType.CLEAR, true);
-
-            // 보상 데이터 저장
-            UserDataManager.Instance.IncreaseRewardItemList(_attendanceRewardItemList, true);
+            // TODO: 마이그레이션
+            // // 출석 체크 상태 데이터 저장
+            // UserDataManager.Instance.SetUserEventConditionState(_currentUserEventData.EventId, _currentUserEventConditionData.EventConditionId, EventStateType.CLEAR, true);
+            //
+            // // 보상 데이터 저장
+            // UserDataManager.Instance.IncreaseRewardItemList(_attendanceRewardItemList, true);
 
             SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", _attendanceRewardItemList)).Forget();
 

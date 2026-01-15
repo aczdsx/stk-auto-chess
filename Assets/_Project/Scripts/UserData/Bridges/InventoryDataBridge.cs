@@ -25,7 +25,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 통화 가져오기
         /// </summary>
-        public ulong GetCurrency(uint itemId)
+        public ulong GetCurrency(ItemId itemId)
         {
             return Model?.GetCurrency(itemId) ?? 0;
         }
@@ -41,7 +41,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 통화 충분 여부
         /// </summary>
-        public bool HasEnoughCurrency(uint itemId, ulong requiredAmount)
+        public bool HasEnoughCurrency(ItemId itemId, ulong requiredAmount)
         {
             return Model?.HasEnoughCurrency(itemId, requiredAmount) ?? false;
         }
@@ -49,7 +49,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 특정 통화 보유 여부
         /// </summary>
-        public bool HasCurrency(uint itemId)
+        public bool HasCurrency(ItemId itemId)
         {
             return Model?.HasCurrency(itemId) ?? false;
         }
@@ -60,26 +60,9 @@ namespace CookApps.AutoBattler
         public int CurrencyCount => Model?.CurrencyCount ?? 0;
 
         /// <summary>
-        /// 여러 통화의 충분 여부 체크 (배치)
-        /// </summary>
-        public bool HasEnoughCurrencies(Dictionary<uint, ulong> requirements)
-        {
-            if (requirements == null || Model == null)
-                return false;
-
-            foreach (var kvp in requirements)
-            {
-                if (!Model.HasEnoughCurrency(kvp.Key, kvp.Value))
-                    return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
         /// 통화 변화량 계산
         /// </summary>
-        public long GetCurrencyDelta(uint itemId, ulong previousAmount)
+        public long GetCurrencyDelta(ItemId itemId, ulong previousAmount)
         {
             var currentAmount = GetCurrency(itemId);
             return (long)currentAmount - (long)previousAmount;

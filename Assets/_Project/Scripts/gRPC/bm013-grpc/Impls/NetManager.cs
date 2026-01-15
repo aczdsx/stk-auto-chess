@@ -26,6 +26,8 @@ namespace CookApps.AutoBattler
         public GuideMissionService GuideMission { get; private set; }
         public ClientDataService ClientData { get; private set; }
         public CheatService Cheat { get; private set; }
+        public GachaService Gacha { get; private set; }
+        public EventService Event { get; private set; }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ReloadDomain()
@@ -76,6 +78,8 @@ namespace CookApps.AutoBattler
             GuideMission.ServiceInterceptor = this;
             ClientData.ServiceInterceptor = this;
             Cheat.ServiceInterceptor = this;
+            Gacha.ServiceInterceptor = this;
+            Event.ServiceInterceptor = this;
 
             // Base class services는 외부 패키지에 있어서 Source Generator가 적용되지 않을 수 있음
             // Auth.ServiceInterceptor = this;

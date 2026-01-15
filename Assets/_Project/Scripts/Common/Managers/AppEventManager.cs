@@ -81,7 +81,8 @@ namespace CookApps.AutoBattler
         // 최초 접속 가입 이후 경과일 계산
         public int GetSinceJoinDate()
         {
-            var joinTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserBasicData.UserInstallDate);
+            var clientBasicData = ClientDataManager.Instance.GetData<ClientBasicData>(ClientBasicData.CategoryName);
+            var joinTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(clientBasicData.UserInstallDate);
 
             return joinTimeSpan.Days;
         }
@@ -110,19 +111,24 @@ namespace CookApps.AutoBattler
             // appEventParameter.Add(AppEventStringConst.SERVER, UserDataManager.Instance.UserBasicData.ServerId);
             var targetLanguage = LanguageManager.Instance.CurrentLanguageType;
             appEventParameter.Add(AppEventStringConst.LANGUAGE, targetLanguage.ToString());
-            appEventParameter.Add(AppEventStringConst.TOTAL_PLAY_TIME, UserDataManager.Instance.UserBasicData.TotalPlayTime);
-            appEventParameter.Add(AppEventStringConst.DAILY_VISIT_COUNT, UserDataManager.Instance.UserBasicData.DailyVisitCount);
+
+            var clientBasicData = ClientDataManager.Instance.GetData<ClientBasicData>(ClientBasicData.CategoryName);
+            var playerData = ServerDataManager.Instance.PlayerData;
+            var inventoryBridge = new InventoryDataBridge();
+
+            appEventParameter.Add(AppEventStringConst.TOTAL_PLAY_TIME, clientBasicData.TotalPlayTime);
+            appEventParameter.Add(AppEventStringConst.DAILY_VISIT_COUNT, clientBasicData.DailyVisitCount);
             appEventParameter.Add(AppEventStringConst.SINCE_JOIN_DATE, GetSinceJoinDate());
-            var installDateTime = TimeManager.Instance.TimeStampToDateTimeLocal(UserDataManager.Instance.UserBasicData.UserInstallDate);
+            var installDateTime = TimeManager.Instance.TimeStampToDateTimeLocal(clientBasicData.UserInstallDate);
             appEventParameter.Add(AppEventStringConst.USER_INSTALL_DATE, installDateTime.ToString("yyyyMMdd"));
             var specBestStageData = SpecDataManager.Instance.GetStageData((int)ServerDataManager.Instance.Battle.GetLatestClearedStageId());
             appEventParameter.Add(AppEventStringConst.BEST_STAGE, specBestStageData.id);
             appEventParameter.Add(AppEventStringConst.BEST_MISSION, (int)ServerDataManager.Instance.GuideMission.Order);
             // appEventParameter.Add(AppEventStringConst.USER_POWER, UserDataManager.Instance.GetAllCharacterBattlePower());
-            appEventParameter.Add(AppEventStringConst.USER_LEVEL, UserDataManager.Instance.UserBasicData.Level);
-            appEventParameter.Add(AppEventStringConst.USER_GRADE, UserDataManager.Instance.UserBasicData.MaxSquadCount);
+            appEventParameter.Add(AppEventStringConst.USER_LEVEL, playerData.Level);
+            appEventParameter.Add(AppEventStringConst.USER_GRADE, clientBasicData.MaxSquadCount);
             appEventParameter.Add(AppEventStringConst.USER_STAR_AMOUNT, (int)ServerDataManager.Instance.Battle.TotalStarCount);
-            appEventParameter.Add(AppEventStringConst.USER_ENERGY_AMOUNT, UserDataManager.Instance.UserWallet.Ap);
+            appEventParameter.Add(AppEventStringConst.USER_ENERGY_AMOUNT, inventoryBridge.GetCurrency(IdMap.Item.ActionPoint));
 
             // yyyyMMddHHmm 에서 뒤에 4자리를 잘라서 yyyyMMdd 바꾸는 부분
             // string createdDate = DataManager.Instance.UserData.CreatedTime;
@@ -153,8 +159,8 @@ namespace CookApps.AutoBattler
         public void Login()
         {
             AppEventParameter appEventParameter = CreateCommonParam();
-            appEventParameter.Add(AppEventStringConst.NICKNAME, UserDataManager.Instance.UserBasicData.Nickname);
-            
+            appEventParameter.Add(AppEventStringConst.NICKNAME, ServerDataManager.Instance.PlayerData.Nickname);
+
             SendEvent("LOGIN", appEventParameter);
         }
 

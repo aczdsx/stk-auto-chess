@@ -163,7 +163,7 @@ namespace CookApps.AutoBattler
                 for (int i = 0; i < response.Rewards.Count; i++)
                 {
                     var reward = response.Rewards[i];
-                    rewardItemList.Add(new RewardItem((int)reward.ItemId, (int)reward.Count));
+                    rewardItemList.Add(new RewardItem(reward));
                 }
             }
 

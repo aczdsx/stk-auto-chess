@@ -37,7 +37,9 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _getRewardButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGetRewardButton()).AddTo(this);
+            _getRewardButton.OnClickAsObservable()
+                .SubscribeAwait(this, (_, self, _) => self.OnClickGetRewardButtonAsync(), AwaitOperation.Drop)
+                .AddTo(this);
         }
 
         public void SetStarGaugeSlot(RewardInfo rewardInfo)
@@ -75,7 +77,7 @@ namespace CookApps.AutoBattler
             _completeSymbolObject.SetActive(_isAlreadyGetReward);
         }
 
-        private void OnClickGetRewardButton()
+        private async UniTask OnClickGetRewardButtonAsync()
         {
             // 보상 수령 가능 여부 체크
             if (_isAvailGetReward == false)
@@ -90,18 +92,29 @@ namespace CookApps.AutoBattler
                 return;
             }
 
+            // 서버에 보상 수령 요청
+            var response = await NetManager.Instance.Battle.ClaimChapterMilestoneRewardAsync(
+                (uint)_specRewardInfo.content_key_value,
+                (uint)_specRewardInfo.reward_id
+            );
+
+            if (response == null || !response.IsSuccess)
+            {
+                return;
+            }
+
             // 리워드 팝업 생성
             List<RewardItem> rewardItemList = new List<RewardItem>();
-            // ItemType의 삭제로 인해 변경.(new RewardItem(_specRewardInfo.item_type, _specRewardInfo.item_key, _specRewardInfo.item_count))
-            rewardItemList.Add(new RewardItem(_specRewardInfo.item_id, _specRewardInfo.item_count));
+            for (int i = 0; i < response.Rewards.Count; i++)
+            {
+                var reward = response.Rewards[i];
+                rewardItemList.Add(new RewardItem(reward));
+            }
 
             SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
 
             // 보상 수령 데이터 처리
             ServerDataManager.Instance.Battle.SetStageAccRewardState(_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type, _specRewardInfo.sub_value);
-
-            // 보상 지급
-            UserDataManager.Instance.IncreaseRewardItemList(rewardItemList, true);
 
             // 챕터 리스트 팝업 갱신
             var chapterListPopup = SceneUILayerManager.Instance.GetUILayer<ChapterListPopup>();

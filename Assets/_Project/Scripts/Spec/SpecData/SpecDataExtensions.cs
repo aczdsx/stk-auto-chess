@@ -7,6 +7,7 @@ using CookApps.TeamBattle.Utility;
 using Cysharp.Text;
 using Tech.Hive.V1;
 using UnityEngine;
+using Reward = Tech.Hive.V1.Reward;
 
 namespace CookApps.AutoBattler
 {
@@ -21,6 +22,12 @@ namespace CookApps.AutoBattler
         {
             Id = id;
             Count = count;
+        }
+
+        public RewardItem(Reward reward)
+        {
+            Id = (int)reward.ItemId;
+            Count = (int)reward.Count;
         }
 
         public Tech.Hive.V1.Reward ToGrpcReward()
