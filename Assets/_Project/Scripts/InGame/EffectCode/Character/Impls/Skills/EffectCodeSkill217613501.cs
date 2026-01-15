@@ -27,6 +27,7 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
     private bool _isReadyToActivate;
 
     private SkillActive _specSkill;
+    private static readonly Vector3 _vfxFlipScale = new Vector3(1, 1, -1);
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -172,9 +173,23 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
         }
 
         var frontTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
-        Vector3 direction = (frontTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
-        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180f, 0);
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillMiddleFXTransformFollowable.GetPosition());
+
+        var targetTileIdx = frontTile[0].Int2Index;
+        var odetteTileIdx = owner.CurrentTile.Int2Index;
+        var directionidx = targetTileIdx - odetteTileIdx;
+        if (directionidx.x > 0 || directionidx.y < 0)
+        {
+            Debug.Log("Flip!!!!");
+            vfx.CachedTr.localScale = _vfxFlipScale;
+        }
+        else
+        {
+            vfx.CachedTr.localScale = Vector3.one;
+        }
+
+        Vector3 direction = (frontTile[0].View.CachedTr.position - owner.CurrentTile.View.CachedTr.position).normalized;
+        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90f, 0);
 
         // 0.2초 후 캐릭터가 보고 있는 방향 앞 두칸으로 이동
         await UniTask.Delay(TimeSpan.FromSeconds(0.2f));

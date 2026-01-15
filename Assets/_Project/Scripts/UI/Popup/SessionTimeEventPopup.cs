@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using R3;
+using Tech.Hive.V1;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,8 +21,7 @@ namespace CookApps.AutoBattler
 
         private List<SessionTimeEventSlot> _sessionTimeEventSlotList = new List<SessionTimeEventSlot>();
 
-        private UserEventData _currentUserEventData;
-        private List<UserEventConditionData> _currentUserEventConditionDataList;
+        private EventData _currentEventData;
 
         private EventInfo _specEventData;
         private List<EventCondition> _specEventConditionDataList;
@@ -38,42 +37,29 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
 
-            _currentUserEventData = param as UserEventData;
+            _currentEventData = param as EventData;
 
-            _specEventData = SpecDataManager.Instance.GetSpecEventData(_currentUserEventData.EventId);
-            _specEventConditionDataList = SpecDataManager.Instance.GetSpecEventConditionList(_currentUserEventData.EventId);
+            _specEventData = SpecDataManager.Instance.GetSpecEventData((int)_currentEventData.EventId);
+            _specEventConditionDataList = SpecDataManager.Instance.GetSpecEventConditionList((int)_currentEventData.EventId);
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            UpdateEventData();
             SetEventPopup();
             SetProgressBar();
         }
 
-        private void UpdateEventData()
-        {
-            if (_currentUserEventData == null) return;
-
-            if (_currentUserEventData.EventRefreshTimestamp < TimeManager.Instance.UtcNowTimeStampLocal())
-            {
-                UserDataManager.Instance.ResetEventData(_currentUserEventData.EventId, true);
-                UserDataManager.Instance.UpdateEventTimeData(_currentUserEventData.EventId);
-            }
-        }
-
         private void SetEventPopup()
         {
-            if (_currentUserEventData == null) return;
+            if (_currentEventData == null) return;
 
             ClearPopup();
 
-            _currentUserEventConditionDataList = UserDataManager.Instance.GetUserEventConditionDataList(_currentUserEventData.EventId);
-
-            foreach (var eventConditionData in _currentUserEventConditionDataList)
+            for (int i = 0; i < _currentEventData.Conditions.Count; i++)
             {
+                var eventConditionData = _currentEventData.Conditions[i];
                 GameObject newEventSlotObject = Instantiate(_eventSlotObject, _eventSlotScrollRect.content);
                 SessionTimeEventSlot newEventSlot = newEventSlotObject.GetComponent<SessionTimeEventSlot>();
-                newEventSlot.SetEventSlot(_currentUserEventData, eventConditionData);
+                newEventSlot.SetEventSlot(_currentEventData, eventConditionData);
 
                 _sessionTimeEventSlotList.Add(newEventSlot);
             }
@@ -83,13 +69,11 @@ namespace CookApps.AutoBattler
         {
             _eventProgressBar.minValue = _specEventConditionDataList.Min(data => data.need_count);
             _eventProgressBar.maxValue = _specEventConditionDataList.Max(data => data.need_count);
-            _eventProgressBar.value = _currentUserEventData.ActionCount;
+            _eventProgressBar.value = _currentEventData.CurrentCount;
         }
 
         private void OnClickCloseButton()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PopUILayer(this);
         }
 

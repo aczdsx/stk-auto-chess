@@ -87,8 +87,6 @@ public class InGameBottomUI : MonoBehaviour
 
     protected async UniTask OnStartButtonClickedAsync()
     {
-        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
         var isCheck = await IsCheckStartBattle();
         if (isCheck && !_isRunningRecommend)
             StartInGameBattle(_combatType);
@@ -186,8 +184,6 @@ public class InGameBottomUI : MonoBehaviour
 
     protected void OnClickStatisticButton()
     {
-        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
         SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(this).Forget();
 
         Preference.SavePreference(Pref.STATISTIC, true);
@@ -197,8 +193,6 @@ public class InGameBottomUI : MonoBehaviour
     {
         if (InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase)
             return;
-
-        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
         SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>(index).Forget();
     }
@@ -329,6 +323,12 @@ public class InGameBottomUI : MonoBehaviour
                 var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
                 _characterItemList.Add(characterItem);
                 characterItem.SetData(this, characterStat, AddCharacterToTile);
+
+                // 튜토리얼 중이면 새 캐릭터 아이템에 TutorialTarget 등록
+                if (TutorialManager.Instance.HasTutorialStage)
+                {
+                    RegisterCharacterItemForTutorial(characterItem, characterStat.CharacterId);
+                }
             }
         }
 
@@ -430,6 +430,20 @@ public class InGameBottomUI : MonoBehaviour
         _characterStats = _characterStats.OrderByDescending(stat => stat.Level).ToList();
 
         UpdateData();
+        SetCharacterCountText();
+        InGameTouchManager.Instance.SelectedFirstTileID = -1;
+    }
+
+    /// <summary>
+    /// UI 드래그로 보드에 배치할 때 리스트에서 캐릭터 제거
+    /// </summary>
+    public void RemoveCharacterFromList(CharacterStatData statData)
+    {
+        if (statData == null) return;
+
+        _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
+        UpdateData();
+        InGameManager.Instance.UpdateSynergyAndAttr();
         SetCharacterCountText();
         InGameTouchManager.Instance.SelectedFirstTileID = -1;
     }
@@ -823,7 +837,7 @@ public class InGameBottomUI : MonoBehaviour
 
         string targetId = existingCount > 0
             ? $"Slot_{characterId}_{existingCount}"
-            : characterId.ToString();
+            : $"Slot_{characterId.ToString()}";
 
         tutorialTarget.SetTargetId(targetId);
     }

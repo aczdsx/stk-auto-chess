@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5327191903643449289}
   - component: {fileID: 8933569456011646478}
   - component: {fileID: 3996675834219515174}
+  - component: {fileID: 1335074474554754720}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -75,6 +76,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1.63
+--- !u!114 &1335074474554754720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303588014938966366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 3996675834219515174}
 --- !u!1 &2221528332488340276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,7 +1332,8 @@ MonoBehaviour:
   _descText: {fileID: 4456396397753583302}
   _targetSpawnTransform: {fileID: 615909104438107504}
   _worldArrowRectTransform: {fileID: 0}
-  _tutorialCanvas: {fileID: 0}
+  _spriteLoaderCharacter: {fileID: 1335074474554754720}
+  _tutorialCanvas: {fileID: 5843720747380964665}
   _maskMaterial: {fileID: 2100000, guid: 6e5a32a1d97da4f858b6f2eee6476721, type: 2}
 --- !u!95 &2088504552747561980
 Animator:

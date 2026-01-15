@@ -649,7 +649,6 @@ namespace CookApps.AutoBattler
         {
             if (SceneTransition.IsFadeProcessing)
                 return;
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
             var currentStageData = SpecDataManager.Instance.GetStageData((int)LocalDataManager.Instance.GetLastPlayStageId());
             if (currentStageData != null)
             {
@@ -712,30 +711,22 @@ namespace CookApps.AutoBattler
 
         private void OnClickChapterStageButton()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             int currentStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
             SceneUILayerManager.Instance.PushUILayerAsync<ChapterListPopup>(currentStageId).Forget();
         }
 
         private void OnClickGachaButton()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PushUILayerAsync<GachaPopup>().Forget();
         }
 
         private void OnClickCharacterCollectionButton()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget();
         }
 
         private void OnClickIdleRewardButton()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
         }
 
@@ -755,22 +746,16 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PushUILayerAsync<AttendancePopup>(currentUserEventData).Forget();
         }
 
         private void OnClickQuestButton()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PushUILayerAsync<QuestPopup>().Forget();
         }
 
         private void OnClickTrialDungeonButton()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PushUILayerAsync<DungeonTrialPopup>().Forget();
         }
 
@@ -783,16 +768,14 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // 이벤트 유저 데이터 유효성 검증
-            var currentUserEventData = UserDataManager.Instance.GetUserEventData(currentSpecEventData.event_id);
-            if (currentUserEventData == null)
+            // 이벤트 데이터 조회
+            var currentEventData = ServerDataManager.Instance.Event.GetEvent(currentSpecEventData.event_id);
+            if (currentEventData == null)
             {
                 return;
             }
 
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
-            SceneUILayerManager.Instance.PushUILayerAsync<SessionTimeEventPopup>(currentUserEventData).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<SessionTimeEventPopup>(currentEventData, null).Forget();
         }
 
         private void OnClickConsumeAPEventButton()
@@ -804,29 +787,23 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // 이벤트 유저 데이터 유효성 검증
-            var currentUserEventData = UserDataManager.Instance.GetUserEventData(currentSpecEventData.event_id);
-            if (currentUserEventData == null)
+            // 이벤트 데이터 조회
+            var currentEventData = ServerDataManager.Instance.Event.GetEvent(currentSpecEventData.event_id);
+            if (currentEventData == null)
             {
                 return;
             }
 
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
-            SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentUserEventData).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentEventData, null).Forget();
         }
 
         private void OnClickUserAccountLayerButton()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PushUILayerAsync<NicknamePopup>(false).Forget();
         }
 
         private void OnClickSettingButton()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PushUILayerAsync<SettingPopup>().Forget();
         }
 

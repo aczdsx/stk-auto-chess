@@ -177,7 +177,7 @@ namespace CookApps.AutoBattler
                     for (int i = 0; i < resp.Rewards.Count; i++)
                     {
                         var reward = resp.Rewards[i];
-                        rewardItemList.Add(new RewardItem((int)reward.ItemId, (int)reward.Count));
+                        rewardItemList.Add(new RewardItem(reward));
                     }
 
                     SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), callback =>

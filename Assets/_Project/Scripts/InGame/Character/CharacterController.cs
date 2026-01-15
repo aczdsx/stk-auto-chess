@@ -1132,11 +1132,11 @@ namespace CookApps.BattleSystem
             if (ecc != null)
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyDamageAmount);
-                damageInfo.damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyDamageAmountLambda, damageInfo.damageAmount.Value);
+                damageInfo.damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyDamageAmountLambda,
+                damageInfo.damageAmount.Value);
             }
 
             damageInfo.damageAmount = Math.Floor(damageInfo.damageAmount);
-
             return damageInfo;
         }
 
@@ -1278,7 +1278,7 @@ namespace CookApps.BattleSystem
             if (damageInfo.isCritical && attacker != null)
             {
                 var effectCodes = attacker.GetEffectCodeContainer().GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCritical);
-                EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnCriticalLambda, attacker);
+                EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnCriticalLambda, this);
             }
 
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
@@ -1295,7 +1295,7 @@ namespace CookApps.BattleSystem
                     ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.elementAdvantageResult).Forget();
                 }
             }
-             else
+            else
             {
                 ShowMissText().Forget();
             }

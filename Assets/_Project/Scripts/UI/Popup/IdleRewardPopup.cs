@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
@@ -38,7 +37,9 @@ namespace CookApps.AutoBattler
 
             _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
             _dimCloseButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
-            _getRewardButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGetRewardButton()).AddTo(this);
+            _getRewardButton.OnClickAsObservable()
+                .SubscribeAwait(this, (_, self, _) => self.OnClickGetRewardButtonAsync(), AwaitOperation.Drop)
+                .AddTo(this);
         }
 
         protected override void OnPreEnter(object param)
@@ -146,7 +147,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private void OnClickGetRewardButton()
+        private async UniTask OnClickGetRewardButtonAsync()
         {
             RefreshIdleRewardData();
 
@@ -156,16 +157,26 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // 보상 수령
-            UserDataManager.Instance.IncreaseRewardItemList(_currentIdleRewardItemList, true);
+            // 서버에 보상 수령 요청
+            var response = await NetManager.Instance.Elpis.ClaimSimulationRewardAsync();
 
-            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", _currentIdleRewardItemList)).Forget();
+            if (response == null || !response.IsSuccess)
+            {
+                return;
+            }
 
-            // 방치 보상 데이터 갱신
-            UserDataManager.Instance.RefreshLastRewardGetTime();
+            // 보상 결과 표시 (CurrencyDeltas에서 RewardItem 리스트 생성)
+            List<RewardItem> rewardItemList = new List<RewardItem>();
+            for (int i = 0; i < response.CurrencyDeltas.Count; i++)
+            {
+                var delta = response.CurrencyDeltas[i];
+                if (delta.Delta > 0)
+                {
+                    rewardItemList.Add(new RewardItem((int)delta.ItemId, (int)delta.Delta));
+                }
+            }
 
-            // 퀘스트 데이터 갱신
-            UserDataManager.Instance.SetUserQuestActionCount(QuestType.GET_IDLE_REWARD, 1, true, true);
+            await SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), null);
 
             // temp - 일단은 off
             OnClickCloseButton();

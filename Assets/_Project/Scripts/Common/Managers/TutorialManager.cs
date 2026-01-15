@@ -18,13 +18,13 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 {
     private const string TUTORIAL_CANVAS_PREFAB_PATH = "Prefabs/UI/Tutorial/InGameTutorialCanvas";
 
-    private Canvas _canvas;
+    private Canvas _canvas = null;
     private TutorialController _tutorialController;
     private GameObject _tutorialCanvasInstance;
 
     private List<TutorialDialogue> _specTutorialDataList = new();
     public bool HasTutorialStage => _specTutorialDataList is { Count: > 0 } && _specTutorialDataList[0].tutorial_id > 0;
-    public bool IsTutorial { get; private set; }
+    public bool IsTutorial => _canvas != null;
 
     protected override void Awake()
     {
@@ -100,7 +100,6 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
         // 초기에는 비활성화 상태로 생성
         _canvas.enabled = false;
-        IsTutorial = true;
     }
 
     /// <summary>
@@ -108,6 +107,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     private void DestroyTutorialCanvas()
     {
+        Debug.LogColor("튜토리얼 Canvas 제거", "green");
         if (_tutorialCanvasInstance != null)
         {
             // TutorialController 정리 - 가이드가 다 비었을 때 호출됨
@@ -130,7 +130,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         {
             return false;
         }
-        
+
         if (_specTutorialDataList.Count == 0)
         {
             Debug.LogColor($"튜토리얼을 진행하는 스테이지가 아닙니다. tutorialTriggerType : {tutorialTriggerType} key : {key}", "red");
@@ -157,7 +157,6 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         // 진행한 튜토리얼을 리스트에서 제거
         _specTutorialDataList.RemoveAll(l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
 
-        IsTutorial = true;
         _canvas.enabled = true;
         _tutorialController.SetTutorial(turnTutorialList, isLongShow);
 
@@ -171,7 +170,6 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             return false;
         }
 
-        IsTutorial = false;
         if (_canvas != null)
         {
             _canvas.enabled = false;
@@ -192,7 +190,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     public void ClearTutorial()
     {
-        IsTutorial = false;
+        Debug.LogColor("모든 튜토리얼 완료 시 또는 스테이지 종료 시 튜토리얼 Canvas 제거", "green");
         if (_canvas != null)
         {
             _canvas.enabled = false;

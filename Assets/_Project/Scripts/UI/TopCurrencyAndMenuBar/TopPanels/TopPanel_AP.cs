@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 using Cysharp.Text;
@@ -14,32 +12,34 @@ namespace CookApps.AutoBattler
 
         public override TopPanelType PanelType => TopPanelType.AP;
 
+        private static readonly ItemId CurrencyId = IdMap.Item.ActionPoint;
+        private InventoryDataBridge _inventoryBridge;
+
         private void Awake()
         {
+            _inventoryBridge = new InventoryDataBridge();
+
             _topPanelButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickTopPanelButton()).AddTo(this);
+
+            _inventoryBridge.OnCurrencyChanged
+                .Where(this, (x, self) => x.itemId == CurrencyId && self.CachedGo.activeInHierarchy)
+                .Subscribe(this, (x, self) => self.UpdateCurrencyText(x.newAmount))
+                .AddTo(this);
         }
 
         private void OnEnable()
         {
-            UserDataManager.OnAPChanged += APChanged;
-
-            APChanged(UserDataManager.Instance.UserWallet.Ap);
+            UpdateCurrencyText(_inventoryBridge.GetCurrency(CurrencyId));
         }
 
-        private void OnDisable()
+        private void UpdateCurrencyText(ulong amount)
         {
-            UserDataManager.OnAPChanged -= APChanged;
-        }
-
-        private void APChanged(int AP)
-        {
-            currencyText.SetText(AP.ToString("N0"));
+            currencyText.SetText(amount);
         }
 
         private void OnClickTopPanelButton()
         {
             SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
-            //ToastManager.Instance.ShowToastByTokenKey("MSG_GUIDE_IDLE_REWARD_AP");
         }
     }
 }

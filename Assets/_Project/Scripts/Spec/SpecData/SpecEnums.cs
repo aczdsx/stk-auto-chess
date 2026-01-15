@@ -331,7 +331,7 @@ namespace CookApps.AutoBattler
         USE_BUILDING = 2,
         OPEN_IDLECHEST = 3,
         SET_CHARACTER = 4,
-        LEVELUP_CHARACTER = 5,
+        CHARACTER_LEVELUP = 5,
         OPEN_CHEST = 6,
         SUMMON_CHARCTER = 7,
         END_DIALOGUE = 8,
@@ -342,6 +342,14 @@ namespace CookApps.AutoBattler
         SET_PVP_DEF_DECK = 13,
         PLAY_PVP = 14,
         CLICK_ATTENDANCE = 15,
+        CLEAR_TUTORIAL = 16,
+        ENTER_STAGE = 17,
+        SUMMON_CHARACTER_NORMAL = 18,
+        SUMMON_WEAPHON_NORMAL = 19,
+        CLEAR_BABEL = 20,
+        DIMENSION_CUBE_LEVEL = 21,
+        ENTER_CHAPTER = 22,
+        ENTER_ELPIS = 23,
     }
 
     public enum DialogueEventType
@@ -597,10 +605,13 @@ namespace CookApps.AutoBattler
         fx_common_asterism_ts_missile_01 = 248,
         Skill_9002_1 = 249,
         Skill_9002_2 = 250,
-        Skill_9001 = 251,
+        Skill_80109002 = 251,
         Skill_7001 = 252,
         Skill_7002 = 253,
         Projectile_9002 = 254,
+        Skill_7002_1 = 255,
+        Skill_80109002_1 = 256,
+        Skill_80109002_2 = 257,
     }
 
     public enum GlobalEffectProviderType
@@ -625,6 +636,7 @@ namespace CookApps.AutoBattler
         SUMMON_CHARACTER = 5,
         BATTLE_PVP = 6,
         GET_IDLE_REWARD = 7,
+        BABEL_CLEAR = 8,
     }
 
     public enum EventType
@@ -929,6 +941,18 @@ namespace CookApps.AutoBattler
         MOVE_OBJECT_AFTER = 4,
         SKILL_READY = 5,
         DIALOGUE_POP_END = 6,
+        START_TUTORIAL = 7,
+        FORCED_TOUCH_UI = 8,
+        FORCED_TOUCH_BUILDING = 9,
+        BUILDING_COMPLETE = 10,
+        HUBBLE_EXPANSION_COMPLETE = 11,
+        GACHA_COMPLETE = 12,
+        CHARACTER_UI_TOUCH = 13,
+        CHARACTER_EXCEED = 14,
+        CHARACTER_TRANSCENDENCE = 15,
+        IDLE_REWARD_CLAIM = 16,
+        DIMENSION_UPGRADE_COMPLETE = 17,
+        BABEL_STAGE_CLEAR = 18,
     }
 
     public enum TutorialActionType
@@ -942,6 +966,7 @@ namespace CookApps.AutoBattler
         CLEAR_STAGE = 6,
         MOVE_OBJECT = 7,
         SHOW_DIALOGUE_POP = 8,
+        CHARACTER_PLACEMENT_UI = 9,
     }
 
     public enum FacilityType
@@ -982,11 +1007,16 @@ namespace CookApps.AutoBattler
     {
         SCENE_ENTER = 0,
         NANINOVEL_END = 1,
-        STAGE_CLEAR = 2,
+        STAGE_CLEAR_NANI = 2,
         CHAPTER_CLEAR = 3,
-        GUIDE_COMPLETE = 4,
+        GUIDE_TUTORIAL_COMPLETE = 4,
         PROLOGUE_END = 5,
         STAGE_START = 6,
         SPECIAL = 7,
+        STAGE_ENTER_NANI = 8,
+        ENTER_CHAPTER_NANI = 9,
+        ENTER_ELPIS_NANI = 10,
+        GUIDE_COMPLETE = 11,
+        STAGE_CLEAR = 12,
     }
 }

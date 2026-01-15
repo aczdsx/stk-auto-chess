@@ -1156,6 +1156,9 @@ namespace CookApps.AutoBattler
         public int before_key;
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int benefit_key;
+        /// 추가 해금 조건(튜토리얼 ID만 체크)
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
+        public int add_unlock_condition;
     }
 
     [GeneratorSpecData]
@@ -1185,9 +1188,6 @@ namespace CookApps.AutoBattler
         /// 슬롯 고유 Num
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int slot_index;
-        /// 추가 해금 조건(우선 가이드미션)
-        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
-        public int add_unlock_condition;
         /// 필요 아이템 키
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
@@ -1446,12 +1446,20 @@ namespace CookApps.AutoBattler
         /// 하이라이트 크기
         [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float hole_radius;
-        /// 팝업 위치 y 값
+        /// 팝업 위치 좌표값 (x,y)
+        public string coordinate;
+        /// 팝업 x
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
-        public int popup_yPos;
+        public int x;
+        /// 팝업 y
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
+        public int y;
         /// 화살표 위치 y 값
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int arrow_yPos;
+        /// 발화자 ID
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
+        public int prefab_id;
         /// 설명 텍스트
         public string desc_key;
     }
@@ -1624,18 +1632,21 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.GuideMissionType guide_mission_type;
         /// 가이드 이름 토큰
         public string name_token;
-        /// 가이드 설명 토큰
+        /// 관련 정보
         public string desc_token;
-        /// 타겟 id
+        /// 가이드 설명 토큰
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
+        public int dialogue;
+        /// 출력 다이얼로그 id
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int sub_key;
-        /// 필요 행위 횟수
+        /// 타겟 id
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int need_count;
-        /// 보상 키 값
+        /// 보상 종류
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_id;
-        /// 보상 수량
+        /// 보상 키 값
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_count;
     }

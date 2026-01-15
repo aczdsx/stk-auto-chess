@@ -1828,6 +1828,18 @@ namespace CookApps.AutoBattler
             return result;
         }
 
+        public ElpisBuildInfo GetElpisBuildInfoData(int uniqueId, int level)
+        {
+            for (int i = 0; i < ElpisBuildInfo.All.Count; i++)
+            {
+                var target = ElpisBuildInfo.All[i];
+                if (target.build_id == uniqueId && target.build_lv == level)
+                    return target;
+            }
+
+            return null;
+        }
+
         public ElpisBuildInfo GetBuildInfo(int uniqueId)
         {
             for (int i = 0; i < ElpisBuildInfo.All.Count; i++)
@@ -1878,6 +1890,19 @@ namespace CookApps.AutoBattler
         public IReadOnlyList<ElpisDimensionLab> GetAllElpisDimensionLab()
         {
             return ElpisDimensionLab.All;
+        }
+
+        public IReadOnlyList<ElpisBuildInfo> GetSameFacilityTypes(FacilityType facilityType)
+        {
+            var result = new List<ElpisBuildInfo>();
+            var allData = ElpisBuildInfo.All;
+            foreach (var data in allData)
+            {
+                if(data.facility_type == facilityType)
+                    result.Add(data);
+            }
+            
+            return result;
         }
     }
 }

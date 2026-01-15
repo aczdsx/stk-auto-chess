@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.UI;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using Cysharp.Threading.Tasks;
-using Tech.Hive.V1;
 using R3;
-using UnityEditorInternal.Profiling.Memory.Experimental;
+using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
@@ -18,19 +16,26 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton closeButton;
         [SerializeField] private Transform contentRoot;
         [SerializeField] private ElpisBuildCell cellPrefab;
+        [SerializeField] private TMP_Text installingTimeText;
+        [SerializeField] private GameObject installingTimeTextParent;
+        [SerializeField] private UICircle progressCircle;
 
-        private List<ElpisBuildCell> cells = new List<ElpisBuildCell>();
-        private ElpisDataBridge dataBridge;
+        private List<ElpisBuildCell> cells = new();
+        private ElpisBuildCacheData cachedData;
+        private LobbyBuildingInteractionUI.FacilityInfo installingFacility;
 
-        private ElpisFacility facilityData;
-        private int targetSlotIndex;
+        public class ElpisBuildCacheData
+        {
+            public List<LobbyBuildingInteractionUI.FacilityInfo> facilityInfos;
+            public LobbyBuildingInteractionUI targetLobbyBuildingUI;
+            public int slotIndex;
+        }
 
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            dataBridge = new ElpisDataBridge();
-
-            (facilityData, targetSlotIndex) = ((ElpisFacility, int))param;
+            cachedData = param as ElpisBuildCacheData;
+            cachedData.targetLobbyBuildingUI.SetCurrentBuildLayer(this);
             RefreshUI();
             LobbyMain.GetLobbyMain().PlayExitAnimation();
         }
@@ -38,6 +43,7 @@ namespace CookApps.AutoBattler
         protected override void OnPreExit()
         {
             base.OnPreExit();
+            cachedData?.targetLobbyBuildingUI?.SetCurrentBuildLayer(null);
             LobbyMain.GetLobbyMain().PlayEnterAnimation();
         }
 
@@ -50,185 +56,161 @@ namespace CookApps.AutoBattler
                 .Subscribe(this, (_, self) => self.OnCloseClicked())
                 .AddTo(this);
         }
-        
-        public void SetTargetFacilityData(ElpisFacility facility, int slotIndex)
+
+        public void RefreshUI()
         {
-            if (ReferenceEquals(facilityData, facility) && targetSlotIndex == slotIndex)
-                return;
-            
-            facilityData = facility;
-            targetSlotIndex = slotIndex;
-            RefreshUI();
+            installingFacility = GetInstallingFacility();
+            var isContainInstalling = installingFacility != null;
+            installingTimeTextParent.SetActive(isContainInstalling);
+
+            if (isContainInstalling)
+            {
+                var remainingTime = cachedData.targetLobbyBuildingUI.GetCurrentRemainingTime();
+                if (remainingTime.HasValue)
+                {
+                    UpdateRemainingTime(remainingTime.Value);
+                }
+            }
+
+            PopulateBuildList();
         }
 
-        private void RefreshUI()
+        public void UpdateRemainingTime(TimeSpan remainingTime)
         {
-            PopulateBuildList();
+            if (installingFacility != null)
+            {
+                var totalBuildTime = installingFacility.buildInfo.build_time;
+                if (totalBuildTime > 0)
+                {
+                    var progress = (float)remainingTime.TotalSeconds / totalBuildTime;
+                    progressCircle.SetProgress(progress);
+                }
+            }
+            
+            installingTimeText.text = remainingTime.ToString(@"mm\:ss");
+        }
+
+        private LobbyBuildingInteractionUI.FacilityInfo GetInstallingFacility()
+        {
+            if (cachedData?.facilityInfos == null) return null;
+            
+            foreach (var facilityInfo in cachedData.facilityInfos)
+            {
+                if (facilityInfo.isInstalling)
+                    return facilityInfo;
+            }
+
+            return null;
         }
 
         private void PopulateBuildList()
         {
-            // Clear existing cells (Simple destruction for MVP)
             foreach (var cell in cells)
             {
                 Destroy(cell.gameObject);
             }
             cells.Clear();
 
-            // Load Build Infos
-            var buildInfos = SpecDataManager.Instance.GetBuildInfoList(facilityData.Type);
-            var commandCenter = dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
-            int commandCenterLv = (int)commandCenter.Level;
-            
-            var currentBuildInfo = dataBridge.GetFacilityByType(facilityData.Type);
-            var currentBuildLevel = currentBuildInfo.Level;
-            
-            var inventoryDataBridge = new InventoryDataBridge();
-            var userAssetCount = (int)inventoryDataBridge.GetCurrency(ItemIdMap.BuildItem);
-            
-            foreach (var buildInfo in buildInfos)
+            foreach (var facilityInfo in cachedData.facilityInfos)
             {
-                var buildLevel = buildInfo.build_lv;
-                var isBuilt = buildLevel <= currentBuildLevel;
-                
-                var isLocked = !IsUnlockedByCommandCenter(buildInfo.build_id, commandCenterLv);
-                var canBuild = userAssetCount >= buildInfo.item_INT;
-                
-                var cell = Instantiate(cellPrefab, contentRoot);
-                cell.SetData(buildInfo, isLocked, isBuilt, canBuild, OnInstallRequested);
-                cells.Add(cell);
+                var newCell = Instantiate(cellPrefab, contentRoot);
+                newCell.SetData(facilityInfo, OnInstallRequested);
+                cells.Add(newCell);
             }
-
-            // Sort cells in-place: non-installed first (by level ascending), installed last
-            cells.Sort(CompareBuildCells);
-
+            
             for (int i = 0; i < cells.Count; i++)
             {
                 cells[i].transform.SetSiblingIndex(i);
             }
-
-            // foreach (var info in buildInfos)
-            // {
-            //     // Instantiate Cell
-            //     var cell = Instantiate(cellPrefab, contentRoot);
-            //
-            //     // Determine State
-            //     bool isInstalled = HasFacility(info.build_id);
-            //     // 설치 조건: 사령부 레벨이 건물 정보의 조건을 만족해야 함 (여기서는 임시로 build_lv를 요구 레벨로 가정하거나 별도 필드 확인)
-            //     // ElpisBuildInfo의 build_lv가 설치된 건물의 레벨을 의미하는지, 요구 레벨인지 SpecDatas.cs를 다시 봐야 함.
-            //     // 보통 build_group_id로 묶이고 level별로 존재.
-            //     // 1레벨 건물 정보를 표시하고, 이미 설치되었으면 업그레이드 or 설치 완료 표시.
-            //     // 여기서는 "건물 설치" 팝업이므로, 1레벨 건물(신규 설치) 목록만 보여주거나,
-            //     // 설치되지 않은 건물들만 보여주는 것이 타당함.
-            //
-            //     if (info.build_lv != 1) continue; // 1레벨(설치) 정보만 표시
-            //
-            //     // Check Lock Condition (Command Center Level Dependency)
-            //     // ElpisCommandCenterBenefit에서 해금 정보를 가져와야 정확함.
-            //     bool isLocked = !IsUnlockedByCommandCenter(info.build_id, commandCenterLv);
-            //
-            //     var inventory = new InventoryDataBridge();
-            //     var userData = (int)inventory.GetCurrency(ItemIdMap.BuildItem);
-            //     var targetData = info.item_INT;
-            //     
-            //     // Check Cost
-            //     bool canAfford = userData >= targetData;
-            //
-            //     cell.SetData(info, isLocked, isInstalled, canAfford, OnInstallRequested);
-            //     cells.Add(cell);
-            // }
-        }
-
-        private bool HasFacility(int buildId)
-        {
-            // buildId가 유니크 ID라면 이것으로 체크.
-            // Bridge의 HasFacility는 instanceId를 받지만, 여기선 Spec ID로 체크해야 함.
-            // Bridge에 Spec ID(build_id string or unique int)로 체크하는 기능이 없다면,
-            // GetAllFacilities()로 순회해야 함.
-
-            var facilities = dataBridge.GetAllFacilities();
-            // ElpisFacility에는 DataId(String) 또는 similar field가 있을 것. 
-            // 여기서는 간단히 구현하고 추후 수정.
-            // return facilities.Any(f => f.DataId == buildId.ToString()); 
-            return false; // 임시
-        }
-
-        private static int CompareBuildCells(ElpisBuildCell a, ElpisBuildCell b)
-        {
-            // Non-installed (false=0) before installed (true=1)
-            int builtCompare = a.IsBuilt.CompareTo(b.IsBuilt);
-            if (builtCompare != 0)
-                return builtCompare;
-
-            // Lower level first
-            return a.BuildLevel.CompareTo(b.BuildLevel);
-        }
-
-        private bool IsUnlockedByCommandCenter(int buildId, int commandCenterLv)
-        {
-            // ElpisCommandCenterBenefit 테이블에서 현재 사령부 레벨로 해금되는 build_group_id 확인
-            // 혹은 단순히 요구 레벨 로직이 있다면 사용.
-            // MVP 명세에 따르면 사령부 레벨에 따라 해금.
-
-            var benefits = SpecDataManager.Instance.ElpisCommandCenterBenefit.All;
-            // 현재 레벨 이하의 혜택들 중 해당 건물을 해금하는 혜택이 있는지 확인
-            foreach (var benefit in benefits)
-            {
-                // if (benefit.lv <= commandCenterLv && benefit.build_group_id == buildGroupId)
-                if (benefit.lv <= commandCenterLv && benefit.build_id == buildId)
-                    return true;
-            }
-            return false;
         }
 
         private void OnInstallRequested(ElpisBuildInfo info)
         {
-            // Send Install Request
             InstallBuilding(info).Forget();
+        }
+
+        public void Close()
+        {
+            CloseThisUILayer();
         }
 
         private async UniTaskVoid InstallBuilding(ElpisBuildInfo info)
         {
-            // if (_targetSlotIndex < 0)
-            // {
-            //     Debug.LogError("Slot Index is invalid!");
-            //     return;
-            // }
-
-            // if (!Enum.TryParse<ElpisFacilityType>(info.build_id, out var facilityType))
-            if (!Enum.TryParse<ElpisFacilityType>(info.build_id.ToString(), out var facilityType))
+            if (cachedData.slotIndex < 0)
             {
-                // Debug.LogError($"Invalid Facility Type: {info.build_id}");
-                Debug.LogError($"Invalid Facility Type: {info.build_id}");
+                Debug.LogError("Slot Index is invalid!");
                 return;
             }
-
-            // NetManager 호출
-            var result = await NetManager.Instance.Elpis.BuildFacilityAsync(info.build_id, targetSlotIndex, 0);
-
-            if (result != null && result.IsSuccess)
+            
+            //TODO : 업그레이드인지 설치인지 판별 필요.
+            
+            if (info.build_lv > 1)
             {
-                Debug.Log($"건물 설치 성공: {info.buld_name_token}");
-                // 성공 시 팝업 닫기
-                OnCloseClicked();
-
-                // 로비 메인 갱신 (Visual Logic)
-                var lobby = LobbyMain.GetLobbyMain();
-                if (lobby != null && lobby.MainBlock != null)
+                var result = await NetManager.Instance.Elpis.UpgradeFacilityAsync(info.build_id);
+                if (result != null && result.IsSuccess)
                 {
-                    // TODO: 건물 설치
+                    cachedData.targetLobbyBuildingUI.ChangeInfo(result.Facility);
+                    CloseThisUILayer();
+                }
+                else
+                {
+                    Debug.LogError($"건물 설치 실패: {info.buld_name_token}");
                 }
             }
             else
             {
-                Debug.LogError($"건물 설치 실패: {info.buld_name_token}");
-                // Toast or Error Popup
+                var result = await NetManager.Instance.Elpis.BuildFacilityAsync(info.build_id, cachedData.slotIndex, 0);
+                
+                if (result != null && result.IsSuccess)
+                {
+                    cachedData.targetLobbyBuildingUI.ChangeInfo(result.Facility);
+                    CloseThisUILayer();
+                }
+                else
+                {
+                    Debug.LogError($"건물 설치 실패: {info.buld_name_token}");
+                }
             }
         }
 
         private void OnCloseClicked()
         {
             SceneUILayerManager.Instance.PopUILayer(this);
+        }
+        
+        /// <summary>
+        /// 현재 참조 중인 시설의 FacilityType을 반환합니다.
+        /// </summary>
+        public Tech.Hive.V1.ElpisFacilityType? GetCurrentFacilityType()
+        {
+            if (cachedData?.facilityInfos == null || cachedData.facilityInfos.Count == 0)
+                return null;
+            
+            return cachedData.facilityInfos[0].buildInfo.facility_type.ToServerType();
+        }
+        
+        /// <summary>
+        /// LobbyBuildingInteractionUI 참조를 새 슬롯으로 업데이트합니다.
+        /// 커맨드센터 업그레이드 등으로 슬롯이 재생성될 때 호출됩니다.
+        /// </summary>
+        public void UpdateTargetBuildingUI(LobbyBuildingInteractionUI newBuildingUI)
+        {
+            if (cachedData == null || newBuildingUI == null)
+                return;
+            
+            // 이전 참조 해제
+            cachedData.targetLobbyBuildingUI?.SetCurrentBuildLayer(null);
+            
+            // 새 참조로 업데이트
+            cachedData.targetLobbyBuildingUI = newBuildingUI;
+            cachedData.targetLobbyBuildingUI.SetCurrentBuildLayer(this);
+            
+            // 새 슬롯의 데이터로 갱신
+            cachedData.facilityInfos = newBuildingUI.CachedFacilityInfos;
+            cachedData.slotIndex = newBuildingUI.SlotIndex;
+            
+            // UI 갱신
+            RefreshUI();
         }
     }
 }

@@ -64,8 +64,9 @@ namespace CookApps.BattleSystem
         UseModifyDamageTestFlags = 1L << 57,// 데미지 테스트 중에 스킵하고 싶은 로직이 있다면 해당 함수 오버라이딩
         UseOnHpChange = 1L << 58,// 체력 변동 시 호출되는 함수
         UseOnCanceledCC = 1L << 59,// CC가 이뮨에 의해 캔슬되었을 때 호출되는 함수
+        UseOnStateNormalAttackDamageEvent = 1L << 60,// 일반 공격 상태에서 데미지 이벤트 시 호출되는 함수 이걸로 데미지를 부여해야한다
         #endregion
-        MAX = 1L << 60,
+        MAX = 1L << 62,
     };
 
     public static class EffectCodeInheritFlagExtensions

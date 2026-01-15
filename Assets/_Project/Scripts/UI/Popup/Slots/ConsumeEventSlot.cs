@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using R3;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,49 +28,45 @@ namespace CookApps.AutoBattler
         private EventInfo _specEventData;
         private EventCondition _specEventConditionData;
 
-        private UserEventData _currentUserEventData;
-        private UserEventConditionData _currentUserEventConditionData;
-
-        private List<RewardItem> _eventRewardItemList = new List<RewardItem>();
+        private EventData _currentEventData;
+        private EventConditionData _currentEventConditionData;
 
         private void Awake()
         {
-            _getRewardButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGetRewardButton()).AddTo(this);
+            _getRewardButton.OnClickAsObservable()
+                .SubscribeAwait(this, (_, self, _) => self.OnClickGetRewardButtonAsync(), AwaitOperation.Drop)
+                .AddTo(this);
         }
 
-        public void SetEventSlot(UserEventData eventData, UserEventConditionData conditionData)
+        public void SetEventSlot(EventData eventData, EventConditionData conditionData)
         {
             if (eventData == null) return;
             if (conditionData == null) return;
 
-            _currentUserEventData = eventData;
-            _currentUserEventConditionData = conditionData;
+            _currentEventData = eventData;
+            _currentEventConditionData = conditionData;
 
-            _specEventData = SpecDataManager.Instance.GetSpecEventData(_currentUserEventData.EventId);
-            _specEventConditionData = SpecDataManager.Instance.GetSpecEventConditionData(_currentUserEventData.EventId, _currentUserEventConditionData.EventConditionId);
+            _specEventData = SpecDataManager.Instance.GetSpecEventData((int)_currentEventData.EventId);
+            _specEventConditionData = SpecDataManager.Instance.GetSpecEventConditionData((int)_currentEventData.EventId, (int)_currentEventConditionData.EventConditionId);
 
             SetNeedItemImage();
             _needItemAmountText.text = $"x{_specEventConditionData.need_count}";
 
             // 리워드 데이터 세팅
-            // ItemType의 삭제로 인해 변경.(new RewardItem(_specEventConditionData.item_type, _specEventConditionData.item_key, _specEventConditionData.item_count))
             RewardItem newRewardItem = new RewardItem(_specEventConditionData.item_id, _specEventConditionData.item_count);
             _rewardItemSlot.SetRewardSlot(newRewardItem);
 
-            _eventRewardItemList.Add(newRewardItem);
-
-            RefreshSlot(false);
+            RefreshSlot();
         }
 
-        public void RefreshSlot(bool needDataRefresh)
+        public void RefreshSlot()
         {
-            if (needDataRefresh)
-            {
-                _currentUserEventConditionData = UserDataManager.Instance.GetUserEventConditionData(_currentUserEventData.EventId, _currentUserEventConditionData.EventConditionId);
-            }
-
-            bool isAvailGetReward = _currentUserEventConditionData.EventStateType == (int)EventStateType.REWARD;
-            bool isAlreadyGetReward = _currentUserEventConditionData.EventStateType == (int)EventStateType.CLEAR;
+            // 보상 수령 가능: COMPLETED 상태이고 보상이 남아있는 경우
+            bool isAvailGetReward = _currentEventConditionData.State == EventConditionState.Completed
+                                    && _currentEventConditionData.Rewards.Count > 0;
+            // 이미 수령 완료: COMPLETED 상태이고 보상이 없는 경우
+            bool isAlreadyGetReward = _currentEventConditionData.State == EventConditionState.Completed
+                                      && _currentEventConditionData.Rewards.Count == 0;
 
             // 클레임 상태 세팅
             _claimBGObject.SetActive(isAvailGetReward);
@@ -95,23 +90,56 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private void OnClickGetRewardButton()
+        private async UniTask OnClickGetRewardButtonAsync()
         {
-            if (_currentUserEventData == null) return;
-            if (_currentUserEventConditionData.EventStateType != (int)EventStateType.REWARD) return;
-            if (_eventRewardItemList == null || _eventRewardItemList.Count <= 0) return;
+            if (_currentEventData == null) return;
+            if (_currentEventConditionData.State != EventConditionState.Completed) return;
+            if (_currentEventConditionData.Rewards.Count == 0) return;
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            // 세션 이벤트 상태 데이터 저장
-            UserDataManager.Instance.SetUserEventConditionState(_currentUserEventData.EventId, _currentUserEventConditionData.EventConditionId, EventStateType.CLEAR, true);
+            // 서버에 보상 수령 요청
+            var response = await NetManager.Instance.Event.ClaimRewardAsync(
+                _currentEventData.EventId,
+                _currentEventConditionData.EventConditionId
+            );
 
-            // 보상 데이터 저장
-            UserDataManager.Instance.IncreaseRewardItemList(_eventRewardItemList, true);
+            if (response == null || !response.IsSuccess)
+            {
+                return;
+            }
 
-            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", _eventRewardItemList)).Forget();
+            // 리워드 팝업 생성
+            List<RewardItem> rewardItemList = new List<RewardItem>();
+            for (int i = 0; i < response.Rewards.Count; i++)
+            {
+                var reward = response.Rewards[i];
+                rewardItemList.Add(new RewardItem(reward));
+            }
 
-            RefreshSlot(true);
+            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
+
+            // 서버 응답의 EventConditionData로 갱신
+            UpdateEventConditionData(response.Event);
+            RefreshSlot();
+        }
+
+        private void UpdateEventConditionData(EventData updatedEventData)
+        {
+            if (updatedEventData == null) return;
+
+            _currentEventData = updatedEventData;
+
+            // 현재 조건 데이터 찾아서 갱신
+            for (int i = 0; i < updatedEventData.Conditions.Count; i++)
+            {
+                var condition = updatedEventData.Conditions[i];
+                if (condition.EventConditionId == _currentEventConditionData.EventConditionId)
+                {
+                    _currentEventConditionData = condition;
+                    break;
+                }
+            }
         }
     }
 }

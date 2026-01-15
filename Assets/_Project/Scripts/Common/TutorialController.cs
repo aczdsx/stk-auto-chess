@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
+using CookApps.TeamBattle;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class TutorialController : MonoBehaviour
     private static readonly int Close = Animator.StringToHash("Close");
     private static readonly int HoleRadius = Shader.PropertyToID("_HoleRadius");
     private static readonly int HoleCenter = Shader.PropertyToID("_HoleCenter");
+    private static readonly int HoleRadius2 = Shader.PropertyToID("_HoleRadius2");
+    private static readonly int HoleCenter2 = Shader.PropertyToID("_HoleCenter2");
     private static readonly int AspectRatio = Shader.PropertyToID("_AspectRatio");
 
     [SerializeField] private RectTransform _canvasRectTransform;
@@ -25,6 +28,7 @@ public class TutorialController : MonoBehaviour
 
     [Header("3D World Target Arrow")]
     [SerializeField] private RectTransform _worldArrowRectTransform;
+    [SerializeField] private SpriteLoader _spriteLoaderCharacter;
     [SerializeField] private Canvas _tutorialCanvas;
 
     public Material _maskMaterial;
@@ -54,7 +58,8 @@ public class TutorialController : MonoBehaviour
         { TutorialActionType.FOCUS_OBJECT, new TutorialActionFocusObject() },
         { TutorialActionType.CHARACTER_PLACEMENT, new TutorialActionCharacterPlacement() },
         { TutorialActionType.TOAST_MESSAGE, new TutorialActionToastMessage() },
-        { TutorialActionType.SHOW_DIALOGUE_POP, new TutorialActionShowDialoguePop() }
+        { TutorialActionType.SHOW_DIALOGUE_POP, new TutorialActionShowDialoguePop() },
+        { TutorialActionType.CHARACTER_PLACEMENT_UI, new TutorialActionCharacterPlacementUI() }
     };
 
     protected void Update()
@@ -92,7 +97,9 @@ public class TutorialController : MonoBehaviour
             TargetSpawnTransform = _targetSpawnTransform,
             WorldArrowRectTransform = _worldArrowRectTransform,
             TutorialCanvas = _tutorialCanvas,
-            MainCamera = Camera.main
+            MainCamera = Camera.main,
+            CanvasRectTransform = _canvasRectTransform,
+            MaskMaterial = _maskMaterial
         };
     }
 
@@ -134,11 +141,14 @@ public class TutorialController : MonoBehaviour
         {
             // 텍스트 설정
             // string tutorialText = LanguageManager.Instance.GetDefaultText(CurrentSpecTutorial.desc_key);
+
+
+            _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterPieceSprite(CurrentSpecTutorial.prefab_id));
             string tutorialText = CurrentSpecTutorial.desc_key;
             _descText.text = tutorialText;
 
-            // 말풍선 위치 이동
-            var targetPosition = new Vector3(0, CurrentSpecTutorial.popup_yPos, 0);
+            // 말풍선 위치 이동 (coordinate: "x,y" 형식)
+            var targetPosition = ParseCoordinate(CurrentSpecTutorial.coordinate);
             _bodyRectTransform.DOLocalMove(targetPosition, 0.6f).SetEase(Ease.OutQuad);
         }
 
@@ -162,6 +172,12 @@ public class TutorialController : MonoBehaviour
         if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FORCED_TOUCH_UI)
         {
             TutorialActionForcedTouchUI.OnButtonClicked = OnForcedTouchUIButtonClicked;
+        }
+
+        // CHARACTER_PLACEMENT_UI 전략일 경우 배치 완료 콜백 설정
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.CHARACTER_PLACEMENT_UI)
+        {
+            TutorialActionCharacterPlacementUI.OnPlacementCompleted = OnCharacterPlacementUICompleted;
         }
 
         // SHOW_DIALOGUE_POP 전략일 경우 팝업 표시 후 바로 다음으로 진행
@@ -203,6 +219,18 @@ public class TutorialController : MonoBehaviour
     {
         // 콜백 해제
         TutorialActionCharacterPlacement.OnCharacterPlacementCompleted = null;
+
+        // 다음 튜토리얼로 진행
+        ProceedToNext();
+    }
+
+    /// <summary>
+    /// UI 캐릭터 배치 완료 시 호출되는 콜백
+    /// </summary>
+    private void OnCharacterPlacementUICompleted()
+    {
+        // 콜백 해제
+        TutorialActionCharacterPlacementUI.OnPlacementCompleted = null;
 
         // 다음 튜토리얼로 진행
         ProceedToNext();
@@ -279,6 +307,24 @@ public class TutorialController : MonoBehaviour
 
         Debug.LogWarning($"[TutorialController] 알 수 없는 ActionType: {actionType}, NONE 전략 사용");
         return _strategies[TutorialActionType.NONE];
+    }
+
+    /// <summary>
+    /// "x,y" 형식의 좌표 문자열을 Vector3로 파싱
+    /// </summary>
+    private Vector3 ParseCoordinate(string coordinate)
+    {
+        if (string.IsNullOrEmpty(coordinate))
+            return Vector3.zero;
+
+        var parts = coordinate.Split(',');
+        if (parts.Length < 2)
+            return Vector3.zero;
+
+        float.TryParse(parts[0].Trim(), out float x);
+        float.TryParse(parts[1].Trim(), out float y);
+
+        return new Vector3(x, y, 0);
     }
 
     #region World Arrow
@@ -376,17 +422,24 @@ public class TutorialController : MonoBehaviour
             return _currentUvPosition;
         }
 
-        // UI 오브젝트 (RectTransform 기반)
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FOCUS_OBJECT)
+        // UI 오브젝트 (RectTransform 기반) - FOCUS_OBJECT 또는 CHARACTER_PLACEMENT_UI
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FOCUS_OBJECT ||
+            CurrentSpecTutorial.tutorial_action_type == TutorialActionType.CHARACTER_PLACEMENT_UI)
         {
             var targetRectTransform = targetObj.GetComponent<RectTransform>();
-            if (targetRectTransform == null)
+            if (targetRectTransform != null)
             {
-                Debug.LogWarning("UnMaskUI 대상 오브젝트에 RectTransform이 없습니다.");
-                return _currentUvPosition;
+                return GetNormalizedPosition(_canvasRectTransform, targetRectTransform);
             }
 
-            return GetNormalizedPosition(_canvasRectTransform, targetRectTransform);
+            // CHARACTER_PLACEMENT_UI에서 보드 위 캐릭터로 전환된 경우 3D 좌표 사용
+            if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.CHARACTER_PLACEMENT_UI)
+            {
+                return CalculateWorldPositionUV(targetObj.transform.position);
+            }
+
+            Debug.LogWarning("UnMaskUI 대상 오브젝트에 RectTransform이 없습니다.");
+            return _currentUvPosition;
         }
 
         // 3D 월드 오브젝트 (CHARACTER_PLACEMENT 등)
@@ -466,21 +519,26 @@ public class TutorialController : MonoBehaviour
 
     private Vector2 GetNormalizedPosition(RectTransform canvasRect, RectTransform rect)
     {
-        float normalizedX = (rect.localPosition.x + (_canvasRectTransform.sizeDelta.x * 0.5f)) /
-                            _canvasRectTransform.sizeDelta.x;
-        float normalizedY = (rect.localPosition.y + (_canvasRectTransform.sizeDelta.y * 0.5f)) /
-                            _canvasRectTransform.sizeDelta.y;
+        // UI 요소의 월드 좌표에서 중심점 계산
+        Vector3[] corners = new Vector3[4];
+        rect.GetWorldCorners(corners);
+        Vector3 worldCenter = (corners[0] + corners[2]) / 2f;
 
-        if (CurrentSpecTutorial.tutorial_action_key == "PointMileStoneUI")
-        {
-            // normalizedY += 0.5f;
-        }
-        else
-        {
-            normalizedY -= 0.46f;
-        }
+        // 월드 좌표 → 스크린 좌표
+        Camera cam = _tutorialCanvas.worldCamera;
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(cam, worldCenter);
 
-        return new Vector2(normalizedX, normalizedY);
+        // 스크린 좌표 → 캔버스 로컬 좌표
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            _canvasRectTransform,
+            screenPoint,
+            cam,
+            out var localPoint);
+
+        // 정규화
+        return new Vector2(
+            (localPoint.x + (_canvasRectTransform.rect.width * 0.5f)) / _canvasRectTransform.rect.width,
+            (localPoint.y + (_canvasRectTransform.rect.height * 0.5f)) / _canvasRectTransform.rect.height);
     }
 
     #endregion

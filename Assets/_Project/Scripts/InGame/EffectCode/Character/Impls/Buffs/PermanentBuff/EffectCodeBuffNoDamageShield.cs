@@ -16,7 +16,7 @@ public partial class EffectCodeBuffNoDamageShield : EffectCodeBuffBase
     private const int CodeId = (int)EffectCodeNameType.BUFF_SPECIAL_NO_DAMAGE_SHIELD;
     private const BuffDebuffType buffDebuffType = BuffDebuffType.NoDamageShield;
 
-    public override bool IsNeedToShowIcon => true;
+    public override bool IsNeedToShowIcon => _stackDatas[0].value > 0;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {

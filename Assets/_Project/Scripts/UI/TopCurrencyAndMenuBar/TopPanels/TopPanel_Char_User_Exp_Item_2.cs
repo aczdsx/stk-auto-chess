@@ -1,4 +1,5 @@
 using Cysharp.Text;
+using R3;
 
 namespace CookApps.AutoBattler
 {
@@ -6,21 +7,27 @@ namespace CookApps.AutoBattler
     {
         public override TopPanelType PanelType => TopPanelType.Char_User_Exp_Item_2;
 
+        private static readonly ItemId CurrencyId = IdMap.Item.UserExp;
+        private InventoryDataBridge _inventoryBridge;
+
+        private void Awake()
+        {
+            _inventoryBridge = new InventoryDataBridge();
+
+            _inventoryBridge.OnCurrencyChanged
+                .Where(this, (x, self) => x.itemId == CurrencyId && self.CachedGo.activeInHierarchy)
+                .Subscribe(this, (x, self) => self.UpdateCurrencyText(x.newAmount))
+                .AddTo(this);
+        }
+
         private void OnEnable()
         {
-            UserDataManager.OnCharUserExpItem2Changed += CharUserExpItem2Changed;
-
-            CharUserExpItem2Changed(UserDataManager.Instance.UserWallet.CharUserExpItem2);
+            UpdateCurrencyText(_inventoryBridge.GetCurrency(CurrencyId));
         }
 
-        private void OnDisable()
+        private void UpdateCurrencyText(ulong amount)
         {
-            UserDataManager.OnCharUserExpItem2Changed -= CharUserExpItem2Changed;
-        }
-
-        private void CharUserExpItem2Changed(int expItem2)
-        {
-            currencyText.SetText(expItem2.ToString("N0"));
+            currencyText.SetText(amount);
         }
     }
 }

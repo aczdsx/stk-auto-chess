@@ -1,11 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using Coffee.UIEffects;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using R3;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,7 +29,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private Color _completedColor;
 
         private QuestInfo _specQuestData;
-        private UserQuestData _userQuestData;
+        private QuestData _questData;
 
         private QuestPopup _parentPopup;
 
@@ -41,7 +40,9 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _getRewardButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGetRewardButton()).AddTo(this);
+            _getRewardButton.OnClickAsObservable()
+                .SubscribeAwait(this, (_, self, _) => self.OnClickGetRewardButtonAsync(), AwaitOperation.Drop)
+                .AddTo(this);
         }
 
         public void SetQuestGaugeSlot(QuestPopup parent, QuestInfo data)
@@ -53,7 +54,7 @@ namespace CookApps.AutoBattler
             _parentPopup = parent;
 
             _specQuestData = data;
-            _userQuestData = UserDataManager.Instance.GetUserQuestData(_specQuestData.quest_id);
+            _questData = ServerDataManager.Instance.Quest.GetQuest(_specQuestData.quest_id);
 
             _clearAmountText.text = _specQuestData.need_count.ToString();
 
@@ -61,7 +62,6 @@ namespace CookApps.AutoBattler
             _rewardAmountText.text = $"x{_specQuestData.item_count}";
 
             // 리워드 데이터 세팅
-            // ItemType의 삭제로 인해 변경.(new RewardItem(_specQuestData.item_type, _specQuestData.item_key, _specQuestData.item_count))
             var rewardItem = new RewardItem(_specQuestData.item_id, _specQuestData.item_count);
             _questRewardItemList.Add(rewardItem);
 
@@ -72,12 +72,12 @@ namespace CookApps.AutoBattler
         {
             if (needRefreshUserData)
             {
-                _userQuestData = UserDataManager.Instance.GetUserQuestData(_specQuestData.quest_id);
+                _questData = ServerDataManager.Instance.Quest.GetQuest(_specQuestData.quest_id);
             }
 
             // 보상 수령 상태에 따른 분기처리
-            _isAvailGetReward = _userQuestData.QuestStateType == (int)QuestStateType.REWARD;
-            _isAlreadyGetReward = _userQuestData.QuestStateType == (int)QuestStateType.CLEAR;
+            _isAvailGetReward = _questData.State == QuestState.Completed && _questData.Rewards.Count > 0;
+            _isAlreadyGetReward = _questData.State == QuestState.Completed && _questData.Rewards.Count == 0;
 
             _rewardIconUIShiny.Play(_isAvailGetReward && !_isAlreadyGetReward);
             _activeFrameObject.SetActive(_isAvailGetReward && !_isAlreadyGetReward);
@@ -94,7 +94,7 @@ namespace CookApps.AutoBattler
             _completeSymbolObject.SetActive(_isAlreadyGetReward);
         }
 
-        private void OnClickGetRewardButton()
+        private async UniTask OnClickGetRewardButtonAsync()
         {
             // 보상 수령 가능 여부 체크
             if (_isAvailGetReward == false)
@@ -110,13 +110,32 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            // 퀘스트 상태 데이터 저장
-            UserDataManager.Instance.SetUserQuestState(_userQuestData.QuestId, QuestStateType.CLEAR, true);
+            // 서버에 보상 수령 요청
+            var response = await NetManager.Instance.Quest.ClaimQuestRewardAsync(
+                _questData.QuestId,
+                _specQuestData.quest_type.ToServerType());
 
-            // 보상 데이터 저장
-            UserDataManager.Instance.IncreaseRewardItemList(_questRewardItemList, true);
+            if (response == null || !response.IsSuccess)
+            {
+                return;
+            }
 
-            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", _questRewardItemList)).Forget();
+            // 보상 결과 표시
+            List<RewardItem> rewardItemList = new List<RewardItem>();
+            for (int i = 0; i < response.Rewards.Count; i++)
+            {
+                rewardItemList.Add(new RewardItem(response.Rewards[i]));
+            }
+
+            // 로컬 데이터 갱신
+            if (response.Quest != null)
+            {
+                _questData = response.Quest;
+            }
+
+            RefreshSlot(false);
+
+            await SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), null);
 
             _parentPopup?.RefreshPopup();
         }

@@ -73,18 +73,27 @@ namespace CookApps.AutoBattler
 
         private int _maxTranscendenceLevel;
 
+        private InventoryDataBridge _inventoryBridge;
+
         private void Awake()
         {
-            _detailStatButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickDetailStatButton()).AddTo(this);
+            _inventoryBridge = new InventoryDataBridge();
+            _detailStatButton.OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClickDetailStatButton()).AddTo(this);
 
             // 레벨업
-            _activeLevelUpButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickLevelupButtonAsync(), AwaitOperation.Drop).AddTo(this);
-            _inactiveLevelUpButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickLevelupButtonAsync(), AwaitOperation.Drop).AddTo(this);
-            _activeResetLevelUpButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCharacterResetButton()).AddTo(this);
-            _inactiveResetLevelUpButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickDimmedResetButton()).AddTo(this);
+            _activeLevelUpButton.OnClickAsObservable()
+                .SubscribeAwait(this, (_, self, _) => self.OnClickLevelupButtonAsync(), AwaitOperation.Drop).AddTo(this);
+            _inactiveLevelUpButton.OnClickAsObservable()
+                .SubscribeAwait(this, (_, self, _) => self.OnClickLevelupButtonAsync(), AwaitOperation.Drop).AddTo(this);
+            _activeResetLevelUpButton.OnClickAsObservable()
+                .SubscribeAwait(this, (_, self, _) => self.OnClickCharacterResetButtonAsync(), AwaitOperation.Drop).AddTo(this);
+            _inactiveResetLevelUpButton.OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClickDimmedResetButton()).AddTo(this);
 
             // 초월
-            _activeTranscendenceButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickTranscendenceButton()).AddTo(this);
+            _activeTranscendenceButton.OnClickAsObservable()
+                .SubscribeAwait(this, (_, self, _) => self.OnClickTranscendenceButtonAsync(), AwaitOperation.Drop).AddTo(this);
         }
 
         public void InitLayer(CharacterCollectionPopup _parentPopup, int characterID)
@@ -155,8 +164,8 @@ namespace CookApps.AutoBattler
             if (_isHaveCharacter == false) return;
 
             _pieceIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacterData.prefab_id)).Forget();
-            // TODO: CharacterPiece는 인벤토리에서 가져와야 함
-            int characterPiece = 0; // ServerDataManager.Instance.Inventory.GetCharacterPiece(_specCharacterData.character_id);
+            ItemId pieceItemId = ItemIdExtensions.GetCharacterPieceId(_specCharacterData.id);
+            int characterPiece = (int)_inventoryBridge.GetCurrency(pieceItemId);
             _pieceAmountText.text = $"{characterPiece}<color=#C4CDE2>/{_specCharacterTranscendenceData.piece}</color>";
 
             _pieceSlider.maxValue = _specCharacterTranscendenceData.piece;
@@ -217,8 +226,8 @@ namespace CookApps.AutoBattler
             bool isHasPiece = false;
             if (_specCharacterTranscendenceData != null)
             {
-                // TODO: CharacterPiece는 인벤토리에서 가져와야 함
-                int characterPiece = 0; // ServerDataManager.Instance.Inventory.GetCharacterPiece(_specCharacterData.character_id);
+                ItemId pieceItemId = ItemIdExtensions.GetCharacterPieceId(_specCharacterData.id);
+                int characterPiece = (int)_inventoryBridge.GetCurrency(pieceItemId);
                 isHasPiece = characterPiece >= _specCharacterTranscendenceData.piece;
                 _transcendenceItemCurrencyUIItem.SetUIItem(_specCharacterData.id, _specCharacterTranscendenceData.piece);
             }
@@ -284,8 +293,6 @@ namespace CookApps.AutoBattler
         {
             if (_userStatData == null) return;
 
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PushUILayerAsync<InfoDetailTooltipPopup>(_userStatData).Forget();
         }
 
@@ -334,7 +341,7 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private async UniTask OnClickCharacterResetButton()
+        private async UniTask OnClickCharacterResetButtonAsync()
         {
             // 리셋 가능 레벨 체크
             if (_userCharacterData.Level <= 1)
@@ -377,7 +384,7 @@ namespace CookApps.AutoBattler
             ToastManager.Instance.ShowToastByTokenKey("MSG_CHARACTER_LV_RESET_END_GUIDE");
         }
 
-        private async UniTask OnClickTranscendenceButton()
+        private async UniTask OnClickTranscendenceButtonAsync()
         {
             if (_userCharacterData == null) return;
             if (_specCharacterTranscendenceData == null) return;
@@ -394,9 +401,9 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // TODO: 재료 검사
-            return;
-            if (!UserDataManager.Instance.CheckEnoughItem(_specCharacterData.id, _specCharacterTranscendenceData.piece, true))
+            // 재료 검사
+            ItemId pieceItemId = ItemIdExtensions.GetCharacterPieceId(_specCharacterData.id);
+            if (!_inventoryBridge.HasEnoughCurrency(pieceItemId, (ulong)_specCharacterTranscendenceData.piece))
             {
                 return;
             }

@@ -46,6 +46,7 @@ public class CharacterStateSkill : CharacterStateBase
             return;
         }
 
+
         characCtrl.GetCharacterView().PlayAnimation(skillAnimationKey);
     }
 

@@ -13,9 +13,14 @@ namespace CookApps.AutoBattler
     public class InGameSynergyUI : CachedMonoBehaviour
     {
         [SerializeField] private Image _iconImage;
-        [SerializeField] private SpriteLoader _iconSpriteLoader;
+        [SerializeField] private SpriteLoader _starAsterismIconSpriteLoader;
+        [SerializeField] private SpriteLoader _elementalIconSpriteLoader;
+        [SerializeField] private GameObject _starAsterismIconGameObject;
+        [SerializeField] private GameObject _elementalIconGameObject;
         [SerializeField] private TextMeshProUGUI _countText;
-        [SerializeField] private List<Image> _stepImageList;
+        [SerializeField] private Image _starAsterismGradeGuageImage;
+        [SerializeField] private Image _elementalGradeGuageImage;
+        [SerializeField] private RectTransform _buttonRect;
 
 
         private Color _step0Color = new Color32(139, 139, 139, 50); // 그레이 (Gray)
@@ -61,33 +66,52 @@ namespace CookApps.AutoBattler
             }
 
             _count = count;
-            _iconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(synergyType, isActive)).Forget();
 
-            _iconImage.color = (isColorWhite) ? color : Color.white;
+            var lastSynergyData = SpecDataManager.Instance.GetSpecSynergyList(synergyType).Last();
+            bool isAsterismSynergyType = DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType);
+            _starAsterismIconGameObject.SetActive(isAsterismSynergyType);
+            _elementalIconGameObject.SetActive(!isAsterismSynergyType);
+            if (isAsterismSynergyType)
+            {
+                _starAsterismIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(synergyType, isActive)).Forget();
+            }
+            else
+            {
+                _elementalIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(synergyType, isActive)).Forget();
+            }
+
+            if (isAsterismSynergyType)
+            {
+                _starAsterismGradeGuageImage.fillAmount = (float)data.grade / (float)(lastSynergyData.grade - 1);
+                _starAsterismGradeGuageImage.color = color;
+            }
+            else
+            {
+                _elementalGradeGuageImage.fillAmount = (float)data.grade / (float)(lastSynergyData.grade - 1);
+                _elementalGradeGuageImage.color = color;
+            }
+
+            //  .color = (isColorWhite) ? color : Color.white;
             _countText.text = $"{count}/{nextData.min_int}";
             _countText.color = color;
-
-
-
-            for (int i = 0; i < _stepImageList.Count; i++)
-            {
-                bool isActiveObject = i <= _synergyData.grade - 1;
-                _stepImageList[i].gameObject.SetActive(isActiveObject);
-                if (isActiveObject)
-                {
-                    _stepImageList[i].color = color;
-                }
-            }
         }
 
+        /// <summary>
+        /// 시너지 아이콘 클릭 시 미니 팝업 표시
+        /// </summary>
         public void OnClickSynergy()
         {
-            // var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_synergyType);
-            // if (specSynergyDataList != null && specSynergyDataList.Count > 0)
-            // {
-            //     var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
-            //     SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, _count, _synergyData, _nextSynergyData)).Forget();
-            // }
+            if (_synergyData == null || _synergyData.grade == 0) return;
+
+            var param = new SynergyTooltipIngameMiniPopup.PopupParam(
+                _synergyType,
+                _count,
+                _synergyData,
+                _nextSynergyData,
+                _buttonRect
+            );
+
+            SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipIngameMiniPopup>(param).Forget();
         }
     }
 }

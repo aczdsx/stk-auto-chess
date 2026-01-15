@@ -11,6 +11,15 @@ using Unity.Mathematics;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
+public static class PrologueID {
+    public const int 프롤로그유니ID = 10;
+    public const int 프롤로그필리아ID = 11;
+    public const int 프롤로그아트레시아ID = 12;
+    public const int 프롤로그클레이ID = 13;
+    public const int 프롤로그마리에ID = 15;
+    public const int 프롤로그라플라스마녀ID = 9002;
+}
+
 public class FlowStatePrologueReady : StateReadyBase
 {
     public override void SetStateData(object data)
@@ -62,10 +71,10 @@ public class FlowStatePrologueReady : StateReadyBase
         // 프롤로그 플레이어 캐릭터 위치 (플레이어 진영 앞쪽)
         var prologueCharacterPositions = new Dictionary<int, int2>
         {
-            { 3404, new int2(2, 2) }, 
-            { 2102, new int2(1, 2) }, // 유니
-            { 2401, new int2(3, 2) }, // 필리아
-            { 3401, new int2(2, 1) }  // 아트레시아 (중앙 앞)
+            { PrologueID.프롤로그유니ID, new int2(1, 2) }, // 유니
+            { PrologueID.프롤로그필리아ID, new int2(3, 2) }, // 필리아
+            { PrologueID.프롤로그아트레시아ID, new int2(2, 1) },  // 아트레시아 (중앙 앞)
+            { PrologueID.프롤로그클레이ID, new int2(2, 2) } 
         };
 
         // 플레이어 캐릭터 소환
@@ -79,6 +88,8 @@ public class FlowStatePrologueReady : StateReadyBase
             var characterStat = new CharacterStatData(characterId, prologueCharacterLevel,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
+            // Debug.LogColor(Newtonsoft.Json.JsonConvert.SerializeObject(characterStat),"cyan");
+
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, position,
                 AllianceType.Player,
                 typeof(CharacterStateReady), true, HpBarType.Synergy));
@@ -86,7 +97,7 @@ public class FlowStatePrologueReady : StateReadyBase
 
         //라플라스 마녀 소환 
         //[TODO] 라플라스 마녀의 실제 캐릭터 ID로 변경 필요
-        int laplaceWitchId = 8501; // 임시 ID (Trial 던전 보스)
+        int laplaceWitchId = PrologueID.프롤로그라플라스마녀ID; // 임시 ID (Trial 던전 보스)
         int2 witchPosition = new int2(2, 10);
 
         Debug.LogColor($"라플라스 마녀 추가 : {laplaceWitchId} at ({witchPosition.x}, {witchPosition.y})");
