@@ -58,15 +58,15 @@ namespace CookApps.AutoBattler
                 installButton.gameObject.SetActive(false);
                 conditionText.text = "설치 완료";
             }
+            else if (facilityInfo.isJustCompleted)
+            {
+                installButton.gameObject.SetActive(false);
+                conditionText.text = "설치 완료 대기";
+            }
             else if (facilityInfo.isInstalling)
             {
                 installButton.gameObject.SetActive(false);
                 conditionText.text = "설치 중";
-            }
-            else if (!facilityInfo.isCanInstall && !facilityInfo.isPreviousLevelRequired)
-            {
-                installButton.gameObject.SetActive(false);
-                conditionText.text = "사령부 레벨 부족";
             }
             else if (facilityInfo.isPreviousLevelRequired)
             {
@@ -75,8 +75,15 @@ namespace CookApps.AutoBattler
             }
             else if (facilityInfo.isAnotherBuilding)
             {
+                // 다른 건물이 건설 중인 경우 (사령부 레벨 부족보다 먼저 체크)
                 installButton.gameObject.SetActive(false);
                 conditionText.text = "다른 건물 건설 중";
+            }
+            else if (!facilityInfo.isCanInstall)
+            {
+                // 위 조건들이 모두 아닌데 설치 불가능하면 사령부 레벨 부족
+                installButton.gameObject.SetActive(false);
+                conditionText.text = "사령부 레벨 부족";
             }
             else
             {

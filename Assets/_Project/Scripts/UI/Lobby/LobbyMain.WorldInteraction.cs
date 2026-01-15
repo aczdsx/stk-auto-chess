@@ -14,8 +14,14 @@ namespace CookApps.AutoBattler
 
         private void CreateWorldInteractionSlots(IReadOnlyList<ElpisBuildingBase> buildingBases)
         {
+            // 열려있는 ElpisBuildLayer가 있으면 현재 참조 중인 FacilityType 저장
+            var openBuildLayer = SceneUILayerManager.Instance.GetUILayer<ElpisBuildLayer>();
+            var previousSlotFacilityType = openBuildLayer?.GetCurrentFacilityType();
+            
             ClearSlots();
 
+            LobbyBuildingInteractionUI newSlotForBuildLayer = null;
+            
             var facilities = elpisDataBridge.GetAllFacilities();
             for (var i = 0; i < facilities.Count; i++)
             {
@@ -26,9 +32,21 @@ namespace CookApps.AutoBattler
                     continue;
 
                 var slot = Instantiate(_slotPrefab, _slotContainer);
+                slot.CachedGo.SetActive(true);  // Initialize 전에 활성화해야 코루틴 시작 가능
                 slot.Initialize(buildingBases[buildingData.GridX], buildingData);
-                slot.CachedGo.SetActive(true);
                 _activeSlots.Add(slot);
+                
+                // ElpisBuildLayer가 열려있었고, 같은 FacilityType이면 새 슬롯 저장
+                if (previousSlotFacilityType.HasValue && buildingData.Type == previousSlotFacilityType.Value)
+                {
+                    newSlotForBuildLayer = slot;
+                }
+            }
+            
+            // 열려있는 ElpisBuildLayer의 참조를 새 슬롯으로 업데이트
+            if (openBuildLayer != null && newSlotForBuildLayer != null)
+            {
+                openBuildLayer.UpdateTargetBuildingUI(newSlotForBuildLayer);
             }
         }
         
