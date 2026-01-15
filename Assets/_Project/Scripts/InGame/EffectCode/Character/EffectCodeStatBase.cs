@@ -66,7 +66,7 @@ namespace CookApps.BattleSystem
         UseOnCanceledCC = 1L << 59,// CC가 이뮨에 의해 캔슬되었을 때 호출되는 함수
         UseOnStateNormalAttackDamageEvent = 1L << 60,// 일반 공격 상태에서 데미지 이벤트 시 호출되는 함수 이걸로 데미지를 부여해야한다
         #endregion
-        MAX = 1L << 61,
+        MAX = 1L << 62,
     };
 
     public static class EffectCodeInheritFlagExtensions

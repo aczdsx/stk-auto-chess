@@ -31,22 +31,16 @@ namespace CookApps.BattleSystem
             _overlapCount = codeInfo.GetCodeStatToInt(0);
             _debuffDuration = codeInfo.GetCodeStatToFloat(1);
         }
-
-        // public override void OnCritical(CharacterController target)
-        // {
-        //     base.OnCritical(target);
-        //     Span<double> eccStats = stackalloc double[4];
-        //     eccStats.Clear();
-        //     eccStats[0] = CodeId;
-        //     eccStats[1] = 1;
-        //     eccStats[2] = _overlapCount;
-        //     eccStats[3] = _debuffDuration;
-
-        //     EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_MARIE_ARACNE, target, eccStats, source);
-        // }
-        public override void OnAttackEnd(CharacterController target)
+        
+        public override void OnCritical(CharacterController damgedTarget)
         {
-            base.OnAttackEnd(target);
+            base.OnCritical(damgedTarget);
+            AddDebuff(damgedTarget);
+        }
+
+
+        private void AddDebuff(CharacterController target)
+        {
             Span<double> eccStats = stackalloc double[4];
             eccStats.Clear();
             eccStats[0] = CodeId;
@@ -56,5 +50,6 @@ namespace CookApps.BattleSystem
 
             EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_SPECIAL_MARIE_ARACNE, target, eccStats, source);
         }
+
     }//117613501
 }
