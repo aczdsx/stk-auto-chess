@@ -71,6 +71,37 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
+        /// 챕터 마일스톤 보상 수령
+        /// </summary>
+        public async UniTask<BattleClaimChapterMilestoneRewardResponse> ClaimChapterMilestoneRewardAsync(
+            uint chapterId,
+            uint milestoneRewardId,
+            CancellationToken cancellationToken = default)
+        {
+            BattleClaimChapterMilestoneRewardResponse resp = await ExecuteWithCommonErrorCheck(
+                ServiceClient.ClaimChapterMilestoneRewardAsync,
+                new BattleClaimChapterMilestoneRewardRequest
+                {
+                    ChapterId = chapterId,
+                    MilestoneRewardId = milestoneRewardId
+                },
+                cancellationToken: cancellationToken
+            );
+
+            // 서버 응답으로 로컬 데이터 갱신
+            if (resp != null && resp.IsSuccess)
+            {
+                // 통화 변화 적용
+                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+                {
+                    ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
+                }
+            }
+
+            return resp;
+        }
+
+        /// <summary>
         /// 전투 시작
         /// </summary>
         public async UniTask<BattleStartResponse> StartAsync(

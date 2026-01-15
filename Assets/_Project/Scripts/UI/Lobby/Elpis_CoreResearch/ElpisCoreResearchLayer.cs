@@ -284,7 +284,7 @@ namespace CookApps.AutoBattler
             SetCoreStatItems();
 
             // 먼저 currentItemCount 갱신
-            currentItemCount = (int)inventoryDataBridge.GetCurrency((uint)coreData.Data.item_id);
+            currentItemCount = (int)inventoryDataBridge.GetCurrency(coreData.Data.item_id);
             currentCoreText.text = ZString.Concat(currentItemCount);
             requiredCoreText.text = ZString.Concat(coreData.Data.item_INT);
 

@@ -7,6 +7,7 @@ using CookApps.TeamBattle.Utility;
 using Cysharp.Text;
 using Tech.Hive.V1;
 using UnityEngine;
+using Reward = Tech.Hive.V1.Reward;
 
 namespace CookApps.AutoBattler
 {
@@ -23,9 +24,16 @@ namespace CookApps.AutoBattler
             Count = count;
         }
 
-        public Tech.Hive.V1.Reward ToGrpcReward()
+        // From gRPC Reward
+        public RewardItem(Reward reward)
         {
-            return new Tech.Hive.V1.Reward
+            Id = (int)reward.ItemId;
+            Count = (int)reward.Count;
+        }
+
+        public Reward ToGrpcReward()
+        {
+            return new Reward
             {
                 ItemId = Id,
                 Count = (ulong)Count
@@ -115,6 +123,16 @@ namespace CookApps.AutoBattler
             };
 
             return color;
+        }
+        
+        public static Tech.Hive.V1.QuestType ToServerType(this QuestType specQuestType)
+        {
+            return specQuestType switch
+            {
+                QuestType.CLEAR_DAILY_QUEST => Tech.Hive.V1.QuestType.Daily,
+                // QuestType.CLEAR_WEEKLY_QUEST => Tech.Hive.V1.QuestType.Unspecified,
+                _ => Tech.Hive.V1.QuestType.Unspecified,
+            };
         }
     }
 }

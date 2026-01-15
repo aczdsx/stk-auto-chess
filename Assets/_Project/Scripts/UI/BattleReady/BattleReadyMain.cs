@@ -768,14 +768,14 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // 이벤트 유저 데이터 유효성 검증
-            var currentUserEventData = UserDataManager.Instance.GetUserEventData(currentSpecEventData.event_id);
-            if (currentUserEventData == null)
+            // 이벤트 데이터 조회
+            var currentEventData = ServerDataManager.Instance.Event.GetEvent(currentSpecEventData.event_id);
+            if (currentEventData == null)
             {
                 return;
             }
 
-            SceneUILayerManager.Instance.PushUILayerAsync<SessionTimeEventPopup>(currentUserEventData).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<SessionTimeEventPopup>(currentEventData, null).Forget();
         }
 
         private void OnClickConsumeAPEventButton()
@@ -787,14 +787,14 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // 이벤트 유저 데이터 유효성 검증
-            var currentUserEventData = UserDataManager.Instance.GetUserEventData(currentSpecEventData.event_id);
-            if (currentUserEventData == null)
+            // 이벤트 데이터 조회
+            var currentEventData = ServerDataManager.Instance.Event.GetEvent(currentSpecEventData.event_id);
+            if (currentEventData == null)
             {
                 return;
             }
 
-            SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentUserEventData).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentEventData, null).Forget();
         }
 
         private void OnClickUserAccountLayerButton()

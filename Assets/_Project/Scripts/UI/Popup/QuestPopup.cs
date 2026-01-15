@@ -1,8 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using R3;
+using Tech.Hive.V1;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,8 +55,13 @@ namespace CookApps.AutoBattler
 
             _currentTabTermType = TermType.DAILY;
 
-            UserDataManager.Instance.CheckQuestRefreshState();
+            // 서버에서 퀘스트 데이터 갱신
+            RefreshQuestDataAsync().Forget();
+        }
 
+        private async UniTaskVoid RefreshQuestDataAsync()
+        {
+            await NetManager.Instance.Quest.ListDailyQuestAsync();
             SetQuestPopup(_currentTabTermType);
         }
 
@@ -121,7 +127,10 @@ namespace CookApps.AutoBattler
 
             // 슬라이더 세팅
             _mileStoneSlider.maxValue = _specMileStoneQuestDataList.Max(data => data.need_count);
-            _mileStoneSlider.value = UserDataManager.Instance.GetQuestClearCount(_currentTabTermType);
+
+            // 마일스톤 퀘스트의 CurrentCount를 사용하여 클리어 카운트 가져오기
+            var firstMilestoneQuest = ServerDataManager.Instance.Quest.GetQuest(_specMileStoneQuestDataList[0].quest_id);
+            _mileStoneSlider.value = firstMilestoneQuest?.CurrentCount ?? 0;
         }
 
         private void UpdateTabButton()

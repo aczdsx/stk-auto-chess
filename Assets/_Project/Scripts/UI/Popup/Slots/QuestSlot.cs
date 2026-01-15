@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using R3;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,7 +28,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _completeButtonObject;
 
         private QuestInfo _specQuestData;
-        private UserQuestData _userQuestData;
+        private QuestData _questData;
 
         private List<RewardItem> _questRewardItemList = new List<RewardItem>();
 
@@ -37,7 +36,9 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _claimButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGetRewardButton()).AddTo(this);
+            _claimButton.OnClickAsObservable()
+                .SubscribeAwait(this, (_, self, _) => self.OnClickGetRewardButtonAsync(), AwaitOperation.Drop)
+                .AddTo(this);
         }
 
         public void SetQuestSlot(QuestPopup parent, QuestInfo data)
@@ -47,13 +48,12 @@ namespace CookApps.AutoBattler
             _parentPopup = parent;
 
             _specQuestData = data;
-            _userQuestData = UserDataManager.Instance.GetUserQuestData(_specQuestData.quest_id);
+            _questData = ServerDataManager.Instance.Quest.GetQuest(_specQuestData.quest_id);
 
             _questTitleText.text = LanguageManager.Instance.GetDefaultText(_specQuestData.name_token);
             _questDescText.text = LanguageManager.Instance.GetDefaultText(_specQuestData.desc_token);
 
             // 리워드 데이터 세팅
-            // ItemType의 삭제로 인해 변경.(new RewardItem(_specQuestData.item_type, _specQuestData.item_key, _specQuestData.item_count))
             var rewardItem = new RewardItem(_specQuestData.item_id, _specQuestData.item_count);
             _questRewardSlot.SetRewardSlot(rewardItem);
 
@@ -65,37 +65,59 @@ namespace CookApps.AutoBattler
         public void RefreshQuestSlot(bool needRefreshData)
         {
             if (_specQuestData == null) return;
-            if (_userQuestData == null) return;
+            if (_questData == null) return;
 
             if (needRefreshData)
             {
-                _userQuestData = UserDataManager.Instance.GetUserQuestData(_specQuestData.quest_id);
+                _questData = ServerDataManager.Instance.Quest.GetQuest(_specQuestData.quest_id);
             }
 
             // 슬라이더 세팅
-            _questSliderText.text = $"{_userQuestData.ActionCount}/{_specQuestData.need_count}";
+            _questSliderText.text = $"{_questData.CurrentCount}/{_specQuestData.need_count}";
             _questProgressSlider.maxValue = _specQuestData.need_count;
-            _questProgressSlider.value = _userQuestData.ActionCount;
+            _questProgressSlider.value = _questData.CurrentCount;
 
-            // 버튼 상태 세팅
-            _claimBGObject.SetActive(_userQuestData.QuestStateType == (int)QuestStateType.REWARD);
-            _claimButtonObject.SetActive(_userQuestData.QuestStateType == (int)QuestStateType.REWARD);
+            // 버튼 상태 세팅 (State == Completed && Rewards.Count > 0 이면 보상 수령 가능)
+            bool isClaimable = _questData.State == QuestState.Completed && _questData.Rewards.Count > 0;
+            bool isAlreadyClaimed = _questData.State == QuestState.Completed && _questData.Rewards.Count == 0;
 
-            _completeLayerObject.SetActive(_userQuestData.QuestStateType == (int)QuestStateType.CLEAR);
-            _completeButtonObject.SetActive(_userQuestData.QuestStateType == (int)QuestStateType.CLEAR);
+            _claimBGObject.SetActive(isClaimable);
+            _claimButtonObject.SetActive(isClaimable);
+
+            _completeLayerObject.SetActive(isAlreadyClaimed);
+            _completeButtonObject.SetActive(isAlreadyClaimed);
         }
 
-        private void OnClickGetRewardButton()
+        private async UniTask OnClickGetRewardButtonAsync()
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            // 퀘스트 상태 데이터 저장
-            UserDataManager.Instance.SetUserQuestState(_userQuestData.QuestId, QuestStateType.CLEAR, true);
+            // 서버에 보상 수령 요청
+            var response = await NetManager.Instance.Quest.ClaimQuestRewardAsync(
+                _questData.QuestId,
+                _specQuestData.quest_type.ToServerType());
 
-            // 보상 데이터 저장
-            UserDataManager.Instance.IncreaseRewardItemList(_questRewardItemList, true);
+            if (response == null || !response.IsSuccess)
+            {
+                return;
+            }
 
-            SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", _questRewardItemList)).Forget();
+            // 보상 결과 표시
+            List<RewardItem> rewardItemList = new List<RewardItem>();
+            for (int i = 0; i < response.Rewards.Count; i++)
+            {
+                rewardItemList.Add(new RewardItem(response.Rewards[i]));
+            }
+
+            // 로컬 데이터 갱신
+            if (response.Quest != null)
+            {
+                _questData = response.Quest;
+            }
+
+            RefreshQuestSlot(false);
+
+            await SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), null);
 
             _parentPopup?.RefreshPopup();
         }
