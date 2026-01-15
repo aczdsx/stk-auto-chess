@@ -212,9 +212,10 @@ namespace CookApps.BattleSystem
         /// 크리티컬 터질때 호출 된다.
         /// </summary>
         [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnCritical)]
-        public virtual void OnCritical(CharacterController target)
+        public virtual void OnCritical(CharacterController damgedTarget)
         {
         }
+
         #endregion
 
         /// <summary>
@@ -581,6 +582,7 @@ namespace CookApps.BattleSystem
                 code.OnStateNormalAttackDamageEvent(defaultDamageInfo, executeIndex, totalLength);
             }
         };
+
 
     }
 }
