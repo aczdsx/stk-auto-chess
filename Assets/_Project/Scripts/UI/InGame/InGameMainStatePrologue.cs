@@ -10,7 +10,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
-    public class InGameMainStatePrologue : IGameStateUICore, IKillLogUI, ISkipUI
+    public class InGameMainStatePrologue : IGameStateUICore, IKillLogUI, ISkipUI, IBottomScrollRectCheck
     {
         private InGameUI _inGameUI;
 
@@ -131,6 +131,16 @@ namespace CookApps.AutoBattler
         public void OnSkipRequested()
         {
             InGameMainFlowManager.Instance.AddNextState<FlowStatePrologueClear>(null);
+        }
+
+        public bool IsPointInBottomScrollRect(UnityEngine.Vector2 screenPosition)
+        {
+            return _inGameUI.BottomUI.IsPointInScrollRect(screenPosition);
+        }
+
+        public void SetDropHighlight(bool active)
+        {
+            _inGameUI.BottomUI.SetDropHighlight(active);
         }
     }
 }

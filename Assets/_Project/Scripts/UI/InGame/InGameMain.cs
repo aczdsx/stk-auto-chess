@@ -97,6 +97,12 @@ namespace CookApps.AutoBattler
         void OnSkipRequested();
     }
 
+    public interface IBottomScrollRectCheck
+    {
+        bool IsPointInBottomScrollRect(Vector2 screenPosition);
+        void SetDropHighlight(bool active);
+    }
+
     public class InGameMain : UILayer
     {
         public float InGameTime => _inGameTime;
@@ -282,6 +288,19 @@ namespace CookApps.AutoBattler
         {
             if (_currentGameStateUI is ISkipUI skip)
                 skip.OnSkipRequested();
+        }
+
+        public bool IsPointInBottomScrollRect(Vector2 screenPosition)
+        {
+            if (_currentGameStateUI is IBottomScrollRectCheck check)
+                return check.IsPointInBottomScrollRect(screenPosition);
+            return false;
+        }
+
+        public void SetDropHighlight(bool active)
+        {
+            if (_currentGameStateUI is IBottomScrollRectCheck check)
+                check.SetDropHighlight(active);
         }
     }
 }
