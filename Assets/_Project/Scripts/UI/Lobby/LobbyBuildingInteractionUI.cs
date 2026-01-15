@@ -105,6 +105,16 @@ namespace CookApps.AutoBattler
 
         #region FacilityInfo
 
+        /// <summary>
+        /// 캐시된 시설 정보 목록을 반환합니다.
+        /// </summary>
+        public List<FacilityInfo> CachedFacilityInfos => cachedFacilityInfos;
+        
+        /// <summary>
+        /// 슬롯 인덱스를 반환합니다.
+        /// </summary>
+        public int SlotIndex => buildInfo?.slot_index ?? -1;
+
         public void ChangeInfo(ElpisFacility facility)
         {
             if (facility == null)
@@ -356,7 +366,7 @@ namespace CookApps.AutoBattler
             installingFacility.isJustCompleted = true;
 
             UpdateUI();
-            currentBuildLayer?.RefreshUI();
+            currentBuildLayer?.Close();
         }
 
         public void SetCurrentBuildLayer(ElpisBuildLayer layer)

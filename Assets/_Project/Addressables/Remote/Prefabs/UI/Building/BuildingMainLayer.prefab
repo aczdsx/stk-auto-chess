@@ -4167,6 +4167,7 @@ MonoBehaviour:
   cellPrefab: {fileID: 1463939316905613129}
   installingTimeText: {fileID: 5110799221945002287}
   installingTimeTextParent: {fileID: 5191016285654827078}
+  progressCircle: {fileID: 449175055481923484}
 --- !u!1 &6426001414473416706
 GameObject:
   m_ObjectHideFlags: 0
@@ -10602,6 +10603,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8341213288468046880}
     m_Modifications:
+    - target: {fileID: 336760183808201355, guid: 102f33ba484fc7940845f8058eca976a, type: 3}
+      propertyPath: Fill
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 712319894265088743, guid: 102f33ba484fc7940845f8058eca976a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -10682,6 +10687,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2538941722431780495, guid: 102f33ba484fc7940845f8058eca976a, type: 3}
+      propertyPath: Fill
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7858176142308069717, guid: 102f33ba484fc7940845f8058eca976a, type: 3}
       propertyPath: m_Name
       value: Building_Time_MiniPopup
@@ -10691,6 +10700,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 102f33ba484fc7940845f8058eca976a, type: 3}
+--- !u!114 &449175055481923484 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2538941722431780495, guid: 102f33ba484fc7940845f8058eca976a, type: 3}
+  m_PrefabInstance: {fileID: 2668356795352846611}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8185cad1aa202d04ebb9e14ffa533a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3235066078486649844 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 712319894265088743, guid: 102f33ba484fc7940845f8058eca976a, type: 3}

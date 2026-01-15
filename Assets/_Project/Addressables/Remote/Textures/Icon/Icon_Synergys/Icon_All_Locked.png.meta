@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5d6f59bbcb3d639489f43aa8b8caec35
+guid: 6bc67ba176a79df43a0a15fc66cae2dd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2615627810568978590
-    second: Icon_Position_TroubleShooter_Locked_0
+      213: 1322904037776185332
+    second: Icon_All_Locked_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_Position_TroubleShooter_Locked_0
+      name: Icon_All_Locked_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 6
         width: 114
-        height: 126
+        height: 114
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e90c891b2a39c4420800000000000000
-      internalID: 2615627810568978590
+      spriteID: 4f7549b9636eb5210800000000000000
+      internalID: 1322904037776185332
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Icon_Position_TroubleShooter_Locked_0: 2615627810568978590
+      Icon_All_Locked_0: 1322904037776185332
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -6,6 +6,7 @@ using UnityEngine;
 using TMPro;
 using Cysharp.Threading.Tasks;
 using R3;
+using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
@@ -17,9 +18,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private ElpisBuildCell cellPrefab;
         [SerializeField] private TMP_Text installingTimeText;
         [SerializeField] private GameObject installingTimeTextParent;
+        [SerializeField] private UICircle progressCircle;
 
         private List<ElpisBuildCell> cells = new();
         private ElpisBuildCacheData cachedData;
+        private LobbyBuildingInteractionUI.FacilityInfo installingFacility;
 
         public class ElpisBuildCacheData
         {
@@ -56,7 +59,8 @@ namespace CookApps.AutoBattler
 
         public void RefreshUI()
         {
-            var isContainInstalling = IsContainsInstalling();
+            installingFacility = GetInstallingFacility();
+            var isContainInstalling = installingFacility != null;
             installingTimeTextParent.SetActive(isContainInstalling);
 
             if (isContainInstalling)
@@ -73,17 +77,30 @@ namespace CookApps.AutoBattler
 
         public void UpdateRemainingTime(TimeSpan remainingTime)
         {
+            if (installingFacility != null)
+            {
+                var totalBuildTime = installingFacility.buildInfo.build_time;
+                if (totalBuildTime > 0)
+                {
+                    var progress = (float)remainingTime.TotalSeconds / totalBuildTime;
+                    progressCircle.SetProgress(progress);
+                }
+            }
+            
             installingTimeText.text = remainingTime.ToString(@"mm\:ss");
         }
 
-        private bool IsContainsInstalling()
+        private LobbyBuildingInteractionUI.FacilityInfo GetInstallingFacility()
         {
+            if (cachedData?.facilityInfos == null) return null;
+            
             foreach (var facilityInfo in cachedData.facilityInfos)
             {
                 if (facilityInfo.isInstalling)
-                    return true;
+                    return facilityInfo;
             }
-            return false;
+
+            return null;
         }
 
         private void PopulateBuildList()
@@ -110,6 +127,11 @@ namespace CookApps.AutoBattler
         private void OnInstallRequested(ElpisBuildInfo info)
         {
             InstallBuilding(info).Forget();
+        }
+
+        public void Close()
+        {
+            CloseThisUILayer();
         }
 
         private async UniTaskVoid InstallBuilding(ElpisBuildInfo info)
@@ -154,6 +176,41 @@ namespace CookApps.AutoBattler
         private void OnCloseClicked()
         {
             SceneUILayerManager.Instance.PopUILayer(this);
+        }
+        
+        /// <summary>
+        /// 현재 참조 중인 시설의 FacilityType을 반환합니다.
+        /// </summary>
+        public Tech.Hive.V1.ElpisFacilityType? GetCurrentFacilityType()
+        {
+            if (cachedData?.facilityInfos == null || cachedData.facilityInfos.Count == 0)
+                return null;
+            
+            return cachedData.facilityInfos[0].buildInfo.facility_type.ToServerType();
+        }
+        
+        /// <summary>
+        /// LobbyBuildingInteractionUI 참조를 새 슬롯으로 업데이트합니다.
+        /// 커맨드센터 업그레이드 등으로 슬롯이 재생성될 때 호출됩니다.
+        /// </summary>
+        public void UpdateTargetBuildingUI(LobbyBuildingInteractionUI newBuildingUI)
+        {
+            if (cachedData == null || newBuildingUI == null)
+                return;
+            
+            // 이전 참조 해제
+            cachedData.targetLobbyBuildingUI?.SetCurrentBuildLayer(null);
+            
+            // 새 참조로 업데이트
+            cachedData.targetLobbyBuildingUI = newBuildingUI;
+            cachedData.targetLobbyBuildingUI.SetCurrentBuildLayer(this);
+            
+            // 새 슬롯의 데이터로 갱신
+            cachedData.facilityInfos = newBuildingUI.CachedFacilityInfos;
+            cachedData.slotIndex = newBuildingUI.SlotIndex;
+            
+            // UI 갱신
+            RefreshUI();
         }
     }
 }
