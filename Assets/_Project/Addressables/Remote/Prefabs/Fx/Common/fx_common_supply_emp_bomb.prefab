@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fx_common_supply_emp_bomb
       objectReference: {fileID: 0}
+    - target: {fileID: 3923081698734150663, guid: fc41a725217eee44ab689ad83c7c0076, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3975233886744783844, guid: fc41a725217eee44ab689ad83c7c0076, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
