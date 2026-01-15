@@ -30015,6 +30015,7 @@ MonoBehaviour:
   _statisticButton: {fileID: 3755193176317120138}
   _recommendButton: {fileID: 8227767655171774916}
   _speedUpButton: {fileID: 767515652773839991}
+  _filterButton: {fileID: 8278441833688917140}
   _CommanderSkillButtonList:
   - {fileID: 4238732856414503684}
   - {fileID: 1686293686005972636}
@@ -30033,7 +30034,7 @@ MonoBehaviour:
   - {fileID: 2005238447566721080}
   _characterCountText: {fileID: 1833473924375606036}
   _commanderFx: {fileID: 2162868930111231704}
-  _characterTipObj: {fileID: 0}
+  _characterTipObj: {fileID: 7583966093722608128}
   _speedUpObjOn: {fileID: 1045704469992180812}
   _speedUpObjOff: {fileID: 7172889056316767470}
   _recommendObjOn: {fileID: 6376048791476543334}

@@ -25,6 +25,7 @@ public class InGameBottomUI : MonoBehaviour
     [SerializeField] protected CAButton _statisticButton;
     [SerializeField] protected CAButton _recommendButton;
     [SerializeField] protected CAButton _speedUpButton;
+    [SerializeField] protected CAButton _filterButton;
 
     [SerializeField] protected List<CAButton> _CommanderSkillButtonList;
     [SerializeField] protected Transform _characterSelectedTransform;
@@ -58,6 +59,9 @@ public class InGameBottomUI : MonoBehaviour
     protected object _combatStateData;
 
     private List<CharacterStatData> _characterStats;
+    private List<CharacterStatData> _allCharacterStats = new(); // 필터링 전 전체 목록
+    private HashSet<SynergyType> _selectedElementFilters = new(); // 속성 필터
+    private HashSet<SynergyType> _selectedStellaFilters = new(); // 성군 필터
     private bool _isRunningAddCharacter;
     private bool _isRunningRecommend;
     private bool _isStartRunningProcess = false;
@@ -82,6 +86,18 @@ public class InGameBottomUI : MonoBehaviour
                     _CommanderSkillButtonList[i]?.OnClickAsObservable().Subscribe((this, i), (_, state) => state.Item1.OnClickCommanderSkillButton(state.i)).AddTo(this);
                 }
             }
+        }
+
+        // 필터 버튼 바인딩
+        Debug.Log($"[Filter] _filterButton is null: {_filterButton == null}");
+        if (_filterButton != null)
+        {
+            Debug.Log("[Filter] _filterButton binding success");
+            _filterButton.OnClickAsObservable().Subscribe(this, (_, self) =>
+            {
+                Debug.Log("[Filter] _filterButton clicked!");
+                self.OpenFilterPopup();
+            }).AddTo(this);
         }
     }
 
@@ -134,10 +150,8 @@ public class InGameBottomUI : MonoBehaviour
                 InGameMain.GetInGameMain().ReturnCharacterUI(character);
             }
 
-            _characterStats = _characterStats
-                .OrderByDescending(stat => stat.Level)
-                .ThenByDescending(stat => stat.CharacterID)
-                .ToList();
+            // 필터 적용 후 정렬
+            RefreshFilteredList();
 
             var userGrade =
                 SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
@@ -151,8 +165,9 @@ public class InGameBottomUI : MonoBehaviour
 
             foreach (var statData in statDataList)
             {
-                _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
+                _allCharacterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
             }
+            RefreshFilteredList();
 
             UpdateData();
 
@@ -216,9 +231,10 @@ public class InGameBottomUI : MonoBehaviour
             var characterData = ServerDataManager.Instance.Character.GetCharacter(battleDeck.CharacterId);
             if (characterData != null)
             {
-                _characterStats.RemoveAll(l => l.CharacterId == characterData.CharacterId);
+                _allCharacterStats.RemoveAll(l => l.CharacterId == characterData.CharacterId);
             }
         }
+        RefreshFilteredList();
         UpdateData();
         InGameManager.Instance.UpdateSynergyAndAttr();
         SetCharacterCountText();
@@ -227,7 +243,7 @@ public class InGameBottomUI : MonoBehaviour
 
     public void CheckNewCharacter()
     {
-        List<CharacterStatData> priorUserCharacters = _characterStats.ToList();
+        List<CharacterStatData> priorUserCharacters = _allCharacterStats.ToList();
         List<CharacterStatData> userCharacters = new List<CharacterStatData>();
         var allCharacters = new List<CharacterData>();
         ServerDataManager.Instance.Character.GetAllCharacters(allCharacters);
@@ -252,17 +268,24 @@ public class InGameBottomUI : MonoBehaviour
                 l.StatData != null && l.StatData.CharacterId == characterStat.CharacterId);
             if (!isExist)
             {
-                var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
-                _characterItemList.Add(characterItem);
-                characterItem.SetData(this, characterStat, AddCharacterToTile);
-                characterItem.SetAlert();
-                _characterStats.Add(characterStat);
-                PlayStageBattleFx();
+                // 전체 목록에 추가
+                _allCharacterStats.Add(characterStat);
 
-                // 튜토리얼 중이면 새 캐릭터 아이템에 TutorialTarget 등록
-                if (TutorialManager.Instance.HasTutorialStage)
+                // 필터 통과 시에만 UI에 추가
+                if (PassFilter(characterStat))
                 {
-                    RegisterCharacterItemForTutorial(characterItem, characterStat.CharacterId);
+                    var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
+                    _characterItemList.Add(characterItem);
+                    characterItem.SetData(this, characterStat, AddCharacterToTile);
+                    characterItem.SetAlert();
+                    _characterStats.Add(characterStat);
+                    PlayStageBattleFx();
+
+                    // 튜토리얼 중이면 새 캐릭터 아이템에 TutorialTarget 등록
+                    if (TutorialManager.Instance.HasTutorialStage)
+                    {
+                        RegisterCharacterItemForTutorial(characterItem, characterStat.CharacterId);
+                    }
                 }
             }
         }
@@ -293,7 +316,7 @@ public class InGameBottomUI : MonoBehaviour
     {
         _characterItemList.Clear();
         BMUtil.RemoveChildObjects(_inGameCharacterItemTransform);
-        _characterStats = new List<CharacterStatData>();
+        _allCharacterStats = new List<CharacterStatData>();
         UserDataManager userDataManagerInstance = UserDataManager.Instance;
 
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
@@ -306,13 +329,16 @@ public class InGameBottomUI : MonoBehaviour
         {
             var characterStat = new CharacterStatData((int)character.CharacterId, (int)character.Level,
                 GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
-            _characterStats.Add(characterStat);
+            _allCharacterStats.Add(characterStat);
         }
 
-        _characterStats = _characterStats
-            .OrderByDescending(stat => stat.Level)
-            .ThenByDescending(stat => stat.CharacterID)
+        // CP(전투력) 기준 내림차순 정렬
+        _allCharacterStats = _allCharacterStats
+            .OrderByDescending(stat => stat.GetAttrValueCP())
             .ToList();
+
+        // 필터 적용하여 _characterStats 갱신
+        RefreshFilteredList();
 
         foreach (var characterStat in _characterStats)
         {
@@ -424,11 +450,53 @@ public class InGameBottomUI : MonoBehaviour
         _returnImage.color = (active) ? Color.green : Color.white;
     }
 
+    /// <summary>
+    /// 스크린 좌표가 ScrollRect 영역 내에 있는지 확인
+    /// </summary>
+    public bool IsPointInScrollRect(Vector2 screenPosition)
+    {
+        if (_scrollRect == null) return false;
+
+        RectTransform scrollRectTransform = _scrollRect.GetComponent<RectTransform>();
+        return RectTransformUtility.RectangleContainsScreenPoint(
+            scrollRectTransform,
+            screenPosition,
+            null // Screen Space - Overlay Canvas의 경우 null
+        );
+    }
+
+    /// <summary>
+    /// ScrollRect의 RectTransform 반환 (외부에서 드롭 영역 체크용)
+    /// </summary>
+    public RectTransform GetScrollRectTransform()
+    {
+        return _scrollRect?.GetComponent<RectTransform>();
+    }
+
+    /// <summary>
+    /// 드롭 영역 하이라이트 설정
+    /// </summary>
+    public void SetDropHighlight(bool active)
+    {
+        if (_returnImage == null) return;
+
+        // 하이라이트 활성화 시 녹색 반투명, 비활성화 시 숨김
+        _returnImage.gameObject.SetActive(active);
+        if (active)
+        {
+            _returnImage.color = new Color(0.2f, 0.8f, 0.3f, 0.5f); // 녹색 반투명
+        }
+    }
+
     public void ReturnCharacter(CharacterController controller)
     {
-        _characterStats.Add(controller.GetCharacterStat());
-        _characterStats = _characterStats.OrderByDescending(stat => stat.Level).ToList();
+        var stat = controller.GetCharacterStat();
+        _allCharacterStats.Add(stat);
+        // CP(전투력) 기준 내림차순 정렬
+        _allCharacterStats = _allCharacterStats.OrderByDescending(s => s.GetAttrValueCP()).ToList();
 
+        // 필터 적용 후 _characterStats 갱신
+        RefreshFilteredList();
         UpdateData();
         SetCharacterCountText();
         InGameTouchManager.Instance.SelectedFirstTileID = -1;
@@ -441,7 +509,8 @@ public class InGameBottomUI : MonoBehaviour
     {
         if (statData == null) return;
 
-        _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
+        _allCharacterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
+        RefreshFilteredList();
         UpdateData();
         InGameManager.Instance.UpdateSynergyAndAttr();
         SetCharacterCountText();
@@ -470,7 +539,8 @@ public class InGameBottomUI : MonoBehaviour
         }
         else
         {
-            _characterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
+            _allCharacterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
+            RefreshFilteredList();
             UpdateData();
 
             Debug.Log($"AddBoardCharacter: {statData.CharacterId}");
@@ -841,6 +911,75 @@ public class InGameBottomUI : MonoBehaviour
 
         tutorialTarget.SetTargetId(targetId);
     }
+
+    #region Filter
+
+    /// <summary>
+    /// 필터 팝업 열기
+    /// </summary>
+    private void OpenFilterPopup()
+    {
+        Debug.Log("[Filter] OpenFilterPopup called!");
+        var param = new FilterTooltipInIngamePopup.FilterParam(
+            _selectedElementFilters,
+            _selectedStellaFilters,
+            ApplyFilter
+        );
+        Debug.Log("[Filter] Pushing FilterTooltipInIngamePopup...");
+        SceneUILayerManager.Instance.PushUILayerAsync<FilterTooltipInIngamePopup>(param).Forget();
+    }
+
+    /// <summary>
+    /// 필터 적용 (팝업에서 콜백으로 호출)
+    /// </summary>
+    public void ApplyFilter(HashSet<SynergyType> elements, HashSet<SynergyType> stellas)
+    {
+        _selectedElementFilters = new HashSet<SynergyType>(elements);
+        _selectedStellaFilters = new HashSet<SynergyType>(stellas);
+        RefreshFilteredList();
+        UpdateData();
+    }
+
+    /// <summary>
+    /// 필터 상태에 따라 _characterStats 갱신
+    /// </summary>
+    private void RefreshFilteredList()
+    {
+        // CP(전투력) 기준 내림차순 정렬
+        _characterStats = _allCharacterStats
+            .Where(PassFilter)
+            .OrderByDescending(stat => stat.GetAttrValueCP())
+            .ToList();
+    }
+
+    /// <summary>
+    /// 필터 조건 통과 여부 확인 (AND 조건)
+    /// </summary>
+    private bool PassFilter(CharacterStatData stat)
+    {
+        // 속성 필터: 비어있으면 통과, 아니면 포함 여부 확인
+        bool passElement = _selectedElementFilters.Count == 0
+            || _selectedElementFilters.Contains(stat.Spec.character_element_type);
+
+        // 성군 필터: 비어있으면 통과, 아니면 포함 여부 확인
+        bool passStella = _selectedStellaFilters.Count == 0
+            || _selectedStellaFilters.Contains(stat.Spec.character_stella_type);
+
+        return passElement && passStella;
+    }
+
+    /// <summary>
+    /// 필터 초기화
+    /// </summary>
+    public void ResetFilter()
+    {
+        _selectedElementFilters.Clear();
+        _selectedStellaFilters.Clear();
+        RefreshFilteredList();
+        UpdateData();
+    }
+
+    #endregion
 
     [Serializable]
     public class TestSimpleBattleDeckData

@@ -49,6 +49,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     private bool _isDragDirectionDecided = false;  // 드래그 방향이 결정되었는지
     private bool _isCharacterSpawned = false;  // 보드에 캐릭터가 생성되었는지
     private Vector2 _dragStartPosition;
+    private ScrollRect _cachedScrollRect;  // 횡스크롤용 ScrollRect 캐싱
 
     public void SetData(InGameBottomUI parent, CharacterStatData characterStat, Action<CharacterStatData> onSelected)
     {
@@ -157,6 +158,9 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         _isCharacterSpawned = false;
         _isPressing = false;  // 드래그 시작하면 롱프레스 취소
 
+        // ScrollRect 캐싱 (횡스크롤용)
+        _cachedScrollRect = GetComponentInParent<ScrollRect>();
+
         // 튜토리얼: UI 캐릭터 배치 드래그 시작 알림
         if (TutorialActionCharacterPlacementUI.IsActive)
         {
@@ -182,11 +186,18 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
                 if (_isDraggingVertical)
                 {
                     // ScrollRect 드래그 중단
-                    var scrollRect = GetComponentInParent<ScrollRect>();
-                    if (scrollRect != null)
+                    if (_cachedScrollRect != null)
                     {
-                        scrollRect.StopMovement();
-                        scrollRect.enabled = false;
+                        _cachedScrollRect.StopMovement();
+                        _cachedScrollRect.enabled = false;
+                    }
+                }
+                else
+                {
+                    // 횡방향 - ScrollRect에 BeginDrag 이벤트 전달
+                    if (_cachedScrollRect != null)
+                    {
+                        ExecuteEvents.Execute(_cachedScrollRect.gameObject, eventData, ExecuteEvents.beginDragHandler);
                     }
                 }
             }
@@ -197,6 +208,11 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         {
             HandleVerticalDrag(eventData.position);
         }
+        else if (_isDragDirectionDecided && _cachedScrollRect != null)
+        {
+            // 횡스크롤 모드 - ScrollRect에 Drag 이벤트 전달
+            ExecuteEvents.Execute(_cachedScrollRect.gameObject, eventData, ExecuteEvents.dragHandler);
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -204,10 +220,9 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         if (_statData == null) return;
 
         // ScrollRect 다시 활성화
-        var scrollRect = GetComponentInParent<ScrollRect>();
-        if (scrollRect != null)
+        if (_cachedScrollRect != null)
         {
-            scrollRect.enabled = true;
+            _cachedScrollRect.enabled = true;
         }
 
         if (_isDraggingVertical && _isCharacterSpawned)
@@ -223,8 +238,14 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
                 TutorialActionCharacterPlacementUI.OnDragCancel();
             }
         }
+        else if (_isDragDirectionDecided && !_isDraggingVertical && _cachedScrollRect != null)
+        {
+            // 횡스크롤 모드 - ScrollRect에 EndDrag 이벤트 전달
+            ExecuteEvents.Execute(_cachedScrollRect.gameObject, eventData, ExecuteEvents.endDragHandler);
+        }
 
         ResetDragState();
+        _cachedScrollRect = null;
     }
 
     private void HandleVerticalDrag(Vector3 screenPosition)

@@ -11,7 +11,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
-    public class InGameMainStateTrialDungeon : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IKillLogUI, IAlertBottomCharacterUI, ICommanderSkillUI
+    public class InGameMainStateTrialDungeon : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IKillLogUI, IAlertBottomCharacterUI, ICommanderSkillUI, IBottomScrollRectCheck
     {
         private InGameUI _inGameUI;
         private DungeonBabelInfo _specTrialDungeon;
@@ -142,6 +142,16 @@ namespace CookApps.AutoBattler
         private async UniTask WaitUntilAnimationFinished(Animator animator, string animationName)
         {
             await UniTask.WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsName(animationName) && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1);
+        }
+
+        public bool IsPointInBottomScrollRect(UnityEngine.Vector2 screenPosition)
+        {
+            return _inGameUI.BottomUI.IsPointInScrollRect(screenPosition);
+        }
+
+        public void SetDropHighlight(bool active)
+        {
+            _inGameUI.BottomUI.SetDropHighlight(active);
         }
     }
 }

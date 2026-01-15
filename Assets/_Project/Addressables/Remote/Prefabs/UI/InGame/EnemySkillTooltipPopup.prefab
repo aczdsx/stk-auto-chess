@@ -209,7 +209,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6385095295153808282}
-  - component: {fileID: 7244365879343596592}
+  - component: {fileID: 392246148372159302}
   m_Layer: 5
   m_Name: EnemySkillTooltipPopup
   m_TagString: Untagged
@@ -238,7 +238,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7244365879343596592
+--- !u!114 &392246148372159302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,24 +247,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2126363006185091719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57406ec0d58251c43a7bf63f1a6178e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 51db3bbd8576e418fbbd0181ab809622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiLayerType: 3
-  baseAnimator: {fileID: 0}
-  preloadAddressables: []
   _closeButton: {fileID: 7895684120799162544}
   _dimButton: {fileID: 833103780478477452}
-  _skillIconImage: {fileID: 0}
-  _skillIconSpriteLoader: {fileID: 0}
-  _skillDamageTypeObject: {fileID: 0}
-  _skillDamageAPTypeObject: {fileID: 0}
-  _skillDamageADTypeObject: {fileID: 0}
+  _skillIconSpriteLoader: {fileID: 807096616178413326}
   _skillNameText: {fileID: 2519229887985395199}
   _skillDescText: {fileID: 6046540803503233719}
-  _skillCoolTimeText: {fileID: 0}
-  _skillTypeText: {fileID: 0}
-  _sizeFitter: {fileID: 0}
 --- !u!1 &3691539366292066632
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,6 +1353,7 @@ GameObject:
   - component: {fileID: 6053383853127040287}
   - component: {fileID: 7957988963735513021}
   - component: {fileID: 5057842732079799542}
+  - component: {fileID: 807096616178413326}
   m_Layer: 5
   m_Name: Img_AttackRange
   m_TagString: Untagged
@@ -1427,3 +1418,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &807096616178413326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8947412745490024989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 5057842732079799542}

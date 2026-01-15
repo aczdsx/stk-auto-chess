@@ -24,19 +24,20 @@ namespace Tech.Hive.V1 {
     static ElpisFacilityReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChRlbHBpcytmYWNpbGl0eS5wcm90bxIMdGVjaC5oaXZlLnYxIqQBCg1FbHBp",
+            "ChRlbHBpcytmYWNpbGl0eS5wcm90bxIMdGVjaC5oaXZlLnYxIroBCg1FbHBp",
             "c0ZhY2lsaXR5EhAKCGJ1aWxkX2lkGAEgASgNEi0KBHR5cGUYAiABKA4yHy50",
             "ZWNoLmhpdmUudjEuRWxwaXNGYWNpbGl0eVR5cGUSDQoFbGV2ZWwYAyABKA0S",
             "EQoJbWF4X2xldmVsGAQgASgNEhAKCGJ1aWx0X2F0GAUgASgEEg4KBmdyaWRf",
-            "eBgGIAEoBRIOCgZncmlkX3kYByABKAUqsgEKEUVscGlzRmFjaWxpdHlUeXBl",
-            "Eh0KGUZBQ0lMSVRZX1RZUEVfVU5TUEVDSUZJRUQQABIgChxGQUNJTElUWV9U",
-            "WVBFX0NPTU1BTkRfQ0VOVEVSEAESFgoSRkFDSUxJVFlfVFlQRV9ORVNUEAIS",
-            "HwobRkFDSUxJVFlfVFlQRV9ESU1FTlNJT05fTEFCEAMSIwofRkFDSUxJVFlf",
-            "VFlQRV9TSU1VTEFUSU9OX0NFTlRFUhAEYgZwcm90bzM="));
+            "eBgGIAEoBRIOCgZncmlkX3kYByABKAUSFAoMaXNfdXBncmFkaW5nGAggASgI",
+            "KrIBChFFbHBpc0ZhY2lsaXR5VHlwZRIdChlGQUNJTElUWV9UWVBFX1VOU1BF",
+            "Q0lGSUVEEAASIAocRkFDSUxJVFlfVFlQRV9DT01NQU5EX0NFTlRFUhABEhYK",
+            "EkZBQ0lMSVRZX1RZUEVfTkVTVBACEh8KG0ZBQ0lMSVRZX1RZUEVfRElNRU5T",
+            "SU9OX0xBQhADEiMKH0ZBQ0lMSVRZX1RZUEVfU0lNVUxBVElPTl9DRU5URVIQ",
+            "BGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.ElpisFacilityType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisFacility), global::Tech.Hive.V1.ElpisFacility.Parser, new[]{ "BuildId", "Type", "Level", "MaxLevel", "BuiltAt", "GridX", "GridY" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.ElpisFacility), global::Tech.Hive.V1.ElpisFacility.Parser, new[]{ "BuildId", "Type", "Level", "MaxLevel", "BuiltAt", "GridX", "GridY", "IsUpgrading" }, null, null, null, null)
           }));
     }
     #endregion
@@ -114,6 +115,7 @@ namespace Tech.Hive.V1 {
       builtAt_ = other.builtAt_;
       gridX_ = other.gridX_;
       gridY_ = other.gridY_;
+      isUpgrading_ = other.isUpgrading_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -213,6 +215,18 @@ namespace Tech.Hive.V1 {
       }
     }
 
+    /// <summary>Field number for the "is_upgrading" field.</summary>
+    public const int IsUpgradingFieldNumber = 8;
+    private bool isUpgrading_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsUpgrading {
+      get { return isUpgrading_; }
+      set {
+        isUpgrading_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -235,6 +249,7 @@ namespace Tech.Hive.V1 {
       if (BuiltAt != other.BuiltAt) return false;
       if (GridX != other.GridX) return false;
       if (GridY != other.GridY) return false;
+      if (IsUpgrading != other.IsUpgrading) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -249,6 +264,7 @@ namespace Tech.Hive.V1 {
       if (BuiltAt != 0UL) hash ^= BuiltAt.GetHashCode();
       if (GridX != 0) hash ^= GridX.GetHashCode();
       if (GridY != 0) hash ^= GridY.GetHashCode();
+      if (IsUpgrading != false) hash ^= IsUpgrading.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -295,6 +311,10 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(56);
         output.WriteInt32(GridY);
       }
+      if (IsUpgrading != false) {
+        output.WriteRawTag(64);
+        output.WriteBool(IsUpgrading);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -333,6 +353,10 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(56);
         output.WriteInt32(GridY);
       }
+      if (IsUpgrading != false) {
+        output.WriteRawTag(64);
+        output.WriteBool(IsUpgrading);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -363,6 +387,9 @@ namespace Tech.Hive.V1 {
       }
       if (GridY != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(GridY);
+      }
+      if (IsUpgrading != false) {
+        size += 1 + 1;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -396,6 +423,9 @@ namespace Tech.Hive.V1 {
       }
       if (other.GridY != 0) {
         GridY = other.GridY;
+      }
+      if (other.IsUpgrading != false) {
+        IsUpgrading = other.IsUpgrading;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -440,6 +470,10 @@ namespace Tech.Hive.V1 {
             GridY = input.ReadInt32();
             break;
           }
+          case 64: {
+            IsUpgrading = input.ReadBool();
+            break;
+          }
         }
       }
     #endif
@@ -481,6 +515,10 @@ namespace Tech.Hive.V1 {
           }
           case 56: {
             GridY = input.ReadInt32();
+            break;
+          }
+          case 64: {
+            IsUpgrading = input.ReadBool();
             break;
           }
         }
