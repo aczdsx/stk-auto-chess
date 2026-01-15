@@ -25,6 +25,7 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
     private float _debuffTime;
     private float _debuffRate;
     private List<InGameTile> _emptyTiles;
+    private const float _rotationOffset = -90f;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -55,6 +56,7 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
 
     public override void OnUpdate(float dt)
     {
+        // InGameVfxManager.Instance.AddInGameTileFx(SynergyType.EARTH, owner.CurrentTile);
         if (!IsSkillActivated)
         {
             return;
@@ -91,7 +93,7 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(SynergyType.EARTH,
             owner.GetCharacterView().CachedTr.position);
     }
 
@@ -242,10 +244,6 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
         {
             ExecuteSkillTwo(defaultDamageInfo);
         }
-        else
-        {
-            Debug.Log($"ExecuteSkillThree?");
-        }
 
 
     }
@@ -254,13 +252,19 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
     private void ExecuteSkillOne(CharacterController.DamageInfo defaultDamageInfo)
     {
         var frontTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 1, 1);
-        Debug.Log($"ExecuteSkillOne: {frontTiles.Count}");
+
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillMiddleFXTransformFollowable);
+
+        if (frontTiles.Count > 0)
+        {
+            Vector3 direction = (frontTiles[0].View.CachedTr.position - owner.CurrentTile.View.CachedTr.position).normalized;
+            vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, _rotationOffset, 0);
+        }
         foreach (var tile in frontTiles)
         {
             InGameVfxManager.Instance.AddInGameTileFx(SynergyType.EARTH, tile);
             if (tile.CheckValidTile(owner.AllianceType, false))
             {
-                Debug.Log($"ExecuteSkillOne");
                 tile.OccupiedCharacter.GetDamaged(defaultDamageInfo, owner);
             }
         }
@@ -271,13 +275,17 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
     private void ExecuteSkillTwo(CharacterController.DamageInfo defaultDamageInfo)
     {
         var frontTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 3);
-        Debug.Log($"ExecuteSkillTwo: {frontTiles.Count}");
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillMiddleFXTransformFollowable);
+        if (frontTiles.Count > 0)
+        {
+            Vector3 direction = (frontTiles[0].View.CachedTr.position - owner.CurrentTile.View.CachedTr.position).normalized;
+            vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, _rotationOffset, 0);
+        }
         foreach (var tile in frontTiles)//GetTileByCharacterDirection
         {
             InGameVfxManager.Instance.AddInGameTileFx(SynergyType.EARTH, tile);
             if (tile.CheckValidTile(owner.AllianceType, false))
             {
-                Debug.Log($"ExecuteSkillTwo");
                 tile.OccupiedCharacter.GetDamaged(defaultDamageInfo, owner);
             }
         }
