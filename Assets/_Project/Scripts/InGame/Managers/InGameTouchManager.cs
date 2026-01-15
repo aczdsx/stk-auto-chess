@@ -157,6 +157,18 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameTile tile =
                 InGameObjectManager.Instance.GetInGameTile(inGameTileView.ID);
 
+            // Enemy 보스 몬스터 클릭 시 스킬 툴팁 표시
+            if (tile.OccupiedCharacter != null &&
+                tile.OccupiedCharacter.AllianceType == AllianceType.Enemy)
+            {
+                var specMonster = tile.OccupiedCharacter.GetCharacterStat()?.Spec as MonsterInfo;
+                if (specMonster != null && specMonster.character_type == CharacterType.BOSS)
+                {
+                    InGameMain.GetInGameMain().ShowEnemySkillTooltip(specMonster);
+                    return;
+                }
+            }
+
             if (InGameMain.GetInGameMain().IsCheckTouchTile(tile) || CheckCanTouchTile(tile, inGameTileView))
             {
                 // 튜토리얼 캐릭터 배치 중일 때 특정 캐릭터만 선택 가능

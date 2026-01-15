@@ -13,6 +13,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 
 namespace CookApps.AutoBattler
 {
@@ -187,6 +188,14 @@ namespace CookApps.AutoBattler
         public void CloseSkillTooltip()
         {
             _skillTooltipPopup?.gameObject.SetActive(false);
+        }
+
+        public void ShowEnemySkillTooltip(MonsterInfo monsterInfo)
+        {
+            if (monsterInfo == null) return;
+            if (monsterInfo.skill_ids == null || monsterInfo.skill_ids.Length == 0) return;
+
+            SceneUILayerManager.Instance.PushUILayerAsync<EnemySkillTooltipPopup>(monsterInfo).Forget();
         }
 
         public void InitCombatStateUI()
