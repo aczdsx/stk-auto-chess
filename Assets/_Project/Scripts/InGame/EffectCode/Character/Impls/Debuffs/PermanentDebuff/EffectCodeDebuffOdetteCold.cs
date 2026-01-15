@@ -18,8 +18,8 @@ public partial class EffectCodeDebuffOdetteCold : EffectCodeDebuffBase
     private const BuffDebuffType buffDebuffType = BuffDebuffType.OdetteCold;
     private int _overlapCount;
     private float _debuffDuration;
-
-    public override bool IsNeedToShowIcon => true;
+    private bool _isNeedToShowIcon = true;
+    public override bool IsNeedToShowIcon => _isNeedToShowIcon;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -62,6 +62,8 @@ public partial class EffectCodeDebuffOdetteCold : EffectCodeDebuffBase
                 stackData.value += 1;
                 stackData.elapsedTime = 0f;
                 stackData.isShowValue = true;
+                owner.SetBuffStackDataValue(CodeId, stackData.value);
+                CheckOverlapCount();
                 return;
             }
         }
@@ -87,6 +89,7 @@ public partial class EffectCodeDebuffOdetteCold : EffectCodeDebuffBase
         owner.AddBuffStackData(CodeId, buffStackData);
 
         CheckOverlapCount();
+
     }
 
 
@@ -101,6 +104,7 @@ public partial class EffectCodeDebuffOdetteCold : EffectCodeDebuffBase
             EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, owner, eccStats, source);
 
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02, owner.SkillRootTransformFollowable.GetPosition());
+            _isNeedToShowIcon = false;
             RemoveFromContainer();
         }
     }
