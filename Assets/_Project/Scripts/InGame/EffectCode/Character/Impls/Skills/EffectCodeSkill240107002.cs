@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CookApps.AutoBattler;
@@ -6,6 +7,7 @@ using CookApps.Obfuscator;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using PrimeTween;
+using Unity.Mathematics;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
@@ -25,10 +27,8 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
     // 이동 관련 변수
     private InGameTile _targetMoveTile;
-    private bool _isMoving;
-    private Vector3 _moveStartPosition;
-    private Vector3 _moveTargetPosition;
-    private float _moveSpeed;
+    private Tween _moveTween;
+    private List<InGameTile> _pathTiles; // 이동 경로상의 타일들
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -40,8 +40,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         _debuffTime = codeInfo.GetCodeStatToFloat(2);
         _isReadyToActivate = false;
         IsSkillActivated = false;
-        _isMoving = false;
-        _isMoving = false;
+        _pathTiles = new List<InGameTile>();
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
     }
@@ -56,22 +55,11 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
     public override void OnUpdate(float dt)
     {
+        InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, owner.CurrentTile);
+
         if (!IsSkillActivated)
         {
             return;
-        }
-
-        // 이동 중이면 MoveTowards로 위치 업데이트
-        if (_isMoving && owner != null)
-        {
-            owner.Position3D = Vector3.MoveTowards(owner.Position3D, _moveTargetPosition, _moveSpeed * dt);
-            
-            // 목표 위치에 도달했는지 확인
-            if (Vector3.Distance(owner.Position3D, _moveTargetPosition) < 0.01f)
-            {
-                owner.Position3D = _moveTargetPosition;
-                _isMoving = false;
-            }
         }
 
         // target check
@@ -125,7 +113,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(SynergyType.LIGHTNING,
             owner.GetCharacterView().CachedTr.position);
     }
 
@@ -202,22 +190,14 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         // 직선 3칸 범위 타일 가져오기
         var attackTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 3);
 
-        // 타일 이펙트 표시
-        foreach (var tile in attackTiles)
-        {
-            if (tile != null)
-            {
-                InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-            }
-        }
-
+        Span<double> eccStats = stackalloc double[1];
+        eccStats.Clear();
+        eccStats[0] = _debuffTime;
         // 공격 및 기절 적용
         foreach (var tile in attackTiles)
         {
             if (tile == null)
                 continue;
-
-            // InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
 
             if (tile.CheckValidTile(owner.AllianceType, false) && tile.OccupiedCharacter != null)
             {
@@ -231,10 +211,6 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
                 target.GetDamaged(damage, owner);
 
                 // 기절 적용
-                Span<double> eccStats = stackalloc double[1];
-                eccStats.Clear();
-                eccStats[0] = _debuffTime;
-
                 EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, target, eccStats, source);
             }
         }
@@ -244,33 +220,124 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
     /// <summary>
     /// 캐릭터를 지정된 타일로 스킬 듀레이션 동안 서서히 이동시킵니다.
+    /// 이동 중 경로상의 타일에 있는 적들에게 스턴을 적용합니다.
     /// </summary>
     private void MoveToTileSmoothly(InGameTile targetTile)
     {
         if (targetTile == null || owner == null)
             return;
 
-        // 타일 변경은 즉시 수행
-        owner.ChangeOccupiedTile(targetTile);
-
         _targetMoveTile = targetTile;
 
-        // 이동 시작 위치와 목표 위치 저장
-        _moveStartPosition = owner.Position3D;
-        _moveTargetPosition = targetTile.View.Position;
+        // 이동 경로상의 타일들 계산 (시작 타일부터 목표 타일까지)
+        _pathTiles.Clear();
+        CalculatePathTiles(owner.CurrentTile, targetTile);
+
+        // 이동 시작 위치와 목표 위치
+        Vector3 startPosition = owner.Position3D;
+        Vector3 targetPosition = targetTile.View.Position;
 
         // 스킬 애니메이션 시간 (1.0초) 사용
-        float duration = 1.0f;
+        float duration = 0.8f;
 
-        // 거리에 따라 duration 조정 (넉백 코드 참고)
-        float distance = Vector3.Distance(_moveStartPosition, _moveTargetPosition);
+        // 거리에 따라 duration 조정
+        float distance = Vector3.Distance(startPosition, targetPosition);
         duration += distance * 0.1f;
 
-        // 이동 속도 계산 (거리 / 시간)
-        _moveSpeed = distance / duration;
+        // 기존 Tween이 있으면 중지
+        if (_moveTween.isAlive)
+        {
+            _moveTween.Stop();
+        }
 
-        // 이동 시작
-        _isMoving = true;
+        // PrimeTween으로 이동
+        _moveTween = Tween.Custom(
+            startPosition,
+            targetPosition,
+            duration,
+            (Vector3 value) =>
+            {
+                if (owner != null)
+                {
+                    owner.Position3D = value;
+                    owner.GetCharacterView().CachedTr.localPosition = value;
+                }
+            },
+            ease: Ease.Linear)
+            .OnComplete(this, (target) =>
+            {
+                if (target != null && target.owner != null)
+                {
+                    // 목표 타일에 도달했을 때 타일 변경
+                    target.owner.Position3D = target.owner.CurrentTile.View.Position;
+                    target.owner.GetCharacterView().CachedTr.localPosition = target.owner.Position3D;
+                }
+            });
+
+        // 이동 중 경로상의 타일에 있는 적들에게 스턴 적용
+        ApplyStunToPathTiles();
+    }
+
+    /// <summary>
+    /// 시작 타일부터 목표 타일까지의 경로상 타일들을 계산합니다.
+    /// </summary>
+    private void CalculatePathTiles(InGameTile startTile, InGameTile targetTile)
+    {
+        if (startTile == null || targetTile == null)
+            return;
+
+        int dx = targetTile.X - startTile.X;
+        int dy = targetTile.Y - startTile.Y;
+
+        // 방향 벡터 정규화
+        int stepX = dx != 0 ? dx / Math.Abs(dx) : 0;
+        int stepY = dy != 0 ? dy / Math.Abs(dy) : 0;
+
+        int currentX = startTile.X;
+        int currentY = startTile.Y;
+
+        // 시작 타일은 제외하고 경로상의 타일들만 추가
+        while (currentX != targetTile.X || currentY != targetTile.Y)
+        {
+            currentX += stepX;
+            currentY += stepY;
+
+            var tile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(currentX, currentY));
+            if (tile != null)
+            {
+                _pathTiles.Add(tile);
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 이동 경로상의 타일에 있는 적들에게 스턴을 적용합니다.
+    /// </summary>
+    private void ApplyStunToPathTiles()
+    {
+        Span<double> eccStats = stackalloc double[1];
+        eccStats.Clear();
+        eccStats[0] = _debuffTime;
+
+        foreach (var tile in _pathTiles)
+        {
+            if (tile == null)
+                continue;
+
+            // 타일에 적이 있으면 스턴 적용
+            if (tile.CheckValidTile(owner.AllianceType, false) && tile.OccupiedCharacter != null)
+            {
+                var target = tile.OccupiedCharacter;
+                if (target.IsAlive)
+                {
+                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, target, eccStats, source);
+                }
+            }
+        }
     }
 
     public override void OnSkillAnimationEnd()

@@ -21,7 +21,7 @@ MonoBehaviour:
     MultipleAtk: 1
     MultipleHp: 1
   EnemyCharacters:
-  - CharacterId: 9002
+  - CharacterId: 3405
     Level: 1
     GridX: 1
     GridY: 4

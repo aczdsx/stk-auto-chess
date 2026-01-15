@@ -172,9 +172,9 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
         }
 
         var frontTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.CurrentTile.View.CachedTr.position);
-        Vector3 direction = (frontTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
-        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180f, 0);
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillMiddleFXTransformFollowable.GetPosition());
+        Vector3 direction = (frontTile[0].View.CachedTr.position - owner.CurrentTile.View.CachedTr.position).normalized;
+        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90f, 0);
 
         // 0.2초 후 캐릭터가 보고 있는 방향 앞 두칸으로 이동
         await UniTask.Delay(TimeSpan.FromSeconds(0.2f));

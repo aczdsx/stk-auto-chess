@@ -46,10 +46,6 @@ public class CharacterStateSkill : CharacterStateBase
             return;
         }
 
-        if (characCtrl.AllianceType == AllianceType.Enemy)
-        {
-            int ik = 0;
-        }
 
         characCtrl.GetCharacterView().PlayAnimation(skillAnimationKey);
     }
