@@ -64,9 +64,17 @@ namespace CookApps.AutoBattler.Editor
                 return;
             }
 
-            // 5. 파일로 저장 (AssetPostprocessor가 변경 감지 후 임포트 실행)
+            // 5. 기존 파일과 비교하여 변경된 경우에만 저장
+            string existingData = File.Exists(SpecLanguagePath) ? File.ReadAllText(SpecLanguagePath) : null;
+            if (existingData == languageData)
+            {
+                Debug.Log("[LanguageSpecDownloadCallback] Language 스펙이 변경되지 않아 임포트를 스킵합니다.");
+                return;
+            }
+
+            // 6. 파일로 저장 (AssetPostprocessor가 변경 감지 후 임포트 실행)
             File.WriteAllText(SpecLanguagePath, languageData);
-            AssetDatabase.Refresh();
+            AssetDatabase.ImportAsset(SpecLanguagePath, ImportAssetOptions.ForceUpdate);
             Debug.Log($"[LanguageSpecDownloadCallback] Language 스펙 다운로드 완료: {SpecLanguagePath}");
         }
 
