@@ -9,7 +9,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
-    public class InGameMainStateTest : IGameStateUICore, IReturnCharacterUI, IKillLogUI
+    public class InGameMainStateTest : IGameStateUICore, IReturnCharacterUI, IKillLogUI, IBottomScrollRectCheck
     {
         // 테스트 설정 주소 (Addressables)
         private const string TestConfigAddress = "TestConfig/InGameTestConfig.asset";
@@ -113,6 +113,16 @@ namespace CookApps.AutoBattler
         public void AddKillLog(in KillSource source, CharacterController death, bool isPlayerKill)
         {
             _inGameUI.TopUI.AddKillLog(source, death, isPlayerKill);
+        }
+
+        public bool IsPointInBottomScrollRect(UnityEngine.Vector2 screenPosition)
+        {
+            return _inGameUI.BottomUI.IsPointInScrollRect(screenPosition);
+        }
+
+        public void SetDropHighlight(bool active)
+        {
+            _inGameUI.BottomUI.SetDropHighlight(active);
         }
     }
 }

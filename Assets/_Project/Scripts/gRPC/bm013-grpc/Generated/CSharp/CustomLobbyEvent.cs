@@ -24,11 +24,10 @@ namespace Tech.Hive.V1 {
     static CustomLobbyEventReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChhjdXN0b21fbG9iYnkrZXZlbnQucHJvdG8SDHRlY2guaGl2ZS52MSqEAQoK",
-            "Qk0wMTNFdmVudBIbChdCTTAxM19FVkVOVF9VTlNQRUNJRklFRBAAEhsKF0JN",
-            "MDEzX0RBSUxZX1FVRVNUX0NMRUFSEAESHQoZQk0wMTNfREFJTFlfRFVOR0VP",
-            "Tl9DTEVBUhACEh0KGUJNMDEzX0dVSURFX01JU1NJT05fQ0xFQVIQA2IGcHJv",
-            "dG8z"));
+            "ChhjdXN0b21fbG9iYnkrZXZlbnQucHJvdG8SDHRlY2guaGl2ZS52MSplCgpC",
+            "TTAxM0V2ZW50EhsKF0JNMDEzX0VWRU5UX1VOU1BFQ0lGSUVEEAASHQoZQk0w",
+            "MTNfR1VJREVfTUlTU0lPTl9DTEVBUhABEhsKF0JNMDEzX0RBSUxZX1FVRVNU",
+            "X0NMRUFSEAJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.BM013Event), }, null, null));
@@ -40,17 +39,13 @@ namespace Tech.Hive.V1 {
   public enum BM013Event {
     [pbr::OriginalName("BM013_EVENT_UNSPECIFIED")] Unspecified = 0,
     /// <summary>
-    /// 일일 퀘스트 관련
-    /// </summary>
-    [pbr::OriginalName("BM013_DAILY_QUEST_CLEAR")] Bm013DailyQuestClear = 1,
-    /// <summary>
-    /// 일일 던전 관련
-    /// </summary>
-    [pbr::OriginalName("BM013_DAILY_DUNGEON_CLEAR")] Bm013DailyDungeonClear = 2,
-    /// <summary>
     /// 가이드 미션 관련
     /// </summary>
-    [pbr::OriginalName("BM013_GUIDE_MISSION_CLEAR")] Bm013GuideMissionClear = 3,
+    [pbr::OriginalName("BM013_GUIDE_MISSION_CLEAR")] Bm013GuideMissionClear = 1,
+    /// <summary>
+    /// 일일 퀘스트 관련
+    /// </summary>
+    [pbr::OriginalName("BM013_DAILY_QUEST_CLEAR")] Bm013DailyQuestClear = 2,
   }
 
   #endregion

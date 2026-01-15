@@ -11,7 +11,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
-    public class InGameMainStateStage : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IKillLogUI, IAlertBottomCharacterUI, ICommanderSkillUI
+    public class InGameMainStateStage : IGameStateUICore, IReturnCharacterUI, IGuideBottomUI, IFocusSlotUI, IKillLogUI, IAlertBottomCharacterUI, ICommanderSkillUI, IBottomScrollRectCheck
     {
         private InGameUI _inGameUI;
         private StageInfo _specStage;
@@ -145,6 +145,16 @@ namespace CookApps.AutoBattler
         public void AddKillLog(in CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
         {
             _inGameUI.TopUI.AddKillLog(source, death, isPlayerKill);
+        }
+
+        public bool IsPointInBottomScrollRect(UnityEngine.Vector2 screenPosition)
+        {
+            return _inGameUI.BottomUI.IsPointInScrollRect(screenPosition);
+        }
+
+        public void SetDropHighlight(bool active)
+        {
+            _inGameUI.BottomUI.SetDropHighlight(active);
         }
     }
 }

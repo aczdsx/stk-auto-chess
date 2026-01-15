@@ -157,6 +157,18 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameTile tile =
                 InGameObjectManager.Instance.GetInGameTile(inGameTileView.ID);
 
+            // Enemy 보스 몬스터 클릭 시 스킬 툴팁 표시
+            if (tile.OccupiedCharacter != null &&
+                tile.OccupiedCharacter.AllianceType == AllianceType.Enemy)
+            {
+                var specMonster = tile.OccupiedCharacter.GetCharacterStat()?.Spec as MonsterInfo;
+                if (specMonster != null && specMonster.character_type == CharacterType.BOSS)
+                {
+                    InGameMain.GetInGameMain().ShowEnemySkillTooltip(specMonster);
+                    return;
+                }
+            }
+
             if (InGameMain.GetInGameMain().IsCheckTouchTile(tile) || CheckCanTouchTile(tile, inGameTileView))
             {
                 // 튜토리얼 캐릭터 배치 중일 때 특정 캐릭터만 선택 가능
@@ -190,6 +202,9 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (_isMoveEndAnimation || _selectedCharacterController == null)
             return;
 
+        // 드래그 중 BottomUI 영역 하이라이트 체크 (BattleItem 제외)
+        UpdateDropHighlight(touchPosition);
+
         Ray ray = MainCameraHolder.MainCamera.ScreenPointToRay(touchPosition);
         if (!Physics.Raycast(ray, out RaycastHit hit))
             return;
@@ -209,6 +224,19 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             return;
 
         UpdateSelectedTileAndAnimate(ingameTileView);
+    }
+
+    /// <summary>
+    /// 드래그 중 BottomUI 영역 하이라이트 업데이트
+    /// </summary>
+    private void UpdateDropHighlight(Vector3 touchPosition)
+    {
+        if (_selectedCharacterController == null) return;
+        if (_selectedCharacterController.SpecCharacter.character_type == CharacterType.BATTLEITEM) return;
+
+        var inGameMain = InGameMain.GetInGameMain();
+        bool isInBottomUI = inGameMain.IsPointInBottomScrollRect(touchPosition);
+        inGameMain.SetDropHighlight(isInBottomUI);
     }
 
     /// <summary>
@@ -331,20 +359,18 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             return;
 
         _isMoveEndAnimation = true;
-        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+
+        // BottomUI ScrollRect 영역 체크로 반환 판정
+        var inGameMain = InGameMain.GetInGameMain();
+        bool isInBottomUI = inGameMain.IsPointInBottomScrollRect(touchPosition);
+
+        // 드래그 종료 시 하이라이트 해제
+        inGameMain.SetDropHighlight(false);
+
+        if (isInBottomUI &&
+            _selectedCharacterController.SpecCharacter.character_type != CharacterType.BATTLEITEM)
         {
-            position = Input.mousePosition
-        };
-
-        _ = ListPool<RaycastResult>.Get(out var results);
-        EventSystem.current.RaycastAll(pointerData, results);
-
-        var returnObjResult = results.FirstOrDefault(r => r.gameObject != null && r.gameObject.CompareTag("ReturnObj"));
-
-        if (returnObjResult.gameObject != null &&
-        _selectedCharacterController.SpecCharacter.character_type != CharacterType.BATTLEITEM)
-        {
-            var inGameMain = InGameMain.GetInGameMain();
+            // BottomUI 영역에 드롭 - 캐릭터 반환
             CharacterController deleteCharacterController = _selectedCharacterController;
             ReleaseSelectedHero(true);
 

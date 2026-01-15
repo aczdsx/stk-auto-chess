@@ -332,9 +332,9 @@ public class InGameBottomUI : MonoBehaviour
             _allCharacterStats.Add(characterStat);
         }
 
+        // CP(전투력) 기준 내림차순 정렬
         _allCharacterStats = _allCharacterStats
-            .OrderByDescending(stat => stat.Level)
-            .ThenByDescending(stat => stat.CharacterID)
+            .OrderByDescending(stat => stat.GetAttrValueCP())
             .ToList();
 
         // 필터 적용하여 _characterStats 갱신
@@ -450,11 +450,50 @@ public class InGameBottomUI : MonoBehaviour
         _returnImage.color = (active) ? Color.green : Color.white;
     }
 
+    /// <summary>
+    /// 스크린 좌표가 ScrollRect 영역 내에 있는지 확인
+    /// </summary>
+    public bool IsPointInScrollRect(Vector2 screenPosition)
+    {
+        if (_scrollRect == null) return false;
+
+        RectTransform scrollRectTransform = _scrollRect.GetComponent<RectTransform>();
+        return RectTransformUtility.RectangleContainsScreenPoint(
+            scrollRectTransform,
+            screenPosition,
+            null // Screen Space - Overlay Canvas의 경우 null
+        );
+    }
+
+    /// <summary>
+    /// ScrollRect의 RectTransform 반환 (외부에서 드롭 영역 체크용)
+    /// </summary>
+    public RectTransform GetScrollRectTransform()
+    {
+        return _scrollRect?.GetComponent<RectTransform>();
+    }
+
+    /// <summary>
+    /// 드롭 영역 하이라이트 설정
+    /// </summary>
+    public void SetDropHighlight(bool active)
+    {
+        if (_returnImage == null) return;
+
+        // 하이라이트 활성화 시 녹색 반투명, 비활성화 시 숨김
+        _returnImage.gameObject.SetActive(active);
+        if (active)
+        {
+            _returnImage.color = new Color(0.2f, 0.8f, 0.3f, 0.5f); // 녹색 반투명
+        }
+    }
+
     public void ReturnCharacter(CharacterController controller)
     {
         var stat = controller.GetCharacterStat();
         _allCharacterStats.Add(stat);
-        _allCharacterStats = _allCharacterStats.OrderByDescending(s => s.Level).ThenByDescending(s => s.CharacterID).ToList();
+        // CP(전투력) 기준 내림차순 정렬
+        _allCharacterStats = _allCharacterStats.OrderByDescending(s => s.GetAttrValueCP()).ToList();
 
         // 필터 적용 후 _characterStats 갱신
         RefreshFilteredList();
@@ -906,10 +945,10 @@ public class InGameBottomUI : MonoBehaviour
     /// </summary>
     private void RefreshFilteredList()
     {
+        // CP(전투력) 기준 내림차순 정렬
         _characterStats = _allCharacterStats
             .Where(PassFilter)
-            .OrderByDescending(stat => stat.Level)
-            .ThenByDescending(stat => stat.CharacterID)
+            .OrderByDescending(stat => stat.GetAttrValueCP())
             .ToList();
     }
 

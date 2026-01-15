@@ -13,6 +13,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 
 namespace CookApps.AutoBattler
 {
@@ -94,6 +95,12 @@ namespace CookApps.AutoBattler
     public interface ISkipUI
     {
         void OnSkipRequested();
+    }
+
+    public interface IBottomScrollRectCheck
+    {
+        bool IsPointInBottomScrollRect(Vector2 screenPosition);
+        void SetDropHighlight(bool active);
     }
 
     public class InGameMain : UILayer
@@ -189,6 +196,14 @@ namespace CookApps.AutoBattler
             _skillTooltipPopup?.gameObject.SetActive(false);
         }
 
+        public void ShowEnemySkillTooltip(MonsterInfo monsterInfo)
+        {
+            if (monsterInfo == null) return;
+            if (monsterInfo.skill_ids == null || monsterInfo.skill_ids.Length == 0) return;
+
+            SceneUILayerManager.Instance.PushUILayerAsync<EnemySkillTooltipPopup>(monsterInfo).Forget();
+        }
+
         public void InitCombatStateUI()
         {
             _currentGameStateUI.InitCombatStateUI();
@@ -273,6 +288,19 @@ namespace CookApps.AutoBattler
         {
             if (_currentGameStateUI is ISkipUI skip)
                 skip.OnSkipRequested();
+        }
+
+        public bool IsPointInBottomScrollRect(Vector2 screenPosition)
+        {
+            if (_currentGameStateUI is IBottomScrollRectCheck check)
+                return check.IsPointInBottomScrollRect(screenPosition);
+            return false;
+        }
+
+        public void SetDropHighlight(bool active)
+        {
+            if (_currentGameStateUI is IBottomScrollRectCheck check)
+                check.SetDropHighlight(active);
         }
     }
 }

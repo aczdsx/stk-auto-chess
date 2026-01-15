@@ -10,9 +10,10 @@ import "trial_dungeon+data.proto";
 // 시련 던전 서비스
 service TrialDungeonService {
   /**
-   * 시도 던전 목록 조회
+   * 현재 시련 던전 조회
+   * 만약 마지막 던전인 경우 state가 complete으로 반환되고, 이후에 Spec에 추가되면 자동으로 다음 던전 반환
    */
-  rpc List(TrialDungeonListRequest) returns (TrialDungeonListResponse);
+  rpc Get(TrialDungeonGetRequest) returns (TrialDungeonGetResponse);
 
   /**
    * 시도 던전 입장
@@ -27,34 +28,28 @@ service TrialDungeonService {
 
 enum TrialDungeonErrorCode {
   TRIAL_DUNGEON_UNSPECIFIED = 0;
+
+  TRIAL_DUNGEON_NOT_FOUND = 10130801; // 던전 데이터가 없음
+  TRIAL_DUNGEON_NOT_ENOUGH_STAR = 10130802; // 별 개수가 모자람.
 }
 
-message TrialDungeonListRequest {
-  uint32 trial_dungeon_id = 1;
-}
+message TrialDungeonGetRequest {}
 
-message TrialDungeonListResponse {
+message TrialDungeonGetResponse {
   ResponseStatus status = 1;
-  repeated TrialDungeonData trial_dungeon_list = 2;
-  // 현재 진행 가능한 던전 순서
-  uint32 current_order = 3;
+  TrialDungeonData trial_dungeon = 2;
 }
 
-message TrialDungeonEnterRequest {
-  uint32 trial_dungeon_id = 1;
-}
-
+message TrialDungeonEnterRequest {}
 message TrialDungeonEnterResponse {
   ResponseStatus status = 1;
   TrialDungeonData trial_dungeon = 2;
   string battle_session_id = 3;
-  repeated CurrencyDelta currency_deltas = 4; // AP 소모
 }
 
 message TrialDungeonClearRequest {
-  uint32 trial_dungeon_id = 1;
-  string battle_session_id = 2;
-  bool is_victory = 3;
+  string battle_session_id = 1;
+  bool is_victory = 2;
 }
 
 message TrialDungeonClearResponse {
@@ -62,5 +57,4 @@ message TrialDungeonClearResponse {
   TrialDungeonData trial_dungeon = 2;
   repeated Reward rewards = 3;
   repeated CurrencyDelta currency_deltas = 4;
-  uint64 player_exp_gained = 5;
 }

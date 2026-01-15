@@ -9,6 +9,7 @@ message QuestData {
 
   // 현재 진행값
   uint32 current_count = 2;
+
   // 목표값
   uint32 goal_count = 3;
 
@@ -18,20 +19,13 @@ message QuestData {
   // 만료 시간
   uint64 expired_at = 5;
 
-  // 상태
-  QuestState state = 6;
+  bool is_rewarded = 6;
+
+  bool is_cleared = 7;
 }
 
 // 퀘스트 타입
 enum QuestType {
   QUEST_TYPE_UNSPECIFIED = 0;
   QUEST_TYPE_DAILY = 1;         // 일일 퀘스트
-}
-
-
-enum QuestState {
-  QUEST_STATE_UNSPECIFIED = 0;
-  QUEST_STATE_NOT_STARTED = 1; // 퀘스트 시작 전
-  QUEST_STATE_IN_PROGRESS = 2; // 퀘스트 진행 중
-  QUEST_STATE_COMPLETED = 3;   // 퀘스트 완료
 }

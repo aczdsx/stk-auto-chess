@@ -49,9 +49,9 @@ namespace Tech.Hive.V1 {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.TrialDungeonListRequest> __Marshaller_tech_hive_v1_TrialDungeonListRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.TrialDungeonListRequest.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.TrialDungeonGetRequest> __Marshaller_tech_hive_v1_TrialDungeonGetRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.TrialDungeonGetRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.TrialDungeonListResponse> __Marshaller_tech_hive_v1_TrialDungeonListResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.TrialDungeonListResponse.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.TrialDungeonGetResponse> __Marshaller_tech_hive_v1_TrialDungeonGetResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.TrialDungeonGetResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.TrialDungeonEnterRequest> __Marshaller_tech_hive_v1_TrialDungeonEnterRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.TrialDungeonEnterRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -62,12 +62,12 @@ namespace Tech.Hive.V1 {
     static readonly grpc::Marshaller<global::Tech.Hive.V1.TrialDungeonClearResponse> __Marshaller_tech_hive_v1_TrialDungeonClearResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.TrialDungeonClearResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.TrialDungeonListRequest, global::Tech.Hive.V1.TrialDungeonListResponse> __Method_List = new grpc::Method<global::Tech.Hive.V1.TrialDungeonListRequest, global::Tech.Hive.V1.TrialDungeonListResponse>(
+    static readonly grpc::Method<global::Tech.Hive.V1.TrialDungeonGetRequest, global::Tech.Hive.V1.TrialDungeonGetResponse> __Method_Get = new grpc::Method<global::Tech.Hive.V1.TrialDungeonGetRequest, global::Tech.Hive.V1.TrialDungeonGetResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "List",
-        __Marshaller_tech_hive_v1_TrialDungeonListRequest,
-        __Marshaller_tech_hive_v1_TrialDungeonListResponse);
+        "Get",
+        __Marshaller_tech_hive_v1_TrialDungeonGetRequest,
+        __Marshaller_tech_hive_v1_TrialDungeonGetResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Tech.Hive.V1.TrialDungeonEnterRequest, global::Tech.Hive.V1.TrialDungeonEnterResponse> __Method_Enter = new grpc::Method<global::Tech.Hive.V1.TrialDungeonEnterRequest, global::Tech.Hive.V1.TrialDungeonEnterResponse>(
@@ -97,13 +97,14 @@ namespace Tech.Hive.V1 {
     {
       /// <summary>
       ///*
-      /// 시도 던전 목록 조회
+      /// 현재 시련 던전 조회
+      /// 만약 마지막 던전인 경우 state가 complete으로 반환되고, 이후에 Spec에 추가되면 자동으로 다음 던전 반환
       /// </summary>
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.TrialDungeonListResponse> List(global::Tech.Hive.V1.TrialDungeonListRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.TrialDungeonGetResponse> Get(global::Tech.Hive.V1.TrialDungeonGetRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -165,7 +166,8 @@ namespace Tech.Hive.V1 {
 
       /// <summary>
       ///*
-      /// 시도 던전 목록 조회
+      /// 현재 시련 던전 조회
+      /// 만약 마지막 던전인 경우 state가 complete으로 반환되고, 이후에 Spec에 추가되면 자동으로 다음 던전 반환
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -173,25 +175,27 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.TrialDungeonListResponse List(global::Tech.Hive.V1.TrialDungeonListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Tech.Hive.V1.TrialDungeonGetResponse Get(global::Tech.Hive.V1.TrialDungeonGetRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return List(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return Get(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
-      /// 시도 던전 목록 조회
+      /// 현재 시련 던전 조회
+      /// 만약 마지막 던전인 경우 state가 complete으로 반환되고, 이후에 Spec에 추가되면 자동으로 다음 던전 반환
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.TrialDungeonListResponse List(global::Tech.Hive.V1.TrialDungeonListRequest request, grpc::CallOptions options)
+      public virtual global::Tech.Hive.V1.TrialDungeonGetResponse Get(global::Tech.Hive.V1.TrialDungeonGetRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_List, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_Get, null, options, request);
       }
       /// <summary>
       ///*
-      /// 시도 던전 목록 조회
+      /// 현재 시련 던전 조회
+      /// 만약 마지막 던전인 경우 state가 complete으로 반환되고, 이후에 Spec에 추가되면 자동으로 다음 던전 반환
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -199,21 +203,22 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.TrialDungeonListResponse> ListAsync(global::Tech.Hive.V1.TrialDungeonListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.TrialDungeonGetResponse> GetAsync(global::Tech.Hive.V1.TrialDungeonGetRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return ListAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return GetAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
-      /// 시도 던전 목록 조회
+      /// 현재 시련 던전 조회
+      /// 만약 마지막 던전인 경우 state가 complete으로 반환되고, 이후에 Spec에 추가되면 자동으로 다음 던전 반환
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.TrialDungeonListResponse> ListAsync(global::Tech.Hive.V1.TrialDungeonListRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.TrialDungeonGetResponse> GetAsync(global::Tech.Hive.V1.TrialDungeonGetRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_List, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_Get, null, options, request);
       }
       /// <summary>
       ///*
@@ -333,7 +338,7 @@ namespace Tech.Hive.V1 {
     public static grpc::ServerServiceDefinition BindService(TrialDungeonServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_List, serviceImpl.List)
+          .AddMethod(__Method_Get, serviceImpl.Get)
           .AddMethod(__Method_Enter, serviceImpl.Enter)
           .AddMethod(__Method_Clear, serviceImpl.Clear).Build();
     }
@@ -345,7 +350,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public static void BindService(grpc::ServiceBinderBase serviceBinder, TrialDungeonServiceBase serviceImpl)
     {
-      serviceBinder.AddMethod(__Method_List, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.TrialDungeonListRequest, global::Tech.Hive.V1.TrialDungeonListResponse>(serviceImpl.List));
+      serviceBinder.AddMethod(__Method_Get, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.TrialDungeonGetRequest, global::Tech.Hive.V1.TrialDungeonGetResponse>(serviceImpl.Get));
       serviceBinder.AddMethod(__Method_Enter, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.TrialDungeonEnterRequest, global::Tech.Hive.V1.TrialDungeonEnterResponse>(serviceImpl.Enter));
       serviceBinder.AddMethod(__Method_Clear, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.TrialDungeonClearRequest, global::Tech.Hive.V1.TrialDungeonClearResponse>(serviceImpl.Clear));
     }

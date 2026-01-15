@@ -24,20 +24,17 @@ namespace Tech.Hive.V1 {
     static TrialDungeonDataReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Chh0cmlhbF9kdW5nZW9uK2RhdGEucHJvdG8SDHRlY2guaGl2ZS52MRoTY3Vz",
-            "dG9tX2NvbW1vbi5wcm90byLAAQoQVHJpYWxEdW5nZW9uRGF0YRIYChB0cmlh",
-            "bF9kdW5nZW9uX2lkGAEgASgNEg0KBW9yZGVyGAIgASgNEhMKC3JlcXVpcmVk",
-            "X2FwGAMgASgNEi4KBXN0YXRlGAQgASgOMh8udGVjaC5oaXZlLnYxLlRyaWFs",
-            "RHVuZ2VvblN0YXRlEiUKB3Jld2FyZHMYBSADKAsyFC50ZWNoLmhpdmUudjEu",
-            "UmV3YXJkEhcKD2NsZWFyX3RpbWVzdGFtcBgGIAEoBCqlAQoRVHJpYWxEdW5n",
-            "ZW9uU3RhdGUSIwofVFJJQUxfRFVOR0VPTl9TVEFURV9VTlNQRUNJRklFRBAA",
-            "EiMKH1RSSUFMX0RVTkdFT05fU1RBVEVfTk9UX1NUQVJURUQQARIjCh9UUklB",
-            "TF9EVU5HRU9OX1NUQVRFX0lOX1BST0dSRVNTEAISIQodVFJJQUxfRFVOR0VP",
-            "Tl9TVEFURV9DT01QTEVURUQQA2IGcHJvdG8z"));
+            "Chh0cmlhbF9kdW5nZW9uK2RhdGEucHJvdG8SDHRlY2guaGl2ZS52MSJRChBU",
+            "cmlhbER1bmdlb25EYXRhEg0KBW9yZGVyGAEgASgNEi4KBXN0YXRlGAIgASgO",
+            "Mh8udGVjaC5oaXZlLnYxLlRyaWFsRHVuZ2VvblN0YXRlKqUBChFUcmlhbER1",
+            "bmdlb25TdGF0ZRIjCh9UUklBTF9EVU5HRU9OX1NUQVRFX1VOU1BFQ0lGSUVE",
+            "EAASIwofVFJJQUxfRFVOR0VPTl9TVEFURV9OT1RfU1RBUlRFRBABEiMKH1RS",
+            "SUFMX0RVTkdFT05fU1RBVEVfSU5fUFJPR1JFU1MQAhIhCh1UUklBTF9EVU5H",
+            "RU9OX1NUQVRFX0NPTVBMRVRFRBADYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.CustomCommonReflection.Descriptor, },
+          new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.TrialDungeonState), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonData), global::Tech.Hive.V1.TrialDungeonData.Parser, new[]{ "TrialDungeonId", "Order", "RequiredAp", "State", "Rewards", "ClearTimestamp" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonData), global::Tech.Hive.V1.TrialDungeonData.Parser, new[]{ "Order", "State" }, null, null, null, null)
           }));
     }
     #endregion
@@ -98,12 +95,8 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public TrialDungeonData(TrialDungeonData other) : this() {
-      trialDungeonId_ = other.trialDungeonId_;
       order_ = other.order_;
-      requiredAp_ = other.requiredAp_;
       state_ = other.state_;
-      rewards_ = other.rewards_.Clone();
-      clearTimestamp_ = other.clearTimestamp_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -113,23 +106,8 @@ namespace Tech.Hive.V1 {
       return new TrialDungeonData(this);
     }
 
-    /// <summary>Field number for the "trial_dungeon_id" field.</summary>
-    public const int TrialDungeonIdFieldNumber = 1;
-    private uint trialDungeonId_;
-    /// <summary>
-    /// 시도 던전 아이디
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint TrialDungeonId {
-      get { return trialDungeonId_; }
-      set {
-        trialDungeonId_ = value;
-      }
-    }
-
     /// <summary>Field number for the "order" field.</summary>
-    public const int OrderFieldNumber = 2;
+    public const int OrderFieldNumber = 1;
     private uint order_;
     /// <summary>
     /// 던전 순서
@@ -143,23 +121,8 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "required_ap" field.</summary>
-    public const int RequiredApFieldNumber = 3;
-    private uint requiredAp_;
-    /// <summary>
-    /// 필요 행동력
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint RequiredAp {
-      get { return requiredAp_; }
-      set {
-        requiredAp_ = value;
-      }
-    }
-
     /// <summary>Field number for the "state" field.</summary>
-    public const int StateFieldNumber = 4;
+    public const int StateFieldNumber = 2;
     private global::Tech.Hive.V1.TrialDungeonState state_ = global::Tech.Hive.V1.TrialDungeonState.Unspecified;
     /// <summary>
     /// 던전 상태
@@ -170,35 +133,6 @@ namespace Tech.Hive.V1 {
       get { return state_; }
       set {
         state_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "rewards" field.</summary>
-    public const int RewardsFieldNumber = 5;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.Reward> _repeated_rewards_codec
-        = pb::FieldCodec.ForMessage(42, global::Tech.Hive.V1.Reward.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.Reward> rewards_ = new pbc::RepeatedField<global::Tech.Hive.V1.Reward>();
-    /// <summary>
-    /// 보상 목록
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.Reward> Rewards {
-      get { return rewards_; }
-    }
-
-    /// <summary>Field number for the "clear_timestamp" field.</summary>
-    public const int ClearTimestampFieldNumber = 6;
-    private ulong clearTimestamp_;
-    /// <summary>
-    /// 클리어 시간
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong ClearTimestamp {
-      get { return clearTimestamp_; }
-      set {
-        clearTimestamp_ = value;
       }
     }
 
@@ -217,12 +151,8 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (TrialDungeonId != other.TrialDungeonId) return false;
       if (Order != other.Order) return false;
-      if (RequiredAp != other.RequiredAp) return false;
       if (State != other.State) return false;
-      if(!rewards_.Equals(other.rewards_)) return false;
-      if (ClearTimestamp != other.ClearTimestamp) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -230,12 +160,8 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (TrialDungeonId != 0) hash ^= TrialDungeonId.GetHashCode();
       if (Order != 0) hash ^= Order.GetHashCode();
-      if (RequiredAp != 0) hash ^= RequiredAp.GetHashCode();
       if (State != global::Tech.Hive.V1.TrialDungeonState.Unspecified) hash ^= State.GetHashCode();
-      hash ^= rewards_.GetHashCode();
-      if (ClearTimestamp != 0UL) hash ^= ClearTimestamp.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -254,26 +180,13 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (TrialDungeonId != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(TrialDungeonId);
-      }
       if (Order != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(8);
         output.WriteUInt32(Order);
       }
-      if (RequiredAp != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(RequiredAp);
-      }
       if (State != global::Tech.Hive.V1.TrialDungeonState.Unspecified) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(16);
         output.WriteEnum((int) State);
-      }
-      rewards_.WriteTo(output, _repeated_rewards_codec);
-      if (ClearTimestamp != 0UL) {
-        output.WriteRawTag(48);
-        output.WriteUInt64(ClearTimestamp);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -285,26 +198,13 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (TrialDungeonId != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(TrialDungeonId);
-      }
       if (Order != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(8);
         output.WriteUInt32(Order);
       }
-      if (RequiredAp != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(RequiredAp);
-      }
       if (State != global::Tech.Hive.V1.TrialDungeonState.Unspecified) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(16);
         output.WriteEnum((int) State);
-      }
-      rewards_.WriteTo(ref output, _repeated_rewards_codec);
-      if (ClearTimestamp != 0UL) {
-        output.WriteRawTag(48);
-        output.WriteUInt64(ClearTimestamp);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -316,21 +216,11 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (TrialDungeonId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TrialDungeonId);
-      }
       if (Order != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Order);
       }
-      if (RequiredAp != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(RequiredAp);
-      }
       if (State != global::Tech.Hive.V1.TrialDungeonState.Unspecified) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) State);
-      }
-      size += rewards_.CalculateSize(_repeated_rewards_codec);
-      if (ClearTimestamp != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ClearTimestamp);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -344,21 +234,11 @@ namespace Tech.Hive.V1 {
       if (other == null) {
         return;
       }
-      if (other.TrialDungeonId != 0) {
-        TrialDungeonId = other.TrialDungeonId;
-      }
       if (other.Order != 0) {
         Order = other.Order;
       }
-      if (other.RequiredAp != 0) {
-        RequiredAp = other.RequiredAp;
-      }
       if (other.State != global::Tech.Hive.V1.TrialDungeonState.Unspecified) {
         State = other.State;
-      }
-      rewards_.Add(other.rewards_);
-      if (other.ClearTimestamp != 0UL) {
-        ClearTimestamp = other.ClearTimestamp;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -376,27 +256,11 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            TrialDungeonId = input.ReadUInt32();
-            break;
-          }
-          case 16: {
             Order = input.ReadUInt32();
             break;
           }
-          case 24: {
-            RequiredAp = input.ReadUInt32();
-            break;
-          }
-          case 32: {
+          case 16: {
             State = (global::Tech.Hive.V1.TrialDungeonState) input.ReadEnum();
-            break;
-          }
-          case 42: {
-            rewards_.AddEntriesFrom(input, _repeated_rewards_codec);
-            break;
-          }
-          case 48: {
-            ClearTimestamp = input.ReadUInt64();
             break;
           }
         }
@@ -415,27 +279,11 @@ namespace Tech.Hive.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            TrialDungeonId = input.ReadUInt32();
-            break;
-          }
-          case 16: {
             Order = input.ReadUInt32();
             break;
           }
-          case 24: {
-            RequiredAp = input.ReadUInt32();
-            break;
-          }
-          case 32: {
+          case 16: {
             State = (global::Tech.Hive.V1.TrialDungeonState) input.ReadEnum();
-            break;
-          }
-          case 42: {
-            rewards_.AddEntriesFrom(ref input, _repeated_rewards_codec);
-            break;
-          }
-          case 48: {
-            ClearTimestamp = input.ReadUInt64();
             break;
           }
         }

@@ -26,42 +26,39 @@ namespace Tech.Hive.V1 {
           string.Concat(
             "ChN0cmlhbF9kdW5nZW9uLnByb3RvEgx0ZWNoLmhpdmUudjEaCmJhc2UucHJv",
             "dG8aE2N1c3RvbV9jb21tb24ucHJvdG8aGHRyaWFsX2R1bmdlb24rZGF0YS5w",
-            "cm90byIzChdUcmlhbER1bmdlb25MaXN0UmVxdWVzdBIYChB0cmlhbF9kdW5n",
-            "ZW9uX2lkGAEgASgNIpsBChhUcmlhbER1bmdlb25MaXN0UmVzcG9uc2USLAoG",
-            "c3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjoK",
-            "EnRyaWFsX2R1bmdlb25fbGlzdBgCIAMoCzIeLnRlY2guaGl2ZS52MS5Ucmlh",
-            "bER1bmdlb25EYXRhEhUKDWN1cnJlbnRfb3JkZXIYAyABKA0iNAoYVHJpYWxE",
-            "dW5nZW9uRW50ZXJSZXF1ZXN0EhgKEHRyaWFsX2R1bmdlb25faWQYASABKA0i",
-            "0QEKGVRyaWFsRHVuZ2VvbkVudGVyUmVzcG9uc2USLAoGc3RhdHVzGAEgASgL",
-            "MhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjUKDXRyaWFsX2R1bmdl",
-            "b24YAiABKAsyHi50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9uRGF0YRIZChFi",
-            "YXR0bGVfc2Vzc2lvbl9pZBgDIAEoCRI0Cg9jdXJyZW5jeV9kZWx0YXMYBCAD",
-            "KAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSJjChhUcmlhbER1bmdl",
-            "b25DbGVhclJlcXVlc3QSGAoQdHJpYWxfZHVuZ2Vvbl9pZBgBIAEoDRIZChFi",
-            "YXR0bGVfc2Vzc2lvbl9pZBgCIAEoCRISCgppc192aWN0b3J5GAMgASgIIvgB",
-            "ChlUcmlhbER1bmdlb25DbGVhclJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIc",
-            "LnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxI1Cg10cmlhbF9kdW5nZW9u",
-            "GAIgASgLMh4udGVjaC5oaXZlLnYxLlRyaWFsRHVuZ2VvbkRhdGESJQoHcmV3",
-            "YXJkcxgDIAMoCzIULnRlY2guaGl2ZS52MS5SZXdhcmQSNAoPY3VycmVuY3lf",
-            "ZGVsdGFzGAQgAygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGESGQoR",
-            "cGxheWVyX2V4cF9nYWluZWQYBSABKAQqNgoVVHJpYWxEdW5nZW9uRXJyb3JD",
-            "b2RlEh0KGVRSSUFMX0RVTkdFT05fVU5TUEVDSUZJRUQQADKgAgoTVHJpYWxE",
-            "dW5nZW9uU2VydmljZRJVCgRMaXN0EiUudGVjaC5oaXZlLnYxLlRyaWFsRHVu",
-            "Z2Vvbkxpc3RSZXF1ZXN0GiYudGVjaC5oaXZlLnYxLlRyaWFsRHVuZ2Vvbkxp",
-            "c3RSZXNwb25zZRJYCgVFbnRlchImLnRlY2guaGl2ZS52MS5UcmlhbER1bmdl",
-            "b25FbnRlclJlcXVlc3QaJy50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9uRW50",
-            "ZXJSZXNwb25zZRJYCgVDbGVhchImLnRlY2guaGl2ZS52MS5UcmlhbER1bmdl",
-            "b25DbGVhclJlcXVlc3QaJy50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9uQ2xl",
-            "YXJSZXNwb25zZWIGcHJvdG8z"));
+            "cm90byIYChZUcmlhbER1bmdlb25HZXRSZXF1ZXN0In4KF1RyaWFsRHVuZ2Vv",
+            "bkdldFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5S",
+            "ZXNwb25zZVN0YXR1cxI1Cg10cmlhbF9kdW5nZW9uGAIgASgLMh4udGVjaC5o",
+            "aXZlLnYxLlRyaWFsRHVuZ2VvbkRhdGEiGgoYVHJpYWxEdW5nZW9uRW50ZXJS",
+            "ZXF1ZXN0IpsBChlUcmlhbER1bmdlb25FbnRlclJlc3BvbnNlEiwKBnN0YXR1",
+            "cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxI1Cg10cmlh",
+            "bF9kdW5nZW9uGAIgASgLMh4udGVjaC5oaXZlLnYxLlRyaWFsRHVuZ2VvbkRh",
+            "dGESGQoRYmF0dGxlX3Nlc3Npb25faWQYAyABKAkiSQoYVHJpYWxEdW5nZW9u",
+            "Q2xlYXJSZXF1ZXN0EhkKEWJhdHRsZV9zZXNzaW9uX2lkGAEgASgJEhIKCmlz",
+            "X3ZpY3RvcnkYAiABKAgi3QEKGVRyaWFsRHVuZ2VvbkNsZWFyUmVzcG9uc2US",
+            "LAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVz",
+            "EjUKDXRyaWFsX2R1bmdlb24YAiABKAsyHi50ZWNoLmhpdmUudjEuVHJpYWxE",
+            "dW5nZW9uRGF0YRIlCgdyZXdhcmRzGAMgAygLMhQudGVjaC5oaXZlLnYxLlJl",
+            "d2FyZBI0Cg9jdXJyZW5jeV9kZWx0YXMYBCADKAsyGy50ZWNoLmhpdmUudjEu",
+            "Q3VycmVuY3lEZWx0YSp8ChVUcmlhbER1bmdlb25FcnJvckNvZGUSHQoZVFJJ",
+            "QUxfRFVOR0VPTl9VTlNQRUNJRklFRBAAEh4KF1RSSUFMX0RVTkdFT05fTk9U",
+            "X0ZPVU5EEPGq6gQSJAodVFJJQUxfRFVOR0VPTl9OT1RfRU5PVUdIX1NUQVIQ",
+            "8qrqBDKdAgoTVHJpYWxEdW5nZW9uU2VydmljZRJSCgNHZXQSJC50ZWNoLmhp",
+            "dmUudjEuVHJpYWxEdW5nZW9uR2V0UmVxdWVzdBolLnRlY2guaGl2ZS52MS5U",
+            "cmlhbER1bmdlb25HZXRSZXNwb25zZRJYCgVFbnRlchImLnRlY2guaGl2ZS52",
+            "MS5UcmlhbER1bmdlb25FbnRlclJlcXVlc3QaJy50ZWNoLmhpdmUudjEuVHJp",
+            "YWxEdW5nZW9uRW50ZXJSZXNwb25zZRJYCgVDbGVhchImLnRlY2guaGl2ZS52",
+            "MS5UcmlhbER1bmdlb25DbGVhclJlcXVlc3QaJy50ZWNoLmhpdmUudjEuVHJp",
+            "YWxEdW5nZW9uQ2xlYXJSZXNwb25zZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.TrialDungeonDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.TrialDungeonErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonListRequest), global::Tech.Hive.V1.TrialDungeonListRequest.Parser, new[]{ "TrialDungeonId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonListResponse), global::Tech.Hive.V1.TrialDungeonListResponse.Parser, new[]{ "Status", "TrialDungeonList", "CurrentOrder" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonEnterRequest), global::Tech.Hive.V1.TrialDungeonEnterRequest.Parser, new[]{ "TrialDungeonId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonEnterResponse), global::Tech.Hive.V1.TrialDungeonEnterResponse.Parser, new[]{ "Status", "TrialDungeon", "BattleSessionId", "CurrencyDeltas" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonClearRequest), global::Tech.Hive.V1.TrialDungeonClearRequest.Parser, new[]{ "TrialDungeonId", "BattleSessionId", "IsVictory" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonClearResponse), global::Tech.Hive.V1.TrialDungeonClearResponse.Parser, new[]{ "Status", "TrialDungeon", "Rewards", "CurrencyDeltas", "PlayerExpGained" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonGetRequest), global::Tech.Hive.V1.TrialDungeonGetRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonGetResponse), global::Tech.Hive.V1.TrialDungeonGetResponse.Parser, new[]{ "Status", "TrialDungeon" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonEnterRequest), global::Tech.Hive.V1.TrialDungeonEnterRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonEnterResponse), global::Tech.Hive.V1.TrialDungeonEnterResponse.Parser, new[]{ "Status", "TrialDungeon", "BattleSessionId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonClearRequest), global::Tech.Hive.V1.TrialDungeonClearRequest.Parser, new[]{ "BattleSessionId", "IsVictory" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonClearResponse), global::Tech.Hive.V1.TrialDungeonClearResponse.Parser, new[]{ "Status", "TrialDungeon", "Rewards", "CurrencyDeltas" }, null, null, null, null)
           }));
     }
     #endregion
@@ -70,22 +67,30 @@ namespace Tech.Hive.V1 {
   #region Enums
   public enum TrialDungeonErrorCode {
     [pbr::OriginalName("TRIAL_DUNGEON_UNSPECIFIED")] TrialDungeonUnspecified = 0,
+    /// <summary>
+    /// 던전 데이터가 없음
+    /// </summary>
+    [pbr::OriginalName("TRIAL_DUNGEON_NOT_FOUND")] TrialDungeonNotFound = 10130801,
+    /// <summary>
+    /// 별 개수가 모자람.
+    /// </summary>
+    [pbr::OriginalName("TRIAL_DUNGEON_NOT_ENOUGH_STAR")] TrialDungeonNotEnoughStar = 10130802,
   }
 
   #endregion
 
   #region Messages
   [global::System.SerializableAttribute]
-  public sealed partial class TrialDungeonListRequest : pb::IMessage<TrialDungeonListRequest>
+  public sealed partial class TrialDungeonGetRequest : pb::IMessage<TrialDungeonGetRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<TrialDungeonListRequest> _parser = new pb::MessageParser<TrialDungeonListRequest>(() => new TrialDungeonListRequest());
+    private static readonly pb::MessageParser<TrialDungeonGetRequest> _parser = new pb::MessageParser<TrialDungeonGetRequest>(() => new TrialDungeonGetRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<TrialDungeonListRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<TrialDungeonGetRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -101,7 +106,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public TrialDungeonListRequest() {
+    public TrialDungeonGetRequest() {
       OnConstruction();
     }
 
@@ -109,45 +114,31 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public TrialDungeonListRequest(TrialDungeonListRequest other) : this() {
-      trialDungeonId_ = other.trialDungeonId_;
+    public TrialDungeonGetRequest(TrialDungeonGetRequest other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public TrialDungeonListRequest Clone() {
-      return new TrialDungeonListRequest(this);
-    }
-
-    /// <summary>Field number for the "trial_dungeon_id" field.</summary>
-    public const int TrialDungeonIdFieldNumber = 1;
-    private uint trialDungeonId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint TrialDungeonId {
-      get { return trialDungeonId_; }
-      set {
-        trialDungeonId_ = value;
-      }
+    public TrialDungeonGetRequest Clone() {
+      return new TrialDungeonGetRequest(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as TrialDungeonListRequest);
+      return Equals(other as TrialDungeonGetRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(TrialDungeonListRequest other) {
+    public bool Equals(TrialDungeonGetRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (TrialDungeonId != other.TrialDungeonId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -155,7 +146,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (TrialDungeonId != 0) hash ^= TrialDungeonId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -174,10 +164,6 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (TrialDungeonId != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(TrialDungeonId);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -188,10 +174,6 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (TrialDungeonId != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(TrialDungeonId);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -202,9 +184,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (TrialDungeonId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TrialDungeonId);
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -213,12 +192,9 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(TrialDungeonListRequest other) {
+    public void MergeFrom(TrialDungeonGetRequest other) {
       if (other == null) {
         return;
-      }
-      if (other.TrialDungeonId != 0) {
-        TrialDungeonId = other.TrialDungeonId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -235,10 +211,6 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            TrialDungeonId = input.ReadUInt32();
-            break;
-          }
         }
       }
     #endif
@@ -254,10 +226,6 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            TrialDungeonId = input.ReadUInt32();
-            break;
-          }
         }
       }
     }
@@ -266,16 +234,16 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class TrialDungeonListResponse : pb::IMessage<TrialDungeonListResponse>
+  public sealed partial class TrialDungeonGetResponse : pb::IMessage<TrialDungeonGetResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<TrialDungeonListResponse> _parser = new pb::MessageParser<TrialDungeonListResponse>(() => new TrialDungeonListResponse());
+    private static readonly pb::MessageParser<TrialDungeonGetResponse> _parser = new pb::MessageParser<TrialDungeonGetResponse>(() => new TrialDungeonGetResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<TrialDungeonListResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<TrialDungeonGetResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -291,7 +259,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public TrialDungeonListResponse() {
+    public TrialDungeonGetResponse() {
       OnConstruction();
     }
 
@@ -299,17 +267,16 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public TrialDungeonListResponse(TrialDungeonListResponse other) : this() {
+    public TrialDungeonGetResponse(TrialDungeonGetResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
-      trialDungeonList_ = other.trialDungeonList_.Clone();
-      currentOrder_ = other.currentOrder_;
+      trialDungeon_ = other.trialDungeon_ != null ? other.trialDungeon_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public TrialDungeonListResponse Clone() {
-      return new TrialDungeonListResponse(this);
+    public TrialDungeonGetResponse Clone() {
+      return new TrialDungeonGetResponse(this);
     }
 
     /// <summary>Field number for the "status" field.</summary>
@@ -324,41 +291,27 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "trial_dungeon_list" field.</summary>
-    public const int TrialDungeonListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.TrialDungeonData> _repeated_trialDungeonList_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.TrialDungeonData.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.TrialDungeonData> trialDungeonList_ = new pbc::RepeatedField<global::Tech.Hive.V1.TrialDungeonData>();
+    /// <summary>Field number for the "trial_dungeon" field.</summary>
+    public const int TrialDungeonFieldNumber = 2;
+    private global::Tech.Hive.V1.TrialDungeonData trialDungeon_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.TrialDungeonData> TrialDungeonList {
-      get { return trialDungeonList_; }
-    }
-
-    /// <summary>Field number for the "current_order" field.</summary>
-    public const int CurrentOrderFieldNumber = 3;
-    private uint currentOrder_;
-    /// <summary>
-    /// 현재 진행 가능한 던전 순서
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint CurrentOrder {
-      get { return currentOrder_; }
+    public global::Tech.Hive.V1.TrialDungeonData TrialDungeon {
+      get { return trialDungeon_; }
       set {
-        currentOrder_ = value;
+        trialDungeon_ = value;
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as TrialDungeonListResponse);
+      return Equals(other as TrialDungeonGetResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(TrialDungeonListResponse other) {
+    public bool Equals(TrialDungeonGetResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -366,8 +319,7 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
-      if(!trialDungeonList_.Equals(other.trialDungeonList_)) return false;
-      if (CurrentOrder != other.CurrentOrder) return false;
+      if (!object.Equals(TrialDungeon, other.TrialDungeon)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -376,8 +328,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
-      hash ^= trialDungeonList_.GetHashCode();
-      if (CurrentOrder != 0) hash ^= CurrentOrder.GetHashCode();
+      if (trialDungeon_ != null) hash ^= TrialDungeon.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -400,10 +351,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      trialDungeonList_.WriteTo(output, _repeated_trialDungeonList_codec);
-      if (CurrentOrder != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(CurrentOrder);
+      if (trialDungeon_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(TrialDungeon);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -419,10 +369,9 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      trialDungeonList_.WriteTo(ref output, _repeated_trialDungeonList_codec);
-      if (CurrentOrder != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(CurrentOrder);
+      if (trialDungeon_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(TrialDungeon);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -437,9 +386,8 @@ namespace Tech.Hive.V1 {
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
-      size += trialDungeonList_.CalculateSize(_repeated_trialDungeonList_codec);
-      if (CurrentOrder != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CurrentOrder);
+      if (trialDungeon_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(TrialDungeon);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -449,7 +397,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(TrialDungeonListResponse other) {
+    public void MergeFrom(TrialDungeonGetResponse other) {
       if (other == null) {
         return;
       }
@@ -459,9 +407,11 @@ namespace Tech.Hive.V1 {
         }
         Status.MergeFrom(other.Status);
       }
-      trialDungeonList_.Add(other.trialDungeonList_);
-      if (other.CurrentOrder != 0) {
-        CurrentOrder = other.CurrentOrder;
+      if (other.trialDungeon_ != null) {
+        if (trialDungeon_ == null) {
+          TrialDungeon = new global::Tech.Hive.V1.TrialDungeonData();
+        }
+        TrialDungeon.MergeFrom(other.TrialDungeon);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -486,11 +436,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            trialDungeonList_.AddEntriesFrom(input, _repeated_trialDungeonList_codec);
-            break;
-          }
-          case 24: {
-            CurrentOrder = input.ReadUInt32();
+            if (trialDungeon_ == null) {
+              TrialDungeon = new global::Tech.Hive.V1.TrialDungeonData();
+            }
+            input.ReadMessage(TrialDungeon);
             break;
           }
         }
@@ -516,11 +465,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            trialDungeonList_.AddEntriesFrom(ref input, _repeated_trialDungeonList_codec);
-            break;
-          }
-          case 24: {
-            CurrentOrder = input.ReadUInt32();
+            if (trialDungeon_ == null) {
+              TrialDungeon = new global::Tech.Hive.V1.TrialDungeonData();
+            }
+            input.ReadMessage(TrialDungeon);
             break;
           }
         }
@@ -565,7 +513,6 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public TrialDungeonEnterRequest(TrialDungeonEnterRequest other) : this() {
-      trialDungeonId_ = other.trialDungeonId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -573,18 +520,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public TrialDungeonEnterRequest Clone() {
       return new TrialDungeonEnterRequest(this);
-    }
-
-    /// <summary>Field number for the "trial_dungeon_id" field.</summary>
-    public const int TrialDungeonIdFieldNumber = 1;
-    private uint trialDungeonId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint TrialDungeonId {
-      get { return trialDungeonId_; }
-      set {
-        trialDungeonId_ = value;
-      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -602,7 +537,6 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (TrialDungeonId != other.TrialDungeonId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -610,7 +544,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (TrialDungeonId != 0) hash ^= TrialDungeonId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -629,10 +562,6 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (TrialDungeonId != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(TrialDungeonId);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -643,10 +572,6 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (TrialDungeonId != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(TrialDungeonId);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -657,9 +582,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (TrialDungeonId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TrialDungeonId);
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -671,9 +593,6 @@ namespace Tech.Hive.V1 {
     public void MergeFrom(TrialDungeonEnterRequest other) {
       if (other == null) {
         return;
-      }
-      if (other.TrialDungeonId != 0) {
-        TrialDungeonId = other.TrialDungeonId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -690,10 +609,6 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            TrialDungeonId = input.ReadUInt32();
-            break;
-          }
         }
       }
     #endif
@@ -709,10 +624,6 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            TrialDungeonId = input.ReadUInt32();
-            break;
-          }
         }
       }
     }
@@ -758,7 +669,6 @@ namespace Tech.Hive.V1 {
       status_ = other.status_ != null ? other.status_.Clone() : null;
       trialDungeon_ = other.trialDungeon_ != null ? other.trialDungeon_.Clone() : null;
       battleSessionId_ = other.battleSessionId_;
-      currencyDeltas_ = other.currencyDeltas_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -804,20 +714,6 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "currency_deltas" field.</summary>
-    public const int CurrencyDeltasFieldNumber = 4;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CurrencyDelta> _repeated_currencyDeltas_codec
-        = pb::FieldCodec.ForMessage(34, global::Tech.Hive.V1.CurrencyDelta.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> currencyDeltas_ = new pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta>();
-    /// <summary>
-    /// AP 소모
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> CurrencyDeltas {
-      get { return currencyDeltas_; }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -836,7 +732,6 @@ namespace Tech.Hive.V1 {
       if (!object.Equals(Status, other.Status)) return false;
       if (!object.Equals(TrialDungeon, other.TrialDungeon)) return false;
       if (BattleSessionId != other.BattleSessionId) return false;
-      if(!currencyDeltas_.Equals(other.currencyDeltas_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -847,7 +742,6 @@ namespace Tech.Hive.V1 {
       if (status_ != null) hash ^= Status.GetHashCode();
       if (trialDungeon_ != null) hash ^= TrialDungeon.GetHashCode();
       if (BattleSessionId.Length != 0) hash ^= BattleSessionId.GetHashCode();
-      hash ^= currencyDeltas_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -878,7 +772,6 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(26);
         output.WriteString(BattleSessionId);
       }
-      currencyDeltas_.WriteTo(output, _repeated_currencyDeltas_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -901,7 +794,6 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(26);
         output.WriteString(BattleSessionId);
       }
-      currencyDeltas_.WriteTo(ref output, _repeated_currencyDeltas_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -921,7 +813,6 @@ namespace Tech.Hive.V1 {
       if (BattleSessionId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(BattleSessionId);
       }
-      size += currencyDeltas_.CalculateSize(_repeated_currencyDeltas_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -949,7 +840,6 @@ namespace Tech.Hive.V1 {
       if (other.BattleSessionId.Length != 0) {
         BattleSessionId = other.BattleSessionId;
       }
-      currencyDeltas_.Add(other.currencyDeltas_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -983,10 +873,6 @@ namespace Tech.Hive.V1 {
             BattleSessionId = input.ReadString();
             break;
           }
-          case 34: {
-            currencyDeltas_.AddEntriesFrom(input, _repeated_currencyDeltas_codec);
-            break;
-          }
         }
       }
     #endif
@@ -1018,10 +904,6 @@ namespace Tech.Hive.V1 {
           }
           case 26: {
             BattleSessionId = input.ReadString();
-            break;
-          }
-          case 34: {
-            currencyDeltas_.AddEntriesFrom(ref input, _repeated_currencyDeltas_codec);
             break;
           }
         }
@@ -1066,7 +948,6 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public TrialDungeonClearRequest(TrialDungeonClearRequest other) : this() {
-      trialDungeonId_ = other.trialDungeonId_;
       battleSessionId_ = other.battleSessionId_;
       isVictory_ = other.isVictory_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -1078,20 +959,8 @@ namespace Tech.Hive.V1 {
       return new TrialDungeonClearRequest(this);
     }
 
-    /// <summary>Field number for the "trial_dungeon_id" field.</summary>
-    public const int TrialDungeonIdFieldNumber = 1;
-    private uint trialDungeonId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint TrialDungeonId {
-      get { return trialDungeonId_; }
-      set {
-        trialDungeonId_ = value;
-      }
-    }
-
     /// <summary>Field number for the "battle_session_id" field.</summary>
-    public const int BattleSessionIdFieldNumber = 2;
+    public const int BattleSessionIdFieldNumber = 1;
     private string battleSessionId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1103,7 +972,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "is_victory" field.</summary>
-    public const int IsVictoryFieldNumber = 3;
+    public const int IsVictoryFieldNumber = 2;
     private bool isVictory_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1129,7 +998,6 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (TrialDungeonId != other.TrialDungeonId) return false;
       if (BattleSessionId != other.BattleSessionId) return false;
       if (IsVictory != other.IsVictory) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -1139,7 +1007,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (TrialDungeonId != 0) hash ^= TrialDungeonId.GetHashCode();
       if (BattleSessionId.Length != 0) hash ^= BattleSessionId.GetHashCode();
       if (IsVictory != false) hash ^= IsVictory.GetHashCode();
       if (_unknownFields != null) {
@@ -1160,16 +1027,12 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (TrialDungeonId != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(TrialDungeonId);
-      }
       if (BattleSessionId.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteString(BattleSessionId);
       }
       if (IsVictory != false) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteBool(IsVictory);
       }
       if (_unknownFields != null) {
@@ -1182,16 +1045,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (TrialDungeonId != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(TrialDungeonId);
-      }
       if (BattleSessionId.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteString(BattleSessionId);
       }
       if (IsVictory != false) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteBool(IsVictory);
       }
       if (_unknownFields != null) {
@@ -1204,9 +1063,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (TrialDungeonId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TrialDungeonId);
-      }
       if (BattleSessionId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(BattleSessionId);
       }
@@ -1224,9 +1080,6 @@ namespace Tech.Hive.V1 {
     public void MergeFrom(TrialDungeonClearRequest other) {
       if (other == null) {
         return;
-      }
-      if (other.TrialDungeonId != 0) {
-        TrialDungeonId = other.TrialDungeonId;
       }
       if (other.BattleSessionId.Length != 0) {
         BattleSessionId = other.BattleSessionId;
@@ -1249,15 +1102,11 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            TrialDungeonId = input.ReadUInt32();
-            break;
-          }
-          case 18: {
+          case 10: {
             BattleSessionId = input.ReadString();
             break;
           }
-          case 24: {
+          case 16: {
             IsVictory = input.ReadBool();
             break;
           }
@@ -1276,15 +1125,11 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            TrialDungeonId = input.ReadUInt32();
-            break;
-          }
-          case 18: {
+          case 10: {
             BattleSessionId = input.ReadString();
             break;
           }
-          case 24: {
+          case 16: {
             IsVictory = input.ReadBool();
             break;
           }
@@ -1334,7 +1179,6 @@ namespace Tech.Hive.V1 {
       trialDungeon_ = other.trialDungeon_ != null ? other.trialDungeon_.Clone() : null;
       rewards_ = other.rewards_.Clone();
       currencyDeltas_ = other.currencyDeltas_.Clone();
-      playerExpGained_ = other.playerExpGained_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1390,18 +1234,6 @@ namespace Tech.Hive.V1 {
       get { return currencyDeltas_; }
     }
 
-    /// <summary>Field number for the "player_exp_gained" field.</summary>
-    public const int PlayerExpGainedFieldNumber = 5;
-    private ulong playerExpGained_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong PlayerExpGained {
-      get { return playerExpGained_; }
-      set {
-        playerExpGained_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1421,7 +1253,6 @@ namespace Tech.Hive.V1 {
       if (!object.Equals(TrialDungeon, other.TrialDungeon)) return false;
       if(!rewards_.Equals(other.rewards_)) return false;
       if(!currencyDeltas_.Equals(other.currencyDeltas_)) return false;
-      if (PlayerExpGained != other.PlayerExpGained) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1433,7 +1264,6 @@ namespace Tech.Hive.V1 {
       if (trialDungeon_ != null) hash ^= TrialDungeon.GetHashCode();
       hash ^= rewards_.GetHashCode();
       hash ^= currencyDeltas_.GetHashCode();
-      if (PlayerExpGained != 0UL) hash ^= PlayerExpGained.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1462,10 +1292,6 @@ namespace Tech.Hive.V1 {
       }
       rewards_.WriteTo(output, _repeated_rewards_codec);
       currencyDeltas_.WriteTo(output, _repeated_currencyDeltas_codec);
-      if (PlayerExpGained != 0UL) {
-        output.WriteRawTag(40);
-        output.WriteUInt64(PlayerExpGained);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1486,10 +1312,6 @@ namespace Tech.Hive.V1 {
       }
       rewards_.WriteTo(ref output, _repeated_rewards_codec);
       currencyDeltas_.WriteTo(ref output, _repeated_currencyDeltas_codec);
-      if (PlayerExpGained != 0UL) {
-        output.WriteRawTag(40);
-        output.WriteUInt64(PlayerExpGained);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1508,9 +1330,6 @@ namespace Tech.Hive.V1 {
       }
       size += rewards_.CalculateSize(_repeated_rewards_codec);
       size += currencyDeltas_.CalculateSize(_repeated_currencyDeltas_codec);
-      if (PlayerExpGained != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PlayerExpGained);
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1537,9 +1356,6 @@ namespace Tech.Hive.V1 {
       }
       rewards_.Add(other.rewards_);
       currencyDeltas_.Add(other.currencyDeltas_);
-      if (other.PlayerExpGained != 0UL) {
-        PlayerExpGained = other.PlayerExpGained;
-      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1577,10 +1393,6 @@ namespace Tech.Hive.V1 {
             currencyDeltas_.AddEntriesFrom(input, _repeated_currencyDeltas_codec);
             break;
           }
-          case 40: {
-            PlayerExpGained = input.ReadUInt64();
-            break;
-          }
         }
       }
     #endif
@@ -1616,10 +1428,6 @@ namespace Tech.Hive.V1 {
           }
           case 34: {
             currencyDeltas_.AddEntriesFrom(ref input, _repeated_currencyDeltas_codec);
-            break;
-          }
-          case 40: {
-            PlayerExpGained = input.ReadUInt64();
             break;
           }
         }
