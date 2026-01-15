@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a418ed52b6f528b4bab19fd9548645e2
+guid: d4ca00dfbed14d748a3415d168a436cc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -424305104014271009
-    second: 17553404_B_idle1_0
+      213: 8811885896179766270
+    second: 17553404_B_groggy1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 17553404_B_idle1_0
+      name: 17553404_B_groggy1_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 22
-        width: 94
-        height: 81
+        x: 31
+        y: 0
+        width: 71
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fdd18d681c09c1af0800000000000000
-      internalID: -424305104014271009
+      spriteID: ef3d113098b1a4a70800000000000000
+      internalID: 8811885896179766270
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      17553404_B_idle1_0: -424305104014271009
+      17553404_B_groggy1_0: 8811885896179766270
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

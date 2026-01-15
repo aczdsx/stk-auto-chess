@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: 40800e437c35dcc45ac57bb5b80fdad8
+guid: a652c9c1a70963140aae2b0f1618f5a7
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -6791624562291705785
+    second: 17553404_B_groggy2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -95,7 +98,29 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: 17553404_B_groggy2_0
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 0
+        width: 71
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 748f8c4b17d4fb1a0800000000000000
+      internalID: -6791624562291705785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -109,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      17553404_B_groggy2_0: -6791624562291705785
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
