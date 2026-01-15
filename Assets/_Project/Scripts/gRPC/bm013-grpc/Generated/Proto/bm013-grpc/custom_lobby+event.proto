@@ -5,12 +5,9 @@ package tech.hive.v1;
 enum BM013Event {
   BM013_EVENT_UNSPECIFIED = 0;
 
-  // 일일 퀘스트 관련
-  BM013_DAILY_QUEST_CLEAR = 1;
-
-  // 일일 던전 관련
-  BM013_DAILY_DUNGEON_CLEAR = 2;
-
   // 가이드 미션 관련
-  BM013_GUIDE_MISSION_CLEAR = 3;
+  BM013_GUIDE_MISSION_CLEAR = 1;
+
+  // 일일 퀘스트 관련
+  BM013_DAILY_QUEST_CLEAR = 2;
 }

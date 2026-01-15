@@ -25,4 +25,6 @@ message ElpisFacility {
   // 위치 정보 (그리드 좌표)
   int32 grid_x = 6;
   int32 grid_y = 7;
+
+  bool is_upgrading = 8;
 }

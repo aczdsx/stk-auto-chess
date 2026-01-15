@@ -19,9 +19,9 @@ service GuideMissionService {
   rpc ClaimReward(GuideMissionClaimRewardRequest) returns (GuideMissionClaimRewardResponse);
 
   /**
-   * 가이드 미션 완료 (클라이언트 전용 미션에서만 사용)
+   * 가이드 미션 업데이트 (클라이언트 전용 미션에서만 사용)
    */
-  rpc CompleteAction(GuideMissionCompleteActionRequest) returns (GuideMissionCompleteActionResponse);
+  rpc UpdateAction(GuideMissionUpdateActionRequest) returns (GuideMissionUpdateActionResponse);
 }
 
 enum GuideMissionErrorCode {
@@ -29,6 +29,8 @@ enum GuideMissionErrorCode {
 
   GUIDE_MISSION_NOT_FOUND = 10130701; // 가이드 미션 데이터가 없음 (Get 조회시 기본 값 생성)
   GUIDE_MISSION_NOT_CLEARED = 10130702; // 가이드 미션 클리어 안됨
+  
+  GUIDE_MISSION_NOT_CLIENT_ONLY = 10130703; // 가이드 미션 클라이언트 전용 미션이 아님
 }
 
 message GuideMissionGetRequest {}
@@ -48,8 +50,10 @@ message GuideMissionClaimRewardResponse {
   repeated CurrencyDelta currency_deltas = 4;
 }
 
-message GuideMissionCompleteActionRequest {}
-message GuideMissionCompleteActionResponse {
+message GuideMissionUpdateActionRequest {
+  uint32 add_count = 1;
+}
+message GuideMissionUpdateActionResponse {
   ResponseStatus status = 1;
   GuideMissionData guide_mission = 2;
 }
