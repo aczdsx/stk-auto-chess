@@ -14,20 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StageChapterId: 1
   PlayerCharacters:
-  - CharacterId: 3103
-    Level: 1
-    GridX: 4
-    GridY: 2
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 3301
+  - CharacterId: 3501
     Level: 1
     GridX: 1
-    GridY: 2
+    GridY: 3
     MultipleAtk: 1
     MultipleHp: 1
   EnemyCharacters:
-  - CharacterId: 9501
+  - CharacterId: 1002
     Level: 1
     GridX: 1
     GridY: 4

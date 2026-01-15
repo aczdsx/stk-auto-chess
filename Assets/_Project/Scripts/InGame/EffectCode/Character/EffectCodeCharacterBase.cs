@@ -310,6 +310,19 @@ namespace CookApps.BattleSystem
         {
             return;
         }
+        
+        /// <summary>
+        /// CharacterStateAttackAnimEventDamage state에서 데미지 이벤트 시 
+        /// 호출되는 함수 이걸로 데미지를 부여해야한다
+        /// </summary>
+        /// <param name="defaultDamageInfo"></param>
+        /// <param name="executeIndex"></param>
+        /// <param name="totalLength"></param>
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnStateNormalAttackDamageEvent)]
+        public virtual void OnStateNormalAttackDamageEvent(CharacterController.DamageInfo defaultDamageInfo, int executeIndex, int totalLength)
+        {
+        }
 
         #endregion
 
@@ -557,6 +570,15 @@ namespace CookApps.BattleSystem
             if (x is EffectCodeCharacterBase code)
             {
                 code.OnCanceledCC(attacker, effectCodeNameType);
+            }
+        };
+
+
+        public static Action<EffectCodeStatBase, CharacterController.DamageInfo, int, int> CallOnStateNormalAttackDamageEventLambda = (x, defaultDamageInfo, executeIndex, totalLength) =>
+        {
+            if (x is EffectCodeCharacterBase code)
+            {
+                code.OnStateNormalAttackDamageEvent(defaultDamageInfo, executeIndex, totalLength);
             }
         };
 

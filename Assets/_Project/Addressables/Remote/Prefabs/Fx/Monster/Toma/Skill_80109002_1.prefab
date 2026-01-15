@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2890495625022987661}
-  m_Layer: 0
+  - component: {fileID: 8359094422840523535}
+  m_Layer: 6
   m_Name: Skill_80109002_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,6 +33,19 @@ Transform:
   - {fileID: 2675673625683684192}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8359094422840523535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175229739757819769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 6235336251973723894}
 --- !u!1 &1240998823577910790
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,7 +57,7 @@ GameObject:
   - component: {fileID: 5089423576220294890}
   - component: {fileID: 6235336251973723894}
   - component: {fileID: 3081151301967811411}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: sparkLong
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5001,7 +5015,7 @@ GameObject:
   - component: {fileID: 5001559956477363527}
   - component: {fileID: 1036785691582978960}
   - component: {fileID: 9094921389304958474}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9892,7 +9906,7 @@ GameObject:
   - component: {fileID: 2675673625683684192}
   - component: {fileID: 3019209278711138890}
   - component: {fileID: 1880266815636270716}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14733,7 +14747,7 @@ GameObject:
   - component: {fileID: 3326902244605099950}
   - component: {fileID: 9045894714490067273}
   - component: {fileID: 3068760948907982342}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: Helix
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19636,7 +19650,7 @@ GameObject:
   - component: {fileID: 5761584465150432274}
   - component: {fileID: 6776582743575164233}
   - component: {fileID: 351807026163490637}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24536,7 +24550,7 @@ GameObject:
   - component: {fileID: 33877763516692788}
   - component: {fileID: 6309138243631319654}
   - component: {fileID: 8948115063191387378}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: rune
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29427,7 +29441,7 @@ GameObject:
   - component: {fileID: 3182900748617841575}
   - component: {fileID: 2327008673518186725}
   - component: {fileID: 6439144388662189148}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: trailFlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34318,7 +34332,7 @@ GameObject:
   - component: {fileID: 4534946227108242146}
   - component: {fileID: 1062407991111615690}
   - component: {fileID: 3804020863931393532}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: flare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39209,7 +39223,7 @@ GameObject:
   - component: {fileID: 3488224288619745096}
   - component: {fileID: 8513029007888570181}
   - component: {fileID: 4046782807689325280}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: SparksCore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
