@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 2d58fad6b2a0cad4aa94dc39c99a7be7
+guid: 39b49f7a23ab6644db3ac1f670fdd5ce
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9055848635440348126
-    second: 40107002_F_atk6_0
+      213: -7734685311806204472
+    second: 40107002_F_atk5_0
+  - first:
+      213: -7205031218439627386
+    second: 40107002_F_atk5_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 40107002_F_atk6_0
+      name: 40107002_F_atk5_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 128
-        height: 128
+        x: 29
+        y: 38
+        width: 11
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2244fd065a9235280800000000000000
-      internalID: -9055848635440348126
+      spriteID: 8c51c5460b0e8a490800000000000000
+      internalID: -7734685311806204472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 40107002_F_atk5_1
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 14
+        width: 76
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68d5e4dd746920c90800000000000000
+      internalID: -7205031218439627386
       vertices: []
       indices: 
       edges: []
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      40107002_F_atk6_0: -9055848635440348126
+      40107002_F_atk5_0: -7734685311806204472
+      40107002_F_atk5_1: -7205031218439627386
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

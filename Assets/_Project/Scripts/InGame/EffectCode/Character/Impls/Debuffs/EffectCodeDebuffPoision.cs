@@ -127,7 +127,8 @@ public partial class EffectCodeDebuffPoision : EffectCodeDebuffBase
                 RemoveFromContainer();
             }
 
-            container.SetDirtyFlag(this);
+            if (container != null)
+                container.SetDirtyFlag(this);
         }
     }
 
@@ -138,4 +139,4 @@ public partial class EffectCodeDebuffPoision : EffectCodeDebuffBase
         base.OnPreRemoved();
         ListPool<BuffStackData>.Release(_stackDatas);
     }
-}
+}//240107002

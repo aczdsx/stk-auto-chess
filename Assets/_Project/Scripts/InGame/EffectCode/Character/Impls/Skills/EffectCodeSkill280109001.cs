@@ -8,11 +8,13 @@ using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine.Pool;
 
 /// <summary>
-/// 라플라스마녀 스페셜1
-/// 대상: 가장 가까운 적
-/// 공중에 높은 밀도를 가진 공간을 만들어 {0}% 의 피해를 입힌다.
+/// 공허의 토마
+/// 효과: 대상: 3x3 공격력이 가장 강한 적군
+/// 효과: 범위내에 {1}% 피해를 입히고, {2}초간, 방어력과 공격속도가 {3}% 감소한다.
 /// </summary>
 [UseEffectCodeIds(280109001)]
 public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
@@ -20,6 +22,9 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
     private bool _isReadyToActivate;
     private SkillActive _specSkill;
     private float _damageRate;
+    private float _debuffTime;
+    private float _debuffRate;
+    private List<InGameTile> _emptyTiles;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -28,17 +33,24 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
         _damageRate = codeInfo.GetCodeStatToFloat(1);
+        _debuffTime = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _debuffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
+
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
+        _emptyTiles = new List<InGameTile>();
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
+        owner.SetStateType(typeof(CharacterStateAttack), typeof(CharacterStateAttackAnimEventDamage));
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-
+        _damageRate = codeInfo.GetCodeStatToFloat(1);
+        _debuffTime = codeInfo.GetCodeStatToFloat(2) * 0.01f;
+        _debuffRate = codeInfo.GetCodeStatToFloat(3) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -86,43 +98,116 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
         base.OnSkillExecute(executeIndex, totalLength);
-        if (owner.Target == null)
-            return;
-        var targetCharacterList = InGameObjectManager.Instance.GetCharacterListSortedByDistanceDescending(owner, false);
+
+        var targetCharacterList = InGameObjectManager.Instance.GetCharacterListSortedByADDescending(owner.AllianceType, isOwnCharacter: false);
         if (targetCharacterList.Count == 0)
             return;
 
-        CharacterController targetCharacter = null;
+        InGameTile selectedTile = null;
+        CharacterController selectedTarget = null;
 
-        foreach (var player in targetCharacterList)
+        // 모든 타겟을 순회하면서 빈 타일이 있는지 확인
+        foreach (var character in targetCharacterList)
         {
-            if (player.IsAlive && player.CurrentTile != null)
+            if (!character.IsAlive || character.CurrentTile == null)
+                continue;
+
+            var targetTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(character.CurrentTile, 1);
+
+            // 리스트 초기화
+            _emptyTiles.Clear();
+
+            // OccupiedCharacter가 있는 타일 제거
+            foreach (var tile in targetTiles)
             {
-                targetCharacter = player;
+                if (tile != null && tile.OccupiedCharacter == null)
+                {
+                    _emptyTiles.Add(tile);
+                }
+            }
+
+            // 빈 타일이 있으면 이 타겟 사용
+            if (_emptyTiles.Count > 0)
+            {
+                selectedTarget = character;
+                // 랜덤으로 타일 선택
+                int randomIndex = InGameRandomManager.GetUniversalRandomValue(0, _emptyTiles.Count - 1);
+                selectedTile = _emptyTiles[randomIndex];
                 break;
             }
         }
 
-        if (targetCharacter == null)
-            return;
-
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(targetCharacter.CurrentTile, 1);
-
-        foreach (var tile in inGameTiles)
-            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-
-        foreach (var tile in inGameTiles)
+        // 모든 타겟을 확인했는데도 빈 타일이 없으면 리턴
+        if (selectedTile == null || selectedTarget == null)
         {
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-            if (tile.CheckValidTile(owner.AllianceType, false))
+            IsSkillActivated = false;
+            return;
+        }
+
+        owner.Target = selectedTarget;
+
+        // 선택한 타일로 이동
+        MoveToTile(selectedTile);
+
+        // 이동한 위치에서 square 1 범위의 타일들 가져오기
+        var attackTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(selectedTile, 1);
+
+        // 타일 이펙트 표시
+        foreach (var tile in attackTiles)
+        {
+            if (tile != null)
             {
+                InGameVfxManager.Instance.AddInGameTileFx(SynergyType.EARTH, tile);
+            }
+        }
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2], owner.SkillMiddleFXTransformFollowable.GetPosition());
+
+        // 데미지 및 디버프 적용
+        Span<double> eccStats = stackalloc double[3];
+        eccStats.Clear();
+        eccStats[0] = codeId;
+        eccStats[1] = _debuffTime;
+        eccStats[2] = _debuffRate;
+
+        foreach (var tile in attackTiles)
+        {
+            if (tile == null)
+                continue;
+
+            if (tile.CheckValidTile(owner.AllianceType, false) && tile.OccupiedCharacter != null)
+            {
+                var target = tile.OccupiedCharacter;
+                if (!target.IsAlive)
+                    continue;
+
+                // 데미지 적용
                 var damageValue = owner.SpecCharacter.atk_type is AtkType.AD ? owner.AD : owner.AP;
-                var damage = owner.CalculateDamageAmount(damageValue * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
+                var damage = owner.CalculateDamageAmount(damageValue * _damageRate, 0, target, codeId, true);
+                target.GetDamaged(damage, owner);
+
+                // 방어력 감소 디버프 적용
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_DEF_PERCENT_DOWN, target, eccStats, source);
+
+                // 공격속도 감소 디버프 적용
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.DEBUFF_ATK_SPEED_DOWN, target, eccStats, source);
             }
         }
 
         IsSkillActivated = false;
+    }
+
+    private void MoveToTile(InGameTile targetTile)
+    {
+        owner.ChangeOccupiedTile(targetTile);
+        owner.Position3D = targetTile.View.Position;
+
+        var characterView = owner.GetCharacterView();
+        if (characterView?.CachedTr != null)
+        {
+            characterView.CachedTr.localPosition = targetTile.View.Position;
+            characterView.LookAt(owner.CurrentTile, owner.Target.CurrentTile);
+        }
+
     }
 
     public override void OnSkillAnimationEnd()
@@ -137,4 +222,65 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
         CoolTimeElapsedTime += cooltime;
         return cooltime;
     }
-}//280109101
+
+    public override void OnPreRemoved()
+    {
+        owner.RemoveStateType(typeof(CharacterStateAttack));
+        base.OnPreRemoved();
+    }
+
+
+    public override void OnStateNormalAttackDamageEvent(CharacterController.DamageInfo defaultDamageInfo, int executeIndex, int totalLength)
+    {
+        base.OnStateNormalAttackDamageEvent(defaultDamageInfo, executeIndex, totalLength);
+
+        if (executeIndex == 0)
+        {
+            ExecuteSkillOne(defaultDamageInfo);
+        }
+        else if (executeIndex == 1)
+        {
+            ExecuteSkillTwo(defaultDamageInfo);
+        }
+        else
+        {
+            Debug.Log($"ExecuteSkillThree?");
+        }
+
+
+    }
+
+    // 3x1 범위 공격 
+    private void ExecuteSkillOne(CharacterController.DamageInfo defaultDamageInfo)
+    {
+        var frontTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByCharacterDirection(owner, 1, 1);
+        Debug.Log($"ExecuteSkillOne: {frontTiles.Count}");
+        foreach (var tile in frontTiles)
+        {
+            InGameVfxManager.Instance.AddInGameTileFx(SynergyType.EARTH, tile);
+            if (tile.CheckValidTile(owner.AllianceType, false))
+            {
+                Debug.Log($"ExecuteSkillOne");
+                tile.OccupiedCharacter.GetDamaged(defaultDamageInfo, owner);
+            }
+        }
+
+    }
+
+    // 1x3 범위 공격 (찌르기)
+    private void ExecuteSkillTwo(CharacterController.DamageInfo defaultDamageInfo)
+    {
+        var frontTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 3);
+        Debug.Log($"ExecuteSkillTwo: {frontTiles.Count}");
+        foreach (var tile in frontTiles)//GetTileByCharacterDirection
+        {
+            InGameVfxManager.Instance.AddInGameTileFx(SynergyType.EARTH, tile);
+            if (tile.CheckValidTile(owner.AllianceType, false))
+            {
+                Debug.Log($"ExecuteSkillTwo");
+                tile.OccupiedCharacter.GetDamaged(defaultDamageInfo, owner);
+            }
+        }
+    }
+
+}

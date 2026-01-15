@@ -52,7 +52,7 @@ namespace CookApps.AutoBattler
         /// <returns>실행할 나니노벨 스크립트 이름 (없으면 null)</returns>
         public string GetTriggerOnStageClear(int stageId)
         {
-            return GetTrigger(NaninovelTriggerType.STAGE_CLEAR, stageId.ToString());
+            return GetTrigger(NaninovelTriggerType.STAGE_CLEAR_NANI, stageId.ToString());
         }
 
         /// <summary>

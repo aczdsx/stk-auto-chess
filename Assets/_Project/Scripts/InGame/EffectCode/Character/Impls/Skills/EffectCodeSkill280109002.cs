@@ -10,12 +10,12 @@ using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
-/// 라플라스마녀 스페셜2
-/// 대상: 맨허튼거리 2 5x5
-// 효과: 범위 내에 {0}%만큼 피해를 입힌다.
+/// 라플라스마녀 스페셜1
+/// 대상: 가장 가까운 적
+/// 공중에 높은 밀도를 가진 공간을 만들어 {0}% 의 피해를 입힌다.
 /// </summary>
-[UseEffectCodeIds(280109101)]
-public partial class EffectCodeSkill280109101 : EffectCodeCharacterBase
+[UseEffectCodeIds(280109002)]
+public partial class EffectCodeSkill280109002 : EffectCodeCharacterBase
 {
     private bool _isReadyToActivate;
     private SkillActive _specSkill;
@@ -27,7 +27,7 @@ public partial class EffectCodeSkill280109101 : EffectCodeCharacterBase
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1);
+        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -38,7 +38,7 @@ public partial class EffectCodeSkill280109101 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-
+        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
     }
 
     public override void OnUpdate(float dt)
@@ -106,7 +106,7 @@ public partial class EffectCodeSkill280109101 : EffectCodeCharacterBase
         if (targetCharacter == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(targetCharacter.CurrentTile, 2);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(targetCharacter.CurrentTile, 1);
 
         foreach (var tile in inGameTiles)
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
@@ -137,4 +137,4 @@ public partial class EffectCodeSkill280109101 : EffectCodeCharacterBase
         CoolTimeElapsedTime += cooltime;
         return cooltime;
     }
-}//240107001
+}//280109101
