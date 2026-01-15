@@ -125,12 +125,9 @@ namespace CookApps.BattleSystem
                 var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
                 Vector3 targetPosition = target.CurrentTile.View.CachedTr.position;
                 
-                // 방향 설정
-                Vector3 direction = (targetPosition - launchPosition.position).normalized;
-                missileVfx.CachedTr.rotation = Quaternion.LookRotation(direction);
 
                 // 베지어 곡선 이동 설정
-                movement.SetData(launchPosition.position, targetPosition, 10f);
+                movement.SetData(launchPosition.position, targetPosition, 20f);
                 missileVfx.Initialize(false, movement);
 
                 // 목표 도착 시 폭발 처리
