@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 6385095295153808282}
   - component: {fileID: 7244365879343596592}
   m_Layer: 5
-  m_Name: BossSkillTooltipPopup
+  m_Name: EnemySkillTooltipPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
