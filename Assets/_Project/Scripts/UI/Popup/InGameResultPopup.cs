@@ -263,7 +263,7 @@ namespace CookApps.AutoBattler
         }
 
         // 가장 높은 스테이지 클리어 여부 체크
-        private void CheckLatestStageClear()
+        private static void CheckLatestStageClear()
         {
             var latestStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
             var latestStageData = SpecDataManager.Instance.GetStageData(latestStageID);
@@ -306,12 +306,6 @@ namespace CookApps.AutoBattler
                 rewardItemSlot.SetRewardSlot(newItem);
 
                 resultItemList.Add(newItem);
-            }
-
-            // 보상 데이터 저장
-            if (resultItemList.Count > 0)
-            {
-                UserDataManager.Instance.IncreaseRewardItemList(resultItemList, true);
             }
         }
 

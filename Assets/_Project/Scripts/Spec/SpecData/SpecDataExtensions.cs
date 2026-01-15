@@ -24,15 +24,16 @@ namespace CookApps.AutoBattler
             Count = count;
         }
 
+        // From gRPC Reward
         public RewardItem(Reward reward)
         {
             Id = (int)reward.ItemId;
             Count = (int)reward.Count;
         }
 
-        public Tech.Hive.V1.Reward ToGrpcReward()
+        public Reward ToGrpcReward()
         {
-            return new Tech.Hive.V1.Reward
+            return new Reward
             {
                 ItemId = Id,
                 Count = (ulong)Count
@@ -122,6 +123,16 @@ namespace CookApps.AutoBattler
             };
 
             return color;
+        }
+        
+        public static Tech.Hive.V1.QuestType ToServerType(this QuestType specQuestType)
+        {
+            return specQuestType switch
+            {
+                QuestType.CLEAR_DAILY_QUEST => Tech.Hive.V1.QuestType.Daily,
+                // QuestType.CLEAR_WEEKLY_QUEST => Tech.Hive.V1.QuestType.Unspecified,
+                _ => Tech.Hive.V1.QuestType.Unspecified,
+            };
         }
     }
 }
