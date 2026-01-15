@@ -83,8 +83,6 @@ namespace CookApps.AutoBattler
         {
             _currentTabType = (BattleStatisticsTabType)tabIndex;
 
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-            
             switch (_currentTabType)
             {
                 case BattleStatisticsTabType.GIVENDAMAGE:

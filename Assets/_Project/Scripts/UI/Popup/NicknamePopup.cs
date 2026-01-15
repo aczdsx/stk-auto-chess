@@ -63,16 +63,14 @@ namespace CookApps.AutoBattler
             
             // TODO: 닉네임 변경 API 호출
             // UserDataManager.Instance.ChangeNickname(_nicknameInputField.text);
-            
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-            
+
             SceneUILayerManager.Instance.PopUILayer(this);
-            
+
             // 로비 정보 갱신
             var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
             if (battleReadyMain != null) battleReadyMain.RefreshUI(LobbyMainRefreshType.CHARACTER_LAYER);
         }
-        
+
         private void OnClickCloseButton()
         {
             if (_isFirst)
@@ -80,8 +78,7 @@ namespace CookApps.AutoBattler
                 ToastManager.Instance.ShowToastByTokenKey("FIRST_NICKNAME_ALERT");
                 return;
             }
-            
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+
             SceneUILayerManager.Instance.PopUILayer(this);
         }
     }

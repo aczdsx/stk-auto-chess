@@ -204,8 +204,6 @@ namespace CookApps.AutoBattler
 
         private async UniTask OnExitButtonClickedAsync()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             int lastPlayStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
 
@@ -245,8 +243,6 @@ namespace CookApps.AutoBattler
 
             var nextStageData = SpecDataManager.Instance.GetStageData(targetChapterID, targetStageNumber, InGameManager.Instance.SpecStage.difficulty_type);
 
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneLoading.GoToNextScene("InGame",
                 (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), nextStageData.stage_id));
         }
@@ -258,9 +254,6 @@ namespace CookApps.AutoBattler
             // {
             //     return;
             // }
-
-
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
             //InGameManager.Instance.EndInGame();
             SceneLoading.GoToNextScene("InGame",

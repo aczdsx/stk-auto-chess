@@ -157,8 +157,6 @@ namespace CookApps.AutoBattler
         {
             if (_parentCollectionPopup == null) return;
 
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             // TODO: 캐릭터 조각으로 캐릭터 획득 기능 - 서버 API 구현 필요
             // 캐릭터 조각 20개 이상 보유 하여 최초 획득 시 처리
             // if (ServerDataManager.Instance.Character.HasCharacter((uint)_specCharacterData.character_id) == false)

@@ -242,8 +242,6 @@ namespace CookApps.AutoBattler
 
         private async UniTask OnClickEnterDungeonButtonAsync()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             // 던전 진입 가능 조건 검사
             if (ServerDataManager.Instance.Battle.TotalStarCount < _specDungeonTrialData.need_star)
             {
@@ -278,8 +276,6 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PopUILayer(this);
         }
 

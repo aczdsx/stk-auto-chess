@@ -198,8 +198,6 @@ namespace CookApps.AutoBattler
             {
                 battleReadyMain.GetComponent<BattleReadyMain>()?.RefreshBottomStageUI();
             }
-
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
         }
 
         private void ClearSlot()
