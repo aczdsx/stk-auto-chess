@@ -142,14 +142,19 @@ namespace CookApps.AutoBattler
                 return;
             }
             
-            //TODO : 업그레이드인지 설치인지 판별 필요.
-            
             if (info.build_lv > 1)
             {
                 var result = await NetManager.Instance.Elpis.UpgradeFacilityAsync(info.build_id);
                 if (result != null && result.IsSuccess)
                 {
+                    if (result.Facility.IsUpgrading) //TODO : is_upgrading 으로 변경해야됨
+                    {
+                        result.Facility.Level++;
+                    }
+                    
                     cachedData.targetLobbyBuildingUI.ChangeInfo(result.Facility);
+                    cachedData.targetLobbyBuildingUI.StartConstructionEffect();
+
                     CloseThisUILayer();
                 }
                 else
@@ -164,6 +169,8 @@ namespace CookApps.AutoBattler
                 if (result != null && result.IsSuccess)
                 {
                     cachedData.targetLobbyBuildingUI.ChangeInfo(result.Facility);
+                    cachedData.targetLobbyBuildingUI.StartConstructionEffect();
+                    
                     CloseThisUILayer();
                 }
                 else
