@@ -263,7 +263,7 @@ namespace CookApps.AutoBattler
             foreach (var questData in userQuest.UserQuestDailyDatas)
             {
                 var specQuestData = SpecDataManager.Instance.GetSpecQuestData(questData.Key);
-                if (specQuestData.quest_type == QuestType.CLEAR_DAILY_QUEST) continue;
+                if (specQuestData?.quest_type == QuestType.CLEAR_DAILY_QUEST) continue;
 
                 if (questData.Value.QuestStateType == (int)QuestStateType.CLEAR) dailyClearCount++;
             }
@@ -275,7 +275,7 @@ namespace CookApps.AutoBattler
             foreach (var questData in userQuest.UserQuestWeeklyDatas)
             {
                 var specQuestData = SpecDataManager.Instance.GetSpecQuestData(questData.Key);
-                if (specQuestData.quest_type == QuestType.CLEAR_WEEKLY_QUEST) continue;
+                if (specQuestData?.quest_type == QuestType.CLEAR_WEEKLY_QUEST) continue;
 
                 if (questData.Value.QuestStateType == (int)QuestStateType.CLEAR) weeklyClearCount++;
             }
