@@ -156,6 +156,12 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         _isDragDirectionDecided = false;
         _isCharacterSpawned = false;
         _isPressing = false;  // 드래그 시작하면 롱프레스 취소
+
+        // 튜토리얼: UI 캐릭터 배치 드래그 시작 알림
+        if (TutorialActionCharacterPlacementUI.IsActive)
+        {
+            TutorialActionCharacterPlacementUI.OnDragStart(gameObject);
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -211,7 +217,11 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         }
         else if (_isDraggingVertical && !_isCharacterSpawned)
         {
-            // 보드에 도달하지 못하고 드래그 종료 - 아무것도 안함
+            // 보드에 도달하지 못하고 드래그 종료 - 튜토리얼 드래그 취소 알림
+            if (TutorialActionCharacterPlacementUI.IsActive)
+            {
+                TutorialActionCharacterPlacementUI.OnDragCancel();
+            }
         }
 
         ResetDragState();
@@ -250,12 +260,28 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
             Debug.Log($"[InGameCharacterItem] 캐릭터 생성 성공");
             // 리스트에서 캐릭터 제거
             _parentUI?.RemoveCharacterFromList(_statData);
+
+            // 튜토리얼: 생성된 캐릭터를 마스크 타겟으로 설정
+            if (TutorialActionCharacterPlacementUI.IsActive)
+            {
+                var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
+                if (tile?.OccupiedCharacter?.GetCharacterView() != null)
+                {
+                    TutorialActionCharacterPlacementUI.UpdateMaskTarget(tile.OccupiedCharacter.GetCharacterView().gameObject);
+                }
+            }
         }
         else
         {
             Debug.Log($"[InGameCharacterItem] 캐릭터 생성 실패 - 플래그 리셋");
             // 실패 시 플래그 리셋
             _isCharacterSpawned = false;
+
+            // 튜토리얼: 드래그 취소 알림
+            if (TutorialActionCharacterPlacementUI.IsActive)
+            {
+                TutorialActionCharacterPlacementUI.OnDragCancel();
+            }
         }
     }
 

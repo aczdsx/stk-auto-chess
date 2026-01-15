@@ -590,10 +590,16 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameMain.GetInGameMain().CloseSkillTooltip();
             _isMoveEndAnimation = false;
 
-            // 튜토리얼 캐릭터 배치 완료 콜백 호출
+            // 튜토리얼 캐릭터 배치 완료 콜백 호출 (CHARACTER_PLACEMENT)
             if (tileChanged && IsActive && CanSelectCharacter(placedCharacterId))
             {
                 NotifyPlacementCompleted();
+            }
+
+            // 튜토리얼 UI 캐릭터 배치 완료 콜백 호출 (CHARACTER_PLACEMENT_UI)
+            if (CookApps.AutoBattler.TutorialActionCharacterPlacementUI.IsActive)
+            {
+                CookApps.AutoBattler.TutorialActionCharacterPlacementUI.NotifyPlacementCompleted();
             }
 
             // InGameObjectManager.Instance.DrawPlayerLine(true);

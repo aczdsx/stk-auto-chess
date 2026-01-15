@@ -41,10 +41,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AspectRatio: 2.1653333
+    - _AspectRatio: 2.0555556
     - _ColorMask: 15
     - _EnableExternalAlpha: 0
-    - _HoleRadius: 0
+    - _HoleRadius: 0.3
     - _SmoothWidth: 0.032
     - _Stencil: 1
     - _StencilComp: 5
@@ -56,7 +56,7 @@ Material:
     - _BottomColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _HoleCenter: {r: 0.42924583, g: 0.28945273, b: 0, a: 0}
+    - _HoleCenter: {r: 0.47099328, g: -0.3456154, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _TopColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

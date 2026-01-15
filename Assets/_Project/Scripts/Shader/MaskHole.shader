@@ -5,6 +5,8 @@ Shader "Custom/MaskHole"
         _MainTex ("Texture", 2D) = "white" {}
         _HoleCenter ("Hole Center", Vector) = (0.5, 0.5, 0)
         _HoleRadius ("Hole Radius", Float) = 0.2
+        _HoleCenter2 ("Hole Center 2", Vector) = (0.5, 0.5, 0)
+        _HoleRadius2 ("Hole Radius 2", Float) = 0.0
         _AspectRatio ("Aspect Ratio", Float) = 1.0
         _SmoothWidth ("Smooth Width", Range(0, 0.5)) = 0.1
     }
@@ -46,6 +48,8 @@ Shader "Custom/MaskHole"
             sampler2D _MainTex;
             float3 _HoleCenter;
             float _HoleRadius;
+            float3 _HoleCenter2;
+            float _HoleRadius2;
             float _AspectRatio;
             float _SmoothWidth;
 
@@ -61,11 +65,20 @@ Shader "Custom/MaskHole"
             fixed4 frag(v2f i) : SV_Target
             {
                 float2 adjustedUV = float2(i.uv.x, i.uv.y / _AspectRatio);
-                float2 adjustedCenter = float2(_HoleCenter.x, _HoleCenter.y / _AspectRatio);
 
-                float dist = distance(adjustedUV, adjustedCenter);
-                float alpha = smoothstep(_HoleRadius - _SmoothWidth, _HoleRadius, dist);
-                
+                // 첫 번째 구멍
+                float2 adjustedCenter1 = float2(_HoleCenter.x, _HoleCenter.y / _AspectRatio);
+                float dist1 = distance(adjustedUV, adjustedCenter1);
+                float alpha1 = smoothstep(_HoleRadius - _SmoothWidth, _HoleRadius, dist1);
+
+                // 두 번째 구멍
+                float2 adjustedCenter2 = float2(_HoleCenter2.x, _HoleCenter2.y / _AspectRatio);
+                float dist2 = distance(adjustedUV, adjustedCenter2);
+                float alpha2 = smoothstep(_HoleRadius2 - _SmoothWidth, _HoleRadius2, dist2);
+
+                // 두 구멍 결합 (둘 중 하나라도 구멍이면 투명)
+                float alpha = min(alpha1, alpha2);
+
                 fixed4 texColor = tex2D(_MainTex, i.uv) * i.color;
                 texColor.a *= alpha;
                 return texColor;

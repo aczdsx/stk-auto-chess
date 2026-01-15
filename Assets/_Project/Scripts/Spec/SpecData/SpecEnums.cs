@@ -636,6 +636,7 @@ namespace CookApps.AutoBattler
         SUMMON_CHARACTER = 5,
         BATTLE_PVP = 6,
         GET_IDLE_REWARD = 7,
+        BABEL_CLEAR = 8,
     }
 
     public enum EventType
@@ -965,6 +966,7 @@ namespace CookApps.AutoBattler
         CLEAR_STAGE = 6,
         MOVE_OBJECT = 7,
         SHOW_DIALOGUE_POP = 8,
+        CHARACTER_PLACEMENT_UI = 9,
     }
 
     public enum FacilityType
@@ -1007,13 +1009,14 @@ namespace CookApps.AutoBattler
         NANINOVEL_END = 1,
         STAGE_CLEAR_NANI = 2,
         CHAPTER_CLEAR = 3,
-        GUIDE_COMPLETE = 4,
+        GUIDE_TUTORIAL_COMPLETE = 4,
         PROLOGUE_END = 5,
         STAGE_START = 6,
         SPECIAL = 7,
         STAGE_ENTER_NANI = 8,
         ENTER_CHAPTER_NANI = 9,
         ENTER_ELPIS_NANI = 10,
-        STAGE_CLEAR = 11,
+        GUIDE_COMPLETE = 11,
+        STAGE_CLEAR = 12,
     }
 }

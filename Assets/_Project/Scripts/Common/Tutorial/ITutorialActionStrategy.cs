@@ -19,6 +19,10 @@ namespace CookApps.AutoBattler
         public RectTransform WorldArrowRectTransform { get; set; }
         public Canvas TutorialCanvas { get; set; }
         public Camera MainCamera { get; set; }
+        public RectTransform CanvasRectTransform { get; set; }
+
+        // 마스크 머티리얼 (두 번째 구멍 제어용)
+        public Material MaskMaterial { get; set; }
 
         // 타겟 관련 (전략에서 설정)
         public GameObject TargetUIObj { get; set; }
