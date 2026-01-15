@@ -289,7 +289,7 @@ namespace CookApps.AutoBattler
 
                 // _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(specMonsterData.prefab_id);
                 // _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
-
+//Assets/_Project/Addressables/Remote/Texture_StandAlone/Dynamic/BossBanner/BossBanner_1.png
                 // 보스 이미지 처리
                 _bossStageImageLoader.SetSprite(SpriteNameParser.GetBossBannerSprite(specStageData.chapter_id)).Forget();
 
@@ -485,6 +485,7 @@ namespace CookApps.AutoBattler
         // 출석부 상태 갱신
         private void UpdateAttendanceData()
         {
+            return;
             var specEventData = SpecDataManager.Instance.GetSpecEventData(EventType.ATTENDANCE);
             var currentUserEventData = UserDataManager.Instance.GetUserEventData(specEventData.event_id);
             if (currentUserEventData != null)
