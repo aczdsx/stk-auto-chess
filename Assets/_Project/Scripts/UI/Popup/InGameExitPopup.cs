@@ -47,15 +47,11 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PopUILayer(this);
         }
 
         private async UniTask OnClickExitButtonAsync()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PopUILayer(this);
 
             // 전투 준비 중일 경우 분기 처리

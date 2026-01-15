@@ -84,8 +84,6 @@ namespace CookApps.AutoBattler
         {
             InGameMain.GetInGameMain().SetCommanderSkillUI(_index, ServerDataManager.Instance.CommanderSkill.GetEquippedCommanderSkillId(_index));
 
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             SceneUILayerManager.Instance.PopUILayer(this);
         }
 

@@ -44,7 +44,8 @@ Material:
     - _AspectRatio: 2.0555556
     - _ColorMask: 15
     - _EnableExternalAlpha: 0
-    - _HoleRadius: 0.3
+    - _HoleRadius: 0
+    - _HoleRadius2: 0
     - _SmoothWidth: 0.032
     - _Stencil: 1
     - _StencilComp: 5
@@ -57,6 +58,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _HoleCenter: {r: 0.47099328, g: -0.3456154, b: 0, a: 0}
+    - _HoleCenter2: {r: 0.5, g: 0.5, b: 0, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _TopColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

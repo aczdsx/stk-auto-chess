@@ -60,6 +60,7 @@ public partial class EffectCodeDebuffMarieAracne : EffectCodeDebuffBase
                 stackData.value += 1;
                 stackData.elapsedTime = 0f;
                 stackData.isShowValue = true;
+                CheckOverlapCount();
                 return;
             }
         }
@@ -83,8 +84,8 @@ public partial class EffectCodeDebuffMarieAracne : EffectCodeDebuffBase
         );
         _stackDatas.Add(buffStackData);
         owner.AddBuffStackData(CodeId, buffStackData);
-
         CheckOverlapCount();
+
     }
 
 
@@ -100,8 +101,7 @@ public partial class EffectCodeDebuffMarieAracne : EffectCodeDebuffBase
 
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_debuff_marie_aracne, owner.SkillTopFXTransformFollowable);
             RemoveFromContainer();
-            // var affectText = buffDebuffType.GetAffectToken();
-            // owner.ShowNormalText(affectText, hexColor: "#5DC9FFFF").Forget();
+
         }
     }
 

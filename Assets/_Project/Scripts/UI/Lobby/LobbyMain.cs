@@ -33,7 +33,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton hubbleButton;
         [SerializeField] private CAButton shopButton;
         [SerializeField] private CAButton summonButton;
-        [SerializeField] private CAButton eventButton;
+        [SerializeField] private CAButton consumeApEventButton;
+        [SerializeField] private CAButton sessionTimeEventButton;
         [SerializeField] private CAButton inventoryButton;
 
         public Transform GetTopCurrencyAndMenuBarParent()
@@ -57,7 +58,7 @@ namespace CookApps.AutoBattler
 
             battleButton
                 .OnClickAsObservable()
-                .Subscribe(this, (_, self) => self.OnClickStartButton().Forget())
+                .SubscribeAwait(this, (_, self, _) => self.OnClickStartButton(), AwaitOperation.Drop)
                 .AddTo(this);
 
             dungeonButton
@@ -85,9 +86,14 @@ namespace CookApps.AutoBattler
                 .Subscribe(this, (_, self) => self.OnClickSummonButton())
                 .AddTo(this);
 
-            eventButton
+            consumeApEventButton
                 .OnClickAsObservable()
-                .Subscribe(this, (_, self) => self.OnClickEventButton())
+                .Subscribe(this, (_, self) => self.OnClickConsumeApEventButton())
+                .AddTo(this);
+
+            sessionTimeEventButton
+                .OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClickSessionTimeEventButton())
                 .AddTo(this);
 
             inventoryButton
@@ -126,12 +132,12 @@ namespace CookApps.AutoBattler
 
         private void OnClickDungeonButton()
         {
-            // TODO: 던전 버튼 클릭 처리
+            SceneUILayerManager.Instance.PushUILayerAsync<DungeonTrialPopup>().Forget();
         }
 
         private void OnClickCharacterButton()
         {
-            // TODO: 캐릭터 버튼 클릭 처리
+            SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget();
         }
 
         private void OnClickHubbleButton()
@@ -146,12 +152,45 @@ namespace CookApps.AutoBattler
 
         private void OnClickSummonButton()
         {
-            // TODO: 소환 버튼 클릭 처리
+            SceneUILayerManager.Instance.PushUILayerAsync<GachaPopup>().Forget();
         }
 
-        private void OnClickEventButton()
+        private void OnClickSessionTimeEventButton()
         {
-            // TODO: 이벤트 버튼 클릭 처리
+            // 이벤트 기간 유효성 검증
+            var currentSpecEventData = SpecDataManager.Instance.GetCurrentSpecEvent(EventType.ACC_PLAY_TIME);
+            if (currentSpecEventData == null)
+            {
+                return;
+            }
+
+            // 이벤트 유저 데이터 유효성 검증
+            var currentUserEventData = UserDataManager.Instance.GetUserEventData(currentSpecEventData.event_id);
+            if (currentUserEventData == null)
+            {
+                return;
+            }
+
+            SceneUILayerManager.Instance.PushUILayerAsync<SessionTimeEventPopup>(currentUserEventData).Forget();
+        }
+
+        private void OnClickConsumeApEventButton()
+        {
+            // 이벤트 기간 유효성 검증
+            var currentSpecEventData = SpecDataManager.Instance.GetCurrentSpecEvent(EventType.USE_AP);
+            if (currentSpecEventData == null)
+            {
+                return;
+            }
+
+            // 이벤트 유저 데이터 유효성 검증
+            var currentUserEventData = UserDataManager.Instance.GetUserEventData(currentSpecEventData.event_id);
+            if (currentUserEventData == null)
+            {
+                return;
+            }
+
+            SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentUserEventData).Forget();
         }
 
         private void OnClickInventoryButton()

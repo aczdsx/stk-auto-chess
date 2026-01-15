@@ -5,6 +5,7 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine.Pool;
 using Cysharp.Threading.Tasks;
 using System;
+using System.Linq;
 
 /// <summary>
 /// 아이콘을 위해 buff로 처리
@@ -23,6 +24,8 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
     private float _avoidSuccessRatePercent; // 회피율 증가 비율
     private int _currentAvoidSuccessCount; // 현재 증가 횟수
     private float _damageRatePercent; // 반격 데미지 비율
+    private InGameVfx _attackVfx; // 슬래시 VFX 인스턴스
+    InGameVfxNameType _attackVfxNameType;
 
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -44,12 +47,15 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
         isShowValue: true,
         showPosition: BuffStackData.BuffShowPosition.SIDE
         );
+        var specSkillPassive = SpecDataManager.Instance.GetSkillPassiveDataList(codeInfo.GetCodeStatToInt(0)).FirstOrDefault();
+        _attackVfxNameType = specSkillPassive.passive_skill_vfxs[0];
 
 
         _stackDatas.Add(buffStackData);
 
         owner.AddBuffDebuffType(buffDebuffType);
         owner.AddBuffStackData(CodeId, buffStackData);
+
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -118,6 +124,7 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
                 CharacterController.DamageTestFlags.None);
                 attacker.GetDamaged(damage, owner);
             }
+            InGameVfxManager.Instance.AddInGameVfx(_attackVfxNameType, owner.SkillRootTransformFollowable);
 
             if (prevAvoidSuccessCount != _currentAvoidSuccessCount)
             {

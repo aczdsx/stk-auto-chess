@@ -223,8 +223,6 @@ namespace CookApps.AutoBattler
                     {
                         battleReadyMain.RefreshUI(LobbyMainRefreshType.STAGE);
                     }
-
-                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
                     return;
                 }
             }

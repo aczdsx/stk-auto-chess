@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -335,6 +336,11 @@ public class SoundManager : Singleton<SoundManager>
     {
         this.isReady = true;
         this.UpdateOption();
+        CAButton.OnPlayDefaultClickSound += soundType =>
+        {
+            if (soundType == DefaultClickSoundType.Basic)
+                PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+        };
     }
 
     /////////////////////////////////////////////////////////////

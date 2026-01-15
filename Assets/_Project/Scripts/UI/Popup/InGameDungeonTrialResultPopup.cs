@@ -127,8 +127,6 @@ namespace CookApps.AutoBattler
 
         private async UniTask OnClickExitButtonAsync()
         {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
             int lastPlayStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
             var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
 

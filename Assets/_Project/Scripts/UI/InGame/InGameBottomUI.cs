@@ -87,8 +87,6 @@ public class InGameBottomUI : MonoBehaviour
 
     protected async UniTask OnStartButtonClickedAsync()
     {
-        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
         var isCheck = await IsCheckStartBattle();
         if (isCheck && !_isRunningRecommend)
             StartInGameBattle(_combatType);
@@ -186,8 +184,6 @@ public class InGameBottomUI : MonoBehaviour
 
     protected void OnClickStatisticButton()
     {
-        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
-
         SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>(this).Forget();
 
         Preference.SavePreference(Pref.STATISTIC, true);
@@ -197,8 +193,6 @@ public class InGameBottomUI : MonoBehaviour
     {
         if (InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase)
             return;
-
-        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
 
         SceneUILayerManager.Instance.PushUILayerAsync<CommanderSkillPopup>(index).Forget();
     }

@@ -14,19 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StageChapterId: 1
   PlayerCharacters:
-  - CharacterId: 3501
+  - CharacterId: 3506
     Level: 1
     GridX: 1
     GridY: 3
     MultipleAtk: 1
     MultipleHp: 1
   EnemyCharacters:
-  - CharacterId: 1002
+  - CharacterId: 1001
     Level: 1
-    GridX: 1
+    GridX: 2
     GridY: 4
     MultipleAtk: 1
-    MultipleHp: 3
+    MultipleHp: 1
+  - CharacterId: 2102
+    Level: 1
+    GridX: 0
+    GridY: 6
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 2102
+    Level: 1
+    GridX: 4
+    GridY: 6
+    MultipleAtk: 1
+    MultipleHp: 1
   CameraSize: 7.5
   CameraPosition: {x: -15, y: 10, z: -12}
   BattleTimeLimit: 60
