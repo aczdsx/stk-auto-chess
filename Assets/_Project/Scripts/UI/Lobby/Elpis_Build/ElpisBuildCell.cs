@@ -14,66 +14,75 @@ namespace CookApps.AutoBattler
     public class ElpisBuildCell : CachedMonoBehaviour
     {
         [Header("UI Components")]
-        [SerializeField] private SpriteLoader _iconSpriteLoader;
-        [SerializeField] private TextMeshProUGUI _nameText;
-        [SerializeField] private TextMeshProUGUI _descText;
-        [SerializeField] private TextMeshProUGUI _costText;
-        [SerializeField] private TextMeshProUGUI _conditionText;
-        [SerializeField] private CAButton _installButton;
-        [SerializeField] private GameObject _lockedOverlay;
+        [SerializeField] private SpriteLoader iconSpriteLoader;
+        [SerializeField] private TextMeshProUGUI nameText;
+        [SerializeField] private TextMeshProUGUI descText;
+        [SerializeField] private TextMeshProUGUI costText;
+        [SerializeField] private TextMeshProUGUI conditionText;
+        [SerializeField] private CAButton installButton;
+        [SerializeField] private GameObject lockedOverlay;
 
-        private ElpisBuildInfo _buildInfo;
-        private Action<ElpisBuildInfo> _onInstallClicked;
-
-        public bool IsBuilt { get; private set; }
-        public int BuildLevel { get; private set; }
+        private ElpisBuildInfo buildInfo;
+        private Action<ElpisBuildInfo> onInstallClicked;
 
         private void Awake()
         {
             // Bind Button
-            _installButton
+            installButton
                 .OnClickAsObservable()
                 .Subscribe(this, (_, self) => self.OnInstallClick())
                 .AddTo(this);
         }
 
-        public void SetData(ElpisBuildInfo buildInfo, bool isLocked, bool isInstalled, bool canAfford, Action<ElpisBuildInfo> onInstallClicked)
+        public void SetData(LobbyBuildingInteractionUI.FacilityInfo facilityInfo, Action<ElpisBuildInfo> onInstallClicked)
         {
-            _buildInfo = buildInfo;
-            _onInstallClicked = onInstallClicked;
-            IsBuilt = isInstalled;
-            BuildLevel = buildInfo.build_lv;
-
+            buildInfo = facilityInfo.buildInfo;
+            this.onInstallClicked = onInstallClicked;
+            
             // Basic Info
             if (!string.IsNullOrEmpty(buildInfo.build_prefab))
             {
                 // TODO: 실제 아이콘 경로에 맞게 수정 필요. 현재는 prefab 이름이나 ID를 사용한다고 가정.
-                 _iconSpriteLoader.SetSprite(buildInfo.build_prefab).Forget(); 
+                iconSpriteLoader.SetSprite(buildInfo.build_prefab).Forget(); 
             }
-            
-            _nameText.text = LanguageManager.Instance.GetDefaultText(buildInfo.buld_name_token);
+
+            nameText.text = buildInfo.buld_name_token;
             // _descText.text = LanguageManager.Instance.GetDefaultText(buildInfo.buld_desc_token);
-            _costText.text = buildInfo.item_INT.ToString();
+            costText.text = buildInfo.item_INT.ToString();
 
             // State Handling
-            _lockedOverlay.SetActive(isLocked);
-            
-            if (isInstalled)
+            lockedOverlay.SetActive(!facilityInfo.isCanInstall);
+
+            if (facilityInfo.isInstalled)
             {
-                _installButton.gameObject.SetActive(false);
-                _conditionText.text = "설치 완료";
+                installButton.gameObject.SetActive(false);
+                conditionText.text = "설치 완료";
             }
-            else if (isLocked)
+            else if (facilityInfo.isInstalling)
             {
-                _installButton.gameObject.SetActive(false);
-                // Locked condition text handling could be more specific
-                _conditionText.text = "사령부 레벨 부족"; 
+                installButton.gameObject.SetActive(false);
+                conditionText.text = "설치 중";
+            }
+            else if (!facilityInfo.isCanInstall && !facilityInfo.isPreviousLevelRequired)
+            {
+                installButton.gameObject.SetActive(false);
+                conditionText.text = "사령부 레벨 부족";
+            }
+            else if (facilityInfo.isPreviousLevelRequired)
+            {
+                installButton.gameObject.SetActive(false);
+                conditionText.text = "이전 레벨 설치 필요";
+            }
+            else if (facilityInfo.isAnotherBuilding)
+            {
+                installButton.gameObject.SetActive(false);
+                conditionText.text = "다른 건물 건설 중";
             }
             else
             {
-                _installButton.gameObject.SetActive(true);
-                _installButton.SetClickableState(canAfford);
-                _conditionText.text = "";
+                installButton.gameObject.SetActive(true);
+                installButton.SetClickableState(facilityInfo.isCanInstall);
+                conditionText.text = "";
             }
             
             CachedGo.SetActive(true);
@@ -81,7 +90,7 @@ namespace CookApps.AutoBattler
 
         private void OnInstallClick()
         {
-            _onInstallClicked?.Invoke(_buildInfo);
+            onInstallClicked?.Invoke(buildInfo);
         }
     }
 }
