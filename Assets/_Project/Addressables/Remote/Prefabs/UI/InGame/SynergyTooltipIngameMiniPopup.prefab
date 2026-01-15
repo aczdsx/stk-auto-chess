@@ -75,6 +75,43 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1544615169675953482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8230152301426196550}
+  m_Layer: 5
+  m_Name: Body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8230152301426196550
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544615169675953482}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8752911445439106639}
+  - {fileID: 1559930053788873311}
+  m_Father: {fileID: 6385095295153808282}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 320, y: 0}
+  m_SizeDelta: {x: 594, y: 350}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &1564375269964176720
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +247,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6385095295153808282}
-  - component: {fileID: 182797387129712589}
+  - component: {fileID: 5134611620489251436}
   m_Layer: 5
   m_Name: SynergyTooltipIngameMiniPopup
   m_TagString: Untagged
@@ -231,7 +268,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2343746741497357288}
-  - {fileID: 8752911445439106639}
+  - {fileID: 8230152301426196550}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -239,7 +276,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &182797387129712589
+--- !u!114 &5134611620489251436
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -248,7 +285,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2126363006185091719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc309cd574daa1a41be89a6241fe7359, type: 3}
+  m_Script: {fileID: 11500000, guid: 9dfe2d92bca9445cb90fc9cbe67e8e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uiLayerType: 3
@@ -256,17 +293,12 @@ MonoBehaviour:
   preloadAddressables: []
   _closeButton: {fileID: 7895684120799162544}
   _dimLayerButton: {fileID: 1272349375768008826}
+  _body: {fileID: 8230152301426196550}
   _synergyUI: {fileID: 2529629291563954236}
   _synergyNameText: {fileID: 2519229887985395199}
-  _synergyNameTitleText: {fileID: 0}
   _synergyDescText: {fileID: 5601838390893151523}
-  _synergyEffectList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _synergyNameTitleText: {fileID: 0}
+  _synergyEffectList: []
 --- !u!1 &3947286393381181723
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +391,7 @@ GameObject:
   - component: {fileID: 6197693918348077705}
   - component: {fileID: 8935216915876977087}
   m_Layer: 5
-  m_Name: shadow
+  m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,13 +408,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1559930053788873311}
-  m_Father: {fileID: 6385095295153808282}
+  m_Children: []
+  m_Father: {fileID: 8230152301426196550}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 320, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 594, y: 350}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3156981641716489664
@@ -984,7 +1015,7 @@ RectTransform:
   - {fileID: 593456079158551462}
   - {fileID: 7754808710544884547}
   - {fileID: 2504775791499819491}
-  m_Father: {fileID: 8752911445439106639}
+  m_Father: {fileID: 8230152301426196550}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1402,7 +1433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8498601450727436384, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
       propertyPath: m_Name
-      value: Badge_Synergy_Ingame (4)
+      value: Badge_Synergy_Ingame
       objectReference: {fileID: 0}
     - target: {fileID: 8498601450727436384, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
       propertyPath: m_IsActive

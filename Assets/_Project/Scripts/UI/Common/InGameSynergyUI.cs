@@ -20,6 +20,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _countText;
         [SerializeField] private Image _starAsterismGradeGuageImage;
         [SerializeField] private Image _elementalGradeGuageImage;
+        [SerializeField] private RectTransform _buttonRect;
 
 
         private Color _step0Color = new Color32(139, 139, 139, 50); // 그레이 (Gray)
@@ -95,14 +96,22 @@ namespace CookApps.AutoBattler
             _countText.color = color;
         }
 
+        /// <summary>
+        /// 시너지 아이콘 클릭 시 미니 팝업 표시
+        /// </summary>
         public void OnClickSynergy()
         {
-            // var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_synergyType);
-            // if (specSynergyDataList != null && specSynergyDataList.Count > 0)
-            // {
-            //     var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
-            //     SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipInGamePopup>((filteredSynergyDataList, _count, _synergyData, _nextSynergyData)).Forget();
-            // }
+            if (_synergyData == null || _synergyData.grade == 0) return;
+
+            var param = new SynergyTooltipIngameMiniPopup.PopupParam(
+                _synergyType,
+                _count,
+                _synergyData,
+                _nextSynergyData,
+                _buttonRect
+            );
+
+            SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipIngameMiniPopup>(param).Forget();
         }
     }
 }

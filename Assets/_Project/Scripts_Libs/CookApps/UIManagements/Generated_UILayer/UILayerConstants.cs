@@ -56,6 +56,7 @@ namespace CookApps.TeamBattle.UIManagements
                 "ElpisCoreResearchLayer" => "Prefabs/UI/CoreResearch/CoreResearchMainLayer.prefab",
                 "BattleStatisticsPopup" => "Prefabs/UI/InGame/BattleStatisticsPopup.prefab",
                 "SkillTooltipPopup_1" => "Prefabs/UI/InGame/RightSkillTooltipPopup.prefab",
+                "SynergyTooltipIngameMiniPopup" => "Prefabs/UI/InGame/SynergyTooltipIngameMiniPopup.prefab",
                 "LoadingMain" => "Prefabs/UI/Loading/LoadingMain.prefab",
                 "TopCurrencyAndMenuBar" => "Prefabs/UI/Top/TopCurrencyAndMenuBar.prefab",
                 "TitleMain" => "Assets/_Project/Splash_STK/Prefab/SplashUI.prefab",

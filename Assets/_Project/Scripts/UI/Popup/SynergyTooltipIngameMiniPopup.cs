@@ -9,20 +9,21 @@ using UnityEngine;
 namespace CookApps.AutoBattler
 {
     /// <summary>
-    /// 인게임 시너지 미니 팝업 - 시너지 아이콘 클릭 시 표시
+    /// 인게임 시너지 미니 팝업 - 시너지 아이콘 클릭 시 표시되는 간단한 정보 팝업
     /// </summary>
-    public class SynergyTooltipInGamePopup : UILayer
+    public class SynergyTooltipIngameMiniPopup : UILayer
     {
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private CAButton _dimLayerButton;
+        [SerializeField] private RectTransform _body;
 
         [Header("Synergy Info")]
         [SerializeField] private InGameSynergyUI _synergyUI;
         [SerializeField] private TextMeshProUGUI _synergyNameText;
-        [SerializeField] private TextMeshProUGUI _synergyNameTitleText;
         [SerializeField] private TextMeshProUGUI _synergyDescText;
 
-        [Header("Synergy Effect List (Optional)")]
+        [Header("(Optional)")]
+        [SerializeField] private TextMeshProUGUI _synergyNameTitleText;
         [SerializeField] private List<TextMeshProUGUI> _synergyEffectList;
 
         private SynergyType _synergyType;
@@ -39,13 +40,15 @@ namespace CookApps.AutoBattler
             public readonly int Count;
             public readonly ISpecSynergyData SynergyData;
             public readonly ISpecSynergyData NextSynergyData;
+            public readonly RectTransform ButtonRect;
 
-            public PopupParam(SynergyType synergyType, int count, ISpecSynergyData synergyData, ISpecSynergyData nextSynergyData)
+            public PopupParam(SynergyType synergyType, int count, ISpecSynergyData synergyData, ISpecSynergyData nextSynergyData, RectTransform buttonRect)
             {
                 SynergyType = synergyType;
                 Count = count;
                 SynergyData = synergyData;
                 NextSynergyData = nextSynergyData;
+                ButtonRect = buttonRect;
             }
         }
 
@@ -63,15 +66,54 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
+            RectTransform buttonRect = null;
+
             if (param is PopupParam popupParam)
             {
                 _synergyType = popupParam.SynergyType;
                 _count = popupParam.Count;
                 _synergyData = popupParam.SynergyData;
                 _nextSynergyData = popupParam.NextSynergyData;
+                buttonRect = popupParam.ButtonRect;
             }
 
             SetSynergyInfo();
+            SetBodyPosition(buttonRect);
+        }
+
+        private void SetBodyPosition(RectTransform buttonRect)
+        {
+            if (_body == null || buttonRect == null) return;
+
+            // 버튼의 월드 좌표 중심점
+            Vector3[] corners = new Vector3[4];
+            buttonRect.GetWorldCorners(corners);
+            Vector3 buttonCenter = (corners[0] + corners[2]) / 2f;
+
+            // body의 부모 기준 로컬 좌표로 변환
+            var bodyParent = _body.parent as RectTransform;
+            if (bodyParent == null) return;
+
+            Vector3 localPos = bodyParent.InverseTransformPoint(buttonCenter);
+            float targetY = localPos.y;
+
+            // body 높이 (pivot 고려)
+            float parentHeight = bodyParent.rect.height;
+            float bodyHeight = _body.rect.height;
+            float pivotY = _body.pivot.y;
+
+            // body가 화면 밖으로 나가지 않도록 클램핑
+            float topOffset = bodyHeight * (1f - pivotY);
+            float bottomOffset = bodyHeight * pivotY;
+
+            float maxY = (parentHeight / 2f) - topOffset;
+            float minY = -(parentHeight / 2f) + bottomOffset;
+
+            float clampedY = Mathf.Clamp(targetY, minY, maxY);
+
+            var anchoredPos = _body.anchoredPosition;
+            anchoredPos.y = clampedY;
+            _body.anchoredPosition = anchoredPos;
         }
 
         private void SetSynergyInfo()
