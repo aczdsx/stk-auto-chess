@@ -13,6 +13,7 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 "NicknamePopup" => "Naninovel/Spawn/Etc/NicknamePopup",
                 "BattleReadyMain" => "Prefabs/UI/00_Main/BattleReadyMain.prefab",
+                "BattleReadyMain_1" => "Prefabs/UI/00_Main/BattleReadyMain_Old.prefab",
                 "InGameMain" => "Prefabs/UI/00_Main/IngameMain.prefab",
                 "InGameTestMain" => "Prefabs/UI/00_Main/IngameTestMain.prefab",
                 "LobbyMain" => "Prefabs/UI/00_Main/LobbyMain.prefab",

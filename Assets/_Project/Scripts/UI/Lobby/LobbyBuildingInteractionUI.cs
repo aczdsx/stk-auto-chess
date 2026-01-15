@@ -5,11 +5,13 @@ using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
+using Naninovel;
 using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UniTask = Cysharp.Threading.Tasks.UniTask;
 
 namespace CookApps.AutoBattler
 {
@@ -76,7 +78,7 @@ namespace CookApps.AutoBattler
             
             UpdatePosition();
 
-            buildingName.text = buildInfo.facility_type.ToString(); //TODO : localization
+            buildingName.text = LanguageManager.Instance.GetDefaultText(buildInfo.buld_name_token);
         }
 
         #region Set

@@ -21,7 +21,6 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI npcDialogueText;
 
         [Header("혜택 영역")]
-        [SerializeField] private TextMeshProUGUI benefitsTitle;
         [SerializeField] private TextMeshProUGUI elpisLevelText;
         [SerializeField] private TableView benefitsTableView;
         [SerializeField] private GameObject benefitCellPrefab;
@@ -210,8 +209,6 @@ namespace CookApps.AutoBattler
 
         private void UpdateLevelDisplay()
         {
-            if (benefitsTitle != null)
-                benefitsTitle.text = $"영지 확장 혜택"; //TODO : localization
             if (elpisLevelText)
                 elpisLevelText.text = ZString.Concat(currentElpisLevel);
         }

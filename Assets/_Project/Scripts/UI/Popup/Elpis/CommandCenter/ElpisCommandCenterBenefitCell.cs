@@ -73,17 +73,15 @@ namespace CookApps.AutoBattler
 
         private void SetTitleText()
         {
-            titleText.text = "임시값입니다..";
-            //titleText.text = currentData.benefit_title_token; //TODO : localization
+            titleText.text = LanguageManager.Instance.GetDefaultText(currentData.benefit_title_token);
         }
 
         private void SetBuildingDescriptionText()
         {
             var buildInfo = SpecDataManager.Instance.GetBuildInfo(currentData.build_id);
-            
-            //var descriptionString = currentData.benefit_desc_token;  //TODO : localization
-            var descriptionString = "임시. {0}를 새로 건설할 수 있습니다.";
-            descriptionText.SetTextFormat(descriptionString, buildInfo.buld_name_token);
+
+            var descriptionString = LanguageManager.Instance.GetDefaultText(currentData.benefit_desc_token);
+            descriptionText.SetTextFormat(descriptionString,LanguageManager.Instance.GetDefaultText(buildInfo.buld_name_token));
         }
 
         private void SetBenefitCountText()
@@ -117,7 +115,7 @@ namespace CookApps.AutoBattler
 
         private void SetUIToAreaExpandBenefit()
         {
-            descriptionText.text = currentData.benefit_desc_token; //TODO : localization
+            descriptionText.text = LanguageManager.Instance.GetDefaultText(currentData.benefit_desc_token);
         }
 
         private void SetBenefitCountActive(bool active)
