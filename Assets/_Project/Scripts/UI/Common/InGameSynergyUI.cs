@@ -13,9 +13,13 @@ namespace CookApps.AutoBattler
     public class InGameSynergyUI : CachedMonoBehaviour
     {
         [SerializeField] private Image _iconImage;
-        [SerializeField] private SpriteLoader _iconSpriteLoader;
+        [SerializeField] private SpriteLoader _starAsterismIconSpriteLoader;
+        [SerializeField] private SpriteLoader _elementalIconSpriteLoader;
+        [SerializeField] private GameObject _starAsterismIconGameObject;
+        [SerializeField] private GameObject _elementalIconGameObject;
         [SerializeField] private TextMeshProUGUI _countText;
-        [SerializeField] private Image _gradeGuageImage;
+        [SerializeField] private Image _starAsterismGradeGuageImage;
+        [SerializeField] private Image _elementalGradeGuageImage;
 
 
         private Color _step0Color = new Color32(139, 139, 139, 50); // 그레이 (Gray)
@@ -61,12 +65,30 @@ namespace CookApps.AutoBattler
             }
 
             _count = count;
-            _iconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(synergyType, isActive)).Forget();
 
             var lastSynergyData = SpecDataManager.Instance.GetSpecSynergyList(synergyType).Last();
+            bool isAsterismSynergyType = DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType);
+            _starAsterismIconGameObject.SetActive(isAsterismSynergyType);
+            _elementalIconGameObject.SetActive(!isAsterismSynergyType);
+            if (isAsterismSynergyType)
+            {
+                _starAsterismIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(synergyType, isActive)).Forget();
+            }
+            else
+            {
+                _elementalIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(synergyType, isActive)).Forget();
+            }
 
-            _gradeGuageImage.fillAmount = (float)data.grade / (float)lastSynergyData.grade;
-            _gradeGuageImage.color = color;
+            if (isAsterismSynergyType)
+            {
+                _starAsterismGradeGuageImage.fillAmount = (float)data.grade / (float)(lastSynergyData.grade - 1);
+                _starAsterismGradeGuageImage.color = color;
+            }
+            else
+            {
+                _elementalGradeGuageImage.fillAmount = (float)data.grade / (float)(lastSynergyData.grade - 1);
+                _elementalGradeGuageImage.color = color;
+            }
 
             //  .color = (isColorWhite) ? color : Color.white;
             _countText.text = $"{count}/{nextData.min_int}";

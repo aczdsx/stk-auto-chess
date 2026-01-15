@@ -1694,9 +1694,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _iconImage: {fileID: 6619643812545490769}
-  _iconSpriteLoader: {fileID: 2722505116274494610}
+  _starAsterismIconSpriteLoader: {fileID: 2722505116274494610}
+  _elementalIconSpriteLoader: {fileID: -6388632113752249532}
+  _starAsterismIconGameObject: {fileID: 2213885082503178944}
+  _elementalIconGameObject: {fileID: 3782717915665844691}
   _countText: {fileID: 6765815422718335547}
-  _gradeGuageImage: {fileID: 8841712733828716822}
+  _starAsterismGradeGuageImage: {fileID: 8841712733828716822}
+  _elementalGradeGuageImage: {fileID: 8950126740753688181}
 --- !u!222 &8660337040026814397
 CanvasRenderer:
   m_ObjectHideFlags: 0
