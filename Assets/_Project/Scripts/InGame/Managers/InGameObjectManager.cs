@@ -115,7 +115,7 @@ namespace CookApps.BattleSystem
                 ? (allianceType == AllianceType.Player ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate)
                 : (allianceType == AllianceType.Player ? enemiesInPlaygroundForUpdate : charactersInPlaygroundForUpdate);
 
-            return characterList.OrderByDescending(c => c.CurrentHp / c.HP).ToList();
+            return characterList.OrderBy(c => c.CurrentHp / c.HP).ToList();
         }
 
         public List<CharacterController> GetCharacterListSortedByADDescending(AllianceType allianceType, bool isOwnCharacter)

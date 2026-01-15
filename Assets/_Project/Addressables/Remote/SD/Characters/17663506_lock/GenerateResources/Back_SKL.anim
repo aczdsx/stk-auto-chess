@@ -34,13 +34,13 @@ AnimationClip:
       value: {fileID: 21300000, guid: ee2b776801d86c04fb51eaec7fb9074a, type: 3}
     - time: 0.5625
       value: {fileID: 21300000, guid: c77b61b159b37244c932a02c83fd1593, type: 3}
-    - time: 0.6875
+    - time: 1
       value: {fileID: 21300000, guid: dec5067b450c56e45bc12d448154345e, type: 3}
-    - time: 0.8125
+    - time: 1.125
       value: {fileID: 21300000, guid: 9947d1684313d5349a03acee6722ef70, type: 3}
-    - time: 0.9375
+    - time: 1.25
       value: {fileID: 21300000, guid: ac3e5d97ad02f904a91e9b8390919fb7, type: 3}
-    - time: 1.0625
+    - time: 1.3125
       value: {fileID: 21300000, guid: 8f99a2943ef46564e9e46ed010498c7b, type: 3}
     attribute: m_Sprite
     path: 
@@ -80,7 +80,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.125
+    m_StopTime: 1.375
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -107,14 +107,28 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.375
+  - time: 0.5625
     functionName: InvokeAnimationEvent
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 1001
+    intParameter: 1003
     messageOptions: 0
-  - time: 1.125
+  - time: 0.75
+    functionName: InvokeAnimationEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 1003
+    messageOptions: 0
+  - time: 0.9375
+    functionName: InvokeAnimationEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 1003
+    messageOptions: 0
+  - time: 1.3125
     functionName: InvokeAnimationEvent
     data: 
     objectReferenceParameter: {fileID: 0}

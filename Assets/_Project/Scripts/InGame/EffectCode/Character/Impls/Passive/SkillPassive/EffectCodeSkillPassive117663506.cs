@@ -24,6 +24,7 @@ namespace CookApps.BattleSystem
             base.Initialize(codeInfo, container, source);
 
             InjectPassiveBuff(codeInfo, source);
+            
         }
 
 
@@ -39,7 +40,7 @@ namespace CookApps.BattleSystem
         {
             Span<double> buffStats = stackalloc double[4];
             buffStats.Clear();
-            buffStats[0] = codeId;
+            buffStats[0] = CodeId;
             buffStats[1] = codeInfo.GetCodeStatToFloat(0) * 0.01f;// _avoidSuccessRatePercent
             buffStats[2] = codeInfo.GetCodeStatToInt(1);//_avoidSuccessMaxCount
             buffStats[3] = codeInfo.GetCodeStatToFloat(2) * 0.01f;//_DamageRatePercent

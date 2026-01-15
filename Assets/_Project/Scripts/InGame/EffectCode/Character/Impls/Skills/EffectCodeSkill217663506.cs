@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
@@ -30,6 +28,8 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
     private bool _isReadyToActivate;
     private SkillActive _specSkill;
     private const int TARGET_COUNT = 3; // 공격할 대상 수
+    private List<CharacterController> _targets; // 공격할 타겟 리스트
+    private InGameVfx _slashVfx; // 슬래시 VFX 인스턴스
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -46,6 +46,7 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
 
         _isReadyToActivate = false;
         IsSkillActivated = false;
+        _slashVfx = null;
 
         var skillDataList = SpecDataManager.Instance.GetSkillDataList(codeId);
         _specSkill = skillDataList != null && skillDataList.Count > 0 ? skillDataList[0] : null;
@@ -86,9 +87,14 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
 
-
         // 타겟 불가능 상태 적용
         ApplyTargetImpossible();
+        
+        // 공격할 타겟 리스트 미리 저장
+        _targets = GetLowestHpTargets(TARGET_COUNT);
+        
+        // VFX 초기화
+        _slashVfx = null;
         
         // InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
         //     owner.GetCharacterView().CachedTr.position);
@@ -100,8 +106,24 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
         if (owner == null)
             return;
 
-        // 체력이 가장 낮은 적 3명 찾기 및 순차 공격
-        ExecuteSlashSequence().Forget();
+        // 첫 번째 공격에서 VFX 생성
+        if (executeIndex == 0)
+        {
+            CreateSlashVfx();
+        }
+
+        // executeIndex에 따라 해당 타겟으로 이동하여 공격
+        if (executeIndex < TARGET_COUNT)
+        {
+            ExecuteSlashAttack(executeIndex);
+        }
+
+        // 마지막 공격 후 버프 적용 및 VFX 삭제
+        if (executeIndex == totalLength)
+        {
+            ApplyAvoidProbBuff();
+            RemoveSlashVfx();
+        }
     }
 
     private void ApplyTargetImpossible()
@@ -140,34 +162,56 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
         return result;
     }
 
-    private async UniTask ExecuteSlashSequence()
+    private void ExecuteSlashAttack(int attackIndex)
     {
         if (!IsOwnerValid())
             return;
 
-        var targets = GetLowestHpTargets(TARGET_COUNT);
-        if (targets.Count == 0)
+        // 타겟 리스트 갱신
+        _targets = RefreshTargets(_targets);
+        if (_targets.Count == 0)
         {
-            ApplyAvoidProbBuff();
-            return;
+            // 타겟이 없으면 새로 가져오기
+            _targets = GetLowestHpTargets(TARGET_COUNT);
+            if (_targets.Count == 0)
+                return;
         }
 
-        int successfulAttacks = 0;
-        for (int i = 0; i < TARGET_COUNT; i++)
-        {
-            if (!IsOwnerValid())
-                break;
+        // attackIndex에 해당하는 타겟 선택
+        int targetIndex = attackIndex < _targets.Count ? attackIndex : attackIndex % _targets.Count;
+        var target = _targets[targetIndex];
 
-            // 공격 시도 (반드시 성공해야 함)
-            if (TryExecuteAttackGuaranteed(targets, i, ref successfulAttacks))
+        // 유효한 타겟이 아니면 다른 타겟 찾기
+        if (!IsTargetValid(target))
+        {
+            // 유효한 타겟 찾기
+            for (int i = 0; i < _targets.Count; i++)
             {
-                await UniTask.Delay(TimeSpan.FromSeconds(0.2f));
+                int checkIndex = (targetIndex + i) % _targets.Count;
+                var checkTarget = _targets[checkIndex];
+                if (IsTargetValid(checkTarget))
+                {
+                    target = checkTarget;
+                    break;
+                }
             }
+
+            if (!IsTargetValid(target))
+                return;
         }
 
-        if (successfulAttacks > 0)
+        // 8방향(인접 타일)에서 이동 가능한 타일 찾기
+        var targetTile = GetTileIn8Directions(target.CurrentTile);
+        if (targetTile != null)
         {
-            ApplyAvoidProbBuff();
+            // 이동 및 공격 실행
+            MoveToTile(targetTile, target);
+            ApplyDamage(target);
+        }
+        else
+        {
+            // 이동할 타일이 없으면 현재 위치에서 공격
+            ApplyDamage(target);
         }
     }
 
@@ -176,86 +220,6 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
         return owner != null && owner.IsAlive && owner.CurrentTile != null;
     }
 
-    private bool TryExecuteAttackGuaranteed(List<CharacterController> targets, int attackIndex, ref int successfulAttacks)
-    {
-        if (!IsOwnerValid())
-            return false;
-
-        // 타겟 리스트 갱신 (죽은 타겟 제거)
-        targets = RefreshTargets(targets);
-        if (targets.Count == 0)
-            return false;
-
-        // 이미 시도한 타겟 추적
-        var triedTargets = new HashSet<CharacterController>();
-        const int MAX_ATTEMPTS = TARGET_COUNT * 3;
-
-        // 시작 인덱스 계산
-        int startIndex = targets.Count > 0 ? attackIndex % targets.Count : 0;
-
-        // 모든 타겟을 순회하면서 공격 가능한 타겟 찾기
-        for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++)
-        {
-            if (!IsOwnerValid())
-                return false;
-
-            // 타겟 리스트 갱신 (죽은 타겟 제거)
-            if (attempt > 0 && attempt % 5 == 0) // 5번 시도마다 타겟 리스트 갱신
-            {
-                targets = RefreshTargets(targets);
-                if (targets.Count == 0)
-                    break;
-                triedTargets.Clear(); // 리스트가 갱신되면 시도 기록 초기화
-            }
-
-            // 순환 인덱스로 타겟 선택
-            int currentIndex = (startIndex + attempt) % targets.Count;
-            var target = targets[currentIndex];
-
-            // 이미 시도한 타겟이면 스킵
-            if (triedTargets.Contains(target))
-            {
-                // 모든 타겟을 시도했는지 확인
-                if (triedTargets.Count >= targets.Count)
-                    break;
-                continue;
-            }
-
-            triedTargets.Add(target);
-
-            if (!IsTargetValid(target))
-                continue;
-
-            // 8방향(인접 타일)에서 이동 가능한 타일 찾기
-            var targetTile = GetTileIn8Directions(target.CurrentTile);
-            if (targetTile != null)
-            {
-                // 공격 실행
-                MoveToTile(targetTile, target);
-                PlaySlashVfx(target);
-                ApplyDamage(target);
-                successfulAttacks++;
-                return true;
-            }
-        }
-
-        // 모든 타겟을 시도해도 타일을 찾지 못했으면, 첫 번째 유효한 타겟에게 현재 위치에서 공격
-        targets = RefreshTargets(targets);
-        for (int i = 0; i < targets.Count; i++)
-        {
-            var fallbackTarget = targets[i];
-            if (IsTargetValid(fallbackTarget))
-            {
-                // 현재 위치에서 공격 (이동 없이)
-                PlaySlashVfx(fallbackTarget);
-                ApplyDamage(fallbackTarget);
-                successfulAttacks++;
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     private List<CharacterController> RefreshTargets(List<CharacterController> currentTargets)
     {
@@ -283,14 +247,6 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
         return validTargets.Count > 0 ? validTargets : currentTargets;
     }
 
-    private CharacterController GetTargetByIndex(List<CharacterController> targets, int index)
-    {
-        if (targets == null || targets.Count == 0)
-            return null;
-
-        int targetIndex = index % targets.Count;
-        return targets[targetIndex];
-    }
 
     private bool IsTargetValid(CharacterController target)
     {
@@ -312,15 +268,14 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
         owner.Target = target;
     }
 
-    private void PlaySlashVfx(CharacterController target)
+    private void CreateSlashVfx()
     {
         if (_specSkill?.skill_vfxs == null || _specSkill.skill_vfxs.Length == 0)
             return;
 
-        var targetView = target.GetCharacterView();
-        if (targetView?.CachedTr != null)
+        if (_slashVfx == null)
         {
-            InGameVfxManager.Instance?.AddInGameVfx(_specSkill.skill_vfxs[0], targetView.CachedTr.position);
+            _slashVfx = InGameVfxManager.Instance?.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillMiddleFXTransformFollowable);
         }
     }
 
@@ -368,6 +323,15 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
         buffStats[2] = _avoidProbIncreaseRate;
         
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AVOID_PROB_PERCENT_UP, owner, buffStats, source);
+    }
+
+    private void RemoveSlashVfx()
+    {
+        if (_slashVfx != null)
+        {
+            _slashVfx.Remove();
+            _slashVfx = null;
+        }
     }
     
     public override void OnSkillAnimationEnd()
