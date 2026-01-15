@@ -12,6 +12,8 @@ using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Pool;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using System.Threading.Tasks;
+using CookApps.Obfuscator;
 
 
 
@@ -90,7 +92,6 @@ public class FlowStatePrologueCombat : StateCombatBase
         {
             _witchCharacter = characters[0];
         }
-
         // 캐릭터 초기 이동 후 시나리오 시작
         InitializeCharacterPositionsAndStartScenario().Forget();
     }
@@ -264,28 +265,30 @@ public class FlowStatePrologueCombat : StateCombatBase
         return character != null;
     }
 
-    /// <summary>
-    /// 캐릭터의 스킬을 강제로 활성화합니다.
-    /// </summary>
-    /// <param name="character">스킬을 활성화할 캐릭터</param>
-    /// <param name="warningMessage">스킬을 찾지 못했을 때 출력할 경고 메시지 (null이면 출력하지 않음)</param>
-    /// <returns>스킬 활성화 성공 여부</returns>
-    private bool ActivateCharacterSkill(CharacterController character, string warningMessage = null)
+    private bool ActivateCharacterSkill(CharacterController character, string warningMessage = null, int skillid = 0)
     {
         if (character == null) return false;
 
+        List<EffectCodeCharacterBase> effectCodes = new ();
+
         foreach (var effectCode in character.GetEffectCodeContainer().EffectCodes)
         {
-            Debug.LogColor(character.CharacterId, "cyan");
             var specData = SpecDataManager.Instance.GetSpecCharacter(character.CharacterId);
             if (specData.skill_ids.Any(skillId => skillId == effectCode.CodeId))
             {
                 if (effectCode is EffectCodeCharacterBase characterEffectCode)
                 {
-                    characterEffectCode.Activate();
-                    return true;
+                    effectCodes.Add(characterEffectCode);
                 }
             }
+        }
+        
+        
+        if(effectCodes.Count > 0)
+        {
+            effectCodes.Sort((a, b) => string.Compare(a.GetType().Name, b.GetType().Name, System.StringComparison.Ordinal));
+            effectCodes[skillid].Activate();
+            return true;
         }
 
         if (!string.IsNullOrEmpty(warningMessage))
@@ -398,7 +401,7 @@ public class FlowStatePrologueCombat : StateCombatBase
                 await TriggerClaySkillAndWitchAttack();
                 break;
             case PrologueActionType.ClayGroggy:
-                await TriggerClayGroggy();
+                await TriggerClayGroggyObsolete();
                 break;
             case PrologueActionType.FreeAttack3Seconds:
                 await TriggerFreeAttack3Seconds();
@@ -450,15 +453,25 @@ public class FlowStatePrologueCombat : StateCombatBase
     {
         if (_clayCharacter == null) return;
 
+
         // 클레이 중앙으로 포지션 이동
         if (MoveCharacterToDirection(_clayCharacter, 0, 1))
         {
-            // 이동 완료 대기
-            await WaitForCharacterMoveComplete(_clayCharacter);
+            MyDebug.Log("Force 무브일때 까지 기다리기");
+            await UniTask.WaitUntil(() => {return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove);});
+            MyDebug.Log("Force 무브 다 되었을때 까지 기다리기");
+            await UniTask.WaitWhile(() => {return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove);});
         }
 
-        // 클레이 스킬 발동
         ActivateCharacterSkill(_clayCharacter, "클레이 스킬을 찾을 수 없습니다.");
+        MyDebug.Log("스킬 사용일때 까지 기다리기");
+        await UniTask.WaitUntil(() => {return (_clayCharacter.GetCurrentState() is CharacterStateSkill);});
+        MyDebug.Log("스킬 사용 완료된 것을 기다리기");
+        await UniTask.WaitWhile(() => {return (_clayCharacter.GetCurrentState() is CharacterStateSkill);});
+        MyDebug.Log("스킬 사용 완료");
+        _clayCharacter.AddNextState<CharacterStateReady>();
+
+        await UniTask.Delay(1000); // 1.5초 대기
 
         // 라플라스 마녀 공격 준비 이펙트 종료
         if (_witchAttackPrepareFx != null)
@@ -468,39 +481,36 @@ public class FlowStatePrologueCombat : StateCombatBase
         }
 
         // 라플라스 마녀 스킬 발동 (스킬 - 중)
+        _witchCharacter.Target = _clayCharacter;
         ActivateCharacterSkill(_witchCharacter, "마녀 스킬을 찾을 수 없습니다.");
+        MyDebug.Log("스킬 사용일때 까지 기다리기");
+        await UniTask.WaitUntil(() => {return (_witchCharacter.GetCurrentState() is CharacterStateSkill);});
 
+        List<UniTask> uniTasks = new ();
+        uniTasks.Add(UniTask.Create(async () =>
+        {
+            await UniTask.Delay(2150);
+            if (_clayCharacter != null)
+                _clayCharacter.AddNextState<CharacterStateGroggy>();
+        }));
+        uniTasks.Add(UniTask.WaitWhile(() => {return (_witchCharacter.GetCurrentState() is CharacterStateSkill);}));
+        // 그로기 하면서 뒤로 퍼지기.
+        // 나중에
+
+        await UniTask.WhenAll(uniTasks);
+
+        MyDebug.Log("스킬 사용 완료된 것을 기다리기");
+        
+
+        MyDebug.Log("스킬 사용 완료");
+        _witchCharacter.AddNextState<CharacterStateReady>();
         await UniTask.Delay(1500); // 1.5초 대기
     }
 
-    /*
-    클레이 애니메이션 순회 0th :  Back_ATK
-    클레이 애니메이션 순회 1th :  Back_DEAD
-    클레이 애니메이션 순회 2th :  Back_IDLE
-    클레이 애니메이션 순회 3th :  Back_MOVE
-    클레이 애니메이션 순회 4th :  Back_SKL
-    클레이 애니메이션 순회 5th :  Front_ATK
-    클레이 애니메이션 순회 6th :  Front_DEAD
-    클레이 애니메이션 순회 7th :  Front_IDLE
-    클레이 애니메이션 순회 8th :  Front_MOVE
-    클레이 애니메이션 순회 9th :  Front_SKL
-    클레이 애니메이션 순회 10th :  Back_GROGGY
-    클레이 애니메이션 순회 11th :  Back_PARRY
-    클레이 애니메이션 순회 12th :  Front_SKL2
-    클레이 애니메이션 순회 13th :  Back_SKL2
-    클레이 애니메이션 순회 14th :  Front_GROGGY
-    클레이 애니메이션 순회 15th :  Front_PARRY
-    클레이 애니메이션 순회 16th :  Back_BUFF
-    클레이 애니메이션 순회 17th :  Front_BUFF
-    */
 
     // 3단계: 클레이 그로기 모션
-    private async UniTask TriggerClayGroggy()
+    private async UniTask TriggerClayGroggyObsolete()
     {
-        if (_clayCharacter == null) return;
-
-        // 그로기 모션 재생
-        _clayCharacter.AddNextState<CharacterStateGroggy>();
 
         await UniTask.Delay(1000); // 1초 대기
     }
@@ -554,7 +564,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.Delay(500); // 0.5초 대기
 
         // 라플라스 마녀 광역 스킬 발동
-        ActivateCharacterSkill(_witchCharacter, "마녀 광역 스킬을 찾을 수 없습니다.");
+        ActivateCharacterSkill(_witchCharacter, "마녀 광역 스킬을 찾을 수 없습니다.", 2);
 
         await UniTask.Delay(2000); // 2초 대기
 
@@ -798,3 +808,5 @@ public class FlowStatePrologueCombat : StateCombatBase
         InGameMainFlowManager.Instance.AddNextState<FlowStatePrologueClear>();
     }
 }
+
+

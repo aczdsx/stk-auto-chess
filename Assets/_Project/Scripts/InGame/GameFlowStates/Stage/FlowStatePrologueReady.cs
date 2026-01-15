@@ -20,6 +20,7 @@ public static class PrologueID {
     public const int 프롤로그라플라스마녀ID = 9002;
 }
 
+
 public class FlowStatePrologueReady : StateReadyBase
 {
     public override void SetStateData(object data)
