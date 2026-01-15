@@ -14,11 +14,6 @@ service QuestService {
   rpc ListDailyQuest(QuestListDailyQuestRequest) returns (QuestListDailyQuestResponse);
 
   /**
-   * 퀘스트 진행 사항 업데이트
-   */
-  rpc UpdateQuestProgress(QuestUpdateQuestProgressRequest) returns (QuestUpdateQuestProgressResponse);
-
-  /**
    * 퀘스트 보상 수령
    */
   rpc ClaimQuestReward(QuestClaimQuestRewardRequest) returns (QuestClaimQuestRewardResponse);
@@ -26,6 +21,10 @@ service QuestService {
 
 enum QuestErrorCode {
   QUEST_UNSPECIFIED = 0;
+
+  QUEST_INFO_NOT_FOUND = 10131001; // 퀘스트 정보를 찾을 수 없음
+  QUEST_NOT_COMPLETED = 10131002; // 퀘스트 완료 조건이 안됨
+  QUEST_ALREADY_REWARDED = 10131003; // 퀘스트 보상을 이미 수령함
 }
 
 message QuestListDailyQuestRequest {
@@ -39,17 +38,6 @@ message QuestListDailyQuestResponse {
   uint64 next_reset_at = 3;
   // 오늘 인덱스 (ex. 20251208 => 2025년 12월 8일)
   uint32 date_index = 4;
-}
-
-message QuestUpdateQuestProgressRequest {
-  uint32 quest_id = 1;
-  QuestType quest_type = 2;
-  uint32 add_current_count = 3;
-}
-
-message QuestUpdateQuestProgressResponse {
-  ResponseStatus status = 1;
-  QuestData quest = 2;
 }
 
 message QuestClaimQuestRewardRequest {
