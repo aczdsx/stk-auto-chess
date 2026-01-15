@@ -150,6 +150,11 @@ namespace CookApps.AutoBattler
             {
                 target?.PlayFinishLoop();
             }
+            // 이미 설치 완료된 상태라면 건물 프리팹 소환
+            else if (facility.Level > 0)
+            {
+                target?.SpawnBuildingAsync(buildInfo.build_prefab).Forget();
+            }
         }
 
         private void SetData(ElpisBuildingBase target, ElpisFacility facilityData)
@@ -431,11 +436,12 @@ namespace CookApps.AutoBattler
             if (installingFacility == null || target == null)
                 return;
 
+            var isUpgrade = installingFacility.buildInfo.build_lv > 1;
             var totalBuildTime = installingFacility.buildInfo.build_time;
             var remainingTime = (float)(installingFacility.completionTime - TimeManager.Instance.UtcNow()).TotalSeconds;
             remainingTime = Mathf.Max(0f, remainingTime);
 
-            target.StartConstructionAnimation(remainingTime, totalBuildTime);
+            target.StartConstructionAnimation(remainingTime, totalBuildTime, isUpgrade);
         }
 
         private void UpdatePosition()
@@ -467,8 +473,13 @@ namespace CookApps.AutoBattler
 
             if (isInstallFinished)
             {
-                // Disappear 애니메이션 재생
-                target?.PlayDisappearAnimation();
+                // 건물 생성 후 Disappear 애니메이션 재생
+                var completedFacility = GetJustCompletedFacility();
+                var prefabPath = completedFacility?.buildInfo?.build_prefab;
+                if (target != null)
+                {
+                    await target.PlayDisappearAnimationAsync(prefabPath);
+                }
 
                 ElpisFacility changedInfo = null;
 

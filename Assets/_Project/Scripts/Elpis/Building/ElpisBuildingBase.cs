@@ -1,7 +1,9 @@
 using System.Collections;
 using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoBattler
 {
@@ -35,10 +37,11 @@ namespace CookApps.AutoBattler
         /// </summary>
         /// <param name="remainingTime">남은 건설 시간 (초)</param>
         /// <param name="totalBuildTime">총 건설 시간 (초)</param>
-        public void StartConstructionAnimation(float remainingTime, float totalBuildTime)
+        /// <param name="isUpgrade">업그레이드 여부 (true면 Level3만 실행)</param>
+        public void StartConstructionAnimation(float remainingTime, float totalBuildTime, bool isUpgrade = false)
         {
             StopConstructionAnimation();
-            constructionCoroutine = StartCoroutine(PlayConstructionSequence(remainingTime, totalBuildTime));
+            constructionCoroutine = StartCoroutine(PlayConstructionSequence(remainingTime, totalBuildTime, isUpgrade));
         }
 
         /// <summary>
@@ -54,16 +57,37 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// Disappear 애니메이션을 재생합니다.
+        /// 건물 프리팹을 생성하고 Disappear 애니메이션을 재생합니다.
         /// </summary>
-        public void PlayDisappearAnimation()
+        /// <param name="buildPrefabPath">Addressable 프리팹 경로</param>
+        public async UniTask PlayDisappearAnimationAsync(string buildPrefabPath)
         {
             StopConstructionAnimation();
 
+            // 건물 프리팹 생성
+            if (!string.IsNullOrEmpty(buildPrefabPath))
+            {
+                var handle = Addressables.InstantiateAsync(buildPrefabPath, CachedTr.position, Quaternion.identity, CachedTr);
+                await handle.ToUniTask();
+            }
+
+            // Disappear 애니메이션 재생
             if (buildingAnimator != null)
             {
                 buildingAnimator.Play(AnimationState.Disappear);
             }
+        }
+
+        /// <summary>
+        /// 건물 프리팹만 소환합니다. (이미 설치된 건물용)
+        /// </summary>
+        /// <param name="buildPrefabPath">Addressable 프리팹 경로</param>
+        public async UniTask SpawnBuildingAsync(string buildPrefabPath)
+        {
+            if (string.IsNullOrEmpty(buildPrefabPath))
+                return;
+
+            await Addressables.InstantiateAsync(buildPrefabPath, CachedTr.position, Quaternion.identity, CachedTr).ToUniTask();
         }
 
         /// <summary>
@@ -79,47 +103,56 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private IEnumerator PlayConstructionSequence(float remainingTime, float totalBuildTime)
+        private IEnumerator PlayConstructionSequence(float remainingTime, float totalBuildTime, bool isUpgrade)
         {
             if (buildingAnimator == null)
                 yield break;
 
-            // Level1, Level2, Level3에 1:1:1 비율로 배분
-            var levelTime = totalBuildTime / 3f;
-
-            // 현재 진행률 계산 (0 = 시작, 1 = 완료)
-            var progress = 1f - (remainingTime / totalBuildTime);
-
-            // 어느 단계부터 시작해야 하는지 계산
-            var currentPhase = Mathf.FloorToInt(progress * 3f);
-            var phaseProgress = (progress * 3f) - currentPhase;
-
-            // Level1 (phase 0)
-            if (currentPhase <= 0)
-            {
-                buildingAnimator.CrossFadeInFixedTime(AnimationState.Level1, TransitionDuration);
-                var timeInPhase = currentPhase == 0 ? levelTime * (1f - phaseProgress) : levelTime;
-                yield return new WaitForSeconds(timeInPhase);
-                currentPhase = 1;
-                phaseProgress = 0f;
-            }
-
-            // Level2 (phase 1)
-            if (currentPhase <= 1)
-            {
-                buildingAnimator.CrossFadeInFixedTime(AnimationState.Level2, TransitionDuration);
-                var timeInPhase = currentPhase == 1 ? levelTime * (1f - phaseProgress) : levelTime;
-                yield return new WaitForSeconds(timeInPhase);
-                currentPhase = 2;
-                phaseProgress = 0f;
-            }
-
-            // Level3 (phase 2)
-            if (currentPhase <= 2)
+            // 업그레이드면 Level3만 실행
+            if (isUpgrade)
             {
                 buildingAnimator.CrossFadeInFixedTime(AnimationState.Level3, TransitionDuration);
-                var timeInPhase = currentPhase == 2 ? levelTime * (1f - phaseProgress) : levelTime;
-                yield return new WaitForSeconds(timeInPhase);
+                yield return new WaitForSeconds(remainingTime);
+            }
+            else
+            {
+                // Level1, Level2, Level3에 1:1:1 비율로 배분
+                var levelTime = totalBuildTime / 3f;
+
+                // 현재 진행률 계산 (0 = 시작, 1 = 완료)
+                var progress = 1f - (remainingTime / totalBuildTime);
+
+                // 어느 단계부터 시작해야 하는지 계산
+                var currentPhase = Mathf.FloorToInt(progress * 3f);
+                var phaseProgress = (progress * 3f) - currentPhase;
+
+                // Level1 (phase 0)
+                if (currentPhase <= 0)
+                {
+                    buildingAnimator.CrossFadeInFixedTime(AnimationState.Level1, TransitionDuration);
+                    var timeInPhase = currentPhase == 0 ? levelTime * (1f - phaseProgress) : levelTime;
+                    yield return new WaitForSeconds(timeInPhase);
+                    currentPhase = 1;
+                    phaseProgress = 0f;
+                }
+
+                // Level2 (phase 1)
+                if (currentPhase <= 1)
+                {
+                    buildingAnimator.CrossFadeInFixedTime(AnimationState.Level2, TransitionDuration);
+                    var timeInPhase = currentPhase == 1 ? levelTime * (1f - phaseProgress) : levelTime;
+                    yield return new WaitForSeconds(timeInPhase);
+                    currentPhase = 2;
+                    phaseProgress = 0f;
+                }
+
+                // Level3 (phase 2)
+                if (currentPhase <= 2)
+                {
+                    buildingAnimator.CrossFadeInFixedTime(AnimationState.Level3, TransitionDuration);
+                    var timeInPhase = currentPhase == 2 ? levelTime * (1f - phaseProgress) : levelTime;
+                    yield return new WaitForSeconds(timeInPhase);
+                }
             }
 
             // Finish 루프로 전환

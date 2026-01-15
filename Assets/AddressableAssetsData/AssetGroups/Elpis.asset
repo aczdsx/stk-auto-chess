@@ -15,6 +15,21 @@ MonoBehaviour:
   m_GroupName: Elpis
   m_GUID: c8fb35a35886f4f28a3cde122d604f1a
   m_SerializeEntries:
+  - m_GUID: 5fff0cbd0377e134e88a27eb4febf82d
+    m_Address: 201
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7eae81efca809dd488f0efcd40f4a78d
+    m_Address: 101
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9eac3811c55fd314683717e7f4a05b7b
+    m_Address: 401
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f0df7316ef3175c4cb1ffcc6244a6093
     m_Address: Elpis
     m_ReadOnly: 0
