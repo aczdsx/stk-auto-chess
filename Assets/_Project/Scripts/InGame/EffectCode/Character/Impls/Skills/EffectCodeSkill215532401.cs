@@ -8,8 +8,7 @@ using UnityEngine;
 /// <summary>
 /// 필리아
 // 대상 : 가장 가까운 적
-// 대미지 : 샷건을 발사해 필리아 공격력 {0}%의 대미지를 가한다.
-//     특수 효과 : 스킬로 적을 사망 시켰을 시, 스킬 쿨타임이 즉시 초기화된다.
+// 대미지 : 하티 처럼 한명 한 발 쎄게 데미지를 준다.
 /// </summary>
 [UseEffectCodeIds(215532401)]
 public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
@@ -77,7 +76,7 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
     {
         base.Activate();
 
-        owner.Target = InGameObjectManager.Instance.GetFarthestTargetByManhattanDistance(owner);
+        owner.Target = InGameObjectManager.Instance.GetNearestTargetOnce(owner);
 
         var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
         if (!isInRange)
@@ -93,7 +92,11 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
 
         _isReadyToActivate = false;
         IsSkillActivated = true;
+        owner.GetCharacterView().LookAt(owner.CurrentTile, owner.Target.CurrentTile);
+
         owner.AddNextState<CharacterStateSkill>(this);
+
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.SkillRootTransformFollowable);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -102,47 +105,21 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
 
         if (owner.Target == null)
             return;
+        //shooot effect
+        var shootEffect = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillRootTransformFollowable);
 
-        InGameVfxNameType projectile = _specSkill.skill_vfxs[0];
+        var direction = (owner.Target.CurrentTile.View.CachedTr.position - owner.CurrentTile.View.CachedTr.position).normalized;
+        shootEffect.CachedTr.rotation = Quaternion.LookRotation(direction);
 
-        if (projectile != InGameVfxNameType.NONE)
-        {
-            if (owner == null || owner.IsAlive == false)
-            {
-                return;
-            }
-
-            Transform projectileTransform = owner.GetCharacterView().CachedFront ?
-            owner.GetCharacterView().ProjectileFrontTransform : owner.GetCharacterView().ProjectileBackTransform;
-
-            var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile,
-                projectileTransform.position);
-
-            var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
-
-            Vector3 direction =
-                (owner.Target.CurrentTile.View.CachedTr.position -
-                 owner.CurrentTile.View.CachedTr.position).normalized;
-            vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction);
-
-            movement.SetData(vfxProjectile.CachedTr.position,
-                owner.Target.GetCharacterView().CachedTr.position, 30f);
-            vfxProjectile.Initialize(false, movement);
-
-            void OnReachedTargetHandler()
-            {
-                OnReachedTargetProcess();
-
-                vfxProjectile.Remove();
-            }
-
-            movement.OnReachedTarget += OnReachedTargetHandler;
+        //hit effect
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2],owner.Target.SkillRootTransformFollowable);
 
 
+        var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, owner.Target, codeId, true);
+        owner.Target.GetDamaged(damage, owner);
 
+        IsSkillActivated = false;
 
-            IsSkillActivated = false;
-        }
     }
 
 

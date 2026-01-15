@@ -78,7 +78,6 @@ namespace CookApps.BattleSystem
                 var animatorVfx = jetPlaneVfx as InGameVfxWithAnimation;
                 animatorVfx.SetOnAnimationStartCallback(OnStartBomb);
                 animatorVfx.SetOnCustomAnimationEventCallback((eventKey, positions) => OnMiddleBomb(eventKey, positions));
-                animatorVfx.SetOnAnimationEndCallback(OnEndBomb);
             }
 
         }
@@ -171,15 +170,5 @@ namespace CookApps.BattleSystem
             int missileCount = _explosionOneTimeCount / 3;
             ShootMissiles(positions, missileCount);
         }
-
-        private void OnEndBomb(IReadOnlyList<Transform> positions)
-        {
-            Debug.Log("TS!! OnEndBomb");
-            // 나머지 미사일은 마지막 이벤트에서 발사
-            int missileCount = _explosionOneTimeCount - (_explosionOneTimeCount / 3) * 2;
-            ShootMissiles(positions, missileCount);
-        }
-
-        
     }
 }

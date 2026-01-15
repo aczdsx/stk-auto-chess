@@ -72,7 +72,7 @@ namespace CookApps.AutoBattler
         /// <returns>실행할 나니노벨 스크립트 이름 (없으면 null)</returns>
         public string GetTriggerOnGuideComplete(int missionId)
         {
-            return GetTrigger(NaninovelTriggerType.GUIDE_COMPLETE, missionId.ToString());
+            return GetTrigger(NaninovelTriggerType.GUIDE_TUTORIAL_COMPLETE, missionId.ToString());
         }
 
         /// <summary>
