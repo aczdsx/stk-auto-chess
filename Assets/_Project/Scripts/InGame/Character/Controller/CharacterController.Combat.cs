@@ -430,6 +430,20 @@ namespace CookApps.BattleSystem
                 _currHp = 0;
                 IsAlive = false;
 
+                // 튜토리얼 CHARACTER_DEAD 트리거 처리
+                if (TutorialManager.Instance != null && TutorialManager.Instance.IsTutorialAction(TutorialTriggerType.CHARACTER_DEAD))
+                {
+                    var tutorialTarget = GetCharacterView()?.gameObject.GetComponent<TutorialTarget>();
+                    if (tutorialTarget != null && !string.IsNullOrEmpty(tutorialTarget.TargetId))
+                    {
+                        Debug.LogColor($"튜토리얼 CHARACTER_DEAD 트리거 처리: {tutorialTarget.TargetId}", "green");
+                        TutorialManager.Instance.HandleTutorialAction(
+                            TutorialTriggerType.CHARACTER_DEAD,
+                            tutorialTarget.TargetId.ToString()
+                        );
+                    }
+                }
+
                 if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
                     || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat)
                 {
@@ -495,7 +509,7 @@ namespace CookApps.BattleSystem
                 recoveryAmount = EffectCodeJobPassiveRecovery.CalculateOracleSkillRecoveryAmount(this, target, recoveryAmount);
             }
 
-            recoveryAmount = Math.Round(recoveryAmount * (1f + GivenHealRate) *  (1f + target.GivenHealRate));
+            recoveryAmount = Math.Round(recoveryAmount * (1f + GivenHealRate) * (1f + target.GivenHealRate));
 
             // 속성, 크기, 종족에 따른 회복량 계산이 필요하다면 여기서 할 것
 

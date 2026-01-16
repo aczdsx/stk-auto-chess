@@ -1021,6 +1021,5 @@ namespace CookApps.AutoBattler
         STAGE_ENTER_NANI = 8,
         ENTER_CHAPTER_NANI = 9,
         ENTER_ELPIS_NANI = 10,
-        GUIDE_COMPLETE = 11,
     }
 }

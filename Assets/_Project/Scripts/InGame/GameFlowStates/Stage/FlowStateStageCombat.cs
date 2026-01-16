@@ -17,6 +17,10 @@ public class FlowStateStageCombat : StateCombatBase
     private bool _isWin;
     private bool _isClearStage;
 
+    // ENEMY_DEAD_ALL 튜토리얼 완료 후 Clear State 전환용
+    private bool _isWaitingEnemyDeadAllTutorial;
+    public static Action OnEnemyDeadAllTutorialCompleted;
+
     public override void StateInit(object target)
     {
         characters = ListPool<CharacterController>.Get();
@@ -152,10 +156,31 @@ public class FlowStateStageCombat : StateCombatBase
         if (characters.Count == 0)
         {
             _isClearStage = ServerDataManager.Instance.Battle.IsStageCleared((uint)InGameManager.Instance.SpecStage.stage_id);
-            _isEndCombat = true;
             _isWin = true;
             InGameManager.Instance.AppEventResult = (_isClearStage) ? "clear" : "pass";
             InGameManager.Instance.AppEventReason = (_isClearStage) ? "clear" : "pass";
+
+            // ENEMY_DEAD_ALL 튜토리얼 체크
+            bool hasEnemyDeadAllTutorial = TutorialManager.Instance != null
+                && TutorialManager.Instance.IsTutorial
+                && TutorialManager.Instance.IsTutorialAction(TutorialTriggerType.ENEMY_DEAD_ALL);
+
+            if (hasEnemyDeadAllTutorial && !_isWaitingEnemyDeadAllTutorial)
+            {
+                // 튜토리얼 완료 콜백 등록
+                _isWaitingEnemyDeadAllTutorial = true;
+                OnEnemyDeadAllTutorialCompleted = OnEnemyDeadAllTutorialCompletedHandler;
+
+                // 게임 일시정지 및 튜토리얼 시작
+                InGameMainFlowManager.Instance.Pause();
+                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENEMY_DEAD_ALL, "0");
+            }
+            else if (!_isWaitingEnemyDeadAllTutorial)
+            {
+                // 튜토리얼 없으면 바로 종료
+                _isEndCombat = true;
+            }
+            // _isWaitingEnemyDeadAllTutorial == true면 콜백 대기
         }
 
         if (InGameMain.GetInGameMain().InGameTime <= 0)
@@ -176,6 +201,10 @@ public class FlowStateStageCombat : StateCombatBase
 
     public override void StateEnd(bool isForced)
     {
+        // 콜백 정리 (비정상 종료 대비)
+        OnEnemyDeadAllTutorialCompleted = null;
+        _isWaitingEnemyDeadAllTutorial = false;
+
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
             character.RemoveSynergyEffectCodeALL();
@@ -188,6 +217,19 @@ public class FlowStateStageCombat : StateCombatBase
 
         ListPool<CharacterController>.Release(characters);
         characters = null;
+    }
+
+    /// <summary>
+    /// ENEMY_DEAD_ALL 튜토리얼 완료 후 호출되는 콜백
+    /// </summary>
+    private void OnEnemyDeadAllTutorialCompletedHandler()
+    {
+        OnEnemyDeadAllTutorialCompleted = null;
+        _isWaitingEnemyDeadAllTutorial = false;
+
+        // 게임 재개 및 종료 처리
+        InGameMainFlowManager.Instance.Resume();
+        _isEndCombat = true;
     }
 
     private async UniTask ChangeNextState(bool isWin)

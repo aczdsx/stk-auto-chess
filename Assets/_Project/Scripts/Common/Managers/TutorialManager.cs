@@ -54,6 +54,10 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
         // 튜토리얼 Canvas 동적 생성
         Debug.LogColor($"튜토리얼 초기화: {tutorialID} {_specTutorialDataList.Count}", "green");
+        foreach (var tutorialData in _specTutorialDataList)
+        {
+            Debug.LogColor($"튜토리얼 데이터: {tutorialData.tutorial_trigger_type} {tutorialData.tutorial_trigger_key}", "green");
+        }
         await CreateTutorialCanvas();
         return true;
     }
@@ -73,7 +77,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
         if (!handle.IsValid() || handle.Result == null)
         {
-            Debug.LogError($"TutorialCanvas prefab 로드 실패: {TUTORIAL_CANVAS_PREFAB_PATH}");
+            Debug.LogError($"튜토리얼 TutorialCanvas prefab 로드 실패: {TUTORIAL_CANVAS_PREFAB_PATH}");
             return;
         }
 
@@ -83,14 +87,14 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
         if (_canvas == null)
         {
-            Debug.LogError("TutorialCanvas prefab에 Canvas가 없습니다!");
+            Debug.LogError("튜토리얼 TutorialCanvas prefab에 Canvas가 없습니다!");
             DestroyTutorialCanvas();
             return;
         }
 
         if (_tutorialController == null)
         {
-            Debug.LogError("TutorialCanvas prefab에 TutorialController가 없습니다!");
+            Debug.LogError("튜토리얼 TutorialCanvas prefab에 TutorialController가 없습니다!");
             DestroyTutorialCanvas();
             return;
         }
@@ -126,6 +130,17 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
     public bool IsTutorialAction(TutorialTriggerType tutorialTriggerType)
     {
+        if (!IsTutorial)
+        {
+            return false;
+        }
+
+        if (_specTutorialDataList.Count == 0)
+        {
+            Debug.LogColor($"튜토리얼을 진행하는 스테이지가 아닙니다. tutorialTriggerType : {tutorialTriggerType}", "red");
+            return false;
+        }
+
         return _specTutorialDataList.Find(l => l.tutorial_trigger_type == tutorialTriggerType) != null;
     }
 
@@ -145,25 +160,25 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         // Canvas가 없으면 생성 시도
         if (_canvas == null || _tutorialController == null)
         {
-            Debug.LogWarning("TutorialCanvas가 생성되지 않았습니다. CheckAndInitTutorial을 먼저 호출하세요.");
+            Debug.LogWarning("튜토리얼 TutorialCanvas가 생성되지 않았습니다. CheckAndInitTutorial을 먼저 호출하세요.");
             return false;
         }
 
-        // List<TutorialDialogue> turnTutorialList =
-        //     _specTutorialDataList.FindAll(l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
-        //
-        // if (turnTutorialList.Count == 0)
-        // {
-        //     return false;
-        // }
-        //
-        // Debug.LogColor($"튜토리얼 처리: {tutorialTriggerType} {key} {turnTutorialList.Count}", "green");
-        //
-        // // 진행한 튜토리얼을 리스트에서 제거
-        // _specTutorialDataList.RemoveAll(l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
-        //
-        // _canvas.enabled = true;
-        // _tutorialController.SetTutorial(turnTutorialList, isLongShow);
+        List<TutorialDialogue> turnTutorialList =
+            _specTutorialDataList.FindAll(l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
+
+        if (turnTutorialList.Count == 0)
+        {
+            return false;
+        }
+
+        Debug.LogColor($"튜토리얼 처리: {tutorialTriggerType} {key} {turnTutorialList.Count}", "green");
+
+        // 진행한 튜토리얼을 리스트에서 제거
+        _specTutorialDataList.RemoveAll(l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
+
+        _canvas.enabled = true;
+        _tutorialController.SetTutorial(turnTutorialList, isLongShow);
 
         return true;
     }
@@ -183,6 +198,12 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
         // SPAWN_ENEMY로 인해 게임이 일시 정지된 경우 재생
         TutorialActionSpawnEnemy.ResumeGameIfPaused();
+
+        // SKILL_READY 튜토리얼 완료 후 대기 스킬 발동 및 게임 재개
+        CookApps.BattleSystem.CharacterController.ResumeAfterSkillReadyTutorial();
+
+        // ENEMY_DEAD_ALL 튜토리얼 완료 후 Clear State 전환
+        FlowStateStageCombat.OnEnemyDeadAllTutorialCompleted?.Invoke();
 
         // 모든 튜토리얼이 완료되었는지 확인 (리스트가 비어있으면 완료)
         if (_specTutorialDataList.Count == 0)

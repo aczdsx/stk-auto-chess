@@ -55,6 +55,52 @@ namespace CookApps.BattleSystem
             return _statData;
         }
 
+        // SKILL_READY 튜토리얼 대기 중인 스킬 이펙트 코드
+        private EffectCodeCharacterBase _pendingSkillEffectCode;
+
+        // SKILL_READY 튜토리얼 대기 중인 캐릭터 (static으로 마지막 대기 캐릭터 저장)
+        private static CharacterController _pendingSkillCharacter;
+
+        /// <summary>
+        /// SKILL_READY 튜토리얼 완료 후 대기 중인 스킬 발동 및 게임 재개
+        /// </summary>
+        public static void ResumeAfterSkillReadyTutorial()
+        {
+            if (_pendingSkillCharacter != null)
+            {
+                var character = _pendingSkillCharacter;
+                _pendingSkillCharacter = null;
+
+                // 게임 재개
+                InGameMainFlowManager.Instance.Resume();
+
+                // 대기 중인 스킬 발동
+                character.ActivatePendingSkill();
+            }
+        }
+
+        /// <summary>
+        /// SKILL_READY 튜토리얼 완료 후 대기 중인 스킬 발동
+        /// </summary>
+        public void ActivatePendingSkill()
+        {
+            if (_pendingSkillEffectCode != null)
+            {
+                var skillToActivate = _pendingSkillEffectCode;
+                _pendingSkillEffectCode = null;
+                skillToActivate.Activate();
+            }
+        }
+
+        /// <summary>
+        /// SKILL_READY 튜토리얼 대기 상태 설정
+        /// </summary>
+        private void SetPendingSkillForTutorial(EffectCodeCharacterBase effectCode)
+        {
+            _pendingSkillEffectCode = effectCode;
+            _pendingSkillCharacter = this;
+        }
+
         private AsyncOperationHandle<GameObject> _viewHandle;
         private SpriteCharacterView _view = null;
 
@@ -655,7 +701,27 @@ namespace CookApps.BattleSystem
                 EffectCodeStatBase effectCode = EffectCodeForLoopHelper.ReturnFirst(effectCodes, EffectCodeCharacterLambda.CallIsReadyToActivateLambda);
                 if (effectCode is EffectCodeCharacterBase runEffectCode)
                 {
-                    runEffectCode.Activate();
+                    // SKILL_READY 튜토리얼 체크 - 스킬 준비 시 게임 일시정지 및 튜토리얼 표시
+                    if (TutorialManager.Instance != null &&
+                        TutorialManager.Instance.IsTutorial &&
+                        TutorialManager.Instance.IsTutorialAction(TutorialTriggerType.SKILL_READY))
+                    {
+                        // 스킬 발동 대기 상태 설정
+                        SetPendingSkillForTutorial(runEffectCode);
+
+                        // 게임 일시정지
+                        InGameMainFlowManager.Instance.Pause();
+
+                        // 튜토리얼 트리거 호출 (캐릭터 ID를 키로)
+                        TutorialManager.Instance.HandleTutorialAction(
+                            TutorialTriggerType.SKILL_READY,
+                            CharacterId.ToString());
+                    }
+                    else if (_pendingSkillEffectCode == null)
+                    {
+                        // 튜토리얼이 없거나 대기 중이 아니면 바로 발동
+                        runEffectCode.Activate();
+                    }
                 }
             }
 
