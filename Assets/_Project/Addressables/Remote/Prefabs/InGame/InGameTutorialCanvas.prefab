@@ -1504,6 +1504,7 @@ MonoBehaviour:
   _nextObj: {fileID: 5408735106140569227}
   _descText: {fileID: 4456396397753583302}
   _targetSpawnTransform: {fileID: 615909104438107504}
+  _dimmedImage: {fileID: 1749412231986122217}
   _worldArrowRectTransform: {fileID: 0}
   _spriteLoaderCharacter: {fileID: 1335074474554754720}
   _tutorialCanvas: {fileID: 5843720747380964665}

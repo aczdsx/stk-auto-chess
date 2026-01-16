@@ -35,31 +35,6 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 퀘스트 진행 사항 업데이트
-        /// </summary>
-        public async UniTask<QuestUpdateQuestProgressResponse> UpdateQuestProgressAsync(uint questId, Tech.Hive.V1.QuestType questType, uint addCurrentCount, CancellationToken cancellationToken = default)
-        {
-            QuestUpdateQuestProgressResponse resp = await ExecuteWithCommonErrorCheck(
-                ServiceClient.UpdateQuestProgressAsync,
-                new QuestUpdateQuestProgressRequest
-                {
-                    QuestId = questId,
-                    QuestType = questType,
-                    AddCurrentCount = addCurrentCount
-                },
-                cancellationToken: cancellationToken
-            );
-
-            // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.IsSuccess && resp.Quest != null)
-            {
-                ServerDataManager.Instance.Quest.UpdateQuest(resp.Quest);
-            }
-
-            return resp;
-        }
-
-        /// <summary>
         /// 퀘스트 보상 수령
         /// </summary>
         public async UniTask<QuestClaimQuestRewardResponse> ClaimQuestRewardAsync(uint questId, Tech.Hive.V1.QuestType questType, uint? dateIndex = null, CancellationToken cancellationToken = default)

@@ -54,6 +54,7 @@ message DeckSaveRequest {
   string deck_name = 2;
   repeated DeckCharacterPlacement character_placements = 3;
   repeated DeckTacticPlacement tactic_placements = 4;
+  bytes client_data = 5;
 }
 
 message DeckSaveResponse {

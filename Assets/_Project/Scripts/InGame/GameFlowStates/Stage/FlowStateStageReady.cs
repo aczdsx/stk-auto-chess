@@ -1,15 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Resources;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using CookApps.Obfuscator;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
 using Unity.Mathematics;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
@@ -104,7 +100,10 @@ public class FlowStateStageReady : StateReadyBase
                 typeof(CharacterStateReady), false, HpBarType.None));
         }
 
-        var battleDeckList = ServerDataManager.Instance.Deck.GetBattleDeckListByInGameType(InGameType.STAGE);
+        var deckData = ServerDataManager.Instance.Deck.GetDeck(InGameType.STAGE);
+        var battleDeckList = deckData != null
+            ? new List<DeckCharacterPlacement>(deckData.CharacterPlacements)
+            : new List<DeckCharacterPlacement>();
 
         // LINQ 제거: 직접 루프로 유효하지 않은 캐릭터 제거
         for (int i = battleDeckList.Count - 1; i >= 0; i--)
@@ -164,7 +163,7 @@ public class FlowStateStageReady : StateReadyBase
         {
             if (_specStage.stage_number == 1)
             {
-                InGameMain.GetInGameMain().SetAlertBottomCharacter(113422301);//멘샤
+                InGameMain.GetInGameMain().SetAlertBottomCharacter(2301);//멘샤
             }
             else if (_specStage.stage_number == 6)
             {
@@ -172,23 +171,23 @@ public class FlowStateStageReady : StateReadyBase
                 for (int i = battleDeckList.Count - 1; i >= 0; i--)
                 {
                     var characterData = ServerDataManager.Instance.Character.GetCharacter(battleDeckList[i].CharacterId);
-                    if (characterData != null && characterData.CharacterId == 113252102)
+                    if (characterData != null && characterData.CharacterId == 2102)
                     {
                         battleDeckList.RemoveAt(i);
                     }
                 }
-                InGameMain.GetInGameMain().SetAlertBottomCharacter(113642501);//엘리스
+                InGameMain.GetInGameMain().SetAlertBottomCharacter(2501);//엘리스
             }
             else if (_specStage.stage_number == 11)
             {
-                InGameMain.GetInGameMain().SetAlertBottomCharacter(114653505);//엔키
+                InGameMain.GetInGameMain().SetAlertBottomCharacter(3505);//엔키
             }
         }
         else if (_specStage.chapter_id == 3)
         {
             if (_specStage.stage_number == 6)
             {
-                InGameMain.GetInGameMain().SetAlertBottomCharacter(113362202);//시이나
+                InGameMain.GetInGameMain().SetAlertBottomCharacter(2202);//시이나
             }
         }
     }
@@ -266,6 +265,33 @@ public class FlowStateStageReady : StateReadyBase
 
     public override void StateEnd(bool isForced)
     {
+        SaveCurrentDeckAsync().Forget();
+    }
+
+    private async UniTaskVoid SaveCurrentDeckAsync()
+    {
+        var characterPlacements = new List<DeckCharacterPlacement>();
+        var playerCharacters = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
+
+        foreach (var character in playerCharacters)
+        {
+            if (character?.CurrentTile == null) continue;
+
+            characterPlacements.Add(new DeckCharacterPlacement
+            {
+                CharacterId = (uint)character.CharacterId,
+                GridX = character.CurrentTile.X,
+                GridY = character.CurrentTile.Y
+            });
+        }
+
+        var additionalData = new DeckAdditionalData()
+        {
+            supernovaCharacterId = 110101
+        };
+        
+        // STAGE의 덱 슬롯 ID는 1
+        await NetManager.Instance.Deck.SaveAsync((int)InGameType.STAGE, string.Empty, characterPlacements, clientData: additionalData.ToGrpcData());
     }
 
     private void SpawnRuleTiles()

@@ -160,16 +160,19 @@ public class InGameBottomUI : MonoBehaviour
             int addCharacterCount = _characterItemList.Count >= maximumCharacterCount
                 ? maximumCharacterCount
                 : _characterItemList.Count;
-            List<InGameCharacterItem> selectedCharacterItemList = _characterItemList.GetRange(0, addCharacterCount);
-            List<CharacterStatData> statDataList = selectedCharacterItemList.Select(item => item.StatData).ToList();
+            List<CharacterStatData> statDataList = _characterItemList
+                .Take(addCharacterCount)
+                .Where(item => item.StatData != null)
+                .Select(item => item.StatData)
+                .ToList();
 
+            // 슬롯 제거 및 데이터 정리
             foreach (var statData in statDataList)
             {
+                RemoveSlotByCharacterId(statData.CharacterId);
                 _allCharacterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
             }
             RefreshFilteredList();
-
-            UpdateData();
 
             await AddCharacterToTile(statDataList);
 
@@ -231,11 +234,12 @@ public class InGameBottomUI : MonoBehaviour
             var characterData = ServerDataManager.Instance.Character.GetCharacter(battleDeck.CharacterId);
             if (characterData != null)
             {
+                // 슬롯 제거
+                RemoveSlotByCharacterId((int)characterData.CharacterId);
                 _allCharacterStats.RemoveAll(l => l.CharacterId == characterData.CharacterId);
             }
         }
         RefreshFilteredList();
-        UpdateData();
         InGameManager.Instance.UpdateSynergyAndAttr();
         SetCharacterCountText();
         UpdatePreviewSynergyEffectCode();
@@ -317,7 +321,6 @@ public class InGameBottomUI : MonoBehaviour
         _characterItemList.Clear();
         BMUtil.RemoveChildObjects(_inGameCharacterItemTransform);
         _allCharacterStats = new List<CharacterStatData>();
-        UserDataManager userDataManagerInstance = UserDataManager.Instance;
 
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
             SetCommanderSkillUI(i, ServerDataManager.Instance.CommanderSkill.GetEquippedCommanderSkillId(i));
@@ -367,7 +370,6 @@ public class InGameBottomUI : MonoBehaviour
 
     public void InitCommanderSkill()
     {
-        UserDataManager userDataManagerInstance = UserDataManager.Instance;
         SpecDataManager specDataManagerInstance = SpecDataManager.Instance;
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
         {
@@ -398,18 +400,7 @@ public class InGameBottomUI : MonoBehaviour
 
     public void UpdateData()
     {
-        for (int i = 0; i < _characterItemList.Count; i++)
-        {
-            if (i < _characterStats.Count)
-            {
-                _characterItemList[i].SetData(this, _characterStats[i], AddCharacterToTile);
-            }
-            else
-            {
-                _characterItemList[i].SetData(this, null, null);
-            }
-        }
-
+        // 슬롯과 데이터가 1:1 매핑되므로 별도 갱신 불필요
         PlayStageBattleFx();
     }
 
@@ -497,7 +488,10 @@ public class InGameBottomUI : MonoBehaviour
 
         // 필터 적용 후 _characterStats 갱신
         RefreshFilteredList();
-        UpdateData();
+
+        // 슬롯 생성 (필터 통과 시에만)
+        AddSlotForCharacter(stat);
+
         SetCharacterCountText();
         InGameTouchManager.Instance.SelectedFirstTileID = -1;
     }
@@ -509,9 +503,10 @@ public class InGameBottomUI : MonoBehaviour
     {
         if (statData == null) return;
 
+        // 슬롯 제거
+        RemoveSlotByCharacterId(statData.CharacterId);
         _allCharacterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
         RefreshFilteredList();
-        UpdateData();
         InGameManager.Instance.UpdateSynergyAndAttr();
         SetCharacterCountText();
         InGameTouchManager.Instance.SelectedFirstTileID = -1;
@@ -537,9 +532,10 @@ public class InGameBottomUI : MonoBehaviour
         }
         else
         {
+            // 슬롯 제거
+            RemoveSlotByCharacterId(statData.CharacterId);
             _allCharacterStats.RemoveAll(l => l.CharacterId == statData.CharacterId);
             RefreshFilteredList();
-            UpdateData();
 
             Debug.Log($"AddBoardCharacter: {statData.CharacterId}");
             var ingameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(statData.Spec);
@@ -607,21 +603,27 @@ public class InGameBottomUI : MonoBehaviour
 
     public void SetCharacterCountText()
     {
-        var userGrade =
-            SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+        var userKnightCount = SpecDataManager.Instance.GetUserKnightCountByNestCount().maximum_character_count;
+        var batchedCharacterCount = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count;
 
-        int characterCount = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count;
-        int maximumCount = userGrade.maximum_character_count;
+        string colorCode = batchedCharacterCount == 0 ? "#CA6E71" : "#C5C5B2";
+        _characterCountText.text = $"<color={colorCode}>{batchedCharacterCount}</color>/{userKnightCount}";
 
-        string colorCode = characterCount == 0 ? "#CA6E71" : "#C5C5B2";
-        _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
-
-        bool isAvailableRecommend = maximumCount != characterCount;
+        var isAvailableRecommend = userKnightCount != batchedCharacterCount;
 
         if (_recommendObjOff != null)
             _recommendObjOff.SetActive(!isAvailableRecommend);
         if (_recommendObjOn != null)
             _recommendObjOn.SetActive(isAvailableRecommend);
+
+        // var userGrade =
+        //     SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+
+        // int characterCount = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count;
+        // int maximumCount = userGrade.maximum_character_count;
+
+        // string colorCode = characterCount == 0 ? "#CA6E71" : "#C5C5B2";
+        // _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
     }
 
     public void SetFocusCharacterUI(CharacterInfo spec)
@@ -909,6 +911,62 @@ public class InGameBottomUI : MonoBehaviour
 
         tutorialTarget.SetTargetId(targetId);
     }
+
+    #region Slot Management
+
+    /// <summary>
+    /// 캐릭터 ID로 슬롯 찾아서 제거
+    /// </summary>
+    private void RemoveSlotByCharacterId(int characterId)
+    {
+        var item = _characterItemList.Find(l => l.StatData != null && l.StatData.CharacterId == characterId);
+        if (item != null)
+        {
+            _characterItemList.Remove(item);
+            Destroy(item.gameObject);
+        }
+    }
+
+    /// <summary>
+    /// 캐릭터 반환 시 정렬된 위치에 슬롯 생성
+    /// </summary>
+    private void AddSlotForCharacter(CharacterStatData statData)
+    {
+        if (statData == null) return;
+
+        // 필터 통과하지 못하면 슬롯 생성 안함
+        if (!PassFilter(statData)) return;
+
+        // CP 기준으로 삽입 위치 찾기
+        int insertIndex = 0;
+        double newCP = statData.GetAttrValueCP();
+        for (int i = 0; i < _characterItemList.Count; i++)
+        {
+            if (_characterItemList[i].StatData != null &&
+                _characterItemList[i].StatData.GetAttrValueCP() > newCP)
+            {
+                insertIndex = i + 1;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        // 슬롯 생성 및 삽입
+        var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
+        characterItem.SetData(this, statData, AddCharacterToTile);
+        _characterItemList.Insert(insertIndex, characterItem);
+        characterItem.transform.SetSiblingIndex(insertIndex);
+
+        // 튜토리얼 중이면 TutorialTarget 등록
+        if (TutorialManager.Instance.HasTutorialStage)
+        {
+            RegisterCharacterItemForTutorial(characterItem, statData.CharacterId);
+        }
+    }
+
+    #endregion
 
     #region Filter
 

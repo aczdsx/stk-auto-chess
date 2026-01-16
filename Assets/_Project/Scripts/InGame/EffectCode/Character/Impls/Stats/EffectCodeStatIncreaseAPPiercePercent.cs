@@ -28,7 +28,7 @@ public partial class EffectCodeStatIncreaseAPPiercePercent : EffectCodeStatBase
     {
         base.Merge(codeInfo, source);
         // 덮어 씌우고 싶을 때
-        increment = codeInfo.GetCodeStat(0);
+        // increment = codeInfo.GetCodeStat(0);
         if (codeInfo.HasCodeStat(1))
         {
             calcOrder = codeInfo.GetCodeStatToInt(1);
@@ -38,7 +38,7 @@ public partial class EffectCodeStatIncreaseAPPiercePercent : EffectCodeStatBase
             calcOrder = 0;
         }
         // 더하고 싶을 때
-        // increment += codeInfo.GetCodeStat(1);
+        increment += codeInfo.GetCodeStat(0);
     }
 
     public override double GetIncrementPercentAPPierce()

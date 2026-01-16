@@ -64,6 +64,12 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         {
             inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter);
         }
+
+        if (TutorialManager.Instance.IsTutorial)
+        {
+            inGameTile = InGameObjectManager.Instance.InGameGrid.GetTile(11);
+        }
+
         int2 pos = new int2(inGameTile.X, inGameTile.Y);
 
         var statData = new CharacterStatData(battleItemId, 1, 1, 1);
@@ -74,6 +80,16 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             character: character,
             source: source,
             itemInfoHandler: this);
+
+        if (TutorialManager.Instance.IsTutorial)
+        {
+            TutorialTarget tutorialTarget = inGameTile.View.transform.GetComponent<TutorialTarget>();
+            if (tutorialTarget == null)
+            {
+                tutorialTarget = inGameTile.View.gameObject.AddComponent<TutorialTarget>();
+            }
+            tutorialTarget.SetTargetId("SupernovaItemTile_11");
+        }
         InGameSynergyManager.Instance.RegisterBattleItem(itemInfo);
     }
 
@@ -280,7 +296,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             break;
         }
     }
-    
+
     private InGameVfxNameType GetSupernovaVfxName(int synergyGrade)
     {
         return synergyGrade == 1 ? InGameVfxNameType.fx_common_asterism_sn_aura_01 :

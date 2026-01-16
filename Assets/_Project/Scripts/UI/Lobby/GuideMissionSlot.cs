@@ -9,6 +9,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle.Utility;
 using Tech.Hive.V1;
 
 namespace CookApps.AutoBattler
@@ -170,9 +171,6 @@ namespace CookApps.AutoBattler
             // 보상 팝업 표시
             SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), callback =>
             {
-                // UI 갱신
-                GuideMissionManager.Instance.RefreshGuideMissionUI();
-
                 // 앱이벤트 처리
                 AppEventManager.Instance.GuideMissionClear(_specGuideMissionData.order);
             }).Forget();
@@ -226,7 +224,7 @@ namespace CookApps.AutoBattler
                     return;
                 }
             }
-            GuideMissionManager.Instance.UpdateGuideMissionAlert();
+            ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert)?.UpdateAlert();
         }
     }
 }

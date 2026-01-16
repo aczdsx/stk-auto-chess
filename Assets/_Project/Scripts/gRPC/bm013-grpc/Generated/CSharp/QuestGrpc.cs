@@ -50,10 +50,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.QuestListDailyQuestResponse> __Marshaller_tech_hive_v1_QuestListDailyQuestResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.QuestListDailyQuestResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.QuestUpdateQuestProgressRequest> __Marshaller_tech_hive_v1_QuestUpdateQuestProgressRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.QuestUpdateQuestProgressRequest.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.QuestUpdateQuestProgressResponse> __Marshaller_tech_hive_v1_QuestUpdateQuestProgressResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.QuestUpdateQuestProgressResponse.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.QuestClaimQuestRewardRequest> __Marshaller_tech_hive_v1_QuestClaimQuestRewardRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.QuestClaimQuestRewardRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.QuestClaimQuestRewardResponse> __Marshaller_tech_hive_v1_QuestClaimQuestRewardResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.QuestClaimQuestRewardResponse.Parser));
@@ -65,14 +61,6 @@ namespace Tech.Hive.V1 {
         "ListDailyQuest",
         __Marshaller_tech_hive_v1_QuestListDailyQuestRequest,
         __Marshaller_tech_hive_v1_QuestListDailyQuestResponse);
-
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.QuestUpdateQuestProgressRequest, global::Tech.Hive.V1.QuestUpdateQuestProgressResponse> __Method_UpdateQuestProgress = new grpc::Method<global::Tech.Hive.V1.QuestUpdateQuestProgressRequest, global::Tech.Hive.V1.QuestUpdateQuestProgressResponse>(
-        grpc::MethodType.Unary,
-        __ServiceName,
-        "UpdateQuestProgress",
-        __Marshaller_tech_hive_v1_QuestUpdateQuestProgressRequest,
-        __Marshaller_tech_hive_v1_QuestUpdateQuestProgressResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Tech.Hive.V1.QuestClaimQuestRewardRequest, global::Tech.Hive.V1.QuestClaimQuestRewardResponse> __Method_ClaimQuestReward = new grpc::Method<global::Tech.Hive.V1.QuestClaimQuestRewardRequest, global::Tech.Hive.V1.QuestClaimQuestRewardResponse>(
@@ -101,19 +89,6 @@ namespace Tech.Hive.V1 {
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.QuestListDailyQuestResponse> ListDailyQuest(global::Tech.Hive.V1.QuestListDailyQuestRequest request, grpc::ServerCallContext context)
-      {
-        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-      }
-
-      /// <summary>
-      ///*
-      /// 퀘스트 진행 사항 업데이트
-      /// </summary>
-      /// <param name="request">The request received from the client.</param>
-      /// <param name="context">The context of the server-side call handler being invoked.</param>
-      /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.QuestUpdateQuestProgressResponse> UpdateQuestProgress(global::Tech.Hive.V1.QuestUpdateQuestProgressRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -214,58 +189,6 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// 퀘스트 진행 사항 업데이트
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.QuestUpdateQuestProgressResponse UpdateQuestProgress(global::Tech.Hive.V1.QuestUpdateQuestProgressRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return UpdateQuestProgress(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 퀘스트 진행 사항 업데이트
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The response received from the server.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.QuestUpdateQuestProgressResponse UpdateQuestProgress(global::Tech.Hive.V1.QuestUpdateQuestProgressRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_UpdateQuestProgress, null, options, request);
-      }
-      /// <summary>
-      ///*
-      /// 퀘스트 진행 사항 업데이트
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.QuestUpdateQuestProgressResponse> UpdateQuestProgressAsync(global::Tech.Hive.V1.QuestUpdateQuestProgressRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return UpdateQuestProgressAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      /// <summary>
-      ///*
-      /// 퀘스트 진행 사항 업데이트
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The call object.</returns>
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.QuestUpdateQuestProgressResponse> UpdateQuestProgressAsync(global::Tech.Hive.V1.QuestUpdateQuestProgressRequest request, grpc::CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_UpdateQuestProgress, null, options, request);
-      }
-      /// <summary>
-      ///*
       /// 퀘스트 보상 수령
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
@@ -331,7 +254,6 @@ namespace Tech.Hive.V1 {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_ListDailyQuest, serviceImpl.ListDailyQuest)
-          .AddMethod(__Method_UpdateQuestProgress, serviceImpl.UpdateQuestProgress)
           .AddMethod(__Method_ClaimQuestReward, serviceImpl.ClaimQuestReward).Build();
     }
 
@@ -343,7 +265,6 @@ namespace Tech.Hive.V1 {
     public static void BindService(grpc::ServiceBinderBase serviceBinder, QuestServiceBase serviceImpl)
     {
       serviceBinder.AddMethod(__Method_ListDailyQuest, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.QuestListDailyQuestRequest, global::Tech.Hive.V1.QuestListDailyQuestResponse>(serviceImpl.ListDailyQuest));
-      serviceBinder.AddMethod(__Method_UpdateQuestProgress, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.QuestUpdateQuestProgressRequest, global::Tech.Hive.V1.QuestUpdateQuestProgressResponse>(serviceImpl.UpdateQuestProgress));
       serviceBinder.AddMethod(__Method_ClaimQuestReward, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.QuestClaimQuestRewardRequest, global::Tech.Hive.V1.QuestClaimQuestRewardResponse>(serviceImpl.ClaimQuestReward));
     }
 

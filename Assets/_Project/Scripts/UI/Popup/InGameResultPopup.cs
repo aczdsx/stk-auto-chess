@@ -161,7 +161,7 @@ namespace CookApps.AutoBattler
             if (_popupParam.IsVictory)
             {
                 CheckLatestStageClear();
-                CreateRewardItems();
+                CreateRewardItemSlots();
 
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_victory_001);
             }
@@ -211,20 +211,8 @@ namespace CookApps.AutoBattler
 
         private async UniTask OnNextStageButtonClickedAsync()
         {
-            // SceneTransition.Create<SceneTransition_FadeInOut>();
-            await SceneTransition.FadeInAsync();
-            // SceneLoading.GoToNextScene("Lobby", (int)InGameManager.Instance.SpecStage.chapter_id, transition).Forget();
-
-            //InGameManager.Instance.EndInGame();
-
             // 최종 챕터/스테이지 여부 체크
             if (_isEndChapter) return;
-
-            // TODO: 행동력 검사
-            // if (!UserDataManager.Instance.CheckEnoughItem(IdMap.Item.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
-            // {
-            //     return;
-            // }
 
             int targetChapterID = InGameManager.Instance.SpecStage.chapter_id;
             int targetStageNumber = InGameManager.Instance.SpecStage.stage_number;
@@ -240,23 +228,54 @@ namespace CookApps.AutoBattler
 
             var nextStageData = SpecDataManager.Instance.GetStageData(targetChapterID, targetStageNumber, InGameManager.Instance.SpecStage.difficulty_type);
 
-            SceneLoading.GoToNextScene("InGame",
-                (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), nextStageData.stage_id));
+            // 행동력 검사
+            if (!ServerDataManager.Instance.Inventory.HasEnoughCurrency(IdMap.Item.ActionPoint, (ulong)nextStageData.need_ap))
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_AP");
+                return;
+            }
+            
+            // 서버에 전투 시작 요청
+            var inGameParams = await NetManager.Instance.Battle.StartAsync(
+                nextStageData.chapter_id,
+                nextStageData.stage_id,
+                0,
+                Array.Empty<string>());
+            if (inGameParams == null)
+            {
+                // ToastManager.Instance.ShowToastByTokenKey("ERROR_UNKNOWN");
+                return;
+            }
+            
+            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+            await SceneTransition.FadeInAsync();
+            SceneLoading.GoToNextScene("InGame", inGameParams);
         }
 
-        private UniTask OnClickRetryStageButtonAsync()
+        private async UniTask OnClickRetryStageButtonAsync()
         {
-            // TODO: 행동력 검사
-            // if (!UserDataManager.Instance.CheckEnoughItem(IdMap.Item.ActionPoint, InGameManager.Instance.SpecStage.need_ap, true))
-            // {
-            //     return;
-            // }
+            // 행동력 검사
+            if (!ServerDataManager.Instance.Inventory.HasEnoughCurrency(IdMap.Item.ActionPoint, (ulong)InGameManager.Instance.SpecStage.need_ap))
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_AP");
+                return;
+            }
+            
+            // 서버에 전투 시작 요청
+            var inGameParams = await NetManager.Instance.Battle.StartAsync(
+                InGameManager.Instance.SpecStage.chapter_id,
+                InGameManager.Instance.SpecStage.stage_id,
+                0,
+                Array.Empty<string>());
+            if (inGameParams == null)
+            {
+                // ToastManager.Instance.ShowToastByTokenKey("ERROR_UNKNOWN");
+                return;
+            }
 
-            //InGameManager.Instance.EndInGame();
-            SceneLoading.GoToNextScene("InGame",
-                (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), InGameManager.Instance.SpecStage.stage_id));
-
-            return UniTask.CompletedTask;
+            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+            await SceneTransition.FadeInAsync();
+            SceneLoading.GoToNextScene("InGame", inGameParams);
         }
 
         // 가장 높은 스테이지 클리어 여부 체크
@@ -290,10 +309,8 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private void CreateRewardItems()
+        private void CreateRewardItemSlots()
         {
-            List<RewardItem> resultItemList = new List<RewardItem>();   // 보상 지급용 리워드 리스트
-
             for (var i = 0; i < _popupParam.Rewards.Count; i++)
             {
                 var rewardItem = _popupParam.Rewards[i];
@@ -301,8 +318,6 @@ namespace CookApps.AutoBattler
 
                 var rewardItemSlot = Instantiate(_rewardItemSlotObj, _rewardsTransform).GetComponent<RewardItemSlot>();
                 rewardItemSlot.SetRewardSlot(newItem);
-
-                resultItemList.Add(newItem);
             }
         }
 
@@ -310,8 +325,8 @@ namespace CookApps.AutoBattler
         private void SendStageEndAppEvent(string result, string reason)
         {
             // 앱 이벤트 처리
-            var myDeck = ServerDataManager.Instance.Deck.GetBattleDeckListByInGameType(InGameType.STAGE);
-            int myDeckPower = ServerDataManager.Instance.Deck.GetDeckBattlePower(myDeck);
+            var myDeck = ServerDataManager.Instance.Deck.GetDeck(InGameType.STAGE);
+            int myDeckPower = DeckModel.GetDeckBattlePower(myDeck);
             int enemyPower = (int)InGameObjectManager.Instance.GetStartingEnemiesAttr();
 
             int[] starNums = new int[] { 0, 0, 0 };
@@ -325,7 +340,7 @@ namespace CookApps.AutoBattler
 
             var battleTime = 60 - InGameMain.GetInGameMain().InGameTime;
 
-            AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.id, InGameManager.Instance.SpecStage.stage_id, battleTime, myDeck.Count,
+            AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.id, InGameManager.Instance.SpecStage.stage_id, battleTime, myDeck?.CharacterPlacements.Count ?? 0,
                 myDeckPower, enemyPower, result, reason, clearCondition);
         }
     }

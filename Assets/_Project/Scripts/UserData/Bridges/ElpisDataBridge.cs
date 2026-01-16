@@ -126,6 +126,11 @@ namespace CookApps.AutoBattler
 
         #region 코어 연구 관련
 
+        public IReadOnlyList<ElpisDimensionLab> GetCurrentDimensionCoreLabs()
+        {
+            return Model?.CachedElpisDimensionLabs;
+        }
+
         /// <summary>
         /// 코어 연구 가져오기
         /// </summary>

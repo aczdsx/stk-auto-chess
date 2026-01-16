@@ -24,50 +24,25 @@ namespace Tech.Hive.V1 {
     static EventDataReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBldmVudCtkYXRhLnByb3RvEgx0ZWNoLmhpdmUudjEaE2N1c3RvbV9jb21t",
-            "b24ucHJvdG8i4gEKCUV2ZW50RGF0YRIQCghldmVudF9pZBgBIAEoDRIVCg1j",
-            "dXJyZW50X2NvdW50GAIgASgNEhcKD3N0YXJ0X3RpbWVzdGFtcBgDIAEoBBIV",
-            "Cg1lbmRfdGltZXN0YW1wGAQgASgEEh8KF2V2ZW50X3JlZnJlc2hfdGltZXN0",
-            "YW1wGAUgASgEEiUKHWV2ZW50X2V4dHJhX3JlZnJlc2hfdGltZXN0YW1wGAYg",
-            "ASgEEjQKCmNvbmRpdGlvbnMYByADKAsyIC50ZWNoLmhpdmUudjEuRXZlbnRD",
-            "b25kaXRpb25EYXRhIrgBChJFdmVudENvbmRpdGlvbkRhdGESGgoSZXZlbnRf",
-            "Y29uZGl0aW9uX2lkGAEgASgNEhcKD2NvbmRpdGlvbl9vcmRlchgCIAEoDRIU",
-            "Cgx0YXJnZXRfdmFsdWUYAyABKA0SMAoFc3RhdGUYBCABKA4yIS50ZWNoLmhp",
-            "dmUudjEuRXZlbnRDb25kaXRpb25TdGF0ZRIlCgdyZXdhcmRzGAUgAygLMhQu",
-            "dGVjaC5oaXZlLnYxLlJld2FyZCqvAQoTRXZlbnRDb25kaXRpb25TdGF0ZRIl",
-            "CiFFVkVOVF9DT05ESVRJT05fU1RBVEVfVU5TUEVDSUZJRUQQABIlCiFFVkVO",
-            "VF9DT05ESVRJT05fU1RBVEVfTk9UX1NUQVJURUQQARIlCiFFVkVOVF9DT05E",
-            "SVRJT05fU1RBVEVfSU5fUFJPR1JFU1MQAhIjCh9FVkVOVF9DT05ESVRJT05f",
-            "U1RBVEVfQ09NUExFVEVEEANiBnByb3RvMw=="));
+            "ChBldmVudCtkYXRhLnByb3RvEgx0ZWNoLmhpdmUudjEi+wEKCUV2ZW50RGF0",
+            "YRIQCghldmVudF9pZBgBIAEoDRIXCg9zdGFydF90aW1lc3RhbXAYAiABKAQS",
+            "FQoNZW5kX3RpbWVzdGFtcBgDIAEoBBIfChdldmVudF9yZWZyZXNoX3RpbWVz",
+            "dGFtcBgEIAEoBBIlCh1ldmVudF9leHRyYV9yZWZyZXNoX3RpbWVzdGFtcBgF",
+            "IAEoBBI0Cgpjb25kaXRpb25zGAYgAygLMiAudGVjaC5oaXZlLnYxLkV2ZW50",
+            "Q29uZGl0aW9uRGF0YRIXCg9ldmVudF91bmlxdWVfaWQYByABKAkSFQoNY3Vy",
+            "cmVudF9jb3VudBgIIAEoDSJFChJFdmVudENvbmRpdGlvbkRhdGESGgoSZXZl",
+            "bnRfY29uZGl0aW9uX2lkGAEgASgNEhMKC2lzX3Jld2FyZGVkGAIgASgIYgZw",
+            "cm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.CustomCommonReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.EventConditionState), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.EventData), global::Tech.Hive.V1.EventData.Parser, new[]{ "EventId", "CurrentCount", "StartTimestamp", "EndTimestamp", "EventRefreshTimestamp", "EventExtraRefreshTimestamp", "Conditions" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.EventConditionData), global::Tech.Hive.V1.EventConditionData.Parser, new[]{ "EventConditionId", "ConditionOrder", "TargetValue", "State", "Rewards" }, null, null, null, null)
+          new pbr::FileDescriptor[] { },
+          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.EventData), global::Tech.Hive.V1.EventData.Parser, new[]{ "EventId", "StartTimestamp", "EndTimestamp", "EventRefreshTimestamp", "EventExtraRefreshTimestamp", "Conditions", "EventUniqueId", "CurrentCount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.EventConditionData), global::Tech.Hive.V1.EventConditionData.Parser, new[]{ "EventConditionId", "IsRewarded" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
-  #region Enums
-  public enum EventConditionState {
-    [pbr::OriginalName("EVENT_CONDITION_STATE_UNSPECIFIED")] Unspecified = 0,
-    /// <summary>
-    /// 이벤트 조건 시작 전
-    /// </summary>
-    [pbr::OriginalName("EVENT_CONDITION_STATE_NOT_STARTED")] NotStarted = 1,
-    /// <summary>
-    /// 이벤트 조건 진행 중
-    /// </summary>
-    [pbr::OriginalName("EVENT_CONDITION_STATE_IN_PROGRESS")] InProgress = 2,
-    /// <summary>
-    /// 이벤트 조건 완료
-    /// </summary>
-    [pbr::OriginalName("EVENT_CONDITION_STATE_COMPLETED")] Completed = 3,
-  }
-
-  #endregion
-
   #region Messages
   /// <summary>
   /// 이벤트 정보
@@ -108,12 +83,13 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EventData(EventData other) : this() {
       eventId_ = other.eventId_;
-      currentCount_ = other.currentCount_;
       startTimestamp_ = other.startTimestamp_;
       endTimestamp_ = other.endTimestamp_;
       eventRefreshTimestamp_ = other.eventRefreshTimestamp_;
       eventExtraRefreshTimestamp_ = other.eventExtraRefreshTimestamp_;
       conditions_ = other.conditions_.Clone();
+      eventUniqueId_ = other.eventUniqueId_;
+      currentCount_ = other.currentCount_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -138,23 +114,8 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "current_count" field.</summary>
-    public const int CurrentCountFieldNumber = 2;
-    private uint currentCount_;
-    /// <summary>
-    /// 이벤트 행동 수치
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint CurrentCount {
-      get { return currentCount_; }
-      set {
-        currentCount_ = value;
-      }
-    }
-
     /// <summary>Field number for the "start_timestamp" field.</summary>
-    public const int StartTimestampFieldNumber = 3;
+    public const int StartTimestampFieldNumber = 2;
     private ulong startTimestamp_;
     /// <summary>
     /// 이벤트 시작 시간
@@ -169,7 +130,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "end_timestamp" field.</summary>
-    public const int EndTimestampFieldNumber = 4;
+    public const int EndTimestampFieldNumber = 3;
     private ulong endTimestamp_;
     /// <summary>
     /// 이벤트 종료 시간
@@ -184,7 +145,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "event_refresh_timestamp" field.</summary>
-    public const int EventRefreshTimestampFieldNumber = 5;
+    public const int EventRefreshTimestampFieldNumber = 4;
     private ulong eventRefreshTimestamp_;
     /// <summary>
     /// 이벤트 갱신 시간
@@ -199,7 +160,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "event_extra_refresh_timestamp" field.</summary>
-    public const int EventExtraRefreshTimestampFieldNumber = 6;
+    public const int EventExtraRefreshTimestampFieldNumber = 5;
     private ulong eventExtraRefreshTimestamp_;
     /// <summary>
     /// 이벤트 별도 갱신 시간
@@ -214,9 +175,9 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "conditions" field.</summary>
-    public const int ConditionsFieldNumber = 7;
+    public const int ConditionsFieldNumber = 6;
     private static readonly pb::FieldCodec<global::Tech.Hive.V1.EventConditionData> _repeated_conditions_codec
-        = pb::FieldCodec.ForMessage(58, global::Tech.Hive.V1.EventConditionData.Parser);
+        = pb::FieldCodec.ForMessage(50, global::Tech.Hive.V1.EventConditionData.Parser);
     private readonly pbc::RepeatedField<global::Tech.Hive.V1.EventConditionData> conditions_ = new pbc::RepeatedField<global::Tech.Hive.V1.EventConditionData>();
     /// <summary>
     /// 이벤트 조건 목록
@@ -225,6 +186,36 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public pbc::RepeatedField<global::Tech.Hive.V1.EventConditionData> Conditions {
       get { return conditions_; }
+    }
+
+    /// <summary>Field number for the "event_unique_id" field.</summary>
+    public const int EventUniqueIdFieldNumber = 7;
+    private string eventUniqueId_ = "";
+    /// <summary>
+    /// 이벤트 고유 아이디 (반복퀘스트 경우 EventId로 특정 불가)
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string EventUniqueId {
+      get { return eventUniqueId_; }
+      set {
+        eventUniqueId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "current_count" field.</summary>
+    public const int CurrentCountFieldNumber = 8;
+    private uint currentCount_;
+    /// <summary>
+    /// 이벤트 진행값
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint CurrentCount {
+      get { return currentCount_; }
+      set {
+        currentCount_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -243,12 +234,13 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (EventId != other.EventId) return false;
-      if (CurrentCount != other.CurrentCount) return false;
       if (StartTimestamp != other.StartTimestamp) return false;
       if (EndTimestamp != other.EndTimestamp) return false;
       if (EventRefreshTimestamp != other.EventRefreshTimestamp) return false;
       if (EventExtraRefreshTimestamp != other.EventExtraRefreshTimestamp) return false;
       if(!conditions_.Equals(other.conditions_)) return false;
+      if (EventUniqueId != other.EventUniqueId) return false;
+      if (CurrentCount != other.CurrentCount) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -257,12 +249,13 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (EventId != 0) hash ^= EventId.GetHashCode();
-      if (CurrentCount != 0) hash ^= CurrentCount.GetHashCode();
       if (StartTimestamp != 0UL) hash ^= StartTimestamp.GetHashCode();
       if (EndTimestamp != 0UL) hash ^= EndTimestamp.GetHashCode();
       if (EventRefreshTimestamp != 0UL) hash ^= EventRefreshTimestamp.GetHashCode();
       if (EventExtraRefreshTimestamp != 0UL) hash ^= EventExtraRefreshTimestamp.GetHashCode();
       hash ^= conditions_.GetHashCode();
+      if (EventUniqueId.Length != 0) hash ^= EventUniqueId.GetHashCode();
+      if (CurrentCount != 0) hash ^= CurrentCount.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -285,27 +278,31 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(8);
         output.WriteUInt32(EventId);
       }
-      if (CurrentCount != 0) {
-        output.WriteRawTag(16);
-        output.WriteUInt32(CurrentCount);
-      }
       if (StartTimestamp != 0UL) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteUInt64(StartTimestamp);
       }
       if (EndTimestamp != 0UL) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(24);
         output.WriteUInt64(EndTimestamp);
       }
       if (EventRefreshTimestamp != 0UL) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(32);
         output.WriteUInt64(EventRefreshTimestamp);
       }
       if (EventExtraRefreshTimestamp != 0UL) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(40);
         output.WriteUInt64(EventExtraRefreshTimestamp);
       }
       conditions_.WriteTo(output, _repeated_conditions_codec);
+      if (EventUniqueId.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(EventUniqueId);
+      }
+      if (CurrentCount != 0) {
+        output.WriteRawTag(64);
+        output.WriteUInt32(CurrentCount);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -320,27 +317,31 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(8);
         output.WriteUInt32(EventId);
       }
-      if (CurrentCount != 0) {
-        output.WriteRawTag(16);
-        output.WriteUInt32(CurrentCount);
-      }
       if (StartTimestamp != 0UL) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteUInt64(StartTimestamp);
       }
       if (EndTimestamp != 0UL) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(24);
         output.WriteUInt64(EndTimestamp);
       }
       if (EventRefreshTimestamp != 0UL) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(32);
         output.WriteUInt64(EventRefreshTimestamp);
       }
       if (EventExtraRefreshTimestamp != 0UL) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(40);
         output.WriteUInt64(EventExtraRefreshTimestamp);
       }
       conditions_.WriteTo(ref output, _repeated_conditions_codec);
+      if (EventUniqueId.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(EventUniqueId);
+      }
+      if (CurrentCount != 0) {
+        output.WriteRawTag(64);
+        output.WriteUInt32(CurrentCount);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -353,9 +354,6 @@ namespace Tech.Hive.V1 {
       int size = 0;
       if (EventId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(EventId);
-      }
-      if (CurrentCount != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CurrentCount);
       }
       if (StartTimestamp != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(StartTimestamp);
@@ -370,6 +368,12 @@ namespace Tech.Hive.V1 {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(EventExtraRefreshTimestamp);
       }
       size += conditions_.CalculateSize(_repeated_conditions_codec);
+      if (EventUniqueId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(EventUniqueId);
+      }
+      if (CurrentCount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CurrentCount);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -385,9 +389,6 @@ namespace Tech.Hive.V1 {
       if (other.EventId != 0) {
         EventId = other.EventId;
       }
-      if (other.CurrentCount != 0) {
-        CurrentCount = other.CurrentCount;
-      }
       if (other.StartTimestamp != 0UL) {
         StartTimestamp = other.StartTimestamp;
       }
@@ -401,6 +402,12 @@ namespace Tech.Hive.V1 {
         EventExtraRefreshTimestamp = other.EventExtraRefreshTimestamp;
       }
       conditions_.Add(other.conditions_);
+      if (other.EventUniqueId.Length != 0) {
+        EventUniqueId = other.EventUniqueId;
+      }
+      if (other.CurrentCount != 0) {
+        CurrentCount = other.CurrentCount;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -421,27 +428,31 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 16: {
-            CurrentCount = input.ReadUInt32();
-            break;
-          }
-          case 24: {
             StartTimestamp = input.ReadUInt64();
             break;
           }
-          case 32: {
+          case 24: {
             EndTimestamp = input.ReadUInt64();
             break;
           }
-          case 40: {
+          case 32: {
             EventRefreshTimestamp = input.ReadUInt64();
             break;
           }
-          case 48: {
+          case 40: {
             EventExtraRefreshTimestamp = input.ReadUInt64();
             break;
           }
-          case 58: {
+          case 50: {
             conditions_.AddEntriesFrom(input, _repeated_conditions_codec);
+            break;
+          }
+          case 58: {
+            EventUniqueId = input.ReadString();
+            break;
+          }
+          case 64: {
+            CurrentCount = input.ReadUInt32();
             break;
           }
         }
@@ -464,27 +475,31 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 16: {
-            CurrentCount = input.ReadUInt32();
-            break;
-          }
-          case 24: {
             StartTimestamp = input.ReadUInt64();
             break;
           }
-          case 32: {
+          case 24: {
             EndTimestamp = input.ReadUInt64();
             break;
           }
-          case 40: {
+          case 32: {
             EventRefreshTimestamp = input.ReadUInt64();
             break;
           }
-          case 48: {
+          case 40: {
             EventExtraRefreshTimestamp = input.ReadUInt64();
             break;
           }
-          case 58: {
+          case 50: {
             conditions_.AddEntriesFrom(ref input, _repeated_conditions_codec);
+            break;
+          }
+          case 58: {
+            EventUniqueId = input.ReadString();
+            break;
+          }
+          case 64: {
+            CurrentCount = input.ReadUInt32();
             break;
           }
         }
@@ -533,10 +548,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EventConditionData(EventConditionData other) : this() {
       eventConditionId_ = other.eventConditionId_;
-      conditionOrder_ = other.conditionOrder_;
-      targetValue_ = other.targetValue_;
-      state_ = other.state_;
-      rewards_ = other.rewards_.Clone();
+      isRewarded_ = other.isRewarded_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -561,63 +573,19 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "condition_order" field.</summary>
-    public const int ConditionOrderFieldNumber = 2;
-    private uint conditionOrder_;
+    /// <summary>Field number for the "is_rewarded" field.</summary>
+    public const int IsRewardedFieldNumber = 2;
+    private bool isRewarded_;
     /// <summary>
-    /// 조건 순서
+    /// 보상 수령 여부
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint ConditionOrder {
-      get { return conditionOrder_; }
+    public bool IsRewarded {
+      get { return isRewarded_; }
       set {
-        conditionOrder_ = value;
+        isRewarded_ = value;
       }
-    }
-
-    /// <summary>Field number for the "target_value" field.</summary>
-    public const int TargetValueFieldNumber = 3;
-    private uint targetValue_;
-    /// <summary>
-    /// 목표 값
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint TargetValue {
-      get { return targetValue_; }
-      set {
-        targetValue_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "state" field.</summary>
-    public const int StateFieldNumber = 4;
-    private global::Tech.Hive.V1.EventConditionState state_ = global::Tech.Hive.V1.EventConditionState.Unspecified;
-    /// <summary>
-    /// 이벤트 상태
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.EventConditionState State {
-      get { return state_; }
-      set {
-        state_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "rewards" field.</summary>
-    public const int RewardsFieldNumber = 5;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.Reward> _repeated_rewards_codec
-        = pb::FieldCodec.ForMessage(42, global::Tech.Hive.V1.Reward.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.Reward> rewards_ = new pbc::RepeatedField<global::Tech.Hive.V1.Reward>();
-    /// <summary>
-    /// 보상 목록
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.Reward> Rewards {
-      get { return rewards_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -636,10 +604,7 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (EventConditionId != other.EventConditionId) return false;
-      if (ConditionOrder != other.ConditionOrder) return false;
-      if (TargetValue != other.TargetValue) return false;
-      if (State != other.State) return false;
-      if(!rewards_.Equals(other.rewards_)) return false;
+      if (IsRewarded != other.IsRewarded) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -648,10 +613,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (EventConditionId != 0) hash ^= EventConditionId.GetHashCode();
-      if (ConditionOrder != 0) hash ^= ConditionOrder.GetHashCode();
-      if (TargetValue != 0) hash ^= TargetValue.GetHashCode();
-      if (State != global::Tech.Hive.V1.EventConditionState.Unspecified) hash ^= State.GetHashCode();
-      hash ^= rewards_.GetHashCode();
+      if (IsRewarded != false) hash ^= IsRewarded.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -674,19 +636,10 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(8);
         output.WriteUInt32(EventConditionId);
       }
-      if (ConditionOrder != 0) {
+      if (IsRewarded != false) {
         output.WriteRawTag(16);
-        output.WriteUInt32(ConditionOrder);
+        output.WriteBool(IsRewarded);
       }
-      if (TargetValue != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(TargetValue);
-      }
-      if (State != global::Tech.Hive.V1.EventConditionState.Unspecified) {
-        output.WriteRawTag(32);
-        output.WriteEnum((int) State);
-      }
-      rewards_.WriteTo(output, _repeated_rewards_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -701,19 +654,10 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(8);
         output.WriteUInt32(EventConditionId);
       }
-      if (ConditionOrder != 0) {
+      if (IsRewarded != false) {
         output.WriteRawTag(16);
-        output.WriteUInt32(ConditionOrder);
+        output.WriteBool(IsRewarded);
       }
-      if (TargetValue != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(TargetValue);
-      }
-      if (State != global::Tech.Hive.V1.EventConditionState.Unspecified) {
-        output.WriteRawTag(32);
-        output.WriteEnum((int) State);
-      }
-      rewards_.WriteTo(ref output, _repeated_rewards_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -727,16 +671,9 @@ namespace Tech.Hive.V1 {
       if (EventConditionId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(EventConditionId);
       }
-      if (ConditionOrder != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ConditionOrder);
+      if (IsRewarded != false) {
+        size += 1 + 1;
       }
-      if (TargetValue != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TargetValue);
-      }
-      if (State != global::Tech.Hive.V1.EventConditionState.Unspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) State);
-      }
-      size += rewards_.CalculateSize(_repeated_rewards_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -752,16 +689,9 @@ namespace Tech.Hive.V1 {
       if (other.EventConditionId != 0) {
         EventConditionId = other.EventConditionId;
       }
-      if (other.ConditionOrder != 0) {
-        ConditionOrder = other.ConditionOrder;
+      if (other.IsRewarded != false) {
+        IsRewarded = other.IsRewarded;
       }
-      if (other.TargetValue != 0) {
-        TargetValue = other.TargetValue;
-      }
-      if (other.State != global::Tech.Hive.V1.EventConditionState.Unspecified) {
-        State = other.State;
-      }
-      rewards_.Add(other.rewards_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -782,19 +712,7 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 16: {
-            ConditionOrder = input.ReadUInt32();
-            break;
-          }
-          case 24: {
-            TargetValue = input.ReadUInt32();
-            break;
-          }
-          case 32: {
-            State = (global::Tech.Hive.V1.EventConditionState) input.ReadEnum();
-            break;
-          }
-          case 42: {
-            rewards_.AddEntriesFrom(input, _repeated_rewards_codec);
+            IsRewarded = input.ReadBool();
             break;
           }
         }
@@ -817,19 +735,7 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 16: {
-            ConditionOrder = input.ReadUInt32();
-            break;
-          }
-          case 24: {
-            TargetValue = input.ReadUInt32();
-            break;
-          }
-          case 32: {
-            State = (global::Tech.Hive.V1.EventConditionState) input.ReadEnum();
-            break;
-          }
-          case 42: {
-            rewards_.AddEntriesFrom(ref input, _repeated_rewards_codec);
+            IsRewarded = input.ReadBool();
             break;
           }
         }

@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CookApps.TeamBattle;
+using CookApps.TeamBattle.Utility;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
-    public class GuideAlert : MonoBehaviour
+    public class GuideAlert : CachedMonoBehaviour, IRegistrable
     {
         private const float GUIDE_ALERT_TIME = 2.0f;    // 가이드 알림 노출 시간
 
@@ -19,24 +21,25 @@ namespace CookApps.AutoBattler
 
         private bool _isPlayingGuideAlert = false;
 
-        private void OnEnable()
+        #region IRegistrable
+        
+        public RegistryKey Key => RegistryKey.GuideAlert;
+        private void Awake()
         {
-            if (_useOnEnable == false) return;
-            
-            if (GuideMissionManager.Instance != null)
-            {
-                GuideMissionManager.Instance.OnGuideAlertUpdated += UpdateAlert;
-            }
-
-            UpdateAlert();
+            ObjectRegistry.Register(this);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
-            if (GuideMissionManager.Instance != null)
-            {
-                GuideMissionManager.Instance.OnGuideAlertUpdated -= UpdateAlert;
-            }
+            base.OnDestroy();
+            ObjectRegistry.Unregister(this);
+        }
+        
+        #endregion
+
+        private void OnEnable()
+        {
+            UpdateAlert();
         }
 
         public void InitAlert()
@@ -53,7 +56,7 @@ namespace CookApps.AutoBattler
             InitAlert();
         }
 
-        private void UpdateAlert()
+        public void UpdateAlert()
         {
             if (_guideAlertObject == null) return;
             if (_isPlayingGuideAlert) return;

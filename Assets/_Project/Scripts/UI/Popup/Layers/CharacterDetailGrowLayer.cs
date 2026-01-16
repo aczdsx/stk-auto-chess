@@ -139,7 +139,7 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null || _userCharacterData == null) return;
 
-            int maxLevel = ServerDataManager.Instance.Character.GetCharacterMaxLevel((int)_userCharacterData.CharacterId);
+            int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel((int)_userCharacterData.Level);
 
             int userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
 
@@ -176,7 +176,7 @@ namespace CookApps.AutoBattler
             if (_specCharacterData == null || _userCharacterData == null) return;
 
             // 레벨업 가능 여부 체크
-            int maxLevel = ServerDataManager.Instance.Character.GetCharacterMaxLevel((int)_userCharacterData.CharacterId);
+            int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel((int)_userCharacterData.Level);
 
             int userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
 
@@ -307,7 +307,7 @@ namespace CookApps.AutoBattler
             }
 
             // 최대 레벨 검사
-            int maxLevel = ServerDataManager.Instance.Character.GetCharacterMaxLevel((int)_userCharacterData.CharacterId);
+            int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel((int)_userCharacterData.Level);
             if (_userCharacterData.Level >= maxLevel)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_MAX_LV_NEED_TRANSCENDENCE");

@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
             _dimCloseButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
 
             // 가이드 미션 체크
-            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.CLICK_ATTENDANCE, 0, 1);
+            ServerDataManager.Instance.GuideMission.AddActionValue(GuideMissionType.CLICK_ATTENDANCE);
         }
 
         protected override void OnPreEnter(object param)

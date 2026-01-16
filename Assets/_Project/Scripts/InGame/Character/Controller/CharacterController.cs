@@ -550,7 +550,7 @@ namespace CookApps.BattleSystem
 
         private void OnAnimationEvent(AnimationKey animName, AnimationEventKey eventKey)
         {
-            _currState.AnimationEventCallback(animName, eventKey);
+            _currState?.AnimationEventCallback(animName, eventKey);
         }
 
 
@@ -655,7 +655,16 @@ namespace CookApps.BattleSystem
                 EffectCodeStatBase effectCode = EffectCodeForLoopHelper.ReturnFirst(effectCodes, EffectCodeCharacterLambda.CallIsReadyToActivateLambda);
                 if (effectCode is EffectCodeCharacterBase runEffectCode)
                 {
-                    runEffectCode.Activate();
+                    // SKILL_READY 튜토리얼 처리 시도 - 튜토리얼이 처리되면 스킬 발동은 튜토리얼 종료 시 수행
+                    bool tutorialHandled = TutorialSkillReadyHandler.TryHandleTutorial(
+                        CharacterId,
+                        () => runEffectCode.Activate());
+
+                    if (!tutorialHandled)
+                    {
+                        // 튜토리얼이 없으면 바로 스킬 발동
+                        runEffectCode.Activate();
+                    }
                 }
             }
 
@@ -1008,10 +1017,10 @@ namespace CookApps.BattleSystem
             return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < DoubleCriticalProb; // OK
         }
 
-            
 
 
-       
+
+
         #region Hp
 
 

@@ -6,10 +6,12 @@ using System.Linq;
 using Coffee.UIEffects;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using R3;
 using Spine.Unity;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -75,6 +77,11 @@ namespace CookApps.AutoBattler
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
             (_dialogueGroupID, _onComplete) = ((int, Action))param;
+            EnterAsync().Forget();
+        }
+
+        private async UniTaskVoid EnterAsync()
+        {
             _dialogueList = SpecDataManager.Instance.GetDialogueListByGroupID(_dialogueGroupID);
 
             _characterNameText.font = temTMPFontAsset;
@@ -82,7 +89,15 @@ namespace CookApps.AutoBattler
 
             ClearPopup();
 
+            await LanguageManager.Instance.LoadDialogueTableAsync();
+
             SetDialogueData(currentDialogueSeq);
+        }
+
+        protected override void OnPreExit()
+        {
+            base.OnPreExit();
+            LanguageManager.Instance.ReleaseDialogueTableHandle();
         }
 
         private void SetDialogueData(int seq)
@@ -162,7 +177,7 @@ namespace CookApps.AutoBattler
         private async UniTaskVoid OnDialogueCompleteAsync()
         {
             // 가이드 미션 완료 체크
-            GuideMissionManager.Instance.AddGuideMissionActionValue(GuideMissionType.END_DIALOGUE, 0, 1);
+            ServerDataManager.Instance.GuideMission.AddActionValue(GuideMissionType.END_DIALOGUE);
 
             // 보상 지급 여부 체크
             bool isGetReward = _currentSpecDialogueData.reward_id > 0;
@@ -183,7 +198,7 @@ namespace CookApps.AutoBattler
                     SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), callback =>
                     {
                         // 가이드 미션 가이드 효과 재생
-                        GuideMissionManager.Instance.UpdateGuideMissionAlert();
+                        ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert)?.UpdateAlert();
                         InGameMain.GetInGameMain()?.SetInGameBottomUIInGuide();
 
                         TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.DIALOGUE_POP_END, _dialogueGroupID.ToString());
@@ -197,7 +212,7 @@ namespace CookApps.AutoBattler
             if (isGetReward == false)
             {
                 // 가이드 미션 가이드 효과 재생
-                GuideMissionManager.Instance.UpdateGuideMissionAlert();
+                ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert)?.UpdateAlert();
             }
 
             if (_currentSpecDialogueData.image_info_id != 0)

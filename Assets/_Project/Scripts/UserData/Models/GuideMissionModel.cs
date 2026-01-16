@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using R3;
 using Tech.Hive.V1;
 
@@ -132,6 +133,45 @@ namespace CookApps.AutoBattler
         /// 보상 수령 가능 여부 (목표 달성 & 완료 상태 아님)
         /// </summary>
         public bool CanClaimReward => IsGoalReached && !IsCompleted;
+
+        #endregion
+
+        #region 액션
+
+        /// <summary>
+        /// 가이드 미션 액션 값 추가
+        /// 현재 진행 중인 미션 타입이 맞는 경우에만 서버에 완료를 보고합니다.
+        /// </summary>
+        public void AddActionValue(GuideMissionType missionType, int subKey = 0, uint addCount = 1)
+        {
+            // 현재 미션이 없거나 이미 완료된 경우 무시
+            if (_data == null || IsCompleted || IsGoalReached)
+                return;
+
+            // 현재 미션의 스펙 데이터 확인
+            var specMission = SpecDataManager.Instance.GuideMissionInfo.Get((int)GuideMissionId);
+            if (specMission == null)
+                return;
+
+            // 미션 타입 확인
+            if (specMission.guide_mission_type != missionType)
+                return;
+
+            // 서브 키 확인 (서브 키가 있는 경우에만)
+            if (specMission.sub_key > 0 && specMission.sub_key != subKey)
+                return;
+
+            // 서버에 액션 완료 보고
+            UpdateActionAsync(addCount).Forget();
+        }
+
+        /// <summary>
+        /// 서버에 클라이언트 액션 완료를 보고합니다.
+        /// </summary>
+        private async UniTaskVoid UpdateActionAsync(uint addCount)
+        {
+            await NetManager.Instance.GuideMission.UpdateActionAsync(addCount);
+        }
 
         #endregion
     }

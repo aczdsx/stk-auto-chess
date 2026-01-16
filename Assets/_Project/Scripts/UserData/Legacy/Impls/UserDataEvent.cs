@@ -98,35 +98,6 @@ namespace CookApps.AutoBattler
             if (needSave) SaveUserEventData();
         }
 
-        public void SetUserEventConditionState(int eventID, int eventConditionID, EventStateType stateType, bool needSave)
-        {
-            var specEventConditionData = SpecDataManager.Instance.GetSpecEventConditionData(eventID, eventConditionID);
-
-            if (UserEvent.UserEventDatas.ContainsKey(eventID))
-                if (UserEvent.UserEventDatas[eventID].UserEventConditionDatas.ContainsKey(eventConditionID))
-                {
-                    UserEvent.UserEventDatas[eventID].UserEventConditionDatas[eventConditionID].EventStateType = (int)stateType;
-
-                    if (needSave) SaveUserEventData();
-                }
-        }
-
-        // 이벤트 데이터 초기화
-        public void ResetEventData(int eventID, bool needSave)
-        {
-            if (UserEvent.UserEventDatas.ContainsKey(eventID))
-            {
-                UserEvent.UserEventDatas[eventID].ActionCount = 0;
-
-                var conditionDataList = SpecDataManager.Instance.GetSpecEventConditionList(eventID);
-                foreach (var conditionData in conditionDataList)
-                    if (UserEvent.UserEventDatas[eventID].UserEventConditionDatas.ContainsKey(conditionData.event_condition_id))
-                        UserEvent.UserEventDatas[eventID].UserEventConditionDatas[conditionData.event_condition_id].EventStateType = (int)EventStateType.WAIT;
-
-                if (needSave) SaveUserEventData();
-            }
-        }
-
         // 현재 이벤트 기간에 맞춰 유저 이벤트 데이터를 갱신
         public void UpdateRecentEventData()
         {

@@ -1,4 +1,6 @@
+using CookApps.TeamBattle;
 using Cysharp.Text;
+using Cysharp.Threading.Tasks;
 using Naninovel;
 using R3;
 using UnityEngine;
@@ -13,7 +15,7 @@ namespace CookApps.AutoBattler
     public class ElpisCommandCenterBenefitCell : MonoBehaviour
     {
         [Header("UI 컴포넌트")]
-        [SerializeField] private Image iconImage;
+        [SerializeField] private SpriteLoader iconImage;
         [SerializeField] private TextMeshProUGUI titleText;
         [SerializeField] private TextMeshProUGUI descriptionText;
         [SerializeField] private TextMeshProUGUI benefitCountText;
@@ -53,6 +55,7 @@ namespace CookApps.AutoBattler
             
             SetBenefitCountActive(false);
             SetTitleText();
+            SetIconImage();
             
             switch (currentData.benefit_type)
             {
@@ -69,6 +72,25 @@ namespace CookApps.AutoBattler
                     SetUIToAreaExpandBenefit();
                     break;
             }
+        }
+
+        private void SetIconImage()
+        {
+            var targetBuildInfo = SpecDataManager.Instance.GetBuildInfo(currentData.build_id);
+            
+            if (iconImage == null)
+                return;
+
+            if (targetBuildInfo == null)
+            {
+                iconImage.SetSprite("Building_Active").Forget();
+            }
+            else
+            {
+                iconImage.SetSprite(targetBuildInfo.sprite_name).Forget();
+            }
+
+            iconImage.gameObject.SetActive(true);
         }
 
         private void SetTitleText()
@@ -144,7 +166,6 @@ namespace CookApps.AutoBattler
 
             if (iconImage != null)
             {
-                iconImage.sprite = null;
                 iconImage.gameObject.SetActive(false);
             }
 

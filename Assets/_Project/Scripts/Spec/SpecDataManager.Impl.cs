@@ -437,16 +437,16 @@ namespace CookApps.AutoBattler
             return result;
         }
 
-        public int GetCharacterMaxLevel()
+        public int GetCharacterMaxLevel(int currentLevel)
         {
-            int maxLevel = 0;
+            int nextExceedLevel = int.MaxValue;
             for (int i = 0; i < CharacterLevelExp.All.Count; i++)
             {
                 var data = CharacterLevelExp.All[i];
-                if (data.level > maxLevel)
-                    maxLevel = data.level;
+                if (data.level > currentLevel && data.IsExceed && data.level < nextExceedLevel)
+                    nextExceedLevel = data.level;
             }
-            return maxLevel;
+            return nextExceedLevel == int.MaxValue ? currentLevel : nextExceedLevel;
         }
 
         public CharacterLevelExp GetCharacterLevelExpData(int level)
@@ -1898,11 +1898,39 @@ namespace CookApps.AutoBattler
             var allData = ElpisBuildInfo.All;
             foreach (var data in allData)
             {
-                if(data.facility_type == facilityType)
+                if (data.facility_type == facilityType)
                     result.Add(data);
             }
-            
+
             return result;
+        }
+
+        public UserKnightCount GetUserKnightCountByNestCount()
+        {
+            var nestCount = 0;
+            var dataBridge = new ElpisDataBridge();
+            var nestFacilityList = GetBuildInfoList(Tech.Hive.V1.ElpisFacilityType.FacilityTypeNest);
+
+            for (int i = 0; i < nestFacilityList.Count; i++)
+            {
+                var nestFacility = dataBridge.GetFacility((uint)nestFacilityList[i].build_id);
+                if (nestFacility != null && nestFacility.Level > 0 && !nestFacility.IsBuilding && !nestFacility.IsJustCompleted)
+                {
+                    nestCount++;
+                }
+            }
+
+
+            var allData = UserKnightCount.All;
+            foreach (var data in allData)
+            {
+                if(data.nest_count == nestCount)
+                {
+                    return data;
+                }
+            }
+            
+            return null;
         }
     }
 }

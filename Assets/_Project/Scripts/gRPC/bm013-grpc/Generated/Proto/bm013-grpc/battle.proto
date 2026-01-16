@@ -21,10 +21,14 @@ service BattleService {
   rpc ListChapter(BattleListChapterRequest) returns (BattleListChapterResponse);
 
   /**
+   * 챕터 보상 수령
+   */
+  rpc ClaimChapterReward(BattleClaimChapterRewardRequest) returns (BattleClaimChapterRewardResponse);
+
+  /**
    * 스테이지 목록 조회
    */
   rpc ListStage(BattleListStageRequest) returns (BattleListStageResponse);
-
 
   /**
    * 챕터 별 마일스톤 보상 수령
@@ -50,12 +54,16 @@ enum BattleErrorCode {
   BATTLE_MILESTONE_REWARD_ALREADY_CLAIMED = 10130203; // 이미 해당 마일스톤 보상을 받음
   BATTLE_MILESTONE_REWARD_NOT_AVAILABLE = 10130204; // 아직 보상을 받을 수 없음
   BATTLE_MILESTONE_REWARD_INFO_NOT_FOUND = 10130205; // 해당 마일스톤 보상 정보가 없음
+
+  BATTLE_CHAPTER_REWARD_ALREADY_CLAIMED = 10130206; // 이미 챕터 보상을 받은 경우
+  BATTLE_CHAPTER_INFO_NOT_FOUND = 10130207; // 챕터 정보를 찾을 수 없음
+  BATTLE_CHAPTER_NOT_CLEARED = 10130208; // 아직 클리어 안됨
 }
 
 message BattleGetCurrentChapterRequest {}
 message BattleGetCurrentChapterResponse {
   ResponseStatus status = 1;
-  BattleChapterData chapter = 2;
+BattleChapterData chapter = 2;
   repeated BattleStageProgress stage_list = 3;
 }
 
@@ -64,6 +72,16 @@ message BattleListChapterResponse {
   ResponseStatus status = 1;
   repeated BattleChapterData chapter_list = 2;
   uint32 total_star_count = 3;
+}
+
+message BattleClaimChapterRewardRequest {
+  uint32 chapter_id = 1;
+}
+
+message BattleClaimChapterRewardResponse {
+  ResponseStatus status = 1;
+  repeated Reward rewards = 2;
+  repeated CurrencyDelta currency_deltas = 3;
 }
 
 message BattleListStageRequest {

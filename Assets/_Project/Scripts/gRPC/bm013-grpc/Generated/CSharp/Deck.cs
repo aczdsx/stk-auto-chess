@@ -31,24 +31,25 @@ namespace Tech.Hive.V1 {
             "YXRhIiYKDkRlY2tHZXRSZXF1ZXN0EhQKDGRlY2tfc2xvdF9pZBgBIAEoDSJl",
             "Cg9EZWNrR2V0UmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZl",
             "LnYxLlJlc3BvbnNlU3RhdHVzEiQKBGRlY2sYAiABKAsyFi50ZWNoLmhpdmUu",
-            "djEuRGVja0RhdGEivAEKD0RlY2tTYXZlUmVxdWVzdBIUCgxkZWNrX3Nsb3Rf",
+            "djEuRGVja0RhdGEi0QEKD0RlY2tTYXZlUmVxdWVzdBIUCgxkZWNrX3Nsb3Rf",
             "aWQYASABKA0SEQoJZGVja19uYW1lGAIgASgJEkIKFGNoYXJhY3Rlcl9wbGFj",
             "ZW1lbnRzGAMgAygLMiQudGVjaC5oaXZlLnYxLkRlY2tDaGFyYWN0ZXJQbGFj",
             "ZW1lbnQSPAoRdGFjdGljX3BsYWNlbWVudHMYBCADKAsyIS50ZWNoLmhpdmUu",
-            "djEuRGVja1RhY3RpY1BsYWNlbWVudCJmChBEZWNrU2F2ZVJlc3BvbnNlEiwK",
-            "BnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIk",
-            "CgRkZWNrGAIgASgLMhYudGVjaC5oaXZlLnYxLkRlY2tEYXRhIikKEURlY2tE",
-            "ZWxldGVSZXF1ZXN0EhQKDGRlY2tfc2xvdF9pZBgBIAEoDSJCChJEZWNrRGVs",
-            "ZXRlUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJl",
-            "c3BvbnNlU3RhdHVzKjwKDURlY2tFcnJvckNvZGUSFAoQREVDS19VTlNQRUNJ",
-            "RklFRBAAEhUKDkRFQ0tfTk9UX0ZPVU5EEOGn6gQyrAIKC0RlY2tTZXJ2aWNl",
-            "EkUKBExpc3QSHS50ZWNoLmhpdmUudjEuRGVja0xpc3RSZXF1ZXN0Gh4udGVj",
-            "aC5oaXZlLnYxLkRlY2tMaXN0UmVzcG9uc2USQgoDR2V0EhwudGVjaC5oaXZl",
-            "LnYxLkRlY2tHZXRSZXF1ZXN0Gh0udGVjaC5oaXZlLnYxLkRlY2tHZXRSZXNw",
-            "b25zZRJFCgRTYXZlEh0udGVjaC5oaXZlLnYxLkRlY2tTYXZlUmVxdWVzdBoe",
-            "LnRlY2guaGl2ZS52MS5EZWNrU2F2ZVJlc3BvbnNlEksKBkRlbGV0ZRIfLnRl",
-            "Y2guaGl2ZS52MS5EZWNrRGVsZXRlUmVxdWVzdBogLnRlY2guaGl2ZS52MS5E",
-            "ZWNrRGVsZXRlUmVzcG9uc2ViBnByb3RvMw=="));
+            "djEuRGVja1RhY3RpY1BsYWNlbWVudBITCgtjbGllbnRfZGF0YRgFIAEoDCJm",
+            "ChBEZWNrU2F2ZVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2",
+            "ZS52MS5SZXNwb25zZVN0YXR1cxIkCgRkZWNrGAIgASgLMhYudGVjaC5oaXZl",
+            "LnYxLkRlY2tEYXRhIikKEURlY2tEZWxldGVSZXF1ZXN0EhQKDGRlY2tfc2xv",
+            "dF9pZBgBIAEoDSJCChJEZWNrRGVsZXRlUmVzcG9uc2USLAoGc3RhdHVzGAEg",
+            "ASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzKjwKDURlY2tFcnJv",
+            "ckNvZGUSFAoQREVDS19VTlNQRUNJRklFRBAAEhUKDkRFQ0tfTk9UX0ZPVU5E",
+            "EOGn6gQyrAIKC0RlY2tTZXJ2aWNlEkUKBExpc3QSHS50ZWNoLmhpdmUudjEu",
+            "RGVja0xpc3RSZXF1ZXN0Gh4udGVjaC5oaXZlLnYxLkRlY2tMaXN0UmVzcG9u",
+            "c2USQgoDR2V0EhwudGVjaC5oaXZlLnYxLkRlY2tHZXRSZXF1ZXN0Gh0udGVj",
+            "aC5oaXZlLnYxLkRlY2tHZXRSZXNwb25zZRJFCgRTYXZlEh0udGVjaC5oaXZl",
+            "LnYxLkRlY2tTYXZlUmVxdWVzdBoeLnRlY2guaGl2ZS52MS5EZWNrU2F2ZVJl",
+            "c3BvbnNlEksKBkRlbGV0ZRIfLnRlY2guaGl2ZS52MS5EZWNrRGVsZXRlUmVx",
+            "dWVzdBogLnRlY2guaGl2ZS52MS5EZWNrRGVsZXRlUmVzcG9uc2ViBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.DeckDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.DeckErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -56,7 +57,7 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckListResponse), global::Tech.Hive.V1.DeckListResponse.Parser, new[]{ "Status", "DeckList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckGetRequest), global::Tech.Hive.V1.DeckGetRequest.Parser, new[]{ "DeckSlotId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckGetResponse), global::Tech.Hive.V1.DeckGetResponse.Parser, new[]{ "Status", "Deck" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckSaveRequest), global::Tech.Hive.V1.DeckSaveRequest.Parser, new[]{ "DeckSlotId", "DeckName", "CharacterPlacements", "TacticPlacements" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckSaveRequest), global::Tech.Hive.V1.DeckSaveRequest.Parser, new[]{ "DeckSlotId", "DeckName", "CharacterPlacements", "TacticPlacements", "ClientData" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckSaveResponse), global::Tech.Hive.V1.DeckSaveResponse.Parser, new[]{ "Status", "Deck" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckDeleteRequest), global::Tech.Hive.V1.DeckDeleteRequest.Parser, new[]{ "DeckSlotId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.DeckDeleteResponse), global::Tech.Hive.V1.DeckDeleteResponse.Parser, new[]{ "Status" }, null, null, null, null)
@@ -929,6 +930,7 @@ namespace Tech.Hive.V1 {
       deckName_ = other.deckName_;
       characterPlacements_ = other.characterPlacements_.Clone();
       tacticPlacements_ = other.tacticPlacements_.Clone();
+      clientData_ = other.clientData_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -984,6 +986,18 @@ namespace Tech.Hive.V1 {
       get { return tacticPlacements_; }
     }
 
+    /// <summary>Field number for the "client_data" field.</summary>
+    public const int ClientDataFieldNumber = 5;
+    private pb::ByteString clientData_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pb::ByteString ClientData {
+      get { return clientData_; }
+      set {
+        clientData_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1003,6 +1017,7 @@ namespace Tech.Hive.V1 {
       if (DeckName != other.DeckName) return false;
       if(!characterPlacements_.Equals(other.characterPlacements_)) return false;
       if(!tacticPlacements_.Equals(other.tacticPlacements_)) return false;
+      if (ClientData != other.ClientData) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1014,6 +1029,7 @@ namespace Tech.Hive.V1 {
       if (DeckName.Length != 0) hash ^= DeckName.GetHashCode();
       hash ^= characterPlacements_.GetHashCode();
       hash ^= tacticPlacements_.GetHashCode();
+      if (ClientData.Length != 0) hash ^= ClientData.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1042,6 +1058,10 @@ namespace Tech.Hive.V1 {
       }
       characterPlacements_.WriteTo(output, _repeated_characterPlacements_codec);
       tacticPlacements_.WriteTo(output, _repeated_tacticPlacements_codec);
+      if (ClientData.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteBytes(ClientData);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1062,6 +1082,10 @@ namespace Tech.Hive.V1 {
       }
       characterPlacements_.WriteTo(ref output, _repeated_characterPlacements_codec);
       tacticPlacements_.WriteTo(ref output, _repeated_tacticPlacements_codec);
+      if (ClientData.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteBytes(ClientData);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1080,6 +1104,9 @@ namespace Tech.Hive.V1 {
       }
       size += characterPlacements_.CalculateSize(_repeated_characterPlacements_codec);
       size += tacticPlacements_.CalculateSize(_repeated_tacticPlacements_codec);
+      if (ClientData.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(ClientData);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1100,6 +1127,9 @@ namespace Tech.Hive.V1 {
       }
       characterPlacements_.Add(other.characterPlacements_);
       tacticPlacements_.Add(other.tacticPlacements_);
+      if (other.ClientData.Length != 0) {
+        ClientData = other.ClientData;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1131,6 +1161,10 @@ namespace Tech.Hive.V1 {
             tacticPlacements_.AddEntriesFrom(input, _repeated_tacticPlacements_codec);
             break;
           }
+          case 42: {
+            ClientData = input.ReadBytes();
+            break;
+          }
         }
       }
     #endif
@@ -1160,6 +1194,10 @@ namespace Tech.Hive.V1 {
           }
           case 34: {
             tacticPlacements_.AddEntriesFrom(ref input, _repeated_tacticPlacements_codec);
+            break;
+          }
+          case 42: {
+            ClientData = input.ReadBytes();
             break;
           }
         }

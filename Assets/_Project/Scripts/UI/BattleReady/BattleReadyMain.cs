@@ -109,7 +109,7 @@ namespace CookApps.AutoBattler
             base.Awake();
 
             _backToLobby.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickGoToLobby()).AddTo(this);
-            _playButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickStartButton()).AddTo(this);
+            _playButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickStartButtonAsync(), AwaitOperation.Drop).AddTo(this);
             _stageSelectButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickChapterStageButton()).AddTo(this);
             // _shopButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCharacterCollectionButton()).AddTo(this);
             // _gachaButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGachaButton()).AddTo(this);
@@ -505,7 +505,7 @@ namespace CookApps.AutoBattler
             SceneLoading.GoToNextScene("Lobby");
         }
 
-        private void OnClickStartButton()
+        private async UniTask OnClickStartButtonAsync()
         {
             if (SceneTransition.IsFadeProcessing)
                 return;
@@ -533,40 +533,21 @@ namespace CookApps.AutoBattler
                             ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_1");
                             return;
                         }
-
-                        if (specGuideMissionData.guide_mission_type != GuideMissionType.CLEAR_STAGE)
-                        {
-                            if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_TRIAL)
-                            {
-                                if (specGuideMissionData.sub_key == 10001 || specGuideMissionData.sub_key == 10004)
-                                {
-                                    ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
-                                    GuideMissionManager.Instance.UpdateGuideMissionAlert();
-                                    return;
-                                }
-                            }
-                            else
-                            {
-                                ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
-                                GuideMissionManager.Instance.UpdateGuideMissionAlert();
-                                return;
-                            }
-                        }
                     }
                 }
 
                 // 스테이지 진입
-                OnClickStartButtonAsync(currentStageData.stage_id).Forget();
-            }
-        }
+                var inGameParams = await NetManager.Instance.Battle.StartAsync(currentStageData.chapter_id, currentStageData.stage_id, 0, Array.Empty<string>());
+                if (inGameParams == null)
+                    return;
+                
+                SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+                await SceneTransition.FadeInAsync();
+            
+                InGameManager.Instance.EndInGame();
 
-        private async UniTask OnClickStartButtonAsync(int stageId)
-        {
-            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-            await SceneTransition.FadeInAsync();
-            InGameManager.Instance.EndInGame();
-            SceneLoading.GoToNextScene("InGame",
-                (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), stageId));
+                SceneLoading.GoToNextScene("InGame", inGameParams);
+            }
         }
 
         private void OnClickChapterStageButton()

@@ -210,24 +210,5 @@ namespace CookApps.AutoBattler
                 output.Add(characterId);
             }
         }
-
-        /// <summary>
-        /// 캐릭터 최대 레벨 계산
-        /// </summary>
-        public int GetCharacterMaxLevel(int characterId)
-        {
-            var character = GetCharacter(characterId);
-            if (character == null) return 0;
-
-            var specCharacterData = SpecDataManager.Instance.GetCharacterData(characterId);
-            if (specCharacterData == null) return 0;
-
-            var specTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(
-                specCharacterData.grade_type,
-                (int)character.TranscendLevel
-            );
-
-            return specTranscendenceData?.max_level ?? 0;
-        }
     }
 }

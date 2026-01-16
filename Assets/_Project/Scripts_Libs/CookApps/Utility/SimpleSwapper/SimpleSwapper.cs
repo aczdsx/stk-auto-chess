@@ -30,6 +30,9 @@ namespace CookApps.TeamBattle.Utility
         Custom_8 = 108,
         Custom_9 = 109,
         Custom_10 = 110,
+        Custom_11 = 111,
+        Custom_12 = 112,
+        Custom_13 = 113,
         
         Possible = 200,
         Impossible = 201,

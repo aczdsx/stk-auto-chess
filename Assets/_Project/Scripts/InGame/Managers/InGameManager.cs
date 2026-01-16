@@ -29,13 +29,20 @@ namespace CookApps.BattleSystem
 
         public string AppEventResult = string.Empty;
         public string AppEventReason = string.Empty;
-        public string BattleSessionId { get; set; } = string.Empty;
+        public string BattleSessionId { get; private set; }
 
         public InGameTestConfig TestConfig { get; set; }
 
-        public void ResetRandomGeneratorSeed()
+        public void SetSessionIdAndRandomSeed(string sessionId, int seed)
         {
-            randomGeneratorSeed = InGameRandomManager.GetUniversalRandomValue();
+            BattleSessionId = sessionId;
+            randomGeneratorSeed = seed;
+            RegenerateGlobalRandomSeeds();
+        }
+
+        public void SetFixedRandomSeed(int seed)
+        {
+            randomGeneratorSeed = seed;
         }
 
         private bool isGameInfoLoaded;
@@ -130,6 +137,8 @@ namespace CookApps.BattleSystem
 
         public void EndInGame()
         {
+            BattleSessionId = string.Empty;
+            randomGeneratorSeed = 0;
             IsInGamePlaying = false;
             InGameMainFlowManager.Instance.StopInGameMainLoop();
             InGameCommanderManager.Instance.Clear();

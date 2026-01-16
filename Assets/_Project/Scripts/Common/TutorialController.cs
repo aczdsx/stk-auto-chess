@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialController : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class TutorialController : MonoBehaviour
     private static readonly int HoleRadius2 = Shader.PropertyToID("_HoleRadius2");
     private static readonly int HoleCenter2 = Shader.PropertyToID("_HoleCenter2");
     private static readonly int AspectRatio = Shader.PropertyToID("_AspectRatio");
+    private static readonly int MaskAlpha = Shader.PropertyToID("_MaskAlpha");
 
     [SerializeField] private RectTransform _canvasRectTransform;
 
@@ -25,6 +28,7 @@ public class TutorialController : MonoBehaviour
     [SerializeField] private GameObject _nextObj;
     [SerializeField] private TextMeshProUGUI _descText;
     [SerializeField] private Transform _targetSpawnTransform;
+    [SerializeField] private Image _dimmedImage;
 
     [Header("3D World Target Arrow")]
     [SerializeField] private RectTransform _worldArrowRectTransform;
@@ -61,12 +65,26 @@ public class TutorialController : MonoBehaviour
         { TutorialActionType.TOAST_MESSAGE, new TutorialActionToastMessage() },
         { TutorialActionType.SHOW_DIALOGUE_POP, new TutorialActionShowDialoguePop() },
         { TutorialActionType.CHARACTER_PLACEMENT_UI, new TutorialActionCharacterPlacementUI() },
-        { TutorialActionType.SPAWN_ENEMY, new TutorialActionSpawnEnemy() }
+        { TutorialActionType.SPAWN_ENEMY, new TutorialActionSpawnEnemy() },
+        { TutorialActionType.MOVE_OBJECT, new TutorialActionMoveObject() }
     };
     protected void Update()
     {
         UpdateMaskPosition();
         UpdateWorldArrowPosition();
+        UpdateSecondHolePosition();
+    }
+
+    /// <summary>
+    /// MOVE_OBJECT 전략의 홀 위치 업데이트 (A→B→A 왕복 애니메이션)
+    /// </summary>
+    private void UpdateSecondHolePosition()
+    {
+        if (CurrentSpecTutorial?.tutorial_action_type == TutorialActionType.MOVE_OBJECT &&
+            _currentStrategy is TutorialActionMoveObject moveStrategy)
+        {
+            moveStrategy.UpdateHolePositions();
+        }
     }
 
     public void OnClickDimmedBG()
@@ -101,7 +119,8 @@ public class TutorialController : MonoBehaviour
             MainCamera = Camera.main,
             CanvasRectTransform = _canvasRectTransform,
             MaskMaterial = _maskMaterial,
-            DragObj = _dragObj
+            DragObj = _dragObj,
+            DimmedImage = _dimmedImage
         };
     }
 
@@ -110,6 +129,11 @@ public class TutorialController : MonoBehaviour
         _currentSpecTutorialList = specTutorialList;
         _tutorialListIndex = 0;
         _actionContext.TargetUnmaskObj = null;
+
+        // HoleRadius 값 초기화
+        _maskMaterial.SetFloat(HoleRadius, 0f);
+        _maskMaterial.SetFloat(HoleRadius2, 0f);
+        _maskMaterial.SetFloat(MaskAlpha, 1f);
 
         ShowNextTutorial(_currentSpecTutorialList[_tutorialListIndex]);
         _tutorialAnimator.SetTrigger(isLongShow ? LongShow : Show);
@@ -129,6 +153,9 @@ public class TutorialController : MonoBehaviour
         // 이전 전략 정리 (버튼 원위치 등)
         RestorePreviousState();
 
+        // 이전 전략 OnClear 호출 (전략 교체 시)
+        _currentStrategy?.OnClear(_actionContext);
+
         CurrentSpecTutorial = specTutorial;
         _actionContext.CurrentTutorial = specTutorial;
 
@@ -145,7 +172,7 @@ public class TutorialController : MonoBehaviour
             // string tutorialText = LanguageManager.Instance.GetDefaultText(CurrentSpecTutorial.desc_key);
 
 
-            _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterPieceSprite(CurrentSpecTutorial.prefab_id));
+            _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterPieceSprite(CurrentSpecTutorial.prefab_id)).Forget();
             string tutorialText = CurrentSpecTutorial.desc_key;
             _descText.text = tutorialText;
 
@@ -186,6 +213,12 @@ public class TutorialController : MonoBehaviour
         if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SPAWN_ENEMY)
         {
             TutorialActionSpawnEnemy.OnSpawnEnemyCompleted = OnSpawnEnemyCompleted;
+        }
+
+        // MOVE_OBJECT 전략일 경우 이동 완료 콜백 설정
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.MOVE_OBJECT)
+        {
+            TutorialActionMoveObject.OnMoveObjectCompleted = OnMoveObjectCompleted;
         }
 
         // SHOW_DIALOGUE_POP 전략일 경우 팝업 표시 후 바로 다음으로 진행
@@ -257,6 +290,18 @@ public class TutorialController : MonoBehaviour
     }
 
     /// <summary>
+    /// 오브젝트 이동 완료 시 호출되는 콜백
+    /// </summary>
+    private void OnMoveObjectCompleted()
+    {
+        // 콜백 해제
+        TutorialActionMoveObject.OnMoveObjectCompleted = null;
+
+        // 다음 튜토리얼로 진행
+        ProceedToNext();
+    }
+
+    /// <summary>
     /// 튜토리얼 제거 - TutorialManager의 가이드가 다 비었을 때 호출됨
     /// </summary>
     public void ClearTutorial()
@@ -290,6 +335,7 @@ public class TutorialController : MonoBehaviour
     {
         if (_tutorialListIndex + 1 >= _currentSpecTutorialList.Count)
         {
+            Debug.LogColor("튜토리얼 종료", "green");
             _onTutorialCloseRequested?.Invoke();
         }
         else

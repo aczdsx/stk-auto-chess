@@ -60,11 +60,11 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 클라이언트 액션 완료 보고 (CLICK_ATTENDANCE 등 클라이언트에서만 알 수 있는 액션)
         /// </summary>
-        public async UniTask<GuideMissionCompleteActionResponse> CompleteActionAsync(CancellationToken cancellationToken = default)
+        public async UniTask<GuideMissionUpdateActionResponse> UpdateActionAsync(uint addCount = 1, CancellationToken cancellationToken = default)
         {
-            GuideMissionCompleteActionResponse resp = await ExecuteWithCommonErrorCheck(
-                ServiceClient.CompleteActionAsync,
-                new GuideMissionCompleteActionRequest(),
+            GuideMissionUpdateActionResponse resp = await ExecuteWithCommonErrorCheck(
+                ServiceClient.UpdateActionAsync,
+                new GuideMissionUpdateActionRequest { AddCount = addCount },
                 cancellationToken: cancellationToken
             );
 

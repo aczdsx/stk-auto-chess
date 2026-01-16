@@ -135,7 +135,8 @@ namespace CookApps.AutoBattler
             // 보상 데이터 저장
             if (resultItemList.Count > 0)
             {
-                UserDataManager.Instance.IncreaseRewardItemList(resultItemList, true);
+                // TODO: api 마이그레이션 (InGameResultPopup처럼)
+                // UserDataManager.Instance.IncreaseRewardItemList(resultItemList, true);
             }
         }
     }
