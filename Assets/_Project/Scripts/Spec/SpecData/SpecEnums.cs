@@ -615,6 +615,7 @@ namespace CookApps.AutoBattler
         Skill_304021_1 = 258,
         Skill_304021_2 = 259,
         Skill_9002_3 = 260,
+        fx_common_prologue_shield_01 = 261,
     }
 
     public enum GlobalEffectProviderType
@@ -1021,6 +1022,5 @@ namespace CookApps.AutoBattler
         STAGE_ENTER_NANI = 8,
         ENTER_CHAPTER_NANI = 9,
         ENTER_ELPIS_NANI = 10,
-        GUIDE_COMPLETE = 11,
     }
 }

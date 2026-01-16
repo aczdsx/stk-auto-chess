@@ -1171,6 +1171,8 @@ namespace CookApps.AutoBattler
         /// 건물 유니크 ID
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int build_id;
+        /// 건물 아이콘 이름
+        public string sprite_name;
         /// 건물 프리펩
         public string build_prefab;
         /// 건물 타입
