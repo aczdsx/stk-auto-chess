@@ -229,9 +229,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             // 튜토리얼 오브젝트 이동 중일 때 Source 오브젝트만 선택 가능
             if (CookApps.AutoBattler.TutorialActionMoveObject.IsActive)
             {
-                var tileTarget = inGameTileView.GetComponent<TutorialTarget>();
-                string targetId = tileTarget?.TargetId ?? inGameTileView.ID.ToString();
-                if (!CookApps.AutoBattler.TutorialActionMoveObject.CanSelectObject(targetId))
+                int targetId = inGameTileView.ID;
+                if (!CookApps.AutoBattler.TutorialActionMoveObject.CanSelectFromTile(targetId))
                 {
                     return;
                 }
@@ -333,7 +332,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         {
             var tileTarget = targetTileView.GetComponent<TutorialTarget>();
             string targetId = tileTarget?.TargetId ?? targetTileView.ID.ToString();
-            if (!CookApps.AutoBattler.TutorialActionMoveObject.CanMoveToDestination(targetId))
+            if (!CookApps.AutoBattler.TutorialActionMoveObject.CanSelectFromTile(int.Parse(targetId)))
                 return false;
         }
 
@@ -782,13 +781,10 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             if (tileChanged && CookApps.AutoBattler.TutorialActionMoveObject.IsActive)
             {
                 // Source에서 Destination으로 이동했는지 확인
-                var destTargetId = CookApps.AutoBattler.TutorialActionMoveObject.DestinationTargetId;
-                if (!string.IsNullOrEmpty(destTargetId) && _selectedTileView != null)
+                var destTargetId = CookApps.AutoBattler.TutorialActionMoveObject.DestTileId;
+                if (destTargetId != 0 && _selectedTileView != null)
                 {
-                    // 타일 ID가 Destination과 일치하거나, TutorialTarget ID가 일치하면 완료
-                    var tileTarget = _selectedTileView.GetComponent<TutorialTarget>();
-                    bool isDestTile = _selectedTileView.ID.ToString() == destTargetId ||
-                                      (tileTarget != null && tileTarget.TargetId == destTargetId);
+                    bool isDestTile = _selectedTileView.ID == destTargetId;
                     if (isDestTile)
                     {
                         CookApps.AutoBattler.TutorialActionMoveObject.NotifyMoveCompleted();
@@ -801,7 +797,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             // MOVE_OBJECT_AFTER 트리거 (오브젝트 이동 완료 후)
             if (tileChanged)
             {
-                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.MOVE_OBJECT_AFTER, "0");
+                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.MOVE_OBJECT_AFTER, _selectedTileView.ID.ToString());
             }
 
             // InGameObjectManager.Instance.DrawPlayerLine(true);

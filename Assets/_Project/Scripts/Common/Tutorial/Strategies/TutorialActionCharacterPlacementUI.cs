@@ -9,13 +9,15 @@ namespace CookApps.AutoBattler
     /// 하단 UI의 캐릭터를 드래그하여 타일에 배치하도록 유도합니다.
     /// 마스크 홀이 드래그를 따라다니며 배치 위치를 하이라이트합니다.
     ///
-    /// tutorial_action_key: UI 타겟 이름 (TutorialTargetRegistry에 등록된 이름)
+    /// tutorial_action_key 형식: "SlotName->TileId" (예: "Slot_3401->7")
+    ///   - SlotName: UI 타겟 이름 (TutorialTargetRegistry에 등록된 이름)
+    ///   - TileId: 배치해야 할 타일 ID
     ///
     /// 동작 흐름:
-    /// 1. tutorial_action_key로 UI 타겟(배치 가능한 캐릭터 UI) 찾기
+    /// 1. tutorial_action_key 파싱하여 UI 타겟과 타일 ID 추출
     /// 2. 마스크 홀이 해당 타겟을 따라다님
-    /// 3. 드래그 시작 시 드래그 오브젝트로 마스크 홀 타겟 변경
-    /// 4. 배치 완료 시 자동으로 다음 튜토리얼로 진행
+    /// 3. 드래그 시작 시 드래그 오브젝트로 마스크 홀 타겟 변경, 타겟 타일 하이라이트
+    /// 4. 지정된 타일에 배치 완료 시 자동으로 다음 튜토리얼로 진행
     /// </summary>
     public class TutorialActionCharacterPlacementUI : ITutorialActionStrategy
     {
@@ -24,11 +26,13 @@ namespace CookApps.AutoBattler
         private static readonly int HoleRadius2 = Shader.PropertyToID("_HoleRadius2");
         private static readonly int HoleCenter2 = Shader.PropertyToID("_HoleCenter2");
 
-        // 드래그 시 하이라이트할 타일 ID
-        private const int TARGET_TILE_ID = 7;
-
         // 두 번째 구멍 기본 반지름
         private const float SECOND_HOLE_RADIUS = 0.08f;
+
+        /// <summary>
+        /// 드래그 시 하이라이트할 타일 ID (tutorial_action_key에서 파싱)
+        /// </summary>
+        private static int _targetTileId;
 
         /// <summary>
         /// 배치 완료 시 호출되는 콜백 (TutorialController에서 설정)
@@ -63,8 +67,12 @@ namespace CookApps.AutoBattler
                 context.DragObj.SetActive(true);
             }
 
+            // tutorial_action_key 파싱 (형식: "Slot_3401->7")
+            var actionKey = context.CurrentTutorial.tutorial_action_key;
+            var (targetKey, tileId) = ParseActionKey(actionKey);
+            _targetTileId = tileId;
+
             // UI 타겟 찾기
-            var targetKey = context.CurrentTutorial.tutorial_action_key;
             context.TargetUIObj = TutorialTargetRegistry.FindGameObject(targetKey);
 
             if (context.TargetUIObj == null)
@@ -77,19 +85,17 @@ namespace CookApps.AutoBattler
             // 초기 타겟 저장
             _initialTargetUI = context.TargetUIObj;
 
-            // 원위치 정보 저장
-            context.OriginalParent = context.TargetUIObj.transform.parent;
-            context.OriginalSiblingIndex = context.TargetUIObj.transform.GetSiblingIndex();
-            context.OriginalPosition = context.TargetUIObj.transform.localPosition;
-
-            // 타겟을 최상위(딤드 위)로 이동하여 터치 가능하게 함
-            context.TargetUIObj.transform.SetParent(context.TargetSpawnTransform, true);
-
             // 마스크 홀 타겟 설정 (초기에는 UI 타겟 위치)
             context.TargetUnmaskObj = context.TargetUIObj;
 
             // 화살표 설정 (타겟 위치에 표시)
             SetArrowPosition(context);
+
+            // 딤드 이미지 터치 통과 (드래그 가능하도록)
+            if (context.DimmedImage != null)
+            {
+                context.DimmedImage.raycastTarget = false;
+            }
 
             // 상태 설정
             IsActive = true;
@@ -117,12 +123,10 @@ namespace CookApps.AutoBattler
                 context.DragObj.SetActive(false);
             }
 
-            // 타겟 UI 원위치 복구
-            if (context.OriginalParent != null && context.TargetUIObj != null)
+            // 딤드 이미지 터치 복원
+            if (context.DimmedImage != null)
             {
-                context.TargetUIObj.transform.SetParent(context.OriginalParent);
-                context.TargetUIObj.transform.SetSiblingIndex(context.OriginalSiblingIndex);
-                context.TargetUIObj.transform.localPosition = context.OriginalPosition;
+                context.DimmedImage.raycastTarget = true;
             }
 
             // 두 번째 구멍 숨김
@@ -132,6 +136,7 @@ namespace CookApps.AutoBattler
             IsActive = false;
             _currentContext = null;
             _initialTargetUI = null;
+            _targetTileId = 0;
             OnPlacementCompleted = null;
 
             // 화살표 비활성화
@@ -141,6 +146,36 @@ namespace CookApps.AutoBattler
             context.TargetUnmaskObj = null;
             context.TargetUIObj = null;
             context.OriginalParent = null;
+        }
+
+        /// <summary>
+        /// tutorial_action_key 파싱 (형식: "Slot_3401->7")
+        /// </summary>
+        /// <param name="actionKey">액션 키 문자열</param>
+        /// <returns>(타겟 이름, 타일 ID) 튜플</returns>
+        private static (string targetKey, int tileId) ParseActionKey(string actionKey)
+        {
+            if (string.IsNullOrEmpty(actionKey))
+            {
+                Debug.LogWarning("[TutorialActionCharacterPlacementUI] actionKey가 비어있음");
+                return (string.Empty, 0);
+            }
+
+            var parts = actionKey.Split(new[] { "->" }, System.StringSplitOptions.None);
+            if (parts.Length != 2)
+            {
+                Debug.LogWarning($"[TutorialActionCharacterPlacementUI] actionKey 형식 오류: {actionKey} (예상 형식: Slot_3401->7)");
+                return (actionKey, 0);
+            }
+
+            var targetKey = parts[0].Trim();
+            if (!int.TryParse(parts[1].Trim(), out var tileId))
+            {
+                Debug.LogWarning($"[TutorialActionCharacterPlacementUI] 타일 ID 파싱 실패: {parts[1]}");
+                tileId = 0;
+            }
+
+            return (targetKey, tileId);
         }
 
         /// <summary>
@@ -177,8 +212,8 @@ namespace CookApps.AutoBattler
             // 화살표 숨김 (드래그 중에는 불필요)
             _currentContext.ArrowRectTransform.gameObject.SetActive(false);
 
-            // Tile5에 두 번째 구멍 표시
-            ShowSecondHoleAtTile(TARGET_TILE_ID);
+            // 타겟 타일에 두 번째 구멍 표시
+            ShowSecondHoleAtTile(_targetTileId);
         }
 
         /// <summary>
@@ -239,11 +274,11 @@ namespace CookApps.AutoBattler
         /// 지정된 타일에 배치 가능한지 확인
         /// </summary>
         /// <param name="tileId">배치하려는 타일 ID</param>
-        /// <returns>TARGET_TILE_ID와 일치하면 true</returns>
+        /// <returns>_targetTileId와 일치하면 true</returns>
         public static bool CanPlaceOnTile(int tileId)
         {
             if (!IsActive) return true; // 튜토리얼 비활성 시 제한 없음
-            return tileId == TARGET_TILE_ID;
+            return tileId == _targetTileId;
         }
 
         /// <summary>
@@ -251,7 +286,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public static int GetTargetTileId()
         {
-            return TARGET_TILE_ID;
+            return _targetTileId;
         }
 
         #endregion

@@ -64,6 +64,12 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         {
             inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter);
         }
+
+        if (TutorialManager.Instance.IsTutorial)
+        {
+            inGameTile = InGameObjectManager.Instance.InGameGrid.GetTile(11);
+        }
+
         int2 pos = new int2(inGameTile.X, inGameTile.Y);
 
         var statData = new CharacterStatData(battleItemId, 1, 1, 1);
@@ -77,12 +83,12 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
         if (TutorialManager.Instance.IsTutorial)
         {
-            TutorialTarget tutorialTarget = character.GetCharacterView().transform.GetComponent<TutorialTarget>();
+            TutorialTarget tutorialTarget = inGameTile.View.transform.GetComponent<TutorialTarget>();
             if (tutorialTarget == null)
             {
-                tutorialTarget = character.GetCharacterView().gameObject.AddComponent<TutorialTarget>();
+                tutorialTarget = inGameTile.View.gameObject.AddComponent<TutorialTarget>();
             }
-            tutorialTarget.SetTargetId("SupernovaItem");
+            tutorialTarget.SetTargetId("SupernovaItemTile_11");
         }
         InGameSynergyManager.Instance.RegisterBattleItem(itemInfo);
     }

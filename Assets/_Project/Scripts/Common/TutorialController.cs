@@ -5,6 +5,7 @@ using CookApps.TeamBattle;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class TutorialController : MonoBehaviour
     private static readonly int HoleRadius2 = Shader.PropertyToID("_HoleRadius2");
     private static readonly int HoleCenter2 = Shader.PropertyToID("_HoleCenter2");
     private static readonly int AspectRatio = Shader.PropertyToID("_AspectRatio");
+    private static readonly int MaskAlpha = Shader.PropertyToID("_MaskAlpha");
 
     [SerializeField] private RectTransform _canvasRectTransform;
 
@@ -25,6 +27,7 @@ public class TutorialController : MonoBehaviour
     [SerializeField] private GameObject _nextObj;
     [SerializeField] private TextMeshProUGUI _descText;
     [SerializeField] private Transform _targetSpawnTransform;
+    [SerializeField] private Image _dimmedImage;
 
     [Header("3D World Target Arrow")]
     [SerializeField] private RectTransform _worldArrowRectTransform;
@@ -72,14 +75,14 @@ public class TutorialController : MonoBehaviour
     }
 
     /// <summary>
-    /// MOVE_OBJECT 전략의 두 번째 홀 위치 업데이트
+    /// MOVE_OBJECT 전략의 홀 위치 업데이트 (A→B→A 왕복 애니메이션)
     /// </summary>
     private void UpdateSecondHolePosition()
     {
         if (CurrentSpecTutorial?.tutorial_action_type == TutorialActionType.MOVE_OBJECT &&
             _currentStrategy is TutorialActionMoveObject moveStrategy)
         {
-            moveStrategy.UpdateSecondHolePosition();
+            moveStrategy.UpdateHolePositions();
         }
     }
 
@@ -115,7 +118,8 @@ public class TutorialController : MonoBehaviour
             MainCamera = Camera.main,
             CanvasRectTransform = _canvasRectTransform,
             MaskMaterial = _maskMaterial,
-            DragObj = _dragObj
+            DragObj = _dragObj,
+            DimmedImage = _dimmedImage
         };
     }
 
@@ -128,6 +132,7 @@ public class TutorialController : MonoBehaviour
         // HoleRadius 값 초기화
         _maskMaterial.SetFloat(HoleRadius, 0f);
         _maskMaterial.SetFloat(HoleRadius2, 0f);
+        _maskMaterial.SetFloat(MaskAlpha, 1f);
 
         ShowNextTutorial(_currentSpecTutorialList[_tutorialListIndex]);
         _tutorialAnimator.SetTrigger(isLongShow ? LongShow : Show);
@@ -329,6 +334,7 @@ public class TutorialController : MonoBehaviour
     {
         if (_tutorialListIndex + 1 >= _currentSpecTutorialList.Count)
         {
+            Debug.LogColor("튜토리얼 종료", "green");
             _onTutorialCloseRequested?.Invoke();
         }
         else

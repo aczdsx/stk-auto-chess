@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
@@ -15,6 +16,7 @@ namespace CookApps.AutoBattler
         public GameObject NextObj { get; set; }
         public RectTransform ArrowRectTransform { get; set; }
         public Transform TargetSpawnTransform { get; set; }
+        public Image DimmedImage { get; set; }
 
         // 3D 타겟용 화살표 (월드 좌표 추적)
         public RectTransform WorldArrowRectTransform { get; set; }
@@ -46,7 +48,7 @@ namespace CookApps.AutoBattler
         #region Full Screen Mask Helpers
 
         private static readonly int MaskAlpha = Shader.PropertyToID("_MaskAlpha");
-        private const float MASK_ANIMATION_DURATION = 0.5f;
+        private const float MASK_ANIMATION_DURATION = 0.8f;
 
         private Tweener _maskTweener;
 

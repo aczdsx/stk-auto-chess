@@ -79,7 +79,7 @@ namespace CookApps.AutoBattler
             (_dialogueGroupID, _onComplete) = ((int, Action))param;
             EnterAsync().Forget();
         }
-        
+
         private async UniTaskVoid EnterAsync()
         {
             _dialogueList = SpecDataManager.Instance.GetDialogueListByGroupID(_dialogueGroupID);
@@ -90,7 +90,7 @@ namespace CookApps.AutoBattler
             ClearPopup();
 
             await LanguageManager.Instance.LoadDialogueTableAsync();
-            
+
             SetDialogueData(currentDialogueSeq);
         }
 
