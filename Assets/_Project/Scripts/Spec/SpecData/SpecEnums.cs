@@ -615,6 +615,7 @@ namespace CookApps.AutoBattler
         Skill_304021_1 = 258,
         Skill_304021_2 = 259,
         Skill_9002_3 = 260,
+        fx_common_prologue_shield_01 = 261,
     }
 
     public enum GlobalEffectProviderType
@@ -997,6 +998,9 @@ namespace CookApps.AutoBattler
         Noblesse = 9,
         Supernova = 10,
         Troubleshooter = 11,
+        Vigilante = 12,
+        Arcana = 13,
+        Eclipse = 14,
     }
 
     public enum MaterialType
