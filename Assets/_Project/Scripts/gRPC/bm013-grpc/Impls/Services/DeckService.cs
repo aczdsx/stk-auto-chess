@@ -19,6 +19,12 @@ namespace CookApps.AutoBattler
                 new DeckListRequest(),
                 cancellationToken: cancellationToken
             );
+
+            if (resp is { IsSuccess: true })
+            {
+                ServerDataManager.Instance.Deck.SetDecks(resp.DeckList);
+            }
+
             return resp;
         }
 
@@ -32,6 +38,12 @@ namespace CookApps.AutoBattler
                 new DeckGetRequest { DeckSlotId = deckSlotId },
                 cancellationToken: cancellationToken
             );
+
+            if (resp is { IsSuccess: true, Deck: not null })
+            {
+                ServerDataManager.Instance.Deck.UpdateDeck(resp.Deck);
+            }
+
             return resp;
         }
 
@@ -43,6 +55,7 @@ namespace CookApps.AutoBattler
             string deckName,
             IEnumerable<DeckCharacterPlacement> characterPlacements,
             IEnumerable<DeckTacticPlacement> tacticPlacements = null,
+            Google.Protobuf.ByteString clientData = null,
             CancellationToken cancellationToken = default)
         {
             var request = new DeckSaveRequest
@@ -61,11 +74,22 @@ namespace CookApps.AutoBattler
                 request.TacticPlacements.AddRange(tacticPlacements);
             }
 
+            if (clientData != null)
+            {
+                request.ClientData = clientData;
+            }
+
             DeckSaveResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.SaveAsync,
                 request,
                 cancellationToken: cancellationToken
             );
+
+            if (resp is { IsSuccess: true, Deck: not null })
+            {
+                ServerDataManager.Instance.Deck.UpdateDeck(resp.Deck);
+            }
+
             return resp;
         }
 
@@ -79,6 +103,12 @@ namespace CookApps.AutoBattler
                 new DeckDeleteRequest { DeckSlotId = deckSlotId },
                 cancellationToken: cancellationToken
             );
+
+            if (resp is { IsSuccess: true })
+            {
+                ServerDataManager.Instance.Deck.RemoveDeck(deckSlotId);
+            }
+
             return resp;
         }
     }

@@ -102,16 +102,8 @@ namespace CookApps.AutoBattler
             // 앱이벤트 전송
             AppEventManager.Instance.Login();
 
-            var serverTasks = new UniTask[]
-            {
-                NetManager.Instance.CustomLobby.GetMyPlayerDataAsync(),
-                NetManager.Instance.Inventory.ListAsync(),
-                NetManager.Instance.Character.ListAsync(),
-                NetManager.Instance.Battle.GetCurrentChapterAsync(),
-                NetManager.Instance.Battle.ListChapterAsync(),
-            };
-            await UniTask.WhenAll(serverTasks);
-            NetManager.Instance.Initialize_Elpis().Forget();
+            // 서버 데이터 초기화 (Elpis 포함)
+            await NetManager.Instance.InitializeAsync();
 
             // var transition1 = SceneTransition_FadeInOut.Create();
             // 프롤로그로 진입하게 해줘야함
@@ -125,15 +117,19 @@ namespace CookApps.AutoBattler
 
                 // 초반 플로우 체크 및 진행
                 var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
-                // if (ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
-                if (false)
+                if (ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
                 {
                     // SceneLoading.GoToNextScene("InGame",
                     //     (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), lastTutoStageData.stage_id));
                     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                     await SceneTransition.FadeInAsync();
+
+                    var inGameParams = new InGameMainParams(
+                        InGameType.PROLOGUE,
+                        new InGameMainStatePrologue(),
+                        0);
                     
-                    SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
+                    SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
                     return;
                 }
                 else

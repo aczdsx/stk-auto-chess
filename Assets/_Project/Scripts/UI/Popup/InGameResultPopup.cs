@@ -249,8 +249,6 @@ namespace CookApps.AutoBattler
             
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
-            InGameManager.Instance.EndInGame();
-
             SceneLoading.GoToNextScene("InGame", inGameParams);
         }
 
@@ -277,9 +275,6 @@ namespace CookApps.AutoBattler
 
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
-            
-            InGameManager.Instance.EndInGame();
-
             SceneLoading.GoToNextScene("InGame", inGameParams);
         }
 

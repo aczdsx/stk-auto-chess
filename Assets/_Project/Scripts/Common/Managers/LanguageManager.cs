@@ -58,11 +58,13 @@ namespace CookApps.AutoBattler
 #endif 
                 return defaultTable;
             }
-            set => defaultTable = value;
         }
 
         private StringTable dialogueTable;
-        private StringTable DialogueTable { get; set; }
+        private StringTable DialogueTable
+        {
+            get => dialogueTable;
+        }
 
         // 로드 핸들 (Release용)
         private AsyncOperationHandle<StringTable> defaultTableHandle;
@@ -133,7 +135,7 @@ namespace CookApps.AutoBattler
 
             if (defaultTableHandle.Status == AsyncOperationStatus.Succeeded)
             {
-                DefaultTable = defaultTableHandle.Result;
+                defaultTable = defaultTableHandle.Result;
                 Debug.Log($"[LocalizationLoader] {DefaultTableName} 테이블 로드 완료");
             }
             else
@@ -247,19 +249,6 @@ namespace CookApps.AutoBattler
         public string GetDialogueText(string tokenKey)
         {
             return GetTextFromTable(DialogueTable, tokenKey);
-        }
-
-        /// <summary>
-        /// 지정된 테이블 타입에서 텍스트 조회
-        /// </summary>
-        public string GetText(LocalizationTableType tableType, string tokenKey)
-        {
-            return tableType switch
-            {
-                LocalizationTableType.Default => GetDefaultText(tokenKey),
-                LocalizationTableType.Dialogue => GetDialogueText(tokenKey),
-                _ => GetDefaultText(tokenKey)
-            };
         }
 
         /// <summary>

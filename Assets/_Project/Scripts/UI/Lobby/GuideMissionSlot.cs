@@ -224,7 +224,7 @@ namespace CookApps.AutoBattler
                     return;
                 }
             }
-            ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert).UpdateAlert();
+            ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert)?.UpdateAlert();
         }
     }
 }
