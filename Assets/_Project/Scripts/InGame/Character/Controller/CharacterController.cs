@@ -1175,7 +1175,9 @@ namespace CookApps.BattleSystem
             {
                 OnTileMoveEnd();
                 GetCharacterView().LookAt(CurrentTile, tile);
+                Unity.Mathematics.int2 beforeTile = CurrentTile.Int2Index;
                 ChangeOccupiedTile(tile);
+                Unity.Mathematics.int2 afterTile = CurrentTile.Int2Index;
                 AddNextState<CharacterStateForceMove>(customMoveSpeed);
             }
         }

@@ -94,6 +94,7 @@ public partial class EffectCodeSkill217513401 : EffectCodeCharacterBase
         base.OnSkillExecute(executeIndex, totalLength);
 
         var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
+    
 
         if (inGameTile.Count > 0)
         {

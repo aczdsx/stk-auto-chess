@@ -244,10 +244,26 @@ namespace CookApps.AutoBattler
 
         /// <summary>
         /// 디멘션 랩 캐시 재구성
+        /// 
+        /// [데이터 흐름]
+        /// 1. 서버에서 데이터 수신: ElpisService.GetInfoAsync() → ElpisGetResponse.Elpis (ElpisData 타입)
+        /// 2. SetElpisData() 호출: elpisData.CoreResearches → _coreResearchCache에 저장 (359-364줄)
+        /// 3. RebuildDimensionLabCache() 호출: _coreResearchCache → _cachedElpisDimensionLabs 구성
+        /// 
+        /// [주의사항]
+        /// - _coreResearchCache는 SetElpisData() 또는 UpdateCoreResearch()에서만 채워짐
+        /// - 이 함수가 호출될 때 _coreResearchCache가 비어있으면 _cachedElpisDimensionLabs도 비어있게 됨
         /// </summary>
-        private void RebuildDimensionLabCache()
+        public void RebuildDimensionLabCache()
         {
             _cachedElpisDimensionLabs.Clear();
+
+            // _coreResearchCache가 비어있으면 아무것도 추가하지 않음
+            if (_coreResearchCache.Count == 0)
+            {
+                Debug.LogWarning("[ElpisModel] RebuildDimensionLabCache: _coreResearchCache가 비어있습니다. SetElpisData()가 먼저 호출되어야 합니다.");
+                return;
+            }
 
             var allSpecs = SpecDataManager.Instance.GetAllElpisDimensionLab();
 
@@ -337,6 +353,14 @@ namespace CookApps.AutoBattler
 
         /// <summary>
         /// 서버 응답으로 Elpis 데이터 설정
+        /// 
+        /// [호출 위치]
+        /// - ElpisService.GetInfoAsync()에서 서버 응답 받은 후 호출 (37줄)
+        /// - ElpisGetResponse.Elpis (ElpisData 타입)에 CoreResearches 필드 포함
+        /// 
+        /// [데이터 흐름]
+        /// 1. elpisData.CoreResearches → _coreResearchCache에 저장
+        /// 2. RebuildDimensionLabCache() 호출하여 _cachedElpisDimensionLabs 구성
         /// </summary>
         internal void SetElpisData(ElpisData elpisData)
         {
@@ -356,6 +380,7 @@ namespace CookApps.AutoBattler
                 _facilitiesCache[facility.BuildId] = facility;
             }
 
+            // 서버에서 받은 CoreResearches를 _coreResearchCache에 저장
             _coreResearchCache.Clear();
             for (var i = 0; i < elpisData.CoreResearches.Count; i++)
             {
@@ -363,6 +388,7 @@ namespace CookApps.AutoBattler
                 _coreResearchCache[research.UpgradeGroupId] = research;
             }
 
+            // _coreResearchCache를 기반으로 _cachedElpisDimensionLabs 재구성
             RebuildDimensionLabCache();
 
             OnChanged.OnNext(Unit.Default);

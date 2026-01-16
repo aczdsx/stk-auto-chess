@@ -39,6 +39,13 @@ public partial class EffectCodeSkill297510012 : EffectCodeSkill217513401
 }
 
 
+[UseEffectCodeIds(297510112)]
+public partial class EffectCodeSkill297510112 : EffectCodeSkill217513401
+{
+    
+}
+
+
 
 /// <summary>
 /// 프롤로그_클레이

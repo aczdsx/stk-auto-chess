@@ -8,6 +8,7 @@ using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// 라플라스마녀 스페셜2
@@ -27,7 +28,7 @@ public partial class EffectCodeSkill280109102 : EffectCodeCharacterBase
         SkillIndex = 2;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _damageRate = 0;
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
@@ -38,7 +39,7 @@ public partial class EffectCodeSkill280109102 : EffectCodeCharacterBase
     {
         base.Merge(codeInfo, source);
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
-        _damageRate = codeInfo.GetCodeStatToFloat(1) * 0.01f;
+        _damageRate = 0;
     }
 
     public override void OnUpdate(float dt)
@@ -88,6 +89,7 @@ public partial class EffectCodeSkill280109102 : EffectCodeCharacterBase
         base.OnSkillExecute(executeIndex, totalLength);
         if (owner.Target == null)
             return;
+            
         var targetCharacterList = InGameObjectManager.Instance.GetCharacterListSortedByDistanceDescending(owner, false);
         if (targetCharacterList.Count == 0)
             return;
@@ -106,7 +108,7 @@ public partial class EffectCodeSkill280109102 : EffectCodeCharacterBase
         if (targetCharacter == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(targetCharacter.CurrentTile, 2);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(targetCharacter.CurrentTile, 3);
 
         foreach (var tile in inGameTiles)
             InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, tile);
@@ -117,8 +119,28 @@ public partial class EffectCodeSkill280109102 : EffectCodeCharacterBase
             if (tile.CheckValidTile(owner.AllianceType, false))
             {
                 var damageValue = owner.SpecCharacter.atk_type is AtkType.AD ? owner.AD : owner.AP;
-                var damage = owner.CalculateDamageAmount(damageValue * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
+                if(tile.OccupiedCharacter.CharacterId == PrologueID.프롤로그아트레시아ID)
+                {
+                    double artdamage = 0;
+                    if(tile.OccupiedCharacter.CurrentHp > 0)
+                    {
+                        artdamage = tile.OccupiedCharacter.CurrentHp - 100;
+                    }
+                    CharacterController.DamageInfo damageInfo = CharacterController.DamageInfo.Create(
+                        damageAmount: artdamage,
+                        source: 0,
+                        attackerType: AttackerType.CHARCTER,
+                        isAD: owner.SpecCharacter.atk_type is AtkType.AD ? true : false,
+                        isCritical: false,
+                        isDoubleCritical: false
+                    );
+                    tile.OccupiedCharacter.GetDamaged(damageInfo, owner);
+                }
+                else
+                {
+                    var damage = owner.CalculateDamageAmount(9999, 0, tile.OccupiedCharacter, codeId, true);
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                }
             }
         }
 

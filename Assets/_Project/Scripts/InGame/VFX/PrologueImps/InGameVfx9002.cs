@@ -22,7 +22,6 @@ namespace CookApps.BattleSystem
         {
             base.Initialize(isFlipX, movementBase);
             _elapsedTime = 0f;
-            MyDebug.Log($"_isPlaying : {_isPlaying}");
             CurrentValue = _curve?.Evaluate(0f) ?? 0f;
         }
 
@@ -30,13 +29,8 @@ namespace CookApps.BattleSystem
         {
             base.ManagedUpdate(dt);
             if (!_isPlaying){
-                MyDebug.Log($"_isPlaying : {_isPlaying}");
-                return;}
-            else
-            {
-                MyDebug.Log($"_elapsedTime : {_elapsedTime} \ndt : {dt}");
+                return;
             }
-
             _elapsedTime += dt;
             float normalizedTime = Mathf.Clamp01(_elapsedTime / _duration);
             CurrentValue = _curve?.Evaluate(normalizedTime) ?? 0f;
@@ -53,13 +47,11 @@ namespace CookApps.BattleSystem
         protected virtual void OnCurveUpdate(float value)
         {
             // 커브 값에 따라 업데이트 처리
-            MyDebug.Log($"OnCurveUpdate : {value}");
             _orbGroup.transform.localPosition = Vector3.up * value;
         }
 
         protected virtual void OnCurveComplete()
         {
-            MyDebug.Log($"protected virtual void OnCurveComplete()");
             // 커브 완료 시 처리
             _orbGroup.SetActive(false);
             _explosion.SetActive(true);

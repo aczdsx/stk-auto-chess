@@ -70,6 +70,7 @@ public class FlowStatePrologueReady : StateReadyBase
         int prologueCharacterLevel = 1;
 
         // 프롤로그 플레이어 캐릭터 위치 (플레이어 진영 앞쪽)
+
         var prologueCharacterPositions = new Dictionary<int, int2>
         {
             { PrologueID.프롤로그유니ID, new int2(1, 2) }, // 유니
