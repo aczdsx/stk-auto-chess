@@ -146,4 +146,5 @@ message ElpisClaimSimulationRewardResponse {
   ResponseStatus status = 1;
   SimulationData simulation = 2;
   repeated CurrencyDelta currency_deltas = 3;
+  repeated Reward rewards = 4;
 }

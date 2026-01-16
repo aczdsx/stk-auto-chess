@@ -55,26 +55,27 @@ namespace CookApps.AutoBattler
 
         public void RefreshSlot()
         {
+            // TODO: 상태에 따른 UI 변경 필요
             // 보상 수령 가능: COMPLETED 상태이고 보상이 남아있는 경우
-            bool isAvailGetReward = _currentEventConditionData.State == EventConditionState.Completed
-                                    && _currentEventConditionData.Rewards.Count > 0;
-            // 이미 수령 완료: COMPLETED 상태이고 보상이 없는 경우
-            bool isAlreadyGetReward = _currentEventConditionData.State == EventConditionState.Completed
-                                      && _currentEventConditionData.Rewards.Count == 0;
+            // bool isAvailGetReward = _currentEventConditionData.State == EventConditionState.Completed
+            //                         && _currentEventConditionData.Rewards.Count > 0;
+            // // 이미 수령 완료: COMPLETED 상태이고 보상이 없는 경우
+            // bool isAlreadyGetReward = _currentEventConditionData.State == EventConditionState.Completed
+            //                           && _currentEventConditionData.Rewards.Count == 0;
 
             // 클레임 상태 세팅
-            _claimBGObject.SetActive(isAvailGetReward);
-            _claimOnObject.SetActive(isAvailGetReward);
-
-            _activeCircleObject.SetActive(isAvailGetReward || isAlreadyGetReward);
-            _claimCheckObject.SetActive(isAlreadyGetReward);
+            // _claimBGObject.SetActive(isAvailGetReward);
+            // _claimOnObject.SetActive(isAvailGetReward);
+            //
+            // _activeCircleObject.SetActive(isAvailGetReward || isAlreadyGetReward);
+            // _claimCheckObject.SetActive(isAlreadyGetReward);
         }
 
         private async UniTask OnClickGetRewardButtonAsync()
         {
             if (_currentEventData == null) return;
-            if (_currentEventConditionData.State != EventConditionState.Completed) return;
-            if (_currentEventConditionData.Rewards.Count == 0) return;
+            if (_currentEventConditionData.IsRewarded) return;
+            // TODO: 상태 체크 필요
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 

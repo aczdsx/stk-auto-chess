@@ -223,6 +223,7 @@ public class FlowStateInGameTestCombat : StateCombatBase
         // 씬 재로드
         SceneTransition.Create<SceneTransition_FadeInOut>();
         SceneTransition.FadeInAsync().Forget();
-        SceneLoading.GoToNextScene("InGame", (InGameType.TEST, (IGameStateUICore)new InGameMainStateTest(), _testConfig.StageChapterId));
+        var inGameMainParams = new InGameMainParams(InGameType.TEST, new InGameMainStateTest(), _testConfig.StageChapterId);
+        SceneLoading.GoToNextScene("InGame", inGameMainParams);
     }
 }

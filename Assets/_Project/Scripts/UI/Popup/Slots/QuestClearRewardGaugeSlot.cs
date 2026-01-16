@@ -76,8 +76,8 @@ namespace CookApps.AutoBattler
             }
 
             // 보상 수령 상태에 따른 분기처리
-            _isAvailGetReward = _questData.State == QuestState.Completed && _questData.Rewards.Count > 0;
-            _isAlreadyGetReward = _questData.State == QuestState.Completed && _questData.Rewards.Count == 0;
+            _isAvailGetReward = _questData.IsCleared && !_questData.IsRewarded;
+            _isAlreadyGetReward = _questData.IsCleared && _questData.IsRewarded;
 
             _rewardIconUIShiny.Play(_isAvailGetReward && !_isAlreadyGetReward);
             _activeFrameObject.SetActive(_isAvailGetReward && !_isAlreadyGetReward);

@@ -26,13 +26,11 @@ service EventService {
 
 enum EventErrorCode {
   EVENT_UNSPECIFIED = 0;
+
+  EVENT_INFO_NOT_FOUND = 10131101; // 이벤트 정보를 찾을 수 없음
 }
 
-message EventListRequest {
-  // 완료된 이벤트 포함 여부
-  bool include_completed = 1;
-}
-
+message EventListRequest {}
 message EventListResponse {
   ResponseStatus status = 1;
   repeated EventData events = 2;

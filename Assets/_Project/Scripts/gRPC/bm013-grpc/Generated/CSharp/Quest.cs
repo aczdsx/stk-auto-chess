@@ -31,36 +31,27 @@ namespace Tech.Hive.V1 {
             "EiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1",
             "cxIrCgpxdWVzdF9saXN0GAIgAygLMhcudGVjaC5oaXZlLnYxLlF1ZXN0RGF0",
             "YRIVCg1uZXh0X3Jlc2V0X2F0GAMgASgEEhIKCmRhdGVfaW5kZXgYBCABKA0i",
-            "ewofUXVlc3RVcGRhdGVRdWVzdFByb2dyZXNzUmVxdWVzdBIQCghxdWVzdF9p",
-            "ZBgBIAEoDRIrCgpxdWVzdF90eXBlGAIgASgOMhcudGVjaC5oaXZlLnYxLlF1",
-            "ZXN0VHlwZRIZChFhZGRfY3VycmVudF9jb3VudBgDIAEoDSJ4CiBRdWVzdFVw",
-            "ZGF0ZVF1ZXN0UHJvZ3Jlc3NSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50",
-            "ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSJgoFcXVlc3QYAiABKAsyFy50",
-            "ZWNoLmhpdmUudjEuUXVlc3REYXRhIoUBChxRdWVzdENsYWltUXVlc3RSZXdh",
-            "cmRSZXF1ZXN0EhAKCHF1ZXN0X2lkGAEgASgNEisKCnF1ZXN0X3R5cGUYAiAB",
-            "KA4yFy50ZWNoLmhpdmUudjEuUXVlc3RUeXBlEhcKCmRhdGVfaW5kZXgYAyAB",
-            "KA1IAIgBAUINCgtfZGF0ZV9pbmRleCLSAQodUXVlc3RDbGFpbVF1ZXN0UmV3",
-            "YXJkUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJl",
-            "c3BvbnNlU3RhdHVzEiYKBXF1ZXN0GAIgASgLMhcudGVjaC5oaXZlLnYxLlF1",
-            "ZXN0RGF0YRIlCgdyZXdhcmRzGAMgAygLMhQudGVjaC5oaXZlLnYxLlJld2Fy",
-            "ZBI0Cg9jdXJyZW5jeV9kZWx0YXMYBCADKAsyGy50ZWNoLmhpdmUudjEuQ3Vy",
-            "cmVuY3lEZWx0YSonCg5RdWVzdEVycm9yQ29kZRIVChFRVUVTVF9VTlNQRUNJ",
-            "RklFRBAAMtgCCgxRdWVzdFNlcnZpY2USZQoOTGlzdERhaWx5UXVlc3QSKC50",
-            "ZWNoLmhpdmUudjEuUXVlc3RMaXN0RGFpbHlRdWVzdFJlcXVlc3QaKS50ZWNo",
-            "LmhpdmUudjEuUXVlc3RMaXN0RGFpbHlRdWVzdFJlc3BvbnNlEnQKE1VwZGF0",
-            "ZVF1ZXN0UHJvZ3Jlc3MSLS50ZWNoLmhpdmUudjEuUXVlc3RVcGRhdGVRdWVz",
-            "dFByb2dyZXNzUmVxdWVzdBouLnRlY2guaGl2ZS52MS5RdWVzdFVwZGF0ZVF1",
-            "ZXN0UHJvZ3Jlc3NSZXNwb25zZRJrChBDbGFpbVF1ZXN0UmV3YXJkEioudGVj",
-            "aC5oaXZlLnYxLlF1ZXN0Q2xhaW1RdWVzdFJld2FyZFJlcXVlc3QaKy50ZWNo",
-            "LmhpdmUudjEuUXVlc3RDbGFpbVF1ZXN0UmV3YXJkUmVzcG9uc2ViBnByb3Rv",
-            "Mw=="));
+            "hQEKHFF1ZXN0Q2xhaW1RdWVzdFJld2FyZFJlcXVlc3QSEAoIcXVlc3RfaWQY",
+            "ASABKA0SKwoKcXVlc3RfdHlwZRgCIAEoDjIXLnRlY2guaGl2ZS52MS5RdWVz",
+            "dFR5cGUSFwoKZGF0ZV9pbmRleBgDIAEoDUgAiAEBQg0KC19kYXRlX2luZGV4",
+            "ItIBCh1RdWVzdENsYWltUXVlc3RSZXdhcmRSZXNwb25zZRIsCgZzdGF0dXMY",
+            "ASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSJgoFcXVlc3QY",
+            "AiABKAsyFy50ZWNoLmhpdmUudjEuUXVlc3REYXRhEiUKB3Jld2FyZHMYAyAD",
+            "KAsyFC50ZWNoLmhpdmUudjEuUmV3YXJkEjQKD2N1cnJlbmN5X2RlbHRhcxgE",
+            "IAMoCzIbLnRlY2guaGl2ZS52MS5DdXJyZW5jeURlbHRhKn8KDlF1ZXN0RXJy",
+            "b3JDb2RlEhUKEVFVRVNUX1VOU1BFQ0lGSUVEEAASGwoUUVVFU1RfSU5GT19O",
+            "T1RfRk9VTkQQuazqBBIaChNRVUVTVF9OT1RfQ09NUExFVEVEELqs6gQSHQoW",
+            "UVVFU1RfQUxSRUFEWV9SRVdBUkRFRBC7rOoEMuIBCgxRdWVzdFNlcnZpY2US",
+            "ZQoOTGlzdERhaWx5UXVlc3QSKC50ZWNoLmhpdmUudjEuUXVlc3RMaXN0RGFp",
+            "bHlRdWVzdFJlcXVlc3QaKS50ZWNoLmhpdmUudjEuUXVlc3RMaXN0RGFpbHlR",
+            "dWVzdFJlc3BvbnNlEmsKEENsYWltUXVlc3RSZXdhcmQSKi50ZWNoLmhpdmUu",
+            "djEuUXVlc3RDbGFpbVF1ZXN0UmV3YXJkUmVxdWVzdBorLnRlY2guaGl2ZS52",
+            "MS5RdWVzdENsYWltUXVlc3RSZXdhcmRSZXNwb25zZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.QuestDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.QuestErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestListDailyQuestRequest), global::Tech.Hive.V1.QuestListDailyQuestRequest.Parser, new[]{ "DateIndex" }, new[]{ "DateIndex" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestListDailyQuestResponse), global::Tech.Hive.V1.QuestListDailyQuestResponse.Parser, new[]{ "Status", "QuestList", "NextResetAt", "DateIndex" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestUpdateQuestProgressRequest), global::Tech.Hive.V1.QuestUpdateQuestProgressRequest.Parser, new[]{ "QuestId", "QuestType", "AddCurrentCount" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestUpdateQuestProgressResponse), global::Tech.Hive.V1.QuestUpdateQuestProgressResponse.Parser, new[]{ "Status", "Quest" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestClaimQuestRewardRequest), global::Tech.Hive.V1.QuestClaimQuestRewardRequest.Parser, new[]{ "QuestId", "QuestType", "DateIndex" }, new[]{ "DateIndex" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestClaimQuestRewardResponse), global::Tech.Hive.V1.QuestClaimQuestRewardResponse.Parser, new[]{ "Status", "Quest", "Rewards", "CurrencyDeltas" }, null, null, null, null)
           }));
@@ -71,6 +62,18 @@ namespace Tech.Hive.V1 {
   #region Enums
   public enum QuestErrorCode {
     [pbr::OriginalName("QUEST_UNSPECIFIED")] QuestUnspecified = 0,
+    /// <summary>
+    /// 퀘스트 정보를 찾을 수 없음
+    /// </summary>
+    [pbr::OriginalName("QUEST_INFO_NOT_FOUND")] QuestInfoNotFound = 10131001,
+    /// <summary>
+    /// 퀘스트 완료 조건이 안됨
+    /// </summary>
+    [pbr::OriginalName("QUEST_NOT_COMPLETED")] QuestNotCompleted = 10131002,
+    /// <summary>
+    /// 퀘스트 보상을 이미 수령함
+    /// </summary>
+    [pbr::OriginalName("QUEST_ALREADY_REWARDED")] QuestAlreadyRewarded = 10131003,
   }
 
   #endregion
@@ -587,515 +590,6 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class QuestUpdateQuestProgressRequest : pb::IMessage<QuestUpdateQuestProgressRequest>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<QuestUpdateQuestProgressRequest> _parser = new pb::MessageParser<QuestUpdateQuestProgressRequest>(() => new QuestUpdateQuestProgressRequest());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<QuestUpdateQuestProgressRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[2]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public QuestUpdateQuestProgressRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public QuestUpdateQuestProgressRequest(QuestUpdateQuestProgressRequest other) : this() {
-      questId_ = other.questId_;
-      questType_ = other.questType_;
-      addCurrentCount_ = other.addCurrentCount_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public QuestUpdateQuestProgressRequest Clone() {
-      return new QuestUpdateQuestProgressRequest(this);
-    }
-
-    /// <summary>Field number for the "quest_id" field.</summary>
-    public const int QuestIdFieldNumber = 1;
-    private uint questId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint QuestId {
-      get { return questId_; }
-      set {
-        questId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "quest_type" field.</summary>
-    public const int QuestTypeFieldNumber = 2;
-    private global::Tech.Hive.V1.QuestType questType_ = global::Tech.Hive.V1.QuestType.Unspecified;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.QuestType QuestType {
-      get { return questType_; }
-      set {
-        questType_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "add_current_count" field.</summary>
-    public const int AddCurrentCountFieldNumber = 3;
-    private uint addCurrentCount_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint AddCurrentCount {
-      get { return addCurrentCount_; }
-      set {
-        addCurrentCount_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as QuestUpdateQuestProgressRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(QuestUpdateQuestProgressRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (QuestId != other.QuestId) return false;
-      if (QuestType != other.QuestType) return false;
-      if (AddCurrentCount != other.AddCurrentCount) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (QuestId != 0) hash ^= QuestId.GetHashCode();
-      if (QuestType != global::Tech.Hive.V1.QuestType.Unspecified) hash ^= QuestType.GetHashCode();
-      if (AddCurrentCount != 0) hash ^= AddCurrentCount.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (QuestId != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(QuestId);
-      }
-      if (QuestType != global::Tech.Hive.V1.QuestType.Unspecified) {
-        output.WriteRawTag(16);
-        output.WriteEnum((int) QuestType);
-      }
-      if (AddCurrentCount != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(AddCurrentCount);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (QuestId != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(QuestId);
-      }
-      if (QuestType != global::Tech.Hive.V1.QuestType.Unspecified) {
-        output.WriteRawTag(16);
-        output.WriteEnum((int) QuestType);
-      }
-      if (AddCurrentCount != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(AddCurrentCount);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (QuestId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(QuestId);
-      }
-      if (QuestType != global::Tech.Hive.V1.QuestType.Unspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) QuestType);
-      }
-      if (AddCurrentCount != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(AddCurrentCount);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(QuestUpdateQuestProgressRequest other) {
-      if (other == null) {
-        return;
-      }
-      if (other.QuestId != 0) {
-        QuestId = other.QuestId;
-      }
-      if (other.QuestType != global::Tech.Hive.V1.QuestType.Unspecified) {
-        QuestType = other.QuestType;
-      }
-      if (other.AddCurrentCount != 0) {
-        AddCurrentCount = other.AddCurrentCount;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            QuestId = input.ReadUInt32();
-            break;
-          }
-          case 16: {
-            QuestType = (global::Tech.Hive.V1.QuestType) input.ReadEnum();
-            break;
-          }
-          case 24: {
-            AddCurrentCount = input.ReadUInt32();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 8: {
-            QuestId = input.ReadUInt32();
-            break;
-          }
-          case 16: {
-            QuestType = (global::Tech.Hive.V1.QuestType) input.ReadEnum();
-            break;
-          }
-          case 24: {
-            AddCurrentCount = input.ReadUInt32();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  [global::System.SerializableAttribute]
-  public sealed partial class QuestUpdateQuestProgressResponse : pb::IMessage<QuestUpdateQuestProgressResponse>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<QuestUpdateQuestProgressResponse> _parser = new pb::MessageParser<QuestUpdateQuestProgressResponse>(() => new QuestUpdateQuestProgressResponse());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<QuestUpdateQuestProgressResponse> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[3]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public QuestUpdateQuestProgressResponse() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public QuestUpdateQuestProgressResponse(QuestUpdateQuestProgressResponse other) : this() {
-      status_ = other.status_ != null ? other.status_.Clone() : null;
-      quest_ = other.quest_ != null ? other.quest_.Clone() : null;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public QuestUpdateQuestProgressResponse Clone() {
-      return new QuestUpdateQuestProgressResponse(this);
-    }
-
-    /// <summary>Field number for the "status" field.</summary>
-    public const int StatusFieldNumber = 1;
-    private global::Tech.Hive.V1.ResponseStatus status_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.ResponseStatus Status {
-      get { return status_; }
-      set {
-        status_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "quest" field.</summary>
-    public const int QuestFieldNumber = 2;
-    private global::Tech.Hive.V1.QuestData quest_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.QuestData Quest {
-      get { return quest_; }
-      set {
-        quest_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as QuestUpdateQuestProgressResponse);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(QuestUpdateQuestProgressResponse other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!object.Equals(Status, other.Status)) return false;
-      if (!object.Equals(Quest, other.Quest)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (status_ != null) hash ^= Status.GetHashCode();
-      if (quest_ != null) hash ^= Quest.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (status_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(Status);
-      }
-      if (quest_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(Quest);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (status_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(Status);
-      }
-      if (quest_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(Quest);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (status_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
-      }
-      if (quest_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Quest);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(QuestUpdateQuestProgressResponse other) {
-      if (other == null) {
-        return;
-      }
-      if (other.status_ != null) {
-        if (status_ == null) {
-          Status = new global::Tech.Hive.V1.ResponseStatus();
-        }
-        Status.MergeFrom(other.Status);
-      }
-      if (other.quest_ != null) {
-        if (quest_ == null) {
-          Quest = new global::Tech.Hive.V1.QuestData();
-        }
-        Quest.MergeFrom(other.Quest);
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (status_ == null) {
-              Status = new global::Tech.Hive.V1.ResponseStatus();
-            }
-            input.ReadMessage(Status);
-            break;
-          }
-          case 18: {
-            if (quest_ == null) {
-              Quest = new global::Tech.Hive.V1.QuestData();
-            }
-            input.ReadMessage(Quest);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            if (status_ == null) {
-              Status = new global::Tech.Hive.V1.ResponseStatus();
-            }
-            input.ReadMessage(Status);
-            break;
-          }
-          case 18: {
-            if (quest_ == null) {
-              Quest = new global::Tech.Hive.V1.QuestData();
-            }
-            input.ReadMessage(Quest);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  [global::System.SerializableAttribute]
   public sealed partial class QuestClaimQuestRewardRequest : pb::IMessage<QuestClaimQuestRewardRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1111,7 +605,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1389,7 +883,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Tech.Hive.V1.QuestReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

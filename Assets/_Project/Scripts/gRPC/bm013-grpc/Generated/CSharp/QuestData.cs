@@ -28,16 +28,13 @@ namespace Tech.Hive.V1 {
             "b24ucHJvdG8irAEKCVF1ZXN0RGF0YRIQCghxdWVzdF9pZBgBIAEoDRIVCg1j",
             "dXJyZW50X2NvdW50GAIgASgNEhIKCmdvYWxfY291bnQYAyABKA0SJQoHcmV3",
             "YXJkcxgEIAMoCzIULnRlY2guaGl2ZS52MS5SZXdhcmQSEgoKZXhwaXJlZF9h",
-            "dBgFIAEoBBInCgVzdGF0ZRgGIAEoDjIYLnRlY2guaGl2ZS52MS5RdWVzdFN0",
-            "YXRlKj0KCVF1ZXN0VHlwZRIaChZRVUVTVF9UWVBFX1VOU1BFQ0lGSUVEEAAS",
-            "FAoQUVVFU1RfVFlQRV9EQUlMWRABKn4KClF1ZXN0U3RhdGUSGwoXUVVFU1Rf",
-            "U1RBVEVfVU5TUEVDSUZJRUQQABIbChdRVUVTVF9TVEFURV9OT1RfU1RBUlRF",
-            "RBABEhsKF1FVRVNUX1NUQVRFX0lOX1BST0dSRVNTEAISGQoVUVVFU1RfU1RB",
-            "VEVfQ09NUExFVEVEEANiBnByb3RvMw=="));
+            "dBgFIAEoBBITCgtpc19yZXdhcmRlZBgGIAEoCBISCgppc19jbGVhcmVkGAcg",
+            "ASgIKj0KCVF1ZXN0VHlwZRIaChZRVUVTVF9UWVBFX1VOU1BFQ0lGSUVEEAAS",
+            "FAoQUVVFU1RfVFlQRV9EQUlMWRABYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.CustomCommonReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.QuestType), typeof(global::Tech.Hive.V1.QuestState), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestData), global::Tech.Hive.V1.QuestData.Parser, new[]{ "QuestId", "CurrentCount", "GoalCount", "Rewards", "ExpiredAt", "State" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.QuestType), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.QuestData), global::Tech.Hive.V1.QuestData.Parser, new[]{ "QuestId", "CurrentCount", "GoalCount", "Rewards", "ExpiredAt", "IsRewarded", "IsCleared" }, null, null, null, null)
           }));
     }
     #endregion
@@ -53,22 +50,6 @@ namespace Tech.Hive.V1 {
     /// 일일 퀘스트
     /// </summary>
     [pbr::OriginalName("QUEST_TYPE_DAILY")] Daily = 1,
-  }
-
-  public enum QuestState {
-    [pbr::OriginalName("QUEST_STATE_UNSPECIFIED")] Unspecified = 0,
-    /// <summary>
-    /// 퀘스트 시작 전
-    /// </summary>
-    [pbr::OriginalName("QUEST_STATE_NOT_STARTED")] NotStarted = 1,
-    /// <summary>
-    /// 퀘스트 진행 중
-    /// </summary>
-    [pbr::OriginalName("QUEST_STATE_IN_PROGRESS")] InProgress = 2,
-    /// <summary>
-    /// 퀘스트 완료
-    /// </summary>
-    [pbr::OriginalName("QUEST_STATE_COMPLETED")] Completed = 3,
   }
 
   #endregion
@@ -114,7 +95,8 @@ namespace Tech.Hive.V1 {
       goalCount_ = other.goalCount_;
       rewards_ = other.rewards_.Clone();
       expiredAt_ = other.expiredAt_;
-      state_ = other.state_;
+      isRewarded_ = other.isRewarded_;
+      isCleared_ = other.isCleared_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -195,18 +177,27 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "state" field.</summary>
-    public const int StateFieldNumber = 6;
-    private global::Tech.Hive.V1.QuestState state_ = global::Tech.Hive.V1.QuestState.Unspecified;
-    /// <summary>
-    /// 상태
-    /// </summary>
+    /// <summary>Field number for the "is_rewarded" field.</summary>
+    public const int IsRewardedFieldNumber = 6;
+    private bool isRewarded_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Tech.Hive.V1.QuestState State {
-      get { return state_; }
+    public bool IsRewarded {
+      get { return isRewarded_; }
       set {
-        state_ = value;
+        isRewarded_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "is_cleared" field.</summary>
+    public const int IsClearedFieldNumber = 7;
+    private bool isCleared_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsCleared {
+      get { return isCleared_; }
+      set {
+        isCleared_ = value;
       }
     }
 
@@ -230,7 +221,8 @@ namespace Tech.Hive.V1 {
       if (GoalCount != other.GoalCount) return false;
       if(!rewards_.Equals(other.rewards_)) return false;
       if (ExpiredAt != other.ExpiredAt) return false;
-      if (State != other.State) return false;
+      if (IsRewarded != other.IsRewarded) return false;
+      if (IsCleared != other.IsCleared) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -243,7 +235,8 @@ namespace Tech.Hive.V1 {
       if (GoalCount != 0) hash ^= GoalCount.GetHashCode();
       hash ^= rewards_.GetHashCode();
       if (ExpiredAt != 0UL) hash ^= ExpiredAt.GetHashCode();
-      if (State != global::Tech.Hive.V1.QuestState.Unspecified) hash ^= State.GetHashCode();
+      if (IsRewarded != false) hash ^= IsRewarded.GetHashCode();
+      if (IsCleared != false) hash ^= IsCleared.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -279,9 +272,13 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(40);
         output.WriteUInt64(ExpiredAt);
       }
-      if (State != global::Tech.Hive.V1.QuestState.Unspecified) {
+      if (IsRewarded != false) {
         output.WriteRawTag(48);
-        output.WriteEnum((int) State);
+        output.WriteBool(IsRewarded);
+      }
+      if (IsCleared != false) {
+        output.WriteRawTag(56);
+        output.WriteBool(IsCleared);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -310,9 +307,13 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(40);
         output.WriteUInt64(ExpiredAt);
       }
-      if (State != global::Tech.Hive.V1.QuestState.Unspecified) {
+      if (IsRewarded != false) {
         output.WriteRawTag(48);
-        output.WriteEnum((int) State);
+        output.WriteBool(IsRewarded);
+      }
+      if (IsCleared != false) {
+        output.WriteRawTag(56);
+        output.WriteBool(IsCleared);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -337,8 +338,11 @@ namespace Tech.Hive.V1 {
       if (ExpiredAt != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ExpiredAt);
       }
-      if (State != global::Tech.Hive.V1.QuestState.Unspecified) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) State);
+      if (IsRewarded != false) {
+        size += 1 + 1;
+      }
+      if (IsCleared != false) {
+        size += 1 + 1;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -365,8 +369,11 @@ namespace Tech.Hive.V1 {
       if (other.ExpiredAt != 0UL) {
         ExpiredAt = other.ExpiredAt;
       }
-      if (other.State != global::Tech.Hive.V1.QuestState.Unspecified) {
-        State = other.State;
+      if (other.IsRewarded != false) {
+        IsRewarded = other.IsRewarded;
+      }
+      if (other.IsCleared != false) {
+        IsCleared = other.IsCleared;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -404,7 +411,11 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 48: {
-            State = (global::Tech.Hive.V1.QuestState) input.ReadEnum();
+            IsRewarded = input.ReadBool();
+            break;
+          }
+          case 56: {
+            IsCleared = input.ReadBool();
             break;
           }
         }
@@ -443,7 +454,11 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 48: {
-            State = (global::Tech.Hive.V1.QuestState) input.ReadEnum();
+            IsRewarded = input.ReadBool();
+            break;
+          }
+          case 56: {
+            IsCleared = input.ReadBool();
             break;
           }
         }

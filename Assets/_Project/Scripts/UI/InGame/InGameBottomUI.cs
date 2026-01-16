@@ -317,7 +317,6 @@ public class InGameBottomUI : MonoBehaviour
         _characterItemList.Clear();
         BMUtil.RemoveChildObjects(_inGameCharacterItemTransform);
         _allCharacterStats = new List<CharacterStatData>();
-        UserDataManager userDataManagerInstance = UserDataManager.Instance;
 
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
             SetCommanderSkillUI(i, ServerDataManager.Instance.CommanderSkill.GetEquippedCommanderSkillId(i));
@@ -367,7 +366,6 @@ public class InGameBottomUI : MonoBehaviour
 
     public void InitCommanderSkill()
     {
-        UserDataManager userDataManagerInstance = UserDataManager.Instance;
         SpecDataManager specDataManagerInstance = SpecDataManager.Instance;
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
         {

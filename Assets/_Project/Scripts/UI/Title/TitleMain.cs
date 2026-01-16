@@ -294,7 +294,8 @@ namespace CookApps.AutoBattler
 
             var testConfig = await Addressables.LoadAssetAsync<InGameTestConfig>("TestConfig/InGameTestConfig.asset");
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextScene("InGame", (InGameType.TEST, (IGameStateUICore)new InGameMainStateTest(), testConfig.StageChapterId));
+            var inGameParams = new InGameMainParams(InGameType.TEST, new InGameMainStateTest(), testConfig.StageChapterId);
+            SceneLoading.GoToNextScene("InGame", inGameParams);
         }
     }
 }

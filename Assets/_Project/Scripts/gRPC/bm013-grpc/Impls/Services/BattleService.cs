@@ -104,17 +104,17 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 전투 시작
         /// </summary>
-        public async UniTask<BattleStartResponse> StartAsync(
-            uint chapterId,
-            uint stageId,
+        public async UniTask<InGameMainParams> StartAsync(
+            int chapterId,
+            int stageId,
             uint deckSlotId,
             string[] observerSkillIds,
             CancellationToken cancellationToken = default)
         {
             var request = new BattleStartRequest
             {
-                ChapterId = chapterId,
-                StageId = stageId,
+                ChapterId = (uint)chapterId,
+                StageId = (uint)stageId,
                 DeckSlotId = deckSlotId,
             };
             request.ObserverSkillIds.AddRange(observerSkillIds);
@@ -124,7 +124,20 @@ namespace CookApps.AutoBattler
                 request,
                 cancellationToken: cancellationToken
             );
-            return resp;
+            
+            if (resp is not { IsSuccess: true })
+            {
+                // ToastManager.Instance.ShowToastByTokenKey("ERROR_UNKNOWN");
+                return null;
+            }
+
+            return new InGameMainParams(
+                InGameType.STAGE,
+                new InGameMainStateStage(),
+                stageId,
+                resp.BattleSessionId,
+                resp.BattleSeed
+            );
         }
 
         /// <summary>

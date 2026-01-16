@@ -5,12 +5,27 @@ using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using R3;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
+    public class InGameDungeonTrialResultPopupParam
+    {
+        public bool IsVictory { get; }
+        public CharacterInfo SpecCharacter { get; }
+        public IReadOnlyList<Reward> Rewards { get; }
+
+        public InGameDungeonTrialResultPopupParam(bool isVictory, CharacterInfo specCharacter, IReadOnlyList<Reward> rewards)
+        {
+            IsVictory = isVictory;
+            SpecCharacter = specCharacter;
+            Rewards = rewards;
+        }
+    }
+
     public class InGameDungeonTrialResultPopup : UILayer
     {
         [SerializeField] private CAButton _exitButton;
@@ -51,6 +66,7 @@ namespace CookApps.AutoBattler
 
         private bool _isVictory = false;
         private CharacterInfo _specCharacter;
+        private IReadOnlyList<Reward> _rewards;
         private DungeonBabelInfo _currentSpecDungeonTrial;
 
         protected override void Awake()
@@ -66,7 +82,10 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.StopBGM();
 
-            (_isVictory, _specCharacter) = ((bool, CharacterInfo))param;
+            var popupParam = (InGameDungeonTrialResultPopupParam)param;
+            _isVictory = popupParam.IsVictory;
+            _specCharacter = popupParam.SpecCharacter;
+            _rewards = popupParam.Rewards;
 
             _failObj.SetActive(!_isVictory);
             _victoryObj.SetActive(_isVictory);
@@ -156,26 +175,15 @@ namespace CookApps.AutoBattler
             BMUtil.RemoveChildObjects(_rewardsTransform);
 
             _gradeUpObj.SetActive(_isVictory && InGameManager.Instance.SpecDungeonTrial.is_grade_up);
-            if (!InGameManager.Instance.SpecDungeonTrial.is_grade_up)
+            if (!InGameManager.Instance.SpecDungeonTrial.is_grade_up && _rewards != null)
             {
-                List<RewardItem> resultItemList = new List<RewardItem>();   // 보상 지급용 리워드 리스트
-                var rewardDataList = SpecDataManager.Instance.GetSpecDungeonRewardDataList(DungeonType.TRIAL, InGameManager.Instance.SpecDungeonTrial.dungeon_id);
-
-                foreach (var rewardData in rewardDataList)
+                foreach (var reward in _rewards)
                 {
                     GameObject newSlotObject = Instantiate(_rewardItemSlotObj, _rewardsTransform);
                     RewardItemSlot newSlot = newSlotObject.GetComponent<RewardItemSlot>();
 
-                    // ItemType의 삭제로 인해 변경.(new RewardItem(rewardData.item_type, rewardData.item_key, rewardData.item_count))
-                    RewardItem newRewardItem = new RewardItem(rewardData.item_id, rewardData.item_count);
-                    resultItemList.Add(newRewardItem);
+                    RewardItem newRewardItem = new RewardItem(reward);
                     newSlot?.SetRewardSlot(newRewardItem);
-                }
-
-                // 보상 데이터 저장
-                if (rewardDataList.Count > 0)
-                {
-                    UserDataManager.Instance.IncreaseRewardItemList(resultItemList, true);
                 }
             }
         }
