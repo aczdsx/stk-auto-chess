@@ -603,21 +603,27 @@ public class InGameBottomUI : MonoBehaviour
 
     public void SetCharacterCountText()
     {
-        var userGrade =
-            SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+        var userKnightCount = SpecDataManager.Instance.GetUserKnightCountByNestCount().maximum_character_count;
+        var batchedCharacterCount = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count;
 
-        int characterCount = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count;
-        int maximumCount = userGrade.maximum_character_count;
+        string colorCode = batchedCharacterCount == 0 ? "#CA6E71" : "#C5C5B2";
+        _characterCountText.text = $"<color={colorCode}>{batchedCharacterCount}</color>/{userKnightCount}";
 
-        string colorCode = characterCount == 0 ? "#CA6E71" : "#C5C5B2";
-        _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
-
-        bool isAvailableRecommend = maximumCount != characterCount;
+        var isAvailableRecommend = userKnightCount != batchedCharacterCount;
 
         if (_recommendObjOff != null)
             _recommendObjOff.SetActive(!isAvailableRecommend);
         if (_recommendObjOn != null)
             _recommendObjOn.SetActive(isAvailableRecommend);
+
+        // var userGrade =
+        //     SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+
+        // int characterCount = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count;
+        // int maximumCount = userGrade.maximum_character_count;
+
+        // string colorCode = characterCount == 0 ? "#CA6E71" : "#C5C5B2";
+        // _characterCountText.text = $"<color={colorCode}>{characterCount}</color>/{maximumCount}";
     }
 
     public void SetFocusCharacterUI(CharacterInfo spec)

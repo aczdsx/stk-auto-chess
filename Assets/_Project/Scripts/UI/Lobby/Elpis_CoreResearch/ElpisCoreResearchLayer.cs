@@ -67,6 +67,7 @@ namespace CookApps.AutoBattler
             
             inventoryDataBridge = new InventoryDataBridge();
             
+            // 버튼 클릭 이벤트 구독 (AwaitOperation.Drop: 비동기 작업 중일 때 새 클릭 무시)
             upgradeButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.Upgrade(), AwaitOperation.Drop).AddTo(this);
             closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.CloseThisUILayer()).AddTo(this);
             
@@ -300,7 +301,7 @@ namespace CookApps.AutoBattler
             }
 
             var canUpgrade = !coreData.IsMax && (currentItemCount >= coreData.Data.item_INT) && isOverNeedLevel;
-            upgradeButton.SetClickableState(canUpgrade);
+            upgradeButton.SetClickableState(true);
         }
 
         public void CoreSelected(ElpisCoreItem elpisCoreItem)
@@ -320,14 +321,26 @@ namespace CookApps.AutoBattler
 
         public async UniTask Upgrade()
         {
+            // 디버깅: 함수 호출 확인
+            Debug.Log($"[ElpisCoreResearch] Upgrade() 호출됨 - selectedCoreItem: {selectedCoreItem != null}, IsOverNeedLevel: {IsOverNeedLevel()}, currentItemCount: {currentItemCount}, required: {selectedCoreData?.item_INT}");
+            
             if(selectedCoreItem == null)
+            {
+                Debug.LogWarning("[ElpisCoreResearch] Upgrade() - selectedCoreItem이 null입니다.");
                 return;
+            }
 
             if(!IsOverNeedLevel())
+            {
+                Debug.LogWarning("[ElpisCoreResearch] Upgrade() - 레벨 조건을 만족하지 않습니다.");
                 return;
+            }
 
-            if(currentItemCount < selectedCoreData.item_INT)
-                return;
+            // if(currentItemCount < selectedCoreData.item_INT)
+            // {
+            //     Debug.LogWarning($"[ElpisCoreResearch] Upgrade() - 코어 개수 부족 (현재: {currentItemCount}, 필요: {selectedCoreData.item_INT})");
+            //     return;
+            // }
 
             var response = await NetManager.Instance.Elpis.ResearchCoreAsync((uint)selectedCoreData.upgrade_group_id, 1);
             if(!response.IsSuccess)

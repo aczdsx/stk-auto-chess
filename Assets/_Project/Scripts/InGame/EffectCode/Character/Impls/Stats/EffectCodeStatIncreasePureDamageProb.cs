@@ -30,7 +30,7 @@ public partial class EffectCodeStatIncreasePureDamageProb : EffectCodeStatBase
             calcOrder = 0;
         }
         // 더하고 싶을 때
-        // increment += codeInfo.GetCodeStat(1);
+        // increment += codeInfo.GetCodeStatToFloat(0);
     }
 
     public override float GetIncrementFixedPureDamageProb()

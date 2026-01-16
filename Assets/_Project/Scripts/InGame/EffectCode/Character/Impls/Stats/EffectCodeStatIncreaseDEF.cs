@@ -2,7 +2,7 @@ using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 
-[UseEffectCodeIds((int)EffectCodeNameType.DEF_PERCENT_UP)]
+[UseEffectCodeIds((int)EffectCodeNameType.DEF_UP)]
 
 public partial class EffectCodeStatIncreaseDEF : EffectCodeStatBase
 {
@@ -29,7 +29,7 @@ public partial class EffectCodeStatIncreaseDEF : EffectCodeStatBase
     {
         base.Merge(codeInfo, source);
         // 덮어 씌우고 싶을 때
-        increment = codeInfo.GetCodeStat(0);
+        // increment = codeInfo.GetCodeStat(0);
         if (codeInfo.HasCodeStat(1))
         {
             calcOrder = codeInfo.GetCodeStatToInt(1);
@@ -39,10 +39,10 @@ public partial class EffectCodeStatIncreaseDEF : EffectCodeStatBase
             calcOrder = 0;
         }
         // 더하고 싶을 때
-        // increment += codeInfo.GetCodeStat(1);
+        increment += codeInfo.GetCodeStat(0);
     }
 
-    public override double GetIncrementPercentDEF()
+    public override double GetIncrementFixedDEF()
     {
         return increment;
     }

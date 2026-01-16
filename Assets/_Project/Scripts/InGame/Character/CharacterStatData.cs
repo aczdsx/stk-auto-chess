@@ -25,18 +25,6 @@ namespace CookApps.AutoBattler
 
         public double GetAttrValueCP()
         {
-            // double physicalPenetration = ADPierce; // 물리관통
-            // double magicPenetration = APPierce; // 마법관통
-
-            // double physicalDefense = ADReduce; // 물리방어 
-            // double magicDefense = APReduce; // 마법방어
-
-            // double hpWeight = 1; // 체력 가중치, 이 값은 게임의 규칙에 따라 변경될 수 있습니다.
-
-            // double CP = (AD * AttackSpeed * (1 + CriticalProb * CriticalDamageRate)) *
-            //             (1 + ((physicalPenetration + magicPenetration) / (physicalPenetration + magicPenetration + 100) +
-            //                   (physicalDefense + magicDefense) / (physicalDefense + magicDefense + 100))) +
-            //             hpWeight * Math.Sqrt(HP);
             var w_OP = 7;
             var w_DP = 5;
             var w_UP = 1;
@@ -106,7 +94,7 @@ namespace CookApps.AutoBattler
             Debug.LogColor("characterID : " + characterId);
             EffectCodeContainer = new EffectCodeContainer(this);
             _spec = SpecDataManager.Instance.GetSpecCharacter(characterId);
-            if(_spec == null)
+            if (_spec == null)
             {
                 Debug.LogError("CharacterStatData: _spec is null for characterId: " + characterId);
                 return;
@@ -115,14 +103,21 @@ namespace CookApps.AutoBattler
             _level = level;
 
             var levelBonusRate = CalculateLevelBonusRate(level);
+            InjectFixedValueByElpisCoreLabs();
+
             {
-                //a 캐릭터가 b캐릭터 ad를 올렸어요. 그쵸 버프로 기존 b캐릭터 스텟(1) + 증분치
                 var adBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_PERCENT_UP, 0, levelBonusRate, 0);
                 var apBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AP_PERCENT_UP, 0, levelBonusRate, 0);
+
                 var hpBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.HP_PERCENT_UP, 0, levelBonusRate, 0);
+
+                var defBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.DEF_PERCENT_UP, 0, levelBonusRate, 0);
+
                 EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
                 EffectCodeContainer.AddOrMergeEffectCode(apBonusCodeInfo, this);
+
                 EffectCodeContainer.AddOrMergeEffectCode(hpBonusCodeInfo, this);
+                EffectCodeContainer.AddOrMergeEffectCode(defBonusCodeInfo, this);
             }
 
             if (!Mathf.Approximately(multiAd, 1f))
@@ -160,6 +155,158 @@ namespace CookApps.AutoBattler
             UpdateStats(EffectCodeInheritFlag.StatAll);
         }
 
+        private void InjectFixedValueByElpisCoreLabs()
+        {
+            var dataBridge = new ElpisDataBridge();
+            var cachedElpisCoreLabs = dataBridge.GetCurrentDimensionCoreLabs();
+
+            float fixedAD = 0f;
+            float fixedHP = 0f;
+            float fixedDEF = 0f;
+
+            foreach (var coreLab in cachedElpisCoreLabs)
+            {
+                // upgrade_cover_type에 따라 적용 범위 결정
+                switch (coreLab.upgrade_cover_type)
+                {
+                    case SynergyCoverType.KNIGHT_ALL:
+                        // KNIGHT_ALL이면 전부 적용 (공, 방, 체)
+                        ApplyKnightStats(coreLab, ref fixedAD, ref fixedDEF, ref fixedHP);
+                        break;
+
+                    case SynergyCoverType.SYNERGY_ELEMENTAL:
+                        // SYNERGY_ELEMENTAL이면 _spec의 엘리먼트와 비교
+                        if (IsElementMatch(coreLab.core_research_type, _spec.character_element_type))
+                        {
+                            // 속성은 방, 체 적용
+                            ApplyElementalStats(coreLab, ref fixedDEF, ref fixedHP);
+                        }
+                        break;
+
+                    case SynergyCoverType.SYNERGY_STELLA:
+                        // SYNERGY_STELLA이면 _spec의 character_stella_type과 비교
+                        if (IsStellaMatch(coreLab.core_research_type, _spec.character_stella_type))
+                        {
+                            // 성군은 공, 방 적용
+                            ApplyStellaStats(coreLab, ref fixedAD, ref fixedDEF);
+                        }
+                        break;
+                }
+            }
+
+            // 계산된 고정값을 EffectCode로 적용
+            if (fixedAD > 0f)
+            {
+                var adCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_UP, 0, fixedAD, 0);
+                EffectCodeContainer.AddOrMergeEffectCode(adCodeInfo, this);
+            }
+
+            if (fixedDEF > 0f)
+            {
+                var defCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.DEF_UP, 0, fixedDEF, 0);
+                EffectCodeContainer.AddOrMergeEffectCode(defCodeInfo, this);
+            }
+
+            if (fixedHP > 0f)
+            {
+                var hpCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.HP_UP, 0, fixedHP, 0);
+                EffectCodeContainer.AddOrMergeEffectCode(hpCodeInfo, this);
+            }
+        }
+
+        /// <summary>
+        /// 기사 타입 스탯 적용 (공, 방, 체)
+        /// </summary>
+        private void ApplyKnightStats(ElpisDimensionLab coreLab, ref float fixedAD, ref float fixedDEF, ref float fixedHP)
+        {
+            switch (coreLab.core_research_type)
+            {
+                case CoreResearchType.KnightAttack:
+                    fixedAD += coreLab.effect_stat_value01;
+                    break;
+                case CoreResearchType.KnightDefense:
+                    fixedDEF += coreLab.effect_stat_value01;
+                    break;
+                case CoreResearchType.KnightHealth:
+                    fixedHP += coreLab.effect_stat_value01;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 속성 타입 스탯 적용 (방, 체)
+        /// </summary>
+        private void ApplyElementalStats(ElpisDimensionLab coreLab, ref float fixedDEF, ref float fixedHP)
+        {
+            // effect_stat_value01이 방어, effect_stat_value02가 체력일 것으로 예상
+            // 실제 데이터 구조에 맞게 조정 필요
+            fixedDEF += coreLab.effect_stat_value01;
+            fixedHP += coreLab.effect_stat_value02;
+        }
+
+        /// <summary>
+        /// 성군 타입 스탯 적용 (공, 방)
+        /// </summary>
+        private void ApplyStellaStats(ElpisDimensionLab coreLab, ref float fixedAD, ref float fixedDEF)
+        {
+            // effect_stat_value01이 공격, effect_stat_value02가 방어일 것으로 예상
+            // 실제 데이터 구조에 맞게 조정 필요
+            fixedAD += coreLab.effect_stat_value01;
+            fixedDEF += coreLab.effect_stat_value02;
+        }
+
+        /// <summary>
+        /// CoreResearchType을 SynergyType으로 변환하여 엘리먼트 매칭 확인
+        /// </summary>
+        private bool IsElementMatch(CoreResearchType coreResearchType, SynergyType characterElementType)
+        {
+            switch (coreResearchType)
+            {
+                case CoreResearchType.Fire:
+                    return characterElementType == SynergyType.FIRE;
+                case CoreResearchType.Wind:
+                    return characterElementType == SynergyType.WIND;
+                case CoreResearchType.Earth:
+                    return characterElementType == SynergyType.EARTH;
+                case CoreResearchType.Lightning:
+                    return characterElementType == SynergyType.LIGHTNING;
+                case CoreResearchType.Water:
+                    return characterElementType == SynergyType.WATER;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// CoreResearchType을 SynergyType으로 변환하여 성군 매칭 확인
+        /// </summary>
+        private bool IsStellaMatch(CoreResearchType coreResearchType, SynergyType characterStellaType)
+        {
+            switch (coreResearchType)
+            {
+                case CoreResearchType.Noblesse:
+                    return characterStellaType == SynergyType.NOBLESSE;
+                case CoreResearchType.Supernova:
+                    return characterStellaType == SynergyType.SUPERNOVA;
+                case CoreResearchType.Troubleshooter:
+                    return characterStellaType == SynergyType.TROUBLESHOOTER;
+                // VIGILANTE, ARCANA, ECLIPSE는 현재 SynergyType enum에 없음
+                // 추후 추가될 경우 아래 주석을 해제
+                // case CoreResearchType.Vigilante:
+                //     return characterStellaType == SynergyType.VIGILANTE;
+                // case CoreResearchType.Arcana:
+                //     return characterStellaType == SynergyType.ARCANA;
+                // case CoreResearchType.Eclipse:
+                //     return characterStellaType == SynergyType.ECLIPSE;
+                default:
+                    return false;
+            }
+        }
+
+      
+
+       
+
         // PVP 전용
         public CharacterStatData(int characterId, int level, RepeatedField<EffectCodeInfoProto> protos, RepeatedField<EffectCodeInfoProto> globalEffectCodeInfos = null)
         {
@@ -169,14 +316,18 @@ namespace CookApps.AutoBattler
             _level = level;
 
             var levelBonusRate = CalculateLevelBonusRate(level);
-
+            InjectFixedValueByElpisCoreLabs();
             {
                 var adBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_PERCENT_UP, 0, levelBonusRate, 0);
                 var apBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AP_PERCENT_UP, 0, levelBonusRate, 0);
+
                 var hpBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.HP_PERCENT_UP, 0, levelBonusRate, 0);
+                var defBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.DEF_PERCENT_UP, 0, levelBonusRate, 0);
+
                 EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
                 EffectCodeContainer.AddOrMergeEffectCode(apBonusCodeInfo, this);
                 EffectCodeContainer.AddOrMergeEffectCode(hpBonusCodeInfo, this);
+                EffectCodeContainer.AddOrMergeEffectCode(defBonusCodeInfo, this);
             }
 
             if (globalEffectCodeInfos != null)
@@ -197,6 +348,7 @@ namespace CookApps.AutoBattler
             UpdateStats(EffectCodeInheritFlag.StatAll);
         }
 
+        //아래 함수는 곱연산 계산 함수
         private double CalculateLevelBonusRate(int level)
         {
             // 레벨보너스만 몬스터에게 적용되고 초월, ㅁ돌파는 안붙음.

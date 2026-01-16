@@ -28,7 +28,7 @@ public partial class EffectCodeStatIncreaseCriticalPowerPercent : EffectCodeStat
     {
         base.Merge(codeInfo, source);
         // 덮어 씌우고 싶을 때
-        increment = codeInfo.GetCodeStatToFloat(0);
+        // increment = codeInfo.GetCodeStatToFloat(0);
         if (codeInfo.HasCodeStat(1))
         {
             calcOrder = codeInfo.GetCodeStatToInt(1);
@@ -38,7 +38,7 @@ public partial class EffectCodeStatIncreaseCriticalPowerPercent : EffectCodeStat
             calcOrder = 0;
         }
         // 더하고 싶을 때
-        // increment += codeInfo.GetCodeStat(1);
+        increment += codeInfo.GetCodeStatToFloat(0);
     }
 
     public override float GetIncrementPercentCriticalDamageRate()

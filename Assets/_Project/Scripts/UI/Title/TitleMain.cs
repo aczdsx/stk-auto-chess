@@ -282,7 +282,8 @@ namespace CookApps.AutoBattler
             await UniTask.WhenAll(
                 NetManager.Instance.CustomLobby.GetMyPlayerDataAsync(),
                 NetManager.Instance.Inventory.ListAsync(),
-                NetManager.Instance.Character.ListAsync()
+                NetManager.Instance.Character.ListAsync(),
+                NetManager.Instance.Initialize_Elpis()
             );
 
             SceneUILayerManager.Instance.PopUILayer(popup);
