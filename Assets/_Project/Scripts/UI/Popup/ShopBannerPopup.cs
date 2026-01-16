@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using R3;
@@ -44,15 +43,16 @@ namespace CookApps.AutoBattler
             if (_specShopBannerData == null) return;
 
             ClearPopup();
-            
+
             foreach (var bannerLayer in _bannerLayerList)
             {
                 if (bannerLayer.ShopID != _specShopData.shop_id) continue;
-                
+
                 bannerLayer.gameObject.SetActive(true);
                 bannerLayer.SetShopBannerLayer(this);
-                
-                UserDataManager.Instance.SetShopBannerShowCount(_specShopBannerData.shop_id, 1, true, true);
+
+                var shopPurchaseData = ClientDataManager.Instance.GetData<ClientShopPurchaseData>(ClientShopPurchaseData.CategoryName);
+                shopPurchaseData.SetShopBannerShowCount(_specShopBannerData.shop_id, 1, true);
 
                 break;
             }
