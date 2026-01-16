@@ -36,6 +36,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private TMP_Text currentCoreText;
         [SerializeField] private CAButton upgradeButton;
         [SerializeField] private TMP_Text[] upgradeButtonTexts;
+        [SerializeField] private TMP_Text coreTitleText;
+        [SerializeField] private TMP_Text requiredCoreTitleText;
         
         [Header("스탯 관련")]
         [SerializeField] private ElpisCoreStatItem[] coreStats;
@@ -226,8 +228,8 @@ namespace CookApps.AutoBattler
 
             var (cumulatedValue1, cumulatedValue2) = GetCumulatedValueByLevel(selectedCoreData.upgrade_group_id, selectedCoreData.lv);
 
-            var titleString1 = ZString.Concat(titleKey1, " ", cumulatedValue1);
-            var titleString2 = ZString.Concat(titleKey2, " ", cumulatedValue2);
+            var titleString1 = ZString.Format(LanguageManager.Instance.GetDefaultText(titleKey1), cumulatedValue1);
+            var titleString2 = ZString.Format(LanguageManager.Instance.GetDefaultText(titleKey2), cumulatedValue2);
 
             var nextStatText1 = ZString.Concat(selectedCoreData.effect_stat_value01);
             var nextStatText2 = ZString.Concat(selectedCoreData.effect_stat_value02);
@@ -282,8 +284,9 @@ namespace CookApps.AutoBattler
         private void ShowCoreDetail(CoreResearchCacheData coreData)
         {
             SetCoreStatItems();
+            requiredCoreTitleText.text = LanguageManager.Instance.GetDefaultText(ZString.Format("REQUIRED_{0}", coreData.Data.item_id));
+            coreTitleText.text = ZString.Format(LanguageManager.Instance.GetDefaultText(coreData.Data.upgrade_name_token), coreData.Data.lv);
 
-            // 먼저 currentItemCount 갱신
             currentItemCount = (int)inventoryDataBridge.GetCurrency(coreData.Data.item_id);
             currentCoreText.text = ZString.Concat(currentItemCount);
             requiredCoreText.text = ZString.Concat(coreData.Data.item_INT);
@@ -291,7 +294,8 @@ namespace CookApps.AutoBattler
             var isOverNeedLevel = IsOverNeedLevel();
             foreach (var upgradeButtonText in upgradeButtonTexts)
             {
-                upgradeButtonText.text = isOverNeedLevel ? "강화" : "연구소 레벨업 필요";
+                var upgradeLocalized = LanguageManager.Instance.GetDefaultText(isOverNeedLevel ? "DIMENSION_UPGRADE" : "DIMENSION_NOT_REACHED_LEVEL");
+                upgradeButtonText.text = upgradeLocalized;
             }
 
             var canUpgrade = !coreData.IsMax && (currentItemCount >= coreData.Data.item_INT) && isOverNeedLevel;

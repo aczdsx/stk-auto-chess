@@ -12,7 +12,6 @@ public class ElpisCoreStatItem : CachedMonoBehaviour
     {
         CachedGo.SetActive(!valueKey.Equals("0"));
         
-        //TODO : localization
         statTitleText.text = titleKey;
         statValueText.text = ZString.Format("+ {0}", valueKey);
     }
