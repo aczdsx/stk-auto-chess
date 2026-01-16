@@ -112,7 +112,6 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
-
     }
     
     private List<InGameTile> GetAreaTiles(InGameTile centerTile)
