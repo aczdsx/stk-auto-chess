@@ -38,6 +38,7 @@ namespace CookApps.AutoBattler
         AVOID_PROB_PERCENT_UP = 27,
         BLOCKING_PROB_PERCENT_UP = 28,
         DEF_PERCENT_UP = 29,
+        DEF_UP = 30,
         BATTLE_ITEM_SUPERNOVA = 96101,
         BATTLE_ITEM_DYNAMITE = 96201,
         BATTLE_ITEM_SUPPLY = 96301,

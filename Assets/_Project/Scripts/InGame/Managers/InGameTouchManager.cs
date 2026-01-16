@@ -330,9 +330,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         // 튜토리얼 오브젝트 이동 중일 때 Destination 타일로만 이동 가능
         if (CookApps.AutoBattler.TutorialActionMoveObject.IsActive)
         {
-            var tileTarget = targetTileView.GetComponent<TutorialTarget>();
-            string targetId = tileTarget?.TargetId ?? targetTileView.ID.ToString();
-            if (!CookApps.AutoBattler.TutorialActionMoveObject.CanSelectFromTile(int.Parse(targetId)))
+            if (!CookApps.AutoBattler.TutorialActionMoveObject.CanMoveToTile(targetTileView.ID))
                 return false;
         }
 
