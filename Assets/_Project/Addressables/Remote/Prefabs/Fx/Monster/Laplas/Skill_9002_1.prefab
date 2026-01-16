@@ -4900,7 +4900,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2890495625022987661}
-  - component: {fileID: 9088371138692259818}
+  - component: {fileID: 8653406997773433192}
   m_Layer: 6
   m_Name: Skill_9002_1
   m_TagString: Untagged
@@ -4925,7 +4925,7 @@ Transform:
   - {fileID: 3924552358494547706}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9088371138692259818
+--- !u!114 &8653406997773433192
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4934,9 +4934,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 1175229739757819769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6aa2c7f7a9dc91b468b8545f057afbe9, type: 3}
+  m_Script: {fileID: 11500000, guid: 936dd02fe6ec29e46b69b155cabe2903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _orbGroup: {fileID: 8573665843505270990}
+  _explosion: {fileID: 8611472156007724028}
+  _curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.006074667
+      value: 4.5713573
+      inSlope: 0.06765534
+      outSlope: 0.06765534
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8092631
+      value: 4.626519
+      inSlope: 0.041204877
+      outSlope: 25.29465
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.35674468
+      outWeight: 0.1659938
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -67.62014
+      outSlope: -67.62014
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.061910383
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _duration: 2
 --- !u!1 &1707341587913029719
 GameObject:
   m_ObjectHideFlags: 0
@@ -97737,7 +97773,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3924552358494547706
 Transform:
   m_ObjectHideFlags: 0
