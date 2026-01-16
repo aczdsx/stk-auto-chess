@@ -958,6 +958,8 @@ namespace CookApps.AutoBattler
         DIMENSION_UPGRADE_COMPLETE = 17,
         BABEL_STAGE_CLEAR = 18,
         END_TUTORIAL = 19,
+        SKILL_IN_SLOT = 20,
+        COMMENDER_SKILL_ACTIVE = 21,
     }
 
     public enum TutorialActionType
@@ -973,6 +975,8 @@ namespace CookApps.AutoBattler
         SHOW_DIALOGUE_POP = 8,
         CHARACTER_PLACEMENT_UI = 9,
         FOCUS_UI = 10,
+        FORCED_TOUCH_BUILD = 11,
+        SHOW_POP = 12,
     }
 
     public enum FacilityType
@@ -998,6 +1002,9 @@ namespace CookApps.AutoBattler
         Noblesse = 9,
         Supernova = 10,
         Troubleshooter = 11,
+        Vigilante = 12,
+        Arcana = 13,
+        Eclipse = 14,
     }
 
     public enum MaterialType

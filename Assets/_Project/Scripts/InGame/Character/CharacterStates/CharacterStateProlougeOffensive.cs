@@ -25,7 +25,17 @@ public class CharacterStatePrologueOffensive : CharacterStateBase
 
         if (characCtrl != null)
         {
-
+            // 1. 잡는 적이 아직 살아있는지 체크
+            CharacterController atkTarget = characCtrl.Target;
+            if (atkTarget == null || !atkTarget.IsAlive ||
+                !InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target))
+            {
+                isAttackAnimRunning = false;
+                characCtrl.Target = null;
+                characCtrl.AddNextState<CharacterStateIdle>();
+                return CharacterStateRunningResult.CanCallEffectCodeOnUpdateAndOnCooltime;
+            }
+            
             // Flip은 공격, 스킬(타겟 방향), 이동(다음 타일 방향)
             characCtrl.LookAtTarget();
             Vector2 diff = characCtrl.Target.Position - characCtrl.Position;

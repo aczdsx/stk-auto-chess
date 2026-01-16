@@ -2174,6 +2174,21 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
+    public partial class UserKnightCount
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(id), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
+        public int id;
+        /// 캐릭터 배치 가능 인원
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
+        public int maximum_character_count;
+        /// 숙소 수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
+        public int nest_count;
+    }
+
+    [GeneratorSpecData]
     public partial class UserGrade
     {
         /// #SheetIndex
@@ -2264,6 +2279,7 @@ namespace CookApps.AutoBattler
         public List<PVPConfig> PVPConfig = null;
         public List<PVPDummy> PVPDummy = null;
         public List<ImageInfo> ImageInfo = null;
+        public List<UserKnightCount> UserKnightCount = null;
         public List<UserGrade> UserGrade = null;
     }
 }
