@@ -54,9 +54,9 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Tech.Hive.V1.GuideMissionClaimRewardResponse> __Marshaller_tech_hive_v1_GuideMissionClaimRewardResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.GuideMissionClaimRewardResponse.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.GuideMissionCompleteActionRequest> __Marshaller_tech_hive_v1_GuideMissionCompleteActionRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.GuideMissionCompleteActionRequest.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.GuideMissionUpdateActionRequest> __Marshaller_tech_hive_v1_GuideMissionUpdateActionRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.GuideMissionUpdateActionRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Tech.Hive.V1.GuideMissionCompleteActionResponse> __Marshaller_tech_hive_v1_GuideMissionCompleteActionResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.GuideMissionCompleteActionResponse.Parser));
+    static readonly grpc::Marshaller<global::Tech.Hive.V1.GuideMissionUpdateActionResponse> __Marshaller_tech_hive_v1_GuideMissionUpdateActionResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Tech.Hive.V1.GuideMissionUpdateActionResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Tech.Hive.V1.GuideMissionGetRequest, global::Tech.Hive.V1.GuideMissionGetResponse> __Method_Get = new grpc::Method<global::Tech.Hive.V1.GuideMissionGetRequest, global::Tech.Hive.V1.GuideMissionGetResponse>(
@@ -75,12 +75,12 @@ namespace Tech.Hive.V1 {
         __Marshaller_tech_hive_v1_GuideMissionClaimRewardResponse);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Tech.Hive.V1.GuideMissionCompleteActionRequest, global::Tech.Hive.V1.GuideMissionCompleteActionResponse> __Method_CompleteAction = new grpc::Method<global::Tech.Hive.V1.GuideMissionCompleteActionRequest, global::Tech.Hive.V1.GuideMissionCompleteActionResponse>(
+    static readonly grpc::Method<global::Tech.Hive.V1.GuideMissionUpdateActionRequest, global::Tech.Hive.V1.GuideMissionUpdateActionResponse> __Method_UpdateAction = new grpc::Method<global::Tech.Hive.V1.GuideMissionUpdateActionRequest, global::Tech.Hive.V1.GuideMissionUpdateActionResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "CompleteAction",
-        __Marshaller_tech_hive_v1_GuideMissionCompleteActionRequest,
-        __Marshaller_tech_hive_v1_GuideMissionCompleteActionResponse);
+        "UpdateAction",
+        __Marshaller_tech_hive_v1_GuideMissionUpdateActionRequest,
+        __Marshaller_tech_hive_v1_GuideMissionUpdateActionResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -120,13 +120,13 @@ namespace Tech.Hive.V1 {
 
       /// <summary>
       ///*
-      /// 가이드 미션 완료 (클라이언트 전용 미션에서만 사용)
+      /// 가이드 미션 업데이트 (클라이언트 전용 미션에서만 사용)
       /// </summary>
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.GuideMissionCompleteActionResponse> CompleteAction(global::Tech.Hive.V1.GuideMissionCompleteActionRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Tech.Hive.V1.GuideMissionUpdateActionResponse> UpdateAction(global::Tech.Hive.V1.GuideMissionUpdateActionRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -266,7 +266,7 @@ namespace Tech.Hive.V1 {
       }
       /// <summary>
       ///*
-      /// 가이드 미션 완료 (클라이언트 전용 미션에서만 사용)
+      /// 가이드 미션 업데이트 (클라이언트 전용 미션에서만 사용)
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -274,25 +274,25 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.GuideMissionCompleteActionResponse CompleteAction(global::Tech.Hive.V1.GuideMissionCompleteActionRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Tech.Hive.V1.GuideMissionUpdateActionResponse UpdateAction(global::Tech.Hive.V1.GuideMissionUpdateActionRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return CompleteAction(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return UpdateAction(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
-      /// 가이드 미션 완료 (클라이언트 전용 미션에서만 사용)
+      /// 가이드 미션 업데이트 (클라이언트 전용 미션에서만 사용)
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Tech.Hive.V1.GuideMissionCompleteActionResponse CompleteAction(global::Tech.Hive.V1.GuideMissionCompleteActionRequest request, grpc::CallOptions options)
+      public virtual global::Tech.Hive.V1.GuideMissionUpdateActionResponse UpdateAction(global::Tech.Hive.V1.GuideMissionUpdateActionRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_CompleteAction, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_UpdateAction, null, options, request);
       }
       /// <summary>
       ///*
-      /// 가이드 미션 완료 (클라이언트 전용 미션에서만 사용)
+      /// 가이드 미션 업데이트 (클라이언트 전용 미션에서만 사용)
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -300,21 +300,21 @@ namespace Tech.Hive.V1 {
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.GuideMissionCompleteActionResponse> CompleteActionAsync(global::Tech.Hive.V1.GuideMissionCompleteActionRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.GuideMissionUpdateActionResponse> UpdateActionAsync(global::Tech.Hive.V1.GuideMissionUpdateActionRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return CompleteActionAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return UpdateActionAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
       ///*
-      /// 가이드 미션 완료 (클라이언트 전용 미션에서만 사용)
+      /// 가이드 미션 업데이트 (클라이언트 전용 미션에서만 사용)
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.GuideMissionCompleteActionResponse> CompleteActionAsync(global::Tech.Hive.V1.GuideMissionCompleteActionRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Tech.Hive.V1.GuideMissionUpdateActionResponse> UpdateActionAsync(global::Tech.Hive.V1.GuideMissionUpdateActionRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_CompleteAction, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_UpdateAction, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -332,7 +332,7 @@ namespace Tech.Hive.V1 {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Get, serviceImpl.Get)
           .AddMethod(__Method_ClaimReward, serviceImpl.ClaimReward)
-          .AddMethod(__Method_CompleteAction, serviceImpl.CompleteAction).Build();
+          .AddMethod(__Method_UpdateAction, serviceImpl.UpdateAction).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -344,7 +344,7 @@ namespace Tech.Hive.V1 {
     {
       serviceBinder.AddMethod(__Method_Get, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.GuideMissionGetRequest, global::Tech.Hive.V1.GuideMissionGetResponse>(serviceImpl.Get));
       serviceBinder.AddMethod(__Method_ClaimReward, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.GuideMissionClaimRewardRequest, global::Tech.Hive.V1.GuideMissionClaimRewardResponse>(serviceImpl.ClaimReward));
-      serviceBinder.AddMethod(__Method_CompleteAction, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.GuideMissionCompleteActionRequest, global::Tech.Hive.V1.GuideMissionCompleteActionResponse>(serviceImpl.CompleteAction));
+      serviceBinder.AddMethod(__Method_UpdateAction, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Tech.Hive.V1.GuideMissionUpdateActionRequest, global::Tech.Hive.V1.GuideMissionUpdateActionResponse>(serviceImpl.UpdateAction));
     }
 
   }

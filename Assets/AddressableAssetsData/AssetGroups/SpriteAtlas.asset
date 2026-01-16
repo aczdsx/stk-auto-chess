@@ -35,6 +35,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5978aa330e1137047b7c496eb63b5dac
+    m_Address: SpriteAtlas/Dynamic/UI_BuildingIcon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f72ea5920377a543a0bdddb2a266289
     m_Address: SpriteAtlas/UI_Character_UI_SD
     m_ReadOnly: 0

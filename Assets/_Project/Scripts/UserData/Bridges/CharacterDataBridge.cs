@@ -135,25 +135,6 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 캐릭터 최대 레벨 계산
-        /// </summary>
-        public int GetCharacterMaxLevel(int characterId)
-        {
-            var character = Model?.GetCharacter(characterId);
-            if (character == null) return 0;
-
-            var specCharacterData = SpecDataManager.Instance.GetCharacterData(characterId);
-            if (specCharacterData == null) return 0;
-
-            var specTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(
-                specCharacterData.grade_type,
-                (int)character.TranscendLevel
-            );
-
-            return specTranscendenceData?.max_level ?? 0;
-        }
-
-        /// <summary>
         /// 전체 보유 캐릭터 전투력 계산
         /// </summary>
         public int GetAllCharacterBattlePower()

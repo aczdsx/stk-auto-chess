@@ -155,7 +155,20 @@ namespace CookApps.AutoBattler
             // 이미 설치 완료된 상태라면 건물 프리팹 소환
             else if (facility.Level > 0 && buildInfo.facility_type != FacilityType.COMMAND_CENTER)
             {
-                target?.SpawnBuildingAsync(buildInfo.build_prefab).Forget();
+                if (!target)
+                    return;
+
+                var buildPathes = new List<string>();
+                
+                foreach (var facilityInfo in cachedFacilityInfos)
+                {
+                    if (facilityInfo.isInstalled)
+                    {
+                        buildPathes.Add(facilityInfo.buildInfo.build_prefab);
+                    }
+                }
+
+                target.SpawnMultiBuildingAsync(buildPathes.ToArray()).Forget();
             }
         }
 

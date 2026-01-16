@@ -44,12 +44,7 @@ namespace CookApps.AutoBattler
             var buttonTextKey = facilityInfo.isInstalled ? "ELPIS_UPGRADE" : "ELPIS_BUILD";
             upgradeButtonText.text = LanguageManager.Instance.GetDefaultText(buttonTextKey);
             
-            // Basic Info
-            if (!string.IsNullOrEmpty(buildInfo.build_prefab))
-            {
-                // TODO: 실제 아이콘 경로에 맞게 수정 필요. 현재는 prefab 이름이나 ID를 사용한다고 가정.
-                iconSpriteLoader.SetSprite(buildInfo.build_prefab).Forget(); 
-            }
+            iconSpriteLoader.SetSprite(buildInfo.sprite_name).Forget();
 
             costText.text = buildInfo.item_INT.ToString();
 

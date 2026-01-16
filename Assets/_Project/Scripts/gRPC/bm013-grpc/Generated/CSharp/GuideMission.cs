@@ -35,22 +35,23 @@ namespace Tech.Hive.V1 {
             "MhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjUKDWd1aWRlX21pc3Np",
             "b24YAiABKAsyHi50ZWNoLmhpdmUudjEuR3VpZGVNaXNzaW9uRGF0YRIlCgdy",
             "ZXdhcmRzGAMgAygLMhQudGVjaC5oaXZlLnYxLlJld2FyZBI0Cg9jdXJyZW5j",
-            "eV9kZWx0YXMYBCADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSIj",
-            "CiFHdWlkZU1pc3Npb25Db21wbGV0ZUFjdGlvblJlcXVlc3QiiQEKIkd1aWRl",
-            "TWlzc2lvbkNvbXBsZXRlQWN0aW9uUmVzcG9uc2USLAoGc3RhdHVzGAEgASgL",
-            "MhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjUKDWd1aWRlX21pc3Np",
-            "b24YAiABKAsyHi50ZWNoLmhpdmUudjEuR3VpZGVNaXNzaW9uRGF0YSp4ChVH",
-            "dWlkZU1pc3Npb25FcnJvckNvZGUSHQoZR1VJREVfTUlTU0lPTl9VTlNQRUNJ",
-            "RklFRBAAEh4KF0dVSURFX01JU1NJT05fTk9UX0ZPVU5EEI2q6gQSIAoZR1VJ",
-            "REVfTUlTU0lPTl9OT1RfQ0xFQVJFRBCOquoEMsoCChNHdWlkZU1pc3Npb25T",
-            "ZXJ2aWNlElIKA0dldBIkLnRlY2guaGl2ZS52MS5HdWlkZU1pc3Npb25HZXRS",
-            "ZXF1ZXN0GiUudGVjaC5oaXZlLnYxLkd1aWRlTWlzc2lvbkdldFJlc3BvbnNl",
-            "EmoKC0NsYWltUmV3YXJkEiwudGVjaC5oaXZlLnYxLkd1aWRlTWlzc2lvbkNs",
-            "YWltUmV3YXJkUmVxdWVzdBotLnRlY2guaGl2ZS52MS5HdWlkZU1pc3Npb25D",
-            "bGFpbVJld2FyZFJlc3BvbnNlEnMKDkNvbXBsZXRlQWN0aW9uEi8udGVjaC5o",
-            "aXZlLnYxLkd1aWRlTWlzc2lvbkNvbXBsZXRlQWN0aW9uUmVxdWVzdBowLnRl",
-            "Y2guaGl2ZS52MS5HdWlkZU1pc3Npb25Db21wbGV0ZUFjdGlvblJlc3BvbnNl",
-            "YgZwcm90bzM="));
+            "eV9kZWx0YXMYBCADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSI0",
+            "Ch9HdWlkZU1pc3Npb25VcGRhdGVBY3Rpb25SZXF1ZXN0EhEKCWFkZF9jb3Vu",
+            "dBgBIAEoDSKHAQogR3VpZGVNaXNzaW9uVXBkYXRlQWN0aW9uUmVzcG9uc2US",
+            "LAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVz",
+            "EjUKDWd1aWRlX21pc3Npb24YAiABKAsyHi50ZWNoLmhpdmUudjEuR3VpZGVN",
+            "aXNzaW9uRGF0YSqeAQoVR3VpZGVNaXNzaW9uRXJyb3JDb2RlEh0KGUdVSURF",
+            "X01JU1NJT05fVU5TUEVDSUZJRUQQABIeChdHVUlERV9NSVNTSU9OX05PVF9G",
+            "T1VORBCNquoEEiAKGUdVSURFX01JU1NJT05fTk9UX0NMRUFSRUQQjqrqBBIk",
+            "Ch1HVUlERV9NSVNTSU9OX05PVF9DTElFTlRfT05MWRCPquoEMsQCChNHdWlk",
+            "ZU1pc3Npb25TZXJ2aWNlElIKA0dldBIkLnRlY2guaGl2ZS52MS5HdWlkZU1p",
+            "c3Npb25HZXRSZXF1ZXN0GiUudGVjaC5oaXZlLnYxLkd1aWRlTWlzc2lvbkdl",
+            "dFJlc3BvbnNlEmoKC0NsYWltUmV3YXJkEiwudGVjaC5oaXZlLnYxLkd1aWRl",
+            "TWlzc2lvbkNsYWltUmV3YXJkUmVxdWVzdBotLnRlY2guaGl2ZS52MS5HdWlk",
+            "ZU1pc3Npb25DbGFpbVJld2FyZFJlc3BvbnNlEm0KDFVwZGF0ZUFjdGlvbhIt",
+            "LnRlY2guaGl2ZS52MS5HdWlkZU1pc3Npb25VcGRhdGVBY3Rpb25SZXF1ZXN0",
+            "Gi4udGVjaC5oaXZlLnYxLkd1aWRlTWlzc2lvblVwZGF0ZUFjdGlvblJlc3Bv",
+            "bnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.GuideMissionDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.GuideMissionErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -58,8 +59,8 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GuideMissionGetResponse), global::Tech.Hive.V1.GuideMissionGetResponse.Parser, new[]{ "Status", "GuideMission" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GuideMissionClaimRewardRequest), global::Tech.Hive.V1.GuideMissionClaimRewardRequest.Parser, new[]{ "GuideMissionId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GuideMissionClaimRewardResponse), global::Tech.Hive.V1.GuideMissionClaimRewardResponse.Parser, new[]{ "Status", "GuideMission", "Rewards", "CurrencyDeltas" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GuideMissionCompleteActionRequest), global::Tech.Hive.V1.GuideMissionCompleteActionRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GuideMissionCompleteActionResponse), global::Tech.Hive.V1.GuideMissionCompleteActionResponse.Parser, new[]{ "Status", "GuideMission" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GuideMissionUpdateActionRequest), global::Tech.Hive.V1.GuideMissionUpdateActionRequest.Parser, new[]{ "AddCount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.GuideMissionUpdateActionResponse), global::Tech.Hive.V1.GuideMissionUpdateActionResponse.Parser, new[]{ "Status", "GuideMission" }, null, null, null, null)
           }));
     }
     #endregion
@@ -76,6 +77,10 @@ namespace Tech.Hive.V1 {
     /// 가이드 미션 클리어 안됨
     /// </summary>
     [pbr::OriginalName("GUIDE_MISSION_NOT_CLEARED")] GuideMissionNotCleared = 10130702,
+    /// <summary>
+    /// 가이드 미션 클라이언트 전용 미션이 아님
+    /// </summary>
+    [pbr::OriginalName("GUIDE_MISSION_NOT_CLIENT_ONLY")] GuideMissionNotClientOnly = 10130703,
   }
 
   #endregion
@@ -967,16 +972,16 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class GuideMissionCompleteActionRequest : pb::IMessage<GuideMissionCompleteActionRequest>
+  public sealed partial class GuideMissionUpdateActionRequest : pb::IMessage<GuideMissionUpdateActionRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GuideMissionCompleteActionRequest> _parser = new pb::MessageParser<GuideMissionCompleteActionRequest>(() => new GuideMissionCompleteActionRequest());
+    private static readonly pb::MessageParser<GuideMissionUpdateActionRequest> _parser = new pb::MessageParser<GuideMissionUpdateActionRequest>(() => new GuideMissionUpdateActionRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GuideMissionCompleteActionRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<GuideMissionUpdateActionRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -992,7 +997,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GuideMissionCompleteActionRequest() {
+    public GuideMissionUpdateActionRequest() {
       OnConstruction();
     }
 
@@ -1000,31 +1005,45 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GuideMissionCompleteActionRequest(GuideMissionCompleteActionRequest other) : this() {
+    public GuideMissionUpdateActionRequest(GuideMissionUpdateActionRequest other) : this() {
+      addCount_ = other.addCount_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GuideMissionCompleteActionRequest Clone() {
-      return new GuideMissionCompleteActionRequest(this);
+    public GuideMissionUpdateActionRequest Clone() {
+      return new GuideMissionUpdateActionRequest(this);
+    }
+
+    /// <summary>Field number for the "add_count" field.</summary>
+    public const int AddCountFieldNumber = 1;
+    private uint addCount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint AddCount {
+      get { return addCount_; }
+      set {
+        addCount_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GuideMissionCompleteActionRequest);
+      return Equals(other as GuideMissionUpdateActionRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GuideMissionCompleteActionRequest other) {
+    public bool Equals(GuideMissionUpdateActionRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (AddCount != other.AddCount) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1032,6 +1051,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (AddCount != 0) hash ^= AddCount.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1050,6 +1070,10 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (AddCount != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(AddCount);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1060,6 +1084,10 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (AddCount != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(AddCount);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1070,6 +1098,9 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (AddCount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(AddCount);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1078,9 +1109,12 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GuideMissionCompleteActionRequest other) {
+    public void MergeFrom(GuideMissionUpdateActionRequest other) {
       if (other == null) {
         return;
+      }
+      if (other.AddCount != 0) {
+        AddCount = other.AddCount;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1097,6 +1131,10 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            AddCount = input.ReadUInt32();
+            break;
+          }
         }
       }
     #endif
@@ -1112,6 +1150,10 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
+          case 8: {
+            AddCount = input.ReadUInt32();
+            break;
+          }
         }
       }
     }
@@ -1120,16 +1162,16 @@ namespace Tech.Hive.V1 {
   }
 
   [global::System.SerializableAttribute]
-  public sealed partial class GuideMissionCompleteActionResponse : pb::IMessage<GuideMissionCompleteActionResponse>
+  public sealed partial class GuideMissionUpdateActionResponse : pb::IMessage<GuideMissionUpdateActionResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GuideMissionCompleteActionResponse> _parser = new pb::MessageParser<GuideMissionCompleteActionResponse>(() => new GuideMissionCompleteActionResponse());
+    private static readonly pb::MessageParser<GuideMissionUpdateActionResponse> _parser = new pb::MessageParser<GuideMissionUpdateActionResponse>(() => new GuideMissionUpdateActionResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GuideMissionCompleteActionResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<GuideMissionUpdateActionResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1145,7 +1187,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GuideMissionCompleteActionResponse() {
+    public GuideMissionUpdateActionResponse() {
       OnConstruction();
     }
 
@@ -1153,7 +1195,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GuideMissionCompleteActionResponse(GuideMissionCompleteActionResponse other) : this() {
+    public GuideMissionUpdateActionResponse(GuideMissionUpdateActionResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
       guideMission_ = other.guideMission_ != null ? other.guideMission_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -1161,8 +1203,8 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GuideMissionCompleteActionResponse Clone() {
-      return new GuideMissionCompleteActionResponse(this);
+    public GuideMissionUpdateActionResponse Clone() {
+      return new GuideMissionUpdateActionResponse(this);
     }
 
     /// <summary>Field number for the "status" field.</summary>
@@ -1192,12 +1234,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GuideMissionCompleteActionResponse);
+      return Equals(other as GuideMissionUpdateActionResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GuideMissionCompleteActionResponse other) {
+    public bool Equals(GuideMissionUpdateActionResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1283,7 +1325,7 @@ namespace Tech.Hive.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GuideMissionCompleteActionResponse other) {
+    public void MergeFrom(GuideMissionUpdateActionResponse other) {
       if (other == null) {
         return;
       }

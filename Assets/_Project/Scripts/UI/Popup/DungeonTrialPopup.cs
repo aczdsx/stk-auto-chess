@@ -263,15 +263,26 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // todo.. 던전 입장 처리
+            // 서버에 시련 던전 입장 요청
+            var response = await NetManager.Instance.TrialDungeon.EnterAsync();
+            if (response is not { IsSuccess: true })
+            {
+                return;
+            }
 
             InGameManager.Instance.EndInGame();
             SceneTransition.Create<SceneTransition_FadeInOut>();
             await SceneTransition.FadeInAsync();
 
-            InGameType inGameType = (_specDungeonTrialData.dungeon_map_id == 1) ? InGameType.TRIAL_BOSS : InGameType.TRIAL;
-            SceneLoading.GoToNextScene("InGame",
-                (inGameType, (IGameStateUICore)new InGameMainStateTrialDungeon(), _specDungeonTrialData.dungeon_id));
+            var inGameParams = new InGameMainParams(
+                _specDungeonTrialData.dungeon_map_id == 1 ? InGameType.TRIAL_BOSS : InGameType.TRIAL,
+                new InGameMainStateTrialDungeon(),
+                _specDungeonTrialData.dungeon_id
+                // response.BattleSessionId,
+                // 0L // TODO: response 에서 온 랜덤 시드로 대체
+            );
+            
+            SceneLoading.GoToNextScene("InGame", inGameParams);
         }
 
         private void OnClickCloseButton()

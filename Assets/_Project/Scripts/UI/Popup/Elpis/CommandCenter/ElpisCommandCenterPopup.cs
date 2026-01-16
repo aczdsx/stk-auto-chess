@@ -290,10 +290,20 @@ namespace CookApps.AutoBattler
                 }
 
                 currentCoreAmount = (int)inventoryDataBridge.GetCurrency(IdMap.Item.엘피스코어);
+
+                // 결과 팝업에 보여줄 현재 레벨(방금 업그레이드된 레벨)의 benefit 수집
+                var upgradedBenefits = new List<ElpisCommandCenterBenefit>();
+                for (var i = 0; i < SpecDataManager.Instance.ElpisCommandCenterBenefit.All.Count; i++)
+                {
+                    var benefit = SpecDataManager.Instance.ElpisCommandCenterBenefit.All[i];
+                    if (benefit.lv == currentElpisLevel)
+                        upgradedBenefits.Add(benefit);
+                }
+
                 LoadElpisData();
                 UpdateUI();
 
-                var resultPopup = await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterResultPopup>(currentBenefits);
+                var resultPopup = await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterResultPopup>(upgradedBenefits);
                 await resultPopup.WaitForExit();
                 await PlayEnterAnimationAsync();
 

@@ -2,31 +2,20 @@ syntax = "proto3";
 
 package tech.hive.v1;
 
-import "custom_common.proto";
-
 // 이벤트 정보
 message EventData {
   uint32 event_id = 1;                           // 이벤트 아이디
-  uint32 current_count = 2;                      // 이벤트 행동 수치
-  uint64 start_timestamp = 3;                    // 이벤트 시작 시간
-  uint64 end_timestamp = 4;                      // 이벤트 종료 시간
-  uint64 event_refresh_timestamp = 5;            // 이벤트 갱신 시간
-  uint64 event_extra_refresh_timestamp = 6;      // 이벤트 별도 갱신 시간
-  repeated EventConditionData conditions = 7;    // 이벤트 조건 목록
+  uint64 start_timestamp = 2;                    // 이벤트 시작 시간
+  uint64 end_timestamp = 3;                      // 이벤트 종료 시간
+  uint64 event_refresh_timestamp = 4;            // 이벤트 갱신 시간
+  uint64 event_extra_refresh_timestamp = 5;      // 이벤트 별도 갱신 시간
+  repeated EventConditionData conditions = 6;    // 이벤트 조건 목록
+  string event_unique_id = 7;                    // 이벤트 고유 아이디 (반복퀘스트 경우 EventId로 특정 불가)
+  uint32 current_count = 8;                      // 이벤트 진행값
 }
 
 // 이벤트 조건 정보
 message EventConditionData {
   uint32 event_condition_id = 1;       // 이벤트 컨디션 아이디
-  uint32 condition_order = 2;          // 조건 순서
-  uint32 target_value = 3;             // 목표 값
-  EventConditionState state = 4;       // 이벤트 상태
-  repeated Reward rewards = 5;         // 보상 목록
-}
-
-enum EventConditionState {
-  EVENT_CONDITION_STATE_UNSPECIFIED = 0;
-  EVENT_CONDITION_STATE_NOT_STARTED = 1; // 이벤트 조건 시작 전
-  EVENT_CONDITION_STATE_IN_PROGRESS = 2; // 이벤트 조건 진행 중
-  EVENT_CONDITION_STATE_COMPLETED = 3;   // 이벤트 조건 완료
+  bool is_rewarded = 2;                // 보상 수령 여부
 }

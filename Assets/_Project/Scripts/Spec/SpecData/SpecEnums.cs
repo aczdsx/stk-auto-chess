@@ -998,6 +998,9 @@ namespace CookApps.AutoBattler
         Noblesse = 9,
         Supernova = 10,
         Troubleshooter = 11,
+        Vigilante = 12,
+        Arcana = 13,
+        Eclipse = 14,
     }
 
     public enum MaterialType

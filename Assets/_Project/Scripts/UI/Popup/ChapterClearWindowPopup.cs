@@ -86,7 +86,8 @@ namespace CookApps.AutoBattler
             }
 
             // 보상 수령 처리 (지휘자 스킬은 UserData에서 이미 획득 처리)
-            UserDataManager.Instance.IncreaseRewardItemList(newRewardItemList, true);
+            // TODO: api 마이그레이션
+            // UserDataManager.Instance.IncreaseRewardItemList(newRewardItemList, true);
         }
 
         private void OnClickGetRewardButton()

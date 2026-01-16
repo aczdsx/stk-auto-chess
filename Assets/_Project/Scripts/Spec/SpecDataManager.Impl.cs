@@ -449,6 +449,22 @@ namespace CookApps.AutoBattler
             return maxLevel;
         }
 
+        /// <summary>
+        /// 캐릭터의 현재 초월 레벨 기반 최대 레벨 계산
+        /// </summary>
+        public int GetCharacterMaxLevel(int characterId, int transcendLevel)
+        {
+            var specCharacter = GetCharacterData(characterId);
+            if (specCharacter == null) return 0;
+
+            var specTranscendenceData = GetCharacterTranscendenceData(
+                specCharacter.grade_type,
+                transcendLevel
+            );
+
+            return specTranscendenceData?.max_level ?? 0;
+        }
+
         public CharacterLevelExp GetCharacterLevelExpData(int level)
         {
             for (int i = 0; i < CharacterLevelExp.All.Count; i++)

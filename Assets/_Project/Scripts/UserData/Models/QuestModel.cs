@@ -119,7 +119,7 @@ namespace CookApps.AutoBattler
             int count = 0;
             foreach (var quest in _quests.Values)
             {
-                if (quest.State == QuestState.Completed)
+                if (quest.IsCleared)
                 {
                     count++;
                 }
@@ -135,7 +135,7 @@ namespace CookApps.AutoBattler
             int count = 0;
             foreach (var quest in _quests.Values)
             {
-                if (quest.State == QuestState.Completed && quest.Rewards.Count > 0)
+                if (quest.IsCleared && quest.IsRewarded)
                 {
                     count++;
                 }

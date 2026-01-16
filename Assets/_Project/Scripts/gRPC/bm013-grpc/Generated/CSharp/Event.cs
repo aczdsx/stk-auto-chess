@@ -25,33 +25,33 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CgtldmVudC5wcm90bxIMdGVjaC5oaXZlLnYxGgpiYXNlLnByb3RvGhNjdXN0",
-            "b21fY29tbW9uLnByb3RvGhBldmVudCtkYXRhLnByb3RvIi0KEEV2ZW50TGlz",
-            "dFJlcXVlc3QSGQoRaW5jbHVkZV9jb21wbGV0ZWQYASABKAgiagoRRXZlbnRM",
-            "aXN0UmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJl",
-            "c3BvbnNlU3RhdHVzEicKBmV2ZW50cxgCIAMoCzIXLnRlY2guaGl2ZS52MS5F",
-            "dmVudERhdGEiSQoaRXZlbnRVcGRhdGVQcm9ncmVzc1JlcXVlc3QSEAoIZXZl",
-            "bnRfaWQYASABKA0SGQoRYWRkX2N1cnJlbnRfY291bnQYAiABKA0icwobRXZl",
-            "bnRVcGRhdGVQcm9ncmVzc1Jlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRl",
-            "Y2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxImCgVldmVudBgCIAEoCzIXLnRl",
-            "Y2guaGl2ZS52MS5FdmVudERhdGEiRwoXRXZlbnRDbGFpbVJld2FyZFJlcXVl",
-            "c3QSEAoIZXZlbnRfaWQYASABKA0SGgoSZXZlbnRfY29uZGl0aW9uX2lkGAIg",
-            "ASgNIs0BChhFdmVudENsYWltUmV3YXJkUmVzcG9uc2USLAoGc3RhdHVzGAEg",
-            "ASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEiYKBWV2ZW50GAIg",
-            "ASgLMhcudGVjaC5oaXZlLnYxLkV2ZW50RGF0YRIlCgdyZXdhcmRzGAMgAygL",
-            "MhQudGVjaC5oaXZlLnYxLlJld2FyZBI0Cg9jdXJyZW5jeV9kZWx0YXMYBCAD",
-            "KAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSonCg5FdmVudEVycm9y",
-            "Q29kZRIVChFFVkVOVF9VTlNQRUNJRklFRBAAMpwCCgxFdmVudFNlcnZpY2US",
-            "RwoETGlzdBIeLnRlY2guaGl2ZS52MS5FdmVudExpc3RSZXF1ZXN0Gh8udGVj",
-            "aC5oaXZlLnYxLkV2ZW50TGlzdFJlc3BvbnNlEmUKDlVwZGF0ZVByb2dyZXNz",
-            "EigudGVjaC5oaXZlLnYxLkV2ZW50VXBkYXRlUHJvZ3Jlc3NSZXF1ZXN0Giku",
-            "dGVjaC5oaXZlLnYxLkV2ZW50VXBkYXRlUHJvZ3Jlc3NSZXNwb25zZRJcCgtD",
-            "bGFpbVJld2FyZBIlLnRlY2guaGl2ZS52MS5FdmVudENsYWltUmV3YXJkUmVx",
-            "dWVzdBomLnRlY2guaGl2ZS52MS5FdmVudENsYWltUmV3YXJkUmVzcG9uc2Vi",
-            "BnByb3RvMw=="));
+            "b21fY29tbW9uLnByb3RvGhBldmVudCtkYXRhLnByb3RvIhIKEEV2ZW50TGlz",
+            "dFJlcXVlc3QiagoRRXZlbnRMaXN0UmVzcG9uc2USLAoGc3RhdHVzGAEgASgL",
+            "MhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEicKBmV2ZW50cxgCIAMo",
+            "CzIXLnRlY2guaGl2ZS52MS5FdmVudERhdGEiSQoaRXZlbnRVcGRhdGVQcm9n",
+            "cmVzc1JlcXVlc3QSEAoIZXZlbnRfaWQYASABKA0SGQoRYWRkX2N1cnJlbnRf",
+            "Y291bnQYAiABKA0icwobRXZlbnRVcGRhdGVQcm9ncmVzc1Jlc3BvbnNlEiwK",
+            "BnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxIm",
+            "CgVldmVudBgCIAEoCzIXLnRlY2guaGl2ZS52MS5FdmVudERhdGEiRwoXRXZl",
+            "bnRDbGFpbVJld2FyZFJlcXVlc3QSEAoIZXZlbnRfaWQYASABKA0SGgoSZXZl",
+            "bnRfY29uZGl0aW9uX2lkGAIgASgNIs0BChhFdmVudENsYWltUmV3YXJkUmVz",
+            "cG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNl",
+            "U3RhdHVzEiYKBWV2ZW50GAIgASgLMhcudGVjaC5oaXZlLnYxLkV2ZW50RGF0",
+            "YRIlCgdyZXdhcmRzGAMgAygLMhQudGVjaC5oaXZlLnYxLlJld2FyZBI0Cg9j",
+            "dXJyZW5jeV9kZWx0YXMYBCADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lE",
+            "ZWx0YSpECg5FdmVudEVycm9yQ29kZRIVChFFVkVOVF9VTlNQRUNJRklFRBAA",
+            "EhsKFEVWRU5UX0lORk9fTk9UX0ZPVU5EEJ2t6gQynAIKDEV2ZW50U2Vydmlj",
+            "ZRJHCgRMaXN0Eh4udGVjaC5oaXZlLnYxLkV2ZW50TGlzdFJlcXVlc3QaHy50",
+            "ZWNoLmhpdmUudjEuRXZlbnRMaXN0UmVzcG9uc2USZQoOVXBkYXRlUHJvZ3Jl",
+            "c3MSKC50ZWNoLmhpdmUudjEuRXZlbnRVcGRhdGVQcm9ncmVzc1JlcXVlc3Qa",
+            "KS50ZWNoLmhpdmUudjEuRXZlbnRVcGRhdGVQcm9ncmVzc1Jlc3BvbnNlElwK",
+            "C0NsYWltUmV3YXJkEiUudGVjaC5oaXZlLnYxLkV2ZW50Q2xhaW1SZXdhcmRS",
+            "ZXF1ZXN0GiYudGVjaC5oaXZlLnYxLkV2ZW50Q2xhaW1SZXdhcmRSZXNwb25z",
+            "ZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.EventDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.EventErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.EventListRequest), global::Tech.Hive.V1.EventListRequest.Parser, new[]{ "IncludeCompleted" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.EventListRequest), global::Tech.Hive.V1.EventListRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.EventListResponse), global::Tech.Hive.V1.EventListResponse.Parser, new[]{ "Status", "Events" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.EventUpdateProgressRequest), global::Tech.Hive.V1.EventUpdateProgressRequest.Parser, new[]{ "EventId", "AddCurrentCount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.EventUpdateProgressResponse), global::Tech.Hive.V1.EventUpdateProgressResponse.Parser, new[]{ "Status", "Event" }, null, null, null, null),
@@ -65,6 +65,10 @@ namespace Tech.Hive.V1 {
   #region Enums
   public enum EventErrorCode {
     [pbr::OriginalName("EVENT_UNSPECIFIED")] EventUnspecified = 0,
+    /// <summary>
+    /// 이벤트 정보를 찾을 수 없음
+    /// </summary>
+    [pbr::OriginalName("EVENT_INFO_NOT_FOUND")] EventInfoNotFound = 10131101,
   }
 
   #endregion
@@ -105,7 +109,6 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EventListRequest(EventListRequest other) : this() {
-      includeCompleted_ = other.includeCompleted_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -113,21 +116,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EventListRequest Clone() {
       return new EventListRequest(this);
-    }
-
-    /// <summary>Field number for the "include_completed" field.</summary>
-    public const int IncludeCompletedFieldNumber = 1;
-    private bool includeCompleted_;
-    /// <summary>
-    /// 완료된 이벤트 포함 여부
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool IncludeCompleted {
-      get { return includeCompleted_; }
-      set {
-        includeCompleted_ = value;
-      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -145,7 +133,6 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (IncludeCompleted != other.IncludeCompleted) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -153,7 +140,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (IncludeCompleted != false) hash ^= IncludeCompleted.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -172,10 +158,6 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (IncludeCompleted != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(IncludeCompleted);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -186,10 +168,6 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (IncludeCompleted != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(IncludeCompleted);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -200,9 +178,6 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (IncludeCompleted != false) {
-        size += 1 + 1;
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -214,9 +189,6 @@ namespace Tech.Hive.V1 {
     public void MergeFrom(EventListRequest other) {
       if (other == null) {
         return;
-      }
-      if (other.IncludeCompleted != false) {
-        IncludeCompleted = other.IncludeCompleted;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -233,10 +205,6 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            IncludeCompleted = input.ReadBool();
-            break;
-          }
         }
       }
     #endif
@@ -252,10 +220,6 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            IncludeCompleted = input.ReadBool();
-            break;
-          }
         }
       }
     }

@@ -44,12 +44,10 @@ message TrialDungeonEnterRequest {}
 message TrialDungeonEnterResponse {
   ResponseStatus status = 1;
   TrialDungeonData trial_dungeon = 2;
-  string battle_session_id = 3;
 }
 
 message TrialDungeonClearRequest {
-  string battle_session_id = 1;
-  bool is_victory = 2;
+  bool is_victory = 1;
 }
 
 message TrialDungeonClearResponse {

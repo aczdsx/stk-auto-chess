@@ -75,10 +75,11 @@ namespace CookApps.AutoBattler
             
             switch (param)
             {
-                case (InGameType inGameType, IGameStateUICore gameState, int id):
-                    _inGameType = inGameType;
-                    _currentGameStateUI = gameState;
-                    _currentGameStateUI.Initialize(_canvasTransform, id).Forget();
+                case InGameMainParams inGameParams:
+                    _inGameType = inGameParams.InGameType;
+                    _currentGameStateUI = inGameParams.GameStateUI;
+                    _currentGameStateUI.Initialize(_canvasTransform, inGameParams.StageId).Forget();
+                    InGameManager.Instance.SetSessionIdAndRandomSeed(inGameParams.SessionId, inGameParams.RandomSeed);
                     break;
                 default:
                     throw new ArgumentException("Invalid parameter type");

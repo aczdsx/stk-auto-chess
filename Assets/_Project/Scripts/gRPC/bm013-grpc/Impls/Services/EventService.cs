@@ -11,11 +11,11 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 이벤트 목록 조회
         /// </summary>
-        public async UniTask<EventListResponse> ListAsync(bool includeCompleted = false, CancellationToken cancellationToken = default)
+        public async UniTask<EventListResponse> ListAsync(CancellationToken cancellationToken = default)
         {
             EventListResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ListAsync,
-                new EventListRequest { IncludeCompleted = includeCompleted },
+                new EventListRequest { },
                 cancellationToken: cancellationToken
             );
 

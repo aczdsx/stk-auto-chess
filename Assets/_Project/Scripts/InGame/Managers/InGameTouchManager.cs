@@ -16,6 +16,7 @@ using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 using PrimeTween;
 using UnityEngine.Pool;
 using static CookApps.AutoBattler.TutorialActionCharacterPlacement;
+using static CookApps.AutoBattler.TutorialActionMoveObject;
 
 public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 {
@@ -225,6 +226,17 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 return;
             }
 
+            // 튜토리얼 오브젝트 이동 중일 때 Source 오브젝트만 선택 가능
+            if (CookApps.AutoBattler.TutorialActionMoveObject.IsActive)
+            {
+                var tileTarget = inGameTileView.GetComponent<TutorialTarget>();
+                string targetId = tileTarget?.TargetId ?? inGameTileView.ID.ToString();
+                if (!CookApps.AutoBattler.TutorialActionMoveObject.CanSelectObject(targetId))
+                {
+                    return;
+                }
+            }
+
             _selectedTileView = inGameTileView;
             SetSelectedCharacter(tile.OccupiedCharacter);
         }
@@ -310,9 +322,18 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             return false;
 
         // 튜토리얼 캐릭터 배치 중일 때 특정 타일로만 이동 가능
-        if (IsActive && TargetTileId >= 0)
+        if (TutorialActionCharacterPlacement.IsActive && TutorialActionCharacterPlacement.TargetTileId >= 0)
         {
             if (!CanPlaceOnTile(targetTileView.ID))
+                return false;
+        }
+
+        // 튜토리얼 오브젝트 이동 중일 때 Destination 타일로만 이동 가능
+        if (CookApps.AutoBattler.TutorialActionMoveObject.IsActive)
+        {
+            var tileTarget = targetTileView.GetComponent<TutorialTarget>();
+            string targetId = tileTarget?.TargetId ?? targetTileView.ID.ToString();
+            if (!CookApps.AutoBattler.TutorialActionMoveObject.CanMoveToDestination(targetId))
                 return false;
         }
 
@@ -746,7 +767,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             _isMoveEndAnimation = false;
 
             // 튜토리얼 캐릭터 배치 완료 콜백 호출 (CHARACTER_PLACEMENT)
-            if (tileChanged && IsActive && CanSelectCharacter(placedCharacterId))
+            if (tileChanged && TutorialActionCharacterPlacement.IsActive && TutorialActionCharacterPlacement.CanSelectCharacter(placedCharacterId))
             {
                 NotifyPlacementCompleted();
             }
@@ -757,7 +778,31 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 CookApps.AutoBattler.TutorialActionCharacterPlacementUI.NotifyPlacementCompleted();
             }
 
+            // 튜토리얼 오브젝트 이동 완료 콜백 호출 (MOVE_OBJECT)
+            if (tileChanged && CookApps.AutoBattler.TutorialActionMoveObject.IsActive)
+            {
+                // Source에서 Destination으로 이동했는지 확인
+                var destTargetId = CookApps.AutoBattler.TutorialActionMoveObject.DestinationTargetId;
+                if (!string.IsNullOrEmpty(destTargetId) && _selectedTileView != null)
+                {
+                    // 타일 ID가 Destination과 일치하거나, TutorialTarget ID가 일치하면 완료
+                    var tileTarget = _selectedTileView.GetComponent<TutorialTarget>();
+                    bool isDestTile = _selectedTileView.ID.ToString() == destTargetId ||
+                                      (tileTarget != null && tileTarget.TargetId == destTargetId);
+                    if (isDestTile)
+                    {
+                        CookApps.AutoBattler.TutorialActionMoveObject.NotifyMoveCompleted();
+                    }
+                }
+            }
+
             TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.CHARACTER_PLACEMENT, placedCharacterId.ToString());
+
+            // MOVE_OBJECT_AFTER 트리거 (오브젝트 이동 완료 후)
+            if (tileChanged)
+            {
+                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.MOVE_OBJECT_AFTER, "0");
+            }
 
             // InGameObjectManager.Instance.DrawPlayerLine(true);
             // InGameObjectManager.Instance.DrawPlayerLine(false);

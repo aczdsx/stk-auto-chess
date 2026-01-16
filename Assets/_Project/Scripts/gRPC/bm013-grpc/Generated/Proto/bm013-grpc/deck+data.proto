@@ -8,6 +8,7 @@ message DeckData {
   string deck_name = 2;                                   // 덱 이름
   repeated DeckCharacterPlacement character_placements = 3;   // 캐릭터 배치 목록
   repeated DeckTacticPlacement tactic_placements = 4;         // 설치물 배치 목록
+  bytes client_data = 5;                                     // 클라이언트 데이터
 }
 
 // 전술 설치물 배치

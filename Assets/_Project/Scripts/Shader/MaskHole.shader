@@ -9,6 +9,7 @@ Shader "Custom/MaskHole"
         _HoleRadius2 ("Hole Radius 2", Float) = 0.0
         _AspectRatio ("Aspect Ratio", Float) = 1.0
         _SmoothWidth ("Smooth Width", Range(0, 0.5)) = 0.1
+        _MaskAlpha ("Mask Alpha", Range(0, 1)) = 1.0
     }
     SubShader
     {
@@ -52,6 +53,7 @@ Shader "Custom/MaskHole"
             float _HoleRadius2;
             float _AspectRatio;
             float _SmoothWidth;
+            float _MaskAlpha;
 
             v2f vert(appdata_t v)
             {
@@ -78,6 +80,9 @@ Shader "Custom/MaskHole"
 
                 // 두 구멍 결합 (둘 중 하나라도 구멍이면 투명)
                 float alpha = min(alpha1, alpha2);
+
+                // _MaskAlpha 적용 (0 = 마스크 투명/전체 보임, 1 = 마스크 불투명/구멍만 보임)
+                alpha *= _MaskAlpha;
 
                 fixed4 texColor = tex2D(_MainTex, i.uv) * i.color;
                 texColor.a *= alpha;

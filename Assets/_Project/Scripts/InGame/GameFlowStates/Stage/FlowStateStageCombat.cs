@@ -17,8 +17,19 @@ public class FlowStateStageCombat : StateCombatBase
     private bool _isWin;
     private bool _isClearStage;
 
+    // 고정 시드를 사용할 스테이지 ID 목록
+    private static readonly HashSet<int> FixedSeedStageIds = new HashSet<int> { 10001, 10002, 10003 };
+
     public override void StateInit(object target)
     {
+        // 특정 스테이지는 고정 시드 적용 (재현 가능한 전투)
+        int stageId = InGameManager.Instance.SpecStage.stage_id;
+        if (FixedSeedStageIds.Contains(stageId))
+        {
+            InGameManager.Instance.SetFixedRandomSeed(stageId);
+            InGameManager.Instance.RegenerateGlobalRandomSeeds();
+        }
+
         characters = ListPool<CharacterController>.Get();
 
         InGameSynergyManager.Instance.ClearSynergyFx();
@@ -92,17 +103,6 @@ public class FlowStateStageCombat : StateCombatBase
 
     private async UniTask StartAsync()
     {
-        // 서버에 전투 시작 요청
-        var response = await NetManager.Instance.Battle.StartAsync(
-            (uint)InGameManager.Instance.SpecStage.chapter_id,
-            (uint)InGameManager.Instance.SpecStage.stage_id,
-            0,
-            Array.Empty<string>());
-        if (response != null && response.IsSuccess)
-        {
-            InGameManager.Instance.BattleSessionId = response.BattleSessionId;
-        }
-
         // 전투 시작 후 1초는 대기
         await UniTask.Delay(1000);
 
@@ -142,40 +142,59 @@ public class FlowStateStageCombat : StateCombatBase
 
         if (characters.Count == 0 && !isWaitingCharacterDeadTutorial)
         {
-            _isEndCombat = true;
-            _isWin = false;
             InGameManager.Instance.AppEventResult = "fail";
             InGameManager.Instance.AppEventReason = "dead";
+            EndCombat(false);
+            return;
         }
 
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         if (characters.Count == 0)
         {
             _isClearStage = ServerDataManager.Instance.Battle.IsStageCleared((uint)InGameManager.Instance.SpecStage.stage_id);
-            _isEndCombat = true;
-            _isWin = true;
-            InGameManager.Instance.AppEventResult = (_isClearStage) ? "clear" : "pass";
-            InGameManager.Instance.AppEventReason = (_isClearStage) ? "clear" : "pass";
+            InGameManager.Instance.AppEventResult = _isClearStage ? "clear" : "pass";
+            InGameManager.Instance.AppEventReason = _isClearStage ? "clear" : "pass";
+
+            // ENEMY_DEAD_ALL 튜토리얼 처리 시도 - 튜토리얼이 처리되면 종료는 튜토리얼 완료 시 수행
+            bool tutorialHandled = TutorialEnemyDeadAllHandler.TryHandleTutorial(
+                () => EndCombat(true));
+
+            if (!tutorialHandled)
+            {
+                // 튜토리얼이 없으면 바로 종료
+                EndCombat(true);
+            }
+            return;
         }
 
         if (InGameMain.GetInGameMain().InGameTime <= 0)
         {
             ToastManager.Instance.ShowToastByTokenKey("MSG_INGAME_TIME_OVER");
-            _isEndCombat = true;
-            _isWin = false;
             InGameManager.Instance.AppEventResult = "fail";
             InGameManager.Instance.AppEventReason = "time_out";
+            EndCombat(false);
         }
+    }
 
+    /// <summary>
+    /// 전투 종료 처리 (일원화된 종료 로직)
+    /// </summary>
+    private void EndCombat(bool isWin)
+    {
         if (_isEndCombat)
-        {
-            InGameManager.Instance.IsInGameCombat = false;
-            ChangeNextState(_isWin).Forget();
-        }
+            return;
+
+        _isEndCombat = true;
+        _isWin = isWin;
+        InGameManager.Instance.IsInGameCombat = false;
+        ChangeNextState(_isWin).Forget();
     }
 
     public override void StateEnd(bool isForced)
     {
+        // 핸들러 상태 정리 (비정상 종료 대비)
+        TutorialEnemyDeadAllHandler.Clear();
+
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
             character.RemoveSynergyEffectCodeALL();

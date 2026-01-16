@@ -61,12 +61,26 @@ public class TutorialController : MonoBehaviour
         { TutorialActionType.TOAST_MESSAGE, new TutorialActionToastMessage() },
         { TutorialActionType.SHOW_DIALOGUE_POP, new TutorialActionShowDialoguePop() },
         { TutorialActionType.CHARACTER_PLACEMENT_UI, new TutorialActionCharacterPlacementUI() },
-        { TutorialActionType.SPAWN_ENEMY, new TutorialActionSpawnEnemy() }
+        { TutorialActionType.SPAWN_ENEMY, new TutorialActionSpawnEnemy() },
+        { TutorialActionType.MOVE_OBJECT, new TutorialActionMoveObject() }
     };
     protected void Update()
     {
         UpdateMaskPosition();
         UpdateWorldArrowPosition();
+        UpdateSecondHolePosition();
+    }
+
+    /// <summary>
+    /// MOVE_OBJECT 전략의 두 번째 홀 위치 업데이트
+    /// </summary>
+    private void UpdateSecondHolePosition()
+    {
+        if (CurrentSpecTutorial?.tutorial_action_type == TutorialActionType.MOVE_OBJECT &&
+            _currentStrategy is TutorialActionMoveObject moveStrategy)
+        {
+            moveStrategy.UpdateSecondHolePosition();
+        }
     }
 
     public void OnClickDimmedBG()
@@ -111,6 +125,10 @@ public class TutorialController : MonoBehaviour
         _tutorialListIndex = 0;
         _actionContext.TargetUnmaskObj = null;
 
+        // HoleRadius 값 초기화
+        _maskMaterial.SetFloat(HoleRadius, 0f);
+        _maskMaterial.SetFloat(HoleRadius2, 0f);
+
         ShowNextTutorial(_currentSpecTutorialList[_tutorialListIndex]);
         _tutorialAnimator.SetTrigger(isLongShow ? LongShow : Show);
     }
@@ -128,6 +146,9 @@ public class TutorialController : MonoBehaviour
         Debug.LogColor($"ShowNextTutorial: {specTutorial.tutorial_action_type} {specTutorial.tutorial_action_key} {specTutorial.seq}", "green");
         // 이전 전략 정리 (버튼 원위치 등)
         RestorePreviousState();
+
+        // 이전 전략 OnClear 호출 (전략 교체 시)
+        _currentStrategy?.OnClear(_actionContext);
 
         CurrentSpecTutorial = specTutorial;
         _actionContext.CurrentTutorial = specTutorial;
@@ -186,6 +207,12 @@ public class TutorialController : MonoBehaviour
         if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SPAWN_ENEMY)
         {
             TutorialActionSpawnEnemy.OnSpawnEnemyCompleted = OnSpawnEnemyCompleted;
+        }
+
+        // MOVE_OBJECT 전략일 경우 이동 완료 콜백 설정
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.MOVE_OBJECT)
+        {
+            TutorialActionMoveObject.OnMoveObjectCompleted = OnMoveObjectCompleted;
         }
 
         // SHOW_DIALOGUE_POP 전략일 경우 팝업 표시 후 바로 다음으로 진행
@@ -251,6 +278,18 @@ public class TutorialController : MonoBehaviour
     {
         // 콜백 해제
         TutorialActionSpawnEnemy.OnSpawnEnemyCompleted = null;
+
+        // 다음 튜토리얼로 진행
+        ProceedToNext();
+    }
+
+    /// <summary>
+    /// 오브젝트 이동 완료 시 호출되는 콜백
+    /// </summary>
+    private void OnMoveObjectCompleted()
+    {
+        // 콜백 해제
+        TutorialActionMoveObject.OnMoveObjectCompleted = null;
 
         // 다음 튜토리얼로 진행
         ProceedToNext();

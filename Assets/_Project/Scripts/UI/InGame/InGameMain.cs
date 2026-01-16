@@ -14,6 +14,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
+using Random = UnityEngine.Random;
 
 namespace CookApps.AutoBattler
 {
@@ -103,6 +104,33 @@ namespace CookApps.AutoBattler
         void SetDropHighlight(bool active);
     }
 
+    public class InGameMainParams
+    {
+        public InGameType InGameType;
+        public IGameStateUICore GameStateUI;
+        public int StageId;
+        public string SessionId;
+        public int RandomSeed;
+        
+        public InGameMainParams(InGameType inGameType, IGameStateUICore gameStateUI, int stageId)
+        {
+            InGameType = inGameType;
+            GameStateUI = gameStateUI;
+            StageId = stageId;
+            SessionId = Guid.NewGuid().ToString();
+            RandomSeed = Random.Range(int.MinValue, int.MaxValue);
+        }
+        
+        public InGameMainParams(InGameType inGameType, IGameStateUICore gameStateUI, int stageId, string sessionId, ulong randomSeed)
+        {
+            InGameType = inGameType;
+            GameStateUI = gameStateUI;
+            StageId = stageId;
+            SessionId = sessionId;
+            RandomSeed = (int)randomSeed;
+        }
+    }
+    
     public class InGameMain : UILayer
     {
         public float InGameTime => _inGameTime;
@@ -162,10 +190,11 @@ namespace CookApps.AutoBattler
             
             switch (param)
             {
-                case (InGameType inGameType, IGameStateUICore gameState, int id):
-                    _inGameType = inGameType;
-                    _currentGameStateUI = gameState;
-                    _currentGameStateUI.Initialize(_canvasTransform, id).Forget();
+                case InGameMainParams inGameParams:
+                    _inGameType = inGameParams.InGameType;
+                    _currentGameStateUI = inGameParams.GameStateUI;
+                    _currentGameStateUI.Initialize(_canvasTransform, inGameParams.StageId).Forget();
+                    InGameManager.Instance.SetSessionIdAndRandomSeed(inGameParams.SessionId, inGameParams.RandomSeed);
                     break;
                 default:
                     throw new ArgumentException("Invalid parameter type");

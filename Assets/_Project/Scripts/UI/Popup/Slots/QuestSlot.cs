@@ -78,8 +78,8 @@ namespace CookApps.AutoBattler
             _questProgressSlider.value = _questData.CurrentCount;
 
             // 버튼 상태 세팅 (State == Completed && Rewards.Count > 0 이면 보상 수령 가능)
-            bool isClaimable = _questData.State == QuestState.Completed && _questData.Rewards.Count > 0;
-            bool isAlreadyClaimed = _questData.State == QuestState.Completed && _questData.Rewards.Count == 0;
+            bool isClaimable = _questData.IsCleared && !_questData.IsRewarded;
+            bool isAlreadyClaimed = _questData.IsCleared && _questData.IsRewarded;
 
             _claimBGObject.SetActive(isClaimable);
             _claimButtonObject.SetActive(isClaimable);

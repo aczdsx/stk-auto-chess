@@ -5,6 +5,7 @@ using CookApps.TeamBattle.UIManagements;
 using R3;
 using Tech.Hive.V1;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -26,35 +27,26 @@ namespace CookApps.AutoBattler
     public class LobbyBottomStageSlot : CachedMonoBehaviour
     {
         [Header("[Stage - Common]")]
-        [SerializeField] private int _normalStateHeight;        // 일반 스테이지 높이 (Inspector에서 설정)
-        [SerializeField] private int _doneStateHeight;          // 완료 스테이지 높이 (Inspector에서 설정)
         [SerializeField] private int _currentStateHeight;       // 현재 스테이지 높이 (Inspector에서 설정)
+        [SerializeField] private float _normalChaPosY = 102.8f;
+        [SerializeField] private float _bossChaPosY = 114.2f;
         [SerializeField] private CAButton _bottomStageSlotButton;   // 스테이지 선택 버튼 (Inspector에서 프리팹의 버튼 GameObject 연결)
+        [SerializeField] private GameObject _currentItemObj;  // 일반 스테이지 레이어 GameObject (Inspector에서 연결)
+        [SerializeField] private GameObject _characterLayerObject;  // 캐릭터 표시 레이어 GameObject (Inspector에서 연결)
+        [SerializeField] private TextMeshProUGUI _stageNumberText;  // 스테이지 번호 텍스트 (Inspector에서 연결)
+        [SerializeField] private GameObject _starLayerObject;  // 별 표시 레이어 GameObject (Inspector에서 연결)
+        [SerializeField] private List<GameObject> _starObjectList;  // 별 GameObject 리스트 (Inspector에서 연결)
 
         [Header("[State - Normal]")]
         [SerializeField] private GameObject _normalLayerObject;  // 일반 스테이지 레이어 GameObject (Inspector에서 연결)
-        [SerializeField] private GameObject _normalStarLayerObject;  // 별 표시 레이어 GameObject (Inspector에서 연결)
-        [SerializeField] private GameObject _normalCharacterLayerObject;  // 캐릭터 표시 레이어 GameObject (Inspector에서 연결)
-        [SerializeField] private GameObject _normalClearCheckObject;  // 클리어 체크 표시 GameObject (Inspector에서 연결)
-        [SerializeField] private GameObject _normalNextStageCheckObject;  // 다음 스테이지 체크 표시 GameObject (Inspector에서 연결)
-        [SerializeField] private TextMeshProUGUI _normalStageNumberText;  // 스테이지 번호 텍스트 (Inspector에서 연결)
-        [SerializeField] private List<GameObject> _normalStarObjectList;  // 별 GameObject 리스트 (Inspector에서 연결)
+
 
         [Header("[State - Perfect Clear]")]
         [SerializeField] private GameObject _perfectClearLayerObject;  // 퍼펙트 클리어 레이어 GameObject (Inspector에서 연결)
-        [SerializeField] private GameObject _perfectClearCharacterLayerObject;  // 퍼펙트 클리어 캐릭터 레이어 GameObject (Inspector에서 연결)
-        [SerializeField] private GameObject _perfectClearNextStageCheckObject;  // 퍼펙트 클리어 다음 스테이지 체크 GameObject (Inspector에서 연결)
-        [SerializeField] private TextMeshProUGUI _perfectClearStageNumberText;  // 퍼펙트 클리어 스테이지 번호 텍스트 (Inspector에서 연결)
 
         [Header("[State - Elite/Boss]")]
         [SerializeField] private GameObject _bossLayerObject;  // 보스/엘리트 레이어 GameObject (Inspector에서 연결)
-        [SerializeField] private GameObject _bossStarLayerObject;  // 보스 별 표시 레이어 GameObject (Inspector에서 연결)
-        [SerializeField] private GameObject _bossCharacterLayerObject;  // 보스 캐릭터 표시 레이어 GameObject (Inspector에서 연결)
-        [SerializeField] private GameObject _bossClearCheckObject;  // 보스 클리어 체크 표시 GameObject (Inspector에서 연결)
-        [SerializeField] private GameObject _bossNextStageCheckObject;  // 보스 다음 스테이지 체크 표시 GameObject (Inspector에서 연결)
-        [SerializeField] private TextMeshProUGUI _bossStageNumberText;  // 보스 스테이지 번호 텍스트 (Inspector에서 연결)
         [SerializeField] private TextMeshProUGUI _bossStageTitleText;  // 보스 스테이지 제목 텍스트 (Inspector에서 연결)
-        [SerializeField] private List<GameObject> _bossStarObjectList;  // 보스 별 GameObject 리스트 (Inspector에서 연결)
 
         // ========== 런타임 데이터 (코드에서 설정) ==========
         private StageInfo _specStageData;  // SetStageItemSlot()에서 설정되는 스테이지 스펙 데이터
@@ -66,8 +58,6 @@ namespace CookApps.AutoBattler
         private bool _isValidStage;     // 유효한 스테이지 여부 체크용 (BestStars > 0)
         private bool _isLatestPlayableStage;      // 플레이 가능한 다음 스테이지 체크용
 
-        // ========== 계산된 값 ==========
-        private int _resultCustomHeight;    // 스테이지 상태에 따른 최종 높이 값 (SetStageState()에서 계산)
 
         private void Awake()
         {
@@ -132,9 +122,12 @@ namespace CookApps.AutoBattler
         {
             ClearSlot();
 
-            _resultCustomHeight = _isClearStage ? _doneStateHeight : (_isCurrentStage ? _currentStateHeight : _normalStateHeight);
             _isValidStage = _userStageProgress != null && _userStageProgress.BestStars > 0;
             bool isPerfectClear = _isValidStage && _userStageProgress.BestStars >= 3;
+
+            // 공통 처리: 현재 스테이지 표시
+            _currentItemObj.SetActive(_isCurrentStage);
+            _stageNumberText.text = _specStageData.stage_number.ToString("D2");  // 2자리 형식 (예: 3 -> "03")
 
             switch (_specStageData.stage_type)
             {
@@ -162,60 +155,64 @@ namespace CookApps.AutoBattler
 
         private void SetNormalLayerState()
         {
-            _normalStageNumberText.text = _specStageData.stage_number.ToString();
 
             var originNormalSizeDelta = _normalLayerObject.GetComponent<RectTransform>().sizeDelta;
-            _normalLayerObject.GetComponent<RectTransform>().sizeDelta = new Vector2(originNormalSizeDelta.x, _resultCustomHeight);
+            _normalLayerObject.GetComponent<RectTransform>().sizeDelta = new Vector2(originNormalSizeDelta.x, _currentStateHeight);
 
             _normalLayerObject.SetActive(_specStageData.stage_type == StageType.BATTLE_NORMAL || _specStageData.stage_type == StageType.CHEST);
-            _normalStarLayerObject.SetActive(_isValidStage);
+            _starLayerObject.SetActive(_isValidStage);
             if (_isValidStage)
             {
-                for (int i = 0; i < _normalStarObjectList.Count; i++)
+                for (int i = 0; i < _starObjectList.Count; i++)
                 {
-                    _normalStarObjectList[i].SetActive(i < _userStageProgress.BestStars);
+                    _starObjectList[i].SetActive(i < _userStageProgress.BestStars);
                 }
             }
 
-            _normalCharacterLayerObject.SetActive(_isCurrentStage);
-            _normalClearCheckObject.SetActive(_isClearStage);
-            _normalNextStageCheckObject.SetActive(_isLatestPlayableStage);
+            _characterLayerObject.SetActive(_isCurrentStage);
+            // _characterLayerObject.GetComponent<RectTransform>().localPosition = new Vector3(0, _normalChaPosY,0.0f);
         }
 
         private void SetPerfectClearLayerState()
         {
-            _perfectClearStageNumberText.text = _specStageData.stage_number.ToString();
 
             var originNormalSizeDelta = _perfectClearLayerObject.GetComponent<RectTransform>().sizeDelta;
-            _perfectClearLayerObject.GetComponent<RectTransform>().sizeDelta = new Vector2(originNormalSizeDelta.x, _resultCustomHeight);
+            _perfectClearLayerObject.GetComponent<RectTransform>().sizeDelta = new Vector2(originNormalSizeDelta.x, _currentStateHeight);
 
             _perfectClearLayerObject.SetActive(_specStageData.stage_type == StageType.BATTLE_NORMAL || _specStageData.stage_type == StageType.CHEST);
-
-            _perfectClearCharacterLayerObject.SetActive(_isCurrentStage);
-            _perfectClearNextStageCheckObject.SetActive(_isLatestPlayableStage);
+            _starLayerObject.SetActive(_isValidStage);
+            if (_isValidStage)
+            {
+                for (int i = 0; i < _starObjectList.Count; i++)
+                {
+                    _starObjectList[i].SetActive(i < _userStageProgress.BestStars);
+                }
+            }
+            // _characterLayerObject.GetComponent<RectTransform>().localPosition = new Vector3(0, _normalChaPosY,0.0f);
+            _characterLayerObject.SetActive(_isCurrentStage);
         }
 
         private void SetBossLayerState()
         {
+            _stageNumberText.gameObject.SetActive(false);
+            _bossStageTitleText.gameObject.SetActive(true);
             _bossStageTitleText.text = _specStageData.stage_type == StageType.BATTLE_BOSS ? "BOSS" : "ELITE";
-            _bossStageNumberText.text = _specStageData.stage_number.ToString();
 
             var originBossSizeDelta = _bossLayerObject.GetComponent<RectTransform>().sizeDelta;
-            _bossLayerObject.GetComponent<RectTransform>().sizeDelta = new Vector2(originBossSizeDelta.x, _resultCustomHeight);
+            _bossLayerObject.GetComponent<RectTransform>().sizeDelta = new Vector2(originBossSizeDelta.x, _currentStateHeight);
 
             _bossLayerObject.SetActive(_specStageData.stage_type == StageType.BATTLE_BOSS || _specStageData.stage_type == StageType.BATTLE_ELITE);
-            _bossStarLayerObject.SetActive(_isValidStage);
+            _starLayerObject.SetActive(_isValidStage);
             if (_isValidStage)
             {
-                for (int i = 0; i < _bossStarObjectList.Count; i++)
+                for (int i = 0; i < _starObjectList.Count; i++)
                 {
-                    _bossStarObjectList[i].SetActive(i < _userStageProgress.BestStars);
+                    _starObjectList[i].SetActive(i < _userStageProgress.BestStars);
                 }
             }
 
-            _bossCharacterLayerObject.SetActive(_isCurrentStage);
-            _bossClearCheckObject.SetActive(_isClearStage);
-            _bossNextStageCheckObject.SetActive(_isLatestPlayableStage);
+            _characterLayerObject.SetActive(_isCurrentStage);
+            // _characterLayerObject.GetComponent<RectTransform>().localPosition = new Vector3(0, _bossChaPosY,0.0f);
         }
 
         private void OnClickBottomStageSlot()
@@ -241,10 +238,10 @@ namespace CookApps.AutoBattler
         private void ClearSlot()
         {
             _normalLayerObject.SetActive(false);
-            _normalStarLayerObject.SetActive(false);
-
+            _perfectClearLayerObject.SetActive(false);
             _bossLayerObject.SetActive(false);
-            _bossStarLayerObject.SetActive(false);
+
+            _starLayerObject.SetActive(false);
         }
     }
 }

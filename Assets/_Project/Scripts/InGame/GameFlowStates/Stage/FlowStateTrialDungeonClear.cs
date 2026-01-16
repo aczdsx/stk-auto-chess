@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 
 public class FlowStateTrialDungeonClear : StateBase
 {
@@ -11,13 +13,20 @@ public class FlowStateTrialDungeonClear : StateBase
 
     public override void StateStart()
     {
+        StateStartAsync().Forget();
+    }
+
+    private async UniTaskVoid StateStartAsync()
+    {
         var _mvpCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
         InGameManager.Instance.EndInGame();
 
-        SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonTrialResultPopup>((true, _mvpCharacterData));
-        
-        // 유저 데이터 던전 클리어 처리
-        UserDataManager.Instance.SetTrialDungeonData(InGameManager.Instance.SpecDungeonTrial.dungeon_id, DungeonStateType.CLEAR, true);
+        // 서버에 시련 던전 클리어 결과 전송
+        var resp = await NetManager.Instance.TrialDungeon.ClearAsync(InGameManager.Instance.BattleSessionId, true);
+
+        // 서버 응답 후 결과 팝업 표시
+        var param = new InGameDungeonTrialResultPopupParam(true, _mvpCharacterData, resp.Rewards);
+        SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonTrialResultPopup>(param).Forget();
     }
 
     public override void StateRunning(float dt)

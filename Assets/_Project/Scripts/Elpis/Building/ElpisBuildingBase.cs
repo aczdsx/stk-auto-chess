@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
@@ -21,6 +22,9 @@ namespace CookApps.AutoBattler
         private const float TransitionDuration = 0.3f;
 
         [SerializeField] private Animator buildingAnimator;
+        [SerializeField] private Transform[] spawnPoints;
+
+        private Dictionary<Transform, bool> isSpawned;
 
         public int SlotIndex { get; private set; }
         public ElpisFacilityType BuildingType { get; private set; }
@@ -30,6 +34,12 @@ namespace CookApps.AutoBattler
         public void Initialize(int slotIndex)
         {
             SlotIndex = slotIndex;
+            
+            isSpawned = new Dictionary<Transform, bool>();
+            foreach (var spawnPoint in spawnPoints)
+            {
+                isSpawned.Add(spawnPoint, false);
+            }
         }
 
         /// <summary>
@@ -78,6 +88,14 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public async UniTask SpawnMultiBuildingAsync(string[] buildPrefabPaths)
+        {
+            foreach (var buildPrefabPath in buildPrefabPaths)
+            {
+                await SpawnBuildingAsync(buildPrefabPath);
+            }
+        }
+
         /// <summary>
         /// 건물 프리팹만 소환합니다. (이미 설치된 건물용)
         /// </summary>
@@ -87,7 +105,22 @@ namespace CookApps.AutoBattler
             if (string.IsNullOrEmpty(buildPrefabPath))
                 return;
 
-            await Addressables.InstantiateAsync(buildPrefabPath, CachedTr.position, Quaternion.identity, CachedTr).ToUniTask();
+            if (isSpawned.Count > 0)
+            {
+                foreach (var spawnPoint in spawnPoints)
+                {
+                    if(!isSpawned.TryGetValue(spawnPoint, out var spawned) || spawned)
+                        continue;
+                    
+                    isSpawned[spawnPoint] = true;
+                    await Addressables.InstantiateAsync(buildPrefabPath, spawnPoint.position, Quaternion.identity, spawnPoint).ToUniTask();
+                    break;
+                }
+            }
+            else
+            {
+                await Addressables.InstantiateAsync(buildPrefabPath, CachedTr.position, Quaternion.identity, CachedTr).ToUniTask();
+            }
         }
 
         /// <summary>
