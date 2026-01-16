@@ -507,7 +507,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             {
                 // 캐릭터 제거 및 UI로 복귀
                 CharacterController characterToRemove = _selectedCharacterController;
-                ReleaseSelectedHero(skipTutorialCheck: true);
+                ReleaseSelectedHero();
                 characterToRemove.CurrentTile.SetUnoccupied();
                 InGameObjectManager.Instance.RemoveCharacterFromField(characterToRemove);
                 InGameMain.GetInGameMain().ReturnCharacterUI(characterToRemove);

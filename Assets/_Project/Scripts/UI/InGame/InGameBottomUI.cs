@@ -115,14 +115,12 @@ public class InGameBottomUI : MonoBehaviour
 
     protected void OnClickSpeedUp()
     {
-        var guideMission = ServerDataManager.Instance.GuideMission;
-        int missionOrder = 6;
-        if (guideMission.GuideMissionId <= missionOrder)
+        //[TODO] 스테이지 조건 추가
+        var isCanSpeedUp = InGameManager.Instance.SpecStage != null && InGameManager.Instance.SpecStage.stage_id >= 10004;
+
+        if (!isCanSpeedUp)
         {
-            var missionData = SpecDataManager.Instance.GetGuideMissionDataByOrder(missionOrder);
-            string msg = LanguageManager.Instance.GetDefaultText("MSG_CONTENT_UNLOCK");
-            string titleName = LanguageManager.Instance.GetDefaultText(missionData.name_token);
-            ToastManager.Instance.ShowToast(string.Format(msg, titleName));
+            ToastManager.Instance.ShowToast(string.Format("아직 사용할 수 없습니다.", "속도 배수"));
             return;
         }
 

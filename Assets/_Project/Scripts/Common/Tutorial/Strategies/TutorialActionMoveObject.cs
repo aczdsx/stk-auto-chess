@@ -18,8 +18,6 @@ namespace CookApps.AutoBattler
     {
         private static readonly int HoleRadius = Shader.PropertyToID("_HoleRadius");
         private static readonly int HoleCenter = Shader.PropertyToID("_HoleCenter");
-        private static readonly int HoleRadius2 = Shader.PropertyToID("_HoleRadius2");
-        private static readonly int HoleCenter2 = Shader.PropertyToID("_HoleCenter2");
         private static readonly int AspectRatio = Shader.PropertyToID("_AspectRatio");
 
         /// <summary>
@@ -69,6 +67,12 @@ namespace CookApps.AutoBattler
             // 화살표 비활성화
             context.ArrowRectTransform.gameObject.SetActive(false);
 
+            // 드래그 오브젝트 활성화
+            if (context.DragObj != null)
+            {
+                context.DragObj.SetActive(true);
+            }
+
             // TutorialController의 마스크 업데이트 건너뛰기 (직접 처리)
             context.SkipMaskUpdate = true;
 
@@ -92,7 +96,6 @@ namespace CookApps.AutoBattler
 
             // 초기 홀 크기 0으로 설정 (애니메이션으로 커짐)
             context.MaskMaterial.SetFloat(HoleRadius, 0f);
-            context.MaskMaterial.SetFloat(HoleRadius2, 0f);
 
             // 딤드 이미지 터치 통과 (드래그 가능하도록)
             if (context.DimmedImage != null)
@@ -122,7 +125,12 @@ namespace CookApps.AutoBattler
             if (context.MaskMaterial != null)
             {
                 context.MaskMaterial.SetFloat(HoleRadius, 0f);
-                context.MaskMaterial.SetFloat(HoleRadius2, 0f);
+            }
+
+            // 드래그 오브젝트 비활성화
+            if (context.DragObj != null)
+            {
+                context.DragObj.SetActive(false);
             }
 
             // 딤드 이미지 터치 복원
@@ -259,8 +267,36 @@ namespace CookApps.AutoBattler
             _cachedContext.MaskMaterial.SetFloat(AspectRatio, aspectRatio);
             _cachedContext.MaskMaterial.SetVector(HoleCenter, new Vector4(currentUV.x, currentUV.y, 0, 0));
 
-            // 두 번째 홀: B(Dest) 고정
-            _cachedContext.MaskMaterial.SetVector(HoleCenter2, new Vector4(destUV.x, destUV.y, 0, 0));
+            // DragObj도 홀 위치를 따라 이동
+            UpdateDragObjPosition(currentUV, sourceUV, destUV);
+        }
+
+        /// <summary>
+        /// DragObj를 홀 위치에 맞춰 이동 및 회전
+        /// </summary>
+        private void UpdateDragObjPosition(Vector2 uvPosition, Vector2 sourceUV, Vector2 destUV)
+        {
+            if (_cachedContext?.DragObj == null) return;
+
+            var dragRect = _cachedContext.DragObj.GetComponent<RectTransform>();
+            if (dragRect == null) return;
+
+            var canvasRect = _cachedContext.CanvasRectTransform;
+            if (canvasRect == null) return;
+
+            // UV 좌표 → 캔버스 로컬 좌표로 변환
+            float localX = (uvPosition.x - 0.5f) * canvasRect.rect.width;
+            float localY = (uvPosition.y - 0.5f) * canvasRect.rect.height;
+
+            dragRect.localPosition = new Vector3(localX, localY, 0f);
+
+            // A→B 방향으로 회전
+            Vector2 direction = destUV - sourceUV;
+            if (direction.sqrMagnitude > 0.0001f)
+            {
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                dragRect.localRotation = Quaternion.Euler(0f, 0f, angle);
+            }
         }
 
         /// <summary>
@@ -281,7 +317,6 @@ namespace CookApps.AutoBattler
             float currentRadius = Mathf.Lerp(0f, targetRadius, t);
 
             _cachedContext.MaskMaterial.SetFloat(HoleRadius, currentRadius);
-            _cachedContext.MaskMaterial.SetFloat(HoleRadius2, currentRadius);
 
             if (t >= 1f)
             {
