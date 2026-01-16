@@ -325,8 +325,8 @@ namespace CookApps.AutoBattler
         private void SendStageEndAppEvent(string result, string reason)
         {
             // 앱 이벤트 처리
-            var myDeck = ServerDataManager.Instance.Deck.GetBattleDeckListByInGameType(InGameType.STAGE);
-            int myDeckPower = ServerDataManager.Instance.Deck.GetDeckBattlePower(myDeck);
+            var myDeck = ServerDataManager.Instance.Deck.GetDeck(InGameType.STAGE);
+            int myDeckPower = DeckModel.GetDeckBattlePower(myDeck);
             int enemyPower = (int)InGameObjectManager.Instance.GetStartingEnemiesAttr();
 
             int[] starNums = new int[] { 0, 0, 0 };
@@ -340,7 +340,7 @@ namespace CookApps.AutoBattler
 
             var battleTime = 60 - InGameMain.GetInGameMain().InGameTime;
 
-            AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.id, InGameManager.Instance.SpecStage.stage_id, battleTime, myDeck.Count,
+            AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.id, InGameManager.Instance.SpecStage.stage_id, battleTime, myDeck?.CharacterPlacements.Count ?? 0,
                 myDeckPower, enemyPower, result, reason, clearCondition);
         }
     }
