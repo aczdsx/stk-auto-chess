@@ -1437,8 +1437,7 @@ namespace CookApps.AutoBattler
         /// 튜토리얼 트리거 타입
         public global::CookApps.AutoBattler.TutorialTriggerType tutorial_trigger_type;
         /// 튜토리얼 트리거 키
-        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
-        public int tutorial_trigger_key;
+        public string tutorial_trigger_key;
         /// 튜토리얼 액션 타입
         public global::CookApps.AutoBattler.TutorialActionType tutorial_action_type;
         /// 액션 키
@@ -1448,10 +1447,10 @@ namespace CookApps.AutoBattler
         public float hole_radius;
         /// 팝업 위치 좌표값 (x,y)
         public string coordinate;
-        /// 팝업 x
+        /// #팝업 x
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int x;
-        /// 팝업 y
+        /// #팝업 y
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int y;
         /// 화살표 위치 y 값

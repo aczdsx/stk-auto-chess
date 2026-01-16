@@ -136,9 +136,10 @@ public class CharacterStateAttackEsper : CharacterStateAttack
         base.OnAttackEndProcess();
         if (characCtrl == null || characCtrl.Target == null || !characCtrl.Target.IsAlive)
             return;
-        if (_specialAttackInfo.IsSpecialAttack)
-        {
-            _passiveEsperEffectCode.ProgressExplosionDamage(characCtrl.Target);
-        }
+        _passiveEsperEffectCode.ProgressExplosionDamage(characCtrl.Target);
+
+        // if (_specialAttackInfo.IsSpecialAttack)
+        // {
+        // }
     }
 }

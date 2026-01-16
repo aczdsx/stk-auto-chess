@@ -78,7 +78,6 @@ namespace CookApps.BattleSystem
                 var animatorVfx = jetPlaneVfx as InGameVfxWithAnimation;
                 animatorVfx.SetOnAnimationStartCallback(OnStartBomb);
                 animatorVfx.SetOnCustomAnimationEventCallback((eventKey, positions) => OnMiddleBomb(eventKey, positions));
-                animatorVfx.SetOnAnimationEndCallback(OnEndBomb);
             }
 
         }
@@ -126,12 +125,9 @@ namespace CookApps.BattleSystem
                 var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
                 Vector3 targetPosition = target.CurrentTile.View.CachedTr.position;
                 
-                // 방향 설정
-                Vector3 direction = (targetPosition - launchPosition.position).normalized;
-                missileVfx.CachedTr.rotation = Quaternion.LookRotation(direction);
 
                 // 베지어 곡선 이동 설정
-                movement.SetData(launchPosition.position, targetPosition, 10f);
+                movement.SetData(launchPosition.position, targetPosition, 20f);
                 missileVfx.Initialize(false, movement);
 
                 // 목표 도착 시 폭발 처리
@@ -171,15 +167,5 @@ namespace CookApps.BattleSystem
             int missileCount = _explosionOneTimeCount / 3;
             ShootMissiles(positions, missileCount);
         }
-
-        private void OnEndBomb(IReadOnlyList<Transform> positions)
-        {
-            Debug.Log("TS!! OnEndBomb");
-            // 나머지 미사일은 마지막 이벤트에서 발사
-            int missileCount = _explosionOneTimeCount - (_explosionOneTimeCount / 3) * 2;
-            ShootMissiles(positions, missileCount);
-        }
-
-        
     }
 }

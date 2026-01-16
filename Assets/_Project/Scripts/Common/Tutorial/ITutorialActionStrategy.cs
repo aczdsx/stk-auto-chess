@@ -35,6 +35,52 @@ namespace CookApps.AutoBattler
         public Transform OriginalParent { get; set; }
         public int OriginalSiblingIndex { get; set; }
         public Vector3 OriginalPosition { get; set; }
+
+        // 드래그 오브젝트 (CHARACTER_PLACEMENT_UI에서 사용)
+        public GameObject DragObj { get; set; }
+
+        // 마스크 위치/크기 업데이트 건너뛰기 (SPAWN_ENEMY, TOAST_MESSAGE 등에서 사용)
+        public bool SkipMaskUpdate { get; set; }
+
+        #region Full Screen Mask Helpers
+
+        private static readonly int HoleRadius = Shader.PropertyToID("_HoleRadius");
+        private static readonly int HoleCenter = Shader.PropertyToID("_HoleCenter");
+        private const float FULL_SCREEN_HOLE_RADIUS = 1f;
+        private static readonly Vector4 CENTER_POSITION = new Vector4(0.5f, 0.5f, 0, 0);
+
+        private float _savedHoleRadius;
+
+        /// <summary>
+        /// 전체 화면이 보이도록 마스크 설정 (HoleRadius=1, 가운데 위치)
+        /// </summary>
+        public void SetFullScreenMask()
+        {
+            SkipMaskUpdate = true;
+
+            if (MaskMaterial != null)
+            {
+                _savedHoleRadius = MaskMaterial.GetFloat(HoleRadius);
+                MaskMaterial.SetFloat(HoleRadius, FULL_SCREEN_HOLE_RADIUS);
+                MaskMaterial.SetVector(HoleCenter, CENTER_POSITION);
+            }
+        }
+
+        /// <summary>
+        /// 마스크를 이전 상태로 복원
+        /// </summary>
+        public void RestoreMask()
+        {
+            SkipMaskUpdate = false;
+
+            if (MaskMaterial != null && _savedHoleRadius > 0f)
+            {
+                MaskMaterial.SetFloat(HoleRadius, _savedHoleRadius);
+                _savedHoleRadius = 0f;
+            }
+        }
+
+        #endregion
     }
 
     /// <summary>

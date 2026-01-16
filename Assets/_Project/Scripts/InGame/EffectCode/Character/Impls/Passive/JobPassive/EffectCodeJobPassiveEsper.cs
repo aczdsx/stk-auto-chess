@@ -17,7 +17,6 @@ namespace CookApps.BattleSystem
         private float _passivePercentage = 0f;
         private float _explosionDamage = 0f;
 
-        private Action<int, InGameTile> _onExplosionDamage;
 
         public event Action<int, InGameTile> OnExplosionDamage;
 
@@ -68,7 +67,7 @@ namespace CookApps.BattleSystem
                 damagedTargetCount++;
             }
 
-            _onExplosionDamage?.Invoke(damagedTargetCount, explosionStartTile);
+            OnExplosionDamage?.Invoke(damagedTargetCount, explosionStartTile);
         }
 
 

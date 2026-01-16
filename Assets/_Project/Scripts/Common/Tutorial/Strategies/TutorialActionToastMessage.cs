@@ -23,6 +23,9 @@ namespace CookApps.AutoBattler
         {
             IsActive = true;
 
+            // 전체 화면 마스크 설정 (HoleRadius=1, 가운데)
+            context.SetFullScreenMask();
+
             // 화살표 비활성화
             context.ArrowRectTransform.gameObject.SetActive(false);
 
@@ -47,6 +50,7 @@ namespace CookApps.AutoBattler
         {
             IsActive = false;
             OnToastCompleted = null;
+            context.RestoreMask();
         }
 
         /// <summary>

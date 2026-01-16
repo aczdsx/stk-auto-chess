@@ -42,6 +42,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private int _selectedFirstTileID = -1;
     public int SelectedFirstTileID { get => _selectedFirstTileID; set => _selectedFirstTileID = value; }
 
+    private bool _isDragFromUI = false;  // UI에서 드래그해서 올린 캐릭터인지
+
     /////////////////////////////////////////////////////////////
     // protected
 
@@ -140,6 +142,48 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         return results.Count > 0;
     }
 
+    /// <summary>
+    /// RaycastAll로 모든 hit를 받고 Slot 태그를 우선 반환, 없으면 Playground 반환
+    /// </summary>
+    private bool TryGetPrioritizedHit(Vector3 touchPosition, out RaycastHit resultHit, out string hitTag)
+    {
+        resultHit = default;
+        hitTag = null;
+
+        Ray ray = MainCameraHolder.MainCamera.ScreenPointToRay(touchPosition);
+        RaycastHit[] hits = Physics.RaycastAll(ray);
+
+        if (hits.Length == 0)
+            return false;
+
+        // Slot 태그 우선 검색
+        foreach (var hit in hits)
+        {
+            if (hit.transform.CompareTag("Slot"))
+            {
+                resultHit = hit;
+                hitTag = "Slot";
+                return true;
+            }
+        }
+
+        // Slot이 없으면 Playground 검색
+        foreach (var hit in hits)
+        {
+            if (hit.transform.CompareTag("Playground"))
+            {
+                resultHit = hit;
+                hitTag = "Playground";
+                return true;
+            }
+        }
+
+        // 그 외 첫 번째 hit 반환
+        resultHit = hits[0];
+        hitTag = hits[0].transform.tag;
+        return true;
+    }
+
     private void CheckSelectedCharacter(Vector3 touchPosition)
     {
         if (_isMoveEndAnimation)
@@ -148,39 +192,41 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (_selectedCharacterController != null)
             return;
 
-        Ray ray = MainCameraHolder.MainCamera.ScreenPointToRay(touchPosition);
-        RaycastHit hit;
+        _isDragFromUI = false;  // 보드에서 직접 선택
 
-        if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Slot"))
+        // RaycastAll로 Slot 우선 검색
+        if (!TryGetPrioritizedHit(touchPosition, out RaycastHit hit, out string hitTag))
+            return;
+
+        if (hitTag != "Slot")
+            return;
+
+        InGameTileView inGameTileView = hit.transform.GetComponent<InGameTileView>();
+        InGameTile tile = InGameObjectManager.Instance.GetInGameTile(inGameTileView.ID);
+
+        // Enemy 보스 몬스터 클릭 시 스킬 툴팁 표시
+        if (tile.OccupiedCharacter != null &&
+            tile.OccupiedCharacter.AllianceType == AllianceType.Enemy)
         {
-            InGameTileView inGameTileView = hit.transform.GetComponent<InGameTileView>();
-            InGameTile tile =
-                InGameObjectManager.Instance.GetInGameTile(inGameTileView.ID);
+            var specMonster = tile.OccupiedCharacter.GetCharacterStat()?.Spec as MonsterInfo;
+            if (specMonster != null && specMonster.character_type == CharacterType.BOSS)
+            {
+                InGameMain.GetInGameMain().ShowEnemySkillTooltip(specMonster);
+                return;
+            }
+        }
 
-            // Enemy 보스 몬스터 클릭 시 스킬 툴팁 표시
+        if (InGameMain.GetInGameMain().IsCheckTouchTile(tile) || CheckCanTouchTile(tile, inGameTileView))
+        {
+            // 튜토리얼 캐릭터 배치 중일 때 특정 캐릭터만 선택 가능
             if (tile.OccupiedCharacter != null &&
-                tile.OccupiedCharacter.AllianceType == AllianceType.Enemy)
+                !TutorialActionCharacterPlacement.CanSelectCharacter(tile.OccupiedCharacter.CharacterId))
             {
-                var specMonster = tile.OccupiedCharacter.GetCharacterStat()?.Spec as MonsterInfo;
-                if (specMonster != null && specMonster.character_type == CharacterType.BOSS)
-                {
-                    InGameMain.GetInGameMain().ShowEnemySkillTooltip(specMonster);
-                    return;
-                }
+                return;
             }
 
-            if (InGameMain.GetInGameMain().IsCheckTouchTile(tile) || CheckCanTouchTile(tile, inGameTileView))
-            {
-                // 튜토리얼 캐릭터 배치 중일 때 특정 캐릭터만 선택 가능
-                if (tile.OccupiedCharacter != null &&
-                    !TutorialActionCharacterPlacement.CanSelectCharacter(tile.OccupiedCharacter.CharacterId))
-                {
-                    return;
-                }
-
-                _selectedTileView = inGameTileView;
-                SetSelectedCharacter(tile.OccupiedCharacter);
-            }
+            _selectedTileView = inGameTileView;
+            SetSelectedCharacter(tile.OccupiedCharacter);
         }
     }
     private bool CheckCanTouchTile(InGameTile tile, InGameTileView inGameTileView)
@@ -205,25 +251,40 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         // 드래그 중 BottomUI 영역 하이라이트 체크 (BattleItem 제외)
         UpdateDropHighlight(touchPosition);
 
-        Ray ray = MainCameraHolder.MainCamera.ScreenPointToRay(touchPosition);
-        if (!Physics.Raycast(ray, out RaycastHit hit))
+        // RaycastAll로 Slot 우선 검색
+        if (!TryGetPrioritizedHit(touchPosition, out RaycastHit hit, out string hitTag))
             return;
 
-        // BattleItem의 경우 Slot 태그 체크 없이 진행, 일반 캐릭터는 Slot 태그 필요
         bool isBattleItem = _selectedCharacterController.AllianceType == AllianceType.BattleItem;
-        if (!isBattleItem && !hit.transform.CompareTag("Slot"))
-            return;
 
-        InGameTileView ingameTileView = hit.transform.GetComponent<InGameTileView>();
-        if (ingameTileView == null)
-            return;
+        // 1. 타일 위인 경우 → 기존 로직 (타일에 스냅)
+        if (hitTag == "Slot")
+        {
+            InGameTileView ingameTileView = hit.transform.GetComponent<InGameTileView>();
+            if (ingameTileView == null)
+                return;
 
-        // 타일 변경 조건 체크
-        bool canMoveToTile = CanMoveToTile(ingameTileView, isBattleItem);
-        if (!canMoveToTile)
-            return;
+            // 타일 변경 조건 체크
+            bool canMoveToTile = CanMoveToTile(ingameTileView, isBattleItem);
+            if (!canMoveToTile)
+                return;
 
-        UpdateSelectedTileAndAnimate(ingameTileView);
+            UpdateSelectedTileAndAnimate(ingameTileView);
+        }
+        // 2. 배경(Playground) 위인 경우 → 자유 이동
+        else if (hitTag == "Playground")
+        {
+            // 타일 하이라이트 해제
+            InActiveAttackTile();
+            _selectedTileView?.SetActiveObj(false);
+
+            // hit.point의 Y값을 캐릭터 높이로 보정
+            Vector3 targetPos = hit.point;
+            targetPos.y = _selectedCharacterController.Position3D.y;
+
+            _selectedCharacterController.Position3D = targetPos;
+            _selectedCharacterController.GetCharacterView().CachedTr.localPosition = targetPos;
+        }
     }
 
     /// <summary>
@@ -276,10 +337,10 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         }
 
         // BattleItem은 적 타일이 아닌 곳으로 이동 가능
-            // 일반 캐릭터는 플레이어 타일로만 이동 가능
-            return isBattleItem
-                ? targetTileView.AllianceType != AllianceType.Enemy
-                : targetTileView.AllianceType == AllianceType.Player;
+        // 일반 캐릭터는 플레이어 타일로만 이동 가능
+        return isBattleItem
+            ? targetTileView.AllianceType != AllianceType.Enemy
+            : targetTileView.AllianceType == AllianceType.Player;
     }
 
     /// <summary>
@@ -371,17 +432,66 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             _selectedCharacterController.SpecCharacter.character_type != CharacterType.BATTLEITEM)
         {
             // BottomUI 영역에 드롭 - 캐릭터 반환
-            CharacterController deleteCharacterController = _selectedCharacterController;
-            ReleaseSelectedHero(true);
-
-            deleteCharacterController.CurrentTile.SetUnoccupied();
-            InGameObjectManager.Instance.RemoveCharacterFromField(deleteCharacterController);
-            inGameMain.ReturnCharacterUI(deleteCharacterController);
+            ReturnCharacterToUI();
         }
         else
         {
-            InGameTile tile = InGameObjectManager.Instance.GetInGameTile(_selectedTileView.ID);
-            HandleCharacterTileChange(tile, _selectedTileView);
+            // RaycastAll로 Slot 우선 검색
+            if (TryGetPrioritizedHit(touchPosition, out RaycastHit hit, out string hitTag))
+            {
+                if (hitTag == "Slot")
+                {
+                    // 타일 위에 드롭 - 기존 로직
+                    InGameTile tile = InGameObjectManager.Instance.GetInGameTile(_selectedTileView.ID);
+                    HandleCharacterTileChange(tile, _selectedTileView);
+                }
+                else if (hitTag == "Playground")
+                {
+                    // 배경 위에 드롭
+                    HandlePlaygroundDrop();
+                }
+                else
+                {
+                    // 기타 영역 - 원래 타일로 복귀
+                    ReturnToOriginalTile();
+                }
+            }
+            else
+            {
+                // Raycast 실패 - 원래 타일로 복귀
+                ReturnToOriginalTile();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 캐릭터를 BottomUI로 반환
+    /// </summary>
+    private void ReturnCharacterToUI()
+    {
+        CharacterController characterToReturn = _selectedCharacterController;
+        ReleaseSelectedHero(true);
+
+        characterToReturn.CurrentTile.SetUnoccupied();
+        InGameObjectManager.Instance.RemoveCharacterFromField(characterToReturn);
+        InGameMain.GetInGameMain().ReturnCharacterUI(characterToReturn);
+    }
+
+    /// <summary>
+    /// 배경(Playground)에 드롭 시 처리
+    /// UI에서 올린 캐릭터면 UI로 반환, 보드 내 이동이면 원래 타일로 복귀
+    /// </summary>
+    private void HandlePlaygroundDrop()
+    {
+        if (_isDragFromUI)
+        {
+            // UI에서 올린 캐릭터 → UI로 반환
+            ReturnCharacterToUI();
+        }
+        else
+        {
+            // 보드 내 이동 → 원래 타일로 복귀
+            ReturnToOriginalTile();
         }
     }
 
@@ -617,6 +727,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         if (_selectedCharacterController != null)
         {
+            _isDragFromUI = false;  // 플래그 초기화
 
             // 튜토리얼 캐릭터 배치 완료 알림 (타일이 변경되었을 때만)
             bool tileChanged = _selectedFirstTileView != null && _selectedTileView != null &&
@@ -645,6 +756,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             {
                 CookApps.AutoBattler.TutorialActionCharacterPlacementUI.NotifyPlacementCompleted();
             }
+
+            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.CHARACTER_PLACEMENT, placedCharacterId.ToString());
 
             // InGameObjectManager.Instance.DrawPlayerLine(true);
             // InGameObjectManager.Instance.DrawPlayerLine(false);
@@ -776,6 +889,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (_selectedCharacterController != null || _isMoveEndAnimation)
             return false;
 
+        _isDragFromUI = true;  // UI에서 드래그 시작
+
         // 타일 유효성 체크
         if (tileView == null || tileView.AllianceType != AllianceType.Player)
             return false;
@@ -853,15 +968,44 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     }
 
     /// <summary>
-    /// 스크린 좌표에서 타일뷰 가져오기
+    /// 스크린 좌표에서 타일뷰 가져오기 (Slot 우선)
     /// </summary>
     public InGameTileView GetTileViewFromScreenPosition(Vector3 screenPosition)
     {
-        Ray ray = MainCameraHolder.MainCamera.ScreenPointToRay(screenPosition);
-        if (Physics.Raycast(ray, out RaycastHit hit) && hit.transform.CompareTag("Slot"))
+        if (TryGetPrioritizedHit(screenPosition, out RaycastHit hit, out string hitTag))
         {
-            return hit.transform.GetComponent<InGameTileView>();
+            if (hitTag == "Slot")
+            {
+                return hit.transform.GetComponent<InGameTileView>();
+            }
         }
         return null;
+    }
+
+    /// <summary>
+    /// 스크린 좌표가 보드 영역(Slot 또는 Playground) 위인지 확인
+    /// </summary>
+    /// <param name="screenPosition">스크린 좌표</param>
+    /// <param name="tileView">Slot 위면 타일뷰 반환, Playground면 null</param>
+    /// <returns>보드 영역 위면 true</returns>
+    public bool IsPointOverBoard(Vector3 screenPosition, out InGameTileView tileView)
+    {
+        tileView = null;
+
+        if (!TryGetPrioritizedHit(screenPosition, out RaycastHit hit, out string hitTag))
+            return false;
+
+        if (hitTag == "Slot")
+        {
+            tileView = hit.transform.GetComponent<InGameTileView>();
+            return true;
+        }
+        else if (hitTag == "Playground")
+        {
+            // Playground 위 - tileView는 null이지만 보드 영역임
+            return true;
+        }
+
+        return false;
     }
 }

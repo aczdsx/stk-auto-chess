@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02e2410ef98645b89242211333d1fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingAnimator: {fileID: 5093975457729268496}
+  buildingRoot: {fileID: 2001456136997005473}
 --- !u!1001 &2455515134867858075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114,6 +116,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5093975457729268496}
   m_SourcePrefab: {fileID: 100100000, guid: 38ddb0451514c79479635c2bb9c4839c, type: 3}
+--- !u!4 &2001456136997005473 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4167280743394806330, guid: 38ddb0451514c79479635c2bb9c4839c, type: 3}
+  m_PrefabInstance: {fileID: 2455515134867858075}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2709204880615638384 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 38ddb0451514c79479635c2bb9c4839c, type: 3}
