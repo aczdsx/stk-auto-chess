@@ -5,9 +5,6 @@ namespace CookApps.AutoBattler
 {
     public partial class UserDataManager
     {
-        private UserWallet userWallet;
-
-        public UserWallet UserWallet => userWallet;
 
         public void IncreaseRewardItemList(List<RewardItem> rewardList, bool isSave)
         {
