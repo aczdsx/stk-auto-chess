@@ -68,8 +68,8 @@ namespace CookApps.AutoBattler
         {
             switch (defaultUIData)
             {
-                case (InGameType inGameType, IGameStateUICore state, int id):
-                    await InGameResourceHolder.LoadResources(inGameType, state, id);
+                case InGameMainParams inGameParams:
+                    await InGameResourceHolder.LoadResources(inGameParams.InGameType, inGameParams.GameStateUI, inGameParams.StageId);
                     break;
                 case (InGameType inGameType, IGameStateUICore state, UserPVPBattleDetailData data):
                     await InGameResourceHolder.LoadResources(inGameType, state, 0);
