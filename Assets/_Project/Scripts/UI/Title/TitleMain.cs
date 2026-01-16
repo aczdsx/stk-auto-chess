@@ -107,6 +107,7 @@ namespace CookApps.AutoBattler
                 NetManager.Instance.CustomLobby.GetMyPlayerDataAsync(),
                 NetManager.Instance.Inventory.ListAsync(),
                 NetManager.Instance.Character.ListAsync(),
+                NetManager.Instance.Deck.ListAsync(),
                 NetManager.Instance.Battle.GetCurrentChapterAsync(),
                 NetManager.Instance.Battle.ListChapterAsync(),
             };
@@ -131,8 +132,13 @@ namespace CookApps.AutoBattler
                     //     (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), lastTutoStageData.stage_id));
                     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                     await SceneTransition.FadeInAsync();
+
+                    var inGameParams = new InGameMainParams(
+                        InGameType.PROLOGUE,
+                        new InGameMainStatePrologue(),
+                        0);
                     
-                    SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
+                    SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
                     return;
                 }
                 else

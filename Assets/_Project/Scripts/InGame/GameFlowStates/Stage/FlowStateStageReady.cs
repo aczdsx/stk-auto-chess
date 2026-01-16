@@ -1,15 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Resources;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using CookApps.Obfuscator;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
 using Unity.Mathematics;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
@@ -266,6 +262,28 @@ public class FlowStateStageReady : StateReadyBase
 
     public override void StateEnd(bool isForced)
     {
+        SaveCurrentDeckAsync().Forget();
+    }
+
+    private async UniTaskVoid SaveCurrentDeckAsync()
+    {
+        var characterPlacements = new List<DeckCharacterPlacement>();
+        var playerCharacters = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
+
+        foreach (var character in playerCharacters)
+        {
+            if (character?.CurrentTile == null) continue;
+
+            characterPlacements.Add(new DeckCharacterPlacement
+            {
+                CharacterId = (uint)character.CharacterId,
+                GridX = character.CurrentTile.X,
+                GridY = character.CurrentTile.Y
+            });
+        }
+
+        // STAGE의 덱 슬롯 ID는 1
+        await NetManager.Instance.Deck.SaveAsync((int)InGameType.STAGE, string.Empty, characterPlacements);
     }
 
     private void SpawnRuleTiles()
