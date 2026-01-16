@@ -30,33 +30,35 @@ namespace Tech.Hive.V1 {
             "bkdldFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5S",
             "ZXNwb25zZVN0YXR1cxI1Cg10cmlhbF9kdW5nZW9uGAIgASgLMh4udGVjaC5o",
             "aXZlLnYxLlRyaWFsRHVuZ2VvbkRhdGEiGgoYVHJpYWxEdW5nZW9uRW50ZXJS",
-            "ZXF1ZXN0IoABChlUcmlhbER1bmdlb25FbnRlclJlc3BvbnNlEiwKBnN0YXR1",
+            "ZXF1ZXN0IrABChlUcmlhbER1bmdlb25FbnRlclJlc3BvbnNlEiwKBnN0YXR1",
             "cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxI1Cg10cmlh",
             "bF9kdW5nZW9uGAIgASgLMh4udGVjaC5oaXZlLnYxLlRyaWFsRHVuZ2VvbkRh",
-            "dGEiLgoYVHJpYWxEdW5nZW9uQ2xlYXJSZXF1ZXN0EhIKCmlzX3ZpY3RvcnkY",
-            "ASABKAgi3QEKGVRyaWFsRHVuZ2VvbkNsZWFyUmVzcG9uc2USLAoGc3RhdHVz",
-            "GAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEjUKDXRyaWFs",
-            "X2R1bmdlb24YAiABKAsyHi50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9uRGF0",
-            "YRIlCgdyZXdhcmRzGAMgAygLMhQudGVjaC5oaXZlLnYxLlJld2FyZBI0Cg9j",
-            "dXJyZW5jeV9kZWx0YXMYBCADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lE",
-            "ZWx0YSp8ChVUcmlhbER1bmdlb25FcnJvckNvZGUSHQoZVFJJQUxfRFVOR0VP",
-            "Tl9VTlNQRUNJRklFRBAAEh4KF1RSSUFMX0RVTkdFT05fTk9UX0ZPVU5EEPGq",
-            "6gQSJAodVFJJQUxfRFVOR0VPTl9OT1RfRU5PVUdIX1NUQVIQ8qrqBDKdAgoT",
-            "VHJpYWxEdW5nZW9uU2VydmljZRJSCgNHZXQSJC50ZWNoLmhpdmUudjEuVHJp",
-            "YWxEdW5nZW9uR2V0UmVxdWVzdBolLnRlY2guaGl2ZS52MS5UcmlhbER1bmdl",
-            "b25HZXRSZXNwb25zZRJYCgVFbnRlchImLnRlY2guaGl2ZS52MS5UcmlhbER1",
-            "bmdlb25FbnRlclJlcXVlc3QaJy50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9u",
-            "RW50ZXJSZXNwb25zZRJYCgVDbGVhchImLnRlY2guaGl2ZS52MS5UcmlhbER1",
-            "bmdlb25DbGVhclJlcXVlc3QaJy50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9u",
-            "Q2xlYXJSZXNwb25zZWIGcHJvdG8z"));
+            "dGESGQoRYmF0dGxlX3Nlc3Npb25faWQYAyABKAkSEwoLYmF0dGxlX3NlZWQY",
+            "BCABKAQiSQoYVHJpYWxEdW5nZW9uQ2xlYXJSZXF1ZXN0EhkKEWJhdHRsZV9z",
+            "ZXNzaW9uX2lkGAEgASgJEhIKCmlzX3ZpY3RvcnkYAiABKAgi3QEKGVRyaWFs",
+            "RHVuZ2VvbkNsZWFyUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5o",
+            "aXZlLnYxLlJlc3BvbnNlU3RhdHVzEjUKDXRyaWFsX2R1bmdlb24YAiABKAsy",
+            "Hi50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9uRGF0YRIlCgdyZXdhcmRzGAMg",
+            "AygLMhQudGVjaC5oaXZlLnYxLlJld2FyZBI0Cg9jdXJyZW5jeV9kZWx0YXMY",
+            "BCADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lEZWx0YSp8ChVUcmlhbER1",
+            "bmdlb25FcnJvckNvZGUSHQoZVFJJQUxfRFVOR0VPTl9VTlNQRUNJRklFRBAA",
+            "Eh4KF1RSSUFMX0RVTkdFT05fTk9UX0ZPVU5EEPGq6gQSJAodVFJJQUxfRFVO",
+            "R0VPTl9OT1RfRU5PVUdIX1NUQVIQ8qrqBDKdAgoTVHJpYWxEdW5nZW9uU2Vy",
+            "dmljZRJSCgNHZXQSJC50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9uR2V0UmVx",
+            "dWVzdBolLnRlY2guaGl2ZS52MS5UcmlhbER1bmdlb25HZXRSZXNwb25zZRJY",
+            "CgVFbnRlchImLnRlY2guaGl2ZS52MS5UcmlhbER1bmdlb25FbnRlclJlcXVl",
+            "c3QaJy50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9uRW50ZXJSZXNwb25zZRJY",
+            "CgVDbGVhchImLnRlY2guaGl2ZS52MS5UcmlhbER1bmdlb25DbGVhclJlcXVl",
+            "c3QaJy50ZWNoLmhpdmUudjEuVHJpYWxEdW5nZW9uQ2xlYXJSZXNwb25zZWIG",
+            "cHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.TrialDungeonDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.TrialDungeonErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonGetRequest), global::Tech.Hive.V1.TrialDungeonGetRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonGetResponse), global::Tech.Hive.V1.TrialDungeonGetResponse.Parser, new[]{ "Status", "TrialDungeon" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonEnterRequest), global::Tech.Hive.V1.TrialDungeonEnterRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonEnterResponse), global::Tech.Hive.V1.TrialDungeonEnterResponse.Parser, new[]{ "Status", "TrialDungeon" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonClearRequest), global::Tech.Hive.V1.TrialDungeonClearRequest.Parser, new[]{ "IsVictory" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonEnterResponse), global::Tech.Hive.V1.TrialDungeonEnterResponse.Parser, new[]{ "Status", "TrialDungeon", "BattleSessionId", "BattleSeed" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonClearRequest), global::Tech.Hive.V1.TrialDungeonClearRequest.Parser, new[]{ "BattleSessionId", "IsVictory" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.TrialDungeonClearResponse), global::Tech.Hive.V1.TrialDungeonClearResponse.Parser, new[]{ "Status", "TrialDungeon", "Rewards", "CurrencyDeltas" }, null, null, null, null)
           }));
     }
@@ -667,6 +669,8 @@ namespace Tech.Hive.V1 {
     public TrialDungeonEnterResponse(TrialDungeonEnterResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
       trialDungeon_ = other.trialDungeon_ != null ? other.trialDungeon_.Clone() : null;
+      battleSessionId_ = other.battleSessionId_;
+      battleSeed_ = other.battleSeed_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -700,6 +704,30 @@ namespace Tech.Hive.V1 {
       }
     }
 
+    /// <summary>Field number for the "battle_session_id" field.</summary>
+    public const int BattleSessionIdFieldNumber = 3;
+    private string battleSessionId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string BattleSessionId {
+      get { return battleSessionId_; }
+      set {
+        battleSessionId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "battle_seed" field.</summary>
+    public const int BattleSeedFieldNumber = 4;
+    private ulong battleSeed_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ulong BattleSeed {
+      get { return battleSeed_; }
+      set {
+        battleSeed_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -717,6 +745,8 @@ namespace Tech.Hive.V1 {
       }
       if (!object.Equals(Status, other.Status)) return false;
       if (!object.Equals(TrialDungeon, other.TrialDungeon)) return false;
+      if (BattleSessionId != other.BattleSessionId) return false;
+      if (BattleSeed != other.BattleSeed) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -726,6 +756,8 @@ namespace Tech.Hive.V1 {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
       if (trialDungeon_ != null) hash ^= TrialDungeon.GetHashCode();
+      if (BattleSessionId.Length != 0) hash ^= BattleSessionId.GetHashCode();
+      if (BattleSeed != 0UL) hash ^= BattleSeed.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -752,6 +784,14 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(18);
         output.WriteMessage(TrialDungeon);
       }
+      if (BattleSessionId.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(BattleSessionId);
+      }
+      if (BattleSeed != 0UL) {
+        output.WriteRawTag(32);
+        output.WriteUInt64(BattleSeed);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -770,6 +810,14 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(18);
         output.WriteMessage(TrialDungeon);
       }
+      if (BattleSessionId.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(BattleSessionId);
+      }
+      if (BattleSeed != 0UL) {
+        output.WriteRawTag(32);
+        output.WriteUInt64(BattleSeed);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -785,6 +833,12 @@ namespace Tech.Hive.V1 {
       }
       if (trialDungeon_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(TrialDungeon);
+      }
+      if (BattleSessionId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(BattleSessionId);
+      }
+      if (BattleSeed != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(BattleSeed);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -809,6 +863,12 @@ namespace Tech.Hive.V1 {
           TrialDungeon = new global::Tech.Hive.V1.TrialDungeonData();
         }
         TrialDungeon.MergeFrom(other.TrialDungeon);
+      }
+      if (other.BattleSessionId.Length != 0) {
+        BattleSessionId = other.BattleSessionId;
+      }
+      if (other.BattleSeed != 0UL) {
+        BattleSeed = other.BattleSeed;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -839,6 +899,14 @@ namespace Tech.Hive.V1 {
             input.ReadMessage(TrialDungeon);
             break;
           }
+          case 26: {
+            BattleSessionId = input.ReadString();
+            break;
+          }
+          case 32: {
+            BattleSeed = input.ReadUInt64();
+            break;
+          }
         }
       }
     #endif
@@ -866,6 +934,14 @@ namespace Tech.Hive.V1 {
               TrialDungeon = new global::Tech.Hive.V1.TrialDungeonData();
             }
             input.ReadMessage(TrialDungeon);
+            break;
+          }
+          case 26: {
+            BattleSessionId = input.ReadString();
+            break;
+          }
+          case 32: {
+            BattleSeed = input.ReadUInt64();
             break;
           }
         }
@@ -910,6 +986,7 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public TrialDungeonClearRequest(TrialDungeonClearRequest other) : this() {
+      battleSessionId_ = other.battleSessionId_;
       isVictory_ = other.isVictory_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -920,8 +997,20 @@ namespace Tech.Hive.V1 {
       return new TrialDungeonClearRequest(this);
     }
 
+    /// <summary>Field number for the "battle_session_id" field.</summary>
+    public const int BattleSessionIdFieldNumber = 1;
+    private string battleSessionId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string BattleSessionId {
+      get { return battleSessionId_; }
+      set {
+        battleSessionId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     /// <summary>Field number for the "is_victory" field.</summary>
-    public const int IsVictoryFieldNumber = 1;
+    public const int IsVictoryFieldNumber = 2;
     private bool isVictory_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -947,6 +1036,7 @@ namespace Tech.Hive.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (BattleSessionId != other.BattleSessionId) return false;
       if (IsVictory != other.IsVictory) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -955,6 +1045,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (BattleSessionId.Length != 0) hash ^= BattleSessionId.GetHashCode();
       if (IsVictory != false) hash ^= IsVictory.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -974,8 +1065,12 @@ namespace Tech.Hive.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (BattleSessionId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(BattleSessionId);
+      }
       if (IsVictory != false) {
-        output.WriteRawTag(8);
+        output.WriteRawTag(16);
         output.WriteBool(IsVictory);
       }
       if (_unknownFields != null) {
@@ -988,8 +1083,12 @@ namespace Tech.Hive.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (BattleSessionId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(BattleSessionId);
+      }
       if (IsVictory != false) {
-        output.WriteRawTag(8);
+        output.WriteRawTag(16);
         output.WriteBool(IsVictory);
       }
       if (_unknownFields != null) {
@@ -1002,6 +1101,9 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (BattleSessionId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(BattleSessionId);
+      }
       if (IsVictory != false) {
         size += 1 + 1;
       }
@@ -1016,6 +1118,9 @@ namespace Tech.Hive.V1 {
     public void MergeFrom(TrialDungeonClearRequest other) {
       if (other == null) {
         return;
+      }
+      if (other.BattleSessionId.Length != 0) {
+        BattleSessionId = other.BattleSessionId;
       }
       if (other.IsVictory != false) {
         IsVictory = other.IsVictory;
@@ -1035,7 +1140,11 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
+          case 10: {
+            BattleSessionId = input.ReadString();
+            break;
+          }
+          case 16: {
             IsVictory = input.ReadBool();
             break;
           }
@@ -1054,7 +1163,11 @@ namespace Tech.Hive.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
+          case 10: {
+            BattleSessionId = input.ReadString();
+            break;
+          }
+          case 16: {
             IsVictory = input.ReadBool();
             break;
           }

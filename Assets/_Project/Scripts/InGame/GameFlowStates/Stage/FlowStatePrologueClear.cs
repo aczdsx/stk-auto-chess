@@ -1,3 +1,4 @@
+using System;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
@@ -18,9 +19,11 @@ public class FlowStatePrologueClear : StateBase
     {
         InGameManager.Instance.EndInGame();
         SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+        var firstStage = SpecDataManager.Instance.StageInfo.All[0];
+        var task = NetManager.Instance.Battle.StartAsync(firstStage.chapter_id, firstStage.stage_id, (int)InGameType.STAGE, Array.Empty<string>());
         await SceneTransition.FadeInAsync();
-        SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueEnd",
-            (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), 10001));
+        var inGameParams = await task;
+        SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueEnd", inGameParams);
     }
 
     public override void StateRunning(float dt)

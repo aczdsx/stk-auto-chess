@@ -58,7 +58,7 @@ namespace CookApps.AutoBattler
                 ServiceClient.ClearAsync,
                 new TrialDungeonClearRequest
                 {
-                    // BattleSessionId = battleSessionId,
+                    BattleSessionId = battleSessionId,
                     IsVictory = isVictory
                 },
                 cancellationToken: cancellationToken

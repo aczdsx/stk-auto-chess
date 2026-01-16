@@ -277,9 +277,9 @@ namespace CookApps.AutoBattler
             var inGameParams = new InGameMainParams(
                 _specDungeonTrialData.dungeon_map_id == 1 ? InGameType.TRIAL_BOSS : InGameType.TRIAL,
                 new InGameMainStateTrialDungeon(),
-                _specDungeonTrialData.dungeon_id
-                // response.BattleSessionId,
-                // 0L // TODO: response 에서 온 랜덤 시드로 대체
+                _specDungeonTrialData.dungeon_id,
+                response.BattleSessionId,
+                response.BattleSeed
             );
             
             SceneLoading.GoToNextScene("InGame", inGameParams);
