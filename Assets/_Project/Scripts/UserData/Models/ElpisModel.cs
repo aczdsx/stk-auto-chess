@@ -80,6 +80,9 @@ namespace CookApps.AutoBattler
         private readonly Dictionary<uint, ElpisFacility> _facilitiesCache = new (32);
         private readonly Dictionary<uint, CoreResearch> _coreResearchCache = new (16);
 
+        // 디멘션 랩 캐시 데이터 (유저 레벨에 맞는 스펙 데이터, 0레벨 제외)
+        private readonly List<ElpisDimensionLab> _cachedElpisDimensionLabs = new ();
+
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
         public readonly Subject<FacilityChangeInfo> OnFacilityAdded = new();
@@ -95,6 +98,7 @@ namespace CookApps.AutoBattler
             _elpisData = new ElpisData();
             _facilitiesCache.Clear();
             _coreResearchCache.Clear();
+            _cachedElpisDimensionLabs.Clear();
             OnChanged.OnNext(Unit.Default);
         }
 
@@ -231,6 +235,75 @@ namespace CookApps.AutoBattler
 
         #endregion
 
+        #region 디멘션 랩 캐시 관련
+
+        /// <summary>
+        /// 캐시된 디멘션 랩 데이터 (유저 레벨에 맞는 스펙 데이터, 0레벨 제외)
+        /// </summary>
+        public IReadOnlyList<ElpisDimensionLab> CachedElpisDimensionLabs => _cachedElpisDimensionLabs;
+
+        /// <summary>
+        /// 디멘션 랩 캐시 재구성
+        /// </summary>
+        private void RebuildDimensionLabCache()
+        {
+            _cachedElpisDimensionLabs.Clear();
+
+            var allSpecs = SpecDataManager.Instance.GetAllElpisDimensionLab();
+
+            foreach (var coreResearch in _coreResearchCache.Values)
+            {
+                // 0레벨은 제외
+                if (coreResearch.Level <= 0)
+                    continue;
+
+                // 해당 UpgradeGroupId와 Level에 맞는 스펙 데이터 찾기
+                for (var i = 0; i < allSpecs.Count; i++)
+                {
+                    var spec = allSpecs[i];
+                    if (spec.upgrade_group_id == coreResearch.UpgradeGroupId && spec.lv == coreResearch.Level)
+                    {
+                        _cachedElpisDimensionLabs.Add(spec);
+                        break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 단일 디멘션 랩 캐시 업데이트
+        /// </summary>
+        private void UpdateDimensionLabCache(CoreResearch coreResearch)
+        {
+            // 기존 캐시에서 같은 UpgradeGroupId 제거
+            for (var i = _cachedElpisDimensionLabs.Count - 1; i >= 0; i--)
+            {
+                if (_cachedElpisDimensionLabs[i].upgrade_group_id == coreResearch.UpgradeGroupId)
+                {
+                    _cachedElpisDimensionLabs.RemoveAt(i);
+                    break;
+                }
+            }
+
+            // 0레벨은 추가하지 않음
+            if (coreResearch.Level <= 0)
+                return;
+
+            // 해당 레벨의 스펙 데이터 찾아서 추가
+            var allSpecs = SpecDataManager.Instance.GetAllElpisDimensionLab();
+            for (var i = 0; i < allSpecs.Count; i++)
+            {
+                var spec = allSpecs[i];
+                if (spec.upgrade_group_id == coreResearch.UpgradeGroupId && spec.lv == coreResearch.Level)
+                {
+                    _cachedElpisDimensionLabs.Add(spec);
+                    break;
+                }
+            }
+        }
+
+        #endregion
+
         #region 시뮬레이션 관련
 
         /// <summary>
@@ -289,6 +362,8 @@ namespace CookApps.AutoBattler
                 var research = elpisData.CoreResearches[i];
                 _coreResearchCache[research.UpgradeGroupId] = research;
             }
+
+            RebuildDimensionLabCache();
 
             OnChanged.OnNext(Unit.Default);
         }
@@ -363,6 +438,8 @@ namespace CookApps.AutoBattler
             {
                 _elpisData.CoreResearches.Add(research);
             }
+
+            UpdateDimensionLabCache(research);
 
             var changeInfo = new CoreResearchChangeInfo(research, previous);
             OnCoreResearchUpdated.OnNext(changeInfo);
