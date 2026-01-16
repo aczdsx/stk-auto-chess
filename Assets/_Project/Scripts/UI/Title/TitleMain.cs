@@ -102,17 +102,8 @@ namespace CookApps.AutoBattler
             // 앱이벤트 전송
             AppEventManager.Instance.Login();
 
-            var serverTasks = new UniTask[]
-            {
-                NetManager.Instance.CustomLobby.GetMyPlayerDataAsync(),
-                NetManager.Instance.Inventory.ListAsync(),
-                NetManager.Instance.Character.ListAsync(),
-                NetManager.Instance.Deck.ListAsync(),
-                NetManager.Instance.Battle.GetCurrentChapterAsync(),
-                NetManager.Instance.Battle.ListChapterAsync(),
-            };
-            await UniTask.WhenAll(serverTasks);
-            NetManager.Instance.Initialize_Elpis().Forget();
+            // 서버 데이터 초기화 (Elpis 포함)
+            await NetManager.Instance.InitializeAsync();
 
             // var transition1 = SceneTransition_FadeInOut.Create();
             // 프롤로그로 진입하게 해줘야함

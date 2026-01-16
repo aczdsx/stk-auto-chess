@@ -11,6 +11,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using R3;
 using Spine.Unity;
+using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -197,7 +198,7 @@ namespace CookApps.AutoBattler
                     SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), callback =>
                     {
                         // 가이드 미션 가이드 효과 재생
-                        ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert).UpdateAlert();
+                        ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert)?.UpdateAlert();
                         InGameMain.GetInGameMain()?.SetInGameBottomUIInGuide();
 
                         TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.DIALOGUE_POP_END, _dialogueGroupID.ToString());
@@ -211,7 +212,7 @@ namespace CookApps.AutoBattler
             if (isGetReward == false)
             {
                 // 가이드 미션 가이드 효과 재생
-                ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert).UpdateAlert();
+                ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert)?.UpdateAlert();
             }
 
             if (_currentSpecDialogueData.image_info_id != 0)

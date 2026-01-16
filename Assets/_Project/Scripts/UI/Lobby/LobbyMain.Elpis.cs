@@ -23,7 +23,6 @@ namespace CookApps.AutoBattler
         private async UniTask LoadElpis()
         {
             elpisDataBridge = new ElpisDataBridge();
-            await NetManager.Instance.WaitForElpisInitializationAsync();
 
             // 해금된 건물들을 0 레벨로 추가
             AddUnlockedFacilities();
