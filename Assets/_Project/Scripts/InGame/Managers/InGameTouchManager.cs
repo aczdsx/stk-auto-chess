@@ -15,7 +15,6 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 using PrimeTween;
 using UnityEngine.Pool;
-using static CookApps.AutoBattler.TutorialActionCharacterPlacement;
 using static CookApps.AutoBattler.TutorialActionMoveObject;
 
 public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
@@ -219,13 +218,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
         if (InGameMain.GetInGameMain().IsCheckTouchTile(tile) || CheckCanTouchTile(tile, inGameTileView))
         {
-            // 튜토리얼 캐릭터 배치 중일 때 특정 캐릭터만 선택 가능
-            if (tile.OccupiedCharacter != null &&
-                !TutorialActionCharacterPlacement.CanSelectCharacter(tile.OccupiedCharacter.CharacterId))
-            {
-                return;
-            }
-
             // 튜토리얼 오브젝트 이동 중일 때 Source 오브젝트만 선택 가능
             if (CookApps.AutoBattler.TutorialActionMoveObject.IsActive)
             {
@@ -319,13 +311,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         // 같은 타일이면 이동 불가
         if (targetTileView.ID == _selectedTileView.ID)
             return false;
-
-        // 튜토리얼 캐릭터 배치 중일 때 특정 타일로만 이동 가능
-        if (TutorialActionCharacterPlacement.IsActive && TutorialActionCharacterPlacement.TargetTileId >= 0)
-        {
-            if (!CanPlaceOnTile(targetTileView.ID))
-                return false;
-        }
 
         // 튜토리얼 오브젝트 이동 중일 때 Destination 타일로만 이동 가능
         if (CookApps.AutoBattler.TutorialActionMoveObject.IsActive)
@@ -763,16 +748,17 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameMain.GetInGameMain().CloseSkillTooltip();
             _isMoveEndAnimation = false;
 
-            // 튜토리얼 캐릭터 배치 완료 콜백 호출 (CHARACTER_PLACEMENT)
-            if (tileChanged && TutorialActionCharacterPlacement.IsActive && TutorialActionCharacterPlacement.CanSelectCharacter(placedCharacterId))
-            {
-                NotifyPlacementCompleted();
-            }
-
             // 튜토리얼 UI 캐릭터 배치 완료 콜백 호출 (CHARACTER_PLACEMENT_UI)
-            if (tileChanged && CookApps.AutoBattler.TutorialActionCharacterPlacementUI.IsActive)
+            if (CookApps.AutoBattler.TutorialActionCharacterPlacementUI.IsActive)
             {
-                CookApps.AutoBattler.TutorialActionCharacterPlacementUI.NotifyPlacementCompleted();
+                Debug.LogColor($"[InGameTouchManager] NotifyPlacementCompleted: {placedCharacterId}", "green");
+
+                if (CookApps.AutoBattler.TutorialActionCharacterPlacementUI.CanPlaceOnTile(_selectedTileView.ID))
+                {
+                    CookApps.AutoBattler.TutorialActionCharacterPlacementUI.NotifyPlacementCompleted();
+
+                    TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.CHARACTER_PLACEMENT, placedCharacterId.ToString());
+                }
             }
 
             // 튜토리얼 오브젝트 이동 완료 콜백 호출 (MOVE_OBJECT)
@@ -789,8 +775,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                     }
                 }
             }
-
-            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.CHARACTER_PLACEMENT, placedCharacterId.ToString());
 
             // MOVE_OBJECT_AFTER 트리거 (오브젝트 이동 완료 후)
             if (tileChanged)
@@ -954,7 +938,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         int2 pos = new int2(inGameTile.X, inGameTile.Y);
         await InGameObjectManager.Instance.AddCharacterToField(
             statData, pos, AllianceType.Player,
-            typeof(CharacterStateReady), true, HpBarType.Synergy);
+            typeof(CharacterStateReady), true, HpBarType.Synergy, isSummonFx: false);
 
         // 생성된 캐릭터 가져오기
         var character = inGameTile.OccupiedCharacter;

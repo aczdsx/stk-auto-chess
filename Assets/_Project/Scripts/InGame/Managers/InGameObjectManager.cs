@@ -215,7 +215,7 @@ namespace CookApps.BattleSystem
         }
 
         public async UniTask<CharacterController> AddCharacterToField(CharacterStatData statData, int2 initPos,
-            AllianceType allianceType, Type startStateType, bool hasSkill = true, HpBarType type = HpBarType.None)
+            AllianceType allianceType, Type startStateType, bool hasSkill = true, HpBarType type = HpBarType.None, bool isSummonFx = true)
         {
             var characCtrl = new CharacterController();
             var tile = _grid.GetTile(initPos);
@@ -246,8 +246,11 @@ namespace CookApps.BattleSystem
 
             if (summonVfxType != InGameVfxNameType.NONE)
             {
-                var vfx = InGameVfxManager.Instance.AddInGameVfx(summonVfxType, tile.View.CachedTr.position);
-                vfx.Initialize(false);
+                if (isSummonFx)
+                {
+                    var vfx = InGameVfxManager.Instance.AddInGameVfx(summonVfxType, tile.View.CachedTr.position);
+                    vfx.Initialize(false);
+                }
 
                 if (SoundManager.Instance.IsPlayingGacha == false)
                 {

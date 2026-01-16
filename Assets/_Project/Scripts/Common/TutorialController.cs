@@ -61,7 +61,6 @@ public class TutorialController : MonoBehaviour
         { TutorialActionType.NONE, new TutorialActionNone() },
         { TutorialActionType.FORCED_TOUCH_UI, new TutorialActionForcedTouchUI() },
         { TutorialActionType.FOCUS_OBJECT, new TutorialActionFocusObject() },
-        { TutorialActionType.CHARACTER_PLACEMENT, new TutorialActionCharacterPlacement() },
         { TutorialActionType.TOAST_MESSAGE, new TutorialActionToastMessage() },
         { TutorialActionType.SHOW_DIALOGUE_POP, new TutorialActionShowDialoguePop() },
         { TutorialActionType.CHARACTER_PLACEMENT_UI, new TutorialActionCharacterPlacementUI() },
@@ -185,12 +184,6 @@ public class TutorialController : MonoBehaviour
         _currentStrategy = GetStrategy(CurrentSpecTutorial.tutorial_action_type);
         _currentStrategy?.OnShow(_actionContext);
 
-        // CHARACTER_PLACEMENT 전략일 경우 배치 완료 콜백 설정
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.CHARACTER_PLACEMENT)
-        {
-            TutorialActionCharacterPlacement.OnCharacterPlacementCompleted = OnCharacterPlacementCompleted;
-        }
-
         // TOAST_MESSAGE 전략일 경우 토스트 완료 콜백 설정
         if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.TOAST_MESSAGE)
         {
@@ -248,18 +241,6 @@ public class TutorialController : MonoBehaviour
     {
         // 콜백 해제
         TutorialActionToastMessage.OnToastCompleted = null;
-
-        // 다음 튜토리얼로 진행
-        ProceedToNext();
-    }
-
-    /// <summary>
-    /// 캐릭터 배치 완료 시 호출되는 콜백
-    /// </summary>
-    private void OnCharacterPlacementCompleted()
-    {
-        // 콜백 해제
-        TutorialActionCharacterPlacement.OnCharacterPlacementCompleted = null;
 
         // 다음 튜토리얼로 진행
         ProceedToNext();
@@ -403,38 +384,8 @@ public class TutorialController : MonoBehaviour
         if (_worldArrowRectTransform == null || _actionContext == null)
             return;
 
-        // CHARACTER_PLACEMENT 전략에서 타겟 타일 위치 가져오기
-        Vector3? worldTargetPos = TutorialActionCharacterPlacement.GetTargetTilePosition();
-
-        if (!worldTargetPos.HasValue || !TutorialActionCharacterPlacement.IsActive)
-        {
-            _worldArrowRectTransform.gameObject.SetActive(false);
-            return;
-        }
-
-        // 월드 좌표 → 스크린 좌표 변환
-        Camera cam = _actionContext.MainCamera ?? Camera.main;
-        if (cam == null) return;
-
-        Vector3 screenPos = cam.WorldToScreenPoint(worldTargetPos.Value);
-
-        // 카메라 뒤에 있으면 숨김
-        if (screenPos.z < 0)
-        {
-            _worldArrowRectTransform.gameObject.SetActive(false);
-            return;
-        }
-
-        // 스크린 좌표 → UI 로컬 좌표 변환
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            _canvasRectTransform,
-            screenPos,
-            _tutorialCanvas?.worldCamera,
-            out Vector2 localPoint))
-        {
-            _worldArrowRectTransform.gameObject.SetActive(true);
-            _worldArrowRectTransform.localPosition = localPoint;
-        }
+        // 현재 사용하지 않음 - 월드 화살표 비활성화
+        _worldArrowRectTransform.gameObject.SetActive(false);
     }
 
     #endregion
