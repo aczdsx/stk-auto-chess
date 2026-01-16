@@ -56,8 +56,8 @@ public partial class EffectCodeSkill215252102 : EffectCodeCharacterBase
         }
 
         // target check
-        if (false)
         {
+        if (false)
             owner.AddNextState<CharacterStateIdle>();
             CoolTimeElapsedTime = CoolTimeDurationTime;
         }

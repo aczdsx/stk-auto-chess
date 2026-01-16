@@ -38,6 +38,7 @@ namespace CookApps.AutoBattler
         AVOID_PROB_PERCENT_UP = 27,
         BLOCKING_PROB_PERCENT_UP = 28,
         DEF_PERCENT_UP = 29,
+        DEF_UP = 30,
         BATTLE_ITEM_SUPERNOVA = 96101,
         BATTLE_ITEM_DYNAMITE = 96201,
         BATTLE_ITEM_SUPPLY = 96301,
@@ -616,6 +617,9 @@ namespace CookApps.AutoBattler
         Skill_304021_2 = 259,
         Skill_9002_3 = 260,
         fx_common_prologue_shield_01 = 261,
+        Skill_401011_Prologue = 262,
+        Skill_401011_1_Prologue = 263,
+        Skill_9002_4 = 264,
     }
 
     public enum GlobalEffectProviderType

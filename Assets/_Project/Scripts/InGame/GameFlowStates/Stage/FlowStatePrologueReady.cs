@@ -70,22 +70,13 @@ public class FlowStatePrologueReady : StateReadyBase
         int prologueCharacterLevel = 1;
 
         // 프롤로그 플레이어 캐릭터 위치 (플레이어 진영 앞쪽)
-#if UNITY_WII 
-        // var prologueCharacterPositions = new Dictionary<int, int2>
-        // {
-        //     { PrologueID.프롤로그유니ID, new int2(1, 2) }, // 유니
-        //     { PrologueID.프롤로그필리아ID, new int2(3, 2) }, // 필리아
-        //     { PrologueID.프롤로그아트레시아ID, new int2(2, 1) },  // 아트레시아 (중앙 앞)
-        //     { PrologueID.프롤로그클레이ID, new int2(2, 2) } 
-        // };
-#endif
 
         var prologueCharacterPositions = new Dictionary<int, int2>
         {
-            { PrologueID.프롤로그유니ID, new int2(0, 7) }, // 유니
-            { PrologueID.프롤로그필리아ID, new int2(4, 7) }, // 필리아
-            { PrologueID.프롤로그아트레시아ID, new int2(2, 8) },  // 아트레시아 (중앙 앞)
-            { PrologueID.프롤로그클레이ID, new int2(2, 6) } 
+            { PrologueID.프롤로그유니ID, new int2(1, 2) }, // 유니
+            { PrologueID.프롤로그필리아ID, new int2(3, 2) }, // 필리아
+            { PrologueID.프롤로그아트레시아ID, new int2(2, 1) },  // 아트레시아 (중앙 앞)
+            { PrologueID.프롤로그클레이ID, new int2(2, 2) } 
         };
 
         // 플레이어 캐릭터 소환

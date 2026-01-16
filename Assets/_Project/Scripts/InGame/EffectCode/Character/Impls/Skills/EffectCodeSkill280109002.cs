@@ -92,35 +92,18 @@ public partial class EffectCodeSkill280109002 : EffectCodeCharacterBase
         if (targetCharacterList.Count == 0)
             return;
 
-        CharacterController targetCharacter = null;
-
-        foreach (var player in targetCharacterList)
-        {
-            if (player.IsAlive && player.CurrentTile != null)
-            {
-                targetCharacter = player;
-                break;
-            }
-        }
-
-        if (targetCharacter == null)
-            return;
-
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(targetCharacter.CurrentTile, 1);
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.Target.CurrentTile, 1);
 
         foreach (var tile in inGameTiles)
             InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, tile);
 
-        foreach (var tile in inGameTiles)
-        {
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
-            if (tile.CheckValidTile(owner.AllianceType, false))
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
+            if (owner.Target.CurrentTile.CheckValidTile(owner.AllianceType, false))
             {
                 var damageValue = owner.SpecCharacter.atk_type is AtkType.AD ? owner.AD : owner.AP;
-                var damage = owner.CalculateDamageAmount(damageValue * _damageRate, 0, tile.OccupiedCharacter, codeId, true);
-                tile.OccupiedCharacter.GetDamaged(damage, owner);
+                var damage = owner.CalculateDamageAmount(damageValue * _damageRate, 0, owner.Target.CurrentTile.OccupiedCharacter, codeId, true);
+                owner.Target.CurrentTile.OccupiedCharacter.GetDamaged(damage, owner);
             }
-        }
 
         IsSkillActivated = false;
     }
