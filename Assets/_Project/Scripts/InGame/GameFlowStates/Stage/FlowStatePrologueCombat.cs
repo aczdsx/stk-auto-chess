@@ -515,7 +515,7 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         await ManualFreeAttackActions();
 
-        await UniTask.Delay(99999); // 3초 자유 전투
+        await UniTask.Delay(3000); // 3초 자유 전투
         
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
         foreach (CharacterController charac in characters)

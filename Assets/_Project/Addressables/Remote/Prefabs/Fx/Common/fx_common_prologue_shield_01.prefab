@@ -19657,7 +19657,7 @@ GameObject:
   - component: {fileID: 6953512793291611201}
   - component: {fileID: 6907037180563459441}
   - component: {fileID: 4501989936454262292}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: fx_common_prologue_shield_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
