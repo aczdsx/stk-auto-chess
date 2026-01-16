@@ -49,7 +49,7 @@ namespace CookApps.AutoBattler
         {
             StringBuilder sbCharList = new StringBuilder();
 
-            var deckData = ServerDataManager.Instance.Deck.GetBattleDeckDataByInGameType(targetType);
+            var deckData = ServerDataManager.Instance.Deck.GetDeck(targetType);
             if (deckData == null) return sbCharList.ToString();
 
             var placements = deckData.CharacterPlacements;
