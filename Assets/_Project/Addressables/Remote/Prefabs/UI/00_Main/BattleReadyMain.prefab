@@ -17055,7 +17055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpriteRenderer: 0
   targetRenderer: {fileID: 0}
-  targetImage: {fileID: 0}
+  targetImage: {fileID: 7901328760715192710}
 --- !u!114 &7901328760715192710 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4205906596295758856, guid: 4a7bb2431661a64499dbd1b569d660c6, type: 3}

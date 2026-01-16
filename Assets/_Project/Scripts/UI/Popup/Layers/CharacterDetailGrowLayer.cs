@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.TeamBattle;
@@ -187,9 +186,9 @@ namespace CookApps.AutoBattler
             bool isAvailLevelup = _isHaveCharacter && _userCharacterData.Level < maxLevel;
             if (_specCharacterLevelExpData != null)
             {
-                bool isEnoughGold = _specCharacterLevelExpData.need_gold <= UserDataManager.Instance.UserWallet.Gold;
-                bool isEnoughExpItem = _specCharacterLevelExpData.base_levelup_item_count <= UserDataManager.Instance.UserWallet.CharUserExpItem;
-                bool isEnoughExpItem2 = _specCharacterLevelExpData.sec_levelup_item_count <= UserDataManager.Instance.UserWallet.CharUserExpItem2;
+                bool isEnoughGold = _specCharacterLevelExpData.need_gold <= (int)_inventoryBridge.GetCurrency(IdMap.Item.Gold);
+                bool isEnoughExpItem = _specCharacterLevelExpData.base_levelup_item_count <= (int)_inventoryBridge.GetCurrency(_specCharacterLevelExpData.base_levelup_item_id);
+                bool isEnoughExpItem2 = _specCharacterLevelExpData.sec_levelup_item_count <= (int)_inventoryBridge.GetCurrency(_specCharacterLevelExpData.sec_levelup_item_id);
 
                 isAvailLevelup = isEnoughGold && isEnoughExpItem && isEnoughExpItem2 && isAvailLevelup;
 
@@ -240,7 +239,7 @@ namespace CookApps.AutoBattler
         private void SetLevelResetLayer()
         {
             int maxResetCount = SpecDataManager.Instance.GetGameConfig<int>("character_level_reset_count_daily");
-            int resetCount = UserDataManager.Instance.UserBasicData.ResetCharacterCount;
+            int resetCount = ClientDataManager.Instance.GetData<ClientBasicData>(ClientBasicData.CategoryName).GetTodayResetCharacterCount();
 
             int resultCount = maxResetCount - resetCount;
 
@@ -352,7 +351,7 @@ namespace CookApps.AutoBattler
 
             // 리셋 가능 횟수 체크
             int maxResetCount = SpecDataManager.Instance.GetGameConfig<int>("character_level_reset_count_daily");
-            if (UserDataManager.Instance.UserBasicData.ResetCharacterCount >= maxResetCount)
+            if (ClientDataManager.Instance.GetData<ClientBasicData>(ClientBasicData.CategoryName).GetTodayResetCharacterCount() >= maxResetCount)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_CHARACTER_LV_RESET_END_GUIDE");
                 return;
