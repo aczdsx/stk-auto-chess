@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -171,7 +172,7 @@ public class TutorialController : MonoBehaviour
             // string tutorialText = LanguageManager.Instance.GetDefaultText(CurrentSpecTutorial.desc_key);
 
 
-            _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterPieceSprite(CurrentSpecTutorial.prefab_id));
+            _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterPieceSprite(CurrentSpecTutorial.prefab_id)).Forget();
             string tutorialText = CurrentSpecTutorial.desc_key;
             _descText.text = tutorialText;
 
