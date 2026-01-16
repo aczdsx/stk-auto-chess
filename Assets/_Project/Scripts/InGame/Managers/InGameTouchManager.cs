@@ -473,7 +473,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private void ReturnCharacterToUI()
     {
         CharacterController characterToReturn = _selectedCharacterController;
-        ReleaseSelectedHero(true);
+        ReleaseSelectedHero(isDropFx: true, skipTutorialCheck: true);
 
         characterToReturn.CurrentTile.SetUnoccupied();
         InGameObjectManager.Instance.RemoveCharacterFromField(characterToReturn);
@@ -507,12 +507,10 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             {
                 // 캐릭터 제거 및 UI로 복귀
                 CharacterController characterToRemove = _selectedCharacterController;
-                ReleaseSelectedHero();
+                ReleaseSelectedHero(skipTutorialCheck: true);
                 characterToRemove.CurrentTile.SetUnoccupied();
                 InGameObjectManager.Instance.RemoveCharacterFromField(characterToRemove);
                 InGameMain.GetInGameMain().ReturnCharacterUI(characterToRemove);
-                // 드래그 취소 처리 (마스크 홀 복원)
-                CookApps.AutoBattler.TutorialActionCharacterPlacementUI.OnDragCancel();
                 return;
             }
         }
@@ -726,7 +724,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         targetObj.ChangeOccupiedTile(inGameTile);
         return true;
     }
-    private void ReleaseSelectedHero(bool isDropFx = false)
+    private void ReleaseSelectedHero(bool isDropFx = false, bool skipTutorialCheck = false)
     {
         if (_selectedCharacterController != null)
         {
@@ -747,6 +745,9 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameMain.GetInGameMain().UnSetFocusSlotUI(isDropFx);
             InGameMain.GetInGameMain().CloseSkillTooltip();
             _isMoveEndAnimation = false;
+
+            // 튜토리얼 체크 스킵 (UI로 반환하는 경우)
+            if (skipTutorialCheck) return;
 
             // 튜토리얼 UI 캐릭터 배치 완료 콜백 호출 (CHARACTER_PLACEMENT_UI)
             if (CookApps.AutoBattler.TutorialActionCharacterPlacementUI.IsActive)

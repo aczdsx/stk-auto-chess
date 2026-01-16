@@ -29645,7 +29645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9761b5fa6930744c1bdf307a8b19e2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetId: s
+  _targetId: SpeedUpBtn
 --- !u!1 &3640479224308958514
 GameObject:
   m_ObjectHideFlags: 0
