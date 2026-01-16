@@ -77,36 +77,5 @@ namespace CookApps.AutoBattler
         }
 
         #endregion
-
-        #region UserDataManager 호환 메서드 (마이그레이션용)
-
-        /// <summary>
-        /// 배틀 덱 목록 가져오기 (UserDataManager 호환)
-        /// </summary>
-        public List<DeckCharacterPlacement> GetBattleDeckList(uint deckSlotId)
-        {
-            var result = new List<DeckCharacterPlacement>();
-            GetCharacterPlacements(deckSlotId, result);
-            return result;
-        }
-
-        /// <summary>
-        /// 배틀 덱 목록 가져오기 (InGameType 기반, UserDataManager 호환)
-        /// TODO: InGameType에 따른 덱 슬롯 매핑 필요
-        /// </summary>
-        public List<DeckCharacterPlacement> GetBattleDeckListByInGameType(InGameType inGameType)
-        {
-            // TODO: InGameType에 따른 덱 슬롯 ID 결정 로직
-            uint deckSlotId = inGameType switch
-            {
-                InGameType.STAGE => 1,
-                InGameType.TRIAL => 2,
-                _ => 1
-            };
-
-            return GetBattleDeckList(deckSlotId);
-        }
-
-        #endregion
     }
 }

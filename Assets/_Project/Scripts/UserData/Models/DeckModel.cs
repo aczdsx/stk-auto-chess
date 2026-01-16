@@ -37,7 +37,15 @@ namespace CookApps.AutoBattler
         /// </summary>
         public DeckData GetDeck(uint deckSlotId)
         {
-            return _decks.TryGetValue(deckSlotId, out var deck) ? deck : null;
+            return _decks.GetValueOrDefault(deckSlotId);
+        }
+
+        /// <summary>
+        /// 덱 가져오기
+        /// </summary>
+        public DeckData GetDeck(InGameType inGameType)
+        {
+            return _decks.GetValueOrDefault((uint)inGameType);
         }
 
         /// <summary>
@@ -157,38 +165,21 @@ namespace CookApps.AutoBattler
 
         #endregion
 
-        #region 편의 메서드 (마이그레이션용)
-
-        /// <summary>
-        /// InGameType에 따른 배틀 덱 목록 가져오기
-        /// </summary>
-        public List<DeckCharacterPlacement> GetBattleDeckListByInGameType(InGameType inGameType)
-        {
-            // InGameType에 따른 덱 슬롯 ID 결정 로직
-            uint deckSlotId = inGameType switch
-            {
-                InGameType.STAGE => 1,
-                InGameType.TRIAL => 2,
-                _ => 1
-            };
-
-            var result = new List<DeckCharacterPlacement>();
-            GetCharacterPlacements(deckSlotId, result);
-            return result;
-        }
+        #region 편의 메서드
 
         /// <summary>
         /// 덱 전투력 계산
         /// </summary>
-        public int GetDeckBattlePower(List<DeckCharacterPlacement> deckList)
+        public static int GetDeckBattlePower(DeckData deckData)
         {
-            if (deckList == null || deckList.Count == 0) return 0;
+            if (deckData == null || deckData.CharacterPlacements.Count == 0) return 0;
 
             double battlePower = 0;
+            var placements = deckData.CharacterPlacements;
 
-            for (int i = 0; i < deckList.Count; i++)
+            for (int i = 0; i < placements.Count; i++)
             {
-                var placement = deckList[i];
+                var placement = placements[i];
                 var characterData = ServerDataManager.Instance.Character.GetCharacter(placement.CharacterId);
                 if (characterData == null) continue;
 

@@ -83,7 +83,7 @@ namespace CookApps.AutoBattler
 
             if (targetBuildInfo == null)
             {
-                iconImage.SetSprite("Expand_Territory").Forget();
+                iconImage.SetSprite("Building_Active").Forget();
             }
             else
             {

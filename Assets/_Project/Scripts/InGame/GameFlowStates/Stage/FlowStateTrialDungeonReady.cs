@@ -59,7 +59,10 @@ public class FlowStateTrialDungeonReady : StateReadyBase
             ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f,
                 new Vector3(0f, 1.5f, -10), 1.0f).Forget();
 
-        var battleDeckList = ServerDataManager.Instance.Deck.GetBattleDeckListByInGameType(InGameResourceHolder.InGameType);
+        var deckData = ServerDataManager.Instance.Deck.GetDeck(InGameResourceHolder.InGameType);
+        var battleDeckList = deckData != null
+            ? new List<DeckCharacterPlacement>(deckData.CharacterPlacements)
+            : new List<DeckCharacterPlacement>();
         List<ObfuscatorInt> tileIDList = _specDungeonTrial.obstacle_grid_id.Select(x => new ObfuscatorInt(x)).ToList();
 
         // 장애물 타일과 겹치는 캐릭터 제거
