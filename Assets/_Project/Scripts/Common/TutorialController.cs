@@ -75,14 +75,23 @@ public class TutorialController : MonoBehaviour
     }
 
     /// <summary>
-    /// MOVE_OBJECT 전략의 홀 위치 업데이트 (A→B→A 왕복 애니메이션)
+    /// 전략별 홀 위치 업데이트 (A→B 왕복 애니메이션)
     /// </summary>
     private void UpdateSecondHolePosition()
     {
-        if (CurrentSpecTutorial?.tutorial_action_type == TutorialActionType.MOVE_OBJECT &&
+        if (CurrentSpecTutorial == null) return;
+
+        // MOVE_OBJECT 전략
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.MOVE_OBJECT &&
             _currentStrategy is TutorialActionMoveObject moveStrategy)
         {
             moveStrategy.UpdateHolePositions();
+        }
+
+        // CHARACTER_PLACEMENT_UI 전략
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.CHARACTER_PLACEMENT_UI)
+        {
+            TutorialActionCharacterPlacementUI.UpdateHolePositions();
         }
     }
 

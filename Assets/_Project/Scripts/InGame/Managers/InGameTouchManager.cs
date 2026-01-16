@@ -768,18 +768,14 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 var destTargetId = CookApps.AutoBattler.TutorialActionMoveObject.DestTileId;
                 if (destTargetId != 0 && _selectedTileView != null)
                 {
-                    bool isDestTile = _selectedTileView.ID == destTargetId;
-                    if (isDestTile)
+                    if (_selectedTileView.ID == destTargetId)
                     {
                         CookApps.AutoBattler.TutorialActionMoveObject.NotifyMoveCompleted();
+
+                        // MOVE_OBJECT_AFTER 트리거 (오브젝트 이동 완료 후)        
+                        TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.MOVE_OBJECT_AFTER, _selectedTileView.ID.ToString());
                     }
                 }
-            }
-
-            // MOVE_OBJECT_AFTER 트리거 (오브젝트 이동 완료 후)
-            if (tileChanged)
-            {
-                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.MOVE_OBJECT_AFTER, _selectedTileView.ID.ToString());
             }
 
             // InGameObjectManager.Instance.DrawPlayerLine(true);
