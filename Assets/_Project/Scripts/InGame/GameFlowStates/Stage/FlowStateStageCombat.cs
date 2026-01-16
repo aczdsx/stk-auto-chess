@@ -21,8 +21,19 @@ public class FlowStateStageCombat : StateCombatBase
     private bool _isWaitingEnemyDeadAllTutorial;
     public static Action OnEnemyDeadAllTutorialCompleted;
 
+    // 고정 시드를 사용할 스테이지 ID 목록
+    private static readonly HashSet<int> FixedSeedStageIds = new HashSet<int> { 10001, 10002, 10003 };
+
     public override void StateInit(object target)
     {
+        // 특정 스테이지는 고정 시드 적용 (재현 가능한 전투)
+        int stageId = InGameManager.Instance.SpecStage.stage_id;
+        if (FixedSeedStageIds.Contains(stageId))
+        {
+            InGameManager.Instance.SetFixedRandomSeed(stageId);
+            InGameManager.Instance.RegenerateGlobalRandomSeeds();
+        }
+
         characters = ListPool<CharacterController>.Get();
 
         InGameSynergyManager.Instance.ClearSynergyFx();

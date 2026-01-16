@@ -38,6 +38,11 @@ namespace CookApps.BattleSystem
             randomGeneratorSeed = InGameRandomManager.GetUniversalRandomValue();
         }
 
+        public void SetFixedRandomSeed(int seed)
+        {
+            randomGeneratorSeed = seed;
+        }
+
         private bool isGameInfoLoaded;
         public bool IsInGamePlaying { get; private set; }
         public bool IsInGameCombat { get; set; }
