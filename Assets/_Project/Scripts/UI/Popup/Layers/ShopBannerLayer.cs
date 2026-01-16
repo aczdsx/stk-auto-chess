@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
@@ -23,7 +19,8 @@ namespace CookApps.AutoBattler
 
         private ShopBannerPopup _parentShopBannerPopup;
 
-        private UserShopBannerData _currentUserShopBannerData;
+        private ShopBannerData _currentShopBannerData;
+        private ClientShopPurchaseData _shopPurchaseData;
         
         private CancellationTokenSource _unitaskCancelToken = new CancellationTokenSource();
 
@@ -39,9 +36,10 @@ namespace CookApps.AutoBattler
         public void SetShopBannerLayer(ShopBannerPopup parentPopup)
         {
             if (parentPopup == null) return;
-            
+
             _parentShopBannerPopup = parentPopup;
-            _currentUserShopBannerData = UserDataManager.Instance.GetShopBannerData(ShopID);
+            _shopPurchaseData = ClientDataManager.Instance.GetData<ClientShopPurchaseData>(ClientShopPurchaseData.CategoryName);
+            _currentShopBannerData = _shopPurchaseData.GetShopBannerData(ShopID);
 
             SetPurchaseRemainTime();
         }
@@ -63,7 +61,7 @@ namespace CookApps.AutoBattler
         
         private async UniTask UpdateRemainTime(CancellationToken cancelToken)
         {
-            TimeSpan remainTimeSpan = TimeManager.Instance.GetTimeSpanFromTarget(_currentUserShopBannerData.EndPurchaseTimestamp);
+            TimeSpan remainTimeSpan = TimeManager.Instance.GetTimeSpanFromTarget(_currentShopBannerData.EndPurchaseTimestamp);
 
             try
             {
@@ -73,7 +71,7 @@ namespace CookApps.AutoBattler
 
                     await UniTask.Delay(1000, cancellationToken: cancelToken);
 
-                    remainTimeSpan = TimeManager.Instance.GetTimeSpanFromTarget(_currentUserShopBannerData.EndPurchaseTimestamp);
+                    remainTimeSpan = TimeManager.Instance.GetTimeSpanFromTarget(_currentShopBannerData.EndPurchaseTimestamp);
                 }
 
                 // 시간이 경과하였을 경우 처리
@@ -90,15 +88,15 @@ namespace CookApps.AutoBattler
         
         private void OnClickPurchaseButton()
         {
-            if (_currentUserShopBannerData == null) return;
+            if (_currentShopBannerData == null) return;
 
-            if (UserDataManager.Instance.CheckPurchaseLimitCount(_currentUserShopBannerData.ShopId) == false)
+            if (_shopPurchaseData.CheckPurchaseLimitCount(_currentShopBannerData.ShopId) == false)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_PURCHASE_COUNT_OVER");
                 return;
             }
-            
-            if (UserDataManager.Instance.CheckValidShopTime(_currentUserShopBannerData.ShopId) == false)
+
+            if (_shopPurchaseData.CheckValidShopTime(_currentShopBannerData.ShopId) == false)
             {
                 ToastManager.Instance.ShowToastByTokenKey("PURCHASE_TIME_OVER_ALERT");
                 return;

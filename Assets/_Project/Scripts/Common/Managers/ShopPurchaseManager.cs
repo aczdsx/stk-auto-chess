@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
@@ -14,49 +11,44 @@ namespace CookApps.AutoBattler
         {
             // 24.09.26 - 상점 배너 팝업 임시 off
             return;
-            
-            var userShopBannerList = UserDataManager.Instance.GetAllShopBannerDataList();
-            
-            foreach (var userShopBannerData in userShopBannerList)
+
+            var shopPurchaseData = ClientDataManager.Instance.GetData<ClientShopPurchaseData>(ClientShopPurchaseData.CategoryName);
+            var shopBannerList = shopPurchaseData.GetAllShopBannerDataList();
+
+            foreach (var shopBannerData in shopBannerList)
             {
-                var specShopBannerData = SpecDataManager.Instance.GetShopBannerData(userShopBannerData.ShopId);
-                
+                var specShopBannerData = SpecDataManager.Instance.GetShopBannerData(shopBannerData.ShopId);
+
                 if (specShopBannerData == null) continue;
-                if (userShopBannerData.ShowCount > 0) continue;     // 자동 배너 팝업은 1회만 보여주는것을 디폴트로 함
-                if (userShopBannerData.ShopBannerStateType == (int)ShopBannerStateType.INACTIVE) continue;
+                if (shopBannerData.ShowCount > 0) continue;     // 자동 배너 팝업은 1회만 보여주는것을 디폴트로 함
+                if (shopBannerData.ShopBannerStateType == ShopBannerStateType.INACTIVE) continue;
                 if (specShopBannerData.shop_banner_show_type != showType) continue;
-                
+
                 // 팝업 띄우기
-                SceneUILayerManager.Instance.PushUILayerAsync<ShopBannerPopup>(userShopBannerData.ShopId).Forget();
+                SceneUILayerManager.Instance.PushUILayerAsync<ShopBannerPopup>(shopBannerData.ShopId).Forget();
 
                 break;
             }
         }
-        
+
         // 현재 상점 배너의 전체 상태를 체크
         public void UpdateShopBannerConditionValue(ShopBannerConditionType conditionType, int conditionKey, int value, bool isAdd)
         {
             // 24.09.26 - 상점 배너 팝업 임시 off
             return;
-            
-            var userShopBannerList = UserDataManager.Instance.GetAllShopBannerDataList();
 
-            bool needSave = false;
-            foreach (var userShopBannerData in userShopBannerList)
+            var shopPurchaseData = ClientDataManager.Instance.GetData<ClientShopPurchaseData>(ClientShopPurchaseData.CategoryName);
+            var shopBannerList = shopPurchaseData.GetAllShopBannerDataList();
+
+            foreach (var shopBannerData in shopBannerList)
             {
-                var specShopBannerData = SpecDataManager.Instance.GetShopBannerData(userShopBannerData.ShopId);
-                if (specShopBannerData != null && 
+                var specShopBannerData = SpecDataManager.Instance.GetShopBannerData(shopBannerData.ShopId);
+                if (specShopBannerData != null &&
                     specShopBannerData.shop_banner_condition_type == conditionType &&
                     specShopBannerData.condition_key == conditionKey)
                 {
-                    UserDataManager.Instance.SetShopBannerConditionValue(userShopBannerData.ShopId, value, isAdd, false);
-                    needSave = true;
+                    shopPurchaseData.SetShopBannerConditionValue(shopBannerData.ShopId, value, isAdd);
                 }
-            }
-
-            if (needSave)
-            {
-                UserDataManager.Instance.SaveUserShopPurchaseData();
             }
         }
     }

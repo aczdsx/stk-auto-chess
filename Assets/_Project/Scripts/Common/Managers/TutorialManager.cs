@@ -149,21 +149,21 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             return false;
         }
 
-        List<TutorialDialogue> turnTutorialList =
-            _specTutorialDataList.FindAll(l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
-
-        if (turnTutorialList.Count == 0)
-        {
-            return false;
-        }
-
-        Debug.LogColor($"튜토리얼 처리: {tutorialTriggerType} {key} {turnTutorialList.Count}", "green");
-
-        // 진행한 튜토리얼을 리스트에서 제거
-        _specTutorialDataList.RemoveAll(l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
-
-        _canvas.enabled = true;
-        _tutorialController.SetTutorial(turnTutorialList, isLongShow);
+        // List<TutorialDialogue> turnTutorialList =
+        //     _specTutorialDataList.FindAll(l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
+        //
+        // if (turnTutorialList.Count == 0)
+        // {
+        //     return false;
+        // }
+        //
+        // Debug.LogColor($"튜토리얼 처리: {tutorialTriggerType} {key} {turnTutorialList.Count}", "green");
+        //
+        // // 진행한 튜토리얼을 리스트에서 제거
+        // _specTutorialDataList.RemoveAll(l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
+        //
+        // _canvas.enabled = true;
+        // _tutorialController.SetTutorial(turnTutorialList, isLongShow);
 
         return true;
     }
