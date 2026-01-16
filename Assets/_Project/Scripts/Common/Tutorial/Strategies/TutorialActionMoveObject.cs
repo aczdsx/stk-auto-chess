@@ -7,8 +7,8 @@ namespace CookApps.AutoBattler
     /// 3D 오브젝트를 A에서 B로 드래그하여 이동하도록 유도합니다.
     /// 두 개의 마스크 홀을 사용하여 Source(A)와 Destination(B)를 동시에 표시합니다.
     ///
-    /// tutorial_action_key 형식: "SourceTargetId_DestTargetId"
-    /// 예: "Character_1001_Tile_5" (TutorialTarget에 등록된 ID)
+    /// tutorial_action_key 형식: "SourceTargetId->DestTargetId"
+    /// 예: "130601_0->Tile_5" (TutorialTarget에 등록된 ID)
     ///
     /// 이동이 완료되면 자동으로 다음 튜토리얼로 진행됩니다.
     /// </summary>
@@ -112,8 +112,10 @@ namespace CookApps.AutoBattler
             context.TargetUnmaskObj = null;
         }
 
+        private const string SEPARATOR = "->";
+
         /// <summary>
-        /// tutorial_action_key 파싱 (형식: "SourceId_DestId")
+        /// tutorial_action_key 파싱 (형식: "SourceId->DestId")
         /// </summary>
         private void ParseActionKey(string actionKey)
         {
@@ -126,16 +128,16 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // '_'로 분리 (첫 번째 '_'만 구분자로 사용)
-            int separatorIndex = actionKey.IndexOf('_');
-            if (separatorIndex <= 0 || separatorIndex >= actionKey.Length - 1)
+            // '->'로 분리
+            int separatorIndex = actionKey.IndexOf(SEPARATOR);
+            if (separatorIndex <= 0 || separatorIndex >= actionKey.Length - SEPARATOR.Length)
             {
-                Debug.LogWarning($"[TutorialActionMoveObject] action_key 형식 오류: {actionKey}. 'SourceId_DestId' 형식이어야 합니다.");
+                Debug.LogWarning($"[TutorialActionMoveObject] action_key 형식 오류: {actionKey}. 'SourceId->DestId' 형식이어야 합니다.");
                 return;
             }
 
             SourceTargetId = actionKey.Substring(0, separatorIndex);
-            DestinationTargetId = actionKey.Substring(separatorIndex + 1);
+            DestinationTargetId = actionKey.Substring(separatorIndex + SEPARATOR.Length);
 
             Debug.LogColor($"[TutorialActionMoveObject] Source: {SourceTargetId}, Dest: {DestinationTargetId}", "green");
         }

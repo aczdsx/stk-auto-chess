@@ -55,52 +55,6 @@ namespace CookApps.BattleSystem
             return _statData;
         }
 
-        // SKILL_READY 튜토리얼 대기 중인 스킬 이펙트 코드
-        private EffectCodeCharacterBase _pendingSkillEffectCode;
-
-        // SKILL_READY 튜토리얼 대기 중인 캐릭터 (static으로 마지막 대기 캐릭터 저장)
-        private static CharacterController _pendingSkillCharacter;
-
-        /// <summary>
-        /// SKILL_READY 튜토리얼 완료 후 대기 중인 스킬 발동 및 게임 재개
-        /// </summary>
-        public static void ResumeAfterSkillReadyTutorial()
-        {
-            if (_pendingSkillCharacter != null)
-            {
-                var character = _pendingSkillCharacter;
-                _pendingSkillCharacter = null;
-
-                // 게임 재개
-                InGameMainFlowManager.Instance.Resume();
-
-                // 대기 중인 스킬 발동
-                character.ActivatePendingSkill();
-            }
-        }
-
-        /// <summary>
-        /// SKILL_READY 튜토리얼 완료 후 대기 중인 스킬 발동
-        /// </summary>
-        public void ActivatePendingSkill()
-        {
-            if (_pendingSkillEffectCode != null)
-            {
-                var skillToActivate = _pendingSkillEffectCode;
-                _pendingSkillEffectCode = null;
-                skillToActivate.Activate();
-            }
-        }
-
-        /// <summary>
-        /// SKILL_READY 튜토리얼 대기 상태 설정
-        /// </summary>
-        private void SetPendingSkillForTutorial(EffectCodeCharacterBase effectCode)
-        {
-            _pendingSkillEffectCode = effectCode;
-            _pendingSkillCharacter = this;
-        }
-
         private AsyncOperationHandle<GameObject> _viewHandle;
         private SpriteCharacterView _view = null;
 
@@ -596,7 +550,7 @@ namespace CookApps.BattleSystem
 
         private void OnAnimationEvent(AnimationKey animName, AnimationEventKey eventKey)
         {
-            _currState.AnimationEventCallback(animName, eventKey);
+            _currState?.AnimationEventCallback(animName, eventKey);
         }
 
 
@@ -701,25 +655,14 @@ namespace CookApps.BattleSystem
                 EffectCodeStatBase effectCode = EffectCodeForLoopHelper.ReturnFirst(effectCodes, EffectCodeCharacterLambda.CallIsReadyToActivateLambda);
                 if (effectCode is EffectCodeCharacterBase runEffectCode)
                 {
-                    // SKILL_READY 튜토리얼 체크 - 스킬 준비 시 게임 일시정지 및 튜토리얼 표시
-                    if (TutorialManager.Instance != null &&
-                        TutorialManager.Instance.IsTutorial &&
-                        TutorialManager.Instance.IsTutorialAction(TutorialTriggerType.SKILL_READY))
-                    {
-                        // 스킬 발동 대기 상태 설정
-                        SetPendingSkillForTutorial(runEffectCode);
+                    // SKILL_READY 튜토리얼 처리 시도 - 튜토리얼이 처리되면 스킬 발동은 튜토리얼 종료 시 수행
+                    bool tutorialHandled = TutorialSkillReadyHandler.TryHandleTutorial(
+                        CharacterId,
+                        () => runEffectCode.Activate());
 
-                        // 게임 일시정지
-                        InGameMainFlowManager.Instance.Pause();
-
-                        // 튜토리얼 트리거 호출 (캐릭터 ID를 키로)
-                        TutorialManager.Instance.HandleTutorialAction(
-                            TutorialTriggerType.SKILL_READY,
-                            CharacterId.ToString());
-                    }
-                    else if (_pendingSkillEffectCode == null)
+                    if (!tutorialHandled)
                     {
-                        // 튜토리얼이 없거나 대기 중이 아니면 바로 발동
+                        // 튜토리얼이 없으면 바로 스킬 발동
                         runEffectCode.Activate();
                     }
                 }
@@ -1074,10 +1017,10 @@ namespace CookApps.BattleSystem
             return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < DoubleCriticalProb; // OK
         }
 
-            
 
 
-       
+
+
         #region Hp
 
 

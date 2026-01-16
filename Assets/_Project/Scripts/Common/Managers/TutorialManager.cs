@@ -171,7 +171,13 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         {
             return false;
         }
-
+        else
+        {
+            if (_specTutorialDataList[0].tutorial_trigger_type == tutorialTriggerType)
+            {
+                Debug.LogColor($"튜토리얼 타입 체크 통과: {tutorialTriggerType} {key} {turnTutorialList.Count}", "green");
+            }
+        }
         Debug.LogColor($"튜토리얼 처리: {tutorialTriggerType} {key} {turnTutorialList.Count}", "green");
 
         // 진행한 튜토리얼을 리스트에서 제거
@@ -200,10 +206,10 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         TutorialActionSpawnEnemy.ResumeGameIfPaused();
 
         // SKILL_READY 튜토리얼 완료 후 대기 스킬 발동 및 게임 재개
-        CookApps.BattleSystem.CharacterController.ResumeAfterSkillReadyTutorial();
+        TutorialSkillReadyHandler.ResumeAndActivateSkill();
 
-        // ENEMY_DEAD_ALL 튜토리얼 완료 후 Clear State 전환
-        FlowStateStageCombat.OnEnemyDeadAllTutorialCompleted?.Invoke();
+        // ENEMY_DEAD_ALL 튜토리얼 완료 후 전투 종료 처리
+        TutorialEnemyDeadAllHandler.ResumeAndEndCombat();
 
         // 모든 튜토리얼이 완료되었는지 확인 (리스트가 비어있으면 완료)
         if (_specTutorialDataList.Count == 0)

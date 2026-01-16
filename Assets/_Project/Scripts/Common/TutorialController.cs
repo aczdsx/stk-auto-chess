@@ -125,6 +125,10 @@ public class TutorialController : MonoBehaviour
         _tutorialListIndex = 0;
         _actionContext.TargetUnmaskObj = null;
 
+        // HoleRadius 값 초기화
+        _maskMaterial.SetFloat(HoleRadius, 0f);
+        _maskMaterial.SetFloat(HoleRadius2, 0f);
+
         ShowNextTutorial(_currentSpecTutorialList[_tutorialListIndex]);
         _tutorialAnimator.SetTrigger(isLongShow ? LongShow : Show);
     }
@@ -142,6 +146,9 @@ public class TutorialController : MonoBehaviour
         Debug.LogColor($"ShowNextTutorial: {specTutorial.tutorial_action_type} {specTutorial.tutorial_action_key} {specTutorial.seq}", "green");
         // 이전 전략 정리 (버튼 원위치 등)
         RestorePreviousState();
+
+        // 이전 전략 OnClear 호출 (전략 교체 시)
+        _currentStrategy?.OnClear(_actionContext);
 
         CurrentSpecTutorial = specTutorial;
         _actionContext.CurrentTutorial = specTutorial;

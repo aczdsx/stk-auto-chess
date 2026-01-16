@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -44,15 +45,13 @@ namespace CookApps.AutoBattler
 
         #region Full Screen Mask Helpers
 
-        private static readonly int HoleRadius = Shader.PropertyToID("_HoleRadius");
-        private static readonly int HoleCenter = Shader.PropertyToID("_HoleCenter");
-        private const float FULL_SCREEN_HOLE_RADIUS = 1f;
-        private static readonly Vector4 CENTER_POSITION = new Vector4(0.5f, 0.5f, 0, 0);
+        private static readonly int MaskAlpha = Shader.PropertyToID("_MaskAlpha");
+        private const float MASK_ANIMATION_DURATION = 0.5f;
 
-        private float _savedHoleRadius;
+        private Tweener _maskTweener;
 
         /// <summary>
-        /// 전체 화면이 보이도록 마스크 설정 (HoleRadius=1, 가운데 위치)
+        /// 전체 화면이 보이도록 마스크 알파를 0으로 애니메이션
         /// </summary>
         public void SetFullScreenMask()
         {
@@ -60,23 +59,34 @@ namespace CookApps.AutoBattler
 
             if (MaskMaterial != null)
             {
-                _savedHoleRadius = MaskMaterial.GetFloat(HoleRadius);
-                MaskMaterial.SetFloat(HoleRadius, FULL_SCREEN_HOLE_RADIUS);
-                MaskMaterial.SetVector(HoleCenter, CENTER_POSITION);
+                _maskTweener?.Kill();
+
+                float currentAlpha = MaskMaterial.GetFloat(MaskAlpha);
+                _maskTweener = DOTween.To(() => currentAlpha, x =>
+                {
+                    currentAlpha = x;
+                    MaskMaterial.SetFloat(MaskAlpha, currentAlpha);
+                }, 0f, MASK_ANIMATION_DURATION).SetEase(Ease.InOutSine);
             }
         }
 
         /// <summary>
-        /// 마스크를 이전 상태로 복원
+        /// 마스크 알파를 1로 복원 (부드럽게)
         /// </summary>
         public void RestoreMask()
         {
             SkipMaskUpdate = false;
 
-            if (MaskMaterial != null && _savedHoleRadius > 0f)
+            if (MaskMaterial != null)
             {
-                MaskMaterial.SetFloat(HoleRadius, _savedHoleRadius);
-                _savedHoleRadius = 0f;
+                _maskTweener?.Kill();
+
+                float currentAlpha = MaskMaterial.GetFloat(MaskAlpha);
+                _maskTweener = DOTween.To(() => currentAlpha, x =>
+                {
+                    currentAlpha = x;
+                    MaskMaterial.SetFloat(MaskAlpha, currentAlpha);
+                }, 1f, MASK_ANIMATION_DURATION).SetEase(Ease.InOutSine);
             }
         }
 
