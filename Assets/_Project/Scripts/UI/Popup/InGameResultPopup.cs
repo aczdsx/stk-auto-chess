@@ -163,9 +163,6 @@ namespace CookApps.AutoBattler
                 CheckLatestStageClear();
                 CreateRewardItems();
 
-                // 퀘스트 데이터 갱신
-                UserDataManager.Instance.SetUserQuestActionCount(QuestType.CLEAR_STAGE, 1, true, true);
-
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_victory_001);
             }
             else

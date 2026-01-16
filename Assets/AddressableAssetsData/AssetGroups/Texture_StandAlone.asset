@@ -466,7 +466,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 84259f8a7f83d164f8feeec530e44c7a
-    m_Address: Texture_StandAlone/Dynamic/BossBanner/BossBanner_5
+    m_Address: Texture_StandAlone/Dynamic/BossBanner/BossBanner_5.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -506,7 +506,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8bf523e2a6164f2498667e6b3a6177d4
-    m_Address: Texture_StandAlone/Dynamic/BossBanner/BossBanner_4
+    m_Address: Texture_StandAlone/Dynamic/BossBanner/BossBanner_4.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -571,12 +571,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9c13a5ebe114c264ead43b6ef843a546
-    m_Address: Texture_StandAlone/Dynamic/BossBanner/BossBanner_3
+    m_Address: Texture_StandAlone/Dynamic/BossBanner/BossBanner_3.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9c8fa56972bf29e40ae1a0119c67f3f5
-    m_Address: Texture_StandAlone/Dynamic/BossBanner/Sample_Boss01
+    m_Address: Assets/_Project/Addressables/Remote/Texture_StandAlone/Dynamic/BossBanner/Sample_Boss01.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -606,7 +606,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a2491a8c2dd0c754d81d2b8afa125c90
-    m_Address: Texture_StandAlone/Dynamic/BossBanner/BossBanner_2
+    m_Address: Texture_StandAlone/Dynamic/BossBanner/BossBanner_2.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -656,7 +656,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b48aac7563c2e2a4390c1b97cf1e1e2b
-    m_Address: Texture_StandAlone/Dynamic/BossBanner/BossBanner_1
+    m_Address: Texture_StandAlone/Dynamic/BossBanner/BossBanner_1.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -726,7 +726,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cf766281bc20b7a48aeaca765552b158
-    m_Address: Texture_StandAlone/Dynamic/BossBanner/BossBanner_6
+    m_Address: Texture_StandAlone/Dynamic/BossBanner/BossBanner_6.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -164,10 +164,8 @@ namespace CookApps.AutoBattler
                     SetUserInfoLayer();     // 유저 정보 갱신
                     CheckNewChapterClear();
                     CheckUserAccountLevelUp();
-                    UpdateQuestData();
                     UpdateAttendanceData();
 
-                    UpdateReddotState();
                     UpdateOpenCondition();
                     CheckShowSurveyPopup();
                     CheckShopBannerPopup();
@@ -189,9 +187,6 @@ namespace CookApps.AutoBattler
                     _unitaskCancelToken.Cancel();
                     _unitaskCancelToken = new CancellationTokenSource();
                     SetIdleRewardLayer();
-                    break;
-                case LobbyMainRefreshType.REDDOT:
-                    UpdateReddotState();
                     break;
             }
         }
@@ -289,7 +284,7 @@ namespace CookApps.AutoBattler
 
                 // _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(specMonsterData.prefab_id);
                 // _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
-
+//Assets/_Project/Addressables/Remote/Texture_StandAlone/Dynamic/BossBanner/BossBanner_1.png
                 // 보스 이미지 처리
                 _bossStageImageLoader.SetSprite(SpriteNameParser.GetBossBannerSprite(specStageData.chapter_id)).Forget();
 
@@ -477,14 +472,10 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private void UpdateQuestData()
-        {
-            UserDataManager.Instance.CheckQuestRefreshState();
-        }
-
         // 출석부 상태 갱신
         private void UpdateAttendanceData()
         {
+            return;
             var specEventData = SpecDataManager.Instance.GetSpecEventData(EventType.ATTENDANCE);
             var currentUserEventData = UserDataManager.Instance.GetUserEventData(specEventData.event_id);
             if (currentUserEventData != null)
@@ -495,153 +486,6 @@ namespace CookApps.AutoBattler
                     UserDataManager.Instance.UpdateEventTimeData(currentUserEventData.EventId);
                 }
             }
-        }
-
-        private void UpdateReddotState()
-        {
-            // 캐릭터 버튼 레드닷
-            // TODO: CharacterPiece 마이그레이션 필요
-            bool isReadyNewCharacter = false;
-            // var notHaveUserCharacterList = UserDataManager.Instance.GetAllNotHaveUserCharacterList();
-            // foreach (var userCharacter in notHaveUserCharacterList)
-            // {
-            //     var specCharacterData = SpecDataManager.Instance.GetCharacterData(userCharacter.CharacterId);
-            //     int characterPiece = 0; // ServerDataManager.Instance.Inventory.GetCharacterPiece(specCharacterData.character_id);
-            //     if (characterPiece >= specCharacterData.need_piece)
-            //     {
-            //         isReadyNewCharacter = true;
-            //         break;
-            //     }
-            // }
-
-            // _characterReddotObject.SetActive(isReadyNewCharacter);
-
-            // 가챠 버튼 레드닷 (티켓이 1장 이상일 경우) -> 10개 이상으로 변경
-            // bool isHaveGachaTicket = UserDataManager.Instance.UserWallet.CTicket >= 10;
-            // _gachaReddotObject.SetActive(isHaveGachaTicket);
-
-            // 방치 보상 레드닷 (가득 찼을 경우)
-            // _idleRewardReddotObject.SetActive(_isIdleRewardFullState);
-
-            // 챕터 선택 레드닷
-            bool isAvailGetChapterReward = false;
-            var allChapterList = SpecDataManager.Instance.GetChapterList(DifficultyType.NORMAL);
-            foreach (var chapterData in allChapterList)
-            {
-                if (isAvailGetChapterReward) break;
-
-                int totalChapterStarCount = (int)ServerDataManager.Instance.Battle.GetTotalChapterStarCount((uint)chapterData.chapter_id, chapterData.difficulty_type);
-                if (totalChapterStarCount <= 0) continue;
-
-                var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(ContentType.STAGE_STAR, chapterData.chapter_id, chapterData.difficulty_type);
-                foreach (var rewardInfoData in rewardInfoList)
-                {
-                    bool checkGetReward = totalChapterStarCount >= rewardInfoData.sub_value;
-
-                    bool checkAlreadyGetReward = ServerDataManager.Instance.Battle.IsGetStageAccReward(rewardInfoData.content_key_value,
-                        rewardInfoData.difficulty_type, rewardInfoData.sub_value);
-
-                    if (checkGetReward && !checkAlreadyGetReward)
-                    {
-                        isAvailGetChapterReward = true;
-                        break;
-                    }
-                }
-            }
-
-            // _chapterSelectReddotObject.SetActive(isAvailGetChapterReward);
-
-            // 퀘스트 레드닷
-            bool isAvailDailyQuestReward = false;
-            bool isAvailWeeklyQuestReward = false;
-            var dailyQuestList = SpecDataManager.Instance.GetSpecQuestList(TermType.DAILY, true);
-            var weeklyQuestList = SpecDataManager.Instance.GetSpecQuestList(TermType.WEEKLY, true);
-
-            foreach (var questData in dailyQuestList)
-            {
-                var userQuestData = UserDataManager.Instance.GetUserQuestData(questData.quest_id);
-                if (userQuestData == null) continue;
-
-                if (userQuestData.QuestStateType == (int)QuestStateType.REWARD)
-                {
-                    isAvailDailyQuestReward = true;
-                    break;
-                }
-            }
-
-            foreach (var questData in weeklyQuestList)
-            {
-                var userQuestData = UserDataManager.Instance.GetUserQuestData(questData.quest_id);
-                if (userQuestData == null) continue;
-
-                if (userQuestData.QuestStateType == (int)QuestStateType.REWARD)
-                {
-                    isAvailWeeklyQuestReward = true;
-                    break;
-                }
-            }
-
-            // _questReddotObject.SetActive(isAvailDailyQuestReward || isAvailWeeklyQuestReward);
-
-            // 출석 레드닷
-            bool isAvailAttendanceReward = false;
-            var specEventData = SpecDataManager.Instance.GetSpecEventData(EventType.ATTENDANCE);
-            if (specEventData != null)
-            {
-                var userEventConditionList = UserDataManager.Instance.GetUserEventConditionDataList(specEventData.event_id);
-                if (userEventConditionList != null && userEventConditionList.Count > 0)
-                {
-                    isAvailAttendanceReward = userEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
-                }
-
-                // _attendanceReddotObject.SetActive(isAvailAttendanceReward);
-            }
-
-            // 세션타임 이벤트 레드닷
-            bool isAvailSessionTimeEventReward = false;
-            var specSessionEventData = SpecDataManager.Instance.GetSpecEventData(EventType.ACC_PLAY_TIME);
-            var userSessionEventConditionList = UserDataManager.Instance.GetUserEventConditionDataList(specSessionEventData.event_id);
-            if (userSessionEventConditionList != null && userSessionEventConditionList.Count > 0)
-            {
-                isAvailSessionTimeEventReward = userSessionEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
-            }
-
-            // _sessionTimeEventReddotObject.SetActive(isAvailSessionTimeEventReward);
-
-
-            // 행동력 이벤트 레드닷
-            bool isAvailUseAPReward = false;
-            var specUseAPEventData = SpecDataManager.Instance.GetSpecEventData(EventType.USE_AP);
-            var userUseAPEventConditionList = UserDataManager.Instance.GetUserEventConditionDataList(specUseAPEventData.event_id);
-            if (userUseAPEventConditionList != null && userUseAPEventConditionList.Count > 0)
-            {
-                isAvailUseAPReward = userUseAPEventConditionList.Exists(data => data.EventStateType == (int)EventStateType.REWARD);
-            }
-
-            // _useAPEventReddotObject.SetActive(isAvailUseAPReward);
-
-            // 시련 던전 레드닷
-            bool isAvailPlayTrialDungeon = false;
-
-            int totalStageStar = (int)ServerDataManager.Instance.Battle.TotalStarCount;
-            var trialDungeonList = SpecDataManager.Instance.GetSpecDungeonTrialDataListByStageStar(totalStageStar);
-            if (trialDungeonList != null && trialDungeonList.Count > 0)
-            {
-                foreach (var dungeonData in trialDungeonList)
-                {
-                    var userDungeonData = UserDataManager.Instance.GetTrialDungeonData(dungeonData.dungeon_id);
-                    if (userDungeonData == null) continue;
-
-                    if (userDungeonData.DungeonStateType == (int)DungeonStateType.WAIT)
-                    {
-                        isAvailPlayTrialDungeon = true;
-                        break;
-                    }
-                }
-            }
-
-            // _trialDungeonReddotObject.SetActive(isAvailPlayTrialDungeon);
-
         }
 
         private void OnClickCommanderSkillButton()
