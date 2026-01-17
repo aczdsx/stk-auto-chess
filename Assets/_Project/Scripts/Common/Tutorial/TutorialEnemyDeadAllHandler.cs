@@ -1,5 +1,6 @@
 using System;
 using CookApps.BattleSystem;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -21,6 +22,16 @@ namespace CookApps.AutoBattler
         private static Action _pendingCombatEnd;
 
         /// <summary>
+        /// 슬로우 모션 시작 전 원래 플레이 속도
+        /// </summary>
+        private static float _originalPlaySpeed = 1f;
+
+        // 슬로우 모션 설정
+        private const float SLOWMO_DURATION = 2.0f;  // 슬로우 모션 지속 시간
+        private const float SLOWMO_START_SPEED = 0.5f;  // 시작 속도
+        private const float SLOWMO_END_SPEED = 0.1f;   // 최종 속도
+
+        /// <summary>
         /// ENEMY_DEAD_ALL 튜토리얼을 처리합니다.
         /// </summary>
         /// <param name="onCombatEnd">튜토리얼 완료 후 호출될 전투 종료 콜백</param>
@@ -39,28 +50,45 @@ namespace CookApps.AutoBattler
                 return false;
             }
 
-            // 튜토리얼 표시 시도
-            bool handled = tutorialManager.HandleTutorialAction(
-                TutorialTriggerType.ENEMY_DEAD_ALL,
-                "0");
-
-            if (!handled)
-            {
-                return false;
-            }
-
-            // 게임 일시정지
-            if (InGameMainFlowManager.Instance != null)
-            {
-                InGameMainFlowManager.Instance.Pause();
-                IsPausedByEnemyDeadAll = true;
-                Debug.LogColor("[TutorialEnemyDeadAllHandler] 게임 일시 정지", "yellow");
-            }
-
             // 전투 종료 콜백 저장
             _pendingCombatEnd = onCombatEnd;
 
+            // 슬로우 모션 후 튜토리얼 표시
+            SlowMotionThenShowTutorial().Forget();
+
             return true;
+        }
+
+        /// <summary>
+        /// 슬로우 모션 효과 후 튜토리얼 표시
+        /// </summary>
+        private static async UniTaskVoid SlowMotionThenShowTutorial()
+        {
+            if (InGameMainFlowManager.Instance == null) return;
+
+            IsPausedByEnemyDeadAll = true;
+            _originalPlaySpeed = InGameMainFlowManager.Instance.FastForwardRate;
+            Debug.LogColor($"[TutorialEnemyDeadAllHandler] 슬로우 모션 시작 (원래 속도: {_originalPlaySpeed})", "yellow");
+
+            // 슬로우 모션 효과 (점진적으로 느려짐)
+            float elapsed = 0f;
+            while (elapsed < SLOWMO_DURATION)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = elapsed / SLOWMO_DURATION;
+                float speed = Mathf.Lerp(SLOWMO_START_SPEED, SLOWMO_END_SPEED, t);
+                InGameMainFlowManager.Instance.SetPlaySpeed(speed);
+                await UniTask.Yield(PlayerLoopTiming.Update);
+            }
+
+            // 완전 정지
+            InGameMainFlowManager.Instance.Pause();
+            Debug.LogColor("[TutorialEnemyDeadAllHandler] 게임 일시 정지", "yellow");
+
+            // 튜토리얼 표시
+            TutorialManager.Instance?.HandleTutorialAction(
+                TutorialTriggerType.ENEMY_DEAD_ALL,
+                "0");
         }
 
         /// <summary>
@@ -69,11 +97,12 @@ namespace CookApps.AutoBattler
         /// </summary>
         public static void ResumeAndEndCombat()
         {
-            // 게임 재개
+            // 게임 재개 및 속도 복원
             if (IsPausedByEnemyDeadAll && InGameMainFlowManager.Instance != null)
             {
                 InGameMainFlowManager.Instance.Resume();
-                Debug.LogColor("[TutorialEnemyDeadAllHandler] 게임 재개", "yellow");
+                InGameMainFlowManager.Instance.SetPlaySpeed(_originalPlaySpeed);
+                Debug.LogColor($"[TutorialEnemyDeadAllHandler] 게임 재개 (속도 복원: {_originalPlaySpeed})", "yellow");
             }
             IsPausedByEnemyDeadAll = false;
 
@@ -95,6 +124,7 @@ namespace CookApps.AutoBattler
         {
             IsPausedByEnemyDeadAll = false;
             _pendingCombatEnd = null;
+            _originalPlaySpeed = 1f;
         }
     }
 }

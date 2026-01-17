@@ -201,7 +201,7 @@ namespace CookApps.AutoBattler
             }
 
             // 캐릭터 스탯 데이터 생성 (레벨 1 고정)
-            var statData = new CharacterStatData(monsterId, DEFAULT_MONSTER_LEVEL, 0, 1f);
+            var statData = new CharacterStatData(monsterId, DEFAULT_MONSTER_LEVEL, 0, 0.1f);
             if (statData.Spec == null)
             {
                 Debug.LogWarning($"[TutorialActionSpawnEnemy] 몬스터 스펙이 없습니다: {monsterId}");
@@ -221,6 +221,11 @@ namespace CookApps.AutoBattler
                     typeof(CharacterStateIdle),
                     false
                 );
+
+                if (character != null)
+                {
+                    character.OverrideHp(150);
+                }
 
                 return character != null;
             }

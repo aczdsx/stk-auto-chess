@@ -32,7 +32,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
     guid: 4cf662ae-2a0d-4f9a-b512-fb6ec693dbed
     customData:
-      rid: 566546874491470190
+      rid: 725993608362590547
     Pivot: {x: 0.5, y: 0}
     PixelsPerUnit: 100
     EnableDepthPass: 1
@@ -899,6 +899,6 @@ MonoBehaviour:
     - rid: 428703138515256187
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 566546874491470190
+    - rid: 725993608362590547
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 

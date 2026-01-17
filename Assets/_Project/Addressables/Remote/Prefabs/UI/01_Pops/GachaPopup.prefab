@@ -33292,6 +33292,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3821849738179276599, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 287975375516495669}
     - targetCorrespondingSourceObject: {fileID: 2701977576711092632, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6408266707131707108}
@@ -33357,12 +33360,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4580837179419500210 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3821849738179276599, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
+  m_PrefabInstance: {fileID: 764370805058171269}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &287975375516495669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4580837179419500210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9761b5fa6930744c1bdf307a8b19e2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetId: GachaPopClose
 --- !u!114 &8336901803180182353 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8730570059345672916, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
   m_PrefabInstance: {fileID: 764370805058171269}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4580837179419500210}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}

@@ -47,7 +47,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Player);
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
 
-        InGameObjectManager.Instance.InGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f);
+        // InGameObjectManager.Instance.InGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f);
 
         ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(5.0f, new Vector3(-20, 2.5f, -10), 1.0f).Forget();
         // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.0f, new Vector3(0, 2.5f, -10), 1.0f).Forget();
@@ -160,10 +160,10 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.0f, new Vector3(0, 2.5f, -10), 3.0f).Forget();
 
-         MoveCharacterToDirection(_clayCharacter, 0, 4, 0.4f);
-         MoveCharacterToDirection(_yuniCharacter, 0, 4, 0.4f);
-         MoveCharacterToDirection(_philiaCharacter, 0, 4, 0.4f);
-         MoveCharacterToDirection(_artesiaCharacter, 0, 4, 0.4f);
+        MoveCharacterToDirection(_clayCharacter, 0, 4, 0.4f);
+        MoveCharacterToDirection(_yuniCharacter, 0, 4, 0.4f);
+        MoveCharacterToDirection(_philiaCharacter, 0, 4, 0.4f);
+        MoveCharacterToDirection(_artesiaCharacter, 0, 4, 0.4f);
 
         // 이동 완료 후 모든 캐릭터 멈춤
         await UniTask.Delay(2000);
@@ -273,7 +273,7 @@ public class FlowStatePrologueCombat : StateCombatBase
 
     private async UniTask ActivateCharacterSkillWithWait(CharacterController character, string warningMessage = null, int skillID = 0)
     {
-        if(ActivateCharacterSkill(character, warningMessage, skillID))
+        if (ActivateCharacterSkill(character, warningMessage, skillID))
         {
             await UniTask.WaitUntil(() => { return (character.GetCurrentState() is CharacterStateSkill); });
             await UniTask.WaitWhile(() => { return (character.GetCurrentState() is CharacterStateSkill); });
@@ -517,13 +517,13 @@ public class FlowStatePrologueCombat : StateCombatBase
     private async UniTask TriggerFreeAttack3Seconds()
     {
         {
-            List<UniTask> uniTasks = new ();
+            List<UniTask> uniTasks = new();
             uniTasks.Add(ActivateCharacterSkillWithWait(_artesiaCharacter));
             uniTasks.Add(ActivateCharacterSkillWithWait(_philiaCharacter));
 
             await UniTask.WhenAll(uniTasks);
         }
-        
+
         if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
         {
             _artesiaCharacter.AddNextState<CharacterStateAttack>();
@@ -548,10 +548,10 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         await UniTask.Delay(3000); // 3초 자유 전투
         {
-            List<UniTask> uniTasks = new ();
+            List<UniTask> uniTasks = new();
             uniTasks.Add(ActivateCharacterSkillWithWait(_artesiaCharacter));
             uniTasks.Add(ActivateCharacterSkillWithWait(_philiaCharacter));
-            
+
             await UniTask.WhenAll(uniTasks);
         }
 
@@ -590,7 +590,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         if (_marieCharacter == null)
         {
             // 마녀 뒤쪽 위치 찾기 (마녀 위치 기준)
-            int2 spawnPosition = _artesiaCharacter.CurrentTile.Int2Index +  new int2(-1, 0);
+            int2 spawnPosition = _artesiaCharacter.CurrentTile.Int2Index + new int2(-1, 0);
             InGameTile spawnTile = InGameObjectManager.Instance.InGameGrid.GetTile(spawnPosition);
 
             // 위치가 점유되어 있으면 주변 빈 타일 찾기
@@ -692,7 +692,7 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         await UniTask.Delay(1500); // 1.5초 대기
         artesiaChargeVFX.Remove();
-        
+
         await StopAllCharacters();
     }
 
@@ -837,7 +837,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         _yuniCharacter.GetCharacterView().LookAt(Direction.Left);
         await UniTask.NextFrame();
     }
-    
+
     private async UniTask PhilliaCharacterKnockback()
     {
         MoveCharacterToDirection(_philiaCharacter, 1, -1, 10);
@@ -848,7 +848,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         _philiaCharacter.GetCharacterView().LookAt(Direction.Left);
         await UniTask.NextFrame();
     }
-    
+
     private async UniTask ClaycharacterKnockback()
     {
         MoveCharacterToDirection(_clayCharacter, 0, -1, 10);
@@ -860,7 +860,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         _clayCharacter.GetCharacterView().LookAt(Direction.Left);
         await UniTask.NextFrame();
     }
-    
+
     private async UniTask ArtesiaMovement()
     {
         // 클레이 중앙으로 포지션 이동
