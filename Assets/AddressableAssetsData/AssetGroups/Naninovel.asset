@@ -267,6 +267,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e63f9b87134675c43892901b9695e076
+    m_Address: Naninovel/Camera/Movie_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ea76638b26a915946b62907dd1e776fd
     m_Address: Naninovel/Spawn/DepthOfField
     m_ReadOnly: 0

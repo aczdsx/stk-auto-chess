@@ -3,6 +3,10 @@
 ; @wait 0.8
 ; @despawn cbg_04_01
 
+
+
+@wait 2.0
+
 @back bg_lightbringer_02
 @char cley_00.Talk pos:60,-240 scale:1.38
 

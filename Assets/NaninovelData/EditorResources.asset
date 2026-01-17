@@ -1251,7 +1251,10 @@ MonoBehaviour:
       pathPrefix: TextPrinters
       guid: 947c8d30ce50a2d42800b9403c37c577
   - Id: Movies
-    Resources: []
+    Resources:
+    - name: Movie_01
+      pathPrefix: Movies
+      guid: e63f9b87134675c43892901b9695e076
   - Id: Characters/9f471a03-df95-4385-b9dd-00377a1464ad
     Resources:
     - name: uni_00
