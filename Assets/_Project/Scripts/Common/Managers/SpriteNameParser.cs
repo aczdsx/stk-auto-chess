@@ -38,13 +38,13 @@ namespace CookApps.AutoBattler
             switch (synergyType)
             {
                 case SynergyType.NOBLESSE:
-                    spriteName = isActive ? "Icon_Constellation_Noblesse_Active" : "Icon_Constellation_Noblesse_Locked";
+                    spriteName = isActive ? "Icon_Position_Noblesse_Active" : "Icon_Position_Noblesse_Locked";
                     break;
                 case SynergyType.SUPERNOVA:
-                    spriteName = isActive ? "Icon_Constellation_Supernova_Active" : "Icon_Constellation_Supernova_Locked";
+                    spriteName = isActive ? "Icon_Position_Supernova_Active" : "Icon_Position_Supernova_Locked";
                     break;
                 case SynergyType.TROUBLESHOOTER:
-                    spriteName = isActive ? "Icon_Constellation_TroubleShooter_Active" : "Icon_Constellation_TroubleShooter_Locked";
+                    spriteName = isActive ? "Icon_Position_TroubleShooter_Active" : "Icon_Position_TroubleShooter_Locked";
                     break;
                 case SynergyType.NORMAL:
                     spriteName = "Icon_Enemy_Normal_Active";

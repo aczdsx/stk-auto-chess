@@ -45,34 +45,84 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
     {
         if (InGameSynergyManager.Instance.IsRegisteredBattleItem((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE))
             return;
-
         var specCharacter = SpecDataManager.Instance.GetSpecCharacter((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE);
-        InGameTile inGameTile = null;
+        
+        // 배틀덱 데이터에서 저장된 dynamite 위치 가져오기
+        List<InGameTile> savedDynamiteTileList = new List<InGameTile>();
+        var deckData = ServerDataManager.Instance.Deck.GetDeck(InGameType.STAGE);
+        if (deckData != null)
+        {
+            var additionalData = deckData.GetAdditionalData();
+            if (additionalData != null)
+            {
+                // troubleshooter1, 2, 3 위치 모두 확인
+                int2[] savedPositions = new int2[]
+                {
+                    new int2(additionalData.troubleshooter1GridX, additionalData.troubleshooter1GridY),
+                    new int2(additionalData.troubleshooter2GridX, additionalData.troubleshooter2GridY),
+                    new int2(additionalData.troubleshooter3GridX, additionalData.troubleshooter3GridY)
+                };
+
+                foreach (var pos in savedPositions)
+                {
+                    if (pos.x != -1 && pos.y != -1)
+                    {
+                        InGameTile dynamiteTile = InGameObjectManager.Instance.InGameGrid.GetTile(pos);
+                        if (dynamiteTile != null && !dynamiteTile.IsOccupied())
+                        {
+                            savedDynamiteTileList.Add(dynamiteTile);
+                        }
+                    }
+                }
+            }
+        }
+
+        int savedTileIndex = 0;
 
         for (int i = 0; i < itemCount; i++)
         {
-            // 타일이 이미 점유되어 있으면 다른 타일을 찾음
-            do
+            InGameTile inGameTile = null;
+
+            // 배틀덱 데이터에서 저장된 타일이 있으면 우선 사용
+            if (savedTileIndex < savedDynamiteTileList.Count)
             {
+                inGameTile = savedDynamiteTileList[savedTileIndex++];
+                Debug.LogColor($"저장된 정보로 지뢰 로드!: {inGameTile.X}, {inGameTile.Y}");
+            }
+            else
+            {
+                // 저장된 타일이 없거나 부족하면 기존 로직 수행
+                // 1. 선택된 타일이 있으면 우선 확인
                 if (InGameTouchManager.Instance.SelectedFirstTileID != -1)
                 {
                     inGameTile = InGameObjectManager.Instance.InGameGrid.GetTile(InGameTouchManager.Instance.SelectedFirstTileID);
+                    if (inGameTile != null && inGameTile.IsOccupied())
+                    {
+                        inGameTile = null; // 점유되어 있으면 무시
+                    }
                 }
-                else
+
+                // 2. 선택된 타일이 없거나 점유되어 있으면 추천 타일 사용
+                if (inGameTile == null)
                 {
                     inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter);
+                    if (inGameTile != null && inGameTile.IsOccupied())
+                    {
+                        inGameTile = null; // 점유되어 있으면 무시
+                    }
                 }
-            } while (inGameTile != null && inGameTile.IsOccupied());
 
-            // 비어있는 타일을 찾지 못한 경우 랜덤 빈 타일 사용
-            if (inGameTile == null || inGameTile.IsOccupied())
-            {
-                inGameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Player);
+                // 3. 비어있는 타일을 찾지 못한 경우 랜덤 빈 타일 사용
+                if (inGameTile == null)
+                {
+                    inGameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Player);
+                }
+                Debug.LogColor($"랜덤위치에 지뢰 추가!: {inGameTile?.X}, {inGameTile?.Y}");
             }
 
             if (inGameTile == null)
             {
-                Debug.LogWarning($"AddGameObjectDynamite: 비어있는 타일을 찾을 수 없습니다. (i={i})");
+                Debug.LogWarning("[EffectCodeSynergyPositionTroubleShooter] Failed to find tile for dynamite");
                 continue;
             }
 
@@ -81,6 +131,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
             var statData = new CharacterStatData((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE, 1, 1, 1);
             var character = await InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.BattleItem,
                 typeof(CharacterStateReady), false, HpBarType.None);
+
             _dynamiteList.Add(character);
             var itemInfo = InGameBattleItemDragDropComponent.InGameBattleItemInfo.Create(character: character, source: source, itemInfoHandler: this);
             InGameSynergyManager.Instance.RegisterBattleItem(itemInfo);

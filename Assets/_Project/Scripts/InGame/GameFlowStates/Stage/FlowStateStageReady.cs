@@ -104,7 +104,7 @@ public class FlowStateStageReady : StateReadyBase
         var battleDeckList = deckData != null
             ? new List<DeckCharacterPlacement>(deckData.CharacterPlacements)
             : new List<DeckCharacterPlacement>();
-
+        
         // LINQ 제거: 직접 루프로 유효하지 않은 캐릭터 제거
         for (int i = battleDeckList.Count - 1; i >= 0; i--)
         {
@@ -284,12 +284,45 @@ public class FlowStateStageReady : StateReadyBase
                 GridY = character.CurrentTile.Y
             });
         }
-
         var additionalData = new DeckAdditionalData()
         {
-            supernovaCharacterId = 110101
+            supernovaCharacterId = 0,
+
+            troubleshooter1GridX = -1,
+            troubleshooter1GridY = -1,
+
+            troubleshooter2GridX = -1,
+            troubleshooter2GridY = -1,
+
+            troubleshooter3GridX = -1,
+            troubleshooter3GridY = -1
         };
-        
+
+        var dynamiteList = InGameSynergyManager.Instance.GetBattleItemList((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE);
+        if (dynamiteList is not null && dynamiteList.Count > 0)
+        {
+            int index = 0;
+            foreach (var dynamite in dynamiteList)
+            {
+                switch (index)
+                {
+                    case 0:
+                        additionalData.troubleshooter1GridX = dynamite.CurrentTile.X;
+                        additionalData.troubleshooter1GridY = dynamite.CurrentTile.Y;
+                        break;
+                    case 1:
+                        additionalData.troubleshooter2GridX = dynamite.CurrentTile.X;
+                        additionalData.troubleshooter2GridY = dynamite.CurrentTile.Y;
+                        break;
+                    case 2:
+                        additionalData.troubleshooter3GridX = dynamite.CurrentTile.X;
+                        additionalData.troubleshooter3GridY = dynamite.CurrentTile.Y;
+                        break;
+                }
+                index++;
+            }
+        }
+
         // STAGE의 덱 슬롯 ID는 1
         await NetManager.Instance.Deck.SaveAsync((int)InGameType.STAGE, string.Empty, characterPlacements, clientData: additionalData.ToGrpcData());
     }
