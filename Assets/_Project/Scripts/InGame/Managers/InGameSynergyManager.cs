@@ -384,6 +384,11 @@ namespace CookApps.BattleSystem
         {
             return _itemComponent.IsDragAndDropBattleItem(character);
         }
+
+        public List<CharacterController> GetBattleItemList(int prefab_id)
+        {
+            return _itemComponent.GetBattleItemList(prefab_id);
+        }
         public bool ApplyBattleItem(CharacterController itemObj, CharacterController targetObj)
         {
             return _itemComponent.ApplyBattleItem(itemObj, targetObj);

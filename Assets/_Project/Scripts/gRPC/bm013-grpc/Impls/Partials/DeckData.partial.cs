@@ -8,7 +8,16 @@ namespace Tech.Hive.V1
     public partial class DeckAdditionalData
     {
         [MemoryPackOrder(0)] public int supernovaCharacterId = 0;
-        
+
+        [MemoryPackOrder(1)] public int troubleshooter1GridX = -1;
+        [MemoryPackOrder(2)] public int troubleshooter1GridY = -1;
+
+        [MemoryPackOrder(3)] public int troubleshooter2GridX = -1;
+        [MemoryPackOrder(4)] public int troubleshooter2GridY = -1;
+
+        [MemoryPackOrder(5)] public int troubleshooter3GridX = -1;
+        [MemoryPackOrder(6)] public int troubleshooter3GridY = -1;
+
         public ByteString ToGrpcData()
         {
             return ByteString.CopyFrom(MemoryPackSerializer.Serialize(this));

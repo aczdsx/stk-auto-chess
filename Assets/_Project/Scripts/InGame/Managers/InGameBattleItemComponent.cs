@@ -233,6 +233,19 @@ namespace CookApps.BattleSystem
             return _itemDic.ContainsKey(prefab_id);
         }
 
+        public List<CharacterController> GetBattleItemList(int prefab_id)
+        {
+            if (!_itemDic.TryGetValue(prefab_id, out var itemList))
+                return null;
+                
+            List<CharacterController> retVal = new List<CharacterController>();
+            for (int i = 0; i < itemList.Count; i++)
+            {
+                retVal.Add(itemList[i].targetObj);
+            }
+            return retVal;
+        }
+
         public bool ApplyBattleItem(CharacterController itemObj, CharacterController targetObj)
         {
             if (!_itemDic.TryGetValue(itemObj.SpecCharacter.prefab_id, out var itemList))
