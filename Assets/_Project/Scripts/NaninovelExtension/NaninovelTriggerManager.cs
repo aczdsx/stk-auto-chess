@@ -22,6 +22,7 @@ namespace CookApps.AutoBattler
         {
             SceneLoading.OnGetNaninovelTrigger = GetTriggerOnSceneEnter;
             SceneLoading.OnGetSpecialNaninovelTrigger = GetSpecialTrigger;
+            SceneLoading.OnGetStageClearNaninovelTrigger = GetTriggerOnStageClear;
             Debug.Log("[NaninovelTriggerManager] 초기화 완료 - SceneLoading 연동");
         }
 

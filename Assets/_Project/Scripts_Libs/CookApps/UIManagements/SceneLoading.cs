@@ -54,6 +54,12 @@ namespace CookApps.TeamBattle.UIManagements
         public static Func<string, string> OnGetSpecialNaninovelTrigger { get; set; }
 
         /// <summary>
+        /// STAGE_CLEAR_NANI 타입 나니노벨 트리거를 스테이지 ID로 검색하는 델리게이트
+        /// 스테이지 클리어 후 스토리 재생용
+        /// </summary>
+        public static Func<int, string> OnGetStageClearNaninovelTrigger { get; set; }
+
+        /// <summary>
         /// 무거운 씬간 전환시 사용, 전환 중간에 가벼운 씬을 둠으로써 무거운 씬2개가 동시에 떠서 메모리가 부족해지는 것을 방지
         /// </summary>
         /// <param name="nextScene">목적지 씬 이름</param>
@@ -78,6 +84,22 @@ namespace CookApps.TeamBattle.UIManagements
         {
             // SPECIAL 트리거 검색
             var naninovelScriptName = OnGetSpecialNaninovelTrigger?.Invoke(specialTriggerKey);
+            GoToNextSceneInternal(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptName);
+        }
+
+        /// <summary>
+        /// STAGE_CLEAR_NANI 타입 나니노벨 트리거를 지정하여 씬 전환
+        /// 스테이지 클리어 후 스토리 재생용
+        /// </summary>
+        /// <param name="nextScene">목적지 씬 이름</param>
+        /// <param name="stageId">클리어한 스테이지 ID</param>
+        /// <param name="nextSceneData">목적지 씬 데이터</param>
+        /// <param name="sceneLoadingEventReceiver">씬 로딩 이벤트 리시버</param>
+        public static void GoToNextSceneWithStageClearTrigger(string nextScene, int stageId, object nextSceneData = null, SceneLoadingEventReceiver sceneLoadingEventReceiver = null)
+        {
+            // STAGE_CLEAR_NANI 트리거 검색
+            Debug.Log($"[SceneLoading] GoToNextSceneWithStageClearTrigger: {stageId}");
+            var naninovelScriptName = OnGetStageClearNaninovelTrigger?.Invoke(stageId);
             GoToNextSceneInternal(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptName);
         }
 

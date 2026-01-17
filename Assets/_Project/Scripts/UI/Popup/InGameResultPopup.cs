@@ -29,7 +29,7 @@ namespace CookApps.AutoBattler
             Rewards = rewards;
         }
     }
-    
+
     [Serializable]
     public class InGameResultStarCondition
     {
@@ -206,7 +206,7 @@ namespace CookApps.AutoBattler
 
             SceneTransition.Create<SceneTransition_FadeInOut>();
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
+            SceneLoading.GoToNextSceneWithStageClearTrigger("Lobby", InGameManager.Instance.SpecStage.stage_id, specLastStageData.chapter_id);
         }
 
         private async UniTask OnNextStageButtonClickedAsync()
@@ -234,7 +234,7 @@ namespace CookApps.AutoBattler
                 ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_AP");
                 return;
             }
-            
+
             // 서버에 전투 시작 요청
             var inGameParams = await NetManager.Instance.Battle.StartAsync(
                 nextStageData.chapter_id,
@@ -246,10 +246,10 @@ namespace CookApps.AutoBattler
                 // ToastManager.Instance.ShowToastByTokenKey("ERROR_UNKNOWN");
                 return;
             }
-            
+
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextScene("InGame", inGameParams);
+            SceneLoading.GoToNextSceneWithStageClearTrigger("InGame", InGameManager.Instance.SpecStage.stage_id, inGameParams);
         }
 
         private async UniTask OnClickRetryStageButtonAsync()
@@ -260,7 +260,7 @@ namespace CookApps.AutoBattler
                 ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_ENOUGH_AP");
                 return;
             }
-            
+
             // 서버에 전투 시작 요청
             var inGameParams = await NetManager.Instance.Battle.StartAsync(
                 InGameManager.Instance.SpecStage.chapter_id,
@@ -275,7 +275,7 @@ namespace CookApps.AutoBattler
 
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextScene("InGame", inGameParams);
+            SceneLoading.GoToNextSceneWithStageClearTrigger("InGame", InGameManager.Instance.SpecStage.stage_id, inGameParams);
         }
 
         // 가장 높은 스테이지 클리어 여부 체크

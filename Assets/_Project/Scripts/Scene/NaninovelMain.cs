@@ -56,8 +56,8 @@ namespace CookApps.AutoBattler
             _currentScriptName = scriptName;
             PreEnterAsync().Forget();
         }
-        
-        private async UniTask PreEnterAsync() 
+
+        private async UniTask PreEnterAsync()
         {
             // 스크립트 실행
             if (!string.IsNullOrEmpty(_currentScriptName))
@@ -100,6 +100,10 @@ namespace CookApps.AutoBattler
             {
                 Debug.Log($"NaninovelMain: 다음 스크립트 실행 - {nextScript}");
                 _currentScriptName = nextScript;
+
+                // 연쇄 재생 전 UI 상태 복원
+                RestoreUIStateForChainedScript();
+
                 PlayScript(nextScript).Forget();
                 return;
             }
@@ -109,6 +113,33 @@ namespace CookApps.AutoBattler
             _currentScriptName = null;
             _onEndAction?.Invoke();
             _onEndAction = null;
+        }
+
+        /// <summary>
+        /// 연쇄 재생 전 UI 상태 복원 (이전 스크립트에서 숨긴 UI 복원)
+        /// </summary>
+        private void RestoreUIStateForChainedScript()
+        {
+            try
+            {
+                // UI 표시 (@showUI와 동일)
+                var uiManager = Engine.GetService<IUIManager>();
+                uiManager?.SetUIVisibleWithToggle(true);
+
+                // TextPrinter 표시 (@showPrinter와 동일)
+                var printerManager = Engine.GetService<ITextPrinterManager>();
+                if (printerManager != null && !string.IsNullOrEmpty(printerManager.DefaultPrinterId))
+                {
+                    var printer = printerManager.GetActor(printerManager.DefaultPrinterId);
+                    printer?.ChangeVisibility(true, new(0.3f)).Forget();
+                }
+
+                Debug.Log("NaninovelMain: 연쇄 재생을 위한 UI 상태 복원 완료");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"NaninovelMain: UI 상태 복원 중 오류 - {ex.Message}");
+            }
         }
 
         private async UniTaskVoid InitializeNaninovelAsync(string scriptName)

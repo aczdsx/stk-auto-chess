@@ -563,6 +563,17 @@ namespace CookApps.BattleSystem
             }
         }
 
+        /// <summary>
+        /// MaxHP와 CurrentHP를 강제로 오버라이드 (튜토리얼 등 특수 상황용)
+        /// </summary>
+        /// <param name="hp">설정할 HP 값</param>
+        public void OverrideHp(double hp)
+        {
+            postHP = hp;
+            _currHp = hp;
+            UpdateHpBar();
+        }
+
         #endregion
     }
 }
