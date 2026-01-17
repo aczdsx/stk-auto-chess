@@ -246,6 +246,13 @@ namespace CookApps.BattleSystem
             return retVal;
         }
 
+        public List<InGameBattleItemInfo> GetBattleItemInfoList(int prefab_id)
+        {
+            if (!_itemDic.TryGetValue(prefab_id, out var itemList))
+                return null;
+            return itemList;
+        }
+
         public bool ApplyBattleItem(CharacterController itemObj, CharacterController targetObj)
         {
             if (!_itemDic.TryGetValue(itemObj.SpecCharacter.prefab_id, out var itemList))

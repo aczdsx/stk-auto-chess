@@ -110,6 +110,11 @@ namespace CookApps.AutoBattler
             return ZString.Format("SD/{0}/InGame_{0}.prefab", characterInfo.prefab_id);
         }
 
+        public static string ToObstacleResourcePath(int obstacleId)
+        {
+            return ZString.Format("SD/{0}/InGame_{0}.prefab", obstacleId);
+        }
+
         public static Color GetGradeTypeColor(this GradeType gradeType)
         {
             Color color = Color.white;

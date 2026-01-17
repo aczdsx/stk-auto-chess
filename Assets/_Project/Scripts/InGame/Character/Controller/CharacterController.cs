@@ -199,11 +199,12 @@ namespace CookApps.BattleSystem
             position = tile.View.Position;
             // GameObject viewGo = await Addressables.InstantiateAsync(
             //     $"Obstacle/Stage/{id}/GenerateResources/CharacterView_{id}.prefab");
+            //  var spec = SpecDataManager.Instance.GetSpecCharacter(id);
+            var handle = _viewHandle = Addressables.InstantiateAsync(SpecDataExtensions.ToObstacleResourcePath(id));
             if (_viewHandle.IsValid())
                 Addressables.ReleaseInstance(_viewHandle);
 
-            var spec = SpecDataManager.Instance.GetSpecCharacter(id);
-            var handle = _viewHandle = Addressables.InstantiateAsync(spec.ToCharacterResourcePath());
+           
             await handle.WaitUntilDone();
 
             if (!handle.IsValid())
@@ -387,7 +388,14 @@ namespace CookApps.BattleSystem
                 _view.OnAnimationEvent -= OnAnimationEvent;
                 _view.StopAllTweens();
             }
-            Addressables.ReleaseInstance(_viewHandle);
+            if (_viewHandle.IsValid())
+            {
+                Addressables.ReleaseInstance(_viewHandle);
+            }
+            else
+            {
+                int test = 0;
+            }
             ClearAllState();
             Target = null;
             _view = null;

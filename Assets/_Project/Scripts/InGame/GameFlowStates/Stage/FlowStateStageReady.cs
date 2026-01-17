@@ -117,8 +117,6 @@ public class FlowStateStageReady : StateReadyBase
 
         CheckOverlapCharacter(battleDeckList);
 
-
-
         foreach (var placement in battleDeckList)
         {
             var characterData = ServerDataManager.Instance.Character.GetCharacter(placement.CharacterId);
@@ -138,6 +136,8 @@ public class FlowStateStageReady : StateReadyBase
         }
 
         var characters = await UniTask.WhenAll(addCharacterTasks);
+
+        InGameManager.Instance.OnFlowStateStageReadyStart();
 
         // 튜토리얼 활성화 시 캐릭터들을 TutorialTargetRegistry에 등록
         if (TutorialManager.Instance.HasTutorialStage)
@@ -324,10 +324,15 @@ public class FlowStateStageReady : StateReadyBase
         }
 
 
-        var supernovaList = InGameSynergyManager.Instance.GetBattleItemList((int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA);
+        var supernovaList = InGameSynergyManager.Instance.GetBattleItemInfoList((int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA);
+
         if (supernovaList is not null && supernovaList.Count > 0)
         {
-            additionalData.supernovaCharacterId = supernovaList[0].SpecCharacter.id;
+            var supernovaInfo = supernovaList[0];
+            if (supernovaInfo.itemState == InGameBattleItemDragDropComponent.ItemState.ITEM_APPLIED)
+            {
+                additionalData.supernovaCharacterId = supernovaInfo.targetObj.SpecCharacter.id;
+            }
         }
         // STAGE의 덱 슬롯 ID는 1
         await NetManager.Instance.Deck.SaveAsync((int)InGameType.STAGE, string.Empty, characterPlacements, clientData: additionalData.ToGrpcData());

@@ -67,8 +67,9 @@ namespace CookApps.BattleSystem
         UseOnStateNormalAttackDamageEvent = 1L << 55,// 일반 공격 애니메이션 이벤트로 처리하고 싶을때 호출되는 함수 StateAttackAnimEventDamage에서 호출된다
         UseOnCharacterDragging = 1L << 56,// 캐릭터 드래그 중일 때 호출되는 함수
         UseOnCharacterDraggingEnd = 1L << 57,// 캐릭터 드래그 종료 시 호출되는 함수
+        UseOnFlowStateStageReadyStart = 1L << 58,// FlowStateStageReady에 StartState함수 호출 시 호출되는 함수
         #endregion
-        MAX = 1L << 58,
+        MAX = 1L << 59,
     };
 
     public static class EffectCodeInheritFlagExtensions
