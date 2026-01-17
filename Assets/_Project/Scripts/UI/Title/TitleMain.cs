@@ -114,7 +114,7 @@ namespace CookApps.AutoBattler
 
             // var transition1 = SceneTransition_FadeInOut.Create();
             // 프롤로그로 진입하게 해줘야함
-            // SceneLoading.GoToNextScene("InGame",
+            // SceneLoading.GoT`oNextScene("InGame",
             //         (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
             // return;
 
