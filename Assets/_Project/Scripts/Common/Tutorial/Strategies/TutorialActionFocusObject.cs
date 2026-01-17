@@ -20,6 +20,7 @@ namespace CookApps.AutoBattler
             {
                 Debug.LogWarning($"[TutorialActionFocusObject] 포커스 타겟을 찾을 수 없음: {context.CurrentTutorial.tutorial_action_key}");
             }
+            context.NextObj.SetActive(true); // [TODO] 나중에 텍스트 애니메이션 완료 된 후로 변경 필요
         }
 
         public void OnNext(TutorialActionContext context)

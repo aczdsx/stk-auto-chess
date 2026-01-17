@@ -56,7 +56,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         Debug.LogColor($"튜토리얼 초기화: {tutorialID} {_specTutorialDataList.Count}", "green");
         foreach (var tutorialData in _specTutorialDataList)
         {
-            Debug.LogColor($"튜토리얼 데이터: {tutorialData.tutorial_trigger_type} {tutorialData.tutorial_trigger_key}, {tutorialData.tutorial_action_type} {tutorialData.tutorial_action_key}", "green");
+            Debug.LogColor($"튜토리얼 데이터: id : {tutorialData.id}, {tutorialData.tutorial_trigger_type} {tutorialData.tutorial_trigger_key}, {tutorialData.tutorial_action_type} {tutorialData.tutorial_action_key}", "green");
         }
         await CreateTutorialCanvas();
         return true;
@@ -148,6 +148,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     {
         if (!IsTutorial)
         {
+            Debug.LogColor($"튜토리얼을 진행하는 스테이지가 아닙니다. tutorialTriggerType : {tutorialTriggerType} key : {key}", "red");
             return false;
         }
 

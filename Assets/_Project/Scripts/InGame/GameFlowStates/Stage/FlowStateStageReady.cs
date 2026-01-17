@@ -104,7 +104,7 @@ public class FlowStateStageReady : StateReadyBase
         var battleDeckList = deckData != null
             ? new List<DeckCharacterPlacement>(deckData.CharacterPlacements)
             : new List<DeckCharacterPlacement>();
-        
+
         // LINQ 제거: 직접 루프로 유효하지 않은 캐릭터 제거
         for (int i = battleDeckList.Count - 1; i >= 0; i--)
         {

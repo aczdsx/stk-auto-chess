@@ -958,6 +958,21 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (character == null)
             return false;
 
+        // 튜토리얼 중이면 새로 배치된 캐릭터에 TutorialTarget 등록
+        if (TutorialManager.Instance.HasTutorialStage)
+        {
+            var characterView = character.GetCharacterView();
+            if (characterView != null)
+            {
+                var tutorialTarget = characterView.gameObject.GetComponent<TutorialTarget>();
+                if (tutorialTarget == null)
+                {
+                    tutorialTarget = characterView.gameObject.AddComponent<TutorialTarget>();
+                }
+                tutorialTarget.SetTargetId(character.CharacterId.ToString());
+            }
+        }
+
         // selected 상태로 전환
         _selectedTileView = tileView;
         SetSelectedCharacter(character);

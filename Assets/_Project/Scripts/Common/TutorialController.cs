@@ -455,9 +455,20 @@ public class TutorialController : MonoBehaviour
             return _currentUvPosition;
         }
 
-        // UI 오브젝트 (RectTransform 기반) - FOCUS_OBJECT, FOCUS_UI 또는 CHARACTER_PLACEMENT_UI
+        // FOCUS_UI: UI 전용 (RectTransform 필수)
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FOCUS_UI)
+        {
+            var targetRectTransform = targetObj.GetComponent<RectTransform>();
+            if (targetRectTransform != null)
+            {
+                return GetNormalizedPosition(_canvasRectTransform, targetRectTransform);
+            }
+            Debug.LogWarning("[TutorialController] FOCUS_UI 대상 오브젝트에 RectTransform이 없습니다.");
+            return _currentUvPosition;
+        }
+
+        // FOCUS_OBJECT, CHARACTER_PLACEMENT_UI: UI(RectTransform) 또는 3D 오브젝트
         if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FOCUS_OBJECT ||
-            CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FOCUS_UI ||
             CurrentSpecTutorial.tutorial_action_type == TutorialActionType.CHARACTER_PLACEMENT_UI)
         {
             var targetRectTransform = targetObj.GetComponent<RectTransform>();
@@ -465,15 +476,8 @@ public class TutorialController : MonoBehaviour
             {
                 return GetNormalizedPosition(_canvasRectTransform, targetRectTransform);
             }
-
-            // CHARACTER_PLACEMENT_UI에서 보드 위 캐릭터로 전환된 경우 3D 좌표 사용
-            if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.CHARACTER_PLACEMENT_UI)
-            {
-                return CalculateWorldPositionUV(targetObj.transform.position);
-            }
-
-            Debug.LogWarning("UnMaskUI 대상 오브젝트에 RectTransform이 없습니다.");
-            return _currentUvPosition;
+            // RectTransform 없으면 3D 월드 좌표 사용
+            return CalculateWorldPositionUV(targetObj.transform.position);
         }
 
         // 3D 월드 오브젝트 (CHARACTER_PLACEMENT 등)
