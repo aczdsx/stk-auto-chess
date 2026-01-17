@@ -37,6 +37,11 @@ namespace CookApps.AutoBattler
             _guideMissionButton.OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, _) => self.OnClickMissionSlotButtonAsync(), AwaitOperation.Drop)
                 .AddTo(this);
+
+            // 가이드 미션 데이터 변경 시 UI 갱신
+            GuideMissionModel.OnChanged
+                .Subscribe(this, (_, self) => self.RefreshGuideMissionSlot())
+                .AddTo(this);
         }
 
         protected override void OnDestroy()
@@ -46,8 +51,8 @@ namespace CookApps.AutoBattler
 
         public void InitGuideMissionSlot()
         {
-            int currentOrder = (int)GuideMissionModel.Order;
-            _specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(currentOrder);
+            int guideMissionId = (int)GuideMissionModel.GuideMissionId;
+            _specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
 
             SetGuideMissionSlot();
 
@@ -77,7 +82,8 @@ namespace CookApps.AutoBattler
             }
 
             // 가이드 미션 슬롯 데이터 세팅
-            _specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(currentOrder);
+            int guideMissionId = (int)GuideMissionModel.GuideMissionId;
+            _specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
 
             SetGuideMissionSlot();
 

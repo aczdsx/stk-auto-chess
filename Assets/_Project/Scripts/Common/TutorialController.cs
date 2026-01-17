@@ -61,6 +61,7 @@ public class TutorialController : MonoBehaviour
         { TutorialActionType.NONE, new TutorialActionNone() },
         { TutorialActionType.FORCED_TOUCH_UI, new TutorialActionForcedTouchUI() },
         { TutorialActionType.FOCUS_OBJECT, new TutorialActionFocusObject() },
+        { TutorialActionType.FOCUS_UI, new TutorialActionFocusUI() },
         { TutorialActionType.TOAST_MESSAGE, new TutorialActionToastMessage() },
         { TutorialActionType.SHOW_DIALOGUE_POP, new TutorialActionShowDialoguePop() },
         { TutorialActionType.CHARACTER_PLACEMENT_UI, new TutorialActionCharacterPlacementUI() },
@@ -454,8 +455,9 @@ public class TutorialController : MonoBehaviour
             return _currentUvPosition;
         }
 
-        // UI 오브젝트 (RectTransform 기반) - FOCUS_OBJECT 또는 CHARACTER_PLACEMENT_UI
+        // UI 오브젝트 (RectTransform 기반) - FOCUS_OBJECT, FOCUS_UI 또는 CHARACTER_PLACEMENT_UI
         if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FOCUS_OBJECT ||
+            CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FOCUS_UI ||
             CurrentSpecTutorial.tutorial_action_type == TutorialActionType.CHARACTER_PLACEMENT_UI)
         {
             var targetRectTransform = targetObj.GetComponent<RectTransform>();
