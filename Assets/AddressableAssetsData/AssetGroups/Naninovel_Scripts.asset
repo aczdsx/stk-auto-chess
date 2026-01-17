@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 062b40594e237324b840f9ab62288705
+    m_Address: Naninovel/Scripts/Chapter0_07
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 06474dc7307b4c04ab69cc5ffe05223a
     m_Address: Naninovel/Scripts/0-4
     m_ReadOnly: 0
@@ -57,12 +63,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1388e2cffa70dad44a0c0095cb754ad6
-    m_Address: Naninovel/Scripts/Chapter1_15
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15562e747dd2fd5478d7db91f9fca3c2
     m_Address: Naninovel/Scripts/nani_05_06_01
     m_ReadOnly: 0
@@ -83,6 +83,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 196dac9ce6b77f640bbb06d0774e4379
     m_Address: Naninovel/Scripts/Chapter1_12
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1c90d86ed1b93a44eaec0073fee0b147
+    m_Address: Naninovel/Scripts/Chapter1_13
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -183,6 +189,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4d722d6fd6acc744dae58291793664eb
+    m_Address: Naninovel/Scripts/Chapter0_06
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 512afeaecf2810e40890729587809587
     m_Address: Naninovel/Scripts/Chapter2_16
     m_ReadOnly: 0
@@ -196,7 +208,7 @@ MonoBehaviour:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 54becdc6deb5141ccb3b49c78cf0b0d5
-    m_Address: "Naninovel/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
+    m_Address: "Naninovel/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C3"
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -281,6 +293,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 84dd7754d1d9671408859edd759d2e98
     m_Address: Naninovel/Scripts/Chapter2_06
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 87683fef9d1e6ae4db989547fbb70e1e
+    m_Address: Naninovel/Scripts/Chapter0_04
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -393,6 +411,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b35b951c40030bb459b3d7a147321a5d
+    m_Address: Naninovel/Scripts/Chapter1_15
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: baa4c1f4ed0fa7c4dac05a0d32d7f307
     m_Address: Naninovel/Scripts/Chapter2_13
     m_ReadOnly: 0
@@ -453,6 +477,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc766d5a62a068f4bb667820bcca6687
+    m_Address: Naninovel/Scripts/Chapter0_08
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dd3c90870d22c8243a5b0023d6d423b8
     m_Address: Naninovel/Scripts/Chapter0_03
     m_ReadOnly: 0
@@ -483,8 +513,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec7537f337621d844a67c608e7397e1f
+    m_Address: Naninovel/Scripts/Chapter0_05
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f25f28918006c184785465324e4405ab
     m_Address: Naninovel/Scripts/Chapter2_11
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fedcc6d0399f18b4d92de41ce45406cd
+    m_Address: Naninovel/Scripts/Chapter1_10
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
