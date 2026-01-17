@@ -19,7 +19,7 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    public class DialoguePopup : UILayer
+    public class DialoguePopup : UILayerPopupBase
     {
         [SerializeField]
         private TMP_FontAsset temTMPFontAsset;

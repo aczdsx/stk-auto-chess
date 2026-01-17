@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
-    public class AttendancePopup : UILayer
+    public class AttendancePopup : UILayerPopupBase
     {
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private CAButton _dimCloseButton;

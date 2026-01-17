@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    public class InGameDungeonResultPopup : UILayer
+    public class InGameDungeonResultPopup : UILayerPopupBase
     {
         [SerializeField] private CAButton _exitButton;
         [SerializeField] private CAButton _nextStageButton;

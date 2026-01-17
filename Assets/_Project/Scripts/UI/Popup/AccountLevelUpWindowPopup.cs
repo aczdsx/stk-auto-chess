@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
-    public class AccountLevelUpWindowPopup : UILayer
+    public class AccountLevelUpWindowPopup : UILayerPopupBase
     {
         [SerializeField] private CAButton expandButton;
 

@@ -11,7 +11,7 @@ using Cysharp.Threading.Tasks;
 
 namespace CookApps.AutoBattler
 {
-    public class ElpisCommandCenterPopup : UILayer
+    public class ElpisCommandCenterPopup : UILayerPopupBase
     {
         [SerializeField] private CAButton closeButton;
             

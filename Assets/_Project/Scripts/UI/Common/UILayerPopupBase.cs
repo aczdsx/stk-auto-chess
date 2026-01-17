@@ -1,0 +1,35 @@
+using CookApps.TeamBattle.UIManagements;
+
+namespace CookApps.AutoBattler
+{
+    /// <summary>
+    /// UILayerType.Popup용 Base 클래스
+    /// OnPostEnter/OnPostExit 시점에 튜토리얼 트리거 발동
+    /// </summary>
+    public abstract class UILayerPopupBase : UILayer
+    {
+        protected override void OnPostEnter()
+        {
+            base.OnPostEnter();
+
+            if (TutorialManager.Instance != null)
+            {
+                TutorialManager.Instance.HandleTutorialAction(
+                    TutorialTriggerType.SHOW_POP_COMPLETE,
+                    GetType().Name);
+            }
+        }
+
+        protected override void OnPostExit()
+        {
+            base.OnPostExit();
+
+            if (TutorialManager.Instance != null)
+            {
+                TutorialManager.Instance.HandleTutorialAction(
+                    TutorialTriggerType.CLOSE_POP_COMPLETE,
+                    GetType().Name);
+            }
+        }
+    }
+}

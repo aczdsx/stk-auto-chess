@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    public class ImageInfoPop : UILayer
+    public class ImageInfoPop : UILayerPopupBase
     {
         [SerializeField] private TextMeshProUGUI _titleText;
         [SerializeField] private TextMeshProUGUI _descText;

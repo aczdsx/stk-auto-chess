@@ -134,11 +134,11 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < datas.Count; i++)
             {
-                if (datas[i].Id.IsCharacterPiece())
+                if (datas[i].Id.GetCharacterId(out int characterId))
                 {
-                    var specData = SpecDataManager.Instance.GetCharacterData(datas[i].Id);
+                    var specData = SpecDataManager.Instance.GetCharacterData(characterId);
 
-                    if (specData.grade_type == GradeType.LEGENDARY && datas[i].Count == 20)
+                    if (specData != null && specData.grade_type == GradeType.LEGENDARY && datas[i].Count == 20)
                     {
                         ssrCount++;
                         isHaveSSR = true;
@@ -322,8 +322,10 @@ namespace CookApps.AutoBattler
             {
                 if(_datas[i].Count < 20)
                     continue;
-                CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(_datas[i].Id);
-                if (idxCharcater.grade_type == GradeType.LEGENDARY)
+                if (!_datas[i].Id.GetCharacterId(out int skipCharId))
+                    continue;
+                CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(skipCharId);
+                if (idxCharcater != null && idxCharcater.grade_type == GradeType.LEGENDARY)
                 {
                     skipDatas.Add(_datas[i]);
                 }
@@ -410,8 +412,11 @@ namespace CookApps.AutoBattler
             if (BlockerObject != null)
                 BlockerObject.SetActive(false);
             fx = Addressables.InstantiateAsync("GetNewCharacter").WaitForCompletion();
-            var idxCharacter = SpecDataManager.Instance.GetCharacterData(skipDatas[skipCnt].Id);
-            fx.GetComponent<GetNewCharacter>().SetChracater(idxCharacter, ShowSkipCharacterFX);
+            if (skipDatas[skipCnt].Id.GetCharacterId(out int skipCharacterId))
+            {
+                var idxCharacter = SpecDataManager.Instance.GetCharacterData(skipCharacterId);
+                fx.GetComponent<GetNewCharacter>().SetChracater(idxCharacter, ShowSkipCharacterFX);
+            }
             skipCnt++;
         }
         private int[] generatorRandomNumber(int count)
@@ -516,14 +521,21 @@ namespace CookApps.AutoBattler
             if (BlockerObject != null)
                 BlockerObject.SetActive(false);
 
-            if (!_datas[cnt].Id.IsCharacterPiece())
+            if (!_datas[cnt].Id.GetCharacterId(out int fxCharacterId))
             {
                 cnt++;
                 ShowGetFX();
                 return;
             }
 
-            CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(_datas[cnt].Id);
+            CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(fxCharacterId);
+            if (idxCharcater == null)
+            {
+                cnt++;
+                ShowGetFX();
+                return;
+            }
+
             if (_datas[cnt].Count == 20)
             {
                 if (idxCharcater.grade_type == GradeType.LEGENDARY)

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
-    public class ToastSystemPopup : UILayer
+    public class ToastSystemPopup : UILayerPopupBase
     {
         [SerializeField] private TextMeshProUGUI _messageText;
         [SerializeField] private Animator _animator;

@@ -1,3 +1,6 @@
+// 서버 문제 시 Mock 모드 활성화 (테스트 완료 후 주석 처리)
+#define GACHA_MOCK_MODE
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -65,6 +68,7 @@ namespace CookApps.AutoBattler
 
             if (_currentSpecGachaData == null) return;
 
+#if !GACHA_MOCK_MODE
             // 재화 검사 (ServerDataManager 사용)
             ItemId costItemId = _currentSpecGachaData.gacha_cost_item_id;
             if (!ServerDataManager.Instance.Inventory.HasEnoughCurrency(costItemId, (ulong)_currentSpecGachaData.gacha_cost))
@@ -96,6 +100,14 @@ namespace CookApps.AutoBattler
             }
 
             if (resultGachaList.Count <= 0) return;
+#else
+            // ========== MOCK MODE ==========
+            Debug.Log("[GachaBaseLayer] MOCK MODE 활성화 - 서버 호출 생략");
+
+            var resultGachaList = GenerateMockGachaResult(gachaCountType);
+            await UniTask.Delay(500); // 서버 응답 시뮬레이션
+            // ================================
+#endif
 
             bool isOneTime = gachaCountType == GachaCountType.ONE;
             var handle = Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01");
@@ -123,5 +135,47 @@ namespace CookApps.AutoBattler
                     break;
             }
         }
+
+#if GACHA_MOCK_MODE
+        /// <summary>
+        /// Mock 가챠 결과 생성 (서버 문제 시 테스트용)
+        /// </summary>
+        private List<RewardItem> GenerateMockGachaResult(GachaCountType gachaCountType)
+        {
+            var result = new List<RewardItem>();
+
+            // 캐릭터 조각 ID 풀 (character_id % 10000 = 실제 캐릭터 ID)
+            // Epic 캐릭터 조각
+            int[] epicPieceIds = { 1032101, 1032102, 1032201, 1032202, 1032301, 1032302, 1032401, 1032501 };
+            // Legendary 캐릭터 조각 (SSR 연출 테스트용)
+            int[] legendaryPieceIds = { 1053101, 1053102, 1053103, 1053201, 1053301, 1053302, 1053303, 1053401 };
+
+            int count = gachaCountType == GachaCountType.ONE ? 1 : 10;
+
+            for (int i = 0; i < count; i++)
+            {
+                int pieceId;
+                int pieceCount;
+
+                // 10% 확률로 레전더리
+                if (UnityEngine.Random.value < 0.1f)
+                {
+                    pieceId = legendaryPieceIds[UnityEngine.Random.Range(0, legendaryPieceIds.Length)];
+                    pieceCount = 20; // 신규 캐릭터 획득
+                }
+                else
+                {
+                    pieceId = epicPieceIds[UnityEngine.Random.Range(0, epicPieceIds.Length)];
+                    pieceCount = UnityEngine.Random.value < 0.3f ? 20 : UnityEngine.Random.Range(5, 15);
+                }
+
+                result.Add(new RewardItem(pieceId, pieceCount));
+
+                Debug.Log($"[Mock Gacha] [{i}] PieceId: {pieceId}, Count: {pieceCount}");
+            }
+
+            return result;
+        }
+#endif
     }
 }

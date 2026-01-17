@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    public class ChapterClearWindowPopup : UILayer
+    public class ChapterClearWindowPopup : UILayerPopupBase
     {
         [SerializeField] private CAButton _getRewardButton;
         [SerializeField] private TextMeshProUGUI _chapterClearTitleText;

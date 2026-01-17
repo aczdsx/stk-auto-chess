@@ -14,21 +14,21 @@ namespace CookApps.AutoBattler
         CommonCharacter,
         PickUpCharacter,
     }
-    
-    public class GachaPopup : UILayer
+
+    public class GachaPopup : UILayerPopupBase
     {
         [SerializeField] private CAButton _backButton;
 
         [Header("Gacha Tabs")]
         [SerializeField] private CAToggle _gachaCommonCharacterTabToggle;
         [SerializeField] private CAToggle _gachaPickUpCharacterTabToggle;
-        
+
         [Header("Gacha Layers")]
         [SerializeField] private GachaCommonCharacterLayer _gachaCommonCharacterLayer;
         [SerializeField] private GachaPickUpCharacterLayer _gachaPickUpCharacterLayer;
-        
+
         private GachaPopupTabType _currentTabType = GachaPopupTabType.CommonCharacter;
-        
+
         protected override void Awake()
         {
             base.Awake();
@@ -50,11 +50,11 @@ namespace CookApps.AutoBattler
 
             InitTabLayer();
             ChangeTabLayer(_currentTabType);
-            
+
             // 상점 배너 팝업 체크
-            ShopPurchaseManager.Instance.UpdateShopBannerConditionValue(ShopBannerConditionType.ENTER_GACHA_POP, 0,  1, false);
+            ShopPurchaseManager.Instance.UpdateShopBannerConditionValue(ShopBannerConditionType.ENTER_GACHA_POP, 0, 1, false);
             ShopPurchaseManager.Instance.ShowShopBannerPopup(ShopBannerShowType.IMMEDIATE);
-            
+
             // test
             //DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.POPUP_OPEN, nameof(gameObject));
         }
@@ -69,17 +69,17 @@ namespace CookApps.AutoBattler
             _gachaCommonCharacterLayer.SetGachaLayer(this);
             _gachaPickUpCharacterLayer.SetGachaLayer(this);
         }
-        
+
         public void OnClickCommonCharacterLayerTabButton()
         {
             ChangeTabLayer(GachaPopupTabType.CommonCharacter);
         }
-        
+
         public void OnClickPickUpCharacterLayerTabButton()
         {
             ChangeTabLayer(GachaPopupTabType.PickUpCharacter);
         }
-        
+
         private void ChangeTabLayer(GachaPopupTabType targetTabType)
         {
             ClearTabLayer();
@@ -106,7 +106,7 @@ namespace CookApps.AutoBattler
         {
             //_gachaCommonCharacterTab.SetActive(false);
             //_gachaPickUpCharacterTab.SetActive(false);
-            
+
             _gachaCommonCharacterLayer.gameObject.SetActive(false);
             _gachaPickUpCharacterLayer.gameObject.SetActive(false);
         }

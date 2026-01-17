@@ -16,7 +16,7 @@ namespace CookApps.AutoBattler
         public RewardItem rewardItem { init; get; }
     }
 
-    public class StageDetailPopup : UILayer
+    public class StageDetailPopup : UILayerPopupBase
     {
         [SerializeField] private TMP_Text stageNameText;
         [SerializeField] private GameObject[] starObjs;

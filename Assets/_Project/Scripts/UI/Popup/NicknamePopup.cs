@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    public class NicknamePopup : UILayer
+    public class NicknamePopup : UILayerPopupBase
     {
         [Header("Common")]
         [SerializeField] private CAButton _closeButton;

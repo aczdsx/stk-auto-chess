@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
-    public class LoadingPopup : UILayer
+    public class LoadingPopup : UILayerPopupBase
     {
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] float _delayDuration = 0.8f;

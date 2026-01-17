@@ -13,7 +13,7 @@ namespace CookApps.AutoBattler
          [SerializeField] private GameObject[] SSRObjects;
         [SerializeField] private GameObject[] NormalObjects;
         [SerializeField] private List<GachaItem> GachItems;
-        private List<CharacterInfo> _datas = null;
+        private List<RewardItem> _datas = null;
         [SerializeField] private PlayableDirector pd;
         private bool isClick = false;
         private bool isSkip = false;
@@ -22,11 +22,10 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject BlockerObject;
         [SerializeField] private GameObject[] SkipParticleObjects;
 
-        public void SetItem(List<CharacterInfo> datas)
+        public void SetItem(List<RewardItem> datas)
         {
             if (datas == null)
             {
-
                 Destroy(this);
                 return;
             }
@@ -47,8 +46,19 @@ namespace CookApps.AutoBattler
 
             bool isIncludeSSR = false;
 
-            if (datas.Exists(x => x.grade_type == GradeType.LEGENDARY && x.need_piece== 20))
-                isIncludeSSR = true;
+            // SSR 캐릭터 포함 여부 확인
+            foreach (var data in datas)
+            {
+                if (data.Id.GetCharacterId(out int charId))
+                {
+                    var charInfo = SpecDataManager.Instance.GetCharacterData(charId);
+                    if (charInfo != null && charInfo.grade_type == GradeType.LEGENDARY && data.Count == 20)
+                    {
+                        isIncludeSSR = true;
+                        break;
+                    }
+                }
+            }
 
             if (isIncludeSSR == true)
             {
@@ -67,8 +77,7 @@ namespace CookApps.AutoBattler
 
             for (int i = 0; i < datas.Count; i++)
             {
-                CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(datas[i].id);
-                // GachItems[i].InitItem(idxCharcater, datas[i].piece, i);
+                GachItems[i].InitItem(datas[i]);
             }
 
             //SoundManager.Instance.StopBGM();
@@ -125,7 +134,6 @@ namespace CookApps.AutoBattler
             {
                 foreach (var obj in GachItems)
                 {
-                        // obj.ShowItem();
                     ChangeEffect(obj);
                 }
                 isClick = false;
@@ -134,35 +142,32 @@ namespace CookApps.AutoBattler
                 return;
             }
             BlockerObject.SetActive(false);
-            CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(_datas[cnt].id);
-            if (_datas[cnt].need_piece == 20)
+
+            if (!_datas[cnt].Id.GetCharacterId(out int characterId))
             {
-                if (idxCharcater.grade_type == GradeType.LEGENDARY)
+                cnt++;
+                ShowGetFX();
+                return;
+            }
+
+            CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(characterId);
+            if (_datas[cnt].Count == 20)
+            {
+                if (idxCharcater != null && idxCharcater.grade_type == GradeType.LEGENDARY)
                 {
                     fx = AddressablesUtil.Instantiate("GetNewCharacter");
-                    fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt], ShowGetFX);
+                    fx.GetComponent<GetNewCharacter>().SetChracater(idxCharcater, ShowGetFX);
                 }
                 else
                 {
-                    if (idxCharcater.need_piece == 0 /*&& idxCharcater.Level == 1*/)
-                    {
-                        fx = AddressablesUtil.Instantiate("GetNewCharacter");
-                        fx.GetComponent<GetNewCharacter>().SetChracater(_datas[cnt], ShowGetFX);
-                    }
-                    else
-                    {
-                        fx = AddressablesUtil.Instantiate("GetNewCharacter");
-                        fx.GetComponent<GetNewCharacter>().SetPiece(_datas[cnt],_datas[cnt].need_piece, ShowGetFX);
-
-                    }
+                    fx = AddressablesUtil.Instantiate("GetNewCharacter");
+                    fx.GetComponent<GetNewCharacter>().SetChracater(idxCharcater, ShowGetFX);
                 }
-
             }
             else
             {
                 fx = AddressablesUtil.Instantiate("GetNewCharacter");
-                fx.GetComponent<GetNewCharacter>().SetPiece(_datas[cnt],_datas[cnt].need_piece, ShowGetFX);
-
+                fx.GetComponent<GetNewCharacter>().SetPiece(idxCharcater, _datas[cnt].Count, ShowGetFX);
             }
 
             cnt++;

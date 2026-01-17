@@ -18,7 +18,7 @@ namespace CookApps.AutoBattler
         HEAL,
     }
 
-    public class BattleStatisticsPopup : UILayer
+    public class BattleStatisticsPopup : UILayerPopupBase
     {
         private const int STATISTICS_UPDATE_TIME = 300; // 밀리 세컨즈
 

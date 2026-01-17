@@ -11,7 +11,7 @@ namespace CookApps.AutoBattler
     /// <summary>
     /// 인게임 시너지 미니 팝업 - 시너지 아이콘 클릭 시 표시
     /// </summary>
-    public class SynergyTooltipInGamePopup : UILayer
+    public class SynergyTooltipInGamePopup : UILayerPopupBase
     {
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private CAButton _dimLayerButton;

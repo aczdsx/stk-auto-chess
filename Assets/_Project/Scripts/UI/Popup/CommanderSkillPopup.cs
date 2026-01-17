@@ -11,7 +11,7 @@ using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
 {
-    public class CommanderSkillPopup : UILayer
+    public class CommanderSkillPopup : UILayerPopupBase
     {
         public int Index => _index;
         [SerializeField] private CAButton _closeButton;

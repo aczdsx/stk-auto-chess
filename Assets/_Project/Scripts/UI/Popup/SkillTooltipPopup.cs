@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    public class SkillTooltipPopup : UILayer
+    public class SkillTooltipPopup : UILayerPopupBase
     {
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private CAButton _dimButton;

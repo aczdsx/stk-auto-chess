@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    public class SessionTimeEventPopup : UILayer
+    public class SessionTimeEventPopup : UILayerPopupBase
     {
         [Header("Common")]
         [SerializeField] private CAButton _closeButton;

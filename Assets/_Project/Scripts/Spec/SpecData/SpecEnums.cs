@@ -969,6 +969,7 @@ namespace CookApps.AutoBattler
         SET_LV_CHARACTER_TARGET = 23,
         COMEBACK_HUBBLE = 24,
         NONE = 25,
+        CLOSE_POP_COMPLETE =13,
     }
 
     public enum TutorialActionType

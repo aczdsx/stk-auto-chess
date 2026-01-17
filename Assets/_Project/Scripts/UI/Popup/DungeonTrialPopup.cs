@@ -21,7 +21,7 @@ namespace CookApps.AutoBattler
         DUNGEON_INFO,
     }
 
-    public class DungeonTrialPopup : UILayer
+    public class DungeonTrialPopup : UILayerPopupBase
     {
         [Header("Common")]
         [SerializeField] private CAButton _closeButton;

@@ -12,7 +12,7 @@ namespace CookApps.AutoBattler
         SKILL,
     }
 
-    public class CharacterCollectionPopup : UILayer
+    public class CharacterCollectionPopup : UILayerPopupBase
     {
         [SerializeField] private GameObject _dimmedBGLayerObject;
 

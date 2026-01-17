@@ -22,7 +22,7 @@ namespace CookApps.AutoBattler
         }
     }
 
-    public class SystemConfirmPopup : UILayer
+    public class SystemConfirmPopup : UILayerPopupBase
     {
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private CAButton _cancelButton;

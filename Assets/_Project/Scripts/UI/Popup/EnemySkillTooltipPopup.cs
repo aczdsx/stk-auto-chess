@@ -7,7 +7,7 @@ using CookApps.TeamBattle;
 
 namespace CookApps.AutoBattler
 {
-    public class EnemySkillTooltipPopup : UILayer
+    public class EnemySkillTooltipPopup : UILayerPopupBase
     {
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private CAButton _dimButton;

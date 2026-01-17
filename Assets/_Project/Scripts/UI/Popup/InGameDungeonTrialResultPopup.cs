@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
         }
     }
 
-    public class InGameDungeonTrialResultPopup : UILayer
+    public class InGameDungeonTrialResultPopup : UILayerPopupBase
     {
         [SerializeField] private CAButton _exitButton;
         [SerializeField] private CAButton _nextStageButton;

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
-    public class RewardResultPopup : UILayer
+    public class RewardResultPopup : UILayerPopupBase
     {
         [SerializeField] private CAButton _okButton;
         [SerializeField] private TextMeshProUGUI _titleText;

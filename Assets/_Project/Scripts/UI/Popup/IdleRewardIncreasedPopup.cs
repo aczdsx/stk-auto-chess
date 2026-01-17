@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
-    public class IdleRewardIncreasedPopup : UILayer
+    public class IdleRewardIncreasedPopup : UILayerPopupBase
     {
         [SerializeField] private TextMeshProUGUI _coinText;
         [SerializeField] private TextMeshProUGUI _expText;

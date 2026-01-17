@@ -8,7 +8,7 @@ using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 
-public class ElpisCommandCenterResultPopup : UILayer
+public class ElpisCommandCenterResultPopup : UILayerPopupBase
 {
     [SerializeField] private CAButton closeButton;
     [SerializeField] private TextMeshProUGUI levelText;
