@@ -28,6 +28,9 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     private InGameVfx _supernovaApplyVfx;
     private const string NOT_SUPERNOVA_TYPE_TOKEN = "NOT_SUPERNOVA_TYPE";
     private const string NOT_SUPERNOVA_ITEM_APPLY = "NOT_SUPERNOVA_ITEM_APPLY";
+    
+    // 배틀 아이템 등록 전에 ApplySupernovaItemBySavedCharacterId가 호출된 경우 예약
+    private bool _isApplyReserved = false;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -47,6 +50,92 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             _supernovaApplyVfx = InGameVfxManager.Instance.AddInGameVfx(GetSupernovaVfxName(_synergyGrade), _targetCharacter.SkillRootTransformFollowable);
         }
 
+    }
+
+    public override void OnFlowStateStageReadyStart()
+    {
+        base.OnFlowStateStageReadyStart();
+        ApplySupernovaItemBySavedCharacterId();
+    }
+
+    /// <summary>
+    /// 저장된 슈퍼노바 캐릭터 ID로 슈퍼노바 아이템을 자동 적용
+    /// 배틀 아이템이 아직 등록되지 않았다면 예약하고, 등록 완료 시 자동 적용
+    /// </summary>
+    public void ApplySupernovaItemBySavedCharacterId()
+    {
+        var deckData = ServerDataManager.Instance.Deck.GetDeck(InGameType.STAGE);
+        if (deckData == null)
+            return;
+
+        var additionalData = deckData.GetAdditionalData();
+        if (additionalData == null || additionalData.supernovaCharacterId == 0)
+            return;
+
+        // 저장된 캐릭터 ID로 캐릭터 찾기
+        var characterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
+        CharacterController targetCharacter = null;
+
+        foreach (var charCtrl in characterList)
+        {
+            if (charCtrl != null && charCtrl.CharacterId == additionalData.supernovaCharacterId)
+            {
+                // 슈퍼노바 타입인지 확인
+                if (charCtrl.SpecCharacter.character_stella_type == SynergyType.SUPERNOVA)
+                {
+                    targetCharacter = charCtrl;
+                    break;
+                }
+            }
+        }
+
+        if (targetCharacter == null)
+            return;
+
+        // 슈퍼노바 배틀 아이템 찾기 (모든 등급 확인)
+        CharacterController battleItem = null;
+
+        int battleItemId = (int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA;
+        var battleItemList = InGameSynergyManager.Instance.GetBattleItemList(battleItemId);
+        if (battleItemList != null && battleItemList.Count > 0)
+        {
+            // ITEM_DRAG_DROP 상태인 아이템 찾기
+            var itemInfoList = InGameSynergyManager.Instance.GetBattleItemInfoList(battleItemId);
+            if (itemInfoList != null)
+            {
+                foreach (var itemInfo in itemInfoList)
+                {
+                    if (itemInfo.itemState == InGameBattleItemDragDropComponent.ItemState.ITEM_DRAG_DROP)
+                    {
+                        battleItem = itemInfo.targetObj;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // 배틀 아이템이 없으면 예약만 하고 나중에 처리
+        if (battleItem == null)
+        {
+            _isApplyReserved = true;
+            return;
+        }
+
+        // 배틀 아이템이 있으면 즉시 적용
+        InGameSynergyManager.Instance.ApplyBattleItem(battleItem, targetCharacter);
+        _isApplyReserved = false;
+    }
+    
+    /// <summary>
+    /// 예약된 아이템 적용 작업 실행
+    /// </summary>
+    private void ExecuteReservedApply()
+    {
+        if (!_isApplyReserved)
+            return;
+            
+        _isApplyReserved = false;
+        ApplySupernovaItemBySavedCharacterId();
     }
 
     private async void AddGameObjectSuperNovaItem(IEffectCodeSource source)
@@ -77,6 +166,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         var statData = new CharacterStatData(battleItemId, 1, 1, 1);
         var character = await InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Neutral,
             typeof(CharacterStateReady), false, HpBarType.None);
+
         var ecc = character.GetEffectCodeContainer();
         ecc.AddOrMergeEffectCode(new EffectCodeInfo((int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA_DRAGGING_EFFECT, 0, Span<double>.Empty), source);
 
@@ -95,6 +185,9 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             tutorialTarget.SetTargetId("SupernovaItemTile_11");
         }
         InGameSynergyManager.Instance.RegisterBattleItem(itemInfo);
+        
+        // 배틀 아이템 등록 완료 후 예약된 적용 작업 실행
+        ExecuteReservedApply();
     }
 
     public override void OnCombatStart()
@@ -123,6 +216,8 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             }
         }
     }
+
+
     private void AddHpPercentUp(CharacterController targetCharacter, IEffectCodeSource source, List<ISpecSynergyData> supernovaSynergyList)
     {
 
@@ -258,12 +353,8 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             ToastManager.Instance.ShowToastByTokenKey(NOT_SUPERNOVA_TYPE_TOKEN);
             return false;
         }
-
-        
         return true;
     }
-    
-
     public bool OnItemCheckCharacterAffected(CharacterController targetCharacter)
     {
         if (targetCharacter == null || _targetCharacter == null)

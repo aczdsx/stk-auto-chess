@@ -216,6 +216,11 @@ namespace CookApps.BattleSystem
         {
         }
 
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnFlowStateStageReadyStart)]
+        public virtual void OnFlowStateStageReadyStart()
+        {
+        }
+
         #endregion
 
         /// <summary>
@@ -606,6 +611,14 @@ namespace CookApps.BattleSystem
             if (x is EffectCodeCharacterBase code)
             {
                 code.OnCharacterDraggingEnd();
+            }
+        };
+
+        public static Action<EffectCodeStatBase> CallOnFlowStateStageReadyStartLambda = x =>
+        {
+            if (x is EffectCodeCharacterBase code)
+            {
+                code.OnFlowStateStageReadyStart();
             }
         };
     }

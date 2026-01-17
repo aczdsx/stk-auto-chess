@@ -165,13 +165,18 @@ namespace CookApps.BattleSystem
             var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
             _teamEcc.AddOrMergeEffectCode(effectCodeInfo, null, allianceType);
         }
+        public void OnFlowStateStageReadyStart()
+        {
+            var codes = _teamEcc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnFlowStateStageReadyStart);
+            EffectCodeForLoopHelper.Call(codes, EffectCodeCharacterLambda.CallOnFlowStateStageReadyStartLambda);
+        }
 
         public void RemoveSynergyTeamOnce(AllianceType allianceType, SynergyType synergyType)
         {
             var synergyList = SpecDataManager.Instance.GetSpecSynergyList(synergyType);
             if (synergyList == null || synergyList.Count == 0)
                 return;
-        
+
             _teamEcc.RemoveEffectCode(synergyList[0].synergy_group_id, allianceType);
         }
 

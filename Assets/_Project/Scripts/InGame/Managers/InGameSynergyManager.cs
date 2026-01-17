@@ -393,6 +393,10 @@ namespace CookApps.BattleSystem
         {
             return _itemComponent.ApplyBattleItem(itemObj, targetObj);
         }
+        public List<InGameBattleItemDragDropComponent.InGameBattleItemInfo> GetBattleItemInfoList(int prefab_id)
+        {
+            return _itemComponent.GetBattleItemInfoList(prefab_id);
+        }
         public bool IsRegisteredBattleItem(int prefab_id)
         {
             return _itemComponent.IsRegisteredBattleItem(prefab_id);
