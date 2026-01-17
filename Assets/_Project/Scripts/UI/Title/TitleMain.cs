@@ -43,7 +43,7 @@ namespace CookApps.AutoBattler
         {
             await UniTask.NextFrame();
 
-            var tasks = new []
+            var tasks = new[]
             {
                 SceneTransition.FadeOutAsync(),
                 LanguageManager.Instance.InitializeAsync(),
@@ -116,8 +116,7 @@ namespace CookApps.AutoBattler
 
                 // 초반 플로우 체크 및 진행
                 var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
-                // if (ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
-                if (false)
+                if (ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
                 {
                     // SceneLoading.GoToNextScene("InGame",
                     //     (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), lastTutoStageData.stage_id));
@@ -128,7 +127,7 @@ namespace CookApps.AutoBattler
                         InGameType.PROLOGUE,
                         new InGameMainStatePrologue(),
                         0);
-                    
+
                     SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
                     return;
                 }

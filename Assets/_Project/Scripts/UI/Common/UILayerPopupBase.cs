@@ -14,6 +14,7 @@ namespace CookApps.AutoBattler
 
             if (TutorialManager.Instance != null)
             {
+                Debug.Log($"[UILayerPopupBase] OnPostEnter: {GetType().Name}");
                 TutorialManager.Instance.HandleTutorialAction(
                     TutorialTriggerType.SHOW_POP_COMPLETE,
                     GetType().Name);
@@ -26,6 +27,7 @@ namespace CookApps.AutoBattler
 
             if (TutorialManager.Instance != null)
             {
+                Debug.Log($"[UILayerPopupBase] OnPostExit: {GetType().Name}");
                 TutorialManager.Instance.HandleTutorialAction(
                     TutorialTriggerType.CLOSE_POP_COMPLETE,
                     GetType().Name);
