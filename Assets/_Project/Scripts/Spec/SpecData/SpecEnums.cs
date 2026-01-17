@@ -40,6 +40,7 @@ namespace CookApps.AutoBattler
         DEF_PERCENT_UP = 29,
         DEF_UP = 30,
         BATTLE_ITEM_SUPERNOVA = 96101,
+        BATTLE_ITEM_SUPERNOVA_DRAGGING_EFFECT = 96102,
         BATTLE_ITEM_DYNAMITE = 96201,
         BATTLE_ITEM_SUPPLY = 96301,
         DROPPING_BOMBS = 96401,
@@ -964,6 +965,10 @@ namespace CookApps.AutoBattler
         END_TUTORIAL = 19,
         SKILL_IN_SLOT = 20,
         COMMENDER_SKILL_ACTIVE = 21,
+        SHOW_POP_COMPLETE = 22,
+        SET_LV_CHARACTER_TARGET = 23,
+        COMEBACK_HUBBLE = 24,
+        NONE = 25,
     }
 
     public enum TutorialActionType

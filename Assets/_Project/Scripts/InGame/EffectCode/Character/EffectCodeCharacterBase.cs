@@ -351,6 +351,16 @@ namespace CookApps.BattleSystem
         {
         }
 
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnCharacterDragging)]
+        public virtual void OnCharacterDragging()
+        {
+        }
+
+        [AssignEffectCodeFlag(EffectCodeInheritFlag.UseOnCharacterDraggingEnd)]
+        public virtual void OnCharacterDraggingEnd()
+        {
+        }
+
 
 
         #endregion
@@ -583,6 +593,20 @@ namespace CookApps.BattleSystem
             }
         };
 
+        public static Action<EffectCodeStatBase> CallOnCharacterDraggingLambda = x =>
+        {
+            if (x is EffectCodeCharacterBase code)
+            {
+                code.OnCharacterDragging();
+            }
+        };
 
+        public static Action<EffectCodeStatBase> CallOnCharacterDraggingEndLambda = x =>
+        {
+            if (x is EffectCodeCharacterBase code)
+            {
+                code.OnCharacterDraggingEnd();
+            }
+        };
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -266,6 +266,13 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameTileView ingameTileView = hit.transform.GetComponent<InGameTileView>();
             if (ingameTileView == null)
                 return;
+
+            var ecc = _selectedCharacterController.GetEffectCodeContainer();
+            if (ecc != null)
+            {
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCharacterDragging);
+                EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCharacterDraggingLambda);
+            }
 
             // 타일 변경 조건 체크
             bool canMoveToTile = CanMoveToTile(ingameTileView, isBattleItem);
@@ -728,6 +735,14 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         if (_selectedCharacterController != null)
         {
+            // 드래그 종료 콜백 호출
+            var ecc = _selectedCharacterController.GetEffectCodeContainer();
+            if (ecc != null)
+            {
+                var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCharacterDraggingEnd);
+                EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCharacterDraggingEndLambda);
+            }
+
             _isDragFromUI = false;  // 플래그 초기화
 
             // 튜토리얼 캐릭터 배치 완료 알림 (타일이 변경되었을 때만)

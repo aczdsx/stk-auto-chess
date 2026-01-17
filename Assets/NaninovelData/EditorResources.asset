@@ -977,15 +977,6 @@ MonoBehaviour:
     - name: Localization/ko/Scripts/4-5(1)
       pathPrefix: Scripts
       guid: 8fc622bffb4b3a948a8ba2ba1340e7f0
-    - name: "Localization/en/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
-      pathPrefix: Scripts
-      guid: ba7dd6f0859fa4db3947984897040255
-    - name: "Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
-      pathPrefix: Scripts
-      guid: 54becdc6deb5141ccb3b49c78cf0b0d5
-    - name: "Localization/ko/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
-      pathPrefix: Scripts
-      guid: 0a019d8da6bb44bccae259e9520de6c6
     - name: Scripts/Chapter0_01
       pathPrefix: Scripts
       guid: de62e71d7323a8c47bf07f7fe3dd12f2
@@ -1109,6 +1100,15 @@ MonoBehaviour:
     - name: Scripts/Chapter1_14
       pathPrefix: Scripts
       guid: 1388e2cffa70dad44a0c0095cb754ad6
+    - name: "Localization/en/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C3"
+      pathPrefix: Scripts
+      guid: ba7dd6f0859fa4db3947984897040255
+    - name: "Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C3"
+      pathPrefix: Scripts
+      guid: 54becdc6deb5141ccb3b49c78cf0b0d5
+    - name: "Localization/ko/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C3"
+      pathPrefix: Scripts
+      guid: 0a019d8da6bb44bccae259e9520de6c6
   - Id: CharacterAvatars
     Resources: []
   - Id: Characters/97730980-6691-4698-b6da-9388d226f1d6

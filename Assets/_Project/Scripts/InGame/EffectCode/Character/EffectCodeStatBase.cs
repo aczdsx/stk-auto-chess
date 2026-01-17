@@ -44,29 +44,31 @@ namespace CookApps.BattleSystem
         #endregion
 
         #region Event
-        UseOnUpdate = 1L << 40,
-        UseOnAttack = 1L << 41,
-        UseOnCooltime = 1L << 42,
-        UseOnKill = 1L << 43,
-        UseOnHealed = 1L << 44,
-        UseOnDamaged = 1L << 45,
-        UseOnCritical = 1L << 46,
-        UseIsReadyToActivate = 1L << 47,
-        UseIsUseNormalAttack = 1L << 48,
-        UseOnDead = 1L << 49,
-        UseModifyDamageAmount = 1L << 50,
-        UseModifyHealAmount = 1L << 51,
-        UseModifyShieldAmount = 1L << 52,
-        UseOnSkill = 1L << 53,
-        UseOnCombatStart = 1L << 54,
-        UseOnAttackEnd = 1L << 55,
-        UseAddSkillCooltime = 1L << 56,
-        UseModifyDamageTestFlags = 1L << 57,// 데미지 테스트 중에 스킵하고 싶은 로직이 있다면 해당 함수 오버라이딩
-        UseOnHpChange = 1L << 58,// 체력 변동 시 호출되는 함수
-        UseOnCanceledCC = 1L << 59,// CC가 이뮨에 의해 캔슬되었을 때 호출되는 함수
-        UseOnStateNormalAttackDamageEvent = 1L << 60,// 일반 공격 상태에서 데미지 이벤트 시 호출되는 함수 이걸로 데미지를 부여해야한다
+        UseOnUpdate = 1L << 35,
+        UseOnAttack = 1L << 36,
+        UseOnCooltime = 1L << 37,
+        UseOnKill = 1L << 38,
+        UseOnHealed = 1L << 39,
+        UseOnDamaged = 1L << 40,
+        UseOnCritical = 1L << 41,
+        UseIsReadyToActivate = 1L << 42,
+        UseIsUseNormalAttack = 1L << 43,
+        UseOnDead = 1L << 44,
+        UseModifyDamageAmount = 1L << 45,
+        UseModifyHealAmount = 1L << 46,
+        UseModifyShieldAmount = 1L << 47,
+        UseOnSkill = 1L << 48,
+        UseOnCombatStart = 1L << 49,
+        UseOnAttackEnd = 1L << 50,
+        UseAddSkillCooltime = 1L << 51,
+        UseModifyDamageTestFlags = 1L << 52,// 데미지 테스트 중에 스킵하고 싶은 로직이 있다면 해당 함수 오버라이딩
+        UseOnHpChange = 1L << 53,// 체력 변동 시 호출되는 함수
+        UseOnCanceledCC = 1L << 54,// CC가 이뮨에 의해 캔슬되었을 때 호출되는 함수
+        UseOnStateNormalAttackDamageEvent = 1L << 55,// 일반 공격 애니메이션 이벤트로 처리하고 싶을때 호출되는 함수 StateAttackAnimEventDamage에서 호출된다
+        UseOnCharacterDragging = 1L << 56,// 캐릭터 드래그 중일 때 호출되는 함수
+        UseOnCharacterDraggingEnd = 1L << 57,// 캐릭터 드래그 종료 시 호출되는 함수
         #endregion
-        MAX = 1L << 62,
+        MAX = 1L << 58,
     };
 
     public static class EffectCodeInheritFlagExtensions
