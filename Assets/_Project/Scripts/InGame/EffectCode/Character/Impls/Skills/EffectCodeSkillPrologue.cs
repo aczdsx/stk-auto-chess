@@ -138,13 +138,10 @@ public partial class EffectCodeSkill297550013 : EffectCodeCharacterBase
         Unity.Mathematics.int2 prevTileIdx = new (centerTile.Int2Index.x, centerTile.Int2Index.y -1);
         var prevTile = InGameObjectManager.Instance.InGameGrid.GetTile(prevTileIdx);
         // 중심 타일 VFX 생성
-        InGameVfx vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_prologue_shield_01, prevTile.View.CachedTr.position);
-        
-        // // 영역 타일들에 타일 이펙트 표시
-        // foreach (var areaTile in areaTiles)
-        // {
-        //     InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, areaTile);
-        // }
+        foreach (var ally in InGameObjectManager.Instance.GetCharacterList(owner.AllianceType))
+        {
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_prologue_shield_01, ally.SkillRootTransformFollowable);
+        }
     }
     public override float AddSkillCooltime(float cooltime)
     {

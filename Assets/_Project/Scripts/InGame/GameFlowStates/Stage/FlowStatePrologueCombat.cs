@@ -636,7 +636,6 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 아트레시아 0.5초 대기 후 마녀 공격
         if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
         {
-            artesiaChargeVFX.Remove();
             artesiaChargeVFX = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_aura_01, _artesiaCharacter.SkillRootTransformFollowable);
             await UniTask.Delay(500);
             _artesiaCharacter.AddNextState<CharacterStateIdle>();
@@ -684,6 +683,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // [TODO] 초신성 모드 활성화 (버프/이펙트 등)
         if (_artesiaCharacter != null)
         {
+            artesiaChargeVFX.Remove();
             artesiaChargeVFX = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_aura_03, _artesiaCharacter.SkillRootTransformFollowable);
         }
 
