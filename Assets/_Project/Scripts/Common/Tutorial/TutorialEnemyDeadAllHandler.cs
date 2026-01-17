@@ -28,8 +28,8 @@ namespace CookApps.AutoBattler
 
         // 슬로우 모션 설정
         private const float SLOWMO_DURATION = 2.0f;  // 슬로우 모션 지속 시간
-        private const float SLOWMO_START_SPEED = 0.5f;  // 시작 속도
-        private const float SLOWMO_END_SPEED = 0.1f;   // 최종 속도
+        private const float SLOWMO_START_SPEED = 0.7f;  // 시작 속도
+        private const float SLOWMO_END_SPEED = 0.4f;   // 최종 속도
 
         /// <summary>
         /// ENEMY_DEAD_ALL 튜토리얼을 처리합니다.
@@ -70,7 +70,7 @@ namespace CookApps.AutoBattler
             _originalPlaySpeed = InGameMainFlowManager.Instance.FastForwardRate;
             Debug.LogColor($"[TutorialEnemyDeadAllHandler] 슬로우 모션 시작 (원래 속도: {_originalPlaySpeed})", "yellow");
 
-            // 슬로우 모션 효과 (점진적으로 느려짐)
+            // 슬로우 모션 효과 (점진적으로 느려짐)\
             float elapsed = 0f;
             while (elapsed < SLOWMO_DURATION)
             {

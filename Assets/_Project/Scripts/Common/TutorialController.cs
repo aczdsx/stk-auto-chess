@@ -165,17 +165,24 @@ public class TutorialController : MonoBehaviour
         // 이전 전략 OnClear 호출 (전략 교체 시)
         _currentStrategy?.OnClear(_actionContext);
 
+        // SHOW_DIALOGUE_POP에서 비활성화된 Canvas 복구
+        if (_tutorialCanvas != null && !_tutorialCanvas.enabled)
+        {
+            _tutorialCanvas.enabled = true;
+        }
+
         CurrentSpecTutorial = specTutorial;
         _actionContext.CurrentTutorial = specTutorial;
 
         _nextObj.SetActive(false);
         _actionContext.TargetUnmaskObj = null;
 
-        // TOAST_MESSAGE 타입은 말풍선 숨김
-        bool isToastMessage = CurrentSpecTutorial.tutorial_action_type == TutorialActionType.TOAST_MESSAGE;
-        _bodyRectTransform.gameObject.SetActive(!isToastMessage);
+        // TOAST_MESSAGE, SHOW_DIALOGUE_POP 타입은 말풍선 숨김
+        bool hideDialogueBubble = CurrentSpecTutorial.tutorial_action_type == TutorialActionType.TOAST_MESSAGE ||
+                                   CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP;
+        _bodyRectTransform.gameObject.SetActive(!hideDialogueBubble);
 
-        if (!isToastMessage)
+        if (!hideDialogueBubble)
         {
             // 텍스트 설정
             // string tutorialText = LanguageManager.Instance.GetDefaultText(CurrentSpecTutorial.desc_key);
@@ -223,12 +230,24 @@ public class TutorialController : MonoBehaviour
             TutorialActionMoveObject.OnMoveObjectCompleted = OnMoveObjectCompleted;
         }
 
-        // SHOW_DIALOGUE_POP 전략일 경우 팝업 표시 후 바로 다음으로 진행
+        // SHOW_DIALOGUE_POP 전략일 경우 다이얼로그 완료 콜백 설정
         if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP)
         {
             Debug.LogColor($"SHOW_DIALOGUE_POP: {CurrentSpecTutorial.tutorial_action_key}", "green");
-            ProceedToNext();
+            TutorialActionShowDialoguePop.OnDialogueCompleted = OnDialoguePopCompleted;
         }
+    }
+
+    /// <summary>
+    /// 다이얼로그 팝업 완료 시 호출되는 콜백
+    /// </summary>
+    private void OnDialoguePopCompleted()
+    {
+        // 콜백 해제
+        TutorialActionShowDialoguePop.OnDialogueCompleted = null;
+
+        // 다음 튜토리얼로 진행
+        ProceedToNext();
     }
 
     /// <summary>
