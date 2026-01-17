@@ -205,6 +205,10 @@ namespace CookApps.AutoBattler
                     }).Forget();
                 }
             }
+            else
+            {
+                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.DIALOGUE_POP_END, _dialogueGroupID.ToString());
+            }
 
             // 다이얼로그 히스토리 데이터 추가 및 저장
             ClientDataManager.Instance.GetData<ClientProgressData>(ClientProgressData.CategoryName).AddCompleteDialogueId(_dialogueGroupID);

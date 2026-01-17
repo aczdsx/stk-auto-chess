@@ -77,7 +77,7 @@ namespace CookApps.BattleSystem
             public UpdateEventHandler handler;
         };
 
-        private List<HandlerWithPriority> updateHandlers = new ();
+        private List<HandlerWithPriority> updateHandlers = new();
         private bool isDirtyUpdateHandlers;
 
         private void Update()
@@ -157,7 +157,7 @@ namespace CookApps.BattleSystem
             fastForwardRate = speed;
             Tween.GlobalTimeScale(fastForwardRate, new TweenSettings());
         }
-        
+
         public void SetInGameSpeed(bool isSpeedUp)
         {
             if (isSpeedUp)
@@ -172,8 +172,8 @@ namespace CookApps.BattleSystem
 
         public void AddUpdateListener(int priority, UpdateEventHandler handler)
         {
-            updateHandlers.Add(new HandlerWithPriority {priority = priority, handler = handler});
-            isDirtyUpdateHandlers = true; 
+            updateHandlers.Add(new HandlerWithPriority { priority = priority, handler = handler });
+            isDirtyUpdateHandlers = true;
         }
 
         public void RemoveUpdateListener(UpdateEventHandler handler)
@@ -192,7 +192,7 @@ namespace CookApps.BattleSystem
         #region Managing late update loop
         private ObfuscatorFloat prevLateProcessingTime;
         private ObfuscatorFloat lateDeltaTime;
-        private List<HandlerWithPriority> lateUpdateHandlers = new ();
+        private List<HandlerWithPriority> lateUpdateHandlers = new();
         private bool isDirtyLateUpdateHandlers;
 
         private void LateUpdate()
@@ -257,7 +257,7 @@ namespace CookApps.BattleSystem
 
         public void AddLateUpdateListener(int priority, UpdateEventHandler handler)
         {
-            lateUpdateHandlers.Add(new HandlerWithPriority {priority = priority, handler = handler});
+            lateUpdateHandlers.Add(new HandlerWithPriority { priority = priority, handler = handler });
             isDirtyLateUpdateHandlers = true;
         }
 
@@ -277,7 +277,7 @@ namespace CookApps.BattleSystem
         #region Managing game flow
         private StateBase flowState;
         public StateBase CurrentFlowState => flowState;
-        private Queue<StateBase> nextStates = new ();
+        private Queue<StateBase> nextStates = new();
 
         public delegate void GameFlowChangedCallback(StateBase flowState);
 

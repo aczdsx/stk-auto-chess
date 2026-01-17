@@ -1625,7 +1625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9761b5fa6930744c1bdf307a8b19e2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetId: s
+  _targetId: SummonBtn
 --- !u!224 &4641896553869084938 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5525257302575580314, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
