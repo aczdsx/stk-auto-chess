@@ -323,6 +323,12 @@ public class FlowStateStageReady : StateReadyBase
             }
         }
 
+
+        var supernovaList = InGameSynergyManager.Instance.GetBattleItemList((int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA);
+        if (supernovaList is not null && supernovaList.Count > 0)
+        {
+            additionalData.supernovaCharacterId = supernovaList[0].SpecCharacter.id;
+        }
         // STAGE의 덱 슬롯 ID는 1
         await NetManager.Instance.Deck.SaveAsync((int)InGameType.STAGE, string.Empty, characterPlacements, clientData: additionalData.ToGrpcData());
     }

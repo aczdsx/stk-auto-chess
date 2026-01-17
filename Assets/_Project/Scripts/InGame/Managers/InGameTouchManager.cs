@@ -737,8 +737,9 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         {
             // 드래그 종료 콜백 호출
             var ecc = _selectedCharacterController.GetEffectCodeContainer();
-            if (ecc != null)
+            if (ecc != null && ecc.EffectCodes is not null)
             {
+                
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCharacterDraggingEnd);
                 EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCharacterDraggingEndLambda);
             }
