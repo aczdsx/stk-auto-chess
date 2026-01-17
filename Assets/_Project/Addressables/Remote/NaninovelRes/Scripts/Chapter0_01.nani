@@ -42,7 +42,7 @@ atresia_00: (화들짝 놀라며) 관측자님! 정신이 드시나요?!
 Narrator: 차가운 금속 바닥. 뺨에 닿는 감촉이 생생하다. 적색 비상등이 깜빡이며 혼란을 가중한다. 선혈의 냄새와, 부서진 파이프에서 새어 나오는 매캐한 연기가 폐부를 찌른다.
 @choice "\"……여기는?\""
 @stop
-@back bg_abandoned_hospital_02 time:0.8 transition:Crossfade
+@back bg_brokenship_01 time:0.8 transition:Crossfade
 
 ;(깨어난 것을 보고, 진심으로 안도하며)
 atresia_00:  휴. 다행이네요. 큰 상처는 없는 것 같아요.
