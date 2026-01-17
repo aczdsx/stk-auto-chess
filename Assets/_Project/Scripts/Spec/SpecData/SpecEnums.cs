@@ -1011,7 +1011,7 @@ namespace CookApps.AutoBattler
 
     public enum NaninovelTriggerType
     {
-        SCENE_ENTER = 0,
+        NONE = 0,
         NANINOVEL_END = 1,
         STAGE_CLEAR_NANI = 2,
         CHAPTER_CLEAR = 3,
@@ -1022,5 +1022,6 @@ namespace CookApps.AutoBattler
         STAGE_ENTER_NANI = 8,
         ENTER_CHAPTER_NANI = 9,
         ENTER_ELPIS_NANI = 10,
+        SCENE_ENTER = 11,
     }
 }

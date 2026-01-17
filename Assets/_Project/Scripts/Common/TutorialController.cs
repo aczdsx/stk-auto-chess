@@ -180,8 +180,7 @@ public class TutorialController : MonoBehaviour
             // 텍스트 설정
             // string tutorialText = LanguageManager.Instance.GetDefaultText(CurrentSpecTutorial.desc_key);
 
-
-            _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterPieceSprite(CurrentSpecTutorial.prefab_id)).Forget();
+            _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(CurrentSpecTutorial.prefab_id)).Forget();
             string tutorialText = CurrentSpecTutorial.desc_key;
             _descText.text = tutorialText;
 
