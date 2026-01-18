@@ -1,6 +1,5 @@
-using System;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 
 /// <summary>
 ///마법사 타입 캐릭터 스킬 쿨타임 감소 속도 증가

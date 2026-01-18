@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
- 
+
 namespace MagicArsenal
 {
     public class MagicRotation : MonoBehaviour

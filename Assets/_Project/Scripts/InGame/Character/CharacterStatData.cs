@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 using Cookapps.Stkauto.V1;
 using Google.Protobuf.Collections;
 using UnityEngine;
-using Unity.Profiling;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
 namespace CookApps.AutoBattler
 {

@@ -1,5 +1,4 @@
 using CookApps.TeamBattle.UIManagements;
-using TMPro;
 using UnityEngine;
 
 namespace CookApps.AutoBattler

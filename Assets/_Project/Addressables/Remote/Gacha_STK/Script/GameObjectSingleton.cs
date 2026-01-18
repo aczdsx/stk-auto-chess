@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class GameObjectSingleton<T> : MonoBehaviour where T : Component
 {

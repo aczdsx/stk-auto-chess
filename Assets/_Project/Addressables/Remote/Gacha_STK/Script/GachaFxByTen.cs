@@ -1,16 +1,11 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using CookApps.TeamBattle;
+using System.Linq;
 using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
-using PrimeTween;
-using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Playables;
-using UnityEngine.Timeline;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace CookApps.AutoBattler

@@ -1,9 +1,9 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 public class FindTextureReferencesWindow : EditorWindow
 {
@@ -414,3 +414,4 @@ public class FindTextureReferencesWindow : EditorWindow
         return string.Join("/", path);
     }
 }
+#endif

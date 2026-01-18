@@ -6,8 +6,6 @@ using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using Google.Protobuf;
-using Tech.Hive.V1;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

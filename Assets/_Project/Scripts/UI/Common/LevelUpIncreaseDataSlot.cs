@@ -1,8 +1,7 @@
-using UnityEngine;
-using UnityEngine.UI.Extensions;
 using DG.Tweening;
 using TMPro;
-
+using UnityEngine;
+using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {

@@ -1,9 +1,8 @@
 using System;
 using System.Linq;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using UnityEngine;
+using CookApps.Obfuscator;
 
 /// <summary>
 /// 미사

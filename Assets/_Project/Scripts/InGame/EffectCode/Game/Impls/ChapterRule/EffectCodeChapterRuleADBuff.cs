@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
-using Cysharp.Threading.Tasks;
-using UnityEngine.TextCore.Text;
 
 namespace CookApps.BattleSystem
 {

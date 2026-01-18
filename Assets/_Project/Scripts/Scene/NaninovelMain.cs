@@ -1,8 +1,7 @@
 using System;
-using UnityEngine;
-using Naninovel;
-using Naninovel.Async;
 using CookApps.TeamBattle.UIManagements;
+using Naninovel;
+using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using CookApps.AutoBattler;
-using CookApps.BattleSystem;
 using CookApps.Obfuscator;
-using CookApps.TeamBattle;
 
 public static class ElementAdvantageHelper
 {

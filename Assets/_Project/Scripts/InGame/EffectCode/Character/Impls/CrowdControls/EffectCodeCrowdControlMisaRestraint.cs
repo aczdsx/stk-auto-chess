@@ -1,9 +1,6 @@
-using System.Numerics;
-using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using UnityEngine;
-using Vector3 = System.Numerics.Vector3;
+using CookApps.Obfuscator;
 
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeCrowdControlMisaRestraint : EffectCodeCharacterBase

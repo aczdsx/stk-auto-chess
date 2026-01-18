@@ -5,8 +5,6 @@ using System.IO;
 using System.Text;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle;
-using Cysharp.Text;
-using UnityEngine;
 
 namespace CookApps.BattleSystem
 {

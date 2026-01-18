@@ -1,4 +1,3 @@
-using System;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;

@@ -8,7 +8,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
-using Gradient = UnityEngine.Gradient;
 
 public class ElpisCoreItem : CachedMonoBehaviour
 {

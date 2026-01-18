@@ -5,12 +5,10 @@ using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
-using Naninovel;
 using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UniTask = Cysharp.Threading.Tasks.UniTask;
 
 namespace CookApps.AutoBattler

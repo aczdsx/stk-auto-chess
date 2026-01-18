@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using CookApps.TeamBattle;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 
 public static class EffectCodeHelper
 {

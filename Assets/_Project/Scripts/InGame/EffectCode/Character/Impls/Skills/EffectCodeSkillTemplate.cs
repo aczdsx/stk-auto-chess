@@ -1,5 +1,5 @@
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 
 /// <summary>
 ///

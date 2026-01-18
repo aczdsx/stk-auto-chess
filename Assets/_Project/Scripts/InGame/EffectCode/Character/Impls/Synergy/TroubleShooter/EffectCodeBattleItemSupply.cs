@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
-using Google.Protobuf.WellKnownTypes;
-using Unity.Mathematics;
-using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 
 namespace CookApps.BattleSystem

@@ -1,8 +1,4 @@
 using Naninovel;
-using UnityEngine;
-using CookApps.AutoBattler;
-using CookApps.TeamBattle.UIManagements;
-using Cysharp.Threading.Tasks;
 
 /// <summary>
 /// 대화 종료 버튼.

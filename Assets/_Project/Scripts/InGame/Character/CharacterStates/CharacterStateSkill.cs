@@ -1,6 +1,4 @@
-using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using UnityEngine;
 
 public class CharacterStateSkill : CharacterStateBase
 {

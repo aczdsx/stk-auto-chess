@@ -1,7 +1,5 @@
-using System;
 using R3;
 using Tech.Hive.V1;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using ClockStone;
 using CookApps.TeamBattle.UIManagements;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
 

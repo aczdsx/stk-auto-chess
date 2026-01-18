@@ -2,8 +2,8 @@ using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using TMPro;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.UI;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class InGameKillLogItem : MonoBehaviour

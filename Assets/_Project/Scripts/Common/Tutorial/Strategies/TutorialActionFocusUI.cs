@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace CookApps.AutoBattler
 {
     /// <summary>

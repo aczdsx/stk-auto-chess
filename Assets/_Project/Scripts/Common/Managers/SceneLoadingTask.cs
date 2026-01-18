@@ -1,7 +1,6 @@
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

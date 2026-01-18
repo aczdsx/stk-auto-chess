@@ -1,8 +1,8 @@
-using CookApps.AutoBattler;
-using CookApps.Obfuscator;
-using CookApps.BattleSystem;
 using System;
-using UnityEngine;
+using CookApps.AutoBattler;
+using CookApps.BattleSystem;
+using CookApps.Obfuscator;
+
 /// <summary>
 /// 물리 공격력 {0}% 마법 공격력이 {0}% 상승합니다.
 /// </summary>

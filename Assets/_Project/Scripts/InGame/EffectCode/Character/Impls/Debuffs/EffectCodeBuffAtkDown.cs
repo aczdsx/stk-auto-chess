@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;

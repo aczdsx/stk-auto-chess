@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
+
 namespace CookApps.BattleSystem
 {    /// <summary>
      /// 평타 공격시 아군중 체력이 가장 낮은 캐릭터 대상 공격력 비례 회복 적용.

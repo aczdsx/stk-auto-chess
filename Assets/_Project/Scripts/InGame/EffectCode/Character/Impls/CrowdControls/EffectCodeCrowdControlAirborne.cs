@@ -1,7 +1,6 @@
-using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using PrimeTween;
+using CookApps.Obfuscator;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 

@@ -1,8 +1,6 @@
-using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class UIObjectMover : MonoBehaviour
 {

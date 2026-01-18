@@ -1,8 +1,8 @@
 using CookApps.TeamBattle.UIManagements;
-using UnityEngine;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using R3;
+using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

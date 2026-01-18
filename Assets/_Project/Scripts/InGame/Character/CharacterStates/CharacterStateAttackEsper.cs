@@ -1,5 +1,3 @@
-using System.Buffers;
-using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using UnityEngine;

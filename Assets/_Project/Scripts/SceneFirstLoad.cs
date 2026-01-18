@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
-using CookApps.AutoBattler;
-using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
-using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.ResourceManagement.ResourceProviders;
-using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoBattler
 {

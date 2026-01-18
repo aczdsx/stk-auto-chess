@@ -1,4 +1,3 @@
-using System;
 using Cysharp.Threading.Tasks;
 using Elpis.Agent;
 using Unity.AI.Navigation;

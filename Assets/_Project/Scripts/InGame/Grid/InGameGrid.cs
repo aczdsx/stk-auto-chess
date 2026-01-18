@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 
 namespace CookApps.BattleSystem
 {

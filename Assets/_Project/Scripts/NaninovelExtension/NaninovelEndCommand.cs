@@ -1,9 +1,4 @@
 using Naninovel;
-using Naninovel.Commands;
-using Spine.Unity;
-using System;
-using UnityEngine;
-using CookApps.TeamBattle.UIManagements;
 
 namespace CookApps.AutoBattler
 {

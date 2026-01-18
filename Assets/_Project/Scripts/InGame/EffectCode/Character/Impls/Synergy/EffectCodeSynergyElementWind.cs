@@ -1,8 +1,7 @@
 using System;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using UnityEngine;
+using CookApps.Obfuscator;
 
 /// <summary>
 // 공격속도 {0}% 회피율이 {0}% 증가합니다.

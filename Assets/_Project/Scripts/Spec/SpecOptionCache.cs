@@ -1,7 +1,4 @@
-using System;
-using System.Linq;
 using CookApps.Obfuscator;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

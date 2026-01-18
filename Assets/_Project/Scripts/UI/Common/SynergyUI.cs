@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-using Cysharp.Threading.Tasks;
 
 namespace CookApps.AutoBattler
 {

@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Threading;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Text;
@@ -10,7 +8,6 @@ using R3.Triggers;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CookApps.AutoBattler
 {

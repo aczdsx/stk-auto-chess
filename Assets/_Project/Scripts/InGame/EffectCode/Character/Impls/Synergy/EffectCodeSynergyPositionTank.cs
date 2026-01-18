@@ -1,6 +1,5 @@
-using System;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 
 /// <summary>
 ///탱커 타입 캐릭터 피격 시 스킬 쿨타임 감소

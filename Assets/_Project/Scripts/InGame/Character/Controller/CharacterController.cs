@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
-using CookApps.Obfuscator;
 using CookApps.AutoBattler;
+using CookApps.Obfuscator;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using Naninovel.Commands;
-using UnityEngine.TextCore.Text;
 
 namespace CookApps.BattleSystem
 {

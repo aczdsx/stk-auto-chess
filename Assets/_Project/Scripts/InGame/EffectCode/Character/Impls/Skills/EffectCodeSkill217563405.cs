@@ -1,18 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using Cysharp.Threading.Tasks;
-using PrimeTween;
+using CookApps.Obfuscator;
 using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
-using UnityEngine.Localization.SmartFormat.Utilities;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 
 /// <summary>
 /// 마리에

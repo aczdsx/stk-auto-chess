@@ -1,8 +1,8 @@
 using System;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using UnityEngine;
+using CookApps.Obfuscator;
+
 /// <summary>
 /// 크리티컬 확률 {0}% 크리티컬 데미지 증가 {0}%
 /// </summary>

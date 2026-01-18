@@ -1,11 +1,11 @@
-using CookApps.Obfuscator;
+using System;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 using PrimeTween;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
-using Mono.Cecil.Cil;
-using System;
+
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
 {

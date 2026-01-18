@@ -1,8 +1,8 @@
 using System;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using UnityEngine;
+using CookApps.Obfuscator;
+
 /// <summary>
 /// 아군 전체 보호막 생성
 /// HP {0}% 및 방어력 {0}% 증가합니다.

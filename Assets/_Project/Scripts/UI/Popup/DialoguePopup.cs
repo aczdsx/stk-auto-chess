@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Coffee.UIEffects;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
@@ -11,10 +10,8 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using R3;
 using Spine.Unity;
-using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 namespace CookApps.AutoBattler

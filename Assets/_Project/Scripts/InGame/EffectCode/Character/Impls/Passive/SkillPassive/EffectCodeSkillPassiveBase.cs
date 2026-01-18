@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
-using Mono.Cecil.Cil;
 
 namespace CookApps.BattleSystem
 {

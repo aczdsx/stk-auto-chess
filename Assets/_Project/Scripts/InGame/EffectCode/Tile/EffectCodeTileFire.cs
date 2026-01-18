@@ -1,6 +1,5 @@
 using System;
 using CookApps.AutoBattler;
-using CookApps.BattleSystem;
 using CookApps.Obfuscator;
 
 namespace CookApps.BattleSystem

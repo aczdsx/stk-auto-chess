@@ -1,6 +1,6 @@
-using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 
 [UseEffectCodeIds((int)EffectCodeNameType.ATK_SPEED_PERCENT_UP)]
 public partial class EffectCodeStatIncreaseAtkSpeedPercent : EffectCodeStatBase

@@ -1,11 +1,9 @@
-using System;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {

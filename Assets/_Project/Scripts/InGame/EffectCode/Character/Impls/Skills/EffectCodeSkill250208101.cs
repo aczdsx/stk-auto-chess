@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
-using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 1챕터 보스 탱커

@@ -1,6 +1,6 @@
-using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 
 [UseEffectCodeIds((int)EffectCodeNameType.CRIT_POWER_PERCENT_UP)]
 public partial class EffectCodeStatIncreaseCriticalPowerPercent : EffectCodeStatBase

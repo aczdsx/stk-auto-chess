@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
-
 
 namespace CookApps.AutoBattler
 {

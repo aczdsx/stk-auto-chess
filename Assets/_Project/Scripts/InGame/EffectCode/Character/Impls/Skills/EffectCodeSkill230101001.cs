@@ -1,8 +1,7 @@
-using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 

@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
 using DG.Tweening;
-using System;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 

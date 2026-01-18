@@ -1,8 +1,4 @@
-using System.Collections.Generic;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
-using System;
-
 
 namespace CookApps.BattleSystem
 {

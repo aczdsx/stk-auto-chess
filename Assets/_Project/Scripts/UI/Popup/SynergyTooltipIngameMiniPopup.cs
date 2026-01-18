@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.TeamBattle.UIManagements;
-using Cysharp.Threading.Tasks;
 using R3;
 using TMPro;
 using UnityEngine;

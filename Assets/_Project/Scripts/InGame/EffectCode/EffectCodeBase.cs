@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using CookApps.Obfuscator;
 using CookApps.TeamBattle;
-using UnityEngine.Pool;
-using UnityEngine.Profiling;
 
 namespace CookApps.BattleSystem
 {

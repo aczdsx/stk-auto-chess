@@ -1,11 +1,8 @@
-using System.Collections.Generic;
-using CookApps.AutoBattler;
-using CookApps.BattleSystem;
-using CookApps.TeamBattle.Utility;
-using UnityEngine.Pool;
-using Cysharp.Threading.Tasks;
 using System;
 using System.Linq;
+using CookApps.AutoBattler;
+using CookApps.BattleSystem;
+using UnityEngine.Pool;
 
 /// <summary>
 /// 아이콘을 위해 buff로 처리

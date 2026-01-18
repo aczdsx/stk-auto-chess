@@ -3,7 +3,6 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle.Utility;
-using Cysharp.Threading.Tasks;
 using UnityEngine.Pool;
 
 [UseEffectCodeIds(CodeId)]

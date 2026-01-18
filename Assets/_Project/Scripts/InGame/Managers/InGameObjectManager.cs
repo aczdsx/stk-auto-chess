@@ -9,7 +9,6 @@ using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Pool;
-using Random = UnityEngine.Random;
 
 namespace CookApps.BattleSystem
 {

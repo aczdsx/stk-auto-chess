@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
 using CookApps.AutoBattler;
-using UnityEngine;
 
 public static class StringUtil
 {

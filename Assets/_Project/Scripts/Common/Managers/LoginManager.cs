@@ -1,17 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using CookApps.NetLite;
-using Cysharp.Threading.Tasks;
-using UnityEngine;
 using CookApps.PlatformAuth;
 using CookApps.TeamBattle;
-using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using Google;
-using Grpc.Core;
 using Tech.Hive.V1;
-using UnityEditor;
-
 
 namespace CookApps.AutoBattler
 {

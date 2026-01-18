@@ -1,9 +1,4 @@
-using CookApps.Obfuscator;
-using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using PrimeTween;
-using UnityEngine;
-using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public partial class EffectCode3000021 : EffectCodeCharacterBase
 {

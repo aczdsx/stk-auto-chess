@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using AppsFlyerSDK;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using AppsFlyerSDK;
 
 namespace CookApps.AutoBattler
 {

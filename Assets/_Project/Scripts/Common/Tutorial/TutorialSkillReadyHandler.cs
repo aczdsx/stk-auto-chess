@@ -1,6 +1,5 @@
 using System;
 using CookApps.BattleSystem;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

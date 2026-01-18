@@ -1,9 +1,9 @@
-using UnityEngine;
-using Cysharp.Threading.Tasks;
 using System.Threading;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.Utility;
+using Cysharp.Threading.Tasks;
 using PrimeTween;
+using UnityEngine;
 
 public class InGameCamera : CachedMonoBehaviour, IRegistrable
 {

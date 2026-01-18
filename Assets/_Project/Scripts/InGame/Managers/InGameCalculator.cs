@@ -1,5 +1,3 @@
-using CookApps.BattleSystem;
-using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler

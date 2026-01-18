@@ -4,7 +4,6 @@ using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using MemoryPack;
 using R3;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

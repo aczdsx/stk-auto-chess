@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
-using Cysharp.Threading.Tasks;
-using UnityEngine;
 using CookApps.TeamBattle.Utility;
+using Cysharp.Threading.Tasks;
 using PrimeTween;
+using UnityEngine;
+
 //3*3범위 내의 적의 공격력을 {0}초 동안 {1}% 감소 시킨다.
 namespace CookApps.BattleSystem
 {

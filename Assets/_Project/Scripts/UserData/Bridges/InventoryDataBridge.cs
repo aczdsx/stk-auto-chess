@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using R3;
-using CookApps.AutoBattler;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

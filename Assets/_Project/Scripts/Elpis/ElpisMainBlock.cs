@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.Utility;
-using Unity.AI.Navigation;
-using UnityEngine;
 using Cysharp.Threading.Tasks;
 using PrimeTween;
 using Prototypes.Movement;
+using Unity.AI.Navigation;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 

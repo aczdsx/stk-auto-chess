@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

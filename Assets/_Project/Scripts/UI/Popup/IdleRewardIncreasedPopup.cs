@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using CookApps.TeamBattle.UIManagements;
 using TMPro;
 using UnityEngine;
 

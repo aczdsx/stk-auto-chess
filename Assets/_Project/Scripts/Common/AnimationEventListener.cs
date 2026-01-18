@@ -1,4 +1,3 @@
-
 using System;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;

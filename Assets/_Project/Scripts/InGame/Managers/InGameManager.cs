@@ -1,15 +1,9 @@
 using System;
-using System.Collections;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
-using PrimeTween;
-using Unity.Mathematics;
-using UnityEngine;
-using UnityEngine.Serialization;
 using Random = System.Random;
-using UnityEditor.Localization.Plugins.XLIFF.V20;
 
 namespace CookApps.BattleSystem
 {

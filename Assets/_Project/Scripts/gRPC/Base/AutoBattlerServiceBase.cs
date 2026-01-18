@@ -1,6 +1,6 @@
 /*
-* Copyright (c) CookApps.
-*/
+ * Copyright (c) CookApps.
+ */
 
 using System.Threading;
 using System.Threading.Tasks;

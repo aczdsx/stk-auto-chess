@@ -1,10 +1,7 @@
-using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using UnityEngine;
-using CharacterController = CookApps.BattleSystem.CharacterController;
+using CookApps.Obfuscator;
 
 /// <summary>
 /// 6챕터 서포터

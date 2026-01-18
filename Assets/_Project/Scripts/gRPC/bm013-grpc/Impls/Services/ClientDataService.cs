@@ -3,9 +3,7 @@ using System.Threading;
 using CookApps.NetLite;
 using Cysharp.Threading.Tasks;
 using Google.Protobuf;
-using MemoryPack;
 using Tech.Hive.V1;
-using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
 {

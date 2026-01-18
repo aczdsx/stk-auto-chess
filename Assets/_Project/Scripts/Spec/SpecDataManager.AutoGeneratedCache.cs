@@ -1,8 +1,7 @@
 //=====================================================
 //  수정하셔도됩니다. 
 //=====================================================
-using System.Collections.Generic;
-using System.Linq;
+
 namespace CookApps.AutoBattler
 {
 	public partial class SpecDataManager

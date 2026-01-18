@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
@@ -8,7 +7,6 @@ using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {

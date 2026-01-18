@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
 using Cysharp.Threading.Tasks;
 
 //배치판 위의 아군과 적, 지형 지물 요소의 위치를 모두 랜덤하게 바꾼다.

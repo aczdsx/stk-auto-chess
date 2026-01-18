@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
 using CookApps.AutoBattler;
-using CookApps.BattleSystem;
-using CookApps.TeamBattle;
-
 
 /// <summary>
 /// 시너지 타입을 구분하는 도우미 클래스

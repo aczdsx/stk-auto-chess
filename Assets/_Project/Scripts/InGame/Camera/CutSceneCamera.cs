@@ -1,10 +1,6 @@
-using UnityEngine;
-using System.Threading;
-using System.Linq;
-using System.Collections;
 using System.Reflection;
-using PrimeTween;
 using Naninovel;
+using UnityEngine;
 
 public class CutSceneCamera : MonoBehaviour
 {

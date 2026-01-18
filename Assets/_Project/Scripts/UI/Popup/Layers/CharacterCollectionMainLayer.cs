@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using CookApps.Obfuscator;
-using CookApps.SpecData;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using R3;

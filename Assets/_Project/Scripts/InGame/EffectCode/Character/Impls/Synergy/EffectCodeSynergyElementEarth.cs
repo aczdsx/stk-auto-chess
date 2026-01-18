@@ -1,8 +1,8 @@
 using System;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using UnityEngine;
+using CookApps.Obfuscator;
+
 /// <summary>
 // 물리 관통력{0}%, 마법 관통력 및 블럭율 증가 {0}% 근데 아직 블럭율 수치가 없음.
 /// </summary>

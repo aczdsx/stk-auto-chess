@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;

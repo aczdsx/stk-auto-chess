@@ -1,9 +1,9 @@
 using System;
 using System.Threading;
 using CookApps.NetLite;
-using Tech.Hive.V1;
 using Cysharp.Threading.Tasks;
 using Grpc.Core;
+using Tech.Hive.V1;
 
 namespace CookApps.AutoBattler
 {

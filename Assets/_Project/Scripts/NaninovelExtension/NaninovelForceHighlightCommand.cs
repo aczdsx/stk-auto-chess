@@ -1,8 +1,6 @@
+using System.Collections.Generic;
 using Naninovel;
 using Naninovel.Commands;
-using System.Collections.Generic;
-using System.Threading;
-using UnityEngine;
 
 [CommandAlias("forceHighlight")]
 public class NaninovelForceHighlightCommand : Command

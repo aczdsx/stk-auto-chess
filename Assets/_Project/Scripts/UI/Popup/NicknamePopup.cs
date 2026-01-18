@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using CookApps.TeamBattle.UIManagements;
 using R3;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {

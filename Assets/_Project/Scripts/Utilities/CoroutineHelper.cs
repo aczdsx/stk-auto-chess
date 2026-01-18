@@ -1,9 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using CookApps.TeamBattle;
 using UnityEngine;
 using UnityEngine.Events;
-using System;
-using CookApps.TeamBattle;
 
 public class CoroutineHelper : SingletonMonoBehaviour<CoroutineHelper>
 {

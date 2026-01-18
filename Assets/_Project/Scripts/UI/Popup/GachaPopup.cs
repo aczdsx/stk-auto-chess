@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using R3;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoBattler
 {

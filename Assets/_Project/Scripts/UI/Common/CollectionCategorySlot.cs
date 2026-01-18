@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using CookApps.TeamBattle.UIManagements;
 using DG.Tweening;
+using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

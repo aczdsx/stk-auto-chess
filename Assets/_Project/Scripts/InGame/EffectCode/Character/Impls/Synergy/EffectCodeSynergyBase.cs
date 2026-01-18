@@ -1,10 +1,6 @@
-using System;
-using CookApps.AutoBattler;
-using CookApps.Obfuscator;
-using CookApps.BattleSystem;
-using UnityEngine;
 using System.Collections.Generic;
-
+using CookApps.AutoBattler;
+using CookApps.BattleSystem;
 
 public class EffectCodeSynergyBase : EffectCodeCharacterBase
 {

@@ -1,11 +1,8 @@
 using System;
-using CookApps.AutoBattler;
-using CookApps.Obfuscator;
-using CookApps.BattleSystem;
-using Cysharp.Threading.Tasks;
-using Unity.Mathematics;
 using System.Collections.Generic;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
+using CookApps.AutoBattler;
+using CookApps.BattleSystem;
+using Unity.Mathematics;
 
 /// <summary>
 /// 슈퍼노바 클래스 시너지 타입 아이템만 만들고 

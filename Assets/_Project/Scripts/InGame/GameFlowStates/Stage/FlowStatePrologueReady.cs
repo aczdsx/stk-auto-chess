@@ -1,10 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Resources;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using CookApps.Obfuscator;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;

@@ -1,4 +1,3 @@
-using System;
 using CookApps.AutoBattler;
 using Unity.Mathematics;
 

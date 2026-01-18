@@ -1,12 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 using UnityEngine;
-using CharacterController = CookApps.BattleSystem.CharacterController;
-using System;
-using Unity.VisualScripting;
 
 /// <summary>
 /// 루키다

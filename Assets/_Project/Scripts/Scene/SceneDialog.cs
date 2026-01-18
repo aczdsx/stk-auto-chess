@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Naninovel;
-using Unity.VisualScripting;
+using UnityEngine;
 
 public class SceneDialog : MonoBehaviour
 {

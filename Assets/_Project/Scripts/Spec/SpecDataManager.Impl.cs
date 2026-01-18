@@ -1,8 +1,6 @@
 #define USE_SERVER_SPEC
 
-#if USE_SERVER_SPEC
-using CookApps.LocalData;
-#endif
+
 using System.Collections.Generic;
 using BiniLab;
 using CookApps.BattleSystem;
@@ -10,6 +8,9 @@ using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
 using Unity.VisualScripting;
+#if USE_SERVER_SPEC
+using CookApps.LocalData;
+#endif
 
 namespace CookApps.AutoBattler
 {

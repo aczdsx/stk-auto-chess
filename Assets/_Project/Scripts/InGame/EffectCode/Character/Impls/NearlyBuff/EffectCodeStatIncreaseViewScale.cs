@@ -1,6 +1,6 @@
-using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 
 [UseEffectCodeIds((int)EffectCodeNameType.VIEW_SCALE_UP)]
 public partial class EffectCodeStatIncreaseViewScale : EffectCodeCharacterBase

@@ -1,13 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using R3;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 namespace CookApps.AutoBattler
 {

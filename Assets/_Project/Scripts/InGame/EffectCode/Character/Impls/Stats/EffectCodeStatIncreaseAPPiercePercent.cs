@@ -1,6 +1,7 @@
-using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
+
 [UseEffectCodeIds((int)EffectCodeNameType.AP_PIERCE_PERCENT_UP)]
 // [UseEffectCodeIds(14)]
 public partial class EffectCodeStatIncreaseAPPiercePercent : EffectCodeStatBase

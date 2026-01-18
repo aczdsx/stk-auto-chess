@@ -1,8 +1,6 @@
-using CookApps.TeamBattle;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.U2D;
 
 namespace CookApps.AutoBattler
 {

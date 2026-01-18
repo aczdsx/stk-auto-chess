@@ -1,14 +1,11 @@
 using System.Collections.Generic;
-using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Pool;
 using CharacterController = CookApps.BattleSystem.CharacterController;
-using Random = Unity.Mathematics.Random;
 
 public class FlowStateLobbyCombat : StateCombatBase
 {

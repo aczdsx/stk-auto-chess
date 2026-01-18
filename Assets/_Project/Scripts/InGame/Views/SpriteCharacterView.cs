@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
-using CookApps.TeamBattle;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
-using Unity.Mathematics;
-using UnityEngine;
 using PrimeTween;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
-using UnityEngine.EventSystems;
+using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

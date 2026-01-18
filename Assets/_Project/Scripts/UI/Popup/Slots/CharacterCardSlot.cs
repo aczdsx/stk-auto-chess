@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Coffee.UIEffects;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;

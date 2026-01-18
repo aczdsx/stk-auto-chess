@@ -1,15 +1,13 @@
 using System;
-using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 
 public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IEndDragHandler

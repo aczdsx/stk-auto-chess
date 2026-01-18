@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class TargetLineRenderer : MonoBehaviour

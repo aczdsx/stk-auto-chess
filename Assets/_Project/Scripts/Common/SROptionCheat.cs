@@ -1,11 +1,8 @@
 #if !RELEASE || UNITY_EDITOR || ENABLE_CHEAT
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;

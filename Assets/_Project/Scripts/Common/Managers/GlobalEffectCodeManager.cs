@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
-using CookApps.TeamBattle;
 using CookApps.BattleSystem;
+using CookApps.TeamBattle;
 
 public class GlobalEffectCodeManager : Singleton<GlobalEffectCodeManager>, IEffectCodeSource
 {

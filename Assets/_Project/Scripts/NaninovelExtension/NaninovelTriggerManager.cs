@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

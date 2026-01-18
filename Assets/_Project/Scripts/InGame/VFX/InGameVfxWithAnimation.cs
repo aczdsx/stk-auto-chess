@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using CookApps.Obfuscator;
 using UnityEngine;
 
 namespace CookApps.BattleSystem

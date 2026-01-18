@@ -1,14 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using R3;
 using Tech.Hive.V1;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {

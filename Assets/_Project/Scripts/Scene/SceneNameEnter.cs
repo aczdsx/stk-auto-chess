@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
-using System.IO;
+
 public class SceneNameEnter : MonoBehaviour
 {
     [Header("Step1")] [SerializeField] private TMP_InputField inputFieldInputUserName;

@@ -1,15 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
-using Cookapps.Stkauto.V1;
 using CookApps.BattleSystem;
+using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using R3;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace CookApps.AutoBattler

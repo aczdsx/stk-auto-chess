@@ -1,7 +1,4 @@
-using System.ComponentModel;
 using CookApps.BattleSystem;
-using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class CharacterStateIdleHealer : CharacterStateIdle
 {

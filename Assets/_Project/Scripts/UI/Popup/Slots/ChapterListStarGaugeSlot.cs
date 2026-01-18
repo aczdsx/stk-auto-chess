@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Coffee.UIEffects;
 using CookApps.TeamBattle;
@@ -9,7 +7,6 @@ using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 
 namespace CookApps.AutoBattler
 {

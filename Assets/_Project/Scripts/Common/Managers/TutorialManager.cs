@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 

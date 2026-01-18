@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using R3;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

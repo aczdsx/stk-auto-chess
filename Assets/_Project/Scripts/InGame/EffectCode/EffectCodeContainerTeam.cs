@@ -1,8 +1,4 @@
-
 using System.Collections.Generic;
-using System.Linq;
-using CookApps.TeamBattle.Utility;
-using Naninovel.Commands;
 using UnityEngine.Pool;
 
 namespace CookApps.BattleSystem

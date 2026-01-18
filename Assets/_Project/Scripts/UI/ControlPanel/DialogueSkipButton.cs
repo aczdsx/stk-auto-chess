@@ -1,6 +1,6 @@
+using CookApps.AutoBattler;
 using Naninovel;
 using UnityEngine;
-using CookApps.AutoBattler;
 
 public class DialogueSkipButton : ScriptableButton
 {

@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using UnityEngine;
-using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class CharacterStateAttackHealer : CharacterStateAttack
 {

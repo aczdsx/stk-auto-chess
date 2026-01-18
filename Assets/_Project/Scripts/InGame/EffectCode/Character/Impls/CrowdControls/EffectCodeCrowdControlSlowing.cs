@@ -1,6 +1,5 @@
-using CookApps.Obfuscator;
-using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 
 public partial class EffectCodeCrowdControlSlowing : EffectCodeCharacterBase
 {

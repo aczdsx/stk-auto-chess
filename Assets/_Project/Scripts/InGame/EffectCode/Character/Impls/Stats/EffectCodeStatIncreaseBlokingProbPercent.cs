@@ -1,6 +1,6 @@
-using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 
 [UseEffectCodeIds((int)EffectCodeNameType.BLOCKING_PROB_PERCENT_UP)]
 // [UseEffectCodeIds(28)]

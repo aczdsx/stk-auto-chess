@@ -1,6 +1,5 @@
-using System;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 
 /// <summary>
 ///암살자 타입 캐릭터 적 처치 시 스킬 쿨타임 감소

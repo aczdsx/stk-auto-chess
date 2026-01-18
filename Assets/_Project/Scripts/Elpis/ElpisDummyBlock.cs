@@ -1,7 +1,7 @@
 using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
 using PrimeTween;
 using UnityEngine;
-using Cysharp.Threading.Tasks;
 
 namespace CookApps.AutoBattler
 {

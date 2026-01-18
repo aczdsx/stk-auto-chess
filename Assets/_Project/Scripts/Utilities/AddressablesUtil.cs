@@ -1,6 +1,6 @@
-﻿using UnityEngine.AddressableAssets;
-using System;
+﻿using System;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoBattler
 {

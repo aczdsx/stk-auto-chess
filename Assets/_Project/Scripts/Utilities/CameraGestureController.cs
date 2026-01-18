@@ -3,6 +3,7 @@ using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
+
 // ReSharper disable All
 
 public class CameraGestureController : CachedMonoBehaviour

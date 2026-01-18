@@ -1,7 +1,6 @@
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using PrimeTween;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterStateAssassinFirstMove : CharacterStateBase

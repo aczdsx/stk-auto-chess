@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using Cookapps.Stkauto.V1;
 using CookApps.BattleSystem;
-using Tech.Hive.V1;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Events;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler

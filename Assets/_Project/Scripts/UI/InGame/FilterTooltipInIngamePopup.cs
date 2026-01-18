@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using R3;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {

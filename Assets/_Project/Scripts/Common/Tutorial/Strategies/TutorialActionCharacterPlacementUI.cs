@@ -1,5 +1,4 @@
 using CookApps.BattleSystem;
-using CookApps.TeamBattle;
 using UnityEngine;
 
 namespace CookApps.AutoBattler

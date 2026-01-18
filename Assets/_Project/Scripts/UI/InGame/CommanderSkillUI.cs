@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CommanderSkillUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {

@@ -1,7 +1,6 @@
-using System.Collections.Generic;
-using CookApps.AutoBattler;
-using CookApps.Obfuscator;
 using System;
+using CookApps.AutoBattler;
+
 namespace CookApps.BattleSystem
 {
     [UseEffectCodeIds(CodeId)]

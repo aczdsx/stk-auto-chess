@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
-using UnityEngine;
-using CharacterController = CookApps.BattleSystem.CharacterController;
+using CookApps.Obfuscator;
 using Unity.Mathematics;
+using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
 /// 엔키

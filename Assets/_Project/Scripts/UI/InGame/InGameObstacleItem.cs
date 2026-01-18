@@ -1,12 +1,10 @@
 using System;
-using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 
 public class TestObstacle

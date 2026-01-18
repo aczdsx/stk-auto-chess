@@ -1,8 +1,5 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using CookApps.AutoBattler;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
-using System.Collections.Generic;
 
 namespace CookApps.BattleSystem
 {

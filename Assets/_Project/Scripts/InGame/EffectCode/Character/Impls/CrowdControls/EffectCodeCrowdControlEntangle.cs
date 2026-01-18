@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using CookApps.Obfuscator;
-using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using UnityEngine;
+using CookApps.Obfuscator;
 
 /// <summary>
 /// 속박(Entangle) 크라우드 컨트롤 이펙트

@@ -1,13 +1,10 @@
 using System;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
-using CookApps.TeamBattle.UI;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using R3;
+using TMPro;
+using UnityEngine;
 
 namespace CookApps.AutoBattler
 {

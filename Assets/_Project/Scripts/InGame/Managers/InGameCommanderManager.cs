@@ -7,7 +7,6 @@ using CookApps.TeamBattle;
 using CookApps.TeamBattle.Utility;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class CommanderSkillInGameData
 {

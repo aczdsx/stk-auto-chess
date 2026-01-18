@@ -1,22 +1,13 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using CookApps.Auth;
+using CookApps.BattleSystem;
 using CookApps.Build;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
-using Tech.Hive.V1;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using AppsFlyerSDK;
-using R3;
-using CookApps.BattleSystem;
 using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoBattler

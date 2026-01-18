@@ -1,6 +1,6 @@
-using CookApps.Obfuscator;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeCrowdControlStun : EffectCodeCharacterBase

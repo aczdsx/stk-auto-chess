@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;

@@ -1,4 +1,3 @@
-using CookApps.Obfuscator;
 using UnityEngine;
 
 namespace CookApps.BattleSystem

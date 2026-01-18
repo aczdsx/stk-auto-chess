@@ -1,7 +1,4 @@
-using System.ComponentModel;
 using CookApps.BattleSystem;
-using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// 가장 먼거리 타겟을 찾는 state입니다.

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.Utility;
 using UnityEngine;

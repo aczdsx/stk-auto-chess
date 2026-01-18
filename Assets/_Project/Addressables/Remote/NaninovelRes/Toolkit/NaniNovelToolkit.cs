@@ -1,5 +1,4 @@
 #if UNITY_EDITOR // 유니티 에디터에서만 작동
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

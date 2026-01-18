@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using R3;
 using Tech.Hive.V1;
-using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
 {

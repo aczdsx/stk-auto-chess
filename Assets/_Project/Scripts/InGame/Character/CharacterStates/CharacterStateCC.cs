@@ -1,5 +1,4 @@
 using CookApps.BattleSystem;
-using UnityEngine;
 
 public class CharacterStateCC : CharacterStateBase
 {

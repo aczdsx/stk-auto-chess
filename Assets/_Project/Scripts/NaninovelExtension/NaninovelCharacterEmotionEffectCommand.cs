@@ -1,8 +1,6 @@
 using DG.Tweening;
 using Naninovel;
-using Naninovel.Commands;
 using Spine.Unity;
-using System;
 using UnityEngine;
 
 [CommandAlias("emote")]

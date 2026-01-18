@@ -1,6 +1,5 @@
-using System;
-using CookApps.Obfuscator;
 using CookApps.BattleSystem;
+using CookApps.Obfuscator;
 
 /// <summary>
 ///저격수 타입 캐릭터 공격 시 스킬 쿨타임 감소

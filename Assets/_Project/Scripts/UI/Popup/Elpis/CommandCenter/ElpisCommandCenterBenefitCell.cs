@@ -1,11 +1,10 @@
 using CookApps.TeamBattle;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
-using Naninovel;
 using R3;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace CookApps.AutoBattler
 {

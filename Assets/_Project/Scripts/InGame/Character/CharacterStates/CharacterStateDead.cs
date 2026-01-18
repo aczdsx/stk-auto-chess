@@ -1,5 +1,4 @@
 using CookApps.BattleSystem;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class CharacterStateDead : CharacterStateBase
