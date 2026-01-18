@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: c139e0f31ed074a79bb51afa922c7ccc
   m_currentHash:
     serializedVersion: 2
-    Hash: 8cf6db71f9de66e54a1e4bced4e93dd1
+    Hash: de29155ba94902dd6104012d689d11bf
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -61,6 +61,7 @@ MonoBehaviour:
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
   - {fileID: 11400000, guid: d9979a767f06142c4aea304f07160f6a, type: 2}
+  - {fileID: 11400000, guid: 306551d13b8e44653810ed04f383c533, type: 2}
   - {fileID: 11400000, guid: 713bd0d11f6aa46e7916093c1a8e0e60, type: 2}
   - {fileID: 11400000, guid: c7f2eba24997047c18ecbc89440f9507, type: 2}
   - {fileID: 11400000, guid: 940e44ff4e46d477dbf997433ac48b89, type: 2}
@@ -69,7 +70,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 34142c98980f849eb9483e0fb16e7db7, type: 2}
   - {fileID: 11400000, guid: 48cd353cb7fdd4913b9f61f5bb8aebb0, type: 2}
   - {fileID: 11400000, guid: 4d276ba8cb31b496fb8adee53343d820, type: 2}
-  - {fileID: 11400000, guid: fc0d4e22d01b34f9fab60faefae9559d, type: 2}
   - {fileID: 11400000, guid: 9bf24b34182d84966b154a067c026dfe, type: 2}
   - {fileID: 11400000, guid: 2bbcadd0b3c194397932c01d41ea86aa, type: 2}
   - {fileID: 11400000, guid: 8f680e9c9010444ae9700f211788ff89, type: 2}
@@ -83,6 +83,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9fcf4c0eb28619343921ff3b53bdbbf4, type: 2}
   - {fileID: 11400000, guid: 73544361804a1406f9d5e1c333bcc831, type: 2}
   - {fileID: 11400000, guid: 80e5985df3144ec48a2b48868d47e1bb, type: 2}
+  - {fileID: 11400000, guid: fc0d4e22d01b34f9fab60faefae9559d, type: 2}
   - {fileID: 11400000, guid: 8796489a2fcdc4fe890d1951faa1d6b2, type: 2}
   - {fileID: 11400000, guid: 8c370634f5798409695fae29401946e5, type: 2}
   - {fileID: 11400000, guid: b3f4ab8f10959492fba5dd8f7adf79e5, type: 2}
