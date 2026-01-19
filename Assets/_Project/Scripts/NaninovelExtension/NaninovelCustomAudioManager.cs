@@ -110,6 +110,19 @@ namespace CookApps.AutoBattler
             _voiceLoader?.ReleaseAll(this);
         }
 
+        /// <summary>
+        /// SoundManager가 준비되지 않았으면 강제로 초기화합니다.
+        /// Naninovel이 SoundManager보다 먼저 초기화될 수 있어 이 체크가 필요합니다.
+        /// </summary>
+        private void EnsureSoundManagerReady()
+        {
+            if (SoundManager.Instance != null && !SoundManager.Instance.IsReady)
+            {
+                SoundManager.Instance.Initialize();
+                Debug.Log("[NaninovelCustomAudioManager] SoundManager was not ready, forced initialization");
+            }
+        }
+
         #region State Management
 
         public void SaveServiceState(SettingsStateMap stateMap)
@@ -205,8 +218,15 @@ namespace CookApps.AutoBattler
         {
             if (string.IsNullOrEmpty(path)) return UniTask.CompletedTask;
 
+            // SoundManager 준비 상태 확인 및 초기화
+            EnsureSoundManagerReady();
+
             // SoundManager를 통해 BGM 재생
-            SoundManager.Instance?.PlayBGM(path);
+            var result = SoundManager.Instance?.PlayBGM(path);
+            if (result == null)
+            {
+                Debug.LogWarning($"[NaninovelCustomAudioManager] PlayBgm failed: {path} - SoundManager may not be ready or audioID not found");
+            }
             _playingBgm.Add(path);
 
             Debug.Log($"[NaninovelCustomAudioManager] PlayBgm: {path}");
@@ -269,8 +289,15 @@ namespace CookApps.AutoBattler
         {
             if (string.IsNullOrEmpty(path)) return UniTask.CompletedTask;
 
+            // SoundManager 준비 상태 확인 및 초기화
+            EnsureSoundManagerReady();
+
             // SoundManager를 통해 SFX 재생
-            SoundManager.Instance?.PlaySFX(path);
+            var result = SoundManager.Instance?.PlaySFX(path);
+            if (result == null)
+            {
+                Debug.LogWarning($"[NaninovelCustomAudioManager] PlaySfx failed: {path} - SoundManager may not be ready or audioID not found");
+            }
 
             if (loop)
                 _playingSfx.Add(path);
@@ -283,6 +310,9 @@ namespace CookApps.AutoBattler
             bool restart = true, bool additive = true)
         {
             if (string.IsNullOrEmpty(path)) return UniTask.CompletedTask;
+
+            // SoundManager 준비 상태 확인 및 초기화
+            EnsureSoundManagerReady();
 
             SoundManager.Instance?.PlaySFX(path);
 
@@ -337,6 +367,9 @@ namespace CookApps.AutoBattler
         {
             if (string.IsNullOrEmpty(path)) return UniTask.CompletedTask;
 
+            // SoundManager 준비 상태 확인 및 초기화
+            EnsureSoundManagerReady();
+
             // 기존 음성 정지
             StopVoice();
 
@@ -349,7 +382,11 @@ namespace CookApps.AutoBattler
             }
 
             // SoundManager를 통해 Voice 재생
-            SoundManager.Instance?.PlayVOX(path);
+            var result = SoundManager.Instance?.PlayVOX(path);
+            if (result == null)
+            {
+                Debug.LogWarning($"[NaninovelCustomAudioManager] PlayVoice failed: {path} - SoundManager may not be ready or audioID not found");
+            }
             _playingVoice = path;
 
             Debug.Log($"[NaninovelCustomAudioManager] PlayVoice: {path}, Author: {authorId}");
