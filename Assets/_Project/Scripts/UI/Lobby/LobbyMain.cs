@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
@@ -31,6 +32,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton consumeApEventButton;
         [SerializeField] private CAButton sessionTimeEventButton;
         [SerializeField] private CAButton inventoryButton;
+        [SerializeField] private TMPro.TextMeshProUGUI _stageNameText;
 
         public Transform GetTopCurrencyAndMenuBarParent()
         {
@@ -108,7 +110,7 @@ namespace CookApps.AutoBattler
         private async UniTask PreEnterAsync()
         {
             guideMissionSlot.InitGuideMissionSlot();
-            
+
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
             await LoadElpis();
@@ -127,6 +129,8 @@ namespace CookApps.AutoBattler
                 await TutorialManager.Instance.CheckAndInitTutorial(lobbyTutorialId);
                 TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
             }
+            var currentStageData = SpecDataManager.Instance.GetStageData((int)LocalDataManager.Instance.GetLastPlayStageId());
+            _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number); 
         }
 
         private async UniTask OnClickStartButton()
