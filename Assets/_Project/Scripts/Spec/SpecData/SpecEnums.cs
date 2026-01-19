@@ -956,6 +956,10 @@ namespace CookApps.AutoBattler
         CLOSE_POP_COMPLETE = 10,
         START_GUIDE_MISSION = 11,
         BUILDING_COMPLETE = 12,
+        COMMENDER_SKILL_READY = 13,
+        COMMENDER_SKILL_ACTIVE = 14,
+        START_TUTORIAL = 15,
+        SET_LV_CHARACTER_TARGET = 16,
     }
 
     public enum TutorialActionType
@@ -970,6 +974,8 @@ namespace CookApps.AutoBattler
         FORCED_TOUCH_OBJECT = 7,
         FOCUS_UI = 8,
         FOCUS_OBJECT = 9,
+        FORCED_TOUCH_BUILD = 10,
+        SET_LV_CHARACTER_TARGET = 11,
     }
 
     public enum FacilityType
