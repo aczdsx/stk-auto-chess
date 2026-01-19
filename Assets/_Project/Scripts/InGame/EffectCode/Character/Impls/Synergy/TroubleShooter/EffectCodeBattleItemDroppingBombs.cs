@@ -72,7 +72,8 @@ namespace CookApps.BattleSystem
             if (jetPlaneVfx is InGameVfxWithAnimation)
             {
                 var animatorVfx = jetPlaneVfx as InGameVfxWithAnimation;
-                animatorVfx.SetOnAnimationStartCallback(OnStartBomb);
+                animatorVfx.SetOnVfxStartCallback(OnStartBomb);
+                animatorVfx.SetOnVfxEndCallback(OnEndBomb);
                 animatorVfx.SetOnCustomAnimationEventCallback((eventKey, positions) => OnMiddleBomb(eventKey, positions));
             }
 
@@ -118,13 +119,12 @@ namespace CookApps.BattleSystem
                 * Quaternion.Euler(-90, 0, -90f);
 
 
-                // 미사일 이동 설정
+                // 미사일 이동 설정 (무한대 모양 움직임)
                 var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
                 Vector3 targetPosition = target.CurrentTile.View.CachedTr.position;
-                
 
-                // 베지어 곡선 이동 설정
-                movement.SetData(launchPosition.position, targetPosition, 20f);
+                // 무한대 모양을 그리면서 이동하다가 목표 지점에 떨어지는 움직임
+                movement.SetData(launchPosition.position, targetPosition, 10f);
                 missileVfx.Initialize(false, movement);
 
                 // 목표 도착 시 폭발 처리
@@ -135,7 +135,7 @@ namespace CookApps.BattleSystem
                     if (target != null && target.IsAlive && target.CurrentTile != null)
                     {
                         // 폭발 VFX
-                        InGameVfxManager.Instance.AddInGameVfx( ExplosionVfxEnum, 
+                        InGameVfxManager.Instance.AddInGameVfx(ExplosionVfxEnum,
                             target.CurrentTile.View.CachedTr.position);
 
                         // 데미지 처리
@@ -160,6 +160,13 @@ namespace CookApps.BattleSystem
         private void OnMiddleBomb(AnimationEventKey eventKey, IReadOnlyList<Transform> positions)
         {
             Debug.Log("TS!! OnMiddleBomb");
+            int missileCount = _explosionOneTimeCount / 3 + _explosionOneTimeCount % 3;
+            ShootMissiles(positions, missileCount);
+        }
+        
+        private void OnEndBomb(IReadOnlyList<Transform> positions)
+        {
+            Debug.Log("TS!! OnEndBomb");
             int missileCount = _explosionOneTimeCount / 3;
             ShootMissiles(positions, missileCount);
         }
