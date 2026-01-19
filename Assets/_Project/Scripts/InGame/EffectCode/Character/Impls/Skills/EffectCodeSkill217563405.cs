@@ -253,7 +253,7 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
         int attackCountForThisIndex = baseAttackCount + (executeIndex == 0 ? remainder : 0);
         if(executeIndex == 0)
         {
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], _targetCharacter.SkillMiddleFXTransformFollowable.GetPosition());
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], _targetCharacter.SkillTopFXTransformFollowable.GetPosition());
         }
 
         // 공격 횟수만큼 공격

@@ -16,6 +16,12 @@ public static class PrologueID {
     public const int 프롤로그라플라스마녀ID = 9002;
 }
 
+public static class PrologueDelays
+{
+    public const int 라플라스1차스킬넉백시간 = 2300;
+    public const float 클레이보호막지속시간 = 3.5f;
+}
+
 
 public class FlowStatePrologueReady : StateReadyBase
 {
@@ -32,7 +38,7 @@ public class FlowStatePrologueReady : StateReadyBase
     {
         var addCharacterTasks = new List<UniTask<CharacterController>>();
 
-        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPosition(new Vector3(-20, 2.5f, -10));
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPosition(new Vector3(-10, 2.5f, -10));
         ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(6.0f);
         // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f,new Vector3(-1f, 0f, -10), 1.0f).Forget();
 
@@ -71,8 +77,8 @@ public class FlowStatePrologueReady : StateReadyBase
         {
             { PrologueID.프롤로그유니ID, new int2(1, 2) }, // 유니
             { PrologueID.프롤로그필리아ID, new int2(3, 2) }, // 필리아
-            { PrologueID.프롤로그아트레시아ID, new int2(2, 1) },  // 아트레시아 (중앙 앞)
-            { PrologueID.프롤로그클레이ID, new int2(2, 2) } 
+            { PrologueID.프롤로그아트레시아ID, new int2(2, 2) },  // 아트레시아 (중앙 앞)
+            { PrologueID.프롤로그클레이ID, new int2(2, 1) } 
         };
 
         // 플레이어 캐릭터 소환

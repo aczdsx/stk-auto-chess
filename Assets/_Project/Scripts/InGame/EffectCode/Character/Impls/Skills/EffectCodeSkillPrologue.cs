@@ -53,7 +53,7 @@ public partial class EffectCodeSkill297550013 : EffectCodeCharacterBase
     private SkillActive _specSkill;
 
     // 채널링 스킬 설정
-    private const float SKILL_DURATION = 3.0f; // 스킬 지속 시간 (초)
+    private const float SKILL_DURATION = PrologueDelays.클레이보호막지속시간; // 스킬 지속 시간 (초)
     private const int AREA_RANGE = 2; // 영역 범위 (맨해튼 거리)
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -135,7 +135,7 @@ public partial class EffectCodeSkill297550013 : EffectCodeCharacterBase
         // 중심 타일 VFX 생성
         foreach (var ally in InGameObjectManager.Instance.GetCharacterList(owner.AllianceType))
         {
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_prologue_shield_01, ally.SkillRootTransformFollowable);
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_prologue_shield_01, ally.SkillMiddleFXTransformFollowable);
         }
     }
     public override float AddSkillCooltime(float cooltime)

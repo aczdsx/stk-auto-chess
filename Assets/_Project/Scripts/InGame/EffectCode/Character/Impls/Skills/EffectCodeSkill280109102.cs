@@ -1,6 +1,9 @@
 using System.Linq;
+using System.Threading.Tasks;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using Cysharp.Threading.Tasks;
+using Unity.Mathematics;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 /// <summary>
@@ -91,7 +94,7 @@ public partial class EffectCodeSkill280109102 : EffectCodeCharacterBase
 
         foreach (var player in targetCharacterList)
         {
-            if (player.IsAlive && player.CurrentTile != null)
+            if (player.IsAlive && player.CurrentTile != null && player.CharacterId == PrologueID.프롤로그아트레시아ID)
             {
                 targetCharacter = player;
                 break;
@@ -101,14 +104,24 @@ public partial class EffectCodeSkill280109102 : EffectCodeCharacterBase
         if (targetCharacter == null)
             return;
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(targetCharacter.CurrentTile, 3);
+        DelayedDamageTime(targetCharacter).Forget();
+    }
+
+    private async UniTask DelayedDamageTime(CharacterController artresiaCharacterControler)
+    {
+        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(artresiaCharacterControler.CurrentTile, 5);
 
         foreach (var tile in inGameTiles)
             InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, tile);
+        
+        var offsetedTile = artresiaCharacterControler.CurrentTile.Int2Index + new int2(0, -1);
+
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], InGameObjectManager.Instance.InGameGrid.GetTile(offsetedTile).View.CachedTr.position);
+        
+        await UniTask.Delay(1250);
 
         foreach (var tile in inGameTiles)
         {
-            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.View.CachedTr.position);
             if (tile.CheckValidTile(owner.AllianceType, false))
             {
                 var damageValue = owner.SpecCharacter.atk_type is AtkType.AD ? owner.AD : owner.AP;
@@ -138,7 +151,7 @@ public partial class EffectCodeSkill280109102 : EffectCodeCharacterBase
         }
 
         IsSkillActivated = false;
-    }
+    } 
 
     public override void OnSkillAnimationEnd()
     {

@@ -14,23 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StageChapterId: 1
   PlayerCharacters:
-  - CharacterId: 3303
-    Level: 1
-    GridX: 0
-    GridY: 0
-    MultipleAtk: 1
-    MultipleHp: 1
   - CharacterId: 2401
     Level: 1
     GridX: 4
     GridY: 0
     MultipleAtk: 1
     MultipleHp: 1
+  - CharacterId: 2102
+    Level: 1
+    GridX: 0
+    GridY: 0
+    MultipleAtk: 1
+    MultipleHp: 1
   EnemyCharacters:
-  - CharacterId: 1001
+  - CharacterId: 9002
     Level: 1
     GridX: 2
-    GridY: 4
+    GridY: 5
     MultipleAtk: 1
     MultipleHp: 1
   CameraSize: 7.5

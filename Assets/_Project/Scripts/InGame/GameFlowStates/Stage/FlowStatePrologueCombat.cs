@@ -12,22 +12,65 @@ using UnityEngine;
 using UnityEngine.Pool;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
+/// <summary>
+/// 프롤로그 전투 Flow State.
+/// 게임 시작 시 재생되는 스크립트 기반 컷신 전투를 관리한다.
+/// 11단계의 시나리오 시퀀스를 통해 라플라스 마녀와의 전투를 연출한다.
+///
+/// 시나리오 흐름:
+/// 1. 마녀의 선제공격 준비
+/// 2. 클레이의 방어 (스킬로 마녀 공격 막기)
+/// 3. 클레이 그로기 상태 진입
+/// 4. 아트레시아/유니/필리아 자유 공격 (3초)
+/// 5. 마녀의 광역 역습 (파티원 다운)
+/// 6. 마리에 합류
+/// 7. 마리에 희생 (마녀에게 공격받아 사망)
+/// 8. 아트레시아 초신성 모드 진입
+/// 9. 마녀 체력 회복 및 최종 공격 준비
+/// 10. 마녀 최종 공격 이펙트
+/// 11. 아트레시아 방어 후 전투 종료 (암전)
+/// </summary>
 public class FlowStatePrologueCombat : StateCombatBase
 {
+    #region 필드
+
+    /// <summary>캐릭터 리스트 캐싱용 (ListPool 사용)</summary>
     private List<CharacterController> characters;
+
+    /// <summary>전투 종료 여부</summary>
     private bool _isEndCombat;
+
+    /// <summary>승리 여부</summary>
     private bool _isWin;
+
+    /// <summary>스테이지 클리어 여부 (미사용)</summary>
     private bool _isClearStage;
 
-    private CharacterController _clayCharacter;      // 클레이
-    private CharacterController _yuniCharacter;     // 유니
-    private CharacterController _philiaCharacter;   // 필리아
-    private CharacterController _artesiaCharacter;  // 아트레시아
-    private CharacterController _marieCharacter;    // 마리에
-    private CharacterController _witchCharacter;    // 라플라스 마녀
+    // ===== 플레이어 캐릭터 =====
+    /// <summary>클레이 - 탱커, 2단계에서 방어 스킬 발동</summary>
+    private CharacterController _clayCharacter;
+    /// <summary>유니 - 딜러, 4단계 자유 공격 참여</summary>
+    private CharacterController _yuniCharacter;
+    /// <summary>필리아 - 딜러, 4단계 자유 공격 참여</summary>
+    private CharacterController _philiaCharacter;
+    /// <summary>아트레시아 - 주인공, 8단계 초신성 각성</summary>
+    private CharacterController _artesiaCharacter;
+    /// <summary>마리에 - 6단계 합류, 7단계 희생</summary>
+    private CharacterController _marieCharacter;
 
-    private InGameVfx _witchAttackPrepareFx;       // 마녀 공격 준비 이펙트
+    // ===== 적 캐릭터 =====
+    /// <summary>라플라스 마녀 - 보스</summary>
+    private CharacterController _witchCharacter;
 
+    /// <summary>마녀 공격 준비 이펙트 (1단계 생성, 2단계 제거)</summary>
+    private InGameVfx _witchAttackPrepareFx;
+
+    #endregion
+
+    /// <summary>
+    /// 전투 상태 초기화.
+    /// 시너지 FX 정리, UI 초기화, 캐릭터 HP 갱신, 카메라 세팅.
+    /// </summary>
     public override void StateInit(object target)
     {
         characters = ListPool<CharacterController>.Get();
@@ -39,17 +82,20 @@ public class FlowStatePrologueCombat : StateCombatBase
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Player);
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
 
-        // InGameObjectManager.Instance.InGameStage.GraduallyChangeBoardColor(Color.gray, 1.0f);
-
-        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(5.0f, new Vector3(-20, 2.5f, -10), 1.0f).Forget();
-        // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.0f, new Vector3(0, 2.5f, -10), 1.0f).Forget();
+        // 초기 카메라 위치 설정 (왼쪽으로 치우침)
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(5.0f, new Vector3(-13, 2.5f, -10), 1.0f).Forget();
     }
 
+    /// <summary>
+    /// 전투 시작.
+    /// 전투 시작 이펙트 코드 호출, 캐릭터 참조 획득, 프롤로그 시나리오 시작.
+    /// </summary>
     public override void StateStart()
     {
         // 전투 시작 전까지 아이템이 부여되지 않은 아이템들의 콜백 호출
         InGameSynergyManager.Instance.CheckAndHandleNotAppliedItemsBeforeCombat();
 
+        // 플레이어 캐릭터 전투 시작 이펙트 코드 호출
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
@@ -58,6 +104,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
         }
 
+        // 적 캐릭터 전투 시작 이펙트 코드 호출
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy))
         {
             character.GetHpBarView().SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
@@ -66,6 +113,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCombatStartLambda);
         }
 
+        // 팀 이펙트 코드 호출
         {
             var effectCodes =
                 InGameManager.Instance.TeamEcc.GetCharacterEffectCodesByFlag(
@@ -74,64 +122,64 @@ public class FlowStatePrologueCombat : StateCombatBase
         }
 
 
-        // 캐릭터 찾기
-        _clayCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그클레이ID); // 클레이
-        _yuniCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그유니ID); // 유니
-        _philiaCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그필리아ID); // 필리아
-        _artesiaCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그아트레시아ID); // 아트레시아
-        // 마리에는 6단계에서 합류하므로 초기에는 찾지 않음
+        // 플레이어 캐릭터 참조 획득 (마리에 제외 - 6단계에서 동적 합류)
+        _clayCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그클레이ID);
+        _yuniCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그유니ID);
+        _philiaCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그필리아ID);
+        _artesiaCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그아트레시아ID);
 
-        // 라플라스 마녀 찾기 (적)
+        // 적 캐릭터 참조 획득 (라플라스 마녀)
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         if (characters.Count > 0)
         {
             _witchCharacter = characters[0];
         }
+
         // 캐릭터 초기 이동 후 시나리오 시작
         InitializeCharacterPositionsAndStartScenario().Forget();
     }
 
+    /// <summary>
+    /// 모든 캐릭터를 Idle 상태로 전환하여 자유 행동을 시작한다.
+    /// </summary>
     private async UniTask StartAllCharacters()
     {
-        // 전투 시작 후 0.5초는 대기
         await UniTask.Delay(500);
 
-        // 모든 캐릭터 락 해제
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
         foreach (CharacterController charac in characters)
         {
             charac.AddNextState<CharacterStateIdle>();
-
             charac.Target = InGameObjectManager.Instance.GetNearestTargetOnce(charac);
         }
+
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         foreach (CharacterController charac in characters)
         {
             charac.AddNextState<CharacterStateIdle>();
-
             charac.Target = InGameObjectManager.Instance.GetNearestTargetOnce(charac);
         }
     }
 
-    // 모든 캐릭터를 Ready 상태로 변경하여 공격을 멈춤
+    /// <summary>
+    /// 모든 캐릭터를 Ready 상태로 전환하여 행동을 정지시킨다.
+    /// 그로기 상태인 캐릭터는 제외.
+    /// </summary>
     private async UniTask StopAllCharacters()
     {
-        // 전투 시작 후 0.5초는 대기
         await UniTask.Delay(500);
 
         if (characters == null)
             return;
 
-        // 플레이어 캐릭터들 멈춤
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Player, characters);
         foreach (CharacterController charac in characters)
         {
             if (charac.GetCurrentState() is CharacterStateGroggy) continue;
             charac.AddNextState<CharacterStateReady>();
-            charac.Target = null; // 타겟 제거하여 공격하지 않도록
+            charac.Target = null;
         }
 
-        // 적 캐릭터들 멈춤
         InGameObjectManager.Instance.GetAllAliveOnlyCharacters(AllianceType.Enemy, characters);
         foreach (CharacterController charac in characters)
         {
@@ -265,16 +313,19 @@ public class FlowStatePrologueCombat : StateCombatBase
 
     private async UniTask ActivateCharacterSkillWithWait(CharacterController character, string warningMessage = null, int skillID = 0)
     {
-        if (ActivateCharacterSkill(character, warningMessage, skillID))
+        (EffectCodeCharacterBase effectcode , bool actRes) activateSkillRes =ActivateCharacterSkill(character, warningMessage, skillID);
+        if (activateSkillRes.actRes)
         {
             await UniTask.WaitUntil(() => { return (character.GetCurrentState() is CharacterStateSkill); });
             await UniTask.WaitWhile(() => { return (character.GetCurrentState() is CharacterStateSkill); });
         }
     }
 
-    private bool ActivateCharacterSkill(CharacterController character, string warningMessage = null, int skillID = 0)
+
+
+    private (EffectCodeCharacterBase, bool) ActivateCharacterSkill(CharacterController character, string warningMessage = null, int skillID = 0)
     {
-        if (character == null) return false;
+        if (character == null) return (null, false);
 
         List<EffectCodeCharacterBase> effectCodes = new();
 
@@ -295,7 +346,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         {
             effectCodes.Sort((a, b) => string.Compare(a.GetType().Name, b.GetType().Name, System.StringComparison.Ordinal));
             effectCodes[skillID].Activate();
-            return true;
+            return (effectCodes[skillID], true);
         }
 
         if (!string.IsNullOrEmpty(warningMessage))
@@ -303,7 +354,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             Debug.LogWarning(warningMessage);
         }
 
-        return false;
+        return (null, false);
     }
 
     struct PrologueScenarioData
@@ -323,10 +374,11 @@ public class FlowStatePrologueCombat : StateCombatBase
         WitchAoEAndCharactersDown,       // 5단계: 마녀 광역 스킬, 유니/필리아/클레이 다운
         MarieJoin,                       // 6단계: 마리에 합류 + 스킬 이펙트
         MarieDown,                       // 7단계: 마리에 다운 (아트레시아 기모은 후 따라감, 마리에 먼저 공격)
-        ArtesiaSupernovaAndSkill,        // 8단계: 아트레시아 초신성 모드 진입 + 스킬 발동
-        WitchHpRecoverAndFinalPrepare,  // 9단계: 마녀 체력 회복, 최후 스킬 대기 모션
-        WitchFinalPrepareFx,             // 10단계: 마녀 최후 공격 준비 이펙트
-        WitchFinalAttackAndArtesiaDefend // 11단계: 마녀 최후 공격, 아트레시아 방어, 전투 종료
+        ArtesiaSupernova,               // 8단계: 아트레시아 초신성 모드 진입 + 스킬 발동
+        ArtesiaSkill,                   // 9단계: 아트레시아 초신성 모드 진입 + 스킬 발동
+        WitchHpRecoverAndFinalPrepare,  // 10단계: 마녀 체력 회복, 최후 스킬 대기 모션
+        WitchFinalPrepareFx,             // 11단계: 마녀 최후 공격 준비 이펙트
+        WitchFinalAttackAndArtesiaDefend // 12단계: 마녀 최후 공격, 아트레시아 방어, 전투 종료
     }
 
     private static readonly PrologueScenarioData[] PrologueScenarioSteps = new PrologueScenarioData[]
@@ -349,20 +401,21 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 6단계: 마리에 합류 (DialogueGroupID : 200006)
         new PrologueScenarioData { step = 6, dialogueID = 200006, actionType = PrologueActionType.MarieJoin },
         
-        // 7단계: 마리에의 희생과 아트레시아의 각성 (DialogueGroupID : 200007)
+        // 7단계: 마리에의 희생과  (DialogueGroupID : 200007)
         new PrologueScenarioData { step = 7, dialogueID = 200007, actionType = PrologueActionType.MarieDown },
         
-        // 8단계: 마리에의 희생 (DialogueGroupID : 200008)
-        new PrologueScenarioData { step = 8, dialogueID = 200008, actionType = PrologueActionType.ArtesiaSupernovaAndSkill },
+        // 8단계: 아트레시아 각성 (DialogueGroupID : 200008)
+        new PrologueScenarioData { step = 8, dialogueID = 200008, actionType = PrologueActionType.ArtesiaSupernova },
+        // 9단계: 아트레시아 슈퍼노바 시킬  (DialogueGroupID : 200009)
+        new PrologueScenarioData { step = 9, dialogueID = 200009, actionType = PrologueActionType.ArtesiaSkill },
+        // 10단계: 아트레시아의 결의 (DialogueGroupID : 200010)
+        new PrologueScenarioData { step = 10, dialogueID = 200010, actionType = PrologueActionType.WitchHpRecoverAndFinalPrepare },
         
-        // 9단계: 아트레시아의 결의 (DialogueGroupID : 200009)
-        new PrologueScenarioData { step = 9, dialogueID = 200009, actionType = PrologueActionType.WitchHpRecoverAndFinalPrepare },
+        // 11단계: 마녀의 진정한 힘 (DialogueGroupID : 200011)
+        new PrologueScenarioData { step = 11, dialogueID = 200011, actionType = PrologueActionType.WitchFinalPrepareFx },
         
-        // 10단계: 마녀의 진정한 힘 (DialogueGroupID : 200010)
-        new PrologueScenarioData { step = 10, dialogueID = 200010, actionType = PrologueActionType.WitchFinalPrepareFx },
-        
-        // 11단계: 최후의 순간과 아트레시아의 결의 (DialogueGroupID : 200011)
-        new PrologueScenarioData { step = 11, dialogueID = 200011, actionType = PrologueActionType.WitchFinalAttackAndArtesiaDefend }
+        // 12단계: 최후의 순간과 아트레시아의 결의 (DialogueGroupID : 200012)
+        new PrologueScenarioData { step = 12, dialogueID = 200012, actionType = PrologueActionType.WitchFinalAttackAndArtesiaDefend }
     };
 
     private async UniTask StartPrologueScenario()
@@ -422,8 +475,11 @@ public class FlowStatePrologueCombat : StateCombatBase
             case PrologueActionType.MarieDown:
                 await TriggerMarieDown();
                 break;
-            case PrologueActionType.ArtesiaSupernovaAndSkill:
-                await TriggerArtesiaSupernovaAndSkill();
+            case PrologueActionType.ArtesiaSupernova:
+                await TriggerArtesiaSupernova();
+                break;
+            case PrologueActionType.ArtesiaSkill : 
+                await TriggerArtesiaSkill();
                 break;
             case PrologueActionType.WitchHpRecoverAndFinalPrepare:
                 await TriggerWitchHpRecoverAndFinalPrepare();
@@ -450,23 +506,49 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 다크 속성 캐스팅 이펙트 사용 (필요시 다른 이펙트로 변경 가능)
         _witchAttackPrepareFx = InGameVfxManager.Instance.AddInGameVfx(
             InGameVfxNameType.Skill_9002_3,
-            _witchCharacter.SkillRootTransformFollowable);
+            _witchCharacter.SkillMiddleFXTransformFollowable);
 
         await UniTask.Delay(1500); // 1.5초 대기
     }
 
+    private bool laplasSkill1Finished = false;
+    private EffectCodeCharacterBase laplasSkill1EffectCode = null;
+    public void SetLaplasSkillState() => laplasSkill1Finished = true;
+
+    
     // 2단계: 클레이 중앙 포지션 이동, 스킬 발동, 마녀 스킬 막기
     private async UniTask TriggerClaySkillAndWitchAttack()
     {
         if (_clayCharacter == null) return;
 
+                {
+        List<UniTask> charaSwitching = new();
+            charaSwitching.Add(UniTask.Create( async () =>
+            {
+                MoveCharacterToDirection(_clayCharacter, 0, 2);
+                {
+                    await UniTask.WaitUntil(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
+                    await UniTask.WaitWhile(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
+                }
+            }));
+            charaSwitching.Add(UniTask.Create( async () =>
+            {
+                
+                MoveCharacterToDirection(_artesiaCharacter, 0, -1);
+                {
+                    await UniTask.WaitUntil(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); });
+                    await UniTask.WaitWhile(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); });
+                }
 
-        // 클레이 중앙으로 포지션 이동
-        if (MoveCharacterToDirection(_clayCharacter, 0, 1))
-        {
-            await UniTask.WaitUntil(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
-            await UniTask.WaitWhile(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
+            }));
+            await UniTask.WhenAll(charaSwitching);
         }
+        // 클레이 중앙으로 포지션 이동
+        await UniTask.NextFrame();
+        _artesiaCharacter.GetCharacterView().LookAt(_artesiaCharacter.CurrentTile, _witchCharacter.CurrentTile);
+        await UniTask.NextFrame();
+        _artesiaCharacter.AddNextState<CharacterStateReady>();
+        await UniTask.NextFrame();
 
         _clayCharacter.Target = _clayCharacter;
         await ActivateCharacterSkillWithWait(_clayCharacter, "클레이 스킬을 찾을 수 없습니다.");
@@ -485,8 +567,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         _witchCharacter.Target = _clayCharacter;
         ActivateCharacterSkill(_witchCharacter, "마녀 스킬을 찾을 수 없습니다.");
         await UniTask.WaitUntil(() => { return (_witchCharacter.GetCurrentState() is CharacterStateSkill); });
-
-        await UniTask.Delay(2000);
+        await UniTask.Delay(PrologueDelays.라플라스1차스킬넉백시간);
         {
             List<UniTask> knockbacks = new();
             knockbacks.Add(YuniCharacterKnockback());
@@ -494,6 +575,15 @@ public class FlowStatePrologueCombat : StateCombatBase
             knockbacks.Add(ClaycharacterKnockback());
             await UniTask.WhenAll(knockbacks);
         }
+        await UniTask.NextFrame();
+        _yuniCharacter.GetCharacterView().LookAt(_yuniCharacter.CurrentTile, _witchCharacter.CurrentTile);
+        _philiaCharacter.GetCharacterView().LookAt(_philiaCharacter.CurrentTile, _witchCharacter.CurrentTile);
+        _clayCharacter.GetCharacterView().LookAt(_clayCharacter.CurrentTile, _witchCharacter.CurrentTile);
+        _yuniCharacter.AddNextState<CharacterStateReady>();
+        _philiaCharacter.AddNextState<CharacterStateReady>();
+        _clayCharacter.AddNextState<CharacterStateReady>();
+        await UniTask.NextFrame();
+        
         await UniTask.Delay(150);
         _clayCharacter.AddNextState<CharacterStateGroggy>();
 
@@ -660,42 +750,44 @@ public class FlowStatePrologueCombat : StateCombatBase
         await StopAllCharacters();
         await UniTask.NextFrame();
         _witchCharacter.GetCharacterView().LookAt(_witchCharacter.CurrentTile, _artesiaCharacter.CurrentTile);
-        await UniTask.NextFrame();
-
         _witchCharacter.AddNextState<CharacterStateGroggy>();
+        await UniTask.NextFrame();
 
         await UniTask.Delay(1000); // 1초 대기
     }
 
     // 8단계: 아트레시아 초신성 모드 진입 + 스킬 발동
-    private async UniTask TriggerArtesiaSupernovaAndSkill()
+    private async UniTask TriggerArtesiaSupernova()
     {
-        // 아트레시아 초신성 모드 진입
-        // ✅ 스킬 추가 ✅
-        // [TODO] 초신성 모드 활성화 (버프/이펙트 등)
         if (_artesiaCharacter != null)
         {
             artesiaChargeVFX.Remove();
             artesiaChargeVFX = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_aura_03, _artesiaCharacter.SkillRootTransformFollowable);
         }
+        await UniTask.Delay(1000); // 1초 대기
+    }
 
-        // 아트레시아 스킬 발동
+    
+    // 9 단계 : 추후 하나의 다이얼로그 더 추가해서 해치웠을까요 물어보자.
+    private async UniTask TriggerArtesiaSkill()
+    {
+
         _artesiaCharacter.Target = _witchCharacter;
         await ActivateCharacterSkillWithWait(_artesiaCharacter, "아트레시아 스킬을 찾을 수 없습니다.", 1);
         _artesiaCharacter.AddNextState<CharacterStateReady>();
         await UniTask.Delay(1500); // 1.5초 대기
         artesiaChargeVFX.Remove();
+        await UniTask.Delay(1500);
     }
 
     private InGameVfx _witchFinalPrepareFx; // 마녀 최후의 공격 준비 이펙트
 
-    // 9단계: 마녀 체력 회복, 최후 스킬 대기 모션
+    // 10 단계: 마녀 체력 회복, 최후 스킬 대기 모션
     private async UniTask TriggerWitchHpRecoverAndFinalPrepare()
-    {
+    {        
+        // 아트레시아 스킬 발동
         if (_witchCharacter == null) return;
 
-        // 라플라스 마녀 체력 회복
-        // [TODO] 체력 회복 처리
         Debug.LogColor("라플라스 마녀 체력 회복");
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_9002_4, _witchCharacter.SkillRootTransformFollowable);
         await UniTask.Delay(1000);
@@ -710,16 +802,17 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.Delay(1500); // 1.5초 대기
     }
 
-    // 10단계: 마녀 최후 공격 준비 이펙트
+    // 11단계: 마녀 최후 공격 준비 이펙트
     private async UniTask TriggerWitchFinalPrepareFx()
     {
         if (_witchCharacter == null) return;
 
         // 라플라스 마녀 최후의 공격 준비 이펙트 재생
         // 암흑 힘 응집 이펙트 (마녀를 감싸는 이펙트)
-        _witchFinalPrepareFx = InGameVfxManager.Instance.AddInGameVfx(
+        _witchAttackPrepareFx = InGameVfxManager.Instance.AddInGameVfx(
             InGameVfxNameType.Skill_9002_3,
-            _witchCharacter.SkillRootTransformFollowable);
+            _witchCharacter.SkillMiddleFXTransformFollowable);
+
 
         // [TODO] 필요시 더 강력한 이펙트로 변경
         // 예: _witchCharacter.GetCharacterView().PlayEffect("WitchFinalPrepare");
@@ -727,7 +820,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.Delay(1000); // 1초 대기
     }
 
-    // 11단계: 마녀 최후 공격, 아트레시아 방어, 전투 종료
+    // 12단계: 마녀 최후 공격, 아트레시아 방어, 전투 종료
     private async UniTask TriggerWitchFinalAttackAndArtesiaDefend()
     {
         // ! 암전
@@ -824,9 +917,6 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         await UniTask.WaitUntil(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateForceMove) || (_yuniCharacter.GetCurrentState() is CharacterStateMove); });
         await UniTask.WaitWhile(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateForceMove) || (_yuniCharacter.GetCurrentState() is CharacterStateMove); });
-        await UniTask.NextFrame();
-        _yuniCharacter.GetCharacterView().LookAt(_yuniCharacter.CurrentTile, _witchCharacter.CurrentTile);
-        await UniTask.NextFrame();
     }
 
     private async UniTask PhilliaCharacterKnockback()
@@ -835,9 +925,6 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         await UniTask.WaitUntil(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
         await UniTask.WaitWhile(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
-        await UniTask.NextFrame();
-        _philiaCharacter.GetCharacterView().LookAt(_philiaCharacter.CurrentTile, _witchCharacter.CurrentTile);
-        await UniTask.NextFrame();
     }
 
     private async UniTask ClaycharacterKnockback()
@@ -847,9 +934,6 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.WaitUntil(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
         await UniTask.WaitWhile(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
 
-        await UniTask.NextFrame();
-        _clayCharacter.GetCharacterView().LookAt(_clayCharacter.CurrentTile, _witchCharacter.CurrentTile);
-        await UniTask.NextFrame();
     }
 
     private async UniTask ArtesiaMovement()
@@ -894,5 +978,4 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.WaitUntil(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
         await UniTask.WaitWhile(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
     }
-
 }
