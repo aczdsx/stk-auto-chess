@@ -21,7 +21,7 @@ namespace CookApps.BattleSystem
         private int _explosionOneTimeCount;
         private List<CharacterController> _reuseableBombTargetCharacters = new();
         private Vector3 JetPlanePosition = new Vector3(-1.19f, 1.0f, 5.97f);
-        private float JetPlaneHeight = 1.0f;
+        private float JetPlaneHeight = 0.9f;
 
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
@@ -113,9 +113,10 @@ namespace CookApps.BattleSystem
                     continue;
 
                 // 미사일 VFX 생성
-                var missileVfx = InGameVfxManager.Instance.AddInGameVfx(
-                    InGameVfxNameType.fx_common_asterism_ts_missile_01, 
-                    launchPosition.position);
+                var missileVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_missile_01, launchPosition.position);
+                missileVfx.CachedTr.rotation = Quaternion.LookRotation(target.CurrentTile.View.CachedTr.position - launchPosition.position)
+                * Quaternion.Euler(-90, 0, -90f);
+
 
                 // 미사일 이동 설정
                 var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
@@ -134,8 +135,7 @@ namespace CookApps.BattleSystem
                     if (target != null && target.IsAlive && target.CurrentTile != null)
                     {
                         // 폭발 VFX
-                        InGameVfxManager.Instance.AddInGameVfx(
-                            ExplosionVfxEnum, 
+                        InGameVfxManager.Instance.AddInGameVfx( ExplosionVfxEnum, 
                             target.CurrentTile.View.CachedTr.position);
 
                         // 데미지 처리
