@@ -42533,6 +42533,3706 @@ MonoBehaviour:
     m_Localized: Damage invincibility shield activated
     m_Metadata:
       m_Items: []
+  - m_Id: 1869565532299264
+    m_Localized: Mysterious figure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687872
+    m_Localized: Mensha
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687873
+    m_Localized: May
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687874
+    m_Localized: Alice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687875
+    m_Localized: Kouka
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687876
+    m_Localized: Philia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687877
+    m_Localized: Sheena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687878
+    m_Localized: Shakii
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687879
+    m_Localized: Bixta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687880
+    m_Localized: Yuni
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687881
+    m_Localized: Atresia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687882
+    m_Localized: Tetora
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687883
+    m_Localized: Odette
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687884
+    m_Localized: Seira
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687885
+    m_Localized: Briole
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687886
+    m_Localized: Grace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687887
+    m_Localized: Misa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687888
+    m_Localized: Adria
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687889
+    m_Localized: Blin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687890
+    m_Localized: Love
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687891
+    m_Localized: Bella
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687892
+    m_Localized: April
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687893
+    m_Localized: Hati
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687894
+    m_Localized: Mino
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687895
+    m_Localized: Vayne
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687896
+    m_Localized: Rukida
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687897
+    m_Localized: Shirayuki
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687898
+    m_Localized: Enki
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687899
+    m_Localized: Lakiyu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687900
+    m_Localized: Clay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687901
+    m_Localized: Marie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687902
+    m_Localized: 'Earth Synergy Tank
+
+      Skill: Grants a <color=#F75D32>shield</color>
+      to the Stella Knights in the same row.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687903
+    m_Localized: Conflicted Justice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687904
+    m_Localized: 'Water Synergy Mage
+
+      Skill: <color=#F75D32>Summons an ice</color>
+      in a certain area to attack enemies.
+
+      Deals additional damage to <color=#F75D32>Fire
+      Synergy</color> enemies.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687905
+    m_Localized: 'Water Synergy Ranger
+
+      Skill: Delivers a <color=#F75D32>powerful
+      strike</color> to a single enemy.
+
+      If the skill kills the enemy, the
+      Skill Cooldown is <color=#F75D32>immediately reset.</color>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687906
+    m_Localized: 'Dark Synergy Assassin
+
+      Skill: Deals damage to a single enemy
+      and applies silence for a short duration.
+
+      *Silence: The enemy cannot
+      use skills for a certain period.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687907
+    m_Localized: 'Fire Synergy Supporter
+
+      Skill: Increases the <color=#F75D32>ATK</color>
+      of all allies for a certain period.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687908
+    m_Localized: Nameless Star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687909
+    m_Localized: Destroyer of the Earth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687910
+    m_Localized: Purest Executioner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687911
+    m_Localized: Guardian of Solace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687912
+    m_Localized: Steel Will
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687913
+    m_Localized: 'Fire Synergy Mage
+
+
+      Skill : Launches a <color=#F75D32>Fire
+      Energy Spell</color> in a 3x3 area.
+
+      The spell scorches the ground, dealing
+      <color=#F75D32>additional damage.</color>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687914
+    m_Localized: Dark Summoner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687915
+    m_Localized: Wild Maid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687916
+    m_Localized: Silent Ranger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687917
+    m_Localized: 'Earth Synergy Ranger
+
+      Skill: Fires 3 grenades, dealing heavy
+      damage to enemies in a certain area.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687918
+    m_Localized: Scattering Blade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687919
+    m_Localized: Cunning Fox
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687920
+    m_Localized: Cold Blade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687921
+    m_Localized: Genius Programmer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687922
+    m_Localized: Mad Scientist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687923
+    m_Localized: Silent Watcher
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687924
+    m_Localized: Jacqueline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687925
+    m_Localized: Simulation Room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687926
+    m_Localized: Flame Wastes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687927
+    m_Localized: Frozen City
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687928
+    m_Localized: Forgotten Desert
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687929
+    m_Localized: Forest of Beasts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687930
+    m_Localized: Lumine City
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687931
+    m_Localized: "Don\u2019t you worry, you are not under arrest."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687932
+    m_Localized: I may not be the best cook, but I'm a decent maid!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687933
+    m_Localized: "I\u2019ll handle this by the rules."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687934
+    m_Localized: What! Got a problem with what I said?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687935
+    m_Localized: I actually prefer the color red.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687936
+    m_Localized: I lost my eyes, but my senses have sharpened.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687937
+    m_Localized: I'm glad to have met you, Commander.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687938
+    m_Localized: There's nothing as meaningful as proving one's strength!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687939
+    m_Localized: Are you afraid? Of waking up from your dreams?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687940
+    m_Localized: Very quietly... just a brief moment of sleep
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687941
+    m_Localized: "If you ask how many arms I have, I\u2019d say 428, including spares."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687942
+    m_Localized: With curiosity and money, anything is possible!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687943
+    m_Localized: You are not invited to the tea party, hee-hee!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687944
+    m_Localized: "He-he, it's okay. I\u2019m just here to check in on you today."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687945
+    m_Localized: Those trapped in darkness need the light the most.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687946
+    m_Localized: I'm feeling generous; I'll let you use a weapon I made, just this
+      once!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687947
+    m_Localized: I hear the voice of the wind.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687948
+    m_Localized: You want to tame me? That's a funny thing to say, Commander.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687949
+    m_Localized: Ah! You scared me! Don't make a big deal out of nothing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687950
+    m_Localized: Why are you so scared... it'll only sting for a brief moment...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687951
+    m_Localized: Conviction is a 'heart that holds firm belief'.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687952
+    m_Localized: Dimension Lab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687953
+    m_Localized: Simulation Center
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687954
+    m_Localized: Command Center
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687955
+    m_Localized: Nest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687956
+    m_Localized: Benefits of Expanding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687957
+    m_Localized: Expand Territory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687958
+    m_Localized: Required Elpis Cores
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687959
+    m_Localized: You can construct a new {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687960
+    m_Localized: The maximum level of {0} increases.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687961
+    m_Localized: A new Tier 1 zone is unlocked.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687962
+    m_Localized: A new Tier 2 zone is unlocked.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687963
+    m_Localized: Unlock Construction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687964
+    m_Localized: Increase Construction Limit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687965
+    m_Localized: Increase Max Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687966
+    m_Localized: Expand Territory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687967
+    m_Localized: Touch to Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687968
+    m_Localized: Expansion Level Achieved!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687969
+    m_Localized: Knight Attack Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687970
+    m_Localized: Knight Defense Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687971
+    m_Localized: Knight Health Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687972
+    m_Localized: Fire Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687973
+    m_Localized: Wind Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687974
+    m_Localized: Earth Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687975
+    m_Localized: Lightning Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687976
+    m_Localized: Water Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687977
+    m_Localized: Noblesse Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687978
+    m_Localized: Supernova Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687979
+    m_Localized: Troubleshooter Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687980
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687981
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687982
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687983
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687984
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687985
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687986
+    m_Localized: Knight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687987
+    m_Localized: Elemental
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687988
+    m_Localized: Stella
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687989
+    m_Localized: Knight Dimension Cube
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687990
+    m_Localized: Knight Defense Cube
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687991
+    m_Localized: Knight Health Cube
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687992
+    m_Localized: Fire Dimension Cube
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687993
+    m_Localized: Wind Dimension Cube
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687994
+    m_Localized: Earth Dimension Cube
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687995
+    m_Localized: Storm Dimension Cube
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687996
+    m_Localized: Ocean Dimension Cube
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687997
+    m_Localized: Noblesse Dimension Cube
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687998
+    m_Localized: Supernova Dimension Cube
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540687999
+    m_Localized: Troubleshooter Dimension Cube
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688000
+    m_Localized: Upgrade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688001
+    m_Localized: Lab Level Up Required
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688002
+    m_Localized: Upgrade Building
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688003
+    m_Localized: Construct Building
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688004
+    m_Localized: Installation Complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688005
+    m_Localized: Installing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688006
+    m_Localized: Previous Level Installation Required
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688007
+    m_Localized: Another Building Is Being Installed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688008
+    m_Localized: Unlock Required
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688009
+    m_Localized: Mission 1. Into the Flame Wastes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688010
+    m_Localized: Mission 2. Lava Region
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688011
+    m_Localized: Mission 3. Giant Wall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688012
+    m_Localized: Mission 4. Formidable Foe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688013
+    m_Localized: Mission 5. Alice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688014
+    m_Localized: Mission 6. Alice Joins the Team
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688015
+    m_Localized: Mission 7. Water Synergy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688016
+    m_Localized: Mission 8. Ongoing Battle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688017
+    m_Localized: Mission 9. Combat Trial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688018
+    m_Localized: Mission 10. Giant Monster
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688019
+    m_Localized: Mission 11. Summon a Companion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688020
+    m_Localized: Mission 12. Reorganize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688021
+    m_Localized: Mission 13. Combat Trial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688022
+    m_Localized: Mission 14. Confirm New Member
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688023
+    m_Localized: Mission 15. Fire Mage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688024
+    m_Localized: Mission 16. Blin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688025
+    m_Localized: Mission 17. Attendance Register
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688026
+    m_Localized: Mission 18. To the Frozen City
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688027
+    m_Localized: Mission 19. Glacial Region
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688028
+    m_Localized: Mission 20. The Assassin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688029
+    m_Localized: Mission 21. The Blind Swordsman
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688030
+    m_Localized: Mission 22. Sheena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688031
+    m_Localized: Mission 23. Arena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688032
+    m_Localized: Mission 24. Joins the War
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688033
+    m_Localized: Mission 25. Use the Assassin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688034
+    m_Localized: Mission 26. The Ranger of Darkness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688035
+    m_Localized: Mission 27. Recruit Companions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688036
+    m_Localized: Mission 28. Reorganize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688037
+    m_Localized: Mission 29. Combat Trial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688038
+    m_Localized: Mission 30. Additional Deployment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688039
+    m_Localized: Mission 31. Spirit of the Apostle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688040
+    m_Localized: Mission 32. Spirit of the Apostle 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688041
+    m_Localized: Mission 33. The Ice Queen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688042
+    m_Localized: Mission 34. The White Reaper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688043
+    m_Localized: "Mission 35. The Ice Queen\u2019s Identity"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688044
+    m_Localized: Mission 36. To the Forgotten Desert
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688045
+    m_Localized: Mission 37. The Genius Engineer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688046
+    m_Localized: Mission 38. Mino
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688047
+    m_Localized: Mission 39. Mino Joins the Team
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688048
+    m_Localized: Mission 40. Ancient Relic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688049
+    m_Localized: Mission 41. Relic Exploration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688050
+    m_Localized: Mission 42. The Relic Guardian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688051
+    m_Localized: Mission 43. The First Relic Piece
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688052
+    m_Localized: "Mission 44. Mino\u2019s Objective"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688053
+    m_Localized: Mission 45. The Ultimate Weapon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688054
+    m_Localized: Mission 46. The Third Trial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688055
+    m_Localized: Mission 47. Summon a Companion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688056
+    m_Localized: Mission 48. Reorganize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688057
+    m_Localized: Mission 49. As It Is
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688058
+    m_Localized: Mission 50. Penetrating Power
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688059
+    m_Localized: Mission 51. Final Piece
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688060
+    m_Localized: Mission 52. The One Who Arrived First
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688061
+    m_Localized: Mission 53. The Destroyer of Earth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688062
+    m_Localized: Mission 54. Tetora
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688063
+    m_Localized: Mission 55. Forest of Beasts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688064
+    m_Localized: Mission 56. Rebel Forces
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688065
+    m_Localized: Mission 57. MAID
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688066
+    m_Localized: Mission 58. Surprise Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688067
+    m_Localized: Mission 59. Circumstantial Evidence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688068
+    m_Localized: Mission 60. Circumstantial Evidence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688069
+    m_Localized: Mission 61. Recruit Companions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688070
+    m_Localized: Mission 62. Reorganize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688071
+    m_Localized: Mission 63. Face Each Other
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688072
+    m_Localized: Mission 64. Assassination
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688073
+    m_Localized: Mission 65. Hardline Policy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688074
+    m_Localized: Mission 66. Circumstantial Evidence 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688075
+    m_Localized: "Mission 67. Philia\u2019s Past"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688076
+    m_Localized: "Mission 68. Philia\u2019s Past 2"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688077
+    m_Localized: Mission 69. April
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688078
+    m_Localized: "Mission 70. May\u2019s Decision"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688079
+    m_Localized: Mission 71. Giant Monster
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688080
+    m_Localized: Mission 72. May
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688081
+    m_Localized: Mission 73. Official Announcement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688082
+    m_Localized: Mission 74. Last Appearance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688083
+    m_Localized: Mission 75. To Headquarters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688084
+    m_Localized: Mission 76. The Chase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688085
+    m_Localized: Mission 77. Behind the Shadow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688086
+    m_Localized: Mission 78. April and May
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688087
+    m_Localized: Mission 79. Specimen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688088
+    m_Localized: Mission 80. Recruit Companions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688089
+    m_Localized: Mission 81. Reorganize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688090
+    m_Localized: Mission 82. Vanguard of Light
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688091
+    m_Localized: Mission 83. Light and Darkness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688092
+    m_Localized: Mission 84. Self-evident Truth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688093
+    m_Localized: Mission 85. The Moment of Decision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688094
+    m_Localized: Mission 86. A Sweet Lie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688095
+    m_Localized: Mission 87. The Brutal Truth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688096
+    m_Localized: Mission 88. The Moment of Decision 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688097
+    m_Localized: Mission 89. Atresia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688098
+    m_Localized: "Mission 90. Atresia\u2019s Past"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688099
+    m_Localized: Mission 91. Facing the Past
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688100
+    m_Localized: Mission 92. Hecate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688101
+    m_Localized: "Mission 93. Towards One\u2019s Faith"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688102
+    m_Localized: Clear Flame Wastes 2-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688103
+    m_Localized: Clear Flame Wastes 2-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688104
+    m_Localized: Clear Flame Wastes 2-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688105
+    m_Localized: Clear Flame Wastes 2-4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688106
+    m_Localized: Clear Flame Wastes 2-5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688107
+    m_Localized: "Achieve Alice\u2019s growth up to Lv. 3"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688108
+    m_Localized: 'Deploy Alice and
+
+      clear Flame Wastes 2-6'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688109
+    m_Localized: Clear Flame Wastes 2-7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688110
+    m_Localized: Clear Combat Trial Stage 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688111
+    m_Localized: Clear Flame Wastes 2-10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688112
+    m_Localized: Summon Stella Knights x10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688113
+    m_Localized: Reach Stella Knights Total Lv. 30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688114
+    m_Localized: Clear Combat Trial Stage 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688115
+    m_Localized: Clear Flame Wastes 2-11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688116
+    m_Localized: Clear Flame Wastes 2-13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688117
+    m_Localized: Clear Flame Wastes 2-15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688118
+    m_Localized: Check Attendance x1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688119
+    m_Localized: Clear Frozen City 3-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688120
+    m_Localized: Clear Frozen City 3-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688121
+    m_Localized: Clear Frozen City 3-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688122
+    m_Localized: Clear Frozen City 3-5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688123
+    m_Localized: "Achieve Sheena\u2019s growth up to Lv. 3"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688124
+    m_Localized: Participate once in Arena Battle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688125
+    m_Localized: Clear Frozen City 3-6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688126
+    m_Localized: Clear Frozen City 3-8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688127
+    m_Localized: Clear Frozen City 3-10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688128
+    m_Localized: Summon x10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688129
+    m_Localized: Reach Stella Knights Total Lv. 85
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688130
+    m_Localized: Clear Combat Trial Stage 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688131
+    m_Localized: Clear Frozen City 3-11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688132
+    m_Localized: Clear Frozen City 3-13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688133
+    m_Localized: Clear Frozen City 3-15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688134
+    m_Localized: Clear Frozen City 3-16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688135
+    m_Localized: Clear Frozen City 3-18
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688136
+    m_Localized: Clear Frozen City 3-20
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688137
+    m_Localized: Clear Forgotten Desert 4-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688138
+    m_Localized: Clear Forgotten Desert 4-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688139
+    m_Localized: Clear Forgotten Desert 4-5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688140
+    m_Localized: "Achieve Mino\u2019s growth to Lv. 5"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688141
+    m_Localized: Clear Forgotten Desert 4-6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688142
+    m_Localized: Clear Forgotten Desert 4-8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688143
+    m_Localized: Clear Forgotten Desert 4-10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688144
+    m_Localized: Clear Forgotten Desert 4-11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688145
+    m_Localized: Clear Forgotten Desert 4-13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688146
+    m_Localized: Clear Forgotten Desert 4-15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688147
+    m_Localized: Clear Combat Trial Stage 4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688148
+    m_Localized: Summon Stella Knights x10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688149
+    m_Localized: Reach Stella Knights Total Lv. 250
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688150
+    m_Localized: Clear Forgotten Desert 4-16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688151
+    m_Localized: Clear Forgotten Desert 4-18
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688152
+    m_Localized: Clear Forgotten Desert 4-20
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688153
+    m_Localized: Clear Forgotten Desert 4-21
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688154
+    m_Localized: Clear Forgotten Desert 4-23
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688155
+    m_Localized: Clear Forgotten Desert 4-25
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688156
+    m_Localized: Clear Forest of Beast 5-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688157
+    m_Localized: Clear Forest of Beast 5-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688158
+    m_Localized: Clear Forest of Beast 5-5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688159
+    m_Localized: Clear Forest of Beast 5-6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688160
+    m_Localized: Clear Forest of Beast 5-8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688161
+    m_Localized: Clear Forest of Beast 5-10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688162
+    m_Localized: Summon Stella Knights x10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688163
+    m_Localized: Reach Stella Knights Total Lv. 280
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688164
+    m_Localized: Clear Forest of Beast 5-11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688165
+    m_Localized: Clear Forest of Beast 5-13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688166
+    m_Localized: Clear Forest of Beast 5-15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688167
+    m_Localized: Clear Forest of Beast 5-16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688168
+    m_Localized: Clear Forest of Beast 5-18
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688169
+    m_Localized: Clear Forest of Beast 5-20
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688170
+    m_Localized: Clear Forest of Beast 5-21
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688171
+    m_Localized: Clear Forest of Beast 5-23
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688172
+    m_Localized: Clear Forest of Beast 5-25
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688173
+    m_Localized: Clear Forest of Beast 5-26
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688174
+    m_Localized: Clear Forest of Beast 5-28
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688175
+    m_Localized: Clear Forest of Beast 5-30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688176
+    m_Localized: Clear Lumine City 6-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688177
+    m_Localized: Clear Lumine City 6-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688178
+    m_Localized: Clear Lumine City 6-6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688179
+    m_Localized: Clear Lumine City 6-9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688180
+    m_Localized: Clear Lumine City 6-12
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688181
+    m_Localized: Summon Stella Knights x10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688182
+    m_Localized: Reach Stella Knights Total Lv. 150
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688183
+    m_Localized: Clear Lumine City 6-14
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688184
+    m_Localized: Clear Lumine City 6-16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688185
+    m_Localized: Clear Lumine City 6-18
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688186
+    m_Localized: Clear Lumine City 6-20
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688187
+    m_Localized: Clear Lumine City 6-22
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688188
+    m_Localized: Clear Lumine City 6-24
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688189
+    m_Localized: Clear Lumine City 6-26
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688190
+    m_Localized: Clear Lumine City 6-28
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688191
+    m_Localized: Clear Lumine City 6-30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688192
+    m_Localized: Clear Lumine City 6-32
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688193
+    m_Localized: Clear Lumine City 6-34
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688194
+    m_Localized: Clear Lumine City 6-36
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688195
+    m_Localized: Not enough EXP items.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688196
+    m_Localized: Not enough gold.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688197
+    m_Localized: Not enough Stella Knight shards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688198
+    m_Localized: Not enough action points.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688199
+    m_Localized: Not enough gems.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688200
+    m_Localized: Not enough summon tickets.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688201
+    m_Localized: Not enough Growth Crystals. (Can be obtained from <color=#F75D32>Combat
+      Trial and Idle Bonus</color>)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688202
+    m_Localized: You have not reached the minimum time for idle bonus.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688203
+    m_Localized: The chapter has not been unlocked yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688204
+    m_Localized: This commander skill has not been unlocked yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688205
+    m_Localized: The stage has not been unlocked yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688206
+    m_Localized: This Milestone Reward has not been unlocked yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688207
+    m_Localized: Please try again later.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688208
+    m_Localized: You have exceeded the maximum number of deployable members.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688209
+    m_Localized: There are no Stella Knights to show for this filter.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688210
+    m_Localized: To be updated.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688211
+    m_Localized: This Stella Knight has reached maximum level.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688212
+    m_Localized: Stella Knights have not been deployed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688213
+    m_Localized: Please set the appropriate tile position.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688214
+    m_Localized: 'There is room for <color=#F75D32>additional Stella Knight deployment</color>.
+
+      Are
+      you sure you want to enter battle?'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688215
+    m_Localized: Not enough <color=#F75D32>Action Points</color> required to enter
+      stage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688216
+    m_Localized: 'Click the (+) above the battle button
+
+      to equip commander
+      skill.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688217
+    m_Localized: You have exceeded the clear time limit.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688218
+    m_Localized: Stage Cleared. Idle Bonus efficiency has increased.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688219
+    m_Localized: Not enough Arena tickets. Please try again after recharging the
+      tickets.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688220
+    m_Localized: Not enough Gold. Clear stages and earn more Gold.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688221
+    m_Localized: Are you sure you want to reset Stella Knight level?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688222
+    m_Localized: You cannot reset from current level.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688223
+    m_Localized: You have used up all your Daily Reset INT. Daily Reset INT will
+      be refilled on the next day.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688224
+    m_Localized: You cannot purchase anymore.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688225
+    m_Localized: Not enough stars available for this stage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688226
+    m_Localized: You have already cleared this dungeon.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688227
+    m_Localized: Please clear the previous stage first.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688228
+    m_Localized: Reset item data error.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688229
+    m_Localized: You need to set an Arena Defense deck first.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688230
+    m_Localized: You cannot refresh Arena opponents yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688231
+    m_Localized: Arena battle time has ended.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688232
+    m_Localized: Available after completing <color=#F75D32>{0}</color>.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688233
+    m_Localized: Commander skill <color=#F75D32>[{0}]</color> has been equipped.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688234
+    m_Localized: Would you like to transcend <color=#F75D32>{0}</color>?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688235
+    m_Localized: Maximum level has been expanded.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688236
+    m_Localized: You need to deploy Stella Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688237
+    m_Localized: Would you like to save the defense deck?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688238
+    m_Localized: Please set the position of <color=#F75D32>Stella Knights</color>
+      and <color=#F75D32>terrain objects</color>.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688239
+    m_Localized: Stella Knight has reached maximum level. Requires <color=#F75D32>Transcendence</color>.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688240
+    m_Localized: Do you want to change to the selected language? Clicking the confirm
+      button will take you to the lobby.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688241
+    m_Localized: Advanced Power Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688242
+    m_Localized: Monster AoE Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688243
+    m_Localized: Knockback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688244
+    m_Localized: Stun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688245
+    m_Localized: Crossfire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688246
+    m_Localized: Ranger Power Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688247
+    m_Localized: Ranger Penetrating Shot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688248
+    m_Localized: Supporter Heal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688249
+    m_Localized: Cross Ice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688250
+    m_Localized: Boss Tanker AoE Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688251
+    m_Localized: Power Attack Assassion Ver.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688252
+    m_Localized: Astral Wave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688253
+    m_Localized: Frozen Slash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688254
+    m_Localized: Guard Up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688255
+    m_Localized: Ice Spear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688256
+    m_Localized: Inferno
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688257
+    m_Localized: Gun Strike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688258
+    m_Localized: Lock On
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688259
+    m_Localized: Silent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688260
+    m_Localized: Flame Break
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688261
+    m_Localized: Power Up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688262
+    m_Localized: Accel Boost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688263
+    m_Localized: Stray Bullet!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688264
+    m_Localized: Earthquake
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688265
+    m_Localized: Hammer Shot!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688266
+    m_Localized: Holy Seal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688267
+    m_Localized: Ground Slam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688268
+    m_Localized: Summon Rabbit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688269
+    m_Localized: Bullet Time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688270
+    m_Localized: Wind Blade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688271
+    m_Localized: Poison Balm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688272
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688273
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688274
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688275
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688276
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688277
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688278
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688279
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688280
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688281
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688282
+    m_Localized: 'Damage: Launches a sword energy wave and deals damage equal to
+      <b><color=#F75D32>500%</color></b> of ATK to the enemy.
+
+      Special Effect
+      : The sword energy travels to the end of the map.
+
+      AoE: 3 tiles forward
+      on the X-axis.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688283
+    m_Localized: "Damage : Swings a scythe widely, dealing damage equal to <b><color=#F75D32>500%</color></b>
+      of ATK to the enemy. \nSpecial Effect : Enemies hit will have their ATK SPD
+      <b><color=#F75D32>reduced by 50%</color></b>\nfor <b><color=#F75D32>3 seconds.</color></b>\nAoE
+      : 3 tiles forward on the X-axis."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688284
+    m_Localized: "Effect : Grants allies a shield equal to <b><color=#F75D32>1000%</color></b>
+      of Mensha\u2019s ATK for <b><color=#F75D32>4 seconds</color></b> \nAoE : Same
+      row as Mensha."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688285
+    m_Localized: "Damage : Deals magic damage equal to <b><color=#F75D32>300%</color></b>
+      of ATK. \nSpecial Effect : The Skill ATK <b><color=#F75D32>increases by 150%</color></b>against
+      the enemies with fire synergy.\nTarget : Nearest enemy."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688286
+    m_Localized: 'Damage : Summons a flame bean and deals damage equal to <b><color=#F75D32>350%</color></b>
+      of ATK.
+
+      Special Effect : Leaves residual heat in AoE, dealing <b><color=#F75D32>75%</color></b>
+      damage per second for<b><color=#F75D32>2 seconds.</color></b>
+
+      AoE: 3x3
+      area centered on the nearest enemy.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688287
+    m_Localized: "Damage : Fires a shotgun and deals damage equal to <b><color=#F75D32>400%</color></b>
+      of Philia\u2019s ATK.\nSpecial Effect : If an enemy is killed by the skill,\nSkill
+      Cooldown is reset immediately. \nTarget : Nearest enemy."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688288
+    m_Localized: "Damage : Deals damage equal to <b><color=#F75D32>850%</color></b>
+      of ATK. \nSpecial Effect : Enemy hit is \n <b><color=#F75D32>knocked back</color></b>
+      by two tiles. \nTarget : 1 enemy with the highest ATK."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688289
+    m_Localized: "Damage : Strikes forcefully and deals damage equal to <b><color=#F75D32>250%</color></b>
+      of ATK. \nSpecial Effect : Enemies hit are afflicted with <b><color=#F75D32>Silence
+      Debuff for 3 seconds.</color></b>\n<color=#77889A><b><color=#F75D32>*</color></b>Silence
+      : Skill Usage Disabled, Skill Cooldown Reduction Halted</color>\nTarget : Nearest
+      enemy."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688290
+    m_Localized: "Damage : Summons flames and deals damage equal to <b><color=#F75D32>450%</color></b>
+      of ATK.\nSpecial Effect : If the enemy hit has a shield,\ndestroys the enemy\u2019s
+      shield immediately. \nAoE : 3x3 area centered on Rukida."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688291
+    m_Localized: 'Effect : Increases the ATK by <b><color=#F75D32>30%</color></b>
+      for<b><color=#F75D32>3 seconds.</color></b>
+
+      Target : 2 allies with the
+      highest ATK.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688292
+    m_Localized: "Effect : Recovers all allies\u2019 HP by <b><color=#F75D32>500%</color></b>
+      of Enki\u2019s ATK, and increases the ATK SPD by <b><color=#F75D32>40%</color></b>
+      for \n<b><color=#F75D32>2 seconds.</color></b>\nTarget : All allies."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688293
+    m_Localized: "Damage : Equal to <color=#F75D32>500%</color> of Tetora\u2019s
+      ATK + increased damage proportional to Magic DEF.\nEffect : Swings the greatsword
+      and deals damage to 1 enemy, knocking the enemy back by <color=#F75D32>4 tiles.</color>\n
+      \nSpecial Effect : If the knocked-back enemy collides with a structure or character,
+      the enemy is stunned for <color=#F75D32>1.5 seconds</color> in a 3*3 area\nand
+      take additional damage equal to <color=#F75D32>200%</color> of ATK+damage proportional
+      to Magic DEF. \n \nAoE : Nearest enemy."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688294
+    m_Localized: "Damage : Launches a grenade at the enemy and deals damage equal
+      to <color=#F75D32>250%</color> of ATK. The grenade detonates after targeting
+      the enemy, dealing additional <color=#F75D32>150%</color> damage to the area.
+      \nTarget : 3 enemies with the lowest current HP."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688295
+    m_Localized: "Damage: Deals damage equal to <color=#F75D32>250%</color> of ATK
+      to nearby enemies and knocks them back in a cross-shaped area outward. \nEffect
+      : Grants a <color=#F75D32>50%</color> DEF Up Buff to self for <color=#F75D32>4
+      seconds.</color> \nBonus Effect : Increases Phys DEF by additional <color=#F75D32>25%</color>
+      for each Wind Synergy unit deployed.\n(Max: 3 units) \n \nAoE : Cross-shaped
+      area centered on self."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688296
+    m_Localized: "Effect : Seals the enemy in a coffin for <color=#F75D32>3 seconds.</color>
+      Sealed enemy can still be targeted, but their Skill Cooldown will not progress.
+      \nTarget : Enemy with the highest ATK."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688297
+    m_Localized: "Damage : Deals damage equal to <color=#F75D32>500%</color> of Adria\u2019s
+      ATK, and the damage increases proportional to<color=#F75D32>Phys DEF</color>.\nBonus
+      Effect : Enemies within the AoE are stunned for <color=#F75D32>1 second.</color>\nAoE
+      : Self-Centered."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688298
+    m_Localized: "Effect : Summons a bear for {0} seconds. Upon summoning, deals
+      damage equal to {1}% of Pippin\u2019s ATK in a 3*3 area centered on the bear.
+      The summoned bear casts a taunt that lasts for {0} seconds in 3*3 area. \nBear
+      Stats : 200% of Pippin\u2019s HP, 70% of Pippin\u2019s ATK, all other stats
+      are identical to Pippin. \nTarget : Enemies around the target Pippin is currently
+      attacking."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688299
+    m_Localized: "AoE : 1 tile, 3 tiles, 5 tiles, 7 tiles forward. \nEffect : Unleashes
+      multiple firearms over a wide area, striking <color=#F75D32>10 times</color>
+      over <color=#F75D32>3 seconds</color>, with different damage based on the AoE
+      range.\nDamage : \n-1 and 3 tiles forward: damage equal to <color=#F75D32>900%</color>
+      of ATK per strike\n-5 tiles forward: damage equal to <color=#F75D32>700%</color>
+      of ATK per strike\n-7 tiles forward: damage equal to<color=#F75D32>500%</color>
+      of ATK per strike."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688300
+    m_Localized: "Damage : Throws a boomerang at the enemy and deals damage equal
+      to <color=#F75D32>300%</color> of ATK. \nIf there is another enemy near the
+      target hit, the boomerang bounces to that enemy.\nEach time boomerang bounces,
+      its damage reduces by <color=#F75D32>50%.</color>\nThe boomerang can hit up
+      to <color=#F75D32>5 enemies.</color>\nBonus Effect : ATK SPD increases by <color=#F75D32>10%</color>
+      for 2 seconds per enemy hit. \nTarget: Nearest enemy."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688301
+    m_Localized: 'Effect : Drops a vial, reducing healing effects of enemies within
+      range by <color=#F75D32>60%</color>
+
+      and Phys DEF by <color=#F75D32>80%</color>
+      for <color=#F75D32>3 seconds.</color>
+
+      Target : 3*3 area around the enemy
+      with the highest Phys DEF and Magic DEF.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688302
+    m_Localized: Explosion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688303
+    m_Localized: Freezing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688304
+    m_Localized: Airborne
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688305
+    m_Localized: Life Heal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688306
+    m_Localized: Teleport
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688307
+    m_Localized: Curse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688308
+    m_Localized: "Deals damage equal to <b><color=#F75D32>500%</color></b> of allies\u2019
+      average ATK to enemies within the area."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688309
+    m_Localized: Freezes enemies within a cross-shaped area for 3 seconds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688310
+    m_Localized: Airbornes 1 selected enemy for 3 seconds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688311
+    m_Localized: "Restores the HP of allies within the area by 700% of the highest
+      ally\u2019s ATK."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688312
+    m_Localized: Randomly swaps the positions of allies, enemies, and terrain features
+      on the battlefield.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688313
+    m_Localized: Reduces ATK of enemies within a 3*3 area by 50% for 5 seconds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688314
+    m_Localized: Guardian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688315
+    m_Localized: <color=#F75D32>High Magic DEF</color>, reducing damage from <color=#F75D32>Mages</color>,
+      but powerless against <color=#0047AB>Rangers</color> with physical attacks.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688316
+    m_Localized: '{0} units : <b><color=#F75D32>{1}%</color></b> Skill Cooldown Reduction'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688317
+    m_Localized: Tank
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688318
+    m_Localized: High <color=#F75D32>Phys DEF</color>, effectively blocks attacks
+      of Guardians and <color=#F75D32>Rangers</color>, but powerless agaist <color=#0047AB>Mages</color>
+      who use magic attacks.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688319
+    m_Localized: '{0}units : <b><color=#F75D32>{1}%</color></b> Skill Cooldown Reduction'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688320
+    m_Localized: Mage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688321
+    m_Localized: Uses <color=#F75D32>magic attacks</color>, effectively hitting<color=#F75D32>Tanks</color>,
+      but powerless agaist <color=#0047AB>Guardians</color> with high magic defense.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688322
+    m_Localized: '{0} units : <b><color=#F75D32>{1}%</color></b> Skill Cooldown Reduction.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688323
+    m_Localized: Ranger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688324
+    m_Localized: <color=#F75D32>Longest range</color> and <color=#F75D32>High ATK</color>,
+      effectively hitting <color=#F75D32>Guardians</color>, but powerless against
+      <color=#0047AB>Tanks</color> with high physical defense.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688325
+    m_Localized: '{0}units : <b><color=#F75D32>{1}%</color></b> Skill Cooldown Reduction.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688326
+    m_Localized: Assassin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688327
+    m_Localized: "<color=#F75D32>High ATK SPD</color> and <color=#F75D32>MOV SPD</color>,
+      \nwith a short <color=#F75D32>Skill Cooldown.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688328
+    m_Localized: '{0} units : <b><color=#F75D32>{1}%</color></b> Skill Cooldown Reduction.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688329
+    m_Localized: Supporter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688330
+    m_Localized: Specialized in <color=#F75D32>healing, buffing, and debuffing</color>,
+      this position focuses on strengthening allies or weakening enemies. Supporters
+      have <color=#0047AB>low</color> base ATK and HP.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688331
+    m_Localized: '{0}units : <b><color=#F75D32>{1}%</color></b> Reduction.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688332
+    m_Localized: Fire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688333
+    m_Localized: Applies <color=#F75D32>additional damage </color> to the enemies
+      when the character attacks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688334
+    m_Localized: '{0}units : Damage equal to <b><color=#F75D32>{1}%</color></b> of
+      ATK'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688335
+    m_Localized: Earth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688336
+    m_Localized: "Increases the character\u2019s <color=#F75D32>Phys DEF.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688337
+    m_Localized: '{0}units : <b><color=#F75D32>{1}%</color></b> increase of Phys
+      DEF'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688338
+    m_Localized: Water
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688339
+    m_Localized: Generates a <color=#F75D32>shield</color> for the entire team equal
+      to the team's average attack power for <color=#F75D32>10 seconds</color>.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688340
+    m_Localized: '{0}units : A shield equal to <b><color=#F75D32>{1}%</color></b>
+      of ATK'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688341
+    m_Localized: Light
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688342
+    m_Localized: Grants a character <color=#F75D32>immunity to all status effects</color>
+      for a certain period of time.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688343
+    m_Localized: '{0}units : Immune for <b><color=#F75D32>{1}seconds</color></b>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688344
+    m_Localized: Darkness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688345
+    m_Localized: "Reduces the enemy\u2019s <color=#F75D32>Skill Cooldown Reduction
+      Speed.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688346
+    m_Localized: '{0}units : Reduction by <b><color=#F75D32>{1}%</color></b>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688347
+    m_Localized: Wind
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688348
+    m_Localized: "Boosts the character\u2019s <color=#F75D32>ATK SPD.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688349
+    m_Localized: '{0} units : <b><color=#F75D32>{1}%</color></b> increase in ATK
+      SPD'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688350
+    m_Localized: '{0} Synergy Deployment Effect'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688351
+    m_Localized: Clear Stage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688352
+    m_Localized: Clear within 30 seconds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688353
+    m_Localized: Clear without losing any Stella Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688354
+    m_Localized: <b>Strategy 1.</b> <color=#F75D32>Summon</color> new Stella Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688355
+    m_Localized: <b>Strategy 2.</b> Use Stella Knights <color=#F75D32>Synergy</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688356
+    m_Localized: <b>Strategy 3.</b> <color=#F75D32>Reposition</color> Stella Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688357
+    m_Localized: Available after collecting Guide Mission Rewards.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688358
+    m_Localized: Complete the Guide Mission.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688359
+    m_Localized: Guide Mission Complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688360
+    m_Localized: Test Complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688361
+    m_Localized: 'Thank you for participating in the test play!
+
+      Please support
+      Stella Knights by completing a short survey!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688362
+    m_Localized: Take the Survey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688363
+    m_Localized: 'You have fewer units than the maximum allowed for battle.
+
+      Would
+      you like to start the battle?'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688364
+    m_Localized: Next stage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688365
+    m_Localized: Move to the next chapter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688366
+    m_Localized: <color=#F75D32>Click</color> to deploy the units.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688367
+    m_Localized: <color=#F75D32>Long press</color> the characters at the bottom to
+      display <color=#F75D32>skill</color> information.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688368
+    m_Localized: 'Available Purchases : {0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688369
+    m_Localized: "Combat Trial Stage \n{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688370
+    m_Localized: Recommended Deployment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688371
+    m_Localized: Stage {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688372
+    m_Localized: "Click \nto deploy characters"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688373
+    m_Localized: "Click \nto place obstacles"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688374
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688375
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688376
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688377
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688378
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688379
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688380
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688381
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688382
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688383
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688384
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688385
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688386
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688387
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688388
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688389
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688390
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688391
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688392
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688393
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688394
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688395
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688396
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688397
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688398
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688399
+    m_Localized: Insufficient Arena entry tickets.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688400
+    m_Localized: Daily Quest Clear INT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688401
+    m_Localized: Daily Quest Clear INT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688402
+    m_Localized: Daily Quest Clear INT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688403
+    m_Localized: Clear Stages x5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688404
+    m_Localized: Level Up Stella Knights x5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688405
+    m_Localized: Summon Stella Knights x1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688406
+    m_Localized: Participate in Arena battle x1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688407
+    m_Localized: Claim Idle Bonus x1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688408
+    m_Localized: Weekly Quest Clear INT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688409
+    m_Localized: Weekly Quest Clear INT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688410
+    m_Localized: Weekly Quest Clear INT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688411
+    m_Localized: Clear Stages x60
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688412
+    m_Localized: Level Up Stella Knights x150
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688413
+    m_Localized: Summon Stella Knights x30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688414
+    m_Localized: Participate in Arena battle x30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688415
+    m_Localized: Claim Idle Bonus x7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688416
+    m_Localized: Action Points Spending Event
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688417
+    m_Localized: Play Time Event
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688418
+    m_Localized: Register
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688419
+    m_Localized: Spend action points in stages and earn rewards!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688420
+    m_Localized: Collect rewards based on your playtime!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688421
+    m_Localized: Log in daily to claim Fire Mage Blin!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688422
+    m_Localized: Jewel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688423
+    m_Localized: Gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688424
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688425
+    m_Localized: Action Points
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688426
+    m_Localized: Stella Summon Ticket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688427
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688428
+    m_Localized: Commander EXP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688429
+    m_Localized: EXP Item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688430
+    m_Localized: Stella Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688431
+    m_Localized: Stella Knights Shards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688432
+    m_Localized: Growth Crystal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688433
+    m_Localized: Arena Entry Ticket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688434
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688435
+    m_Localized: A summon ticket used to summon Stella Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688436
+    m_Localized: Used for leveling up Stella Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688437
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688438
+    m_Localized: Action points needed to advance through stages.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688439
+    m_Localized: A summon ticket used to summon Stella Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688440
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688441
+    m_Localized: Used for leveling up the Commander.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688442
+    m_Localized: Used for leveling up Stella Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688443
+    m_Localized: Stella Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688444
+    m_Localized: "Shards containting the power of Stella Knights. \nOnce you collect
+      20 shards, you can obtain the corresponding Stella Knight."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688445
+    m_Localized: An item used for leveling up Stella Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688446
+    m_Localized: An item required for entering Arena battles.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688447
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688448
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688449
+    m_Localized: <color=#ec9f19>Stage Clear, Idle Bonus</color>, Quests, Attendance,
+      Events
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688450
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688451
+    m_Localized: <color=#ec9f19>Idle Bonus</color>, Arena Daily Rewards, Attendance,
+      Events, AcINT Level Up Rewards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688452
+    m_Localized: <color=#ec9f19>Stage Total Star Rewards</color>, Chapter Clear,
+      Attendance, Events, Arena Season Rewards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688453
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688454
+    m_Localized: <color=#ec9f19>Stage Clear</color>, Idle Bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688455
+    m_Localized: <color=#ec9f19>Stage Clear, Idle Bonus</color>, Quests, Attendance,
+      Events
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688456
+    m_Localized: <color=#ec9f19>Summoning</color>, Guide Missions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688457
+    m_Localized: <color=#ec9f19>Summoning</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688458
+    m_Localized: <color=#ec9f19>Combat Trial</color>, Idle Bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688459
+    m_Localized: <color=#ec9f19>Daily Auto Recharge</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688460
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688461
+    m_Localized: Daily Arena Reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688462
+    m_Localized: Currency
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688463
+    m_Localized: Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688464
+    m_Localized: Other
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688465
+    m_Localized: Access to this acINT is restricted.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688466
+    m_Localized: Unavailable during the tutorial.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688467
+    m_Localized: Free refresh available
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688468
+    m_Localized: Please try reconnecting.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688469
+    m_Localized: This nickname is already in use.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688470
+    m_Localized: Usernames can be created with 4-16 characters in English or 2-8
+      characters in Korean.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688471
+    m_Localized: You have used up all your Daily Refresh INT. Daily Refresh INT refills
+      at 09:00 the next day.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688472
+    m_Localized: You have not obtained this character yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688473
+    m_Localized: Enter your nickname.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688474
+    m_Localized: Rewards Collected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688475
+    m_Localized: 'Time remaining until recharge : {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688476
+    m_Localized: This opponent is not available for battle.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688477
+    m_Localized: Tap to set your name.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688478
+    m_Localized: Unstable network connection. Please try again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688479
+    m_Localized: Loading ranking records. They will be updated shortly.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688480
+    m_Localized: Drag to activate the Commander Skill.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688481
+    m_Localized: Select the Stella Knight you wish to grow and level her up.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688482
+    m_Localized: Earn rewards based on your daily login time!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688483
+    m_Localized: Use action points in stages every day and earn rewards!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688484
+    m_Localized: Purchase time has expired.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688485
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688486
+    m_Localized: Select Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688487
+    m_Localized: Language Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688488
+    m_Localized: "\uD55C\uAD6D\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688489
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688490
+    m_Localized: Sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688491
+    m_Localized: BGM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688492
+    m_Localized: SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688493
+    m_Localized: CONFIRM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688494
+    m_Localized: CANCEL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688495
+    m_Localized: Idle Bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688496
+    m_Localized: Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688497
+    m_Localized: Quest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688498
+    m_Localized: Register
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688499
+    m_Localized: Summon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688500
+    m_Localized: Lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688501
+    m_Localized: 'Playtime
+
+      Event'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688502
+    m_Localized: 'Action Points
+
+      Event'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688503
+    m_Localized: Growth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688504
+    m_Localized: Skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688505
+    m_Localized: Info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688506
+    m_Localized: Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688507
+    m_Localized: Combat Power
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688508
+    m_Localized: ATK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688509
+    m_Localized: HP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688510
+    m_Localized: Magic DEF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688511
+    m_Localized: Phys DEF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688512
+    m_Localized: ATK SPD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688513
+    m_Localized: CRIT Rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688514
+    m_Localized: CRIT DMG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688515
+    m_Localized: Phys PEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688516
+    m_Localized: Magic PEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688517
+    m_Localized: Normal Skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688518
+    m_Localized: Active Skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688519
+    m_Localized: Synergy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688520
+    m_Localized: Level Reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688521
+    m_Localized: Transcendence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688522
+    m_Localized: Level Up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688523
+    m_Localized: Detailed Info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688524
+    m_Localized: Cooldown {0} sec(s)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688525
+    m_Localized: Phys
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688526
+    m_Localized: Magic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688527
+    m_Localized: Claim Idle Bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688528
+    m_Localized: Idle Time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688529
+    m_Localized: 'Max: {0} hours'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688530
+    m_Localized: No rewards available to claim.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688531
+    m_Localized: Claim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688532
+    m_Localized: Daily Quest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688533
+    m_Localized: Weekly Quest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688534
+    m_Localized: Summon x1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688535
+    m_Localized: Summon x10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688536
+    m_Localized: Summon new Stella Knights and create your strategy!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688537
+    m_Localized: Chapter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688538
+    m_Localized: Move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688539
+    m_Localized: 'Click
+
+      to place the unit'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688540
+    m_Localized: Stage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688541
+    m_Localized: Stage {0}-{1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688542
+    m_Localized: Pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688543
+    m_Localized: Do you want to exit the game?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688544
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688545
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688546
+    m_Localized: System Notification
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688547
+    m_Localized: Statistics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688548
+    m_Localized: Speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688549
+    m_Localized: Reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688550
+    m_Localized: Retry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688551
+    m_Localized: "Combat \nTrial"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688552
+    m_Localized: Arena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688553
+    m_Localized: 'Arena
+
+      <color=#EDF8FF><size="25">BETA</size></color>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688554
+    m_Localized: No players available for matching.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688555
+    m_Localized: Defense Deck Set
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688556
+    m_Localized: Ranking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688557
+    m_Localized: Season Reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688558
+    m_Localized: Reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688559
+    m_Localized: 'Currently offered in beta,
+
+      and may include some instability.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688560
+    m_Localized: Battle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688561
+    m_Localized: Battle Record
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688562
+    m_Localized: Season
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688563
+    m_Localized: 'Season Ends in : {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688564
+    m_Localized: End of Season
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688565
+    m_Localized: No battle records.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688566
+    m_Localized: Daily Reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688567
+    m_Localized: Current tier rewards are given once per week.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688568
+    m_Localized: Deployment Type
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688569
+    m_Localized: Unit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688570
+    m_Localized: Obstacle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688571
+    m_Localized: Do you want to save the defense deck?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688572
+    m_Localized: Guardian Synergy Deployment Effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688573
+    m_Localized: Stella Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688574
+    m_Localized: Combat Power
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688575
+    m_Localized: Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688576
+    m_Localized: Max Action Points
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688577
+    m_Localized: Set Nickname
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688578
+    m_Localized: Please set a nickname.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688579
+    m_Localized: Commander Skill has been unlocked.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688580
+    m_Localized: Clear Chapter {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688581
+    m_Localized: Receive rewards based on daily playtime.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688582
+    m_Localized: Playtime Event
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688583
+    m_Localized: Not Owned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688584
+    m_Localized: Purchase Arena Ticket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688585
+    m_Localized: 'Spend {0} Gold,
+
+      to buy 1 Arena Ticket.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688586
+    m_Localized: 'Available Purchases: {0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688587
+    m_Localized: Purchase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688588
+    m_Localized: Bronze
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688589
+    m_Localized: Silver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688590
+    m_Localized: Gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688591
+    m_Localized: Platinum
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688592
+    m_Localized: Diamond
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688593
+    m_Localized: 'Loading ranking history.
+
+      Will be updated within 10 minutes.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688594
+    m_Localized: Showing the last {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688595
+    m_Localized: Change Opponent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688596
+    m_Localized: Do you want to change {0} opponents immediately?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688597
+    m_Localized: 'Remaining changes for today : {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688598
+    m_Localized: Change
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688599
+    m_Localized: Arena Daily Reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688600
+    m_Localized: ATK UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688601
+    m_Localized: Magic Power UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688602
+    m_Localized: ATK SPD UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688603
+    m_Localized: Phys DEF UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688604
+    m_Localized: Magic DEF UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688605
+    m_Localized: RESET COOLTIME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688606
+    m_Localized: Skill Cooldown Reduction SPD Down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688607
+    m_Localized: Phys DEF Down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688608
+    m_Localized: Magic DEF Down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688609
+    m_Localized: Heal Down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688610
+    m_Localized: Stun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688611
+    m_Localized: Taunt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688612
+    m_Localized: Silence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688613
+    m_Localized: ATK SPD Down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688614
+    m_Localized: Shield Activated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688615
+    m_Localized: Increased Avoid Rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688616
+    m_Localized: Fire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688617
+    m_Localized: Water
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688618
+    m_Localized: Earth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688619
+    m_Localized: Wind
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688620
+    m_Localized: Light
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688621
+    m_Localized: Dark
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688622
+    m_Localized: Tank
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688623
+    m_Localized: Guardian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688624
+    m_Localized: Ranger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688625
+    m_Localized: Mage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688626
+    m_Localized: Supporter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688627
+    m_Localized: Assassin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688628
+    m_Localized: '{0}d'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688629
+    m_Localized: '{0}h'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688630
+    m_Localized: '{0}m'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688631
+    m_Localized: '{0}s'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688632
+    m_Localized: '{0}d left'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688633
+    m_Localized: '{0}h left'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688634
+    m_Localized: '{0}m left'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688635
+    m_Localized: '{0}s left'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688636
+    m_Localized: Win
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688637
+    m_Localized: Lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688638
+    m_Localized: Equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688639
+    m_Localized: Equipped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688640
+    m_Localized: Revenge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688641
+    m_Localized: Commander Skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688642
+    m_Localized: Unit Deployment INT Increased
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688643
+    m_Localized: Promotion Success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688644
+    m_Localized: Promotion Failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688645
+    m_Localized: Idle Bonus Efficiency Up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688646
+    m_Localized: / h
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688647
+    m_Localized: 'Chapter Gimmick: Lava Zone'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688648
+    m_Localized: Obstacle Gimmick
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688649
+    m_Localized: Element Synergy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688650
+    m_Localized: Combat Trial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688651
+    m_Localized: Skill Range
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688652
+    m_Localized: Commander Skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688653
+    m_Localized: Assassin Position
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688654
+    m_Localized: Add Combat Member
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688655
+    m_Localized: Arena Defense Deck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688656
+    m_Localized: Buff Zone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688657
+    m_Localized: 'Each chapter has its unique gimmick.
+
+      In Chapter 2, the Lava
+      Zone <color=#0055FF>deals a certain amount of damage per second</color> when
+      a character is positioned on it.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688658
+    m_Localized: 'Obstacles <color=#0055FF>restrict</color> the movement of both
+      characters and monsters,
+
+      and characters cannot be placed on those tiles.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688659
+    m_Localized: "When two or more characters with the <color=#0055FF>same element
+      synergy</color> are placed, \nthe synergy effect is activated."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688660
+    m_Localized: 'The Combat Trial is a dungeon where you can obtain <color=#0055FF>Growth
+      Crystals.</color>
+
+      Clearing certain stages <color=#0055FF>increases</color>
+      the number of units you can deploy.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688661
+    m_Localized: 'Some skills of characters and monsters display their <color=#0055FF>range</color>
+      on the tiles when activated.
+
+      Check the skill range and <color=#0055FF>strategically
+      place</color> your characters.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688662
+    m_Localized: 'You can <color=#0055FF>support battles</color> using Commander
+      Skills.
+
+      Clearing <color=#0055FF>chapters</color> will unlock additional
+      Commander Skills.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688663
+    m_Localized: 'Assassins move immediately to the <color=#0055FF>enemy''s rear</color>
+      at the start of battle.
+
+      Use them to target the enemy backline.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688664
+    m_Localized: "If you clear a <color=#0055FF>specific stage</color> of \nthe Combat
+      Trials, \nyou can deploy <color=#0055FF>one additional unit</color>."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688665
+    m_Localized: 'In the Arena Defense Deck settings, you can place <color=#0055FF>obstacle
+      walls</color>
+
+      These walls can <color=#0055FF>influence enemy movement</color>,
+      so be sure to use them strategically.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688666
+    m_Localized: 'Certain stages feature buff zones that grant <color=#0055FF>buffs
+      to characters.</color>
+
+      The buff remains active as long as the character
+      stays within the <color=#0055FF>buff zone.</color>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688667
+    m_Localized: Summon Result
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688668
+    m_Localized: Wall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688669
+    m_Localized: Access is currently unavailable.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688670
+    m_Localized: Complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688671
+    m_Localized: 'Next refresh in : {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688672
+    m_Localized: 'No obstacle has been placed.
+
+      (Try placing obstacle!)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688673
+    m_Localized: Hunter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688674
+    m_Localized: Flame Hunter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688675
+    m_Localized: Sand Hunter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688676
+    m_Localized: Storm Hunter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688677
+    m_Localized: Chapter 6 Normal Guardian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688678
+    m_Localized: Gorgon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688679
+    m_Localized: Flame Gorgon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688680
+    m_Localized: Mist Gorgon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688681
+    m_Localized: Sand Gorgon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688682
+    m_Localized: Storm Gorgon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688683
+    m_Localized: Chapter 6 Normal Tanker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688684
+    m_Localized: Mist Hunter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688685
+    m_Localized: Sand Stalker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688686
+    m_Localized: Sixhorn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688687
+    m_Localized: Flame Sixhorn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688688
+    m_Localized: Mist Sixhorn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688689
+    m_Localized: "Pipin\u2019s Summoned Bear"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688690
+    m_Localized: Hell Scream
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688691
+    m_Localized: Tuskcroker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688692
+    m_Localized: Stone Crawler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688693
+    m_Localized: Chapter 6 Buffalo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688694
+    m_Localized: Flame Imp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688695
+    m_Localized: Sand Monoeye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688696
+    m_Localized: Storm Monoeye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688697
+    m_Localized: Chapter 6 Normal Mage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688698
+    m_Localized: Mist Imp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688699
+    m_Localized: Storm Tuskcroker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688700
+    m_Localized: Wisp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688701
+    m_Localized: Flame Wisp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688702
+    m_Localized: Trial Dungeon Boss Drone Lv.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688703
+    m_Localized: Trial Dungeon Boss Drone Lv.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688704
+    m_Localized: Trial Dungeon Boss Drone Lv.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688705
+    m_Localized: Sand Wisp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688706
+    m_Localized: Storm Wisp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688707
+    m_Localized: Chapter 6 Normal Sniper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688708
+    m_Localized: Mist Wisp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688709
+    m_Localized: Map Placement Hati
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688710
+    m_Localized: Trial Dungeon Boss Stage 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688711
+    m_Localized: Trial Dungeon Boss Stage 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688712
+    m_Localized: Trial Dungeon Boss Stage 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688713
+    m_Localized: Sand Shadow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688714
+    m_Localized: Storm Shadow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688715
+    m_Localized: Chapter 6 Normal Assassin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688716
+    m_Localized: Mist Shadow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688717
+    m_Localized: Mist Monoeye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688718
+    m_Localized: Sand Monoeye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688719
+    m_Localized: Storm Monoeye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688720
+    m_Localized: Chapter 6 Normal Support
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688721
+    m_Localized: TEST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688722
+    m_Localized: "\uCC55\uD130 \uB8F0 \uD30C\uC774\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688723
+    m_Localized: "\uCC55\uD130 \uB8F0 \uC544\uC774\uC2A4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688724
+    m_Localized: "\uCC55\uD130 \uB8F0 \uB79C\uB4DC\uB9C8\uC778"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688725
+    m_Localized: "\uCC55\uD130 \uB8F0 \uC0CC\uB4DC \uC2A4\uD1B0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688726
+    m_Localized: "\uCC55\uD130 \uB8F0 \uB79C\uB364 \uBB34\uBE0C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688727
+    m_Localized: "\uCC55\uD130 \uB8F0 \uD30C\uC774\uC5B4 \uC124\uBA85"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688728
+    m_Localized: "\uCC55\uD130 \uB8F0 \uC544\uC774\uC2A4 \uC124\uBA85"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688729
+    m_Localized: "\uCC55\uD130 \uB8F0 \uB79C\uB4DC\uB9C8\uC778 \uC124\uBA85"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688730
+    m_Localized: "\uCC55\uD130 \uB8F0 \uC0CC\uB4DC \uC2A4\uD1B0 \uC124\uBA85"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688731
+    m_Localized: "\uCC55\uD130 \uB8F0 \uB79C\uB364 \uBB34\uBE0C \uC124\uBA85"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688732
+    m_Localized: FireWall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688733
+    m_Localized: Ice Cross
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688734
+    m_Localized: Earth Cavalry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688735
+    m_Localized: Sylph's Joke
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688736
+    m_Localized: Heaven's Gate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688737
+    m_Localized: Sanctuary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688738
+    m_Localized: Can only be given to Supernova characters!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688739
+    m_Localized: Supernova item was not granted, so it was automatically applied.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1869565540688740
+    m_Localized: Damage invincibility shield activated
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
