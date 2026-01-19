@@ -106,23 +106,23 @@ namespace CookApps.AutoBattler
                 // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.  
 
                 // 초반 플로우 체크 및 진행
-                var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
-                if (ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
-                {
-                    // SceneLoading.GoToNextScene("InGame",
-                    //     (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), lastTutoStageData.stage_id));
-                    SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-                    await SceneTransition.FadeInAsync();
+                // var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
+                // if (ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
+                // {
+                //     // SceneLoading.GoToNextScene("InGame",
+                //     //     (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), lastTutoStageData.stage_id));
+                //     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+                //     await SceneTransition.FadeInAsync();
 
-                    var inGameParams = new InGameMainParams(
-                        InGameType.PROLOGUE,
-                        new InGameMainStatePrologue(),
-                        0);
+                //     var inGameParams = new InGameMainParams(
+                //         InGameType.PROLOGUE,
+                //         new InGameMainStatePrologue(),
+                //         0);
 
-                    SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
-                    return;
-                }
-                else
+                //     SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
+                //     return;
+                // }
+                // else
                 {
                     SceneTransition.Create<SceneTransition_FadeInOut>();
                     await SceneTransition.FadeInAsync();

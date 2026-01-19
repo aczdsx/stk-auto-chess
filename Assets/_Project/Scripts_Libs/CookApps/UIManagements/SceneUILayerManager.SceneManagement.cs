@@ -140,6 +140,7 @@ namespace CookApps.TeamBattle.UIManagements
             ResetNodeRefs();
 
             var defaultUILayerLoader = FindFirstObjectByType<DefaultUILayerLoader>();
+            Debug.Log($"[SceneUILayerManager] ChangeSceneAsync: sceneName={sceneName}, defaultUIData type={defaultUIData?.GetType().Name ?? "null"}");
             await defaultUILayerLoader.LoadDefaultUILayers(defaultUIData);
             Destroy(defaultUILayerLoader.CachedGo);
 

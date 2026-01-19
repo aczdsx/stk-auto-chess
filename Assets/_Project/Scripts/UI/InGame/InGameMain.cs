@@ -192,8 +192,10 @@ namespace CookApps.AutoBattler
                     _currentGameStateUI.Initialize(_canvasTransform, inGameParams.StageId).Forget();
                     InGameManager.Instance.SetSessionIdAndRandomSeed(inGameParams.SessionId, inGameParams.RandomSeed);
                     break;
+                case null:
+                    throw new ArgumentException("Invalid parameter type: param is null");
                 default:
-                    throw new ArgumentException("Invalid parameter type");
+                    throw new ArgumentException($"Invalid parameter type: expected InGameMainParams, got {param.GetType().Name} (value: {param})");
             }
 
             InGameMainFlowManager.Instance.AddUpdateListener(0, ManagedUpdate);

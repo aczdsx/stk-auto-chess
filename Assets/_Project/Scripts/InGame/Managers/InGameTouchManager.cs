@@ -225,6 +225,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 }
             }
 
+
             _selectedTileView = inGameTileView;
             SetSelectedCharacter(tile.OccupiedCharacter);
         }

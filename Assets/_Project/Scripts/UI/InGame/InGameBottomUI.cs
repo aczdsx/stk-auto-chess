@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
@@ -22,6 +23,8 @@ public class InGameBottomUI : MonoBehaviour
     [SerializeField] protected CAButton _recommendButton;
     [SerializeField] protected CAButton _speedUpButton;
     [SerializeField] protected CAButton _filterButton;
+    [SerializeField] protected CAButton _tabCharacterButton;
+    [SerializeField] protected CAButton _tabBattleItemButton;
 
     [SerializeField] protected List<CAButton> _CommanderSkillButtonList;
     [SerializeField] protected Transform _characterSelectedTransform;
@@ -33,7 +36,6 @@ public class InGameBottomUI : MonoBehaviour
     [SerializeField] protected GameObject _readyUIObj;
     [SerializeField] protected GameObject _commanderSkillObj;
     [SerializeField] protected List<CommanderSkillUI> _commanderSkillUIList;
-    [SerializeField] protected TextMeshProUGUI _characterCountText;
     [SerializeField] protected ParticleSystem _commanderFx;
     [SerializeField] protected GameObject _characterTipObj;
 
@@ -47,6 +49,17 @@ public class InGameBottomUI : MonoBehaviour
     [SerializeField] protected ScrollRect _scrollRect;
 
     [SerializeField] protected ParticleSystem _stageBattleFx;
+
+    [Header("Tab")]
+    [SerializeField] protected GameObject _characterCountObjOn;
+    [SerializeField] protected GameObject _characterCountObjOff;
+    [SerializeField] protected TextMeshProUGUI _characterCountTextOn;
+    [SerializeField] protected TextMeshProUGUI _characterCountTextOff;
+
+    [SerializeField] protected GameObject _battleItemCountObjOn;
+    [SerializeField] protected GameObject _battleItemCountObjOff;
+    [SerializeField] protected TextMeshProUGUI _battleItemCountTextOn;
+    [SerializeField] protected TextMeshProUGUI _battleItemCountTextOff;
 
     protected List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     protected bool _isOpenCommanderSkill;
@@ -95,6 +108,9 @@ public class InGameBottomUI : MonoBehaviour
                 self.OpenFilterPopup();
             }).AddTo(this);
         }
+
+        _speedUpButton?.gameObject.SetActive(false); 
+        _statisticButton?.gameObject.SetActive(false);
     }
 
     protected async UniTask OnStartButtonClickedAsync()
@@ -102,6 +118,9 @@ public class InGameBottomUI : MonoBehaviour
         var isCheck = await IsCheckStartBattle();
         if (isCheck && !_isRunningRecommend)
             StartInGameBattle(_combatType);
+
+        _speedUpButton?.gameObject.SetActive(true);
+        _statisticButton?.gameObject.SetActive(true);
     }
 
     protected void OnClickRecommend()
@@ -125,6 +144,24 @@ public class InGameBottomUI : MonoBehaviour
         InGameMainFlowManager.Instance.SetInGameSpeed(!isSpeedUp);
 
         UpdateSpeedUpBtn(!isSpeedUp);
+    }
+
+    protected void OnClickTabCharacterButton()
+    {
+        _characterCountObjOn.SetActive(true);
+        _characterCountObjOff.SetActive(false);
+
+        _battleItemCountObjOn.SetActive(false);
+        _battleItemCountObjOff.SetActive(true);
+    }
+
+    protected void OnClickTabBattleItemButton()
+    {
+        _characterCountObjOn.SetActive(false);
+        _characterCountObjOff.SetActive(true);
+
+        _battleItemCountObjOn.SetActive(true);
+        _battleItemCountObjOff.SetActive(false);
     }
 
     private async void RecommendAction()
@@ -565,16 +602,12 @@ public class InGameBottomUI : MonoBehaviour
         }
         else
         {
+
             foreach (var statData in statDataList)
             {
                 var inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(statData.Spec);
                 int2 pos = new int2(inGameTile.X, inGameTile.Y);
-
-                await UniTask.WhenAll(new[]
-                {
-                    InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player,
-                        typeof(CharacterStateReady), true, HpBarType.Synergy),
-                });
+                await InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Player, typeof(CharacterStateReady), true, HpBarType.Synergy);
             }
         }
 
@@ -601,7 +634,8 @@ public class InGameBottomUI : MonoBehaviour
         var batchedCharacterCount = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count;
 
         string colorCode = batchedCharacterCount == 0 ? "#CA6E71" : "#C5C5B2";
-        _characterCountText.text = $"<color={colorCode}>{batchedCharacterCount}</color>/{userKnightCount}";
+        _characterCountTextOn.text = $"<color={colorCode}>{batchedCharacterCount}</color>/{userKnightCount}";
+        _characterCountTextOff.text = $"<color={colorCode}>{batchedCharacterCount}</color>/{userKnightCount}";
 
         var isAvailableRecommend = userKnightCount != batchedCharacterCount;
 
