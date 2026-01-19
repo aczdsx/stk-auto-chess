@@ -18,8 +18,7 @@ public static class PrologueID {
 
 public static class PrologueDelays
 {
-    public const int 라플라스1차스킬넉백시간 = 2300;
-    public const float 클레이보호막지속시간 = 3.5f;
+    public const int 라플라스SKL애니메이션타이밍 = 2000;
 }
 
 

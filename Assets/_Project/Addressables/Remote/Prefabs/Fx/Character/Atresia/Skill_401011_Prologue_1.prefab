@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: -0.31300065, y: -0.05, z: -0.11999917}
-  m_LocalScale: {x: 2.625, y: 2.625, z: 2.625}
+  m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5370916198858382199}
@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.38648796, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.39411944, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4832,9 +4832,6 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4919,7 +4916,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.24191521, y: 0.66443753, z: 0.66443723, w: -0.24191527}
   m_LocalPosition: {x: -0.18300065, y: 0, z: -0.21999913}
-  m_LocalScale: {x: 2.625, y: 2.625, z: 2.625}
+  m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5370916198858382199}
@@ -5113,8 +5110,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.5901748, g: 0.3137255, b: 0.6431373, a: 0.14117648}
-      maxColor: {r: 0.25882354, g: 0.3544333, b: 0.65882355, a: 0.14117648}
+      minColor: {r: 0.6431373, g: 0.43778387, b: 0.3137255, a: 0.14117648}
+      maxColor: {r: 0.65882355, g: 0.5304155, b: 0.25882354, a: 0.14117648}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9723,9 +9720,6 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9795,7 +9789,7 @@ GameObject:
   - component: {fileID: 2712105943314018780}
   - component: {fileID: 5149131760099910845}
   m_Layer: 6
-  m_Name: Skill_401011_Prologue
+  m_Name: Skill_401011_Prologue_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14562,9 +14556,6 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -14662,7 +14653,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.24191521, y: 0.66443753, z: 0.66443723, w: -0.24191527}
   m_LocalPosition: {x: -0.18300065, y: 0, z: -0.21999913}
-  m_LocalScale: {x: 2.625, y: 2.625, z: 2.625}
+  m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5370916198858382199}
@@ -14856,8 +14847,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.87083066, g: 0.09803921, b: 1, a: 1}
-      maxColor: {r: 0.5254902, g: 0.73484766, b: 1, a: 1}
+      minColor: {r: 1, g: 0.60990083, b: 0.0990566, a: 1}
+      maxColor: {r: 1, g: 0.9138052, b: 0.5254902, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19538,9 +19529,6 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -19625,7 +19613,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: -0.313, y: 0, z: -0.12}
-  m_LocalScale: {x: 2.625, y: 2.625, z: 2.625}
+  m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5370916198858382199}
@@ -19820,7 +19808,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.41960788, b: 0.87689966, a: 1}
+      maxColor: {r: 1, g: 0.8022084, b: 0.4198113, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24429,9 +24417,6 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -24516,7 +24501,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: -0.31300065, y: 0, z: -0.11999917}
-  m_LocalScale: {x: 2.625, y: 2.625, z: 2.625}
+  m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5370916198858382199}
@@ -24711,7 +24696,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.5176471, g: 0.28627452, b: 0.47142184, a: 0.15686275}
+      maxColor: {r: 0.5188679, g: 0.46151364, b: 0.28635636, a: 0.15686275}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -29320,9 +29305,6 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

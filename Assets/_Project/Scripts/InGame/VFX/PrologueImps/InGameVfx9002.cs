@@ -10,7 +10,15 @@ namespace CookApps.BattleSystem
         [SerializeField] private float _duration = 1f;
 
         private float _elapsedTime;
-        private bool _isPlaying = true;
+        private bool _isFinished = false;
+        private bool _isPlaying = false;
+
+        public void SetPlay()
+        {
+            _isPlaying = true;
+        }
+
+        public bool IsFinished() => _isFinished;
 
         public float CurrentValue { get; private set; }
 
@@ -51,6 +59,7 @@ namespace CookApps.BattleSystem
             // 커브 완료 시 처리
             _orbGroup.SetActive(false);
             _explosion.SetActive(true);
+            _isFinished = true;
         }
 
         public override void Clear()
