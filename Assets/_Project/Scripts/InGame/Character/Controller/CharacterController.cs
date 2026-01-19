@@ -221,15 +221,16 @@ namespace CookApps.BattleSystem
 
             ChangeOccupiedTile(tile);
 
+
             if (statData.Spec.size >= 1)
-            {
-                var tiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(tile, statData.Spec.size);
-                tiles.Remove(tile);
-                foreach (var occupiedTile in tiles)
                 {
-                    occupiedTile.SetOccupied(this);
+                    var tiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(tile, statData.Spec.size);
+                    tiles.Remove(tile);
+                    foreach (var occupiedTile in tiles)
+                    {
+                        occupiedTile.SetOccupied(this);
+                    }
                 }
-            }
 
             _allianceType = allianceType;
 

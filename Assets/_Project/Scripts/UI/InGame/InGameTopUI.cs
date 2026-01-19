@@ -60,6 +60,22 @@ public class InGameTopUI : MonoBehaviour
     [SerializeField] private ContentSizeFitter _playerSynergyContentFitter;
     [SerializeField] private ContentSizeFitter _combatPlayerSynergyContentFitter;
 
+    [Space]
+    [SerializeField] private RectTransform _elementCounterUI;
+    [SerializeField] private GameObject _elementCounterUIParent;
+
+
+    private static readonly Dictionary<SynergyType, float> elementCounterUIZRotation = new Dictionary<SynergyType, float>
+    {
+        { SynergyType.WIND, 0f },
+        { SynergyType.LIGHTNING, -72f },
+        { SynergyType.EARTH, -144f },
+        { SynergyType.WATER, -216f },
+        { SynergyType.FIRE, -288f },
+    };
+
+    
+
 
     private const float AnimationDuration = 0.5f; // 애니메이션 지속 시간
     private float beforePlayerHpRate = 1.0f;
@@ -322,6 +338,16 @@ public class InGameTopUI : MonoBehaviour
     public void SetMyName(string stageName)
     {
         _myName.text = stageName;
+    }
+    public void SetElementCounterUI(SynergyType synergyType)
+    {
+        if (!elementCounterUIZRotation.TryGetValue(synergyType, out var rotation))
+        {
+            _elementCounterUIParent.SetActive(false);
+            return;
+        }
+        _elementCounterUIParent.SetActive(true);
+        _elementCounterUI.localRotation = Quaternion.Euler(0f, 0f, rotation);
     }
 
     public void AddKillLog(in CookApps.AutoBattler.KillSource source, CharacterController death, bool isPlayerKill)
