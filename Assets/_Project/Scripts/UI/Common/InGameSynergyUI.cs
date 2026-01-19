@@ -16,9 +16,14 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _starAsterismIconGameObject;
         [SerializeField] private GameObject _elementalIconGameObject;
         [SerializeField] private TextMeshProUGUI _countText;
+        [SerializeField] private GameObject _countMaxGameObject;
+
         [SerializeField] private Image _starAsterismGradeGuageImage;
+        [SerializeField] private Image _starAsterismGradeGuageColor;
         [SerializeField] private Image _elementalGradeGuageImage;
+        [SerializeField] private Image _elementalGradeGuageColor;
         [SerializeField] private RectTransform _buttonRect;
+
 
 
         private Color _step0Color = new Color32(139, 139, 139, 50); // 그레이 (Gray)
@@ -31,6 +36,7 @@ namespace CookApps.AutoBattler
         private int _count;
         private ISpecSynergyData _synergyData;
         private ISpecSynergyData _nextSynergyData;
+        private const int MAX_GRADE = 3;
 
         //캐릭터 속성 시너지 세팅
         public void SetSynergy(SynergyType synergyType, int count, ISpecSynergyData data, ISpecSynergyData nextData, bool isActive = true, bool isColorWhite = false)
@@ -65,7 +71,7 @@ namespace CookApps.AutoBattler
 
             _count = count;
 
-            var lastSynergyData = SpecDataManager.Instance.GetSpecSynergyList(synergyType).Last();
+
             bool isAsterismSynergyType = DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType);
             _starAsterismIconGameObject.SetActive(isAsterismSynergyType);
             _elementalIconGameObject.SetActive(!isAsterismSynergyType);
@@ -80,18 +86,55 @@ namespace CookApps.AutoBattler
 
             if (isAsterismSynergyType)
             {
-                _starAsterismGradeGuageImage.fillAmount = (float)data.grade / (float)(lastSynergyData.grade - 1);
-                _starAsterismGradeGuageImage.color = color;
+                if (data.grade == 1 && !isActive)
+                {
+                    _starAsterismGradeGuageImage.fillAmount = 0f;
+                }
+                else if (data.grade == MAX_GRADE)
+                {
+                    _starAsterismGradeGuageImage.fillAmount = 1f;
+                }
+                else
+                {
+                    _starAsterismGradeGuageImage.fillAmount = (float)data.grade / (float)(MAX_GRADE);
+                }
+                _starAsterismGradeGuageColor.color = color;
             }
             else
             {
-                _elementalGradeGuageImage.fillAmount = (float)data.grade / (float)(lastSynergyData.grade - 1);
-                _elementalGradeGuageImage.color = color;
+                if (data.grade == 1 && !isActive)
+                {
+                    _elementalGradeGuageImage.fillAmount = 0f;
+                }
+                else if (data.grade == MAX_GRADE)
+                {
+                    _elementalGradeGuageImage.fillAmount = 1f;
+                }
+                {
+                    _elementalGradeGuageImage.fillAmount = (float)data.grade / (float)(MAX_GRADE);
+                }
+                _elementalGradeGuageColor.color = color;
             }
 
-            //  .color = (isColorWhite) ? color : Color.white;
+            if (data.grade == MAX_GRADE)
+            {
+                _countMaxGameObject.SetActive(true);
+                _countText.gameObject.SetActive(false);
+            }
+            else
+            {
+                _countMaxGameObject.SetActive(false);
+                _countText.gameObject.SetActive(true);
+            }
             _countText.text = $"{count}/{nextData.min_int}";
             _countText.color = color;
+            if(isAsterismSynergyType){
+                Debug.LogColor($"SynergyUI!! [{synergyType}] {isActive}/{_starAsterismGradeGuageImage.fillAmount}", "green");
+            }
+            else
+            {
+                Debug.LogColor($"SynergyUI!! [{synergyType}] {isActive}/{_elementalGradeGuageImage.fillAmount}", "green");
+            }
         }
 
         /// <summary>

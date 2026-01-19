@@ -16,22 +16,32 @@ MonoBehaviour:
   m_GUID: 677a560a5e670476097a8baadfff9499
   m_SerializeEntries:
   - m_GUID: 29c1e210896cb0b4bac47941444ed814
-    m_Address: Assets/_Project/Addressables/Remote/Scenes/Naninovel.unity
+    m_Address: Assets/_Project/Addressables/Remote/0. Scenes/Naninovel.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 61e7bd672efcc4045915939216d08afd
-    m_Address: Assets/_Project/Addressables/Remote/Scenes/Lobby.unity
+    m_Address: Assets/_Project/Addressables/Remote/0. Scenes/Lobby.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6942fcbefeb634df6baf902008a35d32
+    m_Address: Assets/_Project/Addressables/Remote/0. Scenes/NaninovelTest.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 76c96ee710c04450dbdb02e5ff8a6cac
+    m_Address: Assets/_Project/Addressables/Remote/0. Scenes/Title.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8029178524cba4055adeed793914bebd
-    m_Address: Assets/_Project/Addressables/Remote/Scenes/InGame.unity
+    m_Address: Assets/_Project/Addressables/Remote/0. Scenes/InGame.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 82d3b55c0d6944acd81604cfdc57e37e
-    m_Address: Assets/_Project/Addressables/Remote/Scenes/SceneLoading.unity
+    m_Address: Assets/_Project/Addressables/Remote/0. Scenes/SceneLoading.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -40,8 +50,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c1377e7f814e64cd2b95c5a399087bdd
+    m_Address: Assets/_Project/Addressables/Remote/0. Scenes/InGameTest.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c90fe9a8b0bc9f940b77073f3af35041
-    m_Address: Assets/_Project/Addressables/Remote/Scenes/SkillScene.unity
+    m_Address: Assets/_Project/Addressables/Remote/0. Scenes/SkillScene.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

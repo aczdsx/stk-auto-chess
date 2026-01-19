@@ -1357,6 +1357,7 @@ MonoBehaviour:
   consumeApEventButton: {fileID: 4399161901017971451}
   sessionTimeEventButton: {fileID: 8000980102485830301}
   inventoryButton: {fileID: 2410618906112338739}
+  _stageNameText: {fileID: 8055151128716106100}
   _slotPrefab: {fileID: 6389285590072588365}
   _slotContainer: {fileID: 883749266212109453}
 --- !u!95 &6248319321591001412
@@ -2597,6 +2598,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 187761075289372142, guid: 60d1d5d1d1818344faac8e5580c65c55, type: 3}
   m_PrefabInstance: {fileID: 6226513270843043004}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8055151128716106100 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4152496507405153736, guid: 60d1d5d1d1818344faac8e5580c65c55, type: 3}
+  m_PrefabInstance: {fileID: 6226513270843043004}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6322206852305693559
 PrefabInstance:
   m_ObjectHideFlags: 0

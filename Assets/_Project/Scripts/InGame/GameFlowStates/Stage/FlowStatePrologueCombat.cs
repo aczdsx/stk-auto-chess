@@ -497,25 +497,23 @@ public class FlowStatePrologueCombat : StateCombatBase
         }
     }
 
+    
+    private InGameVfx laplasSkill1;
+    private InGameVfx9002 inGameVfx9002;
     // 1단계: 마녀 공격 준비 이펙트 Loop
+    
     private async UniTask TriggerWitchAttackPrepare()
     {
         if (_witchCharacter == null) return;
 
-        // 라플라스 마녀의 공격 준비 이펙트 생성 및 캐릭터에 붙이기
-        // 다크 속성 캐스팅 이펙트 사용 (필요시 다른 이펙트로 변경 가능)
-        _witchAttackPrepareFx = InGameVfxManager.Instance.AddInGameVfx(
-            InGameVfxNameType.Skill_9002_3,
-            _witchCharacter.SkillMiddleFXTransformFollowable);
-
+        var  vfxTileIdx = _artesiaCharacter.CurrentTile.Int2Index + new int2(0, 1); 
+        laplasSkill1 = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_9002_1, 
+            InGameObjectManager.Instance.InGameGrid.GetTile(vfxTileIdx).View.CachedTr.position);
+        inGameVfx9002 = laplasSkill1.GetComponent<InGameVfx9002>();
         await UniTask.Delay(1500); // 1.5초 대기
     }
-
-    private bool laplasSkill1Finished = false;
-    private EffectCodeCharacterBase laplasSkill1EffectCode = null;
-    public void SetLaplasSkillState() => laplasSkill1Finished = true;
-
     
+    List<InGameVfx> clayShieldList;
     // 2단계: 클레이 중앙 포지션 이동, 스킬 발동, 마녀 스킬 막기
     private async UniTask TriggerClaySkillAndWitchAttack()
     {
@@ -551,23 +549,34 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.NextFrame();
 
         _clayCharacter.Target = _clayCharacter;
-        await ActivateCharacterSkillWithWait(_clayCharacter, "클레이 스킬을 찾을 수 없습니다.");
-        _clayCharacter.AddNextState<CharacterStateReady>();
+        // await ActivateCharacterSkillWithWait(_clayCharacter, "클레이 스킬을 찾을 수 없습니다.");
+        // _clayCharacter.AddNextState<CharacterStateReady>();
 
-        await UniTask.Delay(1000); // 1.5초 대기
+        clayShieldList = new ();
 
+        foreach (var ally in InGameObjectManager.Instance.GetCharacterList(_clayCharacter.AllianceType))
+        {
+            clayShieldList.Add(InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_prologue_shield_01, ally.SkillMiddleFXTransformFollowable));
+        }
+    }
+
+    // 3단계: 클레이 그로기 모션
+    private async UniTask TriggerClayGroggyObsolete()
+    {
         // 라플라스 마녀 공격 준비 이펙트 종료
         if (_witchAttackPrepareFx != null)
         {
             InGameVfxManager.Instance.RemoveInGameVfx(_witchAttackPrepareFx);
             _witchAttackPrepareFx = null;
         }
-
-        // 라플라스 마녀 스킬 발동 (스킬 - 중)
-        _witchCharacter.Target = _clayCharacter;
-        ActivateCharacterSkill(_witchCharacter, "마녀 스킬을 찾을 수 없습니다.");
-        await UniTask.WaitUntil(() => { return (_witchCharacter.GetCurrentState() is CharacterStateSkill); });
-        await UniTask.Delay(PrologueDelays.라플라스1차스킬넉백시간);
+        _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKL);
+        await UniTask.Delay(PrologueDelays.라플라스SKL애니메이션타이밍);
+        inGameVfx9002.SetPlay();
+        await UniTask.WaitUntil(inGameVfx9002.IsFinished);
+        foreach(var vfx in clayShieldList)
+        {
+            vfx.Remove();
+        }
         {
             List<UniTask> knockbacks = new();
             knockbacks.Add(YuniCharacterKnockback());
@@ -575,6 +584,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             knockbacks.Add(ClaycharacterKnockback());
             await UniTask.WhenAll(knockbacks);
         }
+
         await UniTask.NextFrame();
         _yuniCharacter.GetCharacterView().LookAt(_yuniCharacter.CurrentTile, _witchCharacter.CurrentTile);
         _philiaCharacter.GetCharacterView().LookAt(_philiaCharacter.CurrentTile, _witchCharacter.CurrentTile);
@@ -589,25 +599,17 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         _witchCharacter.AddNextState<CharacterStateReady>();
         await UniTask.Delay(1500); // 1.5초 대기
-    }
 
-    // 3단계: 클레이 그로기 모션
-    private async UniTask TriggerClayGroggyObsolete()
-    {
-        await UniTask.Delay(1000); // 1초 대기
-        await ManualFreeMoveActions();
     }
 
     // 4단계: 아트레시아+유니+필리아 자유 공격 3초, 마녀 지친 모션
     private async UniTask TriggerFreeAttack3Seconds()
     {
-        {
-            List<UniTask> uniTasks = new();
-            uniTasks.Add(ActivateCharacterSkillWithWait(_artesiaCharacter));
-            uniTasks.Add(ActivateCharacterSkillWithWait(_philiaCharacter));
+        await ManualFreeMoveActions();
+        ActivateCharacterSkill(_artesiaCharacter);
+        ActivateCharacterSkill(_philiaCharacter);
 
-            await UniTask.WhenAll(uniTasks);
-        }
+        await UniTask.Delay(1000); // 1초 대기
 
         if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
         {
@@ -902,38 +904,50 @@ public class FlowStatePrologueCombat : StateCombatBase
 
     private async UniTask ManualFreeMoveActions()
     {
+        List<UniTask> moveTasks =  new ();
         if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
-            ArtesiaMovement().Forget();
+            moveTasks.Add(ArtesiaMovement());
         if (_yuniCharacter != null && _yuniCharacter.IsAlive)
-            YuniMovement().Forget();
+            moveTasks.Add(YuniMovement());
         if (_philiaCharacter != null && _philiaCharacter.IsAlive)
-            PhilliaMovement().Forget();
-
+            moveTasks.Add(PhilliaMovement());
+        await UniTask.WhenAll(moveTasks);
     }
 
     private async UniTask YuniCharacterKnockback()
     {
-        MoveCharacterToDirection(_yuniCharacter, -1, -1, 10);
+        _yuniCharacter.GetCharacterView().PlayAnimation(AnimationKey.PARRY, false);
+        
+        KnockbackHelper.ApplyKnockback(_witchCharacter, _yuniCharacter, tileIdx: new int2(-1, -1), duration : 0.4f);
 
-        await UniTask.WaitUntil(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateForceMove) || (_yuniCharacter.GetCurrentState() is CharacterStateMove); });
-        await UniTask.WaitWhile(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateForceMove) || (_yuniCharacter.GetCurrentState() is CharacterStateMove); });
+        // await UniTask.WaitUntil(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateForceMove) || (_yuniCharacter.GetCurrentState() is CharacterStateMove); });
+        await UniTask.Delay(400);
+        await UniTask.WaitUntil(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateIdle); });
+        _yuniCharacter.AddNextState<CharacterStateReady>();
     }
 
     private async UniTask PhilliaCharacterKnockback()
     {
-        MoveCharacterToDirection(_philiaCharacter, 1, -1, 10);
+        _philiaCharacter.GetCharacterView().PlayAnimation(AnimationKey.PARRY, false);
 
-        await UniTask.WaitUntil(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
-        await UniTask.WaitWhile(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
+        KnockbackHelper.ApplyKnockback(_witchCharacter, _philiaCharacter, tileIdx: new int2(1, -1), duration : 0.4f);
+
+        // await UniTask.WaitUntil(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
+        await UniTask.Delay(400);
+        await UniTask.WaitUntil(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateIdle);} ); 
+        _philiaCharacter.AddNextState<CharacterStateReady>();
     }
 
     private async UniTask ClaycharacterKnockback()
     {
-        MoveCharacterToDirection(_clayCharacter, 0, -1, 10);
+                _clayCharacter.GetCharacterView().PlayAnimation(AnimationKey.PARRY, false);
 
-        await UniTask.WaitUntil(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
-        await UniTask.WaitWhile(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
+            KnockbackHelper.ApplyKnockback(_witchCharacter, _clayCharacter, tileIdx: new int2(0, -1), duration : 0.4f);
 
+        // await UniTask.WaitUntil(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
+        await UniTask.Delay(400);
+        await UniTask.WaitUntil(() => { return (_clayCharacter.GetCurrentState() is CharacterStateIdle); });
+        _clayCharacter.AddNextState<CharacterStateReady>();
     }
 
     private async UniTask ArtesiaMovement()
@@ -977,5 +991,56 @@ public class FlowStatePrologueCombat : StateCombatBase
         MoveCharacterToDirection(_philiaCharacter, 0, 2, 0.666f);
         await UniTask.WaitUntil(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
         await UniTask.WaitWhile(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
+    }
+}
+
+public static class KnockbackHelper
+{
+    /// <summary>
+    /// 캐릭터를 넉백시킵니다.
+    /// </summary>
+    /// <param name="attacker">공격자 (방향 계산용)</param>
+    /// <param name="target">넉백 대상</param>
+    /// <param name="tileCount">밀려나는 칸 수</param>
+    /// <param name="duration">넉백 지속 시간 (기본 0.3초)</param>
+    /// <param name="height">공중 높이 (기본 2.5f)</param>
+    /// <param name="ease">이동 이징 (기본 OutExpo)</param>
+    /// <param name="onComplete">완료 콜백 (선택)</param>
+    /// <returns>생성된 넉백 이펙트 코드 (실패시 null)</returns>
+    public static EffectCodeCrowdControlKnockback ApplyKnockback(
+        CharacterController attacker,
+        CharacterController target,
+        int2 tileIdx,
+        float duration = 0.3f,
+        float height = 0,
+        Ease ease = Ease.OutExpo,
+        Action<InGameTile> onComplete = null)
+    {
+        if (target == null || !target.IsAlive || target.CurrentTile == null)
+            return null;
+
+        var grid = InGameObjectManager.Instance.InGameGrid;
+        var attackerTile = attacker?.CurrentTile ?? target.CurrentTile;
+        var knockBackTile = grid.GetTile(target.CurrentTile.Int2Index + tileIdx);
+
+        Span<double> eccStats = stackalloc double[4];
+        eccStats[0] = duration;
+        eccStats[1] = height;
+        eccStats[2] = knockBackTile.View.ID;
+        eccStats[3] = (int)ease;
+
+        var effectCode = EffectCodeHelper.AddOrMergeEffectCode(
+            EffectCodeNameType.CC_KNOCKBACK, 
+            target, 
+            eccStats, 
+            attacker as IEffectCodeSource
+        );
+
+        if (effectCode is EffectCodeCrowdControlKnockback knockback && onComplete != null)
+        {
+            knockback.SetOnKnockbackEndHandler(onComplete);
+        }
+
+        return effectCode as EffectCodeCrowdControlKnockback;
     }
 }

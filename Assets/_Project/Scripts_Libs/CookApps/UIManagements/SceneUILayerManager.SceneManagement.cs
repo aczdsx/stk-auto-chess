@@ -114,7 +114,8 @@ namespace CookApps.TeamBattle.UIManagements
             // 4. 씬 로드
             var prevHandle = handle;
             var address = UILayerConstants.GetSceneAddress(sceneName);
-            handle = Addressables.LoadSceneAsync(address, activateOnLoad: false);
+ 
+              handle = Addressables.LoadSceneAsync(address, activateOnLoad: false);
             operationWrapper.SetAsyncOperation(handle);
             var nextSceneInstance = await handle.WaitUntilDone();
             while (!operationWrapper.allowSceneActivation)

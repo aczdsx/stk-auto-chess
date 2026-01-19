@@ -107,6 +107,8 @@ public class InGameTopUI : MonoBehaviour
 
     public void UpdateSynergyUI(AllianceType type, bool isCombat)
     {
+        if (type != AllianceType.Player)
+            return;
         List<InGameSynergyUI> _synergyUIList = type == AllianceType.Player ? _playerSynergyUIList : _enemySynergyUIList;
         if (isCombat)
         {
