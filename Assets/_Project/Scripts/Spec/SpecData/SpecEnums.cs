@@ -352,6 +352,8 @@ namespace CookApps.AutoBattler
         DIMENSION_CUBE_LEVEL = 21,
         ENTER_CHAPTER = 22,
         ENTER_ELPIS = 23,
+        UPGRADE_BUILDING = 24,
+        INSTALL_BUILDING = 25,
     }
 
     public enum DialogueEventType

@@ -97,7 +97,7 @@ namespace CookApps.AutoBattler
 
             // var transition1 = SceneTransition_FadeInOut.Create();
             // 프롤로그로 진입하게 해줘야함
-            // SceneLoading.GoToNextScene("InGame",
+            // SceneLoading.GoT`oNextScene("InGame",
             //         (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
             // return;
 
@@ -107,6 +107,7 @@ namespace CookApps.AutoBattler
 
                 // 초반 플로우 체크 및 진행
                 var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
+                // if (false)
                 if (ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
                 {
                     // SceneLoading.GoToNextScene("InGame",
@@ -114,15 +115,15 @@ namespace CookApps.AutoBattler
                     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                     await SceneTransition.FadeInAsync();
 
-                    var inGameParams = new InGameMainParams(
-                        InGameType.PROLOGUE,
-                        new InGameMainStatePrologue(),
-                        0);
+                //     var inGameParams = new InGameMainParams(
+                //         InGameType.PROLOGUE,
+                //         new InGameMainStatePrologue(),
+                //         0);
 
-                    SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
-                    return;
-                }
-                else
+                //     SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
+                //     return;
+                // }
+                // else
                 {
                     SceneTransition.Create<SceneTransition_FadeInOut>();
                     await SceneTransition.FadeInAsync();

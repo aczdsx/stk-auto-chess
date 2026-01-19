@@ -13,6 +13,9 @@ public class InGameBottomStageUI : InGameBottomUI
         _statisticButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickStatisticButton()).AddTo(this);
         _recommendButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickRecommend()).AddTo(this);
         _speedUpButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSpeedUp()).AddTo(this);
+        
+        _tabCharacterButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickTabCharacterButton()).AddTo(this);
+        _tabBattleItemButton?.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickTabBattleItemButton()).AddTo(this);
     }
     
     protected override async UniTask<bool> IsCheckStartBattle()

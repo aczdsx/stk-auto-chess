@@ -97,20 +97,10 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
                     }
                 }
 
-                // 2. 선택된 타일이 없거나 점유되어 있으면 추천 타일 사용
+                // 3. 비어있는 타일을 찾지 못한 경우 AllianceType.None을 우선하는 빈 타일 사용
                 if (inGameTile == null)
                 {
-                    inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter);
-                    if (inGameTile != null && inGameTile.IsOccupied())
-                    {
-                        inGameTile = null; // 점유되어 있으면 무시
-                    }
-                }
-
-                // 3. 비어있는 타일을 찾지 못한 경우 랜덤 빈 타일 사용
-                if (inGameTile == null)
-                {
-                    inGameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(AllianceType.Player);
+                    inGameTile = InGameObjectManager.Instance.InGameGrid.GetEmptyTilePreferringNone();
                 }
                 Debug.LogColor($"랜덤위치에 지뢰 추가!: {inGameTile?.X}, {inGameTile?.Y}");
             }

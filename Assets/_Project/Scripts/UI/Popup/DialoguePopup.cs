@@ -8,6 +8,7 @@ using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 using R3;
 using Spine.Unity;
 using TMPro;
@@ -175,6 +176,7 @@ namespace CookApps.AutoBattler
         {
             // 가이드 미션 완료 체크
             ServerDataManager.Instance.GuideMission.AddActionValue(GuideMissionType.END_DIALOGUE);
+            if (_currentSpecDialogueData == null) return;
 
             // 보상 지급 여부 체크
             bool isGetReward = _currentSpecDialogueData.reward_id > 0;
