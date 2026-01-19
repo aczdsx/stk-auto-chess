@@ -26,17 +26,19 @@ namespace CookApps.AutoBattler
         [SerializeField] private SpriteLoader _missionRewardCharacterSpriteLoader;
         [SerializeField] private TextMeshProUGUI _missionRewardAmountText;
 
-        private GuideMissionModel GuideMissionModel => ServerDataManager.Instance.GuideMission;
+        private GuideMissionDataBridge dataBridge;
         private GuideMissionInfo _specGuideMissionData;
 
         private void Awake()
         {
+            dataBridge = new GuideMissionDataBridge();
+
             _guideMissionButton.OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, _) => self.OnClickMissionSlotButtonAsync(), AwaitOperation.Drop)
                 .AddTo(this);
 
             // 가이드 미션 데이터 변경 시 UI 갱신
-            GuideMissionModel.OnChanged
+            dataBridge.OnChanged
                 .Subscribe(this, (_, self) => self.RefreshGuideMissionSlot())
                 .AddTo(this);
         }
@@ -48,7 +50,15 @@ namespace CookApps.AutoBattler
 
         public void InitGuideMissionSlot()
         {
-            int guideMissionId = (int)GuideMissionModel.GuideMissionId;
+            InitGuideMissionSlotAsync().Forget();
+        }
+
+        private async UniTask InitGuideMissionSlotAsync()
+        {
+            // 서버에서 가이드 미션 데이터 불러오기
+            await dataBridge.GetAsync();
+
+            int guideMissionId = (int)dataBridge.GuideMissionId;
             _specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
 
             SetGuideMissionSlot();
@@ -63,13 +73,13 @@ namespace CookApps.AutoBattler
         public void RefreshGuideMissionSlot()
         {
             // 모든 가이드 미션 완료 시 off 처리
-            if (GuideMissionModel.IsAllCompleted)
+            if (dataBridge.IsAllCompleted)
             {
                 gameObject.SetActive(false);
                 return;
             }
 
-            int currentOrder = (int)GuideMissionModel.Order;
+            int currentOrder = (int)dataBridge.Order;
 
             // 가이드 미션 최대 오더일 경우 off 처리
             if (currentOrder > SpecDataManager.Instance.GetGuideMissionMaxOrder())
@@ -79,7 +89,7 @@ namespace CookApps.AutoBattler
             }
 
             // 가이드 미션 슬롯 데이터 세팅
-            int guideMissionId = (int)GuideMissionModel.GuideMissionId;
+            int guideMissionId = (int)dataBridge.GuideMissionId;
             _specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
 
             SetGuideMissionSlot();
@@ -107,7 +117,7 @@ namespace CookApps.AutoBattler
             _missionRewardAmountText.text = $"x{_specGuideMissionData.item_count}";
 
             // 보상 수령 가능 여부에 따라 활성화 레이어 표시
-            _activateLayerObject.SetActive(GuideMissionModel.CanClaimReward);
+            _activateLayerObject.SetActive(dataBridge.CanClaimReward);
         }
 
         private void SetGuideMissionRewardImage()
@@ -140,7 +150,7 @@ namespace CookApps.AutoBattler
             if (_specGuideMissionData == null) return;
 
             // 보상을 받을 수 있는 경우
-            if (GuideMissionModel.CanClaimReward)
+            if (dataBridge.CanClaimReward)
             {
                 await ClaimRewardAsync();
             }
@@ -153,7 +163,7 @@ namespace CookApps.AutoBattler
         private async UniTask ClaimRewardAsync()
         {
             // 서버에 보상 수령 요청
-            var response = await NetManager.Instance.GuideMission.ClaimRewardAsync(GuideMissionModel.GuideMissionId);
+            var response = await dataBridge.ClaimRewardAsync(dataBridge.GuideMissionId);
             if (response == null || !response.IsSuccess)
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_ERROR_NETWORK");

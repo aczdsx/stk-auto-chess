@@ -1347,6 +1347,7 @@ MonoBehaviour:
   uiLayerType: 1
   baseAnimator: {fileID: 0}
   preloadAddressables: []
+  guideMissionSlot: {fileID: 7034768568806100289}
   battleButton: {fileID: 5898579460224426199}
   dungeonButton: {fileID: 3737476178379770370}
   characterButton: {fileID: 8563366247782816966}
@@ -3268,6 +3269,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7034768568806100289 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1685494174864135138, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
+  m_PrefabInstance: {fileID: 8558124313184640675}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d942ceda68a7c542b3b94deca5a79ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &9062433668803241408
