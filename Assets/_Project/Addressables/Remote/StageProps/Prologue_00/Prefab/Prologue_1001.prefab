@@ -43575,7 +43575,7 @@ Transform:
   m_GameObject: {fileID: 3828371289103101855}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 36.82, y: -17.65, z: 16.84}
+  m_LocalPosition: {x: 27.11, y: -23.85, z: 16.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -43590,7 +43590,7 @@ ParticleSystem:
   m_GameObject: {fileID: 3828371289103101855}
   serializedVersion: 8
   lengthInSec: 8
-  simulationSpeed: 2
+  simulationSpeed: 1
   stopAction: 0
   cullingMode: 3
   ringBufferMode: 0
@@ -44152,7 +44152,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 20
+    maxNumParticles: 40
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -44220,7 +44220,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 20, y: 0, z: 20}
+    m_Scale: {x: 10, y: 0, z: 20}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -44857,9 +44857,9 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
-        key1: {r: 1, g: 1, b: 1, a: 0.69411767}
-        key2: {r: 0, g: 0, b: 0, a: 1}
-        key3: {r: 0, g: 0, b: 0, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 0.15686275}
+        key2: {r: 0, g: 0, b: 0, a: 0.32941177}
+        key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
@@ -44873,17 +44873,17 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 10409
-        atime2: 24641
-        atime3: 51464
+        atime1: 22745
+        atime2: 47031
+        atime3: 65535
         atime4: 65535
-        atime5: 0
+        atime5: 65535
         atime6: 0
         atime7: 0
         m_Mode: 0
         m_ColorSpace: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 5
+        m_NumAlphaKeys: 4
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -46399,7 +46399,7 @@ ParticleSystem:
     octaves: 1
     octaveMultiplier: 0.5
     octaveScale: 2
-    quality: 2
+    quality: 1
     scrollSpeed:
       serializedVersion: 2
       minMaxState: 0
@@ -46616,7 +46616,7 @@ ParticleSystem:
     positionAmount:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -48348,12 +48348,12 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
-  m_MinParticleSize: 0.4
-  m_MaxParticleSize: 0.5
+  m_MinParticleSize: 0.3
+  m_MaxParticleSize: 0.3
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
@@ -53225,7 +53225,7 @@ GameObject:
   - component: {fileID: 3891370862638716145}
   - component: {fileID: 5541816982609316993}
   - component: {fileID: 2557827323424946084}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
