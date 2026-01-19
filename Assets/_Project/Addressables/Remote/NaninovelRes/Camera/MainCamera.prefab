@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7404606417071786264}
   - component: {fileID: 4277520663879333964}
   - component: {fileID: 6707487326926165232}
+  - component: {fileID: 1658814600172096219}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: NaninovelMainCamera
@@ -128,3 +129,11 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!81 &1658814600172096219
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425027122915850237}
+  m_Enabled: 1
