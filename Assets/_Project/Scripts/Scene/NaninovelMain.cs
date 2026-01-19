@@ -100,10 +100,8 @@ namespace CookApps.AutoBattler
                 Debug.Log($"NaninovelMain: 다음 스크립트 실행 - {nextScript}");
                 _currentScriptName = nextScript;
 
-                // 연쇄 재생 전 UI 상태 복원
-                RestoreUIStateForChainedScript();
-
-                PlayScript(nextScript).Forget();
+                // 씬 전환 애니메이션과 함께 다음 스크립트 실행
+                PlayNextScriptWithTransition(nextScript).Forget();
                 return;
             }
 
@@ -112,6 +110,25 @@ namespace CookApps.AutoBattler
             _currentScriptName = null;
             _onEndAction?.Invoke();
             _onEndAction = null;
+        }
+
+        /// <summary>
+        /// 씬 전환 애니메이션과 함께 다음 스크립트 실행
+        /// </summary>
+        private async UniTaskVoid PlayNextScriptWithTransition(string nextScript)
+        {
+            // 1. 전환 효과 생성 및 페이드 인 (화면 가림)
+            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+            await SceneTransition.FadeInAsync();
+
+            // 2. 연쇄 재생 전 UI 상태 복원
+            RestoreUIStateForChainedScript();
+
+            // 3. 스크립트 로드 및 재생
+            await PlayScript(nextScript);
+
+            // 4. 페이드 아웃 (화면 복원)
+            await SceneTransition.FadeOutAsync();
         }
 
         /// <summary>

@@ -18,6 +18,10 @@ namespace CookApps.AutoBattler
 
     public partial class LobbyMain : UILayer, TopCurrencyAndMenuBarContainer
     {
+        [Header("Guide")]
+        [SerializeField] private GuideMissionSlot guideMissionSlot;
+        
+        [Header("Buttons")]
         [SerializeField] private CAButton battleButton;
         [SerializeField] private CAButton dungeonButton;
         [SerializeField] private CAButton characterButton;
@@ -103,6 +107,8 @@ namespace CookApps.AutoBattler
 
         private async UniTask PreEnterAsync()
         {
+            guideMissionSlot.InitGuideMissionSlot();
+            
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
             await LoadElpis();

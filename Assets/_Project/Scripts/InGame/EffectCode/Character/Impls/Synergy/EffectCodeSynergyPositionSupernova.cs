@@ -118,6 +118,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             return;
         }
 
+        battleItem.CurrentTile.SetUnoccupied();
         // 배틀 아이템이 있으면 즉시 적용
         InGameSynergyManager.Instance.ApplyBattleItem(battleItem, targetCharacter);
         _isApplyReserved = false;
@@ -147,6 +148,11 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         if (InGameTouchManager.Instance.SelectedFirstTileID != -1)
         {
             inGameTile = InGameObjectManager.Instance.InGameGrid.GetTile(InGameTouchManager.Instance.SelectedFirstTileID);
+            // 선택된 타일이 이미 점유되어 있으면 다른 빈 타일 찾기
+            if (inGameTile != null && inGameTile.OccupiedCharacter != null)
+            {
+                inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter);
+            }
         }
         else
         {
@@ -155,7 +161,22 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
         if (TutorialManager.Instance.IsTutorial)
         {
-            inGameTile = InGameObjectManager.Instance.InGameGrid.GetTile(11);
+            var tutorialTile = InGameObjectManager.Instance.InGameGrid.GetTile(11);
+            // 튜토리얼 타일이 이미 점유되어 있으면 다른 빈 타일 찾기
+            if (tutorialTile != null && tutorialTile.OccupiedCharacter != null)
+            {
+                inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter);
+            }
+            else
+            {
+                inGameTile = tutorialTile;
+            }
+        }
+
+        // 최종적으로 타일이 없거나 점유되어 있으면 빈 타일 찾기
+        if (inGameTile == null || inGameTile.OccupiedCharacter != null)
+        {
+            inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter);
         }
 
         int2 pos = new int2(inGameTile.X, inGameTile.Y);

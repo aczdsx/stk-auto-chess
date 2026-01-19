@@ -64,6 +64,11 @@ namespace CookApps.AutoBattler
         private static Vector2 _sourceUV; // 초기 UI 위치 (UV 좌표로 캐싱)
         private static bool _positionsValid;
 
+        // 레이아웃 대기 (다이얼로그 팝업 닫힘 후 UI 안정화 대기)
+        private static float _layoutWaitTime;
+        private const float LAYOUT_WAIT_DURATION = 0.1f; // 레이아웃 안정화 대기 시간
+        private static bool _sourceUVCached;
+
         public void OnShow(TutorialActionContext context)
         {
             _currentContext = context;
@@ -71,6 +76,8 @@ namespace CookApps.AutoBattler
             _holeRadiusAnimTime = 0f;
             _holeGrown = false;
             _positionsValid = false;
+            _layoutWaitTime = 0f;
+            _sourceUVCached = false;
 
             // 드래그 오브젝트 활성화
             if (context.DragObj != null)
@@ -104,8 +111,8 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // 초기 UI 위치 캐싱 (스크롤 등으로 움직여도 고정)
-            _sourceUV = CalculateUIPositionUV(_initialTargetUI);
+            // UI 위치 캐싱은 UpdateHolePositions()에서 레이아웃 대기 후 수행
+            // (다이얼로그 팝업 닫힘 직후 UI 레이아웃이 안정화될 때까지 대기)
 
             // TutorialController의 마스크 업데이트 건너뛰기 (직접 처리)
             context.SkipMaskUpdate = true;
@@ -174,6 +181,8 @@ namespace CookApps.AutoBattler
             _holeGrown = false;
             _positionsValid = false;
             _sourceUV = Vector2.zero;
+            _layoutWaitTime = 0f;
+            _sourceUVCached = false;
 
             // 화살표 비활성화
             context.ArrowRectTransform.gameObject.SetActive(false);
@@ -245,6 +254,23 @@ namespace CookApps.AutoBattler
             if (!IsActive || !_positionsValid || _currentContext == null)
             {
                 return;
+            }
+
+            // 레이아웃 대기 (다이얼로그 팝업 닫힘 후 UI 안정화 대기)
+            if (!_sourceUVCached)
+            {
+                _layoutWaitTime += Time.deltaTime;
+                if (_layoutWaitTime < LAYOUT_WAIT_DURATION)
+                {
+                    return; // 대기 중에는 애니메이션 건너뛰기
+                }
+
+                // 레이아웃 안정화 후 UI 위치 캐싱
+                if (_initialTargetUI != null)
+                {
+                    _sourceUV = CalculateUIPositionUV(_initialTargetUI);
+                    _sourceUVCached = true;
+                }
             }
 
             // 홀 크기 애니메이션 (Growing)

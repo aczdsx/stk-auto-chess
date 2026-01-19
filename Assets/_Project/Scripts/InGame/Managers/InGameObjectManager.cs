@@ -218,6 +218,28 @@ namespace CookApps.BattleSystem
         {
             var characCtrl = new CharacterController();
             var tile = _grid.GetTile(initPos);
+            
+            // 타일이 이미 점유되어 있으면 다른 빈 타일을 찾습니다
+            if (tile.OccupiedCharacter != null)
+            {
+                // 배틀 아이템이 있는 타일도 제외하고 빈 타일 찾기
+                var emptyTile = _grid.GetRecommandedTile(statData.Spec);
+                if (emptyTile != null && emptyTile.OccupiedCharacter == null)
+                {
+                    tile = emptyTile;
+                }
+                else
+                {
+                    // GetRecommandedTile이 실패하면 GetPriorityEmptyTile 사용
+                    tile = _grid.GetPriorityEmptyTile(allianceType == AllianceType.Player ? AllianceType.Player : null);
+                    if (tile == null || tile.OccupiedCharacter != null)
+                    {
+                        Debug.LogWarning($"[AddCharacterToField] 빈 타일을 찾을 수 없습니다. CharacterId: {statData.CharacterId}, initPos: {initPos}");
+                        // 그래도 원래 타일에 배치 시도 (기존 동작 유지)
+                    }
+                }
+            }
+            
             await characCtrl.Initialize(statData, tile, allianceType, hasSkill, type);
             characCtrl.GetCharacterView().CachedTr.SetParent(Playground, false);
 

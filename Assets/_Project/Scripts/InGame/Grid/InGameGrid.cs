@@ -50,7 +50,8 @@ namespace CookApps.BattleSystem
 
         public InGameTile GetRandomEmptyTile(AllianceType? allianceType = null)
         {
-            var emptyTiles = _tiles.Where(t => (!allianceType.HasValue || t.View.AllianceType == allianceType.Value) && t.OccupiedCharacter == null)
+            var emptyTiles = _tiles.Where(t => (!allianceType.HasValue
+            || t.View.AllianceType == allianceType.Value) && t.OccupiedCharacter == null)
                 .ToList();
             if (emptyTiles.Count == 0)
             {
@@ -71,6 +72,42 @@ namespace CookApps.BattleSystem
                 .ToList();
 
             return emptyTiles.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// AllianceType.None인 빈 타일을 먼저 탐색하고, 없으면 다른 빈 타일을 반환합니다.
+        /// </summary>
+        public InGameTile GetEmptyTilePreferringNone()
+        {
+            // 먼저 AllianceType.None인 빈 타일 찾기
+            InGameTile bestNoneTile = null;
+            int bestY = -1;
+            int bestX = -1;
+
+            for (int i = 0; i < _tiles.Length; i++)
+            {
+                var tile = _tiles[i];
+                if (tile.View.AllianceType == AllianceType.None && tile.OccupiedCharacter == null)
+                {
+                    // Y가 더 크거나, Y가 같으면 X가 더 큰 타일을 선택
+                    if (bestNoneTile == null || 
+                        tile.Y > bestY || 
+                        (tile.Y == bestY && tile.X > bestX))
+                    {
+                        bestNoneTile = tile;
+                        bestY = tile.Y;
+                        bestX = tile.X;
+                    }
+                }
+            }
+
+            if (bestNoneTile != null)
+            {
+                return bestNoneTile;
+            }
+
+            // AllianceType.None인 빈 타일이 없으면 모든 빈 타일 중 하나 반환
+            return GetPriorityEmptyTile();
         }
 
         public InGameTile GetRecommandedTile(ISpecCharacterInfo spec)
