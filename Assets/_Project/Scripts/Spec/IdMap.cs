@@ -27,8 +27,6 @@ namespace CookApps.AutoBattler
             public static readonly ItemId PvpTicket = 1350001;
             public static readonly ItemId BuildItem = 1620001;
             public static readonly ItemId 기사의디멘션큐브 = 1730001;
-            public static readonly ItemId 기사방어력큐브 = 1730002;
-            public static readonly ItemId 기사체력큐브 = 1730003;
             public static readonly ItemId 불의디멘션큐브 = 1730101;
             public static readonly ItemId 바람의디멘션큐브 = 1730102;
             public static readonly ItemId 대지의디멘션큐브 = 1730103;
@@ -72,7 +70,7 @@ namespace CookApps.AutoBattler
 
         public static bool IsConsumable(this ItemId id)
         {
-            return id == 350001 || id == 410001 || id == 550001 || id == 650001 || id == 710001 || id == 810001 || id == 1350001 || id == 1620001 || id == 1730001 || id == 1730002 || id == 1730003 || id == 1730101 || id == 1730102 || id == 1730103 || id == 1730104 || id == 1730105 || id == 1730201 || id == 1730202 || id == 1730203 || id == 1850001;
+            return id == 350001 || id == 410001 || id == 550001 || id == 650001 || id == 710001 || id == 810001 || id == 1350001 || id == 1620001 || id == 1730001 || id == 1730101 || id == 1730102 || id == 1730103 || id == 1730104 || id == 1730105 || id == 1730201 || id == 1730202 || id == 1730203 || id == 1850001;
         }
 
         public static bool IsMaterial(this ItemId id)
@@ -162,8 +160,6 @@ namespace CookApps.AutoBattler
         PvpTicket = 1350001,
         BuildItem = 1620001,
         기사의디멘션큐브 = 1730001,
-        기사방어력큐브 = 1730002,
-        기사체력큐브 = 1730003,
         불의디멘션큐브 = 1730101,
         바람의디멘션큐브 = 1730102,
         대지의디멘션큐브 = 1730103,
