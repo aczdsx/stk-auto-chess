@@ -339,6 +339,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         
         // 3단계: 클레이의 맹세 (DialogueGroupID : 200003)
         new PrologueScenarioData { step = 3, dialogueID = 200003, actionType = PrologueActionType.ClayGroggy },     
+        
         // 4단계: 유니 & 필리아의 반격 (DialogueGroupID : 200004)
         new PrologueScenarioData { step = 4, dialogueID = 200004, actionType = PrologueActionType.FreeAttack3Seconds },
         
@@ -467,6 +468,8 @@ public class FlowStatePrologueCombat : StateCombatBase
             await UniTask.WaitWhile(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
         }
 
+        _clayCharacter.Target = _clayCharacter;
+        await ActivateCharacterSkillWithWait(_clayCharacter, "클레이 스킬을 찾을 수 없습니다.");
         _clayCharacter.AddNextState<CharacterStateReady>();
 
         await UniTask.Delay(1000); // 1.5초 대기
@@ -654,12 +657,9 @@ public class FlowStatePrologueCombat : StateCombatBase
             _marieCharacter.AddNextState<CharacterStateDead>();
         }
 
-        await UniTask.NextFrame();
-        _witchCharacter.GetCharacterView().LookAt(Direction.Front);
-        await UniTask.NextFrame();
         await StopAllCharacters();
         await UniTask.NextFrame();
-        _witchCharacter.GetCharacterView().LookAt(Direction.Back);
+        _witchCharacter.GetCharacterView().LookAt(_witchCharacter.CurrentTile, _artesiaCharacter.CurrentTile);
         await UniTask.NextFrame();
 
         _witchCharacter.AddNextState<CharacterStateGroggy>();
@@ -675,17 +675,16 @@ public class FlowStatePrologueCombat : StateCombatBase
         // [TODO] 초신성 모드 활성화 (버프/이펙트 등)
         if (_artesiaCharacter != null)
         {
+            artesiaChargeVFX.Remove();
             artesiaChargeVFX = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_aura_03, _artesiaCharacter.SkillRootTransformFollowable);
         }
 
         // 아트레시아 스킬 발동
         _artesiaCharacter.Target = _witchCharacter;
         await ActivateCharacterSkillWithWait(_artesiaCharacter, "아트레시아 스킬을 찾을 수 없습니다.", 1);
-
+        _artesiaCharacter.AddNextState<CharacterStateReady>();
         await UniTask.Delay(1500); // 1.5초 대기
         artesiaChargeVFX.Remove();
-
-        await StopAllCharacters();
     }
 
     private InGameVfx _witchFinalPrepareFx; // 마녀 최후의 공격 준비 이펙트
@@ -826,7 +825,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.WaitUntil(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateForceMove) || (_yuniCharacter.GetCurrentState() is CharacterStateMove); });
         await UniTask.WaitWhile(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateForceMove) || (_yuniCharacter.GetCurrentState() is CharacterStateMove); });
         await UniTask.NextFrame();
-        _yuniCharacter.GetCharacterView().LookAt(Direction.Left);
+        _yuniCharacter.GetCharacterView().LookAt(_yuniCharacter.CurrentTile, _witchCharacter.CurrentTile);
         await UniTask.NextFrame();
     }
 
@@ -837,7 +836,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.WaitUntil(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
         await UniTask.WaitWhile(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
         await UniTask.NextFrame();
-        _philiaCharacter.GetCharacterView().LookAt(Direction.Left);
+        _philiaCharacter.GetCharacterView().LookAt(_philiaCharacter.CurrentTile, _witchCharacter.CurrentTile);
         await UniTask.NextFrame();
     }
 
@@ -849,7 +848,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.WaitWhile(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
 
         await UniTask.NextFrame();
-        _clayCharacter.GetCharacterView().LookAt(Direction.Left);
+        _clayCharacter.GetCharacterView().LookAt(_clayCharacter.CurrentTile, _witchCharacter.CurrentTile);
         await UniTask.NextFrame();
     }
 
