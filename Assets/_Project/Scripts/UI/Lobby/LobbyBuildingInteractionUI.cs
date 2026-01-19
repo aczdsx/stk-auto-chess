@@ -466,7 +466,6 @@ namespace CookApps.AutoBattler
                 return;
 
             var zoomRatio = cameraController.ZoomRatio;
-            UnityEngine.Debug.Log(zoomRatio);
 
             // statusIcon 크기 조절 (줌이 클수록 작아짐)
             UpdateStatusIconSize(zoomRatio);
