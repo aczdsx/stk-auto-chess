@@ -105,11 +105,42 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // 다음 스크립트 없음 - 종료 액션 실행
+            // 다음 스크립트 없음 - 씬 전환 애니메이션과 함께 종료 액션 실행
             Debug.Log("NaninovelMain: 모든 스크립트 완료, 종료 액션 실행");
             _currentScriptName = null;
+            EndWithTransitionAsync().Forget();
+        }
+
+        /// <summary>
+        /// 씬 전환 애니메이션과 함께 종료 액션 실행 (다른 씬으로 이동)
+        /// FadeOut은 이동하는 씬에서 처리됨
+        /// </summary>
+        private async UniTaskVoid EndWithTransitionAsync()
+        {
+            Debug.Log($"EndWithTransitionAsync 시작 - _onEndAction null 여부: {_onEndAction == null}");
+
+            if (_onEndAction == null)
+            {
+                Debug.LogWarning("EndWithTransitionAsync: _onEndAction이 null입니다");
+                return;
+            }
+
+            // NaninovelEndCommand에서 이미 FadeIn 처리된 경우 스킵
+            if (!SceneTransition.IsFadeProcessing)
+            {
+                Debug.Log("EndWithTransitionAsync: SceneTransition 생성 중...");
+                SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+
+                Debug.Log("EndWithTransitionAsync: FadeIn 시작...");
+                await SceneTransition.FadeInAsync();
+            }
+            Debug.Log("EndWithTransitionAsync: FadeIn 완료, 종료 액션 실행...");
+
+            // 종료 액션 실행 (다른 씬으로 전환)
+            // FadeOut은 다른 씬에서 처리됨
             _onEndAction?.Invoke();
             _onEndAction = null;
+            Debug.Log("EndWithTransitionAsync: 종료 액션 실행 완료");
         }
 
         /// <summary>
@@ -117,11 +148,14 @@ namespace CookApps.AutoBattler
         /// </summary>
         private async UniTaskVoid PlayNextScriptWithTransition(string nextScript)
         {
-            // 1. 전환 효과 생성 및 페이드 인 (화면 가림)
-            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-            await SceneTransition.FadeInAsync();
+            // NaninovelEndCommand에서 이미 FadeIn 처리된 경우 스킵
+            if (!SceneTransition.IsFadeProcessing)
+            {
+                SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+                await SceneTransition.FadeInAsync();
+            }
 
-            // 2. 연쇄 재생 전 UI 상태 복원
+            // 연쇄 재생 전 UI 상태 복원
             RestoreUIStateForChainedScript();
 
             // 3. 스크립트 로드 및 재생
