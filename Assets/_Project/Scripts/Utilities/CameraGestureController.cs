@@ -63,6 +63,8 @@ public class CameraGestureController : CachedMonoBehaviour
     private Transform followTarget;
     private float followSpeed;
 
+    private bool canInteractCamera;
+
     private void Awake()
     {
         InitializeCamera();
@@ -91,16 +93,17 @@ public class CameraGestureController : CachedMonoBehaviour
             }
             else
             {
+                if (!canInteractCamera)
+                    return;
+                
                 HandleMouseInput();
             }
         }
-
-        
         
 #else
         
         var touchCount = Input.touchCount;
-        if (touchCount > 0 && !isAutoMoving)
+        if (touchCount > 0 && !isAutoMoving && !canInteractCamera)
             HandleTouchInput(touchCount);
         
 #endif
@@ -113,6 +116,8 @@ public class CameraGestureController : CachedMonoBehaviour
         mainCamera = MainCameraHolder.MainCamera;
         if (mainCamera == null)
             mainCamera = Camera.main;
+
+        canInteractCamera = true;
     }
 
     private void InitializeVariables()
@@ -136,6 +141,11 @@ public class CameraGestureController : CachedMonoBehaviour
     }
 
     #endregion
+
+    public void SetCanInteractCamera(bool canInteract)
+    {
+        canInteractCamera = canInteract;
+    }
 
     #region Mouse (Editor)
 

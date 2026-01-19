@@ -18,6 +18,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private SimpleSwapper iconSwapper;
         [SerializeField] private TMP_Text buildingName;
         [SerializeField] private CAButton button;
+        [SerializeField] private CAButton nameTagButton;
 
         [Header("줌 관련")]
         [SerializeField] private RectTransform statusIcon;
@@ -58,6 +59,11 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             button
+                .OnClickAsObservable()
+                .SubscribeAwait(this, (_, self, _) => self.OnClick())
+                .AddTo(this);
+            
+            nameTagButton
                 .OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, _) => self.OnClick())
                 .AddTo(this);
