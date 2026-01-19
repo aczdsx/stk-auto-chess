@@ -32,6 +32,19 @@ public class CameraGestureController : CachedMonoBehaviour
     private Transform mainCameraTransform;
     private float mainCameraAspect;
 
+    /// <summary>
+    /// 현재 줌 비율 (0 = minZoom, 1 = 실제 허용 최대 줌)
+    /// </summary>
+    public float ZoomRatio
+    {
+        get
+        {
+            if (mainCamera == null) return 0f;
+            var currentZoom = mainCamera.orthographicSize;
+            return Mathf.InverseLerp(minZoom, cachedMaxAllowedZoom, currentZoom);
+        }
+    }
+
     private Vector3 targetPosition;
     private float targetZoom;
     private float cachedMaxAllowedZoom;

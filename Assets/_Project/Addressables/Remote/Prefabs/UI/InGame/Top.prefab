@@ -6234,6 +6234,8 @@ MonoBehaviour:
   _combatEnemySynergyScrollRect: {fileID: 4857348335151473440}
   _playerSynergyContentFitter: {fileID: 2744786398039300078}
   _combatPlayerSynergyContentFitter: {fileID: 2727313501943707233}
+  _elementCounterUI: {fileID: 5905624244149849249}
+  _elementCounterUIParent: {fileID: 6907431839341873853}
 --- !u!1 &4237998489735966088
 GameObject:
   m_ObjectHideFlags: 0

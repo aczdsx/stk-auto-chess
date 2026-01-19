@@ -872,8 +872,8 @@ MonoBehaviour:
   panSpeed: 100
   panSmoothing: 10
   zoomSpeed: 0.01
-  minZoom: 3
-  maxZoom: 100
+  minZoom: 10
+  maxZoom: 20
   zoomSmoothing: 10
   mouseScrollZoomSpeed: 2
   boundaryMin: {x: -77.6, y: -65.11}

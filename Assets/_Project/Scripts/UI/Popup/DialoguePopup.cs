@@ -8,7 +8,6 @@ using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 using R3;
 using Spine.Unity;
 using TMPro;

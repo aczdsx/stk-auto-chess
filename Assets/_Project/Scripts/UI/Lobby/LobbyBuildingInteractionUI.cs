@@ -18,7 +18,16 @@ namespace CookApps.AutoBattler
         [SerializeField] private SimpleSwapper iconSwapper;
         [SerializeField] private TMP_Text buildingName;
         [SerializeField] private CAButton button;
-        
+
+        [Header("줌 관련")]
+        [SerializeField] private RectTransform statusIcon;
+        [SerializeField] private CanvasGroup lobbyNameTag;
+        private const float DisappearZoomRatio = 0.8f;
+        private const float AlphaFadeSpeed = 5f;
+
+        private Vector2 statusIconDefaultSize;
+        private float targetNameTagAlpha = 1f;
+
         private ElpisBuildingBase target;
         private ElpisFacility facilityData;
         private ElpisBuildInfo buildInfo;
@@ -65,15 +74,22 @@ namespace CookApps.AutoBattler
             }
 
             UpdatePosition();
+            UpdateZoomBasedUI();
         }
         
         public void Initialize(ElpisBuildingBase target, ElpisFacility facilityData)
         {
             parentRect = CachedTr.parent.GetComponent<RectTransform>();
             isInitialize = true;
-            
+
+            // statusIcon 기본 크기 저장
+            if (statusIcon != null)
+            {
+                statusIconDefaultSize = statusIcon.sizeDelta;
+            }
+
             SetData(target, facilityData);
-            
+
             UpdatePosition();
 
             buildingName.text = LanguageManager.Instance.GetDefaultText(buildInfo.buld_name_token);
@@ -442,6 +458,51 @@ namespace CookApps.AutoBattler
         #endregion
 
         #region Effects
+
+        private void UpdateZoomBasedUI()
+        {
+            var cameraController = MainCameraHolder.CameraGestureController;
+            if (cameraController == null)
+                return;
+
+            var zoomRatio = cameraController.ZoomRatio;
+            UnityEngine.Debug.Log(zoomRatio);
+
+            // statusIcon 크기 조절 (줌이 클수록 작아짐)
+            UpdateStatusIconSize(zoomRatio);
+
+            // lobbyNameTag alpha 조절
+            UpdateNameTagAlpha(zoomRatio);
+        }
+
+        private void UpdateStatusIconSize(float zoomRatio)
+        {
+            if (statusIcon == null || statusIconDefaultSize == Vector2.zero)
+                return;
+
+            // 줌이 클수록 (zoomRatio가 1에 가까울수록) 아이콘이 작아짐
+            // 1 - zoomRatio로 반전: 줌 아웃 시 크고, 줌 인 시 작게
+            var scale = 1f - zoomRatio * 0.5f; // 0.5 ~ 1.0 범위
+            scale = Mathf.Clamp(scale, 0.5f, 1f);
+
+            statusIcon.sizeDelta = statusIconDefaultSize * scale;
+        }
+
+        private void UpdateNameTagAlpha(float zoomRatio)
+        {
+            if (lobbyNameTag == null)
+                return;
+
+            // 줌 비율이 DisappearZoomRatio를 넘으면 alpha → 0, 아니면 → 1
+            targetNameTagAlpha = zoomRatio >= DisappearZoomRatio ? 0f : 1f;
+
+            // 부드럽게 전환
+            var currentAlpha = lobbyNameTag.alpha;
+            if (!Mathf.Approximately(currentAlpha, targetNameTagAlpha))
+            {
+                lobbyNameTag.alpha = Mathf.MoveTowards(currentAlpha, targetNameTagAlpha, AlphaFadeSpeed * Time.deltaTime);
+            }
+        }
 
         public void StartConstructionEffect()
         {

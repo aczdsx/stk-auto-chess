@@ -77,7 +77,6 @@ namespace CookApps.TeamBattle.UIManagements
                 "SceneLoading" => "Assets/_Project/Addressables/Remote/Scenes/SceneLoading.unity",
                 "BattleReady" => "Assets/_Project/Addressables/Remote/0. Scenes/BattleReady.unity",
                 "SkillScene" => "Assets/_Project/Addressables/Remote/Scenes/SkillScene.unity",
-                "Title" => "Assets/_Project/Addressables/BuiltIn/Scenes/Title.unity",
                 _ => string.Empty
             };
         }

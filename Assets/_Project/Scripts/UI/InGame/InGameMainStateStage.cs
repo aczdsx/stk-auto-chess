@@ -37,6 +37,7 @@ namespace CookApps.AutoBattler
             
             string stageString = LanguageManager.Instance.GetDefaultText("UI_STAGE");
             _inGameUI.TopUI.SetStageName($"{stageString} {_specStage.chapter_id}-{_specStage.stage_number}");
+            _inGameUI.TopUI.SetElementCounterUI(_specStage.stage_elemental);
 
             InGameManager.Instance.StartInGame<FlowStateStageReady>(_specStage);
 
