@@ -185,7 +185,6 @@ namespace CookApps.BattleSystem
         SKLPRE,
         SKLLOOP,
         SKLEND,
-        SKL2,
         SKL2PRE,
         SKL2LOOP,
         SKL2END,
