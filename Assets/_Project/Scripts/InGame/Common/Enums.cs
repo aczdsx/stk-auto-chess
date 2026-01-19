@@ -181,6 +181,7 @@ namespace CookApps.BattleSystem
         MOVE,
         ATK,
         SKL,
+        SKL2,
         SKLPRE,
         SKLLOOP,
         SKLEND,

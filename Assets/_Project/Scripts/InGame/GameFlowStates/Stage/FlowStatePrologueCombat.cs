@@ -573,6 +573,10 @@ public class FlowStatePrologueCombat : StateCombatBase
         await UniTask.Delay(PrologueDelays.라플라스SKL애니메이션타이밍);
         inGameVfx9002.SetPlay();
         await UniTask.WaitUntil(inGameVfx9002.IsFinished);
+        foreach(var vfx in clayShieldList)
+        {
+            vfx.Remove();
+        }
         {
             List<UniTask> knockbacks = new();
             knockbacks.Add(YuniCharacterKnockback());
@@ -580,10 +584,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             knockbacks.Add(ClaycharacterKnockback());
             await UniTask.WhenAll(knockbacks);
         }
-        foreach(var vfx in clayShieldList)
-        {
-            vfx.Remove();
-        }
+
         await UniTask.NextFrame();
         _yuniCharacter.GetCharacterView().LookAt(_yuniCharacter.CurrentTile, _witchCharacter.CurrentTile);
         _philiaCharacter.GetCharacterView().LookAt(_philiaCharacter.CurrentTile, _witchCharacter.CurrentTile);
@@ -1011,7 +1012,7 @@ public static class KnockbackHelper
         CharacterController target,
         int2 tileIdx,
         float duration = 0.3f,
-        float height = 0.25f,
+        float height = 0,
         Ease ease = Ease.OutExpo,
         Action<InGameTile> onComplete = null)
     {
