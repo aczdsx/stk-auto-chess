@@ -311,6 +311,7 @@ namespace CookApps.TeamBattle.UIManagements
             uiLayerStacks.Sort(UILayerStackData.SortByInc);
 
             uiLayerStackData.Layer.CachedGo.SetActive(true);
+
             uiLayerStackData.Layer.OnPreEnter(data);
             uiLayerStackData.State = UILayerState.Entering;
             OnUITransitionEvent?.Invoke(UILayerTransition.Entering, uiLayerStackData.Key, uiLayerStackData.Layer, data);

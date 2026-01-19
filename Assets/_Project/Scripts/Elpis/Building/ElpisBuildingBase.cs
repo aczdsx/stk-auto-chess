@@ -34,7 +34,10 @@ namespace CookApps.AutoBattler
         public void Initialize(int slotIndex)
         {
             SlotIndex = slotIndex;
-            
+        }
+
+        private void InitializeSpawnPoints()
+        {
             isSpawned = new Dictionary<Transform, bool>();
             foreach (var spawnPoint in spawnPoints)
             {
@@ -88,11 +91,32 @@ namespace CookApps.AutoBattler
             }
         }
 
+        /// <summary>
+        /// 여러 건물 프리팹을 소환합니다. 이미 스폰된 건물은 건너뜁니다.
+        /// </summary>
+        /// <param name="buildPrefabPaths">Addressable 프리팹 경로 배열</param>
         public async UniTask SpawnMultiBuildingAsync(string[] buildPrefabPaths)
         {
-            foreach (var buildPrefabPath in buildPrefabPaths)
+            // spawnPoints가 없으면 단일 건물만 소환
+            if (spawnPoints.Length == 0)
             {
-                await SpawnBuildingAsync(buildPrefabPath);
+                await SpawnBuildingAsync(buildPrefabPaths[0]);
+                return;
+            }
+
+            if (isSpawned == null)
+                InitializeSpawnPoints();
+
+            // 이미 스폰된 개수만큼 건너뛰고 새로운 것만 스폰
+            var alreadySpawnedCount = 0;
+            foreach (var kvp in isSpawned)
+            {
+                if (kvp.Value) alreadySpawnedCount++;
+            }
+
+            for (var i = alreadySpawnedCount; i < buildPrefabPaths.Length; i++)
+            {
+                await SpawnBuildingAsync(buildPrefabPaths[i]);
             }
         }
 
@@ -105,7 +129,7 @@ namespace CookApps.AutoBattler
             if (string.IsNullOrEmpty(buildPrefabPath))
                 return;
 
-            if (isSpawned.Count > 0)
+            if (spawnPoints.Length > 0)
             {
                 foreach (var spawnPoint in spawnPoints)
                 {

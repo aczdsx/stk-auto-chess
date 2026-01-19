@@ -172,6 +172,9 @@ Material:
     - _Surface: 1
     - _Tile_STR: 1
     - _Tile_Twist: 0
+    - _USEALPHAPOLAR: 0
+    - _USEDISSOLVEPOLAR: 0
+    - _USETILEPOLAR: 0
     - _Usecenterglow: 0
     - _Usedepth: 0
     - _WorkflowMode: 1

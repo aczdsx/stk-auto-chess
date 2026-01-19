@@ -162,12 +162,24 @@ namespace CookApps.TeamBattle.UIManagements
         protected internal override void OnPreEnter(object param)
         {
             sceneLoadingData = param as SceneLoadingData;
+            if (sceneLoadingData == null)
+            {
+                Debug.LogError($"[SceneLoading] OnPreEnter: param이 SceneLoadingData가 아닙니다. param type: {param?.GetType().Name ?? "null"}, param value: {param}");
+            }
             EnterAsync().Forget();
         }
 
         protected virtual async UniTask EnterAsync()
         {
             await UniTask.Yield();
+
+            if (sceneLoadingData == null)
+            {
+                Debug.LogError("[SceneLoading] EnterAsync: sceneLoadingData가 null입니다!");
+                return;
+            }
+
+            Debug.Log($"[SceneLoading] EnterAsync: NextSceneName={sceneLoadingData.NextSceneName}, NextSceneData type={sceneLoadingData.NextSceneData?.GetType().Name ?? "null"}");
 
             await UniTask.WhenAll(startChangeSceneAsyncTasks.Select(x => x.Invoke(sceneLoadingData.CurrentSceneName, sceneLoadingData.NextSceneName, sceneLoadingData.NextSceneData)));
 
@@ -181,6 +193,7 @@ namespace CookApps.TeamBattle.UIManagements
 
             Resources.UnloadUnusedAssets();
 
+            Debug.Log($"[SceneLoading] ChangeScene 호출: NextSceneName={sceneLoadingData.NextSceneName}, NextSceneData={sceneLoadingData.NextSceneData}");
             var wrapper = SceneUILayerManager.Instance.ChangeScene(sceneLoadingData.NextSceneName, sceneLoadingData.NextSceneData);
             await UniTask.WaitUntil(() => wrapper.IsDone);
 

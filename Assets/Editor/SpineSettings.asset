@@ -17,12 +17,10 @@ MonoBehaviour:
   defaultShader: Spine/Skeleton
   defaultZSpacing: 0
   defaultInstantiateLoop: 1
-  defaultPhysicsPositionInheritance: {x: 1, y: 1}
-  defaultPhysicsRotationInheritance: 1
   showHierarchyIcons: 1
   reloadAfterPlayMode: 1
   setTextureImporterSettings: 1
-  textureSettingsReference: Assets/Extension/Spine/Editor/spine-unity/Editor/ImporterPresets/PMATexturePreset.preset
+  textureSettingsReference: 
   fixPrefabOverrideViaMeshFilter: 0
   removePrefabPreviewMeshes: 0
   blendModeMaterialMultiply: {fileID: 0}

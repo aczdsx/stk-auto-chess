@@ -12,6 +12,7 @@ TagManager:
   - CommanderSkill
   - NaninovelMainCamera
   - Playground
+  - LAPLACE_1_WEAPON_Effect_2
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - UI
   - Effect
   - Objects
-  - 
+  - Portal
   - 
   - 
   - 

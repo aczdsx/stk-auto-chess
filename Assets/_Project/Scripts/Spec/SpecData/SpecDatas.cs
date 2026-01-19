@@ -492,6 +492,9 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.GradeType grade_type;
         /// 태생 별 개수
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
+        public int init_star;
+        /// 별 개수
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int star;
         /// 조각 필요량
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
@@ -1405,7 +1408,7 @@ namespace CookApps.AutoBattler
 /// 시스템: 1~9999
 /// 로비:10001~11000
 /// 전투: 11001~12000
-/// 가이드 미션: 12001~14000
+/// ???: 12001~14000
 /// 캐릭터: 14001~17000
 /// 몬스터: 17001 ~ 18000
 /// 장애물 18001~19000
@@ -1487,6 +1490,8 @@ namespace CookApps.AutoBattler
         /// 다이얼로그 ID
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int dialogue_id;
+        /// 스테이지 속성
+        public global::CookApps.AutoBattler.SynergyType stage_elemental;
         /// 스테이지 타입
         public global::CookApps.AutoBattler.StageType stage_type;
         /// 플레이 제한 횟수

@@ -1,13 +1,8 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/_Project/Addressables/Remote/Prefabs/UI/02_Elements/Slots/LobbyBottomStageBossSlot_Old.prefab.meta
-guid: 28de95dfa25a7784b865fbd27d3acd08
-PrefabImporter:
-========
 guid: 6f395bf825b618e44b00c33be0cb7b73
 folderAsset: yes
 DefaultImporter:
->>>>>>>> sjhong/feat/prolouge,2,beforemerge:Assets/_Project/Scripts/InGame/VFX/PrologueImps.meta
   externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  userData:
+  assetBundleName:
+  assetBundleVariant:
