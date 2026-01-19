@@ -8,25 +8,25 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Addressables/BuiltIn/0. Scenes/StartUp.unity
     guid: 16b82d33cb9ba43b99ade802db2c034c
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/Addressables/Remote/0. Scenes/SceneLoading.unity
     guid: 82d3b55c0d6944acd81604cfdc57e37e
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/Addressables/BuiltIn/0. Scenes/Title.unity
     guid: 76c96ee710c04450dbdb02e5ff8a6cac
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/Addressables/Remote/0. Scenes/Lobby.unity
     guid: 61e7bd672efcc4045915939216d08afd
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/Addressables/Remote/0. Scenes/BattleReady.unity
     guid: b8e2c1da733c34c5dbb04fe380fccfff
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/Addressables/Remote/0. Scenes/InGame.unity
     guid: 8029178524cba4055adeed793914bebd
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/Addressables/Remote/Territory/Territory.unity
     guid: a437c14c6af79304f9e10db55c4ad6af
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/Addressables/Remote/0. Scenes/Naninovel.unity
     guid: 29c1e210896cb0b4bac47941444ed814
   m_configObjects:
