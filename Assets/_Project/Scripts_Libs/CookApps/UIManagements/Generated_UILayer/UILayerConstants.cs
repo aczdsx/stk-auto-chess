@@ -71,6 +71,11 @@ namespace CookApps.TeamBattle.UIManagements
         {
             return sceneName switch
             {
+                "Naninovel" => "Assets/_Project/Addressables/Remote/Scenes/Naninovel.unity",
+                "Lobby" => "Assets/_Project/Addressables/Remote/Scenes/Lobby.unity",
+                "InGame" => "Assets/_Project/Addressables/Remote/Scenes/InGame.unity",
+                "SceneLoading" => "Assets/_Project/Addressables/Remote/Scenes/SceneLoading.unity",
+                "BattleReady" => "Assets/_Project/Addressables/Remote/0. Scenes/BattleReady.unity",
                 "SkillScene" => "Assets/_Project/Addressables/Remote/Scenes/SkillScene.unity",
                 _ => string.Empty
             };
