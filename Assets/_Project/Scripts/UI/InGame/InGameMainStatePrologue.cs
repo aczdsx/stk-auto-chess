@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
-namespace CookApps.AutoBattler
+namespace CookApps.AutoBattler.Prologue
 {
     public class InGameMainStatePrologue : IGameStateUICore, IKillLogUI, ISkipUI, IBottomScrollRectCheck
     {
@@ -22,7 +23,7 @@ namespace CookApps.AutoBattler
             var stageUIObj = await Addressables.LoadAssetAsync<GameObject>($"Prefabs/UI/InGame/PrologueUI.prefab").Task;
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
-
+            PrologueUtility.PrologueStageUI = stageUIObj;
             _inGameUI.TopUI.SetMyName(UserDataManager.Instance.UserBasicData.Nickname);
             _inGameUI.TopUI.SetStageName("프롤로그");
 

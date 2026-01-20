@@ -608,7 +608,7 @@ namespace CookApps.BattleSystem
                 result &= ~CharacterStateRunningResult.CanCallEffectCodeActivate;
             }
 
-            var isPrologueMode = InGameMainFlowManager.Instance.CurrentFlowState is FlowStatePrologueCombat;
+            var isPrologueMode = InGameMainFlowManager.Instance.CurrentFlowState is CookApps.AutoBattler.Prologue.FlowStatePrologueCombat;
             // 프롤로그 모드에서는 쿨타임 동작하지 않음
             if (isPrologueMode)
             {

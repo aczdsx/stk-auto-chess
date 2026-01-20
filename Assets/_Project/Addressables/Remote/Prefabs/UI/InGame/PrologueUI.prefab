@@ -29076,6 +29076,8 @@ MonoBehaviour:
   _recommendButton: {fileID: 8227767655171774916}
   _speedUpButton: {fileID: 767515652773839991}
   _filterButton: {fileID: 0}
+  _tabCharacterButton: {fileID: 0}
+  _tabBattleItemButton: {fileID: 0}
   _CommanderSkillButtonList:
   - {fileID: 4238732856414503684}
   - {fileID: 1686293686005972636}
@@ -29092,7 +29094,6 @@ MonoBehaviour:
   - {fileID: 8425439751788823533}
   - {fileID: 6822249861067411944}
   - {fileID: 2005238447566721080}
-  _characterCountText: {fileID: 9123894062618672810}
   _commanderFx: {fileID: 2162868930111231704}
   _characterTipObj: {fileID: 0}
   _speedUpObjOn: {fileID: 1045704469992180812}
@@ -29102,6 +29103,14 @@ MonoBehaviour:
   _speedUpRedDot: {fileID: 6433414332505280462}
   _scrollRect: {fileID: 8472787790796524161}
   _stageBattleFx: {fileID: 3993051509193151421}
+  _characterCountObjOn: {fileID: 0}
+  _characterCountObjOff: {fileID: 0}
+  _characterCountTextOn: {fileID: 0}
+  _characterCountTextOff: {fileID: 0}
+  _battleItemCountObjOn: {fileID: 0}
+  _battleItemCountObjOff: {fileID: 0}
+  _battleItemCountTextOn: {fileID: 0}
+  _battleItemCountTextOff: {fileID: 0}
 --- !u!1 &3994344878908772197
 GameObject:
   m_ObjectHideFlags: 0
@@ -104476,6 +104485,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -5
       objectReference: {fileID: 0}
+    - target: {fileID: 3198108330658353408, guid: 4087aa95f6ec34e53bb9cf82d879bee8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3251070809916159649, guid: 4087aa95f6ec34e53bb9cf82d879bee8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -105082,6 +105095,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6175461977685401405, guid: 4087aa95f6ec34e53bb9cf82d879bee8, type: 3}
       propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214172030264995629, guid: 4087aa95f6ec34e53bb9cf82d879bee8, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6219624571521318846, guid: 4087aa95f6ec34e53bb9cf82d879bee8, type: 3}

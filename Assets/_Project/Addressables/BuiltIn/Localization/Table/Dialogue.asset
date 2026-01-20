@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   m_SharedTableData: {fileID: 11400000, guid: 8c07de4e6b118478b9e53f481dac2451, type: 2}
-  m_Tables:
-  - {fileID: 11400000, guid: defa5d068ac9eee4993209585b8a058e, type: 2}
-  - {fileID: 11400000, guid: 72d584193477f9b44b102c5e7df1323d, type: 2}
+  m_Tables: []
   m_Extensions: []
   m_Group: String Table
   references:

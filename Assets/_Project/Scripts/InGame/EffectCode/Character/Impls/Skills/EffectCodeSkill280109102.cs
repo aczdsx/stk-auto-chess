@@ -94,7 +94,7 @@ public partial class EffectCodeSkill280109102 : EffectCodeCharacterBase
 
         foreach (var player in targetCharacterList)
         {
-            if (player.IsAlive && player.CurrentTile != null && player.CharacterId == PrologueID.프롤로그아트레시아ID)
+            if (player.IsAlive && player.CurrentTile != null && player.CharacterId == CookApps.AutoBattler.Prologue.PrologueID.프롤로그아트레시아ID)
             {
                 targetCharacter = player;
                 break;
@@ -125,7 +125,7 @@ public partial class EffectCodeSkill280109102 : EffectCodeCharacterBase
             if (tile.CheckValidTile(owner.AllianceType, false))
             {
                 var damageValue = owner.SpecCharacter.atk_type is AtkType.AD ? owner.AD : owner.AP;
-                if(tile.OccupiedCharacter.CharacterId == PrologueID.프롤로그아트레시아ID)
+                if(tile.OccupiedCharacter.CharacterId == CookApps.AutoBattler.Prologue.PrologueID.프롤로그아트레시아ID)
                 {
                     double artdamage = 0;
                     if(tile.OccupiedCharacter.CurrentHp > 0)
