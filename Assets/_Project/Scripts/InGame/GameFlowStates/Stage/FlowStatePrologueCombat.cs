@@ -772,7 +772,7 @@ namespace CookApps.AutoBattler.Prologue
                 artesiaChargeVFX = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_aura_01, _artesiaCharacter.SkillRootTransformFollowable);
                 artesiaChargeVFX2 = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_prologue_artesia_charge, _artesiaCharacter.SkillRootTransformFollowable) as InGameVfxArtesiaCharge;
                 Debug.Log($"artesiaChargeVFX2 is null {artesiaChargeVFX2 == null}");
-                await UniTask.Delay(500);
+                await UniTask.Delay(600);
                 _artesiaCharacter.AddNextState<CharacterStateIdle>();
                 _artesiaCharacter.Target = _witchCharacter;
             }
