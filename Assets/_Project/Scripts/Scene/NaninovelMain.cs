@@ -345,7 +345,7 @@ namespace CookApps.AutoBattler
                 return string.Empty;
             }
 
-            var path = "Scripts/" + scriptName;
+            var path = /*"Scripts/" + */scriptName;
 
             // 확장자 제거 (.nani)
             if (path.EndsWith(".nani"))
