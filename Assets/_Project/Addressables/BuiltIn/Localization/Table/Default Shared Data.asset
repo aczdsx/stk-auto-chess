@@ -15,3484 +15,4820 @@ MonoBehaviour:
   m_TableCollectionName: Default
   m_TableCollectionNameGuidString: fdab95ed1e42f41efb55b1541e124721
   m_Entries:
-  - m_Id: 1900755748741120
-    m_Key: HEROES_NAME_0
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712640
-    m_Key: HEROES_NAME_15422301
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712641
-    m_Key: HEROES_NAME_15322201
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712642
-    m_Key: HEROES_NAME_15642501
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712643
-    m_Key: HEROES_NAME_15232101
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712644
-    m_Key: HEROES_NAME_15532401
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712645
-    m_Key: HEROES_NAME_15362202
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712646
-    m_Key: HEROES_NAME_15662502
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712647
-    m_Key: HEROES_NAME_15462302
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712648
-    m_Key: HEROES_NAME_15252102
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712649
-    m_Key: HEROES_NAME_17513401
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712650
-    m_Key: HEROES_NAME_17413301
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712651
-    m_Key: HEROES_NAME_17613501
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712652
-    m_Key: HEROES_NAME_17613502
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712653
-    m_Key: HEROES_NAME_17213101
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712654
-    m_Key: HEROES_NAME_17513402
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712655
-    m_Key: HEROES_NAME_17323201
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712656
-    m_Key: HEROES_NAME_17523403
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712657
-    m_Key: HEROES_NAME_17243102
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712658
-    m_Key: HEROES_NAME_17643504
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712659
-    m_Key: HEROES_NAME_17643503
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712660
-    m_Key: HEROES_NAME_17333202
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712661
-    m_Key: HEROES_NAME_17433303
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712662
-    m_Key: HEROES_NAME_17433302
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712663
-    m_Key: HEROES_NAME_17363204
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712664
-    m_Key: HEROES_NAME_17263103
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712665
-    m_Key: HEROES_NAME_17663506
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712666
-    m_Key: HEROES_NAME_17653505
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712667
-    m_Key: HEROES_NAME_17353203
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712668
-    m_Key: HEROES_NAME_17553404
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712669
-    m_Key: HEROES_NAME_17563405
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712670
-    m_Key: HEROES_DESC_30201
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712671
-    m_Key: HEROES_DESC_30202
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712672
-    m_Key: HEROES_DESC_30301
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712673
-    m_Key: HEROES_DESC_30402
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712674
-    m_Key: HEROES_DESC_30501
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712675
-    m_Key: HEROES_DESC_30601
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712676
-    m_Key: HEROES_DESC_40101
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712677
-    m_Key: HEROES_DESC_40102
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712678
-    m_Key: HEROES_DESC_40103
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712679
-    m_Key: HEROES_DESC_40201
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712680
-    m_Key: HEROES_DESC_40202
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712681
-    m_Key: HEROES_DESC_40301
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712682
-    m_Key: HEROES_DESC_40302
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712683
-    m_Key: HEROES_DESC_40401
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712684
-    m_Key: HEROES_DESC_40402
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712685
-    m_Key: HEROES_DESC_40403
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712686
-    m_Key: HEROES_DESC_40501
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712687
-    m_Key: HEROES_DESC_40502
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712688
-    m_Key: HEROES_DESC_40503
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712689
-    m_Key: HEROES_DESC_40601
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712690
-    m_Key: HEROES_DESC_40602
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712691
-    m_Key: HEROES_DESC_40603
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712692
-    m_Key: NPC_NAME_1001
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712693
-    m_Key: STAGE_NAME_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712694
-    m_Key: STAGE_NAME_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712695
-    m_Key: STAGE_NAME_3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712696
-    m_Key: STAGE_NAME_4
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712697
-    m_Key: STAGE_NAME_5
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712698
-    m_Key: STAGE_NAME_6
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712699
-    m_Key: GET_CHARACTER_30201
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712700
-    m_Key: GET_CHARACTER_30202
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712701
-    m_Key: GET_CHARACTER_30402
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712702
-    m_Key: GET_CHARACTER_30601
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712703
-    m_Key: GET_CHARACTER_30301
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712704
-    m_Key: GET_CHARACTER_30501
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712705
-    m_Key: GET_CHARACTER_40101
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712706
-    m_Key: GET_CHARACTER_40102
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712707
-    m_Key: GET_CHARACTER_40103
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712708
-    m_Key: GET_CHARACTER_40201
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712709
-    m_Key: GET_CHARACTER_40202
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712710
-    m_Key: GET_CHARACTER_40301
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712711
-    m_Key: GET_CHARACTER_40302
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712712
-    m_Key: GET_CHARACTER_40401
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712713
-    m_Key: GET_CHARACTER_40402
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712714
-    m_Key: GET_CHARACTER_40403
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712715
-    m_Key: GET_CHARACTER_40501
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712716
-    m_Key: GET_CHARACTER_40502
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712717
-    m_Key: GET_CHARACTER_40601
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712718
-    m_Key: GET_CHARACTER_40602
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712719
-    m_Key: GET_CHARACTER_40603
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712720
-    m_Key: DIMENSION_LAB_NAME
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712721
-    m_Key: SIMULATION_CENTER_NAME
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712722
-    m_Key: COMMAND_CENTER_NAME
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712723
-    m_Key: NEST_NAME
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712724
-    m_Key: COMMAND_CENTER_BENEFIT_TITLE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712725
-    m_Key: EXPAND_TERRITORY
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712726
-    m_Key: REQUIRED_ELPIS_CORE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712727
-    m_Key: PROMOTION_BENEFIT_BUILDABLE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712728
-    m_Key: PROMOTION_BENEFIT_AVAILABLE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712729
-    m_Key: PROMOTION_BENEFIT_AREA_EXPAND_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712730
-    m_Key: PROMOTION_BENEFIT_AREA_EXPAND_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712731
-    m_Key: PROMOTION_TITLE_BUILDING
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712732
-    m_Key: PROMOTION_TITLE_MULTI_BUILDING
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712733
-    m_Key: PROMOTION_TITLE_MAX_LEVEL_UP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712734
-    m_Key: PROMOTION_TITLE_AREA_EXPAND
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712735
-    m_Key: TOUCH_TO_CLOSE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712736
-    m_Key: TERRITORY_EXPANSION_ACHIEVED
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712737
-    m_Key: DIMENSION_KNIGHT_ATTACK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712738
-    m_Key: DIMENSION_KNIGHT_DEFENSE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712739
-    m_Key: DIMENSION_KNIGHT_HEALTH
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712740
-    m_Key: DIMENSION_FIRE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712741
-    m_Key: DIMENSION_WIND
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712742
-    m_Key: DIMENSION_EARTH
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712743
-    m_Key: DIMENSION_LIGHTNING
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712744
-    m_Key: DIMENSION_WATER
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712745
-    m_Key: DIMENSION_NOBLESSE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712746
-    m_Key: DIMENSION_SUPERNOVA
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712747
-    m_Key: DIMENSION_TROUBLESHOOTER
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712748
-    m_Key: DIMENSION_KNIGHT_ATK_INCREASE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712749
-    m_Key: DIMENSION_KNIGHT_DEF_INCREASE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712750
-    m_Key: DIMENSION_KNIGHT_HEALTH_INCREASE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712751
-    m_Key: DAMAGE_INCREASE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712752
-    m_Key: HEALTH_INCREASE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712753
-    m_Key: DEFENSE_INCREASE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712754
-    m_Key: DIMENSION_KNIGHT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712755
-    m_Key: DIMENSION_ELEMENTAL
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712756
-    m_Key: DIMENSION_STELLA
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712757
-    m_Key: REQUIRED_1730001
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712758
-    m_Key: REQUIRED_1730002
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712759
-    m_Key: REQUIRED_1730003
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712760
-    m_Key: REQUIRED_1730101
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712761
-    m_Key: REQUIRED_1730102
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712762
-    m_Key: REQUIRED_1730103
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712763
-    m_Key: REQUIRED_1730104
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712764
-    m_Key: REQUIRED_1730105
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712765
-    m_Key: REQUIRED_1730201
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712766
-    m_Key: REQUIRED_1730202
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712767
-    m_Key: REQUIRED_1730203
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712768
-    m_Key: DIMENSION_UPGRADE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712769
-    m_Key: DIMENSION_NOT_REACHED_LEVEL
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712770
-    m_Key: ELPIS_UPGRADE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712771
-    m_Key: ELPIS_BUILD
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712772
-    m_Key: ELPIS_INSTALLED
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712773
-    m_Key: ELPIS_INSTALLING
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712774
-    m_Key: ELPIS_UPGRADE_PREVIOUS_REQUIRED
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712775
-    m_Key: ELPIS_ANOTHER_BUILDING
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712776
-    m_Key: ELPIS_LEVEL_NOT_ENOUGH
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712777
-    m_Key: GUIDE_MISSION_NAME_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712778
-    m_Key: GUIDE_MISSION_NAME_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712779
-    m_Key: GUIDE_MISSION_NAME_3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712780
-    m_Key: GUIDE_MISSION_NAME_4
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712781
-    m_Key: GUIDE_MISSION_NAME_5
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712782
-    m_Key: GUIDE_MISSION_NAME_6
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712783
-    m_Key: GUIDE_MISSION_NAME_7
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712784
-    m_Key: GUIDE_MISSION_NAME_8
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712785
-    m_Key: GUIDE_MISSION_NAME_9
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712786
-    m_Key: GUIDE_MISSION_NAME_10
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712787
-    m_Key: GUIDE_MISSION_NAME_11
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712788
-    m_Key: GUIDE_MISSION_NAME_12
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712789
-    m_Key: GUIDE_MISSION_NAME_13
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712790
-    m_Key: GUIDE_MISSION_NAME_14
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712791
-    m_Key: GUIDE_MISSION_NAME_15
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712792
-    m_Key: GUIDE_MISSION_NAME_16
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712793
-    m_Key: GUIDE_MISSION_NAME_17
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712794
-    m_Key: GUIDE_MISSION_NAME_18
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712795
-    m_Key: GUIDE_MISSION_NAME_19
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712796
-    m_Key: GUIDE_MISSION_NAME_20
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712797
-    m_Key: GUIDE_MISSION_NAME_21
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712798
-    m_Key: GUIDE_MISSION_NAME_22
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712799
-    m_Key: GUIDE_MISSION_NAME_23
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712800
-    m_Key: GUIDE_MISSION_NAME_24
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712801
-    m_Key: GUIDE_MISSION_NAME_25
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712802
-    m_Key: GUIDE_MISSION_NAME_26
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712803
-    m_Key: GUIDE_MISSION_NAME_27
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712804
-    m_Key: GUIDE_MISSION_NAME_28
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712805
-    m_Key: GUIDE_MISSION_NAME_29
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712806
-    m_Key: GUIDE_MISSION_NAME_30
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712807
-    m_Key: GUIDE_MISSION_NAME_31
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712808
-    m_Key: GUIDE_MISSION_NAME_32
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712809
-    m_Key: GUIDE_MISSION_NAME_33
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712810
-    m_Key: GUIDE_MISSION_NAME_34
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712811
-    m_Key: GUIDE_MISSION_NAME_35
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712812
-    m_Key: GUIDE_MISSION_NAME_36
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712813
-    m_Key: GUIDE_MISSION_NAME_37
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712814
-    m_Key: GUIDE_MISSION_NAME_38
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712815
-    m_Key: GUIDE_MISSION_NAME_39
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712816
-    m_Key: GUIDE_MISSION_NAME_40
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712817
-    m_Key: GUIDE_MISSION_NAME_41
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712818
-    m_Key: GUIDE_MISSION_NAME_42
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712819
-    m_Key: GUIDE_MISSION_NAME_43
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712820
-    m_Key: GUIDE_MISSION_NAME_44
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712821
-    m_Key: GUIDE_MISSION_NAME_45
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712822
-    m_Key: GUIDE_MISSION_NAME_46
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712823
-    m_Key: GUIDE_MISSION_NAME_47
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712824
-    m_Key: GUIDE_MISSION_NAME_48
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712825
-    m_Key: GUIDE_MISSION_NAME_49
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712826
-    m_Key: GUIDE_MISSION_NAME_50
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712827
-    m_Key: GUIDE_MISSION_NAME_51
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712828
-    m_Key: GUIDE_MISSION_NAME_52
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712829
-    m_Key: GUIDE_MISSION_NAME_53
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712830
-    m_Key: GUIDE_MISSION_NAME_54
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712831
-    m_Key: GUIDE_MISSION_NAME_55
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712832
-    m_Key: GUIDE_MISSION_NAME_56
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712833
-    m_Key: GUIDE_MISSION_NAME_57
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712834
-    m_Key: GUIDE_MISSION_NAME_58
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712835
-    m_Key: GUIDE_MISSION_NAME_59
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712836
-    m_Key: GUIDE_MISSION_NAME_60
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712837
-    m_Key: GUIDE_MISSION_NAME_61
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712838
-    m_Key: GUIDE_MISSION_NAME_62
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712839
-    m_Key: GUIDE_MISSION_NAME_63
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712840
-    m_Key: GUIDE_MISSION_NAME_64
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712841
-    m_Key: GUIDE_MISSION_NAME_65
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712842
-    m_Key: GUIDE_MISSION_NAME_66
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712843
-    m_Key: GUIDE_MISSION_NAME_67
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712844
-    m_Key: GUIDE_MISSION_NAME_68
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712845
-    m_Key: GUIDE_MISSION_NAME_69
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712846
-    m_Key: GUIDE_MISSION_NAME_70
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712847
-    m_Key: GUIDE_MISSION_NAME_71
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712848
-    m_Key: GUIDE_MISSION_NAME_72
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712849
-    m_Key: GUIDE_MISSION_NAME_73
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712850
-    m_Key: GUIDE_MISSION_NAME_74
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712851
-    m_Key: GUIDE_MISSION_NAME_75
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712852
-    m_Key: GUIDE_MISSION_NAME_76
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712853
-    m_Key: GUIDE_MISSION_NAME_77
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712854
-    m_Key: GUIDE_MISSION_NAME_78
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712855
-    m_Key: GUIDE_MISSION_NAME_79
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712856
-    m_Key: GUIDE_MISSION_NAME_80
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712857
-    m_Key: GUIDE_MISSION_NAME_81
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712858
-    m_Key: GUIDE_MISSION_NAME_82
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712859
-    m_Key: GUIDE_MISSION_NAME_83
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712860
-    m_Key: GUIDE_MISSION_NAME_84
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712861
-    m_Key: GUIDE_MISSION_NAME_85
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712862
-    m_Key: GUIDE_MISSION_NAME_86
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712863
-    m_Key: GUIDE_MISSION_NAME_87
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712864
-    m_Key: GUIDE_MISSION_NAME_88
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712865
-    m_Key: GUIDE_MISSION_NAME_89
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712866
-    m_Key: GUIDE_MISSION_NAME_90
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712867
-    m_Key: GUIDE_MISSION_NAME_91
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712868
-    m_Key: GUIDE_MISSION_NAME_92
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712869
-    m_Key: GUIDE_MISSION_NAME_93
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712870
-    m_Key: GUIDE_MISSION_DESC_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712871
-    m_Key: GUIDE_MISSION_DESC_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712872
-    m_Key: GUIDE_MISSION_DESC_3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712873
-    m_Key: GUIDE_MISSION_DESC_4
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712874
-    m_Key: GUIDE_MISSION_DESC_5
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712875
-    m_Key: GUIDE_MISSION_DESC_6
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712876
-    m_Key: GUIDE_MISSION_DESC_7
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712877
-    m_Key: GUIDE_MISSION_DESC_8
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712878
-    m_Key: GUIDE_MISSION_DESC_9
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712879
-    m_Key: GUIDE_MISSION_DESC_10
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712880
-    m_Key: GUIDE_MISSION_DESC_11
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712881
-    m_Key: GUIDE_MISSION_DESC_12
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712882
-    m_Key: GUIDE_MISSION_DESC_13
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712883
-    m_Key: GUIDE_MISSION_DESC_14
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712884
-    m_Key: GUIDE_MISSION_DESC_15
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712885
-    m_Key: GUIDE_MISSION_DESC_16
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712886
-    m_Key: GUIDE_MISSION_DESC_17
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712887
-    m_Key: GUIDE_MISSION_DESC_18
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712888
-    m_Key: GUIDE_MISSION_DESC_19
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712889
-    m_Key: GUIDE_MISSION_DESC_20
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712890
-    m_Key: GUIDE_MISSION_DESC_21
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712891
-    m_Key: GUIDE_MISSION_DESC_22
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712892
-    m_Key: GUIDE_MISSION_DESC_23
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712893
-    m_Key: GUIDE_MISSION_DESC_24
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712894
-    m_Key: GUIDE_MISSION_DESC_25
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712895
-    m_Key: GUIDE_MISSION_DESC_26
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712896
-    m_Key: GUIDE_MISSION_DESC_27
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712897
-    m_Key: GUIDE_MISSION_DESC_28
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712898
-    m_Key: GUIDE_MISSION_DESC_29
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712899
-    m_Key: GUIDE_MISSION_DESC_30
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712900
-    m_Key: GUIDE_MISSION_DESC_31
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712901
-    m_Key: GUIDE_MISSION_DESC_32
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712902
-    m_Key: GUIDE_MISSION_DESC_33
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712903
-    m_Key: GUIDE_MISSION_DESC_34
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712904
-    m_Key: GUIDE_MISSION_DESC_35
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712905
-    m_Key: GUIDE_MISSION_DESC_36
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712906
-    m_Key: GUIDE_MISSION_DESC_37
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712907
-    m_Key: GUIDE_MISSION_DESC_38
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712908
-    m_Key: GUIDE_MISSION_DESC_39
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712909
-    m_Key: GUIDE_MISSION_DESC_40
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712910
-    m_Key: GUIDE_MISSION_DESC_41
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712911
-    m_Key: GUIDE_MISSION_DESC_42
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712912
-    m_Key: GUIDE_MISSION_DESC_43
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712913
-    m_Key: GUIDE_MISSION_DESC_44
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712914
-    m_Key: GUIDE_MISSION_DESC_45
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712915
-    m_Key: GUIDE_MISSION_DESC_46
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712916
-    m_Key: GUIDE_MISSION_DESC_47
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712917
-    m_Key: GUIDE_MISSION_DESC_48
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712918
-    m_Key: GUIDE_MISSION_DESC_49
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712919
-    m_Key: GUIDE_MISSION_DESC_50
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712920
-    m_Key: GUIDE_MISSION_DESC_51
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712921
-    m_Key: GUIDE_MISSION_DESC_52
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712922
-    m_Key: GUIDE_MISSION_DESC_53
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712923
-    m_Key: GUIDE_MISSION_DESC_54
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712924
-    m_Key: GUIDE_MISSION_DESC_55
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712925
-    m_Key: GUIDE_MISSION_DESC_56
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712926
-    m_Key: GUIDE_MISSION_DESC_57
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712927
-    m_Key: GUIDE_MISSION_DESC_58
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712928
-    m_Key: GUIDE_MISSION_DESC_59
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712929
-    m_Key: GUIDE_MISSION_DESC_60
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712930
-    m_Key: GUIDE_MISSION_DESC_61
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712931
-    m_Key: GUIDE_MISSION_DESC_62
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712932
-    m_Key: GUIDE_MISSION_DESC_63
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712933
-    m_Key: GUIDE_MISSION_DESC_64
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712934
-    m_Key: GUIDE_MISSION_DESC_65
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712935
-    m_Key: GUIDE_MISSION_DESC_66
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712936
-    m_Key: GUIDE_MISSION_DESC_67
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712937
-    m_Key: GUIDE_MISSION_DESC_68
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712938
-    m_Key: GUIDE_MISSION_DESC_69
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712939
-    m_Key: GUIDE_MISSION_DESC_70
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712940
-    m_Key: GUIDE_MISSION_DESC_71
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712941
-    m_Key: GUIDE_MISSION_DESC_72
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712942
-    m_Key: GUIDE_MISSION_DESC_73
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712943
-    m_Key: GUIDE_MISSION_DESC_74
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712944
-    m_Key: GUIDE_MISSION_DESC_75
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712945
-    m_Key: GUIDE_MISSION_DESC_76
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712946
-    m_Key: GUIDE_MISSION_DESC_77
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712947
-    m_Key: GUIDE_MISSION_DESC_78
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712948
-    m_Key: GUIDE_MISSION_DESC_79
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712949
-    m_Key: GUIDE_MISSION_DESC_80
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712950
-    m_Key: GUIDE_MISSION_DESC_81
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712951
-    m_Key: GUIDE_MISSION_DESC_82
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712952
-    m_Key: GUIDE_MISSION_DESC_83
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712953
-    m_Key: GUIDE_MISSION_DESC_84
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712954
-    m_Key: GUIDE_MISSION_DESC_85
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712955
-    m_Key: GUIDE_MISSION_DESC_86
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712956
-    m_Key: GUIDE_MISSION_DESC_87
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712957
-    m_Key: GUIDE_MISSION_DESC_88
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712958
-    m_Key: GUIDE_MISSION_DESC_89
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712959
-    m_Key: GUIDE_MISSION_DESC_90
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712960
-    m_Key: GUIDE_MISSION_DESC_91
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712961
-    m_Key: GUIDE_MISSION_DESC_92
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712962
-    m_Key: GUIDE_MISSION_DESC_93
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769712963
+  - m_Id: 1998300280770560
     m_Key: MSG_NOT_ENOUGH_CHAR_EXP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712964
+  - m_Id: 1998300310130688
     m_Key: MSG_NOT_ENOUGH_GOLD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712965
+  - m_Id: 1998300310130689
     m_Key: MSG_NOT_ENOUGH_CHAR_PIECE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712966
+  - m_Id: 1998300310130690
     m_Key: MSG_NOT_ENOUGH_AP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712967
+  - m_Id: 1998300310130691
     m_Key: MSG_NOT_ENOUGH_GACHA_JEWEL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712968
+  - m_Id: 1998300310130692
     m_Key: MSG_NOT_ENOUGH_GACHA_C_TICKET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712969
+  - m_Id: 1998300310130693
     m_Key: MSG_NOT_ENOUGH_CHAR_EXP_2
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712970
+  - m_Id: 1998300310130694
     m_Key: MSG_NOT_ENOUGH_IDLE_REWARD_TIME
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712971
+  - m_Id: 1998300310130695
     m_Key: MSG_LOCK_CHAPTER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712972
+  - m_Id: 1998300310130696
     m_Key: MSG_LOCK_COMMANDER_SKILL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712973
+  - m_Id: 1998300310130697
     m_Key: MSG_LOCK_STAGE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712974
+  - m_Id: 1998300310130698
     m_Key: MSG_LOCK_STAGE_MILESTONE_REWARD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712975
+  - m_Id: 1998300310130699
     m_Key: MSG_FUNCTION_ERROR
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712976
+  - m_Id: 1998300310130700
     m_Key: MSG_OVER_INT_CHARACTER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712977
+  - m_Id: 1998300310130701
     m_Key: MSG_CANNOT_FILTER_CHARACTER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712978
+  - m_Id: 1998300310130702
     m_Key: MSG_UPDATE_ALARM
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712979
+  - m_Id: 1998300310130703
     m_Key: MSG_ALERT_MAX_LEVELUP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712980
+  - m_Id: 1998300310130704
     m_Key: MSG_INGAME_CHAR_NOT_SET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712981
+  - m_Id: 1998300314324992
     m_Key: MSG_ALERT_CAN_ADD_SET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712982
+  - m_Id: 1998300314324993
     m_Key: MSG_ALERT_COMMAND_SKILL_COORDINATE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712983
+  - m_Id: 1998300314324994
     m_Key: MSG_GUIDE_IDLE_REWARD_AP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712984
+  - m_Id: 1998300314324995
     m_Key: MSG_ALERT_EQUIP_COMMAND_SKILL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712985
+  - m_Id: 1998300314324996
     m_Key: MSG_INGAME_TIME_OVER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712986
+  - m_Id: 1998300314324997
     m_Key: MSG_ALERT_IDLE_REWARD_UP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712987
+  - m_Id: 1998300314324998
     m_Key: MSG_ALERT_NOT_ENOUGH_P_TICKET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712988
+  - m_Id: 1998300314324999
     m_Key: MSG_ALERT_NOT_ENOUGH_GOLD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712989
+  - m_Id: 1998300314325000
     m_Key: MSG_CHARACTER_LV_RESET_ALERT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712990
+  - m_Id: 1998300314325001
     m_Key: MSG_CHARACTER_LV_RESET_IMPOSSIBLE_ALERT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712991
+  - m_Id: 1998300314325002
     m_Key: MSG_CHARACTER_LV_RESET_END_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712992
+  - m_Id: 1998300314325003
     m_Key: MSG_PURCHASE_INT_OVER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712993
+  - m_Id: 1998300314325004
     m_Key: MSG_TRIAL_ENTRANCE_CONDITION_STAR_LACK
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712994
+  - m_Id: 1998300314325005
     m_Key: MSG_TRIAL_ENTRANCE_ALREADY_CLEAR
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712995
+  - m_Id: 1998300314325006
     m_Key: MSG_TRIAL_ENTRANCE_NEED_BEFORE_STAGE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712996
+  - m_Id: 1998300314325007
     m_Key: MSG_CHARACTER_LV_ITEM_ISSUE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712997
+  - m_Id: 1998300314325008
     m_Key: MSG_PVP_SET_DEF_DECK
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712998
+  - m_Id: 1998300314325009
     m_Key: MSG_PVP_OPPONENT_REFRESH_IMPOSSIBLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769712999
+  - m_Id: 1998300314325010
     m_Key: MSG_PVP_BATTLE_TIME_OVER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713000
+  - m_Id: 1998300314325011
     m_Key: MSG_CONTENT_UNLOCK
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713001
+  - m_Id: 1998300314325012
     m_Key: MSG_EQUIP_COMMAND_SKILL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713002
+  - m_Id: 1998300314325013
     m_Key: MSG_TRANSCENDENCE_ASK
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713003
+  - m_Id: 1998300314325014
     m_Key: MSG_MAX_LV_UP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713004
+  - m_Id: 1998300314325015
     m_Key: MSG_PVP_NEED_DECK_SET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713005
+  - m_Id: 1998300314325016
     m_Key: MSG_PVP_DEF_DECK_ASK
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713006
+  - m_Id: 1998300314325017
     m_Key: MSG_PVP_CHAR_OBSTACLE_SET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713007
+  - m_Id: 1998300314325018
     m_Key: MSG_MAX_LV_NEED_TRANSCENDENCE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713008
+  - m_Id: 1998300314325019
     m_Key: MSG_ALARM_LANGUAGE_TEXT_CHANGE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713009
-    m_Key: SKILL_NAME_POWER_ATTACK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713010
-    m_Key: SKILL_NAME_RANGE_POWER_ATTACK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713011
-    m_Key: SKILL_NAME_KNOCKBACK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713012
-    m_Key: SKILL_NAME_STUN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713013
-    m_Key: SKILL_NAME_CROSS_FIRE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713014
-    m_Key: SKILL_NAME_POWER_ATTACK_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713015
-    m_Key: SKILL_NAME_LINE_PENTRATE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713016
-    m_Key: SKILL_NAME_ALL_HEAL
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713017
-    m_Key: SKILL_NAME_CROSS_FROZEN_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713018
-    m_Key: SKILL_NAME_RANGE_ATK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713019
-    m_Key: SKILL_NAME_POWER_ATTACK_ASSASIN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713020
-    m_Key: SKILL_NAME_SWORD_AURA
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713021
-    m_Key: SKILL_NAME_STRAIGHT_CUT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713022
-    m_Key: SKILL_NAME_PROTECT_LINE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713023
-    m_Key: SKILL_NAME_CROSS_FROZEN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713024
-    m_Key: SKILL_NAME_FIRE_LASER
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713025
-    m_Key: SKILL_NAME_SHOTGUN_RESET
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713026
-    m_Key: SKILL_NAME_SNIPE_KNOCKBACK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713027
-    m_Key: SKILL_NAME_SILENCE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713028
-    m_Key: SKILL_NAME_BREAK_SHIELD
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713029
-    m_Key: SKILL_NAME_POWER_UP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713030
-    m_Key: SKILL_NAME_ATK_SPD_UP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713031
-    m_Key: SKILL_NAME_GRENADE_THREE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713032
-    m_Key: SKILL_NAME_SMASH_STUN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713033
-    m_Key: SKILL_NAME_KNOCK_BACK_DEF
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713034
-    m_Key: SKILL_NAME_RESTRAINT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713035
-    m_Key: SKILL_NAME_SQUARE_STUN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713036
-    m_Key: SKILL_NAME_SUMMON_TAUNT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713037
-    m_Key: SKILL_NAME_BULLET_TIME
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713038
-    m_Key: SKILL_NAME_BOOMERANG
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713039
-    m_Key: SKILL_NAME_CURE_DEF_DOWN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713040
-    m_Key: SKILL_DESC_RANGE_POWER_ATTACK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713041
-    m_Key: SKILL_DESC_KNOCKBACK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713042
-    m_Key: SKILL_DESC_STUN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713043
-    m_Key: SKILL_DESC_CROSS_FIRE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713044
-    m_Key: SKILL_DESC_POWER_ATTACK_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713045
-    m_Key: SKILL_DESC_LINE_PENTRATE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713046
-    m_Key: SKILL_DESC_ALL_HEAL
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713047
-    m_Key: SKILL_DESC_CROSS_FROZEN_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713048
-    m_Key: SKILL_DESC_RANGE_ATK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713049
-    m_Key: SKILL_DESC_POWER_ATTACK_ASSASIN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713050
-    m_Key: SKILL_DESC_SWORD_AURA
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713051
-    m_Key: SKILL_DESC_STRAIGHT_CUT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713052
-    m_Key: SKILL_DESC_PROTECT_LINE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713053
-    m_Key: SKILL_DESC_CROSS_FROZEN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713054
-    m_Key: SKILL_DESC_FIRE_LASER
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713055
-    m_Key: SKILL_DESC_SHOTGUN_RESET
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713056
-    m_Key: SKILL_DESC_SNIPE_KNOCKBACK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713057
-    m_Key: SKILL_DESC_SILENCE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713058
-    m_Key: SKILL_DESC_BREAK_SHIELD
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713059
-    m_Key: SKILL_DESC_POWER_UP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713060
-    m_Key: SKILL_DESC_ATK_SPD_UP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713061
-    m_Key: SKILL_DESC_SMASH_STUN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713062
-    m_Key: SKILL_DESC_GRENADE_THREE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713063
-    m_Key: SKILL_DESC_KNOCK_BACK_DEF
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713064
-    m_Key: SKILL_DESC_RESTRAINT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713065
-    m_Key: SKILL_DESC_SQUARE_STUN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713066
-    m_Key: SKILL_DESC_SUMMON_TAUNT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713067
-    m_Key: SKILL_DESC_BULLET_TIME
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713068
-    m_Key: SKILL_DESC_BOOMERANG
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713069
-    m_Key: SKILL_DESC_CURE_DEF_DOWN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713070
-    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300001
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713071
-    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300002
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713072
-    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300003
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713073
-    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300004
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713074
-    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300005
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713075
-    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300006
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713076
-    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300001
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713077
-    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300002
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713078
-    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300003
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713079
-    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300004
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713080
-    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300005
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713081
-    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300006
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713082
-    m_Key: SYNERGY_NAME_GUARDIAN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713083
-    m_Key: SYNERGY_DESC_GUARDIAN_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713084
-    m_Key: SYNERGY_DESC_GUARDIAN_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713085
-    m_Key: SYNERGY_NAME_TANK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713086
-    m_Key: SYNERGY_DESC_TANK_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713087
-    m_Key: SYNERGY_DESC_TANK_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713088
-    m_Key: SYNERGY_NAME_WIZARD
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713089
-    m_Key: SYNERGY_DESC_WIZARD_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713090
-    m_Key: SYNERGY_DESC_WIZARD_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713091
-    m_Key: SYNERGY_NAME_RANGER
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713092
-    m_Key: SYNERGY_DESC_RANGER_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713093
-    m_Key: SYNERGY_DESC_RANGER_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713094
-    m_Key: SYNERGY_NAME_ASSASSIN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713095
-    m_Key: SYNERGY_DESC_ASSASSIN_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713096
-    m_Key: SYNERGY_DESC_ASSASSIN_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713097
-    m_Key: SYNERGY_NAME_SUPPORTER
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713098
-    m_Key: SYNERGY_DESC_SUPPORTER_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713099
-    m_Key: SYNERGY_DESC_SUPPORTER_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713100
-    m_Key: SYNERGY_NAME_FIRE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713101
-    m_Key: SYNERGY_DESC_FIRE_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713102
-    m_Key: SYNERGY_DESC_FIRE_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713103
-    m_Key: SYNERGY_NAME_EARTH
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713104
-    m_Key: SYNERGY_DESC_EARTH_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713105
-    m_Key: SYNERGY_DESC_EARTH_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713106
-    m_Key: SYNERGY_NAME_WATER
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713107
-    m_Key: SYNERGY_DESC_WATER_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713108
-    m_Key: SYNERGY_DESC_WATER_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713109
-    m_Key: SYNERGY_NAME_LIGHT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713110
-    m_Key: SYNERGY_DESC_LIGHT_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713111
-    m_Key: SYNERGY_DESC_LIGHT_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713112
-    m_Key: SYNERGY_NAME_DARK
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713113
-    m_Key: SYNERGY_DESC_DARK_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713114
-    m_Key: SYNERGY_DESC_DARK_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713115
-    m_Key: SYNERGY_NAME_WIND
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713116
-    m_Key: SYNERGY_DESC_WIND_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713117
-    m_Key: SYNERGY_DESC_WIND_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713118
-    m_Key: SYNERGY_PLACE_EFFECT
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713119
-    m_Key: STAGE_STAR_CONDITON_DESC_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713120
-    m_Key: STAGE_STAR_CONDITON_DESC_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713121
-    m_Key: STAGE_STAR_CONDITON_DESC_3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713122
-    m_Key: STAGE_LOSE_GUIDE_DESC_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713123
-    m_Key: STAGE_LOSE_GUIDE_DESC_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713124
-    m_Key: STAGE_LOSE_GUIDE_DESC_3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1900755769713125
+  - m_Id: 1998300314325020
     m_Key: GUIDE_MISSION_ALERT_MSG_1
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713126
+  - m_Id: 1998300314325021
     m_Key: GUIDE_MISSION_ALERT_MSG_2
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713127
+  - m_Id: 1998300314325022
     m_Key: GUIDE_MISSION_CLEAR_MSG
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713128
+  - m_Id: 1998300314325023
     m_Key: END_TEST_GAME_SURVEY_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713129
+  - m_Id: 1998300314325024
     m_Key: END_TEST_GAME_SURVEY_DESC
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713130
+  - m_Id: 1998300314325025
     m_Key: END_TEST_GAME_SURVEY_BTN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713131
+  - m_Id: 1998300314325026
     m_Key: SYSTEM_MSG_MAX_CHARACTER_ALERT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713132
+  - m_Id: 1998300314325027
     m_Key: UI_STAGE_NEXT_MOVE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713133
+  - m_Id: 1998300314325028
     m_Key: UI_CHAPTER_NEXT_MOVE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713134
+  - m_Id: 1998300314325029
     m_Key: UI_INGAME_SET_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713135
+  - m_Id: 1998300314325030
     m_Key: UI_INGAME_SKILL_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713136
+  - m_Id: 1998300314325031
     m_Key: UI_ARENA_TICKET_BUY_INT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713137
+  - m_Id: 1998300314325032
     m_Key: UI_TRIAL_STAGE_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713138
+  - m_Id: 1998300314325033
     m_Key: UI_CHARACTER_PLACE_RECOMMEND
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713139
+  - m_Id: 1998300314325034
     m_Key: UI_STAGE_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713140
+  - m_Id: 1998300314325035
     m_Key: UI_PVP_DECK_CHARACTER_SET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713141
+  - m_Id: 1998300314325036
     m_Key: UI_PVP_DECK_OBSTACLE_SET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713142
+  - m_Id: 1998300314325037
     m_Key: TRIAL_DESC_10001
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713143
+  - m_Id: 1998300314325038
     m_Key: TRIAL_DESC_10002
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713144
+  - m_Id: 1998300314325039
     m_Key: TRIAL_DESC_10003
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713145
+  - m_Id: 1998300314325040
     m_Key: TRIAL_DESC_10004
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713146
+  - m_Id: 1998300314325041
     m_Key: TRIAL_DESC_10005
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713147
+  - m_Id: 1998300314325042
     m_Key: TRIAL_DESC_10006
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713148
+  - m_Id: 1998300314325043
     m_Key: TRIAL_DESC_10007
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713149
+  - m_Id: 1998300314325044
     m_Key: TRIAL_DESC_10008
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713150
+  - m_Id: 1998300314325045
     m_Key: TRIAL_DESC_10009
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713151
+  - m_Id: 1998300314325046
     m_Key: TRIAL_DESC_10010
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713152
+  - m_Id: 1998300314325047
     m_Key: TRIAL_DESC_10011
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713153
+  - m_Id: 1998300314325048
     m_Key: TRIAL_DESC_10012
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713154
+  - m_Id: 1998300314325049
     m_Key: TRIAL_DESC_10013
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713155
+  - m_Id: 1998300314325050
     m_Key: TRIAL_DESC_10014
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713156
+  - m_Id: 1998300314325051
     m_Key: TRIAL_DESC_10015
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713157
+  - m_Id: 1998300314325052
     m_Key: OBSTACLE_NAME_TOKEN_10001
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713158
+  - m_Id: 1998300314325053
     m_Key: OBSTACLE_NAME_TOKEN_20001
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713159
+  - m_Id: 1998300314325054
     m_Key: OBSTACLE_NAME_TOKEN_30001
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713160
+  - m_Id: 1998300314325055
     m_Key: OBSTACLE_NAME_TOKEN_40001
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713161
+  - m_Id: 1998300314325056
     m_Key: OBSTACLE_NAME_TOKEN_50001
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713162
+  - m_Id: 1998300314325057
     m_Key: OBSTACLE_DESC_TOKEN_10001
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713163
+  - m_Id: 1998300314325058
     m_Key: OBSTACLE_DESC_TOKEN_20001
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713164
+  - m_Id: 1998300314325059
     m_Key: OBSTACLE_DESC_TOKEN_30001
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713165
+  - m_Id: 1998300314325060
     m_Key: OBSTACLE_DESC_TOKEN_40001
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713166
+  - m_Id: 1998300314325061
     m_Key: OBSTACLE_DESC_TOKEN_50001
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713167
+  - m_Id: 1998300314325062
     m_Key: MSG_NOT_ENOUGH_GACHA_PVP_TICKET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713168
+  - m_Id: 1998300314325063
     m_Key: QUEST_DESC_1
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713169
+  - m_Id: 1998300314325064
     m_Key: QUEST_DESC_2
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713170
+  - m_Id: 1998300314325065
     m_Key: QUEST_DESC_3
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713171
+  - m_Id: 1998300314325066
     m_Key: QUEST_DESC_4
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713172
+  - m_Id: 1998300314325067
     m_Key: QUEST_DESC_5
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713173
+  - m_Id: 1998300314325068
     m_Key: QUEST_DESC_6
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713174
+  - m_Id: 1998300314325069
     m_Key: QUEST_DESC_7
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713175
+  - m_Id: 1998300314325070
     m_Key: QUEST_DESC_8
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713176
+  - m_Id: 1998300314325071
     m_Key: QUEST_DESC_9
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713177
+  - m_Id: 1998300314325072
     m_Key: QUEST_DESC_10
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713178
+  - m_Id: 1998300314325073
     m_Key: QUEST_DESC_11
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713179
+  - m_Id: 1998300314325074
     m_Key: QUEST_DESC_12
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713180
+  - m_Id: 1998300314325075
     m_Key: QUEST_DESC_13
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713181
+  - m_Id: 1998300314325076
     m_Key: QUEST_DESC_14
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713182
+  - m_Id: 1998300314325077
     m_Key: QUEST_DESC_15
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713183
+  - m_Id: 1998300314325078
     m_Key: QUEST_DESC_16
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713184
+  - m_Id: 1998300314325079
     m_Key: EVENT_NAME_1
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713185
+  - m_Id: 1998300314325080
     m_Key: EVENT_NAME_2
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713186
+  - m_Id: 1998300314325081
     m_Key: EVENT_NAME_3
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713187
+  - m_Id: 1998300314325082
     m_Key: EVENT_DESC_1
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713188
+  - m_Id: 1998300314325083
     m_Key: EVENT_DESC_2
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713189
+  - m_Id: 1998300314325084
     m_Key: EVENT_DESC_3
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713190
+  - m_Id: 1998300314325085
     m_Key: REWARD_INFO_NAME_1
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713191
+  - m_Id: 1998300314325086
     m_Key: REWARD_INFO_NAME_2
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713192
+  - m_Id: 1998300314325087
     m_Key: REWARD_INFO_NAME_3
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713193
+  - m_Id: 1998300314325088
     m_Key: REWARD_INFO_NAME_4
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713194
+  - m_Id: 1998300314325089
     m_Key: REWARD_INFO_NAME_5
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713195
+  - m_Id: 1998300314325090
     m_Key: REWARD_INFO_NAME_6
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713196
+  - m_Id: 1998300314325091
     m_Key: REWARD_INFO_NAME_7
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713197
+  - m_Id: 1998300314325092
     m_Key: REWARD_INFO_NAME_8
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713198
+  - m_Id: 1998300314325093
     m_Key: REWARD_INFO_NAME_9
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713199
+  - m_Id: 1998300314325094
     m_Key: REWARD_INFO_NAME_10
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713200
+  - m_Id: 1998300314325095
     m_Key: REWARD_INFO_NAME_11
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713201
+  - m_Id: 1998300314325096
     m_Key: REWARD_INFO_NAME_12
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713202
+  - m_Id: 1998300314325097
     m_Key: REWARD_INFO_NAME_13
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713203
+  - m_Id: 1998300314325098
     m_Key: REWARD_INFO_DESC_1
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713204
+  - m_Id: 1998300314325099
     m_Key: REWARD_INFO_DESC_2
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713205
+  - m_Id: 1998300314325100
     m_Key: REWARD_INFO_DESC_3
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713206
+  - m_Id: 1998300314325101
     m_Key: REWARD_INFO_DESC_4
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713207
+  - m_Id: 1998300314325102
     m_Key: REWARD_INFO_DESC_5
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713208
+  - m_Id: 1998300314325103
     m_Key: REWARD_INFO_DESC_6
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713209
+  - m_Id: 1998300314325104
     m_Key: REWARD_INFO_DESC_7
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713210
+  - m_Id: 1998300314325105
     m_Key: REWARD_INFO_DESC_8
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713211
+  - m_Id: 1998300314325106
     m_Key: REWARD_INFO_DESC_9
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713212
+  - m_Id: 1998300314325107
     m_Key: REWARD_INFO_DESC_10
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713213
+  - m_Id: 1998300314325108
     m_Key: REWARD_INFO_DESC_11
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713214
+  - m_Id: 1998300314325109
     m_Key: REWARD_INFO_DESC_12
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713215
+  - m_Id: 1998300314325110
     m_Key: REWARD_INFO_DESC_13
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713216
+  - m_Id: 1998300314325111
     m_Key: DESC_CHANNEL_1
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713217
+  - m_Id: 1998300314325112
     m_Key: DESC_CHANNEL_2
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713218
+  - m_Id: 1998300314325113
     m_Key: DESC_CHANNEL_3
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713219
+  - m_Id: 1998300314325114
     m_Key: DESC_CHANNEL_4
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713220
+  - m_Id: 1998300314325115
     m_Key: DESC_CHANNEL_5
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713221
+  - m_Id: 1998300314325116
     m_Key: DESC_CHANNEL_6
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713222
+  - m_Id: 1998300314325117
     m_Key: DESC_CHANNEL_7
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713223
+  - m_Id: 1998300314325118
     m_Key: DESC_CHANNEL_8
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713224
+  - m_Id: 1998300314325119
     m_Key: DESC_CHANNEL_9
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713225
+  - m_Id: 1998300314325120
     m_Key: DESC_CHANNEL_10
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713226
+  - m_Id: 1998300314325121
     m_Key: DESC_CHANNEL_11
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713227
+  - m_Id: 1998300314325122
     m_Key: DESC_CHANNEL_12
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713228
+  - m_Id: 1998300314325123
     m_Key: DESC_CHANNEL_13
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713229
+  - m_Id: 1998300314325124
     m_Key: PVP_DAILY_REWARD_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713230
+  - m_Id: 1998300314325125
     m_Key: UI_ITEM_CATEGORY_NAME_1
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713231
+  - m_Id: 1998300314325126
     m_Key: UI_ITEM_CATEGORY_NAME_2
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713232
+  - m_Id: 1998300314325127
     m_Key: UI_ITEM_CATEGORY_NAME_3
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713233
+  - m_Id: 1998300314325128
     m_Key: BANNED_USER_ALERT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713234
+  - m_Id: 1998300314325129
     m_Key: TUTORIAL_PLAYING_ALERT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713235
+  - m_Id: 1998300314325130
     m_Key: ARENA_MATCH_REFRESH_AVAIL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713236
+  - m_Id: 1998300314325131
     m_Key: SERVER_ACCESS_RETRY
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713237
+  - m_Id: 1998300314325132
     m_Key: SERVER_ALREADY_USE_NICKNAME
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713238
+  - m_Id: 1998300314325133
     m_Key: ERROR_SERVER_NICKNAME_LENGTH
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713239
+  - m_Id: 1998300314325134
     m_Key: MSG_ARENA_MATCH_RESET_END_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713240
+  - m_Id: 1998300314325135
     m_Key: MSG_NOT_HAVE_CHARACTER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713241
+  - m_Id: 1998300314325136
     m_Key: FIRST_NICKNAME_ALERT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713242
+  - m_Id: 1998300314325137
     m_Key: REWARD_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713243
+  - m_Id: 1998300314325138
     m_Key: LV_RESET_REMAIN_TIME
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713244
+  - m_Id: 1998300314325139
     m_Key: PVP_OPPONENT_DATA_ERROR
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713245
+  - m_Id: 1998300314325140
     m_Key: CHANGE_NICKNAME_TO_TOUCH
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713246
+  - m_Id: 1998300314325141
     m_Key: MSG_NETWORK_WRONG
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713247
+  - m_Id: 1998300314325142
     m_Key: MSG_PVP_RANKING_LOADING
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713248
+  - m_Id: 1998300314325143
     m_Key: MSG_FIRST_COMMANDER_SKILL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713249
+  - m_Id: 1998300314325144
     m_Key: MSG_GROWTH_CHARACTER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713250
+  - m_Id: 1998300314325145
     m_Key: DAILY_PLAYTIME_EVENT_DESC
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713251
+  - m_Id: 1998300314325146
     m_Key: DAILY_AP_EVENT_DESC
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713252
+  - m_Id: 1998300314325147
     m_Key: PURCHASE_TIME_OVER_ALERT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713253
+  - m_Id: 1998300314325148
     m_Key: UI_SETTING_BTN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713254
+  - m_Id: 1998300314325149
     m_Key: UI_LANGUAGE_SELECT_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713255
+  - m_Id: 1998300314325150
     m_Key: UI_LANGUAGE_TEXT_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713256
+  - m_Id: 1998300314325151
     m_Key: UI_LANGUAGE_SET_KOREAN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713257
+  - m_Id: 1998300314325152
     m_Key: UI_LANGUAGE_SET_ENGLISH
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713258
+  - m_Id: 1998300314325153
     m_Key: UI_SOUND_SETTING_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713259
+  - m_Id: 1998300314325154
     m_Key: UI_SET_BGM
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713260
+  - m_Id: 1998300314325155
     m_Key: UI_SET_SFX
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713261
+  - m_Id: 1998300314325156
     m_Key: UI_CONFIRM_BTN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713262
+  - m_Id: 1998300314325157
     m_Key: UI_CANCEL_BTN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713263
+  - m_Id: 1998300314325158
     m_Key: UI_IDLE_REWARD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713264
+  - m_Id: 1998300314325159
     m_Key: UI_CHARACTER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713265
+  - m_Id: 1998300314325160
     m_Key: UI_QUEST
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713266
+  - m_Id: 1998300314325161
     m_Key: UI_ATTENDANCE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713267
+  - m_Id: 1998300314325162
     m_Key: UI_SUMMON
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713268
+  - m_Id: 1998300314325163
     m_Key: UI_LOBBY
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713269
+  - m_Id: 1998300314325164
     m_Key: UI_PLAY_TIME_EVENT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713270
+  - m_Id: 1998300314325165
     m_Key: UI_USE_AP_EVENT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713271
+  - m_Id: 1998300314325166
     m_Key: UI_GROW
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713272
+  - m_Id: 1998300314325167
     m_Key: UI_SKILL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713273
+  - m_Id: 1998300314325168
     m_Key: UI_INFO
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713274
+  - m_Id: 1998300314325169
     m_Key: STAT_LEVEL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713275
+  - m_Id: 1998300314325170
     m_Key: STAT_BP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713276
+  - m_Id: 1998300314325171
     m_Key: STAT_ATK
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713277
+  - m_Id: 1998300314325172
     m_Key: STAT_HP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713278
+  - m_Id: 1998300314325173
     m_Key: STAT_RES
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713279
+  - m_Id: 1998300314325174
     m_Key: STAT_DEF
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713280
+  - m_Id: 1998300314325175
     m_Key: STAT_ATK_SPD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713281
+  - m_Id: 1998300314325176
     m_Key: STAT_CRI_RATE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713282
+  - m_Id: 1998300314325177
     m_Key: STAT_CRI_POWER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713283
+  - m_Id: 1998300314325178
     m_Key: STAT_ATK_PIERCE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713284
+  - m_Id: 1998300314325179
     m_Key: STAT_RES_PIERCE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713285
+  - m_Id: 1998300314325180
     m_Key: UI_COMMON_SKILL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713286
+  - m_Id: 1998300314325181
     m_Key: UI_ACTIVE_SKILL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713287
+  - m_Id: 1998300314325182
     m_Key: UI_SYNERGY
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713288
+  - m_Id: 1998300314325183
     m_Key: UI_LEVEL_RESET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713289
+  - m_Id: 1998300314325184
     m_Key: UI_TRANSCENDENCE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713290
+  - m_Id: 1998300314325185
     m_Key: UI_LEVEL_UP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713291
+  - m_Id: 1998300314325186
     m_Key: UI_DETAIL_INFO
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713292
+  - m_Id: 1998300314325187
     m_Key: SKILL_COOLTIME
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713293
+  - m_Id: 1998300314325188
     m_Key: UI_TYPE_PHYSICAL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713294
+  - m_Id: 1998300314325189
     m_Key: UI_TYPE_MAGICAL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713295
+  - m_Id: 1998300314325190
     m_Key: UI_GET_IDLE_REWARD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713296
+  - m_Id: 1998300314325191
     m_Key: UI_IDLE_REWARD_TIME_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713297
+  - m_Id: 1998300314325192
     m_Key: UI_IDLE_REWARD_MAX_TIME_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713298
+  - m_Id: 1998300314325193
     m_Key: UI_IDLE_REWARD_EMPTY_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713299
+  - m_Id: 1998300314325194
     m_Key: UI_GET_ITEM
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713300
+  - m_Id: 1998300314325195
     m_Key: UI_QUEST_DAILY
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713301
+  - m_Id: 1998300314325196
     m_Key: UI_QUEST_WEEKLY
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713302
+  - m_Id: 1998300314325197
     m_Key: UI_SUMMON_ONE_TIME
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713303
+  - m_Id: 1998300314325198
     m_Key: UI_SUMMON_TEN_TIME
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713304
+  - m_Id: 1998300314325199
     m_Key: UI_SUMMON_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713305
+  - m_Id: 1998300314325200
     m_Key: UI_CHAPTER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713306
+  - m_Id: 1998300314325201
     m_Key: UI_MOVE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713307
+  - m_Id: 1998300314325202
     m_Key: UI_BATTLE_UNIT_PLACE_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713308
+  - m_Id: 1998300314325203
     m_Key: UI_STAGE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713309
+  - m_Id: 1998300314325204
     m_Key: UI_STAGE_DETAIL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713310
+  - m_Id: 1998300314325205
     m_Key: UI_PAUSE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713311
+  - m_Id: 1998300314325206
     m_Key: SYSTEM_EXIT_ALERT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713312
+  - m_Id: 1998300314325207
     m_Key: UI_EXIT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713313
+  - m_Id: 1998300314325208
     m_Key: UI_CONTINUE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713314
+  - m_Id: 1998300314325209
     m_Key: UI_SYSTEM_ALERT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713315
+  - m_Id: 1998300314325210
     m_Key: UI_STATISTICS
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713316
+  - m_Id: 1998300314325211
     m_Key: UI_FAST_FORWARD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713317
+  - m_Id: 1998300314325212
     m_Key: UI_REWARD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713318
+  - m_Id: 1998300314325213
     m_Key: UI_RETRY
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713319
+  - m_Id: 1998300314325214
     m_Key: UI_PROOF_DUNGEON
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713320
+  - m_Id: 1998300314325215
     m_Key: UI_ARENA
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713321
+  - m_Id: 1998300314325216
     m_Key: UI_ARENA_BETA
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713322
+  - m_Id: 1998300314325217
     m_Key: UI_ARENA_MATCH_LIST_EMPTY
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713323
+  - m_Id: 1998300314325218
     m_Key: UI_ARENA_DEF_DECK_SETTING
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713324
+  - m_Id: 1998300314325219
     m_Key: UI_RANKING
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713325
+  - m_Id: 1998300314325220
     m_Key: UI_SEASON_REWARD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713326
+  - m_Id: 1998300314325221
     m_Key: UI_RESET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713327
+  - m_Id: 1998300314325222
     m_Key: UI_ARENA_BETA_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713328
+  - m_Id: 1998300314325223
     m_Key: UI_BATTLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713329
+  - m_Id: 1998300314325224
     m_Key: UI_BATTLE_LOG
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713330
+  - m_Id: 1998300314325225
     m_Key: UI_SEASON
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713331
+  - m_Id: 1998300314325226
     m_Key: UI_SEASON_TIME_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713332
+  - m_Id: 1998300314325227
     m_Key: UI_SEASON_END_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713333
+  - m_Id: 1998300314325228
     m_Key: UI_BATTLE_LOG_EMPTY_ALERT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713334
+  - m_Id: 1998300314325229
     m_Key: UI_DAILY_REWARD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713335
+  - m_Id: 1998300314325230
     m_Key: UI_ARENA_DAILY_REWARD_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713336
+  - m_Id: 1998300314325231
     m_Key: UI_BATTLE_SET_TYPE_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713337
+  - m_Id: 1998300314325232
     m_Key: UI_BATTLE_SET_TYPE_UNIT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713338
+  - m_Id: 1998300314325233
     m_Key: UI_BATTLE_SET_TYPE_OBSTACLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713339
+  - m_Id: 1998300314325234
     m_Key: SYSTEM_ARENA_DEF_DECK_ALERT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713340
+  - m_Id: 1998300314325235
     m_Key: UI_GUARDIAN_SYNERGY_BONUS_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713341
+  - m_Id: 1998300314325236
     m_Key: STELLA_KNIGHT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713342
+  - m_Id: 1998300314325237
     m_Key: UI_BATTLE_POWER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713343
+  - m_Id: 1998300314325238
     m_Key: UI_LEVEL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713344
+  - m_Id: 1998300314325239
     m_Key: UI_AP_MAX_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713345
+  - m_Id: 1998300314325240
     m_Key: UI_CHANGE_NICKNAME_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713346
+  - m_Id: 1998300314325241
     m_Key: UI_CHANGE_NICKNAME_DESC
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713347
+  - m_Id: 1998300314325242
     m_Key: COMMANDER_SKILL_OPEN_DESC
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713348
+  - m_Id: 1998300314325243
     m_Key: CHAPTER_CLEAR_GUIDE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713349
+  - m_Id: 1998300314325244
     m_Key: PLAY_TIME_EVENT_DESC
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713350
+  - m_Id: 1998300314325245
     m_Key: PLAY_TIME_EVENT_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713351
+  - m_Id: 1998300314325246
     m_Key: NOT_HAVE_CHARACTER_MSG
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713352
+  - m_Id: 1998300314325247
     m_Key: BUY_ARENA_TICKET_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713353
+  - m_Id: 1998300314325248
     m_Key: BUY_ARENA_TICKET_DESC
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713354
+  - m_Id: 1998300314325249
     m_Key: BUY_INT_MSG
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713355
+  - m_Id: 1998300314325250
     m_Key: PURCHASE_MSG
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713356
+  - m_Id: 1998300314325251
     m_Key: TIER_BRONZE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713357
+  - m_Id: 1998300314325252
     m_Key: TIER_SILVER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713358
+  - m_Id: 1998300314325253
     m_Key: TIER_GOLD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713359
+  - m_Id: 1998300314325254
     m_Key: TIER_PLATINUM
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713360
+  - m_Id: 1998300314325255
     m_Key: TIER_DIAMOND
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713361
+  - m_Id: 1998300314325256
     m_Key: ARENA_RANKING_LOAD_ALERT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713362
+  - m_Id: 1998300314325257
     m_Key: ARENA_LIST_INT_MSG
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713363
+  - m_Id: 1998300314325258
     m_Key: ARENA_MATCH_LIST_CHANGE_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713364
+  - m_Id: 1998300314325259
     m_Key: ARENA_MATCH_LIST_CHANGE_DESC
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713365
+  - m_Id: 1998300314325260
     m_Key: ARENA_MATCH_LIST_INT_MSG
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713366
+  - m_Id: 1998300314325261
     m_Key: CHANGE_MSG
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713367
+  - m_Id: 1998300314325262
     m_Key: ARENA_DAILY_REWARD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713368
+  - m_Id: 1998300314325263
     m_Key: INGAME_UI_BUFF_AD_ATK_UP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713369
+  - m_Id: 1998300314325264
     m_Key: INGAME_UI_BUFF_AP_ATK_UP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713370
+  - m_Id: 1998300314325265
     m_Key: INGAME_UI_BUFF_ATKSPD_UP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713371
+  - m_Id: 1998300314325266
     m_Key: INGAME_UI_BUFF_DEF_UP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713372
+  - m_Id: 1998300314325267
     m_Key: INGAME_UI_BUFF_RES_UP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713373
+  - m_Id: 1998300314325268
     m_Key: INGAME_UI_BUFF_COOLDOWN_RESET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713374
+  - m_Id: 1998300314325269
     m_Key: INGAME_UI_DEBUFF_COOLDOWN_SPDDOWN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713375
+  - m_Id: 1998300314325270
     m_Key: INGAME_UI_DEBUFF_DEF_DOWN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713376
+  - m_Id: 1998300314325271
     m_Key: INGAME_UI_DEBUFF_RES_DOWN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713377
+  - m_Id: 1998300314325272
     m_Key: INGAME_UI_DEBUFF_HEAL_DOWN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713378
+  - m_Id: 1998300314325273
     m_Key: INGAME_UI_DEBUFF_STUN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713379
+  - m_Id: 1998300314325274
     m_Key: INGAME_UI_DEBUFF_TAUNT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713380
+  - m_Id: 1998300314325275
     m_Key: INGAME_UI_DEBUFF_SILENCE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713381
+  - m_Id: 1998300314325276
     m_Key: INGAME_UI_DEBUFF_ATKSPD_DOWN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713382
+  - m_Id: 1998300314325277
     m_Key: INGAME_UI_SHIELD_GET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713383
+  - m_Id: 1998300314325278
     m_Key: INGAME_UI_BUFF_AVOID_PROB_UP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713384
+  - m_Id: 1998300314325279
     m_Key: SYNERGY_FIRE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713385
+  - m_Id: 1998300314325280
     m_Key: SYNERGY_WATER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713386
+  - m_Id: 1998300314325281
     m_Key: SYNERGY_EARTH
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713387
+  - m_Id: 1998300314325282
     m_Key: SYNERGY_WIND
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713388
+  - m_Id: 1998300314325283
     m_Key: SYNERGY_LIGHT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713389
+  - m_Id: 1998300314325284
     m_Key: SYNERGY_DARK
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713390
+  - m_Id: 1998300314325285
     m_Key: CLASS_TANK
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713391
+  - m_Id: 1998300314325286
     m_Key: CLASS_GUARDIAN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713392
+  - m_Id: 1998300314325287
     m_Key: CLASS_RANGER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713393
+  - m_Id: 1998300314325288
     m_Key: CLASS_WIZARD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713394
+  - m_Id: 1998300314325289
     m_Key: CLASS_SUPPORTER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713395
+  - m_Id: 1998300314325290
     m_Key: CLASS_ASSASSIN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713396
+  - m_Id: 1998300314325291
     m_Key: TIME_DAY
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713397
+  - m_Id: 1998300314325292
     m_Key: TIME_HOUR
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713398
+  - m_Id: 1998300314325293
     m_Key: TIME_MINUTE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713399
+  - m_Id: 1998300314325294
     m_Key: TIME_SECOND
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713400
+  - m_Id: 1998300314325295
     m_Key: TIME_DAY_REMAIN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713401
+  - m_Id: 1998300314325296
     m_Key: TIME_HOUR_REMAIN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713402
+  - m_Id: 1998300314325297
     m_Key: TIME_MINUTE_REMAIN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713403
+  - m_Id: 1998300314325298
     m_Key: TIME_SECOND_REMAIN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713404
+  - m_Id: 1998300314325299
     m_Key: UI_WIN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713405
+  - m_Id: 1998300314325300
     m_Key: UI_LOSE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713406
+  - m_Id: 1998300314325301
     m_Key: UI_EQUIP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713407
+  - m_Id: 1998300314325302
     m_Key: UI_EQUIPPED
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713408
+  - m_Id: 1998300314325303
     m_Key: UI_REVENGE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713409
+  - m_Id: 1998300314325304
     m_Key: UI_COMMANDER_SKILL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713410
+  - m_Id: 1998300314325305
     m_Key: UI_CHARACTER_DEPLOYMENT_INT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713411
+  - m_Id: 1998300314325306
     m_Key: TIER_UPGRADE_SUCCESS_MSG
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713412
+  - m_Id: 1998300314325307
     m_Key: TIER_UPGRADE_FAIL_MSG
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713413
+  - m_Id: 1998300314325308
     m_Key: UI_IDLE_REWARD_EFFICIENCY
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713414
+  - m_Id: 1998300314325309
     m_Key: UI_IDLE_REWARD_EFFICIENCY_H
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713415
+  - m_Id: 1998300314325310
     m_Key: INFO_IMAGE_TITLE_1001
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713416
+  - m_Id: 1998300314325311
     m_Key: INFO_IMAGE_TITLE_1002
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713417
+  - m_Id: 1998300314325312
     m_Key: INFO_IMAGE_TITLE_1003
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713418
+  - m_Id: 1998300314325313
     m_Key: INFO_IMAGE_TITLE_1004
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713419
+  - m_Id: 1998300314325314
     m_Key: INFO_IMAGE_TITLE_1005
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713420
+  - m_Id: 1998300314325315
     m_Key: INFO_IMAGE_TITLE_1006
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713421
+  - m_Id: 1998300314325316
     m_Key: INFO_IMAGE_TITLE_1007
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713422
+  - m_Id: 1998300314325317
     m_Key: INFO_IMAGE_TITLE_1008
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713423
+  - m_Id: 1998300314325318
     m_Key: INFO_IMAGE_TITLE_1009
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713424
+  - m_Id: 1998300314325319
     m_Key: INFO_IMAGE_TITLE_1010
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713425
+  - m_Id: 1998300314325320
     m_Key: INFO_IMAGE_DESC_1001
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713426
+  - m_Id: 1998300314325321
     m_Key: INFO_IMAGE_DESC_1002
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713427
+  - m_Id: 1998300314325322
     m_Key: INFO_IMAGE_DESC_1003
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713428
+  - m_Id: 1998300314325323
     m_Key: INFO_IMAGE_DESC_1004
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713429
+  - m_Id: 1998300314325324
     m_Key: INFO_IMAGE_DESC_1005
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713430
+  - m_Id: 1998300314325325
     m_Key: INFO_IMAGE_DESC_1006
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713431
+  - m_Id: 1998300314325326
     m_Key: INFO_IMAGE_DESC_1007
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713432
+  - m_Id: 1998300314325327
     m_Key: INFO_IMAGE_DESC_1008
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713433
+  - m_Id: 1998300314325328
     m_Key: INFO_IMAGE_DESC_1009
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713434
+  - m_Id: 1998300314325329
     m_Key: INFO_IMAGE_DESC_1010
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713435
+  - m_Id: 1998300314325330
     m_Key: UI_SUMMON_RESULT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713436
+  - m_Id: 1998300314325331
     m_Key: OBSTACLE_COMMON_WALL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713437
+  - m_Id: 1998300314325332
     m_Key: SERVER_ACCESS_FAIL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713438
+  - m_Id: 1998300314325333
     m_Key: UI_COMPLETE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713439
+  - m_Id: 1998300314325334
     m_Key: UI_ARENA_MATCH_REFRESH_TIME_DESC
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713440
+  - m_Id: 1998300314325335
     m_Key: MSG_INGAME_PVP_OBSTACLE_NOT_SET
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713441
-    m_Key: MONSTER_NAME_10101
+  - m_Id: 1998300314325336
+    m_Key: DIMENSION_LAB_NAME
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713442
-    m_Key: MONSTER_NAME_10102
+  - m_Id: 1998300314325337
+    m_Key: SIMULATION_CENTER_NAME
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713443
-    m_Key: MONSTER_NAME_10104
+  - m_Id: 1998300314325338
+    m_Key: COMMAND_CENTER_NAME
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713444
-    m_Key: MONSTER_NAME_10105
+  - m_Id: 1998300314325339
+    m_Key: NEST_NAME
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713445
-    m_Key: MONSTER_NAME_10106
+  - m_Id: 1998300314325340
+    m_Key: COMMAND_CENTER_BENEFIT_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713446
-    m_Key: MONSTER_NAME_10201
+  - m_Id: 1998300314325341
+    m_Key: EXPAND_TERRITORY
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713447
-    m_Key: MONSTER_NAME_10202
+  - m_Id: 1998300314325342
+    m_Key: REQUIRED_ELPIS_CORE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713448
-    m_Key: MONSTER_NAME_10203
+  - m_Id: 1998300314325343
+    m_Key: PROMOTION_BENEFIT_BUILDABLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713449
-    m_Key: MONSTER_NAME_10204
+  - m_Id: 1998300314325344
+    m_Key: PROMOTION_BENEFIT_AVAILABLE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713450
-    m_Key: MONSTER_NAME_10205
+  - m_Id: 1998300314325345
+    m_Key: PROMOTION_BENEFIT_AREA_EXPAND_1
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713451
-    m_Key: MONSTER_NAME_10206
+  - m_Id: 1998300314325346
+    m_Key: PROMOTION_BENEFIT_AREA_EXPAND_2
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713452
-    m_Key: MONSTER_NAME_20101
+  - m_Id: 1998300314325347
+    m_Key: PROMOTION_TITLE_BUILDING
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713453
-    m_Key: MONSTER_NAME_20103
+  - m_Id: 1998300314325348
+    m_Key: PROMOTION_TITLE_MULTI_BUILDING
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713454
-    m_Key: MONSTER_NAME_20201
+  - m_Id: 1998300314325349
+    m_Key: PROMOTION_TITLE_MAX_LEVEL_UP
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713455
-    m_Key: MONSTER_NAME_20202
+  - m_Id: 1998300314325350
+    m_Key: PROMOTION_TITLE_AREA_EXPAND
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713456
-    m_Key: MONSTER_NAME_20203
+  - m_Id: 1998300314325351
+    m_Key: TOUCH_TO_CLOSE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713457
-    m_Key: MONSTER_NAME_20204
+  - m_Id: 1998300314325352
+    m_Key: TERRITORY_EXPANSION_ACHIEVED
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713458
-    m_Key: MONSTER_NAME_20205
+  - m_Id: 1998300314325353
+    m_Key: DIMENSION_KNIGHT_ATTACK
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713459
-    m_Key: MONSTER_NAME_20206
+  - m_Id: 1998300314325354
+    m_Key: DIMENSION_KNIGHT_DEFENSE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713460
-    m_Key: MONSTER_NAME_20208
+  - m_Id: 1998300314325355
+    m_Key: DIMENSION_KNIGHT_HEALTH
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713461
-    m_Key: MONSTER_NAME_20209
+  - m_Id: 1998300314325356
+    m_Key: DIMENSION_FIRE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713462
-    m_Key: MONSTER_NAME_10301
+  - m_Id: 1998300314325357
+    m_Key: DIMENSION_WIND
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713463
-    m_Key: MONSTER_NAME_10302
+  - m_Id: 1998300314325358
+    m_Key: DIMENSION_EARTH
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713464
-    m_Key: MONSTER_NAME_10303
+  - m_Id: 1998300314325359
+    m_Key: DIMENSION_LIGHTNING
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713465
-    m_Key: MONSTER_NAME_10304
+  - m_Id: 1998300314325360
+    m_Key: DIMENSION_WATER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713466
-    m_Key: MONSTER_NAME_20301
+  - m_Id: 1998300314325361
+    m_Key: DIMENSION_NOBLESSE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713467
-    m_Key: MONSTER_NAME_20302
+  - m_Id: 1998300314325362
+    m_Key: DIMENSION_SUPERNOVA
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713468
-    m_Key: MONSTER_NAME_10401
+  - m_Id: 1998300314325363
+    m_Key: DIMENSION_TROUBLESHOOTER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713469
-    m_Key: MONSTER_NAME_10402
+  - m_Id: 1998300314325364
+    m_Key: DIMENSION_KNIGHT_ATK_INCREASE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713470
-    m_Key: MONSTER_NAME_10403
+  - m_Id: 1998300314325365
+    m_Key: DIMENSION_KNIGHT_DEF_INCREASE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713471
-    m_Key: MONSTER_NAME_10404
+  - m_Id: 1998300314325366
+    m_Key: DIMENSION_KNIGHT_HEALTH_INCREASE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713472
-    m_Key: MONSTER_NAME_10405
+  - m_Id: 1998300314325367
+    m_Key: DAMAGE_INCREASE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713473
-    m_Key: MONSTER_NAME_10406
+  - m_Id: 1998300314325368
+    m_Key: HEALTH_INCREASE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713474
-    m_Key: MONSTER_NAME_10407
+  - m_Id: 1998300314325369
+    m_Key: DEFENSE_INCREASE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713475
-    m_Key: MONSTER_NAME_10408
+  - m_Id: 1998300314325370
+    m_Key: DIMENSION_KNIGHT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713476
-    m_Key: MONSTER_NAME_20401
+  - m_Id: 1998300314325371
+    m_Key: DIMENSION_ELEMENTAL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713477
-    m_Key: HEROES_NAME_40402
+  - m_Id: 1998300314325372
+    m_Key: DIMENSION_STELLA
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713478
-    m_Key: MONSTER_NAME_20403
+  - m_Id: 1998300314325373
+    m_Key: DIMENSION_UPGRADE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713479
-    m_Key: HEROES_NAME_20404
+  - m_Id: 1998300314325374
+    m_Key: DIMENSION_NOT_REACHED_LEVEL
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713480
-    m_Key: HEROES_NAME_20405
+  - m_Id: 1998300314325375
+    m_Key: ELPIS_UPGRADE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713481
-    m_Key: MONSTER_NAME_10501
+  - m_Id: 1998300314325376
+    m_Key: ELPIS_BUILD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713482
-    m_Key: MONSTER_NAME_10502
+  - m_Id: 1998300314325377
+    m_Key: ELPIS_INSTALLED
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713483
-    m_Key: MONSTER_NAME_10503
+  - m_Id: 1998300314325378
+    m_Key: ELPIS_INSTALLING
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713484
-    m_Key: MONSTER_NAME_20501
+  - m_Id: 1998300314325379
+    m_Key: ELPIS_UPGRADE_PREVIOUS_REQUIRED
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713485
-    m_Key: MONSTER_NAME_10601
+  - m_Id: 1998300314325380
+    m_Key: ELPIS_ANOTHER_BUILDING
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713486
-    m_Key: MONSTER_NAME_10602
+  - m_Id: 1998300314325381
+    m_Key: ELPIS_LEVEL_NOT_ENOUGH
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713487
-    m_Key: MONSTER_NAME_10603
+  - m_Id: 1998300314325382
+    m_Key: SYNERGY_NAME_GUARDIAN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713488
-    m_Key: MONSTER_NAME_10604
+  - m_Id: 1998300314325383
+    m_Key: SYNERGY_NAME_TANK
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713489
-    m_Key: MONSTER_NAME_10605
+  - m_Id: 1998300314325384
+    m_Key: SYNERGY_NAME_WIZARD
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713490
-    m_Key: OBSTACLE_NAME_TOKEN_CHAPTER_FIRE
+  - m_Id: 1998300314325385
+    m_Key: SYNERGY_NAME_ASSASSIN
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713491
-    m_Key: OBSTACLE_NAME_TOKEN_CHAPTER_ICE
+  - m_Id: 1998300314325386
+    m_Key: SYNERGY_NAME_SUPPORTER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713492
-    m_Key: OBSTACLE_NAME_TOKEN_CHAPTER_LANDMINE
+  - m_Id: 1998300314325387
+    m_Key: SYNERGY_NAME_RANGER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713493
-    m_Key: OBSTACLE_NAME_TOKEN_CHAPTER_SANDSTORM
+  - m_Id: 1998300314325388
+    m_Key: SYNERGY_NAME_FIRE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713494
-    m_Key: OBSTACLE_NAME_TOKEN_CHAPTER_RANDOM_MOVE
+  - m_Id: 1998300314325389
+    m_Key: SYNERGY_NAME_EARTH
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713495
-    m_Key: OBSTACLE_DESC_TOKEN_CHAPTER_FIRE
+  - m_Id: 1998300314325390
+    m_Key: SYNERGY_NAME_LIGHT
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713496
-    m_Key: OBSTACLE_DESC_TOKEN_CHAPTER_ICE
+  - m_Id: 1998300314325391
+    m_Key: SYNERGY_NAME_DARK
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713497
-    m_Key: OBSTACLE_DESC_TOKEN_CHAPTER_LANDMINE
+  - m_Id: 1998300314325392
+    m_Key: SYNERGY_NAME_WATER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713498
-    m_Key: OBSTACLE_DESC_TOKEN_CHAPTER_SANDSTORM
+  - m_Id: 1998300314325393
+    m_Key: SYNERGY_NAME_WIND
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713499
-    m_Key: OBSTACLE_DESC_TOKEN_CHAPTER_RANDOM_MOVE
+  - m_Id: 1998300314325394
+    m_Key: SYNERGY_NAME_ELECTRIC
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713500
-    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300100
+  - m_Id: 1998300314325395
+    m_Key: SYNERGY_NAME_NOBLESSE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713501
-    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300200
+  - m_Id: 1998300314325396
+    m_Key: SYNERGY_NAME_TROUBLESHOOTER
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713502
-    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300300
+  - m_Id: 1998300314325397
+    m_Key: SYNERGY_NAME_SUPERNOVA
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713503
-    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300400
+  - m_Id: 1998300314325398
+    m_Key: SYNERGY_NAME_ECLIPSE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713504
-    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300500
+  - m_Id: 1998300314325399
+    m_Key: SYNERGY_NAME_VIGILANTE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713505
-    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300600
+  - m_Id: 1998300314325400
+    m_Key: SYNERGY_NAME_ARCANA
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713506
+  - m_Id: 1998300314325401
+    m_Key: SYNERGY_DESC_GUARDIAN_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325402
+    m_Key: SYNERGY_DESC_GUARDIAN_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325403
+    m_Key: SYNERGY_DESC_TANK_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325404
+    m_Key: SYNERGY_DESC_TANK_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325405
+    m_Key: SYNERGY_DESC_WIZARD_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325406
+    m_Key: SYNERGY_DESC_WIZARD_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325407
+    m_Key: SYNERGY_DESC_RANGER_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325408
+    m_Key: SYNERGY_DESC_RANGER_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325409
+    m_Key: SYNERGY_DESC_ASSASSIN_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325410
+    m_Key: SYNERGY_DESC_ASSASSIN_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325411
+    m_Key: SYNERGY_DESC_SUPPORTER_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325412
+    m_Key: SYNERGY_DESC_SUPPORTER_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325413
+    m_Key: SYNERGY_DESC_FIRE_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325414
+    m_Key: SYNERGY_DESC_FIRE_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325415
+    m_Key: SYNERGY_DESC_EARTH_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325416
+    m_Key: SYNERGY_DESC_EARTH_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325417
+    m_Key: SYNERGY_DESC_WATER_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325418
+    m_Key: SYNERGY_DESC_WATER_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325419
+    m_Key: SYNERGY_DESC_LIGHT_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325420
+    m_Key: SYNERGY_DESC_LIGHT_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325421
+    m_Key: SYNERGY_DESC_DARK_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325422
+    m_Key: SYNERGY_DESC_DARK_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325423
+    m_Key: SYNERGY_DESC_WIND_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325424
+    m_Key: SYNERGY_DESC_WIND_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325425
+    m_Key: SYNERGY_PLACE_EFFECT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325426
+    m_Key: SYNERGY_DESC_ELECTRIC_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325427
+    m_Key: SYNERGY_DESC_ELECTRIC_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325428
+    m_Key: SYNERGY_DESC_NOBLESSE_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325429
+    m_Key: SYNERGY_DESC_NOBLESSE_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325430
+    m_Key: SYNERGY_DESC_NOBLESSE_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325431
+    m_Key: SYNERGY_DESC_NOBLESSE_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325432
+    m_Key: SYNERGY_DESC_TROUBLESHOOTER_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325433
+    m_Key: SYNERGY_DESC_TROUBLESHOOTER_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325434
+    m_Key: SYNERGY_DESC_TROUBLESHOOTER_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325435
+    m_Key: SYNERGY_DESC_TROUBLESHOOTER_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325436
+    m_Key: SYNERGY_DESC_SUPERNOVA_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325437
+    m_Key: SYNERGY_DESC_SUPERNOVA_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325438
+    m_Key: SYNERGY_DESC_SUPERNOVA_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325439
+    m_Key: SYNERGY_DESC_SUPERNOVA_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325440
+    m_Key: SYNERGY_DESC_ECLIPSE_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325441
+    m_Key: SYNERGY_DESC_ECLIPSE_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325442
+    m_Key: SYNERGY_DESC_ECLIPSE_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325443
+    m_Key: SYNERGY_DESC_ECLIPSE_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325444
+    m_Key: SYNERGY_DESC_VIGILANTE_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325445
+    m_Key: SYNERGY_DESC_VIGILANTE_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325446
+    m_Key: SYNERGY_DESC_VIGILANTE_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325447
+    m_Key: SYNERGY_DESC_VIGILANTE_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325448
+    m_Key: SYNERGY_DESC_ARCANA_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325449
+    m_Key: SYNERGY_DESC_ARCANA_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325450
+    m_Key: SYNERGY_DESC_ARCANA_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325451
+    m_Key: SYNERGY_DESC_ARCANA_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325452
     m_Key: NOT_SUPERNOVA_TYPE
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713507
+  - m_Id: 1998300314325453
     m_Key: NOT_SUPERNOVA_ITEM_APPLY
     m_Metadata:
       m_Items: []
-  - m_Id: 1900755769713508
+  - m_Id: 1998300314325454
     m_Key: INGAME_UI_NO_DAMAGE_SHIELD_GET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325455
+    m_Key: HEROES_NAME_1002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325456
+    m_Key: HEROES_NAME_15422301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325457
+    m_Key: HEROES_NAME_15322201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325458
+    m_Key: HEROES_NAME_15642501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325459
+    m_Key: HEROES_NAME_15232101
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325460
+    m_Key: HEROES_NAME_15532401
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325461
+    m_Key: HEROES_NAME_15362202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325462
+    m_Key: HEROES_NAME_15662502
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325463
+    m_Key: HEROES_NAME_15462302
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325464
+    m_Key: HEROES_NAME_15252102
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325465
+    m_Key: HEROES_NAME_17513401
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325466
+    m_Key: HEROES_NAME_17413301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325467
+    m_Key: HEROES_NAME_17613501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325468
+    m_Key: HEROES_NAME_17613502
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325469
+    m_Key: HEROES_NAME_17213101
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325470
+    m_Key: HEROES_NAME_17513402
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325471
+    m_Key: HEROES_NAME_17323201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325472
+    m_Key: HEROES_NAME_17523403
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325473
+    m_Key: HEROES_NAME_17243102
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325474
+    m_Key: HEROES_NAME_0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325475
+    m_Key: HEROES_NAME_17643504
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325476
+    m_Key: HEROES_NAME_17643503
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325477
+    m_Key: HEROES_NAME_17333202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325478
+    m_Key: HEROES_NAME_17433303
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325479
+    m_Key: HEROES_NAME_17433302
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325480
+    m_Key: HEROES_NAME_17363204
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325481
+    m_Key: HEROES_NAME_17263103
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325482
+    m_Key: HEROES_NAME_17663506
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325483
+    m_Key: HEROES_NAME_17653505
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325484
+    m_Key: HEROES_NAME_17353203
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325485
+    m_Key: HEROES_NAME_17553404
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325486
+    m_Key: HEROES_NAME_17563405
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325487
+    m_Key: HEROES_NAME_95250010
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325488
+    m_Key: HEROES_NAME_95530011
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325489
+    m_Key: HEROES_NAME_97510012
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325490
+    m_Key: HEROES_NAME_97550013
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325491
+    m_Key: HEROES_NAME_97610014
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325492
+    m_Key: HEROES_NAME_97560015
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325493
+    m_Key: NPC_NAME_1001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325494
+    m_Key: NPC_NAME_1003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325495
+    m_Key: NPC_NAME_1004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325496
+    m_Key: HEROES_NAME_40402
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325497
+    m_Key: HEROES_NAME_20404
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325498
+    m_Key: HEROES_NAME_20405
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325499
+    m_Key: HEROES_DESC_15252102
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325500
+    m_Key: HEROES_DESC_15322201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325501
+    m_Key: HEROES_DESC_15362202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325502
+    m_Key: HEROES_DESC_15422301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325503
+    m_Key: HEROES_DESC_15462302
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325504
+    m_Key: HEROES_DESC_15532401
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325505
+    m_Key: HEROES_DESC_15642501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325506
+    m_Key: HEROES_DESC_15662502
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325507
+    m_Key: HEROES_DESC_17213101
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325508
+    m_Key: HEROES_DESC_17243102
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325509
+    m_Key: HEROES_DESC_17263103
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325510
+    m_Key: HEROES_DESC_17323201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325511
+    m_Key: HEROES_DESC_17333202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325512
+    m_Key: HEROES_DESC_17353203
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325513
+    m_Key: HEROES_DESC_17363204
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325514
+    m_Key: HEROES_DESC_17413301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325515
+    m_Key: HEROES_DESC_17433302
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325516
+    m_Key: HEROES_DESC_17433303
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325517
+    m_Key: HEROES_DESC_17513401
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325518
+    m_Key: HEROES_DESC_17513402
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325519
+    m_Key: HEROES_DESC_17523403
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325520
+    m_Key: HEROES_DESC_17553404
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325521
+    m_Key: HEROES_DESC_17563405
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325522
+    m_Key: HEROES_DESC_17613501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325523
+    m_Key: HEROES_DESC_17613502
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325524
+    m_Key: HEROES_DESC_17643503
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325525
+    m_Key: HEROES_DESC_17643504
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325526
+    m_Key: HEROES_DESC_17653505
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325527
+    m_Key: HEROES_DESC_17663506
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325528
+    m_Key: GET_CHARACTER_30201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325529
+    m_Key: GET_CHARACTER_30202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325530
+    m_Key: GET_CHARACTER_30402
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325531
+    m_Key: GET_CHARACTER_30601
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325532
+    m_Key: GET_CHARACTER_30301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325533
+    m_Key: GET_CHARACTER_30501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325534
+    m_Key: GET_CHARACTER_40101
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325535
+    m_Key: GET_CHARACTER_40102
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325536
+    m_Key: GET_CHARACTER_40103
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325537
+    m_Key: GET_CHARACTER_40201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325538
+    m_Key: GET_CHARACTER_40202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325539
+    m_Key: GET_CHARACTER_40301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325540
+    m_Key: GET_CHARACTER_40302
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325541
+    m_Key: GET_CHARACTER_40401
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325542
+    m_Key: GET_CHARACTER_40402
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325543
+    m_Key: GET_CHARACTER_40403
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325544
+    m_Key: GET_CHARACTER_40501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325545
+    m_Key: GET_CHARACTER_40502
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325546
+    m_Key: GET_CHARACTER_40601
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325547
+    m_Key: GET_CHARACTER_40602
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325548
+    m_Key: GET_CHARACTER_40603
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325549
+    m_Key: MONSTER_NAME_30101001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325550
+    m_Key: MONSTER_NAME_30101002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325551
+    m_Key: MONSTER_NAME_30101003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325552
+    m_Key: MONSTER_NAME_30101004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325553
+    m_Key: MONSTER_NAME_30101005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325554
+    m_Key: MONSTER_NAME_30202001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325555
+    m_Key: MONSTER_NAME_30202002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325556
+    m_Key: MONSTER_NAME_30202003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325557
+    m_Key: MONSTER_NAME_30202004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325558
+    m_Key: MONSTER_NAME_30303001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325559
+    m_Key: MONSTER_NAME_30303002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325560
+    m_Key: MONSTER_NAME_30303003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325561
+    m_Key: MONSTER_NAME_30303004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325562
+    m_Key: MONSTER_NAME_30303005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325563
+    m_Key: MONSTER_NAME_30404001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325564
+    m_Key: MONSTER_NAME_30404002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325565
+    m_Key: MONSTER_NAME_30404003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325566
+    m_Key: MONSTER_NAME_30404004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325567
+    m_Key: MONSTER_NAME_30404005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325568
+    m_Key: MONSTER_NAME_30404006
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325569
+    m_Key: MONSTER_NAME_30505001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325570
+    m_Key: MONSTER_NAME_30505002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325571
+    m_Key: MONSTER_NAME_30505003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325572
+    m_Key: MONSTER_NAME_30505004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325573
+    m_Key: MONSTER_NAME_30505005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325574
+    m_Key: MONSTER_NAME_30505006
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325575
+    m_Key: MONSTER_NAME_30606001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325576
+    m_Key: MONSTER_NAME_30606002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325577
+    m_Key: MONSTER_NAME_30606003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325578
+    m_Key: MONSTER_NAME_30606004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325579
+    m_Key: MONSTER_NAME_30606005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325580
+    m_Key: MONSTER_NAME_30606006
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325581
+    m_Key: MONSTER_NAME_40107001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325582
+    m_Key: MONSTER_NAME_40107002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325583
+    m_Key: MONSTER_NAME_40107003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325584
+    m_Key: MONSTER_NAME_40107004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325585
+    m_Key: MONSTER_NAME_40107005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325586
+    m_Key: MONSTER_NAME_40407301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325587
+    m_Key: MONSTER_NAME_40407302
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325588
+    m_Key: MONSTER_NAME_40507401
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325589
+    m_Key: MONSTER_NAME_50108001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325590
+    m_Key: MONSTER_NAME_50108002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325591
+    m_Key: MONSTER_NAME_50108003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325592
+    m_Key: MONSTER_NAME_50108004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325593
+    m_Key: MONSTER_NAME_50208101
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325594
+    m_Key: MONSTER_NAME_50308201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325595
+    m_Key: MONSTER_NAME_50408301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325596
+    m_Key: MONSTER_NAME_50508401
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325597
+    m_Key: MONSTER_NAME_50608501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325598
+    m_Key: MONSTER_NAME_80109001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325599
+    m_Key: MONSTER_NAME_80109002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325600
+    m_Key: MONSTER_NAME_80109003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325601
+    m_Key: MONSTER_NAME_80109004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325602
+    m_Key: MONSTER_NAME_80109005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325603
+    m_Key: MONSTER_NAME_17243102
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325604
+    m_Key: MONSTER_NAME_15322201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325605
+    m_Key: MONSTER_NAME_17333202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325606
+    m_Key: MONSTER_NAME_17363204
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325607
+    m_Key: MONSTER_NAME_15362202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325608
+    m_Key: MONSTER_NAME_17413301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325609
+    m_Key: MONSTER_NAME_17433302
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325610
+    m_Key: MONSTER_NAME_17433303
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325611
+    m_Key: MONSTER_NAME_17553404
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325612
+    m_Key: MONSTER_NAME_15642501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325613
+    m_Key: MONSTER_NAME_17613501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325614
+    m_Key: MONSTER_DESC_30101001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325615
+    m_Key: MONSTER_DESC_30101002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325616
+    m_Key: MONSTER_DESC_30101003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325617
+    m_Key: MONSTER_DESC_30101004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325618
+    m_Key: MONSTER_DESC_30101005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325619
+    m_Key: MONSTER_DESC_30202001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325620
+    m_Key: MONSTER_DESC_30202002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325621
+    m_Key: MONSTER_DESC_30202003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325622
+    m_Key: MONSTER_DESC_30202004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325623
+    m_Key: MONSTER_DESC_30303001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325624
+    m_Key: MONSTER_DESC_30303002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325625
+    m_Key: MONSTER_DESC_30303003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325626
+    m_Key: MONSTER_DESC_30303004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325627
+    m_Key: MONSTER_DESC_30303005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325628
+    m_Key: MONSTER_DESC_30404001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325629
+    m_Key: MONSTER_DESC_30404002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325630
+    m_Key: MONSTER_DESC_30404003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325631
+    m_Key: MONSTER_DESC_30404004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325632
+    m_Key: MONSTER_DESC_30404005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325633
+    m_Key: MONSTER_DESC_30404006
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325634
+    m_Key: MONSTER_DESC_30505001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325635
+    m_Key: MONSTER_DESC_30505002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325636
+    m_Key: MONSTER_DESC_30505003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325637
+    m_Key: MONSTER_DESC_30505004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325638
+    m_Key: MONSTER_DESC_30505005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325639
+    m_Key: MONSTER_DESC_30505006
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325640
+    m_Key: MONSTER_DESC_30606001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325641
+    m_Key: MONSTER_DESC_30606002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325642
+    m_Key: MONSTER_DESC_30606003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325643
+    m_Key: MONSTER_DESC_30606004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325644
+    m_Key: MONSTER_DESC_30606005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325645
+    m_Key: MONSTER_DESC_30606006
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325646
+    m_Key: MONSTER_DESC_40107001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325647
+    m_Key: MONSTER_DESC_40107002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325648
+    m_Key: MONSTER_DESC_40107003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325649
+    m_Key: MONSTER_DESC_40107004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325650
+    m_Key: MONSTER_DESC_40107005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325651
+    m_Key: MONSTER_DESC_40407301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325652
+    m_Key: MONSTER_DESC_40407302
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325653
+    m_Key: MONSTER_DESC_40507401
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325654
+    m_Key: MONSTER_DESC_50108001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325655
+    m_Key: MONSTER_DESC_50108002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325656
+    m_Key: MONSTER_DESC_50108003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325657
+    m_Key: MONSTER_DESC_50108004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325658
+    m_Key: MONSTER_DESC_50208101
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325659
+    m_Key: MONSTER_DESC_50308201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325660
+    m_Key: MONSTER_DESC_50408301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325661
+    m_Key: MONSTER_DESC_50508401
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325662
+    m_Key: MONSTER_DESC_50608501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325663
+    m_Key: MONSTER_DESC_80109001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325664
+    m_Key: MONSTER_DESC_80109002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325665
+    m_Key: MONSTER_DESC_80109003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325666
+    m_Key: MONSTER_DESC_80109004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325667
+    m_Key: MONSTER_DESC_80109005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325668
+    m_Key: MONSTER_DESC_17243102
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325669
+    m_Key: MONSTER_DESC_15322201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325670
+    m_Key: MONSTER_DESC_17333202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325671
+    m_Key: MONSTER_DESC_17363204
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325672
+    m_Key: MONSTER_DESC_15362202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325673
+    m_Key: MONSTER_DESC_17413301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325674
+    m_Key: MONSTER_DESC_17433302
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325675
+    m_Key: MONSTER_DESC_17433303
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325676
+    m_Key: MONSTER_DESC_17553404
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325677
+    m_Key: MONSTER_DESC_15642501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325678
+    m_Key: MONSTER_DESC_17613501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325679
+    m_Key: OBSTACLE_NAME_TOKEN_CHAPTER_FIRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325680
+    m_Key: OBSTACLE_NAME_TOKEN_CHAPTER_ICE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325681
+    m_Key: OBSTACLE_NAME_TOKEN_CHAPTER_LANDMINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325682
+    m_Key: OBSTACLE_NAME_TOKEN_CHAPTER_SANDSTORM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325683
+    m_Key: OBSTACLE_NAME_TOKEN_CHAPTER_RANDOM_MOVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325684
+    m_Key: OBSTACLE_DESC_TOKEN_CHAPTER_FIRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325685
+    m_Key: OBSTACLE_DESC_TOKEN_CHAPTER_ICE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325686
+    m_Key: OBSTACLE_DESC_TOKEN_CHAPTER_LANDMINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325687
+    m_Key: OBSTACLE_DESC_TOKEN_CHAPTER_SANDSTORM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325688
+    m_Key: OBSTACLE_DESC_TOKEN_CHAPTER_RANDOM_MOVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325689
+    m_Key: SKILL_NAME_POWER_ATTACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325690
+    m_Key: SKILL_NAME_RANGE_POWER_ATTACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325691
+    m_Key: SKILL_NAME_KNOCKBACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325692
+    m_Key: SKILL_NAME_STUN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325693
+    m_Key: SKILL_NAME_CROSS_FIRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325694
+    m_Key: SKILL_NAME_POWER_ATTACK_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325695
+    m_Key: SKILL_NAME_LINE_PENTRATE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325696
+    m_Key: SKILL_NAME_ALL_HEAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325697
+    m_Key: SKILL_NAME_CROSS_FROZEN_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325698
+    m_Key: SKILL_NAME_RANGE_ATK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325699
+    m_Key: SKILL_NAME_POWER_ATTACK_ASSASIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325700
+    m_Key: SKILL_NAME_SWORD_AURA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325701
+    m_Key: SKILL_NAME_STRAIGHT_CUT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325702
+    m_Key: SKILL_NAME_PROTECT_LINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325703
+    m_Key: SKILL_NAME_CROSS_FROZEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325704
+    m_Key: SKILL_NAME_FIRE_LASER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325705
+    m_Key: SKILL_NAME_SHOTGUN_RESET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325706
+    m_Key: SKILL_NAME_SNIPE_KNOCKBACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325707
+    m_Key: SKILL_NAME_SILENCE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325708
+    m_Key: SKILL_NAME_BREAK_SHIELD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325709
+    m_Key: SKILL_NAME_POWER_UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325710
+    m_Key: SKILL_NAME_ATK_SPD_UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325711
+    m_Key: SKILL_NAME_GRENADE_THREE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325712
+    m_Key: SKILL_NAME_SMASH_STUN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325713
+    m_Key: SKILL_NAME_KNOCK_BACK_DEF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300314325714
+    m_Key: SKILL_NAME_RESTRAINT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519296
+    m_Key: SKILL_NAME_SQUARE_STUN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519297
+    m_Key: SKILL_NAME_SUMMON_TAUNT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519298
+    m_Key: SKILL_NAME_BULLET_TIME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519299
+    m_Key: SKILL_NAME_BOOMERANG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519300
+    m_Key: SKILL_NAME_CURE_DEF_DOWN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519301
+    m_Key: SKILL_NAME_TACTICAL_SHIELD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519302
+    m_Key: SKILL_NAME_CROSS_IMPACT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519303
+    m_Key: SKILL_NAME_WATER_PRISON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519304
+    m_Key: SKILL_NAME_KILL_CONFIRM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519305
+    m_Key: SKILL_NAME_BATTO_SHURA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519306
+    m_Key: SKILL_NAME_PURIFYING_FIRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519307
+    m_Key: SKILL_NAME_LIGHT_OF_DEMISE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519308
+    m_Key: SKILL_NAME_MEGA_SWING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519309
+    m_Key: SKILL_NAME_MOONLIGHT_REAPER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519310
+    m_Key: SKILL_NAME_SACRED_COFFIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519311
+    m_Key: SKILL_NAME_IRON_NOVA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519312
+    m_Key: SKILL_NAME_TABOO_RELEASE_FLAME_DRAGON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519313
+    m_Key: SKILL_NAME_FULL_BURST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519314
+    m_Key: SKILL_NAME_ASSASSINATION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519315
+    m_Key: SKILL_NAME_MASSACRE_VENDETTA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519316
+    m_Key: SKILL_NAME_NINE_TAILED_FOX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519317
+    m_Key: SKILL_NAME_SNOWFLAKE_WALTZ
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519318
+    m_Key: SKILL_NAME_CALM_WAVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519319
+    m_Key: SKILL_NAME_SOLAR_ECLIPSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519320
+    m_Key: SKILL_NAME_SOLITUDE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519321
+    m_Key: SKILL_NAME_VOID_ONSLAUGHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519322
+    m_Key: SKILL_NAME_SINGULARITY_COLLAPSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519323
+    m_Key: SKILL_NAME_EMBRACE_OF_THE_OLD_ONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519324
+    m_Key: SKILL_NAME_POISON_MOLARS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519325
+    m_Key: SKILL_NAME_ENDLESS_GLUTTONY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519326
+    m_Key: SKILL_DESC_RANGE_POWER_ATTACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519327
+    m_Key: SKILL_DESC_KNOCKBACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519328
+    m_Key: SKILL_DESC_STUN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519329
+    m_Key: SKILL_DESC_CROSS_FIRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519330
+    m_Key: SKILL_DESC_POWER_ATTACK_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519331
+    m_Key: SKILL_DESC_LINE_PENTRATE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519332
+    m_Key: SKILL_DESC_ALL_HEAL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519333
+    m_Key: SKILL_DESC_CROSS_FROZEN_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519334
+    m_Key: SKILL_DESC_RANGE_ATK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519335
+    m_Key: SKILL_DESC_POWER_ATTACK_ASSASIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519336
+    m_Key: SKILL_DESC_SWORD_AURA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519337
+    m_Key: SKILL_DESC_STRAIGHT_CUT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519338
+    m_Key: SKILL_DESC_PROTECT_LINE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519339
+    m_Key: SKILL_DESC_CROSS_FROZEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519340
+    m_Key: SKILL_DESC_FIRE_LASER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519341
+    m_Key: SKILL_DESC_SHOTGUN_RESET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519342
+    m_Key: SKILL_DESC_SNIPE_KNOCKBACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519343
+    m_Key: SKILL_DESC_SILENCE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519344
+    m_Key: SKILL_DESC_BREAK_SHIELD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519345
+    m_Key: SKILL_DESC_POWER_UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519346
+    m_Key: SKILL_DESC_ATK_SPD_UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519347
+    m_Key: SKILL_DESC_SMASH_STUN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519348
+    m_Key: SKILL_DESC_GRENADE_THREE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519349
+    m_Key: SKILL_DESC_KNOCK_BACK_DEF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519350
+    m_Key: SKILL_DESC_RESTRAINT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519351
+    m_Key: SKILL_DESC_SQUARE_STUN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519352
+    m_Key: SKILL_DESC_SUMMON_TAUNT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519353
+    m_Key: SKILL_DESC_BULLET_TIME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519354
+    m_Key: SKILL_DESC_BOOMERANG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519355
+    m_Key: SKILL_DESC_CURE_DEF_DOWN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519356
+    m_Key: SKILL_DESC_TACTICAL_SHIELD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519357
+    m_Key: SKILL_DESC_CROSS_IMPACT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519358
+    m_Key: SKILL_DESC_WATER_PRISON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519359
+    m_Key: SKILL_DESC_KILL_CONFIRM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519360
+    m_Key: SKILL_DESC_BATTO_SHURA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519361
+    m_Key: SKILL_DESC_PURIFYING_FIRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519362
+    m_Key: SKILL_DESC_LIGHT_OF_DEMISE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519363
+    m_Key: SKILL_DESC_MEGA_SWING
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519364
+    m_Key: SKILL_DESC_MOONLIGHT_REAPER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519365
+    m_Key: SKILL_DESC_SACRED_COFFIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519366
+    m_Key: SKILL_DESC_IRON_NOVA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519367
+    m_Key: SKILL_DESC_TABOO_RELEASE_FLAME_DRAGON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519368
+    m_Key: SKILL_DESC_FULL_BURST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519369
+    m_Key: SKILL_DESC_ASSASSINATION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519370
+    m_Key: SKILL_DESC_MASSACRE_VENDETTA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519371
+    m_Key: SKILL_DESC_NINE_TAILED_FOX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519372
+    m_Key: SKILL_DESC_SNOWFLAKE_WALTZ
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519373
+    m_Key: SKILL_DESC_CALM_WAVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519374
+    m_Key: SKILL_DESC_SOLAR_ECLIPSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519375
+    m_Key: SKILL_DESC_SOLITUDE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519376
+    m_Key: SKILL_DESC_VOID_ONSLAUGHT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519377
+    m_Key: SKILL_DESC_SINGULARITY_COLLAPSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519378
+    m_Key: SKILL_DESC_EMBRACE_OF_THE_OLD_ONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519379
+    m_Key: SKILL_DESC_POISON_MOLARS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519380
+    m_Key: SKILL_DESC_ENDLESS_GLUTTONY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519381
+    m_Key: PASSIVE_NAME_TACTICS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519382
+    m_Key: PASSIVE_NAME_HEAVY_STRIKE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519383
+    m_Key: PASSIVE_NAME_SYMBOL_OF_PEACE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519384
+    m_Key: PASSIVE_NAME_ENHANCED_BULLET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519385
+    m_Key: PASSIVE_NAME_SPOT_WEAKNESS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519386
+    m_Key: PASSIVE_NAME_WARM_FLAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519387
+    m_Key: PASSIVE_NAME_DAWN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519388
+    m_Key: PASSIVE_NAME_BERSERK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519389
+    m_Key: PASSIVE_NAME_COMPOSURE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519390
+    m_Key: PASSIVE_NAME_HEALING_WIND
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519391
+    m_Key: PASSIVE_NAME_IRON_MAIDEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519392
+    m_Key: PASSIVE_NAME_DEMON_EYE_FLAME_DRAGON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519393
+    m_Key: PASSIVE_NAME_HEAVY_WEAPON_MAID
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519394
+    m_Key: PASSIVE_NAME_TARGET_DESIGNATION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519395
+    m_Key: PASSIVE_NAME_MAFIA_LADY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519396
+    m_Key: PASSIVE_NAME_FOXFIRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519397
+    m_Key: PASSIVE_NAME_SNOW_WHITE_AFTERIMAGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519398
+    m_Key: PASSIVE_NAME_ENDLESS_TIDE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519399
+    m_Key: PASSIVE_NAME_LUNAR_ECLIPSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519400
+    m_Key: PASSIVE_NAME_MARK_ARACHNE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519401
+    m_Key: PASSIVE_DESC_TACTICS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519402
+    m_Key: PASSIVE_DESC_HEAVY_STRIKE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519403
+    m_Key: PASSIVE_DESC_SYMBOL_OF_PEACE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519404
+    m_Key: PASSIVE_DESC_ENHANCED_BULLET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519405
+    m_Key: PASSIVE_DESC_SPOT_WEAKNESS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519406
+    m_Key: PASSIVE_DESC_WARM_FLAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519407
+    m_Key: PASSIVE_DESC_DAWN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519408
+    m_Key: PASSIVE_DESC_BERSERK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519409
+    m_Key: PASSIVE_DESC_COMPOSURE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519410
+    m_Key: PASSIVE_DESC_HEALING_WIND
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519411
+    m_Key: PASSIVE_DESC_IRON_MAIDEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519412
+    m_Key: PASSIVE_DESC_DEMON_EYE_FLAME_DRAGON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519413
+    m_Key: PASSIVE_DESC_HEAVY_WEAPON_MAID
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519414
+    m_Key: PASSIVE_DESC_TARGET_DESIGNATION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519415
+    m_Key: PASSIVE_DESC_MAFIA_LADY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519416
+    m_Key: PASSIVE_DESC_FOXFIRE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519417
+    m_Key: PASSIVE_DESC_SNOW_WHITE_AFTERIMAGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519418
+    m_Key: PASSIVE_DESC_ENDLESS_TIDE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519419
+    m_Key: PASSIVE_DESC_LUNAR_ECLIPSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519420
+    m_Key: PASSIVE_DESC_MARK_ARACHNE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519421
+    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519422
+    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519423
+    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519424
+    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519425
+    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519426
+    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300006
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519427
+    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300100
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519428
+    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300200
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519429
+    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300300
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519430
+    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300400
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519431
+    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300500
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519432
+    m_Key: COMMANDERSKILL_NAME_TOKEN_PROMOTION_DEFAULT_300600
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519433
+    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519434
+    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519435
+    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519436
+    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519437
+    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519438
+    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300006
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519439
+    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300100
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519440
+    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300200
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519441
+    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300300
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519442
+    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300400
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519443
+    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300500
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519444
+    m_Key: COMMANDERSKILL_DESC_TOKEN_PROMOTION_DEFAULT_300600
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519445
+    m_Key: JOBS_NAME_BRAVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519446
+    m_Key: JOBS_NAME_ENDURE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519447
+    m_Key: JOBS_NAME_PIERCE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519448
+    m_Key: JOBS_NAME_ESP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519449
+    m_Key: JOBS_NAME_RECOVERY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519450
+    m_Key: JOBS_NAME_AMBUSH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519451
+    m_Key: JOBS_NAME_CRITICAL_STACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519452
+    m_Key: JOBS_DESC_BRAVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519453
+    m_Key: JOBS_DESC_ENDURE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519454
+    m_Key: JOBS_DESC_PIERCE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519455
+    m_Key: JOBS_DESC_ESP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519456
+    m_Key: JOBS_DESC_RECOVERY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519457
+    m_Key: JOBS_DESC_AMBUSH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519458
+    m_Key: JOBS_DESC_CRITICAL_STACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519459
+    m_Key: ITEM_INFO_NAME_10110001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519460
+    m_Key: ITEM_INFO_NAME_10210001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519461
+    m_Key: ITEM_INFO_NAME_20350001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519462
+    m_Key: ITEM_INFO_NAME_20410001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519463
+    m_Key: ITEM_INFO_NAME_20550001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519464
+    m_Key: ITEM_INFO_NAME_20650001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519465
+    m_Key: ITEM_INFO_NAME_20710001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519466
+    m_Key: ITEM_INFO_NAME_20810001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519467
+    m_Key: ITEM_INFO_NAME_21350001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519468
+    m_Key: ITEM_INFO_NAME_21620001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519469
+    m_Key: ITEM_INFO_NAME_21730001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519470
+    m_Key: ITEM_INFO_NAME_21730101
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519471
+    m_Key: ITEM_INFO_NAME_21730102
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519472
+    m_Key: ITEM_INFO_NAME_21730103
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519473
+    m_Key: ITEM_INFO_NAME_21730104
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519474
+    m_Key: ITEM_INFO_NAME_21730105
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519475
+    m_Key: ITEM_INFO_NAME_21730201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519476
+    m_Key: ITEM_INFO_NAME_21730202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519477
+    m_Key: ITEM_INFO_NAME_21730203
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519478
+    m_Key: ITEM_INFO_NAME_21850001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519479
+    m_Key: ITEM_INFO_NAME_30002101
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519480
+    m_Key: ITEM_INFO_NAME_30002102
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519481
+    m_Key: ITEM_INFO_NAME_30002201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519482
+    m_Key: ITEM_INFO_NAME_30002202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519483
+    m_Key: ITEM_INFO_NAME_30002301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519484
+    m_Key: ITEM_INFO_NAME_30002302
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519485
+    m_Key: ITEM_INFO_NAME_30002401
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519486
+    m_Key: ITEM_INFO_NAME_30002501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519487
+    m_Key: ITEM_INFO_NAME_30002502
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519488
+    m_Key: ITEM_INFO_NAME_30003101
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519489
+    m_Key: ITEM_INFO_NAME_30003102
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519490
+    m_Key: ITEM_INFO_NAME_30003103
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519491
+    m_Key: ITEM_INFO_NAME_30003201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519492
+    m_Key: ITEM_INFO_NAME_30003202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519493
+    m_Key: ITEM_INFO_NAME_30003203
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519494
+    m_Key: ITEM_INFO_NAME_30003204
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519495
+    m_Key: ITEM_INFO_NAME_30003301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519496
+    m_Key: ITEM_INFO_NAME_30003302
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519497
+    m_Key: ITEM_INFO_NAME_30003303
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519498
+    m_Key: ITEM_INFO_NAME_30003401
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519499
+    m_Key: ITEM_INFO_NAME_30003402
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519500
+    m_Key: ITEM_INFO_NAME_30003403
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519501
+    m_Key: ITEM_INFO_NAME_30003404
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519502
+    m_Key: ITEM_INFO_NAME_30003405
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519503
+    m_Key: ITEM_INFO_NAME_30003501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519504
+    m_Key: ITEM_INFO_NAME_30003502
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519505
+    m_Key: ITEM_INFO_NAME_30003503
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519506
+    m_Key: ITEM_INFO_NAME_30003504
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519507
+    m_Key: ITEM_INFO_NAME_30003505
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519508
+    m_Key: ITEM_INFO_NAME_30003506
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519509
+    m_Key: ITEM_INFO_NAME_31032101
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519510
+    m_Key: ITEM_INFO_NAME_31032102
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519511
+    m_Key: ITEM_INFO_NAME_31032201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519512
+    m_Key: ITEM_INFO_NAME_31032202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519513
+    m_Key: ITEM_INFO_NAME_31032301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519514
+    m_Key: ITEM_INFO_NAME_31032302
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519515
+    m_Key: ITEM_INFO_NAME_31032401
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519516
+    m_Key: ITEM_INFO_NAME_31032501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519517
+    m_Key: ITEM_INFO_NAME_31032502
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519518
+    m_Key: ITEM_INFO_NAME_31053101
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519519
+    m_Key: ITEM_INFO_NAME_31053102
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519520
+    m_Key: ITEM_INFO_NAME_31053103
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519521
+    m_Key: ITEM_INFO_NAME_31053201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519522
+    m_Key: ITEM_INFO_NAME_31053202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519523
+    m_Key: ITEM_INFO_NAME_31053203
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519524
+    m_Key: ITEM_INFO_NAME_31053204
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519525
+    m_Key: ITEM_INFO_NAME_31053301
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519526
+    m_Key: ITEM_INFO_NAME_31053302
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519527
+    m_Key: ITEM_INFO_NAME_31053303
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519528
+    m_Key: ITEM_INFO_NAME_31053401
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519529
+    m_Key: ITEM_INFO_NAME_31053402
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519530
+    m_Key: ITEM_INFO_NAME_31053403
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519531
+    m_Key: ITEM_INFO_NAME_31053404
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519532
+    m_Key: ITEM_INFO_NAME_31053405
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519533
+    m_Key: ITEM_INFO_NAME_31053501
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519534
+    m_Key: ITEM_INFO_NAME_31053502
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519535
+    m_Key: ITEM_INFO_NAME_31053503
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519536
+    m_Key: ITEM_INFO_NAME_31053504
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519537
+    m_Key: ITEM_INFO_NAME_31053505
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519538
+    m_Key: ITEM_INFO_NAME_31053506
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519539
+    m_Key: ITEM_INFO_NAME_31130001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519540
+    m_Key: ITEM_INFO_NAME_31250001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519541
+    m_Key: ITEM_INFO_DESC_10110001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519542
+    m_Key: ITEM_INFO_DESC_10210001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519543
+    m_Key: ITEM_INFO_DESC_20350001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519544
+    m_Key: ITEM_INFO_DESC_20410001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519545
+    m_Key: ITEM_INFO_DESC_20550001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519546
+    m_Key: ITEM_INFO_DESC_20650001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519547
+    m_Key: ITEM_INFO_DESC_20710001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519548
+    m_Key: ITEM_INFO_DESC_20810001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519549
+    m_Key: ITEM_INFO_DESC_21350001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519550
+    m_Key: ITEM_INFO_DESC_21620001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519551
+    m_Key: ITEM_INFO_DESC_21730001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519552
+    m_Key: ITEM_INFO_DESC_21730101
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519553
+    m_Key: ITEM_INFO_DESC_21730102
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519554
+    m_Key: ITEM_INFO_DESC_21730103
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519555
+    m_Key: ITEM_INFO_DESC_21730104
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519556
+    m_Key: ITEM_INFO_DESC_21730105
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519557
+    m_Key: ITEM_INFO_DESC_21730201
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519558
+    m_Key: ITEM_INFO_DESC_21730202
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519559
+    m_Key: ITEM_INFO_DESC_21730203
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519560
+    m_Key: ITEM_INFO_DESC_21850001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519561
+    m_Key: STAGE_NAME_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519562
+    m_Key: STAGE_NAME_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519563
+    m_Key: STAGE_NAME_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519564
+    m_Key: STAGE_NAME_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519565
+    m_Key: STAGE_NAME_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519566
+    m_Key: STAGE_NAME_6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519567
+    m_Key: STAGE_STAR_CONDITON_DESC_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519568
+    m_Key: STAGE_STAR_CONDITON_DESC_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519569
+    m_Key: STAGE_STAR_CONDITON_DESC_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519570
+    m_Key: STAGE_LOSE_GUIDE_DESC_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519571
+    m_Key: STAGE_LOSE_GUIDE_DESC_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519572
+    m_Key: STAGE_LOSE_GUIDE_DESC_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519573
+    m_Key: GUIDE_MISSION_NAME_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519574
+    m_Key: GUIDE_MISSION_NAME_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519575
+    m_Key: GUIDE_MISSION_NAME_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519576
+    m_Key: GUIDE_MISSION_NAME_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519577
+    m_Key: GUIDE_MISSION_NAME_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519578
+    m_Key: GUIDE_MISSION_NAME_6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519579
+    m_Key: GUIDE_MISSION_NAME_7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519580
+    m_Key: GUIDE_MISSION_NAME_8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519581
+    m_Key: GUIDE_MISSION_NAME_9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519582
+    m_Key: GUIDE_MISSION_NAME_10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519583
+    m_Key: GUIDE_MISSION_NAME_11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519584
+    m_Key: GUIDE_MISSION_NAME_12
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519585
+    m_Key: GUIDE_MISSION_NAME_13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519586
+    m_Key: GUIDE_MISSION_NAME_14
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519587
+    m_Key: GUIDE_MISSION_NAME_15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519588
+    m_Key: GUIDE_MISSION_NAME_16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519589
+    m_Key: GUIDE_MISSION_NAME_17
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519590
+    m_Key: GUIDE_MISSION_NAME_18
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519591
+    m_Key: GUIDE_MISSION_NAME_19
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519592
+    m_Key: GUIDE_MISSION_NAME_20
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519593
+    m_Key: GUIDE_MISSION_NAME_21
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519594
+    m_Key: GUIDE_MISSION_NAME_22
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519595
+    m_Key: GUIDE_MISSION_NAME_23
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519596
+    m_Key: GUIDE_MISSION_NAME_24
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519597
+    m_Key: GUIDE_MISSION_NAME_25
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519598
+    m_Key: GUIDE_MISSION_NAME_26
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519599
+    m_Key: GUIDE_MISSION_NAME_27
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519600
+    m_Key: GUIDE_MISSION_NAME_28
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519601
+    m_Key: GUIDE_MISSION_NAME_29
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519602
+    m_Key: GUIDE_MISSION_NAME_30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519603
+    m_Key: GUIDE_MISSION_NAME_31
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519604
+    m_Key: GUIDE_MISSION_NAME_32
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519605
+    m_Key: GUIDE_MISSION_NAME_33
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519606
+    m_Key: GUIDE_MISSION_NAME_34
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519607
+    m_Key: GUIDE_MISSION_NAME_35
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519608
+    m_Key: GUIDE_MISSION_NAME_36
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519609
+    m_Key: GUIDE_MISSION_NAME_37
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519610
+    m_Key: GUIDE_MISSION_NAME_38
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519611
+    m_Key: GUIDE_MISSION_NAME_39
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519612
+    m_Key: GUIDE_MISSION_NAME_40
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519613
+    m_Key: GUIDE_MISSION_NAME_41
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519614
+    m_Key: GUIDE_MISSION_NAME_42
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519615
+    m_Key: GUIDE_MISSION_NAME_43
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519616
+    m_Key: GUIDE_MISSION_NAME_44
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519617
+    m_Key: GUIDE_MISSION_NAME_45
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519618
+    m_Key: GUIDE_MISSION_NAME_46
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519619
+    m_Key: GUIDE_MISSION_NAME_47
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519620
+    m_Key: GUIDE_MISSION_NAME_48
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519621
+    m_Key: GUIDE_MISSION_NAME_49
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519622
+    m_Key: GUIDE_MISSION_NAME_50
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519623
+    m_Key: GUIDE_MISSION_NAME_51
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519624
+    m_Key: GUIDE_MISSION_NAME_52
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519625
+    m_Key: GUIDE_MISSION_NAME_53
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519626
+    m_Key: GUIDE_MISSION_NAME_54
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519627
+    m_Key: GUIDE_MISSION_NAME_55
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519628
+    m_Key: GUIDE_MISSION_NAME_56
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519629
+    m_Key: GUIDE_MISSION_NAME_57
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519630
+    m_Key: GUIDE_MISSION_NAME_58
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519631
+    m_Key: GUIDE_MISSION_NAME_59
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519632
+    m_Key: GUIDE_MISSION_NAME_60
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519633
+    m_Key: GUIDE_MISSION_NAME_61
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519634
+    m_Key: GUIDE_MISSION_NAME_62
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519635
+    m_Key: GUIDE_MISSION_NAME_63
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519636
+    m_Key: GUIDE_MISSION_NAME_64
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519637
+    m_Key: GUIDE_MISSION_NAME_65
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519638
+    m_Key: GUIDE_MISSION_NAME_66
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519639
+    m_Key: GUIDE_MISSION_NAME_67
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519640
+    m_Key: GUIDE_MISSION_NAME_68
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519641
+    m_Key: GUIDE_MISSION_NAME_69
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519642
+    m_Key: GUIDE_MISSION_NAME_70
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519643
+    m_Key: GUIDE_MISSION_NAME_71
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519644
+    m_Key: GUIDE_MISSION_NAME_72
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519645
+    m_Key: GUIDE_MISSION_NAME_73
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519646
+    m_Key: GUIDE_MISSION_NAME_74
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519647
+    m_Key: GUIDE_MISSION_NAME_75
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519648
+    m_Key: GUIDE_MISSION_NAME_76
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519649
+    m_Key: GUIDE_MISSION_NAME_77
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519650
+    m_Key: GUIDE_MISSION_NAME_78
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519651
+    m_Key: GUIDE_MISSION_NAME_79
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519652
+    m_Key: GUIDE_MISSION_NAME_80
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519653
+    m_Key: GUIDE_MISSION_NAME_81
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519654
+    m_Key: GUIDE_MISSION_NAME_82
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519655
+    m_Key: GUIDE_MISSION_NAME_83
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519656
+    m_Key: GUIDE_MISSION_NAME_84
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519657
+    m_Key: GUIDE_MISSION_NAME_85
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519658
+    m_Key: GUIDE_MISSION_NAME_86
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519659
+    m_Key: GUIDE_MISSION_NAME_87
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519660
+    m_Key: GUIDE_MISSION_NAME_88
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519661
+    m_Key: GUIDE_MISSION_NAME_89
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519662
+    m_Key: GUIDE_MISSION_NAME_90
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519663
+    m_Key: GUIDE_MISSION_NAME_91
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519664
+    m_Key: GUIDE_MISSION_NAME_92
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519665
+    m_Key: GUIDE_MISSION_NAME_93
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519666
+    m_Key: GUIDE_MISSION_DESC_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519667
+    m_Key: GUIDE_MISSION_DESC_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519668
+    m_Key: GUIDE_MISSION_DESC_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519669
+    m_Key: GUIDE_MISSION_DESC_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519670
+    m_Key: GUIDE_MISSION_DESC_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519671
+    m_Key: GUIDE_MISSION_DESC_6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519672
+    m_Key: GUIDE_MISSION_DESC_7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519673
+    m_Key: GUIDE_MISSION_DESC_8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519674
+    m_Key: GUIDE_MISSION_DESC_9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519675
+    m_Key: GUIDE_MISSION_DESC_10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519676
+    m_Key: GUIDE_MISSION_DESC_11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519677
+    m_Key: GUIDE_MISSION_DESC_12
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519678
+    m_Key: GUIDE_MISSION_DESC_13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519679
+    m_Key: GUIDE_MISSION_DESC_14
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519680
+    m_Key: GUIDE_MISSION_DESC_15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519681
+    m_Key: GUIDE_MISSION_DESC_16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519682
+    m_Key: GUIDE_MISSION_DESC_17
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519683
+    m_Key: GUIDE_MISSION_DESC_18
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519684
+    m_Key: GUIDE_MISSION_DESC_19
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519685
+    m_Key: GUIDE_MISSION_DESC_20
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519686
+    m_Key: GUIDE_MISSION_DESC_21
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519687
+    m_Key: GUIDE_MISSION_DESC_22
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519688
+    m_Key: GUIDE_MISSION_DESC_23
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519689
+    m_Key: GUIDE_MISSION_DESC_24
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519690
+    m_Key: GUIDE_MISSION_DESC_25
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519691
+    m_Key: GUIDE_MISSION_DESC_26
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519692
+    m_Key: GUIDE_MISSION_DESC_27
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519693
+    m_Key: GUIDE_MISSION_DESC_28
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519694
+    m_Key: GUIDE_MISSION_DESC_29
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519695
+    m_Key: GUIDE_MISSION_DESC_30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519696
+    m_Key: GUIDE_MISSION_DESC_31
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519697
+    m_Key: GUIDE_MISSION_DESC_32
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519698
+    m_Key: GUIDE_MISSION_DESC_33
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519699
+    m_Key: GUIDE_MISSION_DESC_34
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519700
+    m_Key: GUIDE_MISSION_DESC_35
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519701
+    m_Key: GUIDE_MISSION_DESC_36
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519702
+    m_Key: GUIDE_MISSION_DESC_37
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519703
+    m_Key: GUIDE_MISSION_DESC_38
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519704
+    m_Key: GUIDE_MISSION_DESC_39
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519705
+    m_Key: GUIDE_MISSION_DESC_40
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519706
+    m_Key: GUIDE_MISSION_DESC_41
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519707
+    m_Key: GUIDE_MISSION_DESC_42
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519708
+    m_Key: GUIDE_MISSION_DESC_43
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519709
+    m_Key: GUIDE_MISSION_DESC_44
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519710
+    m_Key: GUIDE_MISSION_DESC_45
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519711
+    m_Key: GUIDE_MISSION_DESC_46
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519712
+    m_Key: GUIDE_MISSION_DESC_47
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519713
+    m_Key: GUIDE_MISSION_DESC_48
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519714
+    m_Key: GUIDE_MISSION_DESC_49
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519715
+    m_Key: GUIDE_MISSION_DESC_50
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519716
+    m_Key: GUIDE_MISSION_DESC_51
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519717
+    m_Key: GUIDE_MISSION_DESC_52
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519718
+    m_Key: GUIDE_MISSION_DESC_53
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519719
+    m_Key: GUIDE_MISSION_DESC_54
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519720
+    m_Key: GUIDE_MISSION_DESC_55
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519721
+    m_Key: GUIDE_MISSION_DESC_56
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519722
+    m_Key: GUIDE_MISSION_DESC_57
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519723
+    m_Key: GUIDE_MISSION_DESC_58
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519724
+    m_Key: GUIDE_MISSION_DESC_59
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519725
+    m_Key: GUIDE_MISSION_DESC_60
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519726
+    m_Key: GUIDE_MISSION_DESC_61
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519727
+    m_Key: GUIDE_MISSION_DESC_62
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519728
+    m_Key: GUIDE_MISSION_DESC_63
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519729
+    m_Key: GUIDE_MISSION_DESC_64
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519730
+    m_Key: GUIDE_MISSION_DESC_65
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519731
+    m_Key: GUIDE_MISSION_DESC_66
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519732
+    m_Key: GUIDE_MISSION_DESC_67
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519733
+    m_Key: GUIDE_MISSION_DESC_68
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519734
+    m_Key: GUIDE_MISSION_DESC_69
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519735
+    m_Key: GUIDE_MISSION_DESC_70
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519736
+    m_Key: GUIDE_MISSION_DESC_71
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519737
+    m_Key: GUIDE_MISSION_DESC_72
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519738
+    m_Key: GUIDE_MISSION_DESC_73
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519739
+    m_Key: GUIDE_MISSION_DESC_74
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519740
+    m_Key: GUIDE_MISSION_DESC_75
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519741
+    m_Key: GUIDE_MISSION_DESC_76
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519742
+    m_Key: GUIDE_MISSION_DESC_77
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519743
+    m_Key: GUIDE_MISSION_DESC_78
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519744
+    m_Key: GUIDE_MISSION_DESC_79
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519745
+    m_Key: GUIDE_MISSION_DESC_80
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519746
+    m_Key: GUIDE_MISSION_DESC_81
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519747
+    m_Key: GUIDE_MISSION_DESC_82
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519748
+    m_Key: GUIDE_MISSION_DESC_83
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519749
+    m_Key: GUIDE_MISSION_DESC_84
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519750
+    m_Key: GUIDE_MISSION_DESC_85
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519751
+    m_Key: GUIDE_MISSION_DESC_86
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519752
+    m_Key: GUIDE_MISSION_DESC_87
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519753
+    m_Key: GUIDE_MISSION_DESC_88
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519754
+    m_Key: GUIDE_MISSION_DESC_89
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519755
+    m_Key: GUIDE_MISSION_DESC_90
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519756
+    m_Key: GUIDE_MISSION_DESC_91
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519757
+    m_Key: GUIDE_MISSION_DESC_92
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1998300318519758
+    m_Key: GUIDE_MISSION_DESC_93
     m_Metadata:
       m_Items: []
   m_Metadata:

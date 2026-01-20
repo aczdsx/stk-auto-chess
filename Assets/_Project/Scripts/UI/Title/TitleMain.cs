@@ -115,31 +115,30 @@ namespace CookApps.AutoBattler
                     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                     await SceneTransition.FadeInAsync();
 
-                    //     var inGameParams = new InGameMainParams(
-                    //         InGameType.PROLOGUE,
-                    //         new InGameMainStatePrologue(),
-                    //         0);
+                    var inGameParams = new InGameMainParams(
+                        InGameType.PROLOGUE,
+                        new InGameMainStatePrologue(),
+                        0);
 
-                    //     SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
-                    //     return;
-                    // }
-                    // else
-                    {
-                        SceneTransition.Create<SceneTransition_FadeInOut>();
-                        await SceneTransition.FadeInAsync();
-
-                        var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
-                        var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
-                        SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
-
-                        return;
-                    }
-
-                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
-
-                    // 세션 타임 기록 unitask 실행
-                    RecordSessionTime().Forget();
+                    SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
+                    return;
                 }
+                else
+                {
+                    SceneTransition.Create<SceneTransition_FadeInOut>();
+                    await SceneTransition.FadeInAsync();
+
+                    var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
+                    var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
+                    SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
+
+                    return;
+                }
+
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
+
+                // 세션 타임 기록 unitask 실행
+                RecordSessionTime().Forget();
             }
         }
 

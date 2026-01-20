@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using DG.Tweening.Core.Easing;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.VFX;
 using CharacterController = CookApps.BattleSystem.CharacterController;
-
 /// <summary>
 /// 프롤로그 전투 Flow State.
 /// 게임 시작 시 재생되는 스크립트 기반 컷신 전투를 관리한다.
@@ -83,7 +86,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
 
         // 초기 카메라 위치 설정 (왼쪽으로 치우침)
-        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(5.0f, new Vector3(-13, 2.5f, -10), 1.0f).Forget();
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(5, new Vector3(-10, 2.5f, -10), 0).Forget();
     }
 
     /// <summary>
@@ -198,7 +201,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 모든 캐릭터를 Ready 상태로 변경하여 이동 가능하도록 함
         await StopAllCharacters();
 
-        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.0f, new Vector3(0, 2.5f, -10), 3.0f).Forget();
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.0f, new UnityEngine.Vector3(0, 2.5f, -10), 3.0f).Forget();
 
         MoveCharacterToDirection(_clayCharacter, 0, 4, 0.4f);
         MoveCharacterToDirection(_yuniCharacter, 0, 4, 0.4f);
@@ -505,6 +508,9 @@ public class FlowStatePrologueCombat : StateCombatBase
     private async UniTask TriggerWitchAttackPrepare()
     {
         if (_witchCharacter == null) return;
+        _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKLPRE);
+        await UniTask.Delay(1000);
+        _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKLLOOP);
 
         var  vfxTileIdx = _artesiaCharacter.CurrentTile.Int2Index + new int2(0, 1); 
         laplasSkill1 = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_9002_1, 
@@ -569,8 +575,7 @@ public class FlowStatePrologueCombat : StateCombatBase
             InGameVfxManager.Instance.RemoveInGameVfx(_witchAttackPrepareFx);
             _witchAttackPrepareFx = null;
         }
-        _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKL);
-        await UniTask.Delay(PrologueDelays.라플라스SKL애니메이션타이밍);
+        _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKLEND);
         inGameVfx9002.SetPlay();
         await UniTask.WaitUntil(inGameVfx9002.IsFinished);
         foreach(var vfx in clayShieldList)
@@ -602,45 +607,56 @@ public class FlowStatePrologueCombat : StateCombatBase
 
     }
 
+
     // 4단계: 아트레시아+유니+필리아 자유 공격 3초, 마녀 지친 모션
     private async UniTask TriggerFreeAttack3Seconds()
     {
         await ManualFreeMoveActions();
+        _artesiaCharacter.Target = _witchCharacter;
         ActivateCharacterSkill(_artesiaCharacter);
-        ActivateCharacterSkill(_philiaCharacter);
+        _yuniCharacter.Target = _artesiaCharacter;
+        ActivateCharacterSkill(_yuniCharacter);
 
         await UniTask.Delay(1000); // 1초 대기
 
         if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
         {
-            _artesiaCharacter.AddNextState<CharacterStateAttack>();
+            _artesiaCharacter.AddNextState<CharacterStateIdle>();
             _artesiaCharacter.Target = _witchCharacter;
         }
         if (_yuniCharacter != null && _yuniCharacter.IsAlive)
         {
-            _yuniCharacter.AddNextState<CharacterStateAttack>();
-            _yuniCharacter.Target = _witchCharacter;
+            _yuniCharacter.AddNextState<CharacterStateIdle>();
+            _yuniCharacter.Target = _artesiaCharacter;
         }
-        if (_philiaCharacter != null && _philiaCharacter.IsAlive)
+        
+        var cts = new CancellationTokenSource();
+        UniTask.Create(async cst =>
         {
-            _philiaCharacter.AddNextState<CharacterStateAttack>();
-            _philiaCharacter.Target = _witchCharacter;
-        }
+            while(!cts.IsCancellationRequested)
+            {
+                _philiaCharacter.Target = _witchCharacter;
+                await ActivateCharacterSkillWithWait(_philiaCharacter);
+                _yuniCharacter.AddNextState<CharacterStateReady>();
+            }
+        }, cts.Token).Forget();
         // 라플라스 마녀도 평타 공격
         if (_witchCharacter != null && _witchCharacter.IsAlive)
         {
             _witchCharacter.AddNextState<CharacterStateAttack>();
             _witchCharacter.Target = _artesiaCharacter;
         }
+        
 
-        await UniTask.Delay(3000); // 3초 자유 전투
+        await UniTask.Delay(2000); // 3초 자유 전투
         {
             List<UniTask> uniTasks = new();
             uniTasks.Add(ActivateCharacterSkillWithWait(_artesiaCharacter));
-            uniTasks.Add(ActivateCharacterSkillWithWait(_philiaCharacter));
+            uniTasks.Add(ActivateCharacterSkillWithWait(_yuniCharacter));
 
             await UniTask.WhenAll(uniTasks);
         }
+        cts.Cancel();
 
         await StopAllCharacters();
 
@@ -649,6 +665,15 @@ public class FlowStatePrologueCombat : StateCombatBase
             _witchCharacter.AddNextState<CharacterStateGroggy>();
         }
     }
+
+    // async Task<UniTask> PhilliaAttackTimeing()
+    // {
+    //     for(int i = 0; i < 2; i++)
+    //     {
+    //         await UniTask.WaitUntil(() => {return (_philiaCharacter.GetCurrentState() is CharacterStateAttack);} );
+    //         await UniTask.
+    //     }
+    // }
 
     // 5단계: 마녀 광역 스킬, 유니/필리아/클레이 다운
     private async UniTask TriggerWitchAoEAndCharactersDown()
@@ -703,7 +728,8 @@ public class FlowStatePrologueCombat : StateCombatBase
                     true,
                     HpBarType.Synergy);
                 _marieCharacter.AddNextState<CharacterStateReady>();
-
+                FindChildRecursive(_marieCharacter.GetCharacterView().CachedTr, "Synergy").gameObject.SetActive(false);
+                
                 Debug.LogColor($"마리에 합류: {marieCharacterId} at ({spawnTile.X}, {spawnTile.Y})");
             }
         }
@@ -711,6 +737,22 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         await UniTask.Delay(1500); // 1.5초 대기
     }
+
+    private Transform FindChildRecursive(Transform parent, string name)
+{
+    if (parent.name == name)
+        return parent;
+
+    for (int i = 0; i < parent.childCount; i++)
+    {
+        Transform child = parent.GetChild(i);
+        Transform found = FindChildRecursive(child, name);
+        if (found != null)
+            return found;
+    }
+
+    return null;
+}
 
     InGameVfx artesiaChargeVFX;
 
@@ -730,8 +772,14 @@ public class FlowStatePrologueCombat : StateCombatBase
         if (_marieCharacter != null && _marieCharacter.IsAlive)
         {
             // 거의 동시에 마리에 스킬 이펙트 (마리에 디버프 스킬 발동)
+            UniTask.Create(async () =>
+            {
+                await UniTask.Delay(600);
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_17563405, _witchCharacter.SkillBottomFXTransformFollowable);
+            }).Forget();
             await ActivateCharacterSkillWithWait(_marieCharacter, "마리에 스킬을 찾을 수 없습니다.");
             _marieCharacter.Target = _witchCharacter;
+
         }
 
         // 마녀 → 마리에 공격
@@ -740,9 +788,8 @@ public class FlowStatePrologueCombat : StateCombatBase
             _witchCharacter.AddNextState<CharacterStateIdle>();
             _witchCharacter.Target = _marieCharacter;
         }
-
-        await UniTask.Delay(1000); // 1초 대기
-
+        
+        await UniTask.Delay(2200); // 1초 대기
         // 마리에 → Dead 상태
         if (_marieCharacter != null && _marieCharacter.IsAlive)
         {
@@ -791,7 +838,8 @@ public class FlowStatePrologueCombat : StateCombatBase
         if (_witchCharacter == null) return;
 
         Debug.LogColor("라플라스 마녀 체력 회복");
-        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_9002_4, _witchCharacter.SkillRootTransformFollowable);
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_9002_4, _witchCharacter.SkillBottomFXTransformFollowable);
+        vfx.CachedTr.localPosition +=  new UnityEngine.Vector3(0,0,-4);
         await UniTask.Delay(1000);
         _witchCharacter.AddNextState<CharacterStateReady>();
         _witchCharacter.GetHealed(9999.0f, _witchCharacter, 0);
@@ -814,12 +862,15 @@ public class FlowStatePrologueCombat : StateCombatBase
         _witchAttackPrepareFx = InGameVfxManager.Instance.AddInGameVfx(
             InGameVfxNameType.Skill_9002_3,
             _witchCharacter.SkillMiddleFXTransformFollowable);
+        _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKL2PRE);
 
 
         // [TODO] 필요시 더 강력한 이펙트로 변경
         // 예: _witchCharacter.GetCharacterView().PlayEffect("WitchFinalPrepare");
 
-        await UniTask.Delay(1000); // 1초 대기
+        await UniTask.Delay(2000); // 1초 대기
+        _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKL2LOOP);
+
     }
 
     // 12단계: 마녀 최후 공격, 아트레시아 방어, 전투 종료
@@ -915,9 +966,7 @@ public class FlowStatePrologueCombat : StateCombatBase
     }
 
     private async UniTask YuniCharacterKnockback()
-    {
-        _yuniCharacter.GetCharacterView().PlayAnimation(AnimationKey.PARRY, false);
-        
+    {        
         KnockbackHelper.ApplyKnockback(_witchCharacter, _yuniCharacter, tileIdx: new int2(-1, -1), duration : 0.4f);
 
         // await UniTask.WaitUntil(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateForceMove) || (_yuniCharacter.GetCurrentState() is CharacterStateMove); });
@@ -928,7 +977,6 @@ public class FlowStatePrologueCombat : StateCombatBase
 
     private async UniTask PhilliaCharacterKnockback()
     {
-        _philiaCharacter.GetCharacterView().PlayAnimation(AnimationKey.PARRY, false);
 
         KnockbackHelper.ApplyKnockback(_witchCharacter, _philiaCharacter, tileIdx: new int2(1, -1), duration : 0.4f);
 
@@ -940,8 +988,6 @@ public class FlowStatePrologueCombat : StateCombatBase
 
     private async UniTask ClaycharacterKnockback()
     {
-                _clayCharacter.GetCharacterView().PlayAnimation(AnimationKey.PARRY, false);
-
             KnockbackHelper.ApplyKnockback(_witchCharacter, _clayCharacter, tileIdx: new int2(0, -1), duration : 0.4f);
 
         // await UniTask.WaitUntil(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
@@ -1044,3 +1090,137 @@ public static class KnockbackHelper
         return effectCode as EffectCodeCrowdControlKnockback;
     }
 }
+
+/*
+public static class CharacterTweenHelper
+{
+    /// <summary>
+    /// CC 시스템과 독립적인 순수 Knockback Tween 애니메이션.
+    /// </summary>
+    /// <param name="character">이동할 캐릭터</param>
+    /// <param name="destinationTile">목적지 타일</param>
+    /// <param name="duration">기본 이동 시간</param>
+    /// <param name="height">포물선 최대 높이 (0이면 직선 이동)</param>
+    /// <param name="ease">XZ 이동 이징</param>
+    /// <param name="changeOccupiedTile">타일 점유 변경 여부</param>
+    /// <param name="onComplete">완료 콜백</param>
+    /// <returns>생성된 Tween (취소용)</returns>
+    public static PrimeTween.Tween PlayKnockbackTween(
+        CharacterController character,
+        InGameTile destinationTile,
+        float duration = 0.3f,
+        float height = 2.5f,
+        Ease ease = Ease.OutExpo,
+        bool changeOccupiedTile = true,
+        Action<InGameTile> onComplete = null)
+    {
+        if (character == null || destinationTile == null)
+        {
+            onComplete?.Invoke(null);
+            return default;
+        }
+
+        // 목적지 타일 검증 (점유 변경 시에만)
+        if (changeOccupiedTile && destinationTile.OccupiedCharacter != null 
+            && destinationTile.OccupiedCharacter != character)
+        {
+            Debug.LogWarning($"[KnockbackTween] 목적지 타일({destinationTile.X},{destinationTile.Y})에 이미 캐릭터 존재");
+            onComplete?.Invoke(null);
+            return default;
+        }
+
+        Vector3 startPos = character.Position3D;
+        Vector3 endPos = destinationTile.View.Position;
+        float startY = character.ViewPosition3D.y;
+
+        // 거리 기반 duration 보정
+        float distance = Vector3.Distance(endPos, startPos);
+        float adjustedDuration = duration + distance * 0.1f;
+
+        // 타일 점유 변경 (Tween 시작 전에 즉시 처리 - 원본과 동일)
+        if (changeOccupiedTile)
+        {
+            character.ChangeOccupiedTile(destinationTile);
+        }
+
+        // 포물선 Y축 계산용 변수
+        float halfDuration = adjustedDuration * 0.5f;
+        float upFactor = (startY - height) / (halfDuration * halfDuration);
+        float downFactor = -height / (halfDuration * halfDuration);
+        float elapsedTime = 0f;
+
+        // XZ 평면 이동 Tween
+        return PrimeTween.Tween.Custom(
+            startPos,
+            endPos,
+            adjustedDuration,
+            (Vector3 value) =>
+            {
+                if (character == null) return;
+                
+                character.Position3D = value;
+
+                if (height > 0)
+                {
+                    elapsedTime += Time.deltaTime;
+                    float x = elapsedTime - halfDuration;
+                    float yOffset = x < 0 
+                        ? upFactor * x * x + height 
+                        : downFactor * x * x + height;
+                    
+                    var viewPos = character.ViewPosition3D;
+                    viewPos.y = Mathf.Max(0, yOffset);
+                    character.ViewPosition3D = viewPos;
+                }
+            },
+            ease: ease
+        ).OnComplete(() =>
+        {
+            if (character != null)
+            {
+                character.Position3D = endPos;
+                var viewPos = character.ViewPosition3D;
+                viewPos.y = 0;
+                character.ViewPosition3D = viewPos;
+            }
+            onComplete?.Invoke(destinationTile);
+        });
+    }
+
+    /// <summary>
+    /// 안전한 목적지 타일을 자동으로 찾아서 이동 (GetTileForKnockBack 사용)
+    /// </summary>
+    public static Tween PlayKnockbackFromAttackerSafe(
+        CharacterController attacker,
+        CharacterController target,
+        int tileCount,
+        float duration = 0.3f,
+        float height = 2.5f,
+        Ease ease = Ease.OutExpo,
+        bool changeOccupiedTile = true,
+        Action<InGameTile> onComplete = null)
+    {
+        if (target == null || target.CurrentTile == null)
+        {
+            onComplete?.Invoke(null);
+            return default;
+        }
+
+        var grid = InGameObjectManager.Instance.InGameGrid;
+        var attackerTile = attacker?.CurrentTile ?? target.CurrentTile;
+        
+        // GetTileForKnockBack: 빈 타일만 반환 (장애물/다른 캐릭터 자동 회피)
+        var knockBackTile = grid.GetTileForKnockBack(attackerTile, target.CurrentTile, tileCount);
+
+        return PlayKnockbackTween(
+            target,
+            knockBackTile,
+            duration,
+            height,
+            ease,
+            changeOccupiedTile,
+            onComplete
+        );
+    }
+}
+*/
