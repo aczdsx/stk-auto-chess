@@ -32,7 +32,6 @@ namespace CookApps.TeamBattle.UIManagements
                 "SynergyTooltipInGamePopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/SynergyTooltipInGamePopup.prefab",
                 "SynergyTooltipPopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/SynergyTooltipPopup.prefab",
                 "AccountLevelUpWindowPopup" => "Prefabs/UI/01_Pops/WindowPopup/AccountLevelUpWindowPopup.prefab",
-                "AttendancePopup" => "Prefabs/UI/01_Pops/WindowPopup/AttendancePopup.prefab",
                 "ChapterClearWindowPopup" => "Prefabs/UI/01_Pops/WindowPopup/ChapterClearWindowPopup.prefab",
                 "ChapterMain" => "Prefabs/UI/01_Pops/WindowPopup/ChapterMain.prefab",
                 "CommanderSkillPopup" => "Prefabs/UI/01_Pops/WindowPopup/CommanderSkillPopup.prefab",

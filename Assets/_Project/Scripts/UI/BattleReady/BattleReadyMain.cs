@@ -161,7 +161,6 @@ namespace CookApps.AutoBattler
                     SetUserInfoLayer();     // 유저 정보 갱신
                     CheckNewChapterClear();
                     CheckUserAccountLevelUp();
-                    UpdateAttendanceData();
 
                     UpdateOpenCondition();
                     CheckShowSurveyPopup();
@@ -469,22 +468,6 @@ namespace CookApps.AutoBattler
             }
         }
 
-        // 출석부 상태 갱신
-        private void UpdateAttendanceData()
-        {
-            return;
-            var specEventData = SpecDataManager.Instance.GetSpecEventData(EventType.ATTENDANCE);
-            var currentUserEventData = UserDataManager.Instance.GetUserEventData(specEventData.event_id);
-            if (currentUserEventData != null)
-            {
-                if (currentUserEventData.EventExtraRefreshTimestamp < TimeManager.Instance.UtcNowTimeStampLocal())
-                {
-                    UserDataManager.Instance.SetUserEventActionCount(currentUserEventData.EventId, 1, true, true);
-                    UserDataManager.Instance.UpdateEventTimeData(currentUserEventData.EventId);
-                }
-            }
-        }
-
         private void OnClickCommanderSkillButton()
         {
             SceneUILayerManager.Instance.SetEnableFloatingNodeCanvas(false);
@@ -566,25 +549,6 @@ namespace CookApps.AutoBattler
         private void OnClickIdleRewardButton()
         {
             SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
-        }
-
-        private void OnClickAttendanceButton()
-        {
-            // 이벤트 기간 유효성 검증
-            var currentSpecEventData = SpecDataManager.Instance.GetCurrentSpecEvent(EventType.ATTENDANCE);
-            if (currentSpecEventData == null)
-            {
-                return;
-            }
-
-            // 이벤트 유저 데이터 유효성 검증
-            var currentUserEventData = UserDataManager.Instance.GetUserEventData(currentSpecEventData.event_id);
-            if (currentUserEventData == null)
-            {
-                return;
-            }
-
-            SceneUILayerManager.Instance.PushUILayerAsync<AttendancePopup>(currentUserEventData).Forget();
         }
 
         private void OnClickQuestButton()

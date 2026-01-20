@@ -142,7 +142,8 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.3.4
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 11400000, guid: 26f80659a2ee84f109bfc1fd61f5c7d0, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -879,7 +880,7 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   webWasm2023: 0
   scriptingDefineSymbols:
-    Android: DOTWEEN;ENABLE_CHEAT;__DEV;DEV_COOKAPPS_ANALYTICS;NANINOVEL_ENABLE_SPINE;UNITY_POST_PROCESSING_STACK_V2;AMPLIFY_SHADER_EDITOR
+    Android: DOTWEEN;ENABLE_CHEAT;__DEV;DEV_COOKAPPS_ANALYTICS;NANINOVEL_ENABLE_SPINE;UNITY_POST_PROCESSING_STACK_V2;AMPLIFY_SHADER_EDITOR;STORE_MARKET_GOOGLE
     EmbeddedLinux: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2
     GameCoreScarlett: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2
     GameCoreXboxOne: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2
