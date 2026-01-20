@@ -130,7 +130,7 @@ MonoBehaviour:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ab1fb13c71fe2b84e9a3590b37a05075
-    m_Address: Naninovel/Backgrounds/MainBackground/bg_abandoned_hospital_01
+    m_Address: Naninovel/Backgrounds/MainBackground/bg_brokenship_03
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -148,7 +148,7 @@ MonoBehaviour:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b2a770babc5d3b04aa66457001f0fd3a
-    m_Address: Naninovel/Backgrounds/MainBackground/bg_abandoned_hospital_01
+    m_Address: Naninovel/Backgrounds/MainBackground/bg_white_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
