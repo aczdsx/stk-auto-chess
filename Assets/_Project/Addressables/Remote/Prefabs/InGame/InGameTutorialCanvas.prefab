@@ -2266,6 +2266,7 @@ MonoBehaviour:
   _arrowRectTransform: {fileID: 1739892905590343195}
   _tutorialAnimator: {fileID: 2088504552747561980}
   _nextObj: {fileID: 5408735106140569227}
+  _nameText: {fileID: 8448242272155920103}
   _descText: {fileID: 4456396397753583302}
   _targetSpawnTransform: {fileID: 615909104438107504}
   _dimmedImage: {fileID: 1749412231986122217}

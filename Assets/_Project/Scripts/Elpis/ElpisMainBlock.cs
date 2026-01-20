@@ -25,6 +25,7 @@ namespace CookApps.AutoBattler
             private AsyncOperationHandle<GameObject> loadedHandle;
 
             public ElpisSubBlock SubBlock { get; private set; }
+            public Vector3 LastAnimationPosition => worldPointDest;
 
             public async UniTask InstantiateAsync()
             {
@@ -58,9 +59,9 @@ namespace CookApps.AutoBattler
                     return;
                 }
 
-                dummyBlock.AnimateExit().Forget();
+                await dummyBlock.AnimateExit();
                 SubBlock.CachedTr.position = worldPointSrc;
-                var tween = Tween.Position(SubBlock.CachedTr, worldPointDest, 2f, Ease.OutCirc);
+                var tween = Tween.Position(SubBlock.CachedTr, worldPointDest, 3f, Ease.OutCubic);
                 await tween;
             }
         }

@@ -387,7 +387,7 @@ MonoBehaviour:
   - {fileID: 8243990591582903035}
   - {fileID: 7367526158056348580}
   subBlockInfos:
-  - worldPointSrc: {x: -60, y: -9, z: 0}
+  - worldPointSrc: {x: -23, y: -30, z: 0}
     worldPointDest: {x: -23, y: -9, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     assetRef:
@@ -396,7 +396,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-  - worldPointSrc: {x: 0, y: -9, z: -60}
+  - worldPointSrc: {x: 0, y: -30, z: -23}
     worldPointDest: {x: 0, y: -9, z: -23}
     rotation: {x: 0, y: -0.70710677, z: 0, w: 0.70710677}
     assetRef:
@@ -873,15 +873,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9627407d77559b44be9991c1467eba6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9627407d77559b44be9991c1467eba6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9627407d77559b44be9991c1467eba6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9627407d77559b44be9991c1467eba6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -933,7 +933,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 384374e8f021453da7d376f74b6e0951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exitPoint: {x: -22, y: -25, z: 0}
+  blockPosRots:
+  - Pos: {x: -22, y: -15, z: -8}
+    Rot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &2958558714379320530 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f9627407d77559b44be9991c1467eba6, type: 3}
@@ -1054,6 +1056,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8304146985933688034, guid: 80f8b280c715fdf40b988a972460fb6e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2714789471338437881}
+    - targetCorrespondingSourceObject: {fileID: -8304146985933688034, guid: 80f8b280c715fdf40b988a972460fb6e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7822108914670918147}
+    - targetCorrespondingSourceObject: {fileID: -8304146985933688034, guid: 80f8b280c715fdf40b988a972460fb6e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7574698122187072954}
   m_SourcePrefab: {fileID: 100100000, guid: 80f8b280c715fdf40b988a972460fb6e, type: 3}
 --- !u!4 &1073756659891385113 stripped
 Transform:
@@ -1119,6 +1127,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingAnimator: {fileID: 0}
   spawnPoints: []
+--- !u!114 &7822108914670918147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6002405892379591575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec32f42bc3247bc9024c6e75ba15303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facilityType: 1
+--- !u!65 &7574698122187072954
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6002405892379591575}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 15, y: 15, z: 15}
+  m_Center: {x: 0, y: 0, z: 8}
 --- !u!4 &6343271105520244578 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 80f8b280c715fdf40b988a972460fb6e, type: 3}
@@ -1164,7 +1206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9627407d77559b44be9991c1467eba6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9627407d77559b44be9991c1467eba6, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1172,7 +1214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9627407d77559b44be9991c1467eba6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9627407d77559b44be9991c1467eba6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1228,7 +1270,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 384374e8f021453da7d376f74b6e0951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exitPoint: {x: 0, y: -25, z: -22}
+  blockPosRots:
+  - Pos: {x: -8, y: -15, z: -22}
+    Rot: {x: 0, y: -0.70710677, z: 0, w: 0.70710677}
 --- !u!4 &7604605528575654913 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f9627407d77559b44be9991c1467eba6, type: 3}

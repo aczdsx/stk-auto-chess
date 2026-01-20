@@ -273,20 +273,24 @@ namespace CookApps.AutoBattler
                     var mainCamera = MainCameraHolder.MainCamera;
                     var offsetZoom = mainCamera.orthographicSize;
                     var offsetPosition = mainCamera.transform.position;
+                    
+                    cameraController.SetCanInteractCamera(false);
 
                     await PlayExitAnimationAsync();
 
                     var subBlock = mainBlock.GetSubBlockInfo(subBlockIndex);
                     
-                    await cameraController.ZoomAndMoveAsync(subBlock.SubBlock.CachedTr.position, 14.1f, 0.3f);
-                    cameraController.SetFollowTarget(subBlock.SubBlock.CachedTr, 2.0f);
+                    await cameraController.ZoomAndMoveAsync(subBlock.LastAnimationPosition, 14.1f, 0.3f);
+                    //cameraController.SetFollowTarget(subBlock.SubBlock.CachedTr, 2.0f);
                     await mainBlock.AttachSubBlock(subBlockIndex, true);
 
                     mainBlock.RebuildNavMesh();
 
-                    cameraController.SetFollowTarget(null, 1.0f);
+                    //cameraController.SetFollowTarget(null, 1.0f);
                     cameraController.MoveAsync(offsetPosition, 0.3f).Forget();
                     await cameraController.ZoomAsync(offsetZoom, 0.3f);
+                    
+                    cameraController.SetCanInteractCamera(true);
                 }
 
                 currentCoreAmount = (int)inventoryDataBridge.GetCurrency(IdMap.Item.엘피스코어);

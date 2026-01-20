@@ -1,0 +1,88 @@
+﻿using CookApps.AutoBattler;
+using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class TouchableBuilding : MonoBehaviour
+{
+    [SerializeField] private ElpisFacilityType facilityType;
+
+    private ElpisDataBridge _elpisDataBridge;
+
+    private void Awake()
+    {
+        _elpisDataBridge = new ElpisDataBridge();
+    }
+
+    private void OnMouseDown()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        OnTouchBuilding().Forget();
+    }
+
+    private async UniTaskVoid OnTouchBuilding()
+    {
+        CameraFocus();
+
+        var facilityData = _elpisDataBridge.GetFacilityByType(facilityType);
+
+        if (facilityData == null)
+            return;
+
+        // 건설 완료 대기 상태 (IsJustCompleted)
+        if (facilityData.IsJustCompleted)
+        {
+            await HandleBuildComplete(facilityData);
+            return;
+        }
+
+        // 건설 중이거나 설치 가능한 상태
+        if (facilityData.IsBuilding || facilityData.Level <= 0)
+        {
+            OpenBuildLayer(facilityData);
+            return;
+        }
+
+        // 이미 설치 완료된 상태 - 팝업 오픈
+        await ElpisBuildingPopup.OpenPopup(facilityData);
+    }
+
+    private async UniTask HandleBuildComplete(ElpisFacility facilityData)
+    {
+        // 업그레이드인지 신규 건설인지 확인
+        if (facilityData.Level >= 1 && facilityData.IsUpgrading)
+        {
+            await NetManager.Instance.Elpis.FinishUpgradingFacilityAsync((int)facilityData.BuildId);
+        }
+        else
+        {
+            await NetManager.Instance.Elpis.FinishBuildingFacilityAsync((int)facilityData.BuildId);
+        }
+    }
+
+    private void OpenBuildLayer(ElpisFacility facilityData)
+    {
+        var buildInfo = SpecDataManager.Instance.GetBuildInfo((int)facilityData.BuildId);
+        if (buildInfo == null)
+            return;
+
+        var newParam = new ElpisBuildLayer.ElpisBuildCacheData
+        {
+            slotIndex = buildInfo.slot_index
+        };
+
+        SceneUILayerManager.Instance.PushUILayerAsync<ElpisBuildLayer>(newParam).Forget();
+    }
+
+    private void CameraFocus()
+    {
+        var cameraController = MainCameraHolder.CameraGestureController;
+        var targetZoom = 10.0f;
+
+        cameraController.ZoomAndMoveAsync(transform.position, targetZoom, 0.3f).Forget();
+    }
+}
