@@ -625,6 +625,7 @@ namespace CookApps.AutoBattler
         Skill_9002_4 = 264,
         Skill_401011_Prologue_2 = 265,
         Skill_401011_1_Prologue_2 = 266,
+        fx_common_prologue_artesia_charge = 267,
     }
 
     public enum GlobalEffectProviderType

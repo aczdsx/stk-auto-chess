@@ -9,7 +9,6 @@ namespace CookApps.BattleSystem
     {
         //위 클래스의 codeinfo는 0 데미지 1~n은 생성될 타일인덱스로 관리.
         private const int CodeId = (int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE;
-        private const string DamageColor = "#FF550000";
         private CharacterController _bombController = null;
 
         private const InGameVfxNameType ExplosionVfxEnum = InGameVfxNameType.fx_common_asterism_ts_bomb_01;
@@ -19,6 +18,7 @@ namespace CookApps.BattleSystem
 
         //트랩 데미지
         private float _effectCodeStat;
+        private int _killLogSynergyID;
 
 
         protected override void SetRuleTileByInfo(EffectCodeInfo codeInfo)
@@ -34,17 +34,18 @@ namespace CookApps.BattleSystem
             IEffectCodeSource source)
         {
             base.Initialize(codeInfo, container, source);
-            _effectCodeStat = codeInfo.GetCodeStatToInt(1);
-
             SetRuleTileByInfo(codeInfo);
+            _effectCodeStat = codeInfo.GetCodeStatToInt(1);
+            _killLogSynergyID = codeInfo.GetCodeStatToInt(2);
             
         }
 
         public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
         {
             base.Merge(codeInfo, source);
-            _effectCodeStat = codeInfo.GetCodeStatToInt(1);
             SetRuleTileByInfo(codeInfo);
+            _effectCodeStat = codeInfo.GetCodeStatToInt(1);
+            _killLogSynergyID = codeInfo.GetCodeStatToInt(2);
         }
 
         public override void OnTileMoveEnd(InGameTile tile, CharacterController character)
@@ -56,7 +57,7 @@ namespace CookApps.BattleSystem
             var InGameVfxManagerInstance = InGameVfxManager.Instance;
             var floorDamage = Math.Floor(_effectCodeStat);
 
-            var damage = CharacterController.DamageInfo.Create(floorDamage, codeId, AttackerType.CHARCTER);
+            var damage = CharacterController.DamageInfo.Create(floorDamage, CodeId, AttackerType.SYNERGY_STAR_ASTERISM);
             var explosionTiles = InGameObjectManagerInstance.InGameGrid.GetTileListByShapeSquare(tile, _explosionRange);
 
             foreach (var explosionTile in explosionTiles)

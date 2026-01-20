@@ -165,9 +165,10 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
             FinalDamageValue += character.AD;
         }
 
-        Span<double> stats = stackalloc double[5];
+        Span<double> stats = stackalloc double[3];
         stats.Clear();
         stats[1] = FinalDamageValue * (double)synergyData.effect_stat_value_2 * 0.01d;
+        stats[2] = synergyData.synergy_group_id;
 
         foreach (var dynamite in _dynamiteList)
         {
@@ -194,7 +195,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
 
     public void InjectDroppingBombsEffectCode(ISpecSynergyData synergyData)
     {
-        Span<double> stats = stackalloc double[3];
+        Span<double> stats = stackalloc double[4];
         var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
         double FinalDamageValue = 0;
         foreach (var character in playerCharacterList)
@@ -206,7 +207,8 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
         stats[0] = 3f;//Time
         stats[1] = FinalDamageValue * (double)synergyData.effect_stat_value_3 * 0.01d;//Damage
         stats[2] = synergyData.effect_stat_value_2;//Count
-        
+        stats[3] = synergyData.synergy_group_id;// killlog synergy id
+
         var effectCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.DROPPING_BOMBS, 0, stats);
 
         InGameManager.Instance.TeamEcc.AddOrMergeEffectCode(effectCodeInfo, null, AllianceType.Player);
