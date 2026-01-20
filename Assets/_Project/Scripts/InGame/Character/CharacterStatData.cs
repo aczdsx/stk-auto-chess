@@ -100,8 +100,8 @@ namespace CookApps.AutoBattler
 
             _level = level;
 
-            var levelBonusRate = CalculateLevelBonusRate(level);
-            InjectFixedValueByElpisCoreLabs();
+            var levelBonusRate = 0f;//CalculateLevelBonusRate(level);
+            // InjectFixedValueByElpisCoreLabs();
 
             {
                 var adBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_PERCENT_UP, 0, levelBonusRate, 0);
