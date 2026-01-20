@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using Unity.Mathematics;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// 슈퍼노바 클래스 시너지 타입 아이템만 만들고 
@@ -25,7 +26,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     private InGameVfx _supernovaApplyVfx;
     private const string NOT_SUPERNOVA_TYPE_TOKEN = "NOT_SUPERNOVA_TYPE";
     private const string NOT_SUPERNOVA_ITEM_APPLY = "NOT_SUPERNOVA_ITEM_APPLY";
-    
+
     // 배틀 아이템 등록 전에 ApplySupernovaItemBySavedCharacterId가 호출된 경우 예약
     private bool _isApplyReserved = false;
 
@@ -123,7 +124,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         InGameSynergyManager.Instance.ApplyBattleItem(battleItem, targetCharacter);
         _isApplyReserved = false;
     }
-    
+
     /// <summary>
     /// 예약된 아이템 적용 작업 실행
     /// </summary>
@@ -131,7 +132,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     {
         if (!_isApplyReserved)
             return;
-            
+
         _isApplyReserved = false;
         ApplySupernovaItemBySavedCharacterId();
     }
@@ -203,7 +204,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             tutorialTarget.SetTargetId("SupernovaItemTile_11");
         }
         InGameSynergyManager.Instance.RegisterBattleItem(itemInfo);
-        
+
         // 배틀 아이템 등록 완료 후 예약된 적용 작업 실행
         ExecuteReservedApply();
     }
@@ -239,15 +240,33 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     private void AddHpPercentUp(CharacterController targetCharacter, IEffectCodeSource source, List<ISpecSynergyData> supernovaSynergyList)
     {
 
-        float increaseValue = supernovaSynergyList[0].effect_stat_value_1 * 0.01f;
+        float increaseValue = supernovaSynergyList[0].effect_stat_value_1 * 0.01f;// 이건 퍼센트로 들어온다.
+        double halfIncreasedValue = 0d;
 
-        TakeToSupernovas(increaseValue, targetCharacter, source, EffectCodeNameType.HP_PERCENT_UP);
 
+        // TakeToSupernovas(increaseValue, targetCharacter, source, EffectCodeNameType.HP_UP);
         Span<double> stats = stackalloc double[1];
         stats.Clear();
-        stats[0] = increaseValue;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.HP_PERCENT_UP, targetCharacter, stats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.HP_PERCENT_UP);
+        var takeCharactersList = InGameObjectManager.Instance.GetCharacterList(targetCharacter.AllianceType);
+        foreach (var character in takeCharactersList)
+        {
+            if (character == targetCharacter ||
+            (character.SpecCharacter.character_stella_type != SynergyType.SUPERNOVA))
+            {
+                continue;
+            }
+            var value = character.HP * -increaseValue;
+            halfIncreasedValue += value;
+            stats[0] = value;
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.HP_UP, character, stats, source);
+            base.AddSynergyAddEffectCodeIds(EffectCodeNameType.HP_UP);
+        }
+
+        stats.Clear();
+        stats[0] = -halfIncreasedValue;
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.HP_UP,
+        targetCharacter, stats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.HP_UP);
 
         targetCharacter.SetMaxHealth();
 
@@ -255,6 +274,8 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
     private void AddAdPercentUp(CharacterController targetCharacter, IEffectCodeSource source, List<ISpecSynergyData> supernovaSynergyList)
     {
+        double halfIncreasedValue = 0d;
+
         Span<double> stats = stackalloc double[1];
         stats.Clear();
         float increaseValue = supernovaSynergyList[1].effect_stat_value_1 * 0.01f;
@@ -266,16 +287,38 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             {
                 continue;
             }
-            stats[0] = increaseValue * -1f;
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PERCENT_UP, character, stats, source);
-            base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_PERCENT_UP);
+            if (character.SpecCharacter.atk_type == AtkType.AD)
+            {
+                var value = character.AD * -increaseValue;
+                halfIncreasedValue += value;
+                stats[0] = value;
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_UP, character, stats, source);
+                base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_UP);
+            }
+            else
+            {
+                var value = character.AP * -increaseValue;
+                halfIncreasedValue += value;
+                stats[0] = value;
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AP_UP, character, stats, source);
+                base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AP_UP);
+            }
+
         }
 
 
         stats.Clear();
-        stats[0] = supernovaSynergyList[(int)SupernovaGrade.ADD_AD_PERCENT].effect_stat_value_1;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PERCENT_UP, targetCharacter, stats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_PERCENT_UP);
+        stats[0] = -halfIncreasedValue;
+        if (targetCharacter.SpecCharacter.atk_type == AtkType.AD)
+        {
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_UP, targetCharacter, stats, source);
+            base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_UP);
+        }
+        else
+        {
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AP_UP, targetCharacter, stats, source);
+            base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AP_UP);
+        }
     }
     private void AddAttackSpeedCriticalRateAtkPierce(CharacterController targetCharacter, IEffectCodeSource source, List<ISpecSynergyData> supernovaSynergyList)
     {
@@ -286,36 +329,12 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         float criticalRateValue = targetData.effect_stat_value_2 * 0.01f;
         float atkPierceValue = targetData.effect_stat_value_3 * 0.01f;
 
-        TakeToSupernovas(atkSpeedValue, targetCharacter, source, EffectCodeNameType.ATK_SPEED_PERCENT_UP);
-        TakeToSupernovas(criticalRateValue, targetCharacter, source, EffectCodeNameType.CRIT_RATE_PERCENT_UP);
-        TakeToSupernovas(atkPierceValue, targetCharacter, source, EffectCodeNameType.AD_PIERCE_PERCENT_UP);
+        double halfAtkSpeedValue = 0d;
+        double halfCriticalRateValue = 0d;
+        double halfAtkPierceValue = 0d;
 
         Span<double> stats = stackalloc double[1];
-
         stats.Clear();
-        stats[0] = atkSpeedValue;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.ATK_SPEED_PERCENT_UP, targetCharacter, stats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.ATK_SPEED_PERCENT_UP);
-
-        stats.Clear();
-        stats[0] = criticalRateValue;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_RATE_PERCENT_UP, targetCharacter, stats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_RATE_PERCENT_UP);
-
-        stats.Clear();
-        stats[0] = atkPierceValue;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PIERCE_PERCENT_UP, targetCharacter, stats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_PIERCE_PERCENT_UP);
-
-    }
-
-    private void TakeToSupernovas(float value, CharacterController targetCharacter,
-    IEffectCodeSource source, EffectCodeNameType effectCodeNameType)
-    {
-        Span<double> stats = stackalloc double[1];
-        stats.Clear();
-        value = value * -1;
-
         var takeCharactersList = InGameObjectManager.Instance.GetCharacterList(targetCharacter.AllianceType);
         foreach (var character in takeCharactersList)
         {
@@ -323,14 +342,65 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             (character.SpecCharacter.character_stella_type != SynergyType.SUPERNOVA))
             {
                 continue;
-
             }
+            var value = character.AttackSpeed * -atkSpeedValue;
+            halfAtkSpeedValue += value;
             stats[0] = value;
-            EffectCodeHelper.AddOrMergeEffectCode(effectCodeNameType, character, stats, source);
-            base.AddSynergyAddEffectCodeIds(effectCodeNameType);
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.ATK_SPEED_UP, character, stats, source);
+            base.AddSynergyAddEffectCodeIds(EffectCodeNameType.ATK_SPEED_UP);
 
+            value = character.CriticalProb * -criticalRateValue;
+            halfCriticalRateValue += value;
+            stats[0] = value;
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_RATE_UP, character, stats, source);
+            base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_RATE_UP);
+
+            value = character.ADPierce * -atkPierceValue;
+            halfAtkPierceValue += value;
+            stats[0] = value;
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PIERCE_UP, character, stats, source);
+            base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_PIERCE_UP);
         }
+
+        stats.Clear();
+        stats[0] = -halfAtkSpeedValue;
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.ATK_SPEED_UP, targetCharacter, stats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.ATK_SPEED_UP);
+
+
+        stats.Clear();
+        stats[0] = -halfCriticalRateValue;
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_RATE_UP, targetCharacter, stats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_RATE_UP);
+
+        stats.Clear();
+        stats[0] = -halfAtkPierceValue;
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.AD_PIERCE_UP, targetCharacter, stats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.AD_PIERCE_UP);
+
     }
+
+    // private void TakeToSupernovas(float value, CharacterController targetCharacter,
+    // IEffectCodeSource source, EffectCodeNameType effectCodeNameType, float targetHalfValue)
+    // {
+    //     Span<double> stats = stackalloc double[1];
+    //     stats.Clear();
+    //     value = value * -1;//-0.5퍼로 들어온다.
+
+    //     var takeCharactersList = InGameObjectManager.Instance.GetCharacterList(targetCharacter.AllianceType);
+    //     foreach (var character in takeCharactersList)
+    //     {
+    //         if (character == targetCharacter ||
+    //         (character.SpecCharacter.character_stella_type != SynergyType.SUPERNOVA))
+    //         {
+    //             continue;
+    //         }
+    //         stats[0] = value;
+    //         EffectCodeHelper.AddOrMergeEffectCode(effectCodeNameType, character, stats, source);
+    //         base.AddSynergyAddEffectCodeIds(effectCodeNameType);
+
+    //     }
+    // }
 
     public override void OnPreRemoved()
     {
