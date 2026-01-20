@@ -1109,10 +1109,10 @@ MonoBehaviour:
     - name: Scripts/Chapter1_11
       pathPrefix: Scripts
       guid: 909523b307601b44bb2aea79c57723ad
-    - name: Scripts/Plologue_01
+    - name: Scripts/Prologue_01
       pathPrefix: Scripts
       guid: 32a65bd9420b96b40ae66c70d725e94f
-    - name: Scripts/Plologue_03
+    - name: Scripts/Prologue_03
       pathPrefix: Scripts
       guid: 54becdc6deb5141ccb3b49c78cf0b0d5
   - Id: CharacterAvatars
