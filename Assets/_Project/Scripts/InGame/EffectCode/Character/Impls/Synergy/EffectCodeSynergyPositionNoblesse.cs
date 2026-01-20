@@ -22,6 +22,7 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeSynergyBase
     private float _statValue_1;
     private float _statValue_2;
     private NoblesseGrade _synergyGrade;
+    private InGameVfx _crownVfx;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -86,6 +87,11 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeSynergyBase
     }
     private void ImmuneAllDebuff(IEffectCodeSource source)
     {
+        if (_crownVfx == null)
+        {
+            _crownVfx.Remove();
+        }
+        _crownVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_nb_crown_01, owner.SkillRootTransformFollowable);
         Span<double> buffStats = stackalloc double[3];
 
 
@@ -100,6 +106,10 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeSynergyBase
     
     public override void OnPreRemoved()
     {
+        if (_crownVfx != null)
+        {
+            _crownVfx.Remove();
+        }
         base.OnPreRemoved();
     }
 

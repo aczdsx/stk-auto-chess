@@ -3,6 +3,7 @@ using CookApps.AutoBattler;
 using CookApps.Obfuscator;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace CookApps.BattleSystem
 {
@@ -34,7 +35,7 @@ namespace CookApps.BattleSystem
             public long source;
 
             // // 데미지 계산 히스토리 (각 단계별 데미지 변경 추적)
-            // public List<DamageCalculationStep> calculationHistory;
+            public List<DamageCalculationStep> calculationHistory;
 
             // 외부에서 DamageInfo를 생성할 때 사용하는 함수
             public static DamageInfo Create(double damageAmount, long source, AttackerType attackerType, bool isAD = true, bool isCritical = false, bool isDoubleCritical = false)
@@ -49,29 +50,29 @@ namespace CookApps.BattleSystem
                     isDoubleCritical = isDoubleCritical,
                     isBlocked = false,
                     isMissed = false,
-                    // calculationHistory = new List<DamageCalculationStep>()
+                    calculationHistory = new List<DamageCalculationStep>()
                 };
             }
         }
 
         // 데미지 계산 단계 정보
-        // public struct DamageCalculationStep
-        // {
-        //     public string stepName;           // 단계 이름
-        //     public double damageBefore;       // 변경 전 데미지
-        //     public double damageAfter;        // 변경 후 데미지
-        //     public string description;        // 변경 사유/설명
-        //     public double multiplier;         // 적용된 배율 (있는 경우)
+        public struct DamageCalculationStep
+        {
+            public string stepName;           // 단계 이름
+            public double damageBefore;       // 변경 전 데미지
+            public double damageAfter;        // 변경 후 데미지
+            public string description;        // 변경 사유/설명
+            public double multiplier;         // 적용된 배율 (있는 경우)
 
-        //     public DamageCalculationStep(string stepName, double damageBefore, double damageAfter, string description, double multiplier = 1.0)
-        //     {
-        //         this.stepName = stepName;
-        //         this.damageBefore = damageBefore;
-        //         this.damageAfter = damageAfter;
-        //         this.description = description;
-        //         this.multiplier = multiplier;
-        //     }
-        // }
+            public DamageCalculationStep(string stepName, double damageBefore, double damageAfter, string description, double multiplier = 1.0)
+            {
+                this.stepName = stepName;
+                this.damageBefore = damageBefore;
+                this.damageAfter = damageAfter;
+                this.description = description;
+                this.multiplier = multiplier;
+            }
+        }
 
         /// <summary>
         /// 데미지 계산해서 벹는함수.
@@ -232,11 +233,11 @@ namespace CookApps.BattleSystem
         // 데미지 히스토리 추가 헬퍼 함수
         private void AddDamageHistory(ref DamageInfo damageInfo, string stepName, double damageBefore, double damageAfter, string description, double multiplier = 1.0)
         {
-            // if (damageInfo.calculationHistory == null)
-            // {
-            //     damageInfo.calculationHistory = new List<DamageCalculationStep>();
-            // }
-            // damageInfo.calculationHistory.Add(new DamageCalculationStep(stepName, damageBefore, damageAfter, description, multiplier));
+            if (damageInfo.calculationHistory == null)
+            {
+                damageInfo.calculationHistory = new List<DamageCalculationStep>();
+            }
+            damageInfo.calculationHistory.Add(new DamageCalculationStep(stepName, damageBefore, damageAfter, description, multiplier));
         }
 
         /// <summary>
@@ -289,6 +290,8 @@ namespace CookApps.BattleSystem
         {
             if (CriticalTest())
             {
+                AddDamageHistory(ref damageInfo, "크리티컬 테스트" ,damageInfo.damageAmount.Value,
+                (_fixedCriticalProb + CriticalProb) * 100f, "크리티컬 성공", (_fixedCriticalProb + CriticalProb));
                 ApplyCriticalDamage(ref damageInfo);
             }
         }
@@ -586,6 +589,30 @@ namespace CookApps.BattleSystem
         {
             InGameTextView textView = InGameTextViewPool.Instance.Get();
             await textView.ShowMissText(GetCharacterView().CachedTr.position, _statData.Spec.height);
+        }
+
+        private bool CriticalTest()
+        {
+            return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < (_fixedCriticalProb + CriticalProb) * 100; // OK
+        }
+
+        public void SetFixedCriticalProb(float fixedCriticalProb)
+        {
+            _fixedCriticalProb = fixedCriticalProb;
+        }
+        public void ResetFixedCriticalProb()
+        {
+            _fixedCriticalProb = 0f;
+        }
+
+        public bool PureDamageTest()
+        {
+            return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < PureDamageProb * 100; // OK
+        }
+
+        private bool DoubleCriticalTest()
+        {
+            return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < DoubleCriticalProb; // OK
         }
     }
 }

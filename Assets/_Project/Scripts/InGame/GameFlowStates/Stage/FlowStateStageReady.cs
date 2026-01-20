@@ -132,7 +132,7 @@ public class FlowStateStageReady : StateReadyBase
             int2 coordinate = new int2(x, y);
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(characterStat, coordinate,
                 AllianceType.Player,
-                typeof(CharacterStateReady), true, HpBarType.Synergy | HpBarType.HpBar));
+                typeof(CharacterStateReady), true, HpBarType.Synergy));
         }
 
         var characters = await UniTask.WhenAll(addCharacterTasks);
