@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2110787279433880902}
   - component: {fileID: 3087646320133179645}
   m_Layer: 0
-  m_Name: cbg_01_02
+  m_Name: cbg_01_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d9fde4500e7514b49aa80bb9dc6743ed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5685b1dcfcf49ef478927ea784ecd59e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
