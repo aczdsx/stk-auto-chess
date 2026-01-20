@@ -32,7 +32,6 @@ namespace CookApps.TeamBattle.UIManagements
                 "SynergyTooltipInGamePopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/SynergyTooltipInGamePopup.prefab",
                 "SynergyTooltipPopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/SynergyTooltipPopup.prefab",
                 "AccountLevelUpWindowPopup" => "Prefabs/UI/01_Pops/WindowPopup/AccountLevelUpWindowPopup.prefab",
-                "AttendancePopup" => "Prefabs/UI/01_Pops/WindowPopup/AttendancePopup.prefab",
                 "ChapterClearWindowPopup" => "Prefabs/UI/01_Pops/WindowPopup/ChapterClearWindowPopup.prefab",
                 "ChapterMain" => "Prefabs/UI/01_Pops/WindowPopup/ChapterMain.prefab",
                 "CommanderSkillPopup" => "Prefabs/UI/01_Pops/WindowPopup/CommanderSkillPopup.prefab",
@@ -71,12 +70,13 @@ namespace CookApps.TeamBattle.UIManagements
         {
             return sceneName switch
             {
-                "Naninovel" => "Assets/_Project/Addressables/Remote/Scenes/Naninovel.unity",
-                "Lobby" => "Assets/_Project/Addressables/Remote/Scenes/Lobby.unity",
-                "InGame" => "Assets/_Project/Addressables/Remote/Scenes/InGame.unity",
-                "SceneLoading" => "Assets/_Project/Addressables/Remote/Scenes/SceneLoading.unity",
+                "Naninovel" => "Assets/_Project/Addressables/Remote/0. Scenes/Naninovel.unity",
+                "Lobby" => "Assets/_Project/Addressables/Remote/0. Scenes/Lobby.unity",
+                "InGame" => "Assets/_Project/Addressables/Remote/0. Scenes/InGame.unity",
+                "SceneLoading" => "Assets/_Project/Addressables/Remote/0. Scenes/SceneLoading.unity",
                 "BattleReady" => "Assets/_Project/Addressables/Remote/0. Scenes/BattleReady.unity",
-                "SkillScene" => "Assets/_Project/Addressables/Remote/Scenes/SkillScene.unity",
+                "InGameTest" => "Assets/_Project/Addressables/Remote/0. Scenes/InGameTest.unity",
+                "Title" => "Assets/_Project/Addressables/BuiltIn/0. Scenes/Title.unity",
                 _ => string.Empty
             };
         }

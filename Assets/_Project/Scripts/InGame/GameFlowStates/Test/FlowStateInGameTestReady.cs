@@ -10,6 +10,7 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 public class FlowStateInGameTestReady : StateReadyBase
 {
     private InGameTestConfig _testConfig;
+    private StageInfo _specStage;
 
     public override void SetStateData(object data)
     {
@@ -19,6 +20,27 @@ public class FlowStateInGameTestReady : StateReadyBase
         if (_testConfig == null)
         {
             Debug.LogError("FlowStateInGameTestReady: TestConfig is null!");
+            return;
+        }
+
+        // Stage 모드이고 StageId가 설정되어 있으면 스테이지 데이터 로드
+        if (_testConfig.Mode == TestMode.Stage && _testConfig.StageId > 0)
+        {
+            _specStage = SpecDataManager.Instance.GetStageData(_testConfig.StageId);
+            if (_specStage != null)
+            {
+                // InGameManager에 SpecStage 설정 (다른 시스템에서 참조할 수 있도록)
+                InGameManager.Instance.SetSpecStageForTest(_specStage);
+                Debug.LogColor($"[Test] Stage 모드: {_specStage.chapter_id}-{_specStage.stage_number} (맵: {_specStage.map_size})", "yellow");
+            }
+            else
+            {
+                Debug.LogError($"[Test] 스테이지 데이터를 찾을 수 없음: {_testConfig.StageId}");
+            }
+        }
+        else
+        {
+            Debug.LogColor($"[Test] Custom 모드: 그리드 {_testConfig.GridWidth}x{_testConfig.GridHeight}", "cyan");
         }
     }
 
@@ -31,6 +53,136 @@ public class FlowStateInGameTestReady : StateReadyBase
 
         // 카메라 설정
         var inGameCamera = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera);
+
+        // 스테이지 모드인 경우
+        if (_specStage != null)
+        {
+            await InitStageMode(addCharacterTasks, inGameCamera);
+        }
+        else
+        {
+            // 수동 모드
+            await InitManualMode(addCharacterTasks, inGameCamera);
+        }
+
+        await UniTask.WhenAll(addCharacterTasks);
+
+        // UI가 있으면 초기화
+        var inGameMain = InGameMain.GetInGameMain();
+        if (inGameMain != null)
+        {
+            inGameMain.InitReadyStateUI(new List<Tech.Hive.V1.DeckCharacterPlacement>());
+        }
+
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
+        MainCameraHolder.MainCamera.transform.rotation = Quaternion.Euler(30f, 45f, 0f);
+
+        StartDrawingLinesAsync(2.0f).Forget();
+    }
+
+    /// <summary>
+    /// 스테이지 모드: SpecData에서 몬스터/장애물 정보를 가져와서 배치
+    /// </summary>
+    private async UniTask InitStageMode(List<UniTask<CharacterController>> addCharacterTasks, InGameCamera inGameCamera)
+    {
+        // 카메라 설정 (챕터에 따라)
+        bool isSize75 = _specStage.chapter_id == 1 || _specStage.chapter_id == 2;
+        if (inGameCamera != null)
+        {
+            inGameCamera.SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
+        }
+
+        // 스테이지 몬스터 배치
+        List<StageMonster> monsters = SpecDataManager.Instance.GetStageMonsterList(
+            _specStage.chapter_id,
+            _specStage.stage_number,
+            _specStage.difficulty_type);
+
+        float monsterMultipleHp = 1.0f;
+        foreach (var monster in monsters)
+        {
+            monsterMultipleHp = monster.multiple_hp;
+            Debug.LogColor($"[Test] 스테이지 몬스터 추가: {monster.monster_id}", "yellow");
+
+            var statData = new CharacterStatData(
+                monster.monster_id,
+                monster.monster_lv,
+                monster.multiple_atk,
+                monster.multiple_hp);
+
+            string[] coordinates = monster.coordinate.Split(',');
+            int x = int.Parse(coordinates[0]);
+            int y = int.Parse(coordinates[1]);
+            int2 coordinate = new int2(x, y);
+
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(
+                statData,
+                coordinate,
+                AllianceType.Enemy,
+                typeof(CharacterStateReady),
+                true,
+                HpBarType.Synergy | HpBarType.HpBar));
+        }
+
+        // 장애물 설치
+        foreach (var gridID in _specStage.obstacle_grid_id)
+        {
+            addCharacterTasks.Add(
+                InGameObjectManager.Instance.AddNonStatObstacleToField(
+                    gridID,
+                    _specStage.obstacle_id,
+                    AllianceType.Wall));
+        }
+
+        // 체력이 있는 장애물 설치
+        foreach (var gridID in _specStage.neutral_grid_id)
+        {
+            Debug.LogColor($"[Test] neutral 추가: {_specStage.neutral_wall_id}", "yellow");
+            var statData = new CharacterStatData(_specStage.neutral_wall_id, 1, 1, monsterMultipleHp);
+
+            var tile = InGameObjectManager.Instance.GetInGameTile(gridID);
+            int2 coordinate = new int2(tile.X, tile.Y);
+
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(
+                statData,
+                coordinate,
+                AllianceType.Enemy,
+                typeof(CharacterStateReady),
+                false,
+                HpBarType.None));
+        }
+
+        // 테스트용 플레이어 캐릭터 배치 (수동 설정된 것 사용)
+        foreach (var player in _testConfig.PlayerCharacters)
+        {
+            if (player.CharacterId <= 0) continue;
+
+            Debug.LogColor($"[Test] 플레이어 추가: {player.CharacterId} at ({player.GridX}, {player.GridY})", "cyan");
+            var statData = new CharacterStatData(
+                player.CharacterId,
+                player.Level,
+                player.MultipleAtk,
+                player.MultipleHp
+            );
+
+            int2 coordinate = new int2(player.GridX, player.GridY);
+            addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(
+                statData,
+                coordinate,
+                AllianceType.Player,
+                typeof(CharacterStateReady),
+                true,
+                HpBarType.Synergy | HpBarType.HpBar
+            ));
+        }
+    }
+
+    /// <summary>
+    /// 수동 모드: TestConfig에서 설정한 캐릭터 정보로 배치
+    /// </summary>
+    private UniTask InitManualMode(List<UniTask<CharacterController>> addCharacterTasks, InGameCamera inGameCamera)
+    {
+        // 카메라 설정
         if (inGameCamera != null)
         {
             inGameCamera.SetCameraSize(_testConfig.CameraSize, _testConfig.CameraPosition, 1.0f).Forget();
@@ -41,7 +193,7 @@ public class FlowStateInGameTestReady : StateReadyBase
         {
             if (enemy.CharacterId <= 0) continue;
 
-            Debug.LogColor($"[Test] 적 추가 : {enemy.CharacterId} at ({enemy.GridX}, {enemy.GridY})", "yellow");
+            Debug.LogColor($"[Test] 적 추가: {enemy.CharacterId} at ({enemy.GridX}, {enemy.GridY})", "yellow");
             var statData = new CharacterStatData(
                 enemy.CharacterId,
                 enemy.Level,
@@ -65,7 +217,7 @@ public class FlowStateInGameTestReady : StateReadyBase
         {
             if (player.CharacterId <= 0) continue;
 
-            Debug.LogColor($"[Test] 플레이어 추가 : {player.CharacterId} at ({player.GridX}, {player.GridY})", "cyan");
+            Debug.LogColor($"[Test] 플레이어 추가: {player.CharacterId} at ({player.GridX}, {player.GridY})", "cyan");
             var statData = new CharacterStatData(
                 player.CharacterId,
                 player.Level,
@@ -84,20 +236,7 @@ public class FlowStateInGameTestReady : StateReadyBase
             ));
         }
 
-        await UniTask.WhenAll(addCharacterTasks);
-
-        // UI가 있으면 초기화
-        var inGameMain = InGameMain.GetInGameMain();
-        if (inGameMain != null)
-        {
-            inGameMain.InitReadyStateUI(new List<Tech.Hive.V1.DeckCharacterPlacement>());
-        }
-
-        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
-        MainCameraHolder.MainCamera.transform.rotation = Quaternion.Euler(30f, 45f, 0f);
-
-
-        StartDrawingLinesAsync(2.0f).Forget();
+        return UniTask.CompletedTask;
     }
 
     private async UniTaskVoid AutoStartCombatAsync()

@@ -1,0 +1,108 @@
+; =============================================
+; Title: Prologue_WhiteNight
+; Description: 아트레시아와의 이별 (단일 선택지 적용)
+; =============================================
+
+
+
+@sfx NoiseSFX volume:0.5
+@back bg_black_01
+@bgm snd_bgm_dialog_sad_001
+
+; @char atresia_00.Talk pos:50,-235 scale:1.38
+@spawn cbg_00_00
+
+; @back bg_white_01 transition:SlideIn time:0.5
+; @voice Atresia_01
+@back bg_ruins_03
+atresia_00: 하하…이렇게 마지막 인사를 드리긴 싫지만, 상황이 상황이니 만큼 어쩔 수 없네요.
+
+
+@spawn ShakeCamera
+Narrator: 대적할 수 없는 폭력이 지축을 흔들며 다가오고 있는게 느껴진다.
+
+; 플레이어 대사 (보이스 없음)
+@choice "\"아트레시아…다른 성단원 들은…\""
+@stop
+
+; Line 3
+Narrator: (아트레시아는 서글픈듯한 모습으로 당신을 바라보고 있다.)
+
+; Line 4 (보이스 추가)
+; @voice Atresia_02
+atresia_00: 성단원들과 이야기 했던 최후의 수단을 쓸 차례에요. 저희는 걱정 마세요. 이번엔 우리가 관측자님을 지켜줄 차례가 왔을 뿐이니.
+
+; --- [Player 선택지 2] ---
+@spawn ShakeCamera
+
+@choice "\"아트레시아. 제발 이러지마. 나는….! 크읔……!\""
+@stop
+
+; Line 6
+atresia_00: (폐부에 찌를듯한 통증에 몸이 굳는다.)
+(점점 닫혀가는 문 사이로 아트레시아의 얼굴이 사라져 간다)
+
+; Line 7 (보이스 추가)
+; @voice Atresia_03
+atresia_00: 지금은… 이렇게 할 수 밖에 없어요.
+
+; Line 8 (보이스 추가)
+; @voice Atresia_04
+atresia_00: 부디 살아주세요.
+
+; Line 9 (보이스 추가)
+; @voice Atresia_05
+atresia_00: 당신이…우리가 ■■■ ■■, ■■의 ■■이 되는 거에요.
+그럼….안녕. 나의 구원자님
+
+@back bg_black_01
+
+; --- [Player 선택지 3 - 절규] ---
+@spawn ShakeCamera
+
+@choice "\"아트레시아!!!!!!\""
+@stop
+
+
+@despawn cbg_00_00
+
+; --- [격벽 폐쇄 연출] ---
+; 격벽 패쇄 효과음
+
+; Line 11
+Narrator: 어느새 익숙해져 버린 기계음과 함께 강철관의 격벽이 내려진다.
+
+; Line 12 (기계음 - 보이스 없음)
+Machine: ….H.O.P.E(Humanity's Observation of Possibility Explorer) 기동.
+
+; --- [Player 선택지 4 - 저항] ---
+@choice "\"정지하고 문 열어!!\""
+@stop
+@spawn ShakeCamera
+Narrator: 손 마디마디가 피에 젖어 펴지지 않을 정도로 격벽을 두드렸지만,
+기계는 개의치 않는다는 듯 자신의 역할을 충실히 이행한다.
+
+; Line 15 (기계음 - 보이스 없음)
+Machine: 사용자를 스캔합니다…
+
+; Line 16 (기계음 - 보이스 없음)
+Machine: 관측자 No. 00■■ 확인 설정된 관측 지점으로 다이브 합니다.
+
+; --- [엔딩 및 이동] ---
+@back bg_white_01 transition:Ripple time:0.5
+
+Narrator: 시야가 온통 하얗게 불타오른다. 세계가 무너지는 굉음과 함께, 모든 것이 어둠 속으로...
+
+@wait 3
+
+@movie Movie_01
+
+
+@back bg_black_01 time:1.5 transition:Crossfade
+;신전환 효과음
+@hideUI
+@hidePrinter Dialogue
+@hideChars
+@skip false
+
+@end

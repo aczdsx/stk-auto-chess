@@ -7,7 +7,15 @@ public class CharacterStateAttack : CharacterStateBase
 {
     protected bool isAttackAnimRunning;
     public override StatePriority StatePriority => StatePriority.Attack;
-    protected float _vfxProjectileSpeed = 30f;
+    protected float _vfxProjectileSpeed = 30;
+
+    public override void SetStateData(object projectileSpeed)
+    {
+        if(projectileSpeed is float speed)
+        {
+            _vfxProjectileSpeed = speed;
+        }
+    }
 
     public override void StateStart()
     {
@@ -191,4 +199,5 @@ public class CharacterStateAttack : CharacterStateBase
         characCtrl.GetCharacterView().SetAnimationSpeed(1f);
         base.StateEnd(isForced);
     }
+
 }

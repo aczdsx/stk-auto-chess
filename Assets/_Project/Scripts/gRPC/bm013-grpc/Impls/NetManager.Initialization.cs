@@ -19,6 +19,7 @@ namespace CookApps.AutoBattler
                 Deck.ListAsync(cancellationToken),
                 Battle.GetCurrentChapterAsync(cancellationToken),
                 Battle.ListChapterAsync(cancellationToken),
+                Event.ListAsync(cancellationToken),
                 Initialize_Elpis()
             );
         }

@@ -118,7 +118,7 @@ MonoBehaviour:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 32a65bd9420b96b40ae66c70d725e94f
-    m_Address: "Naninovel/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C1"
+    m_Address: Naninovel/Scripts/Prologue_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -202,7 +202,7 @@ MonoBehaviour:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 54becdc6deb5141ccb3b49c78cf0b0d5
-    m_Address: "Naninovel/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C3"
+    m_Address: Naninovel/Scripts/Plologue_03
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel

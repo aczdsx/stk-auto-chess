@@ -95,6 +95,9 @@ namespace CookApps.AutoBattler
             // 서버 데이터 초기화 (Elpis 포함)
             await NetManager.Instance.InitializeAsync();
 
+            // 클라이언트 이벤트 추적 시작
+            ClientEventTracker.Instance.StartTracking();
+
             // var transition1 = SceneTransition_FadeInOut.Create();
             // 프롤로그로 진입하게 해줘야함
             // SceneLoading.GoT`oNextScene("InGame",
@@ -198,28 +201,6 @@ namespace CookApps.AutoBattler
 
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_splash01);
-        }
-
-        // 유저 세션 타임 기록
-        private static async UniTask RecordSessionTime()
-        {
-            // TODO: @twhan TimeSystem 따위의 시간 관련 시스템이 완성되면 수정 필요
-            var specEventData = SpecDataManager.Instance.GetSpecEventData(EventType.ACC_PLAY_TIME);
-            if (specEventData == null)
-                return;
-
-            while (true)
-            {
-                //var userDataValue = UserDataManager.Instance.GetUserEventData(specEventData.event_id).ActionCount;
-                //Debug.Log("***********************RecordSessionTime Test***********************   =>  " + userDataValue);
-
-                await UniTask.Delay(1000 * 60);
-
-                UserDataManager.Instance.SetUserEventActionCount(specEventData.event_id, 1, true, true);
-
-                // 앱이벤트용 플레이 타임 데이터 기록
-                UserDataManager.Instance.SetUserTotalPlayTime(1, true);
-            }
         }
 
         /// <summary>

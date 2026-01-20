@@ -69,6 +69,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6fdb81fbe2df7b04d833d315199ca2d0
+    m_Address: Naninovel/Backgrounds/bg_hasole_04
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7c6fcb6f5a7574f459d2f059aa521fac
     m_Address: Naninovel/Backgrounds/bg_abandoned_hospital_02
     m_ReadOnly: 0

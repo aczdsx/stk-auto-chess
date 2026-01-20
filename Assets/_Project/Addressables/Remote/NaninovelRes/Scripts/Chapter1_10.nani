@@ -1,6 +1,6 @@
 ; [META] Chapter1_09 | NSR(부르미)로 네피림 소환, 돌파 전개
 ; @back bg_arke_grassland_02 fade:1
-@back bg_arche_00
+@back bg_arche_02
 
 @char uni_00.Talk pos:30,-240 scale:1.38
 @spawn ShakeCharacter params:uni_00
@@ -9,14 +9,14 @@ uni_00: 나는 네피림 중에 베놈이 제일 싫더라.
 
 @char atresia_00.Talk pos:60,-235,-1 scale:1.38
 atresia_00: 그래도 아무도 다치지 않아서 다행이에요.
-;(총기를 재정비하며)
+; (총기를 재정비하며)
 @char philia_00.Talk pos:90,-235 scale:1.38
 philia_00: 생각보다 전투가 버겁군요.
 
 Narrator: 말없이 스쿼드를 둘러본다. 아트레시아, 유니, 필리아.
 Narrator: ...하지만 '클레이'가 있었어야 할 자리가 비어있다.
 
-;(시선을 눈치챈듯) 
+; (시선을 눈치챈듯)
 atresia_00: 플레이아데스는 현재 두 자리나 공석이니까요.
 uni_00: 다… 이게 클레이의 빈자리인가?
 
@@ -45,7 +45,7 @@ philia_00: 사달라고 조른 건 아닙니까?
 @char uni_00.normal pos:30,-235 scale:1.38
 @spawn ShakeCharacter params:uni_00
 uni_00: 아니거든!! 절대 아니거든?!
-;(조용히, 그리워하는 목소리로) 
+; (조용히, 그리워하는 목소리로)
 
 @char atresia_00.sad pos:60,-235,-1 scale:1.38
 atresia_00: 그래도... 팀을 가장 먼저 생각해 주는 동료였어요.
@@ -69,17 +69,17 @@ philia_00: 보통 행성을 정화하기 위해 네피림의 일망타진이 필
 @spawn ShakeCharacter params:uni_00
 uni_00: 아니?! 그런 흉악한 유물이 왜 여기있는거야?!
 philia_00: 그것은 잘 모르겠으나, 확실한건….
-;(돌아보며 다급하게)
+; (돌아보며 다급하게)
 philia_00: 빨리 벗어나지 않으면 대량의 네피림에 둘러쌓인다는 사실입니다.
 philia_00: 마스터, 빠르게 대피 명령을…..!
 
 @spawn ShakeCamera
-;쉐이크 카메라
+; 쉐이크 카메라
 k_Nephilim: 키에에에엑!
 Narrator: 대답을 기다렸다는 듯, 사방의 땅 밑에서, 숲 속에서, 수십 마리의 네피림이 모습을 드러낸다!
 Narrator: 그에 호응하듯 'NSR'의 파장이 최고조에 달해간다.
 
-;(노이즈 섞인 다급한 목소리)
+; (노이즈 섞인 다급한 목소리)
 
 @hideChars
 @char asna_00.Talk pos:60,-240 scale:1.38
@@ -144,13 +144,11 @@ uni_00: 으아! 같이가!
 @spawn ShakeCharacter params:uni_00
 uni_00: ..인....인카운트!
 
-@back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+@back bg_black_01 transition:Crossfade time:1.5
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars
 @skip false
 
 @end
-
-

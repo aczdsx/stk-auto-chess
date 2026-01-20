@@ -1656,7 +1656,7 @@ PrefabInstance:
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: bae3b6f2a417cad4da4c53332f13f985, type: 3}
+      objectReference: {fileID: 21300000, guid: 2888a1281578ace4d845a8836c3e5bae, type: 3}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1740,7 +1740,7 @@ PrefabInstance:
     - target: {fileID: 8930392514175655393, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 121d2a60ba486d049be0e4bdf040f96d, type: 3}
+      objectReference: {fileID: 21300000, guid: d6bcebf4a02e2ae4890cde2597b50733, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2326,7 +2326,7 @@ PrefabInstance:
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: adf06d4401cd7e549a425ded5fd6a4b4, type: 3}
+      objectReference: {fileID: 21300000, guid: 17c2ba4ab7ed5ca49a9010ab51e870e0, type: 3}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2410,7 +2410,7 @@ PrefabInstance:
     - target: {fileID: 8930392514175655393, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: e8e6f383fe73dae4f99a6e4ee49e19e3, type: 3}
+      objectReference: {fileID: 21300000, guid: e338992f3f40ed44b95528c00fc2b978, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3131,7 +3131,7 @@ PrefabInstance:
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 93f6d4fbf8f0e5b4a85ac19a8ea9200f, type: 3}
+      objectReference: {fileID: 21300000, guid: d41a2325afb2de746bd3873384a559e7, type: 3}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3215,7 +3215,7 @@ PrefabInstance:
     - target: {fileID: 8930392514175655393, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 62ba7b9bef87b3e479e6fa6cadce7fb0, type: 3}
+      objectReference: {fileID: 21300000, guid: 554fce7a09d2cab45905d81274506b06, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

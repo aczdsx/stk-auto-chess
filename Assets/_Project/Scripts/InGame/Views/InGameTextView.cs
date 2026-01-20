@@ -38,7 +38,7 @@ namespace CookApps.AutoBattler
         public SerializableDictionary<DamageColorType, TMP_ColorGradient> IconGradients;
         private static readonly int Normal = Animator.StringToHash("Normal"); // 일반 크리
         private static readonly int Heal = Animator.StringToHash("Heal"); // 힐 독
-        private static readonly int Miss = Animator.StringToHash("Miss");// 미스, 블락, 레지스트, 레지스트 크리
+        private static readonly int Miss = Animator.StringToHash("Miss");// 미스, 블락
         private static readonly int Weak = Animator.StringToHash("Weak");// 위크, 위크크리
 
         private const string MissText = "MISS";
@@ -124,7 +124,7 @@ namespace CookApps.AutoBattler
             return elementAdvantageResult switch
             {
                 ElementAdvantageHelper.ElementAdvantageResult.ADVANTAGE => (DamageColorType.Weak, Weak),
-                ElementAdvantageHelper.ElementAdvantageResult.RESIST => (DamageColorType.Resist, Miss),
+                ElementAdvantageHelper.ElementAdvantageResult.RESIST => (DamageColorType.Resist, Heal),
                 _ => (DamageColorType.Normal, Normal)
             };
         }

@@ -9,12 +9,14 @@ namespace CookApps.AutoBattler.Editor
     [CustomEditor(typeof(InGameTestConfig))]
     public class InGameTestConfigEditor : UnityEditor.Editor
     {
-        private const int GridWidth = 5;  // 0~4
-        private const int GridHeight = 7; // 0~5
         private const float CellSize = 50f;
         private const float GridPadding = 10f;
 
+        private SerializedProperty _modeProp;
+        private SerializedProperty _stageIdProp;
         private SerializedProperty _stageChapterIdProp;
+        private SerializedProperty _gridWidthProp;
+        private SerializedProperty _gridHeightProp;
         private SerializedProperty _playerCharactersProp;
         private SerializedProperty _enemyCharactersProp;
         private SerializedProperty _cameraSizeProp;
@@ -34,13 +36,21 @@ namespace CookApps.AutoBattler.Editor
         private bool _isPlayerPlacementMode = true; // true=플레이어, false=적
         private int _selectedCharacterIdForPlacement = 0;
 
+        // 현재 그리드 크기 (모드에 따라 동적 변경)
+        private int CurrentGridWidth => GetCurrentGridWidth();
+        private int CurrentGridHeight => GetCurrentGridHeight();
+
         private GUIStyle _cellStyle;
         private GUIStyle _playerCellStyle;
         private GUIStyle _enemyCellStyle;
 
         private void OnEnable()
         {
+            _modeProp = serializedObject.FindProperty("Mode");
+            _stageIdProp = serializedObject.FindProperty("StageId");
             _stageChapterIdProp = serializedObject.FindProperty("StageChapterId");
+            _gridWidthProp = serializedObject.FindProperty("GridWidth");
+            _gridHeightProp = serializedObject.FindProperty("GridHeight");
             _playerCharactersProp = serializedObject.FindProperty("PlayerCharacters");
             _enemyCharactersProp = serializedObject.FindProperty("EnemyCharacters");
             _cameraSizeProp = serializedObject.FindProperty("CameraSize");
@@ -51,6 +61,26 @@ namespace CookApps.AutoBattler.Editor
             _enemyInvincibleProp = serializedObject.FindProperty("EnemyInvincible");
 
             RefreshPresetList();
+        }
+
+        private int GetCurrentGridWidth()
+        {
+            if (_modeProp.enumValueIndex == (int)TestMode.Stage && _stageIdProp.intValue > 0)
+            {
+                var stage = InGameTestSpecDataHelper.FindStageById(_stageIdProp.intValue);
+                if (stage.HasValue) return stage.Value.MapWidth;
+            }
+            return _gridWidthProp.intValue > 0 ? _gridWidthProp.intValue : 5;
+        }
+
+        private int GetCurrentGridHeight()
+        {
+            if (_modeProp.enumValueIndex == (int)TestMode.Stage && _stageIdProp.intValue > 0)
+            {
+                var stage = InGameTestSpecDataHelper.FindStageById(_stageIdProp.intValue);
+                if (stage.HasValue) return stage.Value.MapHeight;
+            }
+            return _gridHeightProp.intValue > 0 ? _gridHeightProp.intValue : 7;
         }
 
         private void InitStyles()
@@ -99,13 +129,31 @@ namespace CookApps.AutoBattler.Editor
 
             EditorGUILayout.Space(10);
 
-            // 스테이지 설정
-            EditorGUILayout.PropertyField(_stageChapterIdProp);
+            // 모드 선택
+            DrawModeSelection();
 
             EditorGUILayout.Space(10);
 
+            bool isStageMode = _modeProp.enumValueIndex == (int)TestMode.Stage;
+
+            // 스테이지 설정 (Stage 모드일 때만)
+            if (isStageMode)
+            {
+                DrawStageSelection();
+                EditorGUILayout.Space(10);
+            }
+            else
+            {
+                // Custom 모드: 맵 설정
+                DrawCustomModeSettings();
+                EditorGUILayout.Space(10);
+            }
+
             // 그리드 시각화 섹션
-            _showGridVisualization = EditorGUILayout.Foldout(_showGridVisualization, "그리드 시각화", true);
+            string gridTitle = isStageMode
+                ? $"그리드 시각화 ({CurrentGridWidth}x{CurrentGridHeight}) - 스테이지 몬스터 표시"
+                : $"그리드 시각화 ({CurrentGridWidth}x{CurrentGridHeight})";
+            _showGridVisualization = EditorGUILayout.Foldout(_showGridVisualization, gridTitle, true);
             if (_showGridVisualization)
             {
                 DrawGridVisualization();
@@ -119,9 +167,17 @@ namespace CookApps.AutoBattler.Editor
 
             EditorGUILayout.Space(10);
 
-            // 캐릭터 리스트 (적)
-            EditorGUILayout.LabelField("적 캐릭터", EditorStyles.boldLabel);
-            DrawCharacterList(_enemyCharactersProp, false);
+            // 캐릭터 리스트 (적) - Custom 모드일 때만 편집 가능
+            if (!isStageMode)
+            {
+                EditorGUILayout.LabelField("적 캐릭터", EditorStyles.boldLabel);
+                DrawCharacterList(_enemyCharactersProp, false);
+            }
+            else
+            {
+                EditorGUILayout.LabelField("적 캐릭터 (스테이지 데이터 사용)", EditorStyles.boldLabel);
+                DrawStageMonsterInfo();
+            }
 
             EditorGUILayout.Space(10);
 
@@ -264,10 +320,10 @@ namespace CookApps.AutoBattler.Editor
             levelProp.intValue = EditorGUILayout.IntField(levelProp.intValue, GUILayout.Width(40));
 
             EditorGUILayout.LabelField("X", GUILayout.Width(15));
-            gridXProp.intValue = EditorGUILayout.IntSlider(gridXProp.intValue, 0, GridWidth - 1, GUILayout.Width(100));
+            gridXProp.intValue = EditorGUILayout.IntSlider(gridXProp.intValue, 0, CurrentGridWidth - 1, GUILayout.Width(100));
 
             EditorGUILayout.LabelField("Y", GUILayout.Width(15));
-            gridYProp.intValue = EditorGUILayout.IntSlider(gridYProp.intValue, 0, GridHeight - 1, GUILayout.Width(100));
+            gridYProp.intValue = EditorGUILayout.IntSlider(gridYProp.intValue, 0, CurrentGridHeight - 1, GUILayout.Width(100));
             EditorGUILayout.EndHorizontal();
 
             // 세 번째 라인: 배수
@@ -284,9 +340,13 @@ namespace CookApps.AutoBattler.Editor
 
         private void DrawGridVisualization()
         {
+            bool isStageMode = _modeProp.enumValueIndex == (int)TestMode.Stage;
+            int gridWidth = CurrentGridWidth;
+            int gridHeight = CurrentGridHeight;
+
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
-            // 배치 모드 선택
+            // 배치 모드 선택 (Stage 모드에서는 플레이어만 배치 가능)
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("배치 모드:", GUILayout.Width(60));
 
@@ -296,10 +356,21 @@ namespace CookApps.AutoBattler.Editor
                 _isPlayerPlacementMode = true;
             }
 
-            GUI.backgroundColor = !_isPlayerPlacementMode ? new Color(1f, 0.3f, 0.3f) : Color.gray;
-            if (GUILayout.Button("적(E)", GUILayout.Width(60)))
+            if (!isStageMode)
             {
-                _isPlayerPlacementMode = false;
+                GUI.backgroundColor = !_isPlayerPlacementMode ? new Color(1f, 0.3f, 0.3f) : Color.gray;
+                if (GUILayout.Button("적(E)", GUILayout.Width(60)))
+                {
+                    _isPlayerPlacementMode = false;
+                }
+            }
+            else
+            {
+                _isPlayerPlacementMode = true; // Stage 모드에서는 항상 플레이어 배치
+                GUI.enabled = false;
+                GUI.backgroundColor = Color.gray;
+                GUILayout.Button("적(E) 🔒", GUILayout.Width(70));
+                GUI.enabled = true;
             }
             GUI.backgroundColor = Color.white;
 
@@ -333,12 +404,15 @@ namespace CookApps.AutoBattler.Editor
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Space(5);
-            EditorGUILayout.LabelField("좌클릭: 배치 / 우클릭: 삭제", EditorStyles.centeredGreyMiniLabel);
+            string hint = isStageMode
+                ? "좌클릭: 플레이어 배치 / 우클릭: 삭제 (적은 스테이지 데이터)"
+                : "좌클릭: 배치 / 우클릭: 삭제";
+            EditorGUILayout.LabelField(hint, EditorStyles.centeredGreyMiniLabel);
             EditorGUILayout.Space(5);
 
             // 그리드 그리기
-            float totalWidth = GridWidth * CellSize + GridPadding * 2;
-            float totalHeight = GridHeight * CellSize + GridPadding * 2;
+            float totalWidth = gridWidth * CellSize + GridPadding * 2;
+            float totalHeight = gridHeight * CellSize + GridPadding * 2;
 
             var gridRect = GUILayoutUtility.GetRect(totalWidth, totalHeight);
 
@@ -349,6 +423,7 @@ namespace CookApps.AutoBattler.Editor
             var playerPositions = new Dictionary<Vector2Int, List<int>>();
             var enemyPositions = new Dictionary<Vector2Int, List<int>>();
 
+            // 플레이어 캐릭터
             for (int i = 0; i < _playerCharactersProp.arraySize; i++)
             {
                 var element = _playerCharactersProp.GetArrayElementAtIndex(i);
@@ -364,30 +439,45 @@ namespace CookApps.AutoBattler.Editor
                 playerPositions[pos].Add(id);
             }
 
-            for (int i = 0; i < _enemyCharactersProp.arraySize; i++)
+            // 적 캐릭터 (Stage 모드에서는 StageMonster 데이터 사용)
+            if (isStageMode && _stageIdProp.intValue > 0)
             {
-                var element = _enemyCharactersProp.GetArrayElementAtIndex(i);
-                int id = element.FindPropertyRelative("CharacterId").intValue;
-                if (id <= 0) continue;
+                var stageMonsters = InGameTestSpecDataHelper.GetStageMonstersByStageId(_stageIdProp.intValue);
+                foreach (var monster in stageMonsters)
+                {
+                    var pos = new Vector2Int(monster.CoordX, monster.CoordY);
+                    if (!enemyPositions.ContainsKey(pos))
+                        enemyPositions[pos] = new List<int>();
+                    enemyPositions[pos].Add(monster.MonsterId);
+                }
+            }
+            else if (!isStageMode)
+            {
+                for (int i = 0; i < _enemyCharactersProp.arraySize; i++)
+                {
+                    var element = _enemyCharactersProp.GetArrayElementAtIndex(i);
+                    int id = element.FindPropertyRelative("CharacterId").intValue;
+                    if (id <= 0) continue;
 
-                int x = element.FindPropertyRelative("GridX").intValue;
-                int y = element.FindPropertyRelative("GridY").intValue;
-                var pos = new Vector2Int(x, y);
+                    int x = element.FindPropertyRelative("GridX").intValue;
+                    int y = element.FindPropertyRelative("GridY").intValue;
+                    var pos = new Vector2Int(x, y);
 
-                if (!enemyPositions.ContainsKey(pos))
-                    enemyPositions[pos] = new List<int>();
-                enemyPositions[pos].Add(id);
+                    if (!enemyPositions.ContainsKey(pos))
+                        enemyPositions[pos] = new List<int>();
+                    enemyPositions[pos].Add(id);
+                }
             }
 
             // 셀 그리기 (Y축 반전: 게임에서 Y가 위로 갈수록 커짐)
             Event evt = Event.current;
 
-            for (int y = 0; y < GridHeight; y++)
+            for (int y = 0; y < gridHeight; y++)
             {
-                for (int x = 0; x < GridWidth; x++)
+                for (int x = 0; x < gridWidth; x++)
                 {
                     // Y축 반전하여 그리기
-                    int drawY = GridHeight - 1 - y;
+                    int drawY = gridHeight - 1 - y;
                     var cellRect = new Rect(
                         gridRect.x + GridPadding + x * CellSize,
                         gridRect.y + GridPadding + drawY * CellSize,
@@ -431,13 +521,32 @@ namespace CookApps.AutoBattler.Editor
                         {
                             if (_selectedCharacterIdForPlacement > 0)
                             {
-                                AddCharacterAtPosition(x, y, _selectedCharacterIdForPlacement, _isPlayerPlacementMode);
+                                // Stage 모드에서는 플레이어만 배치 가능
+                                if (isStageMode || _isPlayerPlacementMode)
+                                {
+                                    AddCharacterAtPosition(x, y, _selectedCharacterIdForPlacement, true);
+                                }
+                                else
+                                {
+                                    AddCharacterAtPosition(x, y, _selectedCharacterIdForPlacement, _isPlayerPlacementMode);
+                                }
                             }
                             evt.Use();
                         }
                         else if (evt.button == 1) // 우클릭: 삭제
                         {
-                            ShowDeleteMenu(x, y, hasPlayer, hasEnemy);
+                            // Stage 모드에서는 플레이어만 삭제 가능
+                            if (isStageMode)
+                            {
+                                if (hasPlayer)
+                                {
+                                    RemoveCharactersAtPosition(x, y, true);
+                                }
+                            }
+                            else
+                            {
+                                ShowDeleteMenu(x, y, hasPlayer, hasEnemy);
+                            }
                             evt.Use();
                         }
                     }
@@ -511,6 +620,160 @@ namespace CookApps.AutoBattler.Editor
             }
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private void DrawModeSelection()
+        {
+            EditorGUILayout.LabelField("테스트 모드", EditorStyles.boldLabel);
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+            EditorGUILayout.BeginHorizontal();
+
+            // Custom 버튼
+            bool isCustom = _modeProp.enumValueIndex == (int)TestMode.Custom;
+            GUI.backgroundColor = isCustom ? new Color(0.4f, 0.8f, 0.4f) : Color.gray;
+            if (GUILayout.Button("Custom\n(직접 배치)", GUILayout.Height(50)))
+            {
+                _modeProp.enumValueIndex = (int)TestMode.Custom;
+            }
+
+            // Stage 버튼
+            bool isStage = _modeProp.enumValueIndex == (int)TestMode.Stage;
+            GUI.backgroundColor = isStage ? new Color(0.4f, 0.6f, 1f) : Color.gray;
+            if (GUILayout.Button("Stage\n(스테이지 불러오기)", GUILayout.Height(50)))
+            {
+                _modeProp.enumValueIndex = (int)TestMode.Stage;
+            }
+
+            GUI.backgroundColor = Color.white;
+            EditorGUILayout.EndHorizontal();
+
+            // 모드 설명
+            if (isCustom)
+            {
+                EditorGUILayout.HelpBox("Custom 모드: 캐릭터와 적을 직접 배치합니다.", MessageType.None);
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("Stage 모드: SpecData 스테이지를 불러와 적/맵을 자동 설정합니다.", MessageType.None);
+            }
+
+            EditorGUILayout.EndVertical();
+        }
+
+        private void DrawCustomModeSettings()
+        {
+            EditorGUILayout.LabelField("맵 설정 (Custom)", EditorStyles.boldLabel);
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+            EditorGUILayout.PropertyField(_stageChapterIdProp, new GUIContent("맵 챕터 ID"));
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("그리드 크기", GUILayout.Width(80));
+            _gridWidthProp.intValue = EditorGUILayout.IntField(_gridWidthProp.intValue, GUILayout.Width(40));
+            EditorGUILayout.LabelField("x", GUILayout.Width(15));
+            _gridHeightProp.intValue = EditorGUILayout.IntField(_gridHeightProp.intValue, GUILayout.Width(40));
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.EndVertical();
+        }
+
+        private void DrawStageSelection()
+        {
+            EditorGUILayout.LabelField("스테이지 선택", EditorStyles.boldLabel);
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+            // 스테이지 드롭다운
+            var stages = InGameTestSpecDataHelper.Stages;
+            int currentStageId = _stageIdProp.intValue;
+            int selectedIndex = 0;
+
+            // 드롭다운 옵션 생성
+            var displayNames = new string[stages.Count + 1];
+            displayNames[0] = "(스테이지 선택)";
+
+            for (int i = 0; i < stages.Count; i++)
+            {
+                displayNames[i + 1] = $"{stages[i].DisplayName} ({stages[i].MapWidth}x{stages[i].MapHeight})";
+                if (stages[i].StageId == currentStageId)
+                {
+                    selectedIndex = i + 1;
+                }
+            }
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("스테이지", GUILayout.Width(60));
+            int newSelectedIndex = EditorGUILayout.Popup(selectedIndex, displayNames);
+            if (newSelectedIndex != selectedIndex)
+            {
+                if (newSelectedIndex == 0)
+                {
+                    _stageIdProp.intValue = 0;
+                }
+                else
+                {
+                    _stageIdProp.intValue = stages[newSelectedIndex - 1].StageId;
+                    _stageChapterIdProp.intValue = stages[newSelectedIndex - 1].ChapterId;
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
+            // 현재 선택된 스테이지 정보
+            if (_stageIdProp.intValue > 0)
+            {
+                var stageEntry = InGameTestSpecDataHelper.FindStageById(_stageIdProp.intValue);
+                if (stageEntry.HasValue)
+                {
+                    var monsters = InGameTestSpecDataHelper.GetStageMonstersByStageId(_stageIdProp.intValue);
+                    EditorGUILayout.HelpBox(
+                        $"챕터 {stageEntry.Value.ChapterId} - 스테이지 {stageEntry.Value.StageNumber}\n" +
+                        $"맵 크기: {stageEntry.Value.MapWidth} x {stageEntry.Value.MapHeight}\n" +
+                        $"몬스터 수: {monsters.Count}",
+                        MessageType.Info);
+                }
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("스테이지를 선택하세요.", MessageType.Warning);
+            }
+
+            // 직접 입력
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Stage ID", GUILayout.Width(60));
+            _stageIdProp.intValue = EditorGUILayout.IntField(_stageIdProp.intValue, GUILayout.Width(80));
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.EndVertical();
+        }
+
+        private void DrawStageMonsterInfo()
+        {
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+            if (_stageIdProp.intValue <= 0)
+            {
+                EditorGUILayout.LabelField("(스테이지를 선택하세요)", EditorStyles.centeredGreyMiniLabel);
+            }
+            else
+            {
+                var monsters = InGameTestSpecDataHelper.GetStageMonstersByStageId(_stageIdProp.intValue);
+                if (monsters.Count == 0)
+                {
+                    EditorGUILayout.LabelField("(몬스터 데이터 없음)", EditorStyles.centeredGreyMiniLabel);
+                }
+                else
+                {
+                    EditorGUILayout.LabelField($"총 {monsters.Count}마리", EditorStyles.miniLabel);
+                    foreach (var monster in monsters)
+                    {
+                        var monsterEntry = InGameTestSpecDataHelper.FindById(monster.MonsterId);
+                        string name = monsterEntry.HasValue ? monsterEntry.Value.DisplayName : $"ID:{monster.MonsterId}";
+                        EditorGUILayout.LabelField($"  • {name} Lv.{monster.MonsterLevel} @ ({monster.CoordX},{monster.CoordY})", EditorStyles.miniLabel);
+                    }
+                }
+            }
+
+            EditorGUILayout.EndVertical();
         }
 
         private void DrawPresetSection()
@@ -707,7 +970,11 @@ namespace CookApps.AutoBattler.Editor
         [System.Serializable]
         private class PresetData
         {
+            public TestMode Mode;
+            public int StageId;
             public int StageChapterId;
+            public int GridWidth;
+            public int GridHeight;
             public List<TestCharacterData> PlayerCharacters;
             public List<TestCharacterData> EnemyCharacters;
             public float CameraSize;
@@ -721,7 +988,11 @@ namespace CookApps.AutoBattler.Editor
 
             public PresetData(InGameTestConfig config)
             {
+                Mode = config.Mode;
+                StageId = config.StageId;
                 StageChapterId = config.StageChapterId;
+                GridWidth = config.GridWidth;
+                GridHeight = config.GridHeight;
                 PlayerCharacters = new List<TestCharacterData>(config.PlayerCharacters);
                 EnemyCharacters = new List<TestCharacterData>(config.EnemyCharacters);
                 CameraSize = config.CameraSize;
@@ -734,7 +1005,11 @@ namespace CookApps.AutoBattler.Editor
 
             public void ApplyTo(InGameTestConfig config)
             {
+                config.Mode = Mode;
+                config.StageId = StageId;
                 config.StageChapterId = StageChapterId;
+                config.GridWidth = GridWidth;
+                config.GridHeight = GridHeight;
                 config.PlayerCharacters = new List<TestCharacterData>(PlayerCharacters);
                 config.EnemyCharacters = new List<TestCharacterData>(EnemyCharacters);
                 config.CameraSize = CameraSize;

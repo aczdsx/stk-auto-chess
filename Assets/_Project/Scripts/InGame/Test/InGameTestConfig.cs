@@ -4,12 +4,31 @@ using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
+    public enum TestMode
+    {
+        Custom,  // 커스텀 모드: 직접 캐릭터 배치
+        Stage    // 스테이지 모드: SpecData 스테이지 불러오기
+    }
+
     [CreateAssetMenu(fileName = "InGameTestConfig", menuName = "AutoBattler/Test/InGameTestConfig")]
     public class InGameTestConfig : ScriptableObject
     {
-        [Header("스테이지 설정")]
-        [Tooltip("스테이지 프리팹 결정용 챕터 ID (1~3)")]
+        [Header("테스트 모드")]
+        public TestMode Mode = TestMode.Custom;
+
+        [Header("스테이지 설정 (Stage 모드)")]
+        [Tooltip("SpecData 스테이지 ID")]
+        public int StageId = 0;
+
+        [Header("커스텀 설정 (Custom 모드)")]
+        [Tooltip("맵 프리팹 결정용 챕터 ID")]
         public int StageChapterId = 1;
+
+        [Tooltip("그리드 가로 크기")]
+        public int GridWidth = 5;
+
+        [Tooltip("그리드 세로 크기")]
+        public int GridHeight = 7;
 
         [Header("내 캐릭터")]
         public List<TestCharacterData> PlayerCharacters = new List<TestCharacterData>();

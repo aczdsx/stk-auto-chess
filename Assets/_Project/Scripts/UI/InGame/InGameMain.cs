@@ -39,6 +39,8 @@ namespace CookApps.AutoBattler
                     return new KillSource(AttackerType.COMMANDER_SKILL, s.commander_skill_id, isPlayerOwned);
                 case ChapterRule r:
                     return new KillSource(AttackerType.CHAPTER_RULE, r.effect_code_id, isPlayerOwned);
+                case SynergyStarAsterism st:
+                    return new KillSource(AttackerType.SYNERGY_STAR_ASTERISM, st.synergy_group_id, isPlayerOwned);
                 case long id:
                     return new KillSource(AttackerType.CHARCTER, id, isPlayerOwned);
                 default:
