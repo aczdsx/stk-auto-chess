@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
@@ -222,19 +223,16 @@ namespace CookApps.AutoBattler
 
         private void SetCoreStatItems()
         {
-            var titleKey1 = selectedCoreData.upgrade_desc_token01; //TODO : localization
-            var titleKey2 = selectedCoreData.upgrade_desc_token02; //TODO : localization
-
             var (cumulatedValue1, cumulatedValue2) = GetCumulatedValueByLevel(selectedCoreData.upgrade_group_id, selectedCoreData.lv);
 
-            var titleString1 = ZString.Format(LanguageManager.Instance.GetDefaultText(titleKey1), cumulatedValue1);
-            var titleString2 = ZString.Format(LanguageManager.Instance.GetDefaultText(titleKey2), cumulatedValue2);
+            var baseText1 = LanguageManager.Instance.GetDefaultText(selectedCoreData.upgrade_desc_token01);
+            var baseText2 = LanguageManager.Instance.GetDefaultText(selectedCoreData.upgrade_desc_token02);
 
-            var nextStatText1 = ZString.Concat(selectedCoreData.effect_stat_value01);
-            var nextStatText2 = ZString.Concat(selectedCoreData.effect_stat_value02);
+            var titleString1 = cumulatedValue1 > 0 ? baseText1 + " " + ZString.Concat(cumulatedValue1) : baseText1;
+            var titleString2 = cumulatedValue2 > 0 ? baseText2 + " " + ZString.Concat(cumulatedValue2) : baseText2;
 
-            coreStats[0].Set(titleString1, nextStatText1);
-            coreStats[1].Set(titleString2, nextStatText2);
+            coreStats[0].Set(titleString1, ZString.Concat(selectedCoreData.effect_stat_value01));
+            coreStats[1].Set(titleString2, ZString.Concat(selectedCoreData.effect_stat_value02));
         }
 
         private void SetToggle(DimensionType dimensionType)
@@ -283,7 +281,7 @@ namespace CookApps.AutoBattler
         private void ShowCoreDetail(CoreResearchCacheData coreData)
         {
             SetCoreStatItems();
-            requiredCoreTitleText.text = LanguageManager.Instance.GetDefaultText(ZString.Format("REQUIRED_{0}", coreData.Data.item_id));
+            requiredCoreTitleText.text = LanguageManager.Instance.GetDefaultText(ZString.Format("ITEM_INFO_NAME_{0}", coreData.Data.item_id));
             coreTitleText.text = ZString.Format(LanguageManager.Instance.GetDefaultText(coreData.Data.upgrade_name_token), coreData.Data.lv);
 
             currentItemCount = (int)inventoryDataBridge.GetCurrency(coreData.Data.item_id);
