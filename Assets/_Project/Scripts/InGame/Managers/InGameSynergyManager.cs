@@ -86,7 +86,7 @@ namespace CookApps.BattleSystem
 
         public void OnAddCharacter(CharacterController character)
         {
-            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat || InGameMainFlowManager.Instance.CurrentFlowState is FlowStatePrologueReady
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat || InGameMainFlowManager.Instance.CurrentFlowState is CookApps.AutoBattler.Prologue.FlowStatePrologueReady
             || character.SpecCharacter.character_type == CharacterType.BATTLEITEM)
             {
                 return;

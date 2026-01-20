@@ -22,7 +22,8 @@ namespace CookApps.AutoBattler
         private TMP_FontAsset temTMPFontAsset;
 
         [Header("Chracter Layer")]
-        [SerializeField] private GameObject _characeterIllustParentObject;
+        [SerializeField] private GameObject _characeterIllustParentLeftObject;
+        [SerializeField] private GameObject _characeterIllustParentRightObject;
         [SerializeField] private TextMeshProUGUI _characterNameText;
 
         [Header("Dialogue Layer")]
@@ -107,8 +108,10 @@ namespace CookApps.AutoBattler
             _currentSpecDialogueData = _dialogueList[seq];
             // SetCharacters(_currentSpecDialogueData);
 
-            if (isChangePrefab)
-                BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);
+            if (isChangePrefab){
+                BMUtil.RemoveChildObjects(_characeterIllustParentLeftObject.transform);
+                BMUtil.RemoveChildObjects(_characeterIllustParentRightObject.transform);
+            }
 
             // 추가 배경 설정
             _extraBGObj.SetActive(false);
@@ -146,7 +149,27 @@ namespace CookApps.AutoBattler
             if (_currentSpecDialogueData.prefab_id > 0 && isChangePrefab)
             {
                 string characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _currentSpecDialogueData.prefab_id);
-                var gameObject = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentObject.transform);
+                
+                string[] chPosStrings = _currentSpecDialogueData.character_pos.Split(',');
+                List<int> charPosX = new List<int>();
+                List<int> charPosY = new List<int>();
+                List<int> charPosDir = new List<int>();
+                for (int i = 0; i < chPosStrings.Length; i++)
+                {
+                    string[] chfStrings = chPosStrings[i].Split('_');
+                    charPosX.Add(int.Parse(chfStrings[0], CultureInfo.InvariantCulture));
+                    charPosY.Add(int.Parse(chfStrings[1], CultureInfo.InvariantCulture));
+                    charPosDir.Add(int.Parse(chfStrings[2], CultureInfo.InvariantCulture));
+                }
+                if(charPosDir[0] == 0) {
+                    var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentLeftObject.transform);
+                    obj.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+                }
+                else
+                {
+                    var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentRightObject.transform);
+                    obj.GetComponent<RectTransform>().localScale = new Vector3(-1, 1, 1);
+                } 
             }
 
             _characterNameText.text = LanguageManager.Instance.GetDefaultText(_currentSpecDialogueData.character_name_token);
@@ -229,7 +252,8 @@ namespace CookApps.AutoBattler
         {
             currentDialogueSeq = 0;
 
-            BMUtil.RemoveChildObjects(_characeterIllustParentObject.transform);
+            BMUtil.RemoveChildObjects(_characeterIllustParentLeftObject.transform);
+            BMUtil.RemoveChildObjects(_characeterIllustParentRightObject.transform);
         }
 
         public void OnClickRefreshTextTween()
@@ -373,9 +397,9 @@ namespace CookApps.AutoBattler
             // {
             //     Destroy(CharacterTransform.transform.GetChild(i).gameObject);
             // }
-            for (int i = _characeterIllustParentObject.transform.childCount - 1; i >= 0; i--)
+            for (int i = _characeterIllustParentLeftObject.transform.childCount - 1; i >= 0; i--)
             {
-                UnityEngine.Object.DestroyImmediate(_characeterIllustParentObject.transform.GetChild(i).gameObject);
+                UnityEngine.Object.DestroyImmediate(_characeterIllustParentLeftObject.transform.GetChild(i).gameObject);
             }
 
             // string[] chStrings = dialogueData.character_img_id_n_emotion.Split(',');
@@ -395,10 +419,12 @@ namespace CookApps.AutoBattler
                 charPosDir.Add(int.Parse(chfStrings[2], CultureInfo.InvariantCulture));
             }
 
+            MyDebug.Log($"charPosX {charPosX}, charPosY {charPosY}, charPosDir {charPosDir}");
+
             List<GameObject> chaObjs = new List<GameObject>();
             for (int i = 0; i < chPosStrings.Length; i++)
             {
-                GameObject obj = AddressablesUtil.Instantiate($"{CharacterIds[i]}_Static", _characeterIllustParentObject.transform);
+                GameObject obj = AddressablesUtil.Instantiate($"{CharacterIds[i]}_Static", _characeterIllustParentLeftObject.transform);
                 if (obj != null)
                 {
                     obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(charPosX[i], charPosY[i]);
