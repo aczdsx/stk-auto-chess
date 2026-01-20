@@ -77,9 +77,10 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 스크립트 종료 시 호출 - 트리거 매니저에서 다음 스크립트 검색 후 실행
+        /// 스크립트 종료 시 호출 - 트리거 매니저에서 다음 스크립트 검색 후 실행 (비동기 버전)
+        /// @end 커맨드 완료 전에 다음 스크립트 재생을 await하여 Naninovel 엔진이 종료되지 않도록 함
         /// </summary>
-        public void ExecuteEndAction()
+        public async UniTask ExecuteEndActionAsync()
         {
             // 현재 스크립트 실행 완료 기록
             if (!string.IsNullOrEmpty(_currentScriptName))
@@ -95,53 +96,53 @@ namespace CookApps.AutoBattler
                 Debug.Log($"NaninovelMain: 다음 스크립트 실행 - {nextScript}");
                 _currentScriptName = nextScript;
 
-                // 씬 전환 애니메이션과 함께 다음 스크립트 실행
-                PlayNextScriptWithTransition(nextScript).Forget();
+                // 씬 전환 애니메이션과 함께 다음 스크립트 실행 (await로 @end 완료 지연)
+                await PlayNextScriptWithTransitionAsync(nextScript);
                 return;
             }
 
             // 다음 스크립트 없음 - 씬 전환 애니메이션과 함께 종료 액션 실행
             Debug.Log("NaninovelMain: 모든 스크립트 완료, 종료 액션 실행");
             _currentScriptName = null;
-            EndWithTransitionAsync().Forget();
+            await EndWithTransitionInternalAsync();
         }
 
         /// <summary>
         /// 씬 전환 애니메이션과 함께 종료 액션 실행 (다른 씬으로 이동)
         /// FadeOut은 이동하는 씬에서 처리됨
         /// </summary>
-        private async UniTaskVoid EndWithTransitionAsync()
+        private async UniTask EndWithTransitionInternalAsync()
         {
-            Debug.Log($"EndWithTransitionAsync 시작 - _onEndAction null 여부: {_onEndAction == null}");
+            Debug.Log($"EndWithTransitionInternalAsync 시작 - _onEndAction null 여부: {_onEndAction == null}");
 
             if (_onEndAction == null)
             {
-                Debug.LogWarning("EndWithTransitionAsync: _onEndAction이 null입니다");
+                Debug.LogWarning("EndWithTransitionInternalAsync: _onEndAction이 null입니다");
                 return;
             }
 
             // NaninovelEndCommand에서 이미 FadeIn 처리된 경우 스킵
             if (!SceneTransition.IsFadeProcessing)
             {
-                Debug.Log("EndWithTransitionAsync: SceneTransition 생성 중...");
+                Debug.Log("EndWithTransitionInternalAsync: SceneTransition 생성 중...");
                 SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
 
-                Debug.Log("EndWithTransitionAsync: FadeIn 시작...");
+                Debug.Log("EndWithTransitionInternalAsync: FadeIn 시작...");
                 await SceneTransition.FadeInAsync();
             }
-            Debug.Log("EndWithTransitionAsync: FadeIn 완료, 종료 액션 실행...");
+            Debug.Log("EndWithTransitionInternalAsync: FadeIn 완료, 종료 액션 실행...");
 
             // 종료 액션 실행 (다른 씬으로 전환)
             // FadeOut은 다른 씬에서 처리됨
             _onEndAction?.Invoke();
             _onEndAction = null;
-            Debug.Log("EndWithTransitionAsync: 종료 액션 실행 완료");
+            Debug.Log("EndWithTransitionInternalAsync: 종료 액션 실행 완료");
         }
 
         /// <summary>
-        /// 씬 전환 애니메이션과 함께 다음 스크립트 실행
+        /// 씬 전환 애니메이션과 함께 다음 스크립트 실행 (비동기 버전)
         /// </summary>
-        private async UniTaskVoid PlayNextScriptWithTransition(string nextScript)
+        private async UniTask PlayNextScriptWithTransitionAsync(string nextScript)
         {
             // NaninovelEndCommand에서 이미 FadeIn 처리된 경우 스킵
             if (!SceneTransition.IsFadeProcessing)
@@ -153,15 +154,15 @@ namespace CookApps.AutoBattler
             // 연쇄 재생 전 UI 상태 복원
             RestoreUIStateForChainedScript();
 
-            // 3. 스크립트 로드 및 재생
+            // 스크립트 로드 및 재생
             await PlayScript(nextScript);
 
-            // 4. 페이드 아웃 (화면 복원)
+            // 페이드 아웃 (화면 복원)
             await SceneTransition.FadeOutAsync();
         }
 
         /// <summary>
-        /// 연쇄 재생 전 UI 상태 복원 (이전 스크립트에서 숨긴 UI 복원)
+        /// 연쇄 재생 전 UI 및 입력 상태 복원 (이전 스크립트에서 숨긴 UI/비활성화된 입력 복원)
         /// </summary>
         private void RestoreUIStateForChainedScript()
         {
@@ -177,6 +178,24 @@ namespace CookApps.AutoBattler
                 {
                     var printer = printerManager.GetActor(printerManager.DefaultPrinterId);
                     printer?.ChangeVisibility(true, new(0.3f)).Forget();
+                }
+
+                // 입력 시스템 활성화 (이전 스크립트에서 비활성화된 경우 복원)
+                var inputManager = Engine.GetService<IInputManager>();
+                if (inputManager != null)
+                {
+                    Debug.Log($"NaninovelMain: 입력 상태 확인 - ProcessInput: {inputManager.ProcessInput}");
+                    if (!inputManager.ProcessInput)
+                    {
+                        inputManager.ProcessInput = true;
+                        Debug.Log("NaninovelMain: 입력 시스템 활성화됨");
+                    }
+                }
+
+                // 스크립트 플레이어 상태 확인
+                if (_scriptPlayer != null)
+                {
+                    Debug.Log($"NaninovelMain: ScriptPlayer 상태 - Playing: {_scriptPlayer.Playing}, WaitingForInput: {_scriptPlayer.WaitingForInput}");
                 }
 
                 Debug.Log("NaninovelMain: 연쇄 재생을 위한 UI 상태 복원 완료");
@@ -297,6 +316,20 @@ namespace CookApps.AutoBattler
             {
                 await _scriptPlayer.LoadAndPlay(scriptPath);
                 Debug.Log($"Naninovel 스크립트 재생 중: {_scriptPlayer.Playing}");
+
+                // 스크립트 재생 후 입력 상태 확인 및 활성화
+                var inputManager = Engine.GetService<IInputManager>();
+                if (inputManager != null)
+                {
+                    Debug.Log($"Naninovel PlayScript 후 입력 상태 - ProcessInput: {inputManager.ProcessInput}");
+                    if (!inputManager.ProcessInput)
+                    {
+                        inputManager.ProcessInput = true;
+                        Debug.Log("Naninovel PlayScript: 입력 시스템 강제 활성화");
+                    }
+                }
+
+                Debug.Log($"Naninovel PlayScript 후 ScriptPlayer 상태 - WaitingForInput: {_scriptPlayer.WaitingForInput}");
             }
             catch (Exception ex)
             {

@@ -256,5 +256,62 @@ namespace CookApps.AutoBattler
             var inGameParams = new InGameMainParams(InGameType.TEST, new InGameMainStateTest(), testConfig.StageChapterId);
             SceneLoading.GoToNextScene("InGame", inGameParams);
         }
+
+        /// <summary>
+        /// 로비 직행 버튼 클릭 (Title UI에 버튼 추가 후 연결)
+        /// </summary>
+        public void OnClickGoToLobbyButton()
+        {
+            GoToLobbyAsync().Forget();
+        }
+
+        private async UniTask GoToLobbyAsync()
+        {
+            touchToStart.SetActive(false);
+            guestLoginNode.SetActive(false);
+
+            // 게스트 로그인 처리
+            var popup = await SceneUILayerManager.Instance.PushUILayerAsync<LoadingPopup>();
+            await LoginManager.Instance.LoginGuest();
+
+            var recentAuthPlatform = LocalDataManager.Instance.GetRecentAuthData();
+            var resp = await NetManager.Instance.Auth.AuthenticateAsync(recentAuthPlatform.Platform, recentAuthPlatform.Id);
+            if (!resp.IsSuccess)
+            {
+                SceneUILayerManager.Instance.PopUILayer(popup);
+                Debug.LogError("[Go To Lobby] Auth failed");
+                return;
+            }
+
+            // 유저 데이터 초기화
+            bool res = await UserDataManager.Instance.Initialize();
+            if (!res)
+            {
+                SceneUILayerManager.Instance.PopUILayer(popup);
+                Debug.LogError("[Go To Lobby] UserDataManager init failed");
+                return;
+            }
+
+            // 앱 이벤트 Auth 설정
+            CAppAuth.SetUID(resp.Data.Uid);
+
+            // 서버 데이터 초기화
+            await NetManager.Instance.InitializeAsync();
+
+            // 클라이언트 이벤트 추적 시작
+            ClientEventTracker.Instance.StartTracking();
+
+            SceneUILayerManager.Instance.PopUILayer(popup);
+
+            // 로비로 전환
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            await SceneTransition.FadeInAsync();
+
+            // 마지막 플레이 스테이지 기준 챕터로 이동 (없으면 1챕터)
+            var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
+            var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
+            var chapterId = specStageData?.chapter_id ?? 1;
+            SceneLoading.GoToNextScene("Lobby", chapterId);
+        }
     }
 }

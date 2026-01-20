@@ -22,7 +22,10 @@ namespace CookApps.AutoBattler
             }
 
             UnityEngine.Debug.Log("NaninovelEndCommand: ExecuteEndAction 호출");
-            naninovelMain.ExecuteEndAction();
+
+            // @end 커맨드 완료 전에 다음 스크립트 재생을 await
+            // 이렇게 해야 Naninovel 엔진이 종료 처리를 하지 않음
+            await naninovelMain.ExecuteEndActionAsync();
         }
     }
 }
