@@ -24,8 +24,16 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
     // 이동 관련 변수
     private InGameTile _targetMoveTile;
-    private Tween _moveTween;
-    private List<InGameTile> _pathTiles; // 이동 경로상의 타일들
+    private InGameTile _originalTile;
+    private Sequence _moveSequence;
+    private static readonly float MOVE_DURATION = 0.5f; // 빠른 이동
+    private static readonly float WAIT_DURATION = 1.5f; // 대기 시간
+    private static readonly float WALK_IN_DURATION = 0.3f; // 걸어들어가는 연출 시간
+
+    private InGameVfx _colliderVfx;
+    private InGameVfx _portalVfx;
+    private List<CharacterController> _stunnedCharacters = new List<CharacterController>();
+    private bool _isJumping;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -37,9 +45,13 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         _debuffTime = codeInfo.GetCodeStatToFloat(2);
         _isReadyToActivate = false;
         IsSkillActivated = false;
-        _pathTiles = new List<InGameTile>();
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
+
+        _colliderVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillRootTransformFollowable);
+        _colliderVfx.Initialize(false);
+        _colliderVfx.OnCollisionWithTile += OnCollisionWithTile;
+        _colliderVfx.gameObject.SetActive(false);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -85,6 +97,9 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
     public override void Activate()
     {
+        if (_isJumping)
+            return;
+        _colliderVfx.gameObject.SetActive(true);
         base.Activate();
         CharacterController targetCharacter = FindNearestEnemyInLine();
         if (targetCharacter == null)
@@ -109,6 +124,8 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         }
         _isReadyToActivate = false;
         IsSkillActivated = true;
+
+        _stunnedCharacters.Clear();
         owner.AddNextState<CharacterStateSkill>(this);
         InGameVfxManager.Instance.AddInGamePreSkillActionFx(SynergyType.LIGHTNING,
             owner.GetCharacterView().CachedTr.position);
@@ -120,9 +137,16 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         if (owner.Target == null)
             return;
 
-
-        // 돌진 이동 및 공격 실행
-        DashAndAttack(owner.Target);
+        if (executeIndex == 0)
+        {
+            // 첫 번째 호출: 점프 시작
+            DashAndAttack(owner.Target);
+        }
+        else if (executeIndex == 1)
+        {
+            // 두 번째 호출: 점프 최종 위치로 이동
+            MoveToFinalPosition();
+        }
     }
 
     /// <summary>
@@ -153,7 +177,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
     }
 
     /// <summary>
-    /// 적에게 돌진하여 이동하고 직선 3칸 범위에 데미지와 기절을 적용합니다.
+    /// 적에게 돌진하여 이동합니다. (executeIndex 0에서 호출)
     /// </summary>
     private void DashAndAttack(CharacterController targetCharacter)
     {
@@ -166,7 +190,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         // 적의 위치로 돌진 이동
         InGameTile targetTile = null;
 
-        // 적의 앞 타일로 이동 (적과 같은 타일이면 적의 뒤 타일로)
+        // 적의 앞 타일로 이동
         var directionTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 3);
         if (directionTiles != null && directionTiles.Count > 0)
         {
@@ -178,80 +202,42 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
             }
         }
 
-        // 이동 가능한 타일이 있으면 서서히 이동
+        // 이동 가능한 타일이 있으면 점프 시작
         if (targetTile != null)
         {
-            MoveToTileSmoothly(targetTile);
+            StartJump(targetTile);
         }
-
-        // 직선 3칸 범위 타일 가져오기
-        var attackTiles = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 3);
-
-        Span<double> eccStats = stackalloc double[1];
-        eccStats.Clear();
-        eccStats[0] = _debuffTime;
-        // 공격 및 기절 적용
-        foreach (var tile in attackTiles)
-        {
-            if (tile == null)
-                continue;
-
-            if (tile.CheckValidTile(owner.AllianceType, false) && tile.OccupiedCharacter != null)
-            {
-                var target = tile.OccupiedCharacter;
-                if (!target.IsAlive)
-                    continue;
-
-                // 데미지 적용
-                var damageValue = owner.SpecCharacter.atk_type is AtkType.AD ? owner.AD : owner.AP;
-                var damage = owner.CalculateDamageAmount(damageValue * _damageRate, 0, target, codeId, true);
-                target.GetDamaged(damage, owner);
-
-                // 기절 적용
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, target, eccStats, source);
-            }
-        }
-
-        IsSkillActivated = false;
     }
 
     /// <summary>
-    /// 캐릭터를 지정된 타일로 스킬 듀레이션 동안 서서히 이동시킵니다.
-    /// 이동 중 경로상의 타일에 있는 적들에게 스턴을 적용합니다.
+    /// 점프 시작 (executeIndex 0에서 호출)
     /// </summary>
-    private void MoveToTileSmoothly(InGameTile targetTile)
+    private void StartJump(InGameTile targetTile)
     {
         if (targetTile == null || owner == null)
             return;
 
         _targetMoveTile = targetTile;
-
-        // 이동 경로상의 타일들 계산 (시작 타일부터 목표 타일까지)
-        _pathTiles.Clear();
-        CalculatePathTiles(owner.CurrentTile, targetTile);
+        _originalTile = owner.CurrentTile; // 원래 타일 저장
 
         // 이동 시작 위치와 목표 위치
         Vector3 startPosition = owner.Position3D;
         Vector3 targetPosition = targetTile.View.Position;
 
-        // 스킬 애니메이션 시간 (1.0초) 사용
-        float duration = 0.8f;
-
-        // 거리에 따라 duration 조정
-        float distance = Vector3.Distance(startPosition, targetPosition);
-        duration += distance * 0.1f;
-
-        // 기존 Tween이 있으면 중지
-        if (_moveTween.isAlive)
+        // 기존 Sequence가 있으면 중지
+        if (_moveSequence.isAlive)
         {
-            _moveTween.Stop();
+            _moveSequence.Stop();
         }
 
-        // PrimeTween으로 이동
-        _moveTween = Tween.Custom(
+        // 점프 시작
+        _isJumping = true;
+
+        // 빠르게 목표 타일로 이동
+        var moveTween = Tween.Custom(
             startPosition,
             targetPosition,
-            duration,
+            MOVE_DURATION,
             (Vector3 value) =>
             {
                 if (owner != null)
@@ -260,19 +246,61 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
                     owner.GetCharacterView().CachedTr.localPosition = value;
                 }
             },
-            ease: Ease.Linear)
+            ease: Ease.OutQuad)
             .OnComplete(this, (target) =>
             {
-                if (target != null && target.owner != null)
+                // 목표 타일에 도달했을 때 타일 변경
+                if (target != null && target.owner != null && target._targetMoveTile != null)
                 {
-                    // 목표 타일에 도달했을 때 타일 변경
-                    target.owner.Position3D = target.owner.CurrentTile.View.Position;
+                    target.owner.ChangeOccupiedTile(target._targetMoveTile);
+                    target.owner.Position3D = target._targetMoveTile.View.Position;
                     target.owner.GetCharacterView().CachedTr.localPosition = target.owner.Position3D;
+
+                    // 포털 VFX 생성
+                    target._portalVfx = InGameVfxManager.Instance.AddInGameVfx(
+                        target._specSkill.skill_vfxs[0],
+                        target.owner.SkillRootTransformFollowable);
+                    target._portalVfx.Initialize(false);
                 }
             });
 
-        // 이동 중 경로상의 타일에 있는 적들에게 스턴 적용
-        ApplyStunToPathTiles();
+        _moveSequence = Sequence.Create(moveTween);
+    }
+
+    /// <summary>
+    /// 점프 최종 위치로 이동 (executeIndex 1에서 호출)
+    /// </summary>
+    private void MoveToFinalPosition()
+    {
+        if (_targetMoveTile == null || owner == null)
+            return;
+
+        Vector3 currentPosition = owner.Position3D;
+        Vector3 finalPosition = _targetMoveTile.View.Position + 
+            (_targetMoveTile.View.Position - _originalTile.View.Position).normalized * 2.0f;
+
+        // 기존 Sequence가 있으면 중지
+        if (_moveSequence.isAlive)
+        {
+            _moveSequence.Stop();
+        }
+
+        // 걸어들어가는 연출 (Position3D만 더 앞으로 이동, 타일은 그대로)
+        var walkTween = Tween.Custom(
+            currentPosition,
+            finalPosition,
+            WALK_IN_DURATION,
+            (Vector3 value) =>
+            {
+                if (owner != null)
+                {
+                    owner.Position3D = value;
+                    owner.GetCharacterView().CachedTr.localPosition = value;
+                }
+            },
+            ease: Ease.Linear);
+
+        _moveSequence = Sequence.Create(walkTween);
     }
 
     /// <summary>
@@ -300,47 +328,39 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
             currentY += stepY;
 
             var tile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(currentX, currentY));
-            if (tile != null)
-            {
-                _pathTiles.Add(tile);
-            }
-            else
+
+            if (tile == null)
             {
                 break;
             }
         }
     }
 
-    /// <summary>
-    /// 이동 경로상의 타일에 있는 적들에게 스턴을 적용합니다.
-    /// </summary>
-    private void ApplyStunToPathTiles()
-    {
-        Span<double> eccStats = stackalloc double[1];
-        eccStats.Clear();
-        eccStats[0] = _debuffTime;
-
-        foreach (var tile in _pathTiles)
-        {
-            if (tile == null)
-                continue;
-
-            // 타일에 적이 있으면 스턴 적용
-            if (tile.CheckValidTile(owner.AllianceType, false) && tile.OccupiedCharacter != null)
-            {
-                var target = tile.OccupiedCharacter;
-                if (target.IsAlive)
-                {
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, target, eccStats, source);
-                }
-            }
-        }
-    }
 
     public override void OnSkillAnimationEnd()
     {
-        CoolTimeElapsedTime = 0;
-        IsSkillActivated = false;
+        // 애니메이션 종료 시 점프 전 자리로 이동
+        if (_originalTile != null && owner != null)
+        {
+            // 포털 VFX 제거
+            if (_portalVfx != null)
+            {
+                _portalVfx.Remove();
+                _portalVfx = null;
+            }
+
+            // 원래 타일로 즉시 이동
+            owner.ChangeOccupiedTile(_originalTile);
+            owner.Position3D = _originalTile.View.Position;
+            owner.GetCharacterView().CachedTr.localPosition = owner.Position3D;
+
+            // 점프 완료 및 쿨타임 초기화
+            _isJumping = false;
+            _colliderVfx?.gameObject.SetActive(false);
+            CoolTimeElapsedTime = 0;
+            IsSkillActivated = false;
+        }
+
         base.OnSkillAnimationEnd();
     }
 
@@ -348,5 +368,58 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
     {
         CoolTimeElapsedTime += cooltime;
         return cooltime;
+    }
+
+    public override void OnPreRemoved()
+    {
+        _colliderVfx.gameObject.SetActive(true);
+        _colliderVfx.Remove();
+        if (_portalVfx != null)
+        {
+            _portalVfx.Remove();
+            _portalVfx = null;
+
+        }
+        // 기존 Sequence가 있으면 중지
+        if (_moveSequence.isAlive)
+        {
+            _moveSequence.Stop();
+        }
+        
+        base.OnPreRemoved();
+    }
+
+    private void OnCollisionWithTile(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
+    {
+        // 점프 중일 때는 리턴
+        if (_isJumping)
+            return;
+
+        if (tile == null || owner == null || !owner.IsAlive)
+            return;
+        InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, tile);
+
+        // 타일에 적 캐릭터가 있는지 확인
+        if (tile.CheckValidTile(owner.AllianceType, false))
+        {
+            var target = tile.OccupiedCharacter;
+
+            // 캐릭터가 살아있는지 확인
+            if (!target.IsAlive)
+                return;
+
+            // 이미 스턴을 받은 캐릭터인지 확인 (반복 스턴 방지)
+            if (_stunnedCharacters.Contains(target))
+                return;
+
+            // 스턴 적용
+            Span<double> eccStats = stackalloc double[1];
+            eccStats.Clear();
+            eccStats[0] = _debuffTime;
+            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, target, eccStats, source);
+
+            // 스턴을 받은 캐릭터를 리스트에 추가
+            _stunnedCharacters.Add(target);
+        }
     }
 }//240107002
