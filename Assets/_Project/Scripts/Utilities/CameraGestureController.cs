@@ -167,6 +167,13 @@ public class CameraGestureController : CachedMonoBehaviour
         }
         else if (Input.GetMouseButton(0) && isMouseDragging)
         {
+            // 드래그 중 UI 위로 가면 드래그 중단
+            if (IsMouseOverUI())
+            {
+                isMouseDragging = false;
+                return;
+            }
+
             var currentMousePosition = (Vector2)Input.mousePosition;
             var delta = currentMousePosition - lastMousePosition;
             ApplyPanDelta(delta);
@@ -175,6 +182,8 @@ public class CameraGestureController : CachedMonoBehaviour
         else if (Input.GetMouseButtonUp(0))
         {
             isMouseDragging = false;
+            // 다음 클릭 시 이전 위치와의 큰 delta 방지
+            lastMousePosition = Input.mousePosition;
         }
     }
 
@@ -608,6 +617,10 @@ public class CameraGestureController : CachedMonoBehaviour
         targetZoom = clampedTargetZoom;
         mainCameraTransform.position = cameraTargetPos;
         targetPosition = cameraTargetPos;
+
+        // 스무딩 플래그 초기화 (이전 드래그 상태가 남아있으면 카메라가 튕기는 문제 방지)
+        needsPositionSmoothing = false;
+        needsZoomSmoothing = false;
 
         isAutoMoving = false;
     }
