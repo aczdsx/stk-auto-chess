@@ -1016,6 +1016,9 @@ MonoBehaviour:
     - name: Scripts/Chapter1_08
       pathPrefix: Scripts
       guid: 43bacc9a69a324a468878a4a9aeb97ff
+    - name: Scripts/Chapter1_10
+      pathPrefix: Scripts
+      guid: fedcc6d0399f18b4d92de41ce45406cd
     - name: Scripts/Chapter1_04
       pathPrefix: Scripts
       guid: 08c617421b2d3ac43b73cc3542c63b8b
@@ -1073,9 +1076,6 @@ MonoBehaviour:
     - name: Scripts/Chapter2_16
       pathPrefix: Scripts
       guid: 512afeaecf2810e40890729587809587
-    - name: Scripts/Chapter1_10
-      pathPrefix: Scripts
-      guid: fedcc6d0399f18b4d92de41ce45406cd
     - name: Scripts/Chapter1_09
       pathPrefix: Scripts
       guid: ac96cad5a6e0b1546b76c5043c1104dd
@@ -1088,18 +1088,18 @@ MonoBehaviour:
     - name: Scripts/Chapter1_15
       pathPrefix: Scripts
       guid: b35b951c40030bb459b3d7a147321a5d
-    - name: Scripts/Chapter1_10
+    - name: xx
       pathPrefix: Scripts
-      guid: 909523b307601b44bb2aea79c57723ad
+      guid: fedcc6d0399f18b4d92de41ce45406cd
     - name: Scripts/Chapter1_11
       pathPrefix: Scripts
-      guid: e3f6807cdd174d347826d8185614ea56
-    - name: Scripts/Chapter1_13
+      guid: 909523b307601b44bb2aea79c57723ad
+    - name: xxxx
       pathPrefix: Scripts
       guid: a94a863343e81a74787df8f6a7e9ba06
     - name: Scripts/Chapter1_14
       pathPrefix: Scripts
-      guid: 1388e2cffa70dad44a0c0095cb754ad6
+      guid: a94a863343e81a74787df8f6a7e9ba06
     - name: "Localization/en/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C3"
       pathPrefix: Scripts
       guid: ba7dd6f0859fa4db3947984897040255
@@ -1220,6 +1220,9 @@ MonoBehaviour:
     - name: bg_ionia_01
       pathPrefix: Backgrounds/MainBackground
       guid: a46a60cf948caa44295cce27497bd11c
+    - name: bg_arche_02
+      pathPrefix: Backgrounds/MainBackground
+      guid: a661a21e6c58ed2479ca4ddf256f2e2f
   - Id: Unlockables
     Resources: []
   - Id: Audio
