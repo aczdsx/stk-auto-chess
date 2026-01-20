@@ -578,6 +578,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKLEND);
         inGameVfx9002.SetPlay();
         await UniTask.WaitUntil(inGameVfx9002.IsFinished);
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(0.5f, 0.1f);
         foreach(var vfx in clayShieldList)
         {
             vfx.Remove();
@@ -643,7 +644,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         // 라플라스 마녀도 평타 공격 (공격 속도 2.0배)
         if (_witchCharacter != null && _witchCharacter.IsAlive)
         {
-            _witchCharacter.AddNextState<CharacterStateAttack>(10f);
+            _witchCharacter.AddNextState<CharacterStateAttack>(15f);
             _witchCharacter.Target = _artesiaCharacter;
         }
         
@@ -687,6 +688,11 @@ public class FlowStatePrologueCombat : StateCombatBase
 
         // 라플라스 마녀 광역 스킬 발동
         _witchCharacter.Target = _clayCharacter;
+        UniTask.Create(async () =>
+        {
+            await UniTask.Delay(3000);
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(1.0f, 1);
+        }).Forget();
         await ActivateCharacterSkillWithWait(_witchCharacter, "마녀 광역 작동 안함", 1);
         _witchCharacter.AddNextState<CharacterStateReady>();
 
@@ -755,6 +761,7 @@ public class FlowStatePrologueCombat : StateCombatBase
 }
 
     InGameVfx artesiaChargeVFX;
+    InGameVfx artesiaChargeVFX2;
 
     // 7단계: 마리에 다운 (아트레시아 기모은 후 따라감, 마리에 먼저 공격)
     private async UniTask TriggerMarieDown()
@@ -763,6 +770,8 @@ public class FlowStatePrologueCombat : StateCombatBase
         if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
         {
             artesiaChargeVFX = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_aura_01, _artesiaCharacter.SkillRootTransformFollowable);
+            artesiaChargeVFX2 = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_prologue_artesia_charge, _artesiaCharacter.SkillRootTransformFollowable);
+            Debug.Log($"artesiaChargeVFX2 is null {artesiaChargeVFX2 == null}");
             await UniTask.Delay(500);
             _artesiaCharacter.AddNextState<CharacterStateIdle>();
             _artesiaCharacter.Target = _witchCharacter;
@@ -811,6 +820,7 @@ public class FlowStatePrologueCombat : StateCombatBase
         if (_artesiaCharacter != null)
         {
             artesiaChargeVFX.Remove();
+            artesiaChargeVFX2.Remove();
             artesiaChargeVFX = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_aura_03, _artesiaCharacter.SkillRootTransformFollowable);
         }
         await UniTask.Delay(1000); // 1초 대기
@@ -856,7 +866,7 @@ public class FlowStatePrologueCombat : StateCombatBase
     private async UniTask TriggerWitchFinalPrepareFx()
     {
         if (_witchCharacter == null) return;
-
+        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(600, 0.1f);
         // 라플라스 마녀 최후의 공격 준비 이펙트 재생
         // 암흑 힘 응집 이펙트 (마녀를 감싸는 이펙트)
         _witchAttackPrepareFx = InGameVfxManager.Instance.AddInGameVfx(

@@ -165,6 +165,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f750501413a211488f3c08623fc95a6
+    m_Address: LD_Characters/UI_17563405
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 878c42adb40b14de5b84dc71e0c0db28
     m_Address: LD_Characters/17553404/Illust
     m_ReadOnly: 0

@@ -1490,6 +1490,8 @@ namespace CookApps.AutoBattler
         /// 다이얼로그 ID
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int dialogue_id;
+        /// 맵 크기
+        public string map_size;
         /// 스테이지 속성
         public global::CookApps.AutoBattler.SynergyType stage_elemental;
         /// 스테이지 타입
