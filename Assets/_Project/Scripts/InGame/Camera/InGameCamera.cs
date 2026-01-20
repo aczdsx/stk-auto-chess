@@ -18,6 +18,10 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
 
     private CancellationTokenSource _cancellationTokenSource;
 
+    private bool _isCameraShaking = false;
+
+    private Vector3 _originalLocalPos;
+
     public Camera MainCamera => _mainCamera;
     public Camera CharacterCamera => _characterCamera;
 
@@ -35,15 +39,36 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
     protected override void OnDestroy()
     {
         base.OnDestroy();
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource?.Dispose();
+        _cancellationTokenSource = null;
         ObjectRegistry.Unregister(this);
     }
+    
+    public bool CheckCameraShaking() => _isCameraShaking; 
 
     public void ShakeCamera(float durationTime, float magnitude)
     {
-        _cancellationTokenSource?.Cancel();
+        if (_isCameraShaking) return;
+        
+        _originalLocalPos = _rootObj.transform.localPosition;
+        _cancellationTokenSource?.Dispose();
         _cancellationTokenSource = new CancellationTokenSource();
 
+        _isCameraShaking = true;
         Shake(durationTime, magnitude, _cancellationTokenSource.Token).Forget();
+    }
+
+    public void StopShakingCamera()
+    {
+        if (!_isCameraShaking) return;
+
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource?.Dispose();
+        _cancellationTokenSource = null;
+
+        _rootObj.transform.localPosition = _originalLocalPos;
+        _isCameraShaking = false;
     }
 
     public float GetCameraSize()
@@ -117,6 +142,7 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
                 break;
         }
     }
+
     public void SetForceCameraRotation(Vector3 targetRotation)
     {
         _mainCamera.transform.rotation = Quaternion.Euler(targetRotation);
@@ -124,7 +150,6 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
 
     private async UniTaskVoid Shake(float duration, float magnitude, CancellationToken cancellationToken)
     {
-        Vector3 originalPos = _rootObj.transform.localPosition;
 
         float elapsed = 0.0f;
 
@@ -132,21 +157,22 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
         {
             if (cancellationToken.IsCancellationRequested)
             {
-                _rootObj.transform.localPosition = originalPos;
+                _rootObj.transform.localPosition = _originalLocalPos;
                 return;
             }
 
-            float x = originalPos.x + Random.Range(-1f, 1f) * magnitude;
-            float y = originalPos.y + Random.Range(-1f, 1f) * magnitude;
+            float x = _originalLocalPos.x + Random.Range(-1f, 1f) * magnitude;
+            float y = _originalLocalPos.y + Random.Range(-1f, 1f) * magnitude;
 
-            _rootObj.transform.localPosition = new Vector3(x, y, originalPos.z);
+            _rootObj.transform.localPosition = new Vector3(x, y, _originalLocalPos.z);
 
             elapsed += Time.deltaTime;
 
             await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken);
         }
 
-        _rootObj.transform.localPosition = originalPos;
+        _rootObj.transform.localPosition = _originalLocalPos;
+        _isCameraShaking = false;
     }
 
     public RegistryKey Key => RegistryKey.InGameCamera;
