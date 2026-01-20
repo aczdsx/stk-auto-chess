@@ -29,6 +29,7 @@ namespace CookApps.BattleSystem
         
         Buff = 96,
         Groggy = 99,
+        Knockback = 98,
     }
     
     public abstract class CharacterStateBase : StateBase

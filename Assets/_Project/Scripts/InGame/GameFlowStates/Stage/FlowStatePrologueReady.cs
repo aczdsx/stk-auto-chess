@@ -38,7 +38,7 @@ public class FlowStatePrologueReady : StateReadyBase
         var addCharacterTasks = new List<UniTask<CharacterController>>();
 
         ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPosition(new Vector3(-10, 2.5f, -10));
-        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(6.0f);
+        await ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(5, new Vector3(-10, 2.5f, -10), 0);
         // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f,new Vector3(-1f, 0f, -10), 1.0f).Forget();
 
         SpawnPrologueCharacters(addCharacterTasks);  

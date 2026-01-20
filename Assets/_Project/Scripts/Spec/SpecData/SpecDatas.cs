@@ -659,8 +659,6 @@ namespace CookApps.AutoBattler
         public string name_token;
         /// 시너지 효과토큰
         public string desc_token_1;
-        /// 시너지 효과토큰
-        public string desc_token_2;
         /// 시너지 단계
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int grade;
@@ -1371,6 +1369,9 @@ namespace CookApps.AutoBattler
         public string name_token;
         /// 이벤트 설명 토큰
         public string desc_token;
+        /// 서버 검증
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
+        public bool server_check;
     }
 
     [GeneratorSpecData]
