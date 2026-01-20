@@ -876,7 +876,8 @@ namespace CookApps.AutoBattler.Prologue
             // ! 암전
 
             var whiteOutImage = GameObject.Find("WhiteOutUICover").GetComponent<UnityEngine.UI.Image>();
-            whiteOutImage.DOFade(1f, 1.5f);
+            var fadeTween = whiteOutImage.DOFade(1f, 1.5f);
+            fadeTween.onComplete += ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).StopShakingCamera;
 
             // if (_witchCharacter == null || _artesiaCharacter == null) return;
 
