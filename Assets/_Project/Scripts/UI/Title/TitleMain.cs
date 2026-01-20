@@ -9,6 +9,7 @@ using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using CookApps.AutoBattler.Prologue;
 
 namespace CookApps.AutoBattler
 {
