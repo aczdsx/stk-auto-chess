@@ -97,3 +97,6 @@ plan.md
 .DS_Store
 
 .utmp/
+Assets/TEMP_UNITY_COMMON
+Assets/AddressableAssetsData/link.xml*
+Assets/StreamingAssets/specdata
