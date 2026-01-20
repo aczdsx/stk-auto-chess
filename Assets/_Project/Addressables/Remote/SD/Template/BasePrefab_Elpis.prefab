@@ -155,9 +155,9 @@ MonoBehaviour:
   _moveSpeed: 5
   _stoppingDistance: 0.1
   _elevatorDetectRadius: 1.5
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 1048576
+  _wanderRadius: 10
+  _minWaitTime: 2
+  _maxWaitTime: 5
 --- !u!1 &2901379298403934952
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +457,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 97c6dd483b7624141b388ba8d0a4290a, type: 3}
+  - {fileID: 2100000, guid: b8c3b65e57b672d469e665b3892ce214, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

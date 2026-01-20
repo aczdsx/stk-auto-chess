@@ -131,13 +131,11 @@ public partial class EffectCodeSkill217413301 : EffectCodeCharacterBase
         if (directionTile.Count > 0)
         {
             Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
-            // vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
             vfx.CachedTr.rotation = Quaternion.LookRotation(direction);
 
             float damageRate = (float)(owner.AD * _damageRate) * (1.0f + (float)owner.ADReduce / _resRate);
             var damage = owner.CalculateDamageAmount(damageRate, 0, _targetCharacter, codeId, true);
-            // var damage = owner.PrecalculateDamageAmount(damageRate, 0, _targetCharacter, codeId, true);
-            // owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
+
             _targetCharacter.GetDamaged(damage, owner);
 
             var inGameTile =

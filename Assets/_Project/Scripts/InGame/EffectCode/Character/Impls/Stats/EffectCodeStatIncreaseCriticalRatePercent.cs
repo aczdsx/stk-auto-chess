@@ -13,6 +13,7 @@ public partial class EffectCodeStatIncreaseCriticalRatePercent : EffectCodeStatB
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
+        
         increment = codeInfo.GetCodeStatToFloat(0);
         if (codeInfo.HasCodeStat(1))
         {

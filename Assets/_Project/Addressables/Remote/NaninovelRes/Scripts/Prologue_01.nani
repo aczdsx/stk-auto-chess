@@ -9,7 +9,7 @@
 ; 3. FX: 'DigitalGlitch' (나니노벨 기본 혹은 커스텀 노이즈 이펙트)
 @back bg_black_01
 
-@spawn cbg_00_05
+@spawn CutScene/cbg_00_05 
 
 
 ; @spawn DigitalGlitch
@@ -55,7 +55,7 @@ unknowngirl_00: 그것만이 당신과 나의 약속이니까.
 ;신전환 효과음
 @hideUI
 @hidePrinter Dialogue
-@despawn cbg_00_05
+@despawn CutScene/cbg_00_05
 @skip false
 
 @end
