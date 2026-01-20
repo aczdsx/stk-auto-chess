@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbf328e371d6e49f0a6c77327853d26f, type: 3}
   m_Name: InGameTestConfig
   m_EditorClassIdentifier: 
-  StageChapterId: 1
+  StageId: 20006
+  StageChapterId: 2
   PlayerCharacters:
   - CharacterId: 3301
     Level: 1

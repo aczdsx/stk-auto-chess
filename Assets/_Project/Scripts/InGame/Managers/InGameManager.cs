@@ -39,6 +39,14 @@ namespace CookApps.BattleSystem
             randomGeneratorSeed = seed;
         }
 
+        /// <summary>
+        /// 테스트 모드에서 SpecStage를 설정 (다른 시스템에서 참조할 수 있도록)
+        /// </summary>
+        public void SetSpecStageForTest(StageInfo specStage)
+        {
+            SpecStage = specStage;
+        }
+
         private bool isGameInfoLoaded;
         public bool IsInGamePlaying { get; private set; }
         public bool IsInGameCombat { get; set; }
