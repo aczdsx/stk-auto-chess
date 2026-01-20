@@ -95,7 +95,7 @@ Narrator: 시야가 온통 하얗게 불타오른다. 세계가 무너지는 굉
 
 @wait 3
 
-@movie Movie_01
+;@movie Movies/Movie_01
 
 
 @back bg_black_01 time:1.5 transition:Crossfade
