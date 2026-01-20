@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using CookApps.Auth;
@@ -9,6 +10,8 @@ using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.AddressableAssets.ResourceLocators;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using CookApps.AutoBattler.Prologue;
 
 namespace CookApps.AutoBattler
@@ -19,6 +22,10 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private GameObject touchToStart;
         [SerializeField] private GameObject guestLoginNode;
+
+        [Header("Addressables Download")]
+        [SerializeField] private AssetReference _downloadVideoAssetReference;
+        [SerializeField] private List<string> _downloadLabels = new List<string> { "default" };
 
         protected override void OnPreEnter(object param)
         {
@@ -54,6 +61,9 @@ namespace CookApps.AutoBattler
             await UniTask.WhenAll(tasks);
 
             await ConnectWithServer();
+
+            // Addressables 다운로드 체크 및 진행
+            // await CheckAndDownloadAddressablesAsync();
 
             _ = InGameTouchManager.Instance;
             _ = TutorialManager.Instance;
@@ -313,5 +323,140 @@ namespace CookApps.AutoBattler
             var chapterId = specStageData?.chapter_id ?? 1;
             SceneLoading.GoToNextScene("Lobby", chapterId);
         }
+
+        #region Addressables Download
+
+        /// <summary>
+        /// Addressables 다운로드 사이즈 체크 및 다운로드 진행
+        /// </summary>
+        private async UniTask CheckAndDownloadAddressablesAsync()
+        {
+            // 카탈로그 업데이트 체크
+            var catalogsToUpdate = await Addressables.CheckForCatalogUpdates().ToUniTask();
+            if (catalogsToUpdate != null && catalogsToUpdate.Count > 0)
+            {
+                await Addressables.UpdateCatalogs(catalogsToUpdate).ToUniTask();
+            }
+
+            // 다운로드 사이즈 체크
+            long totalDownloadSize = 0;
+            for (int i = 0; i < _downloadLabels.Count; i++)
+            {
+                var sizeHandle = Addressables.GetDownloadSizeAsync(_downloadLabels[i]);
+                long size = await sizeHandle.ToUniTask();
+                totalDownloadSize += size;
+            }
+
+            // 다운로드할 것이 없으면 스킵
+            if (totalDownloadSize <= 0)
+            {
+                CADebug.Log("[TitleMain] No addressables to download");
+                return;
+            }
+
+            CADebug.Log($"[TitleMain] Total download size: {DownloadConfirmPopup.FormatFileSize(totalDownloadSize)}");
+
+            // 다운로드 확인 팝업 표시
+            bool userConfirmed = await ShowDownloadConfirmPopupAsync(totalDownloadSize);
+            if (!userConfirmed)
+            {
+                // 사용자가 취소한 경우 앱 종료 또는 재시도 로직
+                CADebug.Log("[TitleMain] User cancelled download");
+                return;
+            }
+
+            // 다운로드 진행
+            await DownloadAddressablesAsync(totalDownloadSize);
+        }
+
+        /// <summary>
+        /// 다운로드 확인 팝업 표시
+        /// </summary>
+        private async UniTask<bool> ShowDownloadConfirmPopupAsync(long downloadSize)
+        {
+            var tcs = new UniTaskCompletionSource<bool>();
+
+            var popupData = new DownloadConfirmPopupData(
+                downloadSizeBytes: downloadSize,
+                onConfirm: () => tcs.TrySetResult(true),
+                onCancel: () => tcs.TrySetResult(false)
+            );
+
+            await SceneUILayerManager.Instance.PushUILayerAsync<DownloadConfirmPopup>(popupData);
+
+            return await tcs.Task;
+        }
+
+        /// <summary>
+        /// Addressables 다운로드 실행
+        /// </summary>
+        private async UniTask DownloadAddressablesAsync(long totalDownloadSize)
+        {
+            var tcs = new UniTaskCompletionSource<bool>();
+            bool isCancelled = false;
+
+            var popupData = new DownloadProgressPopupData(
+                videoAssetReference: _downloadVideoAssetReference,
+                totalDownloadSizeBytes: totalDownloadSize,
+                onComplete: () => tcs.TrySetResult(true),
+                onCancel: () =>
+                {
+                    isCancelled = true;
+                    tcs.TrySetResult(false);
+                }
+            );
+
+            var progressPopup = await SceneUILayerManager.Instance.PushUILayerAsync<DownloadProgressPopup>(popupData);
+
+            // 각 라벨별로 다운로드
+            long downloadedBytes = 0;
+            for (int i = 0; i < _downloadLabels.Count; i++)
+            {
+                if (isCancelled)
+                {
+                    break;
+                }
+
+                string label = _downloadLabels[i];
+                var downloadHandle = Addressables.DownloadDependenciesAsync(label, false);
+
+                // 다운로드 진행률 업데이트
+                while (!downloadHandle.IsDone && !isCancelled)
+                {
+                    var status = downloadHandle.GetDownloadStatus();
+                    long currentDownloaded = downloadedBytes + (long)(status.DownloadedBytes);
+                    float progress = (float)currentDownloaded / totalDownloadSize;
+
+                    progressPopup.UpdateProgress(progress, currentDownloaded);
+
+                    await UniTask.Yield();
+                }
+
+                if (downloadHandle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    var finalStatus = downloadHandle.GetDownloadStatus();
+                    downloadedBytes += (long)finalStatus.TotalBytes;
+                }
+                else if (!isCancelled)
+                {
+                    CADebug.LogError($"[TitleMain] Failed to download label: {label}");
+                    progressPopup.OnDownloadFailed($"Failed to download: {label}");
+                    return;
+                }
+
+                Addressables.Release(downloadHandle);
+            }
+
+            if (!isCancelled)
+            {
+                progressPopup.UpdateProgress(1f, totalDownloadSize);
+                await UniTask.Delay(500); // 완료 표시를 잠시 보여줌
+                progressPopup.OnDownloadComplete();
+            }
+
+            await tcs.Task;
+        }
+
+        #endregion
     }
 }
