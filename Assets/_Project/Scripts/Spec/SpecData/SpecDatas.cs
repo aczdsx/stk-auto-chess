@@ -1437,6 +1437,9 @@ namespace CookApps.AutoBattler
         /// 튜토리얼 ID
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int tutorial_id;
+        /// 가이드미션 id
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
+        public int guide_mission_id;
         /// 턴
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int seq;

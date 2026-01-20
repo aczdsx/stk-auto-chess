@@ -39,6 +39,8 @@ namespace CookApps.AutoBattler
         BLOCKING_PROB_PERCENT_UP = 28,
         DEF_PERCENT_UP = 29,
         DEF_UP = 30,
+        CRIT_RATE_UP = 31,
+        ATK_SPEED_UP = 32,
         BATTLE_ITEM_SUPERNOVA = 96101,
         BATTLE_ITEM_SUPERNOVA_DRAGGING_EFFECT = 96102,
         BATTLE_ITEM_DYNAMITE = 96201,
