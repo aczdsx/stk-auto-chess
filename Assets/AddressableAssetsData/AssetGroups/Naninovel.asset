@@ -268,7 +268,7 @@ MonoBehaviour:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e63f9b87134675c43892901b9695e076
-    m_Address: Naninovel/Camera/Movie_01
+    m_Address: Naninovel/Movies/Movie_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
