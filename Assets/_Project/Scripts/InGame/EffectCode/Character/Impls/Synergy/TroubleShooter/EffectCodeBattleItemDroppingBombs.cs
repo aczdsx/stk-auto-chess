@@ -22,7 +22,7 @@ namespace CookApps.BattleSystem
         private List<CharacterController> _reuseableBombTargetCharacters = new();
         private Vector3 JetPlanePosition = new Vector3(-1.19f, 1.0f, 5.97f);
         private float JetPlaneHeight = 0.9f;
-
+        private int _killLogSynergyID;
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
@@ -38,7 +38,7 @@ namespace CookApps.BattleSystem
             _duration = codeInfo.GetCodeStatToFloat(0);
             _explosionDamage = codeInfo.GetCodeStatToFloat(1);
             _explosionOneTimeCount = codeInfo.GetCodeStatToInt(2);
-
+            _killLogSynergyID = codeInfo.GetCodeStatToInt(3);
             _elapsedTime = 0f;
         }
 
@@ -48,7 +48,7 @@ namespace CookApps.BattleSystem
             _duration = codeInfo.GetCodeStatToFloat(0);
             _explosionDamage = codeInfo.GetCodeStatToFloat(1);
             _explosionOneTimeCount = codeInfo.GetCodeStatToInt(2);
-
+            _killLogSynergyID = codeInfo.GetCodeStatToInt(3);
             _elapsedTime = 0f;
         }
 
@@ -140,6 +140,8 @@ namespace CookApps.BattleSystem
 
                         // 데미지 처리
                         CharacterController.DamageInfo damageInfo = new CharacterController.DamageInfo();
+                        damageInfo.attackerType = AttackerType.SYNERGY_STAR_ASTERISM;
+                        damageInfo.source = _killLogSynergyID;
                         damageInfo.damageAmount = Math.Floor(_explosionDamage);
                         target.GetDamaged(damageInfo, null);
                     }

@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/_Project/Addressables/Remote/0. Scenes/SceneLoading.unity
     guid: 82d3b55c0d6944acd81604cfdc57e37e
   - enabled: 0
-    path: Assets/_Project/Addressables/Remote/0. Scenes/Title.unity
+    path: Assets/_Project/Addressables/BuiltIn/0. Scenes/Title.unity
     guid: 76c96ee710c04450dbdb02e5ff8a6cac
   - enabled: 0
     path: Assets/_Project/Addressables/Remote/0. Scenes/Lobby.unity

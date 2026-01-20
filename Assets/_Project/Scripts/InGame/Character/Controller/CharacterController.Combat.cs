@@ -90,6 +90,7 @@ namespace CookApps.BattleSystem
         bool isSkill, DamageTestFlags skipTests = DamageTestFlags.None)
         {
             var damageInfo = new DamageInfo();
+            damageInfo.source = source;
             // damageInfo.calculationHistory = new List<DamageCalculationStep>();
 
             //일단 공격 타입 결정
@@ -443,9 +444,9 @@ namespace CookApps.BattleSystem
                 }
 
                 if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
-                    || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat)
+                    || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat
+                    || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateInGameTestCombat)
                 {
-                    //TODO 킬로그 처리 추가 필요 ex 트러블슈터 3단계 포격은 여기서 넣을 게 애매.
                     switch (damageInfo.attackerType)
                     {
                         case AttackerType.CHARCTER:
@@ -461,6 +462,10 @@ namespace CookApps.BattleSystem
                         case AttackerType.CHAPTER_RULE:
                             var chapterRule = SpecDataManager.Instance.GetChapterRuleData((int)damageInfo.source);
                             InGameMain.GetInGameMain().AddKillLog(chapterRule, this, AllianceType != AllianceType.Player);
+                            break;
+                        case AttackerType.SYNERGY_STAR_ASTERISM:
+                            var synergyStarAsterism = SpecDataManager.Instance.GetSpecSynergyData((int)damageInfo.source);
+                            InGameMain.GetInGameMain().AddKillLog(synergyStarAsterism, this, AllianceType != AllianceType.Player);
                             break;
                     }
                 }

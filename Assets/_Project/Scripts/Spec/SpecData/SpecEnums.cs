@@ -909,6 +909,7 @@ namespace CookApps.AutoBattler
         CHARCTER = 1,
         COMMANDER_SKILL = 2,
         CHAPTER_RULE = 3,
+        SYNERGY_STAR_ASTERISM = 4,
     }
 
     public enum BenefitType
