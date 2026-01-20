@@ -54,8 +54,10 @@ namespace CookApps.AutoBattler
         int ISpecSynergyData.max_int => max_int;
         string ISpecSynergyData.effect_triger => effect_triger;
         SynergyCoverType ISpecSynergyData.synergy_cover_type => synergy_cover_type;
+
         SkillValueType ISpecSynergyData.effect_value_type_1 => effect_value_type01;
-        int ISpecSynergyData.effect_stat_value_1 => effect_stat_value02;
+        int ISpecSynergyData.effect_stat_value_1 => effect_stat_value01;
+
         SkillValueType ISpecSynergyData.effect_value_type_2 => effect_value_type02;
         int ISpecSynergyData.effect_stat_value_2 => effect_stat_value02;
         SkillValueType ISpecSynergyData.effect_value_type_3 => 0;
@@ -78,8 +80,10 @@ namespace CookApps.AutoBattler
         SynergyCoverType ISpecSynergyData.synergy_cover_type => synergy_cover_type;
         SkillValueType ISpecSynergyData.effect_value_type_1 => effect_value_type;
         int ISpecSynergyData.effect_stat_value_1 => effect_stat_value;
+
         SkillValueType ISpecSynergyData.effect_value_type_2 => effect_value_type_2;
         int ISpecSynergyData.effect_stat_value_2 => effect_stat_value_2;
+        
         SkillValueType ISpecSynergyData.effect_value_type_3 => effect_value_type_3;
         int ISpecSynergyData.effect_stat_value_3 => effect_stat_value_3;
     }

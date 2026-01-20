@@ -999,34 +999,7 @@ namespace CookApps.BattleSystem
         }
         #endregion
 
-        private bool CriticalTest()
-        {
-            return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < (_fixedCriticalProb + CriticalProb) * 100; // OK
-        }
-
-        public void SetFixedCriticalProb(float fixedCriticalProb)
-        {
-            _fixedCriticalProb = fixedCriticalProb;
-        }
-        public void ResetFixedCriticalProb()
-        {
-            _fixedCriticalProb = 0f;
-        }
-
-        public bool PureDamageTest()
-        {
-            return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < PureDamageProb * 100; // OK
-        }
-
-        private bool DoubleCriticalTest()
-        {
-            return InGameRandomManager.GetUniversalRandomValue(0f, 100f) < DoubleCriticalProb; // OK
-        }
-
-
-
-
-
+    
         #region Hp
 
 

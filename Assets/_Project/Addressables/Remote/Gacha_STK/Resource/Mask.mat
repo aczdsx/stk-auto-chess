@@ -46,7 +46,7 @@ Material:
     - _EnableExternalAlpha: 0
     - _HoleRadius: 0
     - _HoleRadius2: 0
-    - _MaskAlpha: 1
+    - _MaskAlpha: 0.0036602616
     - _SmoothWidth: 0.029
     - _Stencil: 1
     - _StencilComp: 5

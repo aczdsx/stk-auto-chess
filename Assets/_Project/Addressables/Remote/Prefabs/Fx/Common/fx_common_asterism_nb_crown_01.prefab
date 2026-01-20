@@ -5567,7 +5567,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 1000
+    maxNumParticles: 1
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -9883,7 +9883,7 @@ GameObject:
   - component: {fileID: 1105281883499671446}
   - component: {fileID: 6841531074016773014}
   - component: {fileID: 3710583600489819462}
-  - component: {fileID: 6852998383065759026}
+  - component: {fileID: 6201280659511703390}
   m_Layer: 6
   m_Name: fx_common_asterism_nb_crown_01
   m_TagString: Untagged
@@ -9923,7 +9923,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -14708,7 +14708,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &6852998383065759026
+--- !u!114 &6201280659511703390
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14717,6 +14717,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7506813377688772532}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6aa2c7f7a9dc91b468b8545f057afbe9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particle: {fileID: 6841531074016773014}
