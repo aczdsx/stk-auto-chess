@@ -1272,6 +1272,19 @@ namespace CookApps.AutoBattler
             return null;
         }
 
+        public ISpecSynergyData GetSpecSynergyData(int synergyID)
+        {
+            for (int i = 0; i < SynergyElemental.All.Count; i++)
+            {
+                var synergy = SynergyElemental.All[i];
+                if (synergy.synergy_group_id == synergyID)
+                {
+                    return synergy;
+                }
+            }
+            return null;
+        }
+
         public bool TryGetSynergyDataByCount(SynergyType synergyType, int count,
             out ISpecSynergyData outSynergyData, out List<ISpecSynergyData> outSynergyList)
         {
