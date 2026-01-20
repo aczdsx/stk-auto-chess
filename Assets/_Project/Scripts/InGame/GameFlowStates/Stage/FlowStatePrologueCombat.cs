@@ -640,10 +640,10 @@ public class FlowStatePrologueCombat : StateCombatBase
                 _yuniCharacter.AddNextState<CharacterStateReady>();
             }
         }, cts.Token).Forget();
-        // 라플라스 마녀도 평타 공격
+        // 라플라스 마녀도 평타 공격 (공격 속도 2.0배)
         if (_witchCharacter != null && _witchCharacter.IsAlive)
         {
-            _witchCharacter.AddNextState<CharacterStateAttack>();
+            _witchCharacter.AddNextState<CharacterStateAttack>(10f);
             _witchCharacter.Target = _artesiaCharacter;
         }
         
@@ -824,9 +824,9 @@ public class FlowStatePrologueCombat : StateCombatBase
         _artesiaCharacter.Target = _witchCharacter;
         await ActivateCharacterSkillWithWait(_artesiaCharacter, "아트레시아 스킬을 찾을 수 없습니다.", 1);
         _artesiaCharacter.AddNextState<CharacterStateReady>();
-        await UniTask.Delay(1500); // 1.5초 대기
+        await UniTask.Delay(500); // 1.5초 대기
         artesiaChargeVFX.Remove();
-        await UniTask.Delay(1500);
+        await UniTask.Delay(500); // 1.5초 대기
     }
 
     private InGameVfx _witchFinalPrepareFx; // 마녀 최후의 공격 준비 이펙트
