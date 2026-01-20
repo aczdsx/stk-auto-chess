@@ -14,7 +14,6 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             walkPath.layer = LayerMask.NameToLayer("ElpisGround");
-            walkPath.AddComponent<BoxCollider>();
         }
     }
 }
