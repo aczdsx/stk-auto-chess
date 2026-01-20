@@ -101,25 +101,19 @@ namespace CookApps.AutoBattler
             //         (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
             // return;
 
-
             {
                 // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.  
 
                 // 초반 플로우 체크 및 진행
                 var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
-                // if (false)
                 if (ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
                 {
                     // SceneLoading.GoToNextScene("InGame",
                     //     (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), lastTutoStageData.stage_id));
                     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                     await SceneTransition.FadeInAsync();
-
-                    var inGameParams = new InGameMainParams(
-                        InGameType.PROLOGUE,
-                        new InGameMainStatePrologue(),
-                        0);
-
+                    
+                    var inGameParams = new InGameMainParams(InGameType.PROLOGUE, new InGameMainStatePrologue(), 0);
                     SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
                     return;
                 }
@@ -134,11 +128,6 @@ namespace CookApps.AutoBattler
 
                     return;
                 }
-
-                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
-
-                // 세션 타임 기록 unitask 실행
-                RecordSessionTime().Forget();
             }
         }
 

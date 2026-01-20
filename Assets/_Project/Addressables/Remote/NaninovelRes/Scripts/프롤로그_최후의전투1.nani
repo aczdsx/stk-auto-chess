@@ -12,9 +12,9 @@
 @spawn cbg_00_05
 
 @back bg_black_01
-@spawn DigitalGlitch
-@glitch power:0.1 time:3.33
-@sfx NoiseSFX volume:0.5
+; @spawn DigitalGlitch
+; @glitch power:0.1 time:3.33
+; @sfx NoiseSFX volume:0.5
 ; @back bg_climax_battle_02 transition:Ripple time:0.5
 @bgm snd_bgm_dialog_mad_002
 

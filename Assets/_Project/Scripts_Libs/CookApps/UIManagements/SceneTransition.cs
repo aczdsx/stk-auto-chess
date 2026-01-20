@@ -43,6 +43,7 @@ namespace CookApps.TeamBattle.UIManagements
 
         public static async UniTask FadeOutAsync()
         {
+            Debug.Log($"[SceneTransition] FadeOutAsync 호출 - Current null 여부: {Current == null}");
             if (Current == null)
                 return;
             await Current.FadeOutAsync();
