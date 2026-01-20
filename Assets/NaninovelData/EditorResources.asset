@@ -1091,9 +1091,6 @@ MonoBehaviour:
     - name: xx
       pathPrefix: Scripts
       guid: fedcc6d0399f18b4d92de41ce45406cd
-    - name: Scripts/Chapter1_11
-      pathPrefix: Scripts
-      guid: 909523b307601b44bb2aea79c57723ad
     - name: xxxx
       pathPrefix: Scripts
       guid: a94a863343e81a74787df8f6a7e9ba06
@@ -1109,6 +1106,9 @@ MonoBehaviour:
     - name: "Localization/ko/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C3"
       pathPrefix: Scripts
       guid: 0a019d8da6bb44bccae259e9520de6c6
+    - name: Scripts/Chapter1_10
+      pathPrefix: Scripts
+      guid: 909523b307601b44bb2aea79c57723ad
   - Id: CharacterAvatars
     Resources: []
   - Id: Characters/97730980-6691-4698-b6da-9388d226f1d6

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8287add940ea7ae4fad8fd3bab827d6d
+guid: ce8ac0c9b01d9054e84e1886a449f761
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2147290539649553236
-    second: cbg_02_03_0
+      213: 3357749571523799684
+    second: Piece_3506_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cbg_02_03_0
+      name: Piece_3506_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 915
-        height: 766
+        x: 3
+        y: 2
+        width: 156
+        height: 198
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: caca1aa81aa4332e0800000000000000
-      internalID: -2147290539649553236
+      spriteID: 48a6567f17f199e20800000000000000
+      internalID: 3357749571523799684
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cbg_02_03_0: -2147290539649553236
+      Piece_3506_0: 3357749571523799684
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

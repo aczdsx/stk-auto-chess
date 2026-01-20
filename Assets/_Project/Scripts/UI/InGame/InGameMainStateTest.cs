@@ -23,10 +23,26 @@ namespace CookApps.AutoBattler
             // Addressables에서 테스트 설정 로드
             _testConfig = await Addressables.LoadAssetAsync<InGameTestConfig>(TestConfigAddress);
 
-            Debug.LogColor($"[Test] 테스트 설정 로드: {_testConfig.StageChapterId}", "yellow");
-
-            // InGame 리소스 로드 (기존 흐름 활용)
-            // await InGameResourceHolder.LoadResources(InGameType.TEST, this, _testConfig.StageChapterId);
+            // 모드에 따른 리소스 로드
+            if (_testConfig.Mode == TestMode.Stage && _testConfig.StageId > 0)
+            {
+                var stageData = SpecDataManager.Instance.GetStageData(_testConfig.StageId);
+                if (stageData != null)
+                {
+                    Debug.LogColor($"[Test] Stage 모드: {stageData.chapter_id}-{stageData.stage_number} (맵: {stageData.map_size})", "yellow");
+                    await InGameResourceHolder.LoadResources(InGameType.TEST, this, stageData.chapter_id);
+                }
+                else
+                {
+                    Debug.LogError($"[Test] 스테이지 데이터를 찾을 수 없음: {_testConfig.StageId}");
+                    await InGameResourceHolder.LoadResources(InGameType.TEST, this, _testConfig.StageChapterId);
+                }
+            }
+            else
+            {
+                Debug.LogColor($"[Test] Custom 모드 - 챕터: {_testConfig.StageChapterId}, 그리드: {_testConfig.GridWidth}x{_testConfig.GridHeight}", "cyan");
+                await InGameResourceHolder.LoadResources(InGameType.TEST, this, _testConfig.StageChapterId);
+            }
 
             await InitializeInternal(canvasTransform);
         }

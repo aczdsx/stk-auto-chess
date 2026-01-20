@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8287add940ea7ae4fad8fd3bab827d6d
+guid: 7c21c1aa04e77a54f966e0cbc6092e35
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2147290539649553236
-    second: cbg_02_03_0
+      213: -7733811496549069935
+    second: Icon_CharacterSmallItem_17553404_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cbg_02_03_0
+      name: Icon_CharacterSmallItem_17553404_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 915
-        height: 766
+        width: 82
+        height: 82
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: caca1aa81aa4332e0800000000000000
-      internalID: -2147290539649553236
+      spriteID: 19b4c5c5b6bfba490800000000000000
+      internalID: -7733811496549069935
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cbg_02_03_0: -2147290539649553236
+      Icon_CharacterSmallItem_17553404_0: -7733811496549069935
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

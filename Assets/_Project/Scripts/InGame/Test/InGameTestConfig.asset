@@ -12,18 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbf328e371d6e49f0a6c77327853d26f, type: 3}
   m_Name: InGameTestConfig
   m_EditorClassIdentifier: 
-  StageChapterId: 1
+  Mode: 1
+  StageId: 20003
+  StageChapterId: 2
+  GridWidth: 5
+  GridHeight: 7
   PlayerCharacters:
-  - CharacterId: 3303
+  - CharacterId: 3201
     Level: 1
-    GridX: 4
-    GridY: 0
+    GridX: 0
+    GridY: 2
     MultipleAtk: 1
     MultipleHp: 1
-  - CharacterId: 2401
+  - CharacterId: 3201
+    Level: 1
+    GridX: 4
+    GridY: 1
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 3201
     Level: 1
     GridX: 0
     GridY: 0
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 3201
+    Level: 1
+    GridX: 1
+    GridY: 1
     MultipleAtk: 1
     MultipleHp: 1
   EnemyCharacters:
@@ -33,93 +49,9 @@ MonoBehaviour:
     GridY: 4
     MultipleAtk: 1
     MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 3
-    GridY: 4
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 4
-    GridY: 4
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 1
-    GridY: 4
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 0
-    GridY: 4
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 0
-    GridY: 5
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 1
-    GridY: 5
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 2
-    GridY: 5
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 3
-    GridY: 5
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 4
-    GridY: 5
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 4
-    GridY: 6
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 2
-    GridY: 6
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 3
-    GridY: 6
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 1
-    GridY: 6
-    MultipleAtk: 1
-    MultipleHp: 1
-  - CharacterId: 1001
-    Level: 1
-    GridX: 0
-    GridY: 6
-    MultipleAtk: 1
-    MultipleHp: 1
   CameraSize: 7.5
   CameraPosition: {x: -15, y: 10, z: -12}
   BattleTimeLimit: 60
   RestartDelay: 2
   PlayerInvincible: 1
-  EnemyInvincible: 0
+  EnemyInvincible: 1

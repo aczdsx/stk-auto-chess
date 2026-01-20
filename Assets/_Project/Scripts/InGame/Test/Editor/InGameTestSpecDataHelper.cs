@@ -23,6 +23,8 @@ namespace CookApps.AutoBattler.Editor
         private static List<LanguageEntry> _languages;
         private static List<CharacterEntry> _characters;
         private static List<CharacterEntry> _monsters;
+        private static List<StageEntry> _stages;
+        private static List<StageMonsterEntry> _stageMonsters;
         private static bool _isLoaded;
 
         public struct CharacterEntry
@@ -37,6 +39,29 @@ namespace CookApps.AutoBattler.Editor
             public int Id;
             public string token_key;
             public string language_kr;
+        }
+
+        public struct StageEntry
+        {
+            public int StageId;
+            public int ChapterId;
+            public int StageNumber;
+            public int MapWidth;
+            public int MapHeight;
+            public string DisplayName; // "{chapter_id}-{stage_number}" 형식
+        }
+
+        public struct StageMonsterEntry
+        {
+            public int Id;
+            public int ChapterId;
+            public int StageNumber;
+            public int MonsterId;
+            public int MonsterLevel;
+            public int CoordX;
+            public int CoordY;
+            public float MultipleAtk;
+            public float MultipleHp;
         }
 
         public static List<CharacterEntry> Characters
@@ -57,6 +82,15 @@ namespace CookApps.AutoBattler.Editor
             }
         }
 
+        public static List<StageEntry> Stages
+        {
+            get
+            {
+                EnsureLoaded();
+                return _stages;
+            }
+        }
+
         public static void Reload()
         {
             _isLoaded = false;
@@ -70,6 +104,8 @@ namespace CookApps.AutoBattler.Editor
             _languages = new List<LanguageEntry>();
             _characters = new List<CharacterEntry>();
             _monsters = new List<CharacterEntry>();
+            _stages = new List<StageEntry>();
+            _stageMonsters = new List<StageMonsterEntry>();
 
             if (!File.Exists(SpecDataPath))
             {
@@ -127,9 +163,74 @@ namespace CookApps.AutoBattler.Editor
                     }
                 }
 
+                // StageInfo 파싱
+                if (root["StageInfo"] is JArray stageArray)
+                {
+                    foreach (var item in stageArray)
+                    {
+                        var entry = new StageEntry
+                        {
+                            StageId = item["stage_id"]?.Value<int>() ?? 0,
+                            ChapterId = item["chapter_id"]?.Value<int>() ?? 0,
+                            StageNumber = item["stage_number"]?.Value<int>() ?? 0,
+                            MapWidth = 5,
+                            MapHeight = 7
+                        };
+
+                        // map_size 파싱 (예: "5,7")
+                        string mapSize = item["map_size"]?.Value<string>() ?? "5,7";
+                        var sizeParts = mapSize.Split(',');
+                        if (sizeParts.Length >= 2)
+                        {
+                            int.TryParse(sizeParts[0], out entry.MapWidth);
+                            int.TryParse(sizeParts[1], out entry.MapHeight);
+                        }
+
+                        entry.DisplayName = $"{entry.ChapterId}-{entry.StageNumber}";
+                        _stages.Add(entry);
+                    }
+                }
+
+                // StageMonster 파싱
+                if (root["StageMonster"] is JArray stageMonsterArray)
+                {
+                    foreach (var item in stageMonsterArray)
+                    {
+                        var entry = new StageMonsterEntry
+                        {
+                            Id = item["id"]?.Value<int>() ?? 0,
+                            ChapterId = item["chapter_id"]?.Value<int>() ?? 0,
+                            StageNumber = item["stage_number"]?.Value<int>() ?? 0,
+                            MonsterId = item["monster_id"]?.Value<int>() ?? 0,
+                            MonsterLevel = item["monster_lv"]?.Value<int>() ?? 1,
+                            MultipleAtk = item["multiple_atk"]?.Value<float>() ?? 1f,
+                            MultipleHp = item["multiple_hp"]?.Value<float>() ?? 1f,
+                            CoordX = 0,
+                            CoordY = 0
+                        };
+
+                        // coordinate 파싱 (예: "2,5")
+                        string coord = item["coordinate"]?.Value<string>() ?? "0,0";
+                        var coordParts = coord.Split(',');
+                        if (coordParts.Length >= 2)
+                        {
+                            int.TryParse(coordParts[0], out entry.CoordX);
+                            int.TryParse(coordParts[1], out entry.CoordY);
+                        }
+
+                        _stageMonsters.Add(entry);
+                    }
+                }
+
                 // ID 순으로 정렬
                 _characters.Sort((a, b) => a.Id.CompareTo(b.Id));
                 _monsters.Sort((a, b) => a.Id.CompareTo(b.Id));
+                // 스테이지는 챕터 → 스테이지 순으로 정렬
+                _stages.Sort((a, b) =>
+                {
+                    int chapterCompare = a.ChapterId.CompareTo(b.ChapterId);
+                    return chapterCompare != 0 ? chapterCompare : a.StageNumber.CompareTo(b.StageNumber);
+                });
 
                 _isLoaded = true;
             }
@@ -186,6 +287,51 @@ namespace CookApps.AutoBattler.Editor
                 if (m.Id == id) return m;
             }
             return null;
+        }
+
+        /// <summary>
+        /// StageId로 스테이지 엔트리 찾기
+        /// </summary>
+        public static StageEntry? FindStageById(int stageId)
+        {
+            EnsureLoaded();
+
+            foreach (var s in _stages)
+            {
+                if (s.StageId == stageId) return s;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 특정 스테이지의 몬스터 목록 가져오기
+        /// </summary>
+        public static List<StageMonsterEntry> GetStageMonsters(int chapterId, int stageNumber)
+        {
+            EnsureLoaded();
+
+            var result = new List<StageMonsterEntry>();
+            foreach (var sm in _stageMonsters)
+            {
+                if (sm.ChapterId == chapterId && sm.StageNumber == stageNumber)
+                {
+                    result.Add(sm);
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// StageId로 몬스터 목록 가져오기
+        /// </summary>
+        public static List<StageMonsterEntry> GetStageMonstersByStageId(int stageId)
+        {
+            var stage = FindStageById(stageId);
+            if (stage.HasValue)
+            {
+                return GetStageMonsters(stage.Value.ChapterId, stage.Value.StageNumber);
+            }
+            return new List<StageMonsterEntry>();
         }
     }
 }
