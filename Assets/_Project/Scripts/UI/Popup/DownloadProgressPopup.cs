@@ -1,8 +1,8 @@
 using System;
 using CookApps.TeamBattle.UIManagements;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -37,38 +37,21 @@ namespace CookApps.AutoBattler
     /// </summary>
     public class DownloadProgressPopup : UILayerPopupBase
     {
-        [Header("UI References")]
-        [SerializeField] private TextMeshProUGUI _titleText;
-        [SerializeField] private TextMeshProUGUI _progressText;
-        [SerializeField] private TextMeshProUGUI _downloadedSizeText;
+        [Header("Localized Strings (Smart String)")]
+        [SerializeField] private LocalizeStringEvent _progressLocalizeEvent;
+        [SerializeField] private LocalizeStringEvent _downloadedSizeLocalizeEvent;
+
+        [Header("Progress UI")]
         [SerializeField] private Slider _progressSlider;
-        [SerializeField] private Image _progressFillImage;
 
         [Header("Video Player")]
         [SerializeField] private AddressableVideoPlayer _videoPlayer;
-        [SerializeField] private RawImage _videoRawImage;
         [SerializeField] private GameObject _videoContainer;
-
-        [Header("Optional")]
-        [SerializeField] private CAButton _cancelButton;
-        [SerializeField] private TextMeshProUGUI _cancelButtonText;
 
         private DownloadProgressPopupData _popupData;
         private float _currentProgress;
         private long _downloadedBytes;
         private bool _isComplete;
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            if (_cancelButton != null)
-            {
-                _cancelButton.OnClickAsObservable()
-                    .Subscribe(this, (_, self) => self.OnClickCancelButton())
-                    .AddTo(this);
-            }
-        }
 
         protected override void OnPreEnter(object param)
         {
@@ -93,54 +76,23 @@ namespace CookApps.AutoBattler
         {
             base.OnPostExit();
 
-            if (_videoPlayer != null)
-            {
-                _videoPlayer.Stop();
-            }
+            _videoPlayer.Stop();
         }
 
         private void SetupUI()
         {
-            // 타이틀 텍스트 설정
-            if (_titleText != null)
-            {
-                _titleText.text = LanguageManager.Instance.GetDefaultText("DOWNLOAD_PROGRESS_TITLE");
-            }
-
             // 진행률 초기화
             UpdateProgressUI(0f, 0);
 
-            // 취소 버튼 텍스트 설정
-            if (_cancelButtonText != null)
-            {
-                _cancelButtonText.text = LanguageManager.Instance.GetDefaultText("COMMON_CANCEL");
-            }
-
             // 슬라이더 초기화
-            if (_progressSlider != null)
-            {
-                _progressSlider.value = 0f;
-            }
+            _progressSlider.value = 0f;
         }
 
         private async UniTaskVoid LoadAndPlayVideoAsync()
         {
-            if (_videoPlayer == null || _popupData.VideoAssetReference == null)
-            {
-                // 비디오가 없으면 비디오 컨테이너 숨김
-                if (_videoContainer != null)
-                {
-                    _videoContainer.SetActive(false);
-                }
-                return;
-            }
-
-            if (_videoContainer != null)
-            {
-                _videoContainer.SetActive(true);
-            }
-
+            _videoContainer.SetActive(false);
             await _videoPlayer.LoadAndPlayAsync(_popupData.VideoAssetReference);
+            _videoContainer.SetActive(true);
         }
 
         /// <summary>
@@ -157,26 +109,19 @@ namespace CookApps.AutoBattler
 
         private void UpdateProgressUI(float progress, long downloadedBytes)
         {
-            // 진행률 퍼센트 표시
-            if (_progressText != null)
-            {
-                int percentage = Mathf.RoundToInt(progress * 100f);
-                _progressText.text = $"{percentage}%";
-            }
+            // 진행률 퍼센트 표시 (테이블 값: "{0}%")
+            int percentage = Mathf.RoundToInt(progress * 100f);
+            _progressLocalizeEvent.StringReference.Arguments = new object[] { percentage };
+            _progressLocalizeEvent.RefreshString();
 
-            // 다운로드 크기 표시
-            if (_downloadedSizeText != null)
-            {
-                string downloadedStr = DownloadConfirmPopup.FormatFileSize(downloadedBytes);
-                string totalStr = DownloadConfirmPopup.FormatFileSize(_popupData.TotalDownloadSizeBytes);
-                _downloadedSizeText.text = $"{downloadedStr} / {totalStr}";
-            }
+            // 다운로드 크기 표시 (테이블 값: "{0} / {1}")
+            string downloadedStr = DownloadConfirmPopup.FormatFileSize(downloadedBytes);
+            string totalStr = DownloadConfirmPopup.FormatFileSize(_popupData.TotalDownloadSizeBytes);
+            _downloadedSizeLocalizeEvent.StringReference.Arguments = new object[] { downloadedStr, totalStr };
+            _downloadedSizeLocalizeEvent.RefreshString();
 
             // 슬라이더 업데이트
-            if (_progressSlider != null)
-            {
-                _progressSlider.value = progress;
-            }
+            _progressSlider.value = progress;
         }
 
         /// <summary>
@@ -207,24 +152,6 @@ namespace CookApps.AutoBattler
             }
 
             SceneUILayerManager.Instance.PopUILayer(this, false);
-        }
-
-        private void OnClickCancelButton()
-        {
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_negative);
-            _popupData?.OnCancel?.Invoke();
-            SceneUILayerManager.Instance.PopUILayer(this, false);
-        }
-
-        /// <summary>
-        /// 취소 버튼 표시/숨김
-        /// </summary>
-        public void SetCancelButtonVisible(bool visible)
-        {
-            if (_cancelButton != null)
-            {
-                _cancelButton.gameObject.SetActive(visible);
-            }
         }
     }
 }

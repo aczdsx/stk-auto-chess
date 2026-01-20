@@ -11,6 +11,8 @@ namespace CookApps.TeamBattle.UIManagements
         {
             return uiLayerName switch
             {
+                "DownloadConfirmPopup" => "Assets/_Project/Addressables/BuiltIn/Prefabs/UI/Popup/DownloadConfirmPopup.prefab",
+                "DownloadProgressPopup" => "Assets/_Project/Addressables/BuiltIn/Prefabs/UI/Popup/DownloadProgressPopup.prefab",
                 "NicknamePopup" => "Naninovel/Spawn/Etc/NicknamePopup",
                 "BattleReadyMain" => "Prefabs/UI/00_Main/BattleReadyMain.prefab",
                 "BattleReadyMain_1" => "Prefabs/UI/00_Main/BattleReadyMain_Old.prefab",

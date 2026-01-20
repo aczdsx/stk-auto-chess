@@ -1,7 +1,7 @@
 using System;
 using CookApps.TeamBattle.UIManagements;
-using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using R3;
 
 namespace CookApps.AutoBattler
@@ -28,14 +28,12 @@ namespace CookApps.AutoBattler
     /// </summary>
     public class DownloadConfirmPopup : UILayerPopupBase
     {
-        [Header("UI References")]
-        [SerializeField] private TextMeshProUGUI _titleText;
-        [SerializeField] private TextMeshProUGUI _descriptionText;
-        [SerializeField] private TextMeshProUGUI _downloadSizeText;
+        [Header("Localized Strings")]
+        [SerializeField] private LocalizeStringEvent _downloadSizeLocalizeEvent;
+
+        [Header("Buttons")]
         [SerializeField] private CAButton _confirmButton;
         [SerializeField] private CAButton _cancelButton;
-        [SerializeField] private TextMeshProUGUI _confirmButtonText;
-        [SerializeField] private TextMeshProUGUI _cancelButtonText;
 
         private DownloadConfirmPopupData _popupData;
 
@@ -68,34 +66,13 @@ namespace CookApps.AutoBattler
 
         private void SetupUI()
         {
-            // 타이틀 텍스트 설정
-            if (_titleText != null)
+            // 다운로드 크기를 Smart String 인자로 설정
+            // 테이블 값: "다운로드 크기: {0}"
+            _downloadSizeLocalizeEvent.StringReference.Arguments = new object[]
             {
-                _titleText.text = LanguageManager.Instance.GetDefaultText("DOWNLOAD_CONFIRM_TITLE");
-            }
-
-            // 설명 텍스트 설정
-            if (_descriptionText != null)
-            {
-                _descriptionText.text = LanguageManager.Instance.GetDefaultText("DOWNLOAD_CONFIRM_DESC");
-            }
-
-            // 다운로드 크기 표시
-            if (_downloadSizeText != null)
-            {
-                _downloadSizeText.text = FormatFileSize(_popupData.DownloadSizeBytes);
-            }
-
-            // 버튼 텍스트 설정
-            if (_confirmButtonText != null)
-            {
-                _confirmButtonText.text = LanguageManager.Instance.GetDefaultText("COMMON_CONFIRM");
-            }
-
-            if (_cancelButtonText != null)
-            {
-                _cancelButtonText.text = LanguageManager.Instance.GetDefaultText("COMMON_CANCEL");
-            }
+                FormatFileSize(_popupData.DownloadSizeBytes)
+            };
+            _downloadSizeLocalizeEvent.RefreshString();
         }
 
         private void OnClickConfirmButton()
