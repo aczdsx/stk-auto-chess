@@ -72,12 +72,10 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 "Naninovel" => "Assets/_Project/Addressables/Remote/0. Scenes/Naninovel.unity",
                 "Lobby" => "Assets/_Project/Addressables/Remote/0. Scenes/Lobby.unity",
-                "NaninovelTest" => "Assets/_Project/Addressables/Remote/0. Scenes/NaninovelTest.unity",
                 "InGame" => "Assets/_Project/Addressables/Remote/0. Scenes/InGame.unity",
                 "SceneLoading" => "Assets/_Project/Addressables/Remote/0. Scenes/SceneLoading.unity",
                 "BattleReady" => "Assets/_Project/Addressables/Remote/0. Scenes/BattleReady.unity",
                 "InGameTest" => "Assets/_Project/Addressables/Remote/0. Scenes/InGameTest.unity",
-                "SkillScene" => "Assets/_Project/Addressables/Remote/0. Scenes/SkillScene.unity",
                 "Title" => "Assets/_Project/Addressables/BuiltIn/0. Scenes/Title.unity",
                 _ => string.Empty
             };
