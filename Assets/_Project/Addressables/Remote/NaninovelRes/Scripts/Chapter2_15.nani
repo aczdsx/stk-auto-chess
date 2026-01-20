@@ -15,7 +15,7 @@
 @char atresia_00.normal pos:65,-235 scale:1.38
 atresia_00: 크윽…….. 어떻게 사도가 스테리아를 사용하는 거지?
 Narrator: 큰 충격을 받은듯, 제복을 피로 물들인채 안간힘을 다해 검에 기대 서있는 아트레시아
-@spawn cbg_01_05
+@spawn CutScene/cbg_01_05
 ; L004
 @choice "\" 모두 괜찮아?! \""
 @stop
@@ -33,7 +33,7 @@ philia_00: ....제가 시선을 끄는 동안 모두 후퇴하세요. ….마스
 
 @hideChars
 @wait 0.5
-@despawn cbg_01_05
+@despawn CutScene/cbg_01_05
 
 @char odette_00.normal pos:65,-250 scale:1.38
 odette_00: 웃기지마세요! 저는 저 자와 끝까지 싸울거에요.
