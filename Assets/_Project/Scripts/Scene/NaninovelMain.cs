@@ -30,11 +30,6 @@ namespace CookApps.AutoBattler
             base.Awake();
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-        }
-
         protected override void OnBackButton(ref bool offPrevUI)
         {
             // Naninovel은 백 버튼으로 종료하지 않음
@@ -61,7 +56,7 @@ namespace CookApps.AutoBattler
             // 스크립트 실행
             if (!string.IsNullOrEmpty(_currentScriptName))
             {
-                InitializeNaninovelAsync(_currentScriptName).Forget();
+                await InitializeNaninovelAsync(_currentScriptName);
             }
             else
             {

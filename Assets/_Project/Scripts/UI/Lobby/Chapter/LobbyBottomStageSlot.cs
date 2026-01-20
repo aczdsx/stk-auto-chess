@@ -60,11 +60,6 @@ namespace CookApps.AutoBattler
             _bottomStageSlotButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickBottomStageSlot()).AddTo(this);
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-        }
-
         /// <summary>
         /// 스테이지 슬롯에 데이터를 설정합니다.
         /// 

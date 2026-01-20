@@ -84,14 +84,27 @@ namespace CookApps.AutoBattler
         public async UniTask SubscribeEventAsync(Action<BM013Event> onEventReceived, CancellationToken cancellationToken = default)
         {
             using var call = SubscribeEvent(cancellationToken);
+            using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
             // 응답 수신 태스크
-            var readTask = ReadEventStreamAsync(call, onEventReceived, cancellationToken);
+            var readTask = ReadEventStreamAsync(call, onEventReceived, linkedCts.Token);
 
             // Ping 전송 (연결 유지)
-            var pingTask = SendPingAsync(call, cancellationToken);
+            var pingTask = SendPingAsync(call, linkedCts.Token);
 
+            // 둘 중 하나가 완료되면 다른 것도 취소
             await UniTask.WhenAny(readTask, pingTask);
+            linkedCts.Cancel();
+
+            // 스트림 정리
+            try
+            {
+                await call.RequestStream.CompleteAsync();
+            }
+            catch
+            {
+                // 이미 닫힌 경우 무시
+            }
         }
 
         private async UniTask ReadEventStreamAsync(
@@ -115,7 +128,7 @@ namespace CookApps.AutoBattler
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                await call.RequestStream.WriteAsync(new CustomLobbySubscribeEventRequest());
+                await call.RequestStream.WriteAsync(new CustomLobbySubscribeEventRequest(), cancellationToken);
                 await UniTask.Delay(TimeSpan.FromSeconds(30), cancellationToken: cancellationToken);
             }
         }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InputConfiguration
   m_EditorClassIdentifier: 
   SpawnEventSystem: 1
-  CustomEventSystem: {fileID: 8706702806752977809, guid: 8da4e56cabcd640d2bf02257ec5bcf0b, type: 3}
+  CustomEventSystem: {fileID: 0}
   SpawnInputModule: 0
   CustomInputModule: {fileID: 0}
   ProcessLegacyBindings: 1

@@ -15,7 +15,7 @@ MonoBehaviour:
   ResourcePolicy: 0
   RemoveActors: 1
   LogResourceLoading: 0
-  EnableBuildProcessing: 0
+  EnableBuildProcessing: 1
   UseAddressables: 1
   AutoBuildBundles: 0
   AllowAddressableInEditor: 1

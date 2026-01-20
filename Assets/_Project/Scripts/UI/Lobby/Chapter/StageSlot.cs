@@ -21,11 +21,6 @@ namespace CookApps.AutoBattler
             enterBtn.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickEnter()).AddTo(this);
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-        }
-
         internal void SetStageData(int chapter, int stageIndex)
         {
             // this.chapter = chapter;

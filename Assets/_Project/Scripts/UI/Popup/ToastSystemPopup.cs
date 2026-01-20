@@ -18,12 +18,6 @@ namespace CookApps.AutoBattler
 
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-        }
-
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);

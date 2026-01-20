@@ -20,8 +20,13 @@ namespace CookApps.AutoBattler
                 Battle.GetCurrentChapterAsync(cancellationToken),
                 Battle.ListChapterAsync(cancellationToken),
                 Event.ListAsync(cancellationToken),
-                Initialize_Elpis()
+                Initialize_Elpis(),
+                TrialDungeon.GetAsync(cancellationToken),
+                GuideMission.GetAsync(cancellationToken)
             );
+
+            // 2. 이벤트 스트림 구독 시작
+            StartEventSubscription();
         }
     }
 }

@@ -43,21 +43,8 @@ namespace CookApps.AutoBattler
                 .AddTo(this);
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-        }
-
         public void InitGuideMissionSlot()
         {
-            InitGuideMissionSlotAsync().Forget();
-        }
-
-        private async UniTask InitGuideMissionSlotAsync()
-        {
-            // 서버에서 가이드 미션 데이터 불러오기
-            await dataBridge.GetAsync();
-
             int guideMissionId = (int)dataBridge.GuideMissionId;
             _specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
 
