@@ -117,7 +117,7 @@ namespace CookApps.AutoBattler
                     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                     await SceneTransition.FadeInAsync();
                     
-                    var inGameParams = new InGameMainParams(InGameType.PROLOGUE, new InGameMainStatePrologue(), 0);
+                    var inGameParams = new InGameMainParams(InGameType.PROLOGUE, new CookApps.AutoBattler.Prologue.InGameMainStatePrologue(), 0);
                     SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
                     return;
                 }
