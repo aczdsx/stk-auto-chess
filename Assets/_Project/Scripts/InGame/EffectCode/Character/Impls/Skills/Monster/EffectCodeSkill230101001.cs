@@ -108,7 +108,7 @@ public partial class EffectCodeSkill230101001 : EffectCodeCharacterBase
             _targetCharacter.SkillRootTransformFollowable);
 
         var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-            _targetCharacter.SkillRootTransformFollowable);
+            owner.SkillRootTransformFollowable);
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
         if (directionTile.Count > 0)
         {

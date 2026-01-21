@@ -59143,6 +59143,4336 @@ MonoBehaviour:
     m_Localized: "\uC774\uACF3\uC5D0 \uAD00\uCE21\uC790 \uC2A4\uD0AC\uC744 \uC0AC\uC6A9\uD574\uBD10\uC694."
     m_Metadata:
       m_Items: []
+  - m_Id: 2417888161259520
+    m_Localized: Commander! Please wake up!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036736
+    m_Localized: .....
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036737
+    m_Localized: Can you hear me?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036738
+    m_Localized: At the moment, all of our troops have been...<color=#F75D32>wiped
+      out.</color> It's just you and me, <color=#F75D32>Commander.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036739
+    m_Localized: 'Now, there''s only one option left: you must return to the <color=#F75D32>past</color>
+      and change the <color=#F75D32>future</color> again.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036740
+    m_Localized: I believe in you, Commander. I know you can do it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036741
+    m_Localized: "You are\u2026 our only <color=#F75D32>savior.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036742
+    m_Localized: Commander....?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036743
+    m_Localized: "Finally\u2026 you\u2019re awake."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036744
+    m_Localized: 'This may be sudden, but I am <color=#F75D32>Atresia,</color>
+
+      a
+      Stella Knight from the <color=#F75D32>Pleiades.</color>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036745
+    m_Localized: "You\u2019ve just been summoned from the future to this place, <color=#F75D32>Geofront.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036746
+    m_Localized: Something must have happened.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036747
+    m_Localized: "Don\u2019t worry, I will help you, Commander."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036748
+    m_Localized: Select the Stella Knights from the <color=#F75D32>bottom of the
+      screen</color> and deploy them to the battlefield!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036749
+    m_Localized: "I heard you\u2019re the newly appointed Commander."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036750
+    m_Localized: "You\u2019ve been assigned without any proper training..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036751
+    m_Localized: That goes against the <color=#F75D32>rules.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036752
+    m_Localized: Let me see if you truly have what it takes.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036753
+    m_Localized: Each Stella Knight has a designated </color>position (role).</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036754
+    m_Localized: Philia is in the <color=#F75D32>Ranger</color> position and can
+      attack enemies from a  <color=#F75D32>long distance.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036755
+    m_Localized: "As for me, I\u2019m in the <color=#F75D32>Guardian</color> position,
+      taking the <color=#F75D32>role of protecting</color> allies at the frontlines."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036756
+    m_Localized: Use me to <color=#F75D32>block the enemies</color> at the front,
+      and have Philia <color=#F75D32>attacking the enemies!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036757
+    m_Localized: I heard a new Commander has arrived!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036758
+    m_Localized: "Why didn\u2019t you tell me right away!?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036759
+    m_Localized: Yuni! Calm down. The Commander is in a confused state right now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036760
+    m_Localized: Oh, really!? Then let me cheer you up!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036761
+    m_Localized: My position is <color=#F75D32>Supporter.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036762
+    m_Localized: I take on the role of <color=#F75D32> supporting the battle </color>of
+      allies with <color=#F75D32>healing and buffs!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036763
+    m_Localized: My skill, <color=#F75D32>Power Up</color>, increases the <color=#F75D32>ATK!</color>
+      of the allies!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036764
+    m_Localized: "Now, all that\u2019s left is the <color=#F75D32>final training</color>,
+      Commander."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036765
+    m_Localized: "After this training, you\u2019ll be deployed straight into real
+      combat."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036766
+    m_Localized: Please eliminate the <color=#F75D32>final enemy</color> with Philia
+      (Ranger) and Yuni (Supporter)!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036767
+    m_Localized: Thank you for coming all the way to the <color=#F75D32>Flame Wastes</color>,
+      Commander.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036768
+    m_Localized: I am <color=#F75D32>Mensha</color>, a member of the Elpis Special
+      Forces.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036769
+    m_Localized: We are currently conducting a search for a <color=#F75D32>missing</color>
+      Stella Knight in the Flame Wastes.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036770
+    m_Localized: Can you tell me the name of the missing knight?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036771
+    m_Localized: Her name is <color=#F75D32>Alice.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036772
+    m_Localized: "Additionally, we\u2019ve been informed that another Stella Knight
+      is also missing,"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036773
+    m_Localized: "but it\u2019s difficult to confirm anything at the moment."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036774
+    m_Localized: "Alice... she's a companion I\u2019ve worked with on previous missions."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036775
+    m_Localized: "Let\u2019s go rescue her right away, Commander!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036776
+    m_Localized: Thank you, Commander. I will <color=#F75D32>show you the way!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036777
+    m_Localized: Oh, by the way, Commander, what is <color=#F75D32>your name?</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036778
+    m_Localized: My position is <color=#F75D32>Tank</color>, and I protect allies
+      from the enemy's <color=#F75D32>physical attacks.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036779
+    m_Localized: Especially with my skill, <color=#F75D32>Guard Up</color>, I grant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036780
+    m_Localized: a <color=#F75D32>shield</color> to allies in the same row.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036781
+    m_Localized: Use me to <color=#F75D32>protect</color> the allies!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036782
+    m_Localized: Phew, thanks to Mensha, we escaped the danger!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036783
+    m_Localized: "Let\u2019s continue the adventure, Commander!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036784
+    m_Localized: Ouch! What is this, there's lava on the ground?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036785
+    m_Localized: Be careful, it's a <color=#F75D32>Lava Zone!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036786
+    m_Localized: The boss of this region used his magic to create the <color=#F75D32>Lava
+      Zone.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036787
+    m_Localized: "If the Stella Knights step onto the lava, they\u2019ll take"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036788
+    m_Localized: <color=#F75D32>damage,</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036789
+    m_Localized: so please be cautious when deploying us!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036790
+    m_Localized: We almost got just roasted in it!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036791
+    m_Localized: It seems like the <color=#F75D32>Lava Zones</color> will keep appearing
+      in this region.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036792
+    m_Localized: "Please make sure to check that there are no <color=#F75D32>Lava
+      Zones</color> nearby when you\u2019re deploying us!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036793
+    m_Localized: Huh!? Now there's a <color=#F75D32>huge wall</color> up ahead!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036794
+    m_Localized: That one is an <color=#F75D32>obstacle</color>, and if there is
+      an obstacle in front of us, it will <color=#F75D32>block our movement.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036795
+    m_Localized: Also, Stella Knights <color=#F75D32>cannot be deployed</color> where
+      obstacles are present.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036796
+    m_Localized: "With obstacles, you can also <color=#F75D32>direct</color> the
+      enemy\u2019s movement, so make good use of them!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036797
+    m_Localized: Hmm... I feel like my attacks <color=#F75D32>are not working well.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036798
+    m_Localized: It seems the monsters have high <color=#F75D32>Phys DEF.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036799
+    m_Localized: "In situations like this, we need <color=#F75D32>Mage\u2019s</color>
+      <color=#F75D32>magic attacks</color>..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036800
+    m_Localized: "Let\u2019s keep moving forward! I\u2019m sure we\u2019ll find a
+      way!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036801
+    m_Localized: We received a word from HQ that <color=#F75D32>Alice</color> is
+      nearby.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036802
+    m_Localized: Just a little more to go, Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036803
+    m_Localized: Alice! She is over there!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036804
+    m_Localized: Wait... something seems a bit off with her eyes.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036805
+    m_Localized: Alice!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036806
+    m_Localized: Are you okay? Can you hear me?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036807
+    m_Localized: Eliminate... the <color=#F75D32>intruder</color>...eliminate...the
+      intruder...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036808
+    m_Localized: What...? Alice, snap out of it! What happened to you?! Commander,
+      please help her break free!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036809
+    m_Localized: "Be careful, Commander! There\u2019s a <color=#F75D32>Lava Zone</color>
+      right ahead of us!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036810
+    m_Localized: Where...am I...?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036811
+    m_Localized: Alice! It seems you were hypnotized by the enemy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036812
+    m_Localized: "You\u2019ve come to help me, Atresia!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036813
+    m_Localized: Thank you, Atresia. I owe you so much.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036814
+    m_Localized: I am in the <color=#F75D32>Mage</color> position and can use <color=#F75D32>magic
+      attacks,</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036815
+    m_Localized: which means I can deal heavy <color=#F75D32>magic damage</color>
+      to Tanks!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036816
+    m_Localized: First, <color=#F75D32>level me up</color> to level 3!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036817
+    m_Localized: "Great, Commander, now I\u2019m ready to fight!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036818
+    m_Localized: Head to the next stage and deploy me!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036819
+    m_Localized: "Commander! I\u2019m a Mage with the <color=#F75D32>Water Synergy.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036820
+    m_Localized: If you deploy me along with <color=#F75D32>Philia, the Water Ranger,</color>
+      who has the same synergy as me,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036821
+    m_Localized: the <color=#F75D32>Water Synergy</color> effect will give all the
+      Stella Knights a <color=#F75D32>shield!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036822
+    m_Localized: Deploy me and check out the <color=#F75D32>Water Synergy effect</color>
+      for yourself!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036823
+    m_Localized: How about that!? <color=#F75D32>Water Synergy</color> effect is
+      pretty cool in action, right!?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036824
+    m_Localized: Aside from the Water Synergy, there are other synergies of <color=#F75D32>Fire/Earth/Wind/Light/Darkness.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036825
+    m_Localized: "As you continue to fight, you\u2019ll get to experience various
+      synergies!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036826
+    m_Localized: "Let\u2019s head to the next stage!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036827
+    m_Localized: Oh, hold on, Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036828
+    m_Localized: The HQ has just opened the <color=#F75D32>Combat Trial</color> dungeon
+      to help the Stella Knights in training!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036829
+    m_Localized: They say <color=#F75D32>clones of Stella Knights</color> will be
+      appearing as enemies!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036830
+    m_Localized: Additionally, when you clear a <color=#F75D32>certain stage</color>
+      of Combat Trial,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036831
+    m_Localized: you can <color=#F75D32>increase by 1</color> the number of units
+      for deployment.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036832
+    m_Localized: "Let\u2019s challenge the dungeon up to that very stage, Commander!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036833
+    m_Localized: Wow, I just fought myself! That was so strange!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036834
+    m_Localized: If I were to fight against an enemy that looks like me... hmm, that
+      would be tough.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036835
+    m_Localized: Oh, Commander, as I mentioned earlier, clearing a <color=#F75D32>certain
+      stage</color> will increase the <color=#F75D32>number of deployment units</color>
+      for the battle.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036836
+    m_Localized: "At this point, if you clear <color=#F75D32>Stage 4</color>, you\u2019ll
+      be able to increase the number of deployment units."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036837
+    m_Localized: Battle of Validation stages open upon collecting <color=#F75D32>Stage
+      Clear Stars.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036838
+    m_Localized: Should we continue challenging the <color=#F75D32>stages?!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036839
+    m_Localized: Commander, seems like the enemies are <color=#F75D32>gathering on
+      the right.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036840
+    m_Localized: In times like this, if you <color=#F75D32>use me, Atresia</color>,
+      I can strike multiple enemies at once.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036841
+    m_Localized: Please <color=#F75D32>deploy me</color> in the right position.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036842
+    m_Localized: "What\u2019s that <color=#F75D32>giant monster?</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036843
+    m_Localized: That giant monster is the <color=#F75D32>Magma Golem</color> guarding
+      this area.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036844
+    m_Localized: It drops magma in a <color=#F75D32>cross-shaped area</color> and
+      stuns enemies.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036845
+    m_Localized: Try <color=#F75D32>deploying</color> the Stella Knights in positions
+      that avoid the <color=#F75D32>skill range</color> of Magma Golem!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036846
+    m_Localized: "Commander, we\u2019ve just received a message from HQ on <color=#F75D32>reinforcements!</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036847
+    m_Localized: "Let\u2019s gather more companions to face stronger enemies!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036848
+    m_Localized: Wow, the battlefield is packed with Stella Knights!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036849
+    m_Localized: These new troops will be a great addition. Before heading into serious
+      battle,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036850
+    m_Localized: "let\u2019s get the team ready by <color=#F75D32>leveling them up!</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036851
+    m_Localized: "Oh! There\u2019s a light coming from the <color=#F75D32>Combat
+      Trial!</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036852
+    m_Localized: "Commander, it\u2019s time to face the <color=#F75D32>giant boss</color>
+      of the Combat Trial."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036853
+    m_Localized: Defeat the <color=#F75D32>giant boss</color> and increase the number
+      of <color=#F75D32>units you can deploy</color>, Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036854
+    m_Localized: Phew... that was a tough battle, Commander.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036855
+    m_Localized: We finally defeated the General Jacqueline, Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036856
+    m_Localized: Now, we can deploy one more companion.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036857
+    m_Localized: Shall we head to the battlefield and check it out?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036858
+    m_Localized: Wow! Now we can deploy <color=#F75D32>1 more</color> companion!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036859
+    m_Localized: The more companions you deploy, the <color=#F75D32>more synergies</color>
+      you can activate.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036860
+    m_Localized: Additionally, the <color=#F75D32>more Stella Knights with the same
+      synergy you deploy</color>, the stronger the synergy effects will be.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036861
+    m_Localized: So be sure to actively use Stella Knights with the same synergy!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036862
+    m_Localized: Ahh! I want to activate the Fire Synergy too!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036863
+    m_Localized: Alice, HQ mentioned that another Stella Knight beside you is also
+      missing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036864
+    m_Localized: Do you happen to know who she might be?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036865
+    m_Localized: "It\u2019s probably <color=#F75D32>Blin</color>..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036866
+    m_Localized: The reason this place is in flames is actually because of <color=#F75D32>her
+      fire magic.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036867
+    m_Localized: '!?'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036868
+    m_Localized: "I don\u2019t believe it either, but I clearly saw <color=#F75D32>Blin</color>
+      using fire magic..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036869
+    m_Localized: "We\u2019ll just have to confirm whether it\u2019s true or not."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036870
+    m_Localized: Burn everything to ashes!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036871
+    m_Localized: "That\u2019s <color=#F75D32>Blin\u2019s </color> voice!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036872
+    m_Localized: "It sounds like she\u2019s not far from here."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036873
+    m_Localized: "Let\u2019s hurry, Commander!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036874
+    m_Localized: "Blin! It\u2019s me, Alice!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036875
+    m_Localized: Who are you?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036876
+    m_Localized: "Blin... you don\u2019t recognize me?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036877
+    m_Localized: Hah! Ridiculous. Humanity is all deceived...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036878
+    m_Localized: <color=#F75D32>The Witch of Laplace</color> will lead us to the
+      truth!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036879
+    m_Localized: Commander! Blin seems to have been severely <color=#F75D32>brainwashed.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036880
+    m_Localized: Help bring her back!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036881
+    m_Localized: Why... why am I here...?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036882
+    m_Localized: You came to save me, Alice...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036883
+    m_Localized: Blin...! What happened to you?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036884
+    m_Localized: Well... while I was fighting relentlessly at the gate, a purple
+      light suddenly flashed before my eyes.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036885
+    m_Localized: "After that... I don\u2019t remember much..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036886
+    m_Localized: "It\u2019s similar to Alice\u2019s experience."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036887
+    m_Localized: Something is definitely going on, Commander.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036888
+    m_Localized: It has been reported that another Stella Knight is missing in the
+      <color=#F75D32>[Frozen City].</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036889
+    m_Localized: Rescue the Stella Knight who went missing, Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036890
+    m_Localized: Since you helped me, Observer, I'd like to give you some <color=#F75D32>special
+      gifts.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036891
+    m_Localized: First, click on the <color=#F75D32>Attendance</color> button on
+      the main screen!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036892
+    m_Localized: By logging in daily, you can receive <color=#F75D32>various rewards</color>
+      here!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036893
+    m_Localized: I still need a little more time to regain my strength.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036894
+    m_Localized: "By <color=#F75D32>tomorrow</color>, my magical energy will be fully
+      restored, and I\u2019ll be able to join you as <color=#F75D32>your companion!</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036895
+    m_Localized: "Don\u2019t forget to check the <color=#F75D32>Attendance</color>
+      again <color=#F75D32>tomorrow!</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036896
+    m_Localized: Now, for the second gift.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036897
+    m_Localized: Let's head to the first stage of Chapter 3!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036898
+    m_Localized: Click the <color=#F75D32>+ button</color> above the battle start
+      button on the right.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036899
+    m_Localized: "You\u2019ll see the <color=#F75D32>[Explosion]</color> commander
+      skill I gave you as a gift."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036900
+    m_Localized: "You\u2019ll need to <color=#F75D32>equip the commander skill</color>
+      to be able to use it during battle."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036901
+    m_Localized: To use it, simply <color=#F75D32>click</color> the commander skill
+      and then
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036902
+    m_Localized: <color=#F75D32>drag it</color> to your desired location to activate
+      the skill there.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036903
+    m_Localized: "Let\u2019s try using the commander skill to take out some enemies!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036904
+    m_Localized: What do you think!? Pretty amazing gift, right!?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036905
+    m_Localized: "Don\u2019t forget to use it"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036906
+    m_Localized: whenever the Stella Knights are in danger!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036907
+    m_Localized: "Thank you, Blin! Let\u2019s move on to the next stage, Commander!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036908
+    m_Localized: Oh, so cold!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036909
+    m_Localized: Why am I always the one finding these weird things?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036910
+    m_Localized: Be careful, Yuni!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036911
+    m_Localized: "Ugh... it\u2019s so cold, I can\u2019t even move a step!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036912
+    m_Localized: Commander, there are <color=#F75D32>ice zones</color> scattered
+      throughout this area.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036913
+    m_Localized: If Stella Knights stand on an ice zone,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036914
+    m_Localized: they will become <color=#F75D32>frozen</color> for a short period,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036915
+    m_Localized: making them <color=#F75D32>unable</color> to move or attack.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036916
+    m_Localized: What!? That's so unfair!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036917
+    m_Localized: Let's be careful while <color=#F75D32>deploying</color> Stella Knights,
+      Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036918
+    m_Localized: Now that I think about it, all I can see here is snow?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036919
+    m_Localized: This place used to be a regular city facility...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036920
+    m_Localized: Until the <color=#F75D32>Ice Queen</color> appeared.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036921
+    m_Localized: The Ice Queen...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036922
+    m_Localized: Could she be the <color=#F75D32>Apostle</color> that HQ has been
+      searching for?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036923
+    m_Localized: "<color=#F75D32>Apostle?!</color> What\u2019s an Apostle??"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036924
+    m_Localized: It seems that in the Frozen City, a new type of enemy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036925
+    m_Localized: with a <color=#F75D32>different position</color> will appear, unlike
+      before.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036926
+    m_Localized: When we move to the next stage, I'll explain further!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036927
+    m_Localized: In the Frozen City, monsters of the <color=#F75D32>Assassin</color>
+      type will appear.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036928
+    m_Localized: Enemy Assassins will <color=#F75D32>move</color> to our side at
+      the start of the battle,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036929
+    m_Localized: so place <color=#F75D32>Tanks</color> with high physical defense
+      in the back to prepare for the Assassins' attacks!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036930
+    m_Localized: It seems that person is brainwashed as well!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036931
+    m_Localized: It's clear from the way she's pointing her sword at us.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036932
+    m_Localized: ...The <color=#F75D32>intruder</color> who has invaded our territory...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036933
+    m_Localized: All of you... will... perish...here...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036934
+    m_Localized: Scary...! She is clearly not in her right mind!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036935
+    m_Localized: Looks like an <color=#F75D32>Assassin</color>, so be careful of
+      <color=#F75D32>attacks from back!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036936
+    m_Localized: Are you alright?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036937
+    m_Localized: It seems I caused some trouble.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036938
+    m_Localized: ...Thanks for snapping me out of it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036939
+    m_Localized: Commander, could you help me <color=#F75D32>level up?</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036940
+    m_Localized: I want to repay my debt.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036941
+    m_Localized: "Thank you, from now on, I\u2019ll fight by your side."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036942
+    m_Localized: Oh, Commander! A message from HQ just came in, inviting us to the
+      <color=#F75D32>Arena!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036943
+    m_Localized: The Arena is a place where you can <color=#F75D32>fight other Stella
+      Knights</color> and pick up new strategies!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036944
+    m_Localized: "Let\u2019s click the [Arena] button on the main screen!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036945
+    m_Localized: Also, in the Arena Defense deck, you can deploy <color=#F75D32>obstacles</color>
+      as well as Stella Knights,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036946
+    m_Localized: so be sure to actively use the <color=#F75D32>obstacles</color>
+      to your advantage!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036947
+    m_Localized: Phew~ That was so much fun, right, Commander?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036948
+    m_Localized: "It seems like you enjoy battles, don\u2019t you?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036949
+    m_Localized: In the <color=#F75D32>Arena</color>, the more battles you fight,
+      the higher your <color=#F75D32>tier</color> will become, Commander.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036950
+    m_Localized: "The higher your tier, the <color=#F75D32>better rewards</color>
+      you\u2019ll get, so make sure to enjoy the Arena to its fullest!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036951
+    m_Localized: "Commander, you haven\u2019t forgotten about me, right?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036952
+    m_Localized: "Let\u2019s get back to monster hunting."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036953
+    m_Localized: "Since I\u2019m in the <color=#F75D32>Assassin position</color>,"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036954
+    m_Localized: "I can <color=#F75D32>instantly move</color> to the enemy\u2019s
+      side."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036955
+    m_Localized: Use me to target the enemy <color=#F75D32>Rangers and Mages</color>
+      positioned in the rear.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036956
+    m_Localized: "When you deploy me, I\u2019ll move to the <color=#F75D32>farthest
+      enemy</color> from my position,"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036957
+    m_Localized: so place me strategically to <color=#F75D32>target</color> the enemies
+      you want.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036958
+    m_Localized: "Wow! She flies straight into the enemy lines, doesn\u2019t she,
+      Sheena!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036959
+    m_Localized: Assassins ignore any enemies in front of them and <color=#F75D32>move
+      to the backline,</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036960
+    m_Localized: so use Assassins to target <color=#F75D32>enemies hiding in the
+      back.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036961
+    m_Localized: "Let\u2019s keep fighting."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036962
+    m_Localized: ...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036963
+    m_Localized: "What\u2019s wrong, Sheena?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036964
+    m_Localized: "I\u2019m sensing something... a <color=#F75D32>dark presence.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036965
+    m_Localized: Is it something you recognize?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036966
+    m_Localized: ...I feel an <color=#F75D32>unfamiliar yet familiar aura</color>,
+      it seems to be nearby.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036967
+    m_Localized: "First, let's deal with the enemies in front of us. As we go, we\u2019ll
+      uncover <color=#F75D32>its identity.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036968
+    m_Localized: ...That person..!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036969
+    m_Localized: ...<color=#F75D32>Hati!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036970
+    m_Localized: Why are you with the monsters?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036971
+    m_Localized: ...Sheena. After you lost your eyesight in battle,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036972
+    m_Localized: many things have changed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036973
+    m_Localized: "The world\u2019s justice, and even me."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036974
+    m_Localized: To me, these monsters look like... <color=#F75D32>humans.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036975
+    m_Localized: "Oh, no, she\u2019s not in her right mind."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036976
+    m_Localized: Commander, be careful! The enemies are approaching!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036977
+    m_Localized: This place...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036978
+    m_Localized: Hati! It seems you were <color=#F75D32>hypnotized</color> by the
+      enemy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036979
+    m_Localized: Me..?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036980
+    m_Localized: "...I\u2019m glad you are okay, Hati."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036981
+    m_Localized: "It seems I\u2019ve caused some trouble. I\u2019m sorry, everyone."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036982
+    m_Localized: And thank you, Sheena.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036983
+    m_Localized: Commander! HQ just sent word that reinforcements are on the way!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036984
+    m_Localized: Shall we move to the <color=#F75D32>summon</color> to welcome new
+      companions?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036985
+    m_Localized: Before diving into a full-scale battle, let's take a moment for
+      <color=#F75D32>reorganization!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036986
+    m_Localized: Commander! It seems a new stage has opened in the <color=#F75D32>Combat
+      Trial.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036987
+    m_Localized: "It's an opportunity to increase the number of <color=#F75D32>additional
+      units</color> to deploy. Let\u2019s head to the <color=#F75D32>Combat Trial</color>
+      right away!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036988
+    m_Localized: Congratulations on your victory, Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036989
+    m_Localized: Now, you can deploy up to <color=#F75D32>6 Stella Knights!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036990
+    m_Localized: Let's enter the <color=#F75D32>stage</color> right away and check
+      it out, Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036991
+    m_Localized: The snowstorm seems to be getting stronger.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036992
+    m_Localized: Could it be because of the Apostle's aura?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036993
+    m_Localized: But what exactly is an Apostle?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036994
+    m_Localized: An Apostle is a being that <color=#F75D32>controls all the monsters</color>,
+      a commander of some sort.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036995
+    m_Localized: The <color=#F75D32>Apostle is likely the one behind</color> the
+      Stella Knights' hypnosis and their strange behavior.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036996
+    m_Localized: Is the Apostle the reason this happened to me too?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036997
+    m_Localized: It's possible.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036998
+    m_Localized: <color=#F75D32>Defeating the Apostle</color> might weaken the monsters.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178036999
+    m_Localized: Let's keep moving forward, Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037000
+    m_Localized: Ah! A <color=#F75D32>giant monster</color> has appeared!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037001
+    m_Localized: Is that the Apostle?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037002
+    m_Localized: According to HQ, that monster is called <color=#F75D32>Ice Balrog.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037003
+    m_Localized: It uses <color=#F75D32>ice attacks</color> on enemies <color=#F75D32>nearby,</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037004
+    m_Localized: so we need to use <color=#F75D32>ranged allies</color> to take it
+      down!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037005
+    m_Localized: Try using a <color=#F75D32>Ranger</color> or <color=#F75D32>Mage</color>
+      with long-range attacks, Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037006
+    m_Localized: Now that I think about it, I heard there was a Stella Knight who
+      was
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037007
+    m_Localized: <color=#F75D32>deployed here before</color> Hati and me.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037008
+    m_Localized: Could this Frozen City be like this because of that Stella Knight?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037009
+    m_Localized: "It\u2019s possible."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037010
+    m_Localized: A Stella Knight who uses <color=#F75D32>ice</color>, just like Alice...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037011
+    m_Localized: But who could it be?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037012
+    m_Localized: "Whoa! Look over there, on the right! There\u2019s an interesting-looking
+      platform!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037013
+    m_Localized: "Ah, that\u2019s an <color=#F75D32>ATK Buff Zone.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037014
+    m_Localized: If you <color=#F75D32>place</color> a Stella Knight on that spot,
+      their ATK will increase.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037015
+    m_Localized: Please note that ATK increases only when standing on the <color=#F75D32>platform.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037016
+    m_Localized: Deploy Stella Knights with <color=#F75D32>high ATK</color> to deal
+      strong damage to the enemy!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037017
+    m_Localized: I remember now, it was the <color=#F75D32>White Reaper.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037018
+    m_Localized: Who?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037019
+    m_Localized: The Stella Knight who was deployed here before.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037020
+    m_Localized: "I\u2019ve heard her being as beautiful as a swan but incredibly
+      ruthless."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037021
+    m_Localized: "If she can freeze this entire city, she\u2019s definitely not weak."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037022
+    m_Localized: Hmm... the monsters are gathering on the <color=#F75D32>right!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037023
+    m_Localized: There is some ice to the right, so be cautious when deploying us,
+      Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037024
+    m_Localized: It suddenly got quiet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037025
+    m_Localized: "Once we defeat the monsters ahead, we\u2019ll face the <color=#F75D32>ruler
+      of this area.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037026
+    m_Localized: "Freezing an entire region like this won\u2019t make them easy to
+      beat."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037027
+    m_Localized: "But if we all work together, I\u2019m sure we can win."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037028
+    m_Localized: Commander, lend us a hand!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037029
+    m_Localized: Commander... I think that's the <color=#F75D32>Stella Knight.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037030
+    m_Localized: Finally... you've made it here.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037031
+    m_Localized: You had me worried there with such poor skills.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037032
+    m_Localized: Ugh, what a sharp tongue she got!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037033
+    m_Localized: "You\u2019ll at least provide me some entertainment, won\u2019t
+      you?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037034
+    m_Localized: "Now, let\u2019s begin the dance of battle!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037035
+    m_Localized: The snow... has stopped.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037036
+    m_Localized: Is it all over...?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037037
+    m_Localized: (Mysterious voice) This is... not the end.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037038
+    m_Localized: (Mysterious voice) I will destroy this
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037039
+    m_Localized: "(Mysterious voice) <color=#F75D32>cowardly world</color> you\u2019ve
+      created,"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037040
+    m_Localized: (Mysterious voice) and rebuild it anew!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037041
+    m_Localized: Odette!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037042
+    m_Localized: Seems like she passed out. We should send her back to HQ for treatment.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037043
+    m_Localized: That strange voice just now...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037044
+    m_Localized: It must have been the leader of all Apostles, the <color=#F75D32>Witch
+      of Laplace.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037045
+    m_Localized: "There\u2019s still a trace of the Witch of Laplace\u2019s aura
+      lingering in the aftermath of the battle."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037046
+    m_Localized: "I\u2019ll send a request to HQ for analysis."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037047
+    m_Localized: (1 hour later.)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037048
+    m_Localized: HQ has sent back the analysis results.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037049
+    m_Localized: "The Witch\u2019s aura is pointing towards the <color=#F75D32>[Forgotten
+      Desert].</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037050
+    m_Localized: HQ has just sent a mission to join up with <color=#F75D32>Mino</color>,
+      who was deployed earlier, and carry out the operation together.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037051
+    m_Localized: "It\u2019s a desert this time!?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037052
+    m_Localized: "I\u2019ve heard that Mino is a <color=#F75D32>Genius Engineer</color>
+      who developed various weapons for HQ at a young age."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037053
+    m_Localized: "This mission won\u2019t be easy either."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037054
+    m_Localized: Let's head to the <color=#F75D32>[Forgotten Desert]</color> right
+      away!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037055
+    m_Localized: 'After the battle with Odette, Commander, you''ve acquired a new
+      commander skill: <color=#F75D32>[Freezing]!</color>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037056
+    m_Localized: It temporarily <color=#F75D32>freezes</color> enemies in a certain
+      area.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037057
+    m_Localized: Shall we give it a try?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037058
+    m_Localized: "Ugh... I\u2019m so thirsty! It feels like my throat is burning
+      up!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037059
+    m_Localized: Just hold on a bit longer, Yuni. Once we meet the Stella Knight
+      <color=#F75D32>Mino</color>, who was deployed ahead,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037060
+    m_Localized: "we\u2019ll receive food supplies."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037061
+    m_Localized: Oh right, I know Mino quite well.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037062
+    m_Localized: "We\u2019ve worked together on missions before, and we\u2019re also
+      connected on a personal level."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037063
+    m_Localized: "She\u2019s kind of a weirdo, but I\u2019ll give talking to her
+      a shot when we meet."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037064
+    m_Localized: "Let\u2019s clear out the enemies in front of us first."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037065
+    m_Localized: Commander, HQ has sent detailed information on the enemies in this
+      area.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037066
+    m_Localized: The enemies are using <color=#F75D32>Earth Synergy</color>, and
+      their <color=#F75D32>Phys DEF</color> is much higher than regular monsters!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037067
+    m_Localized: Using a Ranger like me, who has high <color=#F75D32>Phys Pen</color>,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037068
+    m_Localized: or a Mage with <color=#F75D32>magic attacks</color> will help you
+      defeat them easily!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037069
+    m_Localized: Use Rangers and Mages to INTer the <color=#F75D32>Earth Synergy</color>
+      monsters, Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037070
+    m_Localized: "Oh? What\u2019s this sand pit?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037071
+    m_Localized: Be careful, Yuni!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037072
+    m_Localized: That sandy area is a trap set by the sandworms of this desert.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037073
+    m_Localized: "If you step into that area, you\u2019ll be lifted into the air
+      and unable to participate in the battle for a <color=#F75D32>certain amount
+      of time.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037074
+    m_Localized: "You\u2019ll be an easy target for enemies, so watch out!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037075
+    m_Localized: By the way, Mino hasn't responded at all... Could something be wrong?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037076
+    m_Localized: No need to worry.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037077
+    m_Localized: "She\u2019s the type to get absorbed in her world, probably she
+      got somewhere making new weapons."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037078
+    m_Localized: "Hopefully, the new one doesn\u2019t explode this time..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037079
+    m_Localized: "Oh!? Now there\u2019s a different <color=#F75D32>buff platform</color>
+      here!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037080
+    m_Localized: That buff zone is a <color=#F75D32>DEF Buff</color> zone.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037081
+    m_Localized: Positioning Stella Knights there will increase their <color=#F75D32>DEF,</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037082
+    m_Localized: so strategically place them to increase their chances of survival!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037083
+    m_Localized: Mino! What are you up to this time?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037084
+    m_Localized: Hati!? What are you doing here?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037085
+    m_Localized: "We received a mission from HQ to join forces with you, Mino, and
+      search for the Witch of Laplace\u2019s traces."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037086
+    m_Localized: Hmm... HQ suddenly sent reinforcements? They ignored me when I asked
+      for help before.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037087
+    m_Localized: "With all these rumors about brainwashing and getting controlled,
+      I can\u2019t trust anyone!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037088
+    m_Localized: Prove yourselves with your skills!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037089
+    m_Localized: Ha... Looks like she just wants to show off her new weapon.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037090
+    m_Localized: "Commander, I\u2019ll snap her out of it."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037091
+    m_Localized: Mino uses <color=#F75D32>Earth Synergy</color>, which gives her
+      high Phys DEF.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037092
+    m_Localized: However, I have a high <color=#F75D32>Phys Pen</color>, so I can
+      deal effective damage to her.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037093
+    m_Localized: Use me to defeat Mino.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037094
+    m_Localized: "Phew\u2014 that was fun!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037095
+    m_Localized: That was fun!? I almost died because of you!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037096
+    m_Localized: "See? I told you, she\u2019s a bit of a weirdo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037097
+    m_Localized: Now that it's clear none of us are being brainwashed, let's get
+      down to business.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037098
+    m_Localized: "You\u2019re not familiar with this desert, so I\u2019ll guide you!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037099
+    m_Localized: First, <color=#F75D32>level me up</color> to level 5.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037100
+    m_Localized: By the way, Mino, what brings you here?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037101
+    m_Localized: <color=#F75D32>Ancient Relic</color> is the answer.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037102
+    m_Localized: The Ancient Relic?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037103
+    m_Localized: HQ believes the Ancient Relic is directly linked to the recent brainwashing
+      incidents.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037104
+    m_Localized: "That\u2019s why I was sent to analyze it."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037105
+    m_Localized: "It\u2019s also something I personally find quite interesting."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037106
+    m_Localized: Then, we might even find a clue about the Apostle.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037107
+    m_Localized: But have you found it?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037108
+    m_Localized: No!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037109
+    m_Localized: Why are you so confident about that!?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037110
+    m_Localized: "It\u2019s not supposed to be so easy to find! The Ancient Relic
+      is divided into three pieces."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037111
+    m_Localized: "Each part is guarded by the desert\u2019s monsters, the sandworms
+      and desert scorpions."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037112
+    m_Localized: HQ sent you guys because it's not easy for me to handle all the
+      monsters alone,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037113
+    m_Localized: so they ordered to form a team and recover the relic.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037114
+    m_Localized: "Ugh, <color=#F75D32>sandworms!</color> I really don\u2019t want
+      to deal with them!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037115
+    m_Localized: "... It seems there\u2019s a sandworm nearby."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037116
+    m_Localized: How do you know?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037117
+    m_Localized: The number of creatures around us has suddenly dropped.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037118
+    m_Localized: "I\u2019ve heard sandworms drain the life force of nearby creatures."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037119
+    m_Localized: "You\u2019ll be caught off guard if you\u2019ve never faced one
+      before."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037120
+    m_Localized: "I\u2019ll lead the battle, follow me!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037121
+    m_Localized: W-what is that giant worm?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037122
+    m_Localized: "It\u2019s my first time seeing one in person too."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037123
+    m_Localized: Sandworms mainly attack by biting enemies nearby.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037124
+    m_Localized: "When they use their skill, they burrow underground, and during
+      that time, they can\u2019t be <color=#F75D32>targeted.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037125
+    m_Localized: Then they emerge from beneath and strike the enemy with the highest
+      ATK with <color=#F75D32>spikes.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037126
+    m_Localized: The Stella Knight with the <color=#F75D32>highest ATK</color> among
+      us needs to be extra careful.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037127
+    m_Localized: "Alright, let\u2019s begin the sandworm hunt!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037128
+    m_Localized: Finally... we defeated it...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037129
+    m_Localized: Is that the piece of a relic?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037130
+    m_Localized: "Yes, this is the first piece of the ancient relic that I\u2019ve
+      been searching for."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037131
+    m_Localized: Now, we just need to find two more!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037132
+    m_Localized: Ugh, relics or whatever, I just want to go back to HQ!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037133
+    m_Localized: "Oh, what\u2019s that chest over there?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037134
+    m_Localized: That chest is a <color=#F75D32>destructible obstacle</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037135
+    m_Localized: that you can <color=#F75D32>destroy</color> by dealing damage to
+      it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037136
+    m_Localized: Destroying obstacles can open new paths, so keep that in mind.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037137
+    m_Localized: Mino! But why are you so obsessed with finding the ancient relic?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037138
+    m_Localized: Obviously, to create an incredible weapon!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037139
+    m_Localized: If I can make a weapon that no one else can,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037140
+    m_Localized: no one will ever look down on me again!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037141
+    m_Localized: Here we go again...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037142
+    m_Localized: "Let\u2019s hope this \u2018ultimate weapon\u2019 of yours actually
+      works this time."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037143
+    m_Localized: Of course, it will, who do you think made it?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037144
+    m_Localized: "Remember that time in the middle of a battlefield when the gun
+      you made didn\u2019t fire and I almost died?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037145
+    m_Localized: That was a minor detail, totally insignificant. Small things like
+      that are trivial to a genius like me!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037146
+    m_Localized: "...I\u2019m starting to question whether looking for the ancient
+      relic is really the right thing, Commander."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037147
+    m_Localized: "Ahh! What\u2019s that scorpion?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037148
+    m_Localized: It looks like the second guardian monster has appeared.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037149
+    m_Localized: That scorpion shoots a <color=#F75D32>deadly venomous sting</color>
+      that suppresses healing abilities!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037150
+    m_Localized: The sting also tracks nearby enemies and deals additional damage,
+      so be careful!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037151
+    m_Localized: "Alright, that\u2019s the second piece secured."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037152
+    m_Localized: Only one more to go.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037153
+    m_Localized: Wait a moment, Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037154
+    m_Localized: We just got word from HQ that a new stage in the <color=#F75D32>Battle
+      of Validation</color> has opened.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037155
+    m_Localized: This is a chance to expand our unit deployment up to <color=#F75D32>7
+      units.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037156
+    m_Localized: "Let\u2019s challenge the dungeon right away!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037157
+    m_Localized: Congratulations, Commander! Now you can deploy up to 7 of our Stella
+      Knights!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037158
+    m_Localized: Also, HQ has just sent a request for reinforcements.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037159
+    m_Localized: Head to the main screen and proceed with a <color=#F75D32>10x summon!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037160
+    m_Localized: Shall we organize the squad one more time before the big battle?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037161
+    m_Localized: "Once we find the last relic piece, I can finally create the ultimate
+      weapon I\u2019ve been dreaming of!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037162
+    m_Localized: "Mino, I\u2019ve always wondered, why is becoming the best so important
+      to you."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037163
+    m_Localized: Of course, it is! Shouldn't the whole world know that I'm a genius?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037164
+    m_Localized: "They\u2019re already using plenty of your weapons in the HQ Geofront."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037165
+    m_Localized: Most people agree that the quality is pretty good, too.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037166
+    m_Localized: "What\u2019s this? A compliment from you?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037167
+    m_Localized: Just saying... I think you're already doing great just the way you
+      are.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037168
+    m_Localized: What's with the cheesy talk? What's gotten into you? Ahem!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037169
+    m_Localized: "Anyway, let\u2019s go hunt some monsters!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037170
+    m_Localized: Embarrassed, are we?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037171
+    m_Localized: "There\u2019s no end to them."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037172
+    m_Localized: "If the battle\u2019s wearing you out, make sure to make full use
+      of our Rangers, Commander."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037173
+    m_Localized: The knights in <color=#F75D32>Ranger position</color>, including
+      myself, can easily take out monsters in this area with high penetration.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037174
+    m_Localized: Additionally, certain Stella Knights also have high <color=#F75D32>penetration</color>,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037175
+    m_Localized: so make sure to check the <color=#F75D32>stats</color> of the units
+      for the best results.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037176
+    m_Localized: Only one more to go.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037177
+    m_Localized: "Let\u2019s go take down that sandworm!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037178
+    m_Localized: "With this, we\u2019ve gathered all the ancient relic pieces!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037179
+    m_Localized: Now, we just need to return to HQ and assemble them.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037180
+    m_Localized: The real challenge is figuring out how to get out of here.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037181
+    m_Localized: But everyone, be cautious from now on.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037182
+    m_Localized: "There\u2019s actually one more Stella Knight staying here besides
+      me."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037183
+    m_Localized: Unfortunately, it seems that person has been brainwashed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037184
+    m_Localized: Who is it?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037185
+    m_Localized: The Destroyer of Earth, <color=#F75D32>Tetora.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037186
+    m_Localized: Huh? Teto...what?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037187
+    m_Localized: Tetora... I've never heard of this name before.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037188
+    m_Localized: "You don\u2019t know Tetora, who was recently ranked <color=#F75D32>Number
+      1 in the Arena</color> among the Stella Knights?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037189
+    m_Localized: Apparently, Tetora came to the desert with the intent of claiming
+      the Ancient Relic.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037190
+    m_Localized: Sadly, it looks like she was brainwashed during that process.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037191
+    m_Localized: We need to rescue her, too!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037192
+    m_Localized: "Unfortunately, it won\u2019t be that easy. She didn\u2019t become
+      Arena\u2019s top rank for nothing."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037193
+    m_Localized: Is there any way to save her?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037194
+    m_Localized: Well, I guess now is the time to think it over.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037195
+    m_Localized: Well done, weaklings!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037196
+    m_Localized: "You\u2019ve gone through all this trouble gathering the Ancient
+      Relic for me."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037197
+    m_Localized: "You\u2019ve worked so hard, now hand it over!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037198
+    m_Localized: How can she be so shameless?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037199
+    m_Localized: She is a Guardian with an Earth Synergy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037200
+    m_Localized: Being a Guardian, her Phys DEF is low, but her <color=#F75D32>Magic
+      DEF</color> is high.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037201
+    m_Localized: It would be best if <color=#F75D32>Rangers</color> like <color=#F75D32>Philia,
+      Hati, and I</color> take on Tetora.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037202
+    m_Localized: That's all for the explanation. Now let's face her head-on!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037203
+    m_Localized: ...We barely won...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037204
+    m_Localized: "...I told you, she\u2019s Arena's number one for a reason."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037205
+    m_Localized: What am I doing in the desert?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037206
+    m_Localized: Who are you people?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037207
+    m_Localized: "You were brainwashed by the enemy during your search for that Ancient
+      Relic, but don\u2019t worry, you\u2019re all right now."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037208
+    m_Localized: Haha! Looks like I owe you one, huh?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037209
+    m_Localized: Next time, come visit the Arena! I'll personally take you on!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037210
+    m_Localized: "So you're saying you want to fight again? I should\u2019ve just
+      left you brainwashed!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037211
+    m_Localized: Commander! We've received a message from HQ!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037212
+    m_Localized: There's a request to move to the Forest of Beasts, but... things
+      seem complicated internally.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037213
+    m_Localized: "Let\u2019s move to the <<color=#F75D32>[Forest of Beasts]</color>
+      first, I'll explain the details further."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037214
+    m_Localized: Let's head to the <<color=#F75D32>[Forest of Beasts]</color>, Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037215
+    m_Localized: 'Commander, by clearing the desert region, you''ve acquired a new
+      commander skill: <color=#F75D32>[Airborne]</color>!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037216
+    m_Localized: The Airborne skill allows you to lift a designated enemy into the
+      air for a certain period.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037217
+    m_Localized: It's a great skill for controlling powerful enemies, so make sure
+      to use it!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037218
+    m_Localized: Ugh, seriously!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037219
+    m_Localized: Why do the monsters in this area seem to have such a fast <color=#F75D32>ATK
+      SPD?!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037220
+    m_Localized: "That\u2019s because the monsters here have <color=#F75D32>Wind
+      Synergy.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037221
+    m_Localized: The more monsters with Wind Synergy are placed together, the faster
+      their <color=#F75D32>ATK SPD</color> becomes.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037222
+    m_Localized: Use Stella Knights to decrease their ATK SPD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037223
+    m_Localized: or increase the <color=#F75D32>DEF</color> to prepare for the enemies'
+      attacks, Commander.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037224
+    m_Localized: Philia! But why did we come to the jungle this time?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037225
+    m_Localized: Ah, I forgot to explain.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037226
+    m_Localized: It appears that the HQ of the <color=#F75D32>Rebel Forces</color>,
+      who are in conflict with our HQ, is located in this region.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037227
+    m_Localized: Rebel forces?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037228
+    m_Localized: In the end, the HQ is made up of people with diverse beliefs, so
+      conflicts like this are inevitable.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037229
+    m_Localized: The HQ is hoping to take this opportunity to identify key figures
+      of the <color=#F75D32>Rebel Forces.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037230
+    m_Localized: "May, from the HQ\u2019s audit team, was sent ahead and should be
+      somewhere around here."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037231
+    m_Localized: "Let\u2019s meet with her and check the current situation."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037232
+    m_Localized: Be careful, Yuni!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037233
+    m_Localized: Eek! What is this now?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037234
+    m_Localized: "It\u2019s a hunting trap for beasts."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037235
+    m_Localized: I've heard that there are many traps like this scattered throughout
+      the area.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037236
+    m_Localized: "If you step on one, you\u2019ll take damage and be unable to move
+      for a while, so watch your step."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037237
+    m_Localized: Oh! There's another new platform over there!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037238
+    m_Localized: Here comes Philia the Explainer!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037239
+    m_Localized: Am I really that much of an explainer? Hmm.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037240
+    m_Localized: That platform is a magic power platform, which significantly increases
+      the damage of Stella Knights in the <color=#F75D32>Mage position.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037241
+    m_Localized: Just like with the other platforms, the effect only applies while
+      you're standing on it, so keep that in mind.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037242
+    m_Localized: "We\u2019re almost at the rendezvous point where we should meet
+      up with May."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037243
+    m_Localized: "By the way, wasn\u2019t May part of HQ\u2019s internal lifestyle
+      management organization, <color=#F75D32>MAID?</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037244
+    m_Localized: "That\u2019s right! Even though she\u2019s a terrible cook, she
+      sure tries her best!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037245
+    m_Localized: Yes, but while the MAID team officially handles lifestyle management,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037246
+    m_Localized: its main role is auditing internal corruption within the organization.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037247
+    m_Localized: Who's there!?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037248
+    m_Localized: "We\u2019re the Pleiades unit, dispatched by HQ to assist you, May."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037249
+    m_Localized: Pleiades... that's the unit where Philia is a part of.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037250
+    m_Localized: "Hm. But this mission is supposed to be a covert one, so HQ wouldn\u2019t
+      send a unit so easily..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037251
+    m_Localized: I can't trust you just yet!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037252
+    m_Localized: "Ah, everyone\u2019s so on edge lately with all these brainwashing
+      incidents!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037253
+    m_Localized: We have no choice for now. Let's proceed with the battle, Commander!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037254
+    m_Localized: Philia! So it really was you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037255
+    m_Localized: "It\u2019s been a while, May. Almost half a year, right?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037256
+    m_Localized: Yes, it's been about that long since I was dispatched.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037257
+    m_Localized: "May, what\u2019s the current situation?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037258
+    m_Localized: "I have pinpointed the location of the secret organization\u2019s
+      base, but I\u2019ve been short on combat personnel to raid it."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037259
+    m_Localized: "Now that you\u2019re all here, including Atresia,"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037260
+    m_Localized: we can finally begin the operation.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037261
+    m_Localized: "We\u2019ll discuss the details as we move!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037262
+    m_Localized: Have you identified any key figures within the secret organization?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037263
+    m_Localized: ...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037264
+    m_Localized: "... Yes, but now I... I\u2019m not so sure."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037265
+    m_Localized: "Everything points in one direction, but I just can\u2019t bring
+      myself to believe it."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037266
+    m_Localized: "Oh, right... maybe you\u2019re just seeing what you want to see!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037267
+    m_Localized: Yuni!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037268
+    m_Localized: It must be someone you really trusted.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037269
+    m_Localized: ... Th-that's...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037270
+    m_Localized: Oh! I think I hear something stomping around!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037271
+    m_Localized: It sounds like one of the giant monsters in this area.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037272
+    m_Localized: Everyone, prepare for battle!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037273
+    m_Localized: May, what kind of monster is it?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037274
+    m_Localized: ...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037275
+    m_Localized: May!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037276
+    m_Localized: Oh! Sorry, I got lost in thought for a moment...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037277
+    m_Localized: "I know it\u2019s tough, but for now, let\u2019s focus on taking
+      down the enemy in front of us!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037278
+    m_Localized: The enemy ahead is a <color=#F75D32>Tank-type</color> giant monster.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037279
+    m_Localized: When it uses its skill, it leaps into the air and then lands, dealing
+      <color=#F75D32>damage and stunning</color> anyone nearby!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037280
+    m_Localized: It targets the enemy with the lowest current HP,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037281
+    m_Localized: so we need to make sure to protect any allies with low HP right
+      now!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037282
+    m_Localized: Whew! That monster was like an enraged gorilla!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037283
+    m_Localized: "We\u2019ve received a message from HQ on reinforcements!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037284
+    m_Localized: "Let\u2019s head to the main screen and summon them, Commander!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037285
+    m_Localized: This area seems to be more dangerous than we thought, Commander.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037286
+    m_Localized: How about leveling up before the real battle begins?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037287
+    m_Localized: What have you been thinking about all this time, May?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037288
+    m_Localized: "That\u2019s..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037289
+    m_Localized: "If you're uncomfortable, you don\u2019t have to talk about it,"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037290
+    m_Localized: but the day will come when you'll have to face that person.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037291
+    m_Localized: "...That\u2019s right. In the end, I have to face her.."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037292
+    m_Localized: "Alright, since you\u2019re all on this mission with me, I\u2019ll
+      tell you."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037293
+    m_Localized: The person currently suspected of being part of the rebel forces
+      is...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037294
+    m_Localized: Who is it...?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037295
+    m_Localized: "It\u2019s the current leader of MAID, <color=#F75D32>April.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037296
+    m_Localized: "April? Isn\u2019t she one of the founding members of the MAID organization?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037297
+    m_Localized: The top executives have been closely monitoring the founding members
+      of each organization for a long time,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037298
+    m_Localized: believing that those who stand the firmest are the most likely to
+      break.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037299
+    m_Localized: But to me, that just seems like the top trying to maintain their
+      power.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037300
+    m_Localized: A recent incident turned their suspicions into certainty.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037301
+    m_Localized: A high-ranking official was recently <color=#F75D32>assassinated</color>.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037302
+    m_Localized: At first, it was thought to be an accident, but after investigating
+      the circumstances and evidence,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037303
+    m_Localized: it became clear that it was a planned incident.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037304
+    m_Localized: "But that alone isn\u2019t enough to accuse April, is it?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037305
+    m_Localized: That's right, but the story changes when you consider that the person
+      who was assassinated had been pushing for a hardline policy against the Stella
+      Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037306
+    m_Localized: You mean the policy to mass-produce us as disposable weapons of
+      war.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037307
+    m_Localized: And because of that policy, many Stella Knights and their affiliates
+      lost their lives.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037308
+    m_Localized: "Crucially, among the victims were April\u2019s own family."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037309
+    m_Localized: ...It seems we have an intruder.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037310
+    m_Localized: Wait, is it another brainwashed Stella Knight? Snap out of it, you
+      fool!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037311
+    m_Localized: "...No, it doesn\u2019t feel like that."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037312
+    m_Localized: I have no grudge against you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037313
+    m_Localized: "I\u2019m just hired for the job."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037314
+    m_Localized: Commander, be careful!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037315
+    m_Localized: Whew... we finally took her down!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037316
+    m_Localized: Ahem, so if we summarize what May has told us so far,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037317
+    m_Localized: 1. A key executive who treated the Stella Knights like disposable
+      weapons was killed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037318
+    m_Localized: "2. That executive was responsible for the death of April\u2019s
+      family in the past."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037319
+    m_Localized: 3. And out of a grudge, April likely formed the rebel forces! Is
+      that right?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037320
+    m_Localized: Yuni! You're particularly sharp today!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037321
+    m_Localized: "That\u2019s correct. There\u2019s also a lot of circumstantial
+      evidence to support this."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037322
+    m_Localized: "At this point, it\u2019s almost certain."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037323
+    m_Localized: May. What do you want to do now?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037324
+    m_Localized: I... I...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037325
+    m_Localized: "Philia, don\u2019t push May too hard like that."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037326
+    m_Localized: Hmm... Then let me tell you about my past.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037327
+    m_Localized: Before joining Atresia and Yuni, I was deployed to another battlefield.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037328
+    m_Localized: "Back then, the leader I trusted was secretly selling off our team\u2019s
+      weapons."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037329
+    m_Localized: "If we had those weapons, many of my companions wouldn\u2019t have
+      been hurt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037330
+    m_Localized: "I wanted to ask the leader why, but I just couldn\u2019t do it."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037331
+    m_Localized: It must have been really hard for you...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037332
+    m_Localized: It felt like all the memories we shared would become lies.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037333
+    m_Localized: But now I regret it. I wish I had faced the truth.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037334
+    m_Localized: If I had, I would have found the strength to move forward.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037335
+    m_Localized: No! April must have had her reasons!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037336
+    m_Localized: May!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037337
+    m_Localized: April was the kind of person who never backed down from doing the
+      tough jobs for all of us!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037338
+    m_Localized: Someone like her could never... could never have done something
+      like this!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037339
+    m_Localized: Where are you going, May?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037340
+    m_Localized: "I\u2019ll go after her!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037341
+    m_Localized: (Grabbing May) May!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037342
+    m_Localized: (Panting)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037343
+    m_Localized: ... You can all return to HQ now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037344
+    m_Localized: "This isn\u2019t why I brought you here."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037345
+    m_Localized: "From here on, I\u2019ll handle everything on my own."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037346
+    m_Localized: "No need to worry... I\u2019ll handle it."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037347
+    m_Localized: May, snap out of it!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037348
+    m_Localized: "We\u2019re right in the middle of enemy territory, and I can sense
+      a giant monster nearby!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037349
+    m_Localized: ...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037350
+    m_Localized: "...  I know you're confused, but let\u2019s take down the giant
+      monster first, then we can think this through."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037351
+    m_Localized: "We\u2019re still companions, after all. You can\u2019t do this
+      alone."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037352
+    m_Localized: "(Seeing May return with Atresia) Oh! May\u2019s back!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037353
+    m_Localized: ... Have you calmed down a bit?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037354
+    m_Localized: ...What should I do now...?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037355
+    m_Localized: "You\u2019re exhausted. Let\u2019s clear out the nearby monsters
+      first and take a moment to think together."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037356
+    m_Localized: "Ugh, I can\u2019t stand this gloomy mood!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037357
+    m_Localized: How long are you all going to sit there in silence? Come on, you
+      fools!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037358
+    m_Localized: We've received a message from HQ, but... this is...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037359
+    m_Localized: "What\u2019s the message?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037360
+    m_Localized: It looks like a video of April... making an announcement herself.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037361
+    m_Localized: ?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037362
+    m_Localized: "It seems she\u2019s officially acknowledging what she\u2019s been
+      doing and the existence of the organization."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037363
+    m_Localized: Now, of all times?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037364
+    m_Localized: "It feels like she\u2019s taking all the blame upon herself..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037365
+    m_Localized: Drawing all the arrows toward her?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037366
+    m_Localized: I need to confirm this myself.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037367
+    m_Localized: Have you made up your mind?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037368
+    m_Localized: "When I first joined MAID, I couldn\u2019t even brew a proper cup
+      of tea,"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037369
+    m_Localized: but April told me that what matters is to keep trying, to never
+      give up.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037370
+    m_Localized: She said that this spirit of trying would slowly make the world
+      a better place.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037371
+    m_Localized: What are you talking about all of a sudden!?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037372
+    m_Localized: I may not be able to change the situation right now, but at the
+      very least, I want to ask her directly.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037373
+    m_Localized: Why she planned all of this, what her true goal was.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037374
+    m_Localized: April!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037375
+    m_Localized: April! What on earth are you doing?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037376
+    m_Localized: So, you've finally made it here, May.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037377
+    m_Localized: We could have fixed everything! Why...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037378
+    m_Localized: My time stopped when my family and friends were taken from me.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037379
+    m_Localized: "It\u2019s already too late."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037380
+    m_Localized: April....
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037381
+    m_Localized: "Come, May. Show them that what I taught you wasn\u2019t in vain!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037382
+    m_Localized: (As May embraces wounded April) April...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037383
+    m_Localized: May... Remember my words.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037384
+    m_Localized: ... Beware of... the enemy within...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037385
+    m_Localized: "These monsters... might be part of <color=#F75D32>someone\u2019s</color>
+      plan..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037386
+    m_Localized: April!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037387
+    m_Localized: "Alright, everyone, great work. (Muttering quietly to herself) It
+      would have been better if they hadn\u2019t made me come to such a filthy place..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037388
+    m_Localized: Why are those lower-ranked Stella Knights going through all this
+      trouble when they should just follow <color=#F75D32>Lady Hecate's</color> orders
+      quietly?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037389
+    m_Localized: Why should we care? <color=#F75D32>Central HQ</color> will handle
+      everything from here.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037390
+    m_Localized: You're being way too harsh!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037391
+    m_Localized: "Look! Those people are taking away April\u2019s body...! The writing
+      on their clothes says..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037392
+    m_Localized: <color=#F75D32>Destruction??</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037393
+    m_Localized: "That\u2019s the same organization my former leader sold weapons
+      to...!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037394
+    m_Localized: "Something is seriously wrong... We can\u2019t just sit here and
+      do nothing."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037395
+    m_Localized: "I can\u2019t let them take April\u2019s body. I\u2019m heading
+      to HQ."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037396
+    m_Localized: "There\u2019s definitely a meaning behind April\u2019s words about
+      the enemy within."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037397
+    m_Localized: "May, we\u2019ll go with you."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037398
+    m_Localized: Will you join us too, Commander?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037399
+    m_Localized: Thank you, Commander. From now on,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037400
+    m_Localized: "we\u2019ll be heading to <color=#F75D32>HQ.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037401
+    m_Localized: Commander, we can't stop here!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037402
+    m_Localized: Level us up, and
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037403
+    m_Localized: "we\u2019ll be able to easily defeat the enemies!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037404
+    m_Localized: "I\u2019ll take you to the <color=#F75D32>Stella Knights Management.</color>
+      Please level up the <color=#F75D32>Stella Knights!</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037405
+    m_Localized: "Commander! Don\u2019t get too discouraged."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037406
+    m_Localized: Level us up using rewards from the <color=#F75D32>Quests</color>
+      or <color=#F75D32>Idle Bonus,</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037407
+    m_Localized: "and we\u2019ll become super strong!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037408
+    m_Localized: Commander! Did you know that by replaying previous <color=#F75D32>stages,</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037409
+    m_Localized: "not only can you earn rewards for clearing, but you can also get
+      <color=#F75D32>summon tickets</color> based on the <color=#F75D32>total number
+      of stars</color> you\u2019ve collected?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037410
+    m_Localized: You can check the <color=#F75D32>total number of stars</color> by
+      clicking the <color=#F75D32>globe icon</color> in the bottom left of the main
+      screen!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037411
+    m_Localized: "Now, let\u2019s go replay those previous <color=#F75D32>stages!</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037412
+    m_Localized: Whoa! What a <color=#F75D32>gigantic robot!!</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037413
+    m_Localized: Where on earth did it come from?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037414
+    m_Localized: Welcome, everyone. This is the Combat Trial designed to draw out
+      the <color=#F75D32>latent power</color> of the Stella Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037415
+    m_Localized: "If you defeat me in battle, you\u2019ll be able to deploy <color=#F75D32>1
+      additional unit</color> in future fights."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037416
+    m_Localized: "Be careful, Commander. General Jacqueline\u2019s <color=#F75D32>Neo
+      Titan</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037417
+    m_Localized: fires a laser cannon that deals damage to <color=#F75D32>specific
+      locations</color> at set intervals.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037418
+    m_Localized: "There\u2019s a <color=#F75D32>pattern</color> to where the cannon
+      fires,"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037419
+    m_Localized: so if you observe carefully, you can find a <color=#F75D32>safe
+      spot.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037420
+    m_Localized: Shall we begin?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037421
+    m_Localized: Commander, this is where you can set up your <color=#F75D32>Arena
+      Defense Deck.</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037422
+    m_Localized: In addition to deploying Stella Knights, you can also <color=#F75D32>place
+      obstacles</color> to craft your strategy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037423
+    m_Localized: "Obstacles are particularly useful for <color=#F75D32>directing
+      the enemy\u2019s movement,</color> so be sure to take advantage of them."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037424
+    m_Localized: "Also, your defense deck will be active even when you\u2019re <color=#F75D32>offline,</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037425
+    m_Localized: and through battle records, you can even seek <color=#F75D32>revenge</color>
+      on those who defeated your defense deck!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037426
+    m_Localized: "\uADF8\uB300\uB4E4\uC744 \uC704\uD55C \uC790\uBE44\uB85C \uC601\uC6D0\uD55C
+      \uC548\uC2DD\uACFC \uACE0\uC694\uC5D0 \uC0BC\uCF1C\uC838 \uC0AC\uB77C\uC838\uB77C."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037427
+    m_Localized: "\u2026. \uB77C\uD50C\uB77C\uC2A4\uC758 \uB9C8\uB140\uAC00 \uAC15\uB825\uD55C
+      \uACF5\uACA9\uC744 \uC900\uBE44\uD558\uACE0 \uC788\uC5B4. \uACF5\uACA9\uC5D0
+      \uB300\uBE44\uD574\uC57C \uD574!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037428
+    m_Localized: "\u2026\uC120\uBB3C\uC740 \uC815\uC911\uD788 \uAC70\uC808\uD558\uB3C4\uB85D
+      \uD560\uAC8C\uC694.\n\uC774\uBBF8 \uC9C4\uC808\uBA38\uB9AC \uB0A0 \uB9CC\uD07C
+      \uB9CE\uC740 \uC120\uBB3C\uC744 \uBC1B\uC558\uC73C\uB2C8\uAE4C\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037429
+    m_Localized: "\uBAA8\uB450 \uB0B4 \uB4A4\uB85C \uBD99\uC5B4\uC694!!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037430
+    m_Localized: "\uADF8\uB0A0\uC758 \uB9F9\uC138\uD55C \uB300\uB85C \uC774\uC820
+      \uB204\uAD6C\uB3C4 \uB2E4\uCE58\uAC8C \uD558\uC9C0 \uC54A\uACA0\uC5B4\u2026!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037431
+    m_Localized: "\uC5EC\uC804\uD788 \uB108\uD76C\uB294 \uC5B4\uB9AC\uC11D\uAD6C\uB098,
+      \uBC1C\uBC84\uB465 \uCE60\uC218\uB85D \uACE0\uD1B5\uB9CC \uAE38\uC5B4\uC9C8
+      \uBFD0\uC778 \uAC83\uC744."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037432
+    m_Localized: "\uD06C\uC754\u2026! \uC7A0\uC2DC\uB9CC \uC274\uAC8C."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037433
+    m_Localized: "\uB098\uB3C4, \uB098\uB3C4.. \uB354 \uC774\uC0C1 \uB0B4 \uB3D9\uB8CC\uB4E4\uC744
+      \uC544\uD504\uAC8C \uD560 \uC21C \uC5C6\uC5B4. \uC774\uBC88\uC5D4 \uB0B4\uAC00
+      \uB3D9\uB8CC\uB4E4\uC744 \uC9C0\uCF1C\uB0BC\uAC70\uC57C!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037434
+    m_Localized: "\uC720\uB2C8. \uC9C0\uAE08\uC774\uC5D0\uC694! \uB77C\uD50C\uB77C\uC2A4\uC758
+      \uB9C8\uB140\uAC00 \uACF5\uACA9\uC744 \uBA48\uCD98 \uC0AC\uC774 \uC800\uD76C\uAC00
+      \uACF5\uACA9\uD574\uC57C \uD574\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037435
+    m_Localized: "\uD5E4\u2026.\uD5E4\uCE58\uC6E0\uB098?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037436
+    m_Localized: "\uC720...! \uADF8 \uB9D0\uC740....!!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037437
+    m_Localized: "\uACB0\uACFC\uAC00 \uBCF4\uC774\uB294\uB370\uB3C4 \uB178\uB825\uD558\uB294
+      \uBAA8\uC2B5\uC774 \uAC00\uC0C1\uD558\uB098, \uB367 \uC5C6\uC744 \uBFD0\uC774\uAD6C\uB098\u2026."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037438
+    m_Localized: "\uC774\uC870\uCC28 \uBAA8\uB450 \uB098\uC758 \uAD8C\uB2A5 \uC544\uB798
+      \uC788\uB294 \uAC83\uC744."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037439
+    m_Localized: "\uC544\u2026.\uC548\uB3FC!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037440
+    m_Localized: "\uC720\uB2C8, \uD544\uB9AC\uC544, \uD074\uB808\uC774!!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037441
+    m_Localized: "\uC774\uC790\uC2DD! \uC6A9\uC11C \uBABB\uD574..!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037442
+    m_Localized: "\uC544\uD2B8\uB808\uC2DC\uC544, \uC9C0\uAE08\uC774\uC57C! \uB0B4\uAC00
+      \uB9C8\uB140\uB97C \uC57D\uD654\uC2DC\uD0A8 \uC0AC\uC774\uC5D0 \uACF5\uACA9\uD574!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037443
+    m_Localized: "\uADF8\uB798, \uC544\uC9C1 \uBB34\uB108\uC9C8\uC21C \uC5C6\uC5B4.
+      \n\uC6B0\uB9AC\uAC00 \uC778\uB958\uC758 \uB9C8\uC9C0\uB9C9 \uD76C\uB9DD\uC774\uB2C8\uAE4C!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037444
+    m_Localized: "\uAC00\uC18C\uB86D\uAD6C\uB098...!!!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037445
+    m_Localized: "\uB9C8\uB9AC\uC5D0!!!!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037446
+    m_Localized: "\u2026.\uC774\uB807\uAC8C \uB41C \uC774\uC0C1 \uC81C \uBAA9\uC228\uC744
+      \uAC78\uC5B4\uC11C\uB77C\uB3C4\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037447
+    m_Localized: "\uAD00\uCE21\uC790\uB2D8, \uD718\uB9D0\uB9AC\uC9C0 \uC54A\uAC8C
+      \uC870\uC2EC\uD574\uC8FC\uC138\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037448
+    m_Localized: "\uD574\uB0B8\uAC78\uAE4C\uC694..?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037449
+    m_Localized: "\u2026..\uC5EC\uAE30\uAE4C\uC9C0 \uD574\uB0B8 \uAC83\uC744 \uCE6D\uCC2C\uD574\uC8FC\uB9C8,
+      \uD558\uC9C0\uB9CC \uAC00\uB828\uD55C \uC544\uC774\uC5EC."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037450
+    m_Localized: "\uC5B8\uC820\uAC00 \uD6C4\uD68C\uD558\uACE0 \uBD80\uC11C\uC9C8
+      \uAC83\uC774\uB77C\uBA74, \uCC28\uB77C\uB9AC \uB0B4 \uC190\uC73C\uB85C \uB108\uD76C\uC758
+      \uBBF8\uB798\uB97C \uBD80\uC154\uC8FC\uB9C8."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037451
+    m_Localized: "\uC774\uC820 \uC7A5\uB09C\uC740 \uC5EC\uAE30\uAE4C\uC9C0\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037452
+    m_Localized: "\uB2F9\uC2E0\uC740 \uB9C8\uC9C0\uB9C9 \uB0A8\uC740 \uD798\uC744
+      \uC9DC\uB0B4 \uBC1C\uBC84\uB465\uCE58\uB824 \uD55C\uB2E4. \uD558\uC9C0\uB9CC
+      '\uB77C\uD50C\uB77C\uC2A4\uC758 \uB9C8\uB140'\uB294 \uADF8\uC800 \uBE44\uC6C3\uB4EF,
+      \uC190 \uC9D3\uC73C\uB85C \uADF8 \uBC1C\uC545\uC744 \uBB34\uC704\uB85C \uB3CC\uB824\uBCF4\uB0B8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037453
+    m_Localized: "\uBCF4\uC544\uB77C. \uC774\uAC83\uC774 \uB108\uD76C\uC758... '\uBB34\uB825\uD568'\uC774\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037454
+    m_Localized: "\uB77C\uD50C\uB77C\uC2A4 \uB9C8\uB140\uAC00 \uB2F9\uC2E0\uC744
+      \uD5A5\uD55C \uB9C8\uC9C0\uB9C9 \uC77C\uACA9\uC744 \uB0A0\uB9AC\uB294 \uC21C\uAC04"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037455
+    m_Localized: "\uB2F9\uC2E0\uC758 \uC55E\uC5D0\uB294 \uC774\uB97C \uB300\uC2E0
+      \uB9C9\uC544\uC11C\uB294, \n\uBCF8\uC2E0\uC758 \uD798\uC744 \uB118\uC5B4\uC120
+      \uBD80\uC791\uC6A9\uC73C\uB85C \uC810\uC810 \uBB34\uB108\uC838 \uAC00\uB294
+      \uC5E3\uB41C \uC18C\uB140\uAC00 \uC11C \uC788\uC5C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037456
+    m_Localized: "\u2026\uC544\uB1E8, \uC800\uD76C\uB294 \uD3EC\uAE30\uD558\uC9C0
+      \uC54A\uC744\uAC70\uC5D0\uC694. \uC800\uB3C4, \uC81C \uB3D9\uB8CC\uB4E4\uB3C4,
+      \uAD00\uCE21\uC790\uB2D8\uB3C4,\n\uC544\uB2C8 \uC778\uB958\uB294 \uBAA8\uB450
+      \uC800\uD56D\uC744 \uB05D\uAE4C\uC9C0 \uD3EC\uAE30\uD558\uC9C0 \uC54A\uC744
+      \uD14C\uB2C8\uAE4C\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037457
+    m_Localized: "\uB2F9\uC2E0\uC774 \uC5B4\uB5A4 \uBBF8\uB798\uB97C \uAD00\uCE21\uD588\uB358,
+      \uC6B0\uB9AC\uB294 \uC6B0\uB9AC\uB9CC\uC758 \uB2F5\uC744 \uCC3E\uC544\uB0BC
+      \uAC70\uC5D0\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037458
+    m_Localized: "\uAD00\uCE21\uC790\uB2D8, \uC5B4\uC11C \uC774\uCABD\uC73C\uB85C\u2026!!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037459
+    m_Localized: "\uAE30\uC5B5\uC744 \uC783\uC73C\uC168\uC73C\uB2C8 \uC81C\uAC00
+      \uBC29\uBC95\uC744 \uC124\uBA85\uD574\uB4DC\uB9B4\uAED8\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037460
+    m_Localized: "\uC800\uD76C \uC2A4\uD154\uB77C \uB098\uC774\uD2B8\uC5D0\uAC8C
+      \uC788\uB294 \uC2A4\uD14C\uB9AC\uC544\uC758 \uD798\uC744 \uC77C\uAED8\uC6B0\uAE30
+      \uC704\uD574\uC11C\uB294 \uC9C0\uD718\uAD00\uC758 \uC9C0\uD718\uAC00 \uD544\uC694\uD574\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037461
+    m_Localized: "\uC6B0\uC120 \uC800 [\uC544\uD2B8\uB808\uC2DC\uC544]\uB97C \uC120\uD0DD\uD574\uC11C
+      \uC804\uC7A5\uC5D0 \uBC30\uCE58\uD574\uBCF4\uB3C4\uB85D \uD574\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037462
+    m_Localized: "\uAC00\uC774\uB4DC: \uC544\uD2B8\uB808\uC2DC\uC544\uB294 \uAC15\uB825\uD55C
+      \uBB3C\uB9AC \uACF5\uACA9\uB825\uC744 \uC9C0\uB2CC \uAE30\uC0AC\uB85C\uC11C
+      \uB9CE\uC740 \uC218\uC758 \uC801\uB4E4\uC744 \uC0C1\uB300\uD558\uB294\uB370
+      \uD2B9\uD654\uB41C \uAE30\uC220\uC744 \uAD6C\uC0AC\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037463
+    m_Localized: "\uC798\uD558\uC168\uC5B4\uC694! \uC5ED\uC2DC \uAD00\uCE21\uC790\uB2D8\uC774\uC5D0\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037464
+    m_Localized: "\uC800\uB294 \uC2F8\uC6B8 \uC900\uBE44\uAC00 \uC644\uB8CC\uB418\uC5C8\uC5B4\uC694!
+      \uC804\uD22C \uBC84\uD2BC\uC744 \uB20C\uB7EC\uC8FC\uC138\uC694. \uC81C\uAC00
+      \uC5BC\uB978 \uC815\uB9AC\uD560\uAC8C\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037465
+    m_Localized: "\uC73D\u2026! \uB05D\uB3C4\uC5C6\uC774 \uBAB0\uB824\uC624\uB124\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037466
+    m_Localized: "\uC544\uBB34\uB798\uB3C4 \uC2A4\uD14C\uB9AC\uC544\uC758 \uD798\uC744
+      \uC774\uB04C\uC5B4\uB0B4\uC57C \uD560 \uAC83 \uAC19\uC544\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037467
+    m_Localized: "\uC2A4\uD154\uB77C \uB098\uC774\uCE20\uB4E4\uC740 \uC800\uB9C8\uB2E4
+      \uACE0\uC720\uD55C [\uC2A4\uD14C\uB9AC\uC544]\uB97C \uC9C0\uB2C8\uACE0 \uC788\uC5B4\uC694.
+      \uC804\uD22C \uC911 \uAD00\uCE21\uC790\uB2D8 \uAED8\uC11C \uC9C0\uC2DC\uB97C
+      \uB0B4\uB824\uC8FC\uC2E0\uB2E4\uBA74 \uADF8 \uD798\uC744 \uC774\uB04C\uC5B4\uB0BC
+      \uC218 \uC788\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037468
+    m_Localized: "\uC774\uC81C \uD798\uC744 \uC774\uB04C\uC5B4\uB0BC \uC900\uBE44\uAC00
+      \uC644\uB8CC\uB418\uC5C8\uC5B4\uC694! \uC9C0\uCF1C\uBD10\uC8FC\uC138\uC694!!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037469
+    m_Localized: "\uD734, \uBB34\uC0AC\uD788 \uB124\uD53C\uB9BC\uB4E4\uC744 \uBB3C\uB9AC\uCE60
+      \uC218 \uC788\uC5C8\uB124\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037470
+    m_Localized: "\uAE84\uC544\u2026..!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037471
+    m_Localized: "\uC800\uCABD \uBC29\uD5A5\uC5D0\uC11C \uB204\uAD70\uAC00\uC758
+      \uBE44\uBA85\uC18C\uB9AC\uAC00 \uB4E4\uB824\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037472
+    m_Localized: "\uB2E4\uB978 \uB3D9\uB8CC\uB4E4\uB3C4 \uC704\uD5D8\uD560\uC9C0
+      \uBAB0\uB77C\uC694. \uAD00\uCE21\uC790\uB2D8, \uC9C0\uAE08 \uC0C1\uD669\uC774
+      \uD798\uB4E4\uACE0 \uB2F9\uD669\uC2A4\uB7EC\uC6B0\uC2DC\uACA0\uC9C0\uB9CC \uC870\uAE08\uB9CC
+      \uB354 \uD798\uB0B4\uC8FC\uC138\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037473
+    m_Localized: "\uC5D0\uC787\u2026.! \uADF8\uB9CC \uC880 \uB2E4\uAC00\uC640 \uC774
+      \uB354\uB7EC\uC6B4 \uB124\uD53C\uB9BC \uB188\uB4E4\uC544!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037474
+    m_Localized: "\uC720\uB2C8! \uBB34\uC0AC\uD588\uAD6C\uB098!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037475
+    m_Localized: "\uC557?! \uC544\uD2F0\uB791 \uAD00\uCE21\uC790\uB2E4!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037476
+    m_Localized: "\uAD00\uCE21\uC790\uB2D8 \uC800\uD76C\uB3C4 \uC804\uD22C\uC5D0
+      \uD569\uB958\uD574\uC57C \uD560 \uAC83 \uAC19\uC544\uC694! \uB2E4\uC2DC \uD55C
+      \uBC88 \uC9C0\uD718\uB97C..!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037477
+    m_Localized: "\uAD00\uCE21\uC790! \uB0B4 [\uC2A4\uD14C\uB9AC\uC544]\uB294 \uAE30\uC5B5\uD558\uACE0
+      \uC788\uC9C0?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037478
+    m_Localized: "\uB098\uB294 \uC544\uD2F0 \uCC98\uB7FC \uADFC\uC721\uC9C8\uC774
+      \uC544\uB2C8\uB2C8\uAE4C, \uC704\uCE58 \uC120\uC815\uC5D0 \uC870\uC2EC\uD574\uC57C\uD574!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037479
+    m_Localized: "\uAC00\uC774\uB4DC: \uC2A4\uD154\uB77C \uB9C8\uD0C0\uAC00 \uACF5\uBA85\uD558\uACE0
+      \uC788\uC5B4\uC694! \uAC19\uC740 \uC131\uAD70\uC5D0 \uC18C\uC18D\uB41C \uACBD\uC6B0
+      \uACF5\uBA85\uC744 \uD1B5\uD574 \uC2DC\uB108\uC9C0\uB97C \uC77C\uC73C\uCF1C
+      \uCD94\uAC00\uC801\uC778 \uD6A8\uACFC\uB97C \uC5BB\uC744 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037480
+    m_Localized: "\uC0DD\uC131\uB41C \uBCC4\uB625\uBCC4\uC744 \uC544\uD2B8\uB808\uC2DC\uC544\uC5D0\uAC8C
+      \uC804\uB2EC\uD574\uBCF4\uC138\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037481
+    m_Localized: "\uD5E4\uD5F7..! \uB4E0\uB4E0\uD55C\uAC78!? \uC774\uC81C \uB9C8\uC74C\uAECF
+      \uC2F8\uC6B8 \uC218 \uC788\uACA0\uC5B4. \uADF8\uB7FC \uAC04\uB2E4! \uC778\uCE74\uC6B4\uD130!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037482
+    m_Localized: "\uB124\uD53C\uB9BC \uB140\uC11D\uB4E4 \uAE4C\uBD88\uC5C8\uACA0\uB2E4\u2026!
+      \uB0B4 \uC228\uACA8\uC9C4 \uD798\uC744 \uBCF4\uC5EC\uC8FC\uC9C0!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037483
+    m_Localized: "\uB124\uD53C\uB9BC\uB4E4\uC744 \uD63C\uB0B4\uC918! \uC544\uD2F0!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037484
+    m_Localized: "\uC9C0\uD718\uAD00, \uB2E4\uC2DC\uD55C \uBC88 \uC800\uC5D0\uAC8C
+      \uC2A4\uD14C\uB9AC\uC544\uC758 \uBC1C\uD604\uC744\u2026!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037485
+    m_Localized: "\uC800\uAE30\uC5D0 \uD0C4\uD53C\uAC00 \uB5A8\uC5B4\uC838 \uC788\uC5B4\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037486
+    m_Localized: "\uC774\uAC74\u2026. \uD544\uB9AC\uC544\uAC00 \uB0A8\uAE34 \uD0C4\uD53C?\n\uADFC\uCC98\uC5D0
+      \uD544\uB9AC\uC544\uAC00 \uC788\uB294 \uAC83 \uAC19\uC544\uC694. \uC11C\uB458\uB7EC
+      \uCC3E\uC544\uBD10\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037487
+    m_Localized: "\u2026..\uD0C4\uD53C\uAC00 \uAC70\uC758 \uB2E4 \uB5A8\uC5B4\uC838\uAC00\uACE0
+      \uC788\uC5B4. \uC774\uB300\uB85C \uC788\uB2E4\uAC04 \uC704\uD5D8\uD574\uC9C0\uACE0
+      \uB9D0\uAC70\uC57C."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037488
+    m_Localized: "\uC774 \uBAB8 \uB4F1\uC7A5!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037489
+    m_Localized: "\uC720\uB2C8?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037490
+    m_Localized: "\uD544\uB9AC\uC544! \uAD1C\uCC2E\uC544?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037491
+    m_Localized: "\uC774 \uBAB8\uC744 \uAE30\uB2E4\uB9B0 \uAC83\uC778\uAC00? \uD544\uB9AC\uC5EC!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037492
+    m_Localized: "\uD5DB\uC18C\uB9AC \uD558\uB294 \uAC83 \uBCF4\uB2C8 \uBA40\uCA61\uD55C\uAC00
+      \uBCF4\uB124\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037493
+    m_Localized: "\uC544\uB2C8\uB77C\uACE0 \uD558\uACE0 \uC2F6\uC9C0\uB9CC, \uC704\uD5D8\uD55C
+      \uC0C1\uD669\uC774\uC5C8\uC5B4 \uACE0\uB9C8\uC6CC\uC694 \uBAA8\uB450\uB4E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037494
+    m_Localized: "\uB514\uD39C\uB354\uC5D0\uC694! \uAC15\uB825\uD55C \uBC29\uC5B4\uB825\uC744
+      \uC9C0\uB2C8\uACE0 \uC788\uB294 \uB124\uD53C\uB9BC \uAC1C\uCCB4\uC5D0\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037495
+    m_Localized: "\uAD00\uCE21\uC790! \uD569\uB958\uD574\uC11C \uC5BC\uB978 \uC4F8\uC5B4\uBC84\uB9AC\uC790\uACE0."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037496
+    m_Localized: "\uB9C8\uC2A4\uD130. \uC81C \uB2A5\uB825\uC774\uB77C\uBA74 \uCDA9\uBD84\uD788
+      \uC0C1\uB300\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uC2A4\uD14C\uB9AC\uC544\uC758
+      \uC0AC\uC6A9 \uC2B9\uC778\uC744 \uBD80\uD0C1\uB4DC\uB9BD\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037497
+    m_Localized: "\uAC00\uC774\uB4DC: \uD544\uB9AC\uC544\uB294 \uB192\uC740 \uC0AC\uAC70\uB9AC\uB97C
+      \uC9C0\uB2C8\uACE0 \uC788\uB294 \uAE30\uC0AC\uB85C\uC11C, \uC801\uC758 \uBC29\uC5B4
+      \uC800\uD56D\uB825\uC744 \uBB34\uC2DC\uD558\uB294 \uAC15\uB825\uD55C \uACF5\uACA9\uC744
+      \uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037498
+    m_Localized: "\uB9C8\uC2A4\uD130. \uC800\uB294 \uBA40\uB9AC\uC788\uB294 \uC801\uC744
+      \uC0C1\uB300\uD560 \uB54C \uAC00\uC7A5 \uAC15\uD55C \uC704\uB825\uC744 \uBC1C\uD718\uD560
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4. \n\uC704\uCE58\uB97C \uC870\uC815\uD574 \uC801\uC744
+      \uACF5\uACA9\uD560 \uC218 \uC788\uB294 \uC704\uCE58\uB85C \uC774\uB3D9\uC2DC\uCF1C\uC8FC\uC2DC\uAE38
+      \uBD80\uD0C1\uB4DC\uB9BD\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037499
+    m_Localized: "\uAC00\uC774\uB4DC: \uC18D\uC131\uB825\uC774 \uCC28\uC624\uB974\uACE0
+      \uC788\uB124\uC694. \uAC19\uC740 \uC18D\uC131\uC758 \uAE30\uC0AC\uB4E4\uC744
+      \uBC30\uCE58\uD558\uB294 \uACBD\uC6B0 \uC18D\uC131\uB825 \uC2DC\uB108\uC9C0\uB97C
+      \uBC1B\uC544 \uBAA8\uB4E0 \uAE30\uC0AC \uB2A5\uB825\uCE58\uAC00 \uC0C1\uC2B9\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037500
+    m_Localized: "\uB9C8\uC2A4\uD130. \uC660\uC9C0 \uB354 \uCE58\uBA85\uC801\uC778
+      \uACF5\uACA9\uC744 \uD560 \uC218 \uC788\uC744 \uAC83 \uAC19\uC2B5\uB2C8\uB2E4.
+      \n\uADF8\uB7FC \uB3CC\uC785\uD569\uB2C8\uB2E4. \uC778\uCE74\uC6B4\uD130!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037501
+    m_Localized: "\uC790\uACE0\uB85C \uBA85\uC0AC\uC218\uB77C\uBA74 \uC544\uBB34\uB9AC
+      \uD798\uB4E0 \uC0C1\uD669\uC5D0\uC11C\uB3C4 \uD45C\uC801\uC744 \uB193\uCE58\uC9C0
+      \uC54A\uB294\uBC95\u2026!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037502
+    m_Localized: "\uAD00\uCE21\uC790\uB2D8. \uC800\uACF3\uC5D0\uC11C \uC2DD\uC2A4\uD63C\uC758
+      \uC6B8\uC74C\uC18C\uB9AC\uAC00 \uB4E4\uB824\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037503
+    m_Localized: "\uC5B4?! \uC800\uACF3\uC5D0 \uD54F\uC790\uAD6D\uC774 \uB0A8\uC544\uC788\uC5B4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037504
+    m_Localized: "\uC800\uD76C\uB97C \uC81C\uC678\uD558\uBA74 \uD604\uC7AC \uD568\uC120\uC5D0
+      \uC788\uB294 \uC0DD\uBA85\uCCB4\uB294 \uD074\uB808\uC774 \uBFD0\uC774\uC5D0\uC694\u2026!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037505
+    m_Localized: "\uC544\uBB34\uB798\uB3C4 \uD54F\uC790\uAD6D\uC744 \uB530\uB77C\uAC00\uAE30
+      \uC704\uD574\uC11C\uB294 \uC2DD\uC2A4\uD63C\uC744 \uBB3C\uB9AC\uCCD0\uC57C
+      \uD560 \uAC83 \uAC19\uC544\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037506
+    m_Localized: "\uC2DD\uC2A4\uD63C\uC740 \uAC15\uB825\uD55C \uB124\uD53C\uB9BC\uC785\uB2C8\uB2E4.
+      \uC9C0\uAE08\uAE4C\uC9C0 \uBC30\uC6B4 \uB0B4\uC6A9\uC73C\uB85C \uBB3C\uB9AC\uCCD0\uBD10\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037507
+    m_Localized: "\uAD00\uCE21\uC790\uB2D8 \uB2E4\uC2DC \uD55C\uBC88 \uC9C0\uD718\uB97C...!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037508
+    m_Localized: "\uC9C0\uAE08\uBD80\uD130 \uBC30\uC18D \uAE30\uB2A5\uC744 \uC774\uC6A9\uD560
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037509
+    m_Localized: "\uBC30\uC18D \uAE30\uB2A5\uC744 \uB20C\uB7EC\uBCF4\uC138\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037510
+    m_Localized: "\uC548\uB155\uD558\uC138\uC694 \uAD00\uCE21\uC790\uB2D8. \uBB34\uC0AC\uD788
+      \uB3CC\uC544\uC624\uC154\uC11C \uB2E4\uD589\uC774\uC5D0\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037511
+    m_Localized: "\uD1B5\uC2E0\uC7A5\uCE58\uC758 \uD30C\uAD34\uB85C \uC5F0\uB77D\uC744
+      \uB4DC\uB9B4 \uC218 \uC5C6\uC5B4 \uAC71\uC815\uD588\uAC70\uB4E0\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037512
+    m_Localized: "\uC544\uC557\u2026\uB9DE\uB2E4! \uAE30\uC5B5\uC744 \uC783\uC73C\uC168\uB2E4\uACE0
+      \uD588\uC8E0?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037513
+    m_Localized: "\uC800\uB294 \uD50C\uB808\uC774\uC544\uB370\uC2A4 \uC804\uC18D
+      \uC624\uD37C\uB808\uC774\uD130 \uC544\uC2A4\uB098\uC5D0\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037514
+    m_Localized: "(\uBC29\uAE0B \uC6C3\uC73C\uBA70) \uB2E4\uC2DC \uD55C \uBC88 \uC798
+      \uBD80\uD0C1\uB4DC\uB9B4\uAC8C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037515
+    m_Localized: "\uC7AC\uD074\uB9B0 \uBD80\uD568\uC7A5\uB2D8\uC774 \uC81C\uAC8C
+      \uAD00\uCE21\uC790\uB2D8 \uAED8\uC11C \uAE30\uC0AC\uB4E4\uC744 \uBAA8\uC744
+      \uC218 \uC788\uB3C4\uB85D \uB3C4\uC6B0\uB77C\uB294 \uBA85\uB839\uC744 \uB0B4\uB9AC\uC168\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037516
+    m_Localized: "\uAD00\uCE21\uC790\uB2D8 \uC774\uAC74 \uAE30\uC5B5\uB098\uC2DC\uB098\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037517
+    m_Localized: "\uAD00\uCE21\uC790\uB780, \uAD00\uCE21 \uAE30\uAD6C H.O.P.E\uB97C
+      \uD1B5\uD574 \uC2A4\uD154\uB77C \uB098\uC774\uD2B8\uAC00 \uB420 \uC18C\uB140\uB4E4\uC744
+      \uAD00\uCE21\uD558\uACE0,\n\uADF8\uB4E4\uC744 \uCC3E\uC544\uB0B4 \uBCC4\uC758
+      \uD798\uC744 \uAC01\uC131\uC2DC\uD0A4\uB294 \uC790\uB4E4\uC744 \uB73B\uD55C\uB2E4\uB294
+      \uAC83\uC744\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037518
+    m_Localized: "\uD558\uC9C0\uB9CC \uC9C0\uAE08\uC740 \uAE09\uD55C \uB9CC\uD07C!
+      \uC7AC\uD074\uB9B0 \uBD80\uD568\uC7A5\uB2D8 \uAED8\uC11C \uBBF8\uB9AC \uD638\uCD9C\uD574\uB454
+      \uAE30\uC0AC\uB4E4 \uC911 \uC791\uC804\uC5D0 \uD544\uC694\uD55C \uC778\uC6D0\uC744
+      \uCD94\uB824\uBD10\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037519
+    m_Localized: "\uADF8\uB7FC \uD568\uAED8 \uC791\uC804\uC744 \uC218\uD589\uD560
+      \uAE30\uC0AC\uB4E4\uC744 \uD655\uC778\uD558\uB7EC \uAC00\uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037520
+    m_Localized: "\uC791\uC804\uC774 \uC704\uD5D8\uD560 \uC218 \uC788\uC73C\uB2C8
+      \uC77C\uB2E8 \uC0C8\uB85C\uC6B4 \uAE30\uC0AC\uB4E4\uC744 \uBAA8\uC9D1\uD574\uBCF4\uC8E0!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037521
+    m_Localized: "\uC798\uD558\uC168\uC5B4\uC694! \uC5ED\uC2DC \uAD00\uCE21\uC790\uB2D8\uC774\uC5D0\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037522
+    m_Localized: "\uC774\uBC88\uC5D4 \uBAA8\uC9D1\uD55C \uAE30\uC0AC\uB4E4\uC774
+      \uC274 \uC7A5\uC18C\uB97C \uAC74\uC124\uD574 \uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037523
+    m_Localized: "\uC6B0\uC120 \uC81C\uD074\uB9B0\uB2D8\uC774 \uC8FC\uC2E0 \uAE30\uC0AC\uB4E4\uC744
+      \uBAA8\uC9D1\uD560 \uC218 \uC788\uB294 \uD2F0\uCF13\uC744 \uC218\uB839\uD574\uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037524
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037525
+    m_Localized: "\uC0C8\uB85C\uC6B4 \uAE30\uC0AC\uB4E4\uC774 \uC785\uB2E8\uD55C
+      \uB9CC\uD07C, \uC0C8\uB85C\uC6B4 \uC219\uC18C\uAC00 \uD544\uC694\uD560 \uAC83
+      \uAC19\uC544\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037526
+    m_Localized: "\uC804\uCD08\uAE30\uC9C0\uC778 '\uD5C8\uBE14'\uC5D0 \uC219\uC18C\uB97C
+      \uC81C\uC791\uD574\uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037527
+    m_Localized: "\uC774\uACF3\uC744 \uC120\uD0DD\uD558\uBA74 \uC218\uB9AC \uB4DC\uB860\uB4E4\uC774
+      \uC219\uC18C\uB97C \uBCF5\uAD6C\uD574\uC904\uAC70\uC5D0\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037528
+    m_Localized: "\uC6D0\uB798 \uBCF5\uAD6C\uC5D0\uB294 \uAC74\uC124 \uC7AC\uB8CC\uB4E4\uC774
+      \uB4E4\uC5B4\uAC00\uC9C0\uB9CC, \uC774\uBC88\uC5D4 \uC774\uBC88\uC5D4 \uD2B9\uBCC4\uD788
+      \uC7AC\uD074\uB9B0 \uBD80\uD568\uC7A5\uB2D8 \uAED8\uC11C \uC81C\uACF5\uD574\uC8FC\uC168\uC5B4\uC694"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037529
+    m_Localized: "\uD5C8\uBE14\uC5D0 \uC219\uC18C\uAC00 \uB298\uC5B4\uB0A0\uC218\uB85D
+      \uC804\uD22C\uC5D0 \uCC38\uC5EC \uAC00\uB2A5\uD55C \uC778\uC6D0\uC774 \uB298\uC5B4\uB098\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037530
+    m_Localized: "\uD558\uC9C0\uB9CC, \uD604\uC7AC \uD5C8\uBE14\uC758 \uB3D9\uB825\uC774
+      \uBD80\uC871\uD574\uC11C \uCD94\uAC00\uC801\uC778 \uBCF5\uAD6C\uB294 \uD798\uB4E4
+      \uAC83 \uAC19\uB124\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037531
+    m_Localized: "\uC774\uBC88\uC5D4 \uC0C8\uB85C\uC6B4 \uAE30\uC0AC\uB4E4\uC744
+      \uC131\uC7A5\uC2DC\uD0A4\uB294 \uBC29\uBC95\uC744 \uC54C\uC544\uBD10\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037532
+    m_Localized: "\uC784\uBB34\uC744 \uC704\uD574 \uB5A0\uB098\uAE30 \uC804 \uB9C8\uC9C0\uB9C9\uC73C\uB85C
+      \uD604\uC7AC\uAE4C\uC9C0 \uC131\uB2E8\uC5D0 \uCC38\uC5EC\uD55C \uAE30\uC0AC\uB4E4\uC758
+      \uC0C1\uD0DC\uB97C \uC0B4\uD3B4\uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037533
+    m_Localized: "\uC774 \uACF3 '\uAE30\uC0AC \uAD00\uB9AC' \uBC84\uD2BC\uC744 \uD1B5\uD574
+      \uD604\uC7AC \uBCF4\uC720\uD55C \uAE30\uC0AC\uB4E4\uC758 \uC0C1\uD0DC\uB97C
+      \uC0B4\uD3B4\uBCFC \uC218 \uC788\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037534
+    m_Localized: "\uC640 \uC0C8\uB85C\uC6B4 \uC131\uB2E8\uC6D0 \uBD84\uB4E4\uC774
+      \uB9CE\uC774 \uBAA8\uC5EC\uACC4\uC2DC\uB124\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037535
+    m_Localized: "\uC774\uBC88\uC5D4 \uC544\uD2B8\uB808\uC2DC\uC544 \uC528\uB97C
+      \uC131\uC7A5\uC2DC\uCF1C \uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037536
+    m_Localized: "\uAE30\uC0AC\uC758 \uC131\uC7A5\uC5D0\uB294 '\uC804\uD22C \uB370\uC774\uD130'\uAC00
+      \uD544\uC694\uD574\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037537
+    m_Localized: "\uC804\uD22C \uB370\uC774\uD130'\uB294 \uC2A4\uD14C\uC774\uC9C0\uB098
+      \uB2E4\uB978 \uD0D0\uD5D8\uC744 \uD1B5\uD574 \uD68D\uB4DD\uD560 \uC218 \uC788\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037538
+    m_Localized: "\uADF8\uB7FC \uC774\uACF3\uC744 \uB20C\uB7EC \uC544\uD2B8\uB808\uC2DC\uC544\uC528\uB97C
+      \uC131\uC7A5\uC2DC\uCF1C \uBD10\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037539
+    m_Localized: "\uC640\uC544! \uAE30\uC0AC\uAC00 \uC131\uC7A5\uD588\uC5B4\uC694.
+      \uC5BC\uB9C8\uB098 \uAC15\uD574\uC84C\uB294\uC9C0\uB294 \uC774\uACF3\uC744
+      \uD1B5\uD574 \uC0B4\uD3B4\uBCFC \uC218 \uC788\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037540
+    m_Localized: "\uADF8\uB7FC \uAE30\uC0AC\uB4E4\uC758 \uC900\uBE44\uB3C4 \uC644\uB8CC
+      \uB418\uC5C8\uACA0\uB2E4. \uD074\uB808\uC774\uC528\uAC00 \uB9C8\uC9C0\uB9C9
+      \uBAA9\uC801\uC9C0\uB85C \uC124\uC815\uD55C '\uC544\uB974\uCF00'\uB85C \uC88C\uD45C\uB97C
+      \uC124\uC815\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037541
+    m_Localized: "\uC751! \uC5BC\uB978 \uD074\uB808\uC774\uB97C \uCC3E\uC544\uBCF4\uC790!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037542
+    m_Localized: "\uB878\uC800. \uC2DC\uC2A4\uD15C \uC62C \uADF8\uB9B0. \uB77C\uC774\uD2B8
+      \uBE0C\uB9C1\uC5B4. \uC544\uB974\uCF00\uB85C \uCD9C\uD56D\uD569\uB2C8\uB2E4!\n\uC2B9\uBB34\uC6D0
+      \uC5EC\uB7EC\uBD84 \uAED8\uC11C\uB294 \uAF49 \uC7A1\uC73C\uC138\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037543
+    m_Localized: "\uC870\uC2EC\uD558\uC138\uC694! \uADF8 \uC9C0\uC5ED\uC5D0 \uC9C0\uB8B0\uAC00
+      \uB9E4\uC124\uB418\uC5B4 \uC788\uC5B4\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037544
+    m_Localized: "\uC9C0\uB8B0\uB77C\uB2C8\u2026? \uC544\uC9C1 \uB124\uD53C\uB9BC\uC73C\uB85C
+      \uBD80\uD130 \uC800\uD56D\uD558\uB294 \uC778\uB958\uAC00 \uC544\uC9C1 \uC0AC\uB294
+      \uAC83\uC77C\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037545
+    m_Localized: "\uADF8\uAC74 \uBAA8\uB974\uACA0\uC9C0\uB9CC, \uC800\uAC83\uC744
+      \uC798 \uD65C\uC6A9\uD558\uBA74 \uB124\uD53C\uB9BC\uB4E4\uC744 \uC77C\uAC70\uC5D0
+      \uC4F8\uC5B4\uBC84\uB9B4 \uC218 \uC788\uC744 \uAC83 \uAC19\uC544."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037546
+    m_Localized: "\uADF8 \uC791\uC804\uC744 \uC4F0\uC790\uB294 \uAC70\uC9C0? \uC77C\uBA85
+      \uB204\uC6CC\uC11C \uB124\uD53C\uB9BC \uAD34\uB86D\uD788\uAE30 \uC600\uB098?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037547
+    m_Localized: "...\uB204\uC6CC\uC11C \uB5A1\uBA39\uAE30\uC785\uB2C8\uB2E4. \uC720\uB2C8."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037548
+    m_Localized: "\uADF8\uAC8C \uADF8\uAC70\uC9C0! \uC5B4\uCA0B\uB4E0 \uC800 \uC9C0\uB8B0\uC5D0
+      \uB124\uD53C\uB9BC\uC744 \uC720\uC778\uD558\uBA74 \uB418\uB294\uAC70\uC796\uC544!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037549
+    m_Localized: "\uADF8\uB7FC \uC720\uC778\uC740 \uC81C\uAC00 \uB9E1\uB3C4\uB85D
+      \uD558\uC8E0."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037550
+    m_Localized: "\uC800\uB97C \uC774 \uC601\uC5ED\uC5D0 \uBC30\uCE58\uD574\uC8FC\uC138\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037551
+    m_Localized: "\uC5ED\uC2DC \uAD00\uCE21\uC790 \uB2D8! \uD6CC\uB96D\uD55C \uC9C0\uD718\uC5D0\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037552
+    m_Localized: "\uB9C8\uCE68 \uC2E0\uADDC \uC131\uB2E8\uC6D0\uB4E4\uB3C4 \uBCF4\uCDA9\uB418\uC5C8\uC73C\uB2C8
+      \uC804\uD22C\uC5D0 \uCC38\uC5EC\uC2DC\uCF1C\uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037553
+    m_Localized: "\uC774\uC81C \uC784\uBB34\uB97C \uC218\uD589\uD560 \uC900\uBE44\uAC00
+      \uC644\uB8CC\uB418\uC5C8\uB124\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037554
+    m_Localized: "\uADF8\uB7FC \uAC11\uB2C8\uB2E4. \uC778\uCE74\uC6B4\uD130!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037555
+    m_Localized: "\uC720\uB2C8, \uADF8 \uBC18\uC9DD\uC774\uB294 \uAC74 \uBB50\uC5D0\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037556
+    m_Localized: "\uC544\u2026\uC544\uB0D0! \uC774\uAC74 \uADF8\uB7EC\uB2C8\uAE4C\u2026.."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037557
+    m_Localized: "...\uD5E4\uD5E4. \uADF8\uB0E5 \uC774\uC058\uB2E4 \uBCF4\uB2C8 \uC8FC\uC6E0\uC5B4!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037558
+    m_Localized: "\uC720\uB2C8\u2026 \uAE09\uBC15\uD55C \uC804\uD22C \uC911\uC5D0
+      \uAC1C\uBCC4 \uD589\uB3D9\uC740 \uC704\uD5D8\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037559
+    m_Localized: "\uBBF8... \uBBF8\uC548\uD574! \uADF8\uB798\uB3C4 \uC774\uAC70,
+      \uC544\uAE4C '\uC704\uC0C1\uC758 \uADF8\uB9BC\uC790'\uAC00 \uC0AC\uB77C\uC9C4
+      \uC790\uB9AC\uC5D0...!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037560
+    m_Localized: "\uC557... \uC7A0\uAE50\uB9CC\uC694, \uC720\uB2C8 \uC528! \uADF8\uAC70
+      \uD639\uC2DC... '\uC18D\uC131\uC11D'\uC774\uC5D0\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037561
+    m_Localized: "\u2018\uC18D\uC131\uC11D\u2019\uC774\uC694? \uAE30\uC0AC\uC758
+      \uD55C\uACC4\uB97C \uB3CC\uD30C\uD558\uAC8C \uB9CC\uB4E4\uC5B4\uC900\uB2E4\uB294
+      \uADF8 \uAD11\uC11D\uC774 \uC774\uACF3\uC5D0 \uC788\uB2E4\uB2C8..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037562
+    m_Localized: "\uC798\uB418\uC5C8\uB124\uC694! \uC7AC\uC815\uBE44\uB97C \uD558\uB294
+      \uB3D9\uC548, \uADF8 \uB3CC\uC744 \uC774\uC6A9\uD574 \uAE30\uC0AC\uB4E4\uC758
+      \uC7A0\uC7AC\uB825\uC744 \uC774\uB04C\uC5B4\uB0B4 \uBCF4\uC8E0!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037563
+    m_Localized: "\uAD00\uCE21\uC790\uB2D8. \uC6B0\uC120 \uC815\uBE44\uB97C \uC704\uD574
+      \uC5D8\uD53C\uC2A4\uB85C \uBCF5\uADC0\uD574\uBD10\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037564
+    m_Localized: "\uC774\uACF3\uC744 \uB20C\uB7EC \uB300\uAE30\uC911\uC778 \uAE30\uC0AC\uB4E4\uC744
+      \uC0B4\uD3B4\uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037565
+    m_Localized: "\uC774\uBC88\uC5D4 \uC544\uD2B8\uB808\uC2DC\uC544\uC528\uB97C \uB354
+      \uAC15\uD558\uAC8C \uB9CC\uB4E4 \uCC28\uB840\uC5D0\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037566
+    m_Localized: "\uB9C8\uCE68 \uC774\uC804\uC5D0 \uC81C\uD074\uB9B0 \uC911\uC7A5\uB2D8
+      \uAED8\uC11C \uC8FC\uC2E0 \uC131\uC7A5 \uB370\uC774\uD130\uAC00 \uB0A8\uC558\uB124\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037567
+    m_Localized: "\uB808\uBCA8\uC5C5\uC744 \uB20C\uB7EC \uC544\uD2B8\uB808\uC2DC\uC544\uB97C
+      10\uAE4C\uC9C0 \uC131\uC7A5\uC2DC\uCF1C\uBD10\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037568
+    m_Localized: "\uC640 \uC544\uD2B8\uB808\uC2DC\uC544\uC528\uAC00 \uD55C\uACC4
+      \uAE4C\uC9C0 \uC131\uC7A5\uD588\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037569
+    m_Localized: "10\uB808\uBCA8 \uB9C8\uB2E4 \uAE30\uC0AC\uB4E4\uC740 \uC131\uC7A5\uC758
+      \uD55C\uACC4\uC5D0 \uB2E4\uB2E4\uB974\uACE0, \uC774 \uB54C \uD55C\uACC4 \uB3CC\uD30C\uB97C
+      \uD1B5\uD574 \uCD5C\uB300 \uC131\uC7A5\uC2DC\uD0AC \uC218 \uC788\uB294 \uB808\uBCA8\uC744
+      \uC62C\uB824\uC904 \uC218 \uC788\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037570
+    m_Localized: "\uC774\uBC88\uC5D4 \uC774\uACF3\uC744 \uB20C\uB7EC \uC544\uD2B8\uB808\uC2DC\uC544
+      \uC528\uC758 \uD55C\uACC4 \uB3CC\uD30C\uB97C \uD574\uBD10\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037571
+    m_Localized: "\uD55C\uACC4 \uB3CC\uD30C\uB97C \uD1B5\uD574 \uAE30\uC0AC\uC758
+      \uCD5C\uB300 \uB808\uBCA8\uC774 \uC0C1\uC2B9\uD558\uACE0 \uB2A5\uB825\uCE58\uB3C4
+      \uD06C\uAC8C \uC0C1\uC2B9\uD588\uC5B4\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037572
+    m_Localized: "\uC774\uB807\uAC8C \uAC15\uD574\uC9C0\uB2E4 \uBCF4\uBA74 \uC5B8\uC820\uAC00
+      \uC778\uB958\uAC00 \uC544\uD06C\uB97C \uB418\uCC3E\uC744 \uC218 \uC788\uC744\uAC70\uC5D0\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037573
+    m_Localized: "\uADF8\uB7FC \uC774\uC81C \uB2E4\uC2DC \uD074\uB808\uC774\uC528\uB97C
+      \uCC3E\uC73C\uB7EC \uAC00\uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037574
+    m_Localized: "\uAD00\uCE21\uC790\uB2D8! \uC774\uBC88\uC5D4 \uC18D\uC131\uC758
+      \uC0C1\uAD00 \uAD00\uACC4\uC5D0 \uB300\uD574 \uACF5\uBD80\uD574\uBD10\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037575
+    m_Localized: "\uB124\uD53C\uB9BC\uB4E4\uC740 \uBB34\uC18D\uC131, \uBD88\uC18D\uC131,
+      \uBC14\uB78C\uC18D\uC131, \uB300\uC9C0\uC18D\uC131, \uC804\uAE30\uC18D\uC131,\uBB3C\uC18D\uC131
+      \uCD1D 6\uAC00\uC9C0\uC758 \uC18D\uC131\uC73C\uB85C \uB098\uB258\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037576
+    m_Localized: "\uAC01\uAC01\uC758 \uC18D\uC131\uC740 \uC0C1\uAD00\uAD00\uACC4\uAC00
+      \uC874\uC7AC\uD558\uBA70, \uC57D\uC810\uC778 \uC18D\uC131\uC73C\uB85C \uACF5\uACA9\uD560
+      \uACBD\uC6B0 \uB354\uC6B1 \uAC15\uD55C \uD53C\uD574\uB97C \uC785\uD790 \uC218
+      \uC788\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037577
+    m_Localized: "\uBAAC\uC2A4\uD130\uC758 \uC18D\uC131\uC740 \uC774\uACF3\uC5D0\uC11C
+      \uD655\uC778 \uAC00\uB2A5\uD574\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037578
+    m_Localized: "\uB9C8\uCE68 \uBAAC\uC2A4\uD130\uB4E4\uC758 \uC18D\uC131\uC774
+      \uBB3C\uC18D\uC131\uC774\uB124\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037579
+    m_Localized: "\uC544\uD2B8\uB808\uC2DC\uC544\uC528\uC640 \uD544\uB9AC\uC544\uC528\uB294
+      \uC804\uAE30 \uC18D\uC131\uC774\uB2C8 \uB354 \uAC15\uD55C \uD53C\uD574\uB97C
+      \uC785\uD790 \uC218 \uC788\uACA0\uC5B4\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037580
+    m_Localized: "\uBC18\uB300\uB85C \uC720\uB2C8\uC528\uB294 \uBD88 \uC18D\uC131\uC774\uB77C
+      \uD3C9\uC18C\uBCF4\uB2E4 \uD798\uC744 \uB0BC \uC218 \uC5C6\uACA0\uB124\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037581
+    m_Localized: "\uC720\uB2C8\uC528\uB97C \uC804\uD22C\uC5D0\uC11C \uC81C\uC678\uD558\uACE0
+      \uC774\uBC88\uC5D0 \uC0C8\uB85C\uC624\uC2E0 \uBD84\uB4E4\uC744 \uD65C\uC6A9\uD574\uBD10\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037582
+    m_Localized: "\uC900\uBE44\uAC00 \uB2E4 \uB418\uC168\uB2E4\uBA74 \uC804\uD22C
+      \uC2DC\uC791\uC744 \uB20C\uB7EC \uB124\uD53C\uB9BC\uB4E4\uC744 \uD63C\uB0B4\uC8FC\uC790\uAD6C\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037583
+    m_Localized: "\uBE45\uB9C8\uC6B0\uC2A4\uB294 \uD070 \uC785\uC744 \uC774\uC6A9\uD574
+      \uB3CC\uC9C4\uD574 \uC9C1\uC120 \uAC70\uB9AC\uC758 \uAE30\uC0AC\uB4E4\uC744
+      \uACF5\uACA9\uD574\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037584
+    m_Localized: "\uC9C1\uC120 \uAC70\uB9AC\uC5D0 \uAE30\uC0AC\uB4E4\uC774 \uBAA8\uC774\uC9C0
+      \uC54A\uB3C4\uB85D \uBC30\uCE58\uC5D0 \uC8FC\uC758\uD558\uC138\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037585
+    m_Localized: "\uC624\uC168\uAD70\uC694 \uAD00\uCE21\uC790\uB2D8!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037586
+    m_Localized: "\uC548\uADF8\uB798\uB3C4 \uC7AC\uD074\uB9B0 \uBD80\uC0AC\uB839\uAD00\uB2D8\uC774
+      \uBD80\uD0C1\uD558\uC2E0 \uBB3C\uD488\uC744 \uC804\uB2EC\uD558\uAE30 \uC704\uD574
+      \uC5B8\uC81C\uCBE4 \uC624\uC2DC\uB098 \uAE30\uB2E4\uB9AC\uACE0 \uC788\uC5C8\uC5B4\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037587
+    m_Localized: "\uCA14\uC794! \uC774 '\uAE30\uC5B5\uC758 \uC870\uAC01'\uC73C\uB85C
+      \uB9D0\uD558\uC790\uBA74, \uC2A4\uD14C\uB9AC\uC544\uC758 \uC228\uACA8\uC9C4
+      \uD798\uC744 \uC774\uB04C\uC5B4\uB0B4\uB294 \uC18C\uC911\uD55C \uBB3C\uD488\uC774\uC5D0\uC694!
+      \n\uC7AC\uC815\uC5D0 \uC5C4\uACA9\uD558\uC2E0 \uC7AC\uD074\uB9B0 \uBD80\uC0AC\uB839\uAD00
+      \uB2D8\uAED8\uC11C \uC774\uB7F0 \uADC0\uD55C \uAC83\uC744 \uC8FC\uC2DC\uB2E4\uB2C8\u2026.!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037588
+    m_Localized: "\uC544 \uCC38, \uB0B4 \uC815\uC2E0 \uC880 \uBD10. \uBC14\uB85C
+      \uAE30\uC0AC\uB4E4\uC744 \uAC15\uD654\uD574\uBCF4\uB3C4\uB85D \uD558\uC8E0."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037589
+    m_Localized: "\uB9C8\uCE68 \uC774\uC804 \uC804\uD22C\uC5D0\uC11C \uC544\uD2B8\uB808\uC2DC\uC544
+      \uC528\uC758 \uAE30\uC5B5\uC870\uAC01\uC744 \uD68D\uB4DD\uD588\uC73C\uB2C8
+      \uC774\uB97C \uD65C\uC6A9\uD574\uBD10\uC694"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037590
+    m_Localized: "\uCD08\uC6D4\uC740 \uAE30\uC0AC\uB4E4\uC758 \uAE30\uC5B5 \uC870\uAC01\uC744
+      \uBAA8\uC544 \uAE30\uC0AC\uC758 \uC228\uACA8\uC9C4 \uC7A0\uC7AC\uB825\uC744
+      \uB04C\uC5B4\uB0BC \uC218 \uC788\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037591
+    m_Localized: "\uC774\uACF3\uC744 \uB20C\uB7EC \uC544\uD2B8\uB808\uC2DC\uC544
+      \uC528\uB97C \uCD08\uC6D4\uC2DC\uCF1C \uBCF4\uC790\uAD6C\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037592
+    m_Localized: "\uCD08\uC6D4\uC5D0 \uC131\uACF5\uD588\uC5B4\uC694! \uCD08\uC6D4\uC5D0
+      \uC131\uACF5\uD560 \uACBD\uC6B0 \uB2A5\uB825\uCE58\uAC00 \uD06C\uAC8C \uC0C1\uC2B9\uD558\uACE0,
+      Passive \uC2A4\uD0AC\uC774 \uAC15\uD654\uB418\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037593
+    m_Localized: "\uC774\uC81C \uC131\uC7A5\uB3C4 \uC644\uB8CC\uD588\uC73C\uB2C8
+      \uC81C\uD074\uB9B0 \uC911\uC7A5\uB2D8\uC774 \uC120\uBB3C\uD574\uC8FC\uC2E0
+      \uB0A8\uC740 \uC7AC\uB8CC\uB4E4\uC744 \uC0B4\uD3B4\uBCF4\uB7EC \uAC00\uC694!."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037594
+    m_Localized: "\uC774\uAC74\u2026.\uBD80\uC0AC\uB839\uAD00\uB2D8\uC758 \uB450\uBC88\uC9F8
+      \uC120\uBB3C! \uAD00\uCE21\uC790\uB2D8, \uBB34\uB824 [\uCF54\uC5B4]\uB77C\uAD6C\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037595
+    m_Localized: "\uCF54\uC5B4?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037596
+    m_Localized: "\uCF54\uC5B4\uB294 \uB9E4\uC6B0\uADC0\uD55C \uAC00\uCE58\uB97C
+      \uC9C0\uB2C8\uACE0 \uC788\uB294 \uD5C8\uBE14\uC758 \uD544\uC218 \uB3D9\uB825\uC6D0\uC774\uC5D0\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037597
+    m_Localized: "\uCF54\uC5B4\uB97C \uC124\uCE58\uD558\uBA74 [\uD5C8\uBE14]\uC758
+      \uC804\uB825\uC744 \uBCF5\uC6D0\uD558\uACE0 \uCD94\uAC00\uC801\uC778 \uAC74\uCD95\uBB3C\uB4E4\uC744
+      \uC774\uC6A9\uD560 \uC218 \uC788\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037598
+    m_Localized: "\uAD00\uCE21\uC790\uB2D8. \uC784\uBB34\uC5D0 \uD22C\uC785\uB418\uAE30
+      \uC804 \uCF54\uC5B4\uB97C \uD1B5\uD574 \uD5C8\uBE14\uC744 \uD655\uC7A5 \uD558\uBA74
+      \uC5B4\uB5A8\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037599
+    m_Localized: "\uC989\uC2DC \uCF54\uC5B4\uC758 \uCD94\uAC00 \uC124\uCE58\uB97C
+      \uC704\uD574 \uD5C8\uBE14\uC758 \uCEE4\uBA58\uB4DC \uC13C\uD130\uB85C \uC774\uB3D9\uD574\uBCF4\uC790\uAD6C\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037600
+    m_Localized: "\uC774\uACF3\uC5D0 \uC120\uBB3C\uBC1B\uC740 \uCF54\uC5B4\uB97C
+      \uC124\uCE58\uD574\uBD10\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037601
+    m_Localized: "\uC6B0\uC640! \uD5C8\uBE14\uC758 \uB3D9\uB825\uB4E4\uC774 \uBCF5\uAD6C\uB418\uACE0
+      \uC788\uC5B4\uC694. \uB3D9\uB825 \uBD80\uC871\uC73C\uB85C \uC124\uCE58\uD558\uC9C0
+      \uBABB\uD588\uB358 \uAC74\uBB3C\uB4E4\uC744 \uC774\uC81C \uC774\uC6A9\uD560
+      \uC218 \uC788\uC744 \uAC83 \uAC19\uC544\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037602
+    m_Localized: "\uBC14\uB85C \uC124\uCE58\uD558\uB7EC \uAC00\uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037603
+    m_Localized: "\uC774\uC81C, \uB530\uB4EF\uD55C \uBB3C\uC774 \uB098\uC624\uB294
+      \uC695\uC870\uC640 \uC624\uD1A0 \uB0C9\uB09C\uBC29\uC774 \uC9C0\uC6D0\uB418\uB294
+      \uC219\uC18C\uAC00!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037604
+    m_Localized: "\u2026\uC720\uB2C8, \uADF8\uAC83\uBCF4\uB2E4\uB294 \uC800\uD76C\uC5D0\uAC90
+      \uCCB4\uACC4\uC801\uC73C\uB85C \uD6C8\uB828\uD560 \uACF5\uAC04\uC774."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037605
+    m_Localized: "\uBAB0\uB77C, \uBAB0\uB77C! \uC720\uB2C8\uB294 \uB530\uB4EF\uD55C
+      \uBB3C\uB85C \uBAA9\uC695\uD558\uACE0 \uC2F6\uC5B4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037606
+    m_Localized: "\uD544\uB9AC\uC544 \uC774\uBC88\uC5D0\uB294 \uC720\uB2C8\uC5D0\uAC8C
+      \uC591\uBCF4\uD558\uBA74 \uC5B4\uB5A8\uAE4C\uC694? \uD604\uC7AC \uC778\uC6D0\uB9CC\uC73C\uB85C\uB294
+      \uB2E4\uC74C \uC784\uBB34\uC5D0 \uC9C0\uC7A5\uC774 \uC788\uC744\uAC70\uC5D0\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037607
+    m_Localized: "\uC5ED\uC2DC \uC544\uD2F0\uB294 \uC13C\uC2A4\uAC00 \uC88B\uB2E4\uB2C8\uAE4C!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037608
+    m_Localized: "\uD6C4\u2026 \uC5B4\uCA54 \uC218 \uC5C6\uC8E0. \uD558\uC9C0\uB9CC
+      \uC5B8\uC820\uAC00\uB294 \uBC18\uB4DC\uC2DC\u2026!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037609
+    m_Localized: "\uADF8\uB7FC \uC815\uB9AC\uAC00 \uC644\uB8CC\uB41C \uAC83\uC73C\uB85C
+      \uC54C\uACE0 \uC219\uC18C\uB97C \uCD94\uAC00\uB85C \uC124\uCE58\uD574\uBD10\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037610
+    m_Localized: "\uC774\uACF3\uC744 \uB20C\uB7EC \uC0C8\uB85C\uC6B4 \uC219\uC18C\uB97C
+      \uC124\uCE58\uD560 \uC218 \uC788\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037611
+    m_Localized: "\uB4DC\uB514\uC5B4 5\uBA85\uC758 \uD569\uC219 \uC0DD\uD65C\uC5D0\uC11C
+      \uBC97\uC5B4\uB098\uB294\uAC70\uC57C?! \uC800\uAE30 \uCE68\uB300\uB294 \uC720\uB2C8\uAC00
+      \uCC28\uC9C0\uD560\uAC70\uC57C!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037612
+    m_Localized: "\u2026..\uC720\uB2C8. \uD558\uC9C0\uB9CC \uC5ED\uC2DC \uB113\uC5B4\uC9C0\uB2C8
+      \uB9C8\uC74C\uC774 \uD48D\uC694\uB85C\uC6CC\uC9C0\uB294 \uAE30\uBD84\uC774\uC5D0\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037613
+    m_Localized: "\uADF8\uB7FC \uC800 \uBE48 \uACF5\uAC04\uC5D0\uB294 \uD6C8\uB828
+      \uAE30\uAD6C\uB97C\u2026."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037614
+    m_Localized: "\uAD00\uCE21\uC790! \uD544\uB9AC\uC544\uAC00 \uB610 \uC774\uC0C1\uD55C
+      \uAC83\uC744 \uC219\uC18C\uC5D0 \uB123\uC73C\uB824\uACE0 \uD574!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037615
+    m_Localized: "\uD544\uB9AC\uC544. \uB2E4\uC74C\uC5D0 \uAF2D \uD6C8\uB828 \uACF5\uAC04\uC744
+      \uBCC4\uB3C4\uB85C \uB9CC\uB4E4\uC5B4\uC904\uD14C\uB2C8\uAE4C. \uC774\uBC88\uC5D0\uB294
+      \uB2E4\uB4E4 \uB9CC\uB07D\uD558\uAC8C \uD574\uC8FC\uC790."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037616
+    m_Localized: "\uB9C8\uC2A4\uD130\uC758 \uC758\uACAC\uC774 \uADF8\uB807\uB2E4\uBA74\u2026.
+      \uC54C\uACA0\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037617
+    m_Localized: "\uADF8\uB7FC \uB0A8\uC740 \uB3D9\uB825\uC73C\uB85C \uC774\uC5B4\uC11C
+      \uC0C8\uB85C\uC6B4 \uAC74\uBB3C\uB4E4\uC744 \uC124\uCE58\uD558\uB7EC \uAC00\uBCF4\uC790\uAD6C\uC694"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037618
+    m_Localized: "\uADFC\uB370, \uC774 \uC544\uB984\uB2E4\uC6B4 \uD050\uBE0C\uB294
+      \uBB50\uC8E0?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037619
+    m_Localized: "\uD788\uD79B! \uC800\uBC88\uC5D0\uB4E4\uB9B0 \uD589\uC131\uC5D0\uC11C
+      \uC774\uC058\uAE38\uB808 \uC2AC\uCA4D \uAC00\uC838\uC654\uC5B4!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037620
+    m_Localized: "\uC720\uB2C8, \uC5D8\uD53C\uC2A4 \uC678\uBD80\uBB3C\uCCB4 \uBC18\uC785
+      \uAE08\uC9C0 \uBC95\uB839 4\uC870\uC5D0 \uB530\uB77C\u2026.."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037621
+    m_Localized: "\uC73C\uC557! \uADF8\uB9CC\uD574 \uB0B4\uAC00 \uC798\uBABB\uD588\uC5B4.
+      \uAC00\uC838\uB2E4 \uBC84\uB9AC\uBA74 \uB418\uC796\uC544."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037622
+    m_Localized: "\uADF8\uAC74 \uB514\uBA58\uC158 \uD050\uBE0C?! \uC5B4\uC9F8\uC11C
+      \uADF8\uACF3\uC5D0\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037623
+    m_Localized: "\uB514\uBA58\uC158 \uD050\uBE0C? \uC774 \uD2B9\uC218\uD558\uAC8C
+      \uC0DD\uAE34 \uB3CC\uC758 \uC774\uB984\uC778\uAC00?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037624
+    m_Localized: "\uB124, \uB9DE\uC544\uC694. \uBC1C\uACAC\uB41C\uC9C0 \uC5BC\uB9C8\uB418\uC9C0
+      \uC54A\uB294 \uBCF4\uC11D\uC73C\uB85C\uC11C \uC5D8\uD53C\uC2A4\uC5D0\uC11C
+      \uC774\uC57C\uAE30 \uD558\uAE38 \uC5C4\uCCAD\uB09C \uC5F0\uAD6C \uAC00\uCE58\uAC00
+      \uC788\uB294 \uBCF4\uC11D\uC774\uB77C\uACE0 \uD558\uB354\uB77C\uAD6C\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037625
+    m_Localized: "\uAD00\uCE21\uC790\uB2D8! \uC774\uBC88\uC5D0 \uC5D8\uD53C\uC2A4\uC5D0\uC11C
+      \uC5F0\uAD6C\uD558\uACE0 \uC788\uB294 \uB514\uBA58\uC158 \uD050\uBE0C\uC758
+      \uC2E0\uADDC \uC124\uBE44 \uC124\uCE58 \uD5C8\uAC00\uB97C \uB0B4\uC92C\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037626
+    m_Localized: "\uC9C0\uC18D\uC801\uC73C\uB85C \uC5F0\uAD6C\uD558\uBA74 \uC800\uD76C\uC5D0\uAC8C
+      \uD070 \uB3C4\uC6C0\uC774 \uB420\uAC70\uC5D0\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037627
+    m_Localized: "\uC5BC\uB978 \uD5C8\uBE14\uC5D0 \uC5F0\uAD6C\uC18C\uB97C \uC124\uCE58\uD574\uBD10\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037628
+    m_Localized: "\uC774\uACF3\uC744 \uB20C\uB7EC \uB514\uBA58\uC158 \uD050\uBE0C
+      \uC5F0\uAD6C\uC18C\uB97C \uC124\uCE58\uD560 \uC218 \uC788\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037629
+    m_Localized: "\uC798\uD558\uC168\uC5B4\uC694. \uC5ED\uC2DC \uAD00\uCE21\uC790
+      \uB2D8\uC774\uC5D0\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037630
+    m_Localized: "\uC774\uC81C \uD050\uBE0C\uB97C \uC5F0\uAD6C\uD574\uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037631
+    m_Localized: "\uB514\uBA58\uC158 \uD050\uBE0C\uB97C \uC5F0\uAD6C\uD560 \uC900\uBE44\uAC00
+      \uC644\uB8CC\uB418\uC5C8\uC5B4\uC694. '\uAE30\uC0AC-\uACF5\uACA9\uB825 \uC99D\uD3ED'
+      \uC5F0\uAD6C\uB97C \uC9C4\uD589\uD574\uBCF4\uC8E0."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037632
+    m_Localized: "\uC5F0\uAD6C\uB294 \uB514\uBA58\uC158 \uD050\uBE0C \uC5F0\uAD6C\uC18C\uC5D0\uC11C
+      \uAC00\uB2A5\uD574\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037633
+    m_Localized: "\uC774\uACF3\uC5D0\uC120 \uAC01\uAC01\uC758 \uB514\uBA58\uC158
+      \uD050\uBE0C\uB97C \uD65C\uC6A9\uD558\uC5EC \uAE30\uC0AC, \uC131\uAD70, \uC18D\uC131
+      \uC5F0\uAD6C\uAC00 \uAC00\uB2A5\uD574\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037634
+    m_Localized: "\uC5F0\uAD6C\uC5D0\uB294 \uAC01\uAC01 \uD544\uC694\uD55C \uB514\uBA58\uC158
+      \uD050\uBE0C \uBC0F \uC62C\uB77C\uAC00\uB294 \uB2A5\uB825\uCE58\uAC00 \uB2E4\uB974\uB2E4\uB294
+      \uC810 \uC720\uC758\uD574\uC8FC\uC138\uC694!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037635
+    m_Localized: "\uC774\uBC88\uC5D4 \uAE30\uC0AC\uB4E4\uC758 \uACF5\uACA9\uB825\uC744
+      \uC62C\uB824\uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037636
+    m_Localized: "\uC640! \uC131\uB2E8\uC6D0\uB4E4\uC774 \uD568\uAED8 \uAC15\uD574\uC9C4\uAC8C
+      \uB290\uAEF4\uC838\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037637
+    m_Localized: "\uADF8\uB7FC \uB9C8\uC9C0\uB9C9\uC73C\uB85C \uAE30\uC0AC\uB4E4\uC758
+      \uD6C8\uB828\uC744 \uC704\uD574 \uC804\uD22C \uC2DC\uBBAC\uB808\uC774\uC158
+      \uC13C\uD130\uB97C \uB9CC\uB4E4\uC5B4\uBD10\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037638
+    m_Localized: "\uD734! \uC544\uC2AC\uC544\uC2AC\uD558\uAC8C \uB0A8\uC740\uC7AC\uD654\uB85C
+      \uC804\uD22C \uC2DC\uBBAC\uB808\uC774\uC158 \uC13C\uD130\uB97C \uAC74\uC124\uD560
+      \uC218 \uC788\uACA0\uB124\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037639
+    m_Localized: "\uC2DC\uBBAC\uB808\uC774\uC158 \uC13C\uD130 \uBD80\uC9C0\uB294
+      \uC5EC\uAE30\uAC00 \uC88B\uACA0\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037640
+    m_Localized: "\uBC14\uB85C \uAC74\uC124\uC744 \uC9C4\uD589\uD574\uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037641
+    m_Localized: "\uB4DC\uB514\uC5B4....\uC6B0\uB9AC \uC131\uB2E8\uC5D0\uB3C4 \uD6C8\uB828\uD560
+      \uC218 \uC788\uB294 \uACF5\uAC04\uC774."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037642
+    m_Localized: "\uC544\uC557...! \uAD00\uCE21\uC790. \uD544\uB9AC\uC544\uAC00 \uD765\uBD84\uD574\uC11C
+      \uB2EC\uB824\uB4E4\uAE30 \uC2DC\uC791\uD588\uC5B4!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037643
+    m_Localized: "\uC720\uB2C8. \uC9C0\uAE08\uC740 \uD544\uB9AC\uC544\uAC00 \uB9C8\uC74C\uAECF
+      \uB9CC\uB07E\uD558\uAC8C \uB194\uB450\uC8E0. \uADF8\uB3D9\uC548 \uC5F4\uC57D\uD55C
+      \uD658\uACBD\uC5D0 \uB178\uB825\uD574\uC654\uC73C\uB2C8\uAE4C\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037644
+    m_Localized: "\uD6C4\uD6D7. \uB9C8\uC74C\uC5D0 \uB4DC\uC168\uB2E4\uB2C8 \uB2E4\uD589\uC774\uB124\uC694.
+      \uADF8\uB7FC \uC774\uC81C \uBAA8\uB4E0 \uC900\uBE44\uB3C4 \uB05D\uB0AC\uACA0\uB2E4.
+      \uCD9C\uD56D \uC900\uBE44\uB97C \uD574\uBCF4\uC790\uAD6C\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037645
+    m_Localized: "\uC804\uD22C \uC2DC\uBBAC\uB808\uC774\uC158 \uC13C\uD130\uAC00
+      \uC9C0\uC5B4\uC9C4 \uB9CC\uD07C \uC774\uC81C \uC2DC\uBBAC\uB808\uC774\uC158
+      \uBCF4\uC0C1\uC744 \uD68D\uB4DD\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037646
+    m_Localized: "\uC6B0\uC640! \uC9C4\uC9DC \uC804\uD22C\uD558\uB294 \uAC83 \uAC19\uC796\uC544?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037647
+    m_Localized: "\uB9C8\uC2A4\uD130! \uC774\uAC78\uB85C \uCD5C\uC57D\uC774\uB77C\uB294
+      \uC800\uD76C\uC758 \uC624\uBA85\uC744 \uC53C\uC744 \uC218 \uC788\uC744 \uC218
+      \uC788\uACA0\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037648
+    m_Localized: "\uD6C4\uD6D7. \uC804\uD22C \uC2DC\uBBAC\uB808\uC774\uC158\uC744
+      \uD558\uAC8C \uB418\uBA74 \uC2DC\uAC04\uC774 \uC9C0\uB0A8\uC5D0 \uB530\uB77C
+      \uC5D0\uB108\uC9C0\uB97C \uC800\uC7A5\uD560 \uC218 \uC788\uACE0."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037649
+    m_Localized: "\uC800\uC7A5\uB41C \uC5D0\uB108\uC9C0\uB97C \uD1B5\uD574 \uBCF4\uC0C1\uC744
+      \uD68D\uB4DD\uD560 \uC218 \uC788\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037650
+    m_Localized: "\uB9C8\uCE68 \uC5D0\uB108\uC9C0\uAC00 \uAC00\uB4DD \uCC3C\uC73C\uB2C8
+      \uBC14\uB85C \uC2DC\uBBAC\uB808\uC774\uC158 \uBCF4\uC0C1\uC744 \uBC1B\uC544\uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037651
+    m_Localized: "\uC6B0\uC640! \uB3FC\uC9C0 \uC800\uAE08\uD1B5 \uAC19\uC796\uC544?!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037652
+    m_Localized: "\uC774\uC81C \uCDA9\uBD84\uD55C \uC608\uD589 \uC5F0\uC2B5\uC744
+      \uD55C \uAC83 \uAC19\uC544\uC694. \uC5BC\uB978 \uD074\uB808\uC774\uB97C \uCC3E\uC544\uBCF4\uC8E0."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037653
+    m_Localized: "\uAC1C\uBBF8\uC9C0\uC625\uC740 \uB2FF\uC740 \uC0C1\uB300\uB97C
+      \uBB34\uC791\uC704 \uC704\uCE58\uB85C \uB0B4\uBCF4\uB0B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037654
+    m_Localized: "\uC774\uB97C \uC798 \uD65C\uC6A9\uD574\uC11C \uC544\uAD70\uC744
+      \uBCF4\uD638\uD558\uACE0 \uC801\uAD70\uC744 \uC2B5\uACA9\uD574 \uBCF4\uC138\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037655
+    m_Localized: "\uC624\uC789? \uC800\uAE30 \uBA40\uB9AC\uC5D0 \uC800\uAC74 \uBB50\uC9C0."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037656
+    m_Localized: "\u2026.\uD0D1?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037657
+    m_Localized: "\uC774\uB7F0 \uC0AC\uB9C9\uC5D0 \uD0D1\uC774\uB77C\uB2C8 \uC774\uC0C1\uD558\uAD70\uC694.
+      \uC2E0\uAE30\uB8E8\uC778 \uAC78\uAE4C\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037658
+    m_Localized: "\uC800\uAC74 \uC544\uB9C8\u2026.\uBC14\uBCA8\uC77C\uAC70\uC5D0\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037659
+    m_Localized: "\uBC14\uBCA8? \uADF8\uAC8C \uBB54\uB370?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037660
+    m_Localized: "\uC5EC\uB7EC \uD589\uC131\uC5D0 \uAC78\uCCD0 \uB098\uD0C0\uB098\uB294
+      \uD2B9\uC218\uD55C \uAC74\uCD95\uBB3C\uB85C\uC11C, \uC800\uAE30\uC5D0 \uB4E4\uC5B4\uAC04
+      \uC0AC\uB78C\uB4E4\uC740 '\uC2DC\uB828'\uC744 \uBC1B\uAC8C\uB418\uACE0 \uADF8\uAC83\uC744
+      \uC774\uACA8\uB0BC \uACBD\uC6B0 \uC5C4\uCCAD\uB09C \uBCF4\uC0C1\uC744 \uBC1B\uC744
+      \uC218 \uC788\uB2E4\uACE0 \uD574\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037661
+    m_Localized: "\uC624\u2026! \uC27D\uAC8C \uB9D0\uD574 \uC5B4\uB514\uB4E0 \uC788\uB294
+      \uBCF4\uBB3C\uCC3D\uACE0\uC796\uC544!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037662
+    m_Localized: "\u2026.\uC5ED\uC2DC \uC800\uC18D\uD558\uB124\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037663
+    m_Localized: "\uD765! \uBB50\uB77C\uD558\uB4E0 \uC800 \uC548\uC5D0 \uC788\uB294
+      \uBCF4\uBB3C\uB4E4\uC740 \uBAA8\uB450 \uB0B4\uAC70\uC57C!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037664
+    m_Localized: "\uC7A0\uAE50\uB9CC\uC694. \uC720\uB2C8! \uADF8\uB807\uAC8C \uB530\uB85C
+      \uD589\uB3D9\uD558\uBA74 \uC704\uD5D8\uD574\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037665
+    m_Localized: "\uC548\uB530\uB77C\uC624\uBA74 \uC9C4\uC9DC\uB85C \uBCF4\uBB3C\uC744
+      \uD63C\uC790 \uB3C5\uCC28\uC9C0\uD55C\uB2E4!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037666
+    m_Localized: "\uAD00\uCE21\uC790. \uAE30\uC5B5\uC0C1\uC2E4 \uC774\uC57C\uAE34
+      \uB4E4\uC5C8\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037667
+    m_Localized: "\uAD00\uCE21\uC790\uB2D8. \uB9C8\uB9AC\uC5D0\uB294 \uB300\uC778\uC554\uC0B4\uC5D0
+      \uD2B9\uD654\uB418\uC5B4 \uC788\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037668
+    m_Localized: "\uB9C8\uCE68 \uC801\uC744 \uD68C\uBCF5\uD558\uB294 \uBAA8\uB178\uC544\uC774\uAC00
+      \uC788\uB124\uC694. \uB9C8\uB9AC\uC5D0\uC5D0\uAC8C \uC81C\uAC70\uB97C \uBD80\uD0C1\uD558\uC8E0."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037669
+    m_Localized: "\uC774\uACF3\uC5D0 \uBC30\uCE58\uBC14\uB78C."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037670
+    m_Localized: "\uB9C8\uB9AC\uC5D0\uAC00 \uC788\uB294 \uD50C\uB808\uC774\uC544
+      \uB370\uC2A4\uC758 \uD798\uC744 \uB290\uAEF4\uBCF4\uB77C\uAD6C!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037671
+    m_Localized: "\uC778\uCE74\uC6B4\uD2B8!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037672
+    m_Localized: "\uAD00\uCE21\uC790\uB294 \uAE30\uC6D0\uC744 \uC54C \uC218 \uC5C6\uB294
+      \uC2E0\uBE44\uD55C \uD798\uC744 \uB2E4\uB8F0 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037673
+    m_Localized: "\uAD00\uCE21\uC790 \uC2A4\uD0AC\uC744 \uC0AC\uC6A9\uD558\uAE30
+      \uC704\uD574\uC11C\uB294 \uC2AC\uB86F\uC5D0 \uB4F1\uB85D\uD574\uC57C \uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037674
+    m_Localized: "\uC774\uACF3\uC5D0 \uC0C8\uB86D\uAC8C \uAD00\uCE21\uD55C \uC2A4\uD0AC\uC744
+      \uB4F1\uB85D\uD574\uBCF4\uC138\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037675
+    m_Localized: "\uC774\uC81C \uC2E4\uC81C \uC804\uD22C\uC5D0\uC11C \uAD00\uCE21\uC790
+      \uC2A4\uD0AC\uC744 \uC0AC\uC6A9\uD574\uBCFC\uAE4C\uC694?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037676
+    m_Localized: "\uC544\uC774\uAE30\uC2A4 \uBC29\uD328\uB294 \uADFC\uC811\uD574
+      \uC788\uB294 \uBAAC\uC2A4\uD130\uB97C \uB109\uBC31\uC2DC\uCF1C \uC544\uAD70\uC744
+      \uBCF4\uD638\uD558\uAC70\uB098, \uC801\uB4E4\uC5D0\uAC8C \uCDA9\uB3CC\uC744
+      \uC720\uB3C4\uD560 \uC218 \uC788\uC5B4\uC694."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417888178037677
+    m_Localized: "\uC774\uACF3\uC5D0 \uAD00\uCE21\uC790 \uC2A4\uD0AC\uC744 \uC0AC\uC6A9\uD574\uBD10\uC694."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

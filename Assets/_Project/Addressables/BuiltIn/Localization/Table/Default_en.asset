@@ -75019,6 +75019,5373 @@ MonoBehaviour:
     m_Localized: Clear Lumine City 6-36
     m_Metadata:
       m_Items: []
+  - m_Id: 2495840131571712
+    m_Localized: Not enough EXP items.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737536
+    m_Localized: Not enough gold.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737537
+    m_Localized: Not enough Stella Knight shards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737538
+    m_Localized: Not enough action points.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737539
+    m_Localized: Not enough gems.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737540
+    m_Localized: Not enough summon tickets.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737541
+    m_Localized: Not enough Growth Crystals. (Can be obtained from <color=#F75D32>Combat
+      Trial and Idle Bonus</color>)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737542
+    m_Localized: You have not reached the minimum time for idle bonus.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737543
+    m_Localized: The chapter has not been unlocked yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737544
+    m_Localized: This commander skill has not been unlocked yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737545
+    m_Localized: The stage has not been unlocked yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737546
+    m_Localized: This Milestone Reward has not been unlocked yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737547
+    m_Localized: Please try again later.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737548
+    m_Localized: You have exceeded the maximum number of deployable members.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737549
+    m_Localized: There are no Stella Knights to show for this filter.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737550
+    m_Localized: To be updated.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737551
+    m_Localized: This Stella Knight has reached maximum level.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737552
+    m_Localized: Stella Knights have not been deployed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737553
+    m_Localized: Please set the appropriate tile position.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737554
+    m_Localized: 'There is room for <color=#F75D32>additional Stella Knight deployment</color>.
+
+      Are
+      you sure you want to enter battle?'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737555
+    m_Localized: Not enough <color=#F75D32>Action Points</color> required to enter
+      stage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737556
+    m_Localized: 'Click the (+) above the battle button
+
+      to equip commander
+      skill.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737557
+    m_Localized: You have exceeded the clear time limit.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737558
+    m_Localized: Stage Cleared. Idle Bonus efficiency has increased.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737559
+    m_Localized: Not enough Arena tickets. Please try again after recharging the
+      tickets.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737560
+    m_Localized: Not enough Gold. Clear stages and earn more Gold.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737561
+    m_Localized: Are you sure you want to reset Stella Knight level?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737562
+    m_Localized: You cannot reset from current level.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737563
+    m_Localized: You have used up all your Daily Reset INT. Daily Reset INT will
+      be refilled on the next day.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737564
+    m_Localized: You cannot purchase anymore.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737565
+    m_Localized: Not enough stars available for this stage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737566
+    m_Localized: You have already cleared this dungeon.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737567
+    m_Localized: Please clear the previous stage first.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737568
+    m_Localized: Reset item data error.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737569
+    m_Localized: You need to set an Arena Defense deck first.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737570
+    m_Localized: You cannot refresh Arena opponents yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737571
+    m_Localized: Arena battle time has ended.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737572
+    m_Localized: Available after completing <color=#F75D32>{0}</color>.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737573
+    m_Localized: Commander skill <color=#F75D32>[{0}]</color> has been equipped.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737574
+    m_Localized: Would you like to transcend <color=#F75D32>{0}</color>?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737575
+    m_Localized: Maximum level has been expanded.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737576
+    m_Localized: You need to deploy Stella Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737577
+    m_Localized: Would you like to save the defense deck?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737578
+    m_Localized: Please set the position of <color=#F75D32>Stella Knights</color>
+      and <color=#F75D32>terrain objects</color>.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737579
+    m_Localized: Stella Knight has reached maximum level. Requires <color=#F75D32>Transcendence</color>.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737580
+    m_Localized: Do you want to change to the selected language? Clicking the confirm
+      button will take you to the lobby.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737581
+    m_Localized: Available after collecting Guide Mission Rewards.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737582
+    m_Localized: Complete the Guide Mission.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737583
+    m_Localized: Guide Mission Complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737584
+    m_Localized: Test Complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737585
+    m_Localized: 'Thank you for participating in the test play!
+
+      Please support
+      Stella Knights by completing a short survey!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737586
+    m_Localized: Take the Survey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737587
+    m_Localized: 'You have fewer units than the maximum allowed for battle.
+
+      Would
+      you like to start the battle?'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737588
+    m_Localized: Next stage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737589
+    m_Localized: Move to the next chapter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737590
+    m_Localized: <color=#F75D32>Click</color> to deploy the units.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737591
+    m_Localized: <color=#F75D32>Long press</color> the characters at the bottom to
+      display <color=#F75D32>skill</color> information.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737592
+    m_Localized: 'Available Purchases : {0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737593
+    m_Localized: "Combat Trial Stage \n{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737594
+    m_Localized: Recommended Deployment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737595
+    m_Localized: Stage {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737596
+    m_Localized: "Click \nto deploy characters"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737597
+    m_Localized: "Click \nto place obstacles"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737598
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737599
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737600
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737601
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737602
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737603
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737604
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737605
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737606
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737607
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737608
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737609
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737610
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737611
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737612
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737613
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737614
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737615
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737616
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737617
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737618
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737619
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737620
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737621
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737622
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737623
+    m_Localized: Insufficient Arena entry tickets.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737624
+    m_Localized: Daily Quest Clear INT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737625
+    m_Localized: Daily Quest Clear INT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737626
+    m_Localized: Daily Quest Clear INT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737627
+    m_Localized: Clear Stages x5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737628
+    m_Localized: Level Up Stella Knights x5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737629
+    m_Localized: Summon Stella Knights x1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737630
+    m_Localized: Participate in Arena battle x1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737631
+    m_Localized: Claim Idle Bonus x1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737632
+    m_Localized: Weekly Quest Clear INT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737633
+    m_Localized: Weekly Quest Clear INT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737634
+    m_Localized: Weekly Quest Clear INT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737635
+    m_Localized: Clear Stages x60
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737636
+    m_Localized: Level Up Stella Knights x150
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737637
+    m_Localized: Summon Stella Knights x30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737638
+    m_Localized: Participate in Arena battle x30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737639
+    m_Localized: Claim Idle Bonus x7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737640
+    m_Localized: Action Points Spending Event
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737641
+    m_Localized: Play Time Event
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737642
+    m_Localized: Register
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737643
+    m_Localized: Spend action points in stages and earn rewards!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737644
+    m_Localized: Collect rewards based on your playtime!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737645
+    m_Localized: Log in daily to claim Fire Mage Blin!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737646
+    m_Localized: Jewel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737647
+    m_Localized: Gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737648
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737649
+    m_Localized: Action Points
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737650
+    m_Localized: Stella Summon Ticket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737651
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737652
+    m_Localized: Commander EXP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737653
+    m_Localized: EXP Item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737654
+    m_Localized: Stella Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737655
+    m_Localized: Stella Knights Shards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737656
+    m_Localized: Growth Crystal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737657
+    m_Localized: Arena Entry Ticket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737658
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737659
+    m_Localized: A summon ticket used to summon Stella Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737660
+    m_Localized: Used for leveling up Stella Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737661
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737662
+    m_Localized: Action points needed to advance through stages.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737663
+    m_Localized: A summon ticket used to summon Stella Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737664
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737665
+    m_Localized: Used for leveling up the Commander.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737666
+    m_Localized: Used for leveling up Stella Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737667
+    m_Localized: Stella Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737668
+    m_Localized: "Shards containting the power of Stella Knights. \nOnce you collect
+      20 shards, you can obtain the corresponding Stella Knight."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737669
+    m_Localized: An item used for leveling up Stella Knights.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737670
+    m_Localized: An item required for entering Arena battles.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737671
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737672
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737673
+    m_Localized: <color=#ec9f19>Stage Clear, Idle Bonus</color>, Quests, Attendance,
+      Events
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737674
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737675
+    m_Localized: <color=#ec9f19>Idle Bonus</color>, Arena Daily Rewards, Attendance,
+      Events, AcINT Level Up Rewards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737676
+    m_Localized: <color=#ec9f19>Stage Total Star Rewards</color>, Chapter Clear,
+      Attendance, Events, Arena Season Rewards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737677
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737678
+    m_Localized: <color=#ec9f19>Stage Clear</color>, Idle Bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737679
+    m_Localized: <color=#ec9f19>Stage Clear, Idle Bonus</color>, Quests, Attendance,
+      Events
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737680
+    m_Localized: <color=#ec9f19>Summoning</color>, Guide Missions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737681
+    m_Localized: <color=#ec9f19>Summoning</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737682
+    m_Localized: <color=#ec9f19>Combat Trial</color>, Idle Bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737683
+    m_Localized: <color=#ec9f19>Daily Auto Recharge</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737684
+    m_Localized: '-'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737685
+    m_Localized: Daily Arena Reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737686
+    m_Localized: Currency
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737687
+    m_Localized: Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737688
+    m_Localized: Other
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737689
+    m_Localized: Access to this acINT is restricted.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737690
+    m_Localized: Unavailable during the tutorial.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737691
+    m_Localized: Free refresh available
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737692
+    m_Localized: Please try reconnecting.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737693
+    m_Localized: This nickname is already in use.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737694
+    m_Localized: Usernames can be created with 4-16 characters in English or 2-8
+      characters in Korean.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737695
+    m_Localized: You have used up all your Daily Refresh INT. Daily Refresh INT refills
+      at 09:00 the next day.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737696
+    m_Localized: You have not obtained this character yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737697
+    m_Localized: Enter your nickname.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737698
+    m_Localized: Rewards Collected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737699
+    m_Localized: 'Time remaining until recharge : {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737700
+    m_Localized: This opponent is not available for battle.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737701
+    m_Localized: Tap to set your name.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737702
+    m_Localized: Unstable network connection. Please try again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737703
+    m_Localized: Loading ranking records. They will be updated shortly.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737704
+    m_Localized: Drag to activate the Commander Skill.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737705
+    m_Localized: Select the Stella Knight you wish to grow and level her up.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737706
+    m_Localized: Earn rewards based on your daily login time!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737707
+    m_Localized: Use action points in stages every day and earn rewards!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737708
+    m_Localized: Purchase time has expired.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737709
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737710
+    m_Localized: Select Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737711
+    m_Localized: Language Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737712
+    m_Localized: "\uD55C\uAD6D\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737713
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737714
+    m_Localized: Sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737715
+    m_Localized: BGM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737716
+    m_Localized: SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737717
+    m_Localized: CONFIRM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737718
+    m_Localized: CANCEL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737719
+    m_Localized: Idle Bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737720
+    m_Localized: Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737721
+    m_Localized: Quest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737722
+    m_Localized: Register
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737723
+    m_Localized: Summon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737724
+    m_Localized: Lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737725
+    m_Localized: 'Playtime
+
+      Event'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737726
+    m_Localized: 'Action Points
+
+      Event'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737727
+    m_Localized: Growth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737728
+    m_Localized: Skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737729
+    m_Localized: Info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737730
+    m_Localized: Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737731
+    m_Localized: Combat Power
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737732
+    m_Localized: ATK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840156737733
+    m_Localized: HP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931840
+    m_Localized: Magic DEF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931841
+    m_Localized: Phys DEF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931842
+    m_Localized: ATK SPD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931843
+    m_Localized: CRIT Rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931844
+    m_Localized: CRIT DMG
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931845
+    m_Localized: Phys PEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931846
+    m_Localized: Magic PEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931847
+    m_Localized: Normal Skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931848
+    m_Localized: Active Skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931849
+    m_Localized: Synergy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931850
+    m_Localized: Level Reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931851
+    m_Localized: Transcendence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931852
+    m_Localized: Level Up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931853
+    m_Localized: Detailed Info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931854
+    m_Localized: Cooldown {0} sec(s)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931855
+    m_Localized: Phys
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931856
+    m_Localized: Magic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931857
+    m_Localized: Claim Idle Bonus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931858
+    m_Localized: Idle Time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931859
+    m_Localized: 'Max: {0} hours'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931860
+    m_Localized: No rewards available to claim.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931861
+    m_Localized: Claim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931862
+    m_Localized: Daily Quest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931863
+    m_Localized: Weekly Quest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931864
+    m_Localized: Summon x1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931865
+    m_Localized: Summon x10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931866
+    m_Localized: Summon new Stella Knights and create your strategy!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931867
+    m_Localized: Chapter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931868
+    m_Localized: Move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931869
+    m_Localized: 'Click
+
+      to place the unit'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931870
+    m_Localized: Stage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931871
+    m_Localized: Stage {0}-{1}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931872
+    m_Localized: Pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931873
+    m_Localized: Do you want to exit the game?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931874
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931875
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931876
+    m_Localized: System Notification
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931877
+    m_Localized: Statistics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931878
+    m_Localized: Speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931879
+    m_Localized: Reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931880
+    m_Localized: Retry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931881
+    m_Localized: "Combat \nTrial"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931882
+    m_Localized: Arena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931883
+    m_Localized: 'Arena
+
+      <color=#EDF8FF><size="25">BETA</size></color>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931884
+    m_Localized: No players available for matching.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931885
+    m_Localized: Defense Deck Set
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931886
+    m_Localized: Ranking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931887
+    m_Localized: Season Reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931888
+    m_Localized: Reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931889
+    m_Localized: 'Currently offered in beta,
+
+      and may include some instability.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931890
+    m_Localized: Battle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931891
+    m_Localized: Battle Record
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931892
+    m_Localized: Season
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931893
+    m_Localized: 'Season Ends in : {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931894
+    m_Localized: End of Season
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931895
+    m_Localized: No battle records.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931896
+    m_Localized: Daily Reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931897
+    m_Localized: Current tier rewards are given once per week.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931898
+    m_Localized: Deployment Type
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931899
+    m_Localized: Unit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931900
+    m_Localized: Obstacle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931901
+    m_Localized: Do you want to save the defense deck?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931902
+    m_Localized: Guardian Synergy Deployment Effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931903
+    m_Localized: Stella Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931904
+    m_Localized: Combat Power
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931905
+    m_Localized: Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931906
+    m_Localized: Max Action Points
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931907
+    m_Localized: Set Nickname
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931908
+    m_Localized: Please set a nickname.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931909
+    m_Localized: Commander Skill has been unlocked.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931910
+    m_Localized: Clear Chapter {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931911
+    m_Localized: Receive rewards based on daily playtime.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931912
+    m_Localized: Playtime Event
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931913
+    m_Localized: Not Owned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931914
+    m_Localized: Purchase Arena Ticket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931915
+    m_Localized: 'Spend {0} Gold,
+
+      to buy 1 Arena Ticket.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931916
+    m_Localized: 'Available Purchases: {0}/{1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931917
+    m_Localized: Purchase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931918
+    m_Localized: Bronze
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931919
+    m_Localized: Silver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931920
+    m_Localized: Gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931921
+    m_Localized: Platinum
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931922
+    m_Localized: Diamond
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931923
+    m_Localized: 'Loading ranking history.
+
+      Will be updated within 10 minutes.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931924
+    m_Localized: Showing the last {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931925
+    m_Localized: Change Opponent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931926
+    m_Localized: Do you want to change {0} opponents immediately?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931927
+    m_Localized: 'Remaining changes for today : {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931928
+    m_Localized: Change
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931929
+    m_Localized: Arena Daily Reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931930
+    m_Localized: ATK UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931931
+    m_Localized: Magic Power UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931932
+    m_Localized: ATK SPD UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931933
+    m_Localized: Phys DEF UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931934
+    m_Localized: Magic DEF UP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931935
+    m_Localized: RESET COOLTIME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931936
+    m_Localized: Skill Cooldown Reduction SPD Down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931937
+    m_Localized: Phys DEF Down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931938
+    m_Localized: Magic DEF Down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931939
+    m_Localized: Heal Down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931940
+    m_Localized: Stun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931941
+    m_Localized: Taunt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931942
+    m_Localized: Silence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931943
+    m_Localized: ATK SPD Down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931944
+    m_Localized: Shield Activated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931945
+    m_Localized: Increased Avoid Rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931946
+    m_Localized: Fire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931947
+    m_Localized: Water
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931948
+    m_Localized: Earth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931949
+    m_Localized: Wind
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931950
+    m_Localized: Light
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931951
+    m_Localized: Dark
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931952
+    m_Localized: Tank
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931953
+    m_Localized: Guardian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931954
+    m_Localized: Ranger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931955
+    m_Localized: Mage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931956
+    m_Localized: Supporter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931957
+    m_Localized: Assassin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931958
+    m_Localized: '{0}d'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931959
+    m_Localized: '{0}h'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931960
+    m_Localized: '{0}m'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931961
+    m_Localized: '{0}s'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931962
+    m_Localized: '{0}d left'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931963
+    m_Localized: '{0}h left'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931964
+    m_Localized: '{0}m left'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931965
+    m_Localized: '{0}s left'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931966
+    m_Localized: Win
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931967
+    m_Localized: Lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931968
+    m_Localized: Equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931969
+    m_Localized: Equipped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931970
+    m_Localized: Revenge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931971
+    m_Localized: Commander Skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931972
+    m_Localized: Unit Deployment INT Increased
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931973
+    m_Localized: Promotion Success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931974
+    m_Localized: Promotion Failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931975
+    m_Localized: Idle Bonus Efficiency Up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931976
+    m_Localized: / h
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931977
+    m_Localized: 'Chapter Gimmick: Lava Zone'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931978
+    m_Localized: Obstacle Gimmick
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931979
+    m_Localized: Element Synergy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931980
+    m_Localized: Combat Trial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931981
+    m_Localized: Skill Range
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931982
+    m_Localized: Commander Skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931983
+    m_Localized: Assassin Position
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931984
+    m_Localized: Add Combat Member
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931985
+    m_Localized: Arena Defense Deck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931986
+    m_Localized: Buff Zone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931987
+    m_Localized: 'Each chapter has its unique gimmick.
+
+      In Chapter 2, the Lava
+      Zone <color=#0055FF>deals a certain amount of damage per second</color> when
+      a character is positioned on it.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931988
+    m_Localized: 'Obstacles <color=#0055FF>restrict</color> the movement of both
+      characters and monsters,
+
+      and characters cannot be placed on those tiles.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931989
+    m_Localized: "When two or more characters with the <color=#0055FF>same element
+      synergy</color> are placed, \nthe synergy effect is activated."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931990
+    m_Localized: 'The Combat Trial is a dungeon where you can obtain <color=#0055FF>Growth
+      Crystals.</color>
+
+      Clearing certain stages <color=#0055FF>increases</color>
+      the number of units you can deploy.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931991
+    m_Localized: 'Some skills of characters and monsters display their <color=#0055FF>range</color>
+      on the tiles when activated.
+
+      Check the skill range and <color=#0055FF>strategically
+      place</color> your characters.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931992
+    m_Localized: 'You can <color=#0055FF>support battles</color> using Commander
+      Skills.
+
+      Clearing <color=#0055FF>chapters</color> will unlock additional
+      Commander Skills.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931993
+    m_Localized: 'Assassins move immediately to the <color=#0055FF>enemy''s rear</color>
+      at the start of battle.
+
+      Use them to target the enemy backline.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931994
+    m_Localized: "If you clear a <color=#0055FF>specific stage</color> of \nthe Combat
+      Trials, \nyou can deploy <color=#0055FF>one additional unit</color>."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931995
+    m_Localized: 'In the Arena Defense Deck settings, you can place <color=#0055FF>obstacle
+      walls</color>
+
+      These walls can <color=#0055FF>influence enemy movement</color>,
+      so be sure to use them strategically.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931996
+    m_Localized: 'Certain stages feature buff zones that grant <color=#0055FF>buffs
+      to characters.</color>
+
+      The buff remains active as long as the character
+      stays within the <color=#0055FF>buff zone.</color>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931997
+    m_Localized: Summon Result
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931998
+    m_Localized: Wall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160931999
+    m_Localized: Access is currently unavailable.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932000
+    m_Localized: Complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932001
+    m_Localized: 'Next refresh in : {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932002
+    m_Localized: 'No obstacle has been placed.
+
+      (Try placing obstacle!)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932003
+    m_Localized: "\uB2E4\uC6B4\uB85C\uB4DC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932004
+    m_Localized: "\uB370\uC774\uD130 \uB2E4\uC6B4\uB85C\uB4DC\uB97C \uC9C4\uD589\uD569\uB2C8\uB2E4.\n\n\uACFC\uB3C4\uD55C
+      \uB370\uC774\uD130 \uC0AC\uC6A9\uC744 \uB9C9\uADC0 \uC704\uD574 \nWIFI \uD658\uACBD\uC5D0\uC11C
+      \uB2E4\uC6B4\uB85C\uB4DC\uB97C \uAD8C\uC7A5\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932005
+    m_Localized: "\uB2E4\uC6B4\uB3C4\uB974 ({0}MB}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932006
+    m_Localized: "\uD655\uC778"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932007
+    m_Localized: "\uCDE8\uC18C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932008
+    m_Localized: "\uB2E4\uC6B4\uB85C\uB4DC \uC911"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932009
+    m_Localized: '{0}%'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932010
+    m_Localized: ({0}/{1})
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932011
+    m_Localized: Dimension Lab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932012
+    m_Localized: Simulation Center
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932013
+    m_Localized: Command Center
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932014
+    m_Localized: Nest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932015
+    m_Localized: Benefits of Expanding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932016
+    m_Localized: Expand Territory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932017
+    m_Localized: Required Elpis Cores
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932018
+    m_Localized: You can construct a new {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932019
+    m_Localized: The maximum level of {0} increases.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932020
+    m_Localized: A new Tier 1 zone is unlocked.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932021
+    m_Localized: A new Tier 2 zone is unlocked.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932022
+    m_Localized: Unlock Construction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932023
+    m_Localized: Increase Construction Limit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932024
+    m_Localized: Increase Max Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932025
+    m_Localized: Expand Territory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932026
+    m_Localized: Touch to Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932027
+    m_Localized: Expansion Level Achieved!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932028
+    m_Localized: Knight Attack Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932029
+    m_Localized: Knight Defense Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932030
+    m_Localized: Knight Health Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932031
+    m_Localized: Fire Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932032
+    m_Localized: Wind Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932033
+    m_Localized: Earth Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932034
+    m_Localized: Lightning Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932035
+    m_Localized: Water Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932036
+    m_Localized: Noblesse Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932037
+    m_Localized: Supernova Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932038
+    m_Localized: Troubleshooter Research Lv. {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932039
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932040
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932041
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932042
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932043
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932044
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932045
+    m_Localized: Knight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932046
+    m_Localized: Elemental
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932047
+    m_Localized: Stella
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932048
+    m_Localized: Upgrade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932049
+    m_Localized: Lab Level Up Required
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932050
+    m_Localized: Upgrade Building
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932051
+    m_Localized: Construct Building
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932052
+    m_Localized: Installation Complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932053
+    m_Localized: Installing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932054
+    m_Localized: Previous Level Installation Required
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932055
+    m_Localized: Another Building Is Being Installed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932056
+    m_Localized: Unlock Required
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932057
+    m_Localized: Guardian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932058
+    m_Localized: Tank
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932059
+    m_Localized: Mage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932060
+    m_Localized: Assassin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932061
+    m_Localized: Supporter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932062
+    m_Localized: Ranger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932063
+    m_Localized: Fire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932064
+    m_Localized: Earth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932065
+    m_Localized: Light
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932066
+    m_Localized: Darkness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932067
+    m_Localized: Water
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932068
+    m_Localized: Wind
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932069
+    m_Localized: Electric
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932070
+    m_Localized: Noblesse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932071
+    m_Localized: Troubleshooter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932072
+    m_Localized: Supernova
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932073
+    m_Localized: Eclipse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932074
+    m_Localized: Vigilante
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932075
+    m_Localized: Arcana
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932076
+    m_Localized: <color=#F75D32>High Magic DEF</color>, reducing damage from <color=#F75D32>Mages</color>,
+      but powerless against <color=#0047AB>Rangers</color> with physical attacks.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932077
+    m_Localized: '{0} units : <b><color=#F75D32>{1}%</color></b> Skill Cooldown Reduction'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932078
+    m_Localized: High <color=#F75D32>Phys DEF</color>, effectively blocks attacks
+      of Guardians and <color=#F75D32>Rangers</color>, but powerless agaist <color=#0047AB>Mages</color>
+      who use magic attacks.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932079
+    m_Localized: '{0}units : <b><color=#F75D32>{1}%</color></b> Skill Cooldown Reduction'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932080
+    m_Localized: Uses <color=#F75D32>magic attacks</color>, effectively hitting<color=#F75D32>Tanks</color>,
+      but powerless agaist <color=#0047AB>Guardians</color> with high magic defense.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932081
+    m_Localized: '{0} units : <b><color=#F75D32>{1}%</color></b> Skill Cooldown Reduction.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932082
+    m_Localized: <color=#F75D32>Longest range</color> and <color=#F75D32>High ATK</color>,
+      effectively hitting <color=#F75D32>Guardians</color>, but powerless against
+      <color=#0047AB>Tanks</color> with high physical defense.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932083
+    m_Localized: '{0}units : <b><color=#F75D32>{1}%</color></b> Skill Cooldown Reduction.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932084
+    m_Localized: "<color=#F75D32>High ATK SPD</color> and <color=#F75D32>MOV SPD</color>,
+      \nwith a short <color=#F75D32>Skill Cooldown.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932085
+    m_Localized: '{0} units : <b><color=#F75D32>{1}%</color></b> Skill Cooldown Reduction.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932086
+    m_Localized: Specialized in <color=#F75D32>healing, buffing, and debuffing</color>,
+      this position focuses on strengthening allies or weakening enemies. Supporters
+      have <color=#0047AB>low</color> base ATK and HP.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932087
+    m_Localized: '{0}units : <b><color=#F75D32>{1}%</color></b> Reduction.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932088
+    m_Localized: Applies <color=#F75D32>additional damage </color> to the enemies
+      when the character attacks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932089
+    m_Localized: '{0}units : Damage equal to <b><color=#F75D32>{1}%</color></b> of
+      ATK'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932090
+    m_Localized: "Increases the character\u2019s <color=#F75D32>Phys DEF.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932091
+    m_Localized: '{0}units : <b><color=#F75D32>{1}%</color></b> increase of Phys
+      DEF'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932092
+    m_Localized: Generates a <color=#F75D32>shield</color> for the entire team equal
+      to the team's average attack power for <color=#F75D32>10 seconds</color>.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932093
+    m_Localized: '{0}units : A shield equal to <b><color=#F75D32>{1}%</color></b>
+      of ATK'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932094
+    m_Localized: Grants a character <color=#F75D32>immunity to all status effects</color>
+      for a certain period of time.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932095
+    m_Localized: '{0}units : Immune for <b><color=#F75D32>{1}seconds</color></b>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932096
+    m_Localized: "Reduces the enemy\u2019s <color=#F75D32>Skill Cooldown Reduction
+      Speed.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932097
+    m_Localized: '{0}units : Reduction by <b><color=#F75D32>{1}%</color></b>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932098
+    m_Localized: "Boosts the character\u2019s <color=#F75D32>ATK SPD.</color>"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932099
+    m_Localized: '{0} units : <b><color=#F75D32>{1}%</color></b> increase in ATK
+      SPD'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932100
+    m_Localized: '{0} Synergy Deployment Effect'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932101
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932102
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932103
+    m_Localized: "\uC655\uAC00\uC758 \uB099\uC778\uC774 \uBC1C\uB3D9\uD569\uB2C8\uB2E4.
+      \uB178\uBE14\uB808\uC2A4 \uC131\uAD70\uC744 \uAC00\uC9C4 \uAE30\uC0AC\uB4E4\uC758
+      \uD06C\uAE30\uAC00 {0}% \uC0C1\uC2B9\uD558\uACE0 \uACF5\uACA9\uB825\uC774 {1}%
+      \uC0C1\uC2B9\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932104
+    m_Localized: "\uADC0\uC871\uC758 \uC758\uBB34\uAC00 \uBC1C\uB3D9\uD569\uB2C8\uB2E4.
+      \uB178\uBE14\uB808\uC2A4 \uC131\uAD70\uC744 \uAC00\uC9C4 \uAE30\uC0AC\uB4E4\uC758
+      \uCD1D\uCCB4\uB825\uC758 {0}%\uC5D0 \uD574\uB2F9\uD558\uB294 \uC274\uB4DC\uAC00
+      \uC0DD\uC131\uB429\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932105
+    m_Localized: "\uC5D8\uB9AC\uD2B8\uC758 \uC790\uC874\uC2EC\uC774 \uBC1C\uB3D9\uD569\uB2C8\uB2E4.
+      \uC804\uD22C \uC2DC\uC791 \uD6C4 {0}\uCD08\uAC04 CC \uD6A8\uACFC\uC5D0 \uBA74\uC5ED\uC774\uB429\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932106
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932107
+    m_Localized: "\uC804\uC120\uC744 \uC720\uC9C0\uD558\uAE30 \uC704\uD55C \uB300\uC804\uCC28
+      \uC9C0\uB8B0\uB97C \uC804\uC7A5\uC5D0 \uC124\uCE58\uD569\uB2C8\uB2E4. \uC9C0\uB8B0\uC758
+      \uACF5\uACA9\uB825\uC740 \uC131\uAD70\uC6D0\uB4E4\uC758 \uACF5\uACA9\uB825\uC5D0
+      \uBE44\uB840\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932108
+    m_Localized: "\uB2E4\uC591\uD55C \uD6A8\uACFC\uB97C \uC9C0\uB2CC \uBCF4\uAE09\uD488\uC744
+      {0}\uCD08 \uB9C8\uB2E4 \uD68D\uB4DD\uD569\uB2C8\uB2E4. \uBCF4\uAE09\uD488 \uC548\uC5D0
+      \uB0B4\uC6A9\uBB3C\uC740 \uBB34\uC791\uC704\uB85C \uACB0\uC815\uB429\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932109
+    m_Localized: "\uC804\uD22C \uD568\uC120\uC744 {0}\uCD08 \uB9C8\uB2E4 \uBD88\uB7EC\uB0B4
+      \uD3EC\uACA9\uC73C\uB85C \uC804\uC7A5\uC744 \uCD08\uD1A0\uD654 \uC2DC\uD0B5\uB2C8\uB2E4.
+      \uD3EC\uACA9\uC758 \uC704\uB825\uC740 \uC131\uAD70\uC6D0\uB4E4\uC758 \uACF5\uACA9\uB825\uC5D0
+      \uBE44\uB840\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932110
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932111
+    m_Localized: "\uC131\uAD70\uC6D0\uB4E4\uC758 \uCCB4\uB825 \uC911 {0}%\uC744 \uD761\uC218\uD558\uC5EC
+      \uC2A4\uC2A4\uB85C \uBD88\uD0DC\uC6C1\uB2C8\uB2E4. \uC2A4\uC2A4\uB85C \uBD88\uD0DC\uC6CC
+      \uCD08\uC2E0\uC131 \uBAA8\uB4DC1\uB2E8\uACC4\uC5D0 \uB3CC\uC785\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932112
+    m_Localized: "\uC131\uAD70\uC6D0\uB4E4\uC758 \uACF5\uACA9\uB825 \uC911 {0}%\uC744
+      \uD761\uC218\uD558\uC5EC \uC2A4\uC2A4\uB85C \uBD88\uD0DC\uC6C1\uB2C8\uB2E4.
+      \uC2A4\uC2A4\uB85C \uBD88\uD0DC\uC6CC \uCD08\uC2E0\uC131 \uBAA8\uB4DC 2\uB2E8\uACC4\uC5D0
+      \uB3CC\uC785\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932113
+    m_Localized: "\uCD08\uC2E0\uC131\uC744 \uB354\uC6B1 \uAC00\uC18D\uC2DC\uCF1C
+      \uBC29\uC5B4\uAD00\uD1B5\uB825\uC774 {0}% \uC0C1\uC2B9\uD558\uACE0, \uD06C\uB9AC\uD2F0\uCEEC
+      \uC704\uB825\uC774 {1}% \uC0C1\uC2B9\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932114
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932115
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932116
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932117
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932118
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932119
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932120
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932121
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932122
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932123
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932124
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932125
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932126
+    m_Localized: NONE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932127
+    m_Localized: Can only be given to Supernova characters!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932128
+    m_Localized: Supernova item was not granted, so it was automatically applied.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932129
+    m_Localized: Damage invincibility shield activated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932130
+    m_Localized: UnknownGirl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932131
+    m_Localized: Mensha
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932132
+    m_Localized: May
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932133
+    m_Localized: Alice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932134
+    m_Localized: Kouka
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932135
+    m_Localized: Philia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932136
+    m_Localized: Sheena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932137
+    m_Localized: Shakii
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932138
+    m_Localized: Bixta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932139
+    m_Localized: Yuni
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932140
+    m_Localized: Atresia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932141
+    m_Localized: Tetora
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932142
+    m_Localized: Odette
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932143
+    m_Localized: Seira
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932144
+    m_Localized: Briole
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932145
+    m_Localized: Grace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932146
+    m_Localized: Misa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932147
+    m_Localized: Adria
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932148
+    m_Localized: Blin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932149
+    m_Localized: Pippin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932150
+    m_Localized: Love
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932151
+    m_Localized: Bella
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932152
+    m_Localized: April
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932153
+    m_Localized: Hati
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932154
+    m_Localized: Mino
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932155
+    m_Localized: Vayne
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932156
+    m_Localized: Rukida
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932157
+    m_Localized: Shirayuki
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932158
+    m_Localized: Enki
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932159
+    m_Localized: Lakiyu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932160
+    m_Localized: Clay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932161
+    m_Localized: Marie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932162
+    m_Localized: Yuni
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932163
+    m_Localized: Philia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932164
+    m_Localized: Atresia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932165
+    m_Localized: Clay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932166
+    m_Localized: Odette
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932167
+    m_Localized: Marie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932168
+    m_Localized: Jacqueline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932169
+    m_Localized: ASNA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932170
+    m_Localized: YOHAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932171
+    m_Localized: Map Placement Hati
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932172
+    m_Localized: Trial Dungeon Boss Stage 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932173
+    m_Localized: Trial Dungeon Boss Stage 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932174
+    m_Localized: Conflicted Justice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932175
+    m_Localized: 'Water Synergy Mage
+
+      Skill: <color=#F75D32>Summons an ice</color>
+      in a certain area to attack enemies.
+
+      Deals additional damage to <color=#F75D32>Fire
+      Synergy</color> enemies.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932176
+    m_Localized: 'Water Synergy Ranger
+
+      Skill: Delivers a <color=#F75D32>powerful
+      strike</color> to a single enemy.
+
+      If the skill kills the enemy, the
+      Skill Cooldown is <color=#F75D32>immediately reset.</color>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932177
+    m_Localized: 'Dark Synergy Assassin
+
+      Skill: Deals damage to a single enemy
+      and applies silence for a short duration.
+
+      *Silence: The enemy cannot
+      use skills for a certain period.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932178
+    m_Localized: 'Fire Synergy Supporter
+
+      Skill: Increases the <color=#F75D32>ATK</color>
+      of all allies for a certain period.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932179
+    m_Localized: Nameless Star
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932180
+    m_Localized: Destroyer of the Earth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932181
+    m_Localized: Purest Executioner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932182
+    m_Localized: Guardian of Solace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932183
+    m_Localized: Steel Will
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932184
+    m_Localized: 'Fire Synergy Mage
+
+
+      Skill : Launches a <color=#F75D32>Fire
+      Energy Spell</color> in a 3x3 area.
+
+      The spell scorches the ground, dealing
+      <color=#F75D32>additional damage.</color>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932185
+    m_Localized: Dark Summoner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932186
+    m_Localized: Wild Maid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932187
+    m_Localized: Silent Ranger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932188
+    m_Localized: 'Earth Synergy Ranger
+
+      Skill: Fires 3 grenades, dealing heavy
+      damage to enemies in a certain area.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932189
+    m_Localized: Scattering Blade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932190
+    m_Localized: Cunning Fox
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932191
+    m_Localized: Cold Blade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932192
+    m_Localized: Genius Programmer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932193
+    m_Localized: Mad Scientist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932194
+    m_Localized: Silent Watcher
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932195
+    m_Localized: "\uC0C1\uB0E5\uD55C \uC131\uC815\uC744 \uAC00\uC9C4 \uAE30\uC0AC\uB85C,
+      \uD50C\uB808\uC774\uC544\uB370\uC2A4 \uC131\uB2E8\uC758 \uB9CF\uC5B8\uB2C8
+      \uC5ED\uD560\uC744 \uB9E1\uACE0 \uC788\uB2E4. \r\n\uACFC\uAC70 \uBD88\uBBF8\uC2A4\uB7EC\uC6B4
+      \uC77C\uB85C \uBA54\uC2DC\uC5D041 \uC131\uB2E8\uC5D0\uC11C \uD1F4\uCD9C\uB2F9\uD558\uC5EC
+      \uD50C\uB808\uC774\uC544\uB370\uC2A4 \uC131\uB2E8\uC73C\uB85C \uC62E\uAE34
+      \uBCC4. \uBA54\uC2DC\uC5D041 \uC131\uB2E8\uC5D0\uC11C \uC5B4\uB5A4 \uC77C\uC774
+      \uC788\uC5C8\uB294\uC9C0, \uC65C \uC62E\uACBC\uB294\uC9C0 \uC544\uBB34\uB7F0
+      \uC774\uC57C\uAE30\uB3C4 \uD558\uC9C0 \uC54A\uC558\uB2E4. \uC624\uD788\uB824
+      \uADF8\uB140\uB294 \uB2F4\uB2F4\uD55C \uD0DC\uB3C4\uB97C \uBCF4\uC774\uBA70
+      \uADF8\uB140\uC758 \uC9C4\uC2EC\uC744 \uB9C8\uC74C \uAE4A\uC740 \uACF3\uC5D0
+      \uBC00\uC5B4 \uB123\uC5C8\uB2E4.\r\n\uD50C\uB808\uC774\uC544\uB370\uC2A4\uC758
+      \uAE30\uC0AC\uB4E4\uC740 \uADF8\uB7F0 \uADF8\uB140\uB97C \uC544\uBB34\uB7F0
+      \uB9D0 \uC5C6\uC774 \uB530\uB73B\uD558\uAC8C \uB9DE\uC774\uD574 \uC8FC\uC5C8\uB2E4.
+      \uC900\uBE44\uAC00 \uB420 \uB54C\uAE4C\uC9C0 \uAE30\uB2E4\uB824 \uC8FC\uACA0\uB2E4\uB294
+      \uB4EF\uC774. \uC9C0\uAE08\uC740 \uD074\uB808\uC774 \uB610\uD55C \uD50C\uB808\uC774\uC544\uB370\uC2A4\uC758
+      \uBCC4\uB4E4\uC5D0\uAC8C \uB9CE\uC774 \uC758\uC9C0\uD558\uB294 \uBAA8\uC2B5\uC744
+      \uBCF4\uC778\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932196
+    m_Localized: "\uADC0\uCC28\uB2C8\uC998 \uC554\uC0B4\uC790"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932197
+    m_Localized: "\uC218\uB824\uD55C \uC678\uBAA8\uC640 \uD558\uC580 \uC774\uBBF8\uC9C0,
+      \uD0C1\uC6D4\uD55C \uC2E4\uB825\uC73C\uB85C \uC77C\uBC18 \uC2DC\uBBFC\uB4E4
+      \uC0AC\uC774\uC5D0\uC11C\uB294 \u2018\uCC9C\uC0AC\u2019\uB85C \uD1B5\uD55C\uB2E4.
+      \uADF8\uB7EC\uB098 \uC544\uB984\uB2E4\uC6B4 \uC678\uBAA8\uC5D0 \uADF8\uB7EC\uC9C0
+      \uBABB\uD55C \uC131\uACA9\uC744 \uAC00\uC9C0\uACE0 \uC788\uC5B4 \uC774 \uC0AC\uC2E4\uC744
+      \uC544\uB294 \uC2A4\uD154\uB77C\uB098\uC774\uCE20 \uC0AC\uC774\uC5D0\uC11C\uB294
+      \u2018\uD558\uC580 \uC545\uB9C8\u2019\uB77C\uB294 \uC774\uBA85\uC73C\uB85C
+      \uBD88\uB9AC\uACE0 \uC788\uB2E4. \r\n\uBA54\uC2DC\uC5D041\uC131\uB2E8\uC758
+      \uB9AC\uB354\uACA9 \uBCC4. \uC804\uD615\uC801\uC778 \uD788\uC5B4\uB85C \uC774\uBBF8\uC9C0\uB97C
+      \uD45C\uBC29\uC911\uC778 \uBA54\uC2DC\uC5D041\uC131\uB2E8\uC740 \uC2A4\uD154\uB77C\uB098\uC774\uCE20\uC758
+      \uB300\uC678 \uC774\uBBF8\uC9C0\uB97C \uB2F4\uB2F9\uD558\uACE0 \uC788\uB2E4.
+      \uC774 \uB54C\uBB38\uC778\uC9C0 \uC624\uB370\uD2B8\uB294 \uC2A4\uC2A4\uB85C\uC5D0\uAC8C\uB3C4,
+      \uD0C0\uC778\uC5D0\uAC8C\uB3C4 \uC5C4\uACA9\uD55C \uBAA8\uC2B5\uC744 \uBCF4\uC774\uACE4
+      \uD55C\uB2E4. \r\n\uBC1C\uB808\uB294 \uC791\uC740 \uAC00\uC2B4\uACFC \uB9C8\uB978
+      \uBAB8\uB9E4\uC758 \uBB34\uC6A9\uC218\uAC00 \uC798 \uC5B4\uC6B8\uB9B0\uB2E4\uB294
+      \uB9D0\uC744 \uB4E3\uACE4 \uBAB8\uB9E4\uC5D0 \uC2E0\uACBD\uC744 \uB9CE\uC774
+      \uC4F0\uACE0 \uC788\uB2E4. \uADF8\uB7EC\uB098 \uB514\uC800\uD2B8\uC758 \uC720\uD639\uC5D0
+      \uC57D\uD55C \uB098\uBA38\uC9C0 \uB2E4\uC774\uC5B4\uD2B8\uB294 \uB9E4\uBC88
+      \uC2E4\uD328\uD558\uACE0 \uB9CC\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932198
+    m_Localized: "\uBA54\uC2DC\uC5D041 \uC131\uB2E8\uC758 \uB300\uD45C\uC801\uC778
+      \uBAA8\uBC94 \uAE30\uC0AC. \uC0AC\uB78C\uB4E4\uC5D0\uAC8C\uB294 \u2018\uBD88\uD328\uC758
+      \uAE30\uC0AC\u2019\uB77C\uACE0\uB3C4 \uBD88\uB9B0\uB2E4. \r\n\uB9E4\uC0AC\uC5D0
+      \uCCA0\uC800\uD558\uACE0 \uC644\uBCBD\uC8FC\uC758 \uC131\uD5A5\uC774 \uAC15\uD558\uB2E4.
+      \uC791\uC804\uC744 \uB098\uAC00\uC11C\uB3C4 \uB124\uD53C\uB9BC \uD55C \uB9C8\uB9AC
+      \uB193\uCE58\uB294 \uC77C\uC774 \uC5C6\uC73C\uBA70, \uC791\uAC8C\uB294 \uBA38\uB9AC\uC758
+      \uB9AC\uBCF8\uC744 \uBB36\uB294 \uC704\uCE58\uAE4C\uC9C0 \uC815\uD574\uC838
+      \uC788\uB2E4. \uB098\uC544\uAC00 \uC815\uC758\uB85C\uC6B4 \uC131\uACA9\uAE4C\uC9C0
+      \uACB8\uBE44\uD558\uACE0 \uC788\uC73C\uB2C8, \uC0AC\uB78C\uB4E4\uC5D0\uAC8C\uB294
+      \uADF8\uC57C\uB9D0\uB85C \uC644\uBCBD\uD55C \uD788\uB85C\uC778\uC774\uB2E4.
+      \r\n\uBA54\uC2DC\uC5D041 \uC131\uB2E8\uC758 \uAE30\uC0AC\uB4E4\uC740 \uADF8\uB7F0
+      \uADF8\uB140\uB97C \uACA9 \uC5C6\uC774 \uB300\uD558\uB294 \uD3B8\uC774\uC9C0\uB9CC,
+      \uD5C8\uBE14\uC758 \uB2E4\uB978 \uAE30\uC0AC\uB4E4\uC740 \uC138\uC774\uB77C\uC5D0\uAC8C
+      \uB9D0 \uAC70\uB294 \uAC83\uC870\uCC28 \uC5B4\uB824\uC6CC\uD558\uB294 \uACBD\uC6B0\uAC00
+      \uB9CE\uB2E4\uACE0. \uADF8\uB7EC\uB098 \uD55C \uAC78\uC74C \uB2E4\uAC00\uAC00\uBA74,
+      \uB204\uAD6C\uBCF4\uB2E4\uB3C4 \uC815\uC758\uB86D\uACE0 \uC120\uB7C9\uD55C
+      \uB9C8\uC74C\uC744 \uAC00\uC9C4 \uAE30\uC0AC\uC774\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932199
+    m_Localized: "\uC720\uC57D\uD574 \uBCF4\uC774\uB294 \uD30C\uAD34\uC790"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932200
+    m_Localized: "\uBE44\uAD50\uC801 \uC5B4\uB9B0 \uB098\uC774, \uCD5C\uADFC \uC131\uD754\uC774
+      \uC0C8\uACA8\uC9C4 \uC218\uC2B5 \uAE30\uC0AC. \uBCF8\uC778\uC774 \uBC1B\uC740
+      \uBCC4\uC758 \uD798\uC774 \uB2E4\uB978 \uBCC4\uB4E4\uACFC\uB294 \uB2EC\uB9AC
+      \uC5C4\uCCAD\uB09C \uD798\uC744 \uAC00\uC9C0\uACE0 \uC788\uB2E4\uACE0 \uBBFF\uB294\uB2E4.
+      \uD2B9\uD788 \uC778\uAC04\uB4E4\uC774 \uAC70\uC8FC\uD558\uB294 \uCC28\uC6D0\uACFC
+      \uBB3C\uC9C8\uACC4 \uBC16\uC758 \uC5B4\uB518\uAC00\uC5D0\uC11C \uAC70\uC8FC\uD558\uB294
+      \uCD08\uCC28\uC6D0\uC801\uC778 \uC874\uC7AC\uB77C\uACE0 \uC0DD\uAC01\uD558\uBA70,
+      \uC54C \uC218 \uC5C6\uB294 \uC5B8\uC5B4\uC758 \uB178\uB798\uB97C \uC678\uC6B0\uACE0
+      \uB2E4\uB2C8\uB294 \uB4F1 4\uCC28\uC6D0\uC801\uC778 \uBA74\uBAA8\uB97C \uBCF4\uC778\uB2E4.
+      \r\n\r\n\uB7EC\uBE0C\uC758 \uBA38\uB9AC\uCE74\uB77D\uC744 \uD0DC\uC6B0\uBA74
+      \uD2B9\uC774\uD55C \uB0C4\uC0C8\uAC00 \uB098\uB294\uB370, \uBC14\uB85C \uC624\uC9D5\uC5B4
+      \uAD6C\uC6B4 \uB0C4\uC0C8\uC774\uB2E4. \uB355\uBD84\uC5D0 \uC544\uCE74\uB370\uBBF8
+      \uC131\uB2E8\uC758 \uB3D9\uB8CC \uAE30\uC0AC\uB4E4\uC774 \uBC30\uACE0\uD50C\uB54C
+      \uC885\uC885 \uBA38\uB9AC\uCE74\uB77D\uC744 \uBAB0\uB798 \uAD6C\uC6CC \uBA39\uB294\uB2E4\uACE0
+      \uD55C\uB2E4. \uBB3C\uB860 \uADF8\uB7F0 \uC9D3\uC744 \uD558\uBA74 \uB7EC\uBE0C\uB85C\uBD80\uD130
+      \uD5C8\uB77D \uBC1B\uACE0 \uBA39\uC73C\uB77C\uB294 \uC794\uC18C\uB9AC\uB97C
+      \uB4E3\uAC8C \uB41C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932201
+    m_Localized: "\uBCF8\uC778\uC774 \uD480 \uC218 \uC5C6\uB294 \uBB38\uC81C\uB294
+      \uC5C6\uB2E4\uACE0 \uC0DD\uAC01\uD558\uB294 \uC790\uC874\uAC10 2000% \uC790\uCE6D
+      \uCC9C\uC7AC \uD504\uB85C\uADF8\uB798\uBA38. \r\n\r\n\uD5C8\uBE14\uC758 AI\uC624\uD37C\uB808\uC774\uD130
+      ASNA\uB97C \uB9CC\uB4E0 \uC7A5\uBCF8\uC778\uC73C\uB85C, \uC0DD\uD65C\uC758
+      \uC9C8\uC744 \uB192\uC5EC\uC900 \uB355\uBD84\uC5D0 \uD5C8\uBE14\uC5D0\uC11C\uC758
+      \uC785\uC9C0\uAC00 \uC88B\uB2E4. \uC2A4\uC2A4\uB85C \uCC9C\uC7AC \uD504\uB85C\uADF8\uB798\uBA38\uB77C\uACE0
+      \uB9D0\uD558\uACE0 \uB2E4\uB140\uB3C4 \uC544\uBB34\uB3C4 \uBC18\uBC15\uD558\uC9C0
+      \uC54A\uB294 \uC774\uC720 \uC911 \uD558\uB098. \uD5C8\uBE14\uC758 \uC790\uCCB4
+      \uC2DC\uC2A4\uD15C \uAD6C\uCD95\uC5D0 \uD070 \uB3C4\uC6C0\uC744 \uC8FC\uC5C8\uB358
+      \uACF5\uC801\uC744 \uC778\uC815\uBC1B\uC544, \uD5C8\uBE14 \uB0B4\uC5D0\uC11C\uC758
+      \uC6C0\uC9C1\uC784\uC774 \uC790\uC720\uB85C\uC6B4 \uD3B8\uC774\uB2E4. \r\n\r\n\uC5B4\uB9B0
+      \uC2DC\uC808\uBD80\uD130 \uD568\uAED8 \uC9C0\uB0B4\uC628 \uB9B4\uB9AC\uC2A4\uC5D0
+      \uB300\uD55C \uC560\uC815\uC774 \uAE4A\uC740 \uD3B8\uC774\uBA70, \uADF8\uB140\uAC00
+      \uC790\uB9AC\uB97C \uC790\uC8FC \uBE44\uC6B0\uB294 \uAC83\uC744 \uD551\uACC4
+      \uC0BC\uC544 \uADF8\uB140\uC758 \uC637 \uC2A4\uD0C0\uC77C\uB9C1\uC744 \uB2F4\uB2F9\uD558\uACE0
+      \uC788\uB2E4. \uB355\uBD84\uC5D0 \uB9B4\uB9AC\uC2A4\uC758 \uC637\uC7A5\uC5D4
+      \uC5D4\uD0A4\uC758 \uC0AC\uC2EC\uC774 \uAC00\uB4DD \uB2F4\uAE34 \uB4DC\uB808\uC2A4\uAC00
+      \uAC00\uB4DD\uD558\uB2E4\uACE0 \uD55C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932202
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932203
+    m_Localized: "Don\u2019t you worry, you are not under arrest."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932204
+    m_Localized: I may not be the best cook, but I'm a decent maid!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932205
+    m_Localized: "I\u2019ll handle this by the rules."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932206
+    m_Localized: What! Got a problem with what I said?!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932207
+    m_Localized: I actually prefer the color red.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932208
+    m_Localized: I lost my eyes, but my senses have sharpened.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932209
+    m_Localized: I'm glad to have met you, Commander.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932210
+    m_Localized: There's nothing as meaningful as proving one's strength!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932211
+    m_Localized: Are you afraid? Of waking up from your dreams?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932212
+    m_Localized: Very quietly... just a brief moment of sleep
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932213
+    m_Localized: "If you ask how many arms I have, I\u2019d say 428, including spares."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932214
+    m_Localized: With curiosity and money, anything is possible!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932215
+    m_Localized: You are not invited to the tea party, hee-hee!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932216
+    m_Localized: "He-he, it's okay. I\u2019m just here to check in on you today."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932217
+    m_Localized: Those trapped in darkness need the light the most.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932218
+    m_Localized: I'm feeling generous; I'll let you use a weapon I made, just this
+      once!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932219
+    m_Localized: I hear the voice of the wind.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932220
+    m_Localized: You want to tame me? That's a funny thing to say, Commander.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932221
+    m_Localized: Ah! You scared me! Don't make a big deal out of nothing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932222
+    m_Localized: Why are you so scared... it'll only sting for a brief moment...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932223
+    m_Localized: Conviction is a 'heart that holds firm belief'.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932224
+    m_Localized: Hunter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932225
+    m_Localized: Hunter_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932226
+    m_Localized: Gorgon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932227
+    m_Localized: Imp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932228
+    m_Localized: Wisp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932229
+    m_Localized: Flame Hunter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932230
+    m_Localized: Flame Gorgon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932231
+    m_Localized: Flame Imp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932232
+    m_Localized: Flame Wisp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932233
+    m_Localized: Rapid Hunter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932234
+    m_Localized: Rapid Gorgon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932235
+    m_Localized: Rapid Imp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932236
+    m_Localized: Rapid Wisp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932237
+    m_Localized: Rapid Monoeye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932238
+    m_Localized: Sand Hunter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932239
+    m_Localized: Sand Gorgon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932240
+    m_Localized: Sand Imp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932241
+    m_Localized: Sand Wisp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932242
+    m_Localized: Sand Shadow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932243
+    m_Localized: Sand Monoeye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932244
+    m_Localized: Storm Hunter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932245
+    m_Localized: Storm Gorgon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932246
+    m_Localized: Storm Imp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932247
+    m_Localized: Storm Wisp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932248
+    m_Localized: Storm Shadow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932249
+    m_Localized: Storm Monoeye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932250
+    m_Localized: Mist Hunter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932251
+    m_Localized: Mist Gorgon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932252
+    m_Localized: Mist Imp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932253
+    m_Localized: Mist Wisp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932254
+    m_Localized: Mist Shadow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932255
+    m_Localized: Mist Monoeye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932256
+    m_Localized: Venom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932257
+    m_Localized: Bigmouth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932258
+    m_Localized: Trial Dungeon Boss Drone Lv. 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932259
+    m_Localized: Trial Dungeon Boss Drone Lv. 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932260
+    m_Localized: Trial Dungeon Boss Drone Lv. 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932261
+    m_Localized: Sand Stalker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932262
+    m_Localized: Sand Crawler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932263
+    m_Localized: Storm Buffalo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932264
+    m_Localized: Sixhorn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932265
+    m_Localized: Tuscroker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932266
+    m_Localized: Hellscream
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932267
+    m_Localized: Mutant Sixhorn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932268
+    m_Localized: Flame Sixhorn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932269
+    m_Localized: Rapid Sixhorn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932270
+    m_Localized: Sand Sixhorn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932271
+    m_Localized: Storm Sixhorn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932272
+    m_Localized: Mist Sixhorn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932273
+    m_Localized: Void Toma
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932274
+    m_Localized: Laplace's Witch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932275
+    m_Localized: Trial Dungeon Boss Stage 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932276
+    m_Localized: Trial Dungeon Boss Stage 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932277
+    m_Localized: Trial Dungeon Boss Stage 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932278
+    m_Localized: Corrupted Blin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932279
+    m_Localized: Corrupted May
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932280
+    m_Localized: Corrupted April
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932281
+    m_Localized: Corrupted Vayne
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932282
+    m_Localized: Corrupted Shiina
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932283
+    m_Localized: Corrupted Tetora
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932284
+    m_Localized: Corrupted Mino
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932285
+    m_Localized: Corrupted Hati
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932286
+    m_Localized: Corrupted Clay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932287
+    m_Localized: Corrupted Ellis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932288
+    m_Localized: Corrupted Odette
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932289
+    m_Localized: "\uBAAC\uC2A4\uD130\uD5CC\uD130\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932290
+    m_Localized: "\uBAAC\uC2A4\uD130\uD5CC\uD130_1\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932291
+    m_Localized: "\uBAAC\uC2A4\uD130\uACE0\uB974\uACE4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932292
+    m_Localized: "\uBAAC\uC2A4\uD130\uC784\uD504\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932293
+    m_Localized: "\uBAAC\uC2A4\uD130\uC704\uC2A4\uD504\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932294
+    m_Localized: "\uBAAC\uC2A4\uD130\uD50C\uB808\uC784 \uD5CC\uD130\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932295
+    m_Localized: "\uBAAC\uC2A4\uD130\uD50C\uB808\uC784 \uACE0\uB974\uACE4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932296
+    m_Localized: "\uBAAC\uC2A4\uD130\uD50C\uB808\uC784 \uC784\uD504\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932297
+    m_Localized: "\uBAAC\uC2A4\uD130\uD50C\uB808\uC784 \uC704\uC2A4\uD504\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932298
+    m_Localized: "\uBAAC\uC2A4\uD130\uB808\uD53C\uB4DC \uD5CC\uD130\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932299
+    m_Localized: "\uBAAC\uC2A4\uD130\uB808\uD53C\uB4DC \uACE0\uB974\uACE4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932300
+    m_Localized: "\uBAAC\uC2A4\uD130\uB808\uD53C\uB4DC \uC784\uD504\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932301
+    m_Localized: "\uBAAC\uC2A4\uD130\uB808\uD53C\uB4DC \uC704\uC2A4\uD504\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932302
+    m_Localized: "\uBAAC\uC2A4\uD130\uB808\uD53C\uB4DC \uBAA8\uB178\uC544\uC774\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932303
+    m_Localized: "\uBAAC\uC2A4\uD130\uC0CC\uB4DC \uD5CC\uD130\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932304
+    m_Localized: "\uBAAC\uC2A4\uD130\uC0CC\uB4DC \uACE0\uB974\uACE4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932305
+    m_Localized: "\uBAAC\uC2A4\uD130\uC0CC\uB4DC \uC784\uD504\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932306
+    m_Localized: "\uBAAC\uC2A4\uD130\uC0CC\uB4DC \uC704\uC2A4\uD504\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932307
+    m_Localized: "\uBAAC\uC2A4\uD130\uC0CC\uB4DC \uC250\uB3C4\uC6B0\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932308
+    m_Localized: "\uBAAC\uC2A4\uD130\uC0CC\uB4DC \uBAA8\uB178\uC544\uC774\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932309
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2A4\uD1B0 \uD5CC\uD130\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932310
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2A4\uD1B0 \uACE0\uB974\uACE4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932311
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2A4\uD1B0 \uC784\uD504\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932312
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2A4\uD1B0 \uC704\uC2A4\uD504\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932313
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2A4\uD1B0 \uC250\uB3C4\uC6B0\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932314
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2A4\uD1B0 \uBAA8\uB178\uC544\uC774\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932315
+    m_Localized: "\uBAAC\uC2A4\uD130\uBBF8\uC2A4\uD2B8 \uD5CC\uD130\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932316
+    m_Localized: "\uBAAC\uC2A4\uD130\uBBF8\uC2A4\uD2B8 \uACE0\uB974\uACE4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932317
+    m_Localized: "\uBAAC\uC2A4\uD130\uBBF8\uC2A4\uD2B8 \uC784\uD504\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932318
+    m_Localized: "\uBAAC\uC2A4\uD130\uBBF8\uC2A4\uD2B8 \uC704\uC2A4\uD504\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932319
+    m_Localized: "\uBAAC\uC2A4\uD130\uBBF8\uC2A4\uD2B8 \uC250\uB3C4\uC6B0\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932320
+    m_Localized: "\uBAAC\uC2A4\uD130\uBBF8\uC2A4\uD2B8 \uBAA8\uB178\uC544\uC774\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932321
+    m_Localized: "\uBAAC\uC2A4\uD130\uBCA0\uB188\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932322
+    m_Localized: "\uBAAC\uC2A4\uD130\uBE45\uB9C8\uC6B0\uC2A4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932323
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2DC\uB828 \uB358\uC804 \uBCF4\uC2A4 \uB4DC\uB860
+      Lv.1\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932324
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2DC\uB828 \uB358\uC804 \uBCF4\uC2A4 \uB4DC\uB860
+      Lv.2\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932325
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2DC\uB828 \uB358\uC804 \uBCF4\uC2A4 \uB4DC\uB860
+      Lv.3\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932326
+    m_Localized: "\uBAAC\uC2A4\uD130\uC0CC\uB4DC \uC2A4\uD1A0\uCEE4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932327
+    m_Localized: "\uBAAC\uC2A4\uD130\uC0CC\uB4DC \uD06C\uB864\uB7EC\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932328
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2A4\uD1B0 \uBC84\uD314\uB85C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932329
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2DD\uC2A4\uD63C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932330
+    m_Localized: "\uBAAC\uC2A4\uD130\uD130\uC2A4\uD06C\uB85C\uCEE4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932331
+    m_Localized: "\uBAAC\uC2A4\uD130\uD5EC\uC2A4\uD06C\uB9BC\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932332
+    m_Localized: "\uBAAC\uC2A4\uD130\uBCC0\uC774\uB41C \uC2DD\uC2A4\uD63C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932333
+    m_Localized: "\uBAAC\uC2A4\uD130\uD50C\uB808\uC784 \uC2DD\uC2A4\uD63C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932334
+    m_Localized: "\uBAAC\uC2A4\uD130\uB808\uD53C\uB4DC \uC2DD\uC2A4\uD63C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932335
+    m_Localized: "\uBAAC\uC2A4\uD130\uC0CC\uB4DC \uC2DD\uC2A4\uD63C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932336
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2A4\uD1B0 \uC2DD\uC2A4\uD63C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932337
+    m_Localized: "\uBAAC\uC2A4\uD130\uBBF8\uC2A4\uD2B8 \uC2DD\uC2A4\uD63C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932338
+    m_Localized: "\uBAAC\uC2A4\uD130\uACF5\uD5C8\uC758 \uD1A0\uB9C8\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932339
+    m_Localized: "\uBAAC\uC2A4\uD130\uB77C\uD50C\uB77C\uC2A4\uC758 \uB9C8\uB140\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932340
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2DC\uB828 \uB358\uC804 \uBCF4\uC2A4 1\uB2E8\uACC4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932341
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2DC\uB828 \uB358\uC804 \uBCF4\uC2A4 2\uB2E8\uACC4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932342
+    m_Localized: "\uBAAC\uC2A4\uD130\uC2DC\uB828 \uB358\uC804 \uBCF4\uC2A4 3\uB2E8\uACC4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932343
+    m_Localized: "\uBAAC\uC2A4\uD130\uD0C0\uB77D\uD55C \uBE14\uB9B0\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932344
+    m_Localized: "\uBAAC\uC2A4\uD130\uD0C0\uB77D\uD55C \uBA54\uC774\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932345
+    m_Localized: "\uBAAC\uC2A4\uD130\uD0C0\uB77D\uD55C \uC5D0\uC774\uD504\uB9B4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932346
+    m_Localized: "\uBAAC\uC2A4\uD130\uD0C0\uB77D\uD55C \uBCA0\uC778\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932347
+    m_Localized: "\uBAAC\uC2A4\uD130\uD0C0\uB77D\uD55C \uC2DC\uC774\uB098\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932348
+    m_Localized: "\uBAAC\uC2A4\uD130\uD0C0\uB77D\uD55C \uD14C\uD1A0\uB77C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932349
+    m_Localized: "\uBAAC\uC2A4\uD130\uD0C0\uB77D\uD55C \uBBF8\uB178\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932350
+    m_Localized: "\uBAAC\uC2A4\uD130\uD0C0\uB77D\uD55C \uD558\uD2F0\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932351
+    m_Localized: "\uBAAC\uC2A4\uD130\uD0C0\uB77D\uD55C \uD074\uB808\uC774\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932352
+    m_Localized: "\uBAAC\uC2A4\uD130\uD0C0\uB77D\uD55C \uC5D8\uB9AC\uC2A4\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932353
+    m_Localized: "\uBAAC\uC2A4\uD130\uD0C0\uB77D\uD55C \uC624\uB370\uD2B8\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932354
+    m_Localized: "\uCC55\uD130 \uB8F0 \uD30C\uC774\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932355
+    m_Localized: "\uCC55\uD130 \uB8F0 \uC544\uC774\uC2A4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932356
+    m_Localized: "\uCC55\uD130 \uB8F0 \uB79C\uB4DC\uB9C8\uC778"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932357
+    m_Localized: "\uCC55\uD130 \uB8F0 \uC0CC\uB4DC \uC2A4\uD1B0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932358
+    m_Localized: "\uCC55\uD130 \uB8F0 \uB79C\uB364 \uBB34\uBE0C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932359
+    m_Localized: "\uCC55\uD130 \uB8F0 \uD30C\uC774\uC5B4 \uC124\uBA85"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932360
+    m_Localized: "\uCC55\uD130 \uB8F0 \uC544\uC774\uC2A4 \uC124\uBA85"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932361
+    m_Localized: "\uCC55\uD130 \uB8F0 \uB79C\uB4DC\uB9C8\uC778 \uC124\uBA85"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932362
+    m_Localized: "\uCC55\uD130 \uB8F0 \uC0CC\uB4DC \uC2A4\uD1B0 \uC124\uBA85"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932363
+    m_Localized: "\uCC55\uD130 \uB8F0 \uB79C\uB364 \uBB34\uBE0C \uC124\uBA85"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932364
+    m_Localized: Advanced Power Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932365
+    m_Localized: Monster AoE Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932366
+    m_Localized: Knockback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932367
+    m_Localized: Stun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932368
+    m_Localized: Crossfire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932369
+    m_Localized: Ranger Power Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932370
+    m_Localized: Ranger Penetrating Shot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932371
+    m_Localized: Supporter Heal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932372
+    m_Localized: Cross Ice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932373
+    m_Localized: Boss Tanker AoE Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932374
+    m_Localized: Power Attack Assassion Ver.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932375
+    m_Localized: Astral Wave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932376
+    m_Localized: Frozen Slash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932377
+    m_Localized: Guard Up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932378
+    m_Localized: Ice Spear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932379
+    m_Localized: Inferno
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932380
+    m_Localized: Gun Strike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932381
+    m_Localized: Lock On
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932382
+    m_Localized: Silent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932383
+    m_Localized: Flame Break
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932384
+    m_Localized: Power Up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932385
+    m_Localized: Accel Boost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932386
+    m_Localized: Stray Bullet!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932387
+    m_Localized: Earthquake
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932388
+    m_Localized: Hammer Shot!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932389
+    m_Localized: Holy Seal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932390
+    m_Localized: Ground Slam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932391
+    m_Localized: Summon Rabbit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932392
+    m_Localized: Bullet Time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932393
+    m_Localized: Wind Blade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932394
+    m_Localized: Poison Balm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932395
+    m_Localized: Tactical Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932396
+    m_Localized: Cross Impact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932397
+    m_Localized: Water Prison
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932398
+    m_Localized: "\uD655\uC778 \uC0AC\uC0B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932399
+    m_Localized: "\uBC1C\uB3C4 \uC218\uB77C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932400
+    m_Localized: "\uC815\uD654\uC758 \uBD88"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932401
+    m_Localized: "\uD5C8\uBB34-\uC2DD"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932402
+    m_Localized: "\uBA54\uAC00 \uC2A4\uC719"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932403
+    m_Localized: "\uADF8\uB791 \uD478\uC5D0\uD14C-\uCEE4\uD2BC\uCF5C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932404
+    m_Localized: "\uC131\uC2A4\uB7EC\uC6B4\uAD00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932405
+    m_Localized: "\uC544\uC774\uC5B8\uB178\uBC14"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932406
+    m_Localized: "\uBD09\uC778\uD574\uC81C \uD3ED\uC5FC\uB8E1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932407
+    m_Localized: "\uD480 \uBC84\uC2A4\uD2B8 \uBA54\uC774\uB4E0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932408
+    m_Localized: "\uC9C0\uC815 \uC554\uC0B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932409
+    m_Localized: "\uBCF5\uC218\uC758 \uD559\uC0B4\uADF9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932410
+    m_Localized: "\uAD6C\uBBF8\uD638"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932411
+    m_Localized: "\uBC31\uC124\uC758 \uC794\uC601"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932412
+    m_Localized: "\uACE0\uC694\uD55C \uD30C\uB3C4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932413
+    m_Localized: "\uC77C\uC2DD"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932414
+    m_Localized: "\uACE0\uB3C5"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932415
+    m_Localized: "\uACF5\uD5C8\uC758 \uB9F9\uACA9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932416
+    m_Localized: "\uD2B9\uC774\uC810 \uBD95\uAD34"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932417
+    m_Localized: "\uC61B\uC2E0\uC758 \uCE68\uBB35"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932418
+    m_Localized: "\uB3C5 \uC5B4\uAE08\uB2C8"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932419
+    m_Localized: "\uBB34\uD55C\uD55C \uD3ED\uC2DD"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932420
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932421
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932422
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932423
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932424
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932425
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932426
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932427
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932428
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932429
+    m_Localized: "\uBAAC\uC2A4\uD130 \uC2A4\uD0AC\uB85C \uC678\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
+      \uC54A\uC74C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932430
+    m_Localized: 'Damage: Launches a sword energy wave and deals damage equal to
+      <b><color=#F75D32>500%</color></b> of ATK to the enemy.
+
+      Special Effect
+      : The sword energy travels to the end of the map.
+
+      AoE: 3 tiles forward
+      on the X-axis.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932431
+    m_Localized: "Damage : Swings a scythe widely, dealing damage equal to <b><color=#F75D32>500%</color></b>
+      of ATK to the enemy. \nSpecial Effect : Enemies hit will have their ATK SPD
+      <b><color=#F75D32>reduced by 50%</color></b>\nfor <b><color=#F75D32>3 seconds.</color></b>\nAoE
+      : 3 tiles forward on the X-axis."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932432
+    m_Localized: "Effect : Grants allies a shield equal to <b><color=#F75D32>1000%</color></b>
+      of Mensha\u2019s ATK for <b><color=#F75D32>4 seconds</color></b> \nAoE : Same
+      row as Mensha."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932433
+    m_Localized: "Damage : Deals magic damage equal to <b><color=#F75D32>300%</color></b>
+      of ATK. \nSpecial Effect : The Skill ATK <b><color=#F75D32>increases by 150%</color></b>against
+      the enemies with fire synergy.\nTarget : Nearest enemy."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932434
+    m_Localized: 'Damage : Summons a flame bean and deals damage equal to <b><color=#F75D32>350%</color></b>
+      of ATK.
+
+      Special Effect : Leaves residual heat in AoE, dealing <b><color=#F75D32>75%</color></b>
+      damage per second for<b><color=#F75D32>2 seconds.</color></b>
+
+      AoE: 3x3
+      area centered on the nearest enemy.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932435
+    m_Localized: "Damage : Fires a shotgun and deals damage equal to <b><color=#F75D32>400%</color></b>
+      of Philia\u2019s ATK.\nSpecial Effect : If an enemy is killed by the skill,\nSkill
+      Cooldown is reset immediately. \nTarget : Nearest enemy."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932436
+    m_Localized: "Damage : Deals damage equal to <b><color=#F75D32>850%</color></b>
+      of ATK. \nSpecial Effect : Enemy hit is \n <b><color=#F75D32>knocked back</color></b>
+      by two tiles. \nTarget : 1 enemy with the highest ATK."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932437
+    m_Localized: "Damage : Strikes forcefully and deals damage equal to <b><color=#F75D32>250%</color></b>
+      of ATK. \nSpecial Effect : Enemies hit are afflicted with <b><color=#F75D32>Silence
+      Debuff for 3 seconds.</color></b>\n<color=#77889A><b><color=#F75D32>*</color></b>Silence
+      : Skill Usage Disabled, Skill Cooldown Reduction Halted</color>\nTarget : Nearest
+      enemy."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932438
+    m_Localized: "Damage : Summons flames and deals damage equal to <b><color=#F75D32>450%</color></b>
+      of ATK.\nSpecial Effect : If the enemy hit has a shield,\ndestroys the enemy\u2019s
+      shield immediately. \nAoE : 3x3 area centered on Rukida."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932439
+    m_Localized: 'Effect : Increases the ATK by <b><color=#F75D32>30%</color></b>
+      for<b><color=#F75D32>3 seconds.</color></b>
+
+      Target : 2 allies with the
+      highest ATK.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932440
+    m_Localized: "Effect : Recovers all allies\u2019 HP by <b><color=#F75D32>500%</color></b>
+      of Enki\u2019s ATK, and increases the ATK SPD by <b><color=#F75D32>40%</color></b>
+      for \n<b><color=#F75D32>2 seconds.</color></b>\nTarget : All allies."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932441
+    m_Localized: "Damage : Equal to <color=#F75D32>500%</color> of Tetora\u2019s
+      ATK + increased damage proportional to Magic DEF.\nEffect : Swings the greatsword
+      and deals damage to 1 enemy, knocking the enemy back by <color=#F75D32>4 tiles.</color>\n
+      \nSpecial Effect : If the knocked-back enemy collides with a structure or character,
+      the enemy is stunned for <color=#F75D32>1.5 seconds</color> in a 3*3 area\nand
+      take additional damage equal to <color=#F75D32>200%</color> of ATK+damage proportional
+      to Magic DEF. \n \nAoE : Nearest enemy."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932442
+    m_Localized: "Damage : Launches a grenade at the enemy and deals damage equal
+      to <color=#F75D32>250%</color> of ATK. The grenade detonates after targeting
+      the enemy, dealing additional <color=#F75D32>150%</color> damage to the area.
+      \nTarget : 3 enemies with the lowest current HP."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932443
+    m_Localized: "Damage: Deals damage equal to <color=#F75D32>250%</color> of ATK
+      to nearby enemies and knocks them back in a cross-shaped area outward. \nEffect
+      : Grants a <color=#F75D32>50%</color> DEF Up Buff to self for <color=#F75D32>4
+      seconds.</color> \nBonus Effect : Increases Phys DEF by additional <color=#F75D32>25%</color>
+      for each Wind Synergy unit deployed.\n(Max: 3 units) \n \nAoE : Cross-shaped
+      area centered on self."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932444
+    m_Localized: "Effect : Seals the enemy in a coffin for <color=#F75D32>3 seconds.</color>
+      Sealed enemy can still be targeted, but their Skill Cooldown will not progress.
+      \nTarget : Enemy with the highest ATK."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932445
+    m_Localized: "Damage : Deals damage equal to <color=#F75D32>500%</color> of Adria\u2019s
+      ATK, and the damage increases proportional to<color=#F75D32>Phys DEF</color>.\nBonus
+      Effect : Enemies within the AoE are stunned for <color=#F75D32>1 second.</color>\nAoE
+      : Self-Centered."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932446
+    m_Localized: "Effect : Summons a bear for {0} seconds. Upon summoning, deals
+      damage equal to {1}% of Pippin\u2019s ATK in a 3*3 area centered on the bear.
+      The summoned bear casts a taunt that lasts for {0} seconds in 3*3 area. \nBear
+      Stats : 200% of Pippin\u2019s HP, 70% of Pippin\u2019s ATK, all other stats
+      are identical to Pippin. \nTarget : Enemies around the target Pippin is currently
+      attacking."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932447
+    m_Localized: "AoE : 1 tile, 3 tiles, 5 tiles, 7 tiles forward. \nEffect : Unleashes
+      multiple firearms over a wide area, striking <color=#F75D32>10 times</color>
+      over <color=#F75D32>3 seconds</color>, with different damage based on the AoE
+      range.\nDamage : \n-1 and 3 tiles forward: damage equal to <color=#F75D32>900%</color>
+      of ATK per strike\n-5 tiles forward: damage equal to <color=#F75D32>700%</color>
+      of ATK per strike\n-7 tiles forward: damage equal to<color=#F75D32>500%</color>
+      of ATK per strike."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932448
+    m_Localized: "Damage : Throws a boomerang at the enemy and deals damage equal
+      to <color=#F75D32>300%</color> of ATK. \nIf there is another enemy near the
+      target hit, the boomerang bounces to that enemy.\nEach time boomerang bounces,
+      its damage reduces by <color=#F75D32>50%.</color>\nThe boomerang can hit up
+      to <color=#F75D32>5 enemies.</color>\nBonus Effect : ATK SPD increases by <color=#F75D32>10%</color>
+      for 2 seconds per enemy hit. \nTarget: Nearest enemy."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932449
+    m_Localized: 'Effect : Drops a vial, reducing healing effects of enemies within
+      range by <color=#F75D32>60%</color>
+
+      and Phys DEF by <color=#F75D32>80%</color>
+      for <color=#F75D32>3 seconds.</color>
+
+      Target : 3*3 area around the enemy
+      with the highest Phys DEF and Magic DEF.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932450
+    m_Localized: "\uBC94\uC704 : \uBA58\uC0E4\uC640 \uB3D9\uC77C\uD55C \uC5F4 \uC790\uC2E0\uC744
+      \uAE30\uC900\uC73C\uB85C 3*3 \uBC94\uC704\n\uC7AC\uC0AC\uC6A9 \uC2DC\uAC04:
+      {0} \uCD08\n\uD6A8\uACFC : \uC544\uAD70\uC5D0\uAC8C {1}\uCD08 \uB3D9\uC548
+      \uBA58\uC0E4 \uACF5\uACA9\uB825 \uCCB4\uB825 {2}%\uC758 \uC2E4\uB4DC\uB97C
+      \uBD80\uC5EC\uD55C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932451
+    m_Localized: "\uBC94\uC704 : \uC790\uAE30 \uC911\uC2EC \uC2ED\uC790 \uBC94\uC704\r\n\uC7AC\uC0AC\uC6A9
+      \uC2DC\uAC04 {0}\r\n\uB300\uBBF8\uC9C0 : \uC8FC\uBCC0 \uC801\uC5D0\uAC8C \uACF5\uACA9\uB825
+      {1}%\uC758 \uB300\uBBF8\uC9C0\uB97C \uC8FC\uBA70 \uC2ED\uC790 \uBC94\uC704
+      \uBC14\uAE65 \uBC29\uD5A5\uC73C\uB85C \uB109\uBC31 \uC2DC\uD0A8\uB2E4.\r\n\uD6A8\uACFC
+      : {2}\uCD08 \uB3D9\uC548 \uC790\uAE30\uC5D0\uAC8C {3}%\uC758 \uBC29\uC5B4\uB825
+      \uC99D\uAC00 \uBC84\uD504\uB97C \uAC74\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932452
+    m_Localized: "\uB300\uC0C1 : \uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801  \uC2ED\uC790\uAC00
+      \uBAA8\uC591 3by3\r\n\uC7AC\uC0AC\uC6A9 \uC2DC\uAC04: {0}\r\n\uB300\uBBF8\uC9C0
+      : \uACF5\uACA9\uB825 {1}%\uC758 \uB9C8\uBC95 \uB300\uBBF8\uC9C0\uB97C \uC900\uB2E4.\r\n\uD2B9\uC218
+      \uD6A8\uACFC : \uC801\uC744 \uBB3C \uAC10\uC625\uC5D0 \uAC00\uB46C {2}\uCD08\uAC04
+      \uC801\uC758 \uC774\uB3D9\uACFC \uACF5\uACA9\uC744 \uBD09\uC1C4\uD55C\uB2E4.\r\n\uB300\uC0C1\uC774
+      \uD53C\uD574\uB97C \uBC1B\uC744 \uC2DC \uC774 \uD6A8\uACFC\uB294 \uC989\uC2DC
+      \uC81C\uAC70\uB41C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932453
+    m_Localized: "\uB300\uC0C1 : \uAC00\uC7A5 \uBA3C \uC801\r\n\uC7AC\uC0AC\uC6A9
+      \uC2DC\uAC04: {0}\r\n\uB300\uBBF8\uC9C0 : \uC815\uC870\uC900\uD55C \uD6C4 \uBC1C\uC0AC\uD574
+      \uD544\uB9AC\uC544 \uACF5\uACA9\uB825 {1}%\uC758 \uB300\uBBF8\uC9C0\uB97C \uAC00\uD55C\uB2E4.\r\n\uD2B9\uC218
+      \uD6A8\uACFC : \uC2A4\uD0AC\uB85C \uC801\uC744 \uC0AC\uB9DD \uC2DC\uCF30\uC744
+      \uC2DC, \uC2A4\uD0AC \uCFE8\uD0C0\uC784\uC774 \uC989\uC2DC \uCD08\uAE30\uD654\uB41C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932454
+    m_Localized: "\uB300\uC0C1 : \uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801\r\n\uC7AC\uC0AC\uC6A9
+      \uC2DC\uAC04: {0}\uCD08\r\n\uB300\uBBF8\uC9C0 : \uAC15\uD558\uAC8C \uBCA0\uC5B4
+      \uACF5\uACA9\uB825 {1}%\uC758 \uB300\uBBF8\uC9C0\uB97C \uAC00\uD55C\uB2E4.\r\n\uD2B9\uC218
+      \uD6A8\uACFC : \uD53C\uACA9\uB41C \uC801\uC740 {2}\uCD08 \uB3D9\uC548 \uCE68\uBB35
+      \uB514\uBC84\uD504\uC5D0 \uAC78\uB9AC\uAC8C \uD55C\uB2E4.\r\n*\uCE68\uBB35
+      : \uC2A4\uD0AC \uC0AC\uC6A9 \uBD88\uAC00\uB2A5, \uC2A4\uD0AC \uCFE8\uD0C0\uC784
+      \uAC10\uC18C \uC815\uC9C0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932455
+    m_Localized: "\uB300\uC0C1 : \uCCB4\uB825\uC774 \uAC00\uC7A5 \uB0AE\uC740 \uC544\uAD70
+      3\uC778\n\uC7AC\uC0AC\uC6A9 \uC2DC\uAC04: {0} \uCD08\n\uD6A8\uACFC : \uB300\uC0C1\uC5D0\uAC8C
+      \uC720\uB2C8 \uCE58\uC720\uB825\uC758 {1}% \uB9CC\uD07C \uD68C\uBCF5 \uC2DC\uD0A4\uACE0,
+      CC\uC0C1\uD0DC\uB97C {2}\uAC1C \uC81C\uAC70\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932456
+    m_Localized: "\uBC94\uC704 : \uC804\uBC29 X\uCD95 3\uCE78\r\n\uC7AC\uC0AC\uC6A9
+      \uC2DC\uAC04: {0}\uCD08\r\n\uB300\uBBF8\uC9C0 : \uAC80\uAE30\uB97C \uB0A0\uB824,
+      \uC801\uC5D0\uAC8C \uACF5\uACA9\uB825 {1}%\uC758 \uB300\uBBF8\uC9C0\uB97C \uC900\uB2E4.\r\n\uD2B9\uC218
+      \uD6A8\uACFC : \uAC80\uAE30\uB294 \uB9F5 \uB05D\uAE4C\uC9C0 \uC9C0\uC18D\uB41C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932457
+    m_Localized: "\uBC94\uC704 : \uAC00\uC7A5 \uAC00\uAE4C\uC774\uC5D0 \uC704\uCE58\uD55C
+      \uC801 1\uBA85\r\n\r\n\uC7AC\uC0AC\uC6A9 \uC2DC\uAC04: {0}\r\n\uD6A8\uACFC
+      : \uB300\uAC80\uC744 \uD718\uB458\uB7EC \uC801 1\uBA85\uC5D0\uAC8C \uB300\uBBF8\uC9C0\uB97C
+      \uC8FC\uACE0 4\uCE78 \uB109\uBC31\uC2DC\uD0A8\uB2E4.\r\n\r\n\uB300\uBBF8\uC9C0
+      : \uD14C\uD1A0\uB77C \uACF5\uACA9\uB825 {1}% + \uB9C8\uBC95 \uBC29\uC5B4\uB825
+      \uBE44\uB840 \uB300\uBBF8\uC9C0 \uC99D\uAC00\r\n\r\n\uAC1C\uBC1C\uC6A9 \uB300\uBBF8\uC9C0
+      \uACC4\uC0B0\uC2DD : \uD14C\uD1A0\uB77C \uACF5\uACA9\uB825*{1}(1+\uB9C8\uBC95
+      \uBC29\uC5B4\uB825/{2})\r\n\r\n\uB9CC\uC57D \uBD84\uB178\uAC00 30 \uC774\uC0C1\uC778
+      \uACBD\uC6B0 \uC704\uB825\uC774 2\uBC30\uB85C \uC99D\uAC00\uD569\uB2C8\uB2E4.\r\n\r\n\uAC1C\uBC1C
+      \uCC38\uACE0 \uC0AC\uD56D\r\n\uD53C\uACA9\uB41C \uC801\uC774 \uC544\uAD70\uC5D0\uAC8C
+      \uBD80\uB52A\uD790 \uACBD\uC6B0, \uC801\uAD70\uC740 \uCDA9\uB3CC \uC911\uC9C0
+      + \uC2A4\uD134 \uC801\uC6A9\r\n\uC544\uAD70\uC5D0\uAC8C\uB294 \uB300\uBBF8\uC9C0\uC640
+      \uC2A4\uD134\uC774 \uC801\uC6A9\uB418\uC9C0 \uC54A\uC74C."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932458
+    m_Localized: "\uBC94\uC704 : \uBCF8\uC778\uC744 \uAE30\uC900\uC73C\uB85C  2*3
+      \uBC94\uC704/3*3 \uBC94\uC704\r\n\uC7AC\uC0AC\uC6A9 \uC2DC\uAC04: {0}\uCD08\r\n\uB0AB\uC744
+      \uD06C\uAC8C \uD718\uB458\uB7EC, \uC801\uC5D0\uAC8C \uACF5\uACA9\uB825 {1}%\uC758
+      \uB300\uBBF8\uC9C0\uB97C \uC8FC\uACE0, \uC0C1\uB300\uC758 \uB4A4\uD3B8\uC73C\uB85C
+      \uC774\uB3D9\uD558\uC5EC \uB113\uC740 \uBC94\uC704\uC758 \uACF5\uACA9\uC744
+      \uC9C4\uD589\uD569\uB2C8\uB2E4.\r\n\uD2B9\uC218 \uD6A8\uACFC : \uD53C\uACA9\uB41C
+      \uC801\uC740 {2}\uB3D9\uC548 \uACF5\uACA9 \uC18D\uB3C4\uAC00 {3}% \uAC10\uC18C\uD558\uACE0
+      \uD55C\uAE30\uB97C \uC911\uCCA9 \uC2DC\uD0B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932459
+    m_Localized: "\uB300\uC0C1 : \uACF5\uACA9\uB825\uC774 \uAC00\uC7A5 \uB192\uC740
+      \uC801\r\n\uC7AC\uC0AC\uC6A9 \uC2DC\uAC04: {0}\uCD08\r\n\uD6A8\uACFC : \uC801\uC744
+      {1}\uCD08 \uB3D9\uC548 \uAD00\uC5D0 \uAC00\uB46C \uBD09\uC778\uD55C\uB2E4.
+      \uBD09\uC778\uB41C \uC801\uB3C4 \uACF5\uACA9 \uB300\uC0C1\uC73C\uB85C \uCDE8\uAE09\uB418\uBA70,
+      \uBD09\uC778\uB41C \uC801\uC740 \uBD09\uC778\uB3D9\uC548 \uC2A4\uD0AC \uCFE8\uD0C0\uC784\uC774
+      \uD750\uB974\uC9C0 \uC54A\uB294\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932460
+    m_Localized: "\uBC94\uC704 : \uC790\uAE30 \uC911\uC2EC\r\n\uC7AC\uC0AC\uC6A9
+      \uC2DC\uAC04: {0}\uCD08\r\n\uB300\uBBF8\uC9C0 : \uC544\uB4DC\uB9AC\uC544 \uACF5\uACA9\uB825{1}%
+      \uB300\uBBF8\uC9C0\uB97C \uC785\uD788\uACE0, \uBB3C\uB9AC \uBC29\uC5B4\uB825\uC5D0
+      \uBE44\uB840\uD574 \uD53C\uD574\uAC00 \uC99D\uAC00\uD55C\uB2E4.\r\n\uCD94\uAC00
+      \uD6A8\uACFC : \uBC94\uC704 \uB0B4\uC5D0 \uC704\uCE58\uD55C \uC801\uC740 {2}\uCD08
+      \uB3D9\uC548 \uC2A4\uD134\uC5D0 \uAC78\uB9B0\uB2E4.\r\n\uAC1C\uBC1C\uC6A9 \uB300\uBBF8\uC9C0
+      \uACC4\uC0B0\uC2DD : \uC544\uB4DC\uB9AC\uC544 \uACF5\uACA9\uB825*{1}*(1+\uBB3C\uB9AC
+      \uBC29\uC5B4\uB825/{2})"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932461
+    m_Localized: "\uB300\uC0C1 : \uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801 \uAE30\uC900
+      5*5 \uB2E4\uC774\uC544\uBAAC\uB4DC \uBC94\uC704\r\n\uC7AC\uC0AC\uC6A9 \uC2DC\uAC04:
+      {0}\uCD08\r\n\uB300\uBBF8\uC9C0 : \uACF5\uACA9\uB825 {1}%\uC758 \uB9C8\uBC95
+      \uB300\uBBF8\uC9C0\uB97C \uC900\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932462
+    m_Localized: "\uBC94\uC704 : \uC804\uBC29 1\uCE78, 3\uCE78, 5\uCE78, 7\uCE78\r\n\uC7AC\uC0AC\uC6A9
+      \uC2DC\uAC04: {0}\uCD08\r\n\uD6A8\uACFC : \uB113\uC740 \uBC94\uC704\uC5D0 \uB2E4\uC218\uC758
+      \uCD1D\uAE30\uB97C \uAEBC\uB0B4 3\uCD08 \uB3D9\uC548 {1}\uD68C \uB09C\uC0AC\uD558\uBA70,
+      \uBC94\uC704\uBCC4\uB85C \uB2E4\uB978 \uB300\uBBF8\uC9C0\uB97C \uBD80\uC5EC\uD55C\uB2E4.\r\n\uB300\uBBF8\uC9C0
+      :\r\n-\uC804\uBC29 1\uCE78, 3\uCE78\uC740 \uD68C\uB2F9 \uACF5\uACA9\uB825 {2}%\uC758
+      \uB300\uBBF8\uC9C0\r\n-\uC804\uBC29 5\uCE78\uC740 \uD68C\uB2F9 \uACF5\uACA9\uB825
+      {3}%\uC758 \uB300\uBBF8\uC9C0\r\n-\uC804\uBC29 7\uCE78\uC740 \uD68C\uB2F9 \uACF5\uACA8\uB825
+      {4}%\uC758 \uB300\uBBF8\uC9C0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932463
+    m_Localized: "\uB300\uC0C1 : \uAC70\uB9AC\uAC00 \uAC00\uC7A5 \uBA3C \uC801 1\uBA85
+      \uAC70\uB9AC\uAC00 \uAC00\uC7A5 \uBA3C \uC801\n\uC7AC\uC0AC\uC6A9 \uC2DC\uAC04:
+      {0}\uCD08\n\uB300\uBBF8\uC9C0 : \uACF5\uACA9\uB825 {1}%\uC758 \uB300\uBBF8\uC9C0\uB97C
+      \uAC00\uD55C\uB2E4.\n\uD2B9\uC218 \uD6A8\uACFC : \uD53C\uACA9\uB41C \uC801\uC740
+      {2} \uCE78 \uAC70\uB9AC\uB9CC\uD07C \uB109\uBC31\uB41C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932464
+    m_Localized: "\uD0C0\uAC9F : \uAC00\uC7A5 \uAC00\uAE4C\uC774\uC5D0 \uC704\uCE58\uD55C
+      \uC801 \r\n\uC7AC\uC0AC\uC6A9 \uC2DC\uAC04: {0}\uCD08\r\n\uB300\uBBF8\uC9C0
+      : \uC801\uC5D0\uAC8C \uBD80\uBA54\uB791\uC744 \uB358\uC838 \uACF5\uACA9\uB825
+      {1}%\uC758 \uB300\uBBF8\uC9C0\uB97C \uC900\uB2E4.\r\n\r\n\uBD80\uBA54\uB791\uC744
+      \uB9DE\uC740 \uC801 \uADFC\uCC98\uC5D0 \uB2E4\uB978 \uC801\uC774 \uC788\uC73C\uBA74,
+      \uBD80\uBA54\uB791\uC774 \uADF8 \uC801\uC5D0\uAC8C \uD295\uAE34\uB2E4.\r\n\uBD80\uBA54\uB791\uC774
+      \uD295\uAE38 \uB54C\uB9C8\uB2E4 \uB300\uBBF8\uC9C0\uAC00 {2}%\uC529 \uC904\uC5B4\uB4E0\uB2E4.\r\n\uBD80\uBA54\uB791\uC740
+      \uCD5C\uB300 {3}\uBA85\uAE4C\uC9C0 \uACF5\uACA9\uAC00\uB2A5\uD558\uB2E4. \r\n\r\n\uCD94\uAC00
+      \uD6A8\uACFC : \uD53C\uACA9\uB41C \uC801 1\uBA85\uB2F9 {4}\uCD08 \uB3D9\uC548
+      \uACF5\uACA9\uC18D\uB3C4\uAC00 {5}% \uC99D\uAC00\uD55C\uB2E4. \r\n\r\n\uAC1C\uBC1C
+      \uC0AC\uC774\uB4DC \uD544\uC694 \uB0B4\uC6A9 : \uD295\uAE34 \uC801\uC5D0\uAC8C
+      \uB2E4\uC2DC \uD295\uAE30\uC9C0\uB294 \uC54A\uB294\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932465
+    m_Localized: "\uB300\uC0C1: \uC790\uAE30 \uC790\uC2E0\r\n\uC7AC\uC0AC\uC6A9 \uC2DC\uAC04:
+      {0}\uCD08\r\n\uD6A8\uACFC: \uC989\uC2DC \uC5EC\uC6B0\uBD88\uC744 {1}\uAC1C
+      \uB9CC\uD07C \uD68D\uB4DD\uD569\uB2C8\uB2E4. {2}\uCD08\uAC04 \uBCF4\uC720\uD55C
+      \uC5EC\uC6B0\uBD88\uC758 \uAC2F\uC218\uB2F9 \uACF5\uACA9\uC18D\uB3C4\uAC00
+      {3}% \uB9CC\uD07C \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932466
+    m_Localized: "\uB300\uC0C1: \uCCB4\uB825\uC774 \uAC00\uC7A5 \uB0AE\uC740 \uC801\r\n\uC7AC\uC0AC\uC6A9
+      \uC2DC\uAC04: {0}\uCD08\r\n\uD6A8\uACFC: {1}\uCD08 \uB3D9\uC548 \uC9C0\uC815
+      \uBD88\uAC00 \uC0C1\uD0DC\uAC00 \uB418\uBA70, 3\uBA85\uC758 \uB300\uC0C1\uC5D0\uAC8C
+      \uC21C\uCC28\uC801\uC73C\uB85C \uC774\uB3D9\uD558\uC5EC \uCC38\uACA9\uC744
+      \uB0A0\uB9BD\uB2C8\uB2E4.  \uAC01 \uD0C0\uACA9 \uB9C8\uB2E4 \uACF5\uACA9\uB825\uC758
+      {2}% \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4. \uCC38\uACA9\uC774 \uBAA8\uB450
+      \uC644\uB8CC\uB420 \uACBD\uC6B0 \uC9C0\uC815 \uBD88\uAC00 \uC0C1\uD0DC\uAC00
+      \uD574\uC9C0\uB418\uBA70 {3}\uCD08\uAC04 \uD68C\uD53C\uC728\uC774 {4}% \uC0C1\uC2B9\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932467
+    m_Localized: "\uB300\uC0C1 : \uC544\uAD70 \uC804\uCCB4\r\n\uC7AC\uC0AC\uC6A9
+      \uC2DC\uAC04: {0}\uCD08\r\n\uD6A8\uACFC : \r\n\uD070 \uBB3C\uACB0\uC744 \uC77C\uC73C\uCF1C
+      \uC544\uAD70\uC744 \uC5D4\uD0A4\uC758 \uCE58\uC720\uB825 {1}% \uB9CC\uD07C
+      \uCE58\uC720\uD558\uACE0, {2}\uCD08\uAC04 \uC9C0\uC18D\uB418\uB294 {3}%\uC704\uB825\uC758
+      \uC9C0\uC18D \uD68C\uBCF5\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932468
+    m_Localized: "\uBC94\uC704: \uC790\uC2E0 \uAE30\uC900 \uB2E4\uC774\uC544 \uBAA8\uC591
+      5*5\r\n\uC7AC\uC0AC\uC6A9 \uC2DC\uAC04: {0}\uCD08\r\n\uD6A8\uACFC: \uC601\uC5ED\uC5D0
+      \uC788\uB294 \uC544\uAD70\uC740 \uD074\uB808\uC774\uC758 {1}% \uCE58\uC720\uB825
+      \uB9CC\uD07C \uD68C\uBCF5 \uBC0F CC\uC81C\uAC70 \uD6A8\uACFC\uB97C \uC81C\uACF5\uBC1B\uB294\uB2E4.
+      \r\n\uC601\uC5ED\uC5D0 \uC788\uB294 \uC801\uAD70\uC740 {2}% \uB9CC\uD07C \uD53C\uD574\uC640
+      \uD68C\uBCF5\uB7C9 {3}%\uAC10\uC18C \uB514\uBC84\uD504\uB97C {4}\uCD08\uAC04
+      \uBC1B\uB294\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932469
+    m_Localized: "\uB300\uC0C1: \uACF5\uACA9\uB825\uC774 \uAC00\uC7A5 \uB192\uC740
+      \uC801\r\n\uC7AC\uC0AC\uC6A9 \uC2DC\uAC04: {0}\uCD08\r\n\uD6A8\uACFC: \uB300\uC0C1\uC758
+      \uB4A4\uB85C \uC774\uB3D9\uD558\uC5EC {1}\uD68C \uB9CC\uD07C \uACF5\uACA9\uD569\uB2C8\uB2E4.
+      \uD0C0\uACA9 \uC2DC \uB9C8\uB2E4 \uB9C8\uB9AC\uC5D0\uC758 \uACF5\uACA9\uB825\uC758
+      {2}% \uB9CC\uD07C \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4. \r\n\uB9CC\uC57D
+      \uC801\uC5D0\uAC8C \uD45C\uC2DD-\uC544\uB77C\uD06C\uB124\uAC00 \uB0A8\uC544\uC788\uB2E4\uBA74
+      {3}\uCD08\uAC04 \uC801\uC758 \uACF5\uACA9\uB825\uACFC \uBC29\uC5B4\uB825\uC744
+      {4}%\uB9CC\uD07C \uB0AE\uCDA5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932470
+    m_Localized: "\uB300\uC0C1: 3x3 \uACF5\uACA9\uB825\uC774 \uAC00\uC7A5 \uAC15\uD55C
+      \uC801\uAD70\r\n\uD6A8\uACFC: \uBC94\uC704\uB0B4\uC5D0 {1}% \uD53C\uD574\uB97C
+      \uC785\uD788\uACE0, {2}\uCD08\uAC04, \uBC29\uC5B4\uB825\uACFC \uACF5\uACA9\uC18D\uB3C4\uAC00
+      {3}% \uAC10\uC18C\uD55C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932471
+    m_Localized: "\uB300\uC0C1: 3x3 \uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801\uAD70\r\n\uD6A8\uACFC:
+      \uBC94\uC704 \uB0B4\uC5D0 {0}% \uB9CC\uD07C \uD53C\uD574\uB97C \uC785\uD78C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932472
+    m_Localized: "\uB300\uC0C1: 5x5 \uC2ED\uC790 \uBC94\uC704\r\n\uD6A8\uACFC: \uBC94\uC704
+      \uB0B4\uC5D0 {0}%\uB9CC\uD07C \uD53C\uD574\uB97C \uC785\uD78C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932473
+    m_Localized: "\uB300\uC0C1: \uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801\r\n\uD6A8\uACFC:
+      {1}% \uB9CC\uD07C \uD53C\uD574\uB97C \uC989\uC2DC \uC785\uD788\uACE0, {2}\uCD08\uAC04
+      {3}%\uC758 \uD53C\uD574\uB97C \uB9E4\uCD08 \uC785\uD78C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932474
+    m_Localized: "\uB300\uC0C1: \uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC9C1\uC120\uC758
+      \uC801 -> \uC774\uB3D9\uD558\uC5EC \uACF5\uACA9\r\n\uD6A8\uACFC: \uC9C1\uC120
+      3\uCE78\uC5D0 {1}% \uB9CC\uD07C \uD53C\uD574\uB97C \uC785\uD788\uACE0 {2}\uCD08\uAC04
+      \uAE30\uC808 \uC0C1\uD0DC\uB85C \uB9CC\uB4E0\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932475
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932476
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932477
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932478
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932479
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932480
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932481
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932482
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932483
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932484
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932485
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932486
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932487
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932488
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932489
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932490
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932491
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932492
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932493
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932494
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932495
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932496
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932497
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932498
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932499
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932500
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932501
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932502
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932503
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932504
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932505
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932506
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932507
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932508
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932509
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932510
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932511
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932512
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932513
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932514
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932515
+    m_Localized: Explosion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932516
+    m_Localized: Freezing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932517
+    m_Localized: Airborne
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932518
+    m_Localized: Life Heal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932519
+    m_Localized: Teleport
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932520
+    m_Localized: Curse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932521
+    m_Localized: FireWall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932522
+    m_Localized: Ice Cross
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932523
+    m_Localized: Earth Cavalry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932524
+    m_Localized: Sylph's Joke
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932525
+    m_Localized: Heaven's Gate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932526
+    m_Localized: Sanctuary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932527
+    m_Localized: "Deals damage equal to <b><color=#F75D32>500%</color></b> of allies\u2019
+      average ATK to enemies within the area."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932528
+    m_Localized: Freezes enemies within a cross-shaped area for 3 seconds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932529
+    m_Localized: Airbornes 1 selected enemy for 3 seconds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932530
+    m_Localized: "Restores the HP of allies within the area by 700% of the highest
+      ally\u2019s ATK."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932531
+    m_Localized: Randomly swaps the positions of allies, enemies, and terrain features
+      on the battlefield.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932532
+    m_Localized: Reduces ATK of enemies within a 3*3 area by 50% for 5 seconds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932533
+    m_Localized: "\uD589\uC131\uC758 \uC790\uC5F0 \uC5D0\uB108\uC9C0\uB97C \uAD00\uCE21\uD558\uC5EC
+      \uD2B9\uC815 \uC9C0\uC810\uC5D0 \uBD84\uCD9C\uD558\uAC8C \uB9CC\uB4ED\uB2C8\uB2E4.
+      \uC774 \uBD88\uC758 \uBCBD\uC740 {0}\uCD08 \uB3D9\uC548 \uC720\uC9C0\uB418\uBA70
+      \uB2FF\uC740 \uC801\uC740 {1}\uC758 \uD53C\uD574\uC640 {2}%\uC758 \uC9C0\uC18D
+      \uD53C\uD574\uB97C \uC785\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932534
+    m_Localized: "\uD589\uC131\uC758 \uC790\uC5F0 \uC5D0\uB108\uC9C0\uB97C \uAD00\uCE21\uD558\uC5EC
+      \uD2B9\uC815 \uC9C0\uC810\uC5D0 \uBD84\uCD9C\uD558\uAC8C \uB9CC\uB4ED\uB2C8\uB2E4.
+      \uC774 \uC5BC\uC74C\uC758 \uBCBD\uC740 {0}\uCD08 \uB3D9\uC548 \uC720\uC9C0\uB418\uBA70
+      \uB2FF\uC740 \uC801\uC740 {1}\uC758 \uD53C\uD574\uC640 {2}\uCD08 \uB3D9\uC548
+      \uB300\uC0C1\uC744 \uC5BC\uB824\uBC84\uB9BD\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932535
+    m_Localized: "\uACFC\uAC70 \uACE0\uB300 \uC778\uB958\uC758 \uC794\uC601\uC744
+      \uAD00\uCE21\uD558\uC5EC \uD604\uC138\uC5D0 \uD5CC\uD5CC \uC2DC\uD0B5\uB2C8\uB2E4.
+      \uC18C\uD658\uB41C \uC544\uC774\uAE30\uC2A4 \uBCD1\uB2E8\uC740 \uC77C\uC9C1\uC120\uC758
+      \uC801\uB4E4\uC744 {0}\uCE78 \uBC00\uC5B4\uB0C5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932536
+    m_Localized: "\uD589\uC131\uC758 \uC790\uC5F0 \uC5D0\uB108\uC9C0\uB97C \uAD00\uCE21\uD558\uC5EC
+      \uD2B9\uC815 \uC9C0\uC810\uC5D0 \uBC14\uB78C\uC744 \uC77C\uC73C\uD0B5\uB2C8\uB2E4.
+      \uB2FF\uC740 \uB300\uC0C1\uC740 \uBB34\uC791\uC704 \uC704\uCE58\uC5D0 \uB5A8\uC5B4\uC9C0\uAC8C
+      \uB418\uBA70 \uC801\uAD70\uC778 \uACBD\uC6B0 {0}\uC758 \uD53C\uD574\uB97C \uC785\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932537
+    m_Localized: "\uD589\uC131\uC758 \uC790\uC5F0 \uC5D0\uB108\uC9C0\uB97C \uAD00\uCE21\uD558\uC5EC
+      \uD2B9\uC815 \uC9C0\uC810\uC5D0 \uBC14\uB78C\uC744 \uC77C\uC73C\uD0B5\uB2C8\uB2E4.
+      \uB2FF\uC740 \uB300\uC0C1\uC740 \uBB34\uC791\uC704 \uC704\uCE58\uC5D0 \uB5A8\uC5B4\uC9C0\uAC8C
+      \uB418\uBA70 \uC801\uAD70\uC778 \uACBD\uC6B0 {0}\uC758 \uD53C\uD574\uB97C \uC785\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932538
+    m_Localized: "\uD589\uC131\uC758 \uC790\uC5F0 \uC5D0\uB108\uC9C0\uB97C \uAD00\uCE21\uD558\uC5EC
+      \uD2B9\uC815 \uC9C0\uC810\uC5D0 \uBC14\uB78C\uC744 \uC77C\uC73C\uD0B5\uB2C8\uB2E4.
+      \uB2FF\uC740 \uB300\uC0C1\uC740 \uBB34\uC791\uC704 \uC704\uCE58\uC5D0 \uB5A8\uC5B4\uC9C0\uAC8C
+      \uB418\uBA70 \uC801\uAD70\uC778 \uACBD\uC6B0 {0}\uC758 \uD53C\uD574\uB97C \uC785\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932539
+    m_Localized: "\uC6A9\uB9F9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932540
+    m_Localized: "\uACAC\uB514\uAE30"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932541
+    m_Localized: "\uAD00\uD1B5"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932542
+    m_Localized: "\uD3ED\uBC1C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932543
+    m_Localized: "\uD68C\uBCF5"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932544
+    m_Localized: "\uC2B5\uACA9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932545
+    m_Localized: "\uCE58\uBA85\uC801 \uC77C\uACA9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932546
+    m_Localized: "{0}\uCD08 \uB9C8\uB2E4 CC \uD6A8\uACFC\uB97C \uB9C9\uC544\uB0B4\uB294
+      \uBC29\uC5B4\uB9C9\uC774 \uC0DD\uC131\uB41C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932547
+    m_Localized: "{0}\uCD08 \uB9C8\uB2E4 \uC801\uC758 \uC77C\uBC18 \uACF5\uACA9\uC744
+      3\uD68C \uBB34\uC2DC\uD558\uB294 \uBCA0\uB9AC\uC5B4\uB97C \uD68D\uB4DD\uD55C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932548
+    m_Localized: "{0}% \uD655\uB960\uB85C \uC801\uC758 \uBB3C\uB9AC, \uB9C8\uBC95
+      \uBC29\uC5B4\uB825\uC744 \uBB34\uC2DC\uD55C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932549
+    m_Localized: "{0}% \uD655\uB960\uB85C \uC77C\uBC18 \uACF5\uACA9\uC774 \uD3ED\uBC1C\uD558\uC5EC
+      \uAC00\uB85C \uC138\uB85C 3x3 {0}\uC758 \uBC94\uC704 \uD53C\uD574\uB97C \uC785\uD78C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932550
+    m_Localized: "\uC77C\uBC18\uACF5\uACA9\uC2DC \uACF5\uACA9 \uBC94\uC704 \uB0B4\uC5D0
+      \uC544\uAD70 \uC911 \uCCB4\uB825\uC774 \uB0AE\uC740 \uCE90\uB9AD\uD130(\uBCF8\uC778\uD3EC\uD568)
+      \uC624\uB77C\uD074\uC758 \uACF5\uACA9\uB825\uC758 {0}% \uBE44\uB840\uD55C \uD68C\uBCF5\uB825\uC774
+      \uBD80\uC5EC\uB41C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932551
+    m_Localized: "\uC804\uD22C \uAC1C\uC2DC\uC640 \uD568\uAED8 \uC801 \uC9C4\uC601
+      \uB4A4\uCABD \uC88C\uD45C\uB85C \uC21C\uAC04\uC774\uB3D9\uD55C\uB2E4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932552
+    m_Localized: "\uC77C\uBC18 \uACF5\uACA9 1\uD68C\uB9C8\uB2E4 \uC2A4\uD0DD\uC774
+      1\uC529\uC624\uB974\uACE0 {0}\uD68C \uC2A4\uD0DD\uB9C8\uB2E4 \uB2E4\uC74C \uACF5\uACA9\uC774
+      \uD06C\uB9AC\uD2F0\uCEEC\uB85C \uBA85\uC911\uD55C\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932553
+    m_Localized: "\uC2A4\uD0C0\uCFFC\uCE20"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932554
+    m_Localized: "\uBAA8\uB77C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932555
+    m_Localized: "\uC2DC\uBBAC\uB808\uC774\uC158 \uD3EC\uC778\uD2B8"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932556
+    m_Localized: "\uC2A4\uD0DC\uBBF8\uB108\uD329"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932557
+    m_Localized: "\uCE90\uB9AD\uD130 \uD2F0\uCF13"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932558
+    m_Localized: "\uC6E8\uD3F0 \uD2F0\uCF13"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932559
+    m_Localized: USER_EXP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932560
+    m_Localized: "\uC804\uD22C \uB370\uC774\uD130 \uCE72"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932561
+    m_Localized: "\uC544\uB808\uB098 \uD2F0\uCF13"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932562
+    m_Localized: "\uD558\uAE09 \uAC74\uC124 \uC7AC\uB8CC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932563
+    m_Localized: "\uAE30\uC0AC\uC758 \uB514\uBA58\uC158 \uD050\uBE0C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932564
+    m_Localized: "\uBD88\uC758 \uB514\uBA58\uC158 \uD050\uBE0C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932565
+    m_Localized: "\uBC14\uB78C\uC758 \uB514\uBA58\uC158 \uD050\uBE0C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932566
+    m_Localized: "\uB300\uC9C0\uC758 \uB514\uBA58\uC158 \uD050\uBE0C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932567
+    m_Localized: "\uD3ED\uD48D\uC758 \uB514\uBA58\uC158 \uD050\uBE0C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932568
+    m_Localized: "\uB300\uC591\uC758 \uB514\uBA58\uC158 \uD050\uBE0C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932569
+    m_Localized: "\uB178\uBE14\uB808\uC2A4 \uB514\uBA58\uC158 \uD050\uBE0C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932570
+    m_Localized: "\uC288\uD37C\uB178\uBC14 \uB514\uBA58\uC158 \uD050\uBE0C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932571
+    m_Localized: "\uD2B8\uB7EC\uBE14\uC288\uD130 \uB514\uBA58\uC158 \uD050\uBE0C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932572
+    m_Localized: "\uC5D8\uD53C\uC2A4 \uCF54\uC5B4 Mk.1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932573
+    m_Localized: "\uCF54\uC6B0\uCE74"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932574
+    m_Localized: "\uC720\uB2C8"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932575
+    m_Localized: "\uBA54\uC774"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932576
+    m_Localized: "\uC2DC\uC774\uB098"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932577
+    m_Localized: "\uBA58\uC0E4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932578
+    m_Localized: "\uBE44\uD0C0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932579
+    m_Localized: "\uD544\uB9AC\uC544"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932580
+    m_Localized: "\uC5D8\uB9AC\uC2A4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932581
+    m_Localized: "\uC0E4\uD0A4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932582
+    m_Localized: "\uBE0C\uB9AC\uC62C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932583
+    m_Localized: "\uBE14\uB9B0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932584
+    m_Localized: "\uB8E8\uD0A4\uB2E4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932585
+    m_Localized: "\uBBF8\uC0AC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932586
+    m_Localized: "\uC5D0\uC774\uD504\uB9B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932587
+    m_Localized: "\uB77C\uD0A4\uC720"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932588
+    m_Localized: "\uBCA0\uC778"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932589
+    m_Localized: "\uD14C\uD1A0\uB77C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932590
+    m_Localized: "\uBBF8\uB178"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932591
+    m_Localized: "\uD558\uD2F0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932592
+    m_Localized: "\uC544\uD2B8\uB808\uC2DC\uC544"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932593
+    m_Localized: "\uADF8\uB808\uC774\uC2A4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932594
+    m_Localized: "\uC544\uB4DC\uB9AC\uC544"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932595
+    m_Localized: "\uD074\uB808\uC774"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932596
+    m_Localized: "\uB9C8\uB9AC\uC5D0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932597
+    m_Localized: "\uC624\uB370\uD2B8"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932598
+    m_Localized: "\uC138\uC774\uB77C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932599
+    m_Localized: "\uBCA8\uB77C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932600
+    m_Localized: "\uB7EC\uBE0C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932601
+    m_Localized: "\uC5D4\uD0A4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932602
+    m_Localized: "\uC2DC\uB77C\uC720\uD0A4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932603
+    m_Localized: "\uCF54\uC6B0\uCE74\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932604
+    m_Localized: "\uC720\uB2C8\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932605
+    m_Localized: "\uBA54\uC774\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932606
+    m_Localized: "\uC2DC\uC774\uB098\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932607
+    m_Localized: "\uBA58\uC0E4\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932608
+    m_Localized: "\uBE44\uD0C0\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932609
+    m_Localized: "\uD544\uB9AC\uC544\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932610
+    m_Localized: "\uC5D8\uB9AC\uC2A4\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932611
+    m_Localized: "\uC0E4\uD0A4\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932612
+    m_Localized: "\uBE0C\uB9AC\uC62C\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932613
+    m_Localized: "\uBE14\uB9B0\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932614
+    m_Localized: "\uB8E8\uD0A4\uB2E4\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932615
+    m_Localized: "\uBBF8\uC0AC\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932616
+    m_Localized: "\uC5D0\uC774\uD504\uB9B4\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0
+      \uC788\uB294 \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932617
+    m_Localized: "\uB77C\uD0A4\uC720\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932618
+    m_Localized: "\uBCA0\uC778\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932619
+    m_Localized: "\uD14C\uD1A0\uB77C\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932620
+    m_Localized: "\uBBF8\uB178\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932621
+    m_Localized: "\uD558\uD2F0\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932622
+    m_Localized: "\uC544\uD2B8\uB808\uC2DC\uC544\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0
+      \uC788\uB294 \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932623
+    m_Localized: "\uADF8\uB808\uC774\uC2A4\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0
+      \uC788\uB294 \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932624
+    m_Localized: "\uC544\uB4DC\uB9AC\uC544\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0
+      \uC788\uB294 \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932625
+    m_Localized: "\uD074\uB808\uC774\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932626
+    m_Localized: "\uB9C8\uB9AC\uC5D0\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932627
+    m_Localized: "\uC624\uB370\uD2B8\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932628
+    m_Localized: "\uC138\uC774\uB77C\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932629
+    m_Localized: "\uBCA8\uB77C\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932630
+    m_Localized: "\uB7EC\uBE0C\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932631
+    m_Localized: "\uC5D4\uD0A4\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932632
+    m_Localized: "\uC2DC\uB77C\uC720\uD0A4\uC758 \uAE30\uC5B5\uC744 \uB2F4\uACE0
+      \uC788\uB294 \uC2E0\uBE44\uB85C\uC6B4 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932633
+    m_Localized: "\uC18D\uC131\uC11D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932634
+    m_Localized: "\uD750\uB9BF\uD55C \uAE30\uC0AC\uC758 \uAE30\uC5B5\uC870\uAC01"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932635
+    m_Localized: "\uC804\uD22C \uC2DC\uBBAC\uB808\uC774\uC158\uC744 \uD1B5\uD574
+      \uD68D\uB4DD\uD55C \uD3EC\uC778\uD2B8\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932636
+    m_Localized: "\uC2A4\uD154\uB77C \uB098\uC774\uCE20\uB4E4\uC774 \uC990\uACA8\uB9C8\uC2DC\uB294
+      \uC74C\uB8CC\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932637
+    m_Localized: "\uCE90\uB9AD\uD130 \uBAA8\uC9D1 \uC2DC \uD544\uC694\uD55C \uD2F0\uCF13\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932638
+    m_Localized: "\uBB34\uAE30 \uBAA8\uC9D1 \uC2DC \uD544\uC694\uD55C \uD2F0\uCF13\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932639
+    m_Localized: "\uAD00\uCE21\uC790\uC758 \uACBD\uD5D8\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932640
+    m_Localized: "\uC804\uD22C \uB370\uC774\uD130\uAC00 \uD3EC\uD568\uB418\uC5B4
+      \uC788\uB294 \uCE72\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932641
+    m_Localized: "\uC544\uB808\uB098\uC5D0 \uC785\uC7A5\uD560 \uC218 \uC788\uB294
+      \uD2F0\uCF13\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932642
+    m_Localized: "\uAC74\uC124\uC5D0 \uD544\uC694\uD55C \uB2E4\uC591\uD55C \uC7AC\uB8CC\uAC00
+      \uB4E4\uC5B4\uAC00\uC788\uB294 \uC0C1\uC790\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932643
+    m_Localized: "\uAE30\uC0AC\uB4E4\uC758 \uD65C\uB825\uC744 \uBD81\uB3CB\uC544
+      \uC8FC\uB294 \uC2E0\uBE44\uD55C \uAE30\uC6B4\uC744 \uB2F4\uC740 \uD050\uBE0C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932644
+    m_Localized: "\uBD88\uC758 \uAE30\uC6B4\uC744 \uD488\uACE0 \uC788\uB294 \uC2E0\uBE44\uD55C
+      \uD050\uBE0C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932645
+    m_Localized: "\uBC14\uB78C\uC758 \uAE30\uC6B4\uC744 \uD488\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uD55C \uD050\uBE0C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932646
+    m_Localized: "\uB300\uC9C0\uC758 \uAE30\uC6B4\uC744 \uD488\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uD55C \uD050\uBE0C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932647
+    m_Localized: "\uC804\uAE30\uC758 \uAE30\uC6B4\uC744 \uD488\uACE0 \uC788\uB294
+      \uC2E0\uBE44\uD55C \uD050\uBE0C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932648
+    m_Localized: "\uBB3C\uC758 \uAE30\uC6B4\uC744 \uD488\uACE0 \uC788\uB294 \uC2E0\uBE44\uD55C
+      \uD050\uBE0C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932649
+    m_Localized: "\uB178\uBE14\uB808\uC2A4 \uC131\uB2E8\uC6D0\uB4E4\uC5D0\uAC8C \uC6A9\uAE30\uB97C
+      \uC8FC\uB294 \uD050\uBE0C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932650
+    m_Localized: "\uD2B8\uB808\uBE14\uC288\uD130 \uC131\uB2E8\uC6D0\uB4E4\uC5D0\uAC8C
+      \uC6A9\uAE30\uB97C \uC8FC\uB294 \uD050\uBE0C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932651
+    m_Localized: "\uC288\uD37C\uB178\uBC14 \uC131\uB2E8\uC6D0\uB4E4\uC5D0\uAC8C \uC6A9\uAE30\uB97C
+      \uC8FC\uB294 \uD050\uBE0C\uC785\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932652
+    m_Localized: "\uD5C8\uBE14\uC758 \uC8FC\uC694 \uB3D9\uB825\uC6D0\uC73C\uB85C\uC11C
+      \uC5C4\uCCAD\uB09C \uC5D0\uB108\uC9C0\uAC00 \uC751\uCD95\uB418\uC5B4 \uC788\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932653
+    m_Localized: Simulation Room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932654
+    m_Localized: Flame Wastes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932655
+    m_Localized: Frozen City
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932656
+    m_Localized: Forgotten Desert
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932657
+    m_Localized: Forest of Beasts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932658
+    m_Localized: Lumine City
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932659
+    m_Localized: Clear Stage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932660
+    m_Localized: Clear within 30 seconds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932661
+    m_Localized: Clear without losing any Stella Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932662
+    m_Localized: <b>Strategy 1.</b> <color=#F75D32>Summon</color> new Stella Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932663
+    m_Localized: <b>Strategy 2.</b> Use Stella Knights <color=#F75D32>Synergy</color>
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932664
+    m_Localized: <b>Strategy 3.</b> <color=#F75D32>Reposition</color> Stella Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932665
+    m_Localized: Mission 1. Into the Flame Wastes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932666
+    m_Localized: Mission 2. Lava Region
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932667
+    m_Localized: Mission 3. Giant Wall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932668
+    m_Localized: Mission 4. Formidable Foe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932669
+    m_Localized: Mission 5. Alice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932670
+    m_Localized: Mission 6. Alice Joins the Team
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932671
+    m_Localized: Mission 7. Water Synergy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932672
+    m_Localized: Mission 8. Ongoing Battle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932673
+    m_Localized: Mission 9. Combat Trial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932674
+    m_Localized: Mission 10. Giant Monster
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932675
+    m_Localized: Mission 11. Summon a Companion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932676
+    m_Localized: Mission 12. Reorganize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932677
+    m_Localized: Mission 13. Combat Trial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932678
+    m_Localized: Mission 14. Confirm New Member
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932679
+    m_Localized: Mission 15. Fire Mage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932680
+    m_Localized: Mission 16. Blin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932681
+    m_Localized: Mission 17. Attendance Register
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932682
+    m_Localized: Mission 18. To the Frozen City
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932683
+    m_Localized: Mission 19. Glacial Region
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932684
+    m_Localized: Mission 20. The Assassin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932685
+    m_Localized: Mission 21. The Blind Swordsman
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932686
+    m_Localized: Mission 22. Sheena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932687
+    m_Localized: Mission 23. Arena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932688
+    m_Localized: Mission 24. Joins the War
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932689
+    m_Localized: Mission 25. Use the Assassin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932690
+    m_Localized: Mission 26. The Ranger of Darkness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932691
+    m_Localized: Mission 27. Recruit Companions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932692
+    m_Localized: Mission 28. Reorganize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932693
+    m_Localized: Mission 29. Combat Trial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932694
+    m_Localized: Mission 30. Additional Deployment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932695
+    m_Localized: Mission 31. Spirit of the Apostle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932696
+    m_Localized: Mission 32. Spirit of the Apostle 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932697
+    m_Localized: Mission 33. The Ice Queen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932698
+    m_Localized: Mission 34. The White Reaper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932699
+    m_Localized: "Mission 35. The Ice Queen\u2019s Identity"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932700
+    m_Localized: Mission 36. To the Forgotten Desert
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932701
+    m_Localized: Mission 37. The Genius Engineer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932702
+    m_Localized: Mission 38. Mino
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932703
+    m_Localized: Mission 39. Mino Joins the Team
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932704
+    m_Localized: Mission 40. Ancient Relic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932705
+    m_Localized: Mission 41. Relic Exploration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932706
+    m_Localized: Mission 42. The Relic Guardian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932707
+    m_Localized: Mission 43. The First Relic Piece
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932708
+    m_Localized: "Mission 44. Mino\u2019s Objective"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932709
+    m_Localized: Mission 45. The Ultimate Weapon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932710
+    m_Localized: Mission 46. The Third Trial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932711
+    m_Localized: Mission 47. Summon a Companion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932712
+    m_Localized: Mission 48. Reorganize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932713
+    m_Localized: Mission 49. As It Is
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932714
+    m_Localized: Mission 50. Penetrating Power
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932715
+    m_Localized: Mission 51. Final Piece
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932716
+    m_Localized: Mission 52. The One Who Arrived First
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932717
+    m_Localized: Mission 53. The Destroyer of Earth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932718
+    m_Localized: Mission 54. Tetora
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932719
+    m_Localized: Mission 55. Forest of Beasts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932720
+    m_Localized: Mission 56. Rebel Forces
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932721
+    m_Localized: Mission 57. MAID
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932722
+    m_Localized: Mission 58. Surprise Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932723
+    m_Localized: Mission 59. Circumstantial Evidence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932724
+    m_Localized: Mission 60. Circumstantial Evidence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932725
+    m_Localized: Mission 61. Recruit Companions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932726
+    m_Localized: Mission 62. Reorganize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932727
+    m_Localized: Mission 63. Face Each Other
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932728
+    m_Localized: Mission 64. Assassination
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932729
+    m_Localized: Mission 65. Hardline Policy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932730
+    m_Localized: Mission 66. Circumstantial Evidence 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932731
+    m_Localized: "Mission 67. Philia\u2019s Past"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932732
+    m_Localized: "Mission 68. Philia\u2019s Past 2"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932733
+    m_Localized: Mission 69. April
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932734
+    m_Localized: "Mission 70. May\u2019s Decision"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932735
+    m_Localized: Mission 71. Giant Monster
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932736
+    m_Localized: Mission 72. May
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932737
+    m_Localized: Mission 73. Official Announcement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932738
+    m_Localized: Mission 74. Last Appearance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932739
+    m_Localized: Mission 75. To Headquarters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932740
+    m_Localized: Mission 76. The Chase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932741
+    m_Localized: Mission 77. Behind the Shadow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932742
+    m_Localized: Mission 78. April and May
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932743
+    m_Localized: Mission 79. Specimen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932744
+    m_Localized: Mission 80. Recruit Companions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932745
+    m_Localized: Mission 81. Reorganize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932746
+    m_Localized: Mission 82. Vanguard of Light
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932747
+    m_Localized: Mission 83. Light and Darkness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932748
+    m_Localized: Mission 84. Self-evident Truth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932749
+    m_Localized: Mission 85. The Moment of Decision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840160932750
+    m_Localized: Mission 86. A Sweet Lie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126144
+    m_Localized: Mission 87. The Brutal Truth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126145
+    m_Localized: Mission 88. The Moment of Decision 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126146
+    m_Localized: Mission 89. Atresia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126147
+    m_Localized: "Mission 90. Atresia\u2019s Past"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126148
+    m_Localized: Mission 91. Facing the Past
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126149
+    m_Localized: Mission 92. Hecate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126150
+    m_Localized: "Mission 93. Towards One\u2019s Faith"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126151
+    m_Localized: Clear Flame Wastes 2-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126152
+    m_Localized: Clear Flame Wastes 2-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126153
+    m_Localized: Clear Flame Wastes 2-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126154
+    m_Localized: Clear Flame Wastes 2-4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126155
+    m_Localized: Clear Flame Wastes 2-5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126156
+    m_Localized: "Achieve Alice\u2019s growth up to Lv. 3"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126157
+    m_Localized: 'Deploy Alice and
+
+      clear Flame Wastes 2-6'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126158
+    m_Localized: Clear Flame Wastes 2-7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126159
+    m_Localized: Clear Combat Trial Stage 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126160
+    m_Localized: Clear Flame Wastes 2-10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126161
+    m_Localized: Summon Stella Knights x10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126162
+    m_Localized: Reach Stella Knights Total Lv. 30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126163
+    m_Localized: Clear Combat Trial Stage 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126164
+    m_Localized: Clear Flame Wastes 2-11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126165
+    m_Localized: Clear Flame Wastes 2-13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126166
+    m_Localized: Clear Flame Wastes 2-15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126167
+    m_Localized: Check Attendance x1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126168
+    m_Localized: Clear Frozen City 3-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126169
+    m_Localized: Clear Frozen City 3-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126170
+    m_Localized: Clear Frozen City 3-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126171
+    m_Localized: Clear Frozen City 3-5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126172
+    m_Localized: "Achieve Sheena\u2019s growth up to Lv. 3"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126173
+    m_Localized: Participate once in Arena Battle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126174
+    m_Localized: Clear Frozen City 3-6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126175
+    m_Localized: Clear Frozen City 3-8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126176
+    m_Localized: Clear Frozen City 3-10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126177
+    m_Localized: Summon x10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126178
+    m_Localized: Reach Stella Knights Total Lv. 85
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126179
+    m_Localized: Clear Combat Trial Stage 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126180
+    m_Localized: Clear Frozen City 3-11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126181
+    m_Localized: Clear Frozen City 3-13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126182
+    m_Localized: Clear Frozen City 3-15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126183
+    m_Localized: Clear Frozen City 3-16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126184
+    m_Localized: Clear Frozen City 3-18
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126185
+    m_Localized: Clear Frozen City 3-20
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126186
+    m_Localized: Clear Forgotten Desert 4-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126187
+    m_Localized: Clear Forgotten Desert 4-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126188
+    m_Localized: Clear Forgotten Desert 4-5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126189
+    m_Localized: "Achieve Mino\u2019s growth to Lv. 5"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126190
+    m_Localized: Clear Forgotten Desert 4-6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126191
+    m_Localized: Clear Forgotten Desert 4-8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126192
+    m_Localized: Clear Forgotten Desert 4-10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126193
+    m_Localized: Clear Forgotten Desert 4-11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126194
+    m_Localized: Clear Forgotten Desert 4-13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126195
+    m_Localized: Clear Forgotten Desert 4-15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126196
+    m_Localized: Clear Combat Trial Stage 4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126197
+    m_Localized: Summon Stella Knights x10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126198
+    m_Localized: Reach Stella Knights Total Lv. 250
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126199
+    m_Localized: Clear Forgotten Desert 4-16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126200
+    m_Localized: Clear Forgotten Desert 4-18
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126201
+    m_Localized: Clear Forgotten Desert 4-20
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126202
+    m_Localized: Clear Forgotten Desert 4-21
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126203
+    m_Localized: Clear Forgotten Desert 4-23
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126204
+    m_Localized: Clear Forgotten Desert 4-25
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126205
+    m_Localized: Clear Forest of Beast 5-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126206
+    m_Localized: Clear Forest of Beast 5-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126207
+    m_Localized: Clear Forest of Beast 5-5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126208
+    m_Localized: Clear Forest of Beast 5-6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126209
+    m_Localized: Clear Forest of Beast 5-8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126210
+    m_Localized: Clear Forest of Beast 5-10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126211
+    m_Localized: Summon Stella Knights x10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126212
+    m_Localized: Reach Stella Knights Total Lv. 280
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126213
+    m_Localized: Clear Forest of Beast 5-11
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126214
+    m_Localized: Clear Forest of Beast 5-13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126215
+    m_Localized: Clear Forest of Beast 5-15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126216
+    m_Localized: Clear Forest of Beast 5-16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126217
+    m_Localized: Clear Forest of Beast 5-18
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126218
+    m_Localized: Clear Forest of Beast 5-20
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126219
+    m_Localized: Clear Forest of Beast 5-21
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126220
+    m_Localized: Clear Forest of Beast 5-23
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126221
+    m_Localized: Clear Forest of Beast 5-25
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126222
+    m_Localized: Clear Forest of Beast 5-26
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126223
+    m_Localized: Clear Forest of Beast 5-28
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126224
+    m_Localized: Clear Forest of Beast 5-30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126225
+    m_Localized: Clear Lumine City 6-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126226
+    m_Localized: Clear Lumine City 6-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126227
+    m_Localized: Clear Lumine City 6-6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126228
+    m_Localized: Clear Lumine City 6-9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126229
+    m_Localized: Clear Lumine City 6-12
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126230
+    m_Localized: Summon Stella Knights x10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126231
+    m_Localized: Reach Stella Knights Total Lv. 150
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126232
+    m_Localized: Clear Lumine City 6-14
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126233
+    m_Localized: Clear Lumine City 6-16
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126234
+    m_Localized: Clear Lumine City 6-18
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126235
+    m_Localized: Clear Lumine City 6-20
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126236
+    m_Localized: Clear Lumine City 6-22
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126237
+    m_Localized: Clear Lumine City 6-24
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126238
+    m_Localized: Clear Lumine City 6-26
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126239
+    m_Localized: Clear Lumine City 6-28
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126240
+    m_Localized: Clear Lumine City 6-30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126241
+    m_Localized: Clear Lumine City 6-32
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126242
+    m_Localized: Clear Lumine City 6-34
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495840165126243
+    m_Localized: Clear Lumine City 6-36
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
