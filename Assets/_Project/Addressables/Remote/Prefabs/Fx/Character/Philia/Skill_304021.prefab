@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1219353059771426943}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.18696, y: 1.0501597, z: 0.18099}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1997555, y: 1.1997555, z: 1.1197717}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4870,7 +4870,7 @@ ParticleSystemRenderer:
   m_SortingFudge: -1
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 0
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
@@ -4918,7 +4918,7 @@ Transform:
   m_GameObject: {fileID: 3490653330454007112}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.18696, y: 1.0501597, z: 0.18099}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.599674, y: 1.599674, z: 1.599674}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9761,7 +9761,7 @@ ParticleSystemRenderer:
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 0
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
@@ -14661,7 +14661,7 @@ Transform:
   m_GameObject: {fileID: 6857618825059571733}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.18696, y: 1.0501597, z: 0.18099}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.599674, y: 1.599674, z: 1.599674}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19504,7 +19504,7 @@ ParticleSystemRenderer:
   m_SortingFudge: -1
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 0
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
@@ -19552,7 +19552,7 @@ Transform:
   m_GameObject: {fileID: 7156772803482160510}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.18696, y: 1.0501597, z: 0.18099}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.599674, y: 1.599674, z: 1.599674}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24395,7 +24395,7 @@ ParticleSystemRenderer:
   m_SortingFudge: -1
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 0
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
@@ -24443,7 +24443,7 @@ Transform:
   m_GameObject: {fileID: 7979317280354455381}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.18696, y: 1.0501597, z: 0.18099}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.599674, y: 1.599674, z: 1.599674}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29286,7 +29286,7 @@ ParticleSystemRenderer:
   m_SortingFudge: -1
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 0
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
