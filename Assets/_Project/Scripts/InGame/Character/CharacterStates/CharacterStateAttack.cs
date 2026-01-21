@@ -145,7 +145,7 @@ public class CharacterStateAttack : CharacterStateBase
                 vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction);
 
                 movement.SetData(vfxProjectile.CachedTr.position,
-                    characCtrl.Target.GetCharacterView().CachedTr.position, _vfxProjectileSpeed);
+                    characCtrl.Target.SkillMiddleFXTransformFollowable.GetPosition(), _vfxProjectileSpeed);
                 vfxProjectile.Initialize(false, movement);
 
                 void OnReachedTargetHandler()

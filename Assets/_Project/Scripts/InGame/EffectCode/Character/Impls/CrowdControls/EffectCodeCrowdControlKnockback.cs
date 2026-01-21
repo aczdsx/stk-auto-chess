@@ -26,7 +26,8 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
     private ObfuscatorFloat downFactor;
 
     private InGameTile _inGameTile;
-    private PrimeTween.Ease _ease = Ease.InCirc;
+    // private PrimeTween.Ease _ease = Ease.InCirc;
+    private Ease _ease = Ease.OutExpo;
 
     private event Action<InGameTile> OnKnockbackEnd = null;
     public void SetOnKnockbackEndHandler(Action<InGameTile> onKnockbackEnd)

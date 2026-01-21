@@ -232,6 +232,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5275546775223551660, guid: fc41a725217eee44ab689ad83c7c0076, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 1868343984831557031}
     - target: {fileID: 7152282446483138240, guid: fc41a725217eee44ab689ad83c7c0076, type: 3}
       propertyPath: m_RenderMode
       value: 0
@@ -246,3 +250,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc41a725217eee44ab689ad83c7c0076, type: 3}
+--- !u!198 &1868343984831557031 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3923081698734150663, guid: fc41a725217eee44ab689ad83c7c0076, type: 3}
+  m_PrefabInstance: {fileID: 3430659835027126688}
+  m_PrefabAsset: {fileID: 0}

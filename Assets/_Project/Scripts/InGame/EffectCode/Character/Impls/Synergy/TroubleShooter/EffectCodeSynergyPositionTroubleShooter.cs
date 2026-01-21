@@ -144,7 +144,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
                 case 1:
                     ApplyDynamiteToTile(troubleShooterSynergyList.Find(synergy => synergy.grade == 1));
                     InjectSupplyEffectCode(troubleShooterSynergyList[1]);
-                    InjectDroppingBombsEffectCode(troubleShooterSynergyList.Find(synergy => synergy.grade == 3));
+                    // InjectDroppingBombsEffectCode(troubleShooterSynergyList.Find(synergy => synergy.grade == 3));
                     break;
                 case 2:
                     // AddSupplyEffectCode(troubleShooterSynergyList[1]);
@@ -186,7 +186,8 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
     {
         Span<double> stats = stackalloc double[1];
         stats.Clear();
-        stats[0] = synergyData.effect_stat_value_1;//Time
+        // stats[0] = synergyData.effect_stat_value_1;//Time
+        stats[0] = 3f;
         var effectCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.BATTLE_ITEM_SUPPLY,
         0, stats);
 

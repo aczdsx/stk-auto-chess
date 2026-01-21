@@ -61,23 +61,19 @@ namespace CookApps.BattleSystem
                     effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
                     break;
                 case 1:
-                    effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
 
-                    // effectVfxNameType = InGameVfxNameType.fx_common_supply_vitamin;
+                    effectVfxNameType = InGameVfxNameType.fx_common_supply_vitamin;
                     break;
                 case 2:
-                    effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
 
-                    // effectVfxNameType = InGameVfxNameType.fx_common_supply_emp_bomb;
+                    effectVfxNameType = InGameVfxNameType.fx_common_supply_emp_bomb;
                     break;
                 case 3:
-                    effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
-                    // effectVfxNameType = InGameVfxNameType.fx_common_supply_energy_drink;
+                    effectVfxNameType = InGameVfxNameType.fx_common_supply_energy_drink;
                     break;
                 case 4:
-                    effectVfxNameType = InGameVfxNameType.fx_common_supply_chocobar;
 
-                    // effectVfxNameType = InGameVfxNameType.fx_common_supply_emergency_armor;
+                    effectVfxNameType = InGameVfxNameType.fx_common_supply_emergency_armor;
                     break;
                 default:
                     break;
@@ -105,13 +101,13 @@ namespace CookApps.BattleSystem
             SpawnSupplyVfx(troubleShooterCharacterList[randomIndex], effectVfxNameType);
         }
 
-        private void SpawnSupplyVfx(CharacterController targetCharacter, InGameVfxNameType vfxNameType)
+        private void SpawnSupplyVfx(CharacterController targetCharacter, InGameVfxNameType supplyVfxNameType)
         {
             // 시작 위치: 캐릭터 위쪽 높은 위치
             Vector3 startPos = targetCharacter.Position3D + Vector3.up * 10f;
 
             // VFX 생성
-            var supplyVfx = InGameVfxManager.Instance.AddInGameVfx(vfxNameType, startPos);
+            var supplyVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_supply_varient, startPos);
 
             // 낙하산 이동 방식 사용
             var movement = InGameVfxMovementPool.Get<InGameVfxMovementParachute>();
@@ -129,7 +125,7 @@ namespace CookApps.BattleSystem
             // 낙하산이 목표 지점에 도착했을 때 처리
             void OnReachedTargetHandler()
             {
-                ApplySupplyEffectCode(targetCharacter, vfxNameType);
+                ApplySupplyEffectCode(targetCharacter, supplyVfxNameType);
                 //여기서 능력치 부여
                 supplyVfx.Remove();
             }
@@ -145,6 +141,7 @@ namespace CookApps.BattleSystem
             var tSData = SpecDataManager.Instance.GetSpecSynergyList(synergyType: SynergyType.TROUBLESHOOTER);
             if (tSData == null || tSData.Count == 0)
                 return;
+            InGameVfxManager.Instance.AddInGameVfx(vfxNameType, targetCharacter.SkillMiddleFXTransformFollowable.GetPosition());
 
             switch (vfxNameType)
             {
