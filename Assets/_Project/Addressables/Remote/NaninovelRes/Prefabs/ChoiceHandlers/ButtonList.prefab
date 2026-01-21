@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224251318736265298}
   - component: {fileID: 223322825464777960}
-  - component: {fileID: 114732358970665672}
+  - component: {fileID: 2806471468450295848}
   - component: {fileID: 225470808532994266}
   - component: {fileID: 114515851666532020}
   - component: {fileID: 114704911712777760}
@@ -65,7 +65,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
---- !u!114 &114732358970665672
+--- !u!114 &2806471468450295848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,16 +74,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1656062633739670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 150c8e247d0d543409d4862cb8a09cd9, type: 3}
+  m_Script: {fileID: 11500000, guid: df4be5d3f447f4cbeb1e2ae160d0fab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   disableInteraction: 0
   visibleOnAwake: 0
   controlOpacity: 1
   fadeTime: 0.3
-  ignoreTimeScale: 0
+  ignoreTimeScale: 1
   focusObject: {fileID: 0}
-  focusMode: 1
+  focusMode: 0
   onShow:
     m_PersistentCalls:
       m_Calls: []
@@ -94,18 +94,19 @@ MonoBehaviour:
   hideInThumbnail: 0
   saveVisibilityState: 1
   blockInputWhenVisible: 0
-  allowedInputs: []
-  disableBlockedInputFeatures: 1
   adaptToInputMode: 1
+  allowedSamplers: []
   modalUI: 0
   modalGroup: 
   buttonControls: {fileID: 0}
-  keyboardControls: {fileID: 0}
-  gamepadControls: {fileID: 0}
+  controlsLegend: {fileID: 0}
   fontChangeConfiguration: []
   buttonsContainer: {fileID: 224198401566905306}
   defaultButtonPrefab: {fileID: 114935234543976500, guid: e5a91d0fba3e65140b63288f4e385a6f, type: 3}
   focusChoiceButtons: 1
+  _shakeDuration: 0.5
+  _shakeStrength: 10
+  _shakeVibrato: 10
 --- !u!225 &225470808532994266
 CanvasGroup:
   m_ObjectHideFlags: 0

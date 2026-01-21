@@ -290,12 +290,12 @@ namespace CookApps.AutoBattler
             dragRect.localPosition = new Vector3(localX, localY, 0f);
 
             // A→B 방향으로 회전
-            Vector2 direction = destUV - sourceUV;
-            if (direction.sqrMagnitude > 0.0001f)
-            {
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                dragRect.localRotation = Quaternion.Euler(0f, 0f, angle);
-            }
+            // Vector2 direction = destUV - sourceUV;
+            // if (direction.sqrMagnitude > 0.0001f)
+            // {
+            //     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //     dragRect.localRotation = Quaternion.Euler(0f, 0f, angle);
+            // }
         }
 
         /// <summary>

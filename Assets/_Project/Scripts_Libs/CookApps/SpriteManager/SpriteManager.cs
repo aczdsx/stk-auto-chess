@@ -14,7 +14,7 @@ namespace CookApps.TeamBattle
             public ulong hash;
             public AssetReferenceT<SpriteAtlas> atlasRef;
             public SpriteAtlas atlas;
-            public Dictionary<string, Sprite> sprites = new ();
+            public Dictionary<string, Sprite> sprites = new();
             public int refCount;
         }
         private class SpriteCache
@@ -46,7 +46,10 @@ namespace CookApps.TeamBattle
                     var assetRef = cache.atlasRef;
                     var oper = assetRef.OperationHandle;
                     if (!oper.IsValid())
+                    {
+                        Debug.LogError($"SpriteManager: GetSprite: assetRef is not valid: {spriteName}");
                         oper = assetRef.LoadAssetAsync();
+                    }
                     await oper.WaitUntilDone();
                     if (!oper.IsValid())
                         return null;
@@ -57,7 +60,7 @@ namespace CookApps.TeamBattle
                 cache.sprites[spriteName] = sprite;
                 return sprite;
             }
-            
+
             // standalone sprite
             {
                 if (spriteCaches.TryGetValue(spriteName.djb2Hash(), out var cache))
@@ -103,7 +106,7 @@ namespace CookApps.TeamBattle
                 cache.atlasRef.ReleaseAsset();
                 return;
             }
-            
+
             // standalone sprite
             {
                 if (spriteCaches.TryGetValue(spriteName.djb2Hash(), out var cache))
@@ -143,7 +146,7 @@ namespace CookApps.TeamBattle
                 });
             }
         }
-        
+
         public void UnloadAllSprites()
         {
             foreach (var cache in atlasCaches.Values)
