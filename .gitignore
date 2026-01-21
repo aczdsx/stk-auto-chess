@@ -100,3 +100,8 @@ plan.md
 Assets/TEMP_UNITY_COMMON
 Assets/AddressableAssetsData/link.xml*
 Assets/StreamingAssets/specdata*
+
+# Ignored by changes analysis
+**/AGENTS.md.meta
+Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Mask.mat
+Assets/_Project/Addressables/BuiltIn/Materials/UI/UI_TexturedCircleDotPattern.mat
