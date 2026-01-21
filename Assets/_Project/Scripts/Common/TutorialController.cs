@@ -33,6 +33,7 @@ public class TutorialController : MonoBehaviour
     [Header("3D World Target Arrow")]
     [SerializeField] private RectTransform _worldArrowRectTransform;
     [SerializeField] private SpriteLoader _spriteLoaderCharacter;
+    [SerializeField] private TextMeshProUGUI _characterNameText;
     [SerializeField] private Canvas _tutorialCanvas;
     [SerializeField] private GameObject _dragObj;
 
@@ -189,6 +190,7 @@ public class TutorialController : MonoBehaviour
             var characterInfo = SpecDataManager.Instance.GetCharacterData(CurrentSpecTutorial.prefab_id);//id로 가져와져서 바꿔야함.
 
             _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterInfo.prefab_id)).Forget();
+            _characterNameText.text = LanguageManager.Instance.GetDefaultText(characterInfo.name_token);
             string tutorialText = CurrentSpecTutorial.desc_key;
             _descText.text = tutorialText;
 

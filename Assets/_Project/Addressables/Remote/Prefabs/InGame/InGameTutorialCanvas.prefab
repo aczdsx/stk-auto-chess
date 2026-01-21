@@ -290,7 +290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4793294829261208487
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2266,12 +2266,12 @@ MonoBehaviour:
   _arrowRectTransform: {fileID: 1739892905590343195}
   _tutorialAnimator: {fileID: 2088504552747561980}
   _nextObj: {fileID: 5408735106140569227}
-  _nameText: {fileID: 8448242272155920103}
   _descText: {fileID: 4456396397753583302}
   _targetSpawnTransform: {fileID: 615909104438107504}
   _dimmedImage: {fileID: 1749412231986122217}
-  _worldArrowRectTransform: {fileID: 0}
+  _worldArrowRectTransform: {fileID: 1739892905590343195}
   _spriteLoaderCharacter: {fileID: 1335074474554754720}
+  _characterNameText: {fileID: 8448242272155920103}
   _tutorialCanvas: {fileID: 5843720747380964665}
   _dragObj: {fileID: 2574439962240884363}
   _maskMaterial: {fileID: 2100000, guid: 6e5a32a1d97da4f858b6f2eee6476721, type: 2}

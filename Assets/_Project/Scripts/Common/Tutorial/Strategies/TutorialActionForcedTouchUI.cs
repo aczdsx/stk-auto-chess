@@ -43,6 +43,7 @@ namespace CookApps.AutoBattler
 
             // 화살표 설정
             context.ArrowRectTransform.gameObject.SetActive(true);
+            context.WorldArrowRectTransform.gameObject.SetActive(true);
             Vector3 arrowTargetPosition = context.TargetUIObj.transform.localPosition;
             context.ArrowRectTransform.localPosition = new Vector3(
                 arrowTargetPosition.x,
@@ -73,6 +74,7 @@ namespace CookApps.AutoBattler
 
             // 화살표 비활성화
             context.ArrowRectTransform.gameObject.SetActive(false);
+            context.WorldArrowRectTransform.gameObject.SetActive(false);
 
             // 버튼 원위치 복구
             if (context.OriginalParent != null && context.TargetUIObj != null)
