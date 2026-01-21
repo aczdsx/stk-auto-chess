@@ -10,6 +10,9 @@ public class TouchableBuilding : MonoBehaviour
     [SerializeField] private ElpisFacilityType facilityType;
 
     private ElpisDataBridge _elpisDataBridge;
+    private Vector3 _mouseDownPosition;
+    private bool _isDragging;
+    private const float DragThreshold = 10f;
 
     private void Awake()
     {
@@ -19,6 +22,30 @@ public class TouchableBuilding : MonoBehaviour
     private void OnMouseDown()
     {
         if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        _mouseDownPosition = Input.mousePosition;
+        _isDragging = false;
+    }
+
+    private void OnMouseDrag()
+    {
+        if (_isDragging)
+            return;
+
+        var dragDistance = Vector3.Distance(_mouseDownPosition, Input.mousePosition);
+        if (dragDistance > DragThreshold)
+        {
+            _isDragging = true;
+        }
+    }
+
+    private void OnMouseUp()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        if (_isDragging)
             return;
 
         OnTouchBuilding().Forget();

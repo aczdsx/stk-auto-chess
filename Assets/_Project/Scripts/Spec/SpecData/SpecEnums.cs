@@ -41,6 +41,7 @@ namespace CookApps.AutoBattler
         DEF_UP = 30,
         CRIT_RATE_UP = 31,
         ATK_SPEED_UP = 32,
+        CRIT_POWER_UP = 33,
         BATTLE_ITEM_SUPERNOVA = 96101,
         BATTLE_ITEM_SUPERNOVA_DRAGGING_EFFECT = 96102,
         BATTLE_ITEM_DYNAMITE = 96201,

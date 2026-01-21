@@ -507,6 +507,13 @@ namespace CookApps.AutoBattler
             {
                 lobbyNameTag.alpha = Mathf.MoveTowards(currentAlpha, targetNameTagAlpha, AlphaFadeSpeed * Time.deltaTime);
             }
+
+            // alpha가 0이면 비활성화, 아니면 활성화 (상태 변경 시에만 SetActive 호출)
+            var shouldBeActive = lobbyNameTag.alpha > 0f;
+            if (lobbyNameTag.gameObject.activeSelf != shouldBeActive)
+            {
+                lobbyNameTag.gameObject.SetActive(shouldBeActive);
+            }
         }
 
         public void StartConstructionEffect()

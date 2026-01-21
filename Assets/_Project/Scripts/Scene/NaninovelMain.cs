@@ -345,7 +345,7 @@ namespace CookApps.AutoBattler
                 return string.Empty;
             }
 
-            var path = "Scripts/" + scriptName;
+            var path = /*"Scripts/" + */scriptName;
 
             // 확장자 제거 (.nani)
             if (path.EndsWith(".nani"))
@@ -393,6 +393,27 @@ namespace CookApps.AutoBattler
             {
                 _scriptPlayer.Stop();
             }
+        }
+
+        /// <summary>
+        /// 스킵 버튼용 - 현재 스크립트를 즉시 종료하고 @end 로직 실행
+        /// </summary>
+        public async UniTaskVoid SkipToEndAsync()
+        {
+            if (_scriptPlayer == null) return;
+
+            Debug.Log("NaninovelMain: 스킵으로 즉시 종료");
+
+            // 현재 스크립트 중지
+            if (_scriptPlayer.Playing)
+            {
+                _scriptPlayer.Stop();
+            }
+
+            // @end와 동일한 종료 로직 실행
+            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+            await SceneTransition.FadeInAsync();
+            await ExecuteEndActionAsync();
         }
     }
 }

@@ -694,7 +694,7 @@ namespace CookApps.AutoBattler.Prologue
             UniTask.Create(async () =>
             {
                 await UniTask.Delay(3000);
-                ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(1.0f, 1);
+                ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(1.0f, 0.5f);
             }).Forget();
             await ActivateCharacterSkillWithWait(_witchCharacter, "마녀 광역 작동 안함", 1);
             _witchCharacter.AddNextState<CharacterStateReady>();
@@ -711,7 +711,7 @@ namespace CookApps.AutoBattler.Prologue
             if (_marieCharacter == null)
             {
                 // 마녀 뒤쪽 위치 찾기 (마녀 위치 기준)
-                int2 spawnPosition = _artesiaCharacter.CurrentTile.Int2Index + new int2(-1, 0);
+                int2 spawnPosition = _witchCharacter.CurrentTile.Int2Index + new int2(-2, 0);
                 InGameTile spawnTile = InGameObjectManager.Instance.InGameGrid.GetTile(spawnPosition);
 
                 // 위치가 점유되어 있으면 주변 빈 타일 찾기
@@ -722,6 +722,7 @@ namespace CookApps.AutoBattler.Prologue
 
                 if (spawnTile != null)
                 {
+                    await UniTask.NextFrame();
                     // 마리에 소환
                     int marieCharacterId = PrologueID.프롤로그마리에ID;
                     int marieLevel = 1; // [TODO] 레벨 설정 필요
@@ -736,19 +737,31 @@ namespace CookApps.AutoBattler.Prologue
                         typeof(CharacterStateIdle),
                         true,
                         HpBarType.Synergy);
+                    _marieCharacter.GetCharacterView().LookAt(spawnTile, _witchCharacter.CurrentTile);
                     _marieCharacter.AddNextState<CharacterStateReady>();
                     PrologueUtility.FindChildRecursive(_marieCharacter.GetCharacterView().CachedTr, "Synergy").gameObject.SetActive(false);
 
                     Debug.LogColor($"마리에 합류: {marieCharacterId} at ({spawnTile.X}, {spawnTile.Y})");
+                    await UniTask.NextFrame();
+                    if (_marieCharacter != null && _marieCharacter.IsAlive)
+                    {
+                        _marieCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKL);
+                        // 거의 동시에 마리에 스킬 이펙트 (마리에 디버프 스킬 발동)
+                        UniTask.Create(async () =>
+                        {
+                            await UniTask.Delay(500);
+                            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_17563405, _witchCharacter.SkillBottomFXTransformFollowable);
+                        }).Forget();
+                        await ActivateCharacterSkillWithWait(_marieCharacter, "마리에 스킬을 찾을 수 없습니다.");
+                        _marieCharacter.Target = _witchCharacter;
+                    }
+                    _marieCharacter.AddNextState<CharacterStateReady>();
                 }
             }
-            _marieCharacter.AddNextState<CharacterStateReady>();
-
-            await UniTask.Delay(1500); // 1.5초 대기
         }
 
         InGameVfx artesiaChargeVFX;
-        InGameVfx artesiaChargeVFX2;
+        InGameVfxArtesiaCharge artesiaChargeVFX2;
 
         // 7단계: 마리에 다운 (아트레시아 기모은 후 따라감, 마리에 먼저 공격)
         private async UniTask TriggerMarieDown()
@@ -757,26 +770,14 @@ namespace CookApps.AutoBattler.Prologue
             if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
             {
                 artesiaChargeVFX = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_aura_01, _artesiaCharacter.SkillRootTransformFollowable);
-                artesiaChargeVFX2 = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_prologue_artesia_charge, _artesiaCharacter.SkillRootTransformFollowable);
+                artesiaChargeVFX2 = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_prologue_artesia_charge, _artesiaCharacter.SkillRootTransformFollowable) as InGameVfxArtesiaCharge;
                 Debug.Log($"artesiaChargeVFX2 is null {artesiaChargeVFX2 == null}");
-                await UniTask.Delay(500);
+                await UniTask.Delay(600);
                 _artesiaCharacter.AddNextState<CharacterStateIdle>();
                 _artesiaCharacter.Target = _witchCharacter;
             }
-
-            // 마리에 마녀 공격
-            if (_marieCharacter != null && _marieCharacter.IsAlive)
-            {
-                // 거의 동시에 마리에 스킬 이펙트 (마리에 디버프 스킬 발동)
-                UniTask.Create(async () =>
-                {
-                    await UniTask.Delay(600);
-                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_17563405, _witchCharacter.SkillBottomFXTransformFollowable);
-                }).Forget();
-                await ActivateCharacterSkillWithWait(_marieCharacter, "마리에 스킬을 찾을 수 없습니다.");
-                _marieCharacter.Target = _witchCharacter;
-
-            }
+            _marieCharacter.AddNextState<CharacterStateIdle>();
+            _marieCharacter.Target = _witchCharacter;
 
             // 마녀 → 마리에 공격
             if (_witchCharacter != null && _witchCharacter.IsAlive)
@@ -807,12 +808,14 @@ namespace CookApps.AutoBattler.Prologue
             if (_artesiaCharacter != null)
             {
                 artesiaChargeVFX.Remove();
-                artesiaChargeVFX2.Remove();
+                artesiaChargeVFX2.TriggerExplosion();
                 artesiaChargeVFX = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_aura_03, _artesiaCharacter.SkillRootTransformFollowable);
             }
             await UniTask.Delay(1000); // 1초 대기
+            artesiaChargeVFX2.Clear();
+            artesiaChargeVFX2.Remove();
         }
-
+        
 
         // 9 단계 : 추후 하나의 다이얼로그 더 추가해서 해치웠을까요 물어보자.
         private async UniTask TriggerArtesiaSkill()

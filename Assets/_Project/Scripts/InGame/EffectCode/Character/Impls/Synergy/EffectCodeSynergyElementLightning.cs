@@ -30,8 +30,8 @@ public partial class EffectCodeSynergyElementLightning : EffectCodeSynergyBase
         _criticalRateValue = codeInfo.GetCodeStatToFloat(0);
         _criticalPowerValue = codeInfo.GetCodeStatToFloat(1);
 
-        base.RemoveSynergyAddEffectCodeIds((long)EffectCodeNameType.CRIT_RATE_PERCENT_UP);
-        base.RemoveSynergyAddEffectCodeIds((long)EffectCodeNameType.CRIT_POWER_PERCENT_UP);
+        base.RemoveSynergyAddEffectCodeIds((long)EffectCodeNameType.CRIT_RATE_UP);
+        base.RemoveSynergyAddEffectCodeIds((long)EffectCodeNameType.CRIT_POWER_UP);
         AddSynergyAddEffectCodeIds();   
     }
 
@@ -41,16 +41,12 @@ public partial class EffectCodeSynergyElementLightning : EffectCodeSynergyBase
         criticalStats.Clear();
         criticalStats[0] = _criticalRateValue * 0.01f;
 
-        Debug.LogColor($"번개시너지 원래 크,리 확률{owner.CriticalProb}% ", "green");
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_RATE_PERCENT_UP, owner, criticalStats, source);
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_RATE_PERCENT_UP);
-        Debug.LogColor($"번개시너지 오른 크리 확률 {owner.CriticalProb}% ", "green");
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_RATE_UP, owner, criticalStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_RATE_UP);
 
-        Debug.LogColor($"번개시너지 원래 크리 데미지 확률{owner.CriticalDamageRate}% ", "green");
         criticalStats[0] = _criticalPowerValue * 0.01f;
-        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_POWER_PERCENT_UP, owner, criticalStats, source);
-        Debug.LogColor($"번개시너지 오른 크리 데미지 확률 {owner.CriticalDamageRate}% ", "green");
-        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_POWER_PERCENT_UP);
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CRIT_POWER_UP, owner, criticalStats, source);
+        base.AddSynergyAddEffectCodeIds(EffectCodeNameType.CRIT_POWER_UP);
     }
 
     public override void OnPreRemoved()

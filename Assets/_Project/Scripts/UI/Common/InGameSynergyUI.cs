@@ -127,7 +127,6 @@ namespace CookApps.AutoBattler
                 _countText.gameObject.SetActive(true);
             }
             _countText.text = $"{count}/{nextData.min_int}";
-            _countText.color = color;
             if(isAsterismSynergyType){
                 Debug.LogColor($"SynergyUI!! [{synergyType}] {isActive}/{_starAsterismGradeGuageImage.fillAmount}", "green");
             }

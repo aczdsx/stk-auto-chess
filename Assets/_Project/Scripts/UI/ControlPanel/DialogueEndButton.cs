@@ -1,19 +1,12 @@
+using CookApps.AutoBattler;
 using Naninovel;
 
 /// <summary>
 /// 대화 종료 버튼.
-/// 확인 팝업 후 스크립트 마지막 명령어(@end)로 점프하여 종료합니다.
+/// 확인 팝업 후 즉시 종료하여 @end 로직을 실행합니다.
 /// </summary>
 public class DialogueEndButton : ScriptableButton
 {
-    private IScriptPlayer player;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        player = Engine.GetService<IScriptPlayer>();
-    }
-
     protected override void OnButtonClick()
     {
         ShowConfirmPopup();
@@ -36,25 +29,6 @@ public class DialogueEndButton : ScriptableButton
 
     private void OnConfirmEnd()
     {
-        JumpToEndLabel();
-    }
-
-    private void JumpToEndLabel()
-    {
-        if (player == null || player.PlayedScript == null)
-        {
-            Debug.LogWarning("[DialogueEndButton] 재생 중인 스크립트가 없습니다.");
-            return;
-        }
-
-        // 마지막 명령어(@end)로 점프
-        var lastIndex = player.Playlist.Count - 1;
-        player.Resume(lastIndex);
-
-        // 입력 대기 해제하여 바로 실행
-        if (player.WaitingForInput)
-        {
-            player.SetWaitingForInputEnabled(false);
-        }
+        NaninovelMain.GetNaninovelMain()?.SkipToEndAsync();
     }
 }

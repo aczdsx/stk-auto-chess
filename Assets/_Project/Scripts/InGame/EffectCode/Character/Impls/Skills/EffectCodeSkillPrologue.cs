@@ -709,43 +709,7 @@ namespace CookApps.AutoBattler.Prologue
 
             if (executeIndex == 0)
             {
-                // 이동 가능한 타겟 찾기
-                _targetCharacter = FindValidTarget();
-                if (_targetCharacter == null)
-                    return;
-
-                // 타겟의 뒤로 이동할 타일 찾기
-                InGameTile targetBackTile = GetTileBehindTarget(owner.CurrentTile, _targetCharacter.CurrentTile);
-                if (targetBackTile == null || targetBackTile == _targetCharacter.CurrentTile)
-                {
-                    // 이동 불가능한 경우 스킬 취소
-                    return;
-                }
-
-                // // 두 타일 사이의 경로를 따라 VFX 표시
-                // var grid = InGameObjectManager.Instance.InGameGrid;
-                // var elementType = owner.SpecCharacter.character_element_type;
-                // var startTile = owner.CurrentTile;
-                // var endTile = targetBackTile;
-
-                // var pathTiles = GetPathBetweenTiles(grid, startTile, endTile);
-                // foreach (var pathTile in pathTiles)
-                // {
-                //     InGameVfxManager.Instance.AddInGameTileFx(elementType, pathTile);
-                // }
-
-
-                // InGameVfxNameType skillFxType = (owner.AllianceType == AllianceType.Player)
-                //     ? InGameVfxNameType.fx_common_assassin_awful
-                //     : InGameVfxNameType.fx_common_assassin_enemy;
-
-                // // 이동 전 자리에 이펙트 추가
-                // InGameVfxManager.Instance.AddInGameVfx(skillFxType, owner.GetCharacterView().CachedTr.position);
-
-                // 타일 변경 및 위치 설정
-                owner.ChangeOccupiedTile(targetBackTile);
-                owner.Position3D = targetBackTile.View.Position;
-                owner.GetCharacterView().CachedTr.localPosition = targetBackTile.View.Position;
+                InGameTile targetBackTile = _targetCharacter.CurrentTile;
                 owner.GetCharacterView().LookAt(targetBackTile, _targetCharacter.CurrentTile);
                 owner.Target = _targetCharacter;
             }

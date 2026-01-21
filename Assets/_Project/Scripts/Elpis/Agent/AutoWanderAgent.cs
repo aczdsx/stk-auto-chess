@@ -1,4 +1,3 @@
-using CookApps.AutoBattler;
 using Cysharp.Threading.Tasks;
 using Elpis.Agent;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine.AI;
 namespace Prototypes.Movement
 {
     /// <summary>
-    /// Controls the NavMeshAgent using mouse click input.
+    /// Controls the NavMeshAgent to automatically wander within a radius.
     /// </summary>
     [RequireComponent(typeof(NavMeshAgent))]
     public class AutoWanderAgent : MonoBehaviour
@@ -18,12 +17,19 @@ namespace Prototypes.Movement
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _stoppingDistance = 0.1f;
         [SerializeField] private float _elevatorDetectRadius = 1.5f;
-        [SerializeField] private LayerMask _groundLayer = -1;
+
+        [Header("Auto Wander Settings")]
+        [SerializeField] private float _wanderRadius = 5f;
+        [SerializeField] private float _minWaitTime = 2f;
+        [SerializeField] private float _maxWaitTime = 5f;
 
         private NavMeshAgent _agent;
         private bool _isMoving;
         private bool _isOnElevator;
+        private bool _isWaiting;
+        private float _waitTimer;
         private Vector3 _lastDirection;
+        private Vector3 _currentTargetPosition;
 
         private void Awake()
         {
@@ -36,10 +42,28 @@ namespace Prototypes.Movement
             _agent.stoppingDistance = _stoppingDistance;
         }
 
+        private bool TryGetRandomWanderPosition(out Vector3 result)
+        {
+            // 현재 위치 기준 랜덤 방향과 거리
+            var randomDirection = Random.insideUnitSphere * _wanderRadius;
+            var randomPosition = transform.position + randomDirection;
+
+            // NavMesh 위의 유효한 위치 찾기
+            if (NavMesh.SamplePosition(randomPosition, out var hit, _wanderRadius * 2f, NavMesh.AllAreas))
+            {
+                result = hit.position;
+                return true;
+            }
+
+            result = Vector3.zero;
+            return false;
+        }
+
         private void Update()
         {
             _agent.transform.rotation = Quaternion.identity;
-            // 엘리베이터 타는 중이면 입력 무시
+
+            // 엘리베이터 타는 중이면 무시
             if (_isOnElevator)
             {
                 return;
@@ -52,21 +76,45 @@ namespace Prototypes.Movement
                 return;
             }
 
-            // 마우스 클릭으로 이동
-            if (Input.GetMouseButtonDown(0))
-            {
-                TrySetDestination();
-            }
-
+            UpdateAutoWander();
             UpdateMovementState();
         }
 
-        private void TrySetDestination()
+        private void UpdateAutoWander()
         {
-            var ray = MainCameraHolder.MainCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out var hit, 1000f, _groundLayer))
+            // 대기 중이면 타이머 감소
+            if (_isWaiting)
             {
-                _agent.SetDestination(hit.point);
+                _waitTimer -= Time.deltaTime;
+                if (_waitTimer <= 0f)
+                {
+                    _isWaiting = false;
+                    SetRandomDestination();
+                }
+                return;
+            }
+
+            // 이동 완료 체크 (OffMeshLink 앞에서 멈추지 않도록)
+            bool hasOffMeshLinkAhead = _agent.nextOffMeshLinkData.valid;
+            bool hasArrived = !_agent.pathPending &&
+                              !_agent.isOnOffMeshLink &&
+                              !hasOffMeshLinkAhead &&
+                              (!_agent.hasPath || _agent.remainingDistance <= _stoppingDistance);
+
+            if (hasArrived)
+            {
+                // 대기 시작
+                _isWaiting = true;
+                _waitTimer = Random.Range(_minWaitTime, _maxWaitTime);
+            }
+        }
+
+        private void SetRandomDestination()
+        {
+            if (TryGetRandomWanderPosition(out var targetPosition))
+            {
+                _currentTargetPosition = targetPosition;
+                _agent.SetDestination(targetPosition);
             }
         }
 

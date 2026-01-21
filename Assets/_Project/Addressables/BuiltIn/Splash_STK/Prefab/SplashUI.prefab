@@ -12760,6 +12760,14 @@ MonoBehaviour:
   preloadAddressables: []
   touchToStart: {fileID: 5588961860860531760}
   guestLoginNode: {fileID: 6912974175550860025}
+  _downloadVideoAssetReference:
+    m_AssetGUID: c6ec39c0c769945dc9623dc25446a47e
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  _downloadLabels:
+  - default
 --- !u!223 &8191710119406015283
 Canvas:
   m_ObjectHideFlags: 0

@@ -36,7 +36,7 @@ philia_00: 가까이 접근해보죠.
 ; [SFX] 다가가는 발소리
 ; L011
 
-@spawn cbg_02_05
+@spawn CutScene/cbg_02_05
 
 
 
@@ -52,7 +52,7 @@ Narrator: 그녀의 시선은... 방 중앙을 가득 채운, 수십 개의 '캡
 ; L013
 ; L014
 
-@despawn cbg_02_05
+@despawn CutScene/cbg_02_05
 
 
 @char philia_00 pos:70,-235 scale:1.38
