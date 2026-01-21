@@ -2,6 +2,8 @@
 ; @back bg_arke_grassland_02 fade:1
 @back bg_arche_02
 
+@bgm snd_bgm_dialog_calm01
+
 @char uni_00.Talk pos:30,-240 scale:1.38
 @spawn ShakeCharacter params:uni_00
 uni_00: 으윽…. 징그럽러워.

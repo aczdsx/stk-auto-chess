@@ -1,9 +1,12 @@
 ; [META] Chapter1_13 | 빅마우스 등장, 패턴 안내
 ; @back bg_arke_grassland_02 fade:1
 
+@bgm snd_bgm_dialog_mad_002
+
 
 @back bg_arche_01
 ; 걷는 효과음
+
 
 @char atresia_00.Talk pos:60,-235,-1 scale:1.38
 @spawn ShakeCharacter params:atresia_00

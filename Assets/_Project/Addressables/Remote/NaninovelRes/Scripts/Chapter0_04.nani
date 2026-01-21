@@ -1,7 +1,7 @@
 ; 신넘버: Chapter0_04 | 구성: 나니노벨 다이얼로그(?) | 분량: 2분 내외 / 40라인 | 키포인트: 이름짓기 튜토리얼 + 유니 매력
 
 @back bg_black_01
-@bgm snd_bgm_dialog_happy_002
+@bgm snd_bgm_dialog_comic01
 @back bg_brokenship_02 time:0.5 transition:Crossfade
 @char atresia_00.Talk pos:60,-235 scale:1.38
 @char uni_00.Talk pos:30,-240 scale:1.38

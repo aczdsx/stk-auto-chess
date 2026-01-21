@@ -8,6 +8,9 @@
 
 @back bg_ionia_01
 
+@bgm snd_bgm_dialog_calm01
+
+
 @char uni_00.normal pos:45,-240 scale:1.38
 @spawn ShakeCharacter params:uni_00
 

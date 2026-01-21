@@ -3,6 +3,9 @@
 
 @back bg_arche_01
 
+@bgm snd_bgm_dialog_tension01
+
+
 ;거대한 몬스터가 쓰러지는 쿵 효과음
 @spawn ShakeCamera
 Narrator: 거대했던 '빅마우스'가 쓰러지자, 그 위압감이 거짓말처럼 사라진다. 스쿼드 전원이 지친 듯, 거친 숨을 몰아쉰다.

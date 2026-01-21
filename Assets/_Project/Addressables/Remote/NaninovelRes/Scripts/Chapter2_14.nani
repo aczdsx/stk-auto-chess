@@ -9,6 +9,8 @@
 
 @back bg_ruins_05
 
+@bgm snd_bgm_dialog_mad_002
+
 ;쾅 하는 효과음
 
 @spawn ShakeCamera
