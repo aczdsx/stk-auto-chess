@@ -18,10 +18,9 @@ public class FlowStateStageFail : StateBase
 
     private async UniTaskVoid StateStartAsync()
     {
-        InGameManager.Instance.EndInGame();
-
         // 서버에 스테이지 패배 결과 전송
         await SendEndAsync();
+        InGameManager.Instance.EndInGame();
 
         // 결과 팝업 표시
         CharacterInfo mvpCharacterData = null;
