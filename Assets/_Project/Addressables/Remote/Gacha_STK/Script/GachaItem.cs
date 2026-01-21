@@ -289,7 +289,7 @@ namespace CookApps.AutoBattler
 
                 if (isCharacter)
                 {
-                    PieceOnImageSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(characterData.prefab_id)).Forget();
+                    PieceOnImageSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(characterData.id)).Forget();
                 }
                 else
                 {

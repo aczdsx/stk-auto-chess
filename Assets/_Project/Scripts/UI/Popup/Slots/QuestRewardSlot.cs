@@ -66,7 +66,7 @@ namespace CookApps.AutoBattler
             _rewardCharacterBGObject.SetActive(true);
             _rewardCharacterImage.gameObject.SetActive(true);
 
-            _rewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.prefab_id)).Forget();
+            _rewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.id)).Forget();
             _rewardItemCountText.text = $"x{rewardPiece.Count}";
         }
 

@@ -127,7 +127,7 @@ namespace CookApps.AutoBattler
             playObj = TimeLineObject[10].GetComponent<PlayableDirector>();
             playObj.Play();
             //PieceImageBG.sprite = ImageManager.Instance.GetCharacterPieceSprite(_specCharacter.prefab_id);
-            PieceImageSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacter.prefab_id)).Forget();
+            PieceImageSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacter.id)).Forget();
             PieceCharNameText.text = LanguageManager.Instance.GetDefaultText(_specCharacter.name_token);
             PieceAmountText.text = "x" + amount.ToString();
             // if (dataManager.UserData.isFirstGacha == true)
