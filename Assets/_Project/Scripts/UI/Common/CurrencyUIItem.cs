@@ -21,7 +21,7 @@ namespace CookApps.AutoBattler
                 itemId.GetCharacterId(out var charIndex);
                 var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
 
-                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.prefab_id)).Forget();
+                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.id)).Forget();
             }
             else
             {
@@ -38,7 +38,7 @@ namespace CookApps.AutoBattler
                 itemId.GetCharacterId(out var charIndex);
                 var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
 
-                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.prefab_id)).Forget();
+                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.id)).Forget();
             }
             else
             {

@@ -59,7 +59,6 @@ namespace CookApps.AutoBattler
 
         private CharacterData _userCharacterData;
         private CharacterInfo _specCharacterData;
-
         private CharacterLevelExp _specCharacterLevelExpData;
         private CharacterTranscendence _specCharacterTranscendenceData;
 
@@ -69,8 +68,6 @@ namespace CookApps.AutoBattler
 
         private bool _isHaveCharacter = false;
         private bool _isPlayingLevelupEffect = false;
-
-        private int _maxTranscendenceLevel;
 
         private InventoryDataBridge _inventoryBridge;
 
@@ -162,7 +159,7 @@ namespace CookApps.AutoBattler
 
             if (_isHaveCharacter == false) return;
 
-            _pieceIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacterData.prefab_id)).Forget();
+            _pieceIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacterData.id)).Forget();
             ItemId pieceItemId = ItemIdExtensions.GetCharacterPieceId(_specCharacterData.id);
             int characterPiece = (int)_inventoryBridge.GetCurrency(pieceItemId);
             _pieceAmountText.text = $"{characterPiece}<color=#C4CDE2>/{_specCharacterTranscendenceData.piece}</color>";
@@ -217,8 +214,6 @@ namespace CookApps.AutoBattler
             if (_isHaveCharacter == false) return;
 
             // 초월 가능 여부 체크
-            var transcendenceDataList = SpecDataManager.Instance.GetCharacterTranscendenceDataList(_specCharacterData.character_element_type, _specCharacterData.grade_type);
-            _maxTranscendenceLevel = transcendenceDataList.Max(data => data.star);
             // 초월에 필요한 자원 정보 세팅
             _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type, (int)_userCharacterData.TranscendLevel);
 
@@ -230,7 +225,7 @@ namespace CookApps.AutoBattler
                 isHasPiece = characterPiece >= _specCharacterTranscendenceData.piece;
                 _transcendenceItemCurrencyUIItem.SetUIItem(_specCharacterData.id, _specCharacterTranscendenceData.piece);
             }
-            bool isAvailTranscendence = _isHaveCharacter && _userCharacterData.TranscendLevel < _maxTranscendenceLevel && isHasPiece;
+            bool isAvailTranscendence = _isHaveCharacter && _specCharacterTranscendenceData.piece != 0 && isHasPiece;
 
             _activeTranscendenceButton.gameObject.SetActive(isAvailTranscendence);
             _inactiveTranscendenceButton.gameObject.SetActive(!isAvailTranscendence);
@@ -395,7 +390,7 @@ namespace CookApps.AutoBattler
             }
 
             // 최대 초월 레벨 검사
-            if (_maxTranscendenceLevel <= _userCharacterData.TranscendLevel)
+            if (_specCharacterTranscendenceData.piece == 0)
             {
                 return;
             }
