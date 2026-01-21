@@ -30806,17 +30806,11 @@ MonoBehaviour:
   - {fileID: 4311674732682630737}
   levelUpEffects:
   - {fileID: 5764177430479586950}
-  - {fileID: 9142972570306418722}
   - {fileID: 156378055643293421}
-  - {fileID: 8137982477305838446}
   - {fileID: 4064466378305825326}
-  - {fileID: 732092757483990672}
   - {fileID: 6173753956593608285}
-  - {fileID: 2402397913121602871}
   - {fileID: 4371339203923033713}
-  - {fileID: 1348053389609176455}
   - {fileID: 4721440000610825418}
-  - {fileID: 6717639344716700364}
   _transcendenceLayerObject: {fileID: 8591088892580374325}
   _activeTranscendenceButton: {fileID: 2900139848915768678}
   _inactiveTranscendenceButton: {fileID: 1778168970378381546}
@@ -46028,7 +46022,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -67455,10 +67449,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: GUID:fdab95ed1e42f41efb55b1541e124721
+      m_TableCollectionName: Default
     m_TableEntryReference:
-      m_KeyId: 2633549097197583
-      m_Key: 
+      m_KeyId: 0
+      m_Key: STAT_DEF
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []

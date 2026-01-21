@@ -67,9 +67,13 @@ namespace CookApps.AutoBattler
             if (resp != null && resp.IsSuccess)
             {
                 // 시련 던전 데이터 갱신
-                if (resp.TrialDungeon != null)
+                if (resp.TrialDungeon != null && isVictory)
                 {
-                    ServerDataManager.Instance.TrialDungeon.SetTrialDungeon(resp.TrialDungeon);
+                    var nextData = resp.TrialDungeon;
+                    nextData.Order++;
+                    nextData.State = TrialDungeonState.InProgress;
+                    
+                    ServerDataManager.Instance.TrialDungeon.SetTrialDungeon(nextData);
                 }
 
                 // 통화 변화 적용

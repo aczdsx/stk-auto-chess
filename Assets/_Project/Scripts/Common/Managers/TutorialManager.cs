@@ -211,6 +211,9 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         // ENEMY_DEAD_ALL 튜토리얼 완료 후 전투 종료 처리
         TutorialEnemyDeadAllHandler.ResumeAndEndCombat();
 
+        // CHARACTER_DEAD 완료 후 보류된 SKILL_READY 튜토리얼 처리 시도
+        TutorialSkillReadyHandler.TryProcessDeferredSkillReady();
+
         // 모든 튜토리얼이 완료되었는지 확인 (리스트가 비어있으면 완료)
         if (_specTutorialDataList.Count == 0)
         {

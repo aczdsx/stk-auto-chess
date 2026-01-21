@@ -79,9 +79,6 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            // Fetch latest data from server
-            NetManager.Instance.TrialDungeon.GetAsync().Forget();
-
             // Default to current order from server, or 1 if 0 (not started)
             var currentOrder = ServerDataManager.Instance.TrialDungeon.Order;
             if (currentOrder == 0) currentOrder = 1;
