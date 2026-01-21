@@ -419,8 +419,6 @@ namespace CookApps.AutoBattler
                 charPosDir.Add(int.Parse(chfStrings[2], CultureInfo.InvariantCulture));
             }
 
-            MyDebug.Log($"charPosX {charPosX}, charPosY {charPosY}, charPosDir {charPosDir}");
-
             List<GameObject> chaObjs = new List<GameObject>();
             for (int i = 0; i < chPosStrings.Length; i++)
             {
