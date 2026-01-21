@@ -444,6 +444,7 @@ GameObject:
   - component: {fileID: 7544653684270412794}
   - component: {fileID: 4448546874469458809}
   - component: {fileID: -5800702340573606362}
+  - component: {fileID: 1866019194520341580}
   m_Layer: 5
   m_Name: img
   m_TagString: Untagged
@@ -509,6 +510,21 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!114 &-5800702340573606362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757349494921894442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 4448546874469458809}
+--- !u!114 &1866019194520341580
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1407,7 +1423,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: -0.11320323, w: 0.9935719}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5486544363666235853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13}
@@ -1691,7 +1707,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2199424499034060859}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1774,7 +1790,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 82, y: 56.971924}
-  m_SizeDelta: {x: 290.37012, y: 2549.315}
+  m_SizeDelta: {x: 290.37012, y: 0}
   m_Pivot: {x: 0.5, y: 0.78}
 --- !u!222 &2538942161616022999
 CanvasRenderer:
@@ -2545,7 +2561,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 424299789727684973}
   m_Father: {fileID: 7877905901802214956}
@@ -2568,7 +2584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _iconImage: {fileID: 4448546874469458809}
-  _iconSpriteLoader: {fileID: -5800702340573606362}
+  _iconSpriteLoader: {fileID: 1866019194520341580}
 --- !u!1 &3403063141206229750
 GameObject:
   m_ObjectHideFlags: 0
@@ -3118,8 +3134,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 127.600006, y: -369.3}
-  m_SizeDelta: {x: 45.6, y: 85.6}
+  m_AnchoredPosition: {x: 115.6, y: -367.2}
+  m_SizeDelta: {x: 41.04, y: 77.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1230916030512532596
 CanvasRenderer:
@@ -3222,8 +3238,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9026974594056803421}
-        m_TargetAssemblyTypeName: CookApps.AutoBattler.CharacterDetailMainLayer,
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CookApps.AutoBattler.CharacterCollectionPopup,
           Assembly-CSharp
         m_MethodName: OnClickRightButton
         m_Mode: 1
@@ -3355,7 +3371,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: -0.11320323, w: 0.9935719}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5486544363666235853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13}
@@ -3611,7 +3627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6666667, g: 0.69411767, b: 0.7529412, a: 1}
+  m_Color: {r: 0.6666667, g: 0.6941177, b: 0.7529412, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4256,7 +4272,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: -0.11320323, w: 0.9935719}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5486544363666235853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13}
@@ -4367,7 +4383,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: -0.11320323, w: 0.9935719}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5486544363666235853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13}
@@ -5098,8 +5114,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -119, y: -369.3}
-  m_SizeDelta: {x: 45.6, y: 85.6}
+  m_AnchoredPosition: {x: -115.6, y: -367.2}
+  m_SizeDelta: {x: 41.04, y: 77.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5281705028308330477
 CanvasRenderer:
@@ -5202,8 +5218,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9026974594056803421}
-        m_TargetAssemblyTypeName: CookApps.AutoBattler.CharacterDetailMainLayer,
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CookApps.AutoBattler.CharacterCollectionPopup,
           Assembly-CSharp
         m_MethodName: OnClickLeftButton
         m_Mode: 1
@@ -5249,7 +5265,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2542965533699401946}
   m_Father: {fileID: 5359090112920299050}
@@ -5330,7 +5346,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
-  reactionType: 0
+  reactionType: 11
   swappers: []
 --- !u!1 &6515519528535405238
 GameObject:
@@ -5679,7 +5695,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8146889147718564186}
   m_Father: {fileID: 424299789727684973}
@@ -5760,7 +5776,7 @@ MonoBehaviour:
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
-  reactionType: 0
+  reactionType: 11
   swappers: []
 --- !u!1 &6884061331849320201
 GameObject:
@@ -5790,7 +5806,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: -0.11320323, w: 0.9935719}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5486544363666235853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13}
@@ -5896,7 +5912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6666667, g: 0.69411767, b: 0.7529412, a: 1}
+  m_Color: {r: 0.6666667, g: 0.6941177, b: 0.7529412, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6064,7 +6080,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5359090112920299050}
   m_Father: {fileID: 7877905901802214956}
@@ -6087,7 +6103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _iconImage: {fileID: 7824474880279954618}
-  _iconSpriteLoader: {fileID: 6127308843568138801}
+  _iconSpriteLoader: {fileID: 5899960685137863911}
 --- !u!1 &7282219569805538715
 GameObject:
   m_ObjectHideFlags: 0
@@ -6263,7 +6279,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 439}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8390199830884071081}
   m_Father: {fileID: 7303966902755864720}
@@ -6297,6 +6313,7 @@ GameObject:
   - component: {fileID: 4845239067715250183}
   - component: {fileID: 7824474880279954618}
   - component: {fileID: 6127308843568138801}
+  - component: {fileID: 5899960685137863911}
   m_Layer: 5
   m_Name: img
   m_TagString: Untagged
@@ -6362,6 +6379,21 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!114 &6127308843568138801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7509790630952078312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 7824474880279954618}
+--- !u!114 &5899960685137863911
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7352,67 +7384,8 @@ PrefabInstance:
     - {fileID: 7723557851300598233, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2701977576711092632, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 766264291897024785}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
---- !u!1 &339048876956537822 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2701977576711092632, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
-  m_PrefabInstance: {fileID: 2435270242672454214}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &766264291897024785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339048876956537822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: Default
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: UI_LOBBY
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2273764716002145901}
-        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-        m_MethodName: set_text
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  references:
-    version: 2
-    RefIds: []
---- !u!114 &2273764716002145901 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4487231834673765419, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
-  m_PrefabInstance: {fileID: 2435270242672454214}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339048876956537822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &4002180431179763292 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1603642690701845530, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}

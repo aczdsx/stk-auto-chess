@@ -65,7 +65,6 @@ namespace CookApps.BattleSystem
                     effectVfxNameType = InGameVfxNameType.fx_common_supply_vitamin;
                     break;
                 case 2:
-
                     effectVfxNameType = InGameVfxNameType.fx_common_supply_emp_bomb;
                     break;
                 case 3:
@@ -204,7 +203,7 @@ namespace CookApps.BattleSystem
                         stats[0] = 99999f;
                         stats[1] = targetCharacter.CurrentHp * tSData[(int)TroubleshooterSynergyIdx.EMERGENCY_ARMOR].effect_stat_value_1 * 0.01f;
                         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, targetCharacter, stats, source);
-                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_shield_01, targetCharacter.Position3D);
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_shield_01, targetCharacter.SkillMiddleFXTransformFollowable);
                         break;
                     }
                 default:

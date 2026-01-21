@@ -445,7 +445,6 @@ namespace CookApps.AutoBattler
     [GeneratorSpecData]
     public partial class CharacterLevelExp
     {
-        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;

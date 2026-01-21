@@ -100,7 +100,7 @@ namespace CookApps.AutoBattler
             _userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterId);
             _isHaveCharacter = ServerDataManager.Instance.Character.HasCharacter(characterId);
             SetUserStatLayer();
-            SetLevelupLayer();
+            SetLevelUpLayer();
             SetTranscendenceLayer();
             SetTranscendencePieceLayer();   // SetTranscendenceLayer 이후 호출되어야 함
         }
@@ -141,30 +141,28 @@ namespace CookApps.AutoBattler
             _pieceSlider.value = characterPiece;
         }
 
-        private void SetLevelupLayer()
+        private void SetLevelUpLayer()
         {
             if (_specCharacterData == null || _userCharacterData == null) return;
 
             // 레벨업 가능 여부 체크
-            var nextExceedLevelExpData = SpecDataManager.Instance.GetCharacterNextExceedLevelExpData(_userCharacterData.ExceedLevel);
-
             int userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
+            var nextExceedLevelExpData = SpecDataManager.Instance.GetCharacterNextExceedLevelExpData(_userCharacterData.ExceedLevel);
+            _specCharacterLevelExpData = SpecDataManager.Instance.GetCharacterLevelExpData(userLevel);
 
-            // 레벨업에 필요한 자원 정보 세팅
-            if (_isHaveCharacter && userLevel < (nextExceedLevelExpData?.level ?? userLevel))
-            {
-                _specCharacterLevelExpData = SpecDataManager.Instance.GetCharacterLevelExpData(userLevel);
-                foreach (var localizeStringEvent in levelUpButtonText)
-                {
-                    localizeStringEvent.StringReference.SetReference(LanguageManager.DefaultTableName, "UI_GROW");
-                }
-            }
-            else
+            if (_isHaveCharacter && userLevel >= (nextExceedLevelExpData?.level ?? int.MaxValue))
             {
                 _specCharacterLevelExpData = nextExceedLevelExpData;
                 foreach (var localizeStringEvent in levelUpButtonText)
                 {
                     localizeStringEvent.StringReference.SetReference(LanguageManager.DefaultTableName, "UI_EXCEED");
+                }
+            }
+            else
+            {
+                foreach (var localizeStringEvent in levelUpButtonText)
+                {
+                    localizeStringEvent.StringReference.SetReference(LanguageManager.DefaultTableName, "UI_LEVEL_UP");
                 }
             }
             
@@ -202,6 +200,11 @@ namespace CookApps.AutoBattler
                 }
                 activeLevelUpButton.gameObject.SetActive(false);
                 inactiveLevelUpButton.gameObject.SetActive(true);
+                
+                foreach (var localizeStringEvent in levelUpButtonText)
+                {
+                    localizeStringEvent.StringReference.SetReference(LanguageManager.DefaultTableName, "MSG_ALERT_MAX_LEVELUP");
+                }
             }
 
         }
@@ -261,19 +264,10 @@ namespace CookApps.AutoBattler
             if (_specCharacterLevelExpData == null) return;
 
             // 캐릭터 보유 상태 검사
-            if (_isHaveCharacter == false)
-            {
-                return;
-            }
+            if (_isHaveCharacter == false) return;
+            
 
-            var userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
-            // 최대 레벨 검사
-            var nextExceedLevelExpData = SpecDataManager.Instance.GetCharacterNextExceedLevelExpData(_userCharacterData.ExceedLevel);
-            if (userLevel >= (nextExceedLevelExpData?.level ?? userLevel))
-            {
-                ToastManager.Instance.ShowToastByTokenKey("MSG_MAX_LV_NEED_TRANSCENDENCE");
-                return;
-            }
+            
 
             await LevelUpCharacterAsync();
         }
