@@ -95,7 +95,7 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
 
         owner.AddNextState<CharacterStateSkill>(this);
 
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.SkillRootTransformFollowable.GetPosition());
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.SkillMiddleFXTransformFollowable.GetPosition());
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -106,8 +106,6 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
             return;
 
         Transform projectileTransform = owner.GetCharacterView().CachedFront ? owner.GetCharacterView().ProjectileFrontTransform : owner.GetCharacterView().ProjectileBackTransform;
-
-
         var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner, 1);
         //shooot effect
         var shootEffect = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], projectileTransform.position);
@@ -122,7 +120,7 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
 
 
         var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, owner.Target, codeId, true);
-        owner.Target.GetDamaged(damage, owner);
+        owner.Target.GetDamaged(damage, owner, true, isNonHitFx: true);
 
         IsSkillActivated = false;
 

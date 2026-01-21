@@ -359,7 +359,7 @@ namespace CookApps.BattleSystem
         /// "스킬로 상대를 죽인 경우 쿨타임 초기화" 이런 것을 처리하기 위해 반환값을 사용
         /// </returns>
         public DamageReturnType GetDamaged(in DamageInfo damageInfo, CharacterController attacker,
-        bool isFirstDamage = true)
+        bool isFirstDamage = true, bool isNonHitFx = false)
         {
             if (!InGameManager.Instance.IsInGameCombat)
                 return DamageReturnType.Damaging;
@@ -391,7 +391,11 @@ namespace CookApps.BattleSystem
                 EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnCriticalLambda, this);
             }
 
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
+            if (!isNonHitFx)
+            {
+                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
+            }
+            
             GetCharacterView().OnHit();
 
             if (!damageInfo.isMissed)
