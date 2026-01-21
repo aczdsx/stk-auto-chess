@@ -113,7 +113,7 @@ namespace CookApps.AutoBattler
             // SceneLoading.GoT`oNextScene("InGame",
             //         (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
             // return;
-
+            if (ServerDataManager.Instance.Battle.CurrentChapterId <= 1)
             {
                 // 튜토리얼(1챕터) 진입 분기 로직
                 var firstStageData = SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL)?[0];
@@ -155,18 +155,18 @@ namespace CookApps.AutoBattler
                         return;
                     }
                 }
+            }
 
-                // 3. 1챕터 모두 클리어 → 로비로 진입
-                {
-                    SceneTransition.Create<SceneTransition_FadeInOut>();
-                    await SceneTransition.FadeInAsync();
+            // 3. 1챕터 모두 클리어 → 로비로 진입
+            {
+                SceneTransition.Create<SceneTransition_FadeInOut>();
+                await SceneTransition.FadeInAsync();
 
-                    var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
-                    var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
-                    SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
+                var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
+                var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
+                SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
 
-                    return;
-                }
+                return;
             }
         }
 

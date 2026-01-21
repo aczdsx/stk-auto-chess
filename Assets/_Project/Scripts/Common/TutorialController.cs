@@ -72,7 +72,7 @@ public class TutorialController : MonoBehaviour
     protected void Update()
     {
         UpdateMaskPosition();
-        UpdateWorldArrowPosition();
+        // UpdateWorldArrowPosition();
         UpdateSecondHolePosition();
     }
 

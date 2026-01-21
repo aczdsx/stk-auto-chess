@@ -314,17 +314,6 @@ namespace CookApps.AutoBattler
             float localY = (uvPosition.y - 0.5f) * canvasRect.rect.height;
 
             dragRect.localPosition = new Vector3(localX, localY, 0f);
-
-            // A→B 방향으로 회전
-            Vector2 aUV = _sourceUV;
-            Vector2 bUV = CalculateWorldPositionUV(_destTilePosition);
-
-            Vector2 direction = bUV - aUV;
-            if (direction.sqrMagnitude > 0.0001f)
-            {
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                dragRect.localRotation = Quaternion.Euler(0f, 0f, angle);
-            }
         }
 
         /// <summary>
