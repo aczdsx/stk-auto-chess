@@ -73,7 +73,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 }
             }
         }
-        MyDebug.MyLog($"isPointerOverUI true ? false ? : {isPointerOverUI}");
 
         if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateReadyBase))
             return;
