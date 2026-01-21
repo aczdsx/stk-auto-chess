@@ -7,7 +7,7 @@ namespace CookApps.AutoBattler
     {
         public override TopPanelType PanelType => TopPanelType.Char_User_Exp_Item_2;
 
-        private static readonly ItemId CurrencyId = IdMap.Item.UserExp;
+        private static readonly ItemId CurrencyId = IdMap.Item.속성석;
         private InventoryDataBridge _inventoryBridge;
 
         private void Awake()

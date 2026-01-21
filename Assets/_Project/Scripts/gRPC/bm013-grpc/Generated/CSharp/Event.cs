@@ -39,15 +39,15 @@ namespace Tech.Hive.V1 {
             "U3RhdHVzEiYKBWV2ZW50GAIgASgLMhcudGVjaC5oaXZlLnYxLkV2ZW50RGF0",
             "YRIlCgdyZXdhcmRzGAMgAygLMhQudGVjaC5oaXZlLnYxLlJld2FyZBI0Cg9j",
             "dXJyZW5jeV9kZWx0YXMYBCADKAsyGy50ZWNoLmhpdmUudjEuQ3VycmVuY3lE",
-            "ZWx0YSpECg5FdmVudEVycm9yQ29kZRIVChFFVkVOVF9VTlNQRUNJRklFRBAA",
-            "EhsKFEVWRU5UX0lORk9fTk9UX0ZPVU5EEJ2t6gQynAIKDEV2ZW50U2Vydmlj",
-            "ZRJHCgRMaXN0Eh4udGVjaC5oaXZlLnYxLkV2ZW50TGlzdFJlcXVlc3QaHy50",
-            "ZWNoLmhpdmUudjEuRXZlbnRMaXN0UmVzcG9uc2USZQoOVXBkYXRlUHJvZ3Jl",
-            "c3MSKC50ZWNoLmhpdmUudjEuRXZlbnRVcGRhdGVQcm9ncmVzc1JlcXVlc3Qa",
-            "KS50ZWNoLmhpdmUudjEuRXZlbnRVcGRhdGVQcm9ncmVzc1Jlc3BvbnNlElwK",
-            "C0NsYWltUmV3YXJkEiUudGVjaC5oaXZlLnYxLkV2ZW50Q2xhaW1SZXdhcmRS",
-            "ZXF1ZXN0GiYudGVjaC5oaXZlLnYxLkV2ZW50Q2xhaW1SZXdhcmRSZXNwb25z",
-            "ZWIGcHJvdG8z"));
+            "ZWx0YSpeCg5FdmVudEVycm9yQ29kZRIVChFFVkVOVF9VTlNQRUNJRklFRBAA",
+            "EhsKFEVWRU5UX0lORk9fTk9UX0ZPVU5EEJ2t6gQSGAoRRVZFTlRfU0VSVkVS",
+            "X09OTFkQnq3qBDKcAgoMRXZlbnRTZXJ2aWNlEkcKBExpc3QSHi50ZWNoLmhp",
+            "dmUudjEuRXZlbnRMaXN0UmVxdWVzdBofLnRlY2guaGl2ZS52MS5FdmVudExp",
+            "c3RSZXNwb25zZRJlCg5VcGRhdGVQcm9ncmVzcxIoLnRlY2guaGl2ZS52MS5F",
+            "dmVudFVwZGF0ZVByb2dyZXNzUmVxdWVzdBopLnRlY2guaGl2ZS52MS5FdmVu",
+            "dFVwZGF0ZVByb2dyZXNzUmVzcG9uc2USXAoLQ2xhaW1SZXdhcmQSJS50ZWNo",
+            "LmhpdmUudjEuRXZlbnRDbGFpbVJld2FyZFJlcXVlc3QaJi50ZWNoLmhpdmUu",
+            "djEuRXZlbnRDbGFpbVJld2FyZFJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.EventDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.EventErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -69,6 +69,10 @@ namespace Tech.Hive.V1 {
     /// 이벤트 정보를 찾을 수 없음
     /// </summary>
     [pbr::OriginalName("EVENT_INFO_NOT_FOUND")] EventInfoNotFound = 10131101,
+    /// <summary>
+    /// 서버 전용 이벤트라 클라이언트에서 변경할 수 없음
+    /// </summary>
+    [pbr::OriginalName("EVENT_SERVER_ONLY")] EventServerOnly = 10131102,
   }
 
   #endregion

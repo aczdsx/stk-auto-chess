@@ -11,10 +11,10 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// 테토라
 // "범위 : 가장 가까이에 위치한 적 1명 
 // 효과 : 대검을 휘둘러 적 1명에게 대미지를 주고 4칸 넉백시킨다.
-//     대미지 : 테토라 공격력 {0}% + 마법 방어력 비례 추가 대미지
-// 개발용 대미지 계산식 : 테토라 공격력*{0}*(1+마법 방어력/{1})
-// 특수 효과 : 넉백된 적이 구조물 또는 캐릭터에 부딪힐 시, 3*3범위로 {2}초 동안 스턴을 일으키며
-// 공격력 {3}%의 대미지를 준다. 
+//     대미지 : 테토라 공격력 {1}% + 마법 방어력 비례 추가 대미지
+// 개발용 대미지 계산식 : 테토라 공격력*{2}*(1+마법 방어력/{3})
+// 특수 효과 : 넉백된 적이 구조물 또는 캐릭터에 부딪힐 시, 3*3범위로 {4}초 동안 스턴을 일으키며
+// 공격력 {5}%의 대미지를 준다. 
 //
 //     개발 참고 사항 
 //     피격된 적이 아군에게 부딪힐 경우, 적군은 충돌 중지 + 스턴 적용 
@@ -33,6 +33,9 @@ public partial class EffectCodeSkill217413301 : EffectCodeCharacterBase
     private SkillActive _specSkill;
 
     private CharacterController _targetCharacter;
+
+    private static readonly Vector3 _vfxFlipScale = new Vector3(1, -1, 1);
+
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -130,8 +133,19 @@ public partial class EffectCodeSkill217413301 : EffectCodeCharacterBase
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
         if (directionTile.Count > 0)
         {
-            Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
-            vfx.CachedTr.rotation = Quaternion.LookRotation(direction);
+            Vector3 direction = (directionTile[0].View.CachedTr.position - owner.CurrentTile.View.CachedTr.position).normalized;
+            vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(-90, -90, 0);
+            var targetTileIdx = directionTile[0].Int2Index;
+            var tettoraTileIdx = owner.CurrentTile.Int2Index;
+            var directionidx = targetTileIdx - tettoraTileIdx;
+            if (directionidx.x > 0 || directionidx.y < 0)
+            {
+                vfx.CachedTr.localScale = _vfxFlipScale;
+            }
+            else
+            {
+                vfx.CachedTr.localScale = Vector3.one;
+            }
 
             float damageRate = (float)(owner.AD * _damageRate) * (1.0f + (float)owner.ADReduce / _resRate);
             var damage = owner.CalculateDamageAmount(damageRate, 0, _targetCharacter, codeId, true);
@@ -197,7 +211,7 @@ public partial class EffectCodeSkill217413301 : EffectCodeCharacterBase
 
     private void StunCharacter(InGameTile tile)
     {
-        float damageRate = (float)(owner.AD * _afterDamageRate) * (1.0f + (float)owner.ADReduce / _resRate);
+        float damageRate = (float)(owner.AD * 2.0f) * (1.0f + (float)owner.ADReduce / _resRate);
         var damage = owner.CalculateDamageAmount(damageRate, 0, tile.OccupiedCharacter, codeId, true);
         // var damage = owner.PrecalculateDamageAmount(damageRate, 0, tile.OccupiedCharacter, codeId, true);
         // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
