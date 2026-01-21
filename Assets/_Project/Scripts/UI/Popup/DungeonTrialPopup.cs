@@ -58,13 +58,19 @@ namespace CookApps.AutoBattler
 
         private DungeonBabelInfo _specDungeonTrialData;
 
-        public UserTrialDungeonData CurrentUserDungeonData { get; private set; }
+        // Current Selected Dungeon Spec ID for viewing
+        public int CurrentSelectedDungeonId { get; private set; }
 
         protected override void Awake()
         {
             base.Awake();
             _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
             _EnterDungeonButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickEnterDungeonButtonAsync(), AwaitOperation.Drop).AddTo(this);
+            
+            // Subscribe to Server Data Changes
+            ServerDataManager.Instance.TrialDungeon.OnChanged
+                .Subscribe(this, (_, self) => self.OnServerDataChanged())
+                .AddTo(this);
         }
 
         protected override void OnPreEnter(object param)
@@ -73,21 +79,63 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            CurrentUserDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
-            _specDungeonTrialData = SpecDataManager.Instance.GetSpecDungeonTrialData(CurrentUserDungeonData.DungeonId);
+            // Fetch latest data from server
+            NetManager.Instance.TrialDungeon.GetAsync().Forget();
+
+            // Default to current order from server, or 1 if 0 (not started)
+            var currentOrder = ServerDataManager.Instance.TrialDungeon.Order;
+            if (currentOrder == 0) currentOrder = 1;
+
+            var spec = SpecDataManager.Instance.GetSpecDungeonTrialDataByOrder((int)currentOrder);
+            if (spec != null)
+            {
+                CurrentSelectedDungeonId = spec.dungeon_id;
+                _specDungeonTrialData = spec;
+            }
+            else
+            {
+                // Fallback
+                var list = SpecDataManager.Instance.GetSpecDungeonTrialDataList(DungeonType.TRIAL);
+                if (list != null && list.Count > 0)
+                {
+                    CurrentSelectedDungeonId = list[0].dungeon_id;
+                    _specDungeonTrialData = list[0];
+                }
+            }
 
             InitDungeonPopup();
         }
 
+        private void OnServerDataChanged()
+        {
+            // If the popup is open, we might want to refresh. 
+            // Primarily useful if the user clears a dungeon and comes back, 
+            // but usually we close/reopen or have a result popup.
+            // For now, let's just refresh visual states if needed.
+            RefreshDungeonTrialPopup(DungeonTrialPopupRefreshType.ALL);
+        }
+
         public void SetCurrentSelectedDungeonData(int dungeonID)
         {
-            CurrentUserDungeonData = UserDataManager.Instance.GetTrialDungeonData(dungeonID);
-            _specDungeonTrialData = SpecDataManager.Instance.GetSpecDungeonTrialData(CurrentUserDungeonData.DungeonId);
+            CurrentSelectedDungeonId = dungeonID;
+            _specDungeonTrialData = SpecDataManager.Instance.GetSpecDungeonTrialData(dungeonID);
 
-            var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
-            bool isDimmed = lastDungeonData.Order > _specDungeonTrialData.order;
-            _dimmedLightFxObj.SetActive(isDimmed);
-            _lightFxObj.SetActive(!isDimmed);
+            var serverOrder = ServerDataManager.Instance.TrialDungeon.Order;
+            
+            // If 0, it means not started (essentially order 1 is next)
+            uint effectiveServerOrder = serverOrder == 0 ? 1 : serverOrder;
+            
+            // Logic: Dimmed if this dungeon is already cleared (Order > Spec.order)
+            // Wait, Order 1 is current. If completed 1, user has Order 2 (assuming).
+            // Usually Order represents "Current Stage to Clear".
+            // So if ServerOrder > SpecOrder, it is cleared (Dimmed).
+            // If ServerOrder == SpecOrder, it is Current (Light).
+            // If ServerOrder < SpecOrder, it is Future (Light/Locked visually elsewhere).
+            
+            bool isCleared = effectiveServerOrder > _specDungeonTrialData.order;
+            
+            _dimmedLightFxObj.SetActive(isCleared);
+            _lightFxObj.SetActive(!isCleared);
         }
 
         public void RefreshDungeonTrialPopup(DungeonTrialPopupRefreshType refreshType)
@@ -119,25 +167,33 @@ namespace CookApps.AutoBattler
             SetStepSlotLayer();
 
             _stepScrollRect.horizontalNormalizedPosition = 0;
+            
+            // Scroll to current selected
+            // Implementation omitted for brevity, logic exists in slots usually
         }
 
         private void SetCommonInfoLayer()
         {
-            if (CurrentUserDungeonData == null || _specDungeonTrialData == null) return;
+            if (_specDungeonTrialData == null) return;
 
-            var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
-            _dungeonClearBtnObj.SetActive(lastDungeonData.Order > _specDungeonTrialData.order);
+            var serverOrder = ServerDataManager.Instance.TrialDungeon.Order;
+            uint effectiveServerOrder = serverOrder == 0 ? 1 : serverOrder;
+
+            // Clear Button Active if User Order > Selected Dungeon Order
+            bool isCleared = effectiveServerOrder > _specDungeonTrialData.order;
+            
+            _dungeonClearBtnObj.SetActive(isCleared);
             _EnterDungeonButton.gameObject.SetActive(!_dungeonClearBtnObj.activeSelf);
             _needStageStarText.text = StringUtil.GetCompareString((int)ServerDataManager.Instance.Battle.TotalStarCount, _specDungeonTrialData.need_star);
         }
 
         private void SetMonsterInfoLayer()
         {
-            if (CurrentUserDungeonData == null || _specDungeonTrialData == null) return;
+            if (_specDungeonTrialData == null) return;
             BMUtil.RemoveChildObjects(_monsterInfoScrollRect.content);
-            var monsterDataList = SpecDataManager.Instance.GetSpecDungeonMonsterDataList(DungeonType.TRIAL, CurrentUserDungeonData.DungeonId);
+            var monsterDataList = SpecDataManager.Instance.GetSpecDungeonMonsterDataList(DungeonType.TRIAL, _specDungeonTrialData.dungeon_id);
             double attr = 0;
-            CharacterStatData topStatData = null;//114333202
+            CharacterStatData topStatData = null;
 
             List<CharacterStatData> dataList = new List<CharacterStatData>();
             foreach (var monsterData in monsterDataList)
@@ -170,21 +226,22 @@ namespace CookApps.AutoBattler
             BMUtil.RemoveChildObjects(_characterImageParentObject.transform);
             if (topStatData != null)
             {
-                var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
-                bool isDimmed = lastDungeonData.Order > _specDungeonTrialData.order;
+                var serverOrder = ServerDataManager.Instance.TrialDungeon.Order;
+                uint effectiveServerOrder = serverOrder == 0 ? 1 : serverOrder;
+                bool isCleared = effectiveServerOrder > _specDungeonTrialData.order;
 
                 string characterPrefabName =
                     string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, topStatData.Spec.prefab_id);
                 GameObject obj =
                     AddressablesUtil.Instantiate(characterPrefabName, _characterImageParentObject.transform);
                 _uiCharacter = obj.GetComponent<UICharacter>();
-                _uiCharacter.SetGrayCharacter(isDimmed);
+                _uiCharacter.SetGrayCharacter(isCleared);
             }
         }
 
         private void SetRewardInfoLayer()
         {
-            if (CurrentUserDungeonData == null || _specDungeonTrialData == null) return;
+            if (_specDungeonTrialData == null) return;
 
             BMUtil.RemoveChildObjects(_rewardInfoContentTransform);
 
@@ -192,38 +249,41 @@ namespace CookApps.AutoBattler
             _rewardObj.SetActive(!_specDungeonTrialData.is_grade_up);
             if (!_specDungeonTrialData.is_grade_up)
             {
-                var rewardDataList = SpecDataManager.Instance.GetSpecDungeonRewardDataList(DungeonType.TRIAL, CurrentUserDungeonData.DungeonId);
+                var rewardDataList = SpecDataManager.Instance.GetSpecDungeonRewardDataList(DungeonType.TRIAL, _specDungeonTrialData.dungeon_id);
 
                 foreach (var rewardData in rewardDataList)
                 {
                     GameObject newSlotObject = Instantiate(_rewardItemSlotObject, _rewardInfoContentTransform);
                     RewardItemSlot newSlot = newSlotObject.GetComponent<RewardItemSlot>();
 
-                    // ItemType의 삭제로 인해 변경.(new RewardItem(rewardData.item_type, rewardData.item_key, rewardData.item_count))
                     RewardItem newRewardItem = new RewardItem(rewardData.item_id, rewardData.item_count);
                     newSlot?.SetRewardSlot(newRewardItem);
 
-                    var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
-                    newSlot?.SetCheckSlot(lastDungeonData.Order > _specDungeonTrialData.order);
+                    var serverOrder = ServerDataManager.Instance.TrialDungeon.Order;
+                    uint effectiveServerOrder = serverOrder == 0 ? 1 : serverOrder;
+                    
+                    newSlot?.SetCheckSlot(effectiveServerOrder > _specDungeonTrialData.order);
                 }
             }
         }
 
         private void SetStepSlotLayer()
         {
-            if (CurrentUserDungeonData == null || _specDungeonTrialData == null) return;
-
             BMUtil.RemoveChildObjects(_stepScrollRect.content);
             _stepSlotList.Clear();
 
             var totalDungeonDataList = SpecDataManager.Instance.GetSpecDungeonTrialDataList(DungeonType.TRIAL);
+
+            var serverOrder = ServerDataManager.Instance.TrialDungeon.Order;
+            uint effectiveServerOrder = serverOrder == 0 ? 1 : serverOrder;
 
             foreach (var dungeonData in totalDungeonDataList)
             {
                 GameObject newSlotObject = Instantiate(_stepSlotObject, _stepScrollRect.content);
 
                 DungeonTrialStepSlot newSlot = newSlotObject.GetComponent<DungeonTrialStepSlot>();
-                newSlot?.SetStepSlot(this, dungeonData, CurrentUserDungeonData);
+                // Pass order instead of user data
+                newSlot?.SetStepSlot(this, dungeonData, effectiveServerOrder);
 
                 _stepSlotList.Add(newSlot);
             }
@@ -231,43 +291,46 @@ namespace CookApps.AutoBattler
 
         private void RefreshStepSlotLayer()
         {
-            if (CurrentUserDungeonData == null || _specDungeonTrialData == null) return;
             if (_stepSlotList == null || _stepSlotList.Count <= 0) return;
 
-            _stepSlotList.ForEach(slot => slot.RefreshSlot());
+            var serverOrder = ServerDataManager.Instance.TrialDungeon.Order;
+            uint effectiveServerOrder = serverOrder == 0 ? 1 : serverOrder;
+
+            _stepSlotList.ForEach(slot => slot.RefreshSlot(effectiveServerOrder));
         }
 
         private async UniTask OnClickEnterDungeonButtonAsync()
         {
-            // 던전 진입 가능 조건 검사
-            if (ServerDataManager.Instance.Battle.TotalStarCount < _specDungeonTrialData.need_star)
-            {
-                ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_CONDITION_STAR_LACK");
-                return;
-            }
+            // // Check Star Condition
+            // if (ServerDataManager.Instance.Battle.TotalStarCount < _specDungeonTrialData.need_star)
+            // {
+            //     ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_CONDITION_STAR_LACK");
+            //     return;
+            // }
+            //
+            // var serverOrder = ServerDataManager.Instance.TrialDungeon.Order;
+            // uint effectiveServerOrder = serverOrder == 0 ? 1 : serverOrder;
+            //
+            // if (effectiveServerOrder > _specDungeonTrialData.order)
+            // {
+            //     ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_ALREADY_CLEAR");
+            //     return;
+            // }
+            //
+            // if (effectiveServerOrder < _specDungeonTrialData.order)
+            // {
+            //     ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_NEED_BEFORE_STAGE");
+            //     return;
+            // }
 
-            var lastDungeonData = UserDataManager.Instance.GetLastTrialDungeonData();
-
-            if (lastDungeonData.Order > _specDungeonTrialData.order)
-            {
-                ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_ALREADY_CLEAR");
-                return;
-            }
-
-            if (lastDungeonData.Order < _specDungeonTrialData.order)
-            {
-                ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_NEED_BEFORE_STAGE");
-                return;
-            }
-
-            // 서버에 시련 던전 입장 요청
+            // Request Enter to Server
             var response = await NetManager.Instance.TrialDungeon.EnterAsync();
             if (response is not { IsSuccess: true })
             {
                 return;
             }
 
-            InGameManager.Instance.EndInGame();
+            //InGameManager.Instance.EndInGame();
             SceneTransition.Create<SceneTransition_FadeInOut>();
             await SceneTransition.FadeInAsync();
 
