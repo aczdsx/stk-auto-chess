@@ -102,10 +102,11 @@ MonoBehaviour:
   controlsLegend: {fileID: 0}
   fontChangeConfiguration: []
   buttonsContainer: {fileID: 224198401566905306}
-  defaultButtonPrefab: {fileID: 114935234543976500, guid: e5a91d0fba3e65140b63288f4e385a6f, type: 3}
+  defaultButtonPrefab: {fileID: 8540432269591070740, guid: e5a91d0fba3e65140b63288f4e385a6f, type: 3}
   focusChoiceButtons: 1
   _shakeDuration: 0.5
-  _shakeStrength: 10
+  _shakeStrengthX: 10
+  _shakeStrengthY: 5
   _shakeVibrato: 10
 --- !u!225 &225470808532994266
 CanvasGroup:

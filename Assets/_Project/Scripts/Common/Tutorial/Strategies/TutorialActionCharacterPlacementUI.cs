@@ -69,6 +69,9 @@ namespace CookApps.AutoBattler
         private const float LAYOUT_WAIT_DURATION = 0.1f; // 레이아웃 안정화 대기 시간
         private static bool _sourceUVCached;
 
+        // 타겟 타일 뷰 캐싱 (Navigator 제어용)
+        private static InGameTileView _targetTileView;
+
         public void OnShow(TutorialActionContext context)
         {
             _currentContext = context;
@@ -170,11 +173,18 @@ namespace CookApps.AutoBattler
                 context.MaskMaterial.SetFloat(HoleRadius, 0f);
             }
 
+            // Commander SkillNavigateObj 비활성화
+            if (_targetTileView != null)
+            {
+                _targetTileView.SetNavigateObj(false);
+            }
+
             // 상태 초기화
             IsActive = false;
             _currentContext = null;
             _initialTargetUI = null;
             _targetTileId = 0;
+            _targetTileView = null;
             OnPlacementCompleted = null;
             _animTime = 0f;
             _holeRadiusAnimTime = 0f;
@@ -240,8 +250,13 @@ namespace CookApps.AutoBattler
                 return false;
             }
 
+            _targetTileView = tile.View;
             _destTilePosition = tile.View.Position;
             _positionsValid = true;
+
+            // Commander SkillNavigateObj 활성화
+            _targetTileView.SetNavigateObj(true);
+
             return true;
         }
 

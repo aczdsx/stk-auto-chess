@@ -20,6 +20,13 @@ namespace CookApps.AutoBattler
         private static Action _pendingSkillActivation;
 
         /// <summary>
+        /// CHARACTER_DEAD 대기로 인해 보류된 스킬 정보
+        /// </summary>
+        private static int _deferredCharacterId;
+        private static Action _deferredSkillActivation;
+        private static bool _hasDeferredSkillReady;
+
+        /// <summary>
         /// SKILL_READY 튜토리얼을 처리합니다.
         /// </summary>
         /// <param name="characterId">스킬을 사용할 캐릭터 ID</param>
@@ -35,6 +42,30 @@ namespace CookApps.AutoBattler
 
             // SKILL_READY 트리거 확인
             if (!tutorialManager.IsTutorialAction(TutorialTriggerType.SKILL_READY))
+            {
+                return false;
+            }
+
+            // CHARACTER_DEAD 튜토리얼이 아직 처리되지 않았으면 스킬 발동 보류 (seq 순서 보장)
+            if (tutorialManager.IsTutorialAction(TutorialTriggerType.CHARACTER_DEAD))
+            {
+                Debug.LogColor($"[TutorialSkillReadyHandler] CHARACTER_DEAD 대기로 스킬 발동 보류 (characterId: {characterId})", "yellow");
+                _deferredCharacterId = characterId;
+                _deferredSkillActivation = onSkillActivate;
+                _hasDeferredSkillReady = true;
+                return true;  // 스킬 발동 지연 (튜토리얼 없이)
+            }
+
+            return ProcessSkillReadyTutorial(characterId, onSkillActivate);
+        }
+
+        /// <summary>
+        /// 실제 SKILL_READY 튜토리얼 처리 로직
+        /// </summary>
+        private static bool ProcessSkillReadyTutorial(int characterId, Action onSkillActivate)
+        {
+            var tutorialManager = TutorialManager.Instance;
+            if (tutorialManager == null || !tutorialManager.IsTutorial)
             {
                 return false;
             }
@@ -89,12 +120,57 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
+        /// 보류된 SKILL_READY 튜토리얼 처리 시도
+        /// (CHARACTER_DEAD 튜토리얼 완료 후 TutorialManager에서 호출)
+        /// </summary>
+        /// <returns>보류된 튜토리얼이 처리되었으면 true</returns>
+        public static bool TryProcessDeferredSkillReady()
+        {
+            if (!_hasDeferredSkillReady)
+            {
+                return false;
+            }
+
+            var tutorialManager = TutorialManager.Instance;
+            if (tutorialManager == null || !tutorialManager.IsTutorial)
+            {
+                ClearDeferred();
+                return false;
+            }
+
+            // CHARACTER_DEAD가 아직 남아있으면 계속 대기
+            if (tutorialManager.IsTutorialAction(TutorialTriggerType.CHARACTER_DEAD))
+            {
+                return false;
+            }
+
+            Debug.LogColor($"[TutorialSkillReadyHandler] 보류된 SKILL_READY 처리 시작 (characterId: {_deferredCharacterId})", "yellow");
+
+            int characterId = _deferredCharacterId;
+            Action skillActivation = _deferredSkillActivation;
+            ClearDeferred();
+
+            return ProcessSkillReadyTutorial(characterId, skillActivation);
+        }
+
+        /// <summary>
+        /// 보류된 스킬 정보 초기화
+        /// </summary>
+        private static void ClearDeferred()
+        {
+            _hasDeferredSkillReady = false;
+            _deferredCharacterId = 0;
+            _deferredSkillActivation = null;
+        }
+
+        /// <summary>
         /// 상태 초기화 (스테이지 종료 시 등)
         /// </summary>
         public static void Clear()
         {
             IsPausedBySkillReady = false;
             _pendingSkillActivation = null;
+            ClearDeferred();
         }
     }
 }
