@@ -28,6 +28,7 @@ enum EventErrorCode {
   EVENT_UNSPECIFIED = 0;
 
   EVENT_INFO_NOT_FOUND = 10131101; // 이벤트 정보를 찾을 수 없음
+  EVENT_SERVER_ONLY = 10131102; // 서버 전용 이벤트라 클라이언트에서 변경할 수 없음
 }
 
 message EventListRequest {}
