@@ -401,6 +401,7 @@ namespace CookApps.AutoBattler
         public async UniTaskVoid SkipToEndAsync()
         {
             if (_scriptPlayer == null) return;
+            if (SceneTransition.IsFadeProcessing) return; // 전환 중이면 무시
 
             Debug.Log("NaninovelMain: 스킵으로 즉시 종료");
 
