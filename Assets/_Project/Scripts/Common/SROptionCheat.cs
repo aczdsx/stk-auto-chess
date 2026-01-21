@@ -114,7 +114,7 @@ public partial class SROptions
     public CheatCurrencyType 재화변경_아이템 { get; set; } = CheatCurrencyType.Gold;
 
     [Category("치트")]
-    public long 재화변경_수량 { get; set; } = 10000;
+    public int 재화변경_수량 { get; set; } = 10000;
 
     [Category("치트")]
     public void 재화변경()
