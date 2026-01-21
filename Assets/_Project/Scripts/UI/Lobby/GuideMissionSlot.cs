@@ -32,14 +32,6 @@ namespace CookApps.AutoBattler
         private GuideMissionDataBridge dataBridge;
         private GuideMissionInfo specGuideMissionData;
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.J))
-            {
-                dataBridge.AddAction(specGuideMissionData.guide_mission_type);
-            }
-        }
-
         private void Awake()
         {
             dataBridge = new GuideMissionDataBridge();
