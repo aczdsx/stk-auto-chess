@@ -440,9 +440,10 @@ namespace CookApps.AutoBattler
                     (int)(_userCharacterData.TranscendLevel + 1));
                 if (afterTranscenenceData != null)
                 {
-                    string msg =
-                        $"{LanguageManager.Instance.GetDefaultText("MSG_MAX_LV_UP")}\n{_specCharacterTranscendenceData.max_level} -> {afterTranscenenceData.max_level}";
-                    ToastManager.Instance.ShowToast(msg);
+                    // ! max_level은 사용 안한다!
+                    // string msg =
+                    //     $"{LanguageManager.Instance.GetDefaultText("MSG_MAX_LV_UP")}\n{_specCharacterTranscendenceData.max_level} -> {afterTranscenenceData.max_level}";
+                    // ToastManager.Instance.ShowToast(msg);
                 }
                 else
                 {
