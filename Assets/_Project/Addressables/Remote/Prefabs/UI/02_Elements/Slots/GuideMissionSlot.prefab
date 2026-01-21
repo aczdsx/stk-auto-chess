@@ -831,16 +831,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d942ceda68a7c542b3b94deca5a79ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _activateLayerObject: {fileID: 7475620333698445651}
-  _guideMissionButton: {fileID: 2190186430440021572}
-  _missionTitleText: {fileID: 3514256403068726953}
-  _missionDescText: {fileID: 1618645643540446225}
-  _missionRewardItemImage: {fileID: 3263473594171821742}
-  _missionRewardItemSpriteLoader: {fileID: 3848474859972710108}
-  _rewardCharacterBGImage: {fileID: 6326870061276751633}
-  _missionRewardCharacterImage: {fileID: 8489099042409360403}
-  _missionRewardCharacterSpriteLoader: {fileID: -5015103821061630533}
-  _missionRewardAmountText: {fileID: 3789564916552148273}
+  activateLayerObject: {fileID: 7475620333698445651}
+  guideMissionButton: {fileID: 2190186430440021572}
+  missionTitleText: {fileID: 3514256403068726953}
+  missionDescText: {fileID: 1618645643540446225}
+  missionRewardItemImage: {fileID: 3263473594171821742}
+  missionRewardItemSpriteLoader: {fileID: 3848474859972710108}
+  rewardCharacterBGImage: {fileID: 6326870061276751633}
+  missionRewardCharacterImage: {fileID: 8489099042409360403}
+  missionRewardCharacterSpriteLoader: {fileID: -5015103821061630533}
+  missionRewardAmountText: {fileID: 3789564916552148273}
 --- !u!114 &7518062370182445
 MonoBehaviour:
   m_ObjectHideFlags: 0

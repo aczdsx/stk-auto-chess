@@ -68,7 +68,7 @@ namespace CookApps.AutoBattler
             if (specGuideMissionData != null)
             {
                 bool isValidType = specGuideMissionData.guide_mission_type == _guideMissionType;
-                bool isValidState = !guideMission.CanClaimReward && !guideMission.IsCompleted;
+                bool isValidState = !guideMission.IsCompleted;
                 
                 bool isHaveSubKey = TargetSubKey > 0;
                 bool isValidSubKey = isHaveSubKey && specGuideMissionData.sub_key == TargetSubKey;
