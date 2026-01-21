@@ -904,14 +904,26 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private void HandleZoom(Touch touch1, Touch touch2)
     {
-        if (touch2.phase == TouchPhase.Began)
+        // 둘 중 하나라도 새로 터치되면 초기화
+        if (touch1.phase == TouchPhase.Began || touch2.phase == TouchPhase.Began)
         {
             _initialFingersDistance = Vector2.Distance(touch1.position, touch2.position);
             _initialCameraSize = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).GetCameraSize();
+            return;
         }
-        else if (touch1.phase == TouchPhase.Moved && touch2.phase == TouchPhase.Moved)
+
+        // 두 손가락 중 하나라도 움직이면 줌 처리 (Stationary도 허용)
+        bool isTouch1Active = touch1.phase == TouchPhase.Moved || touch1.phase == TouchPhase.Stationary;
+        bool isTouch2Active = touch2.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Stationary;
+
+        if (isTouch1Active && isTouch2Active)
         {
             var currentFingersDistance = Vector2.Distance(touch1.position, touch2.position);
+
+            // 최소 거리 체크 (division by zero 방지)
+            if (_initialFingersDistance < 10f || currentFingersDistance < 10f)
+                return;
+
             var scaleFactor = _initialFingersDistance / currentFingersDistance;
 
             float size = _initialCameraSize * scaleFactor;

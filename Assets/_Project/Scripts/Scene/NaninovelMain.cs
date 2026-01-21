@@ -151,6 +151,14 @@ namespace CookApps.AutoBattler
                 await SceneTransition.FadeInAsync();
             }
 
+            // 이전 스크립트의 spawn 객체 정리
+            var spawnManager = Engine.GetService<ISpawnManager>();
+            if (spawnManager != null)
+            {
+                spawnManager.DestroyAllSpawned();
+                Debug.Log("NaninovelMain: 이전 스크립트의 spawn 객체 정리 완료");
+            }
+
             // 연쇄 재생 전 UI 상태 복원
             RestoreUIStateForChainedScript();
 

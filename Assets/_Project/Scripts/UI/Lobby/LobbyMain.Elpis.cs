@@ -38,13 +38,16 @@ namespace CookApps.AutoBattler
             characterHandles.Add(characterHandle);
             await characterHandle.WaitUntilDone();
             var commandCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
+
+            if (commandCenter == null) { commandCenter = new ElpisFacility() { Level = 1 }; }
+
             await MainBlock.LoadAllSubBlocks();
-            
+
             if (commandCenter.Level >= 2)
             {
                 await MainBlock.AttachSubBlock(0, false);
             }
-            if (commandCenter.Level >= 3)
+        if (commandCenter.Level >= 3)
             {
                 await MainBlock.AttachSubBlock(1, false);
             }
@@ -98,7 +101,7 @@ namespace CookApps.AutoBattler
             _unlockedBuildIdsCache.Clear();
 
             _unlockedBuildIdsCache.Add((int)commandCenter.BuildId);
-            
+
             var benefits = SpecDataManager.Instance.ElpisCommandCenterBenefit.All;
             for (var i = 0; i < benefits.Count; i++)
             {
