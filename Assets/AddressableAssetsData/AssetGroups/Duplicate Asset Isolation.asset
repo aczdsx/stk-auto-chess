@@ -35,11 +35,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0406db5a14f94604a8c57ccfbc9f3b46
-    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Particles/ParticlesUnlit.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 045b07693dec4494ea8eeb867988c7e0
     m_Address: Assets/_Project/Addressables/Remote/VFX/Tile/fx_tile_18a_Repeat.png
     m_ReadOnly: 0
@@ -197,11 +192,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 12cc9d1d7b06491429932539e3724c7c
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_System_Frame.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 13c02b14c4d048fa9653293d54f6e0e1
-    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/2D/Sprite-Unlit-Default.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -540,11 +530,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 31321ba15b8f8eb4c954353edc038b1d
-    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 319bd54f73f64cf45865a2b05598a1bf
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Skill_Frame2.png
     m_ReadOnly: 0
@@ -607,11 +592,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 36c53ab97713ebd499092b7c69aff351
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Ingame_Img_Cri.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 36e335017ad71d54fbb10842863188ae
-    m_Address: Packages/com.unity.render-pipelines.core/Runtime/RenderPipelineResources/FallbackShader.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1062,16 +1042,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 63df4b1ba150fd14b86573ee02a6eee1
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Line_2X2_01.psd
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 64a55139bbf135f44b059095a281ee20
-    m_Address: Packages/com.elringus.naninovel/Textures/UI/Continue.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 650dd9526735d5b46b79224bc6e94025
-    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Unlit.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1630,11 +1600,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 933532a4fcc9baf4fa0491de14d08ed7
-    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9373910124682a147973dfd2fbb23e9b
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Skill_Img_Circle_120px.png
     m_ReadOnly: 0
@@ -1757,11 +1722,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9db0891dfff4e0a4e8a2d6b8afe46592
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Sweep_Img_StarBg.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9dfc825aed78fcd4ba02077103263b40
-    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Unlit-Default.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2102,11 +2062,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b99ea096c1ed37848a86683b0d744736
     m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_401021_02.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b9b3fefeea6c9f74ca0e1a2f9e4dfb13
-    m_Address: Packages/com.elringus.naninovel/Prefabs/TextPrinters/InputIndicatorWhite.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2721,11 +2676,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e6e9a19c3678ded42a3bc431ebef7dbd
-    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e74a1f8978a7da348a721508d0d58834
     m_Address: Assets/ThirdParty/Spine/Runtime/spine-unity/Materials/SkeletonGraphicMultiply.mat
     m_ReadOnly: 0
@@ -2738,11 +2688,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7ef529b92638514bb808524849ba6b1
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Deco08.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e823cd5b5d27c0f4b8256e7c12ee3e6d
-    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/ParticlesUnlit.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

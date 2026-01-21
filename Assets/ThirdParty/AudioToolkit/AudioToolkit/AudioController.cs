@@ -71,6 +71,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using ClockStone;
+using CookApps.BattleSystem;
 
 #pragma warning disable 1591 // undocumented XML code warning
 
@@ -3105,13 +3106,21 @@ public class AudioController : SingletonMonoBehaviour<AudioController>, ISeriali
             delay += UnityEngine.Random.Range( 0, subItem.RandomDelay );
         }
 
+        // 인게임 속도에 따른 delay 조정
+        float totalDelay = delay + subItem.Delay + audioItem.Delay;
+        float speedRate = InGameMainFlowManager.CurrentSpeedRate;
+        if ( speedRate > 0 )
+        {
+            totalDelay /= speedRate;
+        }
+
         if ( dspTime > 0 )
         {
-            sndObj.PlayScheduled( dspTime + delay + subItem.Delay + audioItem.Delay );
+            sndObj.PlayScheduled( dspTime + totalDelay );
 
         }
         else
-            sndObj.Play( delay + subItem.Delay + audioItem.Delay );
+            sndObj.Play( totalDelay );
 
         if ( subItem.FadeIn > 0 )
         {

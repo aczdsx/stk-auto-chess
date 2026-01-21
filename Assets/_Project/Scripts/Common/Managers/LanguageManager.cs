@@ -10,19 +10,10 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoBattler
 {
-    /// <summary>
-    /// 테이블 타입 열거형
-    /// </summary>
-    public enum LocalizationTableType
-    {
-        Default,
-        Dialogue
-    }
-    
     public class LanguageManager : Singleton<LanguageManager>
     {        
-        private const string DefaultTableName = "Default";
-        private const string DialogueTableName = "Dialogue";
+        public const string DefaultTableName = "Default";
+        public const string DialogueTableName = "Dialogue";
 
         // 테이블 캐시
         private StringTable defaultTable;

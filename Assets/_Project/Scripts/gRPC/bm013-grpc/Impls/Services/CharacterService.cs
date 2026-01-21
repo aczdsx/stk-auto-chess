@@ -135,5 +135,34 @@ namespace CookApps.AutoBattler
 
             return resp;
         }
+
+        /// <summary>
+        /// 캐릭터 돌파
+        /// </summary>
+        public async UniTask<CharacterExceedResponse> ExceedAsync(uint characterId, CancellationToken cancellationToken = default)
+        {
+            CharacterExceedResponse resp = await ExecuteWithCommonErrorCheck(
+                ServiceClient.ExceedAsync,
+                new CharacterExceedRequest { CharacterId = characterId },
+                cancellationToken: cancellationToken
+            );
+
+            if (resp != null && resp.IsSuccess)
+            {
+                // CharacterModel 갱신
+                if (resp.Character != null)
+                {
+                    ServerDataManager.Instance.Character.UpdateCharacter(resp.Character);
+                }
+
+                // 통화 변화 적용
+                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+                {
+                    ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
+                }
+            }
+
+            return resp;
+        }
     }
 }

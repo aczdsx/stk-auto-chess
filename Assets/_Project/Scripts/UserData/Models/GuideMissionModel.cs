@@ -129,11 +129,6 @@ namespace CookApps.AutoBattler
         /// </summary>
         public bool IsAllCompleted => _data == null || (GuideMissionId == 0 && State == GuideMissionState.Unspecified);
 
-        /// <summary>
-        /// 보상 수령 가능 여부 (목표 달성 & 완료 상태 아님)
-        /// </summary>
-        public bool CanClaimReward => IsGoalReached && !IsCompleted;
-
         #endregion
 
         #region 액션
