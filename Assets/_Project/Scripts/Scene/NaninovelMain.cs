@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using CookApps.TeamBattle.UIManagements;
 using Naninovel;
 using UnityEngine;
@@ -153,10 +154,15 @@ namespace CookApps.AutoBattler
 
             // 이전 스크립트의 spawn 객체 정리
             var spawnManager = Engine.GetService<ISpawnManager>();
-            if (spawnManager != null)
+            if (spawnManager != null && spawnManager.Spawned.Count > 0)
             {
-                spawnManager.DestroyAllSpawned();
-                Debug.Log("NaninovelMain: 이전 스크립트의 spawn 객체 정리 완료");
+                // Spawned 컬렉션 복사 후 순회 (순회 중 컬렉션 변경 방지)
+                var spawnedPaths = spawnManager.Spawned.Select(s => s.Path).ToList();
+                foreach (var path in spawnedPaths)
+                {
+                    spawnManager.DestroySpawned(path);
+                }
+                Debug.Log($"NaninovelMain: 이전 스크립트의 spawn 객체 {spawnedPaths.Count}개 정리 완료");
             }
 
             // 연쇄 재생 전 UI 상태 복원
