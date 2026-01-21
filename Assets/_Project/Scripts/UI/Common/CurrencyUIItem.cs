@@ -31,8 +31,9 @@ namespace CookApps.AutoBattler
             itemAmountText.text = amount.ToString("N0");
         }
 
-        public void SetUIItem(ItemId itemId, int amount, bool isEnough)
+        public void SetUIItem((ItemId, int, bool) data)
         {
+            var (itemId, amount, isEnough) = data;
             if (itemId.IsCharacterPiece())
             {
                 itemId.GetCharacterId(out var charIndex);

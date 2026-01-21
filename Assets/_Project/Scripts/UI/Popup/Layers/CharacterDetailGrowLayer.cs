@@ -4,11 +4,14 @@ using System.Linq;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
 namespace CookApps.AutoBattler
 {
@@ -33,19 +36,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private Slider _pieceSlider;
 
         [Header("LevelUp Layer")]
-        [SerializeField] private CAButton _activeLevelUpButton;
-        [SerializeField] private CAButton _inactiveLevelUpButton;
-        [SerializeField] private TextMeshProUGUI _resetCountText;
-        [SerializeField] private TextMeshProUGUI _inactiveResetCountText;
-
-        [Space(10)]
-        [SerializeField] private CurrencyUIItem _baseExpItemCurrencyUIItem;
-        [SerializeField] private CurrencyUIItem _secondExpItemCurrencyUIItem;
-        [SerializeField] private CurrencyUIItem _goldCurrencyUIItem;
-
-        [Space(10)]
-        [SerializeField] private List<ParticleSystem> _levelupEffectObjectList_1;
-        [SerializeField] private List<ParticleSystem> _levelupEffectObjectList_2;
+        [SerializeField] private LocalizeStringEvent[] levelUpButtonText;
+        [SerializeField] private CAButton activeLevelUpButton;
+        [SerializeField] private CAButton inactiveLevelUpButton;
+        [SerializeField] private CurrencyUIItem[] levelUpItems;
+        [SerializeField] private List<UIParticleSystem> levelUpEffects;
 
         [Header("Transcendence Layer")]
         [SerializeField] private GameObject _transcendenceLayerObject;
@@ -66,7 +61,6 @@ namespace CookApps.AutoBattler
         private CharacterCollectionPopup _parentCollectionPopup;
 
         private bool _isHaveCharacter = false;
-        private bool _isPlayingLevelupEffect = false;
 
         private InventoryDataBridge _inventoryBridge;
 
@@ -77,9 +71,9 @@ namespace CookApps.AutoBattler
                 .Subscribe(this, (_, self) => self.OnClickDetailStatButton()).AddTo(this);
 
             // 레벨업
-            _activeLevelUpButton.OnClickAsObservable()
+            activeLevelUpButton.OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, _) => self.OnClickLevelupButtonAsync(), AwaitOperation.Drop).AddTo(this);
-            _inactiveLevelUpButton.OnClickAsObservable()
+            inactiveLevelUpButton.OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, _) => self.OnClickLevelupButtonAsync(), AwaitOperation.Drop).AddTo(this);
             // 초월
             _activeTranscendenceButton.OnClickAsObservable()
@@ -88,7 +82,6 @@ namespace CookApps.AutoBattler
 
         public void InitLayer(CharacterCollectionPopup _parentPopup, int characterId)
         {
-            ClearLayer();
             this.characterId = characterId;
 
             _parentCollectionPopup = _parentPopup;
@@ -116,13 +109,13 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null || _userCharacterData == null) return;
 
-            int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel((int)_userCharacterData.Level);
+            var nextExceedLevel = SpecDataManager.Instance.GetCharacterNextExceedLevelExpData(_userCharacterData.ExceedLevel);
 
             int userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
 
             _userStatData = new CharacterStatData((int)_userCharacterData.CharacterId, userLevel, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
-            _levelText.text = $"Lv.{userLevel}/{maxLevel}";
+            _levelText.text = $"Lv.{userLevel}/{nextExceedLevel?.level ?? userLevel}";
             _battlePointText.text = _userStatData.GetAttrValueCP().ToString("N0");
             _attackValueText.text = _userStatData.AD.ToString("N0");
             _hpValueText.text = _userStatData.HP.ToString("N0");
@@ -153,36 +146,64 @@ namespace CookApps.AutoBattler
             if (_specCharacterData == null || _userCharacterData == null) return;
 
             // 레벨업 가능 여부 체크
-            int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel((int)_userCharacterData.Level);
+            var nextExceedLevelExpData = SpecDataManager.Instance.GetCharacterNextExceedLevelExpData(_userCharacterData.ExceedLevel);
 
             int userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
 
             // 레벨업에 필요한 자원 정보 세팅
-            _specCharacterLevelExpData = SpecDataManager.Instance.GetCharacterLevelExpData(userLevel);
-
-            bool isAvailLevelup = _isHaveCharacter && _userCharacterData.Level < maxLevel;
+            if (_isHaveCharacter && userLevel < (nextExceedLevelExpData?.level ?? userLevel))
+            {
+                _specCharacterLevelExpData = SpecDataManager.Instance.GetCharacterLevelExpData(userLevel);
+                foreach (var localizeStringEvent in levelUpButtonText)
+                {
+                    localizeStringEvent.StringReference.SetReference(LanguageManager.DefaultTableName, "UI_GROW");
+                }
+            }
+            else
+            {
+                _specCharacterLevelExpData = nextExceedLevelExpData;
+                foreach (var localizeStringEvent in levelUpButtonText)
+                {
+                    localizeStringEvent.StringReference.SetReference(LanguageManager.DefaultTableName, "UI_EXCEED");
+                }
+            }
+            
             if (_specCharacterLevelExpData != null)
             {
-                bool isEnoughGold = _specCharacterLevelExpData.need_gold <= (int)_inventoryBridge.GetCurrency(IdMap.Item.Gold);
-                bool isEnoughExpItem = _specCharacterLevelExpData.base_levelup_item_count <= (int)_inventoryBridge.GetCurrency(_specCharacterLevelExpData.base_levelup_item_id);
-                bool isEnoughExpItem2 = _specCharacterLevelExpData.sec_levelup_item_count <= (int)_inventoryBridge.GetCurrency(_specCharacterLevelExpData.sec_levelup_item_id);
+                var uiItemDatas = new List<(ItemId, int, bool)>();
+                if (_specCharacterLevelExpData.need_gold > 0)
+                    uiItemDatas.Add((IdMap.Item.Gold, _specCharacterLevelExpData.need_gold, _specCharacterLevelExpData.need_gold <= (int)_inventoryBridge.GetCurrency(IdMap.Item.Gold)));
+                if (_specCharacterLevelExpData.base_levelup_item_id != 0)
+                    uiItemDatas.Add((_specCharacterLevelExpData.base_levelup_item_id, _specCharacterLevelExpData.base_levelup_item_count, _specCharacterLevelExpData.base_levelup_item_count <= (int)_inventoryBridge.GetCurrency(_specCharacterLevelExpData.base_levelup_item_id)));
+                if (_specCharacterLevelExpData.sec_levelup_item_id != 0)
+                    uiItemDatas.Add((_specCharacterLevelExpData.sec_levelup_item_id, _specCharacterLevelExpData.sec_levelup_item_count, _specCharacterLevelExpData.sec_levelup_item_count <= (int)_inventoryBridge.GetCurrency(_specCharacterLevelExpData.sec_levelup_item_id)));
+                
+                var isAvailLevelup = uiItemDatas.All(x => x.Item3);
 
-                isAvailLevelup = isEnoughGold && isEnoughExpItem && isEnoughExpItem2 && isAvailLevelup;
-
-                _goldCurrencyUIItem.SetUIItem(IdMap.Item.Gold, _specCharacterLevelExpData.need_gold, isEnoughGold);
-                _baseExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.base_levelup_item_id, _specCharacterLevelExpData.base_levelup_item_count, isEnoughExpItem);
-
-                // TODO: 체크 필요
-                bool isNeedSecondExpItem = _specCharacterLevelExpData.sec_levelup_item_count > 0;
-                if (isNeedSecondExpItem)
+                for (var i = 0; i < levelUpItems.Length; i++)
                 {
-                    _secondExpItemCurrencyUIItem.SetUIItem(_specCharacterLevelExpData.sec_levelup_item_id, _specCharacterLevelExpData.sec_levelup_item_count, isEnoughExpItem2);
+                    if (uiItemDatas.Count <= i)
+                    {
+                        levelUpItems[i].gameObject.SetActive(false);
+                        continue;
+                    }
+                
+                    levelUpItems[i].gameObject.SetActive(true);
+                    levelUpItems[i].SetUIItem(uiItemDatas[i]);
                 }
-                _secondExpItemCurrencyUIItem.gameObject.SetActive(isNeedSecondExpItem);
+                activeLevelUpButton.gameObject.SetActive(isAvailLevelup);
+                inactiveLevelUpButton.gameObject.SetActive(!isAvailLevelup);
+            }
+            else
+            {
+                for (var i = 0; i < levelUpItems.Length; i++)
+                {
+                    levelUpItems[i].gameObject.SetActive(false);
+                }
+                activeLevelUpButton.gameObject.SetActive(false);
+                inactiveLevelUpButton.gameObject.SetActive(true);
             }
 
-            _activeLevelUpButton.gameObject.SetActive(isAvailLevelup);
-            _inactiveLevelUpButton.gameObject.SetActive(!isAvailLevelup);
         }
 
         private void SetTranscendenceLayer()
@@ -213,26 +234,12 @@ namespace CookApps.AutoBattler
 
         private void PlayLevelUpEffect()
         {
-            _isPlayingLevelupEffect = true;
-
-            _levelupEffectObjectList_1.ForEach(effect =>
+            for (var i = 0; i < levelUpEffects.Count; i++)
             {
-                effect.gameObject.SetActive(true);
-
-                effect.Stop();
-                effect.Play();
-            });
-
-            _levelupEffectObjectList_2.ForEach(effect =>
-            {
-                effect.gameObject.SetActive(true);
-
-                effect.Stop();
-                effect.Play();
-            });
-
-            _isPlayingLevelupEffect = false;
+                levelUpEffects[i].StartParticleEmission();
+            }
         }
+        
 
         private void SetGuideAlert()
         {
@@ -259,9 +266,10 @@ namespace CookApps.AutoBattler
                 return;
             }
 
+            var userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
             // 최대 레벨 검사
-            int maxLevel = SpecDataManager.Instance.GetCharacterMaxLevel((int)_userCharacterData.Level);
-            if (_userCharacterData.Level >= maxLevel)
+            var nextExceedLevelExpData = SpecDataManager.Instance.GetCharacterNextExceedLevelExpData(_userCharacterData.ExceedLevel);
+            if (userLevel >= (nextExceedLevelExpData?.level ?? userLevel))
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_MAX_LV_NEED_TRANSCENDENCE");
                 return;
@@ -274,7 +282,14 @@ namespace CookApps.AutoBattler
         {
             try
             {
-                await NetManager.Instance.Character.LevelUpAsync(_userCharacterData.CharacterId);
+                if (_specCharacterLevelExpData.IsExceed)
+                {
+                    await NetManager.Instance.Character.ExceedAsync(_userCharacterData.CharacterId);
+                }
+                else
+                {
+                    await NetManager.Instance.Character.LevelUpAsync(_userCharacterData.CharacterId);
+                }
 
                 // 이펙트 실행
                 PlayLevelUpEffect();
@@ -346,16 +361,15 @@ namespace CookApps.AutoBattler
                 // 이펙트 실행
                 PlayLevelUpEffect();
 
-                var afterTranscenenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type,
-                    (int)(_userCharacterData.TranscendLevel + 1));
-                if (afterTranscenenceData != null)
-                {
-                    // ! max_level은 사용 안한다!
-                    // string msg =
-                    //     $"{LanguageManager.Instance.GetDefaultText("MSG_MAX_LV_UP")}\n{_specCharacterTranscendenceData.max_level} -> {afterTranscenenceData.max_level}";
-                    // ToastManager.Instance.ShowToast(msg);
-                }
-                else
+                // var afterTranscenenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type,
+                //     (int)(_userCharacterData.TranscendLevel + 1));
+                // if (afterTranscenenceData != null)
+                // {
+                //     string msg =
+                //         $"{LanguageManager.Instance.GetDefaultText("MSG_MAX_LV_UP")}\n{_specCharacterTranscendenceData.max_level} -> {afterTranscenenceData.max_level}";
+                //     ToastManager.Instance.ShowToast(msg);
+                // }
+                // else
                 {
                     ToastManager.Instance.ShowToastByTokenKey("MSG_MAX_LV_UP");
                 }
@@ -363,47 +377,6 @@ namespace CookApps.AutoBattler
             catch (Exception e)
             {
                 Debug.LogError($"Failed to transcend character: {e.Message}");
-            }
-        }
-
-        private void ClearLayer()
-        {
-            _levelupEffectObjectList_1.ForEach(effect => effect.gameObject.SetActive(false));
-            _levelupEffectObjectList_2.ForEach(effect => effect.gameObject.SetActive(false));
-        }
-
-        private async UniTaskVoid StartCountdown()
-        {
-            DateTime currentTime = TimeManager.Instance.UtcNow();
-            DateTime nextDayTime = TimeManager.Instance.TommorrowToUtc();
-
-            string msg = LanguageManager.Instance.GetDefaultText("LV_RESET_REMAIN_TIME");
-            while (true)
-            {
-                TimeSpan timeRemaining = nextDayTime - currentTime;
-
-                int days = timeRemaining.Days;
-                int hours = timeRemaining.Hours;
-                int minutes = timeRemaining.Minutes;
-
-                string timeString = "";
-
-                if (days > 0)
-                {
-                    timeString += $"{days}일 ";
-                }
-                if (hours > 0)
-                {
-                    timeString += $"{hours}시간 ";
-                }
-                if (minutes > 0 || timeString == "")
-                {
-                    timeString += $"{minutes}분";
-                }
-
-                _inactiveResetCountText.text = string.Format(msg, timeString);
-
-                await UniTask.Delay(TimeSpan.FromSeconds(1));
             }
         }
     }
