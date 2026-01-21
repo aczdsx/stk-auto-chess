@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectFactor: 0.4110702
+  m_EffectFactor: 0.24131094
   m_Width: 0.038
   m_Rotation: -145
   m_Softness: 1
@@ -4736,6 +4736,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5310395886861947776, guid: 606ca9769bae0df47afa183af1f29b7a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -450
+      objectReference: {fileID: 0}
     - target: {fileID: 5581705442579547628, guid: 606ca9769bae0df47afa183af1f29b7a, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
@@ -4814,7 +4818,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7796542482602109737, guid: 606ca9769bae0df47afa183af1f29b7a, type: 3}
       propertyPath: m_EffectFactor
-      value: 0.5123084
+      value: 0.07982847
       objectReference: {fileID: 0}
     - target: {fileID: 7925891393820010288, guid: 606ca9769bae0df47afa183af1f29b7a, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -4847,6 +4851,10 @@ PrefabInstance:
     - target: {fileID: 8591088892580374325, guid: 606ca9769bae0df47afa183af1f29b7a, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607820233113029381, guid: 606ca9769bae0df47afa183af1f29b7a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8639523784204077561, guid: 606ca9769bae0df47afa183af1f29b7a, type: 3}
       propertyPath: _itemIconSpriteLoader

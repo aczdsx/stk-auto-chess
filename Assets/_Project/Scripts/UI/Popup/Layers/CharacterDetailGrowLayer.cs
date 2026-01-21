@@ -35,8 +35,6 @@ namespace CookApps.AutoBattler
         [Header("LevelUp Layer")]
         [SerializeField] private CAButton _activeLevelUpButton;
         [SerializeField] private CAButton _inactiveLevelUpButton;
-        [SerializeField] private CAButton _activeResetLevelUpButton;
-        [SerializeField] private CAButton _inactiveResetLevelUpButton;
         [SerializeField] private TextMeshProUGUI _resetCountText;
         [SerializeField] private TextMeshProUGUI _inactiveResetCountText;
 
@@ -57,6 +55,7 @@ namespace CookApps.AutoBattler
         [Space(10)]
         [SerializeField] private CurrencyUIItem _transcendenceItemCurrencyUIItem;
 
+        private int characterId;
         private CharacterData _userCharacterData;
         private CharacterInfo _specCharacterData;
         private CharacterLevelExp _specCharacterLevelExpData;
@@ -82,39 +81,19 @@ namespace CookApps.AutoBattler
                 .SubscribeAwait(this, (_, self, _) => self.OnClickLevelupButtonAsync(), AwaitOperation.Drop).AddTo(this);
             _inactiveLevelUpButton.OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, _) => self.OnClickLevelupButtonAsync(), AwaitOperation.Drop).AddTo(this);
-            _activeResetLevelUpButton.OnClickAsObservable()
-                .SubscribeAwait(this, (_, self, _) => self.OnClickCharacterResetButtonAsync(), AwaitOperation.Drop).AddTo(this);
-            _inactiveResetLevelUpButton.OnClickAsObservable()
-                .Subscribe(this, (_, self) => self.OnClickDimmedResetButton()).AddTo(this);
-
             // 초월
             _activeTranscendenceButton.OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, _) => self.OnClickTranscendenceButtonAsync(), AwaitOperation.Drop).AddTo(this);
         }
 
-        public void InitLayer(CharacterCollectionPopup _parentPopup, int characterID)
+        public void InitLayer(CharacterCollectionPopup _parentPopup, int characterId)
         {
             ClearLayer();
+            this.characterId = characterId;
 
             _parentCollectionPopup = _parentPopup;
 
-            _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterID);
-            _userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterID);
-
-            _isHaveCharacter = ServerDataManager.Instance.Character.HasCharacter(characterID);
-
-            // 스탯 표시 처리 
-            SetUserStatLayer();
-
-            // 레벨업 기능 관련 처리
-            SetLevelupLayer();
-
-            // 초월 기능 관련 처리
-            SetTranscendenceLayer();
-            SetTranscendencePieceLayer();
-
-            // 리셋 기능 관련 처리
-            SetLevelResetLayer();
+            RefreshLayer();
 
             // 가이드 알림 처리
             SetGuideAlert();
@@ -124,10 +103,11 @@ namespace CookApps.AutoBattler
 
         public void RefreshLayer()
         {
+            _specCharacterData = SpecDataManager.Instance.GetCharacterData(characterId);
+            _userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterId);
+            _isHaveCharacter = ServerDataManager.Instance.Character.HasCharacter(characterId);
             SetUserStatLayer();
             SetLevelupLayer();
-            SetLevelResetLayer();
-
             SetTranscendenceLayer();
             SetTranscendencePieceLayer();   // SetTranscendenceLayer 이후 호출되어야 함
         }
@@ -231,28 +211,6 @@ namespace CookApps.AutoBattler
             _inactiveTranscendenceButton.gameObject.SetActive(!isAvailTranscendence);
         }
 
-        private void SetLevelResetLayer()
-        {
-            int maxResetCount = SpecDataManager.Instance.GetGameConfig<int>("character_level_reset_count_daily");
-            int resetCount = ClientDataManager.Instance.GetData<ClientBasicData>(ClientBasicData.CategoryName).GetTodayResetCharacterCount();
-
-            int resultCount = maxResetCount - resetCount;
-
-            string levelResetString = LanguageManager.Instance.GetDefaultText("UI_LEVEL_RESET");
-            _resetCountText.text = $"{levelResetString} <color=#C35B79><b>({resultCount})</b></color>";
-
-            bool isAvailReset = resultCount > 0;
-
-            _activeResetLevelUpButton.gameObject.SetActive(isAvailReset);
-            _inactiveResetLevelUpButton.gameObject.SetActive(!isAvailReset);
-
-            if (!isAvailReset)
-            {
-                _inactiveResetCountText.ToString();
-                StartCountdown().Forget();
-            }
-        }
-
         private void PlayLevelUpEffect()
         {
             _isPlayingLevelupEffect = true;
@@ -333,49 +291,6 @@ namespace CookApps.AutoBattler
             {
                 Debug.LogError($"Failed to level up character: {e.Message}");
             }
-        }
-
-        private async UniTask OnClickCharacterResetButtonAsync()
-        {
-            // 리셋 가능 레벨 체크
-            if (_userCharacterData.Level <= 1)
-            {
-                ToastManager.Instance.ShowToastByTokenKey("MSG_CHARACTER_LV_RESET_IMPOSSIBLE_ALERT");
-                return;
-            }
-
-            // 리셋 가능 횟수 체크
-            int maxResetCount = SpecDataManager.Instance.GetGameConfig<int>("character_level_reset_count_daily");
-            if (ClientDataManager.Instance.GetData<ClientBasicData>(ClientBasicData.CategoryName).GetTodayResetCharacterCount() >= maxResetCount)
-            {
-                ToastManager.Instance.ShowToastByTokenKey("MSG_CHARACTER_LV_RESET_END_GUIDE");
-                return;
-            }
-
-            // 레벨업 리셋에 소모된 아이템 반환 아이템 체크
-            var resetRewardItemList = SpecDataManager.Instance.GetCharacterLevelupTotalNeedItemList((int)_userCharacterData.Level, (int)_userCharacterData.CharacterId);
-            if (resetRewardItemList == null || resetRewardItemList.Count <= 0)
-            {
-                ToastManager.Instance.ShowToastByTokenKey("MSG_CHARACTER_LV_ITEM_ISSUE");
-                return;
-            }
-
-            string descText = LanguageManager.Instance.GetDefaultText("MSG_CHARACTER_LV_RESET_ALERT");
-            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData("시스템 알림", descText, "확인", "취소");
-            var popup = await SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData);
-            var isConfirmed = await popup.WaitForExit();
-            
-            if (isConfirmed is true)
-            {
-                // TODO: 서버 API로 캐릭터 레벨 리셋 구현 필요
-                // 현재 서버 API가 없음
-                ToastManager.Instance.ShowToastByTokenKey("MSG_NOT_IMPLEMENTED");
-            }
-        }
-
-        private void OnClickDimmedResetButton()
-        {
-            ToastManager.Instance.ShowToastByTokenKey("MSG_CHARACTER_LV_RESET_END_GUIDE");
         }
 
         private async UniTask OnClickTranscendenceButtonAsync()
