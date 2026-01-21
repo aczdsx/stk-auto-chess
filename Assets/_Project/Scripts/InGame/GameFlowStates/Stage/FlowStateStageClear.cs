@@ -19,7 +19,6 @@ public class FlowStateStageClear : StateBase
     private async UniTaskVoid StateStartAsync()
     {
         var _mvpCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
-        InGameManager.Instance.EndInGame();
         bool star2 = InGameMain.GetInGameMain().InGameTime >= 30;
         bool star3 = InGameObjectManager.Instance.IsCheckAllPlayerCharacterAlive();
 
@@ -30,8 +29,9 @@ public class FlowStateStageClear : StateBase
         ulong clearTimeMs = (ulong)((60 - InGameMain.GetInGameMain().InGameTime) * 1000);
         var resp = await SendEndAsync(stars, clearTimeMs);
 
+        InGameManager.Instance.EndInGame();
+        
         // 서버 응답 후 결과 팝업 표시
-
         InGameResultPopupParam param = new InGameResultPopupParam(true, star2, star3, _mvpCharacterData, (IReadOnlyList<Reward>)resp.Rewards);
         SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>(param);
 
