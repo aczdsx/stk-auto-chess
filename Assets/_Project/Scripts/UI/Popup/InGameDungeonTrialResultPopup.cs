@@ -153,7 +153,7 @@ namespace CookApps.AutoBattler
             SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
 
             var guideMission = ServerDataManager.Instance.GuideMission;
-            if (!guideMission.CanClaimReward)
+            if (!guideMission.IsCompleted)
                 SceneUILayerManager.OnSceneLoadedEvent += OpenDungeonTrialPopupAction;
         }
 

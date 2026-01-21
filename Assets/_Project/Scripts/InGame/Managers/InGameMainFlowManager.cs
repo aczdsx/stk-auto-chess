@@ -21,6 +21,17 @@ namespace CookApps.BattleSystem
         private ObfuscatorFloat fastForwardRate;
         public float FastForwardRate => fastForwardRate;
 
+        /// <summary>
+        /// 현재 인게임 인스턴스 (인게임 루프 실행 중에만 유효)
+        /// </summary>
+        private static InGameMainFlowManager _currentInstance;
+
+        /// <summary>
+        /// 현재 게임 속도 반환 (인게임이 아니면 1f)
+        /// AudioController 등 외부에서 인스턴스 자동 생성 없이 안전하게 접근 가능
+        /// </summary>
+        public static float CurrentSpeedRate => _currentInstance?.FastForwardRate ?? 1f;
+
         public void Clear()
         {
             isPaused = false;
@@ -33,6 +44,7 @@ namespace CookApps.BattleSystem
 
         public void StartInGameMainLoop<T>(object stateData) where T : StateBase, new()
         {
+            _currentInstance = this;
             OneTick = 1f / Application.targetFrameRate;
             prevProcessingTime = Time.time;
             prevLateProcessingTime = Time.time;
@@ -48,6 +60,7 @@ namespace CookApps.BattleSystem
 
         public void StopInGameMainLoop()
         {
+            _currentInstance = null;
             updateHandlers.Clear();
             lateUpdateHandlers.Clear();
             if (flowState != null)

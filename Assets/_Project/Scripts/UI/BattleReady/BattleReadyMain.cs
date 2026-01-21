@@ -508,7 +508,7 @@ namespace CookApps.AutoBattler
                     if (specGuideMissionData != null)
                     {
                         if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE &&
-                            guideMission.CanClaimReward)
+                            guideMission.IsCompleted)
                         {
                             ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_1");
                             return;
