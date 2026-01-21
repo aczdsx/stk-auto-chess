@@ -50,8 +50,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
         _colliderVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillRootTransformFollowable);
         _colliderVfx.Initialize(false);
-        _colliderVfx.OnCollisionWithTile += OnCollisionWithTile;
-        _colliderVfx.gameObject.SetActive(false);
+        _colliderVfx.OnCollisionWithTile += OnCollision2DEnter;
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -64,7 +63,11 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
     public override void OnUpdate(float dt)
     {
-        InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, owner.CurrentTile);
+        // InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, owner.CurrentTile);
+        if (_colliderVfx != null && _colliderVfx.gameObject.activeSelf)
+        {
+            Debug.Log("collider position: " + _colliderVfx.CachedTr.position);
+        }
 
         if (!IsSkillActivated)
         {
@@ -99,8 +102,8 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
     {
         if (_isJumping)
             return;
-        _colliderVfx.gameObject.SetActive(true);
         base.Activate();
+        _colliderVfx.CachedGo.SetActive(true);
         CharacterController targetCharacter = FindNearestEnemyInLine();
         if (targetCharacter == null)
         {
@@ -233,6 +236,14 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         // 점프 시작
         _isJumping = true;
 
+        var vfXPosition = targetPosition;
+        vfXPosition.y = owner.SkillMiddleFXTransformFollowable.GetPosition().y;
+        // 포털 VFX 생성
+        _portalVfx = InGameVfxManager.Instance.AddInGameVfx( _specSkill.skill_vfxs[0], vfXPosition);
+
+        var direction = (targetPosition - startPosition).normalized;
+        _portalVfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+
         // 빠르게 목표 타일로 이동
         var moveTween = Tween.Custom(
             startPosition,
@@ -256,10 +267,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
                     target.owner.Position3D = target._targetMoveTile.View.Position;
                     target.owner.GetCharacterView().CachedTr.localPosition = target.owner.Position3D;
 
-                    // 포털 VFX 생성
-                    target._portalVfx = InGameVfxManager.Instance.AddInGameVfx(
-                        target._specSkill.skill_vfxs[0],
-                        target.owner.SkillRootTransformFollowable);
+                    target._colliderVfx.CachedGo.SetActive(false);   
                     target._portalVfx.Initialize(false);
                 }
             });
@@ -276,8 +284,8 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
             return;
 
         Vector3 currentPosition = owner.Position3D;
-        Vector3 finalPosition = _targetMoveTile.View.Position + 
-            (_targetMoveTile.View.Position - _originalTile.View.Position).normalized * 2.0f;
+        Vector3 finalPosition = _targetMoveTile.View.Position +
+            (_targetMoveTile.View.Position - _originalTile.View.Position).normalized * 1.8f;
 
         // 기존 Sequence가 있으면 중지
         if (_moveSequence.isAlive)
@@ -356,7 +364,6 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
             // 점프 완료 및 쿨타임 초기화
             _isJumping = false;
-            _colliderVfx?.gameObject.SetActive(false);
             CoolTimeElapsedTime = 0;
             IsSkillActivated = false;
         }
@@ -372,7 +379,6 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
-        _colliderVfx.gameObject.SetActive(true);
         _colliderVfx.Remove();
         if (_portalVfx != null)
         {
@@ -385,14 +391,14 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         {
             _moveSequence.Stop();
         }
-        
+
         base.OnPreRemoved();
     }
 
-    private void OnCollisionWithTile(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
+    private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
     {
         // 점프 중일 때는 리턴
-        if (_isJumping)
+        if (!_isJumping)
             return;
 
         if (tile == null || owner == null || !owner.IsAlive)

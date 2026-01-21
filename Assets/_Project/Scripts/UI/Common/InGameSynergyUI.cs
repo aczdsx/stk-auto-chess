@@ -128,11 +128,11 @@ namespace CookApps.AutoBattler
             }
             _countText.text = $"{count}/{nextData.min_int}";
             if(isAsterismSynergyType){
-                Debug.LogColor($"SynergyUI!! [{synergyType}] {isActive}/{_starAsterismGradeGuageImage.fillAmount}", "green");
+                // Debug.LogColor($"SynergyUI!! [{synergyType}] {isActive}/{_starAsterismGradeGuageImage.fillAmount}", "green");
             }
             else
             {
-                Debug.LogColor($"SynergyUI!! [{synergyType}] {isActive}/{_elementalGradeGuageImage.fillAmount}", "green");
+                // Debug.LogColor($"SynergyUI!! [{synergyType}] {isActive}/{_elementalGradeGuageImage.fillAmount}", "green");
             }
         }
 
