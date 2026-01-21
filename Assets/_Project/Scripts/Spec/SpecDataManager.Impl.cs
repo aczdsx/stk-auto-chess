@@ -438,16 +438,21 @@ namespace CookApps.AutoBattler
             return result;
         }
 
-        public int GetCharacterMaxLevel(int currentLevel)
+        public CharacterLevelExp GetCharacterNextExceedLevelExpData(uint exceedCount)
         {
-            int nextExceedLevel = int.MaxValue;
             for (int i = 0; i < CharacterLevelExp.All.Count; i++)
             {
                 var data = CharacterLevelExp.All[i];
-                if (data.level > currentLevel && data.IsExceed && data.level < nextExceedLevel)
-                    nextExceedLevel = data.level;
+                if (exceedCount == 0 && data.IsExceed)
+                {
+                    return data;
+                }
+
+                if (data.IsExceed)
+                    exceedCount--;
             }
-            return nextExceedLevel == int.MaxValue ? currentLevel : nextExceedLevel;
+
+            return null;
         }
 
         public CharacterLevelExp GetCharacterLevelExpData(int level)

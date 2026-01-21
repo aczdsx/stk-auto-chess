@@ -6,7 +6,7 @@ using UnityEngine.Pool;
 /// 아이콘을 위해 buff로 처리
 /// 무조건 한개의 버프 스택만 유지한다.
 /// </summary>.
-/// 테토라
+/// 루키다다  
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffRukidaFoxfire : EffectCodeBuffBase
 {

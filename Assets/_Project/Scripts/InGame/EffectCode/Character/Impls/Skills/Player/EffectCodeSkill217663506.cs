@@ -93,8 +93,8 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
         // VFX 초기화
         _slashVfx = null;
         
-        // InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
-        //     owner.GetCharacterView().CachedTr.position);
+        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
+            owner.GetCharacterView().CachedTr.position);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -260,6 +260,7 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
         {
             characterView.CachedTr.localPosition = targetTile.View.Position;
             characterView.LookAt(targetTile, target.CurrentTile);
+            InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, target.CurrentTile);
         }
 
         owner.Target = target;

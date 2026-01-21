@@ -36,6 +36,7 @@ namespace CookApps.AutoBattler
             public static readonly ItemId 슈퍼노바디멘션큐브 = 1730202;
             public static readonly ItemId 트러블슈터디멘션큐브 = 1730203;
             public static readonly ItemId 엘피스코어 = 1850001;
+            public static readonly ItemId 속성석 = 1130001;
 
             // ==================== Material Items ====================
         }
@@ -70,7 +71,7 @@ namespace CookApps.AutoBattler
 
         public static bool IsConsumable(this ItemId id)
         {
-            return id == 350001 || id == 410001 || id == 550001 || id == 650001 || id == 710001 || id == 810001 || id == 1350001 || id == 1620001 || id == 1730001 || id == 1730101 || id == 1730102 || id == 1730103 || id == 1730104 || id == 1730105 || id == 1730201 || id == 1730202 || id == 1730203 || id == 1850001;
+            return id == 350001 || id == 410001 || id == 550001 || id == 650001 || id == 710001 || id == 810001 || id == 1350001 || id == 1620001 || id == 1730001 || id == 1730101 || id == 1730102 || id == 1730103 || id == 1730104 || id == 1730105 || id == 1730201 || id == 1730202 || id == 1730203 || id == 1850001 || id == 1130001;
         }
 
         public static bool IsMaterial(this ItemId id)
@@ -169,6 +170,7 @@ namespace CookApps.AutoBattler
         슈퍼노바디멘션큐브 = 1730202,
         트러블슈터디멘션큐브 = 1730203,
         엘피스코어 = 1850001,
+        속성석 = 1130001,
 
         // 캐릭터 조각
         조각_2101 = 1032101,

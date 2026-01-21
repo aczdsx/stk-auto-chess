@@ -132,7 +132,7 @@ namespace CookApps.AutoBattler
             if (itemId == IdMap.Item.Soul) return "ST_RewardItem_CHAR_TRANSCENDENCE_LIGHT";
             if (itemId == IdMap.Item.Soul) return "ST_RewardItem_CHAR_TRANSCENDENCE_WATER";
             if (itemId == IdMap.Item.Soul) return "ST_RewardItem_CHAR_TRANSCENDENCE_WIND";
-            // if (itemId == IdMap.Item.CharExp) return "ST_RewardItem_CHAR_USER_EXP_ITEM_2";
+            if (itemId == IdMap.Item.속성석) return "ST_RewardItem_CHAR_USER_EXP_ITEM_2";
             if (itemId == IdMap.Item.CharExp) return "ST_RewardItem_CHAR_USER_EXP_ITEM";
             // if (itemId == IdMap.Item. ) return "ST_RewardItem_DUNGEON_KEY1";
             // if (itemId == IdMap.Item. ) return "ST_RewardItem_DUNGEON_KEY2";

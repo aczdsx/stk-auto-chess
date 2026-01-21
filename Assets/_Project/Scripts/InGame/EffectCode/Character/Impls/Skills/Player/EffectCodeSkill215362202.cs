@@ -100,8 +100,8 @@ public partial class EffectCodeSkill215362202 : EffectCodeCharacterBase
         owner.AddNextState<CharacterStateSkill>(this);
 
         _targetCharacter = owner.Target;
-        InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
-            owner.GetCharacterView().CachedTr.position);
+        // InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
+        //     owner.GetCharacterView().CachedTr.position);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
