@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Text;
@@ -9,6 +10,7 @@ using R3.Triggers;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
@@ -37,6 +39,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TMP_Text[] upgradeButtonTexts;
         [SerializeField] private TMP_Text coreTitleText;
         [SerializeField] private TMP_Text requiredCoreTitleText;
+        [SerializeField] private SpriteLoader requireItemImage;
         
         [Header("스탯 관련")]
         [SerializeField] private ElpisCoreStatItem[] coreStats;
@@ -281,6 +284,9 @@ namespace CookApps.AutoBattler
         private void ShowCoreDetail(CoreResearchCacheData coreData)
         {
             SetCoreStatItems();
+
+            requireItemImage.SetSprite(ZString.Format("Icon_Cunsumable{0}", coreData.Data.item_id)).Forget();
+            
             requiredCoreTitleText.text = LanguageManager.Instance.GetDefaultText(ZString.Format("ITEM_INFO_NAME_{0}", coreData.Data.item_id));
             coreTitleText.text = ZString.Format(LanguageManager.Instance.GetDefaultText(coreData.Data.upgrade_name_token), coreData.Data.lv);
 
@@ -296,7 +302,7 @@ namespace CookApps.AutoBattler
             }
 
             var canUpgrade = !coreData.IsMax && (currentItemCount >= coreData.Data.item_INT) && isOverNeedLevel;
-            upgradeButton.SetClickableState(true);
+            upgradeButton.SetClickableState( canUpgrade);
         }
 
         public void CoreSelected(ElpisCoreItem elpisCoreItem)
