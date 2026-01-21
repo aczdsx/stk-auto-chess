@@ -229,7 +229,7 @@ namespace CookApps.AutoBattler
                 isHasPiece = characterPiece >= _specCharacterTranscendenceData.piece;
                 _transcendenceItemCurrencyUIItem.SetUIItem(_specCharacterData.id, _specCharacterTranscendenceData.piece);
             }
-            bool isAvailTranscendence = _isHaveCharacter && _specCharacterTranscendenceData.piece != 0 && isHasPiece;
+            bool isAvailTranscendence = _isHaveCharacter && _specCharacterTranscendenceData?.piece != 0 && isHasPiece;
 
             _activeTranscendenceButton.gameObject.SetActive(isAvailTranscendence);
             _inactiveTranscendenceButton.gameObject.SetActive(!isAvailTranscendence);
