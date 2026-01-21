@@ -16,7 +16,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private float _shakeDuration = 0.5f;
         [SerializeField] private float _shakeStrengthX = 10f;
         [SerializeField] private float _shakeStrengthY = 5f;
-        [SerializeField] private int _shakeVibrato = 15;
+        [SerializeField] private int _shakeVibrato = 20;
 
         private Button _dimButton;
 

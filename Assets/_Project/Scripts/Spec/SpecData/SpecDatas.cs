@@ -499,9 +499,6 @@ namespace CookApps.AutoBattler
         /// 조각 필요량
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int piece;
-        /// 최대 레벨
-        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
-        public int max_level;
     }
 
     [GeneratorSpecData]
