@@ -68,9 +68,9 @@ namespace CookApps.AutoBattler
 
             _rewardItemData = _rewardItem;
 
-            if (_rewardItem.Id.IsCharacterPiece())
+            if (_rewardItem.Id.GetCharacterId(out var charId))
             {
-                characterData = SpecDataManager.Instance.GetCharacterData(_rewardItem.Id);
+                characterData = SpecDataManager.Instance.GetCharacterData(charId);
             }
 
             showParticle.SetActive(false);
@@ -198,13 +198,11 @@ namespace CookApps.AutoBattler
                 amountText.text = $"x{_rewardItemData.Count}";
 
                 // 슬라이더 처리
-                CharacterData userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterData.id);
-
                 pieceSlider.maxValue = characterData.need_piece;
-                // TODO: 수정 필요
-                // pieceSlider.value = userCharacterData.CharacterPiece;
-                //
-                // countText.text = $"{userCharacterData.CharacterPiece}/{characterData.need_piece}";
+                var characterPieceId = ItemIdExtensions.GetCharacterPieceId(characterData.id);
+                var peiceCount = ServerDataManager.Instance.Inventory.GetCurrency(characterPieceId);
+                pieceSlider.value = peiceCount;
+                countText.text = $"{peiceCount}/{characterData.need_piece}";
 
                 // if (DataManager.Instance.UserData.isFirstGacha)
                 // {
@@ -293,8 +291,7 @@ namespace CookApps.AutoBattler
                 }
                 else
                 {
-                    // TODO: rewardItem에 맞게 sprite 세팅
-                    // ItemOnImageSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_rewardItemData.Key)).Forget();
+                    ItemOnImageSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(_rewardItemData.Id)).Forget();
                 }
 
                 amountText.text = $"x{_rewardItemData.Count}";

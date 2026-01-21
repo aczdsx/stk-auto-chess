@@ -3,7 +3,7 @@
 
 
 @back bg_brokenship_01
-@bgm snd_bgm_dialog_cozy_001
+@bgm snd_bgm_dialog_calm01
 ;@char philia_00.Talk pos:30, -235 scale 1.38
 @camera offset:3 zoom:0.1 time:0.2
 @char philia_00.Talk pos:90,-235 scale:1.38

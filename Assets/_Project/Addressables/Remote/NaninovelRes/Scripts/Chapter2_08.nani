@@ -9,6 +9,8 @@
 
 
 @back bg_ionia_01
+@bgm snd_bgm_dialog_comic01
+
 
 @char philia_00 pos:45,-235 scale:1.38
 philia_00: 저것은… 모래 폭풍이군요.

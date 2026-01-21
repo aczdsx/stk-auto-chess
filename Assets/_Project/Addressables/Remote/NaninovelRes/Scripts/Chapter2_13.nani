@@ -5,6 +5,8 @@
 ; [SYSTEM] Chapter2_13 시작
 ; L003
 
+@bgm snd_bgm_splash01
+
 @back bg_hasolle_04
 
 Narrator: 오데트를 따라 도착한 곳은, 도시의 비교적 깔끔한 외형을 유지하고 있는 건물의 지하. 

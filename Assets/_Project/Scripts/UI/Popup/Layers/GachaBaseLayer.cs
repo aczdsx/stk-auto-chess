@@ -1,5 +1,5 @@
 // 서버 문제 시 Mock 모드 활성화 (테스트 완료 후 주석 처리)
-#define GACHA_MOCK_MODE
+// #define GACHA_MOCK_MODE
 
 using System.Collections.Generic;
 using CookApps.TeamBattle.Utility;
