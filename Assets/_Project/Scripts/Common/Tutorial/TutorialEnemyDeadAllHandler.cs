@@ -38,6 +38,12 @@ namespace CookApps.AutoBattler
         /// <returns>튜토리얼이 처리되었으면 true, 아니면 false (바로 전투 종료 필요)</returns>
         public static bool TryHandleTutorial(Action onCombatEnd)
         {
+            // 이미 처리 중이면 true 반환 (중복 호출 방지, EndCombat 직접 호출 방지)
+            if (IsPausedByEnemyDeadAll)
+            {
+                return true;
+            }
+
             var tutorialManager = TutorialManager.Instance;
             if (tutorialManager == null || !tutorialManager.IsTutorial)
             {
@@ -49,6 +55,9 @@ namespace CookApps.AutoBattler
             {
                 return false;
             }
+
+            // 슬로우 모션 시작 전에 플래그 설정 (중복 호출 방지)
+            IsPausedByEnemyDeadAll = true;
 
             // 전투 종료 콜백 저장
             _pendingCombatEnd = onCombatEnd;
@@ -64,10 +73,9 @@ namespace CookApps.AutoBattler
         /// </summary>
         private static async UniTaskVoid SlowMotionThenShowTutorial()
         {
-
             if (InGameMainFlowManager.Instance == null) return;
 
-            IsPausedByEnemyDeadAll = true;
+            // IsPausedByEnemyDeadAll은 TryHandleTutorial에서 이미 설정됨
             _originalPlaySpeed = InGameMainFlowManager.Instance.FastForwardRate;
             Debug.LogColor($"[TutorialEnemyDeadAllHandler] 슬로우 모션 시작 (원래 속도: {_originalPlaySpeed})", "yellow");
 

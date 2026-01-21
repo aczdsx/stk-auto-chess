@@ -30,7 +30,7 @@ namespace CookApps.BattleSystem
         {
             string codeIdStr = codeInfo.CodeId.ToString();
             string modifiedCodeIdStr = codeIdStr.Length > 1 ? codeIdStr.Substring(1) : "0";
-            return "snd_sfx_skill_" + modifiedCodeIdStr;
+            return "snd_sfx_skill_a_" + modifiedCodeIdStr;
         }
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)

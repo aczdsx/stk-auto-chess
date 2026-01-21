@@ -133,12 +133,6 @@ MonoBehaviour:
     - name: cbg_04_02
       pathPrefix: Spawn
       guid: e17a0ce4d2ceef347bd8045201001c1b
-    - name: NicknamePopup
-      pathPrefix: Spawn
-      guid: 3053816ab114c294aaff2d3974fe448f
-    - name: NicknamePopup_nani
-      pathPrefix: Spawn
-      guid: a7849c4742558db449e84853bb474d44
     - name: cbg_02_03
       pathPrefix: Spawn
       guid: 9dd622bf98f25c34791590c834c4c48e
@@ -157,6 +151,9 @@ MonoBehaviour:
     - name: cbg_02_05
       pathPrefix: Spawn
       guid: e6413063085d55c409852a26da97f73c
+    - name: nickname
+      pathPrefix: Spawn
+      guid: 03ee99e023fd941f991fe6058db086b0
   - Id: UI
     Resources:
     - name: ClickThroughPanel

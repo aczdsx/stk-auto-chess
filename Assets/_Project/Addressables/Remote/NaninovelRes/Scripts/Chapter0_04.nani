@@ -37,7 +37,7 @@ uni_00: 관측자, 이름은 기억나?!
 @hideUI
 @hidePrinter Dialogue
 
-;@spawn NicknamePopup_nani
+@spawn nickname
 @wait 0.5
 
 @showPrinter
