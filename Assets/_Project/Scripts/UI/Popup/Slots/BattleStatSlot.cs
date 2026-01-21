@@ -48,7 +48,7 @@ namespace CookApps.AutoBattler
 
             _specCharacterData = SpecDataManager.Instance.GetCharacterData(_currentCharacterID);
 
-            _characterIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacterData.prefab_id)).Forget();
+            _characterIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacterData.id)).Forget();
 
             bool isAlive = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Exists(l => l.CharacterId == targetCharacterID);
             if (!isAlive)

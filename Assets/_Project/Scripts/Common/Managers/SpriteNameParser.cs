@@ -118,11 +118,34 @@ namespace CookApps.AutoBattler
             return spriteName;
         }
 
-        public static string GetItemSprite(int itemId)
+        public static string GetItemSprite(ItemId itemId)
         {
-            // TODO: 아이템 스프라이트 리턴하기
-            return null;
-            // return ZString.Format("ST_RewardItem_{0}", itemType);
+            if (itemId == IdMap.Item.ActionPoint)
+                return "ST_RewardItem_AP";
+            if (itemId == IdMap.Item.BuildItem)
+                return "ST_RewardItem_BUILDING_RANDOMBOX";
+            if (itemId == IdMap.Item.BuildItem)
+                return "ST_RewardItem_BUILDING_SUPPLIES";
+            if (itemId == IdMap.Item.CharacterTicket)
+                return "ST_RewardItem_C_TICKET";
+            if (itemId == IdMap.Item.Soul) return "ST_RewardItem_CHAR_TRANSCENDENCE_FIRE";
+            if (itemId == IdMap.Item.Soul) return "ST_RewardItem_CHAR_TRANSCENDENCE_LIGHT";
+            if (itemId == IdMap.Item.Soul) return "ST_RewardItem_CHAR_TRANSCENDENCE_WATER";
+            if (itemId == IdMap.Item.Soul) return "ST_RewardItem_CHAR_TRANSCENDENCE_WIND";
+            // if (itemId == IdMap.Item.CharExp) return "ST_RewardItem_CHAR_USER_EXP_ITEM_2";
+            if (itemId == IdMap.Item.CharExp) return "ST_RewardItem_CHAR_USER_EXP_ITEM";
+            // if (itemId == IdMap.Item. ) return "ST_RewardItem_DUNGEON_KEY1";
+            // if (itemId == IdMap.Item. ) return "ST_RewardItem_DUNGEON_KEY2";
+            // if (itemId == IdMap.Item. ) return "ST_RewardItem_DUNGEON_KEY3";
+            // if (itemId == IdMap.Item. ) return "ST_RewardItem_E_KTICKET";
+            // if (itemId == IdMap.Item. ) return "ST_RewardItem_ETICKET";
+            if (itemId == IdMap.Item.Gold) return "ST_RewardItem_GOLD";
+            if (itemId == IdMap.Item.Jewel) return "ST_RewardItem_JEWEL_CASH";
+            if (itemId == IdMap.Item.Jewel) return "ST_RewardItem_JEWEL";
+            if (itemId == IdMap.Item.PvpTicket) return "ST_RewardItem_P_KTICKET";
+            if (itemId == IdMap.Item.Soul) return "ST_RewardItem_PURE_PIECE";
+            if (itemId == IdMap.Item.UserExp) return "ST_RewardItem_USER_EXP";
+            return string.Empty;
         }
 
         public static string GetChapterIcon(int chapterID)
@@ -145,9 +168,9 @@ namespace CookApps.AutoBattler
             return ZString.Format("Character_Illust_Sub_{0}", prefabID);
         }
 
-        public static string GetCharacterPieceSprite(int prefabID)
+        public static string GetCharacterPieceSprite(int characterId)
         {
-            return ZString.Format("Piece_{0}", prefabID);
+            return ZString.Format("Piece_{0}", characterId);
         }
 
         public static string GetCharacterInGamePortraitSprite(int prefabID)

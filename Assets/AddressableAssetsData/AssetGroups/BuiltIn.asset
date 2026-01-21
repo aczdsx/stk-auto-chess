@@ -14,7 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: BuiltIn
   m_GUID: 0d01be646545247899be386821771622
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 011b55890c7c647a395713967f9bf1c8
+    m_Address: Assets/_Project/Addressables/BuiltIn/Prefabs/UI/Popup
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c6ec39c0c769945dc9623dc25446a47e
+    m_Address: Assets/_Project/Addressables/BuiltIn/Videos/WhileDownload.mp4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
   m_SchemaSet:

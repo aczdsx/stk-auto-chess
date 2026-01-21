@@ -123,7 +123,7 @@ namespace CookApps.AutoBattler
             {
                 itemId.GetCharacterId(out var charIndex);
                 var characterPieceData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
-                _missionRewardItemSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(characterPieceData.prefab_id)).Forget();
+                _missionRewardItemSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(characterPieceData.id)).Forget();
             }
             else
             {

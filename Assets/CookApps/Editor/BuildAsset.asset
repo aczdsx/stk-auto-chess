@@ -28,16 +28,9 @@ MonoBehaviour:
         Version: 0.3.4
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 4567
+        VersionCode: 4648
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
-        - Guid: 82d3b55c0d6944acd81604cfdc57e37e
-        - Guid: 76c96ee710c04450dbdb02e5ff8a6cac
-        - Guid: 61e7bd672efcc4045915939216d08afd
-        - Guid: b8e2c1da733c34c5dbb04fe380fccfff
-        - Guid: 8029178524cba4055adeed793914bebd
-        - Guid: 29c1e210896cb0b4bac47941444ed814
-        - Guid: a437c14c6af79304f9e10db55c4ad6af
         AddDefine:
         - __DEV
         - ENABLE_CHEAT
@@ -74,13 +67,9 @@ MonoBehaviour:
         Version: 0.3.4
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 4567
+        VersionCode: 4648
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
-        - Guid: 82d3b55c0d6944acd81604cfdc57e37e
-        - Guid: 76c96ee710c04450dbdb02e5ff8a6cac
-        - Guid: 61e7bd672efcc4045915939216d08afd
-        - Guid: 8029178524cba4055adeed793914bebd
         AddDefine: []
         RemoveDefine:
         - ENABLE_CHEAT
@@ -104,13 +93,9 @@ MonoBehaviour:
         Version: 0.2.6
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 4567
+        VersionCode: 4648
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
-        - Guid: 82d3b55c0d6944acd81604cfdc57e37e
-        - Guid: 76c96ee710c04450dbdb02e5ff8a6cac
-        - Guid: 61e7bd672efcc4045915939216d08afd
-        - Guid: 8029178524cba4055adeed793914bebd
         AddDefine:
         - __DEV
         - ENABLE_CHEAT
