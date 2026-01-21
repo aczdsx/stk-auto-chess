@@ -298,27 +298,27 @@ namespace CookApps.AutoBattler
 
         private async UniTask OnClickEnterDungeonButtonAsync()
         {
-            // // Check Star Condition
-            // if (ServerDataManager.Instance.Battle.TotalStarCount < _specDungeonTrialData.need_star)
-            // {
-            //     ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_CONDITION_STAR_LACK");
-            //     return;
-            // }
-            //
-            // var serverOrder = ServerDataManager.Instance.TrialDungeon.Order;
-            // uint effectiveServerOrder = serverOrder == 0 ? 1 : serverOrder;
-            //
-            // if (effectiveServerOrder > _specDungeonTrialData.order)
-            // {
-            //     ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_ALREADY_CLEAR");
-            //     return;
-            // }
-            //
-            // if (effectiveServerOrder < _specDungeonTrialData.order)
-            // {
-            //     ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_NEED_BEFORE_STAGE");
-            //     return;
-            // }
+            //Check Star Condition
+            if (ServerDataManager.Instance.Battle.TotalStarCount < _specDungeonTrialData.need_star)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_CONDITION_STAR_LACK");
+                return;
+            }
+
+            var serverOrder = ServerDataManager.Instance.TrialDungeon.Order;
+            uint effectiveServerOrder = serverOrder == 0 ? 1 : serverOrder;
+
+            if (effectiveServerOrder > _specDungeonTrialData.order)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_ALREADY_CLEAR");
+                return;
+            }
+            
+            if (effectiveServerOrder < _specDungeonTrialData.order)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_NEED_BEFORE_STAGE");
+                return;
+            }
 
             // Request Enter to Server
             var response = await NetManager.Instance.TrialDungeon.EnterAsync();
