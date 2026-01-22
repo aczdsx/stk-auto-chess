@@ -390,36 +390,25 @@ namespace CookApps.AutoBattler
         {
             _isIdleRewardFullState = false;
 
-            TimeSpan currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
-            int maxTimeLimitMinute = SpecDataManager.Instance.GetGameConfig<int>("idle_reward_acc_time_limit");
             try
             {
-                while (maxTimeLimitMinute > currentRewardTimeSpan.TotalMinutes)
+                while (!IdleRewardHelper.IsFull())
                 {
                     _normalRewardStateObject.gameObject.SetActive(true);
                     _fullRewardStateObject.gameObject.SetActive(false);
 
-                    float resultValue = (float)currentRewardTimeSpan.TotalMinutes / maxTimeLimitMinute;
-                    float resultPercent = resultValue * 100;
-                    _idleRewardStateText.text = $"{Mathf.Ceil(resultPercent)}%";
-
-                    _normalRewardFillImage.fillAmount = resultValue;
+                    float progressRatio = IdleRewardHelper.GetProgressRatio();
+                    _idleRewardStateText.text = $"{IdleRewardHelper.GetProgressPercent()}%";
+                    _normalRewardFillImage.fillAmount = progressRatio;
 
                     await UniTask.Delay(1000, cancellationToken: cancelToken);
-
-                    currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
                 }
 
                 // 꽉 찼을경우 처리
-                if (maxTimeLimitMinute <= currentRewardTimeSpan.TotalMinutes)
-                {
-                    _normalRewardStateObject.gameObject.SetActive(false);
-                    _fullRewardStateObject.gameObject.SetActive(true);
-
-                    _isIdleRewardFullState = true;
-
-                    _idleRewardStateText.text = "100%";
-                }
+                _normalRewardStateObject.gameObject.SetActive(false);
+                _fullRewardStateObject.gameObject.SetActive(true);
+                _isIdleRewardFullState = true;
+                _idleRewardStateText.text = "100%";
             }
             catch (Exception e)
             {

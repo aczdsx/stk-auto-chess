@@ -160,7 +160,7 @@ namespace CookApps.AutoBattler
 
         public static string GetCharacterIllustSprite(int prefabID)
         {
-            return ZString.Format("Character_Illust_{0}", prefabID);
+            return ZString.Format("CharacterIllust_{0}", prefabID);
         }
 
         public static string GetCharacterSubIllustSprite(int prefabID)

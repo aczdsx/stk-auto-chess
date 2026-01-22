@@ -3,8 +3,8 @@
 @back bg_black_01
 @bgm snd_bgm_dialog_comic01
 @back bg_brokenship_02 time:0.5 transition:Crossfade
-@char atresia_00.Talk pos:60,-235 scale:1.38
-@char uni_00.Talk pos:30,-240 scale:1.38
+@char atresia_00.normal pos:60,-235 scale:1.38
+@char uni_00.normal pos:30,-240 scale:1.38
 
 @camera offset:-1 zoom:0.1 time:0.2
 
@@ -27,12 +27,15 @@ Narrator: 유니가 진짜로 때리려는 자세를 취하자, 본능적으로 
 Narrator: 그리고 그런 그녀를 아트레시아가 제지한다.
 atresia_00: …..(깊은 한숨을 쉰다) 유니.
 uni_00: 미..미안. 헤헤헤. 나는 신종 장난인지 알았어.
+@skip false
 uni_00: 근데 그럼, 자기 이름은 기억하고 있는거야?
+@skip false
 atresia_00: 아, 아뇨… 이름까지 여쭤보진 못했는데.
-
-@spawn nickname
-@wait true
+@skip false
 uni_00: 관측자, 이름은 기억나?!
+@skip false
+@spawn nickname
+@skip false
 
 @hideChars
 ; 닉네임 생성 튜토리얼 (나중에 버튼으로 미루기 가능)
@@ -44,8 +47,9 @@ uni_00: 관측자, 이름은 기억나?!
 @showPrinter
 @showUI
 
-@char atresia_00.Talk pos:50,-235 scale:1.38
-@char uni_00.Talk pos:20,-240 scale:1.38
+
+@char atresia_00.normal pos:50,-235 scale:1.38
+@char uni_00.normal pos:20,-240 scale:1.38
 @camera offset:2 zoom:0.1 time:0.2
 
 @shake bg_brokenship_02
