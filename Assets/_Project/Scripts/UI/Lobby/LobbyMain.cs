@@ -98,7 +98,7 @@ namespace CookApps.AutoBattler
                 .OnClickAsObservable()
                 .Subscribe(this, (_, self) => self.OnClickInventoryButton())
                 .AddTo(this);
-            
+
             questButton
                 .OnClickAsObservable()
                 .Subscribe(this, (_, self) => self.OnClickQuestButton())
@@ -110,7 +110,7 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            
+
             PreEnterAsync().Forget();
         }
 
@@ -132,38 +132,38 @@ namespace CookApps.AutoBattler
             //     await HubbleLobbyScequence();
             // }
             // await TutorialManager.Instance.StartChapter1TutorialSequence();
-            
-            // guide middion (나중에, 영지 복구 연출 이후에 진행이 이 이전 async로) 
+
+            // guide middion (나중에, 영지 복구 연출 이후에 진행이 이 이전 async로)
             var model = ServerDataManager.Instance.GuideMission;
             var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)model.GuideMissionId);
             await TutorialManager.Instance.CheckAndInitTutorial(specGuideMissionData.tutorial_id);
 
             TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
 
-            var currentStageData = SpecDataManager.Instance.GetStageData((int)LocalDataManager.Instance.GetLastPlayStageId());
+            var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
             _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
         }
 
         private async UniTask HubbleLobbyScequence()
         {
-            #if _SJHONG_TEST_
+#if _SJHONG_TEST_
             MyDebug.MyLog("연출중!", MyDebug.Constants.YELLOW);
-            #endif
+#endif
             SceneUILayerManager.Instance.SetEnableMainNodeCanvas(false);
             MainCameraHolder.CameraGestureController.SetCanInteractCamera(false);
             await UniTask.Delay(500);
             SceneUILayerManager.Instance.SetEnableMainNodeCanvas(true);
             MainCameraHolder.CameraGestureController.SetCanInteractCamera(true);
-            #if _SJHONG_TEST_
+#if _SJHONG_TEST_
             MyDebug.MyLog("연출끝!", MyDebug.Constants.YELLOW);
-            #endif
+#endif
         }
 
         private async UniTask OnClickStartButton()
         {
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
-            var currentStageData = SpecDataManager.Instance.GetStageData((int)LocalDataManager.Instance.GetLastPlayStageId());
+            var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
             SceneLoading.GoToNextScene("BattleReady", currentStageData.chapter_id);
         }
 
