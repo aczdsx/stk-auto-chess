@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf328e371d6e49f0a6c77327853d26f, type: 3}
+  m_Name: InGameTestConfig
+  m_EditorClassIdentifier: 
+  Mode: 0
+  StageId: 0
+  StageChapterId: 1
+  GridWidth: 5
+  GridHeight: 7
+  PlayerCharacters:
+  - CharacterId: 3501
+    Level: 1
+    GridX: 4
+    GridY: 0
+    MultipleAtk: 1
+    MultipleHp: 1
+  EnemyCharacters:
+  - CharacterId: 1005
+    Level: 1
+    GridX: 3
+    GridY: 4
+    MultipleAtk: 1
+    MultipleHp: 1
+  CameraSize: 7.5
+  CameraPosition: {x: -15, y: 10, z: -12}
+  BattleTimeLimit: 120
+  RestartDelay: 2
+  PlayerInvincible: 1
+  EnemyInvincible: 1

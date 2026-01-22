@@ -705,3 +705,8 @@ MonoBehaviour:
     - name: seira_00
       pathPrefix: Characters
       guid: 3a413678f70313844aba1212a77529b8
+  - Id: Characters/c6248982-7c08-4db0-b70f-5e655f137a17
+    Resources:
+    - name: toma_00
+      pathPrefix: Characters
+      guid: a1fa38cfb50021145afc6308483ebb2f

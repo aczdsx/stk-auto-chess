@@ -10,7 +10,7 @@ namespace CookApps.AutoBattler
     public class InGameMainStateTest : IGameStateUICore, IReturnCharacterUI, IKillLogUI, IBottomScrollRectCheck
     {
         // 테스트 설정 주소 (Addressables)
-        private const string TestConfigAddress = "TestConfig/InGameTestConfig.asset";
+        private const string TestConfigAddress = "Data/InGameTestConfig.asset";
 
         private InGameUI _inGameUI;
         private InGameTestConfig _testConfig;

@@ -141,6 +141,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ee04dc151ac9ae45ad9a23e45bc7a39
+    m_Address: LD_Characters/20407/Illust/Character_Illust_15252102
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4f0f15a8e193f42f99f6648557b4abff
     m_Address: LD_Characters/15252102/Spine
     m_ReadOnly: 0
