@@ -32,6 +32,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton consumeApEventButton;
         [SerializeField] private CAButton sessionTimeEventButton;
         [SerializeField] private CAButton inventoryButton;
+        [SerializeField] private CAButton questButton;
         [SerializeField] private TMPro.TextMeshProUGUI _stageNameText;
 
         public Transform GetTopCurrencyAndMenuBarParent()
@@ -96,6 +97,11 @@ namespace CookApps.AutoBattler
             inventoryButton
                 .OnClickAsObservable()
                 .Subscribe(this, (_, self) => self.OnClickInventoryButton())
+                .AddTo(this);
+            
+            questButton
+                .OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClickQuestButton())
                 .AddTo(this);
         }
 
@@ -207,6 +213,11 @@ namespace CookApps.AutoBattler
         private void OnClickInventoryButton()
         {
             // TODO: 인벤토리 버튼 클릭 처리
+        }
+
+        private void OnClickQuestButton()
+        {
+            SceneUILayerManager.Instance.PushUILayerAsync<QuestPopup>().Forget();
         }
 
         public void PlayExitAnimation()
