@@ -993,6 +993,7 @@ namespace CookApps.AutoBattler
         MOVE_OBJECT = 7,
         TOAST_MESSAGE = 8,
         SPAWN_ENEMY = 9,
+        SHOW_DIALOGUE_POP_CALLBACK = 10,
     }
 
     public enum FacilityType

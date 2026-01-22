@@ -55,7 +55,6 @@ namespace CookApps.AutoBattler
 
 
         [Header("Vignette Layer")]
-        [SerializeField] private VignetteSO _vignetteData;
         [SerializeField] private RawImage _vignetteImage;
 
         [Header("Bottom Stage Select Layer")]
@@ -367,8 +366,9 @@ namespace CookApps.AutoBattler
 
         private void SetVignetteColor(int targetChapter)
         {
-            var vignette = _vignetteData.stageColors.FirstOrDefault(x => x.InGameType == InGameType.STAGE && x.ID == targetChapter);
-            _vignetteImage.material = vignette.Material;
+            var data = SoDataProvider.Instance.Get<VignetteSO>();
+            var vignette = data.stageColors.FirstOrDefault(x => x.InGameType == InGameType.STAGE && x.ID == targetChapter);
+            _vignetteImage.material = vignette.Material.Asset as Material;
             _vignetteImage.material.SetColor("_DotColor", vignette.Color);
         }
 

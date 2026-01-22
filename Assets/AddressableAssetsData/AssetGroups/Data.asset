@@ -35,6 +35,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 986a398388cfe448cb63b561bd9e7cb2
+    m_Address: Data/InGameTestConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bc0fb55b586674846821ef52d3b3baea
     m_Address: Data/SafeAreaSettings.asset
     m_ReadOnly: 0

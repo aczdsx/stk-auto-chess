@@ -1,7 +1,8 @@
+#if UNITY_EDITOR
 using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEditor;
+
 public class MissingScriptUtility : EditorWindow
 {
     bool includeInactive = true;
@@ -126,3 +127,4 @@ public class MissingScriptUtility : EditorWindow
 
     #endregion
 }
+#endif

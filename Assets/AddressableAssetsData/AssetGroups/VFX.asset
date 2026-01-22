@@ -55,11 +55,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3cd374d8c82053146bdb2d3f2352c464
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/HologramCharacter.shadergraph
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3d3067c1ed2e6aa49ac29dfb09d91b92
     m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_09a_ab.mat
     m_ReadOnly: 0
@@ -165,11 +160,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8b0630d5624432246bf73de2e27b2e31
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/Add_CenterGlow.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8dae5681198b4ae41a31fcc17a9647b2
     m_Address: Assets/_Project/Addressables/Remote/VFX/Shine/fx_shine_04a.tga
     m_ReadOnly: 0
@@ -177,11 +167,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8fc384efbd88a2747960e95d1e529713
     m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/WingL_02.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 97c6dd483b7624141b388ba8d0a4290a
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/DissolveCharacter.shadergraph
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -212,11 +197,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: adc5961200b290241ae98a603d7de4ab
     m_Address: Assets/_Project/Addressables/Remote/VFX/Etc/fx_blank_01a_ab.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b68b99c2e57cef4419465c63c527201b
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/Blend_CenterGlow.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
