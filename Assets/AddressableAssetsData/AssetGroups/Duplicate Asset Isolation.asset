@@ -35,6 +35,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 034b941983f5a03468040f796eeb0e5b
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3404_01.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 045b07693dec4494ea8eeb867988c7e0
     m_Address: Assets/_Project/Addressables/Remote/VFX/Tile/fx_tile_18a_Repeat.png
     m_ReadOnly: 0
@@ -247,6 +252,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 18afa89385418184b8a3463de2916079
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_White.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1905162f65b143d4cb4a0448401d4c34
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_freeze.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -650,6 +660,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d8e54b23aa62b54cb9fdcf4ab339afb
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_2401_02.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3f35410847f39ca4c82e2847be28eaaa
     m_Address: Assets/_Project/Addressables/Remote/VFX/Smoke/fx_smoke_01a.png
     m_ReadOnly: 0
@@ -742,6 +757,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4bae873cab5556b48a38dc36cc8707e7
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Icon_Cha.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4bf62151a4dfeed46b81bb45c7ff69f8
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_cooldown.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1175,6 +1195,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ef73137b590d8641ae7ed94c0b01f2c
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_casting01.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6ef89edf794e63d4192b827fc2b12115
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_GuideQuest_Img_CheckBox.png
     m_ReadOnly: 0
@@ -1315,6 +1340,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e94b3ed5d169d045a8d575fd17b962b
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3102.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7ea24bc6980b38d47985722ae5089bbc
     m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_01a_add_02.mat
     m_ReadOnly: 0
@@ -1402,6 +1432,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 869318cd7a5f01845acd2323beb21ef2
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Img_Dimd03.psd
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86986f60dcf0ce34db8e6ad6aee6d07a
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3405_01.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1532,6 +1567,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8f8fde53a07e6d840ba0e04921d0f41a
     m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_btn_dialogue.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f97422c9eb17484996f1f1c23f30452
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3405_02.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1845,6 +1885,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a95c31424f2f9784fbb738ce0f52259f
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3401.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a96fa53ba74de0f468561358c670d773
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Btn_StageInfo.png
     m_ReadOnly: 0
@@ -1885,6 +1930,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: acc1e308ebdbd514fb1fc819273ae28a
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_2401_01.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ace74c8994e585543a40d21020d7174b
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3404_02.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ad0821ce6ce4dff4ba385da95f890212
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Line_Square_2px.png
     m_ReadOnly: 0
@@ -1907,6 +1962,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: af0c534d4851c8741b1f3f2e88a13d4a
     m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_405011_01.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af37904e42daf74428ef1b63dd52890b
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3505.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2077,6 +2137,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: babcb1653c6865a4e88d1e75a37adeb5
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Skill/Ingame_Cha_Skill_Yellow.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bac40ca1ffee97c46b400e7f6a487b8e
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3501_02.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2388,6 +2453,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d128c3fb3383cda40bc871fa06c59eea
     m_Address: Assets/_Project/Addressables/Remote/VFX/Fire/fx_fire_04b_ab.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d1bb970972cef664d87731d19d2595a3
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3501_01.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2894,6 +2964,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa323e1cb4aaf874ab804469d6c4ca86
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Skill_Frame_Bg.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa61bbd299ea329428b8e33a984f18cd
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_2102.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

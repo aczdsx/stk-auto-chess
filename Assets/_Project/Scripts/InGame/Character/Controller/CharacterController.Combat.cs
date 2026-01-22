@@ -564,6 +564,7 @@ namespace CookApps.BattleSystem
             }
 
             InGameStatistics.Instance.AddCombatHeal(healer, this, amount, _currHp, HP, source);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_heal01);
 
             UpdateHpBar();
             return true;

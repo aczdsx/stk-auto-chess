@@ -102,26 +102,6 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
                 return;
             }
 
-            // // 두 타일 사이의 경로를 따라 VFX 표시
-            // var grid = InGameObjectManager.Instance.InGameGrid;
-            // var elementType = owner.SpecCharacter.character_element_type;
-            // var startTile = owner.CurrentTile;
-            // var endTile = targetBackTile;
-
-            // var pathTiles = GetPathBetweenTiles(grid, startTile, endTile);
-            // foreach (var pathTile in pathTiles)
-            // {
-            //     InGameVfxManager.Instance.AddInGameTileFx(elementType, pathTile);
-            // }
-            
-            
-            // InGameVfxNameType skillFxType = (owner.AllianceType == AllianceType.Player)
-            //     ? InGameVfxNameType.fx_common_assassin_awful
-            //     : InGameVfxNameType.fx_common_assassin_enemy;
-
-            // // 이동 전 자리에 이펙트 추가
-            // InGameVfxManager.Instance.AddInGameVfx(skillFxType, owner.GetCharacterView().CachedTr.position);
-
             // 타일 변경 및 위치 설정
             owner.ChangeOccupiedTile(targetBackTile);
             owner.Position3D = targetBackTile.View.Position;
