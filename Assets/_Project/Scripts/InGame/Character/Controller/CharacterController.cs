@@ -278,14 +278,14 @@ namespace CookApps.BattleSystem
 
         private void AddPassive()
         {
-            // job passive 추가
+            // job skill 추가
             if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
                 return;
             var specDataManagerInstance = SpecDataManager.Instance;
             // TODO: 레벨 추가 시 grade를 변경하여 전달
             int testGrade = 0;
 
-            var passiveList = specDataManagerInstance.GetJobPassiveList(SpecCharacter.character_position_type);
+            var passiveList = specDataManagerInstance.GetJobPassiveList(SpecCharacter.character_position_type);// 오라클, 이런거
             if (passiveList == null || passiveList.Count == 0)
                 return;
 
@@ -478,13 +478,14 @@ namespace CookApps.BattleSystem
         }
 
 
-        public void SetSelectedCharacter(bool isSetSelected)
+        public void SetSelectedCharacter(bool isSetSelected, bool isDropFx = false)
         {
             if (isSetSelected)
                 SelectedOffSet += Vector3.up * 0.3f;
             else
             {
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_area_landing, CurrentTile.View.CachedTr.position);
+                if (isDropFx)
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_area_landing, CurrentTile.View.CachedTr.position);
                 SelectedOffSet -= Vector3.up * 0.3f;
             }
             if (_view == null)
@@ -743,6 +744,7 @@ namespace CookApps.BattleSystem
         {
             var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseAddSkillCooltime);
             EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallAddSkillCooltimeLambda, cooltime);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_cooldown);
         }
 
         public StateBase AddNextState(Type stateType, object stateData = null)
@@ -856,21 +858,6 @@ namespace CookApps.BattleSystem
             var sfxName = type.GetSoundFx();
             if (sfxName != SoundFX.NONE)
                 SoundManager.Instance.PlaySFX(sfxName);
-
-            // var affectText = type.GetAffectToken();
-            // if (!string.IsNullOrEmpty(affectText))
-            // {
-            //     if (type == BuffDebuffType.Shield)
-            //     {
-            //         string hexColor = "#00ABFF";
-            //         ShowNormalText(affectText, hexColor: hexColor).Forget();
-            //     }
-            //     else
-            //     {
-            //         string hexColor = (int)type >= 1000 ? "#5DC9FFFF" : "#FF5149";
-            //         ShowNormalText(affectText, hexColor: hexColor).Forget();
-            //     }
-            // }
 
             if (!_buffDebuffRefCountDict.TryAdd(type, 1))
             {

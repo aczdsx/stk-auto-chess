@@ -126,7 +126,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1758468053598742516}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -155,7 +155,7 @@ MonoBehaviour:
   _moveSpeed: 5
   _stoppingDistance: 0.1
   _elevatorDetectRadius: 1.5
-  _wanderRadius: 10
+  _wanderRadius: 30
   _minWaitTime: 2
   _maxWaitTime: 5
 --- !u!1 &2901379298403934952

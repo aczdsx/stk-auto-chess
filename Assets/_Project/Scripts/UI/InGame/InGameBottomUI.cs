@@ -349,14 +349,16 @@ public class InGameBottomUI : MonoBehaviour
 
     public virtual void InitData()
     {
+        // UI 초기화
         _characterItemList.Clear();
         BMUtil.RemoveChildObjects(_inGameCharacterItemTransform);
         _allCharacterStats = new List<CharacterStatData>();
 
+        // 커맨더 스킬 UI 초기화
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
             SetCommanderSkillUI(i, ServerDataManager.Instance.CommanderSkill.GetEquippedCommanderSkillId(i));
 
-
+        // 전체 캐릭터 데이터 수집
         var userCharacters = new List<Tech.Hive.V1.CharacterData>();
         ServerDataManager.Instance.Character.GetAllCharacters(userCharacters);
         foreach (var character in userCharacters)
@@ -371,28 +373,10 @@ public class InGameBottomUI : MonoBehaviour
             .OrderByDescending(stat => stat.GetAttrValueCP())
             .ToList();
 
-        // 필터 적용하여 _characterStats 갱신
+        // 필터 적용 및 UI 갱신 (RefreshFilteredList가 RefreshCharacterItemList도 호출)
         RefreshFilteredList();
 
-        foreach (var characterStat in _characterStats)
-        {
-            bool isExist = _characterItemList.Exists(l =>
-                l.StatData != null && l.StatData.CharacterId == characterStat.CharacterId);
-            if (!isExist)
-            {
-                var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
-                _characterItemList.Add(characterItem);
-                characterItem.SetData(this, characterStat, AddCharacterToTile);
-
-                // 튜토리얼 중이면 새 캐릭터 아이템에 TutorialTarget 등록
-                if (TutorialManager.Instance.HasTutorialStage)
-                {
-                    RegisterCharacterItemForTutorial(characterItem, characterStat.CharacterId);
-                }
-            }
-        }
-
-        // 튜토리얼 중이면 캐릭터 아이템에 TutorialTarget 등록
+        // 튜토리얼 중이면 모든 캐릭터 아이템에 TutorialTarget 등록
         if (TutorialManager.Instance.HasTutorialStage)
         {
             RegisterCharacterItemsForTutorial();
@@ -1025,15 +1009,99 @@ public class InGameBottomUI : MonoBehaviour
     }
 
     /// <summary>
-    /// 필터 상태에 따라 _characterStats 갱신
+    /// 필터 상태에 따라 _characterStats와 _characterItemList 갱신
+    /// InitData()의 플로우를 따라 리스트를 동기화합니다.
     /// </summary>
     private void RefreshFilteredList()
     {
-        // CP(전투력) 기준 내림차순 정렬
+        // CP(전투력) 기준 내림차순 정렬하여 필터링된 목록 생성
         _characterStats = _allCharacterStats
             .Where(PassFilter)
             .OrderByDescending(stat => stat.GetAttrValueCP())
             .ToList();
+
+        // _characterItemList 동기화
+        RefreshCharacterItemList();
+    }
+
+    /// <summary>
+    /// _characterStats에 맞춰 _characterItemList를 갱신합니다.
+    /// InitData()의 아이템 생성 로직을 재사용합니다.
+    /// </summary>
+    private void RefreshCharacterItemList()
+    {
+        // 1. 필터를 통과하지 못하는 아이템 제거
+        var itemsToRemove = new List<InGameCharacterItem>();
+        foreach (var item in _characterItemList)
+        {
+            if (item.StatData == null || !PassFilter(item.StatData))
+            {
+                itemsToRemove.Add(item);
+            }
+        }
+
+        foreach (var item in itemsToRemove)
+        {
+            _characterItemList.Remove(item);
+            Destroy(item.gameObject);
+        }
+
+        // 2. 필터를 통과하는 새로운 아이템 추가 (CP 순서대로)
+        foreach (var characterStat in _characterStats)
+        {
+            bool isExist = _characterItemList.Exists(l =>
+                l.StatData != null && l.StatData.CharacterId == characterStat.CharacterId);
+            if (!isExist)
+            {
+                // CP 순서에 맞는 삽입 위치 찾기
+                int insertIndex = 0;
+                double newCP = characterStat.GetAttrValueCP();
+                for (int i = 0; i < _characterItemList.Count; i++)
+                {
+                    if (_characterItemList[i].StatData != null &&
+                        _characterItemList[i].StatData.GetAttrValueCP() > newCP)
+                    {
+                        insertIndex = i + 1;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                // 아이템 생성 및 삽입
+                var characterItem = Instantiate(_ingameCharacterItemPrefab, _inGameCharacterItemTransform);
+                characterItem.SetData(this, characterStat, AddCharacterToTile);
+                _characterItemList.Insert(insertIndex, characterItem);
+                characterItem.transform.SetSiblingIndex(insertIndex);
+
+                // 튜토리얼 중이면 새 캐릭터 아이템에 TutorialTarget 등록
+                if (TutorialManager.Instance.HasTutorialStage)
+                {
+                    RegisterCharacterItemForTutorial(characterItem, characterStat.CharacterId);
+                }
+            }
+        }
+
+        // 3. 전체 순서 재정렬 (CP 순서에 맞게)
+        // _characterStats의 순서대로 _characterItemList를 재정렬
+        var sortedItemList = new List<InGameCharacterItem>(_characterStats.Count);
+        foreach (var stat in _characterStats)
+        {
+            var item = _characterItemList.Find(l => l.StatData != null && l.StatData.CharacterId == stat.CharacterId);
+            if (item != null)
+            {
+                sortedItemList.Add(item);
+            }
+        }
+
+        // 리스트와 Transform 순서 동기화
+        _characterItemList.Clear();
+        _characterItemList.AddRange(sortedItemList);
+        for (int i = 0; i < sortedItemList.Count; i++)
+        {
+            sortedItemList[i].transform.SetSiblingIndex(i);
+        }
     }
 
     /// <summary>

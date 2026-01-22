@@ -108,7 +108,8 @@ namespace CookApps.AutoBattler
             _currentSpecDialogueData = _dialogueList[seq];
             // SetCharacters(_currentSpecDialogueData);
 
-            if (isChangePrefab){
+            if (isChangePrefab)
+            {
                 BMUtil.RemoveChildObjects(_characeterIllustParentLeftObject.transform);
                 BMUtil.RemoveChildObjects(_characeterIllustParentRightObject.transform);
             }
@@ -149,7 +150,7 @@ namespace CookApps.AutoBattler
             if (_currentSpecDialogueData.prefab_id > 0 && isChangePrefab)
             {
                 string characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _currentSpecDialogueData.prefab_id);
-                
+
                 string[] chPosStrings = _currentSpecDialogueData.character_pos.Split(',');
                 List<int> charPosX = new List<int>();
                 List<int> charPosY = new List<int>();
@@ -180,8 +181,8 @@ namespace CookApps.AutoBattler
                 } 
             }
 
-            _characterNameText.text = LanguageManager.Instance.GetDefaultText(_currentSpecDialogueData.character_name_token);
-            _dialogueText.text = LanguageManager.Instance.GetDialogueText(_currentSpecDialogueData.text_desc_token);
+            // _characterNameText.text = LanguageManager.Instance.GetDefaultText(_currentSpecDialogueData.character_name_token);
+            // _dialogueText.text = LanguageManager.Instance.GetDialogueText(_currentSpecDialogueData.text_desc_token);
         }
 
         // 다음 대화로 넘어가기

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using CookApps.TeamBattle.UIManagements;
 using Naninovel;
 using UnityEngine;
@@ -151,6 +152,19 @@ namespace CookApps.AutoBattler
                 await SceneTransition.FadeInAsync();
             }
 
+            // 이전 스크립트의 spawn 객체 정리
+            var spawnManager = Engine.GetService<ISpawnManager>();
+            if (spawnManager != null && spawnManager.Spawned.Count > 0)
+            {
+                // Spawned 컬렉션 복사 후 순회 (순회 중 컬렉션 변경 방지)
+                var spawnedPaths = spawnManager.Spawned.Select(s => s.Path).ToList();
+                foreach (var path in spawnedPaths)
+                {
+                    spawnManager.DestroySpawned(path);
+                }
+                Debug.Log($"NaninovelMain: 이전 스크립트의 spawn 객체 {spawnedPaths.Count}개 정리 완료");
+            }
+
             // 연쇄 재생 전 UI 상태 복원
             RestoreUIStateForChainedScript();
 
@@ -265,6 +279,9 @@ namespace CookApps.AutoBattler
                         Debug.Log("NaninovelMain: TitleMenu UI 숨김");
                     }
                 }
+
+                // 플레이어 닉네임을 Naninovel 변수로 설정
+                SetupPlayerVariable();
 
                 Debug.Log("Naninovel 엔진 초기화 완료");
             }
@@ -415,6 +432,35 @@ namespace CookApps.AutoBattler
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
             await ExecuteEndActionAsync();
+        }
+
+        /// <summary>
+        /// 플레이어 닉네임을 Naninovel 변수로 설정
+        /// .nani 스크립트에서 {player} 형식으로 사용 가능
+        /// </summary>
+        private void SetupPlayerVariable()
+        {
+            var variableManager = Engine.GetService<ICustomVariableManager>();
+            if (variableManager == null) return;
+
+            var nickname = ServerDataManager.Instance?.PlayerData?.Nickname;
+            if (!string.IsNullOrEmpty(nickname))
+            {
+                variableManager.SetVariableValue("player", new CustomVariableValue(nickname));
+                Debug.Log($"NaninovelMain: player 변수 설정 - {nickname}");
+            }
+        }
+
+        /// <summary>
+        /// 플레이어 닉네임 변수 업데이트 (외부에서 호출 가능)
+        /// </summary>
+        public void UpdatePlayerVariable(string nickname)
+        {
+            var variableManager = Engine.GetService<ICustomVariableManager>();
+            if (variableManager == null) return;
+
+            variableManager.SetVariableValue("player", new CustomVariableValue(nickname ?? ""));
+            Debug.Log($"NaninovelMain: player 변수 업데이트 - {nickname}");
         }
     }
 }

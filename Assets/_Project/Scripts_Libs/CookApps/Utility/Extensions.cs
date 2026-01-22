@@ -201,6 +201,34 @@ namespace CookApps.TeamBattle.Utility
                 await UniTask.Yield();
             }
         }
+        
+        public static async UniTask WaitUntilDone<T>(this List<AsyncOperationHandle<T>> handles)
+        {
+            if (handles == null || handles.Count == 0)
+                return;
+
+            while (true)
+            {
+                var allDone = true;
+                for (var i = 0; i < handles.Count; i++)
+                {
+                    var handle = handles[i];
+                    if (!handle.IsValid())
+                        continue;
+
+                    if (!handle.IsDone)
+                    {
+                        allDone = false;
+                        break;
+                    }
+                }
+
+                if (allDone)
+                    return;
+
+                await UniTask.Yield();
+            }
+        }
     
         public static async UniTask WaitUntilDone(this AsyncOperationHandle handle)
         {

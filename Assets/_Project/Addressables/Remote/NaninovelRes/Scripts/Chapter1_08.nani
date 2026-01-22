@@ -3,6 +3,8 @@
 
 @back bg_arche_00
 
+@bgm snd_bgm_dialog_tension01
+
 ; 위상의 그림자 쉐이크 캐릭터
 shadow_00: .....!
 ; 위상의 그림자 페이드 아웃.

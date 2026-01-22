@@ -1,4 +1,6 @@
+using System;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,6 +44,11 @@ namespace CookApps.AutoBattler
 
         // 드래그 오브젝트 (CHARACTER_PLACEMENT_UI에서 사용)
         public GameObject DragObj { get; set; }
+
+        // 튜토리얼 토스트 UI (TOAST_MESSAGE에서 사용)
+        public GameObject TutorialToastObj { get; set; }
+        public TextMeshProUGUI TutorialToastText { get; set; }
+        public Animator TutorialToastAnimator { get; set; }
 
         // 마스크 위치/크기 업데이트 건너뛰기 (SPAWN_ENEMY, TOAST_MESSAGE 등에서 사용)
         public bool SkipMaskUpdate { get; set; }

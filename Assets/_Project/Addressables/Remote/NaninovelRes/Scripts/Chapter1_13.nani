@@ -1,7 +1,7 @@
 ; [META] Chapter1_12 | 지원요청 거절/접근권한 차단 단초
 ; @back bg_arke_grassland_02 fade:1
 
-
+@bgm snd_bgm_dialog_calm01
 
 @back bg_arche_01
 
@@ -57,6 +57,7 @@ atresia_00: 이건…..혈흔?
 
 @char uni_00.Talk pos:30,-240 scale:1.38
 uni_00: 클레이가 위험할지 몰라!
+
 uni_00: 관측자! 어서 서두르자!
 
 @back bg_black_01 time:1.5 transition:Crossfade

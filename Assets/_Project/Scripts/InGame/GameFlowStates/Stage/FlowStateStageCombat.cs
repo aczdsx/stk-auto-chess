@@ -59,6 +59,7 @@ public class FlowStateStageCombat : StateCombatBase
 
         }
         InGameObjectManager.Instance.ClearTargetLine();
+        TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.COMBAT_START, "0");
     }
 
     public override void StateStart()

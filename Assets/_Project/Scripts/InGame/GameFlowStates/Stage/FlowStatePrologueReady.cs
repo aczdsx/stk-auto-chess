@@ -52,8 +52,7 @@ namespace CookApps.AutoBattler.Prologue
         {
             base.SetStateData(data);
             //[TODO] 프롤로그 사운드 추가 필요
-            // SoundManager.Instance.PlayBGM((SoundBGM)Enum.Parse(typeof(SoundBGM),
-            //     $"snd_bgm_chapter{_specStage.chapter_id - 1}"));
+            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_dgboss_01);
             InGameMain.GetInGameMain().SetVignette(0);
         }
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5085004708861680729}
   - component: {fileID: 1602611242833058119}
   - component: {fileID: 8665384158941739774}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_circle_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 151294121083299967}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.0850003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42,7 +42,7 @@ ParticleSystem:
   m_GameObject: {fileID: 151294121083299967}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 3
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -4870,7 +4870,7 @@ ParticleSystemRenderer:
   m_SortingFudge: -1
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 0
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
@@ -4903,7 +4903,7 @@ GameObject:
   - component: {fileID: 1241185959061744863}
   - component: {fileID: 1223745814378155687}
   - component: {fileID: 5337984366407778355}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fx_common_asterism_ts_ctdown_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9738,7 +9738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 0}
+  particle: {fileID: 8797725358688221353}
 --- !u!1 &2776312624426967108
 GameObject:
   m_ObjectHideFlags: 0
@@ -9750,7 +9750,7 @@ GameObject:
   - component: {fileID: 3215768064553123787}
   - component: {fileID: 5921516811771890411}
   - component: {fileID: 1766335049710872866}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_glow_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9766,7 +9766,7 @@ Transform:
   m_GameObject: {fileID: 2776312624426967108}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.0800003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9781,7 +9781,7 @@ ParticleSystem:
   m_GameObject: {fileID: 2776312624426967108}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 3
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -14618,7 +14618,7 @@ ParticleSystemRenderer:
   m_SortingFudge: 1
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 3
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
@@ -14648,7 +14648,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8608739046274236768}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14663,7 +14663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3244277760999055571}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
@@ -14677,7 +14677,7 @@ Transform:
   - {fileID: 8012375318312705594}
   - {fileID: 5085004708861680729}
   m_Father: {fileID: 5431172791698833306}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!1 &3338657259615051725
 GameObject:
   m_ObjectHideFlags: 0
@@ -14689,7 +14689,7 @@ GameObject:
   - component: {fileID: 8012375318312705594}
   - component: {fileID: 804799850349052844}
   - component: {fileID: 5288084392548882596}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_circle_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14705,7 +14705,7 @@ Transform:
   m_GameObject: {fileID: 3338657259615051725}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.0850003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14720,7 +14720,7 @@ ParticleSystem:
   m_GameObject: {fileID: 3338657259615051725}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 3
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -19548,7 +19548,7 @@ ParticleSystemRenderer:
   m_SortingFudge: -1
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 0
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
@@ -19580,7 +19580,7 @@ GameObject:
   - component: {fileID: 6082017147179355921}
   - component: {fileID: 6191705430887464605}
   - component: {fileID: 2322450774150303485}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_glow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19596,7 +19596,7 @@ Transform:
   m_GameObject: {fileID: 3349997505153085905}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.0800003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19611,7 +19611,7 @@ ParticleSystem:
   m_GameObject: {fileID: 3349997505153085905}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 3
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -24448,7 +24448,7 @@ ParticleSystemRenderer:
   m_SortingFudge: 2
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 3
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
@@ -24480,7 +24480,7 @@ GameObject:
   - component: {fileID: 6069333094364096086}
   - component: {fileID: 4671351514486846075}
   - component: {fileID: 6417783146977307686}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_circle_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24496,7 +24496,7 @@ Transform:
   m_GameObject: {fileID: 3558705889554332019}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.0850003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24511,7 +24511,7 @@ ParticleSystem:
   m_GameObject: {fileID: 3558705889554332019}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 3
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -29339,7 +29339,7 @@ ParticleSystemRenderer:
   m_SortingFudge: -1
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 0
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
@@ -29371,7 +29371,7 @@ GameObject:
   - component: {fileID: 1313081746185254425}
   - component: {fileID: 7873097849920044739}
   - component: {fileID: 2883498156851646060}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_decal_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29387,7 +29387,7 @@ Transform:
   m_GameObject: {fileID: 5467529221300200190}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.0800003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29402,7 +29402,7 @@ ParticleSystem:
   m_GameObject: {fileID: 5467529221300200190}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 3
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -34239,7 +34239,7 @@ ParticleSystemRenderer:
   m_SortingFudge: -5
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 3
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
@@ -34271,7 +34271,7 @@ GameObject:
   - component: {fileID: 841744620258273571}
   - component: {fileID: 8797725358688221353}
   - component: {fileID: 903684479671330492}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_decal_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34287,7 +34287,7 @@ Transform:
   m_GameObject: {fileID: 6292340439906716686}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.0800003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34302,7 +34302,7 @@ ParticleSystem:
   m_GameObject: {fileID: 6292340439906716686}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 3
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -39130,7 +39130,7 @@ ParticleSystemRenderer:
   m_SortingFudge: -5
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 3
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0.38, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
@@ -39162,7 +39162,7 @@ GameObject:
   - component: {fileID: 156242978019440551}
   - component: {fileID: 7443942769145692190}
   - component: {fileID: 1838748487045219033}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pt_decal_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39178,7 +39178,7 @@ Transform:
   m_GameObject: {fileID: 8238988615375353893}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.0800003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39193,7 +39193,7 @@ ParticleSystem:
   m_GameObject: {fileID: 8238988615375353893}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 3
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -44021,7 +44021,7 @@ ParticleSystemRenderer:
   m_SortingFudge: -5
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 3
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0.38, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1

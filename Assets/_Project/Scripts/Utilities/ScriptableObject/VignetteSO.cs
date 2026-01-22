@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoBattler
 {
@@ -7,6 +9,15 @@ namespace CookApps.AutoBattler
     public class VignetteSO : ScriptableObject
     {
         public List<MaterialColorPair> stageColors;
+        
+        public async UniTask LoadAssetsAsync()
+        {
+            foreach (var color in stageColors)
+            {
+                if (color.Material.RuntimeKeyIsValid())
+                    await color.Material.LoadAssetAsync();
+            }
+        }
     }
 
     [System.Serializable]
@@ -14,7 +25,7 @@ namespace CookApps.AutoBattler
     {
         public InGameType InGameType;
         public int ID;
-        public Material Material;
+        public AssetReferenceT<Material> Material;
         public Color Color;
     }
 }

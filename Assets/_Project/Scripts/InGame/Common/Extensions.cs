@@ -122,87 +122,57 @@ namespace CookApps.BattleSystem
 
         public static SoundFX GetSoundFx(this BuffDebuffType type)
         {
+            if(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat ||
+            InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat ||
+            InGameMainFlowManager.Instance.CurrentFlowState is FlowStateInGameTestCombat)
+            {
+                return SoundFX.NONE;
+            }
+
             return type switch
             {
-                // BuffDebuffType.Meditation => "",
+                // 버프 (0~999)
+                BuffDebuffType.Meditation => SoundFX.snd_sfx_ingame_buff,
                 BuffDebuffType.Shield => SoundFX.snd_sfx_ingame_shield,
-                // BuffDebuffType.Bleeding => "",
-                // BuffDebuffType.Poison => "",
-                // BuffDebuffType.Burn => "",
-                BuffDebuffType.AttackUp => SoundFX.snd_sfx_ingame_atkup,
-                BuffDebuffType.AttackDown => SoundFX.snd_sfx_ingame_debuff,
-                BuffDebuffType.AttackSpeedUp => SoundFX.snd_sfx_ingame_spdup,
-                BuffDebuffType.CoolTimeUp => SoundFX.snd_sfx_ingame_spdup,
-                BuffDebuffType.AbilityPowerUp => SoundFX.snd_sfx_ingame_atkup,
-                BuffDebuffType.Immune => SoundFX.snd_sfx_ingame_shield,
-                // BuffDebuffType.CoolTimeDown => "",
-                // BuffDebuffType.AbilityPowerUp => "", 
-                // BuffDebuffType.DefenceUp => "", 
-                // BuffDebuffType.ResistanceUp => "",
-                // BuffDebuffType.AttackDown => "",
-                // BuffDebuffType.DefenceDown => "",
-                // BuffDebuffType.ResistanceDown => "",
-                // BuffDebuffType.AttackSpeedUp => "",
-                BuffDebuffType.AttackSpeedDown => SoundFX.snd_sfx_ingame_debuff,
-                BuffDebuffType.Trap => SoundFX.snd_sfx_ingame_debuff,
-                BuffDebuffType.DefenceDown => SoundFX.snd_sfx_ingame_debuff,
-                BuffDebuffType.HealDown => SoundFX.snd_sfx_ingame_debuff,
-                // BuffDebuffType.CriticalProbUp => "",
-                // BuffDebuffType.CriticalProbDown => "",
-                // BuffDebuffType.Slow => "",
-                // BuffDebuffType.Entangle => "",
-                // BuffDebuffType.Freezing => "",
-                // BuffDebuffType.Stun => "",
-                // BuffDebuffType.Provocation => "",
-                // BuffDebuffType.Sleep => "",
-                // BuffDebuffType.Invincibility => "",
+                BuffDebuffType.AttackUp => SoundFX.snd_sfx_ingame_buff,
+                BuffDebuffType.AbilityPowerUp => SoundFX.snd_sfx_ingame_buff,
+                BuffDebuffType.DefenceUp => SoundFX.snd_sfx_ingame_buff,
+                BuffDebuffType.ResistanceUp => SoundFX.snd_sfx_ingame_buff,
+                BuffDebuffType.AttackSpeedUp => SoundFX.snd_sfx_ingame_buff,
+                BuffDebuffType.CriticalProbUp => SoundFX.snd_sfx_ingame_buff,
                 BuffDebuffType.NormalAttackShield => SoundFX.snd_sfx_ingame_shield,
+                BuffDebuffType.NoDamageShield => SoundFX.snd_sfx_ingame_shield,
+                BuffDebuffType.Invincibility => SoundFX.snd_sfx_ingame_shield,
+                BuffDebuffType.CoolTimeUp => SoundFX.snd_sfx_ingame_buff,
+                BuffDebuffType.TargetImpossible => SoundFX.snd_sfx_ingame_buff,
+                BuffDebuffType.Immune => SoundFX.snd_sfx_ingame_buff,
+                BuffDebuffType.AvoidProbUp => SoundFX.snd_sfx_ingame_buff,
+
+                // 디버프 (1000 이상)
+                BuffDebuffType.AttackDown => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.DefenceDown => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.CoolTimeDown => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.ResistanceDown => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.AttackSpeedDown => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.CriticalProbDown => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.HealDown => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.Bleeding => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.Poison => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.Burn => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.Slow => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.Entangle => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.Freezing => SoundFX.snd_sfx_ingame_freeze,
+                BuffDebuffType.Stun => SoundFX.snd_sfx_ingame_stun,
+                BuffDebuffType.Sleep => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.Provocation => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.Anger => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.Trap => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.Silence => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.Airborne => SoundFX.snd_sfx_ingame_debuff,
+                BuffDebuffType.Misa => SoundFX.snd_sfx_ingame_debuff,
+
                 _ => SoundFX.NONE
             };
         }
-
-        // public static string GetAffectToken(this BuffDebuffType type)
-        // {
-        //     return type switch
-        //     {
-        //         // BuffDebuffType.Meditation => "",
-        //         BuffDebuffType.Shield => "INGAME_UI_SHIELD_GET",
-        //         // BuffDebuffType.Bleeding => "",
-        //         // BuffDebuffType.Poison => "",
-        //         // BuffDebuffType.Burn => "",
-        //         BuffDebuffType.AttackUp => "INGAME_UI_BUFF_AD_ATK_UP",
-        //         BuffDebuffType.AttackDown => "",
-        //         BuffDebuffType.AttackSpeedUp => "INGAME_UI_BUFF_ATKSPD_UP",
-        //         BuffDebuffType.CoolTimeUp => "INGAME_UI_DEBUFF_COOLDOWN_SPDDOWN",
-        //         BuffDebuffType.AbilityPowerUp => "INGAME_UI_BUFF_AP_ATK_UP",
-        //         BuffDebuffType.Immune => "",
-        //         // BuffDebuffType.CoolTimeDown => "",
-        //         // BuffDebuffType.AbilityPowerUp => "", 
-        //         BuffDebuffType.DefenceUp => "INGAME_UI_BUFF_DEF_UP",
-        //         BuffDebuffType.ResistanceUp => "INGAME_UI_BUFF_RES_UP",
-        //         BuffDebuffType.NormalAttackShield => "INGAME_UI_NORMAL_ATTACK_SHIELD_GET",
-        //         BuffDebuffType.AvoidProbUp => "INGAME_UI_BUFF_AVOID_PROB_UP",
-        //         // BuffDebuffType.AttackDown => "",
-        //         BuffDebuffType.ResistanceDown => "INGAME_UI_DEBUFF_RES_DOWN",
-        //         // BuffDebuffType.AttackSpeedUp => "",
-        //         BuffDebuffType.AttackSpeedDown => "INGAME_UI_DEBUFF_ATKSPD_DOWN",
-        //         BuffDebuffType.Trap => "",
-        //         BuffDebuffType.DefenceDown => "INGAME_UI_DEBUFF_DEF_DOWN",
-        //         BuffDebuffType.HealDown => "INGAME_UI_DEBUFF_HEAL_DOWN",
-        //         BuffDebuffType.Silence => "INGAME_UI_DEBUFF_SILENCE",
-        //         // BuffDebuffType.NoDamageShield => "INGAME_UI_NO_DAMAGE_SHIELD_GET",
-        //         // BuffDebuffType.CriticalProbUp => "",
-        //         // BuffDebuffType.CriticalProbDown => "",
-        //         // BuffDebuffType.Slow => "",
-        //         // BuffDebuffType.Entangle => "",
-        //         // BuffDebuffType.Freezing => "",
-        //         // BuffDebuffType.Stun => "INGAME_UI_DEBUFF_STUN",
-        //         // BuffDebuffType.Provocation => "",
-        //         // BuffDebuffType.Sleep => "",
-        //         // BuffDebuffType.Invincibility => "",
-
-        //         _ => "",
-        //     };
-        // }
     }
 }

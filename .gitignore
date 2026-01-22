@@ -96,12 +96,16 @@ plan.md
 # MacOS
 .DS_Store
 
-.utmp/
-Assets/TEMP_UNITY_COMMON
-Assets/AddressableAssetsData/link.xml*
-Assets/StreamingAssets/specdata*
-
 # Ignored by changes analysis
 **/AGENTS.md.meta
 Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Mask.mat
 Assets/_Project/Addressables/BuiltIn/Materials/UI/UI_TexturedCircleDotPattern.mat
+Assets/_Project/Addressables/BuiltIn/Materials/UI/UI_Vignette_Ingame.mat
+Assets/_Project/Scripts/InGame/Test/InGameTestConfig.asset*
+
+.utmp/
+Assets/TEMP_UNITY_COMMON
+Assets/AddressableAssetsData/link.xml*
+Assets/StreamingAssets/specdata*
+ServerData
+Assets/FR2_Cache.asset*

@@ -104,7 +104,6 @@ public partial class EffectCodeSkill217243102 : EffectCodeCharacterBase
         base.OnSkillExecute(executeIndex, totalLength);
         if (owner.Target == null)
             return;
-
         _effectTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByManhattanDistanceInRange(owner.Target.CurrentTile, _areaRange);
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
         foreach (var tile in _effectTiles)

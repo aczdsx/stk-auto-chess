@@ -77,6 +77,7 @@ namespace CookApps.BattleSystem
                 default:
                     break;
             }
+            effectVfxNameType = InGameVfxNameType.fx_common_supply_energy_drink;
 
             if (effectVfxNameType == InGameVfxNameType.NONE)
                 return;
@@ -187,12 +188,13 @@ namespace CookApps.BattleSystem
                                 }
                             }
                             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_emp_01, targetTile.View.CachedTr.position);
+                            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_shooter_emp);
                         }
                         break;
                     }
                 case InGameVfxNameType.fx_common_supply_energy_drink:
                     {
-                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_ctdown_01, targetCharacter.Position3D);
+                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_ctdown_01, targetCharacter.SkillMiddleFXTransformFollowable);
                         targetCharacter.AddSkillCooltimeInECC(tSData[(int)TroubleshooterSynergyIdx.ENERGY_DRINK].effect_stat_value_1);
                         break;
                     }

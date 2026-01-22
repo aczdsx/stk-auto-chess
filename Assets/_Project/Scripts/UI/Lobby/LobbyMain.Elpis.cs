@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using CookApps.TeamBattle.Utility;
+using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using R3;
 using Tech.Hive.V1;
@@ -34,20 +36,13 @@ namespace CookApps.AutoBattler
 
             MainBlock = elpisMainBlockHandle.Result.GetComponent<ElpisMainBlock>();
 
-            var characterHandle = Addressables.InstantiateAsync("SD/17513401/Elpis_17513401.prefab", new Vector3(-5, 0, -5), Quaternion.identity);
-            characterHandles.Add(characterHandle);
-            await characterHandle.WaitUntilDone();
+            await CreateWanderCharacters();
             var commandCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
+
+            if (commandCenter == null) { commandCenter = new ElpisFacility() { Level = 1 }; }
+
             await MainBlock.LoadAllSubBlocks();
 
-            if(commandCenter == null)
-            {
-                commandCenter = new ElpisFacility()
-                {
-                  Level = 1  
-                };
-            }
-            
             if (commandCenter.Level >= 2)
             {
                 await MainBlock.AttachSubBlock(0, false);
@@ -65,6 +60,65 @@ namespace CookApps.AutoBattler
             CreateWorldInteractionSlots(GetUnlockedBuildings(commandCenter.Level));
 
             MainBlock.RebuildNavMesh();
+        }
+
+        private async UniTask CreateWanderCharacters()
+        {
+            const int limit = 5;
+            const string characterPath = "SD/{0}/Elpis_{1}.prefab";
+
+            var characterDataBridge = new CharacterDataBridge();
+            var userCharacterList = new List<CharacterData>();
+            characterDataBridge.GetAllUserCharacterList(userCharacterList);
+
+            // Dictionary로 O(n) 탐색 최적화
+            var allDatas = SpecDataManager.Instance.CharacterInfo.All;
+            var characterIdToPrefabId = new Dictionary<int, string>(allDatas.Count);
+            foreach (var data in allDatas)
+            {
+                characterIdToPrefabId[data.id] = data.prefab_id.ToString();
+            }
+
+            // 유저 보유 캐릭터의 prefab_id 수집 (HashSet으로 중복 제거)
+            const string defaultCharacterId = "17513401";
+            var havingCharacterPrefabIds = new HashSet<string>();
+            foreach (var character in userCharacterList)
+            {
+                if (characterIdToPrefabId.TryGetValue((int)character.CharacterId, out var prefabId))
+                {
+                    havingCharacterPrefabIds.Add(prefabId);
+                }
+            }
+
+            // 기본 캐릭터는 후보 목록에서 제거 (중복 방지)
+            havingCharacterPrefabIds.Remove(defaultCharacterId);
+
+            // 스폰 리스트 구성: 기본 캐릭터 + 랜덤 캐릭터
+            var spawnList = new List<string>(limit) { defaultCharacterId };
+
+            if (havingCharacterPrefabIds.Count > 0)
+            {
+                var candidates = new List<string>(havingCharacterPrefabIds);
+                var random = new System.Random();
+                while (spawnList.Count < limit && candidates.Count > 0)
+                {
+                    var randomIndex = random.Next(candidates.Count);
+                    spawnList.Add(candidates[randomIndex]);
+                    candidates.RemoveAt(randomIndex);
+                }
+            }
+
+            // 캐릭터 생성
+            foreach (var prefabId in spawnList)
+            {
+                var handle = Addressables.InstantiateAsync(
+                    ZString.Format(characterPath, prefabId, prefabId),
+                    new Vector3(-5, 0, -5),
+                    Quaternion.identity);
+                characterHandles.Add(handle);
+            }
+
+            await characterHandles.WaitUntilDone();
         }
 
         public void UnloadElpis()
@@ -106,7 +160,7 @@ namespace CookApps.AutoBattler
             _unlockedBuildIdsCache.Clear();
 
             _unlockedBuildIdsCache.Add((int)commandCenter.BuildId);
-            
+
             var benefits = SpecDataManager.Instance.ElpisCommandCenterBenefit.All;
             for (var i = 0; i < benefits.Count; i++)
             {

@@ -21,7 +21,7 @@ namespace CookApps.AutoBattler
     {
         [Header("Guide")]
         [SerializeField] private GuideMissionSlot guideMissionSlot;
-        
+
         [Header("Buttons")]
         [SerializeField] private CAButton battleButton;
         [SerializeField] private CAButton dungeonButton;
@@ -191,7 +191,7 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            SceneUILayerManager.Instance.PushUILayerAsync<SessionTimeEventPopup>(currentEventData).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<SessionTimeEventPopup>(currentEventData.EventId).Forget();
         }
 
         private void OnClickConsumeApEventButton()
@@ -210,7 +210,7 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentEventData).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentEventData.EventId).Forget();
         }
 
         private void OnClickInventoryButton()
@@ -226,10 +226,6 @@ namespace CookApps.AutoBattler
         public void PlayEnterAnimation()
         {
             StartEnterAnimation(null);
-        }
-        public void TEST()
-        {
-            SceneUILayerManager.Instance.PushUILayerAsync<DungeonTrialPopup>().Forget();
         }
     }
 }

@@ -38,6 +38,10 @@ public class TutorialController : MonoBehaviour
     [SerializeField] private Canvas _tutorialCanvas;
     [SerializeField] private GameObject _dragObj;
 
+    [Header("Tutorial Toast Pop")]
+    [SerializeField] private GameObject _tutorialToastObj;
+    [SerializeField] private TextMeshProUGUI _tutoiralText;
+    [SerializeField] private Animator _tutorialToastAnimator;
     public Material _maskMaterial;
 
     private List<TutorialDialogue> _currentSpecTutorialList;
@@ -66,6 +70,7 @@ public class TutorialController : MonoBehaviour
         { TutorialActionType.FOCUS_UI, new TutorialActionFocusUI() },
         { TutorialActionType.TOAST_MESSAGE, new TutorialActionToastMessage() },
         { TutorialActionType.SHOW_DIALOGUE_POP, new TutorialActionShowDialoguePop() },
+        { TutorialActionType.SHOW_DIALOGUE_POP_CALLBACK, new TutorialActionShowDialoguePopWithCallback() },
         { TutorialActionType.CHARACTER_PLACEMENT_UI, new TutorialActionCharacterPlacementUI() },
         { TutorialActionType.SPAWN_ENEMY, new TutorialActionSpawnEnemy() },
         { TutorialActionType.MOVE_OBJECT, new TutorialActionMoveObject() }
@@ -131,7 +136,10 @@ public class TutorialController : MonoBehaviour
             CanvasRectTransform = _canvasRectTransform,
             MaskMaterial = _maskMaterial,
             DragObj = _dragObj,
-            DimmedImage = _dimmedImage
+            DimmedImage = _dimmedImage,
+            TutorialToastObj = _tutorialToastObj,
+            TutorialToastText = _tutoiralText,
+            TutorialToastAnimator = _tutorialToastAnimator
         };
     }
 
@@ -253,24 +261,11 @@ public class TutorialController : MonoBehaviour
             TutorialActionMoveObject.OnMoveObjectCompleted = OnMoveObjectCompleted;
         }
 
-        // SHOW_DIALOGUE_POP 전략일 경우 다이얼로그 완료 콜백 설정
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP)
+        // SHOW_DIALOGUE_POP_WITH_CALLBACK 전략일 경우 다이얼로그 완료 콜백 설정
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP_WITH_CALLBACK)
         {
-            Debug.LogColor($"SHOW_DIALOGUE_POP: {CurrentSpecTutorial.tutorial_action_key}", "green");
-            TutorialActionShowDialoguePop.OnDialogueCompleted = OnDialoguePopCompleted;
+            TutorialActionShowDialoguePopWithCallback.OnDialogueCompleted = OnDialoguePopWithCallbackCompleted;
         }
-    }
-
-    /// <summary>
-    /// 다이얼로그 팝업 완료 시 호출되는 콜백
-    /// </summary>
-    private void OnDialoguePopCompleted()
-    {
-        // 콜백 해제
-        TutorialActionShowDialoguePop.OnDialogueCompleted = null;
-
-        // 다음 튜토리얼로 진행
-        ProceedToNext();
     }
 
     /// <summary>
@@ -286,7 +281,7 @@ public class TutorialController : MonoBehaviour
     }
 
     /// <summary>
-    /// 토스트 메시지 완료 시 호출되는 콜백
+    /// 토스트 메시지 완료 시 호출되는 콜백 (ToastManager용 - 레거시)
     /// </summary>
     private void OnToastCompleted()
     {
@@ -296,6 +291,7 @@ public class TutorialController : MonoBehaviour
         // 다음 튜토리얼로 진행
         ProceedToNext();
     }
+
 
     /// <summary>
     /// UI 캐릭터 배치 완료 시 호출되는 콜백
@@ -328,6 +324,18 @@ public class TutorialController : MonoBehaviour
     {
         // 콜백 해제
         TutorialActionMoveObject.OnMoveObjectCompleted = null;
+
+        // 다음 튜토리얼로 진행
+        ProceedToNext();
+    }
+
+    /// <summary>
+    /// 다이얼로그 팝업 완료 시 호출되는 콜백 (콜백 버전)
+    /// </summary>
+    private void OnDialoguePopWithCallbackCompleted()
+    {
+        // 콜백 해제
+        TutorialActionShowDialoguePopWithCallback.OnDialogueCompleted = null;
 
         // 다음 튜토리얼로 진행
         ProceedToNext();

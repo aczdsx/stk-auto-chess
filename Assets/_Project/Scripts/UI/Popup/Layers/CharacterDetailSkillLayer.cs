@@ -13,14 +13,27 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private SkillTooltipPopup _skillTooltipPopup;
         [SerializeField] private CAButton _skillInfoButton;
+
+        [Space(10)]
         [SerializeField] private Image _normalSkillIconImage;
         [SerializeField] private SpriteLoader _normalSkillIconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _normalSkillNameText;
 
-        private CharacterInfo _specCharacterData;
-        private CharacterData _userCharacterData;
+        [Space(10)]
+        [SerializeField] private Image _passiveSkillIconImage;
+        [SerializeField] private SpriteLoader _passiveSkillIconSpriteLoader;
+        [SerializeField] private TextMeshProUGUI _passiveSkillNameText;
 
-        private SkillActive _specSkillBaseData;
+        [Space(10)]
+        [SerializeField] private Image _jobSkillIconImage;
+        [SerializeField] private SpriteLoader _jobSkillIconSpriteLoader;
+        [SerializeField] private TextMeshProUGUI _jobSkillNameText;
+
+        private CharacterInfo _specCharacterData;
+        private CharacterData _userCharacterData;// 레벨을 위해 필요한듯
+        private SkillActive _specActiveSkillBaseData;
+        private SkillPassive _specPassiveSkillBaseData;
+        private SkillJob _specJobSkillBaseData;
 
         private void Awake()
         {
@@ -49,22 +62,40 @@ namespace CookApps.AutoBattler
             if (_specCharacterData == null) return;
             if (_userCharacterData == null) return;
 
-            var specSkillList = SpecDataManager.Instance.GetSkillDataListByPrefabID(_specCharacterData.prefab_id);
-            if (specSkillList != null && specSkillList.Count > 0)
+            var specActiveSkillList = SpecDataManager.Instance.GetSkillDataListByPrefabID(_specCharacterData.prefab_id);
+            if (specActiveSkillList != null && specActiveSkillList.Count > 0)
             {
-                _specSkillBaseData = specSkillList[0];
+                _specActiveSkillBaseData = specActiveSkillList[0];
 
-                _normalSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSkillSprite(specSkillList[0].skill_group_id)).Forget();
-                _normalSkillNameText.text = LanguageManager.Instance.GetDefaultText(specSkillList[0].skill_name_token);
+                _normalSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSkillSprite(specActiveSkillList[0].skill_group_id)).Forget();
+                _normalSkillNameText.text = LanguageManager.Instance.GetDefaultText(specActiveSkillList[0].skill_name_token);
             }
+
+            var specPassiveSkillList = SpecDataManager.Instance.GetSkillPassiveDataListByPrefabID(_specCharacterData.prefab_id);
+            if (specPassiveSkillList != null && specPassiveSkillList.Count > 0)
+            {
+                _specPassiveSkillBaseData = specPassiveSkillList[0];
+                _passiveSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPassiveSkillSprite(specPassiveSkillList[0].passive_group_id)).Forget();
+                _passiveSkillNameText.text = LanguageManager.Instance.GetDefaultText(specPassiveSkillList[0].passive_name_token);
+            }
+
+            var specJobSkillList = SpecDataManager.Instance.GetJobPassiveList(_specCharacterData.character_position_type);
+            if (specJobSkillList != null && specJobSkillList.Count > 0)
+            {
+                _specJobSkillBaseData = specJobSkillList[0][0];
+                _jobSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterJobSkillSprite((int)specJobSkillList[0][0].passive_skill_type)).Forget();
+                _jobSkillNameText.text = LanguageManager.Instance.GetDefaultText(specJobSkillList[0][0].jobs_name_token);
+            }
+
+
         }
 
         private void OnClickSkillInfoButton()
         {
             if (_skillTooltipPopup == null) return;
-            if (_specSkillBaseData == null) return;
+            if (_specActiveSkillBaseData == null) return;
 
-            _skillTooltipPopup.SetSkillToolTipPopup(_specSkillBaseData);
+            _skillTooltipPopup.SetSkillToolTipPopup(_specActiveSkillBaseData);
 
             _skillTooltipPopup.gameObject.SetActive(true);
         }

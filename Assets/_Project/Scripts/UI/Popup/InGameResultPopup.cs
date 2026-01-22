@@ -97,7 +97,12 @@ namespace CookApps.AutoBattler
                 BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
 
                 string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _popupParam.SpecCharacter.prefab_id);
-                AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
+                var obj = AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
+                if (obj != null)
+                {
+                    var characterIllust = obj.GetComponent<CharacterIllust>();
+                    characterIllust.SetCharacterAnimation("idle");
+                }
             }
 
             var _star = _popupParam.IsVictory ? 1 : 0;

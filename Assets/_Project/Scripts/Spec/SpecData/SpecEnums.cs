@@ -978,6 +978,7 @@ namespace CookApps.AutoBattler
         HUBBLE_EXPANSION_COMPLETE = 20,
         IDLE_REWARD_CLAIM = 21,
         MOVE_OBJECT_AFTER = 22,
+        COMBAT_START = 23,
     }
 
     public enum TutorialActionType
@@ -992,6 +993,7 @@ namespace CookApps.AutoBattler
         MOVE_OBJECT = 7,
         TOAST_MESSAGE = 8,
         SPAWN_ENEMY = 9,
+        SHOW_DIALOGUE_POP_CALLBACK = 10,
     }
 
     public enum FacilityType
