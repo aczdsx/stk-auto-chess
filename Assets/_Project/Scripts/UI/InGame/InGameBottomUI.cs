@@ -501,11 +501,8 @@ public class InGameBottomUI : MonoBehaviour
         // CP(전투력) 기준 내림차순 정렬
         _allCharacterStats = _allCharacterStats.OrderByDescending(s => s.GetAttrValueCP()).ToList();
 
-        // 필터 적용 후 _characterStats 갱신
+        // 필터 적용 후 _characterStats 갱신 (RefreshFilteredList 내부에서 슬롯도 생성됨)
         RefreshFilteredList();
-
-        // 슬롯 생성 (필터 통과 시에만)
-        AddSlotForCharacter(stat);
 
         SetCharacterCountText();
         InGameTouchManager.Instance.SelectedFirstTileID = -1;
