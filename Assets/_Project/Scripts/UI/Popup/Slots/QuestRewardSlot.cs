@@ -46,8 +46,8 @@ namespace CookApps.AutoBattler
             _rewardItemImage.gameObject.SetActive(true);
 
             // TODO: 아이템 표시
-            // _rewardItemSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(rewardItem.Type)).Forget();
-            // _rewardItemCountText.text = $"x{rewardItem.Count}";
+            _rewardItemSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(rewardItem.Id)).Forget();
+            _rewardItemCountText.text = $"x{rewardItem.Count}";
         }
 
         // 캐릭터 조각 보상 세팅
