@@ -753,6 +753,8 @@ namespace CookApps.AutoBattler
             //     CloseProcess();
             // }
 
+            TutorialManager.Instance?.HandleTutorialAction(TutorialTriggerType.CLOSE_POP_COMPLETE, nameof(GachaFxByTen));
+
             CloseProcess();
         }
 
