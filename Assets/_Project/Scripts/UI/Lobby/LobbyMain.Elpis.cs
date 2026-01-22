@@ -95,11 +95,11 @@ namespace CookApps.AutoBattler
 
             // 스폰 리스트 구성: 기본 캐릭터 + 랜덤 캐릭터
             var spawnList = new List<string>(limit) { defaultCharacterId };
+            var random = new System.Random();
 
             if (havingCharacterPrefabIds.Count > 0)
             {
                 var candidates = new List<string>(havingCharacterPrefabIds);
-                var random = new System.Random();
                 while (spawnList.Count < limit && candidates.Count > 0)
                 {
                     var randomIndex = random.Next(candidates.Count);
@@ -111,9 +111,11 @@ namespace CookApps.AutoBattler
             // 캐릭터 생성
             foreach (var prefabId in spawnList)
             {
+                var randomX = (float)(random.NextDouble() * 8 - 9); // -9 ~ -1
+                var randomZ = (float)(random.NextDouble() * 5 - 9); // -9 ~ -4
                 var handle = Addressables.InstantiateAsync(
                     ZString.Format(characterPath, prefabId, prefabId),
-                    new Vector3(-5, 0, -5),
+                    new Vector3(randomX, 0, randomZ),
                     Quaternion.identity);
                 characterHandles.Add(handle);
             }
