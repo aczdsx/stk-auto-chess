@@ -122,6 +122,13 @@ namespace CookApps.BattleSystem
 
         public static SoundFX GetSoundFx(this BuffDebuffType type)
         {
+            if(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat ||
+            InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat ||
+            InGameMainFlowManager.Instance.CurrentFlowState is FlowStateInGameTestCombat)
+            {
+                return SoundFX.NONE;
+            }
+
             return type switch
             {
                 // 버프 (0~999)
@@ -147,7 +154,7 @@ namespace CookApps.BattleSystem
                 BuffDebuffType.AdriaPassiveTeamHelp => SoundFX.snd_sfx_ingame_buff,
                 BuffDebuffType.BlinHeat => SoundFX.snd_sfx_ingame_buff,
                 BuffDebuffType.RukidaFoxfire => SoundFX.snd_sfx_ingame_buff,
-                
+
                 // 디버프 (1000 이상)
                 BuffDebuffType.AttackDown => SoundFX.snd_sfx_ingame_debuff,
                 BuffDebuffType.DefenceDown => SoundFX.snd_sfx_ingame_debuff,
@@ -172,7 +179,7 @@ namespace CookApps.BattleSystem
                 BuffDebuffType.Misa => SoundFX.snd_sfx_ingame_debuff,
                 BuffDebuffType.MarieAracne => SoundFX.snd_sfx_ingame_debuff,
                 BuffDebuffType.OdetteCold => SoundFX.snd_sfx_ingame_debuff,
-                
+
                 _ => SoundFX.NONE
             };
         }

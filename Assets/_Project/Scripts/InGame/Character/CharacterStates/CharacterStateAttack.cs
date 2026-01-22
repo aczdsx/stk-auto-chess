@@ -103,6 +103,7 @@ public class CharacterStateAttack : CharacterStateBase
         {
             characCtrl.GetCharacterView().SetAnimationSpeed(1f);
             isAttackAnimRunning = false;
+            characCtrl.GetCharacterView().PlayAnimation(AnimationKey.IDLE);
             return;
         }
 

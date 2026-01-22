@@ -278,14 +278,14 @@ namespace CookApps.BattleSystem
 
         private void AddPassive()
         {
-            // job passive 추가
+            // job skill 추가
             if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
                 return;
             var specDataManagerInstance = SpecDataManager.Instance;
             // TODO: 레벨 추가 시 grade를 변경하여 전달
             int testGrade = 0;
 
-            var passiveList = specDataManagerInstance.GetJobPassiveList(SpecCharacter.character_position_type);
+            var passiveList = specDataManagerInstance.GetJobPassiveList(SpecCharacter.character_position_type);// 오라클, 이런거
             if (passiveList == null || passiveList.Count == 0)
                 return;
 

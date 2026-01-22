@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Naninovel;
@@ -40,6 +41,14 @@ namespace CookApps.AutoBattler
         private bool _isCompleted;
         private string _resultNickname = "";
         private bool _wasInputEnabled;
+
+
+        [Header("Tutorial Toast Pop")]
+        [SerializeField] private GameObject _tutorialToastObj;
+        [SerializeField] private TextMeshProUGUI _tutoiralText;
+        [SerializeField] private Animator _tutorialToastAnimator;
+
+        private static readonly int LongShow = Animator.StringToHash("LongAnim");
 
         /// <summary>
         /// Naninovel 파라미터 설정
@@ -154,7 +163,7 @@ namespace CookApps.AutoBattler
 
             if (byteCount < minLength || byteCount > maxLength)
             {
-                ToastManager.Instance.ShowToastByTokenKey("ERROR_SERVER_NICKNAME_LENGTH");
+                ShowToast("ERROR_SERVER_NICKNAME_LENGTH");
                 return;
             }
 
@@ -215,6 +224,50 @@ namespace CookApps.AutoBattler
             }
 
             Debug.Log($"[NicknamePopupNaninovel] 닉네임 결과 저장: {_resultNickname}");
+        }
+
+        private void ShowToast(string tokenKey)
+        {
+            if (_tutorialToastObj == null || _tutoiralText == null) return;
+
+            string message = LanguageManager.Instance.GetDefaultText(tokenKey);
+            _tutoiralText.text = message;
+            _tutorialToastObj.SetActive(true);
+
+            if (_tutorialToastAnimator != null)
+            {
+                _tutorialToastAnimator.SetTrigger(LongShow);
+            }
+
+            HideToastAfterAnimationAsync().Forget();
+        }
+
+        private async Cysharp.Threading.Tasks.UniTaskVoid HideToastAfterAnimationAsync()
+        {
+            await Cysharp.Threading.Tasks.UniTask.Yield();
+
+            if (_tutorialToastAnimator != null)
+            {
+                var clipInfo = _tutorialToastAnimator.GetCurrentAnimatorClipInfo(0);
+                if (clipInfo.Length > 0)
+                {
+                    float clipLength = clipInfo[0].clip.length;
+                    await Cysharp.Threading.Tasks.UniTask.Delay(TimeSpan.FromSeconds(clipLength));
+                }
+                else
+                {
+                    await Cysharp.Threading.Tasks.UniTask.Delay(TimeSpan.FromSeconds(2f));
+                }
+            }
+            else
+            {
+                await Cysharp.Threading.Tasks.UniTask.Delay(TimeSpan.FromSeconds(2f));
+            }
+
+            if (_tutorialToastObj != null)
+            {
+                _tutorialToastObj.SetActive(false);
+            }
         }
     }
 }

@@ -198,6 +198,16 @@ namespace CookApps.AutoBattler
             return ZString.Format("Skill_{0}", skillID);
         }
 
+        public static string GetCharacterJobSkillSprite(int skillID)
+        {
+            return ZString.Format("Skill_Job_{0}", skillID);
+        }
+
+        public static string GetCharacterPassiveSkillSprite(int skillID)
+        {
+            return ZString.Format("Skill_Passive_{0}", skillID);
+        }
+
         public static string GetCommanderSkillSprite(int commanderSkillID)
         {
             return ZString.Format("CommanderSkill_{0}", commanderSkillID);

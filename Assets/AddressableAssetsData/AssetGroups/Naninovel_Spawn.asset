@@ -148,13 +148,6 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a7849c4742558db449e84853bb474d44
-    m_Address: Naninovel/Spawn/Etc/NicknamePopup_nani
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c26962c9ded0c1f419adb7ac90fd1112
     m_Address: Naninovel/Spawn/Etc/frustrating
     m_ReadOnly: 0
