@@ -139,7 +139,6 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.SetEnableMainNodeCanvas(true);
             MainCameraHolder.CameraGestureController.SetCanInteractCamera(true);
             MyDebug.MyLog("연출끝!", MyDebug.Constants.YELLOW);
-            TutorialManager.Instance.SetOutgameTutorialCompleted((int)TutorialConstants.Chapter1Tutorial.HubbleIntro);
         }
 
         private async UniTask OnClickStartButton()

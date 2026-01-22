@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using static TutorialConstants;
@@ -26,6 +27,9 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     private List<TutorialDialogue> _specTutorialDataList = new();
     public bool HasTutorialStage => _specTutorialDataList is { Count: > 0 } && _specTutorialDataList[0].tutorial_id > 0;
     public bool IsTutorial => _canvas != null;
+
+    // 테스트용: 게임 시작 시마다 초기화되는 메모리 딕셔너리
+    private readonly Dictionary<int, bool> _outgameTutorialCompleted = new();
 
     protected override void Awake()
     {
@@ -89,6 +93,9 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         #endif
         if (triggerType != TutorialTriggerType.NONE)
         {
+            #if _SJHONG_TEST_
+            MyDebug.MyLog($"HandleTutorialAction(triggerType, 0);");
+            #endif
             HandleTutorialAction(triggerType, "0"); // ! 외부에 넣어줘야 하는게 아닌가 싶은데.
         }
 
@@ -126,7 +133,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     public bool IsOutgameTutorialCompleted(int tutorialId)
     {
-        return PlayerPrefs.GetInt(GetOutgameTutorialKey(tutorialId), 0) == 1;
+        return _outgameTutorialCompleted.TryGetValue(tutorialId, out var completed) && completed;
     }
 
     /// <summary>
@@ -134,9 +141,8 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     public void SetOutgameTutorialCompleted(int tutorialId)
     {
-        // PlayerPrefs.SetInt(GetOutgameTutorialKey(tutorialId), 1);
-        // PlayerPrefs.Save();
-        // Debug.LogColor($"아웃게임 튜토리얼 완료 저장: {tutorialId}", "green");
+        _outgameTutorialCompleted[tutorialId] = true;
+        Debug.LogColor($"아웃게임 튜토리얼 완료 (메모리): {tutorialId}", "green");
     }
 
     private static string GetOutgameTutorialKey(int tutorialId) => $"OutgameTutorial_{tutorialId}";
@@ -254,6 +260,8 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         var turnTutorialList = _specTutorialDataList.FindAll(
             l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
 
+        turnTutorialList.ForEach(e => Debug.Log(JsonConvert.SerializeObject(e)));
+
         if (turnTutorialList.Count == 0)
         {
             return false;
@@ -263,6 +271,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
         _specTutorialDataList.RemoveAll(
             l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
+
 
         _canvas.enabled = true;
         _tutorialController.SetTutorial(turnTutorialList, isLongShow);

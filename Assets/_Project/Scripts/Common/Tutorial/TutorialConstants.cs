@@ -22,10 +22,10 @@ public static class TutorialConstants
     public enum Chapter1Tutorial
     {
         None = 0,
-        HubbleIntro = 20000,      // 허블 연출
-        Observation10 = 20001,    // 관측 10회
-        DormitoryRepair = 20002,  // 숙소 복구
-        UnitGrowth = 20003,       // 유닛 성장
+        HubbleIntro = 20001,      // 허블 연출
+        Observation10 = 20002,    // 관측 10회
+        DormitoryRepair = 20003,  // 숙소 복구
+        UnitGrowth = 20004,       // 유닛 성장
     }
 
     /// <summary>
