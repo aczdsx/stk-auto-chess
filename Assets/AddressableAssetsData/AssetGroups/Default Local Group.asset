@@ -51,11 +51,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 83987405fb00104499ee6bd75530b4fc
-    m_Address: VFX/Prefab/Prefab_Dungeon_Boss_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 986a398388cfe448cb63b561bd9e7cb2
     m_Address: TestConfig/InGameTestConfig.asset
     m_ReadOnly: 0

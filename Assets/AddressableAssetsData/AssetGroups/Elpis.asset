@@ -18,22 +18,26 @@ MonoBehaviour:
   - m_GUID: 5fff0cbd0377e134e88a27eb4febf82d
     m_Address: 201
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7eae81efca809dd488f0efcd40f4a78d
     m_Address: 101
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9eac3811c55fd314683717e7f4a05b7b
     m_Address: 401
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f0df7316ef3175c4cb1ffcc6244a6093
     m_Address: Elpis
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}

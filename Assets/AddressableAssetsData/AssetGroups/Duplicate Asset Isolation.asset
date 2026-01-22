@@ -15,3062 +15,2227 @@ MonoBehaviour:
   m_GroupName: Duplicate Asset Isolation
   m_GUID: d4befd447c106444aa21adb19e26cde8
   m_SerializeEntries:
-  - m_GUID: 01ddc0963be99454f90330eb365885c4
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_hit_ice.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 01ef0ff40a7ed994db80070db364b42f
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Warning_Bg02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 026fe0380ecd500408a15a1d8d450f8d
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_spawn.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 02ada937111e2b542ba3a392317801a9
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/WingL_01.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 034b941983f5a03468040f796eeb0e5b
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3404.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 045b07693dec4494ea8eeb867988c7e0
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Tile/fx_tile_18a_Repeat.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 04de820d4d83b4d45bc331ea90c4a65b
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_btn_splash.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0501afeefdc65d74686289645509a9c4
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_Prev.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 05174a3425d7f3247902d1ce4159ae13
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Result/Popup_IngameResult_Img_TitleFrame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 05201dd407a4cec4798412ab2b7af50b
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_03a_clamp.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 05253f25c1d7acf468324726c54c882f
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Skill/Ingame_Cha_Skill_Red.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0527875708725fd47bde3311cb9d4282
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Tile/fx_tile_13a.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 056fd864b91b4f342beedae190f2179d
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_chapter00.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 05746a94bd4185445b25ea0116910ff0
-    m_Address: Assets/_Project/Addressables/BuiltIn/Splash_STK/Resource/FX_UI_Title_01/Material/Allin1SpriteMaterial.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 05f7f5bfd0c3ed6469a69028b94a3c2c
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Circle_150px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 06abdf98ef3a5a740a2888b7ad01459e
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_13a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 06b6d06e5a4f4ba4296a6039bb2a6590
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Skill/Ingame_Cha_Skill_Mask.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 06f963f52e8dee7419fc10f6d5a24388
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_404031.wav
+  - m_GUID: 06c200e39d1152f40b895711613051ee
+    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/117563405_LD_Static_Material.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 089c5143960e5c1419d670d6c0f44f88
     m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/400100_LD_Static_SkeletonData.asset
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 098823650e9ebe84ea48d896e5e44e05
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_atkup.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 09cc9cb1c3d111246832c4f1c64f0aff
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Ingame_Img_Gauge_Bg_L.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 09e780063ee3e38418fa1d5342c22b85
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Icon_Close02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0a5d8834723991f46b661023e96ce8e2
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Aiming/Aiming_Img_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0a821b8d1f35cb94a83873c311f66545
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Commander/snd_sfx_skill_commander_aegis.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0b3906c42f7143148847d98f5db1e57b
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_204031_atk_01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0b76e3973b93794438acaee2a674ac2f
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Btn_World.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0b84f594da6b3bc43a58d84c3bab52d4
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_13a_ab.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0c1c735ac5b98ad428f564386ebb50c9
-    m_Address: Assets/ThirdParty/AudioToolkit/Demo/AudioObject.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0c906a5565d27fd4f826517a79b2bace
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Imgame_Btn_Autot.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0cfc398e6121f934fb09df6d79431564
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_account_levelup.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0d01321175b2b51418aa9e9fa8ae6526
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Boss_Ld.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0d0bb38100d49484a8cc62f0fc26a311
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Toast_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0da7f5d1669ad07429e76e53260c7db8
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_job_shooter_pierce.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0db53513940364287a5690b01ba21d61
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Gacha_VFX/02_Resources/03_Textures/T_Noise_05.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0dd4e77e02a2f5743b592ce3e3e6710f
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Ingame_Img_Difficulty_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0f6d7c56febb2ed429adcb7796af5a02
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_14a_add.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0fed88c948309274caa7bb4c70b88d47
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Deco03.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1086204844cc61749950ee6119e9f825
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Line_Round_Quarter_EndLine_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 12cc9d1d7b06491429932539e3724c7c
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_System_Frame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 141b38b4a7a294e40a554d90d8c7ea2c
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_stun.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1543b231adc45904f9510edf6a3d4b32
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/LobbyChaSelect/Popup_LCS_Img_Cha_Frame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1567f31522fd3e046a5345fc566225be
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/Atlas_Intro.spriteatlasv2
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15d981820b68b5742ae1e7358548eb97
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Icon_Deck_Help.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1627a1b0b82fa3449a8c247ebc3dd0c4
-    m_Address: Assets/_Project/Addressables/BuiltIn/Materials/Character/HpBar.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 169badfc24acd65498c4fbb24260df44
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_02a_ab.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 177c9bad512414e409d92786b973e915
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_ChaDetailInfo_Star02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 17de729e45ab243458dce166e1318fa8
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_11a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 17ec3c5656b3ac7499a5956948d52cef
     m_Address: Assets/_Project/Addressables/Remote/SD/Template/Base_Animation/Front_SKL.anim
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 17f7dcb62a00be64b891a94ecae1c941
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Aiming/Aiming_Img_Bg_Frame02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 18afa89385418184b8a3463de2916079
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_White.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1905162f65b143d4cb4a0448401d4c34
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_freeze.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 19c9ee03915e3ac49a93643f6688eb89
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Alert/Alert_Rhombus_New_Yellow_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 19e38dc39d7dd7344b7ca0aed00d1b28
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_204031_die.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 19f51a2dc35d66547becc4927ce31a4b
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_204031_appear_03.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1a1d02a4fd448b54099b6425703b070a
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Rectangle_OutLine_02.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1b378010e0bde034ab6510f74390089b
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Rhombus_20px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1c691e23872cfd14fa86cfc26b4eb51f
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_202061.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1c9365cdfc347e24997ceff02efc49f5
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_406031_02.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1cb128360ed87494db0d11d4af5d49bb
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Chapter_Stroy_On.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1cd70d02d33c56b40895e681fd61dbf1
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_splash01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1cd838c8ace632147a32ad7b4aab1f36
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_dialog_sad01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1ceeddd37d8ff8f44a43ded18842d4d0
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_405021.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1d12c0a36d88d944f94eef1cd1b87ef2
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_clear_star.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1ddef812e3bda194382811aa0f8379f2
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Icon_Skip.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1e1c3266ca7ab2e4ea6cc70ccbd6bc69
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_Reward_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1e3db6dc05ddec94f82bd81c7d3fb608
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Circle_34px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1e8a610c9e01c3648bac42585e5fc676
-    m_Address: Assets/ThirdParty/Spine/Runtime/spine-unity/Shaders/Spine-Skeleton.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1f2df26867430564e9dc0c1378d6eb5b
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Chapter/Popup_Chapter_Img_Locked.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1faed5b88ea908d45a5b4d67cfb1b770
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/CustomURP2D.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1fc0959e5b1340a4083a4f7427023b3d
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/fx_circle_31_d.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1fe9e8cfe7be6c2479f4c6037791bd90
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Deco01.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 201275b54c46ceb4280d95483a47c48e
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Btn_White.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2099210c0ae65e145bff6f81f619915a
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Chapter_Reward_Frame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 21b4eb2acb3e6954aa3547885db73387
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_BgDeco02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 228f847f7ba750d4aa7407c83ad90a66
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Tile/fx_tile_12a.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 247296d0a91919443b073abcfd5a0f54
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Icon_Check.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 24d2342cd881a8b48a08c1ec202a4de8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Deck_Vs.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2529e7d2b7f80574695c74e45cad9ad8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Class_SR.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 254694e91012c9c4b8999719c840a970
-    m_Address: Assets/_Project/Addressables/BuiltIn/Splash_STK/Resource/FX_UI_Title_01/Texture/Character.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 25f3d558e0abf5d48a827bb0dab52db9
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_gacha_open_ssr.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 26499ad6ca6c24f46869d55d49f902aa
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo/Popup_CharacterDetailInfo_Direction_Arrow_Right_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 27239d9fd6b729e41b552882dda7fe3f
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_chapter02.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2747646006170a5448c806943f81c9b1
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Circle_8px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 279657edc397ece4b8029c727adf6ddc
-    m_Address: Assets/ThirdParty/AllIn1SpriteShader/Textures/GradientTextures/palette-downwell.png
+  - m_GUID: 2797e67c2ee657f4894676e55c5044f5
+    m_Address: Assets/_Project/Addressables/Remote/Textures/UI/UI_Main/Icon_IdleBox2.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 27af644d5d299504da9f0b1b34279a73
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Bg_Shadow.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 27fd30bfa60b07e45831277dfbefbb96
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Loading.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2860bb61d9fb58f43a4f04627fcb0265
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Img_Dimd02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 28921a79e7d2f3d4f9a06d190e79ca3b
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Yellow.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2897bf0549838d141a801ca81c419493
     m_Address: Assets/_Project/Addressables/Remote/SD/Template/Base_Animation/Back_MOVE.anim
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 28c605af48c44c04b9941f13b1f84e2f
-    m_Address: Assets/_Project/Addressables/BuiltIn/Fonts/Cafe24Danjunghae-v2.0_HeaderBar.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 28c7aad1372ff114b90d330f8a2dd938
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Textures/Noise/Noise02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 29054408679b02d4cbd3941af149e4e8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Result/Popup_IngameResult_Img_Deco.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2a496525eacc0174cb5eeb04faa80823
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/BG_Class/BG_Class_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2af604c073250a043acf33d8d67b2931
     m_Address: Assets/_Project/Addressables/Remote/SD/Template/Base_Animation/Front_MOVE.anim
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2bddc75802a44bb42af03ecdc5c45d54
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Tutorial_Arrow.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2bdddc2fa944ccc49ae3c0a561e1144d
     m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/400100_LD_Static.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2d13795b226123445bc100dfd061c1b4
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_GuideQuest_Img_Frame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2d192e1ece63a0f4b92ddb12c63f4750
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Shop/Popup_Shop_Img_Deco01.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2dc17c85a5aa7bd4ebe4deda39154059
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_406021_02.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2e1838c0316bb864f810617cf77238fa
     m_Address: Assets/_Project/Addressables/Remote/Textures/UI/UI_Main/UI_fx_ambientGlow.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2e2debfdc70c2754cab74b4e9b94dd3e
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_LeftMenu_Bg_Shadow.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2e8245019faeb8c43b75f9ca3ac8ee34
-    m_Address: Assets/ThirdParty/Spine/Runtime/spine-unity/Materials/SkeletonGraphicAdditive.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2ead2d67f6dc0f842b3a0f3babd36d0f
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_BG_Circle_Big_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2f2a67e981d15f74d9655fde7642162a
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_405011_02.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2f86470ab02c1cc4a980093798fb5400
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_202051.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2f87f420fdd708f4bb152f39ea34a930
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_char_level_up.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 311054429e49d2940b3350ccb5ad1241
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_StageMode_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 319bd54f73f64cf45865a2b05598a1bf
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Skill_Frame2.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 328c7ca935a53454aa3b7dcd321ad74c
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/wind_09.png
+  - m_GUID: 3276f394c326ed3439cd9811c1816945
+    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/117563405_LD_Static.atlas.txt
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 33e0197f80608c54c89e8d79a2b4ac89
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Icon_Check2.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 345f2c41c7d869340835c25a3c7da848
     m_Address: Assets/_Project/Addressables/Remote/SD/Template/Base_Animation/Front_IDLE.anim
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 34d18666c08910e45a929d235e7847da
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Day10.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 34f1415c5cf79624dbcd0e105151b545
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_gacha_start_001.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 354caeb61bc6d104ebd049582d376e3d
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Day2.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 358b540fa89272d478d83ca9e00c189e
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Deco_TextSide_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 35f8be57f491a7a4a8f6794c5df3c3df
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_chapter03.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 360e65662060de642b1bae655bffcfe4
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_13a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3612aef0e671c0742a21ea1617b429b3
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_15a.TGA
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 36c53ab97713ebd499092b7c69aff351
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Ingame_Img_Cri.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 36ed209bdafdca745a274017dd60d429
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo/Popup_CharacterDetailInfo_Gradient_White_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 36f4737493044204eac358a37e99050b
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_position_back.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 373aee8dd88ac9f4e9652fb787e82b69
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_CircleStroke_94px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 38213d82e14de8944ac012996724656f
     m_Address: Assets/_Project/Addressables/Remote/Textures/Temp_Resource/Card/Gacha_Img_Icon_Purple.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3931faf8601774249b6293415511302b
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_InfoBg01.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 39fc5c8f08a394944b0358217691b332
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Shop/Popup_Shop_Img_Deco03.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3aea01a02bd127642a802c21c2972ee0
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Imgame_Btn_Rhombus_Line_On.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3baabdffa4a0f8b4ab1c5ae9cf4fdaf9
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_401021_01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3bdd936d27fb7da4bab114f3622beb1f
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Star_Tiny_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3c2b59bce43035c478d222713241269c
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_gacha_result_ambient_001.wav
+  - m_GUID: 3f76809fe27641f46bf56556ebf66b86
+    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static_Atlas.asset
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3cd374d8c82053146bdb2d3f2352c464
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/HologramCharacter.shadergraph
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3d3067c1ed2e6aa49ac29dfb09d91b92
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_09a_ab.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3d8e54b23aa62b54cb9fdcf4ab339afb
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_2401_02.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3f35410847f39ca4c82e2847be28eaaa
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Smoke/fx_smoke_01a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3f3d46ab0ba81b04eb0bb7832478cbac
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_05a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 420c2c800783ecd4b861a1459977ff09
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Blue.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4215633a90ae90b44a9a9fef159987ce
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Circle_50px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4299d97f61eb1bf4bbd1cd1889d2d654
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/AudioMixer.mixer
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 441c8c9625bf2924caa49305603aedcd
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Rhombus_Line_150px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 454163a6e7003464aa8f208e3613487a
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Sweep/Popup_Sweep_Img_ArrowBg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 45c6651d38cb1634d849414dd0d320bb
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/fx_circle_31_e.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4612a9213a7a1cc418d5a989fdead159
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Tile/fx_tile_19a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 461b5a6ae3fa24c439a72377963327c9
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Icon_Close.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4679f2fcda6609c41ab717a8bde31688
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Square_2px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 46e5afbfa174b9e43ac9df245b86f4ef
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_404021.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 46f387509fb8bf842a1f73c7cdeeb5cb
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_dialog_love01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 47d960c68d10ff14e8d295cb3eaea0bc
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_402011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 48953748d4841bb47bd62b1ce2646eec
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Ingame_Img_Damage_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4933a2993c9a6f241b268c3bef90c53a
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Circle_10px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 49d1c5fee9fbcd043ab147d5ae086b20
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Icon_Skill_Lock_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4ad62bc6b3bce4e438b940680bdab5b2
     m_Address: Assets/_Project/Addressables/Remote/Textures/Temp_Resource/Card/Gacha_Img_Icon_Green.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4bae873cab5556b48a38dc36cc8707e7
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Icon_Cha.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4bf62151a4dfeed46b81bb45c7ff69f8
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_cooldown.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4c29108d2d92db142a41f2cfc0437769
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/t_pattern_c003_wc.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4c76432ac1dd24a4ea2f7fc7e79d7411
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_302011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4c86db6f7792f924e8749829ab89a5d9
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/fx_circle_28a.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4d2ba8ad416afaa46bfe0cef9310030e
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Icon_Deck_Top_Shadow.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4d78655d36c7d2f4f9e5229f819ea22b
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_btn_battle.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4daeabf92f79f004a9d43cb4f98b66b7
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Alert/Alert_Rhombus_Yellow_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4e27118b6a931d349b3b247a74c20027
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Skill_Lock_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4e59746e872804c4fa30235fa68030df
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Boss_GaugeBg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4e635ffc83fa98045b2222480d6af596
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_synergy_shooter_ship.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4e8494b36b231d240a08d79ae15f8051
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Warning.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4eecfdd6e404d9d469eb9dcb4b85ea61
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shine/fx_shine_02a.TGA
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4f1e9b83a7fd10d4e8f408c949d47077
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Deco06.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4f3c32dd78b38bf43a99a4d722058048
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_Gauge_Deco2.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4f60daba4b676db48bf6a65c89b466fa
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_01.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4fc33ae1daa4b254d9750cc53f9b90b8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/RewardThumbnail/Popup_Thumb_Img_Frame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4fe216be258214c4483b4abf7005d847
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Bg02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4ff8cd29bc2e6af4ba45e44999bbad55
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Warning_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 51afc72e8369dc04686bc2bbce1e0147
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/fx_circle_31_a.mat
+  - m_GUID: 50e154a3a4e8a5544b0c32861424d681
+    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static_Material.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 51e2c418b20fdef408e312339897ea97
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Rhombus_170px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 520e4a875f98dee468b3b9bb848b1ef5
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Deco02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 523a3e61251a7cf44971e2005a53118c
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/Portal.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 52519c01a5f92b84da34c29cffd3e1f1
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_gacha_open_whoosh01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 52660a58cb0814f4488e5ae8848bd3e6
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_chapter05.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 52d9a7c93fb7f4641b708fba0a919380
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Day6.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5304e7c453079434ab27ff19885d7945
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Result/Popup_IngameResult_Img_Line.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5364e2e9081a2f04b87e67deada4bf7b
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_10Day.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5400ad3d8b6d3294f8c70bc7246cc8af
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_406031_01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 54510a6ef522f0d46b102b152dcd9fdf
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_403011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 547917a9cc9084440bde5b6df068e0f8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Class_SSR.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 54fe44033272b714cac0a3f457123521
     m_Address: Assets/_Project/Addressables/Remote/Textures/Temp_Resource/Card/Gacha_Img_Blue.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 553aa353102bfbc44bb3cb8091ccbe49
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ingame_result_victory_001.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 553c9c104e803b64bad5d823d13c4324
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Day3.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5584b7115a27cfe47a7b658bd518fe9d
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Day1.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 558f35984819d794f9bb89f91f1ec8bf
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_Gauge_Deco.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 56d122f2f8f73f44498c717553094ea4
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_Star_58px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 56e94c3c03b41c54a9fc81acbe82fa54
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_204031_appear_02.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 571fe1ad5405d2948a613025f491f216
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_TitleLine.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 572d1939397cf4944ad71b03d8da1092
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Chapter/Popup_Chapter_Img_Frame_Deco.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 57db231a3c782ff4c9a0626025f2b698
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Tile/fx_tile_20a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 57ebc3f3e5028bb4e9843d62f20d1d0c
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Chapter/Popup_Chapter_Img_Frame_Locked.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 59346fabbfab21747bea10c2b229ed52
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo/Popup_CharacterDetailInfo_Direction_Arrow_Left_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5937fa73cf724684a9edfb025467c931
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_202031.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 595667d22d9a8b246a39a7b14156555a
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Energy_Img_Deco.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5a6aa8020e453544e9dcc59c30893b34
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Btn_Sweep02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5ac92e358e5048547b399bd8b417f8f7
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Fire/fx_fire_04a_add.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5b39066ef8f7b8841b2550425a1d8548
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Setting/Popup_Setting_Img_CheckBox.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5b8da57de187da84a998fcda848c090e
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Day5.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5cc761c4caf6d1645877f6d4e25bbb69
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Icon_Ok.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5f388d31f7e6ec247a3b0e7d31129a02
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Boss_Gauge.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5f6a6537cc338f140a11a22003da7c06
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_Point.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 601d3a19ae5eb1249bb5c16061429b8a
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_101011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 612d546fc710f754b82ff6f76315d7a6
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Rhombus_Line_120px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 614f144c5c03ae740ad36fadd16615d3
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo_Icon_Reset.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 62261212f595bfb48b7837089afaabde
     m_Address: Assets/_Project/Addressables/Remote/SD/Template/Base_Animation/Back_SKL.anim
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 622febbc49e369b47a0cfea71f9beae1
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_buff_common.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 62d19432bd28e5142a68c3440f1719f8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/RewardThumbnail/Popup_Thumb_Img_Deco2.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6355cd3733d104c468488876efceea13
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Result/Popup_IngameResult_Img_Inventory.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6370145da1a553147917642b09ecbaab
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_synergy_shooter_mine.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 63df4b1ba150fd14b86573ee02a6eee1
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Line_2X2_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6541c06e76738f442b1230075c002ab4
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Deck_Vs_Frame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 656ef07d8f0ee80488810404e3536fdd
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/Atlas_InGame.spriteatlasv2
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 656f5fcbdf808784ab1fc496ed271e10
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_position_drop.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 65bea98f336b3474cb272e4105326d09
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/hand_001.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6616bfb56f61c604f958e5cfe5844d28
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Rhombus_LineLighting_134px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6653fd3a2d7d0bd40ae31385ff8e33a9
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_gacha_open_normal.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 666e16d5e1b826a4cbf4e3c6ea7733e3
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_ChaDetailInfo_Icon_Arrow02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 66aa8f577904b7d4fb51fe8281b3c1c1
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Circle_Tiny_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 66f286b8e8d37e643bee16bcf27642e4
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Skill_Img_Circle_116px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 673344cea167d84439f29d76bdfe4aca
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Circle_11px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 677cca399782dea41aedc1d292ecb67d
-    m_Address: Assets/ThirdParty/AllIn1SpriteShader/Textures/fire2.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 67b854fd27ed3964f82d2b94db16ccdd
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Circle_54px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 689b986cd55282c459bbe98b11071813
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Btn_Sweep.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 68b47a40180e4d34bbb367ef993c48aa
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Toast_Deco.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 68e6db2ebdc24f95958faec2be5558d6
-    m_Address: Assets/TextMesh Pro/Shaders/TMP_SDF.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 68e83921ed6f392448e0d2d787491920
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Shop/Popup_Shop_Img_Soldout_Deco.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 69607fc114962e946ace85c20acd6734
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Chapter_Stage_Frame_Bg02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 698beb497e6e1c649ad28c12d8cc5ff0
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_gacha_open_ticker.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6a2535010e8e46d4a8e80edb6716355b
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6c3b8a088b5da7348b887fd66e3de904
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shine/fx_shine_01a.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6cab12301f63492458faec1278c7f958
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Chapter_Info02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6cd048c3af6381a41a9bc7e403dd7ede
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/fx_circle_31a_ad.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6d0d37d9826c8184198f48f29950131e
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_RewardBg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6d1d3289e7141b54781844c5dbc9e7f2
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_204031_skill_01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6d4781c27fbd65842bb508d94d12de5b
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_03a_clamp.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6d60b8e7b3691c743b7fca21ce59b9e8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Ingame_Img_Gauge_Stats.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6e04b680dc4c0324b800dbb18b0e1c2d
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Ingame_Img_Gauge_Bg_R.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6e616e2da91b94498bd3f1afa96e545a
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Popup_Img_Pointer.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6ebe54deff65b5e40a13cc2673944fb3
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_203011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6ef73137b590d8641ae7ed94c0b01f2c
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_casting01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6ef89edf794e63d4192b827fc2b12115
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_GuideQuest_Img_CheckBox.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6f1328a647c21cf439839e33344e6f01
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/Portal.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 70043339bd2632e4bbce91d6983db038
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ingame_result_defeat_001.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 704f6dc73a8b1f54db6c6a4ce006e5a2
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_06a_add_02 1.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 70d80461adf69fb489b91dfdcaa76de5
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Shop/Popup_Shop_Img_Deco02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7324760455948c642bfa417fc88248a0
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Day8.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 74087f6d03f233e4a8a142fa01f9e5cf
-    m_Address: Assets/ThirdParty/AllIn1SpriteShader/Textures/rainbow.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 743681e4c8329e34ca9a693ddd84870a
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_spdup.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 744b7af6ef57f7a46b31de8b9e5d0146
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_btn_confirm.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 74badda4c3588134b923df86b53f82e6
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_dialog_normal01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7520123f2b013e140b736b33f9cc3290
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Class_N.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 759b3eff24d15a14c9347198743c41dd
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shine/fx_shine_04a_add.mat
+  - m_GUID: 75a2dfc7c0102784b84aff6aeccce70a
+    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static_SkeletonData.asset
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 76e934b325569ad469fd72b3b61cdc48
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Deco09.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 778e8653e1d0c9f4a94d47c5e05240d7
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Close.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7797814db55905a4fada75d2fbf1659a
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_03.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7866581829175a7498ee20ad7f13600c
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Rhombus_Line_94px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 786de1268ed1c5148a294e7f387901a8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Chapter/Popup_Chapter_Img_Title.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 79de485188a42e045a7d427004a40ce8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Notice/Popup_Notice_Img_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7a2c21a74df878745b6ee62003d4afbc
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_TitleDeco_03.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7a9a991c44ee4bb4386faf2724d0f063
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/T_Lilith_003.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7aad8c583ef292e48b06af0d1f2fab97
-    m_Address: Assets/ThirdParty/AllIn1SpriteShader/Textures/seamlessNoise.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7beb551e4cbdecb4fb5249b86a16a150
     m_Address: Assets/_Project/Addressables/Remote/Textures/Temp_Resource/Card/Gacha_Img_Green.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7c0285cb06ca1ed40a74a6cb84741145
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_406011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7c7cc6251e2f59f4baf3f3ab5e8cb5e0
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/LobbyChaSelect/Popup_LCS_Img_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7d6ddbbad3c0d4440b3e115156e399f6
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Chapter_Stroy_Off.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7d8c2048777aaf7419bab087504e7c83
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_GaugeBg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7e0f85f3119bb354da57becbf748b062
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_synergy_nova_spirit.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e2266e51b3ab694fada5bf7ec3c47af
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo_Btn_Reset.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7e2bccd24d9b4bf4da14192524aab567
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shine/fx_shine_02a_add.mat
+  - m_GUID: 7e4d0e38e4b752048b5106149f43cfe6
+    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/117563405_LD_Static_SkeletonData.asset
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7e94b3ed5d169d045a8d575fd17b962b
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3102.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7ea24bc6980b38d47985722ae5089bbc
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_01a_add_02.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7f1355a932784834a9ee0f89f30e5699
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_09a_unlit.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7fbf5526eac89be4e9b3dc991e9bb2d7
     m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/400100_LD_Static_Atlas.asset
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7fe9cd87592fe5c47ad16b5acc3cf8f4
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Skill_Passive_BG_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 800937c30aba5fc4e8dfadd1147e1bda
     m_Address: Assets/_Project/Addressables/Remote/SD/Template/Base_Animation/Back_IDLE.anim
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 80eab5ce6eca4e540834a6edf5c73900
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_06a_add_02.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 81c4e436662fc0c4897811fed1e42617
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Deco07.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 822a014a4d84acb47bffcbface734a5f
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Warning_Icon.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 82419fc665b9e5845b3731e40ea0e365
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_item_reward.wav
+  - m_GUID: 823c51804084255489696a16573ca884
+    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static_Material-Multiply.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 82dbd8e3418cba140afc86fa4b355d35
-    m_Address: Assets/_Project/Addressables/Remote/VFX/FBX/fx_cylinder_02.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 836cf23e60e6833468ae6542fc64a35c
-    m_Address: Assets/_Project/Addressables/BuiltIn/Materials/UI/TexturedCircleDotPattern.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 839adabbc5de26041bac66450214a831
-    m_Address: Assets/ThirdParty/AllIn1SpriteShader/Textures/white.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 83abdd2bf9496c24db0238fcb132cbda
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Back_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 840a5e5fae3467946afd3db72524c126
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_07a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8451f3a959a835140adbcae30ec7c316
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Button_Intro_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 845789bb233186f4ea27dd8b4fa6a06f
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/RewardThumbnail/Popup_Thumb_ImgBg_S.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 86362f3c9661376458aeb9748d370a07
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Icon_Notice.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 869318cd7a5f01845acd2323beb21ef2
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Img_Dimd03.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 86986f60dcf0ce34db8e6ad6aee6d07a
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3405_01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8701e56d34619ae4883de969d304ef2d
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_shield.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 874db81e1501be94b84953c39abaf5bc
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_08.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8798f7e4884c96b4eaa42c822c43c665
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Line_Big_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 87c8bc1a8ab217041808a53937649eb1
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_gacha_start_004.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 87f416adaff3f2f459a23e160939e2be
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Chapter_Img_Locked03.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 881c9411308e5b846b0f12b32772c4a9
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Day9.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 888114e97c8dbfc409f591c7eff6f848
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Decksetting_Place2.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 88a63e71dc3d6494ab28ad4f38ed1727
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Shop/Popup_Shop_Img_TextFrame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 88c36ce67cb1976428bb77ec4f673211
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Result/Popup_IngameResult_Img_Gacha.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8937d6cd4a772b44887b19a65c95ac7d
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterInventory/Popup_Character_Inventory_Button_SD_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8a411b6204673294b9225070a5227340
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Alert/Alert_Rhombus_Red_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8a78eb90abab20b49b6f0a3ab568156c
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Gacha_VFX/02_Resources/03_Textures/FxtCom_Mask01.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8ac3749e7dcc04e40b3487cf18fcaf2e
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_dialog_comic01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8b0630d5624432246bf73de2e27b2e31
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/Add_CenterGlow.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8b41a31443798e74496a658b8af994ba
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Deco.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8bdcdc7ee298e594a9c20c61d25c33b6
-    m_Address: Assets/ThirdParty/Spine/Runtime/spine-unity/Shaders/BlendModes/Spine-Skeleton-PMA-Multiply.shader
+  - m_GUID: 8b7a70fc31c4334458cd07a5276a76d1
+    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/117563405_LD_Static_Atlas.asset
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8c4d4346851089e48b7fa340363957fc
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Icon_Apple.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8c62fea0a290f3f40aef02ebe00b9dfd
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Skill_BG_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8cbaa6c1dcf1b284cb41921dae211662
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Rectangle_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8d27eaffb47fab0488a5fb3e9cf92207
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo_Icon_FatalityUp.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8dae5681198b4ae41a31fcc17a9647b2
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shine/fx_shine_04a.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8e283af4fb9b99c44b9469884596456c
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Chapter/Popup_Chapter_Img_Locked02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8ef5470b65e99ed47a7bc908d6da7326
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Icon_Locked_Frame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8ef9393b521c5644b8038b129ad89af6
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Img_Dimd.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8f1cda52e75042c43a1432e3c1a91c06
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Circle_94px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8f8fde53a07e6d840ba0e04921d0f41a
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_btn_dialogue.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8f97422c9eb17484996f1f1c23f30452
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3405_02.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8fc384efbd88a2747960e95d1e529713
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/WingL_02.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8fc3d87da32b9e04eb231c88eea897d6
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Chapter_Stage_Frame_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 902be396ebd314a4293ddb2b87688227
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Ingame_Btn_Pause.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 90649870fc6b6e843b6ce15c68bbaeee
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Icon_Log_Off.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9077120d40b3d2c43a9b12f2a0cd72e9
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_gacha_start_003.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 90d652007b461cb4abfe09d77e0165ea
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/BG_Grade_Gradient/Gradient_Grade.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 90e7146f89f9f34438a0e4396e335a33
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Ingame_Img_Gauge.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 90f05aba4ba51814a92190016cac8c95
     m_Address: Assets/_Project/Addressables/Remote/SD/Template/Base_Animation/Front_DEAD.anim
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 91d518b0008e25d4c8cca62d2da80cae
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_401011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9373910124682a147973dfd2fbb23e9b
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Skill_Img_Circle_120px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 93bc6c0efda4b9943b852b384180cbfb
     m_Address: Assets/_Project/Addressables/Remote/SD/Template/Base_Animation/Front_ATK.anim
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 949213d40e73e4a01a58f9807a2a59b8
-    m_Address: Assets/_Project/Addressables/BuiltIn/Shaders/HpBarMarkShader.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 94ef2bad5173a9d4b97f4795c641d46e
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo/Popup_CharacterDetailInfo_Piece_Rect_Dot_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 94f9eb6d4f34f8e4592156e211303644
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/LobbyChaSelect/Popup_LCS_Img_SortingBg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 954367e77fc2fe043b5767ba3eb5bec2
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_dialog_farewell01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 955ad60721218b64e805d577b2f60790
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Chapter/Popup_Chapter_Btn_Right.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 95e55822ae9094742879eb719f3cd41e
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_lobby01.wav
+  - m_GUID: 9625ec22923fad046ba69d90f7d480f0
+    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/117563405_LD_Static.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 96808b289e210a044837956ff2c01250
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Bg_Deco02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 968dc087824043644b514b57211ac48d
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Back.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 97c6dd483b7624141b388ba8d0a4290a
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/DissolveCharacter.shadergraph
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 984a6785fed2248479404e810b060792
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_306011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9862a115aeada4840b0f178ee5d29a40
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_ChaDetailInfo_Icon_Arrow.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 992c046b449e1f844a47c3a576043e41
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Tile/fx_tile_03a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 992d371e0bd59b046bdbe7274893843f
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_btn_negative.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9a02eebfbe878604cbcfd1deec1134c6
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/WingL_03.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9a8f79710f2def14fbdd0046aeefdffd
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Setting/Popup_Setting_Icon_SoundUp.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9b1f47ce32bc21247ac8e9dd7a14955f
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/WingR_02.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9b2feba205083df47b7ed8c1ae1fb7df
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_position_pick.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9b92c09fa5fdafb478afc974fd2a4fc8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Class_R.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9ba757bc24f3b8e4a815ef5e764d1b9f
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Rhombus_30px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9bbda0c7887eb7546899bff06f19bf47
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Imgame_Btn_Auto_A.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9c9353832b534bf42a3fcba8b98916bf
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_command01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9cf47a3cb71c7894dbbb4bbfc9a35cc8
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_01a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9db0891dfff4e0a4e8a2d6b8afe46592
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Sweep_Img_StarBg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9e70d49d5bc1f5042a2098c00ab13cf4
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/Atlas_Common.spriteatlasv2
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9e73941d02a9c3f418cd0b10e2aa4fb7
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_transition.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9ed3382a79eaae44398c0672a1739d13
     m_Address: Assets/_Project/Addressables/Remote/Textures/UI/backDeco/img_Back_CollectionUI.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a055076813a26934da96c09c3692ca30
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/RewardThumbnail/Popup_Thumb_ImgBg_L.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a0779e67868a44f9b89e1de226269e73
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/Frame_IngameHpbar.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a07f40060ec45494696cc0a0538ea038
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Warning_Deco.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a0bff4593e3df1041b4cfe6686856f34
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Star_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a0db459e37c5151428869c9e579790b0
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_btn_touch.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a108a0dbb16c5f8469be8483e75b4522
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo_Icon_Fatality.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a1116c8f565934c4689841c7f0e47167
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Chapter/Popup_Chapter_Img_Frame_Deco02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a12e974ad3b36bc499d1ceb2b80d4c4e
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_GetReward_Img_TitleBg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a1a02728b1bea8a4fb6c7ba6772e7acf
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Day4.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a1e4ab34b07f81e4e94f0d241c416669
-    m_Address: Assets/ThirdParty/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-Additive.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a22bb7682d87ae84aba6537348da06cf
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo_Icon_Defense.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a22cf43163dff6d47852ecf1d30dc189
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_404011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a3508cf6f090bea40877bce1496fb3a9
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Shop/Popup_Shop_Img_Tile.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a4dc57ea64dd7c64f83e7f64726142d4
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_InfoBg02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a4fbb457f2326b746b5d65b68d6eeb31
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_DarkBule.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a58ac4591c1213a489f559b0ca21d85b
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/RewardThumbnail/Popup_Thumb_Img_Deco.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a5c44b7e94bc10e48bd048fc453a2bf8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_BgDeco03.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a6ab787a6bdd9b747ac5a2c81e3725ba
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Shop/Popup_Shop_Img_TextFrame02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a70e949c4799aa7469043eb67a4857c6
-    m_Address: Assets/_Project/Addressables/BuiltIn/Splash_STK/Resource/Smoke24.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a78faed79bc79124f9e7e2bd788caa04
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/RewardThumbnail/Popup_Thumb_Img_ClassColor.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a7d08c5964cdb0240a060c131b0ce8ec
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/WingR_03.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a7d4bc6374bdaef45a6049b82bbe4fab
-    m_Address: Assets/_Project/Addressables/BuiltIn/Fonts/Cafe24Danjunghae-v2.0 SDF.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a7dd072cd84edbe4698cfae1162f2d0d
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Deco04.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a7e36b792355b5f45b9fe6127596f416
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/FX_Gacha_SSR/Texture/grad.jpg
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a851f9018b7c3b244a5cb49c9ef79aa4
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_synergy_ticker.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a9215ae8bd179d44592ae39babb2aabe
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_201031_01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a95c31424f2f9784fbb738ce0f52259f
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3401.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a96fa53ba74de0f468561358c670d773
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Btn_StageInfo.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a97fa2b62431b4e4f9d62d8afe6517f7
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_synergy_shooter_emp.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a98a8ab2f59fb944a9622d55f39d831b
-    m_Address: Assets/_Project/Addressables/BuiltIn/Fonts/Cafe24Danjunghae-v2.0.otf
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a9966782479047d4c8a201688ea83700
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_202011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a9aa362dc7f99db4591d1c70a40eabcc
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Shop/Popup_Shop_Btn_TapOn.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a9c78c16bf310524393c091bb966c1b4
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Setting/Popup_Setting_Img_Check.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ab910d3d2aaa07b478e4373424702fa0
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_202021.wav
+  - m_GUID: aa2242172ab100846a58129274e1d7ca
+    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/117563405_LD_Static.skel.bytes
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ac80a8bd0d205044abc08bcfff0ca1b6
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_ui_btn_popup.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ac83b5e0b66170945b1e8828c5456bea
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo_Icon_All.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: acc1e308ebdbd514fb1fc819273ae28a
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_2401_01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ace74c8994e585543a40d21020d7174b
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3404_tile.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ad0821ce6ce4dff4ba385da95f890212
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Line_Square_2px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: adc5961200b290241ae98a603d7de4ab
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Etc/fx_blank_01a_ab.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: adea018f184aada4197a575fa7151de4
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Icon_BGM_Play_Light_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ae25cb39f5df29f4c8cfe453188a1b2a
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/eye.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: af0c534d4851c8741b1f3f2e88a13d4a
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_405011_01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: af37904e42daf74428ef1b63dd52890b
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3505.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: af8c733abd5695d4facc81e9ee6aeede
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_gacha_starfall_002.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b05d790cfe02d074db89cb85b431e4a4
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_305011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b062bfc6980802f4b8c2dd3949e507c4
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_304021.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b0cbf307c6ad63d499b784a42673351f
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_pvp01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b0d20e9fa288435489c152a945a6d496
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_gacha_open_whoosh02.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b1159cda955ee1c4cb9dbc9e4b14688a
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Ingame_Icon_Pause.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b1385a8d2c131e84594a657c19b5f4ba
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Result/Popup_IngameResult_Img_Bg_Deco.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b16305261f5adb346950dd201f1e1dac
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo_Img_ResetBg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b39f523b51b09684d8711fc8d78e527e
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_302021.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b3b9580eaaa37ed46b2bcf7e1c2d1dd0
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_303011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b4c02bc69639fe24392eeab475f7ff3b
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/LobbyChaSelect/Popup_LCS_Img_TitleBg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b512f0f2807bcac44a4d49502327c69e
     m_Address: Assets/_Project/Addressables/Remote/Textures/Temp_Resource/Card/Gacha_Img_Gold.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b597139df1fd27844ad223c100f05126
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Imgame_Btn_Fast_On.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b621f0cf06b7aba439d2c23bccca2d0e
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Tutorial_Arrow02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b66cf7a186d13054989b33a5c90044e4
-    m_Address: Assets/ThirdParty/Spine/Runtime/spine-unity/Materials/SkeletonGraphicDefault.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b68b99c2e57cef4419465c63c527201b
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/Blend_CenterGlow.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b73bb8549ab3ed9448dcd3928fbdbbc8
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_gacha_starfall_001.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b75c991eda443864789bbb48018bb590
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_104021.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b780cfde9172b0548a93ce195494b5a3
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo_Btn_Reset2.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b791caf5d9dc2ef429d3b0a43dd2e392
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Imgame_Btn_Auto_Circle.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b88549423d9ec9b4fa0371c7fe53c10e
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_pvp_result_victory.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b8924785cf7007c4e81fcd54187b56b7
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/fx_circle_31_g.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b8abe946f70a93244b4f52792cdd2dcb
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_10_02.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b8c3b65e57b672d469e665b3892ce214
-    m_Address: Assets/_Project/Addressables/BuiltIn/Materials/Character/Character.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b9103251a28cfe84783b819054bbc259
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Aiming/Aiming_Img_Mask.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b9748eca8d51a054d9abd7a8e6962faf
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Result/Popup_IngameResult_Img_StageCount_On.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b99ea096c1ed37848a86683b0d744736
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_401021_02.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b9d5b58ac3587a949b5fa9e8cc022a72
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo_Icon_AttackUp.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b9ee4932265f0ac4eb18b13d9f0b0c2a
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_TitleBg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ba46e9d840396c843bb4f4cbc4243a85
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Rhombus_Line_228px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ba48b954f1236dd4682d72a84c8bf038
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Shop/Popup_Shop_Img_Frame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ba5bc9677f5afce4a84288f2682f8b17
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_Next.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bab24c479f34eec45be6ea8595891569
-    m_Address: Assets/ThirdParty/Spine/Runtime/spine-unity/Materials/SkeletonGraphicScreen.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: babcb1653c6865a4e88d1e75a37adeb5
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Skill/Ingame_Cha_Skill_Yellow.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bac40ca1ffee97c46b400e7f6a487b8e
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3501_02.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: badd0682b42505a4f95592e5199ba7b5
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Imgame_Btn_Fast03.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bb0983928ee30144d92065d9be28bb86
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_dialog_calm01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bb2fd6de883e9ab45adb0e5c0c06a4c8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/LobbyChaSelect/Popup_LCS_Img_Cha_Check.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bb42238e71baf6c42b200bd5ea18c327
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Imgame_Btn_Fast02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bb60e055ef6bbd941812c940215b45d8
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_02.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bbcfc45c733c27a419aff329764bb319
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_job_esper_esp.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bcdefbe3cc073a74db3b63eb0a4e2a28
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo_Icon_Defense_Decrease.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bcf559542be88e44bb32d11e3e0e388f
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Btn_SweepICon.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bde2f27975723654a8744d2bbe624dc7
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Art_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: be34ab90f0c34734b80571715af98e23
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_list_Frame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: be3ef41b99934d143bbdba5eeab3acdc
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/WingR_01.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bef6e16460692ea4ab96544a7f6cd28a
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Rectangle_OutLine_03.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bf038e8ad47ceb941b298227578e623b
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/CINE_GRA_00.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bf6d93f5e31aeac4cb0955a3eab7ac49
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Result/Popup_IngameResult_Img_TitleFrame02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bfb92c6a1b06d9f43a7f58fc87aefb71
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_14a.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c023392471d3e2b4ea7e4c20ea97f89c
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Chapter/Popup_Chapter_Btn_Left.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c071482621a24ad408bc77bf44f70bc6
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Line_Round_Quarter_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c0e32f6036735ca4b98ed0af7ad12f27
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_ChaDetailInfo_Img_Off.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c136453952ad0c340ba9367120a9b25e
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Result/Popup_IngameResult_Img_StageCount_Check.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c141e8cc10170a140bf45b721dbebafb
-    m_Address: Assets/_Project/Addressables/Remote/VFX/FBX/HemiSphereTwist.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c1f571aa78760d843a290e9824ed371f
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_chapter01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c2a6550703234094bb2cfbcbf6386990
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_16a.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c2ac17c4a4c25294c99306c6555f76b7
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Ingame_Img_Gauge_Stats_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c2d5ed6aa63a79a4399e12725ad2143c
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_GaugeOn.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c2e3fcc74d511be4ea3fad0d45aeaee0
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_10.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c300958a2b461db4581649905404c6dd
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_102011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c30554eb4c84eda4aa834b3d89715332
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Icon_Google.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c3060078ef74f3448aa66179f006444d
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_hit_critical1.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c3390f91e4252214ca5185b054072a4a
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Rhombus_Line_112px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c34a15d328d1cdd4bba4d2ffb5ce5819
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_15a_add.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c42b1354cdd6c7d4aa280df6f685b522
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Setting/Popup_Setting_Icon_SoundDown.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c457638436d2b9344b33a8cc2e6cee57
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Ingame_Cha_Skill_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c4fec27a6ba8c80468cca3ed7b9003da
     m_Address: Assets/_Project/Addressables/Remote/Territory/Light_Territory/Global
       Volume Profile.asset
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c52f1347b54a8f049b6f27767a9c5109
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Shop/Popup_Shop_Img_Saletag.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c569e22b6faa96549b5682f3cfa64a6c
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Icon_Skip_Off.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c5ce4cb2bb5b1bd47a5e7c4e9cee3e99
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/SG_Dissolve_3.shadergraph
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c5e41aa4304d0cb4b872329217d259fb
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Shop/Popup_Shop_Img_Soldout.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c60afd07294fae44c9471e1fb18097a8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Shop/Popup_Shop_Btn_Tap.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c61244023592f95479fddd71b5067683
-    m_Address: Assets/ThirdParty/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-Screen.shader
+  - m_GUID: ca74cea1612a00f4b9da88aaae57bbba
+    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c7544a5ce12920349bc45d7bc68b0b31
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_05.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c828e52999e940344bcd218915d1147d
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_gacha_open_cha001.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ca7f3b41a16aefb4e99136b9bf7b6d0c
     m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/400100_LD_Static.atlas.txt
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ca8f30f53471c7b42a226d67f58376b8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Boss.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cb6f9c1cfe56f1c49add0c9d6b44a336
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Aiming/Aiming_Img_Bg_Frame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cb7029b043be5f44bb513353ffdf029c
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Fire/fx_fire_04a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cb7cf63ab22f90f4383c0cde1bde00cb
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Imgame_Btn_Fast.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cbe055ec0f17bd64a8952905629ce9fb
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_vessel01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cbf847b070996ad46b12c4004ec374cd
     m_Address: Assets/_Project/Addressables/Remote/Textures/UI/UI_Main/Frame_CircleShadow_102.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cd94d8e95c0e0f640b5854647910f769
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_list_Deco.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cd9de2c935055d9489de18f67cff8242
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_02a_add.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ce28f8a25abb26e48813c8abbc6f6ab2
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Icon_Arrow.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ce3ef35ce3b1d274494dba2f5b32f8ea
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/LobbyChaSelect/Popup_LCS_Icon_Plus.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ce4dd467c30737a4ea98e01a105ec08b
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/fx_circle_31a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ce669c13b32b30a42bd316849895747d
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Deco02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ceb1cdf5640e4cb4ab0b8e95c8da4912
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Line_Square_3px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cee12950fd752da4aa642139db1abf64
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Title.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cef9d0c004af18f47924b3bd5ba7dd73
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_05a_add.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cf0465ed4e17352459b245e4d17fea33
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Icon_Hide.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cf49a008151eb5b46be9a26c7509a1ca
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Fire/fx_fire_04b.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cfbf95ed0fe6c554c8c2ee6c8325937c
-    m_Address: Assets/ThirdParty/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic-Multiply.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cffa2870ba14e794092f037ee8bf42a9
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Icon_Arrow2.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d06c6517664d06643a5ae266b2c53cb2
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Noti.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d128c3fb3383cda40bc871fa06c59eea
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Fire/fx_fire_04b_ab.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d1bb970972cef664d87731d19d2595a3
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3501_01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d21163e92932d354b9e331c38835dadb
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Rectangle_OutLine_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d2a2ab44fc824674cb08b02fbf16c6b1
     m_Address: Assets/_Project/Addressables/Remote/Textures/Temp_Resource/Card/Gacha_Img_Purple.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d2c21953bb5359e4085282c162201a27
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Decksetting_Place.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d2d6b154fa6f18542828e02f462d7889
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_103011.wav
+  - m_GUID: d4adcc1b777433b4b93c273732528636
+    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static.skel.bytes
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d2e06b26f865b094a8a867d1450cc703
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_09.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d35e8d6f281a0964fa0ace03bdbb59c4
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_16a_add.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d473b07f81c425e488afd74677fcffd0
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_dialog_normal02.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d4c248f1c6e710447812ee28ead6c056
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Circle_Big_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d4ccd94888df36243a6afdd1040c217e
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Star_Big_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d4fc5455ffb804643a2929f6e1bb92af
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_btn_Close.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d58a0b1e59a7c6946abaf660af8fe19e
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/fx_circle_28a_ab.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d60742916b7f7e242b755629eb5ad7bc
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/humanEye.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d68cdfa6ca80efd49bfd7834de4c56f7
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Icon_Stats.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d6d664f2da0163640867e601b67715ac
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/fx_circle_31_c.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d70ab2fa55286e649a92e17f19b4ae96
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Deco05.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d871cf120cf3f0e45873569498f7c64b
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_204031_appear_01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d89709862a063744cbfda9df0e080997
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Bg_Deco01.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d9e1c8f45eb35854fb70c7aa8e81cf60
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Sweep/Popup_Sweep_Btn_Arrow.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: daaeb2859ebccb74ab73703f342a4c96
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Img_Dimd03_1.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: db819ce11f2abb040a4a29bbc666175f
     m_Address: Assets/_Project/Addressables/Remote/Textures/Temp_Resource/Card/Gacha_Img_Icon_Blue.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dbb310a45ee537d45836dbc12b222a0f
     m_Address: Assets/_Project/Addressables/Remote/SD/Template/Base_Animation/Back_ATK.anim
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dc3039e908d41884d89414068e826ca3
-    m_Address: Assets/_Project/Addressables/BuiltIn/Splash_STK/Resource/Material/Smoke24bcg.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dc3d71578b2d37c45b555bbe8935c6dd
     m_Address: Assets/_Project/Addressables/Remote/Textures/Temp_Resource/Card/Gacha_Img_Icon_Gold.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dc540f6eebe0e1d4f8a228df06c4c68b
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_debuff.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dcb48afdf6b7edf42ad6a5d3cb5b035d
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Lobby.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dd3035beeeccfbf45a4730be992b654a
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Deck_Synergy_Off.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dda490fa21550574aa98bcb5a4b9e10d
     m_Address: Assets/_Project/Addressables/Remote/Textures/UI/UI_Main/Rect.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ddb1abd0e09ef114689affeec397dc1e
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/Atlas_PopupDialogue.spriteatlasv2
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ddfed575fb2a9864c92bc9049aa18203
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Star_01.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: de38383ccece1d34cb0407922f2fee03
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Imgame_Btn_Autot_On.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: de5032c1d7a4ca2438269d26e35f2680
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_hit_fire.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dea80b34f9d22e54cb6003a7c956e34e
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Icon_Auto_Off.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: df2ba4fe659c9e84b97c313587057ae7
     m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/400100_LD_Static.skel.bytes
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: df7a3f2be539bb64f88c9c9305f1ec95
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Reward_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dfd1dd2bc22460a4c9365cace023e7ad
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_job_striker_brave.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dfe7fbfb0dfcb5e469de600c88da62d5
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_dialog_despair01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e0998faa9702cf142b7d30ca39ed1978
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/LobbyChaSelect/Popup_LCS_Icon_Arrow.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e0fe0cccb9a4740419258b2ef5205b28
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Tile_bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e12f0e55d4f92ac4da65ca4be2202a2e
     m_Address: Assets/_Project/Addressables/Remote/Textures/UI/UI_Main/Icon_YellowBox.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e1b142ae2da4da44fabd3087ccecb46b
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_13a_add.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e200c3edab3a1ba42874dd80ca4ead78
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Boss_Gauge02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e22886e79ceb1bb40bb2af7146b3ce0c
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_10a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e237c6e411b4ba94f9da11a4701dffff
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_StageBg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e2a4fdc82e408894b85938fa71455794
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Levelup_Frame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e3265ab4bf004d28a9537516768c1c75
-    m_Address: Assets/TextMesh Pro/Fonts/LiberationSans.ttf
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e3fbab4ea63e2424a9ee6d7f6db58dde
-    m_Address: Assets/ThirdParty/AllIn1SpriteShader/Textures/HalfSphere3.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e4857122371ea5b4984369072f5825aa
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_TitleDeco_01.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e4c727931a81be24385f6c7d55ba2f12
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Result/Popup_IngameResult_Img_BtnFrame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e4d406819ac5fc54db1ee37c781be119
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Shop/Popup_Shop_Img_Package.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e58e01d6eb3398d4693de23b363e9994
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Smoke/fx_smoke_01a_ab.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e643d6ab57405e748b7e511e279a08d9
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_401031.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e6477c8e7d5e397489c77bca3f83b89c
     m_Address: Assets/_Project/Addressables/Remote/SD/Characters/17513401/Front/IDLE/SR_ATRESIA_F_idle1.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e74a1f8978a7da348a721508d0d58834
-    m_Address: Assets/ThirdParty/Spine/Runtime/spine-unity/Materials/SkeletonGraphicMultiply.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7d3ef0a83b2ac643be596b9f7013dd2
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_RewardDeco.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7ef529b92638514bb808524849ba6b1
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Deco08.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e87e3058602989f459ef3429c2a49e5f
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_11.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e944fa98bba565c4d9753ce52b82802a
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_ingame_heal_common.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e9f168c44ab594646a29cc8030d3af05
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Icon_Locked.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ea233ac61ce78994a9996a78c12062b3
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Imgame_Cha_List_Skill_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ea2967c48921fdb408db28fae61b8eaf
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_dialog_tension01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ea9e7dad7c9a14b4fb5b6a04296676c4
     m_Address: Assets/_Project/Addressables/Remote/SD/Template/Base_Animation/Back_DEAD.anim
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eb012c782d84fbf4a87013d0b1256bf5
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_ChaDetailInfo_Star.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eb4bf64d9bab86643a4df6889aab77eb
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Day7.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eba91dc854fd87a4d84491fc8c828fd3
     m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/400100_LD_Static_Material.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ebbb51f8dda2d40f3b7dfb84dfb5bf09
-    m_Address: Assets/_Project/Addressables/BuiltIn/Materials/Character/HpBarMark.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ec34b8603e618ad49aef08a9a8b22c36
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Common/snd_sfx_hit_normal1.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ec5eac5e751e9a9409e342f7f75a6fc3
     m_Address: Assets/_Project/Addressables/Remote/SD/Characters/17613501_lock/Back/ATK/17613501_B_atk7.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ee312fa09a888454fbfd7f8ff20f60bc
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo_Icon_Hp.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ee4bd9aa09800ed4aa59e74e3dfa513a
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Chapter_Info.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ee6d2cfdf80db7e4fac9004d34314c9c
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Bgm/Bgm_Img_01.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ee7ec7fe34d9ac34da0a962965608065
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_RewardOn.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: eebb9c7988ebf0b43a5a41084e1f191d
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_dgboss_01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eed077c8856f64e459bf52257578fba0
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_ChaDetailInfo_Icon_Star.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ef2ccae5a4101b640abcad311031e0f6
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Round.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f010b32c198e2c64ea13079ac84b3b20
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_BG_Circle_Big_01
       1.psd
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f1b81c6cfee70e948a14972ea7742c12
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Circle_18px.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f1d1531155993314da60ca8a1c296ffd
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_Frame.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f214c531f54e6804babe588a213172dc
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Icon_Deck_Soting.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f23978454f3512446a9d9cbb77f1ed9c
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_gacha_start_002.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f3f158a2920a80a41b007919fdf69d2f
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_dialog_dumb01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f487aae52f8399043a4edccc356ce0d3
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Icon_Auto.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f4f50dfdeeab58048941024fa240f8c8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Result/Popup_IngameResult_Img_Arrow.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f5164dcd192d8234898dc0d56a9bd420
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Chapter_Elite_Cha02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f54a6a00054c5d44bafc8241e5a9a268
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shine/fx_shine_01a_add.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f5557863aceba994c973097980b8b54d
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Icons/Dialogue/Dialogue_Icon_Log.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f5cf03c00f1fda64ba0ff5c999decfee
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/fx_circle_31_f.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f61998b87e292c54283778acc308eab6
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_CharacterDetailInfo_Icon_Attack.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f6779ff89c6ba574d8485dfef785dc18
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_201031_02.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f67b50c78d75c924ab5406291a7aa441
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_02a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f7d6edd1c8275ca47966ab43eeacd5bc
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_TitleBG.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f858372c07ab38844a0b4270f66a3b92
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_406021_01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f8673f49774ea704e95c3a4b37d88416
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_chapter04.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f87eecc21d40d684491f6452868ed114
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/LobbyChaSelect/Popup_LCS_Img_Cha_FrameInner.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f8cf2fd7cfaa3774fbd2ac90f2082dfd
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Square_Pattern.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f940744915507c44ea6fe6b0fd42e5dc
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Icon_Locked_Deco.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f95bb1dcd08088c4682b132d14e75d48
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Deck.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f97350220fbf49f419b6683136e157c9
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_06a_clamp.png
+  - m_GUID: f99bc2b036b33a1429f009d39f2bc59a
+    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static.atlas.txt
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f9cb3199e55bec848ae037624cd33def
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_TitleDeco_02.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f9efc9999ef9ab643927f203208d2a35
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Icon_Locked.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f9f489a314ff45144acfb1e08efe9a61
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_104011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f9f64130bd2788c4b9f07f45ec31ef2f
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/RewardThumbnail/Popup_Thumb_Img_ClassColor2.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa323e1cb4aaf874ab804469d6c4ca86
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Skill_Frame_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fa61bbd299ea329428b8e33a984f18cd
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_2102.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fa95b0fb6983c0f40a152e6f9aa82bfb
-    m_Address: Assets/ThirdParty/Spine/Runtime/spine-unity/Shaders/SkeletonGraphic/Spine-SkeletonGraphic.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fb1d8e650d7bcda4c91fdd5e7b5797ef
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fb89843196c5f1144bdb5a1af33eb2eb
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/UI/snd_sfx_pvp_result_defeat.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fbb856b814d24e34697d941c3f981d87
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_201011.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fbd717d57e3c7a141bd02c7b0305ea4a
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_06a.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fbe4f81e6e224b642a519baa90e8c236
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_03a_add_05.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fc7da0ecc6b0caa47a6c63809d913f80
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_System_Bg.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fdad6746cd937cd4b900ff93828ff94f
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_402021.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fe393ace9b354375a9cb14cdbbc28be4
-    m_Address: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fe93c8d8ef47dcb46900542105f8544b
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Result/Popup_IngameResult_Img_Geofront.png
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ff8841dd78d24dc49a63d78ed0997205
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_dialog_tricky01.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
