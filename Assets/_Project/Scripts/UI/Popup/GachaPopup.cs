@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 
@@ -33,6 +35,7 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
+            
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.C_Ticket, TopPanelType.Jewel);
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
@@ -52,6 +55,16 @@ namespace CookApps.AutoBattler
 
             // test
             //DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.POPUP_OPEN, nameof(gameObject));
+            
+            // 보상 지급 여부 체크
+            var progressData = ClientDataManager.Instance.GetData<ClientProgressData>(ClientProgressData.CategoryName);
+            if (!progressData.HasRewardedFirstGachaTicket())
+            {
+                var rewardItemList = new List<RewardItem> { new (IdMap.Item.CharacterTicket, 10) };
+                // 서버에 보상 수령 요청
+                SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
+                progressData.SetRewardedFirstGachaTicket(true);
+            }
         }
 
         public void SetCanvasTargetDisplay(int targetDisplay)

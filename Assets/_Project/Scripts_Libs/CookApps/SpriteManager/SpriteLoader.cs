@@ -1,6 +1,9 @@
 using System.Threading;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace CookApps.TeamBattle
@@ -13,6 +16,8 @@ namespace CookApps.TeamBattle
 
         private CancellationTokenSource cts;
         private string spriteName;
+        
+        AsyncOperationHandle<Sprite> handle;
 
         protected override void OnDestroy()
         {
@@ -21,10 +26,40 @@ namespace CookApps.TeamBattle
                 return;
             cts?.Cancel();
             cts = null;
-            if (string.IsNullOrEmpty(spriteName))
+            
+            if (!string.IsNullOrEmpty(spriteName))
+            {
+                SpriteManager.Instance.UnloadSprite(spriteName);
+                spriteName = null;
+            }
+            
+            if (handle.IsValid())
+            {
+                Addressables.Release(handle);
+            }
+        }
+        
+        public async UniTask LoadSpriteWithHandle(AsyncOperationHandle<Sprite> spriteHandle)
+        {
+            cts?.Cancel();
+            cts = new CancellationTokenSource();
+            var token = cts.Token;
+
+            if (handle.IsValid())
+            {
+                Addressables.Release(handle);
+            }
+            handle = spriteHandle;
+
+            Sprite sprite = await spriteHandle.WaitUntilDone();
+            if (token.IsCancellationRequested)
+            {
+                spriteHandle.Release();
                 return;
-            SpriteManager.Instance.UnloadSprite(spriteName);
-            this.spriteName = null;
+            }
+            SetTargetSprite(sprite);
+            SetTargetEnable(true);
+            enabled = true;
         }
 
         public async UniTask SetSprite(string spriteName)
@@ -59,12 +94,19 @@ namespace CookApps.TeamBattle
         public void UnloadSprite()
         {
             cts?.Cancel();
+            cts?.Dispose();
             cts = new CancellationTokenSource();
             if (string.IsNullOrEmpty(spriteName))
-                return;
-            SpriteManager.Instance.UnloadSprite(spriteName);
-            this.spriteName = null;
-            SetTargetEnable(false);
+            {
+                SpriteManager.Instance.UnloadSprite(spriteName);
+                this.spriteName = null;
+                SetTargetEnable(false);
+            }
+            
+            if (handle.IsValid())
+            {
+                Addressables.Release(handle);
+            }
         }
 
         private void SetTargetEnable(bool enable)
