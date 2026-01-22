@@ -1,9 +1,4 @@
-using CookApps.TeamBattle.Utility;
 using Cysharp.Text;
-using UnityEngine;
-using Cysharp.Threading.Tasks;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoBattler
 {
@@ -163,11 +158,9 @@ namespace CookApps.AutoBattler
             return ZString.Format("BossBanner_{0}", bannerID);
         }
 
-        public static AsyncOperationHandle<Sprite> GetCharacterIllustSprite(int prefabId)
+        public static string GetCharacterIllustSprite(int prefabID)
         {
-            var address = ZString.Format("LD_Characters/{0}/Illust/Character_Illust_{0}.png", prefabId);
-            var handle = Addressables.LoadAssetAsync<Sprite>(address);
-            return handle;
+            return ZString.Format("CharacterIllust_{0}", prefabID);
         }
 
         public static string GetCharacterSubIllustSprite(int prefabID)

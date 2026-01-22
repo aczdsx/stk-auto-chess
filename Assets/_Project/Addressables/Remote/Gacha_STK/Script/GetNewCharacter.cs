@@ -167,7 +167,7 @@ namespace CookApps.AutoBattler
         }
 
         private bool isPlayCharacterBGM = false;
-        public async UniTaskVoid SetChracater(CharacterInfo specCharacter, Action actoin = null, bool isTutorial = false)
+        public void SetChracater(CharacterInfo specCharacter, Action actoin = null, bool isTutorial = false)
         {
             EndAction = actoin;
             TouchObject.SetActive(false);
@@ -347,21 +347,21 @@ namespace CookApps.AutoBattler
             if (idleObj != null)
                 Destroy(idleObj);
 
-            var handle = SpriteNameParser.GetCharacterIllustSprite(_specCharacter.prefab_id);
+            var targetSpriteName = SpriteNameParser.GetCharacterIllustSprite(_specCharacter.prefab_id);
 
             //lowObj = AddressablesUtil.Instantiate($"{characterID}_Static", LowBodyStaticObject.transform);
             //upperObj = AddressablesUtil.Instantiate($"{characterID}_Static", UpperBodyStaticObject.transform);
-            lowBodySpriteLoader.LoadSpriteWithHandle(handle).Forget();
+            lowBodySpriteLoader.SetSprite(targetSpriteName).Forget();
             //LowBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
-            upperBodySpriteLoader.LoadSpriteWithHandle(handle).Forget();
+            upperBodySpriteLoader.SetSprite(targetSpriteName).Forget();
             //UpperBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
 
             staticObj = AddressablesUtil.Instantiate($"{characterID}_Static", CharaterStaticObjects[timeLineIdx].transform);
 
             CharaterIdleObjects[timeLineIdx].gameObject.SetActive(true);
-            charaterIdleSpriteLoader[timeLineIdx].LoadSpriteWithHandle(handle).Forget();
+            charaterIdleSpriteLoader[timeLineIdx].SetSprite(targetSpriteName).Forget();
             //CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
-            charaterStaticSpriteLoader[timeLineIdx].LoadSpriteWithHandle(handle).Forget();
+            charaterStaticSpriteLoader[timeLineIdx].SetSprite(SpriteNameParser.GetCharacterIllustSprite(_specCharacter.prefab_id)).Forget();
 
             // var offsetScript = CharaterIdleObjects[timeLineIdx].GetComponentInChildren<NormalSkillCharacterOffset>();
             // idleObj = AddressablesUtil.Instantiate($"{characterID}_LD", offsetScript.transform);
@@ -518,18 +518,18 @@ namespace CookApps.AutoBattler
             // upperObj = AddressablesUtil.Instantiate($"{characterID}_Static", UpperBodyStaticObject.transform);
             // staticObj = AddressablesUtil.Instantiate($"{characterID}_Static", CharaterStaticObjects[timeLineIdx].transform);
 
-            var handle = SpriteNameParser.GetCharacterIllustSprite(_specCharacter.prefab_id);
+            var targetSpriteName = SpriteNameParser.GetCharacterIllustSprite(_specCharacter.prefab_id);
 
-            lowBodySpriteLoader.LoadSpriteWithHandle(handle).Forget();
+            lowBodySpriteLoader.SetSprite(targetSpriteName).Forget();
             //LowBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
-            upperBodySpriteLoader.LoadSpriteWithHandle(handle).Forget();
+            upperBodySpriteLoader.SetSprite(targetSpriteName).Forget();
             //UpperBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
 
             CharaterIdleObjects[timeLineIdx].gameObject.SetActive(true);
-            charaterIdleSpriteLoader[timeLineIdx].LoadSpriteWithHandle(handle).Forget();
+            charaterIdleSpriteLoader[timeLineIdx].SetSprite(targetSpriteName).Forget();
             //CharaterIdleObjects[timeLineIdx].GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
 
-            charaterStaticSpriteLoader[timeLineIdx].LoadSpriteWithHandle(handle).Forget();
+            charaterStaticSpriteLoader[timeLineIdx].SetSprite(SpriteNameParser.GetCharacterIllustSprite(_specCharacter.prefab_id)).Forget();
 
             // var offsetScript = CharaterIdleObjects[timeLineIdx].GetComponentInChildren<NormalSkillCharacterOffset>();
             // idleObj = AddressablesUtil.Instantiate($"{characterID}_LD", offsetScript.transform);
