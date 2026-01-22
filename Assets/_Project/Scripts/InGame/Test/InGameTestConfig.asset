@@ -25,10 +25,82 @@ MonoBehaviour:
     MultipleAtk: 1
     MultipleHp: 1
   EnemyCharacters:
-  - CharacterId: 1001
+  - CharacterId: 3001
+    Level: 1
+    GridX: 0
+    GridY: 6
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 3002
+    Level: 1
+    GridX: 1
+    GridY: 6
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 3003
     Level: 1
     GridX: 2
     GridY: 6
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 3004
+    Level: 1
+    GridX: 3
+    GridY: 6
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 3005
+    Level: 1
+    GridX: 4
+    GridY: 6
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 4001
+    Level: 1
+    GridX: 0
+    GridY: 5
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 4002
+    Level: 1
+    GridX: 1
+    GridY: 5
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 4003
+    Level: 1
+    GridX: 2
+    GridY: 5
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 4004
+    Level: 1
+    GridX: 3
+    GridY: 5
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 4005
+    Level: 1
+    GridX: 4
+    GridY: 5
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 4006
+    Level: 1
+    GridX: 0
+    GridY: 4
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 6001
+    Level: 1
+    GridX: 1
+    GridY: 4
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 6002
+    Level: 1
+    GridX: 3
+    GridY: 4
     MultipleAtk: 1
     MultipleHp: 1
   CameraSize: 7.5
