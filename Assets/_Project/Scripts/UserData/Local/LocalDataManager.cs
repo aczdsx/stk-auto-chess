@@ -104,6 +104,10 @@ namespace CookApps.AutoBattler
             return data.LastPlayStageId;
         }
 
+        /// <summary>
+        /// 마지막으로 플레이한 스테이지 ID를 설정합니다.
+        /// </summary>
+        /// <param name="stageId">stageId는 table의 id와 대응됩니다 <br/> 예) 1 chapter 1 stage => 10001</param>
         public void SetLastPlayStageId(uint stageId)
         {
             if (data.LastPlayStageId == stageId) return;

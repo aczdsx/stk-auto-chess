@@ -174,7 +174,7 @@ namespace CookApps.AutoBattler
             PlayDamageSound(isCritical);
         }
 
-        public async UniTask ShowBlockText(Vector3 position, float characterHeight)
+        public async UniTask ShowBlockText(Vector3 position, float characterHeight, double damage)
         {
             _reusableSpriteFontList.Clear();
             _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_BLOCK);
@@ -182,7 +182,7 @@ namespace CookApps.AutoBattler
             // 블록은 아이콘만 표시
             SetTextContent(
                 BuildSpriteText(_reusableSpriteFontList),
-                string.Empty,
+                BuildNumberText(damage),
                 DamageColorType.Block
             );
             

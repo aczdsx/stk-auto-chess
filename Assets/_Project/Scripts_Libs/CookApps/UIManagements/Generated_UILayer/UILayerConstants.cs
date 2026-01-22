@@ -11,9 +11,6 @@ namespace CookApps.TeamBattle.UIManagements
         {
             return uiLayerName switch
             {
-                "DownloadConfirmPopup" => "Assets/_Project/Addressables/BuiltIn/Prefabs/UI/Popup/DownloadConfirmPopup.prefab",
-                "DownloadProgressPopup" => "Assets/_Project/Addressables/BuiltIn/Prefabs/UI/Popup/DownloadProgressPopup.prefab",
-                "NicknamePopup" => "Naninovel/Spawn/Etc/NicknamePopup",
                 "BattleReadyMain" => "Prefabs/UI/00_Main/BattleReadyMain.prefab",
                 "BattleReadyMain_1" => "Prefabs/UI/00_Main/BattleReadyMain_Old.prefab",
                 "InGameMain" => "Prefabs/UI/00_Main/IngameMain.prefab",
@@ -44,7 +41,7 @@ namespace CookApps.TeamBattle.UIManagements
                 "InGameExitPopup" => "Prefabs/UI/01_Pops/WindowPopup/InGameExitPopup.prefab",
                 "ItemConsumeEventPopup" => "Prefabs/UI/01_Pops/WindowPopup/ItemConsumeEventPopup.prefab",
                 "ItemTooltipPopup" => "Prefabs/UI/01_Pops/WindowPopup/ItemTooltipPopup.prefab",
-                "NicknamePopup_1" => "Prefabs/UI/01_Pops/WindowPopup/NicknamePopup.prefab",
+                "NicknamePopup" => "Prefabs/UI/01_Pops/WindowPopup/NicknamePopup.prefab",
                 "QuestPopup" => "Prefabs/UI/01_Pops/WindowPopup/QuestPopup.prefab",
                 "RewardResultPopup" => "Prefabs/UI/01_Pops/WindowPopup/RewardResultPopup.prefab",
                 "SessionTimeEventPopup" => "Prefabs/UI/01_Pops/WindowPopup/SessionTimeEventPopup.prefab",
@@ -63,6 +60,9 @@ namespace CookApps.TeamBattle.UIManagements
                 "SynergyTooltipIngameMiniPopup" => "Prefabs/UI/InGame/SynergyTooltipIngameMiniPopup.prefab",
                 "LoadingMain" => "Prefabs/UI/Loading/LoadingMain.prefab",
                 "TopCurrencyAndMenuBar" => "Prefabs/UI/Top/TopCurrencyAndMenuBar.prefab",
+                "DownloadConfirmPopup" => "Assets/_Project/Addressables/BuiltIn/Prefabs/UI/Popup/DownloadConfirmPopup.prefab",
+                "DownloadProgressPopup" => "Assets/_Project/Addressables/BuiltIn/Prefabs/UI/Popup/DownloadProgressPopup.prefab",
+                "NicknamePopup_1" => "Naninovel/Spawn/Etc/NicknamePopup",
                 "TitleMain" => "Assets/_Project/Splash_STK/Prefab/SplashUI.prefab",
                 _ => string.Empty
             };

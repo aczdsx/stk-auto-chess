@@ -23,20 +23,21 @@ namespace CookApps.AutoBattler
         
         private Material _mat;
 
+        private UniTaskCompletionSource _fadeInCompletionSource;
+        private UniTaskCompletionSource _fadeOutCompletionSource;
+
         public override async UniTask FadeInAsync()
         {
+            _fadeInCompletionSource = new UniTaskCompletionSource();
             animator.SetTrigger("SetTransitionIn");
-            await UniTask.Yield(PlayerLoopTiming.Update);
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            await UniTask.Delay(TimeSpan.FromSeconds(stateInfo.length));
+            await _fadeInCompletionSource.Task;
         }
 
         public override async UniTask FadeOutAsync()
         {
+            _fadeOutCompletionSource = new UniTaskCompletionSource();
             animator.SetTrigger("SetTransitionOut");
-            await UniTask.Yield(PlayerLoopTiming.Update);
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            await UniTask.Delay(TimeSpan.FromSeconds(stateInfo.length));
+            await _fadeOutCompletionSource.Task;
         }
         
         private CancellationTokenSource cts;
@@ -95,12 +96,12 @@ namespace CookApps.AutoBattler
 
         public void FadeInComplete()
         {
-
+            _fadeInCompletionSource?.TrySetResult();
         }
 
         public void FadeOutComplete()
         {
-
+            _fadeOutCompletionSource?.TrySetResult();
         }
     }
 }

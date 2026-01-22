@@ -188,17 +188,38 @@ public class TutorialController : MonoBehaviour
 
         // TOAST_MESSAGE, SHOW_DIALOGUE_POP 타입은 말풍선 숨김
         bool hideDialogueBubble = CurrentSpecTutorial.tutorial_action_type == TutorialActionType.TOAST_MESSAGE ||
-                                   CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP;
+                                   CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP ||
+                                   CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP_CALLBACK;
         _bodyRectTransform.gameObject.SetActive(!hideDialogueBubble);
 
         if (!hideDialogueBubble)
         {
+
             // 텍스트 설정
             // string tutorialText = LanguageManager.Instance.GetDefaultText(CurrentSpecTutorial.desc_key);
             Debug.LogColor($"CurrentSpecTutorial.prefab_id: {CurrentSpecTutorial.prefab_id}", "green");
             var characterInfo = SpecDataManager.Instance.GetCharacterData(CurrentSpecTutorial.prefab_id);//id로 가져와져서 바꿔야함.
+            #if _SJHONG_TEST_
+            MyDebug.MyLog($"CurrentSpecTutorial.prefab_id {CurrentSpecTutorial.prefab_id}");
+            MyDebug.MyLog($"characterInfo.prefab_id {Newtonsoft.Json.JsonConvert.SerializeObject(CurrentSpecTutorial)}");
 
+            #endif
+            #if __DEV
+            try
+            {
+                _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterInfo.prefab_id)).Forget();
+            }
+            catch (Exception e)
+            {
+                #if _SJHONG_TEST_
+                MyDebug.MyLog(e.Message, MyDebug.Constants.RED);
+                #endif
+                _spriteLoaderCharacter.SetSprite("ERROR").Forget();
+            }
+            #else
             _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterInfo.prefab_id)).Forget();
+            #endif
+
             _characterNameText.text = LanguageManager.Instance.GetDefaultText(characterInfo.name_token);
             string tutorialText = CurrentSpecTutorial.desc_key;
             _descText.text = tutorialText;
