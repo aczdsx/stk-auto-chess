@@ -139,13 +139,17 @@ namespace CookApps.AutoBattler
 
         private async UniTask HubbleLobbyScequence()
         {
+            #if _SJHONG_TEST_
             MyDebug.MyLog("연출중!", MyDebug.Constants.YELLOW);
+            #endif
             SceneUILayerManager.Instance.SetEnableMainNodeCanvas(false);
             MainCameraHolder.CameraGestureController.SetCanInteractCamera(false);
             await UniTask.Delay(500);
             SceneUILayerManager.Instance.SetEnableMainNodeCanvas(true);
             MainCameraHolder.CameraGestureController.SetCanInteractCamera(true);
+            #if _SJHONG_TEST_
             MyDebug.MyLog("연출끝!", MyDebug.Constants.YELLOW);
+            #endif
         }
 
         private async UniTask OnClickStartButton()
