@@ -5,6 +5,24 @@ using CookApps.BattleSystem;
 public class EffectCodeSynergyBase : EffectCodeCharacterBase
 {
     protected List<long> _synergyAddEffectCodeIds = new List<long>();
+    protected SynergyType _synergyType = SynergyType.NONE;
+
+    public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
+    {
+        base.Initialize(codeInfo, container, source);
+        if (DistinguishSynergyTypeHelper.IsElementSynergyType(_synergyType))
+        {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_ticker);
+        }
+    }
+    public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
+    {
+        base.Merge(codeInfo, source);
+        if (DistinguishSynergyTypeHelper.IsElementSynergyType(_synergyType))
+        {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_ticker);
+        }
+    }
 
     public void AddSynergyAddEffectCodeIds(long effectCodeId)
     {
@@ -17,7 +35,7 @@ public class EffectCodeSynergyBase : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
-        if(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
+        if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
         {
             return;
         }

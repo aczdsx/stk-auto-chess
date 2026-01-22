@@ -16,6 +16,7 @@ public partial class EffectCodeSynergyElementWater : EffectCodeSynergyBase
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
+        _synergyType = SynergyType.WATER;
         base.Initialize(codeInfo, container, source);
         _hpValue = codeInfo.GetCodeStatToFloat(0);
         _defValue = codeInfo.GetCodeStatToFloat(1);
@@ -26,6 +27,7 @@ public partial class EffectCodeSynergyElementWater : EffectCodeSynergyBase
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
+        _synergyType = SynergyType.WATER;
         base.Merge(codeInfo, source);
         _hpValue = codeInfo.GetCodeStatToFloat(0);
         _defValue = codeInfo.GetCodeStatToFloat(1);

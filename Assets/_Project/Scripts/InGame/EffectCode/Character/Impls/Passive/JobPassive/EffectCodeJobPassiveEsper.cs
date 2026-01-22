@@ -43,6 +43,7 @@ namespace CookApps.BattleSystem
         }
         public void ProgressExplosionDamage(CharacterController target)
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_job_esper_esp);
             //펑 터져서 지워야할 타일들 목록.
             var InGameObjectManagerInstance = InGameObjectManager.Instance;
             var InGameVfxManagerInstance = InGameVfxManager.Instance;
