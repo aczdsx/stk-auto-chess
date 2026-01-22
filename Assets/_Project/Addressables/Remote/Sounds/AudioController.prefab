@@ -2156,11 +2156,11 @@ MonoBehaviour:
       loopSequenceRandomPitch: 0
       loopSequenceRandomVolume: 0
       DestroyOnLoad: 1
-      Volume: 1
+      Volume: 0.9
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0.65
+      Delay: 0.5
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -2240,7 +2240,7 @@ MonoBehaviour:
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0.45
+      Delay: 0.4
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -2400,7 +2400,7 @@ MonoBehaviour:
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0.45
+      Delay: 0.35
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -2560,7 +2560,7 @@ MonoBehaviour:
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0
+      Delay: 0.3
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -2640,7 +2640,7 @@ MonoBehaviour:
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0
+      Delay: 0.3
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -2676,7 +2676,7 @@ MonoBehaviour:
       loopSequenceRandomPitch: 0
       loopSequenceRandomVolume: 0
       DestroyOnLoad: 1
-      Volume: 1
+      Volume: 0.85
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
@@ -2720,7 +2720,7 @@ MonoBehaviour:
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0.45
+      Delay: 0.5
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -3728,7 +3728,7 @@ MonoBehaviour:
       loopSequenceRandomPitch: 0
       loopSequenceRandomVolume: 0
       DestroyOnLoad: 1
-      Volume: 0.9
+      Volume: 0.6
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
@@ -5798,8 +5798,8 @@ MonoBehaviour:
   _audioDisabled: 0
   _volume: 1
   _currentInspectorSelection:
-    currentCategoryIndex: 7
-    currentItemIndex: 1
+    currentCategoryIndex: 1
+    currentItemIndex: 34
     currentSubitemIndex: 0
     currentPlaylistEntryIndex: 0
     currentPlaylistIndex: 0
