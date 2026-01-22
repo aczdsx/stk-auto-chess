@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Temp_Remote
+  m_EditorClassIdentifier: 
+  m_GroupName: Temp_Remote
+  m_GUID: 0a41586bdd15949719a2a3d133341c48
+  m_SerializeEntries:
+  - m_GUID: 1627a1b0b82fa3449a8c247ebc3dd0c4
+    m_Address: Assets/_Project/Addressables/Remote/Materials/Character/HpBar.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 836cf23e60e6833468ae6542fc64a35c
+    m_Address: Assets/_Project/Addressables/Remote/Materials/UI/TexturedCircleDotPattern.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b8c3b65e57b672d469e665b3892ce214
+    m_Address: Assets/_Project/Addressables/Remote/Materials/Character/Character.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ebbb51f8dda2d40f3b7dfb84dfb5bf09
+    m_Address: Assets/_Project/Addressables/Remote/Materials/Character/HpBarMark.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 7182a62832cce4be39ab2898383c53ad, type: 2}
+    - {fileID: 11400000, guid: 062e04dda191349b2a52f58d3fb1f263, type: 2}

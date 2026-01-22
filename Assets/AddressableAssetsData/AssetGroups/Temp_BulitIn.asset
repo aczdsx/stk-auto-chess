@@ -20,11 +20,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1627a1b0b82fa3449a8c247ebc3dd0c4
-    m_Address: Assets/_Project/Addressables/BuiltIn/Materials/Character/HpBar.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1989ae12f175345bfbef984a49ed501c
     m_Address: DuplicatedFromRemote
     m_ReadOnly: 0
@@ -35,28 +30,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 836cf23e60e6833468ae6542fc64a35c
-    m_Address: Assets/_Project/Addressables/BuiltIn/Materials/UI/TexturedCircleDotPattern.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a70e949c4799aa7469043eb67a4857c6
     m_Address: Assets/_Project/Addressables/BuiltIn/Splash_STK/Resource/Smoke24.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b8c3b65e57b672d469e665b3892ce214
-    m_Address: Assets/_Project/Addressables/BuiltIn/Materials/Character/Character.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dc3039e908d41884d89414068e826ca3
     m_Address: Assets/_Project/Addressables/BuiltIn/Splash_STK/Resource/Material/Smoke24bcg.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ebbb51f8dda2d40f3b7dfb84dfb5bf09
-    m_Address: Assets/_Project/Addressables/BuiltIn/Materials/Character/HpBarMark.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
