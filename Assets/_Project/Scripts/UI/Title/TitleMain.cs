@@ -121,7 +121,11 @@ namespace CookApps.AutoBattler
                 var firstStageData = SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL)?[0];
                 // 초반 플로우 체크 및 진행
                 #if _SJHONG_TEST_
-                if (firstStageData != null && !(firstStageData.stage_id < LocalDataManager.Instance.GetLastPlayStageId())) {
+                MyDebug.MyLog(SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL), MyDebug.Constants.BLUE);
+
+                LocalDataManager.Instance.SetLastPlayStageId((uint)SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL)?.Last().stage_id);
+                MyDebug.MyLog($"{firstStageData.stage_id} < {LocalDataManager.Instance.GetLastPlayStageId()} == {firstStageData.stage_id < LocalDataManager.Instance.GetLastPlayStageId()}");
+                if (firstStageData != null && !(firstStageData.chapter_id < LocalDataManager.Instance.GetLastPlayStageId())) {
                     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                     var firstStage = SpecDataManager.Instance.StageInfo.All[0];
                     var task = NetManager.Instance.Battle.StartAsync(firstStage.chapter_id, firstStage.stage_id, (int)InGameType.STAGE, System.Array.Empty<string>());

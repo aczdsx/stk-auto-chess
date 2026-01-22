@@ -117,20 +117,29 @@ namespace CookApps.AutoBattler
 
             SceneTransition.FadeOutAsync().Forget();
 
-            // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
 
-            // 로비 튜토리얼 초기화 (임시 하드코딩, 1회용)
-            const int lobbyTutorialId = 20001;
-            if (PlayerPrefs.GetInt($"Tutorial_{lobbyTutorialId}", 0) == 0)
+            // 챕터1 튜토리얼 시퀀스 시작 (TutorialManager가 상태 관리)
+            if(!TutorialManager.Instance.IsOutgameTutorialCompleted((int)TutorialConstants.Chapter1Tutorial.HubbleIntro))
             {
-                PlayerPrefs.SetInt($"Tutorial_{lobbyTutorialId}", 1);
-                PlayerPrefs.Save();
-                await TutorialManager.Instance.CheckAndInitTutorial(lobbyTutorialId);
-                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+                await HubbleLobbyScequence();
             }
+            await TutorialManager.Instance.StartChapter1TutorialSequence();
+
             var currentStageData = SpecDataManager.Instance.GetStageData((int)LocalDataManager.Instance.GetLastPlayStageId());
-            _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number); 
+            _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
+        }
+
+        private async UniTask HubbleLobbyScequence()
+        {
+            MyDebug.MyLog("연출중!", MyDebug.Constants.YELLOW);
+            SceneUILayerManager.Instance.SetEnableMainNodeCanvas(false);
+            MainCameraHolder.CameraGestureController.SetCanInteractCamera(false);
+            await UniTask.Delay(5000);
+            SceneUILayerManager.Instance.SetEnableMainNodeCanvas(true);
+            MainCameraHolder.CameraGestureController.SetCanInteractCamera(true);
+            MyDebug.MyLog("연출끝!", MyDebug.Constants.YELLOW);
+            TutorialManager.Instance.SetOutgameTutorialCompleted((int)TutorialConstants.Chapter1Tutorial.HubbleIntro);
         }
 
         private async UniTask OnClickStartButton()
