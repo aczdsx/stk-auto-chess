@@ -78,13 +78,6 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
-            RefreshData().Forget();
-        }
-
-        private async UniTask RefreshData()
-        {
-            await NetManager.Instance.TrialDungeon.GetAsync();
-
             var currentOrder = ServerDataManager.Instance.TrialDungeon.Order;
             if (currentOrder == 0) currentOrder = 1;
 
@@ -107,7 +100,7 @@ namespace CookApps.AutoBattler
 
             InitDungeonPopup();
         }
-
+        
         private void OnServerDataChanged()
         {
             // If the popup is open, we might want to refresh. 
