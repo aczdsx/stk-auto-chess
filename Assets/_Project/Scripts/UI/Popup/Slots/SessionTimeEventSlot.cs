@@ -11,113 +11,110 @@ namespace CookApps.AutoBattler
 {
     public class SessionTimeEventSlot : CachedMonoBehaviour
     {
-        [SerializeField] private CAButton _getRewardButton;
-        [SerializeField] private RewardItemSlot _rewardItemSlot;
-        [SerializeField] private TextMeshProUGUI _sessionTimeText;
+        [SerializeField] private CAButton getRewardButton;
+        [SerializeField] private RewardItemSlot rewardItemSlot;
+        [SerializeField] private TextMeshProUGUI sessionTimeText;
 
         [Header("Slot State")]
-        [SerializeField] private GameObject _activeCircleObject;
-        [SerializeField] private GameObject _claimBGObject;
-        [SerializeField] private GameObject _claimOnObject;
-        [SerializeField] private GameObject _claimCheckObject;
+        [SerializeField] private GameObject activeCircleObject;
+        [SerializeField] private GameObject claimBGObject;
+        [SerializeField] private GameObject claimOnObject;
+        [SerializeField] private GameObject claimCheckObject;
 
+        private EventCondition specEventConditionData;
 
-        private EventCondition _specEventConditionData;
-
-        private EventData _currentEventData;
-        private EventConditionData _currentEventConditionData;
+        private EventData currentEventData;
+        private EventConditionData currentEventConditionData;
 
         private void Awake()
         {
-            _getRewardButton.OnClickAsObservable()
+            getRewardButton.OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, _) => self.OnClickGetRewardButtonAsync(), AwaitOperation.Drop)
                 .AddTo(this);
         }
 
-        public void SetEventSlot(EventData eventData, EventConditionData conditionData)
+        public void SetEventSlot(EventData eventData, EventConditionData serverConditionData, EventCondition specConditionData)
         {
-            if (eventData == null) return;
-            if (conditionData == null) return;
+            currentEventData = eventData;
+            currentEventConditionData = serverConditionData;
+            specEventConditionData = specConditionData;
 
-            _currentEventData = eventData;
-            _currentEventConditionData = conditionData;
+            if (specEventConditionData == null)
+            {
+                Debug.LogWarning($"[SessionTimeEventSlot] specConditionData is null for EventConditionId: {serverConditionData?.EventConditionId}");
+                return;
+            }
 
-            _specEventConditionData = SpecDataManager.Instance.GetSpecEventConditionData((int)_currentEventData.EventId, (int)_currentEventConditionData.EventConditionId);
+            sessionTimeText.text = specEventConditionData.need_count.ToString();
 
-            _sessionTimeText.text = _specEventConditionData.need_count.ToString();
+            RefreshUI();
 
-            // 리워드 데이터 세팅
-            RewardItem newRewardItem = new RewardItem(_specEventConditionData.item_id, _specEventConditionData.item_count);
-            _rewardItemSlot.SetRewardSlot(newRewardItem);
-
-            RefreshSlot();
+            var newRewardItem = new RewardItem(specEventConditionData.item_id, specEventConditionData.item_count);
+            rewardItemSlot.SetRewardSlot(newRewardItem);
         }
 
-        public void RefreshSlot()
+        private void RefreshUI()
         {
-            // TODO: 상태에 따른 UI 변경 필요
-            // 보상 수령 가능: COMPLETED 상태이고 보상이 남아있는 경우
-            // bool isAvailGetReward = _currentEventConditionData.State == EventConditionState.Completed
-            //                         && _currentEventConditionData.Rewards.Count > 0;
-            // // 이미 수령 완료: COMPLETED 상태이고 보상이 없는 경우
-            // bool isAlreadyGetReward = _currentEventConditionData.State == EventConditionState.Completed
-            //                           && _currentEventConditionData.Rewards.Count == 0;
+            if (specEventConditionData == null || currentEventData == null) return;
 
-            // 클레임 상태 세팅
-            // _claimBGObject.SetActive(isAvailGetReward);
-            // _claimOnObject.SetActive(isAvailGetReward);
-            //
-            // _activeCircleObject.SetActive(isAvailGetReward || isAlreadyGetReward);
-            // _claimCheckObject.SetActive(isAlreadyGetReward);
+            var isCleared = specEventConditionData.need_count <= currentEventData.CurrentCount;
+            var isClaimed = currentEventConditionData.IsRewarded;
+            var isAvailableGetReward = isCleared && !isClaimed;
+
+            claimBGObject.SetActive(isAvailableGetReward);
+            claimOnObject.SetActive(isAvailableGetReward);
+
+            activeCircleObject.SetActive(isAvailableGetReward || isClaimed);
+            claimCheckObject.SetActive(isClaimed);
         }
 
         private async UniTask OnClickGetRewardButtonAsync()
         {
-            if (_currentEventData == null) return;
-            if (_currentEventConditionData.IsRewarded) return;
-            // TODO: 상태 체크 필요
+            if (currentEventData == null)
+                return;
+            if (currentEventConditionData.IsRewarded)
+                return;
+            if(currentEventData.CurrentCount < specEventConditionData.need_count)
+                return;
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            // 서버에 보상 수령 요청
             var response = await NetManager.Instance.Event.ClaimRewardAsync(
-                _currentEventData.EventId,
-                _currentEventConditionData.EventConditionId
+                currentEventData.EventId,
+                currentEventConditionData.EventConditionId
             );
 
-            if (response == null || !response.IsSuccess)
+            if (response is not { IsSuccess: true })
             {
                 return;
             }
 
             // 리워드 팝업 생성
-            List<RewardItem> rewardItemList = new List<RewardItem>();
-            for (int i = 0; i < response.Rewards.Count; i++)
+            var rewardItemList = new List<RewardItem>(response.Rewards.Count);
+            for (var i = 0; i < response.Rewards.Count; i++)
             {
-                var reward = response.Rewards[i];
-                rewardItemList.Add(new RewardItem(reward));
+                rewardItemList.Add(new RewardItem(response.Rewards[i]));
             }
 
             SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
 
-            // 서버 응답의 EventConditionData로 갱신
             UpdateEventConditionData(response.Event);
-            RefreshSlot();
+            RefreshUI();
         }
 
         private void UpdateEventConditionData(EventData updatedEventData)
         {
             if (updatedEventData == null) return;
 
-            _currentEventData = updatedEventData;
+            currentEventData = updatedEventData;
 
             // 현재 조건 데이터 찾아서 갱신
             for (int i = 0; i < updatedEventData.Conditions.Count; i++)
             {
                 var condition = updatedEventData.Conditions[i];
-                if (condition.EventConditionId == _currentEventConditionData.EventConditionId)
+                if (condition.EventConditionId == currentEventConditionData.EventConditionId)
                 {
-                    _currentEventConditionData = condition;
+                    currentEventConditionData = condition;
                     break;
                 }
             }
