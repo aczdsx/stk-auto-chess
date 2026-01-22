@@ -88,7 +88,11 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 보상 수령 가능 여부
         /// </summary>
+        #if !__DEV
         public bool CanClaimReward => Model?.IsCompleted ?? false;
+        #else 
+        public bool CanClaimReward => Model?.IsGoalReached ?? false;
+        #endif
 
         #endregion
 

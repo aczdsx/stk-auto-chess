@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using static TutorialConstants;
 
 /// <summary>
 /// 씬별 튜토리얼 관리자.
@@ -40,9 +40,6 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     public bool HasTutorialStage => _specTutorialDataList is { Count: > 0 } && _specTutorialDataList[0].tutorial_id > 0;
     public bool IsTutorial => _canvas != null;
 
-    // 테스트용: 게임 시작 시마다 초기화되는 메모리 딕셔너리
-    private readonly Dictionary<int, bool> _outgameTutorialCompleted = new();
-
     protected override void Awake()
     {
         base.Awake();
@@ -56,131 +53,46 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
     #region 아웃게임 튜토리얼
 
-    /// <summary>
-    /// 현재 진행해야 할 챕터1 튜토리얼 가져오기
-    /// 모두 완료했으면 None 반환
-    /// </summary>
-    public Chapter1Tutorial GetCurrentChapter1Tutorial()
-    {
-        var current = CHAPTER1_FIRST;
-        while (current != Chapter1Tutorial.None)
-        {
-            if (!IsOutgameTutorialCompleted((int)current))
-            {
-                return current;
-            }
-            current = GetNextChapter1Tutorial(current);
-        }
-        return Chapter1Tutorial.None;
-    }
-
-    /// <summary>
-    /// 챕터1 튜토리얼 시퀀스 시작
-    /// LobbyMain에서 호출
-    /// </summary>
-    /// <returns>튜토리얼이 시작되었으면 true</returns>
-    public async UniTask<bool> StartChapter1TutorialSequence()
-    {
-        var currentTutorial = GetCurrentChapter1Tutorial();
-        if (currentTutorial == Chapter1Tutorial.None)
-        {
-            Debug.LogColor("챕터1 튜토리얼 모두 완료", "yellow");
-            return false;
-        }
-
-        // 튜토리얼 초기화
-        var initialized = await CheckAndInitOutgameTutorial((int)currentTutorial);
-        #if _SJHONG_TEST_
-        MyDebug.MyLog($"currentTutorial : {currentTutorial}\n var initialized = await CheckAndInitOutgameTutorial((int)currentTutorial); : {initialized}");
-        #endif
-        if (!initialized)
-        {
-            return false;
-        }
-
-        // 해당 튜토리얼의 트리거 발동
-        var triggerType = GetChapter1TriggerType(currentTutorial);
-        #if _SJHONG_TEST_
-        MyDebug.MyLog($"triggerType : {triggerType}");
-        #endif
-        if (triggerType != TutorialTriggerType.NONE)
-        {
-            #if _SJHONG_TEST_
-            MyDebug.MyLog($"HandleTutorialAction(triggerType, 0);");
-            #endif
-            HandleTutorialAction(triggerType, "0"); // ! 외부에 넣어줘야 하는게 아닌가 싶은데.
-        }
-
-        return true;
-    }
 
     /// <summary>
     /// 아웃게임 튜토리얼 확인 및 초기화
     /// </summary>
-    public async UniTask<bool> CheckAndInitOutgameTutorial(int tutorialId)
+    private GuideMissionInfo _pendingGuideMissionInfo;
+
+    public async UniTask<bool> CheckAndInitTutorialWithGuideMissionInfo(GuideMissionInfo info)
     {
-        if (!IsOutgameTutorial(tutorialId))
+        if (IsClearedGuideMission(info.id))
         {
-            Debug.LogWarning($"아웃게임 튜토리얼 ID가 아닙니다. tutorialId: {tutorialId}");
             return false;
         }
 
-        if (IsOutgameTutorialCompleted(tutorialId))
-        {
-            Debug.LogColor($"이미 완료된 아웃게임 튜토리얼입니다. tutorialId: {tutorialId}", "yellow");
-            return false;
-        }
-
-        var result = await CheckAndInitTutorial(tutorialId);
+        var result = await CheckAndInitTutorial(info.tutorial_id);
         if (result)
         {
-            SetOutgameTutorialCompleted(tutorialId);
+            _pendingGuideMissionInfo = info;  // 완료 대기
+
+            // 첫 번째 트리거 자동 발동
+            var firstTriggerType = _specTutorialDataList.First();
+            HandleTutorialAction(firstTriggerType.tutorial_trigger_type, firstTriggerType.tutorial_trigger_key);
         }
 
         return result;
     }
 
+
     /// <summary>
     /// 아웃게임 튜토리얼 완료 여부 확인
     /// </summary>
-    public bool IsOutgameTutorialCompleted(int tutorialId)
+    public bool IsClearedGuideMission(int guideMissionId)
     {
-        return _outgameTutorialCompleted.TryGetValue(tutorialId, out var completed) && completed;
-    }
-
-    /// <summary>
-    /// 아웃게임 튜토리얼 완료 처리
-    /// </summary>
-    public void SetOutgameTutorialCompleted(int tutorialId)
-    {
-        _outgameTutorialCompleted[tutorialId] = true;
-        Debug.LogColor($"아웃게임 튜토리얼 완료 (메모리): {tutorialId}", "green");
-    }
-
-    private static string GetOutgameTutorialKey(int tutorialId) => $"OutgameTutorial_{tutorialId}";
-
-    /// <summary>
-    /// 챕터1 튜토리얼에 해당하는 TriggerType
-    /// </summary>
-    private static TutorialTriggerType GetChapter1TriggerType(Chapter1Tutorial tutorial)
-    {
-        return tutorial switch
-        {
-            Chapter1Tutorial.HubbleIntro => TutorialTriggerType.ENTER_ELPIS,
-            Chapter1Tutorial.Observation10 => TutorialTriggerType.HUBBLE_EXPANSION_COMPLETE,
-            Chapter1Tutorial.DormitoryRepair => TutorialTriggerType.NONE,
-            Chapter1Tutorial.UnitGrowth => TutorialTriggerType.BUILDING_COMPLETE,
-            _ => TutorialTriggerType.NONE
-        };
+        var guideMissionBridge = new GuideMissionDataBridge();
+        return guideMissionId < guideMissionBridge.GuideMissionId;
     }
 
     #endregion
 
     #region 인게임 튜토리얼
 
-    /// <summary>
-    /// 스테이지 진입 시 튜토리얼 확인 및 초기화 (인게임용)
-    /// </summary>
     public async UniTask<bool> CheckAndInitTutorial(int tutorialID)
     {
         _specTutorialDataList = SpecDataManager.Instance.GetTutorialDialogueList(tutorialID);
@@ -227,7 +139,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         }
 
         _tutorialController.Initialize(() => HandleTutorialClose());
-        IsTutorialCanvasEnabled =  false;
+        IsTutorialCanvasEnabled = false;
     }
 
     private void DestroyTutorialCanvas()
@@ -272,8 +184,6 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         var turnTutorialList = _specTutorialDataList.FindAll(
             l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
 
-        turnTutorialList.ForEach(e => Debug.Log(JsonConvert.SerializeObject(e)));
-
         if (turnTutorialList.Count == 0)
         {
             return false;
@@ -285,7 +195,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
 
 
-        IsTutorialCanvasEnabled =  true;
+        IsTutorialCanvasEnabled = true;
         _tutorialController.SetTutorial(turnTutorialList, isLongShow);
 
         return true;
@@ -293,6 +203,8 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
     public bool HandleTutorialClose(Action action = null)
     {
+        // TODO 가이드 미션 플래그 하나 올리기
+
         if (!IsTutorial)
         {
             return false;
@@ -300,7 +212,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
         if (_canvas != null)
         {
-            IsTutorialCanvasEnabled =  false;
+            IsTutorialCanvasEnabled = false;
         }
         action?.Invoke();
 
@@ -312,6 +224,13 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
         if (_specTutorialDataList.Count == 0)
         {
+            // 모든 다이얼로그 소모 완료 → 가이드 미션 완료 처리
+            if (_pendingGuideMissionInfo != null)
+            {
+                var guideMissionBridge = new GuideMissionDataBridge();
+                guideMissionBridge.AddAction(_pendingGuideMissionInfo.guide_mission_type, 1);
+                _pendingGuideMissionInfo = null;
+            }
             ClearTutorial();
         }
 
@@ -323,7 +242,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         Debug.LogColor("튜토리얼 정리", "green");
         if (_canvas != null)
         {
-            IsTutorialCanvasEnabled =  false;
+            IsTutorialCanvasEnabled = false;
         }
         DestroyTutorialCanvas();
         _specTutorialDataList.Clear();

@@ -134,11 +134,22 @@ namespace CookApps.AutoBattler
             // await TutorialManager.Instance.StartChapter1TutorialSequence();
 
             // guide middion (나중에, 영지 복구 연출 이후에 진행이 이 이전 async로)
+#if _SJHONG_TEST_
+            // TODO Model 대신 Bridge로 가져오기
             var model = ServerDataManager.Instance.GuideMission;
             var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)model.GuideMissionId);
-            await TutorialManager.Instance.CheckAndInitTutorial(specGuideMissionData.tutorial_id);
 
-            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+            MyDebug.MyLog($"model.GuideMissionId : {model.GuideMissionId}");
+            MyDebug.MyLog($"specGuideMissionData : {Newtonsoft.Json.JsonConvert.SerializeObject(specGuideMissionData)}");
+
+            await TutorialManager.Instance.CheckAndInitTutorialWithGuideMissionInfo(specGuideMissionData);
+            if(specGuideMissionData.id <= 100) {
+                await HubbleLobbyScequence();
+                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+            }
+            
+
+#endif
 
             var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
             _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
