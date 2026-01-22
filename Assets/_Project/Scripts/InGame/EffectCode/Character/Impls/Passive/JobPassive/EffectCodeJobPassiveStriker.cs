@@ -8,7 +8,7 @@ namespace CookApps.BattleSystem
     /// {0}초 마다 CC 효과를 막아내는 방어막이 생성된다 immune buff 주입.
     /// </summary>
     [UseEffectCodeIds(CodeId)]
-    public partial class EffectCodeJobPassiveBash : EffectCodeCharacterBase
+    public partial class EffectCodeJobPassiveStriker : EffectCodeCharacterBase
     {
         public const int CodeId = (int)EffectCodeNameType.JOBS_BRAVE;
 
@@ -57,7 +57,6 @@ namespace CookApps.BattleSystem
         }
         private void InjectImmuneBuff()
         {
-            // owner.SetImmuneSuccessFx(InGameVfxNameType.fx_common_job_striker_02, owner.SkillMiddleFXTransformFollowable);
             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_job_striker_01, owner.SkillMiddleFXTransformFollowable);
             Span<double> buffStats = stackalloc double[3];
 
@@ -72,6 +71,7 @@ namespace CookApps.BattleSystem
         public override void OnCanceledCC(CharacterController attacker, EffectCodeNameType effectCodeNameType)
         {
             base.OnCanceledCC(attacker, effectCodeNameType);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_job_striker_brave);
 
             var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_job_striker_02, owner.SkillMiddleFXTransformFollowable.GetPosition());
             vfx.CachedTr.rotation = Quaternion.LookRotation((attacker.ViewPosition3D - owner.ViewPosition3D).normalized) * Quaternion.Euler(0, -90, 0);

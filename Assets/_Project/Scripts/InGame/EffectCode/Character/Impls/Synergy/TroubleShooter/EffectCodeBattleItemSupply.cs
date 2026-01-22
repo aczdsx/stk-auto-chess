@@ -188,6 +188,7 @@ namespace CookApps.BattleSystem
                                 }
                             }
                             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_emp_01, targetTile.View.CachedTr.position);
+                            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_shooter_emp);
                         }
                         break;
                     }

@@ -80,6 +80,8 @@ namespace CookApps.BattleSystem
             var tileList = InGameObjectManager.Instance.InGameGrid.GetTileListByRow(inGameTile,
              _specTargetCommanderSkill.commander_range_size / 2);
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_commander_aegis);
+
 
 
             foreach (var tile in tileList)
