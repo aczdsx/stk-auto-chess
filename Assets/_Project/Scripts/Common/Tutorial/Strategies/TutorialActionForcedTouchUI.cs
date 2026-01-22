@@ -21,6 +21,19 @@ namespace CookApps.AutoBattler
         /// </summary>
         private static Button _registeredButton;
 
+        /// <summary>
+        /// 현재 튜토리얼 컨텍스트 참조 (버튼 클릭 시 원위치 복구용)
+        /// </summary>
+        private static TutorialActionContext _currentContext;
+
+        /// <summary>
+        /// UI 원위치 복구 완료 여부
+        /// </summary>
+        private static bool _isRestored;
+
+        private static bool _layoutExist = false;
+        private static HorizontalOrVerticalLayoutGroup  _layoutGroup;
+
         public void OnShow(TutorialActionContext context)
         {
             context.TargetUIObj = TutorialTargetRegistry.FindGameObject(context.CurrentTutorial.tutorial_action_key);
@@ -37,7 +50,11 @@ namespace CookApps.AutoBattler
             context.OriginalParent = context.TargetUIObj.transform.parent;
             context.OriginalSiblingIndex = context.TargetUIObj.transform.GetSiblingIndex();
             context.OriginalPosition = context.TargetUIObj.transform.localPosition;
-            context.OriginalLayout = context.OriginalParent.GetComponent<VerticalLayoutGroup>();
+            if(context.OriginalParent.TryGetComponent<HorizontalOrVerticalLayoutGroup>(out HorizontalOrVerticalLayoutGroup resComponent))
+            {
+                _layoutExist = true;
+                _layoutGroup = resComponent;
+            }
 
             // 타겟을 최상위로 이동
             context.TargetUIObj.transform.SetParent(context.TargetSpawnTransform, true);
@@ -51,10 +68,11 @@ namespace CookApps.AutoBattler
                 arrowTargetPosition.y + context.CurrentTutorial.arrow_yPos,
                 arrowTargetPosition.z);
 
-            context.OriginalLayout.enabled = false;
+            if(_layoutExist)
+                _layoutGroup.enabled = false;
 
             // 버튼 클릭 이벤트 등록
-            RegisterButtonListener(context.TargetUIObj);
+            RegisterButtonListener(context.TargetUIObj, context);
         }
 
         public void OnNext(TutorialActionContext context)
@@ -72,38 +90,25 @@ namespace CookApps.AutoBattler
 
         public async void OnClear(TutorialActionContext context)
         {
+            // UI 원위치 복구 (아직 복구되지 않은 경우에만 실행)
+            RestoreUIBeforeCallback();
+
             // 버튼 클릭 이벤트 해제
             UnregisterButtonListener();
-
-            // 화살표 비활성화
-            context.ArrowRectTransform.gameObject.SetActive(false);
-            context.WorldArrowRectTransform.gameObject.SetActive(false);
-
-            var freeOriginalLayout = context.OriginalLayout;
-            var freeTargetUIObj = context.TargetUIObj;
-
-            // 버튼 원위치 복구
-            if (context.OriginalParent != null && context.TargetUIObj != null)
-            {
-                await UniTask.Create(async () =>
-                {
-                    freeOriginalLayout.enabled = true;
-                    freeTargetUIObj.transform.SetParent(context.OriginalParent);
-                    freeTargetUIObj.transform.SetSiblingIndex(context.OriginalSiblingIndex);
-                    freeTargetUIObj.transform.localPosition = context.OriginalPosition;
-                });
-            }
 
             // 컨텍스트 정리
             context.TargetUIObj = null;
             context.OriginalParent = null;
             OnButtonClicked = null;
+
+            _layoutExist = false;
+            _layoutGroup = null;
         }
 
         /// <summary>
         /// 타겟 오브젝트의 버튼에 클릭 리스너 등록
         /// </summary>
-        private static void RegisterButtonListener(GameObject targetObj)
+        private static void RegisterButtonListener(GameObject targetObj, TutorialActionContext context)
         {
             // 기존 리스너 해제
             UnregisterButtonListener();
@@ -118,6 +123,8 @@ namespace CookApps.AutoBattler
                 return;
             }
 
+            _currentContext = context;
+            _isRestored = false;
             _registeredButton.onClick.AddListener(OnButtonClickHandler);
         }
 
@@ -131,14 +138,43 @@ namespace CookApps.AutoBattler
                 _registeredButton.onClick.RemoveListener(OnButtonClickHandler);
                 _registeredButton = null;
             }
+            _currentContext = null;
         }
 
         /// <summary>
         /// 버튼 클릭 시 호출
+        /// OnButtonClicked 콜백 호출 전에 UI 원위치 복구를 먼저 수행
         /// </summary>
         private static void OnButtonClickHandler()
         {
+            // OnButtonClicked 호출 전에 UI 원위치 복구 수행
+            RestoreUIBeforeCallback();
             OnButtonClicked?.Invoke();
+        }
+
+        /// <summary>
+        /// 버튼 클릭 콜백 전에 UI를 원위치로 복구
+        /// </summary>
+        private static void RestoreUIBeforeCallback()
+        {
+            if (_currentContext == null || _isRestored) return;
+
+            _isRestored = true;
+
+            // 화살표 비활성화
+            _currentContext.ArrowRectTransform.gameObject.SetActive(false);
+            _currentContext.WorldArrowRectTransform.gameObject.SetActive(false);
+
+            var targetUIObj = _currentContext.TargetUIObj;
+
+            // 버튼 원위치 복구
+            if (_layoutGroup != null && targetUIObj != null)
+            {
+                _layoutGroup.enabled = false;
+                targetUIObj.transform.SetParent(_currentContext.OriginalParent);
+                targetUIObj.transform.SetSiblingIndex(_currentContext.OriginalSiblingIndex);
+                targetUIObj.transform.localPosition = _currentContext.OriginalPosition;
+            }
         }
     }
 }
