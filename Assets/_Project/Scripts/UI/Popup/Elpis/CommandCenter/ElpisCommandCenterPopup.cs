@@ -340,11 +340,11 @@ namespace CookApps.AutoBattler
 
         private static readonly string[] npcDialoguesKeys =
         {
-            "200001",
-            "200002",
-            "200003",
-            "200004",
-            "200005",
+            "NPC_TEXT_10001_1",
+            "NPC_TEXT_10001_2",
+            "NPC_TEXT_10001_3",
+            "NPC_TEXT_10001_4",
+            "NPC_TEXT_10001_5",
         };
 
         private void ShowRandomNPCDialogue()
@@ -352,7 +352,7 @@ namespace CookApps.AutoBattler
             if (npcDialogueText == null) return;
 
             var randomIndex = UnityEngine.Random.Range(0, npcDialoguesKeys.Length);
-            npcDialogueText.text = LanguageManager.Instance.GetDefaultText(npcDialoguesKeys[randomIndex]);
+            npcDialogueText.text = LanguageManager.Instance.GetDialogueText(npcDialoguesKeys[randomIndex]);
         }
 
         #endregion
