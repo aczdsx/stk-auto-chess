@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: fx_circle_31_c
+  m_Name: fx_circle_31_c_AlphaTest
   m_Shader: {fileID: -6465566751694194690, guid: c5ce4cb2bb5b1bd47a5e7c4e9cee3e99, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -30,7 +30,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2440
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
