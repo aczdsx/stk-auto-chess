@@ -134,7 +134,6 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
             
             // 영역 내 캐릭터들 처리
             ProcessTilesInArea(currentAreaTiles);
-            
             // 마지막 tick에서는 delay 없이 종료
             if (tickIndex < tickCount - 1)
             {
@@ -142,13 +141,6 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
             }
         }
 
-        // // 채널링 완료 후 스킬 상태 종료
-        // if (owner != null)
-        // {
-        //     CoolTimeElapsedTime = 0;
-        //     IsSkillActivated = false;
-        //     base.OnSkillAnimationEnd();
-        // }
     }
 
     private void PlayAreaEffect(InGameTile centerTile, List<InGameTile> areaTiles)

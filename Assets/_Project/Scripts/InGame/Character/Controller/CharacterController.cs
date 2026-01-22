@@ -743,6 +743,7 @@ namespace CookApps.BattleSystem
         {
             var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseAddSkillCooltime);
             EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallAddSkillCooltimeLambda, cooltime);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_cooldown);
         }
 
         public StateBase AddNextState(Type stateType, object stateData = null)
@@ -856,21 +857,6 @@ namespace CookApps.BattleSystem
             var sfxName = type.GetSoundFx();
             if (sfxName != SoundFX.NONE)
                 SoundManager.Instance.PlaySFX(sfxName);
-
-            // var affectText = type.GetAffectToken();
-            // if (!string.IsNullOrEmpty(affectText))
-            // {
-            //     if (type == BuffDebuffType.Shield)
-            //     {
-            //         string hexColor = "#00ABFF";
-            //         ShowNormalText(affectText, hexColor: hexColor).Forget();
-            //     }
-            //     else
-            //     {
-            //         string hexColor = (int)type >= 1000 ? "#5DC9FFFF" : "#FF5149";
-            //         ShowNormalText(affectText, hexColor: hexColor).Forget();
-            //     }
-            // }
 
             if (!_buffDebuffRefCountDict.TryAdd(type, 1))
             {

@@ -98,8 +98,9 @@ public partial class EffectCodeDebuffOdetteCold : EffectCodeDebuffBase
             eccStats[0] = _debuffDuration;
 
             EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, owner, eccStats, source);
-
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02, owner.SkillRootTransformFollowable.GetPosition());
+            
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_freeze);
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02, owner.SkillMiddleFXTransformFollowable);
             _isNeedToShowIcon = false;
             RemoveFromContainer();
         }

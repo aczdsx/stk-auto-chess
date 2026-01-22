@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
@@ -67,11 +67,16 @@ public enum SoundFX
     snd_sfx_ingame_atkup,
     snd_sfx_ingame_spdup,
     snd_sfx_ingame_shield,
+    snd_sfx_ingame_buff,
     snd_sfx_ingame_debuff,
     snd_sfx_ingame_stun,
     snd_sfx_hit_critical1,
     snd_sfx_hit_fire,
     snd_sfx_hit_ice,
+    snd_sfx_ingame_casting01,
+    snd_sfx_ingame_heal01,
+    snd_sfx_ingame_cooldown,
+    snd_sfx_ingame_freeze,
 
 
     // Character Skill
@@ -140,6 +145,48 @@ public class SoundManager : Singleton<SoundManager>
             return this.PlaySFXWithoutSilence(sfxString);
         else
             return this.PlaySFX(sfxString);
+    }
+
+    /// <summary>
+    /// 여러 스킬 사운드를 동시에 재생합니다.
+    /// 주로 스킬 사운드의 여러 버전(01, 02 등)을 함께 재생할 때 사용합니다.
+    /// </summary>
+    /// <param name="soundNames">재생할 사운드 이름 배열 또는 리스트</param>
+    /// <param name="forceInSilence">침묵 모드에서도 재생할지 여부</param>
+    /// <returns>재생된 첫 번째 AudioObject (여러 개가 재생되면 첫 번째만 반환)</returns>
+    public ClockStone.AudioObject PlaySkillSounds(string[] soundNames, bool forceInSilence = false)
+    {
+        if (soundNames == null || soundNames.Length == 0)
+            return null;
+
+        ClockStone.AudioObject firstAudioObject = null;
+        for (int i = 0; i < soundNames.Length; i++)
+        {
+            var audioObj = PlaySFX(soundNames[i], forceInSilence);
+            if (firstAudioObject == null)
+                firstAudioObject = audioObj;
+        }
+
+        return firstAudioObject;
+    }
+
+    /// <summary>
+    /// 여러 스킬 사운드를 동시에 재생합니다. (List 오버로드)
+    /// </summary>
+    public ClockStone.AudioObject PlaySkillSounds(System.Collections.Generic.List<string> soundNames, bool forceInSilence = false)
+    {
+        if (soundNames == null || soundNames.Count == 0)
+            return null;
+
+        ClockStone.AudioObject firstAudioObject = null;
+        for (int i = 0; i < soundNames.Count; i++)
+        {
+            var audioObj = PlaySFX(soundNames[i], forceInSilence);
+            if (firstAudioObject == null)
+                firstAudioObject = audioObj;
+        }
+
+        return firstAudioObject;
     }
 
     //public ClockStone.AudioObject PlayVOX(SoundVOX vox, bool forceInSilence = false)
