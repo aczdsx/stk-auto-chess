@@ -77,7 +77,14 @@ public enum SoundFX
     snd_sfx_ingame_heal01,
     snd_sfx_ingame_cooldown,
     snd_sfx_ingame_freeze,
-
+    snd_sfx_skill_job_striker_brave,
+    snd_sfx_skill_job_shooter_pierce,
+    snd_sfx_skill_job_esper_esp,
+    snd_sfx_synergy_ticker,
+    snd_sfx_synergy_shooter_ship,
+    snd_sfx_synergy_shooter_mine,
+    snd_sfx_synergy_shooter_emp,
+    snd_sfx_skill_commander_aegis,
 
     // Character Skill
     snd_sfx_skill_401011 = 401,
@@ -91,7 +98,7 @@ public enum SoundFX
     snd_sfx_skill_305011,
     snd_sfx_skill_405021,
     snd_sfx_skill_406011,
-    
+
     // 시련
     snd_sfx_monster_204031_appear_01,
     snd_sfx_monster_204031_appear_02,
@@ -118,10 +125,10 @@ public class SoundManager : Singleton<SoundManager>
     // public
 
     public bool IsReady => this.isReady;
-    
+
     public float BGMVolume { get; set; } = 1.0f;
     public float SFXVolume { get; set; } = 1.0f;
-    
+
     public bool IsPlayingGacha { get; set; } = false;
 
     [SerializeField] private AudioMixer _mixer;
@@ -310,11 +317,11 @@ public class SoundManager : Singleton<SoundManager>
     public void SetBGMVolume(float v)
     {
         BGMVolume = v;
-        
+
         Preference.SavePreference(Pref.BGM_V, BGMVolume);
-        
+
         AudioController.SetCategoryVolume("BGM", BGMVolume);
-        
+
         // int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
         // if (this.isReady)
         //     _mixer.SetFloat("BGM", volume);
@@ -325,11 +332,11 @@ public class SoundManager : Singleton<SoundManager>
     public void SetSFXVolume(float v)
     {
         SFXVolume = v;
-        
+
         Preference.SavePreference(Pref.SFX_V, SFXVolume);
-        
+
         AudioController.SetCategoryVolume("SFX", SFXVolume);
-        
+
         // int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
         // if (this.isReady)
         // {
@@ -361,7 +368,7 @@ public class SoundManager : Singleton<SoundManager>
     public void SetVOXUIVolume(float v)
     {
         if (!_mixer) return;
-        
+
         int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
         if (this.isReady)
             _mixer.SetFloat("VOX_UI", volume);

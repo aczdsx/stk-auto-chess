@@ -14,6 +14,7 @@ public partial class EffectCodeSynergyElementFire : EffectCodeSynergyBase
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
+        _synergyType = SynergyType.FIRE;
         base.Initialize(codeInfo, container, source);
         statValue = codeInfo.GetCodeStatToFloat(0);
         AddSynergyAddEffectCodeIds();
@@ -22,6 +23,7 @@ public partial class EffectCodeSynergyElementFire : EffectCodeSynergyBase
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
+        _synergyType = SynergyType.FIRE;
         base.Merge(codeInfo, source);
         statValue = codeInfo.GetCodeStatToFloat(0);
 
