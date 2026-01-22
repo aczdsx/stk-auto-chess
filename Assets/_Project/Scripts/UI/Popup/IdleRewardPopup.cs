@@ -55,9 +55,9 @@ namespace CookApps.AutoBattler
         private async void InitIdleRewardData()
         {
             string maxTimeGuideString = LanguageManager.Instance.GetDefaultText("UI_IDLE_REWARD_MAX_TIME_GUIDE");
-            int maxMinute = SpecDataManager.Instance.GetGameConfig<int>("idle_reward_acc_time_limit");
+            int maxMinute = IdleRewardHelper.GetMaxTimeLimitMinutes();
             _maxTimeGuideText.text = string.Format(maxTimeGuideString, maxMinute / 60);
-            
+
             RefreshIdleRewardData();
 
             await CalculateIdleRewardTime();
@@ -68,9 +68,7 @@ namespace CookApps.AutoBattler
             _currentIdleRewardItemList = UserDataManager.Instance.GetCurrentIdleRewardItemList();
 
             // 남은 시간 데이터 세팅
-            TimeSpan currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
-
-            _accTimeGuideText.text = $"{currentRewardTimeSpan.Hours.ToString("D2")}:{currentRewardTimeSpan.Minutes.ToString("D2")}:{currentRewardTimeSpan.Seconds.ToString("D2")}";
+            _accTimeGuideText.text = IdleRewardHelper.FormatElapsedTime();
 
             SetRewardItemSlot();
         }
@@ -100,46 +98,38 @@ namespace CookApps.AutoBattler
 
             _fullRewardSliderLayerObject.SetActive(false);
             _fullRewardBoxLayerObject.SetActive(false);
-            
-            TimeSpan currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
 
-            int maxTimeLimitMinute = SpecDataManager.Instance.GetGameConfig<int>("idle_reward_acc_time_limit");
+            int maxTimeLimitMinute = IdleRewardHelper.GetMaxTimeLimitMinutes();
+            int refreshMinute = IdleRewardHelper.GetElapsedTime().Minutes;
 
-            int refreshMinute = currentRewardTimeSpan.Minutes;  // 분 단위로 갱신
             try
             {
-                while (maxTimeLimitMinute > currentRewardTimeSpan.TotalMinutes)
+                while (!IdleRewardHelper.IsFull())
                 {
-                    _accTimeGuideText.text = $"{currentRewardTimeSpan.Hours.ToString("D2")}:{currentRewardTimeSpan.Minutes.ToString("D2")}:{currentRewardTimeSpan.Seconds.ToString("D2")}";
+                    var elapsed = IdleRewardHelper.GetElapsedTime();
 
+                    _accTimeGuideText.text = IdleRewardHelper.FormatElapsedTime();
                     _accTimeSlider.maxValue = maxTimeLimitMinute;
-                    _accTimeSlider.value = (float)currentRewardTimeSpan.TotalMinutes;
-                    
-                    _accTimeSliderText.text = $"{currentRewardTimeSpan.Hours.ToString("D2")}:{currentRewardTimeSpan.Minutes.ToString("D2")}:{currentRewardTimeSpan.Seconds.ToString("D2")} / {(maxTimeLimitMinute/60).ToString("D2")}:00:00";
-                    
-                    await UniTask.Delay(1000, cancellationToken:token);
+                    _accTimeSlider.value = (float)elapsed.TotalMinutes;
+                    _accTimeSliderText.text = IdleRewardHelper.FormatSliderText();
 
-                    currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
+                    await UniTask.Delay(1000, cancellationToken: token);
 
-                    if (refreshMinute != currentRewardTimeSpan.Minutes)
+                    if (refreshMinute != IdleRewardHelper.GetElapsedTime().Minutes)
                     {
                         RefreshIdleRewardData();
-                        refreshMinute = currentRewardTimeSpan.Minutes;
+                        refreshMinute = IdleRewardHelper.GetElapsedTime().Minutes;
                     }
                 }
 
                 // 최대 시간 도달 처리
-                if (maxTimeLimitMinute <= currentRewardTimeSpan.TotalMinutes)
-                {
-                    _accTimeGuideText.text = $"{(maxTimeLimitMinute/60).ToString("D2")}:00:00";
-                    _accTimeSliderText.text = $"{(maxTimeLimitMinute/60).ToString("D2")}:00:00 / {(maxTimeLimitMinute/60).ToString("D2")}:00:00";
-                    
-                    _accTimeSlider.maxValue = maxTimeLimitMinute;
-                    _accTimeSlider.value = (float)currentRewardTimeSpan.TotalMinutes;
-                    
-                    _fullRewardSliderLayerObject.SetActive(true);
-                    _fullRewardBoxLayerObject.SetActive(true);
-                }
+                _accTimeGuideText.text = IdleRewardHelper.FormatElapsedTime();
+                _accTimeSliderText.text = IdleRewardHelper.FormatSliderText();
+                _accTimeSlider.maxValue = maxTimeLimitMinute;
+                _accTimeSlider.value = maxTimeLimitMinute;
+
+                _fullRewardSliderLayerObject.SetActive(true);
+                _fullRewardBoxLayerObject.SetActive(true);
             }
             catch (Exception e)
             {
@@ -164,6 +154,9 @@ namespace CookApps.AutoBattler
             {
                 return;
             }
+
+            // 보상 수령 시간 갱신 (UI에서 사용하는 UserIdleData 동기화)
+            UserDataManager.Instance.RefreshLastRewardGetTime();
 
             // 보상 결과 표시 (CurrencyDeltas에서 RewardItem 리스트 생성)
             List<RewardItem> rewardItemList = new List<RewardItem>();

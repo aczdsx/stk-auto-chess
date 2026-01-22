@@ -32,7 +32,7 @@ namespace CookApps.AutoBattler
         private static bool _isRestored;
 
         private static bool _layoutExist = false;
-        private static HorizontalOrVerticalLayoutGroup  _layoutGroup;
+        private static HorizontalOrVerticalLayoutGroup _layoutGroup;
 
         public void OnShow(TutorialActionContext context)
         {
@@ -50,7 +50,7 @@ namespace CookApps.AutoBattler
             context.OriginalParent = context.TargetUIObj.transform.parent;
             context.OriginalSiblingIndex = context.TargetUIObj.transform.GetSiblingIndex();
             context.OriginalPosition = context.TargetUIObj.transform.localPosition;
-            if(context.OriginalParent.TryGetComponent<HorizontalOrVerticalLayoutGroup>(out HorizontalOrVerticalLayoutGroup resComponent))
+            if (context.OriginalParent.TryGetComponent<HorizontalOrVerticalLayoutGroup>(out HorizontalOrVerticalLayoutGroup resComponent))
             {
                 _layoutExist = true;
                 _layoutGroup = resComponent;
@@ -68,7 +68,7 @@ namespace CookApps.AutoBattler
                 arrowTargetPosition.y + context.CurrentTutorial.arrow_yPos,
                 arrowTargetPosition.z);
 
-            if(_layoutExist)
+            if (_layoutExist)
                 _layoutGroup.enabled = false;
 
             // 버튼 클릭 이벤트 등록
