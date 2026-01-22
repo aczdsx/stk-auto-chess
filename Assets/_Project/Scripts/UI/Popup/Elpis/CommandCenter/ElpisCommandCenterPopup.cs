@@ -338,20 +338,21 @@ namespace CookApps.AutoBattler
             ShowRandomNPCDialogue();
         }
 
-        private static readonly string[] npcDialogues =
+        private static readonly string[] npcDialoguesKeys =
         {
-            "커맨드 센터에 오신 것을 환영합니다.",
-            "영지를 확장하면 더 많은 건물을 지을 수 있어요.",
-            "오늘도 영지 관리에 힘써주셔서 감사합니다.",
-            "새로운 시설이 기다리고 있어요!"
+            "200001",
+            "200002",
+            "200003",
+            "200004",
+            "200005",
         };
 
         private void ShowRandomNPCDialogue()
         {
             if (npcDialogueText == null) return;
 
-            var randomIndex = UnityEngine.Random.Range(0, npcDialogues.Length);
-            npcDialogueText.text = npcDialogues[randomIndex];
+            var randomIndex = UnityEngine.Random.Range(0, npcDialoguesKeys.Length);
+            npcDialogueText.text = LanguageManager.Instance.GetDefaultText(npcDialoguesKeys[randomIndex]);
         }
 
         #endregion
