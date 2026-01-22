@@ -290,7 +290,7 @@ namespace CookApps.BattleSystem
         {
             if (CriticalTest())
             {
-                AddDamageHistory(ref damageInfo, "크리티컬 테스트" ,damageInfo.damageAmount.Value,
+                AddDamageHistory(ref damageInfo, "크리티컬 테스트", damageInfo.damageAmount.Value,
                 (_fixedCriticalProb + CriticalProb) * 100f, "크리티컬 성공", (_fixedCriticalProb + CriticalProb));
                 ApplyCriticalDamage(ref damageInfo);
             }
@@ -395,7 +395,7 @@ namespace CookApps.BattleSystem
             {
                 InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, SkillRootTransformFollowable);
             }
-            
+
             GetCharacterView().OnHit();
 
             if (!damageInfo.isMissed)
@@ -424,7 +424,7 @@ namespace CookApps.BattleSystem
 
             _currHp -= damageAmount.damageAmount.Value;
             Debug.Log($"damageAmount: {damageAmount.damageAmount.Value}, _currHp: {_currHp}");
-            
+
 
             if (attacker != null)
             {
@@ -587,6 +587,11 @@ namespace CookApps.BattleSystem
         private async UniTask ShowBlockText(double damage)
         {
             InGameTextView textView = InGameTextViewPool.Instance.Get();
+            if (AllianceType != AllianceType.Player)
+            {
+                textView.PlayDamageSound(false);
+            }
+
             await textView.ShowBlockText(GetCharacterView().CachedTr.position, _statData.Spec.height, damage);
         }
 

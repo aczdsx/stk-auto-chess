@@ -132,7 +132,7 @@ MonoBehaviour:
   disableRenderingOnOverride: 1
   updateTiming: 1
   unscaledTime: 0
-  _animationName: angry
+  _animationName: normal
   loop: 1
   timeScale: 1
 --- !u!114 &7455151788647441324
