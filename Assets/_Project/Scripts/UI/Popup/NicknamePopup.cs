@@ -11,12 +11,18 @@ namespace CookApps.AutoBattler
         [Header("Common")]
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private CAButton _confirmButton;
-        
+
         [Space(10)]
         [SerializeField] private TMP_InputField _nicknameInputField;
 
+
+        [Header("Tutorial Toast Pop")]
+        [SerializeField] private GameObject _tutorialToastObj;
+        [SerializeField] private TextMeshProUGUI _tutoiralText;
+        [SerializeField] private Animator _tutorialToastAnimator;
+
         private bool _isFirst;
-        
+
         protected override void Awake()
         {
             base.Awake();
@@ -27,14 +33,14 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            _isFirst = (bool) param;
+            _isFirst = (bool)param;
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.PVP_Ticket);
 
             _nicknameInputField.text = "";
-            
+
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
         }
-        
+
         protected override void OnBackButton(ref bool offPrevUI)
         {
             if (_isFirst)
@@ -49,15 +55,15 @@ namespace CookApps.AutoBattler
             // 닉네임 유효성 체크
             int minGuestIDLength = SpecDataManager.Instance.GetGameConfig<int>("min_user_name_length");
             int maxGuestIDLength = SpecDataManager.Instance.GetGameConfig<int>("max_user_name_length");
-            
+
             int guestIDByte = Encoding.UTF8.GetByteCount(_nicknameInputField.text);
-            
+
             if (guestIDByte < minGuestIDLength || guestIDByte > maxGuestIDLength)
             {
                 ToastManager.Instance.ShowToastByTokenKey("ERROR_SERVER_NICKNAME_LENGTH");
                 return;
             }
-            
+
             // TODO: 닉네임 변경 API 호출
             // UserDataManager.Instance.ChangeNickname(_nicknameInputField.text);
 

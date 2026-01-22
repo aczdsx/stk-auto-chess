@@ -105,12 +105,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a7849c4742558db449e84853bb474d44
-    m_Address: Naninovel/Spawn/Etc/NicknamePopup
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d8ef5d430888d1b48b4705581c7405ac
     m_Address: Naninovel/Spawn/CutScene/cbg_00_03
     m_ReadOnly: 0
