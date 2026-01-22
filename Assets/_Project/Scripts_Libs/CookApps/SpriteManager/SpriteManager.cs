@@ -47,12 +47,14 @@ namespace CookApps.TeamBattle
                     var oper = assetRef.OperationHandle;
                     if (!oper.IsValid())
                     {
-                        Debug.LogError($"SpriteManager: GetSprite: assetRef is not valid: {spriteName}");
                         oper = assetRef.LoadAssetAsync();
                     }
                     await oper.WaitUntilDone();
                     if (!oper.IsValid())
+                    {
+                        Debug.LogError($"SpriteManager: GetSprite: assetRef is not valid: {spriteName}");
                         return null;
+                    }
                     cache.atlas = oper.Result as SpriteAtlas;
                 }
 
