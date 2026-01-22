@@ -98,6 +98,8 @@ public enum SoundFX
     snd_sfx_skill_305011,
     snd_sfx_skill_405021,
     snd_sfx_skill_406011,
+    snd_sfx_skill_a_3404_tile,
+
 
     // 시련
     snd_sfx_monster_204031_appear_01,

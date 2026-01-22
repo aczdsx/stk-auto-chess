@@ -1,0 +1,348 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: VFX
+  m_EditorClassIdentifier: 
+  m_GroupName: VFX
+  m_GUID: 889a309c54b214e2282f59e429f21f74
+  m_SerializeEntries:
+  - m_GUID: 02ada937111e2b542ba3a392317801a9
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/WingL_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0b84f594da6b3bc43a58d84c3bab52d4
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_13a_ab.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0f6d7c56febb2ed429adcb7796af5a02
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_14a_add.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 17de729e45ab243458dce166e1318fa8
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_11a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 328c7ca935a53454aa3b7dcd321ad74c
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/wind_09.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 360e65662060de642b1bae655bffcfe4
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_13a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3612aef0e671c0742a21ea1617b429b3
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_15a.TGA
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3cd374d8c82053146bdb2d3f2352c464
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/HologramCharacter.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d3067c1ed2e6aa49ac29dfb09d91b92
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_09a_ab.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f35410847f39ca4c82e2847be28eaaa
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Smoke/fx_smoke_01a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f3d46ab0ba81b04eb0bb7832478cbac
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_05a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4c86db6f7792f924e8749829ab89a5d9
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/fx_circle_28a.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4eecfdd6e404d9d469eb9dcb4b85ea61
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Shine/fx_shine_02a.TGA
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f60daba4b676db48bf6a65c89b466fa
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5ac92e358e5048547b399bd8b417f8f7
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Fire/fx_fire_04a_add.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a2535010e8e46d4a8e80edb6716355b
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c3b8a088b5da7348b887fd66e3de904
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Shine/fx_shine_01a.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6d4781c27fbd65842bb508d94d12de5b
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_03a_clamp.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 704f6dc73a8b1f54db6c6a4ce006e5a2
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_06a_add_02 1.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 759b3eff24d15a14c9347198743c41dd
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Shine/fx_shine_04a_add.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7605196420d204945843c4c794c58361
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_07a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7797814db55905a4fada75d2fbf1659a
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_03.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 788b80f71748eec4f93be51f91627a1a
+    m_Address: Assets/_Project/Addressables/Remote/VFX/FBX/fx_sphere_02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e2bccd24d9b4bf4da14192524aab567
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Shine/fx_shine_02a_add.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ea24bc6980b38d47985722ae5089bbc
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_01a_add_02.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f1355a932784834a9ee0f89f30e5699
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_09a_unlit.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 80eab5ce6eca4e540834a6edf5c73900
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_06a_add_02.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 840a5e5fae3467946afd3db72524c126
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_07a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 874db81e1501be94b84953c39abaf5bc
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_08.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b0630d5624432246bf73de2e27b2e31
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/Add_CenterGlow.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8dae5681198b4ae41a31fcc17a9647b2
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Shine/fx_shine_04a.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8fc384efbd88a2747960e95d1e529713
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/WingL_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97c6dd483b7624141b388ba8d0a4290a
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/DissolveCharacter.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 992c046b449e1f844a47c3a576043e41
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Tile/fx_tile_03a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9a02eebfbe878604cbcfd1deec1134c6
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/WingL_03.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9b1f47ce32bc21247ac8e9dd7a14955f
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/WingR_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9cf47a3cb71c7894dbbb4bbfc9a35cc8
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_01a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a7d08c5964cdb0240a060c131b0ce8ec
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/WingR_03.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: adc5961200b290241ae98a603d7de4ab
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Etc/fx_blank_01a_ab.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b68b99c2e57cef4419465c63c527201b
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/Blend_CenterGlow.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b8abe946f70a93244b4f52792cdd2dcb
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_10_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bb60e055ef6bbd941812c940215b45d8
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be3ef41b99934d143bbdba5eeab3acdc
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/WingR_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bfb92c6a1b06d9f43a7f58fc87aefb71
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_14a.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c2a6550703234094bb2cfbcbf6386990
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_16a.tga
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c2e3fcc74d511be4ea3fad0d45aeaee0
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_10.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c34a15d328d1cdd4bba4d2ffb5ce5819
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_15a_add.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7544a5ce12920349bc45d7bc68b0b31
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_05.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb7029b043be5f44bb513353ffdf029c
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Fire/fx_fire_04a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cd9de2c935055d9489de18f67cff8242
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_02a_add.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cef9d0c004af18f47924b3bd5ba7dd73
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_05a_add.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf49a008151eb5b46be9a26c7509a1ca
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Fire/fx_fire_04b.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d128c3fb3383cda40bc871fa06c59eea
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Fire/fx_fire_04b_ab.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d2e06b26f865b094a8a867d1450cc703
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_09.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d35e8d6f281a0964fa0ace03bdbb59c4
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_16a_add.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d58a0b1e59a7c6946abaf660af8fe19e
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Circle/fx_circle_28a_ab.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e1b142ae2da4da44fabd3087ccecb46b
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_13a_add.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e22886e79ceb1bb40bb2af7146b3ce0c
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_10a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e58e01d6eb3398d4693de23b363e9994
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Smoke/fx_smoke_01a_ab.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e87e3058602989f459ef3429c2a49e5f
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_11.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f54a6a00054c5d44bafc8241e5a9a268
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Shine/fx_shine_01a_add.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f67b50c78d75c924ab5406291a7aa441
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_glow_02a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f97350220fbf49f419b6683136e157c9
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Mask/fx_mask_06a_clamp.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fbd717d57e3c7a141bd02c7b0305ea4a
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_06a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fbe4f81e6e224b642a519baa90e8c236
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Beam/fx_beam_03a_add_05.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 7998c3b10c47b40c3947a4592862bed4, type: 2}
+    - {fileID: 11400000, guid: b0a76465a33b7465a8e133f0b980e160, type: 2}
