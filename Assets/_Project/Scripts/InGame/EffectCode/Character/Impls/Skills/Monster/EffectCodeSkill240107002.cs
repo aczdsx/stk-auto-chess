@@ -41,6 +41,17 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
+
+        Span<double> buffStats = stackalloc double[3];
+
+        buffStats.Clear();
+        buffStats[0] = codeId;
+        buffStats[1] = 999f;//duration
+        buffStats[2] = 1;//value?
+
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_IMMUNE, owner, buffStats, source);
+
+
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
@@ -66,9 +77,6 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
     public override void OnUpdate(float dt)
     {
-        // InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, owner.CurrentTile);
-
-
         if (!IsSkillActivated)
         {
             return;
@@ -354,7 +362,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         // 원래 타일로 즉시 이동
         owner.ChangeOccupiedTile(_originalTile);
         owner.Position3D = _originalTile.View.Position - _jumpDirection;
-        owner.GetCharacterView().CachedTr.localPosition = owner.Position3D ;
+        owner.GetCharacterView().CachedTr.localPosition = owner.Position3D;
 
         // 걸어들어가는 연출 (Position3D만 더 앞으로 이동, 타일은 그대로)
         var walkTween = Tween.Custom(
@@ -370,7 +378,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
                 }
             },
             ease: Ease.Linear);
-        
+
 
         // 점프 완료 및 쿨타임 초기화
         _isJumping = false;
@@ -390,6 +398,11 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         {
             _jumpForwardPortalVfx.Remove();
             _jumpForwardPortalVfx = null;
+        }
+        if (_jumpBackPortalVfx != null)
+        {
+            _jumpBackPortalVfx.Remove();
+            _jumpBackPortalVfx = null;
         }
         // 기존 Sequence가 있으면 중지
         if (_moveSequence.isAlive)
