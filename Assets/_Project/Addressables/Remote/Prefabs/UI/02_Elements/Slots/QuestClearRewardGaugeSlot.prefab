@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c4ee56eb928934aad471d5e92e02c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getRewardButton: {fileID: 5990485823583926304}
+  getRewardButton: {fileID: 7160189273410401270}
   rewardIconImage: {fileID: 7332208900535386544}
   rewardIconSpriteLoader: {fileID: 1765706923917292164}
   rewardIconUIShiny: {fileID: 5506180130265802154}
