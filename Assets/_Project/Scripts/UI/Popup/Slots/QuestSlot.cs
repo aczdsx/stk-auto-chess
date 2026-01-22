@@ -12,31 +12,31 @@ namespace CookApps.AutoBattler
 {
     public class QuestSlot : CachedMonoBehaviour
     {
-        [SerializeField] private QuestRewardSlot _questRewardSlot;
-        [SerializeField] private TextMeshProUGUI _questTitleText;
-        [SerializeField] private TextMeshProUGUI _questDescText;
+        [SerializeField] private QuestRewardSlot questRewardSlot;
+        [SerializeField] private TextMeshProUGUI questTitleText;
+        [SerializeField] private TextMeshProUGUI questDescText;
 
         [Space]
-        [SerializeField] private Slider _questProgressSlider;
-        [SerializeField] private TextMeshProUGUI _questSliderText;
+        [SerializeField] private Slider questProgressSlider;
+        [SerializeField] private TextMeshProUGUI questSliderText;
 
         [Space]
-        [SerializeField] private GameObject _claimBGObject;
-        [SerializeField] private GameObject _claimButtonObject;
-        [SerializeField] private CAButton _claimButton;
-        [SerializeField] private GameObject _completeLayerObject;
-        [SerializeField] private GameObject _completeButtonObject;
+        [SerializeField] private GameObject claimBGObject;
+        [SerializeField] private GameObject claimButtonObject;
+        [SerializeField] private CAButton claimButton;
+        [SerializeField] private GameObject completeLayerObject;
+        [SerializeField] private GameObject completeButtonObject;
 
-        private QuestInfo _specQuestData;
-        private QuestData _questData;
+        private QuestInfo specQuestData;
+        private QuestData questData;
 
-        private List<RewardItem> _questRewardItemList = new List<RewardItem>();
+        private List<RewardItem> questRewardItemList = new List<RewardItem>();
 
-        private QuestPopup _parentPopup;
+        private QuestPopup parentPopup;
 
         private void Awake()
         {
-            _claimButton.OnClickAsObservable()
+            claimButton.OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, _) => self.OnClickGetRewardButtonAsync(), AwaitOperation.Drop)
                 .AddTo(this);
         }
@@ -45,57 +45,79 @@ namespace CookApps.AutoBattler
         {
             if (data == null) return;
 
-            _parentPopup = parent;
+            ClearSlot();
 
-            _specQuestData = data;
-            _questData = ServerDataManager.Instance.Quest.GetQuest(_specQuestData.quest_id);
+            parentPopup = parent;
+            specQuestData = data;
+            questData = ServerDataManager.Instance.Quest.GetQuest(specQuestData.quest_id);
 
-            _questTitleText.text = LanguageManager.Instance.GetDefaultText(_specQuestData.name_token);
-            _questDescText.text = LanguageManager.Instance.GetDefaultText(_specQuestData.desc_token);
+            questTitleText.text = LanguageManager.Instance.GetDefaultText(specQuestData.name_token);
+            questDescText.text = LanguageManager.Instance.GetDefaultText(specQuestData.desc_token);
 
             // 리워드 데이터 세팅
-            var rewardItem = new RewardItem(_specQuestData.item_id, _specQuestData.item_count);
-            _questRewardSlot.SetRewardSlot(rewardItem);
-
-            _questRewardItemList.Add(rewardItem);
+            var rewardItem = new RewardItem(specQuestData.item_id, specQuestData.item_count);
+            questRewardSlot.SetRewardSlot(rewardItem);
+            questRewardItemList.Add(rewardItem);
 
             RefreshQuestSlot(false);
         }
 
+        private void ClearSlot()
+        {
+            questRewardItemList.Clear();
+        }
+
         public void RefreshQuestSlot(bool needRefreshData)
         {
-            if (_specQuestData == null) return;
-            if (_questData == null) return;
+            if (specQuestData == null) return;
 
             if (needRefreshData)
             {
-                _questData = ServerDataManager.Instance.Quest.GetQuest(_specQuestData.quest_id);
+                questData = ServerDataManager.Instance.Quest.GetQuest(specQuestData.quest_id);
+            }
+
+            if (questData == null)
+            {
+                // 데이터 없으면 기본 상태로 설정
+                questSliderText.text = $"0/{specQuestData.need_count}";
+                questProgressSlider.maxValue = specQuestData.need_count;
+                questProgressSlider.value = 0;
+
+                claimBGObject.SetActive(false);
+                claimButtonObject.SetActive(false);
+                completeLayerObject.SetActive(false);
+                completeButtonObject.SetActive(false);
+                return;
             }
 
             // 슬라이더 세팅
-            _questSliderText.text = $"{_questData.CurrentCount}/{_specQuestData.need_count}";
-            _questProgressSlider.maxValue = _specQuestData.need_count;
-            _questProgressSlider.value = _questData.CurrentCount;
+            questSliderText.text = $"{questData.CurrentCount}/{specQuestData.need_count}";
+            questProgressSlider.maxValue = specQuestData.need_count;
+            questProgressSlider.value = questData.CurrentCount;
 
-            // 버튼 상태 세팅 (State == Completed && Rewards.Count > 0 이면 보상 수령 가능)
-            bool isClaimable = _questData.IsCleared && !_questData.IsRewarded;
-            bool isAlreadyClaimed = _questData.IsCleared && _questData.IsRewarded;
+            // 버튼 상태 세팅
+            var isClaimable = questData.IsCleared && !questData.IsRewarded;
+            var isAlreadyClaimed = questData.IsCleared && questData.IsRewarded;
 
-            _claimBGObject.SetActive(isClaimable);
-            _claimButtonObject.SetActive(isClaimable);
+            claimBGObject.SetActive(isClaimable);
+            claimButtonObject.SetActive(isClaimable);
 
-            _completeLayerObject.SetActive(isAlreadyClaimed);
-            _completeButtonObject.SetActive(isAlreadyClaimed);
+            completeLayerObject.SetActive(isAlreadyClaimed);
+            completeButtonObject.SetActive(isAlreadyClaimed);
         }
 
         private async UniTask OnClickGetRewardButtonAsync()
         {
+            if (questData == null) return;
+            if (!questData.IsCleared) return;
+            if (questData.IsRewarded) return;
+
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
             // 서버에 보상 수령 요청
             var response = await NetManager.Instance.Quest.ClaimQuestRewardAsync(
-                _questData.QuestId,
-                _specQuestData.quest_type.ToServerType());
+                questData.QuestId,
+                specQuestData.term_type.ToServerType());
 
             if (response == null || !response.IsSuccess)
             {
@@ -103,7 +125,7 @@ namespace CookApps.AutoBattler
             }
 
             // 보상 결과 표시
-            List<RewardItem> rewardItemList = new List<RewardItem>();
+            var rewardItemList = new List<RewardItem>(response.Rewards.Count);
             for (int i = 0; i < response.Rewards.Count; i++)
             {
                 rewardItemList.Add(new RewardItem(response.Rewards[i]));
@@ -112,14 +134,14 @@ namespace CookApps.AutoBattler
             // 로컬 데이터 갱신
             if (response.Quest != null)
             {
-                _questData = response.Quest;
+                questData = response.Quest;
             }
 
             RefreshQuestSlot(false);
 
             await SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), null);
 
-            _parentPopup?.RefreshPopup();
+            parentPopup?.RefreshPopup();
         }
     }
 }

@@ -141,6 +141,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ee04dc151ac9ae45ad9a23e45bc7a39
+    m_Address: LD_Characters/20407/Illust/Character_Illust_15252102
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4f0f15a8e193f42f99f6648557b4abff
     m_Address: LD_Characters/15252102/Spine
     m_ReadOnly: 0
@@ -227,6 +233,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 93b7444bfb7c4499c99b1a9edce117c4
     m_Address: LD_Characters/UI_15422301
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c4a1f9aef863df449d59fa6a8b1e724
+    m_Address: LD_Characters/UI_ERROR
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload

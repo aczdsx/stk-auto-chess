@@ -162,20 +162,23 @@ namespace CookApps.AutoBattler
                     charPosY.Add(int.Parse(chfStrings[1], CultureInfo.InvariantCulture));
                     charPosDir.Add(int.Parse(chfStrings[2], CultureInfo.InvariantCulture));
                 }
-                // if (charPosDir[0] == 0)
-                // {
-                //     var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentLeftObject.transform);
-                //     obj.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-                //     var characterIllust = obj.GetComponent<CharacterIllust>();
-                //     characterIllust.SetCharacterAnimation("idle");
-                // }
-                // else
-                // {
-                //     var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentRightObject.transform);
-                //     obj.GetComponent<RectTransform>().localScale = new Vector3(-1, 1, 1);
-                //     var characterIllust = obj.GetComponent<CharacterIllust>();
-                //     characterIllust.SetCharacterAnimation("idle");
-                // }
+                if(charPosDir[0] == 0) {
+                    var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentLeftObject.transform);
+#if __DEV
+                    characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, "ERROR");
+                    obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentLeftObject.transform);
+#endif
+                    obj.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+                }
+                else
+                {
+                    var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentRightObject.transform);
+#if __DEV
+                    characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, "ERROR");
+                    obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentRightObject.transform);
+#endif
+                    obj.GetComponent<RectTransform>().localScale = new Vector3(-1, 1, 1);
+                } 
             }
 
             // _characterNameText.text = LanguageManager.Instance.GetDefaultText(_currentSpecDialogueData.character_name_token);

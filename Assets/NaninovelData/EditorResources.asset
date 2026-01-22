@@ -464,7 +464,7 @@ MonoBehaviour:
     - name: nani_char_get_101200
       pathPrefix: Scripts
       guid: 911c3f661a8315f40be0c48d170fa6c5
-    - name: Chapter1_11
+    - name: Chapter1_10
       pathPrefix: Scripts
       guid: e3f6807cdd174d347826d8185614ea56
     - name: Chapter1_10
@@ -705,3 +705,8 @@ MonoBehaviour:
     - name: seira_00
       pathPrefix: Characters
       guid: 3a413678f70313844aba1212a77529b8
+  - Id: Characters/c6248982-7c08-4db0-b70f-5e655f137a17
+    Resources:
+    - name: toma_00
+      pathPrefix: Characters
+      guid: a1fa38cfb50021145afc6308483ebb2f

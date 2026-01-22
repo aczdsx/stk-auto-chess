@@ -50,7 +50,7 @@ namespace CookApps.BattleSystem
 
         public override void Activate()
         {
-            base.Activate();
+            // base.Activate();
             InjectImmuneBuff();
             _isReadyToActivate = false;
             CoolTimeElapsedTime = 0f;

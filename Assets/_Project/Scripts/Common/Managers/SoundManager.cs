@@ -101,6 +101,8 @@ public enum SoundFX
     snd_sfx_skill_405021,
     snd_sfx_skill_406011,
     snd_sfx_skill_a_3404_tile,
+    snd_sfx_skill_a_3501_01,
+    snd_sfx_skill_a_3501_02,
 
 
     // 시련
@@ -169,6 +171,11 @@ public class SoundManager : Singleton<SoundManager>
     {
         if (soundNames == null || soundNames.Length == 0)
             return null;
+
+        // if (soundNames[0] == "snd_sfx_skill_a_3401")
+        // {
+        //     Debug.Log("PlaySkillSounds: " + soundNames[0]);
+        // }
 
         ClockStone.AudioObject firstAudioObject = null;
         for (int i = 0; i < soundNames.Length; i++)

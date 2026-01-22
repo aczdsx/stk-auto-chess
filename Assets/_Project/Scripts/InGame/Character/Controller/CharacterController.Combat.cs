@@ -402,7 +402,7 @@ namespace CookApps.BattleSystem
             {
                 if (damageInfo.isBlocked)
                 {
-                    ShowBlockText().Forget();
+                    ShowBlockText(damageAmount.damageAmount.Value).Forget();
                 }
                 else
                 {
@@ -584,10 +584,10 @@ namespace CookApps.BattleSystem
             await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical, elementAdvantageResult);
         }
 
-        private async UniTask ShowBlockText()
+        private async UniTask ShowBlockText(double damage)
         {
             InGameTextView textView = InGameTextViewPool.Instance.Get();
-            await textView.ShowBlockText(GetCharacterView().CachedTr.position, _statData.Spec.height);
+            await textView.ShowBlockText(GetCharacterView().CachedTr.position, _statData.Spec.height, damage);
         }
 
         private async UniTask ShowHealText(double amount)
