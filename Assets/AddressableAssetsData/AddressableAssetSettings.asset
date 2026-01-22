@@ -152,7 +152,7 @@ MonoBehaviour:
       - m_Id: 93ddb3c7ece4b489db541c706b57288d
         m_Value: '[BuildRoot]/ServerData/Dev/[BuildTarget]/[UnityEditor.PlayerSettings.bundleVersion]'
       - m_Id: 9594afeb3fcde44a1a96d1ce758f82cb
-        m_Value: <undefined>
+        m_Value: 'https://cdn.dev.cookappsgames.com/assets/[ProjectId]/[BuildTarget]/[UnityEditor.PlayerSettings.bundleVersion]'
       - m_Id: 9cb875e0a2ac1a24bbbd60cb0b12dc95
         m_Value: Builds/Addressables
       - m_Id: ca24e813cecf5814d8cc341ded5bea5b
