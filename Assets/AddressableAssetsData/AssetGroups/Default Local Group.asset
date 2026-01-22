@@ -56,6 +56,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac805a6aacd2b644dba2618dd3298ba2
+    m_Address: Assets/_Project/Addressables/Remote/Materials/UI/UI_Vignette_Ingame.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb66fc5cd88444d44a2942a2244f553a
+    m_Address: Assets/_Project/Addressables/Remote/Materials/UI/UI_Vignette_SimulationOnly.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: da76faecfa789fa49ae42631d5b3021d
     m_Address: Assets/_Project/Addressables/Remote/NaninovelRes/Spawn/Etc/EyeBlink_01.png
     m_ReadOnly: 0

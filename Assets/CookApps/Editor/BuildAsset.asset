@@ -78,7 +78,7 @@ MonoBehaviour:
         EnableCodeObfuscator: 0
         IsProduction: 0
         StoreMarket: 1
-        BuildOptions: 262144
+        BuildOptions: 262401
         TargetSdkVersion: 0
         CreateSymbols: 0
         ExportAndroidStudioProject: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
         EnableCodeObfuscator: 0
         IsProduction: 0
         StoreMarket: 2
-        BuildOptions: 262144
+        BuildOptions: 262401
         SigningTeamID: K7TNH5SGYC
         CodeGeneration: 0
         ManagedStrippingLevel: 1
