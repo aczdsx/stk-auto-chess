@@ -352,7 +352,7 @@ namespace CookApps.AutoBattler
             if (npcDialogueText == null) return;
 
             var randomIndex = UnityEngine.Random.Range(0, npcDialoguesKeys.Length);
-            npcDialogueText.text = LanguageManager.Instance.GetDialogueText(npcDialoguesKeys[randomIndex]);
+            npcDialogueText.text = LanguageManager.Instance.GetDefaultText(npcDialoguesKeys[randomIndex]);
         }
 
         #endregion
