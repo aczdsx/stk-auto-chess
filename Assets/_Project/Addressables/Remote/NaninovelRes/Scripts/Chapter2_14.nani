@@ -30,19 +30,24 @@ Cley_00: (쿨럭)…으윽..
 
 ; L007
 
-@char odette_00.normal pos:70,-250 scale:1.38
+@char odette_00.normal pos:50,-250 scale:1.38
 odette_00: 클레이!
 ; L008
 
 @hideChars
+
+@char toma_00 pos:40,-111 scale:1.38
+
 ???: 이런, 이런. 검은 뱀 한마리를 잡으려고 들쑤시니.. 다른 뱀들도 튀어나오잖아?
 
 ;캐릭터 공허의 토마 등장.
 ; L009
 Narrator: 그곳엔 네피림의 갑피와 인류의 모습을 한 괴인이 서있었다. 그것은 명백히 인류를 향해 증오를 내뿜고 있었다.
 ; L010
+@hideChars
 
-@char uni_00.normal pos:30,-240 scale:1.38
+
+@char uni_00.normal pos:35,-240 scale:1.38
 uni_00: 저…..저건 뭐지?! 엄청난 힘의 파동이 느껴져.
 uni_00: ...관측자! 나 무서워!
 ; L011
@@ -79,6 +84,9 @@ marie_00: ….적 강함. 침착해야 살아나갈 수 있음.
 ; L016
 
 @hideChars
+
+@char toma_00 pos:40,-111 scale:1.38
+
 ;토마 나타남
 ???: 엘피스에서 만들었다는 '장난감'도 이미 얻고, 전령 보강용 바디도 얻었지만….
 ???: 요즘 스텔라 나이트 들의 실력도 알아볼겸 한 번 놀아볼까?
@@ -86,6 +94,8 @@ marie_00: ….적 강함. 침착해야 살아나갈 수 있음.
 ;파동 효과음
 Narrator: 그 말을 끝으로 적의로 뭉친 존재로 부터 나오는 기운이 증폭되기 시작했다.
 ; L018
+@hideChars
+
 @char atresia_00.normal pos:65,-235 scale:1.38
 atresia_00: 옵니다! 모두 조심하세요!
 ; L019

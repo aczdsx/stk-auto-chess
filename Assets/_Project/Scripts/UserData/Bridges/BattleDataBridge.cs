@@ -260,6 +260,47 @@ namespace CookApps.AutoBattler
             LocalDataManager.Instance.SetLastPlayStageId((uint)stageId);
         }
 
+        /// <summary>
+        /// 목표 스테이지 ID 반환
+        /// 마지막 플레이 스테이지가 최고 클리어 스테이지와 같으면 다음 스테이지로
+        /// </summary>
+        public static int GetTargetStageId()
+        {
+            var lastPlayStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
+            var latestClearedStageId = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
+
+            // 마지막 플레이 == 최고 클리어인 경우 다음 스테이지로
+            if (lastPlayStageId == latestClearedStageId)
+            {
+                var currentStageData = SpecDataManager.Instance.GetStageData(lastPlayStageId);
+                var nextStageData = SpecDataManager.Instance.GetStageData(
+                    currentStageData.chapter_id,
+                    currentStageData.stage_number + 1,
+                    currentStageData.difficulty_type
+                );
+
+                // 다음 스테이지가 존재하면 다음 스테이지로
+                if (nextStageData != null)
+                {
+                    return nextStageData.stage_id;
+                }
+
+                // 다음 챕터의 첫 스테이지 확인
+                var nextChapterFirstStage = SpecDataManager.Instance.GetStageData(
+                    currentStageData.chapter_id + 1,
+                    1,
+                    currentStageData.difficulty_type
+                );
+
+                if (nextChapterFirstStage != null)
+                {
+                    return nextChapterFirstStage.stage_id;
+                }
+            }
+
+            return lastPlayStageId;
+        }
+
         #endregion
     }
 }

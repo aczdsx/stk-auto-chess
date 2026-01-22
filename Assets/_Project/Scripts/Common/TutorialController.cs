@@ -4,7 +4,6 @@ using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using OfficeOpenXml.FormulaParsing.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -189,7 +188,8 @@ public class TutorialController : MonoBehaviour
 
         // TOAST_MESSAGE, SHOW_DIALOGUE_POP 타입은 말풍선 숨김
         bool hideDialogueBubble = CurrentSpecTutorial.tutorial_action_type == TutorialActionType.TOAST_MESSAGE ||
-                                   CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP;
+                                   CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP ||
+                                   CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP_CALLBACK;
         _bodyRectTransform.gameObject.SetActive(!hideDialogueBubble);
 
         if (!hideDialogueBubble)

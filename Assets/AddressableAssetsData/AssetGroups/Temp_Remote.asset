@@ -18,22 +18,129 @@ MonoBehaviour:
   - m_GUID: 1627a1b0b82fa3449a8c247ebc3dd0c4
     m_Address: Assets/_Project/Addressables/Remote/Materials/Character/HpBar.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 277af44f55effe04bb7711cdc1e45a6c
+    m_Address: Prefabs
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 373c7583994f84450abfe73d5a49ef33
+    m_Address: Prefabs/UI/Tutorial/InGameTutorialCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46f4e4165e6300e43ad44acedc6d81e8
+    m_Address: Gacha_VFX_Ver_Final_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5100c209c431a014f9ef841f50964926
+    m_Address: Assets/_Project/Addressables/Remote/SD/Template/BaseCharacterAnimController.controller
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 688631389097c27408afc5ed65aaffec
+    m_Address: Naninovel/Camera/MainCamera.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 816322073996742478f8a80ec7c6f02a
+    m_Address: Assets/_Project/Addressables/Remote/NaninovelRes/Spawn/CutScene/png/cbg_02_05.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 836cf23e60e6833468ae6542fc64a35c
     m_Address: Assets/_Project/Addressables/Remote/Materials/UI/TexturedCircleDotPattern.shader
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 947c8d30ce50a2d42800b9403c37c577
+    m_Address: Naninovel/TextPrinters/CutScene
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a8415e5b1e5758844ab1208786bbeb66
+    m_Address: Assets/_Project/Addressables/Remote/SD/CutScene/97550013
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac805a6aacd2b644dba2618dd3298ba2
+    m_Address: Assets/_Project/Addressables/Remote/Materials/UI/UI_Vignette_Ingame.mat
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b8c3b65e57b672d469e665b3892ce214
     m_Address: Assets/_Project/Addressables/Remote/Materials/Character/Character.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb66fc5cd88444d44a2942a2244f553a
+    m_Address: Assets/_Project/Addressables/Remote/Materials/UI/UI_Vignette_SimulationOnly.mat
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d78e30d97029b2e49ad4e8201d528004
+    m_Address: Naninovel/Camera/UICamera.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9b2b0d0164958e499709e80cc2a8df4
+    m_Address: Naninovel/TextPrinters/ControlPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da76faecfa789fa49ae42631d5b3021d
+    m_Address: Assets/_Project/Addressables/Remote/NaninovelRes/Spawn/Etc/EyeBlink_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5767d31317d9ac4e99017232c96c6ad
+    m_Address: GetNewCharacter
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5a91d0fba3e65140b63288f4e385a6f
+    m_Address: Naninovel/ChoiceHandlers/ChoiceHandlerButton
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ebbb51f8dda2d40f3b7dfb84dfb5bf09
     m_Address: Assets/_Project/Addressables/Remote/Materials/Character/HpBarMark.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fc807be624864cf49b09bafad771c7e5
+    m_Address: Assets/_Project/Addressables/Remote/NaninovelRes/Spawn/CutScene/png/cbg_02_04.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
