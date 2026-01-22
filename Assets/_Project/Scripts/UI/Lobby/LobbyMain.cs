@@ -104,6 +104,7 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
+            
             PreEnterAsync().Forget();
         }
 
@@ -135,7 +136,7 @@ namespace CookApps.AutoBattler
             MyDebug.MyLog("연출중!", MyDebug.Constants.YELLOW);
             SceneUILayerManager.Instance.SetEnableMainNodeCanvas(false);
             MainCameraHolder.CameraGestureController.SetCanInteractCamera(false);
-            await UniTask.Delay(5000);
+            await UniTask.Delay(500);
             SceneUILayerManager.Instance.SetEnableMainNodeCanvas(true);
             MainCameraHolder.CameraGestureController.SetCanInteractCamera(true);
             MyDebug.MyLog("연출끝!", MyDebug.Constants.YELLOW);

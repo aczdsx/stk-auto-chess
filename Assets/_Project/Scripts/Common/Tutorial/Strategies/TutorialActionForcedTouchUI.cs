@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,6 @@ namespace CookApps.AutoBattler
 
         public void OnShow(TutorialActionContext context)
         {
-            // 타겟 오브젝트 찾기
             context.TargetUIObj = TutorialTargetRegistry.FindGameObject(context.CurrentTutorial.tutorial_action_key);
 
             if (context.TargetUIObj == null)
@@ -37,6 +37,7 @@ namespace CookApps.AutoBattler
             context.OriginalParent = context.TargetUIObj.transform.parent;
             context.OriginalSiblingIndex = context.TargetUIObj.transform.GetSiblingIndex();
             context.OriginalPosition = context.TargetUIObj.transform.localPosition;
+            context.OriginalLayout = context.OriginalParent.GetComponent<VerticalLayoutGroup>();
 
             // 타겟을 최상위로 이동
             context.TargetUIObj.transform.SetParent(context.TargetSpawnTransform, true);
@@ -49,6 +50,8 @@ namespace CookApps.AutoBattler
                 arrowTargetPosition.x,
                 arrowTargetPosition.y + context.CurrentTutorial.arrow_yPos,
                 arrowTargetPosition.z);
+
+            context.OriginalLayout.enabled = false;
 
             // 버튼 클릭 이벤트 등록
             RegisterButtonListener(context.TargetUIObj);
@@ -67,7 +70,7 @@ namespace CookApps.AutoBattler
             return context.TargetUIObj == null;
         }
 
-        public void OnClear(TutorialActionContext context)
+        public async void OnClear(TutorialActionContext context)
         {
             // 버튼 클릭 이벤트 해제
             UnregisterButtonListener();
@@ -76,12 +79,19 @@ namespace CookApps.AutoBattler
             context.ArrowRectTransform.gameObject.SetActive(false);
             context.WorldArrowRectTransform.gameObject.SetActive(false);
 
+            var freeOriginalLayout = context.OriginalLayout;
+            var freeTargetUIObj = context.TargetUIObj;
+
             // 버튼 원위치 복구
             if (context.OriginalParent != null && context.TargetUIObj != null)
             {
-                context.TargetUIObj.transform.SetParent(context.OriginalParent);
-                context.TargetUIObj.transform.SetSiblingIndex(context.OriginalSiblingIndex);
-                context.TargetUIObj.transform.localPosition = context.OriginalPosition;
+                await UniTask.Create(async () =>
+                {
+                    freeOriginalLayout.enabled = true;
+                    freeTargetUIObj.transform.SetParent(context.OriginalParent);
+                    freeTargetUIObj.transform.SetSiblingIndex(context.OriginalSiblingIndex);
+                    freeTargetUIObj.transform.localPosition = context.OriginalPosition;
+                });
             }
 
             // 컨텍스트 정리

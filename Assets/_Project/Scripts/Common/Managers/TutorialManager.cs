@@ -21,6 +21,19 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     private const string TUTORIAL_CANVAS_PREFAB_PATH = "Prefabs/UI/Tutorial/InGameTutorialCanvas";
 
     private Canvas _canvas = null;
+    #if _SJHONG_TEST_
+    public bool IsTutorialCanvasEnabled
+    {
+        get
+        {
+            return _canvas.enabled;
+        }
+        set
+        {
+            _canvas.enabled = value;
+        }
+    }
+    #endif
     private TutorialController _tutorialController;
     private GameObject _tutorialCanvasInstance;
 
@@ -156,7 +169,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         {
             Chapter1Tutorial.HubbleIntro => TutorialTriggerType.ENTER_ELPIS,
             Chapter1Tutorial.Observation10 => TutorialTriggerType.HUBBLE_EXPANSION_COMPLETE,
-            Chapter1Tutorial.DormitoryRepair => TutorialTriggerType.SUMMON_CHARACTER,
+            Chapter1Tutorial.DormitoryRepair => TutorialTriggerType.NONE,
             Chapter1Tutorial.UnitGrowth => TutorialTriggerType.BUILDING_COMPLETE,
             _ => TutorialTriggerType.NONE
         };
@@ -215,7 +228,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         }
 
         _tutorialController.Initialize(() => HandleTutorialClose());
-        _canvas.enabled = false;
+        IsTutorialCanvasEnabled =  false;
     }
 
     private void DestroyTutorialCanvas()
@@ -273,7 +286,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
 
 
-        _canvas.enabled = true;
+        IsTutorialCanvasEnabled =  true;
         _tutorialController.SetTutorial(turnTutorialList, isLongShow);
 
         return true;
@@ -288,7 +301,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
         if (_canvas != null)
         {
-            _canvas.enabled = false;
+            IsTutorialCanvasEnabled =  false;
         }
         action?.Invoke();
 
@@ -311,7 +324,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         Debug.LogColor("튜토리얼 정리", "green");
         if (_canvas != null)
         {
-            _canvas.enabled = false;
+            IsTutorialCanvasEnabled =  false;
         }
         DestroyTutorialCanvas();
         _specTutorialDataList.Clear();

@@ -38,6 +38,7 @@ namespace CookApps.AutoBattler
         public Transform OriginalParent { get; set; }
         public int OriginalSiblingIndex { get; set; }
         public Vector3 OriginalPosition { get; set; }
+        public VerticalLayoutGroup OriginalLayout {get; set;}
 
         // 드래그 오브젝트 (CHARACTER_PLACEMENT_UI에서 사용)
         public GameObject DragObj { get; set; }

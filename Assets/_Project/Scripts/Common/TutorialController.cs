@@ -4,6 +4,7 @@ using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using OfficeOpenXml.FormulaParsing.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -185,12 +186,30 @@ public class TutorialController : MonoBehaviour
 
         if (!hideDialogueBubble)
         {
+
             // 텍스트 설정
             // string tutorialText = LanguageManager.Instance.GetDefaultText(CurrentSpecTutorial.desc_key);
             Debug.LogColor($"CurrentSpecTutorial.prefab_id: {CurrentSpecTutorial.prefab_id}", "green");
             var characterInfo = SpecDataManager.Instance.GetCharacterData(CurrentSpecTutorial.prefab_id);//id로 가져와져서 바꿔야함.
+            #if _SJHONG_TEST_
+            MyDebug.MyLog($"CurrentSpecTutorial.prefab_id {CurrentSpecTutorial.prefab_id}");
+            MyDebug.MyLog($"characterInfo.prefab_id {Newtonsoft.Json.JsonConvert.SerializeObject(CurrentSpecTutorial)}");
 
+            #endif
+            #if __DEV || _SJHONG_TEST_
+            try
+            {
+                _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterInfo.prefab_id)).Forget();
+            }
+            catch (Exception e)
+            {
+                MyDebug.MyLog(e.Message, MyDebug.Constants.RED);
+                _spriteLoaderCharacter.SetSprite("ERROR").Forget();
+            }
+            #else
             _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterInfo.prefab_id)).Forget();
+            #endif
+
             _characterNameText.text = LanguageManager.Instance.GetDefaultText(characterInfo.name_token);
             string tutorialText = CurrentSpecTutorial.desc_key;
             _descText.text = tutorialText;
