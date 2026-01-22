@@ -3,6 +3,7 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using UnityEngine;
 
 /// <summary>
 /// 0챕터 일반 저격수
@@ -103,14 +104,28 @@ public partial class EffectCodeSkill230101005 : EffectCodeCharacterBase
         if (_targetCharacter == null)
             return;
 
-        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            _targetCharacter.SkillRootTransformFollowable);
 
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
-            _targetCharacter.SkillRootTransformFollowable);
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillMiddleFXTransformFollowable.GetPosition());
+        Vector3 direction = (_targetCharacter.SkillMiddleFXTransformFollowable.GetPosition() - vfx.CachedTr.position).normalized;
 
-        var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
-        _targetCharacter.GetDamaged(damage, owner);
+        vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0f, -90f, 0);
+        var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
+        movement.SetData(owner.CurrentTile.View.CachedTr.position, _targetCharacter.SkillMiddleFXTransformFollowable.GetPosition(), 30f);
+        movement.OnReachedTarget += () =>
+        {
+            if (_targetCharacter != null && _targetCharacter.IsAlive
+            && owner != null && owner.IsAlive)
+            {
+                var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
+                _targetCharacter.GetDamaged(damage, owner);
+
+                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], _targetCharacter.SkillMiddleFXTransformFollowable);//hit
+            }
+            vfx.Remove();
+
+        };
+
+        vfx.Initialize(false, movement);
 
         IsSkillActivated = false;
     }

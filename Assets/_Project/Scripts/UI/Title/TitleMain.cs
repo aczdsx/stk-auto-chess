@@ -305,7 +305,7 @@ namespace CookApps.AutoBattler
             // 테스트 씬으로 전환
             SceneTransition.Create<SceneTransition_FadeInOut>();
 
-            var testConfig = await Addressables.LoadAssetAsync<InGameTestConfig>("TestConfig/InGameTestConfig.asset");
+            var testConfig = await Addressables.LoadAssetAsync<InGameTestConfig>("Data/InGameTestConfig.asset");
             await SceneTransition.FadeInAsync();
             var inGameParams = new InGameMainParams(InGameType.TEST, new InGameMainStateTest(), testConfig.StageChapterId);
             SceneLoading.GoToNextScene("InGame", inGameParams);
