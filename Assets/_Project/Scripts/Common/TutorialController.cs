@@ -262,7 +262,7 @@ public class TutorialController : MonoBehaviour
         }
 
         // SHOW_DIALOGUE_POP_WITH_CALLBACK 전략일 경우 다이얼로그 완료 콜백 설정
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP_WITH_CALLBACK)
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP_CALLBACK)
         {
             TutorialActionShowDialoguePopWithCallback.OnDialogueCompleted = OnDialoguePopWithCallbackCompleted;
         }

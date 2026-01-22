@@ -114,13 +114,12 @@ namespace CookApps.AutoBattler
             //         (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
             // return;
 
-            {
                 // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.  
 
                 // 튜토리얼(1챕터) 진입 분기 로직
                 var firstStageData = SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL)?[0];
                 // 초반 플로우 체크 및 진행
-                #if _SJHONG_TEST_
+#if _SJHONG_TEST_
                 MyDebug.MyLog(SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL), MyDebug.Constants.BLUE);
 
                 LocalDataManager.Instance.SetLastPlayStageId((uint)SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL)?.Last().stage_id);
@@ -144,8 +143,7 @@ namespace CookApps.AutoBattler
 
                     return;
                 }
-                #else
-
+#else
                 // 초반 플로우 체크 및 진행
                 var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
 
@@ -172,23 +170,7 @@ namespace CookApps.AutoBattler
 
                     return;
                 }
-                #endif
-                    if (unclearedStage != null)
-                    {
-                        var inGameParams = new InGameMainParams(InGameType.STAGE, new InGameMainStateStage(), unclearedStage.stage_id);
-                        await GoToSceneWithNicknameCheckAsync("InGame", inGameParams);
-                        return;
-                    }
-                }
-            }
-
-            // 3. 1챕터 모두 클리어 → 로비로 진입
-            {
-                var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
-                var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
-                await GoToSceneWithNicknameCheckAsync("Lobby", specStageData.chapter_id);
-                return;
-            }
+#endif
         }
 
         public void OnClickGuestLoginButton()
