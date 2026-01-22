@@ -211,6 +211,13 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a1fa38cfb50021145afc6308483ebb2f
+    m_Address: Naninovel/Characters/toma_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a32c73a3aff4b274c85b3ff16c854b07
     m_Address: Naninovel/UI/RollbackUI
     m_ReadOnly: 0
