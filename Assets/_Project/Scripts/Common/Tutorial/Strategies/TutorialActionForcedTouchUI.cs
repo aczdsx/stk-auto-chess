@@ -31,6 +31,9 @@ namespace CookApps.AutoBattler
         /// </summary>
         private static bool _isRestored;
 
+        private static bool _layoutExist = false;
+        private static HorizontalOrVerticalLayoutGroup  _layoutGroup;
+
         public void OnShow(TutorialActionContext context)
         {
             context.TargetUIObj = TutorialTargetRegistry.FindGameObject(context.CurrentTutorial.tutorial_action_key);
@@ -47,9 +50,10 @@ namespace CookApps.AutoBattler
             context.OriginalParent = context.TargetUIObj.transform.parent;
             context.OriginalSiblingIndex = context.TargetUIObj.transform.GetSiblingIndex();
             context.OriginalPosition = context.TargetUIObj.transform.localPosition;
-            if(context.OriginalParent.TryGetComponent<VerticalLayoutGroup>(out VerticalLayoutGroup resComponent))
+            if(context.OriginalParent.TryGetComponent<HorizontalOrVerticalLayoutGroup>(out HorizontalOrVerticalLayoutGroup resComponent))
             {
-                context.OriginalLayout = resComponent;
+                _layoutExist = true;
+                _layoutGroup = resComponent;
             }
 
             // 타겟을 최상위로 이동
@@ -64,10 +68,8 @@ namespace CookApps.AutoBattler
                 arrowTargetPosition.y + context.CurrentTutorial.arrow_yPos,
                 arrowTargetPosition.z);
 
-            if(context.OriginalLayout == null)
-            {
-                context.OriginalLayout.enabled = false;
-            }
+            if(_layoutExist)
+                _layoutGroup.enabled = false;
 
             // 버튼 클릭 이벤트 등록
             RegisterButtonListener(context.TargetUIObj, context);
@@ -98,6 +100,9 @@ namespace CookApps.AutoBattler
             context.TargetUIObj = null;
             context.OriginalParent = null;
             OnButtonClicked = null;
+
+            _layoutExist = false;
+            _layoutGroup = null;
         }
 
         /// <summary>
@@ -160,13 +165,12 @@ namespace CookApps.AutoBattler
             _currentContext.ArrowRectTransform.gameObject.SetActive(false);
             _currentContext.WorldArrowRectTransform.gameObject.SetActive(false);
 
-            var originalLayout = _currentContext.OriginalLayout;
             var targetUIObj = _currentContext.TargetUIObj;
 
             // 버튼 원위치 복구
-            if (originalLayout != null && targetUIObj != null)
+            if (_layoutGroup != null && targetUIObj != null)
             {
-                originalLayout.enabled = true;
+                _layoutGroup.enabled = false;
                 targetUIObj.transform.SetParent(_currentContext.OriginalParent);
                 targetUIObj.transform.SetSiblingIndex(_currentContext.OriginalSiblingIndex);
                 targetUIObj.transform.localPosition = _currentContext.OriginalPosition;
