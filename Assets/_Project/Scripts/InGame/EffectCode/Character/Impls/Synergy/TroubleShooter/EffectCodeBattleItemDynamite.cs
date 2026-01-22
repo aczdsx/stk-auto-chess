@@ -52,6 +52,8 @@ namespace CookApps.BattleSystem
         {
             if (character.AllianceType == AllianceType.Player || character.AllianceType == AllianceType.Neutral)
                 return;
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_shooter_mine);
             //펑 터져서 지워야할 타일들 목록.
             var InGameObjectManagerInstance = InGameObjectManager.Instance;
             var InGameVfxManagerInstance = InGameVfxManager.Instance;

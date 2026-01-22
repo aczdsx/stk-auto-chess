@@ -593,7 +593,7 @@ PlayerSettings:
   m_DefaultShaderChunkCount: 0
   openGLRequireES31: 0
   openGLRequireES31AEP: 0
-  openGLRequireES32: 0
+  openGLRequireES32: 1
   m_TemplateCustomTags: {}
   mobileMTRendering:
     Android: 1
@@ -908,7 +908,7 @@ PlayerSettings:
     Android: 0
   il2cppStacktraceInformation: {}
   managedStrippingLevel:
-    Android: 4
+    Android: 1
     EmbeddedLinux: 1
     GameCoreScarlett: 1
     GameCoreXboxOne: 1

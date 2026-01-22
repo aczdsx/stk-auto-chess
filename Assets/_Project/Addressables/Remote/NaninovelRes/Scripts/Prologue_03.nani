@@ -7,7 +7,7 @@
 
 @sfx NoiseSFX volume:0.5
 @back bg_black_01
-@bgm snd_bgm_dialog_sad_001
+@bgm snd_bgm_dialog_farewell01
 
 ; @char atresia_00.Talk pos:50,-235 scale:1.38
 @spawn CutScene/cbg_00_00

@@ -222,46 +222,6 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_bgm_splash01
-      Loop: 1
-      loopSequenceCount: 0
-      loopSequenceOverlap: 0
-      loopSequenceRandomDelay: 0
-      loopSequenceRandomPitch: 0
-      loopSequenceRandomVolume: 0
-      DestroyOnLoad: 1
-      Volume: 1
-      SubItemPickMode: 2
-      MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
-      Delay: 0
-      PitchShift: 0
-      RandomVolume: 0
-      RandomPitch: 0
-      RandomDelay: 0
-      overrideAudioSourceSettings: 0
-      audioSource_MinDistance: 1
-      audioSource_MaxDistance: 500
-      spatialBlend: 0
-      subItems:
-      - SubItemType: 0
-        Probability: 1
-        DisableOtherSubitems: 0
-        ItemModeAudioID: 
-        Clip: {fileID: 8300000, guid: 1cd70d02d33c56b40895e681fd61dbf1, type: 3}
-        Volume: 1
-        PitchShift: 0
-        Pan2D: 0
-        Delay: 0
-        RandomPitch: 0
-        RandomVolume: 0
-        RandomDelay: 0
-        ClipStopTime: 0
-        ClipStartTime: 0
-        FadeIn: 0
-        FadeOut: 0
-        RandomStartPosition: 0
-        individualSettings: []
     - Name: snd_bgm_chapter4
       Loop: 1
       loopSequenceCount: 0
@@ -2156,11 +2116,11 @@ MonoBehaviour:
       loopSequenceRandomPitch: 0
       loopSequenceRandomVolume: 0
       DestroyOnLoad: 1
-      Volume: 1
+      Volume: 0.9
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0.65
+      Delay: 0.5
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -2188,7 +2148,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_skill_a_3404_02
+    - Name: snd_sfx_skill_a_3404_tile
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -2240,7 +2200,7 @@ MonoBehaviour:
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0.45
+      Delay: 0.4
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -2400,7 +2360,7 @@ MonoBehaviour:
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0.45
+      Delay: 0.35
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -2560,7 +2520,7 @@ MonoBehaviour:
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0
+      Delay: 0.3
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -2628,7 +2588,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_skill_a_3404_01
+    - Name: snd_sfx_skill_a_3404
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -2640,7 +2600,7 @@ MonoBehaviour:
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0
+      Delay: 0.3
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -2676,7 +2636,7 @@ MonoBehaviour:
       loopSequenceRandomPitch: 0
       loopSequenceRandomVolume: 0
       DestroyOnLoad: 1
-      Volume: 1
+      Volume: 0.85
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
@@ -2720,7 +2680,7 @@ MonoBehaviour:
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
-      Delay: 0.45
+      Delay: 0.5
       PitchShift: 0
       RandomVolume: 0
       RandomPitch: 0
@@ -2941,46 +2901,6 @@ MonoBehaviour:
         DisableOtherSubitems: 0
         ItemModeAudioID: 
         Clip: {fileID: 8300000, guid: 1d12c0a36d88d944f94eef1cd1b87ef2, type: 3}
-        Volume: 1
-        PitchShift: 0
-        Pan2D: 0
-        Delay: 0
-        RandomPitch: 0
-        RandomVolume: 0
-        RandomDelay: 0
-        ClipStopTime: 0
-        ClipStartTime: 0
-        FadeIn: 0
-        FadeOut: 0
-        RandomStartPosition: 0
-        individualSettings: []
-    - Name: snd_sfx_ui_btn_touch
-      Loop: 0
-      loopSequenceCount: 0
-      loopSequenceOverlap: 0
-      loopSequenceRandomDelay: 0
-      loopSequenceRandomPitch: 0
-      loopSequenceRandomVolume: 0
-      DestroyOnLoad: 1
-      Volume: 0.9
-      SubItemPickMode: 2
-      MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 1
-      Delay: 0
-      PitchShift: 0
-      RandomVolume: 0
-      RandomPitch: 0
-      RandomDelay: 0
-      overrideAudioSourceSettings: 0
-      audioSource_MinDistance: 1
-      audioSource_MaxDistance: 500
-      spatialBlend: 0
-      subItems:
-      - SubItemType: 0
-        Probability: 1
-        DisableOtherSubitems: 0
-        ItemModeAudioID: 
-        Clip: {fileID: 8300000, guid: a0db459e37c5151428869c9e579790b0, type: 3}
         Volume: 1
         PitchShift: 0
         Pan2D: 0
@@ -3261,46 +3181,6 @@ MonoBehaviour:
         DisableOtherSubitems: 0
         ItemModeAudioID: 
         Clip: {fileID: 8300000, guid: 744b7af6ef57f7a46b31de8b9e5d0146, type: 3}
-        Volume: 1
-        PitchShift: 0
-        Pan2D: 0
-        Delay: 0
-        RandomPitch: 0
-        RandomVolume: 0
-        RandomDelay: 0
-        ClipStopTime: 0
-        ClipStartTime: 0
-        FadeIn: 0
-        FadeOut: 0
-        RandomStartPosition: 0
-        individualSettings: []
-    - Name: snd_sfx_ui_btn_splash
-      Loop: 0
-      loopSequenceCount: 0
-      loopSequenceOverlap: 0
-      loopSequenceRandomDelay: 0
-      loopSequenceRandomPitch: 0
-      loopSequenceRandomVolume: 0
-      DestroyOnLoad: 0
-      Volume: 1
-      SubItemPickMode: 2
-      MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 1
-      Delay: 0
-      PitchShift: 0
-      RandomVolume: 0
-      RandomPitch: 0
-      RandomDelay: 0
-      overrideAudioSourceSettings: 0
-      audioSource_MinDistance: 1
-      audioSource_MaxDistance: 500
-      spatialBlend: 0
-      subItems:
-      - SubItemType: 0
-        Probability: 1
-        DisableOtherSubitems: 0
-        ItemModeAudioID: 
-        Clip: {fileID: 8300000, guid: 04de820d4d83b4d45bc331ea90c4a65b, type: 3}
         Volume: 1
         PitchShift: 0
         Pan2D: 0
@@ -3728,7 +3608,7 @@ MonoBehaviour:
       loopSequenceRandomPitch: 0
       loopSequenceRandomVolume: 0
       DestroyOnLoad: 1
-      Volume: 0.9
+      Volume: 0.6
       SubItemPickMode: 2
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 1
@@ -5540,6 +5420,252 @@ MonoBehaviour:
         individualSettings: []
     _volume: 1
     audioMixerGroup: {fileID: -452690435144188734, guid: 4299d97f61eb1bf4bbd1cd1889d2d654, type: 2}
+  - Name: Scenario
+    _parentCategoryName: 
+    AudioObjectPrefab: {fileID: 0}
+    AudioItems:
+    - Name: snd_sfx_prolog_battle_laplace04
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 1
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: dbea95b645c3f9546bb41ac3e164b63c, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: snd_sfx_prolog_battle_endtransition
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 0
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 1
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: 7654de578284afe4d9e458e17f5aa84b, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: snd_sfx_prolog_battle_laplace02
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 1
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: e56d0ad19c5c4f64ba9da491a1bcf622, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: snd_sfx_prolog_battle_laplace03
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 1
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: 76a424f1a18e59e4e8a74a620ba5ceb6, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: snd_sfx_prolog_battle_laplace01
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 1
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: 98fc69ea901c9e8438e5a4858ab65b7f, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    - Name: snd_sfx_prolog_battle_laplace05
+      Loop: 0
+      loopSequenceCount: 0
+      loopSequenceOverlap: 0
+      loopSequenceRandomDelay: 0
+      loopSequenceRandomPitch: 0
+      loopSequenceRandomVolume: 0
+      DestroyOnLoad: 1
+      Volume: 1
+      SubItemPickMode: 2
+      MinTimeBetweenPlayCalls: 0.1
+      MaxInstanceCount: 1
+      Delay: 0
+      PitchShift: 0
+      RandomVolume: 0
+      RandomPitch: 0
+      RandomDelay: 0
+      overrideAudioSourceSettings: 0
+      audioSource_MinDistance: 1
+      audioSource_MaxDistance: 500
+      spatialBlend: 0
+      subItems:
+      - SubItemType: 0
+        Probability: 1
+        DisableOtherSubitems: 0
+        ItemModeAudioID: 
+        Clip: {fileID: 8300000, guid: b98007fc7da72fd469b7dd81e38e0d1f, type: 3}
+        Volume: 1
+        PitchShift: 0
+        Pan2D: 0
+        Delay: 0
+        RandomPitch: 0
+        RandomVolume: 0
+        RandomDelay: 0
+        ClipStopTime: 0
+        ClipStartTime: 0
+        FadeIn: 0
+        FadeOut: 0
+        RandomStartPosition: 0
+        individualSettings: []
+    _volume: 1
+    audioMixerGroup: {fileID: -452690435144188734, guid: 4299d97f61eb1bf4bbd1cd1889d2d654, type: 2}
   musicPlaylists:
   - name: Default
     playlistItems: []
@@ -5552,8 +5678,8 @@ MonoBehaviour:
   _audioDisabled: 0
   _volume: 1
   _currentInspectorSelection:
-    currentCategoryIndex: 3
-    currentItemIndex: 12
+    currentCategoryIndex: 2
+    currentItemIndex: 16
     currentSubitemIndex: 0
     currentPlaylistEntryIndex: 0
     currentPlaylistIndex: 0

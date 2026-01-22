@@ -63,8 +63,8 @@ namespace CookApps.AutoBattler
             _holeGrown = false;
             _positionsValid = false;
 
-            // 화살표 비활성화
-            context.ArrowRectTransform.gameObject.SetActive(false);
+            // 화살표 활성화 (도착지 타일 위치에 표시)
+            context.ArrowRectTransform.gameObject.SetActive(true);
 
             // 드래그 오브젝트 활성화
             if (context.DragObj != null)
@@ -140,6 +140,9 @@ namespace CookApps.AutoBattler
 
             // 마스크 업데이트 복원
             context.SkipMaskUpdate = false;
+
+            // 화살표 비활성화
+            context.ArrowRectTransform.gameObject.SetActive(false);
 
             // 상태 초기화
             IsActive = false;
@@ -268,6 +271,9 @@ namespace CookApps.AutoBattler
 
             // DragObj도 홀 위치를 따라 이동
             UpdateDragObjPosition(currentUV, sourceUV, destUV);
+
+            // 화살표 위치 업데이트 (도착지 타일 위치 추적)
+            UpdateArrowPosition();
         }
 
         /// <summary>
@@ -296,6 +302,34 @@ namespace CookApps.AutoBattler
             //     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             //     dragRect.localRotation = Quaternion.Euler(0f, 0f, angle);
             // }
+        }
+
+        /// <summary>
+        /// 화살표를 도착지 타일 위치에 맞춰 이동
+        /// </summary>
+        private void UpdateArrowPosition()
+        {
+            if (_cachedContext?.ArrowRectTransform == null || !_positionsValid) return;
+
+            var canvasRect = _cachedContext.CanvasRectTransform;
+            if (canvasRect == null) return;
+
+            // 도착지 타일의 3D 월드 좌표 → 캔버스 로컬 좌표로 변환
+            Camera cam = _cachedContext.MainCamera ?? Camera.main;
+            if (cam == null) return;
+
+            Vector3 screenPosition = cam.WorldToScreenPoint(_destPosition);
+            if (screenPosition.z < 0) return;
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvasRect,
+                screenPosition,
+                null,
+                out var localPoint);
+
+            // arrow_yPos 만큼 Y축 위로 오프셋
+            float yOffset = _cachedContext.CurrentTutorial?.arrow_yPos ?? 0;
+            _cachedContext.ArrowRectTransform.localPosition = new Vector3(localPoint.x, localPoint.y + yOffset, 0f);
         }
 
         /// <summary>

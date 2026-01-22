@@ -104,20 +104,33 @@ public partial class EffectCodeSkill230202004 : EffectCodeCharacterBase
         if (_targetCharacter == null)
             return;
 
-        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-            _targetCharacter.SkillRootTransformFollowable);
+        // InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+        //     _targetCharacter.SkillRootTransformFollowable);
 
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillMiddleFXTransformFollowable);
         var directionTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
         if (directionTile.Count > 0)
         {
             Vector3 direction = (directionTile[0].View.CachedTr.position - vfx.CachedTr.position).normalized;
             vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+            var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
+            movement.SetData(owner.CurrentTile.View.CachedTr.position, directionTile[0].View.CachedTr.position, 30);
+            movement.OnReachedTarget += () =>
+            {
+                if(_targetCharacter!= null && _targetCharacter.IsAlive
+                && owner != null && owner.IsAlive)
+                {
 
-            var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
-            // var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
-            // owner.PostCalculateDamageAmount(ref damage, _targetCharacter);
-            _targetCharacter.GetDamaged(damage, owner);
+                }
+                var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
+                _targetCharacter.GetDamaged(damage, owner);
+                
+                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], _targetCharacter.SkillMiddleFXTransformFollowable);
+                vfx.Remove();
+            };
+            vfx.Initialize(false, movement);
+
+
         }
 
         IsSkillActivated = false;

@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.IO;
 using CookApps.Build;
 using UnityEditor;
@@ -49,3 +50,4 @@ public class PostprocessBuild : IPostprocessBuild
         }
     }
 }
+#endif

@@ -26,11 +26,32 @@ namespace CookApps.BattleSystem
             return false;
         }
 
+        /// <summary>
+        /// 스킬 사운드 이름을 반환합니다. (하위 호환성을 위해 유지)
+        /// 여러 버전의 사운드가 있는 경우 첫 번째만 반환합니다.
+        /// </summary>
+        /// <returns>스킬 사운드 이름</returns>
+        [Obsolete("Use GetSkillSoundResolver() instead for better support of multiple sound versions")]
         public string GetSoundFxName()
         {
-            string codeIdStr = codeInfo.CodeId.ToString();
-            string modifiedCodeIdStr = codeIdStr.Length > 1 ? codeIdStr.Substring(1) : "0";
-            return "snd_sfx_skill_" + modifiedCodeIdStr;
+            if (owner == null || owner.SpecCharacter == null)
+                return string.Empty;
+
+            var resolver = new SkillSoundResolver(owner.SpecCharacter.id);
+            return resolver.GetFirstAvailableSoundName() ?? string.Empty;
+        }
+
+        /// <summary>
+        /// 스킬 사운드 리졸버를 반환합니다.
+        /// 여러 버전의 사운드(01, 02 등)를 자동으로 감지하고 함께 재생할 수 있습니다.
+        /// </summary>
+        /// <returns>SkillSoundResolver 인스턴스</returns>
+        public SkillSoundResolver GetSkillSoundResolver()
+        {
+            if (owner == null || owner.SpecCharacter == null)
+                return null;
+
+            return new SkillSoundResolver(owner.SpecCharacter.id);
         }
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -307,7 +328,16 @@ namespace CookApps.BattleSystem
         {
             if (SoundManager.Instance.IsPlayingGacha) return;   // 가챠 실행중에는 사운드 off
 
-            SoundManager.Instance.PlaySFX(GetSoundFxName());
+            // 여러 버전의 스킬 사운드를 자동으로 감지하고 함께 재생 (최적화: 캐시된 배열 사용)
+            var resolver = GetSkillSoundResolver();
+            if (resolver != null)
+            {
+                var soundNames = resolver.GetCachedSoundNames();
+                if (soundNames != null && soundNames.Length > 0)
+                {
+                    SoundManager.Instance.PlaySkillSounds(soundNames);
+                }
+            }
         }
 
 

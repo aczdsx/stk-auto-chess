@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
@@ -16,6 +16,7 @@ public enum SoundBGM
     snd_bgm_chapter3,
     snd_bgm_chapter4,
     snd_bgm_chapter5,
+    snd_bgm_dgboss_01,
 }
 
 public enum SoundFX
@@ -66,12 +67,26 @@ public enum SoundFX
     snd_sfx_ingame_atkup,
     snd_sfx_ingame_spdup,
     snd_sfx_ingame_shield,
+    snd_sfx_ingame_buff,
     snd_sfx_ingame_debuff,
     snd_sfx_ingame_stun,
     snd_sfx_hit_critical1,
     snd_sfx_hit_fire,
     snd_sfx_hit_ice,
-
+    snd_sfx_ingame_casting01,
+    snd_sfx_ingame_heal01,
+    snd_sfx_ingame_cooldown,
+    snd_sfx_ingame_freeze,
+    snd_sfx_skill_job_striker_brave,
+    snd_sfx_skill_job_shooter_pierce,
+    snd_sfx_skill_job_esper_esp,
+    snd_sfx_synergy_ticker,
+    snd_sfx_synergy_shooter_ship,
+    snd_sfx_synergy_shooter_mine,
+    snd_sfx_synergy_shooter_emp,
+    snd_sfx_skill_commander_aegis,
+    snd_sfx_synergy_nova_spirit,
+    
 
     // Character Skill
     snd_sfx_skill_401011 = 401,
@@ -85,7 +100,9 @@ public enum SoundFX
     snd_sfx_skill_305011,
     snd_sfx_skill_405021,
     snd_sfx_skill_406011,
-    
+    snd_sfx_skill_a_3404_tile,
+
+
     // 시련
     snd_sfx_monster_204031_appear_01,
     snd_sfx_monster_204031_appear_02,
@@ -112,10 +129,10 @@ public class SoundManager : Singleton<SoundManager>
     // public
 
     public bool IsReady => this.isReady;
-    
+
     public float BGMVolume { get; set; } = 1.0f;
     public float SFXVolume { get; set; } = 1.0f;
-    
+
     public bool IsPlayingGacha { get; set; } = false;
 
     [SerializeField] private AudioMixer _mixer;
@@ -139,6 +156,48 @@ public class SoundManager : Singleton<SoundManager>
             return this.PlaySFXWithoutSilence(sfxString);
         else
             return this.PlaySFX(sfxString);
+    }
+
+    /// <summary>
+    /// 여러 스킬 사운드를 동시에 재생합니다.
+    /// 주로 스킬 사운드의 여러 버전(01, 02 등)을 함께 재생할 때 사용합니다.
+    /// </summary>
+    /// <param name="soundNames">재생할 사운드 이름 배열 또는 리스트</param>
+    /// <param name="forceInSilence">침묵 모드에서도 재생할지 여부</param>
+    /// <returns>재생된 첫 번째 AudioObject (여러 개가 재생되면 첫 번째만 반환)</returns>
+    public ClockStone.AudioObject PlaySkillSounds(string[] soundNames, bool forceInSilence = false)
+    {
+        if (soundNames == null || soundNames.Length == 0)
+            return null;
+
+        ClockStone.AudioObject firstAudioObject = null;
+        for (int i = 0; i < soundNames.Length; i++)
+        {
+            var audioObj = PlaySFX(soundNames[i], forceInSilence);
+            if (firstAudioObject == null)
+                firstAudioObject = audioObj;
+        }
+
+        return firstAudioObject;
+    }
+
+    /// <summary>
+    /// 여러 스킬 사운드를 동시에 재생합니다. (List 오버로드)
+    /// </summary>
+    public ClockStone.AudioObject PlaySkillSounds(System.Collections.Generic.List<string> soundNames, bool forceInSilence = false)
+    {
+        if (soundNames == null || soundNames.Count == 0)
+            return null;
+
+        ClockStone.AudioObject firstAudioObject = null;
+        for (int i = 0; i < soundNames.Count; i++)
+        {
+            var audioObj = PlaySFX(soundNames[i], forceInSilence);
+            if (firstAudioObject == null)
+                firstAudioObject = audioObj;
+        }
+
+        return firstAudioObject;
     }
 
     //public ClockStone.AudioObject PlayVOX(SoundVOX vox, bool forceInSilence = false)
@@ -262,11 +321,11 @@ public class SoundManager : Singleton<SoundManager>
     public void SetBGMVolume(float v)
     {
         BGMVolume = v;
-        
+
         Preference.SavePreference(Pref.BGM_V, BGMVolume);
-        
+
         AudioController.SetCategoryVolume("BGM", BGMVolume);
-        
+
         // int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
         // if (this.isReady)
         //     _mixer.SetFloat("BGM", volume);
@@ -277,11 +336,11 @@ public class SoundManager : Singleton<SoundManager>
     public void SetSFXVolume(float v)
     {
         SFXVolume = v;
-        
+
         Preference.SavePreference(Pref.SFX_V, SFXVolume);
-        
+
         AudioController.SetCategoryVolume("SFX", SFXVolume);
-        
+
         // int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
         // if (this.isReady)
         // {
@@ -313,7 +372,7 @@ public class SoundManager : Singleton<SoundManager>
     public void SetVOXUIVolume(float v)
     {
         if (!_mixer) return;
-        
+
         int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
         if (this.isReady)
             _mixer.SetFloat("VOX_UI", volume);

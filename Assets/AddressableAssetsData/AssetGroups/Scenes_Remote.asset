@@ -18,32 +18,38 @@ MonoBehaviour:
   - m_GUID: 29c1e210896cb0b4bac47941444ed814
     m_Address: Assets/_Project/Addressables/Remote/0. Scenes/Naninovel.unity
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 61e7bd672efcc4045915939216d08afd
     m_Address: Assets/_Project/Addressables/Remote/0. Scenes/Lobby.unity
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8029178524cba4055adeed793914bebd
     m_Address: Assets/_Project/Addressables/Remote/0. Scenes/InGame.unity
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 82d3b55c0d6944acd81604cfdc57e37e
     m_Address: Assets/_Project/Addressables/Remote/0. Scenes/SceneLoading.unity
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b8e2c1da733c34c5dbb04fe380fccfff
     m_Address: Assets/_Project/Addressables/Remote/0. Scenes/BattleReady.unity
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c1377e7f814e64cd2b95c5a399087bdd
     m_Address: Assets/_Project/Addressables/Remote/0. Scenes/InGameTest.unity
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}

@@ -20,8 +20,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 49c355717bcad439393061beaaee7a5a
+    m_Address: BuiltIn/Shaders
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c6ec39c0c769945dc9623dc25446a47e
     m_Address: Assets/_Project/Addressables/BuiltIn/Videos/WhileDownload.mp4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f49788e5428ef304c9fdc63607fa6ecb
+    m_Address: Sounds
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

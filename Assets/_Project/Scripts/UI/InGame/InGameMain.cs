@@ -137,7 +137,6 @@ namespace CookApps.AutoBattler
         [SerializeField] private RawImage _vignetteImage;
 
         [SerializeField] private SkillTooltipPopup _skillTooltipPopup;
-        [SerializeField] private VignetteSO _vignetteData;
 
         [SerializeField] private UIObjectMover _uiObjectMover;
         [SerializeField] private AssetReferenceGameObject _commanderManagerPrefab;
@@ -245,8 +244,9 @@ namespace CookApps.AutoBattler
 
         public void SetVignette(int id)
         {
-            var vignette = _vignetteData.stageColors.FirstOrDefault(x => x.InGameType == _inGameType && x.ID == id);
-            _vignetteImage.material = vignette.Material;
+            var data = SoDataProvider.Instance.Get<VignetteSO>();
+            var vignette = data.stageColors.FirstOrDefault(x => x.InGameType == _inGameType && x.ID == id);
+            _vignetteImage.material = vignette.Material.Asset as Material;
             _vignetteImage.material.SetColor("_DotColor", vignette.Color);
         }
 

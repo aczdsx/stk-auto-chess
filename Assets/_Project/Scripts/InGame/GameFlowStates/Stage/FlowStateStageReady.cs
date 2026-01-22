@@ -72,7 +72,6 @@ public class FlowStateStageReady : StateReadyBase
         }
         else
         {
-
             // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
             ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
         }
@@ -151,45 +150,13 @@ public class FlowStateStageReady : StateReadyBase
 
         SpawnRuleTiles();
 
-        if (_specStage.chapter_id == 2 && _specStage.stage_number == 5)
-        {
-            var startTile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(2, 2));
-            var endTile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(3, 2));
-            if (startTile.OccupiedCharacter != null && endTile.OccupiedCharacter == null)
-                InGameMain.GetInGameMain().SetObjectMover(startTile, endTile);
-        }
-
-        if (_specStage.chapter_id == 2)
-        {
-            if (_specStage.stage_number == 1)
-            {
-                InGameMain.GetInGameMain().SetAlertBottomCharacter(2301);//멘샤
-            }
-            else if (_specStage.stage_number == 6)
-            {
-                // LINQ 제거: 직접 루프로 특정 캐릭터 제거
-                for (int i = battleDeckList.Count - 1; i >= 0; i--)
-                {
-                    var characterData = ServerDataManager.Instance.Character.GetCharacter(battleDeckList[i].CharacterId);
-                    if (characterData != null && characterData.CharacterId == 2102)
-                    {
-                        battleDeckList.RemoveAt(i);
-                    }
-                }
-                InGameMain.GetInGameMain().SetAlertBottomCharacter(2501);//엘리스
-            }
-            else if (_specStage.stage_number == 11)
-            {
-                InGameMain.GetInGameMain().SetAlertBottomCharacter(3505);//엔키
-            }
-        }
-        else if (_specStage.chapter_id == 3)
-        {
-            if (_specStage.stage_number == 6)
-            {
-                InGameMain.GetInGameMain().SetAlertBottomCharacter(2202);//시이나
-            }
-        }
+        // if (_specStage.chapter_id == 2 && _specStage.stage_number == 5)
+        // {
+        //     var startTile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(2, 2));
+        //     var endTile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(3, 2));
+        //     if (startTile.OccupiedCharacter != null && endTile.OccupiedCharacter == null)
+        //         InGameMain.GetInGameMain().SetObjectMover(startTile, endTile);
+        // }
     }
 
     private void CheckOverlapCharacter(List<DeckCharacterPlacement> battleDeckList)

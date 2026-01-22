@@ -173,6 +173,7 @@ namespace CookApps.BattleSystem
 
             if (vfxNameType != InGameVfxNameType.NONE)
             {
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_casting01);
                 var effect = InGameVfxPool.Get(vfxNameType, InGameObjectManager.Instance.Playground);
                 addWaitingInGameVfxs.Enqueue(effect);
                 effect.CachedTr.position = worldPosition;

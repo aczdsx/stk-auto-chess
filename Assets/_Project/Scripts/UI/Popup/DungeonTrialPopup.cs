@@ -78,8 +78,6 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
-
-            // Default to current order from server, or 1 if 0 (not started)
             var currentOrder = ServerDataManager.Instance.TrialDungeon.Order;
             if (currentOrder == 0) currentOrder = 1;
 
@@ -102,7 +100,7 @@ namespace CookApps.AutoBattler
 
             InitDungeonPopup();
         }
-
+        
         private void OnServerDataChanged()
         {
             // If the popup is open, we might want to refresh. 
@@ -298,27 +296,27 @@ namespace CookApps.AutoBattler
 
         private async UniTask OnClickEnterDungeonButtonAsync()
         {
-            // // Check Star Condition
-            // if (ServerDataManager.Instance.Battle.TotalStarCount < _specDungeonTrialData.need_star)
-            // {
-            //     ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_CONDITION_STAR_LACK");
-            //     return;
-            // }
-            //
-            // var serverOrder = ServerDataManager.Instance.TrialDungeon.Order;
-            // uint effectiveServerOrder = serverOrder == 0 ? 1 : serverOrder;
-            //
-            // if (effectiveServerOrder > _specDungeonTrialData.order)
-            // {
-            //     ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_ALREADY_CLEAR");
-            //     return;
-            // }
-            //
-            // if (effectiveServerOrder < _specDungeonTrialData.order)
-            // {
-            //     ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_NEED_BEFORE_STAGE");
-            //     return;
-            // }
+            //Check Star Condition
+            if (ServerDataManager.Instance.Battle.TotalStarCount < _specDungeonTrialData.need_star)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_CONDITION_STAR_LACK");
+                return;
+            }
+
+            var serverOrder = ServerDataManager.Instance.TrialDungeon.Order;
+            uint effectiveServerOrder = serverOrder == 0 ? 1 : serverOrder;
+
+            if (effectiveServerOrder > _specDungeonTrialData.order)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_ALREADY_CLEAR");
+                return;
+            }
+            
+            if (effectiveServerOrder < _specDungeonTrialData.order)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("MSG_TRIAL_ENTRANCE_NEED_BEFORE_STAGE");
+                return;
+            }
 
             // Request Enter to Server
             var response = await NetManager.Instance.TrialDungeon.EnterAsync();

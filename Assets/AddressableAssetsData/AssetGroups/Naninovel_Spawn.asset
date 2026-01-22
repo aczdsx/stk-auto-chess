@@ -20,138 +20,196 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 03ee99e023fd941f991fe6058db086b0
+    m_Address: Naninovel/Spawn/CutScene/nickname
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 117a427f6e5411e4b80528efd494ca36
     m_Address: Naninovel/Spawn/CutScene/cbg_01_02
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1f39d8d645f7cea44a78b0fcbfec20a7
     m_Address: Naninovel/Spawn/CutScene/cbg_00_00
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2185b6ba9f2040c40956701e3e92a519
     m_Address: Naninovel/Spawn/CutScene/cbg_00_05
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 21eddaae513d8424a96b3dc3892d6766
+    m_Address: Naninovel/Spawn/Etc/qestion
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2420046e7b56ba147b3f4bd76caa7444
     m_Address: Naninovel/Spawn/CutScene/cbg_02_02
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3053816ab114c294aaff2d3974fe448f
     m_Address: Naninovel/Spawn/Etc/NicknamePopup
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 554d7184c30a8604b9f601cc987e877a
+    m_Address: Naninovel/Spawn/Etc/exclamation
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5ec29d4051f68874daa1d8300f807816
     m_Address: Naninovel/Spawn/CutScene/cbg_01_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 64fd4990d141da64bb1806dfa3078d45
     m_Address: Naninovel/Spawn/CutScene/cbg_00_04
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6852d6d6f46f502478cc0440e69247ab
+    m_Address: Naninovel/Spawn/Etc/despair
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6b5c3aa62227e284797ac353ac5bfd03
     m_Address: Naninovel/Spawn/CutScene/cbg_00_02
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 78595d4b1beb8f2439620fd5c2392033
     m_Address: Naninovel/Spawn/CutScene/cbg_00_06
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9425b52a5db1e8d42b3de8db8b084682
     m_Address: Naninovel/Spawn/CutScene/cbg_03_02
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9953061ab9b0def42b31123bdfe947aa
     m_Address: Naninovel/Spawn/CutScene/cbg_02_04
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9dd622bf98f25c34791590c834c4c48e
     m_Address: Naninovel/Spawn/CutScene/cbg_02_03
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a6232b9e783ee574e8310c411c08d15f
+    m_Address: Naninovel/Spawn/CutScene/cbg_01_05
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a716cb839f22ba347859b1929273cd80
     m_Address: Naninovel/Spawn/CutScene/cbg_03_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a7849c4742558db449e84853bb474d44
-    m_Address: Naninovel/Spawn/Etc/NicknamePopup
+  - m_GUID: c26962c9ded0c1f419adb7ac90fd1112
+    m_Address: Naninovel/Spawn/Etc/frustrating
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d8ef5d430888d1b48b4705581c7405ac
     m_Address: Naninovel/Spawn/CutScene/cbg_00_03
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: da48c2d500b152843a29a12764e0d697
     m_Address: Naninovel/Spawn/CutScene/cbg_00_02_1
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: daceea2c9bcbfd54192d4cb457d748d6
     m_Address: Naninovel/Spawn/CutScene/cbg_02_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e17a0ce4d2ceef347bd8045201001c1b
     m_Address: Naninovel/Spawn/CutScene/cbg_04_02
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e47c519340396e649b8d3b6f29319758
     m_Address: Naninovel/Spawn/CutScene/cbg_00_07
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e6413063085d55c409852a26da97f73c
     m_Address: Naninovel/Spawn/CutScene/cbg_02_05
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f08be00b6bdc70b42b5a13780b792956
     m_Address: Naninovel/Spawn/CutScene/cbg_00_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f5905f415d8c2764a9ab7b0435151c00
     m_Address: Naninovel/Spawn/CutScene/cbg_02_00
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}

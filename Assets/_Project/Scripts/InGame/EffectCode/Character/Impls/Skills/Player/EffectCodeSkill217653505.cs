@@ -98,7 +98,6 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
     public override void OnSkillExecute(int executeIndex, int totalLength)
     {
         base.OnSkillExecute(executeIndex, totalLength);
-
         var ownerTile = owner.CurrentTile;
         var waveStartY = Math.Clamp(ownerTile.Y - 2, 0, InGameObjectManager.Instance.InGameGrid.Height - 1);//엔키의 두칸뒤에서 시작한다.
 

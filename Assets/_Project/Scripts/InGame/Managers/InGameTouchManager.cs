@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -68,8 +68,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                     if (IsPointerOverUIObject())
                         isPointerOverUI = true;
 
-                    if (_selectedCharacterController == null)
-                        CameraMove(isPointerOverUI);
+                    // if (_selectedCharacterController == null)
+                    //     CameraMove(isPointerOverUI);
                 }
             }
         }
@@ -110,10 +110,10 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         if (_touchLocked) return;
         touchPosition.z = 0;
-        
-        if(isPointerOverUI)
+
+        if (isPointerOverUI)
         {
-            if(_selectedCharacterController != null)
+            if (_selectedCharacterController != null)
                 CancelMoveCharacter();
             return;
         }
@@ -745,19 +745,17 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             var ecc = _selectedCharacterController.GetEffectCodeContainer();
             if (ecc != null && ecc.EffectCodes is not null)
             {
-                
+
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnCharacterDraggingEnd);
                 EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnCharacterDraggingEndLambda);
             }
-
-            _isDragFromUI = false;  // 플래그 초기화
 
             // 튜토리얼 캐릭터 배치 완료 알림 (타일이 변경되었을 때만)
             bool tileChanged = _selectedFirstTileView != null && _selectedTileView != null &&
                                _selectedFirstTileView.ID != _selectedTileView.ID;
             int placedCharacterId = _selectedCharacterController.CharacterId;
 
-            _selectedCharacterController.SetSelectedCharacter(false);
+            _selectedCharacterController.SetSelectedCharacter(false, isDropFx: _isDragFromUI && tileChanged);
             _selectedTileView.SetActiveObj(false);
             _selectedFirstTileID = _selectedFirstTileView.ID;
             InActiveAttackTile();
@@ -767,6 +765,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameMain.GetInGameMain().UnSetFocusSlotUI(isDropFx);
             InGameMain.GetInGameMain().CloseSkillTooltip();
             _isMoveEndAnimation = false;
+            _isDragFromUI = false;  // 플래그 초기화
 
             // 튜토리얼 체크 스킵 (UI로 반환하는 경우)
             if (skipTutorialCheck) return;

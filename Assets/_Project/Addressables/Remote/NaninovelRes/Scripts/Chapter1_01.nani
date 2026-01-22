@@ -3,7 +3,7 @@
 ; @wait 0.8
 ; @despawn cbg_04_01
 
-
+@bgm snd_bgm_dialog_despair01
 
 @wait 2.0
 

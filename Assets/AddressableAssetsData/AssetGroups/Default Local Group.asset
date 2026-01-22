@@ -51,18 +51,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 83987405fb00104499ee6bd75530b4fc
-    m_Address: VFX/Prefab/Prefab_Dungeon_Boss_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 986a398388cfe448cb63b561bd9e7cb2
-    m_Address: TestConfig/InGameTestConfig.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a8415e5b1e5758844ab1208786bbeb66
     m_Address: Assets/_Project/Addressables/Remote/SD/CutScene/97550013
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac805a6aacd2b644dba2618dd3298ba2
+    m_Address: Assets/_Project/Addressables/Remote/Materials/UI/UI_Vignette_Ingame.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb66fc5cd88444d44a2942a2244f553a
+    m_Address: Assets/_Project/Addressables/Remote/Materials/UI/UI_Vignette_SimulationOnly.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
