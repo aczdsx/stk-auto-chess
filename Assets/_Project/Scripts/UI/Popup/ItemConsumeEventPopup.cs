@@ -11,37 +11,48 @@ namespace CookApps.AutoBattler
     public class ItemConsumeEventPopup : UILayerPopupBase
     {
         [Header("Common")]
-        [SerializeField] private CAButton _closeButton;
-        [SerializeField] private CAButton _dimCloseButton;
-        [SerializeField] private TextMeshProUGUI _eventTitleText;
-        [SerializeField] private TextMeshProUGUI _eventDescText;
-        [SerializeField] private TextMeshProUGUI _currentConsumeAmountText;
+        [SerializeField] private CAButton closeButton;
+        [SerializeField] private CAButton dimCloseButton;
+        [SerializeField] private TextMeshProUGUI eventTitleText;
+        [SerializeField] private TextMeshProUGUI eventDescText;
+        [SerializeField] private TextMeshProUGUI currentConsumeAmountText;
 
         [Header("Event Slot")]
-        [SerializeField] private ScrollRect _eventSlotScrollRect;
-        [SerializeField] private GameObject _eventSlotObject;
+        [SerializeField] private ScrollRect eventSlotScrollRect;
+        [SerializeField] private GameObject eventSlotObject;
 
-        private List<ConsumeEventSlot> _consumeEventSlotList = new List<ConsumeEventSlot>();
+        private List<ConsumeEventSlot> consumeEventSlotList = new List<ConsumeEventSlot>();
 
-        private EventData _currentEventData;
-
-        private EventInfo _specEventData;
-        private List<EventCondition> _specEventConditionDataList;
+        private uint eventId;
+        private EventData currentEventData;
+        private EventInfo specEventData;
 
         protected override void Awake()
         {
-            _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
-            _dimCloseButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            base.Awake();
+            closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            dimCloseButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+
+            // 이벤트 데이터 갱신 구독
+            ServerDataManager.Instance.Event.OnEventUpdated
+                .Subscribe(this, (updatedEventId, self) => self.OnEventDataUpdated(updatedEventId))
+                .AddTo(this);
         }
 
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
 
-            _currentEventData = param as EventData;
+            eventId = (uint)param;
+            currentEventData = ServerDataManager.Instance.Event.GetEvent(eventId);
 
-            _specEventData = SpecDataManager.Instance.GetSpecEventData((int)_currentEventData.EventId);
-            _specEventConditionDataList = SpecDataManager.Instance.GetSpecEventConditionList((int)_currentEventData.EventId);
+            if (currentEventData == null)
+            {
+                Debug.LogWarning($"[ItemConsumeEventPopup] EventData not found for eventId: {eventId}");
+                return;
+            }
+
+            specEventData = SpecDataManager.Instance.GetSpecEventData((int)eventId);
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
@@ -49,30 +60,55 @@ namespace CookApps.AutoBattler
             SetEventSlotList();
         }
 
+        private void OnEventDataUpdated(uint updatedEventId)
+        {
+            if (updatedEventId != eventId) return;
+
+            currentEventData = ServerDataManager.Instance.Event.GetEvent(eventId);
+            if (currentEventData == null) return;
+
+            SetEventPopup();
+            RefreshSlots();
+        }
+
         private void SetEventPopup()
         {
-            _currentConsumeAmountText.text = $"x{_currentEventData.CurrentCount}";
-            _eventTitleText.text = LanguageManager.Instance.GetDefaultText(_specEventData.name_token);
-            _eventDescText.text = LanguageManager.Instance.GetDefaultText(_specEventData.desc_token);
+            currentConsumeAmountText.text = $"x{currentEventData.CurrentCount}";
+            eventTitleText.text = LanguageManager.Instance.GetDefaultText(specEventData.name_token);
+            eventDescText.text = LanguageManager.Instance.GetDefaultText(specEventData.desc_token);
         }
 
         private void SetEventSlotList()
         {
-            if (_currentEventData == null) return;
+            if (currentEventData == null) return;
 
             ClearPopup();
 
-            for (int i = 0; i < _currentEventData.Conditions.Count; i++)
+            for (int i = 0; i < currentEventData.Conditions.Count; i++)
             {
-                var eventConditionData = _currentEventData.Conditions[i];
-                GameObject newEventSlotObject = Instantiate(_eventSlotObject, _eventSlotScrollRect.content);
-                ConsumeEventSlot newEventSlot = newEventSlotObject.GetComponent<ConsumeEventSlot>();
-                newEventSlot.SetEventSlot(_currentEventData, eventConditionData);
+                var eventConditionData = currentEventData.Conditions[i];
+                var newEventSlotObject = Instantiate(eventSlotObject, eventSlotScrollRect.content);
+                var newEventSlot = newEventSlotObject.GetComponent<ConsumeEventSlot>();
+                newEventSlot.SetEventSlot(currentEventData, eventConditionData);
 
-                _consumeEventSlotList.Add(newEventSlot);
+                consumeEventSlotList.Add(newEventSlot);
             }
 
-            _eventSlotScrollRect.horizontalNormalizedPosition = 0;
+            eventSlotScrollRect.horizontalNormalizedPosition = 0;
+        }
+
+        private void RefreshSlots()
+        {
+            if (currentEventData == null) return;
+
+            for (int i = 0; i < consumeEventSlotList.Count; i++)
+            {
+                var slot = consumeEventSlotList[i];
+                if (i < currentEventData.Conditions.Count)
+                {
+                    slot.SetEventSlot(currentEventData, currentEventData.Conditions[i]);
+                }
+            }
         }
 
         private void OnClickCloseButton()
@@ -82,9 +118,9 @@ namespace CookApps.AutoBattler
 
         private void ClearPopup()
         {
-            BMUtil.RemoveChildObjects(_eventSlotScrollRect.content);
+            BMUtil.RemoveChildObjects(eventSlotScrollRect.content);
 
-            _consumeEventSlotList.Clear();
+            consumeEventSlotList.Clear();
         }
     }
 }
