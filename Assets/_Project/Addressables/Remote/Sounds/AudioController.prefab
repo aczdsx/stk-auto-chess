@@ -222,46 +222,6 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_bgm_splash01
-      Loop: 1
-      loopSequenceCount: 0
-      loopSequenceOverlap: 0
-      loopSequenceRandomDelay: 0
-      loopSequenceRandomPitch: 0
-      loopSequenceRandomVolume: 0
-      DestroyOnLoad: 1
-      Volume: 1
-      SubItemPickMode: 2
-      MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 0
-      Delay: 0
-      PitchShift: 0
-      RandomVolume: 0
-      RandomPitch: 0
-      RandomDelay: 0
-      overrideAudioSourceSettings: 0
-      audioSource_MinDistance: 1
-      audioSource_MaxDistance: 500
-      spatialBlend: 0
-      subItems:
-      - SubItemType: 0
-        Probability: 1
-        DisableOtherSubitems: 0
-        ItemModeAudioID: 
-        Clip: {fileID: 8300000, guid: 1cd70d02d33c56b40895e681fd61dbf1, type: 3}
-        Volume: 1
-        PitchShift: 0
-        Pan2D: 0
-        Delay: 0
-        RandomPitch: 0
-        RandomVolume: 0
-        RandomDelay: 0
-        ClipStopTime: 0
-        ClipStartTime: 0
-        FadeIn: 0
-        FadeOut: 0
-        RandomStartPosition: 0
-        individualSettings: []
     - Name: snd_bgm_chapter4
       Loop: 1
       loopSequenceCount: 0
@@ -2954,46 +2914,6 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_ui_btn_touch
-      Loop: 0
-      loopSequenceCount: 0
-      loopSequenceOverlap: 0
-      loopSequenceRandomDelay: 0
-      loopSequenceRandomPitch: 0
-      loopSequenceRandomVolume: 0
-      DestroyOnLoad: 1
-      Volume: 0.9
-      SubItemPickMode: 2
-      MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 1
-      Delay: 0
-      PitchShift: 0
-      RandomVolume: 0
-      RandomPitch: 0
-      RandomDelay: 0
-      overrideAudioSourceSettings: 0
-      audioSource_MinDistance: 1
-      audioSource_MaxDistance: 500
-      spatialBlend: 0
-      subItems:
-      - SubItemType: 0
-        Probability: 1
-        DisableOtherSubitems: 0
-        ItemModeAudioID: 
-        Clip: {fileID: 8300000, guid: a0db459e37c5151428869c9e579790b0, type: 3}
-        Volume: 1
-        PitchShift: 0
-        Pan2D: 0
-        Delay: 0
-        RandomPitch: 0
-        RandomVolume: 0
-        RandomDelay: 0
-        ClipStopTime: 0
-        ClipStartTime: 0
-        FadeIn: 0
-        FadeOut: 0
-        RandomStartPosition: 0
-        individualSettings: []
     - Name: snd_sfx_ui_char_level_up
       Loop: 0
       loopSequenceCount: 0
@@ -3261,46 +3181,6 @@ MonoBehaviour:
         DisableOtherSubitems: 0
         ItemModeAudioID: 
         Clip: {fileID: 8300000, guid: 744b7af6ef57f7a46b31de8b9e5d0146, type: 3}
-        Volume: 1
-        PitchShift: 0
-        Pan2D: 0
-        Delay: 0
-        RandomPitch: 0
-        RandomVolume: 0
-        RandomDelay: 0
-        ClipStopTime: 0
-        ClipStartTime: 0
-        FadeIn: 0
-        FadeOut: 0
-        RandomStartPosition: 0
-        individualSettings: []
-    - Name: snd_sfx_ui_btn_splash
-      Loop: 0
-      loopSequenceCount: 0
-      loopSequenceOverlap: 0
-      loopSequenceRandomDelay: 0
-      loopSequenceRandomPitch: 0
-      loopSequenceRandomVolume: 0
-      DestroyOnLoad: 0
-      Volume: 1
-      SubItemPickMode: 2
-      MinTimeBetweenPlayCalls: 0.1
-      MaxInstanceCount: 1
-      Delay: 0
-      PitchShift: 0
-      RandomVolume: 0
-      RandomPitch: 0
-      RandomDelay: 0
-      overrideAudioSourceSettings: 0
-      audioSource_MinDistance: 1
-      audioSource_MaxDistance: 500
-      spatialBlend: 0
-      subItems:
-      - SubItemType: 0
-        Probability: 1
-        DisableOtherSubitems: 0
-        ItemModeAudioID: 
-        Clip: {fileID: 8300000, guid: 04de820d4d83b4d45bc331ea90c4a65b, type: 3}
         Volume: 1
         PitchShift: 0
         Pan2D: 0
@@ -5798,8 +5678,8 @@ MonoBehaviour:
   _audioDisabled: 0
   _volume: 1
   _currentInspectorSelection:
-    currentCategoryIndex: 1
-    currentItemIndex: 34
+    currentCategoryIndex: 2
+    currentItemIndex: 16
     currentSubitemIndex: 0
     currentPlaylistEntryIndex: 0
     currentPlaylistIndex: 0
