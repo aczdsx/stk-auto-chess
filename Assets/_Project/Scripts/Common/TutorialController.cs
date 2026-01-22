@@ -37,6 +37,10 @@ public class TutorialController : MonoBehaviour
     [SerializeField] private Canvas _tutorialCanvas;
     [SerializeField] private GameObject _dragObj;
 
+    [Header("Tutorial Toast Pop")]
+    [SerializeField] private GameObject _tutorialToastObj;
+    [SerializeField] private TextMeshProUGUI _tutoiralText;
+    [SerializeField] private Animator _tutorialToastAnimator;
     public Material _maskMaterial;
 
     private List<TutorialDialogue> _currentSpecTutorialList;
@@ -130,7 +134,10 @@ public class TutorialController : MonoBehaviour
             CanvasRectTransform = _canvasRectTransform,
             MaskMaterial = _maskMaterial,
             DragObj = _dragObj,
-            DimmedImage = _dimmedImage
+            DimmedImage = _dimmedImage,
+            TutorialToastObj = _tutorialToastObj,
+            TutorialToastText = _tutoiralText,
+            TutorialToastAnimator = _tutorialToastAnimator
         };
     }
 
@@ -267,7 +274,7 @@ public class TutorialController : MonoBehaviour
     }
 
     /// <summary>
-    /// 토스트 메시지 완료 시 호출되는 콜백
+    /// 토스트 메시지 완료 시 호출되는 콜백 (ToastManager용 - 레거시)
     /// </summary>
     private void OnToastCompleted()
     {
@@ -277,6 +284,7 @@ public class TutorialController : MonoBehaviour
         // 다음 튜토리얼로 진행
         ProceedToNext();
     }
+
 
     /// <summary>
     /// UI 캐릭터 배치 완료 시 호출되는 콜백

@@ -15,41 +15,229 @@ MonoBehaviour:
   m_GroupName: Naninovel_BGM
   m_GUID: b416634ab52844cd4b9382234d28de42
   m_SerializeEntries:
+  - m_GUID: 0639d93060c34c847bb7d4208a97ee40
+    m_Address: Naninovel/Audio/BGM/snd_bgm_splash01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 18a0ddb8788a48f438a3cc8ec6750aff
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_farewell01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 18ce48a7909ce764d96c8e985d7850ee
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_love01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a77c8b2edabe3f43bfebd43a077d869
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_tricky01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 26d4d1122b4fac34ab3666aa82f8b6f6
     m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_cozy_001
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2ac8f314d6161d74cbabda0bf4298451
+    m_Address: Naninovel/Audio/BGM/snd_bgm_vessel01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b6b36ad91388a345a977e27a72df0d2
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_comic01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4553088388b96eb428642319b52df86d
+    m_Address: Naninovel/Audio/BGM/snd_bgm_command01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4b3507c3aac5954429d1f92dd707eab7
+    m_Address: Naninovel/Audio/BGM/snd_bgm_chapter04
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4fae4fcfe7ea86b4d96027fdd87816a2
     m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_sad_001
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 513e6c1a242b855449459e083ef30a50
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_calm01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5db2c4cf40483ca429092e60dd66706d
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_dumb01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 695d9ecd9605bd048bfc612cf0770f30
     m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_mad_002
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7da09b79b4402b4459a9a4b1f6cb6ab7
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_sad01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e34e93ddb5913443931bd09919a7c53
+    m_Address: Naninovel/Audio/BGM/snd_bgm_lobby01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 93b5a4656fd39b94fa9b92b3e6d8e2ff
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_tension01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96b64c19e62b2514da10618123397fb3
+    m_Address: Naninovel/Audio/BGM/snd_bgm_splash01_bak
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9aaec2096f5177e4ba17729c9bedda98
+    m_Address: Naninovel/Audio/BGM/snd_bgm_chapter01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9dce942294325d1498c9dadcbc5d131f
     m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_happy_001
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a055098d0d2b0f648b687d11ecc8e046
     m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_happy_002
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: abc2f2a934b6f744ba0e914c598a614e
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dgboss_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac928c33a12e143458d98d80129feae5
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_despair01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ade07e67836ff8649b0ad76632a73c64
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_normal02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0541a95bc53a68479ddea5bf5a4e4b2
+    m_Address: Naninovel/Audio/BGM/snd_bgm_pvp01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3cc2039bba3d354eaf3ea6e9e962fc8
+    m_Address: Naninovel/Audio/BGM/snd_bgm_shop01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ba34b129e8e92ac4f9aee51e4253d4c6
+    m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_normal01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd6ec471840f63c4491227d44746763c
+    m_Address: Naninovel/Audio/BGM/snd_bgm_chapter03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c20fb03c08eae934f8f33bef96707835
+    m_Address: Naninovel/Audio/BGM/snd_bgm_chapter02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb3dd0014bcad7248a0bc4057850ee58
+    m_Address: Naninovel/Audio/BGM/snd_bgm_stage01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cfce8ae1af125084bace55296053e940
     m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_mad_001
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0b573d743b8abc46ba8bd78ab922d0b
+    m_Address: Naninovel/Audio/BGM/snd_bgm_chapter05
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: de49677baeceb8646b63c73a1dc1faed
+    m_Address: Naninovel/Audio/BGM/snd_bgm_chapter00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}

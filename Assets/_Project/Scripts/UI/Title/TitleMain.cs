@@ -147,11 +147,8 @@ namespace CookApps.AutoBattler
 
                     if (unclearedStage != null)
                     {
-                        SceneTransition.Create<SceneTransition_FadeInOut>();
-                        await SceneTransition.FadeInAsync();
-
                         var inGameParams = new InGameMainParams(InGameType.STAGE, new InGameMainStateStage(), unclearedStage.stage_id);
-                        SceneLoading.GoToNextScene("InGame", inGameParams);
+                        await GoToSceneWithNicknameCheckAsync("InGame", inGameParams);
                         return;
                     }
                 }
@@ -159,13 +156,9 @@ namespace CookApps.AutoBattler
 
             // 3. 1챕터 모두 클리어 → 로비로 진입
             {
-                SceneTransition.Create<SceneTransition_FadeInOut>();
-                await SceneTransition.FadeInAsync();
-
                 var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
                 var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
-                SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
-
+                await GoToSceneWithNicknameCheckAsync("Lobby", specStageData.chapter_id);
                 return;
             }
         }
@@ -182,6 +175,32 @@ namespace CookApps.AutoBattler
             await LoginManager.Instance.LoginGuest();
             SceneUILayerManager.Instance.PopUILayer(popup);
             OnClickTouchStartAsync().Forget();
+        }
+
+        /// <summary>
+        /// 닉네임이 없으면 Chapter0_04 나니노벨 재생 후 씬 이동
+        /// 닉네임이 있으면 바로 씬 이동
+        /// </summary>
+        private async UniTask GoToSceneWithNicknameCheckAsync(string sceneName, object param)
+        {
+            var nickname = ServerDataManager.Instance.PlayerData?.Nickname;
+
+            if (string.IsNullOrEmpty(nickname))
+            {
+                // 닉네임 없음 → Chapter0_04 나니노벨 재생 후 씬 이동
+                SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+                await SceneTransition.FadeInAsync();
+
+                await SceneUILayerManager.Instance.PushUILayerAsync<NaninovelMain>(
+                    ("Chapter0_04", (System.Action)(() => SceneLoading.GoToNextScene(sceneName, param)))
+                );
+                return;
+            }
+
+            // 닉네임 있음 → 바로 씬 이동
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            await SceneTransition.FadeInAsync();
+            SceneLoading.GoToNextScene(sceneName, param);
         }
 
         private async UniTask ConnectAppsflyer()

@@ -18,11 +18,11 @@ public class FlowStateTrialDungeonClear : StateBase
     {
         var _mvpCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
 
-        // 서버에 시련 던전 클리어 결과 전송
         var resp = await NetManager.Instance.TrialDungeon.ClearAsync(InGameManager.Instance.BattleSessionId, true);
         InGameManager.Instance.EndInGame();
 
-        // 서버 응답 후 결과 팝업 표시
+        await NetManager.Instance.TrialDungeon.GetAsync(); // 데이터 갱신 필요해서 추가
+        
         var param = new InGameDungeonTrialResultPopupParam(true, _mvpCharacterData, resp.Rewards);
         SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonTrialResultPopup>(param).Forget();
     }

@@ -68,6 +68,7 @@ namespace CookApps.BattleSystem
         {
             //비행기 출발
             var jetPlaneVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_jet_01, JetPlanePosition);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_shooter_ship);
             jetPlaneVfx.Initialize(false);
             if (jetPlaneVfx is InGameVfxWithAnimation)
             {
@@ -134,6 +135,7 @@ namespace CookApps.BattleSystem
 
                     if (target != null && target.IsAlive && target.CurrentTile != null)
                     {
+                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_shooter_mine);
                         // 폭발 VFX
                         InGameVfxManager.Instance.AddInGameVfx(ExplosionVfxEnum,
                             target.CurrentTile.View.CachedTr.position);

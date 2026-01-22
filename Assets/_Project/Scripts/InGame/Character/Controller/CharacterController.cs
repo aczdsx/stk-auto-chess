@@ -478,13 +478,14 @@ namespace CookApps.BattleSystem
         }
 
 
-        public void SetSelectedCharacter(bool isSetSelected)
+        public void SetSelectedCharacter(bool isSetSelected, bool isDropFx = false)
         {
             if (isSetSelected)
                 SelectedOffSet += Vector3.up * 0.3f;
             else
             {
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_area_landing, CurrentTile.View.CachedTr.position);
+                if (isDropFx)
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_area_landing, CurrentTile.View.CachedTr.position);
                 SelectedOffSet -= Vector3.up * 0.3f;
             }
             if (_view == null)

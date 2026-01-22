@@ -123,8 +123,9 @@ namespace CookApps.AutoBattler
             // 초기 홀 크기 0으로 설정 (애니메이션으로 커짐)
             context.MaskMaterial.SetFloat(HoleRadius, 0f);
 
-            // 화살표 비활성화 (왕복 애니메이션으로 대체)
-            context.ArrowRectTransform.gameObject.SetActive(false);
+            // 화살표 활성화 및 타일 위치로 이동
+            context.ArrowRectTransform.gameObject.SetActive(true);
+            UpdateArrowPosition();
 
             // 딤드 이미지 터치 통과 (드래그 가능하도록)
             if (context.DimmedImage != null)
@@ -309,6 +310,9 @@ namespace CookApps.AutoBattler
 
             // DragObj도 홀 위치를 따라 이동
             UpdateDragObjPosition(currentUV);
+
+            // 화살표 위치 업데이트 (타일 위치 추적)
+            UpdateArrowPosition();
         }
 
         /// <summary>
@@ -329,6 +333,34 @@ namespace CookApps.AutoBattler
             float localY = (uvPosition.y - 0.5f) * canvasRect.rect.height;
 
             dragRect.localPosition = new Vector3(localX, localY, 0f);
+        }
+
+        /// <summary>
+        /// 화살표를 타일 위치에 맞춰 이동
+        /// </summary>
+        private static void UpdateArrowPosition()
+        {
+            if (_currentContext?.ArrowRectTransform == null || !_positionsValid) return;
+
+            var canvasRect = _currentContext.CanvasRectTransform;
+            if (canvasRect == null) return;
+
+            // 타일의 3D 월드 좌표 → 캔버스 로컬 좌표로 변환
+            Camera cam = _currentContext.MainCamera ?? Camera.main;
+            if (cam == null) return;
+
+            Vector3 screenPosition = cam.WorldToScreenPoint(_destTilePosition);
+            if (screenPosition.z < 0) return;
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvasRect,
+                screenPosition,
+                null,
+                out var localPoint);
+
+            // arrow_yPos 만큼 Y축 위로 오프셋
+            float yOffset = _currentContext.CurrentTutorial?.arrow_yPos ?? 0;
+            _currentContext.ArrowRectTransform.localPosition = new Vector3(localPoint.x, localPoint.y + yOffset, 0f);
         }
 
         /// <summary>

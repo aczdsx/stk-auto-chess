@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: c139e0f31ed074a79bb51afa922c7ccc
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 07174264f5b5647b01d5cf98e6fcdae8
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -60,7 +60,9 @@ MonoBehaviour:
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
+  - {fileID: 11400000, guid: 003914ea2191b4c2b9807f3796616af7, type: 2}
   - {fileID: 11400000, guid: d9979a767f06142c4aea304f07160f6a, type: 2}
+  - {fileID: 11400000, guid: 359b332354c6f42ada8c701cff392ba7, type: 2}
   - {fileID: 11400000, guid: 713bd0d11f6aa46e7916093c1a8e0e60, type: 2}
   - {fileID: 11400000, guid: 76ce471b8ba1f490fb54dd498572dbe1, type: 2}
   - {fileID: 11400000, guid: c7f2eba24997047c18ecbc89440f9507, type: 2}
@@ -68,13 +70,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8b7b3291bbd804697b6e2699e02d2041, type: 2}
   - {fileID: 11400000, guid: 34142c98980f849eb9483e0fb16e7db7, type: 2}
   - {fileID: 11400000, guid: 48cd353cb7fdd4913b9f61f5bb8aebb0, type: 2}
+  - {fileID: 11400000, guid: 71e3bb4cfe82f4850ad70b4d882b3c0f, type: 2}
   - {fileID: 11400000, guid: 4d276ba8cb31b496fb8adee53343d820, type: 2}
   - {fileID: 11400000, guid: 9bf24b34182d84966b154a067c026dfe, type: 2}
   - {fileID: 11400000, guid: 2bbcadd0b3c194397932c01d41ea86aa, type: 2}
   - {fileID: 11400000, guid: 8f680e9c9010444ae9700f211788ff89, type: 2}
+  - {fileID: 11400000, guid: 10ba21bf2fbcc4975b0c30e16c78a133, type: 2}
   - {fileID: 11400000, guid: 31a9136cff61c4c9887438eafdfd8a02, type: 2}
   - {fileID: 11400000, guid: 2c41ac61325c7461ab5784be9ad54a2a, type: 2}
+  - {fileID: 11400000, guid: ccc23c103a79e4b709da5a14c8377c94, type: 2}
   - {fileID: 11400000, guid: 3dd4c7ace25334518935bd25d49e0d3d, type: 2}
+  - {fileID: 11400000, guid: 0ec3b662cb45d410aacb0e25d286c06f, type: 2}
+  - {fileID: 11400000, guid: 39281783fc43c4f5ba2807eeefc3dc9d, type: 2}
   - {fileID: 11400000, guid: 500d715cd6529434ca000b589eb7e135, type: 2}
   - {fileID: 11400000, guid: 1a13ca5bc95e04715a481612b4e14086, type: 2}
   - {fileID: 11400000, guid: 8ecd36effe5824327adbafea70c0a1b9, type: 2}
@@ -125,11 +132,11 @@ MonoBehaviour:
     m_ProfileVersion: 1
   m_LabelTable:
     m_LabelNames:
-    - default
     - Naninovel
     - Locale
     - Locale-en
     - Locale-ko
+    - preload
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}

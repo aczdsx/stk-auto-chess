@@ -138,7 +138,7 @@ namespace CookApps.BattleSystem
                 BuffDebuffType.Invincibility => SoundFX.snd_sfx_ingame_shield,
                 BuffDebuffType.CoolTimeUp => SoundFX.snd_sfx_ingame_buff,
                 BuffDebuffType.TargetImpossible => SoundFX.snd_sfx_ingame_buff,
-                BuffDebuffType.Immune => SoundFX.snd_sfx_ingame_shield,
+                BuffDebuffType.Immune => SoundFX.snd_sfx_ingame_buff,
                 BuffDebuffType.AvoidProbUp => SoundFX.snd_sfx_ingame_buff,
                 BuffDebuffType.AprilStander => SoundFX.snd_sfx_ingame_buff,
                 BuffDebuffType.TetorraAnger => SoundFX.snd_sfx_ingame_buff,

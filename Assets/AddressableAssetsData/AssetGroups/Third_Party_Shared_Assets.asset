@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Third_Party_Shared_Assets
+  m_EditorClassIdentifier: 
+  m_GroupName: Third_Party_Shared_Assets
+  m_GUID: ac9c6fcd8a31d48dea7df428ccb675c5
+  m_SerializeEntries:
+  - m_GUID: 0c1c735ac5b98ad428f564386ebb50c9
+    m_Address: Assets/ThirdParty/AudioToolkit/Demo/AudioObject.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 279657edc397ece4b8029c727adf6ddc
+    m_Address: Assets/ThirdParty/AllIn1SpriteShader/Textures/GradientTextures/palette-downwell.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 64a55139bbf135f44b059095a281ee20
+    m_Address: Packages/com.elringus.naninovel/Textures/UI/Continue.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 677cca399782dea41aedc1d292ecb67d
+    m_Address: Assets/ThirdParty/AllIn1SpriteShader/Textures/fire2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74087f6d03f233e4a8a142fa01f9e5cf
+    m_Address: Assets/ThirdParty/AllIn1SpriteShader/Textures/rainbow.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7aad8c583ef292e48b06af0d1f2fab97
+    m_Address: Assets/ThirdParty/AllIn1SpriteShader/Textures/seamlessNoise.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 839adabbc5de26041bac66450214a831
+    m_Address: Assets/ThirdParty/AllIn1SpriteShader/Textures/white.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b9b3fefeea6c9f74ca0e1a2f9e4dfb13
+    m_Address: Packages/com.elringus.naninovel/Prefabs/TextPrinters/InputIndicatorWhite.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3fbab4ea63e2424a9ee6d7f6db58dde
+    m_Address: Assets/ThirdParty/AllIn1SpriteShader/Textures/HalfSphere3.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 614c2438ac09745069b0f49091dcc847, type: 2}
+    - {fileID: 11400000, guid: 0edd69d8398d14dab9eec3f561a9a167, type: 2}

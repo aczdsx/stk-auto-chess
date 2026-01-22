@@ -16,6 +16,7 @@ public partial class EffectCodeSynergyElementWind : EffectCodeSynergyBase
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
+        _synergyType = SynergyType.WIND;
         base.Initialize(codeInfo, container, source);
         _statValue = codeInfo.GetCodeStatToFloat(0);
         _avoidValue = codeInfo.GetCodeStatToFloat(1);
@@ -27,6 +28,7 @@ public partial class EffectCodeSynergyElementWind : EffectCodeSynergyBase
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
+        _synergyType = SynergyType.WIND;
         base.Merge(codeInfo, source);
         _statValue = codeInfo.GetCodeStatToFloat(0);
         _avoidValue = codeInfo.GetCodeStatToFloat(1);

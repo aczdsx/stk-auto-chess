@@ -108,7 +108,8 @@ namespace CookApps.AutoBattler
             _currentSpecDialogueData = _dialogueList[seq];
             // SetCharacters(_currentSpecDialogueData);
 
-            if (isChangePrefab){
+            if (isChangePrefab)
+            {
                 BMUtil.RemoveChildObjects(_characeterIllustParentLeftObject.transform);
                 BMUtil.RemoveChildObjects(_characeterIllustParentRightObject.transform);
             }
@@ -149,7 +150,7 @@ namespace CookApps.AutoBattler
             if (_currentSpecDialogueData.prefab_id > 0 && isChangePrefab)
             {
                 string characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _currentSpecDialogueData.prefab_id);
-                
+
                 string[] chPosStrings = _currentSpecDialogueData.character_pos.Split(',');
                 List<int> charPosX = new List<int>();
                 List<int> charPosY = new List<int>();
@@ -161,15 +162,20 @@ namespace CookApps.AutoBattler
                     charPosY.Add(int.Parse(chfStrings[1], CultureInfo.InvariantCulture));
                     charPosDir.Add(int.Parse(chfStrings[2], CultureInfo.InvariantCulture));
                 }
-                if(charPosDir[0] == 0) {
+                if (charPosDir[0] == 0)
+                {
                     var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentLeftObject.transform);
                     obj.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+                    var characterIllust = obj.GetComponent<CharacterIllust>();
+                    characterIllust.SetCharacterAnimation("idle");
                 }
                 else
                 {
                     var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentRightObject.transform);
                     obj.GetComponent<RectTransform>().localScale = new Vector3(-1, 1, 1);
-                } 
+                    var characterIllust = obj.GetComponent<CharacterIllust>();
+                    characterIllust.SetCharacterAnimation("idle");
+                }
             }
 
             _characterNameText.text = LanguageManager.Instance.GetDefaultText(_currentSpecDialogueData.character_name_token);

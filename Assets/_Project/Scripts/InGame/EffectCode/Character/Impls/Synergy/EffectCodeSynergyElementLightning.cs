@@ -15,6 +15,7 @@ public partial class EffectCodeSynergyElementLightning : EffectCodeSynergyBase
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
+        _synergyType = SynergyType.LIGHTNING;
         base.Initialize(codeInfo, container, source);
         _criticalRateValue = codeInfo.GetCodeStatToFloat(0);
         _criticalPowerValue = codeInfo.GetCodeStatToFloat(1);
@@ -26,6 +27,7 @@ public partial class EffectCodeSynergyElementLightning : EffectCodeSynergyBase
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
+        _synergyType = SynergyType.LIGHTNING;
         base.Merge(codeInfo, source);
         _criticalRateValue = codeInfo.GetCodeStatToFloat(0);
         _criticalPowerValue = codeInfo.GetCodeStatToFloat(1);
