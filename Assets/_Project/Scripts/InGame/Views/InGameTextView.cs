@@ -105,7 +105,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 데미지 사운드를 재생합니다.
         /// </summary>
-        private void PlayDamageSound(bool isCritical)
+        public void PlayDamageSound(bool isCritical)
         {
             if (SoundManager.Instance.IsPlayingGacha)
                 return;

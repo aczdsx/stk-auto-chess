@@ -424,6 +424,7 @@ namespace CookApps.BattleSystem
 
             _currHp -= damageAmount.damageAmount.Value;
             Debug.Log($"damageAmount: {damageAmount.damageAmount.Value}, _currHp: {_currHp}");
+            
 
             if (attacker != null)
             {
@@ -575,6 +576,11 @@ namespace CookApps.BattleSystem
                                     ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult)
         {
             InGameTextView textView = InGameTextViewPool.Instance.Get();
+            if (AllianceType != AllianceType.Player)
+            {
+                textView.PlayDamageSound(isCritical);
+            }
+
             await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical, elementAdvantageResult);
         }
 
