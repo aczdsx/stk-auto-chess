@@ -142,6 +142,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
         if (executeIndex == 0)
         {
+            _colliderVfx.gameObject.SetActive(true);
             // 첫 번째 호출: 점프 시작
             DashAndAttack(owner.Target);
         }
@@ -149,6 +150,8 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         {
             // 두 번째 호출: 점프 최종 위치로 이동
             MoveToFinalPosition();
+            _colliderVfx.gameObject.SetActive(false);
+
         }
     }
 
@@ -379,6 +382,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
+        _colliderVfx.gameObject.SetActive(false);
         _colliderVfx.Remove();
         if (_portalVfx != null)
         {

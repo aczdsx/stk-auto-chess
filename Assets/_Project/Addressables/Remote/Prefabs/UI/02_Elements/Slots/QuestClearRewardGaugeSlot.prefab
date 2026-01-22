@@ -189,7 +189,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -529,7 +529,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -602,17 +602,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c4ee56eb928934aad471d5e92e02c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _getRewardButton: {fileID: 7160189273410401270}
-  _rewardIconImage: {fileID: 7332208900535386544}
-  _rewardIconSpriteLoader: {fileID: 1765706923917292164}
-  _rewardIconUIShiny: {fileID: 2961381004150643473}
-  _clearAmountText: {fileID: 6637049584625135900}
-  _rewardAmountText: {fileID: 623811040812660180}
-  _activeFrameObject: {fileID: 4179306000107133227}
-  _completeSymbolObject: {fileID: 2861797285879672624}
-  _completeLayerImage_1: {fileID: 3123293961709981833}
-  _completeLayerImage_2: {fileID: 1068348113579110560}
-  _completedColor: {r: 0.99607843, g: 0.9529412, b: 0.64705884, a: 1}
+  getRewardButton: {fileID: 5990485823583926304}
+  rewardIconImage: {fileID: 7332208900535386544}
+  rewardIconSpriteLoader: {fileID: 1765706923917292164}
+  rewardIconUIShiny: {fileID: 5506180130265802154}
+  clearAmountText: {fileID: 6637049584625135900}
+  rewardAmountText: {fileID: 623811040812660180}
+  activeFrameObject: {fileID: 4179306000107133227}
+  completeSymbolObject: {fileID: 2861797285879672624}
+  completeLayerImage1: {fileID: 3123293961709981833}
+  completeLayerImage2: {fileID: 1068348113579110560}
+  completedColor: {r: 0.16862746, g: 0.1882353, b: 0.21568628, a: 1}
 --- !u!1 &2791184285922258952
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,7 +978,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &854838643210612022
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1225,7 +1225,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 8574042472142344096}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []

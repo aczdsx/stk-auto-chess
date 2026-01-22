@@ -85,7 +85,7 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
 
     public override void Activate()
     {
-        base.Activate();
+        // base.Activate();
 
         var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
         if (!isInRange)
@@ -114,10 +114,12 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
 
         if (executeIndex == 0)
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3501_01);
             ExecuteFirstStep().Forget();
         }
         else if (executeIndex == 1)
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3501_02);
             ExecuteSecondStep();
         }
 

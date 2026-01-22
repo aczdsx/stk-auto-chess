@@ -125,11 +125,11 @@ namespace CookApps.AutoBattler
             return color;
         }
         
-        public static Tech.Hive.V1.QuestType ToServerType(this QuestType specQuestType)
+        public static Tech.Hive.V1.QuestType ToServerType(this TermType termType)
         {
-            return specQuestType switch
+            return termType switch
             {
-                QuestType.CLEAR_DAILY_QUEST => Tech.Hive.V1.QuestType.Daily,
+                TermType.DAILY => Tech.Hive.V1.QuestType.Daily,
                 // QuestType.CLEAR_WEEKLY_QUEST => Tech.Hive.V1.QuestType.Unspecified,
                 _ => Tech.Hive.V1.QuestType.Unspecified,
             };
