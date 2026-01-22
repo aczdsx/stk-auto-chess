@@ -48,41 +48,16 @@ public class CharacterStateAttackAnimEventDamage : CharacterStateAttack
 
             if (projectile != InGameVfxNameType.NONE)
             {
-                if (characCtrl == null || characCtrl.IsAlive == false)
-                {
-                    return;
-                }
-
-                Transform projectileTransform = characCtrl.GetCharacterView().CachedFront ? characCtrl.GetCharacterView().ProjectileFrontTransform : characCtrl.GetCharacterView().ProjectileBackTransform;
-
-                var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile,
-                    projectileTransform.position);
-
-                var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
-
-                Vector3 direction =
-                    (characCtrl.Target.CurrentTile.View.CachedTr.position -
-                     characCtrl.CurrentTile.View.CachedTr.position).normalized;
-                vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction);
-
-                movement.SetData(vfxProjectile.CachedTr.position,
-                    characCtrl.Target.GetCharacterView().CachedTr.position, _vfxProjectileSpeed);
-                vfxProjectile.Initialize(false, movement);
-
-                void OnReachedTargetHandler()
+                var vfxProjectile = CreateProjectileVfx(projectile, _vfxProjectileSpeed, (vfx) =>
                 {
                     OnAttackEndProcess();
                     var ctrlEcc = characCtrl?.GetEffectCodeContainer();
                     var effectCodes = ctrlEcc?.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnStateNormalAttackDamageEvent);
                     EffectCodeForLoopHelper.CallWithArgs(effectCodes,
-                    EffectCodeCharacterLambda.CallOnStateNormalAttackDamageEventLambda,
-                    damageInfo, _currentHitCount++, totalHitCount);
-
-
-                    vfxProjectile.Remove();
-                }
-
-                movement.OnReachedTarget += OnReachedTargetHandler;
+                        EffectCodeCharacterLambda.CallOnStateNormalAttackDamageEventLambda,
+                        damageInfo, _currentHitCount++, totalHitCount);
+                    vfx.Remove();
+                });
             }
             else
             {
