@@ -64,10 +64,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
     public override void OnUpdate(float dt)
     {
         // InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, owner.CurrentTile);
-        if (_colliderVfx != null && _colliderVfx.gameObject.activeSelf)
-        {
-            Debug.Log("collider position: " + _colliderVfx.CachedTr.position);
-        }
+
 
         if (!IsSkillActivated)
         {
@@ -143,7 +140,6 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         if (executeIndex == 0)
         {
             _colliderVfx.gameObject.SetActive(true);
-            // 첫 번째 호출: 점프 시작
             DashAndAttack(owner.Target);
         }
         else if (executeIndex == 1)
@@ -314,40 +310,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         _moveSequence = Sequence.Create(walkTween);
     }
 
-    /// <summary>
-    /// 시작 타일부터 목표 타일까지의 경로상 타일들을 계산합니다.
-    /// </summary>
-    private void CalculatePathTiles(InGameTile startTile, InGameTile targetTile)
-    {
-        if (startTile == null || targetTile == null)
-            return;
-
-        int dx = targetTile.X - startTile.X;
-        int dy = targetTile.Y - startTile.Y;
-
-        // 방향 벡터 정규화
-        int stepX = dx != 0 ? dx / Math.Abs(dx) : 0;
-        int stepY = dy != 0 ? dy / Math.Abs(dy) : 0;
-
-        int currentX = startTile.X;
-        int currentY = startTile.Y;
-
-        // 시작 타일은 제외하고 경로상의 타일들만 추가
-        while (currentX != targetTile.X || currentY != targetTile.Y)
-        {
-            currentX += stepX;
-            currentY += stepY;
-
-            var tile = InGameObjectManager.Instance.InGameGrid.GetTile(new int2(currentX, currentY));
-
-            if (tile == null)
-            {
-                break;
-            }
-        }
-    }
-
-
+    
     public override void OnSkillAnimationEnd()
     {
         // 애니메이션 종료 시 점프 전 자리로 이동
