@@ -429,6 +429,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         _source = source;
 
         var vfxName = GetSupernovaVfxName(_synergyGrade);
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_nova_spirit);
         _supernovaApplyVfx = InGameVfxManager.Instance.AddInGameVfx(vfxName, _targetCharacter.SkillRootTransformFollowable);
     }
 

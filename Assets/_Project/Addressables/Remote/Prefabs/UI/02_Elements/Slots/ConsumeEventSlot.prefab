@@ -13192,14 +13192,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff34c4146fa4ac148bb06ab21dd19b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _getRewardButton: {fileID: 1416186647681988326}
-  _rewardItemSlot: {fileID: 8334623347845785211}
-  _needItemImage: {fileID: 8055774859410521680}
-  _needItemSpriteLoader: {fileID: 5833636350598378014}
-  _needItemAmountText: {fileID: 1558218552323862038}
-  _claimBGObject: {fileID: 1701055770767778388}
-  _claimOnObject: {fileID: 2127046965290988632}
-  _claimCheckObject: {fileID: 4241525310031803542}
+  getRewardButton: {fileID: 1416186647681988326}
+  rewardItemSlot: {fileID: 8334623347845785211}
+  needItemImage: {fileID: 8055774859410521680}
+  needItemSpriteLoader: {fileID: 5833636350598378014}
+  needItemAmountText: {fileID: 1558218552323862038}
+  claimBGObject: {fileID: 1701055770767778388}
+  claimOnObject: {fileID: 2127046965290988632}
+  claimCheckObject: {fileID: 4241525310031803542}
 --- !u!1 &5261779533583019034
 GameObject:
   m_ObjectHideFlags: 0
@@ -18365,7 +18365,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -24618,7 +24618,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1

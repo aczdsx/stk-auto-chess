@@ -134,8 +134,6 @@ namespace CookApps.AutoBattler
         {
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
-            await SceneTransition.FadeOutAsync();
-
             // 전투 진행
             int currentStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
             var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
@@ -149,6 +147,9 @@ namespace CookApps.AutoBattler
 
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
+
+            // UI 세팅 완료 후 페이드 아웃
+            await SceneTransition.FadeOutAsync();
         }
 
         public void RefreshUI(LobbyMainRefreshType refreshType)
@@ -596,7 +597,7 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentEventData, null).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentEventData.EventId, null).Forget();
         }
 
         private void OnClickUserAccountLayerButton()

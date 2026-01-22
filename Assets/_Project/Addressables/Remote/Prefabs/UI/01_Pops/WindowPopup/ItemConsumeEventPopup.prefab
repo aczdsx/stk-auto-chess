@@ -3276,13 +3276,13 @@ MonoBehaviour:
   uiLayerType: 3
   baseAnimator: {fileID: 0}
   preloadAddressables: []
-  _closeButton: {fileID: 9204684409239048285}
-  _dimCloseButton: {fileID: 2367797206452409562}
-  _eventTitleText: {fileID: 4239534676589880997}
-  _eventDescText: {fileID: 3159818152717181143}
-  _currentConsumeAmountText: {fileID: 5894887780012081983}
-  _eventSlotScrollRect: {fileID: 3318662141522149825}
-  _eventSlotObject: {fileID: 8509533810915983122}
+  closeButton: {fileID: 9204684409239048285}
+  dimCloseButton: {fileID: 2367797206452409562}
+  eventTitleText: {fileID: 4239534676589880997}
+  eventDescText: {fileID: 3159818152717181143}
+  currentConsumeAmountText: {fileID: 5894887780012081983}
+  eventSlotScrollRect: {fileID: 3318662141522149825}
+  eventSlotObject: {fileID: 8509533810915983122}
 --- !u!1 &8213532986486451612
 GameObject:
   m_ObjectHideFlags: 0

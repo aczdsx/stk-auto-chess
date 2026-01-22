@@ -84,6 +84,7 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeSynergyBase
         EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.SHIELD, owner, stats, source);
         base.AddSynergyAddEffectCodeIds(EffectCodeNameType.SHIELD);
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_nb_shield_01, owner.SkillMiddleFXTransformFollowable);
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_shield);
     }
     private void ImmuneAllDebuff(IEffectCodeSource source)
     {
@@ -92,6 +93,7 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeSynergyBase
             _crownVfx.Remove();
         }
         _crownVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_nb_crown_01, owner.SkillTopFXTransformFollowable);
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_buff);
         Span<double> buffStats = stackalloc double[3];
 
 

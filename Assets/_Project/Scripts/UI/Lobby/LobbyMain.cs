@@ -201,7 +201,7 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentEventData).Forget();
+            SceneUILayerManager.Instance.PushUILayerAsync<ItemConsumeEventPopup>(currentEventData.EventId).Forget();
         }
 
         private void OnClickInventoryButton()
