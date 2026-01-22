@@ -21,7 +21,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     private const string TUTORIAL_CANVAS_PREFAB_PATH = "Prefabs/UI/Tutorial/InGameTutorialCanvas";
 
     private Canvas _canvas = null;
-    #if _SJHONG_TEST_
+
     public bool IsTutorialCanvasEnabled
     {
         get
@@ -33,7 +33,6 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             _canvas.enabled = value;
         }
     }
-    #endif
     private TutorialController _tutorialController;
     private GameObject _tutorialCanvasInstance;
 
