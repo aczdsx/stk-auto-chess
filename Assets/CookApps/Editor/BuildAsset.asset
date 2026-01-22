@@ -14,11 +14,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Assets:
   - rid: 7388922950105694208
+  - rid: 882002319336800390
   - rid: 9161305264687939584
   - rid: 7388923239852146688
   references:
     version: 2
     RefIds:
+    - rid: 882002319336800390
+      type: {class: BuildPlatformAndroid, ns: CookApps.Build.Asset, asm: CookApps.Build.Editor}
+      data:
+        Name: android-google-prod
+        Target: 13
+        Identifier: com.mintry.stk
+        Version: 0.3.4
+        UseAutoVersionCode: 1
+        BaseVersionCode: 0
+        VersionCode: 4701
+        Scenes:
+        - Guid: 16b82d33cb9ba43b99ade802db2c034c
+        AddDefine:
+        - NANINOVEL_ENABLE_SPINE
+        RemoveDefine:
+        - ENABLE_CHEAT
+        Parameters: []
+        EnableCodeObfuscator: 0
+        IsProduction: 1
+        StoreMarket: 1
+        BuildOptions: 524288
+        TargetSdkVersion: 0
+        CreateSymbols: 1
+        ExportAndroidStudioProject: 0
+        IsAAB: 1
+        SplitApplicationBinary: 1
+        IsMono: 0
+        Architecture: 3
+        CodeGeneration: 0
+        ManagedStrippingLevel: 1
+        KeyStore:
+          keystoreName: Assets\cookapps.keystore
+          keystorePass: cookapps1234
+          keyaliasName: cookapps
+          keyaliasPass: cookapps1234
+        AppIcon: bc6b55129a251d64da2c6b4be7e9cd33
+        AppIconForeground: 
+        AppIconBackground: 
     - rid: 7388922950105694208
       type: {class: BuildPlatformAndroid, ns: CookApps.Build.Asset, asm: CookApps.Build.Editor}
       data:
@@ -28,11 +67,10 @@ MonoBehaviour:
         Version: 0.3.4
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 4648
+        VersionCode: 4701
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         AddDefine:
-        - __DEV
         - ENABLE_CHEAT
         - NANINOVEL_ENABLE_SPINE
         RemoveDefine: []
@@ -40,7 +78,7 @@ MonoBehaviour:
         EnableCodeObfuscator: 0
         IsProduction: 0
         StoreMarket: 1
-        BuildOptions: 0
+        BuildOptions: 262144
         TargetSdkVersion: 0
         CreateSymbols: 0
         ExportAndroidStudioProject: 0
@@ -49,7 +87,7 @@ MonoBehaviour:
         IsMono: 0
         Architecture: 2
         CodeGeneration: 0
-        ManagedStrippingLevel: 4
+        ManagedStrippingLevel: 1
         KeyStore:
           keystoreName: Assets\cookapps.keystore
           keystorePass: cookapps1234
@@ -67,22 +105,21 @@ MonoBehaviour:
         Version: 0.3.4
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 4648
+        VersionCode: 4701
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
-        AddDefine: []
+        AddDefine:
+        - NANINOVEL_ENABLE_SPINE
         RemoveDefine:
         - ENABLE_CHEAT
-        - __DEV
-        - NANINOVEL_ENABLE_SPINE
         Parameters: []
         EnableCodeObfuscator: 0
         IsProduction: 1
         StoreMarket: 2
-        BuildOptions: 0
+        BuildOptions: 524288
         SigningTeamID: K7TNH5SGYC
         CodeGeneration: 0
-        ManagedStrippingLevel: 4
+        ManagedStrippingLevel: 1
         AppIcon: bc6b55129a251d64da2c6b4be7e9cd33
     - rid: 9161305264687939584
       type: {class: BuildPlatformIOS, ns: CookApps.Build.Asset, asm: CookApps.Build.Editor}
@@ -93,11 +130,10 @@ MonoBehaviour:
         Version: 0.2.6
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 4648
+        VersionCode: 4701
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         AddDefine:
-        - __DEV
         - ENABLE_CHEAT
         - NANINOVEL_ENABLE_SPINE
         RemoveDefine: []
@@ -105,8 +141,8 @@ MonoBehaviour:
         EnableCodeObfuscator: 0
         IsProduction: 0
         StoreMarket: 2
-        BuildOptions: 0
+        BuildOptions: 262144
         SigningTeamID: K7TNH5SGYC
         CodeGeneration: 0
-        ManagedStrippingLevel: 4
+        ManagedStrippingLevel: 1
         AppIcon: bc6b55129a251d64da2c6b4be7e9cd33

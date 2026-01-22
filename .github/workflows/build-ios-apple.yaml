@@ -46,9 +46,13 @@ jobs:
           if [[ "$ENVIRONMENT_TYPE" == "Dev" ]]; then
             name=ios-apple-dev
             release=false
+            bucket=cookapps-unity-assets
+            cloudfront_id=E26JX7CKKGPV7C
           elif [[ "$ENVIRONMENT_TYPE" == "Prod" ]]; then
             name=ios-apple-prod
             release=true
+            bucket=cookapps-unity-assets
+            cloudfront_id=E3ESWGPMFO0GZH
           else
             echo "::error ::Unknown environment type"
             exit 1
@@ -56,6 +60,8 @@ jobs:
 
           echo "BUILD_SETTING_NAME=${name}" >> $GITHUB_ENV
           echo "RELEASE=${release}" >> $GITHUB_ENV
+          echo "BUCKET=${bucket}" >> $GITHUB_ENV
+          echo "CLOUDFRONT_ID=${cloudfront_id}" >> $GITHUB_ENV
 
       # Checkout
       - name: Checkout ${{ github.ref }}
@@ -68,6 +74,31 @@ jobs:
         run: |
           git lfs install
           git lfs pull
+
+      # Prepare addressable build
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ vars.AWS_IAM_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Fetch latest.json
+        env:
+          BUCKET: ${{ env.BUCKET }}
+          ENV: ${{ inputs.environment-type }}
+          GAME: ${{ vars.PROJECT_NAME }}
+          PLATFORM: iOS
+        run: |
+          mkdir -p Builds/Addressables && cd Builds/Addressables
+          if [ -d "ServerData" ]; then
+            rm -rf "ServerData";
+          fi;
+
+          aws s3 cp s3://${BUCKET}/private/${ENV}/${GAME}/${PLATFORM}/latest.json latest.json || echo '{}' > latest.json
+          CONTENT_STATE=$(jq -r '.content_state // empty' latest.json)
+          if [ -n "$CONTENT_STATE" ]; then
+            mkdir -p ContentState/${ENV}/${PLATFORM}
+            aws s3 cp "$CONTENT_STATE" ContentState/${ENV}/${PLATFORM}/addressables_content_state.bin
+          fi
 
       # Unity build
       - name: Configure floating license
@@ -124,12 +155,8 @@ jobs:
           APPSTORE_P8: ${{ secrets.APPSTORE_P8 }}
           IOS_BUILD_PATH: ${{ steps.build-summary.outputs.output-path }}
           IOS_BUNDLE_ID: ${{ steps.build-summary.outputs.identifier }}
-          CRASHLYTICS_APP_ID: ${{ vars.FIREBASE_IOS_APP_ID }}
-          LIAPP_PACKAGE_SENDER_PATH: ${{ format('{0}/Liapp/LiappPackageSender.jar', github.workspace) }}
-          LIAPP_PACKAGE_SENDER_ENV: ${{ secrets.LIAPP_PACKAGE_SENDER_ENV_APPLE }}
-          LIAPP_PACKAGE_SENDER_ENV_PATH: ${{ format('{0}/Liapp/LiappPackageSender-env.json', github.workspace) }}
-        run: |
-          echo "$LIAPP_PACKAGE_SENDER_ENV" > $LIAPP_PACKAGE_SENDER_ENV_PATH
+          CRASHLYTICS_APP_ID: ${{ vars.FIREBASE_IOS_APP_ID }}          
+        run: |          
           find $IOS_BUILD_PATH -type f -name "**.sh" -exec chmod +x {} \;
           fastlane ios apple release:${{ env.RELEASE }}
 
@@ -147,6 +174,28 @@ jobs:
           symbol-path: ${{ steps.fastlane.outputs.symbol-output-path }}
           release: ${{ env.RELEASE }}
           ios-app-id: ${{ vars.IOS_APP_ID }}
+      - name: Upload asset catalog and bundle
+        working-directory: Builds/Addressables
+        env:
+          BUCKET: ${{ env.BUCKET }}
+          CDN: ${{ env.CLOUDFRONT_ID }}
+          ENV: ${{ inputs.environment-type }}
+          GAME: ${{ vars.PROJECT_NAME }}
+          PLATFORM: iOS
+          VERSION: ${{ steps.build-summary.outputs.version }}
+        run: |
+          SERVER_DATA="s3://${BUCKET}/public/${ENV}/${GAME}/${PLATFORM}/${VERSION}"
+          aws s3 sync "ServerData/${ENV}/${PLATFORM}/${VERSION}" "${SERVER_DATA}" --delete
+
+          CONTENT_STATE="s3://${BUCKET}/private/${ENV}/${GAME}/${PLATFORM}/${VERSION}/addressables_content_state.bin"
+          aws s3 cp "ContentState/${ENV}/${PLATFORM}/addressables_content_state.bin" ${CONTENT_STATE}
+
+          jq -n --arg cs "$CONTENT_STATE" --arg cl "$SERVER_DATA" --arg now "$(date -u +%FT%TZ)" \
+            '{content_state:$cs, catalog: $cl, updated_at:$now, by:"gh-actions"}' > latest.json
+          aws s3 cp latest.json "s3://${BUCKET}/private/${ENV}/${GAME}/${PLATFORM}/latest.json"
+
+          aws cloudfront create-invalidation --distribution-id "${CDN}" --paths "/${GAME}/${PLATFORM}/${VERSION}/*"
+
 
       # Notify Slack
       - name: Notify Slack
