@@ -18,27 +18,32 @@ MonoBehaviour:
   - m_GUID: 08c45e68b3f8780439f98629bba98b07
     m_Address: Assets/_Project/Addressables/Remote/Animations/ToastSystemPopup.controller
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 31c61983772a9434d822de101dcc5ba1
     m_Address: Assets/_Project/Addressables/Remote/Animations/ToastSystemLongPopup_ANIM.anim
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3cd374d8c82053146bdb2d3f2352c464
     m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/HologramCharacter.shadergraph
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 97c6dd483b7624141b388ba8d0a4290a
     m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/DissolveCharacter.shadergraph
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7da23a71e99e8247b5cc13860961c1f
     m_Address: Assets/_Project/Addressables/Remote/Animations/ToastSystemPopup_ANIM.anim
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
