@@ -42,7 +42,7 @@ namespace CookApps.BattleSystem
             buffStats.Clear();
             buffStats[0] = codeId;
             buffStats[1] = 999f;
-            buffStats[2] = 3;
+            buffStats[2] = _shieldCount;
             EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_SPECIAL_NO_DAMAGE_SHIELD, owner, buffStats, source);
         }
 
