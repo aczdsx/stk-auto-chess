@@ -133,7 +133,7 @@ MonoBehaviour:
   updateTiming: 1
   unscaledTime: 0
   _animationName: 
-  loop: 1
+  loop: 0
   timeScale: 1
 --- !u!114 &7455151788647441324
 MonoBehaviour:
