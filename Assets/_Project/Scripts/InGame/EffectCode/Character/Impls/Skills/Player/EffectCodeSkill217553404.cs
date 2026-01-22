@@ -154,6 +154,7 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
         // 영역 타일들에 타일 이펙트 표시
         foreach (var areaTile in areaTiles)
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3404_tile);
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, areaTile);
         }
     }
@@ -191,6 +192,7 @@ public partial class EffectCodeSkill217553404 : EffectCodeCharacterBase
         // 힐 적용 시점에 영역 내 모든 타일이 빛나도록 이펙트 표시
         foreach (var areaTile in areaTiles)
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3404_tile);
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, areaTile);
         }
     }

@@ -978,6 +978,7 @@ namespace CookApps.AutoBattler
         HUBBLE_EXPANSION_COMPLETE = 20,
         IDLE_REWARD_CLAIM = 21,
         MOVE_OBJECT_AFTER = 22,
+        COMBAT_START = 23,
     }
 
     public enum TutorialActionType

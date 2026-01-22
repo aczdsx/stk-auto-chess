@@ -2759,11 +2759,11 @@ MonoBehaviour:
   uiLayerType: 3
   baseAnimator: {fileID: 0}
   preloadAddressables: []
-  _closeButton: {fileID: 9204684409239048285}
-  _dimCloseButton: {fileID: 2367797206452409562}
-  _eventProgressBar: {fileID: 542938819121378894}
-  _eventSlotScrollRect: {fileID: 3563232219068051714}
-  _eventSlotObject: {fileID: 9017842596180921455}
+  closeButton: {fileID: 9204684409239048285}
+  dimCloseButton: {fileID: 2367797206452409562}
+  eventProgressBar: {fileID: 542938819121378894}
+  eventSlotScrollRect: {fileID: 3563232219068051714}
+  eventSlotObject: {fileID: 9017842596180921455}
 --- !u!1 &7920564334324136302
 GameObject:
   m_ObjectHideFlags: 0
