@@ -178,15 +178,14 @@ namespace CookApps.AutoBattler
 
             await SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList), null);
 
-            // temp - 일단은 off
-            OnClickCloseButton();
-
-            // 메인 로비 갱신
+            // 메인 로비 갱신 (팝업 닫기 전에 호출)
             var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
             if (battleReadyMain != null)
             {
                 battleReadyMain.RefreshUI(LobbyMainRefreshType.IDLE_REWARD);
             }
+
+            OnClickCloseButton();
         }
 
         private void OnClickCloseButton()
