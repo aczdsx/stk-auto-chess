@@ -35,19 +35,19 @@ namespace CookApps.AutoBattler
         // 속성 시너지 타입 매핑 (버튼 인덱스 순서)
         private readonly SynergyType[] _elementTypes =
         {
-            SynergyType.FIRE,
             SynergyType.WIND,
-            SynergyType.LIGHTNING,
+            SynergyType.WATER,
             SynergyType.EARTH,
-            SynergyType.WATER
+            SynergyType.FIRE,
+            SynergyType.LIGHTNING
         };
 
         // 성군 시너지 타입 매핑 (버튼 인덱스 순서)
         private readonly SynergyType[] _stellaTypes =
         {
             SynergyType.NOBLESSE,
-            SynergyType.TROUBLESHOOTER,
-            SynergyType.SUPERNOVA
+            SynergyType.SUPERNOVA,
+            SynergyType.TROUBLESHOOTER
         };
 
         private HashSet<SynergyType> _selectedElements = new();

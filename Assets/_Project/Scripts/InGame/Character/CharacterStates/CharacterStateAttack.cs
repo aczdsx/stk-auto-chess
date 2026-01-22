@@ -127,37 +127,13 @@ public class CharacterStateAttack : CharacterStateBase
 
             if (projectile != InGameVfxNameType.NONE)
             {
-                if (characCtrl == null || characCtrl.IsAlive == false)
-                {
-                    return;
-                }
-
-                Transform projectileTransform = characCtrl.GetCharacterView().CachedFront ? characCtrl.GetCharacterView().ProjectileFrontTransform : characCtrl.GetCharacterView().ProjectileBackTransform;
-
-                var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile,
-                    projectileTransform.position);
-
-                var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
-
-                Vector3 direction =
-                    (characCtrl.Target.CurrentTile.View.CachedTr.position -
-                     characCtrl.CurrentTile.View.CachedTr.position).normalized;
-                vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction);
-
-                movement.SetData(vfxProjectile.CachedTr.position,
-                    characCtrl.Target.SkillMiddleFXTransformFollowable.GetPosition(), _vfxProjectileSpeed);
-                vfxProjectile.Initialize(false, movement);
-
-                void OnReachedTargetHandler()
+                var vfxProjectile = CreateProjectileVfx(projectile, _vfxProjectileSpeed, (vfx) =>
                 {
                     OnAttackEndProcess();
-
                     if (characCtrl != null && characCtrl.Target != null)
                         characCtrl.Target.GetDamaged(damageInfo, characCtrl);
-                    vfxProjectile.Remove();
-                }
-
-                movement.OnReachedTarget += OnReachedTargetHandler;
+                    vfx.Remove();
+                });
             }
             else
             {
@@ -191,6 +167,49 @@ public class CharacterStateAttack : CharacterStateBase
         var ctrlEcc = characCtrl?.GetEffectCodeContainer();
         var effectCodes = ctrlEcc?.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnAttackEnd);
         EffectCodeForLoopHelper.CallWithArgs(effectCodes, EffectCodeCharacterLambda.CallOnAttackEndLambda, characCtrl.Target);
+    }
+
+    /// <summary>
+    /// 프로젝타일 VFX를 생성하고 타겟으로 이동시킵니다.
+    /// </summary>
+    /// <param name="projectile">프로젝타일 VFX 타입</param>
+    /// <param name="speed">프로젝타일 이동 속도 (기본값: _vfxProjectileSpeed)</param>
+    /// <param name="onReachedTarget">타겟 도달 시 호출할 핸들러</param>
+    /// <returns>생성된 VFX 프로젝타일</returns>
+    protected InGameVfx CreateProjectileVfx(InGameVfxNameType projectile, float? speed = null, System.Action<InGameVfx> onReachedTarget = null)
+    {
+        if (characCtrl == null || characCtrl.IsAlive == false || characCtrl.Target == null)
+            return null;
+
+        // 프로젝타일 Transform 가져오기
+        Transform projectileTransform = characCtrl.GetCharacterView().CachedFront 
+            ? characCtrl.GetCharacterView().ProjectileFrontTransform 
+            : characCtrl.GetCharacterView().ProjectileBackTransform;
+
+        // VFX 프로젝타일 생성
+        var vfxProjectile = InGameVfxManager.Instance.AddInGameVfx(projectile, projectileTransform.position);
+
+        // Movement 생성 및 설정
+        var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
+
+        // 방향 계산 및 회전 설정
+        Vector3 direction = (characCtrl.Target.CurrentTile.View.CachedTr.position -
+                             characCtrl.CurrentTile.View.CachedTr.position).normalized;
+        vfxProjectile.CachedTr.rotation = Quaternion.LookRotation(direction);
+
+        // Movement 데이터 설정
+        float projectileSpeed = speed ?? _vfxProjectileSpeed;
+        movement.SetData(vfxProjectile.CachedTr.position,
+            characCtrl.Target.SkillMiddleFXTransformFollowable.GetPosition(), projectileSpeed);
+        vfxProjectile.Initialize(false, movement);
+
+        // 타겟 도달 핸들러 등록
+        if (onReachedTarget != null)
+        {
+            movement.OnReachedTarget += () => onReachedTarget(vfxProjectile);
+        }
+
+        return vfxProjectile;
     }
 
 
