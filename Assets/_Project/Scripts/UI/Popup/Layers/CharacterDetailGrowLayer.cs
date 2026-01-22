@@ -276,13 +276,18 @@ namespace CookApps.AutoBattler
         {
             try
             {
+                
                 if (_specCharacterLevelExpData.IsExceed)
                 {
-                    await NetManager.Instance.Character.ExceedAsync(_userCharacterData.CharacterId);
+                    var resp = await NetManager.Instance.Character.ExceedAsync(_userCharacterData.CharacterId);
+                    if (resp?.IsSuccess == false)
+                        return;
                 }
                 else
                 {
-                    await NetManager.Instance.Character.LevelUpAsync(_userCharacterData.CharacterId);
+                    var resp = await NetManager.Instance.Character.LevelUpAsync(_userCharacterData.CharacterId);
+                    if (resp?.IsSuccess == false)
+                        return;
                 }
 
                 // 이펙트 실행
@@ -345,6 +350,9 @@ namespace CookApps.AutoBattler
             {
                 var response = await NetManager.Instance.Character.TranscendAsync(_userCharacterData.CharacterId);
 
+                if (response?.IsSuccess == false)
+                    return;
+                
                 // 메인 레이어 갱신
                 _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
 

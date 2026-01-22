@@ -2188,7 +2188,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_skill_a_3404_02
+    - Name: snd_sfx_skill_a_3404_tile
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -2628,7 +2628,7 @@ MonoBehaviour:
         FadeOut: 0
         RandomStartPosition: 0
         individualSettings: []
-    - Name: snd_sfx_skill_a_3404_01
+    - Name: snd_sfx_skill_a_3404
       Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
@@ -5552,8 +5552,8 @@ MonoBehaviour:
   _audioDisabled: 0
   _volume: 1
   _currentInspectorSelection:
-    currentCategoryIndex: 3
-    currentItemIndex: 12
+    currentCategoryIndex: 1
+    currentItemIndex: 40
     currentSubitemIndex: 0
     currentPlaylistEntryIndex: 0
     currentPlaylistIndex: 0

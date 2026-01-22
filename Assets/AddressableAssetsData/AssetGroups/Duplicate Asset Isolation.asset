@@ -36,7 +36,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 034b941983f5a03468040f796eeb0e5b
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3404_01.wav
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3404.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -130,6 +130,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0a821b8d1f35cb94a83873c311f66545
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Commander/snd_sfx_skill_commander_aegis.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0b3906c42f7143148847d98f5db1e57b
     m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_204031_atk_01.wav
     m_ReadOnly: 0
@@ -167,6 +172,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0d0bb38100d49484a8cc62f0fc26a311
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_Img_Toast_Bg.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0da7f5d1669ad07429e76e53260c7db8
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_job_shooter_pierce.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -660,6 +670,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d8e54b23aa62b54cb9fdcf4ab339afb
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_2401_02.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3f35410847f39ca4c82e2847be28eaaa
     m_Address: Assets/_Project/Addressables/Remote/VFX/Smoke/fx_smoke_01a.png
     m_ReadOnly: 0
@@ -797,6 +812,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4e59746e872804c4fa30235fa68030df
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Boss_GaugeBg.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e635ffc83fa98045b2222480d6af596
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_synergy_shooter_ship.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1037,6 +1057,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6355cd3733d104c468488876efceea13
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Ingame_Result/Popup_IngameResult_Img_Inventory.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6370145da1a553147917642b09ecbaab
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_synergy_shooter_mine.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1322,6 +1347,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7d8c2048777aaf7419bab087504e7c83
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Img_GaugeBg.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e0f85f3119bb354da57becbf748b062
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_synergy_nova_spirit.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1875,6 +1905,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a851f9018b7c3b244a5cb49c9ef79aa4
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_synergy_ticker.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a9215ae8bd179d44592ae39babb2aabe
     m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Monster/snd_sfx_skill_201031_01.wav
     m_ReadOnly: 0
@@ -1887,6 +1922,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a96fa53ba74de0f468561358c670d773
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Stage/Popup_Stage_Btn_StageInfo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a97fa2b62431b4e4f9d62d8afe6517f7
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_synergy_shooter_emp.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -1931,7 +1971,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ace74c8994e585543a40d21020d7174b
-    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3404_02.wav
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_3404_tile.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2162,6 +2202,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bb60e055ef6bbd941812c940215b45d8
     m_Address: Assets/_Project/Addressables/Remote/VFX/Dungeon/Boss/Dungeon_01/Boss_01_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bbcfc45c733c27a419aff329764bb319
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_job_esper_esp.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -2626,6 +2671,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dfd1dd2bc22460a4c9365cace023e7ad
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_job_striker_brave.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dfe7fbfb0dfcb5e469de600c88da62d5
     m_Address: Assets/_Project/Addressables/Remote/Sounds/BGM/snd_bgm_dialog_despair01.wav
     m_ReadOnly: 0
@@ -2959,6 +3009,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa323e1cb4aaf874ab804469d6c4ca86
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Skill_Frame_Bg.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa61bbd299ea329428b8e33a984f18cd
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_2102.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -218,9 +218,5 @@ namespace CookApps.AutoBattler
         {
             StartEnterAnimation(null);
         }
-        public void TEST()
-        {
-            SceneUILayerManager.Instance.PushUILayerAsync<DungeonTrialPopup>().Forget();
-        }
     }
 }

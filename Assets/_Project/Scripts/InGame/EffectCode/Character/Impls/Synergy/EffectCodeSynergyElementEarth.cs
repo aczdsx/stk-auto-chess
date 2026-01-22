@@ -15,6 +15,7 @@ public partial class EffectCodeSynergyElementEarth : EffectCodeSynergyBase
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
+        _synergyType = SynergyType.EARTH;
         base.Initialize(codeInfo, container, source);
         _PierceValue = codeInfo.GetCodeStatToFloat(0);
         _blockRateValue = codeInfo.GetCodeStatToFloat(1);
@@ -26,6 +27,7 @@ public partial class EffectCodeSynergyElementEarth : EffectCodeSynergyBase
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
+        _synergyType = SynergyType.EARTH;
         base.Merge(codeInfo, source);
         _PierceValue = codeInfo.GetCodeStatToFloat(0);
         _blockRateValue = codeInfo.GetCodeStatToFloat(1);

@@ -109,6 +109,8 @@ public class CharacterStateAttackPierce : CharacterStateAttack
             InGameVfxNameType projectile = InGameVfxNameType.NONE;
             if (_specialAttackInfo.IsSpecialAttack)
             {
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_job_shooter_pierce);
+
                 projectile = characCtrl.SpecCharacter.atk_type is AtkType.AD ?
                 InGameVfxNameType.fx_common_job_sharpshooter_01 : InGameVfxNameType.fx_common_job_sharpshooter_02;
             }
