@@ -660,6 +660,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d8e54b23aa62b54cb9fdcf4ab339afb
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_2401_02.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3f35410847f39ca4c82e2847be28eaaa
     m_Address: Assets/_Project/Addressables/Remote/VFX/Smoke/fx_smoke_01a.png
     m_ReadOnly: 0
@@ -2959,6 +2964,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa323e1cb4aaf874ab804469d6c4ca86
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Skill_Frame_Bg.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa61bbd299ea329428b8e33a984f18cd
+    m_Address: Assets/_Project/Addressables/Remote/Sounds/SFX/Skill/Character/snd_sfx_skill_a_2102.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
