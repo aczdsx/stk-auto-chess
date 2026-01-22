@@ -21,7 +21,7 @@ namespace CookApps.AutoBattler
     {
         [Header("Guide")]
         [SerializeField] private GuideMissionSlot guideMissionSlot;
-        
+
         [Header("Buttons")]
         [SerializeField] private CAButton battleButton;
         [SerializeField] private CAButton dungeonButton;
@@ -120,17 +120,11 @@ namespace CookApps.AutoBattler
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
 
-            // 로비 튜토리얼 초기화 (임시 하드코딩, 1회용)
-            const int lobbyTutorialId = 20001;
-            if (PlayerPrefs.GetInt($"Tutorial_{lobbyTutorialId}", 0) == 0)
-            {
-                PlayerPrefs.SetInt($"Tutorial_{lobbyTutorialId}", 1);
-                PlayerPrefs.Save();
-                await TutorialManager.Instance.CheckAndInitTutorial(lobbyTutorialId);
-                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
-            }
+            await TutorialManager.Instance.CheckAndInitTutorial(20001);
+            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+
             var currentStageData = SpecDataManager.Instance.GetStageData((int)LocalDataManager.Instance.GetLastPlayStageId());
-            _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number); 
+            _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
         }
 
         private async UniTask OnClickStartButton()
