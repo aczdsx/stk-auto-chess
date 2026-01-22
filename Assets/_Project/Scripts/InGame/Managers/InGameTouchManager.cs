@@ -115,12 +115,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         {
             case TouchPhase.Began:
                 // case TouchPhase.Stationary:
-                if (isPointerOverUI)
-                {
-                    if (_selectedCharacterController != null)
-                        CancelMoveCharacter();
-                    return;
-                }
                 CheckSelectedCharacter(touchPosition);
                 break;
             case TouchPhase.Canceled:
