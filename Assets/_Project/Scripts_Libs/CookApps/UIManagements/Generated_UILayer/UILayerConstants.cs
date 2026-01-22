@@ -27,6 +27,8 @@ namespace CookApps.TeamBattle.UIManagements
                 "LoadingPopup" => "Prefabs/UI/01_Pops/LoadingPopup.prefab",
                 "CharacterCollectionPopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/CharacterCollectionPopup.prefab",
                 "InfoDetailTooltipPopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/InfoDetailTooltipPopup.prefab",
+                "NonSkillTooltipPopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/JobSkillTooltipPopup.prefab",
+                "NonSkillTooltipPopup_1" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/PassiveSkillTooltipPopup.prefab",
                 "SkillTooltipPopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/SkillTooltipPopup.prefab",
                 "SynergyTooltipInGamePopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/SynergyTooltipInGamePopup.prefab",
                 "SynergyTooltipPopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/SynergyTooltipPopup.prefab",

@@ -41,7 +41,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
         if (InGameSynergyManager.Instance.IsRegisteredBattleItem((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE))
             return;
         var specCharacter = SpecDataManager.Instance.GetSpecCharacter((int)EffectCodeNameType.BATTLE_ITEM_DYNAMITE);
-        
+
         // 배틀덱 데이터에서 저장된 dynamite 위치 가져오기
         List<InGameTile> savedDynamiteTileList = new List<InGameTile>();
         var deckData = ServerDataManager.Instance.Deck.GetDeck(InGameType.STAGE);
@@ -161,6 +161,8 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
         double FinalDamageValue = 0;
         foreach (var character in playerCharacterList)
         {
+            if (character.SpecCharacter.character_stella_type != SynergyType.TROUBLESHOOTER)
+                continue;
             FinalDamageValue += character.AD;
         }
 
@@ -173,6 +175,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
         {
             var curDynamiteTile = dynamite.CurrentTile;
             stats[0] = curDynamiteTile.View.ID;
+
             var effectCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.BATTLE_ITEM_DYNAMITE,
             0, stats);
 

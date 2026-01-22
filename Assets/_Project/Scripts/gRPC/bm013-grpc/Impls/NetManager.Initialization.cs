@@ -22,7 +22,13 @@ namespace CookApps.AutoBattler
                 Event.ListAsync(cancellationToken),
                 Initialize_Elpis(),
                 TrialDungeon.GetAsync(cancellationToken),
-                GuideMission.GetAsync(cancellationToken)
+                GuideMission.GetAsync(cancellationToken),
+                ClientData.ListAsync(new []
+                {
+                    ClientBasicData.CategoryName,
+                    ClientShopPurchaseData.CategoryName,
+                    ClientProgressData.CategoryName
+                }, cancellationToken)
             );
 
             // 2. 이벤트 스트림 구독 시작

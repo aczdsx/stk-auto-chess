@@ -96,8 +96,9 @@ namespace CookApps.AutoBattler
             questProgressSlider.value = questData.CurrentCount;
 
             // 버튼 상태 세팅
-            var isClaimable = questData.IsCleared && !questData.IsRewarded;
-            var isAlreadyClaimed = questData.IsCleared && questData.IsRewarded;
+            var isCleared = questData.CurrentCount >= specQuestData.need_count;
+            var isClaimable = isCleared && !questData.IsRewarded;
+            var isAlreadyClaimed = isCleared && questData.IsRewarded;
 
             claimBGObject.SetActive(isClaimable);
             claimButtonObject.SetActive(isClaimable);
@@ -109,7 +110,7 @@ namespace CookApps.AutoBattler
         private async UniTask OnClickGetRewardButtonAsync()
         {
             if (questData == null) return;
-            if (!questData.IsCleared) return;
+            if (questData.CurrentCount < specQuestData.need_count) return;
             if (questData.IsRewarded) return;
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);

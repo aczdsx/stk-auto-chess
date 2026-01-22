@@ -160,7 +160,7 @@ namespace CookApps.AutoBattler
 
         public static string GetCharacterIllustSprite(int prefabID)
         {
-            return ZString.Format("Character_Illust_{0}", prefabID);
+            return ZString.Format("CharacterIllust_{0}", prefabID);
         }
 
         public static string GetCharacterSubIllustSprite(int prefabID)
@@ -198,9 +198,9 @@ namespace CookApps.AutoBattler
             return ZString.Format("Skill_{0}", skillID);
         }
 
-        public static string GetCharacterJobSkillSprite(int skillID)
+        public static string GetCharacterJobSkillSprite(CharacterPositionType positionType)
         {
-            return ZString.Format("Skill_Job_{0}", skillID);
+            return ZString.Format("Skill_Job_{0}", positionType.ToString());
         }
 
         public static string GetCharacterPassiveSkillSprite(int skillID)

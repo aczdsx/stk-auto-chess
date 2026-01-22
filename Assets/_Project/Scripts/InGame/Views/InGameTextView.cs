@@ -171,7 +171,6 @@ namespace CookApps.AutoBattler
             SetupPositionAndAnimation(position, characterHeight, triggerHash);
             
             // 사운드 재생
-            PlayDamageSound(isCritical);
         }
 
         public async UniTask ShowBlockText(Vector3 position, float characterHeight, double damage)

@@ -45,6 +45,9 @@ public enum SoundFX
     snd_sfx_ui_btn_battle_start,
     snd_sfx_pvp_result_victory,
     snd_sfx_pvp_result_defeat,
+    snd_sfx_ui_position_pick,
+    snd_sfx_ui_position_drop,
+    snd_sfx_ui_position_back,
 
     // Gacha
     snd_sfx_gacha_start_001 = 201,

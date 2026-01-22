@@ -111,18 +111,10 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (_touchLocked) return;
         touchPosition.z = 0;
 
-        if (isPointerOverUI)
-        {
-            if (_selectedCharacterController != null)
-                CancelMoveCharacter();
-            return;
-        }
-
         switch (touchPhase)
         {
             case TouchPhase.Began:
                 // case TouchPhase.Stationary:
-
                 CheckSelectedCharacter(touchPosition);
                 break;
             case TouchPhase.Canceled:
@@ -487,6 +479,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         CharacterController characterToReturn = _selectedCharacterController;
         ReleaseSelectedHero(isDropFx: true, skipTutorialCheck: true);
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_position_back);
 
         characterToReturn.CurrentTile.SetUnoccupied();
         InGameObjectManager.Instance.RemoveCharacterFromField(characterToReturn);
@@ -712,6 +705,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private void SetSelectedCharacter(CharacterController character)
     {
         _selectedCharacterController = character;
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_position_pick);
+        
         _selectedFirstTileView = _selectedTileView;
         _selectedTileView.SetActiveObj(true);
         if (character.GetCharacterStat() != null)
@@ -754,6 +749,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             bool tileChanged = _selectedFirstTileView != null && _selectedTileView != null &&
                                _selectedFirstTileView.ID != _selectedTileView.ID;
             int placedCharacterId = _selectedCharacterController.CharacterId;
+             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_position_drop);
 
             _selectedCharacterController.SetSelectedCharacter(false, isDropFx: _isDragFromUI && tileChanged);
             _selectedTileView.SetActiveObj(false);

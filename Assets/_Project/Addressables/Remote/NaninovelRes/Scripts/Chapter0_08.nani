@@ -4,17 +4,17 @@
 
 @back bg_brokenship_03 
 @camera offset:0 zoom:0.1 time:0.2
-@char uni_00.Talk pos:30,-240 scale:1.38
+@char uni_00.normal pos:30,-240 scale:1.38
 
 uni_00: 허억…. 진짜 이번엔 죽는줄 알았어.
 
 @camera offset:2 zoom:0.1 time:0.2
-@char philia_00.Talk pos:60,-235 scale:1.38
+@char philia_00.normal pos:60,-235 scale:1.38
 
 philia_00: 뭐라고 하고 싶지만, 이번만은 유니의 말에 동감입니다.
 
 @camera offset:1 zoom:0.1 time:0.2
-@char atresia_00.Talk pos:90,-235 scale:1.38
+@char atresia_00.normal pos:90,-235 scale:1.38
 @spawn ShakeCharacter params:atresia_00
 atresia_00: 혈흔이 이쪽으로 이어지고 있어요. 어서 따라가봐요!
 ; @sfx sfx_footsteps volume:0.8
@@ -35,14 +35,14 @@ Narrator: 혈흔의 흔적을 따라가 도착한 지휘실엔 어딘가 매혹�
 
 @back bg_rightbringer_01
 
-@char atresia_00.Talk pos:70,-235 scale:1.38
+@char atresia_00.normal pos:70,-235 scale:1.38
 atresia_00: 클레이…! 무사했군요. 다행이에요.
 @despawn CutScene/cbg_00_06
 
 @spawn CutScene/cbg_00_07
 Narrator: 자신을 부르자 현실감각이 돌아온듯 깜짝 놀라며 ‘클레이’라 불린 소녀는 일행들을 뒤돌아 본다.
 
-@char cley_00.Talk pos:40,-235,1 scale:1.38
+@char cley_00.normal pos:40,-235,1 scale:1.38
 cley_00: 아트레시아…
 
 @char uni_00.Talk pos:20,-240,-1 scale:1.38
