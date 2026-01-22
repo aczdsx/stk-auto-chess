@@ -78,8 +78,13 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
+            RefreshData().Forget();
+        }
 
-            // Default to current order from server, or 1 if 0 (not started)
+        private async UniTask RefreshData()
+        {
+            await NetManager.Instance.TrialDungeon.GetAsync();
+
             var currentOrder = ServerDataManager.Instance.TrialDungeon.Order;
             if (currentOrder == 0) currentOrder = 1;
 
