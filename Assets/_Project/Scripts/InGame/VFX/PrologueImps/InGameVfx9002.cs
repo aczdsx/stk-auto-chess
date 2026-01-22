@@ -15,6 +15,7 @@ namespace CookApps.BattleSystem
 
         public void SetPlay()
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_laplace02);
             _isPlaying = true;
         }
 

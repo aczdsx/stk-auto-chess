@@ -16,6 +16,15 @@ using UnityEngine.Pool;
 using UnityEngine.VFX;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
+// TODO 아트레시아 궁
+// TODO 유니 궁
+// TODO 필리아 궁
+// TODO 아트레시아 슈퍼노바 1 + 기모으기
+// TODO 클레이 베리어
+// TODO 마리에 궁
+// TODO 아트레시아 슈퍼노바 3
+// TODO 아트레시아 최종 궁
+
 namespace CookApps.AutoBattler.Prologue
 {
     /// <summary>
@@ -516,6 +525,7 @@ namespace CookApps.AutoBattler.Prologue
             _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKLLOOP);
 
             var vfxTileIdx = _artesiaCharacter.CurrentTile.Int2Index + new int2(0, 1);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_laplace01);
             laplasSkill1 = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_9002_1,
                 InGameObjectManager.Instance.InGameGrid.GetTile(vfxTileIdx).View.CachedTr.position);
             inGameVfx9002 = laplasSkill1.GetComponent<InGameVfx9002>();
@@ -558,8 +568,6 @@ namespace CookApps.AutoBattler.Prologue
             await UniTask.NextFrame();
 
             _clayCharacter.Target = _clayCharacter;
-            // await ActivateCharacterSkillWithWait(_clayCharacter, "클레이 스킬을 찾을 수 없습니다.");
-            // _clayCharacter.AddNextState<CharacterStateReady>();
 
             clayShieldList = new();
 
@@ -840,6 +848,7 @@ namespace CookApps.AutoBattler.Prologue
             Debug.LogColor("라플라스 마녀 체력 회복");
             var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_9002_4, _witchCharacter.SkillBottomFXTransformFollowable);
             vfx.CachedTr.localPosition += new UnityEngine.Vector3(0, 0, -4);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_laplace04);
             await UniTask.Delay(1000);
             _witchCharacter.AddNextState<CharacterStateReady>();
             _witchCharacter.GetHealed(9999.0f, _witchCharacter, 0);
@@ -859,6 +868,7 @@ namespace CookApps.AutoBattler.Prologue
             ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(600, 0.1f);
             // 라플라스 마녀 최후의 공격 준비 이펙트 재생
             // 암흑 힘 응집 이펙트 (마녀를 감싸는 이펙트)
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_laplace05);
             _witchAttackPrepareFx = InGameVfxManager.Instance.AddInGameVfx(
                 InGameVfxNameType.Skill_9002_3,
                 _witchCharacter.SkillMiddleFXTransformFollowable);
@@ -877,7 +887,7 @@ namespace CookApps.AutoBattler.Prologue
         private async UniTask TriggerWitchFinalAttackAndArtesiaDefend()
         {
             // ! 암전
-
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_endtransition);
             var whiteOutImage = GameObject.Find("WhiteOutUICover").GetComponent<UnityEngine.UI.Image>();
             SoundManager.Instance.StopBGM(1.2f);
             var fadeTween = whiteOutImage.DOFade(1f, 1.5f);
