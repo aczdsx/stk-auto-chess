@@ -166,6 +166,7 @@ namespace CookApps.BattleSystem
 
         public void SetPlaySpeed(float speed)
         {
+            Debug.Log($"[InGameMainFlowManager] SetPlaySpeed: {speed}");
             fastForwardRate = speed;
             Tween.GlobalTimeScale(fastForwardRate, new TweenSettings());
         }
@@ -174,7 +175,7 @@ namespace CookApps.BattleSystem
         {
             if (isSpeedUp)
             {
-                SetPlaySpeed(Preference.LoadPreference(Pref.IS_SPEED_UP, 1.4f));
+                SetPlaySpeed(Preference.LoadPreference(Pref.IS_SPEED_UP, 1.3f));
             }
             else
             {

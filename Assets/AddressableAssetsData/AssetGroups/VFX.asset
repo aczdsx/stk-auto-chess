@@ -50,6 +50,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3c1dc9e2a3a0e504e84fc31e75d8f64e
+    m_Address: Assets/_Project/Addressables/Remote/VFX/Glow/fx_shadow_AlphaTest.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3cd374d8c82053146bdb2d3f2352c464
     m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/HologramCharacter.shadergraph
     m_ReadOnly: 0

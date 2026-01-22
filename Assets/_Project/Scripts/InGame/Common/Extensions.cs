@@ -147,13 +147,6 @@ namespace CookApps.BattleSystem
                 BuffDebuffType.TargetImpossible => SoundFX.snd_sfx_ingame_buff,
                 BuffDebuffType.Immune => SoundFX.snd_sfx_ingame_buff,
                 BuffDebuffType.AvoidProbUp => SoundFX.snd_sfx_ingame_buff,
-                BuffDebuffType.AprilStander => SoundFX.snd_sfx_ingame_buff,
-                BuffDebuffType.TetorraAnger => SoundFX.snd_sfx_ingame_buff,
-                BuffDebuffType.ShirayukiAvoidAndAttack => SoundFX.snd_sfx_ingame_buff,
-                BuffDebuffType.EnkiPassiveHealUp => SoundFX.snd_sfx_ingame_buff,
-                BuffDebuffType.AdriaPassiveTeamHelp => SoundFX.snd_sfx_ingame_buff,
-                BuffDebuffType.BlinHeat => SoundFX.snd_sfx_ingame_buff,
-                BuffDebuffType.RukidaFoxfire => SoundFX.snd_sfx_ingame_buff,
 
                 // 디버프 (1000 이상)
                 BuffDebuffType.AttackDown => SoundFX.snd_sfx_ingame_debuff,
@@ -177,8 +170,6 @@ namespace CookApps.BattleSystem
                 BuffDebuffType.Silence => SoundFX.snd_sfx_ingame_debuff,
                 BuffDebuffType.Airborne => SoundFX.snd_sfx_ingame_debuff,
                 BuffDebuffType.Misa => SoundFX.snd_sfx_ingame_debuff,
-                BuffDebuffType.MarieAracne => SoundFX.snd_sfx_ingame_debuff,
-                BuffDebuffType.OdetteCold => SoundFX.snd_sfx_ingame_debuff,
 
                 _ => SoundFX.NONE
             };
