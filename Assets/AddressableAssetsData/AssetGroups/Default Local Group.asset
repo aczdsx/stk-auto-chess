@@ -51,11 +51,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 986a398388cfe448cb63b561bd9e7cb2
-    m_Address: TestConfig/InGameTestConfig.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a8415e5b1e5758844ab1208786bbeb66
     m_Address: Assets/_Project/Addressables/Remote/SD/CutScene/97550013
     m_ReadOnly: 0
