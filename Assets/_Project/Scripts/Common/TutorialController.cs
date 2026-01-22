@@ -204,14 +204,16 @@ public class TutorialController : MonoBehaviour
             MyDebug.MyLog($"characterInfo.prefab_id {Newtonsoft.Json.JsonConvert.SerializeObject(CurrentSpecTutorial)}");
 
             #endif
-            #if __DEV || _SJHONG_TEST_
+            #if __DEV
             try
             {
                 _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterInfo.prefab_id)).Forget();
             }
             catch (Exception e)
             {
+                #if _SJHONG_TEST_
                 MyDebug.MyLog(e.Message, MyDebug.Constants.RED);
+                #endif
                 _spriteLoaderCharacter.SetSprite("ERROR").Forget();
             }
             #else
