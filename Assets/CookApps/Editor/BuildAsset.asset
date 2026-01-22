@@ -29,7 +29,7 @@ MonoBehaviour:
         Version: 0.3.4
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 4701
+        VersionCode: 4849
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         AddDefine:
@@ -67,7 +67,7 @@ MonoBehaviour:
         Version: 0.3.4
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 4701
+        VersionCode: 4862
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         AddDefine:
@@ -130,7 +130,7 @@ MonoBehaviour:
         Version: 0.2.6
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 4701
+        VersionCode: 4862
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         AddDefine:

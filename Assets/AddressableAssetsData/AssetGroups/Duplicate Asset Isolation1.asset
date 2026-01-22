@@ -35,11 +35,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b68b99c2e57cef4419465c63c527201b
-    m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/Blend_CenterGlow.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7da23a71e99e8247b5cc13860961c1f
     m_Address: Assets/_Project/Addressables/Remote/Animations/ToastSystemPopup_ANIM.anim
     m_ReadOnly: 0

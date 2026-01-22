@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: Sounds_BuiltIn
   m_EditorClassIdentifier: 
-  m_GroupName: Default Local Group
-  m_GUID: c139e0f31ed074a79bb51afa922c7ccc
+  m_GroupName: Sounds_BuiltIn
+  m_GUID: 1536448b6e5a84401a07bff008fa6dcf
   m_SerializeEntries:
-  - m_GUID: f94abf99adf954845a7e308b788b1a5d
-    m_Address: Assets/_Project/Splash_STK/Prefab/SplashUI.prefab
+  - m_GUID: 0578ca3a124ca3b4183ec967cc8ef8eb
+    m_Address: BuiltIn/Sounds
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -24,5 +24,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: f3b378a23fdc1498d93f82d7f5af7e6c, type: 2}
-    - {fileID: 11400000, guid: 99bdb621a666042bf85bfc263664fb25, type: 2}
+    - {fileID: 11400000, guid: 2a067a8d1280c480da88415a243ff049, type: 2}
+    - {fileID: 11400000, guid: 32f793b73b8984467a8a08861ca7484d, type: 2}

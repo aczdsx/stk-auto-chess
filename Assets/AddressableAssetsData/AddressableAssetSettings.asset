@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: c139e0f31ed074a79bb51afa922c7ccc
   m_currentHash:
     serializedVersion: 2
-    Hash: 5375041019ecfe911cb0466f59a63ba3
+    Hash: a67ab304d07bb3a7f745db64902a032c
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
@@ -66,11 +66,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9979a767f06142c4aea304f07160f6a, type: 2}
   - {fileID: 11400000, guid: 359b332354c6f42ada8c701cff392ba7, type: 2}
   - {fileID: 11400000, guid: 713bd0d11f6aa46e7916093c1a8e0e60, type: 2}
+  - {fileID: 11400000, guid: eda61a01b3fa54f48b7394a3067df3d7, type: 2}
   - {fileID: 11400000, guid: 76ce471b8ba1f490fb54dd498572dbe1, type: 2}
   - {fileID: 11400000, guid: c7f2eba24997047c18ecbc89440f9507, type: 2}
   - {fileID: 11400000, guid: 940e44ff4e46d477dbf997433ac48b89, type: 2}
   - {fileID: 11400000, guid: 8b7b3291bbd804697b6e2699e02d2041, type: 2}
   - {fileID: 11400000, guid: 34142c98980f849eb9483e0fb16e7db7, type: 2}
+  - {fileID: 11400000, guid: 039e8be8956754d8f9973b5139eb468d, type: 2}
   - {fileID: 11400000, guid: 48cd353cb7fdd4913b9f61f5bb8aebb0, type: 2}
   - {fileID: 11400000, guid: 71e3bb4cfe82f4850ad70b4d882b3c0f, type: 2}
   - {fileID: 11400000, guid: 4d276ba8cb31b496fb8adee53343d820, type: 2}
@@ -96,7 +98,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8c370634f5798409695fae29401946e5, type: 2}
   - {fileID: 11400000, guid: 784c562b6930c4208a253034ed07dd85, type: 2}
   - {fileID: 11400000, guid: b3f4ab8f10959492fba5dd8f7adf79e5, type: 2}
-  - {fileID: 11400000, guid: e2a2a86d3056e4cab8a6e68fb94e51fc, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
     m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
@@ -149,9 +150,9 @@ MonoBehaviour:
       - m_Id: 35031975c4f2542ddb11d9b4112c02da
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 93ddb3c7ece4b489db541c706b57288d
-        m_Value: '[BuildRoot]/ServerData/Dev/[BuildTarget]/[UnityEditor.PlayerSettings.bundleVersion]'
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: 9594afeb3fcde44a1a96d1ce758f82cb
-        m_Value: 'https://cdn.dev.cookappsgames.com/assets/[ProjectId]/[BuildTarget]/[UnityEditor.PlayerSettings.bundleVersion]'
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 9cb875e0a2ac1a24bbbd60cb0b12dc95
         m_Value: Builds/Addressables
       - m_Id: ca24e813cecf5814d8cc341ded5bea5b
