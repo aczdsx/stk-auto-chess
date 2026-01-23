@@ -107,7 +107,7 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            SetStarObject(_specCharacterData.grade_type, haveCharacter);
+            SetStarObject((int)(_userCharacterData?.TranscendLevel ?? 0), haveCharacter);
 
             // 캐릭터 조각 슬라이더 관련 처리
             var specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type, (int)(_userCharacterData?.TranscendLevel ?? 0));
@@ -136,11 +136,15 @@ namespace CookApps.AutoBattler
             SetGuideAlert();
         }
 
-        private void SetStarObject(GradeType gradeType, bool isHaveCharacter)
+        private const int MaxVisibleStars = 5;
+
+        private void SetStarObject(int transcendLevel, bool isHaveCharacter)
         {
+            int startIndex = Mathf.Max(0, transcendLevel - MaxVisibleStars);
             for (int i = 0; i < _starObjectList.Count; i++)
             {
-                _starObjectList[i].SetActive(i <= (int)gradeType);
+                bool isVisible = i >= startIndex && i < transcendLevel;
+                _starObjectList[i].SetActive(isVisible);
                 _starObjectList[i].GetComponent<CharacterGradeStar>().SetStar(isHaveCharacter);
             }
         }

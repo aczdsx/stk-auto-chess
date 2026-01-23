@@ -36,9 +36,6 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _characterGradeImageObject_SR;
         [SerializeField] private GameObject _characterGradeImageObject_SSR;
 
-        [Space(10)]
-        [SerializeField] private List<GameObject> _starObjectList;
-
         [Header("Category Toggle")]
         [SerializeField] private CAToggle _growLayerTabButton;
         [SerializeField] private CAToggle _skillLayerTabButton;
@@ -152,8 +149,6 @@ namespace CookApps.AutoBattler
 
             _elementSynergyUI.SetSynergyUI(_specCharacterData.character_element_type);
             _classSynergyUI.SetSynergyUI(_specCharacterData.character_stella_type);
-
-            SetStarObject(_specCharacterData.grade_type);
         }
 
         private void SetUserCharacterInfo()
@@ -165,14 +160,6 @@ namespace CookApps.AutoBattler
             if (userCharacterData != null)
             {
                 _characterLevelText.text = $"Lv.{userCharacterData.Level}";
-            }
-        }
-
-        private void SetStarObject(GradeType gradeType)
-        {
-            for (int i = 0; i < _starObjectList.Count; i++)
-            {
-                _starObjectList[i].SetActive(i <= (int)gradeType);
             }
         }
 

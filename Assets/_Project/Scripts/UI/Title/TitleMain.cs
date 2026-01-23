@@ -62,7 +62,7 @@ namespace CookApps.AutoBattler
             await ConnectWithServer();
 
             // Addressables 다운로드 체크 및 진행
-            // await CheckAndDownloadAddressablesAsync();
+            await CheckAndDownloadAddressablesAsync();
 
             _ = InGameTouchManager.Instance;
             _ = TutorialManager.Instance;

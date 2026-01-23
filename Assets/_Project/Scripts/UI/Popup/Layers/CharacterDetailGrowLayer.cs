@@ -4,7 +4,6 @@ using System.Linq;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using R3;
 using Tech.Hive.V1;
 using TMPro;
@@ -46,6 +45,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _transcendenceLayerObject;
         [SerializeField] private CAButton _activeTranscendenceButton;
         [SerializeField] private CAButton _inactiveTranscendenceButton;
+
+        [Space(10)]
+        [SerializeField] private List<TranscendStar> _starList;
 
         [Space(10)]
         [SerializeField] private CurrencyUIItem _transcendenceItemCurrencyUIItem;
@@ -233,6 +235,28 @@ namespace CookApps.AutoBattler
 
             _activeTranscendenceButton.gameObject.SetActive(isAvailTranscendence);
             _inactiveTranscendenceButton.gameObject.SetActive(!isAvailTranscendence);
+
+            UpdateStarDisplay((int)_userCharacterData.TranscendLevel);
+        }
+
+        private const int MaxVisibleStars = 5;
+
+        private void UpdateStarDisplay(int transcendLevel)
+        {
+            int startIndex = Mathf.Max(0, transcendLevel - MaxVisibleStars);
+            for (int i = 0; i < _starList.Count; i++)
+            {
+                bool isVisible = i >= startIndex && i < transcendLevel;
+                _starList[i].SetActive(isVisible);
+            }
+        }
+
+        private void PlayTranscendStarAnimation(int previousLevel, int newLevel)
+        {
+            for (int i = previousLevel; i < newLevel && i < _starList.Count; i++)
+            {
+                _starList[i].PlayLevelUpAnimation();
+            }
         }
 
         private void PlayLevelUpEffect()
@@ -348,11 +372,13 @@ namespace CookApps.AutoBattler
         {
             try
             {
+                int previousLevel = (int)_userCharacterData.TranscendLevel;
+
                 var response = await NetManager.Instance.Character.TranscendAsync(_userCharacterData.CharacterId);
 
                 if (response?.IsSuccess == false)
                     return;
-                
+
                 // 메인 레이어 갱신
                 _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
 
@@ -362,6 +388,8 @@ namespace CookApps.AutoBattler
                 RefreshLayer();
                 // 이펙트 실행
                 PlayLevelUpEffect();
+                // 별 연출 재생
+                PlayTranscendStarAnimation(previousLevel, (int)_userCharacterData.TranscendLevel);
 
                 // var afterTranscenenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type,
                 //     (int)(_userCharacterData.TranscendLevel + 1));
