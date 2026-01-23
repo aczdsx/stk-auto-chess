@@ -823,7 +823,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 500
+  far clip plane: 2000
   field of view: 60
   orthographic: 1
   orthographic size: 14.1
@@ -869,15 +869,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f997f5279224ec196e1c0902953c88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panSpeed: 100
+  panSpeed: 50
   panSmoothing: 10
   zoomSpeed: 0.01
   minZoom: 10
   maxZoom: 20
   zoomSmoothing: 10
   mouseScrollZoomSpeed: 2
-  boundaryMin: {x: -77.6, y: -65.11}
-  boundaryMax: {x: 77.6, y: 65.11}
+  boundaryMin: {x: -42.6, y: -45.5}
+  boundaryMax: {x: 42.6, y: 27.5}
 --- !u!1 &1824850557
 GameObject:
   m_ObjectHideFlags: 0

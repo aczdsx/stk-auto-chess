@@ -115,7 +115,6 @@ public partial class EffectCodeSkill280109102 : EffectCodeCharacterBase
             InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, tile);
         
         var offsetedTile = artresiaCharacterControler.CurrentTile.Int2Index + new int2(0, -1);
-
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], InGameObjectManager.Instance.InGameGrid.GetTile(offsetedTile).View.CachedTr.position);
         
         await UniTask.Delay(1250);

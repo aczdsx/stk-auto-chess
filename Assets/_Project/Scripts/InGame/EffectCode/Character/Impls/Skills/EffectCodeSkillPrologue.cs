@@ -232,6 +232,7 @@ namespace CookApps.AutoBattler.Prologue
             base.Activate();
 
             owner.Target = InGameObjectManager.Instance.GetNearestTargetOnce(owner);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_2401_01);
 
             var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
             if (!isInRange)
@@ -254,8 +255,8 @@ namespace CookApps.AutoBattler.Prologue
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.SkillRootTransformFollowable);
             InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
                 owner.GetCharacterView().CachedTr.position);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_2401_02);
         }
-
         public override void OnSkillExecute(int executeIndex, int totalLength)
         {
             base.OnSkillExecute(executeIndex, totalLength);
@@ -270,7 +271,6 @@ namespace CookApps.AutoBattler.Prologue
 
             //hit effect
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2], owner.Target.SkillMiddleFXTransformFollowable);
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_304021);
 
             var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, owner.Target, codeId, true);
             owner.Target.GetDamaged(damage, owner);
@@ -392,6 +392,7 @@ namespace CookApps.AutoBattler.Prologue
         {
             base.Activate();
             // TODO: Target Check
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_401011);
             _hitCharacters.Clear();
             _isReadyToActivate = false;
             IsSkillActivated = true;
@@ -403,7 +404,6 @@ namespace CookApps.AutoBattler.Prologue
         public override void OnSkillExecute(int executeIndex, int totalLength)
         {
             base.OnSkillExecute(executeIndex, totalLength);
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_401011);
             var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
 
 
@@ -540,6 +540,7 @@ namespace CookApps.AutoBattler.Prologue
         {
             base.Activate();
             // TODO: Target Check
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_401011);
             _hitCharacters.Clear();
             _isReadyToActivate = false;
             IsSkillActivated = true;
@@ -553,7 +554,6 @@ namespace CookApps.AutoBattler.Prologue
             base.OnSkillExecute(executeIndex, totalLength);
 
             var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_401011);
 
             if (inGameTile.Count > 0)
             {
@@ -592,7 +592,8 @@ namespace CookApps.AutoBattler.Prologue
                     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                    var damageValue = tile.OccupiedCharacter.CurrentHp * 0.7;
+                    var damage = owner.CalculateDamageAmount(damageValue, 0, tile.OccupiedCharacter, codeId, true);
 
                     tile.OccupiedCharacter.GetDamaged(damage, owner);
 
@@ -719,7 +720,6 @@ namespace CookApps.AutoBattler.Prologue
                 owner.GetCharacterView().LookAt(targetBackTile, _targetCharacter.CurrentTile);
                 owner.Target = _targetCharacter;
             }
-
 
             // 이동 완료 후 공격 시작
             StartAttackSequence(executeIndex, totalLength);

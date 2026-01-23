@@ -132,7 +132,7 @@ namespace CookApps.AutoBattler.Prologue
 
             Debug.LogColor($"라플라스 마녀 추가 : {laplaceWitchId} at ({witchPosition.x}, {witchPosition.y})");
 
-            var witchStat = new CharacterStatData(laplaceWitchId, 5, 0.0f, 10.0f);
+            var witchStat = new CharacterStatData(laplaceWitchId, 5, 0.0f, 12.0f);
 
             addCharacterTasks.Add(InGameObjectManager.Instance.AddCharacterToField(witchStat, witchPosition,
                 AllianceType.Enemy,
