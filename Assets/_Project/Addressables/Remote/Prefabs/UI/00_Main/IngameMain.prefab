@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2096991418626786788
 RectTransform:
   m_ObjectHideFlags: 0
@@ -57,7 +57,6 @@ MonoBehaviour:
   _canvasTransform: {fileID: 2096991418626786788}
   _vignetteImage: {fileID: 8688012833653517036}
   _skillTooltipPopup: {fileID: 0}
-  _vignetteData: {fileID: 11400000, guid: 6e525e54f8ab47e43a10ebe4272074f9, type: 2}
   _uiObjectMover: {fileID: 9188046061942018912}
   _commanderManagerPrefab:
     m_AssetGUID: ee46ee39a6f697e4d8d0bb0a9914d5d6

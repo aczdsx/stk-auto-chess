@@ -1196,7 +1196,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1145102127885919147
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1235,6 +1235,9 @@ MonoBehaviour:
   _closeButton: {fileID: 8733334902371148795}
   _confirmButton: {fileID: 5619565198292153360}
   _nicknameInputField: {fileID: 7431746380943883402}
+  _tutorialToastObj: {fileID: 0}
+  _tutoiralText: {fileID: 0}
+  _tutorialToastAnimator: {fileID: 0}
 --- !u!1 &5775147497593126658
 GameObject:
   m_ObjectHideFlags: 0

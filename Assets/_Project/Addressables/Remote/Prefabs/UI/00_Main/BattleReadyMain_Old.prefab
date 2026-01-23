@@ -17201,7 +17201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7409389282505193048
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17285,7 +17285,7 @@ MonoBehaviour:
   _playButton: {fileID: 527963977007477802}
   _stageSelectButton: {fileID: 6692724837655265189}
   _idleRewardButton: {fileID: 5085768673705005770}
-  _vignetteData: {fileID: 11400000, guid: 6e525e54f8ab47e43a10ebe4272074f9, type: 2}
+  stageMilestonePanel: {fileID: 0}
   _vignetteImage: {fileID: 5632547169323492497}
   _stageSelectScrollRect: {fileID: 4915601122831822805}
   _stageSelectSlotObject: {fileID: 8004714604287353782}
@@ -24044,11 +24044,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8119078790463942519, guid: 9153c670b1b67da40b2d18264c8e597c, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.498
       objectReference: {fileID: 0}
     - target: {fileID: 8119078790463942519, guid: 9153c670b1b67da40b2d18264c8e597c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8119078790463942519, guid: 9153c670b1b67da40b2d18264c8e597c, type: 3}
       propertyPath: m_SizeDelta.x
@@ -24272,7 +24272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1711915216371610467, guid: 49f116c863277bf479f014a39c493dd6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 54.48649
       objectReference: {fileID: 0}
     - target: {fileID: 1711915216371610467, guid: 49f116c863277bf479f014a39c493dd6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -25838,7 +25838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9167835040181607417, guid: a65fe1d63c6d73149b5102b01df82868, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 54.48649
       objectReference: {fileID: 0}
     - target: {fileID: 9167835040181607417, guid: a65fe1d63c6d73149b5102b01df82868, type: 3}
       propertyPath: m_AnchoredPosition.y

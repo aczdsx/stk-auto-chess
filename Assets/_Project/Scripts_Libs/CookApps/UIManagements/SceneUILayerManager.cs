@@ -313,8 +313,6 @@ namespace CookApps.TeamBattle.UIManagements
             uiLayerStackData.Layer.CachedGo.SetActive(true);
             uiLayerStackData.Layer.OnPreEnter(data);
             
-            uiLayerStackData.Layer.CachedRectTr.anchoredPosition = Vector2.zero;
-            
             uiLayerStackData.State = UILayerState.Entering;
             OnUITransitionEvent?.Invoke(UILayerTransition.Entering, uiLayerStackData.Key, uiLayerStackData.Layer, data);
 
@@ -619,7 +617,7 @@ namespace CookApps.TeamBattle.UIManagements
         private async UniTask<UILayer> LoadUILayer(string uiLayerName)
         {
             var address = UILayerConstants.GetUILayerAddress(uiLayerName);
-            var handle = Addressables.InstantiateAsync(address, new Vector3(float.MaxValue * 0.5f, float.MaxValue * 0.5f, 0), Quaternion.identity, mainNode);
+            var handle = Addressables.InstantiateAsync(address, mainNode);
             await handle.WaitUntilDone();
             return handle.Result.GetComponent<UILayer>();
         }
