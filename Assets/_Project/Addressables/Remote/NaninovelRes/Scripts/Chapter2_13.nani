@@ -5,13 +5,12 @@
 ; [SYSTEM] Chapter2_13 시작
 ; L003
 
-@bgm snd_bgm_splash01
+@bgm snd_bgm_dialog_despair01
 
 @back bg_hasolle_04
 
 Narrator: 오데트를 따라 도착한 곳은, 도시의 비교적 깔끔한 외형을 유지하고 있는 건물의 지하. 
 Narrator: 차갑고... 어두컴컴한 그곳에... ...그녀가 서 있었다.
-
 
 @char atresia_00.Talk pos:75,-235 scale:1.38
 ; L004
@@ -34,6 +33,8 @@ odette_00: ......
 philia_00: 가까이 접근해보죠.
 ; L009
 ; @sfx sfx_footsteps volume:0.6
+@sfx snd_sfx_dialog_walk_foot_solid
+
 ; L010
 ; [SFX] 다가가는 발소리
 ; L011
