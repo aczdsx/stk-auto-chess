@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler.Editor
         private const string LocalBuildPathId = "e3886738edb4841efab4e6e501113a07";
         private const string RemoteBuildPathId = "93ddb3c7ece4b489db541c706b57288d";
 
-        [MenuItem("Tools/Addressables Local→Remote Reference Finder")]
+        [MenuItem("Tools/Addressbles/Addressables Local → Remote Reference Finder")]
         public static void ShowWindow()
         {
             var window = GetWindow<AddressablesLocalRemoteReferenceFinder>("Local→Remote Finder");

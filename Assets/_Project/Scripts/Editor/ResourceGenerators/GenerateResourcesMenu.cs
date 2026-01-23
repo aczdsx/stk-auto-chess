@@ -5,6 +5,12 @@ using UnityEditor;
 using UnityEditor.U2D;
 using UnityEngine.U2D;
 
+public static class ResourcePath
+{
+    public const string SD_PATH = "Assets/_Project/Addressables/Remote/SD";
+    public const string LD_PATH = "Assets/_Project/Addressables/Remote/LD";
+}
+
 public class GenerateResourcesMenu
 {
     

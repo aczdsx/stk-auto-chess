@@ -31,7 +31,7 @@ namespace CookApps.AutoBattler.Editor
         private bool _showScenes = true;
         private bool _showOthers = true;
 
-        [MenuItem("Tools/Addressables Cross Reference Finder")]
+        [MenuItem("Tools/Addressbles/Addressables Cross Reference Finder")]
         public static void ShowWindow()
         {
             var window = GetWindow<AddressablesCrossReferenceFinder>("Cross Reference Finder");
