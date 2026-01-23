@@ -133,7 +133,7 @@ namespace CookApps.AutoBattler
                 {
                     var specData = SpecDataManager.Instance.GetCharacterData(characterId);
 
-                    if (specData != null && specData.grade_type == GradeType.LEGENDARY && datas[i].Id == characterId)
+                    if (specData != null && specData.grade_type == GradeType.LEGENDARY && datas[i].Id.IsCharacter())
                     {
                         ssrCount++;
                         isHaveSSR = true;
@@ -531,7 +531,7 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            if (_datas[cnt].Id == fxCharacterId)
+            if (_datas[cnt].Id.IsCharacter())
             {
                 if (idxCharcater.grade_type == GradeType.LEGENDARY)
                 {
