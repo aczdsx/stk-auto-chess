@@ -99,6 +99,8 @@ namespace CookApps.AutoBattler
 
             LoadElpisData();
             UpdateUI();
+            
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
         }
         
         protected override void OnPreExit()
@@ -187,7 +189,7 @@ namespace CookApps.AutoBattler
             for (var i = 0; i < SpecDataManager.Instance.ElpisBuildInfo.All.Count; i++)
             {
                 var buildInfo = SpecDataManager.Instance.ElpisBuildInfo.All[i];
-                if (buildInfo.facility_type.ToServerType() == ElpisFacilityType.FacilityTypeCommandCenter && buildInfo.build_lv == commandCenter.Level)
+                if (buildInfo.facility_type.ToServerType() == ElpisFacilityType.FacilityTypeCommandCenter && buildInfo.build_lv == uiLevel)
                 {
                     requiredCoreForUpgrade = buildInfo.item_INT;
                     hasNextUpgrade = true;

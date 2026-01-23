@@ -37,6 +37,8 @@ namespace CookApps.AutoBattler
             cachedData.targetLobbyBuildingUI.SetCurrentBuildLayer(this);
             RefreshUI();
             LobbyMain.GetLobbyMain().PlayExitAnimation();
+            
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
         }
 
         protected override void OnPreExit()
