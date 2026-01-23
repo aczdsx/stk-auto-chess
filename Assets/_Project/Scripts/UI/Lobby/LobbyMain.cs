@@ -142,15 +142,20 @@ namespace CookApps.AutoBattler
             guideMissionSlot.InitGuideMissionSlot();
 
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
+            
+            var cameraController = MainCameraHolder.CameraGestureController;
+            cameraController.SetCameraZoomForce(30.0f);
 
             await LoadElpis();
-
-            SceneTransition.FadeOutAsync().Forget();
-
-            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
-
+            
             var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
             _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
+            
+            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
+
+            cameraController.ZoomAsync(16.0f, 1.0f).Forget();
+            
+            await SceneTransition.FadeOutAsync();
         }
 
         private async UniTask OnClickStartButton()
