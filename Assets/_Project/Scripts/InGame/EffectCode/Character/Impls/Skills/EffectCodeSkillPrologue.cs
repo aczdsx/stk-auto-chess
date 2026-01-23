@@ -591,11 +591,16 @@ namespace CookApps.AutoBattler.Prologue
                     InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
                     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
+                    CharacterController.DamageInfo damageInfo = CharacterController.DamageInfo.Create(
+                        damageAmount: tile.OccupiedCharacter.CurrentHp * 0.7,
+                        source: 0,
+                        attackerType: AttackerType.CHARCTER,
+                        isAD: owner.SpecCharacter.atk_type is AtkType.AD ? true : false,
+                        isCritical: false,
+                        isDoubleCritical: false
+                    );
 
-                    var damageValue = tile.OccupiedCharacter.CurrentHp * 0.7;
-                    var damage = owner.CalculateDamageAmount(damageValue, 0, tile.OccupiedCharacter, codeId, true);
-
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    tile.OccupiedCharacter.GetDamaged(damageInfo, owner);
 
                     _hitCharacters.Add(tile.OccupiedCharacter);
                 }

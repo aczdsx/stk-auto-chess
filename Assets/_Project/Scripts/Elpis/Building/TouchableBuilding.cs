@@ -1,4 +1,5 @@
-﻿using CookApps.AutoBattler;
+﻿using System;
+using CookApps.AutoBattler;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
@@ -14,9 +15,26 @@ public class TouchableBuilding : MonoBehaviour
     private bool _isDragging;
     private const float DragThreshold = 10f;
 
+    // 튜토리얼용 TutorialTarget
+    private TutorialTarget _tutorialTarget;
+
+    /// <summary>
+    /// 건물 FacilityType 반환
+    /// </summary>
+    public ElpisFacilityType FacilityType => facilityType;
+
+    /// <summary>
+    /// 튜토리얼에서 건설 완료 터치 시 호출될 콜백
+    /// </summary>
+    public static Action<ElpisFacilityType> OnBuildCompleteClicked;
+
     private void Awake()
     {
         _elpisDataBridge = new ElpisDataBridge();
+
+        // TutorialTarget 동적 생성 및 등록
+        _tutorialTarget = gameObject.AddComponent<TutorialTarget>();
+        _tutorialTarget.SetTargetId($"Building_{facilityType}");
     }
 
     private void OnMouseDown()
@@ -80,6 +98,9 @@ public class TouchableBuilding : MonoBehaviour
 
     private async UniTask HandleBuildComplete(ElpisFacility facilityData)
     {
+        // 튜토리얼 콜백 호출 (등록되어 있다면)
+        OnBuildCompleteClicked?.Invoke(facilityType);
+
         // 업그레이드인지 신규 건설인지 확인
         if (facilityData.Level >= 1 && facilityData.IsUpgrading)
         {

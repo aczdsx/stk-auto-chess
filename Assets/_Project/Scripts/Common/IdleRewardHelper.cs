@@ -12,8 +12,8 @@ namespace CookApps.AutoBattler
         /// </summary>
         public static TimeSpan GetElapsedTime()
         {
-            return TimeManager.Instance.GetTimeSpanFromNow(
-                UserDataManager.Instance.UserIdleData.LastRewardGetTimestamp);
+            var seconds = (long)ServerDataManager.Instance.Elpis.Simulation.LastClaimTime / 1000;
+            return TimeManager.Instance.GetTimeSpanFromNow(seconds);
         }
 
         /// <summary>

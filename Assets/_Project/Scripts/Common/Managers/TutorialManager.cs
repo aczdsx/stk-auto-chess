@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
-using Newtonsoft.Json;
+using R3;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -42,16 +43,188 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     public bool HasTutorialStage => _specTutorialDataList is { Count: > 0 } && _specTutorialDataList[0].tutorial_id > 0;
     public bool IsTutorial => _canvas != null;
 
+    // 로비 준비 상태 관리
+    private bool _isLobbyReady;
+    private GuideMissionInfo _pendingLobbyTutorial;  // 로비 준비 대기 중인 튜토리얼
+    private IDisposable _missionIdChangedSubscription;
+
     protected override void Awake()
     {
         base.Awake();
+        SubscribeGuideMissionChanged();
+        SubscribeUITransitionEvent();
     }
 
     protected override void OnDestroy()
     {
+        _missionIdChangedSubscription?.Dispose();
+        UnsubscribeUITransitionEvent();
         ClearTutorial();
         base.OnDestroy();
     }
+
+    private void SubscribeUITransitionEvent()
+    {
+        SceneUILayerManager.OnUITransitionEvent += OnUITransitionEvent;
+    }
+
+    private void UnsubscribeUITransitionEvent()
+    {
+        SceneUILayerManager.OnUITransitionEvent -= OnUITransitionEvent;
+    }
+
+    /// <summary>
+    /// UI 전환 이벤트 핸들러 - 팝업이 닫힐 때 STAY_DEFAULT_LOBBY 트리거 체크
+    /// </summary>
+    private void OnUITransitionEvent(UILayerTransition transition, string key, UILayer layer, object data)
+    {
+        // 팝업/모달이 닫힐 때만 체크
+        if (transition != UILayerTransition.ExitFinished) return;
+        if (layer.UILayerType is not (UILayerType.Popup or UILayerType.Modal)) return;
+
+        // 다음 프레임에 체크 (UI Stack이 완전히 정리된 후)
+        TryTriggerStayDefaultLobbyDelayed().Forget();
+    }
+
+    private async UniTask TryTriggerStayDefaultLobbyDelayed()
+    {
+        await UniTask.Yield();
+        TryTriggerStayDefaultLobby();
+    }
+
+    #region 전역 가이드 미션 감시
+
+    /// <summary>
+    /// 가이드 미션 ID 변경 전역 구독
+    /// </summary>
+    private void SubscribeGuideMissionChanged()
+    {
+        var guideMissionBridge = new GuideMissionDataBridge();
+        _missionIdChangedSubscription = guideMissionBridge.OnMissionIdChanged
+            .Subscribe(missionId => OnGuideMissionIdChanged((int)missionId));
+    }
+
+    /// <summary>
+    /// 가이드 미션 ID 변경 시 호출
+    /// </summary>
+    private void OnGuideMissionIdChanged(int guideMissionId)
+    {
+        var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
+        if (specGuideMissionData == null)
+        {
+            return;
+        }
+
+        // 튜토리얼 ID가 없으면 스킵
+        if (specGuideMissionData.tutorial_id <= 0)
+        {
+            return;
+        }
+
+        // 이미 완료된 미션이면 스킵
+        if (IsClearedGuideMission(guideMissionId))
+        {
+            return;
+        }
+
+        // 이미 튜토리얼 진행 중이면 스킵
+        if (_pendingGuideMissionInfo != null)
+        {
+            return;
+        }
+
+        Debug.LogColor($"[TutorialManager] 가이드 미션 변경 감지: {guideMissionId}", "cyan");
+
+        // 로비가 준비되어 있으면 즉시 실행, 아니면 대기
+        if (_isLobbyReady)
+        {
+            StartLobbyTutorialAsync(specGuideMissionData).Forget();
+        }
+        else
+        {
+            _pendingLobbyTutorial = specGuideMissionData;
+            Debug.LogColor($"[TutorialManager] 로비 준비 대기 중: {guideMissionId}", "yellow");
+        }
+    }
+
+    /// <summary>
+    /// 로비 기본 UI 준비 완료 알림 (LobbyMain.OnPostEnter에서 호출)
+    /// </summary>
+    public void NotifyLobbyReady()
+    {
+        _isLobbyReady = true;
+        Debug.LogColor("[TutorialManager] 로비 준비 완료", "cyan");
+
+        // 대기 중인 튜토리얼이 있으면 실행 시도
+        TryTriggerStayDefaultLobby();
+    }
+
+    /// <summary>
+    /// STAY_DEFAULT_LOBBY 트리거 시도
+    /// - 로비 기본 UI 상태일 때만 발동
+    /// - 대기 중인 튜토리얼이 있어야 함
+    /// </summary>
+    public void TryTriggerStayDefaultLobby()
+    {
+        if (!IsLobbyDefaultState())
+        {
+            Debug.LogColor("[TutorialManager] STAY_DEFAULT_LOBBY 대기 중 (팝업 열림)", "yellow");
+            return;
+        }
+
+        if (_pendingLobbyTutorial == null)
+        {
+            return;
+        }
+
+        Debug.LogColor($"[TutorialManager] STAY_DEFAULT_LOBBY 트리거 발동: {_pendingLobbyTutorial.id}", "green");
+
+        var pending = _pendingLobbyTutorial;
+        _pendingLobbyTutorial = null;
+        if(pending.id > 101) {return;}
+        StartLobbyTutorialAsync(pending).Forget();
+    }
+
+    /// <summary>
+    /// 로비 퇴장 알림 (LobbyMain.OnPreExit에서 호출)
+    /// </summary>
+    public void NotifyLobbyExit()
+    {
+        _isLobbyReady = false;
+        _pendingLobbyTutorial = null;
+        Debug.LogColor("[TutorialManager] 로비 퇴장", "cyan");
+    }
+
+    /// <summary>
+    /// 로비 기본 UI 상태인지 확인
+    /// - 로비가 준비된 상태
+    /// - Popup/Modal 타입 UI가 없는 상태
+    /// </summary>
+    public bool IsLobbyDefaultState()
+    {
+        if (!_isLobbyReady) return false;
+
+        // Popup, Modal 타입 UI가 있는지 확인 (Cover, Overlay 제외)
+        var popupOrModalUIs = SceneUILayerManager.Instance.GetUIRoutes(isContainCover: false, isContainOverlay: false);
+        return popupOrModalUIs.Length == 0;
+    }
+
+    /// <summary>
+    /// 로비 튜토리얼 시작
+    /// </summary>
+    private async UniTask StartLobbyTutorialAsync(GuideMissionInfo info)
+    {
+        var result = await CheckAndInitTutorialWithGuideMissionInfo(info);
+        if (!result)
+        {
+            return;
+        }
+
+        // 로비 전용 초기 트리거 (필요 시)
+        // STAY_DEFAULT_LOBBY 트리거는 튜토리얼 데이터에 정의된 대로 자동 발동됨
+    }
+
+    #endregion
 
     #region 아웃게임 튜토리얼
 
@@ -63,7 +236,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
     public async UniTask<bool> CheckAndInitTutorialWithGuideMissionInfo(GuideMissionInfo info)
     {
-        if(true) return false;
+
         if (IsClearedGuideMission(info.id))
         {
             return false;

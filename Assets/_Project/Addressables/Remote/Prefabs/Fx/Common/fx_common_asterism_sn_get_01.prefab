@@ -29465,6 +29465,7 @@ GameObject:
   - component: {fileID: 1092269116210251972}
   - component: {fileID: 1099689612193994}
   - component: {fileID: 4284890724396553067}
+  - component: {fileID: 6635302834457105054}
   m_Layer: 6
   m_Name: fx_common_asterism_sn_get_01
   m_TagString: Untagged
@@ -34390,3 +34391,16 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &6635302834457105054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936357540754246010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 945174793604948341}

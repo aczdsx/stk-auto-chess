@@ -76,6 +76,7 @@ public class TutorialController : MonoBehaviour
     {
         { TutorialActionType.NONE, new TutorialActionNone() },
         { TutorialActionType.FORCED_TOUCH_UI, new TutorialActionForcedTouchUI() },
+        { TutorialActionType.FORCED_TOUCH_BUILD, new TutorialActionForcedTouchBuilding() },
         { TutorialActionType.FOCUS_OBJECT, new TutorialActionFocusObject() },
         { TutorialActionType.FOCUS_UI, new TutorialActionFocusUI() },
         { TutorialActionType.TOAST_MESSAGE, new TutorialActionToastMessage() },
@@ -245,7 +246,8 @@ public class TutorialController : MonoBehaviour
         // TOAST_MESSAGE, SHOW_DIALOGUE_POP 타입은 말풍선 숨김
         bool hideDialogueBubble = CurrentSpecTutorial.tutorial_action_type == TutorialActionType.TOAST_MESSAGE ||
                                    CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP ||
-                                   CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP_CALLBACK;
+                                   CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP_CALLBACK ||
+                                   (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.NONE && CurrentSpecTutorial.prefab_id <= 0);
         _bodyRectTransform.gameObject.SetActive(!hideDialogueBubble);
 
         if (!hideDialogueBubble)
@@ -306,7 +308,11 @@ public class TutorialController : MonoBehaviour
             TutorialActionShowDialoguePopWithCallback.OnDialogueCompleted = OnDialoguePopWithCallbackCompleted;
         }
 
-        // 
+        // FORCED_TOUCH_BUILD 전략일 경우 건물 클릭 콜백 설정
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FORCED_TOUCH_BUILD)
+        {
+            TutorialActionForcedTouchBuilding.OnBuildingClicked = OnForcedTouchBuildingClicked;
+        }
     }
 
     /// <summary>
@@ -316,6 +322,18 @@ public class TutorialController : MonoBehaviour
     {
         // 콜백 해제
         TutorialActionForcedTouchUI.OnButtonClicked = null;
+
+        // 다음 튜토리얼로 진행
+        ProceedToNext();
+    }
+
+    /// <summary>
+    /// 건물 강제 터치 클릭 시 호출되는 콜백
+    /// </summary>
+    private void OnForcedTouchBuildingClicked()
+    {
+        // 콜백 해제
+        TutorialActionForcedTouchBuilding.OnBuildingClicked = null;
 
         // 다음 튜토리얼로 진행
         ProceedToNext();

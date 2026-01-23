@@ -78,15 +78,15 @@ namespace CookApps.AutoBattler
 
         public void RefreshRewardLayer()
         {
-            var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(ContentType.STAGE_STAR, _currentChapterData.chapter_id, _currentChapterData.difficulty_type);
-            if (rewardInfoList != null)
-            {
-                int count = Mathf.Min(_chapterStarRewardSlotList.Count, rewardInfoList.Count);
-                for (int i = 0; i < count; ++i)
-                {
-                    _chapterStarRewardSlotList[i].SetStarGaugeSlot(rewardInfoList[i]);
-                }
-            }
+            // var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(ContentType.STAGE_STAR, _currentChapterData.chapter_id, _currentChapterData.difficulty_type);
+            // if (rewardInfoList != null)
+            // {
+            //     int count = Mathf.Min(_chapterStarRewardSlotList.Count, rewardInfoList.Count);
+            //     for (int i = 0; i < count; ++i)
+            //     {
+            //         _chapterStarRewardSlotList[i].SetStarGaugeSlot(rewardInfoList[i]);
+            //     }
+            // }
         }
         
         public void RefreshChapterListReddot()

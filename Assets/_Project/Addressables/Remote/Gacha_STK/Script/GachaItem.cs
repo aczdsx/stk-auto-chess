@@ -55,7 +55,6 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject[] SSRFxObjects;
         [SerializeField] private GameObject[] SRFxObjects;
 
-        private int pieceCount = 0;
         private CharacterInfo characterData;
 
         private RewardItem _rewardItemData;
@@ -75,7 +74,6 @@ namespace CookApps.AutoBattler
 
             showParticle.SetActive(false);
 
-            pieceCount = _rewardItem.Count;
             BackImageSpriteLoader.SetSprite("Gacha_Img_Gray").Forget();
             KnightOnObject.SetActive(false);
             PieceOnObject.SetActive(false);
@@ -87,7 +85,7 @@ namespace CookApps.AutoBattler
             {
                 SRFxObjects[i].SetActive(false);
             }
-            if (pieceCount == 20)
+            if (_rewardItem.Id.IsCharacter())
             {
                 PieceBackImage.gameObject.SetActive(false);
                 KnightImage.gameObject.SetActive(true);
@@ -117,7 +115,7 @@ namespace CookApps.AutoBattler
                 resultGradeType = characterData.grade_type;
             }
 
-            if (pieceCount == 20)
+            if (_rewardItemData.Id.IsCharacter())
             {
                 if (resultGradeType == GradeType.COMMON)
                 {
@@ -187,7 +185,7 @@ namespace CookApps.AutoBattler
             // showParticle.SetActive(true);
             // showParticle.GetComponent<ParticleSystem>().Stop();
             // showParticle.GetComponent<ParticleSystem>().Play();
-            if (pieceCount == 20)
+            if (_rewardItemData.Id.IsCharacter())
             {
                 KnightOnObject.SetActive(true);
                 PieceOnObject.SetActive(false);
@@ -252,10 +250,10 @@ namespace CookApps.AutoBattler
                     star.SetActive(false);
                 }
 
-                for (int i = 0; i < (int)characterData.grade_type; i++)
-                {
-                    starObjects[i].SetActive(true);
-                }
+                // for (int i = 0; i < (int)characterData.grade_type; i++)
+                // {
+                //     starObjects[i].SetActive(true);
+                // }
 
                 if (characterData.grade_type == GradeType.LEGENDARY)
                 {

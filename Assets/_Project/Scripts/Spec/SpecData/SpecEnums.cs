@@ -634,6 +634,8 @@ namespace CookApps.AutoBattler
         fx_common_asterism_nb_crown_01 = 268,
         fx_common_supply_varient = 269,
         Projectile_17553404 = 270,
+        fx_common_asterism_sn_item_01 = 271,
+        fx_common_asterism_sn_get_01 = 272,
     }
 
     public enum GlobalEffectProviderType

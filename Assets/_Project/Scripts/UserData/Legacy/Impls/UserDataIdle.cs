@@ -7,43 +7,6 @@ namespace CookApps.AutoBattler
 {
     public partial class UserDataManager
     {
-        private UserIdleData userIdleData;
-
-        public UserIdleData UserIdleData => userIdleData;
-
-        [Initialize(DataCategory.UserIdleData, 1)]
-        private void Initialize_IdleData(string data)
-        {
-            if (string.IsNullOrEmpty(data))
-            {
-                userIdleData = new UserIdleData
-                {
-                    //LastRewardGetTimestamp = 1718582400,
-                    LastRewardGetTimestamp = TimeManager.Instance.UtcNowTimeStampLocal()
-                };
-
-                SaveUserIdle();
-
-                return;
-            }
-
-            userIdleData = MessageUtility.FromBase64String<UserIdleData>(data);
-        }
-
-        [Clear]
-        private void Clear_IdleData()
-        {
-            userIdleData = null;
-        }
-
-        // 현재 시간을 기준으로 보상 수령 시간 갱신
-        public void RefreshLastRewardGetTime()
-        {
-            UserIdleData.LastRewardGetTimestamp = TimeManager.Instance.UtcNowTimeStampLocal();
-
-            SaveUserIdle();
-        }
-
         // 현재 마지막 보상 수령 타임 스탬프 기준 현재 누적 방치 보상 리스트 반환
         public List<RewardItem> GetCurrentIdleRewardItemList()
         {
@@ -55,7 +18,8 @@ namespace CookApps.AutoBattler
             var totalStageClearCount = ServerDataManager.Instance.Battle.ClearedStageCount;
             var specIdleRewardList = SpecDataManager.Instance.GetAllIdleRewardList(lastStageData.chapter_id);
 
-            var currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(UserIdleData.LastRewardGetTimestamp);
+            var second = (long)ServerDataManager.Instance.Elpis.Simulation.LastClaimTime / 1000;
+            var currentRewardTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(second);
 
             var maxMinute = SpecDataManager.Instance.GetGameConfig<int>("idle_reward_acc_time_limit");
             var diffMinute = Mathf.Min((int)currentRewardTimeSpan.TotalMinutes, maxMinute);
@@ -84,11 +48,6 @@ namespace CookApps.AutoBattler
             }
 
             return resultItemList;
-        }
-
-        public void SaveUserIdle()
-        {
-            QueueSave(DataCategory.UserIdleData.ToCategoryString(), userIdleData);
         }
     }
 }

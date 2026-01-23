@@ -53,6 +53,8 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private CAButton _idleRewardButton;
 
+        [Header("Stage Milestone")]
+        [SerializeField] private StageMilestonePanel stageMilestonePanel;
 
         [Header("Vignette Layer")]
         [SerializeField] private RawImage _vignetteImage;
@@ -94,6 +96,8 @@ namespace CookApps.AutoBattler
 
         private bool _isIdleRewardFullState = false;
         private ElpisDataBridge elpisDataBridge;
+        
+        public StageMilestonePanel StageMilestonePanel => stageMilestonePanel;
 
         public static BattleReadyMain GetBattleReadyMain()
         {
@@ -291,6 +295,9 @@ namespace CookApps.AutoBattler
 
             // Vignette 세팅
             SetVignetteColor(specChapterData.chapter_id);
+
+            // 마일스톤 패널 갱신
+            stageMilestonePanel.SetChapterData(specChapterData);
 
             // 현재 스테이지 슬롯을 뷰포트 중앙으로 정렬
             if (currentStageRect != null)
@@ -512,13 +519,13 @@ namespace CookApps.AutoBattler
                 var inGameParams = await NetManager.Instance.Battle.StartAsync(currentStageData.chapter_id, currentStageData.stage_id, 0, Array.Empty<string>());
                 if (inGameParams == null)
                     return;
-                
+
                 SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                 await SceneTransition.FadeInAsync();
-            
+
                 InGameManager.Instance.EndInGame();
 
-                SceneLoading.GoToNextScene("InGame", inGameParams);
+                SceneLoading.GoToNextSceneWithStageEnterTrigger("InGame", currentStageData.stage_id, inGameParams);
             }
         }
 

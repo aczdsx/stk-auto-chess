@@ -27,7 +27,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private Color _completedColor;
 
-        private RewardInfo _specRewardInfo;
+        private StageMilestoneReward _specRewardInfo;
 
         private bool _isAvailGetReward;
         private bool _isAlreadyGetReward;
@@ -39,7 +39,7 @@ namespace CookApps.AutoBattler
                 .AddTo(this);
         }
 
-        public void SetStarGaugeSlot(RewardInfo rewardInfo)
+        public void SetStarGaugeSlot(StageMilestoneReward rewardInfo)
         {
             if (rewardInfo == null) return;
 
@@ -114,11 +114,10 @@ namespace CookApps.AutoBattler
             ServerDataManager.Instance.Battle.SetStageAccRewardState(_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type, _specRewardInfo.sub_value);
 
             // 챕터 리스트 팝업 갱신
-            var chapterListPopup = SceneUILayerManager.Instance.GetUILayer<ChapterListPopup>();
+            var chapterListPopup = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>().StageMilestonePanel;
             if (chapterListPopup != null)
             {
                 chapterListPopup.RefreshRewardLayer();
-                chapterListPopup.RefreshChapterListReddot();
             }
         }
 

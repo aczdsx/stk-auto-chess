@@ -132,7 +132,7 @@ namespace CookApps.AutoBattler
 
         public void Play()
         {
-            if (_isLoaded && _videoPlayer != null)
+            if (_isLoaded && _videoPlayer != null && _videoPlayer.enabled && gameObject.activeInHierarchy)
             {
                 _videoPlayer.Play();
             }

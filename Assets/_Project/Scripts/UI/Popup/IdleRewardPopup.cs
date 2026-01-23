@@ -155,9 +155,6 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // 보상 수령 시간 갱신 (UI에서 사용하는 UserIdleData 동기화)
-            UserDataManager.Instance.RefreshLastRewardGetTime();
-
             // 보상 결과 표시 (CurrencyDeltas에서 RewardItem 리스트 생성)
             List<RewardItem> rewardItemList = new List<RewardItem>();
             for (int i = 0; i < response.CurrencyDeltas.Count; i++)

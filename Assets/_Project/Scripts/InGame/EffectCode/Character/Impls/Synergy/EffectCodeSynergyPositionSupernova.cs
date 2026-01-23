@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using Cysharp.Threading.Tasks;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using Unity.Mathematics;
 using UnityEngine.TextCore.Text;
 
@@ -29,6 +31,8 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
     // 배틀 아이템 등록 전에 ApplySupernovaItemBySavedCharacterId가 호출된 경우 예약
     private bool _isApplyReserved = false;
+
+    private InGameVfx _supernovaItemVfx;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -186,6 +190,8 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         var character = await InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Neutral,
             typeof(CharacterStateReady), false, HpBarType.None);
 
+        character.GetCharacterView().SpriteRendererSetActive(false);
+        _supernovaItemVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_item_01, character.SkillMiddleFXTransformFollowable);
         var ecc = character.GetEffectCodeContainer();
         ecc.AddOrMergeEffectCode(new EffectCodeInfo((int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA_DRAGGING_EFFECT, 0, Span<double>.Empty), source);
 
@@ -380,28 +386,6 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
     }
 
-    // private void TakeToSupernovas(float value, CharacterController targetCharacter,
-    // IEffectCodeSource source, EffectCodeNameType effectCodeNameType, float targetHalfValue)
-    // {
-    //     Span<double> stats = stackalloc double[1];
-    //     stats.Clear();
-    //     value = value * -1;//-0.5퍼로 들어온다.
-
-    //     var takeCharactersList = InGameObjectManager.Instance.GetCharacterList(targetCharacter.AllianceType);
-    //     foreach (var character in takeCharactersList)
-    //     {
-    //         if (character == targetCharacter ||
-    //         (character.SpecCharacter.character_stella_type != SynergyType.SUPERNOVA))
-    //         {
-    //             continue;
-    //         }
-    //         stats[0] = value;
-    //         EffectCodeHelper.AddOrMergeEffectCode(effectCodeNameType, character, stats, source);
-    //         base.AddSynergyAddEffectCodeIds(effectCodeNameType);
-
-    //     }
-    // }
-
     public override void OnPreRemoved()
     {
         InGameSynergyManager.Instance.TryRemoveBattleItemFromTarget((int)EffectCodeNameType.BATTLE_ITEM_SUPERNOVA);
@@ -421,6 +405,18 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
                 _supernovaApplyVfx = null;
             }
         }
+        if (_supernovaItemVfx != null)
+        {
+            if (_supernovaItemVfx.CachedGo != null)
+            {
+                InGameVfxManager.Instance.RemoveInGameVfx(_supernovaItemVfx);
+            }
+            else
+            {
+                _supernovaItemVfx.Remove();
+                _supernovaItemVfx = null;
+            }
+        }
     }
 
     public void OnItemApplyDragAndDrop(CharacterController targetCharacter, IEffectCodeSource source)
@@ -428,6 +424,20 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         _targetCharacter = targetCharacter;
         _source = source;
 
+        if (_supernovaItemVfx != null)
+        {
+            _supernovaItemVfx.Remove();
+            _supernovaItemVfx = null;
+        }
+        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_get_01, _targetCharacter.SkillRootTransformFollowable.GetPosition());
+        GetSupernovaDragonBall().Forget();
+    }
+
+    private async UniTask GetSupernovaDragonBall()
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+        if(_targetCharacter == null)
+            return;
         var vfxName = GetSupernovaVfxName(_synergyGrade);
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_nova_spirit);
         _supernovaApplyVfx = InGameVfxManager.Instance.AddInGameVfx(vfxName, _targetCharacter.SkillRootTransformFollowable);

@@ -32,13 +32,14 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
     {
         Default = 0,
         LobbyCombat = 1,
+        LargeSize = 2,
     }
-    
+
     private void Awake()
     {
         ObjectRegistry.Register(this);
     }
-    
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -49,13 +50,13 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
         _cancellationTokenSource = null;
         ObjectRegistry.Unregister(this);
     }
-    
-    public bool CheckCameraShaking() => _isCameraShaking; 
+
+    public bool CheckCameraShaking() => _isCameraShaking;
 
     public void ShakeCamera(float durationTime, float magnitude)
     {
         if (_isCameraShaking) return;
-        
+
         _originalLocalPos = _rootObj.transform.localPosition;
         _cancellationTokenSource?.Dispose();
         _cancellationTokenSource = new CancellationTokenSource();
@@ -133,7 +134,7 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
         {
             if (_mainCamera == null)
                 return true;
-            
+
             return Mathf.Approximately(_mainCamera.orthographicSize, targetSize) &&
                    Mathf.Approximately(_mainCamera.transform.position.y, targetPosition.y);
         });
@@ -148,6 +149,9 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
                 break;
             case CameraPositionMode.LobbyCombat:
                 SetCameraSize(7.5f, new Vector3(0, 2.0f, -10), 1.0f).Forget();
+                break;
+            case CameraPositionMode.LargeSize:
+                SetCameraSize(7.0f, new Vector3(-15.3f, 9.3f, -12), 1.0f).Forget();
                 break;
         }
     }

@@ -73,7 +73,7 @@ public class FlowStateStageReady : StateReadyBase
         else
         {
             // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
-            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.LargeSize);
         }
         ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetForceCameraRotation(new Vector3(30f, 45f, 0f));
 
