@@ -83,6 +83,8 @@ namespace CookApps.AutoBattler
                 // 가챠 실패 처리
                 return;
             }
+            var gmDataBridge = new GuideMissionDataBridge();
+            gmDataBridge.AddAction(GuideMissionType.SUMMON_CHARCTER, 1);
 
             // 서버 응답의 가챠 결과를 RewardItem 리스트로 변환
             var resultGachaList = new List<RewardItem>();

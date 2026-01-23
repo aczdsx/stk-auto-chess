@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -65,6 +66,29 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
 
             SceneUILayerManager.Instance.PopUILayer(this);
+
+            // 팝업 닫힌 후 다음 가이드 미션 튜토리얼 체크
+            CheckNextGuideMissionTutorialAsync().Forget();
+        }
+
+        private async UniTask CheckNextGuideMissionTutorialAsync()
+        {
+            var guideMissionDataBridge = new GuideMissionDataBridge();
+            var guideMissionId = (int)guideMissionDataBridge.GuideMissionId;
+
+            var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
+            if (specGuideMissionData == null)
+            {
+                return;
+            }
+
+            // 튜토리얼 ID가 없으면 스킵
+            if (specGuideMissionData.tutorial_id <= 0)
+            {
+                return;
+            }
+
+            await TutorialManager.Instance.CheckAndInitTutorialWithGuideMissionInfo(specGuideMissionData);
         }
 
         private void ClearRewardSlotList()

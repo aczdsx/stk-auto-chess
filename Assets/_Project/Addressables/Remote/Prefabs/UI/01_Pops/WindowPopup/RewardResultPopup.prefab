@@ -2453,6 +2453,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6916933157172699103, guid: 4232c3247610fdc44a3b5b3fb48b80cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2083603473915524855}
+    - targetCorrespondingSourceObject: {fileID: 6916933157172699103, guid: 4232c3247610fdc44a3b5b3fb48b80cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1753915609286610515}
     - targetCorrespondingSourceObject: {fileID: 172395983885325628, guid: 4232c3247610fdc44a3b5b3fb48b80cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3966325895023763227}
@@ -2552,6 +2555,19 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1753915609286610515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3943965696104076285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9761b5fa6930744c1bdf307a8b19e2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetId: RewardClam
 --- !u!1 &7719834774433044766 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 172395983885325628, guid: 4232c3247610fdc44a3b5b3fb48b80cf, type: 3}

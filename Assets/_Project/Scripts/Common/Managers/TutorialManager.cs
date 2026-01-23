@@ -26,10 +26,12 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     {
         get
         {
+            if(_canvas == null) return false;
             return _canvas.enabled;
         }
         set
         {
+            if(_canvas == null) return;
             _canvas.enabled = value;
         }
     }
@@ -62,6 +64,11 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     public async UniTask<bool> CheckAndInitTutorialWithGuideMissionInfo(GuideMissionInfo info)
     {
         if (IsClearedGuideMission(info.id))
+        {
+            return false;
+        }
+
+        if (_pendingGuideMissionInfo != null)
         {
             return false;
         }
@@ -228,8 +235,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             if (_pendingGuideMissionInfo != null)
             {
                 var guideMissionBridge = new GuideMissionDataBridge();
-                guideMissionBridge.AddAction(_pendingGuideMissionInfo.guide_mission_type, 1);
-                _pendingGuideMissionInfo = null;
+                guideMissionBridge.AddAction(GuideMissionType.CLEAR_TUTORIAL, 1);
             }
             ClearTutorial();
         }
@@ -246,6 +252,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         }
         DestroyTutorialCanvas();
         _specTutorialDataList.Clear();
+        _pendingGuideMissionInfo = null;
     }
 
     #endregion
