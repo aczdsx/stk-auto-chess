@@ -213,7 +213,7 @@ namespace CookApps.AutoBattler.Prologue
 
 
             // 초기 카메라 위치 설정 (왼쪽으로 치우침)
-            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(6, new Vector3(-6, 6.0f, -5), 5).Forget();
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(6, new Vector3(-6, 6.0f, -5), 4).Forget();
 
             MoveCharacterToDirection(_clayCharacter, 0, 4, 0.4f);
             MoveCharacterToDirection(_yuniCharacter, 0, 4, 0.4f);
