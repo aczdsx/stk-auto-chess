@@ -75,7 +75,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    Color: {r: 0.16862746, g: 0.03529412, b: 0.015686275, a: 1}
+    Color: {r: 0.003921569, g: 0.101960786, b: 0.16078432, a: 1}
   - InGameType: 1
     ID: 3
     Material:
@@ -84,7 +84,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    Color: {r: 0.8745098, g: 0.9137255, b: 0.9411765, a: 1}
+    Color: {r: 0.94509804, g: 0.8627451, b: 0.63529414, a: 1}
   - InGameType: 1
     ID: 4
     Material:

@@ -21,6 +21,7 @@ public static class EffectCodeHelper
             EffectCodeNameType.DEBUFF_ICE,
             EffectCodeNameType.DEBUFF_SILENCE,
             EffectCodeNameType.DEBUFF_AD_DOWN,
+            EffectCodeNameType.DEBUFF_MISA,
             EffectCodeNameType.DEBUFF_AIRBORNE,
             EffectCodeNameType.DEBUFF_AD_REDUCE_PERCENT_DOWN,
             EffectCodeNameType.DEBUFF_HEAL_RATE_DOWN,

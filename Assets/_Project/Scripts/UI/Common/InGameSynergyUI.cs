@@ -227,23 +227,19 @@ namespace CookApps.AutoBattler
             DOTween.Kill(targetTransform);
 
             shiny.effectPlayer.duration = ShinyDuration;
-            shiny.gameObject.SetActive(true);
             shiny.Play(true);
 
             // 스케일 애니메이션: 1.0 → 0.9 → 1.3 → 0.9 → 1.0 (2초 동안)
-            targetTransform.localScale = Vector3.one;
+            // targetTransform.localScale = Vector3.one;
 
-            var sequence = DOTween.Sequence();
-            sequence.Append(targetTransform.DOScale(0.9f, 0.1f).SetEase(Ease.InQuad));
-            sequence.Append(targetTransform.DOScale(1.3f, 0.4f).SetEase(Ease.OutQuad));
-            sequence.Append(targetTransform.DOScale(0.9f, 0.4f).SetEase(Ease.InOutQuad));
-            sequence.Append(targetTransform.DOScale(1.0f, 0.1f).SetEase(Ease.OutQuad));
-            sequence.SetTarget(targetTransform);
+            // var sequence = DOTween.Sequence();
+            // sequence.Append(targetTransform.DOScale(0.9f, 0.1f).SetEase(Ease.InQuad));
+            // sequence.Append(targetTransform.DOScale(1.3f, 0.4f).SetEase(Ease.OutQuad));
+            // sequence.Append(targetTransform.DOScale(0.9f, 0.4f).SetEase(Ease.InOutQuad));
+            // sequence.Append(targetTransform.DOScale(1.0f, 0.1f).SetEase(Ease.OutQuad));
+            // sequence.SetTarget(targetTransform);
 
             await UniTask.Delay((int)(ShinyDuration * 1000));
-
-            if (shiny != null)
-                shiny.gameObject.SetActive(false);
         }
     }
 }
