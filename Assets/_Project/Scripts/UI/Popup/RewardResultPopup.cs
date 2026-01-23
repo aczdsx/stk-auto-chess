@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -66,6 +67,7 @@ namespace CookApps.AutoBattler
 
             SceneUILayerManager.Instance.PopUILayer(this);
         }
+
 
         private void ClearRewardSlotList()
         {

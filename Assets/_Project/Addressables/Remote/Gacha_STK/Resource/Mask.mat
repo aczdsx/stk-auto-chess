@@ -58,7 +58,7 @@ Material:
     - _BottomColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _HoleCenter: {r: 0.48774406, g: 0.459892, b: 0, a: 0}
+    - _HoleCenter: {r: 0.45053452, g: 0.37164, b: 0, a: 0}
     - _HoleCenter2: {r: 0.42976716, g: 0.40096647, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _TopColor: {r: 1, g: 1, b: 1, a: 1}

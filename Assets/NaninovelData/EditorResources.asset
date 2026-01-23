@@ -272,9 +272,6 @@ MonoBehaviour:
     - name: Chapter2_12
       pathPrefix: Scripts
       guid: 040e5280bbce72647b768893efada6a3
-    - name: Chapter1_11
-      pathPrefix: Scripts
-      guid: e3f6807cdd174d347826d8185614ea56
     - name: nani_char_get_100300
       pathPrefix: Scripts
       guid: b0a836b235abb6940b880edafcdf23c7
@@ -468,6 +465,9 @@ MonoBehaviour:
       pathPrefix: Scripts
       guid: 911c3f661a8315f40be0c48d170fa6c5
     - name: Chapter1_11
+      pathPrefix: Scripts
+      guid: e3f6807cdd174d347826d8185614ea56
+    - name: Chapter1_10
       pathPrefix: Scripts
       guid: 909523b307601b44bb2aea79c57723ad
     - name: Chapter1_10

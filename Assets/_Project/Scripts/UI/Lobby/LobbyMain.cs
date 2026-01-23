@@ -44,6 +44,7 @@ namespace CookApps.AutoBattler
 
         private bool _isIdleRewardFullState = false;
         private ElpisDataBridge elpisDataBridge;
+        private GuideMissionDataBridge _guideMissionDataBridge;
 
         public static LobbyMain GetLobbyMain()
         {
@@ -53,6 +54,11 @@ namespace CookApps.AutoBattler
         protected override void Awake()
         {
             base.Awake();
+
+            _guideMissionDataBridge = new GuideMissionDataBridge();
+
+            // NOTE: OnMissionIdChanged 구독 제거
+            // 가이드 미션 완료 후 다음 튜토리얼 시작은 RewardResultPopup에서 명시적으로 처리
 
             battleButton
                 .OnClickAsObservable()
@@ -103,6 +109,7 @@ namespace CookApps.AutoBattler
                 .OnClickAsObservable()
                 .Subscribe(this, (_, self) => self.OnClickQuestButton())
                 .AddTo(this);
+
         }
 
         protected override void OnBackButton(ref bool offPrevUI) { }
@@ -126,14 +133,8 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
 
-#if _SJHONG_TEST_
-
-            var model = ServerDataManager.Instance.GuideMission;
-            var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)model.GuideMissionId);
-            await TutorialManager.Instance.CheckAndInitTutorial(specGuideMissionData.tutorial_id);
-
-            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
-#endif
+            // 로비 진입 시 현재 가이드 미션 튜토리얼 체크
+            await WatchTutorialGuideMissionLoopAsync((int)_guideMissionDataBridge.GuideMissionId);
 
             var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
             _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
@@ -152,6 +153,43 @@ namespace CookApps.AutoBattler
 #if _SJHONG_TEST_
             MyDebug.MyLog("연출끝!", MyDebug.Constants.YELLOW);
 #endif
+        }
+
+        /// <summary>
+        /// 가이드 미션 ID에 따른 튜토리얼 체크 및 시작
+        /// </summary>
+        private async UniTask WatchTutorialGuideMissionLoopAsync(int guideMissionId)
+        {
+            var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
+            if (specGuideMissionData == null)
+            {
+                return;
+            }
+
+            // 튜토리얼 ID가 없으면 스킵
+            if (specGuideMissionData.tutorial_id <= 0)
+            {
+                return;
+            }
+
+            // 이미 완료된 미션이면 스킵
+            if (TutorialManager.Instance.IsClearedGuideMission(guideMissionId))
+            {
+                return;
+            }
+
+#if _SJHONG_TEST_
+            MyDebug.MyLog($"[WatchTutorialGuideMissionLoop] 가이드 미션 튜토리얼 시작: {guideMissionId}", MyDebug.Constants.GREEN);
+#endif
+
+            await TutorialManager.Instance.CheckAndInitTutorialWithGuideMissionInfo(specGuideMissionData);
+
+            // 초기 튜토리얼 연출 (id <= 100인 경우)
+            if (specGuideMissionData.id <= 100)
+            {
+                await HubbleLobbyScequence();
+                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+            }
         }
 
         private async UniTask OnClickStartButton()

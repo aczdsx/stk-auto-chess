@@ -1,0 +1,793 @@
+fileFormatVersion: 2
+guid: 82185eff734727945bb42b8227a34cb0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2738985367865857681
+    second: skill_cross_R2 _1_0
+  - first:
+      213: -8966324802420775720
+    second: skill_cross_R2 _1_1
+  - first:
+      213: -4542320596113228863
+    second: skill_cross_R2 _1_2
+  - first:
+      213: -8595214090744216617
+    second: skill_cross_R2 _1_3
+  - first:
+      213: -3087670588883239733
+    second: skill_cross_R2 _1_4
+  - first:
+      213: 2068214349410152441
+    second: skill_cross_R2 _1_5
+  - first:
+      213: -9201890676800930308
+    second: skill_cross_R2 _1_6
+  - first:
+      213: -7697251964343026545
+    second: skill_cross_R2 _1_7
+  - first:
+      213: -8947639731716909504
+    second: skill_cross_R2 _1_8
+  - first:
+      213: -7289622779868136413
+    second: skill_cross_R2 _1_9
+  - first:
+      213: -3771784988414772714
+    second: skill_cross_R2 _1_10
+  - first:
+      213: -3829931997641066065
+    second: skill_cross_R2 _1_11
+  - first:
+      213: -4371365255031239112
+    second: skill_cross_R2 _1_12
+  - first:
+      213: 2908360163545498660
+    second: skill_cross_R2 _1_13
+  - first:
+      213: -1414800064876305328
+    second: skill_cross_R2 _1_14
+  - first:
+      213: 5803380270255553120
+    second: skill_cross_R2 _1_15
+  - first:
+      213: -2515704840967113080
+    second: skill_cross_R2 _1_16
+  - first:
+      213: 7634615396892473382
+    second: skill_cross_R2 _1_17
+  - first:
+      213: -8948566334835251952
+    second: skill_cross_R2 _1_18
+  - first:
+      213: 2808035204238411029
+    second: skill_cross_R2 _1_19
+  - first:
+      213: 4883165296063914655
+    second: skill_cross_R2 _1_20
+  - first:
+      213: 4706840243382163305
+    second: skill_cross_R2 _1_21
+  - first:
+      213: -8257288363805467851
+    second: skill_cross_R2 _1_22
+  - first:
+      213: 263271540210716877
+    second: skill_cross_R2 _1_23
+  - first:
+      213: 4593259589632284818
+    second: skill_cross_R2 _1_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 264
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19613a82ea4d20620800000000000000
+      internalID: 2738985367865857681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_1
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 200
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d46fea0917319380800000000000000
+      internalID: -8966324802420775720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 264
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cbfabceb7f66f0c0800000000000000
+      internalID: -4542320596113228863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_3
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 200
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d342c8e25aa7b880800000000000000
+      internalID: -8595214090744216617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_4
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 264
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcc713665f36625d0800000000000000
+      internalID: -3087670588883239733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_5
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 200
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ff25ff2ef5c3bc10800000000000000
+      internalID: 2068214349410152441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_6
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 264
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfd3d43ee215c4080800000000000000
+      internalID: -9201890676800930308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_7
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 200
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8cf7a6ce1edd2590800000000000000
+      internalID: -7697251964343026545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_8
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 264
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04697d4121993d380800000000000000
+      internalID: -8947639731716909504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_9
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 200
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32c3d5b24be06da90800000000000000
+      internalID: -7289622779868136413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_10
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 136
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61af26c698de7abc0800000000000000
+      internalID: -3771784988414772714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_11
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 72
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa9b3b6d32959dac0800000000000000
+      internalID: -3829931997641066065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_12
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 136
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83ec066067ac553c0800000000000000
+      internalID: -4371365255031239112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_13
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 72
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 424c60bd8229c5820800000000000000
+      internalID: 2908360163545498660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_14
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 136
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05429d046de9d5ce0800000000000000
+      internalID: -1414800064876305328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_15
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 72
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06ab711bb9fb98050800000000000000
+      internalID: 5803380270255553120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_16
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 136
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 886bc62a6cb661dd0800000000000000
+      internalID: -2515704840967113080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_17
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 72
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 628f088e04a93f960800000000000000
+      internalID: 7634615396892473382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_18
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 136
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 015202b745e40d380800000000000000
+      internalID: -8948566334835251952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_19
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 72
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5150c61042528f620800000000000000
+      internalID: 2808035204238411029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_20
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 8
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f92a763f6fc74c340800000000000000
+      internalID: 4883165296063914655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_21
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 8
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9679e41734e025140800000000000000
+      internalID: 4706840243382163305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_22
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 8
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53b986b6bf7386d80800000000000000
+      internalID: -8257288363805467851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_23
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 8
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc0dab9221457a300800000000000000
+      internalID: 263271540210716877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cross_R2 _1_24
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 8
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2985039b2498ebf30800000000000000
+      internalID: 4593259589632284818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      skill_cross_R2 _1_0: 2738985367865857681
+      skill_cross_R2 _1_1: -8966324802420775720
+      skill_cross_R2 _1_10: -3771784988414772714
+      skill_cross_R2 _1_11: -3829931997641066065
+      skill_cross_R2 _1_12: -4371365255031239112
+      skill_cross_R2 _1_13: 2908360163545498660
+      skill_cross_R2 _1_14: -1414800064876305328
+      skill_cross_R2 _1_15: 5803380270255553120
+      skill_cross_R2 _1_16: -2515704840967113080
+      skill_cross_R2 _1_17: 7634615396892473382
+      skill_cross_R2 _1_18: -8948566334835251952
+      skill_cross_R2 _1_19: 2808035204238411029
+      skill_cross_R2 _1_2: -4542320596113228863
+      skill_cross_R2 _1_20: 4883165296063914655
+      skill_cross_R2 _1_21: 4706840243382163305
+      skill_cross_R2 _1_22: -8257288363805467851
+      skill_cross_R2 _1_23: 263271540210716877
+      skill_cross_R2 _1_24: 4593259589632284818
+      skill_cross_R2 _1_3: -8595214090744216617
+      skill_cross_R2 _1_4: -3087670588883239733
+      skill_cross_R2 _1_5: 2068214349410152441
+      skill_cross_R2 _1_6: -9201890676800930308
+      skill_cross_R2 _1_7: -7697251964343026545
+      skill_cross_R2 _1_8: -8947639731716909504
+      skill_cross_R2 _1_9: -7289622779868136413
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
