@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: c139e0f31ed074a79bb51afa922c7ccc
   m_currentHash:
     serializedVersion: 2
-    Hash: 9081bb0b81588d11f9fd97cbbb39341d
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
@@ -54,8 +54,8 @@ MonoBehaviour:
     m_Id: 93ddb3c7ece4b489db541c706b57288d
   m_RemoteCatalogLoadPath:
     m_Id: 9594afeb3fcde44a1a96d1ce758f82cb
-  m_ContentStateBuildPathProfileVariableName: <default settings path>
-  m_CustomContentStateBuildPath: 
+  m_ContentStateBuildPathProfileVariableName: <custom>
+  m_CustomContentStateBuildPath: '[ContentStateRoot]/[BuildTarget]'
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
@@ -199,6 +199,7 @@ MonoBehaviour:
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: a659d610641ed4d06b5785e121b380a8, type: 2}
+  - {fileID: 11400000, guid: c115d4948fff74d9eb70e61b11a8c33d, type: 2}
   m_InitializationObjects: []
   m_CertificateHandlerType:
     m_AssemblyName: 
@@ -208,4 +209,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fbc87cc86db3749cababd150c6907f8b, type: 2}
   - {fileID: 11400000, guid: 87440b28ca79f44619ff9553b50260be, type: 2}
   - {fileID: 11400000, guid: 07774dc9d05ef475eb81753ad0db5593, type: 2}
-  m_ActiveProfileId: c8f0ead2cf15b4a77910c6becac553e0
+  m_ActiveProfileId: c25113fb50ba2fb449d3a4885316edcb

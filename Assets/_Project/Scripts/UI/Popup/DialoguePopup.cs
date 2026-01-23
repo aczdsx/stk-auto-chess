@@ -164,19 +164,11 @@ namespace CookApps.AutoBattler
                 }
                 if(charPosDir[0] == 0) {
                     var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentLeftObject.transform);
-#if __DEV
-                    characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, "ERROR");
-                    obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentLeftObject.transform);
-#endif
                     obj.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
                 }
                 else
                 {
                     var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentRightObject.transform);
-#if __DEV
-                    characterPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, "ERROR");
-                    obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentRightObject.transform);
-#endif
                     obj.GetComponent<RectTransform>().localScale = new Vector3(-1, 1, 1);
                 } 
             }

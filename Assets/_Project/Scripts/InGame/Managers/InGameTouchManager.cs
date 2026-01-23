@@ -41,6 +41,11 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
     private bool _isDragFromUI = false;  // UI에서 드래그해서 올린 캐릭터인지
 
+    // 고스트 캐릭터 관련 (UI 드래그 프리뷰용)
+    private CharacterController _ghostCharacterController = null;
+    private CharacterStatData _ghostStatData = null;
+    private Action<CharacterStatData> _onPlacementConfirmed = null;  // 배치 확정 시 콜백
+
     /////////////////////////////////////////////////////////////
     // protected
 
@@ -109,6 +114,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     private void HandleTouch(Vector3 touchPosition, TouchPhase touchPhase, bool isPointerOverUI)
     {
         if (_touchLocked) return;
+        if (_isDragFromUI) return;  // UI 드래그 중일 때는 보드 터치 무시
         touchPosition.z = 0;
 
         switch (touchPhase)
@@ -919,11 +925,11 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     // public - UI 드래그 연동
 
     /// <summary>
-    /// UI에서 드래그하여 보드에 캐릭터를 배치할 때 호출
+    /// UI에서 드래그하여 보드에 캐릭터를 배치할 때 호출 (고스트 캐릭터 생성)
     /// </summary>
-    public async UniTask<bool> StartDragFromUI(CharacterStatData statData, InGameTileView tileView)
+    public async UniTask<bool> StartDragFromUI(CharacterStatData statData, InGameTileView tileView, Action<CharacterStatData> onPlacementConfirmed = null)
     {
-        if (_selectedCharacterController != null || _isMoveEndAnimation)
+        if (_ghostCharacterController != null || _isMoveEndAnimation)
             return false;
 
         _isDragFromUI = true;  // UI에서 드래그 시작
@@ -936,10 +942,9 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (inGameTile == null)
             return false;
 
-        // 이미 캐릭터가 있는 타일이면 스왑 대상으로 처리
+        // 이미 캐릭터가 있는 타일이면 빈 타일 찾기
         if (inGameTile.OccupiedCharacter != null)
         {
-            // 빈 타일 찾기
             var emptyTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(statData.Spec);
             if (emptyTile == null)
                 return false;
@@ -948,21 +953,21 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             tileView = emptyTile.View as InGameTileView;
         }
 
-        // 캐릭터 생성
-        int2 pos = new int2(inGameTile.X, inGameTile.Y);
-        await InGameObjectManager.Instance.AddCharacterToField(
-            statData, pos, AllianceType.Player,
-            typeof(CharacterStateReady), true, HpBarType.Synergy, isSummonFx: false);
-
-        // 생성된 캐릭터 가져오기
-        var character = inGameTile.OccupiedCharacter;
-        if (character == null)
+        // 고스트 캐릭터 생성 (Synergy 미등록, 타일 점유 안 함)
+        _ghostCharacterController = await InGameObjectManager.Instance.CreateGhostCharacter(statData, inGameTile);
+        if (_ghostCharacterController == null)
             return false;
 
-        // 튜토리얼 중이면 새로 배치된 캐릭터에 TutorialTarget 등록
+        // 고스트용 홀로그램 Material 적용 (SpriteCharacterView의 기존 HologramMaterial 사용)
+        _ghostCharacterController.GetCharacterView()?.SetHologramShader();
+
+        _ghostStatData = statData;
+        _onPlacementConfirmed = onPlacementConfirmed;
+
+        // 튜토리얼 중이면 고스트 캐릭터에 TutorialTarget 등록
         if (TutorialManager.Instance.HasTutorialStage)
         {
-            var characterView = character.GetCharacterView();
+            var characterView = _ghostCharacterController.GetCharacterView();
             if (characterView != null)
             {
                 var tutorialTarget = characterView.gameObject.GetComponent<TutorialTarget>();
@@ -970,13 +975,16 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
                 {
                     tutorialTarget = characterView.gameObject.AddComponent<TutorialTarget>();
                 }
-                tutorialTarget.SetTargetId(character.CharacterId.ToString());
+                tutorialTarget.SetTargetId(_ghostCharacterController.CharacterId.ToString());
             }
         }
 
-        // selected 상태로 전환
+        // 고스트 상태로 전환 (기존 selected 로직 활용)
         _selectedTileView = tileView;
-        SetSelectedCharacter(character);
+        _selectedFirstTileView = tileView;
+        _selectedCharacterController = _ghostCharacterController;
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_position_pick);
+        _selectedTileView.SetActiveObj(true);
 
         return true;
     }
@@ -986,37 +994,252 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     /// </summary>
     public void UpdateDragPosition(Vector3 screenPosition)
     {
-        if (_selectedCharacterController == null)
+        if (_ghostCharacterController == null)
             return;
 
-        MoveCharacter(screenPosition);
+        MoveGhostCharacter(screenPosition);
     }
 
     /// <summary>
-    /// UI 드래그 종료 (EndedMoveCharacter 대리 호출)
+    /// 고스트 캐릭터 이동 처리 (MoveCharacter 기반)
+    /// </summary>
+    private void MoveGhostCharacter(Vector3 touchPosition)
+    {
+        if (_ghostCharacterController == null)
+            return;
+
+        // 드래그 중 BottomUI 영역 하이라이트 체크
+        var inGameMain = InGameMain.GetInGameMain();
+        bool isInBottomUI = inGameMain.IsPointInBottomScrollRect(touchPosition);
+        inGameMain.SetDropHighlight(isInBottomUI);
+
+        // RaycastAll로 Slot 우선 검색
+        if (!TryGetPrioritizedHit(touchPosition, out RaycastHit hit, out string hitTag))
+            return;
+
+        // 1. 타일 위인 경우 → 타일에 스냅
+        if (hitTag == "Slot")
+        {
+            InGameTileView ingameTileView = hit.transform.GetComponent<InGameTileView>();
+            if (ingameTileView == null)
+                return;
+
+            // Player 타일만 허용
+            if (ingameTileView.AllianceType != AllianceType.Player)
+                return;
+
+            // 같은 타일이면 스킵
+            if (_selectedTileView != null && ingameTileView.ID == _selectedTileView.ID)
+                return;
+
+            // 이전 타일 비활성화
+            _selectedTileView?.SetActiveObj(false);
+
+            // 새 타일 선택
+            _selectedTileView = ingameTileView;
+            _selectedTileView.SetActiveObj(true);
+
+            // 고스트 캐릭터 이동
+            Vector3 targetPos = ingameTileView.CachedTr.transform.position;
+            _ghostCharacterController.Position3D = targetPos;
+            _ghostCharacterController.GetCharacterView().CachedTr.localPosition = targetPos;
+        }
+        // 2. 배경(Playground) 위인 경우 → 자유 이동
+        else if (hitTag == "Playground")
+        {
+            // 타일 하이라이트 해제
+            _selectedTileView?.SetActiveObj(false);
+
+            // hit.point의 Y값을 캐릭터 높이로 보정
+            Vector3 targetPos = hit.point;
+            targetPos.y = _ghostCharacterController.Position3D.y;
+
+            _ghostCharacterController.Position3D = targetPos;
+            _ghostCharacterController.GetCharacterView().CachedTr.localPosition = targetPos;
+        }
+    }
+
+    /// <summary>
+    /// UI 드래그 종료 - 고스트 제거 후 실제 캐릭터 배치 또는 취소
     /// </summary>
     public void EndDragFromUI(Vector3 screenPosition)
     {
-        if (_selectedCharacterController == null)
+        if (_ghostCharacterController == null)
             return;
 
-        EndedMoveCharacter(screenPosition);
+        EndGhostDrag(screenPosition).Forget();
     }
 
     /// <summary>
-    /// UI 드래그 취소 - 캐릭터 제거 및 UI로 복귀
+    /// 고스트 드래그 종료 처리 (비동기)
+    /// </summary>
+    private async UniTaskVoid EndGhostDrag(Vector3 screenPosition)
+    {
+        var inGameMain = InGameMain.GetInGameMain();
+        bool isInBottomUI = inGameMain.IsPointInBottomScrollRect(screenPosition);
+
+        // 드래그 종료 시 하이라이트 해제
+        inGameMain.SetDropHighlight(false);
+
+        if (isInBottomUI)
+        {
+            // BottomUI 영역에 드롭 - 고스트만 제거, UI에서 제거 안 함
+            CancelGhostDrag();
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_position_back);
+        }
+        else
+        {
+            // RaycastAll로 Slot 우선 검색
+            if (TryGetPrioritizedHit(screenPosition, out RaycastHit hit, out string hitTag))
+            {
+                if (hitTag == "Slot")
+                {
+                    InGameTileView tileView = hit.transform.GetComponent<InGameTileView>();
+                    if (tileView != null && tileView.AllianceType == AllianceType.Player)
+                    {
+                        // 타일 위에 드롭 - 실제 캐릭터 배치
+                        await ConfirmGhostPlacement(tileView);
+                        return;
+                    }
+                }
+            }
+
+            // 배치 불가 - 고스트 제거
+            CancelGhostDrag();
+        }
+    }
+
+    /// <summary>
+    /// 고스트 배치 확정 - 실제 캐릭터 생성
+    /// </summary>
+    private async UniTask ConfirmGhostPlacement(InGameTileView tileView)
+    {
+        if (_ghostCharacterController == null || _ghostStatData == null)
+            return;
+
+        var inGameTile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
+        if (inGameTile == null)
+        {
+            CancelGhostDrag();
+            return;
+        }
+
+        // 기존 캐릭터가 있으면 빈 타일 찾기
+        if (inGameTile.OccupiedCharacter != null)
+        {
+            var emptyTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(_ghostStatData.Spec);
+            if (emptyTile == null)
+            {
+                CancelGhostDrag();
+                return;
+            }
+            inGameTile = emptyTile;
+            tileView = emptyTile.View as InGameTileView;
+        }
+
+        // 고스트 위치 저장
+        Vector3 placementPosition = _ghostCharacterController.Position3D;
+        CharacterStatData statData = _ghostStatData;
+        Action<CharacterStatData> onConfirmed = _onPlacementConfirmed;
+
+        // 튜토리얼 UI 캐릭터 배치 - 타겟 타일이 아니면 배치 취소
+        if (TutorialActionCharacterPlacementUI.IsActive)
+        {
+            if (!TutorialActionCharacterPlacementUI.CanPlaceOnTile(tileView.ID))
+            {
+                Debug.LogColor($"[InGameTouchManager] 튜토리얼 타겟 타일이 아님. 배치 취소. tileId={tileView.ID}, targetId={TutorialActionCharacterPlacementUI.GetTargetTileId()}", "yellow");
+                CancelGhostDrag();
+                return;
+            }
+        }
+
+        // 고스트 제거
+        InGameObjectManager.Instance.RemoveGhostCharacter(_ghostCharacterController);
+        _selectedTileView?.SetActiveObj(false);
+        ClearGhostState();
+
+        // 실제 캐릭터 생성 (Synergy 등록됨)
+        int2 pos = new int2(inGameTile.X, inGameTile.Y);
+        var realCharacter = await InGameObjectManager.Instance.AddCharacterToField(
+            statData, pos, AllianceType.Player,
+            typeof(CharacterStateReady), true, HpBarType.Synergy, isSummonFx: false);
+
+        if (realCharacter != null)
+        {
+            // 배치 확정 콜백 호출 (UI 리스트에서 제거)
+            onConfirmed?.Invoke(statData);
+
+            // 튜토리얼 중이면 TutorialTarget 등록
+            if (TutorialManager.Instance.HasTutorialStage)
+            {
+                var characterView = realCharacter.GetCharacterView();
+                if (characterView != null)
+                {
+                    var tutorialTarget = characterView.gameObject.GetComponent<TutorialTarget>();
+                    if (tutorialTarget == null)
+                    {
+                        tutorialTarget = characterView.gameObject.AddComponent<TutorialTarget>();
+                    }
+                    tutorialTarget.SetTargetId(realCharacter.CharacterId.ToString());
+                }
+            }
+
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_position_drop);
+
+            // 튜토리얼 처리
+            if (TutorialActionCharacterPlacementUI.IsActive)
+            {
+                if (TutorialActionCharacterPlacementUI.CanPlaceOnTile(tileView.ID))
+                {
+                    TutorialActionCharacterPlacementUI.NotifyPlacementCompleted();
+                    TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.CHARACTER_PLACEMENT, realCharacter.CharacterId.ToString());
+                }
+            }
+        }
+
+        _isMoveEndAnimation = false;
+    }
+
+    /// <summary>
+    /// 고스트 드래그 취소 - 고스트만 제거
+    /// </summary>
+    private void CancelGhostDrag()
+    {
+        if (_ghostCharacterController == null)
+            return;
+
+        InGameObjectManager.Instance.RemoveGhostCharacter(_ghostCharacterController);
+        _selectedTileView?.SetActiveObj(false);
+        ClearGhostState();
+
+        // 튜토리얼 취소 알림
+        if (TutorialActionCharacterPlacementUI.IsActive)
+        {
+            TutorialActionCharacterPlacementUI.OnDragCancel();
+        }
+    }
+
+    /// <summary>
+    /// 고스트 상태 초기화
+    /// </summary>
+    private void ClearGhostState()
+    {
+        _ghostCharacterController = null;
+        _ghostStatData = null;
+        _onPlacementConfirmed = null;
+        _selectedCharacterController = null;
+        _selectedTileView = null;
+        _selectedFirstTileView = null;
+        _isDragFromUI = false;
+        _isMoveEndAnimation = false;
+    }
+
+    /// <summary>
+    /// UI 드래그 취소 - 고스트 제거
     /// </summary>
     public void CancelDragFromUI()
     {
-        if (_selectedCharacterController == null)
-            return;
-
-        CharacterController characterToRemove = _selectedCharacterController;
-        ReleaseSelectedHero();
-
-        // 캐릭터 제거
-        characterToRemove.CurrentTile.SetUnoccupied();
-        InGameObjectManager.Instance.RemoveCharacterFromField(characterToRemove);
+        CancelGhostDrag();
     }
 
     /// <summary>

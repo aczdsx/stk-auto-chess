@@ -288,28 +288,23 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         _isCharacterSpawned = true;
         Debug.Log($"[InGameCharacterItem] SpawnCharacterOnPlayground 시작 - CharacterId: {_statData?.CharacterId}");
 
-        bool success = await InGameTouchManager.Instance.StartDragFromUI(_statData, tileView);
+        // 배치 확정 시 호출될 콜백 (UI 리스트에서 제거)
+        Action<CharacterStatData> onPlacementConfirmed = (stat) =>
+        {
+            _parentUI?.RemoveCharacterFromList(stat);
+        };
+
+        bool success = await InGameTouchManager.Instance.StartDragFromUI(_statData, tileView, onPlacementConfirmed);
         if (success)
         {
-            Debug.Log($"[InGameCharacterItem] Playground에서 캐릭터 생성 성공");
-            // 리스트에서 캐릭터 제거
-            _parentUI?.RemoveCharacterFromList(_statData);
+            Debug.Log($"[InGameCharacterItem] Playground에서 고스트 캐릭터 생성 성공");
 
             // 생성 후 바로 현재 드래그 위치로 이동
             InGameTouchManager.Instance.UpdateDragPosition(screenPosition);
-
-            // 튜토리얼: 생성된 캐릭터를 마스크 타겟으로 설정
-            if (TutorialActionCharacterPlacementUI.IsActive)
-            {
-                if (emptyTile.OccupiedCharacter?.GetCharacterView() != null)
-                {
-                    TutorialActionCharacterPlacementUI.UpdateMaskTarget(emptyTile.OccupiedCharacter.GetCharacterView().gameObject);
-                }
-            }
         }
         else
         {
-            Debug.Log($"[InGameCharacterItem] Playground에서 캐릭터 생성 실패 - 플래그 리셋");
+            Debug.Log($"[InGameCharacterItem] Playground에서 고스트 캐릭터 생성 실패 - 플래그 리셋");
             _isCharacterSpawned = false;
 
             if (TutorialActionCharacterPlacementUI.IsActive)
@@ -327,26 +322,20 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         _isCharacterSpawned = true;
         Debug.Log($"[InGameCharacterItem] SpawnCharacterOnBoard 시작 - CharacterId: {_statData?.CharacterId}");
 
-        bool success = await InGameTouchManager.Instance.StartDragFromUI(_statData, tileView);
+        // 배치 확정 시 호출될 콜백 (UI 리스트에서 제거)
+        Action<CharacterStatData> onPlacementConfirmed = (stat) =>
+        {
+            _parentUI?.RemoveCharacterFromList(stat);
+        };
+
+        bool success = await InGameTouchManager.Instance.StartDragFromUI(_statData, tileView, onPlacementConfirmed);
         if (success)
         {
-            Debug.Log($"[InGameCharacterItem] 캐릭터 생성 성공");
-            // 리스트에서 캐릭터 제거
-            _parentUI?.RemoveCharacterFromList(_statData);
-
-            // 튜토리얼: 생성된 캐릭터를 마스크 타겟으로 설정
-            if (TutorialActionCharacterPlacementUI.IsActive)
-            {
-                var tile = InGameObjectManager.Instance.GetInGameTile(tileView.ID);
-                if (tile?.OccupiedCharacter?.GetCharacterView() != null)
-                {
-                    TutorialActionCharacterPlacementUI.UpdateMaskTarget(tile.OccupiedCharacter.GetCharacterView().gameObject);
-                }
-            }
+            Debug.Log($"[InGameCharacterItem] 고스트 캐릭터 생성 성공");
         }
         else
         {
-            Debug.Log($"[InGameCharacterItem] 캐릭터 생성 실패 - 플래그 리셋");
+            Debug.Log($"[InGameCharacterItem] 고스트 캐릭터 생성 실패 - 플래그 리셋");
             // 실패 시 플래그 리셋
             _isCharacterSpawned = false;
 

@@ -100,7 +100,7 @@ namespace CookApps.AutoBattler.Prologue
             {
                 return;
             }
-
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_306011);
             // 나한테 붙은 vfx
             // InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillRootTransformFollowable);
 
@@ -118,7 +118,6 @@ namespace CookApps.AutoBattler.Prologue
                         targetCharacters[i].CurrentTile);
 
                     InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], targetCharacters[i].SkillMiddleFXTransformFollowable);
-
 
                     double healAmount = owner.PostCalculateHealAmount(owner.AP * _healRate, targetCharacters[i], isSkill: true);
                     targetCharacters[i].GetHealed(healAmount, owner, codeId, true);
@@ -253,6 +252,8 @@ namespace CookApps.AutoBattler.Prologue
             owner.AddNextState<CharacterStateSkill>(this);
 
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.SkillRootTransformFollowable);
+            InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
+                owner.GetCharacterView().CachedTr.position);
         }
 
         public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -269,7 +270,7 @@ namespace CookApps.AutoBattler.Prologue
 
             //hit effect
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2], owner.Target.SkillMiddleFXTransformFollowable);
-
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_304021);
 
             var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, owner.Target, codeId, true);
             owner.Target.GetDamaged(damage, owner);
@@ -402,7 +403,7 @@ namespace CookApps.AutoBattler.Prologue
         public override void OnSkillExecute(int executeIndex, int totalLength)
         {
             base.OnSkillExecute(executeIndex, totalLength);
-
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_401011);
             var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
 
 
@@ -427,25 +428,28 @@ namespace CookApps.AutoBattler.Prologue
 
         private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
         {
+            // 타일 FX는 있으면 표시
             var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
             if (tileFx != null)
             {
                 tileFx.CachedTr.position = tile.View.CachedTr.position;
+            }
 
-                if (tile.CheckValidTile(owner.AllianceType, false))
+            // 피격/데미지 로직은 tileFx와 무관하게 실행
+            if (tile.CheckValidTile(owner.AllianceType, false))
+            {
+                if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
                 {
-                    if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
-                    {
-                        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                            tile.OccupiedCharacter.SkillRootTransformFollowable);
+                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                        var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                    var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
 
-                        tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    
 
-                        _hitCharacters.Add(tile.OccupiedCharacter);
-                    }
+                    _hitCharacters.Add(tile.OccupiedCharacter);
                 }
             }
         }
@@ -549,7 +553,7 @@ namespace CookApps.AutoBattler.Prologue
             base.OnSkillExecute(executeIndex, totalLength);
 
             var inGameTile = InGameObjectManager.Instance.InGameGrid.GetTileByCharacterDirection(owner);
-
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_401011);
 
             if (inGameTile.Count > 0)
             {
@@ -572,25 +576,29 @@ namespace CookApps.AutoBattler.Prologue
 
         private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
         {
+            // 타일 FX는 있으면 표시
             var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
             if (tileFx != null)
             {
                 tileFx.CachedTr.position = tile.View.CachedTr.position;
+            }
 
-                if (tile.CheckValidTile(owner.AllianceType, false))
+            // 피격/데미지 로직은 tileFx와 무관하게 실행
+            if (tile.CheckValidTile(owner.AllianceType, false))
+            {
+                if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
                 {
-                    if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
-                    {
-                        InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-                        InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                            tile.OccupiedCharacter.SkillRootTransformFollowable);
+                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                        var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_401011_1);
 
-                        tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
 
-                        _hitCharacters.Add(tile.OccupiedCharacter);
-                    }
+                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+
+                    _hitCharacters.Add(tile.OccupiedCharacter);
                 }
             }
         }
