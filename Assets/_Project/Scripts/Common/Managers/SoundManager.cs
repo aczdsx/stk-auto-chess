@@ -125,6 +125,14 @@ public enum SoundFX
     //snd_sfx_monster_201011,
     //snd_sfx_monster_203011,
     //snd_sfx_monster_202031,
+
+    // Scenario = 600,
+    snd_sfx_prolog_battle_endtransition = 601,
+    snd_sfx_prolog_battle_laplace01,
+    snd_sfx_prolog_battle_laplace02,
+    snd_sfx_prolog_battle_laplace03,
+    snd_sfx_prolog_battle_laplace04,
+    snd_sfx_prolog_battle_laplace05,
 }
 
 

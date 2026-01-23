@@ -12,7 +12,13 @@ namespace CookApps.AutoBattler
     public class CharacterDetailSkillLayer : CachedMonoBehaviour
     {
         [SerializeField] private SkillTooltipPopup _skillTooltipPopup;
+        [SerializeField] private NonSkillTooltipPopup _passiveSkillTooltipPopup;
+        [SerializeField] private NonSkillTooltipPopup _jobSkillTooltipPopup;
+
+        [Space(10)]
         [SerializeField] private CAButton _skillInfoButton;
+        [SerializeField] private CAButton _passiveSkillInfoButton;
+        [SerializeField] private CAButton _jobSkillInfoButton;
 
         [Space(10)]
         [SerializeField] private Image _normalSkillIconImage;
@@ -38,6 +44,8 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             _skillInfoButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSkillInfoButton()).AddTo(this);
+            _passiveSkillInfoButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickPassiveSkillInfoButton()).AddTo(this);
+            _jobSkillInfoButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickJobSkillInfoButton()).AddTo(this);
         }
 
         public void InitLayer(int characterID)
@@ -83,7 +91,7 @@ namespace CookApps.AutoBattler
             if (specJobSkillList != null && specJobSkillList.Count > 0)
             {
                 _specJobSkillBaseData = specJobSkillList[0][0];
-                _jobSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterJobSkillSprite((int)specJobSkillList[0][0].passive_skill_type)).Forget();
+                _jobSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterJobSkillSprite(_specCharacterData.character_position_type)).Forget();
                 _jobSkillNameText.text = LanguageManager.Instance.GetDefaultText(specJobSkillList[0][0].jobs_name_token);
             }
 
@@ -98,6 +106,24 @@ namespace CookApps.AutoBattler
             _skillTooltipPopup.SetSkillToolTipPopup(_specActiveSkillBaseData);
 
             _skillTooltipPopup.gameObject.SetActive(true);
+        }
+
+        private void OnClickPassiveSkillInfoButton()
+        {
+            if (_passiveSkillTooltipPopup == null) return;
+            if (_specPassiveSkillBaseData == null) return;
+
+            _passiveSkillTooltipPopup.SetPassiveSkillToolTipPopup(_specPassiveSkillBaseData);
+            _passiveSkillTooltipPopup.gameObject.SetActive(true);
+        }
+
+        private void OnClickJobSkillInfoButton()
+        {
+            if (_jobSkillTooltipPopup == null) return;
+            if (_specJobSkillBaseData == null) return;
+
+            _jobSkillTooltipPopup.SetJobSkillToolTipPopup(_specJobSkillBaseData, _specCharacterData.character_position_type);
+            _jobSkillTooltipPopup.gameObject.SetActive(true);
         }
     }
 }

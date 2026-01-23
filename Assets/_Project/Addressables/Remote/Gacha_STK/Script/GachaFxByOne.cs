@@ -149,7 +149,7 @@ namespace CookApps.AutoBattler
             }
 
             CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(characterId);
-            if (_datas[cnt].Count == 20)
+            if (_datas[cnt].Id.IsCharacter())
             {
                 if (idxCharcater != null && idxCharcater.grade_type == GradeType.LEGENDARY)
                 {

@@ -29,15 +29,29 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
     private static readonly float MOVE_DURATION = 0.5f; // 빠른 이동
     private static readonly float WAIT_DURATION = 1.5f; // 대기 시간
     private static readonly float WALK_IN_DURATION = 0.3f; // 걸어들어가는 연출 시간
+    private static readonly float LAND_DURATION = 0.1f; // 점프 종료 연출 시간
 
     private InGameVfx _colliderVfx;
-    private InGameVfx _portalVfx;
+    private InGameVfx _jumpForwardPortalVfx; // 점프해서 달려갈때 포털 VFX
+    private InGameVfx _jumpBackPortalVfx; // 점프해서 돌아오는 포털 VFX
+    private Vector3 _jumpDirection;
     private List<CharacterController> _stunnedCharacters = new List<CharacterController>();
     private bool _isJumping;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
+
+        Span<double> buffStats = stackalloc double[3];
+
+        buffStats.Clear();
+        buffStats[0] = codeId;
+        buffStats[1] = 999f;//duration
+        buffStats[2] = 1;//value?
+
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_IMMUNE, owner, buffStats, source);
+
+
         SkillIndex = 1;
         CoolTimeElapsedTime = 0f;
         CoolTimeDurationTime = codeInfo.GetCodeStatToFloat(0);
@@ -63,9 +77,6 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
     public override void OnUpdate(float dt)
     {
-        // InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, owner.CurrentTile);
-
-
         if (!IsSkillActivated)
         {
             return;
@@ -147,7 +158,11 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
             // 두 번째 호출: 점프 최종 위치로 이동
             MoveToFinalPosition();
             _colliderVfx.gameObject.SetActive(false);
-
+        }
+        else if (executeIndex == 2)
+        {
+            // 돌아오는 포털 VFX 생성
+            JumpEnd();
         }
     }
 
@@ -225,6 +240,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         // 이동 시작 위치와 목표 위치
         Vector3 startPosition = owner.Position3D;
         Vector3 targetPosition = targetTile.View.Position;
+        _jumpDirection = (targetPosition - startPosition).normalized;
 
         // 기존 Sequence가 있으면 중지
         if (_moveSequence.isAlive)
@@ -236,12 +252,12 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         _isJumping = true;
 
         var vfXPosition = targetPosition;
-        vfXPosition.y = owner.SkillMiddleFXTransformFollowable.GetPosition().y;
-        // 포털 VFX 생성
-        _portalVfx = InGameVfxManager.Instance.AddInGameVfx( _specSkill.skill_vfxs[0], vfXPosition);
+        vfXPosition.y = owner.SkillRootTransformFollowable.GetPosition().y;
+        // 앞으로 들어가는 포털 VFX 생성
+        _jumpForwardPortalVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], vfXPosition);
 
         var direction = (targetPosition - startPosition).normalized;
-        _portalVfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+        _jumpForwardPortalVfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
         // 빠르게 목표 타일로 이동
         var moveTween = Tween.Custom(
@@ -266,8 +282,8 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
                     target.owner.Position3D = target._targetMoveTile.View.Position;
                     target.owner.GetCharacterView().CachedTr.localPosition = target.owner.Position3D;
 
-                    target._colliderVfx.CachedGo.SetActive(false);   
-                    target._portalVfx.Initialize(false);
+                    target._colliderVfx.CachedGo.SetActive(false);
+                    target._jumpForwardPortalVfx.Initialize(false);
                 }
             });
 
@@ -305,36 +321,67 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
                     owner.GetCharacterView().CachedTr.localPosition = value;
                 }
             },
-            ease: Ease.Linear);
+            ease: Ease.Linear).OnComplete(this, (target) =>
+            {
+                Debug.Log("MoveToFinalPosition Complete");
+            });
 
+        var vfXPosition = _originalTile.View.CachedTr.position;
+        vfXPosition.y = owner.SkillRootTransformFollowable.GetPosition().y;
+        // 돌아오는 포털 VFX 생성
+        _jumpBackPortalVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], vfXPosition - _jumpDirection * 1.8F);
+
+        var direction = (_originalTile.View.CachedTr.position - _targetMoveTile.View.CachedTr.position).normalized;
+        _jumpBackPortalVfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
         _moveSequence = Sequence.Create(walkTween);
     }
 
-    
+
     public override void OnSkillAnimationEnd()
     {
-        // 애니메이션 종료 시 점프 전 자리로 이동
-        if (_originalTile != null && owner != null)
+        if (_jumpBackPortalVfx != null)
         {
-            // 포털 VFX 제거
-            if (_portalVfx != null)
-            {
-                _portalVfx.Remove();
-                _portalVfx = null;
-            }
+            _jumpBackPortalVfx.Remove();
+            _jumpBackPortalVfx = null;
+        }
+        _jumpBackPortalVfx = null;
+        CoolTimeElapsedTime = 0;
+        IsSkillActivated = false;
+        base.OnSkillAnimationEnd();
+    }
 
-            // 원래 타일로 즉시 이동
-            owner.ChangeOccupiedTile(_originalTile);
-            owner.Position3D = _originalTile.View.Position;
-            owner.GetCharacterView().CachedTr.localPosition = owner.Position3D;
-
-            // 점프 완료 및 쿨타임 초기화
-            _isJumping = false;
-            CoolTimeElapsedTime = 0;
-            IsSkillActivated = false;
+    public void JumpEnd()
+    {
+        // 포털 VFX 제거
+        if (_jumpForwardPortalVfx != null)
+        {
+            _jumpForwardPortalVfx.Remove();
+            _jumpForwardPortalVfx = null;
         }
 
-        base.OnSkillAnimationEnd();
+        // 원래 타일로 즉시 이동
+        owner.ChangeOccupiedTile(_originalTile);
+        owner.Position3D = _originalTile.View.Position - _jumpDirection;
+        owner.GetCharacterView().CachedTr.localPosition = owner.Position3D;
+
+        // 걸어들어가는 연출 (Position3D만 더 앞으로 이동, 타일은 그대로)
+        var walkTween = Tween.Custom(
+            owner.Position3D,
+            owner.Position3D + _jumpDirection,
+            LAND_DURATION,
+            (Vector3 value) =>
+            {
+                if (owner != null)
+                {
+                    owner.Position3D = value;
+                    owner.GetCharacterView().CachedTr.localPosition = value;
+                }
+            },
+            ease: Ease.Linear);
+
+
+        // 점프 완료 및 쿨타임 초기화
+        _isJumping = false;
     }
 
     public override float AddSkillCooltime(float cooltime)
@@ -347,11 +394,15 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
     {
         _colliderVfx.gameObject.SetActive(false);
         _colliderVfx.Remove();
-        if (_portalVfx != null)
+        if (_jumpForwardPortalVfx != null)
         {
-            _portalVfx.Remove();
-            _portalVfx = null;
-
+            _jumpForwardPortalVfx.Remove();
+            _jumpForwardPortalVfx = null;
+        }
+        if (_jumpBackPortalVfx != null)
+        {
+            _jumpBackPortalVfx.Remove();
+            _jumpBackPortalVfx = null;
         }
         // 기존 Sequence가 있으면 중지
         if (_moveSequence.isAlive)
@@ -395,4 +446,4 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
             _stunnedCharacters.Add(target);
         }
     }
-}//240107002
+}

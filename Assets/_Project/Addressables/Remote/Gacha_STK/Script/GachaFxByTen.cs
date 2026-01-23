@@ -531,7 +531,7 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            if (_datas[cnt].Count == 20)
+            if (_datas[cnt].Id == fxCharacterId)
             {
                 if (idxCharcater.grade_type == GradeType.LEGENDARY)
                 {
