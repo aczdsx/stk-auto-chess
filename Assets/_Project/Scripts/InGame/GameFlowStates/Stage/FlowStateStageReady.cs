@@ -28,8 +28,17 @@ public class FlowStateStageReady : StateReadyBase
     {
         base.SetStateData(data);
         _specStage = data as StageInfo;
-        SoundManager.Instance.PlayBGM((SoundBGM)Enum.Parse(typeof(SoundBGM),
-            $"snd_bgm_chapter{_specStage.chapter_id - 1}"));
+        // SoundManager.Instance.PlayBGM((SoundBGM)Enum.Parse(typeof(SoundBGM),
+        //     $"snd_bgm_chapter{_specStage.chapter_id - 1}"));
+        if (_specStage.chapter_id == 1)
+        {
+            SoundManager.Instance.PlayBGM((SoundBGM)Enum.Parse(typeof(SoundBGM), $"snd_bgm_chapter{_specStage.chapter_id - 1}"));
+
+        }
+        else if (_specStage.chapter_id == 2 || _specStage.chapter_id == 3)
+        {
+            SoundManager.Instance.PlayBGM((SoundBGM)Enum.Parse(typeof(SoundBGM), $"snd_bgm_chapter{_specStage.chapter_id}"));
+        }
         InGameMain.GetInGameMain().SetVignette(_specStage.chapter_id);
 
         PrepareSpecTileEffectCodeDic();

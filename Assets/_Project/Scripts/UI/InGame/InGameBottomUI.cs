@@ -535,10 +535,8 @@ public class InGameBottomUI : MonoBehaviour
 
         _isRunningAddCharacter = true;
 
-        var userGrade =
-            SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
-        if (userGrade.maximum_character_count <=
-            InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
+        var userKnightCount = SpecDataManager.Instance.GetUserKnightCountByNestCount().maximum_character_count;
+        if (userKnightCount <= InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
         {
             ToastManager.Instance.ShowToastByTokenKey("MSG_OVER_COUNT_CHARACTER");
         }

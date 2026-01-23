@@ -1136,6 +1136,15 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             return;
         }
 
+        //유저 카운트 체크
+        var userKnightCount = SpecDataManager.Instance.GetUserKnightCountByNestCount().maximum_character_count;
+        if (userKnightCount <= InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
+        {
+            ToastManager.Instance.ShowToastByTokenKey("MSG_OVER_COUNT_CHARACTER");
+            CancelGhostDrag();
+            return;
+        }
+
         // 기존 캐릭터가 있으면 빈 타일 찾기
         if (inGameTile.OccupiedCharacter != null)
         {
@@ -1169,6 +1178,12 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         InGameObjectManager.Instance.RemoveGhostCharacter(_ghostCharacterController);
         _selectedTileView?.SetActiveObj(false);
         ClearGhostState();
+
+        //
+
+        
+
+        //
 
         // 실제 캐릭터 생성 (Synergy 등록됨)
         int2 pos = new int2(inGameTile.X, inGameTile.Y);

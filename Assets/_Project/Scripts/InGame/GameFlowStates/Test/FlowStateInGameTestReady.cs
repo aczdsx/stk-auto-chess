@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
+using System;
 
 public class FlowStateInGameTestReady : StateReadyBase
 {
@@ -32,6 +33,15 @@ public class FlowStateInGameTestReady : StateReadyBase
                 // InGameManager에 SpecStage 설정 (다른 시스템에서 참조할 수 있도록)
                 InGameManager.Instance.SetSpecStageForTest(_specStage);
                 Debug.LogColor($"[Test] Stage 모드: {_specStage.chapter_id}-{_specStage.stage_number} (맵: {_specStage.map_size})", "yellow");
+                if (_specStage.chapter_id == 1)
+                {
+                    SoundManager.Instance.PlayBGM((SoundBGM)Enum.Parse(typeof(SoundBGM), $"snd_bgm_chapter{_specStage.chapter_id-1}"));
+
+                }
+                else if (_specStage.chapter_id == 2 || _specStage.chapter_id == 3)
+                {
+                    SoundManager.Instance.PlayBGM((SoundBGM)Enum.Parse(typeof(SoundBGM), $"snd_bgm_chapter{_specStage.chapter_id}"));
+                }
             }
             else
             {
