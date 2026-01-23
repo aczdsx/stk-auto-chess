@@ -74,7 +74,7 @@ public class InGameTopUI : MonoBehaviour
         { SynergyType.FIRE, -288f },
     };
 
-    
+
 
 
     private const float AnimationDuration = 0.5f; // 애니메이션 지속 시간
@@ -119,7 +119,7 @@ public class InGameTopUI : MonoBehaviour
 
         void TrySetSynergyUI(Action setSynergyAction)//이 함수는 여기서 밖에 콜을 안하기때문에 이렇게 작성
         {
-            if (uiIndex < uiListCount)
+            if (uiIndex < uiListCount && _synergyUIList[uiIndex] != null)
             {
                 setSynergyAction();
                 _synergyUIList[uiIndex].gameObject.SetActive(true);
@@ -129,6 +129,7 @@ public class InGameTopUI : MonoBehaviour
 
         foreach (InGameSynergyUI synergyUI in _synergyUIList)
         {
+            if (synergyUI == null) continue;
             synergyUI.gameObject.SetActive(false);
         }
 
@@ -484,14 +485,14 @@ public class InGameTopUI : MonoBehaviour
             // 씬 재로드
             SceneTransition.Create<SceneTransition_FadeInOut>();
             SceneTransition.FadeInAsync().Forget();
-            
-            
+
+
             var inGameMainParams = new InGameMainParams(
                 InGameType.TEST,
                 new InGameMainStateTest(),
                 InGameManager.Instance.TestConfig.StageChapterId
             );
-            
+
             SceneLoading.GoToNextScene("InGame", inGameMainParams);
             return;
         }

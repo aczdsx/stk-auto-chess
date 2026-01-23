@@ -135,6 +135,9 @@ namespace CookApps.BattleSystem
             InGameObjectManager.Instance.Initialize();
             InGameCommanderManager.Instance.Initialize();
             InGameSynergyManager.Instance.Initialize();
+
+            // 시너지 UI 이전 상태 초기화 (인게임 시작 시)
+            InGameSynergyUI.ClearPreviousSynergyStates();
         }
 
         public void EndInGame()

@@ -967,6 +967,10 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         // 고스트용 홀로그램 Material 적용 (SpriteCharacterView의 기존 HologramMaterial 사용)
         _ghostCharacterController.GetCharacterView()?.SetHologramShader();
 
+        // 한 프레임 대기 후 아군 캐릭터 방향으로 설정 (Unity 초기화 완료 후)
+        await UniTask.Yield();
+        _ghostCharacterController.GetCharacterView()?.SetFirstDirection(AllianceType.Player);
+
         _ghostStatData = statData;
         _onPlacementConfirmed = onPlacementConfirmed;
 
