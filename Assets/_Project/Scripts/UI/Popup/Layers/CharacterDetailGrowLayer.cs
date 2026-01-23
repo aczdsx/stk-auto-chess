@@ -247,7 +247,7 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < _starList.Count; i++)
             {
                 bool isVisible = i >= startIndex && i < transcendLevel;
-                _starList[i].SetActive(isVisible);
+                _starList[i].SetActive(isVisible, false);
             }
         }
 
@@ -255,7 +255,7 @@ namespace CookApps.AutoBattler
         {
             for (int i = previousLevel; i < newLevel && i < _starList.Count; i++)
             {
-                _starList[i].PlayLevelUpAnimation();
+                _starList[i].SetActive(true, true);
             }
         }
 
@@ -387,7 +387,7 @@ namespace CookApps.AutoBattler
 
                 RefreshLayer();
                 // 이펙트 실행
-                PlayLevelUpEffect();
+                // PlayLevelUpEffect();
                 // 별 연출 재생
                 PlayTranscendStarAnimation(previousLevel, (int)_userCharacterData.TranscendLevel);
 

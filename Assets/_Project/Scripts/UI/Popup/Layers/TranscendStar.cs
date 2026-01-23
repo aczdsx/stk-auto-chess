@@ -11,16 +11,23 @@ namespace CookApps.AutoBattler
 
         public Image Star => _star;
 
-        public void SetActive(bool active)
+        public void SetActive(bool active, bool withAnimation)
         {
             _star.enabled = active;
-        }
 
-        public void PlayLevelUpAnimation()
-        {
-            foreach (var anim in _levelUpAnimations)
+            if (active)
             {
-                anim.DORestart();
+                foreach (var anim in _levelUpAnimations)
+                {
+                    if (withAnimation)
+                    {
+                        anim.DORestart();
+                    }
+                    else
+                    {
+                        anim.DOComplete();
+                    }
+                }
             }
         }
     }
