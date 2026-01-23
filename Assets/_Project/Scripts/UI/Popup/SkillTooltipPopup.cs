@@ -1,10 +1,13 @@
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using CharacterController = CookApps.BattleSystem.CharacterController;
 
 namespace CookApps.AutoBattler
 {
@@ -44,22 +47,66 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
         }
 
-        public void SetSkillToolTipPopup(SkillActive skillData)
+        public void SetSkillToolTipPopup(List<SkillActive> skillData)
         {
-            if (skillData == null) return;
+            if (skillData == null || skillData.Count == 0) return;
 
-            _skillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSkillSprite(skillData.skill_group_id)).Forget();
+            _skillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSkillSprite(skillData[0].skill_group_id)).Forget();
 
-            _skillNameText.text = LanguageManager.Instance.GetDefaultText(skillData.skill_name_token);
-            _skillDescText.text = LanguageManager.Instance.GetDefaultText(skillData.skill_desc_token);
+            _skillNameText.text = LanguageManager.Instance.GetDefaultText(skillData[0].skill_name_token);
+            string text = LanguageManager.Instance.GetDefaultText(skillData[0].skill_desc_token);
+            
+            if (!string.IsNullOrEmpty(text))
+            {
+                // 플레이스홀더 개수 확인
+                int maxPlaceholderIndex = -1;
+                for (int i = 0; i < CharacterController.CharacterActiveSkillStatCnt; i++)
+                {
+                    if (text.Contains($"{{{i}}}"))
+                    {
+                        maxPlaceholderIndex = i;
+                    }
+                }
+                
+                if (maxPlaceholderIndex >= 0)
+                {
+                    // 필요한 플레이스홀더 개수만큼 base_rate 값 수집
+                    int requiredCount = maxPlaceholderIndex + 1;
+                    int availableCount = Mathf.Min(skillData.Count, CharacterController.CharacterActiveSkillStatCnt);
+                    
+                    if (requiredCount <= availableCount)
+                    {
+                        object[] formatArgs = new object[requiredCount];
+                        for (int i = 0; i < requiredCount; i++)
+                        {
+                            formatArgs[i] = skillData[i].base_rate;
+                        }
+                        _skillDescText.text = string.Format(text, formatArgs);
+                    }
+                    else
+                    {
+                        // 필요한 개수만큼 skillData가 없는 경우
+                        _skillDescText.text = text;
+                    }
+                }
+                else
+                {
+                    // 플레이스홀더가 없는 경우
+                    _skillDescText.text = text;
+                }
+            }
+            else
+            {
+                _skillDescText.text = text;
+            }
 
-            _skillDamageTypeObject.SetActive(skillData.atk_type != AtkType.NONE);
-            _skillDamageAPTypeObject.SetActive(skillData.atk_type == AtkType.AP);
-            _skillDamageADTypeObject.SetActive(skillData.atk_type == AtkType.AD);
+            _skillDamageTypeObject.SetActive(skillData[0].atk_type != AtkType.NONE);
+            _skillDamageAPTypeObject.SetActive(skillData[0].atk_type == AtkType.AP);
+            _skillDamageADTypeObject.SetActive(skillData[0].atk_type == AtkType.AD);
 
-            _skillTypeText.text = LanguageManager.Instance.GetAtkTypeText(skillData.atk_type);
+            _skillTypeText.text = LanguageManager.Instance.GetAtkTypeText(skillData[0].atk_type);
 
-            var extraSkillData = SpecDataManager.Instance.GetSkillData(skillData.skill_group_id, SkillValueType.COOL);
+            var extraSkillData = SpecDataManager.Instance.GetSkillData(skillData[0].skill_group_id, SkillValueType.COOL);
             if (extraSkillData != null)
             {
                 string cooltimeString = LanguageManager.Instance.GetDefaultText("SKILL_COOLTIME");

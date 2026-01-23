@@ -215,7 +215,7 @@ namespace CookApps.AutoBattler
 
                 _skillTooltipPopup.gameObject.SetActive(true);
 
-                _skillTooltipPopup.SetSkillToolTipPopup(skillData);
+                _skillTooltipPopup.SetSkillToolTipPopup(specSkillList);
             }
         }
 

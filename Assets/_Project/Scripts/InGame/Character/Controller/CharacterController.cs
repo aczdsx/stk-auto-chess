@@ -16,6 +16,7 @@ namespace CookApps.BattleSystem
         public int CharacterId => _statData?.CharacterId ?? _characterID;
         public ISpecCharacterInfo SpecCharacter => _statData.Spec;
 
+        public static readonly int CharacterActiveSkillStatCnt = 8;
         private Dictionary<Type, Type> _stateTypeMap = new Dictionary<Type, Type>();
 
         private EffectCodeContainer ecc;
@@ -450,7 +451,7 @@ namespace CookApps.BattleSystem
 
         private void AddSkillEffectCodes()
         {
-            Span<double> stats = stackalloc double[8];
+            Span<double> stats = stackalloc double[CharacterActiveSkillStatCnt];
             foreach (var skillID in _statData.Spec.skill_ids)
             {
                 var skillDataList = SpecDataManager.Instance.GetSkillDataList(skillID);
