@@ -718,7 +718,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         _selectedCharacterController = character;
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_position_pick);
-        
+
         _selectedFirstTileView = _selectedTileView;
         _selectedTileView.SetActiveObj(true);
         if (character.GetCharacterStat() != null)
@@ -761,7 +761,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             bool tileChanged = _selectedFirstTileView != null && _selectedTileView != null &&
                                _selectedFirstTileView.ID != _selectedTileView.ID;
             int placedCharacterId = _selectedCharacterController.CharacterId;
-             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_position_drop);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_position_drop);
 
             _selectedCharacterController.SetSelectedCharacter(false, isDropFx: _isDragFromUI && tileChanged);
             _selectedTileView.SetActiveObj(false);
@@ -1053,6 +1053,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             Vector3 targetPos = ingameTileView.CachedTr.transform.position;
             _ghostCharacterController.Position3D = targetPos;
             _ghostCharacterController.GetCharacterView().CachedTr.localPosition = targetPos;
+            _ghostCharacterController.GetCharacterView()?.SetFirstDirection(AllianceType.Player);
         }
         // 2. 배경(Playground) 위인 경우 → 자유 이동
         else if (hitTag == "Playground")
@@ -1066,6 +1067,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
             _ghostCharacterController.Position3D = targetPos;
             _ghostCharacterController.GetCharacterView().CachedTr.localPosition = targetPos;
+            _ghostCharacterController.GetCharacterView()?.SetFirstDirection(AllianceType.Player);
         }
     }
 

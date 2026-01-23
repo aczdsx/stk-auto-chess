@@ -512,13 +512,13 @@ namespace CookApps.AutoBattler
                 var inGameParams = await NetManager.Instance.Battle.StartAsync(currentStageData.chapter_id, currentStageData.stage_id, 0, Array.Empty<string>());
                 if (inGameParams == null)
                     return;
-                
+
                 SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                 await SceneTransition.FadeInAsync();
-            
+
                 InGameManager.Instance.EndInGame();
 
-                SceneLoading.GoToNextScene("InGame", inGameParams);
+                SceneLoading.GoToNextSceneWithStageEnterTrigger("InGame", currentStageData.stage_id, inGameParams);
             }
         }
 

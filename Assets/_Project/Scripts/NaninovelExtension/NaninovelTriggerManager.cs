@@ -22,6 +22,7 @@ namespace CookApps.AutoBattler
             SceneLoading.OnGetNaninovelTrigger = GetTriggerOnSceneEnter;
             SceneLoading.OnGetSpecialNaninovelTrigger = GetSpecialTrigger;
             SceneLoading.OnGetStageClearNaninovelTrigger = GetTriggerOnStageClear;
+            SceneLoading.OnGetStageEnterNaninovelTrigger = GetTriggerOnStageEnter;
             Debug.Log("[NaninovelTriggerManager] 초기화 완료 - SceneLoading 연동");
         }
 
@@ -53,6 +54,16 @@ namespace CookApps.AutoBattler
         public string GetTriggerOnStageClear(int stageId)
         {
             return GetTrigger(NaninovelTriggerType.STAGE_CLEAR_NANI, stageId.ToString());
+        }
+
+        /// <summary>
+        /// 스테이지 진입 시 트리거 검색
+        /// </summary>
+        /// <param name="stageId">진입할 스테이지 ID</param>
+        /// <returns>실행할 나니노벨 스크립트 이름 (없으면 null)</returns>
+        public string GetTriggerOnStageEnter(int stageId)
+        {
+            return GetTrigger(NaninovelTriggerType.STAGE_ENTER_NANI, stageId.ToString());
         }
 
         /// <summary>
@@ -95,14 +106,18 @@ namespace CookApps.AutoBattler
                 return null;
             }
 
+            // 현재 가이드 미션 ID
+            var currentGuideMissionId = (int)ServerDataManager.Instance.GuideMission.GuideMissionId;
+
             var trigger = SpecDataManager.Instance.NaninovelData.All
                 .Where(t => t.naninovel_trigger_type == triggerType && t.trigger_key == triggerKey)
                 .Where(t => !_executedTriggerIds.Contains(t.id)) // 이미 실행된 트리거 제외
+                .Where(t => t.guide_mission_id == 0 || t.guide_mission_id == currentGuideMissionId) // 가이드 미션 조건 확인
                 .FirstOrDefault();
 
             if (trigger != null)
             {
-                Debug.Log($"[NaninovelTrigger] 트리거 발동: {trigger.naninovel_name} (type: {triggerType}, key: {triggerKey})");
+                Debug.Log($"[NaninovelTrigger] 트리거 발동: {trigger.naninovel_name} (type: {triggerType}, key: {triggerKey}, guideMissionId: {trigger.guide_mission_id})");
                 return trigger.naninovel_name;
             }
 
