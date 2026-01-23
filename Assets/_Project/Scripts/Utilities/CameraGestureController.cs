@@ -496,7 +496,11 @@ public class CameraGestureController : CachedMonoBehaviour
             // 바운더리 평면의 델타를 월드 좌표로 변환
             var worldDelta = mainCameraTransform.rotation * new Vector3(deltaX, deltaY, 0f);
             targetPosition += worldDelta;
-            needsPositionSmoothing = true;
+
+            // 바운더리 클램프 시에는 카메라 위치도 즉시 업데이트하여 튕김 방지
+            // (스무딩으로 인한 핑퐁 현상 방지)
+            mainCameraTransform.position = targetPosition;
+            needsPositionSmoothing = false;
         }
     }
 
