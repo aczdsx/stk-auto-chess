@@ -4,6 +4,7 @@ using CookApps.Obfuscator;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Purchasing;
 
 namespace CookApps.BattleSystem
 {
@@ -564,8 +565,14 @@ namespace CookApps.BattleSystem
                 _currHp = HP;
             }
 
+            if (AllianceType != AllianceType.Enemy)
+            {
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_heal01);
+            }
+
+
+
             InGameStatistics.Instance.AddCombatHeal(healer, this, amount, _currHp, HP, source);
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_heal01);
 
             UpdateHpBar();
             return true;

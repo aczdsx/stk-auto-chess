@@ -112,14 +112,21 @@ AnimationClip:
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 1002
+    intParameter: 1003
     messageOptions: 0
-  - time: 1.5
+  - time: 1
     functionName: InvokeAnimationEvent
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 1002
+    intParameter: 1003
+    messageOptions: 0
+  - time: 1.375
+    functionName: InvokeAnimationEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 1003
     messageOptions: 0
   - time: 2.125
     functionName: InvokeAnimationEvent

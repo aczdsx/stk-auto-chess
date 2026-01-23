@@ -104,6 +104,7 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
     {
         if (damageInfo.isMissed)
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_job_striker_brave);
             var prevAvoidSuccessCount = _currentAvoidSuccessCount;
             ++_currentAvoidSuccessCount;
             _currentAvoidSuccessCount = Math.Min(_currentAvoidSuccessCount, _avoidSuccessMaxCount);
