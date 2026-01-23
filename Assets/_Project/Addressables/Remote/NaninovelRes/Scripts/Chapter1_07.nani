@@ -7,7 +7,7 @@
 ; 폭발하는 효과음
 @spawn ShakeCamera
 
-@bgm snd_bgm_dialog_farewell01
+@bgm snd_bgm_dialog_normal01
 
 @char uni_00.normal pos:30,-240 scale:1.38
 uni_00: 우와! 엄청난 위력이잖아?!

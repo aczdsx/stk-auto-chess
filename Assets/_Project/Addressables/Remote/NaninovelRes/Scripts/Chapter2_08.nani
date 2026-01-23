@@ -15,6 +15,8 @@
 @char philia_00 pos:45,-235 scale:1.38
 philia_00: 저것은… 모래 폭풍이군요.
 
+@sfx snd_sfx_dialog_wind_harsh
+
 @slide philia_00 to:60,-235 time:0.5
 @char uni_00.Talk pos:30,-240 scale:1.38
 ; L004

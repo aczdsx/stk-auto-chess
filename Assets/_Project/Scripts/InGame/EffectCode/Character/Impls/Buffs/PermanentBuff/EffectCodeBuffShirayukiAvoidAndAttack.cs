@@ -22,7 +22,7 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
     private int _currentAvoidSuccessCount; // 현재 증가 횟수
     private float _damageRatePercent; // 반격 데미지 비율
     private InGameVfx _attackVfx; // 슬래시 VFX 인스턴스
-    InGameVfxNameType _attackVfxNameType;
+    private SkillPassive _specSkillPassive;
 
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -44,8 +44,7 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
         isShowValue: true,
         showPosition: BuffStackData.BuffShowPosition.SIDE
         );
-        var specSkillPassive = SpecDataManager.Instance.GetSkillPassiveDataList(codeInfo.GetCodeStatToInt(0)).FirstOrDefault();
-        _attackVfxNameType = specSkillPassive.passive_skill_vfxs[0];
+        _specSkillPassive = SpecDataManager.Instance.GetSkillPassiveDataList(codeInfo.GetCodeStatToInt(0)).FirstOrDefault();
 
 
         _stackDatas.Add(buffStackData);
@@ -122,7 +121,15 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
                 CharacterController.DamageTestFlags.None);
                 attacker.GetDamaged(damage, owner);
             }
-            InGameVfxManager.Instance.AddInGameVfx(_attackVfxNameType, owner.SkillRootTransformFollowable);
+            if (owner.GetCharacterView().CachedFront)
+            {
+                InGameVfxManager.Instance.AddInGameVfx(_specSkillPassive.passive_skill_vfxs[0], owner.SkillRootTransformFollowable);    
+            }
+            else
+            {
+                //뒤
+                InGameVfxManager.Instance.AddInGameVfx(_specSkillPassive.passive_skill_vfxs[1], owner.SkillRootTransformFollowable);
+            }
 
             if (prevAvoidSuccessCount != _currentAvoidSuccessCount)
             {

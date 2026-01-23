@@ -18,7 +18,7 @@ MonoBehaviour:
   GridWidth: 5
   GridHeight: 7
   PlayerCharacters:
-  - CharacterId: 3401
+  - CharacterId: 3506
     Level: 1
     GridX: 4
     GridY: 0
@@ -29,6 +29,30 @@ MonoBehaviour:
     Level: 1
     GridX: 3
     GridY: 4
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 1008
+    Level: 1
+    GridX: 1
+    GridY: 4
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 1008
+    Level: 1
+    GridX: 2
+    GridY: 4
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 1008
+    Level: 1
+    GridX: 2
+    GridY: 3
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 1008
+    Level: 1
+    GridX: 4
+    GridY: 3
     MultipleAtk: 1
     MultipleHp: 1
   CameraSize: 7.5

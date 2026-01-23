@@ -3,7 +3,7 @@
 
 @back bg_arche_01
 
-@bgm snd_bgm_dialog_tension01
+@bgm snd_bgm_dialog_normal01 
 
 
 ;거대한 몬스터가 쓰러지는 쿵 효과음
@@ -28,6 +28,8 @@ atresia_00: 그럼, 이제 우주선 안으로 들어가 볼까요?
 Narrator: 아트레시아가 '빅마우스'가 찢고 나온, 비교적 멀쩡한 형태의 우주선 출입구를 가리키는 순간.
 
 ; 효과음 자리
+@sfx snd_sfx_dialog_machine_door_close
+
 
 Narrator: 덜컹-소리를 내며 우주선의 출입구가 강제로 열리자 모두 각자의 무기를 문을 향해 향한다.
 

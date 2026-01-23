@@ -7,6 +7,8 @@
 
 @back bg_hasole_02
 
+@bgm snd_bgm_dialog_normal02
+
 @char atresia_00.Talk pos:60,-235,-1 scale:1.38
 
 atresia_00: 역시 마리에에요. 네피림을 순식간에 헤치우다니.
@@ -85,6 +87,9 @@ atresia_00: 커맨더 개체가 있는지도 모르겠어요.
 ; @sfx sfx_blanket_rustle volume:0.7
 ; L021
 ; [SFX] 바스락
+@sfx snd_sfx_dialog_walk_foot_sand
+
+
 ; L022
 @hideChars
 @char odette_00.normal pos:45,-250 scale:1.38
@@ -106,6 +111,8 @@ atresia_00: 관측자님. 저희도 따라가보죠!
 
 @choice "\" 그래. 놓치기 전에 따라가 보자 \""
 @stop
+
+@sfx snd_sfx_dialog_run_group_sand
 
 ; L027
 ; @sfx sfx_footsteps volume:0.9

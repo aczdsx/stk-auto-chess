@@ -279,6 +279,7 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
 
     private void ApplyDamage(CharacterController target)
     {
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], target.SkillMiddleFXTransformFollowable.GetPosition());
         var damage = owner.CalculateDamageAmount(owner.AD * _damageRate, 0, target, codeId, true);
         target.GetDamaged(damage, owner);
     }
