@@ -168,12 +168,17 @@ namespace CookApps.AutoBattler
             var targetUIObj = _currentContext.TargetUIObj;
 
             // 버튼 원위치 복구
-            if (_layoutGroup != null && targetUIObj != null)
+            if (targetUIObj != null)
             {
-                _layoutGroup.enabled = false;
+                if (_layoutGroup != null)
+                    _layoutGroup.enabled = false;
+
                 targetUIObj.transform.SetParent(_currentContext.OriginalParent);
                 targetUIObj.transform.SetSiblingIndex(_currentContext.OriginalSiblingIndex);
                 targetUIObj.transform.localPosition = _currentContext.OriginalPosition;
+
+                if (_layoutGroup != null)
+                    _layoutGroup.enabled = true;
             }
         }
     }

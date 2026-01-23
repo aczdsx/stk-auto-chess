@@ -6,7 +6,7 @@ using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Collections.Generic;
 namespace CookApps.AutoBattler
 {
     public class CharacterDetailSkillLayer : CachedMonoBehaviour
@@ -37,8 +37,8 @@ namespace CookApps.AutoBattler
 
         private CharacterInfo _specCharacterData;
         private CharacterData _userCharacterData;// 레벨을 위해 필요한듯
-        private SkillActive _specActiveSkillBaseData;
-        private SkillPassive _specPassiveSkillBaseData;
+        private List<SkillActive> _specActiveSkillBaseData = new List<SkillActive>();
+        private List<SkillPassive> _specPassiveSkillBaseData = new List<SkillPassive>();
         private SkillJob _specJobSkillBaseData;
 
         private void Awake()
@@ -73,16 +73,16 @@ namespace CookApps.AutoBattler
             var specActiveSkillList = SpecDataManager.Instance.GetSkillDataListByPrefabID(_specCharacterData.prefab_id);
             if (specActiveSkillList != null && specActiveSkillList.Count > 0)
             {
-                _specActiveSkillBaseData = specActiveSkillList[0];
+                _specActiveSkillBaseData = specActiveSkillList;
 
-                _normalSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSkillSprite(specActiveSkillList[0].skill_group_id)).Forget();
-                _normalSkillNameText.text = LanguageManager.Instance.GetDefaultText(specActiveSkillList[0].skill_name_token);
+                _normalSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSkillSprite(_specActiveSkillBaseData[0].skill_group_id)).Forget();
+                _normalSkillNameText.text = LanguageManager.Instance.GetDefaultText(_specActiveSkillBaseData[0].skill_name_token);
             }
 
             var specPassiveSkillList = SpecDataManager.Instance.GetSkillPassiveDataListByPrefabID(_specCharacterData.prefab_id);
             if (specPassiveSkillList != null && specPassiveSkillList.Count > 0)
             {
-                _specPassiveSkillBaseData = specPassiveSkillList[0];
+                _specPassiveSkillBaseData = specPassiveSkillList;
                 _passiveSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPassiveSkillSprite(specPassiveSkillList[0].passive_group_id)).Forget();
                 _passiveSkillNameText.text = LanguageManager.Instance.GetDefaultText(specPassiveSkillList[0].passive_name_token);
             }

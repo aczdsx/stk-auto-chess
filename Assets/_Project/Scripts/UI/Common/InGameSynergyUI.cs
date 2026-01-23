@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using System.Linq;
+using Coffee.UIEffects;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +13,29 @@ namespace CookApps.AutoBattler
 {
     public class InGameSynergyUI : CachedMonoBehaviour
     {
+        /// <summary>
+        /// 시너지 업데이트 중 상승한 시너지 타입 수집용
+        /// </summary>
+        private static HashSet<SynergyType> _upgradedSynergyTypes = new HashSet<SynergyType>();
+
+        /// <summary>
+        /// 상승한 시너지 타입 수집 시작 (업데이트 전 호출)
+        /// </summary>
+        public static void BeginCollectUpgradedSynergies()
+        {
+            _upgradedSynergyTypes.Clear();
+        }
+
+        /// <summary>
+        /// 상승한 시너지 타입 목록 반환 및 수집 종료
+        /// </summary>
+        public static HashSet<SynergyType> EndCollectUpgradedSynergies()
+        {
+            var result = new HashSet<SynergyType>(_upgradedSynergyTypes);
+            _upgradedSynergyTypes.Clear();
+            return result;
+        }
+
         [SerializeField] private Image _iconImage;
         [SerializeField] private SpriteLoader _starAsterismIconSpriteLoader;
         [SerializeField] private SpriteLoader _elementalIconSpriteLoader;
@@ -23,6 +49,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private Image _elementalGradeGuageImage;
         [SerializeField] private Image _elementalGradeGuageColor;
         [SerializeField] private RectTransform _buttonRect;
+        [SerializeField] private UIShiny _starAstarismShiny;
+        [SerializeField] private UIShiny _elementalShiny;
 
 
 
@@ -41,10 +69,22 @@ namespace CookApps.AutoBattler
         //캐릭터 속성 시너지 세팅
         public void SetSynergy(SynergyType synergyType, int count, ISpecSynergyData data, ISpecSynergyData nextData, bool isActive = true, bool isColorWhite = false)
         {
+            // 이전 값 저장 (상승 체크용)
+            int prevCount = _count;
+            int prevGrade = _synergyData?.grade ?? 0;
+
             _synergyType = synergyType;
 
             _synergyData = data;
             _nextSynergyData = nextData;
+
+            // 시너지 상승 시 Shiny 효과 재생 및 상승 타입 수집
+            if (count > prevCount || data.grade > prevGrade)
+            {
+                bool isAsterism = DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType);
+                PlayShinyEffect(isAsterism ? _starAstarismShiny : _elementalShiny).Forget();
+                _upgradedSynergyTypes.Add(synergyType);
+            }
 
             Color color = Color.white;
             switch (data.grade)
@@ -127,7 +167,8 @@ namespace CookApps.AutoBattler
                 _countText.gameObject.SetActive(true);
             }
             _countText.text = $"{count}/{nextData.min_int}";
-            if(isAsterismSynergyType){
+            if (isAsterismSynergyType)
+            {
                 // Debug.LogColor($"SynergyUI!! [{synergyType}] {isActive}/{_starAsterismGradeGuageImage.fillAmount}", "green");
             }
             else
@@ -152,6 +193,25 @@ namespace CookApps.AutoBattler
             );
 
             SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipIngameMiniPopup>(param).Forget();
+        }
+
+        private const float ShinyDuration = 2f;
+
+        /// <summary>
+        /// UIShiny 효과 재생 (켜기 → Play → duration 후 끄기)
+        /// </summary>
+        private async UniTaskVoid PlayShinyEffect(UIShiny shiny)
+        {
+            if (shiny == null) return;
+
+            shiny.effectPlayer.duration = ShinyDuration;
+            shiny.gameObject.SetActive(true);
+            shiny.Play(true);
+
+            await UniTask.Delay((int)(ShinyDuration * 1000));
+
+            if (shiny != null)
+                shiny.gameObject.SetActive(false);
         }
     }
 }

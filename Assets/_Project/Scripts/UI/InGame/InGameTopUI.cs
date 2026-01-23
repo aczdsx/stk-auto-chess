@@ -160,11 +160,7 @@ public class InGameTopUI : MonoBehaviour
             synergyCountDataList.RemoveRange(9, synergyCountDataList.Count - 9);
         }
 
-        if (type != AllianceType.Enemy)
-        {
-            //player ui의 경우 오름차순으로 출력되어야합니다.
-            synergyCountDataList.Reverse();
-        }
+        // count가 높은 순서대로 정렬 (내림차순 유지)
 
         var specDataManagerInstance = SpecDataManager.Instance;
         foreach (var synergyCountData in synergyCountDataList)
