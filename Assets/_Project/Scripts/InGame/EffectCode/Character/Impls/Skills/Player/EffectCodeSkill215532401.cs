@@ -77,17 +77,17 @@ public partial class EffectCodeSkill215532401 : EffectCodeCharacterBase
 
         owner.Target = InGameObjectManager.Instance.GetCharacterListSortedByDistanceDescending(owner, false)[0];
 
-        var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
-        if (!isInRange)
-        {
-            if (owner.Target != null)
-            {
-                InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(owner.CurrentTile,
-                    owner.Target.CurrentTile);
-                owner.MoveTile(bestTile);
-            }
-            return;
-        }
+        // var isInRange = InGameObjectManager.Instance.IsInRange(owner, owner.Target);
+        // if (!isInRange)
+        // {
+        //     if (owner.Target != null)
+        //     {
+        //         InGameTile bestTile = InGameObjectManager.Instance.GetNextMovableTile(owner.CurrentTile,
+        //             owner.Target.CurrentTile);
+        //         owner.MoveTile(bestTile);
+        //     }
+        //     return;
+        // }
 
         _isReadyToActivate = false;
         IsSkillActivated = true;
