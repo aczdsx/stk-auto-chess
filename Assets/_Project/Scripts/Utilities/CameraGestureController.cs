@@ -519,6 +519,11 @@ public class CameraGestureController : CachedMonoBehaviour
         isAutoMoving = value;
     }
 
+    public void SetCameraZoomForce(float zoom)
+    {
+        mainCamera.orthographicSize = zoom;
+    }
+
     public void SetCameraPositionAndZoom(Vector3 position, float zoom)
     {
         mainCameraTransform.position = position;
