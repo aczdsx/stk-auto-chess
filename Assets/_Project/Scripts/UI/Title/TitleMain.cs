@@ -119,7 +119,7 @@ namespace CookApps.AutoBattler
                 // 튜토리얼(1챕터) 진입 분기 로직
                 var firstStageData = SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL)?[0];
                 // 초반 플로우 체크 및 진행
-#if !_SJHONG_TEST_
+#if _SJHONG_TEST_
                 MyDebug.MyLog(SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL), MyDebug.Constants.BLUE);
 
                 LocalDataManager.Instance.SetLastPlayStageId((uint)SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL)?.Last().stage_id);
