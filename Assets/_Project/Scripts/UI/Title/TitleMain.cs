@@ -419,33 +419,22 @@ namespace CookApps.AutoBattler
             await DownloadAddressablesAsync(downloadKeys, totalDownloadSize);
         }
 
+        private const string PreloadLabel = "preload";
+
         /// <summary>
-        /// 다운로드가 필요한 모든 키 수집
+        /// preload 라벨이 붙은 에셋의 다운로드 키 수집
         /// </summary>
         private async UniTask<List<(object Key, long Size)>> GetAllDownloadKeysAsync()
         {
             var result = new List<(object Key, long Size)>();
-            var checkedKeys = new HashSet<string>();
 
-            foreach (var locator in Addressables.ResourceLocators)
+            // preload 라벨의 다운로드 사이즈 체크
+            var sizeHandle = Addressables.GetDownloadSizeAsync(PreloadLabel);
+            long size = await sizeHandle.WaitUntilDone();
+
+            if (size > 0)
             {
-                foreach (var key in locator.Keys)
-                {
-                    // 중복 체크
-                    string keyStr = key.ToString();
-                    if (checkedKeys.Contains(keyStr))
-                        continue;
-                    checkedKeys.Add(keyStr);
-
-                    // 다운로드 사이즈 체크
-                    var sizeHandle = Addressables.GetDownloadSizeAsync(key);
-                    long size = await sizeHandle.ToUniTask();
-
-                    if (size > 0)
-                    {
-                        result.Add((key, size));
-                    }
-                }
+                result.Add((PreloadLabel, size));
             }
 
             return result;
