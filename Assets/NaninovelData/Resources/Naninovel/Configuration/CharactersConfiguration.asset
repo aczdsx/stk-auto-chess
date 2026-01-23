@@ -96,7 +96,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 97730980-6691-4698-b6da-9388d226f1d6
       customData:
-        rid: 428703097311724511
+        rid: 428703406384743055
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -139,7 +139,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 9f471a03-df95-4385-b9dd-00377a1464ad
       customData:
-        rid: 428703097319850192
+        rid: 428703406384743346
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -182,7 +182,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 735edf15-068f-4432-b878-ceb2fa5a8257
       customData:
-        rid: 428703097319850445
+        rid: 428703406414626915
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -225,7 +225,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 401e1f1b-0565-49ec-84a2-66e4f4b253c1
       customData:
-        rid: 428703097319850610
+        rid: 428703406414627138
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -268,7 +268,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 03efa3a9-9f4f-47f8-8a0b-94525b6dfbb6
       customData:
-        rid: 428703138515256187
+        rid: 428703406414627399
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -311,7 +311,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: f36fee46-6adc-4ff8-9b91-ab28e888ed4f
       customData:
-        rid: 428703097339511670
+        rid: 428703406414627690
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -354,7 +354,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: da887255-4462-4a09-afa7-1ef10016dbf4
       customData:
-        rid: 428703097339511777
+        rid: 428703406471774393
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -397,7 +397,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 9e1bedf3-7084-457d-9153-ad4f5c78b0d9
       customData:
-        rid: 428703138515256059
+        rid: 428703406471774594
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -440,7 +440,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 2248db6d-f632-45eb-a303-0a73713dcbbe
       customData:
-        rid: 428703097356812589
+        rid: 428703406471774849
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -483,7 +483,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: c4298a0f-2063-4b8f-9bd0-b616d124f511
       customData:
-        rid: 428703138515255989
+        rid: 428703406471775124
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -526,7 +526,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: c0dd0b68-63b7-4bcf-adb2-3d87c35a3f8b
       customData:
-        rid: 428703097356812913
+        rid: 428703406546223217
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -569,7 +569,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 46ceac0a-575d-4696-ab64-22a659480d7a
       customData:
-        rid: 428703097356813012
+        rid: 428703406546223412
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -612,7 +612,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 47dd2345-3d64-434b-9651-17d00113ee77
       customData:
-        rid: 428703097356813161
+        rid: 428703406546223593
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -655,7 +655,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 1f84c30d-8436-4447-99fd-1e41c45aa0dd
       customData:
-        rid: 428703097378570252
+        rid: 428703406546223760
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -698,7 +698,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: 5dd17005-2829-4f36-8005-02f70ab7d571
       customData:
-        rid: 428703097378570409
+        rid: 428703406546224121
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -741,7 +741,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: bedad115-cf1e-424f-9bd4-57a00f0588c7
       customData:
-        rid: 428703097378570538
+        rid: 428703406567981274
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -784,7 +784,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: d81c8129-6216-41fc-addc-6602d39db5e2
       customData:
-        rid: 428703097378570669
+        rid: 428703406567981596
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -827,7 +827,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       guid: c6248982-7c08-4db0-b70f-5e655f137a17
       customData:
-        rid: 428703359561630044
+        rid: 428703406567981467
       Pivot: {x: 0.5, y: 0}
       PixelsPerUnit: 100
       EnableDepthPass: 1
@@ -892,58 +892,58 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 428703097311724511
+    - rid: 428703406384743055
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097319850192
+    - rid: 428703406384743346
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097319850445
+    - rid: 428703406414626915
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097319850610
+    - rid: 428703406414627138
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097339511670
+    - rid: 428703406414627399
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097339511777
+    - rid: 428703406414627690
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097356812589
+    - rid: 428703406471774393
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097356812913
+    - rid: 428703406471774594
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097356813012
+    - rid: 428703406471774849
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097356813161
+    - rid: 428703406471775124
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097378570252
+    - rid: 428703406546223217
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097378570409
+    - rid: 428703406546223412
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097378570538
+    - rid: 428703406546223593
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703097378570669
+    - rid: 428703406546223760
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703138515255989
+    - rid: 428703406546224121
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703138515256059
+    - rid: 428703406567981274
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703138515256187
+    - rid: 428703406567981467
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 428703359561630044
+    - rid: 428703406567981596
       type: {class: NaninovelCustomCharacterMetaData, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 725993608362590547
