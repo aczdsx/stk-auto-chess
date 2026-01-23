@@ -16,8 +16,8 @@
 ; @glitch power:0.1 time:3.33
 ; @sfx NoiseSFX volume:0.5
 ; @back bg_climax_battle_02 transition:Ripple time:0.5
-@bgm snd_bgm_dialog_mad_002
-
+@bgm snd_bgm_dialog_despair01
+@sfx snd_sfx_dialog_wind_harsh volume:0.5
 ; @char laplace_00.ani_idle_thinking pos:50,-255 scale:1.38 transition:Crossfade time:2
 ; @char unknowngirl_00 pos:50,-255 scale:1.38 transition:Crossfade time:2
 
@@ -46,9 +46,14 @@ unknowngirl_00: 종국엔 우린 같은 선택을 하게 될 테니까.
 ; @voice unknowngirl_00_Prologue_01_05
 unknowngirl_00: 그러니 잠시간의 유예더라도, 그녀를 행복하게 해주길 바래.
 
+
+
+
 # c90590c
 ; @voice unknowngirl_00_Prologue_01_06
 unknowngirl_00: 그것만이 당신과 나의 약속이니까.
+
+@stopSfx snd_sfx_dialog_wind_harsh
 
 @hideChars wait:true time:0
 @back bg_black_01 time:0.5 transition:Crossfade

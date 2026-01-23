@@ -469,9 +469,6 @@ MonoBehaviour:
       guid: e3f6807cdd174d347826d8185614ea56
     - name: Chapter1_10
       pathPrefix: Scripts
-      guid: 909523b307601b44bb2aea79c57723ad
-    - name: Chapter1_10
-      pathPrefix: Scripts
       guid: fedcc6d0399f18b4d92de41ce45406cd
     - name: Chapter1_14
       pathPrefix: Scripts
@@ -479,6 +476,9 @@ MonoBehaviour:
     - name: Chapter1_13
       pathPrefix: Scripts
       guid: 1c90d86ed1b93a44eaec0073fee0b147
+    - name: Chapter1_11
+      pathPrefix: Scripts
+      guid: 909523b307601b44bb2aea79c57723ad
   - Id: CharacterAvatars
     Resources: []
   - Id: Characters/97730980-6691-4698-b6da-9388d226f1d6
@@ -756,6 +756,9 @@ MonoBehaviour:
     - name: snd_sfx_prolog_battle_laplace05
       pathPrefix: Audio
       guid: 2878b0128620fd5489cc9fbf41bc8811
+    - name: snd_sfx_chap
+      pathPrefix: Audio
+      guid: a35bc45abe76d79489fb680483012ae7
   - Id: TextPrinters/8b9e022e-51ad-4b4c-90ac-e65372924d6c
     Resources:
     - name: CutScene

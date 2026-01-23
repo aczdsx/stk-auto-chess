@@ -5,7 +5,7 @@
 
 @back bg_arche_00
 ; @bgm
-@bgm snd_bgm_vessel01
+@bgm snd_bgm_dialog_normal01
 
 @char asna_00.Talk pos:60,-240 scale:1.38
 

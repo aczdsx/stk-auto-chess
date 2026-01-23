@@ -3,7 +3,7 @@
 
 @back bg_arche_00
 
-@bgm snd_bgm_dialog_tension01
+@bgm snd_bgm_dialog_normal02
 
 ; 위상의 그림자 쉐이크 캐릭터
 shadow_00: .....!
@@ -46,6 +46,7 @@ atresia_00: 관측자님, 어떻게 하면 좋을까요?
 
 asna_00: 네! 알겠습니다.
 
+@sfx snd_sfx_dialog_run_group_grass
 @hideChars
 @char philia_00.Talk pos:50,-235 scale:1.38
 philia_00: 알겠습니다. 그럼 이어서 잡힌 위치 신호로 이동합니다.
