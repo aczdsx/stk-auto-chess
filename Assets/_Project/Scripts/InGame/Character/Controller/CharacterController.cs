@@ -201,7 +201,7 @@ namespace CookApps.BattleSystem
             if (_viewHandle.IsValid())
                 Addressables.ReleaseInstance(_viewHandle);
 
-           
+
             await handle.WaitUntilDone();
 
             if (!handle.IsValid())
@@ -223,14 +223,14 @@ namespace CookApps.BattleSystem
 
 
             if (statData.Spec.size >= 1)
+            {
+                var tiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(tile, statData.Spec.size);
+                tiles.Remove(tile);
+                foreach (var occupiedTile in tiles)
                 {
-                    var tiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(tile, statData.Spec.size);
-                    tiles.Remove(tile);
-                    foreach (var occupiedTile in tiles)
-                    {
-                        occupiedTile.SetOccupied(this);
-                    }
+                    occupiedTile.SetOccupied(this);
                 }
+            }
 
             _allianceType = allianceType;
 
@@ -273,6 +273,40 @@ namespace CookApps.BattleSystem
                 _currHp = HP;
                 IsAlive = true;
                 AddPassive();
+            }
+        }
+
+        /// <summary>
+        /// 고스트 캐릭터 초기화 (드래그 프리뷰용 - 타일 점유 안 함, 시스템 미등록)
+        /// </summary>
+        public async UniTask InitializeAsGhost(CharacterStatData statData, InGameTile tile, AllianceType allianceType)
+        {
+            _characterUId = characUIdInc++;
+            _statData = statData;
+            position = tile.View.Position;
+            // CurrentTile은 null로 유지 (고스트는 타일을 점유하지 않음)
+
+            _allianceType = allianceType;
+
+            if (_viewHandle.IsValid())
+                Addressables.ReleaseInstance(_viewHandle);
+
+            var characterResourcePath = statData.Spec.ToCharacterResourcePath();
+            var handle = _viewHandle = Addressables.InstantiateAsync(characterResourcePath);
+            await handle;
+
+            if (!handle.IsValid())
+                return;
+
+            _view = handle.Result.GetComponent<SpriteCharacterView>();
+            if (_statData.Spec != null)
+            {
+                // HP바 생성하지 않음 (고스트)
+                _view.SetFirstDirection(AllianceType.Player);
+                _view.CachedTr.localPosition = position;
+
+                // EffectCode, 스킬, 패시브 등록 안 함 (고스트)
+                IsAlive = true;
             }
         }
 
@@ -398,6 +432,20 @@ namespace CookApps.BattleSystem
             Target = null;
             _view = null;
             _hpBarView = null;
+        }
+
+        /// <summary>
+        /// 고스트 캐릭터 제거 (ecc, HP바 등 시스템 미등록 상태)
+        /// </summary>
+        public void ClearGhost()
+        {
+            if (_viewHandle.IsValid())
+            {
+                Addressables.ReleaseInstance(_viewHandle);
+            }
+            ClearAllState();
+            Target = null;
+            _view = null;
         }
 
         private void AddSkillEffectCodes()
@@ -986,7 +1034,7 @@ namespace CookApps.BattleSystem
         }
         #endregion
 
-    
+
         #region Hp
 
 

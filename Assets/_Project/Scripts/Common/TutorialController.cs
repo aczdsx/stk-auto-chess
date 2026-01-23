@@ -199,18 +199,7 @@ public class TutorialController : MonoBehaviour
             // string tutorialText = LanguageManager.Instance.GetDefaultText(CurrentSpecTutorial.desc_key);
             Debug.LogColor($"CurrentSpecTutorial.prefab_id: {CurrentSpecTutorial.prefab_id}", "green");
             var characterInfo = SpecDataManager.Instance.GetCharacterData(CurrentSpecTutorial.prefab_id);//id로 가져와져서 바꿔야함.
-            #if __DEV
-            try
-            {
-                _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterInfo.prefab_id)).Forget();
-            }
-            catch (Exception e)
-            {
-                _spriteLoaderCharacter.SetSprite("ERROR").Forget();
-            }
-            #else
             _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterInfo.prefab_id)).Forget();
-            #endif
 
             _characterNameText.text = LanguageManager.Instance.GetDefaultText(characterInfo.name_token);
             string tutorialText = CurrentSpecTutorial.desc_key;

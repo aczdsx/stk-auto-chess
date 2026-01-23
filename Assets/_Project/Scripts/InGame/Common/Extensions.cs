@@ -122,9 +122,9 @@ namespace CookApps.BattleSystem
 
         public static SoundFX GetSoundFx(this BuffDebuffType type)
         {
-            if(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat ||
-            InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat ||
-            InGameMainFlowManager.Instance.CurrentFlowState is FlowStateInGameTestCombat)
+            if(InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageReady ||
+            InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonReady ||
+            InGameMainFlowManager.Instance.CurrentFlowState is FlowStateInGameTestReady)
             {
                 return SoundFX.NONE;
             }
