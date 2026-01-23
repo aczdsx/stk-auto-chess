@@ -285,6 +285,36 @@ namespace CookApps.BattleSystem
             return characCtrl;
         }
 
+        /// <summary>
+        /// 고스트 캐릭터 생성 (드래그 프리뷰용 - Synergy 미등록, 리스트 미등록)
+        /// </summary>
+        public async UniTask<CharacterController> CreateGhostCharacter(CharacterStatData statData, InGameTile tile)
+        {
+            var ghostCtrl = new CharacterController();
+
+            // 타일 점유 없이 캐릭터만 초기화 (hasSkill: false로 스킬 미적용)
+            await ghostCtrl.InitializeAsGhost(statData, tile, AllianceType.Player);
+            ghostCtrl.GetCharacterView().CachedTr.SetParent(Playground, false);
+
+            // Synergy 등록 안 함, 리스트에 추가 안 함
+            // Material은 InGameTouchManager에서 SetHologramShader()로 적용
+            ghostCtrl.AddNextState(typeof(CharacterStateReady));
+
+            return ghostCtrl;
+        }
+
+        /// <summary>
+        /// 고스트 캐릭터 제거 (Synergy 해제 없이 단순 제거)
+        /// </summary>
+        public void RemoveGhostCharacter(CharacterController ghostCtrl)
+        {
+            if (ghostCtrl == null) return;
+
+            // 고스트는 타일을 점유하지 않으므로 SetUnoccupied 호출 불필요
+            // 뷰만 제거
+            ghostCtrl.ClearGhost();
+        }
+
         public void RemoveCharacterFromField(CharacterController characCtrl)
         {
             List<CharacterController> targetList = GetCharacterList(characCtrl.AllianceType);

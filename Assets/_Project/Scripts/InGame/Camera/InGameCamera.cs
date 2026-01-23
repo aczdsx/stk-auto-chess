@@ -18,6 +18,9 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
 
     private CancellationTokenSource _cancellationTokenSource;
 
+    private Tween _sizeTween;
+    private Tween _positionTween;
+
     private bool _isCameraShaking = false;
 
     private Vector3 _originalLocalPos;
@@ -39,6 +42,8 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
     protected override void OnDestroy()
     {
         base.OnDestroy();
+        _sizeTween.Stop();
+        _positionTween.Stop();
         _cancellationTokenSource?.Cancel();
         _cancellationTokenSource?.Dispose();
         _cancellationTokenSource = null;
@@ -94,10 +99,14 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
 
     public async UniTask SetCameraSize(float targetSize, Vector3 targetPosition, float duration)
     {
+        // 기존 Tween 정리
+        _sizeTween.Stop();
+        _positionTween.Stop();
+
         float startSize = _mainCamera.orthographicSize;
         Vector3 startPos = _mainCamera.transform.position;
 
-        var sizeTween = Tween.Custom(startSize, targetSize, duration,
+        _sizeTween = Tween.Custom(startSize, targetSize, duration,
             (float newSize) =>
             {
                 _characterCamera.orthographicSize = newSize;
@@ -105,7 +114,7 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
             },
             ease: Ease.OutQuad);
 
-        var positionTween = Tween.Custom(startPos, targetPosition, duration,
+        _positionTween = Tween.Custom(startPos, targetPosition, duration,
             (Vector3 newPosition) =>
             {
                 _mainCamera.transform.position = newPosition;
@@ -118,7 +127,7 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
             _mainCamera.transform.position = targetPosition;
         });
 
-        await UniTask.WhenAll(sizeTween.ToUniTask(), positionTween.ToUniTask());
+        await UniTask.WhenAll(_sizeTween.ToUniTask(), _positionTween.ToUniTask());
 
         await UniTask.WaitUntil(() =>
         {
