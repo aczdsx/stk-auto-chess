@@ -59,13 +59,14 @@ namespace CookApps.AutoBattler.Prologue
         public override async void StateInit(object target)
         {
             var addCharacterTasks = new List<UniTask<CharacterController>>();
-            
+
             PrologueUtility.FindChildRecursive(PrologueUtility.PrologueStageUI.transform, "Body_Left").gameObject.SetActive(false);
             PrologueUtility.FindChildRecursive(PrologueUtility.PrologueStageUI.transform, "Body_Right").gameObject.SetActive(false);
 
 
-            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPosition(new Vector3(-10, 2.5f, -10));
-            await ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(5, new Vector3(-10, 2.5f, -10), 0);
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPosition(new Vector3(-13, 4.0f, -10));
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetForceCameraRotation(new Vector3(30f, 45f, 0f));
+            await ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(4, new Vector3(-18, 7.5f, -10), 0);
             // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f,new Vector3(-1f, 0f, -10), 1.0f).Forget();
 
             SpawnPrologueCharacters(addCharacterTasks);
