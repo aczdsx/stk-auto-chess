@@ -153,7 +153,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:fdab95ed1e42f41efb55b1541e124721
     m_TableEntryReference:
-      m_KeyId: 2291923464216692
+      m_KeyId: 3386747734974464
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -641,10 +641,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: Default
+      m_TableCollectionName: GUID:fdab95ed1e42f41efb55b1541e124721
     m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: SYSTEM_EXIT_ALERT
+      m_KeyId: 3386747760140288
+      m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -890,8 +890,8 @@ RectTransform:
   - {fileID: 8925985859344323169}
   - {fileID: 3834135190409574595}
   - {fileID: 6247534481298359508}
-  - {fileID: 8948787125411702697}
   - {fileID: 7508693608480529790}
+  - {fileID: 8948787125411702697}
   - {fileID: 4092307236902397262}
   - {fileID: 2079102670467210444}
   m_Father: {fileID: 3674577746905964343}
@@ -1177,7 +1177,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:fdab95ed1e42f41efb55b1541e124721
     m_TableEntryReference:
-      m_KeyId: 2291923464216694
+      m_KeyId: 3260753988542829
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1504,7 +1504,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:fdab95ed1e42f41efb55b1541e124721
     m_TableEntryReference:
-      m_KeyId: 2291923464216691
+      m_KeyId: 3260753988542826
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1756,7 +1756,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:fdab95ed1e42f41efb55b1541e124721
     m_TableEntryReference:
-      m_KeyId: 2291923464216693
+      m_KeyId: 3260753988542828
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1933,7 +1933,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:fdab95ed1e42f41efb55b1541e124721
     m_TableEntryReference:
-      m_KeyId: 2291923464216695
+      m_KeyId: 3260753988542830
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

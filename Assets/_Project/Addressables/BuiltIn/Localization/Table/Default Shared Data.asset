@@ -1467,10 +1467,6 @@ MonoBehaviour:
     m_Key: DOWNLOAD_CONFIRM_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 3260753988542827
-    m_Key: DOWNLOAD_CONFIRM_DESC
-    m_Metadata:
-      m_Items: []
   - m_Id: 3260753988542828
     m_Key: DOWNLOAD_PROGRESS_TITLE
     m_Metadata:
@@ -5189,6 +5185,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 3324053790580740
     m_Key: MONSTER_DESC_30101010
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3386747734974464
+    m_Key: DOWNLOAD_CONFIRM_DESC_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3386747760140288
+    m_Key: DOWNLOAD_CONFIRM_DESC_2
     m_Metadata:
       m_Items: []
   m_Metadata:

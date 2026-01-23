@@ -96,9 +96,6 @@ namespace CookApps.AutoBattler.Prologue
             InGameObjectManager.Instance.SaveStartingPlayerCharacter();
             InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Player);
             InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
-
-            // 초기 카메라 위치 설정 (왼쪽으로 치우침)
-            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(5, new Vector3(-10, 2.5f, -10), 0).Forget();
         }
 
         /// <summary>
@@ -213,7 +210,10 @@ namespace CookApps.AutoBattler.Prologue
             // 모든 캐릭터를 Ready 상태로 변경하여 이동 가능하도록 함
             await StopAllCharacters();
 
-            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.0f, new UnityEngine.Vector3(0, 2.5f, -10), 3.0f).Forget();
+
+
+            // 초기 카메라 위치 설정 (왼쪽으로 치우침)
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(6, new Vector3(-6, 6.0f, -5), 5).Forget();
 
             MoveCharacterToDirection(_clayCharacter, 0, 4, 0.4f);
             MoveCharacterToDirection(_yuniCharacter, 0, 4, 0.4f);
@@ -763,11 +763,11 @@ namespace CookApps.AutoBattler.Prologue
                             await UniTask.Delay(500);
                             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_17563405, _witchCharacter.SkillBottomFXTransformFollowable);
                             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3405_02);
-                            for(int i = 1; i <= 3; i++)
+                            for (int i = 1; i <= 3; i++)
                             {
                                 await UniTask.Delay(100);
                                 CharacterController.DamageInfo damageInfo = CharacterController.DamageInfo.Create(
-                                    damageAmount: (51 * i )+ i*i,
+                                    damageAmount: (51 * i) + i * i,
                                     source: 0,
                                     attackerType: AttackerType.CHARCTER,
                                     isAD: _marieCharacter.SpecCharacter.atk_type is AtkType.AD ? true : false,
@@ -842,7 +842,7 @@ namespace CookApps.AutoBattler.Prologue
             artesiaChargeVFX2.Clear();
             artesiaChargeVFX2.Remove();
         }
-        
+
 
         // 9 단계 : 추후 하나의 다이얼로그 더 추가해서 해치웠을까요 물어보자.
         private async UniTask TriggerArtesiaSkill()
