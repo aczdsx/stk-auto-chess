@@ -90,12 +90,12 @@ public partial class EffectCodeSkill230606006 : EffectCodeCharacterBase
         var characterControllers = InGameObjectManager.Instance.GetCharacterList(owner.AllianceType);
 
         var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByAllianceType(owner.AllianceType, 10);
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
         foreach (var character in characterControllers)
         {
             if(character == owner)
                 continue;
             
+            InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], character.CurrentTile.View.CachedTr.position);
             InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, character.CurrentTile);
         }
 
