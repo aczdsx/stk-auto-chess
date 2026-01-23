@@ -136,7 +136,7 @@ namespace CookApps.AutoBattler
         {
             LookAt(new Vector2(currentTile.X, currentTile.Y), new Vector2(targetTile.X, targetTile.Y));
         }
-        
+
         public void LookAt(Vector2 src, Vector2 dest)
         {
             float deltaX = dest.x - src.x;
@@ -169,7 +169,7 @@ namespace CookApps.AutoBattler
 
             SetFlipOrNot();
         }
-        
+
         public void LookAt(Direction dir)
         {
             var prevCachedFlipX = _cachedFlipX;
@@ -195,7 +195,7 @@ namespace CookApps.AutoBattler
             }
             if (prevCachedFlipX != _cachedFlipX)
                 SetFlipOrNot();
-                
+
             if (prevCachedFront != _cachedFront && _animator != null)
                 _animator.SetBool(IsFront, _cachedFront);
         }
@@ -259,6 +259,19 @@ namespace CookApps.AutoBattler
             foreach (var spriteRenderer in _spriteRendererList)
             {
                 spriteRenderer.material = _hologramMaterial;
+            }
+        }
+
+        /// <summary>
+        /// 외부에서 지정한 Material 적용 (고스트 캐릭터 등)
+        /// </summary>
+        public void SetMaterial(Material material)
+        {
+            if (material == null) return;
+            foreach (var spriteRenderer in _spriteRendererList)
+            {
+                if (spriteRenderer)
+                    spriteRenderer.material = material;
             }
         }
 
@@ -353,7 +366,7 @@ namespace CookApps.AutoBattler
 
             SetFlipOrNot();
         }
-
+        
         public void AddViewScale(float viewScale)
         {
             _viewScaleTarget += new Vector3(viewScale, viewScale, viewScale);
