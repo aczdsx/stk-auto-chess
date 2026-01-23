@@ -209,7 +209,10 @@ namespace CookApps.AutoBattler
 
             SceneTransition.Create<SceneTransition_FadeInOut>();
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextSceneWithStageClearTrigger("BattleReady", InGameManager.Instance.SpecStage.stage_id, specLastStageData.chapter_id);
+
+            string nextSceneName = (specLastStageData.chapter_id == 1) ? "Lobby" : "BattleReady";
+
+            SceneLoading.GoToNextSceneWithStageClearTrigger(nextSceneName, InGameManager.Instance.SpecStage.stage_id, specLastStageData.chapter_id);
         }
 
         private async UniTask OnNextStageButtonClickedAsync()
