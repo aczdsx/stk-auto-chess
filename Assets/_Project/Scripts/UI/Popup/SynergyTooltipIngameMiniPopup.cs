@@ -17,7 +17,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private RectTransform _body;
 
         [Header("Synergy Info")]
-        [SerializeField] private InGameSynergyUI _synergyUI;
+        [SerializeField] private SynergyUI _synergyUI;
         [SerializeField] private TextMeshProUGUI _synergyNameText;
         [SerializeField] private TextMeshProUGUI _synergyDescText;
 
@@ -122,7 +122,8 @@ namespace CookApps.AutoBattler
             // 시너지 UI 아이콘 설정
             if (_synergyUI != null)
             {
-                _synergyUI.SetSynergy(_synergyType, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
+                _synergyUI.SetSynergyUI(_synergyType, _synergyData.grade > 0);
+                // _synergyUI.SetSynergy(_synergyType, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
             }
 
             // 시너지 이름 설정 (예: "바람 속성 2단계")
@@ -139,7 +140,36 @@ namespace CookApps.AutoBattler
             }
 
             // 시너지 설명 설정
-            _synergyDescText.text = LanguageManager.Instance.GetDefaultText(_synergyData.desc_token_1);
+            string text = LanguageManager.Instance.GetDefaultText(_synergyData.desc_token_1);
+            // 텍스트에 플레이스홀더가 있는 경우 Format 사용
+            if (!string.IsNullOrEmpty(text))
+            {
+                // 플레이스홀더 개수에 따라 다른 값 전달
+                if (text.Contains("{2}"))
+                {
+                    // {0}, {1}, {2} 모두 필요한 경우
+                    _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1, _synergyData.effect_stat_value_2, _synergyData.effect_stat_value_3);
+                }
+                else if (text.Contains("{1}"))
+                {
+                    // {0}, {1}만 필요한 경우
+                    _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1, _synergyData.effect_stat_value_2);
+                }
+                else if (text.Contains("{0}"))
+                {
+                    // {0}만 필요한 경우
+                    _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1);
+                }
+                else
+                {
+                    // 플레이스홀더가 없는 경우
+                    _synergyDescText.text = text;
+                }
+            }
+            else
+            {
+                _synergyDescText.text = text;
+            }
 
             // 강제로 레이아웃 및 캔버스 업데이트
             Canvas.ForceUpdateCanvases();
