@@ -41,7 +41,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
     private List<TutorialDialogue> _specTutorialDataList = new();
     public bool HasTutorialStage => _specTutorialDataList is { Count: > 0 } && _specTutorialDataList[0].tutorial_id > 0;
-    public bool IsTutorial => _specTutorialDataList.Count > 0;
+    public bool IsTutorial => _canvas != null;
 
     // 로비 준비 상태 관리
     private bool _isLobbyReady;
