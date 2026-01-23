@@ -705,6 +705,7 @@ namespace CookApps.AutoBattler.Prologue
                 await UniTask.Delay(3000);
                 ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(1.0f, 0.5f);
             }).Forget();
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_laplace03);
             await ActivateCharacterSkillWithWait(_witchCharacter, "마녀 광역 작동 안함", 1);
             _witchCharacter.AddNextState<CharacterStateReady>();
 
@@ -754,14 +755,27 @@ namespace CookApps.AutoBattler.Prologue
                     await UniTask.NextFrame();
                     if (_marieCharacter != null && _marieCharacter.IsAlive)
                     {
-                        _marieCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKL);
                         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3405_01);
+                        _marieCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKL);
                         // 거의 동시에 마리에 스킬 이펙트 (마리에 디버프 스킬 발동)
                         UniTask.Create(async () =>
                         {
                             await UniTask.Delay(500);
-                            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3405_02);
                             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_17563405, _witchCharacter.SkillBottomFXTransformFollowable);
+                            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3405_02);
+                            for(int i = 1; i <= 3; i++)
+                            {
+                                await UniTask.Delay(100);
+                                CharacterController.DamageInfo damageInfo = CharacterController.DamageInfo.Create(
+                                    damageAmount: (51 * i )+ i*i,
+                                    source: 0,
+                                    attackerType: AttackerType.CHARCTER,
+                                    isAD: _marieCharacter.SpecCharacter.atk_type is AtkType.AD ? true : false,
+                                    isCritical: false,
+                                    isDoubleCritical: false
+                                );
+                                _witchCharacter.GetDamaged(damageInfo, _marieCharacter);
+                            }
                         }).Forget();
                         await ActivateCharacterSkillWithWait(_marieCharacter, "마리에 스킬을 찾을 수 없습니다.");
                         _marieCharacter.Target = _witchCharacter;

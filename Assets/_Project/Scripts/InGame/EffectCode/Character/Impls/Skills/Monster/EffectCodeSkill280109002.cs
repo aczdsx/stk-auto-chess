@@ -91,7 +91,6 @@ public partial class EffectCodeSkill280109002 : EffectCodeCharacterBase
             InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, tile);
 
         InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.CurrentTile.View.CachedTr.position);
-        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_laplace03);
         if (owner.Target.CurrentTile.CheckValidTile(owner.AllianceType, false))
         {
             var damageValue = owner.SpecCharacter.atk_type is AtkType.AD ? owner.AD : owner.AP;
