@@ -895,6 +895,18 @@ namespace CookApps.AutoBattler
             return result;
         }
 
+        public List<StageMilestoneReward> GetStageMilestoneRewardList(ContentType contentType, int stageNumber, DifficultyType difficulty)
+        {
+            var result = new List<StageMilestoneReward>();
+            foreach (var data in StageMilestoneReward.All)
+            {
+                if(data.content_type == contentType && data.content_key_value == stageNumber && data.difficulty_type == difficulty)
+                    result.Add(data);
+            }
+            
+            return result;
+        }
+
         // 보상 데이터 리스트 반환
         public List<RewardInfo> GetSpecRewardInfoList(ContentType contentType, int contentKey, DifficultyType difficultyType)
         {
