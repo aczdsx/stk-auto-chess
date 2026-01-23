@@ -12,8 +12,8 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// 시련 보스 스킬
 /// </summary>
 /// 
-[UseEffectCodeIds(1204031)]
-public partial class EffectCodeSkill1204031 : EffectCodeCharacterBase
+[UseEffectCodeIds(280109003)]
+public partial class EffectCodeSkill280109003 : EffectCodeCharacterBase
 {
     private ObfuscatorFloat _powerRate1;
     private ObfuscatorFloat _stunTime;
