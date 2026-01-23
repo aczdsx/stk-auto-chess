@@ -16,14 +16,14 @@ using UnityEngine.Pool;
 using UnityEngine.VFX;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
-// TODO 아트레시아 궁
-// TODO 유니 궁
-// TODO 필리아 궁
-// TODO 아트레시아 슈퍼노바 1 + 기모으기
-// TODO 클레이 베리어
-// TODO 마리에 궁
-// TODO 아트레시아 슈퍼노바 3
-// TODO 아트레시아 최종 궁
+// TODO 클레이 베리어 snd_sfx_ingame_shield ✅
+// TODO 아트레시아 궁 snd_sfx_skill_a_3401 ✅
+// TODO 유니 궁 snd_sfx_skill_a_2102 ✅
+// TODO 필리아 궁 snd_sfx_skill_a_2401_01 snd_sfx_skill_a_2401_01 ✅
+// TODO 아트레시아 슈퍼노바 1 + 기모으기 snd_sfx_synergy_nova_spirit ✅
+// TODO 마리에 궁  snd_sfx_skill_a_3405_01, snd_sfx_skill_a_3405_02 ✅
+// TODO 아트레시아 슈퍼노바 3 snd_sfx_synergy_nova_spirit ✅
+// TODO 아트레시아 최종 궁 snd_sfx_skill_a_3401✅ 
 
 namespace CookApps.AutoBattler.Prologue
 {
@@ -571,6 +571,7 @@ namespace CookApps.AutoBattler.Prologue
 
             clayShieldList = new();
 
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_shield);
             foreach (var ally in InGameObjectManager.Instance.GetCharacterList(_clayCharacter.AllianceType))
             {
                 clayShieldList.Add(InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_prologue_shield_01, ally.SkillMiddleFXTransformFollowable));
@@ -754,10 +755,12 @@ namespace CookApps.AutoBattler.Prologue
                     if (_marieCharacter != null && _marieCharacter.IsAlive)
                     {
                         _marieCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKL);
+                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3405_01);
                         // 거의 동시에 마리에 스킬 이펙트 (마리에 디버프 스킬 발동)
                         UniTask.Create(async () =>
                         {
                             await UniTask.Delay(500);
+                            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3405_02);
                             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_17563405, _witchCharacter.SkillBottomFXTransformFollowable);
                         }).Forget();
                         await ActivateCharacterSkillWithWait(_marieCharacter, "마리에 스킬을 찾을 수 없습니다.");
@@ -777,6 +780,7 @@ namespace CookApps.AutoBattler.Prologue
             // 아트레시아 0.5초 대기 후 마녀 공격
             if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
             {
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_nova_spirit);
                 artesiaChargeVFX = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_aura_01, _artesiaCharacter.SkillRootTransformFollowable);
                 artesiaChargeVFX2 = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_prologue_artesia_charge, _artesiaCharacter.SkillRootTransformFollowable) as InGameVfxArtesiaCharge;
                 Debug.Log($"artesiaChargeVFX2 is null {artesiaChargeVFX2 == null}");
@@ -817,6 +821,7 @@ namespace CookApps.AutoBattler.Prologue
             {
                 artesiaChargeVFX.Remove();
                 artesiaChargeVFX2.TriggerExplosion();
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_nova_spirit);
                 artesiaChargeVFX = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_aura_03, _artesiaCharacter.SkillRootTransformFollowable);
             }
             await UniTask.Delay(1000); // 1초 대기

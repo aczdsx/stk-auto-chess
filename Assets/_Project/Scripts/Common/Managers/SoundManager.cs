@@ -89,6 +89,8 @@ public enum SoundFX
     snd_sfx_synergy_shooter_emp,
     snd_sfx_skill_commander_aegis,
     snd_sfx_synergy_nova_spirit,
+    snd_sfx_skill_a_3405_01,
+    snd_sfx_skill_a_3405_02,
     
 
     // Character Skill
