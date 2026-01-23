@@ -6,6 +6,8 @@ using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
+using System.Linq;
+using Cysharp.Threading.Tasks;
 
 namespace CookApps.AutoBattler
 {
@@ -20,8 +22,11 @@ namespace CookApps.AutoBattler
         [Space(10)]
         [SerializeField] private GameObject _characterIllustParentObject;
         [SerializeField] private GameObject _characterSDParentObject;
+        [Space(10)]
         [SerializeField] private SynergyUI _elementSynergyUI;
         [SerializeField] private SynergyUI _classSynergyUI;
+
+        [Space(10)]
         [SerializeField] private TextMeshProUGUI _characterNameText;
         [SerializeField] private TextMeshProUGUI _characterLevelText;
         [SerializeField] private TextMeshProUGUI _characterPositionTypeText;
@@ -180,22 +185,20 @@ namespace CookApps.AutoBattler
 
         private void OnClickElementSynergyButton()
         {
-            // var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.character_element_type);
-            // if (specSynergyDataList != null && specSynergyDataList.Count > 0)
-            // {
-            //     var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
-            //     SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(filteredSynergyDataList).Forget();
-            // }
+            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.character_element_type);
+            if (specSynergyDataList != null && specSynergyDataList.Count > 0)
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(specSynergyDataList).Forget();
+            }
         }
 
         private void OnClickAsterismSynergyButton()
         {
-            // var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.asterism_type);
-            // if (specSynergyDataList != null && specSynergyDataList.Count > 0)
-            // {
-            //     var filteredSynergyDataList = specSynergyDataList.Where(l => l.grade != 0).ToList();
-            //     SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(filteredSynergyDataList).Forget();
-            // }
+            var specSynergyDataList = SpecDataManager.Instance.GetSpecSynergyList(_specCharacterData.character_stella_type);
+            if (specSynergyDataList != null && specSynergyDataList.Count > 0)
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipPopup>(specSynergyDataList).Forget();
+            }
         }
 
 
