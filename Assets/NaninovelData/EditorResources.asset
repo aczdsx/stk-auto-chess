@@ -600,27 +600,162 @@ MonoBehaviour:
     Resources: []
   - Id: Audio
     Resources:
-    - name: bgm_happy_001
+    - name: snd_bgm_chapter00
       pathPrefix: Audio
-      guid: 9dce942294325d1498c9dadcbc5d131f
+      guid: de49677baeceb8646b63c73a1dc1faed
+    - name: snd_bgm_chapter01
+      pathPrefix: Audio
+      guid: 9aaec2096f5177e4ba17729c9bedda98
+    - name: snd_bgm_chapter02
+      pathPrefix: Audio
+      guid: c20fb03c08eae934f8f33bef96707835
+    - name: snd_bgm_chapter03
+      pathPrefix: Audio
+      guid: bd6ec471840f63c4491227d44746763c
+    - name: snd_bgm_chapter04
+      pathPrefix: Audio
+      guid: 4b3507c3aac5954429d1f92dd707eab7
+    - name: snd_bgm_chapter05
+      pathPrefix: Audio
+      guid: d0b573d743b8abc46ba8bd78ab922d0b
+    - name: snd_bgm_command01
+      pathPrefix: Audio
+      guid: 4553088388b96eb428642319b52df86d
+    - name: snd_bgm_dgboss_01
+      pathPrefix: Audio
+      guid: abc2f2a934b6f744ba0e914c598a614e
+    - name: snd_bgm_dialog_calm01
+      pathPrefix: Audio
+      guid: 513e6c1a242b855449459e083ef30a50
+    - name: snd_bgm_dialog_comic01
+      pathPrefix: Audio
+      guid: 3b6b36ad91388a345a977e27a72df0d2
     - name: snd_bgm_dialog_cozy_001
       pathPrefix: Audio
       guid: 26d4d1122b4fac34ab3666aa82f8b6f6
+    - name: snd_bgm_dialog_despair01
+      pathPrefix: Audio
+      guid: ac928c33a12e143458d98d80129feae5
+    - name: snd_bgm_dialog_dumb01
+      pathPrefix: Audio
+      guid: 5db2c4cf40483ca429092e60dd66706d
+    - name: snd_bgm_dialog_farewell01
+      pathPrefix: Audio
+      guid: 18a0ddb8788a48f438a3cc8ec6750aff
     - name: snd_bgm_dialog_happy_001
       pathPrefix: Audio
       guid: 9dce942294325d1498c9dadcbc5d131f
     - name: snd_bgm_dialog_happy_002
       pathPrefix: Audio
       guid: a055098d0d2b0f648b687d11ecc8e046
+    - name: snd_bgm_dialog_love01
+      pathPrefix: Audio
+      guid: 18ce48a7909ce764d96c8e985d7850ee
     - name: snd_bgm_dialog_mad_001
       pathPrefix: Audio
       guid: cfce8ae1af125084bace55296053e940
     - name: snd_bgm_dialog_mad_002
       pathPrefix: Audio
       guid: 695d9ecd9605bd048bfc612cf0770f30
+    - name: snd_bgm_dialog_normal01
+      pathPrefix: Audio
+      guid: ba34b129e8e92ac4f9aee51e4253d4c6
+    - name: snd_bgm_dialog_normal02
+      pathPrefix: Audio
+      guid: ade07e67836ff8649b0ad76632a73c64
+    - name: snd_bgm_dialog_sad01
+      pathPrefix: Audio
+      guid: 7da09b79b4402b4459a9a4b1f6cb6ab7
     - name: snd_bgm_dialog_sad_001
       pathPrefix: Audio
       guid: 4fae4fcfe7ea86b4d96027fdd87816a2
+    - name: snd_bgm_dialog_tension01
+      pathPrefix: Audio
+      guid: 93b5a4656fd39b94fa9b92b3e6d8e2ff
+    - name: snd_bgm_dialog_tricky01
+      pathPrefix: Audio
+      guid: 1a77c8b2edabe3f43bfebd43a077d869
+    - name: snd_bgm_lobby01
+      pathPrefix: Audio
+      guid: 7e34e93ddb5913443931bd09919a7c53
+    - name: snd_bgm_pvp01
+      pathPrefix: Audio
+      guid: b0541a95bc53a68479ddea5bf5a4e4b2
+    - name: snd_bgm_shop01
+      pathPrefix: Audio
+      guid: b3cc2039bba3d354eaf3ea6e9e962fc8
+    - name: snd_bgm_splash01
+      pathPrefix: Audio
+      guid: 0639d93060c34c847bb7d4208a97ee40
+    - name: snd_bgm_splash01_bak
+      pathPrefix: Audio
+      guid: 96b64c19e62b2514da10618123397fb3
+    - name: snd_bgm_stage01
+      pathPrefix: Audio
+      guid: cb3dd0014bcad7248a0bc4057850ee58
+    - name: snd_bgm_vessel01
+      pathPrefix: Audio
+      guid: 2ac8f314d6161d74cbabda0bf4298451
+    - name: snd_sfx_dialog_compute_operate
+      pathPrefix: Audio
+      guid: 02976ef840cd42c479c597e234a8f454
+    - name: snd_sfx_dialog_debris_bldg
+      pathPrefix: Audio
+      guid: b107cb25b8a572a4296a8879b121fb69
+    - name: snd_sfx_dialog_machine_clock
+      pathPrefix: Audio
+      guid: b6e9fc415a9e4984daad1b9463643fb5
+    - name: snd_sfx_dialog_machine_door_close
+      pathPrefix: Audio
+      guid: f09297109dd136546b7986e4d70dcd04
+    - name: snd_sfx_dialog_mon_scream01
+      pathPrefix: Audio
+      guid: 9c281a8c20848a74d960df0505721b5b
+    - name: snd_sfx_dialog_punch_metal
+      pathPrefix: Audio
+      guid: b0740b24e794c194db75aa4e9ac0effb
+    - name: snd_sfx_dialog_run_group_grass
+      pathPrefix: Audio
+      guid: abf704100bdd5fe4a86521b132faf901
+    - name: snd_sfx_dialog_run_group_normal
+      pathPrefix: Audio
+      guid: a809b18be6c1c22479a5496f4778311a
+    - name: snd_sfx_dialog_run_group_sand
+      pathPrefix: Audio
+      guid: 0947fcce8b81f444b81be94f1a1bb75a
+    - name: snd_sfx_dialog_walk_foot_grass
+      pathPrefix: Audio
+      guid: 971f515c94fc2ca419454479c8114cab
+    - name: snd_sfx_dialog_walk_foot_normal
+      pathPrefix: Audio
+      guid: 206fe3085132c4e4a9577a1c6e93f776
+    - name: snd_sfx_dialog_walk_foot_sand
+      pathPrefix: Audio
+      guid: eb3d1cca853470c4ba54c42711ed332e
+    - name: snd_sfx_dialog_walk_foot_solid
+      pathPrefix: Audio
+      guid: ef7b6229541474e41af67fae2e6f428b
+    - name: snd_sfx_dialog_wind_harsh
+      pathPrefix: Audio
+      guid: b421df156b716eb4083444558d196498
+    - name: snd_sfx_prolog_battle_endtransition
+      pathPrefix: Audio
+      guid: bd24d40dd203ee844b6e2187b931abf8
+    - name: snd_sfx_prolog_battle_laplace01
+      pathPrefix: Audio
+      guid: 7e9f382bb8c31e24bb5c13e0ed3a6bba
+    - name: snd_sfx_prolog_battle_laplace02
+      pathPrefix: Audio
+      guid: 7b4548cc4de8576468218cbba3165a8b
+    - name: snd_sfx_prolog_battle_laplace03
+      pathPrefix: Audio
+      guid: 9bff17c13aa3e3f4b94e83ef14134b09
+    - name: snd_sfx_prolog_battle_laplace04
+      pathPrefix: Audio
+      guid: b26cc58c84ec50244a979e9b185db60d
+    - name: snd_sfx_prolog_battle_laplace05
+      pathPrefix: Audio
+      guid: 2878b0128620fd5489cc9fbf41bc8811
   - Id: TextPrinters/8b9e022e-51ad-4b4c-90ac-e65372924d6c
     Resources:
     - name: CutScene
