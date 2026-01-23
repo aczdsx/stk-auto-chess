@@ -13,6 +13,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using CookApps.AutoBattler.Prologue;
+using CookApps.TeamBattle.Utility;
 
 namespace CookApps.AutoBattler
 {
