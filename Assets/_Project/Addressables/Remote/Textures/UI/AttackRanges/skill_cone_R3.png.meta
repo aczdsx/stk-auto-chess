@@ -1,0 +1,1417 @@
+fileFormatVersion: 2
+guid: 0191870707bd65247b7ac01243db152b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3666075254540187573
+    second: skill_cone_R3_0
+  - first:
+      213: -3776310951374090280
+    second: skill_cone_R3_1
+  - first:
+      213: -3019009465385396349
+    second: skill_cone_R3_2
+  - first:
+      213: -5292182305057836413
+    second: skill_cone_R3_3
+  - first:
+      213: -12788092520925362
+    second: skill_cone_R3_4
+  - first:
+      213: 1881857335602711587
+    second: skill_cone_R3_5
+  - first:
+      213: -7558783298793664168
+    second: skill_cone_R3_6
+  - first:
+      213: 5105225971879780124
+    second: skill_cone_R3_7
+  - first:
+      213: 6739047033355071087
+    second: skill_cone_R3_8
+  - first:
+      213: 3117725719633008456
+    second: skill_cone_R3_9
+  - first:
+      213: -6542364951612946864
+    second: skill_cone_R3_10
+  - first:
+      213: 3618592998192505490
+    second: skill_cone_R3_11
+  - first:
+      213: -8681363003547810375
+    second: skill_cone_R3_12
+  - first:
+      213: 548526240687571826
+    second: skill_cone_R3_13
+  - first:
+      213: 3985581552599373084
+    second: skill_cone_R3_14
+  - first:
+      213: -2624929141702556875
+    second: skill_cone_R3_15
+  - first:
+      213: 3312197460257201214
+    second: skill_cone_R3_16
+  - first:
+      213: 1343718890755945532
+    second: skill_cone_R3_17
+  - first:
+      213: -3630245134482486740
+    second: skill_cone_R3_18
+  - first:
+      213: -5774567897240447622
+    second: skill_cone_R3_19
+  - first:
+      213: 5883550362420994031
+    second: skill_cone_R3_20
+  - first:
+      213: -3183752797242480426
+    second: skill_cone_R3_21
+  - first:
+      213: -7038182146886074897
+    second: skill_cone_R3_22
+  - first:
+      213: 8571367695731870246
+    second: skill_cone_R3_23
+  - first:
+      213: 3940899591216028441
+    second: skill_cone_R3_24
+  - first:
+      213: 4438745674418323195
+    second: skill_cone_R3_25
+  - first:
+      213: 7397313219225480888
+    second: skill_cone_R3_26
+  - first:
+      213: 2031680752386187542
+    second: skill_cone_R3_27
+  - first:
+      213: -4805195700587158631
+    second: skill_cone_R3_28
+  - first:
+      213: 6335162111421668635
+    second: skill_cone_R3_29
+  - first:
+      213: 6286225203274119115
+    second: skill_cone_R3_30
+  - first:
+      213: -1625731261810997590
+    second: skill_cone_R3_31
+  - first:
+      213: 1932019399502842724
+    second: skill_cone_R3_32
+  - first:
+      213: -8859345993087120309
+    second: skill_cone_R3_33
+  - first:
+      213: -1511669039264345248
+    second: skill_cone_R3_34
+  - first:
+      213: 3800814831328057559
+    second: skill_cone_R3_35
+  - first:
+      213: -3942875897705803766
+    second: skill_cone_R3_36
+  - first:
+      213: -6247942506173455017
+    second: skill_cone_R3_37
+  - first:
+      213: 7369310819618180548
+    second: skill_cone_R3_38
+  - first:
+      213: 1859929724296903692
+    second: skill_cone_R3_39
+  - first:
+      213: -6331837639859870128
+    second: skill_cone_R3_40
+  - first:
+      213: 3634976343139161361
+    second: skill_cone_R3_41
+  - first:
+      213: -6149239238350493563
+    second: skill_cone_R3_42
+  - first:
+      213: 1437558933551919106
+    second: skill_cone_R3_43
+  - first:
+      213: 8173105984723457906
+    second: skill_cone_R3_44
+  - first:
+      213: -976328598474568063
+    second: skill_cone_R3_45
+  - first:
+      213: -8396116430456406443
+    second: skill_cone_R3_46
+  - first:
+      213: -5023708212024617559
+    second: skill_cone_R3_47
+  - first:
+      213: 3969658324857650839
+    second: skill_cone_R3_48
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: skill_cone_R3_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 392
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b48484dcafb7f1dc0800000000000000
+      internalID: -3666075254540187573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_1
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 328
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8df0eed8239d79bc0800000000000000
+      internalID: -3776310951374090280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 392
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 387592af2e25a16d0800000000000000
+      internalID: -3019009465385396349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_3
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 328
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3827b649b346e86b0800000000000000
+      internalID: -5292182305057836413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_4
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 392
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e477fef2c4192dff0800000000000000
+      internalID: -12788092520925362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_5
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 328
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32c0096b643bd1a10800000000000000
+      internalID: 1881857335602711587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_6
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 392
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8519f3d43aec91790800000000000000
+      internalID: -7558783298793664168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_7
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 328
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1f1ef709f769d640800000000000000
+      internalID: 5105225971879780124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_8
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 392
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6e67c36297e58d50800000000000000
+      internalID: 6739047033355071087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_9
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 328
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84713d90603644b20800000000000000
+      internalID: 3117725719633008456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_10
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 392
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 056052c4db9d435a0800000000000000
+      internalID: -6542364951612946864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_11
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 328
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 292eaf3e823d73230800000000000000
+      internalID: 3618592998192505490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_12
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 392
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b58057185a958780800000000000000
+      internalID: -8681363003547810375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_13
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 328
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 273c92ea5b1cc9700800000000000000
+      internalID: 548526240687571826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_14
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 264
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c15190a3e41af4730800000000000000
+      internalID: 3985581552599373084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_15
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 200
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5338f346ad0629bd0800000000000000
+      internalID: -2624929141702556875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_16
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 264
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3cd4949a0a47fd20800000000000000
+      internalID: 3312197460257201214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_17
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 200
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c347d793639d5a210800000000000000
+      internalID: 1343718890755945532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_18
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 264
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2ac497b847ce9dc0800000000000000
+      internalID: -3630245134482486740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_19
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 200
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a75db99a71d9cdfa0800000000000000
+      internalID: -5774567897240447622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_20
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 264
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fef593ad1e196a150800000000000000
+      internalID: 5883550362420994031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_21
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 200
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d8a4bbf2b901d3d0800000000000000
+      internalID: -3183752797242480426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_22
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 264
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fedfb5690aa535e90800000000000000
+      internalID: -7038182146886074897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_23
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 200
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62a4b57918d93f670800000000000000
+      internalID: 8571367695731870246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_24
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 264
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91bd9e56c43e0b630800000000000000
+      internalID: 3940899591216028441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_25
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 200
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfe71046ca7999d30800000000000000
+      internalID: 4438745674418323195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_26
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 264
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8be6c342e2988a660800000000000000
+      internalID: 7397313219225480888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_27
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 200
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6112af641eaf13c10800000000000000
+      internalID: 2031680752386187542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_28
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 136
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 993a44628f3805db0800000000000000
+      internalID: -4805195700587158631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_29
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 72
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1d5dcd00640be750800000000000000
+      internalID: 6335162111421668635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_30
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 136
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc7f24b34882d3750800000000000000
+      internalID: 6286225203274119115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_31
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 72
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa60287e70e3079e0800000000000000
+      internalID: -1625731261810997590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_32
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 136
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46bc7865869efca10800000000000000
+      internalID: 1932019399502842724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_33
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 72
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4c03c312c74d0580800000000000000
+      internalID: -8859345993087120309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_34
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 136
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06351b89409750be0800000000000000
+      internalID: -1511669039264345248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_35
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 72
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d8585693f43fb430800000000000000
+      internalID: 3800814831328057559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_36
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 136
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a00dbc3e2471849c0800000000000000
+      internalID: -3942875897705803766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_37
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 72
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 755a776c469da49a0800000000000000
+      internalID: -6247942506173455017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_38
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 136
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cdc8ca652d054660800000000000000
+      internalID: 7369310819618180548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_39
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 72
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0c38ebda3ccfc910800000000000000
+      internalID: 1859929724296903692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_40
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 136
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05664bcc63bc028a0800000000000000
+      internalID: -6331837639859870128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_41
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 72
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11512c3a9b7027230800000000000000
+      internalID: 3634976343139161361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_42
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 8
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 588a9372e7389aaa0800000000000000
+      internalID: -6149239238350493563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_43
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 8
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2003d0acb3c33f310800000000000000
+      internalID: 1437558933551919106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_44
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 8
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2779f031794bc6170800000000000000
+      internalID: 8173105984723457906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_45
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 8
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18e4edfff426372f0800000000000000
+      internalID: -976328598474568063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_46
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 8
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55e33dd47900b7b80800000000000000
+      internalID: -8396116430456406443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_47
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 8
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a55f077ff3384ab0800000000000000
+      internalID: -5023708212024617559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_cone_R3_48
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 8
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79effccd63f071730800000000000000
+      internalID: 3969658324857650839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      skill_cone_R3_0: -3666075254540187573
+      skill_cone_R3_1: -3776310951374090280
+      skill_cone_R3_10: -6542364951612946864
+      skill_cone_R3_11: 3618592998192505490
+      skill_cone_R3_12: -8681363003547810375
+      skill_cone_R3_13: 548526240687571826
+      skill_cone_R3_14: 3985581552599373084
+      skill_cone_R3_15: -2624929141702556875
+      skill_cone_R3_16: 3312197460257201214
+      skill_cone_R3_17: 1343718890755945532
+      skill_cone_R3_18: -3630245134482486740
+      skill_cone_R3_19: -5774567897240447622
+      skill_cone_R3_2: -3019009465385396349
+      skill_cone_R3_20: 5883550362420994031
+      skill_cone_R3_21: -3183752797242480426
+      skill_cone_R3_22: -7038182146886074897
+      skill_cone_R3_23: 8571367695731870246
+      skill_cone_R3_24: 3940899591216028441
+      skill_cone_R3_25: 4438745674418323195
+      skill_cone_R3_26: 7397313219225480888
+      skill_cone_R3_27: 2031680752386187542
+      skill_cone_R3_28: -4805195700587158631
+      skill_cone_R3_29: 6335162111421668635
+      skill_cone_R3_3: -5292182305057836413
+      skill_cone_R3_30: 6286225203274119115
+      skill_cone_R3_31: -1625731261810997590
+      skill_cone_R3_32: 1932019399502842724
+      skill_cone_R3_33: -8859345993087120309
+      skill_cone_R3_34: -1511669039264345248
+      skill_cone_R3_35: 3800814831328057559
+      skill_cone_R3_36: -3942875897705803766
+      skill_cone_R3_37: -6247942506173455017
+      skill_cone_R3_38: 7369310819618180548
+      skill_cone_R3_39: 1859929724296903692
+      skill_cone_R3_4: -12788092520925362
+      skill_cone_R3_40: -6331837639859870128
+      skill_cone_R3_41: 3634976343139161361
+      skill_cone_R3_42: -6149239238350493563
+      skill_cone_R3_43: 1437558933551919106
+      skill_cone_R3_44: 8173105984723457906
+      skill_cone_R3_45: -976328598474568063
+      skill_cone_R3_46: -8396116430456406443
+      skill_cone_R3_47: -5023708212024617559
+      skill_cone_R3_48: 3969658324857650839
+      skill_cone_R3_5: 1881857335602711587
+      skill_cone_R3_6: -7558783298793664168
+      skill_cone_R3_7: 5105225971879780124
+      skill_cone_R3_8: 6739047033355071087
+      skill_cone_R3_9: 3117725719633008456
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
