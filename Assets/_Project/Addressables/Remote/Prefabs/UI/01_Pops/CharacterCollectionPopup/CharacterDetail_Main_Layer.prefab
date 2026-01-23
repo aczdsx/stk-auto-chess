@@ -1381,7 +1381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff213e64a7c8c4ed5ad6fe9d4718855d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _star: {fileID: 2001331037255514129}
+  _star: {fileID: 7650257284800137475}
   _levelUpAnimations:
   - {fileID: 6377404886956176295}
   - {fileID: 1776452624545147769}
@@ -2242,7 +2242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff213e64a7c8c4ed5ad6fe9d4718855d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _star: {fileID: 2386746300202179652}
+  _star: {fileID: 5046249593428162291}
   _levelUpAnimations:
   - {fileID: 8313356569268274673}
   - {fileID: 833613673318396311}
@@ -3158,7 +3158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff213e64a7c8c4ed5ad6fe9d4718855d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _star: {fileID: 2869245738280849374}
+  _star: {fileID: 4796155224849439434}
   _levelUpAnimations:
   - {fileID: 5641137377647488002}
   - {fileID: 3135176871634461680}
@@ -4471,7 +4471,6 @@ RectTransform:
   - {fileID: 2996083949514174035}
   - {fileID: 3978630045550108480}
   - {fileID: 5486544363666235853}
-  - {fileID: 4559193385367352751}
   m_Father: {fileID: 809616451347549705}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -5214,7 +5213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff213e64a7c8c4ed5ad6fe9d4718855d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _star: {fileID: 4856651576951339222}
+  _star: {fileID: 4893909610012920870}
   _levelUpAnimations:
   - {fileID: 3571163589626810474}
   - {fileID: 4339554342581640179}
@@ -5869,7 +5868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff213e64a7c8c4ed5ad6fe9d4718855d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _star: {fileID: 5419483937542050126}
+  _star: {fileID: 2702271228190144280}
   _levelUpAnimations:
   - {fileID: 3676603396118589900}
   - {fileID: 3582612924142196546}
@@ -6289,7 +6288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff213e64a7c8c4ed5ad6fe9d4718855d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _star: {fileID: 5455785173714306995}
+  _star: {fileID: 8616751908781083380}
   _levelUpAnimations:
   - {fileID: 4159277468487486226}
   - {fileID: 5651946866851322857}
@@ -6710,7 +6709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff213e64a7c8c4ed5ad6fe9d4718855d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _star: {fileID: 5569729933086187991}
+  _star: {fileID: 3425515166245257756}
   _levelUpAnimations:
   - {fileID: 1616487739127072452}
   - {fileID: 2550760979796146698}
@@ -7987,68 +7986,6 @@ MonoBehaviour:
   defaultClickSoundType: 0
   reactionType: 11
   swappers: []
---- !u!1 &6503495745834562800
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4559193385367352751}
-  - component: {fileID: 2829918120469385125}
-  m_Layer: 5
-  m_Name: StarGroup (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &4559193385367352751
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6503495745834562800}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2818376229997490023}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 388.0841, y: -50}
-  m_SizeDelta: {x: 250, y: 100}
-  m_Pivot: {x: 0, y: 0.5}
---- !u!114 &2829918120469385125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6503495745834562800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: -2
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: -37
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!1 &6515519528535405238
 GameObject:
   m_ObjectHideFlags: 0
@@ -8541,7 +8478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff213e64a7c8c4ed5ad6fe9d4718855d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _star: {fileID: 6913040519553697579}
+  _star: {fileID: 8691349387538088231}
   _levelUpAnimations:
   - {fileID: 3887621587207641002}
   - {fileID: 8731747841956715805}
@@ -9212,7 +9149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff213e64a7c8c4ed5ad6fe9d4718855d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _star: {fileID: 7263617571751203729}
+  _star: {fileID: 1628826716243299224}
   _levelUpAnimations:
   - {fileID: 6569658528490582138}
   - {fileID: 476142509427804054}
@@ -9936,7 +9873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff213e64a7c8c4ed5ad6fe9d4718855d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _star: {fileID: 7585124506611976903}
+  _star: {fileID: 3861171321034622283}
   _levelUpAnimations:
   - {fileID: 4929238295761328176}
   - {fileID: 4071506479880496212}
