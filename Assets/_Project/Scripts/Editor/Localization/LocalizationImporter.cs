@@ -64,6 +64,12 @@ namespace CookApps.AutoBattler.Editor
         };
 
         /// <summary>
+        /// StringTable 캐시: (tableName, localeCode) → StringTable
+        /// </summary>
+        private static Dictionary<(string, string), StringTable> _tableCache;
+        private static bool _cacheInitialized;
+
+        /// <summary>
         /// JSON 문자열에서 모든 테이블(Default, Dialogue) 임포트
         /// </summary>
         public static ImportResult ImportAllFromJsonString(string json)
@@ -218,16 +224,27 @@ namespace CookApps.AutoBattler.Editor
                     return result;
                 }
 
-                // 4. 기존 엔트리 모두 제거
-                ClearTableCollection(tableCollection);
-
-                // 5. 새 키 추가 (SharedTableData에)
-                foreach (var entry in languageData)
+                // 4. 기존 키 목록 수집
+                var existingKeys = new HashSet<string>();
+                foreach (var entry in tableCollection.SharedData.Entries)
                 {
-                    tableCollection.SharedData.AddKey(entry.Key);
+                    existingKeys.Add(entry.Key);
                 }
 
-                // 6. 각 언어별 Locale 및 Table 생성/업데이트
+                // 5. 새 키 목록
+                var newKeys = new HashSet<string>(languageData.Keys);
+
+                // 6. 삭제할 키 (기존에 있지만 새 데이터에 없는 키)
+                var keysToRemove = new List<string>();
+                foreach (var key in existingKeys)
+                {
+                    if (!newKeys.Contains(key))
+                    {
+                        keysToRemove.Add(key);
+                    }
+                }
+
+                // 7. 각 언어별 Locale 및 Table 업데이트
                 foreach (var field in detectedFields)
                 {
                     if (!LanguageFieldToLocaleCode.TryGetValue(field, out var localeCode))
@@ -250,29 +267,75 @@ namespace CookApps.AutoBattler.Editor
                         continue;
                     }
 
-                    // 7. 데이터 입력
                     int addedCount = 0;
+                    int updatedCount = 0;
 
+                    // 8. 데이터 추가/업데이트
                     foreach (var entry in languageData)
                     {
                         string tokenKey = entry.Key;
-                        if (!entry.Value.TryGetValue(field, out var text))
+                        if (!entry.Value.TryGetValue(field, out var newText))
                             continue;
 
-                        stringTable.AddEntry(tokenKey, text ?? string.Empty);
-                        addedCount++;
+                        newText ??= string.Empty;
+
+                        var existingEntry = stringTable.GetEntry(tokenKey);
+                        if (existingEntry != null)
+                        {
+                            // 기존 엔트리 업데이트 (값이 다른 경우에만)
+                            if (existingEntry.Value != newText)
+                            {
+                                existingEntry.Value = newText;
+                                updatedCount++;
+                            }
+                        }
+                        else
+                        {
+                            // 새 엔트리 추가 (SharedData에 키가 없으면 먼저 추가)
+                            if (!existingKeys.Contains(tokenKey))
+                            {
+                                tableCollection.SharedData.AddKey(tokenKey);
+                                existingKeys.Add(tokenKey); // 다른 언어 테이블에서 중복 추가 방지
+                            }
+                            stringTable.AddEntry(tokenKey, newText);
+                            addedCount++;
+                        }
+                    }
+
+                    // 9. 삭제할 엔트리 제거
+                    foreach (var key in keysToRemove)
+                    {
+                        var entryToRemove = stringTable.GetEntry(key);
+                        if (entryToRemove != null)
+                        {
+                            stringTable.RemoveEntry(entryToRemove.KeyId);
+                        }
                     }
 
                     result.AddedPerLanguage[localeCode] = addedCount;
+                    result.UpdatedPerLanguage[localeCode] = updatedCount;
 
                     EditorUtility.SetDirty(stringTable);
                 }
 
-                // 6. 저장
+                // 10. SharedData에서 삭제할 키 제거
+                foreach (var key in keysToRemove)
+                {
+                    var sharedEntry = tableCollection.SharedData.GetEntry(key);
+                    if (sharedEntry != null)
+                    {
+                        tableCollection.SharedData.RemoveKey(sharedEntry.Id);
+                    }
+                }
+
+                // 11. 저장
                 EditorUtility.SetDirty(tableCollection);
                 EditorUtility.SetDirty(tableCollection.SharedData);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
+
+                // 9. 캐시 무효화
+                InvalidateCache();
 
                 result.Success = true;
             }
@@ -343,35 +406,55 @@ namespace CookApps.AutoBattler.Editor
         }
 
         /// <summary>
-        /// 에디터에서 Localization 텍스트 가져오기
+        /// 캐시 초기화 (필요 시 호출)
+        /// </summary>
+        private static void EnsureCacheInitialized()
+        {
+            if (_cacheInitialized && _tableCache != null)
+                return;
+
+            _tableCache = new Dictionary<(string, string), StringTable>();
+            _cacheInitialized = true;
+
+            var collections = LocalizationEditorSettings.GetStringTableCollections();
+            var locales = LocalizationEditorSettings.GetLocales();
+
+            foreach (var collection in collections)
+            {
+                foreach (var locale in locales)
+                {
+                    var table = collection.GetTable(locale.Identifier) as StringTable;
+                    if (table != null)
+                    {
+                        _tableCache[(collection.TableCollectionName, locale.Identifier.Code)] = table;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 캐시 무효화 (임포트 후 호출)
+        /// </summary>
+        public static void InvalidateCache()
+        {
+            _tableCache = null;
+            _cacheInitialized = false;
+        }
+
+        /// <summary>
+        /// 에디터에서 Localization 텍스트 가져오기 (캐시 사용)
         /// </summary>
         /// <param name="key">토큰 키</param>
         /// <param name="localeCode">로케일 코드 (ko, en, ja 등). null이면 ko 사용</param>
         /// <param name="tableName">테이블 이름 (Default, Dialogue). null이면 Default 사용</param>
         public static string GetText(string key, string localeCode = "ko", string tableName = "Default")
         {
-            var collections = LocalizationEditorSettings.GetStringTableCollections();
-            foreach (var collection in collections)
+            EnsureCacheInitialized();
+
+            if (_tableCache.TryGetValue((tableName, localeCode), out var table))
             {
-                if (collection.TableCollectionName != tableName)
-                    continue;
-
-                var locales = LocalizationEditorSettings.GetLocales();
-                foreach (var locale in locales)
-                {
-                    if (locale.Identifier.Code != localeCode)
-                        continue;
-
-                    var table = collection.GetTable(locale.Identifier) as StringTable;
-                    if (table == null)
-                        continue;
-
-                    var entry = table.GetEntry(key);
-                    if (entry != null)
-                    {
-                        return entry.Value;
-                    }
-                }
+                var entry = table.GetEntry(key);
+                return entry?.Value;
             }
 
             return null;
@@ -398,12 +481,36 @@ namespace CookApps.AutoBattler.Editor
         /// </summary>
         private static void ClearTableCollection(StringTableCollection collection)
         {
-            // SharedTableData의 모든 엔트리 제거
+            // 1. 각 StringTable의 엔트리 제거
+            foreach (var table in collection.StringTables)
+            {
+                if (table == null)
+                    continue;
+
+                // StringTable의 모든 엔트리 KeyId 수집
+                var keyIds = new List<long>();
+                foreach (var entry in table.Values)
+                {
+                    keyIds.Add(entry.KeyId);
+                }
+
+                // 엔트리 제거
+                foreach (var keyId in keyIds)
+                {
+                    table.RemoveEntry(keyId);
+                }
+
+                EditorUtility.SetDirty(table);
+            }
+
+            // 2. SharedTableData의 모든 엔트리 제거
             var entries = collection.SharedData.Entries.ToList();
             foreach (var entry in entries)
             {
                 collection.SharedData.RemoveKey(entry.Id);
             }
+
+            EditorUtility.SetDirty(collection.SharedData);
         }
 
         /// <summary>
