@@ -3,7 +3,7 @@
 ; @wait 0.8
 ; @despawn cbg_04_01
 
-@bgm snd_bgm_dialog_despair01
+@bgm snd_bgm_dialog_sad01
 
 @wait 2.0
 
@@ -23,8 +23,9 @@ cley_00: 이게 다, …를 위해서니까.
 @showPrinter
 Narrator: 연구소에 보관되어 있던 물체가 검은 그림자와 함께 족적을 감추자 사이렌이 울리기 시작한다.
 
-; 발소리
+
 @spawn ShakeCamera
+@sfx snd_sfx_dialog_run_group_normal
 soldier_00: 찾아라! 범인이 근처에 있다.
 
 @camera offset:2 zoom:0.2 time:0.2

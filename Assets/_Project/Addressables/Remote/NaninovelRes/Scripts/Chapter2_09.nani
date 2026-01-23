@@ -48,7 +48,8 @@ philia_00: 지휘관 개체가 있을지도 모르겠네요…. 그렇게 된다
 ; L014
 ; 등장 임펙트가 부족함
 @hideChars
-; 발소리 sfx 필요
+
+@sfx snd_sfx_dialog_walk_foot_sand
 ???: 흐응… 겨우 그정도에 고전하다니. 역시 골칫덩어리 성단 답네요.
 ; L015
 @char uni_00.Talk pos:35,-240 scale:1.38

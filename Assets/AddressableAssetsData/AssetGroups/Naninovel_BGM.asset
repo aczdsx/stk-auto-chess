@@ -15,8 +15,22 @@ MonoBehaviour:
   m_GroupName: Naninovel_BGM
   m_GUID: b416634ab52844cd4b9382234d28de42
   m_SerializeEntries:
+  - m_GUID: 02976ef840cd42c479c597e234a8f454
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_compute_operate
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0639d93060c34c847bb7d4208a97ee40
     m_Address: Naninovel/Audio/BGM/snd_bgm_splash01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0947fcce8b81f444b81be94f1a1bb75a
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_run_group_sand
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -43,8 +57,22 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 206fe3085132c4e4a9577a1c6e93f776
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_walk_foot_normal
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 26d4d1122b4fac34ab3666aa82f8b6f6
     m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_cozy_001
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2878b0128620fd5489cc9fbf41bc8811
+    m_Address: Naninovel/Audio/SFX/snd_sfx_prolog_battle_laplace05
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -106,6 +134,13 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b4548cc4de8576468218cbba3165a8b
+    m_Address: Naninovel/Audio/SFX/snd_sfx_prolog_battle_laplace02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7da09b79b4402b4459a9a4b1f6cb6ab7
     m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_sad01
     m_ReadOnly: 0
@@ -115,6 +150,13 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e34e93ddb5913443931bd09919a7c53
     m_Address: Naninovel/Audio/BGM/snd_bgm_lobby01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e9f382bb8c31e24bb5c13e0ed3a6bba
+    m_Address: Naninovel/Audio/SFX/snd_sfx_prolog_battle_laplace01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -134,8 +176,29 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 971f515c94fc2ca419454479c8114cab
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_walk_foot_grass
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9aaec2096f5177e4ba17729c9bedda98
     m_Address: Naninovel/Audio/BGM/snd_bgm_chapter01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9bff17c13aa3e3f4b94e83ef14134b09
+    m_Address: Naninovel/Audio/SFX/snd_sfx_prolog_battle_laplace03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c281a8c20848a74d960df0505721b5b
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_mon_scream01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -155,8 +218,29 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a35bc45abe76d79489fb680483012ae7
+    m_Address: Naninovel/Audio/SFX/snd_sfx_chap
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a809b18be6c1c22479a5496f4778311a
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_run_group_normal
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: abc2f2a934b6f744ba0e914c598a614e
     m_Address: Naninovel/Audio/BGM/snd_bgm_dgboss_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: abf704100bdd5fe4a86521b132faf901
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_run_group_grass
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -183,6 +267,27 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0740b24e794c194db75aa4e9ac0effb
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_punch_metal
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b107cb25b8a572a4296a8879b121fb69
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_debris_bldg
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b26cc58c84ec50244a979e9b185db60d
+    m_Address: Naninovel/Audio/SFX/snd_sfx_prolog_battle_laplace04
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b3cc2039bba3d354eaf3ea6e9e962fc8
     m_Address: Naninovel/Audio/BGM/snd_bgm_shop01
     m_ReadOnly: 0
@@ -190,8 +295,29 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b421df156b716eb4083444558d196498
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_wind_harsh
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b6e9fc415a9e4984daad1b9463643fb5
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_machine_clock
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ba34b129e8e92ac4f9aee51e4253d4c6
     m_Address: Naninovel/Audio/BGM/snd_bgm_dialog_normal01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd24d40dd203ee844b6e2187b931abf8
+    m_Address: Naninovel/Audio/SFX/snd_sfx_prolog_battle_endtransition
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -234,6 +360,27 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: de49677baeceb8646b63c73a1dc1faed
     m_Address: Naninovel/Audio/BGM/snd_bgm_chapter00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eb3d1cca853470c4ba54c42711ed332e
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_walk_foot_sand
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef7b6229541474e41af67fae2e6f428b
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_walk_foot_solid
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f09297109dd136546b7986e4d70dcd04
+    m_Address: Naninovel/Audio/SFX/snd_sfx_dialog_machine_door_close
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel

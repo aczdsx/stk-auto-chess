@@ -4,7 +4,7 @@
 ; @sfx sfx_auto_door volume:0.7
 
 @back bg_hubble_05 time:0.5 transition:Crossfade
-@bgm snd_bgm_dialog_tricky01
+@bgm snd_bgm_dialog_tension01
 
 Narrator: 라디아의 안내를 받아 도착한 곳에는 차갑고 권위적으로 느껴지는 시선을 보내는 여성이 서 있었다.
 
