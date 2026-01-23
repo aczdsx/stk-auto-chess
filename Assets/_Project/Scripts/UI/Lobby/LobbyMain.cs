@@ -121,6 +121,22 @@ namespace CookApps.AutoBattler
             PreEnterAsync().Forget();
         }
 
+        protected override void OnPostEnter()
+        {
+            base.OnPostEnter();
+
+            // 로비 기본 UI 준비 완료 알림
+            TutorialManager.Instance.NotifyLobbyReady();
+        }
+
+        protected override void OnPreExit()
+        {
+            base.OnPreExit();
+
+            // 로비 퇴장 알림
+            TutorialManager.Instance.NotifyLobbyExit();
+        }
+
         private async UniTask PreEnterAsync()
         {
             guideMissionSlot.InitGuideMissionSlot();
@@ -133,64 +149,8 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
 
-            // 로비 진입 시 현재 가이드 미션 튜토리얼 체크
-
-            // await WatchTutorialGuideMissionLoopAsync((int)_guideMissionDataBridge.GuideMissionId);
-
             var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
             _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
-        }
-
-        private async UniTask HubbleLobbyScequence()
-        {
-#if _SJHONG_TEST_
-            MyDebug.MyLog("연출중!", MyDebug.Constants.YELLOW);
-#endif
-            SceneUILayerManager.Instance.SetEnableMainNodeCanvas(false);
-            MainCameraHolder.CameraGestureController.SetCanInteractCamera(false);
-            await UniTask.Delay(500);
-            SceneUILayerManager.Instance.SetEnableMainNodeCanvas(true);
-            MainCameraHolder.CameraGestureController.SetCanInteractCamera(true);
-#if _SJHONG_TEST_
-            MyDebug.MyLog("연출끝!", MyDebug.Constants.YELLOW);
-#endif
-        }
-
-        /// <summary>
-        /// 가이드 미션 ID에 따른 튜토리얼 체크 및 시작
-        /// </summary>
-        private async UniTask WatchTutorialGuideMissionLoopAsync(int guideMissionId)
-        {
-            var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
-            if (specGuideMissionData == null)
-            {
-                return;
-            }
-
-            // 튜토리얼 ID가 없으면 스킵
-            if (specGuideMissionData.tutorial_id <= 0)
-            {
-                return;
-            }
-
-            // 이미 완료된 미션이면 스킵
-            if (TutorialManager.Instance.IsClearedGuideMission(guideMissionId))
-            {
-                return;
-            }
-
-#if _SJHONG_TEST_
-            MyDebug.MyLog($"[WatchTutorialGuideMissionLoop] 가이드 미션 튜토리얼 시작: {guideMissionId}", MyDebug.Constants.GREEN);
-#endif
-
-            await TutorialManager.Instance.CheckAndInitTutorialWithGuideMissionInfo(specGuideMissionData);
-
-            // 초기 튜토리얼 연출 (id <= 100인 경우)
-            if (specGuideMissionData.id <= 100)
-            {
-                await HubbleLobbyScequence();
-                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
-            }
         }
 
         private async UniTask OnClickStartButton()
@@ -283,5 +243,36 @@ namespace CookApps.AutoBattler
         {
             StartEnterAnimation(null);
         }
+
+#if UNITY_EDITOR || _SJHONG_TEST_
+        private void Update()
+        {
+            // F1 키로 UI Stack 상태 디버깅
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                DebugUIStackState();
+            }
+        }
+
+        private void DebugUIStackState()
+        {
+            var allKeys = SceneUILayerManager.Instance.GetAllLoadedUIKeys();
+            var popupOrModalUIs = SceneUILayerManager.Instance.GetUIRoutes(isContainCover: false, isContainOverlay: false);
+            var isLobbyDefaultState = TutorialManager.Instance?.IsLobbyDefaultState() ?? false;
+
+            Debug.LogColor("========== UI Stack Debug ==========", "cyan");
+            Debug.LogColor($"UI Count: {allKeys.Length}", "white");
+            Debug.LogColor($"UI Keys: [{string.Join(", ", allKeys)}]", "white");
+            Debug.LogColor($"Popup/Modal Count: {popupOrModalUIs.Length}", "white");
+            if (popupOrModalUIs.Length > 0)
+            {
+                var popupNames = string.Join(", ", System.Linq.Enumerable.Select(popupOrModalUIs, ui => ui.name));
+                Debug.LogColor($"Popup/Modal UIs: [{popupNames}]", "yellow");
+            }
+            Debug.LogColor($"IsLobbyDefaultState: {isLobbyDefaultState}", isLobbyDefaultState ? "green" : "yellow");
+            Debug.LogColor($"TutorialManager.IsTutorial: {TutorialManager.Instance?.IsTutorial}", "white");
+            Debug.LogColor("=====================================", "cyan");
+        }
+#endif
     }
 }

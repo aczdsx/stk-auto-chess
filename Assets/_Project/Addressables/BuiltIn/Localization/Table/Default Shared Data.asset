@@ -5167,6 +5167,30 @@ MonoBehaviour:
     m_Key: GUIDE_MISSION_DESC_601
     m_Metadata:
       m_Items: []
+  - m_Id: 3326037100580864
+    m_Key: MONSTER_NAME_30101008
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3326037142523904
+    m_Key: MONSTER_NAME_30101009
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3326037142523905
+    m_Key: MONSTER_NAME_30101010
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3326037142523906
+    m_Key: MONSTER_DESC_30101008
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3326037142523907
+    m_Key: MONSTER_DESC_30101009
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3326037142523908
+    m_Key: MONSTER_DESC_30101010
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

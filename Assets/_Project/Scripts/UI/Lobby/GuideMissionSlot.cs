@@ -159,7 +159,6 @@ namespace CookApps.AutoBattler
             {
                 // 팝업 닫힌 후 다음 가이드 미션 튜토리얼 체크
                 AppEventManager.Instance.GuideMissionClear(specGuideMissionData.order);
-                CheckNextGuideMissionTutorialAsync().Forget();
             }).Forget();
         }
 
@@ -278,26 +277,6 @@ namespace CookApps.AutoBattler
         }
 
         #endregion
-
-        private async UniTask CheckNextGuideMissionTutorialAsync()
-        {
-            var guideMissionDataBridge = new GuideMissionDataBridge();
-            var guideMissionId = (int)guideMissionDataBridge.GuideMissionId;
-
-            var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
-            if (specGuideMissionData == null)
-            {
-                return;
-            }
-
-            // 튜토리얼 ID가 없으면 스킵
-            if (specGuideMissionData.tutorial_id <= 0)
-            {
-                return;
-            }
-
-            await TutorialManager.Instance.CheckAndInitTutorialWithGuideMissionInfo(specGuideMissionData);
-        }
 
     }
 }

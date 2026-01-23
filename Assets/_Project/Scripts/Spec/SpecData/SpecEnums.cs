@@ -981,6 +981,7 @@ namespace CookApps.AutoBattler
         IDLE_REWARD_CLAIM = 21,
         MOVE_OBJECT_AFTER = 22,
         COMBAT_START = 23,
+        STAY_DEFAULT_LOBBY = 24,
     }
 
     public enum TutorialActionType
