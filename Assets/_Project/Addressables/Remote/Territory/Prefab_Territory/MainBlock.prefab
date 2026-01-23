@@ -7062,9 +7062,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0932f14ac38a4363b680c9b4e3f3d083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 3730569109225583971}
+  target: {fileID: 4778871190368135222}
   targetRatio: 0.8
-  setOnOverRatio: 0
+  setOnOverRatio: 1
+  fadeSpeed: 5
 --- !u!1 &8542490920722444295
 GameObject:
   m_ObjectHideFlags: 0
