@@ -4,6 +4,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -124,6 +125,44 @@ namespace CookApps.AutoBattler
                 _elementSynergySpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(statData.Spec.character_element_type)).Forget();
                 _positionSynergySpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(statData.Spec.character_stella_type)).Forget();
             }
+        }
+
+        /// <summary>
+        /// 시너지 아이콘 반짝임 효과 재생 (속성 시너지)
+        /// </summary>
+        public void PlayElementSynergyEffect()
+        {
+            if (_elementSynergySprite == null) return;
+            PlaySynergyShinyEffect(_elementSynergySprite);
+        }
+
+        /// <summary>
+        /// 시너지 아이콘 반짝임 효과 재생 (성좌 시너지)
+        /// </summary>
+        public void PlayPositionSynergyEffect()
+        {
+            if (_positionSynergySprite == null) return;
+            PlaySynergyShinyEffect(_positionSynergySprite);
+        }
+
+        private static readonly int ShinyProgressId = Shader.PropertyToID("_ShinyProgress");
+
+        /// <summary>
+        /// 시너지 아이콘 Shiny 효과 (사선으로 빛이 흐르는 효과)
+        /// </summary>
+        private void PlaySynergyShinyEffect(SpriteRenderer spriteRenderer)
+        {
+            const float duration = 0.5f;
+
+            var material = spriteRenderer.material;
+            if (material == null) return;
+
+            // 기존 트윈 중지
+            DOTween.Kill(material);
+
+            // Shiny Progress: -0.5 → 1.5 (화면 밖에서 시작해서 밖으로 나감)
+            material.SetFloat(ShinyProgressId, -0.5f);
+            material.DOFloat(1.5f, ShinyProgressId, duration).SetEase(Ease.Linear);
         }
 
         /// <summary>

@@ -198,7 +198,45 @@ namespace CookApps.BattleSystem
         public void UpdateSynergyAndAttr()
         {
             // InGameSynergyManager.Instance.ClearSynergyFx();
+
+            // 상승한 시너지 타입 수집 시작
+            InGameSynergyUI.BeginCollectUpgradedSynergies();
+
             InGameMain.GetInGameMain().RefreshInGameTopUI(false);
+
+            // 상승한 시너지 타입 수집 종료 및 캐릭터 HpBarView 효과 재생
+            var upgradedSynergies = InGameSynergyUI.EndCollectUpgradedSynergies();
+            if (upgradedSynergies.Count > 0)
+            {
+                PlayCharacterSynergyEffects(upgradedSynergies);
+            }
+        }
+
+        /// <summary>
+        /// 상승한 시너지 타입에 해당하는 캐릭터들의 HpBarView 효과 재생
+        /// </summary>
+        private void PlayCharacterSynergyEffects(System.Collections.Generic.HashSet<SynergyType> upgradedSynergies)
+        {
+            var characters = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
+            foreach (var character in characters)
+            {
+                if (character?.SpecCharacter == null) continue;
+
+                var hpBarView = character.GetHpBarView();
+                if (hpBarView == null) continue;
+
+                // 속성 시너지 체크
+                if (upgradedSynergies.Contains(character.SpecCharacter.character_element_type))
+                {
+                    hpBarView.PlayElementSynergyEffect();
+                }
+
+                // 성좌 시너지 체크
+                if (upgradedSynergies.Contains(character.SpecCharacter.character_stella_type))
+                {
+                    hpBarView.PlayPositionSynergyEffect();
+                }
+            }
         }
     }
 }
