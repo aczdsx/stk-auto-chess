@@ -71,13 +71,6 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1388e2cffa70dad44a0c0095cb754ad6
-    m_Address: Naninovel/Scripts/Chapter1_14
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15562e747dd2fd5478d7db91f9fca3c2
     m_Address: Naninovel/Scripts/nani_05_06_01
     m_ReadOnly: 0
@@ -584,13 +577,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e361b73169b368d4eac01e3a8b92a170
     m_Address: Naninovel/Scripts/3-2
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e3f6807cdd174d347826d8185614ea56
-    m_Address: Naninovel/Scripts/Chapter1_11
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel

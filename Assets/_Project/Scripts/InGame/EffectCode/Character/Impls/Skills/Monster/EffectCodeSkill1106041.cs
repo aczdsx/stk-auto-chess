@@ -28,6 +28,7 @@ public partial class EffectCodeSkill1106041 : EffectCodeCharacterBase
         IsSkillActivated = false;
 
         SkillIndex = 0;
+    Debug.Log("EffectCodeSkill1106041 Initialize");
 
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
     }
