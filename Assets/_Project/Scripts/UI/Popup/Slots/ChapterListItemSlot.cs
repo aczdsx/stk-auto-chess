@@ -107,8 +107,8 @@ namespace CookApps.AutoBattler
                 {
                     bool checkGetReward = totalChapterStarCount >= rewardInfoData.sub_value;
 
-                    bool checkAlreadyGetReward = ServerDataManager.Instance.Battle.IsGetStageAccReward(rewardInfoData.content_key_value,
-                        rewardInfoData.difficulty_type, rewardInfoData.sub_value);
+                    bool checkAlreadyGetReward = ServerDataManager.Instance.Battle.IsMilestoneRewardClaimed(
+                        (uint)rewardInfoData.content_key_value, (uint)rewardInfoData.reward_id);
 
                     if (checkGetReward && !checkAlreadyGetReward)
                     {

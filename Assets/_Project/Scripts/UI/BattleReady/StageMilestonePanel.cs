@@ -16,12 +16,6 @@ namespace CookApps.AutoBattler
 
         private ChapterInfo currentChapterData;
 
-        public void Initialize(ChapterInfo chapterData)
-        {
-            currentChapterData = chapterData;
-            RefreshUI();
-        }
-
         public void SetChapterData(ChapterInfo chapterData)
         {
             currentChapterData = chapterData;
