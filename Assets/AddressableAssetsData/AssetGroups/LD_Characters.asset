@@ -159,7 +159,7 @@ MonoBehaviour:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 53f32a641afd24fa2b48d6affe87c4bf
-    m_Address: LD_Characters/UI_20405
+    m_Address: LD_Characters/UI_15252102
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
@@ -225,7 +225,7 @@ MonoBehaviour:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8b3a4af451b431049bfc2b2f1cc7920f
-    m_Address: Assets/_Project/Addressables/Remote/LD/Characters/20405/GenerateResources/UI_20405.prefab
+    m_Address: LD_Characters/UI_20405
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
