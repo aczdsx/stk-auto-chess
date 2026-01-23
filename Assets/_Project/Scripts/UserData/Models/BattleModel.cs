@@ -21,10 +21,6 @@ namespace CookApps.AutoBattler
         // 스테이지 진행 정보 (StageId -> StageProgress)
         private readonly Dictionary<uint, BattleStageProgress> _stageProgresses = new (128);
 
-        // 스테이지 누적 보상 (ChapterId -> (DifficultyType -> AccCounts))
-        // TODO: 서버 마이그레이션 후 제거 예정
-        private readonly Dictionary<int, Dictionary<int, HashSet<int>>> _stageAccRewards = new ();
-
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
         public readonly Subject<BattleChapterData> OnCurrentChapterChanged = new();
@@ -38,7 +34,6 @@ namespace CookApps.AutoBattler
             _currentChapter = null;
             _chapters.Clear();
             _stageProgresses.Clear();
-            _stageAccRewards.Clear();
             OnChanged.OnNext(Unit.Default);
         }
 
@@ -291,41 +286,16 @@ namespace CookApps.AutoBattler
 
         #endregion
 
-        #region 스테이지 누적 보상 관련 (TODO: 서버 마이그레이션 예정)
+        #region 챕터 마일스톤 보상 관련
 
         /// <summary>
-        /// 스테이지 별 누적 보상 상태 데이터 저장
+        /// 마일스톤 보상 수령 여부 확인 (reward_id 기반)
         /// </summary>
-        public void SetStageAccRewardState(int chapterId, DifficultyType difficultyType, int targetAccCount)
+        public bool IsMilestoneRewardClaimed(uint chapterId, uint rewardId)
         {
-            if (!_stageAccRewards.TryGetValue(chapterId, out var difficultyDict))
-            {
-                difficultyDict = new Dictionary<int, HashSet<int>>();
-                _stageAccRewards[chapterId] = difficultyDict;
-            }
-
-            int diffKey = (int)difficultyType;
-            if (!difficultyDict.TryGetValue(diffKey, out var accSet))
-            {
-                accSet = new HashSet<int>();
-                difficultyDict[diffKey] = accSet;
-            }
-
-            accSet.Add(targetAccCount);
-        }
-
-        /// <summary>
-        /// 스테이지 별 누적 보상 획득 여부 체크
-        /// </summary>
-        public bool IsGetStageAccReward(int chapterId, DifficultyType difficultyType, int targetAccCount)
-        {
-            if (!_stageAccRewards.TryGetValue(chapterId, out var difficultyDict))
-                return false;
-
-            if (!difficultyDict.TryGetValue((int)difficultyType, out var accSet))
-                return false;
-
-            return accSet.Contains(targetAccCount);
+            var chapter = GetChapter(chapterId);
+            if (chapter == null) return false;
+            return chapter.ClaimedMilestoneRewardIds.Contains(rewardId);
         }
 
         #endregion

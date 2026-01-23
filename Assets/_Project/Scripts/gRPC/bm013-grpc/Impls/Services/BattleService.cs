@@ -91,6 +91,13 @@ namespace CookApps.AutoBattler
             // 서버 응답으로 로컬 데이터 갱신
             if (resp != null && resp.IsSuccess)
             {
+                // 챕터 마일스톤 보상 수령 처리
+                var chapter = ServerDataManager.Instance.Battle.GetChapter(chapterId);
+                if (chapter != null && !chapter.ClaimedMilestoneRewardIds.Contains(milestoneRewardId))
+                {
+                    chapter.ClaimedMilestoneRewardIds.Add(milestoneRewardId);
+                }
+
                 // 통화 변화 적용
                 if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
                 {

@@ -56,8 +56,8 @@ namespace CookApps.AutoBattler
             int totalStarCount = (int)ServerDataManager.Instance.Battle.GetTotalChapterStarCount((uint)_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type);
             _isAvailGetReward = totalStarCount >= _specRewardInfo.sub_value;
 
-            _isAlreadyGetReward = ServerDataManager.Instance.Battle.IsGetStageAccReward(_specRewardInfo.content_key_value,
-                _specRewardInfo.difficulty_type, _specRewardInfo.sub_value);
+            _isAlreadyGetReward = ServerDataManager.Instance.Battle.IsMilestoneRewardClaimed(
+                (uint)_specRewardInfo.content_key_value, (uint)_specRewardInfo.reward_id);
 
             _rewardIconUIShiny.Play(_isAvailGetReward && !_isAlreadyGetReward);
             _activeFrameObject.SetActive(_isAvailGetReward && !_isAlreadyGetReward);
@@ -109,9 +109,6 @@ namespace CookApps.AutoBattler
             }
 
             SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
-
-            // 보상 수령 데이터 처리
-            ServerDataManager.Instance.Battle.SetStageAccRewardState(_specRewardInfo.content_key_value, _specRewardInfo.difficulty_type, _specRewardInfo.sub_value);
 
             // 챕터 리스트 팝업 갱신
             var chapterListPopup = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>().StageMilestonePanel;
