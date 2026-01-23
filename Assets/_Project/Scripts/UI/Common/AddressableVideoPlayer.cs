@@ -1,3 +1,4 @@
+using CookApps.TeamBattle.Utility;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -77,7 +78,7 @@ namespace CookApps.AutoBattler
             Release();
 
             _videoClipHandle = videoAssetReference.LoadAssetAsync<VideoClip>();
-            await _videoClipHandle.ToUniTask();
+            await _videoClipHandle.WaitUntilDone();
 
             if (_videoClipHandle.Status == AsyncOperationStatus.Succeeded)
             {

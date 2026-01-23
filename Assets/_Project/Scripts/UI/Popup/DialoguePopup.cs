@@ -162,19 +162,30 @@ namespace CookApps.AutoBattler
                     charPosY.Add(int.Parse(chfStrings[1], CultureInfo.InvariantCulture));
                     charPosDir.Add(int.Parse(chfStrings[2], CultureInfo.InvariantCulture));
                 }
-                if(charPosDir[0] == 0) {
+                if (charPosDir[0] == 0)
+                {
                     var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentLeftObject.transform);
                     obj.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+                    if (obj != null)
+                    {
+                        var characterIllust = obj.GetComponent<CharacterIllust>();
+                        characterIllust.SetCharacterAnimation("idle");
+                    }
                 }
                 else
                 {
                     var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentRightObject.transform);
                     obj.GetComponent<RectTransform>().localScale = new Vector3(-1, 1, 1);
-                } 
+                    if (obj != null)
+                    {
+                        var characterIllust = obj.GetComponent<CharacterIllust>();
+                        characterIllust.SetCharacterAnimation("idle");
+                    }
+                }
             }
 
-            // _characterNameText.text = LanguageManager.Instance.GetDefaultText(_currentSpecDialogueData.character_name_token);
-            // _dialogueText.text = LanguageManager.Instance.GetDialogueText(_currentSpecDialogueData.text_desc_token);
+            _characterNameText.text = LanguageManager.Instance.GetDefaultText(_currentSpecDialogueData.character_name_token);
+            _dialogueText.text = LanguageManager.Instance.GetDialogueText(_currentSpecDialogueData.text_desc_token);
         }
 
         // 다음 대화로 넘어가기

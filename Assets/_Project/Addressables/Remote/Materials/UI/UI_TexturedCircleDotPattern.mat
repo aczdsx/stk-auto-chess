@@ -43,7 +43,7 @@ Material:
     m_Colors:
     - _BackgroundColor: {r: 0.8301887, g: 0.254539, b: 0.254539, a: 1}
     - _CircleColor: {r: 0, g: 0, b: 0, a: 1}
-    - _DotColor: {r: -0.0015176535, g: -0.0015320778, b: -0.0015176535, a: 1}
+    - _DotColor: {r: -0.0010333061, g: -0.0010429621, b: -0.0010333061, a: 1}
     - _HexColor: {r: 0.9528302, g: 0.33708617, b: 0.33708617, a: 1}
     - _TileOffset: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

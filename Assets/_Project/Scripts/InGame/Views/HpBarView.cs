@@ -33,7 +33,7 @@ namespace CookApps.AutoBattler
 
         [Space]
         [SerializeField] private GameObject _buffObjParent;
-        
+
         [System.Serializable]
         public class BuffIconLayout
         {
@@ -41,23 +41,24 @@ namespace CookApps.AutoBattler
             [Range(-1f, 1f)]
             [Tooltip("Y 위치 (상하 위치)")]
             public float yPosition = 0.1f;
-            
+
             [Header("간격 설정")]
             [Range(-1f, 1f)]
             [Tooltip("시작 X 위치 (첫 번째 아이콘의 위치)")]
             public float startX = -0.15f;
-            
+
             [Range(0f, 0.5f)]
             [Tooltip("아이콘 사이의 좌우 간격")]
             public float horizontalSpacing = 0.1f;
-            
+
             [Header("커스텀 위치 (간격 대신 직접 지정)")]
             [Tooltip("각 아이콘의 X 위치 (순서대로, 비어있으면 간격 기반으로 계산)")]
             public float[] xOffsets = new float[] { -0.15f, -0.05f, 0.15f, 0.05f };
         }
 
         [Header("Bottom Layout (아래쪽 버프 아이콘)")]
-        [SerializeField] private BuffIconLayout _bottomLayout = new BuffIconLayout
+        [SerializeField]
+        private BuffIconLayout _bottomLayout = new BuffIconLayout
         {
             yPosition = 0.1f,
             startX = -0.15f,
@@ -66,7 +67,8 @@ namespace CookApps.AutoBattler
         };
 
         [Header("Top Layout (위쪽 버프 아이콘)")]
-        [SerializeField] private BuffIconLayout _topLayout = new BuffIconLayout
+        [SerializeField]
+        private BuffIconLayout _topLayout = new BuffIconLayout
         {
             yPosition = 0.19f,
             startX = -0.15f,
@@ -148,21 +150,35 @@ namespace CookApps.AutoBattler
         private static readonly int ShinyProgressId = Shader.PropertyToID("_ShinyProgress");
 
         /// <summary>
-        /// 시너지 아이콘 Shiny 효과 (사선으로 빛이 흐르는 효과)
+        /// 시너지 아이콘 Shiny 효과 (사선으로 빛이 흐르는 효과 + 스케일 애니메이션)
         /// </summary>
         private void PlaySynergyShinyEffect(SpriteRenderer spriteRenderer)
         {
-            const float duration = 0.5f;
+            const float duration = 1.0f;
 
             var material = spriteRenderer.material;
             if (material == null) return;
 
+            var targetTransform = spriteRenderer.transform;
+
             // 기존 트윈 중지
             DOTween.Kill(material);
+            DOTween.Kill(targetTransform);
 
             // Shiny Progress: -0.5 → 1.5 (화면 밖에서 시작해서 밖으로 나감)
             material.SetFloat(ShinyProgressId, -0.5f);
             material.DOFloat(1.5f, ShinyProgressId, duration).SetEase(Ease.Linear);
+
+            // 스케일 애니메이션: 1.0 → 0.9 → 1.3 → 0.9 → 1.0 (1.5초 동안)
+            targetTransform.localScale = new Vector3(0.17f, 0.17f, 0.17f);
+
+            // 0.17f
+            var sequence = DOTween.Sequence();
+            sequence.Append(targetTransform.DOScale(0.16f, 0.12f).SetEase(Ease.InQuad));
+            sequence.Append(targetTransform.DOScale(0.19f, 0.38f).SetEase(Ease.OutQuad));
+            sequence.Append(targetTransform.DOScale(0.16f, 0.38f).SetEase(Ease.InOutQuad));
+            sequence.Append(targetTransform.DOScale(0.17f, 0.12f).SetEase(Ease.OutQuad));
+            sequence.SetTarget(targetTransform);
         }
 
         /// <summary>
@@ -172,7 +188,7 @@ namespace CookApps.AutoBattler
         {
             BuffIconLayout layout;
             int layoutIndex;
-            
+
             if (index < 4)
             {
                 // Bottom layout
@@ -199,7 +215,7 @@ namespace CookApps.AutoBattler
                 // 간격 기반 자동 계산
                 x = layout.startX + (layoutIndex * layout.horizontalSpacing);
             }
-            
+
             return new Vector2(x, y);
         }
 
@@ -300,15 +316,15 @@ namespace CookApps.AutoBattler
             float targetRatio = Mathf.Clamp01((float)(current / max));
             _coolTimeGuage.size = new Vector2(_defalutSize.x * targetRatio, _coolTimeGuage.size.y);
         }
-#region Buff Icon
+        #region Buff Icon
         public void RestructBuffIcon(IReadOnlyList<(int, BuffStackData)> buffDebuffs)
         {
             // Side 버프와 일반 버프 분리
             var (sideBuffs, normalBuffs) = SeparateBuffsByPosition(buffDebuffs);
-            
+
             // Side 버프 처리
             RestructSideBuffs(sideBuffs);
-            
+
             // 일반 버프 처리
             RestructNormalBuffs(normalBuffs);
         }
@@ -320,7 +336,7 @@ namespace CookApps.AutoBattler
         {
             List<(int, BuffStackData)> sideBuffs = new List<(int, BuffStackData)>();
             List<(int, BuffStackData)> normalBuffs = new List<(int, BuffStackData)>();
-            
+
             for (int i = 0; i < buffDebuffs.Count; i++)
             {
                 int codeID = buffDebuffs[i].Item1;
@@ -328,7 +344,7 @@ namespace CookApps.AutoBattler
                 {
                     continue;
                 }
-                
+
                 var buffData = buffDebuffs[i];
                 if (buffData.Item2.showPosition == BuffStackData.BuffShowPosition.SIDE)
                 {
@@ -339,7 +355,7 @@ namespace CookApps.AutoBattler
                     normalBuffs.Add(buffData);
                 }
             }
-            
+
             return (sideBuffs, normalBuffs);
         }
 
@@ -349,16 +365,16 @@ namespace CookApps.AutoBattler
         private void RestructSideBuffs(List<(int, BuffStackData)> sideBuffs)
         {
             int sideBuffCount = sideBuffs.Count;
-            
+
             // 아이콘 개수 조정
             AdjustIconCount(_sideBuffDebuffList, sideBuffCount, _buffSideBadgeParentObj.transform);
-            
+
             // 아이콘 위치 설정 및 데이터 업데이트
             float sideSpacing = _bottomLayout.horizontalSpacing;
             for (int i = 0; i < sideBuffs.Count && i < _sideBuffDebuffList.Count; i++)
             {
                 var inGameBuffDebuff = _sideBuffDebuffList[i];
-                
+
                 // Side 버프는 세로로 배치 (horizontalSpacing을 Y 간격으로 사용)
                 inGameBuffDebuff.CachedTr.localPosition = new Vector3(0, i * sideSpacing, 0);
                 inGameBuffDebuff.gameObject.SetActive(true);
@@ -373,7 +389,7 @@ namespace CookApps.AutoBattler
         {
             int validBuffCount = normalBuffs.Count;
             int requiredCount = Mathf.Min(validBuffCount, 8); // 최대 8개 (bottom 4개 + top 4개)
-            
+
             // 아이콘 개수 조정
             AdjustIconCount(_buffDebuffList, requiredCount, _buffObjParent.transform);
 
@@ -381,11 +397,11 @@ namespace CookApps.AutoBattler
             for (int i = 0; i < normalBuffs.Count && i < _buffDebuffList.Count; i++)
             {
                 var inGameBuffDebuff = _buffDebuffList[i];
-                
+
                 // 위치 설정
                 Vector2 position = GetBuffIconPosition(i);
                 inGameBuffDebuff.CachedTr.localPosition = new Vector3(position.x, position.y, inGameBuffDebuff.CachedTr.localPosition.z);
-                
+
                 inGameBuffDebuff.gameObject.SetActive(true);
                 inGameBuffDebuff.Set(normalBuffs[i]);
             }
@@ -401,17 +417,17 @@ namespace CookApps.AutoBattler
             {
                 var buffIcon = iconList[iconList.Count - 1];
                 iconList.RemoveAt(iconList.Count - 1);
-                
+
                 InGameBuffDebuffPool.Instance.Return(buffIcon);
             }
-            
+
             // 부족한 아이콘 생성
             while (iconList.Count < requiredCount)
             {
                 var buffIcon = InGameBuffDebuffPool.Instance.Get();
                 if (buffIcon == null)
                     break;
-                    
+
                 buffIcon.CachedTr.SetParent(parent, false);
                 iconList.Add(buffIcon);
             }
@@ -432,7 +448,7 @@ namespace CookApps.AutoBattler
                 if (!isExpired && isBuffExpired)
                     isExpired = true;
             }
-            
+
             // Side 버프 쿨타임 갱신
             foreach (var buffDebuff in _sideBuffDebuffList)
             {
@@ -454,7 +470,7 @@ namespace CookApps.AutoBattler
                 InGameBuffDebuffPool.Instance.Return(buffDebuff);
             }
             _buffDebuffList.Clear();
-            
+
             // Side 버프 반환
             foreach (var buffDebuff in _sideBuffDebuffList)
             {
@@ -462,8 +478,8 @@ namespace CookApps.AutoBattler
             }
             _sideBuffDebuffList.Clear();
         }
-        
-#endregion
+
+        #endregion
     }
 
     public class InGameHpBarViewPool : Singleton<InGameHpBarViewPool>

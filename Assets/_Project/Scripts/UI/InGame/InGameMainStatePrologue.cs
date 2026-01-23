@@ -45,11 +45,11 @@ namespace CookApps.AutoBattler.Prologue
 
         public void RefreshInGameTopUI(bool isCombat)
         {
-            _inGameUI.TopUI.UpdateSynergyUI(AllianceType.Player, isCombat);
-            _inGameUI.TopUI.UpdateSynergyUI(AllianceType.Enemy, isCombat);
+            // _inGameUI.TopUI.UpdateSynergyUI(AllianceType.Player, isCombat);
+            // _inGameUI.TopUI.UpdateSynergyUI(AllianceType.Enemy, isCombat);
 
-            _inGameUI.TopUI.UpdateAttrUI(AllianceType.Player, isCombat);
-            _inGameUI.TopUI.UpdateAttrUI(AllianceType.Enemy, isCombat);
+            // _inGameUI.TopUI.UpdateAttrUI(AllianceType.Player, isCombat);
+            // _inGameUI.TopUI.UpdateAttrUI(AllianceType.Enemy, isCombat);
         }
 
         public void ReturnCharacterUI(CharacterController characterController)

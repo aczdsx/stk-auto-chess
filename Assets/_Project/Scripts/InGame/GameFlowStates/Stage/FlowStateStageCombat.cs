@@ -18,6 +18,27 @@ public class FlowStateStageCombat : StateCombatBase
     // 고정 시드를 사용할 스테이지 ID 목록
     private static readonly HashSet<int> FixedSeedStageIds = new HashSet<int> { 10001, 10002, 10003 };
 
+    /// <summary>
+    /// 캐릭터의 스킬 쿨타임을 특정 비율로 설정합니다.
+    /// </summary>
+    /// <param name="character">대상 캐릭터</param>
+    /// <param name="ratio">쿨타임 충전 비율 (0.0 ~ 1.0, 예: 0.6이면 60% 충전)</param>
+    private void SetSkillCooltimeRatio(CharacterController character, float ratio)
+    {
+        var skillEffectCodes = character.GetEffectCodeContainer()
+            .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseIsReadyToActivate);
+
+        foreach (var eccBase in skillEffectCodes)
+        {
+            if (eccBase is EffectCodeCharacterBase characterEffectCode)
+            {
+                float durationTime = characterEffectCode.GetDurationTime();
+                float newElapsedTime = durationTime * Mathf.Clamp01(ratio);
+                characterEffectCode.SetElapsedTime(newElapsedTime);
+            }
+        }
+    }
+
     public override void StateInit(object target)
     {
         // 특정 스테이지는 고정 시드 적용 (재현 가능한 전투)
@@ -66,6 +87,20 @@ public class FlowStateStageCombat : StateCombatBase
     {
         // 전투 시작 전까지 아이템이 부여되지 않은 아이템들의 콜백 호출
         InGameSynergyManager.Instance.CheckAndHandleNotAppliedItemsBeforeCombat();
+
+        // 튜토리얼 10001: 캐릭터 3401의 스킬 쿨타임 60% 충전
+        int stageId = InGameManager.Instance.SpecStage.stage_id;
+        if (stageId == 10001)
+        {
+            foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
+            {
+                if (character.CharacterId == 3401)
+                {
+                    SetSkillCooltimeRatio(character, 0.42f);
+                    break;
+                }
+            }
+        }
 
         foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
         {

@@ -115,11 +115,11 @@ namespace CookApps.AutoBattler
             //         (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
             // return;
 
-                // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.  
+            // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.  
 
-                // 튜토리얼(1챕터) 진입 분기 로직
-                var firstStageData = SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL)?[0];
-                // 초반 플로우 체크 및 진행
+            // 튜토리얼(1챕터) 진입 분기 로직
+            var firstStageData = SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL)?[0];
+            // 초반 플로우 체크 및 진행
 #if _SJHONG_TEST_
 
                 LocalDataManager.Instance.SetLastPlayStageId((uint)SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL)?.Last().stage_id);
@@ -144,32 +144,60 @@ namespace CookApps.AutoBattler
                     return;
                 }
 #else
-                // 초반 플로우 체크 및 진행
+            if (ServerDataManager.Instance.Battle.CurrentChapterId <= 1)
+            {
+                // 튜토리얼(1챕터) 진입 분기 로직
                 var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
 
                 // 1. 첫 스테이지를 못 깬 경우 → 프롤로그 진행
                 if (firstStageData != null && ServerDataManager.Instance.Battle.IsStageCleared((uint)firstStageData.stage_id) == false)
                 {
-                    // SceneLoading.GoToNextScene("InGame",
-                    //     (InGameType.STAGE, (IGameStateUICore)new InGameMainStateStage(), lastTutoStageData.stage_id));
                     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                     await SceneTransition.FadeInAsync();
-                    
+
                     var inGameParams = new InGameMainParams(InGameType.PROLOGUE, new InGameMainStatePrologue(), 0);
                     SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
                     return;
                 }
-                else
+
+                // 2. 1챕터 마지막 스테이지를 못 깬 경우 → 못 깬 첫 스테이지로 바로 진입
+                if (lastTutoStageData != null && ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
                 {
-                    SceneTransition.Create<SceneTransition_FadeInOut>();
-                    await SceneTransition.FadeInAsync();
+                    // 1챕터에서 못 깬 첫 스테이지 찾기
+                    var stageList = SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL);
+                    StageInfo unclearedStage = null;
+                    foreach (var stage in stageList)
+                    {
+                        if (ServerDataManager.Instance.Battle.IsStageCleared((uint)stage.stage_id) == false)
+                        {
+                            unclearedStage = stage;
+                            break;
+                        }
+                    }
 
-                    var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
-                    var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
-                    SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
+                    if (unclearedStage != null)
+                    {
+                        SceneTransition.Create<SceneTransition_FadeInOut>();
+                        await SceneTransition.FadeInAsync();
 
-                    return;
+                        var inGameParams = new InGameMainParams(InGameType.STAGE, new InGameMainStateStage(), unclearedStage.stage_id);
+                        SceneLoading.GoToNextScene("InGame", inGameParams);
+                        return;
+                    }
                 }
+            }
+
+            // 3. 1챕터 모두 클리어 → 로비로 진입
+            {
+                SceneTransition.Create<SceneTransition_FadeInOut>();
+                await SceneTransition.FadeInAsync();
+
+                var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
+                var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
+                SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
+
+                return;
+            }
 #endif
         }
 

@@ -19,6 +19,12 @@ namespace CookApps.AutoBattler
         private static HashSet<SynergyType> _upgradedSynergyTypes = new HashSet<SynergyType>();
 
         /// <summary>
+        /// 시너지 타입별 이전 상태 저장 (count, grade)
+        /// UI 슬롯이 재정렬되어도 정확한 비교를 위해 전역적으로 관리
+        /// </summary>
+        private static Dictionary<SynergyType, (int count, int grade)> _previousSynergyStates = new Dictionary<SynergyType, (int count, int grade)>();
+
+        /// <summary>
         /// 상승한 시너지 타입 수집 시작 (업데이트 전 호출)
         /// </summary>
         public static void BeginCollectUpgradedSynergies()
@@ -34,6 +40,14 @@ namespace CookApps.AutoBattler
             var result = new HashSet<SynergyType>(_upgradedSynergyTypes);
             _upgradedSynergyTypes.Clear();
             return result;
+        }
+
+        /// <summary>
+        /// 시너지 상태 초기화 (인게임 시작 시 호출)
+        /// </summary>
+        public static void ClearPreviousSynergyStates()
+        {
+            _previousSynergyStates.Clear();
         }
 
         [SerializeField] private Image _iconImage;
@@ -69,22 +83,24 @@ namespace CookApps.AutoBattler
         //캐릭터 속성 시너지 세팅
         public void SetSynergy(SynergyType synergyType, int count, ISpecSynergyData data, ISpecSynergyData nextData, bool isActive = true, bool isColorWhite = false)
         {
-            // 이전 값 저장 (상승 체크용)
-            int prevCount = _count;
-            int prevGrade = _synergyData?.grade ?? 0;
-
             _synergyType = synergyType;
-
             _synergyData = data;
             _nextSynergyData = nextData;
 
             // 시너지 상승 시 Shiny 효과 재생 및 상승 타입 수집
-            if (count > prevCount || data.grade > prevGrade)
+            // 시너지 타입별 전역 상태와 비교 (UI 슬롯 재정렬에 영향받지 않음)
+            if (_previousSynergyStates.TryGetValue(synergyType, out var prevState))
             {
-                bool isAsterism = DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType);
-                PlayShinyEffect(isAsterism ? _starAstarismShiny : _elementalShiny).Forget();
-                _upgradedSynergyTypes.Add(synergyType);
+                if (count > prevState.count || data.grade > prevState.grade)
+                {
+                    bool isAsterism = DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType);
+                    PlayShinyEffect(isAsterism ? _starAstarismShiny : _elementalShiny).Forget();
+                    _upgradedSynergyTypes.Add(synergyType);
+                }
             }
+
+            // 현재 상태 저장
+            _previousSynergyStates[synergyType] = (count, data.grade);
 
             Color color = Color.white;
             switch (data.grade)
@@ -150,6 +166,7 @@ namespace CookApps.AutoBattler
                 {
                     _elementalGradeGuageImage.fillAmount = 1f;
                 }
+                else
                 {
                     _elementalGradeGuageImage.fillAmount = (float)data.grade / (float)(MAX_GRADE);
                 }
@@ -198,20 +215,31 @@ namespace CookApps.AutoBattler
         private const float ShinyDuration = 2f;
 
         /// <summary>
-        /// UIShiny 효과 재생 (켜기 → Play → duration 후 끄기)
+        /// UIShiny 효과 재생 (켜기 → Play → duration 후 끄기) + 스케일 애니메이션
         /// </summary>
         private async UniTaskVoid PlayShinyEffect(UIShiny shiny)
         {
             if (shiny == null) return;
 
+            var targetTransform = shiny.transform;
+
+            // 기존 트윈 중지
+            DOTween.Kill(targetTransform);
+
             shiny.effectPlayer.duration = ShinyDuration;
-            shiny.gameObject.SetActive(true);
             shiny.Play(true);
 
-            await UniTask.Delay((int)(ShinyDuration * 1000));
+            // 스케일 애니메이션: 1.0 → 0.9 → 1.3 → 0.9 → 1.0 (2초 동안)
+            // targetTransform.localScale = Vector3.one;
 
-            if (shiny != null)
-                shiny.gameObject.SetActive(false);
+            // var sequence = DOTween.Sequence();
+            // sequence.Append(targetTransform.DOScale(0.9f, 0.1f).SetEase(Ease.InQuad));
+            // sequence.Append(targetTransform.DOScale(1.3f, 0.4f).SetEase(Ease.OutQuad));
+            // sequence.Append(targetTransform.DOScale(0.9f, 0.4f).SetEase(Ease.InOutQuad));
+            // sequence.Append(targetTransform.DOScale(1.0f, 0.1f).SetEase(Ease.OutQuad));
+            // sequence.SetTarget(targetTransform);
+
+            await UniTask.Delay((int)(ShinyDuration * 1000));
         }
     }
 }

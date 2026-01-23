@@ -97,6 +97,14 @@ namespace CookApps.AutoBattler
 
         private void RestoreNaninovelInput()
         {
+            RestoreNaninovelInputDelayed().Forget();
+        }
+
+        private async Cysharp.Threading.Tasks.UniTaskVoid RestoreNaninovelInputDelayed()
+        {
+            // 1프레임 대기하여 현재 클릭 이벤트가 Naninovel로 전달되지 않도록 함
+            await Cysharp.Threading.Tasks.UniTask.Yield();
+
             var inputManager = Engine.GetService<IInputManager>();
             if (inputManager != null)
             {

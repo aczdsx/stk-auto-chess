@@ -1,28 +1,44 @@
+using CookApps.AutoBattler;
+using CookApps.TeamBattle;
 using UnityEngine;
 
-public class SimpleBackground : MonoBehaviour
+public class BackgroundParallax : CachedMonoBehaviour
 {
-    public Transform targetCamera;
+    private Transform targetCamera;
+    private Camera _camera;
 
-    // 1.0ÀÌ¸é È­¸é¿¡ ¿ÏÀü °íÁ¤ (½ºÅ¸2 ¹æ½Ä)
-    // 0.99ÀÌ¸é ¾ÆÁÖ ¹Ì¼¼ÇÏ°Ô Ä«¸Þ¶óº¸´Ù ´Ê°Ô µû¶ó¿È (°Å¸®°¨ ±Ø´ëÈ­)
-    [Range(0.9f, 1.0f)]
+    [Range(0.5f, 1.0f)]
     public float followSpeed = 1.0f;
 
+    [Tooltip("ì¹´ë©”ë¼ ì¤Œì— ë”°ë¥¸ ìŠ¤ì¼€ì¼ ì¡°ì ˆ ë°°ìœ¨ (0 = ìŠ¤ì¼€ì¼ ê³ ì •, 1 = ì¤Œê³¼ ë™ì¼í•˜ê²Œ ìŠ¤ì¼€ì¼)")]
+    [Range(0f, 1.0f)]
+    public float scaleSpeed = 1.0f;
+
     private Vector3 offset;
+    private Vector3 initialScale;
+    private float initialOrthoSize;
 
-    void Start()
+    private void Awake()
     {
-        if (targetCamera == null) targetCamera = Camera.main.transform;
-
-        // ½ÃÀÛ ½ÃÁ¡ÀÇ Ä«¸Þ¶ó¿Í Çà¼º »çÀÌÀÇ °Å¸®¸¦ µü ÇÑ ¹ø ÀúÀå
-        offset = transform.position - targetCamera.position;
+        _camera = MainCameraHolder.MainCamera;
+        targetCamera = _camera.transform;
+        offset = CachedTr.position - targetCamera.position;
+        initialScale = CachedTr.localScale;
+        initialOrthoSize = _camera.orthographicSize;
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
-        // Ä«¸Þ¶ó À§Ä¡¿¡ ¿ÀÇÁ¼ÂÀ» ´õÇØ À§Ä¡¸¦ ÀâµÇ, 
-        // followSpeed¸¦ °öÇØ ¾ÆÁÖ ¹Ì¼¼ÇÑ Â÷ÀÌ¸¦ ¸¸µì´Ï´Ù.
-        transform.position = (targetCamera.position * followSpeed) + offset;
+        float zoomRatio = _camera.orthographicSize / initialOrthoSize;
+        float scaleRatio = Mathf.Lerp(1f, zoomRatio, scaleSpeed);
+
+        // ìŠ¤ì¼€ì¼ ë°°ìœ¨ì— ë”°ë¼ ìœ„ì¹˜ ì˜¤í”„ì…‹ë„ ì¡°ì ˆ
+        CachedTr.position = targetCamera.position * followSpeed + offset * scaleRatio;
+
+        // ì¹´ë©”ë¼ ì¤Œì— ë”°ë¥¸ ìŠ¤ì¼€ì¼ ì¡°ì ˆ
+        if (scaleSpeed > 0f)
+        {
+            CachedTr.localScale = initialScale * scaleRatio;
+        }
     }
 }
