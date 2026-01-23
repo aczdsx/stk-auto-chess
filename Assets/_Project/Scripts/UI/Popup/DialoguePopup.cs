@@ -184,8 +184,8 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            // _characterNameText.text = LanguageManager.Instance.GetDefaultText(_currentSpecDialogueData.character_name_token);
-            // _dialogueText.text = LanguageManager.Instance.GetDialogueText(_currentSpecDialogueData.text_desc_token);
+            _characterNameText.text = LanguageManager.Instance.GetDefaultText(_currentSpecDialogueData.character_name_token);
+            _dialogueText.text = LanguageManager.Instance.GetDialogueText(_currentSpecDialogueData.text_desc_token);
         }
 
         // 다음 대화로 넘어가기
