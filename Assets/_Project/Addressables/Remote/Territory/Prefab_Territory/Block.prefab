@@ -14588,7 +14588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc3339c4247441f822b6d4cf096e103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkPath: {fileID: 0}
+  walkPath: {fileID: 367817514406023676}
   elpisBuildings:
   - {fileID: 3065055436940413819}
   - {fileID: 4278948942270741447}
@@ -48652,6 +48652,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1474b5dcec9f0c488737a177042078e, type: 3}
+--- !u!1 &367817514406023676 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -430425971529219077, guid: a1474b5dcec9f0c488737a177042078e, type: 3}
+  m_PrefabInstance: {fileID: 9159215295551803911}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8689318030125954540 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a1474b5dcec9f0c488737a177042078e, type: 3}

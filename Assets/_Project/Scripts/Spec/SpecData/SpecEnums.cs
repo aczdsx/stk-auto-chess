@@ -636,6 +636,8 @@ namespace CookApps.AutoBattler
         Projectile_17553404 = 270,
         fx_common_asterism_sn_item_01 = 271,
         fx_common_asterism_sn_get_01 = 272,
+        Skill_17663506_1 = 273,
+        Skill_Passive_17663506_1 = 274,
     }
 
     public enum GlobalEffectProviderType
