@@ -592,8 +592,6 @@ namespace CookApps.AutoBattler.Prologue
                     InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
                         tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_401011_1);
-
                     var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
 
                     tile.OccupiedCharacter.GetDamaged(damage, owner);
