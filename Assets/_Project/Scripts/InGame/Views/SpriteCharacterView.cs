@@ -262,6 +262,14 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public void SpriteRendererSetActive(bool isActive)
+        {
+            foreach (var spriteRenderer in _spriteRendererList)
+            {
+                spriteRenderer.gameObject.SetActive(isActive);
+            }
+        }
+
         /// <summary>
         /// 외부에서 지정한 Material 적용 (고스트 캐릭터 등)
         /// </summary>
