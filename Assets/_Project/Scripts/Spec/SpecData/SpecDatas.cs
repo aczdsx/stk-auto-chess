@@ -1098,7 +1098,7 @@ namespace CookApps.AutoBattler
         public int dungeon_id;
         /// 좌표값 (x,y)
         public string coordinate;
-        /// 몬스터 id (테스트)
+        /// 몬스터 id
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int monster_id;
         /// 몬스터 레벨

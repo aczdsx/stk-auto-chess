@@ -40,6 +40,7 @@ namespace Prototypes.Movement
             _agent.acceleration = 1000f;
             _agent.angularSpeed = 0f;
             _agent.stoppingDistance = _stoppingDistance;
+            _agent.avoidancePriority = Random.Range(30, 70);
         }
 
         private bool TryGetRandomWanderPosition(out Vector3 result)
@@ -106,6 +107,7 @@ namespace Prototypes.Movement
                 // 대기 시작
                 _isWaiting = true;
                 _waitTimer = Random.Range(_minWaitTime, _maxWaitTime);
+                _agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
             }
         }
 
@@ -114,6 +116,7 @@ namespace Prototypes.Movement
             if (TryGetRandomWanderPosition(out var targetPosition))
             {
                 _currentTargetPosition = targetPosition;
+                _agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
                 _agent.SetDestination(targetPosition);
             }
         }
