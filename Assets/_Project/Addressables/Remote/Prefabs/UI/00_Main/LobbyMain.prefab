@@ -1505,6 +1505,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1486476337333836291}
     m_Modifications:
+    - target: {fileID: 1354750518427930461, guid: 394cd33e6626efc46b3e6b499a1ee991, type: 3}
+      propertyPath: reactionType
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 394cd33e6626efc46b3e6b499a1ee991, type: 3}
       propertyPath: m_Name
       value: Btn_QuestNew
@@ -1621,6 +1625,10 @@ PrefabInstance:
     - target: {fileID: 1342356078735501212, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354750518427930461, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: reactionType
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
       propertyPath: m_Name
@@ -2028,6 +2036,10 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1354750518427930461, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: reactionType
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
       propertyPath: m_Name
       value: Btn_ConsumeApEvent
@@ -2148,6 +2160,10 @@ PrefabInstance:
     - target: {fileID: 1342356078735501212, guid: fe2e8760966a7824ca5c2d06d92d6f38, type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354750518427930461, guid: fe2e8760966a7824ca5c2d06d92d6f38, type: 3}
+      propertyPath: reactionType
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: fe2e8760966a7824ca5c2d06d92d6f38, type: 3}
       propertyPath: m_Name
@@ -2681,6 +2697,10 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1354750518427930461, guid: 4f775cfa78c0a9142abce98397c6cf3c, type: 3}
+      propertyPath: reactionType
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 4f775cfa78c0a9142abce98397c6cf3c, type: 3}
       propertyPath: m_Name
       value: Btn_Shop
@@ -2801,6 +2821,10 @@ PrefabInstance:
     - target: {fileID: 1342356078735501212, guid: dee89b8a65c6bf040ba9a7a8350f1441, type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354750518427930461, guid: dee89b8a65c6bf040ba9a7a8350f1441, type: 3}
+      propertyPath: reactionType
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: dee89b8a65c6bf040ba9a7a8350f1441, type: 3}
       propertyPath: m_Name
@@ -3043,6 +3067,10 @@ PrefabInstance:
     - target: {fileID: 1342356078735501212, guid: 3f3079fe51f8374428af5e7bfd0b3445, type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354750518427930461, guid: 3f3079fe51f8374428af5e7bfd0b3445, type: 3}
+      propertyPath: reactionType
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 3f3079fe51f8374428af5e7bfd0b3445, type: 3}
       propertyPath: m_Name
@@ -3365,6 +3393,10 @@ PrefabInstance:
     - target: {fileID: 1342356078735501212, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354750518427930461, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: reactionType
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
       propertyPath: m_Name
