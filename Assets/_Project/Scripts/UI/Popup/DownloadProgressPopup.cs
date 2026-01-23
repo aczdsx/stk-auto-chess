@@ -93,6 +93,7 @@ namespace CookApps.AutoBattler
             _videoContainer.SetActive(false);
             await _videoPlayer.LoadAndPlayAsync(_popupData.VideoAssetReference);
             _videoContainer.SetActive(true);
+            _videoPlayer.Play();
         }
 
         /// <summary>

@@ -408,16 +408,27 @@ namespace CookApps.AutoBattler
 
         #region Addressables Download
 
+        // 테스트 모드: true로 설정하면 가라 데이터로 다운로드 UI 테스트
+        private const bool TestDownloadMode = false;
+        private const long TestDownloadSize = 150 * 1024 * 1024; // 150MB 가라 데이터
+        private const float TestDownloadDuration = 30f; // 5초 동안 다운로드 시뮬레이션
+
         /// <summary>
         /// Addressables 다운로드 사이즈 체크 및 다운로드 진행
         /// </summary>
         private async UniTask CheckAndDownloadAddressablesAsync()
         {
+            if (TestDownloadMode)
+            {
+                await TestDownloadAsync();
+                return;
+            }
+
             // 카탈로그 업데이트 체크
-            var catalogsToUpdate = await Addressables.CheckForCatalogUpdates().ToUniTask();
+            var catalogsToUpdate = await Addressables.CheckForCatalogUpdates().WaitUntilDone();
             if (catalogsToUpdate != null && catalogsToUpdate.Count > 0)
             {
-                await Addressables.UpdateCatalogs(catalogsToUpdate).ToUniTask();
+                await Addressables.UpdateCatalogs(catalogsToUpdate).WaitUntilDone();
             }
 
             // 전체 다운로드 사이즈 체크
@@ -446,6 +457,61 @@ namespace CookApps.AutoBattler
 
             // 다운로드 진행
             await DownloadAddressablesAsync(downloadKeys, totalDownloadSize);
+        }
+
+        /// <summary>
+        /// 가라 데이터로 다운로드 UI 테스트
+        /// </summary>
+        private async UniTask TestDownloadAsync()
+        {
+            CADebug.Log($"[TitleMain] TEST MODE - 가라 다운로드 시작: {DownloadConfirmPopup.FormatFileSize(TestDownloadSize)}");
+
+            // 다운로드 확인 팝업 표시
+            bool userConfirmed = await ShowDownloadConfirmPopupAsync(TestDownloadSize);
+            if (!userConfirmed)
+            {
+                CADebug.Log("[TitleMain] TEST MODE - User cancelled download");
+                return;
+            }
+
+            // 가라 다운로드 진행
+            var tcs = new UniTaskCompletionSource<bool>();
+            bool isCancelled = false;
+
+            var popupData = new DownloadProgressPopupData(
+                videoAssetReference: _downloadVideoAssetReference,
+                totalDownloadSizeBytes: TestDownloadSize,
+                onComplete: () => tcs.TrySetResult(true),
+                onCancel: () =>
+                {
+                    isCancelled = true;
+                    tcs.TrySetResult(false);
+                }
+            );
+
+            var progressPopup = await SceneUILayerManager.Instance.PushUILayerAsync<DownloadProgressPopup>(popupData);
+
+            // 가라 다운로드 시뮬레이션
+            float elapsed = 0f;
+            while (elapsed < TestDownloadDuration && !isCancelled)
+            {
+                elapsed += Time.deltaTime;
+                float progress = Mathf.Clamp01(elapsed / TestDownloadDuration);
+                long downloadedBytes = (long)(TestDownloadSize * progress);
+
+                progressPopup.UpdateProgress(progress, downloadedBytes);
+                await UniTask.Yield();
+            }
+
+            if (!isCancelled)
+            {
+                progressPopup.UpdateProgress(1f, TestDownloadSize);
+                await UniTask.Delay(500);
+                progressPopup.OnDownloadComplete();
+            }
+
+            await tcs.Task;
+            CADebug.Log("[TitleMain] TEST MODE - 가라 다운로드 완료");
         }
 
         private const string PreloadLabel = "preload";

@@ -50,7 +50,7 @@ namespace CookApps.AutoBattler
                 if (data.Id.GetCharacterId(out int charId))
                 {
                     var charInfo = SpecDataManager.Instance.GetCharacterData(charId);
-                    if (charInfo != null && charInfo.grade_type == GradeType.LEGENDARY && data.Count == 20)
+                    if (charInfo != null && charInfo.grade_type == GradeType.LEGENDARY && data.Id == charId)
                     {
                         isIncludeSSR = true;
                         break;

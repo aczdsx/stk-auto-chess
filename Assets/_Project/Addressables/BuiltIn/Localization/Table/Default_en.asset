@@ -4174,13 +4174,11 @@ MonoBehaviour:
   - m_Id: 3260753988542833
     m_Localized: ({0}/{1})
     m_Metadata:
-      m_Items:
-      - rid: 2768397085498409111
+      m_Items: []
   - m_Id: 3260753988542832
     m_Localized: '{0}%'
     m_Metadata:
-      m_Items:
-      - rid: 2768397085498409111
+      m_Items: []
   - m_Id: 3260753988542831
     m_Localized: "\uB2E4\uC6B4\uB85C\uB4DC \uC911"
     m_Metadata:
@@ -28601,5 +28599,3 @@ MonoBehaviour:
         m_Entries: 
         m_SharedEntries:
         - id: 3260753988542828
-        - id: 3260753988542832
-        - id: 3260753988542833
