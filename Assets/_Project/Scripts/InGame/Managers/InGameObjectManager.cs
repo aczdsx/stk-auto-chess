@@ -299,6 +299,7 @@ namespace CookApps.BattleSystem
             // Synergy 등록 안 함, 리스트에 추가 안 함
             // Material은 InGameTouchManager에서 SetHologramShader()로 적용
             ghostCtrl.AddNextState(typeof(CharacterStateReady));
+            ghostCtrl.GetCharacterView().SetFirstDirection(AllianceType.Player);
 
             return ghostCtrl;
         }

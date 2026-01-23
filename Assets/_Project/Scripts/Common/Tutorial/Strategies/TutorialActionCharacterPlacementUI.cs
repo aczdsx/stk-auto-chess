@@ -127,11 +127,18 @@ namespace CookApps.AutoBattler
             context.ArrowRectTransform.gameObject.SetActive(true);
             UpdateArrowPosition();
 
-            // 딤드 이미지 터치 통과 (드래그 가능하도록)
-            if (context.DimmedImage != null)
+            // 딤드 이미지는 raycastTarget 유지 (ICanvasRaycastFilter가 구멍 영역만 통과시킴)
+            // raycastTarget = false로 하면 모든 UI 터치가 통과되므로 제거
+
+            // 타겟 UI는 구멍과 상관없이 항상 터치 허용
+            if (context.TargetUIObj != null)
             {
-                context.DimmedImage.raycastTarget = false;
+                var targetRect = context.TargetUIObj.GetComponent<RectTransform>();
+                TutorialMaskRaycastFilter.AddAllowedUITarget(targetRect);
             }
+
+            // 3D 터치 허용 (캐릭터 드래그 가능하도록)
+            TutorialTouchBlocker.Allow3DTouch = true;
 
             // 상태 설정
             IsActive = true;
@@ -159,11 +166,17 @@ namespace CookApps.AutoBattler
                 context.DragObj.SetActive(false);
             }
 
-            // 딤드 이미지 터치 복원
-            if (context.DimmedImage != null)
+            // 딤드 이미지는 raycastTarget 유지 (ICanvasRaycastFilter로 제어)
+
+            // 타겟 UI 허용 해제
+            if (_initialTargetUI != null)
             {
-                context.DimmedImage.raycastTarget = true;
+                var targetRect = _initialTargetUI.GetComponent<RectTransform>();
+                TutorialMaskRaycastFilter.RemoveAllowedUITarget(targetRect);
             }
+
+            // 3D 터치 허용 해제
+            TutorialTouchBlocker.Allow3DTouch = false;
 
             // 마스크 업데이트 복원
             context.SkipMaskUpdate = false;

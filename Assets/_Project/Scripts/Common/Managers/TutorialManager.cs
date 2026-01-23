@@ -146,6 +146,10 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             return;
         }
 
+        // 튜토리얼 Canvas를 최상위로 설정하여 다른 UI 위에 표시
+        _canvas.overrideSorting = true;
+        _canvas.sortingOrder = 9999;
+
         _tutorialController.Initialize(() => HandleTutorialClose());
         IsTutorialCanvasEnabled = false;
     }
