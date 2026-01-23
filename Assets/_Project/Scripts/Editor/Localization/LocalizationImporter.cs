@@ -29,12 +29,6 @@ namespace CookApps.AutoBattler.Editor
         private const string LocalizationBasePath = "Assets/_Project/Addressables/BuiltIn/Localization";
         private const string LocaleFolder = "Locale";
         private const string TableFolder = "Table";
-        private const string DefaultTableName = "Default";
-        private const string DialogueTableName = "Dialogue";
-
-        // JSON 배열 키
-        private const string DefaultArrayKey = "Default";
-        private const string DialogueArrayKey = "Dialogue";
 
         // 토큰 키 필드명
         private const string TokenKeyField = "key";
@@ -186,17 +180,16 @@ namespace CookApps.AutoBattler.Editor
             var result = new ImportResult();
 
             // 테이블 타입에 따른 설정
-            string arrayKey = tableType == ImportTableType.Default ? DefaultArrayKey : DialogueArrayKey;
-            string tableName = tableType == ImportTableType.Default ? DefaultTableName : DialogueTableName;
+            string tableName = tableType == ImportTableType.Default ? LanguageManager.DefaultTableName : LanguageManager.DialogueTableName;
 
             try
             {
                 var root = JObject.Parse(json);
-                var languageArray = root[arrayKey] as JArray;
+                var languageArray = root[tableName] as JArray;
 
                 if (languageArray == null || languageArray.Count == 0)
                 {
-                    result.ErrorMessage = $"JSON에서 {arrayKey} 배열을 찾을 수 없습니다.";
+                    result.ErrorMessage = $"JSON에서 {tableName} 배열을 찾을 수 없습니다.";
                     return result;
                 }
 
@@ -204,7 +197,7 @@ namespace CookApps.AutoBattler.Editor
                 var detectedFields = DetectLanguageFields(languageArray);
                 if (detectedFields.Count == 0)
                 {
-                    result.ErrorMessage = $"{arrayKey} 데이터에서 언어 필드를 찾을 수 없습니다.";
+                    result.ErrorMessage = $"{tableName} 데이터에서 언어 필드를 찾을 수 없습니다.";
                     return result;
                 }
 
@@ -269,6 +262,7 @@ namespace CookApps.AutoBattler.Editor
 
                     int addedCount = 0;
                     int updatedCount = 0;
+                    int skippedCount = 0;
 
                     // 8. 데이터 추가/업데이트
                     foreach (var entry in languageData)
@@ -282,11 +276,16 @@ namespace CookApps.AutoBattler.Editor
                         var existingEntry = stringTable.GetEntry(tokenKey);
                         if (existingEntry != null)
                         {
-                            // 기존 엔트리 업데이트 (값이 다른 경우에만)
+                            // 기존 엔트리: 값이 다른 경우에만 업데이트
                             if (existingEntry.Value != newText)
                             {
                                 existingEntry.Value = newText;
                                 updatedCount++;
+                            }
+                            else
+                            {
+                                // 값이 같으면 스킵
+                                skippedCount++;
                             }
                         }
                         else
@@ -314,6 +313,7 @@ namespace CookApps.AutoBattler.Editor
 
                     result.AddedPerLanguage[localeCode] = addedCount;
                     result.UpdatedPerLanguage[localeCode] = updatedCount;
+                    result.SkippedPerLanguage[localeCode] = skippedCount;
 
                     EditorUtility.SetDirty(stringTable);
                 }
@@ -461,59 +461,6 @@ namespace CookApps.AutoBattler.Editor
         }
 
         /// <summary>
-        /// 에디터에서 Default 테이블의 한국어 텍스트 가져오기
-        /// </summary>
-        public static string GetDefaultText(string key)
-        {
-            return GetText(key, "ko", DefaultTableName);
-        }
-
-        /// <summary>
-        /// 에디터에서 Dialogue 테이블의 한국어 텍스트 가져오기
-        /// </summary>
-        public static string GetDialogueText(string key)
-        {
-            return GetText(key, "ko", DialogueTableName);
-        }
-
-        /// <summary>
-        /// StringTableCollection의 모든 엔트리 제거
-        /// </summary>
-        private static void ClearTableCollection(StringTableCollection collection)
-        {
-            // 1. 각 StringTable의 엔트리 제거
-            foreach (var table in collection.StringTables)
-            {
-                if (table == null)
-                    continue;
-
-                // StringTable의 모든 엔트리 KeyId 수집
-                var keyIds = new List<long>();
-                foreach (var entry in table.Values)
-                {
-                    keyIds.Add(entry.KeyId);
-                }
-
-                // 엔트리 제거
-                foreach (var keyId in keyIds)
-                {
-                    table.RemoveEntry(keyId);
-                }
-
-                EditorUtility.SetDirty(table);
-            }
-
-            // 2. SharedTableData의 모든 엔트리 제거
-            var entries = collection.SharedData.Entries.ToList();
-            foreach (var entry in entries)
-            {
-                collection.SharedData.RemoveKey(entry.Id);
-            }
-
-            EditorUtility.SetDirty(collection.SharedData);
-        }
-
-        /// <summary>
         /// StringTableCollection 가져오기 또는 생성
         /// </summary>
         private static StringTableCollection GetOrCreateTableCollection(string tableName)
@@ -614,6 +561,7 @@ namespace CookApps.AutoBattler.Editor
             public List<string> DetectedLanguages { get; set; } = new();
             public Dictionary<string, int> AddedPerLanguage { get; set; } = new();
             public Dictionary<string, int> UpdatedPerLanguage { get; set; } = new();
+            public Dictionary<string, int> SkippedPerLanguage { get; set; } = new();
             public Dictionary<string, ImportResult> TableResults { get; set; } = new();
 
             public string GetSummary()
@@ -637,9 +585,10 @@ namespace CookApps.AutoBattler.Editor
                         sb.AppendLine($"  엔트리: {tableResult.Value.TotalEntries}개");
                         foreach (var lang in tableResult.Value.DetectedLanguages)
                         {
-                            int added = tableResult.Value.AddedPerLanguage.TryGetValue(lang, out var a) ? a : 0;
-                            int updated = tableResult.Value.UpdatedPerLanguage.TryGetValue(lang, out var u) ? u : 0;
-                            sb.AppendLine($"    {lang}: 추가 {added}, 업데이트 {updated}");
+                            int added = tableResult.Value.AddedPerLanguage.GetValueOrDefault(lang, 0);
+                            int updated = tableResult.Value.UpdatedPerLanguage.GetValueOrDefault(lang, 0);
+                            int skipped = tableResult.Value.SkippedPerLanguage.GetValueOrDefault(lang, 0);                                                                     
+                            sb.AppendLine($"    {lang}: 추가 {added}, 업데이트 {updated}, 스킵 {skipped}");
                         }
                         sb.AppendLine();
                     }
@@ -648,9 +597,10 @@ namespace CookApps.AutoBattler.Editor
                 {
                     foreach (var lang in DetectedLanguages)
                     {
-                        int added = AddedPerLanguage.TryGetValue(lang, out var a) ? a : 0;
-                        int updated = UpdatedPerLanguage.TryGetValue(lang, out var u) ? u : 0;
-                        sb.AppendLine($"  {lang}: 추가 {added}, 업데이트 {updated}");
+                        int added = AddedPerLanguage.GetValueOrDefault(lang, 0);
+                        int updated = UpdatedPerLanguage.GetValueOrDefault(lang, 0);
+                        int skipped = SkippedPerLanguage.GetValueOrDefault(lang, 0);
+                        sb.AppendLine($"    {lang}: 추가 {added}, 업데이트 {updated}, 스킵 {skipped}");
                     }
                 }
 

@@ -77,7 +77,6 @@ namespace CookApps.BattleSystem
                 default:
                     break;
             }
-            effectVfxNameType = InGameVfxNameType.fx_common_supply_energy_drink;
 
             if (effectVfxNameType == InGameVfxNameType.NONE)
                 return;
