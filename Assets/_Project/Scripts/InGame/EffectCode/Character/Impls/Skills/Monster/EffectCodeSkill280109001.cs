@@ -35,6 +35,15 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
         _isReadyToActivate = false;
         IsSkillActivated = false;
 
+        Span<double> buffStats = stackalloc double[3];
+
+        buffStats.Clear();
+        buffStats[0] = codeId;
+        buffStats[1] = 999f;//duration
+        buffStats[2] = 1;//value?
+
+        EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_IMMUNE, owner, buffStats, source);
+
         _emptyTiles = new List<InGameTile>();
         _specSkill = SpecDataManager.Instance.GetSkillDataList(codeId).First();
         owner.SetStateType(typeof(CharacterStateAttack), typeof(CharacterStateAttackAnimEventDamage));

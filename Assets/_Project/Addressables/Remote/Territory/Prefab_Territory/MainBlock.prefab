@@ -7063,9 +7063,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 4778871190368135222}
-  targetRatio: 0.8
+  targetRatio: 0.6
   setOnOverRatio: 1
-  fadeSpeed: 5
+  fadeSpeed: 3
 --- !u!1 &8542490920722444295
 GameObject:
   m_ObjectHideFlags: 0
