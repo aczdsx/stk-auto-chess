@@ -134,7 +134,8 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
 
             // 로비 진입 시 현재 가이드 미션 튜토리얼 체크
-            await WatchTutorialGuideMissionLoopAsync((int)_guideMissionDataBridge.GuideMissionId);
+
+            // await WatchTutorialGuideMissionLoopAsync((int)_guideMissionDataBridge.GuideMissionId);
 
             var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
             _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);

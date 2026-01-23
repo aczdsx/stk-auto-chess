@@ -63,6 +63,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
     public async UniTask<bool> CheckAndInitTutorialWithGuideMissionInfo(GuideMissionInfo info)
     {
+        if(true) return false;
         if (IsClearedGuideMission(info.id))
         {
             return false;
