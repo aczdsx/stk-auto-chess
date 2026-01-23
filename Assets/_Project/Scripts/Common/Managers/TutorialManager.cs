@@ -99,9 +99,9 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     private void SubscribeGuideMissionChanged()
     {
-        // var guideMissionBridge = new GuideMissionDataBridge();
-        // _missionIdChangedSubscription = guideMissionBridge.OnMissionIdChanged
-        //     .Subscribe(missionId => OnGuideMissionIdChanged((int)missionId));
+        var guideMissionBridge = new GuideMissionDataBridge();
+        _missionIdChangedSubscription = guideMissionBridge.OnMissionIdChanged
+            .Subscribe(missionId => OnGuideMissionIdChanged((int)missionId));
     }
 
     /// <summary>
@@ -181,6 +181,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
         var pending = _pendingLobbyTutorial;
         _pendingLobbyTutorial = null;
+        if(pending.id > 101) {return;}
         StartLobbyTutorialAsync(pending).Forget();
     }
 

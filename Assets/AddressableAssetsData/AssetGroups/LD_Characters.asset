@@ -51,6 +51,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0e2d75f92800b7a42b1f51245ee869ca
+    m_Address: LD_Characters/20405/Illust
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 11032462e228d4e7a8710005828e806d
     m_Address: LD_Characters/15362202/Spine
     m_ReadOnly: 0
@@ -154,7 +159,7 @@ MonoBehaviour:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 53f32a641afd24fa2b48d6affe87c4bf
-    m_Address: LD_Characters/UI_15252102
+    m_Address: LD_Characters/UI_20405
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
@@ -218,6 +223,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b3a4af451b431049bfc2b2f1cc7920f
+    m_Address: Assets/_Project/Addressables/Remote/LD/Characters/20405/GenerateResources/UI_20405.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8e8236f7c4422411e8059a76ccfd73ec
     m_Address: LD_Characters/15642501/Illust
