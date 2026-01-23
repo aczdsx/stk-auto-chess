@@ -514,6 +514,24 @@ public class CameraGestureController : CachedMonoBehaviour
         this.followSpeed = followSpeed;
     }
 
+    public void SetAutoMoving(bool value)
+    {
+        isAutoMoving = value;
+    }
+
+    public void SetCameraPositionAndZoom(Vector3 position, float zoom)
+    {
+        mainCameraTransform.position = position;
+        targetPosition = position;
+
+        var clampedZoom = Mathf.Clamp(zoom, minZoom, cachedMaxAllowedZoom);
+        mainCamera.orthographicSize = clampedZoom;
+        targetZoom = clampedZoom;
+
+        needsPositionSmoothing = false;
+        needsZoomSmoothing = false;
+    }
+
     private void UpdateFollowTarget()
     {
         // 카메라 회전을 고려하여 타겟이 화면 중앙에 오도록 카메라 위치 계산
