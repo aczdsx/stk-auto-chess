@@ -26,6 +26,10 @@ namespace CookApps.BattleSystem
             ENERGY_DRINK = 6,
         }
 
+        private InGameVfx _supplyVfx;// 보급품떨어지는 vfx
+        private CharacterController _targetCharacter;// 보급품을 받는 캐릭터
+        private InGameVfxNameType _supplyVfxNameType;// 부여되는 아이템 타입
+
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
             IEffectCodeSource source)
         {
@@ -87,7 +91,8 @@ namespace CookApps.BattleSystem
             List<CharacterController> troubleShooterCharacterList = new();
             foreach (var character in playerCharacterList)
             {
-                if (character.GetCharacterStat().Spec.character_stella_type == SynergyType.TROUBLESHOOTER && troubleShooterCharacterList.Count < 3)
+                if (character.GetCharacterStat().Spec.character_stella_type == SynergyType.TROUBLESHOOTER
+                && character.IsAlive)
                 {
                     troubleShooterCharacterList.Add(character);
                     break;
@@ -96,40 +101,36 @@ namespace CookApps.BattleSystem
             if (troubleShooterCharacterList.Count == 0)
                 return;
 
-            int randomIndex = InGameRandomManager.GetUniversalRandomValue(troubleShooterCharacterList.Count - 1);
+            int randomIndex = InGameRandomManager.GetUniversalRandomValue(0, troubleShooterCharacterList.Count - 1);
             SpawnSupplyVfx(troubleShooterCharacterList[randomIndex], effectVfxNameType);
         }
 
         private void SpawnSupplyVfx(CharacterController targetCharacter, InGameVfxNameType supplyVfxNameType)
         {
-            // 시작 위치: 캐릭터 위쪽 높은 위치
-            Vector3 startPos = targetCharacter.Position3D + Vector3.up * 10f;
-
+            _targetCharacter = targetCharacter;
+            Vector3 startPos = targetCharacter.SkillRootTransformFollowable.GetPosition();
+            _supplyVfxNameType = supplyVfxNameType;
             // VFX 생성
-            var supplyVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_supply_varient, startPos);
+            _supplyVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_supply_varient, startPos);
 
-            // 낙하산 이동 방식 사용
-            var movement = InGameVfxMovementPool.Get<InGameVfxMovementParachute>();
-
-            // CharacterController를 추적하도록 설정
-            var parachuteCurveData = SoDataProvider.Instance.Get<ParachuteCurveData>();
-            if (parachuteCurveData == null)
+            _supplyVfx.Initialize(false);
+            if (_supplyVfx is InGameVfxWithAnimation)
             {
-                Debug.LogError("ParachuteCurveData is null");
+                var animatorVfx = _supplyVfx as InGameVfxWithAnimation;
+                animatorVfx.SetOnVfxEndCallback(OnEndSupplyAnimation);
+                animatorVfx.SetOnCustomAnimationEventCallback((eventKey, positions) => OnReachedTargetHandler(eventKey, positions));
             }
-            movement.SetData(parachuteCurveData, targetCharacter, startPos);
+        }
 
-            supplyVfx.Initialize(false, movement);
+        // 낙하산이 목표 지점에 도착했을 때 처리
+        private void OnReachedTargetHandler(AnimationEventKey eventKey, IReadOnlyList<Transform> positions)
+        {
+            ApplySupplyEffectCode(_targetCharacter, _supplyVfxNameType);
+        }
 
-            // 낙하산이 목표 지점에 도착했을 때 처리
-            void OnReachedTargetHandler()
-            {
-                ApplySupplyEffectCode(targetCharacter, supplyVfxNameType);
-                //여기서 능력치 부여
-                supplyVfx.Remove();
-            }
-
-            movement.OnReachedTarget += OnReachedTargetHandler;
+        private void OnEndSupplyAnimation(IReadOnlyList<Transform> positions)
+        {
+            _supplyVfx.Remove();
         }
 
 
@@ -137,6 +138,7 @@ namespace CookApps.BattleSystem
         {
             if (targetCharacter == null || targetCharacter.IsAlive == false)
                 return;
+
             var tSData = SpecDataManager.Instance.GetSpecSynergyList(synergyType: SynergyType.TROUBLESHOOTER);
             if (tSData == null || tSData.Count == 0)
                 return;

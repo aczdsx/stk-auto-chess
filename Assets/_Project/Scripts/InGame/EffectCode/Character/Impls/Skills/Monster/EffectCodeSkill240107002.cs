@@ -242,6 +242,8 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         if (targetTile == null || owner == null)
             return;
 
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_mon_skill_7002_01);
+
         _targetMoveTile = targetTile;
         _originalTile = owner.CurrentTile; // 원래 타일 저장
 
