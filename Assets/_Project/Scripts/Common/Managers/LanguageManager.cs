@@ -11,7 +11,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 namespace CookApps.AutoBattler
 {
     public class LanguageManager : Singleton<LanguageManager>
-    {        
+    {
         public const string DefaultTableName = "Default";
         public const string DialogueTableName = "Dialogue";
 
@@ -80,12 +80,12 @@ namespace CookApps.AutoBattler
             return language;
         }
 
-        
+
         public async UniTask InitializeAsync()
         {
             if (isInitialized)
                 return;
-            
+
             InitLanguage();
 
             // Unity Localization 초기화 대기
@@ -206,13 +206,13 @@ namespace CookApps.AutoBattler
                     break;
                 }
             }
-            
+
             if (targetLocale == null || LocalizationSettings.SelectedLocale == targetLocale)
             {
                 Debug.LogWarning($"[LocalizationLoader] 언어 변경 실패: {language} ({localeCode})");
                 return;
             }
-            
+
             LocalizationSettings.SelectedLocale = targetLocale;
             UpdateLanguage(language);
 
@@ -268,10 +268,25 @@ namespace CookApps.AutoBattler
                     SystemLanguage.English => (int)SystemLanguage.English,
                     _ => (int)SystemLanguage.English
                 };
-                UpdateLanguage((SystemLanguage)settingLanguage);
             }
+
+            var language = (SystemLanguage)settingLanguage;
+            language = GetLocaleCode(language, out var localeCode);
+
+            // LocalizationSettings.SelectedLocale 설정
+            var availableLocales = LocalizationSettings.AvailableLocales;
+            foreach (var locale in availableLocales.Locales)
+            {
+                if (locale.Identifier.Code == localeCode)
+                {
+                    LocalizationSettings.SelectedLocale = locale;
+                    break;
+                }
+            }
+
+            UpdateLanguage(language);
         }
-        
+
         private void UpdateLanguage(SystemLanguage language)
         {
             var settingLanguage = language switch
@@ -282,7 +297,7 @@ namespace CookApps.AutoBattler
             };
             if (CurrentLanguageType == settingLanguage)
                 return;
-            CurrentLanguageType = CurrentLanguageType;
+            CurrentLanguageType = settingLanguage;
             Preference.SavePreference(Pref.LANGUAGE, (int)settingLanguage);
         }
 
