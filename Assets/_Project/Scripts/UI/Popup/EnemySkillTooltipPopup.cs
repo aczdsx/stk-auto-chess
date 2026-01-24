@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
@@ -13,9 +14,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _dimButton;
 
         [Space(10)]
-        [SerializeField] private SpriteLoader _skillIconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _skillNameText;
-        [SerializeField] private TextMeshProUGUI _skillDescText;
+
+        [Space(10)]
+        [SerializeField] private List<SpriteLoader> _rangeIconSpriteLoaders;
+        [SerializeField] private List<TextMeshProUGUI> _rangeTexts;
 
         protected override void Awake()
         {
@@ -46,10 +49,10 @@ namespace CookApps.AutoBattler
             if (skillList == null || skillList.Count == 0) return;
 
             var skillData = skillList[0];
-
-            _skillIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSkillSprite(skillData.skill_group_id)).Forget();
             _skillNameText.text = LanguageManager.Instance.GetDefaultText(skillData.skill_name_token);
-            _skillDescText.text = LanguageManager.Instance.GetDefaultText(skillData.skill_desc_token);
+
+            _rangeIconSpriteLoaders[0].SetSprite(SpriteNameParser.GetCharacterSkillSprite(skillData.skill_group_id)).Forget();
+            _rangeTexts[0].text = LanguageManager.Instance.GetDefaultText(skillData.skill_desc_token);
         }
 
         private void OnClickClose()

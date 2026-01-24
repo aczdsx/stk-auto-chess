@@ -14,8 +14,6 @@ public partial class EffectCodeDebuffPoision : EffectCodeDebuffBase
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
-
-
         base.Initialize(codeInfo, container, source);
         _stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
@@ -95,7 +93,7 @@ public partial class EffectCodeDebuffPoision : EffectCodeDebuffBase
 
             foreach (var data in _stackDatas)
             {
-                var damage = owner.CalculateDamageAmount(owner.HP * data.value, 0, owner, codeId, true);
+                var damage = owner.CalculateDamageAmount(data.value, 0, owner, codeId, true);
                 owner.GetDamaged(damage, owner);
             }
         }
