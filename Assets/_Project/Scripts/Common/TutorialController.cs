@@ -196,8 +196,11 @@ public class TutorialController : MonoBehaviour
         };
     }
 
-    public void SetTutorial(List<TutorialDialogue> specTutorialList, bool isLongShow)
+    public async UniTaskVoid SetTutorial(List<TutorialDialogue> specTutorialList, bool isLongShow)
     {
+        // Dialogue 테이블 로드 (튜토리얼 텍스트 표시 전 필수)
+        await LanguageManager.Instance.LoadDialogueTableAsync();
+
         _currentSpecTutorialList = specTutorialList;
         _tutorialListIndex = 0;
         _actionContext.TargetUnmaskObj = null;
@@ -260,7 +263,7 @@ public class TutorialController : MonoBehaviour
             _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterInfo.prefab_id)).Forget();
 
             _characterNameText.text = LanguageManager.Instance.GetDefaultText(characterInfo.name_token);
-            _descText.text = LanguageManager.Instance.GetDefaultText(CurrentSpecTutorial.desc_key);
+            _descText.text = LanguageManager.Instance.GetDialogueText(CurrentSpecTutorial.desc_key);
 
             // 말풍선 위치 결정
             var targetPosition = CalculateDialogueBubblePosition(CurrentSpecTutorial);

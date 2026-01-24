@@ -36,7 +36,7 @@ namespace CookApps.AutoBattler
             context.ArrowRectTransform.gameObject.SetActive(false);
 
             // 토스트 메시지 텍스트 설정 (desc_key 사용)
-            string message = LanguageManager.Instance.GetDefaultText(context.CurrentTutorial.desc_key);
+            string message = LanguageManager.Instance.GetDialogueText(context.CurrentTutorial.desc_key);
             context.TutorialToastText.text = message;
 
             // 토스트 오브젝트 활성화 및 애니메이션 시작
