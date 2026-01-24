@@ -125,6 +125,97 @@ namespace CookApps.TeamBattle.UIManagements
             GoToNextSceneInternal(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptName);
         }
 
+        /// <summary>
+        /// STAGE_CLEAR_NANI + STAGE_ENTER_NANI 트리거를 연속으로 처리하여 씬 전환
+        /// 스테이지 클리어 후 다음 스테이지로 이동할 때 사용
+        /// 흐름: StageClear Nani → StageEnter Nani → 목적지 씬 (없는 트리거는 스킵)
+        /// </summary>
+        /// <param name="nextScene">목적지 씬 이름</param>
+        /// <param name="clearedStageId">클리어한 스테이지 ID (STAGE_CLEAR_NANI 트리거용)</param>
+        /// <param name="enterStageId">진입할 스테이지 ID (STAGE_ENTER_NANI 트리거용)</param>
+        /// <param name="nextSceneData">목적지 씬 데이터</param>
+        /// <param name="sceneLoadingEventReceiver">씬 로딩 이벤트 리시버</param>
+        public static void GoToNextSceneWithStageClearAndEnterTrigger(string nextScene, int clearedStageId, int enterStageId, object nextSceneData = null, SceneLoadingEventReceiver sceneLoadingEventReceiver = null)
+        {
+            Debug.Log($"[SceneLoading] GoToNextSceneWithStageClearAndEnterTrigger: clearedStageId={clearedStageId}, enterStageId={enterStageId}");
+
+            // 두 트리거 모두 검색
+            var clearNaniScript = OnGetStageClearNaninovelTrigger?.Invoke(clearedStageId);
+            var enterNaniScript = OnGetStageEnterNaninovelTrigger?.Invoke(enterStageId);
+
+            // 케이스 1: 둘 다 없음 → 바로 목적지로
+            if (string.IsNullOrEmpty(clearNaniScript) && string.IsNullOrEmpty(enterNaniScript))
+            {
+                GoToNextSceneInternal(nextScene, nextSceneData, sceneLoadingEventReceiver, null);
+                return;
+            }
+
+            // 케이스 2: Clear만 있음 → Clear 재생 후 목적지로
+            if (!string.IsNullOrEmpty(clearNaniScript) && string.IsNullOrEmpty(enterNaniScript))
+            {
+                GoToNextSceneInternal(nextScene, nextSceneData, sceneLoadingEventReceiver, clearNaniScript);
+                return;
+            }
+
+            // 케이스 3: Enter만 있음 → Enter 재생 후 목적지로
+            if (string.IsNullOrEmpty(clearNaniScript) && !string.IsNullOrEmpty(enterNaniScript))
+            {
+                GoToNextSceneInternal(nextScene, nextSceneData, sceneLoadingEventReceiver, enterNaniScript);
+                return;
+            }
+
+            // 케이스 4: 둘 다 있음 → Clear 재생 → Enter 재생 → 목적지로 (체이닝)
+            GoToNextSceneViaNaninovelChain(nextScene, nextSceneData, sceneLoadingEventReceiver, clearNaniScript, enterNaniScript);
+        }
+
+        /// <summary>
+        /// 나니노벨 체인 실행 (첫 번째 → 두 번째 → 목적지)
+        /// </summary>
+        private static void GoToNextSceneViaNaninovelChain(string nextScene, object nextSceneData, SceneLoadingEventReceiver sceneLoadingEventReceiver, string firstScript, string secondScript)
+        {
+            // 두 번째 나니노벨 종료 시 목적지로 이동하는 액션
+            System.Action onSecondNaninovelEnd = () =>
+            {
+                SceneUILayerManager.Instance.isSceneChanging = true;
+                var data = new SceneLoadingData
+                {
+                    CurrentSceneName = "Naninovel",
+                    NextSceneName = nextScene,
+                    NextSceneData = nextSceneData,
+                    SceneLoadingEventReceiver = sceneLoadingEventReceiver,
+                    NaninovelScriptName = null
+                };
+                SceneUILayerManager.Instance.ChangeScene("SceneLoading", data);
+            };
+
+            // 첫 번째 나니노벨 종료 시 두 번째 나니노벨로 이동하는 액션
+            System.Action onFirstNaninovelEnd = () =>
+            {
+                SceneUILayerManager.Instance.isSceneChanging = true;
+                var naninovelData = new SceneLoadingData
+                {
+                    CurrentSceneName = "Naninovel",
+                    NextSceneName = "Naninovel",
+                    NextSceneData = (secondScript, onSecondNaninovelEnd),
+                    SceneLoadingEventReceiver = null,
+                    NaninovelScriptName = secondScript
+                };
+                SceneUILayerManager.Instance.ChangeScene("SceneLoading", naninovelData);
+            };
+
+            // 첫 번째 나니노벨 씬으로 이동
+            SceneUILayerManager.Instance.isSceneChanging = true;
+            var firstNaninovelData = new SceneLoadingData
+            {
+                CurrentSceneName = SceneUILayerManager.Instance.CurrentSceneName,
+                NextSceneName = "Naninovel",
+                NextSceneData = (firstScript, onFirstNaninovelEnd),
+                SceneLoadingEventReceiver = null,
+                NaninovelScriptName = firstScript
+            };
+            SceneUILayerManager.Instance.ChangeScene("SceneLoading", firstNaninovelData);
+        }
+
         private static void GoToNextSceneInternal(string nextScene, object nextSceneData, SceneLoadingEventReceiver sceneLoadingEventReceiver, string naninovelScriptName)
         {
             // 나니노벨이 있으면 나니노벨 씬으로 먼저 이동

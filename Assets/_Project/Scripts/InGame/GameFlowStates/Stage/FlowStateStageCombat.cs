@@ -70,13 +70,13 @@ public class FlowStateStageCombat : StateCombatBase
         if (isSize75)
         {
             // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(7.5f, new Vector3(0, 2.0f, -10), 1.0f).Forget();
-            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.DefaultCombat);
         }
         else
         {
             // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(8.5f, new Vector3(0, 1.5f, -10), 1.0f).Forget();
             // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(6.0f, new Vector3(-12.0f, 10.0f, -12f), 1.0f).Forget();
-            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.LargeSize);
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.LargeSizeCombat);
 
         }
         InGameObjectManager.Instance.ClearTargetLine();
@@ -96,7 +96,7 @@ public class FlowStateStageCombat : StateCombatBase
             {
                 if (character.CharacterId == 3401)
                 {
-                    SetSkillCooltimeRatio(character, 0.36f);
+                    SetSkillCooltimeRatio(character, 0.365f);
                     break;
                 }
             }

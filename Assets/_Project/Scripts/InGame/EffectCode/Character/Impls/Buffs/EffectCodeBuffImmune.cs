@@ -15,10 +15,10 @@ public partial class EffectCodeBuffImmune : EffectCodeBuffBase
         _stackDatas = ListPool<BuffStackData>.Get();
         var buffStackData = GenericPool<BuffStackData>.Get();
         buffStackData.SetData(
-            codeInfo.GetCodeStatToInt(0),
-            codeInfo.GetCodeStatToFloat(1),
-            codeInfo.GetCodeStat(2),
-            source
+            sourceCodeId: codeInfo.GetCodeStatToInt(0),
+            duration: codeInfo.GetCodeStatToFloat(1),
+            value: codeInfo.GetCodeStat(2),
+            source: source
         );
         _stackDatas.Add(buffStackData);
         owner.AddBuffDebuffType(buffDebuffType);

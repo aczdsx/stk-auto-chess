@@ -10575,7 +10575,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3062085271551997920
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36795,7 +36795,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8566873880576249644, guid: fa74010772263af47a5c097643f88006, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 2631.403
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

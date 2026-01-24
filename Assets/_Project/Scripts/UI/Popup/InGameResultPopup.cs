@@ -255,7 +255,7 @@ namespace CookApps.AutoBattler
 
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextSceneWithStageClearTrigger("InGame", InGameManager.Instance.SpecStage.stage_id, inGameParams);
+            SceneLoading.GoToNextSceneWithStageClearAndEnterTrigger("InGame", InGameManager.Instance.SpecStage.stage_id, nextStageData.stage_id, inGameParams);
         }
 
         private async UniTask OnClickRetryStageButtonAsync()

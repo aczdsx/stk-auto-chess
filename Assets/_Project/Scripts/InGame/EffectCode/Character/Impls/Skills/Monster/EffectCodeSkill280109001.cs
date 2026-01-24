@@ -213,6 +213,7 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
             characterView.CachedTr.localPosition = targetTile.View.Position;
             characterView.LookAt(owner.CurrentTile, owner.Target.CurrentTile);
         }
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_mon_skill_toma_02);
 
     }
 
@@ -235,17 +236,19 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
         base.OnPreRemoved();
     }
 
-
+#region toma normal attack
     public override void OnStateNormalAttackDamageEvent(CharacterController.DamageInfo defaultDamageInfo, int executeIndex, int totalLength)
     {
         base.OnStateNormalAttackDamageEvent(defaultDamageInfo, executeIndex, totalLength);
 
         if (executeIndex == 0)
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_mon_skill_toma_01);
             ExecuteSkillOne(defaultDamageInfo);
         }
         else if (executeIndex == 1)
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_mon_skill_toma_01);
             ExecuteSkillTwo(defaultDamageInfo);
         }
 
@@ -294,5 +297,5 @@ public partial class EffectCodeSkill280109001 : EffectCodeCharacterBase
             }
         }
     }
-
+#endregion
 }

@@ -91,6 +91,9 @@ public enum SoundFX
     snd_sfx_synergy_nova_spirit,
     snd_sfx_skill_a_3405_01,
     snd_sfx_skill_a_3405_02,
+    snd_sfx_mon_skill_7002_01, //빅마우스
+    snd_sfx_mon_skill_toma_01,  // 토마
+    snd_sfx_mon_skill_toma_02,  // 토마
     
 
     // Character Skill

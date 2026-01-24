@@ -33,6 +33,8 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
         Default = 0,
         LobbyCombat = 1,
         LargeSize = 2,
+        DefaultCombat = 3,
+        LargeSizeCombat = 4,
     }
 
     private void Awake()
@@ -145,13 +147,19 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
         switch (mode)
         {
             case CameraPositionMode.Default:
-                SetCameraSize(6.0f, new Vector3(-15.0f, 10.0f, -12f), 1.0f).Forget();
+                SetCameraSize(6.0f, new Vector3(-15.0f, 9.5f, -12f), 1.0f).Forget();
                 break;
             case CameraPositionMode.LobbyCombat:
                 SetCameraSize(7.5f, new Vector3(0, 2.0f, -10), 1.0f).Forget();
                 break;
             case CameraPositionMode.LargeSize:
-                SetCameraSize(7.0f, new Vector3(-15.3f, 9.3f, -12), 1.0f).Forget();
+                SetCameraSize(7.0f, new Vector3(-15.0f, 9.5f, -12f), 1.0f).Forget();
+                break;
+            case CameraPositionMode.DefaultCombat:
+                SetCameraSize(5.0f, new Vector3(-15.0f, 11.0f, -12f), 1.0f).Forget();
+                break;
+            case CameraPositionMode.LargeSizeCombat:
+                SetCameraSize(6.5f, new Vector3(-15.0f, 11.0f, -12f), 1.0f).Forget();
                 break;
         }
     }

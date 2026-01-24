@@ -12722,7 +12722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4036295859474581189
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12766,8 +12766,6 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  _downloadLabels:
-  - default
 --- !u!223 &8191710119406015283
 Canvas:
   m_ObjectHideFlags: 0

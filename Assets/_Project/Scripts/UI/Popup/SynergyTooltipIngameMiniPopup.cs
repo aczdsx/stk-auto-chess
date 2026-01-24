@@ -29,6 +29,7 @@ namespace CookApps.AutoBattler
         private ISpecSynergyData _synergyData;
         private ISpecSynergyData _nextSynergyData;
         private int _count;
+        private bool _isActive;
 
         /// <summary>
         /// 팝업 파라미터 데이터
@@ -40,14 +41,16 @@ namespace CookApps.AutoBattler
             public readonly ISpecSynergyData SynergyData;
             public readonly ISpecSynergyData NextSynergyData;
             public readonly RectTransform ButtonRect;
+            public readonly bool IsActive;
 
-            public PopupParam(SynergyType synergyType, int count, ISpecSynergyData synergyData, ISpecSynergyData nextSynergyData, RectTransform buttonRect)
+            public PopupParam(SynergyType synergyType, int count, ISpecSynergyData synergyData, ISpecSynergyData nextSynergyData, RectTransform buttonRect, bool isActive)
             {
                 SynergyType = synergyType;
                 Count = count;
                 SynergyData = synergyData;
                 NextSynergyData = nextSynergyData;
                 ButtonRect = buttonRect;
+                IsActive = isActive;
             }
         }
 
@@ -74,6 +77,7 @@ namespace CookApps.AutoBattler
                 _synergyData = popupParam.SynergyData;
                 _nextSynergyData = popupParam.NextSynergyData;
                 buttonRect = popupParam.ButtonRect;
+                _isActive = popupParam.IsActive;
             }
 
             SetSynergyInfo();
@@ -122,8 +126,7 @@ namespace CookApps.AutoBattler
             // 시너지 UI 아이콘 설정
             if (_synergyUI != null)
             {
-                _synergyUI.SetSynergyUI(_synergyType, _synergyData.grade > 0);
-                // _synergyUI.SetSynergy(_synergyType, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
+                _synergyUI.SetSynergyUI(_synergyType, _isActive);
             }
 
             // 시너지 이름 설정 (예: "바람 속성 2단계")

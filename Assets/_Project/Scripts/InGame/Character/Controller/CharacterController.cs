@@ -248,6 +248,7 @@ namespace CookApps.BattleSystem
             _view = handle.Result.GetComponent<SpriteCharacterView>();
             if (_statData.Spec != null)
             {
+                IsAlive = true;
                 _hpBarView = InGameHpBarViewPool.Instance.Get();
                 _hpBarView.Initialize(statData, allianceType);
                 _hpBarView.SetHpBarType(type);
@@ -272,7 +273,6 @@ namespace CookApps.BattleSystem
                     AddSkillEffectCodes();
 
                 _currHp = HP;
-                IsAlive = true;
                 AddPassive();
             }
         }

@@ -175,8 +175,8 @@ namespace CookApps.AutoBattler
             // 0.17f
             var sequence = DOTween.Sequence();
             sequence.Append(targetTransform.DOScale(0.16f, 0.12f).SetEase(Ease.InQuad));
-            sequence.Append(targetTransform.DOScale(0.19f, 0.38f).SetEase(Ease.OutQuad));
-            sequence.Append(targetTransform.DOScale(0.16f, 0.38f).SetEase(Ease.InOutQuad));
+            sequence.Append(targetTransform.DOScale(0.19f, 0.4f).SetEase(Ease.OutQuad));
+            sequence.Append(targetTransform.DOScale(0.16f, 0.4f).SetEase(Ease.InOutQuad));
             sequence.Append(targetTransform.DOScale(0.17f, 0.12f).SetEase(Ease.OutQuad));
             sequence.SetTarget(targetTransform);
         }
