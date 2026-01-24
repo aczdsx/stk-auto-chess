@@ -78,6 +78,7 @@ namespace CookApps.AutoBattler
         private int _count;
         private ISpecSynergyData _synergyData;
         private ISpecSynergyData _nextSynergyData;
+        private bool _isActive;
         private const int MAX_GRADE = 3;
 
         //캐릭터 속성 시너지 세팅
@@ -86,6 +87,7 @@ namespace CookApps.AutoBattler
             _synergyType = synergyType;
             _synergyData = data;
             _nextSynergyData = nextData;
+            _isActive = isActive;
 
             // 시너지 상승 시 Shiny 효과 재생 및 상승 타입 수집
             // 시너지 타입별 전역 상태와 비교 (UI 슬롯 재정렬에 영향받지 않음)
@@ -206,7 +208,8 @@ namespace CookApps.AutoBattler
                 _count,
                 _synergyData,
                 _nextSynergyData,
-                _buttonRect
+                _buttonRect,
+                _isActive
             );
 
             SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipIngameMiniPopup>(param).Forget();

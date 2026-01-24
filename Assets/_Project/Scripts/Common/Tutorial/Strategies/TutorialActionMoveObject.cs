@@ -45,6 +45,7 @@ namespace CookApps.AutoBattler
         private Vector3 _sourcePosition;
         private Vector3 _destPosition;
         private bool _positionsValid;
+        private InGameTileView _destTileView;
 
         // A→B 반복 애니메이션
         private float _animTime;
@@ -143,6 +144,12 @@ namespace CookApps.AutoBattler
             // 화살표 비활성화
             context.ArrowRectTransform.gameObject.SetActive(false);
 
+            // 도착지 타일 NavigateObj 비활성화
+            if (_destTileView != null)
+            {
+                _destTileView.SetNavigateObj(false);
+            }
+
             // 상태 초기화
             IsActive = false;
             SourceTileId = 0;
@@ -153,6 +160,7 @@ namespace CookApps.AutoBattler
             _holeRadiusAnimTime = 0f;
             _holeGrown = false;
             _positionsValid = false;
+            _destTileView = null;
             context.TargetUnmaskObj = null;
         }
 
@@ -233,7 +241,11 @@ namespace CookApps.AutoBattler
 
             _sourcePosition = sourceTile.View.Position;
             _destPosition = destTile.View.Position;
+            _destTileView = destTile.View;
             _positionsValid = true;
+
+            // 도착지 타일 NavigateObj 활성화
+            _destTileView.SetNavigateObj(true);
 
             return true;
         }
