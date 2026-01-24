@@ -156,10 +156,10 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
                 SetCameraSize(7.0f, new Vector3(-15.0f, 9.5f, -12f), 1.0f).Forget();
                 break;
             case CameraPositionMode.DefaultCombat:
-                SetCameraSize(5.0f, new Vector3(-15.0f, 11.0f, -12f), 1.0f).Forget();
+                SetCameraSize(5.0f, new Vector3(-15.0f, 10.8f, -12f), 1.5f).Forget();
                 break;
             case CameraPositionMode.LargeSizeCombat:
-                SetCameraSize(6.5f, new Vector3(-15.0f, 11.0f, -12f), 1.0f).Forget();
+                SetCameraSize(6.5f, new Vector3(-15.0f, 10.8f, -12f), 1.5f).Forget();
                 break;
         }
     }
