@@ -105,10 +105,10 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
     {
         base.OnSkillExecute(executeIndex, totalLength);
 
-        if (_targetCharacter == null)
+        if (_targetCharacter == null || !_targetCharacter.IsAlive)
             return;
 
-        if (owner == null)
+        if (owner == null )
             return;
 
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
@@ -116,7 +116,7 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
 
         var hitEffect = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2],
             owner.SkillRootTransformFollowable);
-        var direction = (owner.Target.CurrentTile.View.CachedTr.position - owner.CurrentTile.View.CachedTr.position).normalized;
+        var direction = (_targetCharacter.CurrentTile.View.CachedTr.position - owner.CurrentTile.View.CachedTr.position).normalized;
         hitEffect.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);;
 
         var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);

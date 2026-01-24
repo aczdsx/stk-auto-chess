@@ -143,7 +143,8 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
                 //전투 준비 시 중립 지역에 대전차지뢰를 최대 {0}개 설치 가능합니다.(위력은 트러블 슈터 성군원들의 공격력 {1}%로 결정됩니다.)
                 case 1:
                     ApplyDynamiteToTile(troubleShooterSynergyList.Find(synergy => synergy.grade == 1));
-                    InjectSupplyEffectCode(troubleShooterSynergyList[1]);
+                    // InjectDroppingBombsEffectCode(troubleShooterSynergyList.Find(synergy => synergy.grade == 3));
+                    // InjectSupplyEffectCode(troubleShooterSynergyList[1]);
                     break;
                 case 2:
                     InjectSupplyEffectCode(troubleShooterSynergyList[1]);

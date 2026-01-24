@@ -111,7 +111,7 @@ namespace CookApps.BattleSystem
             Vector3 startPos = targetCharacter.SkillRootTransformFollowable.GetPosition();
             _supplyVfxNameType = supplyVfxNameType;
             // VFX 생성
-            _supplyVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_supply_varient, startPos);
+            _supplyVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_supply_varient, targetCharacter.SkillRootTransformFollowable);
 
             _supplyVfx.Initialize(false);
             if (_supplyVfx is InGameVfxWithAnimation)
