@@ -90,8 +90,6 @@ namespace CookApps.AutoBattler
 
         private void OnInstallClick()
         {
-            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.SELECT_BUILD, buildInfo.build_id.ToString());
-
             onInstallClicked?.Invoke(buildInfo);
         }
     }

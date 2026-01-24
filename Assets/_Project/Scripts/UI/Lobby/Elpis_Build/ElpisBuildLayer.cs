@@ -175,6 +175,8 @@ namespace CookApps.AutoBattler
                 return;
             }
 
+            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.SELECT_BUILD, info.build_id.ToString());
+
             if (info.build_lv > 1)
             {
                 var result = await NetManager.Instance.Elpis.UpgradeFacilityAsync(info.build_id);

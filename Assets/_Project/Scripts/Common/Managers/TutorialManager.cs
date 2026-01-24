@@ -252,7 +252,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
 
         IsTutorialCanvasEnabled = true;
-        _tutorialController.SetTutorial(turnTutorialList, isLongShow);
+        _tutorialController.SetTutorialAsync(turnTutorialList, isLongShow).Forget();
 
         return true;
     }

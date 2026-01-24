@@ -195,7 +195,7 @@ public class TutorialController : MonoBehaviour
         };
     }
 
-    public void SetTutorial(List<TutorialDialogue> specTutorialList, bool isLongShow)
+    public async UniTask SetTutorialAsync(List<TutorialDialogue> specTutorialList, bool isLongShow)
     {
         _currentSpecTutorialList = specTutorialList;
         _tutorialListIndex = 0;
@@ -208,6 +208,9 @@ public class TutorialController : MonoBehaviour
 
         // 터치 차단 활성화
         SetBlockTouchOutsideHole(_blockTouchOutsideHole);
+
+        // DialogueTable 로드 보장
+        await LanguageManager.Instance.EnsureDialogueTableLoadedAsync();
 
         ShowNextTutorial(_currentSpecTutorialList[_tutorialListIndex]);
         _tutorialAnimator.SetTrigger(isLongShow ? LongShow : Show);
@@ -258,8 +261,9 @@ public class TutorialController : MonoBehaviour
             _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterInfo.prefab_id)).Forget();
 
             _characterNameText.text = LanguageManager.Instance.GetDefaultText(characterInfo.name_token);
-            string tutorialText = CurrentSpecTutorial.desc_key;
-            _descText.text = tutorialText;
+
+            
+            _descText.text = LanguageManager.Instance.GetDialogueText(CurrentSpecTutorial.desc_key);
 
             // 말풍선 위치 결정
             var targetPosition = CalculateDialogueBubblePosition(CurrentSpecTutorial);

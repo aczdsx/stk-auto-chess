@@ -52,7 +52,34 @@ namespace CookApps.AutoBattler
         private StringTable dialogueTable;
         private StringTable DialogueTable
         {
-            get => dialogueTable;
+            get
+            {
+#if UNITY_EDITOR
+                if (dialogueTable == null)
+                {
+                    var collections = UnityEditor.Localization.LocalizationEditorSettings.GetStringTableCollections();
+                    foreach (var collection in collections)
+                    {
+                        if (collection.TableCollectionName != DialogueTableName)
+                            continue;
+                        var locales = UnityEditor.Localization.LocalizationEditorSettings.GetLocales();
+                        GetLocaleCode(Application.systemLanguage, out var localeCode);
+                        foreach (var locale in locales)
+                        {
+                            if (locale.Identifier.Code != localeCode)
+                                continue;
+
+                            var table = collection.GetTable(locale.Identifier) as StringTable;
+                            if (table == null)
+                                continue;
+
+                            dialogueTable = table;
+                        }
+                    }
+                }
+#endif
+                return dialogueTable;
+            }
         }
 
         // 로드 핸들 (Release용)
@@ -241,6 +268,17 @@ namespace CookApps.AutoBattler
         public string GetDialogueText(string tokenKey)
         {
             return GetTextFromTable(DialogueTable, tokenKey);
+        }
+
+        /// <summary>
+        /// Dialogue 테이블이 로드되었는지 확인하고, 안되어 있으면 로드
+        /// </summary>
+        public async UniTask EnsureDialogueTableLoadedAsync()
+        {
+            if (dialogueTable != null)
+                return;
+
+            await LoadDialogueTableAsync();
         }
 
         /// <summary>
