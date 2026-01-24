@@ -68,20 +68,11 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
     /// <summary>
     /// 가이드 미션 ID 변경 시 호출
+    /// 튜토리얼 시작은 GuideMissionSlot의 RewardResultPopup 닫힘 콜백에서 처리
     /// </summary>
-    private async void OnGuideMissionIdChanged(uint newMissionId)
+    private void OnGuideMissionIdChanged(uint newMissionId)
     {
         Debug.LogColor($"[TutorialManager] 가이드 미션 변경 감지: {newMissionId}", "cyan");
-
-        // RewardResultPopup이 열려있으면 닫힐 때까지 대기
-        var rewardPopup = SceneUILayerManager.Instance.GetUILayer<RewardResultPopup>();
-        if (rewardPopup != null)
-        {
-            await UniTask.WaitUntil(() =>
-                SceneUILayerManager.Instance.GetUILayer<RewardResultPopup>() == null);
-        }
-
-        await TryStartOutgameTutorial();
     }
 
     /// <summary>

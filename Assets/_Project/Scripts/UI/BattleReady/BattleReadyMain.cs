@@ -155,6 +155,8 @@ namespace CookApps.AutoBattler
 
             // UI 세팅 완료 후 페이드 아웃
             await SceneTransition.FadeOutAsync();
+
+            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.BATTLE_READY, GetType().Name);
         }
 
         public void RefreshUI(LobbyMainRefreshType refreshType)

@@ -988,6 +988,8 @@ namespace CookApps.AutoBattler
         STAY_DEFAULT_LOBBY = 24,
         GUIDE_START = 25,
         LAYER_ENTER = 26,
+        BATTLE_READY = 27,
+        SELECT_BUILD = 28,
     }
 
     public enum TutorialActionType

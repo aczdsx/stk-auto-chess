@@ -45,7 +45,7 @@ namespace CookApps.AutoBattler
                 .Subscribe(this, (_, self) => self.RefreshGuideMissionSlot())
                 .AddTo(this);
         }
-        
+
         public void InitGuideMissionSlot()
         {
             RefreshGuideMissionSlot();
@@ -122,7 +122,7 @@ namespace CookApps.AutoBattler
                 missionRewardItemSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(itemId)).Forget();
             }
         }
-        
+
         private async UniTask OnClickMissionSlotButtonAsync()
         {
             if (specGuideMissionData == null) return;
@@ -151,7 +151,7 @@ namespace CookApps.AutoBattler
             }
 
             // 보상 목록 생성 (LINQ 사용)
-            var rewardItemList = response.Rewards?.Select(reward => new RewardItem(reward)).ToList() 
+            var rewardItemList = response.Rewards?.Select(reward => new RewardItem(reward)).ToList()
                                  ?? new List<RewardItem>();
 
             // 보상 팝업 표시
@@ -159,13 +159,16 @@ namespace CookApps.AutoBattler
             {
                 // 팝업 닫힌 후 다음 가이드 미션 튜토리얼 체크
                 AppEventManager.Instance.GuideMissionClear(specGuideMissionData.order);
+
+                // 팝업 닫힌 후 다음 튜토리얼 시작
+                TutorialManager.Instance.TryStartOutgameTutorial().Forget();
             }).Forget();
         }
 
         #endregion
 
         #region Navigation
-        
+
         private void HandleGuideMissionNavigation()
         {
             switch (specGuideMissionData.guide_mission_type)
@@ -181,18 +184,18 @@ namespace CookApps.AutoBattler
                 case GuideMissionType.SET_LV_CHARACTER_TARGET:
                 case GuideMissionType.SUM_CHARACTER_LEVEL:
                 case GuideMissionType.SET_CHARACTER:
-                     // 캐릭터 관리 또는 성장 화면으로 이동하는 코드
+                    // 캐릭터 관리 또는 성장 화면으로 이동하는 코드
                     break;
 
                 case GuideMissionType.PLAY_PVP:
                 case GuideMissionType.SET_PVP_DEF_DECK:
                     // PVP 콘텐츠 화면으로 이동하는 코드
                     break;
-                    
+
                 case GuideMissionType.CLEAR_TRIAL:
                     // 시련의 탑 콘텐츠 화면으로 이동하는 코드
                     break;
-                
+
                 case GuideMissionType.CLEAR_BABEL:
                     // 바벨의 탑 콘텐츠 화면으로 이동하는 코드
                     break;
@@ -206,19 +209,19 @@ namespace CookApps.AutoBattler
                 case GuideMissionType.INSTALL_BUILDING:
                     // 건물(영지) 관련 화면으로 이동하는 코드
                     break;
-                
+
                 case GuideMissionType.OPEN_IDLECHEST:
                     // 방치 보상 팝업으로 이동하는 코드
                     break;
-                
+
                 case GuideMissionType.OPEN_CHEST:
                     // 가방 또는 보물상자 팝업으로 이동하는 코드
                     break;
-                
+
                 case GuideMissionType.DIMENSION_CUBE_LEVEL:
                     // 차원큐브 관련 화면으로 이동하는 코드
                     break;
-                
+
                 case GuideMissionType.ENTER_ELPIS:
                     // 엘피스 관련 화면으로 이동하는 코드
                     break;
@@ -228,7 +231,7 @@ namespace CookApps.AutoBattler
                 case GuideMissionType.ENTER_CHAPTER:
                     NavigateToStage();
                     break;
-                
+
                 case GuideMissionType.END_DIALOGUE:
                 case GuideMissionType.CLEAR_TUTORIAL:
                     // 특별한 이동 동작이 필요 없을 수 있음. 필요 시 추가
@@ -250,7 +253,7 @@ namespace CookApps.AutoBattler
                 var lastestStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
                 var lastestSpecStageData = SpecDataManager.Instance.GetStageData(lastestStageID);
                 var nextStageData = SpecDataManager.Instance.GetNextStageData(lastestStageID);
-                
+
                 var targetStageNumber = 1;
                 if (lastestSpecStageData != null && lastestSpecStageData.chapter_id == guideStageData.chapter_id)
                 {
@@ -259,15 +262,15 @@ namespace CookApps.AutoBattler
                         targetStageNumber = nextStageData.stage_number;
                     }
                 }
-                
+
                 var targetSpecStage = SpecDataManager.Instance.GetStageData(nextStageData.chapter_id, targetStageNumber, nextStageData.difficulty_type);
                 LocalDataManager.Instance.SetLastPlayStageId((uint)targetSpecStage.stage_id);
-                
+
                 InGameManager.Instance.EndInGame();
                 SceneTransition.Create<SceneTransition_FadeInOut>();
                 SceneTransition.FadeInAsync().Forget();
                 SceneLoading.GoToNextScene("Lobby", guideStageData.chapter_id);
-                
+
                 var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
                 if (battleReadyMain != null)
                 {
