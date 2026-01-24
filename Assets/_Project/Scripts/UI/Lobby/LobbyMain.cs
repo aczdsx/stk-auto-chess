@@ -44,7 +44,6 @@ namespace CookApps.AutoBattler
 
         private bool _isIdleRewardFullState = false;
         private ElpisDataBridge elpisDataBridge;
-        private GuideMissionDataBridge _guideMissionDataBridge;
 
         public static LobbyMain GetLobbyMain()
         {
@@ -54,11 +53,6 @@ namespace CookApps.AutoBattler
         protected override void Awake()
         {
             base.Awake();
-
-            _guideMissionDataBridge = new GuideMissionDataBridge();
-
-            // NOTE: OnMissionIdChanged 구독 제거
-            // 가이드 미션 완료 후 다음 튜토리얼 시작은 RewardResultPopup에서 명시적으로 처리
 
             battleButton
                 .OnClickAsObservable()
@@ -109,7 +103,6 @@ namespace CookApps.AutoBattler
                 .OnClickAsObservable()
                 .Subscribe(this, (_, self) => self.OnClickQuestButton())
                 .AddTo(this);
-
         }
 
         protected override void OnBackButton(ref bool offPrevUI) { }
@@ -121,41 +114,60 @@ namespace CookApps.AutoBattler
             PreEnterAsync().Forget();
         }
 
-        protected override void OnPostEnter()
-        {
-            base.OnPostEnter();
-
-            // 로비 기본 UI 준비 완료 알림
-            TutorialManager.Instance.NotifyLobbyReady();
-        }
-
-        protected override void OnPreExit()
-        {
-            base.OnPreExit();
-
-            // 로비 퇴장 알림
-            TutorialManager.Instance.NotifyLobbyExit();
-        }
-
         private async UniTask PreEnterAsync()
         {
             guideMissionSlot.InitGuideMissionSlot();
 
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
-            
-            var cameraController = MainCameraHolder.CameraGestureController;
-            cameraController.SetCameraZoomForce(30.0f);
 
             await LoadElpis();
-            
-            var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
-            _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
-            
+
+            SceneTransition.FadeOutAsync().Forget();
+
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
 
-            cameraController.ZoomAsync(16.0f, 1.0f).Forget();
+            // 챕터1 튜토리얼 시퀀스 시작 (TutorialManager가 상태 관리)
+            // if(!TutorialManager.Instance.IsOutgameTutorialCompleted((int)TutorialConstants.Chapter1Tutorial.HubbleIntro))
+            // {
+            //     await HubbleLobbyScequence();
+            // }
+            // await TutorialManager.Instance.StartChapter1TutorialSequence();
+
+            // guide middion (나중에, 영지 복구 연출 이후에 진행이 이 이전 async로)
+#if _SJHONG_TEST_
+            // TODO Model 대신 Bridge로 가져오기
+            var model = ServerDataManager.Instance.GuideMission;
+            var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)model.GuideMissionId);
+
+            MyDebug.MyLog($"model.GuideMissionId : {model.GuideMissionId}");
+            MyDebug.MyLog($"specGuideMissionData : {Newtonsoft.Json.JsonConvert.SerializeObject(specGuideMissionData)}");
+
+            await TutorialManager.Instance.CheckAndInitTutorialWithGuideMissionInfo(specGuideMissionData);
+            if(specGuideMissionData.id <= 100) {
+                await HubbleLobbyScequence();
+                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+            }
             
-            await SceneTransition.FadeOutAsync();
+
+#endif
+
+            var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
+            _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
+        }
+
+        private async UniTask HubbleLobbyScequence()
+        {
+#if _SJHONG_TEST_
+            MyDebug.MyLog("연출중!", MyDebug.Constants.YELLOW);
+#endif
+            SceneUILayerManager.Instance.SetEnableMainNodeCanvas(false);
+            MainCameraHolder.CameraGestureController.SetCanInteractCamera(false);
+            await UniTask.Delay(500);
+            SceneUILayerManager.Instance.SetEnableMainNodeCanvas(true);
+            MainCameraHolder.CameraGestureController.SetCanInteractCamera(true);
+#if _SJHONG_TEST_
+            MyDebug.MyLog("연출끝!", MyDebug.Constants.YELLOW);
+#endif
         }
 
         private async UniTask OnClickStartButton()
@@ -248,36 +260,5 @@ namespace CookApps.AutoBattler
         {
             StartEnterAnimation(null);
         }
-
-#if UNITY_EDITOR || _SJHONG_TEST_
-        private void Update()
-        {
-            // F1 키로 UI Stack 상태 디버깅
-            if (Input.GetKeyDown(KeyCode.F1))
-            {
-                DebugUIStackState();
-            }
-        }
-
-        private void DebugUIStackState()
-        {
-            var allKeys = SceneUILayerManager.Instance.GetAllLoadedUIKeys();
-            var popupOrModalUIs = SceneUILayerManager.Instance.GetUIRoutes(isContainCover: false, isContainOverlay: false);
-            var isLobbyDefaultState = TutorialManager.Instance?.IsLobbyDefaultState() ?? false;
-
-            Debug.LogColor("========== UI Stack Debug ==========", "cyan");
-            Debug.LogColor($"UI Count: {allKeys.Length}", "white");
-            Debug.LogColor($"UI Keys: [{string.Join(", ", allKeys)}]", "white");
-            Debug.LogColor($"Popup/Modal Count: {popupOrModalUIs.Length}", "white");
-            if (popupOrModalUIs.Length > 0)
-            {
-                var popupNames = string.Join(", ", System.Linq.Enumerable.Select(popupOrModalUIs, ui => ui.name));
-                Debug.LogColor($"Popup/Modal UIs: [{popupNames}]", "yellow");
-            }
-            Debug.LogColor($"IsLobbyDefaultState: {isLobbyDefaultState}", isLobbyDefaultState ? "green" : "yellow");
-            Debug.LogColor($"TutorialManager.IsTutorial: {TutorialManager.Instance?.IsTutorial}", "white");
-            Debug.LogColor("=====================================", "cyan");
-        }
-#endif
     }
 }
