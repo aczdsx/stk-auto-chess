@@ -260,8 +260,7 @@ public class TutorialController : MonoBehaviour
             _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterInfo.prefab_id)).Forget();
 
             _characterNameText.text = LanguageManager.Instance.GetDefaultText(characterInfo.name_token);
-            string tutorialText = CurrentSpecTutorial.desc_key;
-            _descText.text = tutorialText;
+            _descText.text = LanguageManager.Instance.GetDefaultText(CurrentSpecTutorial.desc_key);
 
             // 말풍선 위치 결정
             var targetPosition = CalculateDialogueBubblePosition(CurrentSpecTutorial);
