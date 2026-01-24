@@ -163,7 +163,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 서버에 클라이언트 액션 완료를 보고합니다.
         /// </summary>
-        private async UniTaskVoid UpdateActionAsync(uint addCount)
+        public async UniTaskVoid UpdateActionAsync(uint addCount)
         {
             await NetManager.Instance.GuideMission.UpdateActionAsync(addCount);
         }

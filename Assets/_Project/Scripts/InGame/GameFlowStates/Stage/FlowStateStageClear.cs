@@ -28,7 +28,7 @@ public class FlowStateStageClear : StateBase
         if (star3) stars++;
         ulong clearTimeMs = (ulong)((60 - InGameMain.GetInGameMain().InGameTime) * 1000);
         var resp = await SendEndAsync(stars, clearTimeMs);
-
+    
         InGameManager.Instance.EndInGame();
         
         // 서버 응답 후 결과 팝업 표시
@@ -37,7 +37,9 @@ public class FlowStateStageClear : StateBase
 
         // 다이얼로그 체크
         DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_CLEAR, InGameManager.Instance.SpecStage.stage_id.ToString());
-
+#if _SJHONG_TEST_
+    GuideMissionTestUtility.HandleClearStage(InGameManager.Instance.SpecStage.stage_id, false).Forget();
+#endif
         // 상점 배너 팝업 체크
         ShopPurchaseManager.Instance.UpdateShopBannerConditionValue(ShopBannerConditionType.STAGE_CLEAR, InGameManager.Instance.SpecStage.stage_id, 1, false);
     }

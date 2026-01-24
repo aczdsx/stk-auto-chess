@@ -289,9 +289,6 @@ namespace CookApps.AutoBattler
 
             // 캐릭터 보유 상태 검사
             if (_isHaveCharacter == false) return;
-            
-
-            
 
             await LevelUpCharacterAsync();
         }
@@ -306,12 +303,14 @@ namespace CookApps.AutoBattler
                     var resp = await NetManager.Instance.Character.ExceedAsync(_userCharacterData.CharacterId);
                     if (resp?.IsSuccess == false)
                         return;
+                    await GuideMissionTestUtility.UpgradeUnit();
                 }
                 else
                 {
                     var resp = await NetManager.Instance.Character.LevelUpAsync(_userCharacterData.CharacterId);
                     if (resp?.IsSuccess == false)
                         return;
+                    await GuideMissionTestUtility.UpgradeUnit();
                 }
 
                 // 이펙트 실행
@@ -378,7 +377,7 @@ namespace CookApps.AutoBattler
 
                 if (response?.IsSuccess == false)
                     return;
-
+                await GuideMissionTestUtility.UpgradeUnit();
                 // 메인 레이어 갱신
                 _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
 

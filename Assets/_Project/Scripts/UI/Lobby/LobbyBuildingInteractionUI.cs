@@ -551,6 +551,10 @@ namespace CookApps.AutoBattler
         private async UniTask OnClick()
         {
             CameraFocus();
+
+#if _SJHONG_TEST_
+            await GuideMissionTestUtility.HandleElpisFacilityUpgrade();
+#endif
             
             var (isInstalling, isInstallFinished, isCanInstall, isFacilityLocked) = GetFacilityStatus();
             
