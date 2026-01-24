@@ -168,7 +168,9 @@ namespace CookApps.AutoBattler
         #endregion
 
         #region Navigation
-        
+
+        private Action pendingPopupAction;
+
         private void HandleGuideMissionNavigation()
         {
             switch (specGuideMissionData.guide_mission_type)
@@ -176,7 +178,7 @@ namespace CookApps.AutoBattler
                 case GuideMissionType.SUMMON_CHARCTER:
                 case GuideMissionType.SUMMON_CHARACTER_NORMAL:
                 case GuideMissionType.SUMMON_WEAPHON_NORMAL:
-                    SceneUILayerManager.Instance.PushUILayerAsync<GachaPopup>().Forget();
+                    NavigateToLobbyAndOpenPopup(() => SceneUILayerManager.Instance.PushUILayerAsync<GachaPopup>().Forget());
                     break;
 
                 case GuideMissionType.CHARACTER_LEVELUP:
@@ -184,18 +186,18 @@ namespace CookApps.AutoBattler
                 case GuideMissionType.SET_LV_CHARACTER_TARGET:
                 case GuideMissionType.SUM_CHARACTER_LEVEL:
                 case GuideMissionType.SET_CHARACTER:
-                    SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget();
+                    NavigateToLobbyAndOpenPopup(() => SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget());
                     break;
 
                 case GuideMissionType.PLAY_PVP:
                 case GuideMissionType.SET_PVP_DEF_DECK:
                     // PVP 콘텐츠 화면으로 이동하는 코드
                     break;
-                    
+
                 case GuideMissionType.CLEAR_TRIAL:
                     // 시련의 탑 콘텐츠 화면으로 이동하는 코드
                     break;
-                
+
                 case GuideMissionType.CLEAR_BABEL:
                     // 바벨의 탑 콘텐츠 화면으로 이동하는 코드
                     break;
@@ -207,21 +209,21 @@ namespace CookApps.AutoBattler
                 case GuideMissionType.USE_BUILDING:
                 case GuideMissionType.UPGRADE_BUILDING:
                 case GuideMissionType.INSTALL_BUILDING:
-                    SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>().Forget();
+                    NavigateToLobbyAndOpenPopup(() => SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>().Forget());
                     break;
-                
+
                 case GuideMissionType.OPEN_IDLECHEST:
                     // 방치 보상 팝업으로 이동하는 코드
                     break;
-                
+
                 case GuideMissionType.OPEN_CHEST:
                     // 가방 또는 보물상자 팝업으로 이동하는 코드
                     break;
-                
+
                 case GuideMissionType.DIMENSION_CUBE_LEVEL:
                     // 차원큐브 관련 화면으로 이동하는 코드
                     break;
-                
+
                 case GuideMissionType.ENTER_ELPIS:
                     // 엘피스 관련 화면으로 이동하는 코드
                     break;
@@ -231,7 +233,7 @@ namespace CookApps.AutoBattler
                 case GuideMissionType.ENTER_CHAPTER:
                     NavigateToStage();
                     break;
-                
+
                 case GuideMissionType.END_DIALOGUE:
                 case GuideMissionType.CLEAR_TUTORIAL:
                     // 특별한 이동 동작이 필요 없을 수 있음. 필요 시 추가
@@ -239,6 +241,45 @@ namespace CookApps.AutoBattler
             }
 
             ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert)?.UpdateAlert();
+        }
+
+        private void NavigateToLobbyAndOpenPopup(Action popupAction)
+        {
+            var currentSceneName = SceneManager.GetActiveScene().name;
+
+            if (currentSceneName == "Lobby")
+            {
+                popupAction?.Invoke();
+            }
+            else
+            {
+                NavigateToLobbyWithPopupAsync(popupAction).Forget();
+            }
+        }
+
+        private async UniTask NavigateToLobbyWithPopupAsync(Action popupAction)
+        {
+            pendingPopupAction = popupAction;
+            SceneUILayerManager.OnSceneLoadedEvent += OnLobbySceneLoaded;
+
+            var lastStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
+            var stageData = SpecDataManager.Instance.GetStageData(lastStageId);
+            var chapterId = stageData?.chapter_id ?? 1;
+
+            InGameManager.Instance.EndInGame();
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            await SceneTransition.FadeInAsync();
+            SceneLoading.GoToNextScene("Lobby", chapterId);
+        }
+
+        private void OnLobbySceneLoaded(string sceneName)
+        {
+            if (sceneName == "Lobby")
+            {
+                SceneUILayerManager.OnSceneLoadedEvent -= OnLobbySceneLoaded;
+                pendingPopupAction?.Invoke();
+                pendingPopupAction = null;
+            }
         }
 
         private void NavigateToStage()
