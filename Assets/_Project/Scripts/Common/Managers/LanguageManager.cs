@@ -109,7 +109,10 @@ namespace CookApps.AutoBattler
         {
             // 기존 핸들 해제
             ReleaseDefaultTableHandle();
+            ReleaseDialogueTableHandle();
+
             await LoadDefaultTableAsync();
+            await LoadDialogueTableAsync();
         }
 
         /// <summary>
@@ -245,6 +248,12 @@ namespace CookApps.AutoBattler
         /// </summary>
         private string GetTextFromTable(StringTable table, string tokenKey)
         {
+            if (table == null)
+            {
+                Debug.LogWarning($"[LanguageManager] 테이블이 로드되지않았습니다.tokenKey: {tokenKey}");
+                return tokenKey;
+            }
+
             var entry = table.GetEntry(tokenKey);
             if (entry == null)
             {
