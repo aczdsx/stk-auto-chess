@@ -36,11 +36,11 @@ namespace CookApps.AutoBattler
         {
             buildInfo = facilityInfo.buildInfo;
             this.onInstallClicked = onInstallClicked;
-            
+
             nameText.text = LanguageManager.Instance.GetDefaultText(facilityInfo.buildInfo.buld_name_token);
             var buttonTextKey = facilityInfo.isInstalled ? "ELPIS_UPGRADE" : "ELPIS_BUILD";
             upgradeButtonText.text = LanguageManager.Instance.GetDefaultText(buttonTextKey);
-            
+
             iconSpriteLoader.SetSprite(buildInfo.sprite_name).Forget();
 
             costText.text = buildInfo.item_INT.ToString();
@@ -82,9 +82,9 @@ namespace CookApps.AutoBattler
                 installButton.SetClickableState(facilityInfo.isCanInstall);
                 conditionText.text = "";
             }
-            
+
             conditionText.text = LanguageManager.Instance.GetDefaultText(stateKey);
-            
+
             CachedGo.SetActive(true);
         }
 

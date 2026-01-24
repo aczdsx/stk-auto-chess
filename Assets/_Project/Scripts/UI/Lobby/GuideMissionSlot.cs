@@ -46,7 +46,7 @@ namespace CookApps.AutoBattler
                 .Subscribe(this, (_, self) => self.RefreshGuideMissionSlot())
                 .AddTo(this);
         }
-        
+
         public void InitGuideMissionSlot()
         {
             
@@ -124,7 +124,7 @@ namespace CookApps.AutoBattler
                 missionRewardItemSpriteLoader.SetSprite(SpriteNameParser.GetItemSprite(itemId)).Forget();
             }
         }
-        
+
         private async UniTask OnClickMissionSlotButtonAsync()
         {
             await GuideMissionTestUtility.HandleIteratively();
@@ -154,7 +154,7 @@ namespace CookApps.AutoBattler
             }
 
             // 보상 목록 생성 (LINQ 사용)
-            var rewardItemList = response.Rewards?.Select(reward => new RewardItem(reward)).ToList() 
+            var rewardItemList = response.Rewards?.Select(reward => new RewardItem(reward)).ToList()
                                  ?? new List<RewardItem>();
 
             // 보상 팝업 표시
@@ -162,6 +162,9 @@ namespace CookApps.AutoBattler
             {
                 // 팝업 닫힌 후 다음 가이드 미션 튜토리얼 체크
                 AppEventManager.Instance.GuideMissionClear(specGuideMissionData.order);
+
+                // 팝업 닫힌 후 다음 튜토리얼 시작
+                TutorialManager.Instance.TryStartOutgameTutorial().Forget();
             }).Forget();
         }
 
@@ -298,10 +301,12 @@ namespace CookApps.AutoBattler
             // CLEAR_STAGE인 경우, 현재 진행 가능한 스테이지로 이동
             if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE)
             {
-                var latestStageId = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
-                var nextStageData = SpecDataManager.Instance.GetNextStageData(latestStageId);
+                var lastestStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
+                var lastestSpecStageData = SpecDataManager.Instance.GetStageData(lastestStageID);
+                var nextStageData = SpecDataManager.Instance.GetNextStageData(lastestStageID);
 
-                if (nextStageData != null && nextStageData.chapter_id == guideStageData.chapter_id)
+                var targetStageNumber = 1;
+                if (lastestSpecStageData != null && lastestSpecStageData.chapter_id == guideStageData.chapter_id)
                 {
                     targetStageId = nextStageData.stage_id;
                 }
@@ -313,6 +318,20 @@ namespace CookApps.AutoBattler
                     {
                         targetStageId = firstStageData.stage_id;
                     }
+                }
+
+                var targetSpecStage = SpecDataManager.Instance.GetStageData(nextStageData.chapter_id, targetStageNumber, nextStageData.difficulty_type);
+                LocalDataManager.Instance.SetLastPlayStageId((uint)targetSpecStage.stage_id);
+
+                InGameManager.Instance.EndInGame();
+                SceneTransition.Create<SceneTransition_FadeInOut>();
+                SceneTransition.FadeInAsync().Forget();
+                SceneLoading.GoToNextScene("Lobby", guideStageData.chapter_id);
+
+                var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
+                if (battleReadyMain != null)
+                {
+                    battleReadyMain.RefreshUI(LobbyMainRefreshType.STAGE);
                 }
             }
 

@@ -11,6 +11,7 @@ namespace CookApps.AutoBattler
         {
             // 화살표 비활성화
             context.ArrowRectTransform.gameObject.SetActive(false);
+            context.NextObj.SetActive(true); // [TODO] 나중에 텍스트 애니메이션 완료 된 후로 변경 필요
 
             // 포커스 타겟 찾기
             context.TargetUnmaskObj = TutorialTargetRegistry.FindGameObject(context.CurrentTutorial.tutorial_action_key);
