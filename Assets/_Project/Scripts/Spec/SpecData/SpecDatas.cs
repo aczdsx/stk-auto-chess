@@ -796,6 +796,8 @@ namespace CookApps.AutoBattler
         public string skill_name_token;
         /// 스킬 설명 토큰
         public string skill_desc_token;
+        /// 임시
+        public string attack_range;
         /// 사용 이펙트
         public global::CookApps.AutoBattler.InGameVfxNameType[] skill_vfxs = global::System.Array.Empty<global::CookApps.AutoBattler.InGameVfxNameType>();
         /// #변수 의미

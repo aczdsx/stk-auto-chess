@@ -900,10 +900,10 @@ namespace CookApps.AutoBattler
             var result = new List<StageMilestoneReward>();
             foreach (var data in StageMilestoneReward.All)
             {
-                if(data.content_type == contentType && data.content_key_value == stageNumber && data.difficulty_type == difficulty)
+                if (data.content_type == contentType && data.content_key_value == stageNumber && data.difficulty_type == difficulty)
                     result.Add(data);
             }
-            
+
             return result;
         }
 
@@ -1943,12 +1943,12 @@ namespace CookApps.AutoBattler
             var allData = UserKnightCount.All;
             foreach (var data in allData)
             {
-                if(data.nest_count == nestCount)
+                if (data.nest_count == nestCount)
                 {
                     return data;
                 }
             }
-            
+
             return null;
         }
     }

@@ -3815,44 +3815,8 @@ MonoBehaviour:
     m_Key: DIALOGUE_TEXT_300211_6
     m_Metadata:
       m_Items: []
-  - m_Id: 3182801921762013
-    m_Key: NPC_TEXT_10001_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3182801925955584
-    m_Key: NPC_TEXT_10001_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3182801925955585
-    m_Key: NPC_TEXT_10001_3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3182801925955586
-    m_Key: NPC_TEXT_10001_4
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3182801925955587
-    m_Key: NPC_TEXT_10001_5
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3182801925955588
-    m_Key: NPC_TEXT_10002_1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3182801925955589
-    m_Key: NPC_TEXT_10002_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3182801925955590
-    m_Key: NPC_TEXT_10003_3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3182801925955591
-    m_Key: NPC_TEXT_10004_4
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3182801925955592
-    m_Key: NPC_TEXT_10005_5
+  - m_Id: 3631331358531584
+    m_Key: DIALOGUE_TEXT_300003_13
     m_Metadata:
       m_Items: []
   m_Metadata:

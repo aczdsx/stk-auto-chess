@@ -126,30 +126,14 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
 
-            // 챕터1 튜토리얼 시퀀스 시작 (TutorialManager가 상태 관리)
-            // if(!TutorialManager.Instance.IsOutgameTutorialCompleted((int)TutorialConstants.Chapter1Tutorial.HubbleIntro))
-            // {
-            //     await HubbleLobbyScequence();
-            // }
-            // await TutorialManager.Instance.StartChapter1TutorialSequence();
+            // 아웃게임 튜토리얼 시작 (가이드 미션 기반)
+            await TutorialManager.Instance.TryStartOutgameTutorial();
 
-            // guide middion (나중에, 영지 복구 연출 이후에 진행이 이 이전 async로)
-#if _SJHONG_TEST_
-            // TODO Model 대신 Bridge로 가져오기
-            var model = ServerDataManager.Instance.GuideMission;
-            var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)model.GuideMissionId);
+            TutorialManager.Instance.SubscribeGuideMissionChanged();
 
-            MyDebug.MyLog($"model.GuideMissionId : {model.GuideMissionId}");
-            MyDebug.MyLog($"specGuideMissionData : {Newtonsoft.Json.JsonConvert.SerializeObject(specGuideMissionData)}");
 
-            await TutorialManager.Instance.CheckAndInitTutorialWithGuideMissionInfo(specGuideMissionData);
-            if(specGuideMissionData.id <= 100) {
-                await HubbleLobbyScequence();
-                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
-            }
-            
-
-#endif
+            // 이거는 엘피스 연출 후에 실행 되어야 함.
+            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
 
             var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
             _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);

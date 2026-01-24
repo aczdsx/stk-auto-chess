@@ -45,6 +45,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 63652635851720880}
+  - component: {fileID: 1691700501820425026}
   m_Layer: 5
   m_Name: Btn_LevelUp
   m_TagString: Untagged
@@ -74,6 +75,19 @@ RectTransform:
   m_AnchoredPosition: {x: -25, y: -104}
   m_SizeDelta: {x: 510, y: 86}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1691700501820425026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767604100894567994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9761b5fa6930744c1bdf307a8b19e2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetId: LevelUpBtn
 --- !u!1 &1441291449600724679
 GameObject:
   m_ObjectHideFlags: 0
@@ -30820,6 +30834,7 @@ MonoBehaviour:
   _transcendenceLayerObject: {fileID: 8591088892580374325}
   _activeTranscendenceButton: {fileID: 2900139848915768678}
   _inactiveTranscendenceButton: {fileID: 1778168970378381546}
+  _starList: []
   _transcendenceItemCurrencyUIItem: {fileID: 5269287235358008954}
 --- !u!1 &4788429664279921020
 GameObject:
@@ -55983,6 +55998,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2761153083555148546}
   - component: {fileID: 8012050531436727981}
+  - component: {fileID: 3336122192734100674}
   m_Layer: 5
   m_Name: InfoList
   m_TagString: Untagged
@@ -56041,6 +56057,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &3336122192734100674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7038434619673116813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9761b5fa6930744c1bdf307a8b19e2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetId: CharacterStatInfo
 --- !u!1 &7213298394485261494
 GameObject:
   m_ObjectHideFlags: 0
@@ -56251,6 +56280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4007940558344041276}
+  - component: {fileID: 7325324758012633342}
   m_Layer: 5
   m_Name: Conditions
   m_TagString: Untagged
@@ -56278,6 +56308,19 @@ RectTransform:
   m_AnchoredPosition: {x: -25, y: -20.5}
   m_SizeDelta: {x: 506, y: 62}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7325324758012633342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7680339902773640773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9761b5fa6930744c1bdf307a8b19e2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetId: LevelUpConditionUI
 --- !u!1 &8289134069067576106
 GameObject:
   m_ObjectHideFlags: 0
@@ -66799,7 +66842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectFactor: 0.07982847
+  m_EffectFactor: 0
   m_Width: 0.187
   m_Rotation: 26
   m_Softness: 1

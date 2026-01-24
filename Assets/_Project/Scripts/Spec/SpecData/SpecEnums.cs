@@ -986,6 +986,8 @@ namespace CookApps.AutoBattler
         MOVE_OBJECT_AFTER = 22,
         COMBAT_START = 23,
         STAY_DEFAULT_LOBBY = 24,
+        GUIDE_START = 25,
+        LAYER_ENTER = 26,
     }
 
     public enum TutorialActionType
@@ -1001,6 +1003,7 @@ namespace CookApps.AutoBattler
         TOAST_MESSAGE = 8,
         SPAWN_ENEMY = 9,
         SHOW_DIALOGUE_POP_CALLBACK = 10,
+        FORCED_TOUCH_BUILD_UI = 10,
     }
 
     public enum FacilityType
