@@ -154,7 +154,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         private void PlaySynergyShinyEffect(SpriteRenderer spriteRenderer)
         {
-            const float duration = 1.0f;
+            const float duration = 1.2f;
 
             var material = spriteRenderer.material;
             if (material == null) return;
@@ -174,10 +174,10 @@ namespace CookApps.AutoBattler
 
             // 0.17f
             var sequence = DOTween.Sequence();
-            sequence.Append(targetTransform.DOScale(0.16f, 0.12f).SetEase(Ease.InQuad));
-            sequence.Append(targetTransform.DOScale(0.19f, 0.4f).SetEase(Ease.OutQuad));
-            sequence.Append(targetTransform.DOScale(0.16f, 0.4f).SetEase(Ease.InOutQuad));
-            sequence.Append(targetTransform.DOScale(0.17f, 0.12f).SetEase(Ease.OutQuad));
+            sequence.Append(targetTransform.DOScale(0.16f, 0.14f).SetEase(Ease.InQuad));
+            sequence.Append(targetTransform.DOScale(0.19f, 0.41f).SetEase(Ease.OutQuad));
+            sequence.Append(targetTransform.DOScale(0.16f, 0.41f).SetEase(Ease.InOutQuad));
+            sequence.Append(targetTransform.DOScale(0.17f, 0.14f).SetEase(Ease.OutQuad));
             sequence.SetTarget(targetTransform);
         }
 

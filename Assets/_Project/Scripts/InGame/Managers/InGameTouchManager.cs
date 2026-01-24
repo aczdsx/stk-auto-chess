@@ -1136,6 +1136,18 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             return;
         }
 
+        // 기존 캐릭터가 있으면 UI로 반환하고 그 자리에 배치
+        if (inGameTile.OccupiedCharacter != null)
+        {
+            var existingCharacter = inGameTile.OccupiedCharacter;
+
+            // 기존 캐릭터를 타일에서 제거하고 UI로 반환
+            existingCharacter.CurrentTile.SetUnoccupied();
+            InGameObjectManager.Instance.RemoveCharacterFromField(existingCharacter);
+            InGameMain.GetInGameMain().ReturnCharacterUI(existingCharacter);
+        }
+
+
         //유저 카운트 체크
         var userKnightCount = SpecDataManager.Instance.GetUserKnightCountByNestCount().maximum_character_count;
         if (userKnightCount <= InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
@@ -1143,19 +1155,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             ToastManager.Instance.ShowToastByTokenKey("MSG_OVER_COUNT_CHARACTER");
             CancelGhostDrag();
             return;
-        }
-
-        // 기존 캐릭터가 있으면 빈 타일 찾기
-        if (inGameTile.OccupiedCharacter != null)
-        {
-            var emptyTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(_ghostStatData.Spec);
-            if (emptyTile == null)
-            {
-                CancelGhostDrag();
-                return;
-            }
-            inGameTile = emptyTile;
-            tileView = emptyTile.View as InGameTileView;
         }
 
         // 고스트 위치 저장
@@ -1181,7 +1180,7 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
         //
 
-        
+
 
         //
 
