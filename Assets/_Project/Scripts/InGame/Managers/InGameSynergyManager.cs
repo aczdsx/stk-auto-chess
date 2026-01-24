@@ -152,7 +152,7 @@ namespace CookApps.BattleSystem
                             AddSynergyAllMember(callerAllianceType, outSynergyList[0].synergy_group_id, synergyData);
                             break;
                         case SynergyCoverType.SQUAD_ONCE:
-                            AddSynergyTeamOnce(callerAllianceType, outSynergyList[0].synergy_group_id, synergyData);
+                            AddSynergyTeamOnce(callerAllianceType, outSynergyList[0].synergy_group_id, synergyData, j);
                             break;
                     }
                 }
@@ -203,9 +203,9 @@ namespace CookApps.BattleSystem
             SpawnSynergyFx(allianceType, targetList, targetSynergyType, synergyData.grade);
         }
 
-        public void AddSynergyTeamOnce(AllianceType AllianceType, long effectCodeId, ISpecSynergyData synergyData)
+        public void AddSynergyTeamOnce(AllianceType AllianceType, long effectCodeId, ISpecSynergyData synergyData, int grade)
         {
-            InGameManager.Instance.AddSynergyTeamOnce(AllianceType, effectCodeId, synergyData);
+            InGameManager.Instance.AddSynergyTeamOnce(AllianceType, effectCodeId, synergyData, grade);
         }
 
         private bool CanAddSynergy(AllianceType allianceType, SynergyType targetSynergyType
