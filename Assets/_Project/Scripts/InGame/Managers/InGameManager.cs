@@ -159,13 +159,13 @@ namespace CookApps.BattleSystem
         }
         #endregion
 
-        public void AddSynergyTeamOnce(AllianceType allianceType, long effectCodeID, ISpecSynergyData synergyData)
+        public void AddSynergyTeamOnce(AllianceType allianceType, long effectCodeID, ISpecSynergyData synergyData, int grade)
         {
             Span<double> stats = stackalloc double[4];
             stats[0] = synergyData.effect_stat_value_1;
             stats[1] = synergyData.effect_stat_value_2;
             stats[2] = synergyData.effect_stat_value_3;
-            stats[3] = synergyData.grade;
+            stats[3] = grade;
         
             var effectCodeInfo = new EffectCodeInfo(effectCodeID, 0, stats);
             _teamEcc.AddOrMergeEffectCode(effectCodeInfo, null, allianceType);
