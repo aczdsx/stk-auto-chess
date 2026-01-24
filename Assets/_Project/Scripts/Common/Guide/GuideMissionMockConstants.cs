@@ -9,16 +9,17 @@ public static class GuideMissionTestUtility  {
     public static int 아트레시아ID = 3401;
     private static bool isInit = false;
 
-    // 동시성 제어: 현재 처리 중인 미션 ID 추적
     private static readonly HashSet<int> _processingGids = new HashSet<int>();
 
-    public static GuideMissionDataBridge gdb = new GuideMissionDataBridge();
-    public static ElpisDataBridge edb =  new ElpisDataBridge();
+    public static GuideMissionDataBridge gdb;
+    public static ElpisDataBridge edb;
 
     public static void Init()
     {
         if(isInit) return;
         GuideMissionTables = null;
+        gdb = new GuideMissionDataBridge();
+        edb =  new ElpisDataBridge();
         GuideMissionTables = new Dictionary<int, (GuideMissionType MissionType, int TargetCount, int Subkey)>
         {
             { 101, (GuideMissionType.SUMMON_CHARCTER, 1,0) },
@@ -85,12 +86,16 @@ public static class GuideMissionTestUtility  {
             { 509, false },
             { 601, false },
         };
+        foreach(var key in new List<int>(ClearFlags.Keys))
+        {
+            if(gdb.GuideMissionId > key)
+                ClearFlags[key] = true;
+        }
         isInit = true;
     }
 
     public static async UniTask AddActionAndClaim(int gid)
     {
-        // 동시성 제어: 이미 처리 중이거나 완료된 미션은 스킵
         if (ClearFlags[gid] || _processingGids.Contains(gid))
             return;
 
@@ -119,19 +124,29 @@ public static class GuideMissionTestUtility  {
         // if(gdb.GuideMissionId == 406 && ) ElpisDimensionLab
     }
 
+    public static async UniTask HandleIteratively()
+    {
+        
+        await HandleElpisFacilityUpgrade();;
+        await HandleCommandCenter(false, false, false);
+        var latestClearedStageId = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
+        await HandleClearStage(latestClearedStageId, false);
+        await UpgradeUnit();
+    }
+
     public static async UniTask HandleElpisFacilityUpgrade()
     {
         if(!isInit) Init();
-    
-        if(gdb.GuideMissionId == 201 && edb.GetFacility((int)IdMap.ElpisBuild.Nest_1).IsJustCompleted) {if(!ClearFlags[201]) await AddActionAndClaim(201);}
-        if(gdb.GuideMissionId == 404 && edb.GetFacility((int)IdMap.ElpisBuild.Nest_2).IsJustCompleted) {if(!ClearFlags[404]) await AddActionAndClaim(404);}
+
+        if(gdb.GuideMissionId == 201 && (edb.GetFacility((int)IdMap.ElpisBuild.Nest_1)?.IsJustCompleted == true || edb.HasFacility((uint)IdMap.ElpisBuild.Nest_1))) {if(!ClearFlags[201]) await AddActionAndClaim(201);}
+        if(gdb.GuideMissionId == 404 && (edb.GetFacility((int)IdMap.ElpisBuild.Nest_2)?.IsJustCompleted == true || edb.HasFacility((uint)IdMap.ElpisBuild.Nest_2))) {if(!ClearFlags[404]) await AddActionAndClaim(404);}
     }
 
-    public static async UniTask HandleCommandCenter(bool isEnterCommandCenter, bool OnClickExpensionButton, bool isEnterDimension, bool isEnterBattleSim) {
+    public static async UniTask HandleCommandCenter(bool isEnterCommandCenter, bool isEnterDimension, bool isEnterBattleSim) {
         if(!isInit) Init();
     
         if(gdb.GuideMissionId == 401 && isEnterCommandCenter) {if(!ClearFlags[401]) await AddActionAndClaim(401);}
-        if(gdb.GuideMissionId == 403 && OnClickExpensionButton) {if(!ClearFlags[403]) await AddActionAndClaim(403);}
+        if(gdb.GuideMissionId == 403 && edb.GetFacilityLevel(Tech.Hive.V1.ElpisFacilityType.FacilityTypeCommandCenter) > 1) {if(!ClearFlags[403]) await AddActionAndClaim(403);}
         if(gdb.GuideMissionId == 405 && isEnterDimension) {if(!ClearFlags[405]) await AddActionAndClaim(405);}
         if(gdb.GuideMissionId == 407 && isEnterBattleSim) {if(!ClearFlags[407]) await AddActionAndClaim(407);}
     }

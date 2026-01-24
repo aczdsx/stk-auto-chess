@@ -89,7 +89,7 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
 
-
+            GuideMissionTestUtility.HandleCommandCenter(true, false, false).Forget();
             lobbyMain.PlayExitAnimation();
             
             dataBridge = new ElpisDataBridge();
@@ -265,6 +265,7 @@ namespace CookApps.AutoBattler
                     Debug.LogError($"Command Center Upgrade Error:{response.Exception}");
                     return;
                 }
+                await GuideMissionTestUtility.HandleCommandCenter(true, false, false);
 
                 currentElpisLevel = (int)response.Facility.Level;
 
@@ -309,10 +310,6 @@ namespace CookApps.AutoBattler
 
                 LoadElpisData();
                 UpdateUI();
-
-#if _SJHONG_TEST_
-                await GuideMissionTestUtility.HandleCommandCenter(false, true, false, false);
-#endif
 
                 var resultPopup = await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterResultPopup>(upgradedBenefits);
                 await resultPopup.WaitForExit();

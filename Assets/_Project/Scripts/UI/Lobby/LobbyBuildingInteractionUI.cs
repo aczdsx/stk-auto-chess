@@ -583,6 +583,7 @@ namespace CookApps.AutoBattler
                     {
                         changedInfo = response.Facility;
                     }
+                    await GuideMissionTestUtility.HandleElpisFacilityUpgrade();
                 }
                 else
                 {
@@ -591,6 +592,7 @@ namespace CookApps.AutoBattler
                     {
                         changedInfo = response.Facility;
                     }
+                    await GuideMissionTestUtility.HandleElpisFacilityUpgrade();
                 }
 
                 if (changedInfo != null)
