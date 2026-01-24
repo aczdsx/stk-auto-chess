@@ -10,6 +10,14 @@ using UnityEngine.UI;
 
 public class TutorialController : MonoBehaviour
 {
+    /// <summary>
+    /// 구멍 외 영역 터치 차단 여부 (데이터로 제어 가능)
+    /// </summary>
+    [Header("Touch Blocking")]
+    [SerializeField] private bool _blockTouchOutsideHole = true;
+
+    private TutorialMaskRaycastFilter _maskRaycastFilter;
+
     private static readonly int Show = Animator.StringToHash("Show");
     private static readonly int LongShow = Animator.StringToHash("LongShow");
     private static readonly int Close = Animator.StringToHash("Close");
@@ -42,6 +50,9 @@ public class TutorialController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _tutoiralText;
     [SerializeField] private Animator _tutorialToastAnimator;
     public Material _maskMaterial;
+
+    [Header("Dialogue Bubble Offset")]
+    [SerializeField] private float _characterBubbleOffsetX = 200f;
 
     private List<TutorialDialogue> _currentSpecTutorialList;
 
@@ -120,7 +131,49 @@ public class TutorialController : MonoBehaviour
     {
         _onTutorialCloseRequested = onTutorialCloseRequested;
         InitializeContext();
+        InitializeTouchBlocker();
     }
+
+    /// <summary>
+    /// 터치 차단 시스템 초기화
+    /// </summary>
+    private void InitializeTouchBlocker()
+    {
+        // DimmedImage에 RaycastFilter 추가
+        if (_dimmedImage != null)
+        {
+            _maskRaycastFilter = _dimmedImage.gameObject.GetComponent<TutorialMaskRaycastFilter>();
+            if (_maskRaycastFilter == null)
+            {
+                _maskRaycastFilter = _dimmedImage.gameObject.AddComponent<TutorialMaskRaycastFilter>();
+            }
+            _maskRaycastFilter.Initialize(_maskMaterial, _canvasRectTransform);
+        }
+
+        // 정적 TutorialTouchBlocker 초기화 (3D 터치 차단용)
+        Camera uiCamera = _tutorialCanvas != null ? _tutorialCanvas.worldCamera : null;
+        TutorialTouchBlocker.Initialize(_maskMaterial, _canvasRectTransform, uiCamera);
+    }
+
+    /// <summary>
+    /// 구멍 외 영역 터치 차단 설정
+    /// </summary>
+    public void SetBlockTouchOutsideHole(bool block)
+    {
+        _blockTouchOutsideHole = block;
+
+        if (_maskRaycastFilter != null)
+        {
+            _maskRaycastFilter.BlockOutsideHole = block;
+        }
+
+        TutorialTouchBlocker.IsBlocking = block;
+    }
+
+    /// <summary>
+    /// 현재 터치 차단 상태 반환
+    /// </summary>
+    public bool IsBlockingTouchOutsideHole => _blockTouchOutsideHole;
 
     private void InitializeContext()
     {
@@ -152,6 +205,9 @@ public class TutorialController : MonoBehaviour
         _maskMaterial.SetFloat(HoleRadius, 0f);
         _maskMaterial.SetFloat(HoleRadius2, 0f);
         _maskMaterial.SetFloat(MaskAlpha, 1f);
+
+        // 터치 차단 활성화
+        SetBlockTouchOutsideHole(_blockTouchOutsideHole);
 
         ShowNextTutorial(_currentSpecTutorialList[_tutorialListIndex]);
         _tutorialAnimator.SetTrigger(isLongShow ? LongShow : Show);
@@ -199,25 +255,14 @@ public class TutorialController : MonoBehaviour
             // string tutorialText = LanguageManager.Instance.GetDefaultText(CurrentSpecTutorial.desc_key);
             Debug.LogColor($"CurrentSpecTutorial.prefab_id: {CurrentSpecTutorial.prefab_id}", "green");
             var characterInfo = SpecDataManager.Instance.GetCharacterData(CurrentSpecTutorial.prefab_id);//id로 가져와져서 바꿔야함.
-            #if __DEV
-            try
-            {
-                _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterInfo.prefab_id)).Forget();
-            }
-            catch (Exception e)
-            {
-                _spriteLoaderCharacter.SetSprite("ERROR").Forget();
-            }
-            #else
             _spriteLoaderCharacter.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(characterInfo.prefab_id)).Forget();
-            #endif
 
             _characterNameText.text = LanguageManager.Instance.GetDefaultText(characterInfo.name_token);
             string tutorialText = CurrentSpecTutorial.desc_key;
             _descText.text = tutorialText;
 
-            // 말풍선 위치 이동 (coordinate: "x,y" 형식)
-            var targetPosition = ParseCoordinate(CurrentSpecTutorial.coordinate);
+            // 말풍선 위치 결정
+            var targetPosition = CalculateDialogueBubblePosition(CurrentSpecTutorial);
             _bodyRectTransform.DOLocalMove(targetPosition, 0.6f).SetEase(Ease.OutQuad);
         }
 
@@ -358,6 +403,9 @@ public class TutorialController : MonoBehaviour
             _worldArrowRectTransform.gameObject.SetActive(false);
         }
 
+        // 터치 차단 해제
+        SetBlockTouchOutsideHole(false);
+
         _tutorialAnimator.SetTrigger(Close);
 
         _currentSpecTutorialList = null;
@@ -427,6 +475,63 @@ public class TutorialController : MonoBehaviour
         float.TryParse(parts[1].Trim(), out float y);
 
         return new Vector3(x, y, 0);
+    }
+
+    /// <summary>
+    /// 말풍선 위치 계산 - 캐릭터 TutorialTarget이 있으면 해당 캐릭터 기준, 없으면 coordinate 사용
+    /// </summary>
+    private Vector3 CalculateDialogueBubblePosition(TutorialDialogue tutorial)
+    {
+        // prefab_id로 TutorialTarget 찾기
+        var characterTarget = CookApps.AutoBattler.TutorialTargetRegistry.Find(tutorial.prefab_id.ToString());
+
+        if (characterTarget != null)
+        {
+            // 캐릭터 월드 좌표를 UI 로컬 좌표로 변환
+            Vector3 worldPosition = characterTarget.transform.position;
+            Vector3 localPosition = WorldToCanvasLocalPosition(worldPosition);
+
+            // coordinate의 y값 사용 (y는 기존 설정값 유지)
+            var coordY = ParseCoordinate(tutorial.coordinate).y;
+
+            // x는 캐릭터 위치 + offset, y는 coordinate에서 지정한 값 사용
+            return new Vector3(localPosition.x + _characterBubbleOffsetX, coordY, 0);
+        }
+
+        // TutorialTarget이 없으면 기존 coordinate 사용
+        return ParseCoordinate(tutorial.coordinate);
+    }
+
+    /// <summary>
+    /// 월드 좌표를 캔버스 로컬 좌표로 변환
+    /// </summary>
+    private Vector3 WorldToCanvasLocalPosition(Vector3 worldPosition)
+    {
+        Camera cam = _actionContext?.MainCamera;
+        if (cam == null)
+        {
+            cam = Camera.main;
+        }
+
+        if (cam == null)
+        {
+            return Vector3.zero;
+        }
+
+        Vector3 screenPosition = cam.WorldToScreenPoint(worldPosition);
+
+        if (screenPosition.z < 0)
+        {
+            return Vector3.zero;
+        }
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            _canvasRectTransform,
+            screenPosition,
+            _tutorialCanvas.worldCamera,
+            out var localPoint);
+
+        return new Vector3(localPoint.x, localPoint.y, 0);
     }
 
     #region World Arrow
@@ -500,15 +605,16 @@ public class TutorialController : MonoBehaviour
             return _currentUvPosition;
         }
 
-        // FOCUS_UI: UI 전용 (RectTransform 필수)
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FOCUS_UI)
+        // FOCUS_UI, FORCED_TOUCH_UI: UI 전용 (RectTransform 필수)
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FOCUS_UI ||
+            CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FORCED_TOUCH_UI)
         {
             var targetRectTransform = targetObj.GetComponent<RectTransform>();
             if (targetRectTransform != null)
             {
                 return GetNormalizedPosition(_canvasRectTransform, targetRectTransform);
             }
-            Debug.LogWarning("[TutorialController] FOCUS_UI 대상 오브젝트에 RectTransform이 없습니다.");
+            Debug.LogWarning($"[TutorialController] {CurrentSpecTutorial.tutorial_action_type} 대상 오브젝트에 RectTransform이 없습니다.");
             return _currentUvPosition;
         }
 

@@ -82,6 +82,8 @@ namespace CookApps.AutoBattler
             if (_guideObj != null)
                 _guideObj.SetActive(isGuide);
 
+            var isTutorial = TutorialManager.Instance.IsTutorial;
+
             foreach (var characterData in _totalCharacterList)
             {
                 GameObject newCardObject = Instantiate(_characterCardSlotObject, _characterScrollRect.content);
@@ -96,6 +98,15 @@ namespace CookApps.AutoBattler
                         _guideObj.transform.localPosition = Vector3.zero;
                     }
                 }
+
+                // 튜토리얼 모드일 때 TutorialTarget 동적 등록
+                if (isTutorial)
+                {
+                    var tutorialTarget = newCardObject.GetComponent<TutorialTarget>()
+                                         ?? newCardObject.AddComponent<TutorialTarget>();
+                    tutorialTarget.SetTargetId($"CharacterCardSlot_{characterData.id}");
+                }
+
                 _characterCardSlotList.Add(slot);
             }
 

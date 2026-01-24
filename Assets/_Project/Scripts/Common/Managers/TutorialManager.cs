@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
+using R3;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -21,6 +23,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     private const string TUTORIAL_CANVAS_PREFAB_PATH = "Prefabs/UI/Tutorial/InGameTutorialCanvas";
 
     private Canvas _canvas = null;
+    private IDisposable _guideMissionSubscription;
 
     public bool IsTutorialCanvasEnabled
     {
@@ -47,8 +50,69 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
     protected override void OnDestroy()
     {
+        _guideMissionSubscription?.Dispose();
+        _guideMissionSubscription = null;
         ClearTutorial();
         base.OnDestroy();
+    }
+
+    /// <summary>
+    /// 가이드 미션 변경 구독
+    /// </summary>
+    public void SubscribeGuideMissionChanged()
+    {
+        var guideMissionBridge = new GuideMissionDataBridge();
+        _guideMissionSubscription = guideMissionBridge.OnMissionIdChanged
+            .Subscribe(OnGuideMissionIdChanged);
+    }
+
+    /// <summary>
+    /// 가이드 미션 ID 변경 시 호출
+    /// </summary>
+    private async void OnGuideMissionIdChanged(uint newMissionId)
+    {
+        Debug.LogColor($"[TutorialManager] 가이드 미션 변경 감지: {newMissionId}", "cyan");
+
+        // RewardResultPopup이 열려있으면 닫힐 때까지 대기
+        var rewardPopup = SceneUILayerManager.Instance.GetUILayer<RewardResultPopup>();
+        if (rewardPopup != null)
+        {
+            await UniTask.WaitUntil(() =>
+                SceneUILayerManager.Instance.GetUILayer<RewardResultPopup>() == null);
+        }
+
+        await TryStartOutgameTutorial();
+    }
+
+    /// <summary>
+    /// 아웃게임 튜토리얼 시작 시도 (Lobby 진입 또는 가이드 미션 변경 시 호출)
+    /// </summary>
+    public async UniTask<bool> TryStartOutgameTutorial()
+    {
+        var guideMissionBridge = new GuideMissionDataBridge();
+        var guideMissionId = (int)guideMissionBridge.GuideMissionId;
+
+        if (guideMissionId == 0)
+        {
+            Debug.LogColor("[TutorialManager] 가이드 미션이 없습니다.", "yellow");
+            return false;
+        }
+
+        var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
+        if (specGuideMissionData == null)
+        {
+            Debug.LogColor($"[TutorialManager] 가이드 미션 스펙 데이터가 없습니다. id: {guideMissionId}", "yellow");
+            return false;
+        }
+
+        var result = await CheckAndInitTutorialWithGuideMissionInfo(specGuideMissionData);
+        if (result)
+        {
+            // 새 가이드 미션 시작 트리거 발동
+            HandleTutorialAction(TutorialTriggerType.GUIDE_START, guideMissionId.ToString());
+        }
+
+        return result;
     }
 
     #region 아웃게임 튜토리얼
@@ -70,10 +134,6 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         if (result)
         {
             _pendingGuideMissionInfo = info;  // 완료 대기
-
-            // 첫 번째 트리거 자동 발동
-            var firstTriggerType = _specTutorialDataList.First();
-            HandleTutorialAction(firstTriggerType.tutorial_trigger_type, firstTriggerType.tutorial_trigger_key);
         }
 
         return result;
@@ -103,6 +163,11 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         }
 
         Debug.LogColor($"튜토리얼 초기화: {tutorialID}, 스텝 수: {_specTutorialDataList.Count}", "green");
+
+        foreach (var tutorial in _specTutorialDataList)
+        {
+            Debug.LogColor($"튜토리얼 데이터: {tutorial.tutorial_trigger_type}, key: {tutorial.tutorial_trigger_key}, type: {tutorial.tutorial_action_type}, action_key: {tutorial.tutorial_action_key}, id: {tutorial.id}", "green");
+        }
         await CreateTutorialCanvas();
         return true;
     }
@@ -189,7 +254,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             return false;
         }
 
-        Debug.LogColor($"튜토리얼 액션 실행: {tutorialTriggerType}, key: {key}, count: {turnTutorialList.Count}", "green");
+        // Debug.LogColor($"튜토리얼 액션 실행: {tutorialTriggerType}, key: {key}, count: {turnTutorialList.Count}", "green");
 
         _specTutorialDataList.RemoveAll(
             l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);

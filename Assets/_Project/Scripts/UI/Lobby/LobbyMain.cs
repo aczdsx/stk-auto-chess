@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
 using R3;
 using UnityEngine;
 
@@ -127,24 +126,15 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
 
-            // 챕터1 튜토리얼 시퀀스 시작 (TutorialManager가 상태 관리)
-            // if(!TutorialManager.Instance.IsOutgameTutorialCompleted((int)TutorialConstants.Chapter1Tutorial.HubbleIntro))
-            // {
-            //     await HubbleLobbyScequence();
-            // }
-            // await TutorialManager.Instance.StartChapter1TutorialSequence();
+            // 아웃게임 튜토리얼 시작 (가이드 미션 기반)
+            await TutorialManager.Instance.TryStartOutgameTutorial();
 
-            // guide middion (나중에, 영지 복구 연출 이후에 진행이 이 이전 async로)
-            // TODO Model 대신 Bridge로 가져오기
-            var model = ServerDataManager.Instance.GuideMission;
-            var dataBridge = new GuideMissionDataBridge();
+            TutorialManager.Instance.SubscribeGuideMissionChanged();
 
-            if(dataBridge.GuideMissionId <= 101) {
-                await TutorialManager.Instance
-                    .CheckAndInitTutorialWithGuideMissionInfo(SpecDataManager.Instance.GuideMissionInfo[(int)dataBridge.GuideMissionId]);
-                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
-            }
-            
+
+            // 이거는 엘피스 연출 후에 실행 되어야 함.
+            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+
             var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
             _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
         }

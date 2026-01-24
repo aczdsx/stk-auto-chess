@@ -59,6 +59,9 @@ namespace CookApps.AutoBattler
             // 타겟을 최상위로 이동
             context.TargetUIObj.transform.SetParent(context.TargetSpawnTransform, true);
 
+            // 마스크 홀 타겟 설정 (해당 UI 위치에 홀 생성)
+            context.TargetUnmaskObj = context.TargetUIObj;
+
             // 화살표 설정
             context.ArrowRectTransform.gameObject.SetActive(true);
             context.WorldArrowRectTransform.gameObject.SetActive(true);
@@ -98,6 +101,7 @@ namespace CookApps.AutoBattler
 
             // 컨텍스트 정리
             context.TargetUIObj = null;
+            context.TargetUnmaskObj = null;
             context.OriginalParent = null;
             OnButtonClicked = null;
 

@@ -62,7 +62,7 @@ namespace CookApps.AutoBattler
                 .OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, _) => self.OnClick())
                 .AddTo(this);
-            
+
             nameTagButton
                 .OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, _) => self.OnClick())
@@ -70,7 +70,7 @@ namespace CookApps.AutoBattler
 
             ElpisDataBridge = new ElpisDataBridge();
         }
-        
+
         private void LateUpdate()
         {
             if (!isInitialize)
@@ -82,7 +82,7 @@ namespace CookApps.AutoBattler
             UpdatePosition();
             UpdateZoomBasedUI();
         }
-        
+
         public void Initialize(ElpisBuildingBase target, ElpisFacility facilityData)
         {
             parentRect = CachedTr.parent.GetComponent<RectTransform>();
@@ -102,7 +102,7 @@ namespace CookApps.AutoBattler
         }
 
         #region Set
-        
+
         public void UpdateUI()
         {
             var (isInstalling, isInstallFinished, isCanInstall, isFacilityLocked) = GetFacilityStatus();
@@ -131,7 +131,7 @@ namespace CookApps.AutoBattler
         /// 캐시된 시설 정보 목록을 반환합니다.
         /// </summary>
         public List<FacilityInfo> CachedFacilityInfos => cachedFacilityInfos;
-        
+
         /// <summary>
         /// 슬롯 인덱스를 반환합니다.
         /// </summary>
@@ -179,7 +179,7 @@ namespace CookApps.AutoBattler
                     return;
 
                 var buildPathes = new List<string>();
-                
+
                 foreach (var facilityInfo in cachedFacilityInfos)
                 {
                     if (facilityInfo.isInstalled)
@@ -195,7 +195,7 @@ namespace CookApps.AutoBattler
         private void SetData(ElpisBuildingBase target, ElpisFacility facilityData)
         {
             this.target = target;
-            
+
             ChangeInfo(facilityData);
         }
 
@@ -444,6 +444,13 @@ namespace CookApps.AutoBattler
 
             UpdateUI();
             currentBuildLayer?.Close();
+
+            // 튜토리얼 트리거: 건물 완성
+            Debug.Log($"[LobbyBuildingInteractionUI] OnInstallTimerCompleted: {installingFacility.buildInfo.build_id}");
+            TutorialManager.Instance.HandleTutorialAction(
+                TutorialTriggerType.BUILDING_COMPLETE,
+                installingFacility.buildInfo.build_id.ToString()
+            );
         }
 
         public void SetCurrentBuildLayer(ElpisBuildLayer layer)
@@ -552,13 +559,9 @@ namespace CookApps.AutoBattler
         {
             CameraFocus();
 
-#if _SJHONG_TEST_
-            await GuideMissionTestUtility.HandleElpisFacilityUpgrade();
-#endif
-            
             var (isInstalling, isInstallFinished, isCanInstall, isFacilityLocked) = GetFacilityStatus();
-            
-            if(isFacilityLocked)
+
+            if (isFacilityLocked)
                 return;
 
             if (isInstallFinished)
@@ -606,14 +609,14 @@ namespace CookApps.AutoBattler
                     targetLobbyBuildingUI = this,
                     slotIndex = buildInfo.slot_index
                 };
-                
+
                 SceneUILayerManager.Instance.PushUILayerAsync<ElpisBuildLayer>(newParam).Forget(); //TODO : param 변경 필요
             }
             else
             {
                 if (facilityData.Level <= 0)
                     return;
-                
+
                 var buildingLayer = SceneUILayerManager.Instance.GetUILayer<ElpisBuildLayer>();
                 if (buildingLayer != null)
                     SceneUILayerManager.Instance.PopUILayer(buildingLayer);
