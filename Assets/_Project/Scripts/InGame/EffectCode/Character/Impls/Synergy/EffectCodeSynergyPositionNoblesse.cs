@@ -88,7 +88,7 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeSynergyBase
     }
     private void ImmuneAllDebuff(IEffectCodeSource source)
     {
-        if (_crownVfx == null)
+        if (_crownVfx != null)
         {
             _crownVfx.Remove();
         }
