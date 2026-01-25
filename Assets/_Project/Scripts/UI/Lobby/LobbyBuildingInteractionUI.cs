@@ -609,7 +609,7 @@ namespace CookApps.AutoBattler
                 // ! INSTALL_BUILDING_NEST
                 if((edb.GetFacility((int)IdMap.ElpisBuild.Nest_1)?.IsJustCompleted == true))
                 {
-                    //
+                    await gdb.AddActionAsync(GuideMissionType.INSTALL_BUILDING, 1);
                 }
 
 
@@ -617,7 +617,7 @@ namespace CookApps.AutoBattler
                 // ! 404	17	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_404	숙소설치 가이드미션	30003	GUIDE_MISSION_DESC_404	0	1	GOLD	210001	200											
                 // ! UPGRADE_BUILDING_FOR_NEST_2
                 if((edb.GetFacility((int)IdMap.ElpisBuild.Nest_2)?.IsJustCompleted == true)) {
-                    //
+                    await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
                 }
 
 
@@ -625,7 +625,7 @@ namespace CookApps.AutoBattler
                 // ! 405	18	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_405	디멘션 큐브 가이드 미션	30004	GUIDE_MISSION_DESC_405	0	1	GOLD	210001	200											
                 // ! INSTALL_BUILDING_DIMENSION_LAB
                 if((edb.GetFacility((int)IdMap.ElpisBuild.DimensionLab)?.IsJustCompleted == true)) {
-                    //
+                    await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
                 }
 
 
@@ -633,7 +633,7 @@ namespace CookApps.AutoBattler
                 // ! 407	20	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_407	전투 시뮬레이션 센터 가이드 미션	30006	GUIDE_MISSION_DESC_407	0	1	GOLD	210001	200											
                 // ! INSTALL_BUILDING_SIMULATION_CENTER
                 if((edb.GetFacility((int)IdMap.ElpisBuild.SimulationCenter)?.IsJustCompleted == true)) {
-                    //
+                    await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
                 }
 
 

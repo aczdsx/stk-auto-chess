@@ -305,13 +305,13 @@ namespace CookApps.AutoBattler
                     if (resp?.IsSuccess == false)
                         return;
                     
+                    var gdb = new GuideMissionDataBridge();
                     // ! GUIDE_TODO
                     // ! 305	8	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_305	아트레시아 돌파 진행	20006	GUIDE_MISSION_DESC_305	0	1	GOLD	210001	200											
                     // ! CHARACTER_EXCEED
                     if(ServerDataManager.Instance.Character.GetCharacter(GuideMissionTestUtility.아트레시아ID).ExceedLevel > 0)
                     {
-                        var gdb = new GuideMissionDataBridge();
-                        // 
+                        await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
                     }
                 }
                 else
@@ -320,13 +320,13 @@ namespace CookApps.AutoBattler
                     if (resp?.IsSuccess == false)
                         return;
                     
+                    var gdb = new GuideMissionDataBridge();
                     // ! GUIDE_TODO
                     // ! 202	3	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_202	아트레시아 레벨 2 만들기	20003	GUIDE_MISSION_DESC_202	0	1	GOLD	210001	200											
                     // ! CHARACTER_LEVELUP
                     if(ServerDataManager.Instance.Character.GetCharacter(GuideMissionTestUtility.아트레시아ID).Level > 1)
                     {
-                        var gdb = new GuideMissionDataBridge();
-                        // 
+                        await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
                     }
                 }
 
@@ -395,13 +395,13 @@ namespace CookApps.AutoBattler
                 if (response?.IsSuccess == false)
                     return;
                 
+                var gdb = new GuideMissionDataBridge();
                 // ! GUIDE_TODO
                 // ! 402	15	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_402	기사 초월 가이드 미션	30001	GUIDE_MISSION_DESC_402	0	1	GOLD	210001	200											
                 // ! CHARACTER_TRANSCENDENCE
                 if(ServerDataManager.Instance.Character.GetCharacter(GuideMissionTestUtility.아트레시아ID).TranscendLevel > 3)
                 {
-                    var gdb = new GuideMissionDataBridge();
-                    // 
+                    await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
                 }
 
                 // 메인 레이어 갱신

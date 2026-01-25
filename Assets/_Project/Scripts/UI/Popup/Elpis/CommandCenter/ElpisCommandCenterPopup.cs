@@ -97,7 +97,7 @@ namespace CookApps.AutoBattler
             // ! UPGRADE_BUILDING_FOR_COMMEND_CENTER_2
             if(gdb.GuideMissionId == GuideMissionTestUtility.커맨드센터들어간가이드미션ID)
             {
-                //
+                gdb.AddAction(GuideMissionType.USE_BUILDING, 1);
             }
 
             lobbyMain.PlayExitAnimation();
@@ -283,7 +283,7 @@ namespace CookApps.AutoBattler
                 // ! USE_BUILDING
                 if(edb.GetFacilityLevel(Tech.Hive.V1.ElpisFacilityType.FacilityTypeCommandCenter) > 1)
                 {
-                    //
+                    await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
                 }
 
                 currentElpisLevel = (int)response.Facility.Level;
