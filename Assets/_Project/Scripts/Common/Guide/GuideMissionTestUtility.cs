@@ -157,7 +157,7 @@ public static class GuideMissionTestUtility
 #if _SJHONG_TEST_
         return (int)LocalDataManager.Instance.GetLastPlayStageId();
 #else
-        return (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
+        return (int)LocalDataManager.Instance.GetLastPlayStageId();
 #endif
     }
 
