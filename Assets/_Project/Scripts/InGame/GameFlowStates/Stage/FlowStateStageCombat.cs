@@ -96,8 +96,8 @@ public class FlowStateStageCombat : StateCombatBase
             {
                 if (character.CharacterId == 3401)
                 {
-                    // SetSkillCooltimeRatio(character, 0.4f);
-                    SetSkillCooltimeRatio(character, 0.455f);
+                    SetSkillCooltimeRatio(character, 0.47f);
+                    // SetSkillCooltimeRatio(character, 0.45f);
                     break;
                 }
             }

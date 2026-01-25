@@ -190,7 +190,9 @@ namespace CookApps.AutoBattler
                     cachedData.targetLobbyBuildingUI.ChangeInfo(result.Facility);
                     cachedData.targetLobbyBuildingUI.StartConstructionEffect();
 
-                    CloseThisUILayer();
+                    // 건물 짓는 중 상태로 UI 갱신
+                    cachedData.facilityInfos = cachedData.targetLobbyBuildingUI.CachedFacilityInfos;
+                    RefreshUI();
                 }
                 else
                 {
@@ -206,7 +208,9 @@ namespace CookApps.AutoBattler
                     cachedData.targetLobbyBuildingUI.ChangeInfo(result.Facility);
                     cachedData.targetLobbyBuildingUI.StartConstructionEffect();
 
-                    CloseThisUILayer();
+                    // 건물 짓는 중 상태로 UI 갱신
+                    cachedData.facilityInfos = cachedData.targetLobbyBuildingUI.CachedFacilityInfos;
+                    RefreshUI();
                 }
                 else
                 {

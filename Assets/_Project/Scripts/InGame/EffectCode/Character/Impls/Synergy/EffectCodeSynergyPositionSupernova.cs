@@ -186,7 +186,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         int2 pos = new int2(inGameTile.X, inGameTile.Y);
 
         var statData = new CharacterStatData(battleItemId, 1, 1, 1);
-        var character = await InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.Neutral,
+        var character = await InGameObjectManager.Instance.AddCharacterToField(statData, pos, AllianceType.BattleItem,
             typeof(CharacterStateReady), false, HpBarType.None);
 
         character.GetCharacterView().SpriteRendererSetActive(false);
