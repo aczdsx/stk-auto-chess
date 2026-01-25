@@ -59,6 +59,16 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
+        /// 시설이 존재하고 건설이 완료된 상태인지
+        /// (건설 중이 아님 = 완료됨)
+        /// </summary>
+        public bool IsBuildedFacilityExists(uint buildId)
+        {
+            var facility = GetFacility(buildId);
+            return facility != null && !facility.IsBuilding;
+        }
+
+        /// <summary>
         /// 특정 타입의 시설들 가져오기
         /// </summary>
         public void GetFacilitiesByType(List<ElpisFacility> output, ElpisFacilityType facilityType)

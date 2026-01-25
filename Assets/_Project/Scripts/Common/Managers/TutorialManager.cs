@@ -61,9 +61,11 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     public void SubscribeGuideMissionChanged()
     {
+        #if !_SJHONG_TEST_
         var guideMissionBridge = new GuideMissionDataBridge();
         _guideMissionSubscription = guideMissionBridge.OnMissionIdChanged
             .Subscribe(OnGuideMissionIdChanged);
+        #endif
     }
 
     /// <summary>

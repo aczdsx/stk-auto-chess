@@ -128,16 +128,16 @@ namespace CookApps.AutoBattler
             SceneTransition.FadeOutAsync().Forget();
 
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
-
-#if _SJHONG_TEST_
             // TODO Model 대신 Bridge로 가져오기
             var model = ServerDataManager.Instance.GuideMission;
             var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)model.GuideMissionId);
 
+#if _SJHONG_TEST_
+
             if(specGuideMissionData.id <= 101) {
-                await TutorialManager.Instance.CheckAndInitTutorialWithGuideMissionInfo(specGuideMissionData);
-                await HubbleLobbyScequence();
-                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+                await TutorialManager.Instance.TryStartOutgameTutorial();
+
+                TutorialManager.Instance.SubscribeGuideMissionChanged();
             }
 #else
             // 아웃게임 튜토리얼 시작 (가이드 미션 기반)
@@ -145,12 +145,9 @@ namespace CookApps.AutoBattler
 
             TutorialManager.Instance.SubscribeGuideMissionChanged();
 
-
+#endif
             // 이거는 엘피스 연출 후에 실행 되어야 함.
             TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
-#endif
-
-
 
             var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
             _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
