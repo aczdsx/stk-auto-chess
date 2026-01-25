@@ -32,11 +32,12 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     private bool _isApplyReserved = false;
 
     private InGameVfx _supernovaItemVfx;
-
+    private AllianceType _allianceType;
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
         _synergyGrade = codeInfo.GetCodeStatToInt(3);
+        _allianceType = (AllianceType)codeInfo.GetCodeStatToInt(4);
         AddGameObjectSuperNovaItem(source);
     }
 
@@ -44,7 +45,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     {
         base.Merge(codeInfo, source);
         _synergyGrade = codeInfo.GetCodeStatToInt(3);
-
+        _allianceType = (AllianceType)codeInfo.GetCodeStatToInt(4);
         if (_supernovaApplyVfx != null && _targetCharacter != null)
         {
             _supernovaApplyVfx.Remove();
@@ -65,6 +66,11 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     /// </summary>
     public void ApplySupernovaItemBySavedCharacterId()
     {
+        if (_allianceType != AllianceType.Player)
+        {
+            return;
+        }
+
         var deckData = ServerDataManager.Instance.Deck.GetDeck(InGameType.STAGE);
         if (deckData == null)
             return;
@@ -92,6 +98,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
         if (targetCharacter == null)
             return;
+
 
         // 슈퍼노바 배틀 아이템 찾기 (모든 등급 확인)
         CharacterController battleItem = null;
@@ -155,12 +162,12 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             // 선택된 타일이 이미 점유되어 있으면 다른 빈 타일 찾기
             if (inGameTile != null && inGameTile.OccupiedCharacter != null)
             {
-                inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter);
+                inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter, _allianceType);
             }
         }
         else
         {
-            inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter);
+            inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter, _allianceType);
         }
 
         if (TutorialManager.Instance.IsTutorial)
@@ -180,7 +187,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         // 최종적으로 타일이 없거나 점유되어 있으면 빈 타일 찾기
         if (inGameTile == null || inGameTile.OccupiedCharacter != null)
         {
-            inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter);
+            inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter, _allianceType);
         }
 
         int2 pos = new int2(inGameTile.X, inGameTile.Y);
@@ -435,7 +442,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     private async UniTask GetSupernovaDragonBall()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
-        if(_targetCharacter == null)
+        if (_targetCharacter == null)
             return;
         var vfxName = GetSupernovaVfxName(_synergyGrade);
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_nova_spirit);
@@ -474,9 +481,13 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
     public void OnItemNotAppliedBeforeCombat(CharacterController targetItemController, IEffectCodeSource source)
     {
-        ToastManager.Instance.ShowToastByTokenKey(NOT_SUPERNOVA_ITEM_APPLY);
+        if (_allianceType == AllianceType.Player)
+        {
+            ToastManager.Instance.ShowToastByTokenKey(NOT_SUPERNOVA_ITEM_APPLY);
+            return;
+        }
 
-        var characterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
+        var characterList = InGameObjectManager.Instance.GetCharacterList(_allianceType);
         foreach (var character in characterList)
         {
             if (character == targetItemController ||
