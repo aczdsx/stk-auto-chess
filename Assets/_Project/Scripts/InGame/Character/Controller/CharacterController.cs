@@ -39,6 +39,12 @@ namespace CookApps.BattleSystem
             {
                 dynamiteEffectCode.OnTileMoveEnd(CurrentTile, this);
             }
+
+            if (tileEcc.GetEffectCode((int)EffectCodeNameType.CHAPTER_LANDMINE)
+            is EffectCodeGameBase landmineEffectCode)
+            {
+                landmineEffectCode.OnTileMoveEnd(CurrentTile, this);
+            }
         }
 
         public EffectCodeContainer GetEffectCodeContainer()
