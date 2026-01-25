@@ -118,7 +118,7 @@ namespace CookApps.AutoBattler
 
         private async UniTask PreEnterAsync()
         {
-            await GuideMissionTestUtility.HandleIteratively();
+            // await GuideMissionTestUtility.HandleIteratively();
             guideMissionSlot.InitGuideMissionSlot();
 
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
