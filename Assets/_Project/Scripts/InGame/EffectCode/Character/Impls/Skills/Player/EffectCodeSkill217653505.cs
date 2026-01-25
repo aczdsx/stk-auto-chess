@@ -142,6 +142,9 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
 
     private void OnTrigger2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
     {
+        if (owner is null)
+            return;
+
         var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
         if (tileFx != null)
         {

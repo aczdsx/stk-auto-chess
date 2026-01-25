@@ -121,6 +121,8 @@ public partial class EffectCodeBuffImmune : EffectCodeBuffBase
 
     public override void OnPreRemoved()
     {
+        if (owner is null)
+            return;
         owner.RemoveBuffDebuffType(buffDebuffType);
         owner.RemoveBuffStackData(codeId);
         base.OnPreRemoved();

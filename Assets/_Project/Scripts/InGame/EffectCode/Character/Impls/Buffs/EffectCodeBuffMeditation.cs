@@ -65,12 +65,16 @@ public partial class EffectCodeBuffMeditation : EffectCodeBuffBase
     {
         var isRemoved = false;
         for (var i = 0; i < _stackDatas.Count; i++)
-            if (_stackDatas[i].source == source)
+        {
+            if (_stackDatas[i].source is null || _stackDatas[i].source == source)
             {
                 GenericPool<BuffStackData>.Release(_stackDatas[i]);
                 _stackDatas[i] = null;
                 isRemoved = true;
             }
+        }
+        
+            
 
         if (isRemoved)
             container.SetDirtyFlag(this);
