@@ -1,5 +1,7 @@
 ; 신넘버: Chapter0_04 | 구성: 나니노벨 다이얼로그(?) | 분량: 2분 내외 / 40라인 | 키포인트: 이름짓기 튜토리얼 + 유니 매력
 
+@skip false
+
 @back bg_black_01
 @bgm snd_bgm_dialog_normal02
 @back bg_brokenship_02 time:0.5 transition:Crossfade
@@ -26,15 +28,10 @@ Narrator: 유니가 진짜로 때리려는 자세를 취하자, 본능적으로 
 Narrator: 그리고 그런 그녀를 아트레시아가 제지한다.
 atresia_00: …..(깊은 한숨을 쉰다) 유니.
 uni_00: 미..미안. 헤헤헤. 나는 신종 장난인지 알았어.
-@skip false
 uni_00: 근데 그럼, 자기 이름은 기억하고 있는거야?
-@skip false
 atresia_00: 아, 아뇨… 이름까지 여쭤보진 못했는데.
-@skip false
 uni_00: 관측자, 이름은 기억나?!
-@skip false
 @spawn nickname
-@skip false
 
 @hideChars
 ; 닉네임 생성 튜토리얼 (나중에 버튼으로 미루기 가능)
