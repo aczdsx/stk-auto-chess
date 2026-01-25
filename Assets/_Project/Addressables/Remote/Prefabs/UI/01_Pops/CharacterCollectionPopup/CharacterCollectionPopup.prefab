@@ -1382,11 +1382,33 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -31
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1691700501820425026, guid: 606ca9769bae0df47afa183af1f29b7a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4846552006795987326, guid: 606ca9769bae0df47afa183af1f29b7a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8019254787950731099}
   m_SourcePrefab: {fileID: 100100000, guid: 606ca9769bae0df47afa183af1f29b7a, type: 3}
+--- !u!1 &1523963476055680780 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4846552006795987326, guid: 606ca9769bae0df47afa183af1f29b7a, type: 3}
+  m_PrefabInstance: {fileID: 6225203845450952306}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8019254787950731099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523963476055680780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9761b5fa6930744c1bdf307a8b19e2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetId: LevelUpBtn
 --- !u!114 &7750261063664464353 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4461423142043983763, guid: 606ca9769bae0df47afa183af1f29b7a, type: 3}

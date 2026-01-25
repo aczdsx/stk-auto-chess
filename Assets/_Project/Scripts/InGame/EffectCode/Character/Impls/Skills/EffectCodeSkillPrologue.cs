@@ -708,6 +708,15 @@ namespace CookApps.AutoBattler.Prologue
         {
             base.Activate();
 
+            // 타겟 설정
+            _targetCharacter = FindValidTarget();
+            if (_targetCharacter == null)
+            {
+                // 유효한 타겟이 없으면 스킬 실행 취소
+                _isReadyToActivate = false;
+                return;
+            }
+
             _isReadyToActivate = false;
             IsSkillActivated = true;
             owner.AddNextState<CharacterStateSkill>(this);
@@ -716,7 +725,7 @@ namespace CookApps.AutoBattler.Prologue
         public override void OnSkillExecute(int executeIndex, int totalLength)
         {
             base.OnSkillExecute(executeIndex, totalLength);
-            if (owner == null)
+            if (owner == null || _targetCharacter == null)
                 return;
 
             if (executeIndex == 0)

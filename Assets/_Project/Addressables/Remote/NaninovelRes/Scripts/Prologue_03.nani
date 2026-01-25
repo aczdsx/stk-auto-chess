@@ -112,6 +112,6 @@ Narrator: 시야가 온통 하얗게 불타오른다. 세계가 무너지는 굉
 @hideUI
 @hidePrinter Dialogue
 @hideChars
-@skip false
+; @skip false
 
 @end

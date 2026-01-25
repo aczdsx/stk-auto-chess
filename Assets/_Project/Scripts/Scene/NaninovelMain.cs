@@ -20,6 +20,7 @@ namespace CookApps.AutoBattler
         private bool _isInitialized = false;
         private Action _onEndAction;
         private string _currentScriptName; // 현재 실행 중인 스크립트 이름
+        private bool _isSkipTransition = false; // SKIP 버튼으로 전환 중인지 여부
 
         public static NaninovelMain GetNaninovelMain()
         {
@@ -173,6 +174,14 @@ namespace CookApps.AutoBattler
 
             // 페이드 아웃 (화면 복원)
             await SceneTransition.FadeOutAsync();
+
+            // SKIP으로 전환된 경우에만 첫 대사 입력 대기 상태를 자동으로 넘김
+            if (_isSkipTransition && _scriptPlayer != null && _scriptPlayer.WaitingForInput)
+            {
+                Debug.Log("NaninovelMain: SKIP 전환 후 첫 입력 자동 트리거");
+                var inputManager = Engine.GetService<IInputManager>();
+                inputManager?.GetContinue()?.Activate(1f);
+            }
         }
 
         /// <summary>
@@ -422,6 +431,9 @@ namespace CookApps.AutoBattler
 
             Debug.Log("NaninovelMain: 스킵으로 즉시 종료");
 
+            // SKIP 전환 플래그 설정
+            _isSkipTransition = true;
+
             // 현재 스크립트 중지
             if (_scriptPlayer.Playing)
             {
@@ -432,6 +444,9 @@ namespace CookApps.AutoBattler
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
             await ExecuteEndActionAsync();
+
+            // SKIP 전환 플래그 초기화
+            _isSkipTransition = false;
         }
 
         /// <summary>
@@ -464,4 +479,3 @@ namespace CookApps.AutoBattler
         }
     }
 }
-

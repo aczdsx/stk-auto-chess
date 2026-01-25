@@ -529,6 +529,7 @@ GameObject:
   - component: {fileID: 2364252882718470503}
   - component: {fileID: 8152474109162752813}
   - component: {fileID: 4586329803522808796}
+  - component: {fileID: 186229765674694279}
   m_Layer: 20
   m_Name: WalkPath
   m_TagString: Untagged
@@ -544,13 +545,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2705462533809238898}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.00000019079809, y: -0.001, z: -11}
+  m_LocalRotation: {x: -0.70710576, y: -0, z: -0, w: 0.70710784}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6343271105520244578}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &8152474109162752813
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -558,7 +559,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2705462533809238898}
-  m_Mesh: {fileID: 8334514708245525297, guid: 80f8b280c715fdf40b988a972460fb6e, type: 3}
+  m_Mesh: {fileID: 8334514708245525297, guid: e7b0f37bb3f8da246af1104fa217d131, type: 3}
 --- !u!23 &4586329803522808796
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -604,6 +605,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &186229765674694279
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705462533809238898}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8334514708245525297, guid: 3b72e4af583554643aa394a9d0a7cee7, type: 3}
 --- !u!1 &2916453951121788272
 GameObject:
   m_ObjectHideFlags: 0
@@ -6133,7 +6156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6002405892379591575}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.70710576, y: -0, z: -0, w: 0.7071079}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
