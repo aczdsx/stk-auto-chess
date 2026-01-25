@@ -1706,13 +1706,13 @@ namespace CookApps.AutoBattler
         public string name_token;
         /// 설명
         public string desc_token;
-        /// 이텍트 코드 스텟2
+        /// 이텍트 코드 스텟1
         [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float effect_code_stat_1;
         /// 이텍트 코드 스텟2
         [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float effect_code_stat_2;
-        /// 이텍트 코드 스텟2
+        /// 이텍트 코드 스텟3
         [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float effect_code_stat_3;
     }

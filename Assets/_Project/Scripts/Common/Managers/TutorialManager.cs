@@ -61,11 +61,11 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     public void SubscribeGuideMissionChanged()
     {
-        #if !_SJHONG_TEST_
+#if !_SJHONG_TEST_
         var guideMissionBridge = new GuideMissionDataBridge();
         _guideMissionSubscription = guideMissionBridge.OnMissionIdChanged
             .Subscribe(OnGuideMissionIdChanged);
-        #endif
+#endif
     }
 
     /// <summary>
@@ -95,6 +95,11 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         if (specGuideMissionData == null)
         {
             Debug.LogColor($"[TutorialManager] 가이드 미션 스펙 데이터가 없습니다. id: {guideMissionId}", "yellow");
+            return false;
+        }
+
+        if (ServerDataManager.Instance.GuideMission.IsCompleted || ServerDataManager.Instance.GuideMission.IsGoalReached)
+        {
             return false;
         }
 
@@ -291,17 +296,17 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         TutorialEnemyDeadAllHandler.ResumeAndEndCombat();
         TutorialSkillReadyHandler.TryProcessDeferredSkillReady();
 
-        if (_specTutorialDataList.Count == 0)
-        {
-            // 모든 다이얼로그 소모 완료 → 가이드 미션 완료 처리
-            if (_pendingGuideMissionInfo != null)
-            {
-                var guideMissionBridge = new GuideMissionDataBridge();
-                guideMissionBridge.AddAction(_pendingGuideMissionInfo.guide_mission_type, 1);
-                _pendingGuideMissionInfo = null;
-            }
-            ClearTutorial();
-        }
+        // if (_specTutorialDataList.Count == 0)
+        // {
+        //     // 모든 다이얼로그 소모 완료 → 가이드 미션 완료 처리
+        //     if (_pendingGuideMissionInfo != null)
+        //     {
+        //         var guideMissionBridge = new GuideMissionDataBridge();
+        //         guideMissionBridge.AddAction(_pendingGuideMissionInfo.guide_mission_type, 1);
+        //         _pendingGuideMissionInfo = null;
+        //     }
+        //     ClearTutorial();
+        // }
 
         return true;
     }

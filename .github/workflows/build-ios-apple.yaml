@@ -116,8 +116,12 @@ jobs:
           customParameters: >
             --acquire-floating
             -buildName ${{ env.BUILD_SETTING_NAME }}
-            -cacheServerEnableDownload false
-            -cacheServerEnableUpload false
+            -EnableCacheServer
+            -cacheServerEndpoint ${{ vars.UNITY_ACCELERATOR_ENDPOINT }}
+            -cacheServerNamespacePrefix ${{ github.repository }}
+            -cacheServerEnableDownload true
+            -cacheServerEnableUpload true
+
       - name: Extract build summary
         id: build-summary
         uses: cookapps-devops/tech-unity-workflows/.github/actions/extract-build-summary@v1

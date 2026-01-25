@@ -146,12 +146,22 @@ namespace CookApps.AutoBattler
         /// 가이드 미션 액션 보고
         /// </summary>
         /// <param name="guideMissionType">미션 타입</param>
-        /// <param name="guideClearCondition">클리어 조건 (선택)</param>
         /// <param name="addCount">추가 횟수</param>
         /// <param name="subKey">서브 키</param>
         public void AddAction(GuideMissionType guideMissionType, uint addCount = 1, int subKey = 0)
         {
             Model.AddActionValue(guideMissionType, subKey, addCount);
+        }
+
+        /// <summary>
+        /// 가이드 미션 액션 보고 (비동기)
+        /// </summary>
+        /// <param name="guideMissionType">미션 타입</param>
+        /// <param name="addCount">추가 횟수</param>
+        /// <param name="subKey">서브 키</param>
+        public async UniTask AddActionAsync(GuideMissionType guideMissionType, uint addCount = 1, int subKey = 0)
+        {
+            await Model.AddActionValueAsync(guideMissionType, subKey, addCount);
         }
 
         #endregion

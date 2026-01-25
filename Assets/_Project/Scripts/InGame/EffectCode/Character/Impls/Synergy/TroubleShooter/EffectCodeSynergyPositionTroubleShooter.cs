@@ -161,12 +161,16 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
     {
         var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(allianceType: AllianceType.Player);
         double FinalDamageValue = 0;
+        int troubleShooterCount = 0;
+
         foreach (var character in playerCharacterList)
         {
             if (character.SpecCharacter.character_stella_type != SynergyType.TROUBLESHOOTER)
                 continue;
+            troubleShooterCount++;
             FinalDamageValue += character.AD;
         }
+        FinalDamageValue = FinalDamageValue / troubleShooterCount;
 
         Span<double> stats = stackalloc double[3];
         stats.Clear();
@@ -203,10 +207,17 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
         Span<double> stats = stackalloc double[4];
         var playerCharacterList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
         double FinalDamageValue = 0;
+        int troubleShooterCount = 0;
         foreach (var character in playerCharacterList)
         {
+            if (character.SpecCharacter.character_stella_type != SynergyType.TROUBLESHOOTER)
+                continue;
+            troubleShooterCount++;
             FinalDamageValue += character.AD;
         }
+        
+        FinalDamageValue = FinalDamageValue / troubleShooterCount;
+        
 
         stats.Clear();
         stats[0] = synergyData.effect_stat_value_1;//Time
