@@ -139,6 +139,15 @@ namespace CookApps.AutoBattler
         /// </summary>
         public void AddActionValue(GuideMissionType missionType, int subKey = 0, uint addCount = 1)
         {
+            AddActionValueAsync(missionType, subKey, addCount).Forget();
+        }
+
+        /// <summary>
+        /// 가이드 미션 액션 값 추가 (비동기)
+        /// 현재 진행 중인 미션 타입이 맞는 경우에만 서버에 완료를 보고합니다.
+        /// </summary>
+        public async UniTask AddActionValueAsync(GuideMissionType missionType, int subKey = 0, uint addCount = 1)
+        {
             // 현재 미션이 없거나 이미 완료된 경우 무시
             if (_data == null || IsCompleted || IsGoalReached)
                 return;
@@ -157,13 +166,13 @@ namespace CookApps.AutoBattler
                 return;
 
             // 서버에 액션 완료 보고
-            UpdateActionAsync(addCount).Forget();
+            await UpdateActionAsync(addCount);
         }
 
         /// <summary>
         /// 서버에 클라이언트 액션 완료를 보고합니다.
         /// </summary>
-        public async UniTaskVoid UpdateActionAsync(uint addCount)
+        public async UniTask UpdateActionAsync(uint addCount)
         {
             await NetManager.Instance.GuideMission.UpdateActionAsync(addCount);
         }

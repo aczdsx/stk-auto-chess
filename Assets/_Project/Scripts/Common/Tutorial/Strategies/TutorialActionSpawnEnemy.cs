@@ -274,7 +274,7 @@ namespace CookApps.AutoBattler
                 if (character != null)
                 {
                     character.OverrideHp(150);
-                    character.OverrideMoveSpeed(character.MoveSpeed * 0.7f);
+                    character.OverrideMoveSpeed(character.MoveSpeed * 0.6f);
 
                     // 스폰된 적 목록에 추가 (SKILL_READY 완료 시 Idle로 전환용)
                     _spawnedEnemies.Add(character);

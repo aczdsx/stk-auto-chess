@@ -175,7 +175,7 @@ namespace CookApps.AutoBattler
 
             var guideMission = ServerDataManager.Instance.GuideMission;
             // 가이드 미션이 완료되어 보상 수령 대기상태일 경우 처리
-            _isWaitGuideMissionReward = guideMission.IsCompleted;
+            _isWaitGuideMissionReward = guideMission.IsGoalReached || guideMission.IsCompleted;
 
             // 애니메이션 연출 적용
             string animKey = _popupParam.IsVictory ? "InGameResult_Win" : "InGameResult_Lose";

@@ -205,10 +205,10 @@ public static class GuideMissionTestUtility
     public static async UniTask HandleBable(int bableStateID)
     {
         if (!isInit) Init();
-        if(!(바벨범위기준ID <= bableStateID && bableStateID <= 스테이지범위기준ID))
+        if (!(바벨범위기준ID <= bableStateID && bableStateID <= 스테이지범위기준ID))
         {
             Debug.LogError($"잘못된 바벨 ID를 가져오고 있음 {bableStateID}");
-                    return;
+            return;
         }
 
         // 연속 미션 클리어를 위해 while 루프 사용
@@ -237,44 +237,13 @@ public static class GuideMissionTestUtility
         if (!isInit) Init();
 
 
-        if(stageId <= 스테이지범위기준ID)
+        if (stageId <= 스테이지범위기준ID)
         {
             Debug.LogError($"잘못된 스테이지 ID를 가져오고 있음 {stageId}");
             return;
         }
-        // 연속 미션 클리어를 위해 while 루프 사용
-        bool processed;
-        do
-        {
-            processed = false;
-            int currentMissionId = (int)gdb.GuideMissionId;
 
-            // CLEAR_STAGE_1 미션 처리
-            if (CLEAR_STAGE_1_GUIDE_ID.Contains(currentMissionId))
-            {
-                if (GuideMissionTables.TryGetValue(currentMissionId, out var data) &&
-                    stageId > data.Subkey &&
-                    !ClearFlags[currentMissionId])
-                {
-                    await AddActionAndClaim(currentMissionId);
-                    processed = true;
-                    continue;
-                }
-            }
-
-            // CLEAR_STAGE_2 미션 처리
-            if (CLEAR_STAGE_2_GUIDE_ID.Contains(currentMissionId))
-            {
-                if (GuideMissionTables.TryGetValue(currentMissionId, out var data) &&
-                    stageId > data.Subkey &&
-                    !ClearFlags[currentMissionId])
-                {
-                    await AddActionAndClaim(currentMissionId);
-                    processed = true;
-                    continue;
-                }
-            }
-        } while (processed);
+        await NetManager.Instance.GuideMission.UpdateActionAsync(1);
     }
 
     public static async UniTask UpgradeUnit()
