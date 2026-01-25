@@ -119,6 +119,7 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
             {
                 var damage = owner.CalculateDamageAmount(0, attacker.AP * _damageRatePercent, attacker, owner.CharacterId, isSkill: true,
                 CharacterController.DamageTestFlags.None);
+                Debug.Log($"ShirayukiAvoidAndAttack: {damage.damageAmount.Value}");
                 attacker.GetDamaged(damage, owner);
             }
             if (owner.GetCharacterView().CachedFront)
