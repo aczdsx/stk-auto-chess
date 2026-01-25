@@ -225,7 +225,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
     public bool HandleTutorialAction(TutorialTriggerType tutorialTriggerType, string key, bool isLongShow = false)
     {
-        if (!IsTutorial || _specTutorialDataList.Count == 0)
+        if (!IsTutorial || _specTutorialDataList != null && _specTutorialDataList.Count == 0)
         {
             Debug.LogColor($"튜토리얼이 초기화되지 않았습니다. type: {tutorialTriggerType}", "red");
             return false;
