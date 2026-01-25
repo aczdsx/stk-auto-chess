@@ -13,7 +13,7 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    
+
     /// <summary>
     /// 전투 준비 화면(로비)의 메인 UI 레이어를 관리하는 클래스
     /// 
@@ -96,7 +96,7 @@ namespace CookApps.AutoBattler
 
         private bool _isIdleRewardFullState = false;
         private ElpisDataBridge elpisDataBridge;
-        
+
         public StageMilestonePanel StageMilestonePanel => stageMilestonePanel;
 
         public static BattleReadyMain GetBattleReadyMain()
@@ -156,7 +156,7 @@ namespace CookApps.AutoBattler
             // UI 세팅 완료 후 페이드 아웃
             await SceneTransition.FadeOutAsync();
 
-            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.BATTLE_READY, GetType().Name);
+            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.BATTLE_READY, "0");
         }
 
         public void RefreshUI(LobbyMainRefreshType refreshType)
@@ -288,7 +288,7 @@ namespace CookApps.AutoBattler
 
                 // _bossStageImage.sprite = ImageManager.Instance.GetBossBannerSprite(specMonsterData.prefab_id);
                 // _bossStageText.text = $"{bossStageData.chapter_id}-{bossStageData.stage_number}";
-//Assets/_Project/Addressables/Remote/Texture_StandAlone/Dynamic/BossBanner/BossBanner_1.png
+                //Assets/_Project/Addressables/Remote/Texture_StandAlone/Dynamic/BossBanner/BossBanner_1.png
                 // 보스 이미지 처리
                 _bossStageImageLoader.SetSprite(SpriteNameParser.GetBossBannerSprite(specStageData.chapter_id)).Forget();
 

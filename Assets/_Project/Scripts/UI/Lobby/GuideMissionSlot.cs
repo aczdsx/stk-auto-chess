@@ -499,27 +499,9 @@ namespace CookApps.AutoBattler
             // CLEAR_STAGE인 경우, 현재 진행 가능한 스테이지로 이동
             if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE)
             {
-                var latestStageId = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
-                var nextStageData = SpecDataManager.Instance.GetNextStageData(latestStageId);
-
-                if (nextStageData != null && nextStageData.chapter_id == guideStageData.chapter_id)
-                {
-                    targetStageId = nextStageData.stage_id;
-                }
-                else
-                {
-                    var firstStageData = SpecDataManager.Instance.GetStageData(guideStageData.chapter_id, 1, guideStageData.difficulty_type);
-                    if (firstStageData != null)
-                    {
-                        targetStageId = firstStageData.stage_id;
-                    }
-                    else
-                    {
-                        // 유효한 스테이지가 없으면 씬 전환하지 않고 리턴
-                        Debug.LogWarning($"[GuideMission] 챕터 {guideStageData.chapter_id}에 유효한 스테이지가 없습니다.");
-                        return;
-                    }
-                }
+                #if _SJHONG_TEST_
+                MyDebug.MyLog($"targetStageId {targetStageId} ");
+                #endif
                 SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                 await SceneTransition.FadeInAsync();
                 SceneLoading.GoToNextScene("BattleReady", targetStageId);

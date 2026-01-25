@@ -37,6 +37,7 @@ namespace CookApps.AutoBattler
         private const float MIN_SPAWN_INTERVAL = 0.5f;
         private const float MAX_SPAWN_INTERVAL = 1.0f;
         private const int DEFAULT_MONSTER_LEVEL = 1;
+        private const float SPAWN_ACTION_DELAY = 0.3f;
 
         // 스폰할 타일 ID 목록
         private static readonly int[] SPAWN_TILE_IDS = { 26, 28, 32 };
@@ -225,6 +226,13 @@ namespace CookApps.AutoBattler
                 if (character != null)
                 {
                     character.OverrideHp(150);
+
+                    // 스폰 후 보드의 모든 캐릭터에게 액션 딜레이 적용 (바로 움직이지 않도록)
+                    var allCharacters = InGameObjectManager.Instance.GetAllCharacterList();
+                    foreach (var c in allCharacters)
+                    {
+                        c.SetActionDelay(SPAWN_ACTION_DELAY);
+                    }
                 }
 
                 return character != null;

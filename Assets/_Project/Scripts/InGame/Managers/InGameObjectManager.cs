@@ -218,7 +218,7 @@ namespace CookApps.BattleSystem
         {
             var characCtrl = new CharacterController();
             var tile = _grid.GetTile(initPos);
-            
+
             // 타일이 이미 점유되어 있으면 다른 빈 타일을 찾습니다
             if (tile.OccupiedCharacter != null)
             {
@@ -239,7 +239,7 @@ namespace CookApps.BattleSystem
                     }
                 }
             }
-            
+
             await characCtrl.Initialize(statData, tile, allianceType, hasSkill, type);
             characCtrl.GetCharacterView().CachedTr.SetParent(Playground, false);
 
@@ -600,7 +600,7 @@ namespace CookApps.BattleSystem
                 reusableList = new List<CharacterController>(enemiesInPlaygroundForUpdate);
                 reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
-            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible));
+            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible) || l.AllianceType == AllianceType.BattleItem);
 
             if (reusableList == null || reusableList.Count == 0)
             {
@@ -819,7 +819,7 @@ namespace CookApps.BattleSystem
                 reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
                 reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
-            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible));
+            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible) || l.AllianceType == AllianceType.BattleItem);
 
             if (reusableList == null || reusableList.Count == 0)
             {
@@ -860,7 +860,7 @@ namespace CookApps.BattleSystem
                 reusableList = new List<CharacterController>(charactersInPlaygroundForUpdate);
                 reusableList.AddRange(neutralInPlaygroundForUpdate);
             }
-            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible));
+            reusableList.RemoveAll(l => l.HasBuffDebuffType(BuffDebuffType.TargetImpossible) || l.AllianceType == AllianceType.BattleItem);
 
             if (reusableList == null || reusableList.Count == 0)
             {
