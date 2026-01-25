@@ -88,8 +88,8 @@ public class InGameKillLogItem : MonoBehaviour
                 {
                     var data = SpecDataManager.Instance.GetSpecSynergyData((int)source.Id);
                     // _killCharacterNameText.text = data != null ? LanguageManager.Instance.GetDefaultText(data.name_token) : source.Id.ToString();
+                    // _killCharacterSpriteLoader.UnloadSprite();
                     _killCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(data.synergy_group_id)).Forget();
-                    _killCharacterSpriteLoader.UnloadSprite();
                 }
                 break;
         }

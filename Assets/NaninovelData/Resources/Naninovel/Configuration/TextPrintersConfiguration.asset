@@ -19,7 +19,7 @@ MonoBehaviour:
   ZOffset: 0
   ZStep: 0
   DefaultPrinterId: Dialogue
-  DefaultBaseRevealSpeed: 0.5
+  DefaultBaseRevealSpeed: 0.7
   DefaultBaseAutoDelay: 0.5
   MaxRevealDelay: 0.06
   MaxAutoWaitDelay: 0.02

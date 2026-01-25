@@ -25,6 +25,7 @@ namespace CookApps.BattleSystem
         {
             var InGameObejctManagerInstance = InGameObjectManager.Instance;
             InGameTile inGameTile = InGameObejctManagerInstance.GetInGameTile(codeInfo.GetCodeStatToInt(0));
+            
             _bombController = inGameTile.OccupiedCharacter;
 
             inGameTile.SetUnoccupied();
@@ -59,7 +60,7 @@ namespace CookApps.BattleSystem
             var InGameVfxManagerInstance = InGameVfxManager.Instance;
             var floorDamage = Math.Floor(_effectCodeStat);
 
-            var damage = CharacterController.DamageInfo.Create(floorDamage, CodeId, AttackerType.SYNERGY_STAR_ASTERISM);
+            var damage = CharacterController.DamageInfo.Create(floorDamage, _killLogSynergyID, AttackerType.SYNERGY_STAR_ASTERISM);
             var explosionTiles = InGameObjectManagerInstance.InGameGrid.GetTileListByShapeSquare(tile, _explosionRange);
 
             foreach (var explosionTile in explosionTiles)

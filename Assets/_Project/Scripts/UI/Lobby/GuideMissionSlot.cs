@@ -221,7 +221,9 @@ namespace CookApps.AutoBattler
                 case 401:
                 case 403:
                     var commandCenterBridge = new ElpisDataBridge();
-                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeCommandCenter, async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(commandCenterBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter)));
+                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeCommandCenter, 
+                        async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(
+                            commandCenterBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter)));
                     break;
 
                 // 405: 디멘션 큐브 설치
@@ -233,7 +235,8 @@ namespace CookApps.AutoBattler
                 // 406: 디멘션 큐브 사용
                 case 406:
                     var dimensionUseBridge = new ElpisDataBridge();
-                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeDimensionLab, async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(dimensionUseBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeDimensionLab)));
+                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeDimensionLab, 
+                        async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCoreResearchLayer>());
                     break;
                 
                 // 407: 배틀 시뮬레이션 진입

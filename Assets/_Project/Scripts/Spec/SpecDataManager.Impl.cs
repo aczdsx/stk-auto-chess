@@ -1287,6 +1287,14 @@ namespace CookApps.AutoBattler
                     return synergy;
                 }
             }
+            for (int i = 0; i < SynergyStarAsterism.All.Count; i++)
+            {
+                var synergy = SynergyStarAsterism.All[i];
+                if (synergy.synergy_group_id == synergyID)
+                {
+                    return synergy;
+                }
+            }
             return null;
         }
 
