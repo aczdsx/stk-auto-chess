@@ -123,6 +123,10 @@ namespace CookApps.AutoBattler
             // 초기 홀 크기 0으로 설정 (애니메이션으로 커짐)
             context.MaskMaterial.SetFloat(HoleRadius, 0f);
 
+            // 초기 홀 위치를 타겟 타일로 설정 (이전 액션의 HoleCenter 잔류 방지)
+            Vector2 destUV = CalculateWorldPositionUV(_destTilePosition);
+            context.MaskMaterial.SetVector(HoleCenter, new Vector4(destUV.x, destUV.y, 0, 0));
+
             // 화살표 활성화 및 타일 위치로 이동
             context.ArrowRectTransform.gameObject.SetActive(true);
             UpdateArrowPosition();

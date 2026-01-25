@@ -241,12 +241,14 @@ namespace CookApps.AutoBattler
                         async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCoreResearchLayer>());
                     break;
 
+
                 // 407: 배틀 시뮬레이션 진입
                 case 407:
                     var simUseBridge = new ElpisDataBridge();
                     NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeSimulationCenter,
                         () => OpenElpisBuildLayerForFacility(ElpisFacilityType.FacilityTypeSimulationCenter));
                     break;
+
 
                 // 501: 챕터 진입
                 case 501:
@@ -261,6 +263,7 @@ namespace CookApps.AutoBattler
                 case 509:
                     NavigateToStage();
                     break;
+
 
                 // 505, 506, 601: 바벨의 탑 클리어
                 case 505:
@@ -314,6 +317,7 @@ namespace CookApps.AutoBattler
                 case GuideMissionType.UPGRADE_BUILDING:
                 case GuideMissionType.INSTALL_BUILDING:
                     var edb = new ElpisDataBridge();
+                    NavigateToLobbyAndOpenPopup(async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(edb.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter)));
                     NavigateToLobbyAndOpenPopup(async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(edb.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter)));
                     break;
 
@@ -524,6 +528,34 @@ namespace CookApps.AutoBattler
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
             SceneLoading.GoToNextScene("BattleReady", targetStageData.chapter_id);
+            var currentSceneName = SceneManager.GetActiveScene().name;
+            var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
+
+            if (currentSceneName == "BattleReady")
+            {
+                // BattleReady 씬에서는 InGame으로 직접 진입
+                var inGameParams = await NetManager.Instance.Battle.StartAsync(
+                    currentStageData.chapter_id,
+                    currentStageData.stage_id,
+                    0,
+                    Array.Empty<string>());
+
+                if (inGameParams == null)
+                    return;
+
+                SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+                await SceneTransition.FadeInAsync();
+
+                InGameManager.Instance.EndInGame();
+                SceneLoading.GoToNextSceneWithStageEnterTrigger("InGame", currentStageData.stage_id, inGameParams);
+            }
+            else
+            {
+                // 다른 씬에서는 BattleReady로 이동
+                SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+                await SceneTransition.FadeInAsync();
+                SceneLoading.GoToNextScene("BattleReady", currentStageData.chapter_id);
+            }
         }
 
         #endregion
