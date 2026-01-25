@@ -128,7 +128,6 @@ namespace CookApps.AutoBattler
 
         private async UniTask OnClickMissionSlotButtonAsync()
         {
-            await GuideMissionTestUtility.HandleIteratively();
             if (specGuideMissionData == null) return;
 
             if (dataBridge.CanClaimReward)
@@ -163,10 +162,10 @@ namespace CookApps.AutoBattler
             {
                 // 팝업 닫힌 후 다음 가이드 미션 튜토리얼 체크
                 AppEventManager.Instance.GuideMissionClear(specGuideMissionData.order);
-
                 // 팝업 닫힌 후 다음 튜토리얼 시작
                 TutorialManager.Instance.TryStartOutgameTutorial().Forget();
             }).Forget();
+            await GuideMissionTestUtility.HandleIteratively();
         }
 
         #endregion
@@ -194,8 +193,8 @@ namespace CookApps.AutoBattler
                 // 201, 404: 시설 설치
                 case 201:
                 case 404:
-                    var nestBridge = new ElpisDataBridge();
-                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeNest, async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(nestBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeNest)));
+                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeNest,
+                        () => OpenElpisBuildLayerForFacility(ElpisFacilityType.FacilityTypeNest));
                     break;
 
                 // 202, 305, 402: 캐릭터 강화
@@ -227,8 +226,8 @@ namespace CookApps.AutoBattler
 
                 // 405: 디멘션 큐브 설치
                 case 405:
-                    var dimensionInstallBridge = new ElpisDataBridge();
-                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeDimensionLab, async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(dimensionInstallBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeDimensionLab)));
+                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeDimensionLab,
+                        () => OpenElpisBuildLayerForFacility(ElpisFacilityType.FacilityTypeDimensionLab));
                     break;
 
                 // 406: 디멘션 큐브 사용
@@ -448,6 +447,28 @@ namespace CookApps.AutoBattler
                         var targetZoom = 10.0f;
 
                         cameraController.ZoomAndMoveAsync(targetPosition, targetZoom, 0.3f).Forget();
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void OpenElpisBuildLayerForFacility(ElpisFacilityType facilityType)
+        {
+            var lobbyBuildingUIs = FindObjectsByType<LobbyBuildingInteractionUI>(FindObjectsSortMode.None);
+            foreach (var ui in lobbyBuildingUIs)
+            {
+                foreach (var info in ui.CachedFacilityInfos)
+                {
+                    if (info.buildInfo.facility_type.ToServerType() == facilityType)
+                    {
+                        var newParam = new ElpisBuildLayer.ElpisBuildCacheData
+                        {
+                            facilityInfos = ui.CachedFacilityInfos,
+                            targetLobbyBuildingUI = ui,
+                            slotIndex = ui.SlotIndex
+                        };
+                        SceneUILayerManager.Instance.PushUILayerAsync<ElpisBuildLayer>(newParam).Forget();
                         return;
                     }
                 }

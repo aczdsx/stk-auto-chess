@@ -37,9 +37,7 @@ public class FlowStateStageClear : StateBase
 
         // 다이얼로그 체크
         DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_CLEAR, InGameManager.Instance.SpecStage.stage_id.ToString());
-#if _SJHONG_TEST_
-    GuideMissionTestUtility.HandleClearStage(InGameManager.Instance.SpecStage.stage_id, false).Forget();
-#endif
+        GuideMissionTestUtility.HandleClearStage(InGameManager.Instance.SpecStage.stage_id, false).Forget();
         // 상점 배너 팝업 체크
         ShopPurchaseManager.Instance.UpdateShopBannerConditionValue(ShopBannerConditionType.STAGE_CLEAR, InGameManager.Instance.SpecStage.stage_id, 1, false);
     }
