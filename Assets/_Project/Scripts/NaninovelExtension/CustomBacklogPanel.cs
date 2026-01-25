@@ -19,6 +19,14 @@ namespace CookApps.AutoBattler
             // Cancel 키로 닫기만 유지
             BindInput(InputNames.Cancel, Hide, new CustomUI.BindInputOptions { OnEnd = true });
 
+            // ShowBacklog 입력 자체를 비활성화 (L키, 스와이프 업 등)
+            var inputManager = Engine.GetService<IInputManager>();
+            var showBacklogSampler = inputManager?.GetSampler(InputNames.ShowBacklog);
+            if (showBacklogSampler != null)
+            {
+                showBacklogSampler.Enabled = false;
+            }
+
             return UniTask.CompletedTask;
         }
 

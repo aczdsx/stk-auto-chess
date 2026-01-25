@@ -97,6 +97,9 @@ MonoBehaviour:
     - name: cbg_00_00
       pathPrefix: Spawn
       guid: 1f39d8d645f7cea44a78b0fcbfec20a7
+    - name: nickname
+      pathPrefix: Spawn
+      guid: 03ee99e023fd941f991fe6058db086b0
   - Id: UI
     Resources:
     - name: ClickThroughPanel
@@ -104,7 +107,7 @@ MonoBehaviour:
       guid: 702c32b2de0c0784b9a66ec90601874f
     - name: BacklogUI
       pathPrefix: UI
-      guid: 7fba909c66b25324cb77db18679c2c96
+      guid: b2c3d4e5f6789012345678abcdef0123
     - name: CGGalleryUI
       pathPrefix: UI
       guid: 71da50c8dae82bd42ba67528804e820c
@@ -926,18 +929,12 @@ MonoBehaviour:
     - name: "Localization/ko/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
       pathPrefix: Scripts
       guid: 0a019d8da6bb44bccae259e9520de6c6
-    - name: "\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C1"
-      pathPrefix: Scripts
-      guid: 32a65bd9420b96b40ae66c70d725e94f
     - name: Chapter0_02
       pathPrefix: Scripts
       guid: 0e786f14d66cf9849bc6ca037003c394
     - name: Chapter0_03
       pathPrefix: Scripts
       guid: dd3c90870d22c8243a5b0023d6d423b8
-    - name: "\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
-      pathPrefix: Scripts
-      guid: 54becdc6deb5141ccb3b49c78cf0b0d5
     - name: Chapter0_01
       pathPrefix: Scripts
       guid: de62e71d7323a8c47bf07f7fe3dd12f2
@@ -1049,6 +1046,12 @@ MonoBehaviour:
     - name: Chapter2_14
       pathPrefix: Scripts
       guid: 642955ce14f3cf644946558c3e5c3b56
+    - name: Prologue_01
+      pathPrefix: Scripts
+      guid: 32a65bd9420b96b40ae66c70d725e94f
+    - name: Prologue_03
+      pathPrefix: Scripts
+      guid: 54becdc6deb5141ccb3b49c78cf0b0d5
   - Id: CharacterAvatars
     Resources: []
   - Id: Characters/97730980-6691-4698-b6da-9388d226f1d6

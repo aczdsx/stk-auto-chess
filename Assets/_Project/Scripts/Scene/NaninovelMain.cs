@@ -464,4 +464,3 @@ namespace CookApps.AutoBattler
         }
     }
 }
-
