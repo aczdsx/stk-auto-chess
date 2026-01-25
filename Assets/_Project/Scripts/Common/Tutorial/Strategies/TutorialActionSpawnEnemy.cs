@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace CookApps.AutoBattler
     /// - "몬스터ID" : 해당 몬스터를 타일 26, 28, 32에 스폰 (레벨 1 고정)
     ///
     /// 스폰이 완료되면 자동으로 다음 튜토리얼로 진행됩니다.
+    /// 스폰된 적은 CharacterStateReady 상태로 대기하며, SKILL_READY 튜토리얼 완료 후 Idle로 전환됩니다.
     /// </summary>
     public class TutorialActionSpawnEnemy : ITutorialActionStrategy
     {
@@ -33,6 +35,11 @@ namespace CookApps.AutoBattler
         /// (TutorialManager.HandleTutorialClose에서 확인하여 재생)
         /// </summary>
         public static bool IsPausedBySpawnEnemy { get; private set; }
+
+        /// <summary>
+        /// 스폰된 적 캐릭터 목록 (SKILL_READY 완료 시 Idle로 전환용)
+        /// </summary>
+        private static List<CookApps.BattleSystem.CharacterController> _spawnedEnemies = new List<CookApps.BattleSystem.CharacterController>();
 
         private const float MIN_SPAWN_INTERVAL = 0.5f;
         private const float MAX_SPAWN_INTERVAL = 1.0f;
@@ -116,6 +123,47 @@ namespace CookApps.AutoBattler
                 Debug.LogColor("[TutorialActionSpawnEnemy] 게임 재생", "yellow");
             }
             IsPausedBySpawnEnemy = false;
+        }
+
+        /// <summary>
+        /// 스폰된 적 캐릭터들을 Idle 상태로 전환 (TutorialSkillReadyHandler에서 호출)
+        /// </summary>
+        public static void ActivateSpawnedEnemies()
+        {
+            ActivateSpawnedEnemiesAsync().Forget();
+        }
+
+        private static async UniTaskVoid ActivateSpawnedEnemiesAsync()
+        {
+            if (_spawnedEnemies.Count == 0)
+            {
+                return;
+            }
+
+            // 0.5초 대기 후 진행
+            await UniTask.Delay(400);
+
+            Debug.LogColor($"[TutorialActionSpawnEnemy] 스폰된 적 {_spawnedEnemies.Count}명 Idle 상태로 전환", "yellow");
+
+            foreach (var enemy in _spawnedEnemies)
+            {
+                if (enemy != null && enemy.IsAlive)
+                {
+                    enemy.AddNextState<CharacterStateIdle>();
+
+                    enemy.Target = InGameObjectManager.Instance.GetNearestTargetOnce(enemy);
+                }
+            }
+
+            _spawnedEnemies.Clear();
+        }
+
+        /// <summary>
+        /// 스폰된 적 목록 초기화
+        /// </summary>
+        public static void ClearSpawnedEnemies()
+        {
+            _spawnedEnemies.Clear();
         }
 
         /// <summary>
@@ -214,18 +262,22 @@ namespace CookApps.AutoBattler
 
             try
             {
-                // 캐릭터 추가
+                // 캐릭터 추가 (CharacterStateReady로 시작하여 대기 상태 유지)
                 var character = await InGameObjectManager.Instance.AddCharacterToField(
                     statData,
                     coordinate,
                     AllianceType.Enemy,
-                    typeof(CharacterStateIdle),
+                    typeof(CharacterStateReady),
                     false
                 );
 
                 if (character != null)
                 {
                     character.OverrideHp(150);
+                    character.OverrideMoveSpeed(character.MoveSpeed * 0.7f);
+
+                    // 스폰된 적 목록에 추가 (SKILL_READY 완료 시 Idle로 전환용)
+                    _spawnedEnemies.Add(character);
 
                     // 스폰 후 보드의 모든 캐릭터에게 액션 딜레이 적용 (바로 움직이지 않도록)
                     var allCharacters = InGameObjectManager.Instance.GetAllCharacterList();

@@ -100,6 +100,8 @@ namespace CookApps.AutoBattler
         /// </summary>
         public static void ResumeAndActivateSkill()
         {
+            if (!IsPausedBySkillReady)
+                return;
             // 게임 재개
             if (IsPausedBySkillReady && InGameMainFlowManager.Instance != null)
             {
@@ -107,6 +109,9 @@ namespace CookApps.AutoBattler
                 Debug.LogColor("[TutorialSkillReadyHandler] 게임 재개", "yellow");
             }
             IsPausedBySkillReady = false;
+
+            // SPAWN_ENEMY로 스폰된 적들을 Idle 상태로 전환
+            TutorialActionSpawnEnemy.ActivateSpawnedEnemies();
 
             // 대기 중인 스킬 발동
             var skillActivation = _pendingSkillActivation;

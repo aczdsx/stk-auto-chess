@@ -438,20 +438,6 @@ namespace CookApps.BattleSystem
                 _currHp = 0;
                 IsAlive = false;
 
-                // 튜토리얼 CHARACTER_DEAD 트리거 처리
-                if (TutorialManager.Instance != null && TutorialManager.Instance.IsTutorialAction(TutorialTriggerType.CHARACTER_DEAD))
-                {
-                    var tutorialTarget = GetCharacterView()?.gameObject.GetComponent<TutorialTarget>();
-                    if (tutorialTarget != null && !string.IsNullOrEmpty(tutorialTarget.TargetId))
-                    {
-                        Debug.LogColor($"튜토리얼 CHARACTER_DEAD 트리거 처리: {tutorialTarget.TargetId}", "green");
-                        TutorialManager.Instance.HandleTutorialAction(
-                            TutorialTriggerType.CHARACTER_DEAD,
-                            tutorialTarget.TargetId.ToString()
-                        );
-                    }
-                }
-
                 if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
                     || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateTrialDungeonCombat
                     || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateInGameTestCombat)
@@ -494,6 +480,20 @@ namespace CookApps.BattleSystem
                             if (targetLine != null)
                                 targetLine.Remove();
                         });
+                    }
+                }
+
+                // 튜토리얼 CHARACTER_DEAD 트리거 처리 (Dead 상태 전환 후 처리)
+                if (TutorialManager.Instance != null && TutorialManager.Instance.IsTutorialAction(TutorialTriggerType.CHARACTER_DEAD))
+                {
+                    var tutorialTarget = GetCharacterView()?.gameObject.GetComponent<TutorialTarget>();
+                    if (tutorialTarget != null && !string.IsNullOrEmpty(tutorialTarget.TargetId))
+                    {
+                        Debug.LogColor($"튜토리얼 CHARACTER_DEAD 트리거 처리: {tutorialTarget.TargetId}", "green");
+                        TutorialManager.Instance.HandleTutorialAction(
+                            TutorialTriggerType.CHARACTER_DEAD,
+                            tutorialTarget.TargetId.ToString()
+                        );
                     }
                 }
 

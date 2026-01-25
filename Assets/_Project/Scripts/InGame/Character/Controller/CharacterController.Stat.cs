@@ -572,6 +572,15 @@ namespace CookApps.BattleSystem
             UpdateHpBar();
         }
 
+        /// <summary>
+        /// 이동속도를 강제로 오버라이드 (튜토리얼 등 특수 상황용)
+        /// </summary>
+        /// <param name="moveSpeed">설정할 이동속도 값</param>
+        public void OverrideMoveSpeed(float moveSpeed)
+        {
+            postMoveSpeed = moveSpeed;
+        }
+
         #endregion
     }
 }
