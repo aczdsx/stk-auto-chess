@@ -25,6 +25,7 @@ public class FlowStateTrialDungeonClear : StateBase
         
         var param = new InGameDungeonTrialResultPopupParam(true, _mvpCharacterData, resp.Rewards);
         SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonTrialResultPopup>(param).Forget();
+        GuideMissionTestUtility.HandleClearStage(InGameManager.Instance.SpecDungeonTrial.dungeon_id, false).Forget();
     }
 
     public override void StateRunning(float dt)

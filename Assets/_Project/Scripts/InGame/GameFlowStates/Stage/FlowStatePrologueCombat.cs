@@ -658,7 +658,7 @@ namespace CookApps.AutoBattler.Prologue
             // 라플라스 마녀도 평타 공격 (공격 속도 2.0배)
             if (_witchCharacter != null && _witchCharacter.IsAlive)
             {
-                _witchCharacter.AddNextState<CharacterStateAttack>(15f);
+                _witchCharacter.AddNextState<CharacterStateAttack>(10f);
                 _witchCharacter.Target = _artesiaCharacter;
             }
 
@@ -740,18 +740,23 @@ namespace CookApps.AutoBattler.Prologue
 
                     var marieStat = new CharacterStatData(marieCharacterId, marieLevel,
                         GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
-
+                    
                     _marieCharacter = await InGameObjectManager.Instance.AddCharacterToField(
-                        marieStat,
+                        marieStat, 
                         new int2(spawnTile.X, spawnTile.Y),
                         AllianceType.Player,
-                        typeof(CharacterStateIdle),
-                        true,
-                        HpBarType.Synergy);
+                        typeof(CharacterStateReady), 
+                        true, 
+                        HpBarType.HpBar | HpBarType.Buff);  // <-- 여기 변경
+                    
+
                     _marieCharacter.GetCharacterView().LookAt(spawnTile, _witchCharacter.CurrentTile);
-                    _marieCharacter.AddNextState<CharacterStateReady>();
+
                     PrologueUtility.FindChildRecursive(_marieCharacter.GetCharacterView().CachedTr, "Synergy").gameObject.SetActive(false);
 
+                    InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Player);
+                    InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
+                    _marieCharacter.UpdateHpBar();  // ← 추가
                     Debug.LogColor($"마리에 합류: {marieCharacterId} at ({spawnTile.X}, {spawnTile.Y})");
                     await UniTask.NextFrame();
                     if (_marieCharacter != null && _marieCharacter.IsAlive)
@@ -781,6 +786,7 @@ namespace CookApps.AutoBattler.Prologue
                         await ActivateCharacterSkillWithWait(_marieCharacter, "마리에 스킬을 찾을 수 없습니다.");
                         _marieCharacter.Target = _witchCharacter;
                     }
+
                     _marieCharacter.AddNextState<CharacterStateReady>();
                 }
             }
@@ -809,15 +815,20 @@ namespace CookApps.AutoBattler.Prologue
             // 마녀 → 마리에 공격
             if (_witchCharacter != null && _witchCharacter.IsAlive)
             {
-                _witchCharacter.AddNextState<CharacterStateIdle>();
+                _witchCharacter.Target = _marieCharacter;
+                _witchCharacter.AddNextState<LaplasCharacterStateMarieAttack>();
                 _witchCharacter.Target = _marieCharacter;
             }
 
-            await UniTask.Delay(2200); // 1초 대기
-                                       // 마리에 → Dead 상태
+            // 3초 타임아웃 또는 마리에가 죽을 때까지 대기
+            var timeout = UniTask.Delay(3000);
+            var waitForDeath = UniTask.WaitUntil(() => _marieCharacter == null || !_marieCharacter.IsAlive);
+            await UniTask.WhenAny(timeout, waitForDeath);
+
+            // 마리에 → Dead 상태 (3초 후에도 살아있으면 강제 데미지)
             if (_marieCharacter != null && _marieCharacter.IsAlive)
             {
-                _marieCharacter.AddNextState<CharacterStateDead>();
+                _marieCharacter.GetDamaged(_witchCharacter.CalculateDamageAmount(_marieCharacter.CurrentHp + 100, 0, _witchCharacter, 0 ,false), _witchCharacter);
             }
 
             await StopAllCharacters();
