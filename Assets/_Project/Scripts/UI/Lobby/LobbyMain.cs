@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
 using R3;
 using UnityEngine;
 
