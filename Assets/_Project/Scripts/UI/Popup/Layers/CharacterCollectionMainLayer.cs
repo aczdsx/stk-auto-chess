@@ -8,17 +8,6 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    public enum CharacterCollectionMainLayerTabType
-    {
-        All,
-        EARTH = 1,
-        WIND = 2,
-        WATER = 3,
-        FIRE = 4,
-        DARK = 5,
-        LIGHT = 6,
-    }
-
     public class CharacterCollectionMainLayer : CachedMonoBehaviour
     {
         [SerializeField] private CAButton _backButton;
@@ -27,7 +16,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private ScrollRect _characterScrollRect;
         [SerializeField] private GameObject _characterCardSlotObject;
 
-        private CharacterCollectionMainLayerTabType _currentMainLayerTabType = CharacterCollectionMainLayerTabType.All;
+        private SynergyType _currentMainLayerTabType = SynergyType.NORMAL;
 
         private List<CharacterInfo> _totalCharacterList;      // 전체 캐릭터 리스트
         private List<CharacterCardSlot> _characterCardSlotList = new List<CharacterCardSlot>();
@@ -46,7 +35,7 @@ namespace CookApps.AutoBattler
         {
             _parentCollectionPopup = _parentPopup;
 
-            _currentMainLayerTabType = CharacterCollectionMainLayerTabType.All;
+            _currentMainLayerTabType = SynergyType.NORMAL;
 
             SetCharacterCollectionUI();
         }
@@ -56,9 +45,13 @@ namespace CookApps.AutoBattler
             SetCharacterCollectionUI();
         }
 
-        public void OnClickTabToggleButton(int tabIndex)
+        /// <summary>
+        /// Unity UI 이벤트는 int/float/string/bool/Object만 인자로 넘길 수 있어서
+        /// int로 받은 뒤 SynergyType으로 캐스팅합니다. (인스펙터에서 m_IntArgument로 enum 값 지정)
+        /// </summary>
+        public void OnClickTabToggleButton(int synergyTypeInt)
         {
-            _currentMainLayerTabType = (CharacterCollectionMainLayerTabType)tabIndex;
+            _currentMainLayerTabType = (SynergyType)synergyTypeInt;
 
             FilterCharacterList(_currentMainLayerTabType);
         }
@@ -113,11 +106,11 @@ namespace CookApps.AutoBattler
             _characterScrollRect.verticalNormalizedPosition = 1;
         }
 
-        private void FilterCharacterList(CharacterCollectionMainLayerTabType targetType)
+        private void FilterCharacterList(SynergyType targetType)
         {
             _characterCardSlotList.ForEach(slot =>
             {
-                if (targetType == CharacterCollectionMainLayerTabType.All)
+                if (targetType == SynergyType.NORMAL)
                 {
                     slot.gameObject.SetActive(true);
                 }
