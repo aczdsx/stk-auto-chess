@@ -8,6 +8,8 @@ using TMPro;
 using UnityEngine;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
+using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoBattler
 {
@@ -119,7 +121,7 @@ namespace CookApps.AutoBattler
             _skillLayerTabButton.interactable = isHaveCharacter;
         }
 
-        private void SetCharacterInfo()
+        private async Task SetCharacterInfo()
         {
             if (_specCharacterData == null) return;
 
@@ -127,7 +129,7 @@ namespace CookApps.AutoBattler
 
             // 캐릭터 일러스트 생성
             string illustPrefabName = ZString.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
-            var newObject = AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
+            var newObject = await Addressables.InstantiateAsync(illustPrefabName, _characterIllustParentObject.transform).ToUniTask();
             if (newObject == null)
             {
                 Debug.LogColor($"CharacterDetailMainLayer.SetCharacterInfo() : {illustPrefabName} is null","red");

@@ -12,6 +12,16 @@ public class FlowStateInGameTestReady : StateReadyBase
 {
     private InGameTestConfig _testConfig;
     private StageInfo _specStage;
+    private Dictionary<int, TileEffectCode> _specTileEffectCodeDic = null;
+
+    private enum TileRuleStatType
+    {
+        Tileidx = 0,
+        EffectStat_1 = 1,
+        EffectStat_2 = 2,
+        EffectStat_3 = 3,
+        End = 4,
+    }
 
     public override void SetStateData(object data)
     {
@@ -35,7 +45,7 @@ public class FlowStateInGameTestReady : StateReadyBase
                 Debug.LogColor($"[Test] Stage 모드: {_specStage.chapter_id}-{_specStage.stage_number} (맵: {_specStage.map_size})", "yellow");
                 if (_specStage.chapter_id == 1)
                 {
-                    SoundManager.Instance.PlayBGM((SoundBGM)Enum.Parse(typeof(SoundBGM), $"snd_bgm_chapter{_specStage.chapter_id-1}"));
+                    SoundManager.Instance.PlayBGM((SoundBGM)Enum.Parse(typeof(SoundBGM), $"snd_bgm_chapter{_specStage.chapter_id - 1}"));
 
                 }
                 else if (_specStage.chapter_id == 2 || _specStage.chapter_id == 3)
@@ -52,6 +62,7 @@ public class FlowStateInGameTestReady : StateReadyBase
         {
             Debug.LogColor($"[Test] Custom 모드: 그리드 {_testConfig.GridWidth}x{_testConfig.GridHeight}", "cyan");
         }
+        PrepareSpecTileEffectCodeDic();
     }
 
     public override async void StateInit(object target)
@@ -88,6 +99,8 @@ public class FlowStateInGameTestReady : StateReadyBase
         MainCameraHolder.MainCamera.transform.rotation = Quaternion.Euler(30f, 45f, 0f);
 
         StartDrawingLinesAsync(2.0f).Forget();
+        SpawnRuleTiles();
+
     }
 
     /// <summary>
@@ -267,5 +280,86 @@ public class FlowStateInGameTestReady : StateReadyBase
 
     public override void StateEnd(bool isForced)
     {
+    }
+    
+
+    private void SpawnRuleTiles()
+    {
+        if (_specStage.effect_code_id > 0)
+        {
+            Span<double> tileRuleStats = stackalloc double[(int)TileRuleStatType.End];
+            tileRuleStats.Clear();
+
+            var specTileEffectCode = _specTileEffectCodeDic[_specStage.effect_code_id];
+            tileRuleStats[(int)TileRuleStatType.EffectStat_1] = specTileEffectCode.effect_code_stat_1;
+            tileRuleStats[(int)TileRuleStatType.EffectStat_2] = specTileEffectCode.effect_code_stat_2;
+            tileRuleStats[(int)TileRuleStatType.EffectStat_3] = specTileEffectCode.effect_code_stat_3;
+
+            var effectCodeID = new EffectCodeInfo((long)specTileEffectCode.effect_code_name, 0, tileRuleStats);
+
+            for (int i = 0; i < _specStage.effect_code_rule_tile.Length; i++)
+            {
+                effectCodeID.ModifyCodeStat((int)TileRuleStatType.Tileidx, _specStage.effect_code_rule_tile[i]);
+
+                var targetRuleTile = InGameObjectManager.Instance.GetInGameTile(_specStage.effect_code_rule_tile[i]);
+                targetRuleTile?.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
+            }
+        }
+
+        if (_specStage.effect_code_id_2 > 0)
+        {
+            Span<double> tileRuleStats = stackalloc double[(int)TileRuleStatType.End];
+            tileRuleStats.Clear();
+
+            var specTileEffectCode = _specTileEffectCodeDic[_specStage.effect_code_id_2];
+            tileRuleStats[(int)TileRuleStatType.EffectStat_1] = specTileEffectCode.effect_code_stat_1;
+            tileRuleStats[(int)TileRuleStatType.EffectStat_2] = specTileEffectCode.effect_code_stat_2;
+            tileRuleStats[(int)TileRuleStatType.EffectStat_3] = specTileEffectCode.effect_code_stat_3;
+
+            var effectCodeID = new EffectCodeInfo((long)specTileEffectCode.effect_code_name, 0, tileRuleStats);
+
+            for (int i = 0; i < _specStage.effect_code_rule_tile_2.Length; i++)
+            {
+                effectCodeID.ModifyCodeStat((int)TileRuleStatType.Tileidx, _specStage.effect_code_rule_tile_2[i]);
+
+                var targetRuleTile = InGameObjectManager.Instance.GetInGameTile(_specStage.effect_code_rule_tile_2[i]);
+                targetRuleTile?.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
+            }
+        }
+
+        if (_specStage.effect_code_id_3 > 0)
+        {
+            Span<double> tileRuleStats = stackalloc double[(int)TileRuleStatType.End];
+            tileRuleStats.Clear();
+
+            var specTileEffectCode = _specTileEffectCodeDic[_specStage.effect_code_id_3];
+            tileRuleStats[(int)TileRuleStatType.EffectStat_1] = specTileEffectCode.effect_code_stat_1;
+            tileRuleStats[(int)TileRuleStatType.EffectStat_2] = specTileEffectCode.effect_code_stat_2;
+            tileRuleStats[(int)TileRuleStatType.EffectStat_3] = specTileEffectCode.effect_code_stat_3;
+
+            var effectCodeID = new EffectCodeInfo((long)specTileEffectCode.effect_code_name, 0, tileRuleStats);
+
+            for (int i = 0; i < _specStage.effect_code_rule_tile_3.Length; i++)
+            {
+                effectCodeID.ModifyCodeStat((int)TileRuleStatType.Tileidx, _specStage.effect_code_rule_tile_3[i]);
+
+                var targetRuleTile = InGameObjectManager.Instance.GetInGameTile(_specStage.effect_code_rule_tile_3[i]);
+                targetRuleTile?.EffectCodeContainer.AddOrMergeEffectCode(effectCodeID, null);
+            }
+        }
+    }
+
+    private void PrepareSpecTileEffectCodeDic()
+    {
+        if (_specTileEffectCodeDic != null)
+        {
+            return;
+        }
+
+        _specTileEffectCodeDic = new Dictionary<int, TileEffectCode>();
+        foreach (var specTileEffectCode in SpecDataManager.Instance.GetSpecTileEffectCodeList())
+        {
+            _specTileEffectCodeDic[specTileEffectCode.id] = specTileEffectCode;
+        }
     }
 }

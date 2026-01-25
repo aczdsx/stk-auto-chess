@@ -8,24 +8,21 @@ namespace CookApps.BattleSystem
     public partial class EffectCodeChapterLandMine : EffectCodeGameBase
     {
         private const int CodeId = (int)EffectCodeNameType.CHAPTER_LANDMINE;
-        Dictionary<InGameTile, InGameVfx> _chapterRuleTiles = new Dictionary<InGameTile, InGameVfx>();
         private float _effectCodeStat;
-//  private enum TileRuleStatType
-//     {
-//         Tileidx = 0,
-//         EffectStat_1 = 1,
-//         EffectStat_2 = 2,
-//         EffectStat_3 = 3,
-//         End = 4,
-//     }
+        private float _damage;
+
+        private InGameTile _targetTile;
+        private InGameVfx _vfx;
+
+
         protected override void SetRuleTileByInfo(EffectCodeInfo codeInfo)
         {
             int tileID = codeInfo.GetCodeStatToInt(0);
             InGameTile inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
 
-            var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_01,
+            _vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_explosion,
                 inGameTile.View.CachedTr.position);
-            _chapterRuleTiles.Add(inGameTile, vfx);
+            _targetTile = inGameTile;
         }
 
         public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container,
@@ -33,8 +30,8 @@ namespace CookApps.BattleSystem
         {
             base.Initialize(codeInfo, container, source);
             _effectCodeStat = codeInfo.GetCodeStatToInt(1);
-            _chapterRuleTiles.Clear();
-            
+            _damage = codeInfo.GetCodeStatToFloat(2);
+
             SetRuleTileByInfo(codeInfo);
         }
 
@@ -42,7 +39,7 @@ namespace CookApps.BattleSystem
         {
             base.Merge(codeInfo, source);
             _effectCodeStat = codeInfo.GetCodeStatToInt(1);
-
+            _damage = codeInfo.GetCodeStatToFloat(2);
             SetRuleTileByInfo(codeInfo);
         }
 
@@ -50,21 +47,32 @@ namespace CookApps.BattleSystem
         {
             if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase))
                 return;
+            if (_targetTile != tile)
+                return;
 
-            if (_chapterRuleTiles.ContainsKey(tile))
+            _targetTile.EffectCodeContainer.RemoveEffectCode(CodeId);
+            _vfx.Remove();
+
+            var explosionTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(tile, 1);
+            var damage = CharacterController.DamageInfo.Create(_damage, codeId, AttackerType.CHAPTER_RULE);
+
+            Span<double> eccStats = stackalloc double[1];
+            eccStats.Clear();
+            eccStats[0] = _effectCodeStat;
+
+            foreach (var explosionTile in explosionTiles)
             {
-                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
-                    character.GetCharacterView().CachedTr.position);
-
-                Span<double> eccStats = stackalloc double[1];
-                eccStats.Clear();
-                eccStats[0] = _effectCodeStat;
-
-                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, character, eccStats, source);
-
-                _chapterRuleTiles[tile].Remove();
-                _chapterRuleTiles.Remove(tile);
+                var occupiedCharacter = explosionTile.OccupiedCharacter;
+                if (occupiedCharacter == null || !occupiedCharacter.IsAlive)
+                    continue;
+                occupiedCharacter.GetDamaged(damage, null);
+                EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, occupiedCharacter, eccStats, source);
             }
+
+
+
+
+
         }
     }
 }

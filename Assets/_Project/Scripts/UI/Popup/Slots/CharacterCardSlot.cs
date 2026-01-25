@@ -29,7 +29,6 @@ namespace CookApps.AutoBattler
         [SerializeField] private SpriteLoader _gradeSpriteLoader;
         [SerializeField] private SynergyUI _synergyUI;
         [SerializeField] private SynergyUI _positionSynergyUI;
-        [SerializeField] private TextMeshProUGUI _characterPositionTypeText;
 
         [Space(10)]
         [SerializeField] private GameObject _shadowObject;
@@ -81,7 +80,6 @@ namespace CookApps.AutoBattler
 
             _synergyUI.SetSynergyUI(_specCharacterData.character_element_type, haveCharacter);
             _positionSynergyUI.SetSynergyUI(_specCharacterData.character_stella_type, haveCharacter);
-            _characterPositionTypeText.text = _specCharacterData.character_position_type.ToString();
 
             _chracterLevelText.gameObject.SetActive(haveCharacter);
             if (haveCharacter)
