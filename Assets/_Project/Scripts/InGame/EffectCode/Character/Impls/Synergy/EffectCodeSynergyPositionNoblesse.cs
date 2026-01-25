@@ -111,7 +111,9 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeSynergyBase
         if (_crownVfx != null)
         {
             _crownVfx.Remove();
+
         }
+        _crownVfx = null;
         base.OnPreRemoved();
     }
 

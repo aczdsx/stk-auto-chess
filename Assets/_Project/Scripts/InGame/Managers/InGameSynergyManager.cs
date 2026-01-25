@@ -89,6 +89,7 @@ namespace CookApps.BattleSystem
             if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat
             || InGameMainFlowManager.Instance.CurrentFlowState is CookApps.AutoBattler.Prologue.FlowStatePrologueReady
             || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
+            || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateInGameTestCombat
             || character.SpecCharacter.character_type == CharacterType.BATTLEITEM)
             {
                 return;
@@ -112,6 +113,7 @@ namespace CookApps.BattleSystem
         {
             if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat
             || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
+            || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateInGameTestCombat
             || character.SpecCharacter.character_type == CharacterType.BATTLEITEM)
             {
                 return;
