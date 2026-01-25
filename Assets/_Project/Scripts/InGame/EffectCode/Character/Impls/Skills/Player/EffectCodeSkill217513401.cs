@@ -109,8 +109,10 @@ public partial class EffectCodeSkill217513401 : EffectCodeCharacterBase
             movement.SetData(vfxProjectile.CachedTr.position, inGameTile[0].View.CachedTr.position, 15);
             vfxProjectile.Initialize(false, movement);
             vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
-            // movement.OnReachedTarget +=
         }
+        CoolTimeElapsedTime = 0;
+        IsSkillActivated = false;
+
     }
 
     private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
