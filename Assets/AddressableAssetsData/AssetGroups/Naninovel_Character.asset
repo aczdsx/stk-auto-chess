@@ -57,6 +57,13 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2dc59d39d21eda343bd04125f230e273
+    m_Address: Naninovel/Characters/Characters_17643504
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3190d3d48bc5b254095955cf9342d700
     m_Address: Naninovel/Characters/mensha_00
     m_ReadOnly: 0
@@ -141,6 +148,13 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b86cc8ac79975f64aa99094eebce4533
+    m_Address: Naninovel/Characters/Characters_17643503
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bad156cd8563b9446814025d5cf6b19a
     m_Address: Naninovel/Characters/rakiu_00
     m_ReadOnly: 0
@@ -162,6 +176,13 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c4b2f9ec9ec98ba4990fcbb1b9251b87
+    m_Address: Naninovel/Characters/Characters_15232101
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c7b6b55001f3b433ba6d4996d404ba6e
     m_Address: Naninovel/Character/Characters_17663506
     m_ReadOnly: 0
@@ -169,8 +190,29 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c932913b8bdf2b748be5b355b9d8fcdb
+    m_Address: Naninovel/Characters/Characters_15462302
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc6f303498f5df9409ddfc26e0409912
+    m_Address: Naninovel/Characters/Characters_17613502
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ccf7bf98fb3db6a49be07712e55c4f6c
     m_Address: Naninovel/Characters/vane_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3e1ee27b9074e548908e81f049a3ddb
+    m_Address: Naninovel/Characters/Characters_15662502
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel

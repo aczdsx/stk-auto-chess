@@ -152,7 +152,7 @@ namespace CookApps.AutoBattler
 
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
-            
+
             await GuideMissionTestUtility.HandleEnterChapter(currentStageId);
 
             // UI 세팅 완료 후 페이드 아웃
@@ -510,10 +510,17 @@ namespace CookApps.AutoBattler
                     var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)guideMission.GuideMissionId);
                     if (specGuideMissionData != null)
                     {
-                        if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE &&
-                            guideMission.IsCompleted)
+                        // 보상 수령 가능 상태면 보상 받으라고 안내
+                        if (guideMission.IsGoalReached)
                         {
                             ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_1");
+                            return;
+                        }
+
+                        // 진행 중인데 CLEAR_STAGE가 아니면 진입 차단
+                        if (specGuideMissionData.guide_mission_type != GuideMissionType.CLEAR_STAGE)
+                        {
+                            ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
                             return;
                         }
                     }
