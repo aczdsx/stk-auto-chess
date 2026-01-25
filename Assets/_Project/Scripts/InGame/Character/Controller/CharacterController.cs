@@ -208,12 +208,11 @@ namespace CookApps.BattleSystem
             // GameObject viewGo = await Addressables.InstantiateAsync(
             //     $"Obstacle/Stage/{id}/GenerateResources/CharacterView_{id}.prefab");
             //  var spec = SpecDataManager.Instance.GetSpecCharacter(id);
-            var handle = _viewHandle = Addressables.InstantiateAsync(SpecDataExtensions.ToObstacleResourcePath(id));
+
             if (_viewHandle.IsValid())
                 Addressables.ReleaseInstance(_viewHandle);
-
-
-            await handle.WaitUntilDone();
+            var handle = _viewHandle = Addressables.InstantiateAsync(SpecDataExtensions.ToObstacleResourcePath(id));
+            await handle;
 
             if (!handle.IsValid())
                 return;
