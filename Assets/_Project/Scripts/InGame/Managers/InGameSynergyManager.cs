@@ -88,6 +88,7 @@ namespace CookApps.BattleSystem
         {
             if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat
             || InGameMainFlowManager.Instance.CurrentFlowState is CookApps.AutoBattler.Prologue.FlowStatePrologueReady
+            || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
             || character.SpecCharacter.character_type == CharacterType.BATTLEITEM)
             {
                 return;
