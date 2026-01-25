@@ -12,6 +12,7 @@ namespace CookApps.BattleSystem
         private float _damage;
 
         private InGameTile _targetTile;
+        private InGameVfx _vfx;
 
 
         protected override void SetRuleTileByInfo(EffectCodeInfo codeInfo)
@@ -19,7 +20,7 @@ namespace CookApps.BattleSystem
             int tileID = codeInfo.GetCodeStatToInt(0);
             InGameTile inGameTile = InGameObjectManager.Instance.GetInGameTile(tileID);
 
-            var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_explosion,
+            _vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_explosion,
                 inGameTile.View.CachedTr.position);
             _targetTile = inGameTile;
         }
@@ -50,8 +51,7 @@ namespace CookApps.BattleSystem
                 return;
 
             _targetTile.EffectCodeContainer.RemoveEffectCode(CodeId);
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_bomb_01,
-                character.GetCharacterView().CachedTr.position);
+            _vfx.Remove();
 
             var explosionTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(tile, 1);
             var damage = CharacterController.DamageInfo.Create(_damage, codeId, AttackerType.CHAPTER_RULE);
