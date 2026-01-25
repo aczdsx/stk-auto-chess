@@ -326,7 +326,7 @@ namespace CookApps.AutoBattler
             if (canvasRect == null) return;
 
             // 도착지 타일의 3D 월드 좌표 → 캔버스 로컬 좌표로 변환
-            Camera cam = _cachedContext.MainCamera ?? Camera.main;
+            Camera cam = MainCameraHolder.MainCamera;
             if (cam == null) return;
 
             Vector3 screenPosition = cam.WorldToScreenPoint(_destPosition);
@@ -381,7 +381,8 @@ namespace CookApps.AutoBattler
         /// </summary>
         private Vector2 CalculateWorldPositionUV(TutorialActionContext context, Vector3 worldPosition)
         {
-            Camera cam = context.MainCamera ?? Camera.main;
+            // context.MainCamera가 null일 수 있으므로 MainCameraHolder에서 직접 가져옴
+            Camera cam = MainCameraHolder.MainCamera;
             if (cam == null)
             {
                 return new Vector2(0.5f, 0.5f);

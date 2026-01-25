@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36882bfd9ea264026b8410d8f091c603
+    m_Address: SpriteAtlas/Dynamic/UI_CharacterThumbnail.spriteatlasv2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4a8e93dc74b4242199bce29594091f0c
     m_Address: SpriteAtlas/Dynamic/UI_Chapter
     m_ReadOnly: 0
