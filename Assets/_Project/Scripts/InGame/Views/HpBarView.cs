@@ -91,8 +91,24 @@ namespace CookApps.AutoBattler
         private Vector2 _defalutSize;
         private Vector3 _defaultScale;
 
+        // 풀에서 재사용 시 원래 size를 복원하기 위해 Awake에서 저장
+        private Vector2 _originalPlayerSize;
+        private Vector2 _originalEnemySize;
+        private bool _isOriginalSizeInitialized;
+
         private List<InGameBuffDebuff> _buffDebuffList = new List<InGameBuffDebuff>();
         private List<InGameBuffDebuff> _sideBuffDebuffList = new List<InGameBuffDebuff>(); // Side 위치 버프 리스트
+
+        private void Awake()
+        {
+            // 프리팹의 원래 size를 저장 (풀에서 재사용 시 복원용)
+            if (!_isOriginalSizeInitialized)
+            {
+                _originalPlayerSize = _hpPlayerFillLeft.size;
+                _originalEnemySize = _hpEnemyFillLeft.size;
+                _isOriginalSizeInitialized = true;
+            }
+        }
 
         public void Initialize(CharacterStatData statData, AllianceType allianceType)
         {
@@ -104,10 +120,11 @@ namespace CookApps.AutoBattler
             _selectedFillLeft = isPlayer ? _hpPlayerFillLeft : _hpEnemyFillLeft;
             _hpFillSmoothGuage.color = isPlayer ? _playerSmoothColor : _enermySmoothColor;
 
-            _defalutSize = _selectedFillLeft.size;
+            // 풀에서 재사용 시 원래 size 사용 (Awake에서 저장된 값)
+            _defalutSize = isPlayer ? _originalPlayerSize : _originalEnemySize;
             _defaultScale = _selectedFillLeft.transform.localScale;
 
-            // HP 바 초기화 (풀에서 재사용 시 이전 값 리셋)
+            // HP 바 초기화 (풀에서 재사용 시 원래 값으로 리셋)
             _selectedFillLeft.size = _defalutSize;
             _hpFillSmoothGuage.size = new Vector2(_defalutSize.x, _hpFillSmoothGuage.size.y);
             _shieldFiilLeft.size = new Vector2(0, _shieldFiilLeft.size.y);
