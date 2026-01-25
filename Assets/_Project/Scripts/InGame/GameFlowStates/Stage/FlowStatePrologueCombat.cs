@@ -650,8 +650,9 @@ namespace CookApps.AutoBattler.Prologue
                 while (!cts.IsCancellationRequested)
                 {
                     _philiaCharacter.Target = _witchCharacter;
+                    
                     await ActivateCharacterSkillWithWait(_philiaCharacter);
-                    _yuniCharacter.AddNextState<CharacterStateReady>();
+                    _philiaCharacter.AddNextState<CharacterStateReady>();
                 }
             }, cts.Token).Forget();
             // 라플라스 마녀도 평타 공격 (공격 속도 2.0배)
@@ -660,7 +661,6 @@ namespace CookApps.AutoBattler.Prologue
                 _witchCharacter.AddNextState<CharacterStateAttack>(15f);
                 _witchCharacter.Target = _artesiaCharacter;
             }
-
 
             await UniTask.Delay(2000); // 3초 자유 전투
             {

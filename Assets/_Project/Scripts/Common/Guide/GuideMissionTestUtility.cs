@@ -6,6 +6,15 @@ using System.Collections.Generic;
 public static class GuideMissionTestUtility  {
     public static Dictionary<int, (GuideMissionType MissionType, int TargetCount, int Subkey)> GuideMissionTables;
     public static Dictionary<int, bool> ClearFlags;
+    public static List<int> SUMMON_CHARACTER_GUIDE_ID = new();
+    public static List<int> INSTALL_BUILDINGS_NEST_GUIDE_ID = new();
+    public static List<int> INSTALL_BUILDINGS_DIMENSION_GUIDE_ID = new();
+    public static List<int> CHARACTER_LEVEL_UP = new();
+    public static List<int> CLEAR_STAGE_1_GUIDE_ID = new ();
+    public static List<int> CLEAR_STAGE_2_GUIDE_ID = new ();
+    public static List<int> USE_BUILDING_COMMAND_CENTER_GUIDE_ID = new ();
+    public static List<int> USE_BUILDING_DIMENSION_GUIDE_ID = new ();
+    public static List<int> CLEAR_BABEL_TOWER_GUIDE_ID = new ();
     public static int 아트레시아ID = 3401;
     private static bool isInit = false;
 
@@ -91,6 +100,15 @@ public static class GuideMissionTestUtility  {
             if(gdb.GuideMissionId > key)
                 ClearFlags[key] = true;
         }
+        SUMMON_CHARACTER_GUIDE_ID = new (){101};
+        INSTALL_BUILDINGS_NEST_GUIDE_ID = new (){201, 404};
+        INSTALL_BUILDINGS_DIMENSION_GUIDE_ID = new (){405};
+        CHARACTER_LEVEL_UP = new (){202, 305, 402};
+        CLEAR_STAGE_1_GUIDE_ID = new (){301, 302, 303, 304, 306, 307, 308, 309, 310};
+        CLEAR_STAGE_2_GUIDE_ID = new (){502, 503, 504, 507, 508, 509};
+        USE_BUILDING_COMMAND_CENTER_GUIDE_ID = new (){401, 403};
+        USE_BUILDING_DIMENSION_GUIDE_ID = new (){406};
+        CLEAR_BABEL_TOWER_GUIDE_ID = new () {505, 506, 601};
         isInit = true;
     }
 
@@ -138,8 +156,8 @@ public static class GuideMissionTestUtility  {
     {
         if(!isInit) Init();
 
-        if(gdb.GuideMissionId == 201 && (edb.GetFacility((int)IdMap.ElpisBuild.Nest_1)?.IsJustCompleted == true || edb.HasFacility((uint)IdMap.ElpisBuild.Nest_1))) {if(!ClearFlags[201]) await AddActionAndClaim(201);}
-        if(gdb.GuideMissionId == 404 && (edb.GetFacility((int)IdMap.ElpisBuild.Nest_2)?.IsJustCompleted == true || edb.HasFacility((uint)IdMap.ElpisBuild.Nest_2))) {if(!ClearFlags[404]) await AddActionAndClaim(404);}
+        if(gdb.GuideMissionId == 201 && edb.HasFacility((uint)IdMap.ElpisBuild.Nest_1)) {if(!ClearFlags[201]) await AddActionAndClaim(201);}
+        if(gdb.GuideMissionId == 404 && edb.HasFacility((uint)IdMap.ElpisBuild.Nest_2)) {if(!ClearFlags[404]) await AddActionAndClaim(404);}
     }
 
     public static async UniTask HandleCommandCenter(bool isEnterCommandCenter, bool isEnterDimension, bool isEnterBattleSim) {
@@ -154,26 +172,21 @@ public static class GuideMissionTestUtility  {
 
     public static async UniTask HandleClearStage(int stageId, bool onceDamUp) {
         if(!isInit) Init();
-    
-        if(gdb.GuideMissionId == 301 && stageId == GuideMissionTables[301].Subkey) {if(!ClearFlags[301]) await AddActionAndClaim(301);} // 테스트 완료
-        if(gdb.GuideMissionId == 302 && stageId == GuideMissionTables[302].Subkey) {if(!ClearFlags[302]) await AddActionAndClaim(302);} // 테스트 완료
-        if(gdb.GuideMissionId == 303 && stageId == GuideMissionTables[303].Subkey) {if(!ClearFlags[303]) await AddActionAndClaim(303);} // 테스트 완료
-        if(gdb.GuideMissionId == 304 && stageId == GuideMissionTables[304].Subkey) {if(!ClearFlags[304]) await AddActionAndClaim(304);} // 테스트 완료
-        if(gdb.GuideMissionId == 306 && stageId == GuideMissionTables[306].Subkey) {if(!ClearFlags[306]) await AddActionAndClaim(306);} // 테스트 완료
-        if(gdb.GuideMissionId == 307 && stageId == GuideMissionTables[307].Subkey) {if(!ClearFlags[307]) await AddActionAndClaim(307);} // 테스트 완료
-        if(gdb.GuideMissionId == 308 && stageId == GuideMissionTables[308].Subkey) {if(!ClearFlags[308]) await AddActionAndClaim(308);} // 테스트 완료
-        if(gdb.GuideMissionId == 309 && stageId == GuideMissionTables[309].Subkey) {if(!ClearFlags[309]) await AddActionAndClaim(309);} // 테스트 완료
-        if(gdb.GuideMissionId == 310 && stageId == GuideMissionTables[310].Subkey) {if(!ClearFlags[310]) await AddActionAndClaim(310);} // 테스트 완료
-        if(gdb.GuideMissionId == 502 && stageId == GuideMissionTables[502].Subkey) {if(!ClearFlags[502]) await AddActionAndClaim(502);}
-        if(gdb.GuideMissionId == 503 && stageId == GuideMissionTables[503].Subkey) {if(!ClearFlags[503]) await AddActionAndClaim(503);}
-        if(gdb.GuideMissionId == 504 && stageId == GuideMissionTables[504].Subkey) {if(!ClearFlags[504]) await AddActionAndClaim(504);}
-        if(gdb.GuideMissionId == 507 && stageId == GuideMissionTables[507].Subkey) {if(!ClearFlags[507]) await AddActionAndClaim(507);}
-        if(gdb.GuideMissionId == 508 && stageId == GuideMissionTables[508].Subkey) {if(!ClearFlags[508]) await AddActionAndClaim(508);}
-        if(gdb.GuideMissionId == 509 && stageId == GuideMissionTables[509].Subkey) {if(!ClearFlags[509]) await AddActionAndClaim(509);}
-        
-        if(gdb.GuideMissionId == 505 && stageId == GuideMissionTables[505].Subkey) {if(!ClearFlags[505]) await AddActionAndClaim(505);}
-        if(gdb.GuideMissionId == 506 && stageId == GuideMissionTables[506].Subkey) {if(!ClearFlags[506]) await AddActionAndClaim(506);}
-        if(gdb.GuideMissionId == 601 && stageId == GuideMissionTables[601].Subkey) {if(!ClearFlags[601]) await AddActionAndClaim(601);}
+        foreach(int stage1id in CLEAR_STAGE_1_GUIDE_ID)
+        {
+            if(gdb.GuideMissionId == stage1id && stageId == GuideMissionTables[stage1id].Subkey)
+                await AddActionAndClaim(stage1id);
+        }
+        foreach(int stage2id in CLEAR_STAGE_2_GUIDE_ID)
+        {
+            if(gdb.GuideMissionId == stage2id && stageId == GuideMissionTables[stage2id].Subkey)
+                await AddActionAndClaim(stage2id);
+        }
+        foreach(int bableId in CLEAR_BABEL_TOWER_GUIDE_ID)
+        {
+            if(gdb.GuideMissionId == bableId && stageId == GuideMissionTables[bableId].Subkey)
+                await AddActionAndClaim(bableId);
+        }
     }
 
     public static async UniTask UpgradeUnit()

@@ -111,7 +111,7 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            
+
 
             PreEnterAsync().Forget();
         }
@@ -129,30 +129,28 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
 
-            // 챕터1 튜토리얼 시퀀스 시작 (TutorialManager가 상태 관리)
-            // if(!TutorialManager.Instance.IsOutgameTutorialCompleted((int)TutorialConstants.Chapter1Tutorial.HubbleIntro))
-            // {
-            //     await HubbleLobbyScequence();
-            // }
-            // await TutorialManager.Instance.StartChapter1TutorialSequence();
-
-            // guide middion (나중에, 영지 복구 연출 이후에 진행이 이 이전 async로)
 #if _SJHONG_TEST_
             // TODO Model 대신 Bridge로 가져오기
             var model = ServerDataManager.Instance.GuideMission;
             var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)model.GuideMissionId);
 
-            MyDebug.MyLog($"model.GuideMissionId : {model.GuideMissionId}");
-            MyDebug.MyLog($"specGuideMissionData : {Newtonsoft.Json.JsonConvert.SerializeObject(specGuideMissionData)}");
-
-            await TutorialManager.Instance.CheckAndInitTutorialWithGuideMissionInfo(specGuideMissionData);
-            if(specGuideMissionData.id <= 100) {
+            if(specGuideMissionData.id <= 101) {
+                await TutorialManager.Instance.CheckAndInitTutorialWithGuideMissionInfo(specGuideMissionData);
                 await HubbleLobbyScequence();
                 TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
             }
-            
+#else
+            // 아웃게임 튜토리얼 시작 (가이드 미션 기반)
+            await TutorialManager.Instance.TryStartOutgameTutorial();
 
+            TutorialManager.Instance.SubscribeGuideMissionChanged();
+
+
+            // 이거는 엘피스 연출 후에 실행 되어야 함.
+            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
 #endif
+
+
 
             var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
             _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
@@ -160,17 +158,11 @@ namespace CookApps.AutoBattler
 
         private async UniTask HubbleLobbyScequence()
         {
-#if _SJHONG_TEST_
-            MyDebug.MyLog("연출중!", MyDebug.Constants.YELLOW);
-#endif
             SceneUILayerManager.Instance.SetEnableMainNodeCanvas(false);
             MainCameraHolder.CameraGestureController.SetCanInteractCamera(false);
             await UniTask.Delay(500);
             SceneUILayerManager.Instance.SetEnableMainNodeCanvas(true);
             MainCameraHolder.CameraGestureController.SetCanInteractCamera(true);
-#if _SJHONG_TEST_
-            MyDebug.MyLog("연출끝!", MyDebug.Constants.YELLOW);
-#endif
         }
 
         private async UniTask OnClickStartButton()

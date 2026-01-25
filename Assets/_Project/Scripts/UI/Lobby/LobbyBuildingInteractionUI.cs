@@ -40,6 +40,8 @@ namespace CookApps.AutoBattler
 
         private bool isLocked;
 
+        public Vector3 TargetWorldPosition => target != null ? target.CachedTr.position : Vector3.zero;
+
         private UnityEngine.Coroutine checkInstallingTimeCoroutine;
         private ElpisBuildLayer currentBuildLayer;
 
