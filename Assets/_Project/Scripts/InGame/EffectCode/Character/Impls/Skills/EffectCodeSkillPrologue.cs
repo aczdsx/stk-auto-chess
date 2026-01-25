@@ -255,7 +255,6 @@ namespace CookApps.AutoBattler.Prologue
             InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.Target.SkillRootTransformFollowable);
             InGameVfxManager.Instance.AddInGamePreSkillActionFx(owner.SpecCharacter.character_element_type,
                 owner.GetCharacterView().CachedTr.position);
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_2401_02);
         }
         public override void OnSkillExecute(int executeIndex, int totalLength)
         {
@@ -264,7 +263,8 @@ namespace CookApps.AutoBattler.Prologue
             if (owner.Target == null)
                 return;
             //shooot effect
-            var shootEffect = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillMiddleFXTransformFollowable);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_2401_02);
+            var shootEffect = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.GetCharacterView().ProjectileFrontTransform.position);
 
             var direction = (owner.Target.CurrentTile.View.CachedTr.position - owner.CurrentTile.View.CachedTr.position).normalized;
             shootEffect.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);

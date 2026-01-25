@@ -521,11 +521,12 @@ namespace CookApps.AutoBattler.Prologue
         {
             if (_witchCharacter == null) return;
             _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKLPRE);
-            await UniTask.Delay(1000);
+            await UniTask.Delay(750);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_laplace01);
+            await UniTask.Delay(250);
             _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKLLOOP);
 
             var vfxTileIdx = _artesiaCharacter.CurrentTile.Int2Index + new int2(0, 1);
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_laplace01);
             laplasSkill1 = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_9002_1,
                 InGameObjectManager.Instance.InGameGrid.GetTile(vfxTileIdx).View.CachedTr.position);
             inGameVfx9002 = laplasSkill1.GetComponent<InGameVfx9002>();

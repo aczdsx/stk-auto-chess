@@ -88,72 +88,15 @@ MonoBehaviour:
     - name: Blur
       pathPrefix: Spawn
       guid: e466d9326b30a4b49a3dad428b4d9968
-    - name: cbg_00_00
-      pathPrefix: Spawn
-      guid: 1f39d8d645f7cea44a78b0fcbfec20a7
-    - name: cbg_00_01
-      pathPrefix: Spawn
-      guid: f08be00b6bdc70b42b5a13780b792956
     - name: cbg_00_02
       pathPrefix: Spawn
       guid: 6b5c3aa62227e284797ac353ac5bfd03
     - name: cbg_00_02_1
       pathPrefix: Spawn
       guid: da48c2d500b152843a29a12764e0d697
-    - name: cbg_00_03
+    - name: cbg_00_00
       pathPrefix: Spawn
-      guid: d8ef5d430888d1b48b4705581c7405ac
-    - name: cbg_00_04
-      pathPrefix: Spawn
-      guid: 64fd4990d141da64bb1806dfa3078d45
-    - name: cbg_01_01
-      pathPrefix: Spawn
-      guid: 5ec29d4051f68874daa1d8300f807816
-    - name: cbg_01_02
-      pathPrefix: Spawn
-      guid: 78595d4b1beb8f2439620fd5c2392033
-    - name: cbg_02_00
-      pathPrefix: Spawn
-      guid: f5905f415d8c2764a9ab7b0435151c00
-    - name: cbg_02_01
-      pathPrefix: Spawn
-      guid: daceea2c9bcbfd54192d4cb457d748d6
-    - name: cbg_02_02
-      pathPrefix: Spawn
-      guid: 2420046e7b56ba147b3f4bd76caa7444
-    - name: cbg_03_01
-      pathPrefix: Spawn
-      guid: a716cb839f22ba347859b1929273cd80
-    - name: cbg_03_02
-      pathPrefix: Spawn
-      guid: 9425b52a5db1e8d42b3de8db8b084682
-    - name: cbg_04_01
-      pathPrefix: Spawn
-      guid: 025101039d619e64d941772e9a265951
-    - name: cbg_04_02
-      pathPrefix: Spawn
-      guid: e17a0ce4d2ceef347bd8045201001c1b
-    - name: cbg_02_03
-      pathPrefix: Spawn
-      guid: 9dd622bf98f25c34791590c834c4c48e
-    - name: cbg_00_05
-      pathPrefix: Spawn
-      guid: 2185b6ba9f2040c40956701e3e92a519
-    - name: cbg_00_06
-      pathPrefix: Spawn
-      guid: 78595d4b1beb8f2439620fd5c2392033
-    - name: cbg_00_07
-      pathPrefix: Spawn
-      guid: e47c519340396e649b8d3b6f29319758
-    - name: cbg_02_04
-      pathPrefix: Spawn
-      guid: 9953061ab9b0def42b31123bdfe947aa
-    - name: cbg_02_05
-      pathPrefix: Spawn
-      guid: e6413063085d55c409852a26da97f73c
-    - name: nickname
-      pathPrefix: Spawn
-      guid: 03ee99e023fd941f991fe6058db086b0
+      guid: 1f39d8d645f7cea44a78b0fcbfec20a7
   - Id: UI
     Resources:
     - name: ClickThroughPanel
@@ -212,273 +155,900 @@ MonoBehaviour:
       guid: 735d6aa767879aa469134858c5b2f0a7
   - Id: Scripts
     Resources:
-    - name: Chapter2_03
+    - name: Localization/zh-TW/Scripts/3-3
       pathPrefix: Scripts
-      guid: c2c264a458c282f459fb606590f7b6ca
-    - name: nani_05_04_01
+      guid: df4ec21c47dce6e44bc7103214f5489e
+    - name: Localization/zh-TW/Scripts/0-0(Closing)
       pathPrefix: Scripts
-      guid: e563f07b5bfc0a248821dd4e9aded772
-    - name: 2-3
+      guid: fb3cd901cd2f5a44e8466947d7f5b638
+    - name: Localization/zh-TW/Scripts/0-3
       pathPrefix: Scripts
-      guid: 5242e2f65b148e1418b2ec484a3dc61b
-    - name: Chapter1_05
+      guid: bc051b901c3e7ac43a59c35ccdfd0ed2
+    - name: Localization/zh-TW/Scripts/nani_sub_002
       pathPrefix: Scripts
-      guid: 37d0588b93d9ae94ba4568779bec15da
-    - name: 4-3
+      guid: 487c0a492f76b814d8cb981470fac770
+    - name: Localization/zh-TW/Scripts/3-4(1)
+      pathPrefix: Scripts
+      guid: 7d8aa90577fc69b4db42f466fbe1d315
+    - name: Localization/ko/Scripts/nani_char_get_100400
+      pathPrefix: Scripts
+      guid: 0ff843394352b00499e9d477eb0698d4
+    - name: Localization/en/Scripts/nani_05_01_01
+      pathPrefix: Scripts
+      guid: 28246184ac5e76242b80dd70dccfaa40
+    - name: Localization/zh-TW/Scripts/3-1
+      pathPrefix: Scripts
+      guid: 8293d8697279be94dacfb5a87f60d6e4
+    - name: Localization/zh-TW/Scripts/nani_char_get_102900
+      pathPrefix: Scripts
+      guid: 7e93f3803effb254485be6d5725a6b38
+    - name: "Localization/ko/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C1"
+      pathPrefix: Scripts
+      guid: 09593713a1deab84eb1dad5675928def
+    - name: Scripts/nani_05_05_01
+      pathPrefix: Scripts
+      guid: c4c23b531da51dd45b8fc6adffa04efc
+    - name: Localization/en/Scripts/2-5
+      pathPrefix: Scripts
+      guid: ce3e8cebbd86c0b4da0241e4f2f41650
+    - name: Localization/ko/Scripts/0-3
+      pathPrefix: Scripts
+      guid: 5316d032df65a454c9ad5c89eea5be06
+    - name: Localization/ko/Scripts/1-2
+      pathPrefix: Scripts
+      guid: ff3ccd56b63222046b2468c9fdd4b6f0
+    - name: Localization/zh-CN/Scripts/1-1
+      pathPrefix: Scripts
+      guid: 165184de3b2070942acf27b6f186724d
+    - name: Localization/ja/Scripts/1-3
+      pathPrefix: Scripts
+      guid: 09bf7f0b390ac1640955980bf040e5fc
+    - name: Localization/zh-CN/Scripts/nani_sub_002
+      pathPrefix: Scripts
+      guid: 4d49c593eba7888488f512be7bb0e2b3
+    - name: Scripts/nani_05_03_01
+      pathPrefix: Scripts
+      guid: 58e7e4157b459c541aae857875b7f548
+    - name: Localization/ja/Scripts/3-4(1)
+      pathPrefix: Scripts
+      guid: 3fe62e28a0c6c1e4682bfdffe22fc6e4
+    - name: Localization/zh-CN/Scripts/4-2
+      pathPrefix: Scripts
+      guid: dd64fc1f8ba0959439b5336dbfeadf32
+    - name: Scripts/4-4
+      pathPrefix: Scripts
+      guid: 2695a9ccfa57da84aabad6cd7f1b420d
+    - name: Localization/ja/Scripts/4-5(2)
+      pathPrefix: Scripts
+      guid: 073fdbc4b13a1ac45ae5f104e00bb5a9
+    - name: Localization/en/Scripts/3-1
+      pathPrefix: Scripts
+      guid: ac924bbd10c2f314596e6781b11e9793
+    - name: Localization/ko/Scripts/1-1
+      pathPrefix: Scripts
+      guid: fd8d79352fc76e845a7e2ea05a97a1b6
+    - name: Scripts/nani_char_get_100300
+      pathPrefix: Scripts
+      guid: b0a836b235abb6940b880edafcdf23c7
+    - name: Localization/zh-TW/Scripts/2-5
+      pathPrefix: Scripts
+      guid: 25064289bc380e447ae95cb48f9ab1cd
+    - name: Localization/zh-CN/Scripts/2-2
+      pathPrefix: Scripts
+      guid: f9e976fd1273cea4a973d6b6ea5e85e2
+    - name: Localization/ko/Scripts/3-3
+      pathPrefix: Scripts
+      guid: b00775a7a0e0013488fe4cbb79e36bc2
+    - name: Scripts/nani_05_02_01
+      pathPrefix: Scripts
+      guid: 8ab5c13e8e9848a4aaa137879697ed35
+    - name: Localization/ko/Scripts/0-2-1
+      pathPrefix: Scripts
+      guid: 6ca3fec427ad3b042ae2b7c671327649
+    - name: Localization/en/Scripts/0-4
+      pathPrefix: Scripts
+      guid: da16fa38dcd3fb9408f648355c1c47c1
+    - name: Localization/ko/Scripts/nani_char_get_100900
+      pathPrefix: Scripts
+      guid: df0463e4f52901c4393170961e6c10a3
+    - name: Localization/zh-CN/Scripts/4-3
+      pathPrefix: Scripts
+      guid: b2637bbdded9cc546b509fe41927f584
+    - name: Localization/ja/Scripts/0-3
+      pathPrefix: Scripts
+      guid: 0767d541ce7024546b007f87cc4e0647
+    - name: Localization/en/Scripts/3-5
+      pathPrefix: Scripts
+      guid: 0bd6cfdf4a389b440ab0e3d2e9fc18d4
+    - name: Localization/zh-CN/Scripts/1-3
+      pathPrefix: Scripts
+      guid: 90f10bd0866d11b4f8afb5a04edb641d
+    - name: Localization/zh-CN/Scripts/0-0(Closing)
+      pathPrefix: Scripts
+      guid: e31e0efb60021204eb81321edc396034
+    - name: Localization/zh-TW/Scripts/4-4
+      pathPrefix: Scripts
+      guid: 80d448bebce94804ab68e2c15bfd1984
+    - name: Localization/zh-TW/Scripts/4-5(1)
+      pathPrefix: Scripts
+      guid: 7549102bd2dcfeb4fa2d250457d21bac
+    - name: Localization/ko/Scripts/3-5
+      pathPrefix: Scripts
+      guid: 15b634fe047a7bc44adc7ff24fc2fdca
+    - name: Localization/ja/Scripts/nani_sub_002
+      pathPrefix: Scripts
+      guid: 07fa6dd1c24c5cb4984dc251598ab85a
+    - name: Localization/zh-CN/Scripts/0-2-2
+      pathPrefix: Scripts
+      guid: 65692d747a2d0b04c812daf19cc6c5e9
+    - name: Localization/zh-TW/Scripts/3-2
+      pathPrefix: Scripts
+      guid: b4be09ab44529ba4cb2a5dbe8715f4ad
+    - name: Localization/ja/Scripts/0-2-1
+      pathPrefix: Scripts
+      guid: 8dadd2db4ecf3b548a1fbc5f06bcff95
+    - name: Localization/ja/Scripts/nani_char_get_102500
+      pathPrefix: Scripts
+      guid: 3896100e70dd2764f88edcb0c871107d
+    - name: Localization/en/Scripts/2-2
+      pathPrefix: Scripts
+      guid: 12ebb033216b77e49947b53b87eb8cbc
+    - name: Localization/zh-CN/Scripts/nani_char_get_102500
+      pathPrefix: Scripts
+      guid: 0acbd663dfb8cc746bf36ad5bf93c5e4
+    - name: Localization/ja/Scripts/4-3
+      pathPrefix: Scripts
+      guid: 43d4cc79f6d450b4a9e84bc38a7060d3
+    - name: Localization/ja/Scripts/4-5(1)
+      pathPrefix: Scripts
+      guid: f298cc671c3dcf14db6f5b797f852570
+    - name: Localization/ko/Scripts/3-4(2)
+      pathPrefix: Scripts
+      guid: e7f384d125283a84ab66c23e7999f967
+    - name: Localization/zh-CN/Scripts/nani_sub_003
+      pathPrefix: Scripts
+      guid: 378180aa5ee468b4ebd61e8cbf9a4358
+    - name: Localization/ja/Scripts/0-0(Opening)
+      pathPrefix: Scripts
+      guid: b4d2232f178de294ca138adf6dc31ad4
+    - name: Localization/zh-TW/Scripts/2-3
+      pathPrefix: Scripts
+      guid: bb07babe4ac386c4bb740a1a2caeb140
+    - name: Localization/ko/Scripts/0-5
+      pathPrefix: Scripts
+      guid: 43e039b8b238ab349b20af9738eb58f6
+    - name: Localization/ko/Scripts/nani_05_01_01
+      pathPrefix: Scripts
+      guid: 807ea1906123dd749938f409d7932553
+    - name: Scripts/nani_char_get_101200
+      pathPrefix: Scripts
+      guid: 911c3f661a8315f40be0c48d170fa6c5
+    - name: Localization/zh-CN/Scripts/4-4
+      pathPrefix: Scripts
+      guid: 53acd11c0441aa04baa4a616c9ffb0e1
+    - name: Localization/en/Scripts/nani_char_get_100500
+      pathPrefix: Scripts
+      guid: 73fb139b5413cf14692255161263caa2
+    - name: Localization/ja/Scripts/2-2
+      pathPrefix: Scripts
+      guid: 8bc06bbee163cf8418085823d95babba
+    - name: Localization/ko/Scripts/2-2
+      pathPrefix: Scripts
+      guid: 1f29d5774019f86468af3259709827ca
+    - name: Localization/ko/Scripts/nani_char_get_100300
+      pathPrefix: Scripts
+      guid: 17c7f25c0e8d30146bded4809eefce19
+    - name: Localization/ja/Scripts/nani_sub_001
+      pathPrefix: Scripts
+      guid: 2fa472c198b822342a6a85bf385c5187
+    - name: Localization/en/Scripts/nani_char_get_100900
+      pathPrefix: Scripts
+      guid: dd155bcc4bd4ba94e9e3c7e4a68a1093
+    - name: Scripts/0-3
+      pathPrefix: Scripts
+      guid: 58d24ad44624d984cb6a2e06b9f32357
+    - name: Localization/ja/Scripts/3-4(2)
+      pathPrefix: Scripts
+      guid: 28bef63a5ebd8664ebf4845216cdd8e5
+    - name: Localization/zh-CN/Scripts/2-1
+      pathPrefix: Scripts
+      guid: 41ee3968f46003f4488425f2a7e69679
+    - name: Scripts/nani_sub_001
+      pathPrefix: Scripts
+      guid: 7302cc983df0afe42a75ec24005e6e83
+    - name: Localization/en/Scripts/0-0(Opening)
+      pathPrefix: Scripts
+      guid: f0deb1c7dc8d11947a71b4c8686fd623
+    - name: Localization/zh-TW/Scripts/4-3
+      pathPrefix: Scripts
+      guid: 45d88f85941ada241ac8016d97fc704d
+    - name: Localization/zh-TW/Scripts/nani_sub_001
+      pathPrefix: Scripts
+      guid: 9a44162525e2d274fb4209bbba7ca8fc
+    - name: Localization/en/Scripts/nani_char_get_102900
+      pathPrefix: Scripts
+      guid: 66a58ab778221a844b8ee27748c2d026
+    - name: Localization/zh-CN/Scripts/nani_char_get_100900
+      pathPrefix: Scripts
+      guid: 05cc8114cac42254f93fc7fa48640c9c
+    - name: Localization/zh-TW/Scripts/nani_char_get_100900
+      pathPrefix: Scripts
+      guid: 19fe27bdad497d34684390099882280e
+    - name: Scripts/4-5(1)
+      pathPrefix: Scripts
+      guid: 9cddc781a7157bc439ae497c13f7eea8
+    - name: Localization/ja/Scripts/nani_char_get_101200
+      pathPrefix: Scripts
+      guid: d55cc2204c32a4c40b0ac83e455bbe73
+    - name: Scripts/4-2
+      pathPrefix: Scripts
+      guid: 8eaee1246be44c24c961ef23f3cd524e
+    - name: Localization/ko/Scripts/nani_sub_002
+      pathPrefix: Scripts
+      guid: 4970548f2414c3142a1c1ce8ae139b77
+    - name: Localization/zh-CN/Scripts/2-4
+      pathPrefix: Scripts
+      guid: cc2e761ac697d0e42ba38d6b1ace93a1
+    - name: Localization/en/Scripts/Sample
+      pathPrefix: Scripts
+      guid: 1128beb5e0894f347bbee5835973561f
+    - name: Localization/ko/Scripts/4-2
+      pathPrefix: Scripts
+      guid: 060aed05abbf2d54b9e75b2835a98ead
+    - name: Localization/zh-TW/Scripts/2-1
+      pathPrefix: Scripts
+      guid: c72aa2a04a52d0b47bde926390d8086b
+    - name: Localization/en/Scripts/1-1
+      pathPrefix: Scripts
+      guid: 1f640b5d94020924696af7419651bf08
+    - name: Scripts/3-4(2)
+      pathPrefix: Scripts
+      guid: a2c034fbcfa26264e957e98b2350dfa7
+    - name: Localization/en/Scripts/2-3
+      pathPrefix: Scripts
+      guid: a35729f38fd4adb43bf943c31d11c872
+    - name: Localization/zh-TW/Scripts/4-1
+      pathPrefix: Scripts
+      guid: 2b47684a71c6f8e4c9f1e8160de75c2f
+    - name: Scripts/3-5
+      pathPrefix: Scripts
+      guid: 4a3dbffeebdbece47b2bf7b206e34b81
+    - name: Localization/ja/Scripts/0-1
+      pathPrefix: Scripts
+      guid: e676d2b398631094d9cdb8229c929d18
+    - name: Localization/ja/Scripts/2-3
+      pathPrefix: Scripts
+      guid: db0246f83404bbb4cb7006c1526a8a6a
+    - name: Scripts/4-1
+      pathPrefix: Scripts
+      guid: e5f35e427f5df9540ab7e60cb23b2ff9
+    - name: Scripts/0-0(Opening)
+      pathPrefix: Scripts
+      guid: 05dad6806a8c9344b9fc77d30b04ddee
+    - name: Localization/en/Scripts/1-3
+      pathPrefix: Scripts
+      guid: acb76b6c3aba9cb4995896cca2c49f1c
+    - name: Localization/ja/Scripts/nani_char_get_100400
+      pathPrefix: Scripts
+      guid: 68decfdcdba66fe478563384c6a5bc30
+    - name: Localization/zh-CN/Scripts/0-3
+      pathPrefix: Scripts
+      guid: df83c7355c32c2c4eb1114c1dcc2c10c
+    - name: Localization/zh-CN/Scripts/nani_char_get_100400
+      pathPrefix: Scripts
+      guid: 9f4887ed942226a449875f81e643c1a9
+    - name: Localization/zh-CN/Scripts/3-5
+      pathPrefix: Scripts
+      guid: 9cd6380e302a4264c9b22672bc1f45b7
+    - name: Localization/ko/Scripts/1-3
+      pathPrefix: Scripts
+      guid: 7a4e504e8c232f04aa2596178de989f0
+    - name: Scripts/Sample
+      pathPrefix: Scripts
+      guid: 48a0da1e606ca0a4ba54e8728fa4f163
+    - name: Localization/zh-CN/Scripts/4-5(2)
+      pathPrefix: Scripts
+      guid: b30004955b6f0994881a90dcda5edec8
+    - name: Localization/ja/Scripts/nani_char_get_100300
+      pathPrefix: Scripts
+      guid: 2285dbe9e4fadf74ab8feced901d8359
+    - name: Scripts/0-0(Closing)
+      pathPrefix: Scripts
+      guid: 9014e799097a65c42b5e8f5b72dc2517
+    - name: Localization/ja/Scripts/4-2
+      pathPrefix: Scripts
+      guid: e81d29f5f271b854c8f2cb6aa8b2c27c
+    - name: Scripts/4-3
       pathPrefix: Scripts
       guid: 7321f6d71349adc4d823e70bce452c70
-    - name: Prologue_03
+    - name: Localization/ko/Scripts/Sample
       pathPrefix: Scripts
-      guid: 54becdc6deb5141ccb3b49c78cf0b0d5
+      guid: 5cd7f439b9fd1594690b1555cdb977e5
+    - name: Scripts/2-2
+      pathPrefix: Scripts
+      guid: 6e936207a40f190419a520588e70ca9a
+    - name: Localization/zh-TW/Scripts/nani_char_get_100500
+      pathPrefix: Scripts
+      guid: fa0cc54ed33129c44bc246feaf68622f
+    - name: Localization/zh-CN/Scripts/3-4(1)
+      pathPrefix: Scripts
+      guid: 2618d7493b0e5134e920dfe2787c2a60
+    - name: Localization/en/Scripts/0-2-2
+      pathPrefix: Scripts
+      guid: dc08cfce017935344a0e238f3edf69a6
+    - name: Localization/ja/Scripts/3-3
+      pathPrefix: Scripts
+      guid: 2829952094e93384cb9a8ecf2f413204
+    - name: Localization/ko/Scripts/nani_05_02_01
+      pathPrefix: Scripts
+      guid: 06ef8f2f7c5db4b4daa2092a9b860905
+    - name: Localization/en/Scripts/nani_char_get_100300
+      pathPrefix: Scripts
+      guid: 5e709328f21499d44b2ac9c5880078df
+    - name: Localization/ja/Scripts/3-1
+      pathPrefix: Scripts
+      guid: a59564d464a55514e9493fd35dd9e994
+    - name: Localization/ja/Scripts/0-2-2
+      pathPrefix: Scripts
+      guid: 95fc5e7a8b486c04eb988ae260835d43
+    - name: Localization/zh-CN/Scripts/2-3
+      pathPrefix: Scripts
+      guid: 2b53553fbd1c8eb4782cc584b8566dd6
+    - name: Localization/ja/Scripts/2-4
+      pathPrefix: Scripts
+      guid: fbcd1adc26d318f4f8e2029dcc69ec27
+    - name: Scripts/nani_char_get_100500
+      pathPrefix: Scripts
+      guid: d1f8f7dbbc8c2274b9095a1e58944ad5
+    - name: Localization/en/Scripts/4-1
+      pathPrefix: Scripts
+      guid: 425f6e33e6ec420448d6a53af2670cf7
+    - name: Localization/en/Scripts/nani_char_get_101200
+      pathPrefix: Scripts
+      guid: 27e2ec72692a1d94e879bce248e48bdd
+    - name: Localization/en/Scripts/nani_sub_002
+      pathPrefix: Scripts
+      guid: 1500b59bcf644494baf85bda19afc8c3
+    - name: Scripts/2-4
+      pathPrefix: Scripts
+      guid: 39d0e14cfd67645408d7b7e0f781c065
+    - name: Localization/ko/Scripts/4-5(2)
+      pathPrefix: Scripts
+      guid: dd49d72f6d9a2a047aa91550b60e9a60
+    - name: Localization/en/Scripts/nani_char_get_102500
+      pathPrefix: Scripts
+      guid: 57e245f47a1ae1147a298994f01dd3eb
+    - name: Scripts/2-3
+      pathPrefix: Scripts
+      guid: 5242e2f65b148e1418b2ec484a3dc61b
+    - name: Localization/zh-CN/Scripts/4-5(1)
+      pathPrefix: Scripts
+      guid: a55915e62f141c34ba7cd5e18f7ea8f5
+    - name: Localization/zh-CN/Scripts/1-2
+      pathPrefix: Scripts
+      guid: 39e0b1e47a640484eb58acc05b054055
+    - name: Localization/zh-TW/Scripts/1-3
+      pathPrefix: Scripts
+      guid: c530c375d611b1f4892583de8d4ac15c
+    - name: Localization/en/Scripts/2-4
+      pathPrefix: Scripts
+      guid: e919a967fbff0f94ebb061df3f0def99
+    - name: "Localization/en/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C1"
+      pathPrefix: Scripts
+      guid: aa1e071ce27f8d64daca550c9c1a8cd2
+    - name: Localization/ja/Scripts/0-0(Closing)
+      pathPrefix: Scripts
+      guid: d085790e18c45524493c337851452696
+    - name: Localization/ko/Scripts/nani_char_get_100500
+      pathPrefix: Scripts
+      guid: 6356bd19ecf0c1948bac9b874d1f5b92
+    - name: Localization/zh-CN/Scripts/nani_char_get_100500
+      pathPrefix: Scripts
+      guid: 4aa5b8c210697684da8296901afdea88
+    - name: Localization/zh-CN/Scripts/4-1
+      pathPrefix: Scripts
+      guid: 44667afa3e266914e9a73d5395633caa
+    - name: Localization/zh-TW/Scripts/0-5
+      pathPrefix: Scripts
+      guid: 6ab6c652f3d728747976a7cc315a0e27
+    - name: Localization/zh-CN/Scripts/3-4(2)
+      pathPrefix: Scripts
+      guid: 892d45c4960e66341a36f4e76f87d6fc
+    - name: Localization/ja/Scripts/0-4
+      pathPrefix: Scripts
+      guid: 652b29ce55cfcbb4aa902521175a96f9
+    - name: Scripts/1-1
+      pathPrefix: Scripts
+      guid: 804396bb58e9fff48a9635152aad90a3
+    - name: Localization/zh-CN/Scripts/nani_sub_001
+      pathPrefix: Scripts
+      guid: ab588ac6b7401984c88a4fa7a4f63cb5
+    - name: Scripts/2-1
+      pathPrefix: Scripts
+      guid: cb976ebb8c56a4f4b9617c2678afdb37
+    - name: Localization/ko/Scripts/nani_char_get_102500
+      pathPrefix: Scripts
+      guid: cbd82337957fa0d49b1cd2f7bdc214e1
+    - name: Localization/zh-TW/Scripts/1-1
+      pathPrefix: Scripts
+      guid: c1233498a84852449a1c6b58110d3bd1
+    - name: Localization/ja/Scripts/nani_05_03_01
+      pathPrefix: Scripts
+      guid: f4765723d0adc5a4c94c9677aa2a44a2
+    - name: Scripts/nani_char_get_102500
+      pathPrefix: Scripts
+      guid: 2baab012a413ea148bb577a4fa962759
+    - name: Localization/zh-CN/Scripts/Sample
+      pathPrefix: Scripts
+      guid: 6b35b7c9edb60194aabd206949771ba6
+    - name: Localization/zh-CN/Scripts/nani_05_03_01
+      pathPrefix: Scripts
+      guid: 4652f08f897f21f4c8b30a1219f8acc2
+    - name: Localization/ko/Scripts/2-3
+      pathPrefix: Scripts
+      guid: 3a3cee3581dbd9d4aa5c6216f9ff54f0
+    - name: Localization/zh-TW/Scripts/nani_05_01_01
+      pathPrefix: Scripts
+      guid: 6cd89ea573726fb47af18faf383933a2
+    - name: Scripts/0-2-1
+      pathPrefix: Scripts
+      guid: cb7b2e8624913aa4fa0282c8838afc7e
+    - name: Localization/ko/Scripts/0-4
+      pathPrefix: Scripts
+      guid: 7c81bc6f76219d4448bb194d1e75f873
+    - name: Scripts/nani_05_04_02
+      pathPrefix: Scripts
+      guid: 15646f365576b9d4eabf2f7a04739c24
+    - name: Localization/ko/Scripts/0-2-2
+      pathPrefix: Scripts
+      guid: ebac3e03bd01cd347921b4c19fbd0d49
+    - name: Localization/ko/Scripts/nani_sub_003
+      pathPrefix: Scripts
+      guid: a847d3640ff2c634aa27d303b8cbe5a9
+    - name: Scripts/0-2-2
+      pathPrefix: Scripts
+      guid: 3bb32e472b1b75f46997f24d8690444f
+    - name: Localization/en/Scripts/0-5
+      pathPrefix: Scripts
+      guid: 8484ec1337b37264c8611848ece39011
+    - name: Localization/ja/Scripts/nani_sub_003
+      pathPrefix: Scripts
+      guid: f056feb894534e04f9dcdd84367f3a46
+    - name: Localization/en/Scripts/4-2
+      pathPrefix: Scripts
+      guid: 46186414a958039449afd8d11463cbf3
+    - name: Scripts/nani_05_05_02
+      pathPrefix: Scripts
+      guid: af6bc52ed0f2f2749add382e2ce09bee
+    - name: Localization/zh-TW/Scripts/3-5
+      pathPrefix: Scripts
+      guid: 598383f2c9a02ea4d8cace47e92dff99
+    - name: Scripts/3-3
+      pathPrefix: Scripts
+      guid: 493f120f01e792b468d19b9ebff87c2d
+    - name: Localization/zh-TW/Scripts/0-2-1
+      pathPrefix: Scripts
+      guid: 6d7d1a366ab7dfc47a132ac1d0a42cfa
+    - name: Localization/zh-TW/Scripts/3-4(2)
+      pathPrefix: Scripts
+      guid: 40e24d700453c5a4fa5c06eb0321266e
+    - name: Localization/ja/Scripts/3-5
+      pathPrefix: Scripts
+      guid: deaf542e425249e42b252d9e6a7af968
+    - name: Localization/ja/Scripts/4-4
+      pathPrefix: Scripts
+      guid: c88c769b790b6dc438f880120c2f2bc9
+    - name: Localization/ko/Scripts/4-1
+      pathPrefix: Scripts
+      guid: dbf87a6d0bb5ce64fbffdd9d157598da
+    - name: Localization/ko/Scripts/2-1
+      pathPrefix: Scripts
+      guid: eef467e818c5d374788ee20d77cb5c71
+    - name: Localization/en/Scripts/nani_char_get_100400
+      pathPrefix: Scripts
+      guid: b3c3f33a3c5b840408f822d2fdac3867
+    - name: Localization/ko/Scripts/3-4(1)
+      pathPrefix: Scripts
+      guid: ad678e2ec3716b74ca5a9ac891fa143f
+    - name: Localization/ko/Scripts/4-4
+      pathPrefix: Scripts
+      guid: 527627fdc7a3957479e6ab92c65c7686
+    - name: Localization/zh-TW/Scripts/nani_sub_003
+      pathPrefix: Scripts
+      guid: 7dfaa17144a1ca04b84aec9472e758e2
+    - name: Scripts/nani_char_get_100900
+      pathPrefix: Scripts
+      guid: ad34c8f36e42b6a4d902b362ec49070b
+    - name: Localization/ja/Scripts/0-5
+      pathPrefix: Scripts
+      guid: a241f4d0fc5f33245a05965aed1e9605
+    - name: Scripts/nani_char_get_102900
+      pathPrefix: Scripts
+      guid: 9c55d70cc15518844b732b19c9a54609
+    - name: Localization/en/Scripts/nani_sub_001
+      pathPrefix: Scripts
+      guid: 5ca00baee7b44e5449ece0c3367aa0bf
+    - name: Localization/en/Scripts/2-1
+      pathPrefix: Scripts
+      guid: 786f4e1bb0d20ea43b34da3e4994745f
+    - name: Localization/en/Scripts/nani_05_02_01
+      pathPrefix: Scripts
+      guid: 06a1690ab89ac904e8ef0c2c23a9804a
+    - name: Localization/ja/Scripts/4-1
+      pathPrefix: Scripts
+      guid: a177012520d63044c892d4c7c59f35cd
+    - name: Localization/ko/Scripts/4-3
+      pathPrefix: Scripts
+      guid: 0539e85b4bc5066459857aee7b8b191a
+    - name: Localization/zh-CN/Scripts/nani_char_get_101200
+      pathPrefix: Scripts
+      guid: 614ebdb64a4a4864d961fa6ede60b4b4
+    - name: Localization/ko/Scripts/3-2
+      pathPrefix: Scripts
+      guid: 076cdfdf0d8030c41a1b3aa38eacd932
+    - name: Scripts/0-5
+      pathPrefix: Scripts
+      guid: 346b319cd1a93af4880db9be4aea9249
+    - name: Scripts/3-1
+      pathPrefix: Scripts
+      guid: a66a5c8c6606ea742b89f3a74bed9f95
+    - name: Localization/zh-CN/Scripts/3-3
+      pathPrefix: Scripts
+      guid: 568b845d9acfc804a82366b70e96e4d0
+    - name: Localization/en/Scripts/3-4(2)
+      pathPrefix: Scripts
+      guid: 59f98c19cedd4d54581cf86406f3f69c
+    - name: Localization/ko/Scripts/nani_char_get_102900
+      pathPrefix: Scripts
+      guid: 4dd48e1dae603294eb5adf308672c3c1
+    - name: Localization/zh-TW/Scripts/4-5(2)
+      pathPrefix: Scripts
+      guid: d80707dad833fa947900a1f6ab74564e
+    - name: Localization/zh-TW/Scripts/nani_char_get_100400
+      pathPrefix: Scripts
+      guid: e8edbbf4bcb1e2147a1086c2e7bfaf5e
+    - name: Localization/ja/Scripts/2-5
+      pathPrefix: Scripts
+      guid: 67a11f68777bbae48af3751369142720
+    - name: Localization/en/Scripts/3-2
+      pathPrefix: Scripts
+      guid: 57b9be20393a082479de1b19d4dbfb18
+    - name: Localization/zh-CN/Scripts/nani_05_02_01
+      pathPrefix: Scripts
+      guid: 604f1e6e2f344c8418c507999153fee4
+    - name: Localization/en/Scripts/0-0(Closing)
+      pathPrefix: Scripts
+      guid: d0ccf386cdae98b4699d1e2b570b84af
+    - name: Scripts/nani_05_06_01
+      pathPrefix: Scripts
+      guid: 15562e747dd2fd5478d7db91f9fca3c2
+    - name: Localization/ja/Scripts/nani_05_01_01
+      pathPrefix: Scripts
+      guid: 8356e41f24e6a064dab863e9bbd01635
+    - name: Localization/zh-TW/Scripts/nani_05_02_01
+      pathPrefix: Scripts
+      guid: 962ae99a3ecf5b640b711104a3d0c317
+    - name: Localization/zh-TW/Scripts/Sample
+      pathPrefix: Scripts
+      guid: 09744f4225d42374aa03bbbfd67de7b5
+    - name: Localization/zh-TW/Scripts/0-4
+      pathPrefix: Scripts
+      guid: 2a83122f54eeeb24fa46c7e3ef307aef
+    - name: Scripts/1-3
+      pathPrefix: Scripts
+      guid: 40e1114b24823664a83b0868c3fc191f
+    - name: Localization/ja/Scripts/1-1
+      pathPrefix: Scripts
+      guid: 6ce7a56d98dfd68439336520b839f201
+    - name: Localization/zh-CN/Scripts/3-2
+      pathPrefix: Scripts
+      guid: 7f2bed4fbb7ab16418c7aea735858d84
+    - name: Localization/zh-TW/Scripts/nani_char_get_102500
+      pathPrefix: Scripts
+      guid: d1da537206be8324095e6258a351951a
+    - name: Localization/zh-TW/Scripts/nani_05_03_01
+      pathPrefix: Scripts
+      guid: 180465ce40071c24086c16bb99089d39
+    - name: Localization/zh-CN/Scripts/0-5
+      pathPrefix: Scripts
+      guid: 523e211daf70e654887596da701e6749
+    - name: Localization/ja/Scripts/nani_char_get_100900
+      pathPrefix: Scripts
+      guid: 4b809363b50b6fa46bf00d56cd994b3d
+    - name: Localization/zh-TW/Scripts/0-2-2
+      pathPrefix: Scripts
+      guid: 87318347139d0dc44a0b00a2fde78fa2
+    - name: Localization/en/Scripts/1-2
+      pathPrefix: Scripts
+      guid: 9cf9f5bb0f0a01c47a68dd01b19a4d6d
+    - name: Localization/zh-CN/Scripts/0-4
+      pathPrefix: Scripts
+      guid: 7cc0ce5b753ec784f8af011fe33bc30b
+    - name: Localization/ko/Scripts/3-1
+      pathPrefix: Scripts
+      guid: dea02271585137e4e894167ecbdcb506
+    - name: Localization/ja/Scripts/2-1
+      pathPrefix: Scripts
+      guid: 9a9dd9b2fd810d042809bcc846ea9e92
+    - name: Localization/en/Scripts/4-4
+      pathPrefix: Scripts
+      guid: 89ab4430a73a5be4ab4f1255aa82067c
+    - name: Scripts/0-4
+      pathPrefix: Scripts
+      guid: 06474dc7307b4c04ab69cc5ffe05223a
+    - name: Localization/ja/Scripts/nani_char_get_102900
+      pathPrefix: Scripts
+      guid: 34a40dfd93751804ca78f350d018f4cb
+    - name: Localization/ja/Scripts/nani_05_02_01
+      pathPrefix: Scripts
+      guid: f646bc3e1d630e046ad03b611ab13618
+    - name: Localization/zh-TW/Scripts/nani_char_get_100300
+      pathPrefix: Scripts
+      guid: 72757e9e18b74ab438956674b3d2a8c1
+    - name: Scripts/nani_sub_003
+      pathPrefix: Scripts
+      guid: 630c7ec940b84e44a85acb87174b30c0
+    - name: Localization/zh-TW/Scripts/4-2
+      pathPrefix: Scripts
+      guid: 0e5151309a5919c4b8e7db03c7dd0725
+    - name: Localization/zh-TW/Scripts/0-1
+      pathPrefix: Scripts
+      guid: 80282ec07658a1f4782262019440bb26
+    - name: Localization/ko/Scripts/nani_char_get_101200
+      pathPrefix: Scripts
+      guid: d53d879aac4a71143a77aa17502fd0c0
+    - name: Localization/ko/Scripts/2-5
+      pathPrefix: Scripts
+      guid: 41e68f53dc24f764b9414fadd5a97763
+    - name: Scripts/2-5
+      pathPrefix: Scripts
+      guid: 5c2bc6d3e2f456348ac36ec495f0614c
+    - name: Localization/ko/Scripts/0-0(Closing)
+      pathPrefix: Scripts
+      guid: 8ab20d42493dc3643b5a9303483fc426
+    - name: Localization/en/Scripts/4-3
+      pathPrefix: Scripts
+      guid: 0cf83e005fb1766468d6cc4a108cd038
+    - name: Scripts/4-5(2)
+      pathPrefix: Scripts
+      guid: 35547d22f22ad934fbc502cfd8294927
+    - name: Localization/zh-TW/Scripts/2-2
+      pathPrefix: Scripts
+      guid: 610061fe5a73ef94f9561bdfe4e0f5c4
+    - name: Scripts/nani_char_get_100400
+      pathPrefix: Scripts
+      guid: 13803ddf30a95d44c9ad5a664aa24168
+    - name: Localization/ja/Scripts/1-2
+      pathPrefix: Scripts
+      guid: 630edaca9307b6e45b21f158a2ea1574
+    - name: Localization/zh-CN/Scripts/2-5
+      pathPrefix: Scripts
+      guid: cef796f6e86266145af552af8d986fa2
+    - name: Localization/zh-CN/Scripts/3-1
+      pathPrefix: Scripts
+      guid: 343ca28bf0050534a93c53ef99cbdb11
+    - name: Localization/zh-CN/Scripts/0-2-1
+      pathPrefix: Scripts
+      guid: b22187562a74123499cf30035387ebbc
+    - name: Localization/ko/Scripts/nani_sub_001
+      pathPrefix: Scripts
+      guid: 7a1e9dc60df64d5468e3d4c66e41acf7
+    - name: Localization/zh-CN/Scripts/nani_05_01_01
+      pathPrefix: Scripts
+      guid: 6244013ca4b5ec548ac6029f93a78ceb
+    - name: Scripts/nani_05_01_01
+      pathPrefix: Scripts
+      guid: 7f0e71bffcdee6a4485e663aad093d06
+    - name: Localization/ja/Scripts/3-2
+      pathPrefix: Scripts
+      guid: b3fb96012ffd3ba4f97f06d9cefc69f3
+    - name: Localization/zh-CN/Scripts/nani_char_get_102900
+      pathPrefix: Scripts
+      guid: c01cb7d00ccebfe49a668f00dbcace4e
+    - name: Localization/en/Scripts/nani_05_03_01
+      pathPrefix: Scripts
+      guid: c572293881571504e8cadbe145564e18
+    - name: Scripts/3-2
+      pathPrefix: Scripts
+      guid: e361b73169b368d4eac01e3a8b92a170
+    - name: Localization/zh-CN/Scripts/0-1
+      pathPrefix: Scripts
+      guid: fb83ff3ef9e1e5b4b86f9e616506bfa2
+    - name: Localization/ko/Scripts/0-0(Opening)
+      pathPrefix: Scripts
+      guid: 5fd98a293e428de4aa3eedd783d5d7f2
+    - name: Scripts/3-4(1)
+      pathPrefix: Scripts
+      guid: 88d2f1b5be902604f8ed39ffc8600257
+    - name: Localization/en/Scripts/3-3
+      pathPrefix: Scripts
+      guid: efb0a3cbc2cdcc6459637a66d1d77dd8
+    - name: Localization/en/Scripts/4-5(1)
+      pathPrefix: Scripts
+      guid: 3424af6b06018484bbb2866a8fe88d56
+    - name: Localization/zh-TW/Scripts/0-0(Opening)
+      pathPrefix: Scripts
+      guid: b8cd33bbf0d4ab740a78c1ce4cd532ca
+    - name: Localization/ko/Scripts/2-4
+      pathPrefix: Scripts
+      guid: 6777c74d9f44b2e45bdf5f495bcf819e
+    - name: Scripts/nani_05_04_01
+      pathPrefix: Scripts
+      guid: e563f07b5bfc0a248821dd4e9aded772
+    - name: Scripts/nani_sub_002
+      pathPrefix: Scripts
+      guid: 5c8f6fa686a44f74a86e87d5179458d7
+    - name: Localization/zh-TW/Scripts/1-2
+      pathPrefix: Scripts
+      guid: 91718ff4ccc45de45b85c3a5f23e0028
+    - name: Scripts/1-2
+      pathPrefix: Scripts
+      guid: 0f622f35f29c79e4e91e9d357801575b
+    - name: Localization/ko/Scripts/nani_05_03_01
+      pathPrefix: Scripts
+      guid: 4eb5386ce98a9fb43a827b0e85ac89dd
+    - name: Localization/en/Scripts/3-4(1)
+      pathPrefix: Scripts
+      guid: f56dd4fd82640944b8d96cd94b3a4f70
+    - name: Localization/zh-CN/Scripts/nani_char_get_100300
+      pathPrefix: Scripts
+      guid: 867d7097fed890e4391bd08fe351a005
+    - name: Localization/zh-TW/Scripts/2-4
+      pathPrefix: Scripts
+      guid: 2cceef3ef04b5394f8d968eb470d76dc
+    - name: Localization/ja/Scripts/nani_char_get_100500
+      pathPrefix: Scripts
+      guid: 7e4eba8d4747071479adcce1f3b4ba47
+    - name: Localization/zh-CN/Scripts/0-0(Opening)
+      pathPrefix: Scripts
+      guid: 3cf5248eb1bd7ec4ba769f0554634d25
+    - name: Localization/zh-TW/Scripts/nani_char_get_101200
+      pathPrefix: Scripts
+      guid: 85d30356446bdba46ab18e79e64627b1
+    - name: Localization/ja/Scripts/Sample
+      pathPrefix: Scripts
+      guid: 9519d4c406b7cdf44907e24448f18472
+    - name: Localization/en/Scripts/4-5(2)
+      pathPrefix: Scripts
+      guid: 3d5a134934f90284495e2474376b508e
+    - name: Localization/en/Scripts/0-3
+      pathPrefix: Scripts
+      guid: 0abdd779680853c4297e343c8eb6e949
+    - name: Localization/en/Scripts/nani_sub_003
+      pathPrefix: Scripts
+      guid: d16e4d484b6445243ad1644bbe2db9ff
+    - name: Localization/ko/Scripts/4-5(1)
+      pathPrefix: Scripts
+      guid: 8fc622bffb4b3a948a8ba2ba1340e7f0
+    - name: "Localization/en/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
+      pathPrefix: Scripts
+      guid: ba7dd6f0859fa4db3947984897040255
+    - name: "Localization/ko/Scripts/\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
+      pathPrefix: Scripts
+      guid: 0a019d8da6bb44bccae259e9520de6c6
+    - name: "\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C1"
+      pathPrefix: Scripts
+      guid: 32a65bd9420b96b40ae66c70d725e94f
     - name: Chapter0_02
       pathPrefix: Scripts
       guid: 0e786f14d66cf9849bc6ca037003c394
-    - name: 4-5(1)
-      pathPrefix: Scripts
-      guid: 9cddc781a7157bc439ae497c13f7eea8
-    - name: 2-1
-      pathPrefix: Scripts
-      guid: cb976ebb8c56a4f4b9617c2678afdb37
-    - name: Chapter2_16
-      pathPrefix: Scripts
-      guid: 512afeaecf2810e40890729587809587
-    - name: 4-2
-      pathPrefix: Scripts
-      guid: 8eaee1246be44c24c961ef23f3cd524e
-    - name: Chapter1_12
-      pathPrefix: Scripts
-      guid: 196dac9ce6b77f640bbb06d0774e4379
-    - name: nani_05_01_01
-      pathPrefix: Scripts
-      guid: 7f0e71bffcdee6a4485e663aad093d06
-    - name: Sample
-      pathPrefix: Scripts
-      guid: 48a0da1e606ca0a4ba54e8728fa4f163
-    - name: Chapter1_15
-      pathPrefix: Scripts
-      guid: b35b951c40030bb459b3d7a147321a5d
-    - name: Chapter0_01
-      pathPrefix: Scripts
-      guid: de62e71d7323a8c47bf07f7fe3dd12f2
-    - name: 0-0(Opening)
-      pathPrefix: Scripts
-      guid: 05dad6806a8c9344b9fc77d30b04ddee
-    - name: nani_05_03_01
-      pathPrefix: Scripts
-      guid: 58e7e4157b459c541aae857875b7f548
-    - name: 0-0(Closing)
-      pathPrefix: Scripts
-      guid: 9014e799097a65c42b5e8f5b72dc2517
-    - name: Chapter2_12
-      pathPrefix: Scripts
-      guid: 040e5280bbce72647b768893efada6a3
-    - name: nani_char_get_100300
-      pathPrefix: Scripts
-      guid: b0a836b235abb6940b880edafcdf23c7
-    - name: 3-4(2)
-      pathPrefix: Scripts
-      guid: a2c034fbcfa26264e957e98b2350dfa7
-    - name: 3-1
-      pathPrefix: Scripts
-      guid: a66a5c8c6606ea742b89f3a74bed9f95
-    - name: 3-3
-      pathPrefix: Scripts
-      guid: 493f120f01e792b468d19b9ebff87c2d
-    - name: Chapter2_14
-      pathPrefix: Scripts
-      guid: 642955ce14f3cf644946558c3e5c3b56
-    - name: Chapter2_06
-      pathPrefix: Scripts
-      guid: 84dd7754d1d9671408859edd759d2e98
-    - name: 3-5
-      pathPrefix: Scripts
-      guid: 4a3dbffeebdbece47b2bf7b206e34b81
-    - name: Chapter1_09
-      pathPrefix: Scripts
-      guid: ac96cad5a6e0b1546b76c5043c1104dd
-    - name: Chapter1_03
-      pathPrefix: Scripts
-      guid: bc5ebc907f3b8a340a5e440fda5d8ad9
-    - name: Chapter0_08
-      pathPrefix: Scripts
-      guid: dc766d5a62a068f4bb667820bcca6687
-    - name: Chapter2_05
-      pathPrefix: Scripts
-      guid: db750d79692695e4fa02e811d8f32025
-    - name: 2-5
-      pathPrefix: Scripts
-      guid: 5c2bc6d3e2f456348ac36ec495f0614c
-    - name: nani_sub_002
-      pathPrefix: Scripts
-      guid: 5c8f6fa686a44f74a86e87d5179458d7
-    - name: 0-5
-      pathPrefix: Scripts
-      guid: 346b319cd1a93af4880db9be4aea9249
-    - name: Chapter0_07
-      pathPrefix: Scripts
-      guid: 062b40594e237324b840f9ab62288705
-    - name: Chapter0_06
-      pathPrefix: Scripts
-      guid: 4d722d6fd6acc744dae58291793664eb
-    - name: Chapter1_14
-      pathPrefix: Scripts
-      guid: 1388e2cffa70dad44a0c0095cb754ad6
-    - name: 3-2
-      pathPrefix: Scripts
-      guid: e361b73169b368d4eac01e3a8b92a170
-    - name: nani_05_02_01
-      pathPrefix: Scripts
-      guid: 8ab5c13e8e9848a4aaa137879697ed35
-    - name: Chapter2_04
-      pathPrefix: Scripts
-      guid: 2d15799fa64d9e642a48898ba9b4aeb8
-    - name: 0-3
-      pathPrefix: Scripts
-      guid: 58d24ad44624d984cb6a2e06b9f32357
-    - name: 1-3
-      pathPrefix: Scripts
-      guid: 40e1114b24823664a83b0868c3fc191f
-    - name: nani_char_get_100500
-      pathPrefix: Scripts
-      guid: d1f8f7dbbc8c2274b9095a1e58944ad5
-    - name: 1-1
-      pathPrefix: Scripts
-      guid: 804396bb58e9fff48a9635152aad90a3
-    - name: Chapter2_07
-      pathPrefix: Scripts
-      guid: 75577c6472635ec41bc5d6fd66eab10f
-    - name: nani_char_get_102500
-      pathPrefix: Scripts
-      guid: 2baab012a413ea148bb577a4fa962759
-    - name: 0-4
-      pathPrefix: Scripts
-      guid: 06474dc7307b4c04ab69cc5ffe05223a
-    - name: Chapter1_08
-      pathPrefix: Scripts
-      guid: 43bacc9a69a324a468878a4a9aeb97ff
-    - name: nani_sub_001
-      pathPrefix: Scripts
-      guid: 7302cc983df0afe42a75ec24005e6e83
-    - name: Chapter2_09
-      pathPrefix: Scripts
-      guid: bdd62b309481af847a4038c2c0f8a481
-    - name: Prologue_01
-      pathPrefix: Scripts
-      guid: 32a65bd9420b96b40ae66c70d725e94f
-    - name: Chapter1_06
-      pathPrefix: Scripts
-      guid: 8f8c02a5b2885ed42bc7977fc9112d88
-    - name: Chapter2_15
-      pathPrefix: Scripts
-      guid: 797be95ad562dc24ab47fb48fcbaa055
-    - name: nani_char_get_102900
-      pathPrefix: Scripts
-      guid: 9c55d70cc15518844b732b19c9a54609
-    - name: nani_char_get_100400
-      pathPrefix: Scripts
-      guid: 13803ddf30a95d44c9ad5a664aa24168
     - name: Chapter0_03
       pathPrefix: Scripts
       guid: dd3c90870d22c8243a5b0023d6d423b8
-    - name: 3-4(1)
+    - name: "\uD504\uB864\uB85C\uADF8_\uCD5C\uD6C4\uC758\uC804\uD22C2"
       pathPrefix: Scripts
-      guid: 88d2f1b5be902604f8ed39ffc8600257
-    - name: Chapter2_10
+      guid: 54becdc6deb5141ccb3b49c78cf0b0d5
+    - name: Chapter0_01
       pathPrefix: Scripts
-      guid: 937a2eeee53a1704bb91d979c0abdcef
-    - name: Chapter1_01
-      pathPrefix: Scripts
-      guid: d435ffd1cb16f44489cc46c1e08243f1
-    - name: nani_sub_003
-      pathPrefix: Scripts
-      guid: 630c7ec940b84e44a85acb87174b30c0
+      guid: de62e71d7323a8c47bf07f7fe3dd12f2
     - name: Chapter0_04
       pathPrefix: Scripts
       guid: 87683fef9d1e6ae4db989547fbb70e1e
-    - name: 2-4
+    - name: Chapter0_06
       pathPrefix: Scripts
-      guid: 39d0e14cfd67645408d7b7e0f781c065
-    - name: nani_05_05_01
-      pathPrefix: Scripts
-      guid: c4c23b531da51dd45b8fc6adffa04efc
-    - name: 0-2-2
-      pathPrefix: Scripts
-      guid: 3bb32e472b1b75f46997f24d8690444f
-    - name: 2-2
-      pathPrefix: Scripts
-      guid: 6e936207a40f190419a520588e70ca9a
-    - name: Chapter2_01
-      pathPrefix: Scripts
-      guid: 18fe18b124de24441baf3f999dff6cdb
-    - name: 1-2
-      pathPrefix: Scripts
-      guid: 0f622f35f29c79e4e91e9d357801575b
-    - name: nani_05_05_02
-      pathPrefix: Scripts
-      guid: af6bc52ed0f2f2749add382e2ce09bee
-    - name: Chapter2_02
-      pathPrefix: Scripts
-      guid: 2c8a567a78f0f534d951b1903ffd0a06
-    - name: 0-2-1
-      pathPrefix: Scripts
-      guid: cb7b2e8624913aa4fa0282c8838afc7e
-    - name: nani_05_06_01
-      pathPrefix: Scripts
-      guid: 15562e747dd2fd5478d7db91f9fca3c2
-    - name: Chapter2_08
-      pathPrefix: Scripts
-      guid: 92095844fb433bd49bb0a2cf00d627c2
-    - name: 4-4
-      pathPrefix: Scripts
-      guid: 2695a9ccfa57da84aabad6cd7f1b420d
-    - name: Chapter1_04
-      pathPrefix: Scripts
-      guid: 08c617421b2d3ac43b73cc3542c63b8b
-    - name: Chapter2_11
-      pathPrefix: Scripts
-      guid: f25f28918006c184785465324e4405ab
-    - name: Chapter1_07
-      pathPrefix: Scripts
-      guid: 7074836e4a4577c4eb4f47a437e36b47
-    - name: nani_05_04_02
-      pathPrefix: Scripts
-      guid: 15646f365576b9d4eabf2f7a04739c24
-    - name: Chapter2_13
-      pathPrefix: Scripts
-      guid: baa4c1f4ed0fa7c4dac05a0d32d7f307
-    - name: 4-5(2)
-      pathPrefix: Scripts
-      guid: 35547d22f22ad934fbc502cfd8294927
-    - name: Chapter1_02
-      pathPrefix: Scripts
-      guid: 2d631e0ad9c97c64d883dc73a9347dff
-    - name: nani_char_get_100900
-      pathPrefix: Scripts
-      guid: ad34c8f36e42b6a4d902b362ec49070b
+      guid: 4d722d6fd6acc744dae58291793664eb
     - name: Chapter0_05
       pathPrefix: Scripts
       guid: ec7537f337621d844a67c608e7397e1f
-    - name: 4-1
+    - name: Chapter0_08
       pathPrefix: Scripts
-      guid: e5f35e427f5df9540ab7e60cb23b2ff9
-    - name: nani_char_get_101200
+      guid: dc766d5a62a068f4bb667820bcca6687
+    - name: Chapter0_07
       pathPrefix: Scripts
-      guid: 911c3f661a8315f40be0c48d170fa6c5
+      guid: 062b40594e237324b840f9ab62288705
+    - name: Chapter1_01
+      pathPrefix: Scripts
+      guid: d435ffd1cb16f44489cc46c1e08243f1
+    - name: Chapter1_02
+      pathPrefix: Scripts
+      guid: 2d631e0ad9c97c64d883dc73a9347dff
+    - name: Chapter1_06
+      pathPrefix: Scripts
+      guid: 8f8c02a5b2885ed42bc7977fc9112d88
+    - name: Chapter1_05
+      pathPrefix: Scripts
+      guid: 37d0588b93d9ae94ba4568779bec15da
+    - name: Chapter1_07
+      pathPrefix: Scripts
+      guid: 7074836e4a4577c4eb4f47a437e36b47
+    - name: Chapter1_04
+      pathPrefix: Scripts
+      guid: 08c617421b2d3ac43b73cc3542c63b8b
+    - name: Chapter1_03
+      pathPrefix: Scripts
+      guid: bc5ebc907f3b8a340a5e440fda5d8ad9
+    - name: Chapter1_08
+      pathPrefix: Scripts
+      guid: 43bacc9a69a324a468878a4a9aeb97ff
+    - name: Chapter1_09
+      pathPrefix: Scripts
+      guid: ac96cad5a6e0b1546b76c5043c1104dd
     - name: Chapter1_10
-      pathPrefix: Scripts
-      guid: fedcc6d0399f18b4d92de41ce45406cd
-    - name: Chapter1_13
-      pathPrefix: Scripts
-      guid: 1c90d86ed1b93a44eaec0073fee0b147
-    - name: Chapter1_11
       pathPrefix: Scripts
       guid: 909523b307601b44bb2aea79c57723ad
     - name: Chapter1_11
       pathPrefix: Scripts
       guid: e3f6807cdd174d347826d8185614ea56
+    - name: Chapter1_12
+      pathPrefix: Scripts
+      guid: 196dac9ce6b77f640bbb06d0774e4379
     - name: Chapter1_13
       pathPrefix: Scripts
       guid: a94a863343e81a74787df8f6a7e9ba06
+    - name: Chapter1_14
+      pathPrefix: Scripts
+      guid: 1388e2cffa70dad44a0c0095cb754ad6
+    - name: Chapter1_15
+      pathPrefix: Scripts
+      guid: b35b951c40030bb459b3d7a147321a5d
+    - name: Chapter2_01
+      pathPrefix: Scripts
+      guid: 18fe18b124de24441baf3f999dff6cdb
+    - name: Chapter2_03
+      pathPrefix: Scripts
+      guid: c2c264a458c282f459fb606590f7b6ca
+    - name: Chapter2_02
+      pathPrefix: Scripts
+      guid: 2c8a567a78f0f534d951b1903ffd0a06
+    - name: Chapter2_04
+      pathPrefix: Scripts
+      guid: 2d15799fa64d9e642a48898ba9b4aeb8
+    - name: Chapter2_05
+      pathPrefix: Scripts
+      guid: db750d79692695e4fa02e811d8f32025
+    - name: Chapter2_06
+      pathPrefix: Scripts
+      guid: 84dd7754d1d9671408859edd759d2e98
+    - name: Chapter2_07
+      pathPrefix: Scripts
+      guid: 75577c6472635ec41bc5d6fd66eab10f
+    - name: Chapter2_09
+      pathPrefix: Scripts
+      guid: bdd62b309481af847a4038c2c0f8a481
+    - name: Chapter2_10
+      pathPrefix: Scripts
+      guid: 937a2eeee53a1704bb91d979c0abdcef
+    - name: Chapter2_08
+      pathPrefix: Scripts
+      guid: 92095844fb433bd49bb0a2cf00d627c2
+    - name: Chapter2_11
+      pathPrefix: Scripts
+      guid: f25f28918006c184785465324e4405ab
+    - name: Chapter2_12
+      pathPrefix: Scripts
+      guid: 040e5280bbce72647b768893efada6a3
+    - name: Chapter2_13
+      pathPrefix: Scripts
+      guid: baa4c1f4ed0fa7c4dac05a0d32d7f307
+    - name: Chapter2_15
+      pathPrefix: Scripts
+      guid: 797be95ad562dc24ab47fb48fcbaa055
+    - name: Chapter2_16
+      pathPrefix: Scripts
+      guid: 512afeaecf2810e40890729587809587
+    - name: Chapter2_14
+      pathPrefix: Scripts
+      guid: 642955ce14f3cf644946558c3e5c3b56
   - Id: CharacterAvatars
     Resources: []
   - Id: Characters/97730980-6691-4698-b6da-9388d226f1d6
@@ -548,309 +1118,40 @@ MonoBehaviour:
     - name: bg_white_01
       pathPrefix: Backgrounds/MainBackground
       guid: b2a770babc5d3b04aa66457001f0fd3a
-    - name: bg_brokenship_01
-      pathPrefix: Backgrounds/MainBackground
-      guid: e2ea718651f254944bdcd828f213b503
-    - name: bg_brokenship_02
-      pathPrefix: Backgrounds/MainBackground
-      guid: f3f13649d10e9664c9012328e3a6b2c9
-    - name: bg_brokenship_03
-      pathPrefix: Backgrounds/MainBackground
-      guid: ab1fb13c71fe2b84e9a3590b37a05075
-    - name: bg_climax_battle_02
-      pathPrefix: Backgrounds/MainBackground
-      guid: adfcddc035efbcd4f8ac9098313f2406
-    - name: bg_hasole_01
-      pathPrefix: Backgrounds/MainBackground
-      guid: 0564ee31b0a588347b719e3cb6195f49
-    - name: bg_hasole_02
-      pathPrefix: Backgrounds/MainBackground
-      guid: 581a0c3c68311a443b99c275f532fddc
-    - name: bg_hasole_03
-      pathPrefix: Backgrounds/MainBackground
-      guid: b10ccb01f9954344fa49211b05a269de
-    - name: bg_rightbringer_01
-      pathPrefix: Backgrounds/MainBackground
-      guid: c436f17640445344a871218eade81b91
-    - name: bg_hubble_hospitel_01
-      pathPrefix: Backgrounds/MainBackground
-      guid: 5c647506f03c502499b68c03aca3d509
-    - name: bg_hubble_05
-      pathPrefix: Backgrounds/MainBackground
-      guid: a39a039ffc9235b488f11274e6072d2c
-    - name: bg_lightbringer_02
-      pathPrefix: Backgrounds/MainBackground
-      guid: 5c33d32d269c23b49b86954060ec4875
-    - name: bg_arche_00
-      pathPrefix: Backgrounds/MainBackground
-      guid: 186b770e13e323f40b391431f08934e2
-    - name: bg_arche_01
-      pathPrefix: Backgrounds/MainBackground
-      guid: b40efd50a22442049bcb0de85c540928
-    - name: bg_ionia_01
-      pathPrefix: Backgrounds/MainBackground
-      guid: a46a60cf948caa44295cce27497bd11c
-    - name: bg_arche_02
-      pathPrefix: Backgrounds/MainBackground
-      guid: a661a21e6c58ed2479ca4ddf256f2e2f
-    - name: bg_hasolle_04
-      pathPrefix: Backgrounds/MainBackground
-      guid: 6fdb81fbe2df7b04d833d315199ca2d0
   - Id: Unlockables
     Resources: []
   - Id: Audio
     Resources:
-    - name: snd_bgm_chapter00
+    - name: bgm_happy_001
       pathPrefix: Audio
-      guid: de49677baeceb8646b63c73a1dc1faed
-    - name: snd_bgm_chapter01
-      pathPrefix: Audio
-      guid: 9aaec2096f5177e4ba17729c9bedda98
-    - name: snd_bgm_chapter02
-      pathPrefix: Audio
-      guid: c20fb03c08eae934f8f33bef96707835
-    - name: snd_bgm_chapter03
-      pathPrefix: Audio
-      guid: bd6ec471840f63c4491227d44746763c
-    - name: snd_bgm_chapter04
-      pathPrefix: Audio
-      guid: 4b3507c3aac5954429d1f92dd707eab7
-    - name: snd_bgm_chapter05
-      pathPrefix: Audio
-      guid: d0b573d743b8abc46ba8bd78ab922d0b
-    - name: snd_bgm_command01
-      pathPrefix: Audio
-      guid: 4553088388b96eb428642319b52df86d
-    - name: snd_bgm_dgboss_01
-      pathPrefix: Audio
-      guid: abc2f2a934b6f744ba0e914c598a614e
-    - name: snd_bgm_dialog_calm01
-      pathPrefix: Audio
-      guid: 513e6c1a242b855449459e083ef30a50
-    - name: snd_bgm_dialog_comic01
-      pathPrefix: Audio
-      guid: 3b6b36ad91388a345a977e27a72df0d2
+      guid: 9dce942294325d1498c9dadcbc5d131f
     - name: snd_bgm_dialog_cozy_001
       pathPrefix: Audio
       guid: 26d4d1122b4fac34ab3666aa82f8b6f6
-    - name: snd_bgm_dialog_despair01
-      pathPrefix: Audio
-      guid: ac928c33a12e143458d98d80129feae5
-    - name: snd_bgm_dialog_dumb01
-      pathPrefix: Audio
-      guid: 5db2c4cf40483ca429092e60dd66706d
-    - name: snd_bgm_dialog_farewell01
-      pathPrefix: Audio
-      guid: 18a0ddb8788a48f438a3cc8ec6750aff
     - name: snd_bgm_dialog_happy_001
       pathPrefix: Audio
       guid: 9dce942294325d1498c9dadcbc5d131f
     - name: snd_bgm_dialog_happy_002
       pathPrefix: Audio
       guid: a055098d0d2b0f648b687d11ecc8e046
-    - name: snd_bgm_dialog_love01
-      pathPrefix: Audio
-      guid: 18ce48a7909ce764d96c8e985d7850ee
     - name: snd_bgm_dialog_mad_001
       pathPrefix: Audio
       guid: cfce8ae1af125084bace55296053e940
     - name: snd_bgm_dialog_mad_002
       pathPrefix: Audio
       guid: 695d9ecd9605bd048bfc612cf0770f30
-    - name: snd_bgm_dialog_normal01
-      pathPrefix: Audio
-      guid: ba34b129e8e92ac4f9aee51e4253d4c6
-    - name: snd_bgm_dialog_normal02
-      pathPrefix: Audio
-      guid: ade07e67836ff8649b0ad76632a73c64
-    - name: snd_bgm_dialog_sad01
-      pathPrefix: Audio
-      guid: 7da09b79b4402b4459a9a4b1f6cb6ab7
     - name: snd_bgm_dialog_sad_001
       pathPrefix: Audio
       guid: 4fae4fcfe7ea86b4d96027fdd87816a2
-    - name: snd_bgm_dialog_tension01
-      pathPrefix: Audio
-      guid: 93b5a4656fd39b94fa9b92b3e6d8e2ff
-    - name: snd_bgm_dialog_tricky01
-      pathPrefix: Audio
-      guid: 1a77c8b2edabe3f43bfebd43a077d869
-    - name: snd_bgm_lobby01
-      pathPrefix: Audio
-      guid: 7e34e93ddb5913443931bd09919a7c53
-    - name: snd_bgm_pvp01
-      pathPrefix: Audio
-      guid: b0541a95bc53a68479ddea5bf5a4e4b2
-    - name: snd_bgm_shop01
-      pathPrefix: Audio
-      guid: b3cc2039bba3d354eaf3ea6e9e962fc8
-    - name: snd_bgm_splash01
-      pathPrefix: Audio
-      guid: 0639d93060c34c847bb7d4208a97ee40
-    - name: snd_bgm_splash01_bak
-      pathPrefix: Audio
-      guid: 96b64c19e62b2514da10618123397fb3
-    - name: snd_bgm_stage01
-      pathPrefix: Audio
-      guid: cb3dd0014bcad7248a0bc4057850ee58
-    - name: snd_bgm_vessel01
-      pathPrefix: Audio
-      guid: 2ac8f314d6161d74cbabda0bf4298451
-    - name: snd_sfx_dialog_compute_operate
-      pathPrefix: Audio
-      guid: 02976ef840cd42c479c597e234a8f454
-    - name: snd_sfx_dialog_debris_bldg
-      pathPrefix: Audio
-      guid: b107cb25b8a572a4296a8879b121fb69
-    - name: snd_sfx_dialog_machine_clock
-      pathPrefix: Audio
-      guid: b6e9fc415a9e4984daad1b9463643fb5
-    - name: snd_sfx_dialog_machine_door_close
-      pathPrefix: Audio
-      guid: f09297109dd136546b7986e4d70dcd04
-    - name: snd_sfx_dialog_mon_scream01
-      pathPrefix: Audio
-      guid: 9c281a8c20848a74d960df0505721b5b
-    - name: snd_sfx_dialog_punch_metal
-      pathPrefix: Audio
-      guid: b0740b24e794c194db75aa4e9ac0effb
-    - name: snd_sfx_dialog_run_group_grass
-      pathPrefix: Audio
-      guid: abf704100bdd5fe4a86521b132faf901
-    - name: snd_sfx_dialog_run_group_normal
-      pathPrefix: Audio
-      guid: a809b18be6c1c22479a5496f4778311a
-    - name: snd_sfx_dialog_run_group_sand
-      pathPrefix: Audio
-      guid: 0947fcce8b81f444b81be94f1a1bb75a
-    - name: snd_sfx_dialog_walk_foot_grass
-      pathPrefix: Audio
-      guid: 971f515c94fc2ca419454479c8114cab
-    - name: snd_sfx_dialog_walk_foot_normal
-      pathPrefix: Audio
-      guid: 206fe3085132c4e4a9577a1c6e93f776
-    - name: snd_sfx_dialog_walk_foot_sand
-      pathPrefix: Audio
-      guid: eb3d1cca853470c4ba54c42711ed332e
-    - name: snd_sfx_dialog_walk_foot_solid
-      pathPrefix: Audio
-      guid: ef7b6229541474e41af67fae2e6f428b
-    - name: snd_sfx_dialog_wind_harsh
-      pathPrefix: Audio
-      guid: b421df156b716eb4083444558d196498
-    - name: snd_sfx_prolog_battle_endtransition
-      pathPrefix: Audio
-      guid: bd24d40dd203ee844b6e2187b931abf8
-    - name: snd_sfx_prolog_battle_laplace01
-      pathPrefix: Audio
-      guid: 7e9f382bb8c31e24bb5c13e0ed3a6bba
-    - name: snd_sfx_prolog_battle_laplace02
-      pathPrefix: Audio
-      guid: 7b4548cc4de8576468218cbba3165a8b
-    - name: snd_sfx_prolog_battle_laplace03
-      pathPrefix: Audio
-      guid: 9bff17c13aa3e3f4b94e83ef14134b09
-    - name: snd_sfx_prolog_battle_laplace04
-      pathPrefix: Audio
-      guid: b26cc58c84ec50244a979e9b185db60d
-    - name: snd_sfx_prolog_battle_laplace05
-      pathPrefix: Audio
-      guid: 2878b0128620fd5489cc9fbf41bc8811
-    - name: snd_sfx_chap
-      pathPrefix: Audio
-      guid: a35bc45abe76d79489fb680483012ae7
   - Id: TextPrinters/8b9e022e-51ad-4b4c-90ac-e65372924d6c
     Resources:
     - name: CutScene
       pathPrefix: TextPrinters
       guid: 947c8d30ce50a2d42800b9403c37c577
   - Id: Movies
-    Resources:
-    - name: Movie_01
-      pathPrefix: Movies
-      guid: e63f9b87134675c43892901b9695e076
+    Resources: []
   - Id: Characters/9f471a03-df95-4385-b9dd-00377a1464ad
     Resources:
-    - name: uni_00
-      pathPrefix: Characters
-      guid: 01e6a422fd3a75f4bbfb16867da6d678
-  - Id: Characters/735edf15-068f-4432-b878-ceb2fa5a8257
-    Resources:
-    - name: odette_00
-      pathPrefix: Characters
-      guid: 063225faa980648419adc8d28248d0af
-  - Id: Characters/401e1f1b-0565-49ec-84a2-66e4f4b253c1
-    Resources:
-    - name: laplace_00
-      pathPrefix: Characters
-      guid: 71e9159a7240e2c4a811cf04e098dd8b
-  - Id: Characters/03efa3a9-9f4f-47f8-8a0b-94525b6dfbb6
-    Resources:
-    - name: marie_00
-      pathPrefix: Characters
-      guid: c01189304feb4284b99688eb15d7a4d7
-  - Id: Characters/f36fee46-6adc-4ff8-9b91-ab28e888ed4f
-    Resources:
-    - name: blin_00
-      pathPrefix: Characters
-      guid: f8a8f136f9f2c3e41bfac00cfe24ae82
-  - Id: Characters/da887255-4462-4a09-afa7-1ef10016dbf4
-    Resources:
-    - name: alice_00
-      pathPrefix: Characters
-      guid: 7a512ea30eef16446833d2d016cbf02e
-  - Id: Characters/9e1bedf3-7084-457d-9153-ad4f5c78b0d9
-    Resources:
-    - name: asna_00
-      pathPrefix: Characters
-      guid: 666cacdf07569064fae5d75e9823222a
-  - Id: Characters/2248db6d-f632-45eb-a303-0a73713dcbbe
-    Resources:
-    - name: cley_00
-      pathPrefix: Characters
-      guid: c906d757e64442643a74f5c80cf52f44
-  - Id: Characters/c4298a0f-2063-4b8f-9bd0-b616d124f511
-    Resources:
-    - name: jeacline_00
-      pathPrefix: Characters
-      guid: 15db89af570d8f24ab9dc30aa1490825
-  - Id: Characters/c0dd0b68-63b7-4bcf-adb2-3d87c35a3f8b
-    Resources:
-    - name: kara_00
-      pathPrefix: Characters
-      guid: f4a356dfa5a3140489f97b9983fc67ac
-  - Id: Characters/46ceac0a-575d-4696-ab64-22a659480d7a
-    Resources:
-    - name: may_00
-      pathPrefix: Characters
-      guid: 887d4c2a5ce4abb48b95070cbddab801
-  - Id: Characters/47dd2345-3d64-434b-9651-17d00113ee77
-    Resources:
-    - name: maya_00
-      pathPrefix: Characters
-      guid: ad3c5505442117249a57d5d146f06764
-  - Id: Characters/1f84c30d-8436-4447-99fd-1e41c45aa0dd
-    Resources:
-    - name: philia_00
-      pathPrefix: Characters
-      guid: 99dbbdc076fc135498003192804da833
-  - Id: Characters/5dd17005-2829-4f36-8005-02f70ab7d571
-    Resources:
-    - name: ridia_00
-      pathPrefix: Characters
-      guid: 9fada380c24e1ce49a6f1a78831bc158
-  - Id: Characters/bedad115-cf1e-424f-9bd4-57a00f0588c7
-    Resources:
-    - name: vane_00
-      pathPrefix: Characters
-      guid: ccf7bf98fb3db6a49be07712e55c4f6c
-  - Id: Characters/d81c8129-6216-41fc-addc-6602d39db5e2
-    Resources:
-    - name: seira_00
-      pathPrefix: Characters
-      guid: 3a413678f70313844aba1212a77529b8
-  - Id: Characters/c6248982-7c08-4db0-b70f-5e655f137a17
-    Resources:
-    - name: toma_00
-      pathPrefix: Characters
-      guid: a1fa38cfb50021145afc6308483ebb2f
+    - name: 
+      pathPrefix: Characters/uni_00
+      guid: 
