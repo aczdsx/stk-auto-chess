@@ -34,7 +34,6 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            GuideMissionTestUtility.UpgradeUnit().Forget();   
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.Char_User_Exp_Item, TopPanelType.Char_User_Exp_Item_2);
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);

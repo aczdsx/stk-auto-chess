@@ -4,7 +4,12 @@ using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using Tech.Hive.V1;
+using System;
 
+/// <summary>
+/// 하드코딩된 유틸리티 ID이므로 앞으로 서버한테 의존하도록 합시다.
+/// </summary>
+[Obsolete]
 public static class GuideMissionTestUtility
 {
     public static Dictionary<int, (GuideMissionType MissionType, int TargetCount, int Subkey)> GuideMissionTables;
@@ -18,10 +23,13 @@ public static class GuideMissionTestUtility
     public static List<int> USE_BUILDING_COMMAND_CENTER_GUIDE_ID = new();
     public static List<int> USE_BUILDING_DIMENSION_GUIDE_ID = new();
     public static List<int> CLEAR_BABEL_TOWER_GUIDE_ID = new();
-    public static int 아트레시아ID = 3401;
-    public static int 코어기사공격력ID = 1101;
-    public static int 바벨범위기준ID = 10000;
-    public static int 스테이지범위기준ID = 20000;
+    [Obsolete] public static int 아트레시아ID = 3401;
+    [Obsolete] public static int 코어기사공격력ID = 1101;
+    [Obsolete] public static int 바벨범위기준ID = 10000;
+    [Obsolete] public static int 스테이지범위기준ID = 20000;
+    [Obsolete] public static int 챕터2기준ID = 30000;
+    [Obsolete] public static int 커맨드센터들어간가이드미션ID = 401;
+
     private static bool isInit = false;
 
     private static readonly HashSet<int> _processingGids = new HashSet<int>();
@@ -177,11 +185,6 @@ public static class GuideMissionTestUtility
         if (gdb.GuideMissionId == 404 && (edb.GetFacility((int)IdMap.ElpisBuild.Nest_2)?.IsJustCompleted == true) || edb.GetFacilityLevel(ElpisFacilityType.FacilityTypeNest) >= 2) { if (!ClearFlags[404]) await AddActionAndClaim(404); }
         if (gdb.GuideMissionId == 405 && (edb.GetFacility((int)IdMap.ElpisBuild.DimensionLab)?.IsJustCompleted == true) || edb.GetFacilityLevel(ElpisFacilityType.FacilityTypeDimensionLab) >= 1) { if (!ClearFlags[405]) await AddActionAndClaim(405); }
         if (gdb.GuideMissionId == 407 && (edb.GetFacility((int)IdMap.ElpisBuild.SimulationCenter)?.IsJustCompleted == true) || edb.GetFacilityLevel(ElpisFacilityType.FacilityTypeSimulationCenter) >= 1) { if (!ClearFlags[407]) await AddActionAndClaim(407); }
-    }
-
-    public static async UniTask HandleEnterChapter(int stageId)
-    {
-        if (gdb.GuideMissionId == 501 && stageId >= 30000) { if (!ClearFlags[501]) await AddActionAndClaim(501); }
     }
 
     public static async UniTask HandleElpisFacilityUpgrade()

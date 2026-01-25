@@ -6,6 +6,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -152,8 +153,15 @@ namespace CookApps.AutoBattler
 
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
-
-            await GuideMissionTestUtility.HandleEnterChapter(currentStageId);
+            
+            // !! GUIDE_TODO
+            // !! 501	21	ENTER_CHAPTER	GUIDE_MISSION_NAME_501	챕터 2 진입 하기 가이드 미션	30007	GUIDE_MISSION_DESC_501	0	1	GOLD	210001	200											
+            // !! GuideMissionType ENTER_CHAPTER
+            if(currentStageId >= GuideMissionTestUtility.챕터2기준ID)
+            {
+                var gdb = new GuideMissionDataBridge();
+                // 
+            }
 
             // UI 세팅 완료 후 페이드 아웃
             await SceneTransition.FadeOutAsync();
