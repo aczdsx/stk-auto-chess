@@ -110,7 +110,7 @@ namespace CookApps.BattleSystem
             return GetPriorityEmptyTile();
         }
 
-        public InGameTile GetRecommandedTile(ISpecCharacterInfo spec)
+        public InGameTile GetRecommandedTile(ISpecCharacterInfo spec, AllianceType findEmptyallianceType = AllianceType.Player)
         {
             int midPoint = Width / 2;
             int[] xOrder = Enumerable.Range(0, Width)
@@ -143,7 +143,7 @@ namespace CookApps.BattleSystem
                 }
             }
 
-            return GetRandomEmptyTile(AllianceType.Player);
+            return GetRandomEmptyTile(findEmptyallianceType);
         }
 
         public int GetManhattanDistance(InGameTile from, InGameTile to)
