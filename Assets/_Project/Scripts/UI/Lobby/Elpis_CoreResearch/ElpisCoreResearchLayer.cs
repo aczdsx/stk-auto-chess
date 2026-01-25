@@ -357,6 +357,8 @@ namespace CookApps.AutoBattler
             selectedCoreData = selectedCoreItem.Data;
 
             ShowCoreDetail(selectedCoreItem.CachedData);
+
+            await GuideMissionTestUtility.HandleCoreUpgrade();
         }
 
         private bool IsOverNeedLevel()
