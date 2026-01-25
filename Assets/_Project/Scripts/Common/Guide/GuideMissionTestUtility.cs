@@ -167,9 +167,10 @@ public static class GuideMissionTestUtility  {
     {
         if(!isInit) Init();
 
-        if(gdb.GuideMissionId == 201 && edb.HasFacility((uint)IdMap.ElpisBuild.Nest_1)) {if(!ClearFlags[201]) await AddActionAndClaim(201);}
-        if(gdb.GuideMissionId == 404 && edb.HasFacility((uint)IdMap.ElpisBuild.Nest_2)) {if(!ClearFlags[404]) await AddActionAndClaim(404);}
-        if(gdb.GuideMissionId == 405 && edb.HasFacility((uint)IdMap.ElpisBuild.DimensionLab)) {if(!ClearFlags[405]) await AddActionAndClaim(405);}
+        if(gdb.GuideMissionId == 201 && edb.IsFacilityBuildComplete((uint)IdMap.ElpisBuild.Nest_1)) {if(!ClearFlags[201]) await AddActionAndClaim(201);}
+        if(gdb.GuideMissionId == 404 && edb.IsFacilityBuildComplete((uint)IdMap.ElpisBuild.Nest_2)) {if(!ClearFlags[404]) await AddActionAndClaim(404);}
+        if(gdb.GuideMissionId == 405 && edb.IsFacilityBuildComplete((uint)IdMap.ElpisBuild.DimensionLab)) {if(!ClearFlags[405]) await AddActionAndClaim(405);}
+        if(gdb.GuideMissionId == 407 && edb.IsFacilityBuildComplete((uint)IdMap.ElpisBuild.SimulationCenter)) {if(!ClearFlags[407]) await AddActionAndClaim(407);}
     }
 
     public static async UniTask HandleCommandCenter(bool isEnterCommandCenter, bool isEnterDimension, bool isEnterBattleSim) {

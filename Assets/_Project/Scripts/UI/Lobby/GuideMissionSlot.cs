@@ -163,7 +163,9 @@ namespace CookApps.AutoBattler
                 // 팝업 닫힌 후 다음 가이드 미션 튜토리얼 체크
                 AppEventManager.Instance.GuideMissionClear(specGuideMissionData.order);
                 // 팝업 닫힌 후 다음 튜토리얼 시작
+                #if !_SJHONG_TEST_
                 TutorialManager.Instance.TryStartOutgameTutorial().Forget();
+                #endif
             }).Forget();
             await GuideMissionTestUtility.HandleIteratively();
         }
@@ -241,7 +243,9 @@ namespace CookApps.AutoBattler
                 
                 // 407: 배틀 시뮬레이션 진입
                 case 407:
-                    // 배틀 시뮬레이션 네비게이션 추가 필요
+                    var simUseBridge = new ElpisDataBridge();
+                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeSimulationCenter, 
+                        () => OpenElpisBuildLayerForFacility(ElpisFacilityType.FacilityTypeSimulationCenter));
                     break;
                 
                 // 501: 챕터 진입
