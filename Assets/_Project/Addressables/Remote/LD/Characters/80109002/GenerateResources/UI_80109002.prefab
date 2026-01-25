@@ -109,9 +109,17 @@ PrefabInstance:
       value: -2004
       objectReference: {fileID: 0}
     - target: {fileID: 5940253942589387727, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
+      propertyPath: startingLoop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940253942589387727, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
       propertyPath: skeletonDataAsset
       value: 
       objectReference: {fileID: 11400000, guid: 75a2dfc7c0102784b84aff6aeccce70a, type: 2}
+    - target: {fileID: 5940253942589387727, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
+      propertyPath: startingAnimation
+      value: ani_idle_normal
+      objectReference: {fileID: 0}
     - target: {fileID: 5940253942589387727, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
       propertyPath: enableSeparatorSlots
       value: 0
