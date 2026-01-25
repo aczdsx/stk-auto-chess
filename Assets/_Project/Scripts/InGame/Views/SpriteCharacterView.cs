@@ -373,6 +373,10 @@ namespace CookApps.AutoBattler
             }
 
             SetFlipOrNot();
+
+            // 애니메이터에 Front/Back 상태 반영
+            if (_animator != null)
+                _animator.SetBool(IsFront, _cachedFront);
         }
         
         public void AddViewScale(float viewScale)

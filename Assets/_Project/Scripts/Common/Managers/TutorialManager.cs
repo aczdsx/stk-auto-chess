@@ -146,12 +146,22 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
 
     public async UniTask<bool> CheckAndInitTutorial(int tutorialID)
     {
-        _specTutorialDataList = SpecDataManager.Instance.GetTutorialDialogueList(tutorialID);
-        if (_specTutorialDataList == null || _specTutorialDataList.Count == 0)
+        var specTutorialDataList = SpecDataManager.Instance.GetTutorialDialogueList(tutorialID);
+        if (specTutorialDataList == null || specTutorialDataList.Count == 0)
         {
             Debug.LogColor($"튜토리얼 데이터가 없습니다. tutorialID: {tutorialID}", "red");
             return false;
         }
+
+        var guideMissionId = specTutorialDataList[0].guide_mission_id;
+
+        if (guideMissionId != ServerDataManager.Instance.GuideMission.Data.GuideMissionId)
+        {
+            Debug.LogColor($"튜토리얼 데이터가 없습니다. guideMissionId: {guideMissionId}", "red");
+            return false;
+        }
+
+        _specTutorialDataList = specTutorialDataList;
 
         Debug.LogColor($"튜토리얼 초기화: {tutorialID}, 스텝 수: {_specTutorialDataList.Count}", "green");
 
@@ -184,6 +194,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         }
 
         _tutorialCanvasInstance = handle.Result;
+        DontDestroyOnLoad(_tutorialCanvasInstance);
         _canvas = _tutorialCanvasInstance.GetComponent<Canvas>();
         _tutorialController = _tutorialCanvasInstance.GetComponentInChildren<TutorialController>();
 

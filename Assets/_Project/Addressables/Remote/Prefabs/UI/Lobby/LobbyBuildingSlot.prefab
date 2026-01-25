@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9761b5fa6930744c1bdf307a8b19e2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetId: "\u3134"
+  _targetId: StatusIcon
 --- !u!1 &5780154334100917678
 GameObject:
   m_ObjectHideFlags: 0

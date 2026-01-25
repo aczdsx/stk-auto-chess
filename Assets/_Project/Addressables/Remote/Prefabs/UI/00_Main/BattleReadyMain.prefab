@@ -14585,6 +14585,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5995357110032017955, guid: 60d1d5d1d1818344faac8e5580c65c55, type: 3}
+      propertyPath: _targetId
+      value: BattleBtn
+      objectReference: {fileID: 0}
     - target: {fileID: 6644513930434455279, guid: 60d1d5d1d1818344faac8e5580c65c55, type: 3}
       propertyPath: m_IsActive
       value: 0
