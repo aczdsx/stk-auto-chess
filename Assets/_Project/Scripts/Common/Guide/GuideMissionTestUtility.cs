@@ -145,6 +145,7 @@ public static class GuideMissionTestUtility
     public static async UniTask HandleIteratively()
     {
         await HandleElpisFacilityUpgradeOnIterate();
+        await HandleEnterChapter(0);
         await HandleCommandCenter(false, false, false);
         await HandleClearStage(GetStageId(), false);
         await UpgradeUnit();
@@ -165,7 +166,7 @@ public static class GuideMissionTestUtility
         if (!isInit) Init();
 
         // 406 미션: 디멘션 랩 사용 (코어 연구 - 기사 공격력 연구 upgrade_group_id = 1101)
-        if (gdb.GuideMissionId == 406 && edb.GetCoreResearchLevel((uint)코어기사공격력ID) >= 1) { if (!ClearFlags[406]) await AddActionAndClaim(406); }
+        if (gdb.GuideMissionId == 406 && edb.GetCoreResearchLevel((uint)코어기사공격력ID) > 1) { if (!ClearFlags[406]) await AddActionAndClaim(406); }
     }
 
     public static async UniTask HandleElpisFacilityUpgradeOnIterate()
@@ -178,14 +179,19 @@ public static class GuideMissionTestUtility
         if (gdb.GuideMissionId == 407 && (edb.GetFacility((int)IdMap.ElpisBuild.SimulationCenter)?.IsJustCompleted == true) || edb.GetFacilityLevel(ElpisFacilityType.FacilityTypeSimulationCenter) >= 1) { if (!ClearFlags[407]) await AddActionAndClaim(407); }
     }
 
+    public static async UniTask HandleEnterChapter(int stageId)
+    {
+        if (gdb.GuideMissionId == 501 && stageId >= 30000) { if (!ClearFlags[501]) await AddActionAndClaim(501); }
+    }
+
     public static async UniTask HandleElpisFacilityUpgrade()
     {
         if (!isInit) Init();
 
-        if (gdb.GuideMissionId == 201 && edb.IsBuiltedFacilityExsist((uint)IdMap.ElpisBuild.Nest_1)) { if (!ClearFlags[201]) await AddActionAndClaim(201); }
-        if (gdb.GuideMissionId == 404 && edb.IsBuiltedFacilityExsist((uint)IdMap.ElpisBuild.Nest_2)) { if (!ClearFlags[404]) await AddActionAndClaim(404); }
-        if (gdb.GuideMissionId == 405 && edb.IsBuiltedFacilityExsist((uint)IdMap.ElpisBuild.DimensionLab)) { if (!ClearFlags[405]) await AddActionAndClaim(405); }
-        if (gdb.GuideMissionId == 407 && edb.IsBuiltedFacilityExsist((uint)IdMap.ElpisBuild.SimulationCenter)) { if (!ClearFlags[407]) await AddActionAndClaim(407); }
+        if (gdb.GuideMissionId == 201 && edb.IsBuildedFacilityExists((uint)IdMap.ElpisBuild.Nest_1)) { if (!ClearFlags[201]) await AddActionAndClaim(201); }
+        if (gdb.GuideMissionId == 404 && edb.IsBuildedFacilityExists((uint)IdMap.ElpisBuild.Nest_2)) { if (!ClearFlags[404]) await AddActionAndClaim(404); }
+        if (gdb.GuideMissionId == 405 && edb.IsBuildedFacilityExists((uint)IdMap.ElpisBuild.DimensionLab)) { if (!ClearFlags[405]) await AddActionAndClaim(405); }
+        if (gdb.GuideMissionId == 407 && edb.IsBuildedFacilityExists((uint)IdMap.ElpisBuild.SimulationCenter)) { if (!ClearFlags[407]) await AddActionAndClaim(407); }
     }
 
     public static async UniTask HandleCommandCenter(bool isEnterCommandCenter, bool isEnterDimension, bool isEnterBattleSim)
@@ -194,7 +200,6 @@ public static class GuideMissionTestUtility
 
         if (gdb.GuideMissionId == 401 && isEnterCommandCenter) { if (!ClearFlags[401]) await AddActionAndClaim(401); }
         if (gdb.GuideMissionId == 403 && edb.GetFacilityLevel(Tech.Hive.V1.ElpisFacilityType.FacilityTypeCommandCenter) > 1) { if (!ClearFlags[403]) await AddActionAndClaim(403); }
-        if (gdb.GuideMissionId == 407 && isEnterBattleSim) { if (!ClearFlags[407]) await AddActionAndClaim(407); }
     }
 
     public static async UniTask HandleBable(int bableStateID)

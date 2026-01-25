@@ -493,20 +493,37 @@ namespace CookApps.AutoBattler
             if (guideStageData == null) return;
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "BattleReady") return;
 
-            // 가이드 미션의 목표 스테이지를 타겟으로 설정
-            var targetStageId = specGuideMissionData.sub_key;
+            // guideStageData에서 실제 stage_id 사용
+            var targetStageId = guideStageData.stage_id;
 
-            // CLEAR_STAGE인 경우, 현재 진행 가능한 스테이지로 이동
             if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE)
             {
-                #if _SJHONG_TEST_
-                MyDebug.MyLog($"targetStageId {targetStageId} ");
-                #endif
-                SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-                await SceneTransition.FadeInAsync();
-                SceneLoading.GoToNextScene("BattleReady", targetStageId);
-            }
+                // 현재 진행 가능한 스테이지로 이동
+                var latestStageId = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
+                var nextStageData = SpecDataManager.Instance.GetNextStageData(latestStageId);
 
+                if (nextStageData != null && nextStageData.chapter_id == guideStageData.chapter_id)
+                {
+                    targetStageId = nextStageData.stage_id;
+                }
+                else
+                {
+                    var firstStageData = SpecDataManager.Instance.GetStageData(guideStageData.chapter_id, 1, guideStageData.difficulty_type);
+                    if (firstStageData != null)
+                    {
+                        targetStageId = firstStageData.stage_id;
+                    }
+                    else
+                    {
+                        return;  // 유효한 스테이지 없으면 리턴
+                    }
+                }
+            }
+            var targetStageData = SpecDataManager.Instance.GetStageData(targetStageId);
+
+            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+            await SceneTransition.FadeInAsync();
+            SceneLoading.GoToNextScene("BattleReady", targetStageData.chapter_id);
         }
 
         #endregion

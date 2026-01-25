@@ -3,6 +3,10 @@ using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
+/*
+MSG_MAX_LV_UP 문제
+*/
+
 namespace CookApps.AutoBattler
 {
     public class ToastSystemPopup : UILayerPopupBase

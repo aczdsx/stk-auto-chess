@@ -152,6 +152,8 @@ namespace CookApps.AutoBattler
 
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
+            
+            await GuideMissionTestUtility.HandleEnterChapter(currentStageId);
 
             // UI 세팅 완료 후 페이드 아웃
             await SceneTransition.FadeOutAsync();
