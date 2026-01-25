@@ -163,9 +163,9 @@ namespace CookApps.AutoBattler
                 // 팝업 닫힌 후 다음 가이드 미션 튜토리얼 체크
                 AppEventManager.Instance.GuideMissionClear(specGuideMissionData.order);
                 // 팝업 닫힌 후 다음 튜토리얼 시작
-                #if !_SJHONG_TEST_
+#if !_SJHONG_TEST_
                 TutorialManager.Instance.TryStartOutgameTutorial().Forget();
-                #endif
+#endif
             }).Forget();
             await GuideMissionTestUtility.HandleIteratively();
         }
@@ -223,7 +223,7 @@ namespace CookApps.AutoBattler
                 case 401:
                 case 403:
                     var commandCenterBridge = new ElpisDataBridge();
-                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeCommandCenter, 
+                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeCommandCenter,
                         async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(
                             commandCenterBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter)));
                     break;
@@ -237,17 +237,17 @@ namespace CookApps.AutoBattler
                 // 406: 디멘션 큐브 사용
                 case 406:
                     var dimensionUseBridge = new ElpisDataBridge();
-                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeDimensionLab, 
+                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeDimensionLab,
                         async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCoreResearchLayer>());
                     break;
-                
+
                 // 407: 배틀 시뮬레이션 진입
                 case 407:
                     var simUseBridge = new ElpisDataBridge();
-                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeSimulationCenter, 
+                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeSimulationCenter,
                         () => OpenElpisBuildLayerForFacility(ElpisFacilityType.FacilityTypeSimulationCenter));
                     break;
-                
+
                 // 501: 챕터 진입
                 case 501:
                     NavigateToStage();
@@ -261,7 +261,7 @@ namespace CookApps.AutoBattler
                 case 509:
                     NavigateToStage();
                     break;
-                
+
                 // 505, 506, 601: 바벨의 탑 클리어
                 case 505:
                 case 506:
@@ -314,7 +314,7 @@ namespace CookApps.AutoBattler
                 case GuideMissionType.UPGRADE_BUILDING:
                 case GuideMissionType.INSTALL_BUILDING:
                     var edb = new ElpisDataBridge();
-                    NavigateToLobbyAndOpenPopup(async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(edb.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter) ));
+                    NavigateToLobbyAndOpenPopup(async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(edb.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter)));
                     break;
 
                 case GuideMissionType.OPEN_IDLECHEST:
@@ -489,43 +489,42 @@ namespace CookApps.AutoBattler
 
         private async UniTask NavigateToStageAsync()
         {
-            // var guideStageData = SpecDataManager.Instance.GetStageData(specGuideMissionData.sub_key);
-            // if (guideStageData == null) return;
+            var guideStageData = SpecDataManager.Instance.GetStageData(specGuideMissionData.sub_key);
+            if (guideStageData == null) return;
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "BattleReady") return;
 
-            // // 가이드 미션의 목표 스테이지를 타겟으로 설정
-            // var targetStageId = specGuideMissionData.sub_key;
+            // 가이드 미션의 목표 스테이지를 타겟으로 설정
+            var targetStageId = specGuideMissionData.sub_key;
 
-            // // CLEAR_STAGE인 경우, 현재 진행 가능한 스테이지로 이동
-            // if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE)
-            // {
-            //     var latestStageId = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
-            //     var nextStageData = SpecDataManager.Instance.GetNextStageData(latestStageId);
+            // CLEAR_STAGE인 경우, 현재 진행 가능한 스테이지로 이동
+            if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE)
+            {
+                var latestStageId = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
+                var nextStageData = SpecDataManager.Instance.GetNextStageData(latestStageId);
 
-            //     if (nextStageData != null && nextStageData.chapter_id == guideStageData.chapter_id)
-            //     {
-            //         targetStageId = nextStageData.stage_id;
-            //     }
-            //     else
-            //     {
-            //         // 해당 챕터의 첫 스테이지로 이동
-            //         var firstStageData = SpecDataManager.Instance.GetStageData(guideStageData.chapter_id, 1, guideStageData.difficulty_type);
-            //         if (firstStageData != null)
-            //         {
-            //             targetStageId = firstStageData.stage_id;
-            //         }
-            //     }
-            // }
+                if (nextStageData != null && nextStageData.chapter_id == guideStageData.chapter_id)
+                {
+                    targetStageId = nextStageData.stage_id;
+                }
+                else
+                {
+                    var firstStageData = SpecDataManager.Instance.GetStageData(guideStageData.chapter_id, 1, guideStageData.difficulty_type);
+                    if (firstStageData != null)
+                    {
+                        targetStageId = firstStageData.stage_id;
+                    }
+                    else
+                    {
+                        // 유효한 스테이지가 없으면 씬 전환하지 않고 리턴
+                        Debug.LogWarning($"[GuideMission] 챕터 {guideStageData.chapter_id}에 유효한 스테이지가 없습니다.");
+                        return;
+                    }
+                }
+                SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+                await SceneTransition.FadeInAsync();
+                SceneLoading.GoToNextScene("BattleReady", targetStageId);
+            }
 
-            // LocalDataManager.Instance.SetLastPlayStageId((uint)targetStageId);
-
-            // SceneTransition.Create<SceneTransition_FadeInOut>();
-            // await SceneTransition.FadeInAsync();
-            // var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
-            // SceneLoading.GoToNextScene("BattleReady", currentStageData.chapter_id);
-            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-            await SceneTransition.FadeInAsync();
-            var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
-            SceneLoading.GoToNextScene("BattleReady", currentStageData.chapter_id);
         }
 
         #endregion

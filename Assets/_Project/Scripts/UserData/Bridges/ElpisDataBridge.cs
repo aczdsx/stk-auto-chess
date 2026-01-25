@@ -62,7 +62,7 @@ namespace CookApps.AutoBattler
         /// 시설이 존재하고 건설이 완료된 상태인지
         /// (건설 중이 아님 = 완료됨)
         /// </summary>
-        public bool IsFacilityBuildComplete(uint buildId)
+        public bool IsBuiltedFacilityExsist(uint buildId)
         {
             var facility = GetFacility(buildId);
             return facility != null && !facility.IsBuilding;

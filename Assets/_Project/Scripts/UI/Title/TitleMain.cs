@@ -120,29 +120,29 @@ namespace CookApps.AutoBattler
             // 튜토리얼(1챕터) 진입 분기 로직
             var firstStageData = SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL)?[0];
             // 초반 플로우 체크 및 진행
-#if _SJHONG_TEST_  
-                LocalDataManager.Instance.SetLastPlayStageId(30011);
-                MyDebug.MyLog($"{firstStageData.stage_id} < {LocalDataManager.Instance.GetLastPlayStageId()} == {firstStageData.stage_id < LocalDataManager.Instance.GetLastPlayStageId()}");
-                if (firstStageData != null && !(firstStageData.chapter_id < LocalDataManager.Instance.GetLastPlayStageId())) {
-                    SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-                    var firstStage = SpecDataManager.Instance.StageInfo.All[0];
-                    var task = NetManager.Instance.Battle.StartAsync(firstStage.chapter_id, firstStage.stage_id, (int)InGameType.STAGE, System.Array.Empty<string>());
-                    await SceneTransition.FadeInAsync();
-                    var inGameParams = await task;
-                    SceneLoading.GoToNextScene("InGame", inGameParams);
-                }
-                else 
-                {
-                    SceneTransition.Create<SceneTransition_FadeInOut>();
-                    await SceneTransition.FadeInAsync();
+// #if _SJHONG_TEST_  
+//                 LocalDataManager.Instance.SetLastPlayStageId(30011);
+//                 MyDebug.MyLog($"{firstStageData.stage_id} < {LocalDataManager.Instance.GetLastPlayStageId()} == {firstStageData.stage_id < LocalDataManager.Instance.GetLastPlayStageId()}");
+//                 if (firstStageData != null && !(firstStageData.chapter_id < LocalDataManager.Instance.GetLastPlayStageId())) {
+//                     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+//                     var firstStage = SpecDataManager.Instance.StageInfo.All[0];
+//                     var task = NetManager.Instance.Battle.StartAsync(firstStage.chapter_id, firstStage.stage_id, (int)InGameType.STAGE, System.Array.Empty<string>());
+//                     await SceneTransition.FadeInAsync();
+//                     var inGameParams = await task;
+//                     SceneLoading.GoToNextScene("InGame", inGameParams);
+//                 }
+//                 else 
+//                 {
+//                     SceneTransition.Create<SceneTransition_FadeInOut>();
+//                     await SceneTransition.FadeInAsync();
 
-                    var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
-                    var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
-                    SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
+//                     var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
+//                     var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
+//                     SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
 
-                    return;
-                }
-#else
+//                     return;
+//                 }
+// #else
             if (ServerDataManager.Instance.Battle.CurrentChapterId <= 1)
             {
                 // 튜토리얼(1챕터) 진입 분기 로직
@@ -197,7 +197,7 @@ namespace CookApps.AutoBattler
 
                 return;
             }
-#endif
+// #endif
         }
 
         public void OnClickGuestLoginButton()
