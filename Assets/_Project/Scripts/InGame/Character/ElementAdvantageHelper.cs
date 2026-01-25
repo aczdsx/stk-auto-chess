@@ -12,14 +12,14 @@ public static class ElementAdvantageHelper
     }
 
     /// <summary>
-    /// 속성 상성 체인 순서: Fire → Wind → Lightning → Earth → Water → Fire (순환)
+    /// 속성 상성 체인 순서: Fire → Wind → Earth → Lightning → Water → Fire (순환)
     /// </summary>
     private static readonly SynergyType[] _advantageElementChain = new SynergyType[]
     {
         SynergyType.FIRE,
         SynergyType.WIND,
-        SynergyType.LIGHTNING,
         SynergyType.EARTH,
+        SynergyType.LIGHTNING,
         SynergyType.WATER
     };
     private static readonly string[] _elementAdvantageTexts = new string[] { "WEAK!", "RESIST!" };

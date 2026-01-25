@@ -990,6 +990,7 @@ namespace CookApps.AutoBattler
         LAYER_ENTER = 26,
         BATTLE_READY = 27,
         SELECT_BUILD = 28,
+        FOCUS_OBJECT = 29,
     }
 
     public enum TutorialActionType
@@ -1005,7 +1006,8 @@ namespace CookApps.AutoBattler
         TOAST_MESSAGE = 8,
         SPAWN_ENEMY = 9,
         SHOW_DIALOGUE_POP_CALLBACK = 10,
-        FORCED_TOUCH_BUILD_UI = 10,
+        FORCED_TOUCH_BUILD_UI = 11,
+        FOCUS_MULTIPLE_OBJECTS = 12,
     }
 
     public enum FacilityType
