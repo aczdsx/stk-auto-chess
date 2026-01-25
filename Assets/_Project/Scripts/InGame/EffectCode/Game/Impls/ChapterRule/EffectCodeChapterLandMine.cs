@@ -43,7 +43,7 @@ namespace CookApps.BattleSystem
             SetRuleTileByInfo(codeInfo);
         }
 
-        public override void OnTileCharacterEnter(InGameTile tile, CharacterController character)
+        public override void OnTileMoveEnd(InGameTile tile, CharacterController character)
         {
             if (!(InGameMainFlowManager.Instance.CurrentFlowState is StateCombatBase))
                 return;
@@ -52,9 +52,11 @@ namespace CookApps.BattleSystem
 
             _targetTile.EffectCodeContainer.RemoveEffectCode(CodeId);
             _vfx.Remove();
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_shooter_mine);
 
             var explosionTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(tile, 1);
             var damage = CharacterController.DamageInfo.Create(_damage, codeId, AttackerType.CHAPTER_RULE);
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_ts_bomb_01, _targetTile.View.CachedTr.position);
 
             Span<double> eccStats = stackalloc double[1];
             eccStats.Clear();
@@ -68,11 +70,6 @@ namespace CookApps.BattleSystem
                 occupiedCharacter.GetDamaged(damage, null);
                 EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, occupiedCharacter, eccStats, source);
             }
-
-
-
-
-
         }
     }
 }

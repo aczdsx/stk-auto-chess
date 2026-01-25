@@ -335,6 +335,7 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
     
     public override void OnSkillAnimationEnd()
     {
+        RemoveSlashVfx();
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();

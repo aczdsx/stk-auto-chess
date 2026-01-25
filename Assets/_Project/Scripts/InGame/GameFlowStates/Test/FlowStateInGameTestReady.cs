@@ -285,6 +285,11 @@ public class FlowStateInGameTestReady : StateReadyBase
 
     private void SpawnRuleTiles()
     {
+        if(_specStage is null)
+        {
+            return;
+        }
+
         if (_specStage.effect_code_id > 0)
         {
             Span<double> tileRuleStats = stackalloc double[(int)TileRuleStatType.End];
