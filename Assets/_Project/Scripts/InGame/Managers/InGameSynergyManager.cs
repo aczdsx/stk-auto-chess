@@ -86,7 +86,8 @@ namespace CookApps.BattleSystem
 
         public void OnAddCharacter(CharacterController character)
         {
-            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat || InGameMainFlowManager.Instance.CurrentFlowState is CookApps.AutoBattler.Prologue.FlowStatePrologueReady
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat
+            || InGameMainFlowManager.Instance.CurrentFlowState is CookApps.AutoBattler.Prologue.FlowStatePrologueReady
             || character.SpecCharacter.character_type == CharacterType.BATTLEITEM)
             {
                 return;
@@ -109,6 +110,7 @@ namespace CookApps.BattleSystem
         public void OnRemoveCharacter(CharacterController character)
         {
             if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat
+            || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
             || character.SpecCharacter.character_type == CharacterType.BATTLEITEM)
             {
                 return;
