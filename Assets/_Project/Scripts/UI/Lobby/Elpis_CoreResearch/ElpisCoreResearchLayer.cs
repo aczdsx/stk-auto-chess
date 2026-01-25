@@ -5,6 +5,7 @@ using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 using R3;
 using R3.Triggers;
 using Tech.Hive.V1;
@@ -357,8 +358,16 @@ namespace CookApps.AutoBattler
             selectedCoreData = selectedCoreItem.Data;
 
             ShowCoreDetail(selectedCoreItem.CachedData);
+            var gdb = new GuideMissionDataBridge();
+            var edb = new ElpisDataBridge();
 
-            await GuideMissionTestUtility.HandleCoreUpgrade();
+            // ! GUIDE_TODO
+            // ! 406	19	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_406	공격력 증폭 가이드 미션	30005	GUIDE_MISSION_DESC_406	0	1	GOLD	210001	200
+            // ! DIMENSION_CUBE_LEVEL
+            if(edb.GetCoreResearchLevel((uint)GuideMissionConstants.코어기사공격력ID) >= 1)
+            {
+                await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
+            }
         }
 
         private bool IsOverNeedLevel()

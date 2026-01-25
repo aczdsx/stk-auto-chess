@@ -95,7 +95,7 @@ namespace CookApps.AutoBattler
             // ! GUIDE_TODO
             // ! 403	16	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_403	함선확장 가이드 미션	30002	GUIDE_MISSION_DESC_403	0	1	GOLD	210001	200											
             // ! UPGRADE_BUILDING_FOR_COMMEND_CENTER_2
-            if(gdb.GuideMissionId == GuideMissionTestUtility.커맨드센터들어간가이드미션ID)
+            if(gdb.GuideMissionId == GuideMissionConstants.커맨드센터들어간가이드미션ID)
             {
                 gdb.AddAction(GuideMissionType.USE_BUILDING, 1);
             }
