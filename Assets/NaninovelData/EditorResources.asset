@@ -158,138 +158,6 @@ MonoBehaviour:
       guid: 735d6aa767879aa469134858c5b2f0a7
   - Id: Scripts
     Resources:
-    - name: Scripts/nani_05_05_01
-      pathPrefix: Scripts
-      guid: c4c23b531da51dd45b8fc6adffa04efc
-    - name: Scripts/nani_05_03_01
-      pathPrefix: Scripts
-      guid: 58e7e4157b459c541aae857875b7f548
-    - name: Scripts/4-4
-      pathPrefix: Scripts
-      guid: 2695a9ccfa57da84aabad6cd7f1b420d
-    - name: Scripts/nani_char_get_100300
-      pathPrefix: Scripts
-      guid: b0a836b235abb6940b880edafcdf23c7
-    - name: Scripts/nani_05_02_01
-      pathPrefix: Scripts
-      guid: 8ab5c13e8e9848a4aaa137879697ed35
-    - name: Scripts/nani_char_get_101200
-      pathPrefix: Scripts
-      guid: 911c3f661a8315f40be0c48d170fa6c5
-    - name: Scripts/nani_sub_001
-      pathPrefix: Scripts
-      guid: 7302cc983df0afe42a75ec24005e6e83
-    - name: Scripts/4-5(1)
-      pathPrefix: Scripts
-      guid: 9cddc781a7157bc439ae497c13f7eea8
-    - name: Scripts/4-2
-      pathPrefix: Scripts
-      guid: 8eaee1246be44c24c961ef23f3cd524e
-    - name: Scripts/3-4(2)
-      pathPrefix: Scripts
-      guid: a2c034fbcfa26264e957e98b2350dfa7
-    - name: Scripts/3-5
-      pathPrefix: Scripts
-      guid: 4a3dbffeebdbece47b2bf7b206e34b81
-    - name: Scripts/4-1
-      pathPrefix: Scripts
-      guid: e5f35e427f5df9540ab7e60cb23b2ff9
-    - name: Scripts/0-0(Opening)
-      pathPrefix: Scripts
-      guid: 05dad6806a8c9344b9fc77d30b04ddee
-    - name: Scripts/Sample
-      pathPrefix: Scripts
-      guid: 48a0da1e606ca0a4ba54e8728fa4f163
-    - name: Scripts/4-3
-      pathPrefix: Scripts
-      guid: 7321f6d71349adc4d823e70bce452c70
-    - name: Scripts/2-2
-      pathPrefix: Scripts
-      guid: 6e936207a40f190419a520588e70ca9a
-    - name: Scripts/nani_char_get_100500
-      pathPrefix: Scripts
-      guid: d1f8f7dbbc8c2274b9095a1e58944ad5
-    - name: Scripts/2-4
-      pathPrefix: Scripts
-      guid: 39d0e14cfd67645408d7b7e0f781c065
-    - name: Scripts/2-3
-      pathPrefix: Scripts
-      guid: 5242e2f65b148e1418b2ec484a3dc61b
-    - name: Scripts/1-1
-      pathPrefix: Scripts
-      guid: 804396bb58e9fff48a9635152aad90a3
-    - name: Scripts/2-1
-      pathPrefix: Scripts
-      guid: cb976ebb8c56a4f4b9617c2678afdb37
-    - name: Scripts/nani_char_get_102500
-      pathPrefix: Scripts
-      guid: 2baab012a413ea148bb577a4fa962759
-    - name: Scripts/0-2-1
-      pathPrefix: Scripts
-      guid: cb7b2e8624913aa4fa0282c8838afc7e
-    - name: Scripts/nani_05_04_02
-      pathPrefix: Scripts
-      guid: 15646f365576b9d4eabf2f7a04739c24
-    - name: Scripts/0-2-2
-      pathPrefix: Scripts
-      guid: 3bb32e472b1b75f46997f24d8690444f
-    - name: Scripts/nani_05_05_02
-      pathPrefix: Scripts
-      guid: af6bc52ed0f2f2749add382e2ce09bee
-    - name: Scripts/3-3
-      pathPrefix: Scripts
-      guid: 493f120f01e792b468d19b9ebff87c2d
-    - name: Scripts/nani_char_get_100900
-      pathPrefix: Scripts
-      guid: ad34c8f36e42b6a4d902b362ec49070b
-    - name: Scripts/nani_char_get_102900
-      pathPrefix: Scripts
-      guid: 9c55d70cc15518844b732b19c9a54609
-    - name: Scripts/0-5
-      pathPrefix: Scripts
-      guid: 346b319cd1a93af4880db9be4aea9249
-    - name: Scripts/3-1
-      pathPrefix: Scripts
-      guid: a66a5c8c6606ea742b89f3a74bed9f95
-    - name: Scripts/nani_05_06_01
-      pathPrefix: Scripts
-      guid: 15562e747dd2fd5478d7db91f9fca3c2
-    - name: Scripts/1-3
-      pathPrefix: Scripts
-      guid: 40e1114b24823664a83b0868c3fc191f
-    - name: Scripts/0-4
-      pathPrefix: Scripts
-      guid: 06474dc7307b4c04ab69cc5ffe05223a
-    - name: Scripts/nani_sub_003
-      pathPrefix: Scripts
-      guid: 630c7ec940b84e44a85acb87174b30c0
-    - name: Scripts/2-5
-      pathPrefix: Scripts
-      guid: 5c2bc6d3e2f456348ac36ec495f0614c
-    - name: Scripts/4-5(2)
-      pathPrefix: Scripts
-      guid: 35547d22f22ad934fbc502cfd8294927
-    - name: Scripts/nani_char_get_100400
-      pathPrefix: Scripts
-      guid: 13803ddf30a95d44c9ad5a664aa24168
-    - name: Scripts/nani_05_01_01
-      pathPrefix: Scripts
-      guid: 7f0e71bffcdee6a4485e663aad093d06
-    - name: Scripts/3-2
-      pathPrefix: Scripts
-      guid: e361b73169b368d4eac01e3a8b92a170
-    - name: Scripts/3-4(1)
-      pathPrefix: Scripts
-      guid: 88d2f1b5be902604f8ed39ffc8600257
-    - name: Scripts/nani_05_04_01
-      pathPrefix: Scripts
-      guid: e563f07b5bfc0a248821dd4e9aded772
-    - name: Scripts/nani_sub_002
-      pathPrefix: Scripts
-      guid: 5c8f6fa686a44f74a86e87d5179458d7
-    - name: Scripts/1-2
-      pathPrefix: Scripts
-      guid: 0f622f35f29c79e4e91e9d357801575b
     - name: Chapter0_01
       pathPrefix: Scripts
       guid: de62e71d7323a8c47bf07f7fe3dd12f2
@@ -343,19 +211,19 @@ MonoBehaviour:
       guid: ac96cad5a6e0b1546b76c5043c1104dd
     - name: Chapter1_10
       pathPrefix: Scripts
-      guid: fedcc6d0399f18b4d92de41ce45406cd
+      guid: 909523b307601b44bb2aea79c57723ad
     - name: Chapter1_11
       pathPrefix: Scripts
-      guid: 909523b307601b44bb2aea79c57723ad
+      guid: e3f6807cdd174d347826d8185614ea56
     - name: Chapter1_12
       pathPrefix: Scripts
       guid: 196dac9ce6b77f640bbb06d0774e4379
     - name: Chapter1_13
       pathPrefix: Scripts
-      guid: 1c90d86ed1b93a44eaec0073fee0b147
+      guid: a94a863343e81a74787df8f6a7e9ba06
     - name: Chapter1_14
       pathPrefix: Scripts
-      guid: a94a863343e81a74787df8f6a7e9ba06
+      guid: 1388e2cffa70dad44a0c0095cb754ad6
     - name: Chapter1_15
       pathPrefix: Scripts
       guid: b35b951c40030bb459b3d7a147321a5d
@@ -413,6 +281,144 @@ MonoBehaviour:
     - name: Prologue_03
       pathPrefix: Scripts
       guid: 54becdc6deb5141ccb3b49c78cf0b0d5
+    - name: nani_05_04_01
+      pathPrefix: Scripts
+      guid: e563f07b5bfc0a248821dd4e9aded772
+    - name: 2-3
+      pathPrefix: Scripts
+      guid: 5242e2f65b148e1418b2ec484a3dc61b
+    - name: 4-3
+      pathPrefix: Scripts
+      guid: 7321f6d71349adc4d823e70bce452c70
+    - name: 4-5(1)
+      pathPrefix: Scripts
+      guid: 9cddc781a7157bc439ae497c13f7eea8
+    - name: 2-1
+      pathPrefix: Scripts
+      guid: cb976ebb8c56a4f4b9617c2678afdb37
+    - name: 4-2
+      pathPrefix: Scripts
+      guid: 8eaee1246be44c24c961ef23f3cd524e
+    - name: nani_05_01_01
+      pathPrefix: Scripts
+      guid: 7f0e71bffcdee6a4485e663aad093d06
+    - name: Sample
+      pathPrefix: Scripts
+      guid: 48a0da1e606ca0a4ba54e8728fa4f163
+    - name: 0-0(Opening)
+      pathPrefix: Scripts
+      guid: 05dad6806a8c9344b9fc77d30b04ddee
+    - name: nani_05_03_01
+      pathPrefix: Scripts
+      guid: 58e7e4157b459c541aae857875b7f548
+    - name: 0-0(Closing)
+      pathPrefix: Scripts
+      guid: 9014e799097a65c42b5e8f5b72dc2517
+    - name: nani_char_get_100300
+      pathPrefix: Scripts
+      guid: b0a836b235abb6940b880edafcdf23c7
+    - name: 3-4(2)
+      pathPrefix: Scripts
+      guid: a2c034fbcfa26264e957e98b2350dfa7
+    - name: 3-1
+      pathPrefix: Scripts
+      guid: a66a5c8c6606ea742b89f3a74bed9f95
+    - name: 3-3
+      pathPrefix: Scripts
+      guid: 493f120f01e792b468d19b9ebff87c2d
+    - name: 3-5
+      pathPrefix: Scripts
+      guid: 4a3dbffeebdbece47b2bf7b206e34b81
+    - name: 2-5
+      pathPrefix: Scripts
+      guid: 5c2bc6d3e2f456348ac36ec495f0614c
+    - name: nani_sub_002
+      pathPrefix: Scripts
+      guid: 5c8f6fa686a44f74a86e87d5179458d7
+    - name: 0-5
+      pathPrefix: Scripts
+      guid: 346b319cd1a93af4880db9be4aea9249
+    - name: 3-2
+      pathPrefix: Scripts
+      guid: e361b73169b368d4eac01e3a8b92a170
+    - name: nani_05_02_01
+      pathPrefix: Scripts
+      guid: 8ab5c13e8e9848a4aaa137879697ed35
+    - name: 0-3
+      pathPrefix: Scripts
+      guid: 58d24ad44624d984cb6a2e06b9f32357
+    - name: 1-3
+      pathPrefix: Scripts
+      guid: 40e1114b24823664a83b0868c3fc191f
+    - name: nani_char_get_100500
+      pathPrefix: Scripts
+      guid: d1f8f7dbbc8c2274b9095a1e58944ad5
+    - name: 1-1
+      pathPrefix: Scripts
+      guid: 804396bb58e9fff48a9635152aad90a3
+    - name: nani_char_get_102500
+      pathPrefix: Scripts
+      guid: 2baab012a413ea148bb577a4fa962759
+    - name: 0-4
+      pathPrefix: Scripts
+      guid: 06474dc7307b4c04ab69cc5ffe05223a
+    - name: nani_sub_001
+      pathPrefix: Scripts
+      guid: 7302cc983df0afe42a75ec24005e6e83
+    - name: nani_char_get_102900
+      pathPrefix: Scripts
+      guid: 9c55d70cc15518844b732b19c9a54609
+    - name: nani_char_get_100400
+      pathPrefix: Scripts
+      guid: 13803ddf30a95d44c9ad5a664aa24168
+    - name: 3-4(1)
+      pathPrefix: Scripts
+      guid: 88d2f1b5be902604f8ed39ffc8600257
+    - name: nani_sub_003
+      pathPrefix: Scripts
+      guid: 630c7ec940b84e44a85acb87174b30c0
+    - name: 2-4
+      pathPrefix: Scripts
+      guid: 39d0e14cfd67645408d7b7e0f781c065
+    - name: nani_05_05_01
+      pathPrefix: Scripts
+      guid: c4c23b531da51dd45b8fc6adffa04efc
+    - name: 0-2-2
+      pathPrefix: Scripts
+      guid: 3bb32e472b1b75f46997f24d8690444f
+    - name: 2-2
+      pathPrefix: Scripts
+      guid: 6e936207a40f190419a520588e70ca9a
+    - name: 1-2
+      pathPrefix: Scripts
+      guid: 0f622f35f29c79e4e91e9d357801575b
+    - name: nani_05_05_02
+      pathPrefix: Scripts
+      guid: af6bc52ed0f2f2749add382e2ce09bee
+    - name: 0-2-1
+      pathPrefix: Scripts
+      guid: cb7b2e8624913aa4fa0282c8838afc7e
+    - name: nani_05_06_01
+      pathPrefix: Scripts
+      guid: 15562e747dd2fd5478d7db91f9fca3c2
+    - name: 4-4
+      pathPrefix: Scripts
+      guid: 2695a9ccfa57da84aabad6cd7f1b420d
+    - name: nani_05_04_02
+      pathPrefix: Scripts
+      guid: 15646f365576b9d4eabf2f7a04739c24
+    - name: 4-5(2)
+      pathPrefix: Scripts
+      guid: 35547d22f22ad934fbc502cfd8294927
+    - name: nani_char_get_100900
+      pathPrefix: Scripts
+      guid: ad34c8f36e42b6a4d902b362ec49070b
+    - name: 4-1
+      pathPrefix: Scripts
+      guid: e5f35e427f5df9540ab7e60cb23b2ff9
+    - name: nani_char_get_101200
+      pathPrefix: Scripts
+      guid: 911c3f661a8315f40be0c48d170fa6c5
   - Id: CharacterAvatars
     Resources: []
   - Id: Characters/97730980-6691-4698-b6da-9388d226f1d6

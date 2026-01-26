@@ -33,6 +33,5 @@ char_atresia: 소리가 점점 가까워지고 있어요! 이곳을 선택해서
 @hideUI
 @hidePrinter Dialogue
 @hideChars
-@skip false
 
 @end

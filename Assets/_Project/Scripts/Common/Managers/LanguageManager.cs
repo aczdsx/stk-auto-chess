@@ -1,5 +1,6 @@
 using System;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -119,7 +120,7 @@ namespace CookApps.AutoBattler
             var initOperation = LocalizationSettings.InitializationOperation;
             if (!initOperation.IsDone)
             {
-                await initOperation.ToUniTask();
+                await initOperation.WaitUntilDone();
             }
 
             // 테이블 비동기 로드
@@ -150,7 +151,7 @@ namespace CookApps.AutoBattler
             ReleaseDefaultTableHandle();
 
             defaultTableHandle = LocalizationSettings.StringDatabase.GetTableAsync(DefaultTableName);
-            await defaultTableHandle.ToUniTask();
+            await defaultTableHandle.WaitUntilDone();
 
             if (defaultTableHandle.Status == AsyncOperationStatus.Succeeded)
             {
@@ -171,7 +172,7 @@ namespace CookApps.AutoBattler
             ReleaseDialogueTableHandle();
 
             dialogueTableHandle = LocalizationSettings.StringDatabase.GetTableAsync(DialogueTableName);
-            await dialogueTableHandle.ToUniTask();
+            await dialogueTableHandle.WaitUntilDone();
 
             if (dialogueTableHandle.Status == AsyncOperationStatus.Succeeded)
             {

@@ -1,6 +1,5 @@
 ; 신넘버: Chapter0_04 | 구성: 나니노벨 다이얼로그(?) | 분량: 2분 내외 / 40라인 | 키포인트: 이름짓기 튜토리얼 + 유니 매력
 
-@skip false
 
 @back bg_black_01
 @bgm snd_bgm_dialog_normal02
@@ -117,6 +116,5 @@ atresia_00: 네, 관측자님.
 @hideUI
 @hidePrinter Dialogue
 @hideChars
-@skip false
 
 @end

@@ -75,11 +75,6 @@ namespace CookApps.AutoBattler
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
             (_dialogueGroupID, _onComplete) = ((int, Action))param;
-            EnterAsync().Forget();
-        }
-
-        private async UniTaskVoid EnterAsync()
-        {
             _dialogueList = SpecDataManager.Instance.GetDialogueListByGroupID(_dialogueGroupID);
 
             _characterNameText.font = temTMPFontAsset;
@@ -87,15 +82,7 @@ namespace CookApps.AutoBattler
 
             ClearPopup();
 
-            await LanguageManager.Instance.LoadDialogueTableAsync();
-
             SetDialogueData(currentDialogueSeq);
-        }
-
-        protected override void OnPreExit()
-        {
-            base.OnPreExit();
-            LanguageManager.Instance.ReleaseDialogueTableHandle();
         }
 
         private void SetDialogueData(int seq)
