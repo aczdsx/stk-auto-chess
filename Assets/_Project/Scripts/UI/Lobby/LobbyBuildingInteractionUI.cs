@@ -585,7 +585,7 @@ namespace CookApps.AutoBattler
                     {
                         changedInfo = response.Facility;
                     }
-                    
+
                 }
                 else
                 {
@@ -601,8 +601,8 @@ namespace CookApps.AutoBattler
                     ChangeInfo(changedInfo);
                 }
 
-                var gdb =  new GuideMissionDataBridge();
-                var edb =  new ElpisDataBridge();
+                var gdb = new GuideMissionDataBridge();
+                var edb = new ElpisDataBridge();
 
                 // ! GUIDE_TODO
                 // ! 201	2	INSTALL_BUILDING	GUIDE_MISSION_NAME_201	숙소 복구	20002	GUIDE_MISSION_DESC_201	0	1	GOLD	210001	200											
@@ -610,48 +610,38 @@ namespace CookApps.AutoBattler
                 var n1 = edb.GetFacility((int)IdMap.ElpisBuild.Nest_1)?.IsJustCompleted == true;
                 var n2 = edb.GetFacilityLevel(ElpisFacilityType.FacilityTypeNest) >= 1;
                 var n3 = edb.HasFacility(200101);
-                if(gdb.GuideMissionId == 201 && (n1 || n2 || n3))
+                if (gdb.GuideMissionId == 201 && (n1 || n2 || n3))
                 {
                     await gdb.AddActionAsync(GuideMissionType.INSTALL_BUILDING, 1);
                 }
                 // ! GUIDE_TODO
                 // ! 404	17	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_404	숙소설치 가이드미션	30003	GUIDE_MISSION_DESC_404	0	1	GOLD	210001	200											
                 // ! UPGRADE_BUILDING_FOR_NEST_2
-                var nn1 = edb.GetFacility((int)IdMap.ElpisBuild.Nest_2)?.IsJustCompleted == true; Debug.Log($"nn1 {nn1}");
-                var nn2 = edb.GetFacilityLevel(ElpisFacilityType.FacilityTypeNest) >= 2; Debug.Log($"nn2 {nn2}");
                 var nn3 = edb.HasFacility(200102); Debug.Log($"nn3 {nn3}");
-                var nn4 = edb.HasFacility(20010201); Debug.Log($"nn4 {nn4}");
-                var nn5 = edb.IsBuildedFacilityExists((uint)IdMap.ElpisBuild.Nest_2); Debug.Log($"nn5 {nn5}");
-                if((nn2 || nn1 || nn3 || nn4 || nn5)) {
-                    await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
+                if (gdb.GuideMissionId == 404 && (nn3))
+                {
+                    await NetManager.Instance.GuideMission.UpdateActionAsync(1);
                 }
 
 
                 // ! GUIDE_TODO
                 // ! 405	18	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_405	디멘션 큐브 가이드 미션	30004	GUIDE_MISSION_DESC_405	0	1	GOLD	210001	200											
                 // ! INSTALL_BUILDING_DIMENSION_LAB
-                var d1 = edb.GetFacility((int)IdMap.ElpisBuild.DimensionLab)?.IsJustCompleted == true; Debug.Log($"d1 {d1}");
                 var d2 = edb.GetFacilityLevel(ElpisFacilityType.FacilityTypeDimensionLab) >= 1; Debug.Log($"d2 {d2}");
-                var d3 = edb.HasFacility(100101); Debug.Log($"d3 {d3}");
-                var d4 = edb.HasFacility(10010101); Debug.Log($"d4 {d4}");
-                var d5 = edb.IsBuildedFacilityExists((uint)IdMap.ElpisBuild.DimensionLab); Debug.Log($"d5 {d5}");
-                if((d1 || d2 || d3 || d4 || d5)) {
-                    await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
+                if (gdb.GuideMissionId == 405 && d2)
+                {
+                    await NetManager.Instance.GuideMission.UpdateActionAsync(1);
                 }
 
 
                 // ! GUIDE_TODO
                 // ! 407	20	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_407	전투 시뮬레이션 센터 가이드 미션	30006	GUIDE_MISSION_DESC_407	0	1	GOLD	210001	200											
                 // ! INSTALL_BUILDING_SIMULATION_CENTER
-                var s1 = edb.GetFacility((int)IdMap.ElpisBuild.SimulationCenter)?.IsJustCompleted == true; Debug.Log($"s1 : {s1}");
                 var s2 = edb.GetFacilityLevel(ElpisFacilityType.FacilityTypeSimulationCenter) >= 1; Debug.Log($"s2 : {s2}");
-                var s3 = edb.HasFacility(100201); Debug.Log($"s3 : {s3}");
-                var s4 = edb.HasFacility(10020101); Debug.Log($"s4 : {s4}");
-                var s5 = edb.IsBuildedFacilityExists((uint)IdMap.ElpisBuild.SimulationCenter); Debug.Log($"s5 : {s5}");
-                if((s1 || s2 || s3 || s4 || s5)) {
-                    await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
+                if (gdb.GuideMissionId == 407 && s2)
+                {
+                    await NetManager.Instance.GuideMission.UpdateActionAsync(1);
                 }
-
                 return;
             }
 
