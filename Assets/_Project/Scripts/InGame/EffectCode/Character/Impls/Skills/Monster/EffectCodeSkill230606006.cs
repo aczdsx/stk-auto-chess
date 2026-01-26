@@ -89,7 +89,6 @@ public partial class EffectCodeSkill230606006 : EffectCodeCharacterBase
 
         var characterControllers = InGameObjectManager.Instance.GetCharacterList(owner.AllianceType);
 
-        var inGameTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByAllianceType(owner.AllianceType, 10);
         foreach (var character in characterControllers)
         {
             if(character == owner)
