@@ -11,14 +11,12 @@ namespace CookApps.AutoBattler.Editor
         private SerializedProperty isSpriteRendererProp;
         private SerializedProperty targetRendererProp;
         private SerializedProperty targetImageProp;
-        private SerializedProperty spriteNameProp;
 
         private void OnEnable()
         {
             isSpriteRendererProp = serializedObject.FindProperty("isSpriteRenderer");
             targetRendererProp = serializedObject.FindProperty("targetRenderer");
             targetImageProp = serializedObject.FindProperty("targetImage");
-            spriteNameProp = serializedObject.FindProperty("spriteName");
 
             // 자동으로 필드 채우기
             AutoFillIfEmpty();
@@ -42,12 +40,6 @@ namespace CookApps.AutoBattler.Editor
                 EditorGUILayout.PropertyField(targetImageProp, new GUIContent("Target Image"));
             }
 
-            // Readonly 필드로 spriteName 표시
-            using (new EditorGUI.DisabledScope(true))
-            {
-                EditorGUILayout.PropertyField(spriteNameProp, new GUIContent("Sprite Name"));
-            }
-            
             // 경고 메시지
             EditorGUILayout.Space(5);
             ShowValidationMessages();
