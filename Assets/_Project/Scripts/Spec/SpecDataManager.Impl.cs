@@ -480,13 +480,32 @@ namespace CookApps.AutoBattler
 
         public CharacterTranscendence GetCharacterTranscendenceData(GradeType gradeType, int star)
         {
+            CharacterTranscendence minData = null;
+            CharacterTranscendence maxData = null;
+
             for (int i = 0; i < CharacterTranscendence.All.Count; i++)
             {
                 var data = CharacterTranscendence.All[i];
-                if (data.grade_type == gradeType
-                    && data.star == star)
+                if (data.grade_type != gradeType)
+                    continue;
+
+                // 정확히 일치하면 바로 반환
+                if (data.star == star)
                     return data;
+
+                // min/max 추적
+                if (minData == null || data.star < minData.star)
+                    minData = data;
+                if (maxData == null || data.star > maxData.star)
+                    maxData = data;
             }
+
+            // 범위를 벗어나면 min/max 반환
+            if (minData != null && star < minData.star)
+                return minData;
+            if (maxData != null && star > maxData.star)
+                return maxData;
+
             return null;
         }
 

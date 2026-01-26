@@ -18,10 +18,8 @@ namespace CookApps.AutoBattler
         {
             if (itemId.IsCharacterPiece())
             {
-                itemId.GetCharacterId(out var charIndex);
-                var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
-
-                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.id)).Forget();
+                itemId.GetCharacterId(out var charId);
+                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(charId)).Forget();
             }
             else
             {
@@ -36,10 +34,8 @@ namespace CookApps.AutoBattler
             var (itemId, amount, isEnough) = data;
             if (itemId.IsCharacterPiece())
             {
-                itemId.GetCharacterId(out var charIndex);
-                var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
-
-                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.id)).Forget();
+                itemId.GetCharacterId(out var charId);
+                _itemIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(charId)).Forget();
             }
             else
             {

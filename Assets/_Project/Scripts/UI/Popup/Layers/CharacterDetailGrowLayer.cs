@@ -110,13 +110,17 @@ namespace CookApps.AutoBattler
 
         private void SetUserStatLayer()
         {
-            if (_specCharacterData == null || _userCharacterData == null) return;
+            if (_specCharacterData == null)
+                return;
 
-            var nextExceedLevel = SpecDataManager.Instance.GetCharacterNextExceedLevelExpData(_userCharacterData.ExceedLevel);
+            var exceedLevel = _userCharacterData?.ExceedLevel ?? 0;
+            var level = _userCharacterData?.Level ?? 1;
 
-            int userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
+            var nextExceedLevel = SpecDataManager.Instance.GetCharacterNextExceedLevelExpData(exceedLevel);
 
-            _userStatData = new CharacterStatData((int)_userCharacterData.CharacterId, userLevel, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
+            int userLevel = Mathf.Max(1, (int)level);
+
+            _userStatData = new CharacterStatData(_specCharacterData.id, userLevel, GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
 
             _levelText.text = $"Lv.{userLevel}/{nextExceedLevel?.level ?? userLevel}";
             _battlePointText.text = _userStatData.GetAttrValueCP().ToString("N0");
@@ -128,12 +132,11 @@ namespace CookApps.AutoBattler
 
         private void SetTranscendencePieceLayer()
         {
-            if (_specCharacterData == null || _userCharacterData == null) return;
-            if (_specCharacterTranscendenceData == null) return;
+            if (_specCharacterData == null)
+                return;
 
-            _pieceLayerObject.SetActive(_isHaveCharacter);
-
-            if (_isHaveCharacter == false) return;
+            if (_specCharacterTranscendenceData == null)
+                return;
 
             _pieceIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacterData.id)).Forget();
             ItemId pieceItemId = ItemIdExtensions.GetCharacterPieceId(_specCharacterData.id);
@@ -146,11 +149,14 @@ namespace CookApps.AutoBattler
 
         private void SetLevelUpLayer()
         {
-            if (_specCharacterData == null || _userCharacterData == null) return;
+            if (_specCharacterData == null)
+                return;
+            
+            var exceedLevel = _userCharacterData?.ExceedLevel ?? 0;
 
             // 레벨업 가능 여부 체크
-            int userLevel = Mathf.Max(1, (int)_userCharacterData.Level);
-            var nextExceedLevelExpData = SpecDataManager.Instance.GetCharacterNextExceedLevelExpData(_userCharacterData.ExceedLevel);
+            int userLevel = Mathf.Max(1, (int)(_userCharacterData?.Level ?? 1));
+            var nextExceedLevelExpData = SpecDataManager.Instance.GetCharacterNextExceedLevelExpData(exceedLevel);
             _specCharacterLevelExpData = SpecDataManager.Instance.GetCharacterLevelExpData(userLevel);
 
             if (_isHaveCharacter && userLevel >= (nextExceedLevelExpData?.level ?? int.MaxValue))
@@ -214,15 +220,14 @@ namespace CookApps.AutoBattler
 
         private void SetTranscendenceLayer()
         {
-            if (_specCharacterData == null || _userCharacterData == null) return;
+            if (_specCharacterData == null) 
+                return;
 
-            _transcendenceLayerObject.SetActive(_isHaveCharacter);
-
-            if (_isHaveCharacter == false) return;
+            int transcendLevel = (int)(_userCharacterData?.TranscendLevel ?? 1);
 
             // 초월 가능 여부 체크
             // 초월에 필요한 자원 정보 세팅
-            _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type, (int)_userCharacterData.TranscendLevel);
+            _specCharacterTranscendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(_specCharacterData.grade_type, transcendLevel);
 
             bool isHasPiece = false;
             if (_specCharacterTranscendenceData != null)
@@ -237,7 +242,7 @@ namespace CookApps.AutoBattler
             _activeTranscendenceButton.gameObject.SetActive(isAvailTranscendence);
             _inactiveTranscendenceButton.gameObject.SetActive(!isAvailTranscendence);
 
-            UpdateStarDisplay((int)_userCharacterData.TranscendLevel);
+            UpdateStarDisplay(transcendLevel);
         }
 
         private const int MaxVisibleStars = 5;
@@ -298,7 +303,6 @@ namespace CookApps.AutoBattler
         {
             try
             {
-
                 if (_specCharacterLevelExpData.IsExceed)
                 {
                     var resp = await NetManager.Instance.Character.ExceedAsync(_userCharacterData.CharacterId);

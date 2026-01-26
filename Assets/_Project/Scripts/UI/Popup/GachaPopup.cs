@@ -118,5 +118,9 @@ namespace CookApps.AutoBattler
             _gachaCommonCharacterLayer.gameObject.SetActive(false);
             _gachaPickUpCharacterLayer.gameObject.SetActive(false);
         }
+
+        protected override void OnBackButton(ref bool offPrevUI)
+        {
+        }
     }
 }
