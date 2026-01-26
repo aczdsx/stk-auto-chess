@@ -103,7 +103,7 @@ public class CameraGestureController : CachedMonoBehaviour
 #else
         
         var touchCount = Input.touchCount;
-        if (touchCount > 0 && !isAutoMoving && !canInteractCamera)
+        if (touchCount > 0 && !isAutoMoving && canInteractCamera)
             HandleTouchInput(touchCount);
         
 #endif

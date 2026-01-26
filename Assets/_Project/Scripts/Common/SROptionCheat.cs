@@ -74,7 +74,7 @@ public partial class SROptions
     #endregion
 
     #region UI 테스트
-    
+
     [Category("UI 테스트")]
     public void SafeArea테스트()
     {
@@ -90,7 +90,7 @@ public partial class SROptions
             safeAreaMargins[i].Refresh(true);
         }
     }
-    
+
     #endregion
 
     #region 치트
@@ -121,6 +121,15 @@ public partial class SROptions
     {
         ChangeCurrencyAsync().Forget();
     }
+
+    [Category("가이드 미션 stage")]
+    public void 가이드미션()
+    {
+        var gdb = new GuideMissionDataBridge();
+        gdb.AddActionAsync(GuideMissionType.CLEAR_STAGE, 1, 스테이지아이디).Forget();
+    }
+    [Category("가이드 미션 stage")]
+    public int 스테이지아이디 { get; set; } = 20003;
 
     private async UniTaskVoid ChangeCurrencyAsync()
     {

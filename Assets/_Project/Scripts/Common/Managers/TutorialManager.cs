@@ -163,7 +163,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             return false;
         }
 
-        _specTutorialDataList = specTutorialDataList;
+        _specTutorialDataList = new List<TutorialDialogue>(specTutorialDataList);
 
         Debug.LogColor($"튜토리얼 초기화: {tutorialID}, 스텝 수: {_specTutorialDataList.Count}", "green");
 
@@ -258,8 +258,17 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             return false;
         }
 
-        // Debug.LogColor($"튜토리얼 액션 실행: {tutorialTriggerType}, key: {key}, count: {turnTutorialList.Count}", "green");
+        // 매칭된 튜토리얼 중 가장 작은 seq 찾기
+        int minMatchedSeq = turnTutorialList.Min(t => t.seq);
 
+        // 해당 seq보다 작은 모든 튜토리얼 스킵 (제거)
+        int skippedCount = _specTutorialDataList.RemoveAll(l => l.seq < minMatchedSeq);
+        if (skippedCount > 0)
+        {
+            Debug.LogColor($"[Tutorial] seq {minMatchedSeq} 이전 튜토리얼 {skippedCount}개 스킵됨", "yellow");
+        }
+
+        // 매칭된 튜토리얼 제거
         _specTutorialDataList.RemoveAll(
             l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
 

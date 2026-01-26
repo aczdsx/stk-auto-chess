@@ -380,8 +380,27 @@ namespace CookApps.AutoBattler
                 return;
             }
 
+            // 이전 별 개수 저장
+            uint oldStars = 0;
+            if (_stageProgresses.TryGetValue(progress.StageId, out var oldProgress))
+            {
+                oldStars = oldProgress.BestStars;
+            }
+
             _stageProgresses[progress.StageId] = progress;
             OnStageProgressUpdated.OnNext(progress);
+
+            // 챕터 스타 카운트 갱신
+            var starDelta = (int)progress.BestStars - (int)oldStars;
+            if (starDelta > 0)
+            {
+                var stageSpec = SpecDataManager.Instance.GetStageData((int)progress.StageId);
+                if (stageSpec != null && _chapters.TryGetValue((uint)stageSpec.chapter_id, out var chapter))
+                {
+                    chapter.StarTotalCount += (uint)starDelta;
+                    OnChapterUpdated.OnNext(chapter);
+                }
+            }
         }
 
         /// <summary>

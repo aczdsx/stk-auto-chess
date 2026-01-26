@@ -29,6 +29,9 @@ namespace CookApps.AutoBattler
         private ChapterInfo _currentChapterData;  // 현재 팝업에서 선택한 챕터 데이터 (팝업만)
         private ChapterInfo _selectedChapterData; // 현재 선택된 챕터 데이터 (스테이지)
         public ChapterInfo SelectedChapterData => _selectedChapterData;
+        
+        private List<ChapterListItemSlot> _chapterSlotList = new();
+
 
         protected override void Awake()
         {
@@ -61,6 +64,7 @@ namespace CookApps.AutoBattler
             LoadStageProgressAsync((uint)_selectedChapterData.chapter_id).Forget();
             SetStageMilestoneUI(currentStageId);
             SetSelectedChapterData(_selectedChapterData.chapter_id, true);
+            SetChapterListUI();
 
             _chapterScrollRect.verticalNormalizedPosition = 1;
 
@@ -87,7 +91,8 @@ namespace CookApps.AutoBattler
         public void SetSelectedChapterData(int targetChapterID, bool isFirstInit)
         {
             _currentChapterData = SpecDataManager.Instance.GetChapterData(targetChapterID);
-
+            _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_currentChapterData.chapter_id));
+            
             // UI Popup 갱신
             RefreshSelectedLayer(isFirstInit);
 
@@ -98,6 +103,7 @@ namespace CookApps.AutoBattler
         public void RefreshSelectedLayer(bool isFirstInit)
         {
             if (_currentChapterData == null) return;
+            if (_chapterSlotList == null || _chapterSlotList.Count <= 0) return;
 
             // 유저 데이터 처리 (현재는 챕터 이동 시 무조건 첫번째 스테이지만 저장)
             if (isFirstInit == false)
@@ -163,6 +169,30 @@ namespace CookApps.AutoBattler
             battleReadyMainStageMilestone.RefreshRewardLayer();
             
             SceneUILayerManager.Instance.PopUILayer(this);
+        }
+        
+        private void SetChapterListUI()
+        {
+            ClearList();
+
+            var chapterList = SpecDataManager.Instance.GetChapterList(DifficultyType.NORMAL);
+
+            foreach (var chapterData in chapterList)
+            {
+                GameObject newChapterObject = Instantiate(_chapterSlotObject, _chapterScrollRect.content);
+                ChapterListItemSlot chapterSlot = newChapterObject.GetComponent<ChapterListItemSlot>();
+                chapterSlot.SetChapterItemSlot(chapterData, this);
+
+                _chapterSlotList.Add(chapterSlot);
+            }
+        }
+        
+        private void ClearList()
+        {
+            _chapterSlotList.Clear();
+
+            BMUtil.RemoveChildObjects(_chapterScrollRect.content);
+            SetStageMilestoneUI((int)LocalDataManager.Instance.GetLastPlayStageId());
         }
     }
 }
