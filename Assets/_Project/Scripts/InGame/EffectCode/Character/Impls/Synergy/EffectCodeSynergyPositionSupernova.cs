@@ -33,6 +33,8 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
     private InGameVfx _supernovaItemVfx;
     private AllianceType _allianceType;
+    private InGameVfx _supernovaApplyVfx;
+
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -53,18 +55,13 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     {
         base.Merge(codeInfo, source);
 
-        // cts?.Cancel();
-        // cts?.Dispose();
-        // cts = null;
-
         _synergyGrade = codeInfo.GetCodeStatToInt(3);
         _allianceType = (AllianceType)codeInfo.GetCodeStatToInt(4);
-        
-        if(_targetCharacter != null)
+
+        if (_supernovaApplyVfx != null && _targetCharacter != null)
         {
-            InGameSynergyManager.Instance.RemoveSynergyVfxOnRemoveField(_targetCharacter);
-            var vfx = InGameVfxManager.Instance.AddInGameVfx(GetSupernovaVfxName(_synergyGrade), _targetCharacter.SkillRootTransformFollowable);
-            InGameSynergyManager.Instance.AddSynergyVfxOnRemoveField(_targetCharacter, vfx);
+            _supernovaApplyVfx.Remove();
+            _supernovaApplyVfx = InGameVfxManager.Instance.AddInGameVfx(GetSupernovaVfxName(_synergyGrade), _targetCharacter.SkillRootTransformFollowable);
         }
     }
 
@@ -80,8 +77,6 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     /// </summary>
     public void ApplySupernovaItemBySavedCharacterId()
     {
-
-
         var deckData = ServerDataManager.Instance.Deck.GetDeck(InGameType.STAGE);
         if (deckData == null)
             return;
@@ -420,8 +415,19 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
         Debug.LogColor($"Supernova Removed", "red");
         base.OnPreRemoved();
+        if (_supernovaApplyVfx != null)
+        {
+            if (_supernovaApplyVfx.CachedGo != null)
+            {
+                InGameVfxManager.Instance.RemoveInGameVfx(_supernovaApplyVfx);
+            }
+            else
+            {
+                _supernovaApplyVfx.Remove();
+                _supernovaApplyVfx = null;
+            }
+        }
 
-        InGameSynergyManager.Instance.RemoveSynergyVfxOnRemoveField(_targetCharacter);
         if (_supernovaItemVfx != null)
         {
             if (_supernovaItemVfx.CachedGo != null)
@@ -453,15 +459,13 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     private async UniTask GetSupernovaDragonBall()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
-        
-        InGameSynergyManager.Instance.RemoveSynergyVfxOnRemoveField(_targetCharacter);
+
         if (_targetCharacter == null)
             return;
-        
+
         var vfxName = GetSupernovaVfxName(_synergyGrade);
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_nova_spirit);
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(vfxName, _targetCharacter.SkillRootTransformFollowable);
-        InGameSynergyManager.Instance.AddSynergyVfxOnRemoveField(_targetCharacter, vfx);
+        _supernovaApplyVfx = InGameVfxManager.Instance.AddInGameVfx(vfxName, _targetCharacter.SkillRootTransformFollowable);
     }
 
     public bool OnItemCanApplyDragAndDrop(CharacterController targetCharacter)
