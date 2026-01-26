@@ -303,6 +303,9 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         TutorialEnemyDeadAllHandler.ResumeAndEndCombat();
         TutorialSkillReadyHandler.TryProcessDeferredSkillReady();
 
+        // 터치 차단 시스템 최종 정리
+        TutorialTouchBlocker.Clear();
+
         // if (_specTutorialDataList.Count == 0)
         // {
         //     // 모든 다이얼로그 소모 완료 → 가이드 미션 완료 처리

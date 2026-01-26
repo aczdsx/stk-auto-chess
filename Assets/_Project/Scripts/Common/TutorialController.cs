@@ -427,8 +427,8 @@ public class TutorialController : MonoBehaviour
         }
 
         // 터치 차단 해제
-        SetBlockTouchOutsideHole(false);
-        CookApps.AutoBattler.TutorialTouchBlocker.Clear();
+        // SetBlockTouchOutsideHole(false);
+        // CookApps.AutoBattler.TutorialTouchBlocker.Clear();
 
         _tutorialAnimator.SetTrigger(Close);
 
