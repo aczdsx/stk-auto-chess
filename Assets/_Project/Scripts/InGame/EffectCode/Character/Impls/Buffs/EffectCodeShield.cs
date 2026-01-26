@@ -88,6 +88,9 @@ public partial class EffectCodeBuffShield : EffectCodeBuffBase
 
     public override void OnUpdate(float dt)
     {
+        if (shields == null)
+            return;
+
         bool needRemove = false;
         for (int i = 0; i < shields.Count; i++)
         {
@@ -117,6 +120,9 @@ public partial class EffectCodeBuffShield : EffectCodeBuffBase
 
     public override CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageInfo, CharacterController attacker, bool isPure)
     {
+        if (shields == null)
+            return damageInfo;
+
         CharacterController.DamageInfo originDamageAmount = damageInfo;
         bool hasShield = false;
         for (int i = 0; i < shields.Count; i++)
