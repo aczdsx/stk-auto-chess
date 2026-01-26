@@ -7,12 +7,12 @@ using System;
 
 // ! GUIDE_TODO
 /// <summary>
-/// 하드코딩된 유틸리티 ID이므로 앞으로 서버한테 의존하도록 합시다.
+/// 하드코딩된 유틸리티 ID이므로 가이드 미션의 클리어 조건을 받아 올 수 있지 않을까?
+/// 
 /// </summary>
 [Obsolete]
 public static class GuideMissionConstants
 {
-
     [Obsolete] public const int 아트레시아ID = 3401;
     [Obsolete] public const int 코어기사공격력ID = 1101;
     [Obsolete] public const int 바벨범위기준ID = 10000;

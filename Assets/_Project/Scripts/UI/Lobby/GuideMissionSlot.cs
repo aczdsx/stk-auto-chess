@@ -167,7 +167,7 @@ namespace CookApps.AutoBattler
                 TutorialManager.Instance.TryStartOutgameTutorial().Forget();
 #endif
             }).Forget();
-            // await GuideMissionTestUtility.HandleIteratively();
+            await NetManager.Instance.GuideMission.GetAsync();
         }
 
         #endregion
