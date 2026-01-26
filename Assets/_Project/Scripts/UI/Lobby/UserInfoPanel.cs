@@ -59,6 +59,6 @@ public class UserInfoPanel : MonoBehaviour
         var currentProgress = playerDataBridge.ExpProgress;
         
         expSlider.value = currentProgress;
-        expRatioText.text = ZString.Concat(currentProgress * 100.0f);
+        expRatioText.text = ZString.Format("{0}%", currentProgress * 100.0f);
     }
 }
