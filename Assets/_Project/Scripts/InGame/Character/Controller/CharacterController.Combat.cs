@@ -97,6 +97,7 @@ namespace CookApps.BattleSystem
 
             //일단 공격 타입 결정
             damageInfo.isAD = ad > 0d;
+            damageInfo.attackerType = AttackerType.CHARCTER;
             //ad ap로 데미지 1차 결정
             double initialDamage = damageInfo.isAD ? ad : ap;
             damageInfo.damageAmount = initialDamage;
