@@ -46,6 +46,8 @@ namespace CookApps.AutoBattler
         {
             cts = new CancellationTokenSource();
             _mat = _rawImage.material;
+            _radiusValue = 10;
+            _mat.SetFloat(_radiusPropertyName, _radiusValue);
             UpdateShaderProperty(cts.Token).Forget();
         }
 
@@ -67,6 +69,10 @@ namespace CookApps.AutoBattler
         {
             while (!token.IsCancellationRequested)
             {
+                if (!_rawImage.enabled)
+                {
+                    _rawImage.enabled = true;
+                }
                 //Radius Value
                 if (_mat.HasProperty(_radiusPropertyName)){
                     _mat.SetFloat(_radiusPropertyName, _radiusValue);
