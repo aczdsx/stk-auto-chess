@@ -1475,10 +1475,6 @@ MonoBehaviour:
     m_Key: COMMON_CONFIRM
     m_Metadata:
       m_Items: []
-  - m_Id: 3260753988542830
-    m_Key: COMMON_CANCE
-    m_Metadata:
-      m_Items: []
   - m_Id: 3260753988542831
     m_Key: DOWNLOAD_SPLASH_DESC
     m_Metadata:
@@ -5187,136 +5183,144 @@ MonoBehaviour:
     m_Key: MONSTER_DESC_30101010
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283005882368
-    m_Key: DOWNLOAD_CONFIRM_DESC
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3709283018465280
+  - m_Id: 4319068357124097
     m_Key: MGS_OVER_COUNT_CHARACTER
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283018465281
+  - m_Id: 4319068357124098
     m_Key: GET_CHARACTER_15232101
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283018465282
+  - m_Id: 4319068357124099
     m_Key: GET_CHARACTER_15252102
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283018465283
+  - m_Id: 4319068357124100
     m_Key: GET_CHARACTER_15252103
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283018465284
+  - m_Id: 4319068357124101
     m_Key: GET_CHARACTER_15322201
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283018465285
+  - m_Id: 4319068357124102
     m_Key: GET_CHARACTER_15362202
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283018465286
+  - m_Id: 4319068357124103
     m_Key: GET_CHARACTER_15422301
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283018465287
+  - m_Id: 4319068357124104
     m_Key: GET_CHARACTER_15462302
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283018465288
+  - m_Id: 4319068357124105
     m_Key: GET_CHARACTER_15532401
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283018465289
+  - m_Id: 4319068357124106
     m_Key: GET_CHARACTER_15642501
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283018465290
+  - m_Id: 4319068357124107
     m_Key: GET_CHARACTER_15662502
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659584
+  - m_Id: 4319068357124108
     m_Key: GET_CHARACTER_17213101
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659585
+  - m_Id: 4319068357124109
     m_Key: GET_CHARACTER_17243102
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659586
+  - m_Id: 4319068357124110
     m_Key: GET_CHARACTER_17263103
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659587
+  - m_Id: 4319068357124111
     m_Key: GET_CHARACTER_17323201
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659588
+  - m_Id: 4319068357124112
     m_Key: GET_CHARACTER_17333202
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659589
+  - m_Id: 4319068357124113
     m_Key: GET_CHARACTER_17353203
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659590
+  - m_Id: 4319068357124114
     m_Key: GET_CHARACTER_17363204
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659591
+  - m_Id: 4319068357124115
     m_Key: GET_CHARACTER_17413301
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659592
+  - m_Id: 4319068357124116
     m_Key: GET_CHARACTER_17433302
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659593
+  - m_Id: 4319068357124117
     m_Key: GET_CHARACTER_17433303
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659594
+  - m_Id: 4319068357124118
     m_Key: GET_CHARACTER_17513401
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659595
+  - m_Id: 4319068357124119
     m_Key: GET_CHARACTER_17513402
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659596
+  - m_Id: 4319068357124120
     m_Key: GET_CHARACTER_17523403
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659597
+  - m_Id: 4319068357124121
     m_Key: GET_CHARACTER_17553404
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659598
+  - m_Id: 4319068357124122
     m_Key: GET_CHARACTER_17563405
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659599
+  - m_Id: 4319068357124123
     m_Key: GET_CHARACTER_17613501
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659600
+  - m_Id: 4319068357124124
     m_Key: GET_CHARACTER_17613502
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659601
+  - m_Id: 4319068357124125
     m_Key: GET_CHARACTER_17643503
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659602
+  - m_Id: 4319068357124126
     m_Key: GET_CHARACTER_17643504
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659603
+  - m_Id: 4319068357124127
     m_Key: GET_CHARACTER_17653505
     m_Metadata:
       m_Items: []
-  - m_Id: 3709283022659604
+  - m_Id: 4319068357124128
     m_Key: GET_CHARACTER_17663506
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4319482586587136
+    m_Key: DOWNLOAD_CONFIRM_DESC_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4319482586587137
+    m_Key: DOWNLOAD_CONFIRM_DESC_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4319482586587138
+    m_Key: COMMON_CANCEL
     m_Metadata:
       m_Items: []
   m_Metadata:
