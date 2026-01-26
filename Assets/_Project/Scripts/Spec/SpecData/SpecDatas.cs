@@ -1397,35 +1397,6 @@ namespace CookApps.AutoBattler
     }
 
     [GeneratorSpecData]
-    public partial class Language
-    {
-        /// #SheetIndex
-        [GeneratorId(nameof(id), typeof(int))]
-        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
-        public int id;
-        /// 키 값
-/// 시스템: 1~9999
-/// 허블:10001~11000
-/// 전투: 11001~12000
-/// 퀘스트: 12001~14000
-/// 캐릭터: 14001~17000
-/// 몬스터: 17001 ~ 18000
-/// 장애물 18001~19000
-/// 스킬: 20001 ~ 23000
-/// 아이템: 23001~25000
-/// 콘텐츠 25001~ 40000
-/// 가이드 50000~70000
-/// 프롤로그 90000~99999
-/// 일반대사 100001 ~200000
-/// 사이드 스토리 대사 200001~300000
-        public string token_key;
-        /// 값
-        public string language_kr;
-        /// 값
-        public string language_en;
-    }
-
-    [GeneratorSpecData]
     public partial class TutorialDialogue
     {
         /// #SheetIndex
@@ -2263,7 +2234,6 @@ namespace CookApps.AutoBattler
         public List<ElpisBoxGacha> ElpisBoxGacha = null;
         public List<EventInfo> EventInfo = null;
         public List<EventCondition> EventCondition = null;
-        public List<Language> Language = null;
         public List<TutorialDialogue> TutorialDialogue = null;
         public List<StageInfo> StageInfo = null;
         public List<StageMonster> StageMonster = null;

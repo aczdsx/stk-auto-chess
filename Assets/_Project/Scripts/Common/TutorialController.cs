@@ -83,7 +83,8 @@ public class TutorialController : MonoBehaviour
         { TutorialActionType.SHOW_DIALOGUE_POP_CALLBACK, new TutorialActionShowDialoguePopWithCallback() },
         { TutorialActionType.CHARACTER_PLACEMENT_UI, new TutorialActionCharacterPlacementUI() },
         { TutorialActionType.SPAWN_ENEMY, new TutorialActionSpawnEnemy() },
-        { TutorialActionType.MOVE_OBJECT, new TutorialActionMoveObject() }
+        { TutorialActionType.MOVE_OBJECT, new TutorialActionMoveObject() },
+        { TutorialActionType.FORCED_TOUCH_LEVELUP_10, new TutorialActionForcedTouchLevelUp10() }
     };
     protected void Update()
     {
@@ -312,7 +313,11 @@ public class TutorialController : MonoBehaviour
             TutorialActionShowDialoguePopWithCallback.OnDialogueCompleted = OnDialoguePopWithCallbackCompleted;
         }
 
-        // 
+        // FORCED_TOUCH_LEVELUP_10 전략일 경우 레벨업 완료 콜백 설정
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FORCED_TOUCH_LEVELUP_10)
+        {
+            TutorialActionForcedTouchLevelUp10.OnLevelUpCompleted = OnLevelUp10Completed;
+        }
     }
 
     /// <summary>
@@ -383,6 +388,18 @@ public class TutorialController : MonoBehaviour
     {
         // 콜백 해제
         TutorialActionShowDialoguePopWithCallback.OnDialogueCompleted = null;
+
+        // 다음 튜토리얼로 진행
+        ProceedToNext();
+    }
+
+    /// <summary>
+    /// 캐릭터 Lv10 달성 시 호출되는 콜백
+    /// </summary>
+    private void OnLevelUp10Completed()
+    {
+        // 콜백 해제
+        TutorialActionForcedTouchLevelUp10.OnLevelUpCompleted = null;
 
         // 다음 튜토리얼로 진행
         ProceedToNext();

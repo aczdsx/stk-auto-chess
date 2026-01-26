@@ -359,6 +359,13 @@ namespace CookApps.AutoBattler
         ENTER_ELPIS = 24,
         UPGRADE_BUILDING = 25,
         INSTALL_BUILDING = 26,
+        CHARACTER_EXCEED = 27,
+        CHARACTER_TRANSCENDENCE = 28,
+        INSTALL_BUILDING_NEST = 29,
+        UPGRADE_BUILDING_FOR_NEST_2 = 30,
+        INSTALL_BUILDING_DIMENSION_LAB = 31,
+        INSTALL_BUILDING_SIMULATION_CENTER = 32,
+        UPGRADE_BUILDING_FOR_COMMEND_CENTER_2 = 33,
     }
 
     public enum DialogueEventType
@@ -1008,6 +1015,7 @@ namespace CookApps.AutoBattler
         SHOW_DIALOGUE_POP_CALLBACK = 10,
         FORCED_TOUCH_BUILD_UI = 11,
         FOCUS_MULTIPLE_OBJECTS = 12,
+        FORCED_TOUCH_LEVELUP_10 = 13,
     }
 
     public enum FacilityType

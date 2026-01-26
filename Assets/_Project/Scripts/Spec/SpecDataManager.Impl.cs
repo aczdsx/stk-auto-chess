@@ -69,8 +69,8 @@ namespace CookApps.AutoBattler
             await UniTask.Yield();
             GenerateCacheSpecData();
             CustomizeSpecData();
-            int languageCount = Language.All.Count;
-            Debug.Log(languageCount);
+            // int languageCount = Language.All.Count;
+            // Debug.Log(languageCount);
         }
 
         // SpecData Dictionary Cache Data
