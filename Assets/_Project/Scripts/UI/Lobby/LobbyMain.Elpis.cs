@@ -7,6 +7,7 @@ using R3;
 using Tech.Hive.V1;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.AI;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoBattler
@@ -36,7 +37,6 @@ namespace CookApps.AutoBattler
 
             MainBlock = elpisMainBlockHandle.Result.GetComponent<ElpisMainBlock>();
 
-            await CreateWanderCharacters();
             var commandCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
 
             if (commandCenter == null) { commandCenter = new ElpisFacility() { Level = 1 }; }
@@ -60,6 +60,9 @@ namespace CookApps.AutoBattler
             CreateWorldInteractionSlots(GetUnlockedBuildings(commandCenter.Level));
 
             MainBlock.RebuildNavMesh();
+
+            // NavMesh 빌드 후 캐릭터 소환
+            await CreateWanderCharacters();
         }
 
         private async UniTask CreateWanderCharacters()
@@ -113,9 +116,17 @@ namespace CookApps.AutoBattler
             {
                 var randomX = (float)(random.NextDouble() * 8 - 9); // -9 ~ -1
                 var randomZ = (float)(random.NextDouble() * 5 - 9); // -9 ~ -4
+                var spawnPos = new Vector3(randomX, 0, randomZ);
+
+                // NavMesh 위의 유효한 위치 찾기
+                if (NavMesh.SamplePosition(spawnPos, out var hit, 5f, NavMesh.AllAreas))
+                {
+                    spawnPos = hit.position;
+                }
+
                 var handle = Addressables.InstantiateAsync(
                     ZString.Format(characterPath, prefabId, prefabId),
-                    new Vector3(randomX, 0, randomZ),
+                    spawnPos,
                     Quaternion.identity);
                 characterHandles.Add(handle);
             }
