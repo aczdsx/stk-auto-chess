@@ -6,7 +6,6 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
 using R3;
 using TMPro;
 using UnityEngine;

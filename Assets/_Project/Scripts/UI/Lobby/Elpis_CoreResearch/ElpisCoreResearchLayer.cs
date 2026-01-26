@@ -5,7 +5,6 @@ using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 using R3;
 using R3.Triggers;
 using Tech.Hive.V1;

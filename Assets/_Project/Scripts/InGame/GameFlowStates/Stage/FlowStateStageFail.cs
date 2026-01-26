@@ -23,7 +23,7 @@ public class FlowStateStageFail : StateBase
         InGameManager.Instance.EndInGame();
 
         // 결과 팝업 표시
-        CharacterInfo mvpCharacterData = null;
+        var mvpCharacterData = SpecDataManager.Instance.GetCharacterData(InGameStatistics.Instance.GetMvpID());
         InGameResultPopupParam param = new InGameResultPopupParam(false, false, false, mvpCharacterData, null);
         SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>(param);
 

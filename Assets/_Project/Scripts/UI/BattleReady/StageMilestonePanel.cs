@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,10 @@ namespace CookApps.AutoBattler
 
         [Header("Chapter Star Reward")]
         [SerializeField] private List<ChapterListStarGaugeSlot> chapterStarRewardSlotList;
+
+        [Header("Star Count Text Colors")]
+        [SerializeField] private Color currentStarColor = new Color(0.271f, 0.298f, 0.396f); // #454C65
+        [SerializeField] private Color totalStarColor = new Color(0.490f, 0.502f, 0.557f);   // #7D808E
 
         private ChapterInfo currentChapterData;
 
@@ -37,7 +42,10 @@ namespace CookApps.AutoBattler
             int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(
                 currentChapterData.chapter_id, currentChapterData.difficulty_type);
 
-            chapterStarCountText.text = $"<size=34><color=#454C65>{currentChapterStarCount}</color></size><size=30><color=#7D808E>/{totalChapterStarCount}</color></size>";
+            var currentHex = ColorUtility.ToHtmlStringRGB(currentStarColor);
+            var totalHex = ColorUtility.ToHtmlStringRGB(totalStarColor);
+            chapterStarCountText.text = ZString.Format("<size=34><color=#{0}>{1}</color></size><size=30><color=#{2}>/{3}</color></size>",
+                currentHex, currentChapterStarCount, totalHex, totalChapterStarCount);
 
             chapterProgressSlider.maxValue = totalChapterStarCount;
             chapterProgressSlider.value = currentChapterStarCount;
