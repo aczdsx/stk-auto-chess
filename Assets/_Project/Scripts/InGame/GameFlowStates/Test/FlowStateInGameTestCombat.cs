@@ -52,7 +52,15 @@ public class FlowStateInGameTestCombat : StateCombatBase
         }
 
         // var inGameCamera = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera);
-        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
+        // ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
+        if (InGameObjectManager.Instance.InGameGrid.Width > 5)
+        {
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.LargeSizeCombat);
+        }
+        else
+        {
+            ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.DefaultCombat);
+        }
 
         InGameObjectManager.Instance.ClearTargetLine();
 

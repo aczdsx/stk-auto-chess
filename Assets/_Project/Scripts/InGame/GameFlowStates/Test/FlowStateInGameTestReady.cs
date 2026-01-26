@@ -95,7 +95,6 @@ public class FlowStateInGameTestReady : StateReadyBase
             inGameMain.InitReadyStateUI(new List<Tech.Hive.V1.DeckCharacterPlacement>());
         }
 
-        ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
         MainCameraHolder.MainCamera.transform.rotation = Quaternion.Euler(30f, 45f, 0f);
 
         StartDrawingLinesAsync(2.0f).Forget();
@@ -112,7 +111,14 @@ public class FlowStateInGameTestReady : StateReadyBase
         bool isSize75 = _specStage.chapter_id == 1 || _specStage.chapter_id == 2;
         if (inGameCamera != null)
         {
-            inGameCamera.SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
+            if(InGameObjectManager.Instance.InGameGrid.Width > 5)
+            {
+                inGameCamera.SetCameraPositionMode(InGameCamera.CameraPositionMode.LargeSize);
+            }
+            else
+            {
+                inGameCamera.SetCameraPositionMode(InGameCamera.CameraPositionMode.Default);
+            }
         }
 
         // 스테이지 몬스터 배치
