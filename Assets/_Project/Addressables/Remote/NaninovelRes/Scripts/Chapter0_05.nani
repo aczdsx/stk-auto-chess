@@ -41,6 +41,5 @@ philia_00: 자고로 명사수라면 아무리 힘든 상황에서도 표적을 
 @hideUI
 @hidePrinter Dialogue
 @hideChars
-@skip false
 
 @end

@@ -190,6 +190,5 @@ atresia_00: ….. 알겠습니다. 그럼 플레이아데스 성단 이곳에서
 @hideUI
 @hidePrinter Dialogue
 @hideChars
-@skip false
 
 @end
