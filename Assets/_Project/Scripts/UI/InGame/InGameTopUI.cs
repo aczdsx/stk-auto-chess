@@ -498,7 +498,9 @@ public class InGameTopUI : MonoBehaviour
         }
 
         // 챕터 1 (튜토리얼 스테이지) 관련 처리
-        if (InGameManager.Instance.SpecStage.chapter_id == 1 && !ServerDataManager.Instance.Battle.IsStageCleared((uint)InGameManager.Instance.SpecStage.stage_id))
+        if (InGameManager.Instance.SpecStage != null
+        && InGameManager.Instance.SpecStage.chapter_id == 1
+        && !ServerDataManager.Instance.Battle.IsStageCleared((uint)InGameManager.Instance.SpecStage.stage_id))
         {
             ToastManager.Instance.ShowToastByTokenKey("TUTORIAL_PLAYING_ALERT");
             return;

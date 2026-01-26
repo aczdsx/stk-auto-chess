@@ -38,7 +38,14 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         base.Initialize(codeInfo, container, source);
         _synergyGrade = codeInfo.GetCodeStatToInt(3);
         _allianceType = (AllianceType)codeInfo.GetCodeStatToInt(4);
-        AddGameObjectSuperNovaItem(source);
+        if (_allianceType == AllianceType.Enemy)
+        {
+            AddSupernovaForEnemy();
+        }
+        else
+        {
+            AddGameObjectSuperNovaItem(source);
+        }
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -66,10 +73,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     /// </summary>
     public void ApplySupernovaItemBySavedCharacterId()
     {
-        if (_allianceType != AllianceType.Player)
-        {
-            return;
-        }
+
 
         var deckData = ServerDataManager.Instance.Deck.GetDeck(InGameType.STAGE);
         if (deckData == null)
@@ -140,7 +144,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     /// </summary>
     private void ExecuteReservedApply()
     {
-        if (!_isApplyReserved)
+        if (!_isApplyReserved||_allianceType != AllianceType.Player)
             return;
 
         _isApplyReserved = false;
@@ -162,12 +166,12 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             // 선택된 타일이 이미 점유되어 있으면 다른 빈 타일 찾기
             if (inGameTile != null && inGameTile.OccupiedCharacter != null)
             {
-                inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter, _allianceType);
+                inGameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(_allianceType);
             }
         }
         else
         {
-            inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter, _allianceType);
+            inGameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(_allianceType);
         }
 
         if (TutorialManager.Instance.IsTutorial)
@@ -176,7 +180,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             // 튜토리얼 타일이 이미 점유되어 있으면 다른 빈 타일 찾기
             if (tutorialTile != null && tutorialTile.OccupiedCharacter != null)
             {
-                inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter);
+                inGameTile = InGameObjectManager.Instance.InGameGrid.GetRandomEmptyTile(_allianceType);
             }
             else
             {
@@ -184,11 +188,6 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             }
         }
 
-        // 최종적으로 타일이 없거나 점유되어 있으면 빈 타일 찾기
-        if (inGameTile == null || inGameTile.OccupiedCharacter != null)
-        {
-            inGameTile = InGameObjectManager.Instance.InGameGrid.GetRecommandedTile(specCharacter, _allianceType);
-        }
 
         int2 pos = new int2(inGameTile.X, inGameTile.Y);
 
@@ -246,6 +245,22 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
                     break;
             }
         }
+    }
+
+    private void AddSupernovaForEnemy()
+    {
+        var enemyList = InGameObjectManager.Instance.GetCharacterList(AllianceType.Enemy);
+        foreach (var enemy in enemyList)
+        {
+            if (enemy.SpecCharacter.character_stella_type != SynergyType.SUPERNOVA)
+            {
+                continue;
+            }
+            _targetCharacter = enemy;
+            OnItemApplyDragAndDrop(_targetCharacter, _source);
+        }
+        return;
+
     }
 
 
