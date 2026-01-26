@@ -201,7 +201,7 @@ public static class GuideMissionTestUtility
             await NetManager.Instance.GuideMission.UpdateActionAsync(1);
         }
         var commandCenterLevel = edb.GetFacilityLevel(Tech.Hive.V1.ElpisFacilityType.FacilityTypeCommandCenter);
-        if ((commandCenterLevel > 1 || edb.HasFacility(200101))) { if (!ClearFlags[403]) await AddActionAndClaim(403); }
+        if (gdb.GuideMissionId == 403 && (commandCenterLevel > 1 || edb.HasFacility(200101))) { if (!ClearFlags[403]) await AddActionAndClaim(403); }
     }
 
 
