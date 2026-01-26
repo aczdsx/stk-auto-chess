@@ -225,6 +225,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6257377f77a711c43a24ea90c437508b
+    m_Address: LD_Characters/17213101/Spine
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 633e9ef888757fc4e839fb03de8a79fd
     m_Address: LD_Characters/UI_15462302
     m_ReadOnly: 0

@@ -183,6 +183,13 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c07d1cbe0d169c0499fea3719bf494bf
+    m_Address: Naninovel/Characters/Characters_17213101
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c4b2f9ec9ec98ba4990fcbb1b9251b87
     m_Address: Naninovel/Characters/Characters_15232101
     m_ReadOnly: 0
