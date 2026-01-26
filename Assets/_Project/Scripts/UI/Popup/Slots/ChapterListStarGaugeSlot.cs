@@ -61,10 +61,12 @@ namespace CookApps.AutoBattler
 
             _rewardIconUIShiny.Play(_isAvailGetReward && !_isAlreadyGetReward);
             _activeFrameObject.SetActive(_isAvailGetReward && !_isAlreadyGetReward);
+            _completeLayerImage_1.gameObject.SetActive(_isAlreadyGetReward);
 
             if (_isAlreadyGetReward)
             {
                 _rewardIconImage.color = BMUtil.ChangeColorAlpha(_rewardIconImage.color, 60);
+
                 //
                 // _completeLayerImage_1.color = _completedColor;
                 // _completeLayerImage_2.color = _completedColor;
