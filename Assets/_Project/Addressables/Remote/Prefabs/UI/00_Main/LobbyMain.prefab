@@ -328,7 +328,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6012061852384243457}
   m_Father: {fileID: 4319045790140408363}
@@ -3337,11 +3337,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 370
+      value: 444
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 94
+      value: 112.8
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3393,7 +3393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4198305010340746721, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_EffectFactor
-      value: 0.5083333
+      value: 0.06008089
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

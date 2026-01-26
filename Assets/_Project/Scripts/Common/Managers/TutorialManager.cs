@@ -288,6 +288,9 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             return false;
         }
 
+        // 튜토리얼 Controller 정리 (CurrentSpecTutorialList 등 초기화)
+        _tutorialController?.ClearTutorial();
+
         if (_canvas != null)
         {
             IsTutorialCanvasEnabled = false;
