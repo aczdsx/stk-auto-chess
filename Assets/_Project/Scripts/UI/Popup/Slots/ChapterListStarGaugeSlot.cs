@@ -61,7 +61,7 @@ namespace CookApps.AutoBattler
 
             _rewardIconUIShiny.Play(_isAvailGetReward && !_isAlreadyGetReward);
             _activeFrameObject.SetActive(_isAvailGetReward && !_isAlreadyGetReward);
-            _completeLayerImage_1.gameObject.SetActive(_isAlreadyGetReward);
+            _completeLayerImage_1.gameObject.SetActive(_isAlreadyGetReward); // ! TODO 나중에 _clearFrameObject로 바꾸기 
 
             if (_isAlreadyGetReward)
             {

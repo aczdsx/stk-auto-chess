@@ -20,6 +20,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _backButton;
         [SerializeField] private CAButton _elementSynergyButton;
         [SerializeField] private CAButton _asterismSynergyButton;
+        [SerializeField] private CAButton _characterObjLeftButton;
+        [SerializeField] private CAButton _characterObjRightButton;
 
         [Space(10)]
         [SerializeField] private GameObject _characterIllustParentObject;
@@ -55,6 +57,10 @@ namespace CookApps.AutoBattler
             _backButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickBackButton()).AddTo(this);
             _elementSynergyButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickElementSynergyButton()).AddTo(this);
             _asterismSynergyButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickAsterismSynergyButton()).AddTo(this);
+            // ! TODO SpecDataManager.Instance.GetLeftCharacterID의 로직이 이상합니다! 둘이 서로 반대로 구현 되어 있어서 일단 작동 의도대로 넣기위해 반대로 넣었습니다!
+            _characterObjLeftButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickRightButton()).AddTo(this);
+            // ! TODO SpecDataManager.Instance.GetRightCharacterID의 로직이 이상합니다! 둘이 서로 반대로 구현 되어 있어서 일단 작동 의도대로 넣기위해 반대로 넣었습니다!
+            _characterObjRightButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickLeftButton()).AddTo(this);
         }
 
         public void InitLayer(int characterID, CharacterCollectionPopup _parentPopup)
