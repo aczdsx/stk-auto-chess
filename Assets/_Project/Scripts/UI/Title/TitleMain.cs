@@ -60,6 +60,9 @@ namespace CookApps.AutoBattler
 
             await UniTask.WhenAll(tasks);
 
+            // 뱃지 시스템 초기화
+            BadgeManager.Instance.Initialize();
+
             await ConnectWithServer();
 
             // Addressables 다운로드 체크 및 진행
@@ -102,9 +105,6 @@ namespace CookApps.AutoBattler
 
             // 앱이벤트 전송
             AppEventManager.Instance.Login();
-
-            // 뱃지 시스템 초기화
-            BadgeManager.Instance.Initialize();
 
             // 서버 데이터 초기화 (Elpis 포함)
             await NetManager.Instance.InitializeAsync();
