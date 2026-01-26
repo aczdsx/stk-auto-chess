@@ -101,15 +101,15 @@ namespace CookApps.AutoBattler
             _level = level;
 
             var levelBonusRate = CalculateLevelBonusRate(level);
-            InjectFixedValueByElpisCoreLabs();
+            // InjectFixedValueByElpisCoreLabs();
 
             {
-                var adBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_PERCENT_UP, 0, levelBonusRate, 0);
-                var apBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AP_PERCENT_UP, 0, levelBonusRate, 0);
+                var adBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_UP, 0, _spec.stat_atk * levelBonusRate, 0);
+                var apBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AP_UP, 0, _spec.stat_atk * levelBonusRate, 0);
 
-                var hpBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.HP_PERCENT_UP, 0, levelBonusRate, 0);
+                var hpBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.HP_UP, 0, _spec.stat_hp * levelBonusRate, 0);
 
-                var defBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.DEF_PERCENT_UP, 0, levelBonusRate, 0);
+                var defBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.DEF_UP, 0, _spec.stat_def * levelBonusRate, 0);
 
                 EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
                 EffectCodeContainer.AddOrMergeEffectCode(apBonusCodeInfo, this);
@@ -353,7 +353,7 @@ namespace CookApps.AutoBattler
         //아래 함수는 곱연산 계산 함수
         private double CalculateLevelBonusRate(int level)
         {
-            // 레벨보너스만 몬스터에게 적용되고 초월, ㅁ돌파는 안붙음.
+            // 레벨보너스랑 돌파만 몬스터에게 적용되고 초월은 안붙음.
             var levelMultiplier = (1f + _spec.inc_lv_rate * (level - 1)) * (1f + _spec.inc_lv_bonus_rate * Mathf.FloorToInt((level - 1) * 0.1f));
             float breakthroughMultiplier = 1f;
             float transcendenceMultiplier = 1f;
@@ -364,7 +364,7 @@ namespace CookApps.AutoBattler
                 breakthroughMultiplier += characterInfo.inc_exceed * BT;
 
                 var userCharacterData = ServerDataManager.Instance.Character.GetCharacter(characterInfo.id);
-                var currentStar = (int)(userCharacterData?.TranscendLevel ?? 0) + characterInfo.init_star;
+                var currentStar = (int)(userCharacterData?.TranscendLevel ?? 0) - characterInfo.init_star;
                 var transcendenceData = SpecDataManager.Instance.GetCharacterTranscendenceData(characterInfo.grade_type, currentStar);
                 var TR = transcendenceData != null ? transcendenceData.star - transcendenceData.init_star : 0;
                 transcendenceMultiplier += characterInfo.inc_trancendence * TR;

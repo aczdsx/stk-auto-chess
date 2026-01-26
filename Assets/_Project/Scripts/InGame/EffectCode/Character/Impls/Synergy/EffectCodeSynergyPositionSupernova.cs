@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
@@ -24,7 +25,6 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     private CharacterController _targetCharacter = null;
     private IEffectCodeSource _source;
 
-    private InGameVfx _supernovaApplyVfx;
     private const string NOT_SUPERNOVA_TYPE_TOKEN = "NOT_SUPERNOVA_TYPE";
     private const string NOT_SUPERNOVA_ITEM_APPLY = "NOT_SUPERNOVA_ITEM_APPLY";
 
@@ -33,6 +33,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
     private InGameVfx _supernovaItemVfx;
     private AllianceType _allianceType;
+
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
@@ -51,14 +52,20 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
+
+        // cts?.Cancel();
+        // cts?.Dispose();
+        // cts = null;
+
         _synergyGrade = codeInfo.GetCodeStatToInt(3);
         _allianceType = (AllianceType)codeInfo.GetCodeStatToInt(4);
-        if (_supernovaApplyVfx != null && _targetCharacter != null)
+        
+        if(_targetCharacter != null)
         {
-            _supernovaApplyVfx.Remove();
-            _supernovaApplyVfx = InGameVfxManager.Instance.AddInGameVfx(GetSupernovaVfxName(_synergyGrade), _targetCharacter.SkillRootTransformFollowable);
+            InGameSynergyManager.Instance.RemoveSynergyVfxOnRemoveField(_targetCharacter);
+            var vfx = InGameVfxManager.Instance.AddInGameVfx(GetSupernovaVfxName(_synergyGrade), _targetCharacter.SkillRootTransformFollowable);
+            InGameSynergyManager.Instance.AddSynergyVfxOnRemoveField(_targetCharacter, vfx);
         }
-
     }
 
     public override void OnFlowStateStageReadyStart()
@@ -144,7 +151,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     /// </summary>
     private void ExecuteReservedApply()
     {
-        if (!_isApplyReserved||_allianceType != AllianceType.Player)
+        if (!_isApplyReserved || _allianceType != AllianceType.Player)
             return;
 
         _isApplyReserved = false;
@@ -414,18 +421,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         Debug.LogColor($"Supernova Removed", "red");
         base.OnPreRemoved();
 
-        if (_supernovaApplyVfx != null)
-        {
-            if (_supernovaApplyVfx.CachedGo != null)
-            {
-                InGameVfxManager.Instance.RemoveInGameVfx(_supernovaApplyVfx);
-            }
-            else
-            {
-                _supernovaApplyVfx.Remove();
-                _supernovaApplyVfx = null;
-            }
-        }
+        InGameSynergyManager.Instance.RemoveSynergyVfxOnRemoveField(_targetCharacter);
         if (_supernovaItemVfx != null)
         {
             if (_supernovaItemVfx.CachedGo != null)
@@ -457,11 +453,15 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     private async UniTask GetSupernovaDragonBall()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+        
+        InGameSynergyManager.Instance.RemoveSynergyVfxOnRemoveField(_targetCharacter);
         if (_targetCharacter == null)
             return;
+        
         var vfxName = GetSupernovaVfxName(_synergyGrade);
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_nova_spirit);
-        _supernovaApplyVfx = InGameVfxManager.Instance.AddInGameVfx(vfxName, _targetCharacter.SkillRootTransformFollowable);
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(vfxName, _targetCharacter.SkillRootTransformFollowable);
+        InGameSynergyManager.Instance.AddSynergyVfxOnRemoveField(_targetCharacter, vfx);
     }
 
     public bool OnItemCanApplyDragAndDrop(CharacterController targetCharacter)
@@ -499,7 +499,6 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         if (_allianceType == AllianceType.Player)
         {
             ToastManager.Instance.ShowToastByTokenKey(NOT_SUPERNOVA_ITEM_APPLY);
-            return;
         }
 
         var characterList = InGameObjectManager.Instance.GetCharacterList(_allianceType);

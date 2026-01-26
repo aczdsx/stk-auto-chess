@@ -100,7 +100,7 @@ namespace CookApps.AutoBattler
             // 딤드 이미지는 raycastTarget 유지 (ICanvasRaycastFilter가 구멍 영역만 통과시킴)
             // raycastTarget = false로 하면 모든 UI 터치가 통과되므로 제거
 
-            // 3D 터치 허용 (캐릭터 드래그 가능하도록)
+            // 3D 터치 허용 (오브젝트 드래그 가능하도록)
             TutorialTouchBlocker.Allow3DTouch = true;
 
             IsActive = true;

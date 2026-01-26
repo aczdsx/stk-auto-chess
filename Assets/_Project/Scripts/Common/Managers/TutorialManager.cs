@@ -288,6 +288,9 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             return false;
         }
 
+        // 튜토리얼 Controller 정리 (CurrentSpecTutorialList 등 초기화)
+        _tutorialController?.ClearTutorial();
+
         if (_canvas != null)
         {
             IsTutorialCanvasEnabled = false;
@@ -299,6 +302,9 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         TutorialSkillReadyHandler.ResumeAndActivateSkill();
         TutorialEnemyDeadAllHandler.ResumeAndEndCombat();
         TutorialSkillReadyHandler.TryProcessDeferredSkillReady();
+
+        // 터치 차단 시스템 최종 정리
+        TutorialTouchBlocker.Clear();
 
         // if (_specTutorialDataList.Count == 0)
         // {

@@ -39,7 +39,7 @@ public class TouchableBuilding : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (IsPointerOverUI())
             return;
 
         // 튜토리얼 터치 차단 체크
@@ -64,7 +64,7 @@ public class TouchableBuilding : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (IsPointerOverUI())
             return;
 
         // 튜토리얼 터치 차단 체크
@@ -75,6 +75,15 @@ public class TouchableBuilding : MonoBehaviour
             return;
 
         OnTouchBuilding().Forget();
+    }
+
+    private bool IsPointerOverUI()
+    {
+        if (Input.touchCount > 0)
+        {
+            return EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
+        }
+        return EventSystem.current.IsPointerOverGameObject();
     }
 
     private async UniTaskVoid OnTouchBuilding()

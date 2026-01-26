@@ -10,8 +10,13 @@ namespace CookApps.BattleSystem
         private InGameBattleItemDragDropComponent _itemComponent = new InGameBattleItemDragDropComponent();
 
         // 플레이어와 적의 시너지 이펙트를 분리하여 관리
+        // example: 시너지가 게임 레디 중 미달성 시 제거하는 코드를 작성할수있음.
         private Dictionary<SynergyType, List<InGameVfx>> _playerSynergyVfxDic = new();
         private Dictionary<SynergyType, List<InGameVfx>> _enemySynergyVfxDic = new();
+
+
+        // 시너지 달성시 생기는 이펙트들 중 해당 캐릭터가 사라지면 없어져야할 이펙트들을 모아놓는다.      
+        private Dictionary<CharacterController, List<InGameVfx>> _characterSynergyVfxOnRemoveFieldDic = new();
 
 
         public void Initialize()
@@ -28,6 +33,16 @@ namespace CookApps.BattleSystem
 
         public void Clear()
         {
+            foreach (var kvp in _characterSynergyVfxOnRemoveFieldDic)
+            {
+                foreach (var vfx in kvp.Value)
+                {
+                    vfx.Remove();
+                }
+                kvp.Value.Clear();
+            }
+            _characterSynergyVfxOnRemoveFieldDic.Clear();
+
             ClearSynergyFx();
             _synergyManagerDataDic.Clear();
             _itemComponent.Clear();
@@ -111,9 +126,14 @@ namespace CookApps.BattleSystem
 
         public void OnRemoveCharacter(CharacterController character)
         {
-            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat
-            || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
-            || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateInGameTestCombat
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
+            || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateInGameTestCombat)
+            {
+                //이때는 시너지 관련이펙트 지워주자
+                RemoveSynergyVfxOnRemoveField(character);
+                return;
+            }
+            else if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat
             || character.SpecCharacter.character_type == CharacterType.BATTLEITEM)
             {
                 return;
@@ -130,7 +150,6 @@ namespace CookApps.BattleSystem
 
             ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_element_type);
             ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_stella_type);
-
 
             ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_stella_type);
             ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_element_type);
@@ -359,6 +378,30 @@ namespace CookApps.BattleSystem
 
             }
         }
+        public void AddSynergyVfxOnRemoveField(CharacterController character, InGameVfx vfx)
+        {
+            if (!_characterSynergyVfxOnRemoveFieldDic.TryGetValue(character, out var vfxList))
+            {
+                vfxList = new List<InGameVfx>();
+                _characterSynergyVfxOnRemoveFieldDic[character] = vfxList;
+            }
+            vfxList.Add(vfx);
+        }
+        public void RemoveSynergyVfxOnRemoveField(CharacterController character)
+        {
+            if(character == null)
+                return;
+                
+            if (_characterSynergyVfxOnRemoveFieldDic.TryGetValue(character, out var vfxList))
+            {
+                foreach (var vfx in vfxList)
+                {
+                    vfx.Remove();
+                }
+                vfxList.Clear();
+                _characterSynergyVfxOnRemoveFieldDic.Remove(character);
+            }
+        }
 
         /// <summary>
         /// 진영 타입에 따라 해당하는 시너지 이펙트 Dictionary를 반환합니다.
@@ -370,7 +413,7 @@ namespace CookApps.BattleSystem
             return allianceType == AllianceType.Player ? _playerSynergyVfxDic : _enemySynergyVfxDic;
         }
 
-        #region item
+#region item
 
         public void RegisterBattleItem(InGameBattleItemDragDropComponent.InGameBattleItemInfo itemInfo)
         {
