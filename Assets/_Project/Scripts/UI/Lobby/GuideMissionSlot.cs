@@ -51,6 +51,7 @@ namespace CookApps.AutoBattler
         public async void InitGuideMissionSlot()
         {
             await NetManager.Instance.GuideMission.GetAsync();
+            await GuideMissionTestUtility.HandleIteratively();
             RefreshGuideMissionSlot();
         }
 
@@ -133,6 +134,7 @@ namespace CookApps.AutoBattler
             if (dataBridge.GoalCount == dataBridge.CurrentCount) // ! TODO 재상님 배포가 끝날때 까지는 강제로 이렇게 함. 반드시 dataBridge.CanClaim을 써야합니다.
             {
                 await ClaimRewardAsync();
+                await GuideMissionTestUtility.HandleIteratively();
             }
             else
             {

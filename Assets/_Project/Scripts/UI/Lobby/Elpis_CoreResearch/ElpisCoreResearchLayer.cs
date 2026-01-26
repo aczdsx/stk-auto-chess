@@ -363,7 +363,7 @@ namespace CookApps.AutoBattler
             // ! GUIDE_TODO
             // ! 406	19	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_406	공격력 증폭 가이드 미션	30005	GUIDE_MISSION_DESC_406	0	1	GOLD	210001	200
             // ! DIMENSION_CUBE_LEVEL
-            if(edb.GetCoreResearchLevel((uint)GuideMissionConstants.코어기사공격력ID) >= 1)
+            if(gdb.GuideMissionId == 406 && edb.GetCoreResearchLevel((uint)GuideMissionConstants.코어기사공격력ID) >= 1)
             {
                 await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
             }
