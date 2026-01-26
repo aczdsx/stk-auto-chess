@@ -161,14 +161,19 @@ public static class GuideMissionTestUtility
     public static async UniTask HandleIteratively()
     {
         if (!isInit) Init();
-
+#if _SJHONG_TEST_
+        List<int> keyBuff = new();
+        foreach (var gid in CLEAR_STAGE_1_GUIDE_ID)
+        {
+            await gdb.AddActionAsync(GuideMissionType.CLEAR_STAGE, 1, GuideMissionTables[gid].Subkey);
+        }
+#endif
         // ! GUIDE_TODO
         // ! 201	2	INSTALL_BUILDING	GUIDE_MISSION_NAME_201	숙소 복구	20002	GUIDE_MISSION_DESC_201	0	1	GOLD	210001	200											
         // ! INSTALL_BUILDING_NEST
-        var n1 = edb.GetFacility((int)IdMap.ElpisBuild.Nest_1)?.IsJustCompleted == true;
-        var n2 = edb.GetFacilityLevel(ElpisFacilityType.FacilityTypeNest) >= 1;
-        var n3 = edb.HasFacility(200101);
-        if (gdb.GuideMissionId == 201 && (n1 || n2 || n3))
+                var n1 = edb.GetFacility((int)IdMap.ElpisBuild.Nest_1)?.IsJustCompleted == true;
+                var n2 = edb.GetFacilityLevel(ElpisFacilityType.FacilityTypeNest) >= 1;
+        if (gdb.GuideMissionId == 201 && (n1 || n2))
         {
             await gdb.AddActionAsync(GuideMissionType.INSTALL_BUILDING, 1);
         }
@@ -202,17 +207,6 @@ public static class GuideMissionTestUtility
         }
         var commandCenterLevel = edb.GetFacilityLevel(Tech.Hive.V1.ElpisFacilityType.FacilityTypeCommandCenter);
         if (gdb.GuideMissionId == 403 && (commandCenterLevel > 1 || edb.HasFacility(200101))) { if (!ClearFlags[403]) await AddActionAndClaim(403); }
-    }
-
-
-    public static async UniTask HandleElpisFacilityUpgrade()
-    {
-        if (!isInit) Init();
-
-        if (gdb.GuideMissionId == 201 && edb.IsBuildedFacilityExists((uint)IdMap.ElpisBuild.Nest_1)) { if (!ClearFlags[201]) await AddActionAndClaim(201); }
-        if (gdb.GuideMissionId == 404 && edb.IsBuildedFacilityExists((uint)IdMap.ElpisBuild.Nest_2)) { if (!ClearFlags[404]) await AddActionAndClaim(404); }
-        if (gdb.GuideMissionId == 405 && edb.IsBuildedFacilityExists((uint)IdMap.ElpisBuild.DimensionLab)) { if (!ClearFlags[405]) await AddActionAndClaim(405); }
-        if (gdb.GuideMissionId == 407 && edb.IsBuildedFacilityExists((uint)IdMap.ElpisBuild.SimulationCenter)) { if (!ClearFlags[407]) await AddActionAndClaim(407); }
     }
 
 }

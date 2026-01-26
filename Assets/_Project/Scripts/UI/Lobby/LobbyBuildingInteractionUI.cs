@@ -609,8 +609,7 @@ namespace CookApps.AutoBattler
                 // ! INSTALL_BUILDING_NEST
                 var n1 = edb.GetFacility((int)IdMap.ElpisBuild.Nest_1)?.IsJustCompleted == true;
                 var n2 = edb.GetFacilityLevel(ElpisFacilityType.FacilityTypeNest) >= 1;
-                var n3 = edb.HasFacility(200101);
-                if (gdb.GuideMissionId == 201 && (n1 || n2 || n3))
+                if (gdb.GuideMissionId == 201 && (n1 || n2))
                 {
                     await gdb.AddActionAsync(GuideMissionType.INSTALL_BUILDING, 1);
                 }
