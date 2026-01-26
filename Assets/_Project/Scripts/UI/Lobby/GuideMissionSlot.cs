@@ -51,7 +51,6 @@ namespace CookApps.AutoBattler
         public async void InitGuideMissionSlot()
         {
             await NetManager.Instance.GuideMission.GetAsync();
-            await GuideMissionTestUtility.HandleIteratively();
             RefreshGuideMissionSlot();
         }
 
@@ -135,6 +134,7 @@ namespace CookApps.AutoBattler
             {
                 await ClaimRewardAsync();
                 await GuideMissionTestUtility.HandleIteratively();
+                RefreshGuideMissionSlot();
             }
             else
             {
@@ -320,7 +320,6 @@ namespace CookApps.AutoBattler
                 case GuideMissionType.INSTALL_BUILDING:
                     var edb = new ElpisDataBridge();
                     NavigateToLobbyAndOpenPopup(async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(edb.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter)));
-                    NavigateToLobbyAndOpenPopup(async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(edb.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter)));
                     break;
 
                 case GuideMissionType.OPEN_IDLECHEST:
@@ -491,39 +490,6 @@ namespace CookApps.AutoBattler
         {
             var currentSceneName = SceneManager.GetActiveScene().name;
             if (currentSceneName == "BattleReady") return;
-
-            var guideStageData = SpecDataManager.Instance.GetStageData(specGuideMissionData.sub_key);
-            if (guideStageData == null) return;
-
-            // guideStageData에서 실제 stage_id 사용
-            var targetStageId = guideStageData.stage_id;
-
-            if (specGuideMissionData.guide_mission_type == GuideMissionType.CLEAR_STAGE)
-            {
-                // 현재 진행 가능한 스테이지로 이동
-                var latestStageId = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
-                var nextStageData = SpecDataManager.Instance.GetNextStageData(latestStageId);
-
-                if (nextStageData != null && nextStageData.chapter_id == guideStageData.chapter_id)
-                {
-                    targetStageId = nextStageData.stage_id;
-                }
-                else
-                {
-                    var firstStageData = SpecDataManager.Instance.GetStageData(guideStageData.chapter_id, 1, guideStageData.difficulty_type);
-                    if (firstStageData != null)
-                    {
-                        targetStageId = firstStageData.stage_id;
-                    }
-                    else
-                    {
-                        return;  // 유효한 스테이지 없으면 리턴
-                    }
-                }
-            }
-
-            // 타겟 스테이지를 LocalDataManager에 저장
-            LocalDataManager.Instance.SetLastPlayStageId((uint)targetStageId);
 
             // Lobby 씬에서는 LobbyMain.OnClickStartButton() 사용
             if (currentSceneName == "Lobby")
