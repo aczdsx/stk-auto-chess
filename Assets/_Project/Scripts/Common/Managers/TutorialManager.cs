@@ -43,11 +43,6 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     public bool HasTutorialStage => _specTutorialDataList is { Count: > 0 } && _specTutorialDataList[0].tutorial_id > 0;
     public bool IsTutorial => _canvas != null;
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     protected override void OnDestroy()
     {
         _guideMissionSubscription?.Dispose();
