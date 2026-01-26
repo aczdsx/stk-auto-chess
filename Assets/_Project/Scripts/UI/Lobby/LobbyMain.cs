@@ -19,6 +19,9 @@ namespace CookApps.AutoBattler
 
     public partial class LobbyMain : UILayer, TopCurrencyAndMenuBarContainer
     {
+        [Header("User Info")]
+        [SerializeField] private UserInfoPanel userInfoPanel;
+        
         [Header("Guide")]
         [SerializeField] private GuideMissionSlot guideMissionSlot;
 
@@ -119,6 +122,7 @@ namespace CookApps.AutoBattler
         {
             // await GuideMissionTestUtility.HandleIteratively();
             guideMissionSlot.InitGuideMissionSlot();
+            userInfoPanel.Initialize();
 
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 

@@ -1750,6 +1750,8 @@ MonoBehaviour:
   _backButton: {fileID: 6404934870462075026}
   _elementSynergyButton: {fileID: 86309272675376800}
   _asterismSynergyButton: {fileID: 5812121265961647136}
+  _characterObjLeftButton: {fileID: 5834637965354296434}
+  _characterObjRightButton: {fileID: 4782421283729208099}
   _characterIllustParentObject: {fileID: 4405909491956130362}
   _characterSDParentObject: {fileID: 7419105263243773269}
   _elementSynergyUI: {fileID: 1873847877183615232}
