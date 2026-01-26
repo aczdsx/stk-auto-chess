@@ -16,6 +16,7 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private VideoPlayer _videoPlayer;
         [SerializeField] private RawImage _targetRawImage;
+        [SerializeField] private RawImage _backgroundRawImage;  // 블러 배경용 (전체 화면)
         [SerializeField] private bool _playOnLoad = true;
         [SerializeField] private bool _loop = true;
 
@@ -123,7 +124,22 @@ namespace CookApps.AutoBattler
             _videoPlayer.clip = clip;
             _videoPlayer.targetTexture = _renderTexture;
 
-            // RawImage에 RenderTexture 연결
+            // 블러 배경 RawImage에 RenderTexture 연결 (전체 화면)
+            if (_backgroundRawImage != null)
+            {
+                _backgroundRawImage.texture = _renderTexture;
+
+                // AspectRatioFitter 설정 (전체 화면 채움)
+                var bgAspectFitter = _backgroundRawImage.GetComponent<AspectRatioFitter>();
+                if (bgAspectFitter == null)
+                {
+                    bgAspectFitter = _backgroundRawImage.gameObject.AddComponent<AspectRatioFitter>();
+                }
+                bgAspectFitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+                bgAspectFitter.aspectRatio = (float)clip.width / clip.height;
+            }
+
+            // 메인 RawImage에 RenderTexture 연결
             if (_targetRawImage != null)
             {
                 _targetRawImage.texture = _renderTexture;
