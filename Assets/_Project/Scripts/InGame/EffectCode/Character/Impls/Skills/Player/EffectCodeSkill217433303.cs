@@ -78,19 +78,17 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
     {
         base.Activate();
 
-        if (_targetCharacter == null)
+        var targetCharacter = InGameObjectManager.Instance.GetFarthestTargetByManhattanDistance(owner);
+        if (targetCharacter != null)
         {
-            var targetCharacter = InGameObjectManager.Instance.GetNearestTargetByManhattanDistance(owner);
-            if (targetCharacter != null)
-            {
-                _targetCharacter = targetCharacter;
-            }
-            else
-            {
-                Debug.LogError("hati: No target character found");
-                return;
-            }
+            _targetCharacter = targetCharacter;
         }
+        else
+        {
+            Debug.LogError("hati: No target character found");
+            return;
+        }
+
 
         isReadyToActivate = false;
         IsSkillActivated = true;
@@ -108,7 +106,7 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
         if (_targetCharacter == null || !_targetCharacter.IsAlive)
             return;
 
-        if (owner == null )
+        if (owner == null)
             return;
 
         InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
@@ -117,7 +115,7 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
         var hitEffect = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2],
             owner.SkillRootTransformFollowable);
         var direction = (_targetCharacter.CurrentTile.View.CachedTr.position - owner.CurrentTile.View.CachedTr.position).normalized;
-        hitEffect.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);;
+        hitEffect.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0); ;
 
         var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, _targetCharacter, codeId, true);
 
@@ -143,6 +141,7 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
         base.OnSkillAnimationEnd();
+        _targetCharacter = null;
     }
 
 
