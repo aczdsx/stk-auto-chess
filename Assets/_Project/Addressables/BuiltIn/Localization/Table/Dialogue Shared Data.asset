@@ -3819,6 +3819,30 @@ MonoBehaviour:
     m_Key: DIALOGUE_TEXT_300003_13
     m_Metadata:
       m_Items: []
+  - m_Id: 4345643878309888
+    m_Key: DIALOGUE_TEXT_300101_15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4345643890892800
+    m_Key: DIALOGUE_TEXT_300102_9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4345643890892801
+    m_Key: DIALOGUE_TEXT_300103_13
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4345643890892802
+    m_Key: DIALOGUE_TEXT_300103_14
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4345643890892803
+    m_Key: DIALOGUE_TEXT_300103_15
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4345643890892804
+    m_Key: DIALOGUE_TEXT_300106_3
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
