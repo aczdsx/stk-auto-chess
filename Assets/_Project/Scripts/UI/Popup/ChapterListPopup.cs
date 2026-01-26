@@ -11,6 +11,9 @@ namespace CookApps.AutoBattler
 {
     public class ChapterListPopup : UILayerPopupBase
     {
+        [Header("Stage Milestone")] 
+        [SerializeField] private StageMilestonePanel stageMilestonePanel;
+        
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private CAButton _dimCloseButton;
         [SerializeField] private CAButton _moveChapterButton;
@@ -20,15 +23,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _chapterSlotObject;
 
         [Header("Chapter Progress Layer")]
-        [SerializeField] private Slider _chapterProgressSlider;
         [SerializeField] private TextMeshProUGUI _chapterNumberText;
         [SerializeField] private TextMeshProUGUI _chapterNameText;
-        [SerializeField] private TextMeshProUGUI _chapterStarCountText;
-
-        [Header("Chapter Star Reward Layer")]
-        [SerializeField] private List<ChapterListStarGaugeSlot> _chapterStarRewardSlotList;
-
-        private List<ChapterListItemSlot> _chapterSlotList = new();
 
         private ChapterInfo _currentChapterData;  // 현재 팝업에서 선택한 챕터 데이터 (팝업만)
         private ChapterInfo _selectedChapterData; // 현재 선택된 챕터 데이터 (스테이지)
@@ -38,16 +34,24 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
-            _dimCloseButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
-            _moveChapterButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickMoveChapterButtonAsync(), AwaitOperation.Drop).AddTo(this);
+            _closeButton.OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClickCloseButton())
+                .AddTo(this);
+            
+            _dimCloseButton.OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnClickCloseButton())
+                .AddTo(this);
+            
+            _moveChapterButton.OnClickAsObservable()
+                .SubscribeAwait(this, (_, self, _) => self.OnClickMoveChapterButtonAsync(), AwaitOperation.Drop)
+                .AddTo(this);
         }
 
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
-
+            
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
             var currentStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
@@ -55,9 +59,7 @@ namespace CookApps.AutoBattler
 
             // Stage Progress 로드
             LoadStageProgressAsync((uint)_selectedChapterData.chapter_id).Forget();
-
-            SetChapterListUI();
-
+            SetStageMilestoneUI(currentStageId);
             SetSelectedChapterData(_selectedChapterData.chapter_id, true);
 
             _chapterScrollRect.verticalNormalizedPosition = 1;
@@ -71,27 +73,15 @@ namespace CookApps.AutoBattler
             await NetManager.Instance.Battle.ListStageAsync(chapterId);
         }
 
-        public void RefreshUI()
-        {
+        // public void RefreshChapterListReddot()
+        // {
+        //     _chapterSlotList.ForEach(slot => slot.UpdateReddotState());
+        // }
 
-        }
-
-        public void RefreshRewardLayer()
+        private void SetStageMilestoneUI(int stageId)
         {
-            // var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(ContentType.STAGE_STAR, _currentChapterData.chapter_id, _currentChapterData.difficulty_type);
-            // if (rewardInfoList != null)
-            // {
-            //     int count = Mathf.Min(_chapterStarRewardSlotList.Count, rewardInfoList.Count);
-            //     for (int i = 0; i < count; ++i)
-            //     {
-            //         _chapterStarRewardSlotList[i].SetStarGaugeSlot(rewardInfoList[i]);
-            //     }
-            // }
-        }
-        
-        public void RefreshChapterListReddot()
-        {
-            _chapterSlotList.ForEach(slot => slot.UpdateReddotState());
+            var specChapterData = SpecDataManager.Instance.GetChapterDataByStageID(stageId);
+            stageMilestonePanel.SetChapterData(specChapterData);
         }
 
         public void SetSelectedChapterData(int targetChapterID, bool isFirstInit)
@@ -101,16 +91,12 @@ namespace CookApps.AutoBattler
             // UI Popup 갱신
             RefreshSelectedLayer(isFirstInit);
 
-            // 슬롯 레이어 갱신 처리
-            _chapterSlotList.ForEach(slot => slot.SetSelectedLayer(_currentChapterData.chapter_id));
-
             // 버튼 상태 갱신
             _moveChapterButton.gameObject.SetActive(_selectedChapterData.chapter_id != _currentChapterData.chapter_id);
         }
 
         public void RefreshSelectedLayer(bool isFirstInit)
         {
-            if (_chapterSlotList == null || _chapterSlotList.Count <= 0) return;
             if (_currentChapterData == null) return;
 
             // 유저 데이터 처리 (현재는 챕터 이동 시 무조건 첫번째 스테이지만 저장)
@@ -125,39 +111,8 @@ namespace CookApps.AutoBattler
             _chapterNumberText.text = $"{chapterString}-{_currentChapterData.chapter_id}-{_currentChapterData.difficulty_type}";
             _chapterNameText.text = LanguageManager.Instance.GetDefaultText(_currentChapterData.name_token);
 
-            int currentChapterStarCount = (int)ServerDataManager.Instance.Battle.GetTotalChapterStarCount((uint)_currentChapterData.chapter_id, _currentChapterData.difficulty_type);
-            int totalChapterStarCount = SpecDataManager.Instance.GetTotalChapterStarCount(_currentChapterData.chapter_id, _currentChapterData.difficulty_type);
-
-            _chapterStarCountText.text = string.Format("{0}/{1}", currentChapterStarCount, totalChapterStarCount);
-
-            _chapterProgressSlider.maxValue = totalChapterStarCount;
-            _chapterProgressSlider.value = currentChapterStarCount;
-
             // 보상 슬롯 관련 처리
-            RefreshRewardLayer();
-        }
-
-        private void SetChapterListUI()
-        {
-            ClearList();
-
-            var chapterList = SpecDataManager.Instance.GetChapterList(DifficultyType.NORMAL);
-
-            foreach (var chapterData in chapterList)
-            {
-                GameObject newChapterObject = Instantiate(_chapterSlotObject, _chapterScrollRect.content);
-                ChapterListItemSlot chapterSlot = newChapterObject.GetComponent<ChapterListItemSlot>();
-                chapterSlot.SetChapterItemSlot(chapterData, this);
-
-                _chapterSlotList.Add(chapterSlot);
-            }
-        }
-
-        private void ClearList()
-        {
-            _chapterSlotList.Clear();
-
-            BMUtil.RemoveChildObjects(_chapterScrollRect.content);
+            SetStageMilestoneUI((int)LocalDataManager.Instance.GetLastPlayStageId());
         }
 
         private async UniTask OnClickMoveChapterButtonAsync()
@@ -204,6 +159,9 @@ namespace CookApps.AutoBattler
 
         private void OnClickCloseButton()
         {
+            var battleReadyMainStageMilestone = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>().StageMilestonePanel;
+            battleReadyMainStageMilestone.RefreshRewardLayer();
+            
             SceneUILayerManager.Instance.PopUILayer(this);
         }
     }
