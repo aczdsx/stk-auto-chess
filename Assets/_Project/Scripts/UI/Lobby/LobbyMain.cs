@@ -21,7 +21,7 @@ namespace CookApps.AutoBattler
     {
         [Header("User Info")]
         [SerializeField] private UserInfoPanel userInfoPanel;
-        
+
         [Header("Guide")]
         [SerializeField] private GuideMissionSlot guideMissionSlot;
 
