@@ -1509,6 +1509,18 @@ PrefabInstance:
       propertyPath: reactionType
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 394cd33e6626efc46b3e6b499a1ee991, type: 3}
+      propertyPath: paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 394cd33e6626efc46b3e6b499a1ee991, type: 3}
+      propertyPath: paths.Array.data[0].path
+      value: Quest
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 394cd33e6626efc46b3e6b499a1ee991, type: 3}
+      propertyPath: paths.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 394cd33e6626efc46b3e6b499a1ee991, type: 3}
       propertyPath: m_Name
       value: Btn_QuestNew
@@ -1629,6 +1641,18 @@ PrefabInstance:
     - target: {fileID: 1354750518427930461, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
       propertyPath: reactionType
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: paths.Array.data[0].path
+      value: Summon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: paths.Array.data[0].type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
       propertyPath: m_Name
@@ -2040,6 +2064,18 @@ PrefabInstance:
       propertyPath: reactionType
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: paths.Array.data[0].path
+      value: Event/ConsumeAP
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: paths.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
       propertyPath: m_Name
       value: Btn_ConsumeApEvent
@@ -2164,6 +2200,18 @@ PrefabInstance:
     - target: {fileID: 1354750518427930461, guid: fe2e8760966a7824ca5c2d06d92d6f38, type: 3}
       propertyPath: reactionType
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: fe2e8760966a7824ca5c2d06d92d6f38, type: 3}
+      propertyPath: paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: fe2e8760966a7824ca5c2d06d92d6f38, type: 3}
+      propertyPath: paths.Array.data[0].path
+      value: Inventory
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: fe2e8760966a7824ca5c2d06d92d6f38, type: 3}
+      propertyPath: paths.Array.data[0].type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: fe2e8760966a7824ca5c2d06d92d6f38, type: 3}
       propertyPath: m_Name
@@ -2705,6 +2753,18 @@ PrefabInstance:
       propertyPath: reactionType
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 4f775cfa78c0a9142abce98397c6cf3c, type: 3}
+      propertyPath: paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 4f775cfa78c0a9142abce98397c6cf3c, type: 3}
+      propertyPath: paths.Array.data[0].path
+      value: Shop
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 4f775cfa78c0a9142abce98397c6cf3c, type: 3}
+      propertyPath: paths.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 4f775cfa78c0a9142abce98397c6cf3c, type: 3}
       propertyPath: m_Name
       value: Btn_Shop
@@ -2829,6 +2889,18 @@ PrefabInstance:
     - target: {fileID: 1354750518427930461, guid: dee89b8a65c6bf040ba9a7a8350f1441, type: 3}
       propertyPath: reactionType
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: dee89b8a65c6bf040ba9a7a8350f1441, type: 3}
+      propertyPath: paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: dee89b8a65c6bf040ba9a7a8350f1441, type: 3}
+      propertyPath: paths.Array.data[0].path
+      value: Hubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: dee89b8a65c6bf040ba9a7a8350f1441, type: 3}
+      propertyPath: paths.Array.data[0].type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: dee89b8a65c6bf040ba9a7a8350f1441, type: 3}
       propertyPath: m_Name
@@ -3076,6 +3148,18 @@ PrefabInstance:
       propertyPath: reactionType
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 3f3079fe51f8374428af5e7bfd0b3445, type: 3}
+      propertyPath: paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 3f3079fe51f8374428af5e7bfd0b3445, type: 3}
+      propertyPath: paths.Array.data[0].path
+      value: Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 3f3079fe51f8374428af5e7bfd0b3445, type: 3}
+      propertyPath: paths.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 3f3079fe51f8374428af5e7bfd0b3445, type: 3}
       propertyPath: m_Name
       value: Btn_Character
@@ -3248,7 +3332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3256,7 +3340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3296,11 +3380,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 185
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -47
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3422,6 +3506,18 @@ PrefabInstance:
     - target: {fileID: 1354750518427930461, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
       propertyPath: reactionType
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: paths.Array.data[0].path
+      value: Event/SessionTime
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: paths.Array.data[0].type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
       propertyPath: m_Name

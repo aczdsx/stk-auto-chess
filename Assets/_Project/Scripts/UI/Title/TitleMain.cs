@@ -106,6 +106,9 @@ namespace CookApps.AutoBattler
             // 서버 데이터 초기화 (Elpis 포함)
             await NetManager.Instance.InitializeAsync();
 
+            // 뱃지 시스템 초기화
+            BadgeManager.Instance.Initialize();
+
             // 클라이언트 이벤트 추적 시작
             ClientEventTracker.Instance.StartTracking();
 

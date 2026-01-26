@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CookApps.TeamBattle;
 using R3;
 using Tech.Hive.V1;
 
@@ -90,7 +91,37 @@ namespace CookApps.AutoBattler
             }
 
             OnChanged.OnNext(Unit.Default);
+            RefreshSummonBadge();
         }
+
+        #region 뱃지 갱신
+
+        /// <summary>
+        /// Summon 뱃지 갱신
+        /// </summary>
+        private void RefreshSummonBadge()
+        {
+            const string path = "Summon";
+
+            if (HasCharacterTicket())
+            {
+                BadgeManager.Instance.AddBadge(BadgeType.RedDot, path);
+            }
+            else
+            {
+                BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, path);
+            }
+        }
+
+        /// <summary>
+        /// 캐릭터 티켓 보유 여부 확인
+        /// </summary>
+        private bool HasCharacterTicket()
+        {
+            return HasCurrency((uint)IdMap.Item.CharacterTicket.Value);
+        }
+
+        #endregion
 
         /// <summary>
         /// 모든 통화 가져오기

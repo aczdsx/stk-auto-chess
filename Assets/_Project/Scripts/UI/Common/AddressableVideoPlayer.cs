@@ -127,6 +127,15 @@ namespace CookApps.AutoBattler
             if (_targetRawImage != null)
             {
                 _targetRawImage.texture = _renderTexture;
+
+                // AspectRatioFitter 설정 (비디오 비율 유지)
+                var aspectFitter = _targetRawImage.GetComponent<AspectRatioFitter>();
+                if (aspectFitter == null)
+                {
+                    aspectFitter = _targetRawImage.gameObject.AddComponent<AspectRatioFitter>();
+                }
+                aspectFitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+                aspectFitter.aspectRatio = (float)clip.width / clip.height;
             }
         }
 
