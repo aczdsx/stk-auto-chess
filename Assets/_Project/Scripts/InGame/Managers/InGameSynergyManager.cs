@@ -389,6 +389,9 @@ namespace CookApps.BattleSystem
         }
         public void RemoveSynergyVfxOnRemoveField(CharacterController character)
         {
+            if(character == null)
+                return;
+                
             if (_characterSynergyVfxOnRemoveFieldDic.TryGetValue(character, out var vfxList))
             {
                 foreach (var vfx in vfxList)
