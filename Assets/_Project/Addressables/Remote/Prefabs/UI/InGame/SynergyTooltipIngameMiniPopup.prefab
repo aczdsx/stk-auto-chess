@@ -1655,6 +1655,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6485151141017197831, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8498601450727436384, guid: f9a9dfd4cf942b246819938bb7e0415d, type: 3}
       propertyPath: m_Name
       value: Badge_Synergy_Ingame

@@ -141,7 +141,7 @@ namespace CookApps.AutoBattler
             }
 
             // 0.5초 대기 후 진행
-            await UniTask.Delay(400);
+            await UniTask.Delay(300);
 
             Debug.LogColor($"[TutorialActionSpawnEnemy] 스폰된 적 {_spawnedEnemies.Count}명 Idle 상태로 전환", "yellow");
 
