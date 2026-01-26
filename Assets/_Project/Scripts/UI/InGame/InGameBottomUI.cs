@@ -184,9 +184,7 @@ public class InGameBottomUI : MonoBehaviour
             // 필터 적용 후 정렬
             RefreshFilteredList();
 
-            var userGrade =
-                SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
-            int maximumCharacterCount = userGrade.maximum_character_count;
+            int maximumCharacterCount = SpecDataManager.Instance.GetUserKnightCountByNestCount().maximum_character_count;;
 
             int addCharacterCount = _characterItemList.Count >= maximumCharacterCount
                 ? maximumCharacterCount

@@ -74,11 +74,12 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
 
     public override void Activate()
     {
-        base.Activate();
+        // base.Activate();
 
         _isReadyToActivate = false;
         IsSkillActivated = true;
         owner.AddNextState<CharacterStateSkill>(this);
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3405_01);
     }
 
     public override void OnSkillExecute(int executeIndex, int totalLength)
@@ -89,6 +90,7 @@ public partial class EffectCodeSkill217563405 : EffectCodeCharacterBase
 
         if (executeIndex == 0)
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3405_02);
             // 이동 가능한 타겟 찾기
             _targetCharacter = FindValidTarget();
             if (_targetCharacter == null)
