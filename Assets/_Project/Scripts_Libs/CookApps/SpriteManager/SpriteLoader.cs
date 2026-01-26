@@ -12,7 +12,7 @@ namespace CookApps.TeamBattle
         [SerializeField] private Image targetImage;
 
         private CancellationTokenSource cts;
-        private string spriteName;
+        [SerializeField] private string spriteName;
 
         protected override void OnDestroy()
         {
