@@ -1138,12 +1138,18 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (inGameTile.OccupiedCharacter != null)
         {
             var existingCharacter = inGameTile.OccupiedCharacter;
+            if(existingCharacter.SpecCharacter.character_type == CharacterType.BATTLEITEM)
+            {
+                CancelGhostDrag();
+                return;
+            }
 
             // 기존 캐릭터를 타일에서 제거하고 UI로 반환
             existingCharacter.CurrentTile.SetUnoccupied();
             InGameObjectManager.Instance.RemoveCharacterFromField(existingCharacter);
             InGameMain.GetInGameMain().ReturnCharacterUI(existingCharacter);
         }
+    
 
 
         //유저 카운트 체크

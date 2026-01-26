@@ -49,6 +49,7 @@ public partial class EffectCodeSynergyPositionNoblesse : EffectCodeSynergyBase
         {
             case NoblesseGrade.SCALE_PERCENT_UP_AD_PERCENT_UP:
                 ScaleUpAttackPowerUp(source);
+
                 break;
             case NoblesseGrade.SHIELD_GENERATION:
                 ShieldGeneration(source);
