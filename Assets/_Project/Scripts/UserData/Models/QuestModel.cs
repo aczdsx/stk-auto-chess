@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CookApps.TeamBattle;
 using R3;
 using Tech.Hive.V1;
 
@@ -62,6 +63,7 @@ namespace CookApps.AutoBattler
             }
 
             OnChanged.OnNext(Unit.Default);
+            RefreshQuestBadge();
         }
 
         /// <summary>
@@ -75,7 +77,44 @@ namespace CookApps.AutoBattler
 
             OnQuestUpdated.OnNext(questData.QuestId);
             OnChanged.OnNext(Unit.Default);
+            RefreshQuestBadge();
         }
+
+        #region 뱃지 갱신
+
+        /// <summary>
+        /// Quest 뱃지 갱신
+        /// </summary>
+        private void RefreshQuestBadge()
+        {
+            const string path = "Quest";
+
+            if (HasClaimableQuest())
+            {
+                BadgeManager.Instance.AddBadge(BadgeType.RedDot, path);
+            }
+            else
+            {
+                BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, path);
+            }
+        }
+
+        /// <summary>
+        /// 받을 수 있는 보상이 있는 퀘스트가 있는지 확인
+        /// </summary>
+        private bool HasClaimableQuest()
+        {
+            foreach (var quest in _quests.Values)
+            {
+                if (quest.IsCleared && !quest.IsRewarded)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        #endregion
 
         #region 조회 메서드
 

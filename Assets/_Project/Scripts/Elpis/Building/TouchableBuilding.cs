@@ -42,6 +42,10 @@ public class TouchableBuilding : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
+        // 튜토리얼 터치 차단 체크
+        if (TutorialTouchBlocker.ShouldBlockTouch(Input.mousePosition))
+            return;
+
         _mouseDownPosition = Input.mousePosition;
         _isDragging = false;
     }
@@ -61,6 +65,10 @@ public class TouchableBuilding : MonoBehaviour
     private void OnMouseUp()
     {
         if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        // 튜토리얼 터치 차단 체크
+        if (TutorialTouchBlocker.ShouldBlockTouch(Input.mousePosition))
             return;
 
         if (_isDragging)
