@@ -78,11 +78,11 @@ namespace CookApps.AutoBattler
             StopConstructionAnimation();
 
             // 건물 프리팹 생성
-            if (!string.IsNullOrEmpty(buildPrefabPath))
-            {
-                var handle = Addressables.InstantiateAsync(buildPrefabPath, CachedTr.position, Quaternion.identity, CachedTr);
-                await handle.ToUniTask();
-            }
+            //if (!string.IsNullOrEmpty(buildPrefabPath))
+            //{
+            //    var handle = Addressables.InstantiateAsync(buildPrefabPath, CachedTr.position, Quaternion.identity, CachedTr);
+            //    await handle.ToUniTask();
+            //}
 
             // Disappear 애니메이션 재생
             if (buildingAnimator != null)
