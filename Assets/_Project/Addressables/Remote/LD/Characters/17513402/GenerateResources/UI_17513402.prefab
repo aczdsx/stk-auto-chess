@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6166242899547471114
+--- !u!1001 &4572995151518608724
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,10 +8,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 725046549792645007, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b720f426e71765a42abca6a2812a73eb, type: 3}
     - target: {fileID: 828906667113159773, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -92,32 +88,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5940253942589387727, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
+      propertyPath: skeletonDataAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b9e019ca641bc1408e44c62165045bf, type: 2}
     - target: {fileID: 6791900941924675689, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
       propertyPath: m_Name
       value: UI_17513402
       objectReference: {fileID: 0}
-    - target: {fileID: 8834443160863789351, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
-      propertyPath: _skeletonGraphic
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8834443160863789351, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
-      propertyPath: _pivotReferenceImage
-      value: 
-      objectReference: {fileID: 6889668235752268421}
     m_RemovedComponents: []
     m_RemovedGameObjects:
-    - {fileID: 5346796297695139338, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
+    - {fileID: 452152046603614653, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
---- !u!114 &6889668235752268421 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 725046549792645007, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
-  m_PrefabInstance: {fileID: 6166242899547471114}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
