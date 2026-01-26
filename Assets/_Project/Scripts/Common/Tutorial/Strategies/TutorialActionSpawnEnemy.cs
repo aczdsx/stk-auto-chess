@@ -278,13 +278,6 @@ namespace CookApps.AutoBattler
 
                     // 스폰된 적 목록에 추가 (SKILL_READY 완료 시 Idle로 전환용)
                     _spawnedEnemies.Add(character);
-
-                    // 스폰 후 보드의 모든 캐릭터에게 액션 딜레이 적용 (바로 움직이지 않도록)
-                    var allCharacters = InGameObjectManager.Instance.GetAllCharacterList();
-                    foreach (var c in allCharacters)
-                    {
-                        c.SetActionDelay(SPAWN_ACTION_DELAY);
-                    }
                 }
 
                 return character != null;

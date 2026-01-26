@@ -84,16 +84,6 @@ namespace CookApps.BattleSystem
         public bool IsAlive { get; set; }
 
         /// <summary>
-        /// 행동 지연 시간 (스폰 후 바로 움직이지 않도록)
-        /// </summary>
-        private float _actionDelay;
-
-        /// <summary>
-        /// 행동 지연 시간 설정
-        /// </summary>
-        public void SetActionDelay(float delay) => _actionDelay = delay;
-
-        /// <summary>
         /// 스킬 루트 트랜스폼
         /// view의 scale이 커져도 위치가 변하지 않는 트랜스폼
         /// </summary>
@@ -629,13 +619,6 @@ namespace CookApps.BattleSystem
         // Update is called once per frame
         public void ManagedUpdate(float dt)
         {
-            // 행동 지연 중이면 대기
-            if (_actionDelay > 0f)
-            {
-                _actionDelay -= dt;
-                return;
-            }
-
             if (_currState == null)
             {
                 if (_nextState != null)
