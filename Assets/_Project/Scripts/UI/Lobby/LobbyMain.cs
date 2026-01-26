@@ -138,9 +138,9 @@ namespace CookApps.AutoBattler
 #if _SJHONG_TEST_
 
             if(specGuideMissionData.id <= 101) {
-                await TutorialManager.Instance.TryStartOutgameTutorial();
+                // await TutorialManager.Instance.TryStartOutgameTutorial();
 
-                TutorialManager.Instance.SubscribeGuideMissionChanged();
+                // TutorialManager.Instance.SubscribeGuideMissionChanged();
             }
 #else
             // 아웃게임 튜토리얼 시작 (가이드 미션 기반)

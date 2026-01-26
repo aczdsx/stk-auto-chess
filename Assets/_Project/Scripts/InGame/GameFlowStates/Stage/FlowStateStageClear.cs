@@ -54,17 +54,8 @@ public class FlowStateStageClear : StateBase
         // ! 509	29	CLEAR_STAGE	GUIDE_MISSION_NAME_509	스테이지 2-12 클리어 가이드 미션 제공	30011	GUIDE_MISSION_DESC_509	30012	1	GOLD	210001	200											
         // ! CLEAR_STAGE
 
-        if( GuideMissionConstants.스테이지범위기준ID <= InGameManager.Instance.SpecStage.stage_id && 
-            InGameManager.Instance.SpecStage.stage_id <= GuideMissionConstants.챕터2기준ID)
-        {
-            if(GuideMissionTestUtility.CLEAR_STAGE_1_GUIDE_ID.Contains((int)gdb.GuideMissionId))
-                await gdb.AddActionAsync(GuideMissionType.CLEAR_STAGE, 1, InGameManager.Instance.SpecStage.stage_id);
-        }
-        else if(InGameManager.Instance.SpecStage.stage_id > GuideMissionConstants.챕터2기준ID)
-        {
-            if(GuideMissionTestUtility.CLEAR_STAGE_2_GUIDE_ID.Contains((int)gdb.GuideMissionId))
-                await gdb.AddActionAsync(GuideMissionType.CLEAR_STAGE, 1, InGameManager.Instance.SpecStage.stage_id);
-        }
+
+        await gdb.AddActionAsync(GuideMissionType.CLEAR_STAGE, 1, InGameManager.Instance.SpecStage.stage_id);
 
         // 서버 응답 후 결과 팝업 표시
         InGameResultPopupParam param = new InGameResultPopupParam(true, star2, star3, _mvpCharacterData, (IReadOnlyList<Reward>)resp.Rewards);

@@ -104,16 +104,46 @@ namespace CookApps.AutoBattler
         {
             if (_parentCollectionPopup == null) return;
 
-            var leftCharacterID = SpecDataManager.Instance.GetLeftCharacterID(_specCharacterData.id, CharacterType.CHARACTER);
-            InitLayer(leftCharacterID, _parentCollectionPopup);
+            var nextCharacterID = FindNextOwnedCharacterID(_specCharacterData.id, isLeft: true);
+            if (nextCharacterID != -1)
+            {
+                InitLayer(nextCharacterID, _parentCollectionPopup);
+            }
         }
 
         public void OnClickRightButton()
         {
             if (_parentCollectionPopup == null) return;
 
-            var rightCharacterID = SpecDataManager.Instance.GetRightCharacterID(_specCharacterData.id, CharacterType.CHARACTER);
-            InitLayer(rightCharacterID, _parentCollectionPopup);
+            var nextCharacterID = FindNextOwnedCharacterID(_specCharacterData.id, isLeft: false);
+            if (nextCharacterID != -1)
+            {
+                InitLayer(nextCharacterID, _parentCollectionPopup);
+            }
+        }
+
+        private int FindNextOwnedCharacterID(int startCharacterID, bool isLeft)
+        {
+            int currentID = startCharacterID;
+            int nextID;
+
+            do
+            {
+                nextID = isLeft
+                    ? SpecDataManager.Instance.GetLeftCharacterID(currentID, CharacterType.CHARACTER)
+                    : SpecDataManager.Instance.GetRightCharacterID(currentID, CharacterType.CHARACTER);
+
+                if (ServerDataManager.Instance.Character.HasCharacter(nextID))
+                {
+                    return nextID;
+                }
+
+                currentID = nextID;
+            }
+            while (nextID != startCharacterID);
+
+            // 한 바퀴 돌아서 보유 캐릭터를 찾지 못함
+            return -1;
         }
 
         private void SetTabState()

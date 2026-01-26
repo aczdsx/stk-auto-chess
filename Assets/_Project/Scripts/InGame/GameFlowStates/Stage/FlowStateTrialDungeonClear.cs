@@ -27,11 +27,9 @@ public class FlowStateTrialDungeonClear : StateBase
         // ! 506	26	CLEAR_BABEL	GUIDE_MISSION_NAME_506	바벨던전 4층 클리어 하기	0	GUIDE_MISSION_DESC_506	10004	1	GOLD	210001	200											
         // ! 601	30	CLEAR_BABEL	GUIDE_MISSION_NAME_601	바벨던전 13층 클리어 하기	0	GUIDE_MISSION_DESC_601	10013	1	GOLD	210001	200											
         // ! CLEAR_BABEL
-        if(GuideMissionConstants.바벨범위기준ID <= InGameManager.Instance.SpecDungeonTrial.dungeon_id)
-        {
-            if(GuideMissionTestUtility.CLEAR_BABEL_TOWER_GUIDE_ID.Contains(InGameManager.Instance.SpecDungeonTrial.dungeon_id)) 
-                await gdb.AddActionAsync(GuideMissionType.CLEAR_BABEL, 1, InGameManager.Instance.SpecDungeonTrial.dungeon_id);
-        }
+
+        await gdb.AddActionAsync(GuideMissionType.CLEAR_BABEL, 1, InGameManager.Instance.SpecDungeonTrial.dungeon_id);
+
 
         await NetManager.Instance.TrialDungeon.GetAsync(); // 데이터 갱신 필요해서 추가
         

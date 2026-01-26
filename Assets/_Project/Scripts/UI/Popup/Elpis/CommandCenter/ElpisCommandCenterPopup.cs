@@ -93,8 +93,7 @@ namespace CookApps.AutoBattler
             var gdb = new GuideMissionDataBridge();
 
             // ! GUIDE_TODO
-            // ! 403	16	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_403	함선확장 가이드 미션	30002	GUIDE_MISSION_DESC_403	0	1	GOLD	210001	200											
-            // ! UPGRADE_BUILDING_FOR_COMMEND_CENTER_2
+            // ! 401	14	USE_BUILDING	GUIDE_MISSION_NAME_401	커멘더 센터 이동 가이드 미션	0	GUIDE_MISSION_DESC_401	0	1	GOLD	210001	200											            // ! UPGRADE_BUILDING_FOR_COMMEND_CENTER_2
             if(gdb.GuideMissionId == GuideMissionConstants.커맨드센터들어간가이드미션ID)
             {
                 gdb.AddAction(GuideMissionType.USE_BUILDING, 1);
@@ -279,9 +278,9 @@ namespace CookApps.AutoBattler
                 var gdb = new GuideMissionDataBridge();
                 var edb = new ElpisDataBridge();
                 // ! GUIDE_TODO
-                // ! 401	14	USE_BUILDING	GUIDE_MISSION_NAME_401	커멘더 센터 이동 가이드 미션	0	GUIDE_MISSION_DESC_401	0	1	GOLD	210001	200											
+                // ! 403	16	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_403	함선확장 가이드 미션	30002	GUIDE_MISSION_DESC_403	0	1	GOLD	210001	200											
                 // ! USE_BUILDING
-                if(gdb.GuideMissionId == 401 && edb.GetFacilityLevel(Tech.Hive.V1.ElpisFacilityType.FacilityTypeCommandCenter) > 1)
+                if(gdb.GuideMissionId == 403 && edb.GetFacilityLevel(Tech.Hive.V1.ElpisFacilityType.FacilityTypeCommandCenter) > 1)
                 {
                     await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
                 }
