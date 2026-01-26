@@ -76,6 +76,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15562e747dd2fd5478d7db91f9fca3c2
     m_Address: Naninovel/Scripts/nani_05_06_01
@@ -593,6 +594,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e563f07b5bfc0a248821dd4e9aded772
     m_Address: Naninovel/Scripts/nani_05_04_01
