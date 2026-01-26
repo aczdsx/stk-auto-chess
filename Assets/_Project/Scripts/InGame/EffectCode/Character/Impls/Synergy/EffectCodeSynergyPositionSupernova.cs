@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
@@ -32,6 +33,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
 
     private InGameVfx _supernovaItemVfx;
     private AllianceType _allianceType;
+
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
@@ -50,14 +52,20 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
+
+        // cts?.Cancel();
+        // cts?.Dispose();
+        // cts = null;
+
         _synergyGrade = codeInfo.GetCodeStatToInt(3);
         _allianceType = (AllianceType)codeInfo.GetCodeStatToInt(4);
-
-        InGameSynergyManager.Instance.RemoveSynergyVfxOnRemoveField(_targetCharacter);
-        var vfx = InGameVfxManager.Instance.AddInGameVfx(GetSupernovaVfxName(_synergyGrade), _targetCharacter.SkillRootTransformFollowable);
-        InGameSynergyManager.Instance.AddSynergyVfxOnRemoveField(_targetCharacter, vfx);
-
-
+        
+        if(_targetCharacter != null)
+        {
+            InGameSynergyManager.Instance.RemoveSynergyVfxOnRemoveField(_targetCharacter);
+            var vfx = InGameVfxManager.Instance.AddInGameVfx(GetSupernovaVfxName(_synergyGrade), _targetCharacter.SkillRootTransformFollowable);
+            InGameSynergyManager.Instance.AddSynergyVfxOnRemoveField(_targetCharacter, vfx);
+        }
     }
 
     public override void OnFlowStateStageReadyStart()
@@ -445,8 +453,11 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     private async UniTask GetSupernovaDragonBall()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+        
+        InGameSynergyManager.Instance.RemoveSynergyVfxOnRemoveField(_targetCharacter);
         if (_targetCharacter == null)
             return;
+        
         var vfxName = GetSupernovaVfxName(_synergyGrade);
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_nova_spirit);
         var vfx = InGameVfxManager.Instance.AddInGameVfx(vfxName, _targetCharacter.SkillRootTransformFollowable);
