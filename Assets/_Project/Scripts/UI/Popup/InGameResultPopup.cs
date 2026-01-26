@@ -212,7 +212,7 @@ namespace CookApps.AutoBattler
 
             string nextSceneName = (specLastStageData.chapter_id == 1) ? "Lobby" : "BattleReady";
 
-            SceneLoading.GoToNextScene(nextSceneName, InGameManager.Instance.SpecStage.stage_id);
+            SceneLoading.GoToNextScene(nextSceneName, InGameManager.Instance.SpecStage.chapter_id);
         }
 
         private async UniTask OnNextStageButtonClickedAsync()
