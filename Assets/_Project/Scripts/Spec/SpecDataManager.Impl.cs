@@ -1054,7 +1054,7 @@ namespace CookApps.AutoBattler
             }
             int openChapterID = minChapterID - 1;
 
-            if (stageChapterDic.TryGetValue(2, out List<StageInfo> stageList) && stageList.Count > 0)
+            if (stageChapterDic.TryGetValue(3, out List<StageInfo> stageList) && stageList.Count > 0)
             {
                 return stageList[stageList.Count - 1].stage_id;
             }

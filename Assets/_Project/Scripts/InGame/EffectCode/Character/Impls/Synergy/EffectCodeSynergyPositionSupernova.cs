@@ -24,7 +24,6 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     private CharacterController _targetCharacter = null;
     private IEffectCodeSource _source;
 
-    private InGameVfx _supernovaApplyVfx;
     private const string NOT_SUPERNOVA_TYPE_TOKEN = "NOT_SUPERNOVA_TYPE";
     private const string NOT_SUPERNOVA_ITEM_APPLY = "NOT_SUPERNOVA_ITEM_APPLY";
 
@@ -53,11 +52,11 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         base.Merge(codeInfo, source);
         _synergyGrade = codeInfo.GetCodeStatToInt(3);
         _allianceType = (AllianceType)codeInfo.GetCodeStatToInt(4);
-        if (_supernovaApplyVfx != null && _targetCharacter != null)
-        {
-            _supernovaApplyVfx.Remove();
-            _supernovaApplyVfx = InGameVfxManager.Instance.AddInGameVfx(GetSupernovaVfxName(_synergyGrade), _targetCharacter.SkillRootTransformFollowable);
-        }
+
+        InGameSynergyManager.Instance.RemoveSynergyVfxOnRemoveField(_targetCharacter);
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(GetSupernovaVfxName(_synergyGrade), _targetCharacter.SkillRootTransformFollowable);
+        InGameSynergyManager.Instance.AddSynergyVfxOnRemoveField(_targetCharacter, vfx);
+
 
     }
 
@@ -144,7 +143,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
     /// </summary>
     private void ExecuteReservedApply()
     {
-        if (!_isApplyReserved||_allianceType != AllianceType.Player)
+        if (!_isApplyReserved || _allianceType != AllianceType.Player)
             return;
 
         _isApplyReserved = false;
@@ -414,18 +413,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         Debug.LogColor($"Supernova Removed", "red");
         base.OnPreRemoved();
 
-        if (_supernovaApplyVfx != null)
-        {
-            if (_supernovaApplyVfx.CachedGo != null)
-            {
-                InGameVfxManager.Instance.RemoveInGameVfx(_supernovaApplyVfx);
-            }
-            else
-            {
-                _supernovaApplyVfx.Remove();
-                _supernovaApplyVfx = null;
-            }
-        }
+        InGameSynergyManager.Instance.RemoveSynergyVfxOnRemoveField(_targetCharacter);
         if (_supernovaItemVfx != null)
         {
             if (_supernovaItemVfx.CachedGo != null)
@@ -461,7 +449,8 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             return;
         var vfxName = GetSupernovaVfxName(_synergyGrade);
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_nova_spirit);
-        _supernovaApplyVfx = InGameVfxManager.Instance.AddInGameVfx(vfxName, _targetCharacter.SkillRootTransformFollowable);
+        var vfx = InGameVfxManager.Instance.AddInGameVfx(vfxName, _targetCharacter.SkillRootTransformFollowable);
+        InGameSynergyManager.Instance.AddSynergyVfxOnRemoveField(_targetCharacter, vfx);
     }
 
     public bool OnItemCanApplyDragAndDrop(CharacterController targetCharacter)
@@ -499,7 +488,6 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
         if (_allianceType == AllianceType.Player)
         {
             ToastManager.Instance.ShowToastByTokenKey(NOT_SUPERNOVA_ITEM_APPLY);
-            return;
         }
 
         var characterList = InGameObjectManager.Instance.GetCharacterList(_allianceType);
