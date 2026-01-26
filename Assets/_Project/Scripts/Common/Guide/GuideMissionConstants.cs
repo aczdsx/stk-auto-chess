@@ -161,13 +161,13 @@ public static class GuideMissionTestUtility
     public static async UniTask HandleIteratively()
     {
         if (!isInit) Init();
-#if _SJHONG_TEST_
-        List<int> keyBuff = new();
-        foreach (var gid in CLEAR_STAGE_1_GUIDE_ID)
-        {
-            await gdb.AddActionAsync(GuideMissionType.CLEAR_STAGE, 1, GuideMissionTables[gid].Subkey);
-        }
-#endif
+// #if _SJHONG_TEST_
+//         List<int> keyBuff = new();
+//         foreach (var gid in CLEAR_STAGE_1_GUIDE_ID)
+//         {
+//             await gdb.AddActionAsync(GuideMissionType.CLEAR_STAGE, 1, GuideMissionTables[gid].Subkey);
+//         }
+// #endif
         // ! GUIDE_TODO
         // ! 201	2	INSTALL_BUILDING	GUIDE_MISSION_NAME_201	숙소 복구	20002	GUIDE_MISSION_DESC_201	0	1	GOLD	210001	200											
         // ! INSTALL_BUILDING_NEST
@@ -206,7 +206,7 @@ public static class GuideMissionTestUtility
             await NetManager.Instance.GuideMission.UpdateActionAsync(1);
         }
         var commandCenterLevel = edb.GetFacilityLevel(Tech.Hive.V1.ElpisFacilityType.FacilityTypeCommandCenter);
-        if (gdb.GuideMissionId == 403 && (commandCenterLevel > 1 || edb.HasFacility(200101))) { if (!ClearFlags[403]) await AddActionAndClaim(403); }
+        if (gdb.GuideMissionId == 403 && (commandCenterLevel > 1)) { if (!ClearFlags[403]) await AddActionAndClaim(403); }
     }
 
 }
