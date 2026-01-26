@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4457b6e6d3304bd46a31be63dad3325c, type: 3}
   m_Name: AddressableImportSettings
   m_EditorClassIdentifier: 
-  rulesEnabled: 0
+  rulesEnabled: 1
   allowGroupCreation: 1
   rules:
   - path: ^Assets/_Project/Addressables/BuiltIn/Data/(.*)\.asset$

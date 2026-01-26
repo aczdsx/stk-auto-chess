@@ -281,7 +281,7 @@ namespace CookApps.AutoBattler
                 // ! GUIDE_TODO
                 // ! 401	14	USE_BUILDING	GUIDE_MISSION_NAME_401	커멘더 센터 이동 가이드 미션	0	GUIDE_MISSION_DESC_401	0	1	GOLD	210001	200											
                 // ! USE_BUILDING
-                if(edb.GetFacilityLevel(Tech.Hive.V1.ElpisFacilityType.FacilityTypeCommandCenter) > 1)
+                if(gdb.GuideMissionId == 401 && edb.GetFacilityLevel(Tech.Hive.V1.ElpisFacilityType.FacilityTypeCommandCenter) > 1)
                 {
                     await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
                 }

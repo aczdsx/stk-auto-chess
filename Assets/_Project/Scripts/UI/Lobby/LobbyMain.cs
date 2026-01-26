@@ -165,7 +165,7 @@ namespace CookApps.AutoBattler
             MainCameraHolder.CameraGestureController.SetCanInteractCamera(true);
         }
 
-        private async UniTask OnClickStartButton()
+        public async UniTask OnClickStartButton()
         {
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();

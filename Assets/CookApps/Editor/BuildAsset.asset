@@ -67,7 +67,7 @@ MonoBehaviour:
         Version: 0.3.4
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 4862
+        VersionCode: 5293
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         AddDefine:
@@ -78,7 +78,7 @@ MonoBehaviour:
         EnableCodeObfuscator: 0
         IsProduction: 0
         StoreMarket: 1
-        BuildOptions: 262401
+        BuildOptions: 262145
         TargetSdkVersion: 0
         CreateSymbols: 0
         ExportAndroidStudioProject: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
         Version: 0.3.4
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 4701
+        VersionCode: 5293
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         AddDefine:
@@ -130,7 +130,7 @@ MonoBehaviour:
         Version: 0.2.6
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 4862
+        VersionCode: 5293
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         AddDefine:
@@ -141,7 +141,7 @@ MonoBehaviour:
         EnableCodeObfuscator: 0
         IsProduction: 0
         StoreMarket: 2
-        BuildOptions: 262401
+        BuildOptions: 262145
         SigningTeamID: K7TNH5SGYC
         CodeGeneration: 0
         ManagedStrippingLevel: 1

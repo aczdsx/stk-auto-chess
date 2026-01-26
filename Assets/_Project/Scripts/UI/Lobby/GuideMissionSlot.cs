@@ -48,9 +48,10 @@ namespace CookApps.AutoBattler
                 .AddTo(this);
         }
 
-        public void InitGuideMissionSlot()
+        public async void InitGuideMissionSlot()
         {
-
+            await NetManager.Instance.GuideMission.GetAsync();
+            await GuideMissionTestUtility.HandleIteratively();
             RefreshGuideMissionSlot();
         }
 
@@ -95,7 +96,7 @@ namespace CookApps.AutoBattler
             missionRewardAmountText.text = $"x{specGuideMissionData.item_count}";
 
             // 보상 수령 가능 여부에 따라 활성화 레이어 표시
-            activateLayerObject.SetActive(dataBridge.CanClaimReward);
+            activateLayerObject.SetActive(dataBridge.GoalCount == dataBridge.CurrentCount); // ! TODO 재상님 배포가 끝날때 까지는 강제로 이렇게 함. 반드시 dataBridge.CanClaim을 써야합니다.
         }
 
         private void SetGuideMissionRewardImage()
@@ -130,9 +131,10 @@ namespace CookApps.AutoBattler
         {
             if (specGuideMissionData == null) return;
 
-            if (dataBridge.CanClaimReward)
+            if (dataBridge.GoalCount == dataBridge.CurrentCount) // ! TODO 재상님 배포가 끝날때 까지는 강제로 이렇게 함. 반드시 dataBridge.CanClaim을 써야합니다.
             {
                 await ClaimRewardAsync();
+                await GuideMissionTestUtility.HandleIteratively();
             }
             else
             {
@@ -385,14 +387,11 @@ namespace CookApps.AutoBattler
             pendingPopupAction = popupAction;
             SceneUILayerManager.OnSceneLoadedEvent += OnLobbySceneLoaded;
 
-            var lastStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
-            var stageData = SpecDataManager.Instance.GetStageData(lastStageId);
-            var chapterId = stageData?.chapter_id ?? 1;
-
-            InGameManager.Instance.EndInGame();
-            SceneTransition.Create<SceneTransition_FadeInOut>();
-            await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextScene("Lobby", chapterId);
+            var battleReadyMain = BattleReadyMain.GetBattleReadyMain();
+            if (battleReadyMain != null)
+            {
+                await battleReadyMain.OnClickGoToLobby();
+            }
         }
 
         private async UniTask NavigateToLobbyWithPopupAndFocusAsync(ElpisFacilityType facilityType, Action popupAction)
@@ -401,14 +400,11 @@ namespace CookApps.AutoBattler
             pendingPopupAction = popupAction;
             SceneUILayerManager.OnSceneLoadedEvent += OnLobbySceneLoadedWithFocus;
 
-            var lastStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
-            var stageData = SpecDataManager.Instance.GetStageData(lastStageId);
-            var chapterId = stageData?.chapter_id ?? 1;
-
-            InGameManager.Instance.EndInGame();
-            SceneTransition.Create<SceneTransition_FadeInOut>();
-            await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextScene("Lobby", chapterId);
+            var battleReadyMain = BattleReadyMain.GetBattleReadyMain();
+            if (battleReadyMain != null)
+            {
+                await battleReadyMain.OnClickGoToLobby();
+            }
         }
 
         private void OnLobbySceneLoaded(string sceneName)
@@ -493,9 +489,11 @@ namespace CookApps.AutoBattler
 
         private async UniTask NavigateToStageAsync()
         {
+            var currentSceneName = SceneManager.GetActiveScene().name;
+            if (currentSceneName == "BattleReady") return;
+
             var guideStageData = SpecDataManager.Instance.GetStageData(specGuideMissionData.sub_key);
             if (guideStageData == null) return;
-            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "BattleReady") return;
 
             // guideStageData에서 실제 stage_id 사용
             var targetStageId = guideStageData.stage_id;
@@ -523,38 +521,18 @@ namespace CookApps.AutoBattler
                     }
                 }
             }
-            var targetStageData = SpecDataManager.Instance.GetStageData(targetStageId);
 
-            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-            await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextScene("BattleReady", targetStageData.chapter_id);
-            var currentSceneName = SceneManager.GetActiveScene().name;
-            var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
+            // 타겟 스테이지를 LocalDataManager에 저장
+            LocalDataManager.Instance.SetLastPlayStageId((uint)targetStageId);
 
-            if (currentSceneName == "BattleReady")
+            // Lobby 씬에서는 LobbyMain.OnClickStartButton() 사용
+            if (currentSceneName == "Lobby")
             {
-                // BattleReady 씬에서는 InGame으로 직접 진입
-                var inGameParams = await NetManager.Instance.Battle.StartAsync(
-                    currentStageData.chapter_id,
-                    currentStageData.stage_id,
-                    0,
-                    Array.Empty<string>());
-
-                if (inGameParams == null)
-                    return;
-
-                SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-                await SceneTransition.FadeInAsync();
-
-                InGameManager.Instance.EndInGame();
-                SceneLoading.GoToNextSceneWithStageEnterTrigger("InGame", currentStageData.stage_id, inGameParams);
-            }
-            else
-            {
-                // 다른 씬에서는 BattleReady로 이동
-                SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-                await SceneTransition.FadeInAsync();
-                SceneLoading.GoToNextScene("BattleReady", currentStageData.chapter_id);
+                var lobbyMain = LobbyMain.GetLobbyMain();
+                if (lobbyMain != null)
+                {
+                    await lobbyMain.OnClickStartButton();
+                }
             }
         }
 
