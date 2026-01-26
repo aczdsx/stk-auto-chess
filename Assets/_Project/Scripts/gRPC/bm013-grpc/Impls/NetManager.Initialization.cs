@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 
 namespace CookApps.AutoBattler
 {
@@ -17,7 +19,6 @@ namespace CookApps.AutoBattler
                 Inventory.ListAsync(cancellationToken),
                 Character.ListAsync(cancellationToken),
                 Deck.ListAsync(cancellationToken),
-                Battle.GetCurrentChapterAsync(cancellationToken),
                 Battle.ListChapterAsync(cancellationToken),
                 Event.ListAsync(cancellationToken),
                 Initialize_Elpis(),
@@ -31,8 +32,30 @@ namespace CookApps.AutoBattler
                 }, cancellationToken)
             );
 
-            // 2. 이벤트 스트림 구독 시작
+            // 2. 모든 챕터의 스테이지 진행 정보 로드
+            await LoadAllChapterStagesAsync(cancellationToken);
+
+            // 3. 이벤트 스트림 구독 시작
             StartEventSubscription();
+        }
+
+        /// <summary>
+        /// 모든 챕터의 스테이지 진행 정보 병렬 로드
+        /// </summary>
+        private async UniTask LoadAllChapterStagesAsync(CancellationToken cancellationToken)
+        {
+            List<BattleChapterData> chapters = new();
+            ServerDataManager.Instance.Battle.GetAllChapters(chapters);
+
+            if (chapters.Count == 0) return;
+
+            UniTask[] tasks = new UniTask[chapters.Count];
+            for (int i = 0; i < chapters.Count; i++)
+            {
+                tasks[i] = Battle.ListStageAsync(chapters[i].ChapterId, cancellationToken);
+            }
+
+            await UniTask.WhenAll(tasks);
         }
     }
 }
