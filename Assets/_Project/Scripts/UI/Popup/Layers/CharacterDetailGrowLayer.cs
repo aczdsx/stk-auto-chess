@@ -168,7 +168,7 @@ namespace CookApps.AutoBattler
                     localizeStringEvent.StringReference.SetReference(LanguageManager.DefaultTableName, "UI_LEVEL_UP");
                 }
             }
-            
+
             if (_specCharacterLevelExpData != null)
             {
                 var uiItemDatas = new List<(ItemId, int, bool)>();
@@ -178,7 +178,7 @@ namespace CookApps.AutoBattler
                     uiItemDatas.Add((_specCharacterLevelExpData.base_levelup_item_id, _specCharacterLevelExpData.base_levelup_item_count, _specCharacterLevelExpData.base_levelup_item_count <= (int)_inventoryBridge.GetCurrency(_specCharacterLevelExpData.base_levelup_item_id)));
                 if (_specCharacterLevelExpData.sec_levelup_item_id != 0)
                     uiItemDatas.Add((_specCharacterLevelExpData.sec_levelup_item_id, _specCharacterLevelExpData.sec_levelup_item_count, _specCharacterLevelExpData.sec_levelup_item_count <= (int)_inventoryBridge.GetCurrency(_specCharacterLevelExpData.sec_levelup_item_id)));
-                
+
                 var isAvailLevelup = uiItemDatas.All(x => x.Item3);
 
                 for (var i = 0; i < levelUpItems.Length; i++)
@@ -188,7 +188,7 @@ namespace CookApps.AutoBattler
                         levelUpItems[i].gameObject.SetActive(false);
                         continue;
                     }
-                
+
                     levelUpItems[i].gameObject.SetActive(true);
                     levelUpItems[i].SetUIItem(uiItemDatas[i]);
                 }
@@ -203,7 +203,7 @@ namespace CookApps.AutoBattler
                 }
                 activeLevelUpButton.gameObject.SetActive(false);
                 inactiveLevelUpButton.gameObject.SetActive(true);
-                
+
                 foreach (var localizeStringEvent in levelUpButtonText)
                 {
                     localizeStringEvent.StringReference.SetReference(LanguageManager.DefaultTableName, "MSG_ALERT_MAX_LEVELUP");
@@ -267,7 +267,7 @@ namespace CookApps.AutoBattler
                 levelUpEffects[i].StartParticleEmission();
             }
         }
-        
+
 
         private void SetGuideAlert()
         {
@@ -298,20 +298,20 @@ namespace CookApps.AutoBattler
         {
             try
             {
-                
+
                 if (_specCharacterLevelExpData.IsExceed)
                 {
                     var resp = await NetManager.Instance.Character.ExceedAsync(_userCharacterData.CharacterId);
                     if (resp?.IsSuccess == false)
                         return;
-                    
+
                     var gdb = new GuideMissionDataBridge();
                     // ! GUIDE_TODO
                     // ! 305	8	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_305	아트레시아 돌파 진행	20006	GUIDE_MISSION_DESC_305	0	1	GOLD	210001	200											
                     // ! CHARACTER_EXCEED
-                    if(ServerDataManager.Instance.Character.GetCharacter(GuideMissionConstants.아트레시아ID).ExceedLevel > 0)
+                    if (ServerDataManager.Instance.Character.GetCharacter(GuideMissionConstants.아트레시아ID).ExceedLevel > 0)
                     {
-                        await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
+                        await gdb.AddActionAsync(GuideMissionType.CHARACTER_EXCEED, 1);
                     }
                 }
                 else
@@ -319,14 +319,14 @@ namespace CookApps.AutoBattler
                     var resp = await NetManager.Instance.Character.LevelUpAsync(_userCharacterData.CharacterId);
                     if (resp?.IsSuccess == false)
                         return;
-                    
+
                     var gdb = new GuideMissionDataBridge();
                     // ! GUIDE_TODO
                     // ! 202	3	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_202	아트레시아 레벨 2 만들기	20003	GUIDE_MISSION_DESC_202	0	1	GOLD	210001	200											
                     // ! CHARACTER_LEVELUP
-                    if(ServerDataManager.Instance.Character.GetCharacter(GuideMissionConstants.아트레시아ID).Level > 1)
+                    if (ServerDataManager.Instance.Character.GetCharacter(GuideMissionConstants.아트레시아ID).Level > 1)
                     {
-                        await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
+                        await gdb.AddActionAsync(GuideMissionType.LEVELUP_CHARACTER_TARGET, 1);
                     }
                 }
 
@@ -394,12 +394,12 @@ namespace CookApps.AutoBattler
 
                 if (response?.IsSuccess == false)
                     return;
-                
+
                 var gdb = new GuideMissionDataBridge();
                 // ! GUIDE_TODO
                 // ! 402	15	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_402	기사 초월 가이드 미션	30001	GUIDE_MISSION_DESC_402	0	1	GOLD	210001	200											
                 // ! CHARACTER_TRANSCENDENCE
-                if(ServerDataManager.Instance.Character.GetCharacter(GuideMissionConstants.아트레시아ID).TranscendLevel > 3)
+                if (ServerDataManager.Instance.Character.GetCharacter(GuideMissionConstants.아트레시아ID).TranscendLevel > 3)
                 {
                     await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
                 }

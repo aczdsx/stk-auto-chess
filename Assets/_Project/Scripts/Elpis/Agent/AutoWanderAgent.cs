@@ -113,6 +113,11 @@ namespace Prototypes.Movement
 
         private void SetRandomDestination()
         {
+            if (!_agent.isOnNavMesh)
+            {
+                return;
+            }
+
             if (TryGetRandomWanderPosition(out var targetPosition))
             {
                 _currentTargetPosition = targetPosition;

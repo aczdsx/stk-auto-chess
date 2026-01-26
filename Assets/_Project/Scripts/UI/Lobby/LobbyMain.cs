@@ -19,6 +19,9 @@ namespace CookApps.AutoBattler
 
     public partial class LobbyMain : UILayer, TopCurrencyAndMenuBarContainer
     {
+        [Header("User Info")]
+        [SerializeField] private UserInfoPanel userInfoPanel;
+        
         [Header("Guide")]
         [SerializeField] private GuideMissionSlot guideMissionSlot;
 
@@ -119,6 +122,7 @@ namespace CookApps.AutoBattler
         {
             // await GuideMissionTestUtility.HandleIteratively();
             guideMissionSlot.InitGuideMissionSlot();
+            userInfoPanel.Initialize();
 
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
@@ -171,6 +175,31 @@ namespace CookApps.AutoBattler
 
         private void OnClickDungeonButton()
         {
+            // CLEAR_BABEL 타입의 가이드 미션 중 가장 낮은 order를 가진 미션 찾기
+            var guideMissionInfos = SpecDataManager.Instance.GuideMissionInfo.All;
+            int minOrder = int.MaxValue;
+            int requiredMissionId = 0;
+
+            for (int i = 0; i < guideMissionInfos.Count; i++)
+            {
+                var missionInfo = guideMissionInfos[i];
+                if (missionInfo.guide_mission_type == GuideMissionType.CLEAR_BABEL && missionInfo.order < minOrder)
+                {
+                    minOrder = missionInfo.order;
+                    requiredMissionId = missionInfo.id;
+                }
+            }
+
+            // 유저의 현재 가이드미션 ID와 비교
+            var userGuideMissionId = ServerDataManager.Instance.GuideMission.GuideMissionId;
+
+            if (userGuideMissionId < requiredMissionId)
+            {
+                // 토스트 메시지 표시
+                ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
+                return;
+            }
+
             SceneUILayerManager.Instance.PushUILayerAsync<DungeonTrialPopup>().Forget();
         }
 
