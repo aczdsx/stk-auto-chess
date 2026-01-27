@@ -31,7 +31,7 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
 #if !RELEASE && ENABLE_CHEAT
-            SRDebug.Init();
+            // SRDebug.Init();
 #endif
             SessionCount++;
 

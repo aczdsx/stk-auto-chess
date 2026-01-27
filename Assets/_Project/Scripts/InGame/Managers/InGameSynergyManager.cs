@@ -15,10 +15,6 @@ namespace CookApps.BattleSystem
         private Dictionary<SynergyType, List<InGameVfx>> _enemySynergyVfxDic = new();
 
 
-        // 시너지 달성시 생기는 이펙트들 중 해당 캐릭터가 사라지면 없어져야할 이펙트들을 모아놓는다.      
-        private Dictionary<CharacterController, List<InGameVfx>> _characterSynergyVfxOnRemoveFieldDic = new();
-
-
         public void Initialize()
         {
             if (_synergyManagerDataDic == null)
@@ -33,15 +29,7 @@ namespace CookApps.BattleSystem
 
         public void Clear()
         {
-            foreach (var kvp in _characterSynergyVfxOnRemoveFieldDic)
-            {
-                foreach (var vfx in kvp.Value)
-                {
-                    vfx.Remove();
-                }
-                kvp.Value.Clear();
-            }
-            _characterSynergyVfxOnRemoveFieldDic.Clear();
+            
 
             ClearSynergyFx();
             _synergyManagerDataDic.Clear();
@@ -129,8 +117,10 @@ namespace CookApps.BattleSystem
             if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
             || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateInGameTestCombat)
             {
-                //이때는 시너지 관련이펙트 지워주자
-                RemoveSynergyVfxOnRemoveField(character);
+                if (_itemComponent.OnlyCheckAffectedByItemController(character))
+                {
+                    InGameManager.Instance.RemoveSynergyTeamOnce(character.AllianceType, character.SpecCharacter.character_stella_type);
+                }
                 return;
             }
             else if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat
@@ -376,30 +366,6 @@ namespace CookApps.BattleSystem
                     vfxList.Add(vfx);
                 }
 
-            }
-        }
-        public void AddSynergyVfxOnRemoveField(CharacterController character, InGameVfx vfx)
-        {
-            if (!_characterSynergyVfxOnRemoveFieldDic.TryGetValue(character, out var vfxList))
-            {
-                vfxList = new List<InGameVfx>();
-                _characterSynergyVfxOnRemoveFieldDic[character] = vfxList;
-            }
-            vfxList.Add(vfx);
-        }
-        public void RemoveSynergyVfxOnRemoveField(CharacterController character)
-        {
-            if(character == null)
-                return;
-                
-            if (_characterSynergyVfxOnRemoveFieldDic.TryGetValue(character, out var vfxList))
-            {
-                foreach (var vfx in vfxList)
-                {
-                    vfx.Remove();
-                }
-                vfxList.Clear();
-                _characterSynergyVfxOnRemoveFieldDic.Remove(character);
             }
         }
 
