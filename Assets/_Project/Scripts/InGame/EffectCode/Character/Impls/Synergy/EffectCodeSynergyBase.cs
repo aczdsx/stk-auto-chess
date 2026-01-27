@@ -35,7 +35,8 @@ public class EffectCodeSynergyBase : EffectCodeCharacterBase
 
     public override void OnPreRemoved()
     {
-        if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat)
+        if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateStageCombat
+        || InGameMainFlowManager.Instance.CurrentFlowState is FlowStateInGameTestCombat)
         {
             return;
         }

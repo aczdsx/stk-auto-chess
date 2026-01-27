@@ -192,6 +192,21 @@ namespace CookApps.BattleSystem
                 item.OnItemTargetObjectRelease?.Invoke(character, item.itemState);
             }
         }
+        public bool OnlyCheckAffectedByItemController(CharacterController character)
+        {
+            foreach (var item in _itemDic)
+            {
+                var itemList = item.Value;
+                foreach (var itemInfo in itemList)
+                {
+                    if (itemInfo.OnItemCheckCharacterAffected?.Invoke(character) ?? false)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
         public void RegisterBattleItem(InGameBattleItemInfo itemInfo)
         {

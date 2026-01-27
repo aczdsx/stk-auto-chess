@@ -154,5 +154,7 @@ namespace CookApps.AutoBattler
 
             SceneUILayerManager.Instance.PopUILayer(this, false);
         }
+
+        protected override void OnBackButton(ref bool offPrevUI) { }
     }
 }

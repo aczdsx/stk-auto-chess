@@ -86,7 +86,7 @@ namespace CookApps.AutoBattler
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_negative);
             _popupData?.OnCancel?.Invoke();
-            SceneUILayerManager.Instance.PopUILayer(this, false);
+            Application.Quit();
         }
 
         /// <summary>
@@ -111,5 +111,7 @@ namespace CookApps.AutoBattler
 
             return $"{size:F2} {suffixes[suffixIndex]}";
         }
+
+        protected override void OnBackButton(ref bool offPrevUI) { }
     }
 }
