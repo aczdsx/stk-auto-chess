@@ -154,9 +154,7 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
             
             var gdb = new GuideMissionDataBridge();
-            // !! GUIDE_TODO
-            // !! 501	21	ENTER_CHAPTER	GUIDE_MISSION_NAME_501	챕터 2 진입 하기 가이드 미션	30007	GUIDE_MISSION_DESC_501	0	1	GOLD	210001	200											
-            // !! GuideMissionType ENTER_CHAPTER
+
             if(gdb.GuideMissionId == 501 && currentStageId >= GuideMissionConstants.챕터2기준ID)
             {
                 await gdb.AddActionAsync(GuideMissionType.ENTER_CHAPTER, 1);

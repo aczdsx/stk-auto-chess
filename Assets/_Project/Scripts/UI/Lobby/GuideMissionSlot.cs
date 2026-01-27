@@ -51,7 +51,7 @@ namespace CookApps.AutoBattler
         public async void InitGuideMissionSlot()
         {
             await NetManager.Instance.GuideMission.GetAsync();
-            await GuideMissionTestUtility.HandleIteratively();
+            // await GuideMissionTestUtility.HandleIteratively();
             RefreshGuideMissionSlot();
         }
 
@@ -134,7 +134,7 @@ namespace CookApps.AutoBattler
             if (dataBridge.IsGoalReached || dataBridge.IsCompleted)
             {
                 await ClaimRewardAsync();
-                await GuideMissionTestUtility.HandleIteratively();
+                // await GuideMissionTestUtility.HandleIteratively();
                 RefreshGuideMissionSlot();
             }
             else

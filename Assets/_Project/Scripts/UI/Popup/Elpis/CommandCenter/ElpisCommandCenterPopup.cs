@@ -41,7 +41,8 @@ namespace CookApps.AutoBattler
         // TableView Controller
         private TableViewController<ElpisCommandCenterBenefit, ElpisCommandCenterBenefitCell> benefitController;
 
-        private ElpisDataBridge dataBridge;
+        private GuideMissionDataBridge guideMissionDataBridge;
+        private ElpisDataBridge elpisDataBridge;
         private InventoryDataBridge inventoryDataBridge;
         
         private LobbyMain lobbyMain;
@@ -89,20 +90,14 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
 
-
-            var gdb = new GuideMissionDataBridge();
-
-            // ! GUIDE_TODO
-            // ! 401	14	USE_BUILDING	GUIDE_MISSION_NAME_401	커멘더 센터 이동 가이드 미션	0	GUIDE_MISSION_DESC_401	0	1	GOLD	210001	200											            
-            // ! USE_BUILDING
-            if(gdb.GuideMissionId == GuideMissionConstants.커맨드센터들어간가이드미션ID)
+            if(guideMissionDataBridge.GuideMissionId == GuideMissionConstants.커맨드센터들어간가이드미션ID)
             {
-                gdb.AddAction(GuideMissionType.USE_BUILDING, 1);
+                guideMissionDataBridge.AddAction(GuideMissionType.USE_BUILDING, 1);
             }
 
             lobbyMain.PlayExitAnimation();
             
-            dataBridge = new ElpisDataBridge();
+            elpisDataBridge = new ElpisDataBridge();
             inventoryDataBridge = new InventoryDataBridge();
             
             currentElpisLevel = (int)((ElpisFacility)param).Level;
@@ -183,7 +178,7 @@ namespace CookApps.AutoBattler
 
         private void LoadElpisData()
         {
-            var commandCenter = dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
+            var commandCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
             currentBenefits.Clear();
             var uiLevel = (int)commandCenter.Level + 1;
             for (var i = 0; i < SpecDataManager.Instance.ElpisCommandCenterBenefit.All.Count; i++)
@@ -268,7 +263,7 @@ namespace CookApps.AutoBattler
 
             try
             {
-                var commandCenter = dataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
+                var commandCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
                 var response = await NetManager.Instance.Elpis.UpgradeFacilityAsync((int)commandCenter.BuildId);
                 if (!response.IsSuccess)
                 {
@@ -276,15 +271,7 @@ namespace CookApps.AutoBattler
                     return;
                 }
                 
-                var gdb = new GuideMissionDataBridge();
-                var edb = new ElpisDataBridge();
-                // ! GUIDE_TODO
-                // ! 403	16	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_403	함선확장 가이드 미션	30002	GUIDE_MISSION_DESC_403	0	1	GOLD	210001	200											
-                // ! UPGRADE_BUILDING_FOR_COMMEND_CENTER_2
-                if(gdb.GuideMissionId == 403 && edb.GetFacilityLevel(Tech.Hive.V1.ElpisFacilityType.FacilityTypeCommandCenter) > 1)
-                {
-                    await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
-                }
+                await guideMissionDataBridge.AddActionAsync(GuideMissionType.UPGRADE_BUILDING, 1, (int)commandCenter.BuildId);
 
                 currentElpisLevel = (int)response.Facility.Level;
 
