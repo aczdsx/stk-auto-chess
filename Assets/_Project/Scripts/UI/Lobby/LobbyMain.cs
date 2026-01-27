@@ -296,6 +296,7 @@ namespace CookApps.AutoBattler
         public void PlayEnterAnimation()
         {
             StartEnterAnimation(null);
+            CheckRedDots().Forget();
         }
 
         protected override void StartEnterAnimation(Action<UILayer> endCallback)
@@ -308,5 +309,18 @@ namespace CookApps.AutoBattler
             await preEnterTaskSource.Task;
             base.StartEnterAnimation(endCallback);
         }
+
+        #region RedDot
+
+        /// <summary>
+        /// 서버에서 바로 못받는 애들 갱신해주기
+        /// ex. 퀘스트
+        /// </summary>
+        private async UniTask CheckRedDots()
+        {
+            await NetManager.Instance.Quest.ListDailyQuestAsync();
+        }
+
+        #endregion
     }
 }

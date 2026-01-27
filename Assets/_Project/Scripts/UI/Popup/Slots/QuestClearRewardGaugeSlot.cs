@@ -13,6 +13,7 @@ namespace CookApps.AutoBattler
 {
     public class QuestClearRewardGaugeSlot : CachedMonoBehaviour
     {
+        [SerializeField] private Badge redDot;
         [SerializeField] private CAButton getRewardButton;
         [SerializeField] private Image rewardIconImage;
         [SerializeField] private SpriteLoader rewardIconSpriteLoader;
@@ -30,7 +31,7 @@ namespace CookApps.AutoBattler
 
         private QuestInfo specQuestData;
         private QuestData questData;
-
+    
         private QuestPopup parentPopup;
 
         private List<RewardItem> questRewardItemList = new List<RewardItem>();
@@ -103,6 +104,15 @@ namespace CookApps.AutoBattler
 
             completeLayerImage1.gameObject.SetActive(isAlreadyGetReward);
             completeSymbolObject.SetActive(isAlreadyGetReward);
+
+            UpdateRedDot();
+        }
+
+        private void UpdateRedDot()
+        {
+            var path = $"Quest/{specQuestData.quest_id}";
+            redDot.Clear();
+            redDot.AddBadgePath(BadgeType.RedDot, path);
         }
 
         private async UniTask OnClickGetRewardButtonAsync()

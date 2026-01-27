@@ -12,6 +12,7 @@ namespace CookApps.AutoBattler
 {
     public class QuestSlot : CachedMonoBehaviour
     {
+        [SerializeField] private Badge redDot;
         [SerializeField] private QuestRewardSlot questRewardSlot;
         [SerializeField] private TextMeshProUGUI questTitleText;
         [SerializeField] private TextMeshProUGUI questDescText;
@@ -105,6 +106,15 @@ namespace CookApps.AutoBattler
 
             completeLayerObject.SetActive(isAlreadyClaimed);
             completeButtonObject.SetActive(isAlreadyClaimed);
+
+            UpdateRedDot();
+        }
+
+        private void UpdateRedDot()
+        {
+            var path = $"Quest/{specQuestData.quest_id}";
+            redDot.Clear();
+            redDot.AddBadgePath(BadgeType.RedDot, path);
         }
 
         private async UniTask OnClickGetRewardButtonAsync()

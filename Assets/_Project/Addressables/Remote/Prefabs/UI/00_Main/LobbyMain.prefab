@@ -1510,6 +1510,18 @@ PrefabInstance:
       propertyPath: reactionType
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 394cd33e6626efc46b3e6b499a1ee991, type: 3}
+      propertyPath: paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 394cd33e6626efc46b3e6b499a1ee991, type: 3}
+      propertyPath: paths.Array.data[0].path
+      value: Quest
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 394cd33e6626efc46b3e6b499a1ee991, type: 3}
+      propertyPath: paths.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 394cd33e6626efc46b3e6b499a1ee991, type: 3}
       propertyPath: m_Name
       value: Btn_QuestNew

@@ -53,13 +53,6 @@ namespace CookApps.AutoBattler
 
             currentTabTermType = TermType.DAILY;
 
-            // 서버에서 퀘스트 데이터 갱신
-            RefreshQuestDataAsync().Forget();
-        }
-
-        private async UniTaskVoid RefreshQuestDataAsync()
-        {
-            await NetManager.Instance.Quest.ListDailyQuestAsync();
             SetQuestPopup(currentTabTermType);
         }
 

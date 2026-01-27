@@ -749,6 +749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da3a3d219d857441b87be6bcb9830ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  redDot: {fileID: 7573260523826517360}
   questRewardSlot: {fileID: 1454962716440953313}
   questTitleText: {fileID: 8278975229210044398}
   questDescText: {fileID: 2233736430821693470}
@@ -1455,7 +1456,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -2346,6 +2347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5818550014738579881}
   - component: {fileID: 7635432966631644701}
+  - component: {fileID: 7573260523826517360}
   m_Layer: 5
   m_Name: RED_DOT
   m_TagString: Untagged
@@ -2391,6 +2393,22 @@ Animation:
   m_AnimatePhysics: 0
   m_UpdateMode: 0
   m_CullingType: 0
+--- !u!114 &7573260523826517360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6798496023691947460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f258db54e980442c80837c076439be6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites: []
+  image: {fileID: 0}
+  defaultType: 0
+  paths: []
 --- !u!1 &6901491521069386185
 GameObject:
   m_ObjectHideFlags: 0
