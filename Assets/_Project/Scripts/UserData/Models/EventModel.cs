@@ -76,15 +76,32 @@ namespace CookApps.AutoBattler
         /// </summary>
         private void RefreshConsumeAPBadge()
         {
-            const string path = "Event/ConsumeAP";
+            var specEvent = SpecDataManager.Instance.GetCurrentSpecEvent(EventType.USE_AP);
+            if (specEvent == null)
+                return;
 
-            if (HasClaimableEventReward(EventType.USE_AP))
+            var eventData = GetEvent(specEvent.event_id);
+            if (eventData == null)
+                return;
+
+            var specConditions = SpecDataManager.Instance.GetSpecEventConditionList(specEvent.event_id);
+            if (specConditions == null || specConditions.Count == 0)
+                return;
+
+            foreach (var specCondition in specConditions)
             {
-                BadgeManager.Instance.AddBadge(BadgeType.RedDot, path);
-            }
-            else
-            {
-                BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, path);
+                var path = $"Event/ConsumeAP/{specCondition.event_condition_id}";
+                var conditionData = GetEventConditionData(eventData, (uint)specCondition.event_condition_id);
+                var isClaimable = eventData.CurrentCount >= specCondition.need_count && (conditionData == null || !conditionData.IsRewarded);
+
+                if (isClaimable)
+                {
+                    BadgeManager.Instance.AddBadge(BadgeType.RedDot, path);
+                }
+                else
+                {
+                    BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, path);
+                }
             }
         }
 
@@ -93,15 +110,32 @@ namespace CookApps.AutoBattler
         /// </summary>
         private void RefreshSessionTimeBadge()
         {
-            const string path = "Event/SessionTime";
+            var specEvent = SpecDataManager.Instance.GetCurrentSpecEvent(EventType.ACC_PLAY_TIME);
+            if (specEvent == null)
+                return;
 
-            if (HasClaimableEventReward(EventType.ACC_PLAY_TIME))
+            var eventData = GetEvent(specEvent.event_id);
+            if (eventData == null)
+                return;
+
+            var specConditions = SpecDataManager.Instance.GetSpecEventConditionList(specEvent.event_id);
+            if (specConditions == null || specConditions.Count == 0)
+                return;
+
+            foreach (var specCondition in specConditions)
             {
-                BadgeManager.Instance.AddBadge(BadgeType.RedDot, path);
-            }
-            else
-            {
-                BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, path);
+                var path = $"Event/SessionTime/{specCondition.event_condition_id}";
+                var conditionData = GetEventConditionData(eventData, (uint)specCondition.event_condition_id);
+                var isClaimable = eventData.CurrentCount >= specCondition.need_count && (conditionData == null || !conditionData.IsRewarded);
+
+                if (isClaimable)
+                {
+                    BadgeManager.Instance.AddBadge(BadgeType.RedDot, path);
+                }
+                else
+                {
+                    BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, path);
+                }
             }
         }
 
