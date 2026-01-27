@@ -2041,6 +2041,18 @@ PrefabInstance:
       propertyPath: reactionType
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: paths.Array.data[0].path
+      value: Event/ConsumeAP
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: paths.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
       propertyPath: m_Name
       value: Btn_ConsumeApEvent

@@ -12,6 +12,7 @@ namespace CookApps.AutoBattler
 {
     public class ConsumeEventSlot : CachedMonoBehaviour
     {
+        [SerializeField] private Badge redDot;
         [SerializeField] private CAButton getRewardButton;
         [SerializeField] private RewardItemSlot rewardItemSlot;
 
@@ -70,6 +71,15 @@ namespace CookApps.AutoBattler
             claimBGObject.SetActive(isAvailableGetReward);
             claimOnObject.SetActive(isAvailableGetReward);
             claimCheckObject.SetActive(isClaimed);
+
+            UpdateRedDot();
+        }
+
+        private void UpdateRedDot()
+        {
+            var path = $"Event/ConsumeAP/{currentEventConditionData.EventConditionId}";
+            redDot.Clear();
+            redDot.AddBadgePath(BadgeType.RedDot, path);
         }
 
         private void SetNeedItemImage()
