@@ -114,6 +114,11 @@ namespace CookApps.Editor
             if (settings == null)
                 return;
 
+            // 해시 충돌 검증용 딕셔너리
+            var spriteHashToName = new System.Collections.Generic.Dictionary<ulong, string>();
+            var atlasHashToGuid = new System.Collections.Generic.Dictionary<ulong, string>();
+            bool hasCollision = false;
+
             CachedSpriteManager.atlasRefs.Clear();
             CachedSpriteManager.spriteRefs.Clear();
             foreach (var folderGuid in CachedSpriteManager.folderPathGuids)
@@ -134,6 +139,18 @@ namespace CookApps.Editor
                         if (entry == null)
                             continue;
 
+                        // Atlas GUID 해시 충돌 검증
+                        ulong atlasHash = guid.djb2Hash();
+                        if (atlasHashToGuid.TryGetValue(atlasHash, out var existingGuid))
+                        {
+                            Debug.LogError($"[SpriteManager] Atlas GUID hash collision detected!\n  Hash: {atlasHash}\n  GUID1: {existingGuid}\n  GUID2: {guid}");
+                            hasCollision = true;
+                        }
+                        else
+                        {
+                            atlasHashToGuid[atlasHash] = guid;
+                        }
+
                         CachedSpriteManager.atlasRefs.Add(new AssetReferenceT<SpriteAtlas>(guid));
                     }
                 }
@@ -152,12 +169,32 @@ namespace CookApps.Editor
                         if (entry == null)
                             continue;
 
+                        // Standalone sprite 이름 해시 충돌 검증
+                        ulong spriteHash = fileName.djb2Hash();
+                        if (spriteHashToName.TryGetValue(spriteHash, out var existingName))
+                        {
+                            if (existingName != fileName)
+                            {
+                                Debug.LogError($"[SpriteManager] Standalone sprite name hash collision detected!\n  Hash: {spriteHash}\n  Name1: {existingName}\n  Name2: {fileName}");
+                                hasCollision = true;
+                            }
+                        }
+                        else
+                        {
+                            spriteHashToName[spriteHash] = fileName;
+                        }
+
                         CachedSpriteManager.spriteRefs.Add(fileName.djb2Hash(), new AssetReferenceT<Sprite>(guid));
                     }
                 }
             }
 
-            UpdateAtlasManagerScriptableObject();
+            UpdateAtlasManagerScriptableObject(spriteHashToName, ref hasCollision);
+
+            if (hasCollision)
+            {
+                Debug.LogError("[SpriteManager] Hash collision detected! Please rename the conflicting sprites/atlases.");
+            }
 
             // 변경 사항 저장
             EditorUtility.SetDirty(CachedSpriteManager);
@@ -165,7 +202,9 @@ namespace CookApps.Editor
             Debug.Log("AtlasManagerScriptableObject가 업데이트되었습니다.");
         }
 
-        private static void UpdateAtlasManagerScriptableObject()
+        private static void UpdateAtlasManagerScriptableObject(
+            System.Collections.Generic.Dictionary<ulong, string> spriteHashToName,
+            ref bool hasCollision)
         {
             // Dictionary 초기화
             CachedSpriteManager.spriteNameToAtlasDict.Clear();
@@ -182,8 +221,25 @@ namespace CookApps.Editor
 
                     foreach (var sprite in sprites)
                     {
+                        string spriteName = sprite.name.Replace("(Clone)", "");
+                        ulong spriteHash = spriteName.djb2Hash();
+
+                        // Atlas 내 스프라이트 이름 해시 충돌 검증
+                        if (spriteHashToName.TryGetValue(spriteHash, out var existingName))
+                        {
+                            if (existingName != spriteName)
+                            {
+                                Debug.LogError($"[SpriteManager] Atlas sprite name hash collision detected!\n  Hash: {spriteHash}\n  Name1: {existingName}\n  Name2: {spriteName} (in atlas: {spriteAtlas.name})");
+                                hasCollision = true;
+                            }
+                        }
+                        else
+                        {
+                            spriteHashToName[spriteHash] = spriteName;
+                        }
+
                         // 스프라이트 이름과 해당 atlasRef 저장
-                        CachedSpriteManager.spriteNameToAtlasDict[sprite.name.Replace("(Clone)", "").djb2Hash()] = atlasRef.AssetGUID.djb2Hash();
+                        CachedSpriteManager.spriteNameToAtlasDict[spriteHash] = atlasRef.AssetGUID.djb2Hash();
                     }
                 }
             }
