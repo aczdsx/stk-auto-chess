@@ -58,9 +58,9 @@ namespace CookApps.AutoBattler
             _elementSynergyButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickElementSynergyButton()).AddTo(this);
             _asterismSynergyButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickAsterismSynergyButton()).AddTo(this);
             // ! TODO SpecDataManager.Instance.GetLeftCharacterID의 로직이 이상합니다! 둘이 서로 반대로 구현 되어 있어서 일단 작동 의도대로 넣기위해 반대로 넣었습니다!
-            _characterObjLeftButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickRightButton()).AddTo(this);
+            _characterObjLeftButton.OnClickAsObservable().Subscribe(this, (_, self) => _parentCollectionPopup.OnClickRightButton()).AddTo(this);
             // ! TODO SpecDataManager.Instance.GetRightCharacterID의 로직이 이상합니다! 둘이 서로 반대로 구현 되어 있어서 일단 작동 의도대로 넣기위해 반대로 넣었습니다!
-            _characterObjRightButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickLeftButton()).AddTo(this);
+            _characterObjRightButton.OnClickAsObservable().Subscribe(this, (_, self) => _parentCollectionPopup.OnClickLeftButton()).AddTo(this);
         }
 
         public void InitLayer(int characterID, CharacterCollectionPopup _parentPopup)
@@ -104,7 +104,7 @@ namespace CookApps.AutoBattler
         {
             if (_parentCollectionPopup == null) return;
 
-            var nextCharacterID = FindNextOwnedCharacterID(_specCharacterData.id, isLeft: true);
+            var nextCharacterID = SpecDataManager.Instance.GetLeftOwnedCharacterId(_specCharacterData.id);
             if (nextCharacterID != -1)
             {
                 InitLayer(nextCharacterID, _parentCollectionPopup);
@@ -115,35 +115,11 @@ namespace CookApps.AutoBattler
         {
             if (_parentCollectionPopup == null) return;
 
-            var nextCharacterID = FindNextOwnedCharacterID(_specCharacterData.id, isLeft: false);
+            var nextCharacterID = SpecDataManager.Instance.GetRightOwnedCharacterId(_specCharacterData.id);
             if (nextCharacterID != -1)
             {
                 InitLayer(nextCharacterID, _parentCollectionPopup);
             }
-        }
-
-        private int FindNextOwnedCharacterID(int startCharacterID, bool isLeft)
-        {
-            int currentID = startCharacterID;
-            int nextID;
-
-            do
-            {
-                nextID = isLeft
-                    ? SpecDataManager.Instance.GetLeftCharacterID(currentID, CharacterType.CHARACTER)
-                    : SpecDataManager.Instance.GetRightCharacterID(currentID, CharacterType.CHARACTER);
-
-                if (ServerDataManager.Instance.Character.HasCharacter(nextID))
-                {
-                    return nextID;
-                }
-
-                currentID = nextID;
-            }
-            while (nextID != startCharacterID);
-
-            // 한 바퀴 돌아서 보유 캐릭터를 찾지 못함
-            return -1;
         }
 
         private void SetTabState()

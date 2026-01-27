@@ -125,7 +125,7 @@ namespace CookApps.AutoBattler
             // 초반 플로우 체크 및 진행
 #if _SJHONG_TEST_  
                 
-            LocalDataManager.Instance.SetLastPlayStageId(20009);
+                LocalDataManager.Instance.SetLastPlayStageId(20009);
                 MyDebug.MyLog($"{firstStageData.stage_id} < {LocalDataManager.Instance.GetLastPlayStageId()} == {firstStageData.stage_id < LocalDataManager.Instance.GetLastPlayStageId()}");
                 if (firstStageData != null && !(firstStageData.chapter_id < LocalDataManager.Instance.GetLastPlayStageId())) {
                     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
@@ -357,6 +357,15 @@ namespace CookApps.AutoBattler
         /// </summary>
         public void OnClickGoToLobbyButton()
         {
+            GoToLobbyAsync().Forget();
+        }
+
+        /// <summary>
+        /// 튜토리얼 스킵 버튼
+        /// </summary>
+        public void OnClickSkipTutorial()
+        {
+            TutorialManager.SetSkipTutorial();
             GoToLobbyAsync().Forget();
         }
 
