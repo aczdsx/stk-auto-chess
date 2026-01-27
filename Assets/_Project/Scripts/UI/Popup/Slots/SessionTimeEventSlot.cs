@@ -14,6 +14,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton getRewardButton;
         [SerializeField] private RewardItemSlot rewardItemSlot;
         [SerializeField] private TextMeshProUGUI sessionTimeText;
+        [SerializeField] private Badge redDot;
 
         [Header("Slot State")]
         [SerializeField] private GameObject activeCircleObject;
@@ -66,6 +67,15 @@ namespace CookApps.AutoBattler
 
             activeCircleObject.SetActive(isAvailableGetReward || isClaimed);
             claimCheckObject.SetActive(isClaimed);
+
+            UpdateRedDot();
+        }
+
+        private void UpdateRedDot()
+        {
+            var path = $"Event/SessionTime/{currentEventConditionData.EventConditionId}";
+            redDot.Clear();
+            redDot.AddBadgePath(BadgeType.RedDot, path);
         }
 
         private async UniTask OnClickGetRewardButtonAsync()

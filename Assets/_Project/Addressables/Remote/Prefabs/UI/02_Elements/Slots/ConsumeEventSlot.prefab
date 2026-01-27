@@ -359,6 +359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2266318549060055399}
   - component: {fileID: 6641445072195606080}
+  - component: {fileID: 5806243062061746993}
   m_Layer: 5
   m_Name: RED_DOT
   m_TagString: Untagged
@@ -404,6 +405,22 @@ Animation:
   m_AnimatePhysics: 0
   m_UpdateMode: 0
   m_CullingType: 0
+--- !u!114 &5806243062061746993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404762515490881466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f258db54e980442c80837c076439be6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites: []
+  image: {fileID: 0}
+  defaultType: 0
+  paths: []
 --- !u!1 &431229949209872977
 GameObject:
   m_ObjectHideFlags: 0
@@ -13192,6 +13209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff34c4146fa4ac148bb06ab21dd19b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  redDot: {fileID: 5806243062061746993}
   getRewardButton: {fileID: 1416186647681988326}
   rewardItemSlot: {fileID: 8334623347845785211}
   needItemImage: {fileID: 8055774859410521680}
