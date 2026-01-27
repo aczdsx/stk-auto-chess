@@ -291,7 +291,7 @@ namespace CookApps.AutoBattler
             requireItemImage.SetSprite(ZString.Format("Icon_Cunsumable{0}", coreData.Data.item_id)).Forget();
             
             requiredCoreTitleText.text = LanguageManager.Instance.GetDefaultText(ZString.Format("ITEM_INFO_NAME_{0}", coreData.Data.item_id));
-            coreTitleText.text = ZString.Format(LanguageManager.Instance.GetDefaultText(coreData.Data.upgrade_name_token), coreData.Data.lv);
+            coreTitleText.text = ZString.Format(LanguageManager.Instance.GetDefaultText(coreData.Data.upgrade_name_token), coreData.Data.lv - 1);
 
             currentItemCount = (int)inventoryDataBridge.GetCurrency(coreData.Data.item_id);
             currentCoreText.text = ZString.Concat(currentItemCount);
