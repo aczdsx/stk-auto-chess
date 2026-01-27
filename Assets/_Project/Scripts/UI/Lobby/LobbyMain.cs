@@ -139,9 +139,9 @@ namespace CookApps.AutoBattler
 
             PlayEnterAnimation();
             
+            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
             if(!TutorialManager.IsSkipTutorial)
             {
-                TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
                 await TutorialManager.Instance.TryStartOutgameTutorial();
                 TutorialManager.Instance.SubscribeGuideMissionChanged();
                 TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
