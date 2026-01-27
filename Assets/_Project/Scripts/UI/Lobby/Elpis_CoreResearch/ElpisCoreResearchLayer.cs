@@ -53,7 +53,9 @@ namespace CookApps.AutoBattler
 
         private const DimensionType defaultType = DimensionType.KNIGHT;
 
-        private ElpisDataBridge dataBridge;
+        private GuideMissionDataBridge guideMissionDataBridge;
+
+        private ElpisDataBridge elpisDataBridge;
         
         private Dictionary<int, List<ElpisCoreItem>> coreItems = new();
         private ElpisDimensionLab selectedCoreData;
@@ -75,7 +77,8 @@ namespace CookApps.AutoBattler
             InitializeToggles();
             InitializeCoreItems();
 
-            dataBridge ??= new ElpisDataBridge();
+            elpisDataBridge ??= new ElpisDataBridge();
+            guideMissionDataBridge ??= new GuideMissionDataBridge();
 
             CacheCoreDatasByUpgradeGroupId();
             CacheUserCoreDatas();
@@ -129,7 +132,7 @@ namespace CookApps.AutoBattler
             tempUserDataList.Clear();
             tempUserLevelMap.Clear();
 
-            dataBridge.GetAllCoreResearches(tempUserDataList);
+            elpisDataBridge.GetAllCoreResearches(tempUserDataList);
 
             foreach (var userData in tempUserDataList)
                 tempUserLevelMap[(int)userData.UpgradeGroupId] = (int)userData.Level;
@@ -357,22 +360,14 @@ namespace CookApps.AutoBattler
             selectedCoreData = selectedCoreItem.Data;
 
             ShowCoreDetail(selectedCoreItem.CachedData);
-            var gdb = new GuideMissionDataBridge();
-            var edb = new ElpisDataBridge();
 
-            // ! GUIDE_TODO
-            // ! 406	19	CLEAR_TUTORIAL	GUIDE_MISSION_NAME_406	공격력 증폭 가이드 미션	30005	GUIDE_MISSION_DESC_406	0	1	GOLD	210001	200
-            // ! DIMENSION_CUBE_LEVEL
-            if(gdb.GuideMissionId == 406 && edb.GetCoreResearchLevel((uint)GuideMissionConstants.코어기사공격력ID) >= 1)
-            {
-                await gdb.AddActionAsync(GuideMissionType.CLEAR_TUTORIAL, 1);
-            }
+            await guideMissionDataBridge.AddActionAsync(GuideMissionType.UPGRADE_DIMENSION_CUBE_CORE_RESEARCH, 1);
         }
 
         private bool IsOverNeedLevel()
         {
             var currentDataNeedLevel = selectedCoreData.need_condition;
-            var currentFacilityLevel = dataBridge.GetFacilityLevel(ElpisFacilityType.FacilityTypeDimensionLab);
+            var currentFacilityLevel = elpisDataBridge.GetFacilityLevel(ElpisFacilityType.FacilityTypeDimensionLab);
             
             return currentFacilityLevel >= currentDataNeedLevel;
         }

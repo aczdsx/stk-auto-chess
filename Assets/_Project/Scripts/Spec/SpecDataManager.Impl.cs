@@ -1191,6 +1191,34 @@ namespace CookApps.AutoBattler
             return targetCharacterList[rightIdx].id;
         }
 
+        public int GetLeftOwnedCharacterId(int startCharacterID) => GetNextOwnedCharacterId(startCharacterID, true);
+
+        public int GetRightOwnedCharacterId(int startCharacterID) => GetNextOwnedCharacterId(startCharacterID, false);
+
+        private int GetNextOwnedCharacterId(int startCharacterID, bool isLeft )
+        {
+            int currentID = startCharacterID;
+            int nextID;
+
+            do
+            {
+                nextID = isLeft
+                    ? SpecDataManager.Instance.GetLeftCharacterID(currentID, CharacterType.CHARACTER)
+                    : SpecDataManager.Instance.GetRightCharacterID(currentID, CharacterType.CHARACTER);
+
+                if (ServerDataManager.Instance.Character.HasCharacter(nextID))
+                {
+                    return nextID;
+                }
+
+                currentID = nextID;
+            }
+            while (nextID != startCharacterID);
+
+            // 한 바퀴 돌아서 보유 캐릭터를 찾지 못함
+            return -1;
+        }
+
         public AccountLevelExp GetAccountLevelExpDataByLevel(int level)
         {
             for (int i = 0; i < AccountLevelExp.All.Count; i++)
