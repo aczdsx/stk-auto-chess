@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Text;
@@ -37,6 +38,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton inventoryButton;
         [SerializeField] private CAButton questButton;
         [SerializeField] private TMPro.TextMeshProUGUI _stageNameText;
+        
+        private UniTaskCompletionSource preEnterTaskSource = new();
 
         public Transform GetTopCurrencyAndMenuBarParent()
         {
@@ -113,29 +116,57 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-
-
-            PreEnterAsync().Forget();
+            preEnterTaskSource = new UniTaskCompletionSource();
+            PreEnterAsync().ContinueWith(() => preEnterTaskSource.TrySetResult()).Forget();
         }
 
         private async UniTask PreEnterAsync()
         {
-            // await GuideMissionTestUtility.HandleIteratively();
-            guideMissionSlot.InitGuideMissionSlot();
-            userInfoPanel.Initialize();
-
-            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
+            var animateCamera = MainCameraHolder.CameraGestureController;
+            
+            InitializeUIComponents();
+            SetStageText();
+            
+            baseAnimator.Play("IdleExit");
+            
+            animateCamera.SetCameraZoomForce(30.0f);
 
             await LoadElpis();
-
-            SceneTransition.FadeOutAsync().Forget();
-
+            
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
+            SceneTransition.FadeOutAsync().Forget();
+            animateCamera.ZoomAsync(16.0f, 1.0f).Forget();
+            
+            await CheckTutorial();
+
+            PlayEnterAnimation();
+            
+            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
+            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+        }
+
+        private void SetStageText()
+        {
+            var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
+            _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
+        }
+
+        private void InitializeUIComponents()
+        {
+            guideMissionSlot.InitGuideMissionSlot();
+            userInfoPanel.Initialize();
+        }
+
+        /// <summary>
+        /// 상준 코드 이동
+        /// </summary>
+        private async UniTask CheckTutorial()
+        {
+#if _SJHONG_TEST_
+
             // TODO Model 대신 Bridge로 가져오기
             var model = ServerDataManager.Instance.GuideMission;
             var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)model.GuideMissionId);
-
-#if _SJHONG_TEST_
 
             if(specGuideMissionData.id <= 101) {
                 // await TutorialManager.Instance.TryStartOutgameTutorial();
@@ -149,20 +180,6 @@ namespace CookApps.AutoBattler
             TutorialManager.Instance.SubscribeGuideMissionChanged();
 
 #endif
-            // 이거는 엘피스 연출 후에 실행 되어야 함.
-            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
-
-            var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
-            _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
-        }
-
-        private async UniTask HubbleLobbyScequence()
-        {
-            SceneUILayerManager.Instance.SetEnableMainNodeCanvas(false);
-            MainCameraHolder.CameraGestureController.SetCanInteractCamera(false);
-            await UniTask.Delay(500);
-            SceneUILayerManager.Instance.SetEnableMainNodeCanvas(true);
-            MainCameraHolder.CameraGestureController.SetCanInteractCamera(true);
         }
 
         public async UniTask OnClickStartButton()
@@ -279,6 +296,17 @@ namespace CookApps.AutoBattler
         public void PlayEnterAnimation()
         {
             StartEnterAnimation(null);
+        }
+
+        protected override void StartEnterAnimation(Action<UILayer> endCallback)
+        {
+            WaitAndStartEnter(endCallback).Forget();
+        }
+        
+        private async UniTask WaitAndStartEnter(Action<UILayer> endCallback)
+        {
+            await preEnterTaskSource.Task;
+            base.StartEnterAnimation(endCallback);
         }
     }
 }
