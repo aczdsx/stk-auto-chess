@@ -85,33 +85,22 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// Quest 뱃지 갱신
         /// </summary>
-        private void RefreshQuestBadge()
-        {
-            const string path = "Quest";
-
-            if (HasClaimableQuest())
-            {
-                BadgeManager.Instance.AddBadge(BadgeType.RedDot, path);
-            }
-            else
-            {
-                BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, path);
-            }
-        }
-
-        /// <summary>
-        /// 받을 수 있는 보상이 있는 퀘스트가 있는지 확인
-        /// </summary>
-        private bool HasClaimableQuest()
+        public void RefreshQuestBadge()
         {
             foreach (var quest in _quests.Values)
             {
-                if (quest.IsCleared && !quest.IsRewarded)
+                var path = $"Quest/{quest.QuestId}";
+                var isClaimable = quest.IsCleared && !quest.IsRewarded;
+
+                if (isClaimable)
                 {
-                    return true;
+                    BadgeManager.Instance.AddBadge(BadgeType.RedDot, path);
+                }
+                else
+                {
+                    BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, path);
                 }
             }
-            return false;
         }
 
         #endregion
