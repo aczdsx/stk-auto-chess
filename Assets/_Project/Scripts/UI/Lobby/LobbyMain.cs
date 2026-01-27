@@ -136,13 +136,17 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
             SceneTransition.FadeOutAsync().Forget();
             animateCamera.ZoomAsync(16.0f, 1.0f).Forget();
-            
-            await CheckTutorial();
 
             PlayEnterAnimation();
             
-            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
-            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+            if(TutorialManager.IsSkipTutorial)
+            {
+                TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
+                await TutorialManager.Instance.TryStartOutgameTutorial();
+                TutorialManager.Instance.SubscribeGuideMissionChanged();
+                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+            }
+
         }
 
         private void SetStageText()
@@ -155,28 +159,6 @@ namespace CookApps.AutoBattler
         {
             guideMissionSlot.InitGuideMissionSlot();
             userInfoPanel.Initialize();
-        }
-
-        /// <summary>
-        /// 상준 코드 이동
-        /// </summary>
-        private async UniTask CheckTutorial()
-        {
-#if _SJHONG_TEST_
-
-            // TODO Model 대신 Bridge로 가져오기
-            var model = ServerDataManager.Instance.GuideMission;
-            var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)model.GuideMissionId);
-
-            if(!TutorialManager.IsSkipTutorial)
-            {
-                await TutorialManager.Instance.TryStartOutgameTutorial();
-                TutorialManager.Instance.SubscribeGuideMissionChanged();
-                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
-            }
-
-            var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
-            _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
         }
 
         private async UniTask HubbleLobbyScequence()

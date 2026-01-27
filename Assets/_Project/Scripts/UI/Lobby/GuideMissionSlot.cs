@@ -184,7 +184,8 @@ namespace CookApps.AutoBattler
                 // 팝업 닫힌 후 다음 가이드 미션 튜토리얼 체크
                 AppEventManager.Instance.GuideMissionClear(specGuideMissionData.order);
                 // 팝업 닫힌 후 다음 튜토리얼 시작
-                if (!TutorialManager.IsSkipTutorial) TutorialManager.Instance.TryStartOutgameTutorial().Forget();
+                if (!TutorialManager.IsSkipTutorial)
+                    TutorialManager.Instance.TryStartOutgameTutorial().Forget();
             }).Forget();
 
         }

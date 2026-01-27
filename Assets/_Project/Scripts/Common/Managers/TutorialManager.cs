@@ -45,7 +45,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     
     private static bool _isSkipTutorial = false;
     public static void SetSkipTutorial() {_isSkipTutorial = true;}
-    public static  bool IsSkipTutorial => _isSkipTutorial;
+    public static bool IsSkipTutorial => _isSkipTutorial;
 
     protected override void OnDestroy()
     {
@@ -60,12 +60,10 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     public void SubscribeGuideMissionChanged()
     {
-        if(!IsSkipTutorial)
-        {
-            var guideMissionBridge = new GuideMissionDataBridge();
-            _guideMissionSubscription = guideMissionBridge.OnMissionIdChanged
-                .Subscribe(OnGuideMissionIdChanged);
-        }
+        if(IsSkipTutorial) return;
+        var guideMissionBridge = new GuideMissionDataBridge();
+        _guideMissionSubscription = guideMissionBridge.OnMissionIdChanged
+            .Subscribe(OnGuideMissionIdChanged);
     }
 
     /// <summary>
