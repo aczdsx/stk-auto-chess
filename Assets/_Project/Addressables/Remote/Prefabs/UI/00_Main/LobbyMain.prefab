@@ -3373,11 +3373,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 185
+      value: 148
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -47
+      value: -56.4
       objectReference: {fileID: 0}
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3499,6 +3499,18 @@ PrefabInstance:
     - target: {fileID: 1354750518427930461, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
       propertyPath: reactionType
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: paths.Array.data[0].path
+      value: Event/SessionTime
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
+      propertyPath: paths.Array.data[0].type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 8188d9f2a43f04a42a7bcded32adc45c, type: 3}
       propertyPath: m_Name
