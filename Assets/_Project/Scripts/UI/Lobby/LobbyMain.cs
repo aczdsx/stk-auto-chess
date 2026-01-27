@@ -136,13 +136,17 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
             SceneTransition.FadeOutAsync().Forget();
             animateCamera.ZoomAsync(16.0f, 1.0f).Forget();
-            
-            await CheckTutorial();
 
             PlayEnterAnimation();
             
-            TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
-            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+            if(TutorialManager.IsSkipTutorial)
+            {
+                TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
+                await TutorialManager.Instance.TryStartOutgameTutorial();
+                TutorialManager.Instance.SubscribeGuideMissionChanged();
+                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+            }
+
         }
 
         private void SetStageText()
@@ -157,29 +161,13 @@ namespace CookApps.AutoBattler
             userInfoPanel.Initialize();
         }
 
-        /// <summary>
-        /// 상준 코드 이동
-        /// </summary>
-        private async UniTask CheckTutorial()
+        private async UniTask HubbleLobbyScequence()
         {
-#if _SJHONG_TEST_
-
-            // TODO Model 대신 Bridge로 가져오기
-            var model = ServerDataManager.Instance.GuideMission;
-            var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)model.GuideMissionId);
-
-            if(specGuideMissionData.id <= 101) {
-                // await TutorialManager.Instance.TryStartOutgameTutorial();
-
-                // TutorialManager.Instance.SubscribeGuideMissionChanged();
-            }
-#else
-            // 아웃게임 튜토리얼 시작 (가이드 미션 기반)
-            await TutorialManager.Instance.TryStartOutgameTutorial();
-
-            TutorialManager.Instance.SubscribeGuideMissionChanged();
-
-#endif
+            SceneUILayerManager.Instance.SetEnableMainNodeCanvas(false);
+            MainCameraHolder.CameraGestureController.SetCanInteractCamera(false);
+            await UniTask.Delay(500);
+            SceneUILayerManager.Instance.SetEnableMainNodeCanvas(true);
+            MainCameraHolder.CameraGestureController.SetCanInteractCamera(true);
         }
 
         public async UniTask OnClickStartButton()

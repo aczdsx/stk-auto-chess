@@ -152,12 +152,10 @@ namespace CookApps.AutoBattler
 
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
-            
+
             var gdb = new GuideMissionDataBridge();
-            // !! GUIDE_TODO
-            // !! 501	21	ENTER_CHAPTER	GUIDE_MISSION_NAME_501	챕터 2 진입 하기 가이드 미션	30007	GUIDE_MISSION_DESC_501	0	1	GOLD	210001	200											
-            // !! GuideMissionType ENTER_CHAPTER
-            if(gdb.GuideMissionId == 501 && currentStageId >= GuideMissionConstants.챕터2기준ID)
+
+            if (gdb.GuideMissionId == 501 && currentStageId >= GuideMissionConstants.챕터2기준ID)
             {
                 await gdb.AddActionAsync(GuideMissionType.ENTER_CHAPTER, 1);
             }
@@ -514,21 +512,24 @@ namespace CookApps.AutoBattler
                 var guideMission = ServerDataManager.Instance.GuideMission;
                 if (guideMission.Data != null)
                 {
-                    var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)guideMission.GuideMissionId);
-                    if (specGuideMissionData != null)
+                    if (!TutorialManager.IsSkipTutorial)
                     {
-                        // 보상 수령 가능 상태면 보상 받으라고 안내
-                        if (guideMission.IsGoalReached)
+                        var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)guideMission.GuideMissionId);
+                        if (specGuideMissionData != null)
                         {
-                            ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_1");
-                            return;
-                        }
+                            // 보상 수령 가능 상태면 보상 받으라고 안내
+                            if (guideMission.IsGoalReached)
+                            {
+                                ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_1");
+                                return;
+                            }
 
-                        // 진행 중인데 CLEAR_STAGE가 아니면 진입 차단
-                        if (specGuideMissionData.guide_mission_type != GuideMissionType.CLEAR_STAGE)
-                        {
-                            ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
-                            return;
+                            // 진행 중인데 CLEAR_STAGE가 아니면 진입 차단
+                            if (specGuideMissionData.guide_mission_type != GuideMissionType.CLEAR_STAGE)
+                            {
+                                ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
+                                return;
+                            }
                         }
                     }
                 }

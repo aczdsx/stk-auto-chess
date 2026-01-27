@@ -42,6 +42,10 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     private List<TutorialDialogue> _specTutorialDataList = new();
     public bool HasTutorialStage => _specTutorialDataList is { Count: > 0 } && _specTutorialDataList[0].tutorial_id > 0;
     public bool IsTutorial => _canvas != null;
+    
+    private static bool _isSkipTutorial = false;
+    public static void SetSkipTutorial() {_isSkipTutorial = true;}
+    public static bool IsSkipTutorial => _isSkipTutorial;
 
     protected override void OnDestroy()
     {
@@ -56,11 +60,10 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     public void SubscribeGuideMissionChanged()
     {
-#if !_SJHONG_TEST_
+        if(IsSkipTutorial) return;
         var guideMissionBridge = new GuideMissionDataBridge();
         _guideMissionSubscription = guideMissionBridge.OnMissionIdChanged
             .Subscribe(OnGuideMissionIdChanged);
-#endif
     }
 
     /// <summary>
@@ -93,7 +96,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             return false;
         }
 
-        if (ServerDataManager.Instance.GuideMission.IsCompleted || ServerDataManager.Instance.GuideMission.IsGoalReached)
+        if (ServerDataManager.Instance.GuideMission.IsCompleted || ServerDataManager.Instance.GuideMission.IsGoalReached) // ! GUIDE_TODO IsCompleted
         {
             return false;
         }

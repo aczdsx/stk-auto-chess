@@ -83,8 +83,6 @@ namespace CookApps.AutoBattler
                 // 가챠 실패 처리
                 return;
             }
-            var gmDataBridge = new GuideMissionDataBridge();
-            gmDataBridge.AddAction(GuideMissionType.SUMMON_CHARCTER, 1);
 
             // 서버 응답의 가챠 결과를 RewardItem 리스트로 변환
             var resultGachaList = new List<RewardItem>();
@@ -118,6 +116,9 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.StopBGM();
             SoundManager.Instance.IsPlayingGacha = true;
+
+            var gmDataBridge = new GuideMissionDataBridge();
+            await gmDataBridge.AddActionAsync(GuideMissionType.ENTER_CHAPTER, 1);
 
             _parentGachaPopup.SetCanvasTargetDisplay(1);
         }
