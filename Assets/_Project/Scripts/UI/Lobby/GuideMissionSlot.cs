@@ -96,7 +96,7 @@ namespace CookApps.AutoBattler
             missionRewardAmountText.text = $"x{specGuideMissionData.item_count}";
 
             // 보상 수령 가능 여부에 따라 활성화 레이어 표시
-            activateLayerObject.SetActive(dataBridge.IsGoalReached || dataBridge.IsCompleted);
+            activateLayerObject.SetActive(ServerDataManager.Instance.GuideMission.IsCompleted || ServerDataManager.Instance.GuideMission.IsGoalReached); // ! GUIDE_TODO IsCompleted
         }
 
         private void SetGuideMissionRewardImage()
@@ -131,7 +131,7 @@ namespace CookApps.AutoBattler
         {
             if (specGuideMissionData == null) return;
 
-            if (dataBridge.IsGoalReached || dataBridge.IsCompleted)
+            if (ServerDataManager.Instance.GuideMission.IsCompleted || ServerDataManager.Instance.GuideMission.IsGoalReached) // ! GUIDE_TODO IsCompleted
             {
                 await ClaimRewardAsync();
                 // await GuideMissionTestUtility.HandleIteratively();
