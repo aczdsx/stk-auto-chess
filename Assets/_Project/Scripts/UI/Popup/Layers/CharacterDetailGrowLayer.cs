@@ -71,6 +71,7 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             _inventoryBridge = new InventoryDataBridge();
+            _guideMissionDataBridge= new GuideMissionDataBridge();
             _detailStatButton.OnClickAsObservable()
                 .Subscribe(this, (_, self) => self.OnClickDetailStatButton()).AddTo(this);
 
@@ -385,7 +386,7 @@ namespace CookApps.AutoBattler
                 if (response?.IsSuccess == false)
                     return;
 
-                await _guideMissionDataBridge.AddActionAsync(GuideMissionType.TRANSCENDENCE_CHARACTER_TARGET, 1, _userCharacterData.CharacterId);
+                await _guideMissionDataBridge.AddActionAsync(GuideMissionType.TRANSCENDENCE_CHARACTER_TARGET, 1, (int)_userCharacterData.CharacterId);
 
                 // 메인 레이어 갱신
                 _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);

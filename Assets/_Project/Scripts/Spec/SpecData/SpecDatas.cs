@@ -1611,6 +1611,8 @@ namespace CookApps.AutoBattler
         public int order;
         /// 가이드 타입
         public global::CookApps.AutoBattler.GuideMissionType guide_mission_type;
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
+        public bool server_check;
         /// 가이드 이름 토큰
         public string name_token;
         /// 튜토리얼 ID
@@ -1646,6 +1648,8 @@ namespace CookApps.AutoBattler
         public global::CookApps.AutoBattler.TermType term_type;
         /// 퀘스트 타입
         public global::CookApps.AutoBattler.QuestType quest_type;
+        [MessagePack.MessagePackFormatter(typeof(BoolFormatter))]
+        public bool server_check;
         /// 퀘스트 이름 토큰
         public string name_token;
         /// 퀘스트 설명 토큰
