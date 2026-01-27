@@ -78,6 +78,7 @@ namespace CookApps.AutoBattler
             InitializeCoreItems();
 
             elpisDataBridge ??= new ElpisDataBridge();
+            guideMissionDataBridge ??= new GuideMissionDataBridge();
 
             CacheCoreDatasByUpgradeGroupId();
             CacheUserCoreDatas();

@@ -30,20 +30,24 @@ namespace CookApps.AutoBattler
         [SerializeField] private SpriteLoader missionRewardCharacterSpriteLoader;
         [SerializeField] private TextMeshProUGUI missionRewardAmountText;
 
-        private GuideMissionDataBridge dataBridge;
+        private GuideMissionDataBridge guideMissionDataBridge;
         private GuideMissionInfo specGuideMissionData;
         private ElpisFacilityType? pendingFacilityType;
+        private Action pendingPopupAction;
+
+        private bool IsRewardClaimable =>
+            ServerDataManager.Instance.GuideMission.IsCompleted || ServerDataManager.Instance.GuideMission.IsGoalReached;
 
         private void Awake()
         {
-            dataBridge = new GuideMissionDataBridge();
+            guideMissionDataBridge = new GuideMissionDataBridge();
 
             guideMissionButton.OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, _) => self.OnClickMissionSlotButtonAsync(), AwaitOperation.Drop)
                 .AddTo(this);
 
             // 가이드 미션 데이터 변경 시 UI 갱신
-            dataBridge.OnChanged
+            guideMissionDataBridge.OnChanged
                 .Subscribe(this, (_, self) => self.RefreshGuideMissionSlot())
                 .AddTo(this);
         }
@@ -51,7 +55,6 @@ namespace CookApps.AutoBattler
         public async void InitGuideMissionSlot()
         {
             await NetManager.Instance.GuideMission.GetAsync();
-            // await GuideMissionTestUtility.HandleIteratively();
             RefreshGuideMissionSlot();
         }
 
@@ -60,14 +63,14 @@ namespace CookApps.AutoBattler
         public void RefreshGuideMissionSlot()
         {
             // 모든 가이드 미션 완료 또는 최대 오더 초과 시 off 처리
-            if (dataBridge.IsAllCompleted || dataBridge.Order > SpecDataManager.Instance.GetGuideMissionMaxOrder())
+            if (guideMissionDataBridge.IsAllCompleted || guideMissionDataBridge.Order > SpecDataManager.Instance.GetGuideMissionMaxOrder())
             {
                 gameObject.SetActive(false);
                 return;
             }
 
             // 가이드 미션 슬롯 데이터 세팅
-            var guideMissionId = (int)dataBridge.GuideMissionId;
+            var guideMissionId = (int)guideMissionDataBridge.GuideMissionId;
             specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
 
             if (specGuideMissionData == null)
@@ -96,7 +99,7 @@ namespace CookApps.AutoBattler
             missionRewardAmountText.text = $"x{specGuideMissionData.item_count}";
 
             // 보상 수령 가능 여부에 따라 활성화 레이어 표시
-            activateLayerObject.SetActive(ServerDataManager.Instance.GuideMission.IsCompleted || ServerDataManager.Instance.GuideMission.IsGoalReached); // ! GUIDE_TODO IsCompleted
+            activateLayerObject.SetActive(IsRewardClaimable); // ! GUIDE_TODO IsCompleted
         }
 
         private void SetGuideMissionRewardImage()
@@ -131,15 +134,16 @@ namespace CookApps.AutoBattler
         {
             if (specGuideMissionData == null) return;
 
-            if (ServerDataManager.Instance.GuideMission.IsCompleted || ServerDataManager.Instance.GuideMission.IsGoalReached) // ! GUIDE_TODO IsCompleted
+            if (IsRewardClaimable) // ! GUIDE_TODO IsCompleted
             {
                 await ClaimRewardAsync();
-                // await GuideMissionTestUtility.HandleIteratively();
                 RefreshGuideMissionSlot();
             }
             else
             {
-                HandleGuideMissionNavigation();
+                NavigateToCharacterCollection();
+                // HandleNavigateByGuideType();
+                // ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert)?.UpdateAlert();
             }
         }
 
@@ -147,10 +151,24 @@ namespace CookApps.AutoBattler
 
         #region Reward
 
+        private static bool IS_DEBUG_CLAIM = false;
+
+        public static void SetDebugClaim() { IS_DEBUG_CLAIM = true; }
+
+        private static bool USE_DEBUG_CLAIM()
+        {
+            if (IS_DEBUG_CLAIM)
+            {
+                IS_DEBUG_CLAIM = false;
+                return true;
+            }
+            return false;
+        }
+
         private async UniTask ClaimRewardAsync()
         {
-            var response = await dataBridge.ClaimRewardAsync(dataBridge.GuideMissionId);
-            if (response == null || !response.IsSuccess)
+            var response = await guideMissionDataBridge.ClaimRewardAsync(guideMissionDataBridge.GuideMissionId);
+            if ((response == null || !response.IsSuccess) && !USE_DEBUG_CLAIM())
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_ERROR_NETWORK");
                 return;
@@ -166,177 +184,46 @@ namespace CookApps.AutoBattler
                 // 팝업 닫힌 후 다음 가이드 미션 튜토리얼 체크
                 AppEventManager.Instance.GuideMissionClear(specGuideMissionData.order);
                 // 팝업 닫힌 후 다음 튜토리얼 시작
-#if !_SJHONG_TEST_
-                TutorialManager.Instance.TryStartOutgameTutorial().Forget();
-#endif
+                if (!TutorialManager.IsSkipTutorial) TutorialManager.Instance.TryStartOutgameTutorial().Forget();
             }).Forget();
-            await NetManager.Instance.GuideMission.GetAsync();
+
         }
 
         #endregion
 
         #region Navigation
 
-        private Action pendingPopupAction;
-
-        private void HandleGuideMissionNavigation()
+        private void HandleNavigateByGuideType()
         {
-            // HandleGuideMissionNavigateByGuideType();
-            HandleGuideMissionNavigateByGuideID();
-            ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert)?.UpdateAlert();
-        }
-
-        private void HandleGuideMissionNavigateByGuideID()
-        {
-            switch (specGuideMissionData.id)
-            {
-                // 101: 캐릭터 소환
-                case 101:
-                    NavigateToLobbyAndOpenPopup(() => SceneUILayerManager.Instance.PushUILayerAsync<GachaPopup>().Forget());
-                    break;
-
-                // 201, 404: 시설 설치
-                case 201:
-                case 404:
-                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeNest,
-                        () => OpenElpisBuildLayerForFacility(ElpisFacilityType.FacilityTypeNest));
-                    break;
-
-                // 202, 305, 402: 캐릭터 강화
-                case 202:
-                case 305:
-                case 402:
-                    NavigateToLobbyAndOpenPopup(() => SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget());
-                    break;
-
-                // 301~304, 307~310: 스테이지 클리어
-                case 301:
-                case 302:
-                case 303:
-                case 304:
-                case 306:
-                case 307:
-                case 308:
-                case 309:
-                case 310:
-                    NavigateToStage();
-                    break;
-
-                // 401, 403: 커맨드 센터 사용
-                case 401:
-                case 403:
-                    var commandCenterBridge = new ElpisDataBridge();
-                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeCommandCenter,
-                        async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(
-                            commandCenterBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter)));
-                    break;
-
-                // 405: 디멘션 큐브 설치
-                case 405:
-                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeDimensionLab,
-                        () => OpenElpisBuildLayerForFacility(ElpisFacilityType.FacilityTypeDimensionLab));
-                    break;
-
-                // 406: 디멘션 큐브 사용
-                case 406:
-                    var dimensionUseBridge = new ElpisDataBridge();
-                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeDimensionLab,
-                        async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCoreResearchLayer>());
-                    break;
-
-
-                // 407: 배틀 시뮬레이션 진입
-                case 407:
-                    var simUseBridge = new ElpisDataBridge();
-                    NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType.FacilityTypeSimulationCenter,
-                        () => OpenElpisBuildLayerForFacility(ElpisFacilityType.FacilityTypeSimulationCenter));
-                    break;
-
-
-                // 501: 챕터 진입
-                case 501:
-                    NavigateToStage();
-                    break;
-
-                case 502:
-                case 503:
-                case 504:
-                case 507:
-                case 508:
-                case 509:
-                    NavigateToStage();
-                    break;
-
-
-                // 505, 506, 601: 바벨의 탑 클리어
-                case 505:
-                case 506:
-                case 601:
-                    // 바벨의 탑 네비게이션 추가 필요
-                    break;
-
-                default:
-                    // ID에 해당하는 네비게이션이 없으면 타입 기반으로 fallback
-                    HandleGuideMissionNavigateByGuideType();
-                    break;
-            }
-        }
-        private void HandleGuideMissionNavigateByGuideType()
-        {
+            var buildInfo = SpecDataManager.Instance.GetBuildInfo(specGuideMissionData.sub_key);
             switch (specGuideMissionData.guide_mission_type)
             {
                 case GuideMissionType.SUMMON_CHARCTER:
                 case GuideMissionType.SUMMON_CHARACTER_NORMAL:
                 case GuideMissionType.SUMMON_WEAPHON_NORMAL:
-                    NavigateToLobbyAndOpenPopup(() => SceneUILayerManager.Instance.PushUILayerAsync<GachaPopup>().Forget());
+                    NavigateToGacha();
                     break;
 
                 case GuideMissionType.CHARACTER_LEVELUP:
                 case GuideMissionType.LEVELUP_CHARACTER_TARGET:
-                case GuideMissionType.SET_LV_CHARACTER_TARGET:
-                case GuideMissionType.SUM_CHARACTER_LEVEL:
-                case GuideMissionType.SET_CHARACTER:
-                    NavigateToLobbyAndOpenPopup(() => SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget());
-                    break;
-
-                case GuideMissionType.PLAY_PVP:
-                case GuideMissionType.SET_PVP_DEF_DECK:
-                    // PVP 콘텐츠 화면으로 이동하는 코드
-                    break;
-
-                case GuideMissionType.CLEAR_TRIAL:
-                    // 시련의 탑 콘텐츠 화면으로 이동하는 코드
-                    break;
-
-                case GuideMissionType.CLEAR_BABEL:
-                    // 바벨의 탑 콘텐츠 화면으로 이동하는 코드
-                    break;
-
-                case GuideMissionType.CLICK_ATTENDANCE:
-                    // 출석부 팝업을 띄우는 코드
+                case GuideMissionType.EXCEED_CHARACTER_TARGET:
+                case GuideMissionType.TRANSCENDENCE_CHARACTER_TARGET:
+                    NavigateToCharacterCollection();
                     break;
 
                 case GuideMissionType.USE_BUILDING:
+                    NavigateToBuildingPopup(buildInfo);
+                    break;
+
                 case GuideMissionType.UPGRADE_BUILDING:
                 case GuideMissionType.INSTALL_BUILDING:
-                    var edb = new ElpisDataBridge();
-                    NavigateToLobbyAndOpenPopup(async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCommandCenterPopup>(edb.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter)));
+                    NavigateAndFocusToBuilding(buildInfo);
                     break;
 
-                case GuideMissionType.OPEN_IDLECHEST:
-                    // 방치 보상 팝업으로 이동하는 코드
-                    break;
-
-                case GuideMissionType.OPEN_CHEST:
-                    // 가방 또는 보물상자 팝업으로 이동하는 코드
-                    break;
-
+                case GuideMissionType.UPGRADE_DIMENSION_CUBE_CORE_RESEARCH:
                 case GuideMissionType.DIMENSION_CUBE_LEVEL:
-                    // 차원큐브 관련 화면으로 이동하는 코드
-                    break;
-
-                case GuideMissionType.ENTER_ELPIS:
-                    // 엘피스 관련 화면으로 이동하는 코드
+                    NavigateToLobbyAndOpenPopup(ElpisFacilityType.FacilityTypeDimensionLab,
+                        async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCoreResearchLayer>());
                     break;
 
                 case GuideMissionType.CLEAR_STAGE:
@@ -345,61 +232,90 @@ namespace CookApps.AutoBattler
                     NavigateToStage();
                     break;
 
+                // TODO: 네비게이션 미구현
+                case GuideMissionType.PLAY_PVP:
+                case GuideMissionType.SET_PVP_DEF_DECK:
+                case GuideMissionType.CLEAR_TRIAL:
+                case GuideMissionType.CLEAR_BABEL:
+                case GuideMissionType.CLICK_ATTENDANCE:
+                case GuideMissionType.OPEN_IDLECHEST:
+                case GuideMissionType.OPEN_CHEST:
+                case GuideMissionType.ENTER_ELPIS:
                 case GuideMissionType.END_DIALOGUE:
                 case GuideMissionType.CLEAR_TUTORIAL:
-                    // 특별한 이동 동작이 필요 없을 수 있음. 필요 시 추가
                     break;
             }
-
         }
 
-        private void NavigateToLobbyAndOpenPopup(Action popupAction)
+        private void NavigateAndFocusToBuilding(ElpisBuildInfo buildInfo)
+        {
+            if (buildInfo == null) return;
+
+            var facilityType = buildInfo.facility_type.ToServerType();
+            NavigateToLobbyAndOpenPopup(facilityType,
+                () => OpenElpisBuildLayerForFacility(facilityType));
+        }
+
+        private void NavigateToGacha()
+        {
+            if (SceneManager.GetActiveScene().name == "Lobby")
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<GachaPopup>().Forget();
+            }
+        }
+
+        private void NavigateToCharacterCollection()
+        {
+            if (!guideMissionDataBridge.IsCompleted && specGuideMissionData.tutorial_id > 0)
+                NavigateToLobbyAndOpenPopup(null, null);
+            else
+                NavigateToLobbyAndOpenPopup(null, () => SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget());
+        }
+
+        private void NavigateToBuildingPopup(ElpisBuildInfo buildInfo)
+        {
+            if (buildInfo == null) return;
+
+            var facilityType = buildInfo.facility_type.ToServerType();
+            var buildId = facilityType switch
+            {
+                ElpisFacilityType.FacilityTypeCommandCenter => (int)IdMap.ElpisBuild.CommandCenter,
+                ElpisFacilityType.FacilityTypeDimensionLab => (int)IdMap.ElpisBuild.DimensionLab,
+                _ => -1
+            };
+            if (buildId < 0) return;
+
+            NavigateToLobbyAndOpenPopup(facilityType, async () =>
+            {
+                var elpisInfo = await NetManager.Instance.Elpis.FinishUpgradingFacilityAsync(buildId);
+                ElpisBuildingPopup.OpenPopup(elpisInfo.Facility).Forget();
+            });
+        }
+
+        /// <summary>
+        /// 로비로 이동 후 팝업을 열고, facilityType이 지정된 경우 카메라 포커스도 수행한다.
+        /// </summary>
+        private void NavigateToLobbyAndOpenPopup(ElpisFacilityType? facilityType, Action popupAction)
         {
             var currentSceneName = SceneManager.GetActiveScene().name;
 
             if (currentSceneName == "Lobby")
             {
+                if (facilityType.HasValue)
+                    FocusCameraOnFacility(facilityType.Value);
                 popupAction?.Invoke();
             }
             else
             {
-                NavigateToLobbyWithPopupAsync(popupAction).Forget();
+                pendingFacilityType = facilityType;
+                pendingPopupAction = popupAction;
+                SceneUILayerManager.OnSceneLoadedEvent += OnLobbySceneLoaded;
+                NavigateToLobbyAsync().Forget();
             }
         }
 
-        private void NavigateToLobbyAndOpenPopupWithFocus(ElpisFacilityType facilityType, Action popupAction)
+        private async UniTask NavigateToLobbyAsync()
         {
-            var currentSceneName = SceneManager.GetActiveScene().name;
-
-            if (currentSceneName == "Lobby")
-            {
-                FocusCameraOnFacility(facilityType);
-                popupAction?.Invoke();
-            }
-            else
-            {
-                NavigateToLobbyWithPopupAndFocusAsync(facilityType, popupAction).Forget();
-            }
-        }
-
-        private async UniTask NavigateToLobbyWithPopupAsync(Action popupAction)
-        {
-            pendingPopupAction = popupAction;
-            SceneUILayerManager.OnSceneLoadedEvent += OnLobbySceneLoaded;
-
-            var battleReadyMain = BattleReadyMain.GetBattleReadyMain();
-            if (battleReadyMain != null)
-            {
-                await battleReadyMain.OnClickGoToLobby();
-            }
-        }
-
-        private async UniTask NavigateToLobbyWithPopupAndFocusAsync(ElpisFacilityType facilityType, Action popupAction)
-        {
-            pendingFacilityType = facilityType;
-            pendingPopupAction = popupAction;
-            SceneUILayerManager.OnSceneLoadedEvent += OnLobbySceneLoadedWithFocus;
-
             var battleReadyMain = BattleReadyMain.GetBattleReadyMain();
             if (battleReadyMain != null)
             {
@@ -409,29 +325,18 @@ namespace CookApps.AutoBattler
 
         private void OnLobbySceneLoaded(string sceneName)
         {
-            if (sceneName == "Lobby")
+            if (sceneName != "Lobby") return;
+
+            SceneUILayerManager.OnSceneLoadedEvent -= OnLobbySceneLoaded;
+
+            if (pendingFacilityType.HasValue)
             {
-                SceneUILayerManager.OnSceneLoadedEvent -= OnLobbySceneLoaded;
-                pendingPopupAction?.Invoke();
-                pendingPopupAction = null;
+                FocusCameraOnFacility(pendingFacilityType.Value);
+                pendingFacilityType = null;
             }
-        }
 
-        private void OnLobbySceneLoadedWithFocus(string sceneName)
-        {
-            if (sceneName == "Lobby")
-            {
-                SceneUILayerManager.OnSceneLoadedEvent -= OnLobbySceneLoadedWithFocus;
-
-                if (pendingFacilityType.HasValue)
-                {
-                    FocusCameraOnFacility(pendingFacilityType.Value);
-                    pendingFacilityType = null;
-                }
-
-                pendingPopupAction?.Invoke();
-                pendingPopupAction = null;
-            }
+            pendingPopupAction?.Invoke();
+            pendingPopupAction = null;
         }
 
         private void FocusCameraOnFacility(ElpisFacilityType facilityType)
@@ -450,10 +355,7 @@ namespace CookApps.AutoBattler
                     if (info.buildInfo.build_id == buildId)
                     {
                         var cameraController = MainCameraHolder.CameraGestureController;
-                        var targetPosition = ui.TargetWorldPosition;
-                        var targetZoom = 10.0f;
-
-                        cameraController.ZoomAndMoveAsync(targetPosition, targetZoom, 0.3f).Forget();
+                        cameraController.ZoomAndMoveAsync(ui.TargetWorldPosition, 10.0f, 0.3f).Forget();
                         return;
                     }
                 }

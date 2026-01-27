@@ -90,14 +90,10 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
 
-            if(guideMissionDataBridge.GuideMissionId == GuideMissionConstants.커맨드센터들어간가이드미션ID)
-            {
-                guideMissionDataBridge.AddAction(GuideMissionType.USE_BUILDING, 1);
-            }
-
             lobbyMain.PlayExitAnimation();
             
             elpisDataBridge = new ElpisDataBridge();
+            guideMissionDataBridge = new GuideMissionDataBridge();
             inventoryDataBridge = new InventoryDataBridge();
             
             currentElpisLevel = (int)((ElpisFacility)param).Level;
@@ -107,6 +103,12 @@ namespace CookApps.AutoBattler
             UpdateUI();
             
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
+
+            if(guideMissionDataBridge.GuideMissionId == GuideMissionConstants.커맨드센터들어간가이드미션ID)
+            {
+                guideMissionDataBridge.AddAction(GuideMissionType.USE_BUILDING, 1);
+            }
+
         }
         
         protected override void OnPreExit()

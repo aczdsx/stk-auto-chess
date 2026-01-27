@@ -1017,7 +1017,7 @@ GameObject:
   - component: {fileID: 6057181920573945551}
   - component: {fileID: 997752117637603244}
   m_Layer: 5
-  m_Name: GuestLoginButton (1)
+  m_Name: InGameTestButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12722,7 +12722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4036295859474581189
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16412,7 +16412,7 @@ GameObject:
   - component: {fileID: 2152446125325394767}
   - component: {fileID: 1665809984876162359}
   m_Layer: 5
-  m_Name: GuestLoginButton (2)
+  m_Name: TutorialSkipButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16525,7 +16525,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 697865440549132607}
         m_TargetAssemblyTypeName: CookApps.AutoBattler.TitleMain, Assembly-CSharp
-        m_MethodName: OnClickGoToLobbyButton
+        m_MethodName: OnClickSkipTutorial
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

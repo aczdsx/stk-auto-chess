@@ -512,7 +512,8 @@ namespace CookApps.AutoBattler
                 var guideMission = ServerDataManager.Instance.GuideMission;
                 if (guideMission.Data != null)
                 {
-                    var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)guideMission.GuideMissionId);
+                    if(!TutorialManager.IsSkipTutorial) 
+                    {var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get((int)guideMission.GuideMissionId);
                     if (specGuideMissionData != null)
                     {
                         // 보상 수령 가능 상태면 보상 받으라고 안내
@@ -528,7 +529,7 @@ namespace CookApps.AutoBattler
                             ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
                             return;
                         }
-                    }
+                    }}
                 }
 
                 // 스테이지 진입

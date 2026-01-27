@@ -51,7 +51,7 @@ namespace CookApps.AutoBattler
         {
             if (_currentCharacterID == 0) return;
 
-            var leftCharacterID = SpecDataManager.Instance.GetLeftCharacterID(_currentCharacterID, CharacterType.CHARACTER);
+            var leftCharacterID = SpecDataManager.Instance.GetLeftOwnedCharacterId(_currentCharacterID);
             _currentCharacterID = leftCharacterID;
             ChangeTabType(_currentTabType, true);
         }
@@ -60,7 +60,7 @@ namespace CookApps.AutoBattler
         {
             if (_currentCharacterID == 0) return;
 
-            var rightCharacterID = SpecDataManager.Instance.GetRightCharacterID(_currentCharacterID, CharacterType.CHARACTER);
+            var rightCharacterID = SpecDataManager.Instance.GetRightOwnedCharacterId(_currentCharacterID);
             _currentCharacterID = rightCharacterID;
             ChangeTabType(_currentTabType, true);
         }
