@@ -54,7 +54,7 @@ namespace CookApps.AutoBattler
 
         public async void InitGuideMissionSlot()
         {
-            await NetManager.Instance.GuideMission.GetAsync();
+            await guideMissionDataBridge.GetAsync();
             RefreshGuideMissionSlot();
         }
 
@@ -88,9 +88,10 @@ namespace CookApps.AutoBattler
                     if (specGuideMissionData.id == 1)
                         SceneUILayerManager.Instance.PushUILayerAsync<NicknamePopup>(true).Forget();
                 });
+
         }
 
-        private void SetGuideMissionSlotUI()
+        private async void SetGuideMissionSlotUI()
         {
             missionTitleText.text = LanguageManager.Instance.GetDefaultText(specGuideMissionData.name_token);
             missionDescText.text = LanguageManager.Instance.GetDefaultText(specGuideMissionData.desc_token);
@@ -137,13 +138,11 @@ namespace CookApps.AutoBattler
             if (IsRewardClaimable) // ! GUIDE_TODO IsCompleted
             {
                 await ClaimRewardAsync();
-                RefreshGuideMissionSlot();
             }
             else
             {
-                NavigateToCharacterCollection();
-                // HandleNavigateByGuideType();
-                // ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert)?.UpdateAlert();
+                HandleNavigateByGuideType();
+                ObjectRegistry.GetObject<GuideAlert>(RegistryKey.GuideAlert)?.UpdateAlert();
             }
         }
 
@@ -188,6 +187,7 @@ namespace CookApps.AutoBattler
                     TutorialManager.Instance.TryStartOutgameTutorial().Forget();
             }).Forget();
 
+            await guideMissionDataBridge.GetAsync();
         }
 
         #endregion

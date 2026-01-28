@@ -117,9 +117,6 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.StopBGM();
             SoundManager.Instance.IsPlayingGacha = true;
 
-            var gmDataBridge = new GuideMissionDataBridge();
-            await gmDataBridge.AddActionAsync(GuideMissionType.ENTER_CHAPTER, 1);
-
             _parentGachaPopup.SetCanvasTargetDisplay(1);
         }
 
