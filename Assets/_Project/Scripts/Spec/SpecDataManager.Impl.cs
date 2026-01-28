@@ -1043,23 +1043,23 @@ namespace CookApps.AutoBattler
             return result;
         }
 
-        public int GetFirstCommanderSkillChapter()
-        {
-            int minChapterID = int.MaxValue;
-            for (int i = 0; i < SkillCommander.All.Count; i++)
-            {
-                var data = SkillCommander.All[i];
-                if (data.open_key_chapter_id < minChapterID)
-                    minChapterID = data.open_key_chapter_id;
-            }
-            int openChapterID = minChapterID - 1;
+        // public int GetFirstCommanderSkillChapter()
+        // {
+        //     int minChapterID = int.MaxValue;
+        //     for (int i = 0; i < SkillCommander.All.Count; i++)
+        //     {
+        //         var data = SkillCommander.All[i];
+        //         if (data.open_key_chapter_id < minChapterID)
+        //             minChapterID = data.open_key_chapter_id;
+        //     }
+        //     int openChapterID = minChapterID - 1;
 
-            if (stageChapterDic.TryGetValue(3, out List<StageInfo> stageList) && stageList.Count > 0)
-            {
-                return stageList[stageList.Count - 1].stage_id;
-            }
-            return 0;
-        }
+        //     if (stageChapterDic.TryGetValue(GuideMissionConstants.커맨더스킬_익스플로젼_연출가이드수령챕터, out List<StageInfo> stageList) && stageList.Count > 0)
+        //     {
+        //         return stageList[stageList.Count - 1].stage_id;
+        //     }
+        //     return 0;
+        // }
 
         public List<SkillCommander> GetCommanderSkillDataList(int commanderSkillID)
         {

@@ -19,4 +19,5 @@ public static class GuideMissionConstants
     [Obsolete] public const int 스테이지범위기준ID = 20000;
     [Obsolete] public const int 챕터2기준ID = 30000;
     [Obsolete] public const int 커맨드센터들어간가이드미션ID = 401;
+    [Obsolete] public const int 커맨더스킬_익스플로젼_연출가이드수령챕터 = 3;
 }

@@ -62,7 +62,7 @@ public class InGameBottomUI : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI _battleItemCountTextOff;
 
     protected List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
-    protected bool _isOpenCommanderSkill;
+    // protected bool _isOpenCommanderSkill;
     protected UserGrade _specUserGrade;
     protected Type _combatType;
     protected object _combatStateData;
@@ -78,8 +78,9 @@ public class InGameBottomUI : MonoBehaviour
     protected virtual void Awake()
     {
         var latestClearUserStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
-        _isOpenCommanderSkill = latestClearUserStageID >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
-        _commanderSkillObj.SetActive(_isOpenCommanderSkill);
+        // _isOpenCommanderSkill = latestClearUserStageID >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
+        // _commanderSkillObj.SetActive(_isOpenCommanderSkill);
+        _commanderSkillObj.SetActive(false);
         _isStartRunningProcess = false;
 
         _specUserGrade =
