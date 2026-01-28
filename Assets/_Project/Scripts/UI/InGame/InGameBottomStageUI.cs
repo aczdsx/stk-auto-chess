@@ -42,16 +42,16 @@ public class InGameBottomStageUI : InGameBottomUI
         }
 
         // 지휘자 스킬 장착 확인
-        if (_isOpenCommanderSkill)
-        {
-            var isEquippedCommanderSkill = ServerDataManager.Instance.CommanderSkill.IsAllCommanderSkillsEquipped(_specUserGrade.maximum_commander_skill_count);
-            if (!isEquippedCommanderSkill)
-            {
-                var newPopupData = new SystemConfirmPopupData("시스템 알림", "MSG_ALERT_EQUIP_COMMAND_SKILL", "확인", "취소");
-                SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
-                return false;
-            }
-        }
+        // if (_isOpenCommanderSkill)
+        // {
+        //     var isEquippedCommanderSkill = ServerDataManager.Instance.CommanderSkill.IsAllCommanderSkillsEquipped(_specUserGrade.maximum_commander_skill_count);
+        //     if (!isEquippedCommanderSkill)
+        //     {
+        //         var newPopupData = new SystemConfirmPopupData("시스템 알림", "MSG_ALERT_EQUIP_COMMAND_SKILL", "확인", "취소");
+        //         SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData).Forget();
+        //         return false;
+        //     }
+        // }
 
         return true;
     }

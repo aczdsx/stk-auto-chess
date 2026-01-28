@@ -18,6 +18,7 @@ using CharacterInfo = CookApps.AutoBattler.CharacterInfo;
 public class InGameBottomUI : MonoBehaviour
 {
     public bool IsSpeedUpRedDot => _speedUpRedDot != null && _speedUpRedDot.activeSelf;
+
     [SerializeField] protected CAButton _startButton;
     [SerializeField] protected CAButton _statisticButton;
     [SerializeField] protected CAButton _recommendButton;
@@ -132,7 +133,7 @@ public class InGameBottomUI : MonoBehaviour
     protected void OnClickSpeedUp()
     {
         //[TODO] 스테이지 조건 추가
-        var isCanSpeedUp = InGameManager.Instance.SpecStage != null && InGameManager.Instance.SpecStage.stage_id >= 10004;
+        var isCanSpeedUp = InGameManager.Instance.SpecStage != null && InGameManager.Instance.SpecStage.stage_id >= TutorialConstants.스피드업_기능_언락_STAGE_ID;
 
         if (!isCanSpeedUp)
         {
