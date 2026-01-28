@@ -1,5 +1,6 @@
 #if !RELEASE || UNITY_EDITOR || ENABLE_CHEAT
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
@@ -122,15 +123,6 @@ public partial class SROptions
         ChangeCurrencyAsync().Forget();
     }
 
-    [Category("가이드 미션 stage")]
-    public void 가이드미션()
-    {
-        var gdb = new GuideMissionDataBridge();
-        gdb.AddActionAsync(GuideMissionType.CLEAR_STAGE, 1, 스테이지아이디).Forget();
-    }
-    [Category("가이드 미션 stage")]
-    public int 스테이지아이디 { get; set; } = 20003;
-
     private async UniTaskVoid ChangeCurrencyAsync()
     {
         var delta = new Tech.Hive.V1.CurrencyDelta
@@ -144,6 +136,100 @@ public partial class SROptions
             ToastManager.Instance.ShowToast($"재화 변경 완료: {재화변경_아이템} += {재화변경_수량}");
         }
     }
+
+
+    [Category("가이드 미션 stage")]
+    public void 가이드미션()
+    {
+        var gdb = new GuideMissionDataBridge();
+        gdb.AddActionAsync(GuideMissionType.CLEAR_STAGE, 1, 스테이지아이디).Forget();
+    }
+    [Category("가이드 미션 stage")]
+    public int 스테이지아이디 { get; set; } = 20003;
+
+    
+    [Category("스테이지 자동 클리어")]
+    public int 스테이지일괄클리어_목표ID { get; set; } = 10010;
+
+    [Category("스테이지 자동 클리어")]
+    public void 스테이지일괄클리어()
+    {
+        BatchClearStagesAsync().Forget();
+    }
+
+    private async UniTaskVoid BatchClearStagesAsync()
+    {
+        int targetStageId = 스테이지일괄클리어_목표ID;
+
+        var allStages = SpecDataManager.Instance.StageInfo.All;
+        var targetStages = new List<StageInfo>();
+
+        for (int i = 0; i < allStages.Count; i++)
+        {
+            var stage = allStages[i];
+            if (stage.stage_id <= targetStageId
+                && !ServerDataManager.Instance.Battle.IsStageCleared((uint)stage.stage_id))
+            {
+                targetStages.Add(stage);
+            }
+        }
+
+        targetStages.Sort((a, b) => a.stage_id.CompareTo(b.stage_id));
+
+        if (targetStages.Count == 0)
+        {
+            ToastManager.Instance.ShowToast("클리어할 스테이지가 없습니다");
+            return;
+        }
+
+        ToastManager.Instance.ShowToast($"스테이지 일괄 클리어 시작: {targetStages.Count}개");
+
+        int clearedCount = 0;
+        int failedCount = 0;
+
+        for (int i = 0; i < targetStages.Count; i++)
+        {
+            var stage = targetStages[i];
+            try
+            {
+                var inGameParams = await NetManager.Instance.Battle.StartAsync(
+                    stage.chapter_id, stage.stage_id, 0, Array.Empty<string>());
+
+                if (inGameParams == null)
+                {
+                    failedCount++;
+                    Debug.LogError($"[치트] 스테이지 {stage.stage_id} 시작 실패");
+                    continue;
+                }
+
+                var battleResult = new Tech.Hive.V1.BattleResult
+                {
+                    IsVictory = true,
+                    Stars = 3,
+                    ClearTime = 1000
+                };
+
+                var resp = await NetManager.Instance.Battle.EndAsync(inGameParams.SessionId, battleResult);
+                if (resp != null && resp.IsSuccess)
+                {
+                    clearedCount++;
+                }
+                else
+                {
+                    failedCount++;
+                    Debug.LogError($"[치트] 스테이지 {stage.stage_id} 종료 실패");
+                }
+            }
+            catch (Exception e)
+            {
+                failedCount++;
+                Debug.LogError($"[치트] 스테이지 {stage.stage_id} 클리어 실패: {e.Message}");
+            }
+        }
+
+        ToastManager.Instance.ShowToast($"일괄 클리어 완료: 성공 {clearedCount}, 실패 {failedCount}");
+    }
+
 
     #endregion
 }
