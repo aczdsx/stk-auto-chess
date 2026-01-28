@@ -45,7 +45,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
     private bool isCanUseCommanderSkill = false;
     private Vector2 _offset = new Vector2(-10, 10);
 
-    private bool _isCommanderGuideStage;
+    // private bool _isCommanderGuideStage;
 
     private Dictionary<int, EffectCodeCommanderSkillBase> _effectCodeDictForAutoSkill = null;
 
@@ -61,7 +61,7 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
             ManagedUpdate);
 
         var guideMission = ServerDataManager.Instance.GuideMission;
-        _isCommanderGuideStage = guideMission.GuideMissionId == 18;
+        // _isCommanderGuideStage = guideMission.GuideMissionId == 18;
         if (_effectCodeDictForAutoSkill == null)
             _effectCodeDictForAutoSkill = new Dictionary<int, EffectCodeCommanderSkillBase>();
         else
@@ -221,11 +221,11 @@ public class InGameCommanderManager : SingletonMonoBehaviour<InGameCommanderMana
                     return;
                 }
 
-                if (_isCommanderGuideStage)
-                {
-                    InGameMainFlowManager.Instance.SetPlaySpeed(0.1f);
-                    ToastManager.Instance.ShowToastByTokenKey("MSG_FIRST_COMMANDER_SKILL");
-                }
+                // if (_isCommanderGuideStage)
+                // {
+                //     InGameMainFlowManager.Instance.SetPlaySpeed(0.1f);
+                //     ToastManager.Instance.ShowToastByTokenKey("MSG_FIRST_COMMANDER_SKILL");
+                // }
             }
         }
     }

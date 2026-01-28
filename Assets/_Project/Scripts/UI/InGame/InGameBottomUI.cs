@@ -387,9 +387,10 @@ public class InGameBottomUI : MonoBehaviour
         for (int i = 0; i < _commanderSkillUIList.Count; i++)
         {
             int equippedCommanderSkillID = ServerDataManager.Instance.CommanderSkill.GetEquippedCommanderSkillId(i);
-            if (equippedCommanderSkillID != 0)
+            // var userSkillLevel = 1;
+            var userSkillLevel = ServerDataManager.Instance.CommanderSkill.GetUserCommanderSkillLevel(equippedCommanderSkillID);
+            if (equippedCommanderSkillID != 0 && 0 < userSkillLevel)
             {
-                var userSkillLevel = ServerDataManager.Instance.CommanderSkill.GetUserCommanderSkillLevel(equippedCommanderSkillID);
                 var dataList = specDataManagerInstance.GetCommanderSkillDataList(equippedCommanderSkillID);
                 CommanderSkillInGameData skillData = InGameCommanderManager.Instance.InitCommanderSkillData(dataList[userSkillLevel - 1]);
 

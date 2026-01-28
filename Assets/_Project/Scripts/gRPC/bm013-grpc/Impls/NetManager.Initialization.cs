@@ -24,6 +24,7 @@ namespace CookApps.AutoBattler
                 Initialize_Elpis(),
                 TrialDungeon.GetAsync(cancellationToken),
                 GuideMission.GetAsync(cancellationToken),
+                // Commander.ListSkillAsync(cancellationToken),
                 ClientData.ListAsync(new []
                 {
                     ClientBasicData.CategoryName,

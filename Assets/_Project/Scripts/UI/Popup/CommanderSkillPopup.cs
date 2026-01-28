@@ -62,7 +62,12 @@ namespace CookApps.AutoBattler
             var commanderSkillCodeIdList = specDataManagerInstance.GetCommanderSkillCodeIdList();
             foreach (var commanderSkillCodeId in commanderSkillCodeIdList)
             {
+                // int userSkillLevel = 1;
+                // {
+                // ! MUST_REVERT 원래 주석이 아니였습니다
                 int userSkillLevel = ServerDataManager.Instance.CommanderSkill.GetUserCommanderSkillLevel(commanderSkillCodeId);
+                // }
+
                 var specTargetCommanderSkill = specDataManagerInstance.GetCommanderSkillListByUserSkillLevel(commanderSkillCodeId, userSkillLevel);
                 if (specTargetCommanderSkill != null)
                 {
