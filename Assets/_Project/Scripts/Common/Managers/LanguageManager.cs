@@ -369,13 +369,41 @@ namespace CookApps.AutoBattler
             };
         }
 
-        public string GetSynergyText(SynergyType elementType)
+        public string GetElementTest(SynergyType elementType)
         {
             switch (elementType)
             {
-                case SynergyType.NOBLESSE:
-                case SynergyType.SUPERNOVA:
-                case SynergyType.TROUBLESHOOTER:
+                case SynergyType.NORMAL : 
+                    return GetDefaultText("SYNERGY_NAME_NORMAL");
+                case SynergyType.FIRE : 
+                    return GetDefaultText("SYNERGY_NAME_FIRE");
+                case SynergyType.WIND : 
+                    return GetDefaultText("SYNERGY_NAME_WIND");
+                case SynergyType.LIGHTNING : 
+                    return GetDefaultText("SYNERGY_NAME_LIGHTNING");
+                case SynergyType.EARTH : 
+                    return GetDefaultText("SYNERGY_NAME_EARTH");
+                case SynergyType.WATER : 
+                    return GetDefaultText("SYNERGY_NAME_WATER");
+                case SynergyType.NONE :
+                    return string.Empty;
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public string GetStellaText(SynergyType stellaType)
+        {
+            switch (stellaType)
+            {
+                case SynergyType.NOBLESSE : 
+                    return GetDefaultText("SYNERGY_NAME_NOBLESSE");
+                case SynergyType.TROUBLESHOOTER : 
+                    return GetDefaultText("SYNERGY_NAME_TROUBLESHOOTER");
+                case SynergyType.SUPERNOVA : 
+                    return GetDefaultText("SYNERGY_NAME_SUPERNOVA");
+                case SynergyType.NONE :
+                    return string.Empty;
                 default:
                     return string.Empty;
             }
