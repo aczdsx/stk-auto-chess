@@ -5319,12 +5319,12 @@ MonoBehaviour:
     m_Key: COMMON_CANCEL
     m_Metadata:
       m_Items: []
-  - m_Id: 4445818261069824
-    m_Key: MSG_OVER_COUNT_CHARACTER
-    m_Metadata:
-      m_Items: []
   - m_Id: 4445818290429952
     m_Key: MONSTER_DESC_00000000
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5067501291687936
+    m_Key: MGS_OVER_COUNT_CHARACTER
     m_Metadata:
       m_Items: []
   m_Metadata:
