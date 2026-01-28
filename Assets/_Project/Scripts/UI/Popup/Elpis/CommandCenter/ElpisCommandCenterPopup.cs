@@ -273,7 +273,7 @@ namespace CookApps.AutoBattler
                     return;
                 }
                 
-                await guideMissionDataBridge.AddActionAsync(GuideMissionType.UPGRADE_BUILDING, 1, (int)commandCenter.BuildId);
+                // await guideMissionDataBridge.AddActionAsync(GuideMissionType.UPGRADE_BUILDING, 1, (int)commandCenter.BuildId);
 
                 currentElpisLevel = (int)response.Facility.Level;
 

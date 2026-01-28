@@ -310,7 +310,7 @@ namespace CookApps.AutoBattler
                     var resp = await NetManager.Instance.Character.ExceedAsync(_userCharacterData.CharacterId);
                     if (resp?.IsSuccess == false)
                         return;
-                    await _guideMissionDataBridge.AddActionAsync(GuideMissionType.EXCEED_CHARACTER_TARGET, 1, (int)_userCharacterData.CharacterId);
+                    // await _guideMissionDataBridge.AddActionAsync(GuideMissionType.EXCEED_CHARACTER_TARGET, 1, (int)_userCharacterData.CharacterId);
                 }
                 else
                 {
@@ -318,7 +318,7 @@ namespace CookApps.AutoBattler
                     if (resp?.IsSuccess == false)
                         return;
                     
-                    await  _guideMissionDataBridge.AddActionAsync(GuideMissionType.LEVELUP_CHARACTER_TARGET, 1, (int)_userCharacterData.CharacterId);
+                    // await  _guideMissionDataBridge.AddActionAsync(GuideMissionType.LEVELUP_CHARACTER_TARGET, 1, (int)_userCharacterData.CharacterId);
                 }
 
                 // 이펙트 실행
@@ -386,7 +386,7 @@ namespace CookApps.AutoBattler
                 if (response?.IsSuccess == false)
                     return;
 
-                await _guideMissionDataBridge.AddActionAsync(GuideMissionType.TRANSCENDENCE_CHARACTER_TARGET, 1, (int)_userCharacterData.CharacterId);
+                // await _guideMissionDataBridge.AddActionAsync(GuideMissionType.TRANSCENDENCE_CHARACTER_TARGET, 1, (int)_userCharacterData.CharacterId);
 
                 // 메인 레이어 갱신
                 _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);

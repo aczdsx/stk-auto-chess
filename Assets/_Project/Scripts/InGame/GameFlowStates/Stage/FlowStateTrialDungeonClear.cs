@@ -21,8 +21,8 @@ public class FlowStateTrialDungeonClear : StateBase
         var resp = await NetManager.Instance.TrialDungeon.ClearAsync(InGameManager.Instance.BattleSessionId, true);
         InGameManager.Instance.EndInGame();
 
-        var gdb = new GuideMissionDataBridge();
-        await gdb.AddActionAsync(GuideMissionType.CLEAR_BABEL, 1, InGameManager.Instance.SpecDungeonTrial.dungeon_id);
+        // var gdb = new GuideMissionDataBridge();
+        // await gdb.AddActionAsync(GuideMissionType.CLEAR_BABEL, 1, InGameManager.Instance.SpecDungeonTrial.dungeon_id);
         
         var param = new InGameDungeonTrialResultPopupParam(true, _mvpCharacterData, resp.Rewards);
         SceneUILayerManager.Instance.PushUILayerAsync<InGameDungeonTrialResultPopup>(param).Forget();

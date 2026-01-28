@@ -34,8 +34,8 @@ public class FlowStateStageClear : StateBase
         // 다이얼로그 체크
         DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.STAGE_CLEAR, InGameManager.Instance.SpecStage.stage_id.ToString());
 
-        var gdb = new GuideMissionDataBridge();
-        await gdb.AddActionAsync(GuideMissionType.CLEAR_STAGE, 1, InGameManager.Instance.SpecStage.stage_id);
+        // var gdb = new GuideMissionDataBridge();
+        // await gdb.AddActionAsync(GuideMissionType.CLEAR_STAGE, 1, InGameManager.Instance.SpecStage.stage_id);
 
         // 서버 응답 후 결과 팝업 표시
         InGameResultPopupParam param = new InGameResultPopupParam(true, star2, star3, _mvpCharacterData, (IReadOnlyList<Reward>)resp.Rewards);

@@ -605,7 +605,7 @@ namespace CookApps.AutoBattler
                     ChangeInfo(changedInfo);
                 }
 
-                await GuideMissionDataBridge.AddActionAsync(GuideMissionType.INSTALL_BUILDING, 1, (int)facilityData.BuildId);
+                // await GuideMissionDataBridge.AddActionAsync(GuideMissionType.INSTALL_BUILDING, 1, (int)facilityData.BuildId);
                 return;
             }
 

@@ -361,7 +361,7 @@ namespace CookApps.AutoBattler
 
             ShowCoreDetail(selectedCoreItem.CachedData);
 
-            await guideMissionDataBridge.AddActionAsync(GuideMissionType.UPGRADE_DIMENSION_CUBE_CORE_RESEARCH, 1);
+            // await guideMissionDataBridge.AddActionAsync(GuideMissionType.UPGRADE_DIMENSION_CUBE_CORE_RESEARCH, 1);
         }
 
         private bool IsOverNeedLevel()
