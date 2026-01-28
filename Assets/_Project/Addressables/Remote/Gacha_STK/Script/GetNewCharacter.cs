@@ -32,11 +32,11 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI[] CVText;
         [SerializeField] private TextMeshProUGUI[] DescText;
 
-        [SerializeField] private TextMeshProUGUI[] SynergyText;
+        [SerializeField] private TextMeshProUGUI[] ElementText;
         [SerializeField] private Image[] SynergyImage;
         [SerializeField] private SpriteLoader[] SynergyImageSpriteLoader;
         [SerializeField] private Image[] SynergyBGImage;
-        [SerializeField] private TextMeshProUGUI[] ClassText;
+        [SerializeField] private TextMeshProUGUI[] StellaText;
         [SerializeField] private Image[] ClassImage;
         [SerializeField] private SpriteLoader[] ClassImageSpriteLoader;
         [SerializeField] private GameObject[] NewObjects;
@@ -334,9 +334,9 @@ namespace CookApps.AutoBattler
             SynergyImageSpriteLoader[timeLineIdx].SetSprite(SpriteNameParser.GetSpriteName(_specCharacter.character_element_type)).Forget();
             // SynergyBGImage[timeLineIdx].sprite = ImageManager.Instance.GetSprite(Defines.ICON_ATLAS_NAME,
             //     $"BG_{dataManager.GetCharacterSynergy(characterID)}");
-            SynergyText[timeLineIdx].text = LanguageManager.Instance.GetSynergyText(_specCharacter.character_stella_type);
+            ElementText[timeLineIdx].text = LanguageManager.Instance.GetElementTest(_specCharacter.character_element_type);
             ClassImageSpriteLoader[timeLineIdx].SetSprite(SpriteNameParser.GetSpriteName(_specCharacter.character_stella_type)).Forget();
-            ClassText[timeLineIdx].text = LanguageManager.Instance.GetClassText(_specCharacter.character_position_type);
+            StellaText[timeLineIdx].text = LanguageManager.Instance.GetStellaText(_specCharacter.character_stella_type);
 
             if (lowObj != null)
                 Destroy(lowObj);
