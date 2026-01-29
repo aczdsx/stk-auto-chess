@@ -18,6 +18,7 @@ namespace CookApps.AutoBattler
     public class GuideMissionSlot : CachedMonoBehaviour
     {
         [SerializeField] private GameObject activateLayerObject;
+        [SerializeField] private GameObject activateBackgroundObject;
         [SerializeField] private CAButton guideMissionButton;
 
         [SerializeField] private TextMeshProUGUI missionTitleText;
@@ -101,6 +102,7 @@ namespace CookApps.AutoBattler
 
             // 보상 수령 가능 여부에 따라 활성화 레이어 표시
             activateLayerObject.SetActive(IsRewardClaimable); // ! GUIDE_TODO IsCompleted
+            activateBackgroundObject.SetActive(IsRewardClaimable); // ! GUIDE_TODO IsCompleted
         }
 
         private void SetGuideMissionRewardImage()

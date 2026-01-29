@@ -834,6 +834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateLayerObject: {fileID: 7475620333698445651}
+  activateBackgroundObject: {fileID: 1592129173914934684}
   guideMissionButton: {fileID: 2190186430440021572}
   missionTitleText: {fileID: 3514256403068726953}
   missionDescText: {fileID: 1618645643540446225}
