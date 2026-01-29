@@ -1,19 +1,9 @@
 using UnityEngine;
 
-public class DontDestroyObject : GameObjectSingleton<DontDestroyObject>
+public class DontDestroyObject : MonoBehaviour
 {
-    protected override void Awake()
+    protected void Awake()
     {
-        if (Instance != null)
-        {
-            GameObject.DestroyImmediate(this.gameObject);
-            return;
-        }
-        base.Awake();
-    }
-
-    protected void Start()
-    {
-        GameObject.DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 }

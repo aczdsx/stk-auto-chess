@@ -5,7 +5,6 @@ using CookApps.TeamBattle.Utility;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 
@@ -128,11 +127,6 @@ namespace CookApps.TeamBattle.UIManagements
                 if (rootGOs[i].name == "MainCanvas")
                 {
                     SetMainCanvas(rootGOs[i]);
-                }
-
-                if (rootGOs[i].name == "EventSystem")
-                {
-                    rootGOs[i].GetComponent<EventSystem>().pixelDragThreshold = UIManagementsConst.Default.DragThreshold;
                 }
             }
         }
