@@ -54,8 +54,8 @@ namespace CookApps.BattleSystem
             var lights = stageObj.GetComponentsInChildren<Light>(true);
             for (int i = 0; i < lights.Length; i++)
             {
-                lights[i].enabled = false;
-                lights[i].enabled = true; 
+                lights[i].gameObject.SetActive(false);
+                lights[i].gameObject.SetActive(true);
             }
 
             if (!stageObj.TryGetComponent(out InGameStage stage))
