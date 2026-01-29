@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 namespace CookApps.AutoBattler.Editor
 {
@@ -31,19 +30,10 @@ namespace CookApps.AutoBattler.Editor
             var starProperty = so.FindProperty("_star");
             starProperty.objectReferenceValue = gameObject.GetComponent<Image>();
 
-            // _levelUpAnimations 바인딩
-            var animations = gameObject.GetComponents<DOTweenAnimation>();
-            var animationsProperty = so.FindProperty("_levelUpAnimations");
-            animationsProperty.arraySize = animations.Length;
-            for (int i = 0; i < animations.Length; i++)
-            {
-                animationsProperty.GetArrayElementAtIndex(i).objectReferenceValue = animations[i];
-            }
-
             so.ApplyModifiedProperties();
             EditorUtility.SetDirty(transcendStar);
 
-            Debug.Log($"[TranscendStar] Auto Bind 완료 - DOTweenAnimation {animations.Length}개 바인딩됨");
+            Debug.Log("[TranscendStar] Auto Bind 완료 - _star 바인딩됨");
         }
     }
 }

@@ -6,6 +6,8 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using LitMotion;
+using LitMotion.Extensions;
 using R3;
 using Tech.Hive.V1;
 using TMPro;
@@ -440,11 +442,15 @@ public class InGameBottomUI : MonoBehaviour
             }
         };
 
-        PrimeTweenExtensions.MoveTo(_characterSelectedTransform, endPos, 0.5f, PrimeTween.Ease.Linear)
-            .OnComplete(onComplete);
+        LMotion.Create(_characterSelectedTransform.position, endPos, 0.5f)
+            .WithOnComplete(onComplete)
+            .BindToPosition(_characterSelectedTransform)
+            .AddTo(this);
 
-        PrimeTweenExtensions.MoveTo(_rightTransform, rightEndPos, 0.5f, PrimeTween.Ease.Linear)
-            .OnComplete(onComplete);
+        LMotion.Create(_rightTransform.position, rightEndPos, 0.5f)
+            .WithOnComplete(onComplete)
+            .BindToPosition(_rightTransform)
+            .AddTo(this);
     }
 
     public void ReturnObjectActive(bool active)

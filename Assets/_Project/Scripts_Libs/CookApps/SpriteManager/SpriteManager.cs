@@ -89,7 +89,8 @@ namespace CookApps.TeamBattle
             {
                 asset = null;
                 loadingTask = null;
-                assetRef.ReleaseAsset();
+                if (assetRef.OperationHandle.IsValid())
+                    assetRef.ReleaseAsset();
             }
 
             public void ForceRelease(string debugContext)
@@ -104,7 +105,8 @@ namespace CookApps.TeamBattle
                 refCount = 0;
                 loadingTask = null;
                 isLoading = false;
-                assetRef.ReleaseAsset();
+                if (assetRef.OperationHandle.IsValid())
+                    assetRef.ReleaseAsset();
             }
         }
 

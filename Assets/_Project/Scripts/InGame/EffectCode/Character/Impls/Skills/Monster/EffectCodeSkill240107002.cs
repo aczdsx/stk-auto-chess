@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using PrimeTween;
+using LitMotion;
 using Unity.Mathematics;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
@@ -25,7 +25,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
     // 이동 관련 변수
     private InGameTile _targetMoveTile;
     private InGameTile _originalTile;
-    private Sequence _moveSequence;
+    private MotionHandle _moveHandle;
     private static readonly float MOVE_DURATION = 0.5f; // 빠른 이동
     private static readonly float WAIT_DURATION = 1.5f; // 대기 시간
     private static readonly float WALK_IN_DURATION = 0.3f; // 걸어들어가는 연출 시간
@@ -252,11 +252,8 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         Vector3 targetPosition = targetTile.View.Position;
         _jumpDirection = (targetPosition - startPosition).normalized;
 
-        // 기존 Sequence가 있으면 중지
-        if (_moveSequence.isAlive)
-        {
-            _moveSequence.Stop();
-        }
+        // 기존 핸들이 있으면 중지
+        _moveHandle.TryCancel();
 
         // 점프 시작
         _isJumping = true;
@@ -270,33 +267,31 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         _jumpForwardPortalVfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
         // 빠르게 목표 타일로 이동
-        var moveTween = Tween.Custom(
+        _moveHandle = LMotion.Create(
             startPosition,
             targetPosition,
-            MOVE_DURATION,
-            (Vector3 value) =>
+            MOVE_DURATION)
+            .WithEase(Ease.OutQuad)
+            .WithOnComplete(() =>
+            {
+                // 목표 타일에 도달했을 때 타일 변경
+                if (owner != null && _targetMoveTile != null)
+                {
+                    owner.ChangeOccupiedTile(_targetMoveTile);
+                    owner.Position3D = _targetMoveTile.View.Position;
+                    owner.GetCharacterView().CachedTr.localPosition = owner.Position3D;
+
+                    _colliderVfx.CachedGo.SetActive(false);
+                }
+            })
+            .Bind(value =>
             {
                 if (owner != null)
                 {
                     owner.Position3D = value;
                     owner.GetCharacterView().CachedTr.localPosition = value;
                 }
-            },
-            ease: Ease.OutQuad)
-            .OnComplete(this, (target) =>
-            {
-                // 목표 타일에 도달했을 때 타일 변경
-                if (target != null && target.owner != null && target._targetMoveTile != null)
-                {
-                    target.owner.ChangeOccupiedTile(target._targetMoveTile);
-                    target.owner.Position3D = target._targetMoveTile.View.Position;
-                    target.owner.GetCharacterView().CachedTr.localPosition = target.owner.Position3D;
-
-                    target._colliderVfx.CachedGo.SetActive(false);
-                }
             });
-
-        _moveSequence = Sequence.Create(moveTween);
     }
 
     /// <summary>
@@ -311,32 +306,27 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         Vector3 finalPosition = _targetMoveTile.View.Position +
             (_targetMoveTile.View.Position - _originalTile.View.Position).normalized * 1.8f;
 
-        // 기존 Sequence가 있으면 중지
-        if (_moveSequence.isAlive)
-        {
-            _moveSequence.Stop();
-        }
+        // 기존 핸들이 있으면 중지
+        _moveHandle.TryCancel();
 
         // 걸어들어가는 연출 (Position3D만 더 앞으로 이동, 타일은 그대로)
-        var walkTween = Tween.Custom(
+        _moveHandle = LMotion.Create(
             currentPosition,
             finalPosition,
-            WALK_IN_DURATION,
-            (Vector3 value) =>
+            WALK_IN_DURATION)
+            .WithEase(Ease.Linear)
+            .WithOnComplete(() =>
+            {
+                Debug.Log("MoveToFinalPosition Complete");
+            })
+            .Bind(value =>
             {
                 if (owner != null)
                 {
                     owner.Position3D = value;
                     owner.GetCharacterView().CachedTr.localPosition = value;
                 }
-            },
-            ease: Ease.Linear).OnComplete(this, (target) =>
-            {
-                Debug.Log("MoveToFinalPosition Complete");
             });
-
-
-        _moveSequence = Sequence.Create(walkTween);
     }
 
     public void JumpEnd()
@@ -348,10 +338,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
             _jumpForwardPortalVfx = null;
         }
 
-        if (_moveSequence.isAlive)
-        {
-            _moveSequence.Stop();
-        }
+        _moveHandle.TryCancel();
 
         // 원래 타일로 즉시 이동
         owner.ChangeOccupiedTile(_originalTile);
@@ -359,19 +346,19 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         owner.GetCharacterView().CachedTr.localPosition = owner.Position3D;
 
         // 걸어들어가는 연출 (Position3D만 더 앞으로 이동, 타일은 그대로)
-        var walkTween = Tween.Custom(
+        _moveHandle = LMotion.Create(
             owner.Position3D,
             owner.Position3D + _jumpDirection,
-            LAND_DURATION,
-            (Vector3 value) =>
+            LAND_DURATION)
+            .WithEase(Ease.InExpo)
+            .Bind(value =>
             {
                 if (owner != null)
                 {
                     owner.Position3D = value;
                     owner.GetCharacterView().CachedTr.localPosition = value;
                 }
-            },
-            ease: Ease.InExpo);
+            });
 
 
         // 점프 완료 및 쿨타임 초기화
@@ -414,11 +401,8 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
             _jumpBackPortalVfx.Remove();
             _jumpBackPortalVfx = null;
         }
-        // 기존 Sequence가 있으면 중지
-        if (_moveSequence.isAlive)
-        {
-            _moveSequence.Stop();
-        }
+        // 기존 핸들이 있으면 중지
+        _moveHandle.TryCancel();
 
         base.OnPreRemoved();
     }

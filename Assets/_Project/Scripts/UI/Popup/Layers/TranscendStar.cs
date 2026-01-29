@@ -1,4 +1,5 @@
-using DG.Tweening;
+using LitMotion;
+using LitMotion.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,7 @@ namespace CookApps.AutoBattler
 
         public Image Star => _star;
 
-        private Sequence _sequence;
+        private MotionHandle _sequenceHandle;
 
         public void SetActive(bool active, bool withAnimation)
         {
@@ -46,11 +47,21 @@ namespace CookApps.AutoBattler
             color.a = 0f;
             _star.color = color;
 
-            _sequence = DOTween.Sequence()
-                .Append(starTransform.DOScale(EndScale, AnimationDuration).SetEase(Ease.OutBack))
-                .Join(starTransform.DOLocalRotate(new Vector3(0f, 0f, EndRotationZ), AnimationDuration, RotateMode.Fast).SetEase(Ease.OutBack))
-                .Join(_star.DOFade(1f, AnimationDuration * 0.5f))
-                .SetLink(gameObject);
+            var scaleHandle = LMotion.Create(Vector3.one * StartScale, Vector3.one * EndScale, AnimationDuration)
+                .WithEase(Ease.OutBack)
+                .BindToLocalScale(starTransform);
+            var rotateHandle = LMotion.Create(StartRotationZ, EndRotationZ, AnimationDuration)
+                .WithEase(Ease.OutBack)
+                .Bind(z => starTransform.localRotation = Quaternion.Euler(0f, 0f, z));
+            var fadeHandle = LMotion.Create(0f, 1f, AnimationDuration * 0.5f)
+                .BindToColorA(_star);
+
+            _sequenceHandle = LSequence.Create()
+                .Append(scaleHandle)
+                .Join(rotateHandle)
+                .Join(fadeHandle)
+                .Run();
+            _sequenceHandle.AddTo(gameObject);
         }
 
         private void SetEndState()
@@ -67,11 +78,11 @@ namespace CookApps.AutoBattler
 
         private void KillSequence()
         {
-            if (_sequence != null && _sequence.IsActive())
+            if (_sequenceHandle.IsActive())
             {
-                _sequence.Kill();
-                _sequence = null;
+                _sequenceHandle.Cancel();
             }
+            _sequenceHandle = default;
         }
 
         private void OnDestroy()

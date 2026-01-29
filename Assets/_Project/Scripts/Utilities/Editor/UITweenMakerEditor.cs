@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using DG.Tweening;
+using LitMotion;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,9 +7,10 @@ using UnityEngine;
 public class UITweenMakerEditor : Editor
 {
     private static bool isPreviewing;
-    private static List<Tween> activeTweens;
+    private static List<MotionHandle> activeHandles;
     private static double lastTime;
     private static UITweenMaker currentTarget;
+    private static ManualMotionDispatcher dispatcher;
 
     public override void OnInspectorGUI()
     {
@@ -53,48 +54,39 @@ public class UITweenMakerEditor : Editor
         currentTarget = tweenMaker;
         currentTarget.SaveAllOriginals();
 
-        activeTweens = tweenMaker.CreateAllTweens();
-        if (activeTweens.Count == 0)
+        dispatcher = new ManualMotionDispatcher();
+        activeHandles = tweenMaker.CreateAllTweens(dispatcher.Scheduler);
+        if (activeHandles.Count == 0)
         {
             currentTarget.RestoreAllOriginals();
             currentTarget = null;
+            dispatcher = null;
             return;
         }
 
         isPreviewing = true;
         lastTime = EditorApplication.timeSinceStartup;
 
-        foreach (var tween in activeTweens)
-        {
-            tween.SetAutoKill(false);
-            tween.SetUpdate(UpdateType.Manual);
-            tween.OnComplete(() => CheckAllComplete());
-        }
-
         EditorApplication.update += EditorUpdate;
     }
 
     private static void EditorUpdate()
     {
-        if (!isPreviewing || activeTweens == null) return;
+        if (!isPreviewing || activeHandles == null) return;
 
         var currentTime = EditorApplication.timeSinceStartup;
         var deltaTime = (float)(currentTime - lastTime);
         lastTime = currentTime;
 
-        DOTween.ManualUpdate(deltaTime, deltaTime);
+        dispatcher.Update(deltaTime);
 
         SceneView.RepaintAll();
-    }
 
-    private static void CheckAllComplete()
-    {
-        if (activeTweens == null) return;
-
-        var allComplete = true;
-        foreach (var tween in activeTweens)
+        // Check if all motions completed
+        bool allComplete = true;
+        for (int i = 0; i < activeHandles.Count; i++)
         {
-            if (tween != null && tween.IsActive() && !tween.IsComplete())
+            if (activeHandles[i].IsActive())
             {
                 allComplete = false;
                 break;
@@ -111,14 +103,21 @@ public class UITweenMakerEditor : Editor
     {
         EditorApplication.update -= EditorUpdate;
 
-        if (activeTweens != null)
+        if (activeHandles != null)
         {
-            foreach (var tween in activeTweens)
+            for (int i = 0; i < activeHandles.Count; i++)
             {
-                tween?.Kill();
+                if (activeHandles[i].IsActive())
+                    activeHandles[i].Cancel();
             }
-            activeTweens.Clear();
-            activeTweens = null;
+            activeHandles.Clear();
+            activeHandles = null;
+        }
+
+        if (dispatcher != null)
+        {
+            dispatcher.Reset();
+            dispatcher = null;
         }
 
         if (currentTarget != null)

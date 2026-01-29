@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
+using LitMotion;
+using LitMotion.Extensions;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -68,8 +69,14 @@ namespace CookApps.AutoBattler
         // 외부 애니메이션 연출용 함수
         public void SetMaterialGlobalAlpha(float duration)
         {
-            _detailMainBGLayer?.IllustMaterial?.SetFloat("_GlobalAlpha", 0);
-            _detailMainBGLayer?.IllustMaterial?.DOFloat(1, "_GlobalAlpha", duration).SetEase(Ease.InQuad).SetDelay(0.24f);
+            var mat = _detailMainBGLayer?.IllustMaterial;
+            if (mat == null) return;
+            mat.SetFloat("_GlobalAlpha", 0);
+            LMotion.Create(0f, 1f, duration)
+                .WithEase(Ease.InQuad)
+                .WithDelay(0.24f)
+                .BindToMaterialFloat(mat, "_GlobalAlpha")
+                .AddTo(this);
         }
 
         public void SelectCharacterCard(int characterID)

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
-using PrimeTween;
+using LitMotion;
+using LitMotion.Extensions;
 using Prototypes.Movement;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -61,8 +62,10 @@ namespace CookApps.AutoBattler
 
                 await dummyBlock.AnimateExit();
                 SubBlock.CachedTr.position = worldPointSrc;
-                var tween = Tween.Position(SubBlock.CachedTr, worldPointDest, 3f, Ease.OutCubic);
-                await tween;
+                await LMotion.Create(SubBlock.CachedTr.position, worldPointDest, 3f)
+                    .WithEase(Ease.OutCubic)
+                    .BindToPosition(SubBlock.CachedTr)
+                    .ToUniTask();
             }
         }
 

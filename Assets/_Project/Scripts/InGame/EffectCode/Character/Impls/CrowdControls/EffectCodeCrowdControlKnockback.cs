@@ -2,7 +2,7 @@ using System;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;
-using PrimeTween;
+using LitMotion;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
@@ -26,7 +26,6 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
     private ObfuscatorFloat downFactor;
 
     private InGameTile _inGameTile;
-    // private PrimeTween.Ease _ease = Ease.InCirc;
     private Ease _ease = Ease.OutExpo;
 
     private event Action<InGameTile> OnKnockbackEnd = null;
@@ -46,7 +45,7 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
         tileID = codeInfo.GetCodeStatToInt(2);
         if (codeInfo.HasCodeStat(3))
         {
-            _ease = (PrimeTween.Ease)codeInfo.GetCodeStatToInt(3);
+            _ease = (Ease)codeInfo.GetCodeStatToInt(3);
         }
 
         startY = owner.ViewPosition3D.y;
@@ -68,15 +67,12 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
             downFactor = -height / (halfDuration * halfDuration);
 
             owner.ChangeOccupiedTile(_inGameTile);
-            Tween.Custom(
+            LMotion.Create(
                 owner.Position3D,
                 _inGameTile.View.Position,
-                duration,
-                (Vector3 value) =>
-                {
-                    if (owner != null)
-                        owner.Position3D = value;
-                }, ease: _ease).OnComplete(this, target =>
+                duration)
+                .WithEase(_ease)
+                .WithOnComplete(() =>
                 {
                     if (owner != null)
                     {
@@ -84,8 +80,12 @@ public partial class EffectCodeCrowdControlKnockback : EffectCodeCharacterBase
                         owner.Position3D = _inGameTile.View.Position;
                         OnKnockbackEnd?.Invoke(_inGameTile);
                     }
-                }
-            );
+                })
+                .Bind(value =>
+                {
+                    if (owner != null)
+                        owner.Position3D = value;
+                });
         }
         else
         {

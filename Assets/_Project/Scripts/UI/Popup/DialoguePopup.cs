@@ -7,7 +7,8 @@ using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
+using LitMotion;
+using LitMotion.Extensions;
 using R3;
 using Spine.Unity;
 using TMPro;
@@ -59,8 +60,8 @@ namespace CookApps.AutoBattler
 
             _blockLayerButton.OnClickAsObservable().Subscribe(this, (_, self) =>
             {
-                self.OnClickNextDialogue();
-                self.OnClickRefreshTextTween();
+                if (self.OnClickNextDialogue())
+                    self.OnClickRefreshTextTween();
             }).AddTo(this);
         }
 
@@ -176,7 +177,7 @@ namespace CookApps.AutoBattler
         }
 
         // 다음 대화로 넘어가기
-        private void OnClickNextDialogue()
+        private bool OnClickNextDialogue()
         {
             // if (_isAnimating) return;
             currentDialogueSeq++;
@@ -187,10 +188,11 @@ namespace CookApps.AutoBattler
             if (currentDialogueSeq >= _dialogueList.Count)
             {
                 OnDialogueCompleteAsync().Forget();
-                return;
+                return false;
             }
 
             SetDialogueData(currentDialogueSeq);
+            return true;
         }
 
         private async UniTaskVoid OnDialogueCompleteAsync()
@@ -261,9 +263,19 @@ namespace CookApps.AutoBattler
         public void OnClickRefreshTextTween()
         {
             // if (_isAnimating) return;
-            _dialogueText.DOFade(0, 0f);
-            _dialogueText.DOFade(0, 0.3f).SetEase(Ease.OutQuad).From();
-            _dialogueTextRect.DOSizeDelta(_tweenVector, 0.3f).SetEase(Ease.OutQuad).From();
+            float originalAlpha = _dialogueText.color.a;
+            var textColor = _dialogueText.color; textColor.a = 0f; _dialogueText.color = textColor;
+            LMotion.Create(0f, originalAlpha, 0.3f)
+                .WithEase(Ease.OutQuad)
+                .BindToColorA(_dialogueText)
+                .AddTo(this);
+
+            Vector2 originalSize = _dialogueTextRect.sizeDelta;
+            _dialogueTextRect.sizeDelta = _tweenVector;
+            LMotion.Create(_tweenVector, originalSize, 0.3f)
+                .WithEase(Ease.OutQuad)
+                .Bind(v => _dialogueTextRect.sizeDelta = v)
+                .AddTo(this);
         }
 
         private IEnumerator ScaleWithAnimationCurve(float duration)

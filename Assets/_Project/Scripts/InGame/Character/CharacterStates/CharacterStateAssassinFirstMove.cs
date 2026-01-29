@@ -1,6 +1,6 @@
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using PrimeTween;
+using LitMotion;
 using UnityEngine;
 
 public class CharacterStateAssassinFirstMove : CharacterStateBase
@@ -33,18 +33,12 @@ public class CharacterStateAssassinFirstMove : CharacterStateBase
         {
             characCtrl.ChangeOccupiedTile(tile);
 
-            Tween.Custom(
+            LMotion.Create(
                 characCtrl.Position3D,
                 characCtrl.CurrentTile.View.Position,
-                moveDuration,
-                (Vector3 value) =>
-                {
-                    if (characCtrl != null)
-                        characCtrl.Position3D = value;
-                },
-                ease: Ease.Linear).OnComplete(this, target =>
-            {
-                if (target != null)
+                moveDuration)
+                .WithEase(Ease.Linear)
+                .WithOnComplete(() =>
                 {
                     if (characCtrl == null)
                         return;
@@ -63,8 +57,12 @@ public class CharacterStateAssassinFirstMove : CharacterStateBase
 
                     characCtrl.AddNextState<CharacterStateIdle>();
                     isBlockingChangeState = false;
-                }
-            });
+                })
+                .Bind(value =>
+                {
+                    if (characCtrl != null)
+                        characCtrl.Position3D = value;
+                });
         }
     }
 

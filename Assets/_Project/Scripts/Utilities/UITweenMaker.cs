@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
+using LitMotion;
+using LitMotion.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,23 +32,23 @@ public class UITweenMaker : MonoBehaviour
         await UniTask.WhenAll(tasks);
     }
 
-    public List<Tween> CreateAllTweens()
+    public List<MotionHandle> CreateAllTweens(IMotionScheduler scheduler = null)
     {
-        var tweens = new List<Tween>();
+        var handles = new List<MotionHandle>();
 
         for (var i = 0; i < imageColorTweens.Length; i++)
         {
-            var tween = imageColorTweens[i].CreateTween();
-            if (tween != null) tweens.Add(tween);
+            var handle = imageColorTweens[i].CreateTween(scheduler);
+            if (handle.IsActive()) handles.Add(handle);
         }
 
         for (var i = 0; i < rectMoveTweens.Length; i++)
         {
-            var tween = rectMoveTweens[i].CreateTween();
-            if (tween != null) tweens.Add(tween);
+            var handle = rectMoveTweens[i].CreateTween(scheduler);
+            if (handle.IsActive()) handles.Add(handle);
         }
 
-        return tweens;
+        return handles;
     }
 
     public void SaveAllOriginals()
@@ -93,16 +94,17 @@ public class UITweenMaker : MonoBehaviour
             hasSavedOriginal = false;
         }
 
-        public Tween CreateTween()
+        public MotionHandle CreateTween(IMotionScheduler scheduler = null)
         {
-            if (image == null || duration <= 0f) return null;
-            return image.DOColor(targetColor, duration).SetEase(ease);
+            if (image == null || duration <= 0f) return default;
+            var builder = LMotion.Create(image.color, targetColor, duration).WithEase(ease);
+            if (scheduler != null) builder = builder.WithScheduler(scheduler);
+            return builder.BindToColor(image);
         }
 
         public async UniTask ExecuteTweenAsync()
         {
-            var tween = CreateTween();
-            if (tween != null) await tween.AsyncWaitForCompletion();
+            await CreateTween().ToUniTask();
         }
     }
 
@@ -131,16 +133,17 @@ public class UITweenMaker : MonoBehaviour
             hasSavedOriginal = false;
         }
 
-        public Tween CreateTween()
+        public MotionHandle CreateTween(IMotionScheduler scheduler = null)
         {
-            if (rectTransform == null || duration <= 0f) return null;
-            return rectTransform.DOAnchorPos(targetPosition, duration).SetEase(ease);
+            if (rectTransform == null || duration <= 0f) return default;
+            var builder = LMotion.Create(rectTransform.anchoredPosition, targetPosition, duration).WithEase(ease);
+            if (scheduler != null) builder = builder.WithScheduler(scheduler);
+            return builder.Bind(v => rectTransform.anchoredPosition = v);
         }
 
         public async UniTask ExecuteTweenAsync()
         {
-            var tween = CreateTween();
-            if (tween != null) await tween.AsyncWaitForCompletion();
+            await CreateTween().ToUniTask();
         }
     }
 }

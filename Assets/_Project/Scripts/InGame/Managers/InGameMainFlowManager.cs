@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using CookApps.Obfuscator;
 using CookApps.TeamBattle;
-using PrimeTween;
 using UnityEngine;
 
 namespace CookApps.BattleSystem
@@ -13,7 +12,7 @@ namespace CookApps.BattleSystem
 
         public const int UpdatePriority_TopTier = int.MaxValue;
         public const int UpdatePriority_Objects = 0;
-        public const int UpdatePriority_DOTween = -10000;
+        public const int UpdatePriority_Tween = -10000;
         public const int UpdatePriority_BottomTier = int.MinValue;
 
         private bool isPaused;
@@ -46,8 +45,8 @@ namespace CookApps.BattleSystem
         {
             _currentInstance = this;
             OneTick = 1f / Application.targetFrameRate;
-            prevProcessingTime = Time.time;
-            prevLateProcessingTime = Time.time;
+            prevProcessingTime = Time.unscaledTime;
+            prevLateProcessingTime = Time.unscaledTime;
             // Debug.Log("Start >> prevProcessingTime: " + prevProcessingTime + ", unscaledTime: " + Time.unscaledTime);
             deltaTime = 0f;
             isPaused = false;
@@ -55,7 +54,7 @@ namespace CookApps.BattleSystem
             AddUpdateListener(UpdatePriority_TopTier, ManagedUpdate);
 
             AddNextState<T>(stateData);
-            Tween.GlobalTimeScale(fastForwardRate, new TweenSettings());
+            Time.timeScale = fastForwardRate;
         }
 
         public void StopInGameMainLoop()
@@ -69,7 +68,7 @@ namespace CookApps.BattleSystem
                 nextStates.Clear();
                 flowState = null;
                 StatePool.Instance.Clear();
-                Tween.GlobalTimeScale(1f, new TweenSettings());
+                Time.timeScale = 1f;
             }
             else
             {
@@ -96,14 +95,14 @@ namespace CookApps.BattleSystem
         {
             if (isPaused)
             {
-                prevProcessingTime = Time.time - deltaTime;
+                prevProcessingTime = Time.unscaledTime - deltaTime;
                 return;
             }
 
             // Debug.Log("UpdateTick >> isPaused: " + isPaused + ", prevProcessingTime: " + prevProcessingTime + ", unscaledTime: " + Time.unscaledTime);
             float fastForwardRate = this.fastForwardRate;
 
-            deltaTime = Time.time - prevProcessingTime;
+            deltaTime = Time.unscaledTime - prevProcessingTime;
             // 델타 타임이 너무 길게 들어오면 백그라운드 뭐 그런거 갓다온거다 스킵해주자
             if (deltaTime > 0.5f)
             {
@@ -149,26 +148,26 @@ namespace CookApps.BattleSystem
 
             deltaTime = 0f;
 #endif
-            prevProcessingTime = Time.time - deltaTime;
+            prevProcessingTime = Time.unscaledTime - deltaTime;
         }
 
         public void Pause()
         {
             isPaused = true;
-            Tween.SetPausedAll(true);
+            Time.timeScale = 0f;
         }
 
         public void Resume()
         {
             isPaused = false;
-            Tween.SetPausedAll(false);
+            Time.timeScale = fastForwardRate;
         }
 
         public void SetPlaySpeed(float speed)
         {
             Debug.Log($"[InGameMainFlowManager] SetPlaySpeed: {speed}");
             fastForwardRate = speed;
-            Tween.GlobalTimeScale(fastForwardRate, new TweenSettings());
+            Time.timeScale = fastForwardRate;
         }
 
         public void SetInGameSpeed(bool isSpeedUp)
@@ -212,14 +211,14 @@ namespace CookApps.BattleSystem
         {
             if (isPaused)
             {
-                prevLateProcessingTime = Time.time - lateDeltaTime;
+                prevLateProcessingTime = Time.unscaledTime - lateDeltaTime;
                 return;
             }
 
             // Debug.Log("UpdateTick >> isPaused: " + isPaused + ", prevProcessingTime: " + prevProcessingTime + ", unscaledTime: " + Time.unscaledTime);
             float fastForwardRate = this.fastForwardRate;
 
-            lateDeltaTime = Time.time - prevLateProcessingTime;
+            lateDeltaTime = Time.unscaledTime - prevLateProcessingTime;
             // 델타 타임이 너무 길게 들어오면 백그라운드 뭐 그런거 갓다온거다 스킵해주자
             if (lateDeltaTime > 0.5f)
             {
@@ -265,7 +264,7 @@ namespace CookApps.BattleSystem
 
             lateDeltaTime = 0f;
 #endif
-            prevLateProcessingTime = Time.time - lateDeltaTime;
+            prevLateProcessingTime = Time.unscaledTime - lateDeltaTime;
         }
 
         public void AddLateUpdateListener(int priority, UpdateEventHandler handler)

@@ -1,6 +1,7 @@
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
-using PrimeTween;
+using LitMotion;
+using LitMotion.Extensions;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -28,8 +29,10 @@ namespace CookApps.AutoBattler
             foreach (var blockPosRot in blockPosRots)
             {
                 await UniTask.WhenAll(
-                    Tween.LocalPosition(CachedTr, blockPosRot.Pos, 2f, Ease.Linear).ToUniTask(),
-                    Tween.LocalRotation(CachedTr, blockPosRot.Rot, 2f, Ease.Linear).ToUniTask()
+                    LMotion.Create(CachedTr.localPosition, blockPosRot.Pos, 2f)
+                        .WithEase(Ease.Linear).BindToLocalPosition(CachedTr).AddTo(this).ToUniTask(),
+                    LMotion.Create(CachedTr.localRotation, blockPosRot.Rot, 2f)
+                        .WithEase(Ease.Linear).Bind(v => CachedTr.localRotation = v).AddTo(this).ToUniTask()
                 );
                 
                 await UniTask.Delay(500);

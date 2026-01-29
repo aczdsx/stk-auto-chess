@@ -49,6 +49,16 @@ namespace CookApps.BattleSystem
                 LateManagedUpdate);
 
             GameObject stageObj = Instantiate(InGameResourceHolder.StagePrefab);
+
+            // URP Light 큐 강제 갱신: Addressables에서 로드된 프리팹의 Light가
+            // Instantiate 직후 URP 렌더링 큐에 등록되지 않는 버그 수정
+            var lights = stageObj.GetComponentsInChildren<Light>(true);
+            for (int i = 0; i < lights.Length; i++)
+            {
+                lights[i].enabled = false;
+                lights[i].enabled = true;
+            }
+
             if (!stageObj.TryGetComponent(out InGameStage stage))
             {
                 Debug.LogError("InGameStage is not found");

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
-using PrimeTween;
+using LitMotion;
 using UnityEngine;
 
 //3*3범위 내의 적의 공격력을 {0}초 동안 {1}% 감소 시킨다.

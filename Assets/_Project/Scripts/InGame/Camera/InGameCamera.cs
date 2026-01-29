@@ -1,8 +1,10 @@
 using System.Threading;
+using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
-using PrimeTween;
+using LitMotion;
+using LitMotion.Extensions;
 using UnityEngine;
 
 public class InGameCamera : CachedMonoBehaviour, IRegistrable
@@ -18,8 +20,8 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
 
     private CancellationTokenSource _cancellationTokenSource;
 
-    private Tween _sizeTween;
-    private Tween _positionTween;
+    private MotionHandle _sizeHandle;
+    private MotionHandle _positionHandle;
 
     private bool _isCameraShaking = false;
 
@@ -45,8 +47,10 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        _sizeTween.Stop();
-        _positionTween.Stop();
+        _sizeHandle.TryCancel();
+        _sizeHandle = default;
+        _positionHandle.TryCancel();
+        _positionHandle = default;
         _cancellationTokenSource?.Cancel();
         _cancellationTokenSource?.Dispose();
         _cancellationTokenSource = null;
@@ -103,34 +107,37 @@ public class InGameCamera : CachedMonoBehaviour, IRegistrable
     public async UniTask SetCameraSize(float targetSize, Vector3 targetPosition, float duration)
     {
         // 기존 Tween 정리
-        _sizeTween.Stop();
-        _positionTween.Stop();
+        _sizeHandle.TryCancel();
+        _positionHandle.TryCancel();
 
         float startSize = _mainCamera.orthographicSize;
         Vector3 startPos = _mainCamera.transform.position;
 
-        _sizeTween = Tween.Custom(startSize, targetSize, duration,
-            (float newSize) =>
+        _sizeHandle = LMotion.Create(startSize, targetSize, duration)
+            .WithEase(Ease.OutQuad)
+            .Bind(newSize =>
             {
                 _characterCamera.orthographicSize = newSize;
                 _mainCamera.orthographicSize = newSize;
-            },
-            ease: Ease.OutQuad);
+            })
+            .AddTo(this);
 
-        _positionTween = Tween.Custom(startPos, targetPosition, duration,
-            (Vector3 newPosition) =>
+        _positionHandle = LMotion.Create(startPos, targetPosition, duration)
+            .WithEase(Ease.OutQuad)
+            .WithOnComplete(() =>
+            {
+                _characterCamera.orthographicSize = targetSize;
+                _mainCamera.orthographicSize = targetSize;
+
+                _mainCamera.transform.position = targetPosition;
+            })
+            .Bind(newPosition =>
             {
                 _mainCamera.transform.position = newPosition;
-            },
-            ease: Ease.OutQuad).OnComplete(this, _ =>
-        {
-            _characterCamera.orthographicSize = targetSize;
-            _mainCamera.orthographicSize = targetSize;
+            })
+            .AddTo(this);
 
-            _mainCamera.transform.position = targetPosition;
-        });
-
-        await UniTask.WhenAll(_sizeTween.ToUniTask(), _positionTween.ToUniTask());
+        await UniTask.WhenAll(_sizeHandle.ToUniTask(), _positionHandle.ToUniTask());
 
         await UniTask.WaitUntil(() =>
         {

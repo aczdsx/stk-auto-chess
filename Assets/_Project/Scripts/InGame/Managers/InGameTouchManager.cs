@@ -6,7 +6,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
-using PrimeTween;
+using LitMotion;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -398,18 +398,19 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
     {
         const float duration = 0.15f;
 
-        Tween.Custom(
+        LMotion.Create(
             _selectedCharacterController.Position3D,
             targetPosition,
-            duration,
-            (Vector3 value) =>
+            duration)
+            .Bind(value =>
             {
                 if (_selectedCharacterController != null)
                 {
                     _selectedCharacterController.Position3D = value;
                     _selectedCharacterController.GetCharacterView().CachedTr.localPosition = value;
                 }
-            });
+            })
+            .AddTo(this);
     }
 
     private void CancelMoveCharacter(bool isSameHero = false)
@@ -660,42 +661,46 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         float duration = 0.15f;
         int completedTweens = 0;
 
-        Tween.Custom(
+        LMotion.Create(
             startPosition1,
             targetPosition1,
-            duration,
-            (Vector3 value) =>
+            duration)
+            .WithOnComplete(() =>
+            {
+                completedTweens++;
+                if (completedTweens >= 2)
+                {
+                    CompleteSwap(character1, character2, targetPosition1);
+                }
+            })
+            .Bind(value =>
             {
                 if (character1 != null)
                 {
                     character1.Position3D = value;
                     character1.GetCharacterView().CachedTr.localPosition = value;
                 }
-            }).OnComplete(() =>
-        {
-            completedTweens++;
-            if (completedTweens >= 2)
-            {
-                CompleteSwap(character1, character2, targetPosition1);
-            }
-        });
+            })
+            .AddTo(this);
 
-        Tween.Custom(
+        LMotion.Create(
             startPosition2,
             targetPosition2,
-            duration,
-            (Vector3 value) =>
+            duration)
+            .WithOnComplete(() =>
+            {
+                completedTweens++;
+                if (completedTweens >= 2)
+                {
+                    CompleteSwap(character1, character2, targetPosition1);
+                }
+            })
+            .Bind(value =>
             {
                 character2.Position3D = value;
                 character2.GetCharacterView().CachedTr.localPosition = value;
-            }).OnComplete(() =>
-        {
-            completedTweens++;
-            if (completedTweens >= 2)
-            {
-                CompleteSwap(character1, character2, targetPosition1);
-            }
-        });
+            })
+            .AddTo(this);
     }
 
     private void CompleteSwap(CharacterController character1, CharacterController character2, Vector3 targetPosition1)
@@ -711,11 +716,13 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         Vector3 startPosition = character.Position3D;
         float duration = 0.15f;
 
-        Tween.Custom(
+        LMotion.Create(
             startPosition,
             targetPosition,
-            duration,
-            (Vector3 value) => { character.Position3D = value; }).OnComplete(onComplete);
+            duration)
+            .WithOnComplete(onComplete)
+            .Bind(value => { character.Position3D = value; })
+            .AddTo(this);
     }
 
     private void SetSelectedCharacter(CharacterController character)

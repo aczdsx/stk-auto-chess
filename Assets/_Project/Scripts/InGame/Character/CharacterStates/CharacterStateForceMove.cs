@@ -1,6 +1,6 @@
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using PrimeTween;
+using LitMotion;
 using UnityEngine;
 
 /// <summary>
@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class CharacterStateForceMove : CharacterStateBase
 {
-    private Tween moveTween;
+    private MotionHandle _moveTween;
     private float? customMoveSpeed = null; // 커스텀 이동 속도 (null이면 기본값 사용)
 
     public override StatePriority StatePriority => StatePriority.Move;
@@ -35,9 +35,6 @@ public class CharacterStateForceMove : CharacterStateBase
         // 커스텀 이동 속도가 설정되어 있으면 사용, 없으면 캐릭터의 기본 이동 속도 사용
         float moveSpeed = customMoveSpeed ?? characCtrl.GetCharacterStat().MoveSpeed;
         var moveDuration = SpecOptionCache.DefaultMoveDuration / moveSpeed;
-        var jumpHeight = SpecOptionCache.CharacterMoveJumpHeight;
-        // PrimeTweenExtensions.Jump(characCtrl.GetCharacterView().CachedTr, characCtrl.CurrentTile.View.Position, moveDuration, jumpHeight)
-        //     .OnComplete(this, target => target.ChangeToIdleState());
 
         Ease ease = Ease.Linear;
         // if (characCtrl.SpecCharacter.atk_range == 1)
@@ -47,22 +44,23 @@ public class CharacterStateForceMove : CharacterStateBase
         //         moveDuration *= 0.2f;
         // }
 
-        moveTween = Tween.Custom(
+        _moveTween = LMotion.Create(
             characCtrl.Position3D,
             characCtrl.CurrentTile.View.Position,
-            moveDuration,
-            (Vector3 value) =>
+            moveDuration)
+            .WithEase(ease)
+            .WithOnComplete(() =>
+            {
+                characCtrl.AddNextState<CharacterStateReady>();
+                isBlockingChangeState = false;
+            })
+            .Bind(value =>
             {
                 if (characCtrl != null)
                 {
                     characCtrl.Position3D = value;
                 }
-            },
-            ease: ease).OnComplete(this, target =>
-        {
-            characCtrl.AddNextState<CharacterStateReady>();
-            isBlockingChangeState = false;
-        });
+            });
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
@@ -81,6 +79,7 @@ public class CharacterStateForceMove : CharacterStateBase
     {
         characCtrl.OnTileMoveEnd();
         base.StateEnd(isForced);
-        moveTween.Stop();
+        _moveTween.TryCancel();
+        _moveTween = default;
     }
 }

@@ -8,8 +8,8 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
-using DG.Tweening.Core.Easing;
+using LitMotion;
+using LitMotion.Extensions;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -934,8 +934,9 @@ namespace CookApps.AutoBattler.Prologue
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_endtransition);
             var whiteOutImage = GameObject.Find("WhiteOutUICover").GetComponent<UnityEngine.UI.Image>();
             SoundManager.Instance.StopBGM(1.2f);
-            var fadeTween = whiteOutImage.DOFade(1f, 1.5f);
-            fadeTween.onComplete += ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).StopShakingCamera;
+            LMotion.Create(whiteOutImage.color.a, 1f, 1.5f)
+                .WithOnComplete(() => ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).StopShakingCamera())
+                .BindToColorA(whiteOutImage);
 
             // if (_witchCharacter == null || _artesiaCharacter == null) return;
 

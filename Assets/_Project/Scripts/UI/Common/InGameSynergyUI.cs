@@ -4,7 +4,7 @@ using Coffee.UIEffects;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
+using LitMotion;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -227,8 +227,7 @@ namespace CookApps.AutoBattler
 
             var targetTransform = shiny.transform;
 
-            // 기존 트윈 중지
-            DOTween.Kill(targetTransform);
+            // 기존 트윈 중지 (현재 활성 트윈 없음)
 
             shiny.effectPlayer.duration = ShinyDuration;
             shiny.Play(true);

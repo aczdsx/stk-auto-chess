@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
-using PrimeTween;
+using LitMotion;
 using UnityEngine;
 
 namespace CookApps.BattleSystem
@@ -27,7 +27,7 @@ namespace CookApps.BattleSystem
         private float _effectCodeStat;
         private float _durationTime = 7.0f;
 
-        private Tween moveTween;
+        private MotionHandle _moveHandle;
         protected override void SetRuleTileByInfo(EffectCodeInfo codeInfo)
         {
             int tileID = codeInfo.GetCodeStatToInt(0);
@@ -98,30 +98,29 @@ namespace CookApps.BattleSystem
 
                         var moveDuration = SpecOptionCache.DefaultMoveDuration / characterInfo.Controller.GetCharacterStat().MoveSpeed;
 
-                        Ease ease = Ease.Linear;
-
-                        moveTween = Tween.Custom(
+                        _moveHandle.TryCancel();
+                        _moveHandle = LMotion.Create(
                             characterInfo.Controller.Position3D,
                             characterInfo.Controller.CurrentTile.View.Position,
-                            moveDuration,
-                            (Vector3 value) =>
+                            moveDuration)
+                            .WithEase(Ease.Linear)
+                            .WithOnComplete(() =>
+                            {
+                                if (characterInfo.Controller != null)
+                                {
+                                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
+                                        characterInfo.Controller.GetCharacterView().CachedTr.position);
+                                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_ice);
+                                }
+                            })
+                            .Bind(value =>
                             {
                                 if (characterInfo.Controller != null)
                                 {
                                     characterInfo.Controller.Position3D = value;
                                     characterInfo.Controller.GetCharacterView().CachedTr.localPosition = value;
-
                                 }
-                            },
-                            ease: ease).OnComplete(this, target =>
-                        {
-                            if (target != null)
-                            {
-                                InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_trap_ice_02,
-                                    characterInfo.Controller.GetCharacterView().CachedTr.position);
-                                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_hit_ice);
-                            }
-                        });
+                            });
                     }
                 }
             }

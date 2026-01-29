@@ -4,8 +4,9 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using TMPro;
+using LitMotion;
+using LitMotion.Extensions;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -91,6 +92,10 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _buffSideBadgeParentObj;
 
         private SpriteRenderer _selectedFillLeft;
+        private MotionHandle _elementShinyHandle;
+        private MotionHandle _elementScaleHandle;
+        private MotionHandle _positionShinyHandle;
+        private MotionHandle _positionScaleHandle;
         private const float AnimationDuration = 0.4f; // 애니메이션 지속 시간
         private Vector2 _defalutSize;
         private Vector3 _defaultScale;
@@ -156,7 +161,7 @@ namespace CookApps.AutoBattler
         public void PlayElementSynergyEffect()
         {
             if (_elementSynergySprite == null) return;
-            PlaySynergyShinyEffect(_elementSynergySprite);
+            PlaySynergyShinyEffect(_elementSynergySprite, ref _elementShinyHandle, ref _elementScaleHandle);
         }
 
         /// <summary>
@@ -165,7 +170,7 @@ namespace CookApps.AutoBattler
         public void PlayPositionSynergyEffect()
         {
             if (_positionSynergySprite == null) return;
-            PlaySynergyShinyEffect(_positionSynergySprite);
+            PlaySynergyShinyEffect(_positionSynergySprite, ref _positionShinyHandle, ref _positionScaleHandle);
         }
 
         private static readonly int ShinyProgressId = Shader.PropertyToID("_ShinyProgress");
@@ -173,7 +178,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 시너지 아이콘 Shiny 효과 (사선으로 빛이 흐르는 효과 + 스케일 애니메이션)
         /// </summary>
-        private void PlaySynergyShinyEffect(SpriteRenderer spriteRenderer)
+        private void PlaySynergyShinyEffect(SpriteRenderer spriteRenderer, ref MotionHandle shinyHandle, ref MotionHandle scaleHandle)
         {
             const float duration = 1.2f;
 
@@ -183,23 +188,32 @@ namespace CookApps.AutoBattler
             var targetTransform = spriteRenderer.transform;
 
             // 기존 트윈 중지
-            DOTween.Kill(material);
-            DOTween.Kill(targetTransform);
+            shinyHandle.TryCancel();
+            shinyHandle = default;
+            scaleHandle.TryCancel();
+            scaleHandle = default;
 
             // Shiny Progress: -0.5 → 1.5 (화면 밖에서 시작해서 밖으로 나감)
             material.SetFloat(ShinyProgressId, -0.5f);
-            material.DOFloat(1.5f, ShinyProgressId, duration).SetEase(Ease.Linear);
+            shinyHandle = LMotion.Create(-0.5f, 1.5f, duration)
+                .WithEase(Ease.Linear)
+                .BindToMaterialFloat(material, ShinyProgressId)
+                .AddTo(this);
 
             // 스케일 애니메이션: 1.0 → 0.9 → 1.3 → 0.9 → 1.0 (1.5초 동안)
             targetTransform.localScale = new Vector3(0.17f, 0.17f, 0.17f);
 
             // 0.17f
-            var sequence = DOTween.Sequence();
-            sequence.Append(targetTransform.DOScale(0.155f, 0.14f).SetEase(Ease.InQuad));
-            sequence.Append(targetTransform.DOScale(0.21f, 0.41f).SetEase(Ease.OutQuad));
-            sequence.Append(targetTransform.DOScale(0.155f, 0.41f).SetEase(Ease.InOutQuad));
-            sequence.Append(targetTransform.DOScale(0.17f, 0.14f).SetEase(Ease.OutQuad));
-            sequence.SetTarget(targetTransform);
+            scaleHandle = LSequence.Create()
+                .Append(LMotion.Create(0.17f, 0.155f, 0.14f).WithEase(Ease.InQuad)
+                    .Bind(v => targetTransform.localScale = new Vector3(v, v, v)))
+                .Append(LMotion.Create(0.155f, 0.21f, 0.41f).WithEase(Ease.OutQuad)
+                    .Bind(v => targetTransform.localScale = new Vector3(v, v, v)))
+                .Append(LMotion.Create(0.21f, 0.155f, 0.41f).WithEase(Ease.InOutQuad)
+                    .Bind(v => targetTransform.localScale = new Vector3(v, v, v)))
+                .Append(LMotion.Create(0.155f, 0.17f, 0.14f).WithEase(Ease.OutQuad)
+                    .Bind(v => targetTransform.localScale = new Vector3(v, v, v)))
+                .Run();
         }
 
         /// <summary>

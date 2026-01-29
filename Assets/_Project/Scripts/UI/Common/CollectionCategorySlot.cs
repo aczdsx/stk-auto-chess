@@ -1,5 +1,5 @@
 using CookApps.TeamBattle.UIManagements;
-using DG.Tweening;
+using LitMotion;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -22,7 +22,12 @@ namespace CookApps.AutoBattler
 
         void FrameTween()
         {
-            _rect.DOSizeDelta(_beforeVector, 0.1f).SetEase(Ease.InOutQuad).From();
+            // .From(): _beforeVector에서 현재 크기로 애니메이션
+            var currentSize = _rect.sizeDelta;
+            LMotion.Create(_beforeVector, currentSize, 0.1f)
+                .WithEase(Ease.InOutQuad)
+                .Bind(v => _rect.sizeDelta = v)
+                .AddTo(this);
         }
     }
 }

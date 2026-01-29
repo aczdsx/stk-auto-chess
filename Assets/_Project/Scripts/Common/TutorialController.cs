@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
+using LitMotion;
+using LitMotion.Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -276,7 +277,10 @@ public class TutorialController : MonoBehaviour
 
             // 말풍선 위치 결정
             var targetPosition = CalculateDialogueBubblePosition(CurrentSpecTutorial);
-            _bodyRectTransform.DOLocalMove(targetPosition, 0.6f).SetEase(Ease.OutQuad);
+            LMotion.Create(_bodyRectTransform.localPosition, targetPosition, 0.6f)
+                .WithEase(Ease.OutQuad)
+                .BindToLocalPosition(_bodyRectTransform)
+                .AddTo(this);
         }
 
         // 전략 선택 및 실행
@@ -714,26 +718,32 @@ public class TutorialController : MonoBehaviour
         if (newState == AnimationState.Growing)
         {
             float currentRadius = _maskMaterial.GetFloat(HoleRadius);
-            DOTween.To(() => currentRadius, x =>
-            {
-                currentRadius = x;
-                _maskMaterial.SetFloat(HoleRadius, currentRadius);
-            }, CurrentSpecTutorial.hole_radius, 0.8f).SetEase(Ease.InOutSine).OnComplete(() =>
-            {
-                _currentState = AnimationState.IdleAfterGrowing;
-            });
+            LMotion.Create(currentRadius, CurrentSpecTutorial.hole_radius, 0.8f)
+                .WithEase(Ease.InOutSine)
+                .WithOnComplete(() =>
+                {
+                    _currentState = AnimationState.IdleAfterGrowing;
+                })
+                .Bind(x =>
+                {
+                    _maskMaterial.SetFloat(HoleRadius, x);
+                })
+                .AddTo(this);
         }
         else if (newState == AnimationState.Shrinking)
         {
             float currentRadius = _maskMaterial.GetFloat(HoleRadius);
-            DOTween.To(() => currentRadius, x =>
-            {
-                currentRadius = x;
-                _maskMaterial.SetFloat(HoleRadius, currentRadius);
-            }, 0.0f, 0.8f).SetEase(Ease.InOutSine).OnComplete(() =>
-            {
-                _currentState = AnimationState.IdleAfterShrinking;
-            });
+            LMotion.Create(currentRadius, 0.0f, 0.8f)
+                .WithEase(Ease.InOutSine)
+                .WithOnComplete(() =>
+                {
+                    _currentState = AnimationState.IdleAfterShrinking;
+                })
+                .Bind(x =>
+                {
+                    _maskMaterial.SetFloat(HoleRadius, x);
+                })
+                .AddTo(this);
         }
     }
 

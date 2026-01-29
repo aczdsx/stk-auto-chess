@@ -7,6 +7,26 @@
       "dependencies": {},
       "hash": "dad5808e5e79ca25bca7e5ef3d592d26b591275c"
     },
+    "com.annulusgames.lit-motion": {
+      "version": "https://github.com/annulusgames/LitMotion.git?path=src/LitMotion/Assets/LitMotion",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.burst": "1.6.0",
+        "com.unity.collections": "1.5.1",
+        "com.unity.mathematics": "1.0.1"
+      },
+      "hash": "a174f0ace85831bc6790d497d2d683a64fc513dd"
+    },
+    "com.annulusgames.lit-motion.animation": {
+      "version": "https://github.com/annulusgames/LitMotion.git?path=src/LitMotion/Assets/LitMotion.Animation",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.annulusgames.lit-motion": "2.0.0"
+      },
+      "hash": "a174f0ace85831bc6790d497d2d683a64fc513dd"
+    },
     "com.boxqkrtm.ide.cursor": {
       "version": "https://github.com/boxqkrtm/com.unity.ide.cursor.git",
       "depth": 0,
@@ -64,7 +84,7 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.build": {
-      "version": "1.5.1",
+      "version": "2.0.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -399,12 +419,6 @@
         "com.google.external-dependency-manager": "1.2.185"
       }
     },
-    "com.kyrylokuzyk.primetween": {
-      "version": "file:../Assets/ThirdParty/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
-    },
     "com.littlebigfun.addressable-importer": {
       "version": "https://github.com/favoyang/unity-addressable-importer.git",
       "depth": 0,
@@ -447,7 +461,7 @@
     },
     "com.unity.burst": {
       "version": "1.8.25",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
@@ -464,7 +478,7 @@
     },
     "com.unity.collections": {
       "version": "2.5.1",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.burst": "1.8.17",
@@ -686,7 +700,7 @@
     },
     "com.unity.test-framework.performance": {
       "version": "3.2.0",
-      "depth": 3,
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.unity.test-framework": "1.1.33",

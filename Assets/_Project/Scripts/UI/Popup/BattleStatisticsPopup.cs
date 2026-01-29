@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
+using LitMotion;
+using LitMotion.Extensions;
 using R3;
 using UnityEngine;
 using UnityEngine.UI;
@@ -100,39 +101,29 @@ namespace CookApps.AutoBattler
         public void PlayPopupOpenAnimation()
         {
             //팝업
-            _dimImg.DOFade(0f, 0f);
-            _canvasGroup.DOFade(0f, 0f);
-            _dimImg.DOFade(1f, 0.3f).SetEase(Ease.OutQuad);
-            _canvasGroup.DOFade(1f, 0.3f).SetEase(Ease.OutQuad);
-            _popup.transform.DOLocalMoveX(-100f, 0f).SetUpdate(true);
-            _popup.transform.DOLocalMoveX(20f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true);
-            /*
-            //Exit 버튼
-            _circleImg.DOFade(1f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true);
-            _lineImg.DOFade(1f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.1f);
-            _arrowImg.DOFade(1f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.2f);
-            _circle.DOScale(1f, 0.3f).SetEase(Ease.InQuad).SetUpdate(true);
-            _line.DOScale(1f, 0.3f).SetEase(Ease.InQuad).SetUpdate(true).SetDelay(0.1f);
-            _arrow.DOScale(1f, 0.3f).SetEase(Ease.InQuad).SetUpdate(true).SetDelay(0.2f);*/
+            var dimColor = _dimImg.color; dimColor.a = 0f; _dimImg.color = dimColor;
+            _canvasGroup.alpha = 0f;
+            LMotion.Create(0f, 1f, 0.3f).WithEase(Ease.OutQuad).BindToColorA(_dimImg).AddTo(this);
+            LMotion.Create(0f, 1f, 0.3f).WithEase(Ease.OutQuad).BindToAlpha(_canvasGroup).AddTo(this);
+            var pos = _popup.transform.localPosition; pos.x = -100f; _popup.transform.localPosition = pos;
+            LMotion.Create(-100f, 20f, 0.3f)
+                .WithEase(Ease.OutQuad)
+                .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
+                .BindToLocalPositionX(_popup.transform)
+                .AddTo(this);
         }
 
         public void PlayPopupCloseAnimation()
         {
-            _dimImg.DOFade(1f, 0f);
-            _canvasGroup.DOFade(1f, 0f);
-            _dimImg.DOFade(0f, 0.3f).SetEase(Ease.OutQuad);
-            _canvasGroup.DOFade(0f, 0.3f).SetEase(Ease.OutQuad);
-            _popup.transform.DOLocalMoveX(-100f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true);
-            _popup.transform.DOLocalMoveX(20f, 0f).SetUpdate(true);
-            /*
-            //Exit 버튼
-            _circleImg.DOFade(0f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true);
-            _lineImg.DOFade(0f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.1f);
-            _arrowImg.DOFade(0f, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true).SetDelay(0.2f);
-            _circle.DOScale(0f, 0.3f).SetEase(Ease.InQuad).SetUpdate(true);
-            _line.DOScale(0f, 0.3f).SetEase(Ease.InQuad).SetUpdate(true).SetDelay(0.1f);
-            _arrow.DOScale(0f, 0.3f).SetEase(Ease.InQuad).SetUpdate(true).SetDelay(0.2f);
-            */
+            var dimColor = _dimImg.color; dimColor.a = 1f; _dimImg.color = dimColor;
+            _canvasGroup.alpha = 1f;
+            LMotion.Create(1f, 0f, 0.3f).WithEase(Ease.OutQuad).BindToColorA(_dimImg).AddTo(this);
+            LMotion.Create(1f, 0f, 0.3f).WithEase(Ease.OutQuad).BindToAlpha(_canvasGroup).AddTo(this);
+            LMotion.Create(20f, -100f, 0.3f)
+                .WithEase(Ease.OutQuad)
+                .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
+                .BindToLocalPositionX(_popup.transform)
+                .AddTo(this);
         }
 
         public void SetDeadSlot(int characterID)

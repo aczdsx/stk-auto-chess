@@ -1,6 +1,6 @@
 using System;
 using CookApps.TeamBattle.Utility;
-using DG.Tweening;
+using LitMotion;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -61,7 +61,7 @@ namespace CookApps.AutoBattler
         private static readonly int MaskAlpha = Shader.PropertyToID("_MaskAlpha");
         private const float MASK_ANIMATION_DURATION = 0.8f;
 
-        private Tweener _maskTweener;
+        private MotionHandle _maskHandle;
 
         /// <summary>
         /// 전체 화면이 보이도록 마스크 알파를 0으로 애니메이션
@@ -72,14 +72,12 @@ namespace CookApps.AutoBattler
 
             if (MaskMaterial != null)
             {
-                _maskTweener?.Kill();
+                _maskHandle.TryCancel();
 
                 float currentAlpha = MaskMaterial.GetFloat(MaskAlpha);
-                _maskTweener = DOTween.To(() => currentAlpha, x =>
-                {
-                    currentAlpha = x;
-                    MaskMaterial.SetFloat(MaskAlpha, currentAlpha);
-                }, 0f, MASK_ANIMATION_DURATION).SetEase(Ease.InOutSine);
+                _maskHandle = LMotion.Create(currentAlpha, 0f, MASK_ANIMATION_DURATION)
+                    .WithEase(Ease.InOutSine)
+                    .Bind(MaskMaterial, (x, mask) => mask.SetFloat(MaskAlpha, x));
             }
         }
 
@@ -92,14 +90,12 @@ namespace CookApps.AutoBattler
 
             if (MaskMaterial != null)
             {
-                _maskTweener?.Kill();
+                _maskHandle.TryCancel();
 
                 float currentAlpha = MaskMaterial.GetFloat(MaskAlpha);
-                _maskTweener = DOTween.To(() => currentAlpha, x =>
-                {
-                    currentAlpha = x;
-                    MaskMaterial.SetFloat(MaskAlpha, currentAlpha);
-                }, 1f, MASK_ANIMATION_DURATION).SetEase(Ease.InOutSine);
+                _maskHandle = LMotion.Create(currentAlpha, 1f, MASK_ANIMATION_DURATION)
+                    .WithEase(Ease.InOutSine)
+                    .Bind(MaskMaterial, (x, mask) => mask.SetFloat(MaskAlpha, x));
             }
         }
 

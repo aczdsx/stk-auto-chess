@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
-using PrimeTween;
+using LitMotion;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -63,7 +63,7 @@ namespace CookApps.AutoBattler
         private bool _cachedFlipX;
         private bool _cachedFront;
         private static readonly int IsFront = Animator.StringToHash("IsFront");
-        private Tween _viewScaleTween;
+        private MotionHandle _viewScaleHandle;
         private Vector3 _viewScaleTarget = Vector3.one;
 
 
@@ -105,7 +105,8 @@ namespace CookApps.AutoBattler
 
         public void StopAllTweens()
         {
-            _viewScaleTween.Stop();
+            _viewScaleHandle.TryCancel();
+            _viewScaleHandle = default;
         }
 
         public void UpdatePosition(Vector3 position, Vector3 viewPosition, Vector3 selectedOffSet)
@@ -381,35 +382,36 @@ namespace CookApps.AutoBattler
         
         public void AddViewScale(float viewScale)
         {
+            _viewScaleHandle.TryCancel();
             _viewScaleTarget += new Vector3(viewScale, viewScale, viewScale);
-            Ease ease = Ease.OutElastic;
-            _viewScaleTween = Tween.Custom(
+            _viewScaleHandle = LMotion.Create(
                 _rotateionRootTransform.localScale,
                 _viewScaleTarget,
-                0.5f,
-                (Vector3 value) =>
+                0.5f)
+                .WithEase(Ease.OutElastic)
+                .Bind(value =>
                 {
                     if (_rotateionRootTransform != null)
                         _rotateionRootTransform.localScale = value;
-                },
-                ease: ease);
+                })
+                .AddTo(this);
         }
 
         public void RemoveViewScale(float viewScale)
         {
-            _viewScaleTween.Stop();
+            _viewScaleHandle.TryCancel();
             _viewScaleTarget -= new Vector3(viewScale, viewScale, viewScale);
-            Ease ease = Ease.OutElastic;
-            _viewScaleTween = Tween.Custom(
+            _viewScaleHandle = LMotion.Create(
                 _rotateionRootTransform.localScale,
                 _viewScaleTarget,
-                0.5f,
-                (Vector3 value) =>
+                0.5f)
+                .WithEase(Ease.OutElastic)
+                .Bind(value =>
                 {
                     if (_rotateionRootTransform != null)
                         _rotateionRootTransform.localScale = value;
-                },
-                ease: ease);
+                })
+                .AddTo(this);
         }
 
         private void SetFlipOrNot()

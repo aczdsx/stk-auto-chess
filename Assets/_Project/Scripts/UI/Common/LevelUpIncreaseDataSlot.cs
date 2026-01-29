@@ -1,4 +1,5 @@
-using DG.Tweening;
+using LitMotion;
+using LitMotion.Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI.Extensions;
@@ -28,23 +29,38 @@ namespace CookApps.AutoBattler
         {
             _fx_L.Offset = 1f;
             _fx_R.Offset = -1;
-            _KeyText.DOColor(_beforeColor, 0f);
-        
+            _KeyText.color = _beforeColor;
+
         }
 
         public void ChangeFocusFX()
         {
             _focusFX.SetActive(true);
-            _KeyText.DOColor(_afterColor, 0f).SetDelay(0.09f);
-            DOTween.To(() => _fx_L.Offset, x => _fx_L.Offset = x, 0f, 0.09f).SetEase(Ease.OutQuad);
-            DOTween.To(() => _fx_L.Offset, x => _fx_L.Offset = x, 1f, 0.13f).SetDelay(0.09f).SetEase(Ease.InQuad);
-            DOTween.To(() => _fx_R.Offset, x => _fx_R.Offset = x, 0f, 0.09f).SetEase(Ease.OutQuad);
-            DOTween.To(() => _fx_R.Offset, x => _fx_R.Offset = x, -1f, 0.13f).SetDelay(0.09f).SetEase(Ease.InQuad)
-                .OnComplete(() => {
-                    _focusFX.SetActive(false);
-                });
+            LMotion.Create(_KeyText.color, _afterColor, 0f)
+                .WithDelay(0.09f)
+                .BindToColor(_KeyText)
+                .AddTo(this);
+            LMotion.Create(_fx_L.Offset, 0f, 0.09f)
+                .WithEase(Ease.OutQuad)
+                .Bind(x => _fx_L.Offset = x)
+                .AddTo(this);
+            LMotion.Create(_fx_L.Offset, 1f, 0.13f)
+                .WithDelay(0.09f)
+                .WithEase(Ease.InQuad)
+                .Bind(x => _fx_L.Offset = x)
+                .AddTo(this);
+            LMotion.Create(_fx_R.Offset, 0f, 0.09f)
+                .WithEase(Ease.OutQuad)
+                .Bind(x => _fx_R.Offset = x)
+                .AddTo(this);
+            LMotion.Create(_fx_R.Offset, -1f, 0.13f)
+                .WithDelay(0.09f)
+                .WithEase(Ease.InQuad)
+                .WithOnComplete(() => _focusFX.SetActive(false))
+                .Bind(x => _fx_R.Offset = x)
+                .AddTo(this);
         }
 
-        
+
     }
 }

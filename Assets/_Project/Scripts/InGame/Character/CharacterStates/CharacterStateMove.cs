@@ -1,6 +1,6 @@
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
-using PrimeTween;
+using LitMotion;
 using UnityEngine;
 
 /// <summary>
@@ -9,10 +9,10 @@ using UnityEngine;
 /// </summary>
 public class CharacterStateMove : CharacterStateBase
 {
-    private Tween moveTween;
-    
+    private MotionHandle _moveTween;
+
     public override StatePriority StatePriority => StatePriority.Move;
-    
+
     public override void StateStart()
     {
         base.StateStart();
@@ -20,9 +20,6 @@ public class CharacterStateMove : CharacterStateBase
         characCtrl.GetCharacterView().PlayAnimation(AnimationKey.MOVE);
 
         var moveDuration = SpecOptionCache.DefaultMoveDuration / characCtrl.GetCharacterStat().MoveSpeed;
-        var jumpHeight = SpecOptionCache.CharacterMoveJumpHeight;
-        // PrimeTweenExtensions.Jump(characCtrl.GetCharacterView().CachedTr, characCtrl.CurrentTile.View.Position, moveDuration, jumpHeight)
-        //     .OnComplete(this, target => target.ChangeToIdleState());
 
         Ease ease = Ease.Linear;
         // if (characCtrl.SpecCharacter.atk_range == 1)
@@ -32,20 +29,12 @@ public class CharacterStateMove : CharacterStateBase
         //         moveDuration *= 0.2f;
         // }
 
-        moveTween = Tween.Custom(
+        _moveTween = LMotion.Create(
             characCtrl.Position3D,
             characCtrl.CurrentTile.View.Position,
-            moveDuration,
-            (Vector3 value) =>
-            {
-                if (characCtrl != null)
-                {
-                    characCtrl.Position3D = value;
-                }
-            },
-            ease: ease).OnComplete(this, target =>
-        {
-            if (target != null)
+            moveDuration)
+            .WithEase(ease)
+            .WithOnComplete(() =>
             {
                 if (characCtrl == null)
                     return;
@@ -60,8 +49,14 @@ public class CharacterStateMove : CharacterStateBase
                 var isInRange = InGameObjectManager.Instance.IsInRange(characCtrl, characCtrl.Target);
                 characCtrl.MoveToCharacter(isInRange, characCtrl.Target);
                 isBlockingChangeState = false;
-            }
-        });
+            })
+            .Bind(value =>
+            {
+                if (characCtrl != null)
+                {
+                    characCtrl.Position3D = value;
+                }
+            });
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)
@@ -80,6 +75,7 @@ public class CharacterStateMove : CharacterStateBase
     {
         characCtrl.OnTileMoveEnd();
         base.StateEnd(isForced);
-        moveTween.Stop();
+        _moveTween.TryCancel();
+        _moveTween = default;
     }
 }
