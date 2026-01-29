@@ -1077,7 +1077,7 @@ namespace CookApps.AutoBattler
                 foreach (var commanderSkillData in commanderSkillList)
                 {
                     //해당 스킬에대한 유저 스킬 레벨 체크
-                    if (commanderSkillData.level <= userSkillLevel)
+                    if (commanderSkillData.level == userSkillLevel)
                     {
                         return commanderSkillData;
                     }
