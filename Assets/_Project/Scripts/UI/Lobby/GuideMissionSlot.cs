@@ -199,13 +199,10 @@ namespace CookApps.AutoBattler
             var buildInfo = SpecDataManager.Instance.GetBuildInfo(specGuideMissionData.sub_key);
             switch (specGuideMissionData.guide_mission_type)
             {
-                case GuideMissionType.SUMMON_CHARCTER:
-                case GuideMissionType.SUMMON_CHARACTER_NORMAL:
-                case GuideMissionType.SUMMON_WEAPHON_NORMAL:
+                case GuideMissionType.SUMMON_CHARACTER:
                     NavigateToGacha();
                     break;
 
-                case GuideMissionType.CHARACTER_LEVELUP:
                 case GuideMissionType.LEVELUP_CHARACTER_TARGET:
                 case GuideMissionType.EXCEED_CHARACTER_TARGET:
                 case GuideMissionType.TRANSCENDENCE_CHARACTER_TARGET:
@@ -222,28 +219,17 @@ namespace CookApps.AutoBattler
                     break;
 
                 case GuideMissionType.UPGRADE_DIMENSION_CUBE_CORE_RESEARCH:
-                case GuideMissionType.DIMENSION_CUBE_LEVEL:
                     NavigateToLobbyAndOpenPopup(ElpisFacilityType.FacilityTypeDimensionLab,
                         async () => await SceneUILayerManager.Instance.PushUILayerAsync<ElpisCoreResearchLayer>());
                     break;
 
                 case GuideMissionType.CLEAR_STAGE:
-                case GuideMissionType.ENTER_STAGE:
                 case GuideMissionType.ENTER_CHAPTER:
                     NavigateToStage();
                     break;
 
                 // TODO: 네비게이션 미구현
-                case GuideMissionType.PLAY_PVP:
-                case GuideMissionType.SET_PVP_DEF_DECK:
-                case GuideMissionType.CLEAR_TRIAL:
                 case GuideMissionType.CLEAR_BABEL:
-                case GuideMissionType.CLICK_ATTENDANCE:
-                case GuideMissionType.OPEN_IDLECHEST:
-                case GuideMissionType.OPEN_CHEST:
-                case GuideMissionType.ENTER_ELPIS:
-                case GuideMissionType.END_DIALOGUE:
-                case GuideMissionType.CLEAR_TUTORIAL:
                     break;
             }
         }

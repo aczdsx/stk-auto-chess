@@ -195,8 +195,8 @@ namespace CookApps.AutoBattler
 
         private async UniTaskVoid OnDialogueCompleteAsync()
         {
-            // 가이드 미션 완료 체크
-            ServerDataManager.Instance.GuideMission.AddActionValue(GuideMissionType.END_DIALOGUE);
+            // TODO: 가이드 미션 완료 체크
+            // ServerDataManager.Instance.GuideMission.AddActionValue(GuideMissionType.END_DIALOGUE);
             if (_currentSpecDialogueData == null) return;
 
             // 보상 지급 여부 체크
