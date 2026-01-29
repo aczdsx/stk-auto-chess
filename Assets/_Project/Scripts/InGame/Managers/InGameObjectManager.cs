@@ -49,10 +49,6 @@ namespace CookApps.BattleSystem
                 LateManagedUpdate);
 
             GameObject stageObj = Instantiate(InGameResourceHolder.StagePrefab);
-
-            // URP Light 큐 강제 갱신: Addressables로 로드된 프리팹의 Light가 첫 프레임에 등록되지 않는 버그 수정
-            RefreshLightsNextFrame(stageObj).Forget();
-
             if (!stageObj.TryGetComponent(out InGameStage stage))
             {
                 Debug.LogError("InGameStage is not found");
@@ -66,19 +62,6 @@ namespace CookApps.BattleSystem
             _stage = stage;
             InGameGrid grid = new InGameGrid(_stage.GridSize, _stage.TileViews);
             _grid = grid;
-        }
-
-        private async UniTaskVoid RefreshLightsNextFrame(GameObject stageObj)
-        {
-            await UniTask.DelayFrame(1);
-            var lights = stageObj.GetComponentsInChildren<Light>(true);
-            Debug.Log($"[RefreshLights] Found {lights.Length} lights in Stage");
-            for (int i = 0; i < lights.Length; i++)
-            {
-                Debug.Log($"[RefreshLights] Light[{i}]: {lights[i].name}, Type: {lights[i].type}, Enabled: {lights[i].enabled}, Intensity: {lights[i].intensity}");
-                lights[i].enabled = false;
-                lights[i].enabled = true;
-            }
         }
 
         public void Clear()
