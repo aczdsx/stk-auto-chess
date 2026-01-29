@@ -71,6 +71,40 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
+        /// AP 동기화
+        /// </summary>
+        public async UniTask<CustomLobbySyncApResponse> SyncApAsync(CancellationToken cancellationToken = default)
+        {
+            CustomLobbySyncApResponse resp = await ExecuteWithCommonErrorCheck(
+                ServiceClient.SyncApAsync,
+                new CustomLobbySyncApRequest(),
+                cancellationToken: cancellationToken
+            );
+
+            // 통화 변화 적용
+            if (resp != null && resp.IsSuccess && resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+            {
+                ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
+            }
+
+            return resp;
+        }
+
+        /// <summary>
+        /// 플레이어 닉네임 변경
+        /// </summary>
+        public async UniTask<CustomLobbyChangeNicknameResponse> ChangeNicknameAsync(string nickname, CancellationToken cancellationToken = default)
+        {
+            CustomLobbyChangeNicknameResponse resp = await ExecuteWithCommonErrorCheck(
+                ServiceClient.ChangeNicknameAsync,
+                new CustomLobbyChangeNicknameRequest { Nickname = nickname },
+                cancellationToken: cancellationToken
+            );
+
+            return resp;
+        }
+
+        /// <summary>
         /// 이벤트 구독 (Bidirectional Streaming)
         /// </summary>
         private AsyncDuplexStreamingCall<CustomLobbySubscribeEventRequest, CustomLobbySubscribeEventResponse> SubscribeEvent(CancellationToken cancellationToken = default)
@@ -128,8 +162,8 @@ namespace CookApps.AutoBattler
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                await call.RequestStream.WriteAsync(new CustomLobbySubscribeEventRequest(), cancellationToken);
-                await UniTask.Delay(TimeSpan.FromSeconds(30), cancellationToken: cancellationToken);
+                await call.RequestStream.WriteAsync(new CustomLobbySubscribeEventRequest(), cancellationToken); 
+                await UniTask.Delay(TimeSpan.FromSeconds(10), cancellationToken: cancellationToken);
             }
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using R3;
 using Tech.Hive.V1;
 
@@ -6,6 +7,7 @@ namespace CookApps.AutoBattler
     /// <summary>
     /// 플레이어 데이터 모델
     /// 플레이어의 기본 정보(레벨, 경험치, 닉네임 등)를 관리
+    /// Level/Exp는 InventoryModel의 UserExp 기반으로 SpecData에서 계산
     /// </summary>
     public class PlayerDataModel
     {
@@ -13,13 +15,14 @@ namespace CookApps.AutoBattler
         private string _playerId = string.Empty;
         private string _nickname = string.Empty;
         private uint _serverId;
-        private uint _level;
-        private ulong _exp;
-        private ulong _expToNextLevel;
         private string _representativeCharacterId = string.Empty;
         private ulong _lastAccessedAt;
-        private uint _vipLevel;
-        private uint _vipExp;
+
+        // 레벨 변경 감지용 캐시
+        private uint _cachedLevel;
+
+        // InventoryModel 구독
+        private IDisposable _inventorySubscription;
 
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
@@ -36,13 +39,12 @@ namespace CookApps.AutoBattler
             _playerId = string.Empty;
             _nickname = string.Empty;
             _serverId = 0;
-            _level = 0;
-            _exp = 0;
-            _expToNextLevel = 0;
             _representativeCharacterId = string.Empty;
             _lastAccessedAt = 0;
-            _vipLevel = 0;
-            _vipExp = 0;
+            _cachedLevel = 0;
+
+            _inventorySubscription?.Dispose();
+            _inventorySubscription = null;
 
             OnChanged.OnNext(Unit.Default);
         }
@@ -58,29 +60,22 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            var levelChanged = _level != data.Level;
-            var expChanged = _exp != data.Exp;
             var nicknameChanged = _nickname != data.Nickname;
             var representativeCharacterChanged = _representativeCharacterId != data.RepresentativeCharacterId;
 
             _playerId = data.PlayerId;
             _nickname = data.Nickname;
             _serverId = data.ServerId;
-            _level = data.Level;
-            _exp = data.Exp;
-            _expToNextLevel = data.ExpToNextLevel;
             _representativeCharacterId = data.RepresentativeCharacterId;
             _lastAccessedAt = data.LastAccessedAt;
-            _vipLevel = data.VipLevel;
-            _vipExp = data.VipExp;
+
+            // InventoryModel 구독 시작 (Level/Exp 변경 감지)
+            EnsureSubscribed();
+
+            // 초기 레벨 캐시
+            _cachedLevel = Level;
 
             // 변경 이벤트 발생
-            if (levelChanged)
-                OnLevelChanged.OnNext(_level);
-
-            if (expChanged)
-                OnExpChanged.OnNext(_exp);
-
             if (nicknameChanged)
                 OnNicknameChanged.OnNext(_nickname);
 
@@ -88,6 +83,33 @@ namespace CookApps.AutoBattler
                 OnRepresentativeCharacterChanged.OnNext(_representativeCharacterId);
 
             OnChanged.OnNext(Unit.Default);
+        }
+
+        /// <summary>
+        /// InventoryModel의 UserExp 변경 구독
+        /// </summary>
+        private void EnsureSubscribed()
+        {
+            if (_inventorySubscription != null)
+                return;
+
+            _inventorySubscription = ServerDataManager.Instance.Inventory.OnCurrencyChanged
+                .Where(x => x.itemId == (uint)IdMap.Item.UserExp.Value)
+                .Subscribe(_ =>
+                {
+                    // Exp 변경 이벤트
+                    OnExpChanged.OnNext(Exp);
+
+                    // Level 변경 감지
+                    var newLevel = Level;
+                    if (_cachedLevel != newLevel)
+                    {
+                        _cachedLevel = newLevel;
+                        OnLevelChanged.OnNext(newLevel);
+                    }
+
+                    OnChanged.OnNext(Unit.Default);
+                });
         }
 
         /// <summary>
@@ -106,19 +128,50 @@ namespace CookApps.AutoBattler
         public uint ServerId => _serverId;
 
         /// <summary>
-        /// 레벨
+        /// 레벨 (InventoryModel의 UserExp와 AccountLevelExp 스펙 데이터로 계산)
         /// </summary>
-        public uint Level => _level;
+        public uint Level
+        {
+            get
+            {
+                var totalExp = (long)ServerDataManager.Instance.Inventory.GetCurrency((uint)IdMap.Item.UserExp.Value);
+                return (uint)SpecDataManager.Instance.GetAccountLevelByExp(totalExp);
+            }
+        }
 
         /// <summary>
-        /// 경험치
+        /// 현재 레벨 내 경험치 (현재 레벨 시작 경험치를 뺀 값)
         /// </summary>
-        public ulong Exp => _exp;
+        public ulong Exp
+        {
+            get
+            {
+                var totalExp = (long)ServerDataManager.Instance.Inventory.GetCurrency((uint)IdMap.Item.UserExp.Value);
+                var level = SpecDataManager.Instance.GetAccountLevelByExp(totalExp);
+                var levelData = SpecDataManager.Instance.GetAccountLevelExpDataByLevel(level);
+                if (levelData == null)
+                    return 0;
+
+                return (ulong)(totalExp - levelData.exp_start);
+            }
+        }
 
         /// <summary>
         /// 다음 레벨까지 필요한 경험치
         /// </summary>
-        public ulong ExpToNextLevel => _expToNextLevel;
+        public ulong ExpToNextLevel
+        {
+            get
+            {
+                var totalExp = (long)ServerDataManager.Instance.Inventory.GetCurrency((uint)IdMap.Item.UserExp.Value);
+                var level = SpecDataManager.Instance.GetAccountLevelByExp(totalExp);
+                var levelData = SpecDataManager.Instance.GetAccountLevelExpDataByLevel(level);
+                if (levelData == null)
+                    return 0;
+
+                return (ulong)levelData.exp_need;
+            }
+        }
 
         /// <summary>
         /// 대표 캐릭터 ID
@@ -131,26 +184,17 @@ namespace CookApps.AutoBattler
         public ulong LastAccessedAt => _lastAccessedAt;
 
         /// <summary>
-        /// VIP 레벨
-        /// </summary>
-        public uint VipLevel => _vipLevel;
-
-        /// <summary>
-        /// VIP 경험치
-        /// </summary>
-        public uint VipExp => _vipExp;
-
-        /// <summary>
         /// 현재 레벨의 경험치 진행률 (0.0 ~ 1.0)
         /// </summary>
         public float ExpProgress
         {
             get
             {
-                if (_expToNextLevel == 0)
+                var expToNext = ExpToNextLevel;
+                if (expToNext == 0)
                     return 0f;
 
-                return (float)_exp / (float)_expToNextLevel;
+                return Exp / (float)expToNext;
             }
         }
 

@@ -33,6 +33,11 @@ service CustomLobbyService {
    * AP 동기화
    */
   rpc SyncAp(CustomLobbySyncApRequest) returns (CustomLobbySyncApResponse);
+
+  /**
+   * 플레이어 닉네임 변경
+   */
+  rpc ChangeNickname(CustomLobbyChangeNicknameRequest) returns (CustomLobbyChangeNicknameResponse);
 }
 
 
@@ -78,4 +83,11 @@ message CustomLobbySyncApResponse {
   ResponseStatus status = 1;
   repeated Reward rewards = 2;
   repeated CurrencyDelta currency_deltas = 3;
+}
+
+message CustomLobbyChangeNicknameRequest {
+  string nickname = 1;
+}
+message CustomLobbyChangeNicknameResponse {
+  ResponseStatus status = 1;
 }

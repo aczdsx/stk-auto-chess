@@ -24,7 +24,9 @@ MonoBehaviour:
     - pageName: 117643503_LD_Idle.png
       material: {fileID: 2100000, guid: 352bec3e9e4e8b74890d1b730361d7ec, type: 2}
     multiplyMaterials: []
-    screenMaterials: []
+    screenMaterials:
+    - pageName: 117643503_LD_Idle.png
+      material: {fileID: 2100000, guid: 54c0689299549424dbff9e403eb7d2aa, type: 2}
   skeletonDataModifiers: []
   fromAnimation: []
   toAnimation: []

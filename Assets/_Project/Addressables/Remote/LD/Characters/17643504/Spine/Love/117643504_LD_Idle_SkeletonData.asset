@@ -21,7 +21,9 @@ MonoBehaviour:
     requiresBlendModeMaterials: 1
     applyAdditiveMaterial: 1
     additiveMaterials: []
-    multiplyMaterials: []
+    multiplyMaterials:
+    - pageName: 117643504_LD_Idle.png
+      material: {fileID: 2100000, guid: 87093af1d2258c349adad40ed548ccb6, type: 2}
     screenMaterials: []
   skeletonDataModifiers: []
   fromAnimation: []

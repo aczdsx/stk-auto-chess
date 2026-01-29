@@ -175,13 +175,13 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // TODO: 닉네임 변경 API 호출
-            // var result = await NetManager.Instance.User.ChangeNicknameAsync(_nicknameInputField.text);
-            // if (!result.IsSuccess)
-            // {
-            //     ToastManager.Instance.ShowToast(result.ErrorMessage);
-            //     return;
-            // }
+            // 닉네임 변경 API 호출
+            var result = await NetManager.Instance.CustomLobby.ChangeNicknameAsync(_nicknameInputField.text);
+            if (!result.IsSuccess)
+            {
+                ShowToast(result.Status?.Message ?? "ERROR_UNKNOWN");
+                return;
+            }
 
             _resultNickname = _nicknameInputField.text;
             CompleteAndDestroy();

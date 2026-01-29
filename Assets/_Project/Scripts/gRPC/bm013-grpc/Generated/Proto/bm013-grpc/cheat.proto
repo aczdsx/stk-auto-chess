@@ -12,6 +12,9 @@ service CheatService {
 
   // 재화 변화
   rpc ChangeCurrency(ChangeCurrencyRequest) returns (ChangeCurrencyResponse) {}
+
+  // 가이드 미션 이동
+  rpc MoveGuideMission(MoveGuideMissionRequest) returns (MoveGuideMissionResponse) {}
 }
 
 enum CheatErrorCode {
@@ -30,4 +33,13 @@ message ChangeCurrencyRequest {
 message ChangeCurrencyResponse {
   ResponseStatus status = 1;
   repeated CurrencyDelta currency_deltas = 2;
+}
+
+message MoveGuideMissionRequest {
+  // 안넣거나 0으로 보내면 가장 order가 큰 값으로 보냄
+  uint32 guide_mission_id = 1;
+  bool is_clear = 2;
+}
+message MoveGuideMissionResponse {
+  ResponseStatus status = 1;
 }

@@ -25,17 +25,15 @@ namespace Tech.Hive.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Ch5jdXN0b21fbG9iYnkrcGxheWVyX2RhdGEucHJvdG8SDHRlY2guaGl2ZS52",
-            "MSKJAgoQQ3VzdG9tUGxheWVyRGF0YRIRCglwbGF5ZXJfaWQYASABKAkSEAoI",
-            "bmlja25hbWUYAiABKAkSEQoJc2VydmVyX2lkGAMgASgNEg0KBWxldmVsGAQg",
-            "ASgNEgsKA2V4cBgFIAEoBBIZChFleHBfdG9fbmV4dF9sZXZlbBgGIAEoBBIo",
-            "ChtyZXByZXNlbnRhdGl2ZV9jaGFyYWN0ZXJfaWQYByABKAlIAIgBARIYChBs",
-            "YXN0X2FjY2Vzc2VkX2F0GAggASgEEhEKCXZpcF9sZXZlbBgKIAEoDRIPCgd2",
-            "aXBfZXhwGAsgASgNQh4KHF9yZXByZXNlbnRhdGl2ZV9jaGFyYWN0ZXJfaWRi",
-            "BnByb3RvMw=="));
+            "MSKuAQoQQ3VzdG9tUGxheWVyRGF0YRIRCglwbGF5ZXJfaWQYASABKAkSEAoI",
+            "bmlja25hbWUYAiABKAkSEQoJc2VydmVyX2lkGAMgASgNEigKG3JlcHJlc2Vu",
+            "dGF0aXZlX2NoYXJhY3Rlcl9pZBgEIAEoCUgAiAEBEhgKEGxhc3RfYWNjZXNz",
+            "ZWRfYXQYBSABKARCHgocX3JlcHJlc2VudGF0aXZlX2NoYXJhY3Rlcl9pZGIG",
+            "cHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomPlayerData), global::Tech.Hive.V1.CustomPlayerData.Parser, new[]{ "PlayerId", "Nickname", "ServerId", "Level", "Exp", "ExpToNextLevel", "RepresentativeCharacterId", "LastAccessedAt", "VipLevel", "VipExp" }, new[]{ "RepresentativeCharacterId" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomPlayerData), global::Tech.Hive.V1.CustomPlayerData.Parser, new[]{ "PlayerId", "Nickname", "ServerId", "RepresentativeCharacterId", "LastAccessedAt" }, new[]{ "RepresentativeCharacterId" }, null, null, null)
           }));
     }
     #endregion
@@ -80,13 +78,8 @@ namespace Tech.Hive.V1 {
       playerId_ = other.playerId_;
       nickname_ = other.nickname_;
       serverId_ = other.serverId_;
-      level_ = other.level_;
-      exp_ = other.exp_;
-      expToNextLevel_ = other.expToNextLevel_;
       representativeCharacterId_ = other.representativeCharacterId_;
       lastAccessedAt_ = other.lastAccessedAt_;
-      vipLevel_ = other.vipLevel_;
-      vipExp_ = other.vipExp_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -132,44 +125,8 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "level" field.</summary>
-    public const int LevelFieldNumber = 4;
-    private uint level_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint Level {
-      get { return level_; }
-      set {
-        level_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "exp" field.</summary>
-    public const int ExpFieldNumber = 5;
-    private ulong exp_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong Exp {
-      get { return exp_; }
-      set {
-        exp_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "exp_to_next_level" field.</summary>
-    public const int ExpToNextLevelFieldNumber = 6;
-    private ulong expToNextLevel_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong ExpToNextLevel {
-      get { return expToNextLevel_; }
-      set {
-        expToNextLevel_ = value;
-      }
-    }
-
     /// <summary>Field number for the "representative_character_id" field.</summary>
-    public const int RepresentativeCharacterIdFieldNumber = 7;
+    public const int RepresentativeCharacterIdFieldNumber = 4;
     private string representativeCharacterId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -193,7 +150,7 @@ namespace Tech.Hive.V1 {
     }
 
     /// <summary>Field number for the "last_accessed_at" field.</summary>
-    public const int LastAccessedAtFieldNumber = 8;
+    public const int LastAccessedAtFieldNumber = 5;
     private ulong lastAccessedAt_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -201,30 +158,6 @@ namespace Tech.Hive.V1 {
       get { return lastAccessedAt_; }
       set {
         lastAccessedAt_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "vip_level" field.</summary>
-    public const int VipLevelFieldNumber = 10;
-    private uint vipLevel_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint VipLevel {
-      get { return vipLevel_; }
-      set {
-        vipLevel_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "vip_exp" field.</summary>
-    public const int VipExpFieldNumber = 11;
-    private uint vipExp_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint VipExp {
-      get { return vipExp_; }
-      set {
-        vipExp_ = value;
       }
     }
 
@@ -246,13 +179,8 @@ namespace Tech.Hive.V1 {
       if (PlayerId != other.PlayerId) return false;
       if (Nickname != other.Nickname) return false;
       if (ServerId != other.ServerId) return false;
-      if (Level != other.Level) return false;
-      if (Exp != other.Exp) return false;
-      if (ExpToNextLevel != other.ExpToNextLevel) return false;
       if (RepresentativeCharacterId != other.RepresentativeCharacterId) return false;
       if (LastAccessedAt != other.LastAccessedAt) return false;
-      if (VipLevel != other.VipLevel) return false;
-      if (VipExp != other.VipExp) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -263,13 +191,8 @@ namespace Tech.Hive.V1 {
       if (PlayerId.Length != 0) hash ^= PlayerId.GetHashCode();
       if (Nickname.Length != 0) hash ^= Nickname.GetHashCode();
       if (ServerId != 0) hash ^= ServerId.GetHashCode();
-      if (Level != 0) hash ^= Level.GetHashCode();
-      if (Exp != 0UL) hash ^= Exp.GetHashCode();
-      if (ExpToNextLevel != 0UL) hash ^= ExpToNextLevel.GetHashCode();
       if (HasRepresentativeCharacterId) hash ^= RepresentativeCharacterId.GetHashCode();
       if (LastAccessedAt != 0UL) hash ^= LastAccessedAt.GetHashCode();
-      if (VipLevel != 0) hash ^= VipLevel.GetHashCode();
-      if (VipExp != 0) hash ^= VipExp.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -300,33 +223,13 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(24);
         output.WriteUInt32(ServerId);
       }
-      if (Level != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(Level);
-      }
-      if (Exp != 0UL) {
-        output.WriteRawTag(40);
-        output.WriteUInt64(Exp);
-      }
-      if (ExpToNextLevel != 0UL) {
-        output.WriteRawTag(48);
-        output.WriteUInt64(ExpToNextLevel);
-      }
       if (HasRepresentativeCharacterId) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(34);
         output.WriteString(RepresentativeCharacterId);
       }
       if (LastAccessedAt != 0UL) {
-        output.WriteRawTag(64);
+        output.WriteRawTag(40);
         output.WriteUInt64(LastAccessedAt);
-      }
-      if (VipLevel != 0) {
-        output.WriteRawTag(80);
-        output.WriteUInt32(VipLevel);
-      }
-      if (VipExp != 0) {
-        output.WriteRawTag(88);
-        output.WriteUInt32(VipExp);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -350,33 +253,13 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(24);
         output.WriteUInt32(ServerId);
       }
-      if (Level != 0) {
-        output.WriteRawTag(32);
-        output.WriteUInt32(Level);
-      }
-      if (Exp != 0UL) {
-        output.WriteRawTag(40);
-        output.WriteUInt64(Exp);
-      }
-      if (ExpToNextLevel != 0UL) {
-        output.WriteRawTag(48);
-        output.WriteUInt64(ExpToNextLevel);
-      }
       if (HasRepresentativeCharacterId) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(34);
         output.WriteString(RepresentativeCharacterId);
       }
       if (LastAccessedAt != 0UL) {
-        output.WriteRawTag(64);
+        output.WriteRawTag(40);
         output.WriteUInt64(LastAccessedAt);
-      }
-      if (VipLevel != 0) {
-        output.WriteRawTag(80);
-        output.WriteUInt32(VipLevel);
-      }
-      if (VipExp != 0) {
-        output.WriteRawTag(88);
-        output.WriteUInt32(VipExp);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -397,26 +280,11 @@ namespace Tech.Hive.V1 {
       if (ServerId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ServerId);
       }
-      if (Level != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Level);
-      }
-      if (Exp != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Exp);
-      }
-      if (ExpToNextLevel != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ExpToNextLevel);
-      }
       if (HasRepresentativeCharacterId) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(RepresentativeCharacterId);
       }
       if (LastAccessedAt != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(LastAccessedAt);
-      }
-      if (VipLevel != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(VipLevel);
-      }
-      if (VipExp != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(VipExp);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -439,26 +307,11 @@ namespace Tech.Hive.V1 {
       if (other.ServerId != 0) {
         ServerId = other.ServerId;
       }
-      if (other.Level != 0) {
-        Level = other.Level;
-      }
-      if (other.Exp != 0UL) {
-        Exp = other.Exp;
-      }
-      if (other.ExpToNextLevel != 0UL) {
-        ExpToNextLevel = other.ExpToNextLevel;
-      }
       if (other.HasRepresentativeCharacterId) {
         RepresentativeCharacterId = other.RepresentativeCharacterId;
       }
       if (other.LastAccessedAt != 0UL) {
         LastAccessedAt = other.LastAccessedAt;
-      }
-      if (other.VipLevel != 0) {
-        VipLevel = other.VipLevel;
-      }
-      if (other.VipExp != 0) {
-        VipExp = other.VipExp;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -487,32 +340,12 @@ namespace Tech.Hive.V1 {
             ServerId = input.ReadUInt32();
             break;
           }
-          case 32: {
-            Level = input.ReadUInt32();
-            break;
-          }
-          case 40: {
-            Exp = input.ReadUInt64();
-            break;
-          }
-          case 48: {
-            ExpToNextLevel = input.ReadUInt64();
-            break;
-          }
-          case 58: {
+          case 34: {
             RepresentativeCharacterId = input.ReadString();
             break;
           }
-          case 64: {
+          case 40: {
             LastAccessedAt = input.ReadUInt64();
-            break;
-          }
-          case 80: {
-            VipLevel = input.ReadUInt32();
-            break;
-          }
-          case 88: {
-            VipExp = input.ReadUInt32();
             break;
           }
         }
@@ -542,32 +375,12 @@ namespace Tech.Hive.V1 {
             ServerId = input.ReadUInt32();
             break;
           }
-          case 32: {
-            Level = input.ReadUInt32();
-            break;
-          }
-          case 40: {
-            Exp = input.ReadUInt64();
-            break;
-          }
-          case 48: {
-            ExpToNextLevel = input.ReadUInt64();
-            break;
-          }
-          case 58: {
+          case 34: {
             RepresentativeCharacterId = input.ReadString();
             break;
           }
-          case 64: {
+          case 40: {
             LastAccessedAt = input.ReadUInt64();
-            break;
-          }
-          case 80: {
-            VipLevel = input.ReadUInt32();
-            break;
-          }
-          case 88: {
-            VipExp = input.ReadUInt32();
             break;
           }
         }

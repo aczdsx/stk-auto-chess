@@ -68,16 +68,6 @@ namespace CookApps.AutoBattler
         public ulong LastAccessedAt => Model?.LastAccessedAt ?? 0;
 
         /// <summary>
-        /// VIP 레벨
-        /// </summary>
-        public uint VipLevel => Model?.VipLevel ?? 0;
-
-        /// <summary>
-        /// VIP 경험치
-        /// </summary>
-        public uint VipExp => Model?.VipExp ?? 0;
-
-        /// <summary>
         /// 현재 레벨의 경험치 진행률 (0.0 ~ 1.0)
         /// </summary>
         public float ExpProgress => Model?.ExpProgress ?? 0f;

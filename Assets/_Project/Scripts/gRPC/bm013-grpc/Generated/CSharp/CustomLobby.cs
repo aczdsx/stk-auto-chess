@@ -47,23 +47,29 @@ namespace Tech.Hive.V1 {
             "bmNBcFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5S",
             "ZXNwb25zZVN0YXR1cxIlCgdyZXdhcmRzGAIgAygLMhQudGVjaC5oaXZlLnYx",
             "LlJld2FyZBI0Cg9jdXJyZW5jeV9kZWx0YXMYAyADKAsyGy50ZWNoLmhpdmUu",
-            "djEuQ3VycmVuY3lEZWx0YSpsChRDdXN0b21Mb2JieUVycm9yQ29kZRIcChhD",
-            "VVNUT01fTE9CQllfVU5TUEVDSUZJRUQQABI2Ci9DVVNUT01fTE9CQllfRVJS",
-            "T1JfQ09ERV9BTFJFQURZX1JFQ0VJVkVEX1JFV0FSRBDVq+oEMu0EChJDdXN0",
-            "b21Mb2JieVNlcnZpY2USdAoPR2V0TXlQbGF5ZXJEYXRhEi8udGVjaC5oaXZl",
-            "LnYxLkN1c3RvbUxvYmJ5R2V0TXlQbGF5ZXJEYXRhUmVxdWVzdBowLnRlY2gu",
-            "aGl2ZS52MS5DdXN0b21Mb2JieUdldE15UGxheWVyRGF0YVJlc3BvbnNlEpUB",
-            "ChpTZXRSZXByZXNlbnRhdGl2ZUNoYXJhY3RlchI6LnRlY2guaGl2ZS52MS5D",
-            "dXN0b21Mb2JieVNldFJlcHJlc2VudGF0aXZlQ2hhcmFjdGVyUmVxdWVzdBo7",
-            "LnRlY2guaGl2ZS52MS5DdXN0b21Mb2JieVNldFJlcHJlc2VudGF0aXZlQ2hh",
-            "cmFjdGVyUmVzcG9uc2USdQoOU3Vic2NyaWJlRXZlbnQSLi50ZWNoLmhpdmUu",
-            "djEuQ3VzdG9tTG9iYnlTdWJzY3JpYmVFdmVudFJlcXVlc3QaLy50ZWNoLmhp",
-            "dmUudjEuQ3VzdG9tTG9iYnlTdWJzY3JpYmVFdmVudFJlc3BvbnNlKAEwARJ3",
-            "ChBDbGFpbU90aGVyUmV3YXJkEjAudGVjaC5oaXZlLnYxLkN1c3RvbUxvYmJ5",
-            "Q2xhaW1PdGhlclJld2FyZFJlcXVlc3QaMS50ZWNoLmhpdmUudjEuQ3VzdG9t",
-            "TG9iYnlDbGFpbU90aGVyUmV3YXJkUmVzcG9uc2USWQoGU3luY0FwEiYudGVj",
-            "aC5oaXZlLnYxLkN1c3RvbUxvYmJ5U3luY0FwUmVxdWVzdBonLnRlY2guaGl2",
-            "ZS52MS5DdXN0b21Mb2JieVN5bmNBcFJlc3BvbnNlYgZwcm90bzM="));
+            "djEuQ3VycmVuY3lEZWx0YSI0CiBDdXN0b21Mb2JieUNoYW5nZU5pY2tuYW1l",
+            "UmVxdWVzdBIQCghuaWNrbmFtZRgBIAEoCSJRCiFDdXN0b21Mb2JieUNoYW5n",
+            "ZU5pY2tuYW1lUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZl",
+            "LnYxLlJlc3BvbnNlU3RhdHVzKmwKFEN1c3RvbUxvYmJ5RXJyb3JDb2RlEhwK",
+            "GENVU1RPTV9MT0JCWV9VTlNQRUNJRklFRBAAEjYKL0NVU1RPTV9MT0JCWV9F",
+            "UlJPUl9DT0RFX0FMUkVBRFlfUkVDRUlWRURfUkVXQVJEENWr6gQy4AUKEkN1",
+            "c3RvbUxvYmJ5U2VydmljZRJ0Cg9HZXRNeVBsYXllckRhdGESLy50ZWNoLmhp",
+            "dmUudjEuQ3VzdG9tTG9iYnlHZXRNeVBsYXllckRhdGFSZXF1ZXN0GjAudGVj",
+            "aC5oaXZlLnYxLkN1c3RvbUxvYmJ5R2V0TXlQbGF5ZXJEYXRhUmVzcG9uc2US",
+            "lQEKGlNldFJlcHJlc2VudGF0aXZlQ2hhcmFjdGVyEjoudGVjaC5oaXZlLnYx",
+            "LkN1c3RvbUxvYmJ5U2V0UmVwcmVzZW50YXRpdmVDaGFyYWN0ZXJSZXF1ZXN0",
+            "GjsudGVjaC5oaXZlLnYxLkN1c3RvbUxvYmJ5U2V0UmVwcmVzZW50YXRpdmVD",
+            "aGFyYWN0ZXJSZXNwb25zZRJ1Cg5TdWJzY3JpYmVFdmVudBIuLnRlY2guaGl2",
+            "ZS52MS5DdXN0b21Mb2JieVN1YnNjcmliZUV2ZW50UmVxdWVzdBovLnRlY2gu",
+            "aGl2ZS52MS5DdXN0b21Mb2JieVN1YnNjcmliZUV2ZW50UmVzcG9uc2UoATAB",
+            "EncKEENsYWltT3RoZXJSZXdhcmQSMC50ZWNoLmhpdmUudjEuQ3VzdG9tTG9i",
+            "YnlDbGFpbU90aGVyUmV3YXJkUmVxdWVzdBoxLnRlY2guaGl2ZS52MS5DdXN0",
+            "b21Mb2JieUNsYWltT3RoZXJSZXdhcmRSZXNwb25zZRJZCgZTeW5jQXASJi50",
+            "ZWNoLmhpdmUudjEuQ3VzdG9tTG9iYnlTeW5jQXBSZXF1ZXN0GicudGVjaC5o",
+            "aXZlLnYxLkN1c3RvbUxvYmJ5U3luY0FwUmVzcG9uc2UScQoOQ2hhbmdlTmlj",
+            "a25hbWUSLi50ZWNoLmhpdmUudjEuQ3VzdG9tTG9iYnlDaGFuZ2VOaWNrbmFt",
+            "ZVJlcXVlc3QaLy50ZWNoLmhpdmUudjEuQ3VzdG9tTG9iYnlDaGFuZ2VOaWNr",
+            "bmFtZVJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomLobbyPlayerDataReflection.Descriptor, global::Tech.Hive.V1.CustomLobbyEventReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.CustomLobbyErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -76,7 +82,9 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest), global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest.Parser, new[]{ "RewardId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse), global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse.Parser, new[]{ "Status", "Rewards", "CurrencyDeltas" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbySyncApRequest), global::Tech.Hive.V1.CustomLobbySyncApRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbySyncApResponse), global::Tech.Hive.V1.CustomLobbySyncApResponse.Parser, new[]{ "Status", "Rewards", "CurrencyDeltas" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbySyncApResponse), global::Tech.Hive.V1.CustomLobbySyncApResponse.Parser, new[]{ "Status", "Rewards", "CurrencyDeltas" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyChangeNicknameRequest), global::Tech.Hive.V1.CustomLobbyChangeNicknameRequest.Parser, new[]{ "Nickname" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyChangeNicknameResponse), global::Tech.Hive.V1.CustomLobbyChangeNicknameResponse.Parser, new[]{ "Status" }, null, null, null, null)
           }));
     }
     #endregion
@@ -2106,6 +2114,395 @@ namespace Tech.Hive.V1 {
           }
           case 26: {
             currencyDeltas_.AddEntriesFrom(ref input, _repeated_currencyDeltas_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.SerializableAttribute]
+  public sealed partial class CustomLobbyChangeNicknameRequest : pb::IMessage<CustomLobbyChangeNicknameRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<CustomLobbyChangeNicknameRequest> _parser = new pb::MessageParser<CustomLobbyChangeNicknameRequest>(() => new CustomLobbyChangeNicknameRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<CustomLobbyChangeNicknameRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Tech.Hive.V1.CustomLobbyReflection.Descriptor.MessageTypes[10]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CustomLobbyChangeNicknameRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CustomLobbyChangeNicknameRequest(CustomLobbyChangeNicknameRequest other) : this() {
+      nickname_ = other.nickname_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CustomLobbyChangeNicknameRequest Clone() {
+      return new CustomLobbyChangeNicknameRequest(this);
+    }
+
+    /// <summary>Field number for the "nickname" field.</summary>
+    public const int NicknameFieldNumber = 1;
+    private string nickname_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Nickname {
+      get { return nickname_; }
+      set {
+        nickname_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as CustomLobbyChangeNicknameRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(CustomLobbyChangeNicknameRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Nickname != other.Nickname) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Nickname.Length != 0) hash ^= Nickname.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Nickname.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Nickname);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Nickname.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Nickname);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Nickname.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Nickname);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(CustomLobbyChangeNicknameRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Nickname.Length != 0) {
+        Nickname = other.Nickname;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Nickname = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            Nickname = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.SerializableAttribute]
+  public sealed partial class CustomLobbyChangeNicknameResponse : pb::IMessage<CustomLobbyChangeNicknameResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<CustomLobbyChangeNicknameResponse> _parser = new pb::MessageParser<CustomLobbyChangeNicknameResponse>(() => new CustomLobbyChangeNicknameResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<CustomLobbyChangeNicknameResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Tech.Hive.V1.CustomLobbyReflection.Descriptor.MessageTypes[11]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CustomLobbyChangeNicknameResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CustomLobbyChangeNicknameResponse(CustomLobbyChangeNicknameResponse other) : this() {
+      status_ = other.status_ != null ? other.status_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CustomLobbyChangeNicknameResponse Clone() {
+      return new CustomLobbyChangeNicknameResponse(this);
+    }
+
+    /// <summary>Field number for the "status" field.</summary>
+    public const int StatusFieldNumber = 1;
+    private global::Tech.Hive.V1.ResponseStatus status_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Tech.Hive.V1.ResponseStatus Status {
+      get { return status_; }
+      set {
+        status_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as CustomLobbyChangeNicknameResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(CustomLobbyChangeNicknameResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Status, other.Status)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (status_ != null) hash ^= Status.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (status_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Status);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (status_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Status);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (status_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(CustomLobbyChangeNicknameResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.status_ != null) {
+        if (status_ == null) {
+          Status = new global::Tech.Hive.V1.ResponseStatus();
+        }
+        Status.MergeFrom(other.Status);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (status_ == null) {
+              Status = new global::Tech.Hive.V1.ResponseStatus();
+            }
+            input.ReadMessage(Status);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (status_ == null) {
+              Status = new global::Tech.Hive.V1.ResponseStatus();
+            }
+            input.ReadMessage(Status);
             break;
           }
         }
