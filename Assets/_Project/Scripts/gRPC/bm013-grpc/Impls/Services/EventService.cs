@@ -15,12 +15,12 @@ namespace CookApps.AutoBattler
         {
             EventListResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ListAsync,
-                new EventListRequest { },
+                new EventListRequest(),
                 cancellationToken: cancellationToken
             );
 
             // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 ServerDataManager.Instance.Event.SetEvents(resp.Events);
             }
@@ -44,7 +44,7 @@ namespace CookApps.AutoBattler
             );
 
             // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.IsSuccess && resp.Event != null)
+            if (resp is { IsSuccess: true, Event: not null })
             {
                 ServerDataManager.Instance.Event.UpdateEvent(resp.Event);
             }
@@ -67,7 +67,7 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 // 이벤트 데이터 갱신
                 if (resp.Event != null)

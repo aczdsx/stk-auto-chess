@@ -37,7 +37,7 @@ namespace CookApps.AutoBattler
             );
 
             // ClientDataManager에 데이터 연동
-            if (resp != null && resp.IsSuccess && resp.Data != null)
+            if (resp is { IsSuccess: true, Data: not null })
             {
                 var itemList = resp.Data.ItemList;
                 for (int i = 0; i < itemList.Count; i++)
@@ -66,7 +66,7 @@ namespace CookApps.AutoBattler
             );
 
             // ClientDataManager에 데이터 연동
-            if (resp != null && resp.IsSuccess && resp.Data?.Item != null)
+            if (resp is { IsSuccess: true, Data: { Item: not null } })
             {
                 var item = resp.Data.Item;
                 ClientDataManager.Instance.SetData(item.Category, item.Data.ToByteArray());
@@ -79,7 +79,7 @@ namespace CookApps.AutoBattler
         /// 여러 카테고리 데이터를 일괄 저장합니다.
         /// </summary>
         public async UniTask<PlayerDataSetResponse> SetAsync(
-            IReadOnlyDictionary<string, byte[]> categoryData,
+            Dictionary<string, byte[]> categoryData,
             CancellationToken cancellationToken = default)
         {
             var request = new PlayerDataSetRequest();

@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
             );
 
             // GuideMissionModel 갱신
-            if (resp != null && resp.IsSuccess && resp.GuideMission != null)
+            if (resp is { IsSuccess: true, GuideMission: not null })
             {
                 ServerDataManager.Instance.GuideMission.SetGuideMission(resp.GuideMission);
             }
@@ -39,16 +39,16 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 // GuideMissionModel 갱신
-                if (resp.GuideMission != null)
+                if (resp.GuideMission is not null)
                 {
                     ServerDataManager.Instance.GuideMission.SetGuideMission(resp.GuideMission);
                 }
 
                 // 통화 변화 적용
-                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+                if (resp.CurrencyDeltas is { Count: > 0 })
                 {
                     ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
                 }
@@ -68,7 +68,7 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            if (resp != null && resp.IsSuccess && resp.GuideMission != null)
+            if (resp is { IsSuccess: true, GuideMission: not null })
             {
                 ServerDataManager.Instance.GuideMission.SetGuideMission(resp.GuideMission);
             }

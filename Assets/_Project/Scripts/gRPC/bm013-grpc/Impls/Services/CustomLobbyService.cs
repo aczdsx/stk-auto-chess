@@ -22,7 +22,7 @@ namespace CookApps.AutoBattler
             );
 
             // PlayerDataModel 갱신
-            if (resp != null && resp.IsSuccess && resp.Data != null)
+            if (resp is { IsSuccess: true, Data: not null })
             {
                 ServerDataManager.Instance.PlayerData.SetPlayerData(resp.Data);
             }
@@ -42,7 +42,7 @@ namespace CookApps.AutoBattler
             );
 
             // 성공 시 플레이어 데이터 다시 가져오기
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 await GetMyPlayerDataAsync(cancellationToken);
             }
@@ -62,7 +62,7 @@ namespace CookApps.AutoBattler
             );
 
             // 통화 변화 적용
-            if (resp != null && resp.IsSuccess && resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+            if (resp is { IsSuccess: true, CurrencyDeltas: { Count: > 0 } })
             {
                 ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
             }
@@ -81,10 +81,11 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            // 통화 변화 적용
-            if (resp != null && resp.IsSuccess && resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+            // ActionPoint 동기화
+            if (resp is { IsSuccess: true, Ap: not null })
             {
-                ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
+                var ap = resp.Ap;
+                ServerDataManager.Instance.Inventory.SetCurrency(ap.ItemId, ap.Count, ap.Metadata);
             }
 
             return resp;
@@ -163,7 +164,7 @@ namespace CookApps.AutoBattler
             while (!cancellationToken.IsCancellationRequested)
             {
                 await call.RequestStream.WriteAsync(new CustomLobbySubscribeEventRequest(), cancellationToken); 
-                await UniTask.Delay(TimeSpan.FromSeconds(10), cancellationToken: cancellationToken);
+                await UniTask.Delay(TimeSpan.FromSeconds(5), cancellationToken: cancellationToken);
             }
         }
     }

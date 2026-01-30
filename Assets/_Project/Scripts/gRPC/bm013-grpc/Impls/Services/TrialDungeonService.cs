@@ -19,7 +19,7 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            if (resp != null && resp.IsSuccess && resp.TrialDungeon != null)
+            if (resp is { IsSuccess: true, TrialDungeon: not null })
             {
                 ServerDataManager.Instance.TrialDungeon.SetTrialDungeon(resp.TrialDungeon);
             }
@@ -38,7 +38,7 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            if (resp != null && resp.IsSuccess && resp.TrialDungeon != null)
+            if (resp is { IsSuccess: true, TrialDungeon: not null })
             {
                 ServerDataManager.Instance.TrialDungeon.SetTrialDungeon(resp.TrialDungeon);
             }
@@ -64,16 +64,16 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 // 시련 던전 데이터 갱신
-                if (resp.TrialDungeon != null && isVictory)
+                if ((resp.TrialDungeon, isVictory) is (not null, true))
                 {
                     ServerDataManager.Instance.TrialDungeon.SetTrialDungeon(resp.TrialDungeon);
                 }
 
                 // 통화 변화 적용
-                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+                if (resp.CurrencyDeltas is { Count: > 0 })
                 {
                     ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
                 }

@@ -64,17 +64,17 @@ namespace CookApps.AutoBattler
                 DeckName = deckName ?? string.Empty
             };
 
-            if (characterPlacements != null)
+            if (characterPlacements is not null)
             {
                 request.CharacterPlacements.AddRange(characterPlacements);
             }
 
-            if (tacticPlacements != null)
+            if (tacticPlacements is not null)
             {
                 request.TacticPlacements.AddRange(tacticPlacements);
             }
 
-            if (clientData != null)
+            if (clientData is not null)
             {
                 request.ClientData = clientData;
             }

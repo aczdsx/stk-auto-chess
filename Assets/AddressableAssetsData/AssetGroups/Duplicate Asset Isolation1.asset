@@ -36,7 +36,8 @@ MonoBehaviour:
   - m_GUID: 3e7812f36b0b22048a25d576d4c39d94
     m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/DissolveCharacter.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 97c6dd483b7624141b388ba8d0a4290a
     m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/DissolveCharacter.shadergraph

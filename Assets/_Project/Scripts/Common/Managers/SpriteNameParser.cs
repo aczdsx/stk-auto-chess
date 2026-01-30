@@ -122,8 +122,8 @@ namespace CookApps.AutoBattler
         {
             if (itemId == IdMap.Item.ActionPoint)
                 return "ST_RewardItem_AP";
-            if (itemId == IdMap.Item.BuildItem)
-                return "ST_RewardItem_BUILDING_RANDOMBOX";
+            // if (itemId == IdMap.Item.BuildItem)
+            //     return "ST_RewardItem_BUILDING_RANDOMBOX";
             if (itemId == IdMap.Item.BuildItem)
                 return "ST_RewardItem_BUILDING_SUPPLIES";
             if (itemId == IdMap.Item.CharacterTicket)

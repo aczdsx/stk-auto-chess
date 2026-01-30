@@ -4,6 +4,7 @@ using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using MemoryPack;
 using R3;
+using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
 {
@@ -119,23 +120,24 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// Dirty 데이터 즉시 저장
         /// </summary>
-        public async UniTask FlushDirtyAsync()
+        private async UniTask FlushDirtyAsync()
         {
             if (_dirtySet.Count == 0 || _isSaving) return;
 
             _isSaving = true;
 
-            var dirtyList = new List<ClientDataBase>(_dirtySet);
+            using var _1 = ListPool<ClientDataBase>.Get(out var dirtyList);
+            dirtyList.AddRange(_dirtySet);
             _dirtySet.Clear();
 
-            var categoryData = new Dictionary<string, byte[]>();
+            using var _2 = DictionaryPool<string, byte[]>.Get(out var categoryData);
 
             for (int i = 0; i < dirtyList.Count; i++)
             {
                 var data = dirtyList[i];
                 try
                 {
-                    byte[] bytes = MemoryPackSerializer.Serialize(data.GetType(), data);
+                    var bytes = MemoryPackSerializer.Serialize(data.GetType(), data);
                     categoryData[data.Category] = bytes;
                     _dataByCategory[data.Category] = bytes;
                 }

@@ -26,52 +26,51 @@ namespace Tech.Hive.V1 {
           string.Concat(
             "ChJjdXN0b21fbG9iYnkucHJvdG8SDHRlY2guaGl2ZS52MRoKYmFzZS5wcm90",
             "bxoeY3VzdG9tX2xvYmJ5K3BsYXllcl9kYXRhLnByb3RvGhhjdXN0b21fbG9i",
-            "YnkrZXZlbnQucHJvdG8aE2N1c3RvbV9jb21tb24ucHJvdG8iIwohQ3VzdG9t",
-            "TG9iYnlHZXRNeVBsYXllckRhdGFSZXF1ZXN0IoABCiJDdXN0b21Mb2JieUdl",
-            "dE15UGxheWVyRGF0YVJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2gu",
-            "aGl2ZS52MS5SZXNwb25zZVN0YXR1cxIsCgRkYXRhGAIgASgLMh4udGVjaC5o",
-            "aXZlLnYxLkN1c3RvbVBsYXllckRhdGEiRAosQ3VzdG9tTG9iYnlTZXRSZXBy",
-            "ZXNlbnRhdGl2ZUNoYXJhY3RlclJlcXVlc3QSFAoMY2hhcmFjdGVyX2lkGAEg",
-            "ASgJIl0KLUN1c3RvbUxvYmJ5U2V0UmVwcmVzZW50YXRpdmVDaGFyYWN0ZXJS",
-            "ZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9u",
-            "c2VTdGF0dXMiIgogQ3VzdG9tTG9iYnlTdWJzY3JpYmVFdmVudFJlcXVlc3Qi",
-            "egohQ3VzdG9tTG9iYnlTdWJzY3JpYmVFdmVudFJlc3BvbnNlEiwKBnN0YXR1",
-            "cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cxInCgVldmVu",
-            "dBgCIAEoDjIYLnRlY2guaGl2ZS52MS5CTTAxM0V2ZW50IjcKIkN1c3RvbUxv",
-            "YmJ5Q2xhaW1PdGhlclJld2FyZFJlcXVlc3QSEQoJcmV3YXJkX2lkGAEgASgN",
-            "IrABCiNDdXN0b21Mb2JieUNsYWltT3RoZXJSZXdhcmRSZXNwb25zZRIsCgZz",
-            "dGF0dXMYASABKAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMSJQoH",
-            "cmV3YXJkcxgCIAMoCzIULnRlY2guaGl2ZS52MS5SZXdhcmQSNAoPY3VycmVu",
-            "Y3lfZGVsdGFzGAMgAygLMhsudGVjaC5oaXZlLnYxLkN1cnJlbmN5RGVsdGEi",
-            "GgoYQ3VzdG9tTG9iYnlTeW5jQXBSZXF1ZXN0IqYBChlDdXN0b21Mb2JieVN5",
-            "bmNBcFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5S",
-            "ZXNwb25zZVN0YXR1cxIlCgdyZXdhcmRzGAIgAygLMhQudGVjaC5oaXZlLnYx",
-            "LlJld2FyZBI0Cg9jdXJyZW5jeV9kZWx0YXMYAyADKAsyGy50ZWNoLmhpdmUu",
-            "djEuQ3VycmVuY3lEZWx0YSI0CiBDdXN0b21Mb2JieUNoYW5nZU5pY2tuYW1l",
-            "UmVxdWVzdBIQCghuaWNrbmFtZRgBIAEoCSJRCiFDdXN0b21Mb2JieUNoYW5n",
-            "ZU5pY2tuYW1lUmVzcG9uc2USLAoGc3RhdHVzGAEgASgLMhwudGVjaC5oaXZl",
-            "LnYxLlJlc3BvbnNlU3RhdHVzKmwKFEN1c3RvbUxvYmJ5RXJyb3JDb2RlEhwK",
-            "GENVU1RPTV9MT0JCWV9VTlNQRUNJRklFRBAAEjYKL0NVU1RPTV9MT0JCWV9F",
-            "UlJPUl9DT0RFX0FMUkVBRFlfUkVDRUlWRURfUkVXQVJEENWr6gQy4AUKEkN1",
-            "c3RvbUxvYmJ5U2VydmljZRJ0Cg9HZXRNeVBsYXllckRhdGESLy50ZWNoLmhp",
-            "dmUudjEuQ3VzdG9tTG9iYnlHZXRNeVBsYXllckRhdGFSZXF1ZXN0GjAudGVj",
-            "aC5oaXZlLnYxLkN1c3RvbUxvYmJ5R2V0TXlQbGF5ZXJEYXRhUmVzcG9uc2US",
-            "lQEKGlNldFJlcHJlc2VudGF0aXZlQ2hhcmFjdGVyEjoudGVjaC5oaXZlLnYx",
-            "LkN1c3RvbUxvYmJ5U2V0UmVwcmVzZW50YXRpdmVDaGFyYWN0ZXJSZXF1ZXN0",
-            "GjsudGVjaC5oaXZlLnYxLkN1c3RvbUxvYmJ5U2V0UmVwcmVzZW50YXRpdmVD",
-            "aGFyYWN0ZXJSZXNwb25zZRJ1Cg5TdWJzY3JpYmVFdmVudBIuLnRlY2guaGl2",
-            "ZS52MS5DdXN0b21Mb2JieVN1YnNjcmliZUV2ZW50UmVxdWVzdBovLnRlY2gu",
-            "aGl2ZS52MS5DdXN0b21Mb2JieVN1YnNjcmliZUV2ZW50UmVzcG9uc2UoATAB",
-            "EncKEENsYWltT3RoZXJSZXdhcmQSMC50ZWNoLmhpdmUudjEuQ3VzdG9tTG9i",
-            "YnlDbGFpbU90aGVyUmV3YXJkUmVxdWVzdBoxLnRlY2guaGl2ZS52MS5DdXN0",
-            "b21Mb2JieUNsYWltT3RoZXJSZXdhcmRSZXNwb25zZRJZCgZTeW5jQXASJi50",
-            "ZWNoLmhpdmUudjEuQ3VzdG9tTG9iYnlTeW5jQXBSZXF1ZXN0GicudGVjaC5o",
-            "aXZlLnYxLkN1c3RvbUxvYmJ5U3luY0FwUmVzcG9uc2UScQoOQ2hhbmdlTmlj",
-            "a25hbWUSLi50ZWNoLmhpdmUudjEuQ3VzdG9tTG9iYnlDaGFuZ2VOaWNrbmFt",
-            "ZVJlcXVlc3QaLy50ZWNoLmhpdmUudjEuQ3VzdG9tTG9iYnlDaGFuZ2VOaWNr",
-            "bmFtZVJlc3BvbnNlYgZwcm90bzM="));
+            "YnkrZXZlbnQucHJvdG8aE2N1c3RvbV9jb21tb24ucHJvdG8aFnBsYXllcl9p",
+            "bnZlbnRvcnkucHJvdG8iIwohQ3VzdG9tTG9iYnlHZXRNeVBsYXllckRhdGFS",
+            "ZXF1ZXN0IoABCiJDdXN0b21Mb2JieUdldE15UGxheWVyRGF0YVJlc3BvbnNl",
+            "EiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1",
+            "cxIsCgRkYXRhGAIgASgLMh4udGVjaC5oaXZlLnYxLkN1c3RvbVBsYXllckRh",
+            "dGEiRAosQ3VzdG9tTG9iYnlTZXRSZXByZXNlbnRhdGl2ZUNoYXJhY3RlclJl",
+            "cXVlc3QSFAoMY2hhcmFjdGVyX2lkGAEgASgJIl0KLUN1c3RvbUxvYmJ5U2V0",
+            "UmVwcmVzZW50YXRpdmVDaGFyYWN0ZXJSZXNwb25zZRIsCgZzdGF0dXMYASAB",
+            "KAsyHC50ZWNoLmhpdmUudjEuUmVzcG9uc2VTdGF0dXMiIgogQ3VzdG9tTG9i",
+            "YnlTdWJzY3JpYmVFdmVudFJlcXVlc3QiegohQ3VzdG9tTG9iYnlTdWJzY3Jp",
+            "YmVFdmVudFJlc3BvbnNlEiwKBnN0YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52",
+            "MS5SZXNwb25zZVN0YXR1cxInCgVldmVudBgCIAEoDjIYLnRlY2guaGl2ZS52",
+            "MS5CTTAxM0V2ZW50IjcKIkN1c3RvbUxvYmJ5Q2xhaW1PdGhlclJld2FyZFJl",
+            "cXVlc3QSEQoJcmV3YXJkX2lkGAEgASgNIrABCiNDdXN0b21Mb2JieUNsYWlt",
+            "T3RoZXJSZXdhcmRSZXNwb25zZRIsCgZzdGF0dXMYASABKAsyHC50ZWNoLmhp",
+            "dmUudjEuUmVzcG9uc2VTdGF0dXMSJQoHcmV3YXJkcxgCIAMoCzIULnRlY2gu",
+            "aGl2ZS52MS5SZXdhcmQSNAoPY3VycmVuY3lfZGVsdGFzGAMgAygLMhsudGVj",
+            "aC5oaXZlLnYxLkN1cnJlbmN5RGVsdGEiGgoYQ3VzdG9tTG9iYnlTeW5jQXBS",
+            "ZXF1ZXN0IngKGUN1c3RvbUxvYmJ5U3luY0FwUmVzcG9uc2USLAoGc3RhdHVz",
+            "GAEgASgLMhwudGVjaC5oaXZlLnYxLlJlc3BvbnNlU3RhdHVzEi0KAmFwGAIg",
+            "ASgLMiEudGVjaC5oaXZlLnYxLlBsYXllckludmVudG9yeUluZm8iNAogQ3Vz",
+            "dG9tTG9iYnlDaGFuZ2VOaWNrbmFtZVJlcXVlc3QSEAoIbmlja25hbWUYASAB",
+            "KAkiUQohQ3VzdG9tTG9iYnlDaGFuZ2VOaWNrbmFtZVJlc3BvbnNlEiwKBnN0",
+            "YXR1cxgBIAEoCzIcLnRlY2guaGl2ZS52MS5SZXNwb25zZVN0YXR1cypsChRD",
+            "dXN0b21Mb2JieUVycm9yQ29kZRIcChhDVVNUT01fTE9CQllfVU5TUEVDSUZJ",
+            "RUQQABI2Ci9DVVNUT01fTE9CQllfRVJST1JfQ09ERV9BTFJFQURZX1JFQ0VJ",
+            "VkVEX1JFV0FSRBDVq+oEMuAFChJDdXN0b21Mb2JieVNlcnZpY2USdAoPR2V0",
+            "TXlQbGF5ZXJEYXRhEi8udGVjaC5oaXZlLnYxLkN1c3RvbUxvYmJ5R2V0TXlQ",
+            "bGF5ZXJEYXRhUmVxdWVzdBowLnRlY2guaGl2ZS52MS5DdXN0b21Mb2JieUdl",
+            "dE15UGxheWVyRGF0YVJlc3BvbnNlEpUBChpTZXRSZXByZXNlbnRhdGl2ZUNo",
+            "YXJhY3RlchI6LnRlY2guaGl2ZS52MS5DdXN0b21Mb2JieVNldFJlcHJlc2Vu",
+            "dGF0aXZlQ2hhcmFjdGVyUmVxdWVzdBo7LnRlY2guaGl2ZS52MS5DdXN0b21M",
+            "b2JieVNldFJlcHJlc2VudGF0aXZlQ2hhcmFjdGVyUmVzcG9uc2USdQoOU3Vi",
+            "c2NyaWJlRXZlbnQSLi50ZWNoLmhpdmUudjEuQ3VzdG9tTG9iYnlTdWJzY3Jp",
+            "YmVFdmVudFJlcXVlc3QaLy50ZWNoLmhpdmUudjEuQ3VzdG9tTG9iYnlTdWJz",
+            "Y3JpYmVFdmVudFJlc3BvbnNlKAEwARJ3ChBDbGFpbU90aGVyUmV3YXJkEjAu",
+            "dGVjaC5oaXZlLnYxLkN1c3RvbUxvYmJ5Q2xhaW1PdGhlclJld2FyZFJlcXVl",
+            "c3QaMS50ZWNoLmhpdmUudjEuQ3VzdG9tTG9iYnlDbGFpbU90aGVyUmV3YXJk",
+            "UmVzcG9uc2USWQoGU3luY0FwEiYudGVjaC5oaXZlLnYxLkN1c3RvbUxvYmJ5",
+            "U3luY0FwUmVxdWVzdBonLnRlY2guaGl2ZS52MS5DdXN0b21Mb2JieVN5bmNB",
+            "cFJlc3BvbnNlEnEKDkNoYW5nZU5pY2tuYW1lEi4udGVjaC5oaXZlLnYxLkN1",
+            "c3RvbUxvYmJ5Q2hhbmdlTmlja25hbWVSZXF1ZXN0Gi8udGVjaC5oaXZlLnYx",
+            "LkN1c3RvbUxvYmJ5Q2hhbmdlTmlja25hbWVSZXNwb25zZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomLobbyPlayerDataReflection.Descriptor, global::Tech.Hive.V1.CustomLobbyEventReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Tech.Hive.V1.BaseReflection.Descriptor, global::Tech.Hive.V1.CustomLobbyPlayerDataReflection.Descriptor, global::Tech.Hive.V1.CustomLobbyEventReflection.Descriptor, global::Tech.Hive.V1.CustomCommonReflection.Descriptor, global::Tech.Hive.V1.PlayerInventoryReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Tech.Hive.V1.CustomLobbyErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest), global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse), global::Tech.Hive.V1.CustomLobbyGetMyPlayerDataResponse.Parser, new[]{ "Status", "Data" }, null, null, null, null),
@@ -82,7 +81,7 @@ namespace Tech.Hive.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest), global::Tech.Hive.V1.CustomLobbyClaimOtherRewardRequest.Parser, new[]{ "RewardId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse), global::Tech.Hive.V1.CustomLobbyClaimOtherRewardResponse.Parser, new[]{ "Status", "Rewards", "CurrencyDeltas" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbySyncApRequest), global::Tech.Hive.V1.CustomLobbySyncApRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbySyncApResponse), global::Tech.Hive.V1.CustomLobbySyncApResponse.Parser, new[]{ "Status", "Rewards", "CurrencyDeltas" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbySyncApResponse), global::Tech.Hive.V1.CustomLobbySyncApResponse.Parser, new[]{ "Status", "Ap" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyChangeNicknameRequest), global::Tech.Hive.V1.CustomLobbyChangeNicknameRequest.Parser, new[]{ "Nickname" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Tech.Hive.V1.CustomLobbyChangeNicknameResponse), global::Tech.Hive.V1.CustomLobbyChangeNicknameResponse.Parser, new[]{ "Status" }, null, null, null, null)
           }));
@@ -1908,8 +1907,7 @@ namespace Tech.Hive.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CustomLobbySyncApResponse(CustomLobbySyncApResponse other) : this() {
       status_ = other.status_ != null ? other.status_.Clone() : null;
-      rewards_ = other.rewards_.Clone();
-      currencyDeltas_ = other.currencyDeltas_.Clone();
+      ap_ = other.ap_ != null ? other.ap_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1931,26 +1929,16 @@ namespace Tech.Hive.V1 {
       }
     }
 
-    /// <summary>Field number for the "rewards" field.</summary>
-    public const int RewardsFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.Reward> _repeated_rewards_codec
-        = pb::FieldCodec.ForMessage(18, global::Tech.Hive.V1.Reward.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.Reward> rewards_ = new pbc::RepeatedField<global::Tech.Hive.V1.Reward>();
+    /// <summary>Field number for the "ap" field.</summary>
+    public const int ApFieldNumber = 2;
+    private global::Tech.Hive.V1.PlayerInventoryInfo ap_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.Reward> Rewards {
-      get { return rewards_; }
-    }
-
-    /// <summary>Field number for the "currency_deltas" field.</summary>
-    public const int CurrencyDeltasFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::Tech.Hive.V1.CurrencyDelta> _repeated_currencyDeltas_codec
-        = pb::FieldCodec.ForMessage(26, global::Tech.Hive.V1.CurrencyDelta.Parser);
-    private readonly pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> currencyDeltas_ = new pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Tech.Hive.V1.CurrencyDelta> CurrencyDeltas {
-      get { return currencyDeltas_; }
+    public global::Tech.Hive.V1.PlayerInventoryInfo Ap {
+      get { return ap_; }
+      set {
+        ap_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1969,8 +1957,7 @@ namespace Tech.Hive.V1 {
         return true;
       }
       if (!object.Equals(Status, other.Status)) return false;
-      if(!rewards_.Equals(other.rewards_)) return false;
-      if(!currencyDeltas_.Equals(other.currencyDeltas_)) return false;
+      if (!object.Equals(Ap, other.Ap)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1979,8 +1966,7 @@ namespace Tech.Hive.V1 {
     public override int GetHashCode() {
       int hash = 1;
       if (status_ != null) hash ^= Status.GetHashCode();
-      hash ^= rewards_.GetHashCode();
-      hash ^= currencyDeltas_.GetHashCode();
+      if (ap_ != null) hash ^= Ap.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2003,8 +1989,10 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      rewards_.WriteTo(output, _repeated_rewards_codec);
-      currencyDeltas_.WriteTo(output, _repeated_currencyDeltas_codec);
+      if (ap_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Ap);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2019,8 +2007,10 @@ namespace Tech.Hive.V1 {
         output.WriteRawTag(10);
         output.WriteMessage(Status);
       }
-      rewards_.WriteTo(ref output, _repeated_rewards_codec);
-      currencyDeltas_.WriteTo(ref output, _repeated_currencyDeltas_codec);
+      if (ap_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Ap);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2034,8 +2024,9 @@ namespace Tech.Hive.V1 {
       if (status_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
       }
-      size += rewards_.CalculateSize(_repeated_rewards_codec);
-      size += currencyDeltas_.CalculateSize(_repeated_currencyDeltas_codec);
+      if (ap_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Ap);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -2054,8 +2045,12 @@ namespace Tech.Hive.V1 {
         }
         Status.MergeFrom(other.Status);
       }
-      rewards_.Add(other.rewards_);
-      currencyDeltas_.Add(other.currencyDeltas_);
+      if (other.ap_ != null) {
+        if (ap_ == null) {
+          Ap = new global::Tech.Hive.V1.PlayerInventoryInfo();
+        }
+        Ap.MergeFrom(other.Ap);
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -2079,11 +2074,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            rewards_.AddEntriesFrom(input, _repeated_rewards_codec);
-            break;
-          }
-          case 26: {
-            currencyDeltas_.AddEntriesFrom(input, _repeated_currencyDeltas_codec);
+            if (ap_ == null) {
+              Ap = new global::Tech.Hive.V1.PlayerInventoryInfo();
+            }
+            input.ReadMessage(Ap);
             break;
           }
         }
@@ -2109,11 +2103,10 @@ namespace Tech.Hive.V1 {
             break;
           }
           case 18: {
-            rewards_.AddEntriesFrom(ref input, _repeated_rewards_codec);
-            break;
-          }
-          case 26: {
-            currencyDeltas_.AddEntriesFrom(ref input, _repeated_currencyDeltas_codec);
+            if (ap_ == null) {
+              Ap = new global::Tech.Hive.V1.PlayerInventoryInfo();
+            }
+            input.ReadMessage(Ap);
             break;
           }
         }

@@ -20,13 +20,9 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true, CurrencyDeltas: { Count: > 0 } })
             {
-                // 통화 변화 적용
-                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
-                {
-                    ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
-                }
+                ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
             }
 
             return resp;
@@ -48,13 +44,9 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true, CurrencyDeltas: { Count: > 0 } })
             {
-                // 통화 변화 적용
-                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
-                {
-                    ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
-                }
+                ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
             }
 
             return resp;

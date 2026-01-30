@@ -1,10 +1,71 @@
+using System;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using R3;
 using Tech.Hive.V1;
 
 namespace CookApps.AutoBattler
 {
+    public class ActionPoint
+    {
+        public const long MaxActionPoint = 20; // 이 행동력 이상이면 충전안됨
+        public const long ActionPointRecoveryIntervalSeconds = 600; // 행동력 1회복까지 걸리는 시간(초)
+
+        public int Current;
+        public long LastSyncAt; // 서버에서 내려준 충전 시작 시간 (밀리초)
+
+        private UniTask? _syncTask;
+
+        public void Reset()
+        {
+            Current = 0;
+            LastSyncAt = 0;
+            _syncTask = null;
+        }
+
+        /// <summary>
+        /// 서버에서 ActionPoint 동기화 (중복 호출 방지)
+        /// </summary>
+        public void RequestSync()
+        {
+            if (_syncTask is { Status: UniTaskStatus.Pending })
+                return;
+
+            _syncTask = SyncAsync();
+        }
+
+        /// <summary>
+        /// 충전이 필요한 시간이 지났으면 동기화 요청
+        /// </summary>
+        public void RequestSyncIfNeeded()
+        {
+            // 이미 최대치면 동기화 불필요
+            if (Current >= MaxActionPoint)
+                return;
+
+            // LastSyncAt이 0이면 아직 초기화 안됨
+            if (LastSyncAt == 0)
+                return;
+
+            var nowMs = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            var elapsedMs = nowMs - LastSyncAt;
+            var recoveryIntervalMs = ActionPointRecoveryIntervalSeconds * 1000;
+
+            // 충전 시간이 지났으면 동기화 요청
+            if (elapsedMs >= recoveryIntervalMs)
+            {
+                RequestSync();
+            }
+        }
+
+        private async UniTask SyncAsync()
+        {
+            await NetManager.Instance.Inventory.GetAsync((uint)IdMap.Item.ActionPoint.Value);
+        }
+    }
+
     /// <summary>
     /// 인벤토리 데이터 모델 (통화 관리)
     /// CurrencyDelta를 사용한 델타 업데이트 지원
@@ -13,6 +74,9 @@ namespace CookApps.AutoBattler
     {
         // 통화 데이터 (ItemId -> Amount)
         private readonly Dictionary<uint, ulong> _currencies = new (16);
+
+        // ActionPoint 데이터
+        public ActionPoint ActionPoint { get; } = new();
 
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
@@ -24,6 +88,7 @@ namespace CookApps.AutoBattler
         public void Reset()
         {
             _currencies.Clear();
+            ActionPoint.Reset();
             OnChanged.OnNext(Unit.Default);
         }
 
@@ -49,18 +114,47 @@ namespace CookApps.AutoBattler
         /// </summary>
         public ulong GetCurrency(uint itemId)
         {
+            // ActionPoint는 ActionPoint 객체에서 반환
+            if (itemId == (uint)IdMap.Item.ActionPoint.Value)
+            {
+                ActionPoint.RequestSyncIfNeeded();
+                return (ulong)ActionPoint.Current;
+            }
+
             return _currencies.TryGetValue(itemId, out var amount) ? amount : 0;
         }
 
         /// <summary>
         /// 통화 설정 (내부용)
         /// </summary>
-        internal void SetCurrency(uint itemId, ulong amount)
+        internal void SetCurrency(uint itemId, ulong amount, string metadata = null)
         {
-            _currencies.TryGetValue(itemId, out var oldAmount);
-            _currencies[itemId] = amount;
+            // ActionPoint는 ActionPoint 객체에만 저장
+            if (itemId == (uint)IdMap.Item.ActionPoint.Value)
+            {
+                var oldAmount = (ulong)ActionPoint.Current;
+                long lastSyncAt = 0;
+                if (!string.IsNullOrEmpty(metadata))
+                {
+                    try
+                    {
+                        var json = JObject.Parse(metadata);
+                        lastSyncAt = json.Value<long>("lastSyncAt");
+                    }
+                    catch
+                    {
+                        // metadata 파싱 실패 시 무시
+                    }
+                }
+                ActionPoint.Current = (int)amount;
+                ActionPoint.LastSyncAt = lastSyncAt;
+                OnCurrencyChanged.OnNext((itemId, oldAmount, amount));
+                return;
+            }
 
-            OnCurrencyChanged.OnNext((itemId, oldAmount, amount));
+            _currencies.TryGetValue(itemId, out var old);
+            _currencies[itemId] = amount;
+            OnCurrencyChanged.OnNext((itemId, old, amount));
         }
 
         /// <summary>
@@ -69,6 +163,8 @@ namespace CookApps.AutoBattler
         internal void ApplyCurrencyDeltas(IReadOnlyList<CurrencyDelta> deltas)
         {
             if (deltas == null) return;
+
+            var needsApSync = false;
 
             for (var i = 0; i < deltas.Count; i++)
             {
@@ -83,11 +179,24 @@ namespace CookApps.AutoBattler
                     continue;
                 }
 
+                // ActionPoint인 경우 서버에서 다시 가져와야 함 (metadata 필요)
+                if (delta.ItemId == (uint)IdMap.Item.ActionPoint.Value)
+                {
+                    needsApSync = true;
+                    continue;
+                }
+
                 // 일반 통화 처리
                 var oldAmount = _currencies.TryGetValue(delta.ItemId, out var current) ? current : 0;
                 _currencies[delta.ItemId] = delta.After;
 
                 OnCurrencyChanged.OnNext((delta.ItemId, oldAmount, delta.After));
+            }
+
+            // ActionPoint는 metadata가 필요하므로 서버에서 다시 가져옴
+            if (needsApSync)
+            {
+                ActionPoint.RequestSync();
             }
 
             OnChanged.OnNext(Unit.Default);

@@ -57,6 +57,11 @@ namespace CookApps.AutoBattler
         public int CurrencyCount => Model?.CurrencyCount ?? 0;
 
         /// <summary>
+        /// ActionPoint 데이터
+        /// </summary>
+        public ActionPoint ActionPoint => Model?.ActionPoint;
+
+        /// <summary>
         /// 통화 변화량 계산
         /// </summary>
         public long GetCurrencyDelta(ItemId itemId, ulong previousAmount)

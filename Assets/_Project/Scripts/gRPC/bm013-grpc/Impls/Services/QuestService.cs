@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
             );
 
             // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 ServerDataManager.Instance.Quest.SetQuests(resp.QuestList, resp.NextResetAt, resp.DateIndex);
             }
@@ -55,16 +55,16 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 // 퀘스트 데이터 갱신
-                if (resp.Quest != null)
+                if (resp.Quest is not null)
                 {
                     ServerDataManager.Instance.Quest.UpdateQuest(resp.Quest);
                 }
 
                 // 통화 변화 적용
-                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+                if (resp.CurrencyDeltas is { Count: > 0 })
                 {
                     ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
                 }

@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
             );
 
             // CommanderSkillModel 갱신
-            if (resp != null && resp.IsSuccess && resp.SkillList != null)
+            if (resp is { IsSuccess: true, SkillList: not null })
             {
                 ServerDataManager.Instance.CommanderSkill.SetCommanderSkillList(resp.SkillList);
             }
@@ -44,7 +44,7 @@ namespace CookApps.AutoBattler
             );
 
             // CommanderSkillModel 갱신
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 ServerDataManager.Instance.CommanderSkill.SetEquippedCommanderSkill((int)slotIndex, (int)commanderSkillId);
             }
@@ -64,7 +64,7 @@ namespace CookApps.AutoBattler
             );
 
             // CommanderSkillModel 갱신
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 ServerDataManager.Instance.CommanderSkill.SetEquippedCommanderSkill((int)slotIndex, 0);
             }
@@ -83,16 +83,16 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
 
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 // CommanderSkillModel 갱신
-                if (resp.Skill != null)
+                if (resp.Skill is not null)
                 {
                     ServerDataManager.Instance.CommanderSkill.SetSkillLevel((int)resp.Skill.CommanderSkillId, (int)resp.Skill.Level);
                 }
 
                 // 통화 변화 적용
-                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+                if (resp.CurrencyDeltas is { Count: > 0 })
                 {
                     ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
                 }
@@ -118,7 +118,7 @@ namespace CookApps.AutoBattler
             );
 
             // CommanderSkillModel 갱신
-            if (resp != null && resp.IsSuccess && resp.Skill != null)
+            if (resp is { IsSuccess: true, Skill: not null })
             {
                 ServerDataManager.Instance.CommanderSkill.UpdateSkill(resp.Skill);
             }

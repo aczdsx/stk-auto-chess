@@ -15,23 +15,24 @@ namespace CookApps.AutoBattler
         {
             PlayerInventoryListResponse resp = await ExecuteWithCommonErrorCheck(
                 ServiceClient.ListAsync,
-                new PlayerInventoryListRequest {  },
+                new PlayerInventoryListRequest(),
                 cancellationToken: cancellationToken
             );
 
             // InventoryModel 갱신
-            if (resp != null && resp.IsSuccess && resp.ItemList != null)
+            if (resp is { IsSuccess: true, ItemList: not null })
             {
                 var inventoryModel = ServerDataManager.Instance.Inventory;
-                foreach (var item in resp.ItemList)
+                for (var i = 0; i < resp.ItemList.Count; i++)
                 {
-                    inventoryModel.SetCurrency(item.ItemId, item.Count);
+                    var item = resp.ItemList[i];
+                    inventoryModel.SetCurrency(item.ItemId, item.Count, item.Metadata);
                 }
             }
 
             return resp;
         }
-        
+
         /// <summary>
         /// 인벤토리 가져오기
         /// </summary>
@@ -44,12 +45,13 @@ namespace CookApps.AutoBattler
             );
 
             // InventoryModel 갱신
-            if (resp != null && resp.IsSuccess && resp.ItemList != null)
+            if (resp is { IsSuccess: true, ItemList: not null })
             {
                 var inventoryModel = ServerDataManager.Instance.Inventory;
-                foreach (var item in resp.ItemList)
+                for (var i = 0; i < resp.ItemList.Count; i++)
                 {
-                    inventoryModel.SetCurrency(item.ItemId, item.Count);
+                    var item = resp.ItemList[i];
+                    inventoryModel.SetCurrency(item.ItemId, item.Count, item.Metadata);
                 }
             }
 

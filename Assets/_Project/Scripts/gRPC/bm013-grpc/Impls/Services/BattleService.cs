@@ -20,7 +20,7 @@ namespace CookApps.AutoBattler
             );
 
             // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 ServerDataManager.Instance.Battle.SetCurrentChapter(resp.Chapter, resp.StageList);
             }
@@ -40,7 +40,7 @@ namespace CookApps.AutoBattler
             );
 
             // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 ServerDataManager.Instance.Battle.SetChapters(
                     resp.ChapterList
@@ -62,7 +62,7 @@ namespace CookApps.AutoBattler
             );
 
             // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 ServerDataManager.Instance.Battle.SetStages(resp.StageList);
             }
@@ -89,7 +89,7 @@ namespace CookApps.AutoBattler
             );
 
             // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 // 챕터 마일스톤 보상 수령 처리
                 var chapter = ServerDataManager.Instance.Battle.GetChapter(chapterId);
@@ -99,7 +99,7 @@ namespace CookApps.AutoBattler
                 }
 
                 // 통화 변화 적용
-                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+                if (resp.CurrencyDeltas is { Count: > 0 })
                 {
                     ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
                 }
@@ -159,16 +159,16 @@ namespace CookApps.AutoBattler
             );
 
             // 서버 응답으로 로컬 데이터 갱신
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 // 스테이지 진행 정보 업데이트
-                if (resp.StageProgress != null)
+                if (resp.StageProgress is not null)
                 {
                     ServerDataManager.Instance.Battle.UpdateStageProgress(resp.StageProgress);
                 }
 
                 // 통화 변화 적용
-                if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+                if (resp.CurrencyDeltas is { Count: > 0 })
                 {
                     ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
                 }

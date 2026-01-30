@@ -29,12 +29,13 @@ namespace CookApps.AutoBattler
 
         private void OnEnable()
         {
-            UpdateCurrencyText(_inventoryBridge.GetCurrency(CurrencyId));
+            UpdateCurrencyText();
         }
 
-        private void UpdateCurrencyText(ulong amount)
+        private void UpdateCurrencyText(ulong _ = 0)
         {
-            currencyText.SetText(amount);
+            var ap = _inventoryBridge.ActionPoint;
+            currencyText.SetText(ap?.Current ?? 0);
         }
 
         private void OnClickTopPanelButton()

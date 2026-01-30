@@ -7,6 +7,7 @@ import "base.proto";
 import "custom_lobby+player_data.proto";
 import "custom_lobby+event.proto";
 import "custom_common.proto";
+import "player_inventory.proto";
 
 service CustomLobbyService {
   /**
@@ -81,8 +82,7 @@ message CustomLobbySyncApRequest {}
 
 message CustomLobbySyncApResponse {
   ResponseStatus status = 1;
-  repeated Reward rewards = 2;
-  repeated CurrencyDelta currency_deltas = 3;
+  PlayerInventoryInfo ap = 2;
 }
 
 message CustomLobbyChangeNicknameRequest {

@@ -16,6 +16,7 @@ namespace CookApps.AutoBattler
             // 1. 기본 데이터 병렬 로드
             await UniTask.WhenAll(
                 CustomLobby.GetMyPlayerDataAsync(cancellationToken),
+                CustomLobby.SyncApAsync(cancellationToken),
                 Inventory.ListAsync(cancellationToken),
                 Character.ListAsync(cancellationToken),
                 Deck.ListAsync(cancellationToken),

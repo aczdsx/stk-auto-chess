@@ -64,7 +64,7 @@ namespace CookApps.AutoBattler
             }
 
             // 통화 변화 적용
-            if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+            if (resp.CurrencyDeltas is { Count: > 0 })
             {
                 ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
             }
@@ -126,7 +126,7 @@ namespace CookApps.AutoBattler
             }
 
             // 통화 변화 적용
-            if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+            if (resp.CurrencyDeltas is { Count: > 0 })
             {
                 ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
             }
@@ -188,7 +188,7 @@ namespace CookApps.AutoBattler
             }
 
             // 통화 변화 적용
-            if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+            if (resp.CurrencyDeltas is { Count: > 0 })
             {
                 ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
             }
@@ -222,7 +222,7 @@ namespace CookApps.AutoBattler
             }
 
             // 통화 변화 적용
-            if (resp.CurrencyDeltas != null && resp.CurrencyDeltas.Count > 0)
+            if (resp.CurrencyDeltas is { Count: > 0 })
             {
                 ServerDataManager.Instance.Inventory.ApplyCurrencyDeltas(resp.CurrencyDeltas);
             }
