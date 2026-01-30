@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SafeAreaSettings
   m_EditorClassIdentifier: 
   left: 0.5
-  right: 1
+  right: 0.5
   top: 1
   bottom: 0
