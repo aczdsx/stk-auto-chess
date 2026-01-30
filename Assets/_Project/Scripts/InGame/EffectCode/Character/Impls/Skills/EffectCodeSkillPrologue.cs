@@ -852,8 +852,13 @@ namespace CookApps.AutoBattler.Prologue
                 return;
 
             // executeIndex에 따라 공격 횟수 계산
-            int baseAttackCount = _attackCount / totalLength;
-            int remainder = _attackCount % totalLength;
+            int baseAttackCount = 1;
+            int remainder = 0;
+            if (totalLength >= 1)
+            {
+                baseAttackCount = _attackCount / totalLength;
+                remainder = _attackCount % totalLength;
+            }
             int attackCountForThisIndex = baseAttackCount + (executeIndex == 0 ? remainder : 0);
             if (executeIndex == 0)
             {
