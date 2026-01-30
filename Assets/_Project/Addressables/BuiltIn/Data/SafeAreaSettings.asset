@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a350e02eb53744c09ad41191bc05b01d, type: 3}
   m_Name: SafeAreaSettings
   m_EditorClassIdentifier: 
-  left: 0.5
+  left: 0.7
   right: 0.5
   top: 1
   bottom: 0
