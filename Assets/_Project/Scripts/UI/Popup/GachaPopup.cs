@@ -57,7 +57,7 @@ namespace CookApps.AutoBattler
             //DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.POPUP_OPEN, nameof(gameObject));
             
             // 보상 지급 여부 체크
-            var progressData = ClientDataManager.Instance.GetData<ClientProgressData>(ClientProgressData.CategoryName);
+            var progressData = ClientProgressData.Get();
             if (!progressData.HasRewardedFirstGachaTicket())
             {
                 var rewardItemList = new List<RewardItem> { new (IdMap.Item.CharacterTicket, 10) };

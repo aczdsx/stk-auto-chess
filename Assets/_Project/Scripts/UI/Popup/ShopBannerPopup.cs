@@ -51,7 +51,7 @@ namespace CookApps.AutoBattler
                 bannerLayer.gameObject.SetActive(true);
                 bannerLayer.SetShopBannerLayer(this);
 
-                var shopPurchaseData = ClientDataManager.Instance.GetData<ClientShopPurchaseData>(ClientShopPurchaseData.CategoryName);
+                var shopPurchaseData = ClientShopPurchaseData.Get();
                 shopPurchaseData.SetShopBannerShowCount(_specShopBannerData.shop_id, 1, true);
 
                 break;

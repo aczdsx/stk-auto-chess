@@ -8,6 +8,8 @@ namespace CookApps.AutoBattler
         public const string CategoryName = "client_basic";
         public override string Category => CategoryName;
 
+        public static ClientBasicData Get() => ClientDataManager.Instance.GetData<ClientBasicData>(CategoryName);
+
         [MemoryPackOrder(0)] private int _totalPlayTime;
         [MemoryPackOrder(1)] private int _dailyVisitCount;
         [MemoryPackOrder(2)] private long _dailyVisitCountTimestamp;

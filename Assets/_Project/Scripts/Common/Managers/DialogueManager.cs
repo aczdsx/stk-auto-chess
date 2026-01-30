@@ -61,7 +61,7 @@ namespace CookApps.AutoBattler
             int dialogueGroupID = SpecDataManager.Instance.GetDialgueGroupIDByEventType(eventType, subKeyValue);
             if (dialogueGroupID > 0)
             {
-                return ClientDataManager.Instance.GetData<ClientProgressData>(ClientProgressData.CategoryName).HasDialogueId(dialogueGroupID);
+                return ClientProgressData.Get().HasDialogueId(dialogueGroupID);
             }
 
             return false;

@@ -116,15 +116,11 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // NaninovelEndCommand에서 이미 FadeIn 처리된 경우 스킵
-            if (!SceneTransition.IsFadeProcessing)
-            {
-                Debug.Log("EndWithTransitionInternalAsync: SceneTransition 생성 중...");
-                SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+            Debug.Log("EndWithTransitionInternalAsync: SceneTransition 생성 중...");
+            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
 
-                Debug.Log("EndWithTransitionInternalAsync: FadeIn 시작...");
-                await SceneTransition.FadeInAsync();
-            }
+            Debug.Log("EndWithTransitionInternalAsync: FadeIn 시작...");
+            await SceneTransition.FadeInAsync();
             Debug.Log("EndWithTransitionInternalAsync: FadeIn 완료, 종료 액션 실행...");
 
             // 종료 액션 실행 (다른 씬으로 전환)
@@ -139,13 +135,9 @@ namespace CookApps.AutoBattler
         /// </summary>
         private async UniTask PlayNextScriptWithTransitionAsync(string nextScript)
         {
-            // NaninovelEndCommand에서 이미 FadeIn 처리된 경우 스킵
-            if (!SceneTransition.IsFadeProcessing)
-            {
-                SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-                await SceneTransition.FadeInAsync();
-            }
-
+            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+            await SceneTransition.FadeInAsync();
+                
             // 이전 스크립트의 spawn 객체 정리
             var spawnManager = Engine.GetService<ISpawnManager>();
             if (spawnManager != null && spawnManager.Spawned.Count > 0)
@@ -429,6 +421,22 @@ namespace CookApps.AutoBattler
             if (_scriptPlayer == null) return;
             if (SceneTransition.IsFadeProcessing) return; // 전환 중이면 무시
 
+            // 현재 스크립트에서 닉네임 입력 팝업 위치 확인
+            int nicknameIndex = GetNicknamePopupIndex();
+            bool hasNicknameSet = ClientProgressData.Get().hasNicknameSet;
+
+            // 닉네임이 아직 설정되지 않았으면 닉네임 입력 위치로 바로 이동
+            if (nicknameIndex >= 0 && !hasNicknameSet)
+            {
+                Debug.Log($"NaninovelMain: 닉네임 미설정 - 닉네임 입력 위치({nicknameIndex})로 이동");
+                _scriptPlayer.Play(_currentScriptName, nicknameIndex);
+
+                // 입력 대기 상태면 자동으로 Continue 트리거
+                var inputManager = Engine.GetService<IInputManager>();
+                inputManager?.GetContinue()?.Activate(1f);
+                return;
+            }
+
             Debug.Log("NaninovelMain: 스킵으로 즉시 종료");
 
             // SKIP 전환 플래그 설정
@@ -440,13 +448,33 @@ namespace CookApps.AutoBattler
                 _scriptPlayer.Stop();
             }
 
-            // @end와 동일한 종료 로직 실행
-            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-            await SceneTransition.FadeInAsync();
             await ExecuteEndActionAsync();
 
             // SKIP 전환 플래그 초기화
             _isSkipTransition = false;
+        }
+
+        /// <summary>
+        /// 현재 스크립트에서 닉네임 입력 팝업(@spawn CutScene/nickname)의 인덱스 반환
+        /// </summary>
+        /// <returns>닉네임 팝업 인덱스, 없으면 -1</returns>
+        private int GetNicknamePopupIndex()
+        {
+            if (_scriptPlayer?.Playlist == null) return -1;
+
+            for (int i = 0; i < _scriptPlayer.Playlist.Count; i++)
+            {
+                var command = _scriptPlayer.Playlist[i];
+                if (command is Naninovel.Commands.Spawn spawnCmd)
+                {
+                    if (spawnCmd.Path?.Value?.Contains("nickname", StringComparison.OrdinalIgnoreCase) == true)
+                    {
+                        return i;
+                    }
+                }
+            }
+
+            return -1;
         }
 
         /// <summary>

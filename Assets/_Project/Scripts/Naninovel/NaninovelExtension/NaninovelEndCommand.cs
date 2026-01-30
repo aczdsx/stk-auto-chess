@@ -10,10 +10,6 @@ namespace CookApps.AutoBattler
         {
             UnityEngine.Debug.Log("NaninovelEndCommand: @end 커맨드 실행됨");
 
-            // 먼저 FadeIn 시작 (화면 가림)
-            SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-            await SceneTransition.FadeInAsync();
-
             var naninovelMain = NaninovelMain.GetNaninovelMain();
             if (naninovelMain == null)
             {

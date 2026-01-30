@@ -81,8 +81,11 @@ namespace CookApps.AutoBattler
 
         private async UniTask OnClickTouchStartAsync()
         {
-            touchToStart.SetActive(false);
             var recentAuthPlatform = LocalDataManager.Instance.GetRecentAuthData();
+            if (recentAuthPlatform == null)
+                return;
+
+            touchToStart.SetActive(false);
             var resp = await NetManager.Instance.Auth.AuthenticateAsync(recentAuthPlatform.Platform, recentAuthPlatform.Id);
             if (!resp.IsSuccess)
             {
@@ -122,31 +125,6 @@ namespace CookApps.AutoBattler
 
             // 튜토리얼(1챕터) 진입 분기 로직
             var firstStageData = SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL)?[0];
-            // 초반 플로우 체크 및 진행
-// #if _SJHONG_TEST_  
-                
-//                 LocalDataManager.Instance.SetLastPlayStageId(20009);
-//                 MyDebug.MyLog($"{firstStageData.stage_id} < {LocalDataManager.Instance.GetLastPlayStageId()} == {firstStageData.stage_id < LocalDataManager.Instance.GetLastPlayStageId()}");
-//                 if (firstStageData != null && !(firstStageData.chapter_id < LocalDataManager.Instance.GetLastPlayStageId())) {
-//                     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-//                     var firstStage = SpecDataManager.Instance.StageInfo.All[0];
-//                     var task = NetManager.Instance.Battle.StartAsync(firstStage.chapter_id, firstStage.stage_id, (int)InGameType.STAGE, System.Array.Empty<string>());
-//                     await SceneTransition.FadeInAsync();
-//                     var inGameParams = await task;
-//                     SceneLoading.GoToNextScene("InGame", inGameParams);
-//                 }
-//                 else 
-//                 {
-//                     SceneTransition.Create<SceneTransition_FadeInOut>();
-//                     await SceneTransition.FadeInAsync();
-
-//                     var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
-//                     var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
-//                     SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
-
-//                     return;
-//                 }
-// #else
             if (ServerDataManager.Instance.Battle.CurrentChapterId <= 1)
             {
                 // 튜토리얼(1챕터) 진입 분기 로직
@@ -162,7 +140,7 @@ namespace CookApps.AutoBattler
                     SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
                     return;
                 }
-
+                
                 // 2. 1챕터 마지막 스테이지를 못 깬 경우 → 못 깬 첫 스테이지로 바로 진입
                 if (lastTutoStageData != null && ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
                 {
@@ -184,7 +162,15 @@ namespace CookApps.AutoBattler
                         await SceneTransition.FadeInAsync();
 
                         var inGameParams = new InGameMainParams(InGameType.STAGE, new InGameMainStateStage(), unclearedStage.stage_id);
-                        SceneLoading.GoToNextScene("InGame", inGameParams);
+                        var progressData = ClientProgressData.Get();
+                        if (unclearedStage.stage_id == 10003 && !progressData.hasNicknameSet)
+                        {
+                            SceneLoading.GoToNextSceneViaNaninovelScript("InGame", "Chapter0_04", inGameParams);
+                        }
+                        else
+                        {
+                            SceneLoading.GoToNextScene("InGame", inGameParams);
+                        }
                         return;
                     }
                 }
@@ -201,7 +187,6 @@ namespace CookApps.AutoBattler
 
                 return;
             }
-// #endif
         }
 
         public void OnClickGuestLoginButton()
@@ -216,32 +201,6 @@ namespace CookApps.AutoBattler
             await LoginManager.Instance.LoginGuest();
             SceneUILayerManager.Instance.PopUILayer(popup);
             OnClickTouchStartAsync().Forget();
-        }
-
-        /// <summary>
-        /// 닉네임이 없으면 Chapter0_04 나니노벨 재생 후 씬 이동
-        /// 닉네임이 있으면 바로 씬 이동
-        /// </summary>
-        private async UniTask GoToSceneWithNicknameCheckAsync(string sceneName, object param)
-        {
-            var nickname = ServerDataManager.Instance.PlayerData?.Nickname;
-
-            if (string.IsNullOrEmpty(nickname))
-            {
-                // 닉네임 없음 → Chapter0_04 나니노벨 재생 후 씬 이동
-                SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-                await SceneTransition.FadeInAsync();
-
-                await SceneUILayerManager.Instance.PushUILayerAsync<NaninovelMain>(
-                    ("Chapter0_04", (System.Action)(() => SceneLoading.GoToNextScene(sceneName, param)))
-                );
-                return;
-            }
-
-            // 닉네임 있음 → 바로 씬 이동
-            SceneTransition.Create<SceneTransition_FadeInOut>();
-            await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextScene(sceneName, param);
         }
 
         private async UniTask ConnectAppsflyer()

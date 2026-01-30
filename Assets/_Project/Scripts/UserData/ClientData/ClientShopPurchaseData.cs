@@ -10,6 +10,8 @@ namespace CookApps.AutoBattler
         public const string CategoryName = "client_shop_purchase";
         public override string Category => CategoryName;
 
+        public static ClientShopPurchaseData Get() => ClientDataManager.Instance.GetData<ClientShopPurchaseData>(CategoryName);
+
         [MemoryPackOrder(0)] private Dictionary<int, ShopBannerData> _shopBannerDatas = new();
         [MemoryPackOrder(1)] private Dictionary<int, PurchaseData> _purchaseDatas = new();
 

@@ -79,7 +79,7 @@ namespace CookApps.AutoBattler
         // 최초 접속 가입 이후 경과일 계산
         public int GetSinceJoinDate()
         {
-            var clientBasicData = ClientDataManager.Instance.GetData<ClientBasicData>(ClientBasicData.CategoryName);
+            var clientBasicData = ClientBasicData.Get();
             var joinTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(clientBasicData.UserInstallDate);
 
             return joinTimeSpan.Days;
@@ -110,7 +110,7 @@ namespace CookApps.AutoBattler
             var targetLanguage = LanguageManager.Instance.CurrentLanguageType;
             appEventParameter.Add(AppEventStringConst.LANGUAGE, targetLanguage.ToString());
 
-            var clientBasicData = ClientDataManager.Instance.GetData<ClientBasicData>(ClientBasicData.CategoryName);
+            var clientBasicData = ClientBasicData.Get();
             var playerData = ServerDataManager.Instance.PlayerData;
             var inventoryBridge = new InventoryDataBridge();
 

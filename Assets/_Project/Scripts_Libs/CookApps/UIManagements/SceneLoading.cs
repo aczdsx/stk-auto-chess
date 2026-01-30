@@ -79,6 +79,18 @@ namespace CookApps.TeamBattle.UIManagements
         }
 
         /// <summary>
+        /// 나니노벨 스크립트를 직접 지정하여 씬 전환
+        /// </summary>
+        /// <param name="nextScene">목적지 씬 이름</param>
+        /// <param name="naninovelScriptName">실행할 나니노벨 스크립트 이름</param>
+        /// <param name="nextSceneData">목적지 씬 데이터</param>
+        /// <param name="sceneLoadingEventReceiver">씬 로딩 이벤트 리시버</param>
+        public static void GoToNextSceneViaNaninovelScript(string nextScene, string naninovelScriptName, object nextSceneData = null, SceneLoadingEventReceiver sceneLoadingEventReceiver = null)
+        {
+            GoToNextSceneInternal(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptName);
+        }
+
+        /// <summary>
         /// SPECIAL 타입 나니노벨 트리거를 지정하여 씬 전환
         /// 일회성 특수 트리거용 (PrologueStart, PrologueEnd 등)
         /// </summary>

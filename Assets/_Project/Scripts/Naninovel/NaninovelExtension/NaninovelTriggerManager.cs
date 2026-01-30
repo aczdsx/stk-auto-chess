@@ -110,10 +110,9 @@ namespace CookApps.AutoBattler
             var currentGuideMissionId = (int)ServerDataManager.Instance.GuideMission.GuideMissionId;
 
             var trigger = SpecDataManager.Instance.NaninovelData.All
-                .Where(t => t.naninovel_trigger_type == triggerType && t.trigger_key == triggerKey)
-                .Where(t => !_executedTriggerIds.Contains(t.id)) // 이미 실행된 트리거 제외
-                                                                 // .Where(t => t.guide_mission_id == 0 || t.guide_mission_id == currentGuideMissionId) // 가이드 미션 조건 확인
-                .FirstOrDefault();
+                .Where(t => t.naninovel_trigger_type == triggerType && t.trigger_key == triggerKey) // 이미 실행된 트리거 제외
+                // .Where(t => t.guide_mission_id == 0 || t.guide_mission_id == currentGuideMissionId) // 가이드 미션 조건 확인
+                .FirstOrDefault(t => !_executedTriggerIds.Contains(t.id));
 
             if (trigger != null)
             {

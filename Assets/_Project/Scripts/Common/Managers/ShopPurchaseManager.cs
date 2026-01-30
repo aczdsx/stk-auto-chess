@@ -12,7 +12,7 @@ namespace CookApps.AutoBattler
             // 24.09.26 - 상점 배너 팝업 임시 off
             return;
 
-            var shopPurchaseData = ClientDataManager.Instance.GetData<ClientShopPurchaseData>(ClientShopPurchaseData.CategoryName);
+            var shopPurchaseData = ClientShopPurchaseData.Get();
             var shopBannerList = shopPurchaseData.GetAllShopBannerDataList();
 
             foreach (var shopBannerData in shopBannerList)
@@ -37,7 +37,7 @@ namespace CookApps.AutoBattler
             // 24.09.26 - 상점 배너 팝업 임시 off
             return;
 
-            var shopPurchaseData = ClientDataManager.Instance.GetData<ClientShopPurchaseData>(ClientShopPurchaseData.CategoryName);
+            var shopPurchaseData = ClientShopPurchaseData.Get();
             var shopBannerList = shopPurchaseData.GetAllShopBannerDataList();
 
             foreach (var shopBannerData in shopBannerList)

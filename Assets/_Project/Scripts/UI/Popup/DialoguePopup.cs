@@ -231,7 +231,7 @@ namespace CookApps.AutoBattler
             }
 
             // 다이얼로그 히스토리 데이터 추가 및 저장
-            ClientDataManager.Instance.GetData<ClientProgressData>(ClientProgressData.CategoryName).AddCompleteDialogueId(_dialogueGroupID);
+            ClientProgressData.Get().AddCompleteDialogueId(_dialogueGroupID);
 
             if (isGetReward == false)
             {

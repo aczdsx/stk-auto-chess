@@ -15,7 +15,7 @@ namespace CookApps.AutoBattler
 {
     public class CharacterDetailMainLayer : CachedMonoBehaviour
     {
-        public Material IllustMaterial => _characterIllust.IllustMaterial;
+        public Material IllustMaterial => _characterIllust?.IllustMaterial;
 
         [SerializeField] private CAButton _backButton;
         [SerializeField] private CAButton _elementSynergyButton;

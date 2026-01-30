@@ -183,6 +183,12 @@ namespace CookApps.AutoBattler
                 return;
             }
 
+            // 닉네임 설정 완료 플래그
+            ClientProgressData.Get().SetNicknameSet(true);
+
+            // Naninovel player 변수 업데이트
+            NaninovelMain.GetNaninovelMain()?.UpdatePlayerVariable(_nicknameInputField.text);
+
             _resultNickname = _nicknameInputField.text;
             CompleteAndDestroy();
         }
