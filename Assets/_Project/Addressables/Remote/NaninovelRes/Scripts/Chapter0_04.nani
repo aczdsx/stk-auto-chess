@@ -30,7 +30,7 @@ uni_00: 미..미안. 헤헤헤. 나는 신종 장난인지 알았어.
 uni_00: 근데 그럼, 자기 이름은 기억하고 있는거야?
 atresia_00: 아, 아뇨… 이름까지 여쭤보진 못했는데.
 uni_00: 관측자, 이름은 기억나?!
-@spawn nickname
+@spawn CutScene/nickname
 
 @hideChars
 ; 닉네임 생성 튜토리얼 (나중에 버튼으로 미루기 가능)
