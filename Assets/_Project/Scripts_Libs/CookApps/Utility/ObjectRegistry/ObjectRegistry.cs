@@ -12,6 +12,7 @@ namespace CookApps.TeamBattle.Utility
         CharacterCamera,
         CommanderSkillTrail,
         GuideAlert,
+        EventSystem,
     }
     
     public interface IRegistrable

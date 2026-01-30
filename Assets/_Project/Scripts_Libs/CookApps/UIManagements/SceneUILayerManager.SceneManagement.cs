@@ -112,7 +112,7 @@ namespace CookApps.TeamBattle.UIManagements
             isDimLayerOn = false;
 
             // 4. 씬 로드
-            var prevHandle = handle;
+            // var prevHandle = handle;
             var address = UILayerConstants.GetSceneAddress(sceneName);
  
               handle = Addressables.LoadSceneAsync(address, activateOnLoad: false);
@@ -125,8 +125,8 @@ namespace CookApps.TeamBattle.UIManagements
 
             // 5. 이전 씬 언로드
             OnSceneUnloadedEvent?.Invoke(CurrentSceneName);
-            if (prevHandle.IsValid())
-                Addressables.UnloadSceneAsync(prevHandle);
+            // if (prevHandle.IsValid())
+            //     Addressables.UnloadSceneAsync(prevHandle);
 
             Resources.UnloadUnusedAssets();
             GC.Collect();

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using Naninovel;
 using UnityEngine;
 
@@ -68,14 +69,6 @@ namespace CookApps.AutoBattler
             }
 
             await SceneTransition.FadeOutAsync();
-        }
-
-        /// <summary>
-        /// 스크립트 종료 시 실행할 액션 설정
-        /// </summary>
-        public void SetEndAction(Action action)
-        {
-            _onEndAction = action;
         }
 
         /// <summary>
@@ -266,7 +259,14 @@ namespace CookApps.AutoBattler
 
             try
             {
-                await RuntimeInitializer.Initialize();
+                var configProvider = new ProjectConfigurationProvider();
+                if (ObjectRegistry.TryGetObject(RegistryKey.EventSystem, out var obj))
+                {
+                    var inputConfiguration = configProvider.GetConfiguration<InputConfiguration>();
+                    inputConfiguration.CustomEventSystem = obj.GetComponent<UnityEngine.EventSystems.EventSystem>();
+                    inputConfiguration.CustomInputModule = obj.GetComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+                }
+                await RuntimeInitializer.Initialize(configProvider);
 
                 if (!Engine.Initialized)
                 {
