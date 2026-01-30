@@ -202,7 +202,7 @@ Shader "Custom/SpriteLitDissolve"
                 float finalDissolve = dissolvePos + noiseVal * 0.3; // range ~0 to ~1.3
                 
                 // Scale threshold to ensure complete dissolve at _Dissolve = 1
-                float dissolveThreshold = _Dissolve * 1.5;
+                float dissolveThreshold = _Dissolve * 0.95;
                 
                 // Pixels with finalDissolve >= threshold are visible
                 float dissolveAlpha = step(dissolveThreshold, finalDissolve);
@@ -215,7 +215,7 @@ Shader "Custom/SpriteLitDissolve"
                 float edgeB = step(dissolveThreshold + _EdgeThicknessA, finalDissolve) 
                             - step(dissolveThreshold + _EdgeThicknessA + _EdgeThicknessB, finalDissolve);
                 
-                float3 emission = edgeA * _EdgeColorA.rgb + edgeB * _EdgeColorB.rgb;
+                float3 emission = (edgeA * _EdgeColorA.rgb + edgeB * _EdgeColorB.rgb) * step(0.001, _Dissolve);
                 
                 // === 2D LIGHTING ===
                 float4 lightColor = float4(0, 0, 0, 0);
@@ -365,7 +365,7 @@ Shader "Custom/SpriteLitDissolve"
                 float finalDissolve = dissolvePos + noiseVal * 0.3;
                 
                 // Scale threshold to ensure complete dissolve
-                float dissolveThreshold = _Dissolve * 1.5;
+                float dissolveThreshold = _Dissolve * 0.95;
                 float dissolveAlpha = step(dissolveThreshold, finalDissolve);
                 
                 // Edge glow
@@ -373,7 +373,7 @@ Shader "Custom/SpriteLitDissolve"
                             - step(dissolveThreshold + _EdgeThicknessA, finalDissolve);
                 float edgeB = step(dissolveThreshold + _EdgeThicknessA, finalDissolve) 
                             - step(dissolveThreshold + _EdgeThicknessA + _EdgeThicknessB, finalDissolve);
-                float3 emission = edgeA * _EdgeColorA.rgb + edgeB * _EdgeColorB.rgb;
+                float3 emission = (edgeA * _EdgeColorA.rgb + edgeB * _EdgeColorB.rgb) * step(0.001, _Dissolve);
                 
                 float3 finalColor = baseColor.rgb + emission;
                 float finalAlpha = baseColor.a * dissolveAlpha;

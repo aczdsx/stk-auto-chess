@@ -70,8 +70,8 @@ Material:
     - _Dissolve: 0
     - _DissolveBeginOffset: -0.1
     - _DissolveEndOffset: -1
-    - _EdgeThicknessA: 0.1
-    - _EdgeThicknessB: 0.025
+    - _EdgeThicknessA: 0.05
+    - _EdgeThicknessB: 0.05
     - _EnableExternalAlpha: 0
     - _NoiseScale: 500
     - _QueueControl: 1
