@@ -112,7 +112,7 @@ atresia_00: 네, 관측자님.
 
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

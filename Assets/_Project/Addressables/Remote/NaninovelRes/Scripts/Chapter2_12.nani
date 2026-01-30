@@ -123,7 +123,7 @@ atresia_00: 관측자님. 저희도 따라가보죠!
 @wait 1.2
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

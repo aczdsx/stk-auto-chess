@@ -56,7 +56,7 @@ asna_00: 네! 맡겨주세요.
 Narrator: 내심 아스나에게도 걱정을 끼친듯 안심한 듯 밝아진 아스나의 목소리가 들려온다.
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

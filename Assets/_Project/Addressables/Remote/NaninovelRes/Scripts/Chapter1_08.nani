@@ -52,7 +52,7 @@ asna_00: 네! 알겠습니다.
 philia_00: 알겠습니다. 그럼 이어서 잡힌 위치 신호로 이동합니다.
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

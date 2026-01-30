@@ -101,7 +101,7 @@ atresia_00: 관측자님, 지휘를 부탁드려요!
 
 @camera offset:0 zoom:0 time:0.1
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

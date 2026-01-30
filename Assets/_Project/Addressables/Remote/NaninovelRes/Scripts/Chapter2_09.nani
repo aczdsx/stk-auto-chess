@@ -95,7 +95,7 @@ odette_00: 그런 행동에 특화된 스텔라 나이트거든요.
 ; L029
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

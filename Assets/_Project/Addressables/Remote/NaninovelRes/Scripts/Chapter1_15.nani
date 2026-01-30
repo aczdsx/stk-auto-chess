@@ -6,7 +6,7 @@
 @bgm snd_bgm_dialog_normal01 
 
 
-;거대한 몬스터가 쓰러지는 쿵 효과음
+; 거대한 몬스터가 쓰러지는 쿵 효과음
 @spawn ShakeCamera
 Narrator: 거대했던 '빅마우스'가 쓰러지자, 그 위압감이 거짓말처럼 사라진다. 스쿼드 전원이 지친 듯, 거친 숨을 몰아쉰다.
 
@@ -67,7 +67,7 @@ atresia_00: 메시에41성단…….
 atresia_00: 저희랑 그렇게 사이가 좋은 기사들은 아니에요.
 
 @hideChars
-;나오는 발소리
+; 나오는 발소리
 Narrator: 그리고, 그들의 뒤에서… 자신의 키 만큼 커다란 낫을 등에 걸친 '순백의 처형자'가 모습을 드러낸다.
 
 @spawn CutScene/cbg_02_01
@@ -173,7 +173,7 @@ Narrator: 의문만을 남긴채 일행은 엘피스로 복귀한다.
 ; Chapter 1. 균열 종료 → Chapter 2 입장 연출
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

@@ -41,7 +41,7 @@ atresia_00: 관측자님! 강해진 것 같은 기분이 들어요.
 
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

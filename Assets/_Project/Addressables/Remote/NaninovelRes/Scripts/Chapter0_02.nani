@@ -29,7 +29,7 @@ char_atresia: 소리가 점점 가까워지고 있어요! 이곳을 선택해서
 ; 스테이지 0-2 진입 시 Chapter0_03로 이동
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

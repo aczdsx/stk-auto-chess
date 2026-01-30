@@ -42,7 +42,7 @@ asna_00: 디멘션 큐브를 연구할 준비가 완료되었어요. '기사-공
 
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

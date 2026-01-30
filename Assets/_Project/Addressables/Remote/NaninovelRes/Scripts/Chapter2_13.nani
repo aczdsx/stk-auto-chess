@@ -114,7 +114,7 @@ atresia_00: 이 소리는….. 클레이야!
 ; L031
 @char odette_00.normal pos:30,-250 scale:1.38
 odette_00: 치잇…..!
-;뛰어가는 효과음
+; 뛰어가는 효과음
 @slide odette_00 to:-40,-250 time:0.5
 @wait 0.5
 ; L032
@@ -136,7 +136,7 @@ philia_00: 마스터. 저희도 쫒아가시죠!
 
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

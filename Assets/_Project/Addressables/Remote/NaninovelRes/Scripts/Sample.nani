@@ -6,24 +6,24 @@
 @char atresia_00.Talk pos:30,-150 scale:1
 @char uni_00.Talk pos:70,-150 scale:1
 
-;자동 하이라이트 OFF / 아트레시아 화이트
+; 자동 하이라이트 OFF / 아트레시아 화이트
 @forceHighlight atresia_00,uni_00 enable:false tint:white time:0
 
-;자동 하이라이트 OFF / 아트레시아 회색
+; 자동 하이라이트 OFF / 아트레시아 회색
 ;@forceHighlight atresia_00,uni_00 enable:false tint:grey 
 
 atresia_00: 이런 식으로 잃고 싶지 않았는데... ... . 
 
 uni_00: 보고싶을거야..
 
-;자동 하이라이트 On
+; 자동 하이라이트 On
 @forceHighlight atresia_00,uni_00 enable:true 
 
 uni_00: 정말루..
 
 ;@char atresia_00.normal pos:50,-150 scale:1 time:1
-;Player: name test
-;atresia_00: 이런 식으로 잃고 싶지 않았는데... ... . 
+; Player: name test
+; atresia_00: 이런 식으로 잃고 싶지 않았는데... ... . 
 ;@emote name:exclamation target:atresia_00 time:30
 
 @end

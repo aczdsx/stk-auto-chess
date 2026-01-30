@@ -37,7 +37,7 @@ philia_00: 자고로 명사수라면 아무리 힘든 상황에서도 표적을 
 ; 나니노벨 → Chapter0_06 시작
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

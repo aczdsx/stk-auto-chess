@@ -1,11 +1,11 @@
 ; 신넘버: Chapter0_07 | 구성: 가이드 미션 다이얼로그 | 분량: 튜토리얼 전투 + 15라인(대사 적음) | 키포인트: 보스 학습
 ; @back bg_Gemini_Generated_Image_k5pxtkk5pxtkk5px time:0.3 transition:Crossfade
-;char_atresia: 관측자님. 저곳에서 식스혼의 울음소리가 들려요!
-;char_uni: 어?! 저곳에 핏자국이 남아있어.
-;char_philia: 저희를 제외하면 현재 함선에 있는 생명체는 클레이 뿐이에요…!
+; char_atresia: 관측자님. 저곳에서 식스혼의 울음소리가 들려요!
+; char_uni: 어?! 저곳에 핏자국이 남아있어.
+; char_philia: 저희를 제외하면 현재 함선에 있는 생명체는 클레이 뿐이에요…!
 ; char_atresia: 관측자님! 다시 한번 명령을!
 ; 0-4 스테이지 하이라이트
-;char_player: 인…인카운트!
+; char_player: 인…인카운트!
 ;@bgm bgm_deck_setup fade:0.5 loop:True
 ; 가이드: 식스혼은 강력한 네피림. 지금까지 배운 내용으로 물리쳐봐요!
 ;@stopBgm bgm_deck_setup fade:0.5
@@ -17,7 +17,7 @@
 ; 나니노벨 → Chapter0_08 시작
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

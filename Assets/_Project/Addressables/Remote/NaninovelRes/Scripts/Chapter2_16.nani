@@ -83,7 +83,7 @@ Narrator: '토마'가 사라진 게이트와, 자신을 구해준 동료들과, 
 @wait 3.0f
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

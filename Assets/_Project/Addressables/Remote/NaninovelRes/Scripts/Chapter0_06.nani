@@ -58,7 +58,7 @@ k_Nephilim: 크롸롸랏….!
 Narrator: 밀폐된 공간이었기 때문일까. 그것의 울음소리는 증폭되어 모든이의 간담을 서늘하게 만들었다.
 
 @spawn ShakeCharacter params:uni_00
-;몸 떠는 효과음
+; 몸 떠는 효과음
 uni_00: 히익…! 이소리는?!
 @bgm snd_bgm_dialog_happy_001
 philia_00: 이 울음소리는…. 큰일이에요! 대형 네피림 식스혼이에요.
@@ -79,7 +79,7 @@ uni_00: 으아~!! 같이가~~
 
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

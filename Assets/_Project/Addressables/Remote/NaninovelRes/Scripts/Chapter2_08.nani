@@ -5,7 +5,7 @@
 ; [SYSTEM] Chapter2_08 전투 시작
 ; L003
 
-;모래 폭풍 소리
+; 모래 폭풍 소리
 
 
 @back bg_ionia_01
@@ -76,7 +76,7 @@ uni_00: 뭐라고?!
 ; L021
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

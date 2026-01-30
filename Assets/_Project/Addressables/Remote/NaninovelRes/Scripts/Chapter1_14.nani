@@ -61,7 +61,7 @@ bigmouth_00: (키에에에엑-!)
 @stop
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

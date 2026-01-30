@@ -134,8 +134,8 @@ ridia_00: 주치의로서는 안정을 취해야 한다고 하고 싶지만….
 ridia_00: 어쩔 수 없네. 일단 임시로 조치해줄게.
 
 @hideChars
-;하이드 캐릭터
-;웨이팅 0.5
+; 하이드 캐릭터
+; 웨이팅 0.5
 Narrator: 잠시 후….
 
 @char ridia_00.Talk pos:60,-235 scale:1.38
@@ -186,7 +186,7 @@ atresia_00: ….. 알겠습니다. 그럼 플레이아데스 성단 이곳에서
 ; FadeOut/In (연출)
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars

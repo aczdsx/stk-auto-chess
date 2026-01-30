@@ -7,7 +7,7 @@
 
 
 @back bg_ruins_05
-;쾅 하는 효과음
+; 쾅 하는 효과음
 
 @bgm snd_bgm_dialog_despair01
 
@@ -166,7 +166,7 @@ Narrator: 그리고... 저 '흐름'을 어떻게 사용해야 할 지... 알 수
 ; L051
 
 @back bg_black_01 time:1.5 transition:Crossfade
-;신전환 효과음
+; 신전환 효과음
 @hideUI
 @hidePrinter Dialogue
 @hideChars
