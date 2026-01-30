@@ -65,6 +65,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9052576703297259876, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9052576703297259876, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ec4be4a6bd031cb4281e0d7c37e93bc6, type: 3}

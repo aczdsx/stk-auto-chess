@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: DissolveCharacter
-  m_Shader: {fileID: -6465566751694194690, guid: 97c6dd483b7624141b388ba8d0a4290a, type: 3}
+  m_Shader: {fileID: 4800000, guid: 35ca819eb37bb40398c05c7ce7ae05a3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -29,7 +29,7 @@ Material:
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
@@ -37,8 +37,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: e6477c8e7d5e397489c77bca3f83b89c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal_Tex:
@@ -59,18 +67,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Dissolve: -1
+    - _Dissolve: 0
     - _DissolveBeginOffset: -0.1
     - _DissolveEndOffset: -1
     - _EdgeThicknessA: 0.1
-    - _EdgeThicknessB: 0.03
-    - _NoiseScale: 250
+    - _EdgeThicknessB: 0.025
+    - _EnableExternalAlpha: 0
+    - _NoiseScale: 500
     - _QueueControl: 1
     - _QueueOffset: 0
+    - _UseNormalMap: 0
     m_Colors:
     - _ColorA: {r: 0, g: 0.15528616, b: 4.2370954, a: 0}
     - _ColorB: {r: 0, g: 4.237095, b: 2.107455, a: 0}
-    - _DissolveDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _DissolveDirection: {r: 0, g: 1, b: 0.25, a: 0}
+    - _EdgeColorA: {r: 0, g: 0.15528613, b: 4.237096, a: 0}
+    - _EdgeColorB: {r: 0, g: 4.237095, b: 2.107455, a: 0}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _TintColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

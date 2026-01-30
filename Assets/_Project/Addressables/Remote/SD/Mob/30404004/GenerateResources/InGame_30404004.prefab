@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 22100000, guid: 428bb0391e066a84fb97900ef9071bc8, type: 2}
     - target: {fileID: 1758468053598742516, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Name
-      value: InGame_30504004
+      value: InGame_30404004
       objectReference: {fileID: 0}
     - target: {fileID: 7066975744640795765, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_LocalPosition.x

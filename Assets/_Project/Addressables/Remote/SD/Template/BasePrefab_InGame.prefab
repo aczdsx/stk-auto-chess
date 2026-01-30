@@ -115,7 +115,7 @@ MonoBehaviour:
   _rotateionRootTransform: {fileID: 6888232810305479873}
   _projectileFrontTransform: {fileID: 383865152857005477}
   _projectileBackTransform: {fileID: 1437154792531293144}
-  _disorveMaterial: {fileID: -876546973899608171, guid: 97c6dd483b7624141b388ba8d0a4290a, type: 3}
+  _disorveMaterial: {fileID: 2100000, guid: 3e7812f36b0b22048a25d576d4c39d94, type: 2}
   _hologramMaterial: {fileID: -876546973899608171, guid: 3cd374d8c82053146bdb2d3f2352c464, type: 3}
   _skillTopFXTransform: {fileID: 3622022910119889569}
   _skillMiddleFXTransform: {fileID: 600602697925615038}
