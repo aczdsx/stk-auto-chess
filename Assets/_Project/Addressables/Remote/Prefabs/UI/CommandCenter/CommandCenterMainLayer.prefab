@@ -7448,7 +7448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  maxRenderTextureSize: 1024
+  maxRenderTextureSize: 2048
   quad: {fileID: 0}
   quadMaterial: {fileID: 2100000, guid: afeb0ae2ea2cda94796515bf8d1b3cb1, type: 2}
   renderTexture: {fileID: 0}
