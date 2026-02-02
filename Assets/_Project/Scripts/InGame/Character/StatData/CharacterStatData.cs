@@ -101,7 +101,7 @@ namespace CookApps.AutoBattler
             _level = level;
 
             var levelBonusRate = CalculateLevelBonusRate(level);
-            // InjectFixedValueByElpisCoreLabs();
+            InjectFixedValueByElpisCoreLabs();
 
             {
                 var adBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_UP, 0, _spec.stat_atk * levelBonusRate, 0);
@@ -153,7 +153,7 @@ namespace CookApps.AutoBattler
             UpdateStats(EffectCodeInheritFlag.StatAll);
         }
 
-        private void InjectFixedValueByElpisCoreLabs()
+        protected virtual void InjectFixedValueByElpisCoreLabs()
         {
             if (_spec is not CharacterInfo characterInfo)
             {
@@ -351,7 +351,7 @@ namespace CookApps.AutoBattler
         }
 
         //아래 함수는 곱연산 계산 함수
-        private double CalculateLevelBonusRate(int level)
+        protected virtual double CalculateLevelBonusRate(int level)
         {
             // 레벨보너스랑 돌파만 몬스터에게 적용되고 초월은 안붙음.
             var levelMultiplier = (1f + _spec.inc_lv_rate * (level - 1)) * (1f + _spec.inc_lv_bonus_rate * Mathf.FloorToInt((level - 1) * 0.1f));

@@ -60,7 +60,7 @@ public class FlowStateStageReady : StateReadyBase
         {
             monsterMultipleHp = monster.multiple_hp;
             Debug.LogColor($"monster 추가 : {monster.monster_id}");
-            var statData = new CharacterStatData(monster.monster_id, monster.monster_lv, monster.multiple_atk,
+            var statData = new MonsterStatData(monster.monster_id, monster.monster_lv, monster.multiple_atk,
                 monster.multiple_hp);
 
             string[] coordinates = monster.coordinate.Split(',');
@@ -96,7 +96,7 @@ public class FlowStateStageReady : StateReadyBase
         foreach (var gridID in _specStage.neutral_grid_id)
         {
             Debug.LogColor($"neutral 추가 : {_specStage.neutral_wall_id}");
-            var statData = new CharacterStatData(_specStage.neutral_wall_id, 1, 1, monsterMultipleHp);
+            var statData = new MonsterStatData(_specStage.neutral_wall_id, 1, 1, monsterMultipleHp);
 
             var tile = InGameObjectManager.Instance.GetInGameTile(gridID);
             int2 coordinate = new int2(tile.X, tile.Y);

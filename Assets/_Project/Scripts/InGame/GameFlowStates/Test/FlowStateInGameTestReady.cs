@@ -133,7 +133,7 @@ public class FlowStateInGameTestReady : StateReadyBase
             monsterMultipleHp = monster.multiple_hp;
             Debug.LogColor($"[Test] 스테이지 몬스터 추가: {monster.monster_id}", "yellow");
 
-            var statData = new CharacterStatData(
+            var statData = new MonsterStatData(
                 monster.monster_id,
                 monster.monster_lv,
                 monster.multiple_atk,
@@ -223,7 +223,7 @@ public class FlowStateInGameTestReady : StateReadyBase
             if (enemy.CharacterId <= 0) continue;
 
             Debug.LogColor($"[Test] 적 추가: {enemy.CharacterId} at ({enemy.GridX}, {enemy.GridY})", "yellow");
-            var statData = new CharacterStatData(
+            var statData = new MonsterStatData(
                 enemy.CharacterId,
                 enemy.Level,
                 enemy.MultipleAtk,

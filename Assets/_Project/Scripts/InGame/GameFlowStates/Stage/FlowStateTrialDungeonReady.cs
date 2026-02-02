@@ -35,7 +35,7 @@ public class FlowStateTrialDungeonReady : StateReadyBase
         {
             monsterMultipleHp = monster.multiple_hp;
             Debug.LogColor($"monster 추가 : {monster.monster_id}");
-            var statData = new CharacterStatData(monster.monster_id, monster.monster_lv, monster.multiple_atk,
+            var statData = new MonsterStatData(monster.monster_id, monster.monster_lv, monster.multiple_atk,
                 monster.multiple_hp);
         
             string[] coordinates = monster.coordinate.Split(',');

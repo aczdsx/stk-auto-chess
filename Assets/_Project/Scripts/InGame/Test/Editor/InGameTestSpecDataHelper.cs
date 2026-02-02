@@ -19,8 +19,10 @@ namespace CookApps.AutoBattler.Editor
             Reload();
         }
         private static readonly string SpecDataPath = "Assets/OriginalSpecData.json";
+        private static readonly string LanguageDataPath = "Assets/OriginalSpecLanguage.json";
 
         private static List<LanguageEntry> _languages;
+        private static Dictionary<string, string> _languageMap; // key -> kr 매핑
         private static List<CharacterEntry> _characters;
         private static List<CharacterEntry> _monsters;
         private static List<StageEntry> _stages;
@@ -102,10 +104,14 @@ namespace CookApps.AutoBattler.Editor
             if (_isLoaded) return;
 
             _languages = new List<LanguageEntry>();
+            _languageMap = new Dictionary<string, string>();
             _characters = new List<CharacterEntry>();
             _monsters = new List<CharacterEntry>();
             _stages = new List<StageEntry>();
             _stageMonsters = new List<StageMonsterEntry>();
+
+            // OriginalSpecLanguage.json 로드 (HEROES_NAME_, MONSTER_NAME_ 매핑)
+            LoadLanguageData();
 
             if (!File.Exists(SpecDataPath))
             {
@@ -143,7 +149,8 @@ namespace CookApps.AutoBattler.Editor
                             Id = item["id"]?.Value<int>() ?? 0,
                             NameToken = item["name_token"]?.Value<string>() ?? "",
                         };
-                        entry.DisplayName = $"[{entry.Id}] {GetSimpleName(entry.NameToken)}";
+                        // name_token을 키로 사용하여 이름 조회
+                        entry.DisplayName = $"[{entry.Id}] {GetNameByToken(entry.NameToken)}";
                         _characters.Add(entry);
                     }
                 }
@@ -158,7 +165,8 @@ namespace CookApps.AutoBattler.Editor
                             Id = item["id"]?.Value<int>() ?? 0,
                             NameToken = item["name_token"]?.Value<string>() ?? "",
                         };
-                        entry.DisplayName = $"[{entry.Id}] {GetSimpleName(entry.NameToken)}";
+                        // name_token을 키로 사용하여 이름 조회
+                        entry.DisplayName = $"[{entry.Id}] {GetNameByToken(entry.NameToken)}";
                         _monsters.Add(entry);
                     }
                 }
@@ -239,6 +247,60 @@ namespace CookApps.AutoBattler.Editor
                 Debug.LogError($"[InGameTestSpecDataHelper] Failed to parse SpecData: {e.Message}");
                 _isLoaded = true;
             }
+        }
+
+        /// <summary>
+        /// OriginalSpecLanguage.json에서 언어 데이터 로드
+        /// </summary>
+        private static void LoadLanguageData()
+        {
+            if (!File.Exists(LanguageDataPath))
+            {
+                Debug.LogWarning($"[InGameTestSpecDataHelper] Language data not found: {LanguageDataPath}");
+                return;
+            }
+
+            try
+            {
+                string json = File.ReadAllText(LanguageDataPath);
+                var root = JObject.Parse(json);
+
+                // 여러 카테고리에서 key-kr 매핑 추출
+                foreach (var property in root.Properties())
+                {
+                    if (property.Value is JArray array)
+                    {
+                        foreach (var item in array)
+                        {
+                            string key = item["key"]?.Value<string>() ?? "";
+                            string kr = item["kr"]?.Value<string>() ?? "";
+                            if (!string.IsNullOrEmpty(key) && !_languageMap.ContainsKey(key))
+                            {
+                                _languageMap[key] = kr;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[InGameTestSpecDataHelper] Failed to parse Language data: {e.Message}");
+            }
+        }
+
+        /// <summary>
+        /// name_token 키로 이름 조회 (HEROES_NAME_xxx, MONSTER_NAME_xxx 등)
+        /// </summary>
+        private static string GetNameByToken(string nameToken)
+        {
+            if (string.IsNullOrEmpty(nameToken))
+                return "";
+            
+            if (_languageMap != null && _languageMap.TryGetValue(nameToken, out string name))
+            {
+                return name;
+            }
+            return nameToken;
         }
 
         private static string GetSimpleName(string nameToken)
