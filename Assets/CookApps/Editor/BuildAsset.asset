@@ -102,7 +102,7 @@ MonoBehaviour:
         Name: ios-apple-prod
         Target: 9
         Identifier: com.mintry.stk
-        Version: 0.3.4
+        Version: 0.3.5
         UseAutoVersionCode: 1
         BaseVersionCode: 0
         VersionCode: 5293

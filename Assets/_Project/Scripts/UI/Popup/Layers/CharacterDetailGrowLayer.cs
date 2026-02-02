@@ -305,6 +305,11 @@ namespace CookApps.AutoBattler
         {
             try
             {
+                if (!CheckLevelUpCurrency())
+                {
+                    return;
+                }
+
                 if (_specCharacterLevelExpData.IsExceed)
                 {
                     var resp = await NetManager.Instance.Character.ExceedAsync(_userCharacterData.CharacterId);
@@ -336,6 +341,29 @@ namespace CookApps.AutoBattler
             {
                 Debug.LogError($"Failed to level up character: {e.Message}");
             }
+        }
+
+        private bool CheckLevelUpCurrency()
+        {
+            if (_specCharacterLevelExpData.need_gold > 0 &&
+                 !_inventoryBridge.HasEnoughCurrency(IdMap.Item.Gold, (ulong)_specCharacterLevelExpData.need_gold))
+            {
+                return false;
+            }
+            
+            if (_specCharacterLevelExpData.base_levelup_item_id != 0 &&
+                !_inventoryBridge.HasEnoughCurrency(_specCharacterLevelExpData.base_levelup_item_id, (ulong)_specCharacterLevelExpData.base_levelup_item_count))
+            {
+                return false;
+            }
+            
+            if (_specCharacterLevelExpData.sec_levelup_item_id != 0 &&
+                !_inventoryBridge.HasEnoughCurrency(_specCharacterLevelExpData.sec_levelup_item_id, (ulong)_specCharacterLevelExpData.sec_levelup_item_count))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private async UniTask OnClickTranscendenceButtonAsync()
