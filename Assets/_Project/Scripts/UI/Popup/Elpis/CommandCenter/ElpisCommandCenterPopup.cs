@@ -232,7 +232,7 @@ namespace CookApps.AutoBattler
         {
             var canUpgrade = hasNextUpgrade && currentCoreAmount >= requiredCoreForUpgrade;
 
-            //upgradeButton.SetClickableState(canUpgrade);
+            upgradeButton.SetClickableState(canUpgrade);
 
             requiredCoreText.text = requiredCoreForUpgrade.ToString();
             requiredCoreTextSwappers.Swap(canUpgrade ? SimpleSwapType.Possible : SimpleSwapType.Impossible);
