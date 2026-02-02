@@ -8,7 +8,7 @@ namespace CookApps.AutoBattler
     {
         public static async UniTask HandleLoading(string prevSceneName, string sceneName, object defaultUIData)
         {
-            SpriteManager.Instance.UnloadAllSprites();
+            // SpriteManager.Instance.UnloadAllSprites();
             Debug.LogColor($"Scene Change : {prevSceneName} -> {sceneName}", "blue");
 
             if (prevSceneName == "BattleReady")

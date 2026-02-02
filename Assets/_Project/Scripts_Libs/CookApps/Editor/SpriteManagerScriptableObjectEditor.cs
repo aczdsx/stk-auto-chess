@@ -1,12 +1,16 @@
 using CookApps.TeamBattle;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.U2D;
 
 namespace CookApps.Editor
 {
     [CustomEditor(typeof(SpriteManagerScriptableObject))]
     public class SpriteManagerScriptableObjectEditor : UnityEditor.Editor
     {
+        private bool showAtlases;
+        private bool showSprites;
+
         public override void OnInspectorGUI()
         {
             SpriteManagerScriptableObject so = (SpriteManagerScriptableObject)target;
@@ -86,6 +90,35 @@ namespace CookApps.Editor
                 so.folderPathGuids.Clear();
                 SpriteManagerImportProcessor.ClearCachedSpriteManager();
                 EditorUtility.SetDirty(so);
+            }
+
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField("Registered Assets", EditorStyles.boldLabel);
+
+            showAtlases = EditorGUILayout.Foldout(showAtlases, $"Atlases ({so.atlasRefs.Count})");
+            if (showAtlases)
+            {
+                EditorGUI.indentLevel++;
+                GUI.enabled = false;
+                foreach (var atlasRef in so.atlasRefs)
+                {
+                    EditorGUILayout.ObjectField(atlasRef?.editorAsset, typeof(SpriteAtlas), false);
+                }
+                GUI.enabled = true;
+                EditorGUI.indentLevel--;
+            }
+
+            showSprites = EditorGUILayout.Foldout(showSprites, $"Sprites ({so.spriteRefs.Count})");
+            if (showSprites)
+            {
+                EditorGUI.indentLevel++;
+                GUI.enabled = false;
+                foreach (var kvp in so.spriteRefs)
+                {
+                    EditorGUILayout.ObjectField(kvp.Value?.editorAsset, typeof(Sprite), false);
+                }
+                GUI.enabled = true;
+                EditorGUI.indentLevel--;
             }
         }
     }
