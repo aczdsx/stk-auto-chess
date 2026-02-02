@@ -13,10 +13,10 @@ public class ElpisCommandCenterResultPopup : UILayerPopupBase
     [SerializeField] private CAButton closeButton;
     [SerializeField] private TextMeshProUGUI levelText;
     
-    [SerializeField] private TableView benefitsTableView;
-    [SerializeField] private GameObject benefitCellPrefab; 
-    private TableViewController<ElpisCommandCenterBenefit, ElpisCommandCenterBenefitCell> benefitController;
+    [SerializeField] private GameObject benefitCellPrefab;
+    [SerializeField] private RectTransform benefitsScrollViewContent;
     private List<ElpisCommandCenterBenefit> currentBenefits = new List<ElpisCommandCenterBenefit>();
+    private List<ElpisCommandCenterBenefitCell> spawnedCells = new List<ElpisCommandCenterBenefitCell>();
 
     protected override void OnPreEnter(object param)
     {
@@ -37,23 +37,40 @@ public class ElpisCommandCenterResultPopup : UILayerPopupBase
 
     private void InitializeTableView()
     {
-        if (!benefitsTableView || !benefitCellPrefab)
+        if (!benefitCellPrefab || !benefitsScrollViewContent)
         {
-            Debug.LogError("TableView 또는 Cell Prefab이 설정되지 않았습니다.");
+            Debug.LogError("Cell Prefab 또는 ScrollViewContent가 설정되지 않았습니다.");
             return;
         }
 
-        benefitController = benefitsTableView.CreateController<ElpisCommandCenterBenefit, ElpisCommandCenterBenefitCell>()
-            .WithData(currentBenefits)
-            .WithCellPrefab(benefitCellPrefab)
-            .WithCellSize(benefitCellPrefab.GetComponent<RectTransform>().rect.size)
-            .OnBind((cell, data, index) =>
+        ClearSpawnedCells();
+
+        for (int i = 0; i < currentBenefits.Count; i++)
+        {
+            var data = currentBenefits[i];
+            var cellObject = Instantiate(benefitCellPrefab, benefitsScrollViewContent);
+            var cell = cellObject.GetComponent<ElpisCommandCenterBenefitCell>();
+
+            if (cell != null)
             {
-                cell.SetData(data, index);
+                cell.SetData(data, i);
                 cell.SetShortcutCallback(() => NavigateToBenefit(data.build_id));
-            })
-            .OnCellRecycled(cell => cell.ResetState())
-            .Build();
+                spawnedCells.Add(cell);
+                cell.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    private void ClearSpawnedCells()
+    {
+        foreach (var cell in spawnedCells)
+        {
+            if (cell != null)
+            {
+                Destroy(cell.gameObject);
+            }
+        }
+        spawnedCells.Clear();
     }
     
     private void NavigateToBenefit(int buildId)

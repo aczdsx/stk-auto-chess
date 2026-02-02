@@ -36,6 +36,7 @@ MonoBehaviour:
         - NANINOVEL_ENABLE_SPINE
         RemoveDefine:
         - ENABLE_CHEAT
+        - __DEV
         Parameters: []
         EnableCodeObfuscator: 0
         IsProduction: 1
@@ -45,7 +46,7 @@ MonoBehaviour:
         CreateSymbols: 1
         ExportAndroidStudioProject: 0
         IsAAB: 1
-        SplitApplicationBinary: 1
+        SplitApplicationBinary: 0
         IsMono: 0
         Architecture: 3
         CodeGeneration: 0
@@ -73,6 +74,7 @@ MonoBehaviour:
         AddDefine:
         - ENABLE_CHEAT
         - NANINOVEL_ENABLE_SPINE
+        - __DEV
         RemoveDefine: []
         Parameters: []
         EnableCodeObfuscator: 0
@@ -102,7 +104,7 @@ MonoBehaviour:
         Name: ios-apple-prod
         Target: 9
         Identifier: com.mintry.stk
-        Version: 0.3.4
+        Version: 0.3.5
         UseAutoVersionCode: 1
         BaseVersionCode: 0
         VersionCode: 5293
@@ -110,11 +112,12 @@ MonoBehaviour:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         AddDefine:
         - NANINOVEL_ENABLE_SPINE
+        - __DEV
         RemoveDefine:
         - ENABLE_CHEAT
         Parameters: []
         EnableCodeObfuscator: 0
-        IsProduction: 1
+        IsProduction: 0
         StoreMarket: 2
         BuildOptions: 524288
         SigningTeamID: K7TNH5SGYC
@@ -136,6 +139,7 @@ MonoBehaviour:
         AddDefine:
         - ENABLE_CHEAT
         - NANINOVEL_ENABLE_SPINE
+        - __DEV
         RemoveDefine: []
         Parameters: []
         EnableCodeObfuscator: 0

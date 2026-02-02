@@ -38,9 +38,34 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 통화 충분 여부
         /// </summary>
-        public bool HasEnoughCurrency(ItemId itemId, ulong requiredAmount)
+        public bool HasEnoughCurrency(ItemId itemId, ulong requiredAmount, bool showToast = true)
         {
-            return Model?.HasEnoughCurrency(itemId, requiredAmount) ?? false;
+            bool hasEnough = Model?.HasEnoughCurrency(itemId, requiredAmount) ?? false;
+            if (!hasEnough && showToast)
+            {
+                string toastKey = GetNotEnoughCurrencyToastKey(itemId);
+                ToastManager.Instance.ShowToastByTokenKey(toastKey);
+            }
+            return hasEnough;
+        }
+
+        private string GetNotEnoughCurrencyToastKey(ItemId itemId)
+        {
+            if (itemId == IdMap.Item.Gold)
+                return "MSG_NOT_ENOUGH_GOLD";
+            if (itemId == IdMap.Item.ActionPoint)
+                return "MSG_NOT_ENOUGH_AP";
+            if (itemId == IdMap.Item.Jewel)
+                return "MSG_NOT_ENOUGH_GACHA_JEWEL";
+            if (itemId == IdMap.Item.CharacterTicket)
+                return "MSG_NOT_ENOUGH_GACHA_C_TICKET";
+            if (itemId == IdMap.Item.CharExp)
+                return "MSG_NOT_ENOUGH_CHAR_EXP";
+            if (itemId == IdMap.Item.Soul)
+                return "MSG_NOT_ENOUGH_CHAR_EXP_2";
+            if (itemId.IsCharacterPiece())
+                return "MSG_NOT_ENOUGH_CHAR_PIECE";
+            return "MSG_NOT_ENOUGH_CURRENCY";
         }
 
         /// <summary>
