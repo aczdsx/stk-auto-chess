@@ -40,7 +40,7 @@ namespace CookApps.AutoBattler
 
         private void OnClickTopPanelButton()
         {
-            SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
+            //SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
         }
     }
 }

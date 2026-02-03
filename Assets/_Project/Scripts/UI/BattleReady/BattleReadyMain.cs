@@ -136,6 +136,10 @@ namespace CookApps.AutoBattler
 
         private async UniTask PreEnterAsync()
         {
+            elpisDataBridge = new ElpisDataBridge();
+            var simulationCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeSimulationCenter);
+            _idleRewardButton.gameObject.SetActive(simulationCenter != null && simulationCenter.Level > 0);
+
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
             // 챕터 데이터 갱신
