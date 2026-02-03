@@ -84,10 +84,45 @@ public class DissolveBoundsUpdater : MonoBehaviour
 
     /// <summary>
     /// 메쉬의 로컬 바운드를 가져옴 (positionOS와 일치하는 좌표계)
+    /// Sprite가 없으면 수동 바운드 또는 기본 바운드를 반환하여 NRE를 방지합니다.
     /// </summary>
     private Bounds GetLocalBounds()
     {
-        return _spriteRenderer.sprite.bounds;
+        if (_spriteRenderer == null)
+        {
+            return GetFallbackBounds();
+        }
+
+        Sprite sprite = _spriteRenderer.sprite;
+        if (sprite == null)
+        {
+#if UNITY_EDITOR
+            Debug.LogWarning($"[DissolveBoundsUpdater] {gameObject.name}: SpriteRenderer.sprite가 할당되지 않았습니다. 수동 바운드 또는 기본값을 사용합니다.", this);
+#endif
+            return GetFallbackBounds();
+        }
+
+        return sprite.bounds;
+    }
+
+    /// <summary>
+    /// Sprite를 사용할 수 없을 때의 fallback 바운드 (수동 설정 우선, 없으면 단위 정육면체)
+    /// </summary>
+    private Bounds GetFallbackBounds()
+    {
+        if (useManualBounds)
+        {
+            Vector3 center = new Vector3(
+                (manualBoundsMin.x + manualBoundsMax.x) * 0.5f,
+                (manualBoundsMin.y + manualBoundsMax.y) * 0.5f,
+                0f);
+            Vector3 size = new Vector3(
+                manualBoundsMax.x - manualBoundsMin.x,
+                manualBoundsMax.y - manualBoundsMin.y,
+                0f);
+            return new Bounds(center, size);
+        }
+        return new Bounds(Vector3.zero, Vector3.one);
     }
 
 #if UNITY_EDITOR

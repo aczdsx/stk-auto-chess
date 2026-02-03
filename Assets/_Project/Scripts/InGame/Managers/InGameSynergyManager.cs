@@ -16,8 +16,10 @@ namespace CookApps.BattleSystem
 
         /// <summary> 캐릭터당 시너지 FX가 2개일 때 왼쪽/오른쪽 간격 (로컬 X 오프셋) </summary>
         private const float SYNERGY_FX_HORIZONTAL_OFFSET = 0.25f;
-        private static readonly Vector3 SynergyFxPositionLeft = new Vector3(-SYNERGY_FX_HORIZONTAL_OFFSET, 0f, SYNERGY_FX_HORIZONTAL_OFFSET);
-        private static readonly Vector3 SynergyFxPositionRight = new Vector3(SYNERGY_FX_HORIZONTAL_OFFSET, 0f, -SYNERGY_FX_HORIZONTAL_OFFSET);
+        private static readonly Vector3 SynergyFxPositionLeft = new Vector3(SYNERGY_FX_HORIZONTAL_OFFSET, 0f, -SYNERGY_FX_HORIZONTAL_OFFSET);
+        private static readonly Vector3 SynergyFxPositionRight = new Vector3(-SYNERGY_FX_HORIZONTAL_OFFSET, 0f, SYNERGY_FX_HORIZONTAL_OFFSET);
+
+        private bool _isRemoveCharacterTiming = false;
 
         public void Initialize()
         {
@@ -29,12 +31,12 @@ namespace CookApps.BattleSystem
             _itemComponent.Initialize();
             _synergyManagerDataDic.Add(AllianceType.Player, new HashSet<SynergyType>());
             _synergyManagerDataDic.Add(AllianceType.Enemy, new HashSet<SynergyType>());
+            _isRemoveCharacterTiming = false;
         }
 
         public void Clear()
         {
-
-
+            _isRemoveCharacterTiming = false;
             ClearSynergyFx();
             _synergyManagerDataDic.Clear();
             _itemComponent.Clear();
@@ -82,8 +84,8 @@ namespace CookApps.BattleSystem
                 {
                     if (vfx != null)
                     {
-                        vfx.transform.SetParent(InGameObjectManager.Instance.Playground);
                         vfx.Remove();
+                        vfx.transform.SetParent(InGameObjectManager.Instance.Playground);
                     }
                 }
                 vfxList.Clear();
@@ -105,11 +107,14 @@ namespace CookApps.BattleSystem
             if (character.SpecCharacter.character_type != CharacterType.CHARACTER)
                 return;
 
+            _isRemoveCharacterTiming = false;
+
             TidyUpPreviewSynergy(character.AllianceType, character.SpecCharacter.character_element_type);
             TidyUpPreviewSynergy(character.AllianceType, character.SpecCharacter.character_stella_type);
-
-            ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_element_type);
-            ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_stella_type);
+            ClearSynergyFx();
+            
+            // ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_element_type);
+            // ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_stella_type);
 
             ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_stella_type);
             ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_element_type);
@@ -136,6 +141,8 @@ namespace CookApps.BattleSystem
             if (character.SpecCharacter.character_type != CharacterType.CHARACTER)
                 return;
 
+            _isRemoveCharacterTiming = true;
+
 
             _itemComponent.CheckAffectedByItemController(character);
 
@@ -149,13 +156,14 @@ namespace CookApps.BattleSystem
             ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_stella_type);
         }
 
-        public void ApplyTargetSynergy(AllianceType callerAllianceType, SynergyType targetSynergyType)
+        private void ApplyTargetSynergy(AllianceType callerAllianceType, SynergyType targetSynergyType)
         {
 
             bool canAddSynergy = CanAddSynergy(callerAllianceType, targetSynergyType, out var outSynergyData, out var outSynergyList);
             if (canAddSynergy)
             {
                 _synergyManagerDataDic[callerAllianceType].Add(targetSynergyType);
+                var targetList = InGameObjectManager.Instance.GetCharacterList(callerAllianceType);
 
                 //모든 시너지관련 이펙트코드는 1단계에서 최대까지 호출한다.
                 for (int j = 1; j <= outSynergyData.grade; j++)
@@ -164,22 +172,21 @@ namespace CookApps.BattleSystem
                     switch (synergyData.synergy_cover_type)
                     {
                         case SynergyCoverType.SQUAD_STELLA://본인의 엘리먼트나 포지션에 비교하여 맞는다면 수행
-                            AddSynergyIfMySynergy(callerAllianceType, outSynergyList[0].synergy_group_id, synergyData, targetSynergyType);
+                            AddSynergyIfMySynergy(targetList, outSynergyList[0].synergy_group_id, synergyData, targetSynergyType);
                             break;
                         case SynergyCoverType.SQUAD_ALL://모든 캐릭터에 주입
-                            AddSynergyAllMember(callerAllianceType, outSynergyList[0].synergy_group_id, synergyData);
+                            AddSynergyAllMember(targetList, outSynergyList[0].synergy_group_id, synergyData);
                             break;
                         case SynergyCoverType.SQUAD_ONCE:
                             AddSynergyTeamOnce(callerAllianceType, outSynergyList[0].synergy_group_id, synergyData, j);
                             break;
                     }
                 }
-
-
+                SpawnSynergyFx(callerAllianceType, targetList, targetSynergyType);
             }
 
         }
-        public void TidyUpPreviewSynergy(AllianceType callerAllianceType, SynergyType synergyType)
+        private void TidyUpPreviewSynergy(AllianceType callerAllianceType, SynergyType synergyType)
         {
             if (_synergyManagerDataDic[callerAllianceType].Contains(synergyType))
             {
@@ -198,34 +205,27 @@ namespace CookApps.BattleSystem
             _synergyManagerDataDic[callerAllianceType].Remove(synergyType);
         }
 
-        private void AddSynergyAllMember(AllianceType allianceType, long effectCodeId, ISpecSynergyData synergyData)
+        private void AddSynergyAllMember(List<CharacterController> targetList, long effectCodeId, ISpecSynergyData synergyData)
         {
-            var targetList = InGameObjectManager.Instance.GetCharacterList(allianceType);
-
-            foreach (var character in InGameObjectManager.Instance.GetCharacterList(allianceType))
+            foreach (var character in targetList)
             {//이건 무조건 주입하는 함수
                 character.InjectSynergy(effectCodeId, synergyData);
             }
-
-            SpawnSynergyFx(allianceType, targetList, synergyData.synergy_type, synergyData.grade);
+            
 
         }
-        private void AddSynergyIfMySynergy(AllianceType allianceType, long effectCodeId, ISpecSynergyData synergyData, SynergyType targetSynergyType)
+        private void AddSynergyIfMySynergy(List<CharacterController> targetList, long effectCodeId, ISpecSynergyData synergyData, SynergyType targetSynergyType)
         {
-            var targetList = InGameObjectManager.Instance.GetCharacterList(allianceType);
             foreach (var character in targetList)
             {
                 //이건 본인의 시너지와 맞으면 적용하는 함수
                 character.AddSynergyApplyEach(targetSynergyType, effectCodeId, synergyData);
-            }
-            SpawnSynergyFx(allianceType, targetList, targetSynergyType, synergyData.grade);
+            }            
         }
 
-        public void AddSynergyTeamOnce(AllianceType AllianceType, long effectCodeId, ISpecSynergyData synergyData, int grade)
+        private void AddSynergyTeamOnce(AllianceType allianceType, long effectCodeId, ISpecSynergyData synergyData, int grade)
         {
-            InGameManager.Instance.AddSynergyTeamOnce(AllianceType, effectCodeId, synergyData, grade);
-            var targetList = InGameObjectManager.Instance.GetCharacterList(AllianceType);
-            SpawnSynergyFx(AllianceType, targetList, synergyData.synergy_type, grade);
+            InGameManager.Instance.AddSynergyTeamOnce(allianceType, effectCodeId, synergyData, grade);
         }
 
         private bool CanAddSynergy(AllianceType allianceType, SynergyType targetSynergyType
@@ -293,6 +293,7 @@ namespace CookApps.BattleSystem
         private static void ApplySynergyFxPosition(CharacterController character, InGameVfx vfx, Dictionary<SynergyType, List<(InGameVfx vfx, CharacterController character)>> synergyVfxDic)
         {
             int count = GetCharacterSynergyVfxCount(character, synergyVfxDic);
+            Debug.Log($"SynergyFxPosition: count: {count}");
             // 방금 추가한 vfx까지 포함되어 있으므로 count는 1 또는 2
             if (count == 1)
             {
@@ -300,7 +301,7 @@ namespace CookApps.BattleSystem
             }
             else
             {
-                var existing = GetExistingSynergyVfxForCharacter(character, synergyVfxDic, exclude: vfx);
+                var existing =  GetExistingSynergyVfxForCharacter(character, synergyVfxDic, exclude: vfx);
                 if (existing != null)
                 {
                     existing.CachedTr.localPosition += SynergyFxPositionLeft;
@@ -316,8 +317,13 @@ namespace CookApps.BattleSystem
         /// <param name="targetList">대상 캐릭터 리스트</param>
         /// <param name="synergyType">시너지 타입</param>
         /// <param name="grade">시너지 등급</param>
-        public void SpawnSynergyFx(AllianceType allianceType, List<CharacterController> targetList, SynergyType synergyType, int grade)
+        private void SpawnSynergyFx(AllianceType allianceType, List<CharacterController> targetList, SynergyType synergyType)
         {
+            if (_isRemoveCharacterTiming)
+            {
+                return;
+            }
+
             var synergyVfxDic = GetSynergyVfxDic(allianceType);
 
             foreach (var character in targetList)
@@ -372,6 +378,7 @@ namespace CookApps.BattleSystem
                         synergyVfxDic[synergyType] = vfxList;
                     }
                     vfxList.Add((vfx, character));
+                    Debug.Log("SpawnSynergy: " + synergyType);
                     ApplySynergyFxPosition(character, vfx, synergyVfxDic);
                 }
                 else if (character.SpecCharacter.character_stella_type == synergyType)
@@ -385,6 +392,7 @@ namespace CookApps.BattleSystem
                         synergyVfxDic[synergyType] = vfxList;
                     }
                     vfxList.Add((vfx, character));
+                    Debug.Log("SpawnSynergy: " + synergyType);
                     ApplySynergyFxPosition(character, vfx, synergyVfxDic);
                 }
 

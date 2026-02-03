@@ -108,10 +108,10 @@ namespace CookApps.BattleSystem
         private void SpawnSupplyVfx(CharacterController targetCharacter, InGameVfxNameType supplyVfxNameType)
         {
             _targetCharacter = targetCharacter;
-            Vector3 startPos = targetCharacter.SkillRootTransformFollowable.GetPosition();
             _supplyVfxNameType = supplyVfxNameType;
             // VFX 생성
-            _supplyVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_supply_varient, targetCharacter.SkillRootTransformFollowable);
+            _supplyVfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_supply_varient,
+            targetCharacter.SkillBottomFXTransformFollowable.GetPosition());
 
             _supplyVfx.Initialize(false);
             if (_supplyVfx is InGameVfxWithAnimation)

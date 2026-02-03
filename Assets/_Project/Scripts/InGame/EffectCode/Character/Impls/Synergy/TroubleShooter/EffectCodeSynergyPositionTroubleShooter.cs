@@ -21,6 +21,8 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
 
     private int _synergyGrade;
     private List<CharacterController> _dynamiteList = new();
+    
+    private AllianceType _allianceType;
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
@@ -28,12 +30,14 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
         _synergyGrade = codeInfo.GetCodeStatToInt(3);
         _dynamiteList.Clear();
         AddGameObjectDynamite(source, codeInfo.GetCodeStatToInt(0));
+        _allianceType = (AllianceType)codeInfo.GetCodeStatToInt(4);
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
         _synergyGrade = codeInfo.GetCodeStatToInt(3);
+        _allianceType = (AllianceType)codeInfo.GetCodeStatToInt(4);
     }
 
     private async void AddGameObjectDynamite(IEffectCodeSource source, int itemCount)
@@ -100,7 +104,7 @@ public partial class EffectCodeSynergyPositionTroubleShooter : EffectCodeSynergy
                 // 3. 비어있는 타일을 찾지 못한 경우 AllianceType.None을 우선하는 빈 타일 사용
                 if (inGameTile == null)
                 {
-                    inGameTile = InGameObjectManager.Instance.InGameGrid.GetEmptyTilePreferringNone();
+                    inGameTile = InGameObjectManager.Instance.InGameGrid.GetEmptyTilePreferringNone(_allianceType);
                 }
                 Debug.LogColor($"랜덤위치에 지뢰 추가!: {inGameTile?.X}, {inGameTile?.Y}");
             }
