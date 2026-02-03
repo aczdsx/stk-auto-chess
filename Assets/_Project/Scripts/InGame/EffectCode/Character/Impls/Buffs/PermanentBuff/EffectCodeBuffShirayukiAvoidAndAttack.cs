@@ -14,9 +14,9 @@ using CharacterController = CookApps.BattleSystem.CharacterController;
 /// 시라유키 회피율 및 반격 
 /// 반격 이펙트: 0번 = 상하(up/down), 1번 = 좌우(left/right)
 /// up   → 0번, 기본(scale/rotation 그대로)
-/// down → 0번, rotation·scale 변경
+/// down → 1번, rotation·scale 변경
 /// left → 1번, rotation·scale 변경
-/// right→ 1번, 기본
+/// right→ 0번, 기본
 
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
@@ -113,8 +113,8 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
     }
     public override CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageInfo, CharacterController attacker, bool isPure)
     {
-        // if (damageInfo.isMissed)
-        // {
+        if (damageInfo.isMissed)
+        {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_job_striker_brave);
             var prevAvoidSuccessCount = _currentAvoidSuccessCount;
             ++_currentAvoidSuccessCount;
@@ -197,7 +197,7 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
 
                 owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
             }
-        // }
+        }
         return damageInfo;
     }
 

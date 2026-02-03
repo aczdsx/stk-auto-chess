@@ -119,7 +119,7 @@ public partial class EffectCodeSkill217663506 : EffectCodeCharacterBase
         if (executeIndex == totalLength)
         {
             ApplyAvoidProbBuff();
-            RemoveSlashVfx();
+            // RemoveSlashVfx();
         }
     }
 
