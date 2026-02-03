@@ -248,7 +248,7 @@ namespace CookApps.AutoBattler
             _buffSideBadgeParentObj.SetActive(type.HasFlag(HpBarType.Buff));
         }
 
-        public async void SetValue(double currHP, double maxHP, double currShield)
+        public async void SetValue(double currHP, double maxHP, double currShield, bool isDebugText = false)
         {
             if (!CachedGo.activeSelf)
             {
@@ -277,14 +277,18 @@ namespace CookApps.AutoBattler
                 _hpMarkGuage.material.SetFloat("_MaxHP", (float)maxHP);
             }
 
-            UpdateDebugHpText(currHP, maxHP);
+            if(isDebugText) UpdateDebugHpText(currHP, maxHP);
 
             await AnimateHpBar(startRatio, targetRatio, AnimationDuration);
         }
 
-        private void UpdateDebugHpText(double currHP, double maxHP)
+        public void UpdateDebugHpText(double currHP, double maxHP)
         {
             if(_debugHpText == null) return;
+            if(InGameMainFlowManager.Instance.CurrentFlowState is not FlowStateInGameTestReady
+            && InGameMainFlowManager.Instance.CurrentFlowState is not FlowStateInGameTestCombat)
+                return;
+            _debugHpText.gameObject.SetActive(true);
             _debugHpText.text = $"{Math.Round(currHP)}";
         }
 

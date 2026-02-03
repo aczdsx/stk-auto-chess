@@ -1059,7 +1059,7 @@ namespace CookApps.BattleSystem
         {
             if (_hpBarView != null)
             {
-                _hpBarView.SetValue(_currHp, HP, _currShield);
+                _hpBarView.SetValue(_currHp, HP, _currShield, AllianceType == AllianceType.Player);
 
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnHpChange);
                 EffectCodeForLoopHelper.Call(effectCodes, EffectCodeCharacterLambda.CallOnHpChangeLambda);
