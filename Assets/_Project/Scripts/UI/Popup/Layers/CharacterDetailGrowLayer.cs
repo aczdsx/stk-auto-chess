@@ -71,7 +71,7 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             _inventoryBridge = new InventoryDataBridge();
-            _guideMissionDataBridge= new GuideMissionDataBridge();
+            _guideMissionDataBridge = new GuideMissionDataBridge();
             _detailStatButton.OnClickAsObservable()
                 .Subscribe(this, (_, self) => self.OnClickDetailStatButton()).AddTo(this);
 
@@ -153,7 +153,7 @@ namespace CookApps.AutoBattler
         {
             if (_specCharacterData == null)
                 return;
-            
+
             var exceedLevel = _userCharacterData?.ExceedLevel ?? 0;
 
             // 레벨업 가능 여부 체크
@@ -222,7 +222,7 @@ namespace CookApps.AutoBattler
 
         private void SetTranscendenceLayer()
         {
-            if (_specCharacterData == null) 
+            if (_specCharacterData == null)
                 return;
 
             int transcendLevel = (int)(_userCharacterData?.TranscendLevel ?? 1);
@@ -322,7 +322,7 @@ namespace CookApps.AutoBattler
                     var resp = await NetManager.Instance.Character.LevelUpAsync(_userCharacterData.CharacterId);
                     if (resp?.IsSuccess == false)
                         return;
-                    
+
                     // await  _guideMissionDataBridge.AddActionAsync(GuideMissionType.LEVELUP_CHARACTER_TARGET, 1, (int)_userCharacterData.CharacterId);
                 }
 
@@ -350,13 +350,13 @@ namespace CookApps.AutoBattler
             {
                 return false;
             }
-            
+
             if (_specCharacterLevelExpData.base_levelup_item_id != 0 &&
                 !_inventoryBridge.HasEnoughCurrency(_specCharacterLevelExpData.base_levelup_item_id, (ulong)_specCharacterLevelExpData.base_levelup_item_count))
             {
                 return false;
             }
-            
+
             if (_specCharacterLevelExpData.sec_levelup_item_id != 0 &&
                 !_inventoryBridge.HasEnoughCurrency(_specCharacterLevelExpData.sec_levelup_item_id, (ulong)_specCharacterLevelExpData.sec_levelup_item_count))
             {
@@ -390,17 +390,19 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            string characterName = LanguageManager.Instance.GetDefaultText(_specCharacterData.name_token);
-            string contentText = string.Format(LanguageManager.Instance.GetDefaultText("MSG_TRANSCENDENCE_ASK"), characterName);
+            //[TODO] 컨펍 팝업 개선 필요
+            // string characterName = LanguageManager.Instance.GetDefaultText(_specCharacterData.name_token);
+            // string contentText = string.Format(LanguageManager.Instance.GetDefaultText("MSG_TRANSCENDENCE_ASK"), characterName);
 
-            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData("시스템 알림", contentText, "확인", "취소");
-            var popup = await SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData);
-            var isConfirmed = await popup.WaitForExit();
-            if (isConfirmed is true)
-            {
-                // 초월 진행 (서버 API 호출)
-                await TranscendCharacterAsync();
-            }
+            // SystemConfirmPopupData newPopupData = new SystemConfirmPopupData("시스템 알림", contentText, "확인", "취소");
+            // var popup = await SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData);
+            // var isConfirmed = await popup.WaitForExit();
+            // if (isConfirmed is true)
+            // {
+            //     // 초월 진행 (서버 API 호출)
+            //     await TranscendCharacterAsync();
+            // }
+            await TranscendCharacterAsync();
         }
 
         private async UniTask TranscendCharacterAsync()

@@ -65743,7 +65743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9761b5fa6930744c1bdf307a8b19e2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetId: T
+  _targetId: TranscendenceBtn
 --- !u!1001 &4403718739025014555
 PrefabInstance:
   m_ObjectHideFlags: 0
