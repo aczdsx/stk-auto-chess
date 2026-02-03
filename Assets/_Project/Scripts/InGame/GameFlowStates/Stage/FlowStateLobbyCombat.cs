@@ -54,6 +54,8 @@ public class FlowStateLobbyCombat : StateCombatBase
 
     private async UniTask StartAsync()
     {
+        await UniTask.Delay(750);
+        
         var userCharacters = new List<Tech.Hive.V1.CharacterData>();
         ServerDataManager.Instance.Character.GetAllCharacters(userCharacters);
 
@@ -87,7 +89,7 @@ public class FlowStateLobbyCombat : StateCombatBase
             count++;
             if (count >= 5)
                 break;
-            await UniTask.Delay(210);
+            //await UniTask.Delay(210);
         }
 
         // 캐릭터 소환 후 1초 대기
