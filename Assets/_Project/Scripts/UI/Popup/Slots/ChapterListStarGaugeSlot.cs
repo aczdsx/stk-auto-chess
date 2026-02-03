@@ -112,11 +112,15 @@ namespace CookApps.AutoBattler
 
             SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
 
-            // 챕터 리스트 팝업 갱신
-            var chapterListPopup = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>().StageMilestonePanel;
-            if (chapterListPopup != null)
+            // 자신이 속한 StageMilestonePanel 갱신
+            var parentPanel = GetComponentInParent<StageMilestonePanel>();
+            parentPanel?.RefreshRewardLayer();
+
+            // BattleReadyMain 패널도 갱신 (다른 패널에서 받은 경우 대비)
+            var battleReadyMain = SceneUILayerManager.Instance.GetUILayer<BattleReadyMain>();
+            if (battleReadyMain != null && battleReadyMain.StageMilestonePanel != parentPanel)
             {
-                chapterListPopup.RefreshRewardLayer();
+                battleReadyMain.StageMilestonePanel?.RefreshRewardLayer();
             }
         }
 
