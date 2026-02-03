@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
+using UnityEngine;
 
 namespace CookApps.BattleSystem
 {
@@ -9,11 +10,14 @@ namespace CookApps.BattleSystem
         private Dictionary<AllianceType, HashSet<SynergyType>> _synergyManagerDataDic = new Dictionary<AllianceType, HashSet<SynergyType>>();
         private InGameBattleItemDragDropComponent _itemComponent = new InGameBattleItemDragDropComponent();
 
-        // 플레이어와 적의 시너지 이펙트를 분리하여 관리
-        // example: 시너지가 게임 레디 중 미달성 시 제거하는 코드를 작성할수있음.
-        private Dictionary<SynergyType, List<InGameVfx>> _playerSynergyVfxDic = new();
-        private Dictionary<SynergyType, List<InGameVfx>> _enemySynergyVfxDic = new();
+        // 플레이어와 적의 시너지 이펙트를 분리하여 관리 (VFX + 소유 캐릭터)
+        private Dictionary<SynergyType, List<(InGameVfx vfx, CharacterController character)>> _playerSynergyVfxDic = new();
+        private Dictionary<SynergyType, List<(InGameVfx vfx, CharacterController character)>> _enemySynergyVfxDic = new();
 
+        /// <summary> 캐릭터당 시너지 FX가 2개일 때 왼쪽/오른쪽 간격 (로컬 X 오프셋) </summary>
+        private const float SYNERGY_FX_HORIZONTAL_OFFSET = 0.25f;
+        private static readonly Vector3 SynergyFxPositionLeft = new Vector3(-SYNERGY_FX_HORIZONTAL_OFFSET, 0f, SYNERGY_FX_HORIZONTAL_OFFSET);
+        private static readonly Vector3 SynergyFxPositionRight = new Vector3(SYNERGY_FX_HORIZONTAL_OFFSET, 0f, -SYNERGY_FX_HORIZONTAL_OFFSET);
 
         public void Initialize()
         {
@@ -29,7 +33,7 @@ namespace CookApps.BattleSystem
 
         public void Clear()
         {
-            
+
 
             ClearSynergyFx();
             _synergyManagerDataDic.Clear();
@@ -51,7 +55,7 @@ namespace CookApps.BattleSystem
 
             foreach (var kvp in synergyVfxDic)
             {
-                foreach (var vfx in kvp.Value)
+                foreach (var (vfx, _) in kvp.Value)
                 {
                     if (vfx != null)
                     {
@@ -74,7 +78,7 @@ namespace CookApps.BattleSystem
 
             if (synergyVfxDic.TryGetValue(synergyType, out var vfxList))
             {
-                foreach (var vfx in vfxList)
+                foreach (var (vfx, _) in vfxList)
                 {
                     if (vfx != null)
                     {
@@ -141,8 +145,8 @@ namespace CookApps.BattleSystem
             ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_element_type);
             ClearTargetSynergyFx(character.AllianceType, character.SpecCharacter.character_stella_type);
 
-            ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_stella_type);
             ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_element_type);
+            ApplyTargetSynergy(character.AllianceType, character.SpecCharacter.character_stella_type);
         }
 
         public void ApplyTargetSynergy(AllianceType callerAllianceType, SynergyType targetSynergyType)
@@ -220,6 +224,8 @@ namespace CookApps.BattleSystem
         public void AddSynergyTeamOnce(AllianceType AllianceType, long effectCodeId, ISpecSynergyData synergyData, int grade)
         {
             InGameManager.Instance.AddSynergyTeamOnce(AllianceType, effectCodeId, synergyData, grade);
+            var targetList = InGameObjectManager.Instance.GetCharacterList(AllianceType);
+            SpawnSynergyFx(AllianceType, targetList, synergyData.synergy_type, grade);
         }
 
         private bool CanAddSynergy(AllianceType allianceType, SynergyType targetSynergyType
@@ -240,6 +246,69 @@ namespace CookApps.BattleSystem
             out outSynergyData, out outSynergyList);
         }
 
+
+
+        /// <summary>
+        /// 해당 캐릭터에 이미 붙어 있는 시너지 VFX 개수를 반환합니다. (엘리먼트+스텔라 최대 2)
+        /// </summary>
+        private static int GetCharacterSynergyVfxCount(CharacterController character, Dictionary<SynergyType, List<(InGameVfx vfx, CharacterController character)>> synergyVfxDic)
+        {
+            int count = 0;
+            var elementType = character.SpecCharacter.character_element_type;
+            var stellaType = character.SpecCharacter.character_stella_type;
+            if (synergyVfxDic.TryGetValue(elementType, out var elementList))
+            {
+                foreach (var entry in elementList)
+                    if (entry.character == character) count++;
+            }
+            if (synergyVfxDic.TryGetValue(stellaType, out var stellaList) && elementType != stellaType)
+            {
+                foreach (var entry in stellaList)
+                    if (entry.character == character) count++;
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// 해당 캐릭터에 이미 붙어 있는 시너지 VFX 중 하나를 반환합니다. exclude에 넣은 VFX는 제외. 없으면 null.
+        /// </summary>
+        private static InGameVfx GetExistingSynergyVfxForCharacter(CharacterController character, Dictionary<SynergyType, List<(InGameVfx vfx, CharacterController character)>> synergyVfxDic, InGameVfx exclude = null)
+        {
+            if (synergyVfxDic.TryGetValue(character.SpecCharacter.character_element_type, out var list))
+            {
+                foreach (var entry in list)
+                    if (entry.character == character && entry.vfx != exclude) return entry.vfx;
+            }
+            if (synergyVfxDic.TryGetValue(character.SpecCharacter.character_stella_type, out list))
+            {
+                foreach (var entry in list)
+                    if (entry.character == character && entry.vfx != exclude) return entry.vfx;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 시너지 VFX 하나를 생성한 뒤, 캐릭터당 최대 2개일 때 왼쪽/오른쪽 간격을 적용합니다.
+        /// </summary>
+        private static void ApplySynergyFxPosition(CharacterController character, InGameVfx vfx, Dictionary<SynergyType, List<(InGameVfx vfx, CharacterController character)>> synergyVfxDic)
+        {
+            int count = GetCharacterSynergyVfxCount(character, synergyVfxDic);
+            // 방금 추가한 vfx까지 포함되어 있으므로 count는 1 또는 2
+            if (count == 1)
+            {
+                // vfx.CachedTr.localPosition += SynergyFxPositionLeft;
+            }
+            else
+            {
+                var existing = GetExistingSynergyVfxForCharacter(character, synergyVfxDic, exclude: vfx);
+                if (existing != null)
+                {
+                    existing.CachedTr.localPosition += SynergyFxPositionLeft;
+                }
+                vfx.CachedTr.localPosition += SynergyFxPositionRight;
+            }
+        }
+
         /// <summary>
         /// 특정 진영의 캐릭터들에게 시너지 이펙트를 생성합니다.
         /// </summary>
@@ -258,76 +327,29 @@ namespace CookApps.BattleSystem
                 switch (synergyType)
                 {
                     case SynergyType.FIRE:
-                        if (grade == 1)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire;
-                        }
-                        else if (grade == 2)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire_02;
-                        }
-                        else if (grade == 3)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire_03;
-                        }
+                        inGameVfxNameType = InGameVfxNameType.fx_common_synergy_fire;
                         break;
                     case SynergyType.WATER:
-                        if (grade == 1)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water;
-                        }
-                        else if (grade == 2)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water_02;
-                        }
-                        else if (grade == 3)
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water_03;
+                        inGameVfxNameType = InGameVfxNameType.fx_common_synergy_water;
                         break;
                     case SynergyType.LIGHTNING:
-                        if (grade == 1)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_01;
-                        }
-                        else if (grade == 2)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_02;
-                        }
-                        else if (grade == 3)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_03;
-                        }
+                        inGameVfxNameType = InGameVfxNameType.fx_common_synergy_lightning_01;
                         break;
                     case SynergyType.EARTH:
-                        if (grade == 1)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground;
-                        }
-                        else if (grade == 2)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground_02;
-                        }
-                        else if (grade == 3)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground_03;
-                        }
+                        inGameVfxNameType = InGameVfxNameType.fx_common_synergy_ground;
                         break;
                     case SynergyType.WIND:
-                        if (grade == 1)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind;
-                        }
-                        else if (grade == 2)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind_02;
-                        }
-                        else if (grade == 3)
-                        {
-                            inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind_03;
-                        }
+                        inGameVfxNameType = InGameVfxNameType.fx_common_synergy_wind;
                         break;
                     case SynergyType.NOBLESSE:
+                        inGameVfxNameType = InGameVfxNameType.fx_common_asterism_nb_Icon_01;
+                        break;
                     case SynergyType.TROUBLESHOOTER:
+                        inGameVfxNameType = InGameVfxNameType.fx_common_asterism_ts_Icon_01;
+                        break;
                     case SynergyType.SUPERNOVA:
+                        inGameVfxNameType = InGameVfxNameType.fx_common_asterism_sn_Icon_01;
+                        break;
                     // inGameVfxNameType = InGameVfxNameType.fx_common_synergy_darkness;
                     // break;
                     default:
@@ -341,29 +363,29 @@ namespace CookApps.BattleSystem
 
                 if (character.SpecCharacter.character_element_type == synergyType)
                 {
-                    var vfx = InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
-                        character.GetCharacterView().CachedTr);
+                    var vfx = InGameVfxManager.Instance.AddInGameVfx(inGameVfxNameType,
+                        character.SkillMiddleFXTransformFollowable.GetPosition());
 
-                    // 시너지 타입별로 리스트에 추가
                     if (!synergyVfxDic.TryGetValue(synergyType, out var vfxList))
                     {
-                        vfxList = new List<InGameVfx>();
+                        vfxList = new List<(InGameVfx vfx, CharacterController character)>();
                         synergyVfxDic[synergyType] = vfxList;
                     }
-                    vfxList.Add(vfx);
+                    vfxList.Add((vfx, character));
+                    ApplySynergyFxPosition(character, vfx, synergyVfxDic);
                 }
                 else if (character.SpecCharacter.character_stella_type == synergyType)
                 {
-                    var vfx = InGameVfxManager.Instance.AddInGameVfxByTransform(inGameVfxNameType,
-                        character.GetCharacterView().CachedTr);
+                    var vfx = InGameVfxManager.Instance.AddInGameVfx(inGameVfxNameType,
+                        character.SkillMiddleFXTransformFollowable.GetPosition());
 
-                    // 시너지 타입별로 리스트에 추가
                     if (!synergyVfxDic.TryGetValue(synergyType, out var vfxList))
                     {
-                        vfxList = new List<InGameVfx>();
+                        vfxList = new List<(InGameVfx vfx, CharacterController character)>();
                         synergyVfxDic[synergyType] = vfxList;
                     }
-                    vfxList.Add(vfx);
+                    vfxList.Add((vfx, character));
+                    ApplySynergyFxPosition(character, vfx, synergyVfxDic);
                 }
 
             }
@@ -374,12 +396,12 @@ namespace CookApps.BattleSystem
         /// </summary>
         /// <param name="allianceType">진영 타입</param>
         /// <returns>시너지 이펙트 Dictionary</returns>
-        private Dictionary<SynergyType, List<InGameVfx>> GetSynergyVfxDic(AllianceType allianceType)
+        private Dictionary<SynergyType, List<(InGameVfx vfx, CharacterController character)>> GetSynergyVfxDic(AllianceType allianceType)
         {
             return allianceType == AllianceType.Player ? _playerSynergyVfxDic : _enemySynergyVfxDic;
         }
 
-#region item
+        #region item
 
         public void RegisterBattleItem(InGameBattleItemDragDropComponent.InGameBattleItemInfo itemInfo)
         {
