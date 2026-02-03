@@ -14,7 +14,7 @@ namespace CookApps.AutoBattler
     public class ElpisCommandCenterPopup : UILayerPopupBase
     {
         [SerializeField] private CAButton closeButton;
-            
+
         [Header("배경 & NPC")]
         [SerializeField] private CAButton npcAreaButton;
         [SerializeField] private Transform npcDialogueArea;
@@ -44,15 +44,15 @@ namespace CookApps.AutoBattler
         private GuideMissionDataBridge guideMissionDataBridge;
         private ElpisDataBridge elpisDataBridge;
         private InventoryDataBridge inventoryDataBridge;
-        
+
         private LobbyMain lobbyMain;
-        
+
         protected override void Awake()
         {
             base.Awake();
-            
+
             lobbyMain = LobbyMain.GetLobbyMain();
-            
+
             InitializeTableView();
             SubscribeButtons();
         }
@@ -91,33 +91,27 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
 
             lobbyMain.PlayExitAnimation();
-            
+
             elpisDataBridge = new ElpisDataBridge();
             guideMissionDataBridge = new GuideMissionDataBridge();
             inventoryDataBridge = new InventoryDataBridge();
-            
+
             currentElpisLevel = (int)((ElpisFacility)param).Level;
             currentCoreAmount = (int)inventoryDataBridge.GetCurrency(IdMap.Item.엘피스코어);
 
             LoadElpisData();
             UpdateUI();
-            
+
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
-
-            if(guideMissionDataBridge.GuideMissionId == GuideMissionConstants.커맨드센터들어간가이드미션ID)
-            {
-                guideMissionDataBridge.AddAction(GuideMissionType.USE_BUILDING, 1);
-            }
-
         }
-        
+
         protected override void OnPreExit()
         {
             base.OnPostExit();
-            
+
             lobbyMain.PlayEnterAnimation();
         }
-        
+
         private void InitializeTableView()
         {
             if (benefitsTableView == null || benefitCellPrefab == null)
@@ -188,7 +182,7 @@ namespace CookApps.AutoBattler
                 var benefit = SpecDataManager.Instance.ElpisCommandCenterBenefit.All[i];
                 if (benefit.lv != uiLevel)
                     continue;
-                
+
                 currentBenefits.Add(benefit);
             }
 
@@ -236,7 +230,7 @@ namespace CookApps.AutoBattler
 
             requiredCoreText.text = requiredCoreForUpgrade.ToString();
             requiredCoreTextSwappers.Swap(canUpgrade ? SimpleSwapType.Possible : SimpleSwapType.Impossible);
-            
+
             currentCoreText.SetTextFormat("/{0}", currentCoreAmount);
         }
 
@@ -258,7 +252,7 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            if(currentCoreAmount < requiredCoreForUpgrade)
+            if (currentCoreAmount < requiredCoreForUpgrade)
                 return;
 
             isUpgrading = true;
@@ -272,7 +266,7 @@ namespace CookApps.AutoBattler
                     Debug.LogError($"Command Center Upgrade Error:{response.Exception}");
                     return;
                 }
-                
+
                 // await guideMissionDataBridge.AddActionAsync(GuideMissionType.UPGRADE_BUILDING, 1, (int)commandCenter.BuildId);
 
                 currentElpisLevel = (int)response.Facility.Level;
@@ -285,13 +279,13 @@ namespace CookApps.AutoBattler
                     var mainCamera = MainCameraHolder.MainCamera;
                     var offsetZoom = mainCamera.orthographicSize;
                     var offsetPosition = mainCamera.transform.position;
-                    
+
                     cameraController.SetCanInteractCamera(false);
 
                     await PlayExitAnimationAsync();
 
                     var subBlock = mainBlock.GetSubBlockInfo(subBlockIndex);
-                    
+
                     await cameraController.ZoomAndMoveAsync(subBlock.LastAnimationPosition, 14.1f, 0.3f);
                     //cameraController.SetFollowTarget(subBlock.SubBlock.CachedTr, 2.0f);
                     await mainBlock.AttachSubBlock(subBlockIndex, true);
@@ -301,7 +295,7 @@ namespace CookApps.AutoBattler
                     //cameraController.SetFollowTarget(null, 1.0f);
                     cameraController.MoveAsync(offsetPosition, 0.3f).Forget();
                     await cameraController.ZoomAsync(offsetZoom, 0.3f);
-                    
+
                     cameraController.SetCanInteractCamera(true);
                 }
 

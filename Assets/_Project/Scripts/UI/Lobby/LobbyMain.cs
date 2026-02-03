@@ -38,7 +38,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton inventoryButton;
         [SerializeField] private CAButton questButton;
         [SerializeField] private TMPro.TextMeshProUGUI _stageNameText;
-        
+
         private UniTaskCompletionSource preEnterTaskSource = new();
 
         public Transform GetTopCurrencyAndMenuBarParent()
@@ -123,28 +123,34 @@ namespace CookApps.AutoBattler
         private async UniTask PreEnterAsync()
         {
             var animateCamera = MainCameraHolder.CameraGestureController;
-            
+
             InitializeUIComponents();
             SetStageText();
-            
+
             baseAnimator.Play("IdleExit");
-            
+
             animateCamera.SetCameraZoomForce(30.0f);
 
             await LoadElpis();
-            
+
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
             SceneTransition.FadeOutAsync().Forget();
             animateCamera.ZoomAsync(16.0f, 1.0f).Forget();
 
             PlayEnterAnimation();
-            
+
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP, TopPanelType.Elpis_BuildItem);
-            if(!TutorialManager.IsSkipTutorial)
+            if (!TutorialManager.IsSkipTutorial)
             {
                 await TutorialManager.Instance.TryStartOutgameTutorial();
                 TutorialManager.Instance.SubscribeGuideMissionChanged();
                 TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.ENTER_ELPIS, "0");
+            }
+
+            if (ServerDataManager.Instance.GuideMission.GuideMissionId == GuideMissionConstants.커맨드센터들어간가이드미션ID)
+            {
+                var guideMissionDataBridge = new GuideMissionDataBridge();
+                guideMissionDataBridge.AddAction(GuideMissionType.USE_BUILDING, 1);
             }
 
         }
@@ -291,7 +297,7 @@ namespace CookApps.AutoBattler
         {
             WaitAndStartEnter(endCallback).Forget();
         }
-        
+
         private async UniTask WaitAndStartEnter(Action<UILayer> endCallback)
         {
             await preEnterTaskSource.Task;
