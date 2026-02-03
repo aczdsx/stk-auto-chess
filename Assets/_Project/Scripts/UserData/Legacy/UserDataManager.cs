@@ -17,11 +17,6 @@ namespace CookApps.AutoBattler
     public partial class UserDataManager : SingletonMonoBehaviour<UserDataManager>
     {
         /// <summary>
-        /// 새로운 챕터 개방 알림용
-        /// </summary>
-        public bool NewChapterOpenAlert { get; set; }
-
-        /// <summary>
         /// 저장 대기 중인 데이터들 (Category → Serialized Data)
         /// </summary>
         private readonly Dictionary<string, IMessage> _pendingSaveData = new Dictionary<string, IMessage>();

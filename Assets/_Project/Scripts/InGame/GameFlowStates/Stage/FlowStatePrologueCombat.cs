@@ -49,6 +49,9 @@ namespace CookApps.AutoBattler.Prologue
     {
         #region 필드
 
+        /// <summary>전체 시나리오 취소용 CancellationTokenSource</summary>
+        private CancellationTokenSource _scenarioCts;
+
         /// <summary>캐릭터 리스트 캐싱용 (ListPool 사용)</summary>
         private List<CharacterController> characters;
 
@@ -88,6 +91,7 @@ namespace CookApps.AutoBattler.Prologue
         /// </summary>
         public override void StateInit(object target)
         {
+            _scenarioCts = new CancellationTokenSource();
             characters = ListPool<CharacterController>.Get();
 
             InGameSynergyManager.Instance.ClearSynergyFx();
@@ -148,7 +152,7 @@ namespace CookApps.AutoBattler.Prologue
             }
 
             // 캐릭터 초기 이동 후 시나리오 시작
-            InitializeCharacterPositionsAndStartScenario().Forget();
+            InitializeCharacterPositionsAndStartScenario(_scenarioCts.Token).Forget();
         }
 
         /// <summary>
@@ -205,12 +209,11 @@ namespace CookApps.AutoBattler.Prologue
         /// <summary>
         /// 캐릭터 초기 위치 설정 및 시나리오 시작
         /// </summary>
-        private async UniTask InitializeCharacterPositionsAndStartScenario()
+        private async UniTask InitializeCharacterPositionsAndStartScenario(CancellationToken ct)
         {
             // 모든 캐릭터를 Ready 상태로 변경하여 이동 가능하도록 함
             await StopAllCharacters();
-
-
+            ct.ThrowIfCancellationRequested();
 
             // 초기 카메라 위치 설정 (왼쪽으로 치우침)
             ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).SetCameraSize(6, new Vector3(-6, 6.0f, -5), 4).Forget();
@@ -221,17 +224,18 @@ namespace CookApps.AutoBattler.Prologue
             MoveCharacterToDirection(_artesiaCharacter, 0, 4, 0.4f);
 
             // 이동 완료 후 모든 캐릭터 멈춤
-            await UniTask.Delay(2000);
+            await UniTask.Delay(2000, cancellationToken: ct);
             await StopAllCharacters();
+            ct.ThrowIfCancellationRequested();
 
             // 시나리오 시작
-            await InitializePrologueScenario();
+            await InitializePrologueScenario(ct);
         }
 
-        private async UniTask InitializePrologueScenario()
+        private async UniTask InitializePrologueScenario(CancellationToken ct)
         {
             // 시나리오 시작
-            await StartPrologueScenario();
+            await StartPrologueScenario(ct);
         }
 
         private CharacterController FindCharacterById(AllianceType allianceType, int characterId)
@@ -326,13 +330,13 @@ namespace CookApps.AutoBattler.Prologue
             return character != null;
         }
 
-        private async UniTask ActivateCharacterSkillWithWait(CharacterController character, string warningMessage = null, int skillID = 0)
+        private async UniTask ActivateCharacterSkillWithWait(CharacterController character, string warningMessage = null, int skillID = 0, CancellationToken ct = default)
         {
             (EffectCodeCharacterBase effectcode, bool actRes) activateSkillRes = ActivateCharacterSkill(character, warningMessage, skillID);
             if (activateSkillRes.actRes)
             {
-                await UniTask.WaitUntil(() => { return (character.GetCurrentState() is CharacterStateSkill); });
-                await UniTask.WaitWhile(() => { return (character.GetCurrentState() is CharacterStateSkill); });
+                await UniTask.WaitUntil(() => { return (character.GetCurrentState() is CharacterStateSkill); }, cancellationToken: ct);
+                await UniTask.WaitWhile(() => { return (character.GetCurrentState() is CharacterStateSkill); }, cancellationToken: ct);
             }
         }
 
@@ -433,25 +437,29 @@ namespace CookApps.AutoBattler.Prologue
         new PrologueScenarioData { step = 12, dialogueID = 200012, actionType = PrologueActionType.WitchFinalAttackAndArtesiaDefend }
         };
 
-        private async UniTask StartPrologueScenario()
+        private async UniTask StartPrologueScenario(CancellationToken ct)
         {
             foreach (var scenarioData in PrologueScenarioSteps)
             {
+                ct.ThrowIfCancellationRequested();
+
                 // 다이얼로그 전에 모든 캐릭터 멈춤
                 // await StopAllCharacters();
 
                 // 다이얼로그 표시 및 완료 대기 (dialogueID가 0이 아닌 경우만)
                 if (scenarioData.dialogueID > 0)
                 {
-                    await ShowDialogueAndWait(scenarioData.dialogueID);
+                    await ShowDialogueAndWait(scenarioData.dialogueID, ct);
                 }
 
+                ct.ThrowIfCancellationRequested();
+
                 // 액션 실행 (액션 타입에 따라 필요한 캐릭터들만 활성화)
-                await ExecuteAction(scenarioData.actionType);
+                await ExecuteAction(scenarioData.actionType, ct);
             }
         }
 
-        private async UniTask ShowDialogueAndWait(int dialogueGroupID)
+        private async UniTask ShowDialogueAndWait(int dialogueGroupID, CancellationToken ct)
         {
             var tcs = new UniTaskCompletionSource();
 
@@ -462,52 +470,52 @@ namespace CookApps.AutoBattler.Prologue
 
             SceneUILayerManager.Instance.PushUILayerAsync<DialoguePopup>(param).Forget();
 
-            await tcs.Task;
+            await tcs.Task.AttachExternalCancellation(ct);
         }
 
-        private async UniTask ExecuteAction(PrologueActionType actionType)
+        private async UniTask ExecuteAction(PrologueActionType actionType, CancellationToken ct)
         {
             switch (actionType)
             {
                 case PrologueActionType.WitchAttackPrepare:
-                    await TriggerWitchAttackPrepare();
+                    await TriggerWitchAttackPrepare(ct);
                     break;
                 case PrologueActionType.ClaySkillAndWitchAttack:
-                    await TriggerClaySkillAndWitchAttack();
+                    await TriggerClaySkillAndWitchAttack(ct);
                     break;
                 case PrologueActionType.ClayGroggy:
-                    await TriggerClayGroggyObsolete();
+                    await TriggerClayGroggyObsolete(ct);
                     break;
                 case PrologueActionType.FreeAttack3Seconds:
-                    await TriggerFreeAttack3Seconds();
+                    await TriggerFreeAttack3Seconds(ct);
                     break;
                 case PrologueActionType.WitchAoEAndCharactersDown:
-                    await TriggerWitchAoEAndCharactersDown();
+                    await TriggerWitchAoEAndCharactersDown(ct);
                     break;
                 case PrologueActionType.MarieJoin:
-                    await TriggerMarieJoin();
+                    await TriggerMarieJoin(ct);
                     break;
                 case PrologueActionType.MarieDown:
-                    await TriggerMarieDown();
+                    await TriggerMarieDown(ct);
                     break;
                 case PrologueActionType.ArtesiaSupernova:
-                    await TriggerArtesiaSupernova();
+                    await TriggerArtesiaSupernova(ct);
                     break;
                 case PrologueActionType.ArtesiaSkill:
-                    await TriggerArtesiaSkill();
+                    await TriggerArtesiaSkill(ct);
                     break;
                 case PrologueActionType.WitchHpRecoverAndFinalPrepare:
-                    await TriggerWitchHpRecoverAndFinalPrepare();
+                    await TriggerWitchHpRecoverAndFinalPrepare(ct);
                     break;
                 case PrologueActionType.WitchFinalPrepareFx:
-                    await TriggerWitchFinalPrepareFx();
+                    await TriggerWitchFinalPrepareFx(ct);
                     break;
                 case PrologueActionType.WitchFinalAttackAndArtesiaDefend:
-                    await TriggerWitchFinalAttackAndArtesiaDefend();
+                    await TriggerWitchFinalAttackAndArtesiaDefend(ct);
                     break;
                 case PrologueActionType.None:
                 default:
-                    await UniTask.Delay(2000); // 기본 대기 시간 (2초)
+                    await UniTask.Delay(2000, cancellationToken: ct); // 기본 대기 시간 (2초)
                     break;
             }
         }
@@ -517,25 +525,25 @@ namespace CookApps.AutoBattler.Prologue
         private InGameVfx9002 inGameVfx9002;
         // 1단계: 마녀 공격 준비 이펙트 Loop
 
-        private async UniTask TriggerWitchAttackPrepare()
+        private async UniTask TriggerWitchAttackPrepare(CancellationToken ct)
         {
             if (_witchCharacter == null) return;
             _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKLPRE);
-            await UniTask.Delay(750);
+            await UniTask.Delay(750, cancellationToken: ct);
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_laplace01);
-            await UniTask.Delay(250);
+            await UniTask.Delay(250, cancellationToken: ct);
             _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKLLOOP);
 
             var vfxTileIdx = _artesiaCharacter.CurrentTile.Int2Index + new int2(0, 1);
             laplasSkill1 = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_9002_1,
                 InGameObjectManager.Instance.InGameGrid.GetTile(vfxTileIdx).View.CachedTr.position);
             inGameVfx9002 = laplasSkill1.GetComponent<InGameVfx9002>();
-            await UniTask.Delay(1500); // 1.5초 대기
+            await UniTask.Delay(1500, cancellationToken: ct); // 1.5초 대기
         }
 
         List<InGameVfx> clayShieldList;
         // 2단계: 클레이 중앙 포지션 이동, 스킬 발동, 마녀 스킬 막기
-        private async UniTask TriggerClaySkillAndWitchAttack()
+        private async UniTask TriggerClaySkillAndWitchAttack(CancellationToken ct)
         {
             if (_clayCharacter == null) return;
 
@@ -545,8 +553,8 @@ namespace CookApps.AutoBattler.Prologue
                 {
                     MoveCharacterToDirection(_clayCharacter, 0, 2);
                     {
-                        await UniTask.WaitUntil(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
-                        await UniTask.WaitWhile(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
+                        await UniTask.WaitUntil(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
+                        await UniTask.WaitWhile(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
                     }
                 }));
                 charaSwitching.Add(UniTask.Create(async () =>
@@ -554,19 +562,20 @@ namespace CookApps.AutoBattler.Prologue
 
                     MoveCharacterToDirection(_artesiaCharacter, 0, -1);
                     {
-                        await UniTask.WaitUntil(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); });
-                        await UniTask.WaitWhile(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); });
+                        await UniTask.WaitUntil(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
+                        await UniTask.WaitWhile(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
                     }
 
                 }));
                 await UniTask.WhenAll(charaSwitching);
             }
+            ct.ThrowIfCancellationRequested();
             // 클레이 중앙으로 포지션 이동
-            await UniTask.NextFrame();
+            await UniTask.NextFrame(ct);
             _artesiaCharacter.GetCharacterView().LookAt(_artesiaCharacter.CurrentTile, _witchCharacter.CurrentTile);
-            await UniTask.NextFrame();
+            await UniTask.NextFrame(ct);
             _artesiaCharacter.AddNextState<CharacterStateReady>();
-            await UniTask.NextFrame();
+            await UniTask.NextFrame(ct);
 
             _clayCharacter.Target = _clayCharacter;
 
@@ -580,7 +589,7 @@ namespace CookApps.AutoBattler.Prologue
         }
 
         // 3단계: 클레이 그로기 모션
-        private async UniTask TriggerClayGroggyObsolete()
+        private async UniTask TriggerClayGroggyObsolete(CancellationToken ct)
         {
             // 라플라스 마녀 공격 준비 이펙트 종료
             if (_witchAttackPrepareFx != null)
@@ -590,7 +599,7 @@ namespace CookApps.AutoBattler.Prologue
             }
             _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKLEND);
             inGameVfx9002.SetPlay();
-            await UniTask.WaitUntil(inGameVfx9002.IsFinished);
+            await UniTask.WaitUntil(inGameVfx9002.IsFinished, cancellationToken: ct);
             ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(0.5f, 0.1f);
             foreach (var vfx in clayShieldList)
             {
@@ -598,40 +607,42 @@ namespace CookApps.AutoBattler.Prologue
             }
             {
                 List<UniTask> knockbacks = new();
-                knockbacks.Add(YuniCharacterKnockback());
-                knockbacks.Add(PhilliaCharacterKnockback());
-                knockbacks.Add(ClaycharacterKnockback());
+                knockbacks.Add(YuniCharacterKnockback(ct));
+                knockbacks.Add(PhilliaCharacterKnockback(ct));
+                knockbacks.Add(ClaycharacterKnockback(ct));
                 await UniTask.WhenAll(knockbacks);
             }
 
-            await UniTask.NextFrame();
+            ct.ThrowIfCancellationRequested();
+            await UniTask.NextFrame(ct);
             _yuniCharacter.GetCharacterView().LookAt(_yuniCharacter.CurrentTile, _witchCharacter.CurrentTile);
             _philiaCharacter.GetCharacterView().LookAt(_philiaCharacter.CurrentTile, _witchCharacter.CurrentTile);
             _clayCharacter.GetCharacterView().LookAt(_clayCharacter.CurrentTile, _witchCharacter.CurrentTile);
             _yuniCharacter.AddNextState<CharacterStateReady>();
             _philiaCharacter.AddNextState<CharacterStateReady>();
             _clayCharacter.AddNextState<CharacterStateReady>();
-            await UniTask.NextFrame();
+            await UniTask.NextFrame(ct);
 
-            await UniTask.Delay(150);
+            await UniTask.Delay(150, cancellationToken: ct);
             _clayCharacter.AddNextState<CharacterStateGroggy>();
 
             _witchCharacter.AddNextState<CharacterStateReady>();
-            await UniTask.Delay(1500); // 1.5초 대기
+            await UniTask.Delay(1500, cancellationToken: ct); // 1.5초 대기
 
         }
 
 
         // 4단계: 아트레시아+유니+필리아 자유 공격 3초, 마녀 지친 모션
-        private async UniTask TriggerFreeAttack3Seconds()
+        private async UniTask TriggerFreeAttack3Seconds(CancellationToken ct)
         {
-            await ManualFreeMoveActions();
+            await ManualFreeMoveActions(ct);
+            ct.ThrowIfCancellationRequested();
             _artesiaCharacter.Target = _witchCharacter;
             ActivateCharacterSkill(_artesiaCharacter);
             _yuniCharacter.Target = _artesiaCharacter;
             ActivateCharacterSkill(_yuniCharacter);
 
-            await UniTask.Delay(1000); // 1초 대기
+            await UniTask.Delay(1000, cancellationToken: ct); // 1초 대기
 
             if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
             {
@@ -644,17 +655,17 @@ namespace CookApps.AutoBattler.Prologue
                 _yuniCharacter.Target = _artesiaCharacter;
             }
 
-            var cts = new CancellationTokenSource();
-            UniTask.Create(async cst =>
+            var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+            UniTask.Create(async () =>
             {
-                while (!cts.IsCancellationRequested)
+                while (!linkedCts.IsCancellationRequested)
                 {
                     _philiaCharacter.Target = _witchCharacter;
-                    
-                    await ActivateCharacterSkillWithWait(_philiaCharacter);
+
+                    await ActivateCharacterSkillWithWait(_philiaCharacter, ct: linkedCts.Token);
                     _philiaCharacter.AddNextState<CharacterStateReady>();
                 }
-            }, cts.Token).Forget();
+            }).Forget();
             // 라플라스 마녀도 평타 공격 (공격 속도 2.0배)
             if (_witchCharacter != null && _witchCharacter.IsAlive)
             {
@@ -662,15 +673,15 @@ namespace CookApps.AutoBattler.Prologue
                 _witchCharacter.Target = _artesiaCharacter;
             }
 
-            await UniTask.Delay(2000); // 3초 자유 전투
+            await UniTask.Delay(2000, cancellationToken: ct); // 3초 자유 전투
             {
                 List<UniTask> uniTasks = new();
-                uniTasks.Add(ActivateCharacterSkillWithWait(_artesiaCharacter));
-                uniTasks.Add(ActivateCharacterSkillWithWait(_yuniCharacter));
+                uniTasks.Add(ActivateCharacterSkillWithWait(_artesiaCharacter, ct: ct));
+                uniTasks.Add(ActivateCharacterSkillWithWait(_yuniCharacter, ct: ct));
 
                 await UniTask.WhenAll(uniTasks);
             }
-            cts.Cancel();
+            linkedCts.Cancel();
 
             await StopAllCharacters();
 
@@ -690,31 +701,31 @@ namespace CookApps.AutoBattler.Prologue
         // }
 
         // 5단계: 마녀 광역 스킬, 유니/필리아/클레이 다운
-        private async UniTask TriggerWitchAoEAndCharactersDown()
+        private async UniTask TriggerWitchAoEAndCharactersDown(CancellationToken ct)
         {
             if (_witchCharacter == null) return;
 
             // 마녀 지친 모션 -> 아이들로 변경
             _witchCharacter.AddNextState<CharacterStateIdle>();
 
-            await UniTask.Delay(500); // 0.5초 대기
+            await UniTask.Delay(500, cancellationToken: ct); // 0.5초 대기
 
             // 라플라스 마녀 광역 스킬 발동
             _witchCharacter.Target = _clayCharacter;
             UniTask.Create(async () =>
             {
-                await UniTask.Delay(3000);
+                await UniTask.Delay(3000, cancellationToken: ct);
                 ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(1.0f, 0.5f);
             }).Forget();
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_laplace03);
-            await ActivateCharacterSkillWithWait(_witchCharacter, "마녀 광역 작동 안함", 1);
+            await ActivateCharacterSkillWithWait(_witchCharacter, "마녀 광역 작동 안함", 1, ct);
             _witchCharacter.AddNextState<CharacterStateReady>();
 
-            await UniTask.Delay(1000); // 1초 대기
+            await UniTask.Delay(1000, cancellationToken: ct); // 1초 대기
         }
 
         // 6단계: 마리에 합류 + 스킬 이펙트
-        private async UniTask TriggerMarieJoin()
+        private async UniTask TriggerMarieJoin(CancellationToken ct)
         {
             // 마리에 마녀 뒤쪽에서 전투 합류
             _marieCharacter = FindCharacterById(AllianceType.Player, PrologueID.프롤로그마리에ID);
@@ -733,22 +744,23 @@ namespace CookApps.AutoBattler.Prologue
 
                 if (spawnTile != null)
                 {
-                    await UniTask.NextFrame();
+                    await UniTask.NextFrame(ct);
                     // 마리에 소환
                     int marieCharacterId = PrologueID.프롤로그마리에ID;
                     int marieLevel = 1; // [TODO] 레벨 설정 필요
 
                     var marieStat = new CharacterStatData(marieCharacterId, marieLevel,
                         GlobalEffectCodeManager.Instance.GetAllGlobalEffectCodes());
-                    
+
                     _marieCharacter = await InGameObjectManager.Instance.AddCharacterToField(
-                        marieStat, 
+                        marieStat,
                         new int2(spawnTile.X, spawnTile.Y),
                         AllianceType.Player,
-                        typeof(CharacterStateReady), 
-                        true, 
+                        typeof(CharacterStateReady),
+                        true,
                         HpBarType.HpBar | HpBarType.Buff);  // <-- 여기 변경
-                    
+
+                    ct.ThrowIfCancellationRequested();
 
                     _marieCharacter.GetCharacterView().LookAt(spawnTile, _witchCharacter.CurrentTile);
 
@@ -758,7 +770,7 @@ namespace CookApps.AutoBattler.Prologue
                     InGameObjectManager.Instance.UpdateSumMaxHp(AllianceType.Enemy);
                     _marieCharacter.UpdateHpBar();  // ← 추가
                     Debug.LogColor($"마리에 합류: {marieCharacterId} at ({spawnTile.X}, {spawnTile.Y})");
-                    await UniTask.NextFrame();
+                    await UniTask.NextFrame(ct);
                     if (_marieCharacter != null && _marieCharacter.IsAlive)
                     {
                         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3405_01);
@@ -766,12 +778,12 @@ namespace CookApps.AutoBattler.Prologue
                         // 거의 동시에 마리에 스킬 이펙트 (마리에 디버프 스킬 발동)
                         UniTask.Create(async () =>
                         {
-                            await UniTask.Delay(500);
+                            await UniTask.Delay(500, cancellationToken: ct);
                             InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_17563405, _witchCharacter.SkillBottomFXTransformFollowable);
                             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_a_3405_02);
                             for (int i = 1; i <= 3; i++)
                             {
-                                await UniTask.Delay(100);
+                                await UniTask.Delay(100, cancellationToken: ct);
                                 CharacterController.DamageInfo damageInfo = CharacterController.DamageInfo.Create(
                                     damageAmount: (51 * i) + i * i,
                                     source: 0,
@@ -783,7 +795,7 @@ namespace CookApps.AutoBattler.Prologue
                                 _witchCharacter.GetDamaged(damageInfo, _marieCharacter);
                             }
                         }).Forget();
-                        await ActivateCharacterSkillWithWait(_marieCharacter, "마리에 스킬을 찾을 수 없습니다.");
+                        await ActivateCharacterSkillWithWait(_marieCharacter, "마리에 스킬을 찾을 수 없습니다.", ct: ct);
                         _marieCharacter.Target = _witchCharacter;
                     }
 
@@ -796,7 +808,7 @@ namespace CookApps.AutoBattler.Prologue
         InGameVfxArtesiaCharge artesiaChargeVFX2;
 
         // 7단계: 마리에 다운 (아트레시아 기모은 후 따라감, 마리에 먼저 공격)
-        private async UniTask TriggerMarieDown()
+        private async UniTask TriggerMarieDown(CancellationToken ct)
         {
             // 아트레시아 0.5초 대기 후 마녀 공격
             if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
@@ -805,10 +817,11 @@ namespace CookApps.AutoBattler.Prologue
                 artesiaChargeVFX = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_aura_01, _artesiaCharacter.SkillRootTransformFollowable);
                 artesiaChargeVFX2 = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_prologue_artesia_charge, _artesiaCharacter.SkillRootTransformFollowable) as InGameVfxArtesiaCharge;
                 Debug.Log($"artesiaChargeVFX2 is null {artesiaChargeVFX2 == null}");
-                await UniTask.Delay(600);
+                await UniTask.Delay(600, cancellationToken: ct);
                 _artesiaCharacter.AddNextState<CharacterStateIdle>();
                 _artesiaCharacter.Target = _witchCharacter;
             }
+            ct.ThrowIfCancellationRequested();
             _marieCharacter.AddNextState<CharacterStateIdle>();
             _marieCharacter.Target = _witchCharacter;
 
@@ -821,10 +834,11 @@ namespace CookApps.AutoBattler.Prologue
             }
 
             // 3초 타임아웃 또는 마리에가 죽을 때까지 대기
-            var timeout = UniTask.Delay(3000);
-            var waitForDeath = UniTask.WaitUntil(() => _marieCharacter == null || !_marieCharacter.IsAlive);
+            var timeout = UniTask.Delay(3000, cancellationToken: ct);
+            var waitForDeath = UniTask.WaitUntil(() => _marieCharacter == null || !_marieCharacter.IsAlive, cancellationToken: ct);
             await UniTask.WhenAny(timeout, waitForDeath);
 
+            ct.ThrowIfCancellationRequested();
             // 마리에 → Dead 상태 (3초 후에도 살아있으면 강제 데미지)
             if (_marieCharacter != null && _marieCharacter.IsAlive)
             {
@@ -832,46 +846,45 @@ namespace CookApps.AutoBattler.Prologue
             }
 
             await StopAllCharacters();
-            await UniTask.NextFrame();
-            _witchCharacter.GetCharacterView().LookAt(_witchCharacter.CurrentTile, _artesiaCharacter.CurrentTile);
-            _witchCharacter.AddNextState<CharacterStateGroggy>();
-            await UniTask.NextFrame();
+            await UniTask.NextFrame(ct);
+            _witchCharacter?.GetCharacterView()?.LookAt(_witchCharacter.CurrentTile, _artesiaCharacter.CurrentTile);
+            _witchCharacter?.AddNextState<CharacterStateGroggy>();
+            await UniTask.NextFrame(ct);
 
-            await UniTask.Delay(1000); // 1초 대기
+            await UniTask.Delay(1000, cancellationToken: ct); // 1초 대기
         }
 
         // 8단계: 아트레시아 초신성 모드 진입 + 스킬 발동
-        private async UniTask TriggerArtesiaSupernova()
+        private async UniTask TriggerArtesiaSupernova(CancellationToken ct)
         {
             if (_artesiaCharacter != null)
             {
-                artesiaChargeVFX.Remove();
-                artesiaChargeVFX2.TriggerExplosion();
+                artesiaChargeVFX?.Remove();
+                artesiaChargeVFX2?.TriggerExplosion();
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_nova_spirit);
                 artesiaChargeVFX = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_asterism_sn_aura_03, _artesiaCharacter.SkillRootTransformFollowable);
             }
-            await UniTask.Delay(1000); // 1초 대기
-            artesiaChargeVFX2.Clear();
-            artesiaChargeVFX2.Remove();
+            await UniTask.Delay(1000, cancellationToken: ct); // 1초 대기
+            artesiaChargeVFX2?.Clear();
+            artesiaChargeVFX2?.Remove();
         }
 
 
         // 9 단계 : 추후 하나의 다이얼로그 더 추가해서 해치웠을까요 물어보자.
-        private async UniTask TriggerArtesiaSkill()
+        private async UniTask TriggerArtesiaSkill(CancellationToken ct)
         {
-
             _artesiaCharacter.Target = _witchCharacter;
-            await ActivateCharacterSkillWithWait(_artesiaCharacter, "아트레시아 스킬을 찾을 수 없습니다.", 1);
+            await ActivateCharacterSkillWithWait(_artesiaCharacter, "아트레시아 스킬을 찾을 수 없습니다.", 1, ct);
             _artesiaCharacter.AddNextState<CharacterStateReady>();
-            await UniTask.Delay(500); // 1.5초 대기
-            artesiaChargeVFX.Remove();
-            await UniTask.Delay(500); // 1.5초 대기
+            await UniTask.Delay(500, cancellationToken: ct); // 1.5초 대기
+            artesiaChargeVFX?.Remove();
+            await UniTask.Delay(500, cancellationToken: ct); // 1.5초 대기
         }
 
         private InGameVfx _witchFinalPrepareFx; // 마녀 최후의 공격 준비 이펙트
 
         // 10 단계: 마녀 체력 회복, 최후 스킬 대기 모션
-        private async UniTask TriggerWitchHpRecoverAndFinalPrepare()
+        private async UniTask TriggerWitchHpRecoverAndFinalPrepare(CancellationToken ct)
         {
             // 아트레시아 스킬 발동
             if (_witchCharacter == null) return;
@@ -880,20 +893,20 @@ namespace CookApps.AutoBattler.Prologue
             var vfx = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.Skill_9002_4, _witchCharacter.SkillBottomFXTransformFollowable);
             vfx.CachedTr.localPosition += new UnityEngine.Vector3(0, 0, -4);
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_laplace04);
-            await UniTask.Delay(1000);
+            await UniTask.Delay(1000, cancellationToken: ct);
             _witchCharacter.AddNextState<CharacterStateReady>();
             _witchCharacter.GetHealed(9999.0f, _witchCharacter, 0);
-            await UniTask.Delay(1000);
+            await UniTask.Delay(1000, cancellationToken: ct);
 
             // 라플라스 마녀 최후 스킬 대기 모션
             // [TODO] 대기 모션 재생
             Debug.LogColor("라플라스 마녀 최후 스킬 대기 모션");
 
-            await UniTask.Delay(1500); // 1.5초 대기
+            await UniTask.Delay(1500, cancellationToken: ct); // 1.5초 대기
         }
 
         // 11단계: 마녀 최후 공격 준비 이펙트
-        private async UniTask TriggerWitchFinalPrepareFx()
+        private async UniTask TriggerWitchFinalPrepareFx(CancellationToken ct)
         {
             if (_witchCharacter == null) return;
             ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera).ShakeCamera(600, 0.1f);
@@ -909,13 +922,13 @@ namespace CookApps.AutoBattler.Prologue
             // [TODO] 필요시 더 강력한 이펙트로 변경
             // 예: _witchCharacter.GetCharacterView().PlayEffect("WitchFinalPrepare");
 
-            await UniTask.Delay(2000); // 1초 대기
+            await UniTask.Delay(2000, cancellationToken: ct); // 1초 대기
             _witchCharacter.GetCharacterView().PlayAnimation(AnimationKey.SKL2LOOP);
 
         }
 
         // 12단계: 마녀 최후 공격, 아트레시아 방어, 전투 종료
-        private async UniTask TriggerWitchFinalAttackAndArtesiaDefend()
+        private async UniTask TriggerWitchFinalAttackAndArtesiaDefend(CancellationToken ct)
         {
             // ! 암전
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_prolog_battle_endtransition);
@@ -936,11 +949,11 @@ namespace CookApps.AutoBattler.Prologue
             // // 라플라스 마녀 최후의 공격 시전
             // ActivateCharacterSkill(_witchCharacter, "마녀 최후의 공격 스킬을 찾을 수 없습니다.");
 
-            await UniTask.Delay(1000); // 공격 애니메이션 대기
+            await UniTask.Delay(1000, cancellationToken: ct); // 공격 애니메이션 대기
 
             // 아트레시아가 마지막 공격을 막아냄
             // [TODO] 방어/막기 애니메이션/이펙트 재생
-            _artesiaCharacter.GetCharacterView().PlayAnimation(AnimationKey.PARRY);
+            _artesiaCharacter?.GetCharacterView()?.PlayAnimation(AnimationKey.PARRY);
             Debug.LogColor("아트레시아가 마지막 공격을 막아냄");
 
 
@@ -963,6 +976,11 @@ namespace CookApps.AutoBattler.Prologue
 
         public override void StateEnd(bool isForced)
         {
+            // 모든 실행 중인 Task 취소
+            _scenarioCts?.Cancel();
+            _scenarioCts?.Dispose();
+            _scenarioCts = null;
+
             foreach (var character in InGameObjectManager.Instance.GetCharacterList(AllianceType.Player))
             {
                 character.RemoveSynergyEffectCodeALL();
@@ -996,68 +1014,68 @@ namespace CookApps.AutoBattler.Prologue
             InGameMainFlowManager.Instance.AddNextState<FlowStatePrologueClear>();
         }
 
-        private async UniTask ManualFreeMoveActions()
+        private async UniTask ManualFreeMoveActions(CancellationToken ct)
         {
             List<UniTask> moveTasks = new();
             if (_artesiaCharacter != null && _artesiaCharacter.IsAlive)
-                moveTasks.Add(ArtesiaMovement());
+                moveTasks.Add(ArtesiaMovement(ct));
             if (_yuniCharacter != null && _yuniCharacter.IsAlive)
-                moveTasks.Add(YuniMovement());
+                moveTasks.Add(YuniMovement(ct));
             if (_philiaCharacter != null && _philiaCharacter.IsAlive)
-                moveTasks.Add(PhilliaMovement());
+                moveTasks.Add(PhilliaMovement(ct));
             await UniTask.WhenAll(moveTasks);
         }
 
-        private async UniTask YuniCharacterKnockback()
+        private async UniTask YuniCharacterKnockback(CancellationToken ct)
         {
             KnockbackHelper.ApplyKnockback(_witchCharacter, _yuniCharacter, tileIdx: new int2(-1, -1), duration: 0.4f);
 
             // await UniTask.WaitUntil(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateForceMove) || (_yuniCharacter.GetCurrentState() is CharacterStateMove); });
-            await UniTask.Delay(400);
-            await UniTask.WaitUntil(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateIdle); });
+            await UniTask.Delay(400, cancellationToken: ct);
+            await UniTask.WaitUntil(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateIdle); }, cancellationToken: ct);
             _yuniCharacter.AddNextState<CharacterStateReady>();
         }
 
-        private async UniTask PhilliaCharacterKnockback()
+        private async UniTask PhilliaCharacterKnockback(CancellationToken ct)
         {
 
             KnockbackHelper.ApplyKnockback(_witchCharacter, _philiaCharacter, tileIdx: new int2(1, -1), duration: 0.4f);
 
             // await UniTask.WaitUntil(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
-            await UniTask.Delay(400);
-            await UniTask.WaitUntil(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateIdle); });
+            await UniTask.Delay(400, cancellationToken: ct);
+            await UniTask.WaitUntil(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateIdle); }, cancellationToken: ct);
             _philiaCharacter.AddNextState<CharacterStateReady>();
         }
 
-        private async UniTask ClaycharacterKnockback()
+        private async UniTask ClaycharacterKnockback(CancellationToken ct)
         {
             KnockbackHelper.ApplyKnockback(_witchCharacter, _clayCharacter, tileIdx: new int2(0, -1), duration: 0.4f);
 
             // await UniTask.WaitUntil(() => { return (_clayCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
-            await UniTask.Delay(400);
-            await UniTask.WaitUntil(() => { return (_clayCharacter.GetCurrentState() is CharacterStateIdle); });
+            await UniTask.Delay(400, cancellationToken: ct);
+            await UniTask.WaitUntil(() => { return (_clayCharacter.GetCurrentState() is CharacterStateIdle); }, cancellationToken: ct);
             _clayCharacter.AddNextState<CharacterStateReady>();
         }
 
-        private async UniTask ArtesiaMovement()
+        private async UniTask ArtesiaMovement(CancellationToken ct)
         {
             // 클레이 중앙으로 포지션 이동
             MoveCharacterToDirection(_artesiaCharacter, -1, 1, 3);
             {
-                await UniTask.WaitUntil(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); });
-                await UniTask.WaitWhile(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); });
+                await UniTask.WaitUntil(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
+                await UniTask.WaitWhile(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
             }
             // 클레이 중앙으로 포지션 이동
             MoveCharacterToDirection(_artesiaCharacter, 0, 1, 3);
             {
-                await UniTask.WaitUntil(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); });
-                await UniTask.WaitWhile(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); });
+                await UniTask.WaitUntil(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
+                await UniTask.WaitWhile(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
             }
             // 클레이 중앙으로 포지션 이동
             if (MoveCharacterToDirection(_artesiaCharacter, 1, 1, 3))
             {
-                await UniTask.WaitUntil(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); });
-                await UniTask.WaitWhile(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); });
+                await UniTask.WaitUntil(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_artesiaCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
+                await UniTask.WaitWhile(() => { return (_artesiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_clayCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
             }
             else
             {
@@ -1067,19 +1085,19 @@ namespace CookApps.AutoBattler.Prologue
 
         }
 
-        private async UniTask YuniMovement()
+        private async UniTask YuniMovement(CancellationToken ct)
         {
             MoveCharacterToDirection(_yuniCharacter, 0, 2, 0.666f);
-            await UniTask.WaitUntil(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateForceMove) || (_yuniCharacter.GetCurrentState() is CharacterStateMove); });
-            await UniTask.WaitWhile(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateForceMove) || (_yuniCharacter.GetCurrentState() is CharacterStateMove); });
+            await UniTask.WaitUntil(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateForceMove) || (_yuniCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
+            await UniTask.WaitWhile(() => { return (_yuniCharacter.GetCurrentState() is CharacterStateForceMove) || (_yuniCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
 
         }
 
-        private async UniTask PhilliaMovement()
+        private async UniTask PhilliaMovement(CancellationToken ct)
         {
             MoveCharacterToDirection(_philiaCharacter, 0, 2, 0.666f);
-            await UniTask.WaitUntil(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
-            await UniTask.WaitWhile(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); });
+            await UniTask.WaitUntil(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
+            await UniTask.WaitWhile(() => { return (_philiaCharacter.GetCurrentState() is CharacterStateForceMove) || (_philiaCharacter.GetCurrentState() is CharacterStateMove); }, cancellationToken: ct);
         }
     }
 

@@ -941,6 +941,19 @@ namespace CookApps.AutoBattler
             return result;
         }
 
+        public RewardInfo GetSpecRewardInfo(ContentType contentType, int contentKey, DifficultyType difficultyType)
+        {
+            for (int i = 0; i < RewardInfo.All.Count; i++)
+            {
+                var data = RewardInfo.All[i];
+                if (data.content_type == contentType
+                    && data.content_key_value == contentKey
+                    && data.difficulty_type == difficultyType)
+                    return data;
+            }
+            return null;
+        }
+
         // 스테이지 보상 데이터를 RewardItem 리스트로 변환
         public List<RewardItem> GetRewardItemListByStageRewardList(List<StageReward> stageRewardList)
         {

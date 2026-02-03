@@ -36,57 +36,55 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            SetChapterClearPopup();
+            SetChapterClearPopupAsync().Forget();
         }
 
-        private void SetChapterClearPopup()
+        private async UniTask SetChapterClearPopupAsync()
         {
             ClearPopup();
 
             int lastClearStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
             var lastClearStageData = SpecDataManager.Instance.GetStageData(lastClearStageID);
 
+            {
+                
+                // 지휘자 스킬 데이터 세팅
+                int nextChapterID = lastClearStageData.chapter_id + 1;
+                var commanderSkillDataList = SpecDataManager.Instance.GetCommanderSkillList(nextChapterID);
+                bool isExistCommanderSkill = commanderSkillDataList.Count > 0;
+
+                // 애니메이션 컨트롤
+                if (isExistCommanderSkill)
+                {
+                    _commanderSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCommanderSkillSprite(commanderSkillDataList[0].commander_skill_id)).Forget();
+
+                    baseAnimator.SetTrigger("SetCommanderSkill");
+                }
+                else
+                {
+                    baseAnimator.SetTrigger("SetRewardOnly");
+                }
+            }
+
             string chpaterClearString = LanguageManager.Instance.GetDefaultText("CHAPTER_CLEAR_GUIDE");
             _chapterClearTitleText.text = string.Format(chpaterClearString, lastClearStageData.chapter_id);
 
-            int nextChapterID = lastClearStageData.chapter_id + 1;
-
-            // 보상 데이터 세팅
-            List<RewardItem> newRewardItemList = new List<RewardItem>();
-            var rewardInfoList = SpecDataManager.Instance.GetSpecRewardInfoList(ContentType.CHAPTER, lastClearStageData.chapter_id, lastClearStageData.difficulty_type);
-
-            foreach (var rewardItem in rewardInfoList)
+            var rewardInfo = SpecDataManager.Instance.GetSpecRewardInfo(ContentType.CHAPTER, lastClearStageData.chapter_id, lastClearStageData.difficulty_type);
+            // 서버에 보상 수령 요청
+            var resp = await NetManager.Instance.CustomLobby.ClaimOtherRewardAsync((uint)rewardInfo.reward_id);
+            if (resp != null && resp.IsSuccess && resp.Rewards != null && resp.Rewards.Count > 0)
             {
-                GameObject newRewardItem = Instantiate(_rewardItemSlotObject, _rewardItemListLayerObject.transform);
-                RewardItemSlot rewardItemSlot = newRewardItem.GetComponent<RewardItemSlot>();
+                // 보상 수령 처리
+                ClientProgressData.Get().AddReceivedRewardId(rewardInfo.reward_id);
 
-                // ItemType의 삭제로 인해 변경.(new RewardItem(rewardItem.item_type, rewardItem.item_key, rewardItem.item_count))
-                RewardItem newReward = new RewardItem(rewardItem.item_id, rewardItem.item_count);
-
-                rewardItemSlot.SetRewardSlot(newReward);
-
-                newRewardItemList.Add(newReward);
+                for (int i = 0; i < resp.Rewards.Count; i++)
+                {
+                    var rewardItem = new RewardItem(resp.Rewards[i]);
+                    GameObject newRewardItem = Instantiate(_rewardItemSlotObject, _rewardItemListLayerObject.transform);
+                    RewardItemSlot rewardItemSlot = newRewardItem.GetComponent<RewardItemSlot>();
+                    rewardItemSlot.SetRewardSlot(rewardItem);
+                }
             }
-
-            // 지휘자 스킬 데이터 세팅
-            var commanderSkillDataList = SpecDataManager.Instance.GetCommanderSkillList(nextChapterID);
-            bool isExistCommanderSkill = commanderSkillDataList.Count > 0;
-
-            // 애니메이션 컨트롤
-            if (isExistCommanderSkill)
-            {
-                _commanderSkillIconSpriteLoader.SetSprite(SpriteNameParser.GetCommanderSkillSprite(commanderSkillDataList[0].commander_skill_id)).Forget();
-
-                baseAnimator.SetTrigger("SetCommanderSkill");
-            }
-            else
-            {
-                baseAnimator.SetTrigger("SetRewardOnly");
-            }
-
-            // 보상 수령 처리 (지휘자 스킬은 UserData에서 이미 획득 처리)
-            // TODO: api 마이그레이션
-            // UserDataManager.Instance.IncreaseRewardItemList(newRewardItemList, true);
         }
 
         private void OnClickGetRewardButton()
