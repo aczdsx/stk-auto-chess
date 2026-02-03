@@ -78,8 +78,12 @@ namespace CookApps.AutoBattler
             }
             else
             {
+                var walletBridge = new InventoryDataBridge();
+                var currentAsset = walletBridge.GetCurrency(buildInfo.item_id);
+                var canPay = (int)currentAsset >= buildInfo.item_INT;
+                
                 installButton.gameObject.SetActive(true);
-                installButton.SetClickableState(facilityInfo.isCanInstall);
+                installButton.SetClickableState(facilityInfo.isCanInstall && canPay);
                 conditionText.text = "";
             }
 

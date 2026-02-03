@@ -36,6 +36,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private bool _allowClose = false; // 첫 닉네임 설정 시 닫기 불가
 
         private const string NicknameResultVariable = "NicknameResult";
+        private const int MaxEnglishChars = 16;  // 영어 최대 16자
+        private const int MaxKoreanChars = 12;   // 한글 최대 12자
+        private const float KoreanWeight = (float)MaxEnglishChars / MaxKoreanChars; // 1.25
 
         private UniTaskCompletionSource _spawnCompletionSource;
         private bool _isCompleted;
@@ -67,7 +70,7 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            _confirmButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickConfirmButton()).AddTo(this);
+            _confirmButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickConfirmButtonAsync(), AwaitOperation.Drop).AddTo(this);
         }
 
         private void OnEnable()
@@ -160,18 +163,78 @@ namespace CookApps.AutoBattler
         {
             return _spawnCompletionSource?.Task ?? UniTask.CompletedTask;
         }
-
-        private async void OnClickConfirmButton()
+        
+        public void OnNicknameInputChanged(string value)
         {
-            // 닉네임 유효성 체크
-            int minLength = SpecDataManager.Instance.GetGameConfig<int>("min_user_name_length");
-            int maxLength = SpecDataManager.Instance.GetGameConfig<int>("max_user_name_length");
-
-            int byteCount = Encoding.UTF8.GetByteCount(_nicknameInputField.text);
-
-            if (byteCount < minLength || byteCount > maxLength)
+            // 공백 제거
+            string noSpace = _nicknameInputField.text.Replace(" ", "");
+            if (noSpace != _nicknameInputField.text)
             {
-                ShowToast("ERROR_SERVER_NICKNAME_LENGTH");
+                _nicknameInputField.text = noSpace;
+                _nicknameInputField.caretPosition = noSpace.Length;
+                return;
+            }
+
+            // 글자 수 제한 체크 및 자르기
+            string trimmed = TrimToMaxLength(_nicknameInputField.text);
+            if (trimmed != _nicknameInputField.text)
+            {
+                _nicknameInputField.text = trimmed;
+                _nicknameInputField.caretPosition = trimmed.Length;
+                return; // text 변경으로 다시 호출됨
+            }
+
+            var nickname = _nicknameInputField.text.Trim();
+            _confirmButton.interactable = !string.IsNullOrEmpty(nickname);
+        }
+
+        /// <summary>
+        /// 가중치 기반 글자 수 계산 (영어 15자, 한글 12자 기준)
+        /// </summary>
+        private float CalculateWeightedLength(string text)
+        {
+            var weight = 0f;
+            foreach (var c in text)
+            {
+                if (c <= 127) // ASCII (영어, 숫자, 특수문자)
+                    weight += 1f;
+                else // 한글 등 멀티바이트 문자
+                    weight += KoreanWeight;
+            }
+
+            return weight;
+        }
+
+        /// <summary>
+        /// 최대 글자 수 초과시 자르기
+        /// </summary>
+        private string TrimToMaxLength(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return text;
+
+            float currentWeight = 0f;
+            int lastValidIndex = 0;
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                char c = text[i];
+                float charWeight = c <= 127 ? 1f : KoreanWeight;
+
+                if (currentWeight + charWeight > MaxEnglishChars)
+                    break;
+
+                currentWeight += charWeight;
+                lastValidIndex = i + 1;
+            }
+
+            return text.Substring(0, lastValidIndex);
+        }
+
+        private async Cysharp.Threading.Tasks.UniTask OnClickConfirmButtonAsync()
+        {
+            float weightLength = CalculateWeightedLength(_nicknameInputField.text);
+            if (weightLength < 1)
+            {
                 return;
             }
 

@@ -12,13 +12,19 @@ Shader "Custom/SpriteLitDissolve"
         [Header(Dissolve)]
         _Dissolve("Dissolve", Range(0, 1)) = 0
         _DissolveDirection("Dissolve Direction", Vector) = (0, 1, 0, 0)
+        _DirectionStrength("Direction Strength", Range(0, 1)) = 0.5
+        [Toggle(_USE_NOISE_TEX)] _UseNoiseTex("Use Noise Texture", Float) = 0
+        _NoiseTex("Noise Texture", 2D) = "white" {}
         _NoiseScale("Noise Scale", Float) = 50
+
+        [HideInInspector] _BoundsMin("Bounds Min", Vector) = (-0.5, -0.5, 0, 0)
+        [HideInInspector] _BoundsMax("Bounds Max", Vector) = (0.5, 0.5, 0, 0)
         
         [Header(Edge Glow)]
         [HDR] _EdgeColorA("Edge Color A", Color) = (0, 1, 1, 1)
         [HDR] _EdgeColorB("Edge Color B", Color) = (0, 0.5, 1, 1)
-        _EdgeThicknessA("Edge Thickness A", Range(0, 0.1)) = 0.05
-        _EdgeThicknessB("Edge Thickness B", Range(0, 0.05)) = 0.02
+        _EdgeThicknessA("Edge Thickness A", Range(0, 0.5)) = 0.05
+        _EdgeThicknessB("Edge Thickness B", Range(0, 0.2)) = 0.02
         
         [Header(Rendering)]
         _Cutoff("Alpha Cutoff", Range(0, 1)) = 0.5
@@ -42,8 +48,9 @@ Shader "Custom/SpriteLitDissolve"
         }
         
         Cull Off
-        ZWrite On 
-        
+        ZWrite On
+        Blend One OneMinusSrcAlpha
+
         Pass
         {
             Name "Sprite Lit"
@@ -53,6 +60,7 @@ Shader "Custom/SpriteLitDissolve"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile _ _USE_NORMALMAP
+            #pragma multi_compile _ _USE_NOISE_TEX
             #pragma multi_compile USE_SHAPE_LIGHT_TYPE_0 __
             #pragma multi_compile USE_SHAPE_LIGHT_TYPE_1 __
             #pragma multi_compile USE_SHAPE_LIGHT_TYPE_2 __
@@ -65,6 +73,8 @@ Shader "Custom/SpriteLitDissolve"
             SAMPLER(sampler_MainTex);
             TEXTURE2D(_NormalTex);
             SAMPLER(sampler_NormalTex);
+            TEXTURE2D(_NoiseTex);
+            SAMPLER(sampler_NoiseTex);
             
             #if USE_SHAPE_LIGHT_TYPE_0
             TEXTURE2D(_ShapeLightTexture0);
@@ -102,9 +112,13 @@ Shader "Custom/SpriteLitDissolve"
                 float4 _MainTex_ST;
                 float4 _TintColor;
                 float4 _NormalTex_ST;
+                float4 _NoiseTex_ST;
                 float _Dissolve;
-                float3 _DissolveDirection;
+                float4 _DissolveDirection;
+                float _DirectionStrength;
                 float _NoiseScale;
+                float4 _BoundsMin;
+                float4 _BoundsMax;
                 float4 _EdgeColorA;
                 float4 _EdgeColorB;
                 float _EdgeThicknessA;
@@ -178,12 +192,26 @@ Shader "Custom/SpriteLitDissolve"
                 float4 mainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
                 float4 baseColor = mainTex * input.color;
                 
-                float3 dissolveDir = normalize(_DissolveDirection);
-                float dissolvePos = dot(input.positionOS, dissolveDir) * 0.5 + 0.5;
-                float noiseVal = fbmNoise(input.uv, _NoiseScale);
-                float finalDissolve = dissolvePos + noiseVal * 0.3;
-                float dissolveThreshold = _Dissolve * 0.95;
-                float dissolveAlpha = step(dissolveThreshold, finalDissolve);
+                // 노이즈 값
+                #if _USE_NOISE_TEX
+                    float2 noiseUV = input.uv * _NoiseTex_ST.xy + _NoiseTex_ST.zw;
+                    float noiseVal = SAMPLE_TEXTURE2D(_NoiseTex, sampler_NoiseTex, noiseUV).r;
+                #else
+                    float noiseVal = fbmNoise(input.uv, _NoiseScale);
+                #endif
+
+                // 바운드 기준 정규화된 로컬 좌표 (0~1)
+                float2 normalizedPos = (input.positionOS.xy - _BoundsMin.xy) / (_BoundsMax.xy - _BoundsMin.xy + 0.0001);
+
+                // 방향성 디졸브
+                float2 dir = normalize(_DissolveDirection.xy + 0.0001);
+                float dirValue = dot(normalizedPos - 0.5, dir) + 0.5;
+
+                // 노이즈 + 방향 혼합
+                float finalDissolve = saturate(lerp(noiseVal, dirValue, _DirectionStrength) + noiseVal * (1.0 - _DirectionStrength) * 0.3);
+                float dissolveThreshold = _Dissolve * 1.05;
+                // _Dissolve가 0이면 완전히 보이도록
+                float dissolveAlpha = _Dissolve < 0.001 ? 1.0 : step(dissolveThreshold, finalDissolve);
 
                 float edgeA = step(dissolveThreshold, finalDissolve) - step(dissolveThreshold + _EdgeThicknessA, finalDissolve);
                 float edgeB = step(dissolveThreshold + _EdgeThicknessA, finalDissolve) - step(dissolveThreshold + _EdgeThicknessA + _EdgeThicknessB, finalDissolve);
@@ -222,20 +250,27 @@ Shader "Custom/SpriteLitDissolve"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile _ _USE_NOISE_TEX
             #pragma multi_compile_instancing
-            
+
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            
+
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
+            TEXTURE2D(_NoiseTex);
+            SAMPLER(sampler_NoiseTex);
 
             CBUFFER_START(UnityPerMaterial)
                 float4 _MainTex_ST;
                 float4 _TintColor;
                 float4 _NormalTex_ST;
+                float4 _NoiseTex_ST;
                 float _Dissolve;
-                float3 _DissolveDirection;
+                float4 _DissolveDirection;
+                float _DirectionStrength;
                 float _NoiseScale;
+                float4 _BoundsMin;
+                float4 _BoundsMax;
                 float4 _EdgeColorA;
                 float4 _EdgeColorB;
                 float _EdgeThicknessA;
@@ -268,7 +303,7 @@ Shader "Custom/SpriteLitDissolve"
                 p3 += dot(p3, p3.yzx + 33.33);
                 return frac((p3.x + p3.y) * p3.z);
             }
-            
+
             float noise(float2 uv)
             {
                 float2 i = floor(uv);
@@ -280,7 +315,7 @@ Shader "Custom/SpriteLitDissolve"
                 float d = hash(i + float2(1.0, 1.0));
                 return lerp(lerp(a, b, f.x), lerp(c, d, f.x), f.y);
             }
-            
+
             float fbmNoise(float2 uv, float scale)
             {
                 float n = 0.0;
@@ -288,7 +323,7 @@ Shader "Custom/SpriteLitDissolve"
                 n += 0.25 * noise(uv * scale * 2.0);
                 return n * 1.333;
             }
-            
+
             Varyings vert(Attributes input)
             {
                 Varyings output;
@@ -300,18 +335,32 @@ Shader "Custom/SpriteLitDissolve"
                 output.color = input.color * _TintColor * _RendererColor;
                 return output;
             }
-            
+
             float4 frag(Varyings input) : SV_Target
             {
                 float4 mainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
                 float4 baseColor = mainTex * input.color;
-                
-                float3 dissolveDir = normalize(_DissolveDirection);
-                float dissolvePos = dot(input.positionOS, dissolveDir) * 0.5 + 0.5;
-                float noiseVal = fbmNoise(input.uv, _NoiseScale);
-                float finalDissolve = dissolvePos + noiseVal * 0.3;
-                float dissolveThreshold = _Dissolve * 0.95;
-                float dissolveAlpha = step(dissolveThreshold, finalDissolve);
+
+                // 노이즈 값
+                #if _USE_NOISE_TEX
+                    float2 noiseUV = input.uv * _NoiseTex_ST.xy + _NoiseTex_ST.zw;
+                    float noiseVal = SAMPLE_TEXTURE2D(_NoiseTex, sampler_NoiseTex, noiseUV).r;
+                #else
+                    float noiseVal = fbmNoise(input.uv, _NoiseScale);
+                #endif
+
+                // 바운드 기준 정규화된 로컬 좌표 (0~1)
+                float2 normalizedPos = (input.positionOS.xy - _BoundsMin.xy) / (_BoundsMax.xy - _BoundsMin.xy + 0.0001);
+
+                // 방향성 디졸브
+                float2 dir = normalize(_DissolveDirection.xy + 0.0001);
+                float dirValue = dot(normalizedPos - 0.5, dir) + 0.5;
+
+                // 노이즈 + 방향 혼합
+                float finalDissolve = saturate(lerp(noiseVal, dirValue, _DirectionStrength) + noiseVal * (1.0 - _DirectionStrength) * 0.3);
+                float dissolveThreshold = _Dissolve * 1.05;
+                // _Dissolve가 0이면 완전히 보이도록
+                float dissolveAlpha = _Dissolve < 0.001 ? 1.0 : step(dissolveThreshold, finalDissolve);
                 
                 float edgeA = step(dissolveThreshold, finalDissolve) - step(dissolveThreshold + _EdgeThicknessA, finalDissolve);
                 float edgeB = step(dissolveThreshold + _EdgeThicknessA, finalDissolve) - step(dissolveThreshold + _EdgeThicknessA + _EdgeThicknessB, finalDissolve);
