@@ -381,7 +381,48 @@ namespace CookApps.AutoBattler
         private async UniTask NavigateToStageAsync()
         {
             var currentSceneName = SceneManager.GetActiveScene().name;
-            if (currentSceneName == "BattleReady") return;
+            if (currentSceneName == "BattleReady")
+            {
+                var guideStageData = SpecDataManager.Instance.GetStageData(specGuideMissionData.sub_key);
+
+                // 스테이지 해금 여부 확인
+                if (!ServerDataManager.Instance.Battle.IsStageOpen((uint)guideStageData.stage_id))
+                {
+                    ToastManager.Instance.ShowToastByTokenKey("MSG_LOCK_STAGE");
+                    return;
+                }
+
+                var currentStageData = SpecDataManager.Instance.GetStageData((int)LocalDataManager.Instance.GetLastPlayStageId());
+                var isSameChapter = currentStageData.chapter_id == guideStageData.chapter_id;
+
+                // 타겟 스테이지 설정
+                LocalDataManager.Instance.SetLastPlayStageId((uint)guideStageData.stage_id);
+
+                if (!isSameChapter)
+                {
+                    // 가이드 챕터로 이동 후 BattleReady 다시 로드
+                    SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+                    await SceneTransition.FadeInAsync();
+                    InGameManager.Instance.EndInGame();
+
+                    SceneLoading.GoToNextScene("BattleReady", guideStageData.chapter_id);
+                }
+                else
+                {
+                    // 가이드 스테이지로 전투 진입
+                    var inGameParams = await NetManager.Instance.Battle.StartAsync(guideStageData.chapter_id, guideStageData.stage_id, 0, Array.Empty<string>());
+                    if (inGameParams == null)
+                        return;
+
+                    SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+                    await SceneTransition.FadeInAsync();
+                    InGameManager.Instance.EndInGame();
+
+                    SceneLoading.GoToNextSceneWithStageEnterTrigger("InGame", guideStageData.stage_id, inGameParams);
+                }
+
+                return;
+            }
 
             // Lobby 씬에서는 LobbyMain.OnClickStartButton() 사용
             if (currentSceneName == "Lobby")
