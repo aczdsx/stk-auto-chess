@@ -127,7 +127,7 @@ namespace CookApps.AutoBattler
             if (itemId == IdMap.Item.BuildItem)
                 return "ST_RewardItem_BUILDING_SUPPLIES";
             if (itemId == IdMap.Item.엘피스코어)
-                return "Icon_Currency01";
+                return "Icon_Currency10";
             if (itemId == IdMap.Item.CharacterTicket)
                 return "ST_RewardItem_C_TICKET";
             if (itemId == IdMap.Item.Soul) return "ST_RewardItem_CHAR_TRANSCENDENCE_FIRE";
