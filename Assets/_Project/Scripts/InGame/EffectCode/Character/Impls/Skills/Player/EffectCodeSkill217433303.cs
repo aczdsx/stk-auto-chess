@@ -85,7 +85,6 @@ public partial class EffectCodeSkill217433303 : EffectCodeCharacterBase
         }
         else
         {
-            Debug.LogError("hati: No target character found");
             return;
         }
 
