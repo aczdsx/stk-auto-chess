@@ -133,7 +133,8 @@ namespace Naninovel
         protected override void SetBehaviourPosition (Vector3 position)
         {
             if (!PrinterPanel || !PrinterPanel.Content) return;
-            PrinterPanel.Content.position = (Vector2)position; // don't change z-pos, as it'll break UI ordering
+            var currentZ = PrinterPanel.Content.position.z;
+            PrinterPanel.Content.position = new Vector3(position.x, position.y, currentZ); // preserve z-pos
         }
 
         protected override Quaternion GetBehaviourRotation ()

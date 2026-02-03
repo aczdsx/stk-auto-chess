@@ -120,12 +120,23 @@ namespace CookApps.AutoBattler
             // TutorialController의 마스크 업데이트 건너뛰기 (직접 처리)
             context.SkipMaskUpdate = true;
 
-            // 초기 홀 크기 0으로 설정 (애니메이션으로 커짐)
-            context.MaskMaterial.SetFloat(HoleRadius, 0f);
+            // hole_radius >= 1이면 Hole 사용 안함
+            bool useHole = context.CurrentTutorial.hole_radius < 1f;
 
-            // 초기 홀 위치를 타겟 타일로 설정 (이전 액션의 HoleCenter 잔류 방지)
-            Vector2 destUV = CalculateWorldPositionUV(_destTilePosition);
-            context.MaskMaterial.SetVector(HoleCenter, new Vector4(destUV.x, destUV.y, 0, 0));
+            if (useHole)
+            {
+                // 초기 홀 크기 0으로 설정 (애니메이션으로 커짐)
+                context.MaskMaterial.SetFloat(HoleRadius, 0f);
+
+                // 초기 홀 위치를 타겟 타일로 설정 (이전 액션의 HoleCenter 잔류 방지)
+                Vector2 destUV = CalculateWorldPositionUV(_destTilePosition);
+                context.MaskMaterial.SetVector(HoleCenter, new Vector4(destUV.x, destUV.y, 0, 0));
+            }
+            else
+            {
+                // Hole 비활성화
+                context.MaskMaterial.SetFloat(HoleRadius, 0f);
+            }
 
             // 화살표 활성화 및 타일 위치로 이동
             context.ArrowRectTransform.gameObject.SetActive(true);
@@ -289,6 +300,9 @@ namespace CookApps.AutoBattler
                 return;
             }
 
+            // hole_radius >= 1이면 Hole 사용 안함
+            bool useHole = _currentContext.CurrentTutorial.hole_radius < 1f;
+
             // 레이아웃 대기 (다이얼로그 팝업 닫힘 후 UI 안정화 대기)
             if (!_sourceUVCached)
             {
@@ -306,9 +320,6 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            // 홀 크기 애니메이션 (Growing)
-            UpdateHoleRadius();
-
             // A(UI슬롯 - 캐싱됨)와 B(타겟타일)의 UV 좌표
             Vector2 aUV = _sourceUV;
             Vector2 bUV = CalculateWorldPositionUV(_destTilePosition);
@@ -321,11 +332,18 @@ namespace CookApps.AutoBattler
 
             Vector2 currentUV = Vector2.Lerp(aUV, bUV, t);
 
-            float aspect = (float)Screen.width / Screen.height;
-            _currentContext.MaskMaterial.SetFloat(AspectRatio, aspect);
-            _currentContext.MaskMaterial.SetVector(HoleCenter, new Vector4(currentUV.x, currentUV.y, 0, 0));
+            // Hole 사용 시에만 마스크 업데이트
+            if (useHole)
+            {
+                // 홀 크기 애니메이션 (Growing)
+                UpdateHoleRadius();
 
-            // DragObj도 홀 위치를 따라 이동
+                float aspect = (float)Screen.width / Screen.height;
+                _currentContext.MaskMaterial.SetFloat(AspectRatio, aspect);
+                _currentContext.MaskMaterial.SetVector(HoleCenter, new Vector4(currentUV.x, currentUV.y, 0, 0));
+            }
+
+            // DragObj는 항상 홀 위치를 따라 이동
             UpdateDragObjPosition(currentUV);
 
             // 화살표 위치 업데이트 (타일 위치 추적)

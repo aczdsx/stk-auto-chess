@@ -14393,7 +14393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9761b5fa6930744c1bdf307a8b19e2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetId: b
+  _targetId: BattleReadyBack
 --- !u!114 &9059182644760578543 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8730570059345672916, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
