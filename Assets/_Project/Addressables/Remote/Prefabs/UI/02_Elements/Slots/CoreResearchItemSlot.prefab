@@ -669,6 +669,7 @@ MonoBehaviour:
   iconSwappers:
   - {fileID: 5526433551436086071}
   - {fileID: 8087741124330191765}
+  canUpgradeObject: {fileID: 4228999579616389125}
 --- !u!114 &5992618763531511542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1308,5 +1309,10 @@ PrefabInstance:
 --- !u!224 &1849972355216051657 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5662193471402098138, guid: 17561c9cb613e664d9cbea3e00775795, type: 3}
+  m_PrefabInstance: {fileID: 6284855710157582355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4228999579616389125 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7892600465140520982, guid: 17561c9cb613e664d9cbea3e00775795, type: 3}
   m_PrefabInstance: {fileID: 6284855710157582355}
   m_PrefabAsset: {fileID: 0}

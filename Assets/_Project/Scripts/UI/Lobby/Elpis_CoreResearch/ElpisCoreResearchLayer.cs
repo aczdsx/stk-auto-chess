@@ -356,6 +356,11 @@ namespace CookApps.AutoBattler
             UpdateUserCachedCoreData(targetData.Data.dimension_type, targetData);
             selectedCoreItem.UpdateData(targetData);
 
+            foreach (var coreItem in currentCoreItems)
+            {
+                coreItem.UpdateCanUpgrade();
+            }
+
             // selectedCoreData는 selectedCoreItem.Data로 동기화
             selectedCoreData = selectedCoreItem.Data;
 

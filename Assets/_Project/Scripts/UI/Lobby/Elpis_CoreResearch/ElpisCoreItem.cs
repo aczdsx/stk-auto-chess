@@ -18,6 +18,7 @@ public class ElpisCoreItem : CachedMonoBehaviour
     [SerializeField] private Gradient2 highlightGradient; 
     [SerializeField] private TMP_Text[] levelTexts;
     [SerializeField] private SimpleImageSwapper[] iconSwappers;
+    [SerializeField] private GameObject canUpgradeObject;
 
     private CoreResearchCacheData cachedData;
     private ElpisCoreResearchLayer dimensionLabPopup;
@@ -83,6 +84,15 @@ public class ElpisCoreItem : CachedMonoBehaviour
         this.cachedData = cachedData;
         
         SetLevelText();
+        UpdateCanUpgrade();
+    }
+
+    public void UpdateCanUpgrade()
+    {
+        var inventory = new InventoryDataBridge();
+        var currentAsset = inventory.GetCurrency(cachedData.Data.item_id);
+        var canUpgrade = (int)currentAsset >= cachedData.Data.item_INT;
+        canUpgradeObject.SetActive(canUpgrade);
     }
 
     public void SetUp(CoreResearchCacheData cachedData, ElpisCoreResearchLayer dimensionLabPopup)
@@ -93,6 +103,7 @@ public class ElpisCoreItem : CachedMonoBehaviour
         SetHighlightColor();
         SetLevelText();
         SetIcon();
+        UpdateCanUpgrade();
 
         IsSelected = false;
     }
