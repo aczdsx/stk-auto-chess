@@ -181,7 +181,6 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
         var directionidx = targetTileIdx - odetteTileIdx;
         if (directionidx.x > 0 || directionidx.y < 0)
         {
-            Debug.Log("Flip!!!!");
             vfx.CachedTr.localScale = _vfxFlipScale;
         }
         else

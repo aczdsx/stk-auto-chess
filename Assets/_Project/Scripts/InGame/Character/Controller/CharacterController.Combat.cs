@@ -383,7 +383,7 @@ namespace CookApps.BattleSystem
             // effectCode에게 이벤트 전달
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseOnDamaged);
-                damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDamagedLambda, damageInfo, this, isFirstDamage);
+                damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallOnDamagedLambda, damageInfo, attacker, isFirstDamage);
             }
 
             // effectCode에게 이벤트 전달
