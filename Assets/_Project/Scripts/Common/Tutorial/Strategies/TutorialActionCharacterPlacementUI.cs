@@ -23,6 +23,7 @@ namespace CookApps.AutoBattler
         private static readonly int HoleRadius = Shader.PropertyToID("_HoleRadius");
         private static readonly int HoleCenter = Shader.PropertyToID("_HoleCenter");
         private static readonly int AspectRatio = Shader.PropertyToID("_AspectRatio");
+        private static readonly int MaskAlpha = Shader.PropertyToID("_MaskAlpha");
 
         /// <summary>
         /// 드래그 시 하이라이트할 타일 ID (tutorial_action_key에서 파싱)
@@ -72,6 +73,10 @@ namespace CookApps.AutoBattler
         // 타겟 타일 뷰 캐싱 (Navigator 제어용)
         private static InGameTileView _targetTileView;
 
+        // 딤 레이어 비활성화 (hole_radius >= 1일 때, _MaskAlpha 셰이더 프로퍼티 사용)
+        private static bool _dimmedDisabled;
+        private static float _originalMaskAlpha;
+
         public void OnShow(TutorialActionContext context)
         {
             _currentContext = context;
@@ -120,8 +125,9 @@ namespace CookApps.AutoBattler
             // TutorialController의 마스크 업데이트 건너뛰기 (직접 처리)
             context.SkipMaskUpdate = true;
 
-            // hole_radius >= 1이면 Hole 사용 안함
+            // hole_radius >= 1이면 Hole 및 딤 사용 안함
             bool useHole = context.CurrentTutorial.hole_radius < 1f;
+            _dimmedDisabled = !useHole;
 
             if (useHole)
             {
@@ -136,6 +142,13 @@ namespace CookApps.AutoBattler
             {
                 // Hole 비활성화
                 context.MaskMaterial.SetFloat(HoleRadius, 0f);
+
+                // 딤 비활성화 (밝게) - _MaskAlpha = 0
+                if (context.MaskMaterial != null)
+                {
+                    _originalMaskAlpha = context.MaskMaterial.GetFloat(MaskAlpha);
+                    context.MaskMaterial.SetFloat(MaskAlpha, 0f);
+                }
             }
 
             // 화살표 활성화 및 타일 위치로 이동
@@ -181,7 +194,12 @@ namespace CookApps.AutoBattler
                 context.DragObj.SetActive(false);
             }
 
-            // 딤드 이미지는 raycastTarget 유지 (ICanvasRaycastFilter로 제어)
+            // 딤 레이어 복구 (어둡게) - _MaskAlpha 원래값
+            if (_dimmedDisabled && context.MaskMaterial != null)
+            {
+                context.MaskMaterial.SetFloat(MaskAlpha, _originalMaskAlpha);
+            }
+            _dimmedDisabled = false;
 
             // 타겟 UI 허용 해제
             if (_initialTargetUI != null)
@@ -222,6 +240,7 @@ namespace CookApps.AutoBattler
             _sourceUV = Vector2.zero;
             _layoutWaitTime = 0f;
             _sourceUVCached = false;
+            _dimmedDisabled = false;
 
             // 화살표 비활성화
             context.ArrowRectTransform.gameObject.SetActive(false);

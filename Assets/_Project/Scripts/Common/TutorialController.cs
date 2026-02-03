@@ -275,7 +275,12 @@ public class TutorialController : MonoBehaviour
 
         // 전략 선택 및 실행
         _currentStrategy = GetStrategy(CurrentSpecTutorial.tutorial_action_type);
-        _currentStrategy?.OnShow(_actionContext);
+
+        // FORCED_TOUCH_LEVELUP_10 전략일 경우 레벨업 완료 콜백 설정 (OnShow 전에 설정해야 이미 조건 달성 시 처리 가능)
+        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FORCED_TOUCH_LEVELUP_10)
+        {
+            TutorialActionForcedTouchLevelUp10.OnLevelUpCompleted = OnLevelUp10Completed;
+        }
 
         // TOAST_MESSAGE 전략일 경우 토스트 완료 콜백 설정
         if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.TOAST_MESSAGE)
@@ -313,11 +318,7 @@ public class TutorialController : MonoBehaviour
             TutorialActionShowDialoguePopWithCallback.OnDialogueCompleted = OnDialoguePopWithCallbackCompleted;
         }
 
-        // FORCED_TOUCH_LEVELUP_10 전략일 경우 레벨업 완료 콜백 설정
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FORCED_TOUCH_LEVELUP_10)
-        {
-            TutorialActionForcedTouchLevelUp10.OnLevelUpCompleted = OnLevelUp10Completed;
-        }
+        _currentStrategy?.OnShow(_actionContext);
     }
 
     /// <summary>
