@@ -93,7 +93,7 @@ public class FlowStateLobbyCombat : StateCombatBase
         }
 
         // 캐릭터 소환 후 1초 대기
-        await UniTask.Delay(1000);
+        await UniTask.Delay(500);
 
         // 카메라 Tween 이동 시작
         _mainCamera.transform.DOMove(_targetCameraPosition, _cameraTweenDuration).SetEase(Ease.OutQuad);

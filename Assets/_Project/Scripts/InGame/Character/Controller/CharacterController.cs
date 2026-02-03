@@ -215,7 +215,7 @@ namespace CookApps.BattleSystem
 
             _view = handle.Result.GetComponent<SpriteCharacterView>();
             _view.CachedTr.SetParent(Playground, false);
-            _view.CachedTr.localPosition = position;
+            _view.CachedTr.position = position;
         }
 
         public async UniTask Initialize(CharacterStatData statData, InGameTile tile, AllianceType allianceType,
