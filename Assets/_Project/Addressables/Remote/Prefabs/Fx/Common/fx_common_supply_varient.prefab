@@ -5003,7 +5003,7 @@ GameObject:
   - component: {fileID: 8367590086733957286}
   - component: {fileID: 613932076051127853}
   - component: {fileID: 7214366642839862944}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5111,7 +5111,7 @@ GameObject:
   - component: {fileID: 5892643549145780644}
   - component: {fileID: 3923081698734150663}
   - component: {fileID: 7152282446483138240}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9994,10 +9994,18 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: d5e7123851ec4a2409a0bc24ee66c54c, type: 2}
+    - target: {fileID: -4697077940711193851, guid: 36fb20b733df9574c80e1fc5ef9a8e6d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -3688758185895386657, guid: 36fb20b733df9574c80e1fc5ef9a8e6d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: d5e7123851ec4a2409a0bc24ee66c54c, type: 2}
+    - target: {fileID: -3651532087358771915, guid: 36fb20b733df9574c80e1fc5ef9a8e6d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -2307857873394037939, guid: 36fb20b733df9574c80e1fc5ef9a8e6d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -10007,8 +10015,20 @@ PrefabInstance:
       value: TroubleShooter_Supply
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 36fb20b733df9574c80e1fc5ef9a8e6d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 36fb20b733df9574c80e1fc5ef9a8e6d, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243585814720556928, guid: 36fb20b733df9574c80e1fc5ef9a8e6d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4022326356978923567, guid: 36fb20b733df9574c80e1fc5ef9a8e6d, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8950937998251572667, guid: 36fb20b733df9574c80e1fc5ef9a8e6d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
