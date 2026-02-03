@@ -137,6 +137,9 @@ namespace CookApps.AutoBattler
         {
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
+            // 챕터 데이터 갱신
+            await NetManager.Instance.Battle.GetCurrentChapterAsync();
+
             // 목표 스테이지로 설정 (로비에서 진입 시 다음 목표 스테이지 반영)
             int currentStageId = BattleDataBridge.GetTargetStageId();
             LocalDataManager.Instance.SetLastPlayStageId((uint)currentStageId);

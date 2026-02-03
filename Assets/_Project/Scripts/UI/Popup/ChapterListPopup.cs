@@ -11,8 +11,9 @@ namespace CookApps.AutoBattler
 {
     public class ChapterListPopup : UILayerPopupBase
     {
-        [Header("Stage Milestone")] 
+        [Header("Stage Milestone")]
         [SerializeField] private StageMilestonePanel stageMilestonePanel;
+        public StageMilestonePanel StageMilestonePanel => stageMilestonePanel;
         
         [SerializeField] private CAButton _closeButton;
         [SerializeField] private CAButton _dimCloseButton;

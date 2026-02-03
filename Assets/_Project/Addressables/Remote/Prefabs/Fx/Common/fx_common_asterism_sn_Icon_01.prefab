@@ -4902,7 +4902,7 @@ GameObject:
   - component: {fileID: 8280879754961076610}
   - component: {fileID: 6990209424313533475}
   - component: {fileID: 2867804336725792883}
-  - component: {fileID: 6242323773448727531}
+  - component: {fileID: 7722960606770951255}
   m_Layer: 6
   m_Name: fx_common_asterism_sn_Icon_01
   m_TagString: Untagged
@@ -4941,7 +4941,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -9726,7 +9726,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &6242323773448727531
+--- !u!114 &7722960606770951255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
