@@ -269,6 +269,7 @@ public partial class EffectCodeSynergyPositionSupernova : EffectCodeSynergyBase,
             var value = character.HP * -increaseValue;
             accumulatedValue += value;
             ApplyEffectCode(EffectCodeNameType.HP_UP, character, value, source);
+            character.UpdateHpBar();
         }
 
         ApplyEffectCode(EffectCodeNameType.HP_UP, targetCharacter, -accumulatedValue, source);
