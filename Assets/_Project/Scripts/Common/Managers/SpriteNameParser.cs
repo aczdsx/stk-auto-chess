@@ -126,6 +126,8 @@ namespace CookApps.AutoBattler
             //     return "ST_RewardItem_BUILDING_RANDOMBOX";
             if (itemId == IdMap.Item.BuildItem)
                 return "ST_RewardItem_BUILDING_SUPPLIES";
+            if (itemId == IdMap.Item.엘피스코어)
+                return "Icon_Currency01";
             if (itemId == IdMap.Item.CharacterTicket)
                 return "ST_RewardItem_C_TICKET";
             if (itemId == IdMap.Item.Soul) return "ST_RewardItem_CHAR_TRANSCENDENCE_FIRE";
@@ -145,6 +147,10 @@ namespace CookApps.AutoBattler
             if (itemId == IdMap.Item.PvpTicket) return "ST_RewardItem_P_KTICKET";
             if (itemId == IdMap.Item.Soul) return "ST_RewardItem_PURE_PIECE";
             if (itemId == IdMap.Item.UserExp) return "ST_RewardItem_USER_EXP";
+            if (itemId >= IdMap.Item.기사의디멘션큐브 && itemId <= IdMap.Item.트러블슈터디멘션큐브)
+            {
+                return $"Icon_Cunsumable{itemId}";
+            }
             return string.Empty;
         }
 
