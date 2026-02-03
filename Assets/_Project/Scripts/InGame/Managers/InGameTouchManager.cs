@@ -1138,6 +1138,17 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             return;
         }
 
+        // 튜토리얼 UI 캐릭터 배치 - 타겟 타일이 아니면 배치 취소 (기존 캐릭터 반환 전에 체크)
+        if (TutorialActionCharacterPlacementUI.IsActive)
+        {
+            if (!TutorialActionCharacterPlacementUI.CanPlaceOnTile(tileView.ID))
+            {
+                Debug.LogColor($"[InGameTouchManager] 튜토리얼 타겟 타일이 아님. 배치 취소. tileId={tileView.ID}, targetId={TutorialActionCharacterPlacementUI.GetTargetTileId()}", "yellow");
+                CancelGhostDrag();
+                return;
+            }
+        }
+
         // 기존 캐릭터가 있으면 UI로 반환하고 그 자리에 배치
         if (inGameTile.OccupiedCharacter != null)
         {
@@ -1153,8 +1164,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
             InGameObjectManager.Instance.RemoveCharacterFromField(existingCharacter);
             InGameMain.GetInGameMain().ReturnCharacterUI(existingCharacter);
         }
-    
-
 
         //유저 카운트 체크
         var userKnightCount = SpecDataManager.Instance.GetUserKnightCountByNestCount().maximum_character_count;
@@ -1169,17 +1178,6 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         Vector3 placementPosition = _ghostCharacterController.Position3D;
         CharacterStatData statData = _ghostStatData;
         Action<CharacterStatData> onConfirmed = _onPlacementConfirmed;
-
-        // 튜토리얼 UI 캐릭터 배치 - 타겟 타일이 아니면 배치 취소
-        if (TutorialActionCharacterPlacementUI.IsActive)
-        {
-            if (!TutorialActionCharacterPlacementUI.CanPlaceOnTile(tileView.ID))
-            {
-                Debug.LogColor($"[InGameTouchManager] 튜토리얼 타겟 타일이 아님. 배치 취소. tileId={tileView.ID}, targetId={TutorialActionCharacterPlacementUI.GetTargetTileId()}", "yellow");
-                CancelGhostDrag();
-                return;
-            }
-        }
 
         // 고스트 제거
         InGameObjectManager.Instance.RemoveGhostCharacter(_ghostCharacterController);
