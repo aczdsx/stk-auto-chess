@@ -18,9 +18,21 @@ MonoBehaviour:
   GridWidth: 5
   GridHeight: 7
   PlayerCharacters:
-  - CharacterId: 3506
+  - CharacterId: 3403
     Level: 1
     GridX: 4
+    GridY: 0
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 3401
+    Level: 1
+    GridX: 0
+    GridY: 0
+    MultipleAtk: 1
+    MultipleHp: 1
+  - CharacterId: 2102
+    Level: 1
+    GridX: 2
     GridY: 0
     MultipleAtk: 1
     MultipleHp: 1

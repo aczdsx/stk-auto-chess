@@ -260,6 +260,7 @@ namespace CookApps.AutoBattler
         END_DIALOGUE = 6,
         ACCOUNT_LV_EXP = 7,
         GACHA = 8,
+        TUTORIAL_START = 9,
     }
 
     public enum TutorialEventType

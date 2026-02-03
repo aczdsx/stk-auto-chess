@@ -5,6 +5,7 @@ using CookApps.TeamBattle;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -30,6 +31,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private Color _enermySmoothColor;
         [SerializeField] private SpriteRenderer _coolTimeGuage;
         [SerializeField] private SpriteRenderer _hpMarkGuage; // 눈금선용 SpriteRenderer
+
+        [Space]
+        [SerializeField] private TextMeshPro _debugHpText;
 
         [Space]
         [SerializeField] private GameObject _buffObjParent;
@@ -273,7 +277,15 @@ namespace CookApps.AutoBattler
                 _hpMarkGuage.material.SetFloat("_MaxHP", (float)maxHP);
             }
 
+            UpdateDebugHpText(currHP, maxHP);
+
             await AnimateHpBar(startRatio, targetRatio, AnimationDuration);
+        }
+
+        private void UpdateDebugHpText(double currHP, double maxHP)
+        {
+            if(_debugHpText == null) return;
+            _debugHpText.text = $"{Math.Round(currHP)}";
         }
 
         private async UniTask AnimateHpBar(float startRatio, float targetRatio, float duration)
