@@ -38,6 +38,8 @@ namespace CookApps.AutoBattler
             RunAllTasks().Forget();
         }
 
+        protected override void OnBackButton(ref bool offPrevUI) { }
+
         private async UniTask RunAllTasks()
         {
             await UniTask.NextFrame();
