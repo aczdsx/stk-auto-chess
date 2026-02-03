@@ -85,14 +85,18 @@ namespace CookApps.AutoBattler
             ClearSlot();
 
             _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardPiece.Id);
-            if (_specItemData.GetItemId().IsCharacterPiece())
+            if (!_specItemData.GetItemId().IsCharacterPiece())
                 return;
 
             _rewardId = rewardPiece.Id;
-            var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(_specItemData.GetItemId());
-            if (specCharacterData == null) return;
+            if (!_specItemData.GetItemId().GetCharacterId(out var characterId))
+                return;
+            var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(characterId);
+            if (specCharacterData == null)
+                return;
             var userCharacterData = ServerDataManager.Instance.Character.GetCharacter(specCharacterData.id);
-            if (userCharacterData == null) return;
+            if (userCharacterData == null)
+                return;
 
             _rewardPieceSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.id)).Forget();
             int characterPiece = (int)ServerDataManager.Instance.Inventory.GetCurrency((uint)rewardPiece.Id);
@@ -106,14 +110,16 @@ namespace CookApps.AutoBattler
         // 캐릭터 보상 세팅
         public void SetRewardCharacter(RewardItem rewardCharacter)
         {
-            if (rewardCharacter == null) return;
+            if (rewardCharacter == null)
+                return;
 
             ClearSlot();
 
             _specItemData = SpecDataManager.Instance.GetSpecItemData(rewardCharacter.Id);
-            _specItemData.GetItemId().GetCharacterId(out var charIndex);
-            var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(charIndex);
-            if (specCharacterData == null) return;
+            var specCharacterData = SpecDataManager.Instance.CharacterInfo.Get(_specItemData.GetItemId());
+            if (specCharacterData == null)
+                return;
+
             _rewardCharacterSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(specCharacterData.prefab_id)).Forget();
             _rewardCharacterNameText.text = LanguageManager.Instance.GetDefaultText(specCharacterData.name_token);
             _rewardElementSynergyUI.SetSynergyUI(specCharacterData.character_element_type);
