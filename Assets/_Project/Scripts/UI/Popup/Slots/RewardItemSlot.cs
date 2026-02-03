@@ -95,8 +95,7 @@ namespace CookApps.AutoBattler
             if (userCharacterData == null) return;
 
             _rewardPieceSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(specCharacterData.id)).Forget();
-            // TODO: CharacterPiece는 인벤토리에서 가져와야 함
-            int characterPiece = 0; // ServerDataManager.Instance.Inventory.GetCharacterPiece(specCharacterData.character_id);
+            int characterPiece = (int)ServerDataManager.Instance.Inventory.GetCurrency((uint)rewardPiece.Id);
             _rewardPieceSliderImage.fillAmount = (float)characterPiece / specCharacterData.need_piece;
             _rewardPieceCountText.text = $"{characterPiece}/{specCharacterData.need_piece}";
             

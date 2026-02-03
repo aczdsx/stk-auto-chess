@@ -7,6 +7,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -72,6 +73,19 @@ public partial class SROptions
         SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>(null).Forget();
     }
 
+
+    [Category("팝업 테스트")]
+    public void 리워드_팝업_테스트()
+    {
+        var rewardItemList = new List<RewardItem>
+        {
+            new (리워드_팝업_테스트_리워드ID, 1)
+        };
+        SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
+    }
+    
+    public int 리워드_팝업_테스트_리워드ID { get; set; } = 1001;
+
     #endregion
 
     #region UI 테스트
@@ -90,6 +104,18 @@ public partial class SROptions
         {
             safeAreaMargins[i].Refresh(true);
         }
+    }
+    
+    [Category("UI 테스트")]
+    public uint 가이드퀘스트_테스트ID { get; set; } = 1001;
+    [Category("UI 테스트")]
+    public void 가이드퀘스트_UI_테스트()
+    {
+        var guideMission = ServerDataManager.Instance.GuideMission;
+        guideMission.SetGuideMission(new GuideMissionData()
+        {
+            GuideMissionId = 가이드퀘스트_테스트ID
+        });
     }
 
     #endregion

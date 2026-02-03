@@ -111,9 +111,9 @@ namespace CookApps.AutoBattler
             var isCharacter = itemId.IsCharacter();
             var isCharacterPiece = itemId.IsCharacterPiece();
 
-            missionRewardItemImage.gameObject.SetActive(!isCharacter && !isCharacterPiece);
+            missionRewardItemImage.gameObject.SetActive(!isCharacter);
             rewardCharacterBGImage.gameObject.SetActive(isCharacter);
-            missionRewardCharacterImage.gameObject.SetActive(isCharacterPiece);
+            missionRewardCharacterImage.gameObject.SetActive(isCharacter);
 
             if (isCharacter)
             {
