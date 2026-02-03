@@ -3,12 +3,21 @@ using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using UnityEngine.Pool;
+using UnityEngine;
+using CharacterController = CookApps.BattleSystem.CharacterController;
+
 
 /// <summary>
 /// 아이콘을 위해 buff로 처리
 /// 무조건 한개의 버프 스택만 유지한다.
 /// </summary>.
 /// 시라유키 회피율 및 반격 
+/// 반격 이펙트: 0번 = 상하(up/down), 1번 = 좌우(left/right)
+/// up   → 0번, 기본(scale/rotation 그대로)
+/// down → 0번, rotation·scale 변경
+/// left → 1번, rotation·scale 변경
+/// right→ 1번, 기본
+
 [UseEffectCodeIds(CodeId)]
 public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
 {
@@ -23,6 +32,9 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
     private float _damageRatePercent; // 반격 데미지 비율
     private InGameVfx _attackVfx; // 슬래시 VFX 인스턴스
     private SkillPassive _specSkillPassive;
+
+    private static readonly Vector3 VfxScaleFlipped = new Vector3(-1f, 1f, 1f);
+    private static readonly Vector3 VfxEulerY90 = new Vector3(0f, 90f, 0f);
 
 
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
@@ -101,8 +113,8 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
     }
     public override CharacterController.DamageInfo OnDamaged(CharacterController.DamageInfo damageInfo, CharacterController attacker, bool isPure)
     {
-        if (damageInfo.isMissed)
-        {
+        // if (damageInfo.isMissed)
+        // {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_job_striker_brave);
             var prevAvoidSuccessCount = _currentAvoidSuccessCount;
             ++_currentAvoidSuccessCount;
@@ -119,18 +131,63 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
             {
                 var damage = owner.CalculateDamageAmount(0, attacker.AP * _damageRatePercent, attacker, owner.CharacterId, isSkill: true,
                 CharacterController.DamageTestFlags.None);
-                Debug.Log($"ShirayukiAvoidAndAttack: {damage.damageAmount.Value}");
                 attacker.GetDamaged(damage, owner);
             }
-            if (owner.GetCharacterView().CachedFront)
+
+            InGameVfx vfx;
+            if (attacker == null || attacker.CurrentTile == null)
             {
-                InGameVfxManager.Instance.AddInGameVfx(_specSkillPassive.passive_skill_vfxs[0], owner.SkillRootTransformFollowable);    
+                if (owner.GetCharacterView().CachedFront)
+                    vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkillPassive.passive_skill_vfxs[0], owner.SkillRootTransformFollowable);
+                else
+                    vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkillPassive.passive_skill_vfxs[1], owner.SkillRootTransformFollowable);
+                vfx.CachedTr.localScale = Vector3.one;
+                vfx.CachedTr.localEulerAngles = Vector3.zero;
             }
             else
             {
-                //뒤
-                InGameVfxManager.Instance.AddInGameVfx(_specSkillPassive.passive_skill_vfxs[1], owner.SkillRootTransformFollowable);
+                var ownerIdx = owner.CurrentTile.Int2Index;
+                var attackerIdx = attacker.CurrentTile.Int2Index;
+                var delta = attackerIdx - ownerIdx;
+                bool isUp = delta.y > 0;
+                bool isDown = delta.y < 0;
+                bool isLeft = delta.x < 0;
+                bool isRight = delta.x > 0;
+
+                bool needToFlipAndRotation;
+                if (isUp)
+                {
+                    vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkillPassive.passive_skill_vfxs[1], owner.SkillRootTransformFollowable);
+                    needToFlipAndRotation = false;
+                }
+                else if (isDown)
+                {
+                    vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkillPassive.passive_skill_vfxs[0], owner.SkillRootTransformFollowable);
+                    needToFlipAndRotation = true;
+                }
+                else if (isLeft)
+                {
+                    vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkillPassive.passive_skill_vfxs[0], owner.SkillRootTransformFollowable);
+                    needToFlipAndRotation = false; 
+                }
+                else // isRight (또는 delta == 0)
+                {
+                    vfx = InGameVfxManager.Instance.AddInGameVfx(_specSkillPassive.passive_skill_vfxs[1], owner.SkillRootTransformFollowable);
+                    needToFlipAndRotation = true;
+                }
+
+                if (needToFlipAndRotation)
+                {
+                    vfx.CachedTr.localScale = VfxScaleFlipped;
+                    vfx.CachedTr.localEulerAngles = VfxEulerY90;
+                }
+                else
+                {
+                    vfx.CachedTr.localScale = Vector3.one;
+                    vfx.CachedTr.localEulerAngles = Vector3.zero;
+                }
             }
+
 
             if (prevAvoidSuccessCount != _currentAvoidSuccessCount)
             {
@@ -140,7 +197,7 @@ public partial class EffectCodeBuffShirayukiAvoidAndAttack : EffectCodeBuffBase
 
                 owner.SetBuffStackDataValue(CodeId, _stackDatas[0].value);
             }
-        }
+        // }
         return damageInfo;
     }
 
