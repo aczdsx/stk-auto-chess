@@ -665,6 +665,7 @@ MonoBehaviour:
   buildingName: {fileID: 3882344895475508242}
   button: {fileID: 7724278077875499869}
   nameTagButton: {fileID: 4056084855263472207}
+  tutorialTarget: {fileID: 5601877533649340489}
   statusIcon: {fileID: 4232458588559691477}
   lobbyNameTag: {fileID: 8538042731173945256}
 --- !u!1 &7244407070201376806

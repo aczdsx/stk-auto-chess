@@ -19,6 +19,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TMP_Text buildingName;
         [SerializeField] private CAButton button;
         [SerializeField] private CAButton nameTagButton;
+        [SerializeField] private TutorialTarget tutorialTarget;
 
         [Header("줌 관련")]
         [SerializeField] private RectTransform statusIcon;
@@ -35,8 +36,8 @@ namespace CookApps.AutoBattler
         private RectTransform parentRect;
         private bool isInitialize;
 
-        private GuideMissionDataBridge GuideMissionDataBridge; 
-                
+        private GuideMissionDataBridge GuideMissionDataBridge;
+
         private ElpisDataBridge ElpisDataBridge;
         private readonly List<FacilityInfo> cachedFacilityInfos = new();
 
@@ -104,6 +105,7 @@ namespace CookApps.AutoBattler
             UpdatePosition();
 
             buildingName.text = LanguageManager.Instance.GetDefaultText(buildInfo.buld_name_token);
+            tutorialTarget.SetTargetId($"Building_{buildInfo.facility_type}");
         }
 
         #region Set
