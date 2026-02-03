@@ -42,6 +42,7 @@ jobs:
         id: build-env
         env:
           ENVIRONMENT_TYPE: ${{ inputs.environment-type }}
+      # 항상 ios-apple-dev 빌드 설정을 사용하도록 수정
         run: |
           if [[ "$ENVIRONMENT_TYPE" == "Dev" ]]; then
             name=ios-apple-dev
@@ -49,7 +50,7 @@ jobs:
             bucket=cookapps-unity-assets
             cloudfront_id=E26JX7CKKGPV7C
           elif [[ "$ENVIRONMENT_TYPE" == "Prod" ]]; then
-            name=ios-apple-prod
+            name=ios-apple-dev
             release=true
             bucket=cookapps-unity-assets
             cloudfront_id=E3ESWGPMFO0GZH
@@ -84,7 +85,8 @@ jobs:
       - name: Fetch latest.json
         env:
           BUCKET: ${{ env.BUCKET }}
-          ENV: ${{ inputs.environment-type }}
+          # 항상 Dev 환경의 Addressables 데이터를 기준으로 빌드하도록 수정
+          ENV: Dev
           GAME: ${{ vars.PROJECT_NAME }}
           PLATFORM: iOS
         run: |
@@ -180,7 +182,8 @@ jobs:
         env:
           BUCKET: ${{ env.BUCKET }}
           CDN: ${{ env.CLOUDFRONT_ID }}
-          ENV: ${{ inputs.environment-type }}
+          # 항상 Dev 환경의 Addressables 데이터를 업로드하도록 수정
+          ENV: Dev
           GAME: ${{ vars.PROJECT_NAME }}
           PLATFORM: iOS
           VERSION: ${{ steps.build-summary.outputs.version }}
