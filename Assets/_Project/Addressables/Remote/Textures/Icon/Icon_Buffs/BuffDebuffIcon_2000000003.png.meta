@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 75fca8e6b92505d41a467a347b888353
+guid: f3878df43aec3c647b445b0a6f7731a7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2187145741478266610
-    second: BuffDebuffIcon_1300000002_0
+      213: -7575252385817396118
+    second: BuffDebuffIcon_2000000003_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BuffDebuffIcon_1300000002_0
+      name: BuffDebuffIcon_2000000003_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e09fd2f3982b5a1e0800000000000000
-      internalID: -2187145741478266610
+      spriteID: a6c7c6b271c4fd690800000000000000
+      internalID: -7575252385817396118
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BuffDebuffIcon_1300000002_0: -2187145741478266610
+      BuffDebuffIcon_2000000003_0: -7575252385817396118
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
