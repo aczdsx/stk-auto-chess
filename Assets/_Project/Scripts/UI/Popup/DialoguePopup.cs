@@ -201,12 +201,15 @@ namespace CookApps.AutoBattler
 
             // 보상 지급 여부 체크
             bool isGetReward = _currentSpecDialogueData.reward_id > 0;
-            if (isGetReward)
+            if (isGetReward && !ClientProgressData.Get().IsRewardReceived(_currentSpecDialogueData.reward_id))
             {
                 // 서버에 보상 수령 요청
                 var resp = await NetManager.Instance.CustomLobby.ClaimOtherRewardAsync((uint)_currentSpecDialogueData.reward_id);
                 if (resp != null && resp.IsSuccess && resp.Rewards != null && resp.Rewards.Count > 0)
                 {
+                    // 보상 수령 처리
+                    ClientProgressData.Get().AddReceivedRewardId(_currentSpecDialogueData.reward_id);
+                    
                     // 서버 응답의 Reward를 RewardItem으로 변환
                     List<RewardItem> rewardItemList = new List<RewardItem>();
                     for (int i = 0; i < resp.Rewards.Count; i++)

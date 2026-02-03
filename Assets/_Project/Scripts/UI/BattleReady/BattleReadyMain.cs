@@ -456,11 +456,15 @@ namespace CookApps.AutoBattler
 
         private void CheckNewChapterClear()
         {
-            if (UserDataManager.Instance.NewChapterOpenAlert == false) return;
+            return;
+            int lastClearStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
+            var lastClearStageData = SpecDataManager.Instance.GetStageData(lastClearStageID);
+            var rewardInfo = SpecDataManager.Instance.GetSpecRewardInfo(ContentType.CHAPTER, lastClearStageData.chapter_id, lastClearStageData.difficulty_type);
+            var isRewarded = ClientProgressData.Get().IsRewardReceived(rewardInfo.reward_id);
+            if (isRewarded)
+                return;
 
             SceneUILayerManager.Instance.PushUILayerAsync<ChapterClearWindowPopup>().Forget();
-
-            UserDataManager.Instance.NewChapterOpenAlert = false;
         }
 
         private void CheckUserAccountLevelUp()
