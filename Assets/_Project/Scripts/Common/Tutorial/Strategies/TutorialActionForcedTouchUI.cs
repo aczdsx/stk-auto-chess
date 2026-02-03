@@ -36,6 +36,9 @@ namespace CookApps.AutoBattler
 
         public void OnShow(TutorialActionContext context)
         {
+            // 3D 터치 차단 (캐릭터 드래그 방지)
+            TutorialTouchBlocker.Allow3DTouch = false;
+
             context.TargetUIObj = TutorialTargetRegistry.FindGameObject(context.CurrentTutorial.tutorial_action_key);
 
             if (context.TargetUIObj == null)

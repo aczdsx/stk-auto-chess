@@ -116,9 +116,9 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (_touchLocked) return;
         if (_isDragFromUI) return;  // UI 드래그 중일 때는 보드 터치 무시
 
-        // 튜토리얼 구멍 외 영역 터치 차단 (3D 허용 모드가 아닐 때만)
-        if (!CookApps.AutoBattler.TutorialTouchBlocker.Allow3DTouch &&
-            CookApps.AutoBattler.TutorialTouchBlocker.ShouldBlockTouch(touchPosition))
+        // 튜토리얼 중 3D 터치 차단 (Allow3DTouch가 false면 전체 차단)
+        if (CookApps.AutoBattler.TutorialTouchBlocker.IsBlocking &&
+            !CookApps.AutoBattler.TutorialTouchBlocker.Allow3DTouch)
             return;
 
         touchPosition.z = 0;
