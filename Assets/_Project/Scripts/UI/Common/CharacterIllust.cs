@@ -91,6 +91,10 @@ namespace CookApps.AutoBattler
                 {
                     return anim.Name; // 실제 등록된 이름으로 반환
                 }
+                if (anim.Name.Contains(nameCandidate, StringComparison.OrdinalIgnoreCase))
+                {
+                    return anim.Name;
+                }
             }
 
             return null;

@@ -129,6 +129,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b8c2e8cb0101b94d9851c636fe1ac9f
+    m_Address: LD_Characters/80109002/Illust
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3fc0056083e6c4ae1abed7117bfb59f2
     m_Address: LD_Characters/UI_17333202
     m_ReadOnly: 0
@@ -520,6 +525,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f3eeec51b8972c1498d1e31261f55329
     m_Address: LD_Characters/UI_15662502
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8c9d5c2248a2144b8542b65f741eda1
+    m_Address: LD_Characters/80109002/Spine
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
