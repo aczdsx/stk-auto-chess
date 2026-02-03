@@ -109,6 +109,8 @@ namespace CookApps.AutoBattler
             _inGameUI.PlayAnimation("SetBattleEntry");
             _inGameUI.BottomUI.InitCommanderSkill();
             _inGameUI.BottomUI.InitSpeedUpSetting();
+            _inGameUI.TopUI.InitCombatTopUI();
+
             InGameMain.GetInGameMain().RefreshInGameTopUI(true);
             
             bool isOpenStatisticPop = Preference.LoadPreference(Pref.STATISTIC, false);
