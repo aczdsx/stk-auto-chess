@@ -201,6 +201,10 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
         if (_selectedCharacterController != null)
             return;
 
+        // 튜토리얼 캐릭터 배치 UI 중에는 보드 위 캐릭터 선택(드래그) 차단
+        if (CookApps.AutoBattler.TutorialActionCharacterPlacementUI.IsActive)
+            return;
+
         _isDragFromUI = false;  // 보드에서 직접 선택
 
         // RaycastAll로 Slot 우선 검색

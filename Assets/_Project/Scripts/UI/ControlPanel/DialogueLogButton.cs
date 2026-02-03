@@ -1,3 +1,4 @@
+using CookApps.AutoBattler;
 using Naninovel;
 using Naninovel.UI;
 
@@ -15,6 +16,11 @@ public class DialogueLogButton : ScriptableButton
     protected override void OnButtonClick ()
     {
         uiManager.GetUI<IPauseUI>()?.Hide();
-        uiManager.GetUI<IBacklogUI>()?.Show();
+
+        var backlogUI = uiManager.GetUI<IBacklogUI>();
+        if (backlogUI is CustomBacklogPanel customPanel)
+            customPanel.ShowFromButton();
+        else
+            backlogUI?.Show();
     }
 }

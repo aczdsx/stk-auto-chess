@@ -1,25 +1,24 @@
 using Naninovel;
 using Naninovel.UI;
-using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
     /// <summary>
     /// DialogueLogButton을 통해서만 열리도록 제한하는 커스텀 BacklogPanel
-    /// - ShowBacklog 키 입력 바인딩 제거
-    /// - Show() 호출 시 디버그 로그 출력
+    /// - ShowBacklog 키/스와이프 입력 바인딩 제거
+    /// - Show()는 ShowFromButton()을 통해서만 동작
     /// </summary>
     public class CustomBacklogPanel : BacklogPanel
     {
+        private bool _allowShow;
+
         public override UniTask Initialize()
         {
-            // 기본 BacklogPanel은 여기서 ShowBacklog 키 입력을 바인딩하지만,
-            // 우리는 DialogueLogButton을 통해서만 열리도록 하기 위해 바인딩하지 않음
-
+            // ShowBacklog 입력 바인딩하지 않음 (base.Initialize() 호출 X)
             // Cancel 키로 닫기만 유지
             BindInput(InputNames.Cancel, Hide, new CustomUI.BindInputOptions { OnEnd = true });
 
-            // ShowBacklog 입력 자체를 비활성화 (L키, 스와이프 업 등)
+            // ShowBacklog 입력 sampler 비활성화
             var inputManager = Engine.GetService<IInputManager>();
             var showBacklogSampler = inputManager?.GetSampler(InputNames.ShowBacklog);
             if (showBacklogSampler != null)
@@ -30,9 +29,19 @@ namespace CookApps.AutoBattler
             return UniTask.CompletedTask;
         }
 
+        /// <summary>
+        /// DialogueLogButton에서 호출하는 명시적 Show
+        /// </summary>
+        public void ShowFromButton()
+        {
+            _allowShow = true;
+            Show();
+            _allowShow = false;
+        }
+
         public override void Show()
         {
-            Debug.Log($"[CustomBacklogPanel] Show() 호출됨\n{System.Environment.StackTrace}");
+            if (!_allowShow) return;
             base.Show();
         }
     }

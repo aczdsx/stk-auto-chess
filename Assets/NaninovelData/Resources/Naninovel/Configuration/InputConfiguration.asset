@@ -114,11 +114,7 @@ MonoBehaviour:
     AlwaysProcess: 0
     Keys: 6c0000004f010000
     Axes: []
-    Swipes:
-    - Direction: 0
-      FingerCount: 1
-      MinimumDistance: 50
-      ActivateOnMove: 0
+    Swipes: []
   - Name: Rollback
     AlwaysProcess: 0
     Keys: 4e010000
