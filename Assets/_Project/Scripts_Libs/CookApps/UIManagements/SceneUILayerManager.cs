@@ -143,7 +143,7 @@ namespace CookApps.TeamBattle.UIManagements
         {
             if (dimLayerCreated)
             {
-                float targetOpacity = isDimLayerOn ? 0.6f : 0f;
+                float targetOpacity = isDimLayerOn ? 0.5f : 0f;
                 float opacity = dimLayer.color.a;
 
                 if (opacity > 0 && !dimLayer.gameObject.activeSelf)

@@ -87,10 +87,10 @@ namespace CookApps.AutoBattler
             _layoutWaitTime = 0f;
             _sourceUVCached = false;
 
-            // 드래그 오브젝트 활성화
+            // 드래그 오브젝트 비활성화 (초기 위치 캐싱 후 활성화)
             if (context.DragObj != null)
             {
-                context.DragObj.SetActive(true);
+                context.DragObj.SetActive(false);
             }
 
             // tutorial_action_key 파싱 (형식: "Slot_3401->7")
@@ -336,6 +336,12 @@ namespace CookApps.AutoBattler
                 {
                     _sourceUV = CalculateUIPositionUV(_initialTargetUI);
                     _sourceUVCached = true;
+
+                    // 초기 위치 캐싱 완료 후 드래그 오브젝트 활성화
+                    if (_currentContext?.DragObj != null)
+                    {
+                        _currentContext.DragObj.SetActive(true);
+                    }
                 }
             }
 

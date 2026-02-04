@@ -5327,14 +5327,6 @@ MonoBehaviour:
     m_Key: MGS_OVER_COUNT_CHARACTER
     m_Metadata:
       m_Items: []
-  - m_Id: 7415657850560512
-    m_Key: MSG_MAX_LV_UP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 7432383841525760
-    m_Key: MSG_NOT_ENOUGH_CURRENCY
-    m_Metadata:
-      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
