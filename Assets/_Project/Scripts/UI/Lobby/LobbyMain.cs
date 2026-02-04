@@ -118,6 +118,7 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             preEnterTaskSource = new UniTaskCompletionSource();
             PreEnterAsync().ContinueWith(() => preEnterTaskSource.TrySetResult()).Forget();
+            SceneUILayerManager.OnUITransitionEvent += OnUITransition;
         }
 
         private async UniTask PreEnterAsync()
@@ -157,6 +158,30 @@ namespace CookApps.AutoBattler
 
         }
 
+        protected override void OnPreExit()
+        {
+            base.OnPreExit();
+            SceneUILayerManager.OnUITransitionEvent -= OnUITransition;
+        }
+
+        private void OnUITransition(UILayerTransition transition, string key, UILayer layer, object data)
+        {
+            // 다른 UI가 닫힐 때 현재 자신이 최상단인지 확인
+            if (transition == UILayerTransition.ExitFinished && layer != this)
+            {
+                var routes = SceneUILayerManager.Instance.GetUIRoutes();
+                if (routes.Length > 0 && routes[^1] == this)
+                {
+                    OnBecameTop();
+                }
+            }
+        }
+
+        private void OnBecameTop()
+        {
+            NetManager.Instance.GuideMission.GetAsync().Forget();
+        }
+
         private void SetStageText()
         {
             var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
@@ -186,7 +211,7 @@ namespace CookApps.AutoBattler
             SceneLoading.GoToNextScene("BattleReady", currentStageData.chapter_id);
         }
 
-        private void OnClickDungeonButton()
+        public void OnClickDungeonButton()
         {
             // CLEAR_BABEL 타입의 가이드 미션 중 가장 낮은 order를 가진 미션 찾기
             var guideMissionInfos = SpecDataManager.Instance.GuideMissionInfo.All;

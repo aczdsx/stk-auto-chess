@@ -123,8 +123,12 @@ namespace CookApps.AutoBattler
         /// </summary>
         public async UniTask SubscribeEventAsync(Action<BM013Event> onEventReceived, CancellationToken cancellationToken = default)
         {
+            Debug.Log("[EventSubscription] SubscribeEvent stream connecting...");
+
             using var call = SubscribeEvent(cancellationToken);
             using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+
+            Debug.Log("[EventSubscription] SubscribeEvent stream connected");
 
             // 응답 수신 태스크
             var readTask = ReadEventStreamAsync(call, onEventReceived, linkedCts.Token);
@@ -145,6 +149,8 @@ namespace CookApps.AutoBattler
             {
                 // 이미 닫힌 경우 무시
             }
+
+            Debug.Log("[EventSubscription] SubscribeEvent stream disconnected");
         }
 
         private async UniTask ReadEventStreamAsync(
@@ -152,13 +158,31 @@ namespace CookApps.AutoBattler
             Action<BM013Event> onEventReceived,
             CancellationToken cancellationToken)
         {
-            while (await call.ResponseStream.MoveNext(cancellationToken))
+            try
             {
-                var response = call.ResponseStream.Current;
-                if (response.IsSuccess && response.Event != BM013Event.Unspecified)
+                while (await call.ResponseStream.MoveNext(cancellationToken))
                 {
-                    onEventReceived?.Invoke(response.Event);
+                    Debug.Log("[EventSubscription] ReadEventStream received event");
+                    var response = call.ResponseStream.Current;
+                    if (response.IsSuccess && response.Event != BM013Event.Unspecified)
+                    {
+                        onEventReceived?.Invoke(response.Event);
+                    }
                 }
+
+                Debug.Log("[EventSubscription] ReadEventStream completed normally");
+            }
+            catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled)
+            {
+                Debug.Log("[EventSubscription] ReadEventStream cancelled");
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("[EventSubscription] ReadEventStream cancelled");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[EventSubscription] ReadEventStream error: {ex.Message}");
             }
         }
 
@@ -166,10 +190,27 @@ namespace CookApps.AutoBattler
             AsyncDuplexStreamingCall<CustomLobbySubscribeEventRequest, CustomLobbySubscribeEventResponse> call,
             CancellationToken cancellationToken)
         {
-            while (!cancellationToken.IsCancellationRequested)
+            try
             {
-                await call.RequestStream.WriteAsync(new CustomLobbySubscribeEventRequest(), cancellationToken); 
-                await UniTask.Delay(TimeSpan.FromSeconds(5), cancellationToken: cancellationToken);
+                while (!cancellationToken.IsCancellationRequested)
+                {
+                    Debug.Log("[EventSubscription] SendPing sending ping");
+                    await call.RequestStream.WriteAsync(new CustomLobbySubscribeEventRequest(), cancellationToken);
+                    await UniTask.Delay(TimeSpan.FromSeconds(5), cancellationToken: cancellationToken);
+                }
+
+            }
+            catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled)
+            {
+                Debug.Log("[EventSubscription] SendPing cancelled");
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("[EventSubscription] SendPing cancelled");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[EventSubscription] SendPing error: {ex.Message}");
             }
         }
     }

@@ -17,7 +17,7 @@ namespace CookApps.AutoBattler
 
     /// <summary>
     /// 전투 준비 화면(로비)의 메인 UI 레이어를 관리하는 클래스
-    /// 
+    ///
     /// [원래 기능]
     /// - 스테이지 선택 UI 표시 및 관리
     /// - 유저 정보 표시 (레벨, 경험치, 닉네임)
@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
     /// - 레드닷 상태 업데이트 및 표시
     /// - 챕터 클리어, 계정 레벨업 등 팝업 표시 조건 체크
     /// - Vignette 효과 적용
-    /// 
+    ///
     /// [현재 사용 중인 기능]
     /// - 스테이지 선택 UI 표시 및 관리 (하단 스크롤 영역)
     /// - 방치 보상 상태 표시 및 갱신
@@ -37,7 +37,7 @@ namespace CookApps.AutoBattler
     /// - 가이드 미션 갱신
     /// - 챕터 클리어, 계정 레벨업 등 팝업 표시 조건 체크
     /// - Vignette 효과 적용
-    /// 
+    ///
     /// [비활성화된 기능]
     /// - 유저 정보 표시 (주석 처리됨)
     /// - 가챠, 출석, 퀘스트, 던전, 이벤트 버튼 (Awake에서 주석 처리됨)
@@ -132,6 +132,7 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
             PreEnterAsync().Forget();
+            SceneUILayerManager.OnUITransitionEvent += OnUITransition;
         }
 
         private async UniTask PreEnterAsync()
@@ -172,6 +173,30 @@ namespace CookApps.AutoBattler
             await SceneTransition.FadeOutAsync();
 
             TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.BATTLE_READY, "0");
+        }
+
+        protected override void OnPreExit()
+        {
+            base.OnPreExit();
+            SceneUILayerManager.OnUITransitionEvent -= OnUITransition;
+        }
+
+        private void OnUITransition(UILayerTransition transition, string key, UILayer layer, object data)
+        {
+            // 다른 UI가 닫힐 때 현재 자신이 최상단인지 확인
+            if (transition == UILayerTransition.ExitFinished && layer != this)
+            {
+                var routes = SceneUILayerManager.Instance.GetUIRoutes();
+                if (routes.Length > 0 && routes[^1] == this)
+                {
+                    OnBecameTop();
+                }
+            }
+        }
+
+        private void OnBecameTop()
+        {
+            NetManager.Instance.GuideMission.GetAsync().Forget();
         }
 
         public void RefreshUI(LobbyMainRefreshType refreshType)

@@ -118,6 +118,11 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         {
             // 새 가이드 미션 시작 트리거 발동
             HandleTutorialAction(TutorialTriggerType.GUIDE_START, guideMissionId.ToString());
+
+            if(guideMissionId >= 600)
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<EndTestgamePopup>().Forget();
+            }
         }
 
         return result;
