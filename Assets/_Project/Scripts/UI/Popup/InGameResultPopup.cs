@@ -212,7 +212,15 @@ namespace CookApps.AutoBattler
 
             string nextSceneName = (specLastStageData.chapter_id == 1) ? "Lobby" : "BattleReady";
 
-            SceneLoading.GoToNextScene(nextSceneName, InGameManager.Instance.SpecStage.chapter_id);
+            if (_popupParam.IsVictory)
+            {
+                // 승리 시 스테이지 클리어 나니노벨 트리거 검사
+                SceneLoading.GoToNextSceneWithStageClearTrigger(nextSceneName, InGameManager.Instance.SpecStage.stage_id, InGameManager.Instance.SpecStage.chapter_id);
+            }
+            else
+            {
+                SceneLoading.GoToNextScene(nextSceneName, InGameManager.Instance.SpecStage.chapter_id);
+            }
         }
 
         private async UniTask OnNextStageButtonClickedAsync()
@@ -281,7 +289,16 @@ namespace CookApps.AutoBattler
 
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextSceneWithStageClearTrigger("InGame", InGameManager.Instance.SpecStage.stage_id, inGameParams);
+
+            if (_popupParam.IsVictory)
+            {
+                // 승리 시 스테이지 클리어 나니노벨 트리거 검사
+                SceneLoading.GoToNextSceneWithStageClearTrigger("InGame", InGameManager.Instance.SpecStage.stage_id, inGameParams);
+            }
+            else
+            {
+                SceneLoading.GoToNextScene("InGame", inGameParams);
+            }
         }
 
         // 가장 높은 스테이지 클리어 여부 체크

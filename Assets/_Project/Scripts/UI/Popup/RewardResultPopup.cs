@@ -34,9 +34,9 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_item_reward);
 
             (_titleToken, _rewardItemList) = ((string, List<RewardItem>))param;
-            
+
             SetPopupTitleText(_titleToken);
-            
+
             SetRewardSlotList();
         }
 
@@ -44,7 +44,7 @@ namespace CookApps.AutoBattler
         {
             if (_titleText == null) return;
             if (string.IsNullOrWhiteSpace(text)) return;
-            
+
             _titleText.text = LanguageManager.Instance.GetDefaultText(text);
         }
 
