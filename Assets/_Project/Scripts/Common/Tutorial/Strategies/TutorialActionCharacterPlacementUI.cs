@@ -341,8 +341,13 @@ namespace CookApps.AutoBattler
                     if (_currentContext?.DragObj != null)
                     {
                         _currentContext.DragObj.SetActive(true);
+                        // 활성화 후 초기 위치(A)로 이동 (OnEnable/LayoutGroup 위치 리셋 방지)
+                        UpdateDragObjPosition(_sourceUV);
                     }
                 }
+
+                // 활성화 프레임에서는 애니메이션 건너뛰기 (A 위치 유지)
+                return;
             }
 
             // A(UI슬롯 - 캐싱됨)와 B(타겟타일)의 UV 좌표
