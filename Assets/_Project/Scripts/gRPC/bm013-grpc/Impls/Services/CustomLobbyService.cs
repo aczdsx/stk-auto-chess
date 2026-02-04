@@ -102,7 +102,7 @@ namespace CookApps.AutoBattler
                 cancellationToken: cancellationToken
             );
             
-            if (resp != null && resp.IsSuccess)
+            if (resp is { IsSuccess: true })
             {
                 ServerDataManager.Instance.PlayerData.ChangeNickName(nickname);
             }
