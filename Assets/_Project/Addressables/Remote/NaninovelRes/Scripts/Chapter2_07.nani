@@ -18,9 +18,10 @@ Narrator: 발을 내딛을 때 마다, 타는 듯한 열기와 메마른 모래 
 ; L004
 
 @char uni_00.Talk pos:45,-240 scale:1.38
-@spawn ShakeCharacter params:uni_00
+
 
 uni_00: 우웩...! 이 감각은 익숙해지려고 해도, 익숙해지지 않는다니까.... 거기다가 여기 너무 덥기까지 하잖아!
+@spawn ShakeCharacter params:uni_00
 ; L005
 
 ; (순간 토하려는 호)

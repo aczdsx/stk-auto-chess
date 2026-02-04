@@ -118,6 +118,7 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             preEnterTaskSource = new UniTaskCompletionSource();
             PreEnterAsync().ContinueWith(() => preEnterTaskSource.TrySetResult()).Forget();
+            SceneUILayerManager.OnUITransitionEvent += OnUITransition;
         }
 
         private async UniTask PreEnterAsync()
@@ -155,6 +156,30 @@ namespace CookApps.AutoBattler
 
             CheckShowSurveyPopup();
 
+        }
+
+        protected override void OnPreExit()
+        {
+            base.OnPreExit();
+            SceneUILayerManager.OnUITransitionEvent -= OnUITransition;
+        }
+
+        private void OnUITransition(UILayerTransition transition, string key, UILayer layer, object data)
+        {
+            // 다른 UI가 닫힐 때 현재 자신이 최상단인지 확인
+            if (transition == UILayerTransition.ExitFinished && layer != this)
+            {
+                var routes = SceneUILayerManager.Instance.GetUIRoutes();
+                if (routes.Length > 0 && routes[^1] == this)
+                {
+                    OnBecameTop();
+                }
+            }
+        }
+
+        private void OnBecameTop()
+        {
+            NetManager.Instance.GuideMission.GetAsync().Forget();
         }
 
         private void SetStageText()

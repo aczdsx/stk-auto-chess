@@ -75,10 +75,16 @@ namespace CookApps.AutoBattler
             _retryStageButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickRetryStageButtonAsync(), AwaitOperation.Drop).AddTo(this);
         }
 
+        protected override void OnBackButton(ref bool offPrevUI) { }
+
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
+            OnPreEnterAsync(param).Forget();
+        }
 
+        private async UniTask OnPreEnterAsync(object param)
+        {
             SoundManager.Instance.StopBGM();
 
             _popupParam = (InGameResultPopupParam)param;
@@ -173,6 +179,7 @@ namespace CookApps.AutoBattler
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_result_defeat_001);
             }
 
+            await NetManager.Instance.GuideMission.GetAsync();
             var guideMission = ServerDataManager.Instance.GuideMission;
             // 가이드 미션이 완료되어 보상 수령 대기상태일 경우 처리
             _isWaitGuideMissionReward = guideMission.IsGoalReached || guideMission.IsCompleted;
