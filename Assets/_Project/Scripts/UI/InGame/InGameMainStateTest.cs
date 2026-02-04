@@ -114,6 +114,7 @@ namespace CookApps.AutoBattler
         public void InitCombatStateUI()
         {
             _inGameUI.PlayAnimation("SetBattleEntry");
+            _inGameUI.TopUI.InitCombatTopUI();
             _inGameUI.BottomUI.InitCommanderSkill();
             _inGameUI.BottomUI.InitSpeedUpSetting();
             InGameMain.GetInGameMain().RefreshInGameTopUI(true);

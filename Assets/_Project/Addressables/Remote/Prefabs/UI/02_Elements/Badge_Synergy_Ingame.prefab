@@ -575,6 +575,7 @@ MonoBehaviour:
   _elementalIconGameObject: {fileID: 2014220024279149767}
   _countText: {fileID: 960056435627584700}
   _countMaxGameObject: {fileID: 1401289358727230721}
+  _countParentGameObject: {fileID: 6485151141017197831}
   _starAsterismGradeGuageImage: {fileID: 5261346192358053892}
   _starAsterismGradeGuageColor: {fileID: 6869867817893338306}
   _elementalGradeGuageImage: {fileID: 2454785173849805981}

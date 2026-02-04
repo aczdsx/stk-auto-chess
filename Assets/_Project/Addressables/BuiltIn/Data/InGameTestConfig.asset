@@ -13,32 +13,32 @@ MonoBehaviour:
   m_Name: InGameTestConfig
   m_EditorClassIdentifier: 
   Mode: 0
-  StageId: 0
-  StageChapterId: 1
+  StageId: 20006
+  StageChapterId: 2
   GridWidth: 5
   GridHeight: 7
   PlayerCharacters:
-  - CharacterId: 3403
-    Level: 1
+  - CharacterId: 3401
+    Level: 25
     GridX: 4
     GridY: 0
     MultipleAtk: 1
     MultipleHp: 1
-  - CharacterId: 3401
-    Level: 1
+  - CharacterId: 2401
+    Level: 25
     GridX: 0
     GridY: 0
     MultipleAtk: 1
     MultipleHp: 1
   - CharacterId: 2102
-    Level: 1
+    Level: 25
     GridX: 2
     GridY: 0
     MultipleAtk: 1
     MultipleHp: 1
-  - CharacterId: 2401
+  - CharacterId: 3403
     Level: 1
-    GridX: 3
+    GridX: 1
     GridY: 1
     MultipleAtk: 1
     MultipleHp: 1
@@ -77,5 +77,5 @@ MonoBehaviour:
   CameraPosition: {x: -15, y: 10, z: -12}
   BattleTimeLimit: 120
   RestartDelay: 2
-  PlayerInvincible: 1
+  PlayerInvincible: 0
   EnemyInvincible: 1

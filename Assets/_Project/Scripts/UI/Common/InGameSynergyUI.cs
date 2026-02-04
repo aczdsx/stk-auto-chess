@@ -57,6 +57,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _elementalIconGameObject;
         [SerializeField] private TextMeshProUGUI _countText;
         [SerializeField] private GameObject _countMaxGameObject;
+        [SerializeField] private GameObject _countParentGameObject;
 
         [SerializeField] private Image _starAsterismGradeGuageImage;
         [SerializeField] private Image _starAsterismGradeGuageColor;
@@ -243,6 +244,11 @@ namespace CookApps.AutoBattler
             // sequence.SetTarget(targetTransform);
 
             await UniTask.Delay((int)(ShinyDuration * 1000));
+        }
+
+        public void SetCountTextVisible(bool visible)
+        {
+            _countParentGameObject?.SetActive(visible);
         }
     }
 }

@@ -1167,7 +1167,8 @@ public class InGameTouchManager : SingletonMonoBehaviour<InGameTouchManager>
 
         //유저 카운트 체크
         var userKnightCount = SpecDataManager.Instance.GetUserKnightCountByNestCount().maximum_character_count;
-        if (userKnightCount <= InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count)
+        if (userKnightCount <= InGameObjectManager.Instance.GetCharacterList(AllianceType.Player).Count
+        && InGameMainFlowManager.Instance.CurrentFlowState is not FlowStateInGameTestReady)
         {
             ToastManager.Instance.ShowToastByTokenKey("MSG_OVER_INT_CHARACTER");
             CancelGhostDrag();

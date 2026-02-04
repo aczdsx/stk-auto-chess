@@ -524,4 +524,11 @@ public class InGameTopUI : MonoBehaviour
     {
         _failType = type;
     }
+    public void InitCombatTopUI()
+    {
+        for (int i = 0; i < _playerSynergyUIList.Count; ++i)
+        {
+            _playerSynergyUIList[i].SetCountTextVisible(false);
+        }
+    }
 }

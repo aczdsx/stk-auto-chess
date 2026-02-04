@@ -77,7 +77,7 @@ namespace CookApps.BattleSystem
         /// <summary>
         /// AllianceType.None인 빈 타일을 먼저 탐색하고, 없으면 다른 빈 타일을 반환합니다.
         /// </summary>
-        public InGameTile GetEmptyTilePreferringNone()
+        public InGameTile GetEmptyTilePreferringNone(AllianceType? preferNextAllianceType = null)
         {
             // 먼저 AllianceType.None인 빈 타일 찾기
             InGameTile bestNoneTile = null;
@@ -107,7 +107,7 @@ namespace CookApps.BattleSystem
             }
 
             // AllianceType.None인 빈 타일이 없으면 모든 빈 타일 중 하나 반환
-            return GetPriorityEmptyTile();
+            return GetPriorityEmptyTile(preferNextAllianceType);
         }
 
         public InGameTile GetRecommandedTile(ISpecCharacterInfo spec, AllianceType findEmptyallianceType = AllianceType.Player)
