@@ -239,6 +239,9 @@ namespace CookApps.AutoBattler
 
             coreStats[0].Set(titleString1, ZString.Concat(selectedCoreData.effect_stat_value01));
             coreStats[1].Set(titleString2, ZString.Concat(selectedCoreData.effect_stat_value02));
+            
+            coreStats[0].SetSprite(selectedCoreData.upgrade_desc_token01);
+            coreStats[1].SetSprite(selectedCoreData.upgrade_desc_token02);
         }
 
         private void SetToggle(DimensionType dimensionType)
