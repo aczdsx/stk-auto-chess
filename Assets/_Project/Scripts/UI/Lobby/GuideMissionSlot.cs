@@ -230,8 +230,8 @@ namespace CookApps.AutoBattler
                     NavigateToStage();
                     break;
 
-                // TODO: 네비게이션 미구현
                 case GuideMissionType.CLEAR_BABEL:
+                    NavigateToBabel();
                     break;
             }
         }
@@ -370,6 +370,20 @@ namespace CookApps.AutoBattler
                         return;
                     }
                 }
+            }
+        }
+
+        private void NavigateToBabel()
+        {
+            var currentSceneName = SceneManager.GetActiveScene().name;
+
+            if (currentSceneName == "Lobby")
+            {
+                LobbyMain.GetLobbyMain()?.OnClickDungeonButton();
+            }
+            else
+            {
+                NavigateToLobbyAndOpenPopup(null, () => LobbyMain.GetLobbyMain()?.OnClickDungeonButton());
             }
         }
 

@@ -186,7 +186,7 @@ namespace CookApps.AutoBattler
             SceneLoading.GoToNextScene("BattleReady", currentStageData.chapter_id);
         }
 
-        private void OnClickDungeonButton()
+        public void OnClickDungeonButton()
         {
             // CLEAR_BABEL 타입의 가이드 미션 중 가장 낮은 order를 가진 미션 찾기
             var guideMissionInfos = SpecDataManager.Instance.GuideMissionInfo.All;
