@@ -59,11 +59,6 @@ uni_00: 저 모습이 되는 것 보다….꼭 이뤄내고 싶은 소망들이 
 @choice "\" ……유니 \""
 @stop
 
-@hideChars
-@char asna_00.Talk pos:60,-240 scale:1.38
-asna_00: …..유니
-@hide asna_00
-
 @char uni_00.Talk pos:30,-240 scale:1.38
 uni_00: 헤헷 재미없는 역사수업은 여기까지! 지금은 저녀석 에게 ‘안식’을 선물해줄 때야!
 @char atresia_00.Talk pos:60,-235 scale:1.38
