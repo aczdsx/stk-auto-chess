@@ -704,9 +704,9 @@ namespace CookApps.TeamBattle.UIManagements
                 floatingNodeGo = floatingNode.gameObject;
             }
 
-            if ((floatingNodeCanvas = mainNodeGo.GetComponent<Canvas>()) == null)
+            if ((floatingNodeCanvas = floatingNodeGo.GetComponent<Canvas>()) == null)
             {
-                floatingNodeCanvas = mainNodeGo.AddComponent<Canvas>();
+                floatingNodeCanvas = floatingNodeGo.AddComponent<Canvas>();
             }
             if (floatingNodeGo.GetComponent<GraphicRaycaster>() == null)
             {
