@@ -41,8 +41,8 @@ namespace CookApps.AutoBattler
         /// </summary>
         private static List<CookApps.BattleSystem.CharacterController> _spawnedEnemies = new List<CookApps.BattleSystem.CharacterController>();
 
-        private const float MIN_SPAWN_INTERVAL = 0.5f;
-        private const float MAX_SPAWN_INTERVAL = 1.0f;
+        private const float MIN_SPAWN_INTERVAL = 0.4f;
+        private const float MAX_SPAWN_INTERVAL = 0.6f;
         private const int DEFAULT_MONSTER_LEVEL = 1;
         private const float SPAWN_ACTION_DELAY = 0.3f;
 

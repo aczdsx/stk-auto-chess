@@ -40,11 +40,23 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     private GameObject _tutorialCanvasInstance;
 
     private List<TutorialDialogue> _specTutorialDataList = new();
+
+    /// <summary>
+    /// 이미 실행된 튜토리얼 추적 (중복 실행 방지)
+    /// Key: (tutorial_id, seq)
+    /// </summary>
+    private HashSet<(int tutorialId, int seq)> _executedTutorialSet = new();
+
+    /// <summary>
+    /// 현재 가이드 미션 ID (변경 시 _executedSeqSet 초기화용)
+    /// </summary>
+    private int _currentGuideMissionId;
+
     public bool HasTutorialStage => _specTutorialDataList is { Count: > 0 } && _specTutorialDataList[0].tutorial_id > 0;
     public bool IsTutorial => _canvas != null;
-    
+
     private static bool _isSkipTutorial = false;
-    public static void SetSkipTutorial() {_isSkipTutorial = true;}
+    public static void SetSkipTutorial() { _isSkipTutorial = true; }
     public static bool IsSkipTutorial => _isSkipTutorial;
 
     protected override void OnDestroy()
@@ -60,7 +72,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     public void SubscribeGuideMissionChanged()
     {
-        if(IsSkipTutorial) return;
+        if (IsSkipTutorial) return;
         var guideMissionBridge = new GuideMissionDataBridge();
         _guideMissionSubscription = guideMissionBridge.OnMissionIdChanged
             .Subscribe(OnGuideMissionIdChanged);
@@ -126,6 +138,14 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             return false;
         }
 
+        // 가이드 미션이 변경되면 실행 기록 초기화
+        if (_currentGuideMissionId != info.id)
+        {
+            _currentGuideMissionId = info.id;
+            _executedTutorialSet.Clear();
+            Debug.LogColor($"[Tutorial] 가이드 미션 변경: {info.id}, 실행 기록 초기화", "cyan");
+        }
+
         var result = await CheckAndInitTutorial(info.tutorial_id);
         if (result)
         {
@@ -166,9 +186,12 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             return false;
         }
 
-        _specTutorialDataList = new List<TutorialDialogue>(specTutorialDataList);
+        // 이미 실행된 튜토리얼 제외하고 리스트 생성
+        _specTutorialDataList = specTutorialDataList
+            .Where(t => !_executedTutorialSet.Contains((t.tutorial_id, t.seq)))
+            .ToList();
 
-        Debug.LogColor($"튜토리얼 초기화: {tutorialID}, 스텝 수: {_specTutorialDataList.Count}", "green");
+        Debug.LogColor($"튜토리얼 초기화: {tutorialID}, 스텝 수: {_specTutorialDataList.Count}, 이미 실행된: {_executedTutorialSet.Count}개", "green");
 
         foreach (var tutorial in _specTutorialDataList)
         {
@@ -253,8 +276,11 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             return false;
         }
 
+        // 이미 실행된 튜토리얼 제외하고 찾기
         var turnTutorialList = _specTutorialDataList.FindAll(
-            l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
+            l => l.tutorial_trigger_type == tutorialTriggerType
+                 && l.tutorial_trigger_key == key
+                 && !_executedTutorialSet.Contains((l.tutorial_id, l.seq)));
 
         if (turnTutorialList.Count == 0)
         {
@@ -271,10 +297,14 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             Debug.LogColor($"[Tutorial] seq {minMatchedSeq} 이전 튜토리얼 {skippedCount}개 스킵됨", "yellow");
         }
 
-        // 매칭된 튜토리얼 제거
-        _specTutorialDataList.RemoveAll(
-            l => l.tutorial_trigger_type == tutorialTriggerType && l.tutorial_trigger_key == key);
+        // 실행할 튜토리얼을 실행 완료 목록에 추가 & 리스트에서 제거
+        foreach (var tutorial in turnTutorialList)
+        {
+            _executedTutorialSet.Add((tutorial.tutorial_id, tutorial.seq));
+            _specTutorialDataList.RemoveAll(l => l.tutorial_id == tutorial.tutorial_id && l.seq == tutorial.seq);
+        }
 
+        Debug.LogColor($"[Tutorial] 실행: {string.Join(", ", turnTutorialList.Select(t => $"({t.tutorial_id}, seq:{t.seq})"))}", "green");
 
         IsTutorialCanvasEnabled = true;
         _tutorialController.SetTutorialAsync(turnTutorialList, isLongShow).Forget();

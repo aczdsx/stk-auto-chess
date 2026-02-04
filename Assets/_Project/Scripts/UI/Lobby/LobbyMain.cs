@@ -137,7 +137,7 @@ namespace CookApps.AutoBattler
             SceneTransition.FadeOutAsync().Forget();
             animateCamera.ZoomAsync(16.0f, 1.0f).Forget();
 
-            PlayEnterAnimation();
+            await PlayEnterAnimationAsync();
 
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP, TopPanelType.Elpis_BuildItem);
             if (!TutorialManager.IsSkipTutorial)
@@ -289,19 +289,27 @@ namespace CookApps.AutoBattler
 
         public void PlayEnterAnimation()
         {
-            StartEnterAnimation(null);
+            PlayEnterAnimationAsync().Forget();
+        }
+
+        public async UniTask PlayEnterAnimationAsync()
+        {
+            var tcs = new UniTaskCompletionSource();
+            base.StartEnterAnimation(_ => tcs.TrySetResult());
+            await tcs.Task;
             CheckRedDots().Forget();
         }
 
         protected override void StartEnterAnimation(Action<UILayer> endCallback)
         {
-            WaitAndStartEnter(endCallback).Forget();
+            // PreEnterAsync에서 애니메이션 처리, 여기서는 완료 대기 후 callback만 호출
+            WaitAndInvokeCallback(endCallback).Forget();
         }
 
-        private async UniTask WaitAndStartEnter(Action<UILayer> endCallback)
+        private async UniTask WaitAndInvokeCallback(Action<UILayer> endCallback)
         {
             await preEnterTaskSource.Task;
-            base.StartEnterAnimation(endCallback);
+            endCallback?.Invoke(this);
         }
 
         #region RedDot

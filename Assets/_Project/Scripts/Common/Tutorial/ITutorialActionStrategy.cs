@@ -1,4 +1,5 @@
 using System;
+using CookApps.TeamBattle.Utility;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -51,6 +52,9 @@ namespace CookApps.AutoBattler
 
         // 마스크 위치/크기 업데이트 건너뛰기 (SPAWN_ENEMY, TOAST_MESSAGE 등에서 사용)
         public bool SkipMaskUpdate { get; set; }
+
+        // TargetSpawnObj의 SafeArea (FORCED_TOUCH_UI에서 Refresh용)
+        public SafeArea TutorialSafeArea { get; set; }
 
         #region Full Screen Mask Helpers
 
