@@ -7,6 +7,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using CookApps.TeamBattle.Utility;
 
 public class TutorialController : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class TutorialController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _descText;
     [SerializeField] private Transform _targetSpawnTransform;
     [SerializeField] private Image _dimmedImage;
+    [SerializeField] private SafeArea _tutorialSafeArea;
 
     [Header("3D World Target Arrow")]
     [SerializeField] private RectTransform _worldArrowRectTransform;
@@ -192,7 +194,8 @@ public class TutorialController : MonoBehaviour
             DimmedImage = _dimmedImage,
             TutorialToastObj = _tutorialToastObj,
             TutorialToastText = _tutoiralText,
-            TutorialToastAnimator = _tutorialToastAnimator
+            TutorialToastAnimator = _tutorialToastAnimator,
+            TutorialSafeArea = _tutorialSafeArea
         };
     }
 
@@ -230,6 +233,9 @@ public class TutorialController : MonoBehaviour
         Debug.LogColor($"ShowNextTutorial: {specTutorial.tutorial_action_type} {specTutorial.tutorial_action_key} {specTutorial.seq}", "green");
         // 이전 전략 정리 (버튼 원위치 등)
         RestorePreviousState();
+
+        // 홀 애니메이션 상태 리셋 (새 튜토리얼의 hole_radius 적용을 위해)
+        _currentState = AnimationState.Idle;
 
         // 이전 전략 OnClear 호출 (전략 교체 시)
         _currentStrategy?.OnClear(_actionContext);

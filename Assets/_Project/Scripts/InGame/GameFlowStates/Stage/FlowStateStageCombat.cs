@@ -254,7 +254,7 @@ public class FlowStateStageCombat : StateCombatBase
         }
 
         InGameMainFlowManager.Instance.SetPlaySpeed(0.4f);
-        await UniTask.Delay(1500);
+        await UniTask.Delay(1200);
         InGameMainFlowManager.Instance.SetInGameSpeed(false);
 
         if (isWin)

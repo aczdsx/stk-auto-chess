@@ -3337,7 +3337,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 304458567314927819, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 285
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 539840180378042800, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_SortingLayer
@@ -3345,7 +3345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1618645643540446225, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_fontSize
-      value: 24.3
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 2574546041016748149, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_Name

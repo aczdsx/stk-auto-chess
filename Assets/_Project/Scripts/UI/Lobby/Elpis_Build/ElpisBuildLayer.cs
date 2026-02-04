@@ -67,6 +67,9 @@ namespace CookApps.AutoBattler
             PopulateBuildList();
             RefreshUI();
 
+            // LayoutGroup 계산 강제 업데이트 (튜토리얼에서 정확한 위치를 가져오기 위해)
+            Canvas.ForceUpdateCanvases();
+
             TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.LAYER_ENTER, GetType().Name);
         }
 
