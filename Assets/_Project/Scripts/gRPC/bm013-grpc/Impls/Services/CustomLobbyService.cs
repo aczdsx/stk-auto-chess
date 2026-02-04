@@ -101,6 +101,11 @@ namespace CookApps.AutoBattler
                 new CustomLobbyChangeNicknameRequest { Nickname = nickname },
                 cancellationToken: cancellationToken
             );
+            
+            if (resp is { IsSuccess: true })
+            {
+                ServerDataManager.Instance.PlayerData.ChangeNickName(nickname);
+            }
 
             return resp;
         }

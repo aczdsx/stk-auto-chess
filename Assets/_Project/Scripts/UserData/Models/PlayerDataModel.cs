@@ -86,6 +86,19 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
+        /// 닉네임 변경
+        /// </summary>
+        public void ChangeNickName(string nickname)
+        {
+            if (_nickname == nickname)
+                return;
+
+            _nickname = nickname;
+            OnNicknameChanged.OnNext(_nickname);
+            OnChanged.OnNext(Unit.Default);
+        }
+
+        /// <summary>
         /// InventoryModel의 UserExp 변경 구독
         /// </summary>
         private void EnsureSubscribed()
@@ -95,20 +108,20 @@ namespace CookApps.AutoBattler
 
             _inventorySubscription = ServerDataManager.Instance.Inventory.OnCurrencyChanged
                 .Where(x => x.itemId == (uint)IdMap.Item.UserExp.Value)
-                .Subscribe(_ =>
+                .Subscribe(this, (_, self) =>
                 {
                     // Exp 변경 이벤트
-                    OnExpChanged.OnNext(Exp);
+                    self.OnExpChanged.OnNext(self.Exp);
 
                     // Level 변경 감지
-                    var newLevel = Level;
-                    if (_cachedLevel != newLevel)
+                    var newLevel = self.Level;
+                    if (self._cachedLevel != newLevel)
                     {
-                        _cachedLevel = newLevel;
-                        OnLevelChanged.OnNext(newLevel);
+                        self._cachedLevel = newLevel;
+                        self.OnLevelChanged.OnNext(newLevel);
                     }
 
-                    OnChanged.OnNext(Unit.Default);
+                    self.OnChanged.OnNext(Unit.Default);
                 });
         }
 

@@ -136,7 +136,7 @@ private void ApplyVfxAndDamage(CharacterController targetCharacter, InGameVfxNam
     {
         vfxProjectile.Remove();
 
-        if (targetCharacter != null)
+        if (targetCharacter != null || owner.IsAlive || owner is not null)
         {
             // 타겟 히트
             InGameVfxManager.Instance.AddInGameVfx(vfxHitType, targetCharacter.CurrentTile.View.CachedTr.position);
