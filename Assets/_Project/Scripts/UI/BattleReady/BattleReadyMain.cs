@@ -454,18 +454,6 @@ namespace CookApps.AutoBattler
                 SceneUILayerManager.Instance.PushUILayerAsync<EndTestgamePopup>().Forget();
                 return;
             }
-
-            // bool isShowSurvey = Preference.LoadPreference(Pref.SHOW_SURVEY_POPUP, 0) == 1;
-            // if (isShowSurvey) return;
-            // Preference.SavePreference(Pref.SHOW_SURVEY_POPUP, 1);
-
-            // int surveyVisitCount = SpecDataManager.Instance.GetGameConfig<int>("USER_SURVEY_NOTI_ACC_DATE");
-            // if (UserDataManager.Instance.UserBasicData.DailyVisitCount >= surveyVisitCount)
-            // {
-            //     SceneUILayerManager.Instance.PushUILayerAsync<EndTestgamePopup>().Forget();
-
-            //     Preference.SavePreference(Pref.SHOW_SURVEY_POPUP, 1);
-            // }
         }
 
 
