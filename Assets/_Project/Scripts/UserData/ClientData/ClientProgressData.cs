@@ -16,6 +16,13 @@ namespace CookApps.AutoBattler
         [MemoryPackOrder(2)] public bool hasNicknameSet = false;
         [MemoryPackOrder(3)] public MemoryPackList<int> receivedRewardIds = new();
 
+        [MemoryPackOnDeserialized]
+        private void OnDeserialized()
+        {
+            completeDialogueIds ??= new ();
+            receivedRewardIds ??= new ();
+        }
+
         public IReadOnlyList<int> GetCompleteDialogueIds() => completeDialogueIds;
 
         public bool HasDialogueId(int dialogueId) => completeDialogueIds.Contains(dialogueId);
@@ -28,12 +35,12 @@ namespace CookApps.AutoBattler
                 SetDirty();
             }
         }
-        
+
         public bool HasRewardedFirstGachaTicket()
         {
             return hasRewardedFirstGachaTicket;
         }
-        
+
         public void SetRewardedFirstGachaTicket(bool rewarded)
         {
             hasRewardedFirstGachaTicket = rewarded;
@@ -45,12 +52,12 @@ namespace CookApps.AutoBattler
             hasNicknameSet = value;
             SetDirty();
         }
-        
+
         public bool IsRewardReceived(int rewardId)
         {
             return receivedRewardIds.Contains(rewardId);
         }
-        
+
         public void AddReceivedRewardId(int rewardId)
         {
             if (!receivedRewardIds.Contains(rewardId))
