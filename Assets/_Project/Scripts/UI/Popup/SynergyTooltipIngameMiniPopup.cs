@@ -122,7 +122,7 @@ namespace CookApps.AutoBattler
         private void SetSynergyInfo()
         {
             if (_synergyData == null) return;
-
+            
             // 시너지 UI 아이콘 설정
             if (_synergyUI != null)
             {
@@ -144,35 +144,70 @@ namespace CookApps.AutoBattler
 
             // 시너지 설명 설정
             string text = LanguageManager.Instance.GetDefaultText(_synergyData.desc_token_1);
-            // 텍스트에 플레이스홀더가 있는 경우 Format 사용
-            if (!string.IsNullOrEmpty(text))
+            if (DistinguishSynergyTypeHelper.IsElementSynergyType(_synergyType))
             {
-                // 플레이스홀더 개수에 따라 다른 값 전달
-                if (text.Contains("{2}"))
+                // 텍스트에 플레이스홀더가 있는 경우 Format 사용
+                if (!string.IsNullOrEmpty(text))
                 {
-                    // {0}, {1}, {2} 모두 필요한 경우
-                    _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1, _synergyData.effect_stat_value_2, _synergyData.effect_stat_value_3);
-                }
-                else if (text.Contains("{1}"))
-                {
-                    // {0}, {1}만 필요한 경우
-                    _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1, _synergyData.effect_stat_value_2);
-                }
-                else if (text.Contains("{0}"))
-                {
-                    // {0}만 필요한 경우
-                    _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1);
+                    // 플레이스홀더 개수에 따라 다른 값 전달
+                    if (text.Contains("{2}"))
+                    {
+                        // {0}, {1}, {2} 모두 필요한 경우
+                        _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1, _synergyData.effect_stat_value_2, _synergyData.effect_stat_value_3);
+                    }
+                    else if (text.Contains("{1}"))
+                    {
+                        // {0}, {1}만 필요한 경우
+                        _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1, _synergyData.effect_stat_value_2);
+                    }
+                    else if (text.Contains("{0}"))
+                    {
+                        // {0}만 필요한 경우
+                        _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1);
+                    }
+                    else
+                    {
+                        // 플레이스홀더가 없는 경우
+                        _synergyDescText.text = text;
+                    }
                 }
                 else
                 {
-                    // 플레이스홀더가 없는 경우
                     _synergyDescText.text = text;
                 }
             }
             else
-            {
-                _synergyDescText.text = text;
+            {// 성군 시너지 작성이라면?
+                if (!string.IsNullOrEmpty(text))
+                {
+                    // "{0}명:" 부분 제거 후 플레이스홀더 인덱스 재정렬
+                    text = System.Text.RegularExpressions.Regex.Replace(text, @"\{0\}명[:\s]*", "");
+                    text = text.Replace("{1}", "{0}").Replace("{2}", "{1}").Replace("{3}", "{2}");
+
+                    // 플레이스홀더 개수에 따라 다른 값 전달
+                    if (text.Contains("{2}"))
+                    {
+                        _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1, _synergyData.effect_stat_value_2, _synergyData.effect_stat_value_3);
+                    }
+                    else if (text.Contains("{1}"))
+                    {
+                        _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1, _synergyData.effect_stat_value_2);
+                    }
+                    else if (text.Contains("{0}"))
+                    {
+                        _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1);
+                    }
+                    else
+                    {
+                        _synergyDescText.text = text;
+                    }
+                }
+                else
+                {
+                    _synergyDescText.text = text;
+                }
             }
+            
 
             // 강제로 레이아웃 및 캔버스 업데이트
             Canvas.ForceUpdateCanvases();
@@ -215,5 +250,8 @@ namespace CookApps.AutoBattler
         {
             SceneUILayerManager.Instance.PopUILayer(this);
         }
+
+        
+        
     }
 }
