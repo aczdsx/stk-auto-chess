@@ -23,6 +23,7 @@ namespace CookApps.AutoBattler
             SceneLoading.OnGetSpecialNaninovelTrigger = GetSpecialTrigger;
             SceneLoading.OnGetStageClearNaninovelTrigger = GetTriggerOnStageClear;
             SceneLoading.OnGetStageEnterNaninovelTrigger = GetTriggerOnStageEnter;
+            SceneLoading.OnGetElpisEnterNaninovelTrigger = GetTriggerOnElpisEnter;
             Debug.Log("[NaninovelTriggerManager] 초기화 완료 - SceneLoading 연동");
         }
 
@@ -84,6 +85,16 @@ namespace CookApps.AutoBattler
         public string GetTriggerOnGuideComplete(int missionId)
         {
             return GetTrigger(NaninovelTriggerType.GUIDE_TUTORIAL_COMPLETE, missionId.ToString());
+        }
+
+        /// <summary>
+        /// 엘피스(로비) 진입 시 트리거 검색
+        /// </summary>
+        /// <param name="guideMissionId">현재 진행중인 가이드 미션 ID</param>
+        /// <returns>실행할 나니노벨 스크립트 이름 (없으면 null)</returns>
+        public string GetTriggerOnElpisEnter(int guideMissionId)
+        {
+            return GetTrigger(NaninovelTriggerType.ENTER_ELPIS_NANI, guideMissionId.ToString());
         }
 
         /// <summary>

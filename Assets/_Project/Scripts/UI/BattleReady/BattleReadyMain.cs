@@ -522,7 +522,10 @@ namespace CookApps.AutoBattler
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
             InGameManager.Instance.EndInGame();
-            SceneLoading.GoToNextScene("Lobby");
+
+            // 현재 진행중인 가이드 미션으로 ENTER_ELPIS_NANI 트리거 확인
+            var guideMissionId = (int)ServerDataManager.Instance.GuideMission.GuideMissionId;
+            SceneLoading.GoToNextSceneWithElpisEnterTrigger("Lobby", guideMissionId);
         }
 
         private async UniTask OnClickStartButtonAsync()
