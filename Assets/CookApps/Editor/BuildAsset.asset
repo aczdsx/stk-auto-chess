@@ -74,7 +74,8 @@ MonoBehaviour:
         AddDefine:
         - NANINOVEL_ENABLE_SPINE
         - __DEV
-        RemoveDefine: []
+        RemoveDefine:
+        - ENABLE_CHEAT
         Parameters: []
         EnableCodeObfuscator: 0
         IsProduction: 0
@@ -138,7 +139,8 @@ MonoBehaviour:
         AddDefine:
         - NANINOVEL_ENABLE_SPINE
         - __DEV
-        RemoveDefine: []
+        RemoveDefine:
+        - ENABLE_CHEAT
         Parameters: []
         EnableCodeObfuscator: 0
         IsProduction: 0
