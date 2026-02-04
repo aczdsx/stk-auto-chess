@@ -62,7 +62,7 @@ namespace CookApps.AutoBattler
 
                 SceneTransition.Create<SceneTransition_FadeInOut>();
                 await SceneTransition.FadeInAsync();
-                SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
+                SceneLoading.GoToNextScene("BattleReady", specLastStageData.chapter_id);
             }
             else
             {
