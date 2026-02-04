@@ -8430,10 +8430,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: Default
+      m_TableCollectionName: GUID:8c07de4e6b118478b9e53f481dac2451
     m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: UI_CHARACTER_DEPLOYMENT_COUNT
+      m_KeyId: 3182801921761484
+      m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
