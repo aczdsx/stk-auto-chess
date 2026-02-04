@@ -316,6 +316,7 @@ namespace CookApps.AutoBattler
                     if (resp?.IsSuccess == false)
                         return;
                     // await _guideMissionDataBridge.AddActionAsync(GuideMissionType.EXCEED_CHARACTER_TARGET, 1, (int)_userCharacterData.CharacterId);
+                    ToastManager.Instance.ShowToastByTokenKey("MSG_MAX_LV_UP");
                 }
                 else
                 {
@@ -440,7 +441,7 @@ namespace CookApps.AutoBattler
                 // }
                 // else
                 {
-                    ToastManager.Instance.ShowToastByTokenKey("MSG_MAX_LV_UP");
+                    ToastManager.Instance.ShowToastByTokenKey("MSG_TRANSCENDENT_BENEFIT");
                 }
             }
             catch (Exception e)
