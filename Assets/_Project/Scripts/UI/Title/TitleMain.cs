@@ -34,6 +34,8 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
 #if UNITY_EDITOR || (!RELEASE && ENABLE_CHEAT)
             SRDebug.Init();
+            testNode.SetActive(true);
+#else
             testNode.SetActive(false);
 #endif
             SessionCount++;
