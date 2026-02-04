@@ -153,6 +153,8 @@ namespace CookApps.AutoBattler
                 guideMissionDataBridge.AddAction(GuideMissionType.USE_BUILDING, 1);
             }
 
+            CheckShowSurveyPopup();
+
         }
 
         private void SetStageText()
@@ -321,6 +323,16 @@ namespace CookApps.AutoBattler
         private async UniTask CheckRedDots()
         {
             await NetManager.Instance.Quest.ListDailyQuestAsync();
+        }
+
+        // 설문 팝업 노출 여부 체크
+        private void CheckShowSurveyPopup()
+        {
+            if (ServerDataManager.Instance.GuideMission.GuideMissionId >= 600)
+            {
+                SceneUILayerManager.Instance.PushUILayerAsync<EndTestgamePopup>().Forget();
+                return;
+            }
         }
 
         #endregion
