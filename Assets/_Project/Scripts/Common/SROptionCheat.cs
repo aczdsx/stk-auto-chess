@@ -1,4 +1,4 @@
-#if !RELEASE || UNITY_EDITOR || ENABLE_CHEAT
+#if UNITY_EDITOR || (!RELEASE && ENABLE_CHEAT)
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -83,7 +83,7 @@ public partial class SROptions
         };
         SceneUILayerManager.Instance.PushUILayerAsync<RewardResultPopup>(("REWARD_TITLE", rewardItemList)).Forget();
     }
-    
+
     public int 리워드_팝업_테스트_리워드ID { get; set; } = 1001;
 
     #endregion
@@ -105,7 +105,7 @@ public partial class SROptions
             safeAreaMargins[i].Refresh(true);
         }
     }
-    
+
     [Category("UI 테스트")]
     public uint 가이드퀘스트_테스트ID { get; set; } = 1001;
     [Category("UI 테스트")]
@@ -173,7 +173,7 @@ public partial class SROptions
     [Category("가이드 미션 stage")]
     public int 스테이지아이디 { get; set; } = 20003;
 
-    
+
     [Category("스테이지 자동 클리어")]
     public int 스테이지일괄클리어_목표ID { get; set; } = 10010;
 

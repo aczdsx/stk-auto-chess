@@ -11,15 +11,6 @@ namespace CookApps.AutoBattler
 {
     public class TopPanelSingleUseHelper : SingletonMonoBehaviour<TopPanelSingleUseHelper>
     {
-#if ENABLE_CHEAT
-        public void SetActive(bool isActive)
-        {
-            foreach (TopCurrencyAndMenuBar ui in topUIs)
-            {
-                ui.CachedGo.SetActive(isActive);
-            }
-        }
-#endif
         private Dictionary<TopPanelType, TopPanelBase> panels = new ();
         private AsyncOperationHandle<GameObject> topUIOriginHandle;
         private Transform topUIOriginTr;
