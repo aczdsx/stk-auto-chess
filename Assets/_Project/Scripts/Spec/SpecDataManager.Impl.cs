@@ -386,24 +386,6 @@ namespace CookApps.AutoBattler
             isItemTableKeyMapInitialized = true;
         }
 
-        /// <summary>
-        /// [Deprecated] Unity Localization으로 대체됨
-        /// 기존 호환성을 위해 LanguageManager로 위임
-        /// </summary>
-        public string GetDefaultText(string tokenKey, LanguageType targetLanguageType)
-        {
-            return LanguageManager.Instance.GetDefaultText(tokenKey);
-        }
-
-        /// <summary>
-        /// [Deprecated] Unity Localization으로 대체됨
-        /// 기존 호환성을 위해 LanguageManager로 위임 (Dialogue 테이블 사용)
-        /// </summary>
-        public string GetDialogueText(string tokenKey, LanguageType targetLanguageType)
-        {
-            return LanguageManager.Instance.GetDialogueText(tokenKey);
-        }
-
         public T GetGameConfig<T>(string key)
         {
             if (!configDic.TryGetValue(key, out var configData))
@@ -466,18 +448,6 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        public List<CharacterLevelExp> GetCharacterLevelExpDataList(int level)
-        {
-            var result = new List<CharacterLevelExp>();
-            for (int i = 0; i < CharacterLevelExp.All.Count; i++)
-            {
-                var data = CharacterLevelExp.All[i];
-                if (data.level <= level)
-                    result.Add(data);
-            }
-            return result;
-        }
-
         public CharacterTranscendence GetCharacterTranscendenceData(GradeType gradeType, int star)
         {
             CharacterTranscendence minData = null;
@@ -507,38 +477,6 @@ namespace CookApps.AutoBattler
                 return maxData;
 
             return null;
-        }
-
-        // 캐릭터 레벨업에 필요한 총 필요 아이템 리스트 반환
-        // 7.15 - 현재 10레벨 단위 레벨업 시 조각을 소모하므로 characterID를 인자로 넘겨 받음
-        public List<RewardItem> GetCharacterLevelupTotalNeedItemList(int level, int characterID)
-        {
-            if (level <= 1) return null;
-
-            int targetLevel = level - 1;
-
-            List<RewardItem> resultItemList = new List<RewardItem>();
-
-            var levelExpData = GetCharacterLevelExpData(targetLevel);
-            if (levelExpData != null)
-            {
-                // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.GOLD, 0, levelExpData.need_gold_sum))
-                RewardItem needGoldItem = new RewardItem(IdMap.Item.Gold, levelExpData.need_gold_sum);
-                resultItemList.Add(needGoldItem);
-
-                // ItemType의 삭제로 인해 변경.(new RewardItem(ItemType.CHAR_USER_EXP_ITEM, 0, levelExpData.base_levelup_item_sum))
-                RewardItem needExpItem = new RewardItem(IdMap.Item.CharExp, levelExpData.base_levelup_item_sum);
-                resultItemList.Add(needExpItem);
-
-                if (levelExpData.sec_levelup_item_sum > 0)
-                {
-                    // ItemType의 삭제로 인해 변경.(new RewardItem(levelExpData.sec_levelup_item_type, characterID, levelExpData.sec_levelup_item_sum))
-                    RewardItem needSecondLevelupItem = new RewardItem(characterID, levelExpData.sec_levelup_item_sum);
-                    resultItemList.Add(needSecondLevelupItem);
-                }
-            }
-
-            return resultItemList;
         }
 
         public CharacterQuotes GetCharacterQuotesDataByPrefabID(int prefabID)
@@ -587,16 +525,6 @@ namespace CookApps.AutoBattler
                     }
                     return null;
                 }
-            }
-
-            return null;
-        }
-
-        public List<ChapterInfo> GetChapterList(int chapter)
-        {
-            if (chapterDic.TryGetValue(chapter, out List<ChapterInfo> chapterList))
-            {
-                return chapterList;
             }
 
             return null;
@@ -706,17 +634,7 @@ namespace CookApps.AutoBattler
 
             return null;
         }
-
-
-        public List<StageInfo> GetStageList(int chapter)
-        {
-            if (stageChapterDic.TryGetValue(chapter, out List<StageInfo> stageList))
-            {
-                return stageList;
-            }
-
-            return null;
-        }
+        
 
         public List<StageInfo> GetStageList(int chapter, DifficultyType difficulty)
         {
