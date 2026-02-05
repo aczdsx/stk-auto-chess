@@ -29,7 +29,7 @@ MonoBehaviour:
         Version: 0.3.4
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 4849
+        VersionCode: 5556
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         AddDefine:
@@ -68,19 +68,19 @@ MonoBehaviour:
         Version: 0.3.4
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 5293
+        VersionCode: 5556
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         AddDefine:
-        - ENABLE_CHEAT
         - NANINOVEL_ENABLE_SPINE
         - __DEV
-        RemoveDefine: []
+        RemoveDefine:
+        - ENABLE_CHEAT
         Parameters: []
         EnableCodeObfuscator: 0
         IsProduction: 0
         StoreMarket: 1
-        BuildOptions: 262145
+        BuildOptions: 262144
         TargetSdkVersion: 0
         CreateSymbols: 0
         ExportAndroidStudioProject: 0
@@ -107,14 +107,14 @@ MonoBehaviour:
         Version: 0.3.5
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 5293
+        VersionCode: 5556
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         AddDefine:
         - NANINOVEL_ENABLE_SPINE
-        - __DEV
         RemoveDefine:
         - ENABLE_CHEAT
+        - __DEV
         Parameters: []
         EnableCodeObfuscator: 0
         IsProduction: 0
@@ -133,19 +133,19 @@ MonoBehaviour:
         Version: 0.3.5
         UseAutoVersionCode: 1
         BaseVersionCode: 0
-        VersionCode: 5293
+        VersionCode: 5556
         Scenes:
         - Guid: 16b82d33cb9ba43b99ade802db2c034c
         AddDefine:
-        - ENABLE_CHEAT
         - NANINOVEL_ENABLE_SPINE
         - __DEV
-        RemoveDefine: []
+        RemoveDefine:
+        - ENABLE_CHEAT
         Parameters: []
         EnableCodeObfuscator: 0
         IsProduction: 0
         StoreMarket: 2
-        BuildOptions: 262145
+        BuildOptions: 262144
         SigningTeamID: K7TNH5SGYC
         CodeGeneration: 0
         ManagedStrippingLevel: 1

@@ -24,14 +24,19 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject touchToStart;
         [SerializeField] private GameObject guestLoginNode;
 
+        [SerializeField] private GameObject testNode;
+
         [Header("Addressables Download")]
         [SerializeField] private AssetReference _downloadVideoAssetReference;
 
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-#if !RELEASE && ENABLE_CHEAT
+#if UNITY_EDITOR || (!RELEASE && ENABLE_CHEAT)
             SRDebug.Init();
+            testNode.SetActive(true);
+#else
+            testNode.SetActive(false);
 #endif
             SessionCount++;
 
@@ -123,7 +128,7 @@ namespace CookApps.AutoBattler
             //         (InGameType.PROLOGUE, (IGameStateUICore)new InGameMainStatePrologue(), 0));
             // return;
 
-            // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.  
+            // [TODO] lastChapter에 로비에 진입할 챕터 넣어주세요.
 
             // 튜토리얼(1챕터) 진입 분기 로직
             var firstStageData = SpecDataManager.Instance.GetStageList(1, DifficultyType.NORMAL)?[0];
@@ -142,7 +147,7 @@ namespace CookApps.AutoBattler
                     SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
                     return;
                 }
-                
+
                 // 2. 1챕터 마지막 스테이지를 못 깬 경우 → 못 깬 첫 스테이지로 바로 진입
                 if (lastTutoStageData != null && ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
                 {

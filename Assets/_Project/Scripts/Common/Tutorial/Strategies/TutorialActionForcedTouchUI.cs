@@ -68,11 +68,21 @@ namespace CookApps.AutoBattler
             // 화살표 설정
             context.ArrowRectTransform.gameObject.SetActive(true);
             context.WorldArrowRectTransform.gameObject.SetActive(true);
-            Vector3 arrowTargetPosition = context.TargetUIObj.transform.localPosition;
+
+            // 타겟의 월드 위치를 화살표 부모 기준 로컬 좌표로 변환 (앵커 무관)
+            RectTransform targetRect = context.TargetUIObj.GetComponent<RectTransform>();
+            RectTransform arrowParent = context.ArrowRectTransform.parent as RectTransform;
+            Vector2 localPoint;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                arrowParent,
+                RectTransformUtility.WorldToScreenPoint(context.TutorialCanvas.worldCamera, targetRect.position),
+                context.TutorialCanvas.worldCamera,
+                out localPoint);
+
             context.ArrowRectTransform.localPosition = new Vector3(
-                arrowTargetPosition.x,
-                arrowTargetPosition.y + context.CurrentTutorial.arrow_yPos,
-                arrowTargetPosition.z);
+                localPoint.x,
+                localPoint.y + context.CurrentTutorial.arrow_yPos,
+                0);
 
             if (_layoutExist)
                 _layoutGroup.enabled = false;

@@ -4174,15 +4174,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3260753988542868
-    m_Localized: "\uBC29\uC5B4\uB825 \uC99D\uAC00 {0}"
+    m_Localized: "\uBC29\uC5B4\uB825 \uC99D\uAC00"
     m_Metadata:
       m_Items: []
   - m_Id: 3260753988542867
-    m_Localized: "\uCCB4\uB825 \uC99D\uAC00 {0}"
+    m_Localized: "\uCCB4\uB825 \uC99D\uAC00"
     m_Metadata:
       m_Items: []
   - m_Id: 3260753988542866
-    m_Localized: "\uACF5\uACA9\uB825 \uC99D\uAC00 {0}"
+    m_Localized: "\uACF5\uACA9\uB825 \uC99D\uAC00"
     m_Metadata:
       m_Items: []
   - m_Id: 3260753988542865
@@ -28920,11 +28920,11 @@ MonoBehaviour:
     m_Localized: "\uCE90\uB9AD\uD130 \uBC30\uCE58\uC218\uAC00 \uCD08\uACFC\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
-  - m_Id: 7701474569084928
+  - m_Id: 7704414641971200
     m_Localized: Not enough currency.
     m_Metadata:
       m_Items: []
-  - m_Id: 7702678502105088
+  - m_Id: 7704414692302848
     m_Localized: "\uAE30\uC0AC\uC758 \uCD5C\uB300 \uB808\uBCA8\uC774 \uC0C1\uC2B9\uD558\uC600\uC2B5\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []

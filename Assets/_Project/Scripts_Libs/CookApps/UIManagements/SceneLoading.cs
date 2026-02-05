@@ -66,6 +66,12 @@ namespace CookApps.TeamBattle.UIManagements
         public static Func<int, string> OnGetStageEnterNaninovelTrigger { get; set; }
 
         /// <summary>
+        /// ENTER_ELPIS_NANI 타입 나니노벨 트리거를 가이드 미션 ID로 검색하는 델리게이트
+        /// 엘피스(로비) 진입 시 스토리 재생용
+        /// </summary>
+        public static Func<int, string> OnGetElpisEnterNaninovelTrigger { get; set; }
+
+        /// <summary>
         /// 무거운 씬간 전환시 사용, 전환 중간에 가벼운 씬을 둠으로써 무거운 씬2개가 동시에 떠서 메모리가 부족해지는 것을 방지
         /// </summary>
         /// <param name="nextScene">목적지 씬 이름</param>
@@ -134,6 +140,22 @@ namespace CookApps.TeamBattle.UIManagements
             // STAGE_ENTER_NANI 트리거 검색
             Debug.Log($"[SceneLoading] GoToNextSceneWithStageEnterTrigger: {stageId}");
             var naninovelScriptName = OnGetStageEnterNaninovelTrigger?.Invoke(stageId);
+            GoToNextSceneInternal(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptName);
+        }
+
+        /// <summary>
+        /// ENTER_ELPIS_NANI 타입 나니노벨 트리거를 지정하여 씬 전환
+        /// 엘피스(로비) 진입 시 스토리 재생용
+        /// </summary>
+        /// <param name="nextScene">목적지 씬 이름</param>
+        /// <param name="guideMissionId">현재 진행중인 가이드 미션 ID</param>
+        /// <param name="nextSceneData">목적지 씬 데이터</param>
+        /// <param name="sceneLoadingEventReceiver">씬 로딩 이벤트 리시버</param>
+        public static void GoToNextSceneWithElpisEnterTrigger(string nextScene, int guideMissionId, object nextSceneData = null, SceneLoadingEventReceiver sceneLoadingEventReceiver = null)
+        {
+            // ENTER_ELPIS_NANI 트리거 검색
+            Debug.Log($"[SceneLoading] GoToNextSceneWithElpisEnterTrigger: guideMissionId={guideMissionId}");
+            var naninovelScriptName = OnGetElpisEnterNaninovelTrigger?.Invoke(guideMissionId);
             GoToNextSceneInternal(nextScene, nextSceneData, sceneLoadingEventReceiver, naninovelScriptName);
         }
 

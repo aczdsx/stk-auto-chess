@@ -7863,6 +7863,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1709133446766177318, guid: 4b1bf94336c2e2c4aa2f7a05d349ad21, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7752447487764039486}
+    - targetCorrespondingSourceObject: {fileID: 7564264577267108336, guid: 4b1bf94336c2e2c4aa2f7a05d349ad21, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4576001726893041723}
   m_SourcePrefab: {fileID: 100100000, guid: 4b1bf94336c2e2c4aa2f7a05d349ad21, type: 3}
 --- !u!224 &1887033346339145661 stripped
 RectTransform:
@@ -7899,6 +7902,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statTitleText: {fileID: 2675441895934711823}
   statValueText: {fileID: 6478561775753752563}
+  statIconSpriteLoader: {fileID: 4576001726893041723}
+--- !u!1 &5349664447540691830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7564264577267108336, guid: 4b1bf94336c2e2c4aa2f7a05d349ad21, type: 3}
+  m_PrefabInstance: {fileID: 2505261394155309702}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4576001726893041723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5349664447540691830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 5436298844084298888}
+--- !u!114 &5436298844084298888 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7617246167736413710, guid: 4b1bf94336c2e2c4aa2f7a05d349ad21, type: 3}
+  m_PrefabInstance: {fileID: 2505261394155309702}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5349664447540691830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6478561775753752563 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8875469424649921909, guid: 4b1bf94336c2e2c4aa2f7a05d349ad21, type: 3}
@@ -9509,7 +9544,41 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1709133446766177318, guid: 4b1bf94336c2e2c4aa2f7a05d349ad21, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4275922094681546604}
+    - targetCorrespondingSourceObject: {fileID: 7564264577267108336, guid: 4b1bf94336c2e2c4aa2f7a05d349ad21, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9099922995970154415}
   m_SourcePrefab: {fileID: 100100000, guid: 4b1bf94336c2e2c4aa2f7a05d349ad21, type: 3}
+--- !u!114 &40705348310382551 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7617246167736413710, guid: 4b1bf94336c2e2c4aa2f7a05d349ad21, type: 3}
+  m_PrefabInstance: {fileID: 7576594183333206489}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134213854540222505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &134213854540222505 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7564264577267108336, guid: 4b1bf94336c2e2c4aa2f7a05d349ad21, type: 3}
+  m_PrefabInstance: {fileID: 7576594183333206489}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9099922995970154415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134213854540222505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 40705348310382551}
 --- !u!114 &1299702109520051372 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8875469424649921909, guid: 4b1bf94336c2e2c4aa2f7a05d349ad21, type: 3}
@@ -9556,6 +9625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statTitleText: {fileID: 7980402214443125584}
   statValueText: {fileID: 1299702109520051372}
+  statIconSpriteLoader: {fileID: 9099922995970154415}
 --- !u!1001 &7746348197259677206
 PrefabInstance:
   m_ObjectHideFlags: 0

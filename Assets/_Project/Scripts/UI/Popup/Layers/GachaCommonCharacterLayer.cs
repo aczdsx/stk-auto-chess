@@ -46,6 +46,13 @@ namespace CookApps.AutoBattler
         {
             if (_specGachaDataOneTime == null) return;
 
+            //[TODO] 임시 단챠 early return
+            if (ServerDataManager.Instance.GuideMission.Data.GuideMissionId == 101)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("10회 모집을 진행해주세요.");
+                return;
+            }
+
             await ProcessCharacterGacha(GachaCountType.ONE);
         }
 
