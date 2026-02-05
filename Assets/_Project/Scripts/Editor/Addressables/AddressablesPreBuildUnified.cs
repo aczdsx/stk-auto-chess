@@ -31,6 +31,8 @@ namespace CookApps.AutoBattler.Editor
         {
             AddressableAssetSettings settings = GetSettings();
 
+            AddressableSpriteAtlasGuard.PreAddressableBuild(report.Target);
+
             // 로컬 환경에서만 이전 프로필 백업
             BackupCurrentProfile(settings);
 
