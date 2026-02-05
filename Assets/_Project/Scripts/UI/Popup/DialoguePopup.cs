@@ -58,17 +58,14 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _blockLayerButton.OnClickAsObservable().Subscribe(this, (_, self) =>
+            _blockLayerButton.OnClickAsObservable().SubscribeAwait(this, async (_, self, _) =>
             {
-                if (self.OnClickNextDialogue())
+                if (await self.OnClickNextDialogueAsync())
                     self.OnClickRefreshTextTween();
-            }).AddTo(this);
+            }, AwaitOperation.Drop).AddTo(this);
         }
 
-        protected override void OnBackButton(ref bool offPrevUI)
-        {
-            OnClickNextDialogue();
-        }
+        protected override void OnBackButton(ref bool offPrevUI) { }
 
         protected override void OnPreEnter(object param)
         {
@@ -177,7 +174,7 @@ namespace CookApps.AutoBattler
         }
 
         // 다음 대화로 넘어가기
-        private bool OnClickNextDialogue()
+        private async UniTask<bool> OnClickNextDialogueAsync()
         {
             // if (_isAnimating) return;
             currentDialogueSeq++;
@@ -187,7 +184,7 @@ namespace CookApps.AutoBattler
             // 다이얼로그 종료 처리
             if (currentDialogueSeq >= _dialogueList.Count)
             {
-                OnDialogueCompleteAsync().Forget();
+                await OnDialogueCompleteAsync();
                 return false;
             }
 
@@ -195,7 +192,7 @@ namespace CookApps.AutoBattler
             return true;
         }
 
-        private async UniTaskVoid OnDialogueCompleteAsync()
+        private async UniTask OnDialogueCompleteAsync()
         {
             // TODO: 가이드 미션 완료 체크
             // ServerDataManager.Instance.GuideMission.AddActionValue(GuideMissionType.END_DIALOGUE);
@@ -211,7 +208,7 @@ namespace CookApps.AutoBattler
                 {
                     // 보상 수령 처리
                     ClientProgressData.Get().AddReceivedRewardId(_currentSpecDialogueData.reward_id);
-                    
+
                     // 서버 응답의 Reward를 RewardItem으로 변환
                     List<RewardItem> rewardItemList = new List<RewardItem>();
                     for (int i = 0; i < resp.Rewards.Count; i++)
