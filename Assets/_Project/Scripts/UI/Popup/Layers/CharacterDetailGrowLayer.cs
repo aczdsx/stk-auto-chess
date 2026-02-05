@@ -315,7 +315,7 @@ namespace CookApps.AutoBattler
                     var resp = await NetManager.Instance.Character.ExceedAsync(_userCharacterData.CharacterId);
                     if (resp?.IsSuccess == false)
                         return;
-                    // await _guideMissionDataBridge.AddActionAsync(GuideMissionType.EXCEED_CHARACTER_TARGET, 1, (int)_userCharacterData.CharacterId);
+                    
                     ToastManager.Instance.ShowToastByTokenKey("MSG_MAX_LV_UP");
                 }
                 else
@@ -323,8 +323,6 @@ namespace CookApps.AutoBattler
                     var resp = await NetManager.Instance.Character.LevelUpAsync(_userCharacterData.CharacterId);
                     if (resp?.IsSuccess == false)
                         return;
-
-                    // await  _guideMissionDataBridge.AddActionAsync(GuideMissionType.LEVELUP_CHARACTER_TARGET, 1, (int)_userCharacterData.CharacterId);
                 }
 
                 // 이펙트 실행
