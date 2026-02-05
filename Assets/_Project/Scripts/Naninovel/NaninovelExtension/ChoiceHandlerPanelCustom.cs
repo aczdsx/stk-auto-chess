@@ -1,4 +1,6 @@
-using DG.Tweening;
+using System.Collections.Generic;
+using LitMotion;
+using LitMotion.Extensions;
 using Naninovel.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +21,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private int _shakeVibrato = 30;
 
         private Button _dimButton;
+        private readonly Dictionary<RectTransform, MotionHandle> _shakeHandles = new();
 
         protected override void Awake()
         {
@@ -80,10 +83,14 @@ namespace CookApps.AutoBattler
                 if (rectTransform == null) continue;
 
                 // 기존 쉐이크 트윈 종료
-                rectTransform.DOKill();
+                if (_shakeHandles.TryGetValue(rectTransform, out var prevHandle))
+                    prevHandle.TryCancel();
 
                 // 쉐이크 효과 적용 (좌우 + 상하 흔들림)
-                rectTransform.DOShakePosition(_shakeDuration, new Vector3(_shakeStrengthX, _shakeStrengthY, 0f), _shakeVibrato, 90f, false, true);
+                var handle = LMotion.Shake.Create(Vector3.zero, new Vector3(_shakeStrengthX, _shakeStrengthY, 0f), _shakeDuration)
+                    .WithFrequency(_shakeVibrato)
+                    .BindToLocalPosition(rectTransform);
+                _shakeHandles[rectTransform] = handle;
             }
         }
     }

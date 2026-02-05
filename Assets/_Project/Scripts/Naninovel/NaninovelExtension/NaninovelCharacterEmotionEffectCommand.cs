@@ -1,4 +1,5 @@
-using DG.Tweening;
+using LitMotion;
+using LitMotion.Extensions;
 using Naninovel;
 using Spine.Unity;
 using UnityEngine;
@@ -27,11 +28,13 @@ public class NaninovelCharacterEmotionEffect : Command
                     var res = GameObject.Instantiate(Resources.Load(name), ani.transform) as GameObject;
                     res.transform.localScale = Vector3.one;
                     res.transform.localPosition = new Vector3(1.7f * (position == "Front" ? 1 : -1), 12.17f, 0);
-                    
+
                     var renderer = res.GetComponent<SpriteRenderer>();
                     if (renderer)
-                        renderer.DOFade(0, 0.2f).From();
-                    
+                        LMotion.Create(0f, renderer.color.a, 0.2f)
+                            .BindToColorA(renderer)
+                            .AddTo(res);
+
                     GameObject.Destroy(res, time.Value);
                 }
             }
