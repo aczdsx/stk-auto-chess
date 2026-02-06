@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CookApps.TeamBattle;
 using R3;
 using Tech.Hive.V1;
 
@@ -89,6 +90,9 @@ namespace CookApps.AutoBattler
         public readonly Subject<CoreResearchChangeInfo> OnCoreResearchUpdated = new();
         public readonly Subject<SimulationChangeInfo> OnSimulationUpdated = new();
 
+        // InventoryModel 구독
+        private IDisposable _inventorySubscription;
+
         /// <summary>
         /// 데이터 초기화
         /// </summary>
@@ -98,6 +102,8 @@ namespace CookApps.AutoBattler
             _facilitiesCache.Clear();
             _coreResearchCache.Clear();
             _cachedElpisDimensionLabs.Clear();
+            _inventorySubscription?.Dispose();
+            _inventorySubscription = null;
             OnChanged.OnNext(Unit.Default);
         }
 
@@ -348,6 +354,79 @@ namespace CookApps.AutoBattler
 
         #endregion
 
+        #region 뱃지 갱신
+
+        /// <summary>
+        /// CoreResearch 관련 뱃지 갱신
+        /// </summary>
+        public void RefreshCoreResearchBadges()
+        {
+            var inventoryModel = ServerDataManager.Instance.Inventory;
+            var allSpecs = SpecDataManager.Instance.GetAllElpisDimensionLab();
+
+            // upgrade_group_id 별로 처리
+            var processedGroups = new HashSet<int>();
+
+            foreach (var spec in allSpecs)
+            {
+                if (processedGroups.Contains(spec.upgrade_group_id))
+                    continue;
+
+                processedGroups.Add(spec.upgrade_group_id);
+
+                var coreResearch = GetCoreResearch((uint)spec.upgrade_group_id);
+                var currentLevel = coreResearch?.Level ?? 0;
+
+                // 다음 레벨 스펙 찾기
+                ElpisDimensionLab nextLevelSpec = null;
+                foreach (var s in allSpecs)
+                {
+                    if (s.upgrade_group_id == spec.upgrade_group_id && s.lv == currentLevel + 1)
+                    {
+                        nextLevelSpec = s;
+                        break;
+                    }
+                }
+
+                // 다음 레벨이 없으면 Max 상태
+                if (nextLevelSpec == null)
+                {
+                    // Max 상태일 때는 현재 레벨의 item_id로 Badge 제거
+                    var currentSpec = GetCurrentLevelSpec(allSpecs, spec.upgrade_group_id, currentLevel);
+                    if (currentSpec != null)
+                    {
+                        var maxPath = $"CoreResearch/{currentSpec.item_id}";
+                        BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, maxPath);
+                    }
+                    continue;
+                }
+
+                // item_id 기준 path
+                var path = $"CoreResearch/{nextLevelSpec.item_id}";
+
+                // 재화 확인
+                var currentAsset = inventoryModel.GetCurrency((uint)nextLevelSpec.item_id);
+                var canUpgrade = currentAsset >= (ulong)nextLevelSpec.item_INT;
+
+                if (canUpgrade)
+                    BadgeManager.Instance.AddBadge(BadgeType.RedDot, path);
+                else
+                    BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, path);
+            }
+        }
+
+        private ElpisDimensionLab GetCurrentLevelSpec(IReadOnlyList<ElpisDimensionLab> allSpecs, int upgradeGroupId, uint level)
+        {
+            foreach (var s in allSpecs)
+            {
+                if (s.upgrade_group_id == upgradeGroupId && s.lv == level)
+                    return s;
+            }
+            return null;
+        }
+
+        #endregion
+
         #region 내부용 메서드
 
         /// <summary>
@@ -390,7 +469,12 @@ namespace CookApps.AutoBattler
             // _coreResearchCache를 기반으로 _cachedElpisDimensionLabs 재구성
             RebuildDimensionLabCache();
 
+            // InventoryModel 구독 (재화 변경 시 Badge 갱신)
+            _inventorySubscription ??= ServerDataManager.Instance.Inventory.OnCurrencyChanged
+                .Subscribe(this, (_, self) => self.RefreshCoreResearchBadges());
+
             OnChanged.OnNext(Unit.Default);
+            RefreshCoreResearchBadges();
         }
 
         /// <summary>
@@ -468,6 +552,7 @@ namespace CookApps.AutoBattler
 
             var changeInfo = new CoreResearchChangeInfo(research, previous);
             OnCoreResearchUpdated.OnNext(changeInfo);
+            RefreshCoreResearchBadges();
         }
 
         /// <summary>

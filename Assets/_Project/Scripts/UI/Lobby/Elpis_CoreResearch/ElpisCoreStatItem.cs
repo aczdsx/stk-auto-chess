@@ -30,15 +30,15 @@ public class ElpisCoreStatItem : CachedMonoBehaviour
     {
         if (titleKey.Contains("ATTACK") || titleKey.Contains("DAMAGE") || titleKey.Contains("ATK"))
         {
-            return "Icon_Stats_damage";
+            return "Icon_Damage_74";
         }
         else if(titleKey.Contains("DEFENSE") || titleKey.Contains("DEF"))
         {
-            return "Icon_Stats_tank";
+            return "Icon_Defense_74";
         }
         else if (titleKey.Contains("HEALTH"))
         {
-            return "Icon_Stats_heal";
+            return "Icon_Power_74";
         }
         
         return "none";

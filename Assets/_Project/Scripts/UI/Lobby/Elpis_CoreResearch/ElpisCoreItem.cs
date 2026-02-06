@@ -18,10 +18,11 @@ public class ElpisCoreItem : CachedMonoBehaviour
     [SerializeField] private Gradient2 highlightGradient; 
     [SerializeField] private TMP_Text[] levelTexts;
     [SerializeField] private SimpleImageSwapper[] iconSwappers;
-    [SerializeField] private GameObject canUpgradeObject;
+    [SerializeField] private Badge canUpgradeBadge;
 
     private CoreResearchCacheData cachedData;
     private ElpisCoreResearchLayer dimensionLabPopup;
+    public static readonly string BadgePathPrefix = "CoreResearch";
     
     public ElpisDimensionLab Data => cachedData.Data;
     public CoreResearchCacheData CachedData => cachedData;
@@ -82,17 +83,14 @@ public class ElpisCoreItem : CachedMonoBehaviour
     public void UpdateData(CoreResearchCacheData cachedData)
     {
         this.cachedData = cachedData;
-        
+
         SetLevelText();
-        UpdateCanUpgrade();
     }
 
-    public void UpdateCanUpgrade()
+    public void InitBadgePath()
     {
-        var inventory = new InventoryDataBridge();
-        var currentAsset = inventory.GetCurrency(cachedData.Data.item_id);
-        var canUpgrade = (int)currentAsset >= cachedData.Data.item_INT;
-        canUpgradeObject.SetActive(canUpgrade);
+        canUpgradeBadge.Clear();
+        canUpgradeBadge.AddBadgePath(BadgeType.RedDot, $"{BadgePathPrefix}/{cachedData.Data.item_id}");
     }
 
     public void SetUp(CoreResearchCacheData cachedData, ElpisCoreResearchLayer dimensionLabPopup)
@@ -103,7 +101,7 @@ public class ElpisCoreItem : CachedMonoBehaviour
         SetHighlightColor();
         SetLevelText();
         SetIcon();
-        UpdateCanUpgrade();
+        InitBadgePath();
 
         IsSelected = false;
     }

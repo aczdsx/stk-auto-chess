@@ -309,7 +309,7 @@ MonoBehaviour:
     values:
     - {fileID: 21300000, guid: 6842ce9cd66766c40a220ec912bfe5a5, type: 3}
     - {fileID: 21300000, guid: 31d6df7ee571a494d9f96db67a87fd34, type: 3}
-    - {fileID: 21300000, guid: 19983cd84ac32704c9f44bee3abe49a5, type: 3}
+    - {fileID: 21300000, guid: c22fe1d46d60b0d45b28005edb4cc313, type: 3}
     - {fileID: 21300000, guid: 7a7d47ca7159ead4cb4aae108b80068b, type: 3}
     - {fileID: 21300000, guid: 0bd4b04b860ca0944a88c236cb5bcbec, type: 3}
     - {fileID: 21300000, guid: 82f7076adee556a439f5e3660692f277, type: 3}
@@ -588,7 +588,7 @@ MonoBehaviour:
     values:
     - {fileID: 21300000, guid: 6842ce9cd66766c40a220ec912bfe5a5, type: 3}
     - {fileID: 21300000, guid: 31d6df7ee571a494d9f96db67a87fd34, type: 3}
-    - {fileID: 21300000, guid: 19983cd84ac32704c9f44bee3abe49a5, type: 3}
+    - {fileID: 21300000, guid: c22fe1d46d60b0d45b28005edb4cc313, type: 3}
     - {fileID: 21300000, guid: 7a7d47ca7159ead4cb4aae108b80068b, type: 3}
     - {fileID: 21300000, guid: 0bd4b04b860ca0944a88c236cb5bcbec, type: 3}
     - {fileID: 21300000, guid: 82f7076adee556a439f5e3660692f277, type: 3}
@@ -669,7 +669,7 @@ MonoBehaviour:
   iconSwappers:
   - {fileID: 5526433551436086071}
   - {fileID: 8087741124330191765}
-  canUpgradeObject: {fileID: 4228999579616389125}
+  canUpgradeBadge: {fileID: 1143655037230575108}
 --- !u!114 &5992618763531511542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1263,7 +1263,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7892600465140520982, guid: 17561c9cb613e664d9cbea3e00775795, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1143655037230575108}
   m_SourcePrefab: {fileID: 100100000, guid: 17561c9cb613e664d9cbea3e00775795, type: 3}
 --- !u!224 &1849972355216051657 stripped
 RectTransform:
@@ -1275,3 +1278,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7892600465140520982, guid: 17561c9cb613e664d9cbea3e00775795, type: 3}
   m_PrefabInstance: {fileID: 6284855710157582355}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1143655037230575108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4228999579616389125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f258db54e980442c80837c076439be6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites: []
+  image: {fileID: 0}
+  defaultType: 1
+  paths:
+  - type: 1
+    path: CoreResearch/
