@@ -111,3 +111,6 @@ ServerData
 Assets/FR2_Cache.asset*
 Assets/_Project/Addressables/BuiltIn/Data/InGameTestConfig.asset
 Assets/_Project/Addressables/BuiltIn/Data/InGameTestConfig.asset.meta
+
+# Agent Skills (installed artifacts)
+.agents/

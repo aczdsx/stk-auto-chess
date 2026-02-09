@@ -23,12 +23,6 @@ public class TutorialController : MonoBehaviour
     private static readonly int Show = Animator.StringToHash("Show");
     private static readonly int LongShow = Animator.StringToHash("LongShow");
     private static readonly int Close = Animator.StringToHash("Close");
-    private static readonly int HoleRadius = Shader.PropertyToID("_HoleRadius");
-    private static readonly int HoleCenter = Shader.PropertyToID("_HoleCenter");
-    private static readonly int HoleRadius2 = Shader.PropertyToID("_HoleRadius2");
-    private static readonly int HoleCenter2 = Shader.PropertyToID("_HoleCenter2");
-    private static readonly int AspectRatio = Shader.PropertyToID("_AspectRatio");
-    private static readonly int MaskAlpha = Shader.PropertyToID("_MaskAlpha");
 
     [SerializeField] private RectTransform _canvasRectTransform;
 
@@ -87,34 +81,13 @@ public class TutorialController : MonoBehaviour
         { TutorialActionType.CHARACTER_PLACEMENT_UI, new TutorialActionCharacterPlacementUI() },
         { TutorialActionType.SPAWN_ENEMY, new TutorialActionSpawnEnemy() },
         { TutorialActionType.MOVE_OBJECT, new TutorialActionMoveObject() },
-        { TutorialActionType.FORCED_TOUCH_LEVELUP_10, new TutorialActionForcedTouchLevelUp10() }
+        { TutorialActionType.FORCED_TOUCH_LEVELUP_10, new TutorialActionForcedTouchLevelUp10() },
+        { TutorialActionType.FORCED_TOUCH_BUILD, new TutorialActionForcedTouchBuilding() }
     };
     protected void Update()
     {
         UpdateMaskPosition();
-        // UpdateWorldArrowPosition();
-        UpdateSecondHolePosition();
-    }
-
-    /// <summary>
-    /// 전략별 홀 위치 업데이트 (A→B 왕복 애니메이션)
-    /// </summary>
-    private void UpdateSecondHolePosition()
-    {
-        if (CurrentSpecTutorial == null) return;
-
-        // MOVE_OBJECT 전략
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.MOVE_OBJECT &&
-            _currentStrategy is TutorialActionMoveObject moveStrategy)
-        {
-            moveStrategy.UpdateHolePositions();
-        }
-
-        // CHARACTER_PLACEMENT_UI 전략
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.CHARACTER_PLACEMENT_UI)
-        {
-            TutorialActionCharacterPlacementUI.UpdateHolePositions();
-        }
+        _currentStrategy?.OnUpdate(_actionContext);
     }
 
     public void OnClickDimmedBG()
@@ -207,9 +180,9 @@ public class TutorialController : MonoBehaviour
         _actionContext.TargetUnmaskObj = null;
 
         // HoleRadius 값 초기화
-        _maskMaterial.SetFloat(HoleRadius, 0f);
-        _maskMaterial.SetFloat(HoleRadius2, 0f);
-        _maskMaterial.SetFloat(MaskAlpha, 1f);
+        _maskMaterial.SetFloat(TutorialShaderHelper.HoleRadius, 0f);
+        _maskMaterial.SetFloat(TutorialShaderHelper.HoleRadius2, 0f);
+        _maskMaterial.SetFloat(TutorialShaderHelper.MaskAlpha, 1f);
 
         // 터치 차단 활성화
         SetBlockTouchOutsideHole(_blockTouchOutsideHole);
@@ -253,10 +226,11 @@ public class TutorialController : MonoBehaviour
         _nextObj.SetActive(false);
         _actionContext.TargetUnmaskObj = null;
 
-        // TOAST_MESSAGE, SHOW_DIALOGUE_POP 타입은 말풍선 숨김
+        // TOAST_MESSAGE, SHOW_DIALOGUE_POP 타입이거나 텍스트가 비어있으면 말풍선 숨김
         bool hideDialogueBubble = CurrentSpecTutorial.tutorial_action_type == TutorialActionType.TOAST_MESSAGE ||
                                    CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP ||
-                                   CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP_CALLBACK;
+                                   CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP_CALLBACK ||
+                                   string.IsNullOrEmpty(CurrentSpecTutorial.desc_key);
         _bodyRectTransform.gameObject.SetActive(!hideDialogueBubble);
 
         if (!hideDialogueBubble)
@@ -286,134 +260,10 @@ public class TutorialController : MonoBehaviour
         // 전략 선택 및 실행
         _currentStrategy = GetStrategy(CurrentSpecTutorial.tutorial_action_type);
 
-        // FORCED_TOUCH_LEVELUP_10 전략일 경우 레벨업 완료 콜백 설정 (OnShow 전에 설정해야 이미 조건 달성 시 처리 가능)
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FORCED_TOUCH_LEVELUP_10)
-        {
-            TutorialActionForcedTouchLevelUp10.OnLevelUpCompleted = OnLevelUp10Completed;
-        }
-
-        // TOAST_MESSAGE 전략일 경우 토스트 완료 콜백 설정
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.TOAST_MESSAGE)
-        {
-            TutorialActionToastMessage.OnToastCompleted = OnToastCompleted;
-        }
-
-        // FORCED_TOUCH_UI 전략일 경우 버튼 클릭 콜백 설정
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.FORCED_TOUCH_UI)
-        {
-            TutorialActionForcedTouchUI.OnButtonClicked = OnForcedTouchUIButtonClicked;
-        }
-
-        // CHARACTER_PLACEMENT_UI 전략일 경우 배치 완료 콜백 설정
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.CHARACTER_PLACEMENT_UI)
-        {
-            TutorialActionCharacterPlacementUI.OnPlacementCompleted = OnCharacterPlacementUICompleted;
-        }
-
-        // SPAWN_ENEMY 전략일 경우 스폰 완료 콜백 설정
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SPAWN_ENEMY)
-        {
-            TutorialActionSpawnEnemy.OnSpawnEnemyCompleted = OnSpawnEnemyCompleted;
-        }
-
-        // MOVE_OBJECT 전략일 경우 이동 완료 콜백 설정
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.MOVE_OBJECT)
-        {
-            TutorialActionMoveObject.OnMoveObjectCompleted = OnMoveObjectCompleted;
-        }
-
-        // SHOW_DIALOGUE_POP_WITH_CALLBACK 전략일 경우 다이얼로그 완료 콜백 설정
-        if (CurrentSpecTutorial.tutorial_action_type == TutorialActionType.SHOW_DIALOGUE_POP_CALLBACK)
-        {
-            TutorialActionShowDialoguePopWithCallback.OnDialogueCompleted = OnDialoguePopWithCallbackCompleted;
-        }
+        // 완료 콜백 주입 (모든 전략 공통 — OnShow 전에 설정하여 이미 조건 달성 시에도 처리 가능)
+        _actionContext.OnCompleted = ProceedToNext;
 
         _currentStrategy?.OnShow(_actionContext);
-    }
-
-    /// <summary>
-    /// 강제 터치 UI 버튼 클릭 시 호출되는 콜백
-    /// </summary>
-    private void OnForcedTouchUIButtonClicked()
-    {
-        // 콜백 해제
-        TutorialActionForcedTouchUI.OnButtonClicked = null;
-
-        // 다음 튜토리얼로 진행
-        ProceedToNext();
-    }
-
-    /// <summary>
-    /// 토스트 메시지 완료 시 호출되는 콜백 (ToastManager용 - 레거시)
-    /// </summary>
-    private void OnToastCompleted()
-    {
-        // 콜백 해제
-        TutorialActionToastMessage.OnToastCompleted = null;
-
-        // 다음 튜토리얼로 진행
-        ProceedToNext();
-    }
-
-
-    /// <summary>
-    /// UI 캐릭터 배치 완료 시 호출되는 콜백
-    /// </summary>
-    private void OnCharacterPlacementUICompleted()
-    {
-        // 콜백 해제
-        TutorialActionCharacterPlacementUI.OnPlacementCompleted = null;
-
-        // 다음 튜토리얼로 진행
-        ProceedToNext();
-    }
-
-    /// <summary>
-    /// 적 스폰 완료 시 호출되는 콜백
-    /// </summary>
-    private void OnSpawnEnemyCompleted()
-    {
-        // 콜백 해제
-        TutorialActionSpawnEnemy.OnSpawnEnemyCompleted = null;
-
-        // 다음 튜토리얼로 진행
-        ProceedToNext();
-    }
-
-    /// <summary>
-    /// 오브젝트 이동 완료 시 호출되는 콜백
-    /// </summary>
-    private void OnMoveObjectCompleted()
-    {
-        // 콜백 해제
-        TutorialActionMoveObject.OnMoveObjectCompleted = null;
-
-        // 다음 튜토리얼로 진행
-        ProceedToNext();
-    }
-
-    /// <summary>
-    /// 다이얼로그 팝업 완료 시 호출되는 콜백 (콜백 버전)
-    /// </summary>
-    private void OnDialoguePopWithCallbackCompleted()
-    {
-        // 콜백 해제
-        TutorialActionShowDialoguePopWithCallback.OnDialogueCompleted = null;
-
-        // 다음 튜토리얼로 진행
-        ProceedToNext();
-    }
-
-    /// <summary>
-    /// 캐릭터 Lv10 달성 시 호출되는 콜백
-    /// </summary>
-    private void OnLevelUp10Completed()
-    {
-        // 콜백 해제
-        TutorialActionForcedTouchLevelUp10.OnLevelUpCompleted = null;
-
-        // 다음 튜토리얼로 진행
-        ProceedToNext();
     }
 
     /// <summary>
@@ -430,6 +280,7 @@ public class TutorialController : MonoBehaviour
 
         // 현재 전략 정리
         _currentStrategy?.OnClear(_actionContext);
+        _actionContext.OnCompleted = null;
 
         // 월드 화살표 비활성화
         if (_worldArrowRectTransform != null)
@@ -628,8 +479,8 @@ public class TutorialController : MonoBehaviour
             }
 
             float aspectRatio = (float)Screen.width / Screen.height;
-            _maskMaterial.SetFloat(AspectRatio, aspectRatio);
-            _maskMaterial.SetVector(HoleCenter, new Vector4(_lerpUvPosition.x, _lerpUvPosition.y, 0, 0));
+            _maskMaterial.SetFloat(TutorialShaderHelper.AspectRatio, aspectRatio);
+            _maskMaterial.SetVector(TutorialShaderHelper.HoleCenter, new Vector4(_lerpUvPosition.x, _lerpUvPosition.y, 0, 0));
         }
     }
 
@@ -675,35 +526,8 @@ public class TutorialController : MonoBehaviour
     /// </summary>
     private Vector2 CalculateWorldPositionUV(Vector3 worldPosition)
     {
-        Camera cam = _actionContext?.MainCamera;
-        if (cam == null)
-        {
-            cam = Camera.main;
-        }
-
-        if (cam == null)
-        {
-            Debug.LogWarning("[TutorialController] 카메라를 찾을 수 없습니다.");
-            return _currentUvPosition;
-        }
-
-        Vector3 screenPosition = cam.WorldToScreenPoint(worldPosition);
-
-        if (screenPosition.z < 0)
-        {
-            Debug.LogWarning("Target object is behind the camera.");
-            return _currentUvPosition;
-        }
-
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            _canvasRectTransform,
-            screenPosition,
-            null,
-            out var localPoint);
-
-        return new Vector2(
-            (localPoint.x + (_canvasRectTransform.rect.width * 0.5f)) / _canvasRectTransform.rect.width,
-            (localPoint.y + (_canvasRectTransform.rect.height * 0.5f)) / _canvasRectTransform.rect.height);
+        return TutorialCoordinateHelper.CalculateWorldPositionUV(
+            worldPosition, _canvasRectTransform, _actionContext?.MainCamera, _currentUvPosition);
     }
 
     private void ChangeState(AnimationState newState)
@@ -717,7 +541,7 @@ public class TutorialController : MonoBehaviour
 
         if (newState == AnimationState.Growing)
         {
-            float currentRadius = _maskMaterial.GetFloat(HoleRadius);
+            float currentRadius = _maskMaterial.GetFloat(TutorialShaderHelper.HoleRadius);
             LMotion.Create(currentRadius, CurrentSpecTutorial.hole_radius, 0.8f)
                 .WithEase(Ease.InOutSine)
                 .WithOnComplete(() =>
@@ -726,13 +550,13 @@ public class TutorialController : MonoBehaviour
                 })
                 .Bind(x =>
                 {
-                    _maskMaterial.SetFloat(HoleRadius, x);
+                    _maskMaterial.SetFloat(TutorialShaderHelper.HoleRadius, x);
                 })
                 .AddTo(this);
         }
         else if (newState == AnimationState.Shrinking)
         {
-            float currentRadius = _maskMaterial.GetFloat(HoleRadius);
+            float currentRadius = _maskMaterial.GetFloat(TutorialShaderHelper.HoleRadius);
             LMotion.Create(currentRadius, 0.0f, 0.8f)
                 .WithEase(Ease.InOutSine)
                 .WithOnComplete(() =>
@@ -741,7 +565,7 @@ public class TutorialController : MonoBehaviour
                 })
                 .Bind(x =>
                 {
-                    _maskMaterial.SetFloat(HoleRadius, x);
+                    _maskMaterial.SetFloat(TutorialShaderHelper.HoleRadius, x);
                 })
                 .AddTo(this);
         }
@@ -749,26 +573,8 @@ public class TutorialController : MonoBehaviour
 
     private Vector2 GetNormalizedPosition(RectTransform canvasRect, RectTransform rect)
     {
-        // UI 요소의 월드 좌표에서 중심점 계산
-        Vector3[] corners = new Vector3[4];
-        rect.GetWorldCorners(corners);
-        Vector3 worldCenter = (corners[0] + corners[2]) / 2f;
-
-        // 월드 좌표 → 스크린 좌표
-        Camera cam = _tutorialCanvas.worldCamera;
-        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(cam, worldCenter);
-
-        // 스크린 좌표 → 캔버스 로컬 좌표
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            _canvasRectTransform,
-            screenPoint,
-            cam,
-            out var localPoint);
-
-        // 정규화
-        return new Vector2(
-            (localPoint.x + (_canvasRectTransform.rect.width * 0.5f)) / _canvasRectTransform.rect.width,
-            (localPoint.y + (_canvasRectTransform.rect.height * 0.5f)) / _canvasRectTransform.rect.height);
+        return TutorialCoordinateHelper.CalculateUIPositionUV(
+            rect, _canvasRectTransform, _tutorialCanvas.worldCamera, _currentUvPosition);
     }
 
     #endregion

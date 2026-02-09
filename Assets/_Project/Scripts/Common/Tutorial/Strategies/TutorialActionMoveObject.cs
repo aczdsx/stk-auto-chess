@@ -15,14 +15,10 @@ namespace CookApps.AutoBattler
     /// </summary>
     public class TutorialActionMoveObject : ITutorialActionStrategy
     {
-        private static readonly int HoleRadius = Shader.PropertyToID("_HoleRadius");
-        private static readonly int HoleCenter = Shader.PropertyToID("_HoleCenter");
-        private static readonly int AspectRatio = Shader.PropertyToID("_AspectRatio");
-
         /// <summary>
-        /// 이동 완료 시 호출되는 콜백 (TutorialController에서 설정)
+        /// 현재 튜토리얼 컨텍스트 참조 (static - NotifyMoveCompleted에서 사용)
         /// </summary>
-        public static System.Action OnMoveObjectCompleted;
+        private static TutorialActionContext _staticContext;
 
         /// <summary>
         /// 현재 튜토리얼에서 이동해야 할 Source 타일 ID
@@ -38,8 +34,6 @@ namespace CookApps.AutoBattler
         /// 현재 오브젝트 이동 튜토리얼 진행 중인지 여부
         /// </summary>
         public static bool IsActive { get; private set; }
-
-        private TutorialActionContext _cachedContext;
 
         // 타일 위치 캐싱
         private Vector3 _sourcePosition;
@@ -58,7 +52,7 @@ namespace CookApps.AutoBattler
 
         public void OnShow(TutorialActionContext context)
         {
-            _cachedContext = context;
+            _staticContext = context;
             _animTime = 0f;
             _holeRadiusAnimTime = 0f;
             _holeGrown = false;
@@ -95,7 +89,7 @@ namespace CookApps.AutoBattler
             }
 
             // 초기 홀 크기 0으로 설정 (애니메이션으로 커짐)
-            context.MaskMaterial.SetFloat(HoleRadius, 0f);
+            context.MaskMaterial.SetFloat(TutorialShaderHelper.HoleRadius, 0f);
 
             // 딤드 이미지는 raycastTarget 유지 (ICanvasRaycastFilter가 구멍 영역만 통과시킴)
             // raycastTarget = false로 하면 모든 UI 터치가 통과되므로 제거
@@ -124,7 +118,7 @@ namespace CookApps.AutoBattler
             // 홀 숨기기
             if (context.MaskMaterial != null)
             {
-                context.MaskMaterial.SetFloat(HoleRadius, 0f);
+                context.MaskMaterial.SetFloat(TutorialShaderHelper.HoleRadius, 0f);
             }
 
             // 드래그 오브젝트 비활성화
@@ -154,8 +148,7 @@ namespace CookApps.AutoBattler
             IsActive = false;
             SourceTileId = 0;
             DestTileId = 0;
-            OnMoveObjectCompleted = null;
-            _cachedContext = null;
+            _staticContext = null;
             _animTime = 0f;
             _holeRadiusAnimTime = 0f;
             _holeGrown = false;
@@ -250,160 +243,51 @@ namespace CookApps.AutoBattler
             return true;
         }
 
+        public void OnUpdate(TutorialActionContext context)
+        {
+            UpdateHolePositions();
+        }
+
         /// <summary>
-        /// 매 프레임 홀 위치 업데이트 (TutorialController.Update에서 호출)
+        /// 매 프레임 홀 위치 업데이트
         /// 첫 번째 홀이 A→B 이동 후 A로 순간이동, 반복
         /// </summary>
-        public void UpdateHolePositions()
+        private void UpdateHolePositions()
         {
-            if (!IsActive || !_positionsValid || _cachedContext == null)
+            if (!IsActive || !_positionsValid || _staticContext == null)
             {
                 return;
             }
 
             // 홀 크기 애니메이션 (Growing)
-            UpdateHoleRadius();
+            TutorialCoordinateHelper.UpdateHoleRadius(
+                _staticContext.MaskMaterial,
+                _staticContext.CurrentTutorial.hole_radius,
+                ref _holeRadiusAnimTime, ref _holeGrown, HOLE_GROW_DURATION);
 
             // A(Source)와 B(Dest)의 UV 좌표
-            Vector2 sourceUV = CalculateWorldPositionUV(_cachedContext, _sourcePosition);
-            Vector2 destUV = CalculateWorldPositionUV(_cachedContext, _destPosition);
+            var canvasRect = _staticContext.CanvasRectTransform;
+            Vector2 sourceUV = TutorialCoordinateHelper.CalculateWorldPositionUV(_sourcePosition, canvasRect);
+            Vector2 destUV = TutorialCoordinateHelper.CalculateWorldPositionUV(_destPosition, canvasRect);
 
             // 첫 번째 홀: A→B 이동 후 A로 순간이동, 반복
             _animTime += Time.deltaTime;
             float t = Mathf.Repeat(_animTime / ANIM_DURATION, 1f);
-            // SmoothStep으로 자연스러운 이동 (A→B)
             t = Mathf.SmoothStep(0f, 1f, t);
 
             Vector2 currentUV = Vector2.Lerp(sourceUV, destUV, t);
 
             float aspectRatio = (float)Screen.width / Screen.height;
-            _cachedContext.MaskMaterial.SetFloat(AspectRatio, aspectRatio);
-            _cachedContext.MaskMaterial.SetVector(HoleCenter, new Vector4(currentUV.x, currentUV.y, 0, 0));
+            _staticContext.MaskMaterial.SetFloat(TutorialShaderHelper.AspectRatio, aspectRatio);
+            _staticContext.MaskMaterial.SetVector(TutorialShaderHelper.HoleCenter, new Vector4(currentUV.x, currentUV.y, 0, 0));
 
             // DragObj도 홀 위치를 따라 이동
-            UpdateDragObjPosition(currentUV, sourceUV, destUV);
+            TutorialCoordinateHelper.UpdateDragObjPosition(_staticContext.DragObj, canvasRect, currentUV);
 
             // 화살표 위치 업데이트 (도착지 타일 위치 추적)
-            UpdateArrowPosition();
-        }
-
-        /// <summary>
-        /// DragObj를 홀 위치에 맞춰 이동 및 회전
-        /// </summary>
-        private void UpdateDragObjPosition(Vector2 uvPosition, Vector2 sourceUV, Vector2 destUV)
-        {
-            if (_cachedContext?.DragObj == null) return;
-
-            var dragRect = _cachedContext.DragObj.GetComponent<RectTransform>();
-            if (dragRect == null) return;
-
-            var canvasRect = _cachedContext.CanvasRectTransform;
-            if (canvasRect == null) return;
-
-            // UV 좌표 → 캔버스 로컬 좌표로 변환
-            float localX = (uvPosition.x - 0.5f) * canvasRect.rect.width;
-            float localY = (uvPosition.y - 0.5f) * canvasRect.rect.height;
-
-            dragRect.localPosition = new Vector3(localX, localY, 0f);
-
-            // A→B 방향으로 회전
-            // Vector2 direction = destUV - sourceUV;
-            // if (direction.sqrMagnitude > 0.0001f)
-            // {
-            //     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            //     dragRect.localRotation = Quaternion.Euler(0f, 0f, angle);
-            // }
-        }
-
-        /// <summary>
-        /// 화살표를 도착지 타일 위치에 맞춰 이동
-        /// </summary>
-        private void UpdateArrowPosition()
-        {
-            if (_cachedContext?.ArrowRectTransform == null || !_positionsValid) return;
-
-            var canvasRect = _cachedContext.CanvasRectTransform;
-            if (canvasRect == null) return;
-
-            // 도착지 타일의 3D 월드 좌표 → 캔버스 로컬 좌표로 변환
-            Camera cam = MainCameraHolder.MainCamera;
-            if (cam == null) return;
-
-            Vector3 screenPosition = cam.WorldToScreenPoint(_destPosition);
-            if (screenPosition.z < 0) return;
-
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                canvasRect,
-                screenPosition,
-                null,
-                out var localPoint);
-
-            // arrow_yPos 만큼 Y축 위로 오프셋
-            float yOffset = _cachedContext.CurrentTutorial?.arrow_yPos ?? 0;
-            _cachedContext.ArrowRectTransform.localPosition = new Vector3(localPoint.x, localPoint.y + yOffset, 0f);
-        }
-
-        /// <summary>
-        /// 홀 크기 애니메이션
-        /// </summary>
-        private void UpdateHoleRadius()
-        {
-            if (_holeGrown)
-            {
-                return;
-            }
-
-            _holeRadiusAnimTime += Time.deltaTime;
-            float t = Mathf.Clamp01(_holeRadiusAnimTime / HOLE_GROW_DURATION);
-            t = Mathf.SmoothStep(0f, 1f, t);
-
-            float targetRadius = _cachedContext.CurrentTutorial.hole_radius;
-            float currentRadius = Mathf.Lerp(0f, targetRadius, t);
-
-            _cachedContext.MaskMaterial.SetFloat(HoleRadius, currentRadius);
-
-            if (t >= 1f)
-            {
-                _holeGrown = true;
-            }
-        }
-
-        /// <summary>
-        /// 두 번째 홀 위치 업데이트 (하위 호환용 - UpdateHolePositions로 통합됨)
-        /// </summary>
-        public void UpdateSecondHolePosition()
-        {
-            // UpdateHolePositions()에서 통합 처리
-        }
-
-        /// <summary>
-        /// 3D 월드 좌표를 마스크 UV 좌표로 변환
-        /// </summary>
-        private Vector2 CalculateWorldPositionUV(TutorialActionContext context, Vector3 worldPosition)
-        {
-            // context.MainCamera가 null일 수 있으므로 MainCameraHolder에서 직접 가져옴
-            Camera cam = MainCameraHolder.MainCamera;
-            if (cam == null)
-            {
-                return new Vector2(0.5f, 0.5f);
-            }
-
-            Vector3 screenPosition = cam.WorldToScreenPoint(worldPosition);
-
-            if (screenPosition.z < 0)
-            {
-                return new Vector2(0.5f, 0.5f);
-            }
-
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                context.CanvasRectTransform,
-                screenPosition,
-                null,
-                out var localPoint);
-
-            return new Vector2(
-                (localPoint.x + (context.CanvasRectTransform.rect.width * 0.5f)) / context.CanvasRectTransform.rect.width,
-                (localPoint.y + (context.CanvasRectTransform.rect.height * 0.5f)) / context.CanvasRectTransform.rect.height);
+            float yOffset = _staticContext.CurrentTutorial?.arrow_yPos ?? 0;
+            TutorialCoordinateHelper.UpdateArrowPosition(
+                _staticContext.ArrowRectTransform, canvasRect, _destPosition, yOffset);
         }
 
         /// <summary>
@@ -413,7 +297,7 @@ namespace CookApps.AutoBattler
         {
             if (IsActive)
             {
-                OnMoveObjectCompleted?.Invoke();
+                _staticContext?.OnCompleted?.Invoke();
             }
         }
 

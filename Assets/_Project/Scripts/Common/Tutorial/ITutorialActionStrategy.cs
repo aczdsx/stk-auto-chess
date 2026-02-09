@@ -53,12 +53,16 @@ namespace CookApps.AutoBattler
         // 마스크 위치/크기 업데이트 건너뛰기 (SPAWN_ENEMY, TOAST_MESSAGE 등에서 사용)
         public bool SkipMaskUpdate { get; set; }
 
+        /// <summary>
+        /// 전략 완료 시 호출되는 콜백 (Controller가 ProceedToNext를 주입)
+        /// </summary>
+        public Action OnCompleted { get; set; }
+
         // TargetSpawnObj의 SafeArea (FORCED_TOUCH_UI에서 Refresh용)
         public SafeArea TutorialSafeArea { get; set; }
 
         #region Full Screen Mask Helpers
 
-        private static readonly int MaskAlpha = Shader.PropertyToID("_MaskAlpha");
         private const float MASK_ANIMATION_DURATION = 0.8f;
 
         private MotionHandle _maskHandle;
@@ -74,10 +78,10 @@ namespace CookApps.AutoBattler
             {
                 _maskHandle.TryCancel();
 
-                float currentAlpha = MaskMaterial.GetFloat(MaskAlpha);
+                float currentAlpha = MaskMaterial.GetFloat(TutorialShaderHelper.MaskAlpha);
                 _maskHandle = LMotion.Create(currentAlpha, 0f, MASK_ANIMATION_DURATION)
                     .WithEase(Ease.InOutSine)
-                    .Bind(MaskMaterial, (x, mask) => mask.SetFloat(MaskAlpha, x));
+                    .Bind(MaskMaterial, (x, mask) => mask.SetFloat(TutorialShaderHelper.MaskAlpha, x));
             }
         }
 
@@ -92,10 +96,10 @@ namespace CookApps.AutoBattler
             {
                 _maskHandle.TryCancel();
 
-                float currentAlpha = MaskMaterial.GetFloat(MaskAlpha);
+                float currentAlpha = MaskMaterial.GetFloat(TutorialShaderHelper.MaskAlpha);
                 _maskHandle = LMotion.Create(currentAlpha, 1f, MASK_ANIMATION_DURATION)
                     .WithEase(Ease.InOutSine)
-                    .Bind(MaskMaterial, (x, mask) => mask.SetFloat(MaskAlpha, x));
+                    .Bind(MaskMaterial, (x, mask) => mask.SetFloat(TutorialShaderHelper.MaskAlpha, x));
             }
         }
 
@@ -127,5 +131,10 @@ namespace CookApps.AutoBattler
         /// 튜토리얼 정리 시 호출 (ClearTutorial)
         /// </summary>
         void OnClear(TutorialActionContext context);
+
+        /// <summary>
+        /// 매 프레임 업데이트 (홀 위치 애니메이션 등)
+        /// </summary>
+        void OnUpdate(TutorialActionContext context) { }
     }
 }

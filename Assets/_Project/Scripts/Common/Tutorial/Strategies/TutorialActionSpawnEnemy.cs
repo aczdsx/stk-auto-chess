@@ -20,10 +20,7 @@ namespace CookApps.AutoBattler
     /// </summary>
     public class TutorialActionSpawnEnemy : ITutorialActionStrategy
     {
-        /// <summary>
-        /// 스폰 완료 시 호출되는 콜백 (TutorialController에서 설정)
-        /// </summary>
-        public static System.Action OnSpawnEnemyCompleted;
+        private TutorialActionContext _cachedContext;
 
         /// <summary>
         /// 현재 스폰 튜토리얼 진행 중인지 여부
@@ -53,6 +50,8 @@ namespace CookApps.AutoBattler
 
         public void OnShow(TutorialActionContext context)
         {
+            _cachedContext = context;
+
             // 전체 화면 마스크 설정 (HoleRadius=1, 가운데)
             context.SetFullScreenMask();
 
@@ -72,7 +71,7 @@ namespace CookApps.AutoBattler
             {
                 Debug.LogWarning($"[TutorialActionSpawnEnemy] 몬스터 ID 파싱 실패: {context.CurrentTutorial.tutorial_action_key}");
                 // 실패 시 즉시 완료 처리
-                OnSpawnEnemyCompleted?.Invoke();
+                context.OnCompleted?.Invoke();
                 return;
             }
 
@@ -108,7 +107,7 @@ namespace CookApps.AutoBattler
 
             // 상태 초기화
             IsActive = false;
-            OnSpawnEnemyCompleted = null;
+            _cachedContext = null;
             // IsPausedBySpawnEnemy는 HandleTutorialClose에서 재생 후 초기화됨
         }
 
@@ -227,7 +226,7 @@ namespace CookApps.AutoBattler
 
             // 스폰 완료 콜백
             IsActive = false;
-            OnSpawnEnemyCompleted?.Invoke();
+            _cachedContext?.OnCompleted?.Invoke();
         }
 
         /// <summary>

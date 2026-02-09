@@ -14,9 +14,9 @@ namespace CookApps.AutoBattler
     public class TutorialActionForcedTouchBuilding : ITutorialActionStrategy
     {
         /// <summary>
-        /// 건물 클릭 완료 시 호출되는 콜백 (TutorialController에서 설정)
+        /// 현재 튜토리얼 컨텍스트 참조 (콜백용)
         /// </summary>
-        public static Action OnBuildingClicked;
+        private static TutorialActionContext _cachedContext;
 
         /// <summary>
         /// 현재 타겟 FacilityType
@@ -30,6 +30,8 @@ namespace CookApps.AutoBattler
 
         public void OnShow(TutorialActionContext context)
         {
+            _cachedContext = context;
+
             // 화살표 비활성화
             context.ArrowRectTransform.gameObject.SetActive(false);
 
@@ -82,7 +84,7 @@ namespace CookApps.AutoBattler
             // 타겟 정리
             context.TargetUnmaskObj = null;
             _targetBuildingObj = null;
-            OnBuildingClicked = null;
+            _cachedContext = null;
         }
 
         /// <summary>
@@ -95,7 +97,7 @@ namespace CookApps.AutoBattler
                 return;
 
             // 콜백 호출
-            OnBuildingClicked?.Invoke();
+            _cachedContext?.OnCompleted?.Invoke();
         }
     }
 }

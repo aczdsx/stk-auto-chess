@@ -11,11 +11,6 @@ namespace CookApps.AutoBattler
     [RequireComponent(typeof(Graphic))]
     public class TutorialMaskRaycastFilter : MonoBehaviour, ICanvasRaycastFilter
     {
-        private static readonly int HoleCenter = Shader.PropertyToID("_HoleCenter");
-        private static readonly int HoleRadius = Shader.PropertyToID("_HoleRadius");
-        private static readonly int HoleCenter2 = Shader.PropertyToID("_HoleCenter2");
-        private static readonly int HoleRadius2 = Shader.PropertyToID("_HoleRadius2");
-        private static readonly int AspectRatio = Shader.PropertyToID("_AspectRatio");
 
         [SerializeField] private Material _maskMaterial;
         [SerializeField] private RectTransform _canvasRectTransform;
@@ -96,10 +91,10 @@ namespace CookApps.AutoBattler
             }
 
             // 스크린 좌표를 UV 좌표(0~1)로 변환
-            Vector2 uv = ScreenPointToUV(screenPoint, eventCamera);
+            Vector2 uv = TutorialShaderHelper.ScreenPointToUV(_canvasRectTransform, screenPoint, eventCamera);
 
             // 구멍 안이면 false (딤드 통과), 밖이면 true (딤드가 차단)
-            bool isInHole = IsPointInHole(uv);
+            bool isInHole = TutorialShaderHelper.IsPointInHole(_maskMaterial, uv);
             return !isInHole;
         }
 
@@ -111,66 +106,8 @@ namespace CookApps.AutoBattler
             if (_maskMaterial == null || _canvasRectTransform == null)
                 return true;
 
-            Vector2 uv = ScreenPointToUV(screenPoint, eventCamera);
-            return IsPointInHole(uv);
-        }
-
-        /// <summary>
-        /// 스크린 좌표를 캔버스 UV 좌표(0~1)로 변환
-        /// </summary>
-        private Vector2 ScreenPointToUV(Vector2 screenPoint, Camera eventCamera)
-        {
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                _canvasRectTransform,
-                screenPoint,
-                eventCamera,
-                out Vector2 localPoint);
-
-            // 로컬 좌표를 0~1 UV로 변환
-            float u = (localPoint.x + (_canvasRectTransform.rect.width * 0.5f)) / _canvasRectTransform.rect.width;
-            float v = (localPoint.y + (_canvasRectTransform.rect.height * 0.5f)) / _canvasRectTransform.rect.height;
-
-            return new Vector2(u, v);
-        }
-
-        /// <summary>
-        /// UV 좌표가 구멍 영역 안에 있는지 확인 (MaskHole 셰이더와 동일한 로직)
-        /// </summary>
-        private bool IsPointInHole(Vector2 uv)
-        {
-            float aspectRatio = _maskMaterial.GetFloat(AspectRatio);
-            if (aspectRatio <= 0) aspectRatio = (float)Screen.width / Screen.height;
-
-            // 첫 번째 구멍 체크
-            Vector4 holeCenter1 = _maskMaterial.GetVector(HoleCenter);
-            float holeRadius1 = _maskMaterial.GetFloat(HoleRadius);
-
-            if (holeRadius1 > 0)
-            {
-                Vector2 adjustedUV = new Vector2(uv.x, uv.y / aspectRatio);
-                Vector2 adjustedCenter1 = new Vector2(holeCenter1.x, holeCenter1.y / aspectRatio);
-                float dist1 = Vector2.Distance(adjustedUV, adjustedCenter1);
-
-                if (dist1 < holeRadius1)
-                    return true;
-            }
-
-            // 두 번째 구멍 체크
-            Vector4 holeCenter2 = _maskMaterial.GetVector(HoleCenter2);
-            float holeRadius2 = _maskMaterial.GetFloat(HoleRadius2);
-
-            if (holeRadius2 > 0)
-            {
-                Vector2 adjustedUV = new Vector2(uv.x, uv.y / aspectRatio);
-                Vector2 adjustedCenter2 = new Vector2(holeCenter2.x, holeCenter2.y / aspectRatio);
-                float dist2 = Vector2.Distance(adjustedUV, adjustedCenter2);
-
-                if (dist2 < holeRadius2)
-                    return true;
-            }
-
-            // 둘 다 구멍 안에 없음
-            return false;
+            Vector2 uv = TutorialShaderHelper.ScreenPointToUV(_canvasRectTransform, screenPoint, eventCamera);
+            return TutorialShaderHelper.IsPointInHole(_maskMaterial, uv);
         }
     }
 }
