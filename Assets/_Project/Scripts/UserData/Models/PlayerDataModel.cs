@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using CookApps.TeamBattle;
 using R3;
 using Tech.Hive.V1;
 
@@ -99,7 +101,7 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// InventoryModel의 UserExp 변경 구독
+        /// InventoryModel 구독
         /// </summary>
         private void EnsureSubscribed()
         {
@@ -107,23 +109,77 @@ namespace CookApps.AutoBattler
                 return;
 
             _inventorySubscription = ServerDataManager.Instance.Inventory.OnCurrencyChanged
-                .Where(x => x.itemId == (uint)IdMap.Item.UserExp.Value)
-                .Subscribe(this, (_, self) =>
+                .Subscribe(this, (data, self) =>
                 {
-                    // Exp 변경 이벤트
-                    self.OnExpChanged.OnNext(self.Exp);
+                    // UserExp 변경
+                    if (data.itemId == (uint)IdMap.Item.UserExp.Value)
+                        self.HandleUserExpChanged();
 
-                    // Level 변경 감지
-                    var newLevel = self.Level;
-                    if (self._cachedLevel != newLevel)
-                    {
-                        self._cachedLevel = newLevel;
-                        self.OnLevelChanged.OnNext(newLevel);
-                    }
-
-                    self.OnChanged.OnNext(Unit.Default);
+                    // 조각 변경 시 초월 뱃지 갱신
+                    ItemId itemId = (int)data.itemId;
+                    if (itemId.IsCharacterPiece())
+                        self.RefreshTranscendenceBadge();
                 });
+
+            RefreshTranscendenceBadge();
         }
+
+        private void HandleUserExpChanged()
+        {
+            OnExpChanged.OnNext(Exp);
+
+            var newLevel = Level;
+            if (_cachedLevel != newLevel)
+            {
+                _cachedLevel = newLevel;
+                OnLevelChanged.OnNext(newLevel);
+            }
+
+            OnChanged.OnNext(Unit.Default);
+        }
+
+        #region 뱃지 갱신
+
+        private const string TranscendenceBadgePath = "CharacterInfo/Transcendence";
+        private readonly List<CharacterData> _reUseableCharacterList = new();
+
+        private void RefreshTranscendenceBadge()
+        {
+            var characterModel = ServerDataManager.Instance.Character;
+            var inventoryModel = ServerDataManager.Instance.Inventory;
+
+            characterModel.GetAllCharacters(_reUseableCharacterList);
+
+            foreach (var character in _reUseableCharacterList)
+            {
+                var specCharacter = SpecDataManager.Instance.GetCharacterData((int)character.CharacterId);
+                if (specCharacter == null)
+                    continue;
+
+                // CharacterDetailGrowLayer.SetTranscendenceLayer 참고
+                var transcendLevel = (int)(character.TranscendLevel > 0 ? character.TranscendLevel : 1);
+                var transcendData = SpecDataManager.Instance.GetCharacterTranscendenceData(
+                    specCharacter.grade_type, transcendLevel);
+
+                // 최대 초월 레벨이면 스킵
+                if (transcendData == null || transcendData.piece == 0)
+                    continue;
+
+                // 조각 충분한지 확인
+                var pieceItemId = ItemIdExtensions.GetCharacterPieceId(specCharacter.id);
+                var pieceCount = inventoryModel.GetCurrency((uint)pieceItemId);
+
+                if (pieceCount >= (ulong)transcendData.piece)
+                {
+                    BadgeManager.Instance.AddBadge(BadgeType.RedDot, TranscendenceBadgePath);
+                    return;
+                }
+            }
+
+            BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, TranscendenceBadgePath);
+        }
+
+        #endregion
 
         /// <summary>
         /// 플레이어 ID

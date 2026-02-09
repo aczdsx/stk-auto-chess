@@ -21,9 +21,10 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton nameTagButton;
         [SerializeField] private TutorialTarget tutorialTarget;
 
-        [Header("줌 관련")]
-        [SerializeField] private RectTransform statusIcon;
+        [Header("줌 관련")] [SerializeField] private RectTransform statusIcon;
         [SerializeField] private CanvasGroup lobbyNameTag;
+        [SerializeField] private Badge canUpgradeBadge;
+
         private const float DisappearZoomRatio = 0.8f;
         private const float AlphaFadeSpeed = 5f;
 
@@ -106,6 +107,26 @@ namespace CookApps.AutoBattler
 
             buildingName.text = LanguageManager.Instance.GetDefaultText(buildInfo.buld_name_token);
             tutorialTarget.SetTargetId($"Building_{buildInfo.facility_type}");
+            InitializeByFacilityType();
+        }
+
+        private void InitializeByFacilityType()
+        {
+            if (buildInfo.facility_type is not FacilityType.DIMENSION_LAB) return;
+
+            var specElpisDimensionLabs = SpecDataManager.Instance.GetAllElpisDimensionLab();
+            var upgradeItemIdHashSet = new HashSet<int>();
+            for (int i = 0; i < specElpisDimensionLabs.Count; ++i)
+            {
+                upgradeItemIdHashSet.Add(specElpisDimensionLabs[i].item_id);
+            }
+            
+            canUpgradeBadge.Clear();   
+            foreach (var itemId in upgradeItemIdHashSet)
+            {
+                canUpgradeBadge.AddBadgePath(BadgeType.RedDot,
+                    $"{ElpisCoreItem.BadgePathPrefix}/{itemId}");
+            }
         }
 
         #region Set
@@ -153,7 +174,8 @@ namespace CookApps.AutoBattler
 
             if (facility.Level >= 1)
             {
-                buildInfo = SpecDataManager.Instance.GetElpisBuildInfoData((int)facilityData.BuildId, (int)facility.Level);
+                buildInfo = SpecDataManager.Instance.GetElpisBuildInfoData((int)facilityData.BuildId,
+                    (int)facility.Level);
             }
             else
             {
@@ -292,7 +314,8 @@ namespace CookApps.AutoBattler
                 var isPreviousLevelRequired = specLevel > specCurrentLevel + 1;
                 // 다른 건물이 건설 중인 경우
                 var isAnotherBuilding = hasAnyBuilding && !isInstalling;
-                var canBuild = !isInstalled && !isInstalling && !isPreviousLevelRequired && !isAnotherBuilding && CheckCanBuild(spec, commandCenterLv, allBenefits);
+                var canBuild = !isInstalled && !isInstalling && !isPreviousLevelRequired && !isAnotherBuilding &&
+                               CheckCanBuild(spec, commandCenterLv, allBenefits);
 
                 cachedFacilityInfos.Add(new FacilityInfo
                 {
@@ -340,7 +363,8 @@ namespace CookApps.AutoBattler
             return false;
         }
 
-        private bool CheckCanBuild(ElpisBuildInfo targetBuildInfo, uint commandCenterLv, IReadOnlyList<ElpisCommandCenterBenefit> allBenefits)
+        private bool CheckCanBuild(ElpisBuildInfo targetBuildInfo, uint commandCenterLv,
+            IReadOnlyList<ElpisCommandCenterBenefit> allBenefits)
         {
             var targetBuildId = targetBuildInfo.build_id;
 
@@ -400,6 +424,7 @@ namespace CookApps.AutoBattler
                 if (info.isInstalling)
                     return info;
             }
+
             return null;
         }
 
@@ -410,6 +435,7 @@ namespace CookApps.AutoBattler
                 if (info.isJustCompleted)
                     return info;
             }
+
             return null;
         }
 
@@ -520,7 +546,8 @@ namespace CookApps.AutoBattler
             var currentAlpha = lobbyNameTag.alpha;
             if (!Mathf.Approximately(currentAlpha, targetNameTagAlpha))
             {
-                lobbyNameTag.alpha = Mathf.MoveTowards(currentAlpha, targetNameTagAlpha, AlphaFadeSpeed * Time.deltaTime);
+                lobbyNameTag.alpha =
+                    Mathf.MoveTowards(currentAlpha, targetNameTagAlpha, AlphaFadeSpeed * Time.deltaTime);
             }
 
             // alpha가 0이면 비활성화, 아니면 활성화 (상태 변경 시에만 SetActive 호출)
@@ -547,7 +574,8 @@ namespace CookApps.AutoBattler
 
         private void UpdatePosition()
         {
-            CachedRectTr.anchoredPosition = MainCameraHolder.WorldPointToLocalPointInRectangle(target.CachedTr.position, parentRect);
+            CachedRectTr.anchoredPosition =
+                MainCameraHolder.WorldPointToLocalPointInRectangle(target.CachedTr.position, parentRect);
         }
 
         private void CameraFocus()
@@ -584,18 +612,21 @@ namespace CookApps.AutoBattler
 
                 ElpisFacility changedInfo = null;
 
-                if (facilityData.Level >= 1 && facilityData.IsUpgrading) //TODO : upgrade 인지 체크해야 됨. facilityData.Level >= 1 && facilityData.Is_upgrading 으로 변경 필요
+                if (facilityData.Level >= 1 &&
+                    facilityData
+                        .IsUpgrading) //TODO : upgrade 인지 체크해야 됨. facilityData.Level >= 1 && facilityData.Is_upgrading 으로 변경 필요
                 {
-                    var response = await NetManager.Instance.Elpis.FinishUpgradingFacilityAsync((int)facilityData.BuildId);
+                    var response =
+                        await NetManager.Instance.Elpis.FinishUpgradingFacilityAsync((int)facilityData.BuildId);
                     if (response != null && response.IsSuccess)
                     {
                         changedInfo = response.Facility;
                     }
-
                 }
                 else
                 {
-                    var response = await NetManager.Instance.Elpis.FinishBuildingFacilityAsync((int)facilityData.BuildId);
+                    var response =
+                        await NetManager.Instance.Elpis.FinishBuildingFacilityAsync((int)facilityData.BuildId);
                     if (response != null && response.IsSuccess)
                     {
                         changedInfo = response.Facility;
