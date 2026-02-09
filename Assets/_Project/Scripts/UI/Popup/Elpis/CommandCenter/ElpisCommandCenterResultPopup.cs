@@ -26,9 +26,9 @@ public class ElpisCommandCenterResultPopup : UILayerPopupBase
             .Subscribe(this, (_, self) => self.CloseThisUILayer())
             .AddTo(this);
         
-        var facilityDataBridge = new ElpisDataBridge();
+        var elpisModel = ServerDataManager.Instance.Elpis;
 
-        var currentLevel = facilityDataBridge.GetFacilityLevel(ElpisFacilityType.FacilityTypeCommandCenter);
+        var currentLevel = elpisModel.GetFacilityLevel(ElpisFacilityType.FacilityTypeCommandCenter);
         levelText.text = ZString.Concat(currentLevel);
         
         currentBenefits = (List<ElpisCommandCenterBenefit>)param;

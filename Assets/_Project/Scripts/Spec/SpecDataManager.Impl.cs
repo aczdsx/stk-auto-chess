@@ -1914,12 +1914,12 @@ namespace CookApps.AutoBattler
         public UserKnightCount GetUserKnightCountByNestCount()
         {
             var nestCount = 0;
-            var dataBridge = new ElpisDataBridge();
+            var elpisModel = ServerDataManager.Instance.Elpis;
             var nestFacilityList = GetBuildInfoList(Tech.Hive.V1.ElpisFacilityType.FacilityTypeNest);
 
             for (int i = 0; i < nestFacilityList.Count; i++)
             {
-                var nestFacility = dataBridge.GetFacility((uint)nestFacilityList[i].build_id);
+                var nestFacility = elpisModel.GetFacility((uint)nestFacilityList[i].build_id);
                 if (nestFacility != null && nestFacility.Level > 0 && !nestFacility.IsBuilding && !nestFacility.IsJustCompleted)
                 {
                     nestCount++;

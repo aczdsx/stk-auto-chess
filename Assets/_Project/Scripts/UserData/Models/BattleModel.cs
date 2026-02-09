@@ -2,14 +2,27 @@ using System;
 using System.Collections.Generic;
 using R3;
 using Tech.Hive.V1;
+using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
 {
     /// <summary>
     /// 전투 데이터 모델
-    /// 챕터 및 스테이지 진행 정보 관리
-    /// 델타 업데이트 지원
+    ///
+    /// [관리 데이터]
+    /// - 챕터 정보: 현재 챕터, 챕터 목록, 챕터 개방 여부, 마일스톤 보상
+    /// - 스테이지 진행: 클리어 여부, 별(Star) 개수, 스테이지 개방 여부
+    /// - 통계: 챕터별 클리어/3성 스테이지 수, 전체 별 합계
+    /// - 목표 스테이지: 다음 진행할 스테이지 ID 산출 (LocalDataManager + SpecDataManager 연동)
+    ///
+    /// [변경 이력]
+    /// - BattleDataBridge에서 마이그레이션된 메서드:
+    ///   IsStageThreeStarCleared, IsFirstClearRewarded, IsThreeStarRewarded,
+    ///   GetChapterClearedStageCount, GetChapterThreeStarStageCount, GetTargetStageId
+    /// - BattleDataBridge에서 삭제된 메서드 (LocalDataManager 직접 사용):
+    ///   GetLastPlayStageID, SetLastPlayStageID
     /// </summary>
+    /// 
     public class BattleModel
     {
         // 현재 챕터 정보
@@ -296,6 +309,121 @@ namespace CookApps.AutoBattler
             var chapter = GetChapter(chapterId);
             if (chapter == null) return false;
             return chapter.ClaimedMilestoneRewardIds.Contains(rewardId);
+        }
+
+        #endregion
+
+        #region 유틸리티 메서드
+
+        /// <summary>
+        /// 스테이지 3성 클리어 여부
+        /// </summary>
+        public bool IsStageThreeStarCleared(uint stageId)
+        {
+            return GetStageBestStars(stageId) >= 3;
+        }
+
+        /// <summary>
+        /// 첫 클리어 보상 수령 여부
+        /// </summary>
+        public bool IsFirstClearRewarded(uint stageId)
+        {
+            var progress = GetStageProgress(stageId);
+            return progress?.IsCleared ?? false;
+        }
+
+        /// <summary>
+        /// 3성 보상 수령 여부
+        /// </summary>
+        public bool IsThreeStarRewarded(uint stageId)
+        {
+            var progress = GetStageProgress(stageId);
+            return (progress?.BestStars ?? 0) >= 3;
+        }
+
+        /// <summary>
+        /// 특정 챕터의 클리어한 스테이지 개수
+        /// </summary>
+        public int GetChapterClearedStageCount(uint chapterId)
+        {
+            using var _ = ListPool<BattleStageProgress>.Get(out var allStages);
+            GetAllStageProgresses(allStages);
+
+            int count = 0;
+            for (int i = 0; i < allStages.Count; i++)
+            {
+                var stage = allStages[i];
+                var specStage = SpecDataManager.Instance.GetStageData((int)stage.StageId);
+                if (stage.IsCleared && specStage.chapter_id == chapterId)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        /// <summary>
+        /// 특정 챕터의 3성 클리어한 스테이지 개수
+        /// </summary>
+        public int GetChapterThreeStarStageCount(uint chapterId)
+        {
+            using var _ = ListPool<BattleStageProgress>.Get(out var allStages);
+            GetAllStageProgresses(allStages);
+
+            int count = 0;
+            for (int i = 0; i < allStages.Count; i++)
+            {
+                var stage = allStages[i];
+                var specStage = SpecDataManager.Instance.GetStageData((int)stage.StageId);
+                if (stage.BestStars >= 3 && specStage.chapter_id == chapterId)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        /// <summary>
+        /// 목표 스테이지 ID 반환
+        /// 마지막 플레이 스테이지가 최고 클리어 스테이지와 같으면 다음 스테이지로
+        /// </summary>
+        public static int GetTargetStageId()
+        {
+            var lastPlayStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
+            var latestClearedStageId = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
+
+            // 마지막 플레이 == 최고 클리어인 경우 다음 스테이지로
+            if (lastPlayStageId == latestClearedStageId)
+            {
+                var currentStageData = SpecDataManager.Instance.GetStageData(lastPlayStageId);
+                var nextStageData = SpecDataManager.Instance.GetStageData(
+                    currentStageData.chapter_id,
+                    currentStageData.stage_number + 1,
+                    currentStageData.difficulty_type
+                );
+
+                // 다음 스테이지가 존재하면 다음 스테이지로
+                if (nextStageData != null)
+                {
+                    return nextStageData.stage_id;
+                }
+
+                // 다음 챕터의 첫 스테이지 확인
+                var nextChapterFirstStage = SpecDataManager.Instance.GetStageData(
+                    currentStageData.chapter_id + 1,
+                    1,
+                    currentStageData.difficulty_type
+                );
+
+                if (nextChapterFirstStage != null)
+                {
+                    return nextChapterFirstStage.stage_id;
+                }
+            }
+
+            return lastPlayStageId;
         }
 
         #endregion

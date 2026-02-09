@@ -167,8 +167,7 @@ public partial class SROptions
     [Category("가이드 미션 stage")]
     public void 가이드미션()
     {
-        var gdb = new GuideMissionDataBridge();
-        gdb.AddActionAsync(GuideMissionType.CLEAR_STAGE, 1, 스테이지아이디).Forget();
+        ServerDataManager.Instance.GuideMission.AddActionValueAsync(GuideMissionType.CLEAR_STAGE, 스테이지아이디, 1).Forget();
     }
     [Category("가이드 미션 stage")]
     public int 스테이지아이디 { get; set; } = 20003;

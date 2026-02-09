@@ -41,9 +41,8 @@ namespace CookApps.AutoBattler
         // TableView Controller
         private TableViewController<ElpisCommandCenterBenefit, ElpisCommandCenterBenefitCell> benefitController;
 
-        private GuideMissionDataBridge guideMissionDataBridge;
-        private ElpisDataBridge elpisDataBridge;
-        private InventoryDataBridge inventoryDataBridge;
+        private ElpisModel elpisDataBridge;
+        private InventoryModel inventoryModel;
 
         private LobbyMain lobbyMain;
 
@@ -92,12 +91,11 @@ namespace CookApps.AutoBattler
 
             lobbyMain.PlayExitAnimation();
 
-            elpisDataBridge = new ElpisDataBridge();
-            guideMissionDataBridge = new GuideMissionDataBridge();
-            inventoryDataBridge = new InventoryDataBridge();
+            elpisDataBridge = ServerDataManager.Instance.Elpis;
+            inventoryModel = ServerDataManager.Instance.Inventory;
 
             currentElpisLevel = (int)((ElpisFacility)param).Level;
-            currentCoreAmount = (int)inventoryDataBridge.GetCurrency(IdMap.Item.엘피스코어);
+            currentCoreAmount = (int)inventoryModel.GetCurrency(IdMap.Item.엘피스코어);
 
             LoadElpisData();
             UpdateUI();
@@ -267,7 +265,7 @@ namespace CookApps.AutoBattler
                     return;
                 }
 
-                // await guideMissionDataBridge.AddActionAsync(GuideMissionType.UPGRADE_BUILDING, 1, (int)commandCenter.BuildId);
+                // await ServerDataManager.Instance.GuideMission.AddActionValueAsync(GuideMissionType.UPGRADE_BUILDING, (int)commandCenter.BuildId, 1);
 
                 currentElpisLevel = (int)response.Facility.Level;
 
@@ -299,7 +297,7 @@ namespace CookApps.AutoBattler
                     cameraController.SetCanInteractCamera(true);
                 }
 
-                currentCoreAmount = (int)inventoryDataBridge.GetCurrency(IdMap.Item.엘피스코어);
+                currentCoreAmount = (int)inventoryModel.GetCurrency(IdMap.Item.엘피스코어);
 
                 // 결과 팝업에 보여줄 현재 레벨(방금 업그레이드된 레벨)의 benefit 수집
                 var upgradedBenefits = new List<ElpisCommandCenterBenefit>();

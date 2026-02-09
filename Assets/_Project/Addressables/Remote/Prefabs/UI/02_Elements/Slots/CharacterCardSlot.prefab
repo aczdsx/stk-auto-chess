@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectFactor: 0
+  m_EffectFactor: 0.51548696
   m_Width: 0.131
   m_Rotation: 130
   m_Softness: 0.01
@@ -1524,7 +1524,6 @@ MonoBehaviour:
   _gradeSpriteLoader: {fileID: 2782626451916223693}
   _synergyUI: {fileID: 1657964940298068092}
   _positionSynergyUI: {fileID: 8270213376677612465}
-  _characterPositionTypeText: {fileID: 0}
   _shadowObject: {fileID: 1898000421976819456}
   _outlineObject: {fileID: 6665281667852903684}
   _outlineActiveObject: {fileID: 3217428687912921810}
@@ -1543,6 +1542,7 @@ MonoBehaviour:
   _characterSliderImage: {fileID: 5144593224637611278}
   _characterSliderText: {fileID: 1131480714714275120}
   _fadeCharacterColor: {r: 0.76862746, g: 0.7882353, b: 0.9529412, a: 0.69803923}
+  _transcendenceBadge: {fileID: 967370859992961008}
 --- !u!114 &1078707308649889360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4168,7 +4168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4568258238141890278, guid: b576e6ff5dbaad0468ea6619a8dac0c7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4180,6 +4180,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2704450344558178363, guid: b576e6ff5dbaad0468ea6619a8dac0c7, type: 3}
   m_PrefabInstance: {fileID: 3025772383710582477}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &967370859992961008 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2635020677424372029, guid: b576e6ff5dbaad0468ea6619a8dac0c7, type: 3}
+  m_PrefabInstance: {fileID: 3025772383710582477}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f258db54e980442c80837c076439be6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3084279389842547218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5144,6 +5155,10 @@ PrefabInstance:
     - target: {fileID: 6465872829129866611, guid: 6d68f2dce0c9e104fbc3e993db203aac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6690145750662272313, guid: 6d68f2dce0c9e104fbc3e993db203aac, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8444733535822964392, guid: 6d68f2dce0c9e104fbc3e993db203aac, type: 3}
       propertyPath: _useOnEnable

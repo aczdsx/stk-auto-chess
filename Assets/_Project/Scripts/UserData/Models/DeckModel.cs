@@ -8,6 +8,9 @@ namespace CookApps.AutoBattler
     /// <summary>
     /// 덱 데이터 모델
     /// 서버의 DeckData 프로토콜을 래핑
+    ///
+    /// [변경 이력]
+    /// - DeckDataBridge 제거: 모든 메서드가 1:1 래퍼이므로 Model 직접 사용
     /// </summary>
     public class DeckModel
     {

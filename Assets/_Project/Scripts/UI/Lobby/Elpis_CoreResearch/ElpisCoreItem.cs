@@ -22,8 +22,6 @@ public class ElpisCoreItem : CachedMonoBehaviour
 
     private CoreResearchCacheData cachedData;
     private ElpisCoreResearchLayer dimensionLabPopup;
-    public static readonly string BadgePathPrefix = "CoreResearch";
-    
     public ElpisDimensionLab Data => cachedData.Data;
     public CoreResearchCacheData CachedData => cachedData;
     
@@ -90,7 +88,7 @@ public class ElpisCoreItem : CachedMonoBehaviour
     public void InitBadgePath()
     {
         canUpgradeBadge.Clear();
-        canUpgradeBadge.AddBadgePath(BadgeType.RedDot, $"{BadgePathPrefix}/{cachedData.Data.item_id}");
+        canUpgradeBadge.AddBadgePath(BadgeType.RedDot, ElpisModel.GetCoreResearchBadgePath(cachedData.Data.item_id));
     }
 
     public void SetUp(CoreResearchCacheData cachedData, ElpisCoreResearchLayer dimensionLabPopup)

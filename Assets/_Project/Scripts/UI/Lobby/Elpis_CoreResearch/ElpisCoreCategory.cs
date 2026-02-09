@@ -35,7 +35,7 @@ public class ElpisCoreCategory : CachedMonoBehaviour
             if (!_reuseableBadgeHashSet.Add(coreData.Data.item_id))
                 continue;
 
-            canUpgradeBadge.AddBadgePath(BadgeType.RedDot, $"{ElpisCoreItem.BadgePathPrefix}/{coreData.Data.item_id}");
+            canUpgradeBadge.AddBadgePath(BadgeType.RedDot, ElpisModel.GetCoreResearchBadgePath(coreData.Data.item_id));
         }
     }
 }

@@ -12,11 +12,11 @@ public class UserInfoPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI expRatioText;
     [SerializeField] private Slider expSlider;
 
-    private PlayerDataBridge playerDataBridge;
-    
+    private PlayerDataModel playerDataModel;
+
     public void Initialize()
     {
-        playerDataBridge ??= new PlayerDataBridge();
+        playerDataModel ??= ServerDataManager.Instance.PlayerData;
 
         SetInitialValues();
         InitializeEvents();
@@ -24,22 +24,22 @@ public class UserInfoPanel : MonoBehaviour
 
     private void SetInitialValues()
     {
-        SetNickNameText(playerDataBridge.Nickname);
-        SetLevelText(playerDataBridge.Level);
-        SetExp(playerDataBridge.Exp);
+        SetNickNameText(playerDataModel.Nickname);
+        SetLevelText(playerDataModel.Level);
+        SetExp(playerDataModel.Exp);
     }
 
     private void InitializeEvents()
     {
-        playerDataBridge.OnNicknameChanged
+        playerDataModel.OnNicknameChanged
             .Subscribe(this, (nickName, self) => self.SetNickNameText(nickName))
             .AddTo(this);
         
-        playerDataBridge.OnLevelChanged
+        playerDataModel.OnLevelChanged
             .Subscribe(this, (level, self) => self.SetLevelText(level))
             .AddTo(this);
         
-        playerDataBridge.OnExpChanged
+        playerDataModel.OnExpChanged
             .Subscribe(this, (exp, self) => self.SetExp(exp))
             .AddTo(this);
     }
@@ -56,7 +56,7 @@ public class UserInfoPanel : MonoBehaviour
     
     private void SetExp(ulong currentExp)
     {
-        var currentProgress = playerDataBridge.ExpProgress;
+        var currentProgress = playerDataModel.ExpProgress;
         
         expSlider.value = currentProgress;
         expRatioText.text = ZString.Format("{0}%", currentProgress * 100.0f);

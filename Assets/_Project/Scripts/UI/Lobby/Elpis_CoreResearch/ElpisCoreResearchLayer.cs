@@ -53,14 +53,12 @@ namespace CookApps.AutoBattler
 
         private const DimensionType defaultType = DimensionType.KNIGHT;
 
-        private GuideMissionDataBridge guideMissionDataBridge;
-
-        private ElpisDataBridge elpisDataBridge;
+        private ElpisModel elpisDataModel;
         
         private Dictionary<int, List<ElpisCoreItem>> coreItems = new();
         private ElpisDimensionLab selectedCoreData;
         private ElpisCoreItem selectedCoreItem;
-        private InventoryDataBridge inventoryDataBridge;
+        private InventoryModel inventoryModel;
 
         private int currentItemCount;
         private SimpleTextColorSwapper _cacheRequireCoreTextColorSwapper;
@@ -69,15 +67,13 @@ namespace CookApps.AutoBattler
         {
             base.OnPreEnter(param);
             
-            inventoryDataBridge = new InventoryDataBridge();
+            inventoryModel = ServerDataManager.Instance.Inventory;
             
             // 버튼 클릭 이벤트 구독 (AwaitOperation.Drop: 비동기 작업 중일 때 새 클릭 무시)
             upgradeButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.Upgrade(), AwaitOperation.Drop).AddTo(this);
             closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.CloseThisUILayer()).AddTo(this);
 
-            elpisDataBridge ??= new ElpisDataBridge();
-            guideMissionDataBridge ??= new GuideMissionDataBridge();
-
+            elpisDataModel ??= ServerDataManager.Instance.Elpis;
             CacheCoreDatasByUpgradeGroupId();
             CacheUserCoreDatas();
 
@@ -137,7 +133,7 @@ namespace CookApps.AutoBattler
             tempUserDataList.Clear();
             tempUserLevelMap.Clear();
 
-            elpisDataBridge.GetAllCoreResearches(tempUserDataList);
+            elpisDataModel.GetAllCoreResearches(tempUserDataList);
 
             foreach (var userData in tempUserDataList)
                 tempUserLevelMap[(int)userData.UpgradeGroupId] = (int)userData.Level;
@@ -302,7 +298,7 @@ namespace CookApps.AutoBattler
             requiredCoreTitleText.text = LanguageManager.Instance.GetDefaultText(ZString.Format("ITEM_INFO_NAME_{0}", coreData.Data.item_id));
             coreTitleText.text = ZString.Format(LanguageManager.Instance.GetDefaultText(coreData.Data.upgrade_name_token), coreData.Data.lv - 1);
 
-            currentItemCount = (int)inventoryDataBridge.GetCurrency(coreData.Data.item_id);
+            currentItemCount = (int)inventoryModel.GetCurrency(coreData.Data.item_id);
             currentCoreText.text = ZString.Concat(currentItemCount, " /");
             requiredCoreText.text = ZString.Concat(coreData.Data.item_INT);
             
@@ -374,13 +370,13 @@ namespace CookApps.AutoBattler
 
             ShowCoreDetail(selectedCoreItem.CachedData);
 
-            // await guideMissionDataBridge.AddActionAsync(GuideMissionType.UPGRADE_DIMENSION_CUBE_CORE_RESEARCH, 1);
+            // await ServerDataManager.Instance.GuideMission.AddActionValueAsync(GuideMissionType.UPGRADE_DIMENSION_CUBE_CORE_RESEARCH);
         }
 
         private bool IsOverNeedLevel()
         {
             var currentDataNeedLevel = selectedCoreData.need_condition;
-            var currentFacilityLevel = elpisDataBridge.GetFacilityLevel(ElpisFacilityType.FacilityTypeDimensionLab);
+            var currentFacilityLevel = elpisDataModel.GetFacilityLevel(ElpisFacilityType.FacilityTypeDimensionLab);
 
             return currentFacilityLevel >= currentDataNeedLevel;
         }

@@ -25,7 +25,7 @@ namespace CookApps.AutoBattler
 
         private async UniTask LoadElpis()
         {
-            elpisDataBridge = new ElpisDataBridge();
+            elpisDataModel = ServerDataManager.Instance.Elpis;
 
             // 해금된 건물들을 0 레벨로 추가
             AddUnlockedFacilities();
@@ -37,7 +37,7 @@ namespace CookApps.AutoBattler
 
             MainBlock = elpisMainBlockHandle.Result.GetComponent<ElpisMainBlock>();
 
-            var commandCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
+            var commandCenter = elpisDataModel.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
 
             if (commandCenter == null) { commandCenter = new ElpisFacility() { Level = 1 }; }
 
@@ -52,7 +52,7 @@ namespace CookApps.AutoBattler
                 await MainBlock.AttachSubBlock(1, false);
             }
 
-            elpisDataBridge.OnFacilityChanged
+            elpisDataModel.OnFacilityUpdated
                 .Where(info => info.IsLevelChanged)
                 .SubscribeAwait(this, (info, self, _) => self.OnFacilityLevelChanged(info))
                 .AddTo(this);
@@ -63,6 +63,9 @@ namespace CookApps.AutoBattler
 
             // NavMesh 빌드 후 캐릭터 소환
             await CreateWanderCharacters();
+
+            // 모든 데이터 로딩 완료 후 뱃지 갱신
+            ServerDataManager.Instance.RefreshAllBadgesAtLobby();
         }
 
         private async UniTask CreateWanderCharacters()
@@ -70,9 +73,8 @@ namespace CookApps.AutoBattler
             const int limit = 5;
             const string characterPath = "SD/{0}/Elpis_{1}.prefab";
 
-            var characterDataBridge = new CharacterDataBridge();
             var userCharacterList = new List<CharacterData>();
-            characterDataBridge.GetAllUserCharacterList(userCharacterList);
+            ServerDataManager.Instance.Character.GetAllCharacters(userCharacterList);
 
             // Dictionary로 O(n) 탐색 최적화
             var allDatas = SpecDataManager.Instance.CharacterInfo.All;
@@ -160,7 +162,7 @@ namespace CookApps.AutoBattler
         private void AddUnlockedFacilities()
         {
             // 커맨드 센터 레벨 확인
-            var commandCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
+            var commandCenter = elpisDataModel.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter);
             if (commandCenter == null)
             {
                 Debug.LogWarning("[LobbyMain] 커맨드 센터가 없습니다.");
@@ -194,7 +196,7 @@ namespace CookApps.AutoBattler
                 if (buildInfo.build_lv != 1) continue;
 
                 // 이미 설치된 건물인지 확인
-                var existingFacility = elpisDataBridge.GetFacilityByType(buildInfo.facility_type.ToServerType());
+                var existingFacility = elpisDataModel.GetFacilityByType(buildInfo.facility_type.ToServerType());
                 if (existingFacility != null) continue;
 
                 // 0 레벨 건물 데이터 생성 (UI 표시용)

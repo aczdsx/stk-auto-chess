@@ -7,6 +7,11 @@ namespace CookApps.AutoBattler
     /// <summary>
     /// 지휘자 스킬 데이터 모델
     /// 장착된 스킬과 보유한 스킬 목록 관리
+    ///
+    /// [변경 이력]
+    /// - CommanderSkillDataBridge 제거: 모든 메서드가 1:1 래퍼이므로 Model 직접 사용
+    /// - 삭제된 서버 API 래퍼: SetEquippedCommanderSkillAsync, UnEquipCommanderSkillAsync,
+    ///   LevelUpCommanderSkillAsync (NetManager.Instance.Commander 직접 사용)
     /// </summary>
     public class CommanderSkillModel
     {

@@ -37,9 +37,7 @@ namespace CookApps.AutoBattler
         private RectTransform parentRect;
         private bool isInitialize;
 
-        private GuideMissionDataBridge GuideMissionDataBridge;
-
-        private ElpisDataBridge ElpisDataBridge;
+        private ElpisModel ElpisDataModel;
         private readonly List<FacilityInfo> cachedFacilityInfos = new();
 
         private bool isLocked;
@@ -74,8 +72,7 @@ namespace CookApps.AutoBattler
                 .SubscribeAwait(this, (_, self, _) => self.OnClick())
                 .AddTo(this);
 
-            ElpisDataBridge = new ElpisDataBridge();
-            GuideMissionDataBridge = new GuideMissionDataBridge();
+            ElpisDataModel = ServerDataManager.Instance.Elpis;
         }
 
         private void LateUpdate()
@@ -124,8 +121,7 @@ namespace CookApps.AutoBattler
             canUpgradeBadge.Clear();   
             foreach (var itemId in upgradeItemIdHashSet)
             {
-                canUpgradeBadge.AddBadgePath(BadgeType.RedDot,
-                    $"{ElpisCoreItem.BadgePathPrefix}/{itemId}");
+                canUpgradeBadge.AddBadgePath(BadgeType.RedDot, ElpisModel.GetCoreResearchBadgePath(itemId));
             }
         }
 
@@ -250,21 +246,20 @@ namespace CookApps.AutoBattler
 
         private void UpdateFacilityInfos()
         {
-            ElpisDataBridge ??= new ElpisDataBridge();
-            GuideMissionDataBridge ??= new GuideMissionDataBridge();
+            ElpisDataModel ??= ServerDataManager.Instance.Elpis;
             cachedFacilityInfos.Clear();
 
             var sameFacilities = SpecDataManager.Instance.GetSameFacilityTypes(buildInfo.facility_type);
 
             // CanBuild 계산에 필요한 값들 미리 캐싱
-            var commandCenterLv = ElpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter).Level;
+            var commandCenterLv = ElpisDataModel.GetFacilityByType(ElpisFacilityType.FacilityTypeCommandCenter).Level;
             var allBenefits = SpecDataManager.Instance.ElpisCommandCenterBenefit.All;
 
             // 건설 중인 건물이 있는지 체크 (같은 타입 내에서)
             var hasAnyBuilding = false;
             for (var i = 0; i < sameFacilities.Count; i++)
             {
-                var specFacility = ElpisDataBridge.GetFacility((uint)sameFacilities[i].build_id);
+                var specFacility = ElpisDataModel.GetFacility((uint)sameFacilities[i].build_id);
                 if (specFacility != null && specFacility.IsBuilding)
                 {
                     hasAnyBuilding = true;
@@ -278,7 +273,7 @@ namespace CookApps.AutoBattler
                 var specLevel = spec.build_lv;
 
                 // 해당 build_id의 서버 데이터 가져오기
-                var specFacilityData = ElpisDataBridge.GetFacility((uint)spec.build_id);
+                var specFacilityData = ElpisDataModel.GetFacility((uint)spec.build_id);
                 var specCurrentLevel = specFacilityData?.Level ?? 0;
                 var isSpecBuilding = specFacilityData?.IsBuilding ?? false;
                 var isSpecJustCompleted = specFacilityData?.IsJustCompleted ?? false;
@@ -378,13 +373,13 @@ namespace CookApps.AutoBattler
 
                 if (benefitType == BenefitType.BUILDING || benefitType == BenefitType.MULTI_BUILDING)
                 {
-                    var serverBuild = ElpisDataBridge.GetFacility((uint)benefit.build_id);
+                    var serverBuild = ElpisDataModel.GetFacility((uint)benefit.build_id);
                     if (serverBuild == null || serverBuild.Level <= 0)
                         return true;
                 }
                 else if (benefitType == BenefitType.MAX_LEVEL_UP)
                 {
-                    var serverBuild = ElpisDataBridge.GetFacility((uint)benefit.build_id);
+                    var serverBuild = ElpisDataModel.GetFacility((uint)benefit.build_id);
                     if (benefit.benefit_key > (serverBuild?.Level ?? 0))
                         return true;
                 }
@@ -638,7 +633,7 @@ namespace CookApps.AutoBattler
                     ChangeInfo(changedInfo);
                 }
 
-                // await GuideMissionDataBridge.AddActionAsync(GuideMissionType.INSTALL_BUILDING, 1, (int)facilityData.BuildId);
+                // await ServerDataManager.Instance.GuideMission.AddActionValueAsync(GuideMissionType.INSTALL_BUILDING, (int)facilityData.BuildId, 1);
                 return;
             }
 

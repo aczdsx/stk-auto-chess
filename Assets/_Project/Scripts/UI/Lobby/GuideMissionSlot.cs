@@ -31,7 +31,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private SpriteLoader missionRewardCharacterSpriteLoader;
         [SerializeField] private TextMeshProUGUI missionRewardAmountText;
 
-        private GuideMissionDataBridge guideMissionDataBridge;
+        private GuideMissionModel guideMissionModel;
         private GuideMissionInfo specGuideMissionData;
         private ElpisFacilityType? pendingFacilityType;
         private Action pendingPopupAction;
@@ -41,21 +41,21 @@ namespace CookApps.AutoBattler
 
         private void Awake()
         {
-            guideMissionDataBridge = new GuideMissionDataBridge();
+            guideMissionModel = ServerDataManager.Instance.GuideMission;
 
             guideMissionButton.OnClickAsObservable()
                 .SubscribeAwait(this, (_, self, _) => self.OnClickMissionSlotButtonAsync(), AwaitOperation.Drop)
                 .AddTo(this);
 
             // 가이드 미션 데이터 변경 시 UI 갱신
-            guideMissionDataBridge.OnChanged
+            guideMissionModel.OnChanged
                 .Subscribe(this, (_, self) => self.RefreshGuideMissionSlot())
                 .AddTo(this);
         }
 
         public async void InitGuideMissionSlot()
         {
-            await guideMissionDataBridge.GetAsync();
+            await guideMissionModel.GetAsync();
             RefreshGuideMissionSlot();
         }
 
@@ -64,14 +64,14 @@ namespace CookApps.AutoBattler
         public void RefreshGuideMissionSlot()
         {
             // 모든 가이드 미션 완료 또는 최대 오더 초과 시 off 처리
-            if (guideMissionDataBridge.IsAllCompleted || guideMissionDataBridge.Order > SpecDataManager.Instance.GetGuideMissionMaxOrder())
+            if (guideMissionModel.IsAllCompleted || guideMissionModel.Order > SpecDataManager.Instance.GetGuideMissionMaxOrder())
             {
                 gameObject.SetActive(false);
                 return;
             }
 
             // 가이드 미션 슬롯 데이터 세팅
-            var guideMissionId = (int)guideMissionDataBridge.GuideMissionId;
+            var guideMissionId = (int)guideMissionModel.GuideMissionId;
             specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
 
             if (specGuideMissionData == null)
@@ -168,7 +168,7 @@ namespace CookApps.AutoBattler
 
         private async UniTask ClaimRewardAsync()
         {
-            var response = await guideMissionDataBridge.ClaimRewardAsync(guideMissionDataBridge.GuideMissionId);
+            var response = await guideMissionModel.ClaimRewardAsync(guideMissionModel.GuideMissionId);
             if ((response == null || !response.IsSuccess) && !USE_DEBUG_CLAIM())
             {
                 ToastManager.Instance.ShowToastByTokenKey("MSG_ERROR_NETWORK");
@@ -189,7 +189,7 @@ namespace CookApps.AutoBattler
                     TutorialManager.Instance.TryStartOutgameTutorial().Forget();
             }).Forget();
 
-            await guideMissionDataBridge.GetAsync();
+            await guideMissionModel.GetAsync();
         }
 
         #endregion
@@ -255,7 +255,7 @@ namespace CookApps.AutoBattler
 
         private void NavigateToCharacterCollection()
         {
-            if (!guideMissionDataBridge.IsCompleted && specGuideMissionData.tutorial_id > 0)
+            if (!guideMissionModel.IsCompleted && specGuideMissionData.tutorial_id > 0)
                 NavigateToLobbyAndOpenPopup(null, null);
             else
                 NavigateToLobbyAndOpenPopup(null, () => SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget());
@@ -330,8 +330,8 @@ namespace CookApps.AutoBattler
 
         private void FocusCameraOnFacility(ElpisFacilityType facilityType)
         {
-            var bridge = new ElpisDataBridge();
-            var facility = bridge.GetFacilityByType(facilityType);
+            var elpisModel = ServerDataManager.Instance.Elpis;
+            var facility = elpisModel.GetFacilityByType(facilityType);
             if (facility == null) return;
 
             var buildId = (int)facility.BuildId;
