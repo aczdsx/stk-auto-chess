@@ -1643,6 +1643,18 @@ PrefabInstance:
       propertyPath: reactionType
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: paths.Array.data[0].path
+      value: Summon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
+      propertyPath: paths.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 3c087810e5153ce49ad0cafcd659f335, type: 3}
       propertyPath: m_Name
       value: Btn_Summon
@@ -3200,6 +3212,18 @@ PrefabInstance:
     - target: {fileID: 1354750518427930461, guid: 3f3079fe51f8374428af5e7bfd0b3445, type: 3}
       propertyPath: reactionType
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 3f3079fe51f8374428af5e7bfd0b3445, type: 3}
+      propertyPath: paths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 3f3079fe51f8374428af5e7bfd0b3445, type: 3}
+      propertyPath: paths.Array.data[0].path
+      value: CharacterInfo/Transcendence
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482453400155927998, guid: 3f3079fe51f8374428af5e7bfd0b3445, type: 3}
+      propertyPath: paths.Array.data[0].type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2849816853042963696, guid: 3f3079fe51f8374428af5e7bfd0b3445, type: 3}
       propertyPath: m_Name

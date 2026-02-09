@@ -309,7 +309,7 @@ MonoBehaviour:
     values:
     - {fileID: 21300000, guid: 6842ce9cd66766c40a220ec912bfe5a5, type: 3}
     - {fileID: 21300000, guid: 31d6df7ee571a494d9f96db67a87fd34, type: 3}
-    - {fileID: 21300000, guid: 19983cd84ac32704c9f44bee3abe49a5, type: 3}
+    - {fileID: 21300000, guid: c22fe1d46d60b0d45b28005edb4cc313, type: 3}
     - {fileID: 21300000, guid: 7a7d47ca7159ead4cb4aae108b80068b, type: 3}
     - {fileID: 21300000, guid: 0bd4b04b860ca0944a88c236cb5bcbec, type: 3}
     - {fileID: 21300000, guid: 82f7076adee556a439f5e3660692f277, type: 3}
@@ -588,7 +588,7 @@ MonoBehaviour:
     values:
     - {fileID: 21300000, guid: 6842ce9cd66766c40a220ec912bfe5a5, type: 3}
     - {fileID: 21300000, guid: 31d6df7ee571a494d9f96db67a87fd34, type: 3}
-    - {fileID: 21300000, guid: 19983cd84ac32704c9f44bee3abe49a5, type: 3}
+    - {fileID: 21300000, guid: c22fe1d46d60b0d45b28005edb4cc313, type: 3}
     - {fileID: 21300000, guid: 7a7d47ca7159ead4cb4aae108b80068b, type: 3}
     - {fileID: 21300000, guid: 0bd4b04b860ca0944a88c236cb5bcbec, type: 3}
     - {fileID: 21300000, guid: 82f7076adee556a439f5e3660692f277, type: 3}
@@ -669,7 +669,7 @@ MonoBehaviour:
   iconSwappers:
   - {fileID: 5526433551436086071}
   - {fileID: 8087741124330191765}
-  canUpgradeObject: {fileID: 4228999579616389125}
+  canUpgradeBadge: {fileID: 1143655037230575108}
 --- !u!114 &5992618763531511542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,7 +750,7 @@ GameObject:
   - component: {fileID: 2987728765290068456}
   - component: {fileID: 14993892215734215}
   - component: {fileID: 1036341958917988440}
-  - component: {fileID: 9050570375178166846}
+  - component: {fileID: 4910583909403456047}
   m_Layer: 5
   m_Name: Circle
   m_TagString: Untagged
@@ -815,7 +815,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9050570375178166846
+--- !u!114 &4910583909403456047
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -824,105 +824,64 @@ MonoBehaviour:
   m_GameObject: {fileID: 5145203489480608784}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cc6819e64e4c44beb63ea2ef45e1a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateType: 0
-  isSpeedBased: 0
-  hasOnStart: 0
-  hasOnPlay: 0
-  hasOnUpdate: 0
-  hasOnStepComplete: 0
-  hasOnComplete: 0
-  hasOnTweenCreated: 0
-  hasOnRewind: 0
-  onStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onPlay:
-    m_PersistentCalls:
-      m_Calls: []
-  onUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  onStepComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  onComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  onTweenCreated:
-    m_PersistentCalls:
-      m_Calls: []
-  onRewind:
-    m_PersistentCalls:
-      m_Calls: []
-  targetIsSelf: 1
-  targetGO: {fileID: 0}
-  tweenTargetIsTargetGO: 1
-  delay: 0
-  duration: 1
-  easeType: 1
-  easeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  loopType: 2
-  loops: -1
-  id: 
-  isRelative: 0
-  isFrom: 0
-  isIndependentUpdate: 0
-  autoKill: 1
-  autoGenerate: 1
-  isActive: 1
-  isValid: 1
-  target: {fileID: 2987728765290068456}
-  animationType: 3
-  targetType: 11
-  forcedTargetType: 0
-  autoPlay: 1
-  useTargetAsV3: 0
-  endValueFloat: 0
-  endValueV3: {x: 0, y: 0, z: 30}
-  endValueV2: {x: 0, y: 0}
-  endValueColor: {r: 1, g: 1, b: 1, a: 1}
-  endValueString: 
-  endValueRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  endValueTransform: {fileID: 0}
-  optionalBool0: 0
-  optionalBool1: 0
-  optionalFloat0: 0
-  optionalInt0: 0
-  optionalRotationMode: 0
-  optionalScrambleMode: 0
-  optionalShakeRandomnessMode: 0
-  optionalString: 
+  autoPlayMode: 2
+  animationMode: 0
+  components:
+  - rid: 8175457328539107385
+  playOnAwake: 1
+  version: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 8175457328539107385
+      type: {class: TransformRotationAnimation, ns: LitMotion.Animation.Components, asm: LitMotion.Animation}
+      data:
+        displayName: Rotate
+        enabled: 1
+        target: {fileID: 2987728765290068456}
+        settings:
+          startValue: {x: 0, y: 0, z: 0}
+          endValue: {x: 0, y: 0, z: 30}
+          duration: 1
+          ease: 0
+          customEaseCurve:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          delay: 0
+          delayType: 0
+          loops: -1
+          loopType: 2
+          cancelOnError: 0
+          skipValuesDuringDelay: 0
+          immediateBind: 0
+          schedulerType: 0
+          additionalSettings: 0
+        relative: 0
+        useWorldSpace: 1
 --- !u!1 &5505819852914945484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1304,7 +1263,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7892600465140520982, guid: 17561c9cb613e664d9cbea3e00775795, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1143655037230575108}
   m_SourcePrefab: {fileID: 100100000, guid: 17561c9cb613e664d9cbea3e00775795, type: 3}
 --- !u!224 &1849972355216051657 stripped
 RectTransform:
@@ -1316,3 +1278,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7892600465140520982, guid: 17561c9cb613e664d9cbea3e00775795, type: 3}
   m_PrefabInstance: {fileID: 6284855710157582355}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1143655037230575108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4228999579616389125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f258db54e980442c80837c076439be6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites: []
+  image: {fileID: 0}
+  defaultType: 1
+  paths:
+  - type: 1
+    path: CoreResearch/

@@ -7425,39 +7425,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3973436289717345132, guid: 17d7a2adfd3264242b9f02847c117483, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2978517907247924445}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17d7a2adfd3264242b9f02847c117483, type: 3}
---- !u!1 &2481970246794337479 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3973436289717345132, guid: 17d7a2adfd3264242b9f02847c117483, type: 3}
-  m_PrefabInstance: {fileID: 1537347649714014123}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2978517907247924445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2481970246794337479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cbe1f11426513d49ad8e21e9d6643f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 1}
-  maxRenderTextureSize: 2048
-  quad: {fileID: 0}
-  quadMaterial: {fileID: 2100000, guid: afeb0ae2ea2cda94796515bf8d1b3cb1, type: 2}
-  renderTexture: {fileID: 0}
-  targetCamera: {fileID: 0}
-  shaderPasses: 00000000
-  customRenderRect: {fileID: 0}
-  meshRendererMaterialForTexture:
-  - texture: {fileID: 2800000, guid: 15f40f9fce78bb84c92c769bcde00f9d, type: 3}
-    material: {fileID: 2100000, guid: 74dd7ea99d3ee1d4eadeaa4e8ab8f91f, type: 2}
 --- !u!224 &2878099219355321429 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3649268610510914558, guid: 17d7a2adfd3264242b9f02847c117483, type: 3}

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using AppsFlyerSDK;
+using CookApps.TeamBattle;
+using CookApps.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -12,7 +14,7 @@ namespace CookApps.AutoBattler
         REVENUE,
         SHOP_VISIT,
         REGISTRATION,
-        
+
         STAGE_1_10_CLEAR,
         STAGE_2_10_CLEAR,
         CHAPTER_1_CLEAR,
@@ -24,23 +26,23 @@ namespace CookApps.AutoBattler
         BUY_JEWEL_10000,
         BUY_PACKAGE_EXPENSIVE,
         JOIN_GUILD,
-        
+
         PURCHASE,
         PURCHASE_FIRST,
-        
+
         CHAPTER_CLEAR_3 = 300,
         CHAPTER_CLEAR_4,
         CHAPTER_CLEAR_5,
         CHAPTER_CLEAR_6,
         CHAPTER_CLEAR_7,
-        
+
         CHAPTER_CLEAR_HARD_3 = 3000,
         CHAPTER_CLEAR_HARD_4,
         CHAPTER_CLEAR_HARD_5,
         PURCHASE_SUMMONPACK_VER_1
     }
 
-    public sealed class AppsFlyerManager : GameObjectSingleton<AppsFlyerManager>
+    public sealed class AppsFlyerManager : SingletonMonoBehaviour<AppsFlyerManager>
     {
         bool _initialized;
         UniTaskCompletionSource _initTcs;

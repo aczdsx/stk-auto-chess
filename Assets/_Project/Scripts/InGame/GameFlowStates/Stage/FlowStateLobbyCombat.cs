@@ -3,7 +3,8 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
+using LitMotion;
+using LitMotion.Extensions;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -27,6 +28,10 @@ public class FlowStateLobbyCombat : StateCombatBase
     private bool _canSpawnEnemy;
     private Camera _mainCamera;
     private Camera _characterCamera;
+
+    private MotionHandle _cameraMoveTween;
+    private MotionHandle _mainCameraSizeTween;
+    private MotionHandle _characterCameraSizeTween;
 
     public override void StateInit(object target)
     {
@@ -96,9 +101,15 @@ public class FlowStateLobbyCombat : StateCombatBase
         await UniTask.Delay(500);
 
         // 카메라 Tween 이동 시작
-        _mainCamera.transform.DOMove(_targetCameraPosition, _cameraTweenDuration).SetEase(Ease.OutQuad);
-        _mainCamera.DOOrthoSize(_targetOrthoSize, _cameraTweenDuration).SetEase(Ease.OutQuad);
-        _characterCamera.DOOrthoSize(_targetOrthoSize, _cameraTweenDuration).SetEase(Ease.OutQuad);
+        _cameraMoveTween = LMotion.Create(_mainCamera.transform.position, _targetCameraPosition, _cameraTweenDuration)
+            .WithEase(Ease.OutQuad)
+            .BindToPosition(_mainCamera.transform);
+        _mainCameraSizeTween = LMotion.Create(_mainCamera.orthographicSize, _targetOrthoSize, _cameraTweenDuration)
+            .WithEase(Ease.OutQuad)
+            .Bind(v => _mainCamera.orthographicSize = v);
+        _characterCameraSizeTween = LMotion.Create(_characterCamera.orthographicSize, _targetOrthoSize, _cameraTweenDuration)
+            .WithEase(Ease.OutQuad)
+            .Bind(v => _characterCamera.orthographicSize = v);
 
         // 카메라 이동과 동시에 몬스터 소환 시작
         _canSpawnEnemy = true;
@@ -152,9 +163,9 @@ public class FlowStateLobbyCombat : StateCombatBase
         _canSpawnEnemy = false;
 
         // 카메라 Tween 정리
-        _mainCamera.transform.DOKill();
-        _mainCamera.DOKill();
-        _characterCamera.DOKill();
+        _cameraMoveTween.TryCancel();
+        _mainCameraSizeTween.TryCancel();
+        _characterCameraSizeTween.TryCancel();
 
         ListPool<CharacterController>.Release(_playerCharacters);
         ListPool<CharacterController>.Release(_enemyCharacters);

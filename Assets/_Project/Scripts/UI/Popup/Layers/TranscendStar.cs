@@ -61,7 +61,7 @@ namespace CookApps.AutoBattler
                 .Join(rotateHandle)
                 .Join(fadeHandle)
                 .Run();
-            _sequenceHandle.AddTo(gameObject);
+            _sequenceHandle.AddTo(this);
         }
 
         private void SetEndState()

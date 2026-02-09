@@ -85,7 +85,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3825344791912605863}
   - component: {fileID: 7084190057753033290}
-  - component: {fileID: 2706144463698240995}
   m_Layer: 5
   m_Name: AttendanceLastDaySlot
   m_TagString: Untagged
@@ -134,24 +133,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
   m_Softness: {x: 0, y: 0}
---- !u!114 &2706144463698240995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 850624326709192079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92b0a6c86b0e5094e8a5526d8da1664e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rewardItemSlot: {fileID: 2045606780536919231}
-  _attendanceButton: {fileID: 173445397142128086}
-  _dayText: {fileID: 8312363192614279836}
-  _claimBGObject: {fileID: 7140881329633562723}
-  _claimOnObject: {fileID: 1391208014172882069}
-  _claimCheckObject: {fileID: 4978540741924629119}
 --- !u!1 &1196820124256109293
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +249,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -418,7 +399,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -1022,11 +1003,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c903f06448a78a4b947b75f85f30282, type: 3}
---- !u!1 &1391208014172882069 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2397307662296641058, guid: 5c903f06448a78a4b947b75f85f30282, type: 3}
-  m_PrefabInstance: {fileID: 3605803094638652087}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4590738948615129121 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 990780988020859542, guid: 5c903f06448a78a4b947b75f85f30282, type: 3}
@@ -1037,7 +1013,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8837331446347425764, guid: 5c903f06448a78a4b947b75f85f30282, type: 3}
   m_PrefabInstance: {fileID: 3605803094638652087}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1391208014172882069}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
@@ -1156,11 +1132,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 373468e45bce03148b2975fff311491b, type: 3}
---- !u!1 &4978540741924629119 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8522575620216016858, guid: 373468e45bce03148b2975fff311491b, type: 3}
-  m_PrefabInstance: {fileID: 3697755676976309669}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6653024211922301818 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7999900883408705247, guid: 373468e45bce03148b2975fff311491b, type: 3}
@@ -1177,6 +1148,14 @@ PrefabInstance:
     - target: {fileID: 459990999289320037, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785095067748150429, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
+      propertyPath: m_fontSize
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785095067748150429, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 2097793679917897400, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
       propertyPath: m_SortingLayer
@@ -1421,17 +1400,6 @@ MonoBehaviour:
   isSpriteRenderer: 0
   targetRenderer: {fileID: 0}
   targetImage: {fileID: 4399530466643865165}
---- !u!114 &2045606780536919231 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8214434148149955497, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
-  m_PrefabInstance: {fileID: 7898465827913572118}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 968a9c217f4890d4894600f780817ca3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2519080301345880462 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5722226836289496728, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}

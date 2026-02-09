@@ -85,7 +85,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1296596262433475132}
   - component: {fileID: 7914576161569536604}
-  - component: {fileID: 8353295526427906749}
   m_Layer: 5
   m_Name: AttendanceDailySlot
   m_TagString: Untagged
@@ -134,24 +133,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
   m_Softness: {x: 0, y: 0}
---- !u!114 &8353295526427906749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2387866166532216644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92b0a6c86b0e5094e8a5526d8da1664e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rewardItemSlot: {fileID: 1712753741988059863}
-  _attendanceButton: {fileID: 8631471882904881738}
-  _dayText: {fileID: 3097524003828061137}
-  _claimBGObject: {fileID: 8355644638787329784}
-  _claimOnObject: {fileID: 8785012421473388788}
-  _claimCheckObject: {fileID: 6823665363233474618}
 --- !u!1 &5701991018283248937
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +322,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -479,7 +460,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -993,11 +974,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7999900883408705247, guid: 373468e45bce03148b2975fff311491b, type: 3}
   m_PrefabInstance: {fileID: 2951197105639278560}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6823665363233474618 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8522575620216016858, guid: 373468e45bce03148b2975fff311491b, type: 3}
-  m_PrefabInstance: {fileID: 2951197105639278560}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6390133838211950294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1108,7 +1084,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8837331446347425764, guid: 5c903f06448a78a4b947b75f85f30282, type: 3}
   m_PrefabInstance: {fileID: 6390133838211950294}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8785012421473388788}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d839d9103d4d4a8b8830da61d4a8661, type: 3}
@@ -1117,22 +1093,6 @@ MonoBehaviour:
 --- !u!224 &6129863987575260224 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 990780988020859542, guid: 5c903f06448a78a4b947b75f85f30282, type: 3}
-  m_PrefabInstance: {fileID: 6390133838211950294}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8631471882904881738 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3415827677318409372, guid: 5c903f06448a78a4b947b75f85f30282, type: 3}
-  m_PrefabInstance: {fileID: 6390133838211950294}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8785012421473388788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &8785012421473388788 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2397307662296641058, guid: 5c903f06448a78a4b947b75f85f30282, type: 3}
   m_PrefabInstance: {fileID: 6390133838211950294}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7366591712111251838
@@ -1146,6 +1106,14 @@ PrefabInstance:
     - target: {fileID: 459990999289320037, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785095067748150429, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
+      propertyPath: m_fontSize
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785095067748150429, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 2097793679917897400, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
       propertyPath: m_SortingLayer
@@ -1350,17 +1318,6 @@ MonoBehaviour:
   isSpriteRenderer: 0
   targetRenderer: {fileID: 0}
   targetImage: {fileID: 3938922706660171813}
---- !u!114 &1712753741988059863 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8214434148149955497, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}
-  m_PrefabInstance: {fileID: 7366591712111251838}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 968a9c217f4890d4894600f780817ca3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1761856193009971267 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9099587912585191741, guid: 5f0521047078e304ba12ec1320ebfae5, type: 3}

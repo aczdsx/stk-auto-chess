@@ -25,7 +25,7 @@ namespace CookApps.AutoBattler
         public SerializableDictionary<CoreResearchType, Color> iconColors;
         public SerializableDictionary<CoreResearchType, Gradient> iconGradients;
 
-        [SerializeField] private SerializableDictionary<DimensionType, CAToggle> dimensionToggles;
+        [SerializeField] private SerializableDictionary<DimensionType, ElpisCoreCategory> dimensionToggles;
         [SerializeField] private SerializableDictionary<int, GameObject> coreItemParents;
 
         [SerializeField] private TMP_Text decoText;
@@ -63,6 +63,7 @@ namespace CookApps.AutoBattler
         private InventoryDataBridge inventoryDataBridge;
 
         private int currentItemCount;
+        private SimpleTextColorSwapper _cacheRequireCoreTextColorSwapper;
 
         protected override void OnPreEnter(object param)
         {
@@ -73,15 +74,20 @@ namespace CookApps.AutoBattler
             // 버튼 클릭 이벤트 구독 (AwaitOperation.Drop: 비동기 작업 중일 때 새 클릭 무시)
             upgradeButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.Upgrade(), AwaitOperation.Drop).AddTo(this);
             closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.CloseThisUILayer()).AddTo(this);
-            
-            InitializeToggles();
-            InitializeCoreItems();
 
             elpisDataBridge ??= new ElpisDataBridge();
             guideMissionDataBridge ??= new GuideMissionDataBridge();
 
             CacheCoreDatasByUpgradeGroupId();
             CacheUserCoreDatas();
+
+            InitializeToggles();
+            InitializeCoreItems();
+
+            if (_cacheRequireCoreTextColorSwapper is null)
+            {
+                _cacheRequireCoreTextColorSwapper = requiredCoreText.gameObject.GetComponent<SimpleTextColorSwapper>();
+            }
 
             SetToggle(defaultType);
         }
@@ -90,9 +96,8 @@ namespace CookApps.AutoBattler
         {
             foreach (var toggle in dimensionToggles)
             {
-                toggle.Value.OnPointerClickAsObservable()
-                    .Subscribe((this, toggle.Key), (_, state) => state.Item1.SetToggle(state.Item2)
-                );
+                userCachedCoreDatas.TryGetValue(toggle.Key, out var coreDataList);
+                toggle.Value.Initialize(toggle.Key, coreDataList, SetToggle);
             }
         }
 
@@ -253,7 +258,8 @@ namespace CookApps.AutoBattler
 
         private void SetDecoImage(DimensionType dimensionType)
         {
-            var targetType = dimensionType == DimensionType.KNIGHT ? SimpleSwapType.Custom_0 : dimensionType == DimensionType.ELEMENTAL ? SimpleSwapType.Custom_1 : SimpleSwapType.Custom_2;
+            var targetType = dimensionType == DimensionType.KNIGHT ? SimpleSwapType.Custom_0 : 
+                dimensionType == DimensionType.ELEMENTAL ? SimpleSwapType.Custom_1 : SimpleSwapType.Custom_2;
             dimensionSwapper.Swap(targetType);
         }
 
@@ -297,9 +303,13 @@ namespace CookApps.AutoBattler
             coreTitleText.text = ZString.Format(LanguageManager.Instance.GetDefaultText(coreData.Data.upgrade_name_token), coreData.Data.lv - 1);
 
             currentItemCount = (int)inventoryDataBridge.GetCurrency(coreData.Data.item_id);
-            currentCoreText.text = ZString.Concat(currentItemCount);
+            currentCoreText.text = ZString.Concat(currentItemCount, " /");
             requiredCoreText.text = ZString.Concat(coreData.Data.item_INT);
-
+            
+            var swapType = currentItemCount >= coreData.Data.item_INT ? SimpleSwapType.Possible 
+                : SimpleSwapType.Impossible;
+            _cacheRequireCoreTextColorSwapper.Swap(swapType);
+            
             var isOverNeedLevel = IsOverNeedLevel();
             foreach (var upgradeButtonText in upgradeButtonTexts)
             {
@@ -359,11 +369,6 @@ namespace CookApps.AutoBattler
             UpdateUserCachedCoreData(targetData.Data.dimension_type, targetData);
             selectedCoreItem.UpdateData(targetData);
 
-            foreach (var coreItem in currentCoreItems)
-            {
-                coreItem.UpdateCanUpgrade();
-            }
-
             // selectedCoreData는 selectedCoreItem.Data로 동기화
             selectedCoreData = selectedCoreItem.Data;
 
@@ -376,7 +381,7 @@ namespace CookApps.AutoBattler
         {
             var currentDataNeedLevel = selectedCoreData.need_condition;
             var currentFacilityLevel = elpisDataBridge.GetFacilityLevel(ElpisFacilityType.FacilityTypeDimensionLab);
-            
+
             return currentFacilityLevel >= currentDataNeedLevel;
         }
     }

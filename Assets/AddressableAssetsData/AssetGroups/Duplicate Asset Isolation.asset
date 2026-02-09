@@ -51,18 +51,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 06c200e39d1152f40b895711613051ee
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/117563405_LD_Static_Material.mat
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 089c5143960e5c1419d670d6c0f44f88
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/400100_LD_Static_SkeletonData.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 09cc9cb1c3d111246832c4f1c64f0aff
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/Ingame_Img_Gauge_Bg_L.png
     m_ReadOnly: 0
@@ -345,12 +333,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2bdddc2fa944ccc49ae3c0a561e1144d
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/400100_LD_Static.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2d13795b226123445bc100dfd061c1b4
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Common_GuideQuest_Img_Frame.png
     m_ReadOnly: 0
@@ -389,12 +371,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 319bd54f73f64cf45865a2b05598a1bf
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Skill_Frame2.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3276f394c326ed3439cd9811c1816945
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/117563405_LD_Static.atlas.txt
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
@@ -473,12 +449,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3bdd936d27fb7da4bab114f3622beb1f
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Intro/Intro_Graphics_Star_Tiny_01.psd
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3f76809fe27641f46bf56556ebf66b86
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static_Atlas.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
@@ -605,12 +575,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4ff8cd29bc2e6af4ba45e44999bbad55
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Warning_Bg.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 50e154a3a4e8a5544b0c32861424d681
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static_Material.mat
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
@@ -915,12 +879,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 75a2dfc7c0102784b84aff6aeccce70a
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static_SkeletonData.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 76e934b325569ad469fd72b3b61cdc48
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Deco09.png
     m_ReadOnly: 0
@@ -987,18 +945,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7e4d0e38e4b752048b5106149f43cfe6
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/117563405_LD_Static_SkeletonData.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7fbf5526eac89be4e9b3dc991e9bb2d7
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/400100_LD_Static_Atlas.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7fe9cd87592fe5c47ad16b5acc3cf8f4
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Common/Skill_Passive_BG_01.psd
     m_ReadOnly: 0
@@ -1019,12 +965,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 822a014a4d84acb47bffcbface734a5f
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Warning_Icon.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 823c51804084255489696a16573ca884
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static_Material-Multiply.mat
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
@@ -1115,12 +1055,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8b41a31443798e74496a658b8af994ba
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Deco.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8b7a70fc31c4334458cd07a5276a76d1
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/117563405_LD_Static_Atlas.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
@@ -1235,12 +1169,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 955ad60721218b64e805d577b2f60790
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Chapter/Popup_Chapter_Btn_Right.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9625ec22923fad046ba69d90f7d480f0
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/117563405_LD_Static.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
@@ -1427,12 +1355,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a9c78c16bf310524393c091bb966c1b4
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Setting/Popup_Setting_Img_Check.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: aa2242172ab100846a58129274e1d7ca
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/117563405_LD_Static.skel.bytes
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
@@ -1714,18 +1636,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ca74cea1612a00f4b9da88aaae57bbba
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ca7f3b41a16aefb4e99136b9bf7b6d0c
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/400100_LD_Static.atlas.txt
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ca8f30f53471c7b42a226d67f58376b8
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/Ingame/BossBattle/BossBattle_Img_Boss.png
     m_ReadOnly: 0
@@ -1818,12 +1728,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d2c21953bb5359e4085282c162201a27
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Img_Decksetting_Place.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d4adcc1b777433b4b93c273732528636
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static.skel.bytes
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
@@ -1942,12 +1846,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: df2ba4fe659c9e84b97c313587057ae7
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/400100_LD_Static.skel.bytes
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: df7a3f2be539bb64f88c9c9305f1ec95
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Reward_Bg.png
     m_ReadOnly: 0
@@ -2052,12 +1950,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eb4bf64d9bab86643a4df6889aab77eb
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Attendance10Day/Popup_AweekEvent_Img_Day7.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: eba91dc854fd87a4d84491fc8c828fd3
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/400100_LD_Static_Material.mat
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
@@ -2185,12 +2077,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f95bb1dcd08088c4682b132d14e75d48
     m_Address: Assets/_Project/Addressables/Remote/Gacha_STK/Resource/Sprites/UI/PopupCommon/Popup_Btn_Deck.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f99bc2b036b33a1429f009d39f2bc59a
-    m_Address: Assets/_Project/Addressables/Remote/SpineRes/Static/241960_LD_Static.atlas.txt
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
