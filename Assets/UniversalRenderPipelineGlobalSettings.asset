@@ -41,7 +41,7 @@ MonoBehaviour:
       - rid: 4906974511229829125
       - rid: 4906974511229829126
       - rid: 4906974511229829127
-      - rid: 4906974511229829128
+      - rid: 2809444851383009587
       - rid: 4906974511229829129
       - rid: 4906974511229829130
       - rid: 4906974511229829131
@@ -62,17 +62,7 @@ MonoBehaviour:
       - rid: 4906974511229829146
       - rid: 4906974511229829147
     m_RuntimeSettings:
-      m_List:
-      - rid: 4906974511229829122
-      - rid: 4906974511229829128
-      - rid: 4906974511229829129
-      - rid: 4906974511229829131
-      - rid: 4906974511229829132
-      - rid: 4906974511229829133
-      - rid: 4906974511229829134
-      - rid: 4906974511229829137
-      - rid: 4906974511229829145
-      - rid: 4906974511229829147
+      m_List: []
   m_AssetVersion: 8
   m_ObsoleteDefaultVolumeProfile: {fileID: 0}
   m_RenderingLayerNames:
@@ -98,6 +88,11 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 2809444851383009587
+      type: {class: URPDefaultVolumeProfileSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
+      data:
+        m_Version: 0
+        m_VolumeProfile: {fileID: 11400000, guid: b9847338e8bea3d4dbe58df4a86ea93c, type: 2}
     - rid: 4906974511229829120
       type: {class: Renderer2DResources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
@@ -178,11 +173,6 @@ MonoBehaviour:
         m_StripUnusedPostProcessingVariants: 0
         m_StripUnusedVariants: 1
         m_StripScreenCoordOverrideVariants: 1
-    - rid: 4906974511229829128
-      type: {class: URPDefaultVolumeProfileSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
-      data:
-        m_Version: 0
-        m_VolumeProfile: {fileID: 11400000, guid: d92f740a4e40c5748b3f13fff004126d, type: 2}
     - rid: 4906974511229829129
       type: {class: UniversalRenderPipelineRuntimeShaders, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
