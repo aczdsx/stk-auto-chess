@@ -15,11 +15,6 @@ namespace CookApps.AutoBattler
         private const int TARGET_LEVEL = 10;
 
         /// <summary>
-        /// Lv10 달성 시 호출되는 콜백 (TutorialController에서 설정)
-        /// </summary>
-        public static Action OnLevelUpCompleted;
-
-        /// <summary>
         /// 현재 등록된 버튼 참조 (정리용)
         /// </summary>
         private static Button _registeredButton;
@@ -65,13 +60,13 @@ namespace CookApps.AutoBattler
             _targetCharacterId = 3401;
 
             // 현재 레벨 체크 - 이미 Lv10 이상이면 바로 완료
-            var characterBridge = new CharacterDataBridge();
-            int currentLevel = characterBridge.GetCharacterLevel(_targetCharacterId);
+            var characterModel = ServerDataManager.Instance.Character;
+            int currentLevel = characterModel.GetCharacterLevel(_targetCharacterId);
             if (currentLevel >= TARGET_LEVEL)
             {
                 Debug.LogColor($"[TutorialActionForcedTouchLevelUp10] 이미 Lv{currentLevel} 달성됨, 즉시 완료", "green");
                 context.NextObj.SetActive(true);
-                OnLevelUpCompleted?.Invoke();
+                context.OnCompleted?.Invoke();
                 return;
             }
 
@@ -138,7 +133,6 @@ namespace CookApps.AutoBattler
             context.TargetUIObj = null;
             context.TargetUnmaskObj = null;
             context.OriginalParent = null;
-            OnLevelUpCompleted = null;
 
             _layoutExist = false;
             _layoutGroup = null;
@@ -152,8 +146,8 @@ namespace CookApps.AutoBattler
         {
             UnsubscribeCharacterUpdate();
 
-            var characterBridge = new CharacterDataBridge();
-            _characterUpdateSubscription = characterBridge.OnCharacterUpdated
+            var characterModel = ServerDataManager.Instance.Character;
+            _characterUpdateSubscription = characterModel.OnCharacterUpdated
                 .Subscribe(OnCharacterUpdated);
         }
 
@@ -182,7 +176,7 @@ namespace CookApps.AutoBattler
 
                 // UI 원위치 복구 후 콜백 호출
                 RestoreUIBeforeCallback();
-                OnLevelUpCompleted?.Invoke();
+                _currentContext?.OnCompleted?.Invoke();
             }
         }
 

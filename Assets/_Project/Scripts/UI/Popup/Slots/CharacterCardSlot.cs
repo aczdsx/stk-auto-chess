@@ -45,18 +45,22 @@ namespace CookApps.AutoBattler
 
         [Header("Fade Setting")]
         [SerializeField] private Color _fadeCharacterColor;
+        
+        [Header("Badge")]
+        [SerializeField] private Badge _transcendenceBadge;
 
 
         private CharacterInfo _specCharacterData;
         private CharacterData _userCharacterData;
 
         private CharacterCollectionPopup _parentCollectionPopup;
-
+        
         public CharacterInfo SpecCharacterData => _specCharacterData;
 
         private void Awake()
         {
             _characterCardButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCardSlot()).AddTo(this);
+            
         }
 
         public void SetCharcacterSlot(CharacterInfo characterData, CharacterCollectionPopup _parentPopup)
@@ -112,10 +116,18 @@ namespace CookApps.AutoBattler
 
             if (specCharacterTranscendenceData != null)
             {
-                // TODO: CharacterPiece는 인벤토리에서 가져와야 함
-                int characterPiece = 0; // ServerDataManager.Instance.Inventory.GetCharacterPiece(_specCharacterData.character_id);
+                ItemId pieceItemId = ItemIdExtensions.GetCharacterPieceId(_specCharacterData.id);
+
+                int characterPiece =  (int)ServerDataManager.Instance.Inventory.GetCurrency(pieceItemId);
                 _characterSliderText.text = $"{characterPiece}/{specCharacterTranscendenceData.piece}";
                 _characterSliderImage.fillAmount = (float)characterPiece / specCharacterTranscendenceData.piece;
+            }
+
+            // 초월 가능 뱃지 (BadgeManager 경로 구독)
+            if (_transcendenceBadge != null)
+            {
+                _transcendenceBadge.Clear();
+                _transcendenceBadge.AddBadgePath(BadgeType.RedDot, PlayerDataModel.GetTranscendenceBadgePath(_specCharacterData.id));
             }
 
             // 캐릭터 보유 여부 관련 처리
@@ -132,6 +144,7 @@ namespace CookApps.AutoBattler
 
             // 가이드 알림 세팅
             SetGuideAlert();
+            
         }
 
         private const int MaxVisibleStars = 5;

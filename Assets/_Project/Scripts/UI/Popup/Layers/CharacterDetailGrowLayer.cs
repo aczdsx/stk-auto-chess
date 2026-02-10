@@ -52,6 +52,12 @@ namespace CookApps.AutoBattler
 
         [Space(10)]
         [SerializeField] private CurrencyUIItem _transcendenceItemCurrencyUIItem;
+        
+        [Space(10)]
+        [SerializeField] private Badge _transcendenceBadge;
+
+        [Space(10)] 
+        [SerializeField] private Badge _levelUpBadge;
 
         private int characterId;
         private CharacterData _userCharacterData;
@@ -65,13 +71,11 @@ namespace CookApps.AutoBattler
 
         private bool _isHaveCharacter = false;
 
-        private InventoryDataBridge _inventoryBridge;
-        private GuideMissionDataBridge _guideMissionDataBridge;
+        private InventoryModel _inventoryModel;
 
         private void Awake()
         {
-            _inventoryBridge = new InventoryDataBridge();
-            _guideMissionDataBridge = new GuideMissionDataBridge();
+            _inventoryModel = ServerDataManager.Instance.Inventory;
             _detailStatButton.OnClickAsObservable()
                 .Subscribe(this, (_, self) => self.OnClickDetailStatButton()).AddTo(this);
 
@@ -92,6 +96,18 @@ namespace CookApps.AutoBattler
             _parentCollectionPopup = _parentPopup;
 
             RefreshLayer();
+
+            // 뱃지 경로 등록
+            if (_transcendenceBadge != null)
+            {
+                _transcendenceBadge.Clear();
+                _transcendenceBadge.AddBadgePath(BadgeType.RedDot, PlayerDataModel.GetTranscendenceBadgePath(characterId));
+            }
+            if (_levelUpBadge != null)
+            {
+                _levelUpBadge.Clear();
+                _levelUpBadge.AddBadgePath(BadgeType.RedDot, PlayerDataModel.GetLevelUpBadgePath(characterId));
+            }
 
             // 가이드 알림 처리
             SetGuideAlert();
@@ -142,7 +158,7 @@ namespace CookApps.AutoBattler
 
             _pieceIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(_specCharacterData.id)).Forget();
             ItemId pieceItemId = ItemIdExtensions.GetCharacterPieceId(_specCharacterData.id);
-            int characterPiece = (int)_inventoryBridge.GetCurrency(pieceItemId);
+            int characterPiece = (int)_inventoryModel.GetCurrency(pieceItemId);
             _pieceAmountText.text = $"{characterPiece}<color=#C4CDE2>/{_specCharacterTranscendenceData.piece}</color>";
 
             _pieceSlider.maxValue = _specCharacterTranscendenceData.piece;
@@ -181,11 +197,11 @@ namespace CookApps.AutoBattler
             {
                 var uiItemDatas = new List<(ItemId, int, bool)>();
                 if (_specCharacterLevelExpData.need_gold > 0)
-                    uiItemDatas.Add((IdMap.Item.Gold, _specCharacterLevelExpData.need_gold, _specCharacterLevelExpData.need_gold <= (int)_inventoryBridge.GetCurrency(IdMap.Item.Gold)));
+                    uiItemDatas.Add((IdMap.Item.Gold, _specCharacterLevelExpData.need_gold, _specCharacterLevelExpData.need_gold <= (int)_inventoryModel.GetCurrency(IdMap.Item.Gold)));
                 if (_specCharacterLevelExpData.base_levelup_item_id != 0)
-                    uiItemDatas.Add((_specCharacterLevelExpData.base_levelup_item_id, _specCharacterLevelExpData.base_levelup_item_count, _specCharacterLevelExpData.base_levelup_item_count <= (int)_inventoryBridge.GetCurrency(_specCharacterLevelExpData.base_levelup_item_id)));
+                    uiItemDatas.Add((_specCharacterLevelExpData.base_levelup_item_id, _specCharacterLevelExpData.base_levelup_item_count, _specCharacterLevelExpData.base_levelup_item_count <= (int)_inventoryModel.GetCurrency(_specCharacterLevelExpData.base_levelup_item_id)));
                 if (_specCharacterLevelExpData.sec_levelup_item_id != 0)
-                    uiItemDatas.Add((_specCharacterLevelExpData.sec_levelup_item_id, _specCharacterLevelExpData.sec_levelup_item_count, _specCharacterLevelExpData.sec_levelup_item_count <= (int)_inventoryBridge.GetCurrency(_specCharacterLevelExpData.sec_levelup_item_id)));
+                    uiItemDatas.Add((_specCharacterLevelExpData.sec_levelup_item_id, _specCharacterLevelExpData.sec_levelup_item_count, _specCharacterLevelExpData.sec_levelup_item_count <= (int)_inventoryModel.GetCurrency(_specCharacterLevelExpData.sec_levelup_item_id)));
 
                 var isAvailLevelup = uiItemDatas.All(x => x.Item3);
 
@@ -235,7 +251,7 @@ namespace CookApps.AutoBattler
             if (_specCharacterTranscendenceData != null)
             {
                 ItemId pieceItemId = ItemIdExtensions.GetCharacterPieceId(_specCharacterData.id);
-                int characterPiece = (int)_inventoryBridge.GetCurrency(pieceItemId);
+                int characterPiece = (int)_inventoryModel.GetCurrency(pieceItemId);
                 isHasPiece = characterPiece >= _specCharacterTranscendenceData.piece;
                 _transcendenceItemCurrencyUIItem.SetUIItem(_specCharacterData.id, _specCharacterTranscendenceData.piece);
             }
@@ -345,19 +361,19 @@ namespace CookApps.AutoBattler
         private bool CheckLevelUpCurrency()
         {
             if (_specCharacterLevelExpData.need_gold > 0 &&
-                 !_inventoryBridge.HasEnoughCurrency(IdMap.Item.Gold, (ulong)_specCharacterLevelExpData.need_gold))
+                 !_inventoryModel.HasEnoughCurrency(IdMap.Item.Gold, (ulong)_specCharacterLevelExpData.need_gold))
             {
                 return false;
             }
 
             if (_specCharacterLevelExpData.base_levelup_item_id != 0 &&
-                !_inventoryBridge.HasEnoughCurrency(_specCharacterLevelExpData.base_levelup_item_id, (ulong)_specCharacterLevelExpData.base_levelup_item_count))
+                !_inventoryModel.HasEnoughCurrency(_specCharacterLevelExpData.base_levelup_item_id, (ulong)_specCharacterLevelExpData.base_levelup_item_count))
             {
                 return false;
             }
 
             if (_specCharacterLevelExpData.sec_levelup_item_id != 0 &&
-                !_inventoryBridge.HasEnoughCurrency(_specCharacterLevelExpData.sec_levelup_item_id, (ulong)_specCharacterLevelExpData.sec_levelup_item_count))
+                !_inventoryModel.HasEnoughCurrency(_specCharacterLevelExpData.sec_levelup_item_id, (ulong)_specCharacterLevelExpData.sec_levelup_item_count))
             {
                 return false;
             }
@@ -384,7 +400,7 @@ namespace CookApps.AutoBattler
 
             // 재료 검사
             ItemId pieceItemId = ItemIdExtensions.GetCharacterPieceId(_specCharacterData.id);
-            if (!_inventoryBridge.HasEnoughCurrency(pieceItemId, (ulong)_specCharacterTranscendenceData.piece))
+            if (!_inventoryModel.HasEnoughCurrency(pieceItemId, (ulong)_specCharacterTranscendenceData.piece))
             {
                 return;
             }
@@ -415,7 +431,7 @@ namespace CookApps.AutoBattler
                 if (response?.IsSuccess == false)
                     return;
 
-                // await _guideMissionDataBridge.AddActionAsync(GuideMissionType.TRANSCENDENCE_CHARACTER_TARGET, 1, (int)_userCharacterData.CharacterId);
+                // await ServerDataManager.Instance.GuideMission.AddActionValueAsync(GuideMissionType.TRANSCENDENCE_CHARACTER_TARGET, (int)_userCharacterData.CharacterId, 1);
 
                 // 메인 레이어 갱신
                 _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);

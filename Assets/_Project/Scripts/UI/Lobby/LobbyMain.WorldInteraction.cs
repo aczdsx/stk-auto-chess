@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
 
             LobbyBuildingInteractionUI newSlotForBuildLayer = null;
 
-            var facilities = elpisDataBridge.GetAllFacilities();
+            var facilities = elpisDataModel.GetAllFacilities();
             for (var i = 0; i < facilities.Count; i++)
             {
                 var buildingData = facilities[i];

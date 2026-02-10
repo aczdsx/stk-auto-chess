@@ -10,7 +10,7 @@ public class TouchableBuilding : MonoBehaviour
 {
     [SerializeField] private ElpisFacilityType facilityType;
 
-    private ElpisDataBridge _elpisDataBridge;
+    private ElpisModel _elpisDataModel;
     private Vector3 _mouseDownPosition;
     private bool _isDragging;
     private const float DragThreshold = 10f;
@@ -30,7 +30,7 @@ public class TouchableBuilding : MonoBehaviour
 
     private void Awake()
     {
-        _elpisDataBridge = new ElpisDataBridge();
+        _elpisDataModel = ServerDataManager.Instance.Elpis;
 
         // TutorialTarget 동적 생성 및 등록
         _tutorialTarget = gameObject.AddComponent<TutorialTarget>();
@@ -90,7 +90,7 @@ public class TouchableBuilding : MonoBehaviour
     {
         CameraFocus();
 
-        var facilityData = _elpisDataBridge.GetFacilityByType(facilityType);
+        var facilityData = _elpisDataModel.GetFacilityByType(facilityType);
 
         if (facilityData == null)
             return;

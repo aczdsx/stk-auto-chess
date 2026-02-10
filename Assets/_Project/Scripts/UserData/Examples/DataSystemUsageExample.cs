@@ -11,8 +11,8 @@ namespace CookApps.AutoBattler
     /// </summary>
     public class DataSystemUsageExample : MonoBehaviour
     {
-        private CharacterDataBridge _characterBridge;
-        private InventoryDataBridge _inventoryBridge;
+        private CharacterModel _characterModel;
+        private InventoryModel _inventoryModel;
 
         private async void Start()
         {
@@ -42,9 +42,9 @@ namespace CookApps.AutoBattler
             // 데이터 매니저는 자동으로 모든 모델 초기화
             var dataManager = ServerDataManager.Instance;
 
-            // UI 브릿지 생성
-            _characterBridge = new CharacterDataBridge();
-            _inventoryBridge = new InventoryDataBridge();
+            // 모델 참조
+            _characterModel = ServerDataManager.Instance.Character;
+            _inventoryModel = ServerDataManager.Instance.Inventory;
 
             Debug.Log("✓ 시스템 초기화 완료");
         }
@@ -95,12 +95,12 @@ namespace CookApps.AutoBattler
             Debug.Log("=== 4. UI 바인딩 설정 ===");
 
             // // 캐릭터 변경 이벤트 구독
-            // _characterBridge.OnCharactersChanged += OnCharactersChanged;
-            // _characterBridge.OnCharacterUpdated += OnCharacterUpdated;
+            // _characterModel.OnCharactersChanged += OnCharactersChanged;
+            // _characterModel.OnCharacterUpdated += OnCharacterUpdated;
             //
             // // 통화 변경 이벤트 구독
-            // _inventoryBridge.OnCurrencyChanged += OnCurrencyChanged;
-            // _inventoryBridge.OnInventoryChanged += OnInventoryChanged;
+            // _inventoryModel.OnCurrencyChanged += OnCurrencyChanged;
+            // _inventoryModel.OnInventoryChanged += OnInventoryChanged;
 
             Debug.Log("✓ UI 바인딩 설정 완료");
         }
@@ -133,7 +133,7 @@ namespace CookApps.AutoBattler
             Debug.Log("--- 예제 1: 모든 캐릭터 조회 ---");
 
             var characters = new List<CharacterData>();
-            _characterBridge.GetAllCharacters(characters);
+            _characterModel.GetAllCharacters(characters);
 
             Debug.Log($"전체 캐릭터 수: {characters.Count}");
 
@@ -154,17 +154,17 @@ namespace CookApps.AutoBattler
 
             // 레벨 10 이상 캐릭터
             var highLevelCharacters = new List<CharacterData>();
-            _characterBridge.GetCharactersByLevelRange(highLevelCharacters, 10, 99);
+            _characterModel.GetCharactersByLevelRange(highLevelCharacters, 10, 99);
             Debug.Log($"레벨 10 이상 캐릭터: {highLevelCharacters.Count}명");
 
             // // Guardian 클래스 캐릭터
             // var guardians = new List<CharacterData>();
-            // _characterBridge.GetCharactersByClass(guardians, ClassType.Guardian);
+            // _characterModel.GetCharactersByClass(guardians, ClassType.Guardian);
             // Debug.Log($"Guardian 클래스 캐릭터: {guardians.Count}명");
 
             // UR 등급 캐릭터
             var urCharacters = new List<CharacterData>();
-            _characterBridge.GetCharactersByRarity(urCharacters, GradeType.LEGENDARY);
+            _characterModel.GetCharactersByRarity(urCharacters, GradeType.LEGENDARY);
             Debug.Log($"UR 등급 캐릭터: {urCharacters.Count}명");
         }
 
@@ -176,7 +176,7 @@ namespace CookApps.AutoBattler
             Debug.Log("--- 예제 3: 캐릭터 레벨업 ---");
 
             var characters = new List<CharacterData>();
-            _characterBridge.GetAllCharacters(characters);
+            _characterModel.GetAllCharacters(characters);
 
             if (characters.Count > 0)
             {
@@ -225,16 +225,16 @@ namespace CookApps.AutoBattler
             Debug.Log("--- 예제 4: 통화 확인 ---");
 
             // 특정 통화 조회 (예: 골드 = ItemID 1)
-            ulong gold = _inventoryBridge.GetCurrency(1);
+            ulong gold = _inventoryModel.GetCurrency(1);
             Debug.Log($"보유 골드: {gold}");
 
             // 충분 여부 체크
-            bool hasEnough = _inventoryBridge.HasEnoughCurrency(1, 1000);
+            bool hasEnough = _inventoryModel.HasEnoughCurrency(1, 1000);
             Debug.Log($"골드 1000 이상 보유: {hasEnough}");
 
             // 모든 통화 조회
             var allCurrencies = new Dictionary<uint, ulong>();
-            _inventoryBridge.GetAllCurrencies(allCurrencies);
+            _inventoryModel.GetAllCurrencies(allCurrencies);
             Debug.Log($"보유 통화 종류: {allCurrencies.Count}");
 
             foreach (var kvp in allCurrencies)

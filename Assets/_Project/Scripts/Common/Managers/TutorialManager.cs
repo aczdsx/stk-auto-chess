@@ -73,8 +73,8 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     public void SubscribeGuideMissionChanged()
     {
         if (IsSkipTutorial) return;
-        var guideMissionBridge = new GuideMissionDataBridge();
-        _guideMissionSubscription = guideMissionBridge.OnMissionIdChanged
+        var guideMissionModel = ServerDataManager.Instance.GuideMission;
+        _guideMissionSubscription = guideMissionModel.OnMissionIdChanged
             .Subscribe(OnGuideMissionIdChanged);
     }
 
@@ -92,8 +92,8 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     public async UniTask<bool> TryStartOutgameTutorial()
     {
-        var guideMissionBridge = new GuideMissionDataBridge();
-        var guideMissionId = (int)guideMissionBridge.GuideMissionId;
+        var guideMissionModel = ServerDataManager.Instance.GuideMission;
+        var guideMissionId = (int)guideMissionModel.GuideMissionId;
 
         if (guideMissionId == 0)
         {
@@ -166,8 +166,8 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     public bool IsClearedGuideMission(int guideMissionId)
     {
-        var guideMissionBridge = new GuideMissionDataBridge();
-        return guideMissionId < guideMissionBridge.GuideMissionId;
+        var guideMissionModel = ServerDataManager.Instance.GuideMission;
+        return guideMissionId < guideMissionModel.GuideMissionId;
     }
 
     #endregion
@@ -349,8 +349,7 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         //     // 모든 다이얼로그 소모 완료 → 가이드 미션 완료 처리
         //     if (_pendingGuideMissionInfo != null)
         //     {
-        //         var guideMissionBridge = new GuideMissionDataBridge();
-        //         guideMissionBridge.AddAction(_pendingGuideMissionInfo.guide_mission_type, 1);
+        //         ServerDataManager.Instance.GuideMission.AddActionValue(_pendingGuideMissionInfo.guide_mission_type);
         //         _pendingGuideMissionInfo = null;
         //     }
         //     ClearTutorial();

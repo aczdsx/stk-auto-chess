@@ -131,6 +131,44 @@ namespace CookApps.AutoBattler
 
         #endregion
 
+        #region 서버 API
+
+        /// <summary>
+        /// 가이드 미션 정보 조회
+        /// </summary>
+        public async UniTask<GuideMissionGetResponse> GetAsync()
+        {
+            try
+            {
+                var response = await NetManager.Instance.GuideMission.GetAsync();
+                return response;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Failed to get guide mission: {e.Message}");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 가이드 미션 보상 수령
+        /// </summary>
+        public async UniTask<GuideMissionClaimRewardResponse> ClaimRewardAsync(uint guideMissionId)
+        {
+            try
+            {
+                var response = await NetManager.Instance.GuideMission.ClaimRewardAsync(guideMissionId);
+                return response;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Failed to claim guide mission reward: {e.Message}");
+                return null;
+            }
+        }
+
+        #endregion
+
         #region 액션
 
         /// <summary>

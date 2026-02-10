@@ -124,6 +124,17 @@ namespace CookApps.AutoBattler
             return _currencies.TryGetValue(itemId, out var amount) ? amount : 0;
         }
 
+        public ulong GetCurrency(int itemId)
+        {
+            if (itemId < 0)
+            {
+                Debug.LogError("[InventoryModel] Invalid currency: negative item id");
+                return 0L;
+            }
+
+            return GetCurrency((uint)itemId);
+        }
+
         /// <summary>
         /// 통화 설정 (내부용)
         /// </summary>
@@ -208,7 +219,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// Summon 뱃지 갱신
         /// </summary>
-        private void RefreshSummonBadge()
+        public void RefreshSummonBadge()
         {
             const string path = "Summon";
 
@@ -265,6 +276,45 @@ namespace CookApps.AutoBattler
         public bool HasEnoughCurrency(uint itemId, ulong requiredAmount)
         {
             return GetCurrency(itemId) >= requiredAmount;
+        }
+
+        public bool HasEnoughCurrency(int itemId, ulong requiredAmount)
+        {
+            if (itemId < 0)
+            {
+                Debug.LogError("[InventoryModel] Invalid currency: negative item id");
+                return false;
+            }
+
+            return HasEnoughCurrency((uint)itemId, requiredAmount);
+        }
+
+        /// <summary>
+        /// 통화 충분 여부 (부족 시 토스트 표시)
+        /// </summary>
+        /// [변경 이력] InventoryDataBridge 제거: HasEnoughCurrency(+Toast)를 Model로 이동
+        public bool HasEnoughCurrency(uint itemId, ulong requiredAmount, bool showToast)
+        {
+            bool hasEnough = GetCurrency(itemId) >= requiredAmount;
+            if (!hasEnough && showToast)
+            {
+                string toastKey = GetNotEnoughCurrencyToastKey(itemId);
+                ToastManager.Instance.ShowToastByTokenKey(toastKey);
+            }
+            return hasEnough;
+        }
+
+        private static string GetNotEnoughCurrencyToastKey(uint itemId)
+        {
+            ItemId id = (int)itemId;
+            if (id == IdMap.Item.Gold) return "MSG_NOT_ENOUGH_GOLD";
+            if (id == IdMap.Item.ActionPoint) return "MSG_NOT_ENOUGH_AP";
+            if (id == IdMap.Item.Jewel) return "MSG_NOT_ENOUGH_GACHA_JEWEL";
+            if (id == IdMap.Item.CharacterTicket) return "MSG_NOT_ENOUGH_GACHA_C_TICKET";
+            if (id == IdMap.Item.CharExp) return "MSG_NOT_ENOUGH_CHAR_EXP";
+            if (id == IdMap.Item.Soul) return "MSG_NOT_ENOUGH_CHAR_EXP_2";
+            if (id.IsCharacterPiece()) return "MSG_NOT_ENOUGH_CHAR_PIECE";
+            return "MSG_NOT_ENOUGH_CURRENCY";
         }
     }
 }

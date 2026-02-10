@@ -25,6 +25,20 @@ namespace CookApps.AutoBattler
 
         // InventoryModel 구독
         private IDisposable _inventorySubscription;
+        private const string TranscendenceBadgePath = "CharacterInfo/Transcendence";
+        private const string LevelUpBadgePath = "CharacterInfo/LevelUp";
+
+        public static string GetTranscendenceBadgePath(int characterId)
+        {
+            return $"{TranscendenceBadgePath}/{characterId}";
+        }
+
+        public static string GetLevelUpBadgePath(int characterId)
+        {
+            return $"{LevelUpBadgePath}/{characterId}";
+        }
+        private readonly List<CharacterData> _reUseableCharacterList = new();
+        private HashSet<uint> _levelUpItemIds;
 
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
@@ -114,14 +128,20 @@ namespace CookApps.AutoBattler
                     // UserExp 변경
                     if (data.itemId == (uint)IdMap.Item.UserExp.Value)
                         self.HandleUserExpChanged();
+                    
+                    // 재화 변경 시 레벨업 뱃지 갱신
+                    self._levelUpItemIds ??= BuildLevelUpItemIds();
+                    if (self._levelUpItemIds.Contains(data.itemId))
+                        self.RefreshLevelUpBadge();
 
                     // 조각 변경 시 초월 뱃지 갱신
                     ItemId itemId = (int)data.itemId;
                     if (itemId.IsCharacterPiece())
                         self.RefreshTranscendenceBadge();
+
+                    
                 });
 
-            RefreshTranscendenceBadge();
         }
 
         private void HandleUserExpChanged()
@@ -140,15 +160,32 @@ namespace CookApps.AutoBattler
 
         #region 뱃지 갱신
 
-        private const string TranscendenceBadgePath = "CharacterInfo/Transcendence";
-        private readonly List<CharacterData> _reUseableCharacterList = new();
+        private static HashSet<uint> BuildLevelUpItemIds()
+        {
+            var ids = new HashSet<uint>();
+            var allData = SpecDataManager.Instance.CharacterLevelExp.All;
+            for (var i = 0; i < allData.Count; i++)
+            {
+                var data = allData[i];
+                if (data.need_gold > 0)
+                    ids.Add((uint)IdMap.Item.Gold.Value);
+                if (data.base_levelup_item_id != 0)
+                    ids.Add((uint)data.base_levelup_item_id);
+                if (data.sec_levelup_item_id != 0)
+                    ids.Add((uint)data.sec_levelup_item_id);
+            }
+            return ids;
+        }
 
-        private void RefreshTranscendenceBadge()
+
+        public void RefreshTranscendenceBadge()
         {
             var characterModel = ServerDataManager.Instance.Character;
             var inventoryModel = ServerDataManager.Instance.Inventory;
 
             characterModel.GetAllCharacters(_reUseableCharacterList);
+
+            bool anyCanTranscend = false;
 
             foreach (var character in _reUseableCharacterList)
             {
@@ -161,9 +198,14 @@ namespace CookApps.AutoBattler
                 var transcendData = SpecDataManager.Instance.GetCharacterTranscendenceData(
                     specCharacter.grade_type, transcendLevel);
 
+                var perCharPath = GetTranscendenceBadgePath(specCharacter.id);
+
                 // 최대 초월 레벨이면 스킵
                 if (transcendData == null || transcendData.piece == 0)
+                {
+                    BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, perCharPath);
                     continue;
+                }
 
                 // 조각 충분한지 확인
                 var pieceItemId = ItemIdExtensions.GetCharacterPieceId(specCharacter.id);
@@ -171,12 +213,76 @@ namespace CookApps.AutoBattler
 
                 if (pieceCount >= (ulong)transcendData.piece)
                 {
-                    BadgeManager.Instance.AddBadge(BadgeType.RedDot, TranscendenceBadgePath);
-                    return;
+                    BadgeManager.Instance.AddBadge(BadgeType.RedDot, perCharPath);
+                    anyCanTranscend = true;
+                }
+                else
+                {
+                    BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, perCharPath);
                 }
             }
 
-            BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, TranscendenceBadgePath);
+            if (anyCanTranscend)
+                BadgeManager.Instance.AddBadge(BadgeType.RedDot, TranscendenceBadgePath);
+            else
+                BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, TranscendenceBadgePath);
+        }
+
+        public void RefreshLevelUpBadge()
+        {
+            var characterModel = ServerDataManager.Instance.Character;
+            var inventoryModel = ServerDataManager.Instance.Inventory;
+
+            characterModel.GetAllCharacters(_reUseableCharacterList);
+
+            bool anyCanLevelUp = false;
+
+            foreach (var character in _reUseableCharacterList)
+            {
+                var specCharacter = SpecDataManager.Instance.GetCharacterData((int)character.CharacterId);
+                if (specCharacter == null)
+                    continue;
+
+                var perCharPath = GetLevelUpBadgePath(specCharacter.id);
+
+                var exceedLevel = character.ExceedLevel;
+                var userLevel = Math.Max(1, (int)character.Level);
+                var nextExceedLevelExpData = SpecDataManager.Instance.GetCharacterNextExceedLevelExpData(exceedLevel);
+                var levelExpData = SpecDataManager.Instance.GetCharacterLevelExpData(userLevel);
+
+                // exceed 조건이면 exceed 데이터 사용
+                if (userLevel >= (nextExceedLevelExpData?.level ?? int.MaxValue))
+                    levelExpData = nextExceedLevelExpData;
+
+                if (levelExpData == null)
+                {
+                    BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, perCharPath);
+                    continue;
+                }
+
+                var canLevelUp = true;
+                if (levelExpData.need_gold > 0 && levelExpData.need_gold > (int)inventoryModel.GetCurrency(IdMap.Item.Gold))
+                    canLevelUp = false;
+                if (canLevelUp && levelExpData.base_levelup_item_id != 0 && levelExpData.base_levelup_item_count > (int)inventoryModel.GetCurrency(levelExpData.base_levelup_item_id))
+                    canLevelUp = false;
+                if (canLevelUp && levelExpData.sec_levelup_item_id != 0 && levelExpData.sec_levelup_item_count > (int)inventoryModel.GetCurrency(levelExpData.sec_levelup_item_id))
+                    canLevelUp = false;
+
+                if (canLevelUp)
+                {
+                    BadgeManager.Instance.AddBadge(BadgeType.RedDot, perCharPath);
+                    anyCanLevelUp = true;
+                }
+                else
+                {
+                    BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, perCharPath);
+                }
+            }
+
+            if (anyCanLevelUp)
+                BadgeManager.Instance.AddBadge(BadgeType.RedDot, LevelUpBadgePath);
+            else
+                BadgeManager.Instance.RemoveBadge(BadgeType.RedDot, LevelUpBadgePath);
         }
 
         #endregion

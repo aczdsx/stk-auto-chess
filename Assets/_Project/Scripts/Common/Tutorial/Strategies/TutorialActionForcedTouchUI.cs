@@ -12,11 +12,6 @@ namespace CookApps.AutoBattler
     public class TutorialActionForcedTouchUI : ITutorialActionStrategy
     {
         /// <summary>
-        /// 버튼 클릭 완료 시 호출되는 콜백 (TutorialController에서 설정)
-        /// </summary>
-        public static System.Action OnButtonClicked;
-
-        /// <summary>
         /// 현재 등록된 버튼 참조 (정리용)
         /// </summary>
         private static Button _registeredButton;
@@ -116,7 +111,6 @@ namespace CookApps.AutoBattler
             context.TargetUIObj = null;
             context.TargetUnmaskObj = null;
             context.OriginalParent = null;
-            OnButtonClicked = null;
 
             _layoutExist = false;
             _layoutGroup = null;
@@ -164,9 +158,9 @@ namespace CookApps.AutoBattler
         /// </summary>
         private static void OnButtonClickHandler()
         {
-            // OnButtonClicked 호출 전에 UI 원위치 복구 수행
+            // 콜백 호출 전에 UI 원위치 복구 수행
             RestoreUIBeforeCallback();
-            OnButtonClicked?.Invoke();
+            _currentContext?.OnCompleted?.Invoke();
         }
 
         /// <summary>

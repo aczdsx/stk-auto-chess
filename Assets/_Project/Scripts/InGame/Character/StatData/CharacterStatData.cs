@@ -159,8 +159,8 @@ namespace CookApps.AutoBattler
             {
                 return;
             }
-            var dataBridge = new ElpisDataBridge();
-            var cachedElpisCoreLabs = dataBridge.GetCurrentDimensionCoreLabs();
+            var elpisModel = ServerDataManager.Instance.Elpis;
+            var cachedElpisCoreLabs = elpisModel.CachedElpisDimensionLabs;
 
             float fixedAD = 0f;
             float fixedHP = 0f;

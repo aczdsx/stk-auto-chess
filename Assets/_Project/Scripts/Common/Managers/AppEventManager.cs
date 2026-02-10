@@ -112,7 +112,7 @@ namespace CookApps.AutoBattler
 
             var clientBasicData = ClientBasicData.Get();
             var playerData = ServerDataManager.Instance.PlayerData;
-            var inventoryBridge = new InventoryDataBridge();
+            var inventoryModel = ServerDataManager.Instance.Inventory;
 
             appEventParameter.Add(AppEventStringConst.TOTAL_PLAY_TIME, clientBasicData.TotalPlayTime);
             appEventParameter.Add(AppEventStringConst.DAILY_VISIT_COUNT, clientBasicData.DailyVisitCount);
@@ -126,7 +126,7 @@ namespace CookApps.AutoBattler
             appEventParameter.Add(AppEventStringConst.USER_LEVEL, playerData.Level);
             appEventParameter.Add(AppEventStringConst.USER_GRADE, clientBasicData.MaxSquadCount);
             appEventParameter.Add(AppEventStringConst.USER_STAR_AMOUNT, (int)ServerDataManager.Instance.Battle.TotalStarCount);
-            appEventParameter.Add(AppEventStringConst.USER_ENERGY_AMOUNT, inventoryBridge.GetCurrency(IdMap.Item.ActionPoint));
+            appEventParameter.Add(AppEventStringConst.USER_ENERGY_AMOUNT, inventoryModel.GetCurrency(IdMap.Item.ActionPoint));
 
             // yyyyMMddHHmm 에서 뒤에 4자리를 잘라서 yyyyMMdd 바꾸는 부분
             // string createdDate = DataManager.Instance.UserData.CreatedTime;

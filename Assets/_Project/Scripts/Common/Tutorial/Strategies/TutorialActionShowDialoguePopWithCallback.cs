@@ -16,12 +16,14 @@ namespace CookApps.AutoBattler
     public class TutorialActionShowDialoguePopWithCallback : ITutorialActionStrategy
     {
         /// <summary>
-        /// 다이얼로그 완료 시 호출될 콜백
+        /// 현재 튜토리얼 컨텍스트 참조 (콜백용)
         /// </summary>
-        public static Action OnDialogueCompleted;
+        private static TutorialActionContext _cachedContext;
 
         public void OnShow(TutorialActionContext context)
         {
+            _cachedContext = context;
+
             // 화살표 비활성화
             context.ArrowRectTransform.gameObject.SetActive(false);
 
@@ -45,7 +47,7 @@ namespace CookApps.AutoBattler
 
         private static void HandleDialogueCompleted()
         {
-            OnDialogueCompleted?.Invoke();
+            _cachedContext?.OnCompleted?.Invoke();
         }
 
         public void OnNext(TutorialActionContext context)
@@ -60,6 +62,8 @@ namespace CookApps.AutoBattler
 
         public void OnClear(TutorialActionContext context)
         {
+            _cachedContext = null;
+
             if (context.TutorialCanvas != null)
             {
                 context.TutorialCanvas.enabled = true;

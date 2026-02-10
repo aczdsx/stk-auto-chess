@@ -49,7 +49,7 @@ namespace CookApps.AutoBattler
         private List<LobbyBottomStageSlot> stageSlotList = new();
 
         private bool _isIdleRewardFullState = false;
-        private ElpisDataBridge elpisDataBridge;
+        private ElpisModel elpisDataModel;
 
         public static LobbyMain GetLobbyMain()
         {
@@ -150,8 +150,7 @@ namespace CookApps.AutoBattler
 
             if (ServerDataManager.Instance.GuideMission.GuideMissionId == GuideMissionConstants.커맨드센터들어간가이드미션ID)
             {
-                var guideMissionDataBridge = new GuideMissionDataBridge();
-                guideMissionDataBridge.AddAction(GuideMissionType.USE_BUILDING, 1);
+                ServerDataManager.Instance.GuideMission.AddActionValue(GuideMissionType.USE_BUILDING);
             }
 
             CheckShowSurveyPopup();
@@ -184,7 +183,7 @@ namespace CookApps.AutoBattler
 
         private void SetStageText()
         {
-            var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
+            var currentStageData = SpecDataManager.Instance.GetStageData(BattleModel.GetTargetStageId());
             _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
         }
 
@@ -207,7 +206,7 @@ namespace CookApps.AutoBattler
         {
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
-            var currentStageData = SpecDataManager.Instance.GetStageData(BattleDataBridge.GetTargetStageId());
+            var currentStageData = SpecDataManager.Instance.GetStageData(BattleModel.GetTargetStageId());
             SceneLoading.GoToNextScene("BattleReady", currentStageData.chapter_id);
         }
 

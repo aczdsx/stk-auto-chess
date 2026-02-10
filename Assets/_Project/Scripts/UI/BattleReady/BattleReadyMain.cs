@@ -96,7 +96,7 @@ namespace CookApps.AutoBattler
         private CancellationTokenSource _unitaskCancelToken = new CancellationTokenSource();
 
         private bool _isIdleRewardFullState = false;
-        private ElpisDataBridge elpisDataBridge;
+        private ElpisModel elpisDataBridge;
 
         public StageMilestonePanel StageMilestonePanel => stageMilestonePanel;
 
@@ -137,7 +137,7 @@ namespace CookApps.AutoBattler
 
         private async UniTask PreEnterAsync()
         {
-            elpisDataBridge = new ElpisDataBridge();
+            elpisDataBridge = ServerDataManager.Instance.Elpis;
             var simulationCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeSimulationCenter);
             _idleRewardButton.gameObject.SetActive(simulationCenter != null && simulationCenter.Level > 0);
 
@@ -147,7 +147,7 @@ namespace CookApps.AutoBattler
             await NetManager.Instance.Battle.GetCurrentChapterAsync();
 
             // 목표 스테이지로 설정 (로비에서 진입 시 다음 목표 스테이지 반영)
-            int currentStageId = BattleDataBridge.GetTargetStageId();
+            int currentStageId = BattleModel.GetTargetStageId();
             LocalDataManager.Instance.SetLastPlayStageId((uint)currentStageId);
 
             var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
@@ -162,11 +162,11 @@ namespace CookApps.AutoBattler
             // bgm on
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
 
-            var gdb = new GuideMissionDataBridge();
+            var guideMissionModel = ServerDataManager.Instance.GuideMission;
 
-            if (gdb.GuideMissionId == 501 && currentStageId >= GuideMissionConstants.챕터2기준ID)
+            if (guideMissionModel.GuideMissionId == 501 && currentStageId >= GuideMissionConstants.챕터2기준ID)
             {
-                await gdb.AddActionAsync(GuideMissionType.ENTER_CHAPTER, 1);
+                await guideMissionModel.AddActionValueAsync(GuideMissionType.ENTER_CHAPTER);
             }
 
             // UI 세팅 완료 후 페이드 아웃

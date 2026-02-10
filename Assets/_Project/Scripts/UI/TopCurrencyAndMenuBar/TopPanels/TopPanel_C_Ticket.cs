@@ -8,13 +8,13 @@ namespace CookApps.AutoBattler
         public override TopPanelType PanelType => TopPanelType.C_Ticket;
 
         private static readonly ItemId CurrencyId = IdMap.Item.CharacterTicket;
-        private InventoryDataBridge _inventoryBridge;
+        private InventoryModel _inventoryModel;
 
         private void Awake()
         {
-            _inventoryBridge = new InventoryDataBridge();
+            _inventoryModel = ServerDataManager.Instance.Inventory;
 
-            _inventoryBridge.OnCurrencyChanged
+            _inventoryModel.OnCurrencyChanged
                 .Where(this, (x, self) => x.itemId == CurrencyId && self.CachedGo.activeInHierarchy)
                 .Subscribe(this, (x, self) => self.UpdateCurrencyText(x.newAmount))
                 .AddTo(this);
@@ -22,7 +22,7 @@ namespace CookApps.AutoBattler
 
         private void OnEnable()
         {
-            UpdateCurrencyText(_inventoryBridge.GetCurrency(CurrencyId));
+            UpdateCurrencyText(_inventoryModel.GetCurrency(CurrencyId));
         }
 
         private void UpdateCurrencyText(ulong amount)

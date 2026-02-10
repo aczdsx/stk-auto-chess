@@ -15,10 +15,7 @@ namespace CookApps.AutoBattler
     {
         private static readonly int LongAnim = Animator.StringToHash("LongAnim");
 
-        /// <summary>
-        /// 토스트 완료 시 호출되는 콜백 (TutorialController에서 설정)
-        /// </summary>
-        public static Action OnToastCompleted;
+        private TutorialActionContext _cachedContext;
 
         /// <summary>
         /// 현재 토스트 메시지 튜토리얼 진행 중인지 여부
@@ -27,6 +24,7 @@ namespace CookApps.AutoBattler
 
         public void OnShow(TutorialActionContext context)
         {
+            _cachedContext = context;
             IsActive = true;
 
             // 전체 화면 마스크 설정 (HoleRadius=1, 가운데)
@@ -77,7 +75,7 @@ namespace CookApps.AutoBattler
                 context.TutorialToastObj.SetActive(false);
 
                 IsActive = false;
-                OnToastCompleted?.Invoke();
+                _cachedContext?.OnCompleted?.Invoke();
             }
         }
 
@@ -96,7 +94,7 @@ namespace CookApps.AutoBattler
         public void OnClear(TutorialActionContext context)
         {
             IsActive = false;
-            OnToastCompleted = null;
+            _cachedContext = null;
 
             // 토스트 숨김
             if (context.TutorialToastObj != null)

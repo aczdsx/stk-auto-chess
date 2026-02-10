@@ -22,6 +22,17 @@ namespace CookApps.AutoBattler
         public TrialDungeonModel TrialDungeon { get; private set; } = new ();
 
         /// <summary>
+        /// 모든 뱃지 갱신 (로비 진입 시 호출)
+        /// </summary>
+        public void RefreshAllBadgesAtLobby()
+        {
+            Elpis.RefreshCoreResearchBadges();
+            Inventory.RefreshSummonBadge();
+            PlayerData.RefreshTranscendenceBadge();
+            PlayerData.RefreshLevelUpBadge();
+        }
+
+        /// <summary>
         /// 모든 데이터 초기화
         /// </summary>
         public void ClearAll()
