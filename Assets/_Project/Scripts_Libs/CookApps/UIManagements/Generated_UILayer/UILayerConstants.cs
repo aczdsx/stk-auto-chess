@@ -60,8 +60,8 @@ namespace CookApps.TeamBattle.UIManagements
                 "SynergyTooltipIngameMiniPopup" => "Prefabs/UI/InGame/SynergyTooltipIngameMiniPopup.prefab",
                 "LoadingMain" => "Prefabs/UI/Loading/LoadingMain.prefab",
                 "TopCurrencyAndMenuBar" => "Prefabs/UI/Top/TopCurrencyAndMenuBar.prefab",
-                "DownloadConfirmPopup" => "Assets/_Project/Addressables/BuiltIn/Prefabs/UI/Popup/DownloadConfirmPopup.prefab",
-                "DownloadProgressPopup" => "Assets/_Project/Addressables/BuiltIn/Prefabs/UI/Popup/DownloadProgressPopup.prefab",
+                "DownloadConfirmPopup" => "Assets/_Project/Addressables/BuiltIn/UI/Prefabs/Popup/DownloadConfirmPopup.prefab",
+                "DownloadProgressPopup" => "Assets/_Project/Addressables/BuiltIn/UI/Prefabs/Popup/DownloadProgressPopup.prefab",
                 "NicknamePopup_1" => "Naninovel/Spawn/Etc/NicknamePopup",
                 "TitleMain" => "Assets/_Project/Splash_STK/Prefab/SplashUI.prefab",
                 _ => string.Empty
