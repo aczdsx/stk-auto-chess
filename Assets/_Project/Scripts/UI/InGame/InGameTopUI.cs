@@ -39,8 +39,6 @@ public class InGameTopUI : MonoBehaviour
     [SerializeField] private List<InGameSynergyUI> _enemySynergyUIList;
 
     [Space]
-    [SerializeField] private List<InGameSynergyUI> _combatPlayerSynergyUIList;
-    [SerializeField] private List<InGameSynergyUI> _combatEnemySynergyUIList;
     [SerializeField] private TextMeshProUGUI _combatPlayerAttr;
     [SerializeField] private TextMeshProUGUI _combatEnemyAttr;
     [SerializeField] private TextMeshProUGUI _myName;
@@ -112,7 +110,7 @@ public class InGameTopUI : MonoBehaviour
         List<InGameSynergyUI> _synergyUIList = type == AllianceType.Player ? _playerSynergyUIList : _enemySynergyUIList;
         if (isCombat)
         {
-            _synergyUIList = type == AllianceType.Player ? _combatPlayerSynergyUIList : _combatEnemySynergyUIList;
+            // _synergyUIList = type == AllianceType.Player ? _combatPlayerSynergyUIList : _combatEnemySynergyUIList;
         }
         int uiIndex = 0;
         int uiListCount = _synergyUIList.Count;
