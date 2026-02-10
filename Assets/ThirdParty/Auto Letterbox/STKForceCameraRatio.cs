@@ -20,7 +20,7 @@ public class STKForceCameraRatio : MonoBehaviour
         }
 
         // 화면 비율이 2:1보다 길쭉할 경우 (ex. 갤럭시 폴드 외부화면)
-        defRatio = 2796f / 1290f;
+        defRatio = 2f / 1f;
         if (defRatio < currentRatio)
         {
             var item = gameObject.GetOrAddComponent<ForceCameraRatio>(); // 필요할 때만 추가

@@ -15,18 +15,8 @@ MonoBehaviour:
   m_GroupName: Temp_BulitIn
   m_GUID: 5940b17ff921144218fe2aa9900e3ba9
   m_SerializeEntries:
-  - m_GUID: 05746a94bd4185445b25ea0116910ff0
-    m_Address: Assets/_Project/Addressables/BuiltIn/Splash_STK/Resource/FX_UI_Title_01/Material/Allin1SpriteMaterial.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1989ae12f175345bfbef984a49ed501c
     m_Address: DuplicatedFromRemote
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 254694e91012c9c4b8999719c840a970
-    m_Address: Assets/_Project/Addressables/BuiltIn/Splash_STK/Resource/FX_UI_Title_01/Texture/Character.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

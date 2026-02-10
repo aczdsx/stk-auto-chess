@@ -1,0 +1,234 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace CookApps.AutoChess.View
+{
+    /// <summary>
+    /// 유닛 뷰 생명주기 관리. 시뮬레이션 상태와 UnitView를 동기화.
+    /// 풀링 기반으로 UnitView 인스턴스를 재사용.
+    /// </summary>
+    public class UnitViewManager : MonoBehaviour
+    {
+        [Header("Settings")]
+        [SerializeField] private UnitView _unitPrefab;
+        [SerializeField] private int _poolSize = 64;
+
+        private readonly Dictionary<int, UnitView> _boardUnitViews = new();  // EntityId → View
+        private readonly Dictionary<int, UnitView> _combatUnitViews = new(); // CombatId → View
+        private readonly List<UnitView> _pool = new();
+        private int _activeBoardIndex;
+
+        // ── 초기화 ──
+
+        public void Initialize()
+        {
+            // 풀 생성
+            for (int i = 0; i < _poolSize; i++)
+            {
+                var view = Instantiate(_unitPrefab, transform);
+                view.gameObject.SetActive(false);
+                _pool.Add(view);
+            }
+        }
+
+        // ── 보드/벤치 유닛 동기화 (Preparation) ──
+
+        /// <summary>모든 플레이어의 보드/벤치 유닛 동기화</summary>
+        public void SyncBoardUnits(GameWorld world)
+        {
+            // 현재 프레임에 존재하는 EntityId 수집
+            var activeIds = new HashSet<int>();
+
+            for (int p = 0; p < world.Config.PlayerCount; p++)
+            {
+                if (!world.Players[p].IsAlive) continue;
+                bool isActive = p == _activeBoardIndex;
+
+                // 보드 유닛
+                var boardSlots = world.BoardSlots[p];
+                for (int slot = 0; slot < PlayerBoard.BoardSize; slot++)
+                {
+                    int entityId = boardSlots[slot];
+                    if (entityId == UnitData.InvalidId) continue;
+
+                    int unitIdx = world.FindUnitIndex(entityId);
+                    if (unitIdx < 0) continue;
+
+                    ref var unit = ref world.Units[unitIdx];
+                    activeIds.Add(entityId);
+
+                    BoardHelper.FromIndex(slot, out int col, out int row);
+                    Vector3 worldPos = BoardWorldHelper.BoardGridToWorld(p, col, row);
+
+                    var view = GetOrCreateBoardView(entityId, unit.ChampionSpecId, unit.StarLevel);
+                    if (isActive)
+                        view.SetTargetPosition(worldPos);
+                    else
+                        view.SetPositionImmediate(worldPos);
+                }
+
+                // 벤치 유닛
+                var benchSlots = world.BenchSlots[p];
+                for (int slot = 0; slot < PlayerBoard.BenchSize; slot++)
+                {
+                    int entityId = benchSlots[slot];
+                    if (entityId == UnitData.InvalidId) continue;
+
+                    int unitIdx = world.FindUnitIndex(entityId);
+                    if (unitIdx < 0) continue;
+
+                    ref var unit = ref world.Units[unitIdx];
+                    activeIds.Add(entityId);
+
+                    Vector3 worldPos = BoardWorldHelper.BenchToWorld(p, slot);
+
+                    var view = GetOrCreateBoardView(entityId, unit.ChampionSpecId, unit.StarLevel);
+                    if (isActive)
+                        view.SetTargetPosition(worldPos);
+                    else
+                        view.SetPositionImmediate(worldPos);
+                }
+            }
+
+            // 존재하지 않는 뷰 제거
+            var toRemove = new List<int>();
+            foreach (var kvp in _boardUnitViews)
+            {
+                if (!activeIds.Contains(kvp.Key))
+                    toRemove.Add(kvp.Key);
+            }
+            foreach (int id in toRemove)
+            {
+                ReturnToPool(_boardUnitViews[id]);
+                _boardUnitViews.Remove(id);
+            }
+        }
+
+        // ── 전투 유닛 동기화 (Combat) ──
+
+        /// <summary>전투 매치의 CombatUnit 동기화</summary>
+        public void SyncCombatUnits(CombatMatchState matchState, int boardIndex)
+        {
+            if (matchState == null) return;
+            bool isActive = boardIndex == _activeBoardIndex;
+
+            var activeIds = new HashSet<int>();
+
+            for (int i = 0; i < matchState.UnitCount; i++)
+            {
+                ref var unit = ref matchState.Units[i];
+                if (unit.CombatId == CombatUnit.InvalidId) continue;
+
+                activeIds.Add(unit.CombatId);
+                var view = GetOrCreateCombatView(unit.CombatId, unit.SourceEntityId, unit.StarLevel);
+
+                Vector3 worldPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.GridCol, unit.GridRow);
+
+                if (unit.IsAlive)
+                {
+                    if (isActive)
+                    {
+                        view.SetTargetPosition(worldPos);
+                        view.UpdateHP(unit.CurrentHP, unit.MaxHP);
+                        view.UpdateMana(unit.CurrentMana, unit.MaxMana);
+                        view.SetCombatState(unit.State);
+                    }
+                    else
+                    {
+                        view.SetPositionImmediate(worldPos);
+                    }
+                }
+                else
+                {
+                    view.PlayDeathAnimation();
+                }
+            }
+
+            // 존재하지 않는 전투 뷰 제거
+            var toRemove = new List<int>();
+            foreach (var kvp in _combatUnitViews)
+            {
+                if (!activeIds.Contains(kvp.Key))
+                    toRemove.Add(kvp.Key);
+            }
+            foreach (int id in toRemove)
+            {
+                ReturnToPool(_combatUnitViews[id]);
+                _combatUnitViews.Remove(id);
+            }
+        }
+
+        // ── 전투 시작/종료 ──
+
+        /// <summary>전투 시작 시 보드 뷰를 숨기고 전투 뷰 활성화</summary>
+        public void OnCombatStart()
+        {
+            foreach (var view in _boardUnitViews.Values)
+                view.Deactivate();
+        }
+
+        /// <summary>전투 종료 시 전투 뷰를 정리</summary>
+        public void OnCombatEnd()
+        {
+            foreach (var view in _combatUnitViews.Values)
+                ReturnToPool(view);
+            _combatUnitViews.Clear();
+        }
+
+        /// <summary>활성 보드 변경 (관전)</summary>
+        public void SetActiveBoard(int boardIndex)
+        {
+            _activeBoardIndex = boardIndex;
+        }
+
+        // ── 풀 관리 ──
+
+        private UnitView GetOrCreateBoardView(int entityId, int champSpecId, byte starLevel)
+        {
+            if (_boardUnitViews.TryGetValue(entityId, out var existing))
+            {
+                existing.UpdateStarLevel(starLevel);
+                return existing;
+            }
+
+            var view = GetFromPool();
+            view.Initialize(entityId, champSpecId, starLevel);
+            _boardUnitViews[entityId] = view;
+            return view;
+        }
+
+        private UnitView GetOrCreateCombatView(int combatId, int sourceEntityId, byte starLevel)
+        {
+            if (_combatUnitViews.TryGetValue(combatId, out var existing))
+                return existing;
+
+            var view = GetFromPool();
+            view.InitializeAsCombat(combatId, sourceEntityId, starLevel);
+            _combatUnitViews[combatId] = view;
+            return view;
+        }
+
+        private UnitView GetFromPool()
+        {
+            for (int i = _pool.Count - 1; i >= 0; i--)
+            {
+                if (!_pool[i].gameObject.activeSelf)
+                {
+                    var view = _pool[i];
+                    view.gameObject.SetActive(true);
+                    return view;
+                }
+            }
+
+            // 풀 확장
+            var newView = Instantiate(_unitPrefab, transform);
+            _pool.Add(newView);
+            return newView;
+        }
+
+        private void ReturnToPool(UnitView view)
+        {
+            view.Deactivate();
+        }
+    }
+}
