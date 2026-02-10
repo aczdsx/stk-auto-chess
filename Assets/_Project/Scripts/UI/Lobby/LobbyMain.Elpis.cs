@@ -65,7 +65,7 @@ namespace CookApps.AutoBattler
             await CreateWanderCharacters();
 
             // 모든 데이터 로딩 완료 후 뱃지 갱신
-            ServerDataManager.Instance.RefreshAllBadgesAtLobby();
+            // ServerDataManager.Instance.RefreshAllBadgesAtLobby();
         }
 
         private async UniTask CreateWanderCharacters()
