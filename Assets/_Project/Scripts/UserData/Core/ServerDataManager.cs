@@ -24,7 +24,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 모든 뱃지 갱신 (로비 진입 시 호출)
         /// </summary>
-        public void RefreshAllBadgesAtLobby()
+        public void RefreshAllBadges()
         {
             Elpis.RefreshCoreResearchBadges();
             Inventory.RefreshSummonBadge();

@@ -37,7 +37,10 @@ namespace CookApps.AutoBattler
             // 2. 모든 챕터의 스테이지 진행 정보 로드
             await LoadAllChapterStagesAsync(cancellationToken);
 
-            // 3. 이벤트 스트림 구독 시작
+            // 3. 모든 데이터 로드 완료 후 뱃지 초기화
+            ServerDataManager.Instance.RefreshAllBadges();
+
+            // 4. 이벤트 스트림 구독 시작
             StartEventSubscription();
         }
 
