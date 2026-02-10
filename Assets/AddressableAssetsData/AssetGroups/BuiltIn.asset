@@ -15,13 +15,13 @@ MonoBehaviour:
   m_GroupName: BuiltIn
   m_GUID: 0d01be646545247899be386821771622
   m_SerializeEntries:
-  - m_GUID: 011b55890c7c647a395713967f9bf1c8
-    m_Address: Assets/_Project/Addressables/BuiltIn/Prefabs/UI/Popup
+  - m_GUID: 49c355717bcad439393061beaaee7a5a
+    m_Address: BuiltIn/Shaders
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 49c355717bcad439393061beaaee7a5a
-    m_Address: BuiltIn/Shaders
+  - m_GUID: 54d3b68acf3b9443680911b0f17d99f0
+    m_Address: Assets/_Project/Addressables/BuiltIn/UI/Prefabs
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

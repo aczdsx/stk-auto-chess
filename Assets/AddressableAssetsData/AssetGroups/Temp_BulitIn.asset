@@ -15,11 +15,6 @@ MonoBehaviour:
   m_GroupName: Temp_BulitIn
   m_GUID: 5940b17ff921144218fe2aa9900e3ba9
   m_SerializeEntries:
-  - m_GUID: 1989ae12f175345bfbef984a49ed501c
-    m_Address: DuplicatedFromRemote
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a70e949c4799aa7469043eb67a4857c6
     m_Address: Assets/_Project/Addressables/BuiltIn/Splash_STK/Resource/Smoke24.png
     m_ReadOnly: 0
