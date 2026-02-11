@@ -24,7 +24,7 @@ namespace CookApps.TeamBattle.UIManagements
                 "InGameDungeonTrialResultPopup" => "Prefabs/UI/01_Pops/InGameDungeonTrialResultPopup.prefab",
                 "InGameResultPopup" => "Prefabs/UI/01_Pops/InGameResultPopup.prefab",
                 "LoadingPopup" => "Prefabs/UI/01_Pops/LoadingPopup.prefab",
-                "CharacterCollectionPopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/CharacterCollectionPopup.prefab",
+                "CharacterDetailMainLayerPopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/CharacterDetail_Main_Layer_Popup.prefab",
                 "InfoDetailTooltipPopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/InfoDetailTooltipPopup.prefab",
                 "NonSkillTooltipPopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/PassiveSkillTooltipPopup.prefab",
                 "SkillTooltipPopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/SkillTooltipPopup.prefab",
@@ -63,6 +63,7 @@ namespace CookApps.TeamBattle.UIManagements
                 "DownloadConfirmPopup" => "Assets/_Project/Addressables/BuiltIn/UI/Prefabs/Popup/DownloadConfirmPopup.prefab",
                 "DownloadProgressPopup" => "Assets/_Project/Addressables/BuiltIn/UI/Prefabs/Popup/DownloadProgressPopup.prefab",
                 "NicknamePopup_1" => "Naninovel/Spawn/Etc/NicknamePopup",
+                "CharacterCollectionPopup" => "Prefabs/UI/01_Pops/CharacterCollectionPopup/CharacterCollectionPopup.prefab",
                 "TitleMain" => "Assets/_Project/Splash_STK/Prefab/SplashUI.prefab",
                 _ => string.Empty
             };
