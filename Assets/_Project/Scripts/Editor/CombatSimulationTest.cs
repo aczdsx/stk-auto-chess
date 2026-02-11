@@ -117,6 +117,9 @@ namespace CookApps.AutoChess
             unit.CritChance = 25;
             unit.CritMultiplier = 150;
 
+            unit.SizeW = 1;
+            unit.SizeH = 1;
+
             unit.CurrentTargetId = CombatUnit.InvalidId;
             unit.AttackCooldown = 0;
             unit.MoveTimer = 0;
@@ -125,7 +128,7 @@ namespace CookApps.AutoChess
             unit.HasBacklineJump = backlineJump;
             unit.BacklineJumpDone = false;
 
-            state.SetGrid(col, row, id);
+            state.SetGridMulti(col, row, unit.SizeW, unit.SizeH, id);
         }
     }
 }

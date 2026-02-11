@@ -13,14 +13,23 @@ namespace CookApps.AutoChess
         public static bool TryMoveToward(CombatMatchState state, ref CombatUnit unit, ref CombatUnit target,
             int tickRate, bool allowDiagonal = false)
         {
+            byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+            byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
+
             // 이미 사거리 내면 이동 불필요
-            if (BoardHelper.IsInRange(unit.GridCol, unit.GridRow,
-                    target.GridCol, target.GridRow, unit.AttackRange))
+            if (BoardHelper.IsInRangeMulti(unit.GridCol, unit.GridRow, sizeW, sizeH,
+                    target.GridCol, target.GridRow,
+                    target.SizeW > 0 ? target.SizeW : (byte)1,
+                    target.SizeH > 0 ? target.SizeH : (byte)1,
+                    unit.AttackRange))
                 return false;
 
             int bestCol = -1;
             int bestRow = -1;
             int bestDist = int.MaxValue;
+
+            byte tSizeW = target.SizeW > 0 ? target.SizeW : (byte)1;
+            byte tSizeH = target.SizeH > 0 ? target.SizeH : (byte)1;
 
             int dirCount = allowDiagonal ? 8 : 4;
             var dirCols = allowDiagonal ? BoardHelper.DirCol8 : BoardHelper.DirCol4;
@@ -31,14 +40,15 @@ namespace CookApps.AutoChess
                 int nc = unit.GridCol + dirCols[d];
                 int nr = unit.GridRow + dirRows[d];
 
-                // 범위 검사
-                if (!BoardHelper.IsValidCombatPosition(nc, nr)) continue;
+                // 풋프린트 범위 검사
+                if (!BoardHelper.IsValidCombatFootprint(nc, nr, sizeW, sizeH)) continue;
 
-                // 빈 타일인지 검사
-                if (state.GetUnitAtGrid(nc, nr) != CombatUnit.InvalidId) continue;
+                // 풋프린트 영역이 비어있는지 검사
+                if (!state.IsFootprintClear(nc, nr, sizeW, sizeH, unit.CombatId)) continue;
 
-                // 타겟까지 거리 계산
-                int dist = BoardHelper.ManhattanDistance(nc, nr, target.GridCol, target.GridRow);
+                // 타겟까지 풋프린트 거리 계산
+                int dist = BoardHelper.MinManhattanDistance(nc, nr, sizeW, sizeH,
+                    target.GridCol, target.GridRow, tSizeW, tSizeH);
 
                 if (dist < bestDist)
                 {
@@ -58,7 +68,6 @@ namespace CookApps.AutoChess
                     }
                     else if (curIsDiag == bestIsDiag)
                     {
-                        // 행 방향(전진) 우선
                         bool curIsRowDir = dirCols[d] == 0;
                         bool bestIsRowDir = bestCol == unit.GridCol;
                         if (curIsRowDir && !bestIsRowDir)
@@ -70,17 +79,17 @@ namespace CookApps.AutoChess
                 }
             }
 
-            if (bestCol < 0) return false; // 이동 가능한 칸 없음
+            if (bestCol < 0) return false;
 
             // 출발 좌표 기록 (View 보간용)
             unit.MoveFromCol = unit.GridCol;
             unit.MoveFromRow = unit.GridRow;
 
-            // 그리드 업데이트: 출발 칸 해제, 도착 칸 점유 (즉시)
-            state.ClearGrid(unit.GridCol, unit.GridRow);
+            // 그리드 업데이트: 출발 풋프린트 해제, 도착 풋프린트 점유
+            state.ClearGridMulti(unit.GridCol, unit.GridRow, sizeW, sizeH);
             unit.GridCol = (byte)bestCol;
             unit.GridRow = (byte)bestRow;
-            state.SetGrid(bestCol, bestRow, unit.CombatId);
+            state.SetGridMulti(bestCol, bestRow, sizeW, sizeH, unit.CombatId);
 
             // 이동 타이머 설정 (MoveSpeed 기반)
             int moveFrames = unit.GetMoveFrames(tickRate);
@@ -104,8 +113,8 @@ namespace CookApps.AutoChess
 
             unit.BacklineJumpDone = true;
 
-            // 대상 후열 행 결정: 자신이 하단(0-3)이면 상단 후열(7), 상단(4-7)이면 하단 후열(0)
-            int targetRow = unit.GridRow < 4 ? CombatGrid.Height - 1 : 0;
+            byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+            byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
 
             // 후열에서 빈 타일 탐색 (적에게 가장 가까운 위치 선호)
             int bestCol = -1;
@@ -119,17 +128,22 @@ namespace CookApps.AutoChess
                     ? CombatGrid.Height - 1 - expandRow
                     : expandRow;
 
-                for (int col = 0; col < CombatGrid.Width; col++)
+                for (int col = 0; col <= CombatGrid.Width - sizeW; col++)
                 {
-                    if (state.GetUnitAtGrid(col, checkRow) != CombatUnit.InvalidId) continue;
+                    // 풋프린트 범위 체크
+                    if (!BoardHelper.IsValidCombatFootprint(col, checkRow, sizeW, sizeH)) continue;
+                    if (!state.IsFootprintClear(col, checkRow, sizeW, sizeH, unit.CombatId)) continue;
 
-                    // 가장 가까운 적까지 거리 계산
+                    // 가장 가까운 적까지 풋프린트 거리 계산
                     int minEnemyDist = int.MaxValue;
                     for (int i = 0; i < state.UnitCount; i++)
                     {
                         ref var enemy = ref state.Units[i];
                         if (!enemy.IsValidTarget || enemy.TeamIndex == unit.TeamIndex) continue;
-                        int dist = BoardHelper.ManhattanDistance(col, checkRow, enemy.GridCol, enemy.GridRow);
+                        byte eSizeW = enemy.SizeW > 0 ? enemy.SizeW : (byte)1;
+                        byte eSizeH = enemy.SizeH > 0 ? enemy.SizeH : (byte)1;
+                        int dist = BoardHelper.MinManhattanDistance(col, checkRow, sizeW, sizeH,
+                            enemy.GridCol, enemy.GridRow, eSizeW, eSizeH);
                         if (dist < minEnemyDist) minEnemyDist = dist;
                     }
 
@@ -141,18 +155,18 @@ namespace CookApps.AutoChess
                     }
                 }
 
-                if (bestCol >= 0) break; // 빈 타일을 찾았으면 탐색 종료
+                if (bestCol >= 0) break;
             }
 
-            if (bestCol < 0) return false; // 모든 타일 점유
+            if (bestCol < 0) return false;
 
             // 텔레포트
             int jumpFromCol = unit.GridCol;
             int jumpFromRow = unit.GridRow;
-            state.ClearGrid(unit.GridCol, unit.GridRow);
+            state.ClearGridMulti(unit.GridCol, unit.GridRow, sizeW, sizeH);
             unit.GridCol = (byte)bestCol;
             unit.GridRow = (byte)bestRow;
-            state.SetGrid(bestCol, bestRow, unit.CombatId);
+            state.SetGridMulti(bestCol, bestRow, sizeW, sizeH, unit.CombatId);
 
             // 이동 시간 적용 (이동 중 타겟팅 제외)
             unit.MoveFromCol = (byte)jumpFromCol;

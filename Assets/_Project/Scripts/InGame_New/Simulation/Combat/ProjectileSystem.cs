@@ -149,9 +149,11 @@ namespace CookApps.AutoChess
                 if (!unit.IsValidTarget) continue;
                 if (unit.TeamIndex == srcTeam) continue;
 
-                int dist = BoardHelper.ManhattanDistance(
+                int dist = BoardHelper.MinManhattanDistance(
                     unit.GridCol, unit.GridRow,
-                    proj.TargetCol, proj.TargetRow);
+                    unit.SizeW > 0 ? unit.SizeW : (byte)1,
+                    unit.SizeH > 0 ? unit.SizeH : (byte)1,
+                    proj.TargetCol, proj.TargetRow, 1, 1);
 
                 if (dist > proj.AreaRadius) continue;
 

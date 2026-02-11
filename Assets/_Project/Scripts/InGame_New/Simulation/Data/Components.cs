@@ -17,6 +17,8 @@ namespace CookApps.AutoChess
         public byte BoardRow;
         public byte BenchIndex;
         public byte OwnerIndex;       // 소유 플레이어 (0-3)
+        public byte SizeW;            // 가로 타일 수 (기본 1)
+        public byte SizeH;            // 세로 타일 수 (기본 1)
 
         // 기본 스탯 (스펙에서 복사 + 별 보정 적용된 값)
         public int MaxHP;
@@ -214,6 +216,10 @@ namespace CookApps.AutoChess
         public int MaxMana;
         public int StartingMana;
         public int SkillId;           // 기본 스킬 ID
+
+        // 유닛 크기 (타일 수)
+        public byte SizeW;           // 가로 (기본 1)
+        public byte SizeH;           // 세로 (기본 1)
 
         // 별 업그레이드 배율 (퍼센트: 180 = 1.8x)
         public int Star2Multiplier;  // 기본 180
@@ -439,9 +445,11 @@ namespace CookApps.AutoChess
         public byte TeamIndex;        // 매치 내 팀 (0 = PlayerA, 1 = PlayerB)
         public int TraitFlags;        // 시너지 특성 비트마스크 (원본에서 복사)
 
-        // 그리드 위치
+        // 그리드 위치 (앵커 = 좌하단)
         public byte GridCol;
         public byte GridRow;
+        public byte SizeW;            // 가로 타일 수 (기본 1)
+        public byte SizeH;            // 세로 타일 수 (기본 1)
 
         // 상태
         public CombatState State;
@@ -675,6 +683,38 @@ namespace CookApps.AutoChess
         public void ClearGrid(int col, int row)
         {
             GridTiles[col + row * CombatGrid.Width] = CombatUnit.InvalidId;
+        }
+
+        // ── Multi-Tile 헬퍼 ──
+
+        /// <summary>유닛의 전체 풋프린트 그리드 등록</summary>
+        public void SetGridMulti(int anchorCol, int anchorRow, byte sizeW, byte sizeH, int combatId)
+        {
+            for (int dc = 0; dc < sizeW; dc++)
+                for (int dr = 0; dr < sizeH; dr++)
+                    SetGrid(anchorCol + dc, anchorRow + dr, combatId);
+        }
+
+        /// <summary>유닛의 전체 풋프린트 그리드 해제</summary>
+        public void ClearGridMulti(int anchorCol, int anchorRow, byte sizeW, byte sizeH)
+        {
+            for (int dc = 0; dc < sizeW; dc++)
+                for (int dr = 0; dr < sizeH; dr++)
+                    ClearGrid(anchorCol + dc, anchorRow + dr);
+        }
+
+        /// <summary>풋프린트 영역이 모두 비어있는지 (자기 자신 제외)</summary>
+        public bool IsFootprintClear(int anchorCol, int anchorRow, byte sizeW, byte sizeH, int selfCombatId)
+        {
+            for (int dc = 0; dc < sizeW; dc++)
+                for (int dr = 0; dr < sizeH; dr++)
+                {
+                    int c = anchorCol + dc, r = anchorRow + dr;
+                    if (!BoardHelper.IsValidCombatPosition(c, r)) return false;
+                    int occupant = GetUnitAtGrid(c, r);
+                    if (occupant != CombatUnit.InvalidId && occupant != selfCombatId) return false;
+                }
+            return true;
         }
     }
 }

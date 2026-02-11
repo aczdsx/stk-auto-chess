@@ -123,13 +123,26 @@ namespace CookApps.AutoChess.View
                 activeIds.Add(unit.CombatId);
                 var view = GetOrCreateCombatView(unit.CombatId, unit.SourceEntityId, unit.ChampionSpecId, unit.StarLevel);
 
-                Vector3 worldPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.GridCol, unit.GridRow);
+                Vector3 destPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.GridCol, unit.GridRow);
+
+                // 이동 중이면 MoveFrom → Dest 보간 위치 계산
+                Vector3 worldPos;
+                if (unit.IsMoving && unit.MoveDuration > 0)
+                {
+                    float progress = 1f - (float)unit.MoveTimer / unit.MoveDuration;
+                    Vector3 fromPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.MoveFromCol, unit.MoveFromRow);
+                    worldPos = Vector3.Lerp(fromPos, destPos, progress);
+                }
+                else
+                {
+                    worldPos = destPos;
+                }
 
                 if (unit.IsAlive)
                 {
                     if (isActive)
                     {
-                        view.SetTargetPosition(worldPos);
+                        view.SetPositionImmediate(worldPos);
                         view.UpdateHP(unit.CurrentHP, unit.MaxHP);
                         view.UpdateMana(unit.CurrentMana, unit.MaxMana);
                         view.SetCombatState(unit.State);
@@ -211,7 +224,7 @@ namespace CookApps.AutoChess.View
             }
 
             var view = GetFromPool();
-            view.Initialize(entityId, champSpecId, starLevel, GetCharacterPrefabPath(champSpecId));
+            view.Initialize(entityId, starLevel, GetCharacterPrefabPath(champSpecId));
             _boardUnitViews[entityId] = view;
             return view;
         }

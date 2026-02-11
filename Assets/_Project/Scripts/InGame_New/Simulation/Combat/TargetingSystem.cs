@@ -6,7 +6,7 @@ namespace CookApps.AutoChess
     /// </summary>
     public static class TargetingSystem
     {
-        /// <summary>기본 타겟 탐색: 가장 가까운 생존 적</summary>
+        /// <summary>기본 타겟 탐색: 가장 가까운 생존 적 (풋프린트 기반 거리)</summary>
         public static int FindNearestEnemy(CombatMatchState state, ref CombatUnit unit)
         {
             int bestTarget = CombatUnit.InvalidId;
@@ -14,15 +14,21 @@ namespace CookApps.AutoChess
             int bestHP = int.MaxValue;
             int bestIndex = int.MaxValue;
 
+            byte uSizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+            byte uSizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
+
             for (int i = 0; i < state.UnitCount; i++)
             {
                 ref var candidate = ref state.Units[i];
                 if (!candidate.IsTargetable) continue;
                 if (candidate.TeamIndex == unit.TeamIndex) continue;
 
-                int dist = BoardHelper.ManhattanDistance(
-                    unit.GridCol, unit.GridRow,
-                    candidate.GridCol, candidate.GridRow);
+                byte cSizeW = candidate.SizeW > 0 ? candidate.SizeW : (byte)1;
+                byte cSizeH = candidate.SizeH > 0 ? candidate.SizeH : (byte)1;
+
+                int dist = BoardHelper.MinManhattanDistance(
+                    unit.GridCol, unit.GridRow, uSizeW, uSizeH,
+                    candidate.GridCol, candidate.GridRow, cSizeW, cSizeH);
 
                 // 우선순위: 거리 → HP → 인덱스
                 if (dist < bestDist ||
@@ -39,12 +45,15 @@ namespace CookApps.AutoChess
             return bestTarget;
         }
 
-        /// <summary>가장 먼 적 탐색</summary>
+        /// <summary>가장 먼 적 탐색 (풋프린트 기반 거리)</summary>
         public static int FindFarthestEnemy(CombatMatchState state, ref CombatUnit unit)
         {
             int bestTarget = CombatUnit.InvalidId;
             int bestDist = -1;
             int bestIndex = int.MaxValue;
+
+            byte uSizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+            byte uSizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
 
             for (int i = 0; i < state.UnitCount; i++)
             {
@@ -52,9 +61,12 @@ namespace CookApps.AutoChess
                 if (!candidate.IsTargetable) continue;
                 if (candidate.TeamIndex == unit.TeamIndex) continue;
 
-                int dist = BoardHelper.ManhattanDistance(
-                    unit.GridCol, unit.GridRow,
-                    candidate.GridCol, candidate.GridRow);
+                byte cSizeW = candidate.SizeW > 0 ? candidate.SizeW : (byte)1;
+                byte cSizeH = candidate.SizeH > 0 ? candidate.SizeH : (byte)1;
+
+                int dist = BoardHelper.MinManhattanDistance(
+                    unit.GridCol, unit.GridRow, uSizeW, uSizeH,
+                    candidate.GridCol, candidate.GridRow, cSizeW, cSizeH);
 
                 if (dist > bestDist || (dist == bestDist && i < bestIndex))
                 {
@@ -117,12 +129,16 @@ namespace CookApps.AutoChess
             return state.Units[idx].IsTargetable;
         }
 
-        /// <summary>타겟이 사거리 내에 있는지 검사</summary>
+        /// <summary>타겟이 사거리 내에 있는지 검사 (풋프린트 기반)</summary>
         public static bool IsTargetInRange(ref CombatUnit attacker, ref CombatUnit target)
         {
-            return BoardHelper.IsInRange(
+            return BoardHelper.IsInRangeMulti(
                 attacker.GridCol, attacker.GridRow,
+                attacker.SizeW > 0 ? attacker.SizeW : (byte)1,
+                attacker.SizeH > 0 ? attacker.SizeH : (byte)1,
                 target.GridCol, target.GridRow,
+                target.SizeW > 0 ? target.SizeW : (byte)1,
+                target.SizeH > 0 ? target.SizeH : (byte)1,
                 attacker.AttackRange);
         }
 

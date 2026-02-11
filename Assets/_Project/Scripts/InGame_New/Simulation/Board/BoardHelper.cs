@@ -100,6 +100,60 @@ namespace CookApps.AutoChess
             mirroredRow = (CombatHeight - 1) - row;  // 7 - row
         }
 
+        // ── Multi-Tile 유효성 검사 ──
+
+        /// <summary>유닛 풋프린트가 플레이어 보드 범위 안인지</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsValidBoardFootprint(int col, int row, byte sizeW, byte sizeH)
+        {
+            return col >= 0 && col + sizeW <= Width && row >= 0 && row + sizeH <= Height;
+        }
+
+        /// <summary>유닛 풋프린트가 전투 그리드 범위 안인지</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsValidCombatFootprint(int col, int row, byte sizeW, byte sizeH)
+        {
+            return col >= 0 && col + sizeW <= CombatWidth && row >= 0 && row + sizeH <= CombatHeight;
+        }
+
+        // ── Multi-Tile 거리 계산 ──
+
+        /// <summary>두 유닛(풋프린트) 간 최소 맨하탄 거리</summary>
+        public static int MinManhattanDistance(
+            int c1, int r1, byte w1, byte h1,
+            int c2, int r2, byte w2, byte h2)
+        {
+            int dCol = MaxOf(c1 - (c2 + w2 - 1), c2 - (c1 + w1 - 1), 0);
+            int dRow = MaxOf(r1 - (r2 + h2 - 1), r2 - (r1 + h1 - 1), 0);
+            return dCol + dRow;
+        }
+
+        /// <summary>두 유닛(풋프린트) 간 최소 체비셰프 거리</summary>
+        public static int MinChebyshevDistance(
+            int c1, int r1, byte w1, byte h1,
+            int c2, int r2, byte w2, byte h2)
+        {
+            int dCol = MaxOf(c1 - (c2 + w2 - 1), c2 - (c1 + w1 - 1), 0);
+            int dRow = MaxOf(r1 - (r2 + h2 - 1), r2 - (r1 + h1 - 1), 0);
+            return dCol > dRow ? dCol : dRow;
+        }
+
+        /// <summary>사거리 내 판정 (풋프린트 기반)</summary>
+        public static bool IsInRangeMulti(
+            int c1, int r1, byte w1, byte h1,
+            int c2, int r2, byte w2, byte h2, int range)
+        {
+            if (range <= 1)
+                return MinManhattanDistance(c1, r1, w1, h1, c2, r2, w2, h2) <= range;
+            return MinChebyshevDistance(c1, r1, w1, h1, c2, r2, w2, h2) <= range;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static int MaxOf(int a, int b, int c)
+        {
+            return a > b ? (a > c ? a : c) : (b > c ? b : c);
+        }
+
         // ── 4방향 이동 ──
         // dx, dy 순서: 상, 하, 좌, 우
         public static readonly int[] DirCol4 = { 0, 0, -1, 1 };

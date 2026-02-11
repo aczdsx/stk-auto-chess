@@ -61,6 +61,10 @@ namespace CookApps.AutoChess
                     StartingMana = 0,
                     SkillId = GetPrimarySkillId(c),
 
+                    // 크기 (기본 1x1, 추후 스펙 데이터에 크기 필드 추가 시 매핑)
+                    SizeW = 1,
+                    SizeH = 1,
+
                     // 별 배율 (퍼센트: 180 = 1.8x)
                     Star2Multiplier = 180,
                     Star3Multiplier = 320,

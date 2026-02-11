@@ -86,6 +86,10 @@ namespace CookApps.AutoChess
                 combatUnit.CritMultiplier = 150;   // 기본 1.5x
                 combatUnit.TraitFlags = srcUnit.TraitFlags;
 
+                // 크기 복사
+                combatUnit.SizeW = srcUnit.SizeW > 0 ? srcUnit.SizeW : (byte)1;
+                combatUnit.SizeH = srcUnit.SizeH > 0 ? srcUnit.SizeH : (byte)1;
+
                 combatUnit.CurrentTargetId = CombatUnit.InvalidId;
                 combatUnit.AttackCooldown = 0;
                 combatUnit.MoveTimer = 0;
@@ -98,8 +102,8 @@ namespace CookApps.AutoChess
                 // 아이템 스탯 적용 (기본 스탯 → 아이템 순서)
                 ItemSystem.ApplyItemStats(world, ref combatUnit, ref srcUnit);
 
-                // 그리드에 등록
-                state.SetGrid(gridCol, gridRow, combatId);
+                // 그리드에 등록 (multi-tile)
+                state.SetGridMulti(gridCol, gridRow, combatUnit.SizeW, combatUnit.SizeH, combatId);
             }
         }
 

@@ -39,7 +39,7 @@ namespace CookApps.AutoChess.View
 
         // ── 초기화 ──
 
-        public void Initialize(int entityId, int championSpecId, byte starLevel, string prefabPath)
+        public void Initialize(int entityId, byte starLevel, string prefabPath)
         {
             EntityId = entityId;
             CombatId = CombatUnit.InvalidId;
@@ -195,8 +195,8 @@ namespace CookApps.AutoChess.View
         {
             if (!_isActive) return;
 
-            // 위치 보간
-            if (Vector3.SqrMagnitude(transform.position - _targetPosition) > 0.001f)
+            // Preparation 페이즈 전용 보간 (전투 중은 SyncCombatUnits에서 SetPositionImmediate 사용)
+            if (!IsCombatUnit && Vector3.SqrMagnitude(transform.position - _targetPosition) > 0.001f)
             {
                 transform.position = Vector3.Lerp(
                     transform.position, _targetPosition,

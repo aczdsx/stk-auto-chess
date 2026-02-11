@@ -59,7 +59,10 @@ namespace CookApps.AutoChess
                 if (!unit.IsAlive) continue;
                 if (unit.TeamIndex == casterTeam) continue;
 
-                int dist = BoardHelper.ChebyshevDistance(centerCol, centerRow, unit.GridCol, unit.GridRow);
+                int dist = BoardHelper.MinChebyshevDistance(centerCol, centerRow, 1, 1,
+                    unit.GridCol, unit.GridRow,
+                    unit.SizeW > 0 ? unit.SizeW : (byte)1,
+                    unit.SizeH > 0 ? unit.SizeH : (byte)1);
                 if (dist <= radius)
                 {
                     action(ref unit, i);
@@ -77,7 +80,10 @@ namespace CookApps.AutoChess
                 if (!unit.IsAlive) continue;
                 if (unit.TeamIndex != casterTeam) continue;
 
-                int dist = BoardHelper.ChebyshevDistance(centerCol, centerRow, unit.GridCol, unit.GridRow);
+                int dist = BoardHelper.MinChebyshevDistance(centerCol, centerRow, 1, 1,
+                    unit.GridCol, unit.GridRow,
+                    unit.SizeW > 0 ? unit.SizeW : (byte)1,
+                    unit.SizeH > 0 ? unit.SizeH : (byte)1);
                 if (dist <= radius)
                 {
                     action(ref unit, i);
@@ -129,9 +135,13 @@ namespace CookApps.AutoChess
                 int count = CountEnemiesInRadius(state, caster.TeamIndex,
                     candidate.GridCol, candidate.GridRow, radius);
 
-                int dist = BoardHelper.ManhattanDistance(
+                int dist = BoardHelper.MinManhattanDistance(
                     caster.GridCol, caster.GridRow,
-                    candidate.GridCol, candidate.GridRow);
+                    caster.SizeW > 0 ? caster.SizeW : (byte)1,
+                    caster.SizeH > 0 ? caster.SizeH : (byte)1,
+                    candidate.GridCol, candidate.GridRow,
+                    candidate.SizeW > 0 ? candidate.SizeW : (byte)1,
+                    candidate.SizeH > 0 ? candidate.SizeH : (byte)1);
 
                 if (count > bestCount || (count == bestCount && dist < bestDist))
                 {
@@ -177,7 +187,10 @@ namespace CookApps.AutoChess
                 if (!unit.IsAlive) continue;
                 if (unit.TeamIndex == casterTeam) continue;
 
-                int dist = BoardHelper.ChebyshevDistance(centerCol, centerRow, unit.GridCol, unit.GridRow);
+                int dist = BoardHelper.MinChebyshevDistance(centerCol, centerRow, 1, 1,
+                    unit.GridCol, unit.GridRow,
+                    unit.SizeW > 0 ? unit.SizeW : (byte)1,
+                    unit.SizeH > 0 ? unit.SizeH : (byte)1);
                 if (dist <= radius)
                     count++;
             }
@@ -205,11 +218,14 @@ namespace CookApps.AutoChess
             if (CombatLogger.Enabled) CombatLogger.LogCC(target.CombatId, type, durationFrames);
         }
 
-        /// <summary>넉백 (지정 방향으로 N칸, 빈 칸까지만)</summary>
+        /// <summary>넉백 (지정 방향으로 N칸, 빈 칸까지만). Multi-tile 대응.</summary>
         public static void Knockback(CombatMatchState state, ref CombatUnit target,
             int dirCol, int dirRow, int distance)
         {
             if (!target.IsAlive) return;
+
+            byte sizeW = target.SizeW > 0 ? target.SizeW : (byte)1;
+            byte sizeH = target.SizeH > 0 ? target.SizeH : (byte)1;
 
             int col = target.GridCol;
             int row = target.GridRow;
@@ -219,8 +235,8 @@ namespace CookApps.AutoChess
                 int nextCol = col + dirCol;
                 int nextRow = row + dirRow;
 
-                if (!BoardHelper.IsValidCombatPosition(nextCol, nextRow)) break;
-                if (state.GetUnitAtGrid(nextCol, nextRow) != CombatUnit.InvalidId) break;
+                if (!BoardHelper.IsValidCombatFootprint(nextCol, nextRow, sizeW, sizeH)) break;
+                if (!state.IsFootprintClear(nextCol, nextRow, sizeW, sizeH, target.CombatId)) break;
 
                 col = nextCol;
                 row = nextRow;
@@ -229,10 +245,10 @@ namespace CookApps.AutoChess
             // 실제 이동 처리
             if (col != target.GridCol || row != target.GridRow)
             {
-                state.ClearGrid(target.GridCol, target.GridRow);
+                state.ClearGridMulti(target.GridCol, target.GridRow, sizeW, sizeH);
                 target.GridCol = (byte)col;
                 target.GridRow = (byte)row;
-                state.SetGrid(col, row, target.CombatId);
+                state.SetGridMulti(col, row, sizeW, sizeH, target.CombatId);
 
                 state.EventQueue?.PushUnitMoved(target.SourceEntityId, (byte)col, (byte)row);
             }

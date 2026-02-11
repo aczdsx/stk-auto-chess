@@ -90,8 +90,10 @@ namespace CookApps.AutoChess
 
                 if (CombatLogger.Enabled) CombatLogger.LogDeath(target.CombatId, target.TeamIndex);
 
-                // 그리드에서 제거
-                state.ClearGrid(target.GridCol, target.GridRow);
+                // 그리드에서 제거 (multi-tile)
+                state.ClearGridMulti(target.GridCol, target.GridRow,
+                    target.SizeW > 0 ? target.SizeW : (byte)1,
+                    target.SizeH > 0 ? target.SizeH : (byte)1);
 
                 // 생존 수 업데이트
                 if (target.TeamIndex == 0)
@@ -156,10 +158,14 @@ namespace CookApps.AutoChess
             }
             else
             {
-                // 원거리: 투사체 생성
-                int dist = BoardHelper.ManhattanDistance(
+                // 원거리: 투사체 생성 (풋프린트 기반 거리)
+                int dist = BoardHelper.MinManhattanDistance(
                     attacker.GridCol, attacker.GridRow,
-                    target.GridCol, target.GridRow);
+                    attacker.SizeW > 0 ? attacker.SizeW : (byte)1,
+                    attacker.SizeH > 0 ? attacker.SizeH : (byte)1,
+                    target.GridCol, target.GridRow,
+                    target.SizeW > 0 ? target.SizeW : (byte)1,
+                    target.SizeH > 0 ? target.SizeH : (byte)1);
                 int travelFrames = dist * 4; // 기본 4프레임/타일
                 if (travelFrames < 1) travelFrames = 1;
 
