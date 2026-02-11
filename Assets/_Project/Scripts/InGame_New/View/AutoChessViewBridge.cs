@@ -13,6 +13,7 @@ namespace CookApps.AutoChess.View
         [SerializeField] private UnitViewManager _unitViewManager;
         [SerializeField] private CombatViewManager _combatViewManager;
         [SerializeField] private HUDManager _hudManager;
+        [SerializeField] private BoardGridView _boardGridView;
 
         private GamePhase _lastPhase;
         private int _localPlayerIndex;  // 로컬 플레이어 보드 인덱스
@@ -26,6 +27,7 @@ namespace CookApps.AutoChess.View
             _unitViewManager.Initialize();
             _combatViewManager.Initialize();
             _hudManager.Initialize();
+            _boardGridView.Initialize();
 
             _unitViewManager.SetActiveBoard(_localPlayerIndex);
 
@@ -73,12 +75,14 @@ namespace CookApps.AutoChess.View
                 case GamePhase.Preparation:
                     _unitViewManager.OnCombatEnd();
                     _combatViewManager.OnCombatEnd();
+                    _boardGridView.OnPreparation();
                     _hudManager.OnPhaseChanged(newPhase);
                     break;
 
                 case GamePhase.Combat:
                     _unitViewManager.OnCombatStart();
                     _combatViewManager.OnCombatStart();
+                    _boardGridView.OnCombatStart();
                     _hudManager.OnPhaseChanged(newPhase);
                     break;
 

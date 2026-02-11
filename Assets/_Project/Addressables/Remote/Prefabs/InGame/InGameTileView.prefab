@@ -50,6 +50,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -95,8 +98,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6499480330998338342}
   - component: {fileID: 1497983088874606}
-  - component: {fileID: 6508189077024569637}
   - component: {fileID: 8081275937839488909}
+  - component: {fileID: 8641734670792474599}
   m_Layer: 0
   m_Name: InGameTileView
   m_TagString: Slot
@@ -139,6 +142,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -174,23 +180,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6508189077024569637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4885015638858243754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e91dcea6dc34ea89116b28e795afc45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _activeObj: {fileID: 887737099335315448}
-  _attackActiveObj: {fileID: 2302862222453307536}
-  _commanderSkillNavigateObj: {fileID: 4000069818481049035}
-  _allianceType: 1
-  _boardSprite: {fileID: 1497983088874606}
 --- !u!65 &8081275937839488909
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -212,6 +201,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.7, y: 2.7, z: 0.20000005}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8641734670792474599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4885015638858243754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad26de462626421894350c0544b82da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _boardSprite: {fileID: 1497983088874606}
+  _activeObj: {fileID: 887737099335315448}
+  _attackActiveObj: {fileID: 2302862222453307536}
+  _skillNavigateObj: {fileID: 4000069818481049035}
 --- !u!1001 &5435067021225099057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -292,7 +297,7 @@ PrefabInstance:
     m_TransformParent: {fileID: 6499480330998338342}
     m_Modifications:
     - target: {fileID: 3571538065906046199, guid: 617b8bb48a16abe48bce7a6a666d6f04, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 60ddcde5e84558742b0768b729015c63, type: 2}
     - target: {fileID: 5133220224469749961, guid: 617b8bb48a16abe48bce7a6a666d6f04, type: 3}

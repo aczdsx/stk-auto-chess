@@ -59,7 +59,14 @@ namespace CookApps.AutoChess.View
                     activeIds.Add(entityId);
 
                     BoardHelper.FromIndex(slot, out int col, out int row);
-                    Vector3 worldPos = BoardWorldHelper.BoardGridToWorld(p, col, row);
+                    byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+                    byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
+
+                    // 다중 타일 유닛은 앵커 슬롯 외의 슬롯에서도 동일 EntityId가 등록되므로 중복 스킵
+                    if (col != unit.BoardCol || row != unit.BoardRow) continue;
+
+                    Vector3 worldPos = BoardWorldHelper.BoardGridToWorld(p, col, row)
+                        + BoardWorldHelper.GetFootprintCenterOffset(sizeW, sizeH);
 
                     var view = GetOrCreateBoardView(entityId, unit.ChampionSpecId, unit.StarLevel);
                     if (isActive)
@@ -123,14 +130,18 @@ namespace CookApps.AutoChess.View
                 activeIds.Add(unit.CombatId);
                 var view = GetOrCreateCombatView(unit.CombatId, unit.SourceEntityId, unit.ChampionSpecId, unit.StarLevel);
 
-                Vector3 destPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.GridCol, unit.GridRow);
+                byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+                byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
+                Vector3 centerOffset = BoardWorldHelper.GetFootprintCenterOffset(sizeW, sizeH);
+
+                Vector3 destPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.GridCol, unit.GridRow) + centerOffset;
 
                 // 이동 중이면 MoveFrom → Dest 보간 위치 계산
                 Vector3 worldPos;
                 if (unit.IsMoving && unit.MoveDuration > 0)
                 {
                     float progress = 1f - (float)unit.MoveTimer / unit.MoveDuration;
-                    Vector3 fromPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.MoveFromCol, unit.MoveFromRow);
+                    Vector3 fromPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.MoveFromCol, unit.MoveFromRow) + centerOffset;
                     worldPos = Vector3.Lerp(fromPos, destPos, progress);
                 }
                 else
@@ -154,7 +165,10 @@ namespace CookApps.AutoChess.View
                             if (targetIdx >= 0)
                             {
                                 ref var target = ref matchState.Units[targetIdx];
-                                var targetPos = BoardWorldHelper.CombatGridToWorld(boardIndex, target.GridCol, target.GridRow);
+                                var targetPos = BoardWorldHelper.CombatGridToWorld(boardIndex, target.GridCol, target.GridRow)
+                                    + BoardWorldHelper.GetFootprintCenterOffset(
+                                        target.SizeW > 0 ? target.SizeW : (byte)1,
+                                        target.SizeH > 0 ? target.SizeH : (byte)1);
                                 view.UpdateFacing(targetPos);
                             }
                         }
