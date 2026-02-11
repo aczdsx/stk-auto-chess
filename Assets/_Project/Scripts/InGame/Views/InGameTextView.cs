@@ -27,8 +27,6 @@ namespace CookApps.AutoBattler
         public enum DamageColorType
         {
             Normal, // 일반
-            Weak, // 속성 상성
-            Resist, // 속성 저항
             Heal, // 힐
             Miss, // 명중 테스트 실패
             Block, // 최종 방어력 산정에 블록
@@ -39,7 +37,6 @@ namespace CookApps.AutoBattler
         private static readonly int Normal = Animator.StringToHash("Normal"); // 일반 크리
         private static readonly int Heal = Animator.StringToHash("Heal"); // 힐 독
         private static readonly int Miss = Animator.StringToHash("Miss");// 미스, 블락
-        private static readonly int Weak = Animator.StringToHash("Weak");// 위크, 위크크리
 
         private const string MissText = "MISS";
 
@@ -116,60 +113,34 @@ namespace CookApps.AutoBattler
         }
         
         /// <summary>
-        /// 속성 상성 결과에 따른 데미지 타입과 애니메이션 트리거를 결정합니다.
-        /// </summary>
-        private (DamageColorType colorType, int triggerHash) GetDamageTypeAndTrigger(
-            ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult)
-        {
-            return elementAdvantageResult switch
-            {
-                ElementAdvantageHelper.ElementAdvantageResult.ADVANTAGE => (DamageColorType.Weak, Weak),
-                ElementAdvantageHelper.ElementAdvantageResult.RESIST => (DamageColorType.Resist, Heal),
-                _ => (DamageColorType.Normal, Normal)
-            };
-        }
-        
-        /// <summary>
         /// 데미지 텍스트용 스프라이트 폰트를 구성합니다.
         /// </summary>
-        private void BuildDamageSpriteFonts(bool isCritical, ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult)
+        private void BuildDamageSpriteFonts(bool isCritical)
         {
             _reusableSpriteFontList.Clear();
-            
+
             if (isCritical)
             {
                 _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_CRITICAL);
             }
-            
-            if (elementAdvantageResult == ElementAdvantageHelper.ElementAdvantageResult.ADVANTAGE)
-            {
-                _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_WEAK);
-            }
-            else if (elementAdvantageResult == ElementAdvantageHelper.ElementAdvantageResult.RESIST)
-            {
-                _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_RESIST);
-            }
         }
 
         public async UniTask ShowDamageText(Vector3 position, float characterHeight, double damage,
-        bool isCritical, ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult)
+        bool isCritical)
         {
             // 스프라이트 폰트 구성
-            BuildDamageSpriteFonts(isCritical, elementAdvantageResult);
-            
-            // 데미지 타입과 애니메이션 트리거 결정
-            var (colorType, triggerHash) = GetDamageTypeAndTrigger(elementAdvantageResult);
-            
+            BuildDamageSpriteFonts(isCritical);
+
             // 텍스트 설정
             SetTextContent(
                 BuildSpriteText(_reusableSpriteFontList),
                 BuildNumberText(damage),
-                colorType
+                DamageColorType.Normal
             );
-            
+
             // 위치 및 애니메이션 설정
-            SetupPositionAndAnimation(position, characterHeight, triggerHash);
-            
+            SetupPositionAndAnimation(position, characterHeight, Normal);
+
             // 사운드 재생
         }
 
@@ -262,9 +233,7 @@ namespace CookApps.AutoBattler
     {
         public enum SpriteFontType
         {
-            SPRITE_WEAK = 0,
-            SPRITE_RESIST,
-            SPRITE_CRITICAL,
+            SPRITE_CRITICAL = 0,
             SPRITE_CRITICAL_BIG,
             SPRITE_BLOCK,
             SPRITE_HEAL,
