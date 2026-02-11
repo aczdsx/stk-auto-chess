@@ -488,11 +488,9 @@ MonoBehaviour:
   _xOffset: 0
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   IconGradients:
-    keys: 00000000010000000200000003000000040000000500000006000000
+    keys: 0000000001000000020000000300000004000000
     values:
     - {fileID: 11400000, guid: def7ed072b78ee247ae15984c47a232e, type: 2}
-    - {fileID: 11400000, guid: 30ffdfe6754e95f49a938da442c3cd14, type: 2}
-    - {fileID: 11400000, guid: 9bd49078cf4935940b9ffa7b29190f02, type: 2}
     - {fileID: 11400000, guid: 8151ca343101f3e4e8a08ba9ae290063, type: 2}
     - {fileID: 11400000, guid: e629436da9cf35641a368c0ed4c96bed, type: 2}
     - {fileID: 11400000, guid: 0d2d362d402e58641993b9cca8db9d60, type: 2}
