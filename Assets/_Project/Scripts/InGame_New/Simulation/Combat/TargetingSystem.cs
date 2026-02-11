@@ -17,7 +17,7 @@ namespace CookApps.AutoChess
             for (int i = 0; i < state.UnitCount; i++)
             {
                 ref var candidate = ref state.Units[i];
-                if (!candidate.IsValidTarget) continue;
+                if (!candidate.IsTargetable) continue;
                 if (candidate.TeamIndex == unit.TeamIndex) continue;
 
                 int dist = BoardHelper.ManhattanDistance(
@@ -49,7 +49,7 @@ namespace CookApps.AutoChess
             for (int i = 0; i < state.UnitCount; i++)
             {
                 ref var candidate = ref state.Units[i];
-                if (!candidate.IsValidTarget) continue;
+                if (!candidate.IsTargetable) continue;
                 if (candidate.TeamIndex == unit.TeamIndex) continue;
 
                 int dist = BoardHelper.ManhattanDistance(
@@ -77,7 +77,7 @@ namespace CookApps.AutoChess
             for (int i = 0; i < state.UnitCount; i++)
             {
                 ref var candidate = ref state.Units[i];
-                if (!candidate.IsValidTarget) continue;
+                if (!candidate.IsTargetable) continue;
                 if (candidate.TeamIndex == unit.TeamIndex) continue;
 
                 if (candidate.CurrentHP < bestHP ||
@@ -114,7 +114,7 @@ namespace CookApps.AutoChess
             int idx = state.FindUnitIndex(targetCombatId);
             if (idx < 0) return false;
 
-            return state.Units[idx].IsValidTarget;
+            return state.Units[idx].IsTargetable;
         }
 
         /// <summary>타겟이 사거리 내에 있는지 검사</summary>

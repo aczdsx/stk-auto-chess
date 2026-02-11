@@ -119,7 +119,8 @@ namespace CookApps.AutoChess
 
             unit.CurrentTargetId = CombatUnit.InvalidId;
             unit.AttackCooldown = 0;
-            unit.MoveCooldown = 0;
+            unit.MoveTimer = 0;
+            unit.MoveDuration = 0;
 
             unit.HasBacklineJump = backlineJump;
             unit.BacklineJumpDone = false;

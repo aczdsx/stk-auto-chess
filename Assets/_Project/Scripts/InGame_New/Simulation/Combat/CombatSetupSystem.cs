@@ -88,7 +88,8 @@ namespace CookApps.AutoChess
 
                 combatUnit.CurrentTargetId = CombatUnit.InvalidId;
                 combatUnit.AttackCooldown = 0;
-                combatUnit.MoveCooldown = 0;
+                combatUnit.MoveTimer = 0;
+                combatUnit.MoveDuration = 0;
 
                 // 스킬 ID 설정 (ChampionSpec에서 복사)
                 combatUnit.SkillSpecId = FindSkillId(world, srcUnit.ChampionSpecId);

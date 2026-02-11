@@ -11,7 +11,7 @@ namespace CookApps.AutoChess
         /// 이동 성공 시 true, 실패(막힘/불필요) 시 false.
         /// </summary>
         public static bool TryMoveToward(CombatMatchState state, ref CombatUnit unit, ref CombatUnit target,
-            bool allowDiagonal = false)
+            int tickRate, bool allowDiagonal = false)
         {
             // 이미 사거리 내면 이동 불필요
             if (BoardHelper.IsInRange(unit.GridCol, unit.GridRow,
@@ -72,15 +72,22 @@ namespace CookApps.AutoChess
 
             if (bestCol < 0) return false; // 이동 가능한 칸 없음
 
-            // 그리드 업데이트
-            int prevCol = unit.GridCol;
-            int prevRow = unit.GridRow;
+            // 출발 좌표 기록 (View 보간용)
+            unit.MoveFromCol = unit.GridCol;
+            unit.MoveFromRow = unit.GridRow;
+
+            // 그리드 업데이트: 출발 칸 해제, 도착 칸 점유 (즉시)
             state.ClearGrid(unit.GridCol, unit.GridRow);
             unit.GridCol = (byte)bestCol;
             unit.GridRow = (byte)bestRow;
             state.SetGrid(bestCol, bestRow, unit.CombatId);
 
-            if (CombatLogger.Enabled) CombatLogger.LogMove(unit.CombatId, prevCol, prevRow, bestCol, bestRow);
+            // 이동 타이머 설정 (MoveSpeed 기반)
+            int moveFrames = unit.GetMoveFrames(tickRate);
+            unit.MoveDuration = moveFrames;
+            unit.MoveTimer = moveFrames;
+
+            if (CombatLogger.Enabled) CombatLogger.LogMove(unit.CombatId, unit.MoveFromCol, unit.MoveFromRow, bestCol, bestRow);
 
             state.EventQueue?.PushUnitMoved(unit.SourceEntityId, (byte)bestCol, (byte)bestRow);
 
@@ -91,7 +98,7 @@ namespace CookApps.AutoChess
         /// 암살자 백라인 점프. 전투 시작 시 1회 실행.
         /// 적 후열의 빈 타일로 텔레포트.
         /// </summary>
-        public static bool TryBacklineJump(CombatMatchState state, ref CombatUnit unit)
+        public static bool TryBacklineJump(CombatMatchState state, ref CombatUnit unit, int tickRate)
         {
             if (!unit.HasBacklineJump || unit.BacklineJumpDone) return false;
 
@@ -146,6 +153,14 @@ namespace CookApps.AutoChess
             unit.GridCol = (byte)bestCol;
             unit.GridRow = (byte)bestRow;
             state.SetGrid(bestCol, bestRow, unit.CombatId);
+
+            // 이동 시간 적용 (이동 중 타겟팅 제외)
+            unit.MoveFromCol = (byte)jumpFromCol;
+            unit.MoveFromRow = (byte)jumpFromRow;
+            int moveFrames = unit.GetMoveFrames(tickRate);
+            unit.MoveDuration = moveFrames;
+            unit.MoveTimer = moveFrames;
+            unit.State = CombatState.Moving;
 
             if (CombatLogger.Enabled) CombatLogger.LogBacklineJump(unit.CombatId, jumpFromCol, jumpFromRow, bestCol, bestRow);
 

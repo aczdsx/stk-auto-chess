@@ -18,7 +18,7 @@ namespace CookApps.AutoChess
             if (CombatLogger.Enabled) CombatLogger.NextFrame();
 
             // 1. 전투 첫 프레임: 백라인 점프 처리
-            ProcessBacklineJumps(state);
+            ProcessBacklineJumps(state, tickRate);
 
             // 2. 유닛 상태머신 업데이트
             for (int i = 0; i < state.UnitCount; i++)
@@ -46,7 +46,7 @@ namespace CookApps.AutoChess
         }
 
         /// <summary>백라인 점프 (전투 시작 시 1회)</summary>
-        private static void ProcessBacklineJumps(CombatMatchState state)
+        private static void ProcessBacklineJumps(CombatMatchState state, int tickRate)
         {
             for (int i = 0; i < state.UnitCount; i++)
             {
@@ -54,7 +54,7 @@ namespace CookApps.AutoChess
                 if (!unit.IsAlive) continue;
                 if (!unit.HasBacklineJump || unit.BacklineJumpDone) continue;
 
-                MovementSystem.TryBacklineJump(state, ref unit);
+                MovementSystem.TryBacklineJump(state, ref unit, tickRate);
             }
         }
 
@@ -74,6 +74,21 @@ namespace CookApps.AutoChess
                 else
                 {
                     return; // CC 중에는 행동 불가
+                }
+            }
+
+            // 이동 중 처리 (MoveTimer 기반)
+            if (unit.IsMoving)
+            {
+                unit.MoveTimer--;
+                if (unit.MoveTimer <= 0)
+                {
+                    // 이동 완료
+                    unit.State = CombatState.Idle;
+                }
+                else
+                {
+                    return; // 이동 중에는 행동 불가
                 }
             }
 
@@ -144,23 +159,14 @@ namespace CookApps.AutoChess
             }
             else
             {
-                // 이동 쿨다운 감소
-                unit.MoveCooldown--;
+                // 이동 시도
+                unit.State = CombatState.Moving;
+                bool moved = MovementSystem.TryMoveToward(state, ref unit, ref target, tickRate);
 
-                if (unit.MoveCooldown <= 0)
+                if (!moved)
                 {
-                    unit.State = CombatState.Moving;
-                    bool moved = MovementSystem.TryMoveToward(state, ref unit, ref target);
-
-                    if (moved)
-                    {
-                        unit.MoveCooldown = unit.GetMoveInterval(tickRate);
-                    }
-                    else
-                    {
-                        // 이동 실패 (막힘): 대기, 쿨다운 리셋하지 않음
-                        unit.MoveCooldown = 1; // 다음 틱에 재시도
-                    }
+                    // 이동 실패 (막힘): Idle로 복귀
+                    unit.State = CombatState.Idle;
                 }
             }
         }

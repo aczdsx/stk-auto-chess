@@ -472,7 +472,12 @@ namespace CookApps.AutoChess
 
         // 쿨다운 (프레임 단위)
         public int AttackCooldown;    // 다음 공격까지 남은 프레임
-        public int MoveCooldown;      // 다음 이동까지 남은 프레임
+
+        // 이동 (프레임 단위)
+        public byte MoveFromCol;      // 이동 출발 열 (View 보간용)
+        public byte MoveFromRow;      // 이동 출발 행 (View 보간용)
+        public int MoveTimer;         // 이동 중 남은 프레임 (0이면 이동 중 아님)
+        public int MoveDuration;      // 이동 총 프레임 (View 보간 비율 계산용)
 
         // 특수 이동
         public bool HasBacklineJump;
@@ -489,6 +494,9 @@ namespace CookApps.AutoChess
 
         public bool IsValidTarget => IsAlive && State != CombatState.Dead;
 
+        /// <summary>타겟 선택 가능 여부 (이동 중 유닛 제외)</summary>
+        public bool IsTargetable => IsValidTarget && !IsMoving;
+
         /// <summary>공격 쿨다운 프레임 수 계산 (AttackSpeed 기반)</summary>
         public int GetAttackInterval(int tickRate)
         {
@@ -497,12 +505,15 @@ namespace CookApps.AutoChess
             return tickRate * 100 / AttackSpeed;
         }
 
-        /// <summary>이동 쿨다운 프레임 수 계산 (MoveSpeed 기반)</summary>
-        public int GetMoveInterval(int tickRate)
+        /// <summary>1칸 이동에 걸리는 프레임 수 (MoveSpeed 기반)</summary>
+        public int GetMoveFrames(int tickRate)
         {
             if (MoveSpeed <= 0) return tickRate;
             return tickRate * 100 / MoveSpeed;
         }
+
+        /// <summary>이동 중인지 여부</summary>
+        public bool IsMoving => MoveTimer > 0;
     }
 
     /// <summary>
