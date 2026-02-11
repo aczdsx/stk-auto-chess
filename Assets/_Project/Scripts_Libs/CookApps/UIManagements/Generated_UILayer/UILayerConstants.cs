@@ -13,6 +13,7 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 "BattleReadyMain" => "Prefabs/UI/00_Main/BattleReadyMain.prefab",
                 "InGameMain" => "Prefabs/UI/00_Main/IngameMain.prefab",
+                "InGameMain_New" => "Prefabs/UI/00_Main/IngameMain_New.prefab",
                 "InGameTestMain" => "Prefabs/UI/00_Main/IngameTestMain.prefab",
                 "LobbyMain" => "Prefabs/UI/00_Main/LobbyMain.prefab",
                 "NaninovelMain" => "Prefabs/UI/00_Main/NaninovelMain.prefab",
