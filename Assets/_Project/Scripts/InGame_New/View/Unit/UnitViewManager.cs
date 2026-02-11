@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CookApps.AutoBattler;
 using UnityEngine;
 
 namespace CookApps.AutoChess.View
@@ -120,7 +121,7 @@ namespace CookApps.AutoChess.View
                 if (unit.CombatId == CombatUnit.InvalidId) continue;
 
                 activeIds.Add(unit.CombatId);
-                var view = GetOrCreateCombatView(unit.CombatId, unit.SourceEntityId, unit.StarLevel);
+                var view = GetOrCreateCombatView(unit.CombatId, unit.SourceEntityId, unit.ChampionSpecId, unit.StarLevel);
 
                 Vector3 worldPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.GridCol, unit.GridRow);
 
@@ -132,6 +133,18 @@ namespace CookApps.AutoChess.View
                         view.UpdateHP(unit.CurrentHP, unit.MaxHP);
                         view.UpdateMana(unit.CurrentMana, unit.MaxMana);
                         view.SetCombatState(unit.State);
+
+                        // 타겟 방향 바라보기
+                        if (unit.CurrentTargetId != CombatUnit.InvalidId)
+                        {
+                            int targetIdx = matchState.FindUnitIndex(unit.CurrentTargetId);
+                            if (targetIdx >= 0)
+                            {
+                                ref var target = ref matchState.Units[targetIdx];
+                                var targetPos = BoardWorldHelper.CombatGridToWorld(boardIndex, target.GridCol, target.GridRow);
+                                view.UpdateFacing(targetPos);
+                            }
+                        }
                     }
                     else
                     {
@@ -183,6 +196,12 @@ namespace CookApps.AutoChess.View
 
         // ── 풀 관리 ──
 
+        private static string GetCharacterPrefabPath(int championSpecId)
+        {
+            var spec = SpecDataManager.Instance.GetSpecCharacter(championSpecId);
+            return spec?.ToCharacterResourcePath();
+        }
+
         private UnitView GetOrCreateBoardView(int entityId, int champSpecId, byte starLevel)
         {
             if (_boardUnitViews.TryGetValue(entityId, out var existing))
@@ -192,18 +211,18 @@ namespace CookApps.AutoChess.View
             }
 
             var view = GetFromPool();
-            view.Initialize(entityId, champSpecId, starLevel);
+            view.Initialize(entityId, champSpecId, starLevel, GetCharacterPrefabPath(champSpecId));
             _boardUnitViews[entityId] = view;
             return view;
         }
 
-        private UnitView GetOrCreateCombatView(int combatId, int sourceEntityId, byte starLevel)
+        private UnitView GetOrCreateCombatView(int combatId, int sourceEntityId, int champSpecId, byte starLevel)
         {
             if (_combatUnitViews.TryGetValue(combatId, out var existing))
                 return existing;
 
             var view = GetFromPool();
-            view.InitializeAsCombat(combatId, sourceEntityId, starLevel);
+            view.InitializeAsCombat(combatId, sourceEntityId, starLevel, GetCharacterPrefabPath(champSpecId));
             _combatUnitViews[combatId] = view;
             return view;
         }

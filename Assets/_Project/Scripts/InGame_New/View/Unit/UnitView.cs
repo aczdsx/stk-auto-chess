@@ -1,4 +1,10 @@
+using CookApps.AutoBattler;
+using CookApps.BattleSystem;
+using CookApps.TeamBattle.Utility;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoChess.View
 {
@@ -26,9 +32,14 @@ namespace CookApps.AutoChess.View
         public float ManaRatio { get; private set; }
         public byte StarLevel { get; private set; } = 1;
 
+        // ── 캐릭터 비주얼 ──
+        private SpriteCharacterView _characterView;
+        private AsyncOperationHandle<GameObject> _loadHandle;
+        private CombatState _lastState = CombatState.Idle;
+
         // ── 초기화 ──
 
-        public void Initialize(int entityId, int championSpecId, byte starLevel)
+        public void Initialize(int entityId, int championSpecId, byte starLevel, string prefabPath)
         {
             EntityId = entityId;
             CombatId = CombatUnit.InvalidId;
@@ -36,11 +47,13 @@ namespace CookApps.AutoChess.View
             StarLevel = starLevel;
             HPRatio = 1f;
             ManaRatio = 0f;
+            _lastState = CombatState.Idle;
             _isActive = true;
             gameObject.SetActive(true);
+            LoadCharacterVisual(prefabPath).Forget();
         }
 
-        public void InitializeAsCombat(int combatId, int sourceEntityId, byte starLevel)
+        public void InitializeAsCombat(int combatId, int sourceEntityId, byte starLevel, string prefabPath)
         {
             EntityId = sourceEntityId;
             CombatId = combatId;
@@ -48,8 +61,42 @@ namespace CookApps.AutoChess.View
             StarLevel = starLevel;
             HPRatio = 1f;
             ManaRatio = 0f;
+            _lastState = CombatState.Idle;
             _isActive = true;
             gameObject.SetActive(true);
+            LoadCharacterVisual(prefabPath).Forget();
+        }
+
+        // ── 캐릭터 프리팹 로딩 ──
+
+        private async UniTaskVoid LoadCharacterVisual(string prefabPath)
+        {
+            if (string.IsNullOrEmpty(prefabPath)) return;
+            ReleaseCharacterVisual();
+
+            _loadHandle = Addressables.InstantiateAsync(prefabPath, _modelRoot);
+            await _loadHandle.WaitUntilDone();
+            var go = _loadHandle.Result;
+
+            // 로딩 중 Deactivate 된 경우
+            if (!_isActive || go == null)
+            {
+                ReleaseCharacterVisual();
+                return;
+            }
+
+            _characterView = go.GetComponent<SpriteCharacterView>();
+            _characterView?.PlayAnimation(AnimationKey.IDLE);
+        }
+
+        private void ReleaseCharacterVisual()
+        {
+            _characterView = null;
+            if (_loadHandle.IsValid())
+            {
+                Addressables.ReleaseInstance(_loadHandle);
+                _loadHandle = default;
+            }
         }
 
         // ── 위치 업데이트 ──
@@ -85,17 +132,29 @@ namespace CookApps.AutoChess.View
             // TODO: 별 레벨 비주얼 업데이트 (파티클, 이펙트)
         }
 
-        // ── 상태 ──
+        // ── 상태 + 애니메이션 ──
 
         public void SetCombatState(CombatState state)
         {
-            // TODO: Spine 애니메이션 전환
-            // Idle → idle, Moving → walk, Attacking → attack, Dead → death
+            if (_characterView == null || state == _lastState) return;
+            _lastState = state;
+
+            var animKey = state switch
+            {
+                CombatState.Idle => AnimationKey.IDLE,
+                CombatState.Moving => AnimationKey.MOVE,
+                CombatState.Attacking => AnimationKey.ATK,
+                CombatState.CastingSkill => AnimationKey.SKL,
+                CombatState.Dead => AnimationKey.DEAD,
+                CombatState.CrowdControlled => AnimationKey.GROGGY,
+                _ => AnimationKey.IDLE,
+            };
+            _characterView.PlayAnimation(animKey);
         }
 
         public void PlayAttackAnimation()
         {
-            // TODO: Spine attack 트리거
+            _characterView?.PlayAnimation(AnimationKey.ATK);
         }
 
         public void PlayHitEffect()
@@ -105,12 +164,28 @@ namespace CookApps.AutoChess.View
 
         public void PlayDeathAnimation()
         {
-            // TODO: 사망 애니메이션 + 페이드아웃
+            if (_characterView == null) return;
+            _lastState = CombatState.Dead;
+            _characterView.PlayAnimation(AnimationKey.DEAD);
         }
+
+        // ── 방향 전환 ──
+
+        public void UpdateFacing(Vector3 targetWorldPos)
+        {
+            if (_characterView == null) return;
+            var myPos = transform.position;
+            _characterView.LookAt(
+                new Vector2(myPos.x, myPos.z),
+                new Vector2(targetWorldPos.x, targetWorldPos.z));
+        }
+
+        // ── 비활성화 ──
 
         public void Deactivate()
         {
             _isActive = false;
+            ReleaseCharacterVisual();
             gameObject.SetActive(false);
         }
 
