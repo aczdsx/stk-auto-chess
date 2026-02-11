@@ -105,16 +105,11 @@ PrefabInstance:
       value: UI_17353203
       objectReference: {fileID: 0}
     - target: {fileID: 8834443160863789351, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
-      propertyPath: _skeletonGraphic
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8834443160863789351, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
       propertyPath: _pivotReferenceImage
       value: 
       objectReference: {fileID: 5762611857824858264}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 5346796297695139338, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}

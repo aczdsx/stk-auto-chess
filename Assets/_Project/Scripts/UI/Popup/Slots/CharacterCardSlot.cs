@@ -52,9 +52,8 @@ namespace CookApps.AutoBattler
 
         private CharacterInfo _specCharacterData;
         private CharacterData _userCharacterData;
+        private List<CharacterCardSlot> _slotList;
 
-        private CharacterCollectionPopup _parentCollectionPopup;
-        
         public CharacterInfo SpecCharacterData => _specCharacterData;
 
         private void Awake()
@@ -63,13 +62,13 @@ namespace CookApps.AutoBattler
             
         }
 
-        public void SetCharcacterSlot(CharacterInfo characterData, CharacterCollectionPopup _parentPopup)
+        public void SetCharcacterSlot(CharacterInfo characterData, List<CharacterCardSlot> slotList)
         {
             if (characterData == null) return;
 
-            ClearCardSlot();
+            _slotList = slotList;
 
-            _parentCollectionPopup = _parentPopup;
+            ClearCardSlot();
 
             _specCharacterData = characterData;
             _userCharacterData = ServerDataManager.Instance.Character.GetCharacter(_specCharacterData.id);
@@ -169,21 +168,24 @@ namespace CookApps.AutoBattler
 
         private void OnClickCardSlot()
         {
-            if (_parentCollectionPopup == null) return;
+            if (_specCharacterData == null) return;
 
-            // TODO: 캐릭터 조각으로 캐릭터 획득 기능 - 서버 API 구현 필요
-            // 캐릭터 조각 20개 이상 보유 하여 최초 획득 시 처리
-            // if (ServerDataManager.Instance.Character.HasCharacter((uint)_specCharacterData.character_id) == false)
-            // {
-            //     int characterPiece = ServerDataManager.Instance.Inventory.GetCharacterPiece(_specCharacterData.character_id);
-            //     if (characterPiece >= _specCharacterData.need_piece)
-            //     {
-            //         // 서버 API 호출 필요
-            //     }
-            // }
+            // 현재 활성화된(필터링 통과한) 슬롯들의 캐릭터 ID 리스트 생성
+            List<int> visibleCharacterIds = new List<int>();
+            if (_slotList != null)
+            {
+                foreach (var slot in _slotList)
+                {
+                    if (slot.gameObject.activeSelf)
+                    {
+                        visibleCharacterIds.Add(slot.SpecCharacterData.id);
+                    }
+                }
+            }
 
             // 상세정보창 진입
-            _parentCollectionPopup.SelectCharacterCard(_specCharacterData.id);
+            var param = new CharacterDetailPopupParam(_specCharacterData.id, visibleCharacterIds);
+            SceneUILayerManager.Instance.PushUILayerAsync<CharacterDetailMainLayerPopup>(param).Forget();
         }
 
         private void ClearCardSlot()

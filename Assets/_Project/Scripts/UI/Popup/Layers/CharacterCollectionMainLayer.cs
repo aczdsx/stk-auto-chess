@@ -21,8 +21,6 @@ namespace CookApps.AutoBattler
         private List<CharacterInfo> _totalCharacterList;      // 전체 캐릭터 리스트
         private List<CharacterCardSlot> _characterCardSlotList = new List<CharacterCardSlot>();
 
-        private CharacterCollectionPopup _parentCollectionPopup;
-
         [SerializeField]
         private GameObject _guideObj;
 
@@ -31,10 +29,8 @@ namespace CookApps.AutoBattler
             _backButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickBackButton()).AddTo(this);
         }
 
-        public void InitLayer(CharacterCollectionPopup _parentPopup)
+        public void InitLayer()
         {
-            _parentCollectionPopup = _parentPopup;
-
             _currentMainLayerTabType = SynergyType.NORMAL;
 
             SetCharacterCollectionUI();
@@ -81,7 +77,7 @@ namespace CookApps.AutoBattler
             {
                 GameObject newCardObject = Instantiate(_characterCardSlotObject, _characterScrollRect.content);
                 CharacterCardSlot slot = newCardObject.GetComponent<CharacterCardSlot>();
-                slot.SetCharcacterSlot(characterData, _parentCollectionPopup);
+                slot.SetCharcacterSlot(characterData, _characterCardSlotList);
 
                 if (isGuide && _guideObj != null)
                 {

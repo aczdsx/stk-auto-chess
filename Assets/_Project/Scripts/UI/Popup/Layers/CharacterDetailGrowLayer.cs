@@ -67,7 +67,7 @@ namespace CookApps.AutoBattler
 
         private CharacterStatData _userStatData;
 
-        private CharacterCollectionPopup _parentCollectionPopup;
+        // private CharacterDetailMainLayerPopup _parentDetailMainLayerPopup;
 
         private bool _isHaveCharacter = false;
 
@@ -89,11 +89,9 @@ namespace CookApps.AutoBattler
                 .SubscribeAwait(this, (_, self, _) => self.OnClickTranscendenceButtonAsync(), AwaitOperation.Drop).AddTo(this);
         }
 
-        public void InitLayer(CharacterCollectionPopup _parentPopup, int characterId)
+        public void InitLayer(int characterId)
         {
             this.characterId = characterId;
-
-            _parentCollectionPopup = _parentPopup;
 
             RefreshLayer();
 
@@ -345,7 +343,7 @@ namespace CookApps.AutoBattler
                 PlayLevelUpEffect();
 
                 // 메인 레이어 갱신
-                _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
+                // _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
 
                 // 사운드 플레이
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_char_level_up);
@@ -434,7 +432,7 @@ namespace CookApps.AutoBattler
                 // await ServerDataManager.Instance.GuideMission.AddActionValueAsync(GuideMissionType.TRANSCENDENCE_CHARACTER_TARGET, (int)_userCharacterData.CharacterId, 1);
 
                 // 메인 레이어 갱신
-                _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
+                // _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
 
                 // 사운드 플레이
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_char_level_up);

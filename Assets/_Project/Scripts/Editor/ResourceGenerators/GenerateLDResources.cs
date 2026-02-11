@@ -105,10 +105,10 @@ public class GenerateLDResources
         // Create UI Prefab
         CreateUIPrefab(generateResourcesPath, id, skeletonDataAsset, illustSprite);
 
-        // Create NaniNovel Prefab (Spine only)
-        if (skeletonDataAsset != null)
+        // Create NaniNovel Prefab
+        if (illustSprite != null)
         {
-            CreateNaniNovelPrefab(generateResourcesPath, id, skeletonDataAsset);
+            CreateNaniNovelPrefab(generateResourcesPath, id, illustSprite);
         }
 
         // Add Spine folder to Addressable
@@ -245,7 +245,7 @@ public class GenerateLDResources
         AddToAddressableGroup(prefabPath);
     }
 
-    private static void CreateNaniNovelPrefab(string generateResourcesPath, string id, SkeletonDataAsset skeletonDataAsset)
+    private static void CreateNaniNovelPrefab(string generateResourcesPath, string id, Sprite illustSprite)
     {
         // Load base prefab
         GameObject basePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(BASE_NANINOVEL_PREFAB_PATH);
@@ -258,17 +258,16 @@ public class GenerateLDResources
         // Instantiate base prefab
         GameObject prefabInstance = (GameObject)PrefabUtility.InstantiatePrefab(basePrefab);
 
-        // Get SkeletonRenderer from root object
-        SkeletonRenderer skeletonRenderer = prefabInstance.GetComponent<SkeletonRenderer>();
-        if (skeletonRenderer != null)
+        // Get SpriteRenderer from root object
+        SpriteRenderer spriteRenderer = prefabInstance.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
         {
-            skeletonRenderer.skeletonDataAsset = skeletonDataAsset;
-            skeletonRenderer.Initialize(true);
-            Debug.Log($"[Success] {id} - NaniNovel Spine resource assigned");
+            spriteRenderer.sprite = illustSprite;
+            Debug.Log($"[Success] {id} - NaniNovel Illust resource assigned");
         }
         else
         {
-            Debug.LogError($"[Fail] {id} - SkeletonRenderer not found on BasePrefab_NaniNovel");
+            Debug.LogError($"[Fail] {id} - SpriteRenderer not found on BasePrefab_NaniNovel");
             Object.DestroyImmediate(prefabInstance);
             return;
         }

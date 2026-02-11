@@ -400,6 +400,17 @@ namespace CookApps.AutoBattler.Editor
                 sb.AppendLine($"        {itemCode} = {itemId},");
             }
 
+            // 캐릭터 추가
+            if (itemData.CharacterIds.Count > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine("        // 캐릭터");
+                foreach (int charId in itemData.CharacterIds.OrderBy(x => x))
+                {
+                    sb.AppendLine($"        캐릭터_{charId} = {charId},");
+                }
+            }
+
             // 캐릭터 조각 추가
             if (itemData.CharacterPieceIds.Count > 0)
             {

@@ -151,21 +151,11 @@ namespace CookApps.AutoBattler
                 {
                     var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentLeftObject.transform);
                     obj.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-                    if (obj != null)
-                    {
-                        var characterIllust = obj.GetComponent<CharacterIllust>();
-                        characterIllust.SetCharacterAnimation("idle");
-                    }
                 }
                 else
                 {
                     var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentRightObject.transform);
                     obj.GetComponent<RectTransform>().localScale = new Vector3(-1, 1, 1);
-                    if (obj != null)
-                    {
-                        var characterIllust = obj.GetComponent<CharacterIllust>();
-                        characterIllust.SetCharacterAnimation("idle");
-                    }
                 }
             }
 
