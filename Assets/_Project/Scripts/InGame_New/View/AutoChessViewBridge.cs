@@ -8,12 +8,25 @@ namespace CookApps.AutoChess.View
     /// </summary>
     public class AutoChessViewBridge : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private LocalSimulationRunner _runner;
-        [SerializeField] private UnitViewManager _unitViewManager;
-        [SerializeField] private CombatViewManager _combatViewManager;
-        [SerializeField] private HUDManager _hudManager;
-        [SerializeField] private BoardGridView _boardGridView;
+        private LocalSimulationRunner _runner;
+        private UnitViewManager _unitViewManager;
+        private CombatViewManager _combatViewManager;
+        private HUDManager _hudManager;
+        private BoardGridView _boardGridView;
+
+        public void Setup(
+            LocalSimulationRunner runner,
+            UnitViewManager unitViewManager,
+            CombatViewManager combatViewManager,
+            HUDManager hudManager,
+            BoardGridView boardGridView)
+        {
+            _runner = runner;
+            _unitViewManager = unitViewManager;
+            _combatViewManager = combatViewManager;
+            _hudManager = hudManager;
+            _boardGridView = boardGridView;
+        }
 
         private GamePhase _lastPhase;
         private int _localPlayerIndex;  // 로컬 플레이어 보드 인덱스

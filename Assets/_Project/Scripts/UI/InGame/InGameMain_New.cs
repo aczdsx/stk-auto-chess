@@ -1,49 +1,55 @@
 using CookApps.AutoChess;
 using CookApps.AutoChess.View;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
     public class InGameMain_New : UILayer
     {
-        [Header("Auto Chess")]
-        [SerializeField] private LocalSimulationRunner _runner;
-        [SerializeField] private AutoChessViewBridge _viewBridge;
+        private AutoChessViewRoot _viewRoot;
 
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            StartAutoChess();
+            StartAutoChess().Forget();
         }
 
-        private void StartAutoChess()
+        private async UniTask StartAutoChess()
         {
-            if (_runner == null || _viewBridge == null)
-            {
-                Debug.LogError("[InGameMain_New] Runner 또는 ViewBridge가 할당되지 않았습니다.");
-                return;
-            }
+            int stageId = 1; // TODO: param에서 추출
 
-            // 1. 시뮬레이션 시작 (SpecDataManager → ChampionPool/Synergy 주입 포함)
-            _runner.StartSimulation();
+            // ViewRoot 생성 → 리소스 로드 → 초기화
+            var rootObj = new GameObject("AutoChessRoot");
+            _viewRoot = rootObj.AddComponent<AutoChessViewRoot>();
+            await _viewRoot.LoadResources(stageId);
+            _viewRoot.Initialize();
 
-            // 2. View 브릿지 초기화
-            _viewBridge.Initialize(localPlayerIndex: 0);
+            // 시뮬레이션 시작
+            _viewRoot.Runner.StartSimulation();
 
-            // 3. 테스트 유닛 생성 및 배치
-            SpawnTestUnits();
+            // View 브릿지 초기화
+            _viewRoot.ViewBridge.Initialize(localPlayerIndex: 0);
+
+            // 테스트 유닛
+            SpawnTestUnits(_viewRoot.Runner.GetWorld());
 
             Debug.Log("[InGameMain_New] AutoChess started with test units.");
+        }
+
+        protected override void OnPostExit()
+        {
+            _viewRoot?.Cleanup();
+            base.OnPostExit();
         }
 
         /// <summary>
         /// 테스트용 유닛 자동 생성.
         /// ChampionPool에서 사용 가능한 챔피언을 뽑아 각 플레이어 보드에 배치.
         /// </summary>
-        private void SpawnTestUnits()
+        private void SpawnTestUnits(GameWorld world)
         {
-            var world = _runner.GetWorld();
             if (world == null) return;
 
             int playerCount = world.Config.PlayerCount;

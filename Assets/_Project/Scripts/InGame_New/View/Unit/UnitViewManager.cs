@@ -19,6 +19,12 @@ namespace CookApps.AutoChess.View
         private readonly List<UnitView> _pool = new();
         private int _activeBoardIndex;
 
+        public void SetPrefab(UnitView prefab, int poolSize = 64)
+        {
+            _unitPrefab = prefab;
+            _poolSize = poolSize;
+        }
+
         // ── 초기화 ──
 
         public void Initialize()

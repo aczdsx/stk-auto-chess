@@ -11,7 +11,7 @@ namespace CookApps.AutoChess
     public class LocalSimulationRunner : MonoBehaviour
     {
         [Header("Settings")]
-        [SerializeField] private GameModeType _gameMode = GameModeType.Competitive;
+        [SerializeField] private GameModeType _gameMode = GameModeType.ClassicBattle;
         [SerializeField] private ulong _randomSeed = 12345;
 
         private GameWorld _world;
