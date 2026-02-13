@@ -5335,6 +5335,10 @@ MonoBehaviour:
     m_Key: MSG_MAX_LV_UP
     m_Metadata:
       m_Items: []
+  - m_Id: 10933054054162432
+    m_Key: UI_CHARACTER_LIST
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

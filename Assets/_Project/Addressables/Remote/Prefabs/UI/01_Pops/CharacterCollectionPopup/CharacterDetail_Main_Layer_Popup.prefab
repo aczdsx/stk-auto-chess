@@ -95718,6 +95718,18 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 183.6
       objectReference: {fileID: 0}
+    - target: {fileID: 6528303696140173142, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_Key
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528303696140173142, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 10933054054162432
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528303696140173142, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:fdab95ed1e42f41efb55b1541e124721
+      objectReference: {fileID: 0}
     - target: {fileID: 7668000940083893256, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 25

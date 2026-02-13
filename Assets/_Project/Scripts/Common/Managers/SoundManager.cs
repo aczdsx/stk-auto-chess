@@ -574,7 +574,7 @@ public class SoundManager : Singleton<SoundManager>
         if (!this.isReady) return null;
 
         if (!this.onSFX)
-            return null;// 솔직히 그냥 좀 아깝다
+            return null;
 
         if (this.isSilence)
             return AudioController.Play(audioID, 0.2f);
