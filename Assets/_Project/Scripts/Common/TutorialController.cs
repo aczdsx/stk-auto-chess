@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using LitMotion;
@@ -235,6 +236,10 @@ public class TutorialController : MonoBehaviour
 
         if (!hideDialogueBubble)
         {
+            if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
+            {
+                SoundManager.Instance.TransitionToSnapshot(SoundSnapshot.Menu);
+            }
 
             // 텍스트 설정
             // string tutorialText = LanguageManager.Instance.GetDefaultText(CurrentSpecTutorial.desc_key);
@@ -282,6 +287,12 @@ public class TutorialController : MonoBehaviour
         _currentStrategy?.OnClear(_actionContext);
         _actionContext.OnCompleted = null;
 
+        // 스냅샷 Default로 복귀
+        if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
+        {
+            SoundManager.Instance.TransitionToSnapshot(SoundSnapshot.Default);
+        }
+
         // 월드 화살표 비활성화
         if (_worldArrowRectTransform != null)
         {
@@ -303,6 +314,13 @@ public class TutorialController : MonoBehaviour
     /// </summary>
     private void ProceedToNext()
     {
+        // 버블 다이얼로그가 표시 중이었으면 스냅샷을 Default로 복귀
+        if (_bodyRectTransform.gameObject.activeSelf &&
+            InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
+        {
+            SoundManager.Instance.TransitionToSnapshot(SoundSnapshot.Default);
+        }
+
         SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
         if (_tutorialListIndex + 1 >= _currentSpecTutorialList.Count)
         {

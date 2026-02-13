@@ -146,6 +146,12 @@ public enum SoundFX
 }
 
 
+public enum SoundSnapshot
+{
+    Default,
+    Menu
+}
+
 public class SoundManager : Singleton<SoundManager>
 {
     /////////////////////////////////////////////////////////////
@@ -296,6 +302,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PauseBGM()
     {
+        if (!EnsureMixer()) return;
         if (Preference.LoadPreference(Pref.BGM_V, 1f) > 0f)
         {
             int volume = Convert.ToInt32(-80f + 0.01f * 80f);
@@ -306,6 +313,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void UnPauseBGM()
     {
+        if (!EnsureMixer()) return;
         if (this.isReady)
         {
             _mixer.SetFloat("BGM", Convert.ToInt32(-80f + Preference.LoadPreference(Pref.BGM_V, 1f) * 80f));
@@ -316,6 +324,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PauseVOX()
     {
+        if (!EnsureMixer()) return;
         if (Preference.LoadPreference(Pref.VOX_V, 1f) > 0f)
         {
             int volume = Convert.ToInt32(-80f + 0.01f * 80f);
@@ -325,6 +334,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void UnPauseVOX()
     {
+        if (!EnsureMixer()) return;
         if (this.isReady)
             _mixer.SetFloat("VOX", Convert.ToInt32(-80f + Preference.LoadPreference(Pref.VOX_V, 1f) * 80f));
         //AudioController.SetCategoryVolume("BGM", Preference.LoadPreference(Pref.BGM_V, 0.8f));
@@ -332,6 +342,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PauseVOXUI()
     {
+        if (!EnsureMixer()) return;
         if (Preference.LoadPreference(Pref.VOX_V, 1f) > 0f)
         {
             int volume = Convert.ToInt32(-80f + 0.01f * 80f);
@@ -341,6 +352,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void UnPauseVOXUI()
     {
+        if (!EnsureMixer()) return;
         if (this.isReady)
             _mixer.SetFloat("VOX_UI", Convert.ToInt32(-80f + Preference.LoadPreference(Pref.VOX_V, 1f) * 80f));
         //AudioController.SetCategoryVolume("BGM", Preference.LoadPreference(Pref.BGM_V, 0.8f));
@@ -385,7 +397,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void SetVOXVolume(float v)
     {
-        if (!_mixer) return;
+        if (!EnsureMixer()) return;
 
         _voxVolume = v;
         Preference.SavePreference(Pref.VOX_V, v);
@@ -399,7 +411,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void SetVOXUIVolume(float v)
     {
-        if (!_mixer) return;
+        if (!EnsureMixer()) return;
 
         int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
         if (this.isReady)
@@ -410,6 +422,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void SetAMBVolume(float v)
     {
+        if (!EnsureMixer()) return;
         int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
         if (this.isReady)
             _mixer.SetFloat("AMB", volume);
@@ -447,6 +460,38 @@ public class SoundManager : Singleton<SoundManager>
             if (type == SceneTransition.TransitionType.FadeIn)
                 PlaySFX(SoundFX.snd_sfx_ui_transition);
         };
+    }
+
+    /////////////////////////////////////////////////////////////
+    // Mixer
+
+    private bool EnsureMixer()
+    {
+        if (_mixer) return true;
+        var mixers = Resources.FindObjectsOfTypeAll<AudioMixer>();
+        if (mixers.Length > 0)
+            _mixer = mixers[0];
+        if (!_mixer)
+            Debug.LogError("[SoundManager] AudioMixer를 찾을 수 없습니다.");
+        return _mixer;
+    }
+
+    /////////////////////////////////////////////////////////////
+    // Snapshot
+
+    public void TransitionToSnapshot(SoundSnapshot snapshot, float crossFadeTime = 1.0f)
+    {
+        TransitionToSnapshot(snapshot.ToString(), crossFadeTime);
+    }
+
+    public void TransitionToSnapshot(string snapshotName, float crossFadeTime = 1.0f)
+    {
+        if (!EnsureMixer()) return;
+        var snapshot = _mixer.FindSnapshot(snapshotName);
+        if (snapshot != null)
+            snapshot.TransitionTo(crossFadeTime);
+        else
+            Debug.LogWarning($"[SoundManager] Snapshot '{snapshotName}' not found");
     }
 
     /////////////////////////////////////////////////////////////
@@ -529,7 +574,7 @@ public class SoundManager : Singleton<SoundManager>
         if (!this.isReady) return null;
 
         if (!this.onSFX)
-            return null;
+            return null;// 솔직히 그냥 좀 아깝다
 
         if (this.isSilence)
             return AudioController.Play(audioID, 0.2f);
