@@ -71,6 +71,7 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             _confirmButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickConfirmButtonAsync(), AwaitOperation.Drop).AddTo(this);
+            _confirmButton.DefaultClickSoundType = DefaultClickSoundType.Confirm;
         }
 
         private void OnEnable()

@@ -783,7 +783,7 @@ MonoBehaviour:
       m_Calls: []
   isBlockDrag: 0
   useDefaultClickSound: 1
-  defaultClickSoundType: 0
+  defaultClickSoundType: 4
   reactionType: 0
   swappers: []
 --- !u!1 &3354515103298970192
@@ -1533,7 +1533,7 @@ MonoBehaviour:
       m_Calls: []
   isBlockDrag: 0
   useDefaultClickSound: 1
-  defaultClickSoundType: 0
+  defaultClickSoundType: 3
   reactionType: 0
   swappers: []
 --- !u!1 &6302261656983624323

@@ -13,6 +13,10 @@ namespace CookApps.TeamBattle.UIManagements
     {
         None = -1,
         Basic,
+        Splash,
+        Battle,
+        Confirm,
+        Negative,
         Custom_0,
         Custom_1,
         Custom_2,
@@ -33,6 +37,7 @@ namespace CookApps.TeamBattle.UIManagements
         [SerializeField] private bool isBlockDrag = false;
         [SerializeField] private bool useDefaultClickSound = true;
         [SerializeField] private DefaultClickSoundType defaultClickSoundType;
+        public DefaultClickSoundType DefaultClickSoundType { get => defaultClickSoundType; set => defaultClickSoundType = value; }
         [SerializeField] private ReactionType reactionType = ReactionType.None;       
         [SerializeField] private SimpleSwapper[] swappers;
         public static event Action<DefaultClickSoundType> OnPlayDefaultClickSound;

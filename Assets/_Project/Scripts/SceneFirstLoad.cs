@@ -54,7 +54,7 @@ namespace CookApps.AutoBattler
             NativeLeakDetection.Mode = NativeLeakDetectionMode.EnabledWithStackTrace;
 #endif
             SceneTransition.Create<SceneTransition_FadeInOut>();
-            await SceneTransition.FadeInAsync();
+            await SceneTransition.FadeInAsync(playSound: false);
             SceneUILayerManager.Instance.ChangeScene("Title");
 
             Debug.Log("SceneFirstLoad Awake -2");

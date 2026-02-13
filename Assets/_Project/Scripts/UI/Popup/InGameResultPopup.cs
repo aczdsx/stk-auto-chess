@@ -70,9 +70,9 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _exitButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnExitButtonClickedAsync(), AwaitOperation.Drop).AddTo(this);
-            _nextStageButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnNextStageButtonClickedAsync(), AwaitOperation.Drop).AddTo(this);
-            _retryStageButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickRetryStageButtonAsync(), AwaitOperation.Drop).AddTo(this);
+            SetupButton(_exitButton, self => self.OnExitButtonClickedAsync());
+            SetupButton(_nextStageButton, self => self.OnNextStageButtonClickedAsync());
+            SetupButton(_retryStageButton, self => self.OnClickRetryStageButtonAsync());
         }
 
         protected override void OnBackButton(ref bool offPrevUI) { }
@@ -107,17 +107,13 @@ namespace CookApps.AutoBattler
 
             }
 
-            var _star = _popupParam.IsVictory ? 1 : 0;
-            if (_popupParam.IsStarTime)
-                _star++;
-            if (_popupParam.IsStarNoDeath)
-                _star++;
+            var calculateStar = CalculateStar();
             // 상단 별 상태 갱신
             for (int i = 0; i < _starList.Count; i++)
             {
-                _starList[i].SetActive(_star > i);
+                _starList[i].SetActive(calculateStar > i);
             }
-
+            
             // 하단 별+조건 상태 갱신
             if (_popupParam.IsVictory)
             {
@@ -203,6 +199,24 @@ namespace CookApps.AutoBattler
 
             // 앱이벤트 전송
             SendStageEndAppEvent(InGameManager.Instance.AppEventResult, InGameManager.Instance.AppEventReason);
+        }
+
+        private void SetupButton(CAButton button, Func<InGameResultPopup, UniTask> handler, AwaitOperation operation = AwaitOperation.Drop)
+        {
+            if (button == null) return;
+            button.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => handler(self), operation).AddTo(this);
+            button.DefaultClickSoundType = DefaultClickSoundType.Confirm;
+        }
+
+        private int CalculateStar()
+        {
+            var star = _popupParam.IsVictory ? 1 : 0;
+            if (_popupParam.IsStarTime)
+                star++;
+            if (_popupParam.IsStarNoDeath)
+                star++;
+            
+            return star;
         }
 
         private async UniTask OnExitButtonClickedAsync()
@@ -368,6 +382,16 @@ namespace CookApps.AutoBattler
 
             AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.id, InGameManager.Instance.SpecStage.stage_id, battleTime, myDeck?.CharacterPlacements.Count ?? 0,
                 myDeckPower, enemyPower, result, reason, clearCondition);
+        }
+
+        private void OnStarAnimationEndSound(int starIdx)
+        {
+            //인덱스는 0,1,2로 올것
+            var calculateStar = CalculateStar();
+            if(starIdx > calculateStar - 1)
+                return;
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_clear_star);
+
         }
     }
 }

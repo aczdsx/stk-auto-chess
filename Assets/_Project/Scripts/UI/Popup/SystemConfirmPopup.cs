@@ -43,8 +43,12 @@ namespace CookApps.AutoBattler
             base.Awake();
 
             _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            
             _cancelButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
+            _cancelButton.DefaultClickSoundType = DefaultClickSoundType.Negative;
+            
             _confirmButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickConfirmButton()).AddTo(this);
+            _confirmButton.DefaultClickSoundType = DefaultClickSoundType.Confirm;
         }
 
         protected override void OnPreEnter(object param)

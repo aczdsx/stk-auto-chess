@@ -9,7 +9,7 @@ public enum SoundBGM
     NONE = -1,
 
     snd_bgm_splash01,
-    snd_bgm_lobby,
+    snd_bgm_command01,
     snd_bgm_chapter0,
     snd_bgm_chapter1,
     snd_bgm_chapter2,
@@ -42,6 +42,7 @@ public enum SoundFX
     snd_sfx_ingame_result_defeat_001,
     snd_sfx_ui_btn_splash,
     snd_sfx_ui_transition,
+    snd_sfx_ui_btn_battle,
     snd_sfx_ui_btn_battle_start,
     snd_sfx_pvp_result_victory,
     snd_sfx_pvp_result_defeat,
@@ -422,8 +423,29 @@ public class SoundManager : Singleton<SoundManager>
         this.UpdateOption();
         CAButton.OnPlayDefaultClickSound += soundType =>
         {
-            if (soundType == DefaultClickSoundType.Basic)
-                PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+            switch (soundType)
+            {
+                case DefaultClickSoundType.Basic:
+                    PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+                    break;
+                case DefaultClickSoundType.Splash:
+                    PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
+                    break;
+                case  DefaultClickSoundType.Battle:
+                    PlaySFX(SoundFX.snd_sfx_ui_btn_battle);
+                    break;
+                case DefaultClickSoundType.Confirm:
+                    PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
+                    break;
+                case DefaultClickSoundType.Negative:
+                    PlaySFX(SoundFX.snd_sfx_ui_btn_negative);
+                    break;
+            }
+        };
+        SceneTransition.OnTransitionSound += type =>
+        {
+            if (type == SceneTransition.TransitionType.FadeIn)
+                PlaySFX(SoundFX.snd_sfx_ui_transition);
         };
     }
 

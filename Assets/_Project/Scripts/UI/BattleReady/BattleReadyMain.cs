@@ -160,7 +160,7 @@ namespace CookApps.AutoBattler
             RefreshUI(LobbyMainRefreshType.ALL);
 
             // bgm on
-            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
+            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_command01);
 
             var guideMissionModel = ServerDataManager.Instance.GuideMission;
 

@@ -303,6 +303,7 @@ public class TutorialController : MonoBehaviour
     /// </summary>
     private void ProceedToNext()
     {
+        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
         if (_tutorialListIndex + 1 >= _currentSpecTutorialList.Count)
         {
             Debug.LogColor("튜토리얼 종료", "green");

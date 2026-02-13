@@ -249,6 +249,8 @@ namespace CookApps.AutoBattler
 
         private void InitTitleMain()
         {
+            touchToStart.GetComponent<CAButton>().DefaultClickSoundType = DefaultClickSoundType.Splash;
+
             if (LocalDataManager.Instance.GetRecentAuthData() == null)
             {
                 // 게스트 로그인 only

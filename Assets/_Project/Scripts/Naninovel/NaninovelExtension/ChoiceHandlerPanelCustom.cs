@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using CookApps.TeamBattle;
 using LitMotion;
 using LitMotion.Extensions;
+using Naninovel;
 using Naninovel.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -65,6 +67,13 @@ namespace CookApps.AutoBattler
             }
 
             _dimButton.onClick.AddListener(OnDimClicked);
+        }
+
+        public override void AddChoiceButton(ChoiceState choice)
+        {
+            base.AddChoiceButton(choice);
+            var lastButton = ChoiceButtons[^1];
+            lastButton.OnButtonClicked += () => SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
         }
 
         private void OnDimClicked()
