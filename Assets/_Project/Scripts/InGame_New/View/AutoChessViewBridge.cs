@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CookApps.AutoChess.View
@@ -11,25 +12,25 @@ namespace CookApps.AutoChess.View
         private LocalSimulationRunner _runner;
         private UnitViewManager _unitViewManager;
         private CombatViewManager _combatViewManager;
-        private HUDManager _hudManager;
         private BoardGridView _boardGridView;
+        private AutoChessUIBase _autoChessUI;
+        private BoardInputHandler _boardInputHandler;
 
         public void Setup(
             LocalSimulationRunner runner,
             UnitViewManager unitViewManager,
             CombatViewManager combatViewManager,
-            HUDManager hudManager,
             BoardGridView boardGridView)
         {
             _runner = runner;
             _unitViewManager = unitViewManager;
             _combatViewManager = combatViewManager;
-            _hudManager = hudManager;
             _boardGridView = boardGridView;
         }
 
         private GamePhase _lastPhase;
         private int _localPlayerIndex;  // 로컬 플레이어 보드 인덱스
+        private UniTaskCompletionSource _viewsReadySource;
 
         // ── 초기화 ──
 
@@ -39,12 +40,15 @@ namespace CookApps.AutoChess.View
 
             _unitViewManager.Initialize();
             _combatViewManager.Initialize();
-            _hudManager.Initialize();
             _boardGridView.Initialize();
 
             _unitViewManager.SetActiveBoard(_localPlayerIndex);
 
-            // 이벤트 구독
+            // View 로딩 완료 이벤트 구독
+            _viewsReadySource = new UniTaskCompletionSource();
+            _unitViewManager.OnAllBoardViewsReady += () => _viewsReadySource.TrySetResult();
+
+            // 시뮬레이션 이벤트 구독
             _runner.OnTick += HandleTick;
             _runner.OnPhaseChanged += HandlePhaseChanged;
         }
@@ -75,8 +79,8 @@ namespace CookApps.AutoChess.View
                 _unitViewManager.SyncBoardUnits(world);
             }
 
-            // HUD 갱신
-            UpdateHUD(world);
+            // UI 갱신 (벤치 + HUD 통합)
+            _autoChessUI?.SyncState(world);
         }
 
         private void HandlePhaseChanged(GamePhase prevPhase, GamePhase newPhase)
@@ -89,18 +93,22 @@ namespace CookApps.AutoChess.View
                     _unitViewManager.OnCombatEnd();
                     _combatViewManager.OnCombatEnd();
                     _boardGridView.OnPreparation();
-                    _hudManager.OnPhaseChanged(newPhase);
+                    _autoChessUI?.OnPhaseChanged(newPhase);
+                    if (_autoChessUI != null) _autoChessUI.gameObject.SetActive(true);
+                    _boardInputHandler?.SetEnabled(true);
                     break;
 
                 case GamePhase.Combat:
                     _unitViewManager.OnCombatStart();
                     _combatViewManager.OnCombatStart();
                     _boardGridView.OnCombatStart();
-                    _hudManager.OnPhaseChanged(newPhase);
+                    _autoChessUI?.OnPhaseChanged(newPhase);
+                    if (_autoChessUI != null) _autoChessUI.gameObject.SetActive(false);
+                    _boardInputHandler?.SetEnabled(false);
                     break;
 
                 case GamePhase.Result:
-                    _hudManager.OnPhaseChanged(newPhase);
+                    _autoChessUI?.OnPhaseChanged(newPhase);
                     break;
             }
         }
@@ -174,31 +182,35 @@ namespace CookApps.AutoChess.View
                     break;
 
                 case SimEventType.GoldChanged:
-                    _hudManager.OnGoldChanged(evt.PlayerIndex, evt.Value0, evt.Value1);
+                    _autoChessUI?.OnGoldChanged(evt.PlayerIndex, evt.Value0, evt.Value1);
                     break;
 
                 case SimEventType.LevelUp:
-                    _hudManager.OnLevelUp(evt.PlayerIndex, evt.Value0);
+                    _autoChessUI?.OnLevelUp(evt.PlayerIndex, evt.Value0);
                     break;
 
                 case SimEventType.PlayerEliminated:
-                    _hudManager.OnPlayerEliminated(evt.PlayerIndex, evt.Value0);
+                    _autoChessUI?.OnPlayerEliminated(evt.PlayerIndex, evt.Value0);
                     break;
 
                 case SimEventType.CombatResult:
-                    _hudManager.OnCombatResult(evt.PlayerIndex, evt.Value0);
+                    _autoChessUI?.OnCombatResult(evt.PlayerIndex, evt.Value0);
                     break;
             }
         }
 
-        // ── HUD 갱신 ──
+        // ── 로딩 대기 ──
 
-        private void UpdateHUD(GameWorld world)
+        /// <summary>모든 보드 뷰의 캐릭터 비주얼 로딩 완료 대기</summary>
+        public UniTask WaitForAllViewsReady()
         {
-            float timerSeconds = world.PhaseTimerFrames / (float)world.TickRate;
-            _hudManager.UpdateTimer(timerSeconds);
-            _hudManager.UpdatePlayerInfo(world, _localPlayerIndex);
+            return _viewsReadySource.Task;
         }
+
+        // ── UI 연결 ──
+
+        public void SetAutoChessUI(AutoChessUIBase ui) => _autoChessUI = ui;
+        public void SetBoardInputHandler(BoardInputHandler handler) => _boardInputHandler = handler;
 
         // ── 관전 보드 변경 ──
 

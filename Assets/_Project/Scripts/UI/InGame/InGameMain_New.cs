@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using CookApps.AutoChess;
 using CookApps.AutoChess.View;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -13,29 +15,102 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            StartAutoChess().Forget();
+
+            if (param is InGameMainParams inGameParams)
+            {
+                StartAutoChess(inGameParams).Forget();
+            }
+            else
+            {
+                Debug.LogError($"[InGameMain_New] Invalid param type: {param?.GetType().Name ?? "null"}");
+            }
         }
 
-        private async UniTask StartAutoChess()
+        private async UniTask StartAutoChess(InGameMainParams inGameParams)
         {
-            int stageId = 1; // TODO: param에서 추출
+            var stageInfo = SpecDataManager.Instance.GetStageData(inGameParams.StageId);
+
+            // 스테이지 map_size 파싱
+            int boardWidth = 7, boardHeight = 4;
+            if (stageInfo != null && !string.IsNullOrEmpty(stageInfo.map_size))
+            {
+                var parts = stageInfo.map_size.Split(',');
+                if (parts.Length >= 2)
+                {
+                    int.TryParse(parts[0], out boardWidth);
+                    int.TryParse(parts[1], out boardHeight);
+                }
+            }
+
+            // Config 생성 (모드별 분기 + 보드 크기 덮어쓰기)
+            var config = CreateConfigForMode(inGameParams, boardWidth, boardHeight);
 
             // ViewRoot 생성 → 리소스 로드 → 초기화
             var rootObj = new GameObject("AutoChessRoot");
             _viewRoot = rootObj.AddComponent<AutoChessViewRoot>();
-            await _viewRoot.LoadResources(stageId);
+            await _viewRoot.LoadResources(inGameParams.StageId, config.GameMode);
             _viewRoot.Initialize();
 
-            // 시뮬레이션 시작
-            _viewRoot.Runner.StartSimulation();
+            // 시드 설정 + 시뮬레이션 시작 (config 전달)
+            _viewRoot.Runner.RandomSeed = (ulong)inGameParams.RandomSeed;
+            _viewRoot.Runner.StartSimulation(config);
 
             // View 브릿지 초기화
             _viewRoot.ViewBridge.Initialize(localPlayerIndex: 0);
 
-            // 테스트 유닛
-            SpawnTestUnits(_viewRoot.Runner.GetWorld());
+            // 덱 유닛을 벤치에 생성 + 적 데이터 준비
+            var world = _viewRoot.Runner.GetWorld();
+            var entityDisplayMap = CreateDeckUnitsOnBench(world);
+            PrepareEnemyData(world, inGameParams.StageId);
 
-            Debug.Log("[InGameMain_New] AutoChess started with test units.");
+            // BoardInputHandler 생성
+            var boardInputObj = new GameObject("BoardInputHandler");
+            boardInputObj.transform.SetParent(_viewRoot.transform);
+            var boardInput = boardInputObj.AddComponent<BoardInputHandler>();
+
+            // AutoChessUI 동적 생성 (모드별 프리팹)
+            AutoChessUIBase autoChessUI = null;
+            if (_viewRoot.AutoChessUIPrefab != null)
+            {
+                var uiObj = Instantiate(_viewRoot.AutoChessUIPrefab, transform);
+                autoChessUI = uiObj.GetComponent<AutoChessUIBase>();
+            }
+
+            if (autoChessUI != null)
+            {
+                autoChessUI.Initialize(
+                    _viewRoot.ViewBridge,
+                    boardInput,
+                    entityDisplayMap);
+                _viewRoot.ViewBridge.SetAutoChessUI(autoChessUI);
+            }
+
+            // BoardInputHandler 초기화
+            var cam = Camera.main;
+            boardInput.Initialize(
+                cam,
+                _viewRoot.ViewBridge,
+                _viewRoot.UnitViewManager,
+                screenPos => autoChessUI != null && autoChessUI.IsPointInScrollRect(screenPos));
+            _viewRoot.ViewBridge.SetBoardInputHandler(boardInput);
+
+            Debug.Log("[InGameMain_New] AutoChess started.");
+
+            // 캐릭터 비주얼 로딩 완료 대기 (첫 틱에서 SyncBoardUnits → View 생성 → 로딩 완료 이벤트)
+            await _viewRoot.ViewBridge.WaitForAllViewsReady();
+
+            // 카메라 설정
+            var inGameCamera = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera);
+            if (inGameCamera != null)
+            {
+                var mode = boardWidth > 5
+                    ? InGameCamera.CameraPositionMode.LargeSize
+                    : InGameCamera.CameraPositionMode.Default;
+                inGameCamera.SetCameraPositionMode(mode);
+                inGameCamera.SetForceCameraRotation(new Vector3(30f, 45f, 0f));
+            }
+
+            SceneTransition.FadeOutAsync();
         }
 
         protected override void OnPostExit()
@@ -44,63 +119,144 @@ namespace CookApps.AutoBattler
             base.OnPostExit();
         }
 
-        /// <summary>
-        /// 테스트용 유닛 자동 생성.
-        /// ChampionPool에서 사용 가능한 챔피언을 뽑아 각 플레이어 보드에 배치.
-        /// </summary>
-        private void SpawnTestUnits(GameWorld world)
+        // ── 모드별 Config 생성 ──
+
+        private GameConfig CreateConfigForMode(InGameMainParams inGameParams, int boardWidth, int boardHeight)
         {
-            if (world == null) return;
-
-            int playerCount = world.Config.PlayerCount;
-            int poolCount = world.Pool.SpecCount;
-
-            if (poolCount == 0)
+            GameConfig config;
+            switch (inGameParams.InGameType)
             {
-                Debug.LogWarning("[InGameMain_New] ChampionPool이 비어있습니다. 하드코딩 ID로 생성합니다.");
-                SpawnHardcodedUnits(world, playerCount);
+                case InGameType.STAGE:
+                case InGameType.TRIAL:
+                case InGameType.TRIAL_BOSS:
+                    config = GameConfig.ClassicBattle();
+                    break;
+                case InGameType.PVP:
+                    config = GameConfig.Competitive();
+                    break;
+                default:
+                    config = GameConfig.ClassicBattle();
+                    break;
+            }
+            config.BoardWidth = boardWidth;
+            config.BoardHeight = boardHeight;
+            return config;
+        }
+
+        // ── 덱 유닛을 벤치에 생성 ──
+
+        private Dictionary<int, CharacterDisplayInfo> CreateDeckUnitsOnBench(GameWorld world)
+        {
+            var map = new Dictionary<int, CharacterDisplayInfo>();
+            if (world == null) return map;
+
+            // 서버 덱 데이터에서 캐릭터 목록 가져오기
+            var deckData = ServerDataManager.Instance.Deck.GetDeck(InGameType.STAGE);
+            if (deckData != null && deckData.CharacterPlacements.Count > 0)
+            {
+                foreach (var placement in deckData.CharacterPlacements)
+                {
+                    var charData = ServerDataManager.Instance.Character.GetCharacter(placement.CharacterId);
+                    if (charData == null) continue;
+
+                    int champSpecId = (int)charData.CharacterId;
+                    byte starLevel = 1; // TODO: 서버 데이터에서 별 레벨 매핑
+
+                    int entityId = BoardSystem.CreateUnit(world, 0, champSpecId, starLevel);
+                    if (entityId == UnitData.InvalidId) continue;
+
+                    map[entityId] = new CharacterDisplayInfo
+                    {
+                        ChampionSpecId = champSpecId,
+                        StarLevel = starLevel,
+                        Level = (int)charData.Level,
+                        ServerCharacterId = charData.CharacterId,
+                    };
+                }
+
+                Debug.Log($"[InGameMain_New] Created {map.Count} deck units on bench.");
+                return map;
+            }
+
+            // 폴백: ChampionPool에서 테스트용 유닛 생성 (벤치에만)
+            Debug.LogWarning("[InGameMain_New] 덱 데이터 없음. ChampionPool에서 테스트 유닛 생성.");
+            int poolCount = world.Pool != null ? world.Pool.SpecCount : 0;
+            int unitsToCreate = Mathf.Min(3, Mathf.Max(poolCount, 1));
+
+            for (int u = 0; u < unitsToCreate; u++)
+            {
+                int champId = poolCount > 0 ? world.Pool.Specs[u % poolCount].ChampionId : 1;
+                int entityId = BoardSystem.CreateUnit(world, 0, champId, 1);
+                if (entityId == UnitData.InvalidId) continue;
+
+                map[entityId] = new CharacterDisplayInfo
+                {
+                    ChampionSpecId = champId,
+                    StarLevel = 1,
+                    Level = 1,
+                };
+            }
+
+            return map;
+        }
+
+        // ── PvE 적 데이터 준비 (전투 시작 시 CombatUnit으로 변환됨) ──
+
+        private void PrepareEnemyData(GameWorld world, int stageId)
+        {
+            var stageInfo = SpecDataManager.Instance.GetStageData(stageId);
+            if (stageInfo == null)
+            {
+                Debug.LogWarning($"[InGameMain_New] StageInfo not found for stageId={stageId}");
                 return;
             }
 
-            // ChampionPool에서 순서대로 챔피언 ID를 가져와 배치
-            // 플레이어당 3~4 유닛을 2열로 배치
-            for (int p = 0; p < playerCount; p++)
+            var monsters = SpecDataManager.Instance.GetStageMonsterList(
+                stageInfo.chapter_id, stageInfo.stage_number, stageInfo.difficulty_type);
+            if (monsters == null || monsters.Count == 0)
             {
-                int unitsToPlace = 3;
-                int specOffset = p * unitsToPlace; // 각 플레이어가 다른 챔피언을 갖도록 오프셋
+                Debug.LogWarning($"[InGameMain_New] StageMonster not found for chapter={stageInfo.chapter_id}, stage={stageInfo.stage_number}");
+                return;
+            }
 
-                for (int u = 0; u < unitsToPlace; u++)
+            foreach (var monster in monsters)
+            {
+                if (world.PvEEnemyCount >= GameWorld.MaxPvEEnemies) break;
+
+                var parts = monster.coordinate.Split(',');
+                if (parts.Length < 2) continue;
+                int.TryParse(parts[0], out int col);
+                int.TryParse(parts[1], out int row);
+
+                var spec = SpecDataManager.Instance.GetSpecCharacter(monster.monster_id);
+                if (spec == null)
                 {
-                    int specIdx = (specOffset + u) % poolCount;
-                    int champId = world.Pool.Specs[specIdx].ChampionId;
-
-                    int entityId = BoardSystem.CreateUnit(world, (byte)p, champId, 1);
-                    if (entityId == UnitData.InvalidId) continue;
-
-                    // 2열 배치: col = u, row = 0~1
-                    byte col = (byte)(u % PlayerBoard.BoardWidth);
-                    byte row = (byte)(u / PlayerBoard.BoardWidth);
-                    BoardSystem.PlaceUnit(world, (byte)p, entityId, col, row);
+                    Debug.LogWarning($"[InGameMain_New] Spec not found for monster_id={monster.monster_id}");
+                    continue;
                 }
 
-                Debug.Log($"[InGameMain_New] P{p}: {unitsToPlace} units placed from pool.");
-            }
-        }
+                ref var enemy = ref world.PvEEnemies[world.PvEEnemyCount++];
+                enemy.ChampionSpecId = monster.monster_id;
+                enemy.GridCol = (byte)col;
+                enemy.GridRow = (byte)row;
+                enemy.SizeW = 1;
+                enemy.SizeH = 1;
 
-        private void SpawnHardcodedUnits(GameWorld world, int playerCount)
-        {
-            // ChampionPool이 없을 때 fallback (챔피언 ID 1로 생성)
-            for (int p = 0; p < playerCount; p++)
-            {
-                for (int u = 0; u < 3; u++)
-                {
-                    int entityId = BoardSystem.CreateUnit(world, (byte)p, 1, 1);
-                    if (entityId == UnitData.InvalidId) continue;
-
-                    byte col = (byte)u;
-                    BoardSystem.PlaceUnit(world, (byte)p, entityId, col, 0);
-                }
+                // 기본 스탯 + 스테이지 배율 적용
+                enemy.MaxHP = (int)(spec.stat_hp * monster.multiple_hp);
+                enemy.Attack = (int)(spec.stat_atk * monster.multiple_atk);
+                enemy.Armor = spec.stat_def;
+                enemy.MagicResist = (int)spec.ap_reduce;
+                enemy.AttackSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
+                enemy.AttackRange = spec.atk_range > 0 ? spec.atk_range : 1;
+                enemy.MoveSpeed = Mathf.Max(1, (int)(spec.move_speed * 100));
+                enemy.MaxMana = 100;
+                enemy.TraitFlags = 0;
+                enemy.SkillSpecId = (spec.skill_ids != null && spec.skill_ids.Length > 0)
+                    ? spec.skill_ids[0] : 0;
             }
+
+            Debug.Log($"[InGameMain_New] PvE enemy data prepared: {world.PvEEnemyCount} from stage {stageId}");
         }
     }
 }

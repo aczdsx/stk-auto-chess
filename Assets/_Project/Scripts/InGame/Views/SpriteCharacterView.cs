@@ -4,6 +4,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using LitMotion;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -138,8 +139,15 @@ namespace CookApps.AutoBattler
             LookAt(new Vector2(currentTile.X, currentTile.Y), new Vector2(targetTile.X, targetTile.Y));
         }
 
+        public void LookAt(int2 src, int2 dest)
+        {
+            LookAt(new Vector2(src.x, src.y), new Vector2(dest.x, dest.y));
+        }
+
         public void LookAt(Vector2 src, Vector2 dest)
         {
+            var prevCachedFlipX = _cachedFlipX;
+            var prevCachedFront = _cachedFront;
             float deltaX = dest.x - src.x;
             float deltaY = dest.y - src.y;
 
@@ -168,7 +176,11 @@ namespace CookApps.AutoBattler
             //     _cachedFront = true;
             // }
 
-            SetFlipOrNot();
+            if (prevCachedFlipX != _cachedFlipX)
+                SetFlipOrNot();
+
+            if (prevCachedFront != _cachedFront && _animator != null)
+                _animator.SetBool(IsFront, _cachedFront);
         }
 
         public void LookAt(Direction dir)
@@ -379,7 +391,7 @@ namespace CookApps.AutoBattler
             if (_animator != null)
                 _animator.SetBool(IsFront, _cachedFront);
         }
-        
+
         public void AddViewScale(float viewScale)
         {
             _viewScaleHandle.TryCancel();

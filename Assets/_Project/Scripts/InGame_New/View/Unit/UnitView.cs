@@ -22,6 +22,7 @@ namespace CookApps.AutoChess.View
         public int EntityId { get; private set; }
         public int CombatId { get; private set; } = CombatUnit.InvalidId;
         public bool IsCombatUnit { get; private set; }
+        public bool IsReady => _characterView != null;
 
         private Vector3 _targetPosition;
         private float _interpolationSpeed = 15f;
@@ -36,6 +37,7 @@ namespace CookApps.AutoChess.View
         private SpriteCharacterView _characterView;
         private AsyncOperationHandle<GameObject> _loadHandle;
         private CombatState _lastState = CombatState.Idle;
+        private Vector3? _pendingFacingTarget;
 
         // ── 초기화 ──
 
@@ -87,6 +89,12 @@ namespace CookApps.AutoChess.View
 
             _characterView = go.GetComponent<SpriteCharacterView>();
             _characterView?.PlayAnimation(AnimationKey.IDLE);
+
+            if (_pendingFacingTarget.HasValue)
+            {
+                UpdateFacing(_pendingFacingTarget.Value);
+                _pendingFacingTarget = null;
+            }
         }
 
         private void ReleaseCharacterVisual()
@@ -173,11 +181,15 @@ namespace CookApps.AutoChess.View
 
         public void UpdateFacing(Vector3 targetWorldPos)
         {
-            if (_characterView == null) return;
+            if (_characterView == null)
+            {
+                _pendingFacingTarget = targetWorldPos;
+                return;
+            }
             var myPos = transform.position;
             _characterView.LookAt(
-                new Vector2(myPos.x, myPos.z),
-                new Vector2(targetWorldPos.x, targetWorldPos.z));
+                new Vector2(myPos.z, myPos.x),
+                new Vector2(targetWorldPos.z, targetWorldPos.x));
         }
 
         // ── 비활성화 ──

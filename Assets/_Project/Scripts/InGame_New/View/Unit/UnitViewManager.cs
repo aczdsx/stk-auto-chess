@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using UnityEngine;
@@ -18,6 +19,10 @@ namespace CookApps.AutoChess.View
         private readonly Dictionary<int, UnitView> _combatUnitViews = new(); // CombatId → View
         private readonly List<UnitView> _pool = new();
         private int _activeBoardIndex;
+        private bool _initialViewsReady;
+
+        /// <summary>첫 보드 뷰 로딩이 모두 완료되면 발화</summary>
+        public event Action OnAllBoardViewsReady;
 
         public void SetPrefab(UnitView prefab, int poolSize = 64)
         {
@@ -53,7 +58,7 @@ namespace CookApps.AutoChess.View
 
                 // 보드 유닛
                 var boardSlots = world.BoardSlots[p];
-                for (int slot = 0; slot < PlayerBoard.BoardSize; slot++)
+                for (int slot = 0; slot < world.BoardSize; slot++)
                 {
                     int entityId = boardSlots[slot];
                     if (entityId == UnitData.InvalidId) continue;
@@ -80,28 +85,28 @@ namespace CookApps.AutoChess.View
                     else
                         view.SetPositionImmediate(worldPos);
                 }
+            }
 
-                // 벤치 유닛
-                var benchSlots = world.BenchSlots[p];
-                for (int slot = 0; slot < PlayerBoard.BenchSize; slot++)
-                {
-                    int entityId = benchSlots[slot];
-                    if (entityId == UnitData.InvalidId) continue;
+            // PvE 적 프리뷰 (준비 페이즈에서 적 위치 표시)
+            for (int i = 0; i < world.PvEEnemyCount; i++)
+            {
+                ref var enemy = ref world.PvEEnemies[i];
+                int pseudoId = -(i + 1); // 음수 ID로 실제 EntityId와 구분
+                activeIds.Add(pseudoId);
 
-                    int unitIdx = world.FindUnitIndex(entityId);
-                    if (unitIdx < 0) continue;
+                // PvE 좌표는 이미 전투 그리드 기준 (예: (0,6), (3,4))
+                int mirrorCol = enemy.GridCol;
+                int mirrorRow = enemy.GridRow;
 
-                    ref var unit = ref world.Units[unitIdx];
-                    activeIds.Add(entityId);
+                Vector3 worldPos = BoardWorldHelper.CombatGridToWorld(_activeBoardIndex, mirrorCol, mirrorRow)
+                    + BoardWorldHelper.GetFootprintCenterOffset(enemy.SizeW, enemy.SizeH);
 
-                    Vector3 worldPos = BoardWorldHelper.BenchToWorld(p, slot);
+                var view = GetOrCreateBoardView(pseudoId, enemy.ChampionSpecId, 1);
+                view.SetPositionImmediate(worldPos);
 
-                    var view = GetOrCreateBoardView(entityId, unit.ChampionSpecId, unit.StarLevel);
-                    if (isActive)
-                        view.SetTargetPosition(worldPos);
-                    else
-                        view.SetPositionImmediate(worldPos);
-                }
+                // 적은 플레이어 쪽(하단)을 바라봄
+                Vector3 lookTarget = BoardWorldHelper.CombatGridToWorld(_activeBoardIndex, mirrorCol, 0);
+                view.UpdateFacing(lookTarget);
             }
 
             // 존재하지 않는 뷰 제거
@@ -116,6 +121,19 @@ namespace CookApps.AutoChess.View
                 ReturnToPool(_boardUnitViews[id]);
                 _boardUnitViews.Remove(id);
             }
+
+            CheckInitialViewsReady();
+        }
+
+        private void CheckInitialViewsReady()
+        {
+            if (_initialViewsReady || _boardUnitViews.Count == 0) return;
+            foreach (var view in _boardUnitViews.Values)
+            {
+                if (!view.IsReady) return;
+            }
+            _initialViewsReady = true;
+            OnAllBoardViewsReady?.Invoke();
         }
 
         // ── 전투 유닛 동기화 (Combat) ──
@@ -225,6 +243,13 @@ namespace CookApps.AutoChess.View
         public void SetActiveBoard(int boardIndex)
         {
             _activeBoardIndex = boardIndex;
+        }
+
+        /// <summary>EntityId로 보드 UnitView 조회 (보드 드래그용)</summary>
+        public UnitView FindBoardView(int entityId)
+        {
+            _boardUnitViews.TryGetValue(entityId, out var view);
+            return view;
         }
 
         // ── 풀 관리 ──

@@ -21,6 +21,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4bd3cf3a86fb942cdb99a6c9a574a183
+    m_Address: Assets/_Project/Addressables/Remote/0. Scenes/InGame_New.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 61e7bd672efcc4045915939216d08afd
     m_Address: Assets/_Project/Addressables/Remote/0. Scenes/Lobby.unity
     m_ReadOnly: 0

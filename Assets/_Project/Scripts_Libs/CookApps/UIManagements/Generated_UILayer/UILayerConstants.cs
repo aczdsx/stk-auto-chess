@@ -75,6 +75,7 @@ namespace CookApps.TeamBattle.UIManagements
             return sceneName switch
             {
                 "Naninovel" => "Assets/_Project/Addressables/Remote/0. Scenes/Naninovel.unity",
+                "InGame_New" => "Assets/_Project/Addressables/Remote/0. Scenes/InGame_New.unity",
                 "Lobby" => "Assets/_Project/Addressables/Remote/0. Scenes/Lobby.unity",
                 "InGame" => "Assets/_Project/Addressables/Remote/0. Scenes/InGame.unity",
                 "SceneLoading" => "Assets/_Project/Addressables/Remote/0. Scenes/SceneLoading.unity",

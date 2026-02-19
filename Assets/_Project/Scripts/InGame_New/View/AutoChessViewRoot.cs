@@ -1,3 +1,4 @@
+using CookApps.AutoBattler;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -12,25 +13,39 @@ namespace CookApps.AutoChess.View
     {
         private GameObject _stagePrefab;
         private GameObject _unitViewPrefab;
+        private GameObject _autoChessUIPrefab;
         private GameObject _stageInstance;
         private LocalSimulationRunner _runner;
         private AutoChessViewBridge _viewBridge;
         private UnitViewManager _unitViewManager;
         private CombatViewManager _combatViewManager;
-        private HUDManager _hudManager;
         private BoardGridView _boardGridView;
 
         public LocalSimulationRunner Runner => _runner;
         public AutoChessViewBridge ViewBridge => _viewBridge;
+        public UnitViewManager UnitViewManager => _unitViewManager;
+        public GameObject AutoChessUIPrefab => _autoChessUIPrefab;
 
         // ── Addressables 리소스 로드 ──
 
-        public async UniTask LoadResources(int stageId)
+        public async UniTask LoadResources(int stageId, GameModeType gameMode)
         {
+            var stageInfo = SpecDataManager.Instance.GetStageData(stageId);
+            int chapterId = stageInfo?.chapter_id ?? stageId;
+
             _stagePrefab = await Addressables.LoadAssetAsync<GameObject>(
-                $"Prefabs/Stages/Ingame/Stage{stageId}.prefab");
+                $"Prefabs/Stages/Ingame/Stage{chapterId}.prefab");
             _unitViewPrefab = await Addressables.LoadAssetAsync<GameObject>(
                 "Prefabs/InGame/UnitView.prefab");
+
+            // 모드별 UI 프리팹 로드
+            string uiPath = gameMode switch
+            {
+                GameModeType.PvECampaign => "Prefabs/UI/InGame/AutoChessUI_Campaign.prefab",
+                GameModeType.Competitive => "Prefabs/UI/InGame/AutoChessUI_Competitive.prefab",
+                _ => "Prefabs/UI/InGame/AutoChessUI_Classic.prefab",
+            };
+            _autoChessUIPrefab = await Addressables.LoadAssetAsync<GameObject>(uiPath);
         }
 
         // ── 동적 초기화 (LoadResources 후 호출) ──
@@ -51,14 +66,9 @@ namespace CookApps.AutoChess.View
             _unitViewManager.SetPrefab(_unitViewPrefab.GetComponent<UnitView>());
             _combatViewManager = CreateChild<CombatViewManager>("CombatViewManager");
 
-            // HUD (스테이지에 포함 or 별도)
-            _hudManager = _stageInstance.GetComponentInChildren<HUDManager>();
-            if (_hudManager == null)
-                _hudManager = CreateChild<HUDManager>("HUDManager");
-
             // ViewBridge 와이어링
             _viewBridge = CreateChild<AutoChessViewBridge>("ViewBridge");
-            _viewBridge.Setup(_runner, _unitViewManager, _combatViewManager, _hudManager, _boardGridView);
+            _viewBridge.Setup(_runner, _unitViewManager, _combatViewManager, _boardGridView);
         }
 
         // ── 정리 ──
@@ -76,6 +86,11 @@ namespace CookApps.AutoChess.View
             {
                 Addressables.Release(_unitViewPrefab);
                 _unitViewPrefab = null;
+            }
+            if (_autoChessUIPrefab != null)
+            {
+                Addressables.Release(_autoChessUIPrefab);
+                _autoChessUIPrefab = null;
             }
         }
 
