@@ -159,6 +159,13 @@ public class SoundManager : Singleton<SoundManager>
 
     public bool IsReady => this.isReady;
 
+    public event Action<string> OnBGMChanged;
+
+    /// <summary>
+    /// BGM 플레이어 UI에서 사용자가 일시정지했는지 여부. PauseBGM(믹서 뮤트)과는 별개.
+    /// </summary>
+    public bool IsBGMPlayerPaused { get; private set; }
+
     public float BGMVolume { get; set; } = 1.0f;
     public float SFXVolume { get; set; } = 1.0f;
 
@@ -320,6 +327,31 @@ public class SoundManager : Singleton<SoundManager>
             _mixer.SetFloat("AMB", Convert.ToInt32(-80f + Preference.LoadPreference(Pref.BGM_V, 1f) * 80f)); // AMB(환경음) 볼륨 제어를 BGM에 포함
         }
         //AudioController.SetCategoryVolume("BGM", Preference.LoadPreference(Pref.BGM_V, 0.8f));
+    }
+
+    public string GetCurrentBGMId()
+    {
+        var current = AudioController.GetCurrentMusic();
+        return current != null ? current.audioID : null;
+    }
+
+    /// <summary>
+    /// BGM 플레이어 UI용 일시정지. AudioController를 통해 실제 재생을 멈춘다.
+    /// PauseBGM(믹서 볼륨 뮤트)과는 별개의 기능이다.
+    /// </summary>
+    public void PauseBGMPlayer(float fadeOut = 0f)
+    {
+        IsBGMPlayerPaused = true;
+        AudioController.PauseMusic(fadeOut);
+    }
+
+    /// <summary>
+    /// BGM 플레이어 UI용 재생 재개.
+    /// </summary>
+    public void UnPauseBGMPlayer(float fadeIn = 0f)
+    {
+        IsBGMPlayerPaused = false;
+        AudioController.UnpauseMusic(fadeIn);
     }
 
     public void PauseVOX()
@@ -566,7 +598,9 @@ public class SoundManager : Singleton<SoundManager>
 
         AudioController.StopMusic();
 
-        return AudioController.PlayMusic(audioID, BGMVolume);
+        var audioObj = AudioController.PlayMusic(audioID, BGMVolume);
+        OnBGMChanged?.Invoke(audioID);
+        return audioObj;
     }
 
     private ClockStone.AudioObject PlaySFX(string audioID)

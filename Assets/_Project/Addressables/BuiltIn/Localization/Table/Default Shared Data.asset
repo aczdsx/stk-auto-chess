@@ -5339,6 +5339,10 @@ MonoBehaviour:
     m_Key: UI_CHARACTER_LIST
     m_Metadata:
       m_Items: []
+  - m_Id: 10942155115028480
+    m_Key: "UI_HUBBLE\t"
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
