@@ -14,6 +14,8 @@ namespace CookApps.AutoChess
         [SerializeField] private GameModeType _gameMode = GameModeType.ClassicBattle;
         [SerializeField] private ulong _randomSeed = 12345;
 
+        public ulong RandomSeed { get => _randomSeed; set => _randomSeed = value; }
+
         private GameWorld _world;
         private readonly List<GameCommand> _pendingCommands = new();
         private GameCommand[] _commandBuffer = new GameCommand[32];

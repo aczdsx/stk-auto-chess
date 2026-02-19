@@ -42,6 +42,8 @@ namespace CookApps.AutoChess
         public int[] XPTable = { 0, 0, 2, 6, 10, 20, 36, 56, 80 };
 
         // ── 보드 설정 ──
+        public int BoardWidth = PlayerBoard.BoardWidth;
+        public int BoardHeight = PlayerBoard.BoardHeight;
         public int MaxBenchSlots = PlayerBoard.BenchSize;
 
         // ── 스테이지 설정 ──
@@ -123,7 +125,7 @@ namespace CookApps.AutoChess
             return new GameConfig
             {
                 GameMode = GameModeType.PvECampaign,
-                PlayerCount = 1,
+                PlayerCount = 2,
                 EnableShop = true,
                 EnableEconomy = true,
                 EnableSynergy = true,

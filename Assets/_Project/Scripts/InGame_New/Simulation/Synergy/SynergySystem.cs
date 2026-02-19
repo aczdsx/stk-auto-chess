@@ -26,7 +26,7 @@ namespace CookApps.AutoChess
             int countedCount = 0;
 
             var boardSlots = world.BoardSlots[playerIndex];
-            for (int slot = 0; slot < PlayerBoard.BoardSize; slot++)
+            for (int slot = 0; slot < world.BoardSize; slot++)
             {
                 int entityId = boardSlots[slot];
                 if (entityId == UnitData.InvalidId) continue;
