@@ -1,5 +1,9 @@
 using CookApps.AutoBattler;
+using CookApps.TeamBattle;
+using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -12,9 +16,15 @@ namespace CookApps.AutoChess.View
     public class BenchUnitSlot : MonoBehaviour,
         IBeginDragHandler, IDragHandler, IEndDragHandler
     {
+        [Header("Character Icon")]
+        [SerializeField] private Transform _characterIconRoot;
+
         [Header("Display")]
         [SerializeField] private Image _icon;
         [SerializeField] private Image _starIcon;
+        [SerializeField] private SpriteLoader _synergyElementLoader;
+        [SerializeField] private SpriteLoader _synergyClassLoader;
+        [SerializeField] private TMP_Text _lvText;
 
         public int EntityId { get; private set; } = UnitData.InvalidId;
 
@@ -22,6 +32,7 @@ namespace CookApps.AutoChess.View
         private AutoChessViewBridge _viewBridge;
         private BoardInputHandler _boardInput;
         private CharacterDisplayInfo _displayInfo;
+        private GameObject _loadedCharacterIcon;
 
         // 드래그 상태
         private bool _isDraggingToBoard;
@@ -48,13 +59,64 @@ namespace CookApps.AutoChess.View
 
         private void UpdateVisual()
         {
-            // TODO: 아이콘, 별 등 표시 정보 갱신
-            // 스펙에서 아이콘 경로를 조회하여 Addressables 로드
-            if (_displayInfo.ChampionSpecId > 0)
+            if (_displayInfo.ChampionSpecId <= 0) return;
+
+            var spec = SpecDataManager.Instance.GetSpecCharacter(_displayInfo.ChampionSpecId);
+            if (spec == null) return;
+
+            // 캐릭터 아이콘 로드 (Addressables 프리팹 인스턴스)
+            LoadCharacterIcon(spec.prefab_id).Forget();
+
+            // 레벨 표시
+            if (_lvText != null)
+                _lvText.text = _displayInfo.Level.ToString();
+
+            // 시너지 아이콘
+            _synergyElementLoader?.SetSprite(
+                SpriteNameParser.GetSpriteName(spec.character_element_type)).Forget();
+            _synergyClassLoader?.SetSprite(
+                SpriteNameParser.GetSpriteName(spec.character_stella_type)).Forget();
+
+            // 별 레벨 표시
+            UpdateStarDisplay();
+        }
+
+        private void UpdateStarDisplay()
+        {
+            if (_starIcon == null) return;
+            _starIcon.gameObject.SetActive(_displayInfo.StarLevel > 0);
+        }
+
+        // ── 캐릭터 아이콘 ──
+
+        private async UniTaskVoid LoadCharacterIcon(int prefabId)
+        {
+            ReleaseCharacterIcon();
+            ClearCharacterIconRoot();
+
+            string address = $"SD/{prefabId}/UI_{prefabId}.prefab";
+            _loadedCharacterIcon = await Addressables.InstantiateAsync(address, _characterIconRoot);
+        }
+
+        private void ClearCharacterIconRoot()
+        {
+            if (_characterIconRoot == null) return;
+            for (int i = _characterIconRoot.childCount - 1; i >= 0; i--)
+                Destroy(_characterIconRoot.GetChild(i).gameObject);
+        }
+
+        private void ReleaseCharacterIcon()
+        {
+            if (_loadedCharacterIcon != null)
             {
-                var spec = SpecDataManager.Instance.GetSpecCharacter(_displayInfo.ChampionSpecId);
-                // _icon.sprite = ...
+                Addressables.ReleaseInstance(_loadedCharacterIcon);
+                _loadedCharacterIcon = null;
             }
+        }
+
+        private void OnDisable()
+        {
+            ReleaseCharacterIcon();
         }
 
         // ── 드래그 핸들러 ──
