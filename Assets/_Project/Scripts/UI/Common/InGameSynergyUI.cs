@@ -206,9 +206,7 @@ namespace CookApps.AutoBattler
 
             var param = new SynergyTooltipIngameMiniPopup.PopupParam(
                 _synergyType,
-                _count,
                 _synergyData,
-                _nextSynergyData,
                 _buttonRect,
                 _isActive
             );

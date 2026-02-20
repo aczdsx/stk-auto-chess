@@ -59,7 +59,7 @@ namespace CookApps.AutoBattler
                     (typeof(VignetteSO), "Data/VignetteData.asset"),
                     (typeof(Item_Chapter_SO), "Data/UIElementData/Item_Chapter_SO.asset"),
                     (typeof(ColorDataScriptableObject), "Data/ColorData.asset"),
-                    (typeof(BGMDisplayNameSO), "Data/BGMDisplayNameData.asset")
+                    (typeof(AudioConfigSO), "Data/AudioConfig.asset")
                 })
             };
 

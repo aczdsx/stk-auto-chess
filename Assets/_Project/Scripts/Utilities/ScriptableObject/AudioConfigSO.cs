@@ -1,15 +1,17 @@
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.Audio;
 
 namespace CookApps.AutoBattler
 {
     /// <summary>
-    /// BGM AudioClip별 표시명을 관리하는 ScriptableObject.
-    /// SoDataProvider를 통해 로드되며, LobbyBGMPlayer에서 참조한다.
+    /// 오디오 설정 ScriptableObject. AudioMixer 참조 및 BGM 표시명을 관리한다.
+    /// SoDataProvider를 통해 로드되며, SoundManager·LobbyBGMPlayer에서 참조한다.
     /// </summary>
-    [CreateAssetMenu(fileName = "BGMDisplayNameData", menuName = "ScriptableObjects/BGMDisplayNameData")]
-    public class BGMDisplayNameSO : ScriptableObject
+    [CreateAssetMenu(fileName = "AudioConfigData", menuName = "ScriptableObjects/AudioConfigData")]
+    public class AudioConfigSO : ScriptableObject
     {
         [HideInInspector]
         public List<string> scanFolders = new()
@@ -18,10 +20,33 @@ namespace CookApps.AutoBattler
             "Assets/_Project/Addressables/Remote/Sounds/BGM",
         };
 
+        [SerializeField] private AssetReferenceT<AudioMixer> _audioMixerRef;
+
         [SerializedDictionary("Audio Clip", "Display Name")]
         public SerializedDictionary<AudioClip, string> bgmDisplayNames;
 
+        private AudioMixer _cachedMixer;
         private Dictionary<string, string> _runtimeCache;
+
+        /// <summary>
+        /// AudioMixer를 로드하여 반환한다. 이미 로드된 경우 캐시된 인스턴스를 반환한다.
+        /// </summary>
+        public AudioMixer LoadAudioMixer()
+        {
+            if (_cachedMixer != null) return _cachedMixer;
+            if (_audioMixerRef == null || !_audioMixerRef.RuntimeKeyIsValid()) return null;
+
+            if (_audioMixerRef.Asset != null)
+            {
+                _cachedMixer = _audioMixerRef.Asset as AudioMixer;
+            }
+            else
+            {
+                _cachedMixer = _audioMixerRef.LoadAssetAsync().WaitForCompletion();
+            }
+
+            return _cachedMixer;
+        }
 
         /// <summary>
         /// audioID에 대응하는 표시명을 반환한다. 매핑이 없으면 접두사를 제거한 폴백 이름을 반환한다.

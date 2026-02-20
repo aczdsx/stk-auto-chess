@@ -1,4 +1,5 @@
 using System;
+using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
@@ -171,7 +172,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public bool IsPlayingGacha { get; set; } = false;
 
-    [SerializeField] private AudioMixer _mixer;
+    private AudioMixer _mixer;
 
     public ClockStone.AudioObject PlayBGM(SoundBGM bgm)
     {
@@ -500,9 +501,7 @@ public class SoundManager : Singleton<SoundManager>
     private bool EnsureMixer()
     {
         if (_mixer) return true;
-        var mixers = Resources.FindObjectsOfTypeAll<AudioMixer>();
-        if (mixers.Length > 0)
-            _mixer = mixers[0];
+        _mixer = SoDataProvider.Instance.Get<AudioConfigSO>().LoadAudioMixer();
         if (!_mixer)
             Debug.LogError("[SoundManager] AudioMixer를 찾을 수 없습니다.");
         return _mixer;

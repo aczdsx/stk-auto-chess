@@ -4,11 +4,11 @@ using UnityEditor;
 using UnityEngine;
 
 /// <summary>
-/// BGMDisplayNameSO 커스텀 인스펙터.
-/// 스캔 폴더 관리, BGM 폴더 스캔, 검증 경고, 초기화 기능을 제공한다.
+/// AudioConfigSO 커스텀 인스펙터.
+/// AudioMixer 설정, 스캔 폴더 관리, BGM 폴더 스캔, 검증 경고, 초기화 기능을 제공한다.
 /// </summary>
-[CustomEditor(typeof(BGMDisplayNameSO))]
-public class BGMDisplayNameSOEditor : Editor
+[CustomEditor(typeof(AudioConfigSO))]
+public class AudioConfigSOEditor : Editor
 {
     /// <summary>
     /// 인스펙터 레이아웃을 그린다.
@@ -17,7 +17,14 @@ public class BGMDisplayNameSOEditor : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
-        var so = (BGMDisplayNameSO)target;
+        var so = (AudioConfigSO)target;
+
+        // ── AudioMixer ──
+        var mixerProp = serializedObject.FindProperty("_audioMixerRef");
+        if (mixerProp != null)
+            EditorGUILayout.PropertyField(mixerProp, new GUIContent("Audio Mixer"));
+
+        GUILayout.Space(10);
 
         // ── 스캔 폴더 설정 ──
         EditorGUILayout.LabelField("스캔 폴더", EditorStyles.boldLabel);
@@ -83,7 +90,7 @@ public class BGMDisplayNameSOEditor : Editor
     /// <summary>
     /// bgmDisplayNames에서 null 항목과 중복 AudioClip을 검사하여 HelpBox로 표시한다.
     /// </summary>
-    private void DrawValidation(BGMDisplayNameSO so)
+    private void DrawValidation(AudioConfigSO so)
     {
         if (so.bgmDisplayNames == null)
             return;
@@ -124,7 +131,7 @@ public class BGMDisplayNameSOEditor : Editor
     /// 폴더 선택 다이얼로그를 열어 스캔 폴더 목록에 추가한다.
     /// 프로젝트 외부 경로는 무시한다.
     /// </summary>
-    private void AddScanFolder(BGMDisplayNameSO so)
+    private void AddScanFolder(AudioConfigSO so)
     {
         var selected = EditorUtility.OpenFolderPanel("BGM 폴더 선택", "Assets/_Project", "");
         if (string.IsNullOrEmpty(selected))
@@ -133,7 +140,7 @@ public class BGMDisplayNameSOEditor : Editor
         var dataPath = Application.dataPath;
         if (!selected.StartsWith(dataPath))
         {
-            Debug.LogWarning("[BGMDisplayNameSO] 프로젝트 내부 폴더만 선택할 수 있습니다.");
+            Debug.LogWarning("[AudioConfig] 프로젝트 내부 폴더만 선택할 수 있습니다.");
             return;
         }
 
@@ -154,7 +161,7 @@ public class BGMDisplayNameSOEditor : Editor
     /// </summary>
     private void ScanBGMFolders()
     {
-        var so = (BGMDisplayNameSO)target;
+        var so = (AudioConfigSO)target;
         Undo.RecordObject(so, "BGM 폴더 스캔");
 
         so.bgmDisplayNames ??= new();
@@ -191,7 +198,7 @@ public class BGMDisplayNameSOEditor : Editor
 
         if (so.scanFolders == null || so.scanFolders.Count == 0)
         {
-            Debug.LogWarning("[BGMDisplayNameSO] 스캔 대상 폴더가 없습니다.");
+            Debug.LogWarning("[AudioConfig] 스캔 대상 폴더가 없습니다.");
             return;
         }
 
@@ -199,7 +206,7 @@ public class BGMDisplayNameSOEditor : Editor
         {
             if (!AssetDatabase.IsValidFolder(folder))
             {
-                Debug.LogWarning($"[BGMDisplayNameSO] 폴더를 찾을 수 없습니다: {folder}");
+                Debug.LogWarning($"[AudioConfig] 폴더를 찾을 수 없습니다: {folder}");
                 continue;
             }
 
@@ -212,7 +219,7 @@ public class BGMDisplayNameSOEditor : Editor
                 if (clip == null || existingClipNames.Contains(clip.name))
                     continue;
 
-                var defaultName = BGMDisplayNameSO.FormatFallback(clip.name);
+                var defaultName = AudioConfigSO.FormatFallback(clip.name);
                 so.bgmDisplayNames.Add(clip, defaultName);
                 existingClipNames.Add(clip.name);
                 addedCount++;
@@ -233,6 +240,6 @@ public class BGMDisplayNameSOEditor : Editor
             so.bgmDisplayNames.Add(kvp.Key, kvp.Value);
 
         EditorUtility.SetDirty(so);
-        Debug.Log($"[BGMDisplayNameSO] 스캔 완료. 추가: {addedCount}개, null 제거: {nullCount}개, 총: {so.bgmDisplayNames.Count}개");
+        Debug.Log($"[AudioConfig] 스캔 완료. 추가: {addedCount}개, null 제거: {nullCount}개, 총: {so.bgmDisplayNames.Count}개");
     }
 }

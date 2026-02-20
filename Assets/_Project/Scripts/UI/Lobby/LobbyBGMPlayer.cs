@@ -107,7 +107,7 @@ namespace CookApps.TeamBattle
 
         private string FormatBGMName(string audioID)
         {
-            return SoDataProvider.Instance.Get<BGMDisplayNameSO>().GetDisplayName(audioID);
+            return SoDataProvider.Instance.Get<AudioConfigSO>().GetDisplayName(audioID);
         }
 
         private void StartScroll()

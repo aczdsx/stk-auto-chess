@@ -10,11 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfac6b2e2672ab242a88e66d454e620d, type: 3}
-  m_Name: BGMDisplayNameData
+  m_Name: AudioConfig
   m_EditorClassIdentifier: 
   scanFolders:
   - Assets/_Project/Addressables/BuiltIn/Sounds/BGM
   - Assets/_Project/Addressables/Remote/Sounds/BGM
+  _audioMixerRef:
+    m_AssetGUID: 4299d97f61eb1bf4bbd1cd1889d2d654
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
   bgmDisplayNames:
     _serializedList:
     - Key: {fileID: 8300000, guid: 056fd864b91b4f342beedae190f2179d, type: 3}
