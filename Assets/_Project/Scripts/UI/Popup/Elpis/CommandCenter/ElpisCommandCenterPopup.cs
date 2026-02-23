@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
         [Header("업그레이드 버튼")]
         [SerializeField] private CAButton upgradeButton;
         [SerializeField] private TextMeshProUGUI requiredCoreText;
-        [SerializeField] private SimpleSwapper[] requiredCoreTextSwappers;
+        [SerializeField] private SimpleSwapper[] currentCoreTextSwappers;
         [SerializeField] private TextMeshProUGUI currentCoreText;
 
         private int currentElpisLevel;
@@ -227,9 +227,9 @@ namespace CookApps.AutoBattler
             upgradeButton.SetClickableState(canUpgrade);
 
             requiredCoreText.text = requiredCoreForUpgrade.ToString();
-            requiredCoreTextSwappers.Swap(canUpgrade ? SimpleSwapType.Possible : SimpleSwapType.Impossible);
+            currentCoreTextSwappers.Swap(canUpgrade ? SimpleSwapType.Possible : SimpleSwapType.Impossible);
 
-            currentCoreText.SetTextFormat("/{0}", currentCoreAmount);
+            currentCoreText.SetTextFormat("{0} /", currentCoreAmount);
         }
 
         private void UpdateNPCDialogue()

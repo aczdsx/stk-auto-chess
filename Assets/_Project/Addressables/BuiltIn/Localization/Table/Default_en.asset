@@ -28936,6 +28936,18 @@ MonoBehaviour:
     m_Localized: Hubble
     m_Metadata:
       m_Items: []
+  - m_Id: 14439977156173824
+    m_Localized: Stella Knights
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14449523811508224
+    m_Localized: Play Time Event
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14458682174955520
+    m_Localized: Adventure
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

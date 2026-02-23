@@ -1158,10 +1158,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: Default
+      m_TableCollectionName: GUID:fdab95ed1e42f41efb55b1541e124721
     m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: UI_LOBBY
+      m_KeyId: 14439977156173824
+      m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []

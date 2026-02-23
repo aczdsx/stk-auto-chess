@@ -1202,8 +1202,8 @@ MonoBehaviour:
   benefitCellPrefab: {fileID: 4607260003789034671}
   upgradeButton: {fileID: 1762259876719557666}
   requiredCoreText: {fileID: 7122460412779174152}
-  requiredCoreTextSwappers:
-  - {fileID: 2788004712719829848}
+  currentCoreTextSwappers:
+  - {fileID: 6301385163186852326}
   currentCoreText: {fileID: 6738727667927549206}
 --- !u!95 &3732293501326371581
 Animator:
@@ -7893,17 +7893,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 362857981585643676}
   m_SourcePrefab: {fileID: 100100000, guid: 324ab0b991240c14ab44fe5219c9fa89, type: 3}
---- !u!114 &2788004712719829848 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8554010925891725433, guid: 324ab0b991240c14ab44fe5219c9fa89, type: 3}
-  m_PrefabInstance: {fileID: 5766023824861684513}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cf1dc3af83a045c09758c3be0014d5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6098698361868897705 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 335489342206258824, guid: 324ab0b991240c14ab44fe5219c9fa89, type: 3}
@@ -7949,6 +7938,17 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &6301385163186852326 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 537630902234821319, guid: 324ab0b991240c14ab44fe5219c9fa89, type: 3}
+  m_PrefabInstance: {fileID: 5766023824861684513}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf1dc3af83a045c09758c3be0014d5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6528321619482990104 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 764567344027055417, guid: 324ab0b991240c14ab44fe5219c9fa89, type: 3}
