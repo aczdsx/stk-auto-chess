@@ -1,3 +1,4 @@
+using CookApps.TeamBattle.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,12 +10,33 @@ namespace CookApps.AutoChess.View
     /// </summary>
     public class ClassicAutoChessUI : AutoChessUIBase
     {
+        [Header("Bench Units")]
+        [SerializeField] private BenchUnitSlot slotPrefab;
+
         [Header("Classic Mode")]
-        [SerializeField] private Button _startBattleButton;
+        [SerializeField] private Button startBattleButton;
+
+        private TableViewController<int, BenchUnitSlot> tableViewController;
 
         protected override void OnInitialize()
         {
-            _startBattleButton?.onClick.AddListener(OnStartBattleClicked);
+            tableViewController = tableView.CreateController<int, BenchUnitSlot>()
+                .WithData(benchIds)
+                .WithCellPrefab(slotPrefab.gameObject)
+                .WithCellSize(new Vector2(120, 172))
+                .OnCellCreated(cell =>
+                {
+                    cell.Init(this, ViewBridge, BoardInput);
+                })
+                .OnBind((cell, entityId, index) =>
+                {
+                    if (CurrentWorld == null) return;
+                    ref var unit = ref CurrentWorld.GetUnit(entityId);
+                    cell.Bind(entityId, unit.ChampionSpecId, unit.StarLevel);
+                })
+                .Build();
+
+            startBattleButton?.onClick.AddListener(OnStartBattleClicked);
         }
 
         private void OnStartBattleClicked()
@@ -25,7 +47,7 @@ namespace CookApps.AutoChess.View
 
         protected override void OnCleanup()
         {
-            _startBattleButton?.onClick.RemoveListener(OnStartBattleClicked);
+            startBattleButton?.onClick.RemoveListener(OnStartBattleClicked);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CookApps.TeamBattle.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -12,41 +13,36 @@ namespace CookApps.AutoChess.View
     /// </summary>
     public abstract class AutoChessUIBase : MonoBehaviour
     {
-        [Header("Bench List")]
-        [SerializeField] private BenchUnitSlot _slotPrefab;
-        [SerializeField] private Transform _slotContainer;
-        [SerializeField] private ScrollRect _scrollRect;
+        [Header("Bench")]
+        [SerializeField] protected TableView tableView;
 
         [Header("Info")]
-        [SerializeField] private TMP_Text _unitCountText;
+        [SerializeField] protected TMP_Text unitCountText;
 
         [Header("HUD")]
-        [SerializeField] private TMP_Text _phaseText;
-        [SerializeField] private TMP_Text _timerText;
-        [SerializeField] private TMP_Text _goldText;
-        [SerializeField] private TMP_Text _levelText;
-        [SerializeField] private TMP_Text _hpText;
-        [SerializeField] private TMP_Text _stageText;
+        [SerializeField] protected TMP_Text phaseText;
+        [SerializeField] protected TMP_Text timerText;
+        [SerializeField] protected TMP_Text goldText;
+        [SerializeField] protected TMP_Text levelText;
+        [SerializeField] protected TMP_Text hpText;
+        [SerializeField] protected TMP_Text stageText;
 
         protected AutoChessViewBridge ViewBridge { get; private set; }
         protected BoardInputHandler BoardInput { get; private set; }
         protected byte PlayerIndex { get; private set; }
+        protected GameWorld CurrentWorld { get; private set; }
 
-        private Dictionary<int, CharacterDisplayInfo> _entityDisplayMap;
-        private readonly Dictionary<int, BenchUnitSlot> _slots = new();
-        private readonly List<int> _toRemove = new();
+        protected readonly List<int> benchIds = new();
 
         // ── 초기화 ──
 
         public void Initialize(
             AutoChessViewBridge viewBridge,
             BoardInputHandler boardInput,
-            Dictionary<int, CharacterDisplayInfo> entityDisplayMap,
             byte playerIndex = 0)
         {
             ViewBridge = viewBridge;
             BoardInput = boardInput;
-            _entityDisplayMap = entityDisplayMap;
             PlayerIndex = playerIndex;
 
             OnInitialize();
@@ -59,6 +55,7 @@ namespace CookApps.AutoChess.View
         public void SyncState(GameWorld world)
         {
             if (world == null) return;
+            CurrentWorld = world;
 
             SyncBenchSlots(world);
             UpdateUnitCountText(world);
@@ -72,9 +69,9 @@ namespace CookApps.AutoChess.View
 
         public void OnPhaseChanged(GamePhase newPhase)
         {
-            if (_phaseText != null)
+            if (phaseText != null)
             {
-                _phaseText.text = newPhase switch
+                phaseText.text = newPhase switch
                 {
                     GamePhase.Preparation => "Preparation",
                     GamePhase.Combat => "Combat",
@@ -116,10 +113,10 @@ namespace CookApps.AutoChess.View
         private void UpdateHUD(GameWorld world)
         {
             // 타이머
-            if (_timerText != null)
+            if (timerText != null)
             {
                 float seconds = world.PhaseTimerFrames / (float)world.TickRate;
-                _timerText.text = Mathf.CeilToInt(seconds).ToString();
+                timerText.text = Mathf.CeilToInt(seconds).ToString();
             }
 
             // 플레이어 정보
@@ -128,17 +125,17 @@ namespace CookApps.AutoChess.View
                 var player = world.Players[PlayerIndex];
                 var economy = world.Economies[PlayerIndex];
 
-                if (_goldText != null)
-                    _goldText.text = economy.Gold.ToString();
+                if (goldText != null)
+                    goldText.text = economy.Gold.ToString();
 
-                if (_levelText != null)
-                    _levelText.text = $"Lv.{economy.Level}";
+                if (levelText != null)
+                    levelText.text = $"Lv.{economy.Level}";
 
-                if (_hpText != null)
-                    _hpText.text = $"{player.HP}/{player.MaxHP}";
+                if (hpText != null)
+                    hpText.text = $"{player.HP}/{player.MaxHP}";
 
-                if (_stageText != null)
-                    _stageText.text = $"{world.CurrentStage}-{world.CurrentRound}";
+                if (stageText != null)
+                    stageText.text = $"{world.CurrentStage}-{world.CurrentRound}";
             }
         }
 
@@ -147,79 +144,41 @@ namespace CookApps.AutoChess.View
         private void SyncBenchSlots(GameWorld world)
         {
             var benchSlots = world.BenchSlots[PlayerIndex];
-            var activeBenchIds = new HashSet<int>();
+            benchIds.Clear();
 
             for (int i = 0; i < PlayerBoard.BenchSize; i++)
             {
                 int entityId = benchSlots[i];
                 if (entityId == UnitData.InvalidId) continue;
-
-                activeBenchIds.Add(entityId);
-
-                if (!_slots.ContainsKey(entityId))
-                {
-                    CreateSlot(entityId);
-                }
+                benchIds.Add(entityId);
             }
 
-            _toRemove.Clear();
-            foreach (var kvp in _slots)
-            {
-                if (!activeBenchIds.Contains(kvp.Key))
-                    _toRemove.Add(kvp.Key);
-            }
-            foreach (int id in _toRemove)
-            {
-                DestroySlot(id);
-            }
-        }
-
-        private void CreateSlot(int entityId)
-        {
-            if (_slotPrefab == null || _slotContainer == null) return;
-
-            var slot = Instantiate(_slotPrefab, _slotContainer);
-
-            CharacterDisplayInfo displayInfo = default;
-            _entityDisplayMap?.TryGetValue(entityId, out displayInfo);
-
-            slot.SetData(entityId, displayInfo, this, ViewBridge, BoardInput);
-            slot.gameObject.SetActive(true);
-            _slots[entityId] = slot;
-        }
-
-        private void DestroySlot(int entityId)
-        {
-            if (_slots.TryGetValue(entityId, out var slot))
-            {
-                Destroy(slot.gameObject);
-                _slots.Remove(entityId);
-            }
+            tableView.RefreshAll();
         }
 
         // ── 배치 인원 표시 ──
 
         private void UpdateUnitCountText(GameWorld world)
         {
-            if (_unitCountText == null) return;
+            if (unitCountText == null) return;
 
             int boardUnitCount = world.Boards[PlayerIndex].UnitCount;
             int maxUnits = world.Economies[PlayerIndex].Level;
-            _unitCountText.text = $"{boardUnitCount}/{maxUnits}";
+            unitCountText.text = $"{boardUnitCount}/{maxUnits}";
         }
 
         // ── UI 영역 판별 ──
 
         public bool IsPointInScrollRect(Vector2 screenPos)
         {
-            if (_scrollRect == null) return false;
-            var rectTransform = _scrollRect.GetComponent<RectTransform>();
+            if (tableView == null) return false;
+            var rectTransform = tableView.GetComponent<RectTransform>();
             return RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 rectTransform, screenPos, null, out var localPoint)
                 && rectTransform.rect.Contains(localPoint);
         }
 
-        public ScrollRect GetScrollRect() => _scrollRect;
+        public ScrollRect GetScrollRect() => tableView;
 
         // ── 정리 ──
 

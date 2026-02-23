@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using CookApps.AutoChess;
 using CookApps.AutoChess.View;
 using CookApps.TeamBattle.UIManagements;
@@ -60,7 +59,7 @@ namespace CookApps.AutoBattler
 
             // 덱 유닛을 벤치에 생성 + 적 데이터 준비
             var world = _viewRoot.Runner.GetWorld();
-            var entityDisplayMap = CreateDeckUnitsOnBench(world);
+            CreateDeckUnitsOnBench(world);
             PrepareEnemyData(world, inGameParams.StageId);
 
             // BoardInputHandler 생성
@@ -80,8 +79,7 @@ namespace CookApps.AutoBattler
             {
                 autoChessUI.Initialize(
                     _viewRoot.ViewBridge,
-                    boardInput,
-                    entityDisplayMap);
+                    boardInput);
                 _viewRoot.ViewBridge.SetAutoChessUI(autoChessUI);
             }
 
@@ -145,15 +143,15 @@ namespace CookApps.AutoBattler
 
         // ── 덱 유닛을 벤치에 생성 ──
 
-        private Dictionary<int, CharacterDisplayInfo> CreateDeckUnitsOnBench(GameWorld world)
+        private void CreateDeckUnitsOnBench(GameWorld world)
         {
-            var map = new Dictionary<int, CharacterDisplayInfo>();
-            if (world == null) return map;
+            if (world == null) return;
 
             // 서버 덱 데이터에서 캐릭터 목록 가져오기
             var deckData = ServerDataManager.Instance.Deck.GetDeck(InGameType.STAGE);
             if (deckData != null && deckData.CharacterPlacements.Count > 0)
             {
+                int created = 0;
                 foreach (var placement in deckData.CharacterPlacements)
                 {
                     var charData = ServerDataManager.Instance.Character.GetCharacter(placement.CharacterId);
@@ -164,18 +162,11 @@ namespace CookApps.AutoBattler
 
                     int entityId = BoardSystem.CreateUnit(world, 0, champSpecId, starLevel);
                     if (entityId == UnitData.InvalidId) continue;
-
-                    map[entityId] = new CharacterDisplayInfo
-                    {
-                        ChampionSpecId = champSpecId,
-                        StarLevel = starLevel,
-                        Level = (int)charData.Level,
-                        ServerCharacterId = charData.CharacterId,
-                    };
+                    created++;
                 }
 
-                Debug.Log($"[InGameMain_New] Created {map.Count} deck units on bench.");
-                return map;
+                Debug.Log($"[InGameMain_New] Created {created} deck units on bench.");
+                return;
             }
 
             // 폴백: ChampionPool에서 테스트용 유닛 생성 (벤치에만)
@@ -186,18 +177,8 @@ namespace CookApps.AutoBattler
             for (int u = 0; u < unitsToCreate; u++)
             {
                 int champId = poolCount > 0 ? world.Pool.Specs[u % poolCount].ChampionId : 1;
-                int entityId = BoardSystem.CreateUnit(world, 0, champId, 1);
-                if (entityId == UnitData.InvalidId) continue;
-
-                map[entityId] = new CharacterDisplayInfo
-                {
-                    ChampionSpecId = champId,
-                    StarLevel = 1,
-                    Level = 1,
-                };
+                BoardSystem.CreateUnit(world, 0, champId, 1);
             }
-
-            return map;
         }
 
         // ── PvE 적 데이터 준비 (전투 시작 시 CombatUnit으로 변환됨) ──
