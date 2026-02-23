@@ -4,7 +4,10 @@ using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
-    public class SynergyGradeSlot : MonoBehaviour
+    /// <summary>
+    /// 시너지 툴팁 글자에 하이라이팅을 위한 클래스
+    /// </summary>
+    public class SynergyTooltipGradeSlot : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private Image _highlightBg;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using R3;
 using TMPro;
@@ -19,11 +20,17 @@ namespace CookApps.AutoBattler
         [Header("Synergy Info")]
         [SerializeField] private SynergyUI _synergyUI;
         [SerializeField] private TextMeshProUGUI _synergyNameText;
-        [SerializeField] private List<SynergyGradeSlot> _gradeSlots;
+        [SerializeField] private List<SynergyTooltipGradeSlot> _gradeSlots;
+
+        [Header("Character Icons")]
+        [SerializeField] private SynergyTooltipImageGroup _imageGroup;
 
         private SynergyType _synergyType;
         private ISpecSynergyData _synergyData;
         private bool _isActive;
+
+        private readonly List<SynergyTooltipImageGroup.CharacterSlotData> _reusableSlotDataList = new();
+        private readonly HashSet<int> _reusableInBattleIds = new();
 
         /// <summary>
         /// 팝업 파라미터 데이터
@@ -116,6 +123,7 @@ namespace CookApps.AutoBattler
             _synergyNameText.text = $"{synergyName} {_synergyData.grade}단계";
 
             SetGradeSlots();
+            SetImageSlots();
         }
 
         /// <summary>
@@ -167,6 +175,39 @@ namespace CookApps.AutoBattler
 
             // 변경된 슬롯 높이를 상위 레이아웃까지 반영
             LayoutRebuilder.ForceRebuildLayoutImmediate(_body);
+        }
+
+        /// <summary>
+        /// 해당 시너지에 속하는 캐릭터 아이콘을 ImageGroup에 표시한다.
+        /// 배치된 캐릭터가 앞에, 등급 내림차순으로 정렬된다.
+        /// </summary>
+        private void SetImageSlots()
+        {
+            if (_imageGroup == null) return;
+
+            // 필드 위 플레이어 캐릭터 ID 수집
+            var battlers = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
+            _reusableInBattleIds.Clear();
+            for (int i = 0; i < battlers.Count; i++)
+            {
+                _reusableInBattleIds.Add(battlers[i].CharacterId);
+            }
+
+            var characters = SpecDataManager.Instance.GetCharacterListBySynergyType(_synergyType);
+            _reusableSlotDataList.Clear();
+
+            for (int i = 0; i < characters.Count; i++)
+            {
+                var charInfo = characters[i];
+                _reusableSlotDataList.Add(new SynergyTooltipImageGroup.CharacterSlotData
+                {
+                    PrefabId = charInfo.prefab_id,
+                    Grade = charInfo.grade_type,
+                    InBattle = _reusableInBattleIds.Contains(charInfo.id)
+                });
+            }
+
+            _imageGroup.SetCharacters(_reusableSlotDataList);
         }
 
         private static string FormatGradeText(string text, ISpecSynergyData data)

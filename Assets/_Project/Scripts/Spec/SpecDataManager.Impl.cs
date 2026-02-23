@@ -90,6 +90,8 @@ namespace CookApps.AutoBattler
         private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new(); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
         private Dictionary<InGameVfxNameType, InGameVfxMap> inGameVfxDic = new();                             // key : inGameVfxName, value : SpecInGameVfx
         private Dictionary<SynergyType, List<ISpecSynergyData>> synergyDic = new();                // key : SynergyType, value : ISpecSynergyData
+        private Dictionary<SynergyType, List<CharacterInfo>> charactersBySynergyDic;              // key : SynergyType, value : CharacterInfo (lazy)
+        private static readonly List<CharacterInfo> _reusableEmptyCharacterList = new();
         private Dictionary<EffectCodeNameType, List<SkillJob>> skillJobDic = new();             // key : EffectCodeNameType, value : SkillJob
         private Dictionary<int, List<SkillCommander>> commanderSkillDic = new();                   // key : commander_skill_id, value : SpecCommanderSkill
         private Dictionary<int, ISpecItemInfo> itemTableKeyMap = new();                      // key : item_id (currency_id/item_id), value : ISpecItemInfo
@@ -418,6 +420,45 @@ namespace CookApps.AutoBattler
                     result.Add(character);
             }
             return result;
+        }
+
+        public List<CharacterInfo> GetCharacterListBySynergyType(SynergyType synergyType)
+        {
+            if (charactersBySynergyDic == null)
+            {
+                charactersBySynergyDic = new Dictionary<SynergyType, List<CharacterInfo>>();
+                for (int i = 0; i < CharacterInfo.All.Count; i++)
+                {
+                    var character = CharacterInfo.All[i];
+                    if (character.character_type != CharacterType.CHARACTER) continue;
+
+                    // element
+                    if (character.character_element_type != SynergyType.NONE)
+                    {
+                        if (!charactersBySynergyDic.TryGetValue(character.character_element_type, out var elementList))
+                        {
+                            elementList = new List<CharacterInfo>();
+                            charactersBySynergyDic[character.character_element_type] = elementList;
+                        }
+                        elementList.Add(character);
+                    }
+
+                    // stella
+                    if (character.character_stella_type != SynergyType.NONE)
+                    {
+                        if (!charactersBySynergyDic.TryGetValue(character.character_stella_type, out var stellaList))
+                        {
+                            stellaList = new List<CharacterInfo>();
+                            charactersBySynergyDic[character.character_stella_type] = stellaList;
+                        }
+                        stellaList.Add(character);
+                    }
+                }
+            }
+
+            return charactersBySynergyDic.TryGetValue(synergyType, out var result)
+                ? result
+                : _reusableEmptyCharacterList;
         }
 
         public CharacterLevelExp GetCharacterNextExceedLevelExpData(uint exceedCount)

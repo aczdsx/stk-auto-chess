@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Coffee.UIEffects;
+using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
@@ -203,6 +204,7 @@ namespace CookApps.AutoBattler
         public void OnClickSynergy()
         {
             if (_synergyData == null || _synergyData.grade == 0) return;
+            
 
             var param = new SynergyTooltipIngameMiniPopup.PopupParam(
                 _synergyType,
