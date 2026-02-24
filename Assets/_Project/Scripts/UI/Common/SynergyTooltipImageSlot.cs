@@ -15,36 +15,23 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private Image _characterImage;
         [SerializeField] private SimpleImageColorSwapper _characterGradeColorSwapper;
+        [SerializeField] private SimpleImageMaterialSwapper _characterMaterialSwapper;
         [SerializeField] private SpriteLoader _spriteLoader;
-
-        private Material _materialInstance;
-
-        private void Awake()
-        {
-            if (_characterImage != null && _characterImage.material != null)
-            {
-                _materialInstance = new Material(_characterImage.material);
-                _characterImage.material = _materialInstance;
-            }
-        }
-
-        private void OnDestroy()
-        {
-            if (_materialInstance != null)
-            {
-                Destroy(_materialInstance);
-                _materialInstance = null;
-            }
-        }
+        [SerializeField] private GameObject _slotDim;
 
         /// <summary>
-        /// 캐릭터 아이콘, 등급 색상, 활성 상태 설정
+        /// 캐릭터 아이콘, 등급 색상, 전투 참여 상태 설정
         /// </summary>
         public void SetCharacter(int prefabId, GradeType grade, bool inBattle)
         {
             _spriteLoader.SetSprite(SpriteNameParser.GetCharacterSmallItemSprite(prefabId)).Forget();
             _characterGradeColorSwapper.Swap(GradeTypeToSwapType(grade));
-            _materialInstance.SetFloat(GrayscaleAmountID, inBattle ? 0f : 1f);
+            _characterMaterialSwapper.Swap(inBattle ? SimpleSwapType.Normal : SimpleSwapType.Disabled);
+            _slotDim.SetActive(!inBattle);
+            if (inBattle)
+            {
+                _characterImage.material.SetFloat(GrayscaleAmountID, 1f);
+            }
         }
 
         public void SetActive(bool active) => gameObject.SetActive(active);
