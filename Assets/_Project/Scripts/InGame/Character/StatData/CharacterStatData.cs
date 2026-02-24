@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;
-using Cookapps.Stkauto.V1;
 using Google.Protobuf.Collections;
 using UnityEngine;
 
@@ -303,51 +302,6 @@ namespace CookApps.AutoBattler
                 default:
                     return false;
             }
-        }
-
-      
-
-       
-
-        // PVP 전용
-        public CharacterStatData(int characterId, int level, RepeatedField<EffectCodeInfoProto> protos, RepeatedField<EffectCodeInfoProto> globalEffectCodeInfos = null)
-        {
-            Debug.LogColor("characterID : " + characterId);
-            EffectCodeContainer = new EffectCodeContainer(this);
-            _spec = SpecDataManager.Instance.GetSpecCharacter(characterId);
-            _level = level;
-
-            var levelBonusRate = CalculateLevelBonusRate(level);
-            InjectFixedValueByElpisCoreLabs();
-            {
-                var adBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AD_PERCENT_UP, 0, levelBonusRate, 0);
-                var apBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.AP_PERCENT_UP, 0, levelBonusRate, 0);
-
-                var hpBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.HP_PERCENT_UP, 0, levelBonusRate, 0);
-                var defBonusCodeInfo = new EffectCodeInfo((long)EffectCodeNameType.DEF_PERCENT_UP, 0, levelBonusRate, 0);
-
-                EffectCodeContainer.AddOrMergeEffectCode(adBonusCodeInfo, this);
-                EffectCodeContainer.AddOrMergeEffectCode(apBonusCodeInfo, this);
-                EffectCodeContainer.AddOrMergeEffectCode(hpBonusCodeInfo, this);
-                EffectCodeContainer.AddOrMergeEffectCode(defBonusCodeInfo, this);
-            }
-
-            if (globalEffectCodeInfos != null)
-            {
-                foreach (EffectCodeInfoProto effectCodeInfo in globalEffectCodeInfos)
-                {
-                    List<double> statsList = new List<double>();
-                    foreach (var stat in effectCodeInfo.Stat)
-                    {
-                        statsList.Add(stat);
-                    }
-                    ReadOnlySpan<double> stats = statsList.ToArray().AsSpan();
-                    EffectCodeInfo eccInfo = new EffectCodeInfo(effectCodeInfo.Id, 0, stats);
-                    EffectCodeBase code = EffectCodeContainer.AddOrMergeEffectCode(eccInfo, this);
-                }
-            }
-
-            UpdateStats(EffectCodeInheritFlag.StatAll);
         }
 
         //아래 함수는 곱연산 계산 함수

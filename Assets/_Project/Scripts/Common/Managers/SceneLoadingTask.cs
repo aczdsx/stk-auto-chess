@@ -1,4 +1,3 @@
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 
@@ -75,9 +74,9 @@ namespace CookApps.AutoBattler
                 case InGameMainParams inGameParams:
                     await InGameResourceHolder.LoadResources(inGameParams.InGameType, inGameParams.GameStateUI, inGameParams.StageId);
                     break;
-                case (InGameType inGameType, IGameStateUICore state, UserPVPBattleDetailData data):
-                    await InGameResourceHolder.LoadResources(inGameType, state, 0);
-                    break;
+                // case (InGameType inGameType, IGameStateUICore state, UserPVPBattleDetailData data):
+                //     await InGameResourceHolder.LoadResources(inGameType, state, 0);
+                //     break;
             }
         }
 
