@@ -58,13 +58,7 @@ namespace CookApps.AutoBattler
         {
             QueueSave(DataCategory.UserData.ToCategoryString(), UserBasicData);
         }
-
-        public void SetUserTotalPlayTime(int minute, bool needSave)
-        {
-            UserBasicData.TotalPlayTime += minute;
-
-            if (needSave) SaveUserBasic();
-        }
+        
 
         public void RefreshLastLoginTimestamp(bool needSave)
         {
@@ -122,47 +116,6 @@ namespace CookApps.AutoBattler
             }
         }
 
-        // 유저 던전 패배 횟수 증가
-        public void AddUserDungeonLoseCount(bool needSave)
-        {
-            UserBasicData.UserDungeonLoseCount++;
-
-            if (needSave) SaveUserBasic();
-
-            DialogueManager.Instance.UpdateDialogueEvent(DialogueEventType.FAIL, Instance.UserBasicData.UserDungeonLoseCount.ToString(),
-                () =>
-                {
-                    if (UserBasicData.UserDungeonLoseCount == 1) HandleLoseAsync().Forget();
-                });
-        }
-
-        public void AddUserLevelExp(int exp)
-        {
-            if (UserBasicData.Level >= SpecDataManager.Instance.GetAccountMaxLevel()) return;
-
-            UserBasicData.Exp += exp;
-
-            var userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);
-
-            UserBasicData.Level = userLevel;
-
-            SaveUserBasic();
-        }
-
-        public void AddUserGachaCount(int count)
-        {
-            UserBasicData.TotalGachaCount += count;
-
-            SaveUserBasic();
-        }
-
-        public void SetMaxSquadCount(int count, bool needSave)
-        {
-            UserBasicData.MaxSquadCount = count;
-
-            if (needSave) SaveUserBasic();
-        }
-
         public void SetResetCharacterCount(int count, bool isAdd, bool needSave)
         {
             if (isAdd)
@@ -185,12 +138,6 @@ namespace CookApps.AutoBattler
 
                 SaveUserBasic();
             }
-        }
-
-        public void CheatResetUserLevelData()
-        {
-            UserBasicData.Level = 1;
-            UserBasicData.Exp = 0;
         }
     }
 }

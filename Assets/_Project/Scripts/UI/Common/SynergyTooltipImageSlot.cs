@@ -11,8 +11,6 @@ namespace CookApps.AutoBattler
 {
     public class SynergyTooltipImageSlot : CachedMonoBehaviour
     {
-        private static readonly int GrayscaleAmountID = Shader.PropertyToID("_GrayscaleAmount");
-
         [SerializeField] private Image _characterImage;
         [SerializeField] private SimpleImageColorSwapper _characterGradeColorSwapper;
         [SerializeField] private SimpleImageMaterialSwapper _characterMaterialSwapper;
@@ -28,10 +26,6 @@ namespace CookApps.AutoBattler
             _characterGradeColorSwapper.Swap(GradeTypeToSwapType(grade));
             _characterMaterialSwapper.Swap(inBattle ? SimpleSwapType.Normal : SimpleSwapType.Disabled);
             _slotDim.SetActive(!inBattle);
-            if (inBattle)
-            {
-                _characterImage.material.SetFloat(GrayscaleAmountID, 1f);
-            }
         }
 
         public void SetActive(bool active) => gameObject.SetActive(active);
