@@ -66,12 +66,16 @@ namespace CookApps.AutoBattler
             // 캐시된 객체가 있으면 반환
             if (_cachedObjects.TryGetValue(category, out var cached))
             {
+                if (category == ClientStatisticsData.CategoryName)
+                    Debug.Log($"[GetData] {category} → HIT CACHE");
                 return cached as T ?? CreateAndCache<T>(category);
             }
 
             // 원본 바이트 데이터 확인
             if (!_dataByCategory.TryGetValue(category, out var bytes) || bytes == null || bytes.Length == 0)
             {
+                if (category == ClientStatisticsData.CategoryName)
+                    Debug.Log($"[GetData] {category} → NO DATA, CreateAndCache");
                 return CreateAndCache<T>(category);
             }
 
@@ -151,7 +155,9 @@ namespace CookApps.AutoBattler
             {
                 try
                 {
+                    Debug.Log($"[ClientDataManager] Saving {categoryData.Count} categories: {string.Join(", ", categoryData.Keys)}");
                     await NetManager.Instance.ClientData.SetAsync(categoryData);
+                    Debug.Log("[ClientDataManager] Save success");
                 }
                 catch (Exception e)
                 {

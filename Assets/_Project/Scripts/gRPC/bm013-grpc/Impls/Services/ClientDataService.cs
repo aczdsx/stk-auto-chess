@@ -40,9 +40,11 @@ namespace CookApps.AutoBattler
             if (resp is { IsSuccess: true, Data: not null })
             {
                 var itemList = resp.Data.ItemList;
+                Debug.Log($"[ClientDataService] ListAsync returned {itemList.Count} categories");
                 for (int i = 0; i < itemList.Count; i++)
                 {
                     var item = itemList[i];
+                    Debug.Log($"[ClientDataService] Loaded category: {item.Category}, dataLen: {item.Data.Length}");
                     ClientDataManager.Instance.SetData(item.Category, item.Data.ToByteArray());
                 }
             }

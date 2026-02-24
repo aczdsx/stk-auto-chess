@@ -24,7 +24,7 @@ namespace CookApps.AutoBattler.Prologue
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
             PrologueUtility.PrologueStageUI = stageUIObj;
-            _inGameUI.TopUI.SetMyName(UserDataManager.Instance.UserBasicData.Nickname);
+            _inGameUI.TopUI.SetMyName(ServerDataManager.Instance.PlayerData.Nickname);
             _inGameUI.TopUI.SetStageName("프롤로그");
 
             InGameManager.Instance.StartInGame<FlowStatePrologueReady>(null as StageInfo);

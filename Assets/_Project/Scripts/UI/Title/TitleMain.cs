@@ -102,13 +102,6 @@ namespace CookApps.AutoBattler
 
             CADebug.Log($"[Login] Authenticated. Platform: {recentAuthPlatform.Platform}, Uid: {recentAuthPlatform.Id}");
 
-            // 유저 로그인 정보 저장
-            bool res = await UserDataManager.Instance.Initialize();
-            if (!res)
-            {
-                touchToStart.SetActive(true);
-                return;
-            }
 
             // 앱 이벤트 Auth 설정
             CAppAuth.SetUID(resp.Data.Uid);
@@ -293,15 +286,6 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // 유저 데이터 초기화
-            bool res = await UserDataManager.Instance.Initialize();
-            if (!res)
-            {
-                SceneUILayerManager.Instance.PopUILayer(popup);
-                Debug.LogError("[Test Mode] UserDataManager init failed");
-                return;
-            }
-
             // 서버 데이터 가져오기
             await UniTask.WhenAll(
                 NetManager.Instance.CustomLobby.GetMyPlayerDataAsync(),
@@ -352,15 +336,6 @@ namespace CookApps.AutoBattler
             {
                 SceneUILayerManager.Instance.PopUILayer(popup);
                 Debug.LogError("[Go To Lobby] Auth failed");
-                return;
-            }
-
-            // 유저 데이터 초기화
-            bool res = await UserDataManager.Instance.Initialize();
-            if (!res)
-            {
-                SceneUILayerManager.Instance.PopUILayer(popup);
-                Debug.LogError("[Go To Lobby] UserDataManager init failed");
                 return;
             }
 

@@ -17,6 +17,7 @@ namespace CookApps.AutoBattler
         [MemoryPackOrder(4)] private int _maxSquadCount;
         [MemoryPackOrder(5)] private int _resetCharacterCount;
         [MemoryPackOrder(6)] private long _resetCharacterCountTimestamp;
+        [MemoryPackOrder(7)] private long _lastLoginTimestamp;
 
         public int TotalPlayTime => _totalPlayTime;
         public int DailyVisitCount => _dailyVisitCount;
@@ -25,6 +26,7 @@ namespace CookApps.AutoBattler
         public int MaxSquadCount => _maxSquadCount;
         public int ResetCharacterCount => _resetCharacterCount;
         public long ResetCharacterCountTimestamp => _resetCharacterCountTimestamp;
+        public long LastLoginTimestamp => _lastLoginTimestamp;
 
         public void AddTotalPlayTime(int minutes)
         {
@@ -81,6 +83,12 @@ namespace CookApps.AutoBattler
                 return 0;
             }
             return _resetCharacterCount;
+        }
+
+        public void RefreshLastLoginTimestamp()
+        {
+            _lastLoginTimestamp = TimeManager.Instance.UtcNowTimeStampLocal();
+            SetDirty();
         }
 
         [MemoryPackOnDeserialized]

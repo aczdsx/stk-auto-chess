@@ -19,6 +19,7 @@ namespace CookApps.AutoBattler
         [MemoryPackOnDeserialized]
         private void OnDeserialized()
         {
+            Debug.Log($"[ClientProgressData] Deserialized - dialogueIds: {completeDialogueIds?.Count}, rewardIds: {receivedRewardIds?.Count}");
             completeDialogueIds ??= new ();
             receivedRewardIds ??= new ();
         }

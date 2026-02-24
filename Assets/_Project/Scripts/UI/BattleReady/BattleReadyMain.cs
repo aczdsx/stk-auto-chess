@@ -263,23 +263,6 @@ namespace CookApps.AutoBattler
 
         private void SetUserInfoLayer()
         {
-            var userBasicData = UserDataManager.Instance.UserBasicData;
-
-            // _userIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterSubIllustSprite(userBasicData.UserIconId)).Forget();
-            // _userNameText.text = (userBasicData.Nickname.Length > 25) ? "닉네임을 설정해주세요." : userBasicData.Nickname;
-
-            // int userLevel = SpecDataManager.Instance.GetAccountLevelByExp(userBasicData.Exp);
-            // _userLevelText.text = $"Lv.{userLevel}";
-
-            // var specLevelData = SpecDataManager.Instance.GetAccountLevelExpDataByLevel(userLevel);
-            // if (specLevelData != null)
-            // {
-            //     long leftExp = userBasicData.Exp - specLevelData.exp_start;
-            //     float resultValue = leftExp / (float)specLevelData.exp_need;
-
-            //     _userExpSlider.value = resultValue;
-            //     _userExpText.text = string.Format("{0:N2}%", resultValue * 100);
-            // }
         }
 
         private void SetBottomStageUI()
@@ -497,14 +480,15 @@ namespace CookApps.AutoBattler
 
         private void CheckUserAccountLevelUp()
         {
-            if (UserDataManager.Instance.UserBasicData.Level <= UserDataManager.Instance.PrevAccountLevel) return;
+            var playerData = ServerDataManager.Instance.PlayerData;
+            Debug.Log($"[CheckUserAccountLevelUp] Level: {playerData.Level}, PrevAccountLevel: {playerData.PrevAccountLevel}");
+            if (playerData.Level <= playerData.PrevAccountLevel) return;
 
-            var specAccountLevelData = SpecDataManager.Instance.GetAccountLevelExpDataByLevel(UserDataManager.Instance.UserBasicData.Level);
+            var specAccountLevelData = SpecDataManager.Instance.GetAccountLevelExpDataByLevel((int)playerData.Level);
             if (specAccountLevelData != null)
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<AccountLevelUpWindowPopup>(specAccountLevelData).Forget();
-
-                UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;
+                playerData.PrevAccountLevel = playerData.Level;
             }
         }
 

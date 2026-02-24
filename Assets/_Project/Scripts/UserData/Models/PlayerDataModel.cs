@@ -20,8 +20,11 @@ namespace CookApps.AutoBattler
         private string _representativeCharacterId = string.Empty;
         private ulong _lastAccessedAt;
 
-        // 레벨 변경 감지용 캐시
+        // 경험치 변경 시 실시간 레벨 변경 감지용 (항상 현재 레벨과 동일하게 갱신)
         private uint _cachedLevel;
+
+        // 스테이지 진입 시점의 레벨 스냅샷 (전투 후 로비 복귀 시 레벨업 팝업 표시 비교용)
+        public uint PrevAccountLevel { get; set; } = 1;
 
         // InventoryModel 구독
         private IDisposable _inventorySubscription;
@@ -37,6 +40,7 @@ namespace CookApps.AutoBattler
         {
             return $"{LevelUpBadgePath}/{characterId}";
         }
+        
         private readonly List<CharacterData> _reUseableCharacterList = new();
         private HashSet<uint> _levelUpItemIds;
 
@@ -90,6 +94,7 @@ namespace CookApps.AutoBattler
 
             // 초기 레벨 캐시
             _cachedLevel = Level;
+            PrevAccountLevel = Level;
 
             // 변경 이벤트 발생
             if (nicknameChanged)
@@ -377,5 +382,6 @@ namespace CookApps.AutoBattler
         /// 대표 캐릭터가 설정되어 있는지 여부
         /// </summary>
         public bool HasRepresentativeCharacter => !string.IsNullOrEmpty(_representativeCharacterId);
+
     }
 }

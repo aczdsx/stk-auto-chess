@@ -32,7 +32,7 @@ namespace CookApps.AutoBattler
             }
             else
             {
-                _inGameUI.TopUI.SetMyName(UserDataManager.Instance.UserBasicData.Nickname);
+                _inGameUI.TopUI.SetMyName(ServerDataManager.Instance.PlayerData.Nickname);
             }
             
             string stageString = LanguageManager.Instance.GetDefaultText("UI_STAGE");
@@ -45,7 +45,7 @@ namespace CookApps.AutoBattler
             LocalDataManager.Instance.SetLastPlayStageId((uint)_specStage.stage_id);
 
             // 유저 레벨업 체크용 이전 레벨 데이터 저장
-            UserDataManager.Instance.PrevAccountLevel = UserDataManager.Instance.UserBasicData.Level;
+            ServerDataManager.Instance.PlayerData.PrevAccountLevel = ServerDataManager.Instance.PlayerData.Level;
         }
 
         public void RefreshInGameTopUI(bool isCombat)

@@ -27,15 +27,46 @@ public class FlowStateStageFail : StateBase
         InGameResultPopupParam param = new InGameResultPopupParam(false, false, false, mvpCharacterData, null);
         SceneUILayerManager.Instance.PushUILayerAsync<InGameResultPopup>(param);
 
-        // 행동력 소모 처리
-        //UserDataManager.Instance.DecreaseItem(ItemType.AP, 0, InGameManager.Instance.SpecStage.need_ap, true, false);
-
-        // 패배 카운트 증가
+        // 패배 카운트 증가 및 다이얼로그 이벤트
         if (InGameManager.Instance.AppEventReason != "exit")
-            UserDataManager.Instance.AddUserStageLoseCount(true);
+        {
+            var stats = ClientStatisticsData.Get();
+            stats.IncrementUserStageLoseCount();
+
+            DialogueManager.Instance.UpdateDialogueEvent(
+                DialogueEventType.FAIL,
+                stats.UserStageLoseCount.ToString(),
+                () =>
+                {
+                    if (stats.UserStageLoseCount == 1)
+                        HandleFirstStageLoseAsync().Forget();
+                });
+        }
 
         // 상점 배너 팝업 체크
         ShopPurchaseManager.Instance.UpdateShopBannerConditionValue(ShopBannerConditionType.FIRST_STAGE_LOSE, 0, 1, false);
+    }
+
+    private static async UniTask HandleFirstStageLoseAsync()
+    {
+        var lastPlayStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
+        var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
+        SceneTransition.Create<SceneTransition_FadeInOut>();
+        await SceneTransition.FadeInAsync();
+
+        SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
+
+        SceneUILayerManager.OnSceneLoadedEvent += OnSceneLoadedOpenCharacterCollection;
+    }
+
+    private static void OnSceneLoadedOpenCharacterCollection(string scenename)
+    {
+        if (scenename == "Lobby")
+        {
+            SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget();
+            ToastManager.Instance.ShowToastByTokenKey("MSG_GROWTH_CHARACTER");
+            SceneUILayerManager.OnSceneLoadedEvent -= OnSceneLoadedOpenCharacterCollection;
+        }
     }
 
     private async UniTask SendEndAsync()

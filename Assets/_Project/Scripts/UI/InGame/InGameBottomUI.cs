@@ -86,8 +86,9 @@ public class InGameBottomUI : MonoBehaviour
         _commanderSkillObj.SetActive(false);
         _isStartRunningProcess = false;
 
+        var knightCount = SpecDataManager.Instance.GetUserKnightCountByNestCount();
         _specUserGrade =
-            SpecDataManager.Instance.UserGrade.Get(UserDataManager.Instance.UserBasicData.MaxSquadCount);
+            knightCount != null ? SpecDataManager.Instance.UserGrade.Get(knightCount.maximum_character_count) : null;
         if (_specUserGrade != null)
         {
             for (int i = 0; i < _CommanderSkillButtonList.Count; i++)
