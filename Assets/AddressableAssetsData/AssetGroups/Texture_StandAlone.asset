@@ -84,7 +84,8 @@ MonoBehaviour:
   - m_GUID: 10e72f9d95823794b91ba8fda035bcc1
     m_Address: Texture_StandAlone/Dynamic/Character_Illust/CharacterIllust_17563405
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 112c30b2773a1984c9d3de895df81ea1
     m_Address: Texture_StandAlone/Dynamic/Character_Illust/CharacterIllust_15232101
@@ -197,12 +198,14 @@ MonoBehaviour:
   - m_GUID: 2d78019a7788ed7438f4ae7b1f6cc6f6
     m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17563405
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2ffaa37e3d2e142439acbbfae6581029
     m_Address: Texture_StandAlone/Dynamic/IconStigma/StigmaIcon_17553404
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 302dddc656a830c40981902ffae0f625
     m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/200130
@@ -351,7 +354,8 @@ MonoBehaviour:
   - m_GUID: 48a9df138b6d5e44990150a81f8bd846
     m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17563405
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4a7afeccc04832a49907d5e1ae42fad5
     m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_15642501
@@ -458,7 +462,8 @@ MonoBehaviour:
   - m_GUID: 6a3f94eca125fdd4e95aa7109ff0b412
     m_Address: Texture_StandAlone/Dynamic/Character_Illust/CharacterIllust_17553404
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6a9f7ea37f5d40345b2b12370cf8b768
     m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/102100
@@ -967,7 +972,8 @@ MonoBehaviour:
   - m_GUID: df49b1c7fb209a94aacb898fd52db95d
     m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17553404
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dfd7b293fd2f5044abff7fa5e2374662
     m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_DUNGEON_KEY3
@@ -1002,7 +1008,8 @@ MonoBehaviour:
   - m_GUID: eaa2a6ebda52f3841bb73f534e1d300c
     m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/Character_Illust_Sub_17663506
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ece4720f8f630f84f83177e89f5bb34e
     m_Address: Texture_StandAlone/Dynamic/RewardItem/ST_RewardItem_JEWEL
