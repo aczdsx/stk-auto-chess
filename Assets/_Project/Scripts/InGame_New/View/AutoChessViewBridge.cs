@@ -1,3 +1,4 @@
+using CookApps.AutoBattler;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -148,12 +149,12 @@ namespace CookApps.AutoChess.View
             for (int i = 0; i < queue.Count; i++)
             {
                 ref var evt = ref queue.Events[i];
-                DispatchEvent(ref evt);
+                DispatchEvent(ref evt, world);
             }
             queue.Clear();
         }
 
-        private void DispatchEvent(ref SimEvent evt)
+        private void DispatchEvent(ref SimEvent evt, GameWorld world)
         {
             switch (evt.Type)
             {
@@ -170,16 +171,22 @@ namespace CookApps.AutoChess.View
                     break;
 
                 case SimEventType.UnitCastSkill:
-                    _combatViewManager.OnUnitCastSkill(evt.EntityId, evt.Value0);
+                {
+                    var element = ResolveElementFromCaster(world, evt.EntityId);
+                    _combatViewManager.OnUnitCastSkill(evt.EntityId, evt.Value0, element);
                     break;
+                }
 
                 case SimEventType.ProjectileSpawned:
                     _combatViewManager.OnProjectileSpawned(evt.EntityId, evt.TargetEntityId, evt.ProjType);
                     break;
 
                 case SimEventType.ProjectileExploded:
-                    _combatViewManager.OnProjectileExploded(evt.Col, evt.Row, evt.Radius);
+                {
+                    var element = ResolveElementFromSkill(evt.Value0);
+                    _combatViewManager.OnProjectileExploded(evt.Col, evt.Row, evt.Radius, element);
                     break;
+                }
 
                 case SimEventType.GoldChanged:
                     _autoChessUI?.OnGoldChanged(evt.PlayerIndex, evt.Value0, evt.Value1);
@@ -197,6 +204,55 @@ namespace CookApps.AutoChess.View
                     _autoChessUI?.OnCombatResult(evt.PlayerIndex, evt.Value0);
                     break;
             }
+        }
+
+        // ── 원소 타입 조회 ──
+
+        /// <summary>시전자 entityId → 캐릭터 원소 타입</summary>
+        private SynergyType ResolveElementFromCaster(GameWorld world, int casterId)
+        {
+            // CombatMatchState에서 유닛 찾기
+            for (int m = 0; m < GameWorld.MaxCombatMatches; m++)
+            {
+                var matchState = world.CombatMatchStates[m];
+                if (matchState == null) continue;
+                for (int u = 0; u < matchState.UnitCount; u++)
+                {
+                    if (matchState.Units[u].CombatId == casterId)
+                    {
+                        int champId = matchState.Units[u].ChampionSpecId;
+                        return GetElementFromCharacterId(champId);
+                    }
+                }
+            }
+            return SynergyType.NONE;
+        }
+
+        /// <summary>skillSpecId → 원소 타입 (스킬 → 캐릭터 역추적)</summary>
+        private SynergyType ResolveElementFromSkill(int skillSpecId)
+        {
+            if (skillSpecId <= 0) return SynergyType.NONE;
+
+            // SkillActive → character_id 역추적이 복잡하므로
+            // Pool에서 SkillId로 캐릭터 찾기
+            var world = _runner.GetWorld();
+            if (world?.Pool == null) return SynergyType.NONE;
+
+            for (int i = 0; i < world.Pool.SpecCount; i++)
+            {
+                if (world.Pool.Specs[i].SkillId == skillSpecId)
+                {
+                    int champId = world.Pool.Specs[i].ChampionId;
+                    return GetElementFromCharacterId(champId);
+                }
+            }
+            return SynergyType.NONE;
+        }
+
+        private static SynergyType GetElementFromCharacterId(int champId)
+        {
+            var charInfo = SpecDataManager.Instance.GetCharacterData(champId);
+            return charInfo?.character_element_type ?? SynergyType.NONE;
         }
 
         // ── 로딩 대기 ──

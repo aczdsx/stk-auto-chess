@@ -252,6 +252,12 @@ namespace CookApps.AutoChess.View
             return view;
         }
 
+        public UnitView FindCombatView(int combatId)
+        {
+            _combatUnitViews.TryGetValue(combatId, out var view);
+            return view;
+        }
+
         // ── 풀 관리 ──
 
         private static string GetCharacterPrefabPath(int championSpecId)

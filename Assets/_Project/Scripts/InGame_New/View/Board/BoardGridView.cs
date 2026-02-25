@@ -21,6 +21,19 @@ namespace CookApps.AutoChess.View
         private bool _isCombatMode;
         private int _combatHeight;
 
+        public int BoardWidth => _boardWidth;
+        public int BoardHeight => _boardHeight;
+        public int BoardCount => _boardCount;
+
+        // ── 타일 접근 ──
+
+        public BoardTileView GetTile(int col, int row, int boardIndex = 0)
+        {
+            int index = boardIndex * (_boardWidth * _combatHeight) + row * _boardWidth + col;
+            if (index < 0 || index >= _tiles.Length) return null;
+            return _tiles[index];
+        }
+
         // ── 초기화 ──
 
         public void Initialize()

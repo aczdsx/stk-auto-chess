@@ -205,7 +205,7 @@ namespace CookApps.AutoChess
             });
         }
 
-        public void PushProjectileExploded(byte col, byte row, int radius)
+        public void PushProjectileExploded(byte col, byte row, int radius, int skillSpecId = 0)
         {
             Push(new SimEvent
             {
@@ -213,6 +213,7 @@ namespace CookApps.AutoChess
                 Col = col,
                 Row = row,
                 Radius = radius,
+                Value0 = skillSpecId,
             });
         }
     }

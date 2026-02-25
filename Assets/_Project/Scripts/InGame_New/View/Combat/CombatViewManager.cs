@@ -1,3 +1,4 @@
+using CookApps.AutoBattler;
 using UnityEngine;
 
 namespace CookApps.AutoChess.View
@@ -12,6 +13,8 @@ namespace CookApps.AutoChess.View
         [SerializeField] private Transform _vfxRoot;
 
         private bool _isCombatActive;
+        private TileEffectManager _tileEffectManager;
+        private UnitViewManager _unitViewManager;
 
         // ── 초기화 ──
 
@@ -19,6 +22,9 @@ namespace CookApps.AutoChess.View
         {
             _isCombatActive = false;
         }
+
+        public void SetTileEffectManager(TileEffectManager manager) => _tileEffectManager = manager;
+        public void SetUnitViewManager(UnitViewManager manager) => _unitViewManager = manager;
 
         public void OnCombatStart()
         {
@@ -28,7 +34,7 @@ namespace CookApps.AutoChess.View
         public void OnCombatEnd()
         {
             _isCombatActive = false;
-            // TODO: 잔여 VFX 정리
+            _tileEffectManager?.HideAll();
         }
 
         // ── 이벤트 수신 (AutoChessViewBridge에서 호출) ──
@@ -53,9 +59,22 @@ namespace CookApps.AutoChess.View
             // TODO: 사망 VFX (파티클, 페이드아웃)
         }
 
-        public void OnUnitCastSkill(int casterId, int skillSpecId)
+        public void OnUnitCastSkill(int casterId, int skillSpecId, SynergyType element)
         {
             if (!_isCombatActive) return;
+            if (_tileEffectManager == null || element == SynergyType.NONE) return;
+
+            // 시전자 위치에 캐스트 이펙트 재생
+            if (_unitViewManager != null)
+            {
+                var unitView = _unitViewManager.FindCombatView(casterId);
+                if (unitView != null)
+                {
+                    var castType = TileEffectManager.SynergyToCastType(element);
+                    _tileEffectManager.ShowAt(castType, unitView.transform.position, 1.0f);
+                }
+            }
+
             // TODO: 스킬 시전 VFX
             // TODO: 컷씬 연출 (카메라 줌 등)
         }
@@ -66,12 +85,18 @@ namespace CookApps.AutoChess.View
             // TODO: 투사체 비주얼 생성 (Homing/Linear/Area 구분)
         }
 
-        public void OnProjectileExploded(int col, int row, int radius)
+        public void OnProjectileExploded(int col, int row, int radius, SynergyType element)
         {
             if (!_isCombatActive) return;
-            // TODO: 범위 폭발 VFX
-            Vector3 worldPos = BoardWorldHelper.CombatGridToWorld(0, col, row);
-            // TODO: worldPos에 폭발 이펙트 재생
+            if (_tileEffectManager == null) return;
+
+            if (element != SynergyType.NONE)
+            {
+                var areaType = TileEffectManager.SynergyToAreaType(element);
+                _tileEffectManager.ShowRange(areaType, col, row, radius, 1.5f);
+            }
+
+            // TODO: 범위 폭발 기본 VFX (원소 무관)
         }
     }
 }

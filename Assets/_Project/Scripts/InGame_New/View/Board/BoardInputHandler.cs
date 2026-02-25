@@ -16,6 +16,7 @@ namespace CookApps.AutoChess.View
         private Camera _camera;
         private AutoChessViewBridge _viewBridge;
         private UnitViewManager _unitViewManager;
+        private TileEffectManager _tileEffectManager;
 
         // UI 영역 판별용 콜백
         private System.Func<Vector2, bool> _isPointInUI;
@@ -35,8 +36,9 @@ namespace CookApps.AutoChess.View
         private int _ghostCol = -1;
         private int _ghostRow = -1;
 
-        // 타일 하이라이트
-        private GameObject _highlightObj;
+        // 타일 하이라이트 (TileEffectManager handle 기반)
+        private int _placementHandle;
+        private int _rangeHandle;
         private int _highlightCol = -1;
         private int _highlightRow = -1;
 
@@ -48,14 +50,14 @@ namespace CookApps.AutoChess.View
             Camera camera,
             AutoChessViewBridge viewBridge,
             UnitViewManager unitViewManager,
+            TileEffectManager tileEffectManager,
             System.Func<Vector2, bool> isPointInUI)
         {
             _camera = camera;
             _viewBridge = viewBridge;
             _unitViewManager = unitViewManager;
+            _tileEffectManager = tileEffectManager;
             _isPointInUI = isPointInUI;
-
-            CreateHighlightIndicator();
         }
 
         public void SetEnabled(bool enabled)
@@ -292,46 +294,36 @@ namespace CookApps.AutoChess.View
 
         // ── 타일 하이라이트 ──
 
-        private void CreateHighlightIndicator()
-        {
-            _highlightObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            _highlightObj.name = "TileHighlight";
-            _highlightObj.transform.SetParent(transform);
-            _highlightObj.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
-            _highlightObj.transform.localScale = new Vector3(1f, 1f, 1f);
-
-            var collider = _highlightObj.GetComponent<Collider>();
-            if (collider != null) Destroy(collider);
-
-            var renderer = _highlightObj.GetComponent<Renderer>();
-            if (renderer != null)
-            {
-                renderer.material = new Material(Shader.Find("Sprites/Default"));
-                renderer.material.color = new Color(0f, 1f, 0f, 0.3f);
-            }
-
-            _highlightObj.SetActive(false);
-        }
-
         private void ShowHighlight(int col, int row)
         {
-            if (_highlightCol == col && _highlightRow == row && _highlightObj.activeSelf)
+            if (_highlightCol == col && _highlightRow == row && _placementHandle != 0)
                 return;
+
+            HideHighlight();
 
             _highlightCol = col;
             _highlightRow = row;
 
-            Vector3 pos = BoardWorldHelper.BoardGridToWorld(0, col, row);
-            pos.y += 0.01f;
-            _highlightObj.transform.position = pos;
-            _highlightObj.SetActive(true);
+            _placementHandle = _tileEffectManager.Show(TileEffectType.Placement, col, row);
+            // TODO: 드래그 유닛의 AttackRange를 가져와서 공격범위 표시
+            // _rangeHandle = _tileEffectManager.ShowRange(TileEffectType.AttackRange, col, row, attackRange);
         }
 
         private void HideHighlight()
         {
             _highlightCol = -1;
             _highlightRow = -1;
-            _highlightObj.SetActive(false);
+
+            if (_placementHandle != 0)
+            {
+                _tileEffectManager.Hide(_placementHandle);
+                _placementHandle = 0;
+            }
+            if (_rangeHandle != 0)
+            {
+                _tileEffectManager.Hide(_rangeHandle);
+                _rangeHandle = 0;
+            }
         }
     }
 }

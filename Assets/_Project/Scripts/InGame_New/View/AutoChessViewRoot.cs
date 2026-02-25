@@ -20,10 +20,13 @@ namespace CookApps.AutoChess.View
         private UnitViewManager _unitViewManager;
         private CombatViewManager _combatViewManager;
         private BoardGridView _boardGridView;
+        private TileEffectManager _tileEffectManager;
 
         public LocalSimulationRunner Runner => _runner;
         public AutoChessViewBridge ViewBridge => _viewBridge;
         public UnitViewManager UnitViewManager => _unitViewManager;
+        public BoardGridView BoardGridView => _boardGridView;
+        public TileEffectManager TileEffectManager => _tileEffectManager;
         public GameObject AutoChessUIPrefab => _autoChessUIPrefab;
 
         // ── Addressables 리소스 로드 ──
@@ -65,6 +68,14 @@ namespace CookApps.AutoChess.View
             _unitViewManager = CreateChild<UnitViewManager>("UnitViewManager");
             _unitViewManager.SetPrefab(_unitViewPrefab.GetComponent<UnitView>());
             _combatViewManager = CreateChild<CombatViewManager>("CombatViewManager");
+
+            // TileEffectManager
+            _tileEffectManager = CreateChild<TileEffectManager>("TileEffectManager");
+            _tileEffectManager.Initialize();
+
+            // CombatViewManager에 의존성 전달
+            _combatViewManager.SetTileEffectManager(_tileEffectManager);
+            _combatViewManager.SetUnitViewManager(_unitViewManager);
 
             // ViewBridge 와이어링
             _viewBridge = CreateChild<AutoChessViewBridge>("ViewBridge");

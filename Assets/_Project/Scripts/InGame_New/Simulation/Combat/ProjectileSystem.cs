@@ -168,7 +168,7 @@ namespace CookApps.AutoChess
                 // AreaTarget은 흡혈 미적용 (밸런스)
             }
 
-            state.EventQueue?.PushProjectileExploded(proj.TargetCol, proj.TargetRow, proj.AreaRadius);
+            state.EventQueue?.PushProjectileExploded(proj.TargetCol, proj.TargetRow, proj.AreaRadius, proj.SkillSpecId);
 
             proj.IsActive = false;
         }
