@@ -33,13 +33,10 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton closeButton;
         
         [Header("강화 관련")]
-        [SerializeField] private TMP_Text requiredCoreText;
-        [SerializeField] private TMP_Text currentCoreText;
         [SerializeField] private CAButton upgradeButton;
         [SerializeField] private TMP_Text[] upgradeButtonTexts;
         [SerializeField] private TMP_Text coreTitleText;
-        [SerializeField] private TMP_Text requiredCoreTitleText;
-        [SerializeField] private SpriteLoader requireItemImage;
+        [SerializeField] private RequirementCurrency requirementCurrency;
         
         [Header("스탯 관련")]
         [SerializeField] private ElpisCoreStatItem[] coreStats;
@@ -60,8 +57,6 @@ namespace CookApps.AutoBattler
         private ElpisCoreItem selectedCoreItem;
         private InventoryModel inventoryModel;
 
-        private int currentItemCount;
-        private SimpleTextColorSwapper _cacheRequireCoreTextColorSwapper;
 
         protected override void OnPreEnter(object param)
         {
@@ -79,11 +74,6 @@ namespace CookApps.AutoBattler
 
             InitializeToggles();
             InitializeCoreItems();
-
-            if (_cacheRequireCoreTextColorSwapper is null)
-            {
-                _cacheRequireCoreTextColorSwapper = requiredCoreText.gameObject.GetComponent<SimpleTextColorSwapper>();
-            }
 
             SetToggle(defaultType);
         }
@@ -293,18 +283,12 @@ namespace CookApps.AutoBattler
         {
             SetCoreStatItems();
 
-            requireItemImage.SetSprite(ZString.Format("Icon_Cunsumable{0}", coreData.Data.item_id)).Forget();
-            
-            requiredCoreTitleText.text = LanguageManager.Instance.GetDefaultText(ZString.Format("ITEM_INFO_NAME_{0}", coreData.Data.item_id));
+            requirementCurrency.SetIcon(ZString.Format("Icon_Cunsumable{0}", coreData.Data.item_id));
+            requirementCurrency.SetTitle(LanguageManager.Instance.GetDefaultText(ZString.Format("ITEM_INFO_NAME_{0}", coreData.Data.item_id)));
             coreTitleText.text = ZString.Format(LanguageManager.Instance.GetDefaultText(coreData.Data.upgrade_name_token), coreData.Data.lv - 1);
 
-            currentItemCount = (int)inventoryModel.GetCurrency(coreData.Data.item_id);
-            currentCoreText.text = ZString.Concat(currentItemCount, " /");
-            requiredCoreText.text = ZString.Concat(coreData.Data.item_INT);
-            
-            var swapType = currentItemCount >= coreData.Data.item_INT ? SimpleSwapType.Possible 
-                : SimpleSwapType.Impossible;
-            _cacheRequireCoreTextColorSwapper.Swap(swapType);
+            var currentItemCount = (int)inventoryModel.GetCurrency(coreData.Data.item_id);
+            requirementCurrency.SetAmount(currentItemCount, coreData.Data.item_INT);
             
             var isOverNeedLevel = IsOverNeedLevel();
             foreach (var upgradeButtonText in upgradeButtonTexts)
@@ -335,7 +319,7 @@ namespace CookApps.AutoBattler
         public async UniTask Upgrade()
         {
             // 디버깅: 함수 호출 확인
-            Debug.Log($"[ElpisCoreResearch] Upgrade() 호출됨 - selectedCoreItem: {selectedCoreItem != null}, IsOverNeedLevel: {IsOverNeedLevel()}, currentItemCount: {currentItemCount}, required: {selectedCoreData?.item_INT}");
+            Debug.Log($"[ElpisCoreResearch] Upgrade() 호출됨 - selectedCoreItem: {selectedCoreItem != null}, IsOverNeedLevel: {IsOverNeedLevel()}, required: {selectedCoreData?.item_INT}");
             
             if(selectedCoreItem == null)
             {
@@ -349,9 +333,9 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            // if(currentItemCount < selectedCoreData.item_INT)
+            // if(inventoryModel.GetCurrency(selectedCoreData.item_id) < selectedCoreData.item_INT)
             // {
-            //     Debug.LogWarning($"[ElpisCoreResearch] Upgrade() - 코어 개수 부족 (현재: {currentItemCount}, 필요: {selectedCoreData.item_INT})");
+            //     Debug.LogWarning($"[ElpisCoreResearch] Upgrade() - 코어 개수 부족 (필요: {selectedCoreData.item_INT})");
             //     return;
             // }
 

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
-using CookApps.TeamBattle.Utility;
 using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -27,9 +26,7 @@ namespace CookApps.AutoBattler
 
         [Header("업그레이드 버튼")]
         [SerializeField] private CAButton upgradeButton;
-        [SerializeField] private TextMeshProUGUI requiredCoreText;
-        [SerializeField] private SimpleSwapper[] currentCoreTextSwappers;
-        [SerializeField] private TextMeshProUGUI currentCoreText;
+        [SerializeField] private RequirementCurrency requirementCurrency;
 
         private int currentElpisLevel;
         private int currentCoreAmount;
@@ -226,10 +223,7 @@ namespace CookApps.AutoBattler
 
             upgradeButton.SetClickableState(canUpgrade);
 
-            requiredCoreText.text = requiredCoreForUpgrade.ToString();
-            currentCoreTextSwappers.Swap(canUpgrade ? SimpleSwapType.Possible : SimpleSwapType.Impossible);
-
-            currentCoreText.SetTextFormat("{0} /", currentCoreAmount);
+            requirementCurrency.SetAmount(currentCoreAmount, requiredCoreForUpgrade);
         }
 
         private void UpdateNPCDialogue()

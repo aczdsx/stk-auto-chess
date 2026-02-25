@@ -18,8 +18,7 @@ MonoBehaviour:
   - m_GUID: 4a8d4763766351947b026908939d2336
     m_Address: Prefabs/UI/01_Pops/CharacterCollectionPopup/CharacterCollectionPopup.prefab
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f94abf99adf954845a7e308b788b1a5d
     m_Address: Assets/_Project/Splash_STK/Prefab/SplashUI.prefab

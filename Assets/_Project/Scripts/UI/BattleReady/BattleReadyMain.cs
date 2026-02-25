@@ -18,16 +18,6 @@ namespace CookApps.AutoBattler
     /// <summary>
     /// 전투 준비 화면(로비)의 메인 UI 레이어를 관리하는 클래스
     ///
-    /// [원래 기능]
-    /// - 스테이지 선택 UI 표시 및 관리
-    /// - 유저 정보 표시 (레벨, 경험치, 닉네임)
-    /// - 방치 보상 상태 표시 및 갱신
-    /// - 각종 메뉴 버튼 클릭 처리 (가챠, 출석, 퀘스트, 던전, 이벤트, 설정 등)
-    /// - 레드닷 상태 업데이트 및 표시
-    /// - 챕터 클리어, 계정 레벨업 등 팝업 표시 조건 체크
-    /// - Vignette 효과 적용
-    ///
-    /// [현재 사용 중인 기능]
     /// - 스테이지 선택 UI 표시 및 관리 (하단 스크롤 영역)
     /// - 방치 보상 상태 표시 및 갱신
     /// - 전투 시작 버튼 클릭 처리
@@ -37,12 +27,6 @@ namespace CookApps.AutoBattler
     /// - 가이드 미션 갱신
     /// - 챕터 클리어, 계정 레벨업 등 팝업 표시 조건 체크
     /// - Vignette 효과 적용
-    ///
-    /// [비활성화된 기능]
-    /// - 유저 정보 표시 (주석 처리됨)
-    /// - 가챠, 출석, 퀘스트, 던전, 이벤트 버튼 (Awake에서 주석 처리됨)
-    /// - 레드닷 표시 (레드닷 오브젝트 주석 처리됨, 상태 계산만 수행)
-    /// - 버튼 오픈 조건 체크 (UpdateOpenCondition 내부 주석 처리됨)
     /// </summary>
     public class BattleReadyMain : UILayer
     {
@@ -68,7 +52,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _bossStageText;
         [SerializeField] private TextMeshProUGUI _chapterNameText;
         [SerializeField] private TextMeshProUGUI _stageProgressText;
-        // [SerializeField] private TextMeshProUGUI _apCostText;
+        [SerializeField] private TextMeshProUGUI _backToLobbyText;
 
         [Header("Guide Mission")]
         [SerializeField] private GuideMissionSlot _guideMissionSlot;
@@ -79,17 +63,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _fullRewardStateObject;
         [SerializeField] private TextMeshProUGUI _idleRewardStateText;
         [SerializeField] private ParticleSystem _dropFx;
-
-        [Header("Red dot")]
-        // [SerializeField] private GameObject _characterReddotObject;
-        // [SerializeField] private GameObject _gachaReddotObject;
-        // [SerializeField] private GameObject _idleRewardReddotObject;
-        // [SerializeField] private GameObject _chapterSelectReddotObject;
-        // [SerializeField] private GameObject _questReddotObject;
-        // [SerializeField] private GameObject _attendanceReddotObject;
-        // [SerializeField] private GameObject _sessionTimeEventReddotObject;
-        // [SerializeField] private GameObject _useAPEventReddotObject;
-        // [SerializeField] private GameObject _trialDungeonReddotObject;
+        
 
         private List<LobbyBottomStageSlot> _stageSlotList = new();
 
@@ -110,18 +84,10 @@ namespace CookApps.AutoBattler
             base.Awake();
 
             _backToLobby.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickGoToLobby()).AddTo(this);
+            // _backToLobby.
             _playButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickStartButtonAsync(), AwaitOperation.Drop).AddTo(this);
             _stageSelectButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickChapterStageButton()).AddTo(this);
-            // _shopButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCharacterCollectionButton()).AddTo(this);
-            // _gachaButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGachaButton()).AddTo(this);
             _idleRewardButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickIdleRewardButton()).AddTo(this);
-            // _attendanceButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickAttendanceButton()).AddTo(this);
-            // _questButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickQuestButton()).AddTo(this);
-            // _trialDungeonButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickTrialDungeonButton()).AddTo(this);
-            // _sessionEventButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSessionEventButton()).AddTo(this);
-            // _consumeAPEventButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickConsumeAPEventButton()).AddTo(this);
-            // _userAccountLayerButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickUserAccountLayerButton()).AddTo(this);
-            // _settingButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSettingButton()).AddTo(this);
         }
 
         protected override void OnBackButton(ref bool offPrevUI)
@@ -246,7 +212,8 @@ namespace CookApps.AutoBattler
             var chapterSpecData = SpecDataManager.Instance.GetChapterData(stageSpecData.chapter_id, stageSpecData.difficulty_type);
 
             //_chapterImage.sprite = specStage.chapter_image;
-            _chapterNameText.text = LanguageManager.Instance.GetDefaultText(chapterSpecData.name_token);
+            _backToLobbyText.text = _chapterNameText.text = LanguageManager.Instance.GetDefaultText(chapterSpecData.name_token);
+            
 
             int totalStageCount = SpecDataManager.Instance.GetStageCount(stageSpecData.chapter_id, DifficultyType.NORMAL);
             _stageProgressText.SetText("{0}/{1}", stageSpecData.stage_number, totalStageCount);
@@ -277,7 +244,7 @@ namespace CookApps.AutoBattler
             var stageList = SpecDataManager.Instance.GetStageList(specChapterData.chapter_id, specChapterData.difficulty_type);
 
             //_chapterImage.sprite = specStage.chapter_image;
-            _chapterNameText.text = LanguageManager.Instance.GetDefaultText(specChapterData.name_token);
+            _backToLobbyText.text =  _chapterNameText.text = LanguageManager.Instance.GetDefaultText(specChapterData.name_token);
 
             int totalStageCount = stageList.Count;
             _stageProgressText.SetText("{0}/{1}", specStageData.stage_number, totalStageCount);

@@ -8,6 +8,7 @@ namespace CookApps.TeamBattle.Utility
         Normal = 0,
         Disabled = 1,
 
+
         Grade_0 = 10,
         Grade_1 = 11,
         Grade_2 = 12,
@@ -38,6 +39,8 @@ namespace CookApps.TeamBattle.Utility
         Impossible = 201,
         
         Selected = 300,
+        AD =401,
+        AP = 402,
     }
 
     public abstract class SimpleSwapper : CachedMonoBehaviour

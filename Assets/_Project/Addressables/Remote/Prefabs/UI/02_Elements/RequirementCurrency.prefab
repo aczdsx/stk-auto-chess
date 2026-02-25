@@ -145,6 +145,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 764567344027055417}
+  - component: {fileID: 3923890880890344438}
   m_Layer: 5
   m_Name: RequirementCurrency
   m_TagString: Untagged
@@ -175,6 +176,22 @@ RectTransform:
   m_AnchoredPosition: {x: 80, y: 88.3}
   m_SizeDelta: {x: 280, y: 90}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &3923890880890344438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825894168958250127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac751144c4cf2074b8d04fb2acd378e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userHavingCountText: {fileID: 973284403561817655}
+  requirementCountText: {fileID: 3665112181246917161}
+  currencyTitleText: {fileID: 1105168476901540459}
+  currencyIconLoader: {fileID: 2149064142020898278}
 --- !u!1 &4825622098886965343
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +322,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10000000 /
+  m_text: 10000000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
   m_sharedMaterial: {fileID: -2439792414735106144, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
@@ -332,7 +349,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21.75
+  m_fontSize: 21.5
   m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -535,7 +552,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1000000
+  m_text: / 1000000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
   m_sharedMaterial: {fileID: -2439792414735106144, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
@@ -562,7 +579,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24.85
+  m_fontSize: 24.6
   m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -617,6 +634,7 @@ GameObject:
   - component: {fileID: 3262263624744516405}
   - component: {fileID: 1689883661458515415}
   - component: {fileID: 4993801199380469825}
+  - component: {fileID: 2149064142020898278}
   m_Layer: 5
   m_Name: CurrencyIcon
   m_TagString: Untagged
@@ -681,3 +699,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2149064142020898278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7787860865663583878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 4993801199380469825}

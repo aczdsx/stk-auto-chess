@@ -467,58 +467,6 @@ namespace CookApps.BattleSystem
             }
         }
 
-        public float BlockingProb
-        {
-            get
-            {
-                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatBlockingProb) ||
-                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatBlockingProb))
-                {
-                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatBlockingProb);
-                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatBlockingProb);
-                    var effectCodes = GetEffectCodeContainer()
-                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatBlockingProb);
-                    postBlockingProb = effectCodes.CalculateBlockingProb(GetCharacterStat().BlockingProb);
-                }
-
-                return postGivenHealRate;
-            }
-        }
-
-        public float AvoidProb
-        {
-            get
-            {
-                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatAvoidProb) ||
-                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatAvoidProb))
-                {
-                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatAvoidProb);
-                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatAvoidProb);
-                    var effectCodes = GetEffectCodeContainer()
-                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAvoidProb);
-                    postAvoidProb = effectCodes.CalculateAvoidProb(GetCharacterStat().AvoidProb);
-                }
-                return postAvoidProb;
-            }
-        }
-
-        public float HitProb
-        {
-            get
-            {
-                if (needUpdateFlag.HasFlag(EffectCodeInheritFlag.StatHitProb) ||
-                    GetCharacterStat().DirtyFlags.HasFlag(EffectCodeInheritFlag.StatHitProb))
-                {
-                    needUpdateFlag.RemoveFlag(EffectCodeInheritFlag.StatHitProb);
-                    GetCharacterStat().RemoveDirtyFlag(EffectCodeInheritFlag.StatHitProb);
-                    var effectCodes = GetEffectCodeContainer()
-                        .GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatHitProb);
-                    postHitProb = effectCodes.CalculateHitProb(GetCharacterStat().HitProb);
-                }
-                return postHitProb;
-            }
-        }
-
         public float TakenHealRate
         {
             get

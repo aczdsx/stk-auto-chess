@@ -132,7 +132,8 @@ MonoBehaviour:
   - m_GUID: 83987405fb00104499ee6bd75530b4fc
     m_Address: Prefab_Dungeon_Boss_01.prefab
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8cf4b5c78c663454d932d5acaed1c9f0
     m_Address: SD/30606004

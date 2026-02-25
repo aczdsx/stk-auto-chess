@@ -15,10 +15,9 @@ namespace CookApps.BattleSystem
         {
             None = 0,
             SkipAvoidTest = 1 << 0,           // 회피 테스트 스킵
-            SkipBlockingTest = 1 << 1,        // 블록 테스트 스킵
-            SkipCriticalTest = 1 << 2,        // 크리티컬 테스트 스킵
-            SkipResistPierce = 1 << 3,        // 저항 관통 테스트 스킵
-            SkipLevelDiffMul = 1 << 4,         // 레벨 차이 계산 스킵
+            SkipCriticalTest = 1 << 1,        // 크리티컬 테스트 스킵
+            SkipResistPierce = 1 << 2,        // 저항 관통 테스트 스킵
+            SkipLevelDiffMul = 1 << 3,         // 레벨 차이 계산 스킵
         }
 
         public struct DamageInfo
@@ -29,7 +28,6 @@ namespace CookApps.BattleSystem
             public bool isCritical;
             public bool isDoubleCritical;
             public bool isMissed;// 회피테스트 성공여부
-            public bool isBlocked;// 블록테스트 성공여부
             public long source;
 
             // // 데미지 계산 히스토리 (각 단계별 데미지 변경 추적)
@@ -46,31 +44,11 @@ namespace CookApps.BattleSystem
                     isAD = isAD,
                     isCritical = isCritical,
                     isDoubleCritical = isDoubleCritical,
-                    isBlocked = false,
                     isMissed = false,
-                    // calculationHistory = new List<DamageCalculationStep>()
                 };
             }
         }
 
-        // 데미지 계산 단계 정보
-        // public struct DamageCalculationStep
-        // {
-        //     public string stepName;           // 단계 이름
-        //     public double damageBefore;       // 변경 전 데미지
-        //     public double damageAfter;        // 변경 후 데미지
-        //     public string description;        // 변경 사유/설명
-        //     public double multiplier;         // 적용된 배율 (있는 경우)
-
-        //     public DamageCalculationStep(string stepName, double damageBefore, double damageAfter, string description, double multiplier = 1.0)
-        //     {
-        //         this.stepName = stepName;
-        //         this.damageBefore = damageBefore;
-        //         this.damageAfter = damageAfter;
-        //         this.description = description;
-        //         this.multiplier = multiplier;
-        //     }
-        // }
 
         /// <summary>
         /// 데미지 계산해서 벹는함수.
@@ -113,30 +91,9 @@ namespace CookApps.BattleSystem
             if (target.AllianceType == AllianceType.Neutral)
                 return damageInfo;
 
-            // 회피 테스트 진행 (스킬이 아니고 스킵 플래그가 없을 때만)
-            if (!isSkill && (skipTests & DamageTestFlags.SkipAvoidTest) == 0)
+            if ((skipTests & DamageTestFlags.SkipCriticalTest) == 0)
             {
-                ProgressAvoidTest(ref damageInfo, target);
-                if (damageInfo.isMissed)
-                {
-                    //미스 시 데미지 0으로 처리 + 바로 리턴
-                    return damageInfo;
-                }
-
-            }
-
-            //블록 테스트 진행
-            if ((skipTests & DamageTestFlags.SkipBlockingTest) == 0)
-            {
-                double beforeBlock = damageInfo.damageAmount.Value;
-                ProgressBlockingTest(ref damageInfo, target);
-                if (!damageInfo.isBlocked)
-                {
-                    if ((skipTests & DamageTestFlags.SkipCriticalTest) == 0)
-                    {
-                        ProgressCriticalTest(ref damageInfo);
-                    }
-                }
+                ProgressCriticalTest(ref damageInfo);
             }
 
             //저항 관통 테스트
@@ -164,49 +121,7 @@ namespace CookApps.BattleSystem
             
             return damageInfo;
         }
-
-
-
-        /// <summary>
-        /// 나의 명중률과 타겟의 회피율을 테스트해서 회피 성공 여부를 반환
-        /// false 시 miss
-        /// true 시 명중
-        /// </summary>
-        /// <param name="damageInfo"></param>
-        /// <param name="target"></param>
-        /// <returns></returns>
-        private void ProgressAvoidTest(ref DamageInfo damageInfo, CharacterController target)
-        {
-            //HitProb, AvoidProb는 성유물, 장비가 추가되면 바뀔수있음.
-            var hitProb = HitProb; // 나의 명중률
-            var avoidProb = target.AvoidProb; // 타겟의 회피율
-
-            var D = hitProb - avoidProb;
-            var HitChance = 0.9f + 0.2f * D;
-            HitChance = Mathf.Clamp(HitChance, 0.1f, 0.99f);
-            if (InGameRandomManager.GetUniversalRandomValue(0f, 100f) >= HitChance * 100f)
-            {
-                //명중률에서 탈락하면 그냥 미스처리.
-                damageInfo.isMissed = true;
-                damageInfo.damageAmount = 0d;
-                return;
-            }
-        }
-
-        private void ProgressBlockingTest(ref DamageInfo damageInfo, CharacterController target)
-        {
-            //타겟의 블록율로 블록율 테스트 
-            // 블록 성공시 데미지 50%감소
-            if (InGameRandomManager.GetUniversalRandomValue(0f, 100f) < target.BlockingProb * 100f)
-            {
-                damageInfo.damageAmount *= 0.5d;
-                damageInfo.isBlocked = true;
-            }
-            else
-            {
-                damageInfo.isBlocked = false;
-            }
-        }
+        
 
         private void ProgressCriticalTest(ref DamageInfo damageInfo)
         {
@@ -311,14 +226,9 @@ namespace CookApps.BattleSystem
 
             if (!damageInfo.isMissed)
             {
-                if (damageInfo.isBlocked)
-                {
-                    ShowBlockText(damageAmount.damageAmount.Value).Forget();
-                }
-                else
-                {
-                    ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical).Forget();
-                }
+
+                ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical).Forget();
+                
             }
             else
             {
@@ -500,16 +410,6 @@ namespace CookApps.BattleSystem
             await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical);
         }
 
-        private async UniTask ShowBlockText(double damage)
-        {
-            InGameTextView textView = InGameTextViewPool.Instance.Get();
-            if (AllianceType != AllianceType.Player)
-            {
-                textView.PlayDamageSound(false);
-            }
-
-            await textView.ShowBlockText(GetCharacterView().CachedTr.position, _statData.Spec.height, damage);
-        }
 
         private async UniTask ShowHealText(double amount)
         {
