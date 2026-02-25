@@ -640,9 +640,6 @@ public partial class InGameTouchManager
                     }
                 }
             }
-
-            // InGameObjectManager.Instance.DrawPlayerLine(true);
-            // InGameObjectManager.Instance.DrawPlayerLine(false);
         }
     }
 

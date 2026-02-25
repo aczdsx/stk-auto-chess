@@ -2,6 +2,7 @@ using System;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -19,14 +20,13 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
     [SerializeField] private Transform _characterIconRoot;
     [SerializeField] private SpriteLoader _SynergyImageSpriteLoader;
     [SerializeField] private SpriteLoader _SynergyClassImageSpriteLoader;
-    [SerializeField] private TextMeshProUGUI _lvText;
     [SerializeField] private GameObject _body;
-    [SerializeField] private GameObject _emptySlotObj;
     [SerializeField] private GameObject _focusObj;
     [SerializeField] private SpriteLoader _focusImageSpriteLoader;
     [SerializeField] private Animation _dropFxAnimation;
     [SerializeField] private TextMeshProUGUI _focusText;
     [SerializeField] private ParticleSystem _guideFx;
+    [SerializeField] private SimpleImageColorSwapper  _positionColorSwapper;
     [SerializeField] private TextMeshProUGUI _characterPositionTypeText;
     [SerializeField] private TextMeshProUGUI _attrText;
 
@@ -54,19 +54,17 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         bool isExsist = _statData != null;
 
         _body.SetActive(isExsist);
-        _emptySlotObj.SetActive(!isExsist);
         if (_body.activeSelf)
         {
             LoadCharacterIcon(_statData.Spec.prefab_id).Forget();
             _SynergyImageSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_statData.Spec.character_element_type)).Forget();
             _SynergyClassImageSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(_statData.Spec.character_stella_type)).Forget();
             _characterPositionTypeText.text = _statData.Spec.character_position_type.ToString();
-            _lvText.text = $"{_statData.Level}";
             _attrText.text = $"{_statData.GetAttrValueCP().ToString("n0")}";
-        }
-        else
-        {
-            _lvText.text = $"0";
+            if (_statData.Spec.atk_type == AtkType.AD)
+                _positionColorSwapper.Swap(SimpleSwapType.AD);
+            else
+                _positionColorSwapper.Swap(SimpleSwapType.AP);
         }
 
         if (_guideFx)
@@ -107,12 +105,10 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
             var userCharacter = ServerDataManager.Instance.Character.GetCharacter(spec.id);
             _focusImageSpriteLoader.SetSprite(SpriteNameParser.GetCharacterInGamePortraitSprite(spec.prefab_id)).Forget();
             _focusText.text = userCharacter?.Level.ToString("n0") ?? "0";
-            _lvText.text = userCharacter?.Level.ToString("n0") ?? "0";
         }
         else
         {
             _focusText.text = "0";
-            _lvText.text = "0";
         }
 
         _focusObj.SetActive(isActiveFocus);
@@ -353,20 +349,10 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
         _isCharacterSpawned = false;
         _scrollRectDragStarted = false;
     }
-
     public int GetDisplayLv()
     {
-        int level;
-        if (int.TryParse(_lvText.text, out level))
-        {
-            return level;
-        }
-        else
-        {
-            return 0;
-        }
+        return _statData.Level;
     }
-
     public void SetAlert()
     {
         if (_guideFx)
@@ -375,6 +361,7 @@ public class InGameCharacterItem : MonoBehaviour, IPointerDownHandler, IPointerU
             _guideFx.Play();
         }
     }
+    
 
     void Update()
     {

@@ -6,6 +6,17 @@ using UnityEngine;
 /// </summary>
 public partial class InGameTouchManager
 {
+    private float _initialFingersDistance;
+    private float _initialCameraSize;
+    private readonly float _cameraMinSize = 5.0f;
+    private readonly float _cameraMaxSize = 9.0f;
+
+    private Vector3 _initialFingersPosition;
+    private Vector3 _initialCameraPosition;
+
+    private readonly float _zoomCooldown = 0.1f;
+    private float _zoomCooldownTimer = 0f;
+
     private void CameraMove(bool isPointerOverUI)
     {
         Vector3 initialPosition = Vector3.zero;

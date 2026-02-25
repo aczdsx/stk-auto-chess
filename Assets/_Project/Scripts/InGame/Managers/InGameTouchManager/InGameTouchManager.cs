@@ -26,17 +26,6 @@ public partial class InGameTouchManager : SingletonMonoBehaviour<InGameTouchMana
     private Vector3 _offset;
     private bool _isMoveEndAnimation;
 
-    private float _initialFingersDistance;
-    private float _initialCameraSize;
-    private readonly float _cameraMinSize = 5.0f;
-    private readonly float _cameraMaxSize = 9.0f;
-
-    private Vector3 _initialFingersPosition;
-    private Vector3 _initialCameraPosition;
-
-    private readonly float _zoomCooldown = 0.1f;
-    private float _zoomCooldownTimer = 0f;
-
     private int _selectedFirstTileID = -1;
     public int SelectedFirstTileID { get => _selectedFirstTileID; set => _selectedFirstTileID = value; }
 
