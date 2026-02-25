@@ -36,8 +36,11 @@ namespace CookApps.AutoChess.View
         // ── 캐릭터 비주얼 ──
         private SpriteCharacterView _characterView;
         private AsyncOperationHandle<GameObject> _loadHandle;
+
+        // ── Desired State (로딩 전 호출된 상태를 추적, 로딩 후 ApplyDeferredState로 일괄 적용) ──
         private CombatState _lastState = CombatState.Idle;
-        private Vector3? _pendingFacingTarget;
+        private bool _isHologram;
+        private Vector3? _facingTarget;
 
         // ── 초기화 ──
 
@@ -50,6 +53,8 @@ namespace CookApps.AutoChess.View
             HPRatio = 1f;
             ManaRatio = 0f;
             _lastState = CombatState.Idle;
+            _isHologram = false;
+            _facingTarget = null;
             _isActive = true;
             gameObject.SetActive(true);
             LoadCharacterVisual(prefabPath).Forget();
@@ -64,6 +69,8 @@ namespace CookApps.AutoChess.View
             HPRatio = 1f;
             ManaRatio = 0f;
             _lastState = CombatState.Idle;
+            _isHologram = false;
+            _facingTarget = null;
             _isActive = true;
             gameObject.SetActive(true);
             LoadCharacterVisual(prefabPath).Forget();
@@ -89,12 +96,19 @@ namespace CookApps.AutoChess.View
 
             _characterView = go.GetComponent<SpriteCharacterView>();
             _characterView?.PlayAnimation(AnimationKey.IDLE);
+            ApplyDeferredState();
+        }
 
-            if (_pendingFacingTarget.HasValue)
-            {
-                UpdateFacing(_pendingFacingTarget.Value);
-                _pendingFacingTarget = null;
-            }
+        /// <summary>로딩 완료 후 지연된 상태를 일괄 적용</summary>
+        private void ApplyDeferredState()
+        {
+            if (_characterView == null) return;
+
+            if (_isHologram)
+                _characterView.SetHologramShader();
+
+            if (_facingTarget.HasValue)
+                ApplyFacing();
         }
 
         private void ReleaseCharacterVisual()
@@ -144,10 +158,16 @@ namespace CookApps.AutoChess.View
 
         public void SetCombatState(CombatState state)
         {
-            if (_characterView == null || state == _lastState) return;
+            if (state == _lastState) return;
+            if (_characterView == null) return;
             _lastState = state;
 
-            var animKey = state switch
+            _characterView.PlayAnimation(StateToAnimKey(state));
+        }
+
+        private static AnimationKey StateToAnimKey(CombatState state)
+        {
+            return state switch
             {
                 CombatState.Idle => AnimationKey.IDLE,
                 CombatState.Moving => AnimationKey.MOVE,
@@ -157,7 +177,6 @@ namespace CookApps.AutoChess.View
                 CombatState.CrowdControlled => AnimationKey.GROGGY,
                 _ => AnimationKey.IDLE,
             };
-            _characterView.PlayAnimation(animKey);
         }
 
         public void PlayAttackAnimation()
@@ -181,21 +200,25 @@ namespace CookApps.AutoChess.View
 
         public void UpdateFacing(Vector3 targetWorldPos)
         {
-            if (_characterView == null)
-            {
-                _pendingFacingTarget = targetWorldPos;
-                return;
-            }
+            _facingTarget = targetWorldPos;
+            if (_characterView == null) return;
+            ApplyFacing();
+        }
+
+        private void ApplyFacing()
+        {
+            if (_characterView == null || !_facingTarget.HasValue) return;
             var myPos = transform.position;
             _characterView.LookAt(
                 new Vector2(myPos.z, myPos.x),
-                new Vector2(targetWorldPos.z, targetWorldPos.x));
+                new Vector2(_facingTarget.Value.z, _facingTarget.Value.x));
         }
 
         // ── 홀로그램 ──
 
         public void SetHologram(bool isHologram)
         {
+            _isHologram = isHologram;
             if (_characterView == null) return;
             if (isHologram)
                 _characterView.SetHologramShader();
