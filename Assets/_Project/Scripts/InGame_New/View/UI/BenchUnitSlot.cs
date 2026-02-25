@@ -117,6 +117,8 @@ namespace CookApps.AutoChess.View
         private void OnDisable()
         {
             ReleaseCharacterIcon();
+            _currentChampSpecId = 0;
+            _currentStarLevel = 0;
         }
 
         // ── 드래그 핸들러 ──

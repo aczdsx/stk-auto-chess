@@ -144,8 +144,39 @@ namespace CookApps.AutoChess.View
         private void SyncBenchSlots(GameWorld world)
         {
             var benchSlots = world.BenchSlots[PlayerIndex];
-            benchIds.Clear();
 
+            // 변경 감지: 데이터가 동일하면 RefreshAll 스킵
+            bool changed = false;
+            int newCount = 0;
+            for (int i = 0; i < PlayerBoard.BenchSize; i++)
+            {
+                if (benchSlots[i] != UnitData.InvalidId)
+                    newCount++;
+            }
+
+            if (newCount != benchIds.Count)
+            {
+                changed = true;
+            }
+            else
+            {
+                int idx = 0;
+                for (int i = 0; i < PlayerBoard.BenchSize; i++)
+                {
+                    int entityId = benchSlots[i];
+                    if (entityId == UnitData.InvalidId) continue;
+                    if (idx >= benchIds.Count || benchIds[idx] != entityId)
+                    {
+                        changed = true;
+                        break;
+                    }
+                    idx++;
+                }
+            }
+
+            if (!changed) return;
+
+            benchIds.Clear();
             for (int i = 0; i < PlayerBoard.BenchSize; i++)
             {
                 int entityId = benchSlots[i];
