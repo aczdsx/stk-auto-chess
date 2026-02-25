@@ -8536,6 +8536,7 @@ MonoBehaviour:
   _bossStageText: {fileID: 3190096229763237762}
   _chapterNameText: {fileID: 6671101280126139752}
   _stageProgressText: {fileID: 1842561322600220005}
+  _backToLobbyText: {fileID: 4239083775758102288}
   _guideMissionSlot: {fileID: 8395322997737353156}
   _normalRewardStateObject: {fileID: 1018276968783207198}
   _normalRewardFillImage: {fileID: 6122477757298569214}
@@ -14167,6 +14168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7723557851300598233, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
+    - {fileID: 6528303696140173142, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -14197,6 +14199,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetId: BattleReadyBack
+--- !u!114 &4239083775758102288 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4487231834673765419, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
+  m_PrefabInstance: {fileID: 329213195843744571}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &9059182644760578543 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8730570059345672916, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
