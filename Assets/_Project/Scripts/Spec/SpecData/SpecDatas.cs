@@ -1231,11 +1231,15 @@ namespace CookApps.AutoBattler
         public string upgrade_desc_token02;
         /// 업그레이드 적용 범위
         public global::CookApps.AutoBattler.SynergyCoverType upgrade_cover_type;
+        /// 강화 아이콘 타입
+        public global::CookApps.AutoBattler.EnhanceType enhance_type_01;
         /// 효과 타입
         public global::CookApps.AutoBattler.SkillValueType effect_value_type01;
         /// 스킬밸류
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int effect_stat_value01;
+        /// 강화 아이콘 타입
+        public global::CookApps.AutoBattler.EnhanceType enhance_type_02;
         /// 효과 타입
         public global::CookApps.AutoBattler.SkillValueType effect_value_type02;
         /// 밸류

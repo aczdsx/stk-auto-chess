@@ -84,7 +84,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3260753996931120
-    m_Localized: "\uD5C8\uBE14 \uC774\uB3D9\uD558\uAE30"
+    m_Localized: "\uB85C\uBE44 \uC774\uB3D9\uD558\uAE30"
     m_Metadata:
       m_Items: []
   - m_Id: 3260753996931119
@@ -28932,10 +28932,6 @@ MonoBehaviour:
     m_Localized: Character List
     m_Metadata:
       m_Items: []
-  - m_Id: 10942155115028480
-    m_Localized: Hubble
-    m_Metadata:
-      m_Items: []
   - m_Id: 14439977156173824
     m_Localized: Stella Knights
     m_Metadata:
@@ -28946,6 +28942,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 14458682174955520
     m_Localized: Adventure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15169211235393536
+    m_Localized: Hubble
     m_Metadata:
       m_Items: []
   references:
