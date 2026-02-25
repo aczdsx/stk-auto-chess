@@ -391,15 +391,6 @@ namespace CookApps.AutoBattler
         /// 공격 범위
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int atk_range;
-        /// 블럭율
-        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
-        public float blocking_rate;
-        /// 회피율
-        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
-        public float avoid_rate;
-        /// 명중률
-        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
-        public float hit_rate;
         /// 힐파워
         [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float heal_power;
@@ -926,15 +917,6 @@ namespace CookApps.AutoBattler
         /// 공격 범위
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int atk_range;
-        /// 블럭율
-        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
-        public float blocking_rate;
-        /// 회피율
-        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
-        public float avoid_rate;
-        /// 명중률
-        [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
-        public float hit_rate;
         /// 힐파워
         [MessagePack.MessagePackFormatter(typeof(FloatFormatter))]
         public float heal_power;

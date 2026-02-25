@@ -127,21 +127,6 @@ namespace CookApps.AutoBattler
         int atk_range { get; }
 
         /// <summary>
-        /// 블럭율
-        /// </summary>
-        float blocking_rate { get; }
-
-        /// <summary>
-        /// 회피율
-        /// </summary>
-        float avoid_rate { get; }
-
-        /// <summary>
-        /// 명중률
-        /// </summary>
-        float hit_rate { get; }
-
-        /// <summary>
         /// 힐파워
         /// </summary>
         float heal_power { get; }
@@ -212,9 +197,6 @@ namespace CookApps.AutoBattler
         float ISpecCharacterInfo.atk_speed => atk_speed;
         float ISpecCharacterInfo.move_speed => move_speed;
         int ISpecCharacterInfo.atk_range => atk_range;
-        float ISpecCharacterInfo.blocking_rate => blocking_rate;
-        float ISpecCharacterInfo.avoid_rate => avoid_rate;
-        float ISpecCharacterInfo.hit_rate => hit_rate;
         float ISpecCharacterInfo.heal_power => heal_power;
         ImmuneType ISpecCharacterInfo.immune_type => immune_type;
         float ISpecCharacterInfo.height => height;
@@ -271,9 +253,6 @@ namespace CookApps.AutoBattler
         float ISpecCharacterInfo.atk_speed => atk_speed;
         float ISpecCharacterInfo.move_speed => move_speed;
         int ISpecCharacterInfo.atk_range => atk_range;
-        float ISpecCharacterInfo.blocking_rate => blocking_rate;
-        float ISpecCharacterInfo.avoid_rate => avoid_rate;
-        float ISpecCharacterInfo.hit_rate => hit_rate;
         float ISpecCharacterInfo.heal_power => heal_power;
         ImmuneType ISpecCharacterInfo.immune_type => immune_type;
         float ISpecCharacterInfo.height => height;
@@ -321,9 +300,6 @@ namespace CookApps.AutoBattler
         float ISpecCharacterInfo.atk_speed => 0;
         float ISpecCharacterInfo.move_speed => 0;
         int ISpecCharacterInfo.atk_range => 0;
-        float ISpecCharacterInfo.blocking_rate => 0;
-        float ISpecCharacterInfo.avoid_rate => 0;
-        float ISpecCharacterInfo.hit_rate => 0;
         float ISpecCharacterInfo.heal_power => 0;
         ImmuneType ISpecCharacterInfo.immune_type => ImmuneType.NORMAL;
         float ISpecCharacterInfo.height => 0;

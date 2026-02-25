@@ -35,16 +35,14 @@ namespace CookApps.AutoBattler
         {
             var APS = AttackSpeed;
             var CriticalMul = 1 + CriticalDamageRate * (1 - CriticalProb);
-
-            //CP용 명중 배율(기준 상대 회피 = 100% 가정)
-            var HitMul = Math.Clamp(0.90 + 0.004 * (HitProb.Value - 1), 0.10, 0.99);
+            
 
             //CP용 관통 배율(딜 증가로 근사)
             var Pierce = Math.Clamp(ADPierce.Value, 0, 0.7);
 
             var K_Pierce = 0.6f;
             var PierceMul = 1 + K_Pierce * Pierce;
-            var returnvaleu = AD * APS * CriticalMul * HitMul * PierceMul;
+            var returnvaleu = AD * APS * CriticalMul * PierceMul;
 
             return returnvaleu;
         }
@@ -58,15 +56,9 @@ namespace CookApps.AutoBattler
             //저항 배율
             var AvgResist = Math.Clamp(((ADReduce + APReduce) / 2) / 100, 0, 0.60);
             var ResMul = 1 - AvgResist;
-
-            //블럭 기대값 배율
-            var BlockMul = 1 - 0.5f * BlockingProb;
-
-            //CP용 상대가 나를 때릴때 명중 배율(기준 상대 명중 = 100% 가정)
-            var HitMul_in = Math.Clamp(0.90 + 0.004 * (100 - AvoidProb), 0.10, 0.99);
-
+            
             //최종 받는 피해 비율: ---> 방어 능력치를 HP로 환산해서 얼마나 더 버틸수 이쓴ㄴ지에 대한 개념
-            var TakenMul = DefMul * ResMul * BlockMul * HitMul_in;
+            var TakenMul = DefMul * ResMul ;
 
             if (TakenMul <= 0)
             {
@@ -488,24 +480,6 @@ namespace CookApps.AutoBattler
                 var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatTakenHealRate);
                 TakenHealRate = codes.CalculateTakenHealRate(1f);
             }
-
-            if (flags.HasFlag(EffectCodeInheritFlag.StatBlockingProb))
-            {
-                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatBlockingProb);
-                BlockingProb = codes.CalculateBlockingProb(_spec.blocking_rate);
-            }
-
-            if (flags.HasFlag(EffectCodeInheritFlag.StatAvoidProb))
-            {
-                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatAvoidProb);
-                AvoidProb = codes.CalculateAvoidProb(_spec.avoid_rate);
-            }
-
-            if (flags.HasFlag(EffectCodeInheritFlag.StatHitProb))
-            {
-                var codes = EffectCodeContainer.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.StatHitProb);
-                HitProb = codes.CalculateHitProb(_spec.hit_rate);
-            }
         }
 
         public ObfuscatorInt CharacterId => _spec?.id ?? 0;
@@ -557,10 +531,6 @@ namespace CookApps.AutoBattler
         public ObfuscatorFloat GivenHealRate { get; private set; }
 
         public ObfuscatorFloat TakenHealRate { get; private set; }
-
-        public ObfuscatorFloat BlockingProb { get; private set; }
-        public ObfuscatorFloat AvoidProb { get; private set; }
-        public ObfuscatorFloat HitProb { get; private set; }
 
         public ScanType ScanType { get; private set; }
     }
