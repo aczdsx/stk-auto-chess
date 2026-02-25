@@ -82,14 +82,11 @@ namespace CookApps.AutoBattler
             {
                 if (_spriteRendererList == null || _spriteRendererList.Count == 0)
                 {
-                    var spriteRenderer = _animator.transform.GetComponent<SpriteRenderer>();
+                    var spriteRenderer = _animator.GetComponent<SpriteRenderer>();
                     _spriteRendererList = new List<SpriteRenderer> { spriteRenderer };
                 }
-                foreach (var spriteRenderer in _spriteRendererList)
-                {
-                    spriteRenderer.material = _disorveMaterial;
-                }
-                _animationEventListener = _animator.gameObject.GetComponent<AnimationEventListener>();
+                SetDisolveShader();
+                _animationEventListener = _animator.GetComponent<AnimationEventListener>();
                 _animationEventListener.OnAnimationEvent += OnFiredAnimationEvent;
             }
         }
@@ -272,6 +269,14 @@ namespace CookApps.AutoBattler
             foreach (var spriteRenderer in _spriteRendererList)
             {
                 spriteRenderer.material = _hologramMaterial;
+            }
+        }
+
+        public void SetDisolveShader()
+        {
+            foreach (var spriteRenderer in _spriteRendererList)
+            {
+                spriteRenderer.material = _disorveMaterial;
             }
         }
 

@@ -267,6 +267,7 @@ namespace CookApps.AutoChess.View
 
         public void SetAutoChessUI(AutoChessUIBase ui) => _autoChessUI = ui;
         public void SetBoardInputHandler(BoardInputHandler handler) => _boardInputHandler = handler;
+        public GameWorld GetWorld() => _runner.GetWorld();
 
         // ── 관전 보드 변경 ──
 

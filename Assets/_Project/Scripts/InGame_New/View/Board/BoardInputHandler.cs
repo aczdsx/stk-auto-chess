@@ -11,8 +11,6 @@ namespace CookApps.AutoChess.View
     /// </summary>
     public class BoardInputHandler : MonoBehaviour
     {
-        [SerializeField] private LayerMask _boardLayerMask = ~0;
-
         private Camera _camera;
         private AutoChessViewBridge _viewBridge;
         private UnitViewManager _unitViewManager;
@@ -32,7 +30,7 @@ namespace CookApps.AutoChess.View
         // 고스트 드래그 (UI → 보드)
         private bool _isGhostActive;
         private int _ghostEntityId = UnitData.InvalidId;
-        private GameObject _ghostIndicator;
+        private UnitView _ghostView;
         private int _ghostCol = -1;
         private int _ghostRow = -1;
 
@@ -43,6 +41,9 @@ namespace CookApps.AutoChess.View
         private int _highlightRow = -1;
 
         private bool _isEnabled = true;
+
+        // 타일 스냅 거리 제한
+        private float _maxSnapDistSq;
 
         // ── 초기화 ──
 
@@ -58,6 +59,20 @@ namespace CookApps.AutoChess.View
             _unitViewManager = unitViewManager;
             _tileEffectManager = tileEffectManager;
             _isPointInUI = isPointInUI;
+
+            ComputeSnapThreshold();
+        }
+
+        private void ComputeSnapThreshold()
+        {
+            var p00 = BoardWorldHelper.BoardGridToWorld(0, 0, 0);
+            var p10 = BoardWorldHelper.BoardGridToWorld(0, 1, 0);
+            var p01 = BoardWorldHelper.BoardGridToWorld(0, 0, 1);
+
+            float colDist = Vector3.Distance(p00, p10);
+            float rowDist = Vector3.Distance(p00, p01);
+            float halfDiag = Mathf.Sqrt(colDist * colDist + rowDist * rowDist) * 0.5f;
+            _maxSnapDistSq = halfDiag * halfDiag;
         }
 
         public void SetEnabled(bool enabled)
@@ -77,6 +92,15 @@ namespace CookApps.AutoChess.View
         {
             _isGhostActive = true;
             _ghostEntityId = entityId;
+
+            // 홀로그램 고스트 생성
+            var world = _viewBridge.GetWorld();
+            if (world != null)
+            {
+                _ghostView = _unitViewManager.CreateGhostView(entityId, world);
+                _ghostView.SetHologram(true);
+            }
+
             UpdateGhostDrag(screenPos);
         }
 
@@ -85,8 +109,17 @@ namespace CookApps.AutoChess.View
         {
             if (!_isGhostActive) return;
 
+            // 고스트 뷰는 항상 손가락 위치를 따라다님
+            if (_ghostView != null)
+            {
+                var worldPos = ScreenToWorldOnGround(screenPos);
+                if (worldPos.HasValue)
+                    _ghostView.SetPositionImmediate(worldPos.Value);
+            }
+
+            // 타일 하이라이트는 그리드 스냅 (빈 타일만)
             var grid = ScreenToGrid(screenPos);
-            if (grid.HasValue)
+            if (grid.HasValue && !IsTileOccupied(grid.Value.col, grid.Value.row))
             {
                 _ghostCol = grid.Value.col;
                 _ghostRow = grid.Value.row;
@@ -109,9 +142,10 @@ namespace CookApps.AutoChess.View
             _isGhostActive = false;
             _ghostEntityId = UnitData.InvalidId;
             HideHighlight();
+            ReleaseGhostView();
 
             var grid = ScreenToGrid(screenPos);
-            if (grid.HasValue)
+            if (grid.HasValue && !IsTileOccupied(grid.Value.col, grid.Value.row))
                 return (grid.Value.col, grid.Value.row);
 
             return null;
@@ -125,6 +159,13 @@ namespace CookApps.AutoChess.View
             _ghostCol = -1;
             _ghostRow = -1;
             HideHighlight();
+            ReleaseGhostView();
+        }
+
+        private void ReleaseGhostView()
+        {
+            _ghostView = null;
+            _unitViewManager.ReleaseGhostView();
         }
 
         // ── 보드 유닛 터치/드래그 (Update에서 처리) ──
@@ -172,6 +213,9 @@ namespace CookApps.AutoChess.View
             _dragUnitView = unitView;
             _dragOriginalPos = unitView.transform.position;
 
+            // 홀로그램 적용
+            _dragUnitView.SetHologram(true);
+
             // 시작 그리드 좌표 기록
             if (BoardWorldHelper.WorldToBoard(_dragOriginalPos, out _, out int col, out int row))
             {
@@ -189,9 +233,9 @@ namespace CookApps.AutoChess.View
                 _dragUnitView.SetPositionImmediate(worldPos.Value);
             }
 
-            // 타겟 셀 하이라이트
+            // 타겟 셀 하이라이트 (자기 자신은 제외하고 점유 검사)
             var grid = ScreenToGrid(screenPos);
-            if (grid.HasValue)
+            if (grid.HasValue && !IsTileOccupied(grid.Value.col, grid.Value.row, _dragEntityId))
                 ShowHighlight(grid.Value.col, grid.Value.row);
             else
                 HideHighlight();
@@ -201,6 +245,7 @@ namespace CookApps.AutoChess.View
         {
             _isDraggingBoardUnit = false;
             HideHighlight();
+            _dragUnitView?.SetHologram(false);
 
             // UI 영역으로 드롭 → 회수
             if (_isPointInUI != null && _isPointInUI(screenPos))
@@ -210,16 +255,18 @@ namespace CookApps.AutoChess.View
             }
             else
             {
-                // 보드 위 다른 셀로 이동
+                // 보드 위 다른 셀로 이동 (빈 타일만, 자기 위치 제외)
                 var grid = ScreenToGrid(screenPos);
-                if (grid.HasValue && (grid.Value.col != _dragStartCol || grid.Value.row != _dragStartRow))
+                if (grid.HasValue
+                    && !IsTileOccupied(grid.Value.col, grid.Value.row, _dragEntityId)
+                    && (grid.Value.col != _dragStartCol || grid.Value.row != _dragStartRow))
                 {
                     var cmd = GameCommand.MoveUnit(0, _dragEntityId, (byte)grid.Value.col, (byte)grid.Value.row);
                     _viewBridge.SendCommand(cmd);
                 }
                 else
                 {
-                    // 같은 위치 또는 보드 밖 → 원위치 복귀
+                    // 같은 위치, 점유된 타일, 또는 보드 밖 → 원위치 복귀
                     _dragUnitView?.SetPositionImmediate(_dragOriginalPos);
                 }
             }
@@ -232,6 +279,7 @@ namespace CookApps.AutoChess.View
         {
             if (_isDraggingBoardUnit && _dragUnitView != null)
             {
+                _dragUnitView.SetHologram(false);
                 _dragUnitView.SetPositionImmediate(_dragOriginalPos);
             }
             _isDraggingBoardUnit = false;
@@ -248,34 +296,56 @@ namespace CookApps.AutoChess.View
             entityId = UnitData.InvalidId;
             unitView = null;
 
-            if (_camera == null) return false;
+            // 타일 그리드 좌표로 변환 → BoardSlots에서 유닛 조회
+            var grid = ScreenToGrid(screenPos);
+            if (!grid.HasValue) return false;
 
-            var ray = _camera.ScreenPointToRay(screenPos);
-            if (Physics.Raycast(ray, out var hit, 100f, _boardLayerMask))
-            {
-                unitView = hit.collider.GetComponentInParent<UnitView>();
-                if (unitView != null && !unitView.IsCombatUnit)
-                {
-                    entityId = unitView.EntityId;
-                    return true;
-                }
-            }
+            var world = _viewBridge.GetWorld();
+            if (world == null) return false;
 
-            return false;
+            int index = BoardHelper.ToIndex(grid.Value.col, grid.Value.row);
+            int occupant = world.BoardSlots[0][index];
+            if (occupant == UnitData.InvalidId) return false;
+
+            unitView = _unitViewManager.FindBoardView(occupant);
+            if (unitView == null) return false;
+
+            entityId = occupant;
+            return true;
         }
 
         // ── 좌표 변환 ──
 
-        /// <summary>스크린 좌표 → 보드 그리드 좌표</summary>
+        /// <summary>스크린 좌표 → 보드 그리드 좌표 (타일 거리 검증 포함)</summary>
         public (int boardIndex, int col, int row)? ScreenToGrid(Vector2 screenPos)
         {
             var worldPos = ScreenToWorldOnGround(screenPos);
             if (!worldPos.HasValue) return null;
 
-            if (BoardWorldHelper.WorldToBoard(worldPos.Value, out int board, out int col, out int row))
-                return (board, col, row);
+            if (!BoardWorldHelper.WorldToBoard(worldPos.Value, out int board, out int col, out int row))
+                return null;
 
-            return null;
+            // 타일과의 거리 검증 (적 영역 등 먼 타일 스냅 방지)
+            var tilePos = BoardWorldHelper.BoardGridToWorld(board, col, row);
+            float dx = worldPos.Value.x - tilePos.x;
+            float dz = worldPos.Value.z - tilePos.z;
+            if (dx * dx + dz * dz > _maxSnapDistSq)
+                return null;
+
+            return (board, col, row);
+        }
+
+        /// <summary>타일에 다른 유닛이 배치되어 있는지 검사</summary>
+        private bool IsTileOccupied(int col, int row, int ignoreEntityId = UnitData.InvalidId)
+        {
+            var world = _viewBridge.GetWorld();
+            if (world == null) return false;
+
+            int index = BoardHelper.ToIndex(col, row);
+            if (index < 0 || index >= world.BoardSize) return false;
+
+            int occupant = world.BoardSlots[0][index];
+            return occupant != UnitData.InvalidId && occupant != ignoreEntityId;
         }
 
         private Vector3? ScreenToWorldOnGround(Vector2 screenPos)

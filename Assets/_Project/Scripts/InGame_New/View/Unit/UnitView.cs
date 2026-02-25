@@ -192,6 +192,17 @@ namespace CookApps.AutoChess.View
                 new Vector2(targetWorldPos.z, targetWorldPos.x));
         }
 
+        // ── 홀로그램 ──
+
+        public void SetHologram(bool isHologram)
+        {
+            if (_characterView == null) return;
+            if (isHologram)
+                _characterView.SetHologramShader();
+            else
+                _characterView.SetDisolveShader();
+        }
+
         // ── 비활성화 ──
 
         public void Deactivate()

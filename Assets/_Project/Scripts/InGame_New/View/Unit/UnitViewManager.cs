@@ -258,6 +258,29 @@ namespace CookApps.AutoChess.View
             return view;
         }
 
+        // ── 고스트 뷰 (홀로그램 드래그 프리뷰) ──
+
+        private UnitView _ghostView;
+
+        public UnitView CreateGhostView(int entityId, GameWorld world)
+        {
+            ReleaseGhostView();
+
+            ref var unit = ref world.GetUnit(entityId);
+            string prefabPath = GetCharacterPrefabPath(unit.ChampionSpecId);
+
+            _ghostView = GetFromPool();
+            _ghostView.Initialize(entityId, unit.StarLevel, prefabPath);
+            return _ghostView;
+        }
+
+        public void ReleaseGhostView()
+        {
+            if (_ghostView == null) return;
+            ReturnToPool(_ghostView);
+            _ghostView = null;
+        }
+
         // ── 풀 관리 ──
 
         private static string GetCharacterPrefabPath(int championSpecId)

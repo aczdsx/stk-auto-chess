@@ -10,9 +10,6 @@ namespace CookApps.AutoChess.View
     {
         [Header("Visuals")]
         [SerializeField] private SpriteRenderer _boardSprite;
-        [SerializeField] private GameObject _activeObj;
-        [SerializeField] private GameObject _attackActiveObj;
-        [SerializeField] private GameObject _skillNavigateObj;
 
         public int Col { get; private set; }
         public int Row { get; private set; }
@@ -47,29 +44,6 @@ namespace CookApps.AutoChess.View
         public void SetVisible(bool visible)
         {
             gameObject.SetActive(visible);
-        }
-
-        // ── 하이라이트 ──
-
-        /// <summary>선택 하이라이트 (배치 가능 타일 표시)</summary>
-        public void SetActiveHighlight(bool isActive)
-        {
-            if (_activeObj != null)
-                _activeObj.SetActive(isActive);
-        }
-
-        /// <summary>공격 사거리 표시</summary>
-        public void SetAttackRangeHighlight(bool isActive)
-        {
-            if (_attackActiveObj != null)
-                _attackActiveObj.SetActive(isActive);
-        }
-
-        /// <summary>스킬 범위 표시</summary>
-        public void SetSkillNavigateHighlight(bool isActive)
-        {
-            if (_skillNavigateObj != null)
-                _skillNavigateObj.SetActive(isActive);
         }
     }
 }
