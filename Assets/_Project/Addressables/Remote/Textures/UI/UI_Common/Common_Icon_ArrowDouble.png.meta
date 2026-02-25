@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 875a9e202fee37947983a55b15bf46e4
+guid: 5c27fddab9705d64784ae992b2c775e2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5201259195213189812
-    second: Ingame_Icon_Knigths_0
+      213: 7221460672267132431
+    second: Common_Icon_ArrowDouble_0
+  - first:
+      213: 3821561373384436630
+    second: Common_Icon_ArrowDouble_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ingame_Icon_Knigths_0
+      name: Common_Icon_ArrowDouble_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
-        height: 48
+        width: 27
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +144,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4b29a6b3ea59e2840800000000000000
-      internalID: 5201259195213189812
+      spriteID: f0e9fe17838c73460800000000000000
+      internalID: 7221460672267132431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Common_Icon_ArrowDouble_1
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 0
+        width: 27
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69beee352d9e80530800000000000000
+      internalID: 3821561373384436630
       vertices: []
       indices: 
       edges: []
@@ -161,7 +186,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Ingame_Icon_Knigths_0: 5201259195213189812
+      Common_Icon_ArrowDouble_0: 7221460672267132431
+      Common_Icon_ArrowDouble_1: 3821561373384436630
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
