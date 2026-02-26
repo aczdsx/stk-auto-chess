@@ -22,6 +22,7 @@ namespace CookApps.AutoChess.View
         public int EntityId { get; private set; }
         public int CombatId { get; private set; } = CombatUnit.InvalidId;
         public bool IsCombatUnit { get; private set; }
+        public bool IsReady => _characterView != null;
 
         private Vector3 _targetPosition;
         private float _interpolationSpeed = 15f;
@@ -35,11 +36,21 @@ namespace CookApps.AutoChess.View
         // ── 캐릭터 비주얼 ──
         private SpriteCharacterView _characterView;
         private AsyncOperationHandle<GameObject> _loadHandle;
+
+        // ── HP 바 ──
+        private HpBarView _hpBarView;
+        private int _champSpecId;
+        private bool _isPlayer;
+
+        // ── Desired State (로딩 전 호출된 상태를 추적, 로딩 후 ApplyDeferredState로 일괄 적용) ──
         private CombatState _lastState = CombatState.Idle;
+        private float _attackAnimEndTime;
+        private bool _isHologram;
+        private Vector3? _facingTarget;
 
         // ── 초기화 ──
 
-        public void Initialize(int entityId, byte starLevel, string prefabPath)
+        public void Initialize(int entityId, byte starLevel, string prefabPath, int champSpecId = 0)
         {
             EntityId = entityId;
             CombatId = CombatUnit.InvalidId;
@@ -47,13 +58,20 @@ namespace CookApps.AutoChess.View
             StarLevel = starLevel;
             HPRatio = 1f;
             ManaRatio = 0f;
+            _champSpecId = champSpecId;
+            _isPlayer = true;
             _lastState = CombatState.Idle;
+            _attackAnimEndTime = 0f;
+            _isHologram = false;
+            _facingTarget = null;
             _isActive = true;
+            ReleaseHpBar();
             gameObject.SetActive(true);
             LoadCharacterVisual(prefabPath).Forget();
         }
 
-        public void InitializeAsCombat(int combatId, int sourceEntityId, byte starLevel, string prefabPath)
+        public void InitializeAsCombat(int combatId, int sourceEntityId, byte starLevel, string prefabPath,
+            int champSpecId = 0, bool isPlayer = true)
         {
             EntityId = sourceEntityId;
             CombatId = combatId;
@@ -61,8 +79,14 @@ namespace CookApps.AutoChess.View
             StarLevel = starLevel;
             HPRatio = 1f;
             ManaRatio = 0f;
+            _champSpecId = champSpecId;
+            _isPlayer = isPlayer;
             _lastState = CombatState.Idle;
+            _attackAnimEndTime = 0f;
+            _isHologram = false;
+            _facingTarget = null;
             _isActive = true;
+            ReleaseHpBar();
             gameObject.SetActive(true);
             LoadCharacterVisual(prefabPath).Forget();
         }
@@ -87,6 +111,46 @@ namespace CookApps.AutoChess.View
 
             _characterView = go.GetComponent<SpriteCharacterView>();
             _characterView?.PlayAnimation(AnimationKey.IDLE);
+            ApplyDeferredState();
+        }
+
+        /// <summary>로딩 완료 후 지연된 상태를 일괄 적용</summary>
+        private void ApplyDeferredState()
+        {
+            if (_characterView == null) return;
+
+            if (_isHologram)
+                _characterView.SetHologramShader();
+
+            if (_facingTarget.HasValue)
+                ApplyFacing();
+
+            // 전투 유닛이면 HP 바 부착
+            if (IsCombatUnit && _champSpecId > 0)
+                AttachHpBar();
+        }
+
+        private void AttachHpBar()
+        {
+            if (_hpBarView != null || _characterView == null) return;
+
+            _hpBarView = InGameHpBarViewPool.Instance.Get();
+            if (_hpBarView == null) return;
+
+            _hpBarView.Initialize(_champSpecId, _isPlayer);
+            _hpBarView.SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
+
+            var spec = SpecDataManager.Instance.GetSpecCharacter(_champSpecId);
+            float height = spec?.height ?? 1.5f;
+            _characterView.SetHpBarView(_hpBarView, height);
+        }
+
+        private void ReleaseHpBar()
+        {
+            if (_hpBarView == null) return;
+            _hpBarView.OnPreReturn();
+            InGameHpBarViewPool.Instance.Return(_hpBarView);
+            _hpBarView = null;
         }
 
         private void ReleaseCharacterVisual()
@@ -116,14 +180,16 @@ namespace CookApps.AutoChess.View
 
         // ── 스탯 업데이트 ──
 
-        public void UpdateHP(int current, int max)
+        public void UpdateHP(int current, int max, int shield = 0)
         {
             HPRatio = max > 0 ? (float)current / max : 0f;
+            _hpBarView?.SetValue(current, max, shield);
         }
 
         public void UpdateMana(int current, int max)
         {
             ManaRatio = max > 0 ? (float)current / max : 0f;
+            _hpBarView?.OnCoolTimeUpdated(0, current, max);
         }
 
         public void UpdateStarLevel(byte level)
@@ -136,10 +202,23 @@ namespace CookApps.AutoChess.View
 
         public void SetCombatState(CombatState state)
         {
-            if (_characterView == null || state == _lastState) return;
+            // 공격/스킬 애니메이션 재생 중이면 Idle 전환 차단 (트리거가 애니메이션을 중단시키는 것 방지)
+            if (state == CombatState.Idle && Time.time < _attackAnimEndTime)
+                return;
+
+            if (state == _lastState) return;
+            if (_characterView == null) return;
             _lastState = state;
 
-            var animKey = state switch
+            var clip = _characterView.PlayAnimation(StateToAnimKey(state));
+
+            if ((state == CombatState.Attacking || state == CombatState.CastingSkill) && clip != null)
+                _attackAnimEndTime = Time.time + clip.length;
+        }
+
+        private static AnimationKey StateToAnimKey(CombatState state)
+        {
+            return state switch
             {
                 CombatState.Idle => AnimationKey.IDLE,
                 CombatState.Moving => AnimationKey.MOVE,
@@ -149,7 +228,6 @@ namespace CookApps.AutoChess.View
                 CombatState.CrowdControlled => AnimationKey.GROGGY,
                 _ => AnimationKey.IDLE,
             };
-            _characterView.PlayAnimation(animKey);
         }
 
         public void PlayAttackAnimation()
@@ -164,8 +242,11 @@ namespace CookApps.AutoChess.View
 
         public void PlayDeathAnimation()
         {
+            if (_lastState == CombatState.Dead) return;
             if (_characterView == null) return;
             _lastState = CombatState.Dead;
+            _attackAnimEndTime = 0f;
+            ReleaseHpBar();
             _characterView.PlayAnimation(AnimationKey.DEAD);
         }
 
@@ -173,11 +254,30 @@ namespace CookApps.AutoChess.View
 
         public void UpdateFacing(Vector3 targetWorldPos)
         {
+            _facingTarget = targetWorldPos;
             if (_characterView == null) return;
+            ApplyFacing();
+        }
+
+        private void ApplyFacing()
+        {
+            if (_characterView == null || !_facingTarget.HasValue) return;
             var myPos = transform.position;
             _characterView.LookAt(
-                new Vector2(myPos.x, myPos.z),
-                new Vector2(targetWorldPos.x, targetWorldPos.z));
+                new Vector2(myPos.z, myPos.x),
+                new Vector2(_facingTarget.Value.z, _facingTarget.Value.x));
+        }
+
+        // ── 홀로그램 ──
+
+        public void SetHologram(bool isHologram)
+        {
+            _isHologram = isHologram;
+            if (_characterView == null) return;
+            if (isHologram)
+                _characterView.SetHologramShader();
+            else
+                _characterView.SetDisolveShader();
         }
 
         // ── 비활성화 ──
@@ -185,6 +285,7 @@ namespace CookApps.AutoChess.View
         public void Deactivate()
         {
             _isActive = false;
+            ReleaseHpBar();
             ReleaseCharacterVisual();
             gameObject.SetActive(false);
         }

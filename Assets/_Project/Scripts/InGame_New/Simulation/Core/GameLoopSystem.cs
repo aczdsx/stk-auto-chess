@@ -112,6 +112,8 @@ namespace CookApps.AutoChess
 
             if (allFinished)
             {
+                CombatLogger.End();
+                UnityEngine.Debug.Log($"[CombatLog]\n{CombatLogger.GetLog()}");
                 TransitionToPhase(world, GamePhase.Result);
             }
         }
@@ -191,6 +193,7 @@ namespace CookApps.AutoChess
         private static void OnEnterCombat(GameWorld world)
         {
             world.IsCombatActive = true;
+            CombatLogger.Begin();
 
             // 시너지 재계산 (전투 시작 전 최종 확정)
             for (int p = 0; p < world.Config.PlayerCount; p++)
@@ -199,27 +202,49 @@ namespace CookApps.AutoChess
                     SynergySystem.Recalculate(world, (byte)p);
             }
 
-            // 매치메이킹: 생존 플레이어를 1v1 매치로 배정
-            CombatSetupSystem.AssignMatches(world);
+            bool isPvE = world.PvEEnemyCount > 0;
 
-            // 각 매치별 전투 세팅 (보드 유닛 → CombatUnit 복제 + 아이템 스탯 적용)
-            for (int i = 0; i < GameWorld.MaxCombatMatches; i++)
+            if (isPvE)
             {
-                ref var match = ref world.Matches[i];
-                if (match.IsFinished) continue;
+                // PvE: 단일 매치 (player 0 vs 스테이지 적)
+                world.Matches[0] = new CombatMatch
+                {
+                    PlayerA = 0,
+                    PlayerB = 0xFF,
+                    Winner = 0xFF
+                };
+                world.Matches[1] = CombatMatch.CreateEmpty();
+                world.Matches[1].IsFinished = true;
 
-                world.CombatMatchStates[i] = CombatSetupSystem.SetupMatch(
-                    world, (byte)i, match.PlayerA, match.PlayerB);
+                world.CombatMatchStates[0] = CombatSetupSystem.SetupPvEMatch(world, 0, 0);
 
-                // 시너지 효과 적용 (아이템 스탯 이후)
-                var matchState = world.CombatMatchStates[i];
+                var matchState = world.CombatMatchStates[0];
                 if (matchState != null)
                 {
-                    SynergySystem.ApplyEffects(world, matchState, match.PlayerA, 0);
-                    SynergySystem.ApplyEffects(world, matchState, match.PlayerB, 1);
-
-                    // 스킬 인스턴스 생성
+                    SynergySystem.ApplyEffects(world, matchState, 0, 0);
                     SkillSystem.SetupSkills(matchState, world);
+                }
+            }
+            else
+            {
+                // PvP: 매치메이킹 + 다중 매치
+                CombatSetupSystem.AssignMatches(world);
+
+                for (int i = 0; i < GameWorld.MaxCombatMatches; i++)
+                {
+                    ref var match = ref world.Matches[i];
+                    if (match.IsFinished) continue;
+
+                    world.CombatMatchStates[i] = CombatSetupSystem.SetupMatch(
+                        world, (byte)i, match.PlayerA, match.PlayerB);
+
+                    var matchState = world.CombatMatchStates[i];
+                    if (matchState != null)
+                    {
+                        SynergySystem.ApplyEffects(world, matchState, match.PlayerA, 0);
+                        SynergySystem.ApplyEffects(world, matchState, match.PlayerB, 1);
+                        SkillSystem.SetupSkills(matchState, world);
+                    }
                 }
             }
         }
@@ -234,17 +259,20 @@ namespace CookApps.AutoChess
 
                 PlayerDamageSystem.ProcessMatchResult(world, i);
 
-                // 연승/연패 업데이트 + 승리 보너스
+                // 연승/연패 업데이트 + 승리 보너스 (실제 플레이어만)
                 ref var match = ref world.Matches[i];
                 if (match.Winner != 0xFF)
                 {
                     byte winnerPlayer = match.Winner == 0 ? match.PlayerA : match.PlayerB;
                     byte loserPlayer = match.Winner == 0 ? match.PlayerB : match.PlayerA;
-                    PlayerDamageSystem.UpdateStreaks(world, winnerPlayer, true);
-                    PlayerDamageSystem.UpdateStreaks(world, loserPlayer, false);
 
-                    // 승리 보너스 골드
-                    EconomySystem.GrantVictoryBonus(world, winnerPlayer);
+                    if (winnerPlayer < GameWorld.MaxPlayers)
+                    {
+                        PlayerDamageSystem.UpdateStreaks(world, winnerPlayer, true);
+                        EconomySystem.GrantVictoryBonus(world, winnerPlayer);
+                    }
+                    if (loserPlayer < GameWorld.MaxPlayers)
+                        PlayerDamageSystem.UpdateStreaks(world, loserPlayer, false);
                 }
             }
 
@@ -328,6 +356,8 @@ namespace CookApps.AutoChess
 
         private static void ForceEndCombat(GameWorld world)
         {
+            CombatLogger.End();
+            UnityEngine.Debug.Log($"[CombatLog] TIMEOUT\n{CombatLogger.GetLog()}");
             for (int i = 0; i < GameWorld.MaxCombatMatches; i++)
             {
                 if (!world.Matches[i].IsFinished)

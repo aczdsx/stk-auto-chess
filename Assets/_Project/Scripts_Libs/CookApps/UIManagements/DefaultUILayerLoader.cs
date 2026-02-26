@@ -7,9 +7,9 @@ namespace CookApps.TeamBattle.UIManagements
     public class DefaultUILayerLoader : CachedMonoBehaviour
     {
         [SerializeField] private AssetReferenceGameObject[] defaultUILayers;
-        
+
         public AssetReferenceGameObject[] DefaultUILayers => defaultUILayers;
-        
+
         internal async Awaitable LoadDefaultUILayers(object param)
         {
             Debug.Log($"[DefaultUILayerLoader] LoadDefaultUILayers: param type={param?.GetType().Name ?? "null"}, param value={param}");

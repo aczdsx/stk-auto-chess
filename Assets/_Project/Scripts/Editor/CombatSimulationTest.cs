@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 
@@ -132,3 +133,4 @@ namespace CookApps.AutoChess
         }
     }
 }
+#endif

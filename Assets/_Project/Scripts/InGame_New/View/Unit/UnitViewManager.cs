@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using UnityEngine;
@@ -18,6 +19,16 @@ namespace CookApps.AutoChess.View
         private readonly Dictionary<int, UnitView> _combatUnitViews = new(); // CombatId → View
         private readonly List<UnitView> _pool = new();
         private int _activeBoardIndex;
+        private bool _initialViewsReady;
+
+        /// <summary>첫 보드 뷰 로딩이 모두 완료되면 발화</summary>
+        public event Action OnAllBoardViewsReady;
+
+        public void SetPrefab(UnitView prefab, int poolSize = 64)
+        {
+            _unitPrefab = prefab;
+            _poolSize = poolSize;
+        }
 
         // ── 초기화 ──
 
@@ -47,7 +58,7 @@ namespace CookApps.AutoChess.View
 
                 // 보드 유닛
                 var boardSlots = world.BoardSlots[p];
-                for (int slot = 0; slot < PlayerBoard.BoardSize; slot++)
+                for (int slot = 0; slot < world.BoardSize; slot++)
                 {
                     int entityId = boardSlots[slot];
                     if (entityId == UnitData.InvalidId) continue;
@@ -59,7 +70,14 @@ namespace CookApps.AutoChess.View
                     activeIds.Add(entityId);
 
                     BoardHelper.FromIndex(slot, out int col, out int row);
-                    Vector3 worldPos = BoardWorldHelper.BoardGridToWorld(p, col, row);
+                    byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+                    byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
+
+                    // 다중 타일 유닛은 앵커 슬롯 외의 슬롯에서도 동일 EntityId가 등록되므로 중복 스킵
+                    if (col != unit.BoardCol || row != unit.BoardRow) continue;
+
+                    Vector3 worldPos = BoardWorldHelper.BoardGridToWorld(p, col, row)
+                        + BoardWorldHelper.GetFootprintCenterOffset(sizeW, sizeH);
 
                     var view = GetOrCreateBoardView(entityId, unit.ChampionSpecId, unit.StarLevel);
                     if (isActive)
@@ -67,28 +85,28 @@ namespace CookApps.AutoChess.View
                     else
                         view.SetPositionImmediate(worldPos);
                 }
+            }
 
-                // 벤치 유닛
-                var benchSlots = world.BenchSlots[p];
-                for (int slot = 0; slot < PlayerBoard.BenchSize; slot++)
-                {
-                    int entityId = benchSlots[slot];
-                    if (entityId == UnitData.InvalidId) continue;
+            // PvE 적 프리뷰 (준비 페이즈에서 적 위치 표시)
+            for (int i = 0; i < world.PvEEnemyCount; i++)
+            {
+                ref var enemy = ref world.PvEEnemies[i];
+                int pseudoId = -(i + 1); // 음수 ID로 실제 EntityId와 구분
+                activeIds.Add(pseudoId);
 
-                    int unitIdx = world.FindUnitIndex(entityId);
-                    if (unitIdx < 0) continue;
+                // PvE 좌표는 이미 전투 그리드 기준 (예: (0,6), (3,4))
+                int mirrorCol = enemy.GridCol;
+                int mirrorRow = enemy.GridRow;
 
-                    ref var unit = ref world.Units[unitIdx];
-                    activeIds.Add(entityId);
+                Vector3 worldPos = BoardWorldHelper.CombatGridToWorld(_activeBoardIndex, mirrorCol, mirrorRow)
+                    + BoardWorldHelper.GetFootprintCenterOffset(enemy.SizeW, enemy.SizeH);
 
-                    Vector3 worldPos = BoardWorldHelper.BenchToWorld(p, slot);
+                var view = GetOrCreateBoardView(pseudoId, enemy.ChampionSpecId, 1);
+                view.SetPositionImmediate(worldPos);
 
-                    var view = GetOrCreateBoardView(entityId, unit.ChampionSpecId, unit.StarLevel);
-                    if (isActive)
-                        view.SetTargetPosition(worldPos);
-                    else
-                        view.SetPositionImmediate(worldPos);
-                }
+                // 적은 플레이어 쪽(하단)을 바라봄
+                Vector3 lookTarget = BoardWorldHelper.CombatGridToWorld(_activeBoardIndex, mirrorCol, 0);
+                view.UpdateFacing(lookTarget);
             }
 
             // 존재하지 않는 뷰 제거
@@ -103,6 +121,19 @@ namespace CookApps.AutoChess.View
                 ReturnToPool(_boardUnitViews[id]);
                 _boardUnitViews.Remove(id);
             }
+
+            CheckInitialViewsReady();
+        }
+
+        private void CheckInitialViewsReady()
+        {
+            if (_initialViewsReady || _boardUnitViews.Count == 0) return;
+            foreach (var view in _boardUnitViews.Values)
+            {
+                if (!view.IsReady) return;
+            }
+            _initialViewsReady = true;
+            OnAllBoardViewsReady?.Invoke();
         }
 
         // ── 전투 유닛 동기화 (Combat) ──
@@ -121,16 +152,20 @@ namespace CookApps.AutoChess.View
                 if (unit.CombatId == CombatUnit.InvalidId) continue;
 
                 activeIds.Add(unit.CombatId);
-                var view = GetOrCreateCombatView(unit.CombatId, unit.SourceEntityId, unit.ChampionSpecId, unit.StarLevel);
+                var view = GetOrCreateCombatView(unit.CombatId, unit.SourceEntityId, unit.ChampionSpecId, unit.StarLevel, unit.TeamIndex == 0);
 
-                Vector3 destPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.GridCol, unit.GridRow);
+                byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+                byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
+                Vector3 centerOffset = BoardWorldHelper.GetFootprintCenterOffset(sizeW, sizeH);
+
+                Vector3 destPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.GridCol, unit.GridRow) + centerOffset;
 
                 // 이동 중이면 MoveFrom → Dest 보간 위치 계산
                 Vector3 worldPos;
                 if (unit.IsMoving && unit.MoveDuration > 0)
                 {
                     float progress = 1f - (float)unit.MoveTimer / unit.MoveDuration;
-                    Vector3 fromPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.MoveFromCol, unit.MoveFromRow);
+                    Vector3 fromPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.MoveFromCol, unit.MoveFromRow) + centerOffset;
                     worldPos = Vector3.Lerp(fromPos, destPos, progress);
                 }
                 else
@@ -143,7 +178,7 @@ namespace CookApps.AutoChess.View
                     if (isActive)
                     {
                         view.SetPositionImmediate(worldPos);
-                        view.UpdateHP(unit.CurrentHP, unit.MaxHP);
+                        view.UpdateHP(unit.CurrentHP, unit.MaxHP, unit.ShieldAmount);
                         view.UpdateMana(unit.CurrentMana, unit.MaxMana);
                         view.SetCombatState(unit.State);
 
@@ -154,7 +189,10 @@ namespace CookApps.AutoChess.View
                             if (targetIdx >= 0)
                             {
                                 ref var target = ref matchState.Units[targetIdx];
-                                var targetPos = BoardWorldHelper.CombatGridToWorld(boardIndex, target.GridCol, target.GridRow);
+                                var targetPos = BoardWorldHelper.CombatGridToWorld(boardIndex, target.GridCol, target.GridRow)
+                                    + BoardWorldHelper.GetFootprintCenterOffset(
+                                        target.SizeW > 0 ? target.SizeW : (byte)1,
+                                        target.SizeH > 0 ? target.SizeH : (byte)1);
                                 view.UpdateFacing(targetPos);
                             }
                         }
@@ -207,6 +245,42 @@ namespace CookApps.AutoChess.View
             _activeBoardIndex = boardIndex;
         }
 
+        /// <summary>EntityId로 보드 UnitView 조회 (보드 드래그용)</summary>
+        public UnitView FindBoardView(int entityId)
+        {
+            _boardUnitViews.TryGetValue(entityId, out var view);
+            return view;
+        }
+
+        public UnitView FindCombatView(int combatId)
+        {
+            _combatUnitViews.TryGetValue(combatId, out var view);
+            return view;
+        }
+
+        // ── 고스트 뷰 (홀로그램 드래그 프리뷰) ──
+
+        private UnitView _ghostView;
+
+        public UnitView CreateGhostView(int entityId, GameWorld world)
+        {
+            ReleaseGhostView();
+
+            ref var unit = ref world.GetUnit(entityId);
+            string prefabPath = GetCharacterPrefabPath(unit.ChampionSpecId);
+
+            _ghostView = GetFromPool();
+            _ghostView.Initialize(entityId, unit.StarLevel, prefabPath);
+            return _ghostView;
+        }
+
+        public void ReleaseGhostView()
+        {
+            if (_ghostView == null) return;
+            ReturnToPool(_ghostView);
+            _ghostView = null;
+        }
+
         // ── 풀 관리 ──
 
         private static string GetCharacterPrefabPath(int championSpecId)
@@ -229,13 +303,13 @@ namespace CookApps.AutoChess.View
             return view;
         }
 
-        private UnitView GetOrCreateCombatView(int combatId, int sourceEntityId, int champSpecId, byte starLevel)
+        private UnitView GetOrCreateCombatView(int combatId, int sourceEntityId, int champSpecId, byte starLevel, bool isPlayer = true)
         {
             if (_combatUnitViews.TryGetValue(combatId, out var existing))
                 return existing;
 
             var view = GetFromPool();
-            view.InitializeAsCombat(combatId, sourceEntityId, starLevel, GetCharacterPrefabPath(champSpecId));
+            view.InitializeAsCombat(combatId, sourceEntityId, starLevel, GetCharacterPrefabPath(champSpecId), champSpecId, isPlayer);
             _combatUnitViews[combatId] = view;
             return view;
         }

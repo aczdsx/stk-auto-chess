@@ -4,17 +4,27 @@ namespace CookApps.AutoChess
 {
     /// <summary>
     /// 보드 그리드 유틸리티. 좌표 변환, 거리 계산, 유효성 검사.
-    /// 전투 그리드(7×8)와 플레이어 보드(7×4) 모두 지원.
+    /// 전투 그리드와 플레이어 보드 모두 지원.
+    /// Setup()으로 보드 크기를 설정한 뒤 사용.
     /// </summary>
     public static class BoardHelper
     {
-        // 플레이어 보드 크기
-        public const int Width = PlayerBoard.BoardWidth;   // 7
-        public const int Height = PlayerBoard.BoardHeight; // 4
+        // 플레이어 보드 크기 (기본값: 7×4)
+        public static int Width { get; private set; } = 7;
+        public static int Height { get; private set; } = 4;
 
-        // 전투 그리드 크기 (양쪽 4행씩)
-        public const int CombatWidth = 7;
-        public const int CombatHeight = 8;
+        // 전투 그리드 크기 (기본값: 7×8, 양쪽 Height행씩)
+        public static int CombatWidth { get; private set; } = 7;
+        public static int CombatHeight { get; private set; } = 8;
+
+        /// <summary>보드 로드 시 그리드 크기 설정. CombatHeight = boardHeight * 2.</summary>
+        public static void Setup(int boardWidth, int boardHeight)
+        {
+            Width = boardWidth;
+            Height = boardHeight;
+            CombatWidth = boardWidth;
+            CombatHeight = boardHeight * 2;
+        }
 
         // ── 좌표 ↔ 인덱스 변환 ──
 

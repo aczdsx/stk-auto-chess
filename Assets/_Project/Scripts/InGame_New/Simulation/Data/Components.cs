@@ -490,6 +490,7 @@ namespace CookApps.AutoChess
         // 특수 이동
         public bool HasBacklineJump;
         public bool BacklineJumpDone;
+        public bool IsBacklineJumping;    // 백라인 점프 이동 중 (타겟 불가)
 
         // CC 상태
         public CrowdControlType ActiveCC;
@@ -502,8 +503,8 @@ namespace CookApps.AutoChess
 
         public bool IsValidTarget => IsAlive && State != CombatState.Dead;
 
-        /// <summary>타겟 선택 가능 여부 (이동 중 유닛 제외)</summary>
-        public bool IsTargetable => IsValidTarget && !IsMoving;
+        /// <summary>타겟 선택 가능 여부 (백라인 점프 중 제외)</summary>
+        public bool IsTargetable => IsValidTarget && !IsBacklineJumping;
 
         /// <summary>공격 쿨다운 프레임 수 계산 (AttackSpeed 기반)</summary>
         public int GetAttackInterval(int tickRate)
@@ -522,6 +523,31 @@ namespace CookApps.AutoChess
 
         /// <summary>이동 중인지 여부</summary>
         public bool IsMoving => MoveTimer > 0;
+    }
+
+    /// <summary>
+    /// PvE 적 유닛 데이터. 외부에서 스펙+배율을 계산하여 주입.
+    /// 전투 시작 시 CombatUnit으로 변환 (보드를 거치지 않음).
+    /// </summary>
+    public struct PvEEnemyData
+    {
+        public int ChampionSpecId;
+        public byte GridCol;       // 보드 좌표 (미러링 전)
+        public byte GridRow;
+        public byte SizeW;
+        public byte SizeH;
+
+        // 계산 완료된 스탯
+        public int MaxHP;
+        public int Attack;
+        public int Armor;
+        public int MagicResist;
+        public int AttackSpeed;    // 100 = 1.0
+        public int AttackRange;
+        public int MoveSpeed;      // 100 = 1.0
+        public int MaxMana;
+        public int TraitFlags;
+        public int SkillSpecId;
     }
 
     /// <summary>

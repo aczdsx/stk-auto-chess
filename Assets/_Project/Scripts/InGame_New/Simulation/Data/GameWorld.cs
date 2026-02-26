@@ -16,6 +16,9 @@ namespace CookApps.AutoChess
         // ── 글로벌 상태 ──
         public GamePhase CurrentPhase;
         public GameModeType GameMode;
+        public int BoardWidth;
+        public int BoardHeight;
+        public int BoardSize;  // BoardWidth * BoardHeight
         public int CurrentStage;       // 스테이지 번호 (1, 2, 3, ...)
         public int CurrentRound;       // 라운드 번호 (1-1, 1-2, ...)
         public int PhaseTimerFrames;   // 현재 페이즈 남은 프레임
@@ -74,6 +77,11 @@ namespace CookApps.AutoChess
         public int CutsceneElapsedFrames;
         public bool IsCutscenePlaying;
 
+        // ── PvE 적 데이터 ──
+        public const int MaxPvEEnemies = 16;
+        public PvEEnemyData[] PvEEnemies;    // 외부에서 주입, 전투 시작 시 CombatUnit으로 변환
+        public int PvEEnemyCount;
+
         // ── 이벤트 큐 (View 전달용) ──
         public SimEventQueue EventQueue;
 
@@ -89,6 +97,9 @@ namespace CookApps.AutoChess
             {
                 Config = config,
                 GameMode = config.GameMode,
+                BoardWidth = config.BoardWidth,
+                BoardHeight = config.BoardHeight,
+                BoardSize = config.BoardWidth * config.BoardHeight,
                 TickRate = config.TickRate,
                 CurrentStage = 1,
                 CurrentRound = 1,
@@ -119,8 +130,8 @@ namespace CookApps.AutoChess
 
                 world.Boards[i] = new PlayerBoard();
 
-                world.BoardSlots[i] = new int[PlayerBoard.BoardSize];
-                for (int j = 0; j < PlayerBoard.BoardSize; j++)
+                world.BoardSlots[i] = new int[world.BoardSize];
+                for (int j = 0; j < world.BoardSize; j++)
                     world.BoardSlots[i][j] = UnitData.InvalidId;
 
                 world.BenchSlots[i] = new int[PlayerBoard.BenchSize];
@@ -159,6 +170,9 @@ namespace CookApps.AutoChess
             world.CombatMatchStates = new CombatMatchState[MaxCombatMatches];
             for (int i = 0; i < MaxCombatMatches; i++)
                 world.Matches[i] = CombatMatch.CreateEmpty();
+
+            // PvE 적 초기화
+            world.PvEEnemies = new PvEEnemyData[MaxPvEEnemies];
 
             // 컷씬 큐 초기화
             world.CutsceneQueue = new CutsceneRequest[MaxCutsceneQueue];

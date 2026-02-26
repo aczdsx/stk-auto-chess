@@ -85,6 +85,7 @@ namespace CookApps.AutoChess
                 {
                     // 이동 완료
                     unit.State = CombatState.Idle;
+                    unit.IsBacklineJumping = false;
                 }
                 else
                 {
@@ -154,7 +155,7 @@ namespace CookApps.AutoChess
                 }
                 else
                 {
-                    unit.State = CombatState.Attacking; // 공격 대기
+                    unit.State = CombatState.Idle;
                 }
             }
             else

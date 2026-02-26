@@ -1,3 +1,5 @@
+using CookApps.AutoBattler;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CookApps.AutoChess.View
@@ -8,14 +10,28 @@ namespace CookApps.AutoChess.View
     /// </summary>
     public class AutoChessViewBridge : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private LocalSimulationRunner _runner;
-        [SerializeField] private UnitViewManager _unitViewManager;
-        [SerializeField] private CombatViewManager _combatViewManager;
-        [SerializeField] private HUDManager _hudManager;
+        private LocalSimulationRunner _runner;
+        private UnitViewManager _unitViewManager;
+        private CombatViewManager _combatViewManager;
+        private BoardGridView _boardGridView;
+        private AutoChessUIBase _autoChessUI;
+        private BoardInputHandler _boardInputHandler;
+
+        public void Setup(
+            LocalSimulationRunner runner,
+            UnitViewManager unitViewManager,
+            CombatViewManager combatViewManager,
+            BoardGridView boardGridView)
+        {
+            _runner = runner;
+            _unitViewManager = unitViewManager;
+            _combatViewManager = combatViewManager;
+            _boardGridView = boardGridView;
+        }
 
         private GamePhase _lastPhase;
         private int _localPlayerIndex;  // 로컬 플레이어 보드 인덱스
+        private UniTaskCompletionSource _viewsReadySource;
 
         // ── 초기화 ──
 
@@ -25,11 +41,15 @@ namespace CookApps.AutoChess.View
 
             _unitViewManager.Initialize();
             _combatViewManager.Initialize();
-            _hudManager.Initialize();
+            _boardGridView.Initialize();
 
             _unitViewManager.SetActiveBoard(_localPlayerIndex);
 
-            // 이벤트 구독
+            // View 로딩 완료 이벤트 구독
+            _viewsReadySource = new UniTaskCompletionSource();
+            _unitViewManager.OnAllBoardViewsReady += () => _viewsReadySource.TrySetResult();
+
+            // 시뮬레이션 이벤트 구독
             _runner.OnTick += HandleTick;
             _runner.OnPhaseChanged += HandlePhaseChanged;
         }
@@ -60,8 +80,8 @@ namespace CookApps.AutoChess.View
                 _unitViewManager.SyncBoardUnits(world);
             }
 
-            // HUD 갱신
-            UpdateHUD(world);
+            // UI 갱신 (벤치 + HUD 통합)
+            _autoChessUI?.SyncState(world);
         }
 
         private void HandlePhaseChanged(GamePhase prevPhase, GamePhase newPhase)
@@ -73,17 +93,23 @@ namespace CookApps.AutoChess.View
                 case GamePhase.Preparation:
                     _unitViewManager.OnCombatEnd();
                     _combatViewManager.OnCombatEnd();
-                    _hudManager.OnPhaseChanged(newPhase);
+                    _boardGridView.OnPreparation();
+                    _autoChessUI?.OnPhaseChanged(newPhase);
+                    if (_autoChessUI != null) _autoChessUI.gameObject.SetActive(true);
+                    _boardInputHandler?.SetEnabled(true);
                     break;
 
                 case GamePhase.Combat:
                     _unitViewManager.OnCombatStart();
                     _combatViewManager.OnCombatStart();
-                    _hudManager.OnPhaseChanged(newPhase);
+                    _boardGridView.OnCombatStart();
+                    _autoChessUI?.OnPhaseChanged(newPhase);
+                    if (_autoChessUI != null) _autoChessUI.gameObject.SetActive(false);
+                    _boardInputHandler?.SetEnabled(false);
                     break;
 
                 case GamePhase.Result:
-                    _hudManager.OnPhaseChanged(newPhase);
+                    _autoChessUI?.OnPhaseChanged(newPhase);
                     break;
             }
         }
@@ -123,12 +149,12 @@ namespace CookApps.AutoChess.View
             for (int i = 0; i < queue.Count; i++)
             {
                 ref var evt = ref queue.Events[i];
-                DispatchEvent(ref evt);
+                DispatchEvent(ref evt, world);
             }
             queue.Clear();
         }
 
-        private void DispatchEvent(ref SimEvent evt)
+        private void DispatchEvent(ref SimEvent evt, GameWorld world)
         {
             switch (evt.Type)
             {
@@ -145,43 +171,103 @@ namespace CookApps.AutoChess.View
                     break;
 
                 case SimEventType.UnitCastSkill:
-                    _combatViewManager.OnUnitCastSkill(evt.EntityId, evt.Value0);
+                {
+                    var element = ResolveElementFromCaster(world, evt.EntityId);
+                    _combatViewManager.OnUnitCastSkill(evt.EntityId, evt.Value0, element);
                     break;
+                }
 
                 case SimEventType.ProjectileSpawned:
                     _combatViewManager.OnProjectileSpawned(evt.EntityId, evt.TargetEntityId, evt.ProjType);
                     break;
 
                 case SimEventType.ProjectileExploded:
-                    _combatViewManager.OnProjectileExploded(evt.Col, evt.Row, evt.Radius);
+                {
+                    var element = ResolveElementFromSkill(evt.Value0);
+                    _combatViewManager.OnProjectileExploded(evt.Col, evt.Row, evt.Radius, element);
                     break;
+                }
 
                 case SimEventType.GoldChanged:
-                    _hudManager.OnGoldChanged(evt.PlayerIndex, evt.Value0, evt.Value1);
+                    _autoChessUI?.OnGoldChanged(evt.PlayerIndex, evt.Value0, evt.Value1);
                     break;
 
                 case SimEventType.LevelUp:
-                    _hudManager.OnLevelUp(evt.PlayerIndex, evt.Value0);
+                    _autoChessUI?.OnLevelUp(evt.PlayerIndex, evt.Value0);
                     break;
 
                 case SimEventType.PlayerEliminated:
-                    _hudManager.OnPlayerEliminated(evt.PlayerIndex, evt.Value0);
+                    _autoChessUI?.OnPlayerEliminated(evt.PlayerIndex, evt.Value0);
                     break;
 
                 case SimEventType.CombatResult:
-                    _hudManager.OnCombatResult(evt.PlayerIndex, evt.Value0);
+                    _autoChessUI?.OnCombatResult(evt.PlayerIndex, evt.Value0);
                     break;
             }
         }
 
-        // ── HUD 갱신 ──
+        // ── 원소 타입 조회 ──
 
-        private void UpdateHUD(GameWorld world)
+        /// <summary>시전자 entityId → 캐릭터 원소 타입</summary>
+        private SynergyType ResolveElementFromCaster(GameWorld world, int casterId)
         {
-            float timerSeconds = world.PhaseTimerFrames / (float)world.TickRate;
-            _hudManager.UpdateTimer(timerSeconds);
-            _hudManager.UpdatePlayerInfo(world, _localPlayerIndex);
+            // CombatMatchState에서 유닛 찾기
+            for (int m = 0; m < GameWorld.MaxCombatMatches; m++)
+            {
+                var matchState = world.CombatMatchStates[m];
+                if (matchState == null) continue;
+                for (int u = 0; u < matchState.UnitCount; u++)
+                {
+                    if (matchState.Units[u].CombatId == casterId)
+                    {
+                        int champId = matchState.Units[u].ChampionSpecId;
+                        return GetElementFromCharacterId(champId);
+                    }
+                }
+            }
+            return SynergyType.NONE;
         }
+
+        /// <summary>skillSpecId → 원소 타입 (스킬 → 캐릭터 역추적)</summary>
+        private SynergyType ResolveElementFromSkill(int skillSpecId)
+        {
+            if (skillSpecId <= 0) return SynergyType.NONE;
+
+            // SkillActive → character_id 역추적이 복잡하므로
+            // Pool에서 SkillId로 캐릭터 찾기
+            var world = _runner.GetWorld();
+            if (world?.Pool == null) return SynergyType.NONE;
+
+            for (int i = 0; i < world.Pool.SpecCount; i++)
+            {
+                if (world.Pool.Specs[i].SkillId == skillSpecId)
+                {
+                    int champId = world.Pool.Specs[i].ChampionId;
+                    return GetElementFromCharacterId(champId);
+                }
+            }
+            return SynergyType.NONE;
+        }
+
+        private static SynergyType GetElementFromCharacterId(int champId)
+        {
+            var charInfo = SpecDataManager.Instance.GetCharacterData(champId);
+            return charInfo?.character_element_type ?? SynergyType.NONE;
+        }
+
+        // ── 로딩 대기 ──
+
+        /// <summary>모든 보드 뷰의 캐릭터 비주얼 로딩 완료 대기</summary>
+        public UniTask WaitForAllViewsReady()
+        {
+            return _viewsReadySource.Task;
+        }
+
+        // ── UI 연결 ──
+
+        public void SetAutoChessUI(AutoChessUIBase ui) => _autoChessUI = ui;
+        public void SetBoardInputHandler(BoardInputHandler handler) => _boardInputHandler = handler;
+        public GameWorld GetWorld() => _runner.GetWorld();
 
         // ── 관전 보드 변경 ──
 

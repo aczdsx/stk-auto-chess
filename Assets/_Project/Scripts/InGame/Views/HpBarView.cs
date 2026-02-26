@@ -156,6 +156,41 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
+        /// 새 인게임 시스템용 초기화 (CharacterStatData 의존 없이)
+        /// </summary>
+        public void Initialize(int champSpecId, bool isPlayer, int maxHP = 0)
+        {
+            _hpPlayerFillLeft.gameObject.SetActive(isPlayer);
+            _hpEnemyFillLeft.gameObject.SetActive(!isPlayer);
+
+            _selectedFillLeft = isPlayer ? _hpPlayerFillLeft : _hpEnemyFillLeft;
+            _hpFillSmoothGuage.color = isPlayer ? _playerSmoothColor : _enermySmoothColor;
+
+            _defalutSize = isPlayer ? _originalPlayerSize : _originalEnemySize;
+            _defaultScale = _selectedFillLeft.transform.localScale;
+
+            _selectedFillLeft.size = _defalutSize;
+            _hpFillSmoothGuage.size = new Vector2(_defalutSize.x, _hpFillSmoothGuage.size.y);
+            _shieldFiilLeft.size = new Vector2(0, _shieldFiilLeft.size.y);
+
+            if (_hpMarkGuage != null)
+            {
+                _hpMarkGuage.size = _defalutSize;
+                if (_hpMarkGuage.material != null && maxHP > 0)
+                {
+                    _hpMarkGuage.material.SetFloat("_MaxHP", maxHP);
+                }
+            }
+
+            var spec = SpecDataManager.Instance.GetSpecCharacter(champSpecId);
+            if (spec != null)
+            {
+                _elementSynergySpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(spec.character_element_type)).Forget();
+                _positionSynergySpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(spec.character_stella_type)).Forget();
+            }
+        }
+
+        /// <summary>
         /// 시너지 아이콘 반짝임 효과 재생 (속성 시너지)
         /// </summary>
         public void PlayElementSynergyEffect()

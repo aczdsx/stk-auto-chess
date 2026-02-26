@@ -30,7 +30,7 @@ namespace CookApps.AutoChess
         {
             var boardSlots = world.BoardSlots[playerIndex];
 
-            for (int i = 0; i < PlayerBoard.BoardSize; i++)
+            for (int i = 0; i < world.BoardSize; i++)
             {
                 int entityId = boardSlots[i];
                 if (entityId == UnitData.InvalidId) continue;
@@ -104,6 +104,8 @@ namespace CookApps.AutoChess
 
                 // 그리드에 등록 (multi-tile)
                 state.SetGridMulti(gridCol, gridRow, combatUnit.SizeW, combatUnit.SizeH, combatId);
+
+                if (CombatLogger.Enabled) CombatLogger.LogSpawn(combatId, teamIndex, gridCol, gridRow, combatUnit.MaxHP, combatUnit.Attack, combatUnit.AttackRange);
             }
         }
 
@@ -129,6 +131,80 @@ namespace CookApps.AutoChess
                     count++;
             }
             return count;
+        }
+
+        // ── PvE 매치 셋업 ──
+
+        /// <summary>PvE 매치 세팅. 플레이어 보드 유닛 + PvE 적 데이터로 전투 구성.</summary>
+        public static CombatMatchState SetupPvEMatch(GameWorld world, byte matchIndex, byte playerIndex)
+        {
+            var state = CombatMatchState.Create(matchIndex, playerIndex, 0xFF);
+            state.EventQueue = world.EventQueue;
+
+            // 플레이어 유닛 (team 0, 하단)
+            SpawnTeamUnits(world, state, playerIndex, teamIndex: 0, mirrorGrid: false);
+
+            // PvE 적 (team 1, 상단, 미러링)
+            SpawnPvEEnemies(world, state);
+
+            state.AliveCountA = CountAliveByTeam(state, 0);
+            state.AliveCountB = CountAliveByTeam(state, 1);
+
+            return state;
+        }
+
+        /// <summary>PvE 적 유닛을 CombatUnit으로 직접 생성 (보드 거치지 않음)</summary>
+        private static void SpawnPvEEnemies(GameWorld world, CombatMatchState state)
+        {
+            for (int i = 0; i < world.PvEEnemyCount; i++)
+            {
+                ref var enemy = ref world.PvEEnemies[i];
+
+                // PvE 좌표는 이미 전투 그리드 기준 (예: (0,6), (3,4))
+                int gridCol = enemy.GridCol;
+                int gridRow = enemy.GridRow;
+
+                int combatId = state.NextCombatId++;
+                int slotIndex = state.UnitCount++;
+
+                ref var unit = ref state.Units[slotIndex];
+                unit.CombatId = combatId;
+                unit.SourceEntityId = -1;
+                unit.ChampionSpecId = enemy.ChampionSpecId;
+                unit.StarLevel = 1;
+                unit.OwnerIndex = 0xFF;
+                unit.TeamIndex = 1;
+                unit.GridCol = (byte)gridCol;
+                unit.GridRow = (byte)gridRow;
+                unit.SizeW = enemy.SizeW;
+                unit.SizeH = enemy.SizeH;
+                unit.State = CombatState.Idle;
+                unit.IsAlive = true;
+
+                unit.MaxHP = enemy.MaxHP;
+                unit.CurrentHP = enemy.MaxHP;
+                unit.Attack = enemy.Attack;
+                unit.Armor = enemy.Armor;
+                unit.MagicResist = enemy.MagicResist;
+                unit.AttackSpeed = enemy.AttackSpeed;
+                unit.AttackRange = enemy.AttackRange;
+                unit.MoveSpeed = enemy.MoveSpeed;
+                unit.MaxMana = enemy.MaxMana;
+                unit.CurrentMana = 0;
+                unit.CritChance = 25;
+                unit.CritMultiplier = 150;
+                unit.TraitFlags = enemy.TraitFlags;
+                unit.SkillSpecId = enemy.SkillSpecId;
+                unit.CurrentTargetId = CombatUnit.InvalidId;
+                unit.AttackCooldown = 0;
+                unit.MoveTimer = 0;
+                unit.MoveDuration = 0;
+                unit.SkillCastTimer = 0;
+
+                state.SetGridMulti(gridCol, gridRow, enemy.SizeW, enemy.SizeH, combatId);
+
+                if (CombatLogger.Enabled) CombatLogger.LogSpawn(combatId, 1, gridCol, gridRow, unit.MaxHP, unit.Attack, unit.AttackRange);
+            }
         }
 
         /// <summary>매치메이킹: 4인 → 2개 1v1 매치 배정 (간단한 라운드 로빈)</summary>
