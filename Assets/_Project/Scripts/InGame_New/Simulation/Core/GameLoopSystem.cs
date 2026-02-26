@@ -112,6 +112,8 @@ namespace CookApps.AutoChess
 
             if (allFinished)
             {
+                CombatLogger.End();
+                UnityEngine.Debug.Log($"[CombatLog]\n{CombatLogger.GetLog()}");
                 TransitionToPhase(world, GamePhase.Result);
             }
         }
@@ -191,6 +193,7 @@ namespace CookApps.AutoChess
         private static void OnEnterCombat(GameWorld world)
         {
             world.IsCombatActive = true;
+            CombatLogger.Begin();
 
             // 시너지 재계산 (전투 시작 전 최종 확정)
             for (int p = 0; p < world.Config.PlayerCount; p++)
@@ -353,6 +356,8 @@ namespace CookApps.AutoChess
 
         private static void ForceEndCombat(GameWorld world)
         {
+            CombatLogger.End();
+            UnityEngine.Debug.Log($"[CombatLog] TIMEOUT\n{CombatLogger.GetLog()}");
             for (int i = 0; i < GameWorld.MaxCombatMatches; i++)
             {
                 if (!world.Matches[i].IsFinished)

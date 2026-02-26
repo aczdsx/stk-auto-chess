@@ -85,6 +85,7 @@ namespace CookApps.AutoChess
                 {
                     // 이동 완료
                     unit.State = CombatState.Idle;
+                    unit.IsBacklineJumping = false;
                 }
                 else
                 {

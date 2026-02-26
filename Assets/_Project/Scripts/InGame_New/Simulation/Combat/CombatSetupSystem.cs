@@ -104,6 +104,8 @@ namespace CookApps.AutoChess
 
                 // 그리드에 등록 (multi-tile)
                 state.SetGridMulti(gridCol, gridRow, combatUnit.SizeW, combatUnit.SizeH, combatId);
+
+                if (CombatLogger.Enabled) CombatLogger.LogSpawn(combatId, teamIndex, gridCol, gridRow, combatUnit.MaxHP, combatUnit.Attack, combatUnit.AttackRange);
             }
         }
 
@@ -200,6 +202,8 @@ namespace CookApps.AutoChess
                 unit.SkillCastTimer = 0;
 
                 state.SetGridMulti(gridCol, gridRow, enemy.SizeW, enemy.SizeH, combatId);
+
+                if (CombatLogger.Enabled) CombatLogger.LogSpawn(combatId, 1, gridCol, gridRow, unit.MaxHP, unit.Attack, unit.AttackRange);
             }
         }
 

@@ -16,20 +16,34 @@ namespace CookApps.AutoChess
             byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
             byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
 
+            byte tSizeW = target.SizeW > 0 ? target.SizeW : (byte)1;
+            byte tSizeH = target.SizeH > 0 ? target.SizeH : (byte)1;
+
             // 이미 사거리 내면 이동 불필요
             if (BoardHelper.IsInRangeMulti(unit.GridCol, unit.GridRow, sizeW, sizeH,
-                    target.GridCol, target.GridRow,
-                    target.SizeW > 0 ? target.SizeW : (byte)1,
-                    target.SizeH > 0 ? target.SizeH : (byte)1,
+                    target.GridCol, target.GridRow, tSizeW, tSizeH,
                     unit.AttackRange))
                 return false;
+
+            // 타겟이 가까이 접근 중이면 대기 (오버슈팅 방지)
+            int currentDist = BoardHelper.MinManhattanDistance(
+                unit.GridCol, unit.GridRow, sizeW, sizeH,
+                target.GridCol, target.GridRow, tSizeW, tSizeH);
+
+            if (currentDist <= unit.AttackRange + 2 && target.IsMoving)
+            {
+                // 타겟이 나를 향해 오고 있는지 확인 (이전 위치가 현재보다 멀었으면 접근 중)
+                int fromDist = BoardHelper.MinManhattanDistance(
+                    unit.GridCol, unit.GridRow, sizeW, sizeH,
+                    target.MoveFromCol, target.MoveFromRow, tSizeW, tSizeH);
+
+                if (fromDist > currentDist)
+                    return false; // 타겟이 접근 중 → 대기
+            }
 
             int bestCol = -1;
             int bestRow = -1;
             int bestDist = int.MaxValue;
-
-            byte tSizeW = target.SizeW > 0 ? target.SizeW : (byte)1;
-            byte tSizeH = target.SizeH > 0 ? target.SizeH : (byte)1;
 
             int dirCount = allowDiagonal ? 8 : 4;
             var dirCols = allowDiagonal ? BoardHelper.DirCol8 : BoardHelper.DirCol4;
@@ -174,6 +188,7 @@ namespace CookApps.AutoChess
             int moveFrames = unit.GetMoveFrames(tickRate);
             unit.MoveDuration = moveFrames;
             unit.MoveTimer = moveFrames;
+            unit.IsBacklineJumping = true;
             unit.State = CombatState.Moving;
 
             if (CombatLogger.Enabled) CombatLogger.LogBacklineJump(unit.CombatId, jumpFromCol, jumpFromRow, bestCol, bestRow);
