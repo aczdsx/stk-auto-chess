@@ -1,148 +1,130 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using CookApps.AutoBattler;
 using UnityEngine;
 using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class TargetLineRenderer : MonoBehaviour
 {
-    public CharacterController StartCharacter => _startCharacter;
-
+    [SerializeField] private GameObject _arrowFx;
     [SerializeField] private LineRenderer _lineRenderer;
-    [SerializeField] float _height = 3;
-    [SerializeField] int _positionCount = 30;
-    [SerializeField] float _lineDruationTime = 2;
-    [SerializeField] int _offSet = 4;
-    [SerializeField] ParticleSystem _ownFx;
-    [SerializeField] ParticleSystem _otherFx;
-    [SerializeField] GameObject _arrowFx;
-    [SerializeField] TrailRenderer _trailRenderer;
-    [SerializeField] Color _ownTrailColor;
-    [SerializeField] Color _otherTrailColor;
+    [SerializeField] private Color _ownColor;
+    [SerializeField] private Color _otherColor;
 
-    private CharacterController _startCharacter;
-    private CharacterController _targetCharacter;
+    private TargetLineConfig _config;
+    private Coroutine _currentCoroutine;
+    private Material _cachedMaterial;
+
+    private TargetLineConfig Config
+    {
+        get
+        {
+            if (_config == null)
+                SoDataProvider.Instance.TryGet(out _config);
+            return _config;
+        }
+    }
 
     public void DrawLine(CharacterController startCharacter, CharacterController targetCharacter, bool isOwn,
-        Action OnComplete = null)
+        Action onComplete = null)
     {
-        if (isOwn)
-        {
-            _lineRenderer.startColor = _ownTrailColor;
-            _lineRenderer.endColor = _ownTrailColor;
-            _trailRenderer.startColor = _ownTrailColor;
+        var color = isOwn ? _ownColor : _otherColor;
+        _lineRenderer.startColor = color;
+        _lineRenderer.endColor = color;
 
-            _ownFx.Play();
-        }
-        else
-        {
-            _lineRenderer.startColor = _otherTrailColor;
-            _lineRenderer.endColor = _otherTrailColor;
-            _trailRenderer.startColor = _otherTrailColor;
-
-            _otherFx.Play();
-            // _arrowFx.transform.localScale = new Vector3(-1.5f, 0.7f, 1.5f);
-        }
-
-        _startCharacter = startCharacter;
-        _targetCharacter = targetCharacter;
-        _lineRenderer.gameObject.SetActive(_targetCharacter != null);
+        var yOffset = new Vector3(0, Config.CharacterYOffset, 0);
+        Func<Vector3> getStart = () => startCharacter.Position3D + yOffset;
+        Func<Vector3> getTarget = () => targetCharacter.Position3D + yOffset;
 
         if (gameObject.activeInHierarchy)
         {
-            Vector3 startPos = _startCharacter.Position3D;
-            Vector3 targetPos = _targetCharacter.Position3D;
-            startPos.y += 0.5f;
-            targetPos.y += 0.5f;
-
-            StartCoroutine(DrawGuideLine(startPos, targetPos, OnComplete));
+            StartDrawCoroutine(DrawGuideLine(getStart, getTarget, onComplete));
         }
     }
 
-    public void DrawLine(Vector3 startPos, Vector3 targetPos, Action OnComplete = null)
+    public void DrawLine(Vector3 startPos, Vector3 targetPos, Action onComplete = null)
     {
-        StartCoroutine(DrawGuideLine(startPos, targetPos, OnComplete));
+        _lineRenderer.startColor = _ownColor;
+        _lineRenderer.endColor = _ownColor;
+
+        StartDrawCoroutine(DrawGuideLine(() => startPos, () => targetPos, onComplete));
     }
 
-    private IEnumerator DrawGuideLine(Vector3 startPos, Vector3 targetPos, Action OnComplete = null)
+    private void StartDrawCoroutine(IEnumerator routine)
     {
+        if (_currentCoroutine != null)
+            StopCoroutine(_currentCoroutine);
+
+        _currentCoroutine = StartCoroutine(routine);
+    }
+
+    private Vector3 EvaluateArc(Vector3 start, Vector3 end, float t)
+    {
+        float arcHeight = Mathf.Sin(Mathf.PI * t) * Config.Height;
+        return Vector3.Lerp(start, end, t) + new Vector3(0, arcHeight, 0);
+    }
+
+    private void UpdateLine(Vector3 start, Vector3 end, int count)
+    {
+        _lineRenderer.positionCount = count;
+        for (int i = 0; i < count; i++)
+        {
+            float t = (float)i / Mathf.Max(count - 1, 1);
+            _lineRenderer.SetPosition(i, EvaluateArc(start, end, t));
+        }
+    }
+
+    private IEnumerator DrawGuideLine(Func<Vector3> getStart, Func<Vector3> getTarget, Action onComplete = null)
+    {
+        var config = Config;
+        if (config == null)
+        {
+            Debug.LogWarning("[TargetLineRenderer] TargetLineConfig not loaded.");
+            onComplete?.Invoke();
+            _currentCoroutine = null;
+            yield break;
+        }
+
+        _cachedMaterial ??= _lineRenderer.material;
+
         WaitForEndOfFrame waitTime = new WaitForEndOfFrame();
 
-        List<Vector3> result = new List<Vector3>();
-        for (int i = 0; i < _positionCount; i++)
-        {
-            float amount = Mathf.Sin(Mathf.PI * i / (_positionCount - 1)) * _height;
-            Vector3 distance = targetPos - startPos;
-            distance = distance * i / (_positionCount - 1) + new Vector3(0, amount, 0);
-            Vector3 point = startPos + distance;
-            result.Add(point);
-        }
+        _lineRenderer.positionCount = 0;
+        _arrowFx.transform.position = EvaluateArc(getStart(), getTarget(), 0f);
 
         float time = 0f;
 
-        _lineRenderer.positionCount = _positionCount;
-        for (int i = 0; i < _lineRenderer.positionCount; i++)
-        {
-            if (i >= result.Count)
-                break;
-
-            _lineRenderer.SetPosition(i, result[i]);
-        }
-
-        while (time < _lineDruationTime)
+        while (time < config.LineDurationTime)
         {
             time += Time.unscaledDeltaTime;
-            float value = time / _lineDruationTime;
+            float value = time / config.LineDurationTime;
 
-            var lineIndex = (int)Mathf.Clamp((_lineRenderer.positionCount * value) + _offSet, 0, _lineRenderer.positionCount - 1);
-            _arrowFx.transform.position = result[lineIndex];
-            _lineRenderer.material.SetFloat("_ClipUvLeft", value);
-            // _lineRenderer.material.SetFloat("_ClipUvUp", 1 - value);
+            float t = Mathf.Clamp01((value * config.PositionCount + config.Offset) / (config.PositionCount - 1f));
+
+            var start = getStart();
+            var end = getTarget();
+
+            // 시작 ~ 현재 진행점까지만 라인 표시
+            int visibleCount = Mathf.Max((int)(t * config.PositionCount), 2);
+            UpdateLine(start, end, visibleCount);
+
+            var currentPos = EvaluateArc(start, end, t);
+            var prevPos = EvaluateArc(start, end, Mathf.Max(t - 0.01f, 0f));
+            var dir = currentPos - prevPos;
+            if (dir.sqrMagnitude > 0.0001f)
+                _arrowFx.transform.rotation = Quaternion.LookRotation(dir);
+
+            _arrowFx.transform.position = currentPos;
+
+            // UV offset 스크롤
+            _cachedMaterial.mainTextureOffset = new Vector2(time * config.ScrollSpeed, 0f);
 
             yield return waitTime;
         }
 
-        // yield return new WaitForSeconds(1.5f);
-
-        OnComplete?.Invoke();
+        _cachedMaterial.mainTextureOffset = Vector2.zero;
+        _lineRenderer.positionCount = 0;
+        _currentCoroutine = null;
+        onComplete?.Invoke();
     }
-
-
-    public void OnEnable()
-    {
-        if (_trailRenderer != null)
-        {
-            // 활성화될 때 이전 데이터가 남지 않도록 초기화
-            _trailRenderer.Clear();
-            _trailRenderer.emitting = true;
-        }
-    }
-
-    public void OnDisable()
-    {
-        if (_trailRenderer != null)
-        {
-            _trailRenderer.Clear();
-            _trailRenderer.emitting = false;
-        }
-    }
-
-
-    // protected void Update()
-    // {
-    //     if (_startCharacter && _targetCharacter)
-    //     {
-    //         Vector3 startPos = _startCharacter.transform.position;
-    //         Vector3 targetPos = _targetCharacter.transform.position;
-    //         _lineRenderer.positionCount = _positionCount;
-    //         for (int i = 0; i < _positionCount; i++)
-    //         {
-    //             float amount = Mathf.Sin(Mathf.PI * i / (_positionCount - 1)) * _height;
-    //             Vector3 distance = targetPos - startPos;
-    //             distance = distance * i / (_positionCount - 1) + new Vector3(0, amount, 0);
-    //             Vector3 point = startPos + distance;
-    //             _lineRenderer.SetPosition(i, point);
-    //         }           
-    //     }
-    // }
 }

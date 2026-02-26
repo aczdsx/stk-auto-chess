@@ -95,6 +95,7 @@ public partial class InGameTouchManager
             return;
 
         bool isBattleItem = _selectedCharacterController.AllianceType == AllianceType.BattleItem;
+        
 
         // 1. 타일 위인 경우 → 기존 로직 (타일에 스냅)
         if (hitTag == "Slot")
@@ -208,6 +209,9 @@ public partial class InGameTouchManager
         {
             ActiveAttackTile(inGameTile, _selectedCharacterController.AttackRange);
         }
+
+        // 드래그 중 타일 변경 시 타겟 계산용 프리뷰 타일 갱신
+        InGameObjectManager.Instance.SetFocusedCharacterPreviewTile(inGameTile);
 
         // 캐릭터 이동 애니메이션
         AnimateCharacterPosition(targetTileView.CachedTr.transform.position);
@@ -561,6 +565,7 @@ public partial class InGameTouchManager
             InGameMain.GetInGameMain().SetFocusSlotUI(character.GetCharacterStat().Spec as CharacterInfo);
             InGameMain.GetInGameMain().ShowSKillTooltip(_selectedCharacterController.GetCharacterStat());
         }
+        InGameObjectManager.Instance.SetFocusedCharacter(character);
     }
 
     private bool ApplyItem(CharacterController itemObj, CharacterController targetObj)
@@ -596,6 +601,7 @@ public partial class InGameTouchManager
             int placedCharacterId = _selectedCharacterController.CharacterId;
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_position_drop);
 
+            InGameObjectManager.Instance.ClearFocusedCharacter();
             _selectedCharacterController.SetSelectedCharacter(false, isDropFx: _isDragFromUI && tileChanged);
             _selectedTileView.SetActiveObj(false);
             _selectedFirstTileID = _selectedFirstTileView.ID;

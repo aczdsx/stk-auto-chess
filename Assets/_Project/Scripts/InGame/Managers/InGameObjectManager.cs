@@ -34,8 +34,7 @@ namespace CookApps.BattleSystem
         private List<CharacterController> startingEnemiesCharacters = new();
         private List<CharacterController> reusableList = new List<CharacterController>();
 
-        private List<InGameVfxTargetLine> playerTargetLines = new List<InGameVfxTargetLine>();
-        private List<InGameVfxTargetLine> enemyTargetLines = new List<InGameVfxTargetLine>();
+        private TargetLineManager _targetLineManager;
 
         private double _playerSumMaxHp;
         private double _enemySumMaxHp;
@@ -72,6 +71,11 @@ namespace CookApps.BattleSystem
             _stage = stage;
             InGameGrid grid = new InGameGrid(_stage.GridSize, _stage.TileViews);
             _grid = grid;
+
+            _targetLineManager = new TargetLineManager(
+                (isPlayer) => isPlayer ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate,
+                GetTargetOnceByPositionType
+            );
         }
 
         public void Clear()
@@ -1092,61 +1096,15 @@ namespace CookApps.BattleSystem
             return attrValue;
         }
 
-        public void DrawPlayerLine(bool isPlayer)
-        {
-            List<CharacterController> characterControllers = (isPlayer) ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate;
-            List<InGameVfxTargetLine> targetLines = (isPlayer) ? playerTargetLines : enemyTargetLines;
+        public void DrawPlayerLine(bool isPlayer) => _targetLineManager.DrawPlayerLine(isPlayer);
 
-            // foreach (var line in targetLines)
-            // {
-            //     line.Remove();
-            // }
-            // targetLines.Clear();
+        public void SetFocusedCharacter(CharacterController character) => _targetLineManager.SetFocusedCharacter(character);
 
-            foreach (var anyCharacter in characterControllers)
-            {
-                var target = GetTargetOnceByPositionType(anyCharacter);
+        public void SetFocusedCharacterPreviewTile(InGameTile tile) => _targetLineManager.SetFocusedCharacterPreviewTile(tile);
 
-                if (target != null)
-                {
-                    InGameVfxTargetLine targetLine = null;
-                    foreach (var line in targetLines)
-                    {
-                        if (line.CachedGo.activeSelf == false)
-                        {
-                            targetLine = line;
-                            break;
-                        }
-                    }
+        public void ClearFocusedCharacter() => _targetLineManager.ClearFocusedCharacter();
 
-                    if (targetLine == null)
-                    {
-                        targetLine = anyCharacter.SetLine(target, isPlayer,
-                            (targetLine) =>
-                            {
-                                targetLine.SetActiveObject(false); //대기상태로 변경
-                            });
-                        targetLines.Add(targetLine);
-                    }
-                    else
-                    {
-                        anyCharacter.ReUseLine(targetLine, target, isPlayer,
-                            (targetLine) =>
-                            {
-                                targetLine.SetActiveObject(false); //대기상태로 변경
-                            });
-                    }
-                }
-            }
-        }
-
-        public void ClearTargetLine()
-        {
-            foreach (var line in playerTargetLines) line.Remove();
-            foreach (var line in enemyTargetLines) line.Remove();
-            playerTargetLines.Clear();
-            enemyTargetLines.Clear();
-        }
+        public void ClearTargetLine() => _targetLineManager.ClearAll();
 
 
     }
