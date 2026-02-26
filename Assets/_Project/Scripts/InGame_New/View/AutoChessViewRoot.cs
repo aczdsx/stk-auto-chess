@@ -14,6 +14,7 @@ namespace CookApps.AutoChess.View
         private GameObject _stagePrefab;
         private GameObject _unitViewPrefab;
         private GameObject _autoChessUIPrefab;
+        private GameObject _hpBarPrefab;
         private GameObject _stageInstance;
         private LocalSimulationRunner _runner;
         private AutoChessViewBridge _viewBridge;
@@ -37,7 +38,7 @@ namespace CookApps.AutoChess.View
             int chapterId = stageInfo?.chapter_id ?? stageId;
 
             _stagePrefab = await Addressables.LoadAssetAsync<GameObject>(
-                $"Prefabs/Stages/Ingame/Stage{chapterId}.prefab");
+                $"Prefabs/Stages/Ingame_New/Stage{chapterId}.prefab");
             _unitViewPrefab = await Addressables.LoadAssetAsync<GameObject>(
                 "Prefabs/InGame/UnitView.prefab");
 
@@ -49,6 +50,9 @@ namespace CookApps.AutoChess.View
                 _ => "Prefabs/UI/InGame/AutoChessUI_Classic.prefab",
             };
             _autoChessUIPrefab = await Addressables.LoadAssetAsync<GameObject>(uiPath);
+
+            _hpBarPrefab = await Addressables.LoadAssetAsync<GameObject>(
+                "Prefabs/InGame/FloatingHpBar.prefab");
         }
 
         // ── 동적 초기화 (LoadResources 후 호출) ──
@@ -77,6 +81,10 @@ namespace CookApps.AutoChess.View
             _combatViewManager.SetTileEffectManager(_tileEffectManager);
             _combatViewManager.SetUnitViewManager(_unitViewManager);
 
+            // HP 바 풀 초기화
+            if (_hpBarPrefab != null)
+                InGameHpBarViewPool.Instance.Initialize(_hpBarPrefab);
+
             // ViewBridge 와이어링
             _viewBridge = CreateChild<AutoChessViewBridge>("ViewBridge");
             _viewBridge.Setup(_runner, _unitViewManager, _combatViewManager, _boardGridView);
@@ -86,6 +94,8 @@ namespace CookApps.AutoChess.View
 
         public void Cleanup()
         {
+            InGameHpBarViewPool.Instance.Clear();
+
             if (_stageInstance != null)
                 Destroy(_stageInstance);
             if (_stagePrefab != null)
@@ -102,6 +112,11 @@ namespace CookApps.AutoChess.View
             {
                 Addressables.Release(_autoChessUIPrefab);
                 _autoChessUIPrefab = null;
+            }
+            if (_hpBarPrefab != null)
+            {
+                Addressables.Release(_hpBarPrefab);
+                _hpBarPrefab = null;
             }
         }
 

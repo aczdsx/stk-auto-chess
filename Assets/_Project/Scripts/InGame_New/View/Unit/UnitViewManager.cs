@@ -152,7 +152,7 @@ namespace CookApps.AutoChess.View
                 if (unit.CombatId == CombatUnit.InvalidId) continue;
 
                 activeIds.Add(unit.CombatId);
-                var view = GetOrCreateCombatView(unit.CombatId, unit.SourceEntityId, unit.ChampionSpecId, unit.StarLevel);
+                var view = GetOrCreateCombatView(unit.CombatId, unit.SourceEntityId, unit.ChampionSpecId, unit.StarLevel, unit.TeamIndex == 0);
 
                 byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
                 byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
@@ -178,7 +178,7 @@ namespace CookApps.AutoChess.View
                     if (isActive)
                     {
                         view.SetPositionImmediate(worldPos);
-                        view.UpdateHP(unit.CurrentHP, unit.MaxHP);
+                        view.UpdateHP(unit.CurrentHP, unit.MaxHP, unit.ShieldAmount);
                         view.UpdateMana(unit.CurrentMana, unit.MaxMana);
                         view.SetCombatState(unit.State);
 
@@ -303,13 +303,13 @@ namespace CookApps.AutoChess.View
             return view;
         }
 
-        private UnitView GetOrCreateCombatView(int combatId, int sourceEntityId, int champSpecId, byte starLevel)
+        private UnitView GetOrCreateCombatView(int combatId, int sourceEntityId, int champSpecId, byte starLevel, bool isPlayer = true)
         {
             if (_combatUnitViews.TryGetValue(combatId, out var existing))
                 return existing;
 
             var view = GetFromPool();
-            view.InitializeAsCombat(combatId, sourceEntityId, starLevel, GetCharacterPrefabPath(champSpecId));
+            view.InitializeAsCombat(combatId, sourceEntityId, starLevel, GetCharacterPrefabPath(champSpecId), champSpecId, isPlayer);
             _combatUnitViews[combatId] = view;
             return view;
         }
