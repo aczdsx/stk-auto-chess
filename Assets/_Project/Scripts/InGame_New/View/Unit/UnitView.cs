@@ -39,6 +39,7 @@ namespace CookApps.AutoChess.View
 
         // ── Desired State (로딩 전 호출된 상태를 추적, 로딩 후 ApplyDeferredState로 일괄 적용) ──
         private CombatState _lastState = CombatState.Idle;
+        private float _attackAnimEndTime;
         private bool _isHologram;
         private Vector3? _facingTarget;
 
@@ -53,6 +54,7 @@ namespace CookApps.AutoChess.View
             HPRatio = 1f;
             ManaRatio = 0f;
             _lastState = CombatState.Idle;
+            _attackAnimEndTime = 0f;
             _isHologram = false;
             _facingTarget = null;
             _isActive = true;
@@ -69,6 +71,7 @@ namespace CookApps.AutoChess.View
             HPRatio = 1f;
             ManaRatio = 0f;
             _lastState = CombatState.Idle;
+            _attackAnimEndTime = 0f;
             _isHologram = false;
             _facingTarget = null;
             _isActive = true;
@@ -158,11 +161,18 @@ namespace CookApps.AutoChess.View
 
         public void SetCombatState(CombatState state)
         {
+            // 공격/스킬 애니메이션 재생 중이면 Idle 전환 차단 (트리거가 애니메이션을 중단시키는 것 방지)
+            if (state == CombatState.Idle && Time.time < _attackAnimEndTime)
+                return;
+
             if (state == _lastState) return;
             if (_characterView == null) return;
             _lastState = state;
 
-            _characterView.PlayAnimation(StateToAnimKey(state));
+            var clip = _characterView.PlayAnimation(StateToAnimKey(state));
+
+            if ((state == CombatState.Attacking || state == CombatState.CastingSkill) && clip != null)
+                _attackAnimEndTime = Time.time + clip.length;
         }
 
         private static AnimationKey StateToAnimKey(CombatState state)
@@ -191,8 +201,10 @@ namespace CookApps.AutoChess.View
 
         public void PlayDeathAnimation()
         {
+            if (_lastState == CombatState.Dead) return;
             if (_characterView == null) return;
             _lastState = CombatState.Dead;
+            _attackAnimEndTime = 0f;
             _characterView.PlayAnimation(AnimationKey.DEAD);
         }
 

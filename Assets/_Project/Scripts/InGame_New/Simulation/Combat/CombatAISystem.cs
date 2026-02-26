@@ -155,7 +155,7 @@ namespace CookApps.AutoChess
                 }
                 else
                 {
-                    unit.State = CombatState.Attacking; // 공격 대기
+                    unit.State = CombatState.Idle;
                 }
             }
             else
