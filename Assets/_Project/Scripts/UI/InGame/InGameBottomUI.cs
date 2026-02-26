@@ -35,12 +35,9 @@ public class InGameBottomUI : MonoBehaviour
     [SerializeField] protected Image _returnImage;
     [SerializeField] protected InGameCharacterItem _ingameCharacterItemPrefab;
     [SerializeField] protected Transform _inGameCharacterItemTransform;
-    [SerializeField] protected GameObject _characterListBody;
     [SerializeField] protected GameObject _readyUIObj;
     [SerializeField] protected GameObject _commanderSkillObj;
     [SerializeField] protected List<CommanderSkillUI> _commanderSkillUIList;
-    [SerializeField] protected ParticleSystem _commanderFx;
-    [SerializeField] protected GameObject _characterTipObj;
 
     [SerializeField] protected GameObject _speedUpObjOn;
     [SerializeField] protected GameObject _speedUpObjOff;
@@ -61,8 +58,6 @@ public class InGameBottomUI : MonoBehaviour
 
     [SerializeField] protected GameObject _battleItemCountObjOn;
     [SerializeField] protected GameObject _battleItemCountObjOff;
-    [SerializeField] protected TextMeshProUGUI _battleItemCountTextOn;
-    [SerializeField] protected TextMeshProUGUI _battleItemCountTextOff;
 
     protected List<InGameCharacterItem> _characterItemList = new List<InGameCharacterItem>();
     // protected bool _isOpenCommanderSkill;
@@ -80,10 +75,9 @@ public class InGameBottomUI : MonoBehaviour
 
     protected virtual void Awake()
     {
-        var latestClearUserStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
-        // _isOpenCommanderSkill = latestClearUserStageID >= SpecDataManager.Instance.GetFirstCommanderSkillChapter();
-        // _commanderSkillObj.SetActive(_isOpenCommanderSkill);
-        _commanderSkillObj.SetActive(false);
+        //TODO!!! 나중에 커맨더스킬 개방 방향성 정해지면 그때 다시 수정해야함
+        _commanderSkillObj.SetActive(true);
+        
         _isStartRunningProcess = false;
 
         var knightCount = SpecDataManager.Instance.GetUserKnightCountByNestCount();
