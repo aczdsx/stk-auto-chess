@@ -1766,7 +1766,7 @@ GameObject:
   - component: {fileID: 6385095295153808282}
   - component: {fileID: 5134611620489251436}
   m_Layer: 5
-  m_Name: SynergyIngamePopup
+  m_Name: CharacterInfoIngamePopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
