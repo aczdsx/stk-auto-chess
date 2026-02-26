@@ -17,13 +17,16 @@ namespace CookApps.AutoChess
         public static int CombatWidth { get; private set; } = 7;
         public static int CombatHeight { get; private set; } = 8;
 
-        /// <summary>보드 로드 시 그리드 크기 설정. CombatHeight = boardHeight * 2.</summary>
-        public static void Setup(int boardWidth, int boardHeight)
+        /// <summary>보드 로드 시 그리드 크기 설정.</summary>
+        /// <param name="boardWidth">보드 가로 크기</param>
+        /// <param name="playerBoardHeight">플레이어 한쪽 보드 높이</param>
+        /// <param name="combatHeight">전투 그리드 전체 높이 (양쪽 합)</param>
+        public static void Setup(int boardWidth, int playerBoardHeight, int combatHeight)
         {
             Width = boardWidth;
-            Height = boardHeight;
+            Height = playerBoardHeight;
             CombatWidth = boardWidth;
-            CombatHeight = boardHeight * 2;
+            CombatHeight = combatHeight;
         }
 
         // ── 좌표 ↔ 인덱스 변환 ──

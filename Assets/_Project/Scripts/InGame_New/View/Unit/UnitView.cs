@@ -247,7 +247,9 @@ namespace CookApps.AutoChess.View
             _lastState = CombatState.Dead;
             _attackAnimEndTime = 0f;
             ReleaseHpBar();
-            _characterView.PlayAnimation(AnimationKey.DEAD);
+            var clip = _characterView.PlayAnimation(AnimationKey.DEAD);
+            if (clip != null)
+                _characterView.SetDeadSprite(clip);
         }
 
         // ── 방향 전환 ──

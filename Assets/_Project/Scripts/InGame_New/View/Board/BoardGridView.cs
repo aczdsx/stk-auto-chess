@@ -38,10 +38,12 @@ namespace CookApps.AutoChess.View
 
         public void Initialize()
         {
-            _combatHeight = _boardHeight * 2;
+            // 프리팹의 _boardHeight는 전투 그리드 전체 높이 (양쪽 합)
+            _combatHeight = _boardHeight;
+            int playerBoardHeight = _boardHeight / 2;
 
             // 시뮬레이션 레이어에 보드 크기 세팅
-            BoardHelper.Setup(_boardWidth, _boardHeight);
+            BoardHelper.Setup(_boardWidth, playerBoardHeight, _combatHeight);
 
             // 타일 월드 좌표를 BoardWorldHelper에 등록
             var transforms = new Transform[_tiles.Length];

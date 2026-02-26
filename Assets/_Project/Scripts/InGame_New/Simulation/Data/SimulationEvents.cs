@@ -205,6 +205,22 @@ namespace CookApps.AutoChess
             });
         }
 
+        public void PushProjectileSpawned(int sourceId, int targetId, ProjectileType projType,
+            byte col, byte row, sbyte dirCol = 0, sbyte dirRow = 0)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.ProjectileSpawned,
+                EntityId = sourceId,
+                TargetEntityId = targetId,
+                ProjType = projType,
+                Col = col,
+                Row = row,
+                DirCol = (byte)dirCol,
+                DirRow = (byte)dirRow,
+            });
+        }
+
         public void PushProjectileExploded(byte col, byte row, int radius, int skillSpecId = 0)
         {
             Push(new SimEvent

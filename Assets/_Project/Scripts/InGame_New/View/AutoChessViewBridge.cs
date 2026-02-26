@@ -178,8 +178,13 @@ namespace CookApps.AutoChess.View
                 }
 
                 case SimEventType.ProjectileSpawned:
-                    _combatViewManager.OnProjectileSpawned(evt.EntityId, evt.TargetEntityId, evt.ProjType);
+                {
+                    int champSpecId = ResolveChampSpecId(world, evt.EntityId);
+                    _combatViewManager.OnProjectileSpawned(
+                        evt.EntityId, evt.TargetEntityId, evt.ProjType,
+                        evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId);
                     break;
+                }
 
                 case SimEventType.ProjectileExploded:
                 {
@@ -247,6 +252,22 @@ namespace CookApps.AutoChess.View
                 }
             }
             return SynergyType.NONE;
+        }
+
+        /// <summary>combatId → ChampionSpecId</summary>
+        private int ResolveChampSpecId(GameWorld world, int combatId)
+        {
+            for (int m = 0; m < GameWorld.MaxCombatMatches; m++)
+            {
+                var matchState = world.CombatMatchStates[m];
+                if (matchState == null) continue;
+                for (int u = 0; u < matchState.UnitCount; u++)
+                {
+                    if (matchState.Units[u].CombatId == combatId)
+                        return matchState.Units[u].ChampionSpecId;
+                }
+            }
+            return 0;
         }
 
         private static SynergyType GetElementFromCharacterId(int champId)

@@ -196,6 +196,12 @@ namespace CookApps.AutoChess
 
             if (slot >= state.ProjectileCount)
                 state.ProjectileCount = slot + 1;
+
+            // 뷰 이벤트 발행
+            int srcIdx = state.FindUnitIndex(sourceCombatId);
+            byte srcCol = srcIdx >= 0 ? state.Units[srcIdx].GridCol : (byte)0;
+            byte srcRow = srcIdx >= 0 ? state.Units[srcIdx].GridRow : (byte)0;
+            state.EventQueue?.PushProjectileSpawned(sourceCombatId, targetCombatId, ProjectileType.Homing, srcCol, srcRow);
         }
 
         /// <summary>Linear 투사체 생성</summary>
@@ -229,6 +235,9 @@ namespace CookApps.AutoChess
 
             if (slot >= state.ProjectileCount)
                 state.ProjectileCount = slot + 1;
+
+            state.EventQueue?.PushProjectileSpawned(sourceCombatId, CombatUnit.InvalidId, ProjectileType.Linear,
+                startCol, startRow, dirCol, dirRow);
         }
 
         /// <summary>AreaTarget 투사체 생성</summary>
@@ -256,6 +265,9 @@ namespace CookApps.AutoChess
 
             if (slot >= state.ProjectileCount)
                 state.ProjectileCount = slot + 1;
+
+            state.EventQueue?.PushProjectileSpawned(sourceCombatId, CombatUnit.InvalidId, ProjectileType.AreaTarget,
+                targetCol, targetRow);
         }
 
         // ── 유틸리티 ──
