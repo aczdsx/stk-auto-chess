@@ -53,6 +53,9 @@ namespace CookApps.TeamBattle.Utility
         Uroboros = 509,
         Arcana = 510,
         Eclipse = 511,
+        
+        Elemental = 550,
+        Constellation = 551,
     }
 
     public abstract class SimpleSwapper : CachedMonoBehaviour

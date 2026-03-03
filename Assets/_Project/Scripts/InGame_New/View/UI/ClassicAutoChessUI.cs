@@ -49,7 +49,7 @@ namespace CookApps.AutoChess.View
                 .WithData(synergyIds)
                 .WithCellPrefab(_synergySlotPrefab.gameObject)
                 .WithCellSize(new Vector2(400, 70))
-                .OnBind((cell, synergyTypeId, index) => BindSynergyCell(cell, synergyTypeId))
+                .OnBind((cell, synergyTypeId, index) => BindSynergyCell(cell, synergyTypeId, index))
                 .Build();
 
             _startBattleButton?.onClick.AddListener(OnStartBattleClicked);

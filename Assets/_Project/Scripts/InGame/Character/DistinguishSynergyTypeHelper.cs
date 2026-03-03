@@ -1,4 +1,5 @@
 using CookApps.AutoBattler;
+using CookApps.TeamBattle.Utility;
 
 /// <summary>
 /// 시너지 타입을 구분하는 도우미 클래스
@@ -10,7 +11,10 @@ public static class DistinguishSynergyTypeHelper
     {
             SynergyType.NOBLESSE,
             SynergyType.SUPERNOVA,
-            SynergyType.TROUBLESHOOTER
+            SynergyType.TROUBLESHOOTER,
+            SynergyType.ARCANA,
+            SynergyType.ECLIPSE,
+            SynergyType.UROBOROS,
     };
     private static readonly SynergyType[] _elementSynergyTypes = new SynergyType[]
     {
@@ -43,12 +47,22 @@ public static class DistinguishSynergyTypeHelper
         return false;
     }
 
-    public static int CountAsterismSynergyType()
+    public static SimpleSwapType ToSwapType(SynergyType synergyType)
     {
-        return _asterismSynergyTypes.Length;
-    }
-    public static int CountElementSynergyType()
-    {
-        return _elementSynergyTypes.Length;
+        return synergyType switch
+        {
+            SynergyType.FIRE => SimpleSwapType.Fire,
+            SynergyType.WIND => SimpleSwapType.Wind,
+            SynergyType.LIGHTNING => SimpleSwapType.Lightning,
+            SynergyType.EARTH => SimpleSwapType.Earth,
+            SynergyType.WATER => SimpleSwapType.Water,
+            SynergyType.NOBLESSE => SimpleSwapType.Noblesse,
+            SynergyType.TROUBLESHOOTER => SimpleSwapType.Troubleshooter,
+            SynergyType.SUPERNOVA => SimpleSwapType.Supernova,
+            SynergyType.UROBOROS => SimpleSwapType.Uroboros,
+            SynergyType.ARCANA => SimpleSwapType.Arcana,
+            SynergyType.ECLIPSE => SimpleSwapType.Eclipse,
+            _ => SimpleSwapType.Normal,
+        };
     }
 }

@@ -255,6 +255,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 377b37c53dffd8f4ba0e841793ffa463
+    m_Address: Texture_StandAlone/Bg/CharacterList_Bg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 37d49dab731eb1e409d644a56f92fb69
     m_Address: Texture_StandAlone/Dynamic/Illust_Character_Inventory/100800
     m_ReadOnly: 0

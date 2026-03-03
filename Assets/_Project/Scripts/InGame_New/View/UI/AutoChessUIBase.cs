@@ -249,7 +249,7 @@ namespace CookApps.AutoChess.View
 
         private readonly List<(int traitId, byte count)> _tempSynergyList = new();
 
-        protected void BindSynergyCell(InGameSynergyUI cell, int synergyTypeId)
+        protected void BindSynergyCell(InGameSynergyUI cell, int synergyTypeId, int index)
         {
             if (CurrentWorld == null) return;
 
@@ -263,7 +263,8 @@ namespace CookApps.AutoChess.View
 
             if (outSynergyList == null || outSynergyList.Count == 0) return;
 
-            if (outSynergyData != null)
+            bool isActive = outSynergyData != null;
+            if (isActive)
             {
                 var nextData = outSynergyList.Find(l => l.grade == outSynergyData.grade + 1) ?? outSynergyData;
                 cell.SetSynergy(synergyType, count, outSynergyData, nextData, isActive: true);
@@ -271,8 +272,27 @@ namespace CookApps.AutoChess.View
             else if (count > 0)
             {
                 var nextData = outSynergyList[0];
-                cell.SetSynergy(synergyType, count, nextData, nextData, isActive: false, isColorWhite: true);
+                cell.SetSynergy(synergyType, count, nextData, nextData, isActive: false);
             }
+
+            // 활성화된 마지막 항목에만 split line 표시 (하단에 비활성 항목이 있을 때)
+            bool showSplit = isActive && IsNextSynergyInactive(index + 1);
+            cell.SetSplitLine(showSplit);
+        }
+
+        private bool IsNextSynergyInactive(int index)
+        {
+            if (CurrentWorld == null) return false;
+            if (index < 0 || index >= synergyIds.Count) return false;
+
+            int nextTraitId = synergyIds[index];
+            int nextCount = CurrentWorld.Synergies[PlayerIndex].GetTraitCount(nextTraitId);
+
+            SpecDataManager.Instance.TryGetSynergyDataByCount(
+                (SynergyType)nextTraitId, nextCount,
+                out var nextData, out _);
+
+            return nextData == null;
         }
 
         // ── 배치 인원 표시 ──
