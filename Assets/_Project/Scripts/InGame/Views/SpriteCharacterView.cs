@@ -52,6 +52,8 @@ namespace CookApps.AutoBattler
         [SerializeField]
         private Transform _skillBottomFXTransform;
 
+        [SerializeField]
+        private GameObject _shadow;
 
         private AnimationEventListener _animationEventListener;
         public bool CachedFlipX => _cachedFlipX;
@@ -317,6 +319,12 @@ namespace CookApps.AutoBattler
             {
                 spriteRenderer.gameObject.SetActive(isActive);
             }
+        }
+
+        public void SetShadowActive(bool isActive)
+        {
+            if (_shadow != null)
+                _shadow.SetActive(isActive);
         }
 
         /// <summary>

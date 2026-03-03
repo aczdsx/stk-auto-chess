@@ -216,6 +216,16 @@ namespace CookApps.AutoChess.View
                 _attackAnimEndTime = Time.time + clip.length;
         }
 
+        /// <summary>전투 종료 시 강제 Idle 전환 (_attackAnimEndTime 보호 무시)</summary>
+        public void ForceIdle()
+        {
+            if (_lastState == CombatState.Dead) return;
+            if (_characterView == null) return;
+            _attackAnimEndTime = 0f;
+            _lastState = CombatState.Idle;
+            _characterView.PlayAnimation(AnimationKey.IDLE);
+        }
+
         private static AnimationKey StateToAnimKey(CombatState state)
         {
             return state switch
@@ -259,6 +269,7 @@ namespace CookApps.AutoChess.View
             _lastState = CombatState.Dead;
             _attackAnimEndTime = 0f;
             ReleaseHpBar();
+            _characterView.SetShadowActive(false);
             var clip = _characterView.PlayAnimation(AnimationKey.DEAD);
             if (clip != null)
                 _characterView.SetDeadSprite(clip);

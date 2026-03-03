@@ -109,8 +109,21 @@ namespace CookApps.AutoChess.View
                     break;
 
                 case GamePhase.Result:
+                {
+                    // 전투→결과 전환 시 마지막 상태 동기화 (마지막 유닛 사망 애니메이션 + HP 갱신)
+                    var world = _runner.GetWorld();
+                    for (int i = 0; i < GameWorld.MaxCombatMatches; i++)
+                    {
+                        var matchState = world.CombatMatchStates[i];
+                        if (matchState == null) continue;
+                        int boardIndex = FindBoardIndexForMatch(world, i);
+                        _unitViewManager.SyncCombatUnits(matchState, boardIndex);
+                    }
+                    // 살아있는 유닛 강제 Idle (공격 애니메이션 정지 방지)
+                    _unitViewManager.ForceAllCombatViewsIdle();
                     _autoChessUI?.OnPhaseChanged(newPhase);
                     break;
+                }
             }
         }
 
@@ -120,8 +133,6 @@ namespace CookApps.AutoChess.View
         {
             for (int i = 0; i < GameWorld.MaxCombatMatches; i++)
             {
-                if (world.Matches[i].IsFinished) continue;
-
                 var matchState = world.CombatMatchStates[i];
                 if (matchState == null) continue;
 

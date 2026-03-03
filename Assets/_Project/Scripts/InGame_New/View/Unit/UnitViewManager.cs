@@ -231,6 +231,13 @@ namespace CookApps.AutoChess.View
                 view.Deactivate();
         }
 
+        /// <summary>모든 전투 뷰를 강제 Idle 전환 (전투 종료 시)</summary>
+        public void ForceAllCombatViewsIdle()
+        {
+            foreach (var view in _combatUnitViews.Values)
+                view.ForceIdle();
+        }
+
         /// <summary>전투 종료 시 전투 뷰를 정리</summary>
         public void OnCombatEnd()
         {
