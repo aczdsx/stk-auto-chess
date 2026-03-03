@@ -232,8 +232,14 @@ namespace CookApps.AutoChess.View
 
         public float GetAttackExecuteTime()
         {
-            if (_characterView == null) return 0.1f;
+            if (_characterView == null) return 0f;
             return _characterView.GetAttackExecuteTime();
+        }
+
+        public Vector3 GetProjectileSpawnPosition()
+        {
+            if (_characterView == null) return transform.position;
+            return _characterView.GetProjectileSpawnPosition();
         }
 
         public void PlayAttackAnimation()

@@ -151,7 +151,7 @@ namespace CookApps.AutoChess.View
             var sourceView = _unitViewManager?.FindCombatView(p.SourceId);
             if (sourceView == null) return;
 
-            Vector3 sourcePos = sourceView.transform.position + Vector3.up * 0.5f;
+            Vector3 sourcePos = sourceView.GetProjectileSpawnPosition();
 
             switch (p.ProjType)
             {

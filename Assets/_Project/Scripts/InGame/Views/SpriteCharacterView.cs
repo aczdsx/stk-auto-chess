@@ -240,12 +240,19 @@ namespace CookApps.AutoBattler
             throw new KeyNotFoundException($"[{fullAnimationName}] is not found.");
         }
 
+        /// <summary>현재 방향(front/back)에 따른 투사체 발사 위치 반환</summary>
+        public Vector3 GetProjectileSpawnPosition()
+        {
+            var tr = _cachedFront ? _projectileFrontTransform : _projectileBackTransform;
+            return tr != null ? tr.position : transform.position;
+        }
+
         /// <summary>ATK 애니메이션의 Execute 이벤트 시간 반환 (투사체 발사 타이밍)</summary>
         public float GetAttackExecuteTime()
         {
-            if (_animator == null) return 0.1f;
+            if (_animator == null) return 0f;
             var controller = _animator.runtimeAnimatorController;
-            if (controller == null) return 0.1f;
+            if (controller == null) return 0f;
 
             string prefix = _cachedFront ? "Front_" : "Back_";
             string fullName = prefix + AnimationKey.ATK;
@@ -261,7 +268,7 @@ namespace CookApps.AutoBattler
                 }
                 return clip.length * 0.4f;
             }
-            return 0.1f;
+            return 0f;
         }
 
         public void OnFiredAnimationEvent(AnimationEventKey animationEventKey)
