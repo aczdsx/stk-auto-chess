@@ -37063,6 +37063,8 @@ RectTransform:
   - {fileID: 7021829566733769890}
   - {fileID: 1876324175344836185}
   - {fileID: 6390148230896381913}
+  - {fileID: 8547136185591066257}
+  - {fileID: 2457309124285223317}
   - {fileID: 531501850863822036}
   m_Father: {fileID: 2720715624213900451}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -37594,8 +37596,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -75, y: 0}
-  m_SizeDelta: {x: -550, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2353753614961265551
 CanvasRenderer:
@@ -49692,11 +49694,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 943314148064020815}
-  m_Father: {fileID: 531501850863822036}
+  m_Father: {fileID: 39676913398852827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 70, y: -3}
+  m_AnchoredPosition: {x: 130, y: 147}
   m_SizeDelta: {x: 60, y: 37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7995743348963073695
@@ -63458,14 +63460,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 743134335284019881}
-  - {fileID: 8547136185591066257}
-  - {fileID: 2457309124285223317}
   m_Father: {fileID: 39676913398852827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 50.000015}
-  m_SizeDelta: {x: 0, y: 300}
+  m_AnchoredPosition: {x: -139.99991, y: 50.000015}
+  m_SizeDelta: {x: -720.0002, y: 300}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &8694523839467847207
 MonoBehaviour:
@@ -85438,6 +85438,10 @@ MonoBehaviour:
   _synergySlotPrefab: {fileID: 2117931978876790537}
   _characterBattleItemTabSwapper: {fileID: 348605571267406956}
   _startBattleButton: {fileID: 5758273881491220602}
+  _filterButton: {fileID: 2043883509166939371}
+  _recommendButton: {fileID: 0}
+  _recommendObjOn: {fileID: 0}
+  _recommendObjOff: {fileID: 0}
 --- !u!95 &4084526490123980660
 Animator:
   serializedVersion: 7
@@ -85493,11 +85497,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5055865668275277374}
-  m_Father: {fileID: 531501850863822036}
+  m_Father: {fileID: 39676913398852827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -420, y: -3}
+  m_AnchoredPosition: {x: -390, y: 147}
   m_SizeDelta: {x: 60, y: 37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3721104177246796832

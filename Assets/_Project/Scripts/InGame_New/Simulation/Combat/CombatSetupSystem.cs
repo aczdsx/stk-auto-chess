@@ -212,8 +212,8 @@ namespace CookApps.AutoChess
         {
             // 생존 플레이어 목록
             int aliveCount = 0;
-            byte[] alivePlayers = new byte[GameWorld.MaxPlayers];
-            for (int i = 0; i < GameWorld.MaxPlayers; i++)
+            byte[] alivePlayers = new byte[world.MaxPlayers];
+            for (int i = 0; i < world.MaxPlayers; i++)
             {
                 if (i < world.Config.PlayerCount && world.Players[i].IsAlive)
                     alivePlayers[aliveCount++] = (byte)i;

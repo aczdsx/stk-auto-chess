@@ -8,7 +8,7 @@ namespace CookApps.AutoChess
     public class GameWorld
     {
         // ── 상수 ──
-        public const int MaxPlayers = 4;
+        public static readonly int[] MaxPlayersForGameMode = new int [] { 1, 1, 4 };
         public const int MaxUnits = 128;
         public const int MaxCombatMatches = 2;    // 4인 → 2개 동시 매치
         public const int MaxCutsceneQueue = 8;
@@ -16,6 +16,7 @@ namespace CookApps.AutoChess
         // ── 글로벌 상태 ──
         public GamePhase CurrentPhase;
         public GameModeType GameMode;
+        public int MaxPlayers => MaxPlayersForGameMode[(int)GameMode];
         public int BoardWidth;
         public int BoardHeight;
         public int BoardSize;  // BoardWidth * BoardHeight
@@ -108,16 +109,17 @@ namespace CookApps.AutoChess
                 RNG = new DeterministicRNG(1), // 시드는 외부에서 설정
             };
 
+            var maxPlayers = world.MaxPlayers;
             // 플레이어 초기화
-            world.Players = new PlayerState[MaxPlayers];
-            world.Economies = new PlayerEconomy[MaxPlayers];
-            world.Boards = new PlayerBoard[MaxPlayers];
-            world.BoardSlots = new int[MaxPlayers][];
-            world.BenchSlots = new int[MaxPlayers][];
-            world.Shops = new ShopSlot[MaxPlayers][];
-            world.ShopLocked = new bool[MaxPlayers];
+            world.Players = new PlayerState[maxPlayers];
+            world.Economies = new PlayerEconomy[maxPlayers];
+            world.Boards = new PlayerBoard[maxPlayers];
+            world.BoardSlots = new int[maxPlayers][];
+            world.BenchSlots = new int[maxPlayers][];
+            world.Shops = new ShopSlot[maxPlayers][];
+            world.ShopLocked = new bool[maxPlayers];
 
-            for (int i = 0; i < MaxPlayers; i++)
+            for (int i = 0; i < maxPlayers; i++)
             {
                 bool isActive = i < config.PlayerCount;
                 world.Players[i] = isActive
@@ -134,8 +136,15 @@ namespace CookApps.AutoChess
                 for (int j = 0; j < world.BoardSize; j++)
                     world.BoardSlots[i][j] = UnitData.InvalidId;
 
-                world.BenchSlots[i] = new int[PlayerBoard.BenchSize];
-                for (int j = 0; j < PlayerBoard.BenchSize; j++)
+                if (config.GameMode == GameModeType.ClassicBattle)
+                {
+                    world.BenchSlots[i] = new int[50]; // TODO: spec에 등록되어있는 character 총 개수로 변경
+                }
+                else
+                {
+                    world.BenchSlots[i] = new int[PlayerBoard.BenchSize];
+                }
+                for (int j = 0; j < world.BenchSlots[i].Length; j++)
                     world.BenchSlots[i][j] = UnitData.InvalidId;
 
                 world.Shops[i] = new ShopSlot[config.ShopSlotCount];
@@ -144,17 +153,17 @@ namespace CookApps.AutoChess
             }
 
             // 시너지 초기화
-            world.Synergies = new PlayerSynergy[MaxPlayers];
-            for (int i = 0; i < MaxPlayers; i++)
+            world.Synergies = new PlayerSynergy[maxPlayers];
+            for (int i = 0; i < maxPlayers; i++)
                 world.Synergies[i] = new PlayerSynergy();
 
             // 아이템 초기화
             world.Items = new ItemData[MaxItems];
             for (int i = 0; i < MaxItems; i++)
                 world.Items[i] = ItemData.CreateEmpty();
-            world.ItemInventory = new int[MaxPlayers][];
-            world.ItemInventoryCount = new byte[MaxPlayers];
-            for (int i = 0; i < MaxPlayers; i++)
+            world.ItemInventory = new int[maxPlayers][];
+            world.ItemInventoryCount = new byte[maxPlayers];
+            for (int i = 0; i < maxPlayers; i++)
             {
                 world.ItemInventory[i] = new int[MaxItemInventory];
                 for (int j = 0; j < MaxItemInventory; j++)

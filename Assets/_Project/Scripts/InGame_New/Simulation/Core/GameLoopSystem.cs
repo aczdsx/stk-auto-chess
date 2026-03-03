@@ -164,7 +164,7 @@ namespace CookApps.AutoChess
             {
                 case GamePhase.Preparation:
                     // Ready 플래그 리셋
-                    for (int i = 0; i < GameWorld.MaxPlayers; i++)
+                    for (int i = 0; i < world.MaxPlayers; i++)
                         world.Players[i].IsReady = false;
                     break;
                 case GamePhase.Combat:
@@ -266,12 +266,12 @@ namespace CookApps.AutoChess
                     byte winnerPlayer = match.Winner == 0 ? match.PlayerA : match.PlayerB;
                     byte loserPlayer = match.Winner == 0 ? match.PlayerB : match.PlayerA;
 
-                    if (winnerPlayer < GameWorld.MaxPlayers)
+                    if (winnerPlayer < world.MaxPlayers)
                     {
                         PlayerDamageSystem.UpdateStreaks(world, winnerPlayer, true);
                         EconomySystem.GrantVictoryBonus(world, winnerPlayer);
                     }
-                    if (loserPlayer < GameWorld.MaxPlayers)
+                    if (loserPlayer < world.MaxPlayers)
                         PlayerDamageSystem.UpdateStreaks(world, loserPlayer, false);
                 }
             }

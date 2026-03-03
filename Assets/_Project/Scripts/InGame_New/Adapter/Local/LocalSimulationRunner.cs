@@ -167,7 +167,7 @@ namespace CookApps.AutoChess
 
             // 벤치 첫 유닛을 (0,0)에 배치
             var bench = _world.BenchSlots[0];
-            for (int i = 0; i < PlayerBoard.BenchSize; i++)
+            for (int i = 0; i < bench.Length; i++)
             {
                 if (bench[i] != UnitData.InvalidId)
                 {

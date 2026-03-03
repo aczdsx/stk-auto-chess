@@ -37,6 +37,7 @@ namespace CookApps.AutoChess.View
         protected GameWorld CurrentWorld { get; private set; }
 
         protected readonly List<int> benchIds = new();
+        private readonly List<int> _rawBenchIds = new();
         protected readonly List<int> synergyIds = new();
         private readonly List<byte> _synergyCounts = new();
 
@@ -133,7 +134,7 @@ namespace CookApps.AutoChess.View
             }
 
             // 플레이어 정보
-            if (PlayerIndex >= 0 && PlayerIndex < GameWorld.MaxPlayers)
+            if (PlayerIndex >= 0 && PlayerIndex < world.MaxPlayers)
             {
                 var player = world.Players[PlayerIndex];
                 var economy = world.Economies[PlayerIndex];
@@ -158,27 +159,27 @@ namespace CookApps.AutoChess.View
         {
             var benchSlots = world.BenchSlots[PlayerIndex];
 
-            // 변경 감지: 데이터가 동일하면 RefreshAll 스킵
+            // 변경 감지: _rawBenchIds(필터 전 원본)과 비교
             bool changed = false;
             int newCount = 0;
-            for (int i = 0; i < PlayerBoard.BenchSize; i++)
+            for (int i = 0; i < benchSlots.Length; i++)
             {
                 if (benchSlots[i] != UnitData.InvalidId)
                     newCount++;
             }
 
-            if (newCount != benchIds.Count)
+            if (newCount != _rawBenchIds.Count)
             {
                 changed = true;
             }
             else
             {
                 int idx = 0;
-                for (int i = 0; i < PlayerBoard.BenchSize; i++)
+                for (int i = 0; i < benchSlots.Length; i++)
                 {
                     int entityId = benchSlots[i];
                     if (entityId == UnitData.InvalidId) continue;
-                    if (idx >= benchIds.Count || benchIds[idx] != entityId)
+                    if (idx >= _rawBenchIds.Count || _rawBenchIds[idx] != entityId)
                     {
                         changed = true;
                         break;
@@ -189,14 +190,34 @@ namespace CookApps.AutoChess.View
 
             if (!changed) return;
 
-            benchIds.Clear();
-            for (int i = 0; i < PlayerBoard.BenchSize; i++)
+            _rawBenchIds.Clear();
+            for (int i = 0; i < benchSlots.Length; i++)
             {
                 int entityId = benchSlots[i];
                 if (entityId == UnitData.InvalidId) continue;
-                benchIds.Add(entityId);
+                _rawBenchIds.Add(entityId);
             }
 
+            benchIds.Clear();
+            benchIds.AddRange(_rawBenchIds);
+            FilterBenchIds();
+
+            tableView.RefreshAll();
+        }
+
+        /// <summary>
+        /// benchIds에 필터를 적용하는 훅. 서브클래스에서 override.
+        /// </summary>
+        protected virtual void FilterBenchIds() { }
+
+        /// <summary>
+        /// 필터 변경 시 benchIds를 다시 계산하고 TableView 갱신.
+        /// </summary>
+        protected void RefreshBenchDisplay()
+        {
+            benchIds.Clear();
+            benchIds.AddRange(_rawBenchIds);
+            FilterBenchIds();
             tableView.RefreshAll();
         }
 

@@ -305,7 +305,7 @@ namespace CookApps.AutoChess
         public static int FindEmptyBenchSlot(GameWorld world, byte playerIndex)
         {
             var bench = world.BenchSlots[playerIndex];
-            for (int i = 0; i < PlayerBoard.BenchSize; i++)
+            for (int i = 0; i < bench.Length; i++)
             {
                 if (bench[i] == UnitData.InvalidId)
                     return i;

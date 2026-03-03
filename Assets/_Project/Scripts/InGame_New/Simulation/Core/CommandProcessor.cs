@@ -19,7 +19,7 @@ namespace CookApps.AutoChess
         public static void ProcessCommand(GameWorld world, in GameCommand cmd)
         {
             // 유효성 검사
-            if (cmd.PlayerIndex >= GameWorld.MaxPlayers) return;
+            if (cmd.PlayerIndex >= world.MaxPlayers) return;
             if (!world.Players[cmd.PlayerIndex].IsAlive) return;
             if (!IsCommandAllowedInPhase(cmd.Type, world.CurrentPhase)) return;
 
