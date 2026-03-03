@@ -20,10 +20,10 @@ namespace CookApps.AutoChess.View
         [SerializeField] private Transform _characterIconRoot;
 
         [Header("Display")]
+        // 머지 머지 모드에서 성을 표현
         [SerializeField] private Image _starIcon;
         [SerializeField] private SpriteLoader _synergyElementLoader;
         [SerializeField] private SpriteLoader _synergyClassLoader;
-        [SerializeField] private TMP_Text _lvText;
 
         public int EntityId { get; private set; } = UnitData.InvalidId;
 
@@ -33,8 +33,8 @@ namespace CookApps.AutoChess.View
         private GameObject _loadedCharacterIcon;
 
         // 현재 표시 중인 데이터 (중복 로드 방지)
-        private int _currentChampSpecId;
-        private byte _currentStarLevel;
+        protected int _currentChampSpecId;
+        protected byte _currentStarLevel;
 
         // 드래그 상태
         private bool _isDraggingToBoard;
@@ -53,7 +53,6 @@ namespace CookApps.AutoChess.View
         public void Bind(int entityId, int champSpecId, byte starLevel)
         {
             EntityId = entityId;
-
             if (_currentChampSpecId == champSpecId && _currentStarLevel == starLevel)
                 return;
 
@@ -62,7 +61,7 @@ namespace CookApps.AutoChess.View
             UpdateVisual();
         }
 
-        private void UpdateVisual()
+        protected virtual void UpdateVisual()
         {
             if (_currentChampSpecId <= 0) return;
 
@@ -75,10 +74,6 @@ namespace CookApps.AutoChess.View
             // 별 레벨 표시
             if (_starIcon != null)
                 _starIcon.gameObject.SetActive(_currentStarLevel > 0);
-
-            // 레벨 → 별 레벨로 표시
-            if (_lvText != null)
-                _lvText.text = _currentStarLevel.ToString();
 
             // 시너지 아이콘
             _synergyElementLoader?.SetSprite(

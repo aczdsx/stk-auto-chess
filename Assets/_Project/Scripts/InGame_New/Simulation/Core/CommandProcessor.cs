@@ -105,6 +105,7 @@ namespace CookApps.AutoChess
             if (BoardSystem.PlaceUnit(world, cmd.PlayerIndex, entityId, col, row))
             {
                 SynergySystem.Recalculate(world, cmd.PlayerIndex);
+                world.EventQueue.PushSynergyUpdated(cmd.PlayerIndex);
             }
         }
 
@@ -124,6 +125,7 @@ namespace CookApps.AutoChess
             if (BoardSystem.WithdrawUnit(world, cmd.PlayerIndex, entityId))
             {
                 SynergySystem.Recalculate(world, cmd.PlayerIndex);
+                world.EventQueue.PushSynergyUpdated(cmd.PlayerIndex);
             }
         }
 
@@ -135,6 +137,7 @@ namespace CookApps.AutoChess
             if (BoardSystem.SwapUnits(world, cmd.PlayerIndex, entityA, entityB))
             {
                 SynergySystem.Recalculate(world, cmd.PlayerIndex);
+                world.EventQueue.PushSynergyUpdated(cmd.PlayerIndex);
             }
         }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CookApps.AutoBattler;
 using CookApps.TeamBattle.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,9 @@ namespace CookApps.AutoChess.View
     {
         [Header("Bench")]
         [SerializeField] protected TableView tableView;
+
+        [Header("Synergy")]
+        [SerializeField] protected TableView synergyTableView;
 
         [Header("Info")]
         [SerializeField] protected TMP_Text unitCountText;
@@ -33,6 +37,8 @@ namespace CookApps.AutoChess.View
         protected GameWorld CurrentWorld { get; private set; }
 
         protected readonly List<int> benchIds = new();
+        protected readonly List<int> synergyIds = new();
+        private readonly List<byte> _synergyCounts = new();
 
         // ── 초기화 ──
 
@@ -106,6 +112,13 @@ namespace CookApps.AutoChess.View
         public virtual void OnCombatResult(int matchIndex, int winner)
         {
             // TODO: 전투 결과 표시 (승리/패배 배너)
+        }
+
+        public void OnSynergyUpdated(GameWorld world)
+        {
+            if (world == null) return;
+            CurrentWorld = world;
+            SyncSynergySlots(world);
         }
 
         // ── HUD 갱신 ──
@@ -185,6 +198,81 @@ namespace CookApps.AutoChess.View
             }
 
             tableView.RefreshAll();
+        }
+
+        // ── 시너지 슬롯 동기화 ──
+
+        private void SyncSynergySlots(GameWorld world)
+        {
+            if (synergyTableView == null) return;
+            if (world.Synergies == null || world.Synergies[PlayerIndex] == null) return;
+
+            var synergy = world.Synergies[PlayerIndex];
+
+            // count > 0 인 traitId 수집 (내림차순 정렬)
+            _tempSynergyList.Clear();
+            for (int i = 1; i < PlayerSynergy.MaxTraits; i++)
+            {
+                byte count = synergy.GetTraitCount(i);
+                if (count > 0)
+                    _tempSynergyList.Add((i, count));
+            }
+            _tempSynergyList.Sort((a, b) => b.count.CompareTo(a.count));
+
+            // 변경 감지 (traitId + count 모두 비교)
+            bool changed = _tempSynergyList.Count != synergyIds.Count;
+            if (!changed)
+            {
+                for (int i = 0; i < _tempSynergyList.Count; i++)
+                {
+                    if (synergyIds[i] != _tempSynergyList[i].traitId ||
+                        _synergyCounts[i] != _tempSynergyList[i].count)
+                    {
+                        changed = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!changed) return;
+
+            synergyIds.Clear();
+            _synergyCounts.Clear();
+            for (int i = 0; i < _tempSynergyList.Count; i++)
+            {
+                synergyIds.Add(_tempSynergyList[i].traitId);
+                _synergyCounts.Add(_tempSynergyList[i].count);
+            }
+
+            synergyTableView.RefreshAll();
+        }
+
+        private readonly List<(int traitId, byte count)> _tempSynergyList = new();
+
+        protected void BindSynergyCell(InGameSynergyUI cell, int synergyTypeId)
+        {
+            if (CurrentWorld == null) return;
+
+            var synergyType = (SynergyType)synergyTypeId;
+            int count = CurrentWorld.Synergies[PlayerIndex].GetTraitCount(synergyTypeId);
+
+            var specDataManager = SpecDataManager.Instance;
+            specDataManager.TryGetSynergyDataByCount(
+                synergyType, count,
+                out var outSynergyData, out var outSynergyList);
+
+            if (outSynergyList == null || outSynergyList.Count == 0) return;
+
+            if (outSynergyData != null)
+            {
+                var nextData = outSynergyList.Find(l => l.grade == outSynergyData.grade + 1) ?? outSynergyData;
+                cell.SetSynergy(synergyType, count, outSynergyData, nextData, isActive: true);
+            }
+            else if (count > 0)
+            {
+                var nextData = outSynergyList[0];
+                cell.SetSynergy(synergyType, count, nextData, nextData, isActive: false, isColorWhite: true);
+            }
         }
 
         // ── 배치 인원 표시 ──

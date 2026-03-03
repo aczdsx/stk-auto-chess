@@ -208,6 +208,10 @@ namespace CookApps.AutoChess.View
                 case SimEventType.CombatResult:
                     _autoChessUI?.OnCombatResult(evt.PlayerIndex, evt.Value0);
                     break;
+
+                case SimEventType.SynergyUpdated:
+                    _autoChessUI?.OnSynergyUpdated(world);
+                    break;
             }
         }
 

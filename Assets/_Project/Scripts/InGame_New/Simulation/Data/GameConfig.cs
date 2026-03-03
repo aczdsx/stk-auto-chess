@@ -109,7 +109,7 @@ namespace CookApps.AutoChess
                 PlayerCount = 1,
                 EnableShop = false,
                 EnableEconomy = false,
-                EnableSynergy = false,
+                EnableSynergy = true,
                 EnableItems = false,
                 EnableMatchmaking = false,
                 EnableCutscenes = true,
