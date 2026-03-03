@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: c54722ee22973f04192c413ac7123ef3
+guid: 02e90d9f0b799bd48b0a8c2ba0c305ff
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -776057450253215347
-    second: Icon_Vigilante_74_0
+      213: 4589462888336971530
+    second: Icon_Uroboros_74.png_0
   - first:
-      213: 4954032693274468598
-    second: Icon_Vigilante_74_1
+      213: -2384251878373328428
+    second: Icon_Uroboros_74.png_1
   - first:
-      213: -4934545078883911863
-    second: Icon_Vigilante_74_2
+      213: 8168820267961585341
+    second: Icon_Uroboros_74.png_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -132,7 +132,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_Vigilante_74_0
+      name: Icon_Uroboros_74.png_0
       rect:
         serializedVersion: 2
         x: 10
@@ -147,14 +147,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d899c585cd3ea35f0800000000000000
-      internalID: -776057450253215347
+      spriteID: a07d9215e2c01bf30800000000000000
+      internalID: 4589462888336971530
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Vigilante_74_1
+      name: Icon_Uroboros_74.png_1
       rect:
         serializedVersion: 2
         x: 10
@@ -169,14 +169,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6f0eb48ac7240c440800000000000000
-      internalID: 4954032693274468598
+      spriteID: 4d9ff768c8f69eed0800000000000000
+      internalID: -2384251878373328428
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Vigilante_74_2
+      name: Icon_Uroboros_74.png_2
       rect:
         serializedVersion: 2
         x: 25
@@ -191,8 +191,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 947f8f42569f48bb0800000000000000
-      internalID: -4934545078883911863
+      spriteID: dbe8cd1e0ca7d5170800000000000000
+      internalID: 8168820267961585341
       vertices: []
       indices: 
       edges: []
@@ -211,9 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Icon_Vigilante_74_0: -776057450253215347
-      Icon_Vigilante_74_1: 4954032693274468598
-      Icon_Vigilante_74_2: -4934545078883911863
+      Icon_Uroboros_74.png_0: 4589462888336971530
+      Icon_Uroboros_74.png_1: -2384251878373328428
+      Icon_Uroboros_74.png_2: 8168820267961585341
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
