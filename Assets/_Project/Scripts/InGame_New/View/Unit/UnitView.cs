@@ -230,6 +230,12 @@ namespace CookApps.AutoChess.View
             };
         }
 
+        public float GetAttackExecuteTime()
+        {
+            if (_characterView == null) return 0.1f;
+            return _characterView.GetAttackExecuteTime();
+        }
+
         public void PlayAttackAnimation()
         {
             _characterView?.PlayAnimation(AnimationKey.ATK);

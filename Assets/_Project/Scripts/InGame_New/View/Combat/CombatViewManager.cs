@@ -27,6 +27,20 @@ namespace CookApps.AutoChess.View
             public InGameVfxMovementBase Movement;
         }
 
+        // ── 지연 스폰 큐 (ATK 애니메이션 동기화) ──
+        private readonly List<PendingProjectile> _pendingProjectiles = new();
+
+        private struct PendingProjectile
+        {
+            public float Delay;
+            public int SourceId;
+            public int TargetId;
+            public ProjectileType ProjType;
+            public byte Col, Row;
+            public sbyte DirCol, DirRow;
+            public InGameVfxNameType VfxType;
+        }
+
         // ── 초기화 ──
 
         public void Initialize()
@@ -50,6 +64,7 @@ namespace CookApps.AutoChess.View
         public void OnCombatEnd()
         {
             _isCombatActive = false;
+            _pendingProjectiles.Clear();
             _tileEffectManager?.HideAll();
             ClearAllProjectiles();
         }
@@ -101,20 +116,20 @@ namespace CookApps.AutoChess.View
             var sourceView = _unitViewManager?.FindCombatView(sourceId);
             if (sourceView == null) return;
 
-            Vector3 sourcePos = sourceView.transform.position + Vector3.up * 0.5f;
+            float delay = sourceView.GetAttackExecuteTime();
 
-            switch (projType)
+            _pendingProjectiles.Add(new PendingProjectile
             {
-                case ProjectileType.Homing:
-                    SpawnHomingProjectile(sourcePos, targetId, vfxType);
-                    break;
-                case ProjectileType.Linear:
-                    SpawnLinearProjectile(sourcePos, dirCol, dirRow, vfxType);
-                    break;
-                case ProjectileType.AreaTarget:
-                    SpawnAreaProjectile(sourcePos, col, row, vfxType);
-                    break;
-            }
+                Delay = delay,
+                SourceId = sourceId,
+                TargetId = targetId,
+                ProjType = projType,
+                Col = col,
+                Row = row,
+                DirCol = dirCol,
+                DirRow = dirRow,
+                VfxType = vfxType,
+            });
         }
 
         public void OnProjectileExploded(int col, int row, int radius, SynergyType element)
@@ -126,6 +141,29 @@ namespace CookApps.AutoChess.View
             {
                 var areaType = TileEffectManager.SynergyToAreaType(element);
                 _tileEffectManager.ShowRange(areaType, col, row, radius, 1.5f);
+            }
+        }
+
+        // ── 지연 후 투사체 VFX 스폰 ──
+
+        private void SpawnProjectileFromPending(in PendingProjectile p)
+        {
+            var sourceView = _unitViewManager?.FindCombatView(p.SourceId);
+            if (sourceView == null) return;
+
+            Vector3 sourcePos = sourceView.transform.position + Vector3.up * 0.5f;
+
+            switch (p.ProjType)
+            {
+                case ProjectileType.Homing:
+                    SpawnHomingProjectile(sourcePos, p.TargetId, p.VfxType);
+                    break;
+                case ProjectileType.Linear:
+                    SpawnLinearProjectile(sourcePos, p.DirCol, p.DirRow, p.VfxType);
+                    break;
+                case ProjectileType.AreaTarget:
+                    SpawnAreaProjectile(sourcePos, p.Col, p.Row, p.VfxType);
+                    break;
             }
         }
 
@@ -247,7 +285,23 @@ namespace CookApps.AutoChess.View
 
             float dt = Time.deltaTime;
 
-            // 이동 업데이트 (ManagedUpdate 중 OnReachedTarget → _projectilesToRemove에 수집)
+            // 1. 대기 중인 투사체 지연 처리
+            for (int i = _pendingProjectiles.Count - 1; i >= 0; i--)
+            {
+                var p = _pendingProjectiles[i];
+                p.Delay -= dt;
+                if (p.Delay <= 0f)
+                {
+                    SpawnProjectileFromPending(in p);
+                    _pendingProjectiles.RemoveAt(i);
+                }
+                else
+                {
+                    _pendingProjectiles[i] = p;
+                }
+            }
+
+            // 2. 이동 업데이트 (ManagedUpdate 중 OnReachedTarget → _projectilesToRemove에 수집)
             for (int i = 0; i < _activeProjectiles.Count; i++)
             {
                 var ap = _activeProjectiles[i];

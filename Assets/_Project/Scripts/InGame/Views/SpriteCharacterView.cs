@@ -240,6 +240,30 @@ namespace CookApps.AutoBattler
             throw new KeyNotFoundException($"[{fullAnimationName}] is not found.");
         }
 
+        /// <summary>ATK 애니메이션의 Execute 이벤트 시간 반환 (투사체 발사 타이밍)</summary>
+        public float GetAttackExecuteTime()
+        {
+            if (_animator == null) return 0.1f;
+            var controller = _animator.runtimeAnimatorController;
+            if (controller == null) return 0.1f;
+
+            string prefix = _cachedFront ? "Front_" : "Back_";
+            string fullName = prefix + AnimationKey.ATK;
+
+            foreach (var clip in controller.animationClips)
+            {
+                if (clip.name != fullName) continue;
+                foreach (var evt in clip.events)
+                {
+                    int key = evt.intParameter;
+                    if (key > (int)AnimationEventKey.ExecuteStart && key < (int)AnimationEventKey.ExecuteEnd)
+                        return evt.time;
+                }
+                return clip.length * 0.4f;
+            }
+            return 0.1f;
+        }
+
         public void OnFiredAnimationEvent(AnimationEventKey animationEventKey)
         {
             OnAnimationEvent?.Invoke(_currentAnimationKey, animationEventKey);
