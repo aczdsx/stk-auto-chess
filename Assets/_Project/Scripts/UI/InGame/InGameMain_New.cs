@@ -2,8 +2,10 @@ using CookApps.AutoChess;
 using CookApps.AutoChess.View;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Pool;
+using UniTask = Cysharp.Threading.Tasks.UniTask;
+using UniTaskExtensions = Cysharp.Threading.Tasks.UniTaskExtensions;
 
 namespace CookApps.AutoBattler
 {
@@ -17,7 +19,7 @@ namespace CookApps.AutoBattler
 
             if (param is InGameMainParams inGameParams)
             {
-                StartAutoChess(inGameParams).Forget();
+                UniTaskExtensions.Forget((UniTask)StartAutoChess(inGameParams));
             }
             else
             {
@@ -59,7 +61,7 @@ namespace CookApps.AutoBattler
 
             // 덱 유닛을 벤치에 생성 + 적 데이터 준비
             var world = _viewRoot.Runner.GetWorld();
-            CreateDeckUnitsOnBench(world);
+            CreateUnitsForClassicMode(world);
             PrepareEnemyData(world, inGameParams.StageId);
 
             // BoardInputHandler 생성
@@ -83,10 +85,17 @@ namespace CookApps.AutoBattler
                 _viewRoot.ViewBridge.SetAutoChessUI(autoChessUI);
             }
 
+            // 카메라 설정
+            var inGameCamera = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera);
+            var mode = boardWidth > 5
+                ? InGameCamera.CameraPositionMode.LargeSize
+                : InGameCamera.CameraPositionMode.Default;
+            inGameCamera.SetCameraPositionMode(mode);
+            inGameCamera.SetForceCameraRotation(new Vector3(30f, 45f, 0f));
+
             // BoardInputHandler 초기화
-            var cam = Camera.main;
             boardInput.Initialize(
-                cam,
+                inGameCamera.MainCamera,
                 _viewRoot.ViewBridge,
                 _viewRoot.UnitViewManager,
                 _viewRoot.TileEffectManager,
@@ -97,17 +106,6 @@ namespace CookApps.AutoBattler
 
             // 캐릭터 비주얼 로딩 완료 대기 (첫 틱에서 SyncBoardUnits → View 생성 → 로딩 완료 이벤트)
             await _viewRoot.ViewBridge.WaitForAllViewsReady();
-
-            // 카메라 설정
-            var inGameCamera = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera);
-            if (inGameCamera != null)
-            {
-                var mode = boardWidth > 5
-                    ? InGameCamera.CameraPositionMode.LargeSize
-                    : InGameCamera.CameraPositionMode.Default;
-                inGameCamera.SetCameraPositionMode(mode);
-                inGameCamera.SetForceCameraRotation(new Vector3(30f, 45f, 0f));
-            }
 
             SceneTransition.FadeOutAsync();
         }
@@ -144,41 +142,43 @@ namespace CookApps.AutoBattler
 
         // ── 덱 유닛을 벤치에 생성 ──
 
-        private void CreateDeckUnitsOnBench(GameWorld world)
+        private void CreateUnitsForClassicMode(GameWorld world)
         {
-            if (world == null) return;
-
             // 서버 덱 데이터에서 캐릭터 목록 가져오기
+            using var _ = ListPool<int>.Get(out var characterIds);
+            ServerDataManager.Instance.Character.GetAllCharacterIds(characterIds);
+
             var deckData = ServerDataManager.Instance.Deck.GetDeck(InGameType.STAGE);
+
+            // 덱에 배치된 캐릭터 ID 수집 (중복 배치 방지용)
+            using var __ = HashSetPool<int>.Get(out var placedIds);
+
             if (deckData != null && deckData.CharacterPlacements.Count > 0)
             {
-                int created = 0;
-                foreach (var placement in deckData.CharacterPlacements)
+                for (var i = 0; i < deckData.CharacterPlacements.Count; i++)
                 {
+                    var placement = deckData.CharacterPlacements[i];
+                    int charId = (int)placement.CharacterId;
                     var charData = ServerDataManager.Instance.Character.GetCharacter(placement.CharacterId);
-                    if (charData == null) continue;
+                    if (charData == null)
+                        continue;
 
-                    int champSpecId = (int)charData.CharacterId;
-                    byte starLevel = 1; // TODO: 서버 데이터에서 별 레벨 매핑
+                    byte starLevel = 1; // TODO: 성급 매핑 확정 후 수정
+                    int entityId = BoardSystem.CreateUnit(world, 0, charId, starLevel);
+                    if (entityId == UnitData.InvalidId)
+                        continue;
 
-                    int entityId = BoardSystem.CreateUnit(world, 0, champSpecId, starLevel);
-                    if (entityId == UnitData.InvalidId) continue;
-                    created++;
+                    BoardSystem.PlaceUnit(world, 0, entityId, (byte)placement.GridX, (byte)placement.GridY);
+                    placedIds.Add(charId);
                 }
-
-                Debug.Log($"[InGameMain_New] Created {created} deck units on bench.");
-                return;
             }
 
-            // 폴백: ChampionPool에서 테스트용 유닛 생성 (벤치에만)
-            Debug.LogWarning("[InGameMain_New] 덱 데이터 없음. ChampionPool에서 테스트 유닛 생성.");
-            int poolCount = world.Pool != null ? world.Pool.SpecCount : 0;
-            int unitsToCreate = Mathf.Min(3, Mathf.Max(poolCount, 1));
-
-            for (int u = 0; u < unitsToCreate; u++)
+            // 덱에 없는 캐릭터 → 벤치에 배치
+            foreach (var charId in characterIds)
             {
-                int champId = poolCount > 0 ? world.Pool.Specs[u % poolCount].ChampionId : 1;
-                BoardSystem.CreateUnit(world, 0, champId, 1);
+                if (placedIds.Contains(charId))
+                    continue;
+                BoardSystem.CreateUnit(world, 0, charId, 1);
             }
         }
 
