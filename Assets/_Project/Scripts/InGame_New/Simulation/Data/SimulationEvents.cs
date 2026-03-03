@@ -216,5 +216,14 @@ namespace CookApps.AutoChess
                 Value0 = skillSpecId,
             });
         }
+
+        public void PushSynergyUpdated(byte playerIndex)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.SynergyUpdated,
+                PlayerIndex = playerIndex,
+            });
+        }
     }
 }

@@ -1,4 +1,6 @@
+using CookApps.AutoBattler;
 using CookApps.TeamBattle.UI;
+using CookApps.TeamBattle.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,18 +13,25 @@ namespace CookApps.AutoChess.View
     public class ClassicAutoChessUI : AutoChessUIBase
     {
         [Header("Bench Units")]
-        [SerializeField] private BenchUnitSlot slotPrefab;
+        [SerializeField] private BenchUnitSlot _slotPrefab;
+
+        [Header("Synergy Unit")]
+        [SerializeField] private InGameSynergyUI _synergySlotPrefab;
+
+        [Header("Tab")]
+        [SerializeField] private SimpleTabSwapper _characterBattleItemTabSwapper;
 
         [Header("Classic Mode")]
-        [SerializeField] private Button startBattleButton;
+        [SerializeField] private Button _startBattleButton;
 
-        private TableViewController<int, BenchUnitSlot> tableViewController;
+        private TableViewController<int, BenchUnitSlot> _benchController;
+        private TableViewController<int, InGameSynergyUI> _synergyController;
 
         protected override void OnInitialize()
         {
-            tableViewController = tableView.CreateController<int, BenchUnitSlot>()
+            _benchController = tableView.CreateController<int, BenchUnitSlot>()
                 .WithData(benchIds)
-                .WithCellPrefab(slotPrefab.gameObject)
+                .WithCellPrefab(_slotPrefab.gameObject)
                 .WithCellSize(new Vector2(120, 172))
                 .OnCellCreated(cell =>
                 {
@@ -36,7 +45,14 @@ namespace CookApps.AutoChess.View
                 })
                 .Build();
 
-            startBattleButton?.onClick.AddListener(OnStartBattleClicked);
+            _synergyController = synergyTableView.CreateController<int, InGameSynergyUI>()
+                .WithData(synergyIds)
+                .WithCellPrefab(_synergySlotPrefab.gameObject)
+                .WithCellSize(new Vector2(400, 70))
+                .OnBind((cell, synergyTypeId, index) => BindSynergyCell(cell, synergyTypeId))
+                .Build();
+
+            _startBattleButton?.onClick.AddListener(OnStartBattleClicked);
         }
 
         private void OnStartBattleClicked()
@@ -47,7 +63,9 @@ namespace CookApps.AutoChess.View
 
         protected override void OnCleanup()
         {
-            startBattleButton?.onClick.RemoveListener(OnStartBattleClicked);
+            _benchController?.Detach();
+            _synergyController?.Detach();
+            _startBattleButton?.onClick.RemoveListener(OnStartBattleClicked);
         }
     }
 }

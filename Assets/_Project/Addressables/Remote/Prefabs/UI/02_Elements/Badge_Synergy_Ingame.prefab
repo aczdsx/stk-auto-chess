@@ -578,6 +578,7 @@ MonoBehaviour:
   _starAsterismIconGameObject: {fileID: 1697865311718155107}
   _elementalIconGameObject: {fileID: 2014220024279149767}
   _countText: {fileID: 960056435627584700}
+  _synergyNameText: {fileID: 3437976839345170495}
   _countMaxGameObject: {fileID: 1401289358727230721}
   _countParentGameObject: {fileID: 6485151141017197831}
   _starAsterismGradeGuageImage: {fileID: 5261346192358053892}
@@ -1540,6 +1541,7 @@ GameObject:
   - component: {fileID: 9176612879831450037}
   - component: {fileID: 254051196794708308}
   - component: {fileID: 2006867457073808630}
+  - component: {fileID: 585834132120829501}
   m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
@@ -1604,6 +1606,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
+--- !u!114 &585834132120829501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4389886846466128808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d53d366c0ab644c29ace76bec2f4351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentType: 0
+  image: {fileID: 2006867457073808630}
+  sprites:
+    keys: 000000000a0000000b0000000c000000
+    values:
+    - {fileID: 0}
+    - {fileID: 21300000, guid: 1a7a5840d304c7e45af9dce92c7b09c5, type: 3}
+    - {fileID: 21300000, guid: 19956adcc4853694bb43d81585e83865, type: 3}
+    - {fileID: 21300000, guid: c07b26c8f5c022049b765a45ec261bac, type: 3}
 --- !u!1 &4646705430890806076
 GameObject:
   m_ObjectHideFlags: 0
@@ -2301,6 +2324,7 @@ GameObject:
   - component: {fileID: 4993735850688498267}
   - component: {fileID: 6392043702163234075}
   - component: {fileID: 6869867817893338306}
+  - component: {fileID: 6570030741202408935}
   m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
@@ -2365,6 +2389,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
+--- !u!114 &6570030741202408935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6790193432654226440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d53d366c0ab644c29ace76bec2f4351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentType: 0
+  image: {fileID: 6869867817893338306}
+  sprites:
+    keys: 000000000a0000000b0000000c000000
+    values:
+    - {fileID: 0}
+    - {fileID: 21300000, guid: 1a7a5840d304c7e45af9dce92c7b09c5, type: 3}
+    - {fileID: 21300000, guid: 9e8b7055079fdce4cbf8c4d0d378075e, type: 3}
+    - {fileID: 21300000, guid: 5b4d57879c6cbc1498624b1b8e8dc486, type: 3}
 --- !u!1 &6851500783217782749
 GameObject:
   m_ObjectHideFlags: 0

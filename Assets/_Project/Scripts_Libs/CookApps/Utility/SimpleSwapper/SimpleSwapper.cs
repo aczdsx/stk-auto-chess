@@ -41,6 +41,18 @@ namespace CookApps.TeamBattle.Utility
         Selected = 300,
         AD =401,
         AP = 402,
+        
+        Fire = 501,
+        Wind = 502,
+        Lightning = 503,
+        Earth = 504,
+        Water = 505,
+        Noblesse = 506,
+        Troubleshooter = 507,
+        Supernova = 508,
+        Uroboros = 509,
+        Arcana = 510,
+        Eclipse = 511,
     }
 
     public abstract class SimpleSwapper : CachedMonoBehaviour

@@ -145,6 +145,8 @@ namespace CookApps.AutoChess
 
             // 시너지 초기화
             world.Synergies = new PlayerSynergy[MaxPlayers];
+            for (int i = 0; i < MaxPlayers; i++)
+                world.Synergies[i] = new PlayerSynergy();
 
             // 아이템 초기화
             world.Items = new ItemData[MaxItems];

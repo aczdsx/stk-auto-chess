@@ -4,6 +4,7 @@ using Coffee.UIEffects;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using LitMotion;
 using TMPro;
@@ -17,13 +18,13 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 시너지 업데이트 중 상승한 시너지 타입 수집용
         /// </summary>
-        private static HashSet<SynergyType> _upgradedSynergyTypes = new HashSet<SynergyType>();
+        private static HashSet<SynergyType> _upgradedSynergyTypes = new();
 
         /// <summary>
         /// 시너지 타입별 이전 상태 저장 (count, grade)
         /// UI 슬롯이 재정렬되어도 정확한 비교를 위해 전역적으로 관리
         /// </summary>
-        private static Dictionary<SynergyType, (int count, int grade)> _previousSynergyStates = new Dictionary<SynergyType, (int count, int grade)>();
+        private static Dictionary<SynergyType, (int count, int grade)> _previousSynergyStates = new();
 
         /// <summary>
         /// 상승한 시너지 타입 수집 시작 (업데이트 전 호출)
@@ -57,6 +58,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _starAsterismIconGameObject;
         [SerializeField] private GameObject _elementalIconGameObject;
         [SerializeField] private TextMeshProUGUI _countText;
+        [SerializeField] private TextMeshProUGUI _synergyNameText;
         [SerializeField] private GameObject _countMaxGameObject;
         [SerializeField] private GameObject _countParentGameObject;
 
@@ -67,6 +69,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private RectTransform _buttonRect;
         [SerializeField] private UIShiny _starAstarismShiny;
         [SerializeField] private UIShiny _elementalShiny;
+        
+        [SerializeField] private SimpleImageSwapper _elementalSwapper;
+        [SerializeField] private SimpleImageSwapper _constellationSwapper;
 
 
 
@@ -77,9 +82,7 @@ namespace CookApps.AutoBattler
         private Color _step4Color = new Color32(229, 228, 226, 255); // 플래티넘 (Platinum) 
 
         private SynergyType _synergyType;
-        private int _count;
         private ISpecSynergyData _synergyData;
-        private ISpecSynergyData _nextSynergyData;
         private bool _isActive;
         private const int MAX_GRADE = 3;
 
@@ -88,8 +91,8 @@ namespace CookApps.AutoBattler
         {
             _synergyType = synergyType;
             _synergyData = data;
-            _nextSynergyData = nextData;
             _isActive = isActive;
+            _synergyNameText.text = LanguageManager.Instance.GetDefaultText(_synergyData.name_token);
 
             // 시너지 상승 시 Shiny 효과 재생 및 상승 타입 수집
             // 시너지 타입별 전역 상태와 비교 (UI 슬롯 재정렬에 영향받지 않음)
@@ -129,7 +132,6 @@ namespace CookApps.AutoBattler
                     break;
             }
 
-            _count = count;
 
 
             bool isAsterismSynergyType = DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType);
@@ -156,7 +158,7 @@ namespace CookApps.AutoBattler
                 }
                 else
                 {
-                    _starAsterismGradeGuageImage.fillAmount = (float)data.grade / (float)(MAX_GRADE);
+                    _starAsterismGradeGuageImage.fillAmount = data.grade / (float)(MAX_GRADE);
                 }
                 _starAsterismGradeGuageColor.color = color;
             }
@@ -172,7 +174,7 @@ namespace CookApps.AutoBattler
                 }
                 else
                 {
-                    _elementalGradeGuageImage.fillAmount = (float)data.grade / (float)(MAX_GRADE);
+                    _elementalGradeGuageImage.fillAmount = data.grade / (float)(MAX_GRADE);
                 }
                 _elementalGradeGuageColor.color = color;
             }
@@ -188,14 +190,6 @@ namespace CookApps.AutoBattler
                 _countText.gameObject.SetActive(true);
             }
             _countText.text = $"{count}/{nextData.min_int}";
-            if (isAsterismSynergyType)
-            {
-                // Debug.LogColor($"SynergyUI!! [{synergyType}] {isActive}/{_starAsterismGradeGuageImage.fillAmount}", "green");
-            }
-            else
-            {
-                // Debug.LogColor($"SynergyUI!! [{synergyType}] {isActive}/{_elementalGradeGuageImage.fillAmount}", "green");
-            }
         }
 
         /// <summary>
