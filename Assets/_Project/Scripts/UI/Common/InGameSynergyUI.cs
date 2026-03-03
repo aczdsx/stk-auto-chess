@@ -74,7 +74,10 @@ namespace CookApps.AutoBattler
         private SynergyType _synergyType;
         private ISpecSynergyData _synergyData;
         private bool _isActive;
+        private HashSet<int> _inBattleChampionIds;
         private const int MAX_GRADE = 3;
+
+        public void SetInBattleChampionIds(HashSet<int> ids) => _inBattleChampionIds = ids;
 
         //캐릭터 속성 시너지 세팅
         public void SetSynergy(SynergyType synergyType, int count, ISpecSynergyData data, ISpecSynergyData nextData,
@@ -141,7 +144,8 @@ namespace CookApps.AutoBattler
                 _synergyType,
                 _synergyData,
                 _buttonRect,
-                _isActive
+                _isActive,
+                _inBattleChampionIds
             );
 
             SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipIngameMiniPopup>(param).Forget();

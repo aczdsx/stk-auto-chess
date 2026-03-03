@@ -1,3 +1,4 @@
+using CookApps.TeamBattle.Utility;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ namespace CookApps.AutoBattler
     public class SynergyTooltipGradeSlot : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private SimpleTextColorSwapper _textColorSwapper;
         [SerializeField] private Image _highlightBg;
 
         private const float BaseHeight = 50f;
@@ -26,6 +28,7 @@ namespace CookApps.AutoBattler
         {
             _text.text = text;
             _highlightBg.enabled = isHighlighted;
+            _textColorSwapper?.Swap(isHighlighted ? SimpleSwapType.Normal : SimpleSwapType.Disabled);
         }
 
         public void SetActive(bool active)

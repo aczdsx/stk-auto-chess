@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using CookApps.BattleSystem;
 using CookApps.TeamBattle.UIManagements;
 using R3;
 using TMPro;
@@ -28,9 +27,9 @@ namespace CookApps.AutoBattler
         private SynergyType _synergyType;
         private ISpecSynergyData _synergyData;
         private bool _isActive;
+        private HashSet<int> _inBattleChampionIds;
 
         private readonly List<SynergyTooltipImageGroup.CharacterSlotData> _reusableSlotDataList = new();
-        private readonly HashSet<int> _reusableInBattleIds = new();
 
         /// <summary>
         /// 팝업 파라미터 데이터
@@ -41,13 +40,15 @@ namespace CookApps.AutoBattler
             public readonly ISpecSynergyData SynergyData;
             public readonly RectTransform ButtonRect;
             public readonly bool IsActive;
+            public readonly HashSet<int> InBattleChampionIds;
 
-            public PopupParam(SynergyType synergyType, ISpecSynergyData synergyData, RectTransform buttonRect, bool isActive)
+            public PopupParam(SynergyType synergyType, ISpecSynergyData synergyData, RectTransform buttonRect, bool isActive, HashSet<int> inBattleChampionIds = null)
             {
                 SynergyType = synergyType;
                 SynergyData = synergyData;
                 ButtonRect = buttonRect;
                 IsActive = isActive;
+                InBattleChampionIds = inBattleChampionIds;
             }
         }
 
@@ -73,6 +74,7 @@ namespace CookApps.AutoBattler
                 _synergyData = popupParam.SynergyData;
                 buttonRect = popupParam.ButtonRect;
                 _isActive = popupParam.IsActive;
+                _inBattleChampionIds = popupParam.InBattleChampionIds;
             }
 
             SetSynergyInfo();
@@ -120,15 +122,21 @@ namespace CookApps.AutoBattler
             }
 
             string synergyName = LanguageManager.Instance.GetDefaultText(_synergyData.name_token);
-            _synergyNameText.text = $"{synergyName} {_synergyData.grade}단계";
+            _synergyNameText.text = _isActive
+                ? $"{synergyName} {_synergyData.grade}단계"
+                : synergyName;
+            //todo 단계라는 글자 나중에 localization으로 바꿀것 level이 좋을것같음
 
             SetGradeSlots();
             SetImageSlots();
+
+            // 모든 콘텐츠 세팅 후 레이아웃 갱신 (위치 계산 전 정확한 높이 확보)
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_body);
         }
 
         /// <summary>
         /// 전 단계 효과를 슬롯에 표시하고 현재 단계를 하이라이트합니다.
-        /// 속성/성군 구분 없이 동일 로직으로 동작합니다.
+        /// 성군: 달성 단계 이하 모두 활성화 (누적), 속성: 해당 단계만 활성화.
         /// </summary>
         private void SetGradeSlots()
         {
@@ -137,6 +145,8 @@ namespace CookApps.AutoBattler
             var synergyList = SpecDataManager.Instance.GetSpecSynergyList(_synergyType);
             if (synergyList == null || synergyList.Count == 0) return;
 
+            bool isAsterism = DistinguishSynergyTypeHelper.IsAsterismSynergyType(_synergyType);
+            int currentGrade = _synergyData.grade;
             int nextGrade = 1;
             int slotIndex = 0;
 
@@ -151,7 +161,14 @@ namespace CookApps.AutoBattler
                     : data.desc_token_1;
                 string text = LanguageManager.Instance.GetDefaultText(token);
                 string formatted = FormatGradeText(text, data);
-                bool isHighlighted = data.grade == _synergyData.grade;
+
+                bool isHighlighted;
+                if (!_isActive)
+                    isHighlighted = false;
+                else if (isAsterism)
+                    isHighlighted = data.grade <= currentGrade; // 성군: 누적 활성화
+                else
+                    isHighlighted = data.grade == currentGrade; // 속성: 해당 단계만
 
                 _gradeSlots[slotIndex].SetGrade(formatted, isHighlighted);
                 _gradeSlots[slotIndex].SetActive(true);
@@ -185,14 +202,6 @@ namespace CookApps.AutoBattler
         {
             if (_imageGroup == null) return;
 
-            // 필드 위 플레이어 캐릭터 ID 수집
-            var battlers = InGameObjectManager.Instance.GetCharacterList(AllianceType.Player);
-            _reusableInBattleIds.Clear();
-            for (int i = 0; i < battlers.Count; i++)
-            {
-                _reusableInBattleIds.Add(battlers[i].CharacterId);
-            }
-
             var characters = SpecDataManager.Instance.GetCharacterListBySynergyType(_synergyType);
             _reusableSlotDataList.Clear();
 
@@ -203,7 +212,7 @@ namespace CookApps.AutoBattler
                 {
                     PrefabId = charInfo.prefab_id,
                     Grade = charInfo.grade_type,
-                    InBattle = _reusableInBattleIds.Contains(charInfo.id)
+                    InBattle = _inBattleChampionIds != null && _inBattleChampionIds.Contains(charInfo.id)
                 });
             }
 

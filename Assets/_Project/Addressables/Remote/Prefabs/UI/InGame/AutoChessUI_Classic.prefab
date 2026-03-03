@@ -23348,6 +23348,7 @@ GameObject:
   - component: {fileID: 3914829896793595423}
   - component: {fileID: 5802642455315434213}
   - component: {fileID: 6324474144353776056}
+  - component: {fileID: 714755166934673934}
   m_Layer: 5
   m_Name: Board
   m_TagString: Untagged
@@ -23412,6 +23413,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &714755166934673934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948968886031626685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d53d366c0ab644c29ace76bec2f4351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentType: 10
+  image: {fileID: 6324474144353776056}
+  sprites:
+    keys: 0a0000000b0000000c000000
+    values:
+    - {fileID: 21300000, guid: 6d441809e76ca954b9e91c9c87da4e62, type: 3}
+    - {fileID: 21300000, guid: 3284d518c10e3e642b255f8b4b4a404a, type: 3}
+    - {fileID: 21300000, guid: 52392957ef217de499965d518fe575bb, type: 3}
 --- !u!1 &1974494451319247945
 GameObject:
   m_ObjectHideFlags: 0
@@ -62792,7 +62813,7 @@ MonoBehaviour:
     keys: 9101000092010000
     values:
     - {r: 0.5764706, g: 0.12941177, b: 0.23921569, a: 0.9411765}
-    - {r: 0.19607843, g: 0.21960784, b: 0.3882353, a: 0.9411765}
+    - {r: 0.19607843, g: 0.22352941, b: 0.3882353, a: 0.9411765}
 --- !u!114 &7167504967920382088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63853,6 +63874,7 @@ MonoBehaviour:
   _characterPositionTypeText: {fileID: 1076328545935728657}
   _positionColorSwapper: {fileID: 1356787640090401456}
   _cpText: {fileID: 9191807748352869429}
+  _boardImageSwapper: {fileID: 714755166934673934}
 --- !u!114 &7001846924360567098
 MonoBehaviour:
   m_ObjectHideFlags: 0

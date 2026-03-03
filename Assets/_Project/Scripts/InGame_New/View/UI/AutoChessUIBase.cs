@@ -40,6 +40,7 @@ namespace CookApps.AutoChess.View
         private readonly List<int> _rawBenchIds = new();
         protected readonly List<int> synergyIds = new();
         private readonly List<byte> _synergyCounts = new();
+        private readonly HashSet<int> _inBattleChampionIds = new();
 
         // ── 초기화 ──
 
@@ -64,6 +65,7 @@ namespace CookApps.AutoChess.View
             if (world == null) return;
             CurrentWorld = world;
 
+            SyncInBattleChampionIds(world);
             SyncBenchSlots(world);
             UpdateUnitCountText(world);
             UpdateHUD(world);
@@ -221,6 +223,22 @@ namespace CookApps.AutoChess.View
             tableView.RefreshAll();
         }
 
+        // ── 보드 유닛 ChampionSpecId 수집 (시너지 팝업용) ──
+
+        private void SyncInBattleChampionIds(GameWorld world)
+        {
+            _inBattleChampionIds.Clear();
+            var boardSlots = world.BoardSlots[PlayerIndex];
+            for (int i = 0; i < boardSlots.Length; i++)
+            {
+                int entityId = boardSlots[i];
+                if (entityId == UnitData.InvalidId) continue;
+                int unitIndex = world.FindUnitIndex(entityId);
+                if (unitIndex >= 0)
+                    _inBattleChampionIds.Add(world.Units[unitIndex].ChampionSpecId);
+            }
+        }
+
         // ── 시너지 슬롯 동기화 ──
 
         private void SyncSynergySlots(GameWorld world)
@@ -273,6 +291,8 @@ namespace CookApps.AutoChess.View
         protected void BindSynergyCell(InGameSynergyUI cell, int synergyTypeId, int index)
         {
             if (CurrentWorld == null) return;
+
+            cell.SetInBattleChampionIds(_inBattleChampionIds);
 
             var synergyType = (SynergyType)synergyTypeId;
             int count = CurrentWorld.Synergies[PlayerIndex].GetTraitCount(synergyTypeId);
