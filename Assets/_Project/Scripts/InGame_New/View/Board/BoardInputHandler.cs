@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,6 +9,7 @@ namespace CookApps.AutoChess.View
     /// - UI에서 보드로 드래그 시 고스트 프리뷰 관리
     /// - 보드 위 유닛 드래그 (재배치/회수)
     /// - 스크린 좌표 → 그리드 좌표 변환
+    /// - IBoardInputBlocker를 통한 세밀한 입력 차단 (튜토리얼 등)
     /// </summary>
     public class BoardInputHandler : MonoBehaviour
     {
@@ -19,6 +21,9 @@ namespace CookApps.AutoChess.View
         // UI 영역 판별용 콜백
         private System.Func<Vector2, bool> _isPointInUI;
 
+        // 입력 차단 (SelectableBlockerManager 패턴)
+        private readonly List<IBoardInputBlocker> _inputBlockers = new();
+
         // 보드 유닛 드래그 상태
         private bool _isDraggingBoardUnit;
         private int _dragEntityId = UnitData.InvalidId;
@@ -26,6 +31,12 @@ namespace CookApps.AutoChess.View
         private UnitView _dragUnitView;
         private int _dragStartCol;
         private int _dragStartRow;
+
+        // 드래그 threshold (탭과 드래그 구분)
+        private bool _isPendingDrag;
+        private int _pendingEntityId = UnitData.InvalidId;
+        private UnitView _pendingUnitView;
+        private Vector2 _pendingScreenPos;
 
         // 고스트 드래그 (UI → 보드)
         private bool _isGhostActive;
@@ -85,11 +96,43 @@ namespace CookApps.AutoChess.View
             }
         }
 
+        // ── 입력 차단 (IBoardInputBlocker) ──
+
+        public void AddInputBlocker(IBoardInputBlocker blocker)
+        {
+            if (_inputBlockers.Contains(blocker)) return;
+            _inputBlockers.Add(blocker);
+            _inputBlockers.Sort((x, y) => x.GetPriority() - y.GetPriority());
+        }
+
+        public void RemoveInputBlocker(IBoardInputBlocker blocker)
+        {
+            _inputBlockers.Remove(blocker);
+        }
+
+        /// <summary>
+        /// 특정 액션+타일의 입력이 허용되는지 확인.
+        /// 블로커가 하나라도 false를 반환하면 차단.
+        /// BenchUnitSlot 등 외부에서도 호출 가능.
+        /// </summary>
+        public bool IsInputAllowed(BoardInputAction action, int col = -1, int row = -1)
+        {
+            for (int i = 0; i < _inputBlockers.Count; i++)
+            {
+                if (!_inputBlockers[i].IsAllowInput(action, col, row))
+                    return false;
+            }
+            return true;
+        }
+
         // ── UI → 보드 고스트 드래그 API ──
 
-        /// <summary>UI에서 보드 영역 진입 시 호출. 고스트 프리뷰 시작.</summary>
-        public void StartGhostDrag(int entityId, Vector3 screenPos)
+        /// <summary>UI에서 보드 영역 진입 시 호출. 고스트 프리뷰 시작. 차단 시 false 반환.</summary>
+        public bool StartGhostDrag(int entityId, Vector3 screenPos)
         {
+            if (!IsInputAllowed(BoardInputAction.Place))
+                return false;
+
             _isGhostActive = true;
             _ghostEntityId = entityId;
 
@@ -102,6 +145,7 @@ namespace CookApps.AutoChess.View
             }
 
             UpdateGhostDrag(screenPos);
+            return true;
         }
 
         /// <summary>UI 드래그 중 매 프레임 호출. 고스트 위치 갱신.</summary>
@@ -145,7 +189,9 @@ namespace CookApps.AutoChess.View
             ReleaseGhostView();
 
             var grid = ScreenToGrid(screenPos);
-            if (grid.HasValue && !IsTileOccupied(grid.Value.col, grid.Value.row))
+            if (grid.HasValue
+                && !IsTileOccupied(grid.Value.col, grid.Value.row)
+                && IsInputAllowed(BoardInputAction.Place, grid.Value.col, grid.Value.row))
                 return (grid.Value.col, grid.Value.row);
 
             return null;
@@ -186,12 +232,34 @@ namespace CookApps.AutoChess.View
                 Vector2 screenPos = Input.mousePosition;
 
                 // UI 위의 터치는 무시
-                if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+                if (EventSystem.current.IsPointerOverGameObject())
                     return;
 
                 if (TryPickUnit(screenPos, out int entityId, out var unitView))
                 {
-                    StartBoardDrag(entityId, unitView);
+                    var pickGrid = ScreenToGrid(screenPos);
+                    if (pickGrid.HasValue
+                        && !IsInputAllowed(BoardInputAction.Select, pickGrid.Value.col, pickGrid.Value.row))
+                        return;
+
+                    // threshold 대기 (즉시 드래그 시작하지 않음)
+                    _isPendingDrag = true;
+                    _pendingEntityId = entityId;
+                    _pendingUnitView = unitView;
+                    _pendingScreenPos = screenPos;
+                }
+            }
+            // 드래그 threshold 체크
+            else if (Input.GetMouseButton(0) && _isPendingDrag)
+            {
+                Vector2 screenPos = Input.mousePosition;
+                float threshold = EventSystem.current.pixelDragThreshold;
+
+                if ((screenPos - _pendingScreenPos).sqrMagnitude > threshold * threshold)
+                {
+                    _isPendingDrag = false;
+                    StartBoardDrag(_pendingEntityId, _pendingUnitView);
+                    UpdateBoardDrag(screenPos);
                 }
             }
             // 드래그 중
@@ -199,10 +267,20 @@ namespace CookApps.AutoChess.View
             {
                 UpdateBoardDrag(Input.mousePosition);
             }
-            // 드래그 종료
-            else if (Input.GetMouseButtonUp(0) && _isDraggingBoardUnit)
+            // 터치 종료
+            else if (Input.GetMouseButtonUp(0))
             {
-                EndBoardDrag(Input.mousePosition);
+                if (_isPendingDrag)
+                {
+                    // threshold 미달 → 탭으로 처리 (드래그 없이 종료)
+                    _isPendingDrag = false;
+                    _pendingEntityId = UnitData.InvalidId;
+                    _pendingUnitView = null;
+                }
+                else if (_isDraggingBoardUnit)
+                {
+                    EndBoardDrag(Input.mousePosition);
+                }
             }
         }
 
@@ -250,8 +328,15 @@ namespace CookApps.AutoChess.View
             // UI 영역으로 드롭 → 회수
             if (_isPointInUI != null && _isPointInUI(screenPos))
             {
-                var cmd = GameCommand.WithdrawUnit(0, _dragEntityId);
-                _viewBridge.SendCommand(cmd);
+                if (IsInputAllowed(BoardInputAction.Withdraw))
+                {
+                    var cmd = GameCommand.WithdrawUnit(0, _dragEntityId);
+                    _viewBridge.SendCommand(cmd);
+                }
+                else
+                {
+                    _dragUnitView?.SetPositionImmediate(_dragOriginalPos);
+                }
             }
             else
             {
@@ -259,14 +344,15 @@ namespace CookApps.AutoChess.View
                 var grid = ScreenToGrid(screenPos);
                 if (grid.HasValue
                     && !IsTileOccupied(grid.Value.col, grid.Value.row, _dragEntityId)
-                    && (grid.Value.col != _dragStartCol || grid.Value.row != _dragStartRow))
+                    && (grid.Value.col != _dragStartCol || grid.Value.row != _dragStartRow)
+                    && IsInputAllowed(BoardInputAction.Move, grid.Value.col, grid.Value.row))
                 {
                     var cmd = GameCommand.MoveUnit(0, _dragEntityId, (byte)grid.Value.col, (byte)grid.Value.row);
                     _viewBridge.SendCommand(cmd);
                 }
                 else
                 {
-                    // 같은 위치, 점유된 타일, 또는 보드 밖 → 원위치 복귀
+                    // 같은 위치, 점유된 타일, 차단, 또는 보드 밖 → 원위치 복귀
                     _dragUnitView?.SetPositionImmediate(_dragOriginalPos);
                 }
             }
@@ -277,6 +363,11 @@ namespace CookApps.AutoChess.View
 
         private void CancelDrag()
         {
+            // pending 상태 정리
+            _isPendingDrag = false;
+            _pendingEntityId = UnitData.InvalidId;
+            _pendingUnitView = null;
+
             if (_isDraggingBoardUnit && _dragUnitView != null)
             {
                 _dragUnitView.SetHologram(false);

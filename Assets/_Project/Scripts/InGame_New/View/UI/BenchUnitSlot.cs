@@ -182,6 +182,13 @@ namespace CookApps.AutoChess.View
 
                 if (isOverBoard)
                 {
+                    // 배치 차단 체크
+                    if (_boardInput != null && !_boardInput.IsInputAllowed(BoardInputAction.Place))
+                    {
+                        _cachedScrollRect?.OnDrag(eventData);
+                        return;
+                    }
+
                     // 스크롤 → 보드 드래그 전환
                     _isDraggingToBoard = true;
 
