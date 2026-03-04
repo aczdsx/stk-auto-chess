@@ -33,7 +33,7 @@ namespace CookApps.AutoChess.View
                     : SimpleSwapType.AP);
             }
 
-            if (_boardImageSwapper != null && spec is CookApps.AutoBattler.CharacterInfo charInfo)
+            if (_boardImageSwapper != null && spec is  AutoBattler.CharacterInfo charInfo)
             {
                 var gradeSwapType = charInfo.grade_type switch
                 {

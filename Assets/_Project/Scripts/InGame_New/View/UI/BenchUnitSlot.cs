@@ -6,6 +6,7 @@ using R3;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace CookApps.AutoChess.View
@@ -33,7 +34,7 @@ namespace CookApps.AutoChess.View
         private AutoChessUIBase _parentUI;
         private AutoChessViewBridge _viewBridge;
         private BoardInputHandler _boardInput;
-        private GameObject _loadedCharacterIcon;
+        private AsyncOperationHandle<GameObject> _loadHandle;
 
         // 현재 표시 중인 데이터 (중복 로드 방지)
         protected int _currentChampSpecId;
@@ -68,7 +69,24 @@ namespace CookApps.AutoChess.View
 
         public void Bind(int entityId, int champSpecId, byte starLevel)
         {
+            // 재활용된 슬롯이 선택 상태였으면 해제
+            if (_currentSelected == this && EntityId != entityId)
+            {
+                _currentSelected.OnDeselected();
+                _currentSelected = null;
+            }
+
             EntityId = entityId;
+
+            // 선택된 entityId가 이 슬롯에 바인딩되면 선택 상태 복원
+            if (_selectedEntityId == entityId && _currentSelected != this)
+            {
+                if (_currentSelected != null)
+                    _currentSelected.OnDeselected();
+                _currentSelected = this;
+                OnSelected();
+            }
+
             if (_currentChampSpecId == champSpecId && _currentStarLevel == starLevel)
                 return;
 
@@ -103,25 +121,26 @@ namespace CookApps.AutoChess.View
         private async UniTaskVoid LoadCharacterIcon(int prefabId)
         {
             ReleaseCharacterIcon();
-            ClearCharacterIconRoot();
 
             string address = $"SD/{prefabId}/UI_{prefabId}.prefab";
-            _loadedCharacterIcon = await Addressables.InstantiateAsync(address, _characterIconRoot);
-        }
+            var handle = Addressables.InstantiateAsync(address, _characterIconRoot);
+            _loadHandle = handle;
+            await handle;
 
-        private void ClearCharacterIconRoot()
-        {
-            if (_characterIconRoot == null) return;
-            for (int i = _characterIconRoot.childCount - 1; i >= 0; i--)
-                Destroy(_characterIconRoot.GetChild(i).gameObject);
+            if (!_loadHandle.Equals(handle))
+            {
+                if (handle.IsValid())
+                    Addressables.ReleaseInstance(handle);
+                return;
+            }
         }
 
         private void ReleaseCharacterIcon()
         {
-            if (_loadedCharacterIcon != null)
+            if (_loadHandle.IsValid())
             {
-                Addressables.ReleaseInstance(_loadedCharacterIcon);
-                _loadedCharacterIcon = null;
+                Addressables.ReleaseInstance(_loadHandle);
+                _loadHandle = default;
             }
         }
 
@@ -218,6 +237,7 @@ namespace CookApps.AutoChess.View
 
         // ── 클릭 & 선택 ──
 
+        private static int _selectedEntityId = UnitData.InvalidId;
         private static BenchUnitSlot _currentSelected;
         private static CharacterInfoInGamePopup _openPopup;
 
@@ -231,8 +251,8 @@ namespace CookApps.AutoChess.View
 
             if (_currentChampSpecId <= 0) return;
 
-            // 같은 슬롯 재클릭 → 닫기
-            if (_currentSelected == this)
+            // 같은 캐릭터 재클릭 → 닫기
+            if (_selectedEntityId == EntityId)
             {
                 CloseCurrentPopup();
                 return;
@@ -244,6 +264,7 @@ namespace CookApps.AutoChess.View
                 if (_currentSelected != null)
                     _currentSelected.OnDeselected();
 
+                _selectedEntityId = EntityId;
                 _currentSelected = this;
                 OnSelected();
 
@@ -259,6 +280,7 @@ namespace CookApps.AutoChess.View
                 _currentSelected = null;
             }
 
+            _selectedEntityId = EntityId;
             _currentSelected = this;
             OnSelected();
             OpenPopupAsync().Forget();
@@ -266,6 +288,7 @@ namespace CookApps.AutoChess.View
 
         private static void CloseCurrentPopup()
         {
+            _selectedEntityId = UnitData.InvalidId;
             if (_openPopup != null)
             {
                 SceneUILayerManager.Instance.PopUILayer(_openPopup);
@@ -286,6 +309,7 @@ namespace CookApps.AutoChess.View
             {
                 // 다른 슬롯이 이미 선택되었으면 무시
                 if (_currentSelected != self) return;
+                _selectedEntityId = UnitData.InvalidId;
                 _openPopup = null;
                 self.OnDeselected();
                 _currentSelected = null;

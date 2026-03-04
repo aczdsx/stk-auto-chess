@@ -98,11 +98,19 @@ namespace CookApps.AutoChess.View
             if (string.IsNullOrEmpty(prefabPath)) return;
             ReleaseCharacterVisual();
 
-            _loadHandle = Addressables.InstantiateAsync(prefabPath, _modelRoot);
-            await _loadHandle.WaitUntilDone();
-            var go = _loadHandle.Result;
+            var handle = Addressables.InstantiateAsync(prefabPath, _modelRoot);
+            _loadHandle = handle;
+            await handle.WaitUntilDone();
 
-            // 로딩 중 Deactivate 된 경우
+            // await 완료 후: _loadHandle이 교체되었으면 이 결과는 버림
+            if (!_loadHandle.Equals(handle))
+            {
+                if (handle.IsValid())
+                    Addressables.ReleaseInstance(handle);
+                return;
+            }
+
+            var go = handle.Result;
             if (!_isActive || go == null)
             {
                 ReleaseCharacterVisual();
