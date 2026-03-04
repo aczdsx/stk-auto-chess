@@ -21,9 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 9f8a7bd8cc753404aa2c7e7bd3dcc467, type: 3}
-    - time: 0.083333336
-      value: {fileID: 21300000, guid: 39f9a11e9f037b148bc8e5312f148d6a, type: 3}
+      value: {fileID: 21300000, guid: f8689e9f621dfe94b96db9c282d2cde8, type: 3}
+    - time: 0.875
+      value: {fileID: 21300000, guid: f8689e9f621dfe94b96db9c282d2cde8, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,14 +46,14 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 9f8a7bd8cc753404aa2c7e7bd3dcc467, type: 3}
-    - {fileID: 21300000, guid: 39f9a11e9f037b148bc8e5312f148d6a, type: 3}
+    - {fileID: 21300000, guid: f8689e9f621dfe94b96db9c282d2cde8, type: 3}
+    - {fileID: 21300000, guid: f8689e9f621dfe94b96db9c282d2cde8, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.20833334
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -80,7 +80,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.16666667
+  - time: 1
     functionName: InvokeAnimationEvent
     data: 
     objectReferenceParameter: {fileID: 0}
