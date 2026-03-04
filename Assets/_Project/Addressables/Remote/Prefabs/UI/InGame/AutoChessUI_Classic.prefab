@@ -43960,6 +43960,7 @@ GameObject:
   - component: {fileID: 6814004758204408562}
   - component: {fileID: 5360717111676735}
   - component: {fileID: 7514270401266089239}
+  - component: {fileID: 7080798423341687373}
   m_Layer: 5
   m_Name: Icon_damage
   m_TagString: Untagged
@@ -44025,6 +44026,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1.5
+--- !u!114 &7080798423341687373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4804921237241143016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f3fc477bcebd441f8fd93c1816dd26d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentType: 401
+  image: {fileID: 7514270401266089239}
+  colors:
+    keys: 9101000092010000
+    values:
+    - {r: 0.49411765, g: 0.03137255, b: 0.03137255, a: 1}
+    - {r: 0.03137255, g: 0.03137255, b: 0.49411765, a: 1}
 --- !u!1 &4839679931938267821
 GameObject:
   m_ObjectHideFlags: 0
@@ -62812,8 +62832,8 @@ MonoBehaviour:
   colors:
     keys: 9101000092010000
     values:
-    - {r: 0.5764706, g: 0.12941177, b: 0.23921569, a: 0.9411765}
-    - {r: 0.19607843, g: 0.22352941, b: 0.3882353, a: 0.9411765}
+    - {r: 0.49411765, g: 0.03137255, b: 0.03137255, a: 1}
+    - {r: 0.03137255, g: 0.03137255, b: 0.49411765, a: 1}
 --- !u!114 &7167504967920382088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63824,7 +63844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6390148230896381913
 RectTransform:
   m_ObjectHideFlags: 0
@@ -63874,6 +63894,7 @@ MonoBehaviour:
   _synergyClassLoader: {fileID: 7360197743733776041}
   _characterPositionTypeText: {fileID: 1076328545935728657}
   _positionColorSwapper: {fileID: 1356787640090401456}
+  _atkTypeColorSwapper: {fileID: 7080798423341687373}
   _cpText: {fileID: 9191807748352869429}
   _boardImageSwapper: {fileID: 714755166934673934}
   _selectedDim: {fileID: 4840576746173587239}

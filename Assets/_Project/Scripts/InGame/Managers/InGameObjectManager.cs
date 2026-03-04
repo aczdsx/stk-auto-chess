@@ -214,11 +214,11 @@ namespace CookApps.BattleSystem
 
             foreach (var character in targetList)
             {
-                if (DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType))
+                if (DistinguishSpecTypeHelper.IsAsterismSynergyType(synergyType))
                 {
                     value += character.GetCharacterStat().Spec.character_stella_type == synergyType ? 1 : 0;
                 }
-                else if (DistinguishSynergyTypeHelper.IsElementSynergyType(synergyType))
+                else if (DistinguishSpecTypeHelper.IsElementSynergyType(synergyType))
                 {
                     value += character.GetCharacterStat().Spec.character_element_type == synergyType ? 1 : 0;
                 }

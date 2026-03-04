@@ -10,6 +10,7 @@ namespace CookApps.AutoChess.View
         [Header("Classic Display")]
         [SerializeField] private TMP_Text _characterPositionTypeText;
         [SerializeField] private SimpleImageColorSwapper _positionColorSwapper;
+        [SerializeField] private SimpleImageColorSwapper _atkTypeColorSwapper;
         [SerializeField] private TMP_Text _cpText;
         [SerializeField] private SimpleImageSwapper _boardImageSwapper;
         [SerializeField] private GameObject _selectedDim;
@@ -27,8 +28,13 @@ namespace CookApps.AutoChess.View
                 _characterPositionTypeText.text = spec.character_position_type.ToString();
 
             if (_positionColorSwapper != null)
-            {
                 _positionColorSwapper.Swap(spec.atk_type == AtkType.AD
+                    ? SimpleSwapType.AD
+                    : SimpleSwapType.AP);
+
+            if (_atkTypeColorSwapper != null)
+            {
+                _atkTypeColorSwapper.Swap(spec.atk_type == AtkType.AD
                     ? SimpleSwapType.AD
                     : SimpleSwapType.AP);
             }

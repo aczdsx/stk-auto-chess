@@ -98,7 +98,7 @@ namespace CookApps.AutoBattler
         {
             // 속성 시너지
             var elementType = _specData.character_element_type;
-            _elementIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteNameInGameBadge(elementType)).Forget();
+            _elementIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(elementType, isActive: true)).Forget();
             var elementSynergyList = SpecDataManager.Instance.GetSpecSynergyList(elementType);
             if (elementSynergyList != null && elementSynergyList.Count > 0)
             {
@@ -109,7 +109,7 @@ namespace CookApps.AutoBattler
             var asterismType = _specData.character_stella_type;
             if (asterismType != SynergyType.NONE)
             {
-                _asterismIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteNameInGameBadge(asterismType)).Forget();
+                _asterismIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(asterismType, isActive: true)).Forget();
                 var asterismSynergyList = SpecDataManager.Instance.GetSpecSynergyList(asterismType);
                 if (asterismSynergyList != null && asterismSynergyList.Count > 0)
                 {

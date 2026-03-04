@@ -143,7 +143,7 @@ namespace CookApps.AutoBattler
             var synergyList = SpecDataManager.Instance.GetSpecSynergyList(_synergyType);
             if (synergyList == null || synergyList.Count == 0) return;
 
-            bool isAsterism = DistinguishSynergyTypeHelper.IsAsterismSynergyType(_synergyType);
+            bool isAsterism = DistinguishSpecTypeHelper.IsAsterismSynergyType(_synergyType);
             int currentGrade = _synergyData.grade;
             int nextGrade = 1;
             int slotIndex = 0;

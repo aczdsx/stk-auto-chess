@@ -488,12 +488,12 @@ namespace CookApps.BattleSystem
 
         public void AddSynergyApplyEach(SynergyType targetSynergyType, long effectCodeID, ISpecSynergyData synergyData)
         {
-            if (DistinguishSynergyTypeHelper.IsAsterismSynergyType(targetSynergyType))
+            if (DistinguishSpecTypeHelper.IsAsterismSynergyType(targetSynergyType))
             {
                 if (targetSynergyType != _statData.Spec.character_stella_type)
                     return;
             }
-            else if (DistinguishSynergyTypeHelper.IsElementSynergyType(targetSynergyType))
+            else if (DistinguishSpecTypeHelper.IsElementSynergyType(targetSynergyType))
             {
                 if (targetSynergyType != _statData.Spec.character_element_type)
                     return;

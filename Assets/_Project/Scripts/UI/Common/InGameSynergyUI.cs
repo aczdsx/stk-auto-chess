@@ -114,10 +114,10 @@ namespace CookApps.AutoBattler
             // 아이콘
             _IconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteNameInGameBadge(synergyType)).Forget();
             _iconColorSwapper.Swap(showStep
-                ? DistinguishSynergyTypeHelper.ToSwapType(synergyType)
+                ? DistinguishSpecTypeHelper.ToSwapType(synergyType)
                 : SimpleSwapType.Disabled);
             
-            _iconMaskSwapper.Swap(DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType)
+            _iconMaskSwapper.Swap(DistinguishSpecTypeHelper.IsAsterismSynergyType(synergyType)
                 ? SimpleSwapType.Constellation
                 : SimpleSwapType.Elemental);
 
