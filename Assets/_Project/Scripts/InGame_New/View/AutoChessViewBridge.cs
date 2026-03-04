@@ -319,5 +319,12 @@ namespace CookApps.AutoChess.View
         {
             _runner.EnqueueCommand(command);
         }
+
+        // ── 게임 종료 ──
+
+        public void ExitGame()
+        {
+            _runner?.StopSimulation();
+        }
     }
 }

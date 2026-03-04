@@ -56,7 +56,7 @@ namespace CookApps.AutoBattler
 
         private async UniTask ChangeLanguage(SystemLanguage language)
         {
-            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData("시스템 알림", "MSG_ALARM_LANGUAGE_TEXT_CHANGE", "확인", "취소");
+            SystemConfirmPopupData newPopupData = new SystemConfirmPopupData("UI_SYSTEM_ALERT", "MSG_ALARM_LANGUAGE_TEXT_CHANGE", "UI_CONFIRM_BTN", "UI_CANCEL_BTN");
             var popup = await SceneUILayerManager.Instance.PushUILayerAsync<SystemConfirmPopup>(newPopupData);
             var isConfirmed = await popup.WaitForExit();
             if (isConfirmed is true)

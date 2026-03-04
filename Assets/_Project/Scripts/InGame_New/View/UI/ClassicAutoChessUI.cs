@@ -4,6 +4,7 @@ using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
+using CookApps.BattleSystem;
 using UnityEngine;
 
 namespace CookApps.AutoChess.View
@@ -114,7 +115,7 @@ namespace CookApps.AutoChess.View
             if (boardUnitCount < maxUnits && benchIds.Count > 0)
             {
                 var popupData = new SystemConfirmPopupData(
-                    "시스템 알림", "SYSTEM_MSG_MAX_CHARACTER_ALERT", "확인", "취소");
+                    "UI_SYSTEM_ALERT", "SYSTEM_MSG_MAX_CHARACTER_ALERT", "UI_CONFIRM_BTN", "UI_CANCEL_BTN");
                 var popup = await SceneUILayerManager.Instance
                     .PushUILayerAsync<SystemConfirmPopup>(popupData);
                 var isConfirmed = await popup.WaitForExit();
@@ -238,6 +239,27 @@ namespace CookApps.AutoChess.View
                 || _selectedStellaFilters.Contains(spec.character_stella_type);
 
             return passElement && passStella;
+        }
+
+        // ── 나가기 (전장 이탈 → BattleReady) ──
+
+        protected override async UniTaskVoid OnExitClickedAsync()
+        {
+            var popupData = new SystemConfirmPopupData(
+                "UI_SYSTEM_ALERT", "MSG_BATTLE_EXIT", "UI_CONFIRM_BTN", "UI_CANCEL_BTN");
+            var popup = await SceneUILayerManager.Instance
+                .PushUILayerAsync<SystemConfirmPopup>(popupData);
+            var isConfirmed = await popup.WaitForExit();
+            if (isConfirmed is not true) return;
+
+            ViewBridge.ExitGame();
+
+            int lastPlayStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
+            var specLastStageData = SpecDataManager.Instance.GetStageData(lastPlayStageID);
+
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            await SceneTransition.FadeInAsync();
+            SceneLoading.GoToNextScene("BattleReady", specLastStageData.chapter_id);
         }
 
         // ── 정리 ──

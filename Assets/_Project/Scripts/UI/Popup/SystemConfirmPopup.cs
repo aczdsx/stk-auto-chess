@@ -8,10 +8,10 @@ namespace CookApps.AutoBattler
 {
     public class SystemConfirmPopupData
     {
-        public readonly string titleText;
+        public readonly string titleText = "UI_SYSTEM_ALERT";
         public readonly string descText;
-        public readonly string confirmButtonText;
-        public readonly string cancelButtonText;
+        public readonly string confirmButtonText = "UI_CONFIRM_BTN";
+        public readonly string cancelButtonText = "UI_CANCEL_BTN";
 
         public SystemConfirmPopupData(string titleTextKey, string descTextKey, string confirmButtonTextKey, string cancelButtonTextKey)
         {

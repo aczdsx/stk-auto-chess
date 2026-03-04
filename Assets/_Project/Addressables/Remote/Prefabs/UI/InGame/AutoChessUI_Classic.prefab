@@ -85461,6 +85461,7 @@ MonoBehaviour:
   tableView: {fileID: 5998905341284168946}
   synergyTableView: {fileID: 1470658227881657195}
   unitCountText: {fileID: 3646164144665278522}
+  exitButton: {fileID: 7283563388971879756}
   phaseText: {fileID: 0}
   timerText: {fileID: 1182622782047068308}
   goldText: {fileID: 4164369364591797345}
@@ -85472,9 +85473,9 @@ MonoBehaviour:
   _characterBattleItemTabSwapper: {fileID: 348605571267406956}
   _startBattleButton: {fileID: 5758273881491220602}
   _filterButton: {fileID: 2043883509166939371}
-  _recommendButton: {fileID: 0}
-  _recommendObjOn: {fileID: 0}
-  _recommendObjOff: {fileID: 0}
+  _recommendButton: {fileID: 4970751991706216854}
+  _recommendObjOn: {fileID: 7399121705596448053}
+  _recommendObjOff: {fileID: 4584048565321241793}
 --- !u!95 &4084526490123980660
 Animator:
   serializedVersion: 7

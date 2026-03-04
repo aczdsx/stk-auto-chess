@@ -297,6 +297,8 @@ namespace CookApps.AutoBattler
             if (entry == null)
             {
                 // 엔트리를 찾을 수 없으면 토큰 키 반환
+                
+                Debug.LogWarning($"String Token 존재하지않아 그대로 반환 {tokenKey}");
                 return tokenKey;
             }
 

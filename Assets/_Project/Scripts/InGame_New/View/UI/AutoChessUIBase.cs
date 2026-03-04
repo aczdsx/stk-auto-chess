@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle.UI;
+using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -22,6 +24,9 @@ namespace CookApps.AutoChess.View
 
         [Header("Info")]
         [SerializeField] protected TMP_Text unitCountText;
+
+        [Header("Exit")]
+        [SerializeField] protected CAButton exitButton;
 
         [Header("HUD")]
         [SerializeField] protected TMP_Text phaseText;
@@ -53,10 +58,30 @@ namespace CookApps.AutoChess.View
             BoardInput = boardInput;
             PlayerIndex = playerIndex;
 
+            exitButton?.onClick.AddListener(OnExitClicked);
             OnInitialize();
         }
 
         protected virtual void OnInitialize() { }
+
+        // ── 나가기 ──
+
+        private void OnExitClicked()
+        {
+            OnExitClickedAsync().Forget();
+        }
+
+        protected virtual async UniTaskVoid OnExitClickedAsync()
+        {
+            var popupData = new SystemConfirmPopupData(
+                "UI_SYSTEM_ALERT", "MSG_SURRENDER_CONFIRM", "UI_CONFIRM_BTN", "UI_CANCEL_BTN");
+            var popup = await SceneUILayerManager.Instance
+                .PushUILayerAsync<SystemConfirmPopup>(popupData);
+            var isConfirmed = await popup.WaitForExit();
+            if (isConfirmed is not true) return;
+
+            // TODO: 항복 처리
+        }
 
         // ── 틱 동기화 ──
 
@@ -365,6 +390,7 @@ namespace CookApps.AutoChess.View
 
         private void OnDestroy()
         {
+            exitButton?.onClick.RemoveListener(OnExitClicked);
             OnCleanup();
         }
 
