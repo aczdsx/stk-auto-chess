@@ -5,6 +5,8 @@ using Cysharp.Threading.Tasks;
 using R3;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoBattler
 {
@@ -26,6 +28,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private GameObject _characterIllustParentObject;
 
+        private AsyncOperationHandle<GameObject> _illustHandle;
         private bool _isVictory = false;
 
         private CharacterInfo _specCharacter;
@@ -52,10 +55,15 @@ namespace CookApps.AutoBattler
 
             if (_specCharacter != null)
             {
+                if (_illustHandle.IsValid())
+                {
+                    Addressables.ReleaseInstance(_illustHandle);
+                    _illustHandle = default;
+                }
                 BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
 
                 string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacter.prefab_id);
-                AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
+                _illustHandle = Addressables.InstantiateAsync(illustPrefabName, _characterIllustParentObject.transform);
             }
 
             // 승리 시 보상 및 각종 데이터 처리
@@ -73,6 +81,12 @@ namespace CookApps.AutoBattler
             // 애니메이션 연출 적용
             string animKey = _isVictory ? "InGameResult_Win" : "InGameResult_Lose";
             baseAnimator.SetTrigger(animKey);
+        }
+
+        private void OnDestroy()
+        {
+            if (_illustHandle.IsValid())
+                Addressables.ReleaseInstance(_illustHandle);
         }
 
         private async UniTask OnExitButtonClickedAsync()

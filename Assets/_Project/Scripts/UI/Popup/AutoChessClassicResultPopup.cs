@@ -7,6 +7,8 @@ using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoBattler
 {
@@ -56,6 +58,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private GameObject _characterIllustParentObject;
 
+        private AsyncOperationHandle<GameObject> _illustHandle;
         private AutoChessClassicResultPopupParam _popupParam;
         private StageInfo _specStage;
 
@@ -95,12 +98,17 @@ namespace CookApps.AutoBattler
             // MVP 캐릭터 일러스트
             if (_popupParam.SpecCharacter != null && _characterIllustParentObject != null)
             {
+                if (_illustHandle.IsValid())
+                {
+                    Addressables.ReleaseInstance(_illustHandle);
+                    _illustHandle = default;
+                }
                 BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
 
                 string illustPrefabName = string.Format(
                     Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT,
                     _popupParam.SpecCharacter.prefab_id);
-                AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
+                _illustHandle = Addressables.InstantiateAsync(illustPrefabName, _characterIllustParentObject.transform);
             }
 
             // 별 표시
@@ -294,6 +302,12 @@ namespace CookApps.AutoBattler
                     .GetComponent<RewardItemSlot>();
                 rewardItemSlot.SetRewardSlot(newItem);
             }
+        }
+
+        private void OnDestroy()
+        {
+            if (_illustHandle.IsValid())
+                Addressables.ReleaseInstance(_illustHandle);
         }
 
         private void OnStarAnimationEndSound(int starIdx)

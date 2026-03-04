@@ -8,7 +8,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
 namespace CookApps.AutoBattler
@@ -47,11 +46,12 @@ namespace CookApps.AutoBattler
 
         [Header("Fade Setting")]
         [SerializeField] private Color _fadeCharacterColor;
-        
+
         [Header("Badge")]
         [SerializeField] private Badge _transcendenceBadge;
 
 
+        private AsyncOperationHandle<GameObject> _characterHandle;
         private CharacterInfo _specCharacterData;
         private CharacterData _userCharacterData;
         private List<CharacterInfo> _filteredList;
@@ -63,7 +63,13 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             _characterCardButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCardSlot()).AddTo(this);
-            
+
+        }
+
+        protected override void OnDestroy()
+        {
+            if (_characterHandle.IsValid())
+                Addressables.ReleaseInstance(_characterHandle);
         }
 
         public void SetCharcacterSlot(CharacterInfo characterData, List<CharacterInfo> filteredList)

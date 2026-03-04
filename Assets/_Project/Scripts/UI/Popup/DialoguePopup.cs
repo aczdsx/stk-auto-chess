@@ -13,6 +13,8 @@ using R3;
 using Spine.Unity;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
@@ -46,6 +48,7 @@ namespace CookApps.AutoBattler
 
         private Vector2 _tweenVector = new Vector2(1550f, 192f);
 
+        private readonly List<AsyncOperationHandle<GameObject>> _illustHandles = new();
         private DialogueLanguage _currentSpecDialogueData;
         private List<DialogueLanguage> _dialogueList = new List<DialogueLanguage>();
 
@@ -95,6 +98,7 @@ namespace CookApps.AutoBattler
 
             if (isChangePrefab)
             {
+                ReleaseAllIllusts();
                 BMUtil.RemoveChildObjects(_characeterIllustParentLeftObject.transform);
                 BMUtil.RemoveChildObjects(_characeterIllustParentRightObject.transform);
             }
@@ -149,12 +153,16 @@ namespace CookApps.AutoBattler
                 }
                 if (charPosDir[0] == 0)
                 {
-                    var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentLeftObject.transform);
+                    var handle = Addressables.InstantiateAsync(characterPrefabName, _characeterIllustParentLeftObject.transform);
+                    _illustHandles.Add(handle);
+                    var obj = handle.WaitForCompletion();
                     obj.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
                 }
                 else
                 {
-                    var obj = AddressablesUtil.Instantiate(characterPrefabName, _characeterIllustParentRightObject.transform);
+                    var handle = Addressables.InstantiateAsync(characterPrefabName, _characeterIllustParentRightObject.transform);
+                    _illustHandles.Add(handle);
+                    var obj = handle.WaitForCompletion();
                     obj.GetComponent<RectTransform>().localScale = new Vector3(-1, 1, 1);
                 }
             }
@@ -239,10 +247,26 @@ namespace CookApps.AutoBattler
             SceneUILayerManager.Instance.PopUILayer(this);
         }
 
+        private void OnDestroy()
+        {
+            ReleaseAllIllusts();
+        }
+
+        private void ReleaseAllIllusts()
+        {
+            for (int i = 0; i < _illustHandles.Count; i++)
+            {
+                if (_illustHandles[i].IsValid())
+                    Addressables.ReleaseInstance(_illustHandles[i]);
+            }
+            _illustHandles.Clear();
+        }
+
         private void ClearPopup()
         {
             currentDialogueSeq = 0;
 
+            ReleaseAllIllusts();
             BMUtil.RemoveChildObjects(_characeterIllustParentLeftObject.transform);
             BMUtil.RemoveChildObjects(_characeterIllustParentRightObject.transform);
         }
@@ -423,7 +447,9 @@ namespace CookApps.AutoBattler
             List<GameObject> chaObjs = new List<GameObject>();
             for (int i = 0; i < chPosStrings.Length; i++)
             {
-                GameObject obj = AddressablesUtil.Instantiate($"{CharacterIds[i]}_Static", _characeterIllustParentLeftObject.transform);
+                var staticHandle = Addressables.InstantiateAsync($"{CharacterIds[i]}_Static", _characeterIllustParentLeftObject.transform);
+                _illustHandles.Add(staticHandle);
+                GameObject obj = staticHandle.WaitForCompletion();
                 if (obj != null)
                 {
                     obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(charPosX[i], charPosY[i]);

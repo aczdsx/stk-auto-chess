@@ -3,7 +3,9 @@ using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Playables;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
@@ -70,6 +72,7 @@ namespace CookApps.AutoBattler
         private GameObject upperObj;
         private GameObject idleObj;
         private GameObject staticObj;
+        private AsyncOperationHandle<GameObject> _staticHandle;
         private PlayableDirector playObj;
         private Action EndAction;
 
@@ -342,8 +345,12 @@ namespace CookApps.AutoBattler
                 Destroy(lowObj);
             if (upperObj != null)
                 Destroy(upperObj);
-            if (staticObj != null)
-                Destroy(staticObj);
+            if (_staticHandle.IsValid())
+            {
+                Addressables.ReleaseInstance(_staticHandle);
+                _staticHandle = default;
+            }
+            staticObj = null;
             if (idleObj != null)
                 Destroy(idleObj);
 
@@ -356,7 +363,8 @@ namespace CookApps.AutoBattler
             upperBodySpriteLoader.SetSprite(targetSpriteName).Forget();
             //UpperBodyStaticObject.GetComponent<RectTransform>().sizeDelta = new Vector2(targetSprite.rect.width, targetSprite.rect.height);
 
-            staticObj = AddressablesUtil.Instantiate($"{characterID}_Static", CharaterStaticObjects[timeLineIdx].transform);
+            _staticHandle = Addressables.InstantiateAsync($"{characterID}_Static", CharaterStaticObjects[timeLineIdx].transform);
+            staticObj = _staticHandle.WaitForCompletion();
 
             CharaterIdleObjects[timeLineIdx].gameObject.SetActive(true);
             charaterIdleSpriteLoader[timeLineIdx].SetSprite(targetSpriteName).Forget();
@@ -509,14 +517,14 @@ namespace CookApps.AutoBattler
                 Destroy(lowObj);
             if (upperObj != null)
                 Destroy(upperObj);
-            if (staticObj != null)
-                Destroy(staticObj);
+            if (_staticHandle.IsValid())
+            {
+                Addressables.ReleaseInstance(_staticHandle);
+                _staticHandle = default;
+            }
+            staticObj = null;
             if (idleObj != null)
                 Destroy(idleObj);
-
-            // lowObj = AddressablesUtil.Instantiate($"{characterID}_Static", LowBodyStaticObject.transform);
-            // upperObj = AddressablesUtil.Instantiate($"{characterID}_Static", UpperBodyStaticObject.transform);
-            // staticObj = AddressablesUtil.Instantiate($"{characterID}_Static", CharaterStaticObjects[timeLineIdx].transform);
 
             var targetSpriteName = SpriteNameParser.GetCharacterIllustSprite(_specCharacter.prefab_id);
 
@@ -541,6 +549,11 @@ namespace CookApps.AutoBattler
             });
         }
 
+        private void OnDestroy()
+        {
+            if (_staticHandle.IsValid())
+                Addressables.ReleaseInstance(_staticHandle);
+        }
     }
 
 }

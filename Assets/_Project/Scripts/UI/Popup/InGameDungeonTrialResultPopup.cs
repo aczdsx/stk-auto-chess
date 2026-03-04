@@ -7,6 +7,8 @@ using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
@@ -63,6 +65,7 @@ namespace CookApps.AutoBattler
         [Header("Dungeon Info")]
 
 
+        private AsyncOperationHandle<GameObject> _illustHandle;
         private bool _isVictory = false;
         private CharacterInfo _specCharacter;
         private IReadOnlyList<Reward> _rewards;
@@ -112,10 +115,15 @@ namespace CookApps.AutoBattler
 
             if (_specCharacter != null)
             {
+                if (_illustHandle.IsValid())
+                {
+                    Addressables.ReleaseInstance(_illustHandle);
+                    _illustHandle = default;
+                }
                 BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
 
                 string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacter.prefab_id);
-                AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
+                _illustHandle = Addressables.InstantiateAsync(illustPrefabName, _characterIllustParentObject.transform);
             }
 
             // 애니메이션 연출 적용
@@ -141,6 +149,12 @@ namespace CookApps.AutoBattler
 
             // 앱이벤트 전송
             SendDungeonEndAppEvent(InGameManager.Instance.AppEventResult, InGameManager.Instance.AppEventReason);
+        }
+
+        private void OnDestroy()
+        {
+            if (_illustHandle.IsValid())
+                Addressables.ReleaseInstance(_illustHandle);
         }
 
         private async UniTask OnClickExitButtonAsync()

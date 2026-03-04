@@ -7,6 +7,8 @@ using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoBattler
 {
@@ -56,6 +58,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private GameObject _characterIllustParentObject;
 
+        private AsyncOperationHandle<GameObject> _illustHandle;
         private InGameResultPopupParam _popupParam;
 
         private bool _isPlayingTutorialStage = false;   // 튜토리얼 진행 여부 체크
@@ -100,11 +103,15 @@ namespace CookApps.AutoBattler
 
             if (_popupParam.SpecCharacter != null)
             {
+                if (_illustHandle.IsValid())
+                {
+                    Addressables.ReleaseInstance(_illustHandle);
+                    _illustHandle = default;
+                }
                 BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
 
                 string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _popupParam.SpecCharacter.prefab_id);
-                var obj = AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
-
+                _illustHandle = Addressables.InstantiateAsync(illustPrefabName, _characterIllustParentObject.transform);
             }
 
             var calculateStar = CalculateStar();
@@ -382,6 +389,12 @@ namespace CookApps.AutoBattler
 
             AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.id, InGameManager.Instance.SpecStage.stage_id, battleTime, myDeck?.CharacterPlacements.Count ?? 0,
                 myDeckPower, enemyPower, result, reason, clearCondition);
+        }
+
+        private void OnDestroy()
+        {
+            if (_illustHandle.IsValid())
+                Addressables.ReleaseInstance(_illustHandle);
         }
 
         private void OnStarAnimationEndSound(int starIdx)
