@@ -28,6 +28,7 @@ namespace CookApps.AutoChess
         public int FrameCount;         // 총 경과 프레임
         public int AlivePlayerCount;
         public bool IsGameOver;
+        public int LastCombatDurationFrames;  // 마지막 전투 경과 프레임 (별 판정용)
         public DeterministicRNG RNG;
 
         // ── 플레이어 상태 ──

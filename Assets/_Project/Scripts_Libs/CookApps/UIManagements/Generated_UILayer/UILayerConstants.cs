@@ -17,6 +17,7 @@ namespace CookApps.TeamBattle.UIManagements
                 "InGameTestMain" => "Prefabs/UI/00_Main/IngameTestMain.prefab",
                 "LobbyMain" => "Prefabs/UI/00_Main/LobbyMain.prefab",
                 "NaninovelMain" => "Prefabs/UI/00_Main/NaninovelMain.prefab",
+                "AutoChessClassicResultPopup" => "Prefabs/UI/01_Pops/AutoChessClassicResultPopup.prefab",
                 "ChapterListPopup" => "Prefabs/UI/01_Pops/ChapterListPopup.prefab",
                 "DialoguePopup" => "Prefabs/UI/01_Pops/DialoguePopup.prefab",
                 "DungeonTrialPopup" => "Prefabs/UI/01_Pops/DungeonTrialPopup.prefab",

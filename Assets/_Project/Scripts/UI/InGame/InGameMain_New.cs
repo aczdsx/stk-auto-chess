@@ -1,17 +1,20 @@
+using System.Collections.Generic;
 using CookApps.AutoChess;
 using CookApps.AutoChess.View;
 using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
+using Cysharp.Threading.Tasks;
+using Tech.Hive.V1;
 using UnityEngine;
 using UnityEngine.Pool;
-using UniTask = Cysharp.Threading.Tasks.UniTask;
-using UniTaskExtensions = Cysharp.Threading.Tasks.UniTaskExtensions;
 
 namespace CookApps.AutoBattler
 {
     public class InGameMain_New : UILayer
     {
         private AutoChessViewRoot _viewRoot;
+        private InGameMainParams _inGameParams;
+        private int _initialBoardUnitCount;
 
         protected override void OnPreEnter(object param)
         {
@@ -19,7 +22,7 @@ namespace CookApps.AutoBattler
 
             if (param is InGameMainParams inGameParams)
             {
-                UniTaskExtensions.Forget((UniTask)StartAutoChess(inGameParams));
+                StartAutoChess(inGameParams).Forget();
             }
             else
             {
@@ -27,8 +30,9 @@ namespace CookApps.AutoBattler
             }
         }
 
-        private async UniTask StartAutoChess(InGameMainParams inGameParams)
+        private async UniTaskVoid StartAutoChess(InGameMainParams inGameParams)
         {
+            _inGameParams = inGameParams;
             var stageInfo = SpecDataManager.Instance.GetStageData(inGameParams.StageId);
 
             // 스테이지 map_size 파싱
@@ -103,18 +107,118 @@ namespace CookApps.AutoBattler
                 screenPos => autoChessUI != null && autoChessUI.IsPointInScrollRect(screenPos));
             _viewRoot.ViewBridge.SetBoardInputHandler(boardInput);
 
+            // 게임 오버 이벤트 구독
+            _viewRoot.Runner.OnGameOver += HandleGameOver;
+
             Debug.Log("[InGameMain_New] AutoChess started.");
 
             // 캐릭터 비주얼 로딩 완료 대기 (첫 틱에서 SyncBoardUnits → View 생성 → 로딩 완료 이벤트)
             await _viewRoot.ViewBridge.WaitForAllViewsReady();
+
+            // 전투 시작 전 보드 유닛 수 기록 (별 조건 판정용)
+            var worldAfterReady = _viewRoot.Runner.GetWorld();
+            _initialBoardUnitCount = worldAfterReady.Boards[0].UnitCount;
 
             SceneTransition.FadeOutAsync();
         }
 
         protected override void OnPostExit()
         {
-            _viewRoot?.Cleanup();
+            if (_viewRoot != null)
+            {
+                _viewRoot.Runner.OnGameOver -= HandleGameOver;
+                _viewRoot.Cleanup();
+            }
             base.OnPostExit();
+        }
+
+        // ── 게임 오버 처리 ──
+
+        private void HandleGameOver(GameWorld world)
+        {
+            // 테스트 모드에서는 결과 처리 스킵
+            if (_inGameParams.InGameType == InGameType.TEST) return;
+
+            HandleGameOverAsync(world).Forget();
+        }
+
+        private async UniTaskVoid HandleGameOverAsync(GameWorld world)
+        {
+            // 1. 승패 판정 (PvE: Winner == 0 → 플레이어 승리)
+            bool isVictory = world.Matches[0].Winner == 0;
+
+            // 2. 별 조건 계산
+            float combatSeconds = world.LastCombatDurationFrames / (float)world.TickRate;
+            bool isStarTime = isVictory && combatSeconds <= 30f;
+
+            bool isStarNoDeath = false;
+            if (isVictory)
+            {
+                var matchState = world.CombatMatchStates[0];
+                if (matchState != null)
+                {
+                    isStarNoDeath = matchState.AliveCountA >= _initialBoardUnitCount;
+                }
+            }
+
+            // 3. MVP 캐릭터 결정 (보드에 배치된 첫 번째 유닛)
+            CharacterInfo mvpCharacter = null;
+            var boardSlots = world.BoardSlots[0];
+            for (int i = 0; i < boardSlots.Length; i++)
+            {
+                if (boardSlots[i] != UnitData.InvalidId)
+                {
+                    int unitIndex = world.FindUnitIndex(boardSlots[i]);
+                    if (unitIndex >= 0)
+                    {
+                        mvpCharacter = SpecDataManager.Instance.GetCharacterData(
+                            world.Units[unitIndex].ChampionSpecId);
+                        break;
+                    }
+                }
+            }
+
+            // 4. 서버에 결과 전송
+            uint stars = 1;
+            if (isStarTime) stars++;
+            if (isStarNoDeath) stars++;
+
+            IReadOnlyList<Reward> rewards = null;
+            try
+            {
+                var battleResult = new BattleResult
+                {
+                    IsVictory = isVictory,
+                    Stars = isVictory ? stars : 0,
+                    ClearTime = isVictory ? (ulong)(combatSeconds * 1000) : 0
+                };
+                var resp = await NetManager.Instance.Battle.EndAsync(
+                    _inGameParams.SessionId, battleResult);
+                if (resp is { IsSuccess: true })
+                {
+                    rewards = resp.Rewards;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning($"[InGameMain_New] Battle.EndAsync failed: {e.Message}");
+            }
+
+            // 5. AutoChess 리소스 정리
+            if (_viewRoot != null)
+            {
+                _viewRoot.Runner.OnGameOver -= HandleGameOver;
+                _viewRoot.Cleanup();
+            }
+
+            // 6. 결과 팝업 표시
+            var popupParam = new AutoChessClassicResultPopupParam(
+                isVictory, isStarTime, isStarNoDeath,
+                mvpCharacter, rewards,
+                _inGameParams.StageId, _inGameParams.InGameType);
+            SceneUILayerManager.Instance.PushUILayerAsync<AutoChessClassicResultPopup>(popupParam).Forget();
+
+            Debug.Log($"[InGameMain_New] Game Over - Victory={isVictory}, Stars={stars}, CombatTime={combatSeconds:F1}s");
         }
 
         // ── 모드별 Config 생성 ──

@@ -171,6 +171,7 @@ namespace CookApps.AutoChess
                         world.Players[i].IsReady = false;
                     break;
                 case GamePhase.Combat:
+                    world.LastCombatDurationFrames = world.PhaseElapsedFrames;
                     world.IsCombatActive = false;
                     for (int i = 0; i < GameWorld.MaxCombatMatches; i++)
                     {

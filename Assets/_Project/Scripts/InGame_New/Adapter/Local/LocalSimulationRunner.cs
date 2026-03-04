@@ -25,6 +25,7 @@ namespace CookApps.AutoChess
         // ── 이벤트 (View 레이어에서 구독) ──
         public event System.Action<GameWorld> OnTick;
         public event System.Action<GamePhase, GamePhase> OnPhaseChanged;
+        public event System.Action<GameWorld> OnGameOver;
 
         // ── 공개 API ──
 
@@ -123,6 +124,7 @@ namespace CookApps.AutoChess
                 {
                     Debug.Log("[AutoChess] Game Over!");
                     _isRunning = false;
+                    OnGameOver?.Invoke(_world);
                     break;
                 }
             }

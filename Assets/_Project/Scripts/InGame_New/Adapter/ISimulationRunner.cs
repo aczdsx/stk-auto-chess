@@ -29,5 +29,8 @@ namespace CookApps.AutoChess
 
         /// <summary>페이즈 전환 시 발생. (이전 페이즈, 새 페이즈) 전달.</summary>
         event System.Action<GamePhase, GamePhase> OnPhaseChanged;
+
+        /// <summary>게임 종료 시 발생. 최종 GameWorld 상태 전달.</summary>
+        event System.Action<GameWorld> OnGameOver;
     }
 }

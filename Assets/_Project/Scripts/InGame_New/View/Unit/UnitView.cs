@@ -111,6 +111,7 @@ namespace CookApps.AutoChess.View
             }
 
             var go = handle.Result;
+
             if (!_isActive || go == null)
             {
                 ReleaseCharacterVisual();
