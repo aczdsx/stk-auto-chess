@@ -82,6 +82,8 @@ namespace CookApps.AutoChess
 
             if (CombatLogger.Enabled) CombatLogger.LogDamage(target.CombatId, damage, target.CurrentHP, target.MaxHP);
 
+            state.EventQueue?.PushUnitDamaged(target.CombatId, CombatUnit.InvalidId, damage, DamageType.Physical);
+
             if (target.CurrentHP <= 0)
             {
                 target.CurrentHP = 0;

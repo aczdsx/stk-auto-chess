@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -25,7 +26,12 @@ namespace CookApps.AutoChess.View
         {
             public InGameVfx Vfx;
             public InGameVfxMovementBase Movement;
+            public ParticleSystem[] Particles;
+            public TrailRenderer[] Trails;
         }
+
+        // ── 트레일 페이드아웃 대기 ──
+        private readonly List<ActiveProjectile> _dyingProjectiles = new();
 
         // ── 지연 스폰 큐 (ATK 애니메이션 동기화) ──
         private readonly List<PendingProjectile> _pendingProjectiles = new();
@@ -80,7 +86,19 @@ namespace CookApps.AutoChess.View
         public void OnUnitDamaged(int targetId, int damage, DamageType damageType)
         {
             if (!_isCombatActive) return;
-            // TODO: 데미지 텍스트 팝업
+
+            var unitView = _unitViewManager?.FindCombatView(targetId);
+            if (unitView == null) return;
+
+            unitView.PlayHitEffect();
+
+            // 데미지 텍스트
+            var textView = InGameTextViewPool.Instance.Get();
+            if (textView != null)
+            {
+                float height = unitView.GetCharacterHeight();
+                textView.ShowDamageText(unitView.transform.position, height, damage, false).Forget();
+            }
         }
 
         public void OnUnitDied(int entityId)
@@ -226,7 +244,13 @@ namespace CookApps.AutoChess.View
 
         private void RegisterProjectile(InGameVfx vfx, InGameVfxMovementBase movement)
         {
-            var ap = new ActiveProjectile { Vfx = vfx, Movement = movement };
+            var ap = new ActiveProjectile
+            {
+                Vfx = vfx,
+                Movement = movement,
+                Particles = vfx.GetComponentsInChildren<ParticleSystem>(),
+                Trails = vfx.GetComponentsInChildren<TrailRenderer>(),
+            };
             _activeProjectiles.Add(ap);
 
             // 도착 시 제거 예약 (Update에서 일괄 처리)
@@ -259,22 +283,52 @@ namespace CookApps.AutoChess.View
 
         private void ReleaseProjectile(ActiveProjectile ap)
         {
+            if (ap.Movement != null) InGameVfxMovementPool.Return(ap.Movement);
+            ReleaseVfx(ap);
+        }
+
+        private static void ReleaseVfx(ActiveProjectile ap)
+        {
             if (ap.Vfx != null && ap.Vfx.CachedGo != null)
             {
                 ap.Vfx.Clear();
                 Addressables.ReleaseInstance(ap.Vfx.CachedGo);
             }
-            if (ap.Movement != null) InGameVfxMovementPool.Return(ap.Movement);
         }
 
         private void ClearAllProjectiles()
         {
             for (int i = _activeProjectiles.Count - 1; i >= 0; i--)
-            {
                 ReleaseProjectile(_activeProjectiles[i]);
-            }
             _activeProjectiles.Clear();
             _projectilesToRemove.Clear();
+
+            for (int i = _dyingProjectiles.Count - 1; i >= 0; i--)
+                ReleaseVfx(_dyingProjectiles[i]);
+            _dyingProjectiles.Clear();
+        }
+
+        private static void ClearParticlesImmediate(ParticleSystem[] particles)
+        {
+            if (particles == null) return;
+            for (int i = 0; i < particles.Length; i++)
+            {
+                if (particles[i] != null)
+                {
+                    particles[i].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                }
+            }
+        }
+
+        private static bool IsTrailAlive(TrailRenderer[] trails)
+        {
+            if (trails == null || trails.Length == 0) return false;
+            for (int i = 0; i < trails.Length; i++)
+            {
+                if (trails[i] != null && trails[i].positionCount > 0)
+                    return true;
+            }
+            return false;
         }
 
         // ── VFX 업데이트 (매 프레임) ──
@@ -310,16 +364,43 @@ namespace CookApps.AutoChess.View
                 ap.Vfx.CachedTr.position = ap.Movement.CurrentPosition;
             }
 
-            // 도착한 투사체 일괄 정리
+            // 도착한 투사체 → 파티클 즉시 제거, 트레일만 페이드아웃 대기
             if (_projectilesToRemove.Count > 0)
             {
                 for (int i = 0; i < _projectilesToRemove.Count; i++)
                 {
                     var ap = _projectilesToRemove[i];
-                    ReleaseProjectile(ap);
                     _activeProjectiles.Remove(ap);
+
+                    // movement 풀 반환
+                    if (ap.Movement != null) InGameVfxMovementPool.Return(ap.Movement);
+                    ap.Movement = null;
+
+                    // 파티클 즉시 정리 (바디/구체 파티클 제거)
+                    ClearParticlesImmediate(ap.Particles);
+
+                    if (ap.Trails != null && ap.Trails.Length > 0)
+                    {
+                        // 트레일이 있으면 페이드아웃 대기
+                        _dyingProjectiles.Add(ap);
+                    }
+                    else
+                    {
+                        ReleaseVfx(ap);
+                    }
                 }
                 _projectilesToRemove.Clear();
+            }
+
+            // 트레일 페이드아웃 완료 체크
+            for (int i = _dyingProjectiles.Count - 1; i >= 0; i--)
+            {
+                var dp = _dyingProjectiles[i];
+                if (!IsTrailAlive(dp.Trails))
+                {
+                    ReleaseVfx(dp);
+                    _dyingProjectiles.RemoveAt(i);
+                }
             }
         }
 

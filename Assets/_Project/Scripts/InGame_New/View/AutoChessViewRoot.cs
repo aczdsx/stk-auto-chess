@@ -15,6 +15,7 @@ namespace CookApps.AutoChess.View
         private GameObject _unitViewPrefab;
         private GameObject _autoChessUIPrefab;
         private GameObject _hpBarPrefab;
+        private GameObject _damageTextPrefab;
         private GameObject _stageInstance;
         private LocalSimulationRunner _runner;
         private AutoChessViewBridge _viewBridge;
@@ -53,6 +54,8 @@ namespace CookApps.AutoChess.View
 
             _hpBarPrefab = await Addressables.LoadAssetAsync<GameObject>(
                 "Prefabs/InGame/FloatingHpBar.prefab");
+            _damageTextPrefab = await Addressables.LoadAssetAsync<GameObject>(
+                "Prefabs/InGame/DamageText.prefab");
         }
 
         // ── 동적 초기화 (LoadResources 후 호출) ──
@@ -85,6 +88,10 @@ namespace CookApps.AutoChess.View
             if (_hpBarPrefab != null)
                 InGameHpBarViewPool.Instance.Initialize(_hpBarPrefab);
 
+            // 데미지 텍스트 풀 초기화
+            if (_damageTextPrefab != null)
+                InGameTextViewPool.Instance.InitializePool(_damageTextPrefab);
+
             // ViewBridge 와이어링
             _viewBridge = CreateChild<AutoChessViewBridge>("ViewBridge");
             _viewBridge.Setup(_runner, _unitViewManager, _combatViewManager, _boardGridView);
@@ -95,6 +102,7 @@ namespace CookApps.AutoChess.View
         public void Cleanup()
         {
             InGameHpBarViewPool.Instance.Clear();
+            InGameTextViewPool.Instance.ReleasePool();
 
             if (_stageInstance != null)
                 Destroy(_stageInstance);
@@ -117,6 +125,11 @@ namespace CookApps.AutoChess.View
             {
                 Addressables.Release(_hpBarPrefab);
                 _hpBarPrefab = null;
+            }
+            if (_damageTextPrefab != null)
+            {
+                Addressables.Release(_damageTextPrefab);
+                _damageTextPrefab = null;
             }
         }
 

@@ -252,6 +252,13 @@ namespace CookApps.AutoChess.View
             return _characterView.GetProjectileSpawnPosition();
         }
 
+        public float GetCharacterHeight()
+        {
+            if (_champSpecId <= 0) return 1.5f;
+            var spec = SpecDataManager.Instance.GetSpecCharacter(_champSpecId);
+            return spec?.height ?? 1.5f;
+        }
+
         public void PlayAttackAnimation()
         {
             _characterView?.PlayAnimation(AnimationKey.ATK);
@@ -259,7 +266,7 @@ namespace CookApps.AutoChess.View
 
         public void PlayHitEffect()
         {
-            // TODO: 피격 이펙트 (flash, shake)
+            _characterView?.OnHit();
         }
 
         public void PlayDeathAnimation()
