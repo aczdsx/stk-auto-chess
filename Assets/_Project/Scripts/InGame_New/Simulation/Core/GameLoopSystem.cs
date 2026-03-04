@@ -18,6 +18,9 @@ namespace CookApps.AutoChess
             world.FrameCount = 0;
             world.IsGameOver = false;
 
+            // 보드 크기 동기화 (Config 기준 단일 소스)
+            BoardHelper.Setup(config.BoardWidth, config.BoardHeight, config.CombatGridHeight);
+
             // 첫 페이즈 타이머 설정
             SetPhaseTimer(world, GamePhase.Preparation);
         }
@@ -113,7 +116,7 @@ namespace CookApps.AutoChess
             if (allFinished)
             {
                 CombatLogger.End();
-                UnityEngine.Debug.Log($"[CombatLog]\n{CombatLogger.GetLog()}");
+                CombatLogger.Flush("[CombatLog]");
                 TransitionToPhase(world, GamePhase.Result);
             }
         }
@@ -169,7 +172,11 @@ namespace CookApps.AutoChess
                     break;
                 case GamePhase.Combat:
                     world.IsCombatActive = false;
-                    SkillSystem.Cleanup();
+                    for (int i = 0; i < GameWorld.MaxCombatMatches; i++)
+                    {
+                        if (world.CombatMatchStates[i] != null)
+                            SkillSystem.Cleanup(world.CombatMatchStates[i]);
+                    }
                     break;
             }
         }
@@ -357,7 +364,7 @@ namespace CookApps.AutoChess
         private static void ForceEndCombat(GameWorld world)
         {
             CombatLogger.End();
-            UnityEngine.Debug.Log($"[CombatLog] TIMEOUT\n{CombatLogger.GetLog()}");
+            CombatLogger.Flush("[CombatLog] TIMEOUT");
             for (int i = 0; i < GameWorld.MaxCombatMatches; i++)
             {
                 if (!world.Matches[i].IsFinished)

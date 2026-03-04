@@ -6,11 +6,11 @@ namespace CookApps.AutoChess.View
 {
     /// <summary>
     /// 시뮬레이션 ↔ 뷰 브릿지.
-    /// LocalSimulationRunner에 구독하여 매 틱마다 View 매니저들에 상태를 전달.
+    /// ISimulationRunner에 구독하여 매 틱마다 View 매니저들에 상태를 전달.
     /// </summary>
     public class AutoChessViewBridge : MonoBehaviour
     {
-        private LocalSimulationRunner _runner;
+        private ISimulationRunner _runner;
         private UnitViewManager _unitViewManager;
         private CombatViewManager _combatViewManager;
         private BoardGridView _boardGridView;
@@ -18,7 +18,7 @@ namespace CookApps.AutoChess.View
         private BoardInputHandler _boardInputHandler;
 
         public void Setup(
-            LocalSimulationRunner runner,
+            ISimulationRunner runner,
             UnitViewManager unitViewManager,
             CombatViewManager combatViewManager,
             BoardGridView boardGridView)

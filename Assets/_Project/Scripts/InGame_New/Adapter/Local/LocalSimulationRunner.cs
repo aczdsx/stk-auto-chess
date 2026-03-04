@@ -8,7 +8,7 @@ namespace CookApps.AutoChess
     /// 네트워크 없이 로컬에서 게임을 실행하는 어댑터.
     /// 나중에 Quantum/Fusion 어댑터로 교체 가능.
     /// </summary>
-    public class LocalSimulationRunner : MonoBehaviour
+    public class LocalSimulationRunner : MonoBehaviour, ISimulationRunner
     {
         [Header("Settings")]
         [SerializeField] private GameModeType _gameMode = GameModeType.ClassicBattle;
@@ -49,6 +49,9 @@ namespace CookApps.AutoChess
             AutoChessSpecAdapter.InjectSpecs(_world);
 
             GameLoopSystem.Initialize(_world, config);
+
+            // 시뮬레이션 로그 출력 콜백 설정
+            CombatLogger.LogOutput = msg => Debug.Log(msg);
 
             _tickAccumulator = 0f;
             _isRunning = true;

@@ -24,7 +24,7 @@ namespace CookApps.AutoChess.View
         private BoardGridView _boardGridView;
         private TileEffectManager _tileEffectManager;
 
-        public LocalSimulationRunner Runner => _runner;
+        public ISimulationRunner Runner => _runner;
         public AutoChessViewBridge ViewBridge => _viewBridge;
         public UnitViewManager UnitViewManager => _unitViewManager;
         public BoardGridView BoardGridView => _boardGridView;

@@ -9,6 +9,9 @@ namespace CookApps.AutoChess
     {
         public static bool Enabled { get; private set; }
 
+        /// <summary>로그 출력 콜백. Adapter 레이어에서 설정 (예: Debug.Log).</summary>
+        public static System.Action<string> LogOutput;
+
         private static int _frame;
         private static System.Text.StringBuilder _sb;
 
@@ -34,6 +37,14 @@ namespace CookApps.AutoChess
         }
 
         public static string GetLog() => _sb?.ToString() ?? "";
+
+        /// <summary>로그를 LogOutput 콜백으로 출력</summary>
+        public static void Flush(string prefix = null)
+        {
+            var log = GetLog();
+            if (string.IsNullOrEmpty(log)) return;
+            LogOutput?.Invoke(prefix != null ? $"{prefix}\n{log}" : log);
+        }
 
         // ── 내부 ──
 

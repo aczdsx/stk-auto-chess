@@ -655,6 +655,9 @@ namespace CookApps.AutoChess
         // 이벤트 큐 (GameWorld.EventQueue 참조)
         public SimEventQueue EventQueue;
 
+        // 스킬 인스턴스 (매치별 관리, SkillSystem에서 사용)
+        public SimSkillBase[] Skills;  // [MaxCombatUnits]
+
         public static CombatMatchState Create(byte matchIndex, byte playerA, byte playerB)
         {
             var state = new CombatMatchState
@@ -667,6 +670,7 @@ namespace CookApps.AutoChess
                 GridTiles = new int[CombatGrid.Size],
                 Projectiles = new Projectile[MaxProjectiles],
                 StatusEffects = new StatusEffect[MaxStatusEffects],
+                Skills = new SimSkillBase[MaxCombatUnits],
             };
 
             for (int i = 0; i < MaxCombatUnits; i++)
