@@ -56,6 +56,13 @@ namespace CookApps.TeamBattle.Utility
         
         Elemental = 550,
         Constellation = 551,
+        
+        STRIKER = 601,
+        GUARDIAN   = 602,
+        SHARPSHOOTER  = 603,
+        ESPER = 604,
+        ORACLE = 605,
+        GHOST = 606,
     }
 
     public abstract class SimpleSwapper : CachedMonoBehaviour

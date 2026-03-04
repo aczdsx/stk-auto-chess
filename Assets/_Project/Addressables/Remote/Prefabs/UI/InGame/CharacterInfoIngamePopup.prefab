@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 4849562146686610173}
   - component: {fileID: 8002553424323735118}
   - component: {fileID: 277206661625589561}
+  - component: {fileID: 7330537211901859084}
   m_Layer: 5
   m_Name: SkillIcon
   m_TagString: Untagged
@@ -355,6 +356,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7330537211901859084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773800890589358932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 277206661625589561}
 --- !u!1 &993662308416262436
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,6 +383,7 @@ GameObject:
   - component: {fileID: 7575122074996494549}
   - component: {fileID: 5539084880280848701}
   - component: {fileID: 379220430471024381}
+  - component: {fileID: 4724229393258492595}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -478,6 +495,21 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 3
+--- !u!114 &4724229393258492595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993662308416262436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 5539084880280848701}
 --- !u!1 &1124701212246661030
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,7 +522,7 @@ GameObject:
   - component: {fileID: 8893674892308546077}
   - component: {fileID: 133185327135961807}
   m_Layer: 5
-  m_Name: Text_SkilDesc
+  m_Name: Text_PassiveDesc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -890,7 +922,7 @@ GameObject:
   - component: {fileID: 5842678177095308054}
   - component: {fileID: 3512266375178407524}
   m_Layer: 5
-  m_Name: AttackRanges
+  m_Name: SkillRanges
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1045,6 +1077,7 @@ GameObject:
   - component: {fileID: 3226410689256418385}
   - component: {fileID: 3496465129491915411}
   - component: {fileID: 298019920001201976}
+  - component: {fileID: 2959265093281054672}
   m_Layer: 5
   m_Name: StigmaIcon
   m_TagString: Untagged
@@ -1109,6 +1142,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2959265093281054672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795247675480478283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 298019920001201976}
 --- !u!1 &1842641754540406807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1390,13 +1438,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6385095295153808282}
+  - component: {fileID: 5532489469536825286}
   m_Layer: 5
   m_Name: CharacterInfoIngamePopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6385095295153808282
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1417,6 +1466,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5532489469536825286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126363006185091719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e236339c62546d7b68a926bbfbc4376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiLayerType: 2
+  baseAnimator: {fileID: 0}
+  preloadAddressables: []
+  _characterIllustSpriteLoader: {fileID: 4724229393258492595}
+  _characterName: {fileID: 8924085125451051048}
+  _characterStigmaSpriteLoader: {fileID: 2959265093281054672}
+  _characterInGameRole: {fileID: 3122798396777194273}
+  _elementIconSpriteLoader: {fileID: 6001660705904561079}
+  _elementName: {fileID: 236191196850764838}
+  _asterismIconSpriteLoader: {fileID: 671274499858809557}
+  _asterismName: {fileID: 2837008588942076973}
+  _skillIconSpriteLoader: {fileID: 7330537211901859084}
+  _skillName: {fileID: 2913895079351578053}
+  _skillDesc: {fileID: 8807438148345866009}
+  _skillRangeImage: {fileID: 2432691383750042826}
+  _passiveIconSpriteLoader: {fileID: 6653090148157096451}
+  _passiveName: {fileID: 9198174289083196589}
+  _passiveDesc: {fileID: 133185327135961807}
+  _passiveRangeImage: {fileID: 4642585740944652069}
 --- !u!1 &2391036169764395533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1429,7 +1509,7 @@ GameObject:
   - component: {fileID: 459356247260687974}
   - component: {fileID: 9198174289083196589}
   m_Layer: 5
-  m_Name: Text_SkillName
+  m_Name: Text_PassiveName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1565,7 +1645,7 @@ GameObject:
   - component: {fileID: 4219789237239856306}
   - component: {fileID: 4642585740944652069}
   m_Layer: 5
-  m_Name: AttackRanges
+  m_Name: PassiveRanges
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1715,7 +1795,7 @@ GameObject:
   - component: {fileID: 8827036357896734691}
   - component: {fileID: 2432691383750042826}
   m_Layer: 5
-  m_Name: AttackRanges
+  m_Name: SkillRanges
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2248,7 +2328,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: 94.93, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &827837739481275583
 CanvasRenderer:
@@ -2339,8 +2419,9 @@ GameObject:
   - component: {fileID: 7064747803783572185}
   - component: {fileID: 5663255649351380761}
   - component: {fileID: 4131075498236877270}
+  - component: {fileID: 6001660705904561079}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: Element_Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2403,6 +2484,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6001660705904561079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5060944383675891976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 4131075498236877270}
 --- !u!1 &5254954247110902921
 GameObject:
   m_ObjectHideFlags: 0
@@ -2538,7 +2634,7 @@ GameObject:
   - component: {fileID: 7188575206190464434}
   - component: {fileID: 2274075121857311185}
   m_Layer: 5
-  m_Name: AttackRanges
+  m_Name: PassiveRanges
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2715,7 +2811,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: 176.05, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1782126385016125138
 CanvasRenderer:
@@ -2807,7 +2903,7 @@ GameObject:
   - component: {fileID: 4855703617635087893}
   - component: {fileID: 1285237975649116306}
   m_Layer: 5
-  m_Name: Active
+  m_Name: HeaderDeco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2884,7 +2980,7 @@ GameObject:
   - component: {fileID: 4368534412471681552}
   - component: {fileID: 2837008588942076973}
   m_Layer: 5
-  m_Name: Text_PropertyName
+  m_Name: Text_ConstellationName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2904,10 +3000,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4698007206635271465}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 40}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 55, y: -10}
+  m_SizeDelta: {x: 101.05, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4368534412471681552
 CanvasRenderer:
@@ -3018,7 +3114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8016754135173843129}
   m_Layer: 5
-  m_Name: Property
+  m_Name: Constellation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3096,8 +3192,9 @@ GameObject:
   - component: {fileID: 826087036211240455}
   - component: {fileID: 5065670069565746959}
   - component: {fileID: 7552066977785799391}
+  - component: {fileID: 6653090148157096451}
   m_Layer: 5
-  m_Name: SkillIcon
+  m_Name: PassiveIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3160,6 +3257,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6653090148157096451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015094432159407059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 7552066977785799391}
 --- !u!1 &6068476459081993280
 GameObject:
   m_ObjectHideFlags: 0
@@ -3308,7 +3420,7 @@ GameObject:
   - component: {fileID: 3427602933327787771}
   - component: {fileID: 236191196850764838}
   m_Layer: 5
-  m_Name: Text_ConstellationName
+  m_Name: Text_ElementName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3328,10 +3440,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5466948774344209636}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 40}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 55, y: -10}
+  m_SizeDelta: {x: 19.93, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3427602933327787771
 CanvasRenderer:
@@ -3361,7 +3473,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC624\uB77C\uD074"
+  m_text: "\uBD88"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
   m_sharedMaterial: {fileID: -2439792414735106144, guid: a7d4bc6374bdaef45a6049b82bbe4fab, type: 2}
@@ -3442,7 +3554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7512931980100701993}
   m_Layer: 5
-  m_Name: Constellation
+  m_Name: Element
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3678,8 +3790,9 @@ GameObject:
   - component: {fileID: 2948906272616739093}
   - component: {fileID: 4733403548055923630}
   - component: {fileID: 623744250747162959}
+  - component: {fileID: 671274499858809557}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: Constellation_Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3742,6 +3855,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &671274499858809557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7869336418585035059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a6154cf120412a9d665346e9202aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpriteRenderer: 0
+  targetRenderer: {fileID: 0}
+  targetImage: {fileID: 623744250747162959}
 --- !u!1 &8050333865695198335
 GameObject:
   m_ObjectHideFlags: 0
@@ -3754,7 +3882,7 @@ GameObject:
   - component: {fileID: 6587011716518307735}
   - component: {fileID: 5197199531286628695}
   m_Layer: 5
-  m_Name: Passive
+  m_Name: HeaderDeco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

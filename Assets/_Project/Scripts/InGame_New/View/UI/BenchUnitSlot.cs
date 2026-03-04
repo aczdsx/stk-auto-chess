@@ -1,7 +1,8 @@
 using CookApps.AutoBattler;
 using CookApps.TeamBattle;
+using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
-using TMPro;
+using R3;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
@@ -18,6 +19,8 @@ namespace CookApps.AutoChess.View
     {
         [Header("Character Icon")]
         [SerializeField] private Transform _characterIconRoot;
+
+        [SerializeField] private CAButton _characterButton;
 
         [Header("Display")]
         // 머지 머지 모드에서 성을 표현
@@ -39,7 +42,20 @@ namespace CookApps.AutoChess.View
         // 드래그 상태
         private bool _isDraggingToBoard;
         private bool _scrollDragStarted;
+        private bool _wasDragging;
         private ScrollRect _cachedScrollRect;
+
+        // ── 초기화 ──
+
+        protected virtual void Awake()
+        {
+            if (_characterButton != null)
+            {
+                _characterButton.OnClickAsObservable()
+                    .Subscribe(this, (_, self) => self.OnClickSlot())
+                    .AddTo(this);
+            }
+        }
 
         // ── 데이터 설정 ──
 
@@ -122,6 +138,7 @@ namespace CookApps.AutoChess.View
         {
             _isDraggingToBoard = false;
             _scrollDragStarted = false;
+            _wasDragging = true;
 
             // ScrollRect 캐싱
             if (_cachedScrollRect == null)
@@ -198,6 +215,95 @@ namespace CookApps.AutoChess.View
 
             _isDraggingToBoard = false;
         }
+
+        // ── 클릭 & 선택 ──
+
+        private static BenchUnitSlot _currentSelected;
+        private static CharacterInfoInGamePopup _openPopup;
+
+        protected virtual void OnClickSlot()
+        {
+            if (_wasDragging)
+            {
+                _wasDragging = false;
+                return;
+            }
+
+            if (_currentChampSpecId <= 0) return;
+
+            // 같은 슬롯 재클릭 → 닫기
+            if (_currentSelected == this)
+            {
+                CloseCurrentPopup();
+                return;
+            }
+
+            // 팝업이 이미 열려있으면 → 슬롯만 교체하고 데이터 갱신
+            if (_openPopup != null)
+            {
+                if (_currentSelected != null)
+                    _currentSelected.OnDeselected();
+
+                _currentSelected = this;
+                OnSelected();
+
+                var popupParam = new CharacterInfoInGamePopup.PopupParam(_currentChampSpecId, _currentStarLevel);
+                _openPopup.Refresh(popupParam);
+                return;
+            }
+
+            // 이전 슬롯 정리
+            if (_currentSelected != null)
+            {
+                _currentSelected.OnDeselected();
+                _currentSelected = null;
+            }
+
+            _currentSelected = this;
+            OnSelected();
+            OpenPopupAsync().Forget();
+        }
+
+        private static void CloseCurrentPopup()
+        {
+            if (_openPopup != null)
+            {
+                SceneUILayerManager.Instance.PopUILayer(_openPopup);
+                _openPopup = null;
+            }
+            if (_currentSelected != null)
+            {
+                _currentSelected.OnDeselected();
+                _currentSelected = null;
+            }
+        }
+
+        private async UniTaskVoid OpenPopupAsync()
+        {
+            var self = this;
+            var popupParam = new CharacterInfoInGamePopup.PopupParam(_currentChampSpecId, _currentStarLevel);
+            var popup = await SceneUILayerManager.Instance.PushUILayerAsync<CharacterInfoInGamePopup>(popupParam, _ =>
+            {
+                // 다른 슬롯이 이미 선택되었으면 무시
+                if (_currentSelected != self) return;
+                _openPopup = null;
+                self.OnDeselected();
+                _currentSelected = null;
+            });
+
+            if (_currentSelected == self)
+            {
+                _openPopup = popup;
+            }
+            else
+            {
+                // 로딩 중 다른 슬롯이 선택됨 → 이 팝업 즉시 닫기
+                SceneUILayerManager.Instance.PopUILayer(popup);
+            }
+        }
+
+        protected virtual void OnSelected() { }
+        protected virtual void OnDeselected() { }
 
         // ── 보드 영역 판별 ──
 

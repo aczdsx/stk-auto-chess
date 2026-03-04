@@ -13,7 +13,6 @@ namespace CookApps.AutoBattler
     public class SynergyTooltipIngameMiniPopup : UILayerPopupBase
     {
         [SerializeField] private CAButton _closeButton;
-        [SerializeField] private CAButton _dimLayerButton;
         [SerializeField] private RectTransform _body;
 
         [Header("Synergy Info")]
@@ -57,7 +56,6 @@ namespace CookApps.AutoBattler
             base.Awake();
 
             _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
-            _dimLayerButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
         }
 
         protected override void OnPreEnter(object param)
@@ -229,6 +227,15 @@ namespace CookApps.AutoBattler
             if (text.Contains("{0}"))
                 return string.Format(text, data.min_int);
             return text;
+        }
+
+        protected override void OnPreExit()
+        {
+            base.OnPreExit();
+
+            _synergyData = null;
+            _inBattleChampionIds = null;
+            _reusableSlotDataList.Clear();
         }
 
         private void OnClickCloseButton()

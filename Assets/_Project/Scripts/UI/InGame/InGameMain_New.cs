@@ -62,6 +62,7 @@ namespace CookApps.AutoBattler
             // 덱 유닛을 벤치에 생성 + 적 데이터 준비
             var world = _viewRoot.Runner.GetWorld();
             CreateUnitsForClassicMode(world);
+            SynergySystem.Recalculate(world, 0);
             PrepareEnemyData(world, inGameParams.StageId);
 
             // BoardInputHandler 생성

@@ -139,15 +139,8 @@ namespace CookApps.AutoBattler
         {
             if (_synergyData == null || _synergyData.grade == 0) return;
 
-
             var param = new SynergyTooltipIngameMiniPopup.PopupParam(
-                _synergyType,
-                _synergyData,
-                _buttonRect,
-                _isActive,
-                _inBattleChampionIds
-            );
-
+                _synergyType, _synergyData, _buttonRect, _isActive, _inBattleChampionIds);
             SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipIngameMiniPopup>(param).Forget();
         }
 

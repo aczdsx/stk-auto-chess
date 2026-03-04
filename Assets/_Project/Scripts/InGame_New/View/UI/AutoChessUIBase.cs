@@ -67,6 +67,7 @@ namespace CookApps.AutoChess.View
 
             SyncInBattleChampionIds(world);
             SyncBenchSlots(world);
+            SyncSynergySlots(world);
             UpdateUnitCountText(world);
             UpdateHUD(world);
             OnSyncState(world);

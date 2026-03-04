@@ -12,6 +12,7 @@ namespace CookApps.AutoChess.View
         [SerializeField] private SimpleImageColorSwapper _positionColorSwapper;
         [SerializeField] private TMP_Text _cpText;
         [SerializeField] private SimpleImageSwapper _boardImageSwapper;
+        [SerializeField] private GameObject _selectedDim;
 
         protected override void UpdateVisual()
         {
@@ -45,6 +46,18 @@ namespace CookApps.AutoChess.View
 
             if (_cpText != null)
                 _cpText.text = spec.stat_atk.ToString("n0");
+        }
+
+        protected override void OnSelected()
+        {
+            if (_selectedDim != null)
+                _selectedDim.SetActive(true);
+        }
+
+        protected override void OnDeselected()
+        {
+            if (_selectedDim != null)
+                _selectedDim.SetActive(false);
         }
     }
 }

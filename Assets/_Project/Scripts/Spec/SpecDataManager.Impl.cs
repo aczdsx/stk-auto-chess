@@ -524,11 +524,13 @@ namespace CookApps.AutoBattler
 
         public List<SkillPassive> GetSkillPassiveDataList(long passiveSkillID)
         {
+            EnsureSkillPassiveCache();
             return skillPassiveDic.GetValueOrDefault(passiveSkillID);
         }
 
         public List<SkillActive> GetSkillDataListByPrefabID(int prefabID)
         {
+            EnsureSkillCache();
             return skillPrefabIDDic.GetValueOrDefault(prefabID);
         }
 
@@ -545,11 +547,13 @@ namespace CookApps.AutoBattler
 
         public List<SkillPassive> GetSkillPassiveDataList(int passiveGroupID)
         {
+            EnsureSkillPassiveCache();
             return skillPassiveDic.GetValueOrDefault(passiveGroupID);
         }
 
         public List<SkillPassive> GetSkillPassiveDataListByPrefabID(int prefabID)
         {
+            EnsureSkillPassiveCache();
             return skillPassivePrefabIDDic.GetValueOrDefault(prefabID);
         }
 

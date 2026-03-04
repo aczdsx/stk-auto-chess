@@ -63817,7 +63817,7 @@ GameObject:
   - component: {fileID: 5496455707797563302}
   - component: {fileID: 9125405289344595602}
   - component: {fileID: 7001846924360567098}
-  - component: {fileID: 1645453083470305375}
+  - component: {fileID: 2522720106596399716}
   m_Layer: 5
   m_Name: BenchUnitSlot
   m_TagString: Untagged
@@ -63868,6 +63868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterIconRoot: {fileID: 8252729760138260132}
+  _characterButton: {fileID: 2522720106596399716}
   _starIcon: {fileID: 0}
   _synergyElementLoader: {fileID: 1751302407018094239}
   _synergyClassLoader: {fileID: 7360197743733776041}
@@ -63875,6 +63876,7 @@ MonoBehaviour:
   _positionColorSwapper: {fileID: 1356787640090401456}
   _cpText: {fileID: 9191807748352869429}
   _boardImageSwapper: {fileID: 714755166934673934}
+  _selectedDim: {fileID: 4840576746173587239}
 --- !u!114 &7001846924360567098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63891,7 +63893,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1645453083470305375
+--- !u!114 &2522720106596399716
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63910,7 +63912,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -63934,19 +63936,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7001846924360567098}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: InGameCharacterItem, Assembly-CSharp
-        m_MethodName: OnClickItem
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   isBlockDrag: 0
   useDefaultClickSound: 1
   defaultClickSoundType: 0
