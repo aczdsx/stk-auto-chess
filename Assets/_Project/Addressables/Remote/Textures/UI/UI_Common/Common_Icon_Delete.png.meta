@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 819913f1d027ba24ebcf445aedc388f6
+guid: d3ff1430bec125445b68c73f96406b0d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1011168397176369212
-    second: Common_HalfaBox_R45_0
+      213: -923987139458637753
+    second: Common_Icon_Delete_0
+  - first:
+      213: -8775627124206216763
+    second: Common_Icon_Delete_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +55,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 45, z: 46, w: 45}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -126,23 +129,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Common_HalfaBox_R45_0
+      name: Common_Icon_Delete_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 46
-        height: 91
+        y: 21
+        width: 24
+        height: 7
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c307cc1cc44680e00800000000000000
-      internalID: 1011168397176369212
+      spriteID: 740e98797965d23f0800000000000000
+      internalID: -923987139458637753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Common_Icon_Delete_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c9d76430a5b63680800000000000000
+      internalID: -8775627124206216763
       vertices: []
       indices: 
       edges: []
@@ -152,7 +177,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -161,7 +186,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Common_HalfaBox_R45_0: 1011168397176369212
+      Common_Icon_Delete_0: -923987139458637753
+      Common_Icon_Delete_1: -8775627124206216763
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

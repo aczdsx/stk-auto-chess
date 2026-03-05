@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 819913f1d027ba24ebcf445aedc388f6
+guid: dfec0fe3fcb9b184c8c3cee592210a8d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1011168397176369212
-    second: Common_HalfaBox_R45_0
+      213: 7614209605929446970
+    second: Common_Frame_ChaSD_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +52,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 45, z: 46, w: 45}
+  spriteBorder: {x: 21, y: 18, z: 13, w: 9}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Common_HalfaBox_R45_0
+      name: Common_Frame_ChaSD_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 46
-        height: 91
+        width: 34
+        height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c307cc1cc44680e00800000000000000
-      internalID: 1011168397176369212
+      spriteID: a3eaac67b4b1ba960800000000000000
+      internalID: 7614209605929446970
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Common_HalfaBox_R45_0: 1011168397176369212
+      Common_Frame_ChaSD_0: 7614209605929446970
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
