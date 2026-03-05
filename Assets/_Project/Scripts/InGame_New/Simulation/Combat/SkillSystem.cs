@@ -19,15 +19,19 @@ namespace CookApps.AutoChess
                 var skill = SkillFactory.Create(unit.SkillSpecId);
                 if (skill == null) continue;
 
-                // 스킬 파라미터 생성 (추후 SkillActive 테이블 기반)
-                var skillParams = new SkillParams
+                if (SkillFactory.TryGetParams(unit.SkillSpecId, out var skillParams))
                 {
-                    SkillId = unit.SkillSpecId,
-                    PowerPercent = 200, // 기본 배율 (추후 SkillActive 테이블에서)
-                    DamageType = DamageType.Magical,
-                    CastFrames = 0,
-                };
-                skill.Initialize(skillParams);
+                    skill.Initialize(skillParams);
+                }
+                else
+                {
+                    skill.Initialize(new SkillParams
+                    {
+                        SkillId = unit.SkillSpecId,
+                        PowerPercent = 200,
+                        DamageType = DamageType.Magical,
+                    });
+                }
                 state.Skills[i] = skill;
             }
         }

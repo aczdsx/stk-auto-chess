@@ -1,14 +1,16 @@
 using System.Collections.Generic;
+using CookApps.AutoBattler;
 
 namespace CookApps.AutoChess
 {
     /// <summary>
-    /// 스킬 팩토리. SkillId → SimSkillBase 인스턴스 생성.
-    /// Reflection 금지 원칙에 따라 수동 등록.
+    /// 스킬 팩토리. SkillId -> SimSkillBase 인스턴스 생성.
+    /// Reflection 금지 원칙에 따라 수동 등록 + 스펙 기반 자동 등록.
     /// </summary>
     public static class SkillFactory
     {
         private static readonly Dictionary<int, System.Func<SimSkillBase>> _registry = new();
+        private static readonly Dictionary<int, SkillParams> _paramsCache = new();
         private static bool _initialized;
 
         public static void Register(int skillId, System.Func<SimSkillBase> creator)
@@ -23,20 +25,66 @@ namespace CookApps.AutoChess
             return null;
         }
 
-        /// <summary>수동 등록 초기화. 실제 스킬 ID는 SkillActive 테이블 기반으로 추후 매핑.</summary>
+        /// <summary>캐시된 SkillParams 조회</summary>
+        public static bool TryGetParams(int skillId, out SkillParams p)
+        {
+            return _paramsCache.TryGetValue(skillId, out p);
+        }
+
+        /// <summary>SkillActive 스펙 테이블 기반 자동 등록</summary>
         public static void Initialize()
         {
             if (_initialized) return;
             _initialized = true;
 
-            // 패턴별 기본 클래스 등록 (스킬 ID 범위는 추후 SkillActive 테이블에서 결정)
-            // 예시: Register(1001, () => new SimSkillSingleDamage());
+            // 커스텀 스킬 먼저 등록 (스펙 기반 등록에서 덮어쓰지 않도록)
+            RegisterCustomSkills();
+
+            var specManager = SpecDataManager.Instance;
+            if (specManager?.SkillActive == null) return;
+
+            for (int i = 0; i < specManager.SkillActive.Count; i++)
+            {
+                var spec = specManager.SkillActive[i];
+
+                // PASSIVE, NONE 타입은 스킵
+                if (spec.skill_type != SkillType.NORMAL &&
+                    spec.skill_type != SkillType.WEAPON &&
+                    spec.skill_type != SkillType.ACTIVE)
+                    continue;
+
+                int id = spec.id;
+                var archetype = SkillSpecAdapter.ClassifySkill(spec);
+                var skillParams = SkillSpecAdapter.BuildParams(spec);
+                _paramsCache[id] = skillParams;
+
+                // 커스텀 스킬이 이미 등록되어 있으면 스킵
+                if (_registry.ContainsKey(id)) continue;
+
+                // Custom 아키타입인데 아직 미등록이면 스킵
+                if (archetype == SimSkillArchetype.Custom) continue;
+
+                Register(id, () => SkillSpecAdapter.CreateFromArchetype(archetype));
+            }
+        }
+
+        private static void RegisterCustomSkills()
+        {
+            // Task 10에서 구현할 커스텀 스킬 등록
+            // Register(215252102, () => new SimSkillYuniHeal());
+            // Register(217433302, () => new SimSkillMinoProjectile());
+            // Register(217363204, () => new SimSkillVeinBounce());
+            // Register(217413301, () => new SimSkillTetoraKnockback());
+            // Register(215422301, () => new SimSkillMenshaShield());
+            // Register(217553404, () => new SimSkillClayChannel());
+            // Register(217563405, () => new SimSkillMarieAssassin());
         }
 
         /// <summary>팩토리 등록 해제 (테스트용)</summary>
         public static void Clear()
         {
             _registry.Clear();
+            _paramsCache.Clear();
             _initialized = false;
         }
     }
