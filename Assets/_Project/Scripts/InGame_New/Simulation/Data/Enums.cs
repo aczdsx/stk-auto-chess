@@ -185,6 +185,25 @@ namespace CookApps.AutoChess
     //  아이템 시스템
     // ═══════════════════════════════════════════════
 
+    /// <summary>시뮬레이션 스킬 아키타입</summary>
+    public enum SimSkillArchetype : byte
+    {
+        SingleDamage,
+        AoEDamage,
+        LineDamage,
+        DamageCC,
+        ConeDamage,
+        PatternDamage,
+        MultiHit,
+        Heal,
+        MultiTargetHeal,
+        TeleportStrike,
+        Buff,
+        Debuff,
+        Stun,
+        Custom,
+    }
+
     /// <summary>아이템 위치</summary>
     public enum ItemLocation : byte
     {
