@@ -92,6 +92,9 @@ namespace CookApps.AutoChess.View
 
             unitView.PlayHitEffect();
 
+            // 피격 VFX
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, unitView.transform.position);
+
             // 데미지 텍스트
             var textView = InGameTextViewPool.Instance.Get();
             if (textView != null)
