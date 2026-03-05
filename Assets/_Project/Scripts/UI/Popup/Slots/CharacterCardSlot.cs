@@ -50,8 +50,6 @@ namespace CookApps.AutoBattler
         [Header("Badge")]
         [SerializeField] private Badge _transcendenceBadge;
 
-
-        private AsyncOperationHandle<GameObject> _characterHandle;
         private CharacterInfo _specCharacterData;
         private CharacterData _userCharacterData;
         private List<CharacterInfo> _filteredList;
@@ -68,8 +66,7 @@ namespace CookApps.AutoBattler
 
         protected override void OnDestroy()
         {
-            if (_characterHandle.IsValid())
-                Addressables.ReleaseInstance(_characterHandle);
+            ReleaseCharacterImage();
         }
 
         public void SetCharcacterSlot(CharacterInfo characterData, List<CharacterInfo> filteredList)
