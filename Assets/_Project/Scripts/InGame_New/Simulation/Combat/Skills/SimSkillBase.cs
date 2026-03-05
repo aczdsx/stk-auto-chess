@@ -11,6 +11,22 @@ namespace CookApps.AutoChess
         public int Param1;
         public int Param2;
         public int Param3;
+
+        // CC
+        public CrowdControlType CCType;
+        public int CCDurationFrames;
+
+        // 버프/디버프
+        public StatModType BuffStat;
+        public int BuffValue;
+        public int BuffDurationFrames;
+
+        // 보조 배율
+        public int SecondaryPowerPercent;
+
+        // 멀티타겟 / 다단히트
+        public int TargetCount;
+        public int HitCount;
     }
 
     /// <summary>
@@ -24,12 +40,40 @@ namespace CookApps.AutoChess
         protected DamageType DamageType;
         protected int CastFrames;
 
+        // CC
+        protected CrowdControlType CCType;
+        protected int CCDurationFrames;
+
+        // 버프/디버프
+        protected StatModType BuffStat;
+        protected int BuffValue;
+        protected int BuffDurationFrames;
+
+        // 보조 배율
+        protected int SecondaryPowerPercent;
+
+        // 멀티타겟 / 다단히트
+        protected int TargetCount;
+        protected int HitCount;
+
         public virtual void Initialize(SkillParams p)
         {
             SkillId = p.SkillId;
             PowerPercent = p.PowerPercent;
             DamageType = p.DamageType;
             CastFrames = p.CastFrames;
+
+            CCType = p.CCType;
+            CCDurationFrames = p.CCDurationFrames;
+
+            BuffStat = p.BuffStat;
+            BuffValue = p.BuffValue;
+            BuffDurationFrames = p.BuffDurationFrames;
+
+            SecondaryPowerPercent = p.SecondaryPowerPercent;
+
+            TargetCount = p.TargetCount <= 0 ? 1 : p.TargetCount;
+            HitCount = p.HitCount <= 0 ? 1 : p.HitCount;
         }
 
         /// <summary>시전 가능 여부 (마나 외 추가 조건)</summary>
