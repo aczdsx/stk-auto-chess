@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CookApps.AutoBattler;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -53,6 +54,9 @@ namespace CookApps.AutoChess.View
 
         private bool _isEnabled = true;
 
+        // 유닛 선택(탭) 상태 — 타일 이펙트만 로컬 관리, 팝업은 InGameCharacterPopupHelper
+        private int _selectEffectHandle;
+
         // 타일 스냅 거리 제한
         private float _maxSnapDistSq;
 
@@ -93,6 +97,7 @@ namespace CookApps.AutoChess.View
             {
                 CancelDrag();
                 HideHighlight();
+                ApplyUnitTapSelection(UnitData.InvalidId);
             }
         }
 
@@ -248,6 +253,11 @@ namespace CookApps.AutoChess.View
                     _pendingUnitView = unitView;
                     _pendingScreenPos = screenPos;
                 }
+                else
+                {
+                    // 빈 곳 터치 → 팝업 닫기
+                    ApplyUnitTapSelection(UnitData.InvalidId);
+                }
             }
             // 드래그 threshold 체크
             else if (Input.GetMouseButton(0) && _isPendingDrag)
@@ -272,10 +282,21 @@ namespace CookApps.AutoChess.View
             {
                 if (_isPendingDrag)
                 {
-                    // threshold 미달 → 탭으로 처리 (드래그 없이 종료)
+                    // threshold 미달 → 탭으로 처리
+                    int tappedId = _pendingEntityId;
+                    var tapGrid = ScreenToGrid(_pendingScreenPos);
+
                     _isPendingDrag = false;
                     _pendingEntityId = UnitData.InvalidId;
                     _pendingUnitView = null;
+
+                    if (tapGrid.HasValue)
+                    {
+                        if (tappedId == InGameCharacterPopupHelper.SelectedEntityId)
+                            ApplyUnitTapSelection(UnitData.InvalidId);
+                        else
+                            ApplyUnitTapSelection(tappedId, tapGrid.Value.col, tapGrid.Value.row);
+                    }
                 }
                 else if (_isDraggingBoardUnit)
                 {
@@ -286,6 +307,7 @@ namespace CookApps.AutoChess.View
 
         private void StartBoardDrag(int entityId, UnitView unitView)
         {
+            InGameCharacterPopupHelper.Close();
             _isDraggingBoardUnit = true;
             _dragEntityId = entityId;
             _dragUnitView = unitView;
@@ -484,6 +506,36 @@ namespace CookApps.AutoChess.View
             {
                 _tileEffectManager.Hide(_rangeHandle);
                 _rangeHandle = 0;
+            }
+        }
+
+        // ── 유닛 선택 (팝업은 InGameCharacterPopupHelper, 이펙트만 로컬) ──
+
+        private void ApplyUnitTapSelection(int entityId, int col = -1, int row = -1)
+        {
+            if (entityId == UnitData.InvalidId)
+            {
+                InGameCharacterPopupHelper.Close();
+                return;
+            }
+
+            var world = _viewBridge.GetWorld();
+            if (world == null) return;
+
+            ref var unit = ref world.GetUnit(entityId);
+            var param = new CharacterInfoInGamePopup.PopupParam(unit.ChampionSpecId, unit.StarLevel);
+
+            // Select 내부에서 이전 onDeselected(HideSelectionTileEffect)가 호출되므로, 이펙트는 그 뒤에 표시
+            InGameCharacterPopupHelper.Select(entityId, param, HideSelectionTileEffect);
+            _selectEffectHandle = _tileEffectManager.Show(TileEffectType.Placement, col, row);
+        }
+
+        private void HideSelectionTileEffect()
+        {
+            if (_selectEffectHandle != 0)
+            {
+                _tileEffectManager.Hide(_selectEffectHandle);
+                _selectEffectHandle = 0;
             }
         }
     }

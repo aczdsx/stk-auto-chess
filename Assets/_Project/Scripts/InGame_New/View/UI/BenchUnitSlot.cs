@@ -79,7 +79,7 @@ namespace CookApps.AutoChess.View
             EntityId = entityId;
 
             // 선택된 entityId가 이 슬롯에 바인딩되면 선택 상태 복원
-            if (_selectedEntityId == entityId && _currentSelected != this)
+            if (InGameCharacterPopupHelper.SelectedEntityId == entityId && _currentSelected != this)
             {
                 if (_currentSelected != null)
                     _currentSelected.OnDeselected();
@@ -191,6 +191,7 @@ namespace CookApps.AutoChess.View
 
                     // 스크롤 → 보드 드래그 전환
                     _isDraggingToBoard = true;
+                    InGameCharacterPopupHelper.Close();
 
                     if (_scrollDragStarted && _cachedScrollRect != null)
                     {
@@ -244,9 +245,7 @@ namespace CookApps.AutoChess.View
 
         // ── 클릭 & 선택 ──
 
-        private static int _selectedEntityId = UnitData.InvalidId;
         private static BenchUnitSlot _currentSelected;
-        private static CharacterInfoInGamePopup _openPopup;
 
         protected virtual void OnClickSlot()
         {
@@ -258,78 +257,22 @@ namespace CookApps.AutoChess.View
 
             if (_currentChampSpecId <= 0) return;
 
-            // 같은 캐릭터 재클릭 → 닫기
-            if (_selectedEntityId == EntityId)
-            {
-                CloseCurrentPopup();
-                return;
-            }
-
-            // 팝업이 이미 열려있으면 → 슬롯만 교체하고 데이터 갱신
-            if (_openPopup != null)
-            {
-                if (_currentSelected != null)
-                    _currentSelected.OnDeselected();
-
-                _selectedEntityId = EntityId;
-                _currentSelected = this;
-                OnSelected();
-
-                var popupParam = new CharacterInfoInGamePopup.PopupParam(_currentChampSpecId, _currentStarLevel);
-                _openPopup.Refresh(popupParam);
-                return;
-            }
-
-            // 이전 슬롯 정리
-            if (_currentSelected != null)
-            {
-                _currentSelected.OnDeselected();
-                _currentSelected = null;
-            }
-
-            _selectedEntityId = EntityId;
-            _currentSelected = this;
-            OnSelected();
-            OpenPopupAsync().Forget();
-        }
-
-        private static void CloseCurrentPopup()
-        {
-            _selectedEntityId = UnitData.InvalidId;
-            if (_openPopup != null)
-            {
-                SceneUILayerManager.Instance.PopUILayer(_openPopup);
-                _openPopup = null;
-            }
-            if (_currentSelected != null)
-            {
-                _currentSelected.OnDeselected();
-                _currentSelected = null;
-            }
-        }
-
-        private async UniTaskVoid OpenPopupAsync()
-        {
-            var self = this;
             var popupParam = new CharacterInfoInGamePopup.PopupParam(_currentChampSpecId, _currentStarLevel);
-            var popup = await SceneUILayerManager.Instance.PushUILayerAsync<CharacterInfoInGamePopup>(popupParam, _ =>
+
+            // Select 내부에서 이전 onDeselected가 호출되어 이전 슬롯이 정리된 뒤 새 슬롯 선택
+            var self = this;
+            InGameCharacterPopupHelper.Select(EntityId, popupParam, () =>
             {
-                // 다른 슬롯이 이미 선택되었으면 무시
                 if (_currentSelected != self) return;
-                _selectedEntityId = UnitData.InvalidId;
-                _openPopup = null;
-                self.OnDeselected();
+                _currentSelected.OnDeselected();
                 _currentSelected = null;
             });
 
-            if (_currentSelected == self)
+            // 토글 닫기(같은 유닛 재탭)가 아닌 경우에만 선택 표시
+            if (InGameCharacterPopupHelper.SelectedEntityId == EntityId)
             {
-                _openPopup = popup;
-            }
-            else
-            {
-                // 로딩 중 다른 슬롯이 선택됨 → 이 팝업 즉시 닫기
-                SceneUILayerManager.Instance.PopUILayer(popup);
+                _currentSelected = this;
+                OnSelected();
             }
         }
 
