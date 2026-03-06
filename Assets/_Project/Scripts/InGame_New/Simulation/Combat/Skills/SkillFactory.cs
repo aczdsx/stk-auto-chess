@@ -41,11 +41,12 @@ namespace CookApps.AutoChess
             RegisterCustomSkills();
 
             var specManager = SpecDataManager.Instance;
-            if (specManager?.SkillActive == null) return;
+            var allSkills = specManager?.SkillActive?.All;
+            if (allSkills == null) return;
 
-            for (int i = 0; i < specManager.SkillActive.Count; i++)
+            for (int i = 0; i < allSkills.Count; i++)
             {
-                var spec = specManager.SkillActive[i];
+                var spec = allSkills[i];
 
                 // PASSIVE, NONE 타입은 스킵
                 if (spec.skill_type != SkillType.NORMAL &&
@@ -70,14 +71,13 @@ namespace CookApps.AutoChess
 
         private static void RegisterCustomSkills()
         {
-            // Task 10에서 구현할 커스텀 스킬 등록
-            // Register(215252102, () => new SimSkillYuniHeal());
-            // Register(217433302, () => new SimSkillMinoProjectile());
-            // Register(217363204, () => new SimSkillVeinBounce());
-            // Register(217413301, () => new SimSkillTetoraKnockback());
-            // Register(215422301, () => new SimSkillMenshaShield());
-            // Register(217553404, () => new SimSkillClayChannel());
-            // Register(217563405, () => new SimSkillMarieAssassin());
+            Register(215252102, () => new SimSkillYuniHeal());
+            Register(217433302, () => new SimSkillMinoProjectile());
+            Register(217363204, () => new SimSkillVeinBounce());
+            Register(217413301, () => new SimSkillTetoraKnockback());
+            Register(215422301, () => new SimSkillMenshaShield());
+            Register(217553404, () => new SimSkillClayChannel());
+            Register(217563405, () => new SimSkillMarieAssassin());
         }
 
         /// <summary>팩토리 등록 해제 (테스트용)</summary>

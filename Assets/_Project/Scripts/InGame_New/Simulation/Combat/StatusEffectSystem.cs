@@ -139,6 +139,24 @@ namespace CookApps.AutoChess
             return damage; // 남은 데미지
         }
 
+        /// <summary>유닛의 디버프 N개 제거 (먼저 추가된 것부터)</summary>
+        public static void RemoveDebuffs(CombatMatchState state, int unitIndex, int count)
+        {
+            int removed = 0;
+            for (int i = 0; i < state.StatusEffectCount && removed < count; i++)
+            {
+                ref var effect = ref state.StatusEffects[i];
+                if (!effect.IsActive) continue;
+                if (effect.OwnerUnitIndex != unitIndex) continue;
+                if (effect.Type != StatusEffectType.StatDebuff) continue;
+
+                // 역산 후 비활성화
+                OnEffectExpired(state, ref effect);
+                effect.IsActive = false;
+                removed++;
+            }
+        }
+
         /// <summary>해당 유닛의 쉴드 합산 재계산 → CombatUnit.ShieldAmount 갱신</summary>
         private static void RecalcShieldCache(CombatMatchState state, int unitIndex)
         {

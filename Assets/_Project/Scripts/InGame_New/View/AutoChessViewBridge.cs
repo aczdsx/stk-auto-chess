@@ -184,7 +184,7 @@ namespace CookApps.AutoChess.View
                 case SimEventType.UnitCastSkill:
                 {
                     var element = ResolveElementFromCaster(world, evt.EntityId);
-                    _combatViewManager.OnUnitCastSkill(evt.EntityId, evt.Value0, element);
+                    _combatViewManager.OnUnitCastSkill(evt.EntityId, evt.TargetEntityId, evt.Value0, element);
                     break;
                 }
 

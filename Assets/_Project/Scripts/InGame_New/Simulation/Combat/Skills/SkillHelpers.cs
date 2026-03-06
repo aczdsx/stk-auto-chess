@@ -176,6 +176,38 @@ namespace CookApps.AutoChess
             return bestTarget;
         }
 
+        /// <summary>HP가 가장 낮은 아군 N명의 CombatId 배열 반환. 실제 찾은 수 반환.</summary>
+        public static int FindLowestHPAllies(CombatMatchState state, byte teamIndex, int count, int[] resultBuffer)
+        {
+            int found = 0;
+            for (int c = 0; c < count; c++)
+            {
+                int bestIdx = -1;
+                int bestHP = int.MaxValue;
+                for (int i = 0; i < state.UnitCount; i++)
+                {
+                    ref var u = ref state.Units[i];
+                    if (u.TeamIndex != teamIndex || !u.IsAlive) continue;
+
+                    bool alreadySelected = false;
+                    for (int j = 0; j < found; j++)
+                    {
+                        if (resultBuffer[j] == u.CombatId) { alreadySelected = true; break; }
+                    }
+                    if (alreadySelected) continue;
+
+                    if (u.CurrentHP < bestHP)
+                    {
+                        bestHP = u.CurrentHP;
+                        bestIdx = i;
+                    }
+                }
+                if (bestIdx < 0) break;
+                resultBuffer[found++] = state.Units[bestIdx].CombatId;
+            }
+            return found;
+        }
+
         /// <summary>범위 내 적 수 카운트</summary>
         public static int CountEnemiesInRadius(CombatMatchState state, byte casterTeam,
             int centerCol, int centerRow, int radius)

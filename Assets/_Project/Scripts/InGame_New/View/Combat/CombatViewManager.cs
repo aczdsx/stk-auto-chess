@@ -110,18 +110,47 @@ namespace CookApps.AutoChess.View
             // TODO: 사망 VFX
         }
 
-        public void OnUnitCastSkill(int casterId, int skillSpecId, SynergyType element)
+        public void OnUnitCastSkill(int casterId, int targetId, int skillSpecId, SynergyType element)
         {
             if (!_isCombatActive) return;
-            if (_tileEffectManager == null || element == SynergyType.NONE) return;
 
-            if (_unitViewManager != null)
+            var casterView = _unitViewManager?.FindCombatView(casterId);
+
+            // 원소 타일 이펙트
+            if (_tileEffectManager != null && element != SynergyType.NONE && casterView != null)
             {
-                var unitView = _unitViewManager.FindCombatView(casterId);
-                if (unitView != null)
+                var castType = TileEffectManager.SynergyToCastType(element);
+                _tileEffectManager.ShowAt(castType, casterView.transform.position, 1.0f);
+            }
+
+            // 스킬 VFX (SkillActive.skill_vfxs)
+            if (skillSpecId <= 0) return;
+            var skillList = SpecDataManager.Instance.GetSkillDataList(skillSpecId);
+            if (skillList == null || skillList.Count == 0) return;
+            var skillSpec = skillList[0];
+            if (skillSpec.skill_vfxs == null || skillSpec.skill_vfxs.Length == 0) return;
+
+            // 첫 번째 VFX: 캐스터 위치에 재생
+            if (casterView != null && skillSpec.skill_vfxs.Length > 0)
+            {
+                var vfxType = skillSpec.skill_vfxs[0];
+                if (vfxType != InGameVfxNameType.NONE)
                 {
-                    var castType = TileEffectManager.SynergyToCastType(element);
-                    _tileEffectManager.ShowAt(castType, unitView.transform.position, 1.0f);
+                    InGameVfxManager.Instance.AddInGameVfx(vfxType, casterView.transform.position);
+                }
+            }
+
+            // 두 번째 VFX: 타겟 위치에 재생 (있으면)
+            if (skillSpec.skill_vfxs.Length > 1 && targetId >= 0)
+            {
+                var targetView = _unitViewManager?.FindCombatView(targetId);
+                if (targetView != null)
+                {
+                    var vfxType = skillSpec.skill_vfxs[1];
+                    if (vfxType != InGameVfxNameType.NONE)
+                    {
+                        InGameVfxManager.Instance.AddInGameVfx(vfxType, targetView.transform.position);
+                    }
                 }
             }
         }
