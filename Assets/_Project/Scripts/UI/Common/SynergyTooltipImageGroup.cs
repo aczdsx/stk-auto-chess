@@ -22,6 +22,7 @@ namespace CookApps.AutoBattler
             public int PrefabId;
             public GradeType Grade;
             public bool InBattle;
+            public List<SynergyType> SynergyTypes;
         }
 
         /// <summary>
@@ -50,6 +51,7 @@ namespace CookApps.AutoBattler
             {
                 var data = characters[i];
                 _slots[i].SetCharacter(data.PrefabId, data.Grade, data.InBattle);
+                _slots[i].SetSynergyIcons(data.SynergyTypes);
                 _slots[i].SetActive(true);
                 _slots[i].transform.SetSiblingIndex(i);
             }

@@ -30,6 +30,8 @@ namespace CookApps.AutoChess.View
         [SerializeField] private CAButton _recommendButton;
         [SerializeField] private GameObject _recommendObjOn;
         [SerializeField] private GameObject _recommendObjOff;
+        [SerializeField] private CAButton _presetButton;
+        private bool _presetLoading;
 
         private TableViewController<int, BenchUnitSlot> _benchController;
         private TableViewController<int, InGameSynergyUI> _synergyController;
@@ -66,6 +68,7 @@ namespace CookApps.AutoChess.View
             _startBattleButton?.onClick.AddListener(OnStartBattleClicked);
             _filterButton?.onClick.AddListener(OnFilterClicked);
             _recommendButton?.onClick.AddListener(OnRecommendClicked);
+            _presetButton?.onClick.AddListener(OnPresetClicked);
         }
 
         protected override void OnSyncState(GameWorld world)
@@ -196,6 +199,34 @@ namespace CookApps.AutoChess.View
             _recommendObjOff.SetActive(!canRecommend);
         }
 
+        // ── 프리셋 ──
+
+        private void OnPresetClicked()
+        {
+            var existing = SceneUILayerManager.Instance.GetUILayer<PresetInGamePopup>();
+            if (existing != null)
+            {
+                SceneUILayerManager.Instance.PopUILayer(existing);
+                return;
+            }
+
+            if (_presetLoading) return;
+            OpenPresetAsync().Forget();
+        }
+
+        private async UniTaskVoid OpenPresetAsync()
+        {
+            _presetLoading = true;
+            var param = new PresetInGamePopup.PresetPopupParam
+            {
+                ViewBridge = ViewBridge,
+                GetWorld = () => CurrentWorld,
+                PlayerIndex = PlayerIndex,
+            };
+            await SceneUILayerManager.Instance.PushUILayerAsync<PresetInGamePopup>(param);
+            _presetLoading = false;
+        }
+
         // ── 필터 ──
 
         private void OnFilterClicked()
@@ -271,6 +302,7 @@ namespace CookApps.AutoChess.View
             _startBattleButton?.onClick.RemoveListener(OnStartBattleClicked);
             _filterButton?.onClick.RemoveListener(OnFilterClicked);
             _recommendButton?.onClick.RemoveListener(OnRecommendClicked);
+            _presetButton?.onClick.RemoveListener(OnPresetClicked);
         }
     }
 }

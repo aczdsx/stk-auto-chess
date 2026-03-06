@@ -59,6 +59,7 @@ namespace CookApps.TeamBattle.UIManagements
                 "CharacterInfoInGamePopup" => "Prefabs/UI/InGame/CharacterInfoIngamePopup.prefab",
                 "EnemySkillTooltipPopup" => "Prefabs/UI/InGame/EnemySkillTooltipPopup.prefab",
                 "FilterTooltipInIngamePopup" => "Prefabs/UI/InGame/FilterTooltipInIngamePopup.prefab",
+                "PresetInGamePopup" => "Prefabs/UI/InGame/PresetIngamePopup.prefab",
                 "SkillTooltipPopup_1" => "Prefabs/UI/InGame/RightSkillTooltipPopup.prefab",
                 "SynergyTooltipIngameMiniPopup" => "Prefabs/UI/InGame/SynergyTooltipIngameMiniPopup.prefab",
                 "LoadingMain" => "Prefabs/UI/Loading/LoadingMain.prefab",
