@@ -21,6 +21,9 @@ namespace CookApps.AutoChess
             // 보드 크기 동기화 (Config 기준 단일 소스)
             BoardHelper.Setup(config.BoardWidth, config.BoardHeight, config.CombatGridHeight);
 
+            // 스킬 팩토리 초기화 (스펙 테이블 → 아키타입 자동 등록)
+            SkillFactory.Initialize();
+
             // 첫 페이즈 타이머 설정
             SetPhaseTimer(world, GamePhase.Preparation);
         }
