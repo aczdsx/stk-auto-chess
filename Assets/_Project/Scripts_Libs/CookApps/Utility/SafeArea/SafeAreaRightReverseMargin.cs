@@ -1,12 +1,15 @@
+using System;
 using UnityEngine;
 
 namespace CookApps.TeamBattle.Utility
 {
+    [Obsolete("SafeAreaInset(edge=Right, mode=Outward)으로 교체하세요.")]
     public class SafeAreaRightReverseMargin : SafeAreaMarginBase
     {
         private static float? marginRight;
         private static Rect processedSafeArea;
         private static Vector2 processedResolution;
+        private static ScreenOrientation processedOrientation;
         private static bool hasProcessed;
 
         public float MarginRight => marginRight ?? 0;
@@ -14,6 +17,7 @@ namespace CookApps.TeamBattle.Utility
         protected override float? StoredMargin { get => marginRight; set => marginRight = value; }
         protected override Rect ProcessedSafeArea { get => processedSafeArea; set => processedSafeArea = value; }
         protected override Vector2 ProcessedResolution { get => processedResolution; set => processedResolution = value; }
+        protected override ScreenOrientation ProcessedOrientation { get => processedOrientation; set => processedOrientation = value; }
         protected override bool HasProcessed { get => hasProcessed; set => hasProcessed = value; }
 
         protected override float ComputeRawMargin(Rect safeArea, Vector2 resolution) => resolution.x - (safeArea.x + safeArea.width);
