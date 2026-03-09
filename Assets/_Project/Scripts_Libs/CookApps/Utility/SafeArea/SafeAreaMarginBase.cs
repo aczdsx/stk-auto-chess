@@ -41,14 +41,14 @@ namespace CookApps.TeamBattle.Utility
             Refresh();
         }
 
-        public void Refresh(bool forceRecalculate = false)
+        public void Refresh()
         {
             CacheOriginIfNeeded();
 
             var safeArea = Screen.safeArea;
             var resolution = Screen.fullScreen ? new Vector2(Screen.currentResolution.width, Screen.currentResolution.height) : new Vector2(Screen.width, Screen.height);
             var orientation = Screen.orientation;
-            if (forceRecalculate || !HasProcessed || ProcessedSafeArea != safeArea || ProcessedResolution != resolution || ProcessedOrientation != orientation)
+            if (!HasProcessed || ProcessedSafeArea != safeArea || ProcessedResolution != resolution || ProcessedOrientation != orientation)
             {
                 ProcessedSafeArea = safeArea;
                 ProcessedResolution = resolution;

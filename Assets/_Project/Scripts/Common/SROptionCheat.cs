@@ -96,13 +96,13 @@ public partial class SROptions
         var safeAreas = Object.FindObjectsByType<SafeArea>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         for (var i = 0; i < safeAreas.Length; i++)
         {
-            safeAreas[i].Refresh(true);
+            safeAreas[i].Refresh();
         }
 
         var safeAreaMargins = Object.FindObjectsByType<SafeAreaMarginBase>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         for (var i = 0; i < safeAreaMargins.Length; i++)
         {
-            safeAreaMargins[i].Refresh(true);
+            safeAreaMargins[i].Refresh();
         }
     }
 

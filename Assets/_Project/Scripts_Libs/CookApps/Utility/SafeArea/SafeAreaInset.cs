@@ -64,7 +64,6 @@ namespace CookApps.TeamBattle.Utility
 
             if (hasProcessed && processedSafeArea == safeArea && processedResolution == resolution && processedOrientation == orientation)
             {
-                ApplyMargin(storedMargin);
                 return;
             }
 
