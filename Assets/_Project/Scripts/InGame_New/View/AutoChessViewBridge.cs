@@ -170,7 +170,7 @@ namespace CookApps.AutoChess.View
             switch (evt.Type)
             {
                 case SimEventType.UnitAttacked:
-                    _combatViewManager.OnUnitAttacked(evt.EntityId, evt.TargetEntityId, evt.Value0, evt.Flag0);
+                    _combatViewManager.OnUnitAttacked(evt.EntityId, evt.TargetEntityId, evt.Value0, evt.Flag0, evt.Value1 != 0);
                     break;
 
                 case SimEventType.UnitDamaged:
@@ -201,6 +201,13 @@ namespace CookApps.AutoChess.View
                 {
                     var element = ResolveElementFromSkill(evt.Value0);
                     _combatViewManager.OnProjectileExploded(evt.Col, evt.Row, evt.Radius, element);
+                    break;
+                }
+
+                case SimEventType.SkillAreaEffect:
+                {
+                    var element = ResolveElementFromCaster(world, evt.EntityId);
+                    _combatViewManager.OnSkillAreaEffect(evt.Col, evt.Row, evt.Radius, element, evt.Flag0);
                     break;
                 }
 

@@ -92,11 +92,24 @@ namespace CookApps.AutoChess
         {
             if (unit.State != CombatState.CastingSkill) return;
 
+            var skill = state.Skills[unitIndex];
+
+            // 채널링 스킬: 매 틱마다 OnChannelTick 호출
+            if (skill != null && skill.IsChanneling)
+            {
+                bool continuing = skill.OnChannelTick(state, ref unit, ref rng);
+                if (!continuing)
+                {
+                    unit.State = CombatState.Idle;
+                    unit.CurrentTargetId = CombatUnit.InvalidId;
+                }
+                return;
+            }
+
             unit.SkillCastTimer--;
             if (unit.SkillCastTimer > 0) return;
 
             // 시전 완료: 효과 적용
-            var skill = state.Skills[unitIndex];
             if (skill != null)
             {
                 int targetId = unit.CurrentTargetId;

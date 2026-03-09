@@ -1,6 +1,10 @@
 namespace CookApps.AutoChess
 {
-    /// <summary>테토라: 단일 데미지 + 넉백, 넉백 착지 지점 AoE 스턴</summary>
+    /// <summary>
+    /// 테토라: 단일 데미지 + 넉백
+    /// - 충돌 시: 착지 지점 AoE 데미지 + 스턴
+    /// - 미충돌 시: 추가 효과 없음 (타격딜만)
+    /// </summary>
     public class SimSkillTetoraKnockback : SimSkillBase
     {
         private int _knockbackDistance;
@@ -28,10 +32,11 @@ namespace CookApps.AutoChess
             ref var target = ref state.Units[idx];
 
             int dirCol = caster.TeamIndex == 0 ? 1 : -1;
-            SkillCCHelper.Knockback(state, ref target, dirCol, 0, _knockbackDistance);
+            int actualMoved = SkillCCHelper.Knockback(state, ref target, dirCol, 0, _knockbackDistance);
+            bool hitWall = actualMoved < _knockbackDistance;
 
-            // 넉백 후 위치에서 AoE 스턴
-            if (CCType != CrowdControlType.None && CCDurationFrames > 0)
+            // 충돌 시에만 착지 지점 AoE 데미지 + 스턴
+            if (hitWall && CCType != CrowdControlType.None && CCDurationFrames > 0)
             {
                 int col = target.GridCol;
                 int row = target.GridRow;

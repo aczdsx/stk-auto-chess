@@ -35,16 +35,27 @@ namespace CookApps.AutoChess.View
 
         // ── 지연 스폰 큐 (ATK 애니메이션 동기화) ──
         private readonly List<PendingProjectile> _pendingProjectiles = new();
+        private readonly List<PendingMeleeAttack> _pendingMeleeAttacks = new();
+        private readonly HashSet<int> _pendingMeleeTargetIds = new();
 
         private struct PendingProjectile
         {
-            public float Delay;
+            public float Delay; // 뷰 레이어 — Time.deltaTime 기반이라 float 불가피
             public int SourceId;
             public int TargetId;
             public ProjectileType ProjType;
             public byte Col, Row;
             public sbyte DirCol, DirRow;
             public InGameVfxNameType VfxType;
+        }
+
+        private struct PendingMeleeAttack
+        {
+            public float Delay; // 뷰 레이어 — Time.deltaTime 기반이라 float 불가피
+            public int AttackerId;
+            public int TargetId;
+            public int Damage;
+            public bool IsCrit;
         }
 
         // ── 초기화 ──
@@ -71,21 +82,68 @@ namespace CookApps.AutoChess.View
         {
             _isCombatActive = false;
             _pendingProjectiles.Clear();
+            _pendingMeleeAttacks.Clear();
+            _pendingMeleeTargetIds.Clear();
             _tileEffectManager?.HideAll();
             ClearAllProjectiles();
         }
 
         // ── 이벤트 수신 (AutoChessViewBridge에서 호출) ──
 
-        public void OnUnitAttacked(int attackerId, int targetId, int damage, bool isCrit)
+        public void OnUnitAttacked(int attackerId, int targetId, int damage, bool isCrit, bool isProjectile)
         {
             if (!_isCombatActive) return;
-            // TODO: 공격 VFX (슬래시, 타격 이펙트)
+
+            // 투사체 공격은 OnProjectileSpawned에서 처리
+            if (isProjectile) return;
+
+            // 근접 공격: ATK 애니메이션 execute 타이밍에 맞춰 지연 처리
+            var attackerView = _unitViewManager?.FindCombatView(attackerId);
+            if (attackerView == null) return;
+
+            var info = attackerView.GetAtkInfo();
+            bool isFront = attackerView.IsFacingFront();
+            float animSpeed = attackerView.AnimatorSpeed;
+            int hitCount = info.GetHitCount(isFront);
+            float[] hitTimes = info.GetHitTimes(isFront);
+
+            if (hitCount <= 1 || hitTimes == null)
+            {
+                // 단타
+                _pendingMeleeAttacks.Add(new PendingMeleeAttack
+                {
+                    Delay = info.GetExecTime(isFront) / animSpeed,
+                    AttackerId = attackerId,
+                    TargetId = targetId,
+                    Damage = damage,
+                    IsCrit = isCrit,
+                });
+            }
+            else
+            {
+                // 다타: 각 히트별 타이밍에 분할 데미지
+                int perHitDamage = damage / hitCount;
+                for (int i = 0; i < hitCount; i++)
+                {
+                    _pendingMeleeAttacks.Add(new PendingMeleeAttack
+                    {
+                        Delay = hitTimes[i] / animSpeed,
+                        AttackerId = attackerId,
+                        TargetId = targetId,
+                        Damage = perHitDamage,
+                        IsCrit = isCrit,
+                    });
+                }
+            }
+            _pendingMeleeTargetIds.Add(targetId);
         }
 
         public void OnUnitDamaged(int targetId, int damage, DamageType damageType)
         {
             if (!_isCombatActive) return;
+
+            // 근접 공격 데미지는 OnUnitAttacked에서 지연 처리하므로 스킵
+            if (_pendingMeleeTargetIds.Remove(targetId)) return;
 
             var unitView = _unitViewManager?.FindCombatView(targetId);
             if (unitView == null) return;
@@ -166,7 +224,10 @@ namespace CookApps.AutoChess.View
             var sourceView = _unitViewManager?.FindCombatView(sourceId);
             if (sourceView == null) return;
 
-            float delay = sourceView.GetAttackExecuteTime();
+            var info = sourceView.GetAtkInfo();
+            bool isFront = sourceView.IsFacingFront();
+            float animSpeed = sourceView.AnimatorSpeed;
+            float delay = info.GetExecTime(isFront) / animSpeed;
 
             _pendingProjectiles.Add(new PendingProjectile
             {
@@ -191,6 +252,43 @@ namespace CookApps.AutoChess.View
             {
                 var areaType = TileEffectManager.SynergyToAreaType(element);
                 _tileEffectManager.ShowRange(areaType, col, row, radius, 1.5f);
+            }
+        }
+
+        public void OnSkillAreaEffect(int col, int row, int radius, SynergyType element, bool isRow)
+        {
+            if (!_isCombatActive) return;
+            if (_tileEffectManager == null) return;
+
+            if (element != SynergyType.NONE)
+            {
+                var areaType = TileEffectManager.SynergyToAreaType(element);
+                if (isRow)
+                    _tileEffectManager.ShowRow(areaType, row, col, radius, 0.5f);
+                else
+                    _tileEffectManager.ShowRange(areaType, col, row, radius, 0.5f);
+            }
+        }
+
+        // ── 지연 후 근접 공격 실행 ──
+
+        private void ExecuteMeleeHit(in PendingMeleeAttack m)
+        {
+            var targetView = _unitViewManager?.FindCombatView(m.TargetId);
+            if (targetView == null) return;
+
+            // 피격 이펙트
+            targetView.PlayHitEffect();
+
+            // 피격 VFX
+            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, targetView.transform.position);
+
+            // 데미지 텍스트
+            var textView = InGameTextViewPool.Instance.Get();
+            if (textView != null)
+            {
+                float height = targetView.GetCharacterHeight();
+                textView.ShowDamageText(targetView.transform.position, height, m.Damage, m.IsCrit).Forget();
             }
         }
 
@@ -371,7 +469,23 @@ namespace CookApps.AutoChess.View
 
             float dt = Time.deltaTime;
 
-            // 1. 대기 중인 투사체 지연 처리
+            // 1-a. 대기 중인 근접 공격 지연 처리
+            for (int i = _pendingMeleeAttacks.Count - 1; i >= 0; i--)
+            {
+                var m = _pendingMeleeAttacks[i];
+                m.Delay -= dt;
+                if (m.Delay <= 0f)
+                {
+                    ExecuteMeleeHit(in m);
+                    _pendingMeleeAttacks.RemoveAt(i);
+                }
+                else
+                {
+                    _pendingMeleeAttacks[i] = m;
+                }
+            }
+
+            // 1-b. 대기 중인 투사체 지연 처리
             for (int i = _pendingProjectiles.Count - 1; i >= 0; i--)
             {
                 var p = _pendingProjectiles[i];

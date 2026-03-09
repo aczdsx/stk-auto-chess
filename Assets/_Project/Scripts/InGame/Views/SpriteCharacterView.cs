@@ -68,6 +68,7 @@ namespace CookApps.AutoBattler
         private static readonly int IsFront = Animator.StringToHash("IsFront");
         private MotionHandle _viewScaleHandle;
         private Vector3 _viewScaleTarget = Vector3.one;
+        private AutoChess.AnimKeyframeInfo _atkInfo;
 
 
         public Transform SkillRootTransform => _skillRootTransform;
@@ -88,6 +89,7 @@ namespace CookApps.AutoBattler
                     _spriteRendererList = new List<SpriteRenderer> { spriteRenderer };
                 }
                 SetDisolveShader();
+                CacheAttackExecuteTimes();
                 _animationEventListener = _animator.GetComponent<AnimationEventListener>();
                 _animationEventListener.OnAnimationEvent += OnFiredAnimationEvent;
             }
@@ -126,6 +128,8 @@ namespace CookApps.AutoBattler
                 spriteRenderer.sortingOrder = isSetSelected ? 10 : 1;
             }
         }
+
+        public float AnimatorSpeed => _animator != null ? _animator.speed : 1f;
 
         public void SetAnimationSpeed(float speed)
         {
@@ -249,28 +253,14 @@ namespace CookApps.AutoBattler
             return tr != null ? tr.position : transform.position;
         }
 
-        /// <summary>ATK 애니메이션의 Execute 이벤트 시간 반환 (투사체 발사 타이밍)</summary>
-        public float GetAttackExecuteTime()
+        /// <summary>ATK 키프레임 정보 (ms 기반, float 없음). Awake에서 캐싱됨.</summary>
+        public ref readonly AutoChess.AnimKeyframeInfo GetAtkInfo() => ref _atkInfo;
+
+        /// <summary>Awake에서 호출 — AnimKeyframeHelper를 통해 ATK 키프레임 정보 캐싱</summary>
+        private void CacheAttackExecuteTimes()
         {
-            if (_animator == null) return 0f;
-            var controller = _animator.runtimeAnimatorController;
-            if (controller == null) return 0f;
-
-            string prefix = _cachedFront ? "Front_" : "Back_";
-            string fullName = prefix + AnimationKey.ATK;
-
-            foreach (var clip in controller.animationClips)
-            {
-                if (clip.name != fullName) continue;
-                foreach (var evt in clip.events)
-                {
-                    int key = evt.intParameter;
-                    if (key > (int)AnimationEventKey.ExecuteStart && key < (int)AnimationEventKey.ExecuteEnd)
-                        return evt.time;
-                }
-                return clip.length * 0.4f;
-            }
-            return 0f;
+            int characterId = AutoChess.AnimKeyframeHelper.ParseCharacterId(_animator.runtimeAnimatorController.name);
+            _atkInfo = AutoChess.AnimKeyframeHelper.Resolve(characterId);
         }
 
         public void OnFiredAnimationEvent(AnimationEventKey animationEventKey)

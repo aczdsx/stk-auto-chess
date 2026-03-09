@@ -17,6 +17,7 @@ namespace CookApps.AutoChess
         ProjectileMoved,
         ProjectileExploded,
         ProjectileExpired,
+        SkillAreaEffect,
         // 게임 흐름
         PhaseChanged,
         CombatResult,
@@ -117,6 +118,7 @@ namespace CookApps.AutoChess
                 TargetEntityId = targetId,
                 Value0 = damage,
                 Flag0 = isCrit,
+                Value1 = isProjectile ? 1 : 0,
             });
         }
 
@@ -230,6 +232,20 @@ namespace CookApps.AutoChess
                 Row = row,
                 Radius = radius,
                 Value0 = skillSpecId,
+            });
+        }
+
+        /// <summary>스킬 범위 타일 이펙트 (채널링 틱 등). isRow=true이면 행 단위(col±radius), false이면 맨해튼 거리 기반.</summary>
+        public void PushSkillAreaEffect(int casterId, byte col, byte row, int radius, bool isRow = false)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.SkillAreaEffect,
+                EntityId = casterId,
+                Col = col,
+                Row = row,
+                Radius = radius,
+                Flag0 = isRow,
             });
         }
 

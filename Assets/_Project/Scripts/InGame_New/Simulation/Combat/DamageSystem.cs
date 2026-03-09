@@ -139,6 +139,13 @@ namespace CookApps.AutoChess
             CombatMatchState state, ref CombatUnit attacker, ref CombatUnit target,
             ref DeterministicRNG rng, int tickRate)
         {
+            // 범위 기본공격 분기
+            if (attacker.HasAreaAttack && AreaAttackRegistry.TryGetPattern(attacker.ChampionSpecId, out var pattern))
+            {
+                ExecuteAreaAttack(state, ref attacker, ref target, ref rng, tickRate, ref pattern);
+                return;
+            }
+
             int rawDamage = attacker.Attack;
             bool isCrit;
             rawDamage = ApplyCritical(rawDamage, ref attacker, ref rng, out isCrit);
@@ -192,6 +199,176 @@ namespace CookApps.AutoChess
         {
             if (target.DodgeChance <= 0) return false;
             return rng.Chance(target.DodgeChance);
+        }
+
+        // ═══════════════════════════════════════════════
+        //  범위 기본공격
+        // ═══════════════════════════════════════════════
+
+        /// <summary>범위 기본공격 실행. 패턴의 모든 히트를 순차 처리.</summary>
+        private static void ExecuteAreaAttack(
+            CombatMatchState state, ref CombatUnit attacker, ref CombatUnit target,
+            ref DeterministicRNG rng, int tickRate, ref AreaAttackPattern pattern)
+        {
+            int rawDamage = attacker.Attack;
+            bool isCrit;
+            rawDamage = ApplyCritical(rawDamage, ref attacker, ref rng, out isCrit);
+
+            // facing 방향 계산 (타겟 기준)
+            int dirCol = Sign(target.GridCol - attacker.GridCol);
+            int dirRow = Sign(target.GridRow - attacker.GridRow);
+            // 대각선 방지: 주축 1개만 사용 (row 우선)
+            if (dirCol != 0 && dirRow != 0) dirCol = 0;
+            // 방향이 없으면 기본 전방 (row+)
+            if (dirCol == 0 && dirRow == 0) dirRow = 1;
+
+            // 히트별 데미지 분할
+            int hitDamage = pattern.HitCount > 0 ? rawDamage / pattern.HitCount : rawDamage;
+            if (hitDamage < MinDamage) hitDamage = MinDamage;
+
+            if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, rawDamage, isCrit, false);
+
+            // 모든 히트 순차 실행
+            for (int h = 0; h < pattern.HitCount; h++)
+            {
+                var hit = pattern.GetHit(h);
+                ApplyAreaHit(state, ref attacker, hitDamage, isCrit, dirCol, dirRow, ref hit);
+            }
+
+            // 공격자 마나 충전
+            ChargeMana(ref attacker, ManaGainOnAttack);
+
+            // 공격 쿨다운 재설정
+            attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
+        }
+
+        /// <summary>단일 히트의 범위 판정 + 데미지 적용</summary>
+        private static void ApplyAreaHit(
+            CombatMatchState state, ref CombatUnit attacker,
+            int hitDamage, bool isCrit, int dirCol, int dirRow, ref AreaAttackHit hit)
+        {
+            // 기준점: 공격자 위치 + facing 방향 * FrontOffset
+            int originCol = attacker.GridCol + dirCol * hit.FrontOffset;
+            int originRow = attacker.GridRow + dirRow * hit.FrontOffset;
+
+            switch (hit.Shape)
+            {
+                case AreaAttackShape.Cross:
+                    ApplyAreaCross(state, ref attacker, hitDamage, isCrit,
+                        originCol, originRow, dirCol, dirRow, hit.Size);
+                    break;
+                case AreaAttackShape.Line:
+                    ApplyAreaLine(state, ref attacker, hitDamage, isCrit,
+                        attacker.GridCol, attacker.GridRow, dirCol, dirRow, hit.Size);
+                    break;
+                case AreaAttackShape.Radius:
+                    ApplyAreaRadius(state, ref attacker, hitDamage, isCrit,
+                        originCol, originRow, hit.Size);
+                    break;
+                default: // Single — 메인 타겟만
+                    break;
+            }
+        }
+
+        /// <summary>Cross 범위: facing 수직 방향 ±size칸</summary>
+        private static void ApplyAreaCross(
+            CombatMatchState state, ref CombatUnit attacker,
+            int hitDamage, bool isCrit,
+            int originCol, int originRow, int dirCol, int dirRow, int size)
+        {
+            // 수직 방향 벡터
+            int perpCol = -dirRow;
+            int perpRow = dirCol;
+
+            for (int i = 0; i < state.UnitCount; i++)
+            {
+                ref var unit = ref state.Units[i];
+                if (!unit.IsAlive || unit.TeamIndex == attacker.TeamIndex) continue;
+
+                // 유닛 중심까지의 facing/perp 거리 계산
+                int deltaCol = unit.GridCol - originCol;
+                int deltaRow = unit.GridRow - originRow;
+
+                // facing 방향 거리 (0이어야 같은 줄)
+                int facingDist = deltaCol * dirCol + deltaRow * dirRow;
+                if (facingDist != 0) continue;
+
+                // 수직 방향 거리
+                int perpDist = deltaCol * perpCol + deltaRow * perpRow;
+                if (perpDist < -size || perpDist > size) continue;
+
+                ApplyAreaDamageToUnit(state, ref attacker, ref state.Units[i], hitDamage, isCrit);
+            }
+        }
+
+        /// <summary>Line 범위: facing 방향으로 size칸 직선</summary>
+        private static void ApplyAreaLine(
+            CombatMatchState state, ref CombatUnit attacker,
+            int hitDamage, bool isCrit,
+            int startCol, int startRow, int dirCol, int dirRow, int size)
+        {
+            int col = startCol;
+            int row = startRow;
+
+            for (int step = 0; step < size; step++)
+            {
+                col += dirCol;
+                row += dirRow;
+
+                if (!BoardHelper.IsValidCombatPosition(col, row)) break;
+
+                int combatId = state.GetUnitAtGrid(col, row);
+                if (combatId == CombatUnit.InvalidId) continue;
+
+                int idx = state.FindUnitIndex(combatId);
+                if (idx < 0) continue;
+
+                ref var unit = ref state.Units[idx];
+                if (!unit.IsAlive || unit.TeamIndex == attacker.TeamIndex) continue;
+
+                ApplyAreaDamageToUnit(state, ref attacker, ref state.Units[idx], hitDamage, isCrit);
+            }
+        }
+
+        /// <summary>Radius 범위: 체비셰프 거리 기반 원형</summary>
+        private static void ApplyAreaRadius(
+            CombatMatchState state, ref CombatUnit attacker,
+            int hitDamage, bool isCrit,
+            int centerCol, int centerRow, int radius)
+        {
+            for (int i = 0; i < state.UnitCount; i++)
+            {
+                ref var unit = ref state.Units[i];
+                if (!unit.IsAlive || unit.TeamIndex == attacker.TeamIndex) continue;
+
+                int dist = BoardHelper.MinChebyshevDistance(
+                    centerCol, centerRow, 1, 1,
+                    unit.GridCol, unit.GridRow,
+                    unit.SizeW > 0 ? unit.SizeW : (byte)1,
+                    unit.SizeH > 0 ? unit.SizeH : (byte)1);
+                if (dist > radius) continue;
+
+                ApplyAreaDamageToUnit(state, ref attacker, ref state.Units[i], hitDamage, isCrit);
+            }
+        }
+
+        /// <summary>범위 공격 피격 유닛에 데미지 적용 + 이벤트 발행</summary>
+        private static void ApplyAreaDamageToUnit(
+            CombatMatchState state, ref CombatUnit attacker, ref CombatUnit unit,
+            int hitDamage, bool isCrit)
+        {
+            int finalDamage = CalculateDamage(hitDamage, DamageType.Physical, ref unit);
+            ApplyDamage(state, ref unit, finalDamage);
+            ApplyLifeSteal(ref attacker, finalDamage);
+            ChargeMana(ref unit, ManaGainOnHit);
+            state.EventQueue?.PushUnitAttacked(attacker.SourceEntityId, unit.SourceEntityId, finalDamage, isCrit, false);
+        }
+
+        private static int Sign(int value)
+        {
+            if (value > 0) return 1;
+            if (value < 0) return -1;
+            return 0;
         }
     }
 }

@@ -426,6 +426,40 @@ namespace CookApps.AutoChess
     }
 
     // ═══════════════════════════════════════════════
+    //  범위 기본공격 시스템
+    // ═══════════════════════════════════════════════
+
+    public enum AreaAttackShape : byte
+    {
+        Single = 0,   // 단일 타겟
+        Cross,        // 수직 방향 범위 (facing 수직으로 ±Size칸)
+        Line,         // 직선 범위 (facing 방향 Size칸)
+        Radius,       // 원형 범위 (체비셰프 Size반경)
+    }
+
+    public struct AreaAttackHit
+    {
+        public AreaAttackShape Shape;
+        public int Size;          // Cross: 좌우폭, Line: 길이, Radius: 반경
+        public int FrontOffset;   // facing 방향 오프셋 (0=시전자 위치)
+    }
+
+    public struct AreaAttackPattern
+    {
+        public byte HitCount;     // 1~4
+        public AreaAttackHit Hit0, Hit1, Hit2, Hit3;
+
+        public AreaAttackHit GetHit(int i) => i switch
+        {
+            0 => Hit0,
+            1 => Hit1,
+            2 => Hit2,
+            3 => Hit3,
+            _ => Hit0,
+        };
+    }
+
+    // ═══════════════════════════════════════════════
     //  전투 시스템 구조체
     // ═══════════════════════════════════════════════
 
@@ -500,6 +534,9 @@ namespace CookApps.AutoChess
         public int SkillSpecId;       // 사용 스킬 ID
         public int SkillCastTimer;    // 시전 중 남은 프레임
         public bool IsSkillReady;     // 마나 충전 완료
+
+        // 범위 기본공격
+        public bool HasAreaAttack;    // AreaAttackRegistry에 패턴 있으면 true
 
         public bool IsValidTarget => IsAlive && State != CombatState.Dead;
 

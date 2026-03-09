@@ -43,7 +43,7 @@ namespace CookApps.AutoChess.View
         private static readonly Dictionary<TileEffectType, string> AddressablePaths = new()
         {
             [TileEffectType.Placement] = "Prefabs/Fx/Common/fx_common_area_plan.prefab",
-            [TileEffectType.AttackRange] = "Prefabs/Fx/Common/fx_common_area_plan.prefab",
+            [TileEffectType.AttackRange] = "Prefabs/Fx/Common/fx_common_area_plan_02.prefab",
             [TileEffectType.SkillRange] = "Prefabs/Fx/Common/fx_common_area_commander_01.prefab",
             [TileEffectType.FireArea] = "Prefabs/Fx/Common/fx_common_area_fire.prefab",
             [TileEffectType.WindArea] = "Prefabs/Fx/Common/fx_common_area_wind.prefab",
@@ -99,7 +99,7 @@ namespace CookApps.AutoChess.View
             return ShowAtInternal(type, pos, duration);
         }
 
-        /// <summary>범위 내 모든 타일에 FX 표시. 하나의 handle로 그룹핑.</summary>
+        /// <summary>범위 내 모든 타일에 FX 표시 (맨허튼 거리). 하나의 handle로 그룹핑.</summary>
         public int ShowRange(TileEffectType type, int centerCol, int centerRow, int range, float duration = 0f)
         {
             int handle = _nextHandle++;
@@ -112,7 +112,7 @@ namespace CookApps.AutoChess.View
             {
                 for (int c = 0; c < width; c++)
                 {
-                    if (!BoardHelper.IsInRange(centerCol, centerRow, c, r, range))
+                    if (BoardHelper.ManhattanDistance(centerCol, centerRow, c, r) > range)
                         continue;
 
                     var pos = BoardWorldHelper.CombatGridToWorld(_boardIndex, c, r);
@@ -120,6 +120,30 @@ namespace CookApps.AutoChess.View
                     fx.transform.position = pos;
                     fxList.Add(fx);
                 }
+            }
+
+            _activeEffects[handle] = new EffectGroup { Type = type, FxList = fxList };
+
+            if (duration > 0f)
+                _timedEffects.Add(new TimedEffect { Handle = handle, RemainTime = duration });
+
+            return handle;
+        }
+
+        /// <summary>특정 행의 col 범위에 FX 표시.</summary>
+        public int ShowRow(TileEffectType type, int row, int centerCol, int halfWidth, float duration = 0f)
+        {
+            int handle = _nextHandle++;
+            var fxList = new List<GameObject>();
+
+            for (int c = centerCol - halfWidth; c <= centerCol + halfWidth; c++)
+            {
+                if (!BoardHelper.IsValidCombatPosition(c, row)) continue;
+
+                var pos = BoardWorldHelper.CombatGridToWorld(_boardIndex, c, row);
+                var fx = GetFromPool(type);
+                fx.transform.position = pos;
+                fxList.Add(fx);
             }
 
             _activeEffects[handle] = new EffectGroup { Type = type, FxList = fxList };

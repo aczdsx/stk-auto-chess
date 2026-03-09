@@ -250,17 +250,18 @@ namespace CookApps.AutoChess
             if (CombatLogger.Enabled) CombatLogger.LogCC(target.CombatId, type, durationFrames);
         }
 
-        /// <summary>넉백 (지정 방향으로 N칸, 빈 칸까지만). Multi-tile 대응.</summary>
-        public static void Knockback(CombatMatchState state, ref CombatUnit target,
+        /// <summary>넉백 (지정 방향으로 N칸, 빈 칸까지만). Multi-tile 대응. 실제 이동 칸 수 반환.</summary>
+        public static int Knockback(CombatMatchState state, ref CombatUnit target,
             int dirCol, int dirRow, int distance)
         {
-            if (!target.IsAlive) return;
+            if (!target.IsAlive) return 0;
 
             byte sizeW = target.SizeW > 0 ? target.SizeW : (byte)1;
             byte sizeH = target.SizeH > 0 ? target.SizeH : (byte)1;
 
             int col = target.GridCol;
             int row = target.GridRow;
+            int actualMoved = 0;
 
             for (int step = 0; step < distance; step++)
             {
@@ -272,6 +273,7 @@ namespace CookApps.AutoChess
 
                 col = nextCol;
                 row = nextRow;
+                actualMoved++;
             }
 
             // 실제 이동 처리
@@ -284,6 +286,8 @@ namespace CookApps.AutoChess
 
                 state.EventQueue?.PushUnitMoved(target.SourceEntityId, (byte)col, (byte)row);
             }
+
+            return actualMoved;
         }
     }
 

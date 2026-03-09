@@ -74,6 +74,8 @@ namespace CookApps.AutoChess
                 case 215422301: // 멘샤
                 case 217553404: // 클레이
                 case 217563405: // 마리에
+                case 217653505: // 엔키
+                case 217333202: // 에이프릴
                     return SimSkillArchetype.Custom;
             }
 
@@ -87,14 +89,12 @@ namespace CookApps.AutoChess
                 case 217243102: return SimSkillArchetype.AoEDamage;       // 블린
                 case 217513401: return SimSkillArchetype.LineDamage;      // 아트레시아
                 case 1406031:   return SimSkillArchetype.Heal;            // 아란
-                case 217653505: return SimSkillArchetype.MultiTargetHeal; // 엔키
                 case 215322201: return SimSkillArchetype.PatternDamage;   // 메이
                 case 217523403: return SimSkillArchetype.PatternDamage;   // 아드리아
                 case 217613501: return SimSkillArchetype.PatternDamage;   // 오데트
                 case 217663506: return SimSkillArchetype.MultiHit;        // 시라유키
                 case 215642501: return SimSkillArchetype.AoEDamage;       // 엘리스
                 case 217353203: return SimSkillArchetype.AoEDamage;       // 라키유
-                case 217333202: return SimSkillArchetype.LineDamage;      // 에이프릴
                 case 217263103: return SimSkillArchetype.Buff;            // 루키다
             }
 
@@ -204,17 +204,29 @@ namespace CookApps.AutoChess
                     p.CCType = CrowdControlType.Stun;
                     p.CCDurationFrames = 60;
                     break;
-                case 217553404: // 클레이: 채널링 존
-                    p.Param0 = 100; // healPercent
-                    p.Param1 = 80;  // damagePercent
+                case 217553404: // 클레이: 채널링 존 (3초, 6틱)
+                    p.Param0 = 100; // healPercent (총량, 틱당 /6)
+                    p.Param1 = 80;  // damagePercent (총량, 틱당 /6)
                     p.Param2 = 50;  // healReductionPercent
-                    p.Param3 = 1;   // zoneRange
+                    p.Param3 = 2;   // zoneRange (맨해튼 거리 2)
                     break;
                 case 217563405: // 마리에: 다단히트
                     p.HitCount = 4;
                     break;
                 case 215422301: // 멘샤: 실드
                     p.Param0 = 180; // shieldDurationFrames
+                    break;
+                case 217653505: // 엔키: 전체 힐 + HoT
+                    p.Param0 = 180; // HoT 지속 프레임
+                    p.Param1 = 30;  // HoT 틱 간격
+                    p.SecondaryPowerPercent = 50; // HoT 틱당 배율
+                    break;
+                case 217333202: // 에이프릴: 채널링 다단히트
+                    p.HitCount = 10;     // 총 타수
+                    p.Param0 = 100;      // 근거리 배율 (1~2행)
+                    p.Param1 = 75;       // 중거리 배율 (3행)
+                    p.Param2 = 50;       // 원거리 배율 (4+행)
+                    p.CastFrames = 90;   // 총 채널링 프레임 (3초 @ 30fps)
                     break;
             }
         }

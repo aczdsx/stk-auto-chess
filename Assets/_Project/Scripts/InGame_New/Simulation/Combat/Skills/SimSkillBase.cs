@@ -89,6 +89,13 @@ namespace CookApps.AutoChess
         public abstract void Execute(CombatMatchState state, ref CombatUnit caster,
             int targetCombatId, ref DeterministicRNG rng);
 
+        /// <summary>채널링 스킬 여부</summary>
+        public virtual bool IsChanneling => false;
+
+        /// <summary>채널링 틱 처리. false 반환 시 채널링 종료.</summary>
+        public virtual bool OnChannelTick(CombatMatchState state, ref CombatUnit caster, ref DeterministicRNG rng)
+            => false;
+
         /// <summary>풀 반환 시 초기화</summary>
         public virtual void Reset() { }
     }

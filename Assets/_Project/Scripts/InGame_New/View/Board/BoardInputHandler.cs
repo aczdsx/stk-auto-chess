@@ -507,8 +507,19 @@ namespace CookApps.AutoChess.View
             _highlightRow = row;
 
             _placementHandle = _tileEffectManager.Show(TileEffectType.Placement, col, row);
-            // TODO: 드래그 유닛의 AttackRange를 가져와서 공격범위 표시
-            // _rangeHandle = _tileEffectManager.ShowRange(TileEffectType.AttackRange, col, row, attackRange);
+
+            // 드래그/고스트 유닛의 공격 범위 표시
+            int entityId = _isDraggingBoardUnit ? _dragEntityId : _isGhostActive ? _ghostEntityId : UnitData.InvalidId;
+            if (entityId != UnitData.InvalidId)
+            {
+                var world = _viewBridge.GetWorld();
+                if (world != null)
+                {
+                    int attackRange = world.GetUnit(entityId).AttackRange;
+                    if (attackRange > 0)
+                        _rangeHandle = _tileEffectManager.ShowRange(TileEffectType.AttackRange, col, row, attackRange);
+                }
+            }
         }
 
         private void HideHighlight()

@@ -24,6 +24,9 @@ namespace CookApps.AutoChess
             // 스킬 팩토리 초기화 (스펙 테이블 → 아키타입 자동 등록)
             SkillFactory.Initialize();
 
+            // 범위 기본공격 패턴 레지스트리 초기화
+            AreaAttackRegistry.Initialize();
+
             // 첫 페이즈 타이머 설정
             SetPhaseTimer(world, GamePhase.Preparation);
         }

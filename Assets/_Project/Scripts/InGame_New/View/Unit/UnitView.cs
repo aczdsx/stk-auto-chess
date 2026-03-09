@@ -249,11 +249,21 @@ namespace CookApps.AutoChess.View
             };
         }
 
-        public float GetAttackExecuteTime()
+        /// <summary>ATK 키프레임 정보 (ms 기반, float 없음) 반환</summary>
+        public AnimKeyframeInfo GetAtkInfo()
         {
-            if (_characterView == null) return 0f;
-            return _characterView.GetAttackExecuteTime();
+            if (_characterView == null) return default;
+            return _characterView.GetAtkInfo();
         }
+
+        /// <summary>현재 방향(front/back) 반환</summary>
+        public bool IsFacingFront()
+        {
+            return _characterView != null && _characterView.CachedFront;
+        }
+
+        /// <summary>현재 Animator 재생 속도 (슬로우 디버프 등 반영)</summary>
+        public float AnimatorSpeed => _characterView != null ? _characterView.AnimatorSpeed : 1f;
 
         public Vector3 GetProjectileSpawnPosition()
         {

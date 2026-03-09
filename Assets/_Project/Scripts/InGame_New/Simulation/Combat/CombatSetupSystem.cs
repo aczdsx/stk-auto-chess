@@ -99,6 +99,9 @@ namespace CookApps.AutoChess
                 combatUnit.SkillSpecId = FindSkillId(world, srcUnit.ChampionSpecId);
                 combatUnit.SkillCastTimer = 0;
 
+                // 범위 기본공격 패턴 플래그
+                combatUnit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(srcUnit.ChampionSpecId, out _);
+
                 // 아이템 스탯 적용 (기본 스탯 → 아이템 순서)
                 ItemSystem.ApplyItemStats(world, ref combatUnit, ref srcUnit);
 
@@ -195,6 +198,7 @@ namespace CookApps.AutoChess
                 unit.CritMultiplier = 150;
                 unit.TraitFlags = enemy.TraitFlags;
                 unit.SkillSpecId = enemy.SkillSpecId;
+                unit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(enemy.ChampionSpecId, out _);
                 unit.CurrentTargetId = CombatUnit.InvalidId;
                 unit.AttackCooldown = 0;
                 unit.MoveTimer = 0;
