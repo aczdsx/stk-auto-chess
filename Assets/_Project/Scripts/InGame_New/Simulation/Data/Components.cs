@@ -695,6 +695,11 @@ namespace CookApps.AutoChess
         // 스킬 인스턴스 (매치별 관리, SkillSystem에서 사용)
         public SimSkillBase[] Skills;  // [MaxCombatUnits]
 
+        // 특성 인스턴스 (유닛별 최대 MaxTraitsPerUnit개)
+        public CombatTraitBase[][] Traits; // [MaxCombatUnits][CombatTraitBase.MaxTraitsPerUnit]
+        public int[] TraitCounts;          // [MaxCombatUnits] 유닛별 부착된 특성 수
+        internal bool _traitCombatStartDone; // OnCombatStart 1회 실행 플래그
+
         public static CombatMatchState Create(byte matchIndex, byte playerA, byte playerB)
         {
             var state = new CombatMatchState
@@ -708,7 +713,12 @@ namespace CookApps.AutoChess
                 Projectiles = new Projectile[MaxProjectiles],
                 StatusEffects = new StatusEffect[MaxStatusEffects],
                 Skills = new SimSkillBase[MaxCombatUnits],
+                Traits = new CombatTraitBase[MaxCombatUnits][],
+                TraitCounts = new int[MaxCombatUnits],
             };
+
+            for (int i = 0; i < MaxCombatUnits; i++)
+                state.Traits[i] = new CombatTraitBase[CombatTraitBase.MaxTraitsPerUnit];
 
             for (int i = 0; i < MaxCombatUnits; i++)
                 state.Units[i].CombatId = CombatUnit.InvalidId;

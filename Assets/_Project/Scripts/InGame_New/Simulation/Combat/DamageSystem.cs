@@ -58,10 +58,26 @@ namespace CookApps.AutoChess
         /// <summary>
         /// 데미지 적용. 보호막 → HP 순으로 차감.
         /// 사망 처리 포함. 사망 시 true 반환.
+        /// attackerIndex: Trait 콜백용 공격자 인덱스 (-1이면 Trait 콜백 생략)
         /// </summary>
-        public static bool ApplyDamage(CombatMatchState state, ref CombatUnit target, int damage)
+        public static bool ApplyDamage(CombatMatchState state, ref CombatUnit target, int damage,
+            int attackerIndex = -1, DamageType damageType = DamageType.Physical)
         {
             if (!target.IsAlive) return false;
+
+            int targetIndex = state.FindUnitIndex(target.CombatId);
+
+            // Trait: 나가는 데미지 보정 (공격자)
+            if (attackerIndex >= 0)
+                damage = TraitSystem.InvokeModifyOutgoingDamage(state, attackerIndex, ref target, damage, damageType);
+
+            // Trait: 들어오는 데미지 보정 (피격자)
+            if (targetIndex >= 0)
+            {
+                // attackerIndex가 없으면 더미 참조 사용
+                if (attackerIndex >= 0)
+                    damage = TraitSystem.InvokeModifyIncomingDamage(state, ref state.Units[attackerIndex], targetIndex, damage, damageType);
+            }
 
             // 데미지 감소 (DamageReduction 퍼센트)
             if (target.DamageReduction > 0)
@@ -73,7 +89,7 @@ namespace CookApps.AutoChess
             // 보호막 먼저 차감 (StatusEffectSystem으로 위임)
             if (target.ShieldAmount > 0)
             {
-                int unitIndex = state.FindUnitIndex(target.CombatId);
+                int unitIndex = targetIndex >= 0 ? targetIndex : state.FindUnitIndex(target.CombatId);
                 damage = StatusEffectSystem.AbsorbShieldDamage(state, unitIndex, damage);
                 if (damage <= 0) return false;
             }
@@ -82,7 +98,13 @@ namespace CookApps.AutoChess
 
             if (CombatLogger.Enabled) CombatLogger.LogDamage(target.CombatId, damage, target.CurrentHP, target.MaxHP);
 
-            state.EventQueue?.PushUnitDamaged(target.CombatId, CombatUnit.InvalidId, damage, DamageType.Physical);
+            state.EventQueue?.PushUnitDamaged(target.CombatId,
+                attackerIndex >= 0 ? state.Units[attackerIndex].CombatId : CombatUnit.InvalidId,
+                damage, damageType);
+
+            // Trait: 피격 후 콜백 (피격자)
+            if (targetIndex >= 0 && attackerIndex >= 0)
+                TraitSystem.InvokeOnDamageTaken(state, targetIndex, ref state.Units[attackerIndex], damage);
 
             if (target.CurrentHP <= 0)
             {
@@ -91,6 +113,14 @@ namespace CookApps.AutoChess
                 target.State = CombatState.Dead;
 
                 if (CombatLogger.Enabled) CombatLogger.LogDeath(target.CombatId, target.TeamIndex);
+
+                // Trait: 사망 콜백 (사망자)
+                if (targetIndex >= 0 && attackerIndex >= 0)
+                    TraitSystem.InvokeOnDeath(state, targetIndex, ref state.Units[attackerIndex]);
+
+                // Trait: 처치 콜백 (공격자)
+                if (attackerIndex >= 0)
+                    TraitSystem.InvokeOnKill(state, attackerIndex, ref target);
 
                 // 그리드에서 제거 (multi-tile)
                 state.ClearGridMulti(target.GridCol, target.GridRow,
@@ -103,7 +133,8 @@ namespace CookApps.AutoChess
                 else
                     state.AliveCountB = CombatSetupSystem.CountAliveByTeam(state, 1);
 
-                state.EventQueue?.PushUnitDied(target.SourceEntityId, CombatUnit.InvalidId);
+                state.EventQueue?.PushUnitDied(target.SourceEntityId,
+                    attackerIndex >= 0 ? state.Units[attackerIndex].SourceEntityId : CombatUnit.InvalidId);
                 return true; // 사망
             }
 
@@ -146,9 +177,19 @@ namespace CookApps.AutoChess
                 return;
             }
 
+            int attackerIndex = state.FindUnitIndex(attacker.CombatId);
+
+            // Trait: 공격 전 콜백
+            if (attackerIndex >= 0)
+                TraitSystem.InvokeOnPreAttack(state, attackerIndex, ref target);
+
             int rawDamage = attacker.Attack;
             bool isCrit;
             rawDamage = ApplyCritical(rawDamage, ref attacker, ref rng, out isCrit);
+
+            // Trait: 크리티컬 콜백
+            if (isCrit && attackerIndex >= 0)
+                TraitSystem.InvokeOnCritical(state, attackerIndex, ref target, rawDamage);
 
             if (attacker.AttackRange <= 1)
             {
@@ -157,7 +198,7 @@ namespace CookApps.AutoChess
 
                 if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
 
-                ApplyDamage(state, ref target, finalDamage);
+                ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical);
                 ApplyLifeSteal(ref attacker, finalDamage);
 
                 // 피격자 마나 충전
@@ -192,6 +233,10 @@ namespace CookApps.AutoChess
 
             // 공격 쿨다운 재설정
             attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
+
+            // Trait: 공격 후 콜백
+            if (attackerIndex >= 0)
+                TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
         }
 
         /// <summary>회피 판정. 회피 성공 시 true.</summary>

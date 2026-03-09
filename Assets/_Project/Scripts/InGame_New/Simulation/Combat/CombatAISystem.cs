@@ -17,6 +17,13 @@ namespace CookApps.AutoChess
 
             if (CombatLogger.Enabled) CombatLogger.NextFrame();
 
+            // 0. 전투 시작 시 Trait OnCombatStart (첫 프레임에서 1회)
+            if (!state._traitCombatStartDone)
+            {
+                TraitSystem.InvokeCombatStart(state);
+                state._traitCombatStartDone = true;
+            }
+
             // 1. 전투 첫 프레임: 백라인 점프 처리
             ProcessBacklineJumps(state, tickRate);
 
@@ -25,6 +32,9 @@ namespace CookApps.AutoChess
             {
                 ref var unit = ref state.Units[i];
                 if (!unit.IsAlive) continue;
+
+                // Trait: 매 틱 콜백
+                TraitSystem.InvokeOnTick(state, i, tickRate);
 
                 UpdateUnit(state, ref unit, ref rng, tickRate);
             }

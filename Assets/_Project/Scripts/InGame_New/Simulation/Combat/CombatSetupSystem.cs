@@ -41,6 +41,10 @@ namespace CookApps.AutoChess
                 ref var srcUnit = ref world.Units[unitIndex];
                 if (!srcUnit.IsValid) continue;
 
+                // 멀티타일 중복 스폰 방지: anchor 좌표(BoardCol, BoardRow)의 슬롯 인덱스와 일치할 때만 스폰
+                int anchorIndex = BoardHelper.ToIndex(srcUnit.BoardCol, srcUnit.BoardRow);
+                if (i != anchorIndex) continue;
+
                 // 그리드 좌표 계산
                 BoardHelper.FromIndex(i, out int col, out int row);
 

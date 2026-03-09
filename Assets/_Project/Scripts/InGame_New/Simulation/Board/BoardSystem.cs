@@ -169,9 +169,10 @@ namespace CookApps.AutoChess
             int benchSlot = FindEmptyBenchSlot(world, playerIndex);
             if (benchSlot < 0) return false; // 벤치 가득 참
 
-            // 보드에서 제거
-            int boardIndex = BoardHelper.ToIndex(unit.BoardCol, unit.BoardRow);
-            world.BoardSlots[playerIndex][boardIndex] = UnitData.InvalidId;
+            // 보드에서 제거 (멀티타일 풋프린트 전체 해제)
+            byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+            byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
+            ClearBoardFootprint(world, playerIndex, unit.BoardCol, unit.BoardRow, sizeW, sizeH);
             world.Boards[playerIndex].UnitCount--;
 
             // 벤치에 추가

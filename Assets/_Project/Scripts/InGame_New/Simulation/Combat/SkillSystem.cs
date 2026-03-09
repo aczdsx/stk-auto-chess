@@ -72,15 +72,17 @@ namespace CookApps.AutoChess
             }
             else
             {
-                // 즉시 시전 스킬
-                unit.State = CombatState.CastingSkill;
+                // 즉시 시전 스킬: Execute 후 바로 Idle 복귀 (CastingSkill 유지 시 다음 틱에서 재실행됨)
                 skill.Execute(state, ref unit, targetId, ref rng);
 
                 // 이벤트 발행
                 state.EventQueue?.PushUnitCastSkill(
-                    unit.SourceEntityId,
-                    targetId != CombatUnit.InvalidId ? GetSourceEntityId(state, targetId) : CombatUnit.InvalidId,
+                    unit.CombatId,
+                    targetId,
                     unit.SkillSpecId);
+
+                unit.State = CombatState.Idle;
+                unit.CurrentTargetId = CombatUnit.InvalidId;
             }
 
             return true;
@@ -127,8 +129,8 @@ namespace CookApps.AutoChess
                     skill.Execute(state, ref unit, targetId, ref rng);
 
                     state.EventQueue?.PushUnitCastSkill(
-                        unit.SourceEntityId,
-                        GetSourceEntityId(state, targetId),
+                        unit.CombatId,
+                        targetId,
                         unit.SkillSpecId);
                 }
             }
@@ -149,13 +151,6 @@ namespace CookApps.AutoChess
                     state.Skills[i] = null;
                 }
             }
-        }
-
-        private static int GetSourceEntityId(CombatMatchState state, int combatId)
-        {
-            int idx = state.FindUnitIndex(combatId);
-            if (idx < 0) return CombatUnit.InvalidId;
-            return state.Units[idx].SourceEntityId;
         }
     }
 }
