@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using CookApps.AutoBattler;
 using UnityEngine;
-using CharacterController = CookApps.BattleSystem.CharacterController;
 
 public class TargetLineRenderer : MonoBehaviour
 {
@@ -15,6 +14,15 @@ public class TargetLineRenderer : MonoBehaviour
     private Coroutine _currentCoroutine;
     private Material _cachedMaterial;
 
+    private void OnDisable()
+    {
+        if (_currentCoroutine != null)
+        {
+            _currentCoroutine = null;
+            ResetMaterial();
+        }
+    }
+
     private TargetLineConfig Config
     {
         get
@@ -25,37 +33,42 @@ public class TargetLineRenderer : MonoBehaviour
         }
     }
 
-    public void DrawLine(CharacterController startCharacter, CharacterController targetCharacter, bool isOwn,
-        Action onComplete = null)
+    public void DrawLine(Vector3 startPos, Vector3 targetPos, bool isOwn, Action onComplete = null)
     {
         var color = isOwn ? _ownColor : _otherColor;
         _lineRenderer.startColor = color;
         _lineRenderer.endColor = color;
 
-        var yOffset = new Vector3(0, Config.CharacterYOffset, 0);
-        Func<Vector3> getStart = () => startCharacter.Position3D + yOffset;
-        Func<Vector3> getTarget = () => targetCharacter.Position3D + yOffset;
-
-        if (gameObject.activeInHierarchy)
-        {
-            StartDrawCoroutine(DrawGuideLine(getStart, getTarget, onComplete));
-        }
+        StartDrawCoroutine(DrawGuideLine(() => startPos, () => targetPos, false, onComplete));
     }
 
-    public void DrawLine(Vector3 startPos, Vector3 targetPos, Action onComplete = null)
+    public void DrawLine(Func<Vector3> getStart, Func<Vector3> getTarget, bool isOwn,
+        bool keepVisible = false, Action onComplete = null)
     {
-        _lineRenderer.startColor = _ownColor;
-        _lineRenderer.endColor = _ownColor;
+        var color = isOwn ? _ownColor : _otherColor;
+        _lineRenderer.startColor = color;
+        _lineRenderer.endColor = color;
 
-        StartDrawCoroutine(DrawGuideLine(() => startPos, () => targetPos, onComplete));
+        StartDrawCoroutine(DrawGuideLine(getStart, getTarget, keepVisible, onComplete));
     }
 
     private void StartDrawCoroutine(IEnumerator routine)
     {
         if (_currentCoroutine != null)
+        {
             StopCoroutine(_currentCoroutine);
+            // 이전 코루틴이 중단되면 scroll offset이 남으므로 리셋
+            ResetMaterial();
+        }
 
         _currentCoroutine = StartCoroutine(routine);
+    }
+
+    private void ResetMaterial()
+    {
+        if (_cachedMaterial != null)
+            _cachedMaterial.mainTextureOffset = Vector2.zero;
+        _lineRenderer.positionCount = 0;
     }
 
     private Vector3 EvaluateArc(Vector3 start, Vector3 end, float t)
@@ -74,12 +87,12 @@ public class TargetLineRenderer : MonoBehaviour
         }
     }
 
-    private IEnumerator DrawGuideLine(Func<Vector3> getStart, Func<Vector3> getTarget, Action onComplete = null)
+    private IEnumerator DrawGuideLine(Func<Vector3> getStart, Func<Vector3> getTarget,
+        bool keepVisible = false, Action onComplete = null)
     {
         var config = Config;
         if (config == null)
         {
-            Debug.LogWarning("[TargetLineRenderer] TargetLineConfig not loaded.");
             onComplete?.Invoke();
             _currentCoroutine = null;
             yield break;
@@ -123,8 +136,20 @@ public class TargetLineRenderer : MonoBehaviour
         }
 
         _cachedMaterial.mainTextureOffset = Vector2.zero;
-        _lineRenderer.positionCount = 0;
         _currentCoroutine = null;
-        onComplete?.Invoke();
+
+        if (keepVisible)
+        {
+            // 라인을 유지 — 다음 HideAll()이 정리
+            // 전체 라인을 최종 상태로 표시
+            var finalStart = getStart();
+            var finalEnd = getTarget();
+            UpdateLine(finalStart, finalEnd, config.PositionCount);
+        }
+        else
+        {
+            _lineRenderer.positionCount = 0;
+            onComplete?.Invoke();
+        }
     }
 }

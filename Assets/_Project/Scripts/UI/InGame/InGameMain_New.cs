@@ -104,6 +104,7 @@ namespace CookApps.AutoBattler
                 _viewRoot.ViewBridge,
                 _viewRoot.UnitViewManager,
                 _viewRoot.TileEffectManager,
+                _viewRoot.TargetLineManager,
                 screenPos => autoChessUI != null && autoChessUI.IsPointInScrollRect(screenPos));
             _viewRoot.ViewBridge.SetBoardInputHandler(boardInput);
 

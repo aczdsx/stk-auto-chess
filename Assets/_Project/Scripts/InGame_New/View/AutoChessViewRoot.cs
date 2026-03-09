@@ -23,12 +23,14 @@ namespace CookApps.AutoChess.View
         private CombatViewManager _combatViewManager;
         private BoardGridView _boardGridView;
         private TileEffectManager _tileEffectManager;
+        private TargetLineManager _targetLineManager;
 
         public ISimulationRunner Runner => _runner;
         public AutoChessViewBridge ViewBridge => _viewBridge;
         public UnitViewManager UnitViewManager => _unitViewManager;
         public BoardGridView BoardGridView => _boardGridView;
         public TileEffectManager TileEffectManager => _tileEffectManager;
+        public TargetLineManager TargetLineManager => _targetLineManager;
         public GameObject AutoChessUIPrefab => _autoChessUIPrefab;
 
         // ── Addressables 리소스 로드 ──
@@ -83,6 +85,10 @@ namespace CookApps.AutoChess.View
             // CombatViewManager에 의존성 전달
             _combatViewManager.SetTileEffectManager(_tileEffectManager);
             _combatViewManager.SetUnitViewManager(_unitViewManager);
+
+            // TargetLineManager (독립적으로 시뮬레이션 이벤트 구독)
+            _targetLineManager = CreateChild<TargetLineManager>("TargetLineManager");
+            _targetLineManager.Initialize(_runner, _unitViewManager);
 
             // HP 바 풀 초기화
             if (_hpBarPrefab != null)

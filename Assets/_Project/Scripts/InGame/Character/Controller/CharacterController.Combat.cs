@@ -293,14 +293,6 @@ namespace CookApps.BattleSystem
                 {
                     ForceSetNextState<CharacterStateDead>();
 
-                    if (LobbyMain.GetLobbyMain() != null)
-                    {
-                        SpawnDropFx((targetLine) =>
-                        {
-                            if (targetLine != null)
-                                targetLine.Remove();
-                        });
-                    }
                 }
 
                 // 튜토리얼 CHARACTER_DEAD 트리거 처리 (Dead 상태 전환 후 처리)

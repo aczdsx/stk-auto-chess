@@ -252,6 +252,9 @@ namespace CookApps.AutoChess.View
             _activeBoardIndex = boardIndex;
         }
 
+        /// <summary>모든 보드 UnitView 순회 (타겟 라인 등)</summary>
+        public IReadOnlyDictionary<int, UnitView> BoardUnitViews => _boardUnitViews;
+
         /// <summary>EntityId로 보드 UnitView 조회 (보드 드래그용)</summary>
         public UnitView FindBoardView(int entityId)
         {

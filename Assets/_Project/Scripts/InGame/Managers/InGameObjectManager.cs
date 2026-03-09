@@ -34,8 +34,6 @@ namespace CookApps.BattleSystem
         private List<CharacterController> startingEnemiesCharacters = new();
         private List<CharacterController> reusableList = new List<CharacterController>();
 
-        private TargetLineManager _targetLineManager;
-
         private double _playerSumMaxHp;
         private double _enemySumMaxHp;
         private float _lastRate;
@@ -72,10 +70,6 @@ namespace CookApps.BattleSystem
             InGameGrid grid = new InGameGrid(_stage.GridSize, _stage.TileViews);
             _grid = grid;
 
-            _targetLineManager = new TargetLineManager(
-                (isPlayer) => isPlayer ? charactersInPlaygroundForUpdate : enemiesInPlaygroundForUpdate,
-                GetTargetOnceByPositionType
-            );
         }
 
         public void Clear()
@@ -1096,15 +1090,11 @@ namespace CookApps.BattleSystem
             return attrValue;
         }
 
-        public void DrawPlayerLine(bool isPlayer) => _targetLineManager.DrawPlayerLine(isPlayer);
-
-        public void SetFocusedCharacter(CharacterController character) => _targetLineManager.SetFocusedCharacter(character);
-
-        public void SetFocusedCharacterPreviewTile(InGameTile tile) => _targetLineManager.SetFocusedCharacterPreviewTile(tile);
-
-        public void ClearFocusedCharacter() => _targetLineManager.ClearFocusedCharacter();
-
-        public void ClearTargetLine() => _targetLineManager.ClearAll();
+        public void DrawPlayerLine(bool isPlayer) { }
+        public void SetFocusedCharacter(CharacterController character) { }
+        public void SetFocusedCharacterPreviewTile(InGameTile tile) { }
+        public void ClearFocusedCharacter() { }
+        public void ClearTargetLine() { }
 
 
     }

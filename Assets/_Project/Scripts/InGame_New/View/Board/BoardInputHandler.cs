@@ -18,6 +18,7 @@ namespace CookApps.AutoChess.View
         private AutoChessViewBridge _viewBridge;
         private UnitViewManager _unitViewManager;
         private TileEffectManager _tileEffectManager;
+        private TargetLineManager _targetLineManager;
 
         // UI 영역 판별용 콜백
         private System.Func<Vector2, bool> _isPointInUI;
@@ -67,12 +68,14 @@ namespace CookApps.AutoChess.View
             AutoChessViewBridge viewBridge,
             UnitViewManager unitViewManager,
             TileEffectManager tileEffectManager,
+            TargetLineManager targetLineManager,
             System.Func<Vector2, bool> isPointInUI)
         {
             _camera = camera;
             _viewBridge = viewBridge;
             _unitViewManager = unitViewManager;
             _tileEffectManager = tileEffectManager;
+            _targetLineManager = targetLineManager;
             _isPointInUI = isPointInUI;
 
             ComputeSnapThreshold();
@@ -313,6 +316,9 @@ namespace CookApps.AutoChess.View
             _dragUnitView = unitView;
             _dragOriginalPos = unitView.transform.position;
 
+            // 드래그 중 해당 캐릭터 관련 라인만 표시
+            _targetLineManager?.SetFocusedUnit(entityId);
+
             // 홀로그램 적용
             _dragUnitView.SetHologram(true);
 
@@ -335,10 +341,17 @@ namespace CookApps.AutoChess.View
 
             // 타겟 셀 하이라이트 (자기 자신은 제외하고 점유 검사)
             var grid = ScreenToGrid(screenPos);
+            int prevCol = _highlightCol;
+            int prevRow = _highlightRow;
+
             if (grid.HasValue && !IsTileOccupied(grid.Value.col, grid.Value.row, _dragEntityId))
                 ShowHighlight(grid.Value.col, grid.Value.row);
             else
                 HideHighlight();
+
+            // 그리드 셀 변경 시 타겟 라인 즉시 재계산
+            if (_highlightCol != prevCol || _highlightRow != prevRow)
+                _targetLineManager?.RefreshFocusedLines();
         }
 
         private void EndBoardDrag(Vector2 screenPos)
@@ -381,6 +394,9 @@ namespace CookApps.AutoChess.View
 
             _dragEntityId = UnitData.InvalidId;
             _dragUnitView = null;
+
+            // 드래그 종료 시 포커스 해제
+            _targetLineManager?.ClearFocusedUnit();
         }
 
         private void CancelDrag()
@@ -398,6 +414,9 @@ namespace CookApps.AutoChess.View
             _isDraggingBoardUnit = false;
             _dragEntityId = UnitData.InvalidId;
             _dragUnitView = null;
+
+            // 드래그 취소 시 포커스 해제
+            _targetLineManager?.ClearFocusedUnit();
 
             CancelGhostDrag();
         }
@@ -516,6 +535,7 @@ namespace CookApps.AutoChess.View
             if (entityId == UnitData.InvalidId)
             {
                 InGameCharacterPopupHelper.Close();
+                _targetLineManager?.ClearFocusedUnit();
                 return;
             }
 
@@ -528,6 +548,8 @@ namespace CookApps.AutoChess.View
             // Select 내부에서 이전 onDeselected(HideSelectionTileEffect)가 호출되므로, 이펙트는 그 뒤에 표시
             InGameCharacterPopupHelper.Select(entityId, param, HideSelectionTileEffect);
             _selectEffectHandle = _tileEffectManager.Show(TileEffectType.Placement, col, row);
+
+            _targetLineManager?.SetFocusedUnit(entityId);
         }
 
         private void HideSelectionTileEffect()
