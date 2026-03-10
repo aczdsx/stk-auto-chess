@@ -23,7 +23,7 @@ namespace CookApps.AutoChess
                 int idx = state.FindUnitIndex(targetCombatId);
                 if (idx >= 0 && state.Units[idx].IsAlive)
                 {
-                    SkillCCHelper.ApplyCC(ref state.Units[idx], CCType, CCDurationFrames);
+                    SkillCCHelper.ApplyCC(state, ref state.Units[idx], CCType, CCDurationFrames);
                 }
             }
         }

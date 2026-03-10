@@ -25,7 +25,7 @@ namespace CookApps.AutoChess
             }
             else
             {
-                SkillCCHelper.ApplyCC(ref state.Units[idx], CCType, CCDurationFrames);
+                SkillCCHelper.ApplyCC(state, ref state.Units[idx], CCType, CCDurationFrames);
             }
         }
     }

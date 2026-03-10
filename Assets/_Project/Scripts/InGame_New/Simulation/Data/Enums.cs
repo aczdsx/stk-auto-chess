@@ -131,6 +131,9 @@ namespace CookApps.AutoChess
         HealOverTime,    // 지속 회복 (Value=틱당 회복량)
         StatBuff,        // 스탯 증가 (만료 시 자동 역산)
         StatDebuff,      // 스탯 감소 (만료 시 자동 역산)
+        CCImmunity,      // CC 면역 (모든 CC 차단)
+        DOTImmunity,     // DOT 면역 (DamageOverTime 차단)
+        DebuffImmunity,  // 디버프 면역 (StatDebuff 차단)
     }
 
     // ═══════════════════════════════════════════════

@@ -56,7 +56,7 @@ namespace CookApps.AutoChess
                             int dmg = DamageSystem.CalculateDamage(raw, type, ref t);
                             DamageSystem.ApplyDamage(state, ref t, dmg);
                         }
-                        SkillCCHelper.ApplyCC(ref t, ccType, ccFrames);
+                        SkillCCHelper.ApplyCC(state, ref t, ccType, ccFrames);
                     });
             }
         }

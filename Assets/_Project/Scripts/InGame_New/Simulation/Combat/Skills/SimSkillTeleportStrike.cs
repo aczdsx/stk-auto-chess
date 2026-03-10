@@ -43,7 +43,7 @@ namespace CookApps.AutoChess
 
                     if (ccType != CrowdControlType.None && ccFrames > 0)
                     {
-                        SkillCCHelper.ApplyCC(ref t, ccType, ccFrames);
+                        SkillCCHelper.ApplyCC(state, ref t, ccType, ccFrames);
                     }
                 });
         }
