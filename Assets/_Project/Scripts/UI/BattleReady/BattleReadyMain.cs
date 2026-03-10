@@ -530,7 +530,7 @@ namespace CookApps.AutoBattler
 
                 InGameManager.Instance.EndInGame();
 
-                SceneLoading.GoToNextSceneWithStageEnterTrigger("InGame", currentStageData.stage_id, inGameParams);
+                SceneLoading.GoToNextSceneWithStageEnterTrigger("InGame_New", currentStageData.stage_id, inGameParams);
             }
         }
 

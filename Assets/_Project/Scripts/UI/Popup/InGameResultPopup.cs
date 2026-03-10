@@ -287,7 +287,7 @@ namespace CookApps.AutoBattler
 
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextSceneWithStageClearAndEnterTrigger("InGame", InGameManager.Instance.SpecStage.stage_id, nextStageData.stage_id, inGameParams);
+            SceneLoading.GoToNextSceneWithStageClearAndEnterTrigger("InGame_New", InGameManager.Instance.SpecStage.stage_id, nextStageData.stage_id, inGameParams);
         }
 
         private async UniTask OnClickRetryStageButtonAsync()
@@ -317,11 +317,11 @@ namespace CookApps.AutoBattler
             if (_popupParam.IsVictory)
             {
                 // 승리 시 스테이지 클리어 나니노벨 트리거 검사
-                SceneLoading.GoToNextSceneWithStageClearTrigger("InGame", InGameManager.Instance.SpecStage.stage_id, inGameParams);
+                SceneLoading.GoToNextSceneWithStageClearTrigger("InGame_New", InGameManager.Instance.SpecStage.stage_id, inGameParams);
             }
             else
             {
-                SceneLoading.GoToNextScene("InGame", inGameParams);
+                SceneLoading.GoToNextScene("InGame_New", inGameParams);
             }
         }
 

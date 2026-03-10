@@ -491,7 +491,7 @@ public class InGameTopUI : MonoBehaviour
                 InGameManager.Instance.TestConfig.StageChapterId
             );
 
-            SceneLoading.GoToNextScene("InGame", inGameMainParams);
+            SceneLoading.GoToNextScene("InGame_New", inGameMainParams);
             return;
         }
 
