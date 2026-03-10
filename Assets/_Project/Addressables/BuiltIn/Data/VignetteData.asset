@@ -75,7 +75,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    Color: {r: 0.003921569, g: 0.101960786, b: 0.16078432, a: 1}
+    Color: {r: 0, g: 0, b: 0, a: 1}
   - InGameType: 1
     ID: 3
     Material:
@@ -84,7 +84,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    Color: {r: 0.94509804, g: 0.8627451, b: 0.63529414, a: 1}
+    Color: {r: 0, g: 0, b: 0, a: 1}
   - InGameType: 1
     ID: 4
     Material:
@@ -93,7 +93,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    Color: {r: 0.9433962, g: 0.8631297, b: 0.6363475, a: 1}
+    Color: {r: 0, g: 0, b: 0, a: 1}
   - InGameType: 1
     ID: 5
     Material:
@@ -102,7 +102,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    Color: {r: 0.003921569, g: 0.101960786, b: 0.16078432, a: 1}
+    Color: {r: 0, g: 0, b: 0, a: 1}
   - InGameType: 1
     ID: 6
     Material:
@@ -111,4 +111,4 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    Color: {r: 0.13725491, g: 0.1764706, b: 0.24705882, a: 1}
+    Color: {r: 0, g: 0, b: 0, a: 1}
