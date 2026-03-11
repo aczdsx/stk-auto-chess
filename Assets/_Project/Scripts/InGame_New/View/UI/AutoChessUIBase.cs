@@ -28,6 +28,11 @@ namespace CookApps.AutoChess.View
         [Header("Exit")]
         [SerializeField] protected CAButton exitButton;
 
+        [Header("Speed")]
+        [SerializeField] protected CAButton speedButton;
+        [SerializeField] protected GameObject speedOnObj;
+        [SerializeField] protected GameObject speedOffObj;
+
         [Header("HUD")]
         [SerializeField] protected TMP_Text phaseText;
         [SerializeField] protected TMP_Text timerText;
@@ -59,6 +64,8 @@ namespace CookApps.AutoChess.View
             PlayerIndex = playerIndex;
 
             exitButton?.onClick.AddListener(OnExitClicked);
+            speedButton?.onClick.AddListener(OnSpeedClicked);
+            InitSpeed();
             OnInitialize();
         }
 
@@ -81,6 +88,33 @@ namespace CookApps.AutoChess.View
             if (isConfirmed is not true) return;
 
             // TODO: 항복 처리
+        }
+
+        // ── 배속 ──
+
+        private const float SpeedNormal = 1f;
+        private const float SpeedFast = 1.3f;
+
+        private void InitSpeed()
+        {
+            bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
+            LocalSimulationRunner.SpeedMultiplier = isSpeedUp ? SpeedFast : SpeedNormal;
+            UpdateSpeedUI(isSpeedUp);
+        }
+
+        private void OnSpeedClicked()
+        {
+            bool isSpeedUp = Preference.LoadPreference(Pref.IS_SPEED_UP, false);
+            isSpeedUp = !isSpeedUp;
+            Preference.SavePreference(Pref.IS_SPEED_UP, isSpeedUp);
+            LocalSimulationRunner.SpeedMultiplier = isSpeedUp ? SpeedFast : SpeedNormal;
+            UpdateSpeedUI(isSpeedUp);
+        }
+
+        private void UpdateSpeedUI(bool isSpeedUp)
+        {
+            if (speedOnObj != null) speedOnObj.SetActive(isSpeedUp);
+            if (speedOffObj != null) speedOffObj.SetActive(!isSpeedUp);
         }
 
         // ── 틱 동기화 ──
@@ -391,6 +425,7 @@ namespace CookApps.AutoChess.View
         private void OnDestroy()
         {
             exitButton?.onClick.RemoveListener(OnExitClicked);
+            speedButton?.onClick.RemoveListener(OnSpeedClicked);
             OnCleanup();
         }
 

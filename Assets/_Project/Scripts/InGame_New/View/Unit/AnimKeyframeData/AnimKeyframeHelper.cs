@@ -34,7 +34,12 @@ namespace CookApps.AutoChess
         /// 캐릭터 ID로 front/back ATK 정보를 일괄 조회.
         /// Awake에서 1회 호출하여 캐싱용.
         /// </summary>
-        public static AnimKeyframeInfo Resolve(int characterId)
+        public static AnimKeyframeInfo Resolve(int characterId) => Resolve(characterId, AnimClipType.ATK);
+
+        /// <summary>
+        /// 지정된 클립 타입의 front/back 키프레임 정보를 조회.
+        /// </summary>
+        public static AnimKeyframeInfo Resolve(int characterId, AnimClipType clipType)
         {
             var info = new AnimKeyframeInfo
             {
@@ -44,8 +49,8 @@ namespace CookApps.AutoChess
 
             if (characterId <= 0) return info;
 
-            int frontKey = AnimKeyframeData.MakeKey(characterId, true, AnimClipType.ATK);
-            int backKey = AnimKeyframeData.MakeKey(characterId, false, AnimClipType.ATK);
+            int frontKey = AnimKeyframeData.MakeKey(characterId, true, clipType);
+            int backKey = AnimKeyframeData.MakeKey(characterId, false, clipType);
 
             AnimKeyframeData.ExecuteTimes.TryGetValue(frontKey, out info.FrontExecTime);
             AnimKeyframeData.ExecuteTimes.TryGetValue(backKey, out info.BackExecTime);

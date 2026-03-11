@@ -53,6 +53,10 @@ namespace CookApps.AutoBattler
                 _deferredCharacterId = characterId;
                 _deferredSkillActivation = onSkillActivate;
                 _hasDeferredSkillReady = true;
+
+                // CHARACTER_DEAD 튜토리얼 닫힘 시 보류된 SKILL_READY 처리 등록
+                tutorialManager.OnTutorialClosed += OnTutorialClosedTryDeferred;
+
                 return true;  // 스킬 발동 지연 (튜토리얼 없이)
             }
 
@@ -70,6 +74,9 @@ namespace CookApps.AutoBattler
                 return false;
             }
 
+            // 튜토리얼 닫힘 시 Resume 콜백 등록 (one-shot)
+            tutorialManager.OnTutorialClosed += ResumeAndActivateSkill;
+
             // 튜토리얼 표시 시도
             bool handled = tutorialManager.HandleTutorialAction(
                 TutorialTriggerType.SKILL_READY,
@@ -77,6 +84,7 @@ namespace CookApps.AutoBattler
 
             if (!handled)
             {
+                tutorialManager.OnTutorialClosed -= ResumeAndActivateSkill;
                 return false;
             }
 
@@ -125,8 +133,16 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
+        /// OnTutorialClosed 이벤트용 래퍼 (Action 시그니처)
+        /// </summary>
+        private static void OnTutorialClosedTryDeferred()
+        {
+            TryProcessDeferredSkillReady();
+        }
+
+        /// <summary>
         /// 보류된 SKILL_READY 튜토리얼 처리 시도
-        /// (CHARACTER_DEAD 튜토리얼 완료 후 TutorialManager에서 호출)
+        /// (CHARACTER_DEAD 튜토리얼 완료 후 OnTutorialClosed 이벤트로 호출)
         /// </summary>
         /// <returns>보류된 튜토리얼이 처리되었으면 true</returns>
         public static bool TryProcessDeferredSkillReady()

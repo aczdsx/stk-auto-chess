@@ -103,8 +103,22 @@ namespace CookApps.AutoChess.View
         {
             if (!_isCombatActive) return;
 
-            // 투사체 공격은 OnProjectileSpawned에서 처리
-            if (isProjectile) return;
+            // ATK/ATK2/CRIT 애니메이션 결정 (damage=0 공격 시작 신호 시)
+            if (isPreTimed && damage == 0)
+            {
+                var view = _unitViewManager?.FindCombatView(attackerId);
+                view?.PrepareAttackAnimation(isCrit);
+                return;
+            }
+
+            // 투사체 공격: 애니메이션 타입 결정 후 OnProjectileSpawned에서 처리
+            if (isProjectile)
+            {
+                // 원거리 공격도 ATK/ATK2/CRIT 애니메이션 결정
+                var view = _unitViewManager?.FindCombatView(attackerId);
+                view?.PrepareAttackAnimation(isCrit);
+                return;
+            }
 
             // 시뮬레이션에서 키프레임 타이밍 완료된 히트: 즉시 표시 (추가 딜레이 없음)
             if (isPreTimed)
@@ -120,7 +134,6 @@ namespace CookApps.AutoChess.View
                     });
                     _pendingMeleeTargetIds.Add(targetId);
                 }
-                // damage=0: ATK 애니메이션 시작 신호, 데미지 표시 불필요
                 return;
             }
 
@@ -128,7 +141,8 @@ namespace CookApps.AutoChess.View
             var attackerView = _unitViewManager?.FindCombatView(attackerId);
             if (attackerView == null) return;
 
-            var info = attackerView.GetAtkInfo();
+            var clipType = attackerView.GetCurrentAttackClipType();
+            var info = attackerView.GetAtkInfo(clipType);
             bool isFront = attackerView.IsFacingFront();
             float animSpeed = attackerView.AnimatorSpeed;
             int hitCount = info.GetHitCount(isFront);
@@ -760,7 +774,7 @@ namespace CookApps.AutoChess.View
         {
             if (!_isCombatActive) return;
 
-            float dt = Time.deltaTime;
+            float dt = Time.unscaledDeltaTime * LocalSimulationRunner.SpeedMultiplier;
 
             // 1-a. 대기 중인 근접 공격 지연 처리
             for (int i = _pendingMeleeAttacks.Count - 1; i >= 0; i--)

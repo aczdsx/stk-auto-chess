@@ -64,6 +64,9 @@ namespace CookApps.AutoChess
                 case CommandType.UnequipItem:
                     ProcessUnequipItem(world, in cmd);
                     break;
+                case CommandType.SpawnTutorialEnemy:
+                    ProcessSpawnTutorialEnemy(world, in cmd);
+                    break;
             }
         }
 
@@ -77,9 +80,10 @@ namespace CookApps.AutoChess
                     return type != CommandType.UseCommanderSkill;
 
                 case GamePhase.Combat:
-                    // 전투 페이즈: 커맨더 스킬 + 아이템 장착만 가능 (해제 불가)
+                    // 전투 페이즈: 커맨더 스킬 + 아이템 장착 + 튜토리얼 적 스폰만 가능
                     return type == CommandType.UseCommanderSkill ||
-                           type == CommandType.EquipItem;
+                           type == CommandType.EquipItem ||
+                           type == CommandType.SpawnTutorialEnemy;
 
                 case GamePhase.Result:
                     // 결과 페이즈: 입력 불가
@@ -190,6 +194,22 @@ namespace CookApps.AutoChess
         private static void ProcessCommanderSkill(GameWorld world, in GameCommand cmd)
         {
             // TODO: 커맨더 스킬 시스템
+        }
+
+        private static void ProcessSpawnTutorialEnemy(GameWorld world, in GameCommand cmd)
+        {
+            // PlayerIndex가 포함된 매치를 찾아 튜토리얼 적 스폰
+            for (int i = 0; i < GameWorld.MaxCombatMatches; i++)
+            {
+                var matchState = world.CombatMatchStates[i];
+                if (matchState == null) continue;
+                if (matchState.IsFinished) continue;
+                if (matchState.PlayerA == cmd.PlayerIndex || matchState.PlayerB == cmd.PlayerIndex)
+                {
+                    CombatSetupSystem.SpawnTutorialUnit(ref matchState, cmd.Param0, cmd.Param1, cmd.Param2);
+                    return;
+                }
+            }
         }
     }
 }

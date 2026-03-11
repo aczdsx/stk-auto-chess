@@ -21,6 +21,13 @@ namespace CookApps.AutoChess
         private GameCommand[] _commandBuffer = new GameCommand[32];
         private float _tickAccumulator;
         private bool _isRunning;
+        private bool _isPausedByTutorial;
+
+        /// <summary>
+        /// 배속 배율. Time.unscaledDeltaTime에 곱하여 적용.
+        /// Time.timeScale 해킹 방지를 위해 unscaledDeltaTime 기반.
+        /// </summary>
+        public static float SpeedMultiplier = 1f;
 
         // ── 이벤트 (View 레이어에서 구독) ──
         public event System.Action<GameWorld> OnTick;
@@ -81,14 +88,20 @@ namespace CookApps.AutoChess
         /// <summary>실행 중 여부</summary>
         public bool IsRunning => _isRunning;
 
+        /// <summary>튜토리얼에 의한 틱 일시정지</summary>
+        public void PauseTick() { _isPausedByTutorial = true; }
+
+        /// <summary>튜토리얼에 의한 틱 재개</summary>
+        public void ResumeTick() { _isPausedByTutorial = false; }
+
         // ── Unity Lifecycle ──
 
         private void Update()
         {
-            if (!_isRunning || _world == null) return;
+            if (!_isRunning || _isPausedByTutorial || _world == null) return;
 
             float tickInterval = 1f / _world.TickRate;
-            _tickAccumulator += Time.deltaTime;
+            _tickAccumulator += Time.unscaledDeltaTime * SpeedMultiplier;
 
             // 프레임 스킵 방지: 최대 3틱/프레임
             int maxTicksPerFrame = 3;

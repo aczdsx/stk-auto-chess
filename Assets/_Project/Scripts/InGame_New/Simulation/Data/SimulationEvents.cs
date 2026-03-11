@@ -45,6 +45,7 @@ namespace CookApps.AutoChess
         StatusEffectRemoved,
         CCAdded,
         CCRemoved,
+        ManaFull,
     }
 
     /// <summary>
@@ -340,6 +341,16 @@ namespace CookApps.AutoChess
                 Type = SimEventType.UnitHealed,
                 EntityId = targetId,
                 Value0 = amount,
+            });
+        }
+
+        public void PushManaFull(int entityId, int skillSpecId)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.ManaFull,
+                EntityId = entityId,
+                Value0 = skillSpecId,
             });
         }
 

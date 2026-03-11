@@ -54,7 +54,7 @@ namespace CookApps.AutoBattler
             var rootObj = new GameObject("AutoChessRoot");
             _viewRoot = rootObj.AddComponent<AutoChessViewRoot>();
             await _viewRoot.LoadResources(inGameParams.StageId, config.GameMode);
-            _viewRoot.Initialize();
+            await _viewRoot.Initialize();
 
             // 시드 설정 + 시뮬레이션 시작 (config 전달)
             _viewRoot.Runner.RandomSeed = (ulong)inGameParams.RandomSeed;
@@ -125,6 +125,7 @@ namespace CookApps.AutoBattler
 
         protected override void OnPostExit()
         {
+            LocalSimulationRunner.SpeedMultiplier = 1f;
             if (_viewRoot != null)
             {
                 _viewRoot.Runner.OnGameOver -= HandleGameOver;

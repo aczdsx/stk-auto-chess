@@ -532,6 +532,7 @@ namespace CookApps.AutoChess
         // 대기 중인 근접 공격
         public int PendingAtkTargetId;   // 대기 중인 공격 타겟 (-1 = 없음)
         public int PendingAtkTimer;      // 히트까지 남은 프레임
+        public bool PendingAtkIsCrit;    // 선행 판정된 크리티컬 여부 (ATK 시작 시 확정)
 
         // 이동 (프레임 단위)
         public byte MoveFromCol;      // 이동 출발 열 (View 보간용)
@@ -552,6 +553,7 @@ namespace CookApps.AutoChess
         public int SkillSpecId;       // 사용 스킬 ID
         public int SkillCastTimer;    // 시전 중 남은 프레임
         public bool IsSkillReady;     // 마나 충전 완료
+        public bool HasPushedManaFull; // ManaFull 이벤트 발행 여부
 
         // 범위 기본공격
         public bool HasAreaAttack;        // AreaAttackRegistry에 패턴 있으면 true

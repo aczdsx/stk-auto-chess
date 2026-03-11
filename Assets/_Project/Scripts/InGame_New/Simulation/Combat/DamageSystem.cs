@@ -285,9 +285,13 @@ namespace CookApps.AutoChess
             if (attackerIndex >= 0)
                 TraitSystem.InvokeOnPreAttack(state, attackerIndex, ref target);
 
+            // 크리티컬은 CombatAISystem에서 선행 판정 완료 (PendingAtkIsCrit)
+            bool isCrit = attacker.PendingAtkIsCrit;
+            attacker.PendingAtkIsCrit = false;
+
             int rawDamage = attacker.Attack;
-            bool isCrit;
-            rawDamage = ApplyCritical(rawDamage, ref attacker, ref rng, out isCrit);
+            if (isCrit)
+                rawDamage = rawDamage * attacker.CritMultiplier / 100;
 
             // Trait: 크리티컬 콜백
             if (isCrit && attackerIndex >= 0)

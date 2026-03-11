@@ -96,6 +96,12 @@ namespace CookApps.AutoBattler
             InGameMainFlowManager.Instance.Pause();
             Debug.LogColor("[TutorialEnemyDeadAllHandler] 게임 일시 정지", "yellow");
 
+            // 튜토리얼 닫힘 시 Resume 콜백 등록 (one-shot)
+            if (TutorialManager.Instance != null)
+            {
+                TutorialManager.Instance.OnTutorialClosed += ResumeAndEndCombat;
+            }
+
             // 튜토리얼 표시
             TutorialManager.Instance?.HandleTutorialAction(
                 TutorialTriggerType.ENEMY_DEAD_ALL,

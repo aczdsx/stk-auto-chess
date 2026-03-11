@@ -85462,6 +85462,9 @@ MonoBehaviour:
   synergyTableView: {fileID: 1470658227881657195}
   unitCountText: {fileID: 3646164144665278522}
   exitButton: {fileID: 7283563388971879756}
+  speedButton: {fileID: 1993419806500685400}
+  speedOnObj: {fileID: 2957049736042124170}
+  speedOffObj: {fileID: 1690859162297493123}
   phaseText: {fileID: 0}
   timerText: {fileID: 1182622782047068308}
   goldText: {fileID: 4164369364591797345}

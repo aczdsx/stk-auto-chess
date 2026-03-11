@@ -92,6 +92,7 @@ namespace CookApps.AutoChess
         UseCommanderSkill,  // 커맨더 스킬 사용
         EquipItem,          // 아이템 장착
         UnequipItem,        // 아이템 해제
+        SpawnTutorialEnemy, // 튜토리얼 적 스폰
     }
 
     /// <summary>군중제어(CC) 타입</summary>

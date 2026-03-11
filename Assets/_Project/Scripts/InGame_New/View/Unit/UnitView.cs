@@ -49,6 +49,11 @@ namespace CookApps.AutoChess.View
         private bool _isHologram;
         private Vector3? _facingTarget;
 
+        // ── ATK/ATK2/CRIT 애니메이션 선택 ──
+        private bool _atkToggle;                                     // false=ATK, true=ATK2 (순차 토글)
+        private AnimationKey _pendingAttackAnimKey = AnimationKey.ATK; // 다음 공격 애니메이션
+        private bool _pendingAttackPrepared;                          // PrepareAttackAnimation 호출 여부
+
         // ── 초기화 ──
 
         public void Initialize(int entityId, byte starLevel, string prefabPath, int champSpecId = 0)
@@ -65,6 +70,9 @@ namespace CookApps.AutoChess.View
             _attackAnimEndTime = 0f;
             _isHologram = false;
             _facingTarget = null;
+            _atkToggle = false;
+            _pendingAttackAnimKey = AnimationKey.ATK;
+            _pendingAttackPrepared = false;
             _isActive = true;
             ReleaseHpBar();
             gameObject.SetActive(true);
@@ -86,6 +94,9 @@ namespace CookApps.AutoChess.View
             _attackAnimEndTime = 0f;
             _isHologram = false;
             _facingTarget = null;
+            _atkToggle = false;
+            _pendingAttackAnimKey = AnimationKey.ATK;
+            _pendingAttackPrepared = false;
             _isActive = true;
             ReleaseHpBar();
             gameObject.SetActive(true);
@@ -216,11 +227,22 @@ namespace CookApps.AutoChess.View
             if (state == CombatState.Idle && Time.time < _attackAnimEndTime)
                 return;
 
-            if (state == _lastState) return;
+            if (state == _lastState && !(state == CombatState.Attacking && _pendingAttackPrepared)) return;
             if (_characterView == null) return;
             _lastState = state;
 
-            var clip = _characterView.PlayAnimation(StateToAnimKey(state));
+            AnimationKey animKey;
+            if (state == CombatState.Attacking && _pendingAttackPrepared)
+            {
+                animKey = _pendingAttackAnimKey;
+                _pendingAttackPrepared = false;
+            }
+            else
+            {
+                animKey = StateToAnimKey(state);
+            }
+
+            var clip = _characterView.PlayAnimation(animKey);
 
             if ((state == CombatState.Attacking || state == CombatState.CastingSkill) && clip != null)
                 _attackAnimEndTime = Time.time + clip.length;
@@ -250,11 +272,19 @@ namespace CookApps.AutoChess.View
             };
         }
 
-        /// <summary>ATK 키프레임 정보 (ms 기반, float 없음) 반환</summary>
+        /// <summary>ATK 키프레임 정보 반환 (기본 ATK)</summary>
         public AnimKeyframeInfo GetAtkInfo()
         {
             if (_characterView == null) return default;
             return _characterView.GetAtkInfo();
+        }
+
+        /// <summary>지정된 클립 타입의 키프레임 정보 반환. 데이터 없으면 ATK로 폴백.</summary>
+        public AnimKeyframeInfo GetAtkInfo(AnimClipType clipType)
+        {
+            if (_characterView == null) return default;
+            if (clipType == AnimClipType.ATK) return _characterView.GetAtkInfo();
+            return _characterView.GetAtkInfoForClip(clipType);
         }
 
         /// <summary>현재 방향(front/back) 반환</summary>
@@ -302,9 +332,41 @@ namespace CookApps.AutoChess.View
             return spec?.height ?? 1.5f;
         }
 
+        /// <summary>
+        /// 다음 공격 애니메이션 타입을 결정 (이벤트 수신 시 호출).
+        /// CRIT이면 CRIT 재생, 아니면 ATK↔ATK2 토글 순차 실행.
+        /// CRIT은 토글 상태를 변경하지 않음.
+        /// </summary>
+        public void PrepareAttackAnimation(bool isCrit)
+        {
+            if (isCrit)
+            {
+                _pendingAttackAnimKey = AnimationKey.CRIT;
+            }
+            else
+            {
+                _pendingAttackAnimKey = _atkToggle ? AnimationKey.ATK2 : AnimationKey.ATK;
+                _atkToggle = !_atkToggle;
+            }
+            _pendingAttackPrepared = true;
+        }
+
+        /// <summary>현재 재생 중인 공격 애니메이션의 AnimClipType 반환</summary>
+        public AnimClipType GetCurrentAttackClipType()
+        {
+            return _pendingAttackAnimKey switch
+            {
+                AnimationKey.ATK2 => AnimClipType.ATK2,
+                AnimationKey.CRIT => AnimClipType.CRIT,
+                _ => AnimClipType.ATK,
+            };
+        }
+
         public void PlayAttackAnimation()
         {
-            _characterView?.PlayAnimation(AnimationKey.ATK);
+            var animKey = _pendingAttackPrepared ? _pendingAttackAnimKey : AnimationKey.ATK;
+            _pendingAttackPrepared = false;
+            _characterView?.PlayAnimation(animKey);
         }
 
         public void PlayHitEffect()

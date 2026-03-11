@@ -34,8 +34,8 @@ namespace CookApps.AutoBattler
         protected override void Awake()
         {
             base.Awake();
-            guestLoginButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickTouchStartAsync()).AddTo(this);
-            startButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickGuestLoginAsync()).AddTo(this);
+            guestLoginButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickGuestLoginAsync()).AddTo(this);
+            startButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickTouchStartAsync()).AddTo(this);
             skipTutorialButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickSkipTutorialAsync()).AddTo(this);
             inGameTestButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickInGameTestAsync()).AddTo(this);
             newInGameTestButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickNewInGameTestAsync()).AddTo(this);

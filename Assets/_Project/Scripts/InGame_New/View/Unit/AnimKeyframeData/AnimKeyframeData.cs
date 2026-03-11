@@ -13,6 +13,7 @@ namespace CookApps.AutoChess
         ATK2 = 1,
         SKL  = 2,
         SKL2 = 3,
+        CRIT = 4,
     }
 
     public static partial class AnimKeyframeData
