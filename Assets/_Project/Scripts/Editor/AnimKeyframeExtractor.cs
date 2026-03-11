@@ -262,6 +262,7 @@ namespace CookApps.AutoBattler.Editor
 
             if (suffix == "ATK") clipType = AnimClipType.ATK;
             else if (suffix == "ATK2") clipType = AnimClipType.ATK2;
+            else if (suffix == "CRIT") clipType = AnimClipType.CRIT;
             else if (suffix == "SKL") clipType = AnimClipType.SKL;
             else if (suffix == "SKL2") clipType = AnimClipType.SKL2;
             else return false;
@@ -327,7 +328,7 @@ namespace CookApps.AutoBattler.Editor
                 }
 
                 // 다타 공격: ATK 클립에서 Execute 이벤트가 2개 이상이면 히트 타이밍 배열 생성
-                if ((clip.ClipType == AnimClipType.ATK || clip.ClipType == AnimClipType.ATK2) && execEvents.Count >= 2)
+                if ((clip.ClipType == AnimClipType.ATK || clip.ClipType == AnimClipType.ATK2 || clip.ClipType == AnimClipType.CRIT) && execEvents.Count >= 2)
                 {
                     var hitTimeList = string.Join(", ", execEvents.Select(e => $"{e.Time:F4}f"));
                     sb.AppendLine($"            AttackHitTimes[{key}] = new[] {{ {hitTimeList} }};{comment} ({execEvents.Count}hits)");

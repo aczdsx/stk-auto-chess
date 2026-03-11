@@ -17,6 +17,10 @@ namespace CookApps.AutoChess
             ClipLengths[243713617] = 0.9375f;
             ClipEvents[243713617] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[243713620] = 0.2500f; // 15232101 Back_CRIT
+            ClipLengths[243713620] = 0.9375f;
+            ClipEvents[243713620] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[243713618] = 0.5000f; // 15232101 Back_SKL
             ClipLengths[243713618] = 1.5000f;
             ClipEvents[243713618] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.5000f) };
@@ -31,6 +35,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[243713625] = 0.2500f; // 15232101 Front_ATK2
             ClipLengths[243713625] = 1.0000f;
             ClipEvents[243713625] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[243713628] = 0.2500f; // 15232101 Front_CRIT
+            ClipLengths[243713628] = 0.9375f;
+            ClipEvents[243713628] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[243713626] = 0.5000f; // 15232101 Front_SKL
             ClipLengths[243713626] = 1.5000f;
@@ -48,6 +56,10 @@ namespace CookApps.AutoChess
             ClipLengths[244033633] = 0.9375f;
             ClipEvents[244033633] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[244033636] = 0.2500f; // 15252102 Back_CRIT
+            ClipLengths[244033636] = 0.9375f;
+            ClipEvents[244033636] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[244033634] = 0.5000f; // 15252102 Back_SKL
             ClipLengths[244033634] = 1.0417f;
             ClipEvents[244033634] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -62,6 +74,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[244033641] = 0.2500f; // 15252102 Front_ATK2
             ClipLengths[244033641] = 1.0000f;
             ClipEvents[244033641] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[244033644] = 0.2500f; // 15252102 Front_CRIT
+            ClipLengths[244033644] = 0.9375f;
+            ClipEvents[244033644] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[244033642] = 0.5000f; // 15252102 Front_SKL
             ClipLengths[244033642] = 1.0417f;
@@ -79,6 +95,10 @@ namespace CookApps.AutoChess
             ClipLengths[245155217] = 0.9375f;
             ClipEvents[245155217] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[245155220] = 0.2500f; // 15322201 Back_CRIT
+            ClipLengths[245155220] = 0.9375f;
+            ClipEvents[245155220] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[245155218] = 0.5000f; // 15322201 Back_SKL
             ClipLengths[245155218] = 1.0625f;
             ClipEvents[245155218] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -93,6 +113,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[245155225] = 0.2500f; // 15322201 Front_ATK2
             ClipLengths[245155225] = 1.0000f;
             ClipEvents[245155225] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[245155228] = 0.2500f; // 15322201 Front_CRIT
+            ClipLengths[245155228] = 0.9375f;
+            ClipEvents[245155228] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[245155226] = 0.5000f; // 15322201 Front_SKL
             ClipLengths[245155226] = 1.0625f;
@@ -110,6 +134,10 @@ namespace CookApps.AutoChess
             ClipLengths[245795233] = 0.9375f;
             ClipEvents[245795233] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[245795236] = 0.2500f; // 15362202 Back_CRIT
+            ClipLengths[245795236] = 0.9375f;
+            ClipEvents[245795236] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[245795234] = 0.5000f; // 15362202 Back_SKL
             ClipLengths[245795234] = 1.0417f;
             ClipEvents[245795234] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -124,6 +152,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[245795241] = 0.2500f; // 15362202 Front_ATK2
             ClipLengths[245795241] = 1.0000f;
             ClipEvents[245795241] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[245795244] = 0.2500f; // 15362202 Front_CRIT
+            ClipLengths[245795244] = 0.9375f;
+            ClipEvents[245795244] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[245795242] = 0.5000f; // 15362202 Front_SKL
             ClipLengths[245795242] = 1.0417f;
@@ -141,6 +173,10 @@ namespace CookApps.AutoChess
             ClipLengths[246756817] = 0.9375f;
             ClipEvents[246756817] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[246756820] = 0.2500f; // 15422301 Back_CRIT
+            ClipLengths[246756820] = 0.9375f;
+            ClipEvents[246756820] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[246756818] = 0.5000f; // 15422301 Back_SKL
             ClipLengths[246756818] = 1.0417f;
             ClipEvents[246756818] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -155,6 +191,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[246756825] = 0.2500f; // 15422301 Front_ATK2
             ClipLengths[246756825] = 1.0000f;
             ClipEvents[246756825] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[246756828] = 0.2500f; // 15422301 Front_CRIT
+            ClipLengths[246756828] = 0.9375f;
+            ClipEvents[246756828] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[246756826] = 0.5000f; // 15422301 Front_SKL
             ClipLengths[246756826] = 1.0417f;
@@ -172,6 +212,10 @@ namespace CookApps.AutoChess
             ClipLengths[247396833] = 0.9375f;
             ClipEvents[247396833] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[247396836] = 0.2500f; // 15462302 Back_CRIT
+            ClipLengths[247396836] = 0.9375f;
+            ClipEvents[247396836] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[247396834] = 0.5000f; // 15462302 Back_SKL
             ClipLengths[247396834] = 1.5000f;
             ClipEvents[247396834] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.5000f) };
@@ -186,6 +230,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[247396841] = 0.2500f; // 15462302 Front_ATK2
             ClipLengths[247396841] = 1.0000f;
             ClipEvents[247396841] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[247396844] = 0.2500f; // 15462302 Front_CRIT
+            ClipLengths[247396844] = 0.9375f;
+            ClipEvents[247396844] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[247396842] = 0.5000f; // 15462302 Front_SKL
             ClipLengths[247396842] = 1.5000f;
@@ -203,6 +251,10 @@ namespace CookApps.AutoChess
             ClipLengths[248518417] = 0.9375f;
             ClipEvents[248518417] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[248518420] = 0.2500f; // 15532401 Back_CRIT
+            ClipLengths[248518420] = 0.9375f;
+            ClipEvents[248518420] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[248518418] = 0.6250f; // 15532401 Back_SKL
             ClipLengths[248518418] = 1.0625f;
             ClipEvents[248518418] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.6250f), (AnimationEventKey.End, 1.0000f) };
@@ -217,6 +269,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[248518425] = 0.2500f; // 15532401 Front_ATK2
             ClipLengths[248518425] = 1.0000f;
             ClipEvents[248518425] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[248518428] = 0.2500f; // 15532401 Front_CRIT
+            ClipLengths[248518428] = 0.9375f;
+            ClipEvents[248518428] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[248518426] = 0.6250f; // 15532401 Front_SKL
             ClipLengths[248518426] = 1.0625f;
@@ -234,6 +290,10 @@ namespace CookApps.AutoChess
             ClipLengths[250280017] = 0.9375f;
             ClipEvents[250280017] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[250280020] = 0.2500f; // 15642501 Back_CRIT
+            ClipLengths[250280020] = 0.9375f;
+            ClipEvents[250280020] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[250280018] = 0.5000f; // 15642501 Back_SKL
             ClipLengths[250280018] = 1.0417f;
             ClipEvents[250280018] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -248,6 +308,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[250280025] = 0.2500f; // 15642501 Front_ATK2
             ClipLengths[250280025] = 1.0000f;
             ClipEvents[250280025] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[250280028] = 0.2500f; // 15642501 Front_CRIT
+            ClipLengths[250280028] = 0.9375f;
+            ClipEvents[250280028] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[250280026] = 0.5000f; // 15642501 Front_SKL
             ClipLengths[250280026] = 1.0417f;
@@ -265,6 +329,10 @@ namespace CookApps.AutoChess
             ClipLengths[250600033] = 0.9375f;
             ClipEvents[250600033] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[250600036] = 0.2500f; // 15662502 Back_CRIT
+            ClipLengths[250600036] = 0.9375f;
+            ClipEvents[250600036] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[250600034] = 0.5000f; // 15662502 Back_SKL
             ClipLengths[250600034] = 1.5000f;
             ClipEvents[250600034] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.5000f) };
@@ -279,6 +347,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[250600041] = 0.2500f; // 15662502 Front_ATK2
             ClipLengths[250600041] = 1.0000f;
             ClipEvents[250600041] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[250600044] = 0.2500f; // 15662502 Front_CRIT
+            ClipLengths[250600044] = 0.9375f;
+            ClipEvents[250600044] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[250600042] = 0.5000f; // 15662502 Front_SKL
             ClipLengths[250600042] = 1.5000f;
@@ -296,6 +368,10 @@ namespace CookApps.AutoChess
             ClipLengths[275409617] = 0.9375f;
             ClipEvents[275409617] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[275409620] = 0.2500f; // 17213101 Back_CRIT
+            ClipLengths[275409620] = 0.9375f;
+            ClipEvents[275409620] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[275409618] = 0.5000f; // 17213101 Back_SKL
             ClipLengths[275409618] = 1.5000f;
             ClipEvents[275409618] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.5000f) };
@@ -310,6 +386,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[275409625] = 0.2500f; // 17213101 Front_ATK2
             ClipLengths[275409625] = 1.0000f;
             ClipEvents[275409625] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[275409628] = 0.2500f; // 17213101 Front_CRIT
+            ClipLengths[275409628] = 0.9375f;
+            ClipEvents[275409628] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[275409626] = 0.5000f; // 17213101 Front_SKL
             ClipLengths[275409626] = 1.5000f;
@@ -327,6 +407,10 @@ namespace CookApps.AutoChess
             ClipLengths[275889633] = 0.9375f;
             ClipEvents[275889633] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[275889636] = 0.2500f; // 17243102 Back_CRIT
+            ClipLengths[275889636] = 0.9375f;
+            ClipEvents[275889636] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[275889634] = 0.5000f; // 17243102 Back_SKL
             ClipLengths[275889634] = 1.0417f;
             ClipEvents[275889634] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -341,6 +425,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[275889641] = 0.2500f; // 17243102 Front_ATK2
             ClipLengths[275889641] = 1.0000f;
             ClipEvents[275889641] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[275889644] = 0.2500f; // 17243102 Front_CRIT
+            ClipLengths[275889644] = 0.9375f;
+            ClipEvents[275889644] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[275889642] = 0.5000f; // 17243102 Front_SKL
             ClipLengths[275889642] = 1.0417f;
@@ -358,6 +446,10 @@ namespace CookApps.AutoChess
             ClipLengths[276209649] = 0.9375f;
             ClipEvents[276209649] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[276209652] = 0.2500f; // 17263103 Back_CRIT
+            ClipLengths[276209652] = 0.9375f;
+            ClipEvents[276209652] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[276209650] = 0.5000f; // 17263103 Back_SKL
             ClipLengths[276209650] = 1.0417f;
             ClipEvents[276209650] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -372,6 +464,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[276209657] = 0.2500f; // 17263103 Front_ATK2
             ClipLengths[276209657] = 1.0000f;
             ClipEvents[276209657] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[276209660] = 0.2500f; // 17263103 Front_CRIT
+            ClipLengths[276209660] = 0.9375f;
+            ClipEvents[276209660] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[276209658] = 0.5000f; // 17263103 Front_SKL
             ClipLengths[276209658] = 1.0417f;
@@ -389,6 +485,10 @@ namespace CookApps.AutoChess
             ClipLengths[277171217] = 0.9375f;
             ClipEvents[277171217] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[277171220] = 0.2500f; // 17323201 Back_CRIT
+            ClipLengths[277171220] = 0.9375f;
+            ClipEvents[277171220] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[277171218] = 0.5000f; // 17323201 Back_SKL
             ClipLengths[277171218] = 1.0625f;
             ClipEvents[277171218] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -403,6 +503,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[277171225] = 0.2500f; // 17323201 Front_ATK2
             ClipLengths[277171225] = 1.0000f;
             ClipEvents[277171225] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[277171228] = 0.2500f; // 17323201 Front_CRIT
+            ClipLengths[277171228] = 0.9375f;
+            ClipEvents[277171228] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[277171226] = 0.5000f; // 17323201 Front_SKL
             ClipLengths[277171226] = 1.0625f;
@@ -420,6 +524,10 @@ namespace CookApps.AutoChess
             ClipLengths[277331233] = 0.9375f;
             ClipEvents[277331233] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[277331236] = 0.2500f; // 17333202 Back_CRIT
+            ClipLengths[277331236] = 0.9375f;
+            ClipEvents[277331236] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[277331234] = 0.5000f; // 17333202 Back_SKL
             ClipLengths[277331234] = 1.1000f;
             ClipEvents[277331234] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -434,6 +542,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[277331241] = 0.2500f; // 17333202 Front_ATK2
             ClipLengths[277331241] = 1.0000f;
             ClipEvents[277331241] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[277331244] = 0.2500f; // 17333202 Front_CRIT
+            ClipLengths[277331244] = 0.9375f;
+            ClipEvents[277331244] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[277331242] = 0.5000f; // 17333202 Front_SKL
             ClipLengths[277331242] = 1.1000f;
@@ -451,6 +563,10 @@ namespace CookApps.AutoChess
             ClipLengths[277651249] = 0.9375f;
             ClipEvents[277651249] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[277651252] = 0.2500f; // 17353203 Back_CRIT
+            ClipLengths[277651252] = 0.9375f;
+            ClipEvents[277651252] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[277651250] = 0.5000f; // 17353203 Back_SKL
             ClipLengths[277651250] = 1.0625f;
             ClipEvents[277651250] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -465,6 +581,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[277651257] = 0.2500f; // 17353203 Front_ATK2
             ClipLengths[277651257] = 1.0000f;
             ClipEvents[277651257] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[277651260] = 0.2500f; // 17353203 Front_CRIT
+            ClipLengths[277651260] = 0.9375f;
+            ClipEvents[277651260] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[277651258] = 0.5000f; // 17353203 Front_SKL
             ClipLengths[277651258] = 1.0625f;
@@ -482,6 +602,10 @@ namespace CookApps.AutoChess
             ClipLengths[277811265] = 0.9375f;
             ClipEvents[277811265] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[277811268] = 0.2500f; // 17363204 Back_CRIT
+            ClipLengths[277811268] = 0.9375f;
+            ClipEvents[277811268] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[277811266] = 0.5000f; // 17363204 Back_SKL
             ClipLengths[277811266] = 1.0625f;
             ClipEvents[277811266] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -496,6 +620,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[277811273] = 0.2500f; // 17363204 Front_ATK2
             ClipLengths[277811273] = 1.0000f;
             ClipEvents[277811273] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[277811276] = 0.2500f; // 17363204 Front_CRIT
+            ClipLengths[277811276] = 0.9375f;
+            ClipEvents[277811276] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[277811274] = 0.5000f; // 17363204 Front_SKL
             ClipLengths[277811274] = 1.0625f;
@@ -513,6 +641,10 @@ namespace CookApps.AutoChess
             ClipLengths[278612817] = 0.9375f;
             ClipEvents[278612817] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[278612820] = 0.2500f; // 17413301 Back_CRIT
+            ClipLengths[278612820] = 0.9375f;
+            ClipEvents[278612820] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[278612818] = 0.5000f; // 17413301 Back_SKL
             ClipLengths[278612818] = 1.0625f;
             ClipEvents[278612818] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -527,6 +659,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[278612825] = 0.2500f; // 17413301 Front_ATK2
             ClipLengths[278612825] = 1.0000f;
             ClipEvents[278612825] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[278612828] = 0.2500f; // 17413301 Front_CRIT
+            ClipLengths[278612828] = 0.9375f;
+            ClipEvents[278612828] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[278612826] = 0.5000f; // 17413301 Front_SKL
             ClipLengths[278612826] = 1.0625f;
@@ -544,6 +680,10 @@ namespace CookApps.AutoChess
             ClipLengths[278932833] = 0.9375f;
             ClipEvents[278932833] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[278932836] = 0.2500f; // 17433302 Back_CRIT
+            ClipLengths[278932836] = 0.9375f;
+            ClipEvents[278932836] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[278932834] = 0.5000f; // 17433302 Back_SKL
             ClipLengths[278932834] = 1.0833f;
             ClipEvents[278932834] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -558,6 +698,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[278932841] = 0.2500f; // 17433302 Front_ATK2
             ClipLengths[278932841] = 1.0000f;
             ClipEvents[278932841] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[278932844] = 0.2500f; // 17433302 Front_CRIT
+            ClipLengths[278932844] = 0.9375f;
+            ClipEvents[278932844] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[278932842] = 0.5000f; // 17433302 Front_SKL
             ClipLengths[278932842] = 1.0833f;
@@ -575,6 +719,10 @@ namespace CookApps.AutoChess
             ClipLengths[278932849] = 0.9375f;
             ClipEvents[278932849] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[278932852] = 0.2500f; // 17433303 Back_CRIT
+            ClipLengths[278932852] = 0.9375f;
+            ClipEvents[278932852] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[278932850] = 0.5000f; // 17433303 Back_SKL
             ClipLengths[278932850] = 1.0850f;
             ClipEvents[278932850] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -590,6 +738,10 @@ namespace CookApps.AutoChess
             ClipLengths[278932857] = 1.0000f;
             ClipEvents[278932857] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
 
+            ExecuteTimes[278932860] = 0.2500f; // 17433303 Front_CRIT
+            ClipLengths[278932860] = 0.9375f;
+            ClipEvents[278932860] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[278932858] = 0.5000f; // 17433303 Front_SKL
             ClipLengths[278932858] = 1.0850f;
             ClipEvents[278932858] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -598,32 +750,40 @@ namespace CookApps.AutoChess
             ClipLengths[278932859] = 3.0000f;
             ClipEvents[278932859] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 1.8750f), (AnimationEventKey.End, 3.0000f) };
 
-            ExecuteTimes[280214416] = 0.2500f; // 17513401 Back_ATK
-            ClipLengths[280214416] = 0.7083f;
-            ClipEvents[280214416] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.6667f) };
+            ExecuteTimes[280214416] = 0.1250f; // 17513401 Back_ATK
+            ClipLengths[280214416] = 1.0000f;
+            ClipEvents[280214416] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.1250f), (AnimationEventKey.End, 1.0000f) };
 
-            ExecuteTimes[280214417] = 0.2500f; // 17513401 Back_ATK2
-            ClipLengths[280214417] = 0.9375f;
-            ClipEvents[280214417] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+            ExecuteTimes[280214417] = 0.1250f; // 17513401 Back_ATK2
+            ClipLengths[280214417] = 1.0000f;
+            ClipEvents[280214417] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.1250f), (AnimationEventKey.End, 1.0000f) };
 
-            ExecuteTimes[280214418] = 0.5000f; // 17513401 Back_SKL
-            ClipLengths[280214418] = 1.0417f;
-            ClipEvents[280214418] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
+            ExecuteTimes[280214420] = 0.1250f; // 17513401 Back_CRIT
+            ClipLengths[280214420] = 1.0000f;
+            ClipEvents[280214420] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.1250f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[280214418] = 1.1250f; // 17513401 Back_SKL
+            ClipLengths[280214418] = 2.2500f;
+            ClipEvents[280214418] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 1.1250f), (AnimationEventKey.End, 2.2500f) };
 
             ExecuteTimes[280214419] = 0.4000f; // 17513401 Back_SKL2 (fallback)
             ClipLengths[280214419] = 1.0000f;
 
-            ExecuteTimes[280214424] = 0.2500f; // 17513401 Front_ATK
-            ClipLengths[280214424] = 0.7083f;
-            ClipEvents[280214424] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.6667f) };
+            ExecuteTimes[280214424] = 0.1250f; // 17513401 Front_ATK
+            ClipLengths[280214424] = 1.0000f;
+            ClipEvents[280214424] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.1250f), (AnimationEventKey.End, 1.0000f) };
 
-            ExecuteTimes[280214425] = 0.2500f; // 17513401 Front_ATK2
+            ExecuteTimes[280214425] = 0.1250f; // 17513401 Front_ATK2
             ClipLengths[280214425] = 1.0000f;
-            ClipEvents[280214425] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+            ClipEvents[280214425] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.1250f), (AnimationEventKey.End, 1.0000f) };
 
-            ExecuteTimes[280214426] = 0.5000f; // 17513401 Front_SKL
-            ClipLengths[280214426] = 1.0417f;
-            ClipEvents[280214426] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
+            ExecuteTimes[280214428] = 0.1250f; // 17513401 Front_CRIT
+            ClipLengths[280214428] = 1.0000f;
+            ClipEvents[280214428] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.1250f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[280214426] = 1.1250f; // 17513401 Front_SKL
+            ClipLengths[280214426] = 2.2500f;
+            ClipEvents[280214426] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 1.1250f), (AnimationEventKey.End, 2.2500f) };
 
             ExecuteTimes[280214427] = 1.8750f; // 17513401 Front_SKL2
             ClipLengths[280214427] = 3.0000f;
@@ -636,6 +796,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[280214433] = 0.2500f; // 17513402 Back_ATK2
             ClipLengths[280214433] = 0.9375f;
             ClipEvents[280214433] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
+            ExecuteTimes[280214436] = 0.2500f; // 17513402 Back_CRIT
+            ClipLengths[280214436] = 0.9375f;
+            ClipEvents[280214436] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[280214434] = 0.5000f; // 17513402 Back_SKL
             ClipLengths[280214434] = 1.5000f;
@@ -651,6 +815,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[280214441] = 0.2500f; // 17513402 Front_ATK2
             ClipLengths[280214441] = 1.0000f;
             ClipEvents[280214441] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[280214444] = 0.2500f; // 17513402 Front_CRIT
+            ClipLengths[280214444] = 0.9375f;
+            ClipEvents[280214444] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[280214442] = 0.5000f; // 17513402 Front_SKL
             ClipLengths[280214442] = 1.5000f;
@@ -668,6 +836,10 @@ namespace CookApps.AutoChess
             ClipLengths[280374449] = 0.9375f;
             ClipEvents[280374449] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[280374452] = 0.2500f; // 17523403 Back_CRIT
+            ClipLengths[280374452] = 0.9375f;
+            ClipEvents[280374452] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[280374450] = 0.5000f; // 17523403 Back_SKL
             ClipLengths[280374450] = 1.0917f;
             ClipEvents[280374450] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -682,6 +854,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[280374457] = 0.2500f; // 17523403 Front_ATK2
             ClipLengths[280374457] = 1.0000f;
             ClipEvents[280374457] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[280374460] = 0.2500f; // 17523403 Front_CRIT
+            ClipLengths[280374460] = 0.9375f;
+            ClipEvents[280374460] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[280374458] = 0.5000f; // 17523403 Front_SKL
             ClipLengths[280374458] = 1.0917f;
@@ -699,6 +875,10 @@ namespace CookApps.AutoChess
             ClipLengths[280854465] = 0.9375f;
             ClipEvents[280854465] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[280854468] = 0.2500f; // 17553404 Back_CRIT
+            ClipLengths[280854468] = 0.9375f;
+            ClipEvents[280854468] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[280854466] = 0.5000f; // 17553404 Back_SKL
             ClipLengths[280854466] = 2.5000f;
             ClipEvents[280854466] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 2.5000f) };
@@ -713,6 +893,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[280854473] = 0.2500f; // 17553404 Front_ATK2
             ClipLengths[280854473] = 1.0000f;
             ClipEvents[280854473] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[280854476] = 0.2500f; // 17553404 Front_CRIT
+            ClipLengths[280854476] = 0.9375f;
+            ClipEvents[280854476] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[280854474] = 0.5000f; // 17553404 Front_SKL
             ClipLengths[280854474] = 2.3750f;
@@ -730,6 +914,10 @@ namespace CookApps.AutoChess
             ClipLengths[281014481] = 0.9375f;
             ClipEvents[281014481] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[281014484] = 0.2500f; // 17563405 Back_CRIT
+            ClipLengths[281014484] = 0.9375f;
+            ClipEvents[281014484] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[281014482] = 0.5000f; // 17563405 Back_SKL
             ClipLengths[281014482] = 1.6250f;
             ClipEvents[281014482] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per3, 0.5000f), (AnimationEventKey.Execute1Per3, 0.7500f), (AnimationEventKey.Execute1Per3, 1.0000f), (AnimationEventKey.End, 1.6250f) };
@@ -744,6 +932,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[281014489] = 0.2500f; // 17563405 Front_ATK2
             ClipLengths[281014489] = 1.0000f;
             ClipEvents[281014489] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[281014492] = 0.2500f; // 17563405 Front_CRIT
+            ClipLengths[281014492] = 0.9375f;
+            ClipEvents[281014492] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[281014490] = 0.5000f; // 17563405 Front_SKL
             ClipLengths[281014490] = 1.6250f;
@@ -761,6 +953,10 @@ namespace CookApps.AutoChess
             ClipLengths[281816017] = 0.9375f;
             ClipEvents[281816017] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[281816020] = 0.2500f; // 17613501 Back_CRIT
+            ClipLengths[281816020] = 0.9375f;
+            ClipEvents[281816020] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[281816018] = 0.5000f; // 17613501 Back_SKL
             ClipLengths[281816018] = 1.7500f;
             ClipEvents[281816018] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per2, 0.5000f), (AnimationEventKey.Execute1Per2, 1.1250f), (AnimationEventKey.End, 1.7500f) };
@@ -775,6 +971,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[281816025] = 0.2500f; // 17613501 Front_ATK2
             ClipLengths[281816025] = 1.0000f;
             ClipEvents[281816025] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[281816028] = 0.2500f; // 17613501 Front_CRIT
+            ClipLengths[281816028] = 0.9375f;
+            ClipEvents[281816028] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[281816026] = 0.5000f; // 17613501 Front_SKL
             ClipLengths[281816026] = 1.7500f;
@@ -792,6 +992,10 @@ namespace CookApps.AutoChess
             ClipLengths[281816033] = 0.9375f;
             ClipEvents[281816033] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[281816036] = 0.2500f; // 17613502 Back_CRIT
+            ClipLengths[281816036] = 0.9375f;
+            ClipEvents[281816036] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[281816034] = 0.5000f; // 17613502 Back_SKL
             ClipLengths[281816034] = 1.5000f;
             ClipEvents[281816034] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.5000f) };
@@ -806,6 +1010,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[281816041] = 0.2500f; // 17613502 Front_ATK2
             ClipLengths[281816041] = 1.0000f;
             ClipEvents[281816041] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[281816044] = 0.2500f; // 17613502 Front_CRIT
+            ClipLengths[281816044] = 0.9375f;
+            ClipEvents[281816044] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[281816042] = 0.5000f; // 17613502 Front_SKL
             ClipLengths[281816042] = 1.5000f;
@@ -823,6 +1031,10 @@ namespace CookApps.AutoChess
             ClipLengths[282296049] = 0.9375f;
             ClipEvents[282296049] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[282296052] = 0.2500f; // 17643503 Back_CRIT
+            ClipLengths[282296052] = 0.9375f;
+            ClipEvents[282296052] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[282296050] = 0.5000f; // 17643503 Back_SKL
             ClipLengths[282296050] = 1.5000f;
             ClipEvents[282296050] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.5000f) };
@@ -837,6 +1049,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[282296057] = 0.2500f; // 17643503 Front_ATK2
             ClipLengths[282296057] = 1.0000f;
             ClipEvents[282296057] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[282296060] = 0.2500f; // 17643503 Front_CRIT
+            ClipLengths[282296060] = 0.9375f;
+            ClipEvents[282296060] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[282296058] = 0.5000f; // 17643503 Front_SKL
             ClipLengths[282296058] = 1.5000f;
@@ -854,6 +1070,10 @@ namespace CookApps.AutoChess
             ClipLengths[282296065] = 0.9375f;
             ClipEvents[282296065] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[282296068] = 0.2500f; // 17643504 Back_CRIT
+            ClipLengths[282296068] = 0.9375f;
+            ClipEvents[282296068] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[282296066] = 0.5000f; // 17643504 Back_SKL
             ClipLengths[282296066] = 1.5000f;
             ClipEvents[282296066] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.5000f) };
@@ -868,6 +1088,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[282296073] = 0.2500f; // 17643504 Front_ATK2
             ClipLengths[282296073] = 1.0000f;
             ClipEvents[282296073] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[282296076] = 0.2500f; // 17643504 Front_CRIT
+            ClipLengths[282296076] = 0.9375f;
+            ClipEvents[282296076] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[282296074] = 0.5000f; // 17643504 Front_SKL
             ClipLengths[282296074] = 1.5000f;
@@ -885,6 +1109,10 @@ namespace CookApps.AutoChess
             ClipLengths[282456081] = 0.9375f;
             ClipEvents[282456081] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[282456084] = 0.2500f; // 17653505 Back_CRIT
+            ClipLengths[282456084] = 0.9375f;
+            ClipEvents[282456084] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[282456082] = 0.5000f; // 17653505 Back_SKL
             ClipLengths[282456082] = 1.0625f;
             ClipEvents[282456082] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.5000f), (AnimationEventKey.End, 1.0000f) };
@@ -899,6 +1127,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[282456089] = 0.2500f; // 17653505 Front_ATK2
             ClipLengths[282456089] = 1.0000f;
             ClipEvents[282456089] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[282456092] = 0.2500f; // 17653505 Front_CRIT
+            ClipLengths[282456092] = 0.9375f;
+            ClipEvents[282456092] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[282456090] = 0.5000f; // 17653505 Front_SKL
             ClipLengths[282456090] = 1.0625f;
@@ -916,6 +1148,10 @@ namespace CookApps.AutoChess
             ClipLengths[282616097] = 0.9375f;
             ClipEvents[282616097] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
+            ExecuteTimes[282616100] = 0.2500f; // 17663506 Back_CRIT
+            ClipLengths[282616100] = 0.9375f;
+            ClipEvents[282616100] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
+
             ExecuteTimes[282616098] = 0.5625f; // 17663506 Back_SKL
             ClipLengths[282616098] = 1.3750f;
             ClipEvents[282616098] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per3, 0.5625f), (AnimationEventKey.Execute1Per3, 0.7500f), (AnimationEventKey.Execute1Per3, 0.9375f), (AnimationEventKey.End, 1.3125f) };
@@ -930,6 +1166,10 @@ namespace CookApps.AutoChess
             ExecuteTimes[282616105] = 0.2500f; // 17663506 Front_ATK2
             ClipLengths[282616105] = 1.0000f;
             ClipEvents[282616105] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 1.0000f) };
+
+            ExecuteTimes[282616108] = 0.2500f; // 17663506 Front_CRIT
+            ClipLengths[282616108] = 0.9375f;
+            ClipEvents[282616108] = new[] { (AnimationEventKey.Start, 0.0000f), (AnimationEventKey.Execute1Per1, 0.2500f), (AnimationEventKey.End, 0.9375f) };
 
             ExecuteTimes[282616106] = 0.5625f; // 17663506 Front_SKL
             ClipLengths[282616106] = 1.3750f;
