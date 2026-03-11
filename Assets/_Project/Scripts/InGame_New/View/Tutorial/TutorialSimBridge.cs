@@ -13,6 +13,7 @@ namespace CookApps.AutoChess.View
         public static TutorialSimBridge Instance { get; private set; }
 
         private readonly LocalSimulationRunner _localRunner;
+        private BoardGridView _boardGridView;
         private readonly TutorialNewCombatStartHandler _combatStartHandler;
         private readonly TutorialNewSkillReadyHandler _skillReadyHandler;
         private readonly TutorialNewCombatEndHandler _combatEndHandler;
@@ -70,6 +71,25 @@ namespace CookApps.AutoChess.View
                     _skillReadyHandler.TryProcessDeferred();
                     break;
             }
+        }
+
+        public void SetBoardGridView(BoardGridView boardGridView)
+        {
+            _boardGridView = boardGridView;
+        }
+
+        /// <summary>타일 월드 좌표 반환. tileIndex를 col,row로 변환 후 BoardGridView에서 조회.</summary>
+        public bool TryGetTileWorldPosition(int tileIndex, out UnityEngine.Vector3 position)
+        {
+            position = default;
+            if (_boardGridView == null) return false;
+
+            BoardHelper.FromIndex(tileIndex, out int col, out int row);
+            var tile = _boardGridView.GetTile(col, row);
+            if (tile == null) return false;
+
+            position = tile.Position;
+            return true;
         }
 
         public void EnqueueSpawnCommand(int monsterSpecId, int col, int row)

@@ -111,6 +111,7 @@ namespace CookApps.AutoChess.View
                 TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.GAME_START, "0");
             }
             var tutorialBridge = new TutorialSimBridge(_runner);
+            tutorialBridge.SetBoardGridView(_boardGridView);
             _viewBridge.SetTutorialBridge(tutorialBridge);
         }
 
