@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoBattler
 {
@@ -25,5 +26,9 @@ namespace CookApps.AutoBattler
         [Header("UV 스크롤")]
         [Tooltip("텍스처 스크롤 속도 (음수=반대 방향)")]
         public float ScrollSpeed = 1f;
+
+        [Header("프리팹")]
+        [Tooltip("타겟 라인 VFX 프리팹")]
+        public AssetReferenceGameObject TargetLinePrefabRef;
     }
 }

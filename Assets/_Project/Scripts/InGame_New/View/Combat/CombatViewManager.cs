@@ -3,7 +3,6 @@ using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace CookApps.AutoChess.View
 {
@@ -13,10 +12,15 @@ namespace CookApps.AutoChess.View
     /// </summary>
     public class CombatViewManager : MonoBehaviour
     {
+        [Header("VFX Prefabs")]
+        [SerializeField] private GameObject _hitVfxPrefab;
+
         private bool _isCombatActive;
         private Transform _vfxRoot;
         private TileEffectManager _tileEffectManager;
         private UnitViewManager _unitViewManager;
+
+        private const float FireAndForgetLifetime = 3f;
 
         // ── 투사체 VFX 추적 ──
         private readonly List<ActiveProjectile> _activeProjectiles = new();
@@ -46,7 +50,7 @@ namespace CookApps.AutoChess.View
             public ProjectileType ProjType;
             public byte Col, Row;
             public sbyte DirCol, DirRow;
-            public InGameVfxNameType VfxType;
+            public GameObject VfxPrefab;
         }
 
         private struct PendingMeleeAttack
@@ -90,12 +94,30 @@ namespace CookApps.AutoChess.View
 
         // ── 이벤트 수신 (AutoChessViewBridge에서 호출) ──
 
-        public void OnUnitAttacked(int attackerId, int targetId, int damage, bool isCrit, bool isProjectile)
+        public void OnUnitAttacked(int attackerId, int targetId, int damage, bool isCrit, bool isProjectile, bool isPreTimed = false)
         {
             if (!_isCombatActive) return;
 
             // 투사체 공격은 OnProjectileSpawned에서 처리
             if (isProjectile) return;
+
+            // 시뮬레이션에서 키프레임 타이밍 완료된 히트: 즉시 표시 (추가 딜레이 없음)
+            if (isPreTimed)
+            {
+                if (damage > 0)
+                {
+                    ExecuteMeleeHit(new PendingMeleeAttack
+                    {
+                        AttackerId = attackerId,
+                        TargetId = targetId,
+                        Damage = damage,
+                        IsCrit = isCrit,
+                    });
+                    _pendingMeleeTargetIds.Add(targetId);
+                }
+                // damage=0: ATK 애니메이션 시작 신호, 데미지 표시 불필요
+                return;
+            }
 
             // 근접 공격: ATK 애니메이션 execute 타이밍에 맞춰 지연 처리
             var attackerView = _unitViewManager?.FindCombatView(attackerId);
@@ -151,7 +173,7 @@ namespace CookApps.AutoChess.View
             unitView.PlayHitEffect();
 
             // 피격 VFX
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, unitView.transform.position);
+            SpawnFireAndForgetVfx(_hitVfxPrefab, unitView.transform.position);
 
             // 데미지 텍스트
             var textView = InGameTextViewPool.Instance.Get();
@@ -168,7 +190,7 @@ namespace CookApps.AutoChess.View
             // TODO: 사망 VFX
         }
 
-        public void OnUnitCastSkill(int casterId, int targetId, int skillSpecId, SynergyType element)
+        public void OnUnitCastSkill(int casterId, int targetId, int skillSpecId, SynergyType element, bool skipVfx = false)
         {
             if (!_isCombatActive) return;
 
@@ -181,35 +203,55 @@ namespace CookApps.AutoChess.View
                 _tileEffectManager.ShowAt(castType, casterView.transform.position, 1.0f);
             }
 
-            // 스킬 VFX (SkillActive.skill_vfxs)
-            if (skillSpecId <= 0) return;
-            var skillList = SpecDataManager.Instance.GetSkillDataList(skillSpecId);
-            if (skillList == null || skillList.Count == 0) return;
-            var skillSpec = skillList[0];
-            if (skillSpec.skill_vfxs == null || skillSpec.skill_vfxs.Length == 0) return;
+            // 채널링 스킬은 SkillPhaseVfx로 VFX를 제어하므로 여기서 스킵
+            if (skipVfx) return;
+
+            // 스킬 VFX (프리팹 직접 참조)
+            var skillPrefabs = casterView?.GetSkillEffectPrefabs();
+            if (skillPrefabs == null || skillPrefabs.Length == 0) return;
 
             // 첫 번째 VFX: 캐스터 위치에 재생
-            if (casterView != null && skillSpec.skill_vfxs.Length > 0)
+            if (casterView != null && skillPrefabs.Length > 0 && skillPrefabs[0]?.Prefab != null)
             {
-                var vfxType = skillSpec.skill_vfxs[0];
-                if (vfxType != InGameVfxNameType.NONE)
-                {
-                    InGameVfxManager.Instance.AddInGameVfx(vfxType, casterView.transform.position);
-                }
+                SpawnSkillVfx(casterView, skillPrefabs[0]);
             }
 
             // 두 번째 VFX: 타겟 위치에 재생 (있으면)
-            if (skillSpec.skill_vfxs.Length > 1 && targetId >= 0)
+            if (skillPrefabs.Length > 1 && skillPrefabs[1]?.Prefab != null && targetId >= 0)
             {
                 var targetView = _unitViewManager?.FindCombatView(targetId);
                 if (targetView != null)
                 {
-                    var vfxType = skillSpec.skill_vfxs[1];
-                    if (vfxType != InGameVfxNameType.NONE)
-                    {
-                        InGameVfxManager.Instance.AddInGameVfx(vfxType, targetView.transform.position);
-                    }
+                    SpawnSkillVfx(targetView, skillPrefabs[1]);
                 }
+            }
+        }
+
+        public void OnSkillPhaseVfx(int casterId, int skillSpecId, byte vfxIndex, sbyte dirCol = 0, sbyte dirRow = 0)
+        {
+            if (!_isCombatActive) return;
+
+            var casterView = _unitViewManager?.FindCombatView(casterId);
+            if (casterView == null) return;
+
+            var skillPrefabs = casterView.GetSkillEffectPrefabs();
+            if (skillPrefabs == null || vfxIndex >= skillPrefabs.Length) return;
+
+            if (dirCol != 0 || dirRow != 0)
+                SpawnSkillVfxDirectional(casterView, skillPrefabs[vfxIndex], dirCol, dirRow);
+            else
+                SpawnSkillVfx(casterView, skillPrefabs[vfxIndex]);
+        }
+
+        public void OnSkillRectAreaEffect(int col, int row, sbyte dirCol, sbyte dirRow, SynergyType element)
+        {
+            if (!_isCombatActive) return;
+            if (_tileEffectManager == null) return;
+
+            if (element != SynergyType.NONE)
+            {
+                var areaType = TileEffectManager.SynergyToAreaType(element);
+                _tileEffectManager.ShowDirectionalRect(areaType, col, row, dirCol, dirRow, 0.5f);
             }
         }
 
@@ -218,11 +260,11 @@ namespace CookApps.AutoChess.View
         {
             if (!_isCombatActive) return;
 
-            var vfxType = GetProjectileVfxType(champSpecId);
-            if (vfxType == InGameVfxNameType.NONE) return;
-
             var sourceView = _unitViewManager?.FindCombatView(sourceId);
             if (sourceView == null) return;
+
+            var prefab = sourceView.GetProjectilePrefab();
+            if (prefab == null) return;
 
             var info = sourceView.GetAtkInfo();
             bool isFront = sourceView.IsFacingFront();
@@ -239,7 +281,7 @@ namespace CookApps.AutoChess.View
                 Row = row,
                 DirCol = dirCol,
                 DirRow = dirRow,
-                VfxType = vfxType,
+                VfxPrefab = prefab,
             });
         }
 
@@ -255,7 +297,7 @@ namespace CookApps.AutoChess.View
             }
         }
 
-        public void OnSkillAreaEffect(int col, int row, int radius, SynergyType element, bool isRow)
+        public void OnSkillAreaEffect(int col, int row, int radius, SynergyType element, bool isRow, bool isBox = false)
         {
             if (!_isCombatActive) return;
             if (_tileEffectManager == null) return;
@@ -265,9 +307,68 @@ namespace CookApps.AutoChess.View
                 var areaType = TileEffectManager.SynergyToAreaType(element);
                 if (isRow)
                     _tileEffectManager.ShowRow(areaType, row, col, radius, 0.5f);
+                else if (isBox)
+                    _tileEffectManager.ShowRangeBox(areaType, col, row, radius, 0.5f);
                 else
                     _tileEffectManager.ShowRange(areaType, col, row, radius, 0.5f);
             }
+        }
+
+        // ── Fire-and-forget VFX (피격, 스킬 이펙트) ──
+
+        private void SpawnSkillVfx(UnitView unitView, SkillViewData skillData)
+        {
+            if (skillData?.Prefab == null || unitView == null) return;
+            var posTransform = unitView.GetSkillPositionTransform(skillData.Position);
+            var vfxObj = Instantiate(skillData.Prefab, posTransform.position, posTransform.rotation);
+
+            if (skillData.Followable)
+                vfxObj.transform.SetParent(posTransform);
+            else if (_vfxRoot != null)
+                vfxObj.transform.SetParent(_vfxRoot);
+
+            Destroy(vfxObj, FireAndForgetLifetime);
+        }
+
+        private static readonly Vector3 VfxFlipScale = new Vector3(1, 1, -1);
+
+        /// <summary>방향이 있는 스킬 VFX 생성. 기존 EffectCodeSkill217613501의 rotation+scale flip 로직 재현.</summary>
+        private void SpawnSkillVfxDirectional(UnitView unitView, SkillViewData skillData, sbyte dirCol, sbyte dirRow)
+        {
+            if (skillData?.Prefab == null || unitView == null) return;
+            var posTransform = unitView.GetSkillPositionTransform(skillData.Position);
+            var vfxObj = Instantiate(skillData.Prefab, posTransform.position, Quaternion.identity);
+
+            if (_vfxRoot != null)
+                vfxObj.transform.SetParent(_vfxRoot);
+
+            // 기존 코드와 동일: 실제 타일 월드 좌표 차이로 방향 계산
+            Vector3 casterWorldPos = posTransform.position;
+            BoardWorldHelper.WorldToBoard(casterWorldPos, out _, out int casterCol, out int casterRow);
+            int fwdCol = casterCol + dirCol;
+            int fwdRow = casterRow + dirRow;
+            var fwdWorldPos = BoardWorldHelper.CombatGridToWorld(0, fwdCol, fwdRow);
+            Vector3 direction = (fwdWorldPos - casterWorldPos).normalized;
+
+            if (direction != Vector3.zero)
+            {
+                vfxObj.transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90f, 0);
+            }
+
+            // scale flip: 기존 조건 dirCol > 0 || dirRow < 0
+            if (dirCol > 0 || dirRow < 0)
+                vfxObj.transform.localScale = VfxFlipScale;
+            else
+                vfxObj.transform.localScale = Vector3.one;
+
+            Destroy(vfxObj, FireAndForgetLifetime);
+        }
+
+        private void SpawnFireAndForgetVfx(GameObject prefab, Vector3 position)
+        {
+            if (prefab == null) return;
+            var go = Instantiate(prefab, position, Quaternion.identity, _vfxRoot);
+            Destroy(go, FireAndForgetLifetime);
         }
 
         // ── 지연 후 근접 공격 실행 ──
@@ -281,7 +382,7 @@ namespace CookApps.AutoChess.View
             targetView.PlayHitEffect();
 
             // 피격 VFX
-            InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_hit_01, targetView.transform.position);
+            SpawnFireAndForgetVfx(_hitVfxPrefab, targetView.transform.position);
 
             // 데미지 텍스트
             var textView = InGameTextViewPool.Instance.Get();
@@ -304,25 +405,25 @@ namespace CookApps.AutoChess.View
             switch (p.ProjType)
             {
                 case ProjectileType.Homing:
-                    SpawnHomingProjectile(sourcePos, p.TargetId, p.VfxType);
+                    SpawnHomingProjectile(sourcePos, p.TargetId, p.VfxPrefab);
                     break;
                 case ProjectileType.Linear:
-                    SpawnLinearProjectile(sourcePos, p.DirCol, p.DirRow, p.VfxType);
+                    SpawnLinearProjectile(sourcePos, p.DirCol, p.DirRow, p.VfxPrefab);
                     break;
                 case ProjectileType.AreaTarget:
-                    SpawnAreaProjectile(sourcePos, p.Col, p.Row, p.VfxType);
+                    SpawnAreaProjectile(sourcePos, p.Col, p.Row, p.VfxPrefab);
                     break;
             }
         }
 
         // ── 투사체 VFX 생성 ──
 
-        private void SpawnHomingProjectile(Vector3 sourcePos, int targetId, InGameVfxNameType vfxType)
+        private void SpawnHomingProjectile(Vector3 sourcePos, int targetId, GameObject prefab)
         {
             var targetView = _unitViewManager?.FindCombatView(targetId);
             if (targetView == null) return;
 
-            var vfx = CreateVfx(vfxType, sourcePos);
+            var vfx = CreateVfx(prefab, sourcePos);
             if (vfx == null) return;
 
             Vector3 targetPos = targetView.transform.position + Vector3.up * 0.5f;
@@ -338,9 +439,9 @@ namespace CookApps.AutoChess.View
             RegisterProjectile(vfx, movement);
         }
 
-        private void SpawnLinearProjectile(Vector3 sourcePos, sbyte dirCol, sbyte dirRow, InGameVfxNameType vfxType)
+        private void SpawnLinearProjectile(Vector3 sourcePos, sbyte dirCol, sbyte dirRow, GameObject prefab)
         {
-            var vfx = CreateVfx(vfxType, sourcePos);
+            var vfx = CreateVfx(prefab, sourcePos);
             if (vfx == null) return;
 
             // 방향을 월드 좌표로 변환 (col=x, row=z)
@@ -356,12 +457,12 @@ namespace CookApps.AutoChess.View
             RegisterProjectile(vfx, movement);
         }
 
-        private void SpawnAreaProjectile(Vector3 sourcePos, byte targetCol, byte targetRow, InGameVfxNameType vfxType)
+        private void SpawnAreaProjectile(Vector3 sourcePos, byte targetCol, byte targetRow, GameObject prefab)
         {
             Vector3 targetPos = BoardWorldHelper.CombatGridToWorld(0, targetCol, targetRow);
             if (targetPos == Vector3.zero) return;
 
-            var vfx = CreateVfx(vfxType, sourcePos);
+            var vfx = CreateVfx(prefab, sourcePos);
             if (vfx == null) return;
 
             var movement = InGameVfxMovementPool.Get<InGameVfxMovementBezier>();
@@ -389,25 +490,21 @@ namespace CookApps.AutoChess.View
 
         // ── VFX 생성/반환 ──
 
-        private InGameVfx CreateVfx(InGameVfxNameType vfxType, Vector3 position)
+        private InGameVfx CreateVfx(GameObject prefab, Vector3 position)
         {
-            var vfxData = SpecDataManager.Instance.GetInGameVfxData(vfxType);
-            if (vfxData == null || string.IsNullOrEmpty(vfxData.addressable_path)) return null;
+            if (prefab == null) return null;
 
-            var go = Addressables.InstantiateAsync(vfxData.addressable_path).WaitForCompletion();
+            var go = Instantiate(prefab, position, Quaternion.identity, _vfxRoot);
             if (go == null) return null;
 
             var vfx = go.GetComponent<InGameVfx>();
             if (vfx == null)
             {
-                Addressables.ReleaseInstance(go);
+                Destroy(go);
                 return null;
             }
 
-            vfx.VfxNameType = vfxType;
-            vfx.CachedTr.SetParent(_vfxRoot, true);
-            vfx.CachedGo.SetActive(true);
-            vfx.CachedTr.position = position;
+            go.SetActive(true);
             return vfx;
         }
 
@@ -422,7 +519,7 @@ namespace CookApps.AutoChess.View
             if (ap.Vfx != null && ap.Vfx.CachedGo != null)
             {
                 ap.Vfx.Clear();
-                Addressables.ReleaseInstance(ap.Vfx.CachedGo);
+                Object.Destroy(ap.Vfx.CachedGo);
             }
         }
 
@@ -548,15 +645,6 @@ namespace CookApps.AutoChess.View
                     _dyingProjectiles.RemoveAt(i);
                 }
             }
-        }
-
-        // ── VFX 타입 조회 ──
-
-        private static InGameVfxNameType GetProjectileVfxType(int champSpecId)
-        {
-            if (champSpecId <= 0) return InGameVfxNameType.NONE;
-            var spec = SpecDataManager.Instance.GetSpecCharacter(champSpecId);
-            return spec?.projectile_vfx_name_type ?? InGameVfxNameType.NONE;
         }
     }
 }

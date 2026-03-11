@@ -271,6 +271,29 @@ namespace CookApps.AutoChess.View
             return _characterView.GetProjectileSpawnPosition();
         }
 
+        public GameObject GetProjectilePrefab()
+        {
+            return _characterView != null ? _characterView.ProjectilePrefab : null;
+        }
+
+        public SkillViewData[] GetSkillEffectPrefabs()
+        {
+            return _characterView != null ? _characterView.SkillEffectPrefabs : null;
+        }
+
+        public Transform GetSkillPositionTransform(SkillPosition pos)
+        {
+            if (_characterView == null) return transform;
+            switch (pos)
+            {
+                case SkillPosition.SKILL_ROOT:       return _characterView.SkillRootTransform;
+                case SkillPosition.SKILL_TOP:        return _characterView.SkillTopFXTransform;
+                case SkillPosition.SKILL_MIDDLE:     return _characterView.SkillMiddleFXTransform;
+                case SkillPosition.SKILL_BOTTOM:     return _characterView.SkillBottomFXTransform;
+                default:                             return transform;
+            }
+        }
+
         public float GetCharacterHeight()
         {
             if (_champSpecId <= 0) return 1.5f;

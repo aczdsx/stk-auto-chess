@@ -22,7 +22,8 @@ namespace CookApps.AutoChess
             BoardHelper.Setup(config.BoardWidth, config.BoardHeight, config.CombatGridHeight);
 
             // 스킬 팩토리 초기화 (스펙 테이블 → 아키타입 자동 등록)
-            SkillFactory.Initialize();
+            SkillFactory.Clear();
+            SkillFactory.Initialize(config.TickRate);
 
             // 범위 기본공격 패턴 레지스트리 초기화
             AreaAttackRegistry.Initialize();

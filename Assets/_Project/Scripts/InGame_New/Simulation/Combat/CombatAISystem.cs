@@ -72,6 +72,13 @@ namespace CookApps.AutoChess
         private static void UpdateUnit(CombatMatchState state, ref CombatUnit unit,
             ref DeterministicRNG rng, int tickRate)
         {
+            // 범위 공격 진행 중 (키프레임 타이밍 기반 멀티히트)
+            if (unit.IsAreaAttacking)
+            {
+                DamageSystem.TickAreaAttack(state, ref unit, tickRate);
+                return;
+            }
+
             // CC 상태 처리
             if (unit.State == CombatState.CrowdControlled)
             {
@@ -109,6 +116,17 @@ namespace CookApps.AutoChess
                 SkillSystem.TickCasting(state, ref unit, FindUnitSlotIndex(state, ref unit), ref rng);
                 if (unit.State == CombatState.CastingSkill)
                     return; // 아직 시전 중
+            }
+
+            // 대기 중인 근접 공격 히트 처리
+            if (unit.PendingAtkTimer > 0)
+            {
+                unit.PendingAtkTimer--;
+                if (unit.PendingAtkTimer <= 0)
+                {
+                    DamageSystem.ExecutePendingMeleeHit(state, ref unit, ref rng, tickRate);
+                }
+                return; // 공격 애니메이션 중
             }
 
             // 타겟 갱신
@@ -160,7 +178,22 @@ namespace CookApps.AutoChess
                     {
                         // 공격 실행
                         unit.State = CombatState.Attacking;
-                        DamageSystem.ExecuteBasicAttack(state, ref unit, ref target, ref rng, tickRate);
+                        if (unit.AttackRange <= 1 && !unit.HasAreaAttack)
+                        {
+                            // 근접: ATK 키프레임까지 데미지 지연
+                            unit.PendingAtkTargetId = target.CombatId;
+                            unit.PendingAtkTimer = unit.AtkHitDelay;
+                            unit.AttackCooldown = unit.GetAttackInterval(tickRate);
+
+                            // 이벤트 발행 (View가 ATK 애니메이션 시작)
+                            state.EventQueue?.PushUnitAttacked(
+                                unit.SourceEntityId, target.SourceEntityId, 0, false, false, isPreTimed: true);
+                        }
+                        else
+                        {
+                            // 원거리/범위: 기존 즉시 실행 (투사체가 알아서 지연)
+                            DamageSystem.ExecuteBasicAttack(state, ref unit, ref target, ref rng, tickRate);
+                        }
                     }
                 }
                 else

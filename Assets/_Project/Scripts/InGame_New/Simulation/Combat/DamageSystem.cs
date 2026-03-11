@@ -170,6 +170,7 @@ namespace CookApps.AutoChess
             CombatMatchState state, ref CombatUnit attacker, ref CombatUnit target,
             ref DeterministicRNG rng, int tickRate)
         {
+
             // 범위 기본공격 분기
             if (attacker.HasAreaAttack && AreaAttackRegistry.TryGetPattern(attacker.ChampionSpecId, out var pattern))
             {
@@ -239,6 +240,54 @@ namespace CookApps.AutoChess
                 TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
         }
 
+        /// <summary>대기 중인 근접 공격 히트 적용 (ATK 키프레임 도달 시점)</summary>
+        public static void ExecutePendingMeleeHit(
+            CombatMatchState state, ref CombatUnit attacker, ref DeterministicRNG rng, int tickRate)
+        {
+            int targetIdx = state.FindUnitIndex(attacker.PendingAtkTargetId);
+            attacker.PendingAtkTargetId = CombatUnit.InvalidId;
+
+            // 타겟 유효성 재검증
+            if (targetIdx < 0 || !state.Units[targetIdx].IsAlive)
+            {
+                // 타겟 사망/무효: 데미지 없이 Idle 복귀
+                attacker.State = CombatState.Idle;
+                return;
+            }
+
+            ref var target = ref state.Units[targetIdx];
+            int attackerIndex = state.FindUnitIndex(attacker.CombatId);
+
+            // Trait: 공격 전 콜백
+            if (attackerIndex >= 0)
+                TraitSystem.InvokeOnPreAttack(state, attackerIndex, ref target);
+
+            int rawDamage = attacker.Attack;
+            bool isCrit;
+            rawDamage = ApplyCritical(rawDamage, ref attacker, ref rng, out isCrit);
+
+            // Trait: 크리티컬 콜백
+            if (isCrit && attackerIndex >= 0)
+                TraitSystem.InvokeOnCritical(state, attackerIndex, ref target, rawDamage);
+
+            int finalDamage = CalculateDamage(rawDamage, DamageType.Physical, ref target);
+
+            if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
+
+            ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical);
+            ApplyLifeSteal(ref attacker, finalDamage);
+            ChargeMana(ref target, ManaGainOnHit);
+            ChargeMana(ref attacker, ManaGainOnAttack);
+
+            // View에 실제 데미지 전달 (isPreTimed: View가 딜레이 없이 즉시 표시)
+            state.EventQueue?.PushUnitAttacked(
+                attacker.SourceEntityId, target.SourceEntityId, finalDamage, isCrit, false, isPreTimed: true);
+
+            // Trait: 공격 후 콜백
+            if (attackerIndex >= 0)
+                TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
+        }
+
         /// <summary>회피 판정. 회피 성공 시 true.</summary>
         public static bool TryDodge(ref CombatUnit target, ref DeterministicRNG rng)
         {
@@ -247,10 +296,13 @@ namespace CookApps.AutoChess
         }
 
         // ═══════════════════════════════════════════════
-        //  범위 기본공격
+        //  범위 기본공격 (키프레임 타이밍 기반 멀티히트)
         // ═══════════════════════════════════════════════
 
-        /// <summary>범위 기본공격 실행. 패턴의 모든 히트를 순차 처리.</summary>
+        /// <summary>
+        /// 범위 기본공격 시작. 데미지/크리를 계산하고 첫 히트 타이머를 설정.
+        /// 이후 매 틱 TickAreaAttack()에서 히트 타이밍 처리.
+        /// </summary>
         private static void ExecuteAreaAttack(
             CombatMatchState state, ref CombatUnit attacker, ref CombatUnit target,
             ref DeterministicRNG rng, int tickRate, ref AreaAttackPattern pattern)
@@ -273,18 +325,74 @@ namespace CookApps.AutoChess
 
             if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, rawDamage, isCrit, false);
 
-            // 모든 히트 순차 실행
-            for (int h = 0; h < pattern.HitCount; h++)
-            {
-                var hit = pattern.GetHit(h);
-                ApplyAreaHit(state, ref attacker, hitDamage, isCrit, dirCol, dirRow, ref hit);
-            }
+            // 멀티히트 상태 저장
+            attacker.IsAreaAttacking = true;
+            attacker.AreaHitIndex = 0;
+            attacker.AreaHitDamage = hitDamage;
+            attacker.AreaHitIsCrit = isCrit;
+            attacker.AreaDirCol = (sbyte)dirCol;
+            attacker.AreaDirRow = (sbyte)dirRow;
+
+            // 첫 히트 타이머 설정 (AttackSpeed 반영: slow 디버프 시 딜레이 증가)
+            var firstHit = pattern.GetHit(0);
+            attacker.AreaHitTimer = CalcHitDelayFrames(firstHit.DelayMs, tickRate, attacker.AttackSpeed);
 
             // 공격자 마나 충전
             ChargeMana(ref attacker, ManaGainOnAttack);
+        }
 
-            // 공격 쿨다운 재설정
-            attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
+        /// <summary>
+        /// 범위 공격 틱. 매 프레임 호출하여 히트 타이밍 도달 시 해당 히트 실행.
+        /// 모든 히트 완료 후 공격 쿨다운 설정.
+        /// </summary>
+        public static void TickAreaAttack(CombatMatchState state, ref CombatUnit unit, int tickRate)
+        {
+            if (!unit.IsAreaAttacking) return;
+
+            unit.AreaHitTimer--;
+            if (unit.AreaHitTimer > 0) return;
+
+            // 패턴 조회
+            if (!AreaAttackRegistry.TryGetPattern(unit.ChampionSpecId, out var pattern))
+            {
+                unit.IsAreaAttacking = false;
+                unit.AttackCooldown = unit.GetAttackInterval(tickRate);
+                return;
+            }
+
+            // 현재 히트 실행
+            int hitIdx = unit.AreaHitIndex;
+            var hit = pattern.GetHit(hitIdx);
+            ApplyAreaHit(state, ref unit, unit.AreaHitDamage, unit.AreaHitIsCrit,
+                unit.AreaDirCol, unit.AreaDirRow, ref hit);
+
+            // 다음 히트로 진행
+            unit.AreaHitIndex++;
+
+            if (unit.AreaHitIndex >= pattern.HitCount)
+            {
+                // 모든 히트 완료
+                unit.IsAreaAttacking = false;
+                unit.AttackCooldown = unit.GetAttackInterval(tickRate);
+            }
+            else
+            {
+                // 다음 히트까지의 딜레이 (현재 히트와 다음 히트의 시간 차이)
+                var nextHit = pattern.GetHit(unit.AreaHitIndex);
+                int currentFrames = CalcHitDelayFrames(hit.DelayMs, tickRate, unit.AttackSpeed);
+                int nextFrames = CalcHitDelayFrames(nextHit.DelayMs, tickRate, unit.AttackSpeed);
+                unit.AreaHitTimer = nextFrames - currentFrames;
+                if (unit.AreaHitTimer <= 0) unit.AreaHitTimer = 1;
+            }
+        }
+
+        /// <summary>밀리초 딜레이를 프레임으로 변환 (AttackSpeed 반영)</summary>
+        private static int CalcHitDelayFrames(int delayMs, int tickRate, int attackSpeed)
+        {
+            // AttackSpeed 100 = 1.0x 속도, slow(50) = 2x 딜레이, fast(200) = 0.5x 딜레이
+            if (attackSpeed <= 0) attackSpeed = 100;
+            int frames = delayMs * tickRate * 100 / (1000 * attackSpeed);
+            return frames > 0 ? frames : 1;
         }
 
         /// <summary>단일 히트의 범위 판정 + 데미지 적용</summary>
@@ -397,7 +505,7 @@ namespace CookApps.AutoChess
             }
         }
 
-        /// <summary>범위 공격 피격 유닛에 데미지 적용 + 이벤트 발행</summary>
+        /// <summary>범위 공격 피격 유닛에 데미지 적용 + 이벤트 발행 (isPreTimed=true)</summary>
         private static void ApplyAreaDamageToUnit(
             CombatMatchState state, ref CombatUnit attacker, ref CombatUnit unit,
             int hitDamage, bool isCrit)
@@ -406,7 +514,8 @@ namespace CookApps.AutoChess
             ApplyDamage(state, ref unit, finalDamage);
             ApplyLifeSteal(ref attacker, finalDamage);
             ChargeMana(ref unit, ManaGainOnHit);
-            state.EventQueue?.PushUnitAttacked(attacker.SourceEntityId, unit.SourceEntityId, finalDamage, isCrit, false);
+            // isPreTimed=true: 시뮬레이션에서 키프레임 타이밍에 맞춰 발행 → 뷰는 즉시 표시
+            state.EventQueue?.PushUnitAttacked(attacker.SourceEntityId, unit.SourceEntityId, finalDamage, isCrit, false, isPreTimed: true);
         }
 
         private static int Sign(int value)

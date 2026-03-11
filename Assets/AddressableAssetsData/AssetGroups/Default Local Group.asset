@@ -20,6 +20,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e7af6a4096c8b2b408c0f2c32c0daae6
+    m_Address: Prefabs/Fx/Character/Atresia/Skill_401011_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f94abf99adf954845a7e308b788b1a5d
     m_Address: Assets/_Project/Splash_STK/Prefab/SplashUI.prefab
     m_ReadOnly: 0

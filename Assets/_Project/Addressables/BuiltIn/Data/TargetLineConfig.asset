@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3563367d1ff24f247a09823135e9efe6, type: 3}
   m_Name: TargetLineConfig
   m_EditorClassIdentifier: 
-  Height: 3
+  Height: 2
   PositionCount: 80
-  LineDurationTime: 1.89
+  LineDurationTime: 2
   Offset: 4
+  CharacterYOffset: 0.5
   ScrollSpeed: 1
+  TargetLinePrefabRef:
+    m_AssetGUID: 49ae1576664f21d41894bc8eed797aaf
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0

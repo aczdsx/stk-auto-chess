@@ -325,6 +325,7 @@ namespace CookApps.AutoBattler
 
                 ref var enemy = ref world.PvEEnemies[world.PvEEnemyCount++];
                 enemy.ChampionSpecId = monster.monster_id;
+                enemy.PrefabId = spec.prefab_id;
                 enemy.GridCol = (byte)col;
                 enemy.GridRow = (byte)row;
                 enemy.SizeW = 1;

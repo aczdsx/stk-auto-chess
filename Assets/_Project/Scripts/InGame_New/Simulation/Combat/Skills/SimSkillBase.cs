@@ -27,6 +27,12 @@ namespace CookApps.AutoChess
         // 멀티타겟 / 다단히트
         public int TargetCount;
         public int HitCount;
+
+        // SKL 클립 타이밍 (프레임 단위, SkillSpecAdapter에서 변환)
+        /// <summary>SKL 클립 Execute 이벤트 타이밍 (프레임)</summary>
+        public int[] SkillHitFrames;
+        /// <summary>SKL 클립 전체 길이 (프레임)</summary>
+        public int SkillClipFrames;
     }
 
     /// <summary>
@@ -56,6 +62,10 @@ namespace CookApps.AutoChess
         protected int TargetCount;
         protected int HitCount;
 
+        // SKL 클립 타이밍 (프레임 단위, SkillParams에서 미리 변환됨)
+        protected int[] SkillHitFrames;
+        protected int SkillClipFrames;
+
         public virtual void Initialize(SkillParams p)
         {
             SkillId = p.SkillId;
@@ -74,6 +84,9 @@ namespace CookApps.AutoChess
 
             TargetCount = p.TargetCount <= 0 ? 1 : p.TargetCount;
             HitCount = p.HitCount <= 0 ? 1 : p.HitCount;
+
+            SkillHitFrames = p.SkillHitFrames;
+            SkillClipFrames = p.SkillClipFrames;
         }
 
         /// <summary>시전 가능 여부 (마나 외 추가 조건)</summary>
@@ -82,8 +95,13 @@ namespace CookApps.AutoChess
         /// <summary>타겟 선택 (CombatId 반환, -1이면 타겟 없음)</summary>
         public abstract int SelectTarget(CombatMatchState state, ref CombatUnit caster);
 
-        /// <summary>시전 시간 (프레임)</summary>
-        public virtual int GetCastFrames() => CastFrames;
+        /// <summary>시전 시간 (프레임). CastFrames 명시 시 우선, 아니면 SkillClipFrames에서 자동 계산.</summary>
+        public virtual int GetCastFrames()
+        {
+            if (CastFrames > 0) return CastFrames;
+            if (SkillHitFrames != null && SkillHitFrames.Length > 0) return SkillHitFrames[0];
+            return 0;
+        }
 
         /// <summary>효과 적용</summary>
         public abstract void Execute(CombatMatchState state, ref CombatUnit caster,

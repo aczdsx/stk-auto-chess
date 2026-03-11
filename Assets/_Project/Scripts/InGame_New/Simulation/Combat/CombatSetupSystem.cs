@@ -96,8 +96,14 @@ namespace CookApps.AutoChess
 
                 combatUnit.CurrentTargetId = CombatUnit.InvalidId;
                 combatUnit.AttackCooldown = 0;
+                combatUnit.PendingAtkTargetId = CombatUnit.InvalidId;
+                combatUnit.PendingAtkTimer = 0;
                 combatUnit.MoveTimer = 0;
                 combatUnit.MoveDuration = 0;
+
+                // ATK 키프레임 지연 추출 (prefabId 기반)
+                int prefabId = FindPrefabId(world, srcUnit.ChampionSpecId);
+                combatUnit.AtkHitDelay = ExtractAtkHitDelay(prefabId, world.TickRate);
 
                 // 스킬 ID 설정 (ChampionSpec에서 복사)
                 combatUnit.SkillSpecId = FindSkillId(world, srcUnit.ChampionSpecId);
@@ -126,6 +132,31 @@ namespace CookApps.AutoChess
                     return world.Pool.Specs[i].SkillId;
             }
             return 0;
+        }
+
+        /// <summary>ChampionSpec에서 PrefabId 조회</summary>
+        private static int FindPrefabId(GameWorld world, int championSpecId)
+        {
+            if (world.Pool == null) return 0;
+            for (int i = 0; i < world.Pool.SpecCount; i++)
+            {
+                if (world.Pool.Specs[i].ChampionId == championSpecId)
+                    return world.Pool.Specs[i].PrefabId;
+            }
+            return 0;
+        }
+
+        /// <summary>ATK Execute 키프레임 지연 프레임 추출 (Back_ATK 기준)</summary>
+        private static int ExtractAtkHitDelay(int prefabId, int tickRate)
+        {
+            if (prefabId <= 0) return 1;
+            int atkKey = AnimKeyframeData.MakeKey(prefabId, false, AnimClipType.ATK);
+            if (AnimKeyframeData.ExecuteTimes.TryGetValue(atkKey, out float execTime))
+            {
+                int frames = (int)(execTime * tickRate + 0.5f);
+                return frames > 0 ? frames : 1;
+            }
+            return 1; // 키프레임 없으면 1프레임 최소 지연
         }
 
         /// <summary>팀별 생존 유닛 수</summary>
@@ -205,6 +236,9 @@ namespace CookApps.AutoChess
                 unit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(enemy.ChampionSpecId, out _);
                 unit.CurrentTargetId = CombatUnit.InvalidId;
                 unit.AttackCooldown = 0;
+                unit.PendingAtkTargetId = CombatUnit.InvalidId;
+                unit.PendingAtkTimer = 0;
+                unit.AtkHitDelay = ExtractAtkHitDelay(enemy.PrefabId > 0 ? enemy.PrefabId : enemy.ChampionSpecId, world.TickRate);
                 unit.MoveTimer = 0;
                 unit.MoveDuration = 0;
                 unit.SkillCastTimer = 0;

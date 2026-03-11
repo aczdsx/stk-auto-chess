@@ -67,10 +67,7 @@ namespace CookApps.AutoChess.View
 
         private void HandleTick(GameWorld world)
         {
-            // 이벤트 큐 처리
-            ProcessEvents(world);
-
-            // 페이즈별 동기화
+            // 페이즈별 동기화 (상태 → 애니메이션 먼저 반영)
             if (world.IsCombatActive)
             {
                 SyncCombatViews(world);
@@ -79,6 +76,9 @@ namespace CookApps.AutoChess.View
             {
                 _unitViewManager.SyncBoardUnits(world);
             }
+
+            // 이벤트 큐 처리 (애니메이션 시작 후 딜레이 등록)
+            ProcessEvents(world);
 
             // UI 갱신 (벤치 + HUD 통합)
             _autoChessUI?.SyncState(world);
@@ -170,8 +170,12 @@ namespace CookApps.AutoChess.View
             switch (evt.Type)
             {
                 case SimEventType.UnitAttacked:
-                    _combatViewManager.OnUnitAttacked(evt.EntityId, evt.TargetEntityId, evt.Value0, evt.Flag0, evt.Value1 != 0);
+                {
+                    bool isProjectile = (evt.Value1 & 1) != 0;
+                    bool isPreTimed = (evt.Value1 & 2) != 0;
+                    _combatViewManager.OnUnitAttacked(evt.EntityId, evt.TargetEntityId, evt.Value0, evt.Flag0, isProjectile, isPreTimed);
                     break;
+                }
 
                 case SimEventType.UnitDamaged:
                     _combatViewManager.OnUnitDamaged(evt.EntityId, evt.Value0, (DamageType)evt.Value1);
@@ -184,7 +188,7 @@ namespace CookApps.AutoChess.View
                 case SimEventType.UnitCastSkill:
                 {
                     var element = ResolveElementFromCaster(world, evt.EntityId);
-                    _combatViewManager.OnUnitCastSkill(evt.EntityId, evt.TargetEntityId, evt.Value0, element);
+                    _combatViewManager.OnUnitCastSkill(evt.EntityId, evt.TargetEntityId, evt.Value0, element, evt.Flag0);
                     break;
                 }
 
@@ -204,10 +208,31 @@ namespace CookApps.AutoChess.View
                     break;
                 }
 
+                case SimEventType.SkillPhaseVfx:
+                {
+                    int casterId = evt.EntityId;
+                    int skillSpecId = evt.Value0;
+                    byte vfxIndex = (byte)evt.Value1;
+                    sbyte dirCol = (sbyte)evt.DirCol;
+                    sbyte dirRow = (sbyte)evt.DirRow;
+                    _combatViewManager.OnSkillPhaseVfx(casterId, skillSpecId, vfxIndex, dirCol, dirRow);
+                    break;
+                }
+
+                case SimEventType.SkillRectAreaEffect:
+                {
+                    var element = ResolveElementFromCaster(world, evt.EntityId);
+                    sbyte dirCol = (sbyte)evt.DirCol;
+                    sbyte dirRow = (sbyte)evt.DirRow;
+                    _combatViewManager.OnSkillRectAreaEffect(evt.Col, evt.Row, dirCol, dirRow, element);
+                    break;
+                }
+
                 case SimEventType.SkillAreaEffect:
                 {
                     var element = ResolveElementFromCaster(world, evt.EntityId);
-                    _combatViewManager.OnSkillAreaEffect(evt.Col, evt.Row, evt.Radius, element, evt.Flag0);
+                    bool isBox = evt.Value1 != 0;
+                    _combatViewManager.OnSkillAreaEffect(evt.Col, evt.Row, evt.Radius, element, evt.Flag0, isBox);
                     break;
                 }
 
@@ -235,7 +260,7 @@ namespace CookApps.AutoChess.View
 
         // ── 원소 타입 조회 ──
 
-        /// <summary>시전자 entityId → 캐릭터 원소 타입</summary>
+        /// <summary>시전자 entityId → 캐릭터 원소 타입 (CombatId 또는 SourceEntityId 매칭)</summary>
         private SynergyType ResolveElementFromCaster(GameWorld world, int casterId)
         {
             // CombatMatchState에서 유닛 찾기
@@ -245,7 +270,8 @@ namespace CookApps.AutoChess.View
                 if (matchState == null) continue;
                 for (int u = 0; u < matchState.UnitCount; u++)
                 {
-                    if (matchState.Units[u].CombatId == casterId)
+                    if (matchState.Units[u].CombatId == casterId ||
+                        matchState.Units[u].SourceEntityId == casterId)
                     {
                         int champId = matchState.Units[u].ChampionSpecId;
                         return GetElementFromCharacterId(champId);

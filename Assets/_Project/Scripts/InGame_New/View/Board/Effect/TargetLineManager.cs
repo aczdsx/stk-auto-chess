@@ -29,10 +29,11 @@ namespace CookApps.AutoChess.View
             SoDataProvider.Instance.TryGet(out _config);
 
             float yOffset = _config != null ? _config.CharacterYOffset : 0.5f;
+            var targetLinePrefabRef = _config != null ? _config.TargetLinePrefabRef : null;
 
-            _idleState = new TargetLineIdleState(unitViewManager, yOffset);
+            _idleState = new TargetLineIdleState(unitViewManager, yOffset, targetLinePrefabRef);
             // tileSpacing은 StartDrawing에서 지연 초기화
-            _focusedState = new TargetLineFocusedState(unitViewManager, runner, yOffset, 0f);
+            _focusedState = new TargetLineFocusedState(unitViewManager, runner, yOffset, 0f, targetLinePrefabRef);
 
             _runner.OnTick += HandleTick;
             _runner.OnPhaseChanged += HandlePhaseChanged;

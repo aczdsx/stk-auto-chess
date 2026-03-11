@@ -14,10 +14,10 @@ namespace CookApps.AutoChess.View
         protected readonly TargetLineRendererPool Pool;
         protected readonly UnitViewManager UnitViewManager;
 
-        protected TargetLineStateBase(UnitViewManager unitViewManager, float yOffset)
+        protected TargetLineStateBase(UnitViewManager unitViewManager, float yOffset, AssetReferenceGameObject targetLinePrefabRef)
         {
             UnitViewManager = unitViewManager;
-            Pool = new TargetLineRendererPool(yOffset);
+            Pool = new TargetLineRendererPool(yOffset, targetLinePrefabRef);
         }
 
         public virtual void Enter() { }
@@ -56,8 +56,8 @@ namespace CookApps.AutoChess.View
     {
         private bool _drawPlayerNext = true;
 
-        public TargetLineIdleState(UnitViewManager unitViewManager, float yOffset)
-            : base(unitViewManager, yOffset) { }
+        public TargetLineIdleState(UnitViewManager unitViewManager, float yOffset, AssetReferenceGameObject targetLinePrefabRef)
+            : base(unitViewManager, yOffset, targetLinePrefabRef) { }
 
         public override void Enter() => _drawPlayerNext = true;
 
@@ -96,8 +96,8 @@ namespace CookApps.AutoChess.View
 
         public TargetLineFocusedState(
             UnitViewManager unitViewManager, ISimulationRunner runner,
-            float yOffset, float tileSpacing)
-            : base(unitViewManager, yOffset)
+            float yOffset, float tileSpacing, AssetReferenceGameObject targetLinePrefabRef)
+            : base(unitViewManager, yOffset, targetLinePrefabRef)
         {
             _runner = runner;
             _cachedTileSpacing = tileSpacing;
@@ -193,10 +193,12 @@ namespace CookApps.AutoChess.View
     {
         private readonly List<InGameVfxTargetLine> _lines = new();
         private readonly float _yOffset;
+        private readonly AssetReferenceGameObject _targetLinePrefabRef;
 
-        public TargetLineRendererPool(float characterYOffset)
+        public TargetLineRendererPool(float characterYOffset, AssetReferenceGameObject targetLinePrefabRef)
         {
             _yOffset = characterYOffset;
+            _targetLinePrefabRef = targetLinePrefabRef;
         }
 
         public void DrawLine(UnitView sourceView, UnitView targetView, bool isOwn, bool keepVisible = false)
@@ -254,10 +256,9 @@ namespace CookApps.AutoChess.View
                     return _lines[i];
             }
 
-            var vfxData = SpecDataManager.Instance.GetInGameVfxData(InGameVfxNameType.TargetLineRenderer);
-            if (vfxData == null || string.IsNullOrEmpty(vfxData.addressable_path)) return null;
+            if (_targetLinePrefabRef == null || !_targetLinePrefabRef.RuntimeKeyIsValid()) return null;
 
-            var go = Addressables.InstantiateAsync(vfxData.addressable_path).WaitForCompletion();
+            var go = Addressables.InstantiateAsync(_targetLinePrefabRef).WaitForCompletion();
             if (go == null) return null;
 
             var line = go.GetComponent<InGameVfxTargetLine>();

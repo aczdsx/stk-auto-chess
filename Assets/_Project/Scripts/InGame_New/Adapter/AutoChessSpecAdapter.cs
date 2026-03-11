@@ -60,6 +60,7 @@ namespace CookApps.AutoChess
                     MaxMana = 100,       // CharacterInfo에 mana 없음 → 기본값
                     StartingMana = 0,
                     SkillId = GetPrimarySkillId(c),
+                    PrefabId = c.prefab_id,
 
                     // 크기 (기본 1x1, 추후 스펙 데이터에 크기 필드 추가 시 매핑)
                     SizeW = 1,
