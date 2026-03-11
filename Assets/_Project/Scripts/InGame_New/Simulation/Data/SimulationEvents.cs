@@ -37,6 +37,7 @@ namespace CookApps.AutoChess
         // Phase별 스킬 VFX
         SkillPhaseVfx,
         SkillRectAreaEffect,
+        ManaFull,
     }
 
     /// <summary>
@@ -281,6 +282,16 @@ namespace CookApps.AutoChess
                 Row = row,
                 DirCol = (byte)dirCol,
                 DirRow = (byte)dirRow,
+            });
+        }
+
+        public void PushManaFull(int entityId, int skillSpecId)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.ManaFull,
+                EntityId = entityId,
+                Value0 = skillSpecId,
             });
         }
 

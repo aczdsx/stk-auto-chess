@@ -541,6 +541,7 @@ namespace CookApps.AutoChess
         public int SkillSpecId;       // 사용 스킬 ID
         public int SkillCastTimer;    // 시전 중 남은 프레임
         public bool IsSkillReady;     // 마나 충전 완료
+        public bool HasPushedManaFull; // ManaFull 이벤트 발행 여부
 
         // 범위 기본공격
         public bool HasAreaAttack;        // AreaAttackRegistry에 패턴 있으면 true

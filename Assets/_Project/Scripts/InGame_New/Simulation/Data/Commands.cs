@@ -165,5 +165,16 @@ namespace CookApps.AutoChess
                 Param0 = itemInstanceId,
             };
         }
+
+        /// <summary>튜토리얼 적 스폰 (전투 중 동적 추가)</summary>
+        public static GameCommand SpawnTutorialEnemy(byte playerIndex, int monsterSpecId, int col, int row)
+            => new GameCommand
+            {
+                Type = CommandType.SpawnTutorialEnemy,
+                PlayerIndex = playerIndex,
+                Param0 = monsterSpecId,
+                Param1 = col,
+                Param2 = row,
+            };
     }
 }

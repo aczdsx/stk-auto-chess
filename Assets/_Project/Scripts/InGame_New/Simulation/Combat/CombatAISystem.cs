@@ -152,6 +152,12 @@ namespace CookApps.AutoChess
             // 스킬 준비 체크 (마나 ≥ MaxMana)
             if (unit.CurrentMana >= unit.MaxMana && unit.MaxMana > 0)
             {
+                if (!unit.HasPushedManaFull)
+                {
+                    unit.HasPushedManaFull = true;
+                    state.EventQueue?.PushManaFull(unit.SourceEntityId, unit.SkillSpecId);
+                }
+
                 int unitSlot = FindUnitSlotIndex(state, ref unit);
                 if (SkillSystem.TryCast(state, ref unit, unitSlot, ref rng))
                     return; // 스킬 시전 시작

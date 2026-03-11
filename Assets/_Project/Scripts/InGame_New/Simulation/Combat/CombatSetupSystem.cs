@@ -249,6 +249,59 @@ namespace CookApps.AutoChess
             }
         }
 
+        /// <summary>튜토리얼 적 유닛 1체를 전투 중 동적 스폰 (TeamB, 적팀)</summary>
+        public static void SpawnTutorialUnit(ref CombatMatchState state, int monsterSpecId, int col, int row)
+        {
+            if (state.UnitCount >= CombatMatchState.MaxCombatUnits) return;
+
+            int combatId = state.NextCombatId++;
+            int slotIndex = state.UnitCount++;
+
+            ref var unit = ref state.Units[slotIndex];
+            unit.CombatId = combatId;
+            unit.SourceEntityId = -1;
+            unit.ChampionSpecId = monsterSpecId;
+            unit.StarLevel = 1;
+            unit.OwnerIndex = 0xFF;
+            unit.TeamIndex = 1;  // 적팀
+            unit.GridCol = (byte)col;
+            unit.GridRow = (byte)row;
+            unit.SizeW = 1;
+            unit.SizeH = 1;
+            unit.State = CombatState.Idle;
+            unit.IsAlive = true;
+
+            // 최소 스탯 (스펙 조회 없이 기본값)
+            unit.MaxHP = 100;
+            unit.CurrentHP = 100;
+            unit.Attack = 10;
+            unit.Armor = 0;
+            unit.MagicResist = 0;
+            unit.AttackSpeed = 100;
+            unit.AttackRange = 1;
+            unit.MoveSpeed = 100;
+            unit.MaxMana = 100;
+            unit.CurrentMana = 0;
+            unit.CritChance = 25;
+            unit.CritMultiplier = 150;
+            unit.CurrentTargetId = CombatUnit.InvalidId;
+            unit.AttackCooldown = 0;
+            unit.PendingAtkTargetId = CombatUnit.InvalidId;
+            unit.PendingAtkTimer = 0;
+            unit.AtkHitDelay = 1;
+            unit.MoveTimer = 0;
+            unit.MoveDuration = 0;
+            unit.SkillCastTimer = 0;
+
+            // 그리드에 등록
+            state.SetGridMulti(col, row, 1, 1, combatId);
+
+            // 생존 수 갱신
+            state.AliveCountB = CountAliveByTeam(state, 1);
+
+            if (CombatLogger.Enabled) CombatLogger.LogSpawn(combatId, 1, col, row, unit.MaxHP, unit.Attack, unit.AttackRange);
+        }
+
         /// <summary>매치메이킹: 4인 → 2개 1v1 매치 배정 (간단한 라운드 로빈)</summary>
         public static void AssignMatches(GameWorld world)
         {
