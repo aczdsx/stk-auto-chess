@@ -271,6 +271,7 @@ namespace CookApps.AutoChess
             unit.State = CombatState.Idle;
             unit.IsAlive = true;
 
+            // TODO: 하드코딩 스탯 → 스펙 테이블 조회로 교체 필요 (튜토리얼 데이터에서 monsterSpecId 기반 조회)
             // 최소 스탯 (스펙 조회 없이 기본값)
             unit.MaxHP = 100;
             unit.CurrentHP = 100;
@@ -298,6 +299,16 @@ namespace CookApps.AutoChess
 
             // 생존 수 갱신
             state.AliveCountB = CountAliveByTeam(state, 1);
+
+            // UnitSpawned 이벤트 발행 (View에서 시각 오브젝트 생성에 사용)
+            state.EventQueue?.Push(new SimEvent
+            {
+                Type = SimEventType.UnitSpawned,
+                EntityId = combatId,
+                Value0 = monsterSpecId,
+                Col = (byte)col,
+                Row = (byte)row,
+            });
 
             if (CombatLogger.Enabled) CombatLogger.LogSpawn(combatId, 1, col, row, unit.MaxHP, unit.Attack, unit.AttackRange);
         }

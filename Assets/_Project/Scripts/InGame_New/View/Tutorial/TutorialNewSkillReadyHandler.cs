@@ -22,6 +22,8 @@ namespace CookApps.AutoChess.View
 
         public bool TryHandleTutorial(int entityId)
         {
+            if (TutorialManager.Instance == null) return false;
+
             // CHARACTER_DEAD 트리거가 대기 중이면 스킬 준비 트리거를 지연
             if (TutorialManager.Instance.IsTutorialAction(TutorialTriggerType.CHARACTER_DEAD))
             {
@@ -35,7 +37,14 @@ namespace CookApps.AutoChess.View
             _isPaused = true;
             _runner.PauseTick();
             TutorialManager.Instance.OnTutorialClosed += ResumeAfterTutorial;
-            TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.SKILL_READY, entityId.ToString());
+            bool handled = TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.SKILL_READY, entityId.ToString());
+            if (!handled)
+            {
+                TutorialManager.Instance.OnTutorialClosed -= ResumeAfterTutorial;
+                _isPaused = false;
+                _runner.ResumeTick();
+                return false;
+            }
 
             Debug.Log($"[TutorialNewSkillReadyHandler] 시뮬레이션 일시정지 (SKILL_READY, entityId={entityId})");
             return true;
@@ -61,7 +70,7 @@ namespace CookApps.AutoChess.View
         {
             if (_isPaused)
             {
-                TutorialManager.Instance.OnTutorialClosed -= ResumeAfterTutorial;
+                TutorialManager.Instance?.OnTutorialClosed -= ResumeAfterTutorial;
             }
             _isPaused = false;
             _deferredEntityId = -1;

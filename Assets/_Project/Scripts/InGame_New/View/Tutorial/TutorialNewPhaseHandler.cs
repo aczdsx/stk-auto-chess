@@ -21,13 +21,21 @@ namespace CookApps.AutoChess.View
 
         public bool TryHandleTutorial(TutorialTriggerType triggerType)
         {
+            if (TutorialManager.Instance == null) return false;
             if (!TutorialManager.Instance.IsTutorialAction(triggerType))
                 return false;
 
             _isPaused = true;
             _runner.PauseTick();
             TutorialManager.Instance.OnTutorialClosed += ResumeAfterTutorial;
-            TutorialManager.Instance.HandleTutorialAction(triggerType, "0");
+            bool handled = TutorialManager.Instance.HandleTutorialAction(triggerType, "0");
+            if (!handled)
+            {
+                TutorialManager.Instance.OnTutorialClosed -= ResumeAfterTutorial;
+                _isPaused = false;
+                _runner.ResumeTick();
+                return false;
+            }
 
             Debug.Log($"[TutorialNewPhaseHandler] 시뮬레이션 일시정지 ({triggerType})");
             return true;
@@ -45,7 +53,7 @@ namespace CookApps.AutoChess.View
         {
             if (_isPaused)
             {
-                TutorialManager.Instance.OnTutorialClosed -= ResumeAfterTutorial;
+                TutorialManager.Instance?.OnTutorialClosed -= ResumeAfterTutorial;
             }
             _isPaused = false;
         }

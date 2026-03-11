@@ -64,6 +64,10 @@ namespace CookApps.AutoChess.View
                 case SimEventType.SynergyUpdated:
                     _phaseHandler.TryHandleTutorial(TutorialTriggerType.SYNERGY_ACTIVATED);
                     break;
+                case SimEventType.UnitDied:
+                    // CHARACTER_DEAD 튜토리얼 완료 후 보류된 SKILL_READY 처리
+                    _skillReadyHandler.TryProcessDeferred();
+                    break;
             }
         }
 
