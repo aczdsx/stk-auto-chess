@@ -210,6 +210,7 @@ namespace CookApps.AutoBattler
             {
                 _viewRoot.Runner.OnGameOver -= HandleGameOver;
                 _viewRoot.Cleanup();
+                _viewRoot = null;
             }
 
             // 6. 결과 팝업 표시
