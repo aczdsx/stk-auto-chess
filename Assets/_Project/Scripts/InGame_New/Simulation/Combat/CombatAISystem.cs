@@ -85,6 +85,11 @@ namespace CookApps.AutoChess
                 unit.CCRemainingFrames--;
                 if (unit.CCRemainingFrames <= 0)
                 {
+                    // CC VFX 제거 이벤트
+                    var vfxType = StatusEffectSystem.CCToVfxType(unit.ActiveCC);
+                    if (vfxType != CombatVfxType.None)
+                        state.EventQueue?.PushCCRemoved(unit.CombatId, vfxType);
+
                     unit.ActiveCC = CrowdControlType.None;
                     unit.State = CombatState.Idle;
                 }
@@ -172,6 +177,7 @@ namespace CookApps.AutoChess
                     {
                         // 회피 성공: 데미지 없이 쿨다운만 재설정
                         if (CombatLogger.Enabled) CombatLogger.LogDodge(unit.CombatId, target.CombatId);
+                        state.EventQueue?.PushUnitMissed(unit.SourceEntityId, target.SourceEntityId);
                         unit.AttackCooldown = unit.GetAttackInterval(tickRate);
                     }
                     else

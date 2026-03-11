@@ -28,7 +28,7 @@ namespace CookApps.AutoChess
             {
                 int idx = state.FindUnitIndex(_targetBuffer[i]);
                 if (idx < 0) continue;
-                SkillDamageHelper.Heal(ref state.Units[idx], healAmount);
+                SkillDamageHelper.Heal(state, ref state.Units[idx], healAmount);
                 StatusEffectSystem.RemoveDebuffs(state, idx, _debuffRemoveCount);
             }
         }

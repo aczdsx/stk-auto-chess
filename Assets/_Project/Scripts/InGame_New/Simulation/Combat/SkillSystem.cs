@@ -68,7 +68,8 @@ namespace CookApps.AutoChess
                 unit.CombatId,
                 targetId,
                 unit.SkillSpecId,
-                skill.IsChanneling);
+                skill.IsChanneling,
+                skill.HasProjectile);
 
             if (castFrames > 0)
             {

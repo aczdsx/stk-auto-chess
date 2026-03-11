@@ -61,7 +61,7 @@ namespace CookApps.AutoChess
         /// attackerIndex: Trait 콜백용 공격자 인덱스 (-1이면 Trait 콜백 생략)
         /// </summary>
         public static bool ApplyDamage(CombatMatchState state, ref CombatUnit target, int damage,
-            int attackerIndex = -1, DamageType damageType = DamageType.Physical)
+            int attackerIndex = -1, DamageType damageType = DamageType.Physical, bool isCrit = false)
         {
             if (!target.IsAlive) return false;
 
@@ -100,7 +100,7 @@ namespace CookApps.AutoChess
 
             state.EventQueue?.PushUnitDamaged(target.CombatId,
                 attackerIndex >= 0 ? state.Units[attackerIndex].CombatId : CombatUnit.InvalidId,
-                damage, damageType);
+                damage, damageType, isCrit);
 
             // Trait: 피격 후 콜백 (피격자)
             if (targetIndex >= 0 && attackerIndex >= 0)
@@ -199,7 +199,7 @@ namespace CookApps.AutoChess
 
                 if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
 
-                ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical);
+                ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit);
                 ApplyLifeSteal(ref attacker, finalDamage);
 
                 // 피격자 마나 충전
@@ -274,7 +274,7 @@ namespace CookApps.AutoChess
 
             if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
 
-            ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical);
+            ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit);
             ApplyLifeSteal(ref attacker, finalDamage);
             ChargeMana(ref target, ManaGainOnHit);
             ChargeMana(ref attacker, ManaGainOnAttack);
@@ -511,7 +511,7 @@ namespace CookApps.AutoChess
             int hitDamage, bool isCrit)
         {
             int finalDamage = CalculateDamage(hitDamage, DamageType.Physical, ref unit);
-            ApplyDamage(state, ref unit, finalDamage);
+            ApplyDamage(state, ref unit, finalDamage, isCrit: isCrit);
             ApplyLifeSteal(ref attacker, finalDamage);
             ChargeMana(ref unit, ManaGainOnHit);
             // isPreTimed=true: 시뮬레이션에서 키프레임 타이밍에 맞춰 발행 → 뷰는 즉시 표시

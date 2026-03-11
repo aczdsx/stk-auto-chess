@@ -13,6 +13,7 @@ namespace CookApps.AutoChess.View
         private ISimulationRunner _runner;
         private UnitViewManager _unitViewManager;
         private CombatViewManager _combatViewManager;
+        private CombatVfxManager _combatVfxManager;
         private BoardGridView _boardGridView;
         private AutoChessUIBase _autoChessUI;
         private BoardInputHandler _boardInputHandler;
@@ -21,12 +22,14 @@ namespace CookApps.AutoChess.View
             ISimulationRunner runner,
             UnitViewManager unitViewManager,
             CombatViewManager combatViewManager,
-            BoardGridView boardGridView)
+            BoardGridView boardGridView,
+            CombatVfxManager combatVfxManager = null)
         {
             _runner = runner;
             _unitViewManager = unitViewManager;
             _combatViewManager = combatViewManager;
             _boardGridView = boardGridView;
+            _combatVfxManager = combatVfxManager;
         }
 
         private GamePhase _lastPhase;
@@ -93,6 +96,7 @@ namespace CookApps.AutoChess.View
                 case GamePhase.Preparation:
                     _unitViewManager.OnCombatEnd();
                     _combatViewManager.OnCombatEnd();
+                    _combatVfxManager?.OnCombatEnd();
                     _boardGridView.OnPreparation();
                     _autoChessUI?.OnPhaseChanged(newPhase);
                     if (_autoChessUI != null) _autoChessUI.gameObject.SetActive(true);
@@ -178,7 +182,7 @@ namespace CookApps.AutoChess.View
                 }
 
                 case SimEventType.UnitDamaged:
-                    _combatViewManager.OnUnitDamaged(evt.EntityId, evt.Value0, (DamageType)evt.Value1);
+                    _combatViewManager.OnUnitDamaged(evt.EntityId, evt.Value0, (DamageType)evt.Value1, evt.Flag0);
                     break;
 
                 case SimEventType.UnitDied:
@@ -188,16 +192,69 @@ namespace CookApps.AutoChess.View
                 case SimEventType.UnitCastSkill:
                 {
                     var element = ResolveElementFromCaster(world, evt.EntityId);
-                    _combatViewManager.OnUnitCastSkill(evt.EntityId, evt.TargetEntityId, evt.Value0, element, evt.Flag0);
+                    _combatViewManager.OnUnitCastSkill(evt.EntityId, evt.TargetEntityId, evt.Value0, element, evt.Flag0, evt.Flag1);
                     break;
                 }
 
                 case SimEventType.ProjectileSpawned:
                 {
                     int champSpecId = ResolveChampSpecId(world, evt.EntityId);
+                    int projectileId = evt.Value0;
+                    int skillSpecId = evt.Value1;
                     _combatViewManager.OnProjectileSpawned(
                         evt.EntityId, evt.TargetEntityId, evt.ProjType,
-                        evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId);
+                        evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId, projectileId, skillSpecId);
+                    break;
+                }
+
+                case SimEventType.ProjectileMoved:
+                {
+                    int projectileId = evt.Value0;
+                    _combatViewManager.OnProjectileMoved(projectileId, evt.Col, evt.Row);
+
+                    // 이동한 타일에 원소 타일 이펙트 표시 (width에 따라 3칸 폭)
+                    var element = ResolveElementFromCaster(world, evt.EntityId);
+                    if (element != SynergyType.NONE && _combatViewManager != null)
+                    {
+                        var castType = TileEffectManager.SynergyToAreaType(element);
+                        int width = evt.Radius > 1 ? evt.Radius : 1;
+                        int halfW = width / 2;
+                        sbyte dirCol = (sbyte)evt.DirCol;
+                        sbyte dirRow = (sbyte)evt.DirRow;
+
+                        for (int offset = -halfW; offset <= halfW; offset++)
+                        {
+                            int tileCol = evt.Col;
+                            int tileRow = evt.Row;
+
+                            if (offset != 0)
+                            {
+                                // 진행 방향 수직으로 오프셋
+                                if (dirCol == 0)
+                                    tileCol += offset;
+                                else if (dirRow == 0)
+                                    tileRow += offset;
+                                else
+                                {
+                                    // 대각선: col + row 양쪽 확장 (중심 제외 2개씩)
+                                    var posA = BoardWorldHelper.CombatGridToWorld(0, evt.Col + offset, evt.Row);
+                                    _combatViewManager.ShowTileEffectAt(castType, posA);
+                                    tileCol = evt.Col;
+                                    tileRow = evt.Row + offset;
+                                }
+                            }
+
+                            var worldPos = BoardWorldHelper.CombatGridToWorld(0, tileCol, tileRow);
+                            _combatViewManager.ShowTileEffectAt(castType, worldPos);
+                        }
+                    }
+                    break;
+                }
+
+                case SimEventType.ProjectileExpired:
+                {
+                    int projectileId = evt.Value0;
+                    _combatViewManager.OnProjectileExpired(projectileId);
                     break;
                 }
 
@@ -252,8 +309,32 @@ namespace CookApps.AutoChess.View
                     _autoChessUI?.OnCombatResult(evt.PlayerIndex, evt.Value0);
                     break;
 
+                case SimEventType.UnitMissed:
+                    _combatViewManager.OnUnitMissed(evt.EntityId, evt.TargetEntityId);
+                    break;
+
+                case SimEventType.UnitHealed:
+                    _combatViewManager.OnUnitHealed(evt.EntityId, evt.Value0);
+                    break;
+
                 case SimEventType.SynergyUpdated:
                     _autoChessUI?.OnSynergyUpdated(world);
+                    break;
+
+                case SimEventType.StatusEffectAdded:
+                    _combatVfxManager?.OnEffectAdded(evt.EntityId, (CombatVfxType)evt.Value0);
+                    break;
+
+                case SimEventType.StatusEffectRemoved:
+                    _combatVfxManager?.OnEffectRemoved(evt.EntityId, (CombatVfxType)evt.Value0);
+                    break;
+
+                case SimEventType.CCAdded:
+                    _combatVfxManager?.OnEffectAdded(evt.EntityId, (CombatVfxType)evt.Value0);
+                    break;
+
+                case SimEventType.CCRemoved:
+                    _combatVfxManager?.OnEffectRemoved(evt.EntityId, (CombatVfxType)evt.Value0);
                     break;
             }
         }

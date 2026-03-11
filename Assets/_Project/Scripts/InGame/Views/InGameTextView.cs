@@ -29,14 +29,13 @@ namespace CookApps.AutoBattler
             Normal, // 일반
             Heal, // 힐
             Miss, // 명중 테스트 실패
-            Block, // 최종 방어력 산정에 블록
             DotDeal,//화상, 독
         }
 
         public SerializableDictionary<DamageColorType, TMP_ColorGradient> IconGradients;
         private static readonly int Normal = Animator.StringToHash("Normal"); // 일반 크리
         private static readonly int Heal = Animator.StringToHash("Heal"); // 힐 독
-        private static readonly int Miss = Animator.StringToHash("Miss");// 미스, 블락
+        private static readonly int Miss = Animator.StringToHash("Miss");// 미스
 
         private const string MissText = "MISS";
 
@@ -144,21 +143,6 @@ namespace CookApps.AutoBattler
             // 사운드 재생
         }
 
-        public async UniTask ShowBlockText(Vector3 position, float characterHeight, double damage)
-        {
-            _reusableSpriteFontList.Clear();
-            _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_BLOCK);
-            
-            // 블록은 아이콘만 표시
-            SetTextContent(
-                BuildSpriteText(_reusableSpriteFontList),
-                BuildNumberText(damage),
-                DamageColorType.Block
-            );
-            
-            // 블락 -> Miss
-            SetupPositionAndAnimation(position, characterHeight, Miss);
-        }
         public async UniTask ShowMissText(Vector3 position, float characterHeight)
         {
             // MISS는 아이콘 없이 텍스트만 표시
@@ -235,8 +219,7 @@ namespace CookApps.AutoBattler
         {
             SPRITE_CRITICAL = 0,
             SPRITE_CRITICAL_BIG,
-            SPRITE_BLOCK,
-            SPRITE_HEAL,
+            SPRITE_HEAL = 3,
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle.Utility;
@@ -89,29 +89,29 @@ namespace CookApps.BattleSystem
                 var vfx = InGameVfxManager.Instance.AddInGameVfx(_tileVfxName, tile.View.CachedTr.position + Vector3.up * 2.4f);
                 var animatorvfx = vfx as InGameVfxWithAnimation;
 
-                animatorvfx.OnCollisionWithTile += OnCollision2DEnter;
+                // [InGame_New: removed] animatorvfx.OnCollisionWithTile += OnCollision2DEnter;
 
                 animatorvfx.SetOnVfxStartCallback(OnVfxStart);
                 animatorvfx.SetOnVfxEndCallback(OnVfxEnd);
             }
         }
 
-        private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
-        {
-            if(!_colliderEnable)
-                return;
+        // [InGame_New: removed] private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
+        // [InGame_New: removed] {
+            // [InGame_New: removed] if(!_colliderEnable)
+                // [InGame_New: removed] return;
 
-            if (tile.OccupiedCharacter == null || tile.CheckValidTile(AllianceType.Player, isCheckSameAllianceType: true)
-            || tile.OccupiedCharacter.IsAlive == false)
-                return;
+            // [InGame_New: removed] if (tile.OccupiedCharacter == null || tile.CheckValidTile(AllianceType.Player, isCheckSameAllianceType: true)
+            // [InGame_New: removed] || tile.OccupiedCharacter.IsAlive == false)
+                // [InGame_New: removed] return;
 
-            Span<double> eccStats = stackalloc double[1];
-            eccStats.Clear();
-            eccStats[0] = _stunDuration;
+            // [InGame_New: removed] Span<double> eccStats = stackalloc double[1];
+            // [InGame_New: removed] eccStats.Clear();
+            // [InGame_New: removed] eccStats[0] = _stunDuration;
 
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, tile.OccupiedCharacter, eccStats, source);
-            ProcessKnockBack(tile);
-        }
+            // [InGame_New: removed] EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, tile.OccupiedCharacter, eccStats, source);
+            // [InGame_New: removed] ProcessKnockBack(tile);
+        // [InGame_New: removed] }
 
         private void ProcessKnockBack(InGameTile TargetTile)
         {

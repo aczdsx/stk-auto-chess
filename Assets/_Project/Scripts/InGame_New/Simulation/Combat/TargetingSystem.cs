@@ -104,6 +104,31 @@ namespace CookApps.AutoChess
             return bestTarget;
         }
 
+        /// <summary>공격력이 가장 높은 적 탐색</summary>
+        public static int FindHighestAttackEnemy(CombatMatchState state, ref CombatUnit unit)
+        {
+            int bestTarget = CombatUnit.InvalidId;
+            int bestAtk = -1;
+            int bestIndex = int.MaxValue;
+
+            for (int i = 0; i < state.UnitCount; i++)
+            {
+                ref var candidate = ref state.Units[i];
+                if (!candidate.IsTargetable) continue;
+                if (candidate.TeamIndex == unit.TeamIndex) continue;
+
+                if (candidate.Attack > bestAtk ||
+                    (candidate.Attack == bestAtk && i < bestIndex))
+                {
+                    bestTarget = candidate.CombatId;
+                    bestAtk = candidate.Attack;
+                    bestIndex = i;
+                }
+            }
+
+            return bestTarget;
+        }
+
         /// <summary>타겟 타입에 따른 단일 타겟 선택</summary>
         public static int FindTarget(CombatMatchState state, ref CombatUnit unit, SkillTargetType targetType)
         {
@@ -113,6 +138,7 @@ namespace CookApps.AutoChess
                 SkillTargetType.NearestEnemy => FindNearestEnemy(state, ref unit),
                 SkillTargetType.FarthestEnemy => FindFarthestEnemy(state, ref unit),
                 SkillTargetType.LowestHPEnemy => FindLowestHPEnemy(state, ref unit),
+                SkillTargetType.HighestAttackEnemy => FindHighestAttackEnemy(state, ref unit),
                 SkillTargetType.Self => unit.CombatId,
                 _ => FindNearestEnemy(state, ref unit),
             };

@@ -33,7 +33,7 @@ namespace CookApps.AutoChess
         }
 
         /// <summary>HP 회복</summary>
-        public static void Heal(ref CombatUnit target, int amount)
+        public static void Heal(CombatMatchState state, ref CombatUnit target, int amount)
         {
             if (!target.IsAlive) return;
             target.CurrentHP += amount;
@@ -41,6 +41,8 @@ namespace CookApps.AutoChess
                 target.CurrentHP = target.MaxHP;
 
             if (CombatLogger.Enabled) CombatLogger.LogHeal(target.CombatId, amount, target.CurrentHP, target.MaxHP);
+
+            state.EventQueue?.PushUnitHealed(target.CombatId, amount);
         }
     }
 
@@ -248,11 +250,24 @@ namespace CookApps.AutoChess
             if (target.ActiveCC != CrowdControlType.None && target.CCRemainingFrames >= durationFrames)
                 return;
 
+            // 기존 CC가 있으면 VFX 제거 이벤트
+            if (target.ActiveCC != CrowdControlType.None)
+            {
+                var oldVfx = StatusEffectSystem.CCToVfxType(target.ActiveCC);
+                if (oldVfx != CombatVfxType.None)
+                    state.EventQueue?.PushCCRemoved(target.CombatId, oldVfx);
+            }
+
             target.ActiveCC = type;
             target.CCRemainingFrames = durationFrames;
             target.State = CombatState.CrowdControlled;
 
             if (CombatLogger.Enabled) CombatLogger.LogCC(target.CombatId, type, durationFrames);
+
+            // CC VFX 이벤트 발행
+            var vfxType = StatusEffectSystem.CCToVfxType(type);
+            if (vfxType != CombatVfxType.None)
+                state.EventQueue?.PushCCAdded(target.CombatId, vfxType);
         }
 
         /// <summary>넉백 (지정 방향으로 N칸, 빈 칸까지만). Multi-tile 대응. 실제 이동 칸 수 반환.</summary>

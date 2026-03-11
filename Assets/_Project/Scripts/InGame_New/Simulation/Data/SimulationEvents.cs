@@ -37,6 +37,14 @@ namespace CookApps.AutoChess
         // Phase별 스킬 VFX
         SkillPhaseVfx,
         SkillRectAreaEffect,
+        // 전투 피드백
+        UnitMissed,
+        UnitHealed,
+        // 전투 VFX (상태효과/CC)
+        StatusEffectAdded,
+        StatusEffectRemoved,
+        CCAdded,
+        CCRemoved,
     }
 
     /// <summary>
@@ -60,6 +68,7 @@ namespace CookApps.AutoChess
         public int Value0;           // 데미지, 골드, 레벨 등
         public int Value1;           // 추가 수치
         public bool Flag0;           // isCrit, isProjectile 등
+        public bool Flag1;           // hasProjectile (UnitCastSkill) 등
 
         // 페이즈
         public GamePhase Phase;
@@ -127,7 +136,7 @@ namespace CookApps.AutoChess
             });
         }
 
-        public void PushUnitDamaged(int targetId, int sourceId, int damage, DamageType damageType)
+        public void PushUnitDamaged(int targetId, int sourceId, int damage, DamageType damageType, bool isCrit = false)
         {
             Push(new SimEvent
             {
@@ -136,6 +145,7 @@ namespace CookApps.AutoChess
                 TargetEntityId = sourceId,
                 Value0 = damage,
                 Value1 = (int)damageType,
+                Flag0 = isCrit,
             });
         }
 
@@ -201,7 +211,7 @@ namespace CookApps.AutoChess
             });
         }
 
-        public void PushUnitCastSkill(int casterId, int targetId, int skillSpecId, bool skipVfx = false)
+        public void PushUnitCastSkill(int casterId, int targetId, int skillSpecId, bool skipVfx = false, bool hasProjectile = false)
         {
             Push(new SimEvent
             {
@@ -210,11 +220,12 @@ namespace CookApps.AutoChess
                 TargetEntityId = targetId,
                 Value0 = skillSpecId,
                 Flag0 = skipVfx,
+                Flag1 = hasProjectile,
             });
         }
 
         public void PushProjectileSpawned(int sourceId, int targetId, ProjectileType projType,
-            byte col, byte row, sbyte dirCol = 0, sbyte dirRow = 0)
+            byte col, byte row, sbyte dirCol = 0, sbyte dirRow = 0, int projectileId = 0, int skillSpecId = 0)
         {
             Push(new SimEvent
             {
@@ -226,6 +237,34 @@ namespace CookApps.AutoChess
                 Row = row,
                 DirCol = (byte)dirCol,
                 DirRow = (byte)dirRow,
+                Value0 = projectileId,
+                Value1 = skillSpecId,
+            });
+        }
+
+        public void PushProjectileMoved(int projectileId, int sourceId, byte col, byte row,
+            sbyte dirCol = 0, sbyte dirRow = 0, int width = 1)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.ProjectileMoved,
+                EntityId = sourceId,
+                Value0 = projectileId,
+                Col = col,
+                Row = row,
+                DirCol = (byte)dirCol,
+                DirRow = (byte)dirRow,
+                Radius = width,
+            });
+        }
+
+        public void PushProjectileExpired(int projectileId, int sourceId)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.ProjectileExpired,
+                EntityId = sourceId,
+                Value0 = projectileId,
             });
         }
 
@@ -284,12 +323,72 @@ namespace CookApps.AutoChess
             });
         }
 
+        public void PushUnitMissed(int attackerId, int targetId)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.UnitMissed,
+                EntityId = attackerId,
+                TargetEntityId = targetId,
+            });
+        }
+
+        public void PushUnitHealed(int targetId, int amount)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.UnitHealed,
+                EntityId = targetId,
+                Value0 = amount,
+            });
+        }
+
         public void PushSynergyUpdated(byte playerIndex)
         {
             Push(new SimEvent
             {
                 Type = SimEventType.SynergyUpdated,
                 PlayerIndex = playerIndex,
+            });
+        }
+
+        public void PushStatusEffectAdded(int combatId, CombatVfxType vfxType)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.StatusEffectAdded,
+                EntityId = combatId,
+                Value0 = (int)vfxType,
+            });
+        }
+
+        public void PushStatusEffectRemoved(int combatId, CombatVfxType vfxType)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.StatusEffectRemoved,
+                EntityId = combatId,
+                Value0 = (int)vfxType,
+            });
+        }
+
+        public void PushCCAdded(int combatId, CombatVfxType vfxType)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.CCAdded,
+                EntityId = combatId,
+                Value0 = (int)vfxType,
+            });
+        }
+
+        public void PushCCRemoved(int combatId, CombatVfxType vfxType)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.CCRemoved,
+                EntityId = combatId,
+                Value0 = (int)vfxType,
             });
         }
     }

@@ -76,7 +76,7 @@ namespace CookApps.AutoChess
                 (ref CombatUnit ally, int i) =>
                 {
                     int heal = attack * healPct / 100 / DefaultTickCount;
-                    SkillDamageHelper.Heal(ref ally, heal);
+                    SkillDamageHelper.Heal(state, ref ally, heal);
                 });
 
             // 적 데미지 (틱당 배율 = 전체 배율 / 틱수)

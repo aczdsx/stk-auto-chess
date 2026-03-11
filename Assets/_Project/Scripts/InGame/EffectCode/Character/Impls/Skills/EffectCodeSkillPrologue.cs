@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
@@ -421,38 +421,38 @@ namespace CookApps.AutoBattler.Prologue
 
                 movement.SetData(vfxProjectile.CachedTr.position, inGameTile[0].View.CachedTr.position, 15);
                 vfxProjectile.Initialize(false, movement);
-                vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
+                // [InGame_New: removed] vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
                 // movement.OnReachedTarget +=
             }
         }
 
-        private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
-        {
-            // 타일 FX는 있으면 표시
-            var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-            if (tileFx != null)
-            {
-                tileFx.CachedTr.position = tile.View.CachedTr.position;
-            }
+        // [InGame_New: removed] private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
+        // [InGame_New: removed] {
+            // [InGame_New: removed] // 타일 FX는 있으면 표시
+            // [InGame_New: removed] var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+            // [InGame_New: removed] if (tileFx != null)
+            // [InGame_New: removed] {
+                // [InGame_New: removed] tileFx.CachedTr.position = tile.View.CachedTr.position;
+            // [InGame_New: removed] }
 
-            // 피격/데미지 로직은 tileFx와 무관하게 실행
-            if (tile.CheckValidTile(owner.AllianceType, false))
-            {
-                if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
-                {
-                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                        tile.OccupiedCharacter.SkillRootTransformFollowable);
+            // [InGame_New: removed] // 피격/데미지 로직은 tileFx와 무관하게 실행
+            // [InGame_New: removed] if (tile.CheckValidTile(owner.AllianceType, false))
+            // [InGame_New: removed] {
+                // [InGame_New: removed] if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
+                // [InGame_New: removed] {
+                    // [InGame_New: removed] InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+                    // [InGame_New: removed] InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        // [InGame_New: removed] tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                    // [InGame_New: removed] var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
 
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    // [InGame_New: removed] tile.OccupiedCharacter.GetDamaged(damage, owner);
                     
 
-                    _hitCharacters.Add(tile.OccupiedCharacter);
-                }
-            }
-        }
+                    // [InGame_New: removed] _hitCharacters.Add(tile.OccupiedCharacter);
+                // [InGame_New: removed] }
+            // [InGame_New: removed] }
+        // [InGame_New: removed] }
 
         public override void OnSkillAnimationEnd()
         {
@@ -569,43 +569,43 @@ namespace CookApps.AutoBattler.Prologue
 
                 movement.SetData(vfxProjectile.CachedTr.position, inGameTile[0].View.CachedTr.position, 15);
                 vfxProjectile.Initialize(false, movement);
-                vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
+                // [InGame_New: removed] vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
                 // movement.OnReachedTarget +=
             }
         }
 
-        private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
-        {
-            // 타일 FX는 있으면 표시
-            var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-            if (tileFx != null)
-            {
-                tileFx.CachedTr.position = tile.View.CachedTr.position;
-            }
+        // [InGame_New: removed] private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
+        // [InGame_New: removed] {
+            // [InGame_New: removed] // 타일 FX는 있으면 표시
+            // [InGame_New: removed] var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+            // [InGame_New: removed] if (tileFx != null)
+            // [InGame_New: removed] {
+                // [InGame_New: removed] tileFx.CachedTr.position = tile.View.CachedTr.position;
+            // [InGame_New: removed] }
 
-            // 피격/데미지 로직은 tileFx와 무관하게 실행
-            if (tile.CheckValidTile(owner.AllianceType, false))
-            {
-                if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
-                {
-                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                        tile.OccupiedCharacter.SkillRootTransformFollowable);
-                    CharacterController.DamageInfo damageInfo = CharacterController.DamageInfo.Create(
-                        damageAmount: tile.OccupiedCharacter.CurrentHp * 0.7,
-                        source: 0,
-                        attackerType: AttackerType.CHARCTER,
-                        isAD: owner.SpecCharacter.atk_type is AtkType.AD ? true : false,
-                        isCritical: false,
-                        isDoubleCritical: false
-                    );
+            // [InGame_New: removed] // 피격/데미지 로직은 tileFx와 무관하게 실행
+            // [InGame_New: removed] if (tile.CheckValidTile(owner.AllianceType, false))
+            // [InGame_New: removed] {
+                // [InGame_New: removed] if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
+                // [InGame_New: removed] {
+                    // [InGame_New: removed] InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+                    // [InGame_New: removed] InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        // [InGame_New: removed] tile.OccupiedCharacter.SkillRootTransformFollowable);
+                    // [InGame_New: removed] CharacterController.DamageInfo damageInfo = CharacterController.DamageInfo.Create(
+                        // [InGame_New: removed] damageAmount: tile.OccupiedCharacter.CurrentHp * 0.7,
+                        // [InGame_New: removed] source: 0,
+                        // [InGame_New: removed] attackerType: AttackerType.CHARCTER,
+                        // [InGame_New: removed] isAD: owner.SpecCharacter.atk_type is AtkType.AD ? true : false,
+                        // [InGame_New: removed] isCritical: false,
+                        // [InGame_New: removed] isDoubleCritical: false
+                    // [InGame_New: removed] );
 
-                    tile.OccupiedCharacter.GetDamaged(damageInfo, owner);
+                    // [InGame_New: removed] tile.OccupiedCharacter.GetDamaged(damageInfo, owner);
 
-                    _hitCharacters.Add(tile.OccupiedCharacter);
-                }
-            }
-        }
+                    // [InGame_New: removed] _hitCharacters.Add(tile.OccupiedCharacter);
+                // [InGame_New: removed] }
+            // [InGame_New: removed] }
+        // [InGame_New: removed] }
 
         public override void OnSkillAnimationEnd()
         {

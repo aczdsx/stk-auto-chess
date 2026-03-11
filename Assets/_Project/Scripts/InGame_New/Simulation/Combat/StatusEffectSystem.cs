@@ -53,6 +53,11 @@ namespace CookApps.AutoChess
                     SkillBuffHelper.ModifyStat(ref unit, statType, -value);
                     break;
             }
+
+            // VFX 이벤트 발행
+            var vfxType = ToVfxType(type, statType);
+            if (vfxType != CombatVfxType.None)
+                state.EventQueue?.PushStatusEffectAdded(unit.CombatId, vfxType);
         }
 
         /// <summary>매 틱 호출: 지속시간 감소, 주기적 효과 적용, 만료 처리</summary>
@@ -169,6 +174,12 @@ namespace CookApps.AutoChess
             if (unitIndex < 0 || unitIndex >= state.UnitCount) return;
             ref var unit = ref state.Units[unitIndex];
             if (unit.ActiveCC == CrowdControlType.None) return;
+
+            // CC VFX 제거 이벤트
+            var vfxType = CCToVfxType(unit.ActiveCC);
+            if (vfxType != CombatVfxType.None)
+                state.EventQueue?.PushCCRemoved(unit.CombatId, vfxType);
+
             unit.ActiveCC = CrowdControlType.None;
             unit.CCRemainingFrames = 0;
             if (unit.State == CombatState.CrowdControlled)
@@ -230,14 +241,17 @@ namespace CookApps.AutoChess
             switch (effect.Type)
             {
                 case StatusEffectType.StatBuff:
-                    // 역산: 추가했던 값을 빼기
                     SkillBuffHelper.ModifyStat(ref unit, effect.StatType, -effect.Value);
                     break;
                 case StatusEffectType.StatDebuff:
-                    // 역산: 뺐던 값을 더하기
                     SkillBuffHelper.ModifyStat(ref unit, effect.StatType, effect.Value);
                     break;
             }
+
+            // VFX 제거 이벤트 발행
+            var vfxType = ToVfxType(effect.Type, effect.StatType);
+            if (vfxType != CombatVfxType.None)
+                state.EventQueue?.PushStatusEffectRemoved(unit.CombatId, vfxType);
         }
 
         /// <summary>주기적 효과 적용 (DOT/HOT)</summary>
@@ -254,8 +268,57 @@ namespace CookApps.AutoChess
                     DamageSystem.ApplyDamage(state, ref unit, dmg);
                     break;
                 case StatusEffectType.HealOverTime:
-                    SkillDamageHelper.Heal(ref unit, effect.Value);
+                    SkillDamageHelper.Heal(state, ref unit, effect.Value);
                     break;
+            }
+        }
+
+        /// <summary>StatusEffectType + StatModType → CombatVfxType 변환</summary>
+        public static CombatVfxType ToVfxType(StatusEffectType type, StatModType statType = default)
+        {
+            switch (type)
+            {
+                case StatusEffectType.Shield: return CombatVfxType.None;
+                case StatusEffectType.DamageOverTime: return CombatVfxType.ContinuousDamage;
+                case StatusEffectType.HealOverTime: return CombatVfxType.ContinuousHeal;
+                case StatusEffectType.CCImmunity: return CombatVfxType.CCImmunity;
+                case StatusEffectType.DOTImmunity: return CombatVfxType.DOTImmunity;
+                case StatusEffectType.DebuffImmunity: return CombatVfxType.DebuffImmunity;
+                case StatusEffectType.StatBuff:
+                    switch (statType)
+                    {
+                        case StatModType.Attack: return CombatVfxType.StatBuff_Attack;
+                        case StatModType.Armor: return CombatVfxType.StatBuff_Armor;
+                        case StatModType.MagicResist: return CombatVfxType.StatBuff_MagicResist;
+                        case StatModType.AttackSpeed: return CombatVfxType.StatBuff_AttackSpeed;
+                        default: return CombatVfxType.None;
+                    }
+                case StatusEffectType.StatDebuff:
+                    switch (statType)
+                    {
+                        case StatModType.Attack: return CombatVfxType.StatDebuff_Attack;
+                        case StatModType.Armor: return CombatVfxType.StatDebuff_Armor;
+                        case StatModType.MagicResist: return CombatVfxType.StatDebuff_MagicResist;
+                        case StatModType.AttackSpeed: return CombatVfxType.StatDebuff_AttackSpeed;
+                        default: return CombatVfxType.None;
+                    }
+                default: return CombatVfxType.None;
+            }
+        }
+
+        /// <summary>CrowdControlType → CombatVfxType 변환</summary>
+        public static CombatVfxType CCToVfxType(CrowdControlType ccType)
+        {
+            switch (ccType)
+            {
+                case CrowdControlType.Stun: return CombatVfxType.CC_Stun;
+                case CrowdControlType.Silence: return CombatVfxType.CC_Silence;
+                case CrowdControlType.Slow: return CombatVfxType.CC_Slow;
+                case CrowdControlType.Freeze: return CombatVfxType.CC_Freeze;
+                case CrowdControlType.Taunt: return CombatVfxType.CC_Taunt;
+                case CrowdControlType.Airborne: return CombatVfxType.CC_Airborne;
+                case CrowdControlType.Knockback: return CombatVfxType.CC_KnockBack;
+                default: return CombatVfxType.None;
             }
         }
     }

@@ -657,6 +657,7 @@ namespace CookApps.AutoChess
         public int MaxDistance;
         public int TraveledDistance;
         public long HitMask;            // 이미 맞은 유닛 비트마스크 (중복 피격 방지)
+        public int Width;               // 투사체 폭 (0 또는 1 = 1칸, 3 = 3칸). 진행 방향 수직으로 확장.
 
         // AreaTarget 전용
         public byte TargetCol;

@@ -78,7 +78,6 @@ namespace CookApps.AutoChess
             {
                 DoPhase2(state, ref caster);
                 _phase = 0;
-                return false;
             }
 
             return false;
@@ -129,7 +128,7 @@ namespace CookApps.AutoChess
 
                 // 공속감소 디버프
                 SkillBuffHelper.ApplyTimedDebuff(state, i,
-                    StatModType.AttackSpeed, -_atkSpeedDownValue, _debuffDurationFrames);
+                    StatModType.AttackSpeed, _atkSpeedDownValue, _debuffDurationFrames);
             }
 
             // Phase1 VFX: skill_vfxs[0] (낫 공격) — 타겟 방향 전달
@@ -170,7 +169,7 @@ namespace CookApps.AutoChess
 
                     // 공속감소 디버프
                     SkillBuffHelper.ApplyTimedDebuff(state, idx,
-                        StatModType.AttackSpeed, -_atkSpeedDownValue, _debuffDurationFrames);
+                        StatModType.AttackSpeed, _atkSpeedDownValue, _debuffDurationFrames);
                 });
         }
 

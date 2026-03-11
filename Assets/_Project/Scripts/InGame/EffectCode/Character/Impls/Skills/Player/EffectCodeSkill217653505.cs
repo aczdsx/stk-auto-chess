@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -128,7 +128,7 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
             var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
             movement.SetData(vfx.CachedTr.position, endTile.View.CachedTr.position, 5);
             vfx.Initialize(false, movement);
-            vfx.OnCollisionWithTile += OnTrigger2DEnter;
+            // [InGame_New: removed] vfx.OnCollisionWithTile += OnTrigger2DEnter;
 
             // 목표 지점에 도달하면 VFX 제거
             movement.OnReachedTarget += () =>
@@ -140,44 +140,44 @@ public partial class EffectCodeSkill217653505 : EffectCodeCharacterBase
         IsSkillActivated = false;
     }
 
-    private void OnTrigger2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
-    {
-        if (owner is null)
-            return;
+    // [InGame_New: removed] private void OnTrigger2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
+    // [InGame_New: removed] {
+        // [InGame_New: removed] if (owner is null)
+            // [InGame_New: removed] return;
 
-        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-        if (tileFx != null)
-        {
-            tileFx.CachedTr.position = tile.View.CachedTr.position;
+        // [InGame_New: removed] var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+        // [InGame_New: removed] if (tileFx != null)
+        // [InGame_New: removed] {
+            // [InGame_New: removed] tileFx.CachedTr.position = tile.View.CachedTr.position;
 
-            if (tile.CheckValidTile(owner.AllianceType, true))
-            {
-                if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
-                {
-                    InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.OccupiedCharacter.SkillRootTransformFollowable);
+            // [InGame_New: removed] if (tile.CheckValidTile(owner.AllianceType, true))
+            // [InGame_New: removed] {
+                // [InGame_New: removed] if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
+                // [InGame_New: removed] {
+                    // [InGame_New: removed] InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    // 즉시 힐량 계산 (PostCalculateHealAmount에서 오라클 처리)
-                    double healAmount = EffectCodeJobPassiveRecovery.CalculateOracleDefaultSkillRecoveryAmount(owner, _healRate);
-                    healAmount = owner.PostCalculateHealAmount(healAmount, tile.OccupiedCharacter, isSkill: true);
-                    tile.OccupiedCharacter.GetHealed(healAmount, owner, codeId, true);
+                    // [InGame_New: removed] // 즉시 힐량 계산 (PostCalculateHealAmount에서 오라클 처리)
+                    // [InGame_New: removed] double healAmount = EffectCodeJobPassiveRecovery.CalculateOracleDefaultSkillRecoveryAmount(owner, _healRate);
+                    // [InGame_New: removed] healAmount = owner.PostCalculateHealAmount(healAmount, tile.OccupiedCharacter, isSkill: true);
+                    // [InGame_New: removed] tile.OccupiedCharacter.GetHealed(healAmount, owner, codeId, true);
 
-                    // 지속 회복 버프 힐량 계산 (PostCalculateHealAmount에서 오라클 처리)
-                    healAmount = EffectCodeJobPassiveRecovery.CalculateOracleDefaultSkillRecoveryAmount(owner, _healBuffRate);
-                    healAmount = owner.PostCalculateHealAmount(healAmount, tile.OccupiedCharacter, isSkill: true);
-                    Span<double> eccStats = stackalloc double[3];
+                    // [InGame_New: removed] // 지속 회복 버프 힐량 계산 (PostCalculateHealAmount에서 오라클 처리)
+                    // [InGame_New: removed] healAmount = EffectCodeJobPassiveRecovery.CalculateOracleDefaultSkillRecoveryAmount(owner, _healBuffRate);
+                    // [InGame_New: removed] healAmount = owner.PostCalculateHealAmount(healAmount, tile.OccupiedCharacter, isSkill: true);
+                    // [InGame_New: removed] Span<double> eccStats = stackalloc double[3];
 
-                    eccStats.Clear();
-                    eccStats[0] = CodeId;//sourceCodeId
-                    eccStats[1] = _buffTime;//duration
-                    eccStats[2] = healAmount;//value
+                    // [InGame_New: removed] eccStats.Clear();
+                    // [InGame_New: removed] eccStats[0] = CodeId;//sourceCodeId
+                    // [InGame_New: removed] eccStats[1] = _buffTime;//duration
+                    // [InGame_New: removed] eccStats[2] = healAmount;//value
 
-                    EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_SPECIAL_MEDITATION, tile.OccupiedCharacter, eccStats, source);
+                    // [InGame_New: removed] EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.BUFF_SPECIAL_MEDITATION, tile.OccupiedCharacter, eccStats, source);
 
-                    _hitCharacters.Add(tile.OccupiedCharacter);
-                }
-            }
-        }
-    }
+                    // [InGame_New: removed] _hitCharacters.Add(tile.OccupiedCharacter);
+                // [InGame_New: removed] }
+            // [InGame_New: removed] }
+        // [InGame_New: removed] }
+    // [InGame_New: removed] }
 
 
 

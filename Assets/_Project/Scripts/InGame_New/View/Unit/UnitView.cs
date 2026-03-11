@@ -23,6 +23,7 @@ namespace CookApps.AutoChess.View
         public int CombatId { get; private set; } = CombatUnit.InvalidId;
         public bool IsCombatUnit { get; private set; }
         public bool IsReady => _characterView != null;
+        public int ChampSpecId => _champSpecId;
 
         private Vector3 _targetPosition;
         private float _interpolationSpeed = 15f;

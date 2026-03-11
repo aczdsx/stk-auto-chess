@@ -21,6 +21,7 @@ namespace CookApps.AutoChess.View
         private AutoChessViewBridge _viewBridge;
         private UnitViewManager _unitViewManager;
         private CombatViewManager _combatViewManager;
+        private CombatVfxManager _combatVfxManager;
         private BoardGridView _boardGridView;
         private TileEffectManager _tileEffectManager;
         private TargetLineManager _targetLineManager;
@@ -98,9 +99,16 @@ namespace CookApps.AutoChess.View
             if (_damageTextPrefab != null)
                 InGameTextViewPool.Instance.InitializePool(_damageTextPrefab);
 
+            // CombatVfxManager (SoDataProvider에서 SO 가져오기)
+            var combatVfxConfig = CookApps.AutoBattler.SoDataProvider.Instance.Get<CombatVfxConfigSO>();
+            if (combatVfxConfig != null)
+            {
+                _combatVfxManager = new CombatVfxManager(combatVfxConfig, _unitViewManager);
+            }
+
             // ViewBridge 와이어링
             _viewBridge = CreateChild<AutoChessViewBridge>("ViewBridge");
-            _viewBridge.Setup(_runner, _unitViewManager, _combatViewManager, _boardGridView);
+            _viewBridge.Setup(_runner, _unitViewManager, _combatViewManager, _boardGridView, _combatVfxManager);
         }
 
         // ── 정리 ──

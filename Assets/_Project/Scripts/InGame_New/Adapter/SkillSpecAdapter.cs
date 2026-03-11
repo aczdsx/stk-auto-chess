@@ -25,6 +25,7 @@ namespace CookApps.AutoChess
                 CastFrames = 0,
                 TargetCount = 1,
                 HitCount = 1,
+                TargetType = SkillTargetType.NearestEnemy,
             };
 
             switch (archetype)
@@ -222,9 +223,13 @@ namespace CookApps.AutoChess
                     p.CCType = CrowdControlType.Silence;
                     p.CCDurationFrames = 90;
                     break;
-                case 217433303: // 하티: 넉백 2타일
+                case 217433303: // 하티: 가장 먼 적 + 넉백 2타일
+                    p.TargetType = SkillTargetType.FarthestEnemy;
                     p.CCType = CrowdControlType.Knockback;
                     p.CCDurationFrames = 2;
+                    break;
+                case 215532401: // 필리아: 가장 먼 적 단일강타
+                    p.TargetType = SkillTargetType.FarthestEnemy;
                     break;
                 case 215252102: // 유니: 3명 힐 + 디버프 2개 제거
                     p.TargetCount = 3;
@@ -252,7 +257,8 @@ namespace CookApps.AutoChess
                     p.Param2 = 50;  // healReductionPercent
                     p.Param3 = 2;   // zoneRange (맨해튼 거리 2)
                     break;
-                case 217563405: // 마리에: 다단히트
+                case 217563405: // 마리에: 공격력 최대 적 + 다단히트
+                    p.TargetType = SkillTargetType.HighestAttackEnemy;
                     p.HitCount = 4;
                     break;
                 case 215422301: // 멘샤: 실드
@@ -269,6 +275,9 @@ namespace CookApps.AutoChess
                     p.Param1 = 75;       // 중거리 배율 (3행)
                     p.Param2 = 50;       // 원거리 배율 (4+행)
                     p.CastFrames = 90;   // 총 채널링 프레임 (3초 @ 30fps)
+                    break;
+                case 217513401: // 아트레시아: 3칸 폭 직선 관통
+                    p.Param2 = 3;  // width (진행 방향 수직 3칸)
                     break;
                 case 217613501: // 오데트: 2단계 채널링 (L자형 + 3×3 범위공격 + 순간이동)
                     p.Param0 = 90;       // 공속감소 디버프 지속 프레임 (3초 @ 30fps)

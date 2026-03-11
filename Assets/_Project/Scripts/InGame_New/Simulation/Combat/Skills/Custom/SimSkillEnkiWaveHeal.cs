@@ -109,7 +109,7 @@ namespace CookApps.AutoChess
                 int colDiff = unit.GridCol - _waveCenterCol;
                 if (colDiff < -_waveHalfWidth || colDiff > _waveHalfWidth) continue;
 
-                SkillDamageHelper.Heal(ref unit, healAmount);
+                SkillDamageHelper.Heal(state, ref unit, healAmount);
 
                 if (hotPerTick > 0)
                 {
