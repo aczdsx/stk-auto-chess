@@ -345,10 +345,7 @@ public static class GenerateSDResources
 
         AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyFrames);
 
-        // 이벤트 생성: 베이스 클립에서 복사 + 비례 스케일링
-        float newDuration = sprites.Count / settings.frameRate;
-        float baseDuration = settings.clipDuration;
-
+        // 이벤트 생성: 베이스 클립의 타이밍을 그대로 복사
         List<AnimationEvent> animationEvents = new List<AnimationEvent>();
         foreach (var baseEvent in settings.events)
         {
@@ -358,22 +355,7 @@ public static class GenerateSDResources
             newEvent.floatParameter = baseEvent.floatParameter;
             newEvent.stringParameter = baseEvent.stringParameter;
             newEvent.objectReferenceParameter = baseEvent.objectReferenceParameter;
-
-            if (baseEvent.intParameter == (int)AnimationEventKey.Start)
-            {
-                newEvent.time = 0f;
-            }
-            else if (baseEvent.intParameter == (int)AnimationEventKey.End)
-            {
-                newEvent.time = newDuration;
-            }
-            else
-            {
-                // 중간 이벤트: 비례 스케일링
-                newEvent.time = baseDuration > 0f
-                    ? (baseEvent.time / baseDuration) * newDuration
-                    : 0f;
-            }
+            newEvent.time = baseEvent.time;
 
             animationEvents.Add(newEvent);
         }
@@ -728,12 +710,9 @@ public static class GenerateSDResources
                     }
                 }
 
-                // 이벤트 재생성 (비례 스케일링)
-                if (spriteCount > 0 && baseSettings.events.Length > 0)
+                // 이벤트 재생성 (베이스 클립 타이밍 그대로 복사)
+                if (baseSettings.events.Length > 0)
                 {
-                    float newDuration = spriteCount / baseSettings.frameRate;
-                    float baseDuration = baseSettings.clipDuration;
-
                     var newEvents = new List<AnimationEvent>();
                     foreach (var baseEvent in baseSettings.events)
                     {
@@ -743,21 +722,7 @@ public static class GenerateSDResources
                         newEvent.floatParameter = baseEvent.floatParameter;
                         newEvent.stringParameter = baseEvent.stringParameter;
                         newEvent.objectReferenceParameter = baseEvent.objectReferenceParameter;
-
-                        if (baseEvent.intParameter == (int)AnimationEventKey.Start)
-                        {
-                            newEvent.time = 0f;
-                        }
-                        else if (baseEvent.intParameter == (int)AnimationEventKey.End)
-                        {
-                            newEvent.time = newDuration;
-                        }
-                        else
-                        {
-                            newEvent.time = baseDuration > 0f
-                                ? (baseEvent.time / baseDuration) * newDuration
-                                : 0f;
-                        }
+                        newEvent.time = baseEvent.time;
 
                         newEvents.Add(newEvent);
                     }
