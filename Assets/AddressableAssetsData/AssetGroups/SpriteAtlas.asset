@@ -81,6 +81,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bb8971802048af6439094fa375653e4e
+    m_Address: SpriteAtlas/Dynamic/UI_Gacha
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c3569d5091d904bbdbcf40edc4939992
     m_Address: SpriteAtlas/Dynamic/UI_CharacterThumbnail
     m_ReadOnly: 0
