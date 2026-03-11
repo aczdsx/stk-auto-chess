@@ -30,6 +30,7 @@ namespace CookApps.AutoChess.View
 
             // Strategy 오버라이드 등록
             TutorialController.SetStrategyOverride(TutorialActionType.SPAWN_ENEMY, new TutorialActionSpawnEnemyNew());
+            TutorialController.SetStrategyOverride(TutorialActionType.CHARACTER_PLACEMENT_UI, new TutorialActionCharacterPlacementUINew());
         }
 
         public void OnPhaseChanged(GamePhase prev, GamePhase current)
@@ -74,6 +75,38 @@ namespace CookApps.AutoChess.View
         public void EnqueueSpawnCommand(int monsterSpecId, int col, int row)
         {
             _localRunner.EnqueueCommand(GameCommand.SpawnTutorialEnemy(0, monsterSpecId, col, row));
+        }
+
+        /// <summary>
+        /// 벤치에 유닛 직접 생성. 튜토리얼 보상 캐릭터를 시뮬레이션에 추가할 때 사용.
+        /// 이미 동일 champSpecId 유닛이 벤치/보드에 있으면 생성하지 않음.
+        /// </summary>
+        public int SpawnBenchUnit(int championSpecId, byte starLevel = 1)
+        {
+            var world = _localRunner.GetWorld();
+            if (world == null) return UnitData.InvalidId;
+
+            // 중복 검사: 벤치에 같은 champSpecId 유닛이 이미 있으면 스킵
+            var benchSlots = world.BenchSlots[0];
+            for (int i = 0; i < benchSlots.Length; i++)
+            {
+                if (benchSlots[i] == UnitData.InvalidId) continue;
+                int unitIdx = world.FindUnitIndex(benchSlots[i]);
+                if (unitIdx >= 0 && world.Units[unitIdx].ChampionSpecId == championSpecId)
+                    return benchSlots[i];
+            }
+
+            // 보드에도 확인
+            var boardSlots = world.BoardSlots[0];
+            for (int i = 0; i < boardSlots.Length; i++)
+            {
+                if (boardSlots[i] == UnitData.InvalidId) continue;
+                int unitIdx = world.FindUnitIndex(boardSlots[i]);
+                if (unitIdx >= 0 && world.Units[unitIdx].ChampionSpecId == championSpecId)
+                    return boardSlots[i];
+            }
+
+            return BoardSystem.CreateUnit(world, 0, championSpecId, starLevel);
         }
 
         public void Dispose()

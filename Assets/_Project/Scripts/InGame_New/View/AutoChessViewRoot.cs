@@ -17,6 +17,7 @@ namespace CookApps.AutoChess.View
         private GameObject _hpBarPrefab;
         private GameObject _damageTextPrefab;
         private GameObject _stageInstance;
+        private int _stageId;
         private LocalSimulationRunner _runner;
         private AutoChessViewBridge _viewBridge;
         private UnitViewManager _unitViewManager;
@@ -37,6 +38,7 @@ namespace CookApps.AutoChess.View
 
         public async UniTask LoadResources(int stageId, GameModeType gameMode)
         {
+            _stageId = stageId;
             var stageInfo = SpecDataManager.Instance.GetStageData(stageId);
             int chapterId = stageInfo?.chapter_id ?? stageId;
 
@@ -62,7 +64,7 @@ namespace CookApps.AutoChess.View
 
         // ── 동적 초기화 (LoadResources 후 호출) ──
 
-        public void Initialize()
+        public async UniTask Initialize()
         {
             // 스테이지 인스턴스화
             _stageInstance = Instantiate(_stagePrefab, transform);
@@ -102,7 +104,12 @@ namespace CookApps.AutoChess.View
             _viewBridge = CreateChild<AutoChessViewBridge>("ViewBridge");
             _viewBridge.Setup(_runner, _unitViewManager, _combatViewManager, _boardGridView);
 
-            // 튜토리얼 브릿지 연결
+            // 튜토리얼 초기화 + 브릿지 연결
+            if (TutorialManager.Instance != null)
+            {
+                await TutorialManager.Instance.CheckAndInitTutorial(_stageId);
+                TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.GAME_START, "0");
+            }
             var tutorialBridge = new TutorialSimBridge(_runner);
             _viewBridge.SetTutorialBridge(tutorialBridge);
         }
