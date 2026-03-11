@@ -64,6 +64,12 @@ namespace CookApps.AutoBattler
                 InGameMainFlowManager.Instance.Pause();
                 IsPausedBySpawnEnemy = true;
                 Debug.LogColor("[TutorialActionSpawnEnemy] 게임 일시 정지", "yellow");
+
+                // 튜토리얼 닫힘 시 Resume 콜백 등록 (one-shot)
+                if (TutorialManager.Instance != null)
+                {
+                    TutorialManager.Instance.OnTutorialClosed += ResumeGameIfPaused;
+                }
             }
 
             // tutorial_action_key에서 몬스터 ID 파싱

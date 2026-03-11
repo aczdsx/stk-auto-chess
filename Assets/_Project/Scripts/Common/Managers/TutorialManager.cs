@@ -52,6 +52,12 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// </summary>
     private int _currentGuideMissionId;
 
+    /// <summary>
+    /// HandleTutorialClose 호출 시 발행. one-shot: 발행 후 자동 해제.
+    /// 레거시/InGame_New 핸들러 모두 이 이벤트에 Resume 콜백 등록.
+    /// </summary>
+    public event Action OnTutorialClosed;
+
     public bool HasTutorialStage => _specTutorialDataList is { Count: > 0 } && _specTutorialDataList[0].tutorial_id > 0;
     public bool IsTutorial => _canvas != null;
 
@@ -267,6 +273,17 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         return _specTutorialDataList.Find(l => l.tutorial_trigger_type == tutorialTriggerType) != null;
     }
 
+    public bool IsTutorialAction(TutorialTriggerType tutorialTriggerType, string key)
+    {
+        if (!IsTutorial || _specTutorialDataList.Count == 0)
+        {
+            return false;
+        }
+        return _specTutorialDataList.Find(l =>
+            l.tutorial_trigger_type == tutorialTriggerType &&
+            l.tutorial_trigger_key == key) != null;
+    }
+
     public bool HandleTutorialAction(TutorialTriggerType tutorialTriggerType, string key, bool isLongShow = false)
     {
         if (!IsTutorial || _specTutorialDataList != null && _specTutorialDataList.Count == 0)
@@ -335,11 +352,10 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
         }
         action?.Invoke();
 
-        // 인게임 전용 핸들러 처리
-        TutorialActionSpawnEnemy.ResumeGameIfPaused();
-        TutorialSkillReadyHandler.ResumeAndActivateSkill();
-        TutorialEnemyDeadAllHandler.ResumeAndEndCombat();
-        TutorialSkillReadyHandler.TryProcessDeferredSkillReady();
+        // 인게임 핸들러 처리 (레거시/InGame_New 모두 이벤트 기반)
+        var closed = OnTutorialClosed;
+        OnTutorialClosed = null; // one-shot: 호출 전 구독 해제하여 재진입 방지
+        closed?.Invoke();
 
         // 터치 차단 시스템 최종 정리
         TutorialTouchBlocker.Clear();
