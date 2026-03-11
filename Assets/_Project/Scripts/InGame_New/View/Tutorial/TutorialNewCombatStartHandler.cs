@@ -52,7 +52,8 @@ namespace CookApps.AutoChess.View
         {
             if (_isPaused)
             {
-                TutorialManager.Instance?.OnTutorialClosed -= ResumeAfterTutorial;
+                if (TutorialManager.Instance != null)
+                    TutorialManager.Instance.OnTutorialClosed -= ResumeAfterTutorial;
             }
             _isPaused = false;
         }
