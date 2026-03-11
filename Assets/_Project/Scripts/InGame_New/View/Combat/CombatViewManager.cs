@@ -564,7 +564,7 @@ namespace CookApps.AutoChess.View
         {
             if (!_isCombatActive) return;
 
-            float dt = Time.deltaTime;
+            float dt = Time.unscaledDeltaTime * LocalSimulationRunner.SpeedMultiplier;
 
             // 1-a. 대기 중인 근접 공격 지연 처리
             for (int i = _pendingMeleeAttacks.Count - 1; i >= 0; i--)
