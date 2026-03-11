@@ -14,6 +14,12 @@ namespace CookApps.AutoChess
             if (unitIndex < 0 || unitIndex >= state.UnitCount) return;
             if (state.StatusEffectCount >= CombatMatchState.MaxStatusEffects) return;
 
+            // 면역 체크: 해당 면역이 활성화되어 있으면 효과 적용 차단
+            if (type == StatusEffectType.StatDebuff && HasImmunity(state, unitIndex, StatusEffectType.DebuffImmunity))
+                return;
+            if (type == StatusEffectType.DamageOverTime && HasImmunity(state, unitIndex, StatusEffectType.DOTImmunity))
+                return;
+
             ref var effect = ref state.StatusEffects[state.StatusEffectCount++];
             effect.OwnerUnitIndex = unitIndex;
             effect.Type = type;
@@ -137,6 +143,63 @@ namespace CookApps.AutoChess
 
             RecalcShieldCache(state, unitIndex);
             return damage; // 남은 데미지
+        }
+
+        /// <summary>유닛의 디버프 N개 제거 (먼저 추가된 것부터)</summary>
+        public static void RemoveDebuffs(CombatMatchState state, int unitIndex, int count)
+        {
+            int removed = 0;
+            for (int i = 0; i < state.StatusEffectCount && removed < count; i++)
+            {
+                ref var effect = ref state.StatusEffects[i];
+                if (!effect.IsActive) continue;
+                if (effect.OwnerUnitIndex != unitIndex) continue;
+                if (effect.Type != StatusEffectType.StatDebuff) continue;
+
+                // 역산 후 비활성화
+                OnEffectExpired(state, ref effect);
+                effect.IsActive = false;
+                removed++;
+            }
+        }
+
+        /// <summary>유닛의 활성 CC 즉시 해제</summary>
+        public static void RemoveCC(CombatMatchState state, int unitIndex)
+        {
+            if (unitIndex < 0 || unitIndex >= state.UnitCount) return;
+            ref var unit = ref state.Units[unitIndex];
+            if (unit.ActiveCC == CrowdControlType.None) return;
+            unit.ActiveCC = CrowdControlType.None;
+            unit.CCRemainingFrames = 0;
+            if (unit.State == CombatState.CrowdControlled)
+                unit.State = CombatState.Idle;
+        }
+
+        /// <summary>유닛의 특정 타입 StatusEffect 모두 제거 (역산 포함)</summary>
+        public static void RemoveEffectsByType(CombatMatchState state, int unitIndex, StatusEffectType type)
+        {
+            for (int i = 0; i < state.StatusEffectCount; i++)
+            {
+                ref var effect = ref state.StatusEffects[i];
+                if (!effect.IsActive) continue;
+                if (effect.OwnerUnitIndex != unitIndex) continue;
+                if (effect.Type != type) continue;
+                OnEffectExpired(state, ref effect);
+                effect.IsActive = false;
+            }
+        }
+
+        /// <summary>해당 유닛에 특정 면역 상태효과가 활성화되어 있는지 확인</summary>
+        public static bool HasImmunity(CombatMatchState state, int unitIndex, StatusEffectType immunityType)
+        {
+            for (int i = 0; i < state.StatusEffectCount; i++)
+            {
+                ref var effect = ref state.StatusEffects[i];
+                if (!effect.IsActive) continue;
+                if (effect.OwnerUnitIndex != unitIndex) continue;
+                if (effect.Type == immunityType) return true;
+            }
+            return false;
         }
 
         /// <summary>해당 유닛의 쉴드 합산 재계산 → CombatUnit.ShieldAmount 갱신</summary>

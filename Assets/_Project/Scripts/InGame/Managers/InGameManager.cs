@@ -1,7 +1,6 @@
 using System;
 using CookApps.AutoBattler;
 using CookApps.Obfuscator;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using Random = System.Random;
 
@@ -13,7 +12,6 @@ namespace CookApps.BattleSystem
         #region GameInfo
         public StageInfo SpecStage { get; private set; }
         public DungeonBabelInfo SpecDungeonTrial { get; private set; }
-        public UserPVPBattleDetailData UserPvpBattleDeckList { get; private set; }
         protected ObfuscatorInt randomGeneratorSeed;
         public int RandomGeneratorSeed => randomGeneratorSeed;
 
@@ -91,19 +89,6 @@ namespace CookApps.BattleSystem
             _teamEcc = new EffectCodeContainerTeam(this);
             InGameMainFlowManager.Instance.StartInGameMainLoop<T>(specDungeonTrial);
             InitializeInGameComponents(specDungeonTrial);
-        }
-
-        public void StartInGame<T>(UserPVPBattleDetailData pvpBattleDeck) where T : StateBase, new()
-        {
-            UserPvpBattleDeckList = pvpBattleDeck;
-            IsInGamePlaying = true;
-            IsInGameCombat = true;
-            IsBlockAmbush = false;
-            AppEventResult = string.Empty;
-            AppEventReason = string.Empty;
-            _teamEcc = new EffectCodeContainerTeam(this);
-            InGameMainFlowManager.Instance.StartInGameMainLoop<T>(pvpBattleDeck);
-            InitializeInGameComponents(pvpBattleDeck);
         }
 
         // 테스트용 StartInGame

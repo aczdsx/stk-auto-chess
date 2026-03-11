@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using CookApps.BattleSystem;
-using Cookapps.Stkauto.V1;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using R3;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
@@ -56,6 +57,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _gradeUpObj;
         [SerializeField] private GameObject _rewardObj;
 
+        private AsyncOperationHandle<GameObject> _characterHandle;
         private DungeonBabelInfo _specDungeonTrialData;
 
         // Current Selected Dungeon Spec ID for viewing
@@ -218,6 +220,11 @@ namespace CookApps.AutoBattler
             _currentStepName.text = StringUtil.GetTrialDungeonString(_specDungeonTrialData, true);
             _currentStepAttr.text = attr.ToString("n0");
 
+            if (_characterHandle.IsValid())
+            {
+                Addressables.ReleaseInstance(_characterHandle);
+                _characterHandle = default;
+            }
             BMUtil.RemoveChildObjects(_characterImageParentObject.transform);
             if (topStatData != null)
             {
@@ -227,8 +234,8 @@ namespace CookApps.AutoBattler
 
                 string characterPrefabName =
                     string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, topStatData.Spec.prefab_id);
-                GameObject obj =
-                    AddressablesUtil.Instantiate(characterPrefabName, _characterImageParentObject.transform);
+                _characterHandle = Addressables.InstantiateAsync(characterPrefabName, _characterImageParentObject.transform);
+                GameObject obj = _characterHandle.WaitForCompletion();
                 _uiCharacter = obj.GetComponent<UICharacter>();
                 _uiCharacter.SetGrayCharacter(isCleared);
             }
@@ -337,7 +344,13 @@ namespace CookApps.AutoBattler
                 response.BattleSeed
             );
             
-            SceneLoading.GoToNextScene("InGame", inGameParams);
+            SceneLoading.GoToNextScene("InGame_New", inGameParams);
+        }
+
+        private void OnDestroy()
+        {
+            if (_characterHandle.IsValid())
+                Addressables.ReleaseInstance(_characterHandle);
         }
 
         private void OnClickCloseButton()
@@ -347,6 +360,11 @@ namespace CookApps.AutoBattler
 
         private void ClearPopup()
         {
+            if (_characterHandle.IsValid())
+            {
+                Addressables.ReleaseInstance(_characterHandle);
+                _characterHandle = default;
+            }
             BMUtil.RemoveChildObjects(_rewardInfoContentTransform);
             BMUtil.RemoveChildObjects(_monsterInfoScrollRect.content);
         }

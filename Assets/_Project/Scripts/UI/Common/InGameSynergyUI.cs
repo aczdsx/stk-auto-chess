@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using Coffee.UIEffects;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
-using LitMotion;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,13 +15,13 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// 시너지 업데이트 중 상승한 시너지 타입 수집용
         /// </summary>
-        private static HashSet<SynergyType> _upgradedSynergyTypes = new HashSet<SynergyType>();
+        private static HashSet<SynergyType> _upgradedSynergyTypes = new();
 
         /// <summary>
         /// 시너지 타입별 이전 상태 저장 (count, grade)
         /// UI 슬롯이 재정렬되어도 정확한 비교를 위해 전역적으로 관리
         /// </summary>
-        private static Dictionary<SynergyType, (int count, int grade)> _previousSynergyStates = new Dictionary<SynergyType, (int count, int grade)>();
+        private static Dictionary<SynergyType, (int count, int grade)> _previousSynergyStates = new();
 
         /// <summary>
         /// 상승한 시너지 타입 수집 시작 (업데이트 전 호출)
@@ -51,44 +50,43 @@ namespace CookApps.AutoBattler
         }
 
         [SerializeField] private Image _iconImage;
-        [SerializeField] private SpriteLoader _starAsterismIconSpriteLoader;
-        [SerializeField] private SpriteLoader _elementalIconSpriteLoader;
-        [SerializeField] private GameObject _starAsterismIconGameObject;
-        [SerializeField] private GameObject _elementalIconGameObject;
+        [SerializeField] private SpriteLoader _IconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _countText;
+        [SerializeField] private TextMeshProUGUI _synergyNameText;
         [SerializeField] private GameObject _countMaxGameObject;
         [SerializeField] private GameObject _countParentGameObject;
 
-        [SerializeField] private Image _starAsterismGradeGuageImage;
-        [SerializeField] private Image _starAsterismGradeGuageColor;
-        [SerializeField] private Image _elementalGradeGuageImage;
-        [SerializeField] private Image _elementalGradeGuageColor;
+        [SerializeField] private Image _gradeGuageImage;
+
         [SerializeField] private RectTransform _buttonRect;
-        [SerializeField] private UIShiny _starAstarismShiny;
-        [SerializeField] private UIShiny _elementalShiny;
+        [SerializeField] private UIShiny _shiny;
 
+        [SerializeField] private GameObject _stepGameObject;
+        [SerializeField] private TextMeshProUGUI _stepText;
+        [SerializeField] private GameObject _splitLine;
 
+        [Space(10)] 
+        [SerializeField] private SimpleImageSwapper _gradeImageSwapper;
 
-        private Color _step0Color = new Color32(139, 139, 139, 50); // 그레이 (Gray)
-        private Color _step1Color = new Color32(205, 127, 50, 255); // 동 (Bronze)
-        private Color _step2Color = new Color32(230, 230, 230, 255); // 은 (Silver)
-        private Color _step3Color = new Color32(255, 215, 0, 255); // 금 (Gold)
-        private Color _step4Color = new Color32(229, 228, 226, 255); // 플래티넘 (Platinum) 
+        [SerializeField] private SimpleImageSwapper _iconMaskSwapper;
+        [SerializeField] private SimpleImageColorSwapper _iconColorSwapper;
 
         private SynergyType _synergyType;
-        private int _count;
         private ISpecSynergyData _synergyData;
-        private ISpecSynergyData _nextSynergyData;
         private bool _isActive;
+        private HashSet<int> _inBattleChampionIds;
         private const int MAX_GRADE = 3;
 
+        public void SetInBattleChampionIds(HashSet<int> ids) => _inBattleChampionIds = ids;
+
         //캐릭터 속성 시너지 세팅
-        public void SetSynergy(SynergyType synergyType, int count, ISpecSynergyData data, ISpecSynergyData nextData, bool isActive = true, bool isColorWhite = false)
+        public void SetSynergy(SynergyType synergyType, int count, ISpecSynergyData data, ISpecSynergyData nextData,
+            bool isActive = true)
         {
             _synergyType = synergyType;
             _synergyData = data;
-            _nextSynergyData = nextData;
             _isActive = isActive;
+            _synergyNameText.text = LanguageManager.Instance.GetDefaultText(_synergyData.name_token);
 
             // 시너지 상승 시 Shiny 효과 재생 및 상승 타입 수집
             // 시너지 타입별 전역 상태와 비교 (UI 슬롯 재정렬에 영향받지 않음)
@@ -96,8 +94,7 @@ namespace CookApps.AutoBattler
             {
                 if (count > prevState.count || data.grade > prevState.grade)
                 {
-                    bool isAsterism = DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType);
-                    PlayShinyEffect(isAsterism ? _starAstarismShiny : _elementalShiny).Forget();
+                    PlayShinyEffect(_shiny).Forget();
                     _upgradedSynergyTypes.Add(synergyType);
                 }
             }
@@ -105,96 +102,34 @@ namespace CookApps.AutoBattler
             // 현재 상태 저장
             _previousSynergyStates[synergyType] = (count, data.grade);
 
-            Color color = Color.white;
-            switch (data.grade)
-            {
-                case 0:
-                    color = _step0Color;
-                    break;
-                case 1:
-                    color = _step1Color;
-                    break;
-                case 2:
-                    color = _step2Color;
-                    break;
-                case 3:
-                    color = _step3Color;
-                    break;
-                case 4:
-                    color = _step4Color;
-                    break;
-                default:
-                    color = Color.white;
-                    break;
-            }
+            int grade = data.grade;
+            bool isMaxGrade = grade == MAX_GRADE;
 
-            _count = count;
+            // 등급 배경
+            _gradeImageSwapper.Swap(grade >= 1 && grade <= MAX_GRADE
+                ? (SimpleSwapType)(SimpleSwapType.Grade_0 + grade - 1)
+                : SimpleSwapType.Disabled);
 
+            bool showStep = !(grade == 1 && !isActive);
+            // 아이콘
+            _IconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteNameInGameBadge(synergyType)).Forget();
+            _iconColorSwapper.Swap(showStep
+                ? DistinguishSpecTypeHelper.ToSwapType(synergyType)
+                : SimpleSwapType.Disabled);
+            
+            _iconMaskSwapper.Swap(DistinguishSpecTypeHelper.IsAsterismSynergyType(synergyType)
+                ? SimpleSwapType.Constellation
+                : SimpleSwapType.Elemental);
 
-            bool isAsterismSynergyType = DistinguishSynergyTypeHelper.IsAsterismSynergyType(synergyType);
-            _starAsterismIconGameObject.SetActive(isAsterismSynergyType);
-            _elementalIconGameObject.SetActive(!isAsterismSynergyType);
-            if (isAsterismSynergyType)
-            {
-                _starAsterismIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(synergyType, isActive)).Forget();
-            }
-            else
-            {
-                _elementalIconSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(synergyType, isActive)).Forget();
-            }
+            // 등급 게이지
+            _gradeGuageImage.fillAmount = showStep ? (isMaxGrade ? 1f : grade / (float)MAX_GRADE) : 0f;
+            _stepGameObject.SetActive(showStep);
+            if (showStep) _stepText.text = grade.ToString();
 
-            if (isAsterismSynergyType)
-            {
-                if (data.grade == 1 && !isActive)
-                {
-                    _starAsterismGradeGuageImage.fillAmount = 0f;
-                }
-                else if (data.grade == MAX_GRADE)
-                {
-                    _starAsterismGradeGuageImage.fillAmount = 1f;
-                }
-                else
-                {
-                    _starAsterismGradeGuageImage.fillAmount = (float)data.grade / (float)(MAX_GRADE);
-                }
-                _starAsterismGradeGuageColor.color = color;
-            }
-            else
-            {
-                if (data.grade == 1 && !isActive)
-                {
-                    _elementalGradeGuageImage.fillAmount = 0f;
-                }
-                else if (data.grade == MAX_GRADE)
-                {
-                    _elementalGradeGuageImage.fillAmount = 1f;
-                }
-                else
-                {
-                    _elementalGradeGuageImage.fillAmount = (float)data.grade / (float)(MAX_GRADE);
-                }
-                _elementalGradeGuageColor.color = color;
-            }
-
-            if (data.grade == MAX_GRADE)
-            {
-                _countMaxGameObject.SetActive(true);
-                _countText.gameObject.SetActive(false);
-            }
-            else
-            {
-                _countMaxGameObject.SetActive(false);
-                _countText.gameObject.SetActive(true);
-            }
+            // 카운트
+            _countMaxGameObject.SetActive(isMaxGrade);
+            _countText.gameObject.SetActive(!isMaxGrade);
             _countText.text = $"{count}/{nextData.min_int}";
-            if (isAsterismSynergyType)
-            {
-                // Debug.LogColor($"SynergyUI!! [{synergyType}] {isActive}/{_starAsterismGradeGuageImage.fillAmount}", "green");
-            }
-            else
-            {
-                // Debug.LogColor($"SynergyUI!! [{synergyType}] {isActive}/{_elementalGradeGuageImage.fillAmount}", "green");
-            }
         }
 
         /// <summary>
@@ -205,14 +140,7 @@ namespace CookApps.AutoBattler
             if (_synergyData == null || _synergyData.grade == 0) return;
 
             var param = new SynergyTooltipIngameMiniPopup.PopupParam(
-                _synergyType,
-                _count,
-                _synergyData,
-                _nextSynergyData,
-                _buttonRect,
-                _isActive
-            );
-
+                _synergyType, _synergyData, _buttonRect, _isActive, _inBattleChampionIds);
             SceneUILayerManager.Instance.PushUILayerAsync<SynergyTooltipIngameMiniPopup>(param).Forget();
         }
 
@@ -249,5 +177,11 @@ namespace CookApps.AutoBattler
         {
             _countParentGameObject?.SetActive(visible);
         }
+
+        public void SetSplitLine(bool visible)
+        {
+            _splitLine?.SetActive(visible);
+        }
+
     }
 }

@@ -4,6 +4,7 @@ using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using MemoryPack;
 using R3;
+using UnityEngine;
 using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
@@ -31,15 +32,23 @@ namespace CookApps.AutoBattler
         // 저장 중 추가된 Dirty 데이터 (다음 프레임에 저장)
         private readonly HashSet<ClientDataBase> _pendingDirtySet = new();
 
+        // Lazy 저장: dirty 마킹 후 일정 시간 대기 (debounce)
+        private const float SaveDelay = 1f;
+        private float _dirtySince = -1f;
+
         // R3 이벤트
         public Subject<Unit> OnChanged { get; } = new();
         public readonly Subject<string> OnCategoryUpdated = new();
 
         private void LateUpdate()
         {
-            if (_dirtySet.Count > 0 && !_isSaving)
+            if (_dirtySet.Count > 0 && !_isSaving && _dirtySince >= 0f)
             {
-                FlushDirtyAsync().Forget();
+                if (Time.unscaledTime - _dirtySince >= SaveDelay)
+                {
+                    _dirtySince = -1f;
+                    FlushDirtyAsync().Forget();
+                }
             }
         }
 
@@ -53,6 +62,7 @@ namespace CookApps.AutoBattler
             _dirtySet.Clear();
             _pendingDirtySet.Clear();
             _isSaving = false;
+            _dirtySince = -1f;
             OnChanged.OnNext(Unit.Default);
         }
 
@@ -66,12 +76,16 @@ namespace CookApps.AutoBattler
             // 캐시된 객체가 있으면 반환
             if (_cachedObjects.TryGetValue(category, out var cached))
             {
+                if (category == ClientStatisticsData.CategoryName)
+                    Debug.Log($"[GetData] {category} → HIT CACHE");
                 return cached as T ?? CreateAndCache<T>(category);
             }
 
             // 원본 바이트 데이터 확인
             if (!_dataByCategory.TryGetValue(category, out var bytes) || bytes == null || bytes.Length == 0)
             {
+                if (category == ClientStatisticsData.CategoryName)
+                    Debug.Log($"[GetData] {category} → NO DATA, CreateAndCache");
                 return CreateAndCache<T>(category);
             }
 
@@ -115,6 +129,9 @@ namespace CookApps.AutoBattler
             {
                 _dirtySet.Add(data);
             }
+
+            // debounce: 변경마다 타이머 리셋
+            _dirtySince = Time.unscaledTime;
         }
 
         /// <summary>
@@ -151,7 +168,9 @@ namespace CookApps.AutoBattler
             {
                 try
                 {
+                    Debug.Log($"[ClientDataManager] Saving {categoryData.Count} categories: {string.Join(", ", categoryData.Keys)}");
                     await NetManager.Instance.ClientData.SetAsync(categoryData);
+                    Debug.Log("[ClientDataManager] Save success");
                 }
                 catch (Exception e)
                 {
@@ -175,6 +194,7 @@ namespace CookApps.AutoBattler
                     _dirtySet.Add(data);
                 }
                 _pendingDirtySet.Clear();
+                _dirtySince = Time.unscaledTime;
             }
         }
 

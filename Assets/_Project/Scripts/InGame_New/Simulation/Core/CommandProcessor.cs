@@ -19,7 +19,7 @@ namespace CookApps.AutoChess
         public static void ProcessCommand(GameWorld world, in GameCommand cmd)
         {
             // 유효성 검사
-            if (cmd.PlayerIndex >= GameWorld.MaxPlayers) return;
+            if (cmd.PlayerIndex >= world.MaxPlayers) return;
             if (!world.Players[cmd.PlayerIndex].IsAlive) return;
             if (!IsCommandAllowedInPhase(cmd.Type, world.CurrentPhase)) return;
 
@@ -105,6 +105,7 @@ namespace CookApps.AutoChess
             if (BoardSystem.PlaceUnit(world, cmd.PlayerIndex, entityId, col, row))
             {
                 SynergySystem.Recalculate(world, cmd.PlayerIndex);
+                world.EventQueue.PushSynergyUpdated(cmd.PlayerIndex);
             }
         }
 
@@ -124,6 +125,7 @@ namespace CookApps.AutoChess
             if (BoardSystem.WithdrawUnit(world, cmd.PlayerIndex, entityId))
             {
                 SynergySystem.Recalculate(world, cmd.PlayerIndex);
+                world.EventQueue.PushSynergyUpdated(cmd.PlayerIndex);
             }
         }
 
@@ -135,6 +137,7 @@ namespace CookApps.AutoChess
             if (BoardSystem.SwapUnits(world, cmd.PlayerIndex, entityA, entityB))
             {
                 SynergySystem.Recalculate(world, cmd.PlayerIndex);
+                world.EventQueue.PushSynergyUpdated(cmd.PlayerIndex);
             }
         }
 

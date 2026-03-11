@@ -30,7 +30,8 @@ namespace CookApps.AutoBattler
                 {
                     ClientBasicData.CategoryName,
                     ClientShopPurchaseData.CategoryName,
-                    ClientProgressData.CategoryName
+                    ClientProgressData.CategoryName,
+                    ClientStatisticsData.CategoryName
                 }, cancellationToken)
             );
 

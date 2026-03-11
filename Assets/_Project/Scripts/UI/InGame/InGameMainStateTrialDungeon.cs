@@ -44,7 +44,7 @@ namespace CookApps.AutoBattler
             _inGameUI = Object.Instantiate(stageUIObj, canvasTransform).GetComponent<InGameUI>();
             _inGameUI.transform.SetSiblingIndex(2);
 
-            _inGameUI.TopUI.SetMyName(UserDataManager.Instance.UserBasicData.Nickname);
+            _inGameUI.TopUI.SetMyName(ServerDataManager.Instance.PlayerData.Nickname);
             _inGameUI.TopUI.SetStageName(StringUtil.GetTrialDungeonString(_specTrialDungeon));
             InGameManager.Instance.StartInGame<FlowStateTrialDungeonReady>(_specTrialDungeon);
         }

@@ -7,6 +7,8 @@ using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoBattler
 {
@@ -56,6 +58,7 @@ namespace CookApps.AutoBattler
 
         [SerializeField] private GameObject _characterIllustParentObject;
 
+        private AsyncOperationHandle<GameObject> _illustHandle;
         private InGameResultPopupParam _popupParam;
 
         private bool _isPlayingTutorialStage = false;   // 튜토리얼 진행 여부 체크
@@ -70,9 +73,9 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
-            _exitButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnExitButtonClickedAsync(), AwaitOperation.Drop).AddTo(this);
-            _nextStageButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnNextStageButtonClickedAsync(), AwaitOperation.Drop).AddTo(this);
-            _retryStageButton?.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickRetryStageButtonAsync(), AwaitOperation.Drop).AddTo(this);
+            SetupButton(_exitButton, self => self.OnExitButtonClickedAsync());
+            SetupButton(_nextStageButton, self => self.OnNextStageButtonClickedAsync());
+            SetupButton(_retryStageButton, self => self.OnClickRetryStageButtonAsync());
         }
 
         protected override void OnBackButton(ref bool offPrevUI) { }
@@ -100,24 +103,24 @@ namespace CookApps.AutoBattler
 
             if (_popupParam.SpecCharacter != null)
             {
+                if (_illustHandle.IsValid())
+                {
+                    Addressables.ReleaseInstance(_illustHandle);
+                    _illustHandle = default;
+                }
                 BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
 
                 string illustPrefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _popupParam.SpecCharacter.prefab_id);
-                var obj = AddressablesUtil.Instantiate(illustPrefabName, _characterIllustParentObject.transform);
-
+                _illustHandle = Addressables.InstantiateAsync(illustPrefabName, _characterIllustParentObject.transform);
             }
 
-            var _star = _popupParam.IsVictory ? 1 : 0;
-            if (_popupParam.IsStarTime)
-                _star++;
-            if (_popupParam.IsStarNoDeath)
-                _star++;
+            var calculateStar = CalculateStar();
             // 상단 별 상태 갱신
             for (int i = 0; i < _starList.Count; i++)
             {
-                _starList[i].SetActive(_star > i);
+                _starList[i].SetActive(calculateStar > i);
             }
-
+            
             // 하단 별+조건 상태 갱신
             if (_popupParam.IsVictory)
             {
@@ -205,6 +208,24 @@ namespace CookApps.AutoBattler
             SendStageEndAppEvent(InGameManager.Instance.AppEventResult, InGameManager.Instance.AppEventReason);
         }
 
+        private void SetupButton(CAButton button, Func<InGameResultPopup, UniTask> handler, AwaitOperation operation = AwaitOperation.Drop)
+        {
+            if (button == null) return;
+            button.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => handler(self), operation).AddTo(this);
+            button.DefaultClickSoundType = DefaultClickSoundType.Confirm;
+        }
+
+        private int CalculateStar()
+        {
+            var star = _popupParam.IsVictory ? 1 : 0;
+            if (_popupParam.IsStarTime)
+                star++;
+            if (_popupParam.IsStarNoDeath)
+                star++;
+            
+            return star;
+        }
+
         private async UniTask OnExitButtonClickedAsync()
         {
             int lastPlayStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
@@ -266,7 +287,7 @@ namespace CookApps.AutoBattler
 
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextSceneWithStageClearAndEnterTrigger("InGame", InGameManager.Instance.SpecStage.stage_id, nextStageData.stage_id, inGameParams);
+            SceneLoading.GoToNextSceneWithStageClearAndEnterTrigger("InGame_New", InGameManager.Instance.SpecStage.stage_id, nextStageData.stage_id, inGameParams);
         }
 
         private async UniTask OnClickRetryStageButtonAsync()
@@ -296,11 +317,11 @@ namespace CookApps.AutoBattler
             if (_popupParam.IsVictory)
             {
                 // 승리 시 스테이지 클리어 나니노벨 트리거 검사
-                SceneLoading.GoToNextSceneWithStageClearTrigger("InGame", InGameManager.Instance.SpecStage.stage_id, inGameParams);
+                SceneLoading.GoToNextSceneWithStageClearTrigger("InGame_New", InGameManager.Instance.SpecStage.stage_id, inGameParams);
             }
             else
             {
-                SceneLoading.GoToNextScene("InGame", inGameParams);
+                SceneLoading.GoToNextScene("InGame_New", inGameParams);
             }
         }
 
@@ -368,6 +389,22 @@ namespace CookApps.AutoBattler
 
             AppEventManager.Instance.StageEnd(InGameManager.Instance.SpecStage.id, InGameManager.Instance.SpecStage.stage_id, battleTime, myDeck?.CharacterPlacements.Count ?? 0,
                 myDeckPower, enemyPower, result, reason, clearCondition);
+        }
+
+        private void OnDestroy()
+        {
+            if (_illustHandle.IsValid())
+                Addressables.ReleaseInstance(_illustHandle);
+        }
+
+        private void OnStarAnimationEndSound(int starIdx)
+        {
+            //인덱스는 0,1,2로 올것
+            var calculateStar = CalculateStar();
+            if(starIdx > calculateStar - 1)
+                return;
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_clear_star);
+
         }
     }
 }

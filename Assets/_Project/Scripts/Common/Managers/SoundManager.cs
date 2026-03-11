@@ -1,4 +1,5 @@
 using System;
+using CookApps.AutoBattler;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
@@ -9,7 +10,7 @@ public enum SoundBGM
     NONE = -1,
 
     snd_bgm_splash01,
-    snd_bgm_lobby,
+    snd_bgm_command01,
     snd_bgm_chapter0,
     snd_bgm_chapter1,
     snd_bgm_chapter2,
@@ -42,6 +43,7 @@ public enum SoundFX
     snd_sfx_ingame_result_defeat_001,
     snd_sfx_ui_btn_splash,
     snd_sfx_ui_transition,
+    snd_sfx_ui_btn_battle,
     snd_sfx_ui_btn_battle_start,
     snd_sfx_pvp_result_victory,
     snd_sfx_pvp_result_defeat,
@@ -145,6 +147,12 @@ public enum SoundFX
 }
 
 
+public enum SoundSnapshot
+{
+    Default,
+    Menu
+}
+
 public class SoundManager : Singleton<SoundManager>
 {
     /////////////////////////////////////////////////////////////
@@ -152,12 +160,19 @@ public class SoundManager : Singleton<SoundManager>
 
     public bool IsReady => this.isReady;
 
+    public event Action<string> OnBGMChanged;
+
+    /// <summary>
+    /// BGM 플레이어 UI에서 사용자가 일시정지했는지 여부. PauseBGM(믹서 뮤트)과는 별개.
+    /// </summary>
+    public bool IsBGMPlayerPaused { get; private set; }
+
     public float BGMVolume { get; set; } = 1.0f;
     public float SFXVolume { get; set; } = 1.0f;
 
     public bool IsPlayingGacha { get; set; } = false;
 
-    [SerializeField] private AudioMixer _mixer;
+    private AudioMixer _mixer;
 
     public ClockStone.AudioObject PlayBGM(SoundBGM bgm)
     {
@@ -295,6 +310,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PauseBGM()
     {
+        if (!EnsureMixer()) return;
         if (Preference.LoadPreference(Pref.BGM_V, 1f) > 0f)
         {
             int volume = Convert.ToInt32(-80f + 0.01f * 80f);
@@ -305,6 +321,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void UnPauseBGM()
     {
+        if (!EnsureMixer()) return;
         if (this.isReady)
         {
             _mixer.SetFloat("BGM", Convert.ToInt32(-80f + Preference.LoadPreference(Pref.BGM_V, 1f) * 80f));
@@ -313,8 +330,34 @@ public class SoundManager : Singleton<SoundManager>
         //AudioController.SetCategoryVolume("BGM", Preference.LoadPreference(Pref.BGM_V, 0.8f));
     }
 
+    public string GetCurrentBGMId()
+    {
+        var current = AudioController.GetCurrentMusic();
+        return current != null ? current.audioID : null;
+    }
+
+    /// <summary>
+    /// BGM 플레이어 UI용 일시정지. AudioController를 통해 실제 재생을 멈춘다.
+    /// PauseBGM(믹서 볼륨 뮤트)과는 별개의 기능이다.
+    /// </summary>
+    public void PauseBGMPlayer(float fadeOut = 0f)
+    {
+        IsBGMPlayerPaused = true;
+        AudioController.PauseMusic(fadeOut);
+    }
+
+    /// <summary>
+    /// BGM 플레이어 UI용 재생 재개.
+    /// </summary>
+    public void UnPauseBGMPlayer(float fadeIn = 0f)
+    {
+        IsBGMPlayerPaused = false;
+        AudioController.UnpauseMusic(fadeIn);
+    }
+
     public void PauseVOX()
     {
+        if (!EnsureMixer()) return;
         if (Preference.LoadPreference(Pref.VOX_V, 1f) > 0f)
         {
             int volume = Convert.ToInt32(-80f + 0.01f * 80f);
@@ -324,6 +367,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void UnPauseVOX()
     {
+        if (!EnsureMixer()) return;
         if (this.isReady)
             _mixer.SetFloat("VOX", Convert.ToInt32(-80f + Preference.LoadPreference(Pref.VOX_V, 1f) * 80f));
         //AudioController.SetCategoryVolume("BGM", Preference.LoadPreference(Pref.BGM_V, 0.8f));
@@ -331,6 +375,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PauseVOXUI()
     {
+        if (!EnsureMixer()) return;
         if (Preference.LoadPreference(Pref.VOX_V, 1f) > 0f)
         {
             int volume = Convert.ToInt32(-80f + 0.01f * 80f);
@@ -340,6 +385,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void UnPauseVOXUI()
     {
+        if (!EnsureMixer()) return;
         if (this.isReady)
             _mixer.SetFloat("VOX_UI", Convert.ToInt32(-80f + Preference.LoadPreference(Pref.VOX_V, 1f) * 80f));
         //AudioController.SetCategoryVolume("BGM", Preference.LoadPreference(Pref.BGM_V, 0.8f));
@@ -384,7 +430,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void SetVOXVolume(float v)
     {
-        if (!_mixer) return;
+        if (!EnsureMixer()) return;
 
         _voxVolume = v;
         Preference.SavePreference(Pref.VOX_V, v);
@@ -398,7 +444,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void SetVOXUIVolume(float v)
     {
-        if (!_mixer) return;
+        if (!EnsureMixer()) return;
 
         int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
         if (this.isReady)
@@ -409,6 +455,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void SetAMBVolume(float v)
     {
+        if (!EnsureMixer()) return;
         int volume = Convert.ToInt32((-80f + v * 80f) * 0.5f);
         if (this.isReady)
             _mixer.SetFloat("AMB", volume);
@@ -422,9 +469,60 @@ public class SoundManager : Singleton<SoundManager>
         this.UpdateOption();
         CAButton.OnPlayDefaultClickSound += soundType =>
         {
-            if (soundType == DefaultClickSoundType.Basic)
-                PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+            switch (soundType)
+            {
+                case DefaultClickSoundType.Basic:
+                    PlaySFX(SoundFX.snd_sfx_ui_btn_touch);
+                    break;
+                case DefaultClickSoundType.Splash:
+                    PlaySFX(SoundFX.snd_sfx_ui_btn_splash);
+                    break;
+                case  DefaultClickSoundType.Battle:
+                    PlaySFX(SoundFX.snd_sfx_ui_btn_battle);
+                    break;
+                case DefaultClickSoundType.Confirm:
+                    PlaySFX(SoundFX.snd_sfx_ui_btn_confirm);
+                    break;
+                case DefaultClickSoundType.Negative:
+                    PlaySFX(SoundFX.snd_sfx_ui_btn_negative);
+                    break;
+            }
         };
+        SceneTransition.OnTransitionSound += type =>
+        {
+            if (type == SceneTransition.TransitionType.FadeIn)
+                PlaySFX(SoundFX.snd_sfx_ui_transition);
+        };
+    }
+
+    /////////////////////////////////////////////////////////////
+    // Mixer
+
+    private bool EnsureMixer()
+    {
+        if (_mixer) return true;
+        _mixer = SoDataProvider.Instance.Get<AudioConfigSO>().LoadAudioMixer();
+        if (!_mixer)
+            Debug.LogError("[SoundManager] AudioMixer를 찾을 수 없습니다.");
+        return _mixer;
+    }
+
+    /////////////////////////////////////////////////////////////
+    // Snapshot
+
+    public void TransitionToSnapshot(SoundSnapshot snapshot, float crossFadeTime = 1.0f)
+    {
+        TransitionToSnapshot(snapshot.ToString(), crossFadeTime);
+    }
+
+    public void TransitionToSnapshot(string snapshotName, float crossFadeTime = 1.0f)
+    {
+        if (!EnsureMixer()) return;
+        var snapshot = _mixer.FindSnapshot(snapshotName);
+        if (snapshot != null)
+            snapshot.TransitionTo(crossFadeTime);
+        else
+            Debug.LogWarning($"[SoundManager] Snapshot '{snapshotName}' not found");
     }
 
     /////////////////////////////////////////////////////////////
@@ -499,7 +597,9 @@ public class SoundManager : Singleton<SoundManager>
 
         AudioController.StopMusic();
 
-        return AudioController.PlayMusic(audioID, BGMVolume);
+        var audioObj = AudioController.PlayMusic(audioID, BGMVolume);
+        OnBGMChanged?.Invoke(audioID);
+        return audioObj;
     }
 
     private ClockStone.AudioObject PlaySFX(string audioID)

@@ -8,11 +8,13 @@ namespace CookApps.AutoChess
     /// 네트워크 없이 로컬에서 게임을 실행하는 어댑터.
     /// 나중에 Quantum/Fusion 어댑터로 교체 가능.
     /// </summary>
-    public class LocalSimulationRunner : MonoBehaviour
+    public class LocalSimulationRunner : MonoBehaviour, ISimulationRunner
     {
         [Header("Settings")]
-        [SerializeField] private GameModeType _gameMode = GameModeType.Competitive;
+        [SerializeField] private GameModeType _gameMode = GameModeType.ClassicBattle;
         [SerializeField] private ulong _randomSeed = 12345;
+
+        public ulong RandomSeed { get => _randomSeed; set => _randomSeed = value; }
 
         private GameWorld _world;
         private readonly List<GameCommand> _pendingCommands = new();
@@ -23,6 +25,7 @@ namespace CookApps.AutoChess
         // ── 이벤트 (View 레이어에서 구독) ──
         public event System.Action<GameWorld> OnTick;
         public event System.Action<GamePhase, GamePhase> OnPhaseChanged;
+        public event System.Action<GameWorld> OnGameOver;
 
         // ── 공개 API ──
 
@@ -47,6 +50,9 @@ namespace CookApps.AutoChess
             AutoChessSpecAdapter.InjectSpecs(_world);
 
             GameLoopSystem.Initialize(_world, config);
+
+            // 시뮬레이션 로그 출력 콜백 설정
+            CombatLogger.LogOutput = msg => Debug.Log(msg);
 
             _tickAccumulator = 0f;
             _isRunning = true;
@@ -118,6 +124,7 @@ namespace CookApps.AutoChess
                 {
                     Debug.Log("[AutoChess] Game Over!");
                     _isRunning = false;
+                    OnGameOver?.Invoke(_world);
                     break;
                 }
             }
@@ -165,7 +172,7 @@ namespace CookApps.AutoChess
 
             // 벤치 첫 유닛을 (0,0)에 배치
             var bench = _world.BenchSlots[0];
-            for (int i = 0; i < PlayerBoard.BenchSize; i++)
+            for (int i = 0; i < bench.Length; i++)
             {
                 if (bench[i] != UnitData.InvalidId)
                 {

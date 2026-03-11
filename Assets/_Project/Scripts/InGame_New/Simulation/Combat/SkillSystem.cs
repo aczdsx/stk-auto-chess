@@ -4,18 +4,13 @@ namespace CookApps.AutoChess
     /// 스킬 오케스트레이션 시스템.
     /// 매치 시작 시 유닛별 스킬 인스턴스를 생성하고,
     /// 마나 풀 시 스킬 시전 → 시전 시간 경과 → 효과 적용 흐름을 관리.
+    /// 스킬 인스턴스는 CombatMatchState.Skills[]에 매치별로 저장.
     /// </summary>
     public static class SkillSystem
     {
-        private static readonly SimSkillBase[] _skillCache = new SimSkillBase[CombatMatchState.MaxCombatUnits];
-
         /// <summary>매치 시작 시 유닛별 스킬 인스턴스 생성</summary>
         public static void SetupSkills(CombatMatchState state, GameWorld world)
         {
-            // 이전 캐시 클리어
-            for (int i = 0; i < CombatMatchState.MaxCombatUnits; i++)
-                _skillCache[i] = null;
-
             for (int i = 0; i < state.UnitCount; i++)
             {
                 ref var unit = ref state.Units[i];
@@ -24,16 +19,20 @@ namespace CookApps.AutoChess
                 var skill = SkillFactory.Create(unit.SkillSpecId);
                 if (skill == null) continue;
 
-                // 스킬 파라미터 생성 (추후 SkillActive 테이블 기반)
-                var skillParams = new SkillParams
+                if (SkillFactory.TryGetParams(unit.SkillSpecId, out var skillParams))
                 {
-                    SkillId = unit.SkillSpecId,
-                    PowerPercent = 200, // 기본 배율 (추후 SkillActive 테이블에서)
-                    DamageType = DamageType.Magical,
-                    CastFrames = 0,
-                };
-                skill.Initialize(skillParams);
-                _skillCache[i] = skill;
+                    skill.Initialize(skillParams);
+                }
+                else
+                {
+                    skill.Initialize(new SkillParams
+                    {
+                        SkillId = unit.SkillSpecId,
+                        PowerPercent = 200,
+                        DamageType = DamageType.Magical,
+                    });
+                }
+                state.Skills[i] = skill;
             }
         }
 
@@ -44,7 +43,7 @@ namespace CookApps.AutoChess
             if (unit.CurrentMana < unit.MaxMana || unit.MaxMana <= 0)
                 return false;
 
-            var skill = _skillCache[unitIndex];
+            var skill = state.Skills[unitIndex];
             if (skill == null)
             {
                 // 스킬이 없으면 마나만 리셋
@@ -64,24 +63,35 @@ namespace CookApps.AutoChess
 
             if (CombatLogger.Enabled) CombatLogger.LogSkillCast(unit.CombatId, targetId, unit.SkillSpecId, castFrames <= 0);
 
+            // 이벤트 즉시 발행 → View가 SKL 애니메이션 시작
+            state.EventQueue?.PushUnitCastSkill(
+                unit.CombatId,
+                targetId,
+                unit.SkillSpecId,
+                skill.IsChanneling);
+
             if (castFrames > 0)
             {
-                // 시전 시간이 있는 스킬: CastingSkill 상태로 전환
+                // 키프레임 타이밍까지 대기 후 Execute
                 unit.State = CombatState.CastingSkill;
                 unit.SkillCastTimer = castFrames;
                 unit.CurrentTargetId = targetId;
             }
             else
             {
-                // 즉시 시전 스킬
-                unit.State = CombatState.CastingSkill;
+                // 즉시 시전
                 skill.Execute(state, ref unit, targetId, ref rng);
 
-                // 이벤트 발행
-                state.EventQueue?.PushUnitCastSkill(
-                    unit.SourceEntityId,
-                    targetId != CombatUnit.InvalidId ? GetSourceEntityId(state, targetId) : CombatUnit.InvalidId,
-                    unit.SkillSpecId);
+                if (skill.IsChanneling)
+                {
+                    unit.State = CombatState.CastingSkill;
+                    unit.CurrentTargetId = targetId;
+                }
+                else
+                {
+                    unit.State = CombatState.Idle;
+                    unit.CurrentTargetId = CombatUnit.InvalidId;
+                }
             }
 
             return true;
@@ -93,11 +103,24 @@ namespace CookApps.AutoChess
         {
             if (unit.State != CombatState.CastingSkill) return;
 
+            var skill = state.Skills[unitIndex];
+
+            // 채널링 스킬: 매 틱마다 OnChannelTick 호출
+            if (skill != null && skill.IsChanneling)
+            {
+                bool continuing = skill.OnChannelTick(state, ref unit, ref rng);
+                if (!continuing)
+                {
+                    unit.State = CombatState.Idle;
+                    unit.CurrentTargetId = CombatUnit.InvalidId;
+                }
+                return;
+            }
+
             unit.SkillCastTimer--;
             if (unit.SkillCastTimer > 0) return;
 
             // 시전 완료: 효과 적용
-            var skill = _skillCache[unitIndex];
             if (skill != null)
             {
                 int targetId = unit.CurrentTargetId;
@@ -114,10 +137,11 @@ namespace CookApps.AutoChess
 
                     skill.Execute(state, ref unit, targetId, ref rng);
 
-                    state.EventQueue?.PushUnitCastSkill(
-                        unit.SourceEntityId,
-                        GetSourceEntityId(state, targetId),
-                        unit.SkillSpecId);
+                    // Execute 후 채널링이 시작됐으면 CastingSkill 유지 → 다음 틱부터 OnChannelTick 호출
+                    if (skill.IsChanneling)
+                    {
+                        return;
+                    }
                 }
             }
 
@@ -126,23 +150,17 @@ namespace CookApps.AutoChess
         }
 
         /// <summary>매치 종료 시 정리</summary>
-        public static void Cleanup()
+        public static void Cleanup(CombatMatchState state)
         {
+            if (state?.Skills == null) return;
             for (int i = 0; i < CombatMatchState.MaxCombatUnits; i++)
             {
-                if (_skillCache[i] != null)
+                if (state.Skills[i] != null)
                 {
-                    _skillCache[i].Reset();
-                    _skillCache[i] = null;
+                    state.Skills[i].Reset();
+                    state.Skills[i] = null;
                 }
             }
-        }
-
-        private static int GetSourceEntityId(CombatMatchState state, int combatId)
-        {
-            int idx = state.FindUnitIndex(combatId);
-            if (idx < 0) return CombatUnit.InvalidId;
-            return state.Units[idx].SourceEntityId;
         }
     }
 }

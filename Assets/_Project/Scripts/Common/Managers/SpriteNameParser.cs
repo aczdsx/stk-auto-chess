@@ -65,6 +65,46 @@ namespace CookApps.AutoBattler
 
             return spriteName;
         }
+        
+        public static string GetSpriteNameInGameBadge(SynergyType synergyType)
+        {
+            string spriteName = string.Empty;
+
+            switch (synergyType)
+            {
+                case SynergyType.NOBLESSE:
+                    spriteName = "Icon_Noblesse_74";
+                    break;
+                case SynergyType.SUPERNOVA:
+                    spriteName = "Icon_Supernova_74";
+                    break;
+                case SynergyType.TROUBLESHOOTER:
+                    spriteName = "Icon_Troubleshooter_74";
+                    break;
+                case SynergyType.ARCANA:
+                case SynergyType.ECLIPSE:
+                case SynergyType.UROBOROS:
+                    spriteName = "Icon_Troubleshooter_74";
+                    break;
+                case SynergyType.FIRE:
+                    spriteName =  "Icon_Property_Fire_74";
+                    break;
+                case SynergyType.WATER:
+                    spriteName = "Icon_Property_Water_74";
+                    break;
+                case SynergyType.EARTH:
+                    spriteName = "Icon_Property_Earth_74" ;
+                    break;
+                case SynergyType.WIND:
+                    spriteName ="Icon_Property_Wind_74" ;
+                    break;
+                case SynergyType.LIGHTNING:
+                    spriteName = "Icon_Property_Light_74";
+                    break;
+            }
+
+            return spriteName;
+        }
 
         public static string GetSpriteName(TrialType type, bool isCompete)
         {

@@ -48,7 +48,8 @@ MonoBehaviour:
   - m_GUID: adf1c72cfcfbde14c9cb3dcac9b85fca
     m_Address: Assets/_Project/Addressables/Remote/VFX/Shaders/DissolveCharacterBack.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7da23a71e99e8247b5cc13860961c1f
     m_Address: Assets/_Project/Addressables/Remote/Animations/ToastSystemPopup_ANIM.anim

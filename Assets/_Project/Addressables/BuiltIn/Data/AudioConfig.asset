@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfac6b2e2672ab242a88e66d454e620d, type: 3}
+  m_Name: AudioConfig
+  m_EditorClassIdentifier: 
+  scanFolders:
+  - Assets/_Project/Addressables/BuiltIn/Sounds/BGM
+  - Assets/_Project/Addressables/Remote/Sounds/BGM
+  _audioMixerRef:
+    m_AssetGUID: 4299d97f61eb1bf4bbd1cd1889d2d654
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  bgmDisplayNames:
+    _serializedList:
+    - Key: {fileID: 8300000, guid: 056fd864b91b4f342beedae190f2179d, type: 3}
+      Value: chapter00
+    - Key: {fileID: 8300000, guid: c1f571aa78760d843a290e9824ed371f, type: 3}
+      Value: chapter01
+    - Key: {fileID: 8300000, guid: 27239d9fd6b729e41b552882dda7fe3f, type: 3}
+      Value: chapter02
+    - Key: {fileID: 8300000, guid: 35f8be57f491a7a4a8f6794c5df3c3df, type: 3}
+      Value: chapter03
+    - Key: {fileID: 8300000, guid: f8673f49774ea704e95c3a4b37d88416, type: 3}
+      Value: chapter04
+    - Key: {fileID: 8300000, guid: 52660a58cb0814f4488e5ae8848bd3e6, type: 3}
+      Value: chapter05
+    - Key: {fileID: 8300000, guid: 9c9353832b534bf42a3fcba8b98916bf, type: 3}
+      Value: command01
+    - Key: {fileID: 8300000, guid: eebb9c7988ebf0b43a5a41084e1f191d, type: 3}
+      Value: dgboss 01
+    - Key: {fileID: 8300000, guid: bb0983928ee30144d92065d9be28bb86, type: 3}
+      Value: dialog calm01
+    - Key: {fileID: 8300000, guid: 8ac3749e7dcc04e40b3487cf18fcaf2e, type: 3}
+      Value: dialog comic01
+    - Key: {fileID: 8300000, guid: dfe7fbfb0dfcb5e469de600c88da62d5, type: 3}
+      Value: dialog despair01
+    - Key: {fileID: 8300000, guid: f3f158a2920a80a41b007919fdf69d2f, type: 3}
+      Value: dialog dumb01
+    - Key: {fileID: 8300000, guid: 954367e77fc2fe043b5767ba3eb5bec2, type: 3}
+      Value: dialog farewell01
+    - Key: {fileID: 8300000, guid: 46f387509fb8bf842a1f73c7cdeeb5cb, type: 3}
+      Value: dialog love01
+    - Key: {fileID: 8300000, guid: 74badda4c3588134b923df86b53f82e6, type: 3}
+      Value: dialog normal01
+    - Key: {fileID: 8300000, guid: d473b07f81c425e488afd74677fcffd0, type: 3}
+      Value: dialog normal02
+    - Key: {fileID: 8300000, guid: 1cd838c8ace632147a32ad7b4aab1f36, type: 3}
+      Value: dialog sad01
+    - Key: {fileID: 8300000, guid: ea2967c48921fdb408db28fae61b8eaf, type: 3}
+      Value: dialog tension01
+    - Key: {fileID: 8300000, guid: ff8841dd78d24dc49a63d78ed0997205, type: 3}
+      Value: dialog tricky01
+    - Key: {fileID: 8300000, guid: 95e55822ae9094742879eb719f3cd41e, type: 3}
+      Value: lobby01
+    - Key: {fileID: 8300000, guid: b0cbf307c6ad63d499b784a42673351f, type: 3}
+      Value: pvp01
+    - Key: {fileID: 8300000, guid: da75e8743f4f18a43b2a4c909a9a1147, type: 3}
+      Value: shop01
+    - Key: {fileID: 8300000, guid: 1cd70d02d33c56b40895e681fd61dbf1, type: 3}
+      Value: splash01
+    - Key: {fileID: 8300000, guid: dd475ed9ca9a3e04ebaeaf9dfd3063c9, type: 3}
+      Value: splash01 bak
+    - Key: {fileID: 8300000, guid: c83c1b46bb097fb4896482cfcadade88, type: 3}
+      Value: stage01
+    - Key: {fileID: 8300000, guid: cbe055ec0f17bd64a8952905629ce9fb, type: 3}
+      Value: vessel01

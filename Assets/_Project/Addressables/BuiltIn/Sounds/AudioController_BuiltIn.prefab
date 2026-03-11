@@ -202,7 +202,7 @@ MonoBehaviour:
   _audioDisabled: 0
   _volume: 1
   _currentInspectorSelection:
-    currentCategoryIndex: 0
+    currentCategoryIndex: 1
     currentItemIndex: 0
     currentSubitemIndex: 0
     currentPlaylistEntryIndex: 0

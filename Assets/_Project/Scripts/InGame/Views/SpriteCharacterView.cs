@@ -4,6 +4,7 @@ using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using Cysharp.Threading.Tasks;
 using LitMotion;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -51,6 +52,14 @@ namespace CookApps.AutoBattler
         [SerializeField]
         private Transform _skillBottomFXTransform;
 
+        [SerializeField] 
+        private GameObject _projectilePrefab;
+        
+        [SerializeField]
+        private SkillViewData[] _skillEffectPrefabs;
+
+        [SerializeField]
+        private GameObject _shadow;
 
         private AnimationEventListener _animationEventListener;
         public bool CachedFlipX => _cachedFlipX;
@@ -65,6 +74,7 @@ namespace CookApps.AutoBattler
         private static readonly int IsFront = Animator.StringToHash("IsFront");
         private MotionHandle _viewScaleHandle;
         private Vector3 _viewScaleTarget = Vector3.one;
+        private AutoChess.AnimKeyframeInfo _atkInfo;
 
 
         public Transform SkillRootTransform => _skillRootTransform;
@@ -75,20 +85,21 @@ namespace CookApps.AutoBattler
         public Transform SkillMiddleFXTransform => _skillMiddleFXTransform;
         public Transform SkillBottomFXTransform => _skillBottomFXTransform;
 
+        public GameObject ProjectilePrefab => _projectilePrefab;
+        public SkillViewData[] SkillEffectPrefabs => _skillEffectPrefabs;
+
         private void Awake()
         {
             if (_animator != null)
             {
                 if (_spriteRendererList == null || _spriteRendererList.Count == 0)
                 {
-                    var spriteRenderer = _animator.transform.GetComponent<SpriteRenderer>();
+                    var spriteRenderer = _animator.GetComponent<SpriteRenderer>();
                     _spriteRendererList = new List<SpriteRenderer> { spriteRenderer };
                 }
-                foreach (var spriteRenderer in _spriteRendererList)
-                {
-                    spriteRenderer.material = _disorveMaterial;
-                }
-                _animationEventListener = _animator.gameObject.GetComponent<AnimationEventListener>();
+                SetDisolveShader();
+                CacheAttackExecuteTimes();
+                _animationEventListener = _animator.GetComponent<AnimationEventListener>();
                 _animationEventListener.OnAnimationEvent += OnFiredAnimationEvent;
             }
         }
@@ -127,6 +138,8 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public float AnimatorSpeed => _animator != null ? _animator.speed : 1f;
+
         public void SetAnimationSpeed(float speed)
         {
             if (_animator != null)
@@ -138,8 +151,15 @@ namespace CookApps.AutoBattler
             LookAt(new Vector2(currentTile.X, currentTile.Y), new Vector2(targetTile.X, targetTile.Y));
         }
 
+        public void LookAt(int2 src, int2 dest)
+        {
+            LookAt(new Vector2(src.x, src.y), new Vector2(dest.x, dest.y));
+        }
+
         public void LookAt(Vector2 src, Vector2 dest)
         {
+            var prevCachedFlipX = _cachedFlipX;
+            var prevCachedFront = _cachedFront;
             float deltaX = dest.x - src.x;
             float deltaY = dest.y - src.y;
 
@@ -168,7 +188,11 @@ namespace CookApps.AutoBattler
             //     _cachedFront = true;
             // }
 
-            SetFlipOrNot();
+            if (prevCachedFlipX != _cachedFlipX)
+                SetFlipOrNot();
+
+            if (prevCachedFront != _cachedFront && _animator != null)
+                _animator.SetBool(IsFront, _cachedFront);
         }
 
         public void LookAt(Direction dir)
@@ -228,7 +252,27 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            throw new KeyNotFoundException($"[{fullAnimationName}] is not found.");
+            // 클립이 없으면 IDLE로 fallback (IDLE 자체가 없으면 null)
+            if (animationKey != AnimationKey.IDLE)
+                return PlayAnimation(AnimationKey.IDLE, isLoop);
+            return null;
+        }
+
+        /// <summary>현재 방향(front/back)에 따른 투사체 발사 위치 반환</summary>
+        public Vector3 GetProjectileSpawnPosition()
+        {
+            var tr = _cachedFront ? _projectileFrontTransform : _projectileBackTransform;
+            return tr != null ? tr.position : transform.position;
+        }
+
+        /// <summary>ATK 키프레임 정보 (ms 기반, float 없음). Awake에서 캐싱됨.</summary>
+        public ref readonly AutoChess.AnimKeyframeInfo GetAtkInfo() => ref _atkInfo;
+
+        /// <summary>Awake에서 호출 — AnimKeyframeHelper를 통해 ATK 키프레임 정보 캐싱</summary>
+        private void CacheAttackExecuteTimes()
+        {
+            int characterId = AutoChess.AnimKeyframeHelper.ParseCharacterId(_animator.runtimeAnimatorController.name);
+            _atkInfo = AutoChess.AnimKeyframeHelper.Resolve(characterId);
         }
 
         public void OnFiredAnimationEvent(AnimationEventKey animationEventKey)
@@ -263,12 +307,26 @@ namespace CookApps.AutoBattler
             }
         }
 
+        public void SetDisolveShader()
+        {
+            foreach (var spriteRenderer in _spriteRendererList)
+            {
+                spriteRenderer.material = _disorveMaterial;
+            }
+        }
+
         public void SpriteRendererSetActive(bool isActive)
         {
             foreach (var spriteRenderer in _spriteRendererList)
             {
                 spriteRenderer.gameObject.SetActive(isActive);
             }
+        }
+
+        public void SetShadowActive(bool isActive)
+        {
+            if (_shadow != null)
+                _shadow.SetActive(isActive);
         }
 
         /// <summary>
@@ -379,7 +437,7 @@ namespace CookApps.AutoBattler
             if (_animator != null)
                 _animator.SetBool(IsFront, _cachedFront);
         }
-        
+
         public void AddViewScale(float viewScale)
         {
             _viewScaleHandle.TryCancel();

@@ -120,6 +120,7 @@ MonoBehaviour:
   _skillTopFXTransform: {fileID: 3622022910119889569}
   _skillMiddleFXTransform: {fileID: 600602697925615038}
   _skillBottomFXTransform: {fileID: 6747546405208898835}
+  _shadow: {fileID: 2901379298403934952}
 --- !u!1 &2901379298403934952
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +466,7 @@ Animator:
   m_GameObject: {fileID: 6507360050226466860}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: ba78206fced60474dbda502863eec258, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5100c209c431a014f9ef841f50964926, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

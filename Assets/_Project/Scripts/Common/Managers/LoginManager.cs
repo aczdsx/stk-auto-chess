@@ -15,7 +15,7 @@ namespace CookApps.AutoBattler
         {
             if (LocalDataManager.Instance.HasAuthPlatform(AuthPlatform.Guest))
                 return;
-            
+
             while (true)
             {
                 var id = System.Guid.NewGuid();
@@ -26,7 +26,7 @@ namespace CookApps.AutoBattler
                     LocalDataManager.Instance.AddAuth(AuthPlatform.Guest, authId);
                     break;
                 }
-                
+
                 await UniTask.Delay(1000);
             }
         }
@@ -34,7 +34,7 @@ namespace CookApps.AutoBattler
         #endregion
 
         #region Apple
-        public async UniTask<string> LoginApple(bool needAutoLogin = true)
+        public async UniTask<string> LoginApple()
         {
             if (LocalDataManager.Instance.HasAuthPlatform(AuthPlatform.Apple))
                 return LocalDataManager.Instance.GetAuthId(AuthPlatform.Apple);

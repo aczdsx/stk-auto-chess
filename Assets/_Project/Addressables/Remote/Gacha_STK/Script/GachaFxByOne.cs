@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using ClockStone;
 using CookApps.TeamBattle.UIManagements;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Playables;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoBattler
 {
@@ -115,6 +117,7 @@ namespace CookApps.AutoBattler
             }
         }
         private GameObject fx = null;
+        private AsyncOperationHandle<GameObject> _fxHandle;
         private int cnt = 0;
         private void ShowGetFX()
         {
@@ -123,11 +126,7 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            if (fx != null)
-            {
-                Destroy(fx);
-                fx = null;
-            }
+            ReleaseFx();
             if (cnt > _datas.Count - 1)
             {
                 foreach (var obj in GachItems)
@@ -149,22 +148,14 @@ namespace CookApps.AutoBattler
             }
 
             CharacterInfo idxCharcater = SpecDataManager.Instance.GetCharacterData(characterId);
+            _fxHandle = Addressables.InstantiateAsync("GetNewCharacter");
+            fx = _fxHandle.WaitForCompletion();
             if (_datas[cnt].Id.IsCharacter())
             {
-                if (idxCharcater != null && idxCharcater.grade_type == GradeType.LEGENDARY)
-                {
-                    fx = AddressablesUtil.Instantiate("GetNewCharacter");
-                    fx.GetComponent<GetNewCharacter>().SetChracater(idxCharcater, ShowGetFX);
-                }
-                else
-                {
-                    fx = AddressablesUtil.Instantiate("GetNewCharacter");
-                    fx.GetComponent<GetNewCharacter>().SetChracater(idxCharcater, ShowGetFX);
-                }
+                fx.GetComponent<GetNewCharacter>().SetChracater(idxCharcater, ShowGetFX);
             }
             else
             {
-                fx = AddressablesUtil.Instantiate("GetNewCharacter");
                 fx.GetComponent<GetNewCharacter>().SetPiece(idxCharcater, _datas[cnt].Count, ShowGetFX);
             }
 
@@ -191,11 +182,7 @@ namespace CookApps.AutoBattler
             CloseObject.SetActive(true);
             BlockerObject.SetActive(true);
             //SoundManager.Instance.StopSFX(SFXIndex.gacha_start_001);
-            if (fx != null)
-            {
-                Destroy(fx);
-                fx = null;
-            }
+            ReleaseFx();
 
             for(int i = 0; i < SkipParticleObjects.Length; i++)
                 SkipParticleObjects[i].SetActive(false);
@@ -207,6 +194,16 @@ namespace CookApps.AutoBattler
                 ChangeEffect(obj);
             }
         }
+        private void ReleaseFx()
+        {
+            if (_fxHandle.IsValid())
+            {
+                Addressables.ReleaseInstance(_fxHandle);
+                _fxHandle = default;
+            }
+            fx = null;
+        }
+
         public void OnClickBack()
         {
             if(isClick == true)
@@ -233,10 +230,15 @@ namespace CookApps.AutoBattler
             }
 
             SoundManager.Instance.StopSFX(SoundFX.snd_sfx_gacha_result_ambient_001);
-            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
+            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_command01);
             SoundManager.Instance.IsPlayingGacha = false;
 
             Destroy(this.gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            ReleaseFx();
         }
     }
 

@@ -13,9 +13,11 @@ namespace CookApps.TeamBattle.UIManagements
             {
                 "BattleReadyMain" => "Prefabs/UI/00_Main/BattleReadyMain.prefab",
                 "InGameMain" => "Prefabs/UI/00_Main/IngameMain.prefab",
+                "InGameMain_New" => "Prefabs/UI/00_Main/IngameMain_New.prefab",
                 "InGameTestMain" => "Prefabs/UI/00_Main/IngameTestMain.prefab",
                 "LobbyMain" => "Prefabs/UI/00_Main/LobbyMain.prefab",
                 "NaninovelMain" => "Prefabs/UI/00_Main/NaninovelMain.prefab",
+                "AutoChessClassicResultPopup" => "Prefabs/UI/01_Pops/AutoChessClassicResultPopup.prefab",
                 "ChapterListPopup" => "Prefabs/UI/01_Pops/ChapterListPopup.prefab",
                 "DialoguePopup" => "Prefabs/UI/01_Pops/DialoguePopup.prefab",
                 "DungeonTrialPopup" => "Prefabs/UI/01_Pops/DungeonTrialPopup.prefab",
@@ -54,8 +56,10 @@ namespace CookApps.TeamBattle.UIManagements
                 "ElpisCommandCenterPopup" => "Prefabs/UI/CommandCenter/CommandCenterMainLayer.prefab",
                 "ElpisCoreResearchLayer" => "Prefabs/UI/CoreResearch/CoreResearchMainLayer.prefab",
                 "BattleStatisticsPopup" => "Prefabs/UI/InGame/BattleStatisticsPopup.prefab",
+                "CharacterInfoInGamePopup" => "Prefabs/UI/InGame/CharacterInfoIngamePopup.prefab",
                 "EnemySkillTooltipPopup" => "Prefabs/UI/InGame/EnemySkillTooltipPopup.prefab",
                 "FilterTooltipInIngamePopup" => "Prefabs/UI/InGame/FilterTooltipInIngamePopup.prefab",
+                "PresetInGamePopup" => "Prefabs/UI/InGame/PresetIngamePopup.prefab",
                 "SkillTooltipPopup_1" => "Prefabs/UI/InGame/RightSkillTooltipPopup.prefab",
                 "SynergyTooltipIngameMiniPopup" => "Prefabs/UI/InGame/SynergyTooltipIngameMiniPopup.prefab",
                 "LoadingMain" => "Prefabs/UI/Loading/LoadingMain.prefab",
@@ -74,6 +78,7 @@ namespace CookApps.TeamBattle.UIManagements
             return sceneName switch
             {
                 "Naninovel" => "Assets/_Project/Addressables/Remote/0. Scenes/Naninovel.unity",
+                "InGame_New" => "Assets/_Project/Addressables/Remote/0. Scenes/InGame_New.unity",
                 "Lobby" => "Assets/_Project/Addressables/Remote/0. Scenes/Lobby.unity",
                 "InGame" => "Assets/_Project/Addressables/Remote/0. Scenes/InGame.unity",
                 "SceneLoading" => "Assets/_Project/Addressables/Remote/0. Scenes/SceneLoading.unity",

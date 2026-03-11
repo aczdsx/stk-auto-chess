@@ -148,7 +148,7 @@ MonoBehaviour:
       m_Calls: []
   isBlockDrag: 0
   useDefaultClickSound: 1
-  defaultClickSoundType: 0
+  defaultClickSoundType: 2
   reactionType: 0
   swappers: []
 --- !u!114 &5995357110032017955

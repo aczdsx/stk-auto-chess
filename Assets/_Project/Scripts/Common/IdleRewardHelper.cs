@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace CookApps.AutoBattler
 {
@@ -73,12 +75,48 @@ namespace CookApps.AutoBattler
         /// </summary>
         public static string FormatSliderText()
         {
-            var elapsed = GetElapsedTime();
             int maxMinutes = GetMaxTimeLimitMinutes();
             int maxHours = maxMinutes / 60;
 
             string current = FormatElapsedTime();
             return $"{current} / {maxHours:D2}:00:00";
+        }
+
+        /// <summary>
+        /// 현재 마지막 보상 수령 타임 스탬프 기준 누적 방치 보상 리스트 반환
+        /// </summary>
+        public static List<RewardItem> GetCurrentIdleRewardItemList()
+        {
+            var resultItemList = new List<RewardItem>();
+
+            var lastStageID = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
+            var lastStageData = SpecDataManager.Instance.GetStageData(lastStageID);
+
+            var totalStageClearCount = ServerDataManager.Instance.Battle.ClearedStageCount;
+            var specIdleRewardList = SpecDataManager.Instance.GetAllIdleRewardList(lastStageData.chapter_id);
+
+            var diffMinute = Mathf.Min((int)GetElapsedTime().TotalMinutes, GetMaxTimeLimitMinutes());
+
+            foreach (var idleReward in specIdleRewardList)
+            {
+                double baseAmount = idleReward.min_count;
+                var addAmount = idleReward.add_count * (double)totalStageClearCount;
+                var totalAmount = baseAmount + addAmount;
+
+                int timeCount = diffMinute / idleReward.supply_time_m;
+                var resultAmount = (int)Math.Truncate(totalAmount * timeCount);
+
+                if (resultAmount > 0)
+                {
+                    resultItemList.Add(new RewardItem
+                    {
+                        Id = idleReward.item_id,
+                        Count = resultAmount
+                    });
+                }
+            }
+
+            return resultItemList;
         }
     }
 }

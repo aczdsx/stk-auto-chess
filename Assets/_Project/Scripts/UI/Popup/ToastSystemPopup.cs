@@ -27,7 +27,7 @@ namespace CookApps.AutoBattler
             base.OnPreEnter(param);
             //TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.CloseButton);
 
-            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_negative);
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
             _messageString = param as string;
 

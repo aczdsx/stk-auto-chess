@@ -10,6 +10,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoBattler
 {
@@ -58,6 +59,8 @@ namespace CookApps.AutoBattler
         [SerializeField] private CharacterDetailSkillLayer _characterSkillLayer;
         [SerializeField] private GameObject _UnOwnedCharacterDim;
 
+        private AsyncOperationHandle<GameObject> _illustHandle;
+        private AsyncOperationHandle<GameObject> _sdHandle;
         private CharacterInfo _specCharacterData;
 
         private Material _illustMaterial;
@@ -198,7 +201,8 @@ namespace CookApps.AutoBattler
 
             // 캐릭터 일러스트 생성
             string illustPrefabName = ZString.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
-            var newObject = await Addressables.InstantiateAsync(illustPrefabName, _characterIllustParentObject.transform).ToUniTask();
+            _illustHandle = Addressables.InstantiateAsync(illustPrefabName, _characterIllustParentObject.transform);
+            var newObject = await _illustHandle.ToUniTask();
             if (newObject == null)
             {
                 Debug.LogColor($"CharacterDetailMainLayer.SetCharacterInfo() : {illustPrefabName} is null","red");
@@ -207,7 +211,7 @@ namespace CookApps.AutoBattler
 
             // 캐릭터 SD 캐릭터 생성
             string sdPrefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, _specCharacterData.prefab_id);
-            AddressablesUtil.Instantiate(sdPrefabName, _characterSDParentObject.transform);
+            _sdHandle = Addressables.InstantiateAsync(sdPrefabName, _characterSDParentObject.transform);
 
             _characterNameText.text = LanguageManager.Instance.GetDefaultText(_specCharacterData.name_token);
             _characterPositionTypeText.text = _specCharacterData.character_position_type.ToString();
@@ -256,8 +260,26 @@ namespace CookApps.AutoBattler
         }
 
 
+        private void OnDestroy()
+        {
+            if (_illustHandle.IsValid())
+                Addressables.ReleaseInstance(_illustHandle);
+            if (_sdHandle.IsValid())
+                Addressables.ReleaseInstance(_sdHandle);
+        }
+
         private void ClearLayer()
         {
+            if (_illustHandle.IsValid())
+            {
+                Addressables.ReleaseInstance(_illustHandle);
+                _illustHandle = default;
+            }
+            if (_sdHandle.IsValid())
+            {
+                Addressables.ReleaseInstance(_sdHandle);
+                _sdHandle = default;
+            }
             BMUtil.RemoveChildObjects(_characterIllustParentObject.transform);
             BMUtil.RemoveChildObjects(_characterSDParentObject.transform);
         }

@@ -10,7 +10,7 @@ public class EffectCodeSynergyBase : EffectCodeCharacterBase
     public override void Initialize(EffectCodeInfo codeInfo, EffectCodeContainer container, IEffectCodeSource source)
     {
         base.Initialize(codeInfo, container, source);
-        if (DistinguishSynergyTypeHelper.IsElementSynergyType(_synergyType))
+        if (DistinguishSpecTypeHelper.IsElementSynergyType(_synergyType))
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_ticker);
         }
@@ -18,7 +18,7 @@ public class EffectCodeSynergyBase : EffectCodeCharacterBase
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
     {
         base.Merge(codeInfo, source);
-        if (DistinguishSynergyTypeHelper.IsElementSynergyType(_synergyType))
+        if (DistinguishSpecTypeHelper.IsElementSynergyType(_synergyType))
         {
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_ticker);
         }

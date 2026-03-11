@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using CookApps.TeamBattle.UIManagements;
 using R3;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
@@ -13,23 +13,22 @@ namespace CookApps.AutoBattler
     public class SynergyTooltipIngameMiniPopup : UILayerPopupBase
     {
         [SerializeField] private CAButton _closeButton;
-        [SerializeField] private CAButton _dimLayerButton;
         [SerializeField] private RectTransform _body;
 
         [Header("Synergy Info")]
         [SerializeField] private SynergyUI _synergyUI;
         [SerializeField] private TextMeshProUGUI _synergyNameText;
-        [SerializeField] private TextMeshProUGUI _synergyDescText;
+        [SerializeField] private List<SynergyTooltipGradeSlot> _gradeSlots;
 
-        [Header("(Optional)")]
-        [SerializeField] private TextMeshProUGUI _synergyNameTitleText;
-        [SerializeField] private List<TextMeshProUGUI> _synergyEffectList;
+        [Header("Character Icons")]
+        [SerializeField] private SynergyTooltipImageGroup _imageGroup;
 
         private SynergyType _synergyType;
         private ISpecSynergyData _synergyData;
-        private ISpecSynergyData _nextSynergyData;
-        private int _count;
         private bool _isActive;
+        private HashSet<int> _inBattleChampionIds;
+
+        private readonly List<SynergyTooltipImageGroup.CharacterSlotData> _reusableSlotDataList = new();
 
         /// <summary>
         /// 팝업 파라미터 데이터
@@ -37,20 +36,18 @@ namespace CookApps.AutoBattler
         public readonly struct PopupParam
         {
             public readonly SynergyType SynergyType;
-            public readonly int Count;
             public readonly ISpecSynergyData SynergyData;
-            public readonly ISpecSynergyData NextSynergyData;
             public readonly RectTransform ButtonRect;
             public readonly bool IsActive;
+            public readonly HashSet<int> InBattleChampionIds;
 
-            public PopupParam(SynergyType synergyType, int count, ISpecSynergyData synergyData, ISpecSynergyData nextSynergyData, RectTransform buttonRect, bool isActive)
+            public PopupParam(SynergyType synergyType, ISpecSynergyData synergyData, RectTransform buttonRect, bool isActive, HashSet<int> inBattleChampionIds = null)
             {
                 SynergyType = synergyType;
-                Count = count;
                 SynergyData = synergyData;
-                NextSynergyData = nextSynergyData;
                 ButtonRect = buttonRect;
                 IsActive = isActive;
+                InBattleChampionIds = inBattleChampionIds;
             }
         }
 
@@ -59,7 +56,6 @@ namespace CookApps.AutoBattler
             base.Awake();
 
             _closeButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
-            _dimLayerButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCloseButton()).AddTo(this);
         }
 
         protected override void OnPreEnter(object param)
@@ -73,11 +69,10 @@ namespace CookApps.AutoBattler
             if (param is PopupParam popupParam)
             {
                 _synergyType = popupParam.SynergyType;
-                _count = popupParam.Count;
                 _synergyData = popupParam.SynergyData;
-                _nextSynergyData = popupParam.NextSynergyData;
                 buttonRect = popupParam.ButtonRect;
                 _isActive = popupParam.IsActive;
+                _inBattleChampionIds = popupParam.InBattleChampionIds;
             }
 
             SetSynergyInfo();
@@ -88,24 +83,20 @@ namespace CookApps.AutoBattler
         {
             if (_body == null || buttonRect == null) return;
 
-            // 버튼의 월드 좌표 중심점
             Vector3[] corners = new Vector3[4];
             buttonRect.GetWorldCorners(corners);
             Vector3 buttonCenter = (corners[0] + corners[2]) / 2f;
 
-            // body의 부모 기준 로컬 좌표로 변환
             var bodyParent = _body.parent as RectTransform;
             if (bodyParent == null) return;
 
             Vector3 localPos = bodyParent.InverseTransformPoint(buttonCenter);
             float targetY = localPos.y;
 
-            // body 높이 (pivot 고려)
             float parentHeight = bodyParent.rect.height;
             float bodyHeight = _body.rect.height;
             float pivotY = _body.pivot.y;
 
-            // body가 화면 밖으로 나가지 않도록 클램핑
             float topOffset = bodyHeight * (1f - pivotY);
             float bottomOffset = bodyHeight * pivotY;
 
@@ -122,136 +113,134 @@ namespace CookApps.AutoBattler
         private void SetSynergyInfo()
         {
             if (_synergyData == null) return;
-            
-            // 시너지 UI 아이콘 설정
+
             if (_synergyUI != null)
             {
                 _synergyUI.SetSynergyUI(_synergyType, _isActive);
             }
 
-            // 시너지 이름 설정 (예: "바람 속성 2단계")
             string synergyName = LanguageManager.Instance.GetDefaultText(_synergyData.name_token);
-            int grade = _synergyData.grade;
-            _synergyNameText.text = $"{synergyName} {grade}단계";
+            _synergyNameText.text = _isActive
+                ? $"{synergyName} {_synergyData.grade}단계"
+                : synergyName;
+            //todo 단계라는 글자 나중에 localization으로 바꿀것 level이 좋을것같음
 
-            // 시너지 타이틀 설정 (옵션)
-            if (_synergyNameTitleText != null)
-            {
-                _synergyNameTitleText.text = string.Format(
-                    LanguageManager.Instance.GetDefaultText("SYNERGY_PLACE_EFFECT"),
-                    synergyName);
-            }
+            SetGradeSlots();
+            SetImageSlots();
 
-            // 시너지 설명 설정
-            string text = LanguageManager.Instance.GetDefaultText(_synergyData.desc_token_1);
-            if (DistinguishSynergyTypeHelper.IsElementSynergyType(_synergyType))
-            {
-                // 텍스트에 플레이스홀더가 있는 경우 Format 사용
-                if (!string.IsNullOrEmpty(text))
-                {
-                    // 플레이스홀더 개수에 따라 다른 값 전달
-                    if (text.Contains("{2}"))
-                    {
-                        // {0}, {1}, {2} 모두 필요한 경우
-                        _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1, _synergyData.effect_stat_value_2, _synergyData.effect_stat_value_3);
-                    }
-                    else if (text.Contains("{1}"))
-                    {
-                        // {0}, {1}만 필요한 경우
-                        _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1, _synergyData.effect_stat_value_2);
-                    }
-                    else if (text.Contains("{0}"))
-                    {
-                        // {0}만 필요한 경우
-                        _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1);
-                    }
-                    else
-                    {
-                        // 플레이스홀더가 없는 경우
-                        _synergyDescText.text = text;
-                    }
-                }
-                else
-                {
-                    _synergyDescText.text = text;
-                }
-            }
-            else
-            {// 성군 시너지 작성이라면?
-                if (!string.IsNullOrEmpty(text))
-                {
-                    // "{0}명:" 부분 제거 후 플레이스홀더 인덱스 재정렬
-                    text = System.Text.RegularExpressions.Regex.Replace(text, @"\{0\}명[:\s]*", "");
-                    text = text.Replace("{1}", "{0}").Replace("{2}", "{1}").Replace("{3}", "{2}");
-
-                    // 플레이스홀더 개수에 따라 다른 값 전달
-                    if (text.Contains("{2}"))
-                    {
-                        _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1, _synergyData.effect_stat_value_2, _synergyData.effect_stat_value_3);
-                    }
-                    else if (text.Contains("{1}"))
-                    {
-                        _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1, _synergyData.effect_stat_value_2);
-                    }
-                    else if (text.Contains("{0}"))
-                    {
-                        _synergyDescText.text = string.Format(text, _synergyData.effect_stat_value_1);
-                    }
-                    else
-                    {
-                        _synergyDescText.text = text;
-                    }
-                }
-                else
-                {
-                    _synergyDescText.text = text;
-                }
-            }
-            
-
-            // 강제로 레이아웃 및 캔버스 업데이트
-            Canvas.ForceUpdateCanvases();
-
-            // 시너지 효과 리스트 설정 (상세 팝업용, 옵션)
-            SetSynergyEffectList();
+            // 모든 콘텐츠 세팅 후 레이아웃 갱신 (위치 계산 전 정확한 높이 확보)
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_body);
         }
 
-        private void SetSynergyEffectList()
+        /// <summary>
+        /// 전 단계 효과를 슬롯에 표시하고 현재 단계를 하이라이트합니다.
+        /// 성군: 달성 단계 이하 모두 활성화 (누적), 속성: 해당 단계만 활성화.
+        /// </summary>
+        private void SetGradeSlots()
         {
-            if (_synergyEffectList == null || _synergyEffectList.Count == 0) return;
+            if (_gradeSlots == null || _gradeSlots.Count == 0) return;
 
             var synergyList = SpecDataManager.Instance.GetSpecSynergyList(_synergyType);
             if (synergyList == null || synergyList.Count == 0) return;
 
-            // grade > 0 인 시너지만 필터링
-            var filteredList = synergyList.Where(s => s.grade > 0).ToList();
+            bool isAsterism = DistinguishSpecTypeHelper.IsAsterismSynergyType(_synergyType);
+            int currentGrade = _synergyData.grade;
+            int nextGrade = 1;
+            int slotIndex = 0;
 
-            for (int i = 0; i < _synergyEffectList.Count; i++)
+            for (int i = 0; i < synergyList.Count && slotIndex < _gradeSlots.Count; i++)
             {
-                if (_synergyEffectList[i] == null) continue;
+                var data = synergyList[i];
+                if (data.grade <= 0 || data.grade != nextGrade) continue;
 
-                bool isActive = filteredList.Count > i;
-                _synergyEffectList[i].gameObject.SetActive(isActive);
+                // desc_token_2 우선, 비어있으면 desc_token_1 사용
+                string token = !string.IsNullOrEmpty(data.desc_token_2)
+                    ? data.desc_token_2
+                    : data.desc_token_1;
+                string text = LanguageManager.Instance.GetDefaultText(token);
+                string formatted = FormatGradeText(text, data);
 
-                if (!isActive) continue;
+                bool isHighlighted;
+                if (!_isActive)
+                    isHighlighted = false;
+                else if (isAsterism)
+                    isHighlighted = data.grade <= currentGrade; // 성군: 누적 활성화
+                else
+                    isHighlighted = data.grade == currentGrade; // 속성: 해당 단계만
 
-                var data = filteredList[i];
-                string text = LanguageManager.Instance.GetDefaultText(data.desc_token_2);
-                _synergyEffectList[i].text = string.Format(text, data.min_int);
+                _gradeSlots[slotIndex].SetGrade(formatted, isHighlighted);
+                _gradeSlots[slotIndex].SetActive(true);
 
-                // 현재 등급 강조
-                _synergyEffectList[i].fontStyle = data.grade == _synergyData.grade
-                    ? FontStyles.Bold
-                    : FontStyles.Normal;
+                slotIndex++;
+                nextGrade++;
             }
+
+            for (int i = slotIndex; i < _gradeSlots.Count; i++)
+            {
+                _gradeSlots[i].SetActive(false);
+            }
+
+            // stretch 앵커의 rect가 유효하도록 레이아웃 강제 갱신
+            Canvas.ForceUpdateCanvases();
+
+            for (int i = 0; i < slotIndex; i++)
+            {
+                _gradeSlots[i].AdjustHeight();
+            }
+
+            // 변경된 슬롯 높이를 상위 레이아웃까지 반영
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_body);
+        }
+
+        /// <summary>
+        /// 해당 시너지에 속하는 캐릭터 아이콘을 ImageGroup에 표시한다.
+        /// 배치된 캐릭터가 앞에, 등급 내림차순으로 정렬된다.
+        /// </summary>
+        private void SetImageSlots()
+        {
+            if (_imageGroup == null) return;
+
+            var characters = SpecDataManager.Instance.GetCharacterListBySynergyType(_synergyType);
+            _reusableSlotDataList.Clear();
+
+            for (int i = 0; i < characters.Count; i++)
+            {
+                var charInfo = characters[i];
+                _reusableSlotDataList.Add(new SynergyTooltipImageGroup.CharacterSlotData
+                {
+                    PrefabId = charInfo.prefab_id,
+                    Grade = charInfo.grade_type,
+                    InBattle = _inBattleChampionIds != null && _inBattleChampionIds.Contains(charInfo.id)
+                });
+            }
+
+            _imageGroup.SetCharacters(_reusableSlotDataList);
+        }
+
+        private static string FormatGradeText(string text, ISpecSynergyData data)
+        {
+            if (string.IsNullOrEmpty(text)) return text;
+            if (text.Contains("{2}"))
+                return string.Format(text, data.min_int, data.effect_stat_value_1, data.effect_stat_value_2);
+            if (text.Contains("{1}"))
+                return string.Format(text, data.min_int, data.effect_stat_value_1);
+            if (text.Contains("{0}"))
+                return string.Format(text, data.min_int);
+            return text;
+        }
+
+        protected override void OnPreExit()
+        {
+            base.OnPreExit();
+
+            _synergyData = null;
+            _inBattleChampionIds = null;
+            _reusableSlotDataList.Clear();
         }
 
         private void OnClickCloseButton()
         {
             SceneUILayerManager.Instance.PopUILayer(this);
         }
-
-        
-        
     }
 }

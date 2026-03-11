@@ -15,8 +15,18 @@ MonoBehaviour:
   m_GroupName: Data
   m_GUID: 7b0974b2bbddf489583ba61dc1e5b7cc
   m_SerializeEntries:
-  - m_GUID: 28499ebab08015f4bb36a78dabfc0312
-    m_Address: Data/ParachuteCurveData.asset
+  - m_GUID: 0d2d362d402e58641993b9cca8db9d60
+    m_Address: Data/DamageTextColor/03. BlockTextGradient.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1382ebc365673944daca04e7a2d897d1
+    m_Address: Data/DamageTextColor/04. DotDealTextGradient.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16f3dc474572f5c4dab5bbca0786731c
+    m_Address: Data/AudioConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -35,6 +45,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8151ca343101f3e4e8a08ba9ae290063
+    m_Address: Data/DamageTextColor/01. HealTextGradient.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 986a398388cfe448cb63b561bd9e7cb2
     m_Address: Data/InGameTestConfig.asset
     m_ReadOnly: 0
@@ -47,6 +62,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cb8a6a12ab83e6444960dc1c56ad819d
     m_Address: Data/ColorData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e629436da9cf35641a368c0ed4c96bed
+    m_Address: Data/DamageTextColor/02. MissTextGradient.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb1c30b3f2a99c9449a20ed611aae303
+    m_Address: Data/TargetLineConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

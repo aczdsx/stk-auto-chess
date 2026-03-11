@@ -29,7 +29,7 @@ namespace CookApps.AutoChess
             // 스턴 적용 (데미지로 사망하지 않은 경우)
             if (target.IsAlive)
             {
-                SkillCCHelper.ApplyCC(ref target, CrowdControlType.Stun, _stunFrames);
+                SkillCCHelper.ApplyCC(state, ref target, CrowdControlType.Stun, _stunFrames);
             }
         }
 

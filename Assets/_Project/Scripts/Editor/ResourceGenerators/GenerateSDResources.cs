@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,8 +15,16 @@ using UnityEngine.UI;
 
 public static class GenerateSDResources
 {
-    private const int DEAD_FRAME_COUNT = 10;
     private const string LOCK_SUFFIX = "_lock";
+    private const string BASE_ANIMATION_PATH = "Assets/_Project/Addressables/Remote/SD/Template/Base_Animation";
+
+    private struct BaseClipSettings
+    {
+        public float frameRate;
+        public bool loopTime;
+        public float clipDuration;
+        public AnimationEvent[] events;
+    }
 
     /// <summary>
     /// 폴더가 SD 리소스 생성에서 제외되어야 하는지 확인합니다.
@@ -31,8 +39,54 @@ public static class GenerateSDResources
         return folderName.EndsWith(LOCK_SUFFIX, System.StringComparison.OrdinalIgnoreCase);
     }
 
+    /// <summary>
+    /// Template/Base_Animation/ 폴더에서 모든 AnimationClip을 로드합니다.
+    /// CutScene 하위 폴더는 제외됩니다.
+    /// Key: 클립 이름 (e.g., "Front_ATK", "Back_IDLE")
+    /// </summary>
+    private static Dictionary<string, AnimationClip> LoadBaseAnimationClips()
+    {
+        var result = new Dictionary<string, AnimationClip>();
+        string[] guids = AssetDatabase.FindAssets("t:AnimationClip", new[] { BASE_ANIMATION_PATH });
+
+        foreach (string guid in guids)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+
+            // CutScene 하위 폴더 제외
+            if (path.Contains("/CutScene/"))
+                continue;
+
+            AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
+            if (clip != null)
+            {
+                result[clip.name] = clip;
+            }
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// 베이스 클립에서 frameRate, loopTime, duration, events 설정을 추출합니다.
+    /// </summary>
+    private static BaseClipSettings ExtractBaseClipSettings(AnimationClip baseClip)
+    {
+        var clipSettings = AnimationUtility.GetAnimationClipSettings(baseClip);
+        return new BaseClipSettings
+        {
+            frameRate = baseClip.frameRate,
+            loopTime = clipSettings.loopTime,
+            clipDuration = baseClip.length,
+            events = AnimationUtility.GetAnimationEvents(baseClip)
+        };
+    }
+
     public static void CreateAllSDResources()
     {
+        // 베이스 클립을 루프 밖에서 한 번만 로드 (성능)
+        var baseClips = LoadBaseAnimationClips();
+
         string[] groupFolderPaths = Directory.GetDirectories(ResourcePath.SD_PATH);
 
         List<SpriteAtlas> createdAtlases = new List<SpriteAtlas>();
@@ -56,7 +110,7 @@ public static class GenerateSDResources
                     var folderName = new DirectoryInfo(subFolder).Name;
                     if (int.TryParse(folderName, out _))
                     {
-                        CreateAnimationsFromPath(subFolder, createdAtlases);
+                        CreateAnimationsFromPath(subFolder, createdAtlases, baseClips);
                     }
                 }
 
@@ -77,8 +131,12 @@ public static class GenerateSDResources
         EditorUtility.ClearProgressBar();
     }
 
-    public static void CreateAnimationsFromPath(string parentFolderPath, List<SpriteAtlas> createdAtlases)
+    public static void CreateAnimationsFromPath(string parentFolderPath, List<SpriteAtlas> createdAtlases,
+        Dictionary<string, AnimationClip> baseClips = null)
     {
+        // 베이스 클립이 전달되지 않으면 직접 로드
+        baseClips ??= LoadBaseAnimationClips();
+
         string parentFolderName = new DirectoryInfo(parentFolderPath).Name;
         string generateResourcesPath = Path.Combine(parentFolderPath, "GenerateResources");
 
@@ -107,9 +165,14 @@ public static class GenerateSDResources
             if (pathParts.Length < 2) continue;
 
             string subFolderName = pathParts[^2]; // Back 또는 Front
-            string actionName = pathParts[^1];    // IDLE, ATK, SKL 등
+            string actionName = pathParts[^1];    // IDLE, ATK, SKL, ATK2, CRIT 등
 
             if (subFolderName is not "Back" and not "Front")
+                continue;
+
+            // 베이스 클립이 존재하는 액션만 처리 (하드코딩 필터 제거)
+            string baseClipKey = $"{subFolderName}_{actionName}";
+            if (!baseClips.TryGetValue(baseClipKey, out var baseClip))
                 continue;
 
             // SpriteAtlas용 폴더 경로 수집 (중복 방지)
@@ -117,8 +180,8 @@ public static class GenerateSDResources
             if (!atlasFolderPaths.Contains(subFolderPath))
                 atlasFolderPaths.Add(subFolderPath);
 
-            // 애니메이션 생성
-            var animationClip = GenerateExtraFiles(sprites, actionName, generateResourcesPath, subFolderName);
+            // 애니메이션 생성 (베이스 클립 전달)
+            var animationClip = GenerateExtraFiles(sprites, actionName, generateResourcesPath, subFolderName, baseClip);
             if (animationClip != null)
                 animationClips.Add(animationClip);
 
@@ -155,7 +218,7 @@ public static class GenerateSDResources
 
         string groupName = ZString.Format("SD_{0}", pathParts[^3]);
         string addressKey = pathParts[^2];
-        string address = ZString.Format("SD/{1}", addressKey);
+        string address = ZString.Format("SD/{0}", addressKey);
 
         AddressableImportHelper.AddToAddressableGroup(normalizedPath, groupName, address);
     }
@@ -169,12 +232,12 @@ public static class GenerateSDResources
     private static void SetTextureImportSettings(string folderPath)
     {
         string[] guids = AssetDatabase.FindAssets("t:Texture2D", new[] { folderPath });
-        
+
         foreach (string guid in guids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
             TextureImporter importer = AssetImporter.GetAtPath(path) as TextureImporter;
-            
+
             if (importer == null)
                 continue;
 
@@ -238,7 +301,7 @@ public static class GenerateSDResources
     }
 
     private static AnimationClip GenerateExtraFiles(List<Sprite> sprites, string actionName,
-        string animationFolderPath, string subFolderName)
+        string animationFolderPath, string subFolderName, AnimationClip baseClip)
     {
         if (sprites.Count == 0)
         {
@@ -246,10 +309,15 @@ public static class GenerateSDResources
             return null;
         }
 
+        // 베이스 클립에서 설정 추출
+        var settings = ExtractBaseClipSettings(baseClip);
+
         // 애니메이션 클립 생성
         AnimationClip animationClip = new AnimationClip();
-        animationClip.frameRate = 8f;
-        if (actionName == "IDLE" || actionName == "MOVE")
+        animationClip.frameRate = settings.frameRate;
+
+        // 루프 설정을 베이스 클립에서 읽기
+        if (settings.loopTime)
         {
             animationClip.wrapMode = WrapMode.Loop;
             var clipSettings = AnimationUtility.GetAnimationClipSettings(animationClip);
@@ -257,67 +325,59 @@ public static class GenerateSDResources
             AnimationUtility.SetAnimationClipSettings(animationClip, clipSettings);
         }
         else
+        {
             animationClip.wrapMode = WrapMode.Once;
+        }
 
+        // 스프라이트 키프레임 생성 (단일 루프)
         EditorCurveBinding curveBinding = new EditorCurveBinding();
         curveBinding.type = typeof(SpriteRenderer);
         curveBinding.path = "";
         curveBinding.propertyName = "m_Sprite";
 
-        int frameCount = actionName == "DEAD" ? sprites.Count * DEAD_FRAME_COUNT : sprites.Count;
-        ObjectReferenceKeyframe[] keyFrames = new ObjectReferenceKeyframe[frameCount];
-
-        for (int i = 0; i < frameCount; i++)
-        {
-            keyFrames[i] = new ObjectReferenceKeyframe();
-            keyFrames[i].time = i / animationClip.frameRate;
-            keyFrames[i].value = sprites[i / (actionName == "DEAD" ? DEAD_FRAME_COUNT : 1)];
-        }
-
-        AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyFrames);
-
+        ObjectReferenceKeyframe[] keyFrames = new ObjectReferenceKeyframe[sprites.Count];
         for (int i = 0; i < sprites.Count; i++)
         {
             keyFrames[i] = new ObjectReferenceKeyframe();
-            keyFrames[i].time = i / animationClip.frameRate;
+            keyFrames[i].time = i / settings.frameRate;
             keyFrames[i].value = sprites[i];
         }
 
         AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyFrames);
 
+        // 이벤트 생성: 베이스 클립에서 복사 + 비례 스케일링
+        float newDuration = sprites.Count / settings.frameRate;
+        float baseDuration = settings.clipDuration;
+
         List<AnimationEvent> animationEvents = new List<AnimationEvent>();
-
-        AnimationEvent startEvent = new AnimationEvent();
-        startEvent.functionName = "InvokeAnimationEvent";
-        startEvent.time = 0f;
-        startEvent.intParameter = (int)AnimationEventKey.Start;
-        animationEvents.Add(startEvent);
-
-        AnimationEvent endEvent = new AnimationEvent();
-        endEvent.functionName = "InvokeAnimationEvent";
-        endEvent.time = keyFrames.Length / animationClip.frameRate;
-        endEvent.intParameter = (int)AnimationEventKey.End;
-        animationEvents.Add(endEvent);
-
-        if (actionName == "ATK")
+        foreach (var baseEvent in settings.events)
         {
-            AnimationEvent attackEvent = new AnimationEvent();
-            attackEvent.functionName = "InvokeAnimationEvent";
-            attackEvent.intParameter = (int)AnimationEventKey.Execute1Per1;
-            attackEvent.time = 2f / animationClip.frameRate; // 2번째 프레임 (프레임 인덱스 1)
-            animationEvents.Add(attackEvent);
+            AnimationEvent newEvent = new AnimationEvent();
+            newEvent.functionName = baseEvent.functionName;
+            newEvent.intParameter = baseEvent.intParameter;
+            newEvent.floatParameter = baseEvent.floatParameter;
+            newEvent.stringParameter = baseEvent.stringParameter;
+            newEvent.objectReferenceParameter = baseEvent.objectReferenceParameter;
+
+            if (baseEvent.intParameter == (int)AnimationEventKey.Start)
+            {
+                newEvent.time = 0f;
+            }
+            else if (baseEvent.intParameter == (int)AnimationEventKey.End)
+            {
+                newEvent.time = newDuration;
+            }
+            else
+            {
+                // 중간 이벤트: 비례 스케일링
+                newEvent.time = baseDuration > 0f
+                    ? (baseEvent.time / baseDuration) * newDuration
+                    : 0f;
+            }
+
+            animationEvents.Add(newEvent);
         }
 
-        if (actionName == "SKL")
-        {
-            AnimationEvent attackEvent = new AnimationEvent();
-            attackEvent.functionName = "InvokeAnimationEvent";
-            attackEvent.intParameter = (int)AnimationEventKey.Execute1Per1;
-            attackEvent.time = 0.5f;
-            animationEvents.Add(attackEvent);
-        }
-
-        // 애니메이션 이벤트를 클립에 설정
         AnimationUtility.SetAnimationEvents(animationClip, animationEvents.ToArray());
 
         // 애니메이션 클립 저장
@@ -350,7 +410,7 @@ public static class GenerateSDResources
         }
 
         string baseControllerName = "BaseCharacterAnimController";
-        string[] guids = AssetDatabase.FindAssets("t:AnimatorController " + baseControllerName, new []{ ResourcePath.SD_PATH });
+        string[] guids = AssetDatabase.FindAssets("t:AnimatorController " + baseControllerName, new[] { ResourcePath.SD_PATH });
         if (guids.Length == 0)
         {
             Debug.LogError("[Fail] Base Anim Controller not found");
@@ -405,7 +465,7 @@ public static class GenerateSDResources
     private static void AddInGameCharacterPrefab(string parentFolderPath, string parentFolderName, AnimatorOverrideController controller, Sprite sprite)
     {
         string basePrefabName = "BasePrefab_InGame";
-        string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}", new [] { ResourcePath.SD_PATH });
+        string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}", new[] { ResourcePath.SD_PATH });
         if (guids.Length == 0)
         {
             Debug.Log("[Fail] Find BasePrefab_InGame");
@@ -452,7 +512,7 @@ public static class GenerateSDResources
     private static void AddUICharacterPrefab(string parentFolderPath, string parentFolderName, Sprite sprite)
     {
         string basePrefabName = "BasePrefab_UI";
-        string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}", new [] { ResourcePath.SD_PATH });
+        string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}", new[] { ResourcePath.SD_PATH });
         if (guids.Length == 0)
         {
             Debug.Log("[Fail] Find BasePrefab_UI");
@@ -481,7 +541,7 @@ public static class GenerateSDResources
             return;
 
         string basePrefabName = "BasePrefab_Elpis";
-        string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}", new [] { ResourcePath.SD_PATH });
+        string[] guids = AssetDatabase.FindAssets($"t:Prefab {basePrefabName}", new[] { ResourcePath.SD_PATH });
         if (guids.Length == 0)
         {
             Debug.Log("[Fail] Find BasePrefab_Elpis");
@@ -603,15 +663,14 @@ public static class GenerateSDResources
     }
 
     /// <summary>
-    /// SD 폴더 내 모든 애니메이션 파일의 frameRate와 ATK 이벤트를 일괄 수정합니다.
-    /// - frameRate: 8 (스프라이트 개수가 8보다 크면 스프라이트 개수)
-    /// - ATK 이벤트: 2번째 프레임 (프레임 인덱스 1)
+    /// SD 폴더 내 모든 애니메이션 파일의 설정을 베이스 클립 기반으로 일괄 수정합니다.
+    /// frameRate, loopTime, 이벤트 타이밍을 베이스 클립에서 읽어 비례 스케일링 적용.
     /// </summary>
     [MenuItem("CookApps/SD Resources/Update All Animation Settings")]
     public static void UpdateAllAnimationSettings()
     {
-        const float TARGET_FRAME_RATE = 8f;
-        
+        var baseClips = LoadBaseAnimationClips();
+
         string[] guids = AssetDatabase.FindAssets("t:AnimationClip", new[] { ResourcePath.SD_PATH });
         int totalCount = guids.Length;
         int modifiedCount = 0;
@@ -623,15 +682,40 @@ public static class GenerateSDResources
             for (int i = 0; i < guids.Length; i++)
             {
                 string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-                AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
 
+                // 베이스 클립 자체는 건너뜀
+                if (path.Contains("/Base_Animation/"))
+                    continue;
+
+                AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
                 if (clip == null)
                     continue;
 
+                // 클립 이름에서 매칭되는 베이스 클립 찾기 (e.g., "Front_ATK" → baseClips["Front_ATK"])
+                if (!baseClips.TryGetValue(clip.name, out var baseClip))
+                    continue;
+
+                var baseSettings = ExtractBaseClipSettings(baseClip);
                 bool modified = false;
 
-                // frameRate 확인 및 수정
-                // 스프라이트 개수 확인 (키프레임 개수로 추정)
+                // frameRate 적용
+                if (!Mathf.Approximately(clip.frameRate, baseSettings.frameRate))
+                {
+                    clip.frameRate = baseSettings.frameRate;
+                    modified = true;
+                }
+
+                // loopTime 적용
+                var clipSettings = AnimationUtility.GetAnimationClipSettings(clip);
+                if (clipSettings.loopTime != baseSettings.loopTime)
+                {
+                    clipSettings.loopTime = baseSettings.loopTime;
+                    AnimationUtility.SetAnimationClipSettings(clip, clipSettings);
+                    clip.wrapMode = baseSettings.loopTime ? WrapMode.Loop : WrapMode.Once;
+                    modified = true;
+                }
+
+                // 스프라이트 수 확인 (이벤트 비례 스케일링용)
                 var bindings = AnimationUtility.GetObjectReferenceCurveBindings(clip);
                 int spriteCount = 0;
                 foreach (var binding in bindings)
@@ -644,37 +728,42 @@ public static class GenerateSDResources
                     }
                 }
 
-                float targetRate = TARGET_FRAME_RATE;
-                if (!Mathf.Approximately(clip.frameRate, targetRate))
+                // 이벤트 재생성 (비례 스케일링)
+                if (spriteCount > 0 && baseSettings.events.Length > 0)
                 {
-                    clip.frameRate = targetRate;
-                    modified = true;
-                }
+                    float newDuration = spriteCount / baseSettings.frameRate;
+                    float baseDuration = baseSettings.clipDuration;
 
-                // ATK 애니메이션 이벤트 수정
-                if (clip.name.Contains("ATK"))
-                {
-                    var events = AnimationUtility.GetAnimationEvents(clip);
-                    bool eventModified = false;
-
-                    for (int j = 0; j < events.Length; j++)
+                    var newEvents = new List<AnimationEvent>();
+                    foreach (var baseEvent in baseSettings.events)
                     {
-                        if (events[j].intParameter == (int)AnimationEventKey.Execute1Per1)
+                        AnimationEvent newEvent = new AnimationEvent();
+                        newEvent.functionName = baseEvent.functionName;
+                        newEvent.intParameter = baseEvent.intParameter;
+                        newEvent.floatParameter = baseEvent.floatParameter;
+                        newEvent.stringParameter = baseEvent.stringParameter;
+                        newEvent.objectReferenceParameter = baseEvent.objectReferenceParameter;
+
+                        if (baseEvent.intParameter == (int)AnimationEventKey.Start)
                         {
-                            float targetTime = 2f / clip.frameRate; // 2번째 프레임 (인덱스 1)
-                            if (!Mathf.Approximately(events[j].time, targetTime))
-                            {
-                                events[j].time = targetTime;
-                                eventModified = true;
-                            }
+                            newEvent.time = 0f;
                         }
+                        else if (baseEvent.intParameter == (int)AnimationEventKey.End)
+                        {
+                            newEvent.time = newDuration;
+                        }
+                        else
+                        {
+                            newEvent.time = baseDuration > 0f
+                                ? (baseEvent.time / baseDuration) * newDuration
+                                : 0f;
+                        }
+
+                        newEvents.Add(newEvent);
                     }
 
-                    if (eventModified)
-                    {
-                        AnimationUtility.SetAnimationEvents(clip, events);
-                        modified = true;
-                    }
+                    AnimationUtility.SetAnimationEvents(clip, newEvents.ToArray());
+                    modified = true;
                 }
 
                 if (modified)

@@ -269,6 +269,12 @@ namespace CookApps.AutoBattler
                 _localizationManager = Engine.GetService<ILocalizationManager>();
                 _isInitialized = true;
 
+                // 대사 터치 사운드 연결
+                var inputManager = Engine.GetService<IInputManager>();
+                var continueInput = inputManager?.GetContinue();
+                if (continueInput != null)
+                    continueInput.OnStart += () => SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_dialogue);
+
                 // TitleMenu UI 숨기기 (옵션에 따라)
                 if (hideTitleMenuOnInit)
                 {

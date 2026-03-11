@@ -24,6 +24,7 @@ namespace CookApps.TeamBattle.Utility
         protected abstract float? StoredMargin { get; set; }
         protected abstract Rect ProcessedSafeArea { get; set; }
         protected abstract Vector2 ProcessedResolution { get; set; }
+        protected abstract ScreenOrientation ProcessedOrientation { get; set; }
         protected abstract bool HasProcessed { get; set; }
 
         protected abstract float ComputeRawMargin(Rect safeArea, Vector2 resolution);
@@ -35,16 +36,23 @@ namespace CookApps.TeamBattle.Utility
             Refresh();
         }
 
-        public void Refresh(bool forceRecalculate = false)
+        protected virtual void Update()
+        {
+            Refresh();
+        }
+
+        public void Refresh()
         {
             CacheOriginIfNeeded();
 
             var safeArea = Screen.safeArea;
             var resolution = Screen.fullScreen ? new Vector2(Screen.currentResolution.width, Screen.currentResolution.height) : new Vector2(Screen.width, Screen.height);
-            if (forceRecalculate || !HasProcessed || ProcessedSafeArea != safeArea || ProcessedResolution != resolution)
+            var orientation = Screen.orientation;
+            if (!HasProcessed || ProcessedSafeArea != safeArea || ProcessedResolution != resolution || ProcessedOrientation != orientation)
             {
                 ProcessedSafeArea = safeArea;
                 ProcessedResolution = resolution;
+                ProcessedOrientation = orientation;
                 HasProcessed = true;
 
                 var rawMargin = ComputeRawMargin(safeArea, resolution);

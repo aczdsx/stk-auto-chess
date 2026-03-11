@@ -85,11 +85,12 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4490ac11b8dc752488a2619f29e4d986
-    m_Address: Naninovel/Characters/Characters_17413301
+  - m_GUID: 4b5ea08f68e2cc748aea0201b4d78dc8
+    m_Address: Naninovel/Characters/Characters_20405
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 57e1e0fe4b2f94c09b53638eb9670aca
     m_Address: Naninovel/Characters/Characters_15362202
@@ -97,12 +98,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 62b97750bc3979b4bacd052dca428bb6
-    m_Address: Naninovel/Characters/Characters_17433302
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 65b4511948bf148c1a200eae0bc7cb07
     m_Address: Naninovel/Characters/Characters_17613501
@@ -132,12 +127,6 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7ba12670986514a44a5237ac4c4a5d55
-    m_Address: Naninovel/Characters/Characters_17353203
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7c0811d491b1248779b02a24686293ed
     m_Address: Naninovel/Characters/Characters_15642501
     m_ReadOnly: 0
@@ -159,12 +148,6 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 96e8a87e0dd8be846ac33ff159e486aa
-    m_Address: Naninovel/Characters/Characters_17433303
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9fada380c24e1ce49a6f1a78831bc158
     m_Address: Naninovel/Characters/ridia_00
     m_ReadOnly: 0
@@ -178,12 +161,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b396baddb4244c44a9c666e0b8aa4a37
-    m_Address: Naninovel/Characters/Characters_17523403
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b7ec8899e2b61134dade7a9372713592
     m_Address: Naninovel/Characters/Characters_80109002
@@ -226,12 +203,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c30b2644d6f459a4db86632f42adcf22
-    m_Address: Naninovel/Characters/Characters_17333202
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c4b2f9ec9ec98ba4990fcbb1b9251b87
     m_Address: Naninovel/Characters/Characters_15232101

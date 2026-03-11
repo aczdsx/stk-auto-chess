@@ -346,6 +346,7 @@ namespace CookApps.AutoBattler
                 // _parentCollectionPopup?.RefreshTabLayer(CharacterCollectionPopupTabType.MAIN_DETAIL);
 
                 // 사운드 플레이
+                // _specCharacterLevelExpData.IsExceed 
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_char_level_up);
 
                 RefreshLayer();

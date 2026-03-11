@@ -5335,6 +5335,34 @@ MonoBehaviour:
     m_Key: MSG_MAX_LV_UP
     m_Metadata:
       m_Items: []
+  - m_Id: 10933054054162432
+    m_Key: UI_CHARACTER_LIST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14439977156173824
+    m_Key: UI_STELLA_KNIGHTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14449523811508224
+    m_Key: UI_SESSION_TIME_EVENT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14458682174955520
+    m_Key: UI_ADVENTURE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15169211235393536
+    m_Key: UI_HUBBLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19891471535923200
+    m_Key: MSG_BATTLE_EXIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19891471573671936
+    m_Key: MSG_SURRENDER_CONFIRM
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

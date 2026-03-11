@@ -134,7 +134,7 @@ namespace CookApps.AutoBattler
 
             await LoadElpis();
 
-            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_lobby);
+            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_command01);
             SceneTransition.FadeOutAsync().Forget();
             animateCamera.ZoomAsync(16.0f, 1.0f).Forget();
 

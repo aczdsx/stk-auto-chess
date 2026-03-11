@@ -17,6 +17,8 @@ namespace CookApps.AutoChess
         public byte BoardRow;
         public byte BenchIndex;
         public byte OwnerIndex;       // 소유 플레이어 (0-3)
+        public byte SizeW;            // 가로 타일 수 (기본 1)
+        public byte SizeH;            // 세로 타일 수 (기본 1)
 
         // 기본 스탯 (스펙에서 복사 + 별 보정 적용된 값)
         public int MaxHP;
@@ -214,6 +216,11 @@ namespace CookApps.AutoChess
         public int MaxMana;
         public int StartingMana;
         public int SkillId;           // 기본 스킬 ID
+        public int PrefabId;          // 프리팹 ID (AnimKeyframeData 조회용)
+
+        // 유닛 크기 (타일 수)
+        public byte SizeW;           // 가로 (기본 1)
+        public byte SizeH;           // 세로 (기본 1)
 
         // 별 업그레이드 배율 (퍼센트: 180 = 1.8x)
         public int Star2Multiplier;  // 기본 180
@@ -420,6 +427,41 @@ namespace CookApps.AutoChess
     }
 
     // ═══════════════════════════════════════════════
+    //  범위 기본공격 시스템
+    // ═══════════════════════════════════════════════
+
+    public enum AreaAttackShape : byte
+    {
+        Single = 0,   // 단일 타겟
+        Cross,        // 수직 방향 범위 (facing 수직으로 ±Size칸)
+        Line,         // 직선 범위 (facing 방향 Size칸)
+        Radius,       // 원형 범위 (체비셰프 Size반경)
+    }
+
+    public struct AreaAttackHit
+    {
+        public AreaAttackShape Shape;
+        public int Size;          // Cross: 좌우폭, Line: 길이, Radius: 반경
+        public int FrontOffset;   // facing 방향 오프셋 (0=시전자 위치)
+        public int DelayMs;       // 공격 시작 시점부터의 딜레이 (밀리초, 애니메이션 키프레임 기준)
+    }
+
+    public struct AreaAttackPattern
+    {
+        public byte HitCount;     // 1~4
+        public AreaAttackHit Hit0, Hit1, Hit2, Hit3;
+
+        public AreaAttackHit GetHit(int i) => i switch
+        {
+            0 => Hit0,
+            1 => Hit1,
+            2 => Hit2,
+            3 => Hit3,
+            _ => Hit0,
+        };
+    }
+
+    // ═══════════════════════════════════════════════
     //  전투 시스템 구조체
     // ═══════════════════════════════════════════════
 
@@ -439,9 +481,11 @@ namespace CookApps.AutoChess
         public byte TeamIndex;        // 매치 내 팀 (0 = PlayerA, 1 = PlayerB)
         public int TraitFlags;        // 시너지 특성 비트마스크 (원본에서 복사)
 
-        // 그리드 위치
+        // 그리드 위치 (앵커 = 좌하단)
         public byte GridCol;
         public byte GridRow;
+        public byte SizeW;            // 가로 타일 수 (기본 1)
+        public byte SizeH;            // 세로 타일 수 (기본 1)
 
         // 상태
         public CombatState State;
@@ -472,11 +516,22 @@ namespace CookApps.AutoChess
 
         // 쿨다운 (프레임 단위)
         public int AttackCooldown;    // 다음 공격까지 남은 프레임
-        public int MoveCooldown;      // 다음 이동까지 남은 프레임
+        public int AtkHitDelay;       // ATK Execute 키프레임까지 프레임 수 (근접 데미지 지연)
+
+        // 대기 중인 근접 공격
+        public int PendingAtkTargetId;   // 대기 중인 공격 타겟 (-1 = 없음)
+        public int PendingAtkTimer;      // 히트까지 남은 프레임
+
+        // 이동 (프레임 단위)
+        public byte MoveFromCol;      // 이동 출발 열 (View 보간용)
+        public byte MoveFromRow;      // 이동 출발 행 (View 보간용)
+        public int MoveTimer;         // 이동 중 남은 프레임 (0이면 이동 중 아님)
+        public int MoveDuration;      // 이동 총 프레임 (View 보간 비율 계산용)
 
         // 특수 이동
         public bool HasBacklineJump;
         public bool BacklineJumpDone;
+        public bool IsBacklineJumping;    // 백라인 점프 이동 중 (타겟 불가)
 
         // CC 상태
         public CrowdControlType ActiveCC;
@@ -487,7 +542,20 @@ namespace CookApps.AutoChess
         public int SkillCastTimer;    // 시전 중 남은 프레임
         public bool IsSkillReady;     // 마나 충전 완료
 
+        // 범위 기본공격
+        public bool HasAreaAttack;        // AreaAttackRegistry에 패턴 있으면 true
+        public bool IsAreaAttacking;      // 범위 공격 진행 중
+        public byte AreaHitIndex;         // 다음 처리할 히트 인덱스
+        public int AreaHitTimer;          // 다음 히트까지 남은 프레임
+        public int AreaHitDamage;         // 히트당 데미지 (미리 계산)
+        public bool AreaHitIsCrit;        // 크리 여부
+        public sbyte AreaDirCol;          // facing 방향
+        public sbyte AreaDirRow;
+
         public bool IsValidTarget => IsAlive && State != CombatState.Dead;
+
+        /// <summary>타겟 선택 가능 여부 (백라인 점프 중 제외)</summary>
+        public bool IsTargetable => IsValidTarget && !IsBacklineJumping;
 
         /// <summary>공격 쿨다운 프레임 수 계산 (AttackSpeed 기반)</summary>
         public int GetAttackInterval(int tickRate)
@@ -497,12 +565,41 @@ namespace CookApps.AutoChess
             return tickRate * 100 / AttackSpeed;
         }
 
-        /// <summary>이동 쿨다운 프레임 수 계산 (MoveSpeed 기반)</summary>
-        public int GetMoveInterval(int tickRate)
+        /// <summary>1칸 이동에 걸리는 프레임 수 (MoveSpeed 기반)</summary>
+        public int GetMoveFrames(int tickRate)
         {
             if (MoveSpeed <= 0) return tickRate;
             return tickRate * 100 / MoveSpeed;
         }
+
+        /// <summary>이동 중인지 여부</summary>
+        public bool IsMoving => MoveTimer > 0;
+    }
+
+    /// <summary>
+    /// PvE 적 유닛 데이터. 외부에서 스펙+배율을 계산하여 주입.
+    /// 전투 시작 시 CombatUnit으로 변환 (보드를 거치지 않음).
+    /// </summary>
+    public struct PvEEnemyData
+    {
+        public int ChampionSpecId;
+        public int PrefabId;           // 프리팹 ID (AnimKeyframeData 조회용)
+        public byte GridCol;       // 보드 좌표 (미러링 전)
+        public byte GridRow;
+        public byte SizeW;
+        public byte SizeH;
+
+        // 계산 완료된 스탯
+        public int MaxHP;
+        public int Attack;
+        public int Armor;
+        public int MagicResist;
+        public int AttackSpeed;    // 100 = 1.0
+        public int AttackRange;
+        public int MoveSpeed;      // 100 = 1.0
+        public int MaxMana;
+        public int TraitFlags;
+        public int SkillSpecId;
     }
 
     /// <summary>
@@ -610,6 +707,14 @@ namespace CookApps.AutoChess
         // 이벤트 큐 (GameWorld.EventQueue 참조)
         public SimEventQueue EventQueue;
 
+        // 스킬 인스턴스 (매치별 관리, SkillSystem에서 사용)
+        public SimSkillBase[] Skills;  // [MaxCombatUnits]
+
+        // 특성 인스턴스 (유닛별 최대 MaxTraitsPerUnit개)
+        public CombatTraitBase[][] Traits; // [MaxCombatUnits][CombatTraitBase.MaxTraitsPerUnit]
+        public int[] TraitCounts;          // [MaxCombatUnits] 유닛별 부착된 특성 수
+        internal bool _traitCombatStartDone; // OnCombatStart 1회 실행 플래그
+
         public static CombatMatchState Create(byte matchIndex, byte playerA, byte playerB)
         {
             var state = new CombatMatchState
@@ -622,7 +727,13 @@ namespace CookApps.AutoChess
                 GridTiles = new int[CombatGrid.Size],
                 Projectiles = new Projectile[MaxProjectiles],
                 StatusEffects = new StatusEffect[MaxStatusEffects],
+                Skills = new SimSkillBase[MaxCombatUnits],
+                Traits = new CombatTraitBase[MaxCombatUnits][],
+                TraitCounts = new int[MaxCombatUnits],
             };
+
+            for (int i = 0; i < MaxCombatUnits; i++)
+                state.Traits[i] = new CombatTraitBase[CombatTraitBase.MaxTraitsPerUnit];
 
             for (int i = 0; i < MaxCombatUnits; i++)
                 state.Units[i].CombatId = CombatUnit.InvalidId;
@@ -664,6 +775,38 @@ namespace CookApps.AutoChess
         public void ClearGrid(int col, int row)
         {
             GridTiles[col + row * CombatGrid.Width] = CombatUnit.InvalidId;
+        }
+
+        // ── Multi-Tile 헬퍼 ──
+
+        /// <summary>유닛의 전체 풋프린트 그리드 등록</summary>
+        public void SetGridMulti(int anchorCol, int anchorRow, byte sizeW, byte sizeH, int combatId)
+        {
+            for (int dc = 0; dc < sizeW; dc++)
+                for (int dr = 0; dr < sizeH; dr++)
+                    SetGrid(anchorCol + dc, anchorRow + dr, combatId);
+        }
+
+        /// <summary>유닛의 전체 풋프린트 그리드 해제</summary>
+        public void ClearGridMulti(int anchorCol, int anchorRow, byte sizeW, byte sizeH)
+        {
+            for (int dc = 0; dc < sizeW; dc++)
+                for (int dr = 0; dr < sizeH; dr++)
+                    ClearGrid(anchorCol + dc, anchorRow + dr);
+        }
+
+        /// <summary>풋프린트 영역이 모두 비어있는지 (자기 자신 제외)</summary>
+        public bool IsFootprintClear(int anchorCol, int anchorRow, byte sizeW, byte sizeH, int selfCombatId)
+        {
+            for (int dc = 0; dc < sizeW; dc++)
+                for (int dr = 0; dr < sizeH; dr++)
+                {
+                    int c = anchorCol + dc, r = anchorRow + dr;
+                    if (!BoardHelper.IsValidCombatPosition(c, r)) return false;
+                    int occupant = GetUnitAtGrid(c, r);
+                    if (occupant != CombatUnit.InvalidId && occupant != selfCombatId) return false;
+                }
+            return true;
         }
     }
 }

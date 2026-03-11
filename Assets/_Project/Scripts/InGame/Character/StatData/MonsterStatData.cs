@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;
-using Cookapps.Stkauto.V1;
 using Google.Protobuf.Collections;
 using UnityEngine;
 

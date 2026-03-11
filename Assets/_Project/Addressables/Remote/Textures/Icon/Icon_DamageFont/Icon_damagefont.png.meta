@@ -142,11 +142,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 120
+        y: 60
         width: 60
         height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -164,18 +164,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 60
-        y: 120
+        y: 60
         width: 60
         height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: dbc2564aade859f80800000000000000
+      spriteID: 6a50f12689dbec54680901e2574c05ea
       internalID: -8100411285043860291
       vertices: []
       indices: 
@@ -185,19 +185,19 @@ TextureImporter:
       name: Icon_damagefont_2
       rect:
         serializedVersion: 2
-        x: 120
-        y: 120
+        x: 0
+        y: 0
         width: 60
         height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 42247516db85b3750800000000000000
+      spriteID: bb58c30d47c5593469deb5d82a6570a0
       internalID: 6285715275330830884
       vertices: []
       indices: 
@@ -207,130 +207,20 @@ TextureImporter:
       name: Icon_damagefont_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 60
+        x: 60
+        y: 0
         width: 60
         height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 00eadb5f1b7c58bc0800000000000000
+      spriteID: 4c8f4cc36ed439143a907f79f2f9730d
       internalID: -3781396744961675776
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_damagefont_4
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 60
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2d215d95bba25ad00800000000000000
-      internalID: 983239077804708562
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_damagefont_5
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 60
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: de89d926c844faf4cb606f1959c9ddaa
-      internalID: -1460259508
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_damagefont_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f2e97e2057da7b34b814cbdcb9ca602a
-      internalID: -621913590
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_damagefont_7
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: caacf25c4c692b048993f464e0ab0e3a
-      internalID: -1446113906
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_damagefont_8
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 0
-        width: 60
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 152546e9543db2a4394cf581fc45f1bf
-      internalID: 1790408480
       vertices: []
       indices: 
       edges: []
@@ -441,11 +331,6 @@ TextureImporter:
       Icon_damagefont_1: -8100411285043860291
       Icon_damagefont_2: 6285715275330830884
       Icon_damagefont_3: -3781396744961675776
-      Icon_damagefont_4: 983239077804708562
-      Icon_damagefont_5: -1460259508
-      Icon_damagefont_6: -621913590
-      Icon_damagefont_7: -1446113906
-      Icon_damagefont_8: 1790408480
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

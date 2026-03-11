@@ -84,7 +84,8 @@ MonoBehaviour:
   - m_GUID: c3569d5091d904bbdbcf40edc4939992
     m_Address: SpriteAtlas/Dynamic/UI_CharacterThumbnail
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c7e43331a4807af4687ead39d29007c8
     m_Address: SpriteAtlas/Dynamic/Temp_Gacha/Atlas_Icon

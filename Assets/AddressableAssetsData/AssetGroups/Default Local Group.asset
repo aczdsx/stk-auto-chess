@@ -18,6 +18,11 @@ MonoBehaviour:
   - m_GUID: 4a8d4763766351947b026908939d2336
     m_Address: Prefabs/UI/01_Pops/CharacterCollectionPopup/CharacterCollectionPopup.prefab
     m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e7af6a4096c8b2b408c0f2c32c0daae6
+    m_Address: Prefabs/Fx/Character/Atresia/Skill_401011_1.prefab
+    m_ReadOnly: 0
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0

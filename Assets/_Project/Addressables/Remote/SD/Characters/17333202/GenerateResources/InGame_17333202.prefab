@@ -64,6 +64,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: 6959646811311687050, guid: 8c966f317d1b0ff40a22f760e85f1720, type: 3}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 7906353983559135128, guid: c651b3e94965d2f4abf58336629ec7a6, type: 3}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[0].followable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[0].skillPosition
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 9052576703297259876, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Sprite
       value: 

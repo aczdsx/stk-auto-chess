@@ -56,6 +56,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: 7028898976872610135, guid: 8f852d2648627824baa70f154431a50e, type: 3}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 7121761994419046498, guid: c0b54376ec55f6b42bb6cc5699e6b7ac, type: 3}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[1].prefab
+      value: 
+      objectReference: {fileID: 911842214814236166, guid: e8e831a3d86f18e43bebf4618fe4b0ff, type: 3}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[0].followable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[1].followable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[0].skillPosition
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[1].skillPosition
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9052576703297259876, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Sprite
       value: 

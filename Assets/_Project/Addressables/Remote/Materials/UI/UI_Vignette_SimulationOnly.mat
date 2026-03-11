@@ -29,16 +29,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CircleRadius: 7.78
+    - _CircleRadius: 10
     - _CircleScale: 2
     - _CircleSoftness: 0.5
     - _DotMaxScale: 1
     - _DotMinScale: 1
-    - _EdgeSoftness: 2
+    - _EdgeSoftness: 4
     - _HexScale: -33
     - _Invert: 1
     - _Scale: 2.09
-    - _Spacing: 8.89
+    - _Spacing: 7
     - _Tiling: 0
     m_Colors:
     - _BackgroundColor: {r: 0.8301887, g: 0.254539, b: 0.254539, a: 1}
@@ -47,3 +47,4 @@ Material:
     - _HexColor: {r: 0.9528302, g: 0.33708617, b: 0.33708617, a: 1}
     - _TileOffset: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

@@ -56,6 +56,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 1790850498397952689, guid: 769d9385c5f9a564bafc49f5fe976cff, type: 3}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[1].prefab
+      value: 
+      objectReference: {fileID: 3914144377036083901, guid: 5643928aef364fc4a9e8321751756504, type: 3}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[2].prefab
+      value: 
+      objectReference: {fileID: 8059217424757677714, guid: e7a11f291ca0e8845bceec37ea7de2af, type: 3}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[3].prefab
+      value: 
+      objectReference: {fileID: 3695164375101791643, guid: 59151237bccdf9341a5f77691f75d511, type: 3}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[0].followable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[1].followable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[2].followable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[3].followable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[0].skillPosition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[1].skillPosition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[2].skillPosition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _skillEffectPrefabs.Array.data[3].skillPosition
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9052576703297259876, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Sprite
       value: 

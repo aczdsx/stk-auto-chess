@@ -488,12 +488,12 @@ namespace CookApps.BattleSystem
 
         public void AddSynergyApplyEach(SynergyType targetSynergyType, long effectCodeID, ISpecSynergyData synergyData)
         {
-            if (DistinguishSynergyTypeHelper.IsAsterismSynergyType(targetSynergyType))
+            if (DistinguishSpecTypeHelper.IsAsterismSynergyType(targetSynergyType))
             {
                 if (targetSynergyType != _statData.Spec.character_stella_type)
                     return;
             }
-            else if (DistinguishSynergyTypeHelper.IsElementSynergyType(targetSynergyType))
+            else if (DistinguishSpecTypeHelper.IsElementSynergyType(targetSynergyType))
             {
                 if (targetSynergyType != _statData.Spec.character_element_type)
                     return;
@@ -1200,62 +1200,6 @@ namespace CookApps.BattleSystem
                 Unity.Mathematics.int2 afterTile = CurrentTile.Int2Index;
                 AddNextState<CharacterStateForceMove>(customMoveSpeed);
             }
-        }
-
-        public InGameVfxTargetLine SetLine(CharacterController character, bool isOwn, Action<InGameVfxTargetLine> onComplete = null)
-        {
-            var obj = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.TargetLineRenderer, Position3D);
-            if (obj != null)
-            {
-                InGameVfxTargetLine targetLine = obj.GetComponent<InGameVfxTargetLine>();
-                targetLine.SetActiveObject(true);
-                targetLine.TargetLine.DrawLine(this, character, isOwn, () =>
-                {
-                    if (onComplete != null)
-                        onComplete.Invoke(targetLine);
-                });
-
-                return targetLine;
-            }
-
-            return null;
-        }
-        public void ReUseLine(InGameVfxTargetLine targetLine, CharacterController character, bool isOwn, Action<InGameVfxTargetLine> onComplete = null)
-        {
-            if (targetLine == null) return;
-            targetLine.SetActiveObject(true);
-            targetLine.TargetLine.DrawLine(this, character, isOwn, () =>
-                {
-                    if (onComplete != null)
-                        onComplete.Invoke(targetLine);
-                });
-
-        }
-
-        public InGameVfxTargetLine SpawnDropFx(Action<InGameVfxTargetLine> onComplete = null)
-        {
-            var obj = InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.DropFx, Position3D);
-            if (obj != null)
-            {
-                InGameVfxTargetLine targetLine = obj.GetComponent<InGameVfxTargetLine>();
-
-                Transform targetPos = BattleReadyMain.GetBattleReadyMain().GetIdleRewardTransform;
-                Camera mainCamera = Camera.main;
-                Vector3 screenPos = new Vector3(targetPos.position.x, targetPos.position.y, mainCamera.nearClipPlane);
-                Vector3 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
-                targetLine.TargetLine.DrawLine(Position3D, worldPos, () =>
-                {
-                    if (onComplete != null)
-                    {
-                        onComplete.Invoke(targetLine);
-                        BattleReadyMain.GetBattleReadyMain().PlayDropFx();
-                    }
-                });
-
-                return targetLine;
-            }
-
-            return null;
         }
 
     }

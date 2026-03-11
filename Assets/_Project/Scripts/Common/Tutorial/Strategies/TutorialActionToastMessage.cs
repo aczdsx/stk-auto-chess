@@ -24,6 +24,7 @@ namespace CookApps.AutoBattler
 
         public void OnShow(TutorialActionContext context)
         {
+            SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
             _cachedContext = context;
             IsActive = true;
 

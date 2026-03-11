@@ -65,7 +65,7 @@ namespace CookApps.AutoBattler
 
         private void RefreshIdleRewardData()
         {
-            _currentIdleRewardItemList = UserDataManager.Instance.GetCurrentIdleRewardItemList();
+            _currentIdleRewardItemList = IdleRewardHelper.GetCurrentIdleRewardItemList();
 
             // 남은 시간 데이터 세팅
             _accTimeGuideText.text = IdleRewardHelper.FormatElapsedTime();

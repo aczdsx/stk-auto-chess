@@ -8536,6 +8536,7 @@ MonoBehaviour:
   _bossStageText: {fileID: 3190096229763237762}
   _chapterNameText: {fileID: 6671101280126139752}
   _stageProgressText: {fileID: 1842561322600220005}
+  _backToLobbyText: {fileID: 4239083775758102288}
   _guideMissionSlot: {fileID: 8395322997737353156}
   _normalRewardStateObject: {fileID: 1018276968783207198}
   _normalRewardFillImage: {fileID: 6122477757298569214}
@@ -14147,14 +14148,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4487231834673765419, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
       propertyPath: m_text
-      value: "\uCEE4\uB9E8\uB4DC \uC13C\uD130"
+      value: "\uD5C8\uBE14"
       objectReference: {fileID: 0}
     - target: {fileID: 4487231834673765419, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
       propertyPath: m_fontSize
       value: 34.7
       objectReference: {fileID: 0}
+    - target: {fileID: 6528303696140173142, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_Key
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528303696140173142, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 15169211235393536
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528303696140173142, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:fdab95ed1e42f41efb55b1541e124721
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7723557851300598233, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
+    - {fileID: 6528303696140173142, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -14185,6 +14199,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetId: BattleReadyBack
+--- !u!114 &4239083775758102288 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4487231834673765419, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
+  m_PrefabInstance: {fileID: 329213195843744571}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &9059182644760578543 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8730570059345672916, guid: 031c717319ae9264988c3ab81e876ef4, type: 3}
@@ -15616,6 +15641,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1742482466936400268}
     m_Modifications:
+    - target: {fileID: 628524558553553364, guid: 14bb27a524c151842b5a09f42b8400aa, type: 3}
+      propertyPath: m_EffectFactor
+      value: 0.039999973
+      objectReference: {fileID: 0}
     - target: {fileID: 1399308895698044850, guid: 14bb27a524c151842b5a09f42b8400aa, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -16168,6 +16197,10 @@ PrefabInstance:
     - target: {fileID: 2714459869255774626, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4198305010340746721, guid: 40a97c51cf4e7664fbbe8d626359fada, type: 3}
+      propertyPath: m_EffectFactor
+      value: 0.024999984
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -99,7 +99,7 @@ public partial class EffectCodeSkill217513401 : EffectCodeCharacterBase
             // InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
 
             var vfxProjectile =
-                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],
+                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
                     owner.CurrentTile.View.CachedTr.position);
 
             var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();

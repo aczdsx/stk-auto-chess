@@ -50,7 +50,7 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
             var synergyDataList = param as List<ISpecSynergyData>;
-            if (DistinguishSynergyTypeHelper.IsElementSynergyType(synergyDataList[0].synergy_type))
+            if (DistinguishSpecTypeHelper.IsElementSynergyType(synergyDataList[0].synergy_type))
             {
                 SetSynergyInfoElemental(synergyDataList);
             }

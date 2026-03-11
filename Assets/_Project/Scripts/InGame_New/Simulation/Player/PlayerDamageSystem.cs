@@ -71,7 +71,7 @@ namespace CookApps.AutoChess
         /// <summary>플레이어에게 데미지 적용. HP ≤ 0이면 탈락 처리.</summary>
         public static void ApplyPlayerDamage(GameWorld world, byte playerIndex, int damage)
         {
-            if (playerIndex >= GameWorld.MaxPlayers) return;
+            if (playerIndex >= world.MaxPlayers) return;
             if (!world.Players[playerIndex].IsAlive) return;
 
             world.Players[playerIndex].HP -= damage;
@@ -101,7 +101,7 @@ namespace CookApps.AutoChess
             // 마지막 1명 남으면 우승
             if (world.AlivePlayerCount == 1)
             {
-                for (int i = 0; i < GameWorld.MaxPlayers; i++)
+                for (int i = 0; i < world.MaxPlayers; i++)
                 {
                     if (world.Players[i].IsAlive)
                     {
@@ -119,7 +119,7 @@ namespace CookApps.AutoChess
         /// </summary>
         public static void UpdateStreaks(GameWorld world, byte playerIndex, bool isWin)
         {
-            if (playerIndex >= GameWorld.MaxPlayers) return;
+            if (playerIndex >= world.MaxPlayers) return;
 
             ref var economy = ref world.Economies[playerIndex];
             if (isWin)

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbf328e371d6e49f0a6c77327853d26f, type: 3}
   m_Name: InGameTestConfig
   m_EditorClassIdentifier: 
-  Mode: 0
-  StageId: 20006
+  Mode: 1
+  StageId: 20009
   StageChapterId: 2
   GridWidth: 5
   GridHeight: 7

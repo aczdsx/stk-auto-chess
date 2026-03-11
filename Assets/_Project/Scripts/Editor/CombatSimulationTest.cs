@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 
@@ -117,14 +118,19 @@ namespace CookApps.AutoChess
             unit.CritChance = 25;
             unit.CritMultiplier = 150;
 
+            unit.SizeW = 1;
+            unit.SizeH = 1;
+
             unit.CurrentTargetId = CombatUnit.InvalidId;
             unit.AttackCooldown = 0;
-            unit.MoveCooldown = 0;
+            unit.MoveTimer = 0;
+            unit.MoveDuration = 0;
 
             unit.HasBacklineJump = backlineJump;
             unit.BacklineJumpDone = false;
 
-            state.SetGrid(col, row, id);
+            state.SetGridMulti(col, row, unit.SizeW, unit.SizeH, id);
         }
     }
 }
+#endif

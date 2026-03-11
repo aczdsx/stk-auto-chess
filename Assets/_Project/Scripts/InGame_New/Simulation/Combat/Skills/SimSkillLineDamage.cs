@@ -1,14 +1,16 @@
 namespace CookApps.AutoChess
 {
-    /// <summary>직선 관통 데미지 스킬 (전방 N칸 관통)</summary>
+    /// <summary>직선 관통 데미지 스킬 (Linear 투사체로 한 칸씩 이동하며 피격)</summary>
     public class SimSkillLineDamage : SimSkillBase
     {
         private int _length;
+        private int _moveInterval;
 
         public override void Initialize(SkillParams p)
         {
             base.Initialize(p);
             _length = p.Param0 > 0 ? p.Param0 : 4;
+            _moveInterval = p.Param1 > 0 ? p.Param1 : 3; // N프레임마다 1칸 이동
         }
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
@@ -35,27 +37,21 @@ namespace CookApps.AutoChess
                 dirRow = caster.TeamIndex == 0 ? 1 : -1;
             }
 
-            int attack = caster.Attack;
-            int power = PowerPercent;
-            var type = DamageType;
-            byte team = caster.TeamIndex;
-            int startCol = caster.GridCol;
-            int startRow = caster.GridRow;
+            int raw = caster.Attack * PowerPercent / 100;
+            bool isCrit = false; // TODO: 크리티컬 판정 필요 시 추가
 
-            SkillAreaHelper.ForEachEnemyInLine(state, team,
-                startCol, startRow, dirCol, dirRow, _length,
-                (ref CombatUnit t, int i) =>
-                {
-                    int raw = attack * power / 100;
-                    int dmg = DamageSystem.CalculateDamage(raw, type, ref t);
-                    DamageSystem.ApplyDamage(state, ref t, dmg);
-                    DamageSystem.ChargeMana(ref t, DamageSystem.ManaGainOnHit);
-                });
+            ProjectileSystem.CreateLinearProjectile(
+                state, caster.CombatId,
+                caster.GridCol, caster.GridRow,
+                (sbyte)dirCol, (sbyte)dirRow,
+                raw, isCrit, DamageType,
+                _moveInterval, _length);
         }
 
         public override void Reset()
         {
             _length = 4;
+            _moveInterval = 3;
         }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace CookApps.TeamBattle.Utility
 {
     [RequireComponent(typeof(RectTransform))]
-    public class SafeArea : MonoBehaviour
+    public class SafeArea : CachedMonoBehaviour
     {
         [SerializeField] private bool isControlTop = true;
         [SerializeField] private bool isControlBottom = true;
@@ -12,7 +12,7 @@ namespace CookApps.TeamBattle.Utility
 
         private Rect processedSafeArea;
         private Vector2 processedResolution;
-        private RectTransform rectTr;
+        private ScreenOrientation processedOrientation;
 
         public static (float left, float right, float top, float bottom) MarginRatio
         {
@@ -30,37 +30,41 @@ namespace CookApps.TeamBattle.Utility
 
         private void Start()
         {
-            rectTr = GetComponent<RectTransform>();
             Refresh();
         }
 
-        public void Refresh(bool forceRecalculate = false)
+        private void Update()
         {
-            if (rectTr == null)
-                rectTr = GetComponent<RectTransform>();
+            Refresh();
+        }
 
+        public void Refresh()
+        {
             var safeArea = Screen.safeArea;
             var resolution = Screen.fullScreen ? new Vector2(Screen.currentResolution.width, Screen.currentResolution.height) : new Vector2(Screen.width, Screen.height);
 
-            if (!forceRecalculate && processedSafeArea == safeArea && processedResolution == resolution)
+            var orientation = Screen.orientation;
+
+            if (processedSafeArea == safeArea && processedResolution == resolution && processedOrientation == orientation)
                 return;
             processedSafeArea = safeArea;
             processedResolution = resolution;
+            processedOrientation = orientation;
 
             var leftAnchorDiff = safeArea.x / resolution.x * MarginRatio.left;
             var bottomAnchorDiff = safeArea.y / resolution.y * MarginRatio.bottom;
 
-            rectTr.anchorMin = new Vector2(
-                isControlLeft ? leftAnchorDiff: rectTr.anchorMin.x,
-                isControlBottom ? bottomAnchorDiff : rectTr.anchorMin.y
+            CachedRectTr.anchorMin = new Vector2(
+                isControlLeft ? leftAnchorDiff: CachedRectTr.anchorMin.x,
+                isControlBottom ? bottomAnchorDiff : CachedRectTr.anchorMin.y
             );
 
             var rightAnchorDiff = (1f - ((safeArea.x + safeArea.width) / resolution.x)) * MarginRatio.right;
             var topAnchorDiff = (1f - ((safeArea.y + safeArea.height) / resolution.y)) * MarginRatio.top;
 
-            rectTr.anchorMax = new Vector2(
-                isControlRight ? 1f - rightAnchorDiff : rectTr.anchorMax.x,
-                isControlTop ? 1f - topAnchorDiff : rectTr.anchorMax.y
+            CachedRectTr.anchorMax = new Vector2(
+                isControlRight ? 1f - rightAnchorDiff : CachedRectTr.anchorMax.x,
+                isControlTop ? 1f - topAnchorDiff : CachedRectTr.anchorMax.y
             );
         }
     }

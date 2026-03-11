@@ -42,6 +42,8 @@ namespace CookApps.AutoChess
         public int[] XPTable = { 0, 0, 2, 6, 10, 20, 36, 56, 80 };
 
         // ── 보드 설정 ──
+        public int BoardWidth = PlayerBoard.BoardWidth;
+        public int BoardHeight = PlayerBoard.BoardHeight;
         public int MaxBenchSlots = PlayerBoard.BenchSize;
 
         // ── 스테이지 설정 ──
@@ -107,13 +109,14 @@ namespace CookApps.AutoChess
                 PlayerCount = 1,
                 EnableShop = false,
                 EnableEconomy = false,
-                EnableSynergy = false,
+                EnableSynergy = true,
                 EnableItems = false,
                 EnableMatchmaking = false,
                 EnableCutscenes = true,
                 PreparationDuration = 0, // 준비 없음
                 StartingLevel = 5,
                 StartingHP = 100,
+                TickRate = 60,
             };
         }
 
@@ -123,7 +126,7 @@ namespace CookApps.AutoChess
             return new GameConfig
             {
                 GameMode = GameModeType.PvECampaign,
-                PlayerCount = 1,
+                PlayerCount = 2,
                 EnableShop = true,
                 EnableEconomy = true,
                 EnableSynergy = true,
@@ -132,6 +135,7 @@ namespace CookApps.AutoChess
                 EnableCutscenes = true,
                 StartingGold = 5,
                 StartingHP = 100,
+                TickRate = 60,
             };
         }
 
@@ -150,6 +154,7 @@ namespace CookApps.AutoChess
                 EnableCutscenes = false, // 멀티에서는 컷씬 비활성
                 StartingGold = 0,
                 StartingHP = 100,
+                TickRate = 30,
             };
         }
     }

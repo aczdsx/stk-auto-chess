@@ -41,27 +41,40 @@ namespace CookApps.AutoChess
             return entityId;
         }
 
-        /// <summary>벤치 → 보드 배치. 레벨 제한 검사 포함.</summary>
+        /// <summary>벤치 → 보드 배치. 레벨 제한 검사 포함. Multi-tile 대응.</summary>
         public static bool PlaceUnit(GameWorld world, byte playerIndex, int entityId, byte col, byte row)
         {
-            if (!BoardHelper.IsValidBoardPosition(col, row)) return false;
-
             int unitIndex = world.FindUnitIndex(entityId);
             if (unitIndex < 0) return false;
 
             ref var unit = ref world.Units[unitIndex];
+            byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+            byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
+
+            // 풋프린트 유효성 검사
+            if (!BoardHelper.IsValidBoardFootprint(col, row, sizeW, sizeH)) return false;
+
             if (unit.OwnerIndex != playerIndex) return false;
             if (unit.Location != UnitLocation.Bench) return false;
 
             // 레벨 제한: 보드 유닛 수 < 플레이어 레벨
             int boardCount = GetBoardUnitCount(world, playerIndex);
-            int boardIndex = BoardHelper.ToIndex(col, row);
-            int existingEntityId = world.BoardSlots[playerIndex][boardIndex];
 
-            // 목표 위치에 유닛이 있으면 교환
-            if (existingEntityId != UnitData.InvalidId)
+            // 1x1이면서 목표 위치에 유닛이 있으면 교환 (다중 타일은 교환 미지원)
+            if (sizeW == 1 && sizeH == 1)
             {
-                return SwapBenchToBoard(world, playerIndex, unitIndex, existingEntityId, col, row);
+                int boardIndex = BoardHelper.ToIndex(col, row);
+                int existingEntityId = world.BoardSlots[playerIndex][boardIndex];
+                if (existingEntityId != UnitData.InvalidId)
+                {
+                    return SwapBenchToBoard(world, playerIndex, unitIndex, existingEntityId, col, row);
+                }
+            }
+            else
+            {
+                // 다중 타일: 풋프린트 내 다른 유닛 확인
+                if (!IsBoardFootprintClear(world, playerIndex, col, row, sizeW, sizeH, entityId))
+                    return false;
             }
 
             // 보드가 꽉 찼는지 체크
@@ -71,54 +84,74 @@ namespace CookApps.AutoChess
             // 벤치에서 제거
             RemoveFromBench(world, playerIndex, ref unit);
 
-            // 보드에 배치
+            // 보드에 배치 (풋프린트 모든 타일에 등록)
             unit.Location = UnitLocation.Board;
             unit.BoardCol = col;
             unit.BoardRow = row;
-            world.BoardSlots[playerIndex][boardIndex] = entityId;
+            SetBoardFootprint(world, playerIndex, col, row, sizeW, sizeH, entityId);
             world.Boards[playerIndex].UnitCount++;
 
             return true;
         }
 
-        /// <summary>보드 내 위치 이동. 목표에 유닛 있으면 위치 교환.</summary>
+        /// <summary>보드 내 위치 이동. Multi-tile 대응. 1x1 유닛은 교환 지원.</summary>
         public static bool MoveUnit(GameWorld world, byte playerIndex, int entityId, byte toCol, byte toRow)
         {
-            if (!BoardHelper.IsValidBoardPosition(toCol, toRow)) return false;
-
             int unitIndex = world.FindUnitIndex(entityId);
             if (unitIndex < 0) return false;
 
             ref var unit = ref world.Units[unitIndex];
+            byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+            byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
+
+            if (!BoardHelper.IsValidBoardFootprint(toCol, toRow, sizeW, sizeH)) return false;
             if (unit.OwnerIndex != playerIndex) return false;
             if (unit.Location != UnitLocation.Board) return false;
 
-            int fromIndex = BoardHelper.ToIndex(unit.BoardCol, unit.BoardRow);
-            int toIndex = BoardHelper.ToIndex(toCol, toRow);
+            if (unit.BoardCol == toCol && unit.BoardRow == toRow) return true;
 
-            if (fromIndex == toIndex) return true; // 같은 위치
-
-            int targetEntityId = world.BoardSlots[playerIndex][toIndex];
-
-            if (targetEntityId != UnitData.InvalidId)
+            if (sizeW == 1 && sizeH == 1)
             {
-                // 목표 위치의 유닛과 위치 교환
-                int targetUnitIndex = world.FindUnitIndex(targetEntityId);
-                if (targetUnitIndex < 0) return false;
+                int fromIndex = BoardHelper.ToIndex(unit.BoardCol, unit.BoardRow);
+                int toIndex = BoardHelper.ToIndex(toCol, toRow);
+                int targetEntityId = world.BoardSlots[playerIndex][toIndex];
 
-                ref var targetUnit = ref world.Units[targetUnitIndex];
-                targetUnit.BoardCol = unit.BoardCol;
-                targetUnit.BoardRow = unit.BoardRow;
-                world.BoardSlots[playerIndex][fromIndex] = targetEntityId;
+                if (targetEntityId != UnitData.InvalidId)
+                {
+                    int targetUnitIndex = world.FindUnitIndex(targetEntityId);
+                    if (targetUnitIndex < 0) return false;
+
+                    ref var targetUnit = ref world.Units[targetUnitIndex];
+                    targetUnit.BoardCol = unit.BoardCol;
+                    targetUnit.BoardRow = unit.BoardRow;
+                    world.BoardSlots[playerIndex][fromIndex] = targetEntityId;
+                }
+                else
+                {
+                    world.BoardSlots[playerIndex][fromIndex] = UnitData.InvalidId;
+                }
+
+                unit.BoardCol = toCol;
+                unit.BoardRow = toRow;
+                world.BoardSlots[playerIndex][toIndex] = entityId;
             }
             else
             {
-                world.BoardSlots[playerIndex][fromIndex] = UnitData.InvalidId;
-            }
+                // 이전 풋프린트 해제
+                ClearBoardFootprint(world, playerIndex, unit.BoardCol, unit.BoardRow, sizeW, sizeH);
 
-            unit.BoardCol = toCol;
-            unit.BoardRow = toRow;
-            world.BoardSlots[playerIndex][toIndex] = entityId;
+                // 새 위치 풋프린트가 비어있는지 확인
+                if (!IsBoardFootprintClear(world, playerIndex, toCol, toRow, sizeW, sizeH, entityId))
+                {
+                    // 롤백
+                    SetBoardFootprint(world, playerIndex, unit.BoardCol, unit.BoardRow, sizeW, sizeH, entityId);
+                    return false;
+                }
+
+                unit.BoardCol = toCol;
+                unit.BoardRow = toRow;
+                SetBoardFootprint(world, playerIndex, toCol, toRow, sizeW, sizeH, entityId);
+            }
 
             return true;
         }
@@ -136,9 +169,10 @@ namespace CookApps.AutoChess
             int benchSlot = FindEmptyBenchSlot(world, playerIndex);
             if (benchSlot < 0) return false; // 벤치 가득 참
 
-            // 보드에서 제거
-            int boardIndex = BoardHelper.ToIndex(unit.BoardCol, unit.BoardRow);
-            world.BoardSlots[playerIndex][boardIndex] = UnitData.InvalidId;
+            // 보드에서 제거 (멀티타일 풋프린트 전체 해제)
+            byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+            byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
+            ClearBoardFootprint(world, playerIndex, unit.BoardCol, unit.BoardRow, sizeW, sizeH);
             world.Boards[playerIndex].UnitCount--;
 
             // 벤치에 추가
@@ -247,6 +281,8 @@ namespace CookApps.AutoChess
             unit.MoveSpeed = spec.MoveSpeed;
             unit.MaxMana = spec.MaxMana;
             unit.TraitFlags = spec.TraitFlags;
+            unit.SizeW = spec.SizeW > 0 ? spec.SizeW : (byte)1;
+            unit.SizeH = spec.SizeH > 0 ? spec.SizeH : (byte)1;
 
             // 별 보정 (HP, Attack에 배율 적용)
             if (unit.StarLevel >= 2 && spec.Star2Multiplier > 0)
@@ -270,7 +306,7 @@ namespace CookApps.AutoChess
         public static int FindEmptyBenchSlot(GameWorld world, byte playerIndex)
         {
             var bench = world.BenchSlots[playerIndex];
-            for (int i = 0; i < PlayerBoard.BenchSize; i++)
+            for (int i = 0; i < bench.Length; i++)
             {
                 if (bench[i] == UnitData.InvalidId)
                     return i;
@@ -290,8 +326,9 @@ namespace CookApps.AutoChess
         {
             if (unit.Location == UnitLocation.Board)
             {
-                int boardIndex = BoardHelper.ToIndex(unit.BoardCol, unit.BoardRow);
-                world.BoardSlots[playerIndex][boardIndex] = UnitData.InvalidId;
+                byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+                byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
+                ClearBoardFootprint(world, playerIndex, unit.BoardCol, unit.BoardRow, sizeW, sizeH);
                 world.Boards[playerIndex].UnitCount--;
             }
             else if (unit.Location == UnitLocation.Bench)
@@ -324,6 +361,38 @@ namespace CookApps.AutoChess
                 world.BenchSlots[playerIndex][benchIndex] = entityId;
                 world.Boards[playerIndex].BenchCount++;
             }
+        }
+
+        // ── 보드 풋프린트 헬퍼 ──
+
+        private static void SetBoardFootprint(GameWorld world, byte playerIndex,
+            int col, int row, byte sizeW, byte sizeH, int entityId)
+        {
+            for (int dc = 0; dc < sizeW; dc++)
+                for (int dr = 0; dr < sizeH; dr++)
+                    world.BoardSlots[playerIndex][BoardHelper.ToIndex(col + dc, row + dr)] = entityId;
+        }
+
+        private static void ClearBoardFootprint(GameWorld world, byte playerIndex,
+            int col, int row, byte sizeW, byte sizeH)
+        {
+            for (int dc = 0; dc < sizeW; dc++)
+                for (int dr = 0; dr < sizeH; dr++)
+                    world.BoardSlots[playerIndex][BoardHelper.ToIndex(col + dc, row + dr)] = UnitData.InvalidId;
+        }
+
+        private static bool IsBoardFootprintClear(GameWorld world, byte playerIndex,
+            int col, int row, byte sizeW, byte sizeH, int selfEntityId)
+        {
+            for (int dc = 0; dc < sizeW; dc++)
+                for (int dr = 0; dr < sizeH; dr++)
+                {
+                    int idx = BoardHelper.ToIndex(col + dc, row + dr);
+                    int occupant = world.BoardSlots[playerIndex][idx];
+                    if (occupant != UnitData.InvalidId && occupant != selfEntityId)
+                        return false;
+                }
+            return true;
         }
 
         private static bool SwapBenchToBoard(GameWorld world, byte playerIndex,

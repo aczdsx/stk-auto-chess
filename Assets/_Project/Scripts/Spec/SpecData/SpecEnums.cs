@@ -193,6 +193,9 @@ namespace CookApps.AutoBattler
         NOBLESSE = 7,
         TROUBLESHOOTER = 8,
         SUPERNOVA = 9,
+        UROBOROS = 10,
+        ARCANA = 11,
+        ECLIPSE = 12,
     }
 
     public enum CharacterPositionType
@@ -628,6 +631,7 @@ namespace CookApps.AutoBattler
         fx_common_asterism_nb_Icon_01 = 275,
         fx_common_asterism_ts_Icon_01 = 276,
         fx_common_asterism_sn_Icon_01 = 277,
+        fx_common_area_position = 278,
     }
 
     public enum GlobalEffectProviderType
@@ -1052,5 +1056,19 @@ namespace CookApps.AutoBattler
         ENTER_CHAPTER_NANI = 9,
         ENTER_ELPIS_NANI = 10,
         SCENE_ENTER = 11,
+    }
+
+    public enum EnhanceType
+    {
+        NONE = 0,
+        ATK = 1,
+        DEF = 2,
+        HP = 3,
+    }
+
+    public enum GuidePopupType
+    {
+        NONE = 0,
+        PREBATTLE_SCENE = 1,
     }
 }

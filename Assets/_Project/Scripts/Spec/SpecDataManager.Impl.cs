@@ -67,327 +67,34 @@ namespace CookApps.AutoBattler
             bool isLoad = Load(json);
             NetManager.Instance.Spec.CurrentGameSpecVersion = NetManager.Instance.Spec.GetCachedSpecVersion(SpecType.Game);
             await UniTask.Yield();
-            GenerateCacheSpecData();
-            CustomizeSpecData();
-            // int languageCount = Language.All.Count;
-            // Debug.Log(languageCount);
         }
 
-        // SpecData Dictionary Cache Data
-        // languageDic 제거됨 - Unity Localization으로 대체 (LocalizationLoader 사용)
-        private Dictionary<int, List<RewardItem>> chestDic = new();                                // key : chest_id, value : chest list
-        private Dictionary<int, List<ChapterInfo>> chapterDic = new();                             // key : chapter_id, value : chapter list
-        private Dictionary<DifficultyType, List<ChapterInfo>> chapterDifficultDic = new();         // key : DifficultyType, value : chapter list
-        private Dictionary<int, List<StageInfo>> stageChapterDic = new();                          // key : chapter_id, value : stage list
-        private Dictionary<DifficultyType, List<StageInfo>> stageDifficultDic = new();             // key : DifficultyType, value : stage list
-        private Dictionary<int, List<StageMonster>> stageMonsterDic = new();                       // key : chapter_id, value : stage list
-        private Dictionary<int, List<StageReward>> stageRewardDic = new();                         // key : reward_id, value : stage list
-        private Dictionary<string, ConfigGame> configDic = new();                                  // key : config_key, value : game config data
-        private Dictionary<long, List<SkillActive>> skillDic = new();                              // key : skill_group_id, value : skill list
-        private Dictionary<long, List<SkillActive>> skillPrefabIDDic = new();                      // key : prefab_id, value : skill list
-        private Dictionary<long, List<SkillPassive>> skillPassiveDic = new();                      // key : passive_group_id, value : SkillPassive
-        private Dictionary<long, List<SkillPassive>> skillPassivePrefabIDDic = new();          // key : equipment_id, value : SkillPassive
-        private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new(); // key1 : DialogueEventType, key2 : sub_key_value, value : dialogue_group_id
-        private Dictionary<InGameVfxNameType, InGameVfxMap> inGameVfxDic = new();                             // key : inGameVfxName, value : SpecInGameVfx
-        private Dictionary<SynergyType, List<ISpecSynergyData>> synergyDic = new();                // key : SynergyType, value : ISpecSynergyData
-        private Dictionary<EffectCodeNameType, List<SkillJob>> skillJobDic = new();             // key : EffectCodeNameType, value : SkillJob
-        private Dictionary<int, List<SkillCommander>> commanderSkillDic = new();                   // key : commander_skill_id, value : SpecCommanderSkill
-        private Dictionary<int, ISpecItemInfo> itemTableKeyMap = new();                      // key : item_id (currency_id/item_id), value : ISpecItemInfo
-        private Dictionary<string, DialogueLanguage> dialogueLanguageDic = new();           // key : text_desc_token, value : DialogueLanguage
-        private Dictionary<int, List<TutorialDialogue>> tutorialDialogueDic = new();           // key : tutorial_id, value : TutorialDialogue list
-        private bool isItemTableKeyMapInitialized = false;
+        // Lazy Cached Dictionaries (초기화: SpecDataManager.Customize.cs)
+        private Dictionary<int, List<ChapterInfo>> chapterDic = new();                             // key: chapter_id
+        private Dictionary<DifficultyType, List<ChapterInfo>> chapterDifficultDic = new();         // key: DifficultyType
+        private Dictionary<int, List<StageInfo>> stageChapterDic = new();                          // key: chapter_id
+        private Dictionary<DifficultyType, List<StageInfo>> stageDifficultDic = new();             // key: DifficultyType
+        private Dictionary<int, List<StageMonster>> stageMonsterDic = new();                       // key: chapter_id
+        private Dictionary<int, List<StageReward>> stageRewardDic = new();                         // key: reward_id
+        private Dictionary<string, ConfigGame> configDic = new();                                  // key: config_key
+        private Dictionary<long, List<SkillActive>> skillDic = new();                              // key: skill_group_id
+        private Dictionary<long, List<SkillActive>> skillPrefabIDDic = new();                      // key: prefab_id
+        private Dictionary<long, List<SkillPassive>> skillPassiveDic = new();                      // key: passive_group_id
+        private Dictionary<long, List<SkillPassive>> skillPassivePrefabIDDic = new();              // key: prefab_id
+        private Dictionary<DialogueEventType, Dictionary<string, int>> dialogueHistoryDic = new(); // key: DialogueEventType > sub_key_value
+        private Dictionary<InGameVfxNameType, InGameVfxMap> inGameVfxDic = new();                  // key: InGameVfxNameType
+        private Dictionary<SynergyType, List<ISpecSynergyData>> synergyDic = new();               // key: SynergyType
+        private Dictionary<SynergyType, List<CharacterInfo>> charactersBySynergyDic;               // key: SynergyType
+        private static readonly List<CharacterInfo> _reusableEmptyCharacterList = new();
+        private Dictionary<EffectCodeNameType, List<SkillJob>> skillJobDic = new();                // key: EffectCodeNameType
+        private Dictionary<int, List<SkillCommander>> commanderSkillDic = new();                   // key: commander_skill_id
+        private Dictionary<int, ISpecItemInfo> itemTableKeyMap = new();                            // key: item_id
+        private Dictionary<int, List<TutorialDialogue>> tutorialDialogueDic = new();               // key: tutorial_id
 
-        private void CustomizeSpecData()
-        {
-            # region SpecData Dictionary Cache
-            // Language - Unity Localization으로 대체됨 (LocalizationLoader 사용)
-
-            // DialogueLanguage
-            dialogueLanguageDic.Clear();
-            for (int i = 0; i < DialogueLanguage.All.Count; i++)
-            {
-                var dialogueLanguage = DialogueLanguage.All[i];
-                if (!dialogueLanguageDic.ContainsKey(dialogueLanguage.text_desc_token))
-                {
-                    dialogueLanguageDic.Add(dialogueLanguage.text_desc_token, dialogueLanguage);
-                }
-            }
-
-            // Chapter
-            chapterDic.Clear();
-            chapterDifficultDic.Clear();
-            for (int i = 0; i < ChapterInfo.All.Count; i++)
-            {
-                var chapter = ChapterInfo.All[i];
-                if (!chapterDic.TryGetValue(chapter.chapter_id, out List<ChapterInfo> chapterList))
-                {
-                    chapterList = new List<ChapterInfo>();
-                    chapterDic.Add(chapter.chapter_id, chapterList);
-                }
-                chapterList.Add(chapter);
-
-                if (!chapterDifficultDic.TryGetValue(chapter.difficulty_type, out List<ChapterInfo> chapterDifficultList))
-                {
-                    chapterDifficultList = new List<ChapterInfo>();
-                    chapterDifficultDic.Add(chapter.difficulty_type, chapterDifficultList);
-                }
-                chapterDifficultList.Add(chapter);
-            }
-
-            // Stage
-            stageChapterDic.Clear();
-            stageDifficultDic.Clear();
-            for (int i = 0; i < StageInfo.All.Count; i++)
-            {
-                var stage = StageInfo.All[i];
-                if (!stageChapterDic.TryGetValue(stage.chapter_id, out List<StageInfo> stageChapterList))
-                {
-                    stageChapterList = new List<StageInfo>();
-                    stageChapterDic.Add(stage.chapter_id, stageChapterList);
-                }
-                stageChapterList.Add(stage);
-
-                if (!stageDifficultDic.TryGetValue(stage.difficulty_type, out List<StageInfo> stageDiffcultList))
-                {
-                    stageDiffcultList = new List<StageInfo>();
-                    stageDifficultDic.Add(stage.difficulty_type, stageDiffcultList);
-                }
-                stageDiffcultList.Add(stage);
-            }
-
-            // Stage Monster
-            stageMonsterDic.Clear();
-            for (int i = 0; i < StageMonster.All.Count; i++)
-            {
-                var stage = StageMonster.All[i];
-                if (!stageMonsterDic.TryGetValue(stage.chapter_id, out List<StageMonster> specStageMonster))
-                {
-                    specStageMonster = new List<StageMonster>();
-                    stageMonsterDic.Add(stage.chapter_id, specStageMonster);
-                }
-
-                specStageMonster.Add(stage);
-            }
-
-            // Stage Reward
-            stageRewardDic.Clear();
-            for (int i = 0; i < StageReward.All.Count; i++)
-            {
-                var stage = StageReward.All[i];
-                if (!stageRewardDic.TryGetValue(stage.reward_id, out List<StageReward> specStageReward))
-                {
-                    specStageReward = new List<StageReward>();
-                    stageRewardDic.Add(stage.reward_id, specStageReward);
-                }
-
-                specStageReward.Add(stage);
-            }
-
-            // Game Config
-            configDic.Clear();
-            for (int i = 0; i < ConfigGame.All.Count; i++)
-            {
-                var config = ConfigGame.All[i];
-                if (!configDic.ContainsKey(config.config_key))
-                {
-                    configDic.Add(config.config_key, config);
-                }
-            }
-
-            // Skill
-            skillDic.Clear();
-            skillPrefabIDDic.Clear();
-            for (int i = 0; i < SkillActive.All.Count; i++)
-            {
-                var skill = SkillActive.All[i];
-                // skillDic
-                if (!skillDic.TryGetValue(skill.skill_group_id, out List<SkillActive> skillList1))
-                {
-                    skillList1 = new List<SkillActive>();
-                    skillDic.Add(skill.skill_group_id, skillList1);
-                }
-
-                skillList1.Add(skill);
-
-                // skillPrefabIDDic
-                if (!skillPrefabIDDic.TryGetValue(skill.prefab_id, out List<SkillActive> skillList2))
-                {
-                    skillList2 = new List<SkillActive>();
-                    skillPrefabIDDic.Add(skill.prefab_id, skillList2);
-                }
-
-                skillList2.Add(skill);
-            }
-
-            // Skill Passive
-            skillPassiveDic.Clear();
-            skillPassivePrefabIDDic.Clear();
-            for (int i = 0; i < SkillPassive.All.Count; i++)
-            {
-                var skillPassive = SkillPassive.All[i];
-                if (!skillPassiveDic.TryGetValue(skillPassive.passive_group_id, out List<SkillPassive> skillPassiveList))
-                {
-                    skillPassiveList = new List<SkillPassive>();
-                    skillPassiveDic.Add(skillPassive.passive_group_id, skillPassiveList);
-                }
-                skillPassiveList.Add(skillPassive);
-
-                if (!skillPassivePrefabIDDic.TryGetValue(skillPassive.prefab_id, out List<SkillPassive> skillPassiveList2))
-                {
-                    skillPassiveList2 = new List<SkillPassive>();
-                    skillPassivePrefabIDDic.Add(skillPassive.prefab_id, skillPassiveList2);
-                }
-                skillPassiveList2.Add(skillPassive);
-            }
-
-            // Dialogue History
-            dialogueHistoryDic.Clear();
-            for (int i = 0; i < DialogueLanguage.All.Count; i++)
-            {
-                var dialogue = DialogueLanguage.All[i];
-                if (!dialogueHistoryDic.TryGetValue(dialogue.dialogue_event_type, out Dictionary<string, int> dialogueHistory))
-                {
-                    dialogueHistory = new Dictionary<string, int>();
-                    dialogueHistoryDic.Add(dialogue.dialogue_event_type, dialogueHistory);
-                }
-                else if (dialogueHistory.ContainsKey(dialogue.sub_key_value) == false)
-                {
-                    dialogueHistory.Add(dialogue.sub_key_value, dialogue.dialouge_group_id);
-                }
-            }
-
-            // InGameVfx
-            inGameVfxDic.Clear();
-            for (int i = 0; i < InGameVfxMap.All.Count; i++)
-            {
-                var inGameVfx = InGameVfxMap.All[i];
-                if (!inGameVfxDic.ContainsKey(inGameVfx.vfx_name_type))
-                {
-                    inGameVfxDic.Add(inGameVfx.vfx_name_type, inGameVfx);
-                }
-            }
-
-            // synergyElementDic Dic
-            synergyDic.Clear();
-
-            // SynergyElemental과 SynergyStarAsterism을 통합 처리하며, 처음부터 필터링
-            for (int i = 0; i < SynergyElemental.All.Count; i++)
-            {
-                var synergy = SynergyElemental.All[i];
-                ISpecSynergyData synergyData = synergy;
-                // 유효한 시너지만 추가 (모든 effect_value_type이 NONE이 아닌 경우)
-                if (synergyData.effect_value_type_1 != SkillValueType.NONE ||
-                    synergyData.effect_value_type_2 != SkillValueType.NONE ||
-                    synergyData.effect_value_type_3 != SkillValueType.NONE)
-                {
-                    if (!synergyDic.TryGetValue(synergy.synergy_type, out var list))
-                    {
-                        list = new List<ISpecSynergyData>();
-                        synergyDic[synergy.synergy_type] = list;
-                    }
-                    list.Add(synergyData);
-                }
-            }
-
-            for (int i = 0; i < SynergyStarAsterism.All.Count; i++)
-            {
-                var synergy = SynergyStarAsterism.All[i];
-                ISpecSynergyData synergyData = synergy;
-                // 유효한 시너지만 추가 (모든 effect_value_type이 NONE이 아닌 경우)
-                if (synergyData.effect_value_type_1 != SkillValueType.NONE ||
-                    synergyData.effect_value_type_2 != SkillValueType.NONE ||
-                    synergyData.effect_value_type_3 != SkillValueType.NONE)
-                {
-                    if (!synergyDic.TryGetValue(synergy.synergy_type, out var list))
-                    {
-                        list = new List<ISpecSynergyData>();
-                        synergyDic[synergy.synergy_type] = list;
-                    }
-                    list.Add(synergyData);
-                }
-            }
-
-
-            // skillJobDic Dic
-            skillJobDic.Clear();
-            for (int i = 0; i < SkillJob.All.Count; i++)
-            {
-                var skillJob = SkillJob.All[i];
-                if (!skillJobDic.TryGetValue(skillJob.passive_skill_type, out var list))
-                {
-                    list = new List<SkillJob>();
-                    skillJobDic.Add(skillJob.passive_skill_type, list);
-                }
-                list.Add(skillJob);
-            }
-
-            // Commander Skill Dic
-            commanderSkillDic.Clear();
-            for (int i = 0; i < SkillCommander.All.Count; i++)
-            {
-                var commanderSkill = SkillCommander.All[i];
-                if (!commanderSkillDic.TryGetValue(commanderSkill.commander_skill_id, out var list))
-                {
-                    list = new List<SkillCommander>();
-                    commanderSkillDic.Add(commanderSkill.commander_skill_id, list);
-                }
-                list.Add(commanderSkill);
-            }
-
-            #endregion
-
-            // TutorialDialogue
-            tutorialDialogueDic.Clear();
-            for (int i = 0; i < TutorialDialogue.All.Count; i++)
-            {
-                var tutorialDialogue = TutorialDialogue.All[i];
-                if (!tutorialDialogueDic.TryGetValue(tutorialDialogue.tutorial_id, out var list))
-                {
-                    list = new List<TutorialDialogue>();
-                    tutorialDialogueDic.Add(tutorialDialogue.tutorial_id, list);
-                }
-                list.Add(tutorialDialogue);
-            }
-        }
-
-        private void InitializeItemTableKeyMap()
-        {
-            if (isItemTableKeyMapInitialized) return;
-
-            itemTableKeyMap.Clear();
-
-            for (int i = 0; i < ItemCurrencyTable.All.Count; i++)
-            {
-                var item = ItemCurrencyTable.All[i];
-                if (!itemTableKeyMap.ContainsKey(item.currency_id))
-                {
-                    itemTableKeyMap.Add(item.currency_id, item);
-                }
-            }
-
-            for (int i = 0; i < ItemConsumableTable.All.Count; i++)
-            {
-                var item = ItemConsumableTable.All[i];
-                if (!itemTableKeyMap.ContainsKey(item.item_id))
-                {
-                    itemTableKeyMap.Add(item.item_id, item);
-                }
-            }
-
-            for (int i = 0; i < ItemMaterialTable.All.Count; i++)
-            {
-                var item = ItemMaterialTable.All[i];
-                if (!itemTableKeyMap.ContainsKey(item.item_id))
-                {
-                    itemTableKeyMap.Add(item.item_id, item);
-                }
-            }
-
-            isItemTableKeyMapInitialized = true;
-        }
 
         public T GetGameConfig<T>(string key)
         {
+            EnsureConfigCache();
             if (!configDic.TryGetValue(key, out var configData))
             {
                 return default;
@@ -418,6 +125,14 @@ namespace CookApps.AutoBattler
                     result.Add(character);
             }
             return result;
+        }
+
+        public List<CharacterInfo> GetCharacterListBySynergyType(SynergyType synergyType)
+        {
+            EnsureCharacterBySynergyCache();
+            return charactersBySynergyDic.TryGetValue(synergyType, out var result)
+                ? result
+                : _reusableEmptyCharacterList;
         }
 
         public CharacterLevelExp GetCharacterNextExceedLevelExpData(uint exceedCount)
@@ -503,6 +218,7 @@ namespace CookApps.AutoBattler
 
         public ChapterInfo GetChapterData(int chapterID, DifficultyType type)
         {
+            EnsureChapterCache();
             if (chapterDic.TryGetValue(chapterID, out List<ChapterInfo> chapterList))
             {
                 return chapterList.Find(data => data.difficulty_type == type);
@@ -513,6 +229,7 @@ namespace CookApps.AutoBattler
 
         public ChapterInfo GetChapterDataByStageID(int stageID)
         {
+            EnsureChapterCache();
             var specStage = GetStageData(stageID);
             if (specStage != null)
             {
@@ -523,7 +240,6 @@ namespace CookApps.AutoBattler
                         if (data.difficulty_type == specStage.difficulty_type)
                             return data;
                     }
-                    return null;
                 }
             }
 
@@ -532,6 +248,7 @@ namespace CookApps.AutoBattler
 
         public List<ChapterInfo> GetChapterList(DifficultyType difficulty)
         {
+            EnsureChapterCache();
             if (chapterDifficultDic.TryGetValue(difficulty, out List<ChapterInfo> chapterList))
             {
                 return chapterList;
@@ -542,6 +259,7 @@ namespace CookApps.AutoBattler
 
         public int GetTotalChapterStarCount(int chapterID, DifficultyType type)
         {
+            EnsureStageCache();
             int totalStarCount = 0;
 
             int stageStarCount = GetGameConfig<int>("max_stage_star_count");
@@ -574,6 +292,7 @@ namespace CookApps.AutoBattler
 
         public List<TutorialDialogue> GetTutorialDialogueList(int tutorialID)
         {
+            EnsureTutorialDialogueCache();
             if (tutorialDialogueDic.TryGetValue(tutorialID, out List<TutorialDialogue> tutorialDialogueList))
             {
                 return tutorialDialogueList;
@@ -584,6 +303,7 @@ namespace CookApps.AutoBattler
 
         public int GetDialgueGroupIDByEventType(DialogueEventType eventType, string subKeyValue)
         {
+            EnsureDialogueHistoryCache();
             int result = 0;
 
             if (dialogueHistoryDic.TryGetValue(eventType, out Dictionary<string, int> dialogueHistory))
@@ -607,6 +327,7 @@ namespace CookApps.AutoBattler
 
         public StageInfo GetStageData(int chapterID, int stageNumber, DifficultyType type)
         {
+            EnsureStageCache();
             if (stageChapterDic.TryGetValue(chapterID, out List<StageInfo> stageList))
             {
                 foreach (var stage in stageList)
@@ -614,7 +335,6 @@ namespace CookApps.AutoBattler
                     if (stage.stage_number == stageNumber && stage.difficulty_type == type)
                         return stage;
                 }
-                return null;
             }
 
             return null;
@@ -622,6 +342,7 @@ namespace CookApps.AutoBattler
 
         public StageInfo GetStageData(int chapterID, DifficultyType difficultyType, StageType stageType)
         {
+            EnsureStageCache();
             if (stageChapterDic.TryGetValue(chapterID, out List<StageInfo> stageList))
             {
                 foreach (var stage in stageList)
@@ -629,7 +350,6 @@ namespace CookApps.AutoBattler
                     if (stage.difficulty_type == difficultyType && stage.stage_type == stageType)
                         return stage;
                 }
-                return null;
             }
 
             return null;
@@ -638,6 +358,7 @@ namespace CookApps.AutoBattler
 
         public List<StageInfo> GetStageList(int chapter, DifficultyType difficulty)
         {
+            EnsureStageCache();
             if (stageChapterDic.TryGetValue(chapter, out List<StageInfo> stageList))
             {
                 var result = new List<StageInfo>();
@@ -652,38 +373,9 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        // 타겟 스테이지 아래의 모든 스테이지 리스트 반환
-        public List<StageInfo> GetPrevStageList(int targetStageID)
-        {
-            StageInfo targetStageData = GetStageData(targetStageID);
-            if (targetStageData == null) return null;
-
-            List<StageInfo> resultStageList = new List<StageInfo>();
-
-            var targetChapterData = GetChapterDataByStageID(targetStageID);
-            if (targetChapterData == null) return null;
-
-            List<StageInfo> totalStageList = new();
-            for (int chapter = 1; chapter <= targetStageData.chapter_id; chapter++)
-            {
-                var stageList = GetStageList(chapter, targetStageData.difficulty_type);
-                totalStageList.AddRange(stageList);
-            }
-
-            foreach (var stage in totalStageList)
-            {
-                if (stage.chapter_id < targetStageData.chapter_id ||
-                    (stage.chapter_id == targetStageData.chapter_id && stage.stage_number <= targetStageData.stage_number))
-                {
-                    resultStageList.Add(stage);
-                }
-            }
-
-            return resultStageList;
-        }
-
         public int GetStageCount(int chapter, DifficultyType difficulty)
         {
+            EnsureStageCache();
             if (stageChapterDic.TryGetValue(chapter, out List<StageInfo> stageList))
             {
                 int count = 0;
@@ -701,7 +393,7 @@ namespace CookApps.AutoBattler
         // 해당 챕터의 마지막 스테이지 데이터 반환
         public StageInfo GetLastStageData(int chapterID, DifficultyType difficulty)
         {
-            Debug.LogColor($"GetLastStageData chapterID: {chapterID}, difficulty: {difficulty}");
+            EnsureStageCache();
             if (stageChapterDic.TryGetValue(chapterID, out List<StageInfo> stageList))
             {
                 var targetStageList = new List<StageInfo>();
@@ -726,20 +418,6 @@ namespace CookApps.AutoBattler
             }
 
             return null;
-        }
-
-        // 가장 마지막 스테이지 데이터 반환
-        public StageInfo GetEndStage()
-        {
-            int lastChapterData = 0;
-            for (int i = 0; i < ChapterInfo.All.Count; i++)
-            {
-                var chapter = ChapterInfo.All[i];
-                if (chapter.chapter_id > lastChapterData)
-                    lastChapterData = chapter.chapter_id;
-            }
-
-            return GetLastStageData(lastChapterData, DifficultyType.NORMAL);
         }
 
         // 해당 스테이지 데이터 기준 다음 스테이지 정보 반환
@@ -768,31 +446,9 @@ namespace CookApps.AutoBattler
             return resultData;
         }
 
-        // 해당 스테이지가 마지막 스테이지인지 체크
-        public bool IsLastStage(int stageID)
-        {
-            StageInfo stageSpecData = GetStageData(stageID);
-            StageInfo nextStageSpecData = GetStageData(stageSpecData.chapter_id, stageSpecData.stage_number + 1, stageSpecData.difficulty_type);
-
-            return nextStageSpecData == null;
-        }
-
-        public StageMonster GetStageMonsterData(int chapterID, int stageNumber, DifficultyType type)
-        {
-            if (stageMonsterDic.TryGetValue(chapterID, out List<StageMonster> stageMonster))
-            {
-                foreach (var s in stageMonster)
-                {
-                    if (s.stage_number == stageNumber && s.difficulty_type == type)
-                        return s;
-                }
-            }
-
-            return null;
-        }
-
         public List<StageMonster> GetStageMonsterList(int chapter, int stageNumber, DifficultyType difficulty)
         {
+            EnsureStageMonsterCache();
             if (stageMonsterDic.TryGetValue(chapter, out List<StageMonster> stageMonster))
             {
                 var result = new List<StageMonster>();
@@ -815,18 +471,6 @@ namespace CookApps.AutoBattler
             {
                 var data = IdleReward.All[i];
                 if (data.chapter_id <= chapterID)
-                    result.Add(data);
-            }
-            return result;
-        }
-
-        public List<RewardInfo> GetSpecRewardInfoList(int rewardID)
-        {
-            var result = new List<RewardInfo>();
-            for (int i = 0; i < RewardInfo.All.Count; i++)
-            {
-                var data = RewardInfo.All[i];
-                if (data.reward_id == rewardID)
                     result.Add(data);
             }
             return result;
@@ -872,49 +516,21 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        // 스테이지 보상 데이터를 RewardItem 리스트로 변환
-        public List<RewardItem> GetRewardItemListByStageRewardList(List<StageReward> stageRewardList)
-        {
-            List<RewardItem> rewardItemList = new List<RewardItem>();
-            foreach (var stageReward in stageRewardList)
-            {
-                // ItemType의 삭제로 인해 변경.(new RewardItem(stageReward.item_type, stageReward.item_key, stageReward.item_count))
-                rewardItemList.Add(new RewardItem(stageReward.item_id, stageReward.item_count));
-            }
-
-            return rewardItemList;
-        }
-
-        // 리워드 인포 데이터를 RewardItem 리스트로 변환
-        public List<RewardItem> GetRewardItemListByRewadInfoList(List<RewardInfo> rewardInfoList)
-        {
-            List<RewardItem> rewardItemList = new List<RewardItem>();
-            foreach (var rewardInfo in rewardInfoList)
-            {
-                // ItemType의 삭제로 인해 변경.(new RewardItem(rewardInfo.item_type, rewardInfo.item_key, rewardInfo.item_count))
-                rewardItemList.Add(new RewardItem(rewardInfo.item_id, rewardInfo.item_count));
-            }
-
-            return rewardItemList;
-        }
-
-        public List<RewardItem> GetChestList(int chestId)
-        {
-            return chestDic.GetValueOrDefault(chestId);
-        }
-
         public List<SkillActive> GetSkillDataList(long skillID)
         {
+            EnsureSkillCache();
             return skillDic.GetValueOrDefault(skillID);
         }
 
         public List<SkillPassive> GetSkillPassiveDataList(long passiveSkillID)
         {
+            EnsureSkillPassiveCache();
             return skillPassiveDic.GetValueOrDefault(passiveSkillID);
         }
 
         public List<SkillActive> GetSkillDataListByPrefabID(int prefabID)
         {
+            EnsureSkillCache();
             return skillPrefabIDDic.GetValueOrDefault(prefabID);
         }
 
@@ -931,11 +547,13 @@ namespace CookApps.AutoBattler
 
         public List<SkillPassive> GetSkillPassiveDataList(int passiveGroupID)
         {
+            EnsureSkillPassiveCache();
             return skillPassiveDic.GetValueOrDefault(passiveGroupID);
         }
 
         public List<SkillPassive> GetSkillPassiveDataListByPrefabID(int prefabID)
         {
+            EnsureSkillPassiveCache();
             return skillPassivePrefabIDDic.GetValueOrDefault(prefabID);
         }
 
@@ -961,36 +579,6 @@ namespace CookApps.AutoBattler
             }
             return result;
         }
-
-        public List<SkillCommander> GetCommanderSkillIncludeList(int chapterID)
-        {
-            var result = new List<SkillCommander>();
-            for (int i = 0; i < SkillCommander.All.Count; i++)
-            {
-                var data = SkillCommander.All[i];
-                if (data.open_key_chapter_id <= chapterID)
-                    result.Add(data);
-            }
-            return result;
-        }
-
-        // public int GetFirstCommanderSkillChapter()
-        // {
-        //     int minChapterID = int.MaxValue;
-        //     for (int i = 0; i < SkillCommander.All.Count; i++)
-        //     {
-        //         var data = SkillCommander.All[i];
-        //         if (data.open_key_chapter_id < minChapterID)
-        //             minChapterID = data.open_key_chapter_id;
-        //     }
-        //     int openChapterID = minChapterID - 1;
-
-        //     if (stageChapterDic.TryGetValue(GuideMissionConstants.커맨더스킬_익스플로젼_연출가이드수령챕터, out List<StageInfo> stageList) && stageList.Count > 0)
-        //     {
-        //         return stageList[stageList.Count - 1].stage_id;
-        //     }
-        //     return 0;
-        // }
 
         public List<SkillCommander> GetCommanderSkillDataList(int commanderSkillID)
         {
@@ -1065,92 +653,6 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        public int GetLeftCharacterID(int characterID, CharacterType characterType)
-        {
-            var targetCharacterList = new List<CharacterInfo>();
-            for (int i = 0; i < CharacterInfo.All.Count; i++)
-            {
-                var c = CharacterInfo.All[i];
-                if (c.character_type == characterType)
-                    targetCharacterList.Add(c);
-            }
-
-            if (targetCharacterList.Count == 0) return characterID;
-
-            int idx = -1;
-            for (int i = 0; i < targetCharacterList.Count; i++)
-            {
-                if (targetCharacterList[i].id == characterID)
-                {
-                    idx = i;
-                    break;
-                }
-            }
-
-            if (idx < 0)
-                return targetCharacterList[0].id; // 못 찾으면 첫 번째로
-
-            int leftIdx = (idx == 0) ? targetCharacterList.Count - 1 : idx - 1;
-            return targetCharacterList[leftIdx].id;
-        }
-
-        public int GetRightCharacterID(int characterID, CharacterType characterType)
-        {
-            var targetCharacterList = new List<CharacterInfo>();
-            for (int i = 0; i < CharacterInfo.All.Count; i++)
-            {
-                var c = CharacterInfo.All[i];
-                if (c.character_type == characterType)
-                    targetCharacterList.Add(c);
-            }
-
-            if (targetCharacterList.Count == 0) return characterID;
-
-            int idx = -1;
-            for (int i = 0; i < targetCharacterList.Count; i++)
-            {
-                if (targetCharacterList[i].id == characterID)
-                {
-                    idx = i;
-                    break;
-                }
-            }
-
-            if (idx < 0)
-                return targetCharacterList[0].id;
-
-            int rightIdx = (idx == targetCharacterList.Count - 1) ? 0 : idx + 1;
-            return targetCharacterList[rightIdx].id;
-        }
-
-        public int GetLeftOwnedCharacterId(int startCharacterID) => GetNextOwnedCharacterId(startCharacterID, true);
-
-        public int GetRightOwnedCharacterId(int startCharacterID) => GetNextOwnedCharacterId(startCharacterID, false);
-
-        private int GetNextOwnedCharacterId(int startCharacterID, bool isLeft )
-        {
-            int currentID = startCharacterID;
-            int nextID;
-
-            do
-            {
-                nextID = isLeft
-                    ? SpecDataManager.Instance.GetLeftCharacterID(currentID, CharacterType.CHARACTER)
-                    : SpecDataManager.Instance.GetRightCharacterID(currentID, CharacterType.CHARACTER);
-
-                if (ServerDataManager.Instance.Character.HasCharacter(nextID))
-                {
-                    return nextID;
-                }
-
-                currentID = nextID;
-            }
-            while (nextID != startCharacterID);
-
-            // 한 바퀴 돌아서 보유 캐릭터를 찾지 못함
-            return -1;
-        }
-
         public AccountLevelExp GetAccountLevelExpDataByLevel(int level)
         {
             for (int i = 0; i < AccountLevelExp.All.Count; i++)
@@ -1207,18 +709,6 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        public List<GuideMissionInfo> GetGuideMissionDataList(int order)
-        {
-            var result = new List<GuideMissionInfo>();
-            for (int i = 0; i < GuideMissionInfo.All.Count; i++)
-            {
-                var data = GuideMissionInfo.All[i];
-                if (data.order <= order)
-                    result.Add(data);
-            }
-            return result;
-        }
-
         // 가이드 미션 order 최대치 반환
         public int GetGuideMissionMaxOrder()
         {
@@ -1234,6 +724,7 @@ namespace CookApps.AutoBattler
 
         public List<StageReward> GetSpecStageReward(int rewardID)
         {
+            EnsureStageRewardCache();
             if (stageRewardDic.TryGetValue(rewardID, out List<StageReward> stageRewardList))
             {
                 return stageRewardList;
@@ -1244,11 +735,13 @@ namespace CookApps.AutoBattler
 
         public InGameVfxMap GetInGameVfxData(InGameVfxNameType vfxNameType)
         {
+            EnsureInGameVfxCache();
             return inGameVfxDic.GetValueOrDefault(vfxNameType);
         }
 
         public List<ISpecSynergyData> GetSpecSynergyList(SynergyType synergyType)
         {
+            EnsureSynergyCache();
             if (synergyDic.TryGetValue(synergyType, out List<ISpecSynergyData> synergyList))
             {
                 return synergyList;
@@ -1325,19 +818,6 @@ namespace CookApps.AutoBattler
             return passiveList;
         }
 
-
-
-        public QuestInfo GetSpecQuestData(int questID)
-        {
-            for (int i = 0; i < QuestInfo.All.Count; i++)
-            {
-                var data = QuestInfo.All[i];
-                if (data.quest_id == questID)
-                    return data;
-            }
-            return null;
-        }
-
         public List<QuestInfo> GetSpecQuestList(TermType termType, bool isIncludeMilestone)
         {
             var result = new List<QuestInfo>();
@@ -1356,18 +836,6 @@ namespace CookApps.AutoBattler
                         result.Add(data);
                     }
                 }
-            }
-            return result;
-        }
-
-        public List<QuestInfo> GetSpecQuestList(QuestType questType)
-        {
-            var result = new List<QuestInfo>();
-            for (int i = 0; i < QuestInfo.All.Count; i++)
-            {
-                var data = QuestInfo.All[i];
-                if (data.quest_type == questType)
-                    result.Add(data);
             }
             return result;
         }
@@ -1395,17 +863,6 @@ namespace CookApps.AutoBattler
             return null;
         }
 
-        public EventInfo GetSpecEventData(EventType eventType)
-        {
-            for (int i = 0; i < EventInfo.All.Count; i++)
-            {
-                var data = EventInfo.All[i];
-                if (data.event_type == eventType)
-                    return data;
-            }
-            return null;
-        }
-
         public List<EventInfo> GetSpecEventList(EventType eventType)
         {
             var result = new List<EventInfo>();
@@ -1413,18 +870,6 @@ namespace CookApps.AutoBattler
             {
                 var data = EventInfo.All[i];
                 if (data.event_type == eventType)
-                    result.Add(data);
-            }
-            return result;
-        }
-
-        public List<EventInfo> GetSpecEventList(TermType termType)
-        {
-            var result = new List<EventInfo>();
-            for (int i = 0; i < EventInfo.All.Count; i++)
-            {
-                var data = EventInfo.All[i];
-                if (data.term_type == termType)
                     result.Add(data);
             }
             return result;
@@ -1564,18 +1009,6 @@ namespace CookApps.AutoBattler
             return result;
         }
 
-        public List<DungeonBabelInfo> GetSpecDungeonTrialDataListByStageStar(int stageStar)
-        {
-            var result = new List<DungeonBabelInfo>();
-            for (int i = 0; i < DungeonBabelInfo.All.Count; i++)
-            {
-                var data = DungeonBabelInfo.All[i];
-                if (data.need_star <= stageStar)
-                    result.Add(data);
-            }
-            return result;
-        }
-
         public List<DungeonBabelMonster> GetSpecDungeonMonsterDataList(DungeonType dungeonType, int dungeonID)
         {
             var result = new List<DungeonBabelMonster>();
@@ -1625,18 +1058,6 @@ namespace CookApps.AutoBattler
             return result;
         }
 
-        public List<ShopInfo> GetShopDataList(ShopMainGroupType mainGroupType, ShopSubGroupType subGroupType)
-        {
-            var result = new List<ShopInfo>();
-            for (int i = 0; i < ShopInfo.All.Count; i++)
-            {
-                var data = ShopInfo.All[i];
-                if (data.shop_main_group_type == mainGroupType && data.shop_sub_group_type == subGroupType)
-                    result.Add(data);
-            }
-            return result;
-        }
-
         public ShopBanner GetShopBannerData(int shopID)
         {
             for (int i = 0; i < ShopBanner.All.Count; i++)
@@ -1652,17 +1073,6 @@ namespace CookApps.AutoBattler
 
         #region Gacha
 
-        public GachaInfo GetGachaData(int gachaID)
-        {
-            for (int i = 0; i < GachaInfo.All.Count; i++)
-            {
-                var data = GachaInfo.All[i];
-                if (data.gacha_id == gachaID)
-                    return data;
-            }
-            return null;
-        }
-
         public GachaInfo GetGachaData(GachaType gachaType, int gachaCount)
         {
             for (int i = 0; i < GachaInfo.All.Count; i++)
@@ -1672,18 +1082,6 @@ namespace CookApps.AutoBattler
                     return data;
             }
             return null;
-        }
-
-        public List<GachaInfo> GetGachaDataList(GachaType gachaType)
-        {
-            var result = new List<GachaInfo>();
-            for (int i = 0; i < GachaInfo.All.Count; i++)
-            {
-                var data = GachaInfo.All[i];
-                if (data.gacha_type == gachaType)
-                    result.Add(data);
-            }
-            return result;
         }
 
         public List<GachaCharacter> GetGachaContentDataList(int gachaGroupID)
@@ -1698,120 +1096,8 @@ namespace CookApps.AutoBattler
             return result;
         }
 
-        // 가챠 항목에서 랜덤으로 아이템을 뽑아 갯수만큼 반환
-        public List<GachaCharacter> GetRandomPickGachaContentList(int gachaGroupID, int count)
-        {
-            List<GachaCharacter> resultList = new List<GachaCharacter>();
-
-            var targetList = GetGachaContentDataList(gachaGroupID);
-            if (targetList != null && targetList.Count > 0)
-            {
-                for (int i = 0; i < count; ++i)
-                {
-                    GachaCharacter selectedData = targetList.RandomRatePick(content => content.weight);
-                    resultList.Add(selectedData);
-                }
-            }
-
-            return resultList;
-        }
-
-        // 가챠 항목에서 랜덤으로 아이템을 뽑아 RewardItem 형태로 반환
-        public List<RewardItem> GetRandomPickGachaRewardItemList(int gachaGroupID, int count)
-        {
-            List<RewardItem> rewardItemList = new List<RewardItem>();
-
-            var targetList = GetGachaContentDataList(gachaGroupID);
-            if (targetList != null && targetList.Count > 0)
-            {
-                for (int i = 0; i < count; ++i)
-                {
-                    GachaCharacter selectedData = targetList.RandomRatePick(content => content.weight);
-                    if (selectedData != null)
-                    {
-                        // ItemType의 삭제로 인해 변경.(new RewardItem(selectedData.result_item_key, selectedData.result_item_count))
-                        rewardItemList.Add(new RewardItem(selectedData.result_item_key, selectedData.result_item_count));
-                    }
-                }
-            }
-
-            return rewardItemList;
-        }
-
-        // 가챠 결과 데이터를 RewardItem 리스트로 변환
-        public List<RewardItem> GetRewardItemListByGachaContentList(List<GachaCharacter> gachaContentList)
-        {
-            List<RewardItem> rewardItemList = new List<RewardItem>();
-            foreach (var gachaContent in gachaContentList)
-            {
-                // ItemType의 삭제로 인해 변경.(new RewardItem(gachaContent.result_item_key, gachaContent.result_item_count))
-                rewardItemList.Add(new RewardItem(gachaContent.result_item_key, gachaContent.result_item_count));
-            }
-
-            return rewardItemList;
-        }
-
-        // 시나리오 가챠 데이터 반환
-        public List<GachaScenario> GetGachaScenarioList(int currentCount, int gachaCount)
-        {
-            int maxCount = GachaScenario.All.Count;
-            int resultCount = currentCount + gachaCount > maxCount ? maxCount - currentCount : gachaCount;
-
-            var result = new List<GachaScenario>(resultCount);
-            for (int i = currentCount; i < currentCount + resultCount; i++)
-            {
-                result.Add(GachaScenario.All[i]);
-            }
-            return result;
-        }
-
-        // 시나리오 가챠 데이터를 RewardItem 리스트로 변환
-        public List<RewardItem> GetRewardItemListByGachaScenarioList(List<GachaScenario> gachaScenarioList)
-        {
-            List<RewardItem> rewardItemList = new List<RewardItem>();
-            foreach (var gachaScenario in gachaScenarioList)
-            {
-                // ItemType의 삭제로 인해 변경.(new RewardItem(gachaScenario.item_type, gachaScenario.item_key, gachaScenario.item_count))
-                rewardItemList.Add(new RewardItem(gachaScenario.item_id, gachaScenario.item_count));
-            }
-
-            return rewardItemList;
-        }
-
+       
         #endregion
-
-        // public List<SpecSynergy> GetInGameVfxData(InGameVfxNameType vfxNameType)
-        // {
-        //     return inGameVfxDic.GetValueOrDefault(vfxNameType);
-        // }
-        //
-        // public SpecInGameVfx GetInGameVfxData(InGameVfxNameType vfxNameType)
-        // {
-        //     return inGameVfxDic.GetValueOrDefault(vfxNameType);
-        // }
-        public bool GetIsOpenCondition(OpenConditionType conditionType)
-        {
-            var guideMission = ServerDataManager.Instance.GuideMission;
-
-            // 모든 가이드 미션 클리어 체크
-            if (guideMission.IsAllCompleted)
-            {
-                return true;
-            }
-
-            int currMissionID = (int)guideMission.GuideMissionId;
-            OpenCondition openCondition = null;
-            for (int i = 0; i < OpenCondition.All.Count; i++)
-            {
-                var l = OpenCondition.All[i];
-                if (l.open_condition_Type == conditionType)
-                {
-                    openCondition = l;
-                    break;
-                }
-            }
-            return openCondition != null && openCondition.guide_mission_id <= currMissionID;
-        }
 
         public ImageInfo GetImageInfoData(int infoID)
         {

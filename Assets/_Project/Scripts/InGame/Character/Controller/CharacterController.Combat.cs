@@ -15,11 +15,9 @@ namespace CookApps.BattleSystem
         {
             None = 0,
             SkipAvoidTest = 1 << 0,           // 회피 테스트 스킵
-            SkipElementAdvantage = 1 << 1,    // 속성 상성 계산 스킵
-            SkipBlockingTest = 1 << 2,        // 블록 테스트 스킵
-            SkipCriticalTest = 1 << 3,        // 크리티컬 테스트 스킵
-            SkipResistPierce = 1 << 4,        // 저항 관통 테스트 스킵
-            SkipLevelDiffMul = 1 << 5,         // 레벨 차이 계산 스킵
+            SkipCriticalTest = 1 << 1,        // 크리티컬 테스트 스킵
+            SkipResistPierce = 1 << 2,        // 저항 관통 테스트 스킵
+            SkipLevelDiffMul = 1 << 3,         // 레벨 차이 계산 스킵
         }
 
         public struct DamageInfo
@@ -30,9 +28,6 @@ namespace CookApps.BattleSystem
             public bool isCritical;
             public bool isDoubleCritical;
             public bool isMissed;// 회피테스트 성공여부
-            public bool isBlocked;// 블록테스트 성공여부
-
-            public ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult;
             public long source;
 
             // // 데미지 계산 히스토리 (각 단계별 데미지 변경 추적)
@@ -49,31 +44,11 @@ namespace CookApps.BattleSystem
                     isAD = isAD,
                     isCritical = isCritical,
                     isDoubleCritical = isDoubleCritical,
-                    isBlocked = false,
                     isMissed = false,
-                    // calculationHistory = new List<DamageCalculationStep>()
                 };
             }
         }
 
-        // 데미지 계산 단계 정보
-        // public struct DamageCalculationStep
-        // {
-        //     public string stepName;           // 단계 이름
-        //     public double damageBefore;       // 변경 전 데미지
-        //     public double damageAfter;        // 변경 후 데미지
-        //     public string description;        // 변경 사유/설명
-        //     public double multiplier;         // 적용된 배율 (있는 경우)
-
-        //     public DamageCalculationStep(string stepName, double damageBefore, double damageAfter, string description, double multiplier = 1.0)
-        //     {
-        //         this.stepName = stepName;
-        //         this.damageBefore = damageBefore;
-        //         this.damageAfter = damageAfter;
-        //         this.description = description;
-        //         this.multiplier = multiplier;
-        //     }
-        // }
 
         /// <summary>
         /// 데미지 계산해서 벹는함수.
@@ -101,7 +76,6 @@ namespace CookApps.BattleSystem
             //ad ap로 데미지 1차 결정
             double initialDamage = damageInfo.isAD ? ad : ap;
             damageInfo.damageAmount = initialDamage;
-            AddDamageHistory(ref damageInfo, "초기 데미지", initialDamage, initialDamage, $"기본 {(damageInfo.isAD ? "AD" : "AP")} 데미지");
 
             if (initialDamage <= 0)
             {
@@ -111,86 +85,21 @@ namespace CookApps.BattleSystem
             if (isSkill)
             {
                 //스킬이라면 스킬데미지 계수 적용
-                double beforeSkill = damageInfo.damageAmount.Value;
                 damageInfo.damageAmount *= SkillDamageRate;
-                AddDamageHistory(ref damageInfo, "스킬 데미지 계수", beforeSkill, damageInfo.damageAmount.Value,
-                    $"스킬 데미지 계수 적용 (x{SkillDamageRate})", SkillDamageRate);
             }
 
             if (target.AllianceType == AllianceType.Neutral)
                 return damageInfo;
 
-            // 회피 테스트 진행 (스킬이 아니고 스킵 플래그가 없을 때만)
-            if (!isSkill && (skipTests & DamageTestFlags.SkipAvoidTest) == 0)
+            if ((skipTests & DamageTestFlags.SkipCriticalTest) == 0)
             {
-                double beforeAvoid = damageInfo.damageAmount.Value;
-                ProgressAvoidTest(ref damageInfo, target);
-                if (damageInfo.isMissed)
-                {
-                    AddDamageHistory(ref damageInfo, "회피 테스트", beforeAvoid, 0, "회피 성공 - 데미지 0");
-                    //미스 시 데미지 0으로 처리 + 바로 리턴
-                    return damageInfo;
-                }
-                else
-                {
-                    AddDamageHistory(ref damageInfo, "회피 테스트", beforeAvoid, damageInfo.damageAmount.Value, "회피 실패 - 명중");
-                }
-            }
-
-            //블록 테스트 진행
-            if ((skipTests & DamageTestFlags.SkipBlockingTest) == 0)
-            {
-                double beforeBlock = damageInfo.damageAmount.Value;
-                ProgressBlockingTest(ref damageInfo, target);
-                if (damageInfo.isBlocked)
-                {
-                    AddDamageHistory(ref damageInfo, "블록 테스트", beforeBlock, damageInfo.damageAmount.Value,
-                        "블록 성공 - 데미지 50% 감소", 0.5);
-                }
-                else
-                {
-                    AddDamageHistory(ref damageInfo, "블록 테스트", beforeBlock, damageInfo.damageAmount.Value, "블록 실패");
-
-                    //원래 로직: 블록 성공 시 크리티컬 체크 (크리티컬 테스트 스킵 플래그가 없을 때만)
-                    if ((skipTests & DamageTestFlags.SkipCriticalTest) == 0)
-                    {
-                        double beforeCritical = damageInfo.damageAmount.Value;
-                        ProgressCriticalTest(ref damageInfo);
-                        if (damageInfo.isCritical)
-                        {
-                            double criticalRate = damageInfo.isDoubleCritical ? CriticalDamageRate * DoubleCriticalDamageRate : CriticalDamageRate;
-                            AddDamageHistory(ref damageInfo, "크리티컬 테스트", beforeCritical, damageInfo.damageAmount.Value,
-                                damageInfo.isDoubleCritical ? $"더블 크리티컬! (x{criticalRate})" : $"크리티컬! (x{CriticalDamageRate})", criticalRate);
-                        }
-                    }
-
-                    //속성 상성 데미지 계산
-                    if ((skipTests & DamageTestFlags.SkipElementAdvantage) == 0)
-                    {
-                        double beforeElement = damageInfo.damageAmount.Value;
-                        CalculateElementAdvantageDamage(ref damageInfo, target);
-                        if (Math.Abs(beforeElement - damageInfo.damageAmount.Value) > 0.001)
-                        {
-                            double elementMultiplier = damageInfo.damageAmount.Value / beforeElement;
-                            AddDamageHistory(ref damageInfo, "속성 상성", beforeElement, damageInfo.damageAmount.Value,
-                                $"속성 상성 적용 (x{elementMultiplier:F3})", elementMultiplier);
-                        }
-                    }
-                }
+                ProgressCriticalTest(ref damageInfo);
             }
 
             //저항 관통 테스트
             if ((skipTests & DamageTestFlags.SkipResistPierce) == 0)
             {
-                double beforeResist = damageInfo.damageAmount.Value;
                 ProgressResistPierce(ref damageInfo, target);
-                if (Math.Abs(beforeResist - damageInfo.damageAmount.Value) > 0.001)
-                {
-                    double resistMultiplier = damageInfo.damageAmount.Value / beforeResist;
-                    string resistType = damageInfo.isAD ? "AD" : "AP";
-                    AddDamageHistory(ref damageInfo, "저항 관통", beforeResist, damageInfo.damageAmount.Value,
-                        $"{resistType} 저항 관통 적용 (x{resistMultiplier:F3})", resistMultiplier);
-                }
             }
 
             //레벨 차이 계산
@@ -198,102 +107,26 @@ namespace CookApps.BattleSystem
             {
                 var targetLevel = target.GetCharacterStat().Level;
                 var attackerLevel = GetCharacterStat().Level;
-                double beforeLevel = damageInfo.damageAmount.Value;
                 ProgressLevelDiffMul(ref damageInfo, targetLevel, attackerLevel);
-                if (Math.Abs(beforeLevel - damageInfo.damageAmount.Value) > 0.001)
-                {
-                    double levelMultiplier = damageInfo.damageAmount.Value / beforeLevel;
-                    AddDamageHistory(ref damageInfo, "레벨 차이", beforeLevel, damageInfo.damageAmount.Value,
-                        $"레벨 차이 적용 (공격자:{attackerLevel}, 타겟:{targetLevel}, x{levelMultiplier:F3})", levelMultiplier);
-                }
             }
 
             if (ecc != null)
             {
                 var effectCodes = ecc.GetCharacterEffectCodesByFlag(EffectCodeInheritFlag.UseModifyDamageAmount);
-                double beforeModify = damageInfo.damageAmount.Value;
                 damageInfo.damageAmount = EffectCodeForLoopHelper.Passing(effectCodes, EffectCodeCharacterLambda.CallModifyDamageAmountLambda,
                 damageInfo.damageAmount.Value);
-                if (Math.Abs(beforeModify - damageInfo.damageAmount.Value) > 0.001)
-                {
-                    double modifyMultiplier = damageInfo.damageAmount.Value / beforeModify;
-                    AddDamageHistory(ref damageInfo, "EffectCode 수정", beforeModify, damageInfo.damageAmount.Value,
-                        $"EffectCode ModifyDamageAmount 적용 (x{modifyMultiplier:F3})", modifyMultiplier);
-                }
             }
 
-            double beforeFloor = damageInfo.damageAmount.Value;
             damageInfo.damageAmount = Math.Floor(damageInfo.damageAmount);
-            if (Math.Abs(beforeFloor - damageInfo.damageAmount.Value) > 0.001)
-            {
-                AddDamageHistory(ref damageInfo, "Floor 처리", beforeFloor, damageInfo.damageAmount.Value, "소수점 버림 처리");
-            }
-
+            
             return damageInfo;
         }
-
-        // 데미지 히스토리 추가 헬퍼 함수
-        private void AddDamageHistory(ref DamageInfo damageInfo, string stepName, double damageBefore, double damageAfter, string description, double multiplier = 1.0)
-        {
-            // if (damageInfo.calculationHistory == null)
-            // {
-            //     damageInfo.calculationHistory = new List<DamageCalculationStep>();
-            // }
-            // damageInfo.calculationHistory.Add(new DamageCalculationStep(stepName, damageBefore, damageAfter, description, multiplier));
-        }
-
-        /// <summary>
-        /// 나의 명중률과 타겟의 회피율을 테스트해서 회피 성공 여부를 반환
-        /// false 시 miss
-        /// true 시 명중
-        /// </summary>
-        /// <param name="damageInfo"></param>
-        /// <param name="target"></param>
-        /// <returns></returns>
-        private void ProgressAvoidTest(ref DamageInfo damageInfo, CharacterController target)
-        {
-            //HitProb, AvoidProb는 성유물, 장비가 추가되면 바뀔수있음.
-            var hitProb = HitProb; // 나의 명중률
-            var avoidProb = target.AvoidProb; // 타겟의 회피율
-
-            var D = hitProb - avoidProb;
-            var HitChance = 0.9f + 0.2f * D;
-            HitChance = Mathf.Clamp(HitChance, 0.1f, 0.99f);
-            if (InGameRandomManager.GetUniversalRandomValue(0f, 100f) < HitChance * 100f)
-            {
-                //명중!
-
-                return;
-            }
-            else
-            {//명중률에서 탈락하면 그냥 미스처리.
-                damageInfo.isMissed = true;
-                damageInfo.damageAmount = 0d;
-                return;
-            }
-        }
-
-        private void ProgressBlockingTest(ref DamageInfo damageInfo, CharacterController target)
-        {
-            //타겟의 블록율로 블록율 테스트 
-            // 블록 성공시 데미지 50%감소
-            if (InGameRandomManager.GetUniversalRandomValue(0f, 100f) < target.BlockingProb * 100f)
-            {
-                damageInfo.damageAmount *= 0.5d;
-                damageInfo.isBlocked = true;
-            }
-            else
-            {
-                damageInfo.isBlocked = false;
-            }
-        }
+        
 
         private void ProgressCriticalTest(ref DamageInfo damageInfo)
         {
             if (CriticalTest())
             {
-                AddDamageHistory(ref damageInfo, "크리티컬 테스트", damageInfo.damageAmount.Value,
-                (_fixedCriticalProb + CriticalProb) * 100f, "크리티컬 성공", (_fixedCriticalProb + CriticalProb));
                 ApplyCriticalDamage(ref damageInfo);
             }
         }
@@ -336,15 +169,6 @@ namespace CookApps.BattleSystem
             damageInfo.damageAmount *= LevelMul;
         }
 
-        private void CalculateElementAdvantageDamage(ref DamageInfo damageInfo, CharacterController target = null)
-        {
-            damageInfo.elementAdvantageResult = ElementAdvantageHelper.ElementAdvantageResult.NONE;
-            if (target == null)
-                return;
-
-            damageInfo.elementAdvantageResult = ElementAdvantageHelper.CalculateElementAdvantageDamage(ref damageInfo.damageAmount, this.SpecCharacter.character_element_type,
-                                                                                        target.SpecCharacter.character_element_type);
-        }
 
         /// <summary>
         /// 실제로 대미지를 입히는 함수
@@ -402,14 +226,9 @@ namespace CookApps.BattleSystem
 
             if (!damageInfo.isMissed)
             {
-                if (damageInfo.isBlocked)
-                {
-                    ShowBlockText(damageAmount.damageAmount.Value).Forget();
-                }
-                else
-                {
-                    ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical, damageInfo.elementAdvantageResult).Forget();
-                }
+
+                ShowDamageText(damageAmount.damageAmount.Value, damageInfo.isCritical).Forget();
+                
             }
             else
             {
@@ -474,14 +293,6 @@ namespace CookApps.BattleSystem
                 {
                     ForceSetNextState<CharacterStateDead>();
 
-                    if (LobbyMain.GetLobbyMain() != null)
-                    {
-                        SpawnDropFx((targetLine) =>
-                        {
-                            if (targetLine != null)
-                                targetLine.Remove();
-                        });
-                    }
                 }
 
                 // 튜토리얼 CHARACTER_DEAD 트리거 처리 (Dead 상태 전환 후 처리)
@@ -580,8 +391,7 @@ namespace CookApps.BattleSystem
         }
 
 
-        private async UniTask ShowDamageText(double amount, bool isCritical,
-                                    ElementAdvantageHelper.ElementAdvantageResult elementAdvantageResult)
+        private async UniTask ShowDamageText(double amount, bool isCritical)
         {
             InGameTextView textView = InGameTextViewPool.Instance.Get();
             if (AllianceType != AllianceType.Player)
@@ -589,19 +399,9 @@ namespace CookApps.BattleSystem
                 textView.PlayDamageSound(isCritical);
             }
 
-            await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical, elementAdvantageResult);
+            await textView.ShowDamageText(GetCharacterView().CachedTr.position, _statData.Spec.height, amount, isCritical);
         }
 
-        private async UniTask ShowBlockText(double damage)
-        {
-            InGameTextView textView = InGameTextViewPool.Instance.Get();
-            if (AllianceType != AllianceType.Player)
-            {
-                textView.PlayDamageSound(false);
-            }
-
-            await textView.ShowBlockText(GetCharacterView().CachedTr.position, _statData.Spec.height, damage);
-        }
 
         private async UniTask ShowHealText(double amount)
         {

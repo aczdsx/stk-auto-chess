@@ -183,7 +183,7 @@ public class InGameTopUI : MonoBehaviour
                         var nextData = outSynergyList[0];
                         TrySetSynergyUI(() =>
                             _synergyUIList[uiIndex].SetSynergy(synergyCountData.Type, synergyCountData.Count, nextData,
-                            nextData, isActive: false, isColorWhite: true)
+                            nextData, isActive: false)
                         );
 
                         continue;
@@ -491,7 +491,7 @@ public class InGameTopUI : MonoBehaviour
                 InGameManager.Instance.TestConfig.StageChapterId
             );
 
-            SceneLoading.GoToNextScene("InGame", inGameMainParams);
+            SceneLoading.GoToNextScene("InGame_New", inGameMainParams);
             return;
         }
 
