@@ -68,7 +68,10 @@ namespace CookApps.AutoChess.View
 
         private void HandleTick(GameWorld world)
         {
-            // 페이즈별 동기화 (상태 → 애니메이션 먼저 반영)
+            // 이벤트 큐 먼저 처리 (ATK/ATK2/CRIT 애니메이션 타입 결정 → 상태 동기화에서 사용)
+            ProcessEvents(world);
+
+            // 페이즈별 동기화 (상태 → 애니메이션 반영)
             if (world.IsCombatActive)
             {
                 SyncCombatViews(world);
@@ -77,9 +80,6 @@ namespace CookApps.AutoChess.View
             {
                 _unitViewManager.SyncBoardUnits(world);
             }
-
-            // 이벤트 큐 처리 (애니메이션 시작 후 딜레이 등록)
-            ProcessEvents(world);
 
             // UI 갱신 (벤치 + HUD 통합)
             _autoChessUI?.SyncState(world);

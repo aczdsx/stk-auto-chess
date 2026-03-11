@@ -75,6 +75,7 @@ namespace CookApps.AutoBattler
         private MotionHandle _viewScaleHandle;
         private Vector3 _viewScaleTarget = Vector3.one;
         private AutoChess.AnimKeyframeInfo _atkInfo;
+        private int _characterId;
 
 
         public Transform SkillRootTransform => _skillRootTransform;
@@ -252,6 +253,10 @@ namespace CookApps.AutoBattler
                 }
             }
 
+            // ATK2/CRIT 클립이 없으면 ATK로 폴백
+            if (animationKey == AnimationKey.ATK2 || animationKey == AnimationKey.CRIT)
+                return PlayAnimation(AnimationKey.ATK, isLoop);
+
             // 클립이 없으면 IDLE로 fallback (IDLE 자체가 없으면 null)
             if (animationKey != AnimationKey.IDLE)
                 return PlayAnimation(AnimationKey.IDLE, isLoop);
@@ -271,8 +276,18 @@ namespace CookApps.AutoBattler
         /// <summary>Awake에서 호출 — AnimKeyframeHelper를 통해 ATK 키프레임 정보 캐싱</summary>
         private void CacheAttackExecuteTimes()
         {
-            int characterId = AutoChess.AnimKeyframeHelper.ParseCharacterId(_animator.runtimeAnimatorController.name);
-            _atkInfo = AutoChess.AnimKeyframeHelper.Resolve(characterId);
+            _characterId = AutoChess.AnimKeyframeHelper.ParseCharacterId(_animator.runtimeAnimatorController.name);
+            _atkInfo = AutoChess.AnimKeyframeHelper.Resolve(_characterId);
+        }
+
+        /// <summary>지정된 클립 타입의 키프레임 정보 반환. 데이터 없으면 ATK로 폴백.</summary>
+        public AutoChess.AnimKeyframeInfo GetAtkInfoForClip(AutoChess.AnimClipType clipType)
+        {
+            var info = AutoChess.AnimKeyframeHelper.Resolve(_characterId, clipType);
+            // 데이터 없으면 (어느 방향이든 ExecTime==0) ATK로 폴백 — 한쪽만 있으면 delay=0 버그 방지
+            if (info.FrontExecTime <= 0f || info.BackExecTime <= 0f)
+                return _atkInfo;
+            return info;
         }
 
         public void OnFiredAnimationEvent(AnimationEventKey animationEventKey)

@@ -180,6 +180,8 @@ namespace CookApps.BattleSystem
         IDLE,
         MOVE,
         ATK,
+        ATK2,
+        CRIT,
         SKL,
         SKL2,
         SKLPRE,

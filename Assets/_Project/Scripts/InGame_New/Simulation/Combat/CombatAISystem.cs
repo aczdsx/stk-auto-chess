@@ -187,13 +187,16 @@ namespace CookApps.AutoChess
                         if (unit.AttackRange <= 1 && !unit.HasAreaAttack)
                         {
                             // 근접: ATK 키프레임까지 데미지 지연
+                            // 크리티컬 선행 판정 (애니메이션 결정용 — ATK/ATK2/CRIT)
+                            bool willCrit = rng.Chance(unit.CritChance);
                             unit.PendingAtkTargetId = target.CombatId;
                             unit.PendingAtkTimer = unit.AtkHitDelay;
+                            unit.PendingAtkIsCrit = willCrit;
                             unit.AttackCooldown = unit.GetAttackInterval(tickRate);
 
-                            // 이벤트 발행 (View가 ATK 애니메이션 시작)
+                            // 이벤트 발행 (View가 ATK 애니메이션 시작, isCrit 전달)
                             state.EventQueue?.PushUnitAttacked(
-                                unit.SourceEntityId, target.SourceEntityId, 0, false, false, isPreTimed: true);
+                                unit.SourceEntityId, target.SourceEntityId, 0, willCrit, false, isPreTimed: true);
                         }
                         else
                         {

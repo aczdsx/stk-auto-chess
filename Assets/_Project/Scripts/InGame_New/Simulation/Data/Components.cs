@@ -521,6 +521,7 @@ namespace CookApps.AutoChess
         // 대기 중인 근접 공격
         public int PendingAtkTargetId;   // 대기 중인 공격 타겟 (-1 = 없음)
         public int PendingAtkTimer;      // 히트까지 남은 프레임
+        public bool PendingAtkIsCrit;    // 선행 판정된 크리티컬 여부 (ATK 시작 시 확정)
 
         // 이동 (프레임 단위)
         public byte MoveFromCol;      // 이동 출발 열 (View 보간용)
