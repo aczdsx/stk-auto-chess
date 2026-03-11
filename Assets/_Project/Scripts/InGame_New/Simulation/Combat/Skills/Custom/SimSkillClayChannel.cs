@@ -81,11 +81,12 @@ namespace CookApps.AutoChess
 
             // 적 데미지 (틱당 배율 = 전체 배율 / 틱수)
             int dmgPct = _damagePercent;
+            int casterIdx = state.FindUnitIndex(caster.CombatId);
             SkillAreaHelper.ForEachEnemyInRadius(state, team, col, row, _zoneRange,
                 (ref CombatUnit enemy, int i) =>
                 {
                     int raw = attack * dmgPct / 100 / DefaultTickCount;
-                    int dmg = DamageSystem.CalculateDamage(raw, type, ref enemy);
+                    int dmg = DamageSystem.CalculateDamage(raw, type, ref state.Units[casterIdx], ref enemy);
                     DamageSystem.ApplyDamage(state, ref enemy, dmg);
                     DamageSystem.ChargeMana(ref enemy, DamageSystem.ManaGainOnHit);
                 });

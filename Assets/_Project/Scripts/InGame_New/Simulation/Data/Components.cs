@@ -218,6 +218,12 @@ namespace CookApps.AutoChess
         public int SkillId;           // 기본 스킬 ID
         public int PrefabId;          // 프리팹 ID (AnimKeyframeData 조회용)
 
+        // 관통/크리 기본값
+        public int BaseArmorPen;      // 물리 관통 (퍼센트, 0-100)
+        public int BaseMagicPen;      // 마법 관통 (퍼센트, 0-100)
+        public int BaseCritChance;    // 크리 확률 (퍼센트, 0-100)
+        public int BaseCritMultiplier; // 크리 배율 (퍼센트, 150 = 1.5x)
+
         // 유닛 크기 (타일 수)
         public byte SizeW;           // 가로 (기본 1)
         public byte SizeH;           // 세로 (기본 1)
@@ -504,6 +510,11 @@ namespace CookApps.AutoChess
         public int CurrentMana;
         public int CritChance;        // 퍼센트 (0-100)
         public int CritMultiplier;    // 퍼센트 (150 = 1.5x)
+        public int HitChance;        // 명중률 (퍼센트, 기본 100, 최대 100)
+
+        // 관통 (퍼센트, 0-100)
+        public int ArmorPenetration;     // 물리 관통
+        public int MagicPenetration;     // 마법 관통
 
         // 특수 스탯 (시너지/아이템 효과)
         public int LifeSteal;         // 퍼센트

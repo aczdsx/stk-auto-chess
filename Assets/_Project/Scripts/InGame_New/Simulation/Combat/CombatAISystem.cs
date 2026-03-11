@@ -172,8 +172,8 @@ namespace CookApps.AutoChess
 
                 if (unit.AttackCooldown <= 0)
                 {
-                    // 회피 판정
-                    if (DamageSystem.TryDodge(ref target, ref rng))
+                    // 회피 판정 (명중률 - 회피율)
+                    if (DamageSystem.TryDodge(ref unit, ref target, ref rng))
                     {
                         // 회피 성공: 데미지 없이 쿨다운만 재설정
                         if (CombatLogger.Enabled) CombatLogger.LogDodge(unit.CombatId, target.CombatId);

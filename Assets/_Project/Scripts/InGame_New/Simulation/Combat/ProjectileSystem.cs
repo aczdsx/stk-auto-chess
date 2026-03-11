@@ -44,10 +44,15 @@ namespace CookApps.AutoChess
 
             // 도착: 타겟이 살아있으면 데미지 적용
             int targetIdx = state.FindUnitIndex(proj.TargetCombatId);
+            int srcIdx = state.FindUnitIndex(proj.SourceCombatId);
             if (targetIdx >= 0 && state.Units[targetIdx].IsValidTarget)
             {
                 ref var target = ref state.Units[targetIdx];
-                int finalDamage = DamageSystem.CalculateDamage(proj.Damage, proj.DamageType, ref target);
+                int finalDamage;
+                if (srcIdx >= 0)
+                    finalDamage = DamageSystem.CalculateDamage(proj.Damage, proj.DamageType, ref state.Units[srcIdx], ref target);
+                else
+                    finalDamage = DamageSystem.CalculateDamage(proj.Damage, proj.DamageType, ref target);
 
                 if (CombatLogger.Enabled) CombatLogger.LogProjectileHit(target.CombatId, proj.SourceCombatId, finalDamage, proj.IsCrit);
 
@@ -55,7 +60,6 @@ namespace CookApps.AutoChess
                 DamageSystem.ChargeMana(ref target, DamageSystem.ManaGainOnHit);
 
                 // 흡혈 적용 (발사자가 살아있으면)
-                int srcIdx = state.FindUnitIndex(proj.SourceCombatId);
                 if (srcIdx >= 0 && state.Units[srcIdx].IsAlive)
                 {
                     DamageSystem.ApplyLifeSteal(ref state.Units[srcIdx], finalDamage);
@@ -172,7 +176,11 @@ namespace CookApps.AutoChess
 
                 if (dist > proj.AreaRadius) continue;
 
-                int finalDamage = DamageSystem.CalculateDamage(proj.Damage, proj.DamageType, ref unit);
+                int finalDamage;
+                if (srcIdx >= 0)
+                    finalDamage = DamageSystem.CalculateDamage(proj.Damage, proj.DamageType, ref state.Units[srcIdx], ref unit);
+                else
+                    finalDamage = DamageSystem.CalculateDamage(proj.Damage, proj.DamageType, ref unit);
                 DamageSystem.ApplyDamage(state, ref unit, finalDamage, isCrit: proj.IsCrit);
                 DamageSystem.ChargeMana(ref unit, DamageSystem.ManaGainOnHit);
             }
@@ -305,7 +313,11 @@ namespace CookApps.AutoChess
             long bit = 1L << bitIndex;
             if ((proj.HitMask & bit) != 0) return;
 
-            int finalDamage = DamageSystem.CalculateDamage(proj.Damage, proj.DamageType, ref occupant);
+            int finalDamage;
+            if (srcIdx >= 0)
+                finalDamage = DamageSystem.CalculateDamage(proj.Damage, proj.DamageType, ref state.Units[srcIdx], ref occupant);
+            else
+                finalDamage = DamageSystem.CalculateDamage(proj.Damage, proj.DamageType, ref occupant);
             DamageSystem.ApplyDamage(state, ref occupant, finalDamage, isCrit: proj.IsCrit);
             DamageSystem.ChargeMana(ref occupant, DamageSystem.ManaGainOnHit);
             proj.HitMask |= bit;

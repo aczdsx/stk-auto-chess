@@ -13,7 +13,7 @@ namespace CookApps.AutoChess
             if (!target.IsAlive) return;
 
             int raw = caster.Attack * powerPercent / 100;
-            int dmg = DamageSystem.CalculateDamage(raw, type, ref target);
+            int dmg = DamageSystem.CalculateDamage(raw, type, ref caster, ref target);
             DamageSystem.ApplyDamage(state, ref target, dmg);
             DamageSystem.ChargeMana(ref target, DamageSystem.ManaGainOnHit);
         }

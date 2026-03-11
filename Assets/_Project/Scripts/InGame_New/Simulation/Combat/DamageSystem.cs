@@ -13,19 +13,23 @@ namespace CookApps.AutoChess
         public const int ManaGainOnHit = 10;     // 피격 시 마나 획득
         public const int MinDamage = 1;          // 최소 데미지
 
-        /// <summary>물리 데미지 계산 (방어력 감소 적용)</summary>
-        public static int CalculatePhysicalDamage(int attack, int armor)
+        /// <summary>물리 데미지 계산 (방어력 + 관통 적용)</summary>
+        public static int CalculatePhysicalDamage(int attack, int armor, int armorPenetration = 0)
         {
             if (armor < 0) armor = 0;
-            // attack × (100 / (100 + armor))  정수 연산
-            return attack * 100 / (100 + armor);
+            // 관통 적용: effectiveArmor = armor * (100 - pen) / 100
+            int effectiveArmor = armor * (100 - armorPenetration) / 100;
+            if (effectiveArmor < 0) effectiveArmor = 0;
+            return attack * 100 / (100 + effectiveArmor);
         }
 
-        /// <summary>마법 데미지 계산 (마법저항 감소 적용)</summary>
-        public static int CalculateMagicDamage(int spellPower, int magicResist)
+        /// <summary>마법 데미지 계산 (마법저항 + 관통 적용)</summary>
+        public static int CalculateMagicDamage(int spellPower, int magicResist, int magicPenetration = 0)
         {
             if (magicResist < 0) magicResist = 0;
-            return spellPower * 100 / (100 + magicResist);
+            int effectiveMR = magicResist * (100 - magicPenetration) / 100;
+            if (effectiveMR < 0) effectiveMR = 0;
+            return spellPower * 100 / (100 + effectiveMR);
         }
 
         /// <summary>타입별 데미지 계산</summary>
@@ -35,6 +39,21 @@ namespace CookApps.AutoChess
             {
                 DamageType.Physical => CalculatePhysicalDamage(rawDamage, target.Armor),
                 DamageType.Magical => CalculateMagicDamage(rawDamage, target.MagicResist),
+                DamageType.True => rawDamage,
+                _ => rawDamage,
+            };
+
+            if (damage < MinDamage) damage = MinDamage;
+            return damage;
+        }
+
+        /// <summary>타입별 데미지 계산 (공격자 관통 반영)</summary>
+        public static int CalculateDamage(int rawDamage, DamageType type, ref CombatUnit attacker, ref CombatUnit target)
+        {
+            int damage = type switch
+            {
+                DamageType.Physical => CalculatePhysicalDamage(rawDamage, target.Armor, attacker.ArmorPenetration),
+                DamageType.Magical => CalculateMagicDamage(rawDamage, target.MagicResist, attacker.MagicPenetration),
                 DamageType.True => rawDamage,
                 _ => rawDamage,
             };
@@ -180,6 +199,8 @@ namespace CookApps.AutoChess
 
             int attackerIndex = state.FindUnitIndex(attacker.CombatId);
 
+            // 회피 판정은 CombatAISystem에서 처리 (공격 시작 전 판정)
+
             // Trait: 공격 전 콜백
             if (attackerIndex >= 0)
                 TraitSystem.InvokeOnPreAttack(state, attackerIndex, ref target);
@@ -194,8 +215,8 @@ namespace CookApps.AutoChess
 
             if (attacker.AttackRange <= 1)
             {
-                // 근접: 즉시 데미지
-                int finalDamage = CalculateDamage(rawDamage, DamageType.Physical, ref target);
+                // 근접: 즉시 데미지 (관통 반영)
+                int finalDamage = CalculateDamage(rawDamage, DamageType.Physical, ref attacker, ref target);
 
                 if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
 
@@ -258,6 +279,8 @@ namespace CookApps.AutoChess
             ref var target = ref state.Units[targetIdx];
             int attackerIndex = state.FindUnitIndex(attacker.CombatId);
 
+            // 회피 판정은 CombatAISystem에서 처리 (공격 시작 전 판정)
+
             // Trait: 공격 전 콜백
             if (attackerIndex >= 0)
                 TraitSystem.InvokeOnPreAttack(state, attackerIndex, ref target);
@@ -270,7 +293,7 @@ namespace CookApps.AutoChess
             if (isCrit && attackerIndex >= 0)
                 TraitSystem.InvokeOnCritical(state, attackerIndex, ref target, rawDamage);
 
-            int finalDamage = CalculateDamage(rawDamage, DamageType.Physical, ref target);
+            int finalDamage = CalculateDamage(rawDamage, DamageType.Physical, ref attacker, ref target);
 
             if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
 
@@ -288,11 +311,17 @@ namespace CookApps.AutoChess
                 TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
         }
 
-        /// <summary>회피 판정. 회피 성공 시 true.</summary>
-        public static bool TryDodge(ref CombatUnit target, ref DeterministicRNG rng)
+        /// <summary>
+        /// 명중/회피 판정. 미스 시 true 반환.
+        /// HitChance(%) = attacker.HitChance - target.DodgeChance
+        /// HitChance가 100 이상이면 무조건 명중, 0 이하이면 무조건 미스.
+        /// </summary>
+        public static bool TryDodge(ref CombatUnit attacker, ref CombatUnit target, ref DeterministicRNG rng)
         {
-            if (target.DodgeChance <= 0) return false;
-            return rng.Chance(target.DodgeChance);
+            int hitChance = attacker.HitChance - target.DodgeChance;
+            if (hitChance >= 100) return false; // 무조건 명중
+            if (hitChance <= 0) return true;    // 무조건 미스
+            return !rng.Chance(hitChance);       // hitChance% 확률로 명중 → 실패 시 회피
         }
 
         // ═══════════════════════════════════════════════
@@ -510,7 +539,7 @@ namespace CookApps.AutoChess
             CombatMatchState state, ref CombatUnit attacker, ref CombatUnit unit,
             int hitDamage, bool isCrit)
         {
-            int finalDamage = CalculateDamage(hitDamage, DamageType.Physical, ref unit);
+            int finalDamage = CalculateDamage(hitDamage, DamageType.Physical, ref attacker, ref unit);
             ApplyDamage(state, ref unit, finalDamage, isCrit: isCrit);
             ApplyLifeSteal(ref attacker, finalDamage);
             ChargeMana(ref unit, ManaGainOnHit);

@@ -122,7 +122,7 @@ namespace CookApps.AutoChess
                 if (!inRange) continue;
 
                 int raw = attack * PowerPercent / 100;
-                int dmg = DamageSystem.CalculateDamage(raw, DamageType, ref unit);
+                int dmg = DamageSystem.CalculateDamage(raw, DamageType, ref caster, ref unit);
                 DamageSystem.ApplyDamage(state, ref unit, dmg);
                 DamageSystem.ChargeMana(ref unit, DamageSystem.ManaGainOnHit);
 
@@ -159,11 +159,12 @@ namespace CookApps.AutoChess
             state.EventQueue?.PushSkillPhaseVfx(caster.CombatId, SkillId, 1);
 
             // 3×3 범위 (체비셰프 거리 1)
+            int casterIdx = state.FindUnitIndex(caster.CombatId);
             SkillAreaHelper.ForEachEnemyInRadius(state, team, col, row, 1,
                 (ref CombatUnit enemy, int idx) =>
                 {
                     int raw = attack * PowerPercent / 100;
-                    int dmg = DamageSystem.CalculateDamage(raw, DamageType, ref enemy);
+                    int dmg = DamageSystem.CalculateDamage(raw, DamageType, ref state.Units[casterIdx], ref enemy);
                     DamageSystem.ApplyDamage(state, ref enemy, dmg);
                     DamageSystem.ChargeMana(ref enemy, DamageSystem.ManaGainOnHit);
 

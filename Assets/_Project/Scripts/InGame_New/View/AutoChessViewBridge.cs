@@ -237,13 +237,18 @@ namespace CookApps.AutoChess.View
                                 else
                                 {
                                     // 대각선: col + row 양쪽 확장 (중심 제외 2개씩)
-                                    var posA = BoardWorldHelper.CombatGridToWorld(0, evt.Col + offset, evt.Row);
-                                    _combatViewManager.ShowTileEffectAt(castType, posA);
+                                    int diagCol = evt.Col + offset;
+                                    if (BoardHelper.IsValidCombatPosition(diagCol, evt.Row))
+                                    {
+                                        var posA = BoardWorldHelper.CombatGridToWorld(0, diagCol, evt.Row);
+                                        _combatViewManager.ShowTileEffectAt(castType, posA);
+                                    }
                                     tileCol = evt.Col;
                                     tileRow = evt.Row + offset;
                                 }
                             }
 
+                            if (!BoardHelper.IsValidCombatPosition(tileCol, tileRow)) continue;
                             var worldPos = BoardWorldHelper.CombatGridToWorld(0, tileCol, tileRow);
                             _combatViewManager.ShowTileEffectAt(castType, worldPos);
                         }

@@ -104,7 +104,7 @@ namespace CookApps.AutoChess
                     if (!target.IsAlive) continue;
                     if (target.TeamIndex == team) continue;
 
-                    int dmg = DamageSystem.CalculateDamage(raw, DamageType, ref target);
+                    int dmg = DamageSystem.CalculateDamage(raw, DamageType, ref caster, ref target);
                     DamageSystem.ApplyDamage(state, ref target, dmg);
                     DamageSystem.ChargeMana(ref target, DamageSystem.ManaGainOnHit);
                 }

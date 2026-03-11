@@ -31,13 +31,14 @@ namespace CookApps.AutoChess
             byte team = caster.TeamIndex;
             var ccType = CCType;
             int ccFrames = CCDurationFrames;
+            int casterIdx = state.FindUnitIndex(caster.CombatId);
 
             SkillAreaHelper.ForEachEnemyInRadius(state, team,
                 centerCol, centerRow, _aoeRange,
                 (ref CombatUnit t, int i) =>
                 {
                     int raw = attack * power / 100;
-                    int dmg = DamageSystem.CalculateDamage(raw, type, ref t);
+                    int dmg = DamageSystem.CalculateDamage(raw, type, ref state.Units[casterIdx], ref t);
                     DamageSystem.ApplyDamage(state, ref t, dmg);
                     DamageSystem.ChargeMana(ref t, DamageSystem.ManaGainOnHit);
 

@@ -29,7 +29,7 @@ namespace CookApps.AutoChess
 
                 // 메인 타겟 데미지
                 int mainRaw = attack * mainPower / 100;
-                int mainDmg = DamageSystem.CalculateDamage(mainRaw, type, ref mainTarget);
+                int mainDmg = DamageSystem.CalculateDamage(mainRaw, type, ref caster, ref mainTarget);
                 DamageSystem.ApplyDamage(state, ref mainTarget, mainDmg);
                 DamageSystem.ChargeMana(ref mainTarget, DamageSystem.ManaGainOnHit);
 
@@ -37,12 +37,13 @@ namespace CookApps.AutoChess
                 int col = mainTarget.GridCol;
                 int row = mainTarget.GridRow;
                 int mainId = mainTarget.CombatId;
+                int casterIdx = state.FindUnitIndex(caster.CombatId);
                 SkillAreaHelper.ForEachEnemyInRadius(state, team, col, row, 1,
                     (ref CombatUnit u, int i) =>
                     {
                         if (u.CombatId == mainId) return;
                         int raw = attack * splashPower / 100;
-                        int dmg = DamageSystem.CalculateDamage(raw, type, ref u);
+                        int dmg = DamageSystem.CalculateDamage(raw, type, ref state.Units[casterIdx], ref u);
                         DamageSystem.ApplyDamage(state, ref u, dmg);
                         DamageSystem.ChargeMana(ref u, DamageSystem.ManaGainOnHit);
                     });

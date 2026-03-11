@@ -86,8 +86,13 @@ namespace CookApps.AutoChess
                 combatUnit.MoveSpeed = srcUnit.MoveSpeed;
                 combatUnit.MaxMana = srcUnit.MaxMana;
                 combatUnit.CurrentMana = 0;
-                combatUnit.CritChance = 25;       // 기본 25%
-                combatUnit.CritMultiplier = 150;   // 기본 1.5x
+                // 관통/크리: 스펙값 우선, 없으면 기본값
+                var spec = FindChampionSpec(world, srcUnit.ChampionSpecId);
+                combatUnit.ArmorPenetration = spec.BaseArmorPen;
+                combatUnit.MagicPenetration = spec.BaseMagicPen;
+                combatUnit.CritChance = spec.BaseCritChance > 0 ? spec.BaseCritChance : 25;
+                combatUnit.CritMultiplier = spec.BaseCritMultiplier > 0 ? spec.BaseCritMultiplier : 150;
+                combatUnit.HitChance = 100;  // 명중률 기본 100%
                 combatUnit.TraitFlags = srcUnit.TraitFlags;
 
                 // 크기 복사
@@ -120,6 +125,18 @@ namespace CookApps.AutoChess
 
                 if (CombatLogger.Enabled) CombatLogger.LogSpawn(combatId, teamIndex, gridCol, gridRow, combatUnit.MaxHP, combatUnit.Attack, combatUnit.AttackRange);
             }
+        }
+
+        /// <summary>ChampionSpec 전체 조회</summary>
+        private static ChampionSpec FindChampionSpec(GameWorld world, int championSpecId)
+        {
+            if (world.Pool == null) return default;
+            for (int i = 0; i < world.Pool.SpecCount; i++)
+            {
+                if (world.Pool.Specs[i].ChampionId == championSpecId)
+                    return world.Pool.Specs[i];
+            }
+            return default;
         }
 
         /// <summary>ChampionSpec에서 SkillId 조회</summary>
@@ -229,8 +246,13 @@ namespace CookApps.AutoChess
                 unit.MoveSpeed = enemy.MoveSpeed;
                 unit.MaxMana = enemy.MaxMana;
                 unit.CurrentMana = 0;
-                unit.CritChance = 25;
-                unit.CritMultiplier = 150;
+                // PvE 적: 스펙값 우선, 없으면 기본값
+                var enemySpec = FindChampionSpec(world, enemy.ChampionSpecId);
+                unit.ArmorPenetration = enemySpec.BaseArmorPen;
+                unit.MagicPenetration = enemySpec.BaseMagicPen;
+                unit.CritChance = enemySpec.BaseCritChance > 0 ? enemySpec.BaseCritChance : 25;
+                unit.CritMultiplier = enemySpec.BaseCritMultiplier > 0 ? enemySpec.BaseCritMultiplier : 150;
+                unit.HitChance = 100;  // 명중률 기본 100%
                 unit.TraitFlags = enemy.TraitFlags;
                 unit.SkillSpecId = enemy.SkillSpecId;
                 unit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(enemy.ChampionSpecId, out _);
