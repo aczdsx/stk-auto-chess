@@ -16,10 +16,10 @@ MonoBehaviour:
   SourceNamespace: CookApps.AutoBattler
   SourceEnumNamespace: CookApps.AutoBattler
   SourceFolder: Assets/_Project/Scripts/Spec/SpecData
+  UseMessagePack: 0
   OriginalJsonFolder: Assets
   JsonParser: 1
   Obfuscator: 1
   CreateValidFile: 0
   PreBuildValid: 0
-  EnableSpecGameAb: 0
   EncryptKey: )ybk1WJRnA&^RZBs
