@@ -101,12 +101,18 @@ namespace CookApps.AutoChess.View
             // ViewBridge 와이어링
             _viewBridge = CreateChild<AutoChessViewBridge>("ViewBridge");
             _viewBridge.Setup(_runner, _unitViewManager, _combatViewManager, _boardGridView);
+
+            // 튜토리얼 브릿지 연결
+            var tutorialBridge = new TutorialSimBridge(_runner);
+            _viewBridge.SetTutorialBridge(tutorialBridge);
         }
 
         // ── 정리 ──
 
         public void Cleanup()
         {
+            TutorialSimBridge.Instance?.Dispose();
+
             InGameHpBarViewPool.Instance.Clear();
             InGameTextViewPool.Instance.ReleasePool();
 

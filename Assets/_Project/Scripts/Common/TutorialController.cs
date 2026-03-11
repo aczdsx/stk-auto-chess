@@ -69,6 +69,19 @@ public class TutorialController : MonoBehaviour
     private ITutorialActionStrategy _currentStrategy;
     private TutorialActionContext _actionContext;
 
+    // 전략 오버라이드 (InGame_New 등에서 런타임에 주입)
+    private static readonly Dictionary<TutorialActionType, ITutorialActionStrategy> _strategyOverrides = new();
+
+    public static void SetStrategyOverride(TutorialActionType actionType, ITutorialActionStrategy strategy)
+    {
+        _strategyOverrides[actionType] = strategy;
+    }
+
+    public static void ClearStrategyOverrides()
+    {
+        _strategyOverrides.Clear();
+    }
+
     // 전략 인스턴스 캐싱
     private static readonly Dictionary<TutorialActionType, ITutorialActionStrategy> _strategies = new()
     {
@@ -355,6 +368,12 @@ public class TutorialController : MonoBehaviour
     /// </summary>
     private ITutorialActionStrategy GetStrategy(TutorialActionType actionType)
     {
+        // 오버라이드 우선 확인 (InGame_New 등에서 런타임 주입)
+        if (_strategyOverrides.TryGetValue(actionType, out var overrideStrategy))
+        {
+            return overrideStrategy;
+        }
+
         if (_strategies.TryGetValue(actionType, out var strategy))
         {
             return strategy;

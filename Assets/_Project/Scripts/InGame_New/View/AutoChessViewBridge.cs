@@ -16,6 +16,7 @@ namespace CookApps.AutoChess.View
         private BoardGridView _boardGridView;
         private AutoChessUIBase _autoChessUI;
         private BoardInputHandler _boardInputHandler;
+        private TutorialSimBridge _tutorialBridge;
 
         public void Setup(
             ISimulationRunner runner,
@@ -86,6 +87,7 @@ namespace CookApps.AutoChess.View
 
         private void HandlePhaseChanged(GamePhase prevPhase, GamePhase newPhase)
         {
+            _tutorialBridge?.OnPhaseChanged(prevPhase, newPhase);
             _lastPhase = newPhase;
 
             switch (newPhase)
@@ -167,6 +169,8 @@ namespace CookApps.AutoChess.View
 
         private void DispatchEvent(ref SimEvent evt, GameWorld world)
         {
+            _tutorialBridge?.OnSimEvent(ref evt, world);
+
             switch (evt.Type)
             {
                 case SimEventType.UnitAttacked:
@@ -336,6 +340,7 @@ namespace CookApps.AutoChess.View
 
         public void SetAutoChessUI(AutoChessUIBase ui) => _autoChessUI = ui;
         public void SetBoardInputHandler(BoardInputHandler handler) => _boardInputHandler = handler;
+        public void SetTutorialBridge(TutorialSimBridge bridge) => _tutorialBridge = bridge;
         public GameWorld GetWorld() => _runner.GetWorld();
 
         // ── 관전 보드 변경 ──

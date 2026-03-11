@@ -21,6 +21,7 @@ namespace CookApps.AutoChess
         private GameCommand[] _commandBuffer = new GameCommand[32];
         private float _tickAccumulator;
         private bool _isRunning;
+        private bool _isPausedByTutorial;
 
         // ── 이벤트 (View 레이어에서 구독) ──
         public event System.Action<GameWorld> OnTick;
@@ -81,11 +82,17 @@ namespace CookApps.AutoChess
         /// <summary>실행 중 여부</summary>
         public bool IsRunning => _isRunning;
 
+        /// <summary>튜토리얼에 의한 틱 일시정지</summary>
+        public void PauseTick() { _isPausedByTutorial = true; }
+
+        /// <summary>튜토리얼에 의한 틱 재개</summary>
+        public void ResumeTick() { _isPausedByTutorial = false; }
+
         // ── Unity Lifecycle ──
 
         private void Update()
         {
-            if (!_isRunning || _world == null) return;
+            if (!_isRunning || _isPausedByTutorial || _world == null) return;
 
             float tickInterval = 1f / _world.TickRate;
             _tickAccumulator += Time.deltaTime;
