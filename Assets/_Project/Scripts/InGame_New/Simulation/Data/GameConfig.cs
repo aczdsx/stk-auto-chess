@@ -116,6 +116,7 @@ namespace CookApps.AutoChess
                 PreparationDuration = 0, // 준비 없음
                 StartingLevel = 5,
                 StartingHP = 100,
+                TickRate = 60,
             };
         }
 
@@ -134,6 +135,7 @@ namespace CookApps.AutoChess
                 EnableCutscenes = true,
                 StartingGold = 5,
                 StartingHP = 100,
+                TickRate = 60,
             };
         }
 
@@ -152,6 +154,7 @@ namespace CookApps.AutoChess
                 EnableCutscenes = false, // 멀티에서는 컷씬 비활성
                 StartingGold = 0,
                 StartingHP = 100,
+                TickRate = 30,
             };
         }
     }

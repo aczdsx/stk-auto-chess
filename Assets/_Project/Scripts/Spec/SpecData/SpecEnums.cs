@@ -1065,4 +1065,10 @@ namespace CookApps.AutoBattler
         DEF = 2,
         HP = 3,
     }
+
+    public enum GuidePopupType
+    {
+        NONE = 0,
+        PREBATTLE_SCENE = 1,
+    }
 }

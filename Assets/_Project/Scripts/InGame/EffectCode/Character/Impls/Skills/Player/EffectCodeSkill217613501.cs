@@ -228,7 +228,7 @@ public partial class EffectCodeSkill217613501 : EffectCodeCharacterBase
     {
         // 플레이어 기준 Square 3x3 타일 가져오기
         var areaTiles = InGameObjectManager.Instance.InGameGrid.GetTileListByShapeSquare(owner.CurrentTile, 1);
-        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[2], owner.CurrentTile.View.CachedTr.position);
+        InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.CurrentTile.View.CachedTr.position);
 
         foreach (var tile in areaTiles)
         {

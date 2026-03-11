@@ -68,11 +68,11 @@ namespace CookApps.AutoBattler
 
                 // 현재 캐시된 버전과 다르면 다운로드
                 if(netManager.Spec.GetCachedSpecVersion(SpecType.Game) != gameVersion)
-                    tasks.Add(netManager.Spec.GetSpecDataAsync(SpecType.Game, gameVersion));
+                    tasks.Add(netManager.Spec.GetSpecJsonAsync(SpecType.Game, gameVersion));
                 if(netManager.Spec.GetCachedSpecVersion(SpecType.Language) != languageVersion)
-                    tasks.Add(netManager.Spec.GetSpecDataAsync(SpecType.Language, languageVersion));
+                    tasks.Add(netManager.Spec.GetSpecJsonAsync(SpecType.Language, languageVersion));
                 if(netManager.Spec.GetCachedSpecVersion(SpecType.EtcSpec) != etcVersion)
-                    tasks.Add(netManager.Spec.GetSpecDataAsync(SpecType.EtcSpec, etcVersion));
+                    tasks.Add(netManager.Spec.GetSpecJsonAsync(SpecType.EtcSpec, etcVersion));
 
                 if (tasks.Count == 0)
                     return;

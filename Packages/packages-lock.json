@@ -116,12 +116,10 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.coroutineutils": {
-      "version": "1.0.7",
+      "version": "1.0.8",
       "depth": 1,
       "source": "registry",
-      "dependencies": {
-        "com.cookapps.package.template-helper": "1.1.0"
-      },
+      "dependencies": {},
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.debug": {
@@ -234,7 +232,7 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.net.lite": {
-      "version": "1.3.2",
+      "version": "1.5.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -245,7 +243,7 @@
         "com.cookapps.inspector": "1.0.6",
         "com.unity.editorcoroutines": "1.0.1",
         "com.cookapps.autofac": "1.0.1",
-        "com.cookapps.coroutineutils": "1.0.7",
+        "com.cookapps.coroutineutils": "1.0.8",
         "com.cookapps.utility": "1.1.1"
       },
       "url": "http://packages.tech.cookapps.com"
@@ -360,7 +358,7 @@
         "com.unity.nuget.newtonsoft-json": "3.0.2",
         "com.unity.test-framework": "1.1.31"
       },
-      "hash": "d76a8df311c48263872be0cd3e6a8ef1a0fa8e59"
+      "hash": "a7c715fb1f2b7741b46f5ee48c70aa3bb1189bd2"
     },
     "com.cysharp.memorypack": {
       "version": "https://github.com/Cysharp/MemoryPack.git?path=src/MemoryPack.Unity/Assets/MemoryPack.Unity",

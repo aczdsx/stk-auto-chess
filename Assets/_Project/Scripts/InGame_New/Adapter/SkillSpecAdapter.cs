@@ -1,4 +1,5 @@
 using CookApps.AutoBattler;
+using CookApps.BattleSystem;
 using UnityEngine;
 
 namespace CookApps.AutoChess
@@ -10,7 +11,7 @@ namespace CookApps.AutoChess
     public static class SkillSpecAdapter
     {
         /// <summary>SkillActive 스펙에서 SkillParams 생성</summary>
-        public static SkillParams BuildParams(SkillActive spec)
+        public static SkillParams BuildParams(SkillActive spec, int tickRate)
         {
             var archetype = ClassifySkill(spec);
             var dmgType = spec.atk_type == AtkType.AP ? DamageType.Magical : DamageType.Physical;
@@ -18,12 +19,13 @@ namespace CookApps.AutoChess
 
             var p = new SkillParams
             {
-                SkillId = spec.id,
+                SkillId = spec.skill_group_id,
                 PowerPercent = powerPercent > 0 ? powerPercent : 200,
                 DamageType = dmgType,
                 CastFrames = 0,
                 TargetCount = 1,
                 HitCount = 1,
+                TargetType = SkillTargetType.NearestEnemy,
             };
 
             switch (archetype)
@@ -55,14 +57,18 @@ namespace CookApps.AutoChess
                     break;
             }
 
-            ApplySkillSpecificParams(ref p, spec.id);
+            ApplySkillSpecificParams(ref p, spec.skill_group_id);
+
+            // SKL 클립에서 Execute 이벤트 타이밍 자동 추출
+            ExtractSkillHitTimes(ref p, spec.prefab_id, tickRate);
+
             return p;
         }
 
         /// <summary>스킬 ID로 아키타입 분류</summary>
         public static SimSkillArchetype ClassifySkill(SkillActive spec)
         {
-            int id = spec.id;
+            int id = spec.skill_group_id;
 
             // 커스텀 플레이어 스킬
             switch (id)
@@ -76,6 +82,7 @@ namespace CookApps.AutoChess
                 case 217563405: // 마리에
                 case 217653505: // 엔키
                 case 217333202: // 에이프릴
+                case 217613501: // 오데트
                     return SimSkillArchetype.Custom;
             }
 
@@ -91,7 +98,6 @@ namespace CookApps.AutoChess
                 case 1406031:   return SimSkillArchetype.Heal;            // 아란
                 case 215322201: return SimSkillArchetype.PatternDamage;   // 메이
                 case 217523403: return SimSkillArchetype.PatternDamage;   // 아드리아
-                case 217613501: return SimSkillArchetype.PatternDamage;   // 오데트
                 case 217663506: return SimSkillArchetype.MultiHit;        // 시라유키
                 case 215642501: return SimSkillArchetype.AoEDamage;       // 엘리스
                 case 217353203: return SimSkillArchetype.AoEDamage;       // 라키유
@@ -172,6 +178,43 @@ namespace CookApps.AutoChess
             return SimSkillArchetype.SingleDamage;
         }
 
+        /// <summary>SKL 클립에서 Execute 이벤트 타이밍을 SkillParams에 추출 (프레임 단위로 변환)</summary>
+        private static void ExtractSkillHitTimes(ref SkillParams p, int prefabId, int tickRate)
+        {
+            if (prefabId <= 0) return;
+
+            // Back_SKL 기준 (시뮬레이션은 방향 무관, Back 사용)
+            int sklKey = AnimKeyframeData.MakeKey(prefabId, false, AnimClipType.SKL);
+
+            if (AnimKeyframeData.ClipEvents.TryGetValue(sklKey, out var events))
+            {
+                // Execute 이벤트만 필터링
+                int count = 0;
+                for (int i = 0; i < events.Length; i++)
+                    if (events[i].key >= AnimationEventKey.Execute1Per1 &&
+                        events[i].key <= AnimationEventKey.Execute1Per12)
+                        count++;
+
+                if (count > 0)
+                {
+                    p.SkillHitFrames = new int[count];
+                    int idx = 0;
+                    for (int i = 0; i < events.Length; i++)
+                        if (events[i].key >= AnimationEventKey.Execute1Per1 &&
+                            events[i].key <= AnimationEventKey.Execute1Per12)
+                            p.SkillHitFrames[idx++] = SecondsToFrames(events[i].time, tickRate);
+                }
+            }
+
+            if (AnimKeyframeData.ClipLengths.TryGetValue(sklKey, out float len))
+                p.SkillClipFrames = SecondsToFrames(len, tickRate);
+        }
+
+        private static int SecondsToFrames(float seconds, int tickRate)
+        {
+            return (int)(seconds * tickRate + 0.5f);
+        }
+
         private static void ApplySkillSpecificParams(ref SkillParams p, int id)
         {
             switch (id)
@@ -180,9 +223,13 @@ namespace CookApps.AutoChess
                     p.CCType = CrowdControlType.Silence;
                     p.CCDurationFrames = 90;
                     break;
-                case 217433303: // 하티: 넉백 2타일
+                case 217433303: // 하티: 가장 먼 적 + 넉백 2타일
+                    p.TargetType = SkillTargetType.FarthestEnemy;
                     p.CCType = CrowdControlType.Knockback;
                     p.CCDurationFrames = 2;
+                    break;
+                case 215532401: // 필리아: 가장 먼 적 단일강타
+                    p.TargetType = SkillTargetType.FarthestEnemy;
                     break;
                 case 215252102: // 유니: 3명 힐 + 디버프 2개 제거
                     p.TargetCount = 3;
@@ -210,7 +257,8 @@ namespace CookApps.AutoChess
                     p.Param2 = 50;  // healReductionPercent
                     p.Param3 = 2;   // zoneRange (맨해튼 거리 2)
                     break;
-                case 217563405: // 마리에: 다단히트
+                case 217563405: // 마리에: 공격력 최대 적 + 다단히트
+                    p.TargetType = SkillTargetType.HighestAttackEnemy;
                     p.HitCount = 4;
                     break;
                 case 215422301: // 멘샤: 실드
@@ -227,6 +275,13 @@ namespace CookApps.AutoChess
                     p.Param1 = 75;       // 중거리 배율 (3행)
                     p.Param2 = 50;       // 원거리 배율 (4+행)
                     p.CastFrames = 90;   // 총 채널링 프레임 (3초 @ 30fps)
+                    break;
+                case 217513401: // 아트레시아: 3칸 폭 직선 관통
+                    p.Param2 = 3;  // width (진행 방향 수직 3칸)
+                    break;
+                case 217613501: // 오데트: 2단계 채널링 (L자형 + 3×3 범위공격 + 순간이동)
+                    p.Param0 = 90;       // 공속감소 디버프 지속 프레임 (3초 @ 30fps)
+                    p.Param1 = 30;       // 공속 감소량
                     break;
             }
         }

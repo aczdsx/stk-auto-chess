@@ -16,7 +16,7 @@ namespace CookApps.AutoChess
             ref var target = ref state.Units[idx];
 
             int healAmount = caster.Attack * PowerPercent / 100;
-            SkillDamageHelper.Heal(ref target, healAmount);
+            SkillDamageHelper.Heal(state, ref target, healAmount);
         }
     }
 }

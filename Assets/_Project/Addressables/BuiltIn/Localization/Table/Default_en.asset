@@ -1042,15 +1042,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3260753992737314
-    m_Localized: "\uCC55\uD130 2. \uC870\uC6B0"
+    m_Localized: Chapter 2. Encounter
     m_Metadata:
       m_Items: []
   - m_Id: 3260753992737313
-    m_Localized: "\uCC55\uD130 1. \uADE0\uC5F4"
+    m_Localized: Chapter 1.  Crack
     m_Metadata:
       m_Items: []
   - m_Id: 3260753992737312
-    m_Localized: "\uCC55\uD130 0. \uC5EC\uBA85"
+    m_Localized: Chapter 0.  Dawn
     m_Metadata:
       m_Items: []
   - m_Id: 3260753992737311
@@ -4306,7 +4306,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3260753988542835
-    m_Localized: "\uB514\uBA58\uC158 \uD050\uBE0C \uC5F0\uAD6C\uC18C"
+    m_Localized: Dimension Cube Lab
     m_Metadata:
       m_Items: []
   - m_Id: 3260753988542834
@@ -4339,7 +4339,7 @@ MonoBehaviour:
       m_Items:
       - rid: 2768397085498409111
   - m_Id: 3260753988542826
-    m_Localized: "\uB2E4\uC6B4\uB85C\uB4DC"
+    m_Localized: download
     m_Metadata:
       m_Items: []
   - m_Id: 3260753988542825
@@ -28723,13 +28723,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4319482586587137
-    m_Localized: "\uACFC\uB3C4\uD55C \uB370\uC774\uD130 \uC0AC\uC6A9\uC744 \uB9C9\uAE30
-      \uC704\uD574\nWIFI \uD658\uACBD\uC5D0\uC11C \uB2E4\uC6B4\uB85C\uB4DC\uB97C
-      \uAD8C\uC7A5\uD569\uB2C8\uB2E4."
+    m_Localized: To avoid excessive data usage, we recommend downloading over Wi-Fi.
     m_Metadata:
       m_Items: []
   - m_Id: 4319482586587136
-    m_Localized: "\uB370\uC774\uD130 \uB2E4\uC6B4\uB85C\uB4DC\uB97C \uC9C4\uD589\uD569\uB2C8\uB2E4."
+    m_Localized: Data download is in progress.
     m_Metadata:
       m_Items: []
   - m_Id: 4319068357124098
@@ -28917,7 +28915,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5067501291687936
-    m_Localized: "\uCE90\uB9AD\uD130 \uBC30\uCE58\uC218\uAC00 \uCD08\uACFC\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
+    m_Localized: The number of character placements has been exceeded.
     m_Metadata:
       m_Items: []
   - m_Id: 7704414641971200
@@ -28925,7 +28923,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 7704414692302848
-    m_Localized: "\uAE30\uC0AC\uC758 \uCD5C\uB300 \uB808\uBCA8\uC774 \uC0C1\uC2B9\uD558\uC600\uC2B5\uB2C8\uB2E4."
+    m_Localized: The maximum level of the knight has been increased.
     m_Metadata:
       m_Items: []
   - m_Id: 10933054054162432
@@ -28946,6 +28944,15 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 15169211235393536
     m_Localized: Hubble
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19891471535923200
+    m_Localized: Are you sure you want to leave the current battlefield?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19891471573671936
+    m_Localized: If we continue like this, we'll be considered surrender. Is that
+      okay?
     m_Metadata:
       m_Items: []
   references:

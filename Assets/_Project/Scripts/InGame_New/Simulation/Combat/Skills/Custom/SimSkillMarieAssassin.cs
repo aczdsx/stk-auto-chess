@@ -5,7 +5,7 @@ namespace CookApps.AutoChess
     {
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
         {
-            return TargetingSystem.FindNearestEnemy(state, ref caster);
+            return TargetingSystem.FindTarget(state, ref caster, TargetType);
         }
 
         public override void Execute(CombatMatchState state, ref CombatUnit caster,
@@ -23,7 +23,7 @@ namespace CookApps.AutoChess
                 int idx = state.FindUnitIndex(targetCombatId);
                 if (idx >= 0 && state.Units[idx].IsAlive)
                 {
-                    SkillCCHelper.ApplyCC(ref state.Units[idx], CCType, CCDurationFrames);
+                    SkillCCHelper.ApplyCC(state, ref state.Units[idx], CCType, CCDurationFrames);
                 }
             }
         }

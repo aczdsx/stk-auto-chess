@@ -130,6 +130,42 @@ namespace CookApps.AutoChess.View
             return handle;
         }
 
+        /// <summary>체비셰프 거리 기반 네모 범위 표시 (range=1 → 3×3)</summary>
+        public int ShowRangeBox(TileEffectType type, int centerCol, int centerRow, int range, float duration = 0f)
+        {
+            int handle = _nextHandle++;
+            var fxList = new List<GameObject>();
+
+            int width = BoardHelper.CombatWidth;
+            int height = BoardHelper.CombatHeight;
+
+            for (int r = 0; r < height; r++)
+            {
+                for (int c = 0; c < width; c++)
+                {
+                    int dc = c - centerCol;
+                    int dr = r - centerRow;
+                    if (dc < 0) dc = -dc;
+                    if (dr < 0) dr = -dr;
+                    int chebyshev = dc > dr ? dc : dr;
+                    if (chebyshev > range)
+                        continue;
+
+                    var pos = BoardWorldHelper.CombatGridToWorld(_boardIndex, c, r);
+                    var fx = GetFromPool(type);
+                    fx.transform.position = pos;
+                    fxList.Add(fx);
+                }
+            }
+
+            _activeEffects[handle] = new EffectGroup { Type = type, FxList = fxList };
+
+            if (duration > 0f)
+                _timedEffects.Add(new TimedEffect { Handle = handle, RemainTime = duration });
+
+            return handle;
+        }
+
         /// <summary>특정 행의 col 범위에 FX 표시.</summary>
         public int ShowRow(TileEffectType type, int row, int centerCol, int halfWidth, float duration = 0f)
         {
@@ -144,6 +180,57 @@ namespace CookApps.AutoChess.View
                 var fx = GetFromPool(type);
                 fx.transform.position = pos;
                 fxList.Add(fx);
+            }
+
+            _activeEffects[handle] = new EffectGroup { Type = type, FxList = fxList };
+
+            if (duration > 0f)
+                _timedEffects.Add(new TimedEffect { Handle = handle, RemainTime = duration });
+
+            return handle;
+        }
+
+        /// <summary>ㄷ자형 범위 표시. 타겟 방향 기준 2×3.</summary>
+        public int ShowDirectionalRect(TileEffectType type, int centerCol, int centerRow, int dirCol, int dirRow, float duration = 0f)
+        {
+            int handle = _nextHandle++;
+            var fxList = new List<GameObject>();
+
+            bool rowDominant = dirRow != 0;
+
+            if (rowDominant)
+            {
+                // 가로 3칸 × 세로 2칸 (본인행 + 전방1행), 본인 타일 제외
+                for (int rowOffset = 0; rowOffset <= 1; rowOffset++)
+                {
+                    int r = centerRow + dirRow * rowOffset;
+                    for (int c = centerCol - 1; c <= centerCol + 1; c++)
+                    {
+                        if (c == centerCol && r == centerRow) continue; // 본인 타일 제외
+                        if (!BoardHelper.IsValidCombatPosition(c, r)) continue;
+                        var pos = BoardWorldHelper.CombatGridToWorld(_boardIndex, c, r);
+                        var fx = GetFromPool(type);
+                        fx.transform.position = pos;
+                        fxList.Add(fx);
+                    }
+                }
+            }
+            else
+            {
+                // 세로 3칸 × 가로 2칸 (본인열 + 전방1열), 본인 타일 제외
+                for (int colOffset = 0; colOffset <= 1; colOffset++)
+                {
+                    int c = centerCol + dirCol * colOffset;
+                    for (int r = centerRow - 1; r <= centerRow + 1; r++)
+                    {
+                        if (c == centerCol && r == centerRow) continue; // 본인 타일 제외
+                        if (!BoardHelper.IsValidCombatPosition(c, r)) continue;
+                        var pos = BoardWorldHelper.CombatGridToWorld(_boardIndex, c, r);
+                        var fx = GetFromPool(type);
+                        fx.transform.position = pos;
+                        fxList.Add(fx);
+                    }
+                }
             }
 
             _activeEffects[handle] = new EffectGroup { Type = type, FxList = fxList };

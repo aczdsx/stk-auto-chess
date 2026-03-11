@@ -22,16 +22,16 @@ namespace CookApps.AutoBattler
                 // 튜토리얼(1챕터) 진입 분기 로직
                 var lastTutoStageData = SpecDataManager.Instance.GetLastStageData(1, DifficultyType.NORMAL);
 
-                // 1. 첫 스테이지를 못 깬 경우 → 프롤로그 진행
-                if (firstStageData != null && ServerDataManager.Instance.Battle.IsStageCleared((uint)firstStageData.stage_id) == false)
-                {
-                    SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
-                    await SceneTransition.FadeInAsync();
-
-                    var inGameParams = new InGameMainParams(InGameType.PROLOGUE, new InGameMainStatePrologue(), 0);
-                    SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
-                    return;
-                }
+                // 1. 첫 스테이지를 못 깬 경우 → 프롤로그 진행 (현재 비활성화 — 프롤로그 스킵)
+                // if (firstStageData != null && ServerDataManager.Instance.Battle.IsStageCleared((uint)firstStageData.stage_id) == false)
+                // {
+                //     SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
+                //     await SceneTransition.FadeInAsync();
+                //
+                //     var inGameParams = new InGameMainParams(InGameType.PROLOGUE, new InGameMainStatePrologue(), 0);
+                //     SceneLoading.GoToNextSceneWithSpecialTrigger("InGame", "PrologueStart", inGameParams);
+                //     return;
+                // }
 
                 // 2. 1챕터 마지막 스테이지를 못 깬 경우 → 못 깬 첫 스테이지로 바로 진입
                 if (lastTutoStageData != null && ServerDataManager.Instance.Battle.IsStageCleared((uint)lastTutoStageData.stage_id) == false)
@@ -54,14 +54,14 @@ namespace CookApps.AutoBattler
                         await SceneTransition.FadeInAsync();
 
                         var inGameParams = new InGameMainParams(InGameType.STAGE, new InGameMainStateStage(), unclearedStage.stage_id);
-                        var progressData = ClientProgressData.Get();
-                        if (unclearedStage.stage_id == 10003 && !progressData.hasNicknameSet)
+                        // var progressData = ClientProgressData.Get();
+                        // if (unclearedStage.stage_id == 10003 && !progressData.hasNicknameSet)
+                        // {
+                        //     SceneLoading.GoToNextSceneViaNaninovelScript("InGame_New", "Chapter0_04", inGameParams);
+                        // }
+                        // else
                         {
-                            SceneLoading.GoToNextSceneViaNaninovelScript("InGame", "Chapter0_04", inGameParams);
-                        }
-                        else
-                        {
-                            SceneLoading.GoToNextScene("InGame", inGameParams);
+                            SceneLoading.GoToNextScene("InGame_New", inGameParams);
                         }
                         return;
                     }

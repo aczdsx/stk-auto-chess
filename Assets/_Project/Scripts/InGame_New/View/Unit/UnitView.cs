@@ -23,6 +23,7 @@ namespace CookApps.AutoChess.View
         public int CombatId { get; private set; } = CombatUnit.InvalidId;
         public bool IsCombatUnit { get; private set; }
         public bool IsReady => _characterView != null;
+        public int ChampSpecId => _champSpecId;
 
         private Vector3 _targetPosition;
         private float _interpolationSpeed = 15f;
@@ -269,6 +270,29 @@ namespace CookApps.AutoChess.View
         {
             if (_characterView == null) return transform.position;
             return _characterView.GetProjectileSpawnPosition();
+        }
+
+        public GameObject GetProjectilePrefab()
+        {
+            return _characterView != null ? _characterView.ProjectilePrefab : null;
+        }
+
+        public SkillViewData[] GetSkillEffectPrefabs()
+        {
+            return _characterView != null ? _characterView.SkillEffectPrefabs : null;
+        }
+
+        public Transform GetSkillPositionTransform(SkillPosition pos)
+        {
+            if (_characterView == null) return transform;
+            switch (pos)
+            {
+                case SkillPosition.SKILL_ROOT:       return _characterView.SkillRootTransform;
+                case SkillPosition.SKILL_TOP:        return _characterView.SkillTopFXTransform;
+                case SkillPosition.SKILL_MIDDLE:     return _characterView.SkillMiddleFXTransform;
+                case SkillPosition.SKILL_BOTTOM:     return _characterView.SkillBottomFXTransform;
+                default:                             return transform;
+            }
         }
 
         public float GetCharacterHeight()

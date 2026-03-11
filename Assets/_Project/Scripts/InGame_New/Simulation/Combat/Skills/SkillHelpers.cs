@@ -13,7 +13,7 @@ namespace CookApps.AutoChess
             if (!target.IsAlive) return;
 
             int raw = caster.Attack * powerPercent / 100;
-            int dmg = DamageSystem.CalculateDamage(raw, type, ref target);
+            int dmg = DamageSystem.CalculateDamage(raw, type, ref caster, ref target);
             DamageSystem.ApplyDamage(state, ref target, dmg);
             DamageSystem.ChargeMana(ref target, DamageSystem.ManaGainOnHit);
         }
@@ -33,7 +33,7 @@ namespace CookApps.AutoChess
         }
 
         /// <summary>HP 회복</summary>
-        public static void Heal(ref CombatUnit target, int amount)
+        public static void Heal(CombatMatchState state, ref CombatUnit target, int amount)
         {
             if (!target.IsAlive) return;
             target.CurrentHP += amount;
@@ -41,6 +41,8 @@ namespace CookApps.AutoChess
                 target.CurrentHP = target.MaxHP;
 
             if (CombatLogger.Enabled) CombatLogger.LogHeal(target.CombatId, amount, target.CurrentHP, target.MaxHP);
+
+            state.EventQueue?.PushUnitHealed(target.CombatId, amount);
         }
     }
 
@@ -233,21 +235,39 @@ namespace CookApps.AutoChess
     /// <summary>CC 적용 헬퍼</summary>
     public static class SkillCCHelper
     {
-        /// <summary>CC 적용 (기존 CC보다 긴 경우에만 덮어씀)</summary>
-        public static void ApplyCC(ref CombatUnit target, CrowdControlType type, int durationFrames)
+        /// <summary>CC 적용 (기존 CC보다 긴 경우에만 덮어씀, CC면역 시 무시)</summary>
+        public static void ApplyCC(CombatMatchState state, ref CombatUnit target, CrowdControlType type, int durationFrames)
         {
             if (!target.IsAlive) return;
             if (target.State == CombatState.Dead) return;
 
+            // CC 면역 체크
+            int idx = state.FindUnitIndex(target.CombatId);
+            if (idx >= 0 && StatusEffectSystem.HasImmunity(state, idx, StatusEffectType.CCImmunity))
+                return;
+
             // 기존 CC보다 긴 경우에만 적용
             if (target.ActiveCC != CrowdControlType.None && target.CCRemainingFrames >= durationFrames)
                 return;
+
+            // 기존 CC가 있으면 VFX 제거 이벤트
+            if (target.ActiveCC != CrowdControlType.None)
+            {
+                var oldVfx = StatusEffectSystem.CCToVfxType(target.ActiveCC);
+                if (oldVfx != CombatVfxType.None)
+                    state.EventQueue?.PushCCRemoved(target.CombatId, oldVfx);
+            }
 
             target.ActiveCC = type;
             target.CCRemainingFrames = durationFrames;
             target.State = CombatState.CrowdControlled;
 
             if (CombatLogger.Enabled) CombatLogger.LogCC(target.CombatId, type, durationFrames);
+
+            // CC VFX 이벤트 발행
+            var vfxType = StatusEffectSystem.CCToVfxType(type);
+            if (vfxType != CombatVfxType.None)
+                state.EventQueue?.PushCCAdded(target.CombatId, vfxType);
         }
 
         /// <summary>넉백 (지정 방향으로 N칸, 빈 칸까지만). Multi-tile 대응. 실제 이동 칸 수 반환.</summary>
@@ -255,6 +275,11 @@ namespace CookApps.AutoChess
             int dirCol, int dirRow, int distance)
         {
             if (!target.IsAlive) return 0;
+
+            // CC 면역 체크
+            int immuneIdx = state.FindUnitIndex(target.CombatId);
+            if (immuneIdx >= 0 && StatusEffectSystem.HasImmunity(state, immuneIdx, StatusEffectType.CCImmunity))
+                return 0;
 
             byte sizeW = target.SizeW > 0 ? target.SizeW : (byte)1;
             byte sizeH = target.SizeH > 0 ? target.SizeH : (byte)1;
@@ -358,6 +383,27 @@ namespace CookApps.AutoChess
         {
             StatusEffectSystem.AddEffect(state, unitIndex, StatusEffectType.HealOverTime,
                 healPerTick, durationFrames, tickInterval);
+        }
+
+        /// <summary>CC 면역 부여 (기존 CC 즉시 해제)</summary>
+        public static void ApplyCCImmunity(CombatMatchState state, int unitIndex, int durationFrames)
+        {
+            StatusEffectSystem.RemoveCC(state, unitIndex);
+            StatusEffectSystem.AddEffect(state, unitIndex, StatusEffectType.CCImmunity, 0, durationFrames);
+        }
+
+        /// <summary>DOT 면역 부여 (기존 DOT 즉시 제거)</summary>
+        public static void ApplyDOTImmunity(CombatMatchState state, int unitIndex, int durationFrames)
+        {
+            StatusEffectSystem.RemoveEffectsByType(state, unitIndex, StatusEffectType.DamageOverTime);
+            StatusEffectSystem.AddEffect(state, unitIndex, StatusEffectType.DOTImmunity, 0, durationFrames);
+        }
+
+        /// <summary>디버프(스탯감소) 면역 부여 (기존 StatDebuff 즉시 제거, 스탯 역산 포함)</summary>
+        public static void ApplyDebuffImmunity(CombatMatchState state, int unitIndex, int durationFrames)
+        {
+            StatusEffectSystem.RemoveEffectsByType(state, unitIndex, StatusEffectType.StatDebuff);
+            StatusEffectSystem.AddEffect(state, unitIndex, StatusEffectType.DebuffImmunity, 0, durationFrames);
         }
     }
 }

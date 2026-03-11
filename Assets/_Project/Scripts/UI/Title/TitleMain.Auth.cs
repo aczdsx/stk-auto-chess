@@ -132,7 +132,7 @@ namespace CookApps.AutoBattler
             // 테스트 씬으로 전환
             var testConfig = await Addressables.LoadAssetAsync<InGameTestConfig>("Data/InGameTestConfig.asset");
             var inGameParams = new InGameMainParams(InGameType.TEST, new InGameMainStateTest(), testConfig.StageChapterId);
-            SceneLoading.GoToNextScene("InGame", inGameParams);
+            SceneLoading.GoToNextScene("InGame_New", inGameParams);
         }
 
         private async UniTask OnClickNewInGameTestAsync()

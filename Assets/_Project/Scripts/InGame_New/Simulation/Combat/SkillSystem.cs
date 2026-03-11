@@ -63,26 +63,36 @@ namespace CookApps.AutoChess
 
             if (CombatLogger.Enabled) CombatLogger.LogSkillCast(unit.CombatId, targetId, unit.SkillSpecId, castFrames <= 0);
 
+            // 이벤트 즉시 발행 → View가 SKL 애니메이션 시작
+            state.EventQueue?.PushUnitCastSkill(
+                unit.CombatId,
+                targetId,
+                unit.SkillSpecId,
+                skill.IsChanneling,
+                skill.HasProjectile);
+
             if (castFrames > 0)
             {
-                // 시전 시간이 있는 스킬: CastingSkill 상태로 전환
+                // 키프레임 타이밍까지 대기 후 Execute
                 unit.State = CombatState.CastingSkill;
                 unit.SkillCastTimer = castFrames;
                 unit.CurrentTargetId = targetId;
             }
             else
             {
-                // 즉시 시전 스킬: Execute 후 바로 Idle 복귀 (CastingSkill 유지 시 다음 틱에서 재실행됨)
+                // 즉시 시전
                 skill.Execute(state, ref unit, targetId, ref rng);
 
-                // 이벤트 발행
-                state.EventQueue?.PushUnitCastSkill(
-                    unit.CombatId,
-                    targetId,
-                    unit.SkillSpecId);
-
-                unit.State = CombatState.Idle;
-                unit.CurrentTargetId = CombatUnit.InvalidId;
+                if (skill.IsChanneling)
+                {
+                    unit.State = CombatState.CastingSkill;
+                    unit.CurrentTargetId = targetId;
+                }
+                else
+                {
+                    unit.State = CombatState.Idle;
+                    unit.CurrentTargetId = CombatUnit.InvalidId;
+                }
             }
 
             return true;
@@ -128,10 +138,11 @@ namespace CookApps.AutoChess
 
                     skill.Execute(state, ref unit, targetId, ref rng);
 
-                    state.EventQueue?.PushUnitCastSkill(
-                        unit.CombatId,
-                        targetId,
-                        unit.SkillSpecId);
+                    // Execute 후 채널링이 시작됐으면 CastingSkill 유지 → 다음 틱부터 OnChannelTick 호출
+                    if (skill.IsChanneling)
+                    {
+                        return;
+                    }
                 }
             }
 

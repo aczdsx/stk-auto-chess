@@ -216,6 +216,13 @@ namespace CookApps.AutoChess
         public int MaxMana;
         public int StartingMana;
         public int SkillId;           // 기본 스킬 ID
+        public int PrefabId;          // 프리팹 ID (AnimKeyframeData 조회용)
+
+        // 관통/크리 기본값
+        public int BaseArmorPen;      // 물리 관통 (퍼센트, 0-100)
+        public int BaseMagicPen;      // 마법 관통 (퍼센트, 0-100)
+        public int BaseCritChance;    // 크리 확률 (퍼센트, 0-100)
+        public int BaseCritMultiplier; // 크리 배율 (퍼센트, 150 = 1.5x)
 
         // 유닛 크기 (타일 수)
         public byte SizeW;           // 가로 (기본 1)
@@ -442,6 +449,7 @@ namespace CookApps.AutoChess
         public AreaAttackShape Shape;
         public int Size;          // Cross: 좌우폭, Line: 길이, Radius: 반경
         public int FrontOffset;   // facing 방향 오프셋 (0=시전자 위치)
+        public int DelayMs;       // 공격 시작 시점부터의 딜레이 (밀리초, 애니메이션 키프레임 기준)
     }
 
     public struct AreaAttackPattern
@@ -502,6 +510,11 @@ namespace CookApps.AutoChess
         public int CurrentMana;
         public int CritChance;        // 퍼센트 (0-100)
         public int CritMultiplier;    // 퍼센트 (150 = 1.5x)
+        public int HitChance;        // 명중률 (퍼센트, 기본 100, 최대 100)
+
+        // 관통 (퍼센트, 0-100)
+        public int ArmorPenetration;     // 물리 관통
+        public int MagicPenetration;     // 마법 관통
 
         // 특수 스탯 (시너지/아이템 효과)
         public int LifeSteal;         // 퍼센트
@@ -514,6 +527,11 @@ namespace CookApps.AutoChess
 
         // 쿨다운 (프레임 단위)
         public int AttackCooldown;    // 다음 공격까지 남은 프레임
+        public int AtkHitDelay;       // ATK Execute 키프레임까지 프레임 수 (근접 데미지 지연)
+
+        // 대기 중인 근접 공격
+        public int PendingAtkTargetId;   // 대기 중인 공격 타겟 (-1 = 없음)
+        public int PendingAtkTimer;      // 히트까지 남은 프레임
 
         // 이동 (프레임 단위)
         public byte MoveFromCol;      // 이동 출발 열 (View 보간용)
@@ -536,7 +554,14 @@ namespace CookApps.AutoChess
         public bool IsSkillReady;     // 마나 충전 완료
 
         // 범위 기본공격
-        public bool HasAreaAttack;    // AreaAttackRegistry에 패턴 있으면 true
+        public bool HasAreaAttack;        // AreaAttackRegistry에 패턴 있으면 true
+        public bool IsAreaAttacking;      // 범위 공격 진행 중
+        public byte AreaHitIndex;         // 다음 처리할 히트 인덱스
+        public int AreaHitTimer;          // 다음 히트까지 남은 프레임
+        public int AreaHitDamage;         // 히트당 데미지 (미리 계산)
+        public bool AreaHitIsCrit;        // 크리 여부
+        public sbyte AreaDirCol;          // facing 방향
+        public sbyte AreaDirRow;
 
         public bool IsValidTarget => IsAlive && State != CombatState.Dead;
 
@@ -569,6 +594,7 @@ namespace CookApps.AutoChess
     public struct PvEEnemyData
     {
         public int ChampionSpecId;
+        public int PrefabId;           // 프리팹 ID (AnimKeyframeData 조회용)
         public byte GridCol;       // 보드 좌표 (미러링 전)
         public byte GridRow;
         public byte SizeW;
@@ -642,6 +668,7 @@ namespace CookApps.AutoChess
         public int MaxDistance;
         public int TraveledDistance;
         public long HitMask;            // 이미 맞은 유닛 비트마스크 (중복 피격 방지)
+        public int Width;               // 투사체 폭 (0 또는 1 = 1칸, 3 = 3칸). 진행 방향 수직으로 확장.
 
         // AreaTarget 전용
         public byte TargetCol;

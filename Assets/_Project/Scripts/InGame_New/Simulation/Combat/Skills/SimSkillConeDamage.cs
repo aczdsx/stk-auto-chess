@@ -24,6 +24,7 @@ namespace CookApps.AutoChess
             int power = PowerPercent;
             var type = DamageType;
             byte team = caster.TeamIndex;
+            int casterIdx = state.FindUnitIndex(caster.CombatId);
 
             SkillAreaHelper.ForEachEnemyInLine(state, team,
                 caster.GridCol, caster.GridRow,
@@ -31,7 +32,7 @@ namespace CookApps.AutoChess
                 (ref CombatUnit t, int i) =>
                 {
                     int raw = attack * power / 100;
-                    int dmg = DamageSystem.CalculateDamage(raw, type, ref t);
+                    int dmg = DamageSystem.CalculateDamage(raw, type, ref state.Units[casterIdx], ref t);
                     DamageSystem.ApplyDamage(state, ref t, dmg);
                     DamageSystem.ChargeMana(ref t, DamageSystem.ManaGainOnHit);
                 });

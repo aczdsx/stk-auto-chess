@@ -60,6 +60,13 @@ namespace CookApps.AutoChess
                     MaxMana = 100,       // CharacterInfo에 mana 없음 → 기본값
                     StartingMana = 0,
                     SkillId = GetPrimarySkillId(c),
+                    PrefabId = c.prefab_id,
+
+                    // 관통/크리 (float → 정수 퍼센트)
+                    BaseArmorPen = Mathf.Clamp((int)(c.stat_atk_pierce * 100), 0, 100),
+                    BaseMagicPen = Mathf.Clamp((int)(c.stat_res_pierce * 100), 0, 100),
+                    BaseCritChance = Mathf.Max(0, (int)(c.crit_rate * 100)),
+                    BaseCritMultiplier = Mathf.Max(0, (int)(c.crit_power * 100)),
 
                     // 크기 (기본 1x1, 추후 스펙 데이터에 크기 필드 추가 시 매핑)
                     SizeW = 1,

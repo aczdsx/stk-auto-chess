@@ -13,19 +13,23 @@ namespace CookApps.AutoChess
         public const int ManaGainOnHit = 10;     // 피격 시 마나 획득
         public const int MinDamage = 1;          // 최소 데미지
 
-        /// <summary>물리 데미지 계산 (방어력 감소 적용)</summary>
-        public static int CalculatePhysicalDamage(int attack, int armor)
+        /// <summary>물리 데미지 계산 (방어력 + 관통 적용)</summary>
+        public static int CalculatePhysicalDamage(int attack, int armor, int armorPenetration = 0)
         {
             if (armor < 0) armor = 0;
-            // attack × (100 / (100 + armor))  정수 연산
-            return attack * 100 / (100 + armor);
+            // 관통 적용: effectiveArmor = armor * (100 - pen) / 100
+            int effectiveArmor = armor * (100 - armorPenetration) / 100;
+            if (effectiveArmor < 0) effectiveArmor = 0;
+            return attack * 100 / (100 + effectiveArmor);
         }
 
-        /// <summary>마법 데미지 계산 (마법저항 감소 적용)</summary>
-        public static int CalculateMagicDamage(int spellPower, int magicResist)
+        /// <summary>마법 데미지 계산 (마법저항 + 관통 적용)</summary>
+        public static int CalculateMagicDamage(int spellPower, int magicResist, int magicPenetration = 0)
         {
             if (magicResist < 0) magicResist = 0;
-            return spellPower * 100 / (100 + magicResist);
+            int effectiveMR = magicResist * (100 - magicPenetration) / 100;
+            if (effectiveMR < 0) effectiveMR = 0;
+            return spellPower * 100 / (100 + effectiveMR);
         }
 
         /// <summary>타입별 데미지 계산</summary>
@@ -35,6 +39,21 @@ namespace CookApps.AutoChess
             {
                 DamageType.Physical => CalculatePhysicalDamage(rawDamage, target.Armor),
                 DamageType.Magical => CalculateMagicDamage(rawDamage, target.MagicResist),
+                DamageType.True => rawDamage,
+                _ => rawDamage,
+            };
+
+            if (damage < MinDamage) damage = MinDamage;
+            return damage;
+        }
+
+        /// <summary>타입별 데미지 계산 (공격자 관통 반영)</summary>
+        public static int CalculateDamage(int rawDamage, DamageType type, ref CombatUnit attacker, ref CombatUnit target)
+        {
+            int damage = type switch
+            {
+                DamageType.Physical => CalculatePhysicalDamage(rawDamage, target.Armor, attacker.ArmorPenetration),
+                DamageType.Magical => CalculateMagicDamage(rawDamage, target.MagicResist, attacker.MagicPenetration),
                 DamageType.True => rawDamage,
                 _ => rawDamage,
             };
@@ -61,7 +80,7 @@ namespace CookApps.AutoChess
         /// attackerIndex: Trait 콜백용 공격자 인덱스 (-1이면 Trait 콜백 생략)
         /// </summary>
         public static bool ApplyDamage(CombatMatchState state, ref CombatUnit target, int damage,
-            int attackerIndex = -1, DamageType damageType = DamageType.Physical)
+            int attackerIndex = -1, DamageType damageType = DamageType.Physical, bool isCrit = false)
         {
             if (!target.IsAlive) return false;
 
@@ -100,7 +119,7 @@ namespace CookApps.AutoChess
 
             state.EventQueue?.PushUnitDamaged(target.CombatId,
                 attackerIndex >= 0 ? state.Units[attackerIndex].CombatId : CombatUnit.InvalidId,
-                damage, damageType);
+                damage, damageType, isCrit);
 
             // Trait: 피격 후 콜백 (피격자)
             if (targetIndex >= 0 && attackerIndex >= 0)
@@ -170,6 +189,7 @@ namespace CookApps.AutoChess
             CombatMatchState state, ref CombatUnit attacker, ref CombatUnit target,
             ref DeterministicRNG rng, int tickRate)
         {
+
             // 범위 기본공격 분기
             if (attacker.HasAreaAttack && AreaAttackRegistry.TryGetPattern(attacker.ChampionSpecId, out var pattern))
             {
@@ -178,6 +198,8 @@ namespace CookApps.AutoChess
             }
 
             int attackerIndex = state.FindUnitIndex(attacker.CombatId);
+
+            // 회피 판정은 CombatAISystem에서 처리 (공격 시작 전 판정)
 
             // Trait: 공격 전 콜백
             if (attackerIndex >= 0)
@@ -193,12 +215,12 @@ namespace CookApps.AutoChess
 
             if (attacker.AttackRange <= 1)
             {
-                // 근접: 즉시 데미지
-                int finalDamage = CalculateDamage(rawDamage, DamageType.Physical, ref target);
+                // 근접: 즉시 데미지 (관통 반영)
+                int finalDamage = CalculateDamage(rawDamage, DamageType.Physical, ref attacker, ref target);
 
                 if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
 
-                ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical);
+                ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit);
                 ApplyLifeSteal(ref attacker, finalDamage);
 
                 // 피격자 마나 충전
@@ -239,18 +261,77 @@ namespace CookApps.AutoChess
                 TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
         }
 
-        /// <summary>회피 판정. 회피 성공 시 true.</summary>
-        public static bool TryDodge(ref CombatUnit target, ref DeterministicRNG rng)
+        /// <summary>대기 중인 근접 공격 히트 적용 (ATK 키프레임 도달 시점)</summary>
+        public static void ExecutePendingMeleeHit(
+            CombatMatchState state, ref CombatUnit attacker, ref DeterministicRNG rng, int tickRate)
         {
-            if (target.DodgeChance <= 0) return false;
-            return rng.Chance(target.DodgeChance);
+            int targetIdx = state.FindUnitIndex(attacker.PendingAtkTargetId);
+            attacker.PendingAtkTargetId = CombatUnit.InvalidId;
+
+            // 타겟 유효성 재검증
+            if (targetIdx < 0 || !state.Units[targetIdx].IsAlive)
+            {
+                // 타겟 사망/무효: 데미지 없이 Idle 복귀
+                attacker.State = CombatState.Idle;
+                return;
+            }
+
+            ref var target = ref state.Units[targetIdx];
+            int attackerIndex = state.FindUnitIndex(attacker.CombatId);
+
+            // 회피 판정은 CombatAISystem에서 처리 (공격 시작 전 판정)
+
+            // Trait: 공격 전 콜백
+            if (attackerIndex >= 0)
+                TraitSystem.InvokeOnPreAttack(state, attackerIndex, ref target);
+
+            int rawDamage = attacker.Attack;
+            bool isCrit;
+            rawDamage = ApplyCritical(rawDamage, ref attacker, ref rng, out isCrit);
+
+            // Trait: 크리티컬 콜백
+            if (isCrit && attackerIndex >= 0)
+                TraitSystem.InvokeOnCritical(state, attackerIndex, ref target, rawDamage);
+
+            int finalDamage = CalculateDamage(rawDamage, DamageType.Physical, ref attacker, ref target);
+
+            if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
+
+            ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit);
+            ApplyLifeSteal(ref attacker, finalDamage);
+            ChargeMana(ref target, ManaGainOnHit);
+            ChargeMana(ref attacker, ManaGainOnAttack);
+
+            // View에 실제 데미지 전달 (isPreTimed: View가 딜레이 없이 즉시 표시)
+            state.EventQueue?.PushUnitAttacked(
+                attacker.SourceEntityId, target.SourceEntityId, finalDamage, isCrit, false, isPreTimed: true);
+
+            // Trait: 공격 후 콜백
+            if (attackerIndex >= 0)
+                TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
+        }
+
+        /// <summary>
+        /// 명중/회피 판정. 미스 시 true 반환.
+        /// HitChance(%) = attacker.HitChance - target.DodgeChance
+        /// HitChance가 100 이상이면 무조건 명중, 0 이하이면 무조건 미스.
+        /// </summary>
+        public static bool TryDodge(ref CombatUnit attacker, ref CombatUnit target, ref DeterministicRNG rng)
+        {
+            int hitChance = attacker.HitChance - target.DodgeChance;
+            if (hitChance >= 100) return false; // 무조건 명중
+            if (hitChance <= 0) return true;    // 무조건 미스
+            return !rng.Chance(hitChance);       // hitChance% 확률로 명중 → 실패 시 회피
         }
 
         // ═══════════════════════════════════════════════
-        //  범위 기본공격
+        //  범위 기본공격 (키프레임 타이밍 기반 멀티히트)
         // ═══════════════════════════════════════════════
 
-        /// <summary>범위 기본공격 실행. 패턴의 모든 히트를 순차 처리.</summary>
+        /// <summary>
+        /// 범위 기본공격 시작. 데미지/크리를 계산하고 첫 히트 타이머를 설정.
+        /// 이후 매 틱 TickAreaAttack()에서 히트 타이밍 처리.
+        /// </summary>
         private static void ExecuteAreaAttack(
             CombatMatchState state, ref CombatUnit attacker, ref CombatUnit target,
             ref DeterministicRNG rng, int tickRate, ref AreaAttackPattern pattern)
@@ -273,18 +354,74 @@ namespace CookApps.AutoChess
 
             if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, rawDamage, isCrit, false);
 
-            // 모든 히트 순차 실행
-            for (int h = 0; h < pattern.HitCount; h++)
-            {
-                var hit = pattern.GetHit(h);
-                ApplyAreaHit(state, ref attacker, hitDamage, isCrit, dirCol, dirRow, ref hit);
-            }
+            // 멀티히트 상태 저장
+            attacker.IsAreaAttacking = true;
+            attacker.AreaHitIndex = 0;
+            attacker.AreaHitDamage = hitDamage;
+            attacker.AreaHitIsCrit = isCrit;
+            attacker.AreaDirCol = (sbyte)dirCol;
+            attacker.AreaDirRow = (sbyte)dirRow;
+
+            // 첫 히트 타이머 설정 (AttackSpeed 반영: slow 디버프 시 딜레이 증가)
+            var firstHit = pattern.GetHit(0);
+            attacker.AreaHitTimer = CalcHitDelayFrames(firstHit.DelayMs, tickRate, attacker.AttackSpeed);
 
             // 공격자 마나 충전
             ChargeMana(ref attacker, ManaGainOnAttack);
+        }
 
-            // 공격 쿨다운 재설정
-            attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
+        /// <summary>
+        /// 범위 공격 틱. 매 프레임 호출하여 히트 타이밍 도달 시 해당 히트 실행.
+        /// 모든 히트 완료 후 공격 쿨다운 설정.
+        /// </summary>
+        public static void TickAreaAttack(CombatMatchState state, ref CombatUnit unit, int tickRate)
+        {
+            if (!unit.IsAreaAttacking) return;
+
+            unit.AreaHitTimer--;
+            if (unit.AreaHitTimer > 0) return;
+
+            // 패턴 조회
+            if (!AreaAttackRegistry.TryGetPattern(unit.ChampionSpecId, out var pattern))
+            {
+                unit.IsAreaAttacking = false;
+                unit.AttackCooldown = unit.GetAttackInterval(tickRate);
+                return;
+            }
+
+            // 현재 히트 실행
+            int hitIdx = unit.AreaHitIndex;
+            var hit = pattern.GetHit(hitIdx);
+            ApplyAreaHit(state, ref unit, unit.AreaHitDamage, unit.AreaHitIsCrit,
+                unit.AreaDirCol, unit.AreaDirRow, ref hit);
+
+            // 다음 히트로 진행
+            unit.AreaHitIndex++;
+
+            if (unit.AreaHitIndex >= pattern.HitCount)
+            {
+                // 모든 히트 완료
+                unit.IsAreaAttacking = false;
+                unit.AttackCooldown = unit.GetAttackInterval(tickRate);
+            }
+            else
+            {
+                // 다음 히트까지의 딜레이 (현재 히트와 다음 히트의 시간 차이)
+                var nextHit = pattern.GetHit(unit.AreaHitIndex);
+                int currentFrames = CalcHitDelayFrames(hit.DelayMs, tickRate, unit.AttackSpeed);
+                int nextFrames = CalcHitDelayFrames(nextHit.DelayMs, tickRate, unit.AttackSpeed);
+                unit.AreaHitTimer = nextFrames - currentFrames;
+                if (unit.AreaHitTimer <= 0) unit.AreaHitTimer = 1;
+            }
+        }
+
+        /// <summary>밀리초 딜레이를 프레임으로 변환 (AttackSpeed 반영)</summary>
+        private static int CalcHitDelayFrames(int delayMs, int tickRate, int attackSpeed)
+        {
+            // AttackSpeed 100 = 1.0x 속도, slow(50) = 2x 딜레이, fast(200) = 0.5x 딜레이
+            if (attackSpeed <= 0) attackSpeed = 100;
+            int frames = delayMs * tickRate * 100 / (1000 * attackSpeed);
+            return frames > 0 ? frames : 1;
         }
 
         /// <summary>단일 히트의 범위 판정 + 데미지 적용</summary>
@@ -397,16 +534,17 @@ namespace CookApps.AutoChess
             }
         }
 
-        /// <summary>범위 공격 피격 유닛에 데미지 적용 + 이벤트 발행</summary>
+        /// <summary>범위 공격 피격 유닛에 데미지 적용 + 이벤트 발행 (isPreTimed=true)</summary>
         private static void ApplyAreaDamageToUnit(
             CombatMatchState state, ref CombatUnit attacker, ref CombatUnit unit,
             int hitDamage, bool isCrit)
         {
-            int finalDamage = CalculateDamage(hitDamage, DamageType.Physical, ref unit);
-            ApplyDamage(state, ref unit, finalDamage);
+            int finalDamage = CalculateDamage(hitDamage, DamageType.Physical, ref attacker, ref unit);
+            ApplyDamage(state, ref unit, finalDamage, isCrit: isCrit);
             ApplyLifeSteal(ref attacker, finalDamage);
             ChargeMana(ref unit, ManaGainOnHit);
-            state.EventQueue?.PushUnitAttacked(attacker.SourceEntityId, unit.SourceEntityId, finalDamage, isCrit, false);
+            // isPreTimed=true: 시뮬레이션에서 키프레임 타이밍에 맞춰 발행 → 뷰는 즉시 표시
+            state.EventQueue?.PushUnitAttacked(attacker.SourceEntityId, unit.SourceEntityId, finalDamage, isCrit, false, isPreTimed: true);
         }
 
         private static int Sign(int value)

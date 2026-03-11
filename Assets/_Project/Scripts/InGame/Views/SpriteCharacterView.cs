@@ -52,6 +52,12 @@ namespace CookApps.AutoBattler
         [SerializeField]
         private Transform _skillBottomFXTransform;
 
+        [SerializeField] 
+        private GameObject _projectilePrefab;
+        
+        [SerializeField]
+        private SkillViewData[] _skillEffectPrefabs;
+
         [SerializeField]
         private GameObject _shadow;
 
@@ -78,6 +84,9 @@ namespace CookApps.AutoBattler
         public Transform SkillTopFXTransform => _skillTopFXTransform;
         public Transform SkillMiddleFXTransform => _skillMiddleFXTransform;
         public Transform SkillBottomFXTransform => _skillBottomFXTransform;
+
+        public GameObject ProjectilePrefab => _projectilePrefab;
+        public SkillViewData[] SkillEffectPrefabs => _skillEffectPrefabs;
 
         private void Awake()
         {
@@ -243,7 +252,10 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            throw new KeyNotFoundException($"[{fullAnimationName}] is not found.");
+            // 클립이 없으면 IDLE로 fallback (IDLE 자체가 없으면 null)
+            if (animationKey != AnimationKey.IDLE)
+                return PlayAnimation(AnimationKey.IDLE, isLoop);
+            return null;
         }
 
         /// <summary>현재 방향(front/back)에 따른 투사체 발사 위치 반환</summary>

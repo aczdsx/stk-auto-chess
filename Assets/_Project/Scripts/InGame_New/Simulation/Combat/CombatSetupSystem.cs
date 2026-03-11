@@ -86,8 +86,13 @@ namespace CookApps.AutoChess
                 combatUnit.MoveSpeed = srcUnit.MoveSpeed;
                 combatUnit.MaxMana = srcUnit.MaxMana;
                 combatUnit.CurrentMana = 0;
-                combatUnit.CritChance = 25;       // 기본 25%
-                combatUnit.CritMultiplier = 150;   // 기본 1.5x
+                // 관통/크리: 스펙값 우선, 없으면 기본값
+                var spec = FindChampionSpec(world, srcUnit.ChampionSpecId);
+                combatUnit.ArmorPenetration = spec.BaseArmorPen;
+                combatUnit.MagicPenetration = spec.BaseMagicPen;
+                combatUnit.CritChance = spec.BaseCritChance > 0 ? spec.BaseCritChance : 25;
+                combatUnit.CritMultiplier = spec.BaseCritMultiplier > 0 ? spec.BaseCritMultiplier : 150;
+                combatUnit.HitChance = 100;  // 명중률 기본 100%
                 combatUnit.TraitFlags = srcUnit.TraitFlags;
 
                 // 크기 복사
@@ -96,8 +101,14 @@ namespace CookApps.AutoChess
 
                 combatUnit.CurrentTargetId = CombatUnit.InvalidId;
                 combatUnit.AttackCooldown = 0;
+                combatUnit.PendingAtkTargetId = CombatUnit.InvalidId;
+                combatUnit.PendingAtkTimer = 0;
                 combatUnit.MoveTimer = 0;
                 combatUnit.MoveDuration = 0;
+
+                // ATK 키프레임 지연 추출 (prefabId 기반)
+                int prefabId = FindPrefabId(world, srcUnit.ChampionSpecId);
+                combatUnit.AtkHitDelay = ExtractAtkHitDelay(prefabId, world.TickRate);
 
                 // 스킬 ID 설정 (ChampionSpec에서 복사)
                 combatUnit.SkillSpecId = FindSkillId(world, srcUnit.ChampionSpecId);
@@ -116,6 +127,18 @@ namespace CookApps.AutoChess
             }
         }
 
+        /// <summary>ChampionSpec 전체 조회</summary>
+        private static ChampionSpec FindChampionSpec(GameWorld world, int championSpecId)
+        {
+            if (world.Pool == null) return default;
+            for (int i = 0; i < world.Pool.SpecCount; i++)
+            {
+                if (world.Pool.Specs[i].ChampionId == championSpecId)
+                    return world.Pool.Specs[i];
+            }
+            return default;
+        }
+
         /// <summary>ChampionSpec에서 SkillId 조회</summary>
         private static int FindSkillId(GameWorld world, int championSpecId)
         {
@@ -126,6 +149,31 @@ namespace CookApps.AutoChess
                     return world.Pool.Specs[i].SkillId;
             }
             return 0;
+        }
+
+        /// <summary>ChampionSpec에서 PrefabId 조회</summary>
+        private static int FindPrefabId(GameWorld world, int championSpecId)
+        {
+            if (world.Pool == null) return 0;
+            for (int i = 0; i < world.Pool.SpecCount; i++)
+            {
+                if (world.Pool.Specs[i].ChampionId == championSpecId)
+                    return world.Pool.Specs[i].PrefabId;
+            }
+            return 0;
+        }
+
+        /// <summary>ATK Execute 키프레임 지연 프레임 추출 (Back_ATK 기준)</summary>
+        private static int ExtractAtkHitDelay(int prefabId, int tickRate)
+        {
+            if (prefabId <= 0) return 1;
+            int atkKey = AnimKeyframeData.MakeKey(prefabId, false, AnimClipType.ATK);
+            if (AnimKeyframeData.ExecuteTimes.TryGetValue(atkKey, out float execTime))
+            {
+                int frames = (int)(execTime * tickRate + 0.5f);
+                return frames > 0 ? frames : 1;
+            }
+            return 1; // 키프레임 없으면 1프레임 최소 지연
         }
 
         /// <summary>팀별 생존 유닛 수</summary>
@@ -198,13 +246,21 @@ namespace CookApps.AutoChess
                 unit.MoveSpeed = enemy.MoveSpeed;
                 unit.MaxMana = enemy.MaxMana;
                 unit.CurrentMana = 0;
-                unit.CritChance = 25;
-                unit.CritMultiplier = 150;
+                // PvE 적: 스펙값 우선, 없으면 기본값
+                var enemySpec = FindChampionSpec(world, enemy.ChampionSpecId);
+                unit.ArmorPenetration = enemySpec.BaseArmorPen;
+                unit.MagicPenetration = enemySpec.BaseMagicPen;
+                unit.CritChance = enemySpec.BaseCritChance > 0 ? enemySpec.BaseCritChance : 25;
+                unit.CritMultiplier = enemySpec.BaseCritMultiplier > 0 ? enemySpec.BaseCritMultiplier : 150;
+                unit.HitChance = 100;  // 명중률 기본 100%
                 unit.TraitFlags = enemy.TraitFlags;
                 unit.SkillSpecId = enemy.SkillSpecId;
                 unit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(enemy.ChampionSpecId, out _);
                 unit.CurrentTargetId = CombatUnit.InvalidId;
                 unit.AttackCooldown = 0;
+                unit.PendingAtkTargetId = CombatUnit.InvalidId;
+                unit.PendingAtkTimer = 0;
+                unit.AtkHitDelay = ExtractAtkHitDelay(enemy.PrefabId > 0 ? enemy.PrefabId : enemy.ChampionSpecId, world.TickRate);
                 unit.MoveTimer = 0;
                 unit.MoveDuration = 0;
                 unit.SkillCastTimer = 0;

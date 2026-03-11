@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.Obfuscator;

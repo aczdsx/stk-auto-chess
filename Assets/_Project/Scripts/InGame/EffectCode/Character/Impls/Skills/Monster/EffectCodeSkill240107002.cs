@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -64,7 +64,7 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
 
         _colliderVfx = InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1], owner.SkillRootTransformFollowable);
         _colliderVfx.Initialize(false);
-        _colliderVfx.OnCollisionWithTile += OnCollision2DEnter;
+        // [InGame_New: removed] _colliderVfx.OnCollisionWithTile += OnCollision2DEnter;
     }
 
     public override void Merge(EffectCodeInfo codeInfo, IEffectCodeSource source)
@@ -407,37 +407,37 @@ public partial class EffectCodeSkill240107002 : EffectCodeCharacterBase
         base.OnPreRemoved();
     }
 
-    private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
-    {
-        // 점프 중일 때는 리턴
-        if (!_isJumping)
-            return;
+    // [InGame_New: removed] private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
+    // [InGame_New: removed] {
+        // [InGame_New: removed] // 점프 중일 때는 리턴
+        // [InGame_New: removed] if (!_isJumping)
+            // [InGame_New: removed] return;
 
-        if (tile == null || owner == null || !owner.IsAlive)
-            return;
-        InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, tile);
+        // [InGame_New: removed] if (tile == null || owner == null || !owner.IsAlive)
+            // [InGame_New: removed] return;
+        // [InGame_New: removed] InGameVfxManager.Instance.AddInGameTileFx(SynergyType.LIGHTNING, tile);
 
-        // 타일에 적 캐릭터가 있는지 확인
-        if (tile.CheckValidTile(owner.AllianceType, false))
-        {
-            var target = tile.OccupiedCharacter;
+        // [InGame_New: removed] // 타일에 적 캐릭터가 있는지 확인
+        // [InGame_New: removed] if (tile.CheckValidTile(owner.AllianceType, false))
+        // [InGame_New: removed] {
+            // [InGame_New: removed] var target = tile.OccupiedCharacter;
 
-            // 캐릭터가 살아있는지 확인
-            if (!target.IsAlive)
-                return;
+            // [InGame_New: removed] // 캐릭터가 살아있는지 확인
+            // [InGame_New: removed] if (!target.IsAlive)
+                // [InGame_New: removed] return;
 
-            // 이미 스턴을 받은 캐릭터인지 확인 (반복 스턴 방지)
-            if (_stunnedCharacters.Contains(target))
-                return;
+            // [InGame_New: removed] // 이미 스턴을 받은 캐릭터인지 확인 (반복 스턴 방지)
+            // [InGame_New: removed] if (_stunnedCharacters.Contains(target))
+                // [InGame_New: removed] return;
 
-            // 스턴 적용
-            Span<double> eccStats = stackalloc double[1];
-            eccStats.Clear();
-            eccStats[0] = _debuffTime;
-            EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, target, eccStats, source);
+            // [InGame_New: removed] // 스턴 적용
+            // [InGame_New: removed] Span<double> eccStats = stackalloc double[1];
+            // [InGame_New: removed] eccStats.Clear();
+            // [InGame_New: removed] eccStats[0] = _debuffTime;
+            // [InGame_New: removed] EffectCodeHelper.AddOrMergeEffectCode(EffectCodeNameType.CC_STUN, target, eccStats, source);
 
-            // 스턴을 받은 캐릭터를 리스트에 추가
-            _stunnedCharacters.Add(target);
-        }
-    }
+            // [InGame_New: removed] // 스턴을 받은 캐릭터를 리스트에 추가
+            // [InGame_New: removed] _stunnedCharacters.Add(target);
+        // [InGame_New: removed] }
+    // [InGame_New: removed] }
 }

@@ -344,7 +344,7 @@ namespace CookApps.AutoBattler
                 response.BattleSeed
             );
             
-            SceneLoading.GoToNextScene("InGame", inGameParams);
+            SceneLoading.GoToNextScene("InGame_New", inGameParams);
         }
 
         private void OnDestroy()

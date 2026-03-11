@@ -5355,6 +5355,14 @@ MonoBehaviour:
     m_Key: UI_HUBBLE
     m_Metadata:
       m_Items: []
+  - m_Id: 19891471535923200
+    m_Key: MSG_BATTLE_EXIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19891471573671936
+    m_Key: MSG_SURRENDER_CONFIRM
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

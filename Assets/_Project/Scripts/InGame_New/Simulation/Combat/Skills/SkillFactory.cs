@@ -32,7 +32,7 @@ namespace CookApps.AutoChess
         }
 
         /// <summary>SkillActive 스펙 테이블 기반 자동 등록</summary>
-        public static void Initialize()
+        public static void Initialize(int tickRate)
         {
             if (_initialized) return;
             _initialized = true;
@@ -54,9 +54,13 @@ namespace CookApps.AutoChess
                     spec.skill_type != SkillType.ACTIVE)
                     continue;
 
-                int id = spec.id;
+                int id = spec.skill_group_id;
                 var archetype = SkillSpecAdapter.ClassifySkill(spec);
-                var skillParams = SkillSpecAdapter.BuildParams(spec);
+
+                // 같은 skill_group_id로 이미 등록된 경우 스킵 (성급별 중복 방지)
+                if (_paramsCache.ContainsKey(id)) continue;
+
+                var skillParams = SkillSpecAdapter.BuildParams(spec, tickRate);
                 _paramsCache[id] = skillParams;
 
                 // 커스텀 스킬이 이미 등록되어 있으면 스킵
@@ -80,6 +84,7 @@ namespace CookApps.AutoChess
             Register(217563405, () => new SimSkillMarieAssassin());
             Register(217653505, () => new SimSkillEnkiWaveHeal());
             Register(217333202, () => new SimSkillAprilBarrage());
+            Register(217613501, () => new SimSkillOdetteStrike());
         }
 
         /// <summary>팩토리 등록 해제 (테스트용)</summary>

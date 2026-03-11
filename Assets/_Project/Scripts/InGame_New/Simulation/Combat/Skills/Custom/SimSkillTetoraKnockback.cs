@@ -47,16 +47,17 @@ namespace CookApps.AutoChess
                 int power = SecondaryPowerPercent;
                 var type = DamageType;
 
+                int casterIdx = state.FindUnitIndex(caster.CombatId);
                 SkillAreaHelper.ForEachEnemyInRadius(state, team, col, row, _stunAoERange,
                     (ref CombatUnit t, int i) =>
                     {
                         if (power > 0)
                         {
                             int raw = attack * power / 100;
-                            int dmg = DamageSystem.CalculateDamage(raw, type, ref t);
+                            int dmg = DamageSystem.CalculateDamage(raw, type, ref state.Units[casterIdx], ref t);
                             DamageSystem.ApplyDamage(state, ref t, dmg);
                         }
-                        SkillCCHelper.ApplyCC(ref t, ccType, ccFrames);
+                        SkillCCHelper.ApplyCC(state, ref t, ccType, ccFrames);
                     });
             }
         }

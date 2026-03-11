@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -104,44 +104,44 @@ public partial class EffectCodeSkill230606004 : EffectCodeCharacterBase
             vfx.CachedTr.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
 
             vfx.Initialize(false);
-            vfx.OnCollisionWithTile += OnCollision2DEnter;
+            // [InGame_New: removed] vfx.OnCollisionWithTile += OnCollision2DEnter;
         }
 
         IsSkillActivated = false;
     }
 
-    private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
-    {
-        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(_elementType, tile);
-        if (tileFx != null)
-        {
-            tileFx.CachedTr.position = tile.View.CachedTr.position;
+    // [InGame_New: removed] private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
+    // [InGame_New: removed] {
+        // [InGame_New: removed] var tileFx = InGameVfxManager.Instance.AddInGameTileFx(_elementType, tile);
+        // [InGame_New: removed] if (tileFx != null)
+        // [InGame_New: removed] {
+            // [InGame_New: removed] tileFx.CachedTr.position = tile.View.CachedTr.position;
 
-            if (owner != null)
-            {
-                if (tile.CheckValidTile(owner.AllianceType, false))
-                {
-                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-                    if (_hitCharacters.Contains(tile.OccupiedCharacter))
-                        return;
+            // [InGame_New: removed] if (owner != null)
+            // [InGame_New: removed] {
+                // [InGame_New: removed] if (tile.CheckValidTile(owner.AllianceType, false))
+                // [InGame_New: removed] {
+                    // [InGame_New: removed] InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+                    // [InGame_New: removed] if (_hitCharacters.Contains(tile.OccupiedCharacter))
+                        // [InGame_New: removed] return;
 
-                    if (owner.AllianceType == tile.OccupiedCharacter.AllianceType)
-                        return;
+                    // [InGame_New: removed] if (owner.AllianceType == tile.OccupiedCharacter.AllianceType)
+                        // [InGame_New: removed] return;
 
-                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                        tile.OccupiedCharacter.SkillRootTransformFollowable);
+                    // [InGame_New: removed] InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        // [InGame_New: removed] tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
-                    // var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter,
-                    //     codeId, true);
-                    // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    // [InGame_New: removed] var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                    // [InGame_New: removed] // var damage = owner.PrecalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter,
+                    // [InGame_New: removed] //     codeId, true);
+                    // [InGame_New: removed] // owner.PostCalculateDamageAmount(ref damage, tile.OccupiedCharacter);
+                    // [InGame_New: removed] tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                    _hitCharacters.Add(tile.OccupiedCharacter);
-                }
-            }
-        }
-    }
+                    // [InGame_New: removed] _hitCharacters.Add(tile.OccupiedCharacter);
+                // [InGame_New: removed] }
+            // [InGame_New: removed] }
+        // [InGame_New: removed] }
+    // [InGame_New: removed] }
 
     public override void OnSkillAnimationEnd()
     {

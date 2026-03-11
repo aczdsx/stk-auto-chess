@@ -73,6 +73,7 @@ namespace CookApps.AutoChess
         Self,
         Area,
         RandomEnemies,
+        HighestAttackEnemy,
     }
 
     /// <summary>커맨드 타입 (플레이어 입력)</summary>
@@ -131,6 +132,9 @@ namespace CookApps.AutoChess
         HealOverTime,    // 지속 회복 (Value=틱당 회복량)
         StatBuff,        // 스탯 증가 (만료 시 자동 역산)
         StatDebuff,      // 스탯 감소 (만료 시 자동 역산)
+        CCImmunity,      // CC 면역 (모든 CC 차단)
+        DOTImmunity,     // DOT 면역 (DamageOverTime 차단)
+        DebuffImmunity,  // 디버프 면역 (StatDebuff 차단)
     }
 
     // ═══════════════════════════════════════════════
@@ -209,6 +213,35 @@ namespace CookApps.AutoChess
     {
         Inventory,  // 인벤토리 (미장착)
         Equipped,   // 유닛에 장착됨
+    }
+
+    /// <summary>전투 VFX 트리거 타입 (버프/디버프/CC)</summary>
+    public enum CombatVfxType : byte
+    {
+        None = 0,
+        // ── 버프 계열 ──
+        StatBuff_Attack,
+        StatBuff_Armor,
+        StatBuff_MagicResist,
+        StatBuff_AttackSpeed,
+        ContinuousHeal,
+        CCImmunity,
+        DOTImmunity,
+        DebuffImmunity,
+        // ── 디버프 계열 ──
+        StatDebuff_Attack,
+        StatDebuff_Armor,
+        StatDebuff_MagicResist,
+        StatDebuff_AttackSpeed,
+        ContinuousDamage,
+        // ── CC 계열 ──
+        CC_Stun,
+        CC_Silence,
+        CC_Slow,
+        CC_Freeze,
+        CC_Taunt,
+        CC_Airborne,
+        CC_KnockBack,
     }
 
     /// <summary>아이템 특수 효과 타입</summary>

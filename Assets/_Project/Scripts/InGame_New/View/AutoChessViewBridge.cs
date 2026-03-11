@@ -13,6 +13,7 @@ namespace CookApps.AutoChess.View
         private ISimulationRunner _runner;
         private UnitViewManager _unitViewManager;
         private CombatViewManager _combatViewManager;
+        private CombatVfxManager _combatVfxManager;
         private BoardGridView _boardGridView;
         private AutoChessUIBase _autoChessUI;
         private BoardInputHandler _boardInputHandler;
@@ -21,12 +22,14 @@ namespace CookApps.AutoChess.View
             ISimulationRunner runner,
             UnitViewManager unitViewManager,
             CombatViewManager combatViewManager,
-            BoardGridView boardGridView)
+            BoardGridView boardGridView,
+            CombatVfxManager combatVfxManager = null)
         {
             _runner = runner;
             _unitViewManager = unitViewManager;
             _combatViewManager = combatViewManager;
             _boardGridView = boardGridView;
+            _combatVfxManager = combatVfxManager;
         }
 
         private GamePhase _lastPhase;
@@ -67,10 +70,7 @@ namespace CookApps.AutoChess.View
 
         private void HandleTick(GameWorld world)
         {
-            // 이벤트 큐 처리
-            ProcessEvents(world);
-
-            // 페이즈별 동기화
+            // 페이즈별 동기화 (상태 → 애니메이션 먼저 반영)
             if (world.IsCombatActive)
             {
                 SyncCombatViews(world);
@@ -79,6 +79,9 @@ namespace CookApps.AutoChess.View
             {
                 _unitViewManager.SyncBoardUnits(world);
             }
+
+            // 이벤트 큐 처리 (애니메이션 시작 후 딜레이 등록)
+            ProcessEvents(world);
 
             // UI 갱신 (벤치 + HUD 통합)
             _autoChessUI?.SyncState(world);
@@ -93,6 +96,7 @@ namespace CookApps.AutoChess.View
                 case GamePhase.Preparation:
                     _unitViewManager.OnCombatEnd();
                     _combatViewManager.OnCombatEnd();
+                    _combatVfxManager?.OnCombatEnd();
                     _boardGridView.OnPreparation();
                     _autoChessUI?.OnPhaseChanged(newPhase);
                     if (_autoChessUI != null) _autoChessUI.gameObject.SetActive(true);
@@ -170,11 +174,15 @@ namespace CookApps.AutoChess.View
             switch (evt.Type)
             {
                 case SimEventType.UnitAttacked:
-                    _combatViewManager.OnUnitAttacked(evt.EntityId, evt.TargetEntityId, evt.Value0, evt.Flag0, evt.Value1 != 0);
+                {
+                    bool isProjectile = (evt.Value1 & 1) != 0;
+                    bool isPreTimed = (evt.Value1 & 2) != 0;
+                    _combatViewManager.OnUnitAttacked(evt.EntityId, evt.TargetEntityId, evt.Value0, evt.Flag0, isProjectile, isPreTimed);
                     break;
+                }
 
                 case SimEventType.UnitDamaged:
-                    _combatViewManager.OnUnitDamaged(evt.EntityId, evt.Value0, (DamageType)evt.Value1);
+                    _combatViewManager.OnUnitDamaged(evt.EntityId, evt.Value0, (DamageType)evt.Value1, evt.Flag0);
                     break;
 
                 case SimEventType.UnitDied:
@@ -184,16 +192,74 @@ namespace CookApps.AutoChess.View
                 case SimEventType.UnitCastSkill:
                 {
                     var element = ResolveElementFromCaster(world, evt.EntityId);
-                    _combatViewManager.OnUnitCastSkill(evt.EntityId, evt.TargetEntityId, evt.Value0, element);
+                    _combatViewManager.OnUnitCastSkill(evt.EntityId, evt.TargetEntityId, evt.Value0, element, evt.Flag0, evt.Flag1);
                     break;
                 }
 
                 case SimEventType.ProjectileSpawned:
                 {
                     int champSpecId = ResolveChampSpecId(world, evt.EntityId);
+                    int projectileId = evt.Value0;
+                    int skillSpecId = evt.Value1;
                     _combatViewManager.OnProjectileSpawned(
                         evt.EntityId, evt.TargetEntityId, evt.ProjType,
-                        evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId);
+                        evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId, projectileId, skillSpecId);
+                    break;
+                }
+
+                case SimEventType.ProjectileMoved:
+                {
+                    int projectileId = evt.Value0;
+                    _combatViewManager.OnProjectileMoved(projectileId, evt.Col, evt.Row);
+
+                    // 이동한 타일에 원소 타일 이펙트 표시 (width에 따라 3칸 폭)
+                    var element = ResolveElementFromCaster(world, evt.EntityId);
+                    if (element != SynergyType.NONE && _combatViewManager != null)
+                    {
+                        var castType = TileEffectManager.SynergyToAreaType(element);
+                        int width = evt.Radius > 1 ? evt.Radius : 1;
+                        int halfW = width / 2;
+                        sbyte dirCol = (sbyte)evt.DirCol;
+                        sbyte dirRow = (sbyte)evt.DirRow;
+
+                        for (int offset = -halfW; offset <= halfW; offset++)
+                        {
+                            int tileCol = evt.Col;
+                            int tileRow = evt.Row;
+
+                            if (offset != 0)
+                            {
+                                // 진행 방향 수직으로 오프셋
+                                if (dirCol == 0)
+                                    tileCol += offset;
+                                else if (dirRow == 0)
+                                    tileRow += offset;
+                                else
+                                {
+                                    // 대각선: col + row 양쪽 확장 (중심 제외 2개씩)
+                                    int diagCol = evt.Col + offset;
+                                    if (BoardHelper.IsValidCombatPosition(diagCol, evt.Row))
+                                    {
+                                        var posA = BoardWorldHelper.CombatGridToWorld(0, diagCol, evt.Row);
+                                        _combatViewManager.ShowTileEffectAt(castType, posA);
+                                    }
+                                    tileCol = evt.Col;
+                                    tileRow = evt.Row + offset;
+                                }
+                            }
+
+                            if (!BoardHelper.IsValidCombatPosition(tileCol, tileRow)) continue;
+                            var worldPos = BoardWorldHelper.CombatGridToWorld(0, tileCol, tileRow);
+                            _combatViewManager.ShowTileEffectAt(castType, worldPos);
+                        }
+                    }
+                    break;
+                }
+
+                case SimEventType.ProjectileExpired:
+                {
+                    int projectileId = evt.Value0;
+                    _combatViewManager.OnProjectileExpired(projectileId);
                     break;
                 }
 
@@ -204,10 +270,31 @@ namespace CookApps.AutoChess.View
                     break;
                 }
 
+                case SimEventType.SkillPhaseVfx:
+                {
+                    int casterId = evt.EntityId;
+                    int skillSpecId = evt.Value0;
+                    byte vfxIndex = (byte)evt.Value1;
+                    sbyte dirCol = (sbyte)evt.DirCol;
+                    sbyte dirRow = (sbyte)evt.DirRow;
+                    _combatViewManager.OnSkillPhaseVfx(casterId, skillSpecId, vfxIndex, dirCol, dirRow);
+                    break;
+                }
+
+                case SimEventType.SkillRectAreaEffect:
+                {
+                    var element = ResolveElementFromCaster(world, evt.EntityId);
+                    sbyte dirCol = (sbyte)evt.DirCol;
+                    sbyte dirRow = (sbyte)evt.DirRow;
+                    _combatViewManager.OnSkillRectAreaEffect(evt.Col, evt.Row, dirCol, dirRow, element);
+                    break;
+                }
+
                 case SimEventType.SkillAreaEffect:
                 {
                     var element = ResolveElementFromCaster(world, evt.EntityId);
-                    _combatViewManager.OnSkillAreaEffect(evt.Col, evt.Row, evt.Radius, element, evt.Flag0);
+                    bool isBox = evt.Value1 != 0;
+                    _combatViewManager.OnSkillAreaEffect(evt.Col, evt.Row, evt.Radius, element, evt.Flag0, isBox);
                     break;
                 }
 
@@ -227,15 +314,39 @@ namespace CookApps.AutoChess.View
                     _autoChessUI?.OnCombatResult(evt.PlayerIndex, evt.Value0);
                     break;
 
+                case SimEventType.UnitMissed:
+                    _combatViewManager.OnUnitMissed(evt.EntityId, evt.TargetEntityId);
+                    break;
+
+                case SimEventType.UnitHealed:
+                    _combatViewManager.OnUnitHealed(evt.EntityId, evt.Value0);
+                    break;
+
                 case SimEventType.SynergyUpdated:
                     _autoChessUI?.OnSynergyUpdated(world);
+                    break;
+
+                case SimEventType.StatusEffectAdded:
+                    _combatVfxManager?.OnEffectAdded(evt.EntityId, (CombatVfxType)evt.Value0);
+                    break;
+
+                case SimEventType.StatusEffectRemoved:
+                    _combatVfxManager?.OnEffectRemoved(evt.EntityId, (CombatVfxType)evt.Value0);
+                    break;
+
+                case SimEventType.CCAdded:
+                    _combatVfxManager?.OnEffectAdded(evt.EntityId, (CombatVfxType)evt.Value0);
+                    break;
+
+                case SimEventType.CCRemoved:
+                    _combatVfxManager?.OnEffectRemoved(evt.EntityId, (CombatVfxType)evt.Value0);
                     break;
             }
         }
 
         // ── 원소 타입 조회 ──
 
-        /// <summary>시전자 entityId → 캐릭터 원소 타입</summary>
+        /// <summary>시전자 entityId → 캐릭터 원소 타입 (CombatId 또는 SourceEntityId 매칭)</summary>
         private SynergyType ResolveElementFromCaster(GameWorld world, int casterId)
         {
             // CombatMatchState에서 유닛 찾기
@@ -245,7 +356,8 @@ namespace CookApps.AutoChess.View
                 if (matchState == null) continue;
                 for (int u = 0; u < matchState.UnitCount; u++)
                 {
-                    if (matchState.Units[u].CombatId == casterId)
+                    if (matchState.Units[u].CombatId == casterId ||
+                        matchState.Units[u].SourceEntityId == casterId)
                     {
                         int champId = matchState.Units[u].ChampionSpecId;
                         return GetElementFromCharacterId(champId);

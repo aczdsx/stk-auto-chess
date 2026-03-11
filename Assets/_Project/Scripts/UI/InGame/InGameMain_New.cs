@@ -210,6 +210,7 @@ namespace CookApps.AutoBattler
             {
                 _viewRoot.Runner.OnGameOver -= HandleGameOver;
                 _viewRoot.Cleanup();
+                _viewRoot = null;
             }
 
             // 6. 결과 팝업 표시
@@ -325,6 +326,7 @@ namespace CookApps.AutoBattler
 
                 ref var enemy = ref world.PvEEnemies[world.PvEEnemyCount++];
                 enemy.ChampionSpecId = monster.monster_id;
+                enemy.PrefabId = spec.prefab_id;
                 enemy.GridCol = (byte)col;
                 enemy.GridRow = (byte)row;
                 enemy.SizeW = 1;

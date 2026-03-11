@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using CookApps.AutoBattler;
@@ -99,7 +99,7 @@ public partial class EffectCodeSkill217513401 : EffectCodeCharacterBase
             // InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0], owner.SkillRootTransformFollowable);
 
             var vfxProjectile =
-                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[1],
+                InGameVfxManager.Instance.AddInGameVfx(_specSkill.skill_vfxs[0],
                     owner.CurrentTile.View.CachedTr.position);
 
             var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
@@ -108,37 +108,37 @@ public partial class EffectCodeSkill217513401 : EffectCodeCharacterBase
 
             movement.SetData(vfxProjectile.CachedTr.position, inGameTile[0].View.CachedTr.position, 15);
             vfxProjectile.Initialize(false, movement);
-            vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
+            // [InGame_New: removed] vfxProjectile.OnCollisionWithTile += OnCollision2DEnter;
         }
         CoolTimeElapsedTime = 0;
         IsSkillActivated = false;
 
     }
 
-    private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
-    {
-        var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-        if (tileFx != null)
-        {
-            tileFx.CachedTr.position = tile.View.CachedTr.position;
+    // [InGame_New: removed] private void OnCollision2DEnter(InGameVfx.CollisionType type, InGameTile tile, InGameVfx vfx)
+    // [InGame_New: removed] {
+        // [InGame_New: removed] var tileFx = InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+        // [InGame_New: removed] if (tileFx != null)
+        // [InGame_New: removed] {
+            // [InGame_New: removed] tileFx.CachedTr.position = tile.View.CachedTr.position;
 
-            if (tile.CheckValidTile(owner.AllianceType, false))
-            {
-                if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
-                {
-                    InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
-                    InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
-                        tile.OccupiedCharacter.SkillRootTransformFollowable);
+            // [InGame_New: removed] if (tile.CheckValidTile(owner.AllianceType, false))
+            // [InGame_New: removed] {
+                // [InGame_New: removed] if (!_hitCharacters.Exists(l => l == tile.OccupiedCharacter))
+                // [InGame_New: removed] {
+                    // [InGame_New: removed] InGameVfxManager.Instance.AddInGameTileFx(owner.SpecCharacter.character_element_type, tile);
+                    // [InGame_New: removed] InGameVfxManager.Instance.AddInGameVfx(InGameVfxNameType.fx_common_skill_hit_01,
+                        // [InGame_New: removed] tile.OccupiedCharacter.SkillRootTransformFollowable);
 
-                    var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
+                    // [InGame_New: removed] var damage = owner.CalculateDamageAmount(owner.AD * _powerRate, 0, tile.OccupiedCharacter, codeId, true);
 
-                    tile.OccupiedCharacter.GetDamaged(damage, owner);
+                    // [InGame_New: removed] tile.OccupiedCharacter.GetDamaged(damage, owner);
 
-                    _hitCharacters.Add(tile.OccupiedCharacter);
-                }
-            }
-        }
-    }
+                    // [InGame_New: removed] _hitCharacters.Add(tile.OccupiedCharacter);
+                // [InGame_New: removed] }
+            // [InGame_New: removed] }
+        // [InGame_New: removed] }
+    // [InGame_New: removed] }
 
     public override void OnSkillAnimationEnd()
     {
