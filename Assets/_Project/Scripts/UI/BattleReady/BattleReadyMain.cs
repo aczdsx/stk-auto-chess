@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using CookApps.AutoChess;
+using CookApps.AutoChess.View;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
@@ -72,6 +74,10 @@ namespace CookApps.AutoBattler
         private bool _isIdleRewardFullState = false;
         private ElpisModel elpisDataBridge;
 
+        // Idle Combat (InGame_New)
+        private IdleCombatRunner _idleCombatRunner;
+        private IdleCombatViewBridge _idleCombatViewBridge;
+
         public StageMilestonePanel StageMilestonePanel => stageMilestonePanel;
 
         public static BattleReadyMain GetBattleReadyMain()
@@ -117,7 +123,7 @@ namespace CookApps.AutoBattler
             LocalDataManager.Instance.SetLastPlayStageId((uint)currentStageId);
 
             var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
-            InGameManager.Instance.StartInGame<FlowStateLobbyCombat>(stageSpecData);
+            StartIdleCombatAsync().Forget();
 
             // 방치 보상 갱신
             SetIdleRewardLayer();
@@ -472,7 +478,7 @@ namespace CookApps.AutoBattler
         {
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
-            InGameManager.Instance.EndInGame();
+            StopIdleCombat();
 
             // 현재 진행중인 가이드 미션으로 ENTER_ELPIS_NANI 트리거 확인
             var guideMissionId = (int)ServerDataManager.Instance.GuideMission.GuideMissionId;
@@ -528,7 +534,7 @@ namespace CookApps.AutoBattler
                 SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
                 await SceneTransition.FadeInAsync();
 
-                InGameManager.Instance.EndInGame();
+                StopIdleCombat();
 
                 SceneLoading.GoToNextSceneWithStageEnterTrigger("InGame_New", currentStageData.stage_id, inGameParams);
             }
@@ -628,6 +634,94 @@ namespace CookApps.AutoBattler
             // _trialDungeonButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.TRIAL_DUNGEON));
             // _sessionEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.SESSION_TIME));
             // _consumeAPEventButton.gameObject.SetActive(SpecDataManager.Instance.GetIsOpenCondition(OpenConditionType.AP_USE));
+        }
+
+        // ── Idle Combat (InGame_New) ──
+
+        private async UniTaskVoid StartIdleCombatAsync()
+        {
+            // 플레이어 캐릭터 목록 가져오기 (FlowStateLobbyCombat 패턴)
+            var userCharacters = new List<Tech.Hive.V1.CharacterData>();
+            ServerDataManager.Instance.Character.GetAllCharacters(userCharacters);
+
+            // seq 기준 내림차순 정렬
+            userCharacters.Sort((a, b) =>
+            {
+                var aData = SpecDataManager.Instance.GetCharacterData((int)a.CharacterId);
+                var bData = SpecDataManager.Instance.GetCharacterData((int)b.CharacterId);
+
+                if (aData == null && bData == null) return 0;
+                if (aData == null) return 1;
+                if (bData == null) return -1;
+
+                return bData.seq.CompareTo(aData.seq);
+            });
+
+            // 상위 5명의 specId 추출
+            var playerSpecIds = new List<int>();
+            for (int i = 0; i < userCharacters.Count && playerSpecIds.Count < 5; i++)
+            {
+                var charData = SpecDataManager.Instance.GetCharacterData((int)userCharacters[i].CharacterId);
+                if (charData != null)
+                {
+                    playerSpecIds.Add((int)userCharacters[i].CharacterId);
+                }
+            }
+
+            if (playerSpecIds.Count == 0) return;
+
+            // 현재 챕터의 몬스터 목록 가져오기 (FlowStateLobbyCombat 패턴)
+            int currentStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
+            var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
+            var monsterList = SpecDataManager.Instance.GetStageMonsterList(
+                stageSpecData.chapter_id, 1, DifficultyType.NORMAL);
+
+            var enemySpecIds = new List<int>();
+            for (int i = 0; i < monsterList.Count; i++)
+            {
+                enemySpecIds.Add(monsterList[i].monster_id);
+            }
+
+            int maxEnemyCount = SpecDataManager.Instance.GetGameConfig<int>("max_idle_battle_monster_count");
+
+            // IdleCombatRunner + ViewBridge 생성
+            var idleCombatGo = new GameObject("IdleCombatRunner");
+            _idleCombatRunner = idleCombatGo.AddComponent<IdleCombatRunner>();
+            _idleCombatViewBridge = idleCombatGo.AddComponent<IdleCombatViewBridge>();
+
+            // View 매니저 참조 획득 (씬에 존재해야 함)
+            var unitViewManager = FindAnyObjectByType<UnitViewManager>();
+            var combatViewManager = FindAnyObjectByType<CombatViewManager>();
+
+            if (unitViewManager != null && combatViewManager != null)
+            {
+                _idleCombatViewBridge.Setup(_idleCombatRunner, unitViewManager, combatViewManager);
+                _idleCombatViewBridge.Initialize();
+            }
+            else
+            {
+                Debug.LogWarning("[BattleReadyMain] UnitViewManager 또는 CombatViewManager를 씬에서 찾을 수 없습니다. View 없이 시뮬레이션만 실행합니다.");
+            }
+
+            // 약간의 딜레이 후 시작 (레거시와 동일)
+            await UniTask.Delay(750, cancellationToken: this.GetCancellationTokenOnDestroy());
+
+            _idleCombatRunner.StartIdleCombat(playerSpecIds, enemySpecIds, maxEnemyCount);
+        }
+
+        private void StopIdleCombat()
+        {
+            if (_idleCombatRunner != null)
+            {
+                _idleCombatRunner.StopIdleCombat();
+            }
+
+            if (_idleCombatRunner != null)
+            {
+                Destroy(_idleCombatRunner.gameObject);
+                _idleCombatRunner = null;
+                _idleCombatViewBridge = null;
+            }
         }
 
         public void PlayDropFx()
