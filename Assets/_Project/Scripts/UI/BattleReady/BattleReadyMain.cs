@@ -706,6 +706,8 @@ namespace CookApps.AutoBattler
             // 약간의 딜레이 후 시작 (레거시와 동일)
             await UniTask.Delay(750, cancellationToken: this.GetCancellationTokenOnDestroy());
 
+            if (_idleCombatRunner == null) return;
+
             _idleCombatRunner.StartIdleCombat(playerSpecIds, enemySpecIds, maxEnemyCount);
         }
 
