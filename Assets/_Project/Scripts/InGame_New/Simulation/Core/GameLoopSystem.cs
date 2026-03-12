@@ -108,6 +108,7 @@ namespace CookApps.AutoChess
                 var matchState = world.CombatMatchStates[i];
                 if (matchState == null) continue;
 
+                ManaSystem.TickManaRegen(matchState, world.FrameCount, world.TickRate);
                 bool finished = CombatAISystem.Tick(matchState, ref world.RNG, world.TickRate);
                 if (finished)
                 {

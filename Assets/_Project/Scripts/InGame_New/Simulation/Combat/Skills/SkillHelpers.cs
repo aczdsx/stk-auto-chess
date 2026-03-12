@@ -15,7 +15,7 @@ namespace CookApps.AutoChess
             int raw = caster.Attack * powerPercent / 100;
             int dmg = DamageSystem.CalculateDamage(raw, type, ref caster, ref target);
             DamageSystem.ApplyDamage(state, ref target, dmg);
-            DamageSystem.ChargeMana(ref target, DamageSystem.ManaGainOnHit);
+            DamageSystem.ChargeMana(ref target, target.ManaGainOnHit);
         }
 
         /// <summary>고정 데미지</summary>
@@ -29,7 +29,7 @@ namespace CookApps.AutoChess
 
             int dmg = DamageSystem.CalculateDamage(flatDamage, type, ref target);
             DamageSystem.ApplyDamage(state, ref target, dmg);
-            DamageSystem.ChargeMana(ref target, DamageSystem.ManaGainOnHit);
+            DamageSystem.ChargeMana(ref target, target.ManaGainOnHit);
         }
 
         /// <summary>HP 회복 (HealReduction 상태효과 반영)</summary>
@@ -352,6 +352,15 @@ namespace CookApps.AutoChess
                 case StatModType.AttackSpeed:
                     target.AttackSpeed += value;
                     if (target.AttackSpeed < 1) target.AttackSpeed = 1;
+                    break;
+                case StatModType.ManaRegenRate:
+                    target.ManaRegenRateBonus += value;
+                    break;
+                case StatModType.MaxMana:
+                    target.MaxMana += value;
+                    if (target.MaxMana < 1) target.MaxMana = 1;
+                    if (target.CurrentMana > target.MaxMana)
+                        target.CurrentMana = target.MaxMana;
                     break;
             }
         }

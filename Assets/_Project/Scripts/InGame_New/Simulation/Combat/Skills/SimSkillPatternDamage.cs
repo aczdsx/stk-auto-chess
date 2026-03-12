@@ -38,7 +38,7 @@ namespace CookApps.AutoChess
                     int raw = attack * power / 100;
                     int dmg = DamageSystem.CalculateDamage(raw, type, ref state.Units[casterIdx], ref t);
                     DamageSystem.ApplyDamage(state, ref t, dmg);
-                    DamageSystem.ChargeMana(ref t, DamageSystem.ManaGainOnHit);
+                    DamageSystem.ChargeMana(ref t, t.ManaGainOnHit);
 
                     if (ccType != CrowdControlType.None && ccFrames > 0)
                     {

@@ -13,8 +13,6 @@ namespace CookApps.AutoChess
         public static bool EnemyInvincible;
 
         // ── 상수 ──
-        public const int ManaGainOnAttack = 10;  // 공격 시 마나 획득
-        public const int ManaGainOnHit = 10;     // 피격 시 마나 획득
         public const int MinDamage = 1;          // 최소 데미지
 
         /// <summary>물리 데미지 계산 (방어력 + 관통 적용)</summary>
@@ -238,7 +236,7 @@ namespace CookApps.AutoChess
                 ApplyLifeSteal(ref attacker, finalDamage);
 
                 // 피격자 마나 충전
-                ChargeMana(ref target, ManaGainOnHit);
+                ChargeMana(ref target, target.ManaGainOnHit);
 
                 state.EventQueue?.PushUnitAttacked(attacker.SourceEntityId, target.SourceEntityId, finalDamage, isCrit, false);
             }
@@ -265,7 +263,7 @@ namespace CookApps.AutoChess
             }
 
             // 공격자 마나 충전
-            ChargeMana(ref attacker, ManaGainOnAttack);
+            ChargeMana(ref attacker, attacker.ManaGainOnAttack);
 
             // 공격 쿨다운 재설정
             attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
@@ -317,8 +315,8 @@ namespace CookApps.AutoChess
 
             ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit);
             ApplyLifeSteal(ref attacker, finalDamage);
-            ChargeMana(ref target, ManaGainOnHit);
-            ChargeMana(ref attacker, ManaGainOnAttack);
+            ChargeMana(ref target, target.ManaGainOnHit);
+            ChargeMana(ref attacker, attacker.ManaGainOnAttack);
 
             // View에 실제 데미지 전달 (isPreTimed: View가 딜레이 없이 즉시 표시)
             state.EventQueue?.PushUnitAttacked(
@@ -385,7 +383,7 @@ namespace CookApps.AutoChess
             attacker.AreaHitTimer = CalcHitDelayFrames(firstHit.DelayMs, tickRate, attacker.AttackSpeed);
 
             // 공격자 마나 충전
-            ChargeMana(ref attacker, ManaGainOnAttack);
+            ChargeMana(ref attacker, attacker.ManaGainOnAttack);
         }
 
         /// <summary>
@@ -560,7 +558,7 @@ namespace CookApps.AutoChess
             int finalDamage = CalculateDamage(hitDamage, DamageType.Physical, ref attacker, ref unit);
             ApplyDamage(state, ref unit, finalDamage, isCrit: isCrit);
             ApplyLifeSteal(ref attacker, finalDamage);
-            ChargeMana(ref unit, ManaGainOnHit);
+            ChargeMana(ref unit, unit.ManaGainOnHit);
             // isPreTimed=true: 시뮬레이션에서 키프레임 타이밍에 맞춰 발행 → 뷰는 즉시 표시
             state.EventQueue?.PushUnitAttacked(attacker.SourceEntityId, unit.SourceEntityId, finalDamage, isCrit, false, isPreTimed: true);
         }

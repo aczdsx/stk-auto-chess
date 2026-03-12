@@ -86,6 +86,11 @@ namespace CookApps.AutoChess
                 combatUnit.MoveSpeed = srcUnit.MoveSpeed;
                 combatUnit.MaxMana = srcUnit.MaxMana;
                 combatUnit.CurrentMana = 0;
+                // 마나 리젠 초기화 (글로벌 기본값)
+                combatUnit.ManaRegenPerSec = world.Config.DefaultManaRegenPerSec;
+                combatUnit.ManaGainOnAttack = world.Config.DefaultManaGainOnAttack;
+                combatUnit.ManaGainOnHit = world.Config.DefaultManaGainOnHit;
+                combatUnit.ManaRegenRateBonus = 0;
                 // 관통/크리: 스펙값 우선, 없으면 기본값
                 var spec = FindChampionSpec(world, srcUnit.ChampionSpecId);
                 combatUnit.ArmorPenetration = spec.BaseArmorPen;
@@ -246,6 +251,11 @@ namespace CookApps.AutoChess
                 unit.MoveSpeed = enemy.MoveSpeed;
                 unit.MaxMana = enemy.MaxMana;
                 unit.CurrentMana = 0;
+                // 마나 리젠 초기화 (글로벌 기본값)
+                unit.ManaRegenPerSec = world.Config.DefaultManaRegenPerSec;
+                unit.ManaGainOnAttack = world.Config.DefaultManaGainOnAttack;
+                unit.ManaGainOnHit = world.Config.DefaultManaGainOnHit;
+                unit.ManaRegenRateBonus = 0;
                 // PvE 적: 스펙값 우선, 없으면 기본값
                 var enemySpec = FindChampionSpec(world, enemy.ChampionSpecId);
                 unit.ArmorPenetration = enemySpec.BaseArmorPen;
@@ -305,6 +315,10 @@ namespace CookApps.AutoChess
             unit.MoveSpeed = 100;
             unit.MaxMana = 100;
             unit.CurrentMana = 0;
+            unit.ManaRegenPerSec = 10;
+            unit.ManaGainOnAttack = 10;
+            unit.ManaGainOnHit = 10;
+            unit.ManaRegenRateBonus = 0;
             unit.CritChance = 25;
             unit.CritMultiplier = 150;
             unit.CurrentTargetId = CombatUnit.InvalidId;

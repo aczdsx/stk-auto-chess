@@ -53,6 +53,11 @@ namespace CookApps.AutoChess
         public int DefaultCombineCount = 3; // 기본 합성 필요 수량 (시너지로 2 가능)
         public byte MaxStarLevel = 3;
 
+        // ── 마나 리젠 기본값 ──
+        public int DefaultManaRegenPerSec = 10;
+        public int DefaultManaGainOnAttack = 10;
+        public int DefaultManaGainOnHit = 10;
+
         // ── 전투 설정 ──
         public int BaseDamageOnLoss = 2;   // 패배 시 기본 데미지
         public int CombatGridWidth = 7;

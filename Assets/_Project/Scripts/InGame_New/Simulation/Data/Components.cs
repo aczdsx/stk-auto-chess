@@ -508,6 +508,11 @@ namespace CookApps.AutoChess
         public int MoveSpeed;         // 100 = 1.0
         public int MaxMana;
         public int CurrentMana;
+        // ── 마나 리젠 ──
+        public int ManaRegenPerSec;    // 초당 시간 리젠량
+        public int ManaGainOnAttack;   // 타격 시 마나 획득량
+        public int ManaGainOnHit;      // 피격 시 마나 획득량
+        public int ManaRegenRateBonus; // 마나 리젠 속도 보너스 % (버프/디버프 누적)
         public int CritChance;        // 퍼센트 (0-100)
         public int CritMultiplier;    // 퍼센트 (150 = 1.5x)
         public int HitChance;        // 명중률 (퍼센트, 기본 100, 최대 100)

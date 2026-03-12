@@ -132,7 +132,7 @@ namespace CookApps.AutoChess
                     int raw = attack * dmgPct / 100;
                     int dmg = DamageSystem.CalculateDamage(raw, type, ref state.Units[casterIdx], ref enemy);
                     DamageSystem.ApplyDamage(state, ref enemy, dmg);
-                    DamageSystem.ChargeMana(ref enemy, DamageSystem.ManaGainOnHit);
+                    DamageSystem.ChargeMana(ref enemy, enemy.ManaGainOnHit);
 
                     // 회복감소 디버프
                     int enemyIdx = state.FindUnitIndex(enemy.CombatId);

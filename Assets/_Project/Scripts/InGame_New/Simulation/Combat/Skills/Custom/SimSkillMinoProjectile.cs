@@ -31,7 +31,7 @@ namespace CookApps.AutoChess
                 int mainRaw = attack * mainPower / 100;
                 int mainDmg = DamageSystem.CalculateDamage(mainRaw, type, ref caster, ref mainTarget);
                 DamageSystem.ApplyDamage(state, ref mainTarget, mainDmg);
-                DamageSystem.ChargeMana(ref mainTarget, DamageSystem.ManaGainOnHit);
+                DamageSystem.ChargeMana(ref mainTarget, mainTarget.ManaGainOnHit);
 
                 // 주변 1타일 스플래시
                 int col = mainTarget.GridCol;
@@ -45,7 +45,7 @@ namespace CookApps.AutoChess
                         int raw = attack * splashPower / 100;
                         int dmg = DamageSystem.CalculateDamage(raw, type, ref state.Units[casterIdx], ref u);
                         DamageSystem.ApplyDamage(state, ref u, dmg);
-                        DamageSystem.ChargeMana(ref u, DamageSystem.ManaGainOnHit);
+                        DamageSystem.ChargeMana(ref u, u.ManaGainOnHit);
                     });
             }
         }

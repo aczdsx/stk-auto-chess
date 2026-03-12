@@ -131,6 +131,8 @@ namespace CookApps.AutoChess
         Armor,
         MagicResist,
         AttackSpeed,
+        ManaRegenRate,  // 마나 리젠 속도 % 보너스
+        MaxMana,        // 최대 마나 증감
     }
 
     /// <summary>상태효과 타입 (통합 StatusEffect 시스템)</summary>

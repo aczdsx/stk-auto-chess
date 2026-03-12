@@ -106,7 +106,7 @@ namespace CookApps.AutoChess
 
                     int dmg = DamageSystem.CalculateDamage(raw, DamageType, ref caster, ref target);
                     DamageSystem.ApplyDamage(state, ref target, dmg);
-                    DamageSystem.ChargeMana(ref target, DamageSystem.ManaGainOnHit);
+                    DamageSystem.ChargeMana(ref target, target.ManaGainOnHit);
                 }
             }
         }

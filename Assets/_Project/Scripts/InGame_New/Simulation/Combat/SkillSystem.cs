@@ -60,6 +60,7 @@ namespace CookApps.AutoChess
 
             int castFrames = skill.GetCastFrames();
             unit.CurrentMana = 0;
+            unit.HasPushedManaFull = false;
 
             if (CombatLogger.Enabled) CombatLogger.LogSkillCast(unit.CombatId, targetId, unit.SkillSpecId, castFrames <= 0);
 

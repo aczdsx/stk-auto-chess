@@ -124,7 +124,7 @@ namespace CookApps.AutoChess
                 int raw = attack * PowerPercent / 100;
                 int dmg = DamageSystem.CalculateDamage(raw, DamageType, ref caster, ref unit);
                 DamageSystem.ApplyDamage(state, ref unit, dmg);
-                DamageSystem.ChargeMana(ref unit, DamageSystem.ManaGainOnHit);
+                DamageSystem.ChargeMana(ref unit, unit.ManaGainOnHit);
 
                 // 공속감소 디버프
                 SkillBuffHelper.ApplyTimedDebuff(state, i,
@@ -166,7 +166,7 @@ namespace CookApps.AutoChess
                     int raw = attack * PowerPercent / 100;
                     int dmg = DamageSystem.CalculateDamage(raw, DamageType, ref state.Units[casterIdx], ref enemy);
                     DamageSystem.ApplyDamage(state, ref enemy, dmg);
-                    DamageSystem.ChargeMana(ref enemy, DamageSystem.ManaGainOnHit);
+                    DamageSystem.ChargeMana(ref enemy, enemy.ManaGainOnHit);
 
                     // 공속감소 디버프
                     SkillBuffHelper.ApplyTimedDebuff(state, idx,
