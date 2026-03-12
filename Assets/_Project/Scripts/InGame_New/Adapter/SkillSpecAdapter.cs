@@ -246,10 +246,13 @@ namespace CookApps.AutoChess
                 case 215532401: // 필리아: 가장 먼 적 단일강타
                     p.TargetType = SkillTargetType.FarthestEnemy;
                     break;
-                case 215252102: // 유니: 3명 힐 + 디버프 2개 제거
+                case 215252102: // 유니: 체력 최저 아군 3명 힐 + 디버프 제거
+                {
+                    // {0}=쿨타임(초), {1}=힐배율(%) → PowerPercent로 자동 반영, {2}=디버프 제거 수
                     p.TargetCount = 3;
-                    p.Param0 = 2;
+                    p.Param0 = Mathf.RoundToInt(GetSpecRate(specList, 2, 2f)); // 디버프 제거 수
                     break;
+                }
                 case 217433302: // 미노: 3발 + 스플래시
                     p.TargetCount = 3;
                     break;
