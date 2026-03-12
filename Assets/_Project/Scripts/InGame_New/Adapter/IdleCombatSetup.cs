@@ -157,7 +157,7 @@ namespace CookApps.AutoChess
             unit.IsAlive = true;
 
             // 스펙 데이터 조회
-            var charInfo = CharacterInfo.Get(champSpecId);
+            var charInfo = SpecDataManager.Instance.CharacterInfo.Get(champSpecId);
 
             if (charInfo != null)
             {
