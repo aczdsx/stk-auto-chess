@@ -189,6 +189,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2bae8b7c4523cf74a81ce72b9356e363
+    m_Address: Texture_StandAlone/Bg/UI_Gacha_GetCharacter_Bg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2c3a5b4d10f08654a9915c084dbcad02
     m_Address: Texture_StandAlone/CutScene/Bg_introCha_2
     m_ReadOnly: 0
