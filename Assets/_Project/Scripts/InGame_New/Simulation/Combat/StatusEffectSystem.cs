@@ -65,6 +65,12 @@ namespace CookApps.AutoChess
         {
             // 변경된 유닛의 쉴드 재계산용 비트마스크 (최대 32유닛)
             int shieldDirtyMask = 0;
+            // 마커 만료 추적: 유닛별 비트마스크 + 만료된 마커의 Value(스킬ID) 수집
+            int markerDirtyMask = 0;
+            // 만료된 마커의 (unitIndex, markerValue) 쌍을 수집
+            int markerExpCount = 0;
+            int[] markerExpUnits = null;
+            int[] markerExpValues = null;
 
             for (int i = 0; i < state.StatusEffectCount; i++)
             {
@@ -94,6 +100,21 @@ namespace CookApps.AutoChess
 
                         if (effect.Type == StatusEffectType.Shield)
                             shieldDirtyMask |= (1 << effect.OwnerUnitIndex);
+                        if (effect.Type == StatusEffectType.SkillMarker)
+                        {
+                            markerDirtyMask |= (1 << effect.OwnerUnitIndex);
+                            if (markerExpUnits == null)
+                            {
+                                markerExpUnits = new int[32];
+                                markerExpValues = new int[32];
+                            }
+                            if (markerExpCount < 32)
+                            {
+                                markerExpUnits[markerExpCount] = effect.OwnerUnitIndex;
+                                markerExpValues[markerExpCount] = effect.Value;
+                                markerExpCount++;
+                            }
+                        }
 
                         continue;
                     }
@@ -118,6 +139,30 @@ namespace CookApps.AutoChess
                 {
                     if ((shieldDirtyMask & (1 << u)) != 0)
                         RecalcShieldCache(state, u);
+                }
+            }
+
+            // 마커 만료 시 범용 VFX 이벤트 (Value 기반 스킬ID + 남은 마커 수)
+            if (markerDirtyMask != 0)
+            {
+                // 중복 (unitIndex, markerValue) 쌍 제거하며 이벤트 발행
+                for (int e = 0; e < markerExpCount; e++)
+                {
+                    int uIdx = markerExpUnits[e];
+                    int mVal = markerExpValues[e];
+
+                    // 이미 처리한 쌍인지 확인
+                    bool duplicate = false;
+                    for (int prev = 0; prev < e; prev++)
+                    {
+                        if (markerExpUnits[prev] == uIdx && markerExpValues[prev] == mVal)
+                        { duplicate = true; break; }
+                    }
+                    if (duplicate) continue;
+
+                    int cnt = CountMarkers(state, uIdx, mVal);
+                    state.EventQueue?.PushSkillPhaseVfx(
+                        state.Units[uIdx].CombatId, mVal, 0, dirCol: (sbyte)cnt);
                 }
             }
         }
@@ -197,6 +242,48 @@ namespace CookApps.AutoChess
                 if (effect.Type != type) continue;
                 OnEffectExpired(state, ref effect);
                 effect.IsActive = false;
+            }
+        }
+
+        /// <summary>유닛의 특정 markerId(Value)를 가진 SkillMarker 수 반환</summary>
+        public static int CountMarkers(CombatMatchState state, int unitIndex, int markerId)
+        {
+            int count = 0;
+            for (int i = 0; i < state.StatusEffectCount; i++)
+            {
+                ref var effect = ref state.StatusEffects[i];
+                if (!effect.IsActive) continue;
+                if (effect.OwnerUnitIndex != unitIndex) continue;
+                if (effect.Type == StatusEffectType.SkillMarker && effect.Value == markerId)
+                    count++;
+            }
+            return count;
+        }
+
+        /// <summary>유닛의 특정 markerId를 가진 가장 오래된(남은 프레임 최소) SkillMarker 제거</summary>
+        public static void RemoveOldestMarker(CombatMatchState state, int unitIndex, int markerId)
+        {
+            int oldestIdx = -1;
+            int lowestRemaining = int.MaxValue;
+
+            for (int i = 0; i < state.StatusEffectCount; i++)
+            {
+                ref var effect = ref state.StatusEffects[i];
+                if (!effect.IsActive) continue;
+                if (effect.OwnerUnitIndex != unitIndex) continue;
+                if (effect.Type != StatusEffectType.SkillMarker) continue;
+                if (effect.Value != markerId) continue;
+
+                if (effect.RemainingFrames < lowestRemaining)
+                {
+                    lowestRemaining = effect.RemainingFrames;
+                    oldestIdx = i;
+                }
+            }
+
+            if (oldestIdx >= 0)
+            {
+                state.StatusEffects[oldestIdx].IsActive = false;
             }
         }
 

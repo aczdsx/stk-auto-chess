@@ -8,6 +8,10 @@ namespace CookApps.AutoChess
     /// </summary>
     public static class DamageSystem
     {
+        // 테스트 무적 (디버그 전용)
+        public static bool PlayerInvincible;
+        public static bool EnemyInvincible;
+
         // ── 상수 ──
         public const int ManaGainOnAttack = 10;  // 공격 시 마나 획득
         public const int ManaGainOnHit = 10;     // 피격 시 마나 획득
@@ -83,6 +87,16 @@ namespace CookApps.AutoChess
             int attackerIndex = -1, DamageType damageType = DamageType.Physical, bool isCrit = false)
         {
             if (!target.IsAlive) return false;
+
+            // 테스트 무적: 데미지 이벤트 발행 + HP 감소 스킵
+            if ((PlayerInvincible && target.TeamIndex == 0)
+                || (EnemyInvincible && target.TeamIndex == 1))
+            {
+                state.EventQueue?.PushUnitDamaged(target.CombatId,
+                    attackerIndex >= 0 ? state.Units[attackerIndex].CombatId : CombatUnit.InvalidId,
+                    damage, damageType, isCrit);
+                return false;
+            }
 
             int targetIndex = state.FindUnitIndex(target.CombatId);
 

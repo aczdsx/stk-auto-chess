@@ -113,7 +113,7 @@ namespace CookApps.AutoChess.View
             _viewBridge.Setup(_runner, _unitViewManager, _combatViewManager, _boardGridView, _combatVfxManager);
 
             // 튜토리얼 초기화 + 브릿지 연결
-            if (TutorialManager.Instance != null)
+            if (TutorialManager.Instance != null && !TutorialManager.IsSkipTutorial)
             {
                 await TutorialManager.Instance.CheckAndInitTutorial(_stageId);
                 TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.GAME_START, "0");

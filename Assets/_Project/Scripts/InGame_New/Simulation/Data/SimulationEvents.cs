@@ -225,9 +225,15 @@ namespace CookApps.AutoChess
             });
         }
 
+        /// <summary>
+        /// Radius 패킹: upper 16bit = moveInterval, lower 16bit = skillVfxIndex (signed).
+        /// moveInterval > 0 이면 뷰에서 타일 거리/시간 기반 속도 계산.
+        /// </summary>
         public void PushProjectileSpawned(int sourceId, int targetId, ProjectileType projType,
-            byte col, byte row, sbyte dirCol = 0, sbyte dirRow = 0, int projectileId = 0, int skillSpecId = 0)
+            byte col, byte row, sbyte dirCol = 0, sbyte dirRow = 0, int projectileId = 0, int skillSpecId = 0,
+            sbyte skillVfxIndex = -1, int moveInterval = 0)
         {
+            int packed = ((moveInterval & 0xFFFF) << 16) | (skillVfxIndex & 0xFFFF);
             Push(new SimEvent
             {
                 Type = SimEventType.ProjectileSpawned,
@@ -240,6 +246,7 @@ namespace CookApps.AutoChess
                 DirRow = (byte)dirRow,
                 Value0 = projectileId,
                 Value1 = skillSpecId,
+                Radius = packed,
             });
         }
 
@@ -296,17 +303,29 @@ namespace CookApps.AutoChess
             });
         }
 
-        /// <summary>Phase별 스킬 VFX 이벤트 발행. vfxIndex = skill_vfxs 배열 인덱스. dirCol/dirRow: VFX 방향(0이면 방향 없음).</summary>
-        public void PushSkillPhaseVfx(int casterId, int skillSpecId, byte vfxIndex, sbyte dirCol = 0, sbyte dirRow = 0)
+        /// <summary>
+        /// Phase별 스킬 VFX 이벤트 발행.
+        /// vfxIndex = skill_vfxs 배열 인덱스.
+        /// dirCol/dirRow: VFX 방향(0이면 방향 없음).
+        /// targetId: VFX를 타겟 유닛 위치에 스폰 (0이면 무시).
+        /// col/row: VFX를 그리드 좌표에 스폰 (Flag0=true일 때 사용).
+        /// </summary>
+        public void PushSkillPhaseVfx(int casterId, int skillSpecId, byte vfxIndex,
+            sbyte dirCol = 0, sbyte dirRow = 0, int targetId = 0,
+            byte col = 0, byte row = 0, bool useGridPos = false)
         {
             Push(new SimEvent
             {
                 Type = SimEventType.SkillPhaseVfx,
                 EntityId = casterId,
+                TargetEntityId = targetId,
                 Value0 = skillSpecId,
                 Value1 = vfxIndex,
                 DirCol = (byte)dirCol,
                 DirRow = (byte)dirRow,
+                Col = col,
+                Row = row,
+                Flag0 = useGridPos,
             });
         }
 

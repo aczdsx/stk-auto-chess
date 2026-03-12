@@ -10,12 +10,13 @@ namespace CookApps.AutoChess.View
     /// 전투 시각 이펙트 관리.
     /// 데미지 텍스트, 투사체 VFX, 스킬 이펙트 등을 처리.
     /// </summary>
-    public class CombatViewManager : MonoBehaviour
+    public partial class CombatViewManager : MonoBehaviour
     {
         [Header("VFX Prefabs")]
         [SerializeField] private GameObject _hitVfxPrefab;
 
         private bool _isCombatActive;
+        private bool _isPausedByDebugger;
         private Transform _vfxRoot;
         private TileEffectManager _tileEffectManager;
         private UnitViewManager _unitViewManager;
@@ -34,6 +35,7 @@ namespace CookApps.AutoChess.View
             public ParticleSystem[] Particles;
             public TrailRenderer[] Trails;
             public GameObject RawGo; // InGameVfx 없는 fallback VFX용
+            public float MoveSpeed; // 타일 간 이동 속도 (0이면 기본 20f)
         }
 
         private readonly Dictionary<int, int> _projectileIdToIndex = new();
@@ -56,6 +58,7 @@ namespace CookApps.AutoChess.View
             public byte Col, Row;
             public sbyte DirCol, DirRow;
             public GameObject VfxPrefab;
+            public float MoveSpeed; // 타일 간 이동 속도 (0이면 기본 20f)
         }
 
         private struct PendingMeleeAttack
@@ -69,9 +72,10 @@ namespace CookApps.AutoChess.View
 
         // ── 초기화 ──
 
-        public void Initialize()
+        public void Initialize(int tickRate = 60)
         {
             _isCombatActive = false;
+            _simulationFPS = tickRate;
 
             // VFX 루트 (동적 생성이므로 코드에서 생성)
             var rootObj = new GameObject("VfxRoot");
@@ -86,6 +90,9 @@ namespace CookApps.AutoChess.View
         {
             _isCombatActive = true;
         }
+
+        /// <summary>디버거 pause 시 VFX 업데이트 중지</summary>
+        public void SetPausedByDebugger(bool paused) { _isPausedByDebugger = paused; }
 
         public void OnCombatEnd()
         {
@@ -285,7 +292,9 @@ namespace CookApps.AutoChess.View
             }
         }
 
-        public void OnSkillPhaseVfx(int casterId, int skillSpecId, byte vfxIndex, sbyte dirCol = 0, sbyte dirRow = 0)
+        public void OnSkillPhaseVfx(int casterId, int skillSpecId, byte vfxIndex,
+            sbyte dirCol = 0, sbyte dirRow = 0, int targetId = 0,
+            byte col = 0, byte row = 0, bool useGridPos = false)
         {
             if (!_isCombatActive) return;
 
@@ -294,6 +303,48 @@ namespace CookApps.AutoChess.View
 
             var skillPrefabs = casterView.GetSkillEffectPrefabs();
             if (skillPrefabs == null || vfxIndex >= skillPrefabs.Length) return;
+            var skillData = skillPrefabs[vfxIndex];
+            if (skillData?.Prefab == null) return;
+
+            // Persistent VFX: 유닛에 1개만 부착, 자식 GO on/off로 개수 제어 (루키다 도깨비불 등)
+            if (skillData.Persistent)
+            {
+                casterView.UpdatePersistentVfx(skillSpecId, skillData.Prefab, skillData.Position, dirCol);
+                return;
+            }
+
+            // 그리드 좌표 기반 스폰
+            if (useGridPos)
+            {
+                var worldPos = BoardWorldHelper.CombatGridToWorld(0, col, row);
+                if (worldPos != UnityEngine.Vector3.zero)
+                {
+                    if (dirCol != 0 || dirRow != 0)
+                    {
+                        // 방향이 있으면 인접 타일 월드 좌표로 회전 계산
+                        var nextPos = BoardWorldHelper.CombatGridToWorld(0, col + dirCol, row + dirRow);
+                        var dir = (nextPos - worldPos).normalized;
+                        var rot = dir != Vector3.zero ? Quaternion.LookRotation(dir) : Quaternion.identity;
+                        SpawnSkillVfxAtPosition(skillData, worldPos, rot);
+                    }
+                    else
+                    {
+                        SpawnSkillVfxAtPosition(skillData, worldPos);
+                    }
+                }
+                return;
+            }
+
+            // targetId가 지정되면 타겟 위치에 VFX 스폰
+            if (targetId > 0)
+            {
+                var targetView = _unitViewManager?.FindCombatView(targetId);
+                if (targetView != null)
+                {
+                    SpawnSkillVfx(targetView, skillPrefabs[vfxIndex]);
+                    return;
+                }
+            }
 
             if (dirCol != 0 || dirRow != 0)
                 SpawnSkillVfxDirectional(casterView, skillPrefabs[vfxIndex], dirCol, dirRow);
@@ -313,17 +364,33 @@ namespace CookApps.AutoChess.View
             }
         }
 
+        private float _simulationFPS = 60f;
+        private const float DefaultProjectileSpeed = 20f;
+
         public void OnProjectileSpawned(int sourceId, int targetId, ProjectileType projType,
-            byte col, byte row, sbyte dirCol, sbyte dirRow, int champSpecId, int projectileId, int skillSpecId = 0)
+            byte col, byte row, sbyte dirCol, sbyte dirRow, int champSpecId, int projectileId, int skillSpecId = 0,
+            sbyte skillVfxIndex = -1, int moveInterval = 0)
         {
             if (!_isCombatActive) return;
 
             var sourceView = _unitViewManager?.FindCombatView(sourceId);
             if (sourceView == null) return;
 
-            var prefab = sourceView.GetProjectilePrefab();
+            GameObject prefab = null;
 
-            // fallback: 투사체 프리팹이 없으면 skillPrefabs[0]을 사용 (아트레시아 등)
+            // skillVfxIndex >= 0: skillPrefabs[index] 사용 (엔키 파도 등)
+            if (skillVfxIndex >= 0)
+            {
+                var skillPrefabs = sourceView.GetSkillEffectPrefabs();
+                if (skillPrefabs != null && skillVfxIndex < skillPrefabs.Length && skillPrefabs[skillVfxIndex]?.Prefab != null)
+                    prefab = skillPrefabs[skillVfxIndex].Prefab;
+            }
+
+            // 기본: 전용 투사체 프리팹 → fallback skillPrefabs[0]
+            if (prefab == null)
+            {
+                prefab = sourceView.GetProjectilePrefab();
+            }
             if (prefab == null)
             {
                 var skillPrefabs = sourceView.GetSkillEffectPrefabs();
@@ -344,6 +411,17 @@ namespace CookApps.AutoChess.View
                 delay = info.GetExecTime(isFront) / animSpeed;
             }
 
+            // moveInterval > 0이면 타일 거리/시간 기반 속도 계산, 아니면 기본 20f
+            float moveSpeed = DefaultProjectileSpeed;
+            if (moveInterval > 0)
+            {
+                Vector3 startPos = BoardWorldHelper.CombatGridToWorld(0, col, row);
+                Vector3 nextPos = BoardWorldHelper.CombatGridToWorld(0, (byte)(col + dirCol), (byte)(row + dirRow));
+                float tileDist = UnityEngine.Vector3.Distance(startPos, nextPos);
+                float timePerTile = moveInterval / _simulationFPS;
+                moveSpeed = tileDist / timePerTile;
+            }
+
             _pendingProjectiles.Add(new PendingProjectile
             {
                 Delay = delay,
@@ -356,6 +434,7 @@ namespace CookApps.AutoChess.View
                 DirCol = dirCol,
                 DirRow = dirRow,
                 VfxPrefab = prefab,
+                MoveSpeed = moveSpeed,
             });
         }
 
@@ -370,9 +449,10 @@ namespace CookApps.AutoChess.View
 
             if (ap.Movement is InGameVfxMovementLinear linearMov)
             {
-                // 목적지를 새 타일 위치로 갱신 (속도 20f: SpawnLinearProjectile에서 사용하는 값)
-                Vector3 currentPos = linearMov.CurrentPosition;
-                linearMov.SetData(currentPos, targetPos, 20f);
+                float speed = ap.MoveSpeed > 0f ? ap.MoveSpeed : DefaultProjectileSpeed;
+                // 연속 이동 투사체: 스폰 시 최종 목적지까지 설정했으므로 갱신 불필요
+                if (speed >= DefaultProjectileSpeed)
+                    linearMov.SetData(linearMov.CurrentPosition, targetPos, speed);
             }
             else if (ap.RawGo != null)
             {
@@ -390,11 +470,19 @@ namespace CookApps.AutoChess.View
             var ap = _activeProjectiles[idx];
             _projectileIdToIndex.Remove(projectileId);
 
-            // 인덱스 맵 갱신: 마지막 요소를 현재 위치로 이동
+            // 목적지까지 이동 유지 후 자동 정리 (VFX가 마지막 타일에 자연스럽게 도달)
+            if (ap.Movement != null)
+            {
+                ap.ProjectileId = 0;
+                ap.Movement.OnReachedTarget += () => _projectilesToRemove.Add(ap);
+                RebuildProjectileIdIndex();
+                return;
+            }
+
+            // Movement 없는 투사체: 즉시 정리
             _activeProjectiles.RemoveAt(idx);
             RebuildProjectileIdIndex();
 
-            // VFX 정리
             if (ap.Movement != null) InGameVfxMovementPool.Return(ap.Movement);
             if (ap.Vfx != null && ap.Vfx.CachedGo != null)
             {
@@ -468,6 +556,15 @@ namespace CookApps.AutoChess.View
             else if (_vfxRoot != null)
                 vfxObj.transform.SetParent(_vfxRoot);
 
+            Destroy(vfxObj, FireAndForgetLifetime);
+        }
+
+        private void SpawnSkillVfxAtPosition(SkillViewData skillData, Vector3 worldPos, Quaternion? rotation = null)
+        {
+            if (skillData?.Prefab == null) return;
+            var vfxObj = Instantiate(skillData.Prefab, worldPos, rotation ?? Quaternion.identity);
+            if (_vfxRoot != null)
+                vfxObj.transform.SetParent(_vfxRoot);
             Destroy(vfxObj, FireAndForgetLifetime);
         }
 
@@ -550,7 +647,7 @@ namespace CookApps.AutoChess.View
                     SpawnHomingProjectile(sourcePos, p.TargetId, p.VfxPrefab, p.ProjectileId);
                     break;
                 case ProjectileType.Linear:
-                    SpawnLinearProjectile(sourcePos, p.Col, p.Row, p.DirCol, p.DirRow, p.VfxPrefab, p.ProjectileId);
+                    SpawnLinearProjectile(sourcePos, p.Col, p.Row, p.DirCol, p.DirRow, p.VfxPrefab, p.ProjectileId, p.MoveSpeed);
                     break;
                 case ProjectileType.AreaTarget:
                     SpawnAreaProjectile(sourcePos, p.Col, p.Row, p.VfxPrefab, p.ProjectileId);
@@ -581,8 +678,10 @@ namespace CookApps.AutoChess.View
             RegisterProjectile(vfx, movement, projectileId);
         }
 
-        private void SpawnLinearProjectile(Vector3 sourcePos, byte startCol, byte startRow, sbyte dirCol, sbyte dirRow, GameObject prefab, int projectileId)
+        private void SpawnLinearProjectile(Vector3 sourcePos, byte startCol, byte startRow, sbyte dirCol, sbyte dirRow, GameObject prefab, int projectileId, float moveSpeed = 0f)
         {
+            float speed = moveSpeed > 0f ? moveSpeed : DefaultProjectileSpeed;
+
             // 시전자 타일 월드 좌표에서 시작 (원본 코드: owner.CurrentTile.View.CachedTr.position)
             Vector3 startWorldPos = BoardWorldHelper.CombatGridToWorld(0, startCol, startRow);
             Vector3 nextTilePos = BoardWorldHelper.CombatGridToWorld(0, startCol + dirCol, startRow + dirRow);
@@ -607,14 +706,29 @@ namespace CookApps.AutoChess.View
             if (vfx != null)
             {
                 var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
-                movement.SetData(startWorldPos, nextTilePos, 20f);
+
+                // 연속 이동 투사체(느린 속도): 최종 목적지까지 한 번에 설정하여 끊김 없는 보간 이동
+                // 빠른 투사체: 다음 타일까지만 설정 (OnProjectileMoved에서 갱신)
+                bool isContinuous = speed < DefaultProjectileSpeed;
+                if (isContinuous)
+                {
+                    // 보드 끝까지의 최종 목적지 계산
+                    float tileDist = Vector3.Distance(startWorldPos, nextTilePos);
+                    int maxTiles = Mathf.Max(BoardHelper.CombatWidth, BoardHelper.CombatHeight);
+                    Vector3 farDest = startWorldPos + worldDir * (tileDist * maxTiles);
+                    movement.SetData(startWorldPos, farDest, speed);
+                }
+                else
+                {
+                    movement.SetData(startWorldPos, nextTilePos, speed);
+                }
 
                 if (worldDir != Vector3.zero)
                     vfx.CachedTr.rotation = Quaternion.LookRotation(worldDir) * Quaternion.Euler(0, -90f, 0);
 
                 vfx.Initialize(false, movement);
                 // Linear 투사체는 OnReachedTarget으로 제거하지 않음 (ProjectileExpired로 제거)
-                RegisterLinearProjectile(vfx, movement, projectileId);
+                RegisterLinearProjectile(vfx, movement, projectileId, speed);
             }
             else
             {
@@ -628,6 +742,7 @@ namespace CookApps.AutoChess.View
                 {
                     ProjectileId = projectileId,
                     RawGo = go,
+                    MoveSpeed = speed,
                 };
                 _activeProjectiles.Add(ap);
                 _projectileIdToIndex[projectileId] = _activeProjectiles.Count - 1;
@@ -651,7 +766,7 @@ namespace CookApps.AutoChess.View
         }
 
         /// <summary>Linear 투사체 등록. OnReachedTarget으로 제거하지 않음 (ProjectileExpired로만 제거).</summary>
-        private void RegisterLinearProjectile(InGameVfx vfx, InGameVfxMovementBase movement, int projectileId)
+        private void RegisterLinearProjectile(InGameVfx vfx, InGameVfxMovementBase movement, int projectileId, float moveSpeed = 0f)
         {
             var ap = new ActiveProjectile
             {
@@ -660,6 +775,7 @@ namespace CookApps.AutoChess.View
                 Movement = movement,
                 Particles = vfx.GetComponentsInChildren<ParticleSystem>(),
                 Trails = vfx.GetComponentsInChildren<TrailRenderer>(),
+                MoveSpeed = moveSpeed > 0f ? moveSpeed : DefaultProjectileSpeed,
             };
             _activeProjectiles.Add(ap);
             if (projectileId != 0)
@@ -768,11 +884,34 @@ namespace CookApps.AutoChess.View
             return false;
         }
 
+        // ── VFX 동기화 오버레이용 투사체 좌표 노출 ──
+
+        public Dictionary<int, Vector3> GetActiveProjectileWorldPositions()
+        {
+            var result = new Dictionary<int, Vector3>(_activeProjectiles.Count);
+            for (int i = 0; i < _activeProjectiles.Count; i++)
+            {
+                var ap = _activeProjectiles[i];
+                if (ap.ProjectileId == 0) continue;
+
+                Vector3 pos;
+                if (ap.Movement != null)
+                    pos = ap.Movement.CurrentPosition;
+                else if (ap.RawGo != null)
+                    pos = ap.RawGo.transform.position;
+                else
+                    continue;
+
+                result[ap.ProjectileId] = pos;
+            }
+            return result;
+        }
+
         // ── VFX 업데이트 (매 프레임) ──
 
         private void Update()
         {
-            if (!_isCombatActive) return;
+            if (!_isCombatActive || _isPausedByDebugger) return;
 
             float dt = Time.unscaledDeltaTime * LocalSimulationRunner.SpeedMultiplier;
 

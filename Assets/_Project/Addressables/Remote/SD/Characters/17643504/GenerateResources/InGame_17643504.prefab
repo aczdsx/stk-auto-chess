@@ -65,6 +65,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _vfxConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 8510805eb658b9745b455f9934aab71b, type: 2}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: _projectilePrefab
       value: 
       objectReference: {fileID: 6136093295579796422, guid: 65d6cfcf099c0f94ab0e6f4467839ccb, type: 3}
@@ -72,6 +76,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b3fdeb200dc67ab40885dff8fef8c279, type: 3}
+    - target: {fileID: 9052576703297259876, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

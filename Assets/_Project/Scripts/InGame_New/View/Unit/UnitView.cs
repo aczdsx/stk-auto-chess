@@ -221,7 +221,7 @@ namespace CookApps.AutoChess.View
 
         // ── 상태 + 애니메이션 ──
 
-        public void SetCombatState(CombatState state)
+        public void SetCombatState(CombatState state, int attackSpeed = 100)
         {
             // 공격/스킬 애니메이션 재생 중이면 Idle 전환 차단 (트리거가 애니메이션을 중단시키는 것 방지)
             if (state == CombatState.Idle && Time.time < _attackAnimEndTime)
@@ -245,7 +245,27 @@ namespace CookApps.AutoChess.View
             var clip = _characterView.PlayAnimation(animKey);
 
             if ((state == CombatState.Attacking || state == CombatState.CastingSkill) && clip != null)
-                _attackAnimEndTime = Time.time + clip.length;
+            {
+                // 공격속도에 따른 애니메이션 속도 조절 (구 CharacterStateAttack 로직)
+                float atkSpeedF = attackSpeed / 100f;
+                if (state == CombatState.Attacking && atkSpeedF > 0f)
+                {
+                    float atkTime = 1f / atkSpeedF;
+                    float animTime = clip.length * 1.5f;
+                    float animSpeed = animTime > atkTime ? animTime * atkSpeedF : 1f;
+                    _characterView.SetAnimationSpeed(animSpeed);
+                    _attackAnimEndTime = Time.time + clip.length / animSpeed;
+                }
+                else
+                {
+                    _characterView.SetAnimationSpeed(1f);
+                    _attackAnimEndTime = Time.time + clip.length;
+                }
+            }
+            else if (state == CombatState.Idle || state == CombatState.Moving)
+            {
+                _characterView.SetAnimationSpeed(1f);
+            }
         }
 
         /// <summary>전투 종료 시 강제 Idle 전환 (_attackAnimEndTime 보호 무시)</summary>
@@ -295,6 +315,7 @@ namespace CookApps.AutoChess.View
 
         /// <summary>현재 Animator 재생 속도 (슬로우 디버프 등 반영)</summary>
         public float AnimatorSpeed => _characterView != null ? _characterView.AnimatorSpeed : 1f;
+
 
         public Vector3 GetProjectileSpawnPosition()
         {
@@ -417,12 +438,52 @@ namespace CookApps.AutoChess.View
                 _characterView.SetDisolveShader();
         }
 
+        // ── Persistent VFX (루키다 도깨비불 등 유닛에 부착되는 지속형 VFX) ──
+
+        private readonly System.Collections.Generic.Dictionary<int, GameObject> _persistentVfx
+            = new System.Collections.Generic.Dictionary<int, GameObject>();
+
+        /// <summary>지속형 VFX의 자식 GO를 count만큼 활성화.
+        /// 최초 호출 시 프리팹을 인스턴스화하여 유닛에 부착, 이후엔 자식 on/off만.</summary>
+        public void UpdatePersistentVfx(int skillSpecId, GameObject prefab, SkillPosition position, int count)
+        {
+            if (!_persistentVfx.TryGetValue(skillSpecId, out var vfxGo) || vfxGo == null)
+            {
+                if (prefab == null) return;
+                var posTransform = GetSkillPositionTransform(position);
+                vfxGo = Instantiate(prefab, posTransform.position, posTransform.rotation, posTransform);
+                _persistentVfx[skillSpecId] = vfxGo;
+            }
+
+            // 자식 GO를 count만큼 활성화 (Fire_01, Fire_02, ...)
+            for (int i = 0; i < vfxGo.transform.childCount; i++)
+            {
+                vfxGo.transform.GetChild(i).gameObject.SetActive(i < count);
+            }
+        }
+
+        /// <summary>해당 skillSpecId의 persistent VFX가 이미 존재하는지</summary>
+        public bool HasPersistentVfx(int skillSpecId)
+        {
+            return _persistentVfx.TryGetValue(skillSpecId, out var go) && go != null;
+        }
+
+        private void ClearPersistentVfx()
+        {
+            foreach (var kvp in _persistentVfx)
+            {
+                if (kvp.Value != null) Destroy(kvp.Value);
+            }
+            _persistentVfx.Clear();
+        }
+
         // ── 비활성화 ──
 
         public void Deactivate()
         {
             _isActive = false;
             ReleaseHpBar();
+            ClearPersistentVfx();
             ReleaseCharacterVisual();
             gameObject.SetActive(false);
         }

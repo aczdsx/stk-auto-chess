@@ -33,6 +33,9 @@ namespace CookApps.AutoChess.View
         [SerializeField] protected GameObject speedOnObj;
         [SerializeField] protected GameObject speedOffObj;
 
+        [Header("Animator")]
+        [SerializeField] protected Animator animator;
+
         [Header("HUD")]
         [SerializeField] protected TMP_Text phaseText;
         [SerializeField] protected TMP_Text timerText;
@@ -70,6 +73,14 @@ namespace CookApps.AutoChess.View
         }
 
         protected virtual void OnInitialize() { }
+
+        // ── 애니메이션 ──
+
+        public void PlayAnimation(string trigger)
+        {
+            if (animator != null)
+                animator.SetTrigger(trigger);
+        }
 
         // ── 나가기 ──
 
@@ -176,6 +187,8 @@ namespace CookApps.AutoChess.View
         {
             // TODO: 전투 결과 표시 (승리/패배 배너)
         }
+
+        public virtual void OnUnitDied(int victimEntityId, int killerEntityId, GameWorld world) { }
 
         public void OnSynergyUpdated(GameWorld world)
         {

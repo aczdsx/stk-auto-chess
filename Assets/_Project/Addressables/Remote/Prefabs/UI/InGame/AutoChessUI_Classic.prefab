@@ -85465,6 +85465,7 @@ MonoBehaviour:
   speedButton: {fileID: 1993419806500685400}
   speedOnObj: {fileID: 2957049736042124170}
   speedOffObj: {fileID: 1690859162297493123}
+  animator: {fileID: 4084526490123980660}
   phaseText: {fileID: 0}
   timerText: {fileID: 1182622782047068308}
   goldText: {fileID: 4164369364591797345}
@@ -85474,6 +85475,8 @@ MonoBehaviour:
   _slotPrefab: {fileID: 9125405289344595602}
   _synergySlotPrefab: {fileID: 2117931978876790537}
   _characterBattleItemTabSwapper: {fileID: 348605571267406956}
+  _killLogRoot: {fileID: 0}
+  _killLogItemPrefab: {fileID: 0}
   _startBattleButton: {fileID: 5758273881491220602}
   _filterButton: {fileID: 2043883509166939371}
   _recommendButton: {fileID: 4970751991706216854}

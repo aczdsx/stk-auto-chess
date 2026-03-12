@@ -19,6 +19,7 @@ namespace CookApps.BattleSystem
             // check reached target
             if (Vector3.Dot(direction, currPos - srcPos) >= Vector3.Dot(direction, destPos - srcPos))
             {
+                currPos = destPos; // 오버슈트 방지: destPos에서 정지
                 InvokeReachedTarget();
             }
         }

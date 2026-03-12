@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using UnityEngine;
@@ -10,8 +11,14 @@ namespace CookApps.AutoChess
     /// </summary>
     public static class SkillSpecAdapter
     {
-        /// <summary>SkillActive 스펙에서 SkillParams 생성</summary>
+        /// <summary>SkillActive 스펙에서 SkillParams 생성 (단일 스펙)</summary>
         public static SkillParams BuildParams(SkillActive spec, int tickRate)
+        {
+            return BuildParams(spec, null, tickRate);
+        }
+
+        /// <summary>SkillActive 스펙에서 SkillParams 생성 (전체 스펙 리스트 — 다중 base_rate 지원)</summary>
+        public static SkillParams BuildParams(SkillActive spec, List<SkillActive> specList, int tickRate)
         {
             var archetype = ClassifySkill(spec);
             var dmgType = spec.atk_type == AtkType.AP ? DamageType.Magical : DamageType.Physical;
@@ -57,7 +64,7 @@ namespace CookApps.AutoChess
                     break;
             }
 
-            ApplySkillSpecificParams(ref p, spec.skill_group_id);
+            ApplySkillSpecificParams(ref p, spec.skill_group_id, specList, tickRate);
 
             // SKL 클립에서 Execute 이벤트 타이밍 자동 추출
             ExtractSkillHitTimes(ref p, spec.prefab_id, tickRate);
@@ -101,7 +108,7 @@ namespace CookApps.AutoChess
                 case 217663506: return SimSkillArchetype.MultiHit;        // 시라유키
                 case 215642501: return SimSkillArchetype.AoEDamage;       // 엘리스
                 case 217353203: return SimSkillArchetype.AoEDamage;       // 라키유
-                case 217263103: return SimSkillArchetype.Buff;            // 루키다
+                case 217263103: return SimSkillArchetype.Custom;          // 루키다
             }
 
             // 몬스터 스킬 분류
@@ -215,7 +222,15 @@ namespace CookApps.AutoChess
             return (int)(seconds * tickRate + 0.5f);
         }
 
-        private static void ApplySkillSpecificParams(ref SkillParams p, int id)
+        private static float GetSpecRate(List<SkillActive> specList, int index, float fallback = 0f)
+        {
+            if (specList != null && index < specList.Count)
+                return specList[index].base_rate;
+            return fallback;
+        }
+
+        private static void ApplySkillSpecificParams(ref SkillParams p, int id,
+            List<SkillActive> specList, int tickRate)
         {
             switch (id)
             {
@@ -283,6 +298,17 @@ namespace CookApps.AutoChess
                     p.Param0 = 90;       // 공속감소 디버프 지속 프레임 (3초 @ 30fps)
                     p.Param1 = 30;       // 공속 감소량
                     break;
+                case 217263103: // 루키다: 여우불 추가 + 공속 버프 (스펙 데이터 기반)
+                {
+                    // {0}=쿨타임(초), {1}=여우불 증가량, {2}=공속버프 지속(초), {3}=공속증가율(%)
+                    int foxFireIncrease = Mathf.RoundToInt(GetSpecRate(specList, 1, 2f));
+                    float buffDurationSec = GetSpecRate(specList, 2, 3f);
+                    int atkSpeedPercent = Mathf.RoundToInt(GetSpecRate(specList, 3, 10f));
+                    p.Param0 = foxFireIncrease;
+                    p.Param1 = SecondsToFrames(buffDurationSec, tickRate);
+                    p.Param2 = atkSpeedPercent;
+                    break;
+                }
             }
         }
     }

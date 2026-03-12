@@ -217,6 +217,12 @@ namespace CookApps.AutoChess
                     SynergySystem.Recalculate(world, (byte)p);
             }
 
+            SetupCombatMatches(world);
+        }
+
+        /// <summary>전투 매치 셋업 (OnEnterCombat / ReplayController 공통)</summary>
+        internal static void SetupCombatMatches(GameWorld world)
+        {
             bool isPvE = world.PvEEnemyCount > 0;
 
             if (isPvE)

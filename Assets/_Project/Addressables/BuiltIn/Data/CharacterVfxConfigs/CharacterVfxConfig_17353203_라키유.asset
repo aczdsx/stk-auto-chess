@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2056bdd8995f04fbd60ad7813fbbc1, type: 3}
+  m_Name: "CharacterVfxConfig_17353203_\uB77C\uD0A4\uC720"
+  m_EditorClassIdentifier: 
+  _sourcePrefab: {fileID: 1529618331911893538, guid: 505ff75e2ff7a4232b2742fd033735db, type: 3}
+  _projectilePrefab: {fileID: 4745361354709012643, guid: 6ec1b22b05cac0343b9222274bff7f46, type: 3}
+  _skillEffectPrefabs:
+  - prefab: {fileID: 6248477318514288427, guid: ea15747554650ef489cc5bcdf37d2a6b, type: 3}
+    skillPosition: 6
+    followable: 0
+    persistent: 0
+  - prefab: {fileID: 1089665638374793545, guid: 0d8888d3e77fa7844bed6226f7b31ac5, type: 3}
+    skillPosition: 6
+    followable: 0
+    persistent: 0

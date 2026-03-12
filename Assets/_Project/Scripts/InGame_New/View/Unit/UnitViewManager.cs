@@ -180,7 +180,7 @@ namespace CookApps.AutoChess.View
                         view.SetPositionImmediate(worldPos);
                         view.UpdateHP(unit.CurrentHP, unit.MaxHP, unit.ShieldAmount);
                         view.UpdateMana(unit.CurrentMana, unit.MaxMana);
-                        view.SetCombatState(unit.State);
+                        view.SetCombatState(unit.State, unit.AttackSpeed);
 
                         // 타겟 방향 바라보기
                         if (unit.CurrentTargetId != CombatUnit.InvalidId)

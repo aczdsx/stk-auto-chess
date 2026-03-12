@@ -8,7 +8,7 @@ namespace CookApps.AutoChess
     /// 네트워크 없이 로컬에서 게임을 실행하는 어댑터.
     /// 나중에 Quantum/Fusion 어댑터로 교체 가능.
     /// </summary>
-    public class LocalSimulationRunner : MonoBehaviour, ISimulationRunner
+    public partial class LocalSimulationRunner : MonoBehaviour, ISimulationRunner
     {
         [Header("Settings")]
         [SerializeField] private GameModeType _gameMode = GameModeType.ClassicBattle;
@@ -22,6 +22,13 @@ namespace CookApps.AutoChess
         private float _tickAccumulator;
         private bool _isRunning;
         private bool _isPausedByTutorial;
+        private bool _isPausedByDebugger;
+
+        // ── 프레임 레코더 ──
+        private CombatFrameRecorder _frameRecorder;
+
+        // ── 리플레이 (Debug/LocalSimulationRunner.Replay.cs) ──
+        partial void OnBeforeRecordFrame(GameWorld world);
 
         /// <summary>
         /// 배속 배율. Time.unscaledDeltaTime에 곱하여 적용.
@@ -94,11 +101,36 @@ namespace CookApps.AutoChess
         /// <summary>튜토리얼에 의한 틱 재개</summary>
         public void ResumeTick() { _isPausedByTutorial = false; }
 
+        /// <summary>디버거에 의한 틱 일시정지</summary>
+        public void PauseTickByDebugger()
+        {
+            _isPausedByDebugger = true;
+            OnDebuggerPauseChanged?.Invoke(true);
+        }
+
+        /// <summary>디버거에 의한 틱 재개</summary>
+        public void ResumeTickByDebugger()
+        {
+            _isPausedByDebugger = false;
+            OnDebuggerPauseChanged?.Invoke(false);
+        }
+
+        /// <summary>디버거 pause/resume 이벤트 (View에서 구독)</summary>
+        public event System.Action<bool> OnDebuggerPauseChanged;
+
+        /// <summary>프레임 레코더 설정</summary>
+        public void SetFrameRecorder(CombatFrameRecorder recorder) { _frameRecorder = recorder; }
+
+        /// <summary>프레임 레코더 접근</summary>
+        public CombatFrameRecorder FrameRecorder => _frameRecorder;
+
+        // SetReplayController / ReplayController → Debug/LocalSimulationRunner.Replay.cs
+
         // ── Unity Lifecycle ──
 
         private void Update()
         {
-            if (!_isRunning || _isPausedByTutorial || _world == null) return;
+            if (!_isRunning || _isPausedByTutorial || _isPausedByDebugger || _world == null) return;
 
             float tickInterval = 1f / _world.TickRate;
             _tickAccumulator += Time.unscaledDeltaTime * SpeedMultiplier;
@@ -122,6 +154,13 @@ namespace CookApps.AutoChess
 
                 // 틱 실행
                 GameLoopSystem.Tick(_world, _commandBuffer, commandCount);
+
+                // 스냅샷 기록 (이벤트 큐 클리어 전에 기록)
+                if (_frameRecorder != null && _world.CombatMatchStates != null && _world.CombatMatchStates[0] != null)
+                {
+                    OnBeforeRecordFrame(_world);
+                    _frameRecorder.RecordFrame(_world.CombatMatchStates[0], _world.FrameCount);
+                }
 
                 // 이벤트 발행
                 OnTick?.Invoke(_world);

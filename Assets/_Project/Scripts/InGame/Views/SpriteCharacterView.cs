@@ -52,11 +52,8 @@ namespace CookApps.AutoBattler
         [SerializeField]
         private Transform _skillBottomFXTransform;
 
-        [SerializeField] 
-        private GameObject _projectilePrefab;
-        
         [SerializeField]
-        private SkillViewData[] _skillEffectPrefabs;
+        private CharacterVfxConfigSO _vfxConfig;
 
         [SerializeField]
         private GameObject _shadow;
@@ -86,8 +83,8 @@ namespace CookApps.AutoBattler
         public Transform SkillMiddleFXTransform => _skillMiddleFXTransform;
         public Transform SkillBottomFXTransform => _skillBottomFXTransform;
 
-        public GameObject ProjectilePrefab => _projectilePrefab;
-        public SkillViewData[] SkillEffectPrefabs => _skillEffectPrefabs;
+        public GameObject ProjectilePrefab => _vfxConfig != null ? _vfxConfig.ProjectilePrefab : null;
+        public SkillViewData[] SkillEffectPrefabs => _vfxConfig != null ? _vfxConfig.SkillEffectPrefabs : null;
 
         private void Awake()
         {
