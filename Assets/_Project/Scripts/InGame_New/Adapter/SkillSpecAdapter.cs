@@ -90,13 +90,14 @@ namespace CookApps.AutoChess
                 case 217653505: // 엔키
                 case 217333202: // 에이프릴
                 case 217613501: // 오데트
+                case 217523403: // 아드리아
                     return SimSkillArchetype.Custom;
             }
 
             // 플레이어 스킬 아키타입 매핑
             switch (id)
             {
-                case 215532401: return SimSkillArchetype.SingleDamage;    // 필리아
+                case 215532401: return SimSkillArchetype.Custom;          // 필리아
                 case 215362202: return SimSkillArchetype.DamageCC;        // 시이나 (침묵)
                 case 217433303: return SimSkillArchetype.DamageCC;        // 하티 (넉백)
                 case 217323201: return SimSkillArchetype.DamageCC;        // 미사 (기절)
@@ -104,7 +105,7 @@ namespace CookApps.AutoChess
                 case 217513401: return SimSkillArchetype.LineDamage;      // 아트레시아
                 case 1406031:   return SimSkillArchetype.Heal;            // 아란
                 case 215322201: return SimSkillArchetype.PatternDamage;   // 메이
-                case 217523403: return SimSkillArchetype.PatternDamage;   // 아드리아
+                case 217523403: return SimSkillArchetype.Custom;          // 아드리아
                 case 217663506: return SimSkillArchetype.MultiHit;        // 시라유키
                 case 215642501: return SimSkillArchetype.AoEDamage;       // 엘리스
                 case 217353203: return SimSkillArchetype.AoEDamage;       // 라키유
@@ -270,15 +271,28 @@ namespace CookApps.AutoChess
                     p.CCDurationFrames = 60;
                     break;
                 case 217553404: // 클레이: 채널링 존 (3초, 6틱)
-                    p.Param0 = 100; // healPercent (총량, 틱당 /6)
-                    p.Param1 = 80;  // damagePercent (총량, 틱당 /6)
-                    p.Param2 = 50;  // healReductionPercent
-                    p.Param3 = 2;   // zoneRange (맨해튼 거리 2)
+                {
+                    // {0}=쿨타임(초), {1}=힐배율(%) → PowerPercent로 자동 반영,
+                    // {2}=데미지배율(%), {3}=회복감소(%), {4}=디버프지속(초)
+                    p.Param0 = Mathf.RoundToInt(GetSpecRate(specList, 2, 80f));  // damagePercent
+                    p.Param1 = Mathf.RoundToInt(GetSpecRate(specList, 3, 50f));  // healReductionPercent
+                    float debuffDurSec = GetSpecRate(specList, 4, 3f);
+                    p.Param2 = SecondsToFrames(debuffDurSec, tickRate);          // debuffDurationFrames
+                    p.Param3 = 2;                                                // zoneRange (고정)
                     break;
-                case 217563405: // 마리에: 공격력 최대 적 + 다단히트
+                }
+                case 217563405: // 마리에: 공격력 최대 적 뒤 순간이동 + 다단히트
+                {
+                    // {0}=쿨타임(초), {1}=히트수, {2}=데미지배율(%) → PowerPercent 자동 반영,
+                    // {3}=디버프지속(초), {4}=디버프율(%)
                     p.TargetType = SkillTargetType.HighestAttackEnemy;
-                    p.HitCount = 4;
+                    int hitCount = Mathf.RoundToInt(GetSpecRate(specList, 1, 4f));
+                    p.HitCount = hitCount > 0 ? hitCount : 4;
+                    float debuffDurSec = GetSpecRate(specList, 3, 3f);
+                    p.Param0 = SecondsToFrames(debuffDurSec, tickRate); // debuffDurationFrames
+                    p.Param1 = Mathf.RoundToInt(GetSpecRate(specList, 4, 30f)); // debuffPercent
                     break;
+                }
                 case 215422301: // 멘샤: 실드
                     p.Param0 = 180; // shieldDurationFrames
                     break;
@@ -301,6 +315,15 @@ namespace CookApps.AutoChess
                     p.Param0 = 90;       // 공속감소 디버프 지속 프레임 (3초 @ 30fps)
                     p.Param1 = 30;       // 공속 감소량
                     break;
+                case 217523403: // 아드리아: 3단계 확장 패턴 AoE + 방어력 비례 데미지 + 스턴
+                {
+                    // {0}=쿨타임(초), {1}=데미지배율(%) → PowerPercent 자동 반영,
+                    // {2}=방어력계수, {3}=스턴시간(초)
+                    p.Param0 = Mathf.RoundToInt(GetSpecRate(specList, 2, 100f)); // defScaleValue
+                    float stunSec = GetSpecRate(specList, 3, 2f);
+                    p.Param1 = SecondsToFrames(stunSec, tickRate); // stunDurationFrames
+                    break;
+                }
                 case 217263103: // 루키다: 여우불 추가 + 공속 버프 (스펙 데이터 기반)
                 {
                     // {0}=쿨타임(초), {1}=여우불 증가량, {2}=공속버프 지속(초), {3}=공속증가율(%)

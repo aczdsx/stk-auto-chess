@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CookApps.AutoBattler;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -52,11 +53,11 @@ namespace CookApps.AutoChess.View
 
             // OneShot VFX (적용 순간 1회)
             if (entry.OneShotVfx != null && entry.OneShotVfx.RuntimeKeyIsValid())
-                SpawnOneShotAsync(combatId, entry.OneShotVfx).Forget();
+                SpawnOneShotAsync(combatId, entry.OneShotVfx, entry.OneShotPosition, entry.OneShotFollowable).Forget();
 
             // Loop VFX (지속 중 부착)
             if (entry.LoopVfx != null && entry.LoopVfx.RuntimeKeyIsValid())
-                SpawnLoopAsync(combatId, type, entry.LoopVfx).Forget();
+                SpawnLoopAsync(combatId, type, entry.LoopVfx, entry.LoopPosition, entry.LoopFollowable).Forget();
         }
 
         /// <summary>효과 제거 — Loop VFX 제거</summary>
@@ -92,12 +93,23 @@ namespace CookApps.AutoChess.View
 
         // ── OneShot: 1회 재생 후 자동 제거 ──
 
-        private async UniTaskVoid SpawnOneShotAsync(int combatId, AssetReferenceGameObject assetRef)
+        private async UniTaskVoid SpawnOneShotAsync(int combatId, AssetReferenceGameObject assetRef,
+            SkillPosition position = SkillPosition.CUSTOM, bool followable = false)
         {
             var unitView = _unitViewManager?.FindCombatView(combatId);
             if (unitView == null) return;
 
-            var handle = Addressables.InstantiateAsync(assetRef, unitView.transform.position, Quaternion.identity);
+            var posTransform = unitView.GetSkillPositionTransform(position);
+
+            AsyncOperationHandle<GameObject> handle;
+            if (followable && posTransform != null)
+                handle = Addressables.InstantiateAsync(assetRef, posTransform);
+            else
+            {
+                var spawnPos = posTransform != null ? posTransform.position : unitView.transform.position;
+                handle = Addressables.InstantiateAsync(assetRef, spawnPos, Quaternion.identity);
+            }
+
             var go = await handle;
 
             if (handle.Status != AsyncOperationStatus.Succeeded || go == null)
@@ -106,18 +118,34 @@ namespace CookApps.AutoChess.View
                 return;
             }
 
+            if (followable)
+                go.transform.localPosition = Vector3.zero;
+
             ReleaseAfterDelay(handle, OneShotLifetime).Forget();
         }
 
         // ── Loop: 유닛에 부착, 해제 시 제거 ──
 
-        private async UniTaskVoid SpawnLoopAsync(int combatId, CombatVfxType type, AssetReferenceGameObject assetRef)
+        private async UniTaskVoid SpawnLoopAsync(int combatId, CombatVfxType type, AssetReferenceGameObject assetRef,
+            SkillPosition position = SkillPosition.CUSTOM, bool followable = true)
         {
             var unitView = _unitViewManager?.FindCombatView(combatId);
             if (unitView == null) return;
 
+            var posTransform = unitView.GetSkillPositionTransform(position);
+            var parent = followable
+                ? (posTransform != null ? posTransform : unitView.transform)
+                : null;
+
             var key = (combatId, type);
-            var handle = Addressables.InstantiateAsync(assetRef, unitView.transform);
+            AsyncOperationHandle<GameObject> handle;
+            if (parent != null)
+                handle = Addressables.InstantiateAsync(assetRef, parent);
+            else
+            {
+                var spawnPos = posTransform != null ? posTransform.position : unitView.transform.position;
+                handle = Addressables.InstantiateAsync(assetRef, spawnPos, Quaternion.identity);
+            }
             _activeLoopVfx[key] = handle;
 
             var go = await handle;
@@ -185,6 +213,7 @@ namespace CookApps.AutoChess.View
                 case CombatVfxType.StatDebuff_MagicResist:
                 case CombatVfxType.StatDebuff_AttackSpeed:
                 case CombatVfxType.ContinuousDamage:
+                case CombatVfxType.HealAmountDown:
                     return SoundFX.snd_sfx_ingame_debuff;
 
                 // CC (개별 사운드)

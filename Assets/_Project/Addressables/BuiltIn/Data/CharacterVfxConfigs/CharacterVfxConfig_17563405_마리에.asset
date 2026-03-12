@@ -17,5 +17,5 @@ MonoBehaviour:
   _skillEffectPrefabs:
   - prefab: {fileID: 6486733853806884527, guid: 8b00e76b6749bed4f8701fe3b1ab8ab2, type: 3}
     skillPosition: 2
-    followable: 0
+    followable: 1
     persistent: 0

@@ -20,12 +20,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 5f7ff4eebce386c46a33f652fa80d35e
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 2
     OneShotVfx:
       m_AssetGUID: f663d9cc27796584b8c5699ef32acb96
@@ -33,12 +37,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 9228159fc8901da4e8b134cfdc69246c
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 3
     OneShotVfx:
       m_AssetGUID: f663d9cc27796584b8c5699ef32acb96
@@ -46,12 +54,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 9228159fc8901da4e8b134cfdc69246c
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 4
     OneShotVfx:
       m_AssetGUID: d0639e3ee0a76ca49bd6f66a4fe3836f
@@ -59,12 +71,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 46120cae477e7d249877be2670e36eca
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 5
     OneShotVfx:
       m_AssetGUID: 537eda49b8687cc44ae1316cff1d5bc3
@@ -72,12 +88,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 6
     OneShotVfx:
       m_AssetGUID: 
@@ -85,12 +105,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 7
     OneShotVfx:
       m_AssetGUID: 
@@ -98,12 +122,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 8
     OneShotVfx:
       m_AssetGUID: 
@@ -111,12 +139,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   _debuffEntries:
   - Type: 9
     OneShotVfx:
@@ -125,12 +157,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 4717a51e4949740439e1db55fc2371d2
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 10
     OneShotVfx:
       m_AssetGUID: 56d1cf60619485a4c92e325d43a07a33
@@ -138,12 +174,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 826187ddccbaa294e9ca02126d023e1b
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 11
     OneShotVfx:
       m_AssetGUID: 56d1cf60619485a4c92e325d43a07a33
@@ -151,12 +191,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 826187ddccbaa294e9ca02126d023e1b
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 12
     OneShotVfx:
       m_AssetGUID: 1eb3f387c02272141aec8a84da3490e4
@@ -164,12 +208,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 5bc4a8f393d609842b8dcf485f76ef9b
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 13
     OneShotVfx:
       m_AssetGUID: 
@@ -177,12 +225,33 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 30
+    OneShotVfx:
+      m_AssetGUID: 01174119a65bf7e4e8c88c10f3a891b4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 27d1c3067f22b7843990fe6c21fa3e40
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   _ccEntries:
   - Type: 14
     OneShotVfx:
@@ -191,12 +260,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: e1f939031d2926642bde944930f65815
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 15
     OneShotVfx:
       m_AssetGUID: 
@@ -204,12 +277,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 02f717fce8f17ec4399d50cd1cc40f85
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 16
     OneShotVfx:
       m_AssetGUID: 
@@ -217,12 +294,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 5bc4a8f393d609842b8dcf485f76ef9b
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 17
     OneShotVfx:
       m_AssetGUID: 
@@ -230,12 +311,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 18
     OneShotVfx:
       m_AssetGUID: 29145dbe3a493e14d81631e44c8026ca
@@ -243,12 +328,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 768b4e705139b2e40a8e03df15fcd91e
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 19
     OneShotVfx:
       m_AssetGUID: 
@@ -256,12 +345,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 5af00541c5db14147be6aba06b2dd8df
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 20
     OneShotVfx:
       m_AssetGUID: 
@@ -269,9 +362,119 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  _savedMappings:
+  - TypeName: StatBuff_Attack
+    OneShotPrefabName: fx_common_buff_atkup_01
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_buff_atkup_02
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: StatBuff_Armor
+    OneShotPrefabName: fx_common_buff_dfup
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_buff_dfup_01
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: StatBuff_MagicResist
+    OneShotPrefabName: fx_common_buff_dfup
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_buff_dfup_01
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: StatBuff_AttackSpeed
+    OneShotPrefabName: fx_common_buff_spdup_01
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_buff_spdup_02
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: ContinuousHeal
+    OneShotPrefabName: Skill_406011
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: 
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: StatDebuff_Attack
+    OneShotPrefabName: fx_common_debuff_atkdown_01
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_debuff_atkdown_02
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: StatDebuff_Armor
+    OneShotPrefabName: fx_common_debuff_dfdown
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_debuff_dfdown_01
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: StatDebuff_MagicResist
+    OneShotPrefabName: fx_common_debuff_dfdown
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_debuff_dfdown_01
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: StatDebuff_AttackSpeed
+    OneShotPrefabName: fx_common_debuff_spddown_01
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_debuff_spddown_02
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: HealAmountDown
+    OneShotPrefabName: fx_common_debuff_healdown
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_debuff_healdown_01
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: CC_Stun
+    OneShotPrefabName: 
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_debuff_stun
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: CC_Silence
+    OneShotPrefabName: 
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_debuff_silence
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: CC_Slow
+    OneShotPrefabName: 
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_debuff_spddown_02
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: CC_Taunt
+    OneShotPrefabName: fx_common_debuff_provoke
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_debuff_provoke_01
+    LoopPosition: 2
+    LoopFollowable: 1
+  - TypeName: CC_Airborne
+    OneShotPrefabName: 
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopPrefabName: fx_common_commander_skill_03
+    LoopPosition: 2
+    LoopFollowable: 1

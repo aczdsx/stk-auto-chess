@@ -213,6 +213,29 @@ namespace CookApps.AutoChess
             }
         }
 
+        /// <summary>유닛의 모든 디버프 + CC 제거</summary>
+        public static void RemoveAllDebuffs(CombatMatchState state, int unitIndex)
+        {
+            RemoveEffectsByType(state, unitIndex, StatusEffectType.StatDebuff);
+            RemoveEffectsByType(state, unitIndex, StatusEffectType.HealReduction);
+            RemoveCC(state, unitIndex);
+        }
+
+        /// <summary>유닛에 적용된 HealReduction 최대값 반환 (0이면 없음)</summary>
+        public static int GetHealReduction(CombatMatchState state, int unitIndex)
+        {
+            int max = 0;
+            for (int i = 0; i < state.StatusEffectCount; i++)
+            {
+                ref var effect = ref state.StatusEffects[i];
+                if (!effect.IsActive) continue;
+                if (effect.OwnerUnitIndex != unitIndex) continue;
+                if (effect.Type != StatusEffectType.HealReduction) continue;
+                if (effect.Value > max) max = effect.Value;
+            }
+            return max;
+        }
+
         /// <summary>유닛의 활성 CC 즉시 해제</summary>
         public static void RemoveCC(CombatMatchState state, int unitIndex)
         {
@@ -389,6 +412,7 @@ namespace CookApps.AutoChess
                         case StatModType.AttackSpeed: return CombatVfxType.StatDebuff_AttackSpeed;
                         default: return CombatVfxType.None;
                     }
+                case StatusEffectType.HealReduction: return CombatVfxType.HealAmountDown;
                 default: return CombatVfxType.None;
             }
         }
