@@ -24,6 +24,10 @@ namespace CookApps.AutoChess.View
         [Header("Tab")]
         [SerializeField] private SimpleTabSwapper _characterBattleItemTabSwapper;
 
+        [Header("Kill Log")]
+        [SerializeField] private Transform _killLogRoot;
+        [SerializeField] private InGameKillLogItem_New _killLogItemPrefab;
+
         [Header("Classic Mode")]
         [SerializeField] private CAButton _startBattleButton;
         [SerializeField] private CAButton _filterButton;
@@ -36,6 +40,9 @@ namespace CookApps.AutoChess.View
         private TableViewController<int, BenchUnitSlot> _benchController;
         private TableViewController<int, InGameSynergyUI> _synergyController;
         private bool _isStarting;
+
+        private readonly List<InGameKillLogItem_New> _killLogItems = new();
+        private const float KillLogGapY = 40f;
 
         private HashSet<SynergyType> _selectedElementFilters = new();
         private HashSet<SynergyType> _selectedStellaFilters = new();
@@ -291,6 +298,62 @@ namespace CookApps.AutoChess.View
             SceneTransition.Create<SceneTransition_FadeInOut>();
             await SceneTransition.FadeInAsync();
             SceneLoading.GoToNextScene("BattleReady", specLastStageData.chapter_id);
+        }
+
+        // ── 킬로그 ──
+
+        public override void OnUnitDied(int victimEntityId, int killerEntityId, GameWorld world)
+        {
+            if (_killLogItemPrefab == null || _killLogRoot == null) return;
+            if (killerEntityId == CombatUnit.InvalidId) return;
+
+            var (killerChampSpecId, killerIsPlayerSide) = FindCombatUnitInfo(world, killerEntityId);
+            var (victimChampSpecId, _) = FindCombatUnitInfo(world, victimEntityId);
+            if (killerChampSpecId == 0 || victimChampSpecId == 0) return;
+
+            AddKillLog(killerChampSpecId, victimChampSpecId, killerIsPlayerSide);
+        }
+
+        private (int champSpecId, bool isPlayerSide) FindCombatUnitInfo(GameWorld world, int entityId)
+        {
+            for (int m = 0; m < GameWorld.MaxCombatMatches; m++)
+            {
+                var matchState = world.CombatMatchStates[m];
+                if (matchState == null) continue;
+                for (int u = 0; u < matchState.UnitCount; u++)
+                {
+                    ref var unit = ref matchState.Units[u];
+                    if (unit.SourceEntityId == entityId || unit.CombatId == entityId)
+                        return (unit.ChampionSpecId, unit.TeamIndex == 0);
+                }
+            }
+            return (0, false);
+        }
+
+        private void AddKillLog(int killerChampSpecId, int victimChampSpecId, bool isPlayerKill)
+        {
+            var item = Instantiate(_killLogItemPrefab, _killLogRoot);
+            item.SetData(killerChampSpecId, victimChampSpecId, isPlayerKill);
+            item.transform.SetAsFirstSibling();
+            item.OnDespawn = HandleKillLogDespawn;
+            _killLogItems.Insert(0, item);
+            RelayoutKillLogs();
+        }
+
+        private void HandleKillLogDespawn(InGameKillLogItem_New item)
+        {
+            _killLogItems.Remove(item);
+            RelayoutKillLogs();
+        }
+
+        private void RelayoutKillLogs()
+        {
+            for (int i = 0; i < _killLogItems.Count; i++)
+            {
+                float targetY = -(i * (_killLogItems[i].Height + KillLogGapY));
+                _killLogItems[i].RectTransform.anchoredPosition = new Vector2(
+                    _killLogItems[i].RectTransform.anchoredPosition.x, targetY);
+            }
         }
 
         // ── 정리 ──

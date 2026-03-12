@@ -671,6 +671,14 @@ namespace CookApps.AutoChess
         public int TraveledDistance;
         public long HitMask;            // 이미 맞은 유닛 비트마스크 (중복 피격 방지)
         public int Width;               // 투사체 폭 (0 또는 1 = 1칸, 3 = 3칸). 진행 방향 수직으로 확장.
+        public sbyte SkillVfxIndex;     // -1 = 기본 프리팹, 0+ = skillPrefabs[index] 사용 (뷰 전용)
+        public ProjectileHitBehavior HitBehavior; // 유닛에 닿았을 때 행동 (None=VFX전용, DamageEnemy=적데미지, HealAlly=아군힐)
+
+        // HealAlly 전용
+        public int HotPerTick;           // HoT 틱당 힐량 (0이면 HoT 없음)
+        public int HotDuration;          // HoT 지속 프레임
+        public int HotInterval;          // HoT 틱 간격
+        public byte AreaEffectHalfWidth; // >0이면 이동 시 PushSkillAreaEffect 발행
 
         // AreaTarget 전용
         public byte TargetCol;

@@ -61,6 +61,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
+      propertyPath: _vfxConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: e7d3f0a9e0746a64196e155b126dd19f, type: 2}
+    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: _skillEffectPrefabs.Array.size
       value: 1
       objectReference: {fileID: 0}

@@ -98,48 +98,63 @@ namespace CookApps.AutoChess
             state.EventQueue?.PushProjectileMoved(proj.ProjectileId, proj.SourceCombatId,
                 (byte)nextCol, (byte)nextRow, proj.DirCol, proj.DirRow, proj.Width);
 
-            // 발사자 팀 조회 (충돌 검사용)
-            int srcIdx = state.FindUnitIndex(proj.SourceCombatId);
-            byte srcTeam = srcIdx >= 0 ? state.Units[srcIdx].TeamIndex : (byte)0xFF;
-
-            // 충돌 검사: Width에 따라 진행 방향 수직으로 확장
-            int effectiveWidth = proj.Width > 1 ? proj.Width : 1;
-            int halfW = effectiveWidth / 2; // width=3 → halfW=1
-
-            for (int offset = -halfW; offset <= halfW; offset++)
+            // HitBehavior에 따른 충돌 처리
+            if (proj.HitBehavior != ProjectileHitBehavior.None)
             {
-                int checkCol, checkRow;
-                if (offset == 0)
+                // 발사자 팀 조회 (충돌 검사용)
+                int srcIdx = state.FindUnitIndex(proj.SourceCombatId);
+                byte srcTeam = srcIdx >= 0 ? state.Units[srcIdx].TeamIndex : (byte)0xFF;
+
+                // 충돌 검사: Width에 따라 진행 방향 수직으로 확장
+                int effectiveWidth = proj.Width > 1 ? proj.Width : 1;
+                int halfW = effectiveWidth / 2; // width=3 → halfW=1
+
+                for (int offset = -halfW; offset <= halfW; offset++)
                 {
-                    checkCol = nextCol;
-                    checkRow = nextRow;
-                }
-                else
-                {
-                    // 진행 방향 수직으로 오프셋
-                    // 세로 이동(dirRow != 0, dirCol == 0) → col 방향 확장
-                    // 가로 이동(dirCol != 0, dirRow == 0) → row 방향 확장
-                    // 대각선 → 양쪽 다 확장 (십자형)
-                    if (proj.DirCol == 0)
-                    {
-                        checkCol = nextCol + offset;
-                        checkRow = nextRow;
-                    }
-                    else if (proj.DirRow == 0)
+                    int checkCol, checkRow;
+                    if (offset == 0)
                     {
                         checkCol = nextCol;
-                        checkRow = nextRow + offset;
+                        checkRow = nextRow;
                     }
                     else
                     {
-                        // 대각선: col 확장 + row 확장 두 타일 모두 검사
-                        HitOccupant(state, ref proj, nextCol + offset, nextRow, srcIdx, srcTeam);
-                        checkCol = nextCol;
-                        checkRow = nextRow + offset;
+                        if (proj.DirCol == 0)
+                        {
+                            checkCol = nextCol + offset;
+                            checkRow = nextRow;
+                        }
+                        else if (proj.DirRow == 0)
+                        {
+                            checkCol = nextCol;
+                            checkRow = nextRow + offset;
+                        }
+                        else
+                        {
+                            switch (proj.HitBehavior)
+                            {
+                                case ProjectileHitBehavior.DamageEnemy:
+                                    HitOccupant(state, ref proj, nextCol + offset, nextRow, srcIdx, srcTeam);
+                                    break;
+                                case ProjectileHitBehavior.HealAlly:
+                                    HealOccupant(state, ref proj, nextCol + offset, nextRow, srcIdx, srcTeam);
+                                    break;
+                            }
+                            checkCol = nextCol;
+                            checkRow = nextRow + offset;
+                        }
+                    }
+
+                    switch (proj.HitBehavior)
+                    {
+                        case ProjectileHitBehavior.DamageEnemy:
+                            HitOccupant(state, ref proj, checkCol, checkRow, srcIdx, srcTeam);
+                            break;
+                        case ProjectileHitBehavior.HealAlly:
+                            HealOccupant(state, ref proj, checkCol, checkRow, srcIdx, srcTeam);
+                            break;
                     }
                 }
-
-                HitOccupant(state, ref proj, checkCol, checkRow, srcIdx, srcTeam);
             }
 
             // 최대 거리 도달 → 소멸
@@ -227,15 +242,63 @@ namespace CookApps.AutoChess
             state.EventQueue?.PushProjectileSpawned(sourceCombatId, targetCombatId, ProjectileType.Homing, srcCol, srcRow, projectileId: proj.ProjectileId);
         }
 
-        /// <summary>Linear 투사체 생성</summary>
+        /// <summary>Linear 데미지 투사체 생성 (직선 관통)</summary>
         public static void CreateLinearProjectile(
             CombatMatchState state, int sourceCombatId,
             byte startCol, byte startRow, sbyte dirCol, sbyte dirRow,
             int damage, bool isCrit, DamageType damageType,
-            int moveInterval, int maxDistance, int width = 1, int skillSpecId = 0)
+            int moveInterval, int maxDistance, int width = 1, int skillSpecId = 0,
+            sbyte skillVfxIndex = -1)
+        {
+            ref var proj = ref InitLinearProjectile(
+                state, sourceCombatId, startCol, startRow, dirCol, dirRow,
+                damage, isCrit, damageType, moveInterval, maxDistance, width, skillSpecId, skillVfxIndex);
+            if (proj.ProjectileId == 0) return; // 슬롯 없음
+
+            proj.HitBehavior = ProjectileHitBehavior.DamageEnemy;
+
+            state.EventQueue?.PushProjectileSpawned(sourceCombatId, CombatUnit.InvalidId, ProjectileType.Linear,
+                startCol, startRow, dirCol, dirRow, proj.ProjectileId, skillSpecId, skillVfxIndex);
+        }
+
+        /// <summary>Linear 힐 투사체 생성 (아군 힐 + HoT)</summary>
+        public static void CreateLinearHealProjectile(
+            CombatMatchState state, int sourceCombatId,
+            byte startCol, byte startRow, sbyte dirCol, sbyte dirRow,
+            int healAmount, DamageType damageType,
+            int moveInterval, int maxDistance, int skillSpecId,
+            sbyte skillVfxIndex,
+            int hotPerTick, int hotDuration, int hotInterval,
+            byte areaEffectHalfWidth = 0)
+        {
+            ref var proj = ref InitLinearProjectile(
+                state, sourceCombatId, startCol, startRow, dirCol, dirRow,
+                healAmount, false, damageType, moveInterval, maxDistance, 1, skillSpecId, skillVfxIndex);
+            if (proj.ProjectileId == 0) return;
+
+            proj.HitBehavior = ProjectileHitBehavior.HealAlly;
+            proj.HotPerTick = hotPerTick;
+            proj.HotDuration = hotDuration;
+            proj.HotInterval = hotInterval;
+            proj.AreaEffectHalfWidth = areaEffectHalfWidth;
+
+            state.EventQueue?.PushProjectileSpawned(sourceCombatId, CombatUnit.InvalidId, ProjectileType.Linear,
+                startCol, startRow, dirCol, dirRow, proj.ProjectileId, skillSpecId, skillVfxIndex, moveInterval);
+        }
+
+        /// <summary>Linear 투사체 공통 초기화</summary>
+        private static ref Projectile InitLinearProjectile(
+            CombatMatchState state, int sourceCombatId,
+            byte startCol, byte startRow, sbyte dirCol, sbyte dirRow,
+            int damage, bool isCrit, DamageType damageType,
+            int moveInterval, int maxDistance, int width, int skillSpecId, sbyte skillVfxIndex)
         {
             int slot = FindEmptyProjectileSlot(state);
-            if (slot < 0) return;
+            if (slot < 0)
+            {
+                // 빈 ProjectileId=0인 더미 반환 (호출부에서 체크)
+                return ref state.Projectiles[0];
+            }
 
             ref var proj = ref state.Projectiles[slot];
             proj.ProjectileId = state.NextProjectileId++;
@@ -256,13 +319,18 @@ namespace CookApps.AutoChess
             proj.HitMask = 0;
             proj.Width = width;
             proj.SkillSpecId = skillSpecId;
+            proj.SkillVfxIndex = skillVfxIndex;
+            proj.HitBehavior = ProjectileHitBehavior.None;
+            proj.HotPerTick = 0;
+            proj.HotDuration = 0;
+            proj.HotInterval = 0;
+            proj.AreaEffectHalfWidth = 0;
             proj.IsActive = true;
 
             if (slot >= state.ProjectileCount)
                 state.ProjectileCount = slot + 1;
 
-            state.EventQueue?.PushProjectileSpawned(sourceCombatId, CombatUnit.InvalidId, ProjectileType.Linear,
-                startCol, startRow, dirCol, dirRow, proj.ProjectileId, skillSpecId);
+            return ref proj;
         }
 
         /// <summary>AreaTarget 투사체 생성</summary>
@@ -327,6 +395,37 @@ namespace CookApps.AutoChess
             {
                 DamageSystem.ApplyLifeSteal(ref state.Units[srcIdx], finalDamage);
             }
+        }
+
+        /// <summary>아군 유닛 힐 (HealAlly 투사체용)</summary>
+        private static void HealOccupant(CombatMatchState state, ref Projectile proj,
+            int col, int row, int srcIdx, byte srcTeam)
+        {
+            int occupantId = state.GetUnitAtGrid(col, row);
+            if (occupantId == CombatUnit.InvalidId) return;
+
+            int occIdx = state.FindUnitIndex(occupantId);
+            if (occIdx < 0) return;
+
+            ref var occupant = ref state.Units[occIdx];
+            if (!occupant.IsAlive || occupant.TeamIndex != srcTeam) return; // 아군만
+
+            // 중복 힐 방지
+            int bitIndex = occIdx % 64;
+            long bit = 1L << bitIndex;
+            if ((proj.HitMask & bit) != 0) return;
+
+            SkillDamageHelper.Heal(state, ref occupant, proj.Damage);
+            proj.HitMask |= bit;
+
+            // 개별 힐 VFX
+            if (proj.SkillSpecId > 0)
+                state.EventQueue?.PushSkillPhaseVfx(proj.SourceCombatId, proj.SkillSpecId, 0,
+                    targetId: occupant.CombatId);
+
+            // HoT 적용
+            if (proj.HotPerTick > 0)
+                SkillBuffHelper.ApplyHOT(state, occIdx, proj.HotPerTick, proj.HotDuration, proj.HotInterval);
         }
 
         // ── 유틸리티 ──

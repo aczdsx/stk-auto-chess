@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text;
+using CookApps.AutoChess;
 using CookApps.BattleSystem;
 using UnityEngine;
 
@@ -22,6 +23,10 @@ namespace CookApps.AutoBattler
         private GUIStyle _labelStyle;
         private GUIStyle _headerStyle;
         private bool _stylesInitialized;
+
+        // ── 프레임 디버거 (Inspector에서만 표시) ──
+        private LocalSimulationRunner _runner;
+        private CombatFrameRecorder _recorder;
 
         public static void Create()
         {
@@ -124,6 +129,8 @@ namespace CookApps.AutoBattler
             {
                 DrawBattleResultPanel();
             }
+
+            // 프레임 디버거는 Inspector에서만 표시
         }
 
         private void DrawSpeedControl()
@@ -361,6 +368,24 @@ namespace CookApps.AutoBattler
 
             Debug.Log(sb.ToString());
         }
+
+        // ── 프레임 디버거 ──
+
+        public void SetFrameDebugger(LocalSimulationRunner runner, CombatFrameRecorder recorder)
+        {
+            _runner = runner;
+            _recorder = recorder;
+        }
+
+        public void ClearFrameDebugger()
+        {
+            _runner = null;
+            _recorder = null;
+        }
+
+        // Inspector(InGameTestConfigEditor)에서 접근용
+        public LocalSimulationRunner Runner => _runner;
+        public CombatFrameRecorder Recorder => _recorder;
 
         private class BattleResultData
         {

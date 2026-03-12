@@ -8,7 +8,7 @@ namespace CookApps.AutoChess.View
     /// 시뮬레이션 ↔ 뷰 브릿지.
     /// ISimulationRunner에 구독하여 매 틱마다 View 매니저들에 상태를 전달.
     /// </summary>
-    public class AutoChessViewBridge : MonoBehaviour
+    public partial class AutoChessViewBridge : MonoBehaviour
     {
         private ISimulationRunner _runner;
         private UnitViewManager _unitViewManager;
@@ -44,7 +44,8 @@ namespace CookApps.AutoChess.View
             _localPlayerIndex = localPlayerIndex;
 
             _unitViewManager.Initialize();
-            _combatViewManager.Initialize();
+            var world = _runner.GetWorld();
+            _combatViewManager.Initialize(world != null ? world.TickRate : 60);
             _boardGridView.Initialize();
 
             _unitViewManager.SetActiveBoard(_localPlayerIndex);
@@ -56,6 +57,10 @@ namespace CookApps.AutoChess.View
             // 시뮬레이션 이벤트 구독
             _runner.OnTick += HandleTick;
             _runner.OnPhaseChanged += HandlePhaseChanged;
+
+            // 디버거 pause → VFX 업데이트 중지
+            if (_runner is LocalSimulationRunner localRunner)
+                localRunner.OnDebuggerPauseChanged += OnDebuggerPauseChanged;
         }
 
         private void OnDestroy()
@@ -64,7 +69,14 @@ namespace CookApps.AutoChess.View
             {
                 _runner.OnTick -= HandleTick;
                 _runner.OnPhaseChanged -= HandlePhaseChanged;
+                if (_runner is LocalSimulationRunner localRunner)
+                    localRunner.OnDebuggerPauseChanged -= OnDebuggerPauseChanged;
             }
+        }
+
+        private void OnDebuggerPauseChanged(bool paused)
+        {
+            _combatViewManager?.SetPausedByDebugger(paused);
         }
 
         // ── 틱 핸들러 ──
@@ -101,7 +113,7 @@ namespace CookApps.AutoChess.View
                     _combatVfxManager?.OnCombatEnd();
                     _boardGridView.OnPreparation();
                     _autoChessUI?.OnPhaseChanged(newPhase);
-                    if (_autoChessUI != null) _autoChessUI.gameObject.SetActive(true);
+                    _autoChessUI?.PlayAnimation("SetEntry");
                     _boardInputHandler?.SetEnabled(true);
                     break;
 
@@ -110,7 +122,7 @@ namespace CookApps.AutoChess.View
                     _combatViewManager.OnCombatStart();
                     _boardGridView.OnCombatStart();
                     _autoChessUI?.OnPhaseChanged(newPhase);
-                    if (_autoChessUI != null) _autoChessUI.gameObject.SetActive(false);
+                    _autoChessUI?.PlayAnimation("SetBattleEntry");
                     _boardInputHandler?.SetEnabled(false);
                     break;
 
@@ -191,6 +203,7 @@ namespace CookApps.AutoChess.View
 
                 case SimEventType.UnitDied:
                     _combatViewManager.OnUnitDied(evt.EntityId);
+                    _autoChessUI?.OnUnitDied(evt.EntityId, evt.TargetEntityId, world);
                     break;
 
                 case SimEventType.UnitCastSkill:
@@ -205,9 +218,12 @@ namespace CookApps.AutoChess.View
                     int champSpecId = ResolveChampSpecId(world, evt.EntityId);
                     int projectileId = evt.Value0;
                     int skillSpecId = evt.Value1;
+                    // Radius 언패킹: upper 16bit = moveInterval, lower 16bit = skillVfxIndex
+                    sbyte skillVfxIndex = (sbyte)(short)(evt.Radius & 0xFFFF);
+                    int moveInterval = (evt.Radius >> 16) & 0xFFFF;
                     _combatViewManager.OnProjectileSpawned(
                         evt.EntityId, evt.TargetEntityId, evt.ProjType,
-                        evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId, projectileId, skillSpecId);
+                        evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId, projectileId, skillSpecId, skillVfxIndex, moveInterval);
                     break;
                 }
 
@@ -277,11 +293,14 @@ namespace CookApps.AutoChess.View
                 case SimEventType.SkillPhaseVfx:
                 {
                     int casterId = evt.EntityId;
+                    int targetId = evt.TargetEntityId;
                     int skillSpecId = evt.Value0;
                     byte vfxIndex = (byte)evt.Value1;
                     sbyte dirCol = (sbyte)evt.DirCol;
                     sbyte dirRow = (sbyte)evt.DirRow;
-                    _combatViewManager.OnSkillPhaseVfx(casterId, skillSpecId, vfxIndex, dirCol, dirRow);
+                    bool useGridPos = evt.Flag0;
+                    _combatViewManager.OnSkillPhaseVfx(casterId, skillSpecId, vfxIndex, dirCol, dirRow,
+                        targetId, useGridPos ? evt.Col : (byte)0, useGridPos ? evt.Row : (byte)0, useGridPos);
                     break;
                 }
 

@@ -15,6 +15,7 @@ namespace CookApps.BattleSystem
         protected ObfuscatorFloat speed;
         public Vector3 CurrentPosition => currPos;
         public Vector3 PreviousPosition => prevPos;
+        public Vector3 TargetPosition => destPos;
 
         /// <summary>
         /// speed가 1이면 1초에 1만큼 이동.

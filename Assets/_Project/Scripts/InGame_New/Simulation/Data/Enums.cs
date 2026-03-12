@@ -53,6 +53,14 @@ namespace CookApps.AutoChess
         AreaTarget,  // 지점 폭발 (범위 데미지)
     }
 
+    /// <summary>투사체 히트 행동 — 유닛에 닿았을 때 무엇을 하는가</summary>
+    public enum ProjectileHitBehavior : byte
+    {
+        None,          // VFX 전용, 유닛 영향 없음 (기존 NoHit=true)
+        DamageEnemy,   // 적에게 데미지 (기존 NoHit=false)
+        HealAlly,      // 아군에게 힐
+    }
+
     /// <summary>라운드 타입</summary>
     public enum RoundType : byte
     {
@@ -136,6 +144,7 @@ namespace CookApps.AutoChess
         CCImmunity,      // CC 면역 (모든 CC 차단)
         DOTImmunity,     // DOT 면역 (DamageOverTime 차단)
         DebuffImmunity,  // 디버프 면역 (StatDebuff 차단)
+        SkillMarker,     // 범용 스킬 마커 (개별 타이머, Value=스킬ID로 식별)
     }
 
     // ═══════════════════════════════════════════════

@@ -1,28 +1,30 @@
 namespace CookApps.AutoChess
 {
-    /// <summary>엔키: 파도 채널링 — 뒤에서 앞으로 이동하며 아군 힐 + HoT</summary>
+    /// <summary>엔키: 파도 채널링 — 뒤에서 앞으로 보드 전체를 이동하며 아군 힐 + HoT.
+    /// 힐/타일이펙트/VFX 모두 ProjectileSystem(HealAlly)에서 동기 처리.</summary>
     public class SimSkillEnkiWaveHeal : SimSkillBase
     {
         private int _hotDuration;
         private int _hotInterval;
 
         // 채널링 상태
-        private int _currentWaveRow;
-        private int _waveEndRow;
-        private int _waveDirRow;
-        private int _waveHalfWidth;
-        private int _waveCenterCol;
-        private int _tickInterval;
-        private int _tickTimer;
-        private int _cachedAttack;
-        private int _cachedCasterId;
-        private byte _cachedTeam;
+        private int _phaseTimer;
+        private int _channelFramesRemaining;
+        private bool _fired;
         private bool _channeling;
 
-        private const int DefaultMoveInterval = 3; // 3프레임마다 1행 이동
+        // Execute에서 캐싱 (OnChannelTick에서 사용)
+        private int _cachedCasterCombatId;
+        private int _cachedAttack;
+        private int _startRow;
+        private int _centerCol;
+        private int _halfWidth;
+        private int _waveDirRow;
+
+        private const int DefaultMoveInterval = 24; // 24프레임마다 1행 이동 (~0.4초/행, speed≈5)
         private const int WaveWidth = 5;           // 파도 폭 5칸
 
-        public override bool IsChanneling => _channeling;
+        public override bool IsChanneling => true;
 
         public override void Initialize(SkillParams p)
         {
@@ -31,54 +33,51 @@ namespace CookApps.AutoChess
             _hotInterval = p.Param1 > 0 ? p.Param1 : 30;
         }
 
-        public override int GetCastFrames() => BoardHelper.CombatHeight * DefaultMoveInterval;
+        public override int GetCastFrames() => 0;
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
         {
-            return caster.CombatId;
+            // 적이 존재할 때만 시전, 자기 자신을 반환하여 facing 유지
+            int nearestEnemy = TargetingSystem.FindNearestEnemy(state, ref caster);
+            return nearestEnemy != CombatUnit.InvalidId ? caster.CombatId : CombatUnit.InvalidId;
         }
 
         public override void Execute(CombatMatchState state, ref CombatUnit caster,
             int targetCombatId, ref DeterministicRNG rng)
         {
-            // 전방 방향 결정
+            // 준비만: 상태 저장 + 타이머 설정 (LineDamage 패턴)
             _waveDirRow = caster.TeamIndex == 0 ? 1 : -1;
-
-            // 파도 시작: 엔키 뒤 2칸
-            int startRow = caster.GridRow - _waveDirRow * 2;
-            if (startRow < 0) startRow = 0;
-            if (startRow >= BoardHelper.CombatHeight) startRow = BoardHelper.CombatHeight - 1;
-
-            _currentWaveRow = startRow;
-            _waveEndRow = _waveDirRow > 0 ? BoardHelper.CombatHeight : -1;
-            _waveCenterCol = caster.GridCol;
-            _waveHalfWidth = WaveWidth / 2;
-            _tickInterval = DefaultMoveInterval;
-            _tickTimer = _tickInterval;
+            _startRow = _waveDirRow > 0 ? 0 : BoardHelper.CombatHeight - 1;
+            _centerCol = caster.GridCol;
+            _halfWidth = WaveWidth / 2;
+            _cachedCasterCombatId = caster.CombatId;
             _cachedAttack = caster.Attack;
-            _cachedCasterId = caster.SourceEntityId;
-            _cachedTeam = caster.TeamIndex;
+            _fired = false;
             _channeling = true;
-
-            // 첫 행 힐 적용
-            HealRow(state, _currentWaveRow);
-            AdvanceWave();
+            _phaseTimer = SkillHitFrames != null && SkillHitFrames.Length > 0
+                ? SkillHitFrames[0]
+                : DefaultMoveInterval;
         }
 
         public override bool OnChannelTick(CombatMatchState state, ref CombatUnit caster, ref DeterministicRNG rng)
         {
             if (!_channeling) return false;
 
-            _tickTimer--;
-            if (_tickTimer > 0) return true;
+            // 발사 전: SkillHitFrames[0] 대기
+            if (!_fired)
+            {
+                _phaseTimer--;
+                if (_phaseTimer > 0) return true;
 
-            _tickTimer = _tickInterval;
+                _fired = true;
+                SpawnWaveProjectiles(state);
+                _channelFramesRemaining = (BoardHelper.CombatHeight - 1) * DefaultMoveInterval;
+                return true;
+            }
 
-            // 현재 행 힐 적용
-            HealRow(state, _currentWaveRow);
-
-            // 다음 행으로 전진
-            if (!AdvanceWave())
+            // 발사 후: 투사체가 보드 끝까지 이동할 때까지 채널링 유지
+            _channelFramesRemaining--;
+            if (_channelFramesRemaining <= 0)
             {
                 _channeling = false;
                 return false;
@@ -87,43 +86,28 @@ namespace CookApps.AutoChess
             return true;
         }
 
-        private void HealRow(CombatMatchState state, int row)
+        private void SpawnWaveProjectiles(CombatMatchState state)
         {
-            if (row < 0 || row >= BoardHelper.CombatHeight) return;
-
-            // 타일 이펙트 이벤트
-            state.EventQueue?.PushSkillAreaEffect(
-                _cachedCasterId, (byte)_waveCenterCol, (byte)row, _waveHalfWidth, isRow: true);
-
             int healAmount = _cachedAttack * PowerPercent / 100;
             int hotPerTick = _cachedAttack * SecondaryPowerPercent / 100;
 
-            for (int i = 0; i < state.UnitCount; i++)
+            int minCol = _centerCol - _halfWidth;
+            int maxCol = _centerCol + _halfWidth;
+
+            for (int c = minCol; c <= maxCol; c++)
             {
-                ref var unit = ref state.Units[i];
-                if (!unit.IsAlive) continue;
-                if (unit.TeamIndex != _cachedTeam) continue;
+                if (!BoardHelper.IsValidCombatPosition(c, _startRow)) continue;
 
-                // 파도 폭 범위 내의 같은 행에 있는 아군만
-                if (unit.GridRow != row) continue;
-                int colDiff = unit.GridCol - _waveCenterCol;
-                if (colDiff < -_waveHalfWidth || colDiff > _waveHalfWidth) continue;
-
-                SkillDamageHelper.Heal(state, ref unit, healAmount);
-
-                if (hotPerTick > 0)
-                {
-                    SkillBuffHelper.ApplyHOT(state, i, hotPerTick, _hotDuration, _hotInterval);
-                }
+                ProjectileSystem.CreateLinearHealProjectile(
+                    state, _cachedCasterCombatId,
+                    (byte)c, (byte)_startRow,
+                    0, (sbyte)_waveDirRow,
+                    healAmount, DamageType.Physical,
+                    DefaultMoveInterval, BoardHelper.CombatHeight, SkillId,
+                    skillVfxIndex: 1,
+                    hotPerTick: hotPerTick, hotDuration: _hotDuration, hotInterval: _hotInterval,
+                    areaEffectHalfWidth: c == _centerCol ? (byte)_halfWidth : (byte)0);
             }
-        }
-
-        private bool AdvanceWave()
-        {
-            _currentWaveRow += _waveDirRow;
-            return _currentWaveRow != _waveEndRow &&
-                   _currentWaveRow >= 0 &&
-                   _currentWaveRow < BoardHelper.CombatHeight;
         }
 
         public override void Reset()
@@ -131,7 +115,9 @@ namespace CookApps.AutoChess
             _hotDuration = 180;
             _hotInterval = 30;
             _channeling = false;
-            _tickTimer = 0;
+            _fired = false;
+            _phaseTimer = 0;
+            _channelFramesRemaining = 0;
         }
     }
 }

@@ -60,7 +60,8 @@ namespace CookApps.AutoChess
                 // 같은 skill_group_id로 이미 등록된 경우 스킵 (성급별 중복 방지)
                 if (_paramsCache.ContainsKey(id)) continue;
 
-                var skillParams = SkillSpecAdapter.BuildParams(spec, tickRate);
+                var specList = specManager.GetSkillDataList(id);
+                var skillParams = SkillSpecAdapter.BuildParams(spec, specList, tickRate);
                 _paramsCache[id] = skillParams;
 
                 // 커스텀 스킬이 이미 등록되어 있으면 스킵
@@ -85,6 +86,7 @@ namespace CookApps.AutoChess
             Register(217653505, () => new SimSkillEnkiWaveHeal());
             Register(217333202, () => new SimSkillAprilBarrage());
             Register(217613501, () => new SimSkillOdetteStrike());
+            Register(217263103, () => new SimSkillRukidaFoxfire());
         }
 
         /// <summary>팩토리 등록 해제 (테스트용)</summary>

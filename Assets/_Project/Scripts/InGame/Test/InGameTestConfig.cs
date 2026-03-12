@@ -53,6 +53,19 @@ namespace CookApps.AutoBattler
 
         [Tooltip("적 무적 (데미지 텍스트는 표시, HP 감소 없음)")]
         public bool EnemyInvincible = false;
+
+        [Header("시뮬레이션 디버거")]
+        [Tooltip("프레임 레코더 활성화")]
+        public bool EnableFrameRecorder = false;
+
+        [Tooltip("녹화 시작 프레임 (0 = 전투 시작)")]
+        public int RecordStartFrame = 0;
+
+        [Tooltip("녹화 종료 프레임 (0 = 전투 끝까지)")]
+        public int RecordEndFrame = 0;
+
+        [Tooltip("VFX 동기화 오버레이 표시")]
+        public bool ShowVfxSyncOverlay = false;
     }
 
     [Serializable]

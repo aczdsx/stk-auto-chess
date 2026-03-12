@@ -25,6 +25,10 @@ namespace CookApps.AutoBattler.Editor
         private SerializedProperty _restartDelayProp;
         private SerializedProperty _playerInvincibleProp;
         private SerializedProperty _enemyInvincibleProp;
+        private SerializedProperty _enableFrameRecorderProp;
+        private SerializedProperty _recordStartFrameProp;
+        private SerializedProperty _recordEndFrameProp;
+        private SerializedProperty _showVfxSyncOverlayProp;
 
         private bool _showGridVisualization = true;
         private bool _showPresetSection = true;
@@ -59,6 +63,10 @@ namespace CookApps.AutoBattler.Editor
             _restartDelayProp = serializedObject.FindProperty("RestartDelay");
             _playerInvincibleProp = serializedObject.FindProperty("PlayerInvincible");
             _enemyInvincibleProp = serializedObject.FindProperty("EnemyInvincible");
+            _enableFrameRecorderProp = serializedObject.FindProperty("EnableFrameRecorder");
+            _recordStartFrameProp = serializedObject.FindProperty("RecordStartFrame");
+            _recordEndFrameProp = serializedObject.FindProperty("RecordEndFrame");
+            _showVfxSyncOverlayProp = serializedObject.FindProperty("ShowVfxSyncOverlay");
 
             RefreshPresetList();
         }
@@ -199,6 +207,29 @@ namespace CookApps.AutoBattler.Editor
             EditorGUILayout.LabelField("디버그 설정", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(_playerInvincibleProp, new GUIContent("플레이어 무적"));
             EditorGUILayout.PropertyField(_enemyInvincibleProp, new GUIContent("적 무적"));
+
+            EditorGUILayout.Space(10);
+
+            // 시뮬레이션 디버거
+            EditorGUILayout.LabelField("시뮬레이션 디버거", EditorStyles.boldLabel);
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            EditorGUILayout.PropertyField(_enableFrameRecorderProp, new GUIContent("프레임 레코더 활성화"));
+            if (_enableFrameRecorderProp.boolValue)
+            {
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(_recordStartFrameProp, new GUIContent("녹화 시작 프레임 (0=전투 시작)"));
+                EditorGUILayout.PropertyField(_recordEndFrameProp, new GUIContent("녹화 종료 프레임 (0=전투 끝)"));
+                EditorGUILayout.PropertyField(_showVfxSyncOverlayProp, new GUIContent("VFX 동기화 오버레이"));
+                EditorGUI.indentLevel--;
+            }
+
+            // Play 모드: 프레임 조작 컨트롤
+            if (Application.isPlaying && _enableFrameRecorderProp.boolValue)
+            {
+                DrawPlayModeFrameControls();
+            }
+
+            EditorGUILayout.EndVertical();
 
             EditorGUILayout.Space(10);
 
@@ -919,6 +950,232 @@ namespace CookApps.AutoBattler.Editor
 
         #endregion
 
+        #region Play Mode Frame Controls
+
+        private int _editorSnapshotIndex;
+        private bool _editorPaused;
+        private bool _foldUnits;
+        private bool _foldProjectiles;
+        private bool _foldEvents = true;
+        private Vector2 _detailScrollPos;
+
+        /// <summary>
+        /// 프레임 디버거 컨트롤.
+        /// Layout/Repaint 불일치 방지를 위해 고정 컨트롤 수 유지.
+        /// 스냅샷 상세는 GUILayout 대신 고정 Rect로 직접 그림.
+        /// </summary>
+        private void DrawPlayModeFrameControls()
+        {
+            var recorder = GetRecorderFromRunner();
+            bool hasData = recorder != null && recorder.SnapshotCount > 0;
+            int total = hasData ? recorder.SnapshotCount : 1;
+
+            EditorGUILayout.Space(5);
+            EditorGUILayout.LabelField("프레임 컨트롤 (Play 모드)", EditorStyles.boldLabel);
+
+            // 프레임 정보
+            CookApps.AutoChess.CombatFrameSnapshot snapshot = null;
+            if (hasData)
+            {
+                _editorSnapshotIndex = Mathf.Clamp(_editorSnapshotIndex, 0, total - 1);
+                snapshot = recorder.GetSnapshot(_editorSnapshotIndex);
+            }
+            int frameNum = snapshot?.FrameIndex ?? 0;
+
+            EditorGUILayout.LabelField(hasData
+                ? $"Frame: {frameNum}  ({_editorSnapshotIndex + 1} / {total})"
+                : "녹화 대기 중...",
+                _editorPaused ? EditorStyles.boldLabel : EditorStyles.label);
+
+            // 슬라이더 (고정 — 항상 1개)
+            int newIndex = EditorGUILayout.IntSlider(_editorSnapshotIndex, 0, Mathf.Max(0, total - 1));
+            if (hasData && newIndex != _editorSnapshotIndex)
+            {
+                _editorSnapshotIndex = newIndex;
+                EnsureEditorPaused();
+                SeekToCurrentFrame();
+            }
+
+            // Pause / Resume (고정 — 항상 1개 버튼)
+            GUI.backgroundColor = _editorPaused ? new Color(0.4f, 1f, 0.4f) : new Color(1f, 0.8f, 0.3f);
+            if (GUILayout.Button(_editorPaused ? "▶ Resume" : "⏸ Pause", GUILayout.Height(28)))
+            {
+                if (hasData)
+                {
+                    _editorPaused = !_editorPaused;
+                    var runner = GetLocalRunner();
+                    if (_editorPaused)
+                    {
+                        runner?.PauseTickByDebugger();
+                    }
+                    else
+                    {
+                        _editorSnapshotIndex = total - 1;
+                        SeekToCurrentFrame();
+                        runner?.ResumeTickByDebugger();
+                    }
+                }
+            }
+            GUI.backgroundColor = Color.white;
+
+            // 프레임 이동 (고정 — 항상 4개 버튼)
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("◀◀ -10", GUILayout.Height(25)) && hasData)
+            {
+                EnsureEditorPaused();
+                _editorSnapshotIndex = Mathf.Max(0, _editorSnapshotIndex - 10);
+                SeekToCurrentFrame();
+            }
+            if (GUILayout.Button("◀ -1", GUILayout.Height(25)) && hasData)
+            {
+                EnsureEditorPaused();
+                _editorSnapshotIndex = Mathf.Max(0, _editorSnapshotIndex - 1);
+                SeekToCurrentFrame();
+            }
+            if (GUILayout.Button("▶ +1", GUILayout.Height(25)) && hasData)
+            {
+                EnsureEditorPaused();
+                _editorSnapshotIndex = Mathf.Min(total - 1, _editorSnapshotIndex + 1);
+                SeekToCurrentFrame();
+            }
+            if (GUILayout.Button("▶▶ +10", GUILayout.Height(25)) && hasData)
+            {
+                EnsureEditorPaused();
+                _editorSnapshotIndex = Mathf.Min(total - 1, _editorSnapshotIndex + 10);
+                SeekToCurrentFrame();
+            }
+            EditorGUILayout.EndHorizontal();
+
+            // 라이브 모드: 자동으로 최신 인덱스 추적
+            if (!_editorPaused && hasData)
+                _editorSnapshotIndex = total - 1;
+
+            // ── 스냅샷 상세: 고정 높이 영역에 직접 렌더링 (Repaint 불일치 방지) ──
+            DrawSnapshotDetails(snapshot);
+        }
+
+        /// <summary>
+        /// 스냅샷 상세를 고정 높이 GUILayout.GetRect 안에서 GUI.Label로 직접 렌더링.
+        /// EditorGUILayout 컨트롤을 사용하지 않으므로 Layout/Repaint 불일치 없음.
+        /// </summary>
+        private void DrawSnapshotDetails(CookApps.AutoChess.CombatFrameSnapshot snapshot)
+        {
+            int unitCount = snapshot?.UnitCount ?? 0;
+            int projCount = snapshot?.ProjectileCount ?? 0;
+            int evtCount = snapshot?.EventCount ?? 0;
+
+            EditorGUILayout.LabelField($"유닛: {unitCount}  투사체: {projCount}  이벤트: {evtCount}");
+
+            // 고정 높이 영역 확보 (내부는 GUI.Label로 직접 렌더링)
+            const float detailHeight = 300f;
+            const float lineHeight = 16f;
+            Rect areaRect = GUILayoutUtility.GetRect(0, detailHeight, GUILayout.ExpandWidth(true));
+
+            // 배경
+            EditorGUI.DrawRect(areaRect, new Color(0.15f, 0.15f, 0.15f, 0.3f));
+
+            if (snapshot == null) return;
+
+            // 스크롤 가능한 텍스트 빌드
+            if (_snapshotLines == null || _snapshotCacheIndex != _editorSnapshotIndex)
+            {
+                RebuildSnapshotText(snapshot);
+                _snapshotCacheIndex = _editorSnapshotIndex;
+            }
+
+            // 텍스트 영역 (내부 스크롤)
+            float contentHeight = _snapshotLineCount * lineHeight;
+            Rect viewRect = new Rect(0, 0, areaRect.width - 16, contentHeight);
+
+            _detailScrollPos = GUI.BeginScrollView(areaRect, _detailScrollPos, viewRect);
+
+            var style = EditorStyles.miniLabel;
+            float y = 0f;
+            for (int i = 0; i < _snapshotLineCount; i++)
+            {
+                GUI.Label(new Rect(4, y, viewRect.width, lineHeight), _snapshotLines[i], style);
+                y += lineHeight;
+            }
+
+            GUI.EndScrollView();
+        }
+
+        // 스냅샷 텍스트 캐시 (매 프레임 문자열 재생성 방지)
+        private string[] _snapshotLines;
+        private int _snapshotLineCount;
+        private int _snapshotCacheIndex = -1;
+
+        private void RebuildSnapshotText(CookApps.AutoChess.CombatFrameSnapshot snapshot)
+        {
+            var lines = new List<string>();
+
+            // 유닛
+            lines.Add($"── 유닛 ({snapshot.UnitCount}) ──");
+            for (int i = 0; i < snapshot.UnitCount; i++)
+            {
+                ref var u = ref snapshot.Units[i];
+                if (!u.IsAlive && u.State == CookApps.AutoChess.CombatState.Dead) continue;
+                string team = u.TeamIndex == 0 ? "A" : "B";
+                string cc = u.ActiveCC != CookApps.AutoChess.CrowdControlType.None
+                    ? $" CC:{u.ActiveCC}({u.CCRemainingFrames}f)" : "";
+                string shield = u.ShieldAmount > 0 ? $" S:{u.ShieldAmount}" : "";
+                lines.Add($"  #{u.CombatId} [{team}] ({u.GridCol},{u.GridRow}) HP:{u.CurrentHp}/{u.MaxHp} MP:{u.CurrentMana}/{u.MaxMana} {u.State}{cc}{shield}");
+            }
+
+            // 투사체
+            lines.Add($"── 투사체 ({snapshot.ProjectileCount}) ──");
+            for (int i = 0; i < snapshot.ProjectileCount; i++)
+            {
+                ref var p = ref snapshot.Projectiles[i];
+                lines.Add($"  P#{p.ProjectileId} ({p.Col},{p.Row}) src:#{p.SourceCombatId} {p.HitBehavior} {p.Type}");
+            }
+
+            // 이벤트
+            lines.Add($"── 이벤트 ({snapshot.EventCount}) ──");
+            for (int i = 0; i < snapshot.EventCount; i++)
+            {
+                ref var e = ref snapshot.Events[i];
+                lines.Add($"  {e.Description}");
+            }
+
+            _snapshotLines = lines.ToArray();
+            _snapshotLineCount = _snapshotLines.Length;
+        }
+
+        private void EnsureEditorPaused()
+        {
+            if (!_editorPaused)
+            {
+                _editorPaused = true;
+                GetLocalRunner()?.PauseTickByDebugger();
+            }
+        }
+
+        /// <summary>현재 _editorSnapshotIndex에 해당하는 프레임으로 리플레이 되감기</summary>
+        private void SeekToCurrentFrame()
+        {
+            var runner = GetLocalRunner();
+            if (runner?.ReplayController == null) return;
+
+            var recorder = GetRecorderFromRunner();
+            if (recorder == null || _editorSnapshotIndex < 0) return;
+
+            // 스냅샷 인덱스 → 해당 프레임까지의 틱 수
+            runner.ReplayController.SeekToFrame(_editorSnapshotIndex, recorder);
+        }
+
+        private CookApps.AutoChess.LocalSimulationRunner GetLocalRunner()
+        {
+            return InGameTestDebugUI.Instance?.Runner;
+        }
+
+        private CookApps.AutoChess.CombatFrameRecorder GetRecorderFromRunner()
+        {
+            return InGameTestDebugUI.Instance?.Recorder;
+        }
+
+        #endregion
+
         #region Utility
 
         private string GetCharacterNamesForCell(List<int> characterIds)
@@ -983,6 +1240,10 @@ namespace CookApps.AutoBattler.Editor
             public float RestartDelay;
             public bool PlayerInvincible;
             public bool EnemyInvincible;
+            public bool EnableFrameRecorder;
+            public int RecordStartFrame;
+            public int RecordEndFrame;
+            public bool ShowVfxSyncOverlay;
 
             public PresetData() { }
 
@@ -1001,6 +1262,10 @@ namespace CookApps.AutoBattler.Editor
                 RestartDelay = config.RestartDelay;
                 PlayerInvincible = config.PlayerInvincible;
                 EnemyInvincible = config.EnemyInvincible;
+                EnableFrameRecorder = config.EnableFrameRecorder;
+                RecordStartFrame = config.RecordStartFrame;
+                RecordEndFrame = config.RecordEndFrame;
+                ShowVfxSyncOverlay = config.ShowVfxSyncOverlay;
             }
 
             public void ApplyTo(InGameTestConfig config)
@@ -1018,6 +1283,10 @@ namespace CookApps.AutoBattler.Editor
                 config.RestartDelay = RestartDelay;
                 config.PlayerInvincible = PlayerInvincible;
                 config.EnemyInvincible = EnemyInvincible;
+                config.EnableFrameRecorder = EnableFrameRecorder;
+                config.RecordStartFrame = RecordStartFrame;
+                config.RecordEndFrame = RecordEndFrame;
+                config.ShowVfxSyncOverlay = ShowVfxSyncOverlay;
             }
         }
 
