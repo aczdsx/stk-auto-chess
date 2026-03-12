@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using CookApps.AutoBattler;
 
@@ -12,28 +13,50 @@ namespace CookApps.AutoChess
     {
         private const byte PlayerA = 0;
         private const byte PlayerB = 0xFF;
-        private const int DefaultTickRate = 30;
+        private const int MaxPlayerUnits = 5;
 
         /// <summary>
-        /// 아군 챔피언 specId 배열로 CombatMatchState를 생성하고,
-        /// 적군을 enemySpecIds 배열로 스폰한다.
+        /// 아군 챔피언 specId 리스트로 CombatMatchState를 생성한다.
+        /// 아군은 row 0-3에, 적군은 TryAddEnemy로 동적 추가.
         /// </summary>
-        /// <param name="playerSpecIds">아군 챔피언 specId 배열 (최대 ~7개, row 0-3 배치)</param>
-        /// <param name="enemySpecIds">적군 챔피언 specId 배열 (row 4-7 배치)</param>
+        /// <param name="playerChampionSpecIds">아군 챔피언 specId 리스트 (최대 5개)</param>
+        /// <param name="eventQueue">SimEventQueue (View 연동용, null 가능)</param>
         /// <param name="rng">결정론적 RNG (struct, ref 전달)</param>
+        /// <param name="tickRate">시뮬레이션 틱레이트</param>
         /// <returns>초기화된 CombatMatchState</returns>
-        public static CombatMatchState Create(int[] playerSpecIds, int[] enemySpecIds, ref DeterministicRNG rng)
+        public static CombatMatchState CreateMatchState(
+            List<int> playerChampionSpecIds,
+            SimEventQueue eventQueue,
+            ref DeterministicRNG rng,
+            int tickRate)
         {
             var state = CombatMatchState.Create(0, PlayerA, PlayerB);
+            state.EventQueue = eventQueue;
 
-            // 아군 유닛 (team 0, row 0-3)
-            SpawnUnitsFromSpecIds(state, playerSpecIds, teamIndex: 0, ownerIndex: PlayerA, startRow: 0, mirrorGrid: false);
+            // SkillFactory 초기화
+            SkillFactory.Initialize(tickRate);
 
-            // 적군 유닛 (team 1, row 4-7, 미러링)
-            SpawnUnitsFromSpecIds(state, enemySpecIds, teamIndex: 1, ownerIndex: PlayerB, startRow: 0, mirrorGrid: true);
+            // 아군 유닛 (team 0, row 0-3, 최대 5개)
+            if (playerChampionSpecIds != null)
+            {
+                int count = playerChampionSpecIds.Count;
+                if (count > MaxPlayerUnits) count = MaxPlayerUnits;
 
-            // 스킬 설정 (GameWorld 없이 SkillFactory 직접 사용)
-            SetupSkillsWithoutWorld(state);
+                for (int i = 0; i < count; i++)
+                {
+                    int specId = playerChampionSpecIds[i];
+                    if (specId <= 0) continue;
+                    if (state.UnitCount >= CombatMatchState.MaxCombatUnits) break;
+
+                    if (!FindEmptyTile(state, 0, 3, ref rng, out int col, out int row))
+                        break;
+
+                    SpawnUnit(state, specId, teamIndex: 0, ownerIndex: PlayerA, col, row, tickRate);
+                }
+            }
+
+            // 스킬 설정
+            SetupSkillsForRange(state, 0, state.UnitCount, tickRate);
 
             // 생존 수 카운트
             state.AliveCountA = CombatSetupSystem.CountAliveByTeam(state, 0);
@@ -43,158 +66,214 @@ namespace CookApps.AutoChess
         }
 
         /// <summary>
-        /// specId 배열로 유닛을 스폰하여 CombatMatchState에 배치.
-        /// SpawnTutorialUnit 패턴 기반, 스펙 데이터에서 스탯을 조회하여 채움.
+        /// 적 유닛 1체를 동적으로 추가. row 4-7에 빈 타일을 찾아 스폰.
         /// </summary>
-        private static void SpawnUnitsFromSpecIds(
-            CombatMatchState state, int[] specIds,
-            byte teamIndex, byte ownerIndex, int startRow, bool mirrorGrid)
+        /// <param name="matchState">전투 상태</param>
+        /// <param name="enemyChampionSpecId">적 챔피언 specId</param>
+        /// <param name="rng">결정론적 RNG (struct, ref 전달)</param>
+        /// <param name="tickRate">시뮬레이션 틱레이트</param>
+        /// <returns>스폰 성공 여부</returns>
+        public static bool TryAddEnemy(CombatMatchState matchState, int enemyChampionSpecId,
+            ref DeterministicRNG rng, int tickRate)
         {
-            if (specIds == null) return;
+            if (matchState.UnitCount >= CombatMatchState.MaxCombatUnits)
+                return false;
 
-            int boardWidth = CombatGrid.Width; // 7
+            if (enemyChampionSpecId <= 0)
+                return false;
 
-            for (int i = 0; i < specIds.Length; i++)
-            {
-                int specId = specIds[i];
-                if (specId <= 0) continue;
-                if (state.UnitCount >= CombatMatchState.MaxCombatUnits) break;
+            if (!FindEmptyTile(matchState, 4, 7, ref rng, out int col, out int row))
+                return false;
 
-                // 보드 좌표 계산 (좌→우, 행 순서)
-                int col = i % boardWidth;
-                int row = startRow + i / boardWidth;
+            int unitIndex = matchState.UnitCount; // 스폰될 유닛의 인덱스
+            SpawnUnit(matchState, enemyChampionSpecId, teamIndex: 1, ownerIndex: PlayerB, col, row, tickRate);
 
-                int gridCol, gridRow;
-                if (mirrorGrid)
-                {
-                    BoardHelper.MirrorPosition(col, row, out gridCol, out gridRow);
-                }
-                else
-                {
-                    gridCol = col;
-                    gridRow = row;
-                }
+            // 이 유닛의 스킬 설정
+            SetupSkillForUnit(matchState, unitIndex, tickRate);
 
-                // 스펙 데이터 조회
-                var charInfo = CharacterInfo.Get(specId);
-                ISpecCharacterInfo spec = charInfo;
+            // 생존 수 갱신
+            matchState.AliveCountB = CombatSetupSystem.CountAliveByTeam(matchState, 1);
 
-                int combatId = state.NextCombatId++;
-                int slotIndex = state.UnitCount++;
-
-                ref var unit = ref state.Units[slotIndex];
-                unit.CombatId = combatId;
-                unit.SourceEntityId = -1; // idle에서는 원본 없음
-                unit.ChampionSpecId = specId;
-                unit.StarLevel = 1;
-                unit.OwnerIndex = ownerIndex;
-                unit.TeamIndex = teamIndex;
-                unit.GridCol = (byte)gridCol;
-                unit.GridRow = (byte)gridRow;
-                unit.SizeW = 1;
-                unit.SizeH = 1;
-                unit.State = CombatState.Idle;
-                unit.IsAlive = true;
-
-                // 스탯 설정
-                if (charInfo != null)
-                {
-                    unit.MaxHP = spec.stat_hp;
-                    unit.CurrentHP = spec.stat_hp;
-                    unit.Attack = spec.stat_atk;
-                    unit.Armor = spec.stat_def;
-                    unit.MagicResist = (int)spec.ap_reduce;
-                    unit.AttackSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
-                    unit.AttackRange = spec.atk_range > 0 ? spec.atk_range : 1;
-                    unit.MoveSpeed = Mathf.Max(1, (int)(spec.move_speed * 100));
-                    unit.MaxMana = 100;
-                    unit.CurrentMana = 0;
-
-                    // 관통/크리
-                    unit.ArmorPenetration = Mathf.Clamp((int)(spec.stat_atk_pierce * 100), 0, 100);
-                    unit.MagicPenetration = Mathf.Clamp((int)(spec.stat_res_pierce * 100), 0, 100);
-                    unit.CritChance = Mathf.Max(0, (int)(spec.crit_rate * 100));
-                    if (unit.CritChance <= 0) unit.CritChance = 25;
-                    unit.CritMultiplier = Mathf.Max(0, (int)(spec.crit_power * 100));
-                    if (unit.CritMultiplier <= 0) unit.CritMultiplier = 150;
-                    unit.HitChance = 100;
-
-                    // 스킬 ID
-                    unit.SkillSpecId = GetPrimarySkillId(spec);
-
-                    // ATK 키프레임 지연
-                    unit.AtkHitDelay = ExtractAtkHitDelay(spec.prefab_id, DefaultTickRate);
-
-                    // 범위 기본공격
-                    unit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(specId, out _);
-                }
-                else
-                {
-                    // 스펙 없으면 최소 기본값 (SpawnTutorialUnit 패턴)
-                    unit.MaxHP = 100;
-                    unit.CurrentHP = 100;
-                    unit.Attack = 10;
-                    unit.Armor = 0;
-                    unit.MagicResist = 0;
-                    unit.AttackSpeed = 100;
-                    unit.AttackRange = 1;
-                    unit.MoveSpeed = 100;
-                    unit.MaxMana = 100;
-                    unit.CurrentMana = 0;
-                    unit.CritChance = 25;
-                    unit.CritMultiplier = 150;
-                    unit.HitChance = 100;
-                    unit.AtkHitDelay = 1;
-                }
-
-                unit.CurrentTargetId = CombatUnit.InvalidId;
-                unit.AttackCooldown = 0;
-                unit.PendingAtkTargetId = CombatUnit.InvalidId;
-                unit.PendingAtkTimer = 0;
-                unit.MoveTimer = 0;
-                unit.MoveDuration = 0;
-                unit.SkillCastTimer = 0;
-
-                // 그리드에 등록
-                state.SetGridMulti(gridCol, gridRow, unit.SizeW, unit.SizeH, combatId);
-            }
+            return true;
         }
 
         /// <summary>
-        /// GameWorld 없이 SkillFactory를 직접 사용하여 스킬 인스턴스 생성.
-        /// SkillSystem.SetupSkills(state, world) 패턴을 재현하되, world 의존성 제거.
+        /// 지정 row 범위(minRow~maxRow 포함)에서 빈 타일을 랜덤으로 하나 찾는다.
         /// </summary>
-        private static void SetupSkillsWithoutWorld(CombatMatchState state)
+        private static bool FindEmptyTile(CombatMatchState state, int minRow, int maxRow,
+            ref DeterministicRNG rng, out int outCol, out int outRow)
         {
-            // SkillFactory가 아직 초기화되지 않았으면 초기화
-            SkillFactory.Initialize(DefaultTickRate);
+            // 최대 7열 * 4행 = 28 타일. 초기화 시에만 호출되므로 소규모 배열 허용.
+            int maxTiles = CombatGrid.Width * (maxRow - minRow + 1);
+            var emptyCols = new int[maxTiles];
+            var emptyRows = new int[maxTiles];
+            int emptyCount = 0;
 
-            for (int i = 0; i < state.UnitCount; i++)
+            for (int r = minRow; r <= maxRow; r++)
             {
-                ref var unit = ref state.Units[i];
-                if (unit.SkillSpecId <= 0) continue;
-
-                var skill = SkillFactory.Create(unit.SkillSpecId);
-                if (skill == null) continue;
-
-                if (SkillFactory.TryGetParams(unit.SkillSpecId, out var skillParams))
+                for (int c = 0; c < CombatGrid.Width; c++)
                 {
-                    skill.Initialize(skillParams);
-                }
-                else
-                {
-                    skill.Initialize(new SkillParams
+                    if (state.GetUnitAtGrid(c, r) == CombatUnit.InvalidId)
                     {
-                        SkillId = unit.SkillSpecId,
-                        PowerPercent = 200,
-                        DamageType = DamageType.Magical,
-                    });
+                        emptyCols[emptyCount] = c;
+                        emptyRows[emptyCount] = r;
+                        emptyCount++;
+                    }
                 }
-                state.Skills[i] = skill;
+            }
+
+            if (emptyCount == 0)
+            {
+                outCol = 0;
+                outRow = 0;
+                return false;
+            }
+
+            int chosen = rng.Range(0, emptyCount);
+            outCol = emptyCols[chosen];
+            outRow = emptyRows[chosen];
+            return true;
+        }
+
+        /// <summary>유닛 1체를 지정 좌표에 스폰 (SpawnTutorialUnit 패턴 기반)</summary>
+        private static void SpawnUnit(CombatMatchState state, int champSpecId,
+            byte teamIndex, byte ownerIndex, int col, int row, int tickRate)
+        {
+            int combatId = state.NextCombatId++;
+            int slotIndex = state.UnitCount++;
+
+            ref var unit = ref state.Units[slotIndex];
+            unit.CombatId = combatId;
+            unit.SourceEntityId = -1;
+            unit.ChampionSpecId = champSpecId;
+            unit.StarLevel = 1;
+            unit.OwnerIndex = ownerIndex;
+            unit.TeamIndex = teamIndex;
+            unit.GridCol = (byte)col;
+            unit.GridRow = (byte)row;
+            unit.SizeW = 1;
+            unit.SizeH = 1;
+            unit.State = CombatState.Idle;
+            unit.IsAlive = true;
+
+            // 스펙 데이터 조회
+            var charInfo = CharacterInfo.Get(champSpecId);
+
+            if (charInfo != null)
+            {
+                ISpecCharacterInfo spec = charInfo;
+                unit.MaxHP = spec.stat_hp;
+                unit.CurrentHP = spec.stat_hp;
+                unit.Attack = spec.stat_atk;
+                unit.Armor = spec.stat_def;
+                unit.MagicResist = (int)spec.ap_reduce;
+                unit.AttackSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
+                unit.AttackRange = spec.atk_range > 0 ? spec.atk_range : 1;
+                unit.MoveSpeed = Mathf.Max(1, (int)(spec.move_speed * 100));
+                unit.MaxMana = 100;
+                unit.CurrentMana = 0;
+
+                // 관통/크리
+                unit.ArmorPenetration = Mathf.Clamp((int)(spec.stat_atk_pierce * 100), 0, 100);
+                unit.MagicPenetration = Mathf.Clamp((int)(spec.stat_res_pierce * 100), 0, 100);
+                unit.CritChance = Mathf.Max(0, (int)(spec.crit_rate * 100));
+                if (unit.CritChance <= 0) unit.CritChance = 25;
+                unit.CritMultiplier = Mathf.Max(0, (int)(spec.crit_power * 100));
+                if (unit.CritMultiplier <= 0) unit.CritMultiplier = 150;
+                unit.HitChance = 100;
+
+                // 스킬 ID
+                unit.SkillSpecId = GetPrimarySkillId(spec);
+
+                // ATK 키프레임 지연
+                unit.AtkHitDelay = ExtractAtkHitDelay(spec.prefab_id, tickRate);
+
+                // 범위 기본공격
+                unit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(champSpecId, out _);
+            }
+            else
+            {
+                // 스펙 없으면 최소 기본값 (SpawnTutorialUnit 패턴)
+                unit.MaxHP = 100;
+                unit.CurrentHP = 100;
+                unit.Attack = 10;
+                unit.Armor = 0;
+                unit.MagicResist = 0;
+                unit.AttackSpeed = 100;
+                unit.AttackRange = 1;
+                unit.MoveSpeed = 100;
+                unit.MaxMana = 100;
+                unit.CurrentMana = 0;
+                unit.CritChance = 25;
+                unit.CritMultiplier = 150;
+                unit.HitChance = 100;
+                unit.AtkHitDelay = 1;
+            }
+
+            unit.CurrentTargetId = CombatUnit.InvalidId;
+            unit.AttackCooldown = 0;
+            unit.PendingAtkTargetId = CombatUnit.InvalidId;
+            unit.PendingAtkTimer = 0;
+            unit.MoveTimer = 0;
+            unit.MoveDuration = 0;
+            unit.SkillCastTimer = 0;
+
+            // 그리드에 등록
+            state.SetGridMulti(col, row, unit.SizeW, unit.SizeH, combatId);
+
+            // UnitSpawned 이벤트 발행 (View에서 시각 오브젝트 생성에 사용)
+            state.EventQueue?.Push(new SimEvent
+            {
+                Type = SimEventType.UnitSpawned,
+                EntityId = combatId,
+                Value0 = champSpecId,
+                Col = (byte)col,
+                Row = (byte)row,
+            });
+
+            if (CombatLogger.Enabled)
+                CombatLogger.LogSpawn(combatId, teamIndex, col, row, unit.MaxHP, unit.Attack, unit.AttackRange);
+        }
+
+        /// <summary>유닛 범위에 대해 스킬 인스턴스 생성 (GameWorld 없이)</summary>
+        private static void SetupSkillsForRange(CombatMatchState state, int startIndex, int endIndex, int tickRate)
+        {
+            SkillFactory.Initialize(tickRate);
+
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                SetupSkillForUnit(state, i, tickRate);
             }
         }
 
-        /// <summary>ISpecCharacterInfo에서 첫 번째 스킬 ID 추출 (AutoChessSpecAdapter.GetPrimarySkillId 복제)</summary>
+        /// <summary>단일 유닛에 대해 스킬 인스턴스 생성</summary>
+        private static void SetupSkillForUnit(CombatMatchState state, int unitIndex, int tickRate)
+        {
+            SkillFactory.Initialize(tickRate);
+
+            ref var unit = ref state.Units[unitIndex];
+            if (unit.SkillSpecId <= 0) return;
+
+            var skill = SkillFactory.Create(unit.SkillSpecId);
+            if (skill == null) return;
+
+            if (SkillFactory.TryGetParams(unit.SkillSpecId, out var skillParams))
+            {
+                skill.Initialize(skillParams);
+            }
+            else
+            {
+                skill.Initialize(new SkillParams
+                {
+                    SkillId = unit.SkillSpecId,
+                    PowerPercent = 200,
+                    DamageType = DamageType.Magical,
+                });
+            }
+            state.Skills[unitIndex] = skill;
+        }
+
+        /// <summary>ISpecCharacterInfo에서 첫 번째 스킬 ID 추출</summary>
         private static int GetPrimarySkillId(ISpecCharacterInfo c)
         {
             var ids = c.skill_ids;
@@ -203,7 +282,7 @@ namespace CookApps.AutoChess
             return 0;
         }
 
-        /// <summary>ATK Execute 키프레임 지연 프레임 추출 (CombatSetupSystem.ExtractAtkHitDelay 복제)</summary>
+        /// <summary>ATK Execute 키프레임 지연 프레임 추출</summary>
         private static int ExtractAtkHitDelay(int prefabId, int tickRate)
         {
             if (prefabId <= 0) return 1;
@@ -215,5 +294,6 @@ namespace CookApps.AutoChess
             }
             return 1;
         }
+
     }
 }
