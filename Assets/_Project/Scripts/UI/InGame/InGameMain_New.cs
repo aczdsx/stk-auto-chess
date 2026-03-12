@@ -64,6 +64,7 @@ namespace CookApps.AutoBattler
 
             // 6. 시작
             _viewRoot.Runner.OnGameOver += HandleGameOver;
+            _viewRoot.Runner.OnPhaseChanged += HandlePhaseChanged;
             Debug.Log("[InGameMain_New] AutoChess started.");
 
             await _viewRoot.ViewBridge.WaitForAllViewsReady();
@@ -79,6 +80,7 @@ namespace CookApps.AutoBattler
             if (_viewRoot != null)
             {
                 _viewRoot.Runner.OnGameOver -= HandleGameOver;
+                _viewRoot.Runner.OnPhaseChanged -= HandlePhaseChanged;
                 _viewRoot.Cleanup();
             }
             base.OnPostExit();
@@ -416,6 +418,58 @@ namespace CookApps.AutoBattler
         }
 
         // ══════════════════════════════════════════
+        // 배치 상태 저장
+        // ══════════════════════════════════════════
+
+        private void HandlePhaseChanged(GamePhase prevPhase, GamePhase newPhase)
+        {
+            if (prevPhase == GamePhase.Preparation && newPhase == GamePhase.Combat)
+            {
+                SaveCurrentDeckAsync().Forget();
+            }
+        }
+
+        private List<DeckCharacterPlacement> CollectBoardPlacements()
+        {
+            var world = _viewRoot.Runner.GetWorld();
+            var placements = new List<DeckCharacterPlacement>();
+
+            for (int i = 0; i < GameWorld.MaxUnits; i++)
+            {
+                ref var unit = ref world.Units[i];
+                if (!unit.IsValid) continue;
+                if (unit.OwnerIndex != 0) continue;
+                if (unit.Location != UnitLocation.Board) continue;
+
+                placements.Add(new DeckCharacterPlacement
+                {
+                    CharacterId = (uint)unit.ChampionSpecId,
+                    GridX = unit.BoardCol,
+                    GridY = unit.BoardRow
+                });
+            }
+
+            return placements;
+        }
+
+        private async UniTaskVoid SaveCurrentDeckAsync()
+        {
+            var characterPlacements = CollectBoardPlacements();
+
+            try
+            {
+                await NetManager.Instance.Deck.SaveAsync(
+                    (uint)_inGameParams.InGameType,
+                    string.Empty,
+                    characterPlacements);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning($"[InGameMain_New] Deck.SaveAsync failed: {e.Message}");
+            }
+        }
+
+        // ══════════════════════════════════════════
         // 게임 오버 처리
         // ══════════════════════════════════════════
 
@@ -479,9 +533,13 @@ namespace CookApps.AutoBattler
                 Debug.LogWarning($"[InGameMain_New] Battle.EndAsync failed: {e.Message}");
             }
 
+            // 전투 종료 연출 딜레이 (투사체 등 View 연출이 자연스럽게 마무리되도록)
+            await UniTask.Delay(System.TimeSpan.FromSeconds(2.5f));
+
             if (_viewRoot != null)
             {
                 _viewRoot.Runner.OnGameOver -= HandleGameOver;
+                _viewRoot.Runner.OnPhaseChanged -= HandlePhaseChanged;
                 _viewRoot.Cleanup();
                 _viewRoot = null;
             }
