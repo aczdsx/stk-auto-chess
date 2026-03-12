@@ -1,0 +1,507 @@
+fileFormatVersion: 2
+guid: 151ccce187307ed42b94ad8585f36de0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8491042562138699468
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_0
+  - first:
+      213: 4275680506074791034
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_1
+  - first:
+      213: -8146634293418713421
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_2
+  - first:
+      213: 791014963283938877
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_3
+  - first:
+      213: -8453358372017602407
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_4
+  - first:
+      213: 337369529803509883
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_5
+  - first:
+      213: -147314751337634554
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_6
+  - first:
+      213: 7908651996463069190
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_7
+  - first:
+      213: -324195629048343150
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_8
+  - first:
+      213: 5256816098152947500
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_9
+  - first:
+      213: -3405479197225446547
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_10
+  - first:
+      213: -1141269086894819810
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_11
+  - first:
+      213: 2001333310780429127
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_12
+  - first:
+      213: -474767238320166882
+    second: UI_Gacha_GetCharacter_Decorative_Frame_Additional_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc6fff8093e36d570800000000000000
+      internalID: 8491042562138699468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_1
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 0
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7c76a944c4465b30800000000000000
+      internalID: 4275680506074791034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_2
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 0
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3be13c9d54751fe80800000000000000
+      internalID: -8146634293418713421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_3
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 0
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3ece8a0bef3afa00800000000000000
+      internalID: 791014963283938877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_4
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 0
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99001d43953afaa80800000000000000
+      internalID: -8453358372017602407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_5
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b709af5ccc39ea400800000000000000
+      internalID: 337369529803509883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_6
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 0
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6056850a302a4fdf0800000000000000
+      internalID: -147314751337634554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_7
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 0
+        width: 19
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6087d55c61d21cd60800000000000000
+      internalID: 7908651996463069190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_8
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 0
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 295d6d40bc9308bf0800000000000000
+      internalID: -324195629048343150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_9
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 0
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2f16f3b366f3f840800000000000000
+      internalID: 5256816098152947500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_10
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 0
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d63156f86be4db0d0800000000000000
+      internalID: -3405479197225446547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_11
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 0
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e16ff7aefc56920f0800000000000000
+      internalID: -1141269086894819810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_12
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 0
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 743593aea0a26cb10800000000000000
+      internalID: 2001333310780429127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Gacha_GetCharacter_Decorative_Frame_Additional_13
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 0
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e18eee056b94969f0800000000000000
+      internalID: -474767238320166882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_0: 8491042562138699468
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_1: 4275680506074791034
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_10: -3405479197225446547
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_11: -1141269086894819810
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_12: 2001333310780429127
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_13: -474767238320166882
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_2: -8146634293418713421
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_3: 791014963283938877
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_4: -8453358372017602407
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_5: 337369529803509883
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_6: -147314751337634554
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_7: 7908651996463069190
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_8: -324195629048343150
+      UI_Gacha_GetCharacter_Decorative_Frame_Additional_9: 5256816098152947500
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
