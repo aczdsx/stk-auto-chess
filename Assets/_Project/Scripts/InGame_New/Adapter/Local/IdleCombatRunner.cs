@@ -27,6 +27,7 @@ namespace CookApps.AutoChess
         public event Action OnCombatStopped;
 
         public CombatMatchState MatchState => _matchState;
+        public SimEventQueue EventQueue => _eventQueue;
         public bool IsRunning => _isRunning;
 
         public void StartIdleCombat(List<int> playerChampionSpecIds, List<int> enemySpecIds, int maxEnemyCount)
