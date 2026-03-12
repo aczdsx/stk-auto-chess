@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: eb156f9abc2ad1941bc491f34e1322d6
+guid: 2ff330421a162904e867619bb5df1899
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2138050898846072992
-    second: UI_Common_Decorative_Star_0
+      213: -281291639224750122
+    second: UI_Gacha_GetCharacter_Synergy_Bg_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +52,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 16, y: 32, z: 32, w: 16}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -113,7 +113,7 @@ TextureImporter:
     buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 50
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI_Common_Decorative_Star_0
+      name: UI_Gacha_GetCharacter_Synergy_Bg_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 06f339e090e1452e0800000000000000
-      internalID: -2138050898846072992
+      spriteID: 6dfa8b59eb6a81cf0800000000000000
+      internalID: -281291639224750122
       vertices: []
       indices: 
       edges: []
@@ -152,7 +152,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UI_Common_Decorative_Star_0: -2138050898846072992
+      UI_Gacha_GetCharacter_Synergy_Bg_0: -281291639224750122
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

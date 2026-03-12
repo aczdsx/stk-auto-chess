@@ -46,13 +46,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 8, y: 8, z: 8, w: 8}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -113,7 +113,7 @@ TextureImporter:
     buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 50
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -152,7 +152,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: c6ce8bbf31722c440a8720ad63226ae0
-    internalID: 0
+    internalID: 745218321
     vertices: []
     indices: 
     edges: []
