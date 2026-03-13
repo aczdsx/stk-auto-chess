@@ -16,6 +16,9 @@ namespace CookApps.AutoBattler
         [Tooltip("라인 재생 시간 (초)")]
         public float LineDurationTime = 2f;
 
+        [Tooltip("라인 사이 공백 시간 (초)")]
+        public float GapTime = 1f;
+
         [Tooltip("시작 오프셋 (인덱스)")]
         public int Offset = 4;
 

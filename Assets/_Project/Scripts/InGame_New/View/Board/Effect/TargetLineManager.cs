@@ -138,12 +138,17 @@ namespace CookApps.AutoChess.View
 
         private async UniTaskVoid DrawLoopAsync()
         {
-            float interval = _config != null ? _config.LineDurationTime : 2f;
+            float duration = _config != null ? _config.LineDurationTime : 2f;
+            float gap = _config != null ? _config.GapTime : 1f;
 
             while (_isActive && this != null)
             {
                 _currentState?.Draw();
-                await UniTask.Delay(System.TimeSpan.FromSeconds(interval), ignoreTimeScale: true);
+                // 애니메이션 재생 시간 대기
+                await UniTask.Delay(System.TimeSpan.FromSeconds(duration), ignoreTimeScale: true);
+                if (!_isActive || this == null) break;
+                // 공백 시간 (라인 없이 대기)
+                await UniTask.Delay(System.TimeSpan.FromSeconds(gap), ignoreTimeScale: true);
             }
         }
     }
