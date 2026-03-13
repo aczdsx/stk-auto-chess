@@ -32,10 +32,21 @@ namespace CookApps.AutoChess
             DamageSystem.ChargeMana(ref target, DamageSystem.ManaGainOnHit);
         }
 
-        /// <summary>HP 회복</summary>
+        /// <summary>HP 회복 (HealReduction 상태효과 반영)</summary>
         public static void Heal(CombatMatchState state, ref CombatUnit target, int amount)
         {
             if (!target.IsAlive) return;
+
+            // HealReduction 상태효과 적용
+            int targetIdx = state.FindUnitIndex(target.CombatId);
+            if (targetIdx >= 0)
+            {
+                int reduction = StatusEffectSystem.GetHealReduction(state, targetIdx);
+                if (reduction > 0)
+                    amount = amount * (100 - reduction) / 100;
+            }
+            if (amount <= 0) return;
+
             target.CurrentHP += amount;
             if (target.CurrentHP > target.MaxHP)
                 target.CurrentHP = target.MaxHP;

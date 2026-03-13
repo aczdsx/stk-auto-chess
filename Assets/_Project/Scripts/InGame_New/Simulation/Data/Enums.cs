@@ -145,6 +145,7 @@ namespace CookApps.AutoChess
         DOTImmunity,     // DOT 면역 (DamageOverTime 차단)
         DebuffImmunity,  // 디버프 면역 (StatDebuff 차단)
         SkillMarker,     // 범용 스킬 마커 (개별 타이머, Value=스킬ID로 식별)
+        HealReduction,   // 회복량 감소 (Value=감소 퍼센트)
     }
 
     // ═══════════════════════════════════════════════
@@ -225,33 +226,35 @@ namespace CookApps.AutoChess
         Equipped,   // 유닛에 장착됨
     }
 
-    /// <summary>전투 VFX 트리거 타입 (버프/디버프/CC)</summary>
+    /// <summary>전투 VFX 트리거 타입 (버프/디버프/CC). 명시적 값 고정 — SO 직렬화 안전.</summary>
     public enum CombatVfxType : byte
     {
         None = 0,
         // ── 버프 계열 ──
-        StatBuff_Attack,
-        StatBuff_Armor,
-        StatBuff_MagicResist,
-        StatBuff_AttackSpeed,
-        ContinuousHeal,
-        CCImmunity,
-        DOTImmunity,
-        DebuffImmunity,
+        StatBuff_Attack     = 1,
+        StatBuff_Armor      = 2,
+        StatBuff_MagicResist = 3,
+        StatBuff_AttackSpeed = 4,
+        ContinuousHeal      = 5,
+        CCImmunity          = 6,
+        DOTImmunity         = 7,
+        DebuffImmunity      = 8,
         // ── 디버프 계열 ──
-        StatDebuff_Attack,
-        StatDebuff_Armor,
-        StatDebuff_MagicResist,
-        StatDebuff_AttackSpeed,
-        ContinuousDamage,
-        // ── CC 계열 ──
-        CC_Stun,
-        CC_Silence,
-        CC_Slow,
-        CC_Freeze,
-        CC_Taunt,
-        CC_Airborne,
-        CC_KnockBack,
+        StatDebuff_Attack      = 9,
+        StatDebuff_Armor       = 10,
+        StatDebuff_MagicResist = 11,
+        StatDebuff_AttackSpeed = 12,
+        ContinuousDamage       = 13,
+        // ── CC 계열 (기존 직렬화 값 유지) ──
+        CC_Stun     = 14,
+        CC_Silence  = 15,
+        CC_Slow     = 16,
+        CC_Freeze   = 17,
+        CC_Taunt    = 18,
+        CC_Airborne = 19,
+        CC_KnockBack = 20,
+        // ── 추가 (기존 SO 영향 없는 새 값) ──
+        HealAmountDown = 30,
     }
 
     /// <summary>아이템 특수 효과 타입</summary>

@@ -87,6 +87,8 @@ namespace CookApps.AutoChess
             Register(217333202, () => new SimSkillAprilBarrage());
             Register(217613501, () => new SimSkillOdetteStrike());
             Register(217263103, () => new SimSkillRukidaFoxfire());
+            Register(215532401, () => new SimSkillPiliaStrike());
+            Register(217523403, () => new SimSkillAdriaExpand());
         }
 
         /// <summary>팩토리 등록 해제 (테스트용)</summary>
