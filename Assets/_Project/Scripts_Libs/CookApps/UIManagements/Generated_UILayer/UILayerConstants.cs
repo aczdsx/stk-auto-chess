@@ -55,6 +55,8 @@ namespace CookApps.TeamBattle.UIManagements
                 "ElpisCommandCenterResultPopup" => "Prefabs/UI/CommandCenter/CommandCenterLevel.prefab",
                 "ElpisCommandCenterPopup" => "Prefabs/UI/CommandCenter/CommandCenterMainLayer.prefab",
                 "ElpisCoreResearchLayer" => "Prefabs/UI/CoreResearch/CoreResearchMainLayer.prefab",
+                "GachaGetCharacterPopup" => "Prefabs/UI/Gacha/GachaGetCharacterPopup.prefab",
+                "GachaResultPopup" => "Prefabs/UI/Gacha/GachaResultPopup.prefab",
                 "BattleStatisticsPopup" => "Prefabs/UI/InGame/BattleStatisticsPopup.prefab",
                 "CharacterInfoInGamePopup" => "Prefabs/UI/InGame/CharacterInfoIngamePopup.prefab",
                 "EnemySkillTooltipPopup" => "Prefabs/UI/InGame/EnemySkillTooltipPopup.prefab",

@@ -2,6 +2,7 @@
 // #define GACHA_MOCK_MODE
 
 using System.Collections.Generic;
+using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -118,6 +119,15 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.IsPlayingGacha = true;
 
             _parentGachaPopup.SetCanvasTargetDisplay(1);
+
+            // VFX 완료 후 가챠 결과 팝업 표시
+            var resultParam = new GachaResultPopupParam
+            {
+                ResultItems = resultGachaList,
+                SpecGachaData = _currentSpecGachaData,
+                OnContinueGacha = () => ProcessCharacterGacha(gachaCountType).Forget()
+            };
+            SceneUILayerManager.Instance.PushUILayerAsync<GachaResultPopup>(resultParam).Forget();
         }
 
         private void SetGachaData(GachaCountType gachaCountType)
