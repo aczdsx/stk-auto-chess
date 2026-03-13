@@ -399,6 +399,57 @@ namespace CookApps.AutoBattler
             _coolTimeGuage.size = new Vector2(_defalutSize.x * targetRatio, _coolTimeGuage.size.y);
         }
         #region Buff Icon
+
+        public struct NewBuffIconData
+        {
+            public Sprite IconSprite;
+            public float Duration;
+            public float ElapsedTime;
+            public int StackCount;
+            public bool IsSide;
+        }
+
+        public void RestructBuffIcon(IReadOnlyList<NewBuffIconData> buffIcons)
+        {
+            // Side / Normal 분리
+            int normalCount = 0;
+            int sideCount = 0;
+            for (int i = 0; i < buffIcons.Count; i++)
+            {
+                if (buffIcons[i].IsSide) sideCount++;
+                else normalCount++;
+            }
+
+            // Normal 버프 (최대 8개)
+            int normalRequired = Mathf.Min(normalCount, 8);
+            AdjustIconCount(_buffDebuffList, normalRequired, _buffObjParent.transform);
+            int normalIdx = 0;
+            for (int i = 0; i < buffIcons.Count && normalIdx < _buffDebuffList.Count; i++)
+            {
+                if (buffIcons[i].IsSide) continue;
+                var icon = _buffDebuffList[normalIdx];
+                Vector2 position = GetBuffIconPosition(normalIdx);
+                icon.CachedTr.localPosition = new Vector3(position.x, position.y, icon.CachedTr.localPosition.z);
+                icon.gameObject.SetActive(true);
+                icon.Set(buffIcons[i].IconSprite, buffIcons[i].Duration, buffIcons[i].ElapsedTime, buffIcons[i].StackCount);
+                normalIdx++;
+            }
+
+            // Side 버프 (세로 배치)
+            AdjustIconCount(_sideBuffDebuffList, sideCount, _buffSideBadgeParentObj.transform);
+            float sideSpacing = _bottomLayout.horizontalSpacing;
+            int sideIdx = 0;
+            for (int i = 0; i < buffIcons.Count && sideIdx < _sideBuffDebuffList.Count; i++)
+            {
+                if (!buffIcons[i].IsSide) continue;
+                var icon = _sideBuffDebuffList[sideIdx];
+                icon.CachedTr.localPosition = new Vector3(0, sideIdx * sideSpacing, 0);
+                icon.gameObject.SetActive(true);
+                icon.Set(buffIcons[i].IconSprite, buffIcons[i].Duration, buffIcons[i].ElapsedTime, buffIcons[i].StackCount);
+                sideIdx++;
+            }
+        }
+
         public void RestructBuffIcon(IReadOnlyList<(int, BuffStackData)> buffDebuffs)
         {
             // Side 버프와 일반 버프 분리

@@ -14,6 +14,7 @@ namespace CookApps.AutoChess.View
         private UnitViewManager _unitViewManager;
         private CombatViewManager _combatViewManager;
         private CombatVfxManager _combatVfxManager;
+        private BuffIconTracker _buffIconTracker;
         private BoardGridView _boardGridView;
         private AutoChessUIBase _autoChessUI;
         private BoardInputHandler _boardInputHandler;
@@ -24,13 +25,15 @@ namespace CookApps.AutoChess.View
             UnitViewManager unitViewManager,
             CombatViewManager combatViewManager,
             BoardGridView boardGridView,
-            CombatVfxManager combatVfxManager = null)
+            CombatVfxManager combatVfxManager = null,
+            BuffIconTracker buffIconTracker = null)
         {
             _runner = runner;
             _unitViewManager = unitViewManager;
             _combatViewManager = combatViewManager;
             _boardGridView = boardGridView;
             _combatVfxManager = combatVfxManager;
+            _buffIconTracker = buffIconTracker;
         }
 
         private GamePhase _lastPhase;
@@ -111,6 +114,7 @@ namespace CookApps.AutoChess.View
                     _unitViewManager.OnCombatEnd();
                     _combatViewManager.OnCombatEnd();
                     _combatVfxManager?.OnCombatEnd();
+                    _buffIconTracker?.OnCombatEnd();
                     _boardGridView.OnPreparation();
                     _autoChessUI?.OnPhaseChanged(newPhase);
                     _autoChessUI?.PlayAnimation("SetEntry");
@@ -299,6 +303,14 @@ namespace CookApps.AutoChess.View
                     sbyte dirCol = (sbyte)evt.DirCol;
                     sbyte dirRow = (sbyte)evt.DirRow;
                     bool useGridPos = evt.Flag0;
+
+                    // 미사 봉인: 타겟 캐릭터 숨김 (VFX는 useGridPos 경로로 공용 처리)
+                    if (skillSpecId == 217323201 && targetId > 0)
+                    {
+                        var targetView = _unitViewManager?.FindCombatView(targetId);
+                        targetView?.SetModelVisible(false);
+                    }
+
                     _combatViewManager.OnSkillPhaseVfx(casterId, skillSpecId, vfxIndex, dirCol, dirRow,
                         targetId, useGridPos ? evt.Col : (byte)0, useGridPos ? evt.Row : (byte)0, useGridPos);
                     break;
@@ -351,18 +363,36 @@ namespace CookApps.AutoChess.View
 
                 case SimEventType.StatusEffectAdded:
                     _combatVfxManager?.OnEffectAdded(evt.EntityId, (CombatVfxType)evt.Value0);
+                    _buffIconTracker?.OnEffectAdded(evt.EntityId, (CombatVfxType)evt.Value0, evt.Value1);
                     break;
 
                 case SimEventType.StatusEffectRemoved:
                     _combatVfxManager?.OnEffectRemoved(evt.EntityId, (CombatVfxType)evt.Value0);
+                    _buffIconTracker?.OnEffectRemoved(evt.EntityId, (CombatVfxType)evt.Value0);
                     break;
 
                 case SimEventType.CCAdded:
                     _combatVfxManager?.OnEffectAdded(evt.EntityId, (CombatVfxType)evt.Value0);
+                    _buffIconTracker?.OnEffectAdded(evt.EntityId, (CombatVfxType)evt.Value0, evt.Value1);
                     break;
 
                 case SimEventType.CCRemoved:
                     _combatVfxManager?.OnEffectRemoved(evt.EntityId, (CombatVfxType)evt.Value0);
+                    _buffIconTracker?.OnEffectRemoved(evt.EntityId, (CombatVfxType)evt.Value0);
+                    // 미사 봉인 해제: 숨겨진 캐릭터 복원
+                    {
+                        var unitView = _unitViewManager?.FindCombatView(evt.EntityId);
+                        if (unitView != null && unitView.IsModelHidden)
+                            unitView.SetModelVisible(true);
+                    }
+                    break;
+
+                case SimEventType.SkillMarkerAdded:
+                    _buffIconTracker?.OnSkillMarkerAdded(evt.EntityId, evt.Value0, evt.Value1);
+                    break;
+
+                case SimEventType.SkillMarkerRemoved:
+                    _buffIconTracker?.OnSkillMarkerRemoved(evt.EntityId, evt.Value0, evt.Value1);
                     break;
             }
         }

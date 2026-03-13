@@ -16,6 +16,7 @@ namespace CookApps.AutoChess.View
         private GameObject _autoChessUIPrefab;
         private GameObject _hpBarPrefab;
         private GameObject _damageTextPrefab;
+        private BuffIconConfigSO _buffIconConfig;
         private GameObject _stageInstance;
         private int _stageId;
         private LocalSimulationRunner _runner;
@@ -23,6 +24,7 @@ namespace CookApps.AutoChess.View
         private UnitViewManager _unitViewManager;
         private CombatViewManager _combatViewManager;
         private CombatVfxManager _combatVfxManager;
+        private BuffIconTracker _buffIconTracker;
         private BoardGridView _boardGridView;
         private TileEffectManager _tileEffectManager;
         private TargetLineManager _targetLineManager;
@@ -61,6 +63,9 @@ namespace CookApps.AutoChess.View
                 "Prefabs/InGame/FloatingHpBar.prefab");
             _damageTextPrefab = await Addressables.LoadAssetAsync<GameObject>(
                 "Prefabs/InGame/DamageText.prefab");
+
+            // BuffIconConfigSO는 SoDataProvider에서 가져옴 (프리팹은 풀에서 직접 로드)
+            _buffIconConfig = SoDataProvider.Instance.Get<BuffIconConfigSO>();
         }
 
         // ── 동적 초기화 (LoadResources 후 호출) ──
@@ -101,6 +106,9 @@ namespace CookApps.AutoChess.View
             if (_damageTextPrefab != null)
                 InGameTextViewPool.Instance.InitializePool(_damageTextPrefab);
 
+            // 버프/디버프 아이콘 풀 초기화 (SO에서 직접 프리팹 로드)
+            InGameBuffDebuffPool.Instance.Initialize();
+
             // CombatVfxManager (SoDataProvider에서 SO 가져오기)
             var combatVfxConfig = CookApps.AutoBattler.SoDataProvider.Instance.Get<CombatVfxConfigSO>();
             if (combatVfxConfig != null)
@@ -108,9 +116,14 @@ namespace CookApps.AutoChess.View
                 _combatVfxManager = new CombatVfxManager(combatVfxConfig, _unitViewManager);
             }
 
+            // BuffIconTracker
+            var tickRate = _runner.GetWorld()?.TickRate ?? 60;
+            _buffIconTracker = new BuffIconTracker(_unitViewManager, tickRate, _buffIconConfig);
+
             // ViewBridge 와이어링
             _viewBridge = CreateChild<AutoChessViewBridge>("ViewBridge");
-            _viewBridge.Setup(_runner, _unitViewManager, _combatViewManager, _boardGridView, _combatVfxManager);
+            _viewBridge.Setup(_runner, _unitViewManager, _combatViewManager, _boardGridView,
+                _combatVfxManager, _buffIconTracker);
 
             // 튜토리얼 초기화 + 브릿지 연결
             if (TutorialManager.Instance != null && !TutorialManager.IsSkipTutorial)
@@ -131,6 +144,7 @@ namespace CookApps.AutoChess.View
 
             InGameHpBarViewPool.Instance.Clear();
             InGameTextViewPool.Instance.ReleasePool();
+            InGameBuffDebuffPool.Instance.Clear();
 
             if (_stageInstance != null)
                 Destroy(_stageInstance);

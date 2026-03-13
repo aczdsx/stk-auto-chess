@@ -228,16 +228,13 @@ namespace CookApps.AutoBattler
             if (_animator == null)
                 return null;
 
-            string animationTrigger = animationKey.ToString();
-            _animator.SetBool(IsFront, _cachedFront);
-            _animator.SetTrigger(animationTrigger);
-
             var runtimeAnimatorController = _animator.runtimeAnimatorController;
             if (runtimeAnimatorController == null)
             {
                 throw new InvalidOperationException("runtimeAnimatorController is null.");
             }
 
+            string animationTrigger = animationKey.ToString();
             string prefix = (_cachedFront) ? "Front_" : "Back_";
             string fullAnimationName = prefix + animationTrigger;
 
@@ -245,6 +242,8 @@ namespace CookApps.AutoBattler
             {
                 if (animationClip.name == fullAnimationName)
                 {
+                    _animator.SetBool(IsFront, _cachedFront);
+                    _animator.SetTrigger(animationTrigger);
                     _currentAnimationKey = animationKey;
                     return animationClip;
                 }

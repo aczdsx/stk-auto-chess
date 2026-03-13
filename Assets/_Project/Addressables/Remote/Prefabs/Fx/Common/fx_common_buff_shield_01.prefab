@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7691982932535446077}
   - component: {fileID: 3918066041753642211}
   - component: {fileID: 8132511214038508184}
-  - component: {fileID: 3787708665974261435}
   m_Layer: 6
   m_Name: fbx_03
   m_TagString: Untagged
@@ -4842,6 +4841,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4898,20 +4900,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &3787708665974261435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 419792273081792807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4281b2171e3113d409e9b87e5ee2fc51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateVector: {x: 0, y: 0, z: 10}
-  rotateSpace: 0
 --- !u!1 &2499697738749746246
 GameObject:
   m_ObjectHideFlags: 0
@@ -4923,7 +4911,6 @@ GameObject:
   - component: {fileID: 593385268884002444}
   - component: {fileID: 3602518995264796965}
   - component: {fileID: 1768223590459780055}
-  - component: {fileID: 8383251741224863604}
   m_Layer: 6
   m_Name: fbx_02
   m_TagString: Untagged
@@ -9745,6 +9732,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9801,20 +9791,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &8383251741224863604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2499697738749746246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4281b2171e3113d409e9b87e5ee2fc51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateVector: {x: 0, y: 0, z: 10}
-  rotateSpace: 0
 --- !u!1 &4367804434925909840
 GameObject:
   m_ObjectHideFlags: 0
@@ -14656,6 +14632,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -14723,7 +14702,6 @@ GameObject:
   - component: {fileID: 4383576570868318617}
   - component: {fileID: 524735746172125542}
   - component: {fileID: 1725651591166229908}
-  - component: {fileID: 8638314137110694491}
   m_Layer: 6
   m_Name: fbx_01
   m_TagString: Untagged
@@ -19554,6 +19532,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -19610,20 +19591,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &8638314137110694491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6461493406684866305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4281b2171e3113d409e9b87e5ee2fc51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateVector: {x: 0, y: 0, z: 10}
-  rotateSpace: 0
 --- !u!1 &6545929051635005458
 GameObject:
   m_ObjectHideFlags: 0
@@ -19635,7 +19602,7 @@ GameObject:
   - component: {fileID: 3818073216135434931}
   - component: {fileID: 748346455964601813}
   - component: {fileID: 6104627623187403861}
-  - component: {fileID: 7098777141499668121}
+  - component: {fileID: 3268163143846613414}
   m_Layer: 6
   m_Name: fx_common_buff_shield_01
   m_TagString: Untagged
@@ -24403,6 +24370,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -24459,7 +24429,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &7098777141499668121
+--- !u!114 &3268163143846613414
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -24471,4 +24441,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 0}
+  particle: {fileID: 3841356877689799860}

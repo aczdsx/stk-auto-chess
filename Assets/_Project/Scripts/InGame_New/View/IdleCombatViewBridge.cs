@@ -224,11 +224,20 @@ namespace CookApps.AutoChess.View
                 case SimEventType.SkillPhaseVfx:
                 {
                     int casterId = evt.EntityId;
+                    int targetId = evt.TargetEntityId;
                     int skillSpecId = evt.Value0;
                     byte vfxIndex = (byte)evt.Value1;
                     sbyte dirCol = (sbyte)evt.DirCol;
                     sbyte dirRow = (sbyte)evt.DirRow;
-                    _combatViewManager.OnSkillPhaseVfx(casterId, skillSpecId, vfxIndex, dirCol, dirRow);
+
+                    // 미사 봉인: 타겟 캐릭터 숨김 (VFX는 useGridPos 경로로 공용 처리)
+                    if (skillSpecId == 217323201 && targetId > 0)
+                    {
+                        var targetView = _unitViewManager?.FindCombatView(targetId);
+                        targetView?.SetModelVisible(false);
+                    }
+
+                    _combatViewManager.OnSkillPhaseVfx(casterId, skillSpecId, vfxIndex, dirCol, dirRow, targetId);
                     break;
                 }
 
@@ -278,6 +287,12 @@ namespace CookApps.AutoChess.View
 
                 case SimEventType.CCRemoved:
                     _combatVfxManager?.OnEffectRemoved(evt.EntityId, (CombatVfxType)evt.Value0);
+                    // 미사 봉인 해제: 숨겨진 캐릭터 복원
+                    {
+                        var unitView = _unitViewManager?.FindCombatView(evt.EntityId);
+                        if (unitView != null && unitView.IsModelHidden)
+                            unitView.SetModelVisible(true);
+                    }
                     break;
             }
         }

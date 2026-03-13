@@ -210,18 +210,6 @@ namespace CookApps.AutoBattler.Editor
             EditorGUILayout.PropertyField(_playerInvincibleProp, new GUIContent("플레이어 무적"));
             EditorGUILayout.PropertyField(_enemyInvincibleProp, new GUIContent("적 무적"));
 
-            // 재시작 버튼 (Play 모드 전용)
-            if (Application.isPlaying)
-            {
-                EditorGUILayout.Space(5);
-                GUI.backgroundColor = new Color(1f, 0.5f, 0.5f);
-                if (GUILayout.Button("↻ 재시작", GUILayout.Height(28)))
-                {
-                    RestartTestScene();
-                }
-                GUI.backgroundColor = Color.white;
-            }
-
             EditorGUILayout.Space(10);
 
             // 시뮬레이션 디버거
@@ -1188,29 +1176,6 @@ namespace CookApps.AutoBattler.Editor
             return InGameTestDebugUI.Instance?.Recorder;
         }
 
-        /// <summary>
-        /// 테스트 씬 재시작. InGameTopUI.OnClickPauseButton()과 동일한 패턴.
-        /// </summary>
-        private void RestartTestScene()
-        {
-            var config = (InGameTestConfig)target;
-
-            // 시뮬레이션 정지 (ClassicAutoChessUI.OnExitClickedAsync 패턴)
-            var runner = GetLocalRunner();
-            runner?.StopSimulation();
-
-            // 씬 전환 (OnPostExit에서 ViewRoot cleanup)
-            SceneTransition.Create<SceneTransition_FadeInOut>();
-            SceneTransition.FadeInAsync().Forget();
-
-            var inGameMainParams = new InGameMainParams(
-                InGameType.TEST,
-                new InGameMainStateTest(),
-                config.StageChapterId
-            );
-
-            SceneLoading.GoToNextScene("InGame_New", inGameMainParams);
-        }
 
         #endregion
 

@@ -88,6 +88,10 @@ namespace CookApps.AutoChess
                             StatModType.Attack, _debuffPercent, _debuffDurationFrames);
                         SkillBuffHelper.ApplyTimedDebuff(state, targetIdx,
                             StatModType.Armor, _debuffPercent, _debuffDurationFrames);
+
+                        // 전용 아이콘용 SkillMarker 동시 발행
+                        StatusEffectSystem.AddEffect(state, targetIdx,
+                            StatusEffectType.SkillMarker, (int)SkillMarkerType.MarieAracne, _debuffDurationFrames);
                     }
                 }
                 return false;

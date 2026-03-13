@@ -34,6 +34,9 @@ namespace CookApps.AutoChess
         public int[] SkillHitFrames;
         /// <summary>SKL 클립 전체 길이 (프레임)</summary>
         public int SkillClipFrames;
+
+        /// <summary>GameWorld.TickRate — 모드별 상이하므로 초→프레임 변환 시 사용</summary>
+        public int WorldTickRate;
     }
 
     /// <summary>

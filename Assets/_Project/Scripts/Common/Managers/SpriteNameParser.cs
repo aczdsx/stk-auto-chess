@@ -264,6 +264,11 @@ namespace CookApps.AutoBattler
             return ZString.Format("BuffDebuffIcon_{0}", codeID);
         }
 
+        public static string GetBuffDebuffSprite(string iconName)
+        {
+            return ZString.Format("BuffDebuffIcon_{0}", iconName);
+        }
+
         public static string GetInfoImageSprite(int infoID)
         {
             return ZString.Format("InfoImage_{0}", infoID);

@@ -80,6 +80,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 27fd5995a4a35fc42a090489683fccd8
+    m_Address: Data/BuffIconConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 29f0d54590107a048a3b5058e71a9657
     m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30101007_\uC250\uB3C4\uC6B0.asset"
     m_ReadOnly: 0

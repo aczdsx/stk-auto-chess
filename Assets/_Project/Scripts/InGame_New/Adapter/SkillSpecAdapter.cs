@@ -33,6 +33,7 @@ namespace CookApps.AutoChess
                 TargetCount = 1,
                 HitCount = 1,
                 TargetType = SkillTargetType.NearestEnemy,
+                WorldTickRate = tickRate,
             };
 
             switch (archetype)
@@ -100,8 +101,8 @@ namespace CookApps.AutoChess
                 case 215532401: return SimSkillArchetype.Custom;          // 필리아
                 case 215362202: return SimSkillArchetype.DamageCC;        // 시이나 (침묵)
                 case 217433303: return SimSkillArchetype.DamageCC;        // 하티 (넉백)
-                case 217323201: return SimSkillArchetype.DamageCC;        // 미사 (기절)
-                case 217243102: return SimSkillArchetype.AoEDamage;       // 블린
+                case 217323201: return SimSkillArchetype.Custom;          // 미사 (봉인+기절)
+                case 217243102: return SimSkillArchetype.DiamondAoE;       // 블린
                 case 217513401: return SimSkillArchetype.LineDamage;      // 아트레시아
                 case 1406031:   return SimSkillArchetype.Heal;            // 아란
                 case 215322201: return SimSkillArchetype.PatternDamage;   // 메이
@@ -137,6 +138,7 @@ namespace CookApps.AutoChess
                 case SimSkillArchetype.Buff: return new SimSkillBuff();
                 case SimSkillArchetype.Debuff: return new SimSkillDebuff();
                 case SimSkillArchetype.Stun: return new SimSkillStun();
+                case SimSkillArchetype.DiamondAoE: return new SimSkillDiamondAoE();
                 default: return null;
             }
         }
@@ -244,6 +246,9 @@ namespace CookApps.AutoChess
                     p.CCType = CrowdControlType.Knockback;
                     p.CCDurationFrames = 2;
                     break;
+                case 217243102: // 블린: 5×5 다이아몬드 AoE
+                    p.Param0 = 2; // 맨해튼 거리 2 (5×5 다이아몬드)
+                    break;
                 case 215532401: // 필리아: 가장 먼 적 단일강타
                     p.TargetType = SkillTargetType.FarthestEnemy;
                     break;
@@ -264,12 +269,17 @@ namespace CookApps.AutoChess
                     p.BuffValue = 30;
                     p.BuffDurationFrames = 180;
                     break;
-                case 217413301: // 테토라: 넉백 4타일 + AoE 스턴
-                    p.Param0 = 4;
-                    p.Param1 = 1;
+                case 217413301: // 테토라: 넉백 + AoE 스턴
+                {
+                    // {0}=쿨타임, {1}=데미지배율(%)→PowerPercent, {2}=마방계수(미사용),
+                    // {3}=후속데미지배율(%)
+                    p.Param0 = 4;  // 넉백 거리 (고정)
+                    p.Param1 = 1;  // AoE 범위 (고정)
                     p.CCType = CrowdControlType.Stun;
-                    p.CCDurationFrames = 60;
+                    p.CCDurationFrames = SecondsToFrames(1f, tickRate); // 넉백 스턴 1초 고정
+                    p.SecondaryPowerPercent = Mathf.RoundToInt(GetSpecRate(specList, 3, 200f));
                     break;
+                }
                 case 217553404: // 클레이: 채널링 존 (3초, 6틱)
                 {
                     // {0}=쿨타임(초), {1}=힐배율(%) → PowerPercent로 자동 반영,
@@ -301,12 +311,11 @@ namespace CookApps.AutoChess
                     p.Param1 = 30;  // HoT 틱 간격
                     p.SecondaryPowerPercent = 50; // HoT 틱당 배율
                     break;
-                case 217333202: // 에이프릴: 채널링 다단히트
+                case 217333202: // 에이프릴: 채널링 다단히트 (AnimEvent 기반)
                     p.HitCount = 10;     // 총 타수
                     p.Param0 = 100;      // 근거리 배율 (1~2행)
                     p.Param1 = 75;       // 중거리 배율 (3행)
                     p.Param2 = 50;       // 원거리 배율 (4+행)
-                    p.CastFrames = 90;   // 총 채널링 프레임 (3초 @ 30fps)
                     break;
                 case 217513401: // 아트레시아: 3칸 폭 직선 관통
                     p.Param2 = 3;  // width (진행 방향 수직 3칸)
@@ -322,6 +331,16 @@ namespace CookApps.AutoChess
                     p.Param0 = Mathf.RoundToInt(GetSpecRate(specList, 2, 100f)); // defScaleValue
                     float stunSec = GetSpecRate(specList, 3, 2f);
                     p.Param1 = SecondsToFrames(stunSec, tickRate); // stunDurationFrames
+                    break;
+                }
+                case 217323201: // 미사: 봉인(관) + 스턴 — 데미지 없음
+                {
+                    // {0}=쿨타임(초), {1}=봉인지속(초)
+                    p.TargetType = SkillTargetType.HighestAttackEnemy;
+                    p.CCType = CrowdControlType.Stun;
+                    float sealDurSec = GetSpecRate(specList, 1, 3f);
+                    p.CCDurationFrames = SecondsToFrames(sealDurSec, tickRate);
+                    p.PowerPercent = 0; // 데미지 없음
                     break;
                 }
                 case 217263103: // 루키다: 여우불 추가 + 공속 버프 (스펙 데이터 기반)

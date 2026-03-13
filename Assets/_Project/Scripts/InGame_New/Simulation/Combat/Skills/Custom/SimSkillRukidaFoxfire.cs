@@ -3,10 +3,12 @@ namespace CookApps.AutoChess
     /// <summary>
     /// 루키다 액티브 스킬 (217263103).
     /// 여우불 추가 + 현재 여우불 수 × 공속비율 공속 버프.
-    /// 여우불은 StatusEffect(SkillMarker, Value=SkillId)로 관리, 개별 타이머로 자동 만료.
+    /// 여우불은 StatusEffect(SkillMarker, Value=SkillMarkerType)로 관리, 개별 타이머로 자동 만료.
     /// </summary>
     public class SimSkillRukidaFoxfire : SimSkillBase
     {
+        private const int MarkerValue = (int)SkillMarkerType.RukidaFoxfire;
+
         private int _foxFireIncrease;
         private int _buffDurationFrames;
         private int _atkSpeedRatePercent;
@@ -32,14 +34,14 @@ namespace CookApps.AutoChess
             int casterIdx = state.FindUnitIndex(caster.CombatId);
             if (casterIdx < 0) return;
 
-            int currentCount = StatusEffectSystem.CountMarkers(state, casterIdx, SkillId);
+            int currentCount = StatusEffectSystem.CountMarkers(state, casterIdx, MarkerValue);
 
             // 여우불 추가 (최대 9개, 초과 시 가장 오래된 것 제거 후 추가)
             for (int i = 0; i < _foxFireIncrease; i++)
             {
                 if (currentCount >= MaxFoxFires)
                 {
-                    StatusEffectSystem.RemoveOldestMarker(state, casterIdx, SkillId);
+                    StatusEffectSystem.RemoveOldestMarker(state, casterIdx, MarkerValue);
                 }
                 else
                 {
@@ -47,11 +49,11 @@ namespace CookApps.AutoChess
                 }
 
                 StatusEffectSystem.AddEffect(state, casterIdx,
-                    StatusEffectType.SkillMarker, SkillId, _foxFireDurationFrames);
+                    StatusEffectType.SkillMarker, MarkerValue, _foxFireDurationFrames);
             }
 
             // 공속 버프 = 현재 여우불 수 × 공속비율
-            int foxCount = StatusEffectSystem.CountMarkers(state, casterIdx, SkillId);
+            int foxCount = StatusEffectSystem.CountMarkers(state, casterIdx, MarkerValue);
             int totalAtkSpeedBonus = _atkSpeedRatePercent * foxCount;
             if (totalAtkSpeedBonus > 0)
             {

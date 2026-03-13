@@ -83,6 +83,27 @@ namespace CookApps.AutoChess
             }
         }
 
+        /// <summary>다이아몬드 범위(맨해튼 거리) 내 적 순회</summary>
+        public static void ForEachEnemyInDiamond(CombatMatchState state, byte casterTeam,
+            int centerCol, int centerRow, int radius, AreaAction action)
+        {
+            for (int i = 0; i < state.UnitCount; i++)
+            {
+                ref var unit = ref state.Units[i];
+                if (!unit.IsAlive) continue;
+                if (unit.TeamIndex == casterTeam) continue;
+
+                int dist = BoardHelper.MinManhattanDistance(centerCol, centerRow, 1, 1,
+                    unit.GridCol, unit.GridRow,
+                    unit.SizeW > 0 ? unit.SizeW : (byte)1,
+                    unit.SizeH > 0 ? unit.SizeH : (byte)1);
+                if (dist <= radius)
+                {
+                    action(ref unit, i);
+                }
+            }
+        }
+
         /// <summary>원형 범위 내 아군 순회</summary>
         public static void ForEachAllyInRadius(CombatMatchState state, byte casterTeam,
             int centerCol, int centerRow, int radius, AreaAction action)
@@ -278,12 +299,17 @@ namespace CookApps.AutoChess
             // CC VFX 이벤트 발행
             var vfxType = StatusEffectSystem.CCToVfxType(type);
             if (vfxType != CombatVfxType.None)
-                state.EventQueue?.PushCCAdded(target.CombatId, vfxType);
+                state.EventQueue?.PushCCAdded(target.CombatId, vfxType, durationFrames);
         }
 
-        /// <summary>넉백 (지정 방향으로 N칸, 빈 칸까지만). Multi-tile 대응. 실제 이동 칸 수 반환.</summary>
+        /// <summary>
+        /// 넉백 (지정 방향으로 N칸, 빈 칸까지만). Multi-tile 대응.
+        /// 이동 거리가 distance보다 짧으면(벽/유닛 충돌) 자동으로 1초 스턴 적용.
+        /// 실제 이동 칸 수 반환.
+        /// </summary>
+        /// <param name="worldTickRate">GameWorld.TickRate — 모드별 상이하므로 반드시 외부에서 전달</param>
         public static int Knockback(CombatMatchState state, ref CombatUnit target,
-            int dirCol, int dirRow, int distance)
+            int dirCol, int dirRow, int distance, int worldTickRate)
         {
             if (!target.IsAlive) return 0;
 
@@ -321,6 +347,12 @@ namespace CookApps.AutoChess
                 state.SetGridMulti(col, row, sizeW, sizeH, target.CombatId);
 
                 state.EventQueue?.PushUnitMoved(target.SourceEntityId, (byte)col, (byte)row);
+            }
+
+            // 충돌 시 스턴 (1초 고정 — worldTickRate 프레임)
+            if (actualMoved < distance && actualMoved > 0)
+            {
+                ApplyCC(state, ref target, CrowdControlType.Stun, worldTickRate);
             }
 
             return actualMoved;

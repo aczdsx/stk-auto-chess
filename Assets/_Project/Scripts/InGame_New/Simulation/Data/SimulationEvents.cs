@@ -46,6 +46,9 @@ namespace CookApps.AutoChess
         CCAdded,
         CCRemoved,
         ManaFull,
+        // 버프 아이콘 (SkillMarker)
+        SkillMarkerAdded,    // Value0=markerId(skillSpecId), Value1=totalFrames
+        SkillMarkerRemoved,  // Value0=markerId(skillSpecId), Value1=remainingCount
     }
 
     /// <summary>
@@ -382,13 +385,14 @@ namespace CookApps.AutoChess
             });
         }
 
-        public void PushStatusEffectAdded(int combatId, CombatVfxType vfxType)
+        public void PushStatusEffectAdded(int combatId, CombatVfxType vfxType, int totalFrames = 0)
         {
             Push(new SimEvent
             {
                 Type = SimEventType.StatusEffectAdded,
                 EntityId = combatId,
                 Value0 = (int)vfxType,
+                Value1 = totalFrames,
             });
         }
 
@@ -402,13 +406,14 @@ namespace CookApps.AutoChess
             });
         }
 
-        public void PushCCAdded(int combatId, CombatVfxType vfxType)
+        public void PushCCAdded(int combatId, CombatVfxType vfxType, int totalFrames = 0)
         {
             Push(new SimEvent
             {
                 Type = SimEventType.CCAdded,
                 EntityId = combatId,
                 Value0 = (int)vfxType,
+                Value1 = totalFrames,
             });
         }
 
@@ -419,6 +424,28 @@ namespace CookApps.AutoChess
                 Type = SimEventType.CCRemoved,
                 EntityId = combatId,
                 Value0 = (int)vfxType,
+            });
+        }
+
+        public void PushSkillMarkerAdded(int combatId, int markerId, int totalFrames)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.SkillMarkerAdded,
+                EntityId = combatId,
+                Value0 = markerId,
+                Value1 = totalFrames,
+            });
+        }
+
+        public void PushSkillMarkerRemoved(int combatId, int markerId, int remainingCount)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.SkillMarkerRemoved,
+                EntityId = combatId,
+                Value0 = markerId,
+                Value1 = remainingCount,
             });
         }
     }

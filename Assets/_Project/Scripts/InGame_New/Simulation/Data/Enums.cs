@@ -146,7 +146,7 @@ namespace CookApps.AutoChess
         CCImmunity,      // CC 면역 (모든 CC 차단)
         DOTImmunity,     // DOT 면역 (DamageOverTime 차단)
         DebuffImmunity,  // 디버프 면역 (StatDebuff 차단)
-        SkillMarker,     // 범용 스킬 마커 (개별 타이머, Value=스킬ID로 식별)
+        SkillMarker,     // 범용 스킬 마커 (개별 타이머, Value=(int)SkillMarkerType으로 식별)
         HealReduction,   // 회복량 감소 (Value=감소 퍼센트)
     }
 
@@ -218,7 +218,18 @@ namespace CookApps.AutoChess
         Buff,
         Debuff,
         Stun,
+        DiamondAoE,
         Custom,
+    }
+
+    /// <summary>스킬 전용 마커 타입 (StatusEffect.SkillMarker의 Value로 사용)</summary>
+    public enum SkillMarkerType : int
+    {
+        None = 0,
+        RukidaFoxfire = 1,
+        MisaRestraint = 2,
+        MarieAracne = 3,
+        OdetteCold = 4,
     }
 
     /// <summary>아이템 위치</summary>
@@ -257,6 +268,7 @@ namespace CookApps.AutoChess
         CC_KnockBack = 20,
         // ── 추가 (기존 SO 영향 없는 새 값) ──
         HealAmountDown = 30,
+        Shield = 31,
     }
 
     /// <summary>아이템 특수 효과 타입</summary>

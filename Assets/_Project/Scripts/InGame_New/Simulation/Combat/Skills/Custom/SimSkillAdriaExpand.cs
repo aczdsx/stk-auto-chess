@@ -116,7 +116,7 @@ namespace CookApps.AutoChess
                 int raw = attack * power / 100 * (defScale + armor) / defScale;
                 int dmg = DamageSystem.CalculateDamage(raw, dmgType, ref state.Units[casterIdx], ref unit);
                 DamageSystem.ApplyDamage(state, ref unit, dmg);
-                DamageSystem.ChargeMana(ref unit, DamageSystem.ManaGainOnHit);
+                DamageSystem.ChargeMana(ref unit, unit.ManaGainOnHit);
 
                 // 스턴
                 if (stunFrames > 0)

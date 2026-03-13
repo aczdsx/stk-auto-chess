@@ -57,7 +57,11 @@ namespace CookApps.AutoChess
             // VFX 이벤트 발행
             var vfxType = ToVfxType(type, statType);
             if (vfxType != CombatVfxType.None)
-                state.EventQueue?.PushStatusEffectAdded(unit.CombatId, vfxType);
+                state.EventQueue?.PushStatusEffectAdded(unit.CombatId, vfxType, durationFrames);
+
+            // SkillMarker 아이콘 이벤트
+            if (type == StatusEffectType.SkillMarker)
+                state.EventQueue?.PushSkillMarkerAdded(unit.CombatId, value, durationFrames);
         }
 
         /// <summary>매 틱 호출: 지속시간 감소, 주기적 효과 적용, 만료 처리</summary>
@@ -161,8 +165,8 @@ namespace CookApps.AutoChess
                     if (duplicate) continue;
 
                     int cnt = CountMarkers(state, uIdx, mVal);
-                    state.EventQueue?.PushSkillPhaseVfx(
-                        state.Units[uIdx].CombatId, mVal, 0, dirCol: (sbyte)cnt);
+                    state.EventQueue?.PushSkillMarkerRemoved(
+                        state.Units[uIdx].CombatId, mVal, cnt);
                 }
             }
         }
@@ -171,6 +175,8 @@ namespace CookApps.AutoChess
         public static int AbsorbShieldDamage(CombatMatchState state, int unitIndex, int damage)
         {
             if (damage <= 0) return 0;
+
+            bool hadShield = state.Units[unitIndex].ShieldAmount > 0;
 
             for (int i = 0; i < state.StatusEffectCount; i++)
             {
@@ -192,6 +198,11 @@ namespace CookApps.AutoChess
             }
 
             RecalcShieldCache(state, unitIndex);
+
+            // 쉴드가 모두 소진되면 아이콘 제거 이벤트
+            if (hadShield && state.Units[unitIndex].ShieldAmount <= 0)
+                state.EventQueue?.PushStatusEffectRemoved(state.Units[unitIndex].CombatId, CombatVfxType.Shield);
+
             return damage; // 남은 데미지
         }
 
@@ -388,7 +399,7 @@ namespace CookApps.AutoChess
         {
             switch (type)
             {
-                case StatusEffectType.Shield: return CombatVfxType.None;
+                case StatusEffectType.Shield: return CombatVfxType.Shield;
                 case StatusEffectType.DamageOverTime: return CombatVfxType.ContinuousDamage;
                 case StatusEffectType.HealOverTime: return CombatVfxType.ContinuousHeal;
                 case StatusEffectType.CCImmunity: return CombatVfxType.CCImmunity;

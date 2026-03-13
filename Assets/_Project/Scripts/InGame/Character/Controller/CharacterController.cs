@@ -735,8 +735,7 @@ namespace CookApps.BattleSystem
 
                 if (isExpired)
                 {
-                    // BuffDebuff 아이콘 재구축
-                    GetHpBarView().RestructBuffIcon(_buffDebuffs);
+                    // BuffDebuff 아이콘은 BuffIconTracker(SO 기반)에서 관리
                 }
             }
 
@@ -1019,24 +1018,21 @@ namespace CookApps.BattleSystem
                 return;
 
             _buffDebuffs.Add((codeID, buffStackData));
-            _hpBarView.RestructBuffIcon(_buffDebuffs);
+            // 아이콘 출력은 BuffIconTracker(SO 기반)에서 관리
         }
 
         public void RemoveBuffStackData(BuffStackData buffStackData)
         {
             _buffDebuffs.RemoveAll(x => x.buffStackData == buffStackData);
-            _hpBarView.RestructBuffIcon(_buffDebuffs);
         }
 
         public void RemoveBuffStackData(long codeID)
         {
             _buffDebuffs.RemoveAll(x => x.codeID == codeID);
-            _hpBarView.RestructBuffIcon(_buffDebuffs);
         }
         public void SetBuffStackDataValue(long codeID, double value)
         {
             _buffDebuffs.Find(x => x.codeID == codeID).buffStackData.value = value;
-            _hpBarView.RestructBuffIcon(_buffDebuffs);
         }
         #endregion
 

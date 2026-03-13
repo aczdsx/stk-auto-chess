@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle.Utility;
@@ -213,6 +214,11 @@ namespace CookApps.AutoChess.View
             _hpBarView?.OnCoolTimeUpdated(0, current, max);
         }
 
+        public void UpdateBuffIcons(IReadOnlyList<HpBarView.NewBuffIconData> buffIcons)
+        {
+            _hpBarView?.RestructBuffIcon(buffIcons);
+        }
+
         public void UpdateStarLevel(byte level)
         {
             StarLevel = level;
@@ -287,7 +293,7 @@ namespace CookApps.AutoChess.View
                 CombatState.Attacking => AnimationKey.ATK,
                 CombatState.CastingSkill => AnimationKey.SKL,
                 CombatState.Dead => AnimationKey.DEAD,
-                CombatState.CrowdControlled => AnimationKey.GROGGY,
+                CombatState.CrowdControlled => AnimationKey.DEAD,
                 _ => AnimationKey.IDLE,
             };
         }
@@ -424,6 +430,20 @@ namespace CookApps.AutoChess.View
             _characterView.LookAt(
                 new Vector2(myPos.z, myPos.x),
                 new Vector2(_facingTarget.Value.z, _facingTarget.Value.x));
+        }
+
+        // ── 모델 가시성 (미사 봉인 등) ──
+
+        private bool _modelHidden;
+        public bool IsModelHidden => _modelHidden;
+
+        /// <summary>캐릭터 모델 숨김/표시 (관에 가둠 등 전용 연출).
+        /// 스프라이트 렌더러만 끄므로 VFX Transform 위치에 영향 없음.</summary>
+        public void SetModelVisible(bool visible)
+        {
+            _modelHidden = !visible;
+            if (_characterView != null)
+                _characterView.SpriteRendererSetActive(visible);
         }
 
         // ── 홀로그램 ──

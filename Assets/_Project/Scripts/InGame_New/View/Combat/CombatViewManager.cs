@@ -559,6 +559,9 @@ namespace CookApps.AutoChess.View
             Destroy(vfxObj, FireAndForgetLifetime);
         }
 
+        /// <summary>타겟 유닛의 SkillPosition에 부착하되, rotation은 identity로 고정.
+        /// 이소메트릭 카메라에서 VFX가 직각으로 떨어지는 연출에 사용 (미사 관짝 등).</summary>
+
         private void SpawnSkillVfxAtPosition(SkillViewData skillData, Vector3 worldPos, Quaternion? rotation = null)
         {
             if (skillData?.Prefab == null) return;

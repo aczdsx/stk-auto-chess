@@ -4,6 +4,7 @@ using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoBattler
 {
@@ -44,6 +45,55 @@ namespace CookApps.AutoBattler
             _elapsedCheckMask.alphaCutoff = 1.0f;
         }
 
+        public void Set(string spriteName, float duration, float elapsedTime, int stackCount = 1)
+        {
+            gameObject.SetActive(true);
+            IsWorking = true;
+            _buffStackData = new BuffStackData();
+            _buffStackData.duration = duration;
+            _buffStackData.elapsedTime = elapsedTime;
+
+            var sprite = SpriteNameParser.GetBuffDebuffSprite(spriteName);
+            _baseSpriteLoader.SetSprite(sprite).Forget();
+            _elapsedCheckSpriteLoader.SetSprite(sprite).Forget();
+            _elapsedCheckMask.alphaCutoff = 1.0f;
+
+            if (stackCount > 1)
+            {
+                _buffSubText.gameObject.SetActive(true);
+                _buffSubText.text = stackCount.ToString();
+            }
+            else
+            {
+                _buffSubText.gameObject.SetActive(false);
+            }
+        }
+
+        public void Set(Sprite iconSprite, float duration, float elapsedTime, int stackCount = 1)
+        {
+            gameObject.SetActive(true);
+            IsWorking = true;
+            _buffStackData = new BuffStackData();
+            _buffStackData.duration = duration;
+            _buffStackData.elapsedTime = elapsedTime;
+
+            _baseSprite.sprite = iconSprite;
+            _baseSprite.enabled = true;
+            _elapsedCheckSprite.sprite = iconSprite;
+            _elapsedCheckSprite.enabled = true;
+            _elapsedCheckMask.alphaCutoff = 1.0f;
+
+            if (stackCount > 1)
+            {
+                _buffSubText.gameObject.SetActive(true);
+                _buffSubText.text = stackCount.ToString();
+            }
+            else
+            {
+                _buffSubText.gameObject.SetActive(false);
+            }
+        }
+
         public bool RefreshCoolTime()
         {
             if (_buffStackData == null)
@@ -72,19 +122,45 @@ namespace CookApps.AutoBattler
     {
         private UnityPool<InGameBuffDebuff> _inGameBuffDebuffPool;
         private GameObject _instance;
+        private bool _loadedFromSO;
 
         public void Initialize(GameObject instance)
         {
-            // TODO: load hp bar prefab from addressable
             _instance = instance;
+            _loadedFromSO = false;
             _inGameBuffDebuffPool = new UnityPool<InGameBuffDebuff>();
             _inGameBuffDebuffPool.Initialize(_instance);
         }
 
+        public void Initialize()
+        {
+            var config = SoDataProvider.Instance.Get<CookApps.AutoChess.View.BuffIconConfigSO>();
+            if (config?.BuffIconPrefab == null)
+            {
+                Debug.LogError("[InGameBuffDebuffPool] BuffIconConfigSO or BuffIconPrefab is null");
+                return;
+            }
+
+            var handle = config.BuffIconPrefab.LoadAssetAsync<GameObject>();
+            handle.Completed += op =>
+            {
+                _instance = op.Result;
+                _loadedFromSO = true;
+                _inGameBuffDebuffPool = new UnityPool<InGameBuffDebuff>();
+                _inGameBuffDebuffPool.Initialize(_instance);
+            };
+        }
+
         public void Clear()
         {
-            _inGameBuffDebuffPool.ClearPool();
+            _inGameBuffDebuffPool?.ClearPool();
             _inGameBuffDebuffPool = null;
+            if (_loadedFromSO && _instance != null)
+            {
+                UnityEngine.AddressableAssets.Addressables.Release(_instance);
+                _instance = null;
+                _loadedFromSO = false;
+            }
         }
 
         public InGameBuffDebuff Get()

@@ -3,6 +3,14 @@ namespace CookApps.AutoChess
     /// <summary>단일 타겟 데미지 + CC 스킬</summary>
     public class SimSkillDamageCC : SimSkillBase
     {
+        private int _worldTickRate;
+
+        public override void Initialize(SkillParams p)
+        {
+            base.Initialize(p);
+            _worldTickRate = p.WorldTickRate;
+        }
+
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
         {
             return TargetingSystem.FindTarget(state, ref caster, TargetType);
@@ -21,7 +29,7 @@ namespace CookApps.AutoChess
             if (CCType == CrowdControlType.Knockback)
             {
                 int dirCol = caster.TeamIndex == 0 ? 1 : -1;
-                SkillCCHelper.Knockback(state, ref state.Units[idx], dirCol, 0, CCDurationFrames);
+                SkillCCHelper.Knockback(state, ref state.Units[idx], dirCol, 0, CCDurationFrames, _worldTickRate);
             }
             else
             {
