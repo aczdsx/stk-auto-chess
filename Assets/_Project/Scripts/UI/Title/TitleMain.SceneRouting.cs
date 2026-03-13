@@ -50,19 +50,15 @@ namespace CookApps.AutoBattler
 
                     if (unclearedStage != null)
                     {
+                        var inGameParams = await NetManager.Instance.Battle.StartAsync(
+                            unclearedStage.chapter_id, unclearedStage.stage_id, 0, System.Array.Empty<string>());
+                        if (inGameParams == null)
+                            return;
+
                         SceneTransition.Create<SceneTransition_FadeInOut>();
                         await SceneTransition.FadeInAsync();
 
-                        var inGameParams = new InGameMainParams(InGameType.STAGE, new InGameMainStateStage(), unclearedStage.stage_id);
-                        // var progressData = ClientProgressData.Get();
-                        // if (unclearedStage.stage_id == 10003 && !progressData.hasNicknameSet)
-                        // {
-                        //     SceneLoading.GoToNextSceneViaNaninovelScript("InGame_New", "Chapter0_04", inGameParams);
-                        // }
-                        // else
-                        {
-                            SceneLoading.GoToNextScene("InGame_New", inGameParams);
-                        }
+                        SceneLoading.GoToNextScene("InGame_New", inGameParams);
                         return;
                     }
                 }
