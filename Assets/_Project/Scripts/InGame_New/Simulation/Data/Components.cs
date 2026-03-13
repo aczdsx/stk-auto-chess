@@ -708,6 +708,7 @@ namespace CookApps.AutoChess
         public byte PlayerA;
         public byte PlayerB;
         public bool IsFinished;
+        public bool IgnoreEndCondition; // idle 전투 등 종료 판정 스킵
         public byte Winner;            // 0=A승, 1=B승, 0xFF=무승부
 
         // 유닛

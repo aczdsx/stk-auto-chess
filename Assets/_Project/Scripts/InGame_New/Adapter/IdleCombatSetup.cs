@@ -61,6 +61,7 @@ namespace CookApps.AutoChess
             // 생존 수 카운트
             state.AliveCountA = CombatSetupSystem.CountAliveByTeam(state, 0);
             state.AliveCountB = CombatSetupSystem.CountAliveByTeam(state, 1);
+            state.IgnoreEndCondition = true;
 
             return state;
         }
@@ -74,6 +75,7 @@ namespace CookApps.AutoChess
         /// <param name="tickRate">시뮬레이션 틱레이트</param>
         /// <returns>스폰 성공 여부</returns>
         public static bool TryAddEnemy(CombatMatchState matchState, int enemyChampionSpecId,
+            float multipleAtk, float multipleHp,
             ref DeterministicRNG rng, int tickRate)
         {
             if (matchState.UnitCount >= CombatMatchState.MaxCombatUnits)
@@ -86,7 +88,7 @@ namespace CookApps.AutoChess
                 return false;
 
             int unitIndex = matchState.UnitCount; // 스폰될 유닛의 인덱스
-            SpawnUnit(matchState, enemyChampionSpecId, teamIndex: 1, ownerIndex: PlayerB, col, row, tickRate);
+            SpawnUnit(matchState, enemyChampionSpecId, teamIndex: 1, ownerIndex: PlayerB, col, row, tickRate, multipleAtk, multipleHp);
 
             // 이 유닛의 스킬 설정
             SetupSkillForUnit(matchState, unitIndex, tickRate);
@@ -137,7 +139,8 @@ namespace CookApps.AutoChess
 
         /// <summary>유닛 1체를 지정 좌표에 스폰 (SpawnTutorialUnit 패턴 기반)</summary>
         private static void SpawnUnit(CombatMatchState state, int champSpecId,
-            byte teamIndex, byte ownerIndex, int col, int row, int tickRate)
+            byte teamIndex, byte ownerIndex, int col, int row, int tickRate,
+            float multipleAtk = 1f, float multipleHp = 1f)
         {
             int combatId = state.NextCombatId++;
             int slotIndex = state.UnitCount++;
@@ -162,9 +165,9 @@ namespace CookApps.AutoChess
             if (charInfo != null)
             {
                 ISpecCharacterInfo spec = charInfo;
-                unit.MaxHP = spec.stat_hp;
-                unit.CurrentHP = spec.stat_hp;
-                unit.Attack = spec.stat_atk;
+                unit.MaxHP = (int)(spec.stat_hp * multipleHp);
+                unit.CurrentHP = unit.MaxHP;
+                unit.Attack = (int)(spec.stat_atk * multipleAtk);
                 unit.Armor = spec.stat_def;
                 unit.MagicResist = (int)spec.ap_reduce;
                 unit.AttackSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));

@@ -12,6 +12,8 @@ using R3;
 using Tech.Hive.V1;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
@@ -65,7 +67,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _fullRewardStateObject;
         [SerializeField] private TextMeshProUGUI _idleRewardStateText;
         [SerializeField] private ParticleSystem _dropFx;
-        
+
 
         private List<LobbyBottomStageSlot> _stageSlotList = new();
 
@@ -77,6 +79,7 @@ namespace CookApps.AutoBattler
         // Idle Combat (InGame_New)
         private IdleCombatRunner _idleCombatRunner;
         private IdleCombatViewBridge _idleCombatViewBridge;
+        private readonly List<AsyncOperationHandle<GameObject>> _idleCombatHandles = new();
 
         public StageMilestonePanel StageMilestonePanel => stageMilestonePanel;
 
@@ -219,7 +222,7 @@ namespace CookApps.AutoBattler
 
             //_chapterImage.sprite = specStage.chapter_image;
             _backToLobbyText.text = _chapterNameText.text = LanguageManager.Instance.GetDefaultText(chapterSpecData.name_token);
-            
+
 
             int totalStageCount = SpecDataManager.Instance.GetStageCount(stageSpecData.chapter_id, DifficultyType.NORMAL);
             _stageProgressText.SetText("{0}/{1}", stageSpecData.stage_number, totalStageCount);
@@ -640,7 +643,8 @@ namespace CookApps.AutoBattler
 
         private async UniTaskVoid StartIdleCombatAsync()
         {
-            // 플레이어 캐릭터 목록 가져오기 (FlowStateLobbyCombat 패턴)
+            Debug.Log("[BattleReadyMain] StartIdleCombatAsync 시작");
+            // 플레이어 캐릭터 목록 가져오기
             var userCharacters = new List<Tech.Hive.V1.CharacterData>();
             ServerDataManager.Instance.Character.GetAllCharacters(userCharacters);
 
@@ -668,47 +672,70 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            if (playerSpecIds.Count == 0) return;
+            if (playerSpecIds.Count == 0)
+            {
+                Debug.LogWarning("[BattleReadyMain] 플레이어 캐릭터 없음, idle 전투 스킵");
+                return;
+            }
 
-            // 현재 챕터의 몬스터 목록 가져오기 (FlowStateLobbyCombat 패턴)
+            Debug.Log($"[BattleReadyMain] 플레이어 {playerSpecIds.Count}명 준비 완료");
+
+            // 현재 챕터의 몬스터 목록 가져오기
             int currentStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
             var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
             var monsterList = SpecDataManager.Instance.GetStageMonsterList(
-                stageSpecData.chapter_id, 1, DifficultyType.NORMAL);
-
-            var enemySpecIds = new List<int>();
-            for (int i = 0; i < monsterList.Count; i++)
-            {
-                enemySpecIds.Add(monsterList[i].monster_id);
-            }
+                stageSpecData.chapter_id, stageSpecData.stage_number, stageSpecData.difficulty_type);
 
             int maxEnemyCount = SpecDataManager.Instance.GetGameConfig<int>("max_idle_battle_monster_count");
+            Debug.Log($"[BattleReadyMain] 적 풀: {monsterList.Count}종, 최대: {maxEnemyCount}");
 
             // IdleCombatRunner + ViewBridge 생성
             var idleCombatGo = new GameObject("IdleCombatRunner");
             _idleCombatRunner = idleCombatGo.AddComponent<IdleCombatRunner>();
             _idleCombatViewBridge = idleCombatGo.AddComponent<IdleCombatViewBridge>();
 
-            // View 매니저 참조 획득 (씬에 존재해야 함)
-            var unitViewManager = FindAnyObjectByType<UnitViewManager>();
-            var combatViewManager = FindAnyObjectByType<CombatViewManager>();
+            // 스테이지 프리팹 로드 → BoardGridView 초기화 (BoardWorldHelper 세팅)
+            var stageHandle = Addressables.LoadAssetAsync<GameObject>(
+                $"Prefabs/Stages/Ingame_New/Stage{stageSpecData.chapter_id}.prefab");
+            var stagePrefab = await stageHandle;
+            _idleCombatHandles.Add(stageHandle);
+            var stageInstance = Instantiate(stagePrefab, idleCombatGo.transform);
+            var boardGridView = stageInstance.GetComponentInChildren<BoardGridView>();
+            boardGridView.Initialize();
 
-            if (unitViewManager != null && combatViewManager != null)
-            {
-                _idleCombatViewBridge.Setup(_idleCombatRunner, unitViewManager, combatViewManager);
-                _idleCombatViewBridge.Initialize();
-            }
-            else
-            {
-                Debug.LogWarning("[BattleReadyMain] UnitViewManager 또는 CombatViewManager를 씬에서 찾을 수 없습니다. View 없이 시뮬레이션만 실행합니다.");
-            }
+            // View 매니저 동적 생성 (AutoChessViewRoot.Initialize 패턴)
+            var unitViewHandle = Addressables.LoadAssetAsync<GameObject>("Prefabs/InGame/UnitView.prefab");
+            var unitViewPrefab = await unitViewHandle;
+            _idleCombatHandles.Add(unitViewHandle);
+            var unitViewManager = new GameObject("UnitViewManager").AddComponent<UnitViewManager>();
+            unitViewManager.transform.SetParent(idleCombatGo.transform);
+            unitViewManager.SetPrefab(unitViewPrefab.GetComponent<UnitView>());
+            unitViewManager.Initialize();
+
+            var combatViewManager = new GameObject("CombatViewManager").AddComponent<CombatViewManager>();
+            combatViewManager.transform.SetParent(idleCombatGo.transform);
+            combatViewManager.Initialize(IdleCombatRunner.TickRate);
+            combatViewManager.SetUnitViewManager(unitViewManager);
+
+            _idleCombatViewBridge.Setup(_idleCombatRunner, unitViewManager, combatViewManager);
+
+            // 스폰 VFX 프리팹 로드
+            var playerVfxHandle = Addressables.LoadAssetAsync<GameObject>("Prefabs/Fx/Common/fx_common_summon_awful.prefab");
+            var enemyVfxHandle = Addressables.LoadAssetAsync<GameObject>("Prefabs/Fx/Common/fx_common_summon_enemy.prefab");
+            _idleCombatHandles.Add(playerVfxHandle);
+            _idleCombatHandles.Add(enemyVfxHandle);
+            _idleCombatViewBridge.SetSpawnVfxPrefabs(await playerVfxHandle, await enemyVfxHandle);
+
+            _idleCombatViewBridge.Initialize();
 
             // 약간의 딜레이 후 시작 (레거시와 동일)
             await UniTask.Delay(750, cancellationToken: this.GetCancellationTokenOnDestroy());
 
             if (_idleCombatRunner == null) return;
 
-            _idleCombatRunner.StartIdleCombat(playerSpecIds, enemySpecIds, maxEnemyCount);
+            Debug.Log("[BattleReadyMain] IdleCombatRunner.StartIdleCombat 호출");
+            _idleCombatRunner.StartIdleCombat(playerSpecIds, monsterList, maxEnemyCount);
+            Debug.Log("[BattleReadyMain] IdleCombat 시작 완료");
         }
 
         private void StopIdleCombat()
@@ -716,14 +743,17 @@ namespace CookApps.AutoBattler
             if (_idleCombatRunner != null)
             {
                 _idleCombatRunner.StopIdleCombat();
-            }
-
-            if (_idleCombatRunner != null)
-            {
                 Destroy(_idleCombatRunner.gameObject);
                 _idleCombatRunner = null;
                 _idleCombatViewBridge = null;
             }
+
+            foreach (var handle in _idleCombatHandles)
+            {
+                if (handle.IsValid())
+                    Addressables.Release(handle);
+            }
+            _idleCombatHandles.Clear();
         }
 
         public void PlayDropFx()

@@ -585,11 +585,14 @@ namespace CookApps.AutoBattler
 
         public HpBarView Get()
         {
-            return _hpBarViewPool.Get(null);
+            return _hpBarViewPool?.Get(null);
         }
 
         public void Return(HpBarView hpBarView)
         {
+            if (hpBarView == null)
+                return;
+
             _hpBarViewPool?.Return(hpBarView);
         }
     }

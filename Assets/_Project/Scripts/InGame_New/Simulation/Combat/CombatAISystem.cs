@@ -233,6 +233,9 @@ namespace CookApps.AutoChess
         /// <summary>전투 종료 조건 체크 (한 팀 전멸)</summary>
         private static bool CheckEndCondition(CombatMatchState state)
         {
+            if (state.IgnoreEndCondition)
+                return false;
+
             if (state.AliveCountA <= 0 || state.AliveCountB <= 0)
             {
                 DetermineWinner(state);

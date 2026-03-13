@@ -39,7 +39,7 @@ namespace CookApps.AutoBattler
 
         private const string MissText = "MISS";
 
-        
+
         // 재사용 가능한 리스트 (GC 할당 최소화)
         private readonly List<InGameTextViewSpriteFont.SpriteFontType> _reusableSpriteFontList = new List<InGameTextViewSpriteFont.SpriteFontType>(4);
 
@@ -50,29 +50,29 @@ namespace CookApps.AutoBattler
         {
             if (spriteFonts == null || spriteFonts.Count == 0)
                 return string.Empty;
-            
+
             return InGameTextViewSpriteFont.GetSpriteFonts(spriteFonts);
         }
-        
+
         /// <summary>
         /// 숫자 텍스트를 포맷팅하여 생성합니다.
         /// </summary>
         private string BuildNumberText(double value, string prefix = null)
         {
             using var sb = ZString.CreateStringBuilder();
-            
+
             // 접두사 추가 (예: "+" for heal)
             if (!string.IsNullOrEmpty(prefix))
             {
                 sb.Append(prefix);
             }
-            
+
             // 숫자 값 추가 (천 단위 구분자 포함)
             sb.Append(value.ToString("N0"));
-            
+
             return sb.ToString();
         }
-        
+
         /// <summary>
         /// 텍스트와 아이콘을 설정합니다.
         /// </summary>
@@ -82,22 +82,22 @@ namespace CookApps.AutoBattler
             _damageText.text = damageText;
             _damageText.colorGradientPreset = IconGradients[colorType];
         }
-        
+
         /// <summary>
         /// 위치를 설정하고 애니메이션을 트리거합니다.
         /// </summary>
         private void SetupPositionAndAnimation(Vector3 position, float characterHeight, int triggerHash, bool useHeightOffset = true)
         {
             _xOffset = Random.Range(-0.5f, 0.5f);
-            
+
             float height = useHeightOffset ? characterHeight + _heightOffset : characterHeight;
             Vector3 initialPosition = position + Vector3.up * height;
             initialPosition.x += _xOffset;
-            
+
             _root.position = initialPosition;
             _animator.SetTrigger(triggerHash);
         }
-        
+
         /// <summary>
         /// 데미지 사운드를 재생합니다.
         /// </summary>
@@ -105,12 +105,12 @@ namespace CookApps.AutoBattler
         {
             if (SoundManager.Instance.IsPlayingGacha)
                 return;
-            
-            SoundManager.Instance.PlaySFX(isCritical 
-                ? SoundFX.snd_sfx_hit_critical1 
+
+            SoundManager.Instance.PlaySFX(isCritical
+                ? SoundFX.snd_sfx_hit_critical1
                 : SoundFX.snd_sfx_hit_normal1);
         }
-        
+
         /// <summary>
         /// 데미지 텍스트용 스프라이트 폰트를 구성합니다.
         /// </summary>
@@ -151,7 +151,7 @@ namespace CookApps.AutoBattler
                 MissText,
                 DamageColorType.Miss
             );
-            
+
             // 미스 -> Miss
             SetupPositionAndAnimation(position, characterHeight, Miss);
         }
@@ -160,14 +160,14 @@ namespace CookApps.AutoBattler
         {
             _reusableSpriteFontList.Clear();
             _reusableSpriteFontList.Add(InGameTextViewSpriteFont.SpriteFontType.SPRITE_HEAL);
-            
+
             // 힐 텍스트 설정 ("+" 접두사 포함)
             SetTextContent(
                 BuildSpriteText(_reusableSpriteFontList),
                 BuildNumberText(healAmount, null),
                 DamageColorType.Heal
             );
-            
+
             // 힐 독 -> Heal
             // 힐은 heightOffset 없이 표시
             SetupPositionAndAnimation(position, characterHeight, Heal, useHeightOffset: false);
@@ -203,13 +203,15 @@ namespace CookApps.AutoBattler
 
         public InGameTextView Get()
         {
-            return _textViewPool.Get(null);
+            return _textViewPool?.Get(null);
         }
 
         public void Return(InGameTextView textView)
         {
-            if (_textViewPool != null)
-                _textViewPool.Return(textView);
+            if (textView == null)
+                return;
+
+            _textViewPool?.Return(textView);
         }
     }
 
@@ -229,7 +231,7 @@ namespace CookApps.AutoBattler
         {
             return ZString.Format("<sprite={0}>", (int)spriteFontType);
         }
-        
+
         /// <summary>
         /// 여러 스프라이트 폰트를 조합하여 문자열을 생성합니다.
         /// </summary>
@@ -237,7 +239,7 @@ namespace CookApps.AutoBattler
         {
             if (spriteFontTypes == null || spriteFontTypes.Count == 0)
                 return string.Empty;
-            
+
             using var sb = ZString.CreateStringBuilder();
             for (int i = 0; i < spriteFontTypes.Count; i++)
             {

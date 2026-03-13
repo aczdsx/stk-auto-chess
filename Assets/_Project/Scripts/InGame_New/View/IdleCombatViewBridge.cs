@@ -33,8 +33,6 @@ namespace CookApps.AutoChess.View
 
         public void Initialize()
         {
-            _unitViewManager.Initialize();
-            _combatViewManager.Initialize();
             _unitViewManager.SetActiveBoard(BoardIndex);
 
             // IdleCombatRunner 이벤트 구독
@@ -95,10 +93,40 @@ namespace CookApps.AutoChess.View
             queue.Clear();
         }
 
+        // ── 스폰 VFX ──
+
+        private GameObject _summonPlayerVfx;
+        private GameObject _summonEnemyVfx;
+
+        public void SetSpawnVfxPrefabs(GameObject playerVfx, GameObject enemyVfx)
+        {
+            _summonPlayerVfx = playerVfx;
+            _summonEnemyVfx = enemyVfx;
+        }
+
+        private void SpawnSummonVfx(ref SimEvent evt, CombatMatchState matchState)
+        {
+            int combatId = evt.EntityId;
+            int unitIdx = matchState.FindUnitIndex(combatId);
+            if (unitIdx < 0) return;
+
+            ref var unit = ref matchState.Units[unitIdx];
+            var prefab = unit.TeamIndex == 0 ? _summonPlayerVfx : _summonEnemyVfx;
+            if (prefab == null) return;
+
+            var worldPos = BoardWorldHelper.CombatGridToWorld(BoardIndex, unit.GridCol, unit.GridRow);
+            var vfxObj = Object.Instantiate(prefab, worldPos, UnityEngine.Quaternion.identity);
+            Object.Destroy(vfxObj, 3f);
+        }
+
         private void DispatchEvent(ref SimEvent evt, CombatMatchState matchState)
         {
             switch (evt.Type)
             {
+                case SimEventType.UnitSpawned:
+                    SpawnSummonVfx(ref evt, matchState);
+                    break;
+
                 case SimEventType.UnitAttacked:
                 {
                     bool isProjectile = (evt.Value1 & 1) != 0;
