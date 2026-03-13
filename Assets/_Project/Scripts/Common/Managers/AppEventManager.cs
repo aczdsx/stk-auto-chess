@@ -24,9 +24,9 @@ namespace CookApps.AutoBattler
                 return true;
             }
         }
-        
+
         #region [AppEvent Common Function]
-        
+
         // 특정 데이터를 앱이벤트용 문자열로 변환
         public string GetAppEventCustomDataList(params int[] dataList)
         {
@@ -60,7 +60,7 @@ namespace CookApps.AutoBattler
 
             return sbCharList.ToString();
         }
-        
+
         // 현재 장착 중인 지휘자 스킬 리스트를 앱이벤트용 문자열로 변환
         public string GetAppEventEquipCommandSkillList()
         {
@@ -75,18 +75,9 @@ namespace CookApps.AutoBattler
 
             return sbCharList.ToString();
         }
-        
-        // 최초 접속 가입 이후 경과일 계산
-        public int GetSinceJoinDate()
-        {
-            var clientBasicData = ClientBasicData.Get();
-            var joinTimeSpan = TimeManager.Instance.GetTimeSpanFromNow(clientBasicData.UserInstallDate);
 
-            return joinTimeSpan.Days;
-        }
-        
         #endregion
-        
+
         /// <summary>
         /// 이벤트 전송
         /// </summary>
@@ -110,21 +101,21 @@ namespace CookApps.AutoBattler
             var targetLanguage = LanguageManager.Instance.CurrentLanguageType;
             appEventParameter.Add(AppEventStringConst.LANGUAGE, targetLanguage.ToString());
 
-            var clientBasicData = ClientBasicData.Get();
+            var clientBasicData = ClientConfigData.Get();
             var playerData = ServerDataManager.Instance.PlayerData;
             var inventoryModel = ServerDataManager.Instance.Inventory;
 
-            appEventParameter.Add(AppEventStringConst.TOTAL_PLAY_TIME, clientBasicData.TotalPlayTime);
-            appEventParameter.Add(AppEventStringConst.DAILY_VISIT_COUNT, clientBasicData.DailyVisitCount);
-            appEventParameter.Add(AppEventStringConst.SINCE_JOIN_DATE, GetSinceJoinDate());
-            var installDateTime = TimeManager.Instance.TimeStampToDateTimeLocal(clientBasicData.UserInstallDate);
-            appEventParameter.Add(AppEventStringConst.USER_INSTALL_DATE, installDateTime.ToString("yyyyMMdd"));
+            // appEventParameter.Add(AppEventStringConst.TOTAL_PLAY_TIME, clientBasicData.TotalPlayTime);
+            // appEventParameter.Add(AppEventStringConst.DAILY_VISIT_COUNT, clientBasicData.DailyVisitCount);
+            // appEventParameter.Add(AppEventStringConst.SINCE_JOIN_DATE, GetSinceJoinDate());
+            // var installDateTime = TimeManager.Instance.TimeStampToDateTimeLocal(clientBasicData.UserInstallDate);
+            // appEventParameter.Add(AppEventStringConst.USER_INSTALL_DATE, installDateTime.ToString("yyyyMMdd"));
             var specBestStageData = SpecDataManager.Instance.GetStageData((int)ServerDataManager.Instance.Battle.GetLatestClearedStageId());
             appEventParameter.Add(AppEventStringConst.BEST_STAGE, specBestStageData.id);
             appEventParameter.Add(AppEventStringConst.BEST_MISSION, (int)ServerDataManager.Instance.GuideMission.Order);
             // appEventParameter.Add(AppEventStringConst.USER_POWER, UserDataManager.Instance.GetAllCharacterBattlePower());
             appEventParameter.Add(AppEventStringConst.USER_LEVEL, playerData.Level);
-            appEventParameter.Add(AppEventStringConst.USER_GRADE, clientBasicData.MaxSquadCount);
+            // appEventParameter.Add(AppEventStringConst.USER_GRADE, clientBasicData.MaxSquadCount);
             appEventParameter.Add(AppEventStringConst.USER_STAR_AMOUNT, (int)ServerDataManager.Instance.Battle.TotalStarCount);
             appEventParameter.Add(AppEventStringConst.USER_ENERGY_AMOUNT, inventoryModel.GetCurrency(IdMap.Item.ActionPoint));
 
@@ -152,7 +143,7 @@ namespace CookApps.AutoBattler
 
             return appEventParameter;
         }
-        
+
         // 로그인 시 호출
         public void Login()
         {
@@ -178,10 +169,10 @@ namespace CookApps.AutoBattler
             appEventParameter.Add(AppEventStringConst.CLEAR_CONDITION, clearCondition);
             appEventParameter.Add(AppEventStringConst.COMMANDER_SKILL, GetAppEventEquipCommandSkillList());
             appEventParameter.Add(AppEventStringConst.DECK, GetAppEventTargetDeckList(InGameType.STAGE));
-        
+
             SendEvent("STAGE_END", appEventParameter);
         }
-        
+
         // 던전 종료 시 호출 (클리어 또는 패배 모두 적용)
         public void DungeonEnd(DungeonType dungeonType, int dungeonID, float playTime, int squadCount, int power, int enemy_power, string result,
             string reason, string clearCondition)
@@ -198,7 +189,7 @@ namespace CookApps.AutoBattler
             appEventParameter.Add(AppEventStringConst.CLEAR_CONDITION, clearCondition);
             appEventParameter.Add(AppEventStringConst.COMMANDER_SKILL, GetAppEventEquipCommandSkillList());
             appEventParameter.Add(AppEventStringConst.DECK, GetAppEventTargetDeckList(InGameType.TRIAL));
-        
+
             SendEvent("DUNGEON_END", appEventParameter);
         }
 
@@ -208,7 +199,7 @@ namespace CookApps.AutoBattler
         // {
         //     string battleType = isRevenge ? "revenge" : "normal";
         //     // var enemyTierData = SpecDataManager.Instance.GetPVPTierData(enemyData.RankId);
-        //     
+        //
         //     AppEventParameter appEventParameter = CreateCommonParam();
         //     appEventParameter.Add(AppEventStringConst.SEASON, season);
         //     appEventParameter.Add(AppEventStringConst.TYPE, battleType);
@@ -219,7 +210,7 @@ namespace CookApps.AutoBattler
         //     appEventParameter.Add(AppEventStringConst.RESULT, result);
         //     appEventParameter.Add(AppEventStringConst.DECK, GetAppEventTargetDeckList(InGameType.PVP));
         //     appEventParameter.Add(AppEventStringConst.POWER, myPower);
-        //     
+        //
         //     appEventParameter.Add(AppEventStringConst.ENEMY_PLAYER_ID, enemyData.PlayerId);
         //     appEventParameter.Add(AppEventStringConst.ENEMY_POINT, enemyData.RankPoint);
         //     // appEventParameter.Add(AppEventStringConst.ENEMY_GRADE, enemyTierData?.pvp_tier_type.ToString());
@@ -234,7 +225,7 @@ namespace CookApps.AutoBattler
         {
             AppEventParameter appEventParameter = CreateCommonParam();
             appEventParameter.Add(AppEventStringConst.GUIDE_MISSION_ID, guideID);
-        
+
             SendEvent("GUIDE_MISSION_PASS", appEventParameter);
         }
     }
