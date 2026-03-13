@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: df3b065133b09ea45840b23a6565dfd3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8373137146609883045
+    second: UI_Ingame_BattleStart_ImageText_0
+  - first:
+      213: -8936889699784308341
+    second: UI_Ingame_BattleStart_ImageText_1
+  - first:
+      213: -3993950574569967996
+    second: UI_Ingame_BattleStart_ImageText_2
+  - first:
+      213: 720079737814628044
+    second: UI_Ingame_BattleStart_ImageText_3
+  - first:
+      213: -7313781903111204402
+    second: UI_Ingame_BattleStart_ImageText_4
+  - first:
+      213: -5382872250374301533
+    second: UI_Ingame_BattleStart_ImageText_5
+  - first:
+      213: -4396149681321779319
+    second: UI_Ingame_BattleStart_ImageText_6
+  - first:
+      213: 5683794146521046304
+    second: UI_Ingame_BattleStart_ImageText_7
+  - first:
+      213: 3064285110693126680
+    second: UI_Ingame_BattleStart_ImageText_8
+  - first:
+      213: -2269590649799798650
+    second: UI_Ingame_BattleStart_ImageText_9
+  - first:
+      213: 8109620548304864627
+    second: UI_Ingame_BattleStart_ImageText_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: UI_Ingame_BattleStart_ImageText_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 43
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a75f4f3fdb533470800000000000000
+      internalID: 8373137146609883045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Ingame_BattleStart_ImageText_1
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 0
+        width: 48
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b89428fea2ac9f380800000000000000
+      internalID: -8936889699784308341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Ingame_BattleStart_ImageText_2
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 0
+        width: 45
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48e2a400d13a298c0800000000000000
+      internalID: -3993950574569967996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Ingame_BattleStart_ImageText_3
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 0
+        width: 45
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc6b566d4bc3ef900800000000000000
+      internalID: 720079737814628044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Ingame_BattleStart_ImageText_4
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 0
+        width: 39
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec15064fb1a308a90800000000000000
+      internalID: -7313781903111204402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Ingame_BattleStart_ImageText_5
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 0
+        width: 40
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a8d12d35323c45b0800000000000000
+      internalID: -5382872250374301533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Ingame_BattleStart_ImageText_6
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 0
+        width: 74
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98f5e59182dbdf2c0800000000000000
+      internalID: -4396149681321779319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Ingame_BattleStart_ImageText_7
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 0
+        width: 46
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02dd4d789a4e0ee40800000000000000
+      internalID: 5683794146521046304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Ingame_BattleStart_ImageText_8
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 0
+        width: 48
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 812e169a217868a20800000000000000
+      internalID: 3064285110693126680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Ingame_BattleStart_ImageText_9
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 0
+        width: 44
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 680922d245bc080e0800000000000000
+      internalID: -2269590649799798650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Ingame_BattleStart_ImageText_10
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 0
+        width: 44
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3758bec0ce82b8070800000000000000
+      internalID: 8109620548304864627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      UI_Ingame_BattleStart_ImageText_0: 8373137146609883045
+      UI_Ingame_BattleStart_ImageText_1: -8936889699784308341
+      UI_Ingame_BattleStart_ImageText_10: 8109620548304864627
+      UI_Ingame_BattleStart_ImageText_2: -3993950574569967996
+      UI_Ingame_BattleStart_ImageText_3: 720079737814628044
+      UI_Ingame_BattleStart_ImageText_4: -7313781903111204402
+      UI_Ingame_BattleStart_ImageText_5: -5382872250374301533
+      UI_Ingame_BattleStart_ImageText_6: -4396149681321779319
+      UI_Ingame_BattleStart_ImageText_7: 5683794146521046304
+      UI_Ingame_BattleStart_ImageText_8: 3064285110693126680
+      UI_Ingame_BattleStart_ImageText_9: -2269590649799798650
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
