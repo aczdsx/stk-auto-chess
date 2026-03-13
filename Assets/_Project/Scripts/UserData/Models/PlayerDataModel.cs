@@ -92,9 +92,8 @@ namespace CookApps.AutoBattler
             // InventoryModel 구독 시작 (Level/Exp 변경 감지)
             EnsureSubscribed();
 
-            // 초기 레벨 캐시
-            _cachedLevel = Level;
-            PrevAccountLevel = Level;
+            // 초기 레벨 캐시 (인벤토리 미로드 시 0 유지, HandleUserExpChanged에서 갱신)
+            _cachedLevel = 0;
 
             // 변경 이벤트 발생
             if (nicknameChanged)
@@ -156,6 +155,11 @@ namespace CookApps.AutoBattler
             var newLevel = Level;
             if (_cachedLevel != newLevel)
             {
+                // 최초 인벤토리 로드 시 PrevAccountLevel 동기화
+                // (SetPlayerData가 Inventory보다 먼저 완료되면 Level이 0이므로 여기서 보정)
+                if (_cachedLevel == 0)
+                    PrevAccountLevel = newLevel;
+
                 _cachedLevel = newLevel;
                 OnLevelChanged.OnNext(newLevel);
             }
