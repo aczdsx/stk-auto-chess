@@ -324,7 +324,10 @@ namespace CookApps.AutoChess.View
                         // 방향이 있으면 인접 타일 월드 좌표로 회전 계산
                         var nextPos = BoardWorldHelper.CombatGridToWorld(0, col + dirCol, row + dirRow);
                         var dir = (nextPos - worldPos).normalized;
-                        var rot = dir != Vector3.zero ? Quaternion.LookRotation(dir) : Quaternion.identity;
+                        var rotOffset = skillData.UseCustomRotation ? skillData.RotationOffset : DefaultRotationOffset;
+                        var rot = dir != Vector3.zero
+                            ? Quaternion.LookRotation(dir) * Quaternion.Euler(rotOffset)
+                            : Quaternion.identity;
                         SpawnSkillVfxAtPosition(skillData, worldPos, rot);
                     }
                     else
@@ -571,37 +574,50 @@ namespace CookApps.AutoChess.View
             Destroy(vfxObj, FireAndForgetLifetime);
         }
 
-        private static readonly Vector3 VfxFlipScale = new Vector3(1, 1, -1);
+        private static readonly Vector3 DefaultRotationOffset = new Vector3(0, -90f, 0);
+        private static readonly Vector3 DefaultFlipScale = new Vector3(1, 1, -1);
 
-        /// <summary>방향이 있는 스킬 VFX 생성. 기존 EffectCodeSkill217613501의 rotation+scale flip 로직 재현.</summary>
+        /// <summary>방향이 있는 스킬 VFX 생성. SkillViewData의 커스텀 회전/플립 설정을 우선 사용.</summary>
         private void SpawnSkillVfxDirectional(UnitView unitView, SkillViewData skillData, sbyte dirCol, sbyte dirRow)
         {
             if (skillData?.Prefab == null || unitView == null) return;
             var posTransform = unitView.GetSkillPositionTransform(skillData.Position);
             var vfxObj = Instantiate(skillData.Prefab, posTransform.position, Quaternion.identity);
 
-            if (_vfxRoot != null)
+            if (skillData.Followable)
+                vfxObj.transform.SetParent(posTransform);
+            else if (_vfxRoot != null)
                 vfxObj.transform.SetParent(_vfxRoot);
 
-            // 기존 코드와 동일: 실제 타일 월드 좌표 차이로 방향 계산
-            Vector3 casterWorldPos = posTransform.position;
-            BoardWorldHelper.WorldToBoard(casterWorldPos, out _, out int casterCol, out int casterRow);
+            // 실제 타일 월드 좌표 차이로 방향 계산 (타일 중심 기준, Y축 무시)
+            BoardWorldHelper.WorldToBoard(posTransform.position, out _, out int casterCol, out int casterRow);
+            var casterTilePos = BoardWorldHelper.CombatGridToWorld(0, casterCol, casterRow);
             int fwdCol = casterCol + dirCol;
             int fwdRow = casterRow + dirRow;
             var fwdWorldPos = BoardWorldHelper.CombatGridToWorld(0, fwdCol, fwdRow);
-            Vector3 direction = (fwdWorldPos - casterWorldPos).normalized;
+            var dirRaw = fwdWorldPos - casterTilePos;
+            dirRaw.y = 0f;
+            Vector3 direction = dirRaw.normalized;
+
+            var rotOffset = skillData.UseCustomRotation ? skillData.RotationOffset : DefaultRotationOffset;
+            var flipScale = skillData.UseCustomRotation ? skillData.FlipScale : DefaultFlipScale;
 
             if (direction != Vector3.zero)
             {
-                vfxObj.transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90f, 0);
+                vfxObj.transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(rotOffset);
             }
 
             // scale flip: 기존 조건 dirCol > 0 || dirRow < 0
-            if (dirCol > 0 || dirRow < 0)
-                vfxObj.transform.localScale = VfxFlipScale;
-            else
-                vfxObj.transform.localScale = Vector3.one;
+            bool flipped = dirCol > 0 || dirRow < 0;
+            Vector3 scale = flipped ? flipScale : Vector3.one;
 
+            // followable일 때 부모(SkillRoot)의 FlipX를 상쇄
+            if (skillData.Followable && posTransform.lossyScale.x < 0)
+                scale.x *= -1;
+
+            vfxObj.transform.localScale = scale;
+
+ 
             Destroy(vfxObj, FireAndForgetLifetime);
         }
 

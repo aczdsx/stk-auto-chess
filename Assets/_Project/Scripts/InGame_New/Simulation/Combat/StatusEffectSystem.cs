@@ -52,6 +52,9 @@ namespace CookApps.AutoChess
                 case StatusEffectType.StatDebuff:
                     SkillBuffHelper.ModifyStat(ref unit, statType, -value);
                     break;
+                case StatusEffectType.Slow:
+                    SkillBuffHelper.ModifyStat(ref unit, StatModType.AttackSpeed, -value);
+                    break;
             }
 
             // VFX 이벤트 발행
@@ -229,7 +232,54 @@ namespace CookApps.AutoChess
         {
             RemoveEffectsByType(state, unitIndex, StatusEffectType.StatDebuff);
             RemoveEffectsByType(state, unitIndex, StatusEffectType.HealReduction);
+            RemoveEffectsByType(state, unitIndex, StatusEffectType.Silence);
+            RemoveEffectsByType(state, unitIndex, StatusEffectType.Slow);
+            RemoveEffectsByType(state, unitIndex, StatusEffectType.Taunt);
             RemoveCC(state, unitIndex);
+        }
+
+        /// <summary>유닛에 활성 Silence 디버프가 있는지 확인</summary>
+        public static bool HasSilence(CombatMatchState state, int unitIndex)
+        {
+            for (int i = 0; i < state.StatusEffectCount; i++)
+            {
+                ref var effect = ref state.StatusEffects[i];
+                if (!effect.IsActive) continue;
+                if (effect.OwnerUnitIndex != unitIndex) continue;
+                if (effect.Type == StatusEffectType.Silence) return true;
+            }
+            return false;
+        }
+
+        /// <summary>유닛에 활성 Slow 디버프가 있는지 확인</summary>
+        public static bool HasSlow(CombatMatchState state, int unitIndex)
+        {
+            for (int i = 0; i < state.StatusEffectCount; i++)
+            {
+                ref var effect = ref state.StatusEffects[i];
+                if (!effect.IsActive) continue;
+                if (effect.OwnerUnitIndex != unitIndex) continue;
+                if (effect.Type == StatusEffectType.Slow) return true;
+            }
+            return false;
+        }
+
+        /// <summary>유닛에 활성 Taunt 디버프가 있는지 확인. 있으면 도발자 CombatId 반환.</summary>
+        public static bool HasTaunt(CombatMatchState state, int unitIndex, out int forcedTargetId)
+        {
+            forcedTargetId = CombatUnit.InvalidId;
+            for (int i = 0; i < state.StatusEffectCount; i++)
+            {
+                ref var effect = ref state.StatusEffects[i];
+                if (!effect.IsActive) continue;
+                if (effect.OwnerUnitIndex != unitIndex) continue;
+                if (effect.Type == StatusEffectType.Taunt)
+                {
+                    forcedTargetId = effect.Value;
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>유닛에 적용된 HealReduction 최대값 반환 (0이면 없음)</summary>
@@ -367,6 +417,9 @@ namespace CookApps.AutoChess
                 case StatusEffectType.StatDebuff:
                     SkillBuffHelper.ModifyStat(ref unit, effect.StatType, effect.Value);
                     break;
+                case StatusEffectType.Slow:
+                    SkillBuffHelper.ModifyStat(ref unit, StatModType.AttackSpeed, effect.Value);
+                    break;
             }
 
             // VFX 제거 이벤트 발행
@@ -424,6 +477,9 @@ namespace CookApps.AutoChess
                         default: return CombatVfxType.None;
                     }
                 case StatusEffectType.HealReduction: return CombatVfxType.HealAmountDown;
+                case StatusEffectType.Silence: return CombatVfxType.CC_Silence;
+                case StatusEffectType.Slow: return CombatVfxType.CC_Slow;
+                case StatusEffectType.Taunt: return CombatVfxType.CC_Taunt;
                 default: return CombatVfxType.None;
             }
         }

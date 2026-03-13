@@ -43,6 +43,10 @@ namespace CookApps.AutoChess
             if (unit.CurrentMana < unit.MaxMana || unit.MaxMana <= 0)
                 return false;
 
+            // Silence 디버프: 스킬 시전 불가
+            if (StatusEffectSystem.HasSilence(state, unitIndex))
+                return false;
+
             var skill = state.Skills[unitIndex];
             if (skill == null)
             {

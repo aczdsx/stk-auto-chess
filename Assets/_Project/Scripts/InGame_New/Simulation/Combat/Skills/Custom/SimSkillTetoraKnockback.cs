@@ -89,7 +89,7 @@ namespace CookApps.AutoChess
 
             // 넉백 (충돌 시 스턴은 Knockback 내부에서 자동 적용)
             int actualMoved = SkillCCHelper.Knockback(state, ref target, dirCol, dirRow, _knockbackDistance, _worldTickRate);
-            bool hitWall = actualMoved < _knockbackDistance && actualMoved > 0;
+            bool hitWall = actualMoved < _knockbackDistance;
 
             // 충돌 시: 착지 지점 AoE 데미지 + vfx[1] (스턴은 Knockback에서 처리됨)
             if (hitWall && SecondaryPowerPercent > 0)

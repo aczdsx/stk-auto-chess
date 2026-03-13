@@ -19,7 +19,13 @@ MonoBehaviour:
     skillPosition: 1
     followable: 1
     persistent: 0
+    rotationOffset: {x: -90, y: -90, z: 0}
+    flipScale: {x: 1, y: -1, z: 1}
+    useCustomRotation: 1
   - prefab: {fileID: 8019412589520625355, guid: 14f150fc24083e242950e9ffd3f38c8e, type: 3}
     skillPosition: 6
     followable: 0
     persistent: 0
+    rotationOffset: {x: 0, y: -90, z: 0}
+    flipScale: {x: 1, y: 1, z: -1}
+    useCustomRotation: 0

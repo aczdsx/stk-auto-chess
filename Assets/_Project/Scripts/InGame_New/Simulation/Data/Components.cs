@@ -549,6 +549,7 @@ namespace CookApps.AutoChess
         public bool HasBacklineJump;
         public bool BacklineJumpDone;
         public bool IsBacklineJumping;    // 백라인 점프 이동 중 (타겟 불가)
+        public bool IsKnockbackMoving;   // 넉백 이동 중 (View에서 OutExpo 이징 적용)
 
         // CC 상태
         public CrowdControlType ActiveCC;

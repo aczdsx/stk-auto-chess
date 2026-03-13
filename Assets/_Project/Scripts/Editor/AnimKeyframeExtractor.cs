@@ -19,6 +19,7 @@ namespace CookApps.AutoBattler.Editor
     public class AnimKeyframeExtractor : EditorWindow
     {
         private List<DefaultAsset> _targetFolders = new() { null };
+        private RuntimeAnimatorController _singleController;
         private bool _includeSkill = true;
         private string _lastLog = "";
         private Vector2 _scrollPos;
@@ -68,14 +69,29 @@ namespace CookApps.AutoBattler.Editor
                 _targetFolders.Add(null);
             }
 
+            EditorGUILayout.Space(8);
+            EditorGUILayout.LabelField("── OR ── Single Controller", EditorStyles.miniBoldLabel);
+            _singleController = (RuntimeAnimatorController)EditorGUILayout.ObjectField(
+                "Controller", _singleController, typeof(RuntimeAnimatorController), false);
+
             EditorGUILayout.Space(4);
             _includeSkill = EditorGUILayout.Toggle("Include SKL Clips", _includeSkill);
 
             EditorGUILayout.Space(4);
 
-            if (GUILayout.Button("Extract & Save", GUILayout.Height(30)))
+            using (new EditorGUILayout.HorizontalScope())
             {
-                ExtractAndSave();
+                if (GUILayout.Button("Extract Folders", GUILayout.Height(30)))
+                {
+                    ExtractAndSave();
+                }
+
+                GUI.enabled = _singleController != null;
+                if (GUILayout.Button("Extract Single", GUILayout.Height(30)))
+                {
+                    ExtractSingle();
+                }
+                GUI.enabled = true;
             }
 
             if (!string.IsNullOrEmpty(_lastLog))
@@ -99,6 +115,100 @@ namespace CookApps.AutoBattler.Editor
         {
             public AnimationEventKey EventKey;
             public float Time;
+        }
+
+        /// <summary>단일 컨트롤러의 부모 폴더를 찾아 해당 폴더 전체를 재생성</summary>
+        private void ExtractSingle()
+        {
+            if (_singleController == null)
+            {
+                _lastLog = "ERROR: 컨트롤러를 지정하세요.";
+                Repaint();
+                return;
+            }
+
+            string ctrlPath = AssetDatabase.GetAssetPath(_singleController);
+            if (string.IsNullOrEmpty(ctrlPath))
+            {
+                _lastLog = "ERROR: 컨트롤러 경로를 가져올 수 없습니다.";
+                Repaint();
+                return;
+            }
+
+            // 컨트롤러의 부모 폴더 경로 & 이름 구하기
+            // 출력 파일명에 사용할 "카테고리 폴더"를 결정:
+            // 기존 출력 파일(AnimKeyframeData.{folderName}.cs)에 매칭되는 폴더를 탐색
+            string parentDir = Path.GetDirectoryName(ctrlPath).Replace('\\', '/');
+            string folderName = FindMatchingOutputFolder(parentDir);
+
+            if (folderName == null)
+            {
+                // 매칭되는 기존 파일이 없으면 직계 부모 폴더명 사용
+                folderName = Path.GetFileName(parentDir);
+            }
+
+            // 매칭된 폴더 경로로 스캔
+            string scanPath = FindFolderPathByName(parentDir, folderName);
+
+            Debug.Log($"[AnimKeyframeExtractor] 단일 재생성: {folderName} (scan: {scanPath})");
+
+            var clips = new List<ClipEntry>();
+            ScanFolder(scanPath, clips);
+
+            if (clips.Count == 0)
+            {
+                _lastLog = $"WARNING: {scanPath} 에서 클립을 찾을 수 없습니다.";
+                Repaint();
+                return;
+            }
+
+            string projectRoot = Path.GetDirectoryName(Application.dataPath);
+            string outDir = Path.Combine(projectRoot, OutputDir.Replace('/', Path.DirectorySeparatorChar));
+            if (!Directory.Exists(outDir)) Directory.CreateDirectory(outDir);
+
+            string code = GeneratePartialFile(folderName, clips);
+            string fileName = $"AnimKeyframeData.{folderName}.cs";
+            string fullPath = Path.Combine(outDir, fileName);
+
+            File.WriteAllText(fullPath, code, Encoding.UTF8);
+            AssetDatabase.Refresh();
+
+            _lastLog = $"완료! {fileName} 재생성 ({clips.Count}개 클립)";
+            Debug.Log($"[AnimKeyframeExtractor] {_lastLog}");
+            Repaint();
+        }
+
+        /// <summary>기존 출력 파일명과 매칭되는 폴더명 찾기</summary>
+        private string FindMatchingOutputFolder(string parentDir)
+        {
+            string projectRoot = Path.GetDirectoryName(Application.dataPath);
+            string outDir = Path.Combine(projectRoot, OutputDir.Replace('/', Path.DirectorySeparatorChar));
+            if (!Directory.Exists(outDir)) return null;
+
+            // parentDir의 각 경로 세그먼트와 기존 출력 파일명 비교
+            string current = parentDir;
+            while (!string.IsNullOrEmpty(current) && current.Contains('/'))
+            {
+                string dirName = Path.GetFileName(current);
+                string candidate = Path.Combine(outDir, $"AnimKeyframeData.{dirName}.cs");
+                if (File.Exists(candidate))
+                    return dirName;
+                current = Path.GetDirectoryName(current)?.Replace('\\', '/');
+            }
+            return null;
+        }
+
+        /// <summary>folderName에 매칭되는 상위 경로를 parentDir에서 탐색</summary>
+        private string FindFolderPathByName(string parentDir, string folderName)
+        {
+            string current = parentDir;
+            while (!string.IsNullOrEmpty(current) && current.Contains('/'))
+            {
+                if (Path.GetFileName(current) == folderName)
+                    return current;
+                current = Path.GetDirectoryName(current)?.Replace('\\', '/');
+            }
+            return parentDir;
         }
 
         private void ExtractAndSave()
@@ -190,8 +300,9 @@ namespace CookApps.AutoBattler.Editor
 
                 foreach (var pair in overrides)
                 {
-                    var clip = pair.Value ?? pair.Key;
-                    if (clip != null) TryAddClip(clip, ctrlName, results);
+                    // override 클립이 없으면(null) 해당 캐릭터에 존재하지 않는 클립이므로 스킵
+                    if (pair.Value != null)
+                        TryAddClip(pair.Value, ctrlName, results);
                 }
             }
         }

@@ -19,3 +19,6 @@ MonoBehaviour:
     skillPosition: 1
     followable: 1
     persistent: 0
+    rotationOffset: {x: 0, y: -90, z: 0}
+    flipScale: {x: 1, y: 1, z: -1}
+    useCustomRotation: 0

@@ -14,6 +14,8 @@ namespace CookApps.AutoChess
         private int _dirRow; // 타겟 방향 (row)
         private bool _started; // SkillHitFrames[0] 대기 완료 여부
         private int _startDelay;
+        private int _clipEndTimer; // SKL 클립 끝까지 채널링 유지용
+        private int _hitIndex; // 타일이펙트 주기 제어용
 
         public override bool IsChanneling => true;
 
@@ -69,11 +71,13 @@ namespace CookApps.AutoChess
             _remainingHits = totalHits;
             _tickTimer = 0;
             _started = false;
+            _clipEndTimer = SkillClipFrames > 0 ? SkillClipFrames : _startDelay + channelFrames;
+            _hitIndex = 0;
         }
 
         public override bool OnChannelTick(CombatMatchState state, ref CombatUnit caster, ref DeterministicRNG rng)
         {
-            if (_remainingHits <= 0) return false;
+            _clipEndTimer--;
 
             // SkillHitFrames[0] 타이밍까지 대기
             if (!_started)
@@ -90,19 +94,26 @@ namespace CookApps.AutoChess
                 // 첫 히트 즉시 실행
                 DoBarrageHit(state, ref caster);
                 _remainingHits--;
+                _hitIndex++;
                 _tickTimer = _tickInterval;
-                return _remainingHits > 0;
+                return true;
             }
 
-            // 이후 틱 간격 대기
-            _tickTimer--;
-            if (_tickTimer > 0) return true;
+            // 히트가 남아있으면 틱 간격 대기 후 실행
+            if (_remainingHits > 0)
+            {
+                _tickTimer--;
+                if (_tickTimer <= 0)
+                {
+                    _tickTimer = _tickInterval;
+                    DoBarrageHit(state, ref caster);
+                    _remainingHits--;
+                    _hitIndex++;
+                }
+            }
 
-            _tickTimer = _tickInterval;
-            DoBarrageHit(state, ref caster);
-            _remainingHits--;
-
-            return _remainingHits > 0;
+            // SKL 클립 끝까지 채널링 유지
+            return _clipEndTimer > 0;
         }
 
         private void DoBarrageHit(CombatMatchState state, ref CombatUnit caster)
@@ -122,8 +133,8 @@ namespace CookApps.AutoChess
                 int fwdRow = rowMain ? row + _dirRow * dist : row;
                 int halfWidth = dist - 1;
 
-                // 타일 이펙트 이벤트
-                if (BoardHelper.IsValidCombatPosition(fwdCol, fwdRow))
+                // 타일 이펙트 이벤트 — 3히트마다 발행 (10히트 중 0,3,6,9번째)
+                if (_hitIndex % 3 == 0 && BoardHelper.IsValidCombatPosition(fwdCol, fwdRow))
                 {
                     state.EventQueue?.PushSkillAreaEffect(
                         caster.SourceEntityId, (byte)fwdCol, (byte)fwdRow, halfWidth, isRow: rowMain);
@@ -170,6 +181,8 @@ namespace CookApps.AutoChess
             _dirRow = 0;
             _started = false;
             _startDelay = 0;
+            _clipEndTimer = 0;
+            _hitIndex = 0;
         }
     }
 }

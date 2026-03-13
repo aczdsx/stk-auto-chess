@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2639862735990799364
+--- !u!1001 &6315107097293916938
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -12,21 +12,9 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 5ef2fb19a5ba1e041931fd707fe5cb6b, type: 2}
-    - target: {fileID: 600602697925615038, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 600602697925615038, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1758468053598742516, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Name
       value: InGame_15362202
-      objectReference: {fileID: 0}
-    - target: {fileID: 4993383732212085696, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.624
       objectReference: {fileID: 0}
     - target: {fileID: 7066975744640795765, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -72,22 +60,6 @@ PrefabInstance:
       propertyPath: _vfxConfig
       value: 
       objectReference: {fileID: 11400000, guid: 667cf1d035f72e644ad79afeda49cdd8, type: 2}
-    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
-      propertyPath: _skillEffectPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
-      propertyPath: _skillEffectPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 6705382744327824307, guid: c1e2d582f39c7c04c99fe3ed6cdab236, type: 3}
-    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
-      propertyPath: _skillEffectPrefabs.Array.data[0].followable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7576410702416723839, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
-      propertyPath: _skillEffectPrefabs.Array.data[0].skillPosition
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9052576703297259876, guid: 9c51024fc7da1b8449cf7821a65d18a5, type: 3}
       propertyPath: m_Sprite
       value: 

@@ -100,7 +100,7 @@ namespace CookApps.AutoChess
             {
                 case 215532401: return SimSkillArchetype.Custom;          // 필리아
                 case 215362202: return SimSkillArchetype.DamageCC;        // 시이나 (침묵)
-                case 217433303: return SimSkillArchetype.DamageCC;        // 하티 (넉백)
+                case 217433303: return SimSkillArchetype.Custom;          // 하티 (넉백)
                 case 217323201: return SimSkillArchetype.Custom;          // 미사 (봉인+기절)
                 case 217243102: return SimSkillArchetype.DiamondAoE;       // 블린
                 case 217513401: return SimSkillArchetype.LineDamage;      // 아트레시아
@@ -239,13 +239,17 @@ namespace CookApps.AutoChess
             {
                 case 215362202: // 시이나: 침묵
                     p.CCType = CrowdControlType.Silence;
-                    p.CCDurationFrames = 90;
+                    p.CCDurationFrames = SecondsToFrames(GetSpecRate(specList, 2, 3f), tickRate);
                     break;
-                case 217433303: // 하티: 가장 먼 적 + 넉백 2타일
+                case 217433303: // 하티: 가장 먼 적 + 넉백
+                {
+                    // {0}=쿨타임(초), {1}=데미지배율(%) → PowerPercent 자동 반영, {2}=넉백거리(타일)
                     p.TargetType = SkillTargetType.FarthestEnemy;
                     p.CCType = CrowdControlType.Knockback;
-                    p.CCDurationFrames = 2;
+                    int knockbackDist = Mathf.RoundToInt(GetSpecRate(specList, 2, 2f));
+                    p.CCDurationFrames = knockbackDist > 0 ? knockbackDist : 2;
                     break;
+                }
                 case 217243102: // 블린: 5×5 다이아몬드 AoE
                     p.Param0 = 2; // 맨해튼 거리 2 (5×5 다이아몬드)
                     break;

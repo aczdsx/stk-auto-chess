@@ -165,6 +165,11 @@ namespace CookApps.AutoChess.View
                 if (unit.IsMoving && unit.MoveDuration > 0)
                 {
                     float progress = 1f - (float)unit.MoveTimer / unit.MoveDuration;
+
+                    // 넉백 이동은 OutExpo ease 적용
+                    if (unit.IsKnockbackMoving)
+                        progress = EaseOutExpo(progress);
+
                     Vector3 fromPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.MoveFromCol, unit.MoveFromRow) + centerOffset;
                     worldPos = Vector3.Lerp(fromPos, destPos, progress);
                 }
@@ -182,8 +187,12 @@ namespace CookApps.AutoChess.View
                         view.UpdateMana(unit.CurrentMana, unit.MaxMana);
                         view.SetCombatState(unit.State, unit.AttackSpeed);
 
-                        // 타겟 방향 바라보기
-                        if (unit.CurrentTargetId != CombatUnit.InvalidId)
+                        // 이동 중이면 이동 방향, 아니면 타겟 방향 바라보기
+                        if (unit.IsMoving && unit.MoveDuration > 0)
+                        {
+                            view.UpdateFacing(destPos);
+                        }
+                        else if (unit.CurrentTargetId != CombatUnit.InvalidId)
                         {
                             int targetIdx = matchState.FindUnitIndex(unit.CurrentTargetId);
                             if (targetIdx >= 0)
@@ -345,6 +354,12 @@ namespace CookApps.AutoChess.View
         private void ReturnToPool(UnitView view)
         {
             view.Deactivate();
+        }
+
+        /// <summary>OutExpo 이징: 빠르게 시작 → 느리게 감속</summary>
+        private static float EaseOutExpo(float t)
+        {
+            return t >= 1f ? 1f : 1f - UnityEngine.Mathf.Pow(2f, -10f * t);
         }
     }
 }

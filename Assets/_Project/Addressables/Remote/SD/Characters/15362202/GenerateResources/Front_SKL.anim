@@ -22,34 +22,34 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: ceec92039894ad845b3312704f751217, type: 3}
-    - time: 0.083333336
+    - time: 0.0625
       value: {fileID: 21300000, guid: d2dcf82ac7a73c640af51e7e3c5b49cd, type: 3}
-    - time: 0.16666667
+    - time: 0.125
       value: {fileID: 21300000, guid: 2f74d222232e6914e919e89bcc6b3d3a, type: 3}
-    - time: 0.25
+    - time: 0.1875
       value: {fileID: 21300000, guid: a6e93b5b2b8f44745b159e1fbd804f77, type: 3}
-    - time: 0.33333334
+    - time: 0.25
       value: {fileID: 21300000, guid: d0de25c11bd3fdb4c95cab571ec43f4e, type: 3}
-    - time: 0.41666666
+    - time: 0.3125
       value: {fileID: 21300000, guid: 91d93dfa552ca954e8c615c218d5744e, type: 3}
-    - time: 0.5
+    - time: 0.375
       value: {fileID: 21300000, guid: eb551e360c389594d9f1ffad4784909b, type: 3}
-    - time: 0.5833333
+    - time: 0.4375
       value: {fileID: 21300000, guid: 611a0f5976f2bfc41b1046c21dc3e6f2, type: 3}
-    - time: 0.6666667
+    - time: 0.5
       value: {fileID: 21300000, guid: 318f84d18a93a75449fed28d81a87644, type: 3}
-    - time: 0.75
+    - time: 0.5625
       value: {fileID: 21300000, guid: b06b83865c9041d498bb8413c59d67f4, type: 3}
-    - time: 0.8333333
+    - time: 0.625
       value: {fileID: 21300000, guid: 995c959eba8e3ff448321cbe71a52fb4, type: 3}
-    - time: 0.9166667
+    - time: 0.6875
       value: {fileID: 21300000, guid: c02a6d60f554fab45a0a674e09285722, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 8
+  m_SampleRate: 16
   m_WrapMode: 1
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -83,7 +83,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.0416667
+    m_StopTime: 0.75
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -117,7 +117,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 1001
     messageOptions: 0
-  - time: 1
+  - time: 0.75
     functionName: InvokeAnimationEvent
     data: 
     objectReferenceParameter: {fileID: 0}

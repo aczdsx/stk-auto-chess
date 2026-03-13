@@ -148,6 +148,9 @@ namespace CookApps.AutoChess
         DebuffImmunity,  // 디버프 면역 (StatDebuff 차단)
         SkillMarker,     // 범용 스킬 마커 (개별 타이머, Value=(int)SkillMarkerType으로 식별)
         HealReduction,   // 회복량 감소 (Value=감소 퍼센트)
+        Silence,         // 침묵 (스킬 사용 불가, CC가 아닌 디버프로 처리)
+        Slow,            // 슬로우 (공속 감소, Value=감소량, 만료 시 역산)
+        Taunt,           // 도발 (강제 타겟, Value=도발자 CombatId)
     }
 
     // ═══════════════════════════════════════════════
