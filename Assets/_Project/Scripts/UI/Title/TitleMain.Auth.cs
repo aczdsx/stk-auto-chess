@@ -49,6 +49,9 @@ namespace CookApps.AutoBattler
             // 클라이언트 이벤트 추적 시작
             ClientEventTracker.Instance.StartTracking();
 
+            // 튜토리얼 스킵 상태 적용
+            ApplySkipTutorialState();
+
             return true;
         }
 
@@ -80,33 +83,30 @@ namespace CookApps.AutoBattler
             await RouteToNextSceneAsync();
         }
 
-        private async UniTask OnClickSkipTutorialAsync()
+        private UniTask OnClickSkipTutorialAsync()
         {
-            TutorialManager.SetSkipTutorial();
+            var data = ClientConfigData.Get();
+            data.SetSkipTutorial(!data.IsSkipTutorial);
+            ApplySkipTutorialState();
+            return UniTask.CompletedTask;
+        }
 
-            touchToStart.SetActive(false);
-            guestLoginNode.SetActive(false);
+        private void ApplySkipTutorialState()
+        {
+            var data = ClientConfigData.Get();
+            if (data != null && data.IsSkipTutorial)
+                TutorialManager.SetSkipTutorial();
 
-            // 로비로 전환
-            SceneTransition.Create<SceneTransition_FadeInOut>();
-            var task = SceneTransition.FadeInAsync();
+#if UNITY_EDITOR || (!RELEASE && ENABLE_CHEAT)
+            testNode.SetActive(true);
+#endif
 
-            // 게스트 로그인 처리
-            await LoginManager.Instance.LoginGuest();
-
-            if (!await AuthenticateAndInitializeAsync())
+            var label = skipTutorialButton.GetComponentInChildren<TMPro.TMP_Text>();
+            if (label != null)
             {
-                Debug.LogError("[Go To Lobby] Auth/init failed");
-                return;
+                var isSkip = data?.IsSkipTutorial ?? false;
+                label.text = isSkip ? "Tutorial: OFF" : "Tutorial: ON";
             }
-
-            await task;
-
-            // 마지막 플레이 스테이지 기준 챕터로 이동 (없으면 1챕터)
-            var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
-            var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
-            var chapterId = specStageData?.chapter_id ?? 1;
-            SceneLoading.GoToNextScene("Lobby", chapterId);
         }
 
         private async UniTask OnClickInGameTestAsync()
