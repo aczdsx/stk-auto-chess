@@ -104,6 +104,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d6d0e0a09a4fc3149b2f5040a197c185
+    m_Address: SpriteAtlas/Dynamic/UI_InGame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d8815f356089b4cbd8a10b185bf1098a
     m_Address: SpriteAtlas/Dynamic/Temp_Gacha/Atlas_Gacha
     m_ReadOnly: 0
