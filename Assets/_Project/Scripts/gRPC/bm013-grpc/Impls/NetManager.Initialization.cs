@@ -28,7 +28,7 @@ namespace CookApps.AutoBattler
                 // Commander.ListSkillAsync(cancellationToken),
                 ClientData.ListAsync(new []
                 {
-                    ClientBasicData.CategoryName,
+                    ClientConfigData.CategoryName,
                     ClientShopPurchaseData.CategoryName,
                     ClientProgressData.CategoryName,
                     ClientStatisticsData.CategoryName
