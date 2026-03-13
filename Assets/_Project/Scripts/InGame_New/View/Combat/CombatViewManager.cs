@@ -256,7 +256,7 @@ namespace CookApps.AutoChess.View
             var casterView = _unitViewManager?.FindCombatView(casterId);
 
             // 원소 타일 이펙트
-            if (_tileEffectManager != null && element != SynergyType.NONE && casterView != null)
+            if (_tileEffectManager != null && element != SynergyType.NONE && casterView != null && casterView.HasCastingVfx)
             {
                 var castType = TileEffectManager.SynergyToCastType(element);
                 _tileEffectManager.ShowAt(castType, casterView.transform.position, 1.0f);

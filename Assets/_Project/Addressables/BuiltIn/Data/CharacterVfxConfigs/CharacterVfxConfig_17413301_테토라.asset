@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: "CharacterVfxConfig_17413301_\uD14C\uD1A0\uB77C"
   m_EditorClassIdentifier: 
   _sourcePrefab: {fileID: 8363089223957861128, guid: c53e1203913ef4483b68755968f8b517, type: 3}
+  _hasCastingVfx: 0
   _projectilePrefab: {fileID: 0}
   _skillEffectPrefabs:
   - prefab: {fileID: 6619382525244203184, guid: bc863cd7679ce124ebcd4a8f5af51a40, type: 3}

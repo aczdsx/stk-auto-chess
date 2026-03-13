@@ -55,6 +55,9 @@ namespace CookApps.AutoChess
                 case StatusEffectType.Slow:
                     SkillBuffHelper.ModifyStat(ref unit, StatModType.AttackSpeed, -value);
                     break;
+                case StatusEffectType.TargetImpossible:
+                    unit.IsUntargetable = true;
+                    break;
             }
 
             // VFX 이벤트 발행
@@ -235,6 +238,7 @@ namespace CookApps.AutoChess
             RemoveEffectsByType(state, unitIndex, StatusEffectType.Silence);
             RemoveEffectsByType(state, unitIndex, StatusEffectType.Slow);
             RemoveEffectsByType(state, unitIndex, StatusEffectType.Taunt);
+            RemoveEffectsByType(state, unitIndex, StatusEffectType.TargetImpossible);
             RemoveCC(state, unitIndex);
         }
 
@@ -420,6 +424,9 @@ namespace CookApps.AutoChess
                 case StatusEffectType.Slow:
                     SkillBuffHelper.ModifyStat(ref unit, StatModType.AttackSpeed, effect.Value);
                     break;
+                case StatusEffectType.TargetImpossible:
+                    unit.IsUntargetable = false;
+                    break;
             }
 
             // VFX 제거 이벤트 발행
@@ -465,6 +472,7 @@ namespace CookApps.AutoChess
                         case StatModType.Armor: return CombatVfxType.StatBuff_Armor;
                         case StatModType.MagicResist: return CombatVfxType.StatBuff_MagicResist;
                         case StatModType.AttackSpeed: return CombatVfxType.StatBuff_AttackSpeed;
+                        case StatModType.DodgeChance: return CombatVfxType.StatBuff_DodgeChance;
                         default: return CombatVfxType.None;
                     }
                 case StatusEffectType.StatDebuff:
@@ -480,6 +488,7 @@ namespace CookApps.AutoChess
                 case StatusEffectType.Silence: return CombatVfxType.CC_Silence;
                 case StatusEffectType.Slow: return CombatVfxType.CC_Slow;
                 case StatusEffectType.Taunt: return CombatVfxType.CC_Taunt;
+                case StatusEffectType.TargetImpossible: return CombatVfxType.CC_TargetImpossible;
                 default: return CombatVfxType.None;
             }
         }

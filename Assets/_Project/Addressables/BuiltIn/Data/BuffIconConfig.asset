@@ -61,8 +61,12 @@ MonoBehaviour:
     IconSprite: {fileID: 21300000, guid: 54ae52769ad8557459e957a6ae4ec41b, type: 3}
   - EffectType: 20
     IconSprite: {fileID: 21300000, guid: b77b6a8c284fe404599987a25f6ed607, type: 3}
+  - EffectType: 21
+    IconSprite: {fileID: 21300000, guid: d83ac39f080700a4d89ac5f4d3edef6a, type: 3}
   - EffectType: 31
     IconSprite: {fileID: 21300000, guid: b6406ecb22de3db42a3a42d5b46713d1, type: 3}
+  - EffectType: 32
+    IconSprite: {fileID: 21300000, guid: 743c3a85d3b58d547bf535a0bd647801, type: 3}
   _skillMarkerIcons:
   - MarkerType: 0
     IconSprite: {fileID: 21300000, guid: f271aaaa96ae93a47a7a264369f565f7, type: 3}
@@ -79,21 +83,18 @@ MonoBehaviour:
   - MarkerType: 0
     IconSprite: {fileID: 21300000, guid: faafeea34ead632499dbfb37c4ca8999, type: 3}
     ReplacesEffect: 0
-  - MarkerType: 0
+  - MarkerType: 1
     IconSprite: {fileID: 21300000, guid: 9e2dea37ff6dd0c468edf60ebfcc8b83, type: 3}
-    ReplacesEffect: 0
-  - MarkerType: 0
-    IconSprite: {fileID: 21300000, guid: b7b7c5ca0daaa634292f8c8ddcce764d, type: 3}
     ReplacesEffect: 0
   - MarkerType: 0
     IconSprite: {fileID: 21300000, guid: 13b2f55f890c8c04daa5d4eff322dce2, type: 3}
     ReplacesEffect: 0
-  - MarkerType: 0
+  - MarkerType: 2
     IconSprite: {fileID: 21300000, guid: 82240f2cd388a3b40be5581f64e138fb, type: 3}
-    ReplacesEffect: 0
-  - MarkerType: 0
+    ReplacesEffect: 14
+  - MarkerType: 3
     IconSprite: {fileID: 21300000, guid: e53b5890132468e4da4e09de00495bcd, type: 3}
     ReplacesEffect: 0
-  - MarkerType: 0
+  - MarkerType: 4
     IconSprite: {fileID: 21300000, guid: 4b6304579590fe147aa4a9f76eca6c4a, type: 3}
     ReplacesEffect: 0

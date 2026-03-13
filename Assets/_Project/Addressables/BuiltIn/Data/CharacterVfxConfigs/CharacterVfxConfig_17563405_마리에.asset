@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: "CharacterVfxConfig_17563405_\uB9C8\uB9AC\uC5D0"
   m_EditorClassIdentifier: 
   _sourcePrefab: {fileID: 827219849401143510, guid: 1a00126b9c8d1004e8d705b563664828, type: 3}
+  _hasCastingVfx: 0
   _projectilePrefab: {fileID: 0}
   _skillEffectPrefabs:
   - prefab: {fileID: 6486733853806884527, guid: 8b00e76b6749bed4f8701fe3b1ab8ab2, type: 3}
     skillPosition: 2
     followable: 1
     persistent: 0
+    rotationOffset: {x: 0, y: -90, z: 0}
+    flipScale: {x: 1, y: 1, z: -1}
+    useCustomRotation: 0

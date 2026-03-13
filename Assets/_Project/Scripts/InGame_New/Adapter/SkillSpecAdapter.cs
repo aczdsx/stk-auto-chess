@@ -92,25 +92,24 @@ namespace CookApps.AutoChess
                 case 217333202: // 에이프릴
                 case 217613501: // 오데트
                 case 217523403: // 아드리아
+                case 217663506: // 시라유키
+                case 215532401: // 필리아
+                case 217433303: // 하티
+                case 217323201: // 미사
+                case 217263103: // 루키다
                     return SimSkillArchetype.Custom;
             }
 
             // 플레이어 스킬 아키타입 매핑
             switch (id)
             {
-                case 215532401: return SimSkillArchetype.Custom;          // 필리아
                 case 215362202: return SimSkillArchetype.DamageCC;        // 시이나 (침묵)
-                case 217433303: return SimSkillArchetype.Custom;          // 하티 (넉백)
-                case 217323201: return SimSkillArchetype.Custom;          // 미사 (봉인+기절)
                 case 217243102: return SimSkillArchetype.DiamondAoE;       // 블린
                 case 217513401: return SimSkillArchetype.LineDamage;      // 아트레시아
                 case 1406031:   return SimSkillArchetype.Heal;            // 아란
                 case 215322201: return SimSkillArchetype.PatternDamage;   // 메이
-                case 217523403: return SimSkillArchetype.Custom;          // 아드리아
-                case 217663506: return SimSkillArchetype.MultiHit;        // 시라유키
                 case 215642501: return SimSkillArchetype.AoEDamage;       // 엘리스
                 case 217353203: return SimSkillArchetype.AoEDamage;       // 라키유
-                case 217263103: return SimSkillArchetype.Custom;          // 루키다
             }
 
             // 몬스터 스킬 분류
@@ -345,6 +344,20 @@ namespace CookApps.AutoChess
                     float sealDurSec = GetSpecRate(specList, 1, 3f);
                     p.CCDurationFrames = SecondsToFrames(sealDurSec, tickRate);
                     p.PowerPercent = 0; // 데미지 없음
+                    break;
+                }
+                case 217663506: // 시라유키: 최저HP 적 3명 순차 텔레포트 + 회피 버프
+                {
+                    // {0}=쿨타임(초), {1}=지정불가시간(초), {2}=데미지배율(%) → PowerPercent,
+                    // {3}=회피버프시간(초), {4}=회피증가율(%)
+                    p.TargetType = SkillTargetType.LowestHPEnemy;
+                    p.TargetCount = 3;
+                    p.HitCount = 3;
+                    float untargetableSec = GetSpecRate(specList, 1, 3f);
+                    p.Param0 = SecondsToFrames(untargetableSec, tickRate); // untargetableDurationFrames
+                    float dodgeDurSec = GetSpecRate(specList, 3, 3f);
+                    p.Param1 = SecondsToFrames(dodgeDurSec, tickRate); // dodgeDurationFrames
+                    p.Param2 = Mathf.RoundToInt(GetSpecRate(specList, 4, 30f)); // dodgePercent
                     break;
                 }
                 case 217263103: // 루키다: 여우불 추가 + 공속 버프 (스펙 데이터 기반)

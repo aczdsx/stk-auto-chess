@@ -439,6 +439,10 @@ namespace CookApps.AutoChess
                     if (target.CurrentMana > target.MaxMana)
                         target.CurrentMana = target.MaxMana;
                     break;
+                case StatModType.DodgeChance:
+                    target.DodgeChance += value;
+                    if (target.DodgeChance < 0) target.DodgeChance = 0;
+                    break;
             }
         }
 
