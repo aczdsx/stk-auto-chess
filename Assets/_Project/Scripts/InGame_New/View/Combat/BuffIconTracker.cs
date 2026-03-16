@@ -161,7 +161,7 @@ namespace CookApps.AutoChess.View
             return list;
         }
 
-        private readonly HashSet<int> _tempReplacedEffects = new();
+        private readonly Dictionary<int, int> _tempReplacedCounts = new();
 
         private void UpdateUnitBuffIcons(int combatId)
         {
@@ -175,23 +175,38 @@ namespace CookApps.AutoChess.View
                 return;
             }
 
-            // 1) 활성 SkillMarker의 ReplacesEffect 수집
-            _tempReplacedEffects.Clear();
+            // 1) 마커별 대체 카운트 수집
+            _tempReplacedCounts.Clear();
             foreach (var buff in list)
             {
                 if (!buff.IsSkillMarker) continue;
                 if (_config != null && _config.TryGetMarkerIcon(buff.MarkerId, out var markerEntry))
                 {
                     if (markerEntry.ReplacesEffect != CombatVfxType.None)
-                        _tempReplacedEffects.Add((int)markerEntry.ReplacesEffect);
+                    {
+                        int key = (int)markerEntry.ReplacesEffect;
+                        _tempReplacedCounts.TryGetValue(key, out int count);
+                        _tempReplacedCounts[key] = count + buff.RefCount;
+                    }
                 }
             }
 
-            // 2) 아이콘 목록 생성 (대체 대상 Effect는 스킵)
+            // 2) 아이콘 목록 생성 (마커 RefCount만큼 차감)
             foreach (var buff in list)
             {
-                if (!buff.IsSkillMarker && _tempReplacedEffects.Contains(buff.MarkerId))
+                if (!buff.IsSkillMarker && _tempReplacedCounts.TryGetValue(buff.MarkerId, out int replaceCount))
+                {
+                    if (buff.RefCount <= replaceCount) continue;
+                    _tempBuffList.Add(new HpBarView.NewBuffIconData
+                    {
+                        IconSprite = buff.IconSprite,
+                        Duration = buff.TotalDuration,
+                        ElapsedTime = Time.time - buff.AddedTime,
+                        StackCount = 1,
+                        IsSide = false,
+                    });
                     continue;
+                }
 
                 _tempBuffList.Add(new HpBarView.NewBuffIconData
                 {
@@ -199,7 +214,7 @@ namespace CookApps.AutoChess.View
                     Duration = buff.TotalDuration,
                     ElapsedTime = Time.time - buff.AddedTime,
                     StackCount = buff.RefCount,
-                    IsSide = buff.IsSkillMarker, // SkillMarker → Side, Effect → Normal
+                    IsSide = buff.IsSkillMarker,
                 });
             }
 

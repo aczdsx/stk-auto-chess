@@ -250,7 +250,7 @@ namespace CookApps.AutoChess
                     target.GridCol, target.GridRow,
                     target.SizeW > 0 ? target.SizeW : (byte)1,
                     target.SizeH > 0 ? target.SizeH : (byte)1);
-                int travelFrames = dist * 4; // 기본 4프레임/타일
+                int travelFrames = dist * tickRate / 8; // ~0.125초/타일
                 if (travelFrames < 1) travelFrames = 1;
 
                 if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, rawDamage, isCrit, true);

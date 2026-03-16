@@ -133,6 +133,7 @@ namespace CookApps.AutoChess
         AttackSpeed,
         ManaRegenRate,  // 마나 리젠 속도 % 보너스
         MaxMana,        // 최대 마나 증감
+        DodgeChance,    // 회피율 증감
     }
 
     /// <summary>상태효과 타입 (통합 StatusEffect 시스템)</summary>
@@ -148,6 +149,10 @@ namespace CookApps.AutoChess
         DebuffImmunity,  // 디버프 면역 (StatDebuff 차단)
         SkillMarker,     // 범용 스킬 마커 (개별 타이머, Value=(int)SkillMarkerType으로 식별)
         HealReduction,   // 회복량 감소 (Value=감소 퍼센트)
+        Silence,         // 침묵 (스킬 사용 불가, CC가 아닌 디버프로 처리)
+        Slow,            // 슬로우 (공속 감소, Value=감소량, 만료 시 역산)
+        Taunt,           // 도발 (강제 타겟, Value=도발자 CombatId)
+        TargetImpossible, // 지정불가 (적이 타겟으로 선택 불가)
     }
 
     // ═══════════════════════════════════════════════
@@ -266,9 +271,11 @@ namespace CookApps.AutoChess
         CC_Taunt    = 18,
         CC_Airborne = 19,
         CC_KnockBack = 20,
+        CC_TargetImpossible = 21,
         // ── 추가 (기존 SO 영향 없는 새 값) ──
         HealAmountDown = 30,
         Shield = 31,
+        StatBuff_DodgeChance = 32,
     }
 
     /// <summary>아이템 특수 효과 타입</summary>

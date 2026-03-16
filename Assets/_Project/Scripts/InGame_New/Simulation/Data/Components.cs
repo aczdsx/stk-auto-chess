@@ -549,6 +549,7 @@ namespace CookApps.AutoChess
         public bool HasBacklineJump;
         public bool BacklineJumpDone;
         public bool IsBacklineJumping;    // 백라인 점프 이동 중 (타겟 불가)
+        public bool IsKnockbackMoving;   // 넉백 이동 중 (View에서 OutExpo 이징 적용)
 
         // CC 상태
         public CrowdControlType ActiveCC;
@@ -570,10 +571,12 @@ namespace CookApps.AutoChess
         public sbyte AreaDirCol;          // facing 방향
         public sbyte AreaDirRow;
 
+        public bool IsUntargetable;  // StatusEffectType.TargetImpossible 캐시
+
         public bool IsValidTarget => IsAlive && State != CombatState.Dead;
 
-        /// <summary>타겟 선택 가능 여부 (백라인 점프 중 제외)</summary>
-        public bool IsTargetable => IsValidTarget && !IsBacklineJumping;
+        /// <summary>타겟 선택 가능 여부 (백라인 점프 중, 지정불가 제외)</summary>
+        public bool IsTargetable => IsValidTarget && !IsBacklineJumping && !IsUntargetable;
 
         /// <summary>공격 쿨다운 프레임 수 계산 (AttackSpeed 기반)</summary>
         public int GetAttackInterval(int tickRate)

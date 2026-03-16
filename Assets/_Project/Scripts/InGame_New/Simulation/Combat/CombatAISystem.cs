@@ -108,6 +108,7 @@ namespace CookApps.AutoChess
                     // 이동 완료
                     unit.State = CombatState.Idle;
                     unit.IsBacklineJumping = false;
+                    unit.IsKnockbackMoving = false;
                 }
                 else
                 {
@@ -136,6 +137,15 @@ namespace CookApps.AutoChess
 
             // 타겟 갱신
             TargetingSystem.RefreshTarget(state, ref unit);
+
+            // Taunt: 도발자가 생존해 있으면 타겟 강제
+            int unitIdx = FindUnitSlotIndex(state, ref unit);
+            if (unitIdx >= 0 && StatusEffectSystem.HasTaunt(state, unitIdx, out int forcedTargetId))
+            {
+                int taunterIdx = state.FindUnitIndex(forcedTargetId);
+                if (taunterIdx >= 0 && state.Units[taunterIdx].IsAlive)
+                    unit.CurrentTargetId = forcedTargetId;
+            }
 
             // 타겟 없으면 Idle
             if (unit.CurrentTargetId == CombatUnit.InvalidId)

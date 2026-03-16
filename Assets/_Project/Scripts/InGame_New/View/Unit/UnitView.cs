@@ -352,6 +352,10 @@ namespace CookApps.AutoChess.View
             }
         }
 
+        public bool HasCastingVfx => _characterView != null
+            && _characterView.VfxConfig != null
+            && _characterView.VfxConfig.HasCastingVfx;
+
         public float GetCharacterHeight()
         {
             if (_champSpecId <= 0) return 1.5f;

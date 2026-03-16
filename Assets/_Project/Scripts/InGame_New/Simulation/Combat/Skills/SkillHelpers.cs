@@ -267,8 +267,18 @@ namespace CookApps.AutoChess
     /// <summary>CC 적용 헬퍼</summary>
     public static class SkillCCHelper
     {
-        /// <summary>CC 적용 (기존 CC보다 긴 경우에만 덮어씀, CC면역 시 무시)</summary>
-        public static void ApplyCC(CombatMatchState state, ref CombatUnit target, CrowdControlType type, int durationFrames)
+        /// <summary>행동 불능(Immobilizing) CC인지 판별. Stun/Freeze/Airborne만 해당.</summary>
+        public static bool IsImmobilizing(CrowdControlType type)
+            => type == CrowdControlType.Stun
+            || type == CrowdControlType.Freeze
+            || type == CrowdControlType.Airborne;
+
+        /// <summary>CC 적용. 카테고리별 자동 분기:
+        /// Immobilizing(Stun/Freeze/Airborne) → CrowdControlled 상태,
+        /// NonImmobilizing(Silence/Slow/Taunt) → StatusEffect 디버프,
+        /// Knockback → 별도 Knockback() 메서드 사용.</summary>
+        public static void ApplyCC(CombatMatchState state, ref CombatUnit target,
+            CrowdControlType type, int durationFrames, int value = 0)
         {
             if (!target.IsAlive) return;
             if (target.State == CombatState.Dead) return;
@@ -278,6 +288,32 @@ namespace CookApps.AutoChess
             if (idx >= 0 && StatusEffectSystem.HasImmunity(state, idx, StatusEffectType.CCImmunity))
                 return;
 
+            // ── 비행동불능 CC → StatusEffect 디버프 ──
+            if (!IsImmobilizing(type))
+            {
+                if (idx < 0) return;
+
+                switch (type)
+                {
+                    case CrowdControlType.Silence:
+                        StatusEffectSystem.RemoveEffectsByType(state, idx, StatusEffectType.Silence);
+                        StatusEffectSystem.AddEffect(state, idx, StatusEffectType.Silence, 0, durationFrames);
+                        break;
+                    case CrowdControlType.Slow:
+                        StatusEffectSystem.RemoveEffectsByType(state, idx, StatusEffectType.Slow);
+                        StatusEffectSystem.AddEffect(state, idx, StatusEffectType.Slow, value, durationFrames);
+                        break;
+                    case CrowdControlType.Taunt:
+                        StatusEffectSystem.RemoveEffectsByType(state, idx, StatusEffectType.Taunt);
+                        StatusEffectSystem.AddEffect(state, idx, StatusEffectType.Taunt, value, durationFrames);
+                        break;
+                }
+
+                if (CombatLogger.Enabled) CombatLogger.LogCC(target.CombatId, type, durationFrames);
+                return;
+            }
+
+            // ── 행동불능 CC → ActiveCC + CrowdControlled 상태 ──
             // 기존 CC보다 긴 경우에만 적용
             if (target.ActiveCC != CrowdControlType.None && target.CCRemainingFrames >= durationFrames)
                 return;
@@ -338,19 +374,28 @@ namespace CookApps.AutoChess
                 actualMoved++;
             }
 
-            // 실제 이동 처리
+            // 실제 이동 처리 (View Lerp 보간용 파라미터 설정)
             if (col != target.GridCol || row != target.GridRow)
             {
+                target.MoveFromCol = target.GridCol;
+                target.MoveFromRow = target.GridRow;
+
                 state.ClearGridMulti(target.GridCol, target.GridRow, sizeW, sizeH);
                 target.GridCol = (byte)col;
                 target.GridRow = (byte)row;
                 state.SetGridMulti(col, row, sizeW, sizeH, target.CombatId);
 
+                // 넉백 이동 시간: 거리 비례 (0.3초 기본 + 거리당 0.1초)
+                int knockbackFrames = (int)((0.3f + actualMoved * 0.1f) * worldTickRate + 0.5f);
+                target.MoveDuration = knockbackFrames;
+                target.MoveTimer = knockbackFrames;
+                target.IsKnockbackMoving = true;
+
                 state.EventQueue?.PushUnitMoved(target.SourceEntityId, (byte)col, (byte)row);
             }
 
             // 충돌 시 스턴 (1초 고정 — worldTickRate 프레임)
-            if (actualMoved < distance && actualMoved > 0)
+            if (actualMoved < distance)
             {
                 ApplyCC(state, ref target, CrowdControlType.Stun, worldTickRate);
             }
@@ -393,6 +438,10 @@ namespace CookApps.AutoChess
                     if (target.MaxMana < 1) target.MaxMana = 1;
                     if (target.CurrentMana > target.MaxMana)
                         target.CurrentMana = target.MaxMana;
+                    break;
+                case StatModType.DodgeChance:
+                    target.DodgeChance += value;
+                    if (target.DodgeChance < 0) target.DodgeChance = 0;
                     break;
             }
         }

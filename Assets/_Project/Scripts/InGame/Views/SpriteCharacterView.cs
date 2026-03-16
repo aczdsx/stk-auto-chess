@@ -83,6 +83,7 @@ namespace CookApps.AutoBattler
         public Transform SkillMiddleFXTransform => _skillMiddleFXTransform;
         public Transform SkillBottomFXTransform => _skillBottomFXTransform;
 
+        public CharacterVfxConfigSO VfxConfig => _vfxConfig;
         public GameObject ProjectilePrefab => _vfxConfig != null ? _vfxConfig.ProjectilePrefab : null;
         public SkillViewData[] SkillEffectPrefabs => _vfxConfig != null ? _vfxConfig.SkillEffectPrefabs : null;
 

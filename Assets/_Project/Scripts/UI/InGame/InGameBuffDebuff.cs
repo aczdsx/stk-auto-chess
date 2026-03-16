@@ -77,6 +77,9 @@ namespace CookApps.AutoBattler
             _buffStackData.duration = duration;
             _buffStackData.elapsedTime = elapsedTime;
 
+            // SpriteLoader의 이전 비동기 로드를 취소하고, 직접 스프라이트 설정
+            _baseSpriteLoader.UnloadSprite();
+            _elapsedCheckSpriteLoader.UnloadSprite();
             _baseSprite.sprite = iconSprite;
             _baseSprite.enabled = true;
             _elapsedCheckSprite.sprite = iconSprite;

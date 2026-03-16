@@ -80,6 +80,7 @@ namespace CookApps.AutoChess
             Register(217433302, () => new SimSkillMinoProjectile());
             Register(217363204, () => new SimSkillVeinBounce());
             Register(217413301, () => new SimSkillTetoraKnockback());
+            Register(217433303, () => new SimSkillHatiKnockback());
             Register(215422301, () => new SimSkillMenshaShield());
             Register(217553404, () => new SimSkillClayChannel());
             Register(217563405, () => new SimSkillMarieAssassin());
@@ -90,6 +91,7 @@ namespace CookApps.AutoChess
             Register(215532401, () => new SimSkillPiliaStrike());
             Register(217523403, () => new SimSkillAdriaExpand());
             Register(217323201, () => new SimSkillMisaRestraint());
+            Register(217663506, () => new SimSkillShirayukiAssassin());
         }
 
         /// <summary>팩토리 등록 해제 (테스트용)</summary>

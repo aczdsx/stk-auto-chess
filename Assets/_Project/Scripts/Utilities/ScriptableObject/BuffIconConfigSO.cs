@@ -140,7 +140,9 @@ namespace CookApps.AutoChess.View
             { CombatVfxType.CC_Taunt,      "CC_TARGET_IMPOSSIBLE" },
             { CombatVfxType.CC_Airborne,   "DEBUFF_AIRBORNE" },
             { CombatVfxType.CC_KnockBack,  "CC_KNOCKBACK" },
+            { CombatVfxType.CC_TargetImpossible, "CC_TARGET_IMPOSSIBLE" },
             { CombatVfxType.Shield,        "SHIELD" },
+            { CombatVfxType.StatBuff_DodgeChance, "BUFF_SPECIAL_SHIRAYUKI_AVOID_AND_ATTACK" },
         };
 
         private static Sprite FindSpriteInFolder(string suffix)

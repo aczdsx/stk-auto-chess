@@ -8,6 +8,11 @@ namespace CookApps.AutoBattler
         [Header("Source")]
         [SerializeField] private GameObject _sourcePrefab;
 
+        [Header("Casting")]
+        [SerializeField] private bool _hasCastingVfx = true;
+
+        public bool HasCastingVfx => _hasCastingVfx;
+
         [Header("VFX")]
         [SerializeField] private GameObject _projectilePrefab;
         [SerializeField] private SkillViewData[] _skillEffectPrefabs;

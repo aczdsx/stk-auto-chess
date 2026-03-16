@@ -13,21 +13,34 @@ MonoBehaviour:
   m_Name: "CharacterVfxConfig_17433303_\uD558\uD2F0"
   m_EditorClassIdentifier: 
   _sourcePrefab: {fileID: 4129132503386834351, guid: 06ecfc290395b4e588f070f43c85758e, type: 3}
+  _hasCastingVfx: 0
   _projectilePrefab: {fileID: 6959646811311687050, guid: 8c966f317d1b0ff40a22f760e85f1720, type: 3}
   _skillEffectPrefabs:
   - prefab: {fileID: 1038586211921113381, guid: 60d901ec9247204408bc8aea9f622964, type: 3}
     skillPosition: 1
     followable: 1
     persistent: 0
+    rotationOffset: {x: 0, y: -90, z: 0}
+    flipScale: {x: 1, y: 1, z: -1}
+    useCustomRotation: 0
   - prefab: {fileID: 5244826267845819777, guid: 3eb5d621a73e612459d2b3dd03b7c688, type: 3}
     skillPosition: 1
     followable: 1
     persistent: 0
+    rotationOffset: {x: 0, y: -90, z: 0}
+    flipScale: {x: 1, y: 1, z: -1}
+    useCustomRotation: 0
   - prefab: {fileID: 4139735197508059287, guid: c1f29df4f3be59240820de7f8eefc1dd, type: 3}
     skillPosition: 1
     followable: 1
     persistent: 0
+    rotationOffset: {x: 0, y: -90, z: 0}
+    flipScale: {x: 1, y: 1, z: -1}
+    useCustomRotation: 0
   - prefab: {fileID: 872760751981889867, guid: d6ccd1ea53775df4186f047ceea1c947, type: 3}
     skillPosition: 1
     followable: 1
     persistent: 0
+    rotationOffset: {x: 0, y: -90, z: 0}
+    flipScale: {x: 1, y: 1, z: -1}
+    useCustomRotation: 0
