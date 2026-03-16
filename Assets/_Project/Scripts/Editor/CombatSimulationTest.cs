@@ -23,29 +23,29 @@ namespace CookApps.AutoChess
             // ── Team A (하단, row 0~3) ──
             // 탱커: 고HP, 고방어, 저공, 근접
             AddUnit(state, team: 0, col: 3, row: 1,
-                hp: 800, atk: 40, armor: 40, mr: 30, atkSpd: 80,
+                hp: 800, atk: 40, def: 40, adReduce: 30, apReduce: 30, atkSpd: 80,
                 range: 1, moveSpd: 100, mana: 100);
             // 딜러: 중HP, 고공, 저방어, 원거리
             AddUnit(state, team: 0, col: 1, row: 0,
-                hp: 400, atk: 90, armor: 10, mr: 10, atkSpd: 120,
+                hp: 400, atk: 90, def: 10, adReduce: 10, apReduce: 10, atkSpd: 120,
                 range: 3, moveSpd: 80, mana: 80);
             // 서포터: 중HP, 중공, 중방어, 근접
             AddUnit(state, team: 0, col: 5, row: 0,
-                hp: 600, atk: 50, armor: 25, mr: 20, atkSpd: 100,
+                hp: 600, atk: 50, def: 25, adReduce: 20, apReduce: 20, atkSpd: 100,
                 range: 1, moveSpd: 100, mana: 120);
 
             // ── Team B (상단, row 4~7) ──
             // 탱커
             AddUnit(state, team: 1, col: 3, row: 6,
-                hp: 750, atk: 45, armor: 35, mr: 35, atkSpd: 85,
+                hp: 750, atk: 45, def: 35, adReduce: 35, apReduce: 35, atkSpd: 85,
                 range: 1, moveSpd: 100, mana: 100);
             // 딜러
             AddUnit(state, team: 1, col: 1, row: 7,
-                hp: 350, atk: 100, armor: 10, mr: 10, atkSpd: 110,
+                hp: 350, atk: 100, def: 10, adReduce: 10, apReduce: 10, atkSpd: 110,
                 range: 4, moveSpd: 80, mana: 90);
             // 어쌔신: 백라인 점프
             AddUnit(state, team: 1, col: 5, row: 7,
-                hp: 500, atk: 70, armor: 15, mr: 15, atkSpd: 130,
+                hp: 500, atk: 70, def: 15, adReduce: 15, apReduce: 15, atkSpd: 130,
                 range: 1, moveSpd: 120, mana: 100,
                 backlineJump: true);
 
@@ -87,7 +87,7 @@ namespace CookApps.AutoChess
         }
 
         private static void AddUnit(CombatMatchState state, byte team, int col, int row,
-            int hp, int atk, int armor, int mr, int atkSpd,
+            int hp, int atk, int def, int adReduce, int apReduce, int atkSpd,
             int range, int moveSpd, int mana, bool backlineJump = false)
         {
             int idx = state.UnitCount++;
@@ -108,15 +108,17 @@ namespace CookApps.AutoChess
             unit.MaxHP = hp;
             unit.CurrentHP = hp;
             unit.Attack = atk;
-            unit.Armor = armor;
-            unit.MagicResist = mr;
+            unit.Def = def;
+            unit.AdReduce = adReduce;
+            unit.ApReduce = apReduce;
             unit.AttackSpeed = atkSpd;
             unit.AttackRange = range;
             unit.MoveSpeed = moveSpd;
             unit.MaxMana = mana;
             unit.CurrentMana = 0;
-            unit.CritChance = 25;
-            unit.CritMultiplier = 150;
+            unit.CritRate = 25;
+            unit.CritPower = 150;
+            unit.HitChance = 100;
 
             unit.SizeW = 1;
             unit.SizeH = 1;

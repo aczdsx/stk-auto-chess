@@ -51,7 +51,25 @@ namespace CookApps.AutoChess.View
             }
 
             if (_cpText != null)
-                _cpText.text = spec.stat_atk.ToString("n0");
+            {
+                // ISpecCharacterInfo → 정수 스탯 변환 + 별 배율 적용 → CP 계산
+                int starMul = _currentStarLevel switch { 2 => 180, 3 => 320, _ => 100 };
+                int hp = spec.stat_hp * starMul / 100;
+                int atk = spec.stat_atk * starMul / 100;
+                int def = spec.stat_def;
+                int adReduce = (int)(spec.ad_reduce * 100);
+                int apReduce = (int)(spec.ap_reduce * 100);
+                int atkSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
+                int critRate = Mathf.Max(0, (int)(spec.crit_rate * 100));
+                int critPower = Mathf.Max(0, (int)(spec.crit_power * 100));
+                int atkPierce = Mathf.Clamp((int)(spec.stat_atk_pierce * 100), 0, 100);
+                if (critRate <= 0) critRate = 25;
+                if (critPower <= 0) critPower = 150;
+
+                int cp = CombatPowerCalculator.CalculateFromOldSpec(
+                    hp, atk, def, adReduce, apReduce, atkSpeed, critRate, critPower, atkPierce);
+                _cpText.text = cp.ToString("n0");
+            }
         }
 
         protected override void OnSelected()

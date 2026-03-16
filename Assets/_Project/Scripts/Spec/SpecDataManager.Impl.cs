@@ -801,6 +801,7 @@ namespace CookApps.AutoBattler
                 return null;
             }
 
+            EnsureSkillJobCache();
             List<List<SkillJob>> passiveList = new List<List<SkillJob>>();
             for (int i = 0; i < SkillJobPassive.All.Count; i++)
             {

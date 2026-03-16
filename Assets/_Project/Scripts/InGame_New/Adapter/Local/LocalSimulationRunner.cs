@@ -135,11 +135,14 @@ namespace CookApps.AutoChess
             float tickInterval = 1f / _world.TickRate;
             _tickAccumulator += Time.unscaledDeltaTime * SpeedMultiplier;
 
-            // 프레임 스킵 방지: 최대 3틱/프레임
-            int maxTicksPerFrame = 3;
+            // 누적 시간 상한: 최대 3틱분 (탭 전환/에디터 포커스 아웃 시 catchup 폭주 방지)
+            float maxAccum = tickInterval * 3;
+            if (_tickAccumulator > maxAccum)
+                _tickAccumulator = maxAccum;
+
             int ticksThisFrame = 0;
 
-            while (_tickAccumulator >= tickInterval && ticksThisFrame < maxTicksPerFrame)
+            while (_tickAccumulator >= tickInterval)
             {
                 var prevPhase = _world.CurrentPhase;
 

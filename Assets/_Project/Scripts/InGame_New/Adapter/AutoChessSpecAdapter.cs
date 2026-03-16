@@ -52,8 +52,8 @@ namespace CookApps.AutoChess
                     // 기본 스탯
                     BaseHP = c.stat_hp,
                     BaseAttack = c.stat_atk,
-                    BaseArmor = c.stat_def,
-                    BaseMagicResist = (int)c.ap_reduce,
+                    BaseDef = c.stat_def,
+                    BaseApReduce = (int)(c.ap_reduce * 100),
                     AttackSpeed = Mathf.Max(1, (int)(c.atk_speed * 100)),  // float → 정수 (100 = 1.0)
                     AttackRange = c.atk_range > 0 ? c.atk_range : 1,
                     MoveSpeed = Mathf.Max(1, (int)(c.move_speed * 100)),
@@ -63,10 +63,15 @@ namespace CookApps.AutoChess
                     PrefabId = c.prefab_id,
 
                     // 관통/크리 (float → 정수 퍼센트)
-                    BaseArmorPen = Mathf.Clamp((int)(c.stat_atk_pierce * 100), 0, 100),
-                    BaseMagicPen = Mathf.Clamp((int)(c.stat_res_pierce * 100), 0, 100),
-                    BaseCritChance = Mathf.Max(0, (int)(c.crit_rate * 100)),
-                    BaseCritMultiplier = Mathf.Max(0, (int)(c.crit_power * 100)),
+                    BaseAtkPierce = Mathf.Clamp((int)(c.stat_atk_pierce * 100), 0, 100),
+                    BaseResPierce = Mathf.Clamp((int)(c.stat_res_pierce * 100), 0, 100),
+                    BaseCritRate = Mathf.Max(0, (int)(c.crit_rate * 100)),
+                    BaseCritPower = Mathf.Max(0, (int)(c.crit_power * 100)),
+
+                    // 추가 스탯
+                    BaseAdReduce = (int)(c.ad_reduce * 100),
+                    BaseHealPower = (int)(c.heal_power * 100),
+                    BaseImmuneType = (int)c.immune_type,
 
                     // 크기 (기본 1x1, 추후 스펙 데이터에 크기 필드 추가 시 매핑)
                     SizeW = 1,

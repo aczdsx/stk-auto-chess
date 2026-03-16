@@ -46,7 +46,13 @@ namespace CookApps.AutoChess
     public abstract class SimSkillBase
     {
         public int SkillId { get; private set; }
+
+        /// <summary>스킬 실행 패턴. 서브클래스에서 override하여 지정.</summary>
+        public virtual SkillExecutionType ExecutionType => SkillExecutionType.Instant;
         protected int PowerPercent;
+
+        // ── DelayedApply 지원 ──
+        private int _delayTimer = -1;
         protected DamageType DamageType;
         protected int CastFrames;
 
@@ -103,9 +109,36 @@ namespace CookApps.AutoChess
         /// <summary>타겟 선택 (CombatId 반환, -1이면 타겟 없음)</summary>
         public abstract int SelectTarget(CombatMatchState state, ref CombatUnit caster);
 
-        /// <summary>시전 시간 (프레임). CastFrames 명시 시 우선, 아니면 SkillClipFrames에서 자동 계산.</summary>
+        /// <summary>
+        /// true이면 "지연 1회 발동" 패턴을 base가 자동 처리.
+        /// SkillHitFrames[0] 프레임 대기 후 ApplySkillEffect() 1회 호출.
+        /// ExecutionType == DelayedApply일 때 자동 true.
+        /// </summary>
+        protected virtual bool IsDelayedSingleApply => ExecutionType == SkillExecutionType.DelayedApply;
+
+        /// <summary>IsDelayedSingleApply=true일 때, 딜레이 후 호출되는 실제 효과.</summary>
+        protected virtual void ApplySkillEffect(CombatMatchState state, ref CombatUnit caster,
+            int targetCombatId, ref DeterministicRNG rng) { }
+
+        /// <summary>
+        /// Execute() 호출 전 대기 프레임 수.
+        ///
+        /// ■ 반환값 > 0 : SkillSystem이 SkillCastTimer를 세팅하고,
+        ///   매 프레임 카운트다운한 뒤 0이 되면 Execute()를 호출한다.
+        ///   → 단순 "N프레임 뒤 1회 발동" 스킬에 적합.
+        ///
+        /// ■ 반환값 == 0 : TryCast() 시점에 Execute()를 즉시 호출한다.
+        ///   이때 IsChanneling이 true이면 상태를 CastingSkill로 유지하여
+        ///   다음 프레임부터 OnChannelTick()이 매 프레임 호출된다.
+        ///   → "즉시 초기화 + 프레임 단위 자유 제어" 스킬에 적합.
+        ///
+        /// 기본 우선순위: DelayedApply/Channeling → 0 > CastFrames > SkillHitFrames[0] > 0
+        /// </summary>
         public virtual int GetCastFrames()
         {
+            if (ExecutionType == SkillExecutionType.DelayedApply ||
+                ExecutionType == SkillExecutionType.Channeling)
+                return 0;
             if (CastFrames > 0) return CastFrames;
             if (SkillHitFrames != null && SkillHitFrames.Length > 0) return SkillHitFrames[0];
             return 0;
@@ -115,8 +148,24 @@ namespace CookApps.AutoChess
         public abstract void Execute(CombatMatchState state, ref CombatUnit caster,
             int targetCombatId, ref DeterministicRNG rng);
 
-        /// <summary>채널링 스킬 여부</summary>
-        public virtual bool IsChanneling => false;
+        /// <summary>
+        /// 채널링 스킬 여부.
+        ///
+        /// ■ false (기본값) : Execute() 1회 호출 후 즉시 Idle로 전환.
+        ///   타이밍 제어는 GetCastFrames()의 SkillCastTimer에만 의존.
+        ///
+        /// ■ true : Execute() 호출 후에도 CastingSkill 상태를 유지하며,
+        ///   매 프레임 OnChannelTick()을 호출한다.
+        ///   OnChannelTick()이 false를 반환하면 채널링 종료 → Idle.
+        ///   SkillCastTimer는 사용되지 않으며, 스킬 내부에서 자체 타이머로 제어.
+        ///
+        /// ── 대표 조합 ──
+        /// GetCastFrames()=0 + IsChanneling=true  (커스텀 스킬 대부분)
+        ///   → Execute()에서 타이머/상태 초기화만 수행,
+        ///     OnChannelTick()에서 SkillHitFrames[] 타이밍에 맞춰 효과 적용.
+        ///     지연 1회 발동, 다단히트, 반복 틱 등 자유로운 시간 제어 가능.
+        /// </summary>
+        public virtual bool IsChanneling => ExecutionType != SkillExecutionType.Instant;
 
         /// <summary>
         /// 투사체를 발사하는 스킬 여부.
@@ -132,9 +181,24 @@ namespace CookApps.AutoChess
 
         /// <summary>채널링 틱 처리. false 반환 시 채널링 종료.</summary>
         public virtual bool OnChannelTick(CombatMatchState state, ref CombatUnit caster, ref DeterministicRNG rng)
-            => false;
+        {
+            if (ExecutionType != SkillExecutionType.DelayedApply) return false;
+
+            if (_delayTimer < 0)
+                _delayTimer = SkillHitFrames != null && SkillHitFrames.Length > 0
+                    ? SkillHitFrames[0] : 10;
+
+            _delayTimer--;
+            if (_delayTimer > 0) return true;
+
+            ApplySkillEffect(state, ref caster, caster.CurrentTargetId, ref rng);
+            return false;
+        }
 
         /// <summary>풀 반환 시 초기화</summary>
-        public virtual void Reset() { }
+        public virtual void Reset()
+        {
+            _delayTimer = -1;
+        }
     }
 }

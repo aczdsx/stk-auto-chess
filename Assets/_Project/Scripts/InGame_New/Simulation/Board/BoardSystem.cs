@@ -274,12 +274,21 @@ namespace CookApps.AutoChess
             // 기본 스탯 복사
             unit.MaxHP = spec.BaseHP;
             unit.Attack = spec.BaseAttack;
-            unit.Armor = spec.BaseArmor;
-            unit.MagicResist = spec.BaseMagicResist;
             unit.AttackSpeed = spec.AttackSpeed;
             unit.AttackRange = spec.AttackRange;
             unit.MoveSpeed = spec.MoveSpeed;
             unit.MaxMana = spec.MaxMana;
+
+            unit.Def = spec.BaseDef;
+            unit.AdReduce = spec.BaseAdReduce;
+            unit.ApReduce = spec.BaseApReduce;
+
+            unit.AtkPierce = spec.BaseAtkPierce;
+            unit.ResPierce = spec.BaseResPierce;
+            unit.CritRate = spec.BaseCritRate;
+            unit.CritPower = spec.BaseCritPower;
+            unit.HealPower = spec.BaseHealPower;
+            unit.ImmuneType = spec.BaseImmuneType;
             unit.TraitFlags = spec.TraitFlags;
             unit.SizeW = spec.SizeW > 0 ? spec.SizeW : (byte)1;
             unit.SizeH = spec.SizeH > 0 ? spec.SizeH : (byte)1;

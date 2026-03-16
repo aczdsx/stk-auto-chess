@@ -16,6 +16,7 @@ namespace CookApps.AutoChess.View
         public struct EffectIconEntry
         {
             public CombatVfxType EffectType;
+            public StatModType StatType;
             public Sprite IconSprite;
         }
 
@@ -26,21 +27,34 @@ namespace CookApps.AutoChess.View
             public Sprite IconSprite;
             [Tooltip("이 마커가 활성일 때 숨길 범용 이펙트 아이콘 (None이면 대체 안 함)")]
             public CombatVfxType ReplacesEffect;
+            public StatModType ReplacesStatType;
         }
 
-        [Header("상태효과/CC 아이콘")]
-        [SerializeField] private EffectIconEntry[] _effectIcons;
+        [Header("── 버프 (Shield, StatBuff, 지속힐, 면역류) ──")]
+        [SerializeField] private EffectIconEntry[] _buffIcons;
+
+        [Header("── 디버프 (StatDebuff, 지속데미지, 회복감소) ──")]
+        [SerializeField] private EffectIconEntry[] _debuffIcons;
+
+        [Header("── CC (Stun, Silence, Slow, Freeze …) ──")]
+        [SerializeField] private EffectIconEntry[] _ccIcons;
 
         [Header("스킬마커 아이콘 (루키다 도깨비불, 테토라 분노 등)")]
         [SerializeField] private SkillMarkerIconEntry[] _skillMarkerIcons;
 
-        private Dictionary<CombatVfxType, EffectIconEntry> _effectCache;
+        private Dictionary<(CombatVfxType, StatModType), EffectIconEntry> _effectCache;
         private Dictionary<int, SkillMarkerIconEntry> _markerCache;
 
-        public bool TryGetEffectIcon(CombatVfxType type, out EffectIconEntry entry)
+        public bool TryGetEffectIcon(CombatVfxType type, StatModType statType, out EffectIconEntry entry)
         {
             BuildCacheIfNeeded();
-            return _effectCache.TryGetValue(type, out entry);
+            return _effectCache.TryGetValue((type, statType), out entry);
+        }
+
+        // 하위호환: statType 없이 호출 시 default 사용
+        public bool TryGetEffectIcon(CombatVfxType type, out EffectIconEntry entry)
+        {
+            return TryGetEffectIcon(type, default, out entry);
         }
 
         public bool TryGetMarkerIcon(int markerValue, out SkillMarkerIconEntry entry)
@@ -53,16 +67,10 @@ namespace CookApps.AutoChess.View
         {
             if (_effectCache != null) return;
 
-            _effectCache = new Dictionary<CombatVfxType, EffectIconEntry>();
-            if (_effectIcons != null)
-            {
-                for (int i = 0; i < _effectIcons.Length; i++)
-                {
-                    var e = _effectIcons[i];
-                    if (e.EffectType != CombatVfxType.None)
-                        _effectCache[e.EffectType] = e;
-                }
-            }
+            _effectCache = new Dictionary<(CombatVfxType, StatModType), EffectIconEntry>();
+            AddToCache(_buffIcons);
+            AddToCache(_debuffIcons);
+            AddToCache(_ccIcons);
 
             _markerCache = new Dictionary<int, SkillMarkerIconEntry>();
             if (_skillMarkerIcons != null)
@@ -73,6 +81,17 @@ namespace CookApps.AutoChess.View
                     if (e.MarkerType != SkillMarkerType.None)
                         _markerCache[(int)e.MarkerType] = e;
                 }
+            }
+        }
+
+        private void AddToCache(EffectIconEntry[] entries)
+        {
+            if (entries == null) return;
+            for (int i = 0; i < entries.Length; i++)
+            {
+                var e = entries[i];
+                if (e.EffectType != CombatVfxType.None)
+                    _effectCache[(e.EffectType, e.StatType)] = e;
             }
         }
 
@@ -87,28 +106,33 @@ namespace CookApps.AutoChess.View
             _effectCache = null;
             _markerCache = null;
 
-            // EffectIcons 중복 체크
-            if (_effectIcons != null)
-            {
-                var seen = new HashSet<CombatVfxType>();
-                for (int i = 0; i < _effectIcons.Length; i++)
-                {
-                    var t = _effectIcons[i].EffectType;
-                    if (t != CombatVfxType.None && !seen.Add(t))
-                        Debug.LogError($"[BuffIconConfig] EffectIcons 중복: {t} (index {i})");
-                }
-            }
+            // EffectIcons 중복 체크 (전체 카테고리)
+            var seen = new HashSet<(CombatVfxType, StatModType)>();
+            ValidateArray(_buffIcons, "Buff", seen);
+            ValidateArray(_debuffIcons, "Debuff", seen);
+            ValidateArray(_ccIcons, "CC", seen);
 
             // SkillMarkerIcons 중복 체크
             if (_skillMarkerIcons != null)
             {
-                var seen = new HashSet<SkillMarkerType>();
+                var markerSeen = new HashSet<SkillMarkerType>();
                 for (int i = 0; i < _skillMarkerIcons.Length; i++)
                 {
                     var t = _skillMarkerIcons[i].MarkerType;
-                    if (t != SkillMarkerType.None && !seen.Add(t))
+                    if (t != SkillMarkerType.None && !markerSeen.Add(t))
                         Debug.LogError($"[BuffIconConfig] SkillMarkerIcons 중복: {t} (index {i})");
                 }
+            }
+        }
+
+        private static void ValidateArray(EffectIconEntry[] entries, string category, HashSet<(CombatVfxType, StatModType)> seen)
+        {
+            if (entries == null) return;
+            for (int i = 0; i < entries.Length; i++)
+            {
+                var e = entries[i];
+                if (e.EffectType != CombatVfxType.None && !seen.Add((e.EffectType, e.StatType)))
+                    Debug.LogError($"[BuffIconConfig] {category} 중복: {e.EffectType}/{e.StatType} (index {i})");
             }
         }
 
@@ -116,33 +140,38 @@ namespace CookApps.AutoChess.View
         private const string IconFolder = "Assets/_Project/Addressables/Remote/Textures/Icon/Icon_Buffs";
         private const string IconPrefix = "BuffDebuffIcon_";
 
-        // CombatVfxType → 스프라이트 suffix 매핑 (폴더의 실제 파일명 기준)
-        private static readonly Dictionary<CombatVfxType, string> KnownEffectMap = new()
+        // (CombatVfxType, StatModType) → 스프라이트 suffix 매핑 (폴더의 실제 파일명 기준)
+        private static readonly Dictionary<(CombatVfxType, StatModType), string> KnownEffectMap = new()
         {
-            { CombatVfxType.StatBuff_Attack,       "BUFF_AD_PERCENT_UP" },
-            { CombatVfxType.StatBuff_Armor,        "BUFF_DEF_UP" },
-            { CombatVfxType.StatBuff_MagicResist,  "BUFF_AD_REDUCE_UP" },
-            { CombatVfxType.StatBuff_AttackSpeed,  "BUFF_ATK_SPEED_UP" },
-            { CombatVfxType.ContinuousHeal,        "BUFF_SPECIAL_ENKI_PASSIVE_HEALUP" },
-            { CombatVfxType.CCImmunity,            "BUFF_IMMUNE" },
-            { CombatVfxType.DOTImmunity,           "BUFF_IMMUNE" },
-            { CombatVfxType.DebuffImmunity,        "BUFF_IMMUNE" },
-            { CombatVfxType.StatDebuff_Attack,     "DEBUFF_AD_PERCENT_DOWN" },
-            { CombatVfxType.StatDebuff_Armor,      "DEBUFF_DEF_PERCENT_DOWN" },
-            { CombatVfxType.StatDebuff_MagicResist,"DEBUFF_CRIT_DOWN" },
-            { CombatVfxType.StatDebuff_AttackSpeed,"DEBUFF_ATK_SPEED_DOWN" },
-            { CombatVfxType.ContinuousDamage,      "DEBUFF_POISON" },
-            { CombatVfxType.HealAmountDown,        "DEBUFF_CHILL" },
-            { CombatVfxType.CC_Stun,       "CC_STUN" },
-            { CombatVfxType.CC_Silence,    "CC_SLIENCE" },
-            { CombatVfxType.CC_Slow,       "DEBUFF_MOVE_DOWN" },
-            { CombatVfxType.CC_Freeze,     "CC_FREEZ" },
-            { CombatVfxType.CC_Taunt,      "CC_TARGET_IMPOSSIBLE" },
-            { CombatVfxType.CC_Airborne,   "DEBUFF_AIRBORNE" },
-            { CombatVfxType.CC_KnockBack,  "CC_KNOCKBACK" },
-            { CombatVfxType.CC_TargetImpossible, "CC_TARGET_IMPOSSIBLE" },
-            { CombatVfxType.Shield,        "SHIELD" },
-            { CombatVfxType.StatBuff_DodgeChance, "BUFF_SPECIAL_SHIRAYUKI_AVOID_AND_ATTACK" },
+            // ── 버프 ──
+            { (CombatVfxType.StatBuff, StatModType.Attack),       "BUFF_AD_PERCENT_UP" },
+            { (CombatVfxType.StatBuff, StatModType.Def),          "BUFF_DEF_UP" },
+            { (CombatVfxType.StatBuff, StatModType.AdReduce),     "BUFF_AD_REDUCE_UP" },
+            { (CombatVfxType.StatBuff, StatModType.ApReduce),     "BUFF_AD_REDUCE_UP" },
+            { (CombatVfxType.StatBuff, StatModType.AttackSpeed),  "BUFF_ATK_SPEED_UP" },
+            { (CombatVfxType.StatBuff, StatModType.DodgeChance),  "BUFF_SPECIAL_SHIRAYUKI_AVOID_AND_ATTACK" },
+            { (CombatVfxType.ContinuousHeal, default),            "BUFF_SPECIAL_ENKI_PASSIVE_HEALUP" },
+            { (CombatVfxType.CCImmunity, default),                "BUFF_IMMUNE" },
+            { (CombatVfxType.DOTImmunity, default),               "BUFF_IMMUNE" },
+            { (CombatVfxType.DebuffImmunity, default),            "BUFF_IMMUNE" },
+            { (CombatVfxType.Shield, default),                    "SHIELD" },
+            // ── 디버프 ──
+            { (CombatVfxType.StatDebuff, StatModType.Attack),     "DEBUFF_AD_PERCENT_DOWN" },
+            { (CombatVfxType.StatDebuff, StatModType.Def),        "DEBUFF_DEF_PERCENT_DOWN" },
+            { (CombatVfxType.StatDebuff, StatModType.AdReduce),   "DEBUFF_CRIT_DOWN" },
+            { (CombatVfxType.StatDebuff, StatModType.ApReduce),   "DEBUFF_CRIT_DOWN" },
+            { (CombatVfxType.StatDebuff, StatModType.AttackSpeed),"DEBUFF_ATK_SPEED_DOWN" },
+            { (CombatVfxType.ContinuousDamage, default),          "DEBUFF_POISON" },
+            { (CombatVfxType.HealAmountDown, default),            "DEBUFF_CHILL" },
+            // ── CC ──
+            { (CombatVfxType.CC_Stun, default),       "CC_STUN" },
+            { (CombatVfxType.CC_Silence, default),    "CC_SLIENCE" },
+            { (CombatVfxType.CC_Slow, default),       "DEBUFF_MOVE_DOWN" },
+            { (CombatVfxType.CC_Freeze, default),     "CC_FREEZ" },
+            { (CombatVfxType.CC_Taunt, default),      "CC_TARGET_IMPOSSIBLE" },
+            { (CombatVfxType.CC_Airborne, default),   "DEBUFF_AIRBORNE" },
+            { (CombatVfxType.CC_KnockBack, default),  "CC_KNOCKBACK" },
+            { (CombatVfxType.CC_TargetImpossible, default), "CC_TARGET_IMPOSSIBLE" },
         };
 
         private static Sprite FindSpriteInFolder(string suffix)
@@ -159,7 +188,7 @@ namespace CookApps.AutoChess.View
             return null;
         }
 
-        /// <summary>Icon_Buffs 폴더를 스캔하여 EffectIcons 배열에 Sprite 직접 매핑</summary>
+        /// <summary>Icon_Buffs 폴더를 스캔하여 카테고리별 배열에 Sprite 직접 매핑</summary>
         [ContextMenu("Auto-Map from Icon Folder")]
         private void AutoMapFromFolder()
         {
@@ -179,8 +208,10 @@ namespace CookApps.AutoChess.View
                 }
             }
 
-            // 2) KnownEffectMap 기준으로 EffectIcons 생성 (Sprite 직접 참조)
-            var effectList = new List<EffectIconEntry>();
+            // 2) KnownEffectMap 기준으로 카테고리별 리스트 생성
+            var buffList = new List<EffectIconEntry>();
+            var debuffList = new List<EffectIconEntry>();
+            var ccList = new List<EffectIconEntry>();
             var usedSuffixes = new HashSet<string>();
 
             foreach (var kv in KnownEffectMap)
@@ -188,18 +219,29 @@ namespace CookApps.AutoChess.View
                 Sprite sprite = null;
                 if (!spriteMap.TryGetValue(kv.Value, out sprite))
                 {
-                    Debug.LogWarning($"[BuffIconConfig] 스프라이트 없음: {IconPrefix}{kv.Value} (CombatVfxType.{kv.Key})");
+                    Debug.LogWarning($"[BuffIconConfig] 스프라이트 없음: {IconPrefix}{kv.Value} (CombatVfxType.{kv.Key.Item1}/{kv.Key.Item2})");
                 }
 
-                effectList.Add(new EffectIconEntry
+                var entry = new EffectIconEntry
                 {
-                    EffectType = kv.Key,
+                    EffectType = kv.Key.Item1,
+                    StatType = kv.Key.Item2,
                     IconSprite = sprite,
-                });
+                };
+
+                if (CombatVfxConfigSO.IsBuff(kv.Key.Item1))
+                    buffList.Add(entry);
+                else if (CombatVfxConfigSO.IsDebuff(kv.Key.Item1))
+                    debuffList.Add(entry);
+                else if (CombatVfxConfigSO.IsCC(kv.Key.Item1))
+                    ccList.Add(entry);
+
                 usedSuffixes.Add(kv.Value);
             }
 
-            _effectIcons = effectList.ToArray();
+            _buffIcons = buffList.ToArray();
+            _debuffIcons = debuffList.ToArray();
+            _ccIcons = ccList.ToArray();
 
             // 3) 매핑되지 않은 스프라이트 로그 출력
             int unmapped = 0;
@@ -244,6 +286,7 @@ namespace CookApps.AutoChess.View
                     MarkerType = SkillMarkerType.None, // 인스펙터에서 드롭다운 선택
                     IconSprite = kv.Value,
                     ReplacesEffect = CombatVfxType.None,
+                    ReplacesStatType = default,
                 });
                 Debug.Log($"[BuffIconConfig] SkillMarker 후보 추가: {IconPrefix}{kv.Key} (MarkerType 미설정)");
             }
@@ -253,7 +296,7 @@ namespace CookApps.AutoChess.View
             _effectCache = null;
             _markerCache = null;
             UnityEditor.EditorUtility.SetDirty(this);
-            Debug.Log($"[BuffIconConfig] 자동 매핑 완료: Effect {effectList.Count}개, SkillMarker {markerList.Count}개, 미매핑 {unmapped}개");
+            Debug.Log($"[BuffIconConfig] 자동 매핑 완료: 버프 {buffList.Count} / 디버프 {debuffList.Count} / CC {ccList.Count} / SkillMarker {markerList.Count}개, 미매핑 {unmapped}개");
         }
 #endif
     }

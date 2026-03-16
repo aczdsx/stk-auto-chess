@@ -79,25 +79,30 @@ namespace CookApps.AutoChess
                 combatUnit.MaxHP = srcUnit.MaxHP;
                 combatUnit.CurrentHP = srcUnit.MaxHP;
                 combatUnit.Attack = srcUnit.Attack;
-                combatUnit.Armor = srcUnit.Armor;
-                combatUnit.MagicResist = srcUnit.MagicResist;
                 combatUnit.AttackSpeed = srcUnit.AttackSpeed;
                 combatUnit.AttackRange = srcUnit.AttackRange;
                 combatUnit.MoveSpeed = srcUnit.MoveSpeed;
                 combatUnit.MaxMana = srcUnit.MaxMana;
                 combatUnit.CurrentMana = 0;
+
+                combatUnit.Def = srcUnit.Def;
+                combatUnit.AdReduce = srcUnit.AdReduce;
+                combatUnit.ApReduce = srcUnit.ApReduce;
+
                 // 마나 리젠 초기화 (글로벌 기본값)
                 combatUnit.ManaRegenPerSec = world.Config.DefaultManaRegenPerSec;
                 combatUnit.ManaGainOnAttack = world.Config.DefaultManaGainOnAttack;
                 combatUnit.ManaGainOnHit = world.Config.DefaultManaGainOnHit;
                 combatUnit.ManaRegenRateBonus = 0;
-                // 관통/크리: 스펙값 우선, 없으면 기본값
-                var spec = FindChampionSpec(world, srcUnit.ChampionSpecId);
-                combatUnit.ArmorPenetration = spec.BaseArmorPen;
-                combatUnit.MagicPenetration = spec.BaseMagicPen;
-                combatUnit.CritChance = spec.BaseCritChance > 0 ? spec.BaseCritChance : 25;
-                combatUnit.CritMultiplier = spec.BaseCritMultiplier > 0 ? spec.BaseCritMultiplier : 150;
-                combatUnit.HitChance = 100;  // 명중률 기본 100%
+
+                // 관통/크리
+                combatUnit.AtkPierce = srcUnit.AtkPierce;
+                combatUnit.ResPierce = srcUnit.ResPierce;
+                combatUnit.CritRate = srcUnit.CritRate > 0 ? srcUnit.CritRate : 25;
+                combatUnit.CritPower = srcUnit.CritPower > 0 ? srcUnit.CritPower : 150;
+                combatUnit.HitChance = 100;
+                combatUnit.HealPower = srcUnit.HealPower;
+                combatUnit.ImmuneType = srcUnit.ImmuneType;
                 combatUnit.TraitFlags = srcUnit.TraitFlags;
 
                 // 크기 복사
@@ -244,25 +249,30 @@ namespace CookApps.AutoChess
                 unit.MaxHP = enemy.MaxHP;
                 unit.CurrentHP = enemy.MaxHP;
                 unit.Attack = enemy.Attack;
-                unit.Armor = enemy.Armor;
-                unit.MagicResist = enemy.MagicResist;
                 unit.AttackSpeed = enemy.AttackSpeed;
                 unit.AttackRange = enemy.AttackRange;
                 unit.MoveSpeed = enemy.MoveSpeed;
                 unit.MaxMana = enemy.MaxMana;
                 unit.CurrentMana = 0;
+
+                unit.Def = enemy.Def;
+                unit.AdReduce = enemy.AdReduce;
+                unit.ApReduce = enemy.ApReduce;
+
                 // 마나 리젠 초기화 (글로벌 기본값)
                 unit.ManaRegenPerSec = world.Config.DefaultManaRegenPerSec;
                 unit.ManaGainOnAttack = world.Config.DefaultManaGainOnAttack;
                 unit.ManaGainOnHit = world.Config.DefaultManaGainOnHit;
                 unit.ManaRegenRateBonus = 0;
-                // PvE 적: 스펙값 우선, 없으면 기본값
-                var enemySpec = FindChampionSpec(world, enemy.ChampionSpecId);
-                unit.ArmorPenetration = enemySpec.BaseArmorPen;
-                unit.MagicPenetration = enemySpec.BaseMagicPen;
-                unit.CritChance = enemySpec.BaseCritChance > 0 ? enemySpec.BaseCritChance : 25;
-                unit.CritMultiplier = enemySpec.BaseCritMultiplier > 0 ? enemySpec.BaseCritMultiplier : 150;
-                unit.HitChance = 100;  // 명중률 기본 100%
+
+                // PvE 적: PvEEnemyData에서 복사, 없으면 기본값
+                unit.AtkPierce = enemy.AtkPierce;
+                unit.ResPierce = enemy.ResPierce;
+                unit.CritRate = enemy.CritRate > 0 ? enemy.CritRate : 25;
+                unit.CritPower = enemy.CritPower > 0 ? enemy.CritPower : 150;
+                unit.HitChance = 100;
+                unit.HealPower = enemy.HealPower;
+                unit.ImmuneType = enemy.ImmuneType;
                 unit.TraitFlags = enemy.TraitFlags;
                 unit.SkillSpecId = enemy.SkillSpecId;
                 unit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(enemy.ChampionSpecId, out _);
@@ -308,8 +318,9 @@ namespace CookApps.AutoChess
             unit.MaxHP = 100;
             unit.CurrentHP = 100;
             unit.Attack = 10;
-            unit.Armor = 0;
-            unit.MagicResist = 0;
+            unit.Def = 0;
+            unit.AdReduce = 0;
+            unit.ApReduce = 0;
             unit.AttackSpeed = 100;
             unit.AttackRange = 1;
             unit.MoveSpeed = 100;
@@ -319,8 +330,12 @@ namespace CookApps.AutoChess
             unit.ManaGainOnAttack = 10;
             unit.ManaGainOnHit = 10;
             unit.ManaRegenRateBonus = 0;
-            unit.CritChance = 25;
-            unit.CritMultiplier = 150;
+            unit.AtkPierce = 0;
+            unit.ResPierce = 0;
+            unit.CritRate = 25;
+            unit.CritPower = 150;
+            unit.HitChance = 100;
+            unit.HealPower = 0;
             unit.CurrentTargetId = CombatUnit.InvalidId;
             unit.AttackCooldown = 0;
             unit.PendingAtkTargetId = CombatUnit.InvalidId;

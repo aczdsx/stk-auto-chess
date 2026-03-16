@@ -2,10 +2,8 @@ namespace CookApps.AutoChess
 {
     /// <summary>
     /// 테토라: 단일 데미지 + 넉백
-    /// 채널링 스킬 — Execute 즉시 → SkillHitFrames[0] 타이밍에 효과 적용.
-    /// - vfx[0]: 대검 휘두르기 (caster→target 방향 rotation + flip)
-    /// - 충돌 시: 착지 지점 AoE 데미지 + 스턴 + vfx[1]
-    /// - 미충돌 시: 추가 효과 없음 (타격딜만)
+    /// IsDelayedSingleApply — SkillHitFrames[0] 타이밍에 효과 적용.
+    /// 충돌 시: 착지 지점 AoE 데미지 + vfx[1]
     /// </summary>
     public class SimSkillTetoraKnockback : SimSkillBase
     {
@@ -13,13 +11,7 @@ namespace CookApps.AutoChess
         private int _stunAoERange;
         private int _worldTickRate;
 
-        // 채널링 상태
-        private int _cachedTargetId;
-        private int _phaseTimer;
-        private bool _fired;
-
-        public override bool IsChanneling => true;
-        public override int GetCastFrames() => 0;
+        public override SkillExecutionType ExecutionType => SkillExecutionType.DelayedApply;
 
         public override void Initialize(SkillParams p)
         {
@@ -35,31 +27,12 @@ namespace CookApps.AutoChess
         }
 
         public override void Execute(CombatMatchState state, ref CombatUnit caster,
+            int targetCombatId, ref DeterministicRNG rng) { }
+
+        protected override void ApplySkillEffect(CombatMatchState state, ref CombatUnit caster,
             int targetCombatId, ref DeterministicRNG rng)
         {
-            _cachedTargetId = targetCombatId;
-            _fired = false;
-            _phaseTimer = SkillHitFrames != null && SkillHitFrames.Length > 0
-                ? SkillHitFrames[0]
-                : 15; // fallback 0.5초@30fps
-        }
-
-        public override bool OnChannelTick(CombatMatchState state, ref CombatUnit caster, ref DeterministicRNG rng)
-        {
-            if (_fired) return false;
-
-            _phaseTimer--;
-            if (_phaseTimer > 0) return true;
-
-            // SkillHitFrames[0] 타이밍 도달 → 효과 적용
-            _fired = true;
-            ApplyKnockback(state, ref caster);
-            return false;
-        }
-
-        private void ApplyKnockback(CombatMatchState state, ref CombatUnit caster)
-        {
-            int idx = state.FindUnitIndex(_cachedTargetId);
+            int idx = state.FindUnitIndex(targetCombatId);
             if (idx < 0) return;
             ref var target = ref state.Units[idx];
 
@@ -80,10 +53,10 @@ namespace CookApps.AutoChess
                 dirCol: (sbyte)dirCol, dirRow: (sbyte)dirRow);
 
             // 데미지
-            SkillDamageHelper.DealDamage(state, ref caster, _cachedTargetId, PowerPercent, DamageType);
+            SkillDamageHelper.DealDamage(state, ref caster, targetCombatId, PowerPercent, DamageType);
 
             // 사망 체크 (DealDamage 이후 인덱스 재검색)
-            idx = state.FindUnitIndex(_cachedTargetId);
+            idx = state.FindUnitIndex(targetCombatId);
             if (idx < 0 || !state.Units[idx].IsAlive) return;
             target = ref state.Units[idx];
 
@@ -118,9 +91,9 @@ namespace CookApps.AutoChess
 
         public override void Reset()
         {
+            base.Reset();
             _knockbackDistance = 4;
             _stunAoERange = 1;
-            _fired = false;
         }
     }
 }

@@ -5,6 +5,7 @@ using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using CookApps.BattleSystem;
+using TMPro;
 using UnityEngine;
 
 namespace CookApps.AutoChess.View
@@ -35,6 +36,8 @@ namespace CookApps.AutoChess.View
         [SerializeField] private GameObject _recommendObjOn;
         [SerializeField] private GameObject _recommendObjOff;
         [SerializeField] private CAButton _presetButton;
+        [SerializeField] private TMP_Text _myTeamCpText;
+        [SerializeField] private TMP_Text _enemyTeamCpText;
         private bool _presetLoading;
 
         private TableViewController<int, BenchUnitSlot> _benchController;
@@ -81,6 +84,7 @@ namespace CookApps.AutoChess.View
         protected override void OnSyncState(GameWorld world)
         {
             UpdateRecommendState();
+            UpdateTeamCp();
         }
 
         // ── 전투 시작 ──
@@ -189,8 +193,8 @@ namespace CookApps.AutoChess.View
         {
             if (!PassFilter(entityId)) return;
             ref var unit = ref CurrentWorld.GetUnit(entityId);
-            var spec = SpecDataManager.Instance.GetSpecCharacter(unit.ChampionSpecId);
-            list.Add((entityId, spec?.stat_atk ?? 0));
+            int cp = CombatPowerCalculator.Calculate(ref unit);
+            list.Add((entityId, cp));
         }
 
         private void UpdateRecommendState()
@@ -204,6 +208,59 @@ namespace CookApps.AutoChess.View
 
             _recommendObjOn.SetActive(canRecommend);
             _recommendObjOff.SetActive(!canRecommend);
+        }
+
+        private void UpdateTeamCp()
+        {
+            if (CurrentWorld == null) return;
+
+            if (_myTeamCpText != null)
+                _myTeamCpText.text = CalcBoardCp(PlayerIndex).ToString("n0");
+
+            if (_enemyTeamCpText != null)
+                _enemyTeamCpText.text = CalcEnemyCp().ToString("n0");
+        }
+
+        private int CalcBoardCp(byte playerIndex)
+        {
+            if (CurrentWorld.BoardSlots == null
+                || playerIndex >= CurrentWorld.BoardSlots.Length
+                || CurrentWorld.BoardSlots[playerIndex] == null)
+                return 0;
+
+            int totalCp = 0;
+            var boardSlots = CurrentWorld.BoardSlots[playerIndex];
+            var visited = new HashSet<int>();
+
+            for (int i = 0; i < boardSlots.Length; i++)
+            {
+                int entityId = boardSlots[i];
+                if (entityId == UnitData.InvalidId || !visited.Add(entityId)) continue;
+
+                ref var unit = ref CurrentWorld.GetUnit(entityId);
+                totalCp += CombatPowerCalculator.Calculate(ref unit);
+            }
+
+            return totalCp;
+        }
+
+        private int CalcEnemyCp()
+        {
+            // PvE 적: BoardSlots가 아닌 PvEEnemies에서 계산
+            if (CurrentWorld.PvEEnemies != null && CurrentWorld.PvEEnemyCount > 0)
+            {
+                int totalCp = 0;
+                for (int i = 0; i < CurrentWorld.PvEEnemyCount; i++)
+                {
+                    ref var enemy = ref CurrentWorld.PvEEnemies[i];
+                    totalCp += CombatPowerCalculator.Calculate(ref enemy);
+                }
+                return totalCp;
+            }
+
+            // PvP 적: 상대 보드에서 계산
+            byte enemyIndex = (byte)(PlayerIndex == 0 ? 1 : 0);
+            return CalcBoardCp(enemyIndex);
         }
 
         // ── 프리셋 ──

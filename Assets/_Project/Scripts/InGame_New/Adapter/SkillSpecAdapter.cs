@@ -97,6 +97,7 @@ namespace CookApps.AutoChess
                 case 217433303: // 하티
                 case 217323201: // 미사
                 case 217263103: // 루키다
+                case 215642501: // 엘리스
                     return SimSkillArchetype.Custom;
             }
 
@@ -108,7 +109,6 @@ namespace CookApps.AutoChess
                 case 217513401: return SimSkillArchetype.LineDamage;      // 아트레시아
                 case 1406031:   return SimSkillArchetype.Heal;            // 아란
                 case 215322201: return SimSkillArchetype.PatternDamage;   // 메이
-                case 215642501: return SimSkillArchetype.AoEDamage;       // 엘리스
                 case 217353203: return SimSkillArchetype.AoEDamage;       // 라키유
             }
 
@@ -344,6 +344,12 @@ namespace CookApps.AutoChess
                     float sealDurSec = GetSpecRate(specList, 1, 3f);
                     p.CCDurationFrames = SecondsToFrames(sealDurSec, tickRate);
                     p.PowerPercent = 0; // 데미지 없음
+                    break;
+                }
+                case 215642501: // 엘리스: 다이아몬드 AoE (맨해튼 거리 1)
+                {
+                    // {0}=쿨타임(초), {1}=데미지배율(%), {2}=추가데미지배율(%)
+                    p.PowerPercent = Mathf.RoundToInt(GetSpecRate(specList, 1, 200f));
                     break;
                 }
                 case 217663506: // 시라유키: 최저HP 적 3명 순차 텔레포트 + 회피 버프

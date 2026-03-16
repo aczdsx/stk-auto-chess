@@ -170,11 +170,14 @@ namespace CookApps.AutoChess
         {
             switch (effect.Type)
             {
-                case SynergyEffectType.BonusArmor:
-                    unit.Armor += effect.Value;
+                case SynergyEffectType.BonusDef:
+                    unit.Def += effect.Value;
                     break;
-                case SynergyEffectType.BonusMagicResist:
-                    unit.MagicResist += effect.Value;
+                case SynergyEffectType.BonusAdReduce:
+                    unit.AdReduce += effect.Value;
+                    break;
+                case SynergyEffectType.BonusApReduce:
+                    unit.ApReduce += effect.Value;
                     break;
                 case SynergyEffectType.BonusAttack:
                     unit.Attack += effect.Value;
@@ -201,10 +204,10 @@ namespace CookApps.AutoChess
                     unit.MaxMana += effect.Value;
                     break;
                 case SynergyEffectType.BonusCritChance:
-                    unit.CritChance += effect.Value;
+                    unit.CritRate += effect.Value;
                     break;
                 case SynergyEffectType.BonusCritMultiplier:
-                    unit.CritMultiplier += effect.Value;
+                    unit.CritPower += effect.Value;
                     break;
                 case SynergyEffectType.StartingMana:
                     unit.CurrentMana += effect.Value;
@@ -227,17 +230,17 @@ namespace CookApps.AutoChess
                     int shieldAmt = unit.MaxHP * effect.ValuePercent / 100;
                     StatusEffectSystem.AddEffect(state, unitIndex, StatusEffectType.Shield, shieldAmt, -1);
                     break;
-                case SynergyEffectType.DamageReduction:
-                    unit.DamageReduction += effect.Value;
+                case SynergyEffectType.ReduceDef:
+                    unit.Def -= unit.Def * effect.ValuePercent / 100;
+                    if (unit.Def < 0) unit.Def = 0;
                     break;
-                case SynergyEffectType.ReduceArmor:
-                    // 디버프: 적군 방어력 감소 (퍼센트)
-                    unit.Armor -= unit.Armor * effect.ValuePercent / 100;
-                    if (unit.Armor < 0) unit.Armor = 0;
+                case SynergyEffectType.ReduceAdReduce:
+                    unit.AdReduce -= unit.AdReduce * effect.ValuePercent / 100;
+                    if (unit.AdReduce < 0) unit.AdReduce = 0;
                     break;
-                case SynergyEffectType.ReduceMagicResist:
-                    unit.MagicResist -= unit.MagicResist * effect.ValuePercent / 100;
-                    if (unit.MagicResist < 0) unit.MagicResist = 0;
+                case SynergyEffectType.ReduceApReduce:
+                    unit.ApReduce -= unit.ApReduce * effect.ValuePercent / 100;
+                    if (unit.ApReduce < 0) unit.ApReduce = 0;
                     break;
             }
         }

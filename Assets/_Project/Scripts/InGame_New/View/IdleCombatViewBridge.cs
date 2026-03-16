@@ -156,7 +156,8 @@ namespace CookApps.AutoChess.View
                     int skillSpecId = evt.Value1;
                     _combatViewManager.OnProjectileSpawned(
                         evt.EntityId, evt.TargetEntityId, evt.ProjType,
-                        evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId, projectileId, skillSpecId);
+                        evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId, projectileId, skillSpecId,
+                        evt.SkillVfxIndex, evt.MoveInterval, evt.Flag0, evt.ArrivalVfxIndex);
                     break;
                 }
 
@@ -274,19 +275,27 @@ namespace CookApps.AutoChess.View
                     break;
 
                 case SimEventType.StatusEffectAdded:
-                    _combatVfxManager?.OnEffectAdded(evt.EntityId, (CombatVfxType)evt.Value0);
+                {
+                    var vfxType = SimEventHelper.DecodeVfxType(evt.Value0);
+                    var statType = SimEventHelper.DecodeStatType(evt.Value0);
+                    _combatVfxManager?.OnEffectAdded(evt.EntityId, vfxType, statType);
                     break;
+                }
 
                 case SimEventType.StatusEffectRemoved:
-                    _combatVfxManager?.OnEffectRemoved(evt.EntityId, (CombatVfxType)evt.Value0);
+                {
+                    var vfxType = SimEventHelper.DecodeVfxType(evt.Value0);
+                    var statType = SimEventHelper.DecodeStatType(evt.Value0);
+                    _combatVfxManager?.OnEffectRemoved(evt.EntityId, vfxType, statType);
                     break;
+                }
 
                 case SimEventType.CCAdded:
-                    _combatVfxManager?.OnEffectAdded(evt.EntityId, (CombatVfxType)evt.Value0);
+                    _combatVfxManager?.OnEffectAdded(evt.EntityId, (CombatVfxType)evt.Value0, default);
                     break;
 
                 case SimEventType.CCRemoved:
-                    _combatVfxManager?.OnEffectRemoved(evt.EntityId, (CombatVfxType)evt.Value0);
+                    _combatVfxManager?.OnEffectRemoved(evt.EntityId, (CombatVfxType)evt.Value0, default);
                     // 미사 봉인 해제: 숨겨진 캐릭터 복원
                     {
                         var unitView = _unitViewManager?.FindCombatView(evt.EntityId);

@@ -7,16 +7,8 @@ namespace CookApps.AutoChess
         private int _moveInterval;
         private int _width;
 
-        // 채널링용 상태
-        private int _phaseTimer;
-        private int _targetCombatId;
-        private bool _fired; // 투사체 발사 완료 여부
-
+        public override SkillExecutionType ExecutionType => SkillExecutionType.DelayedApply;
         public override bool HasProjectile => true;
-        public override bool IsChanneling => true;
-
-        // Execute 즉시 호출 → OnChannelTick에서 SkillHitFrames 타이밍에 투사체 생성
-        public override int GetCastFrames() => 0;
 
         public override void Initialize(SkillParams p)
         {
@@ -32,32 +24,12 @@ namespace CookApps.AutoChess
         }
 
         public override void Execute(CombatMatchState state, ref CombatUnit caster,
+            int targetCombatId, ref DeterministicRNG rng) { }
+
+        protected override void ApplySkillEffect(CombatMatchState state, ref CombatUnit caster,
             int targetCombatId, ref DeterministicRNG rng)
         {
-            // 준비만: 타겟 저장 + 타이머 설정 (오데트 패턴)
-            _targetCombatId = targetCombatId;
-            _fired = false;
-            _phaseTimer = SkillHitFrames != null && SkillHitFrames.Length > 0
-                ? SkillHitFrames[0]
-                : 15; // fallback 0.5초
-        }
-
-        public override bool OnChannelTick(CombatMatchState state, ref CombatUnit caster, ref DeterministicRNG rng)
-        {
-            if (_fired) return false;
-
-            _phaseTimer--;
-            if (_phaseTimer > 0) return true;
-
-            // SkillHitFrames[0] 타이밍 도달 → 투사체 발사
-            _fired = true;
-            FireProjectile(state, ref caster);
-            return false; // 채널링 종료
-        }
-
-        private void FireProjectile(CombatMatchState state, ref CombatUnit caster)
-        {
-            int idx = state.FindUnitIndex(_targetCombatId);
+            int idx = state.FindUnitIndex(targetCombatId);
 
             // 시전자 → 타겟 방향 계산
             int dirCol, dirRow;
@@ -94,12 +66,10 @@ namespace CookApps.AutoChess
 
         public override void Reset()
         {
+            base.Reset();
             _length = 4;
             _moveInterval = 3;
             _width = 1;
-            _phaseTimer = 0;
-            _targetCombatId = 0;
-            _fired = false;
         }
     }
 }

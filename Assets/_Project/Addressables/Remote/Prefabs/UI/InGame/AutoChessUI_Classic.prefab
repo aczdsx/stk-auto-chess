@@ -50741,7 +50741,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5236394023284613606}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
   m_Name: 
@@ -87535,6 +87535,8 @@ MonoBehaviour:
   _recommendObjOn: {fileID: 7399121705596448053}
   _recommendObjOff: {fileID: 4584048565321241793}
   _presetButton: {fileID: 4102022171029310254}
+  _myTeamCpText: {fileID: 9173984347664931787}
+  _enemyTeamCpText: {fileID: 1362206587694154210}
 --- !u!95 &4084526490123980660
 Animator:
   serializedVersion: 7
@@ -87632,7 +87634,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8690672526222838800}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec9e3bdb0cdf647da896a4cd6739af27, type: 3}
   m_Name: 
