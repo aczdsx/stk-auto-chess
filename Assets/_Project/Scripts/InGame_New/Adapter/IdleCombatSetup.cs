@@ -177,12 +177,12 @@ namespace CookApps.AutoChess
                 unit.CurrentMana = 0;
 
                 // 관통/크리
-                unit.ArmorPenetration = Mathf.Clamp((int)(spec.stat_atk_pierce * 100), 0, 100);
-                unit.MagicPenetration = Mathf.Clamp((int)(spec.stat_res_pierce * 100), 0, 100);
-                unit.CritChance = Mathf.Max(0, (int)(spec.crit_rate * 100));
-                if (unit.CritChance <= 0) unit.CritChance = 25;
-                unit.CritMultiplier = Mathf.Max(0, (int)(spec.crit_power * 100));
-                if (unit.CritMultiplier <= 0) unit.CritMultiplier = 150;
+                unit.AtkPierce = Mathf.Clamp((int)(spec.stat_atk_pierce * 100), 0, 100);
+                unit.ResPierce = Mathf.Clamp((int)(spec.stat_res_pierce * 100), 0, 100);
+                unit.CritRate = Mathf.Max(0, (int)(spec.crit_rate * 100));
+                if (unit.CritRate <= 0) unit.CritRate = 25;
+                unit.CritPower = Mathf.Max(0, (int)(spec.crit_power * 100));
+                if (unit.CritPower <= 0) unit.CritPower = 150;
                 unit.HitChance = 100;
 
                 // 스킬 ID
@@ -207,8 +207,8 @@ namespace CookApps.AutoChess
                 unit.MoveSpeed = 100;
                 unit.MaxMana = 100;
                 unit.CurrentMana = 0;
-                unit.CritChance = 25;
-                unit.CritMultiplier = 150;
+                unit.CritRate = 25;
+                unit.CritPower = 150;
                 unit.HitChance = 100;
                 unit.AtkHitDelay = 1;
             }

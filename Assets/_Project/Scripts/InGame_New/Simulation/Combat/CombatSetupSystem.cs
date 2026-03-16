@@ -91,13 +91,15 @@ namespace CookApps.AutoChess
                 combatUnit.ManaGainOnAttack = world.Config.DefaultManaGainOnAttack;
                 combatUnit.ManaGainOnHit = world.Config.DefaultManaGainOnHit;
                 combatUnit.ManaRegenRateBonus = 0;
-                // 관통/크리: 스펙값 우선, 없으면 기본값
-                var spec = FindChampionSpec(world, srcUnit.ChampionSpecId);
-                combatUnit.ArmorPenetration = spec.BaseArmorPen;
-                combatUnit.MagicPenetration = spec.BaseMagicPen;
-                combatUnit.CritChance = spec.BaseCritChance > 0 ? spec.BaseCritChance : 25;
-                combatUnit.CritMultiplier = spec.BaseCritMultiplier > 0 ? spec.BaseCritMultiplier : 150;
+                // 관통/크리: UnitData에서 복사, 없으면 기본값
+                combatUnit.AtkPierce = srcUnit.AtkPierce;
+                combatUnit.ResPierce = srcUnit.ResPierce;
+                combatUnit.CritRate = srcUnit.CritRate > 0 ? srcUnit.CritRate : 25;
+                combatUnit.CritPower = srcUnit.CritPower > 0 ? srcUnit.CritPower : 150;
                 combatUnit.HitChance = 100;  // 명중률 기본 100%
+                combatUnit.AdReduce = srcUnit.AdReduce;
+                combatUnit.HealPower = srcUnit.HealPower;
+                combatUnit.ImmuneType = srcUnit.ImmuneType;
                 combatUnit.TraitFlags = srcUnit.TraitFlags;
 
                 // 크기 복사
@@ -256,13 +258,15 @@ namespace CookApps.AutoChess
                 unit.ManaGainOnAttack = world.Config.DefaultManaGainOnAttack;
                 unit.ManaGainOnHit = world.Config.DefaultManaGainOnHit;
                 unit.ManaRegenRateBonus = 0;
-                // PvE 적: 스펙값 우선, 없으면 기본값
-                var enemySpec = FindChampionSpec(world, enemy.ChampionSpecId);
-                unit.ArmorPenetration = enemySpec.BaseArmorPen;
-                unit.MagicPenetration = enemySpec.BaseMagicPen;
-                unit.CritChance = enemySpec.BaseCritChance > 0 ? enemySpec.BaseCritChance : 25;
-                unit.CritMultiplier = enemySpec.BaseCritMultiplier > 0 ? enemySpec.BaseCritMultiplier : 150;
+                // PvE 적: PvEEnemyData에서 복사, 없으면 기본값
+                unit.AtkPierce = enemy.AtkPierce;
+                unit.ResPierce = enemy.ResPierce;
+                unit.CritRate = enemy.CritRate > 0 ? enemy.CritRate : 25;
+                unit.CritPower = enemy.CritPower > 0 ? enemy.CritPower : 150;
                 unit.HitChance = 100;  // 명중률 기본 100%
+                unit.AdReduce = enemy.AdReduce;
+                unit.HealPower = enemy.HealPower;
+                unit.ImmuneType = enemy.ImmuneType;
                 unit.TraitFlags = enemy.TraitFlags;
                 unit.SkillSpecId = enemy.SkillSpecId;
                 unit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(enemy.ChampionSpecId, out _);
@@ -319,8 +323,8 @@ namespace CookApps.AutoChess
             unit.ManaGainOnAttack = 10;
             unit.ManaGainOnHit = 10;
             unit.ManaRegenRateBonus = 0;
-            unit.CritChance = 25;
-            unit.CritMultiplier = 150;
+            unit.CritRate = 25;
+            unit.CritPower = 150;
             unit.CurrentTargetId = CombatUnit.InvalidId;
             unit.AttackCooldown = 0;
             unit.PendingAtkTargetId = CombatUnit.InvalidId;

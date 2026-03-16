@@ -280,6 +280,13 @@ namespace CookApps.AutoChess
             unit.AttackRange = spec.AttackRange;
             unit.MoveSpeed = spec.MoveSpeed;
             unit.MaxMana = spec.MaxMana;
+            unit.AtkPierce = spec.BaseAtkPierce;
+            unit.ResPierce = spec.BaseResPierce;
+            unit.CritRate = spec.BaseCritRate;
+            unit.CritPower = spec.BaseCritPower;
+            unit.AdReduce = spec.BaseAdReduce;
+            unit.HealPower = spec.BaseHealPower;
+            unit.ImmuneType = spec.BaseImmuneType;
             unit.TraitFlags = spec.TraitFlags;
             unit.SizeW = spec.SizeW > 0 ? spec.SizeW : (byte)1;
             unit.SizeH = spec.SizeH > 0 ? spec.SizeH : (byte)1;

@@ -226,7 +226,7 @@ namespace CookApps.AutoChess
             }
 
             if (spec.BonusCritChance > 0)
-                unit.CritChance += spec.BonusCritChance;
+                unit.CritRate += spec.BonusCritChance;
         }
 
         /// <summary>

@@ -30,6 +30,17 @@ namespace CookApps.AutoChess
         public int MoveSpeed;         // 100 = 1.0 이속
         public int MaxMana;
 
+        // 관통/크리 (정수 퍼센트)
+        public int AtkPierce;         // 물리 관통 (0-100)
+        public int ResPierce;         // 마법 관통 (0-100)
+        public int CritRate;          // 크리 확률 (0-100)
+        public int CritPower;         // 크리 배율 (150 = 1.5x)
+
+        // 추가 스탯
+        public int AdReduce;          // 물리 저항률 (정수 퍼센트)
+        public int HealPower;         // 힐파워 (정수 퍼센트)
+        public int ImmuneType;        // 이뮨 타입
+
         // 특성 (시너지용)
         public int TraitFlags;        // 비트마스크 (최대 32개 특성)
 
@@ -219,10 +230,15 @@ namespace CookApps.AutoChess
         public int PrefabId;          // 프리팹 ID (AnimKeyframeData 조회용)
 
         // 관통/크리 기본값
-        public int BaseArmorPen;      // 물리 관통 (퍼센트, 0-100)
-        public int BaseMagicPen;      // 마법 관통 (퍼센트, 0-100)
-        public int BaseCritChance;    // 크리 확률 (퍼센트, 0-100)
-        public int BaseCritMultiplier; // 크리 배율 (퍼센트, 150 = 1.5x)
+        public int BaseAtkPierce;     // 물리 관통 (퍼센트, 0-100)
+        public int BaseResPierce;     // 마법 관통 (퍼센트, 0-100)
+        public int BaseCritRate;      // 크리 확률 (퍼센트, 0-100)
+        public int BaseCritPower;     // 크리 배율 (퍼센트, 150 = 1.5x)
+
+        // 추가 스탯
+        public int BaseAdReduce;      // 물리 저항률 (정수 퍼센트)
+        public int BaseHealPower;     // 힐파워 (정수 퍼센트)
+        public int BaseImmuneType;    // 이뮨 타입
 
         // 유닛 크기 (타일 수)
         public byte SizeW;           // 가로 (기본 1)
@@ -513,13 +529,18 @@ namespace CookApps.AutoChess
         public int ManaGainOnAttack;   // 타격 시 마나 획득량
         public int ManaGainOnHit;      // 피격 시 마나 획득량
         public int ManaRegenRateBonus; // 마나 리젠 속도 보너스 % (버프/디버프 누적)
-        public int CritChance;        // 퍼센트 (0-100)
-        public int CritMultiplier;    // 퍼센트 (150 = 1.5x)
+        public int CritRate;          // 퍼센트 (0-100)
+        public int CritPower;         // 퍼센트 (150 = 1.5x)
         public int HitChance;        // 명중률 (퍼센트, 기본 100, 최대 100)
 
         // 관통 (퍼센트, 0-100)
-        public int ArmorPenetration;     // 물리 관통
-        public int MagicPenetration;     // 마법 관통
+        public int AtkPierce;        // 물리 관통
+        public int ResPierce;        // 마법 관통
+
+        // 추가 스탯
+        public int AdReduce;          // 물리 저항률 (정수 퍼센트)
+        public int HealPower;         // 힐파워 (정수 퍼센트)
+        public int ImmuneType;        // 이뮨 타입
 
         // 특수 스탯 (시너지/아이템 효과)
         public int LifeSteal;         // 퍼센트
@@ -621,6 +642,17 @@ namespace CookApps.AutoChess
         public int MaxMana;
         public int TraitFlags;
         public int SkillSpecId;
+
+        // 관통/크리
+        public int AtkPierce;         // 물리 관통 (0-100)
+        public int ResPierce;         // 마법 관통 (0-100)
+        public int CritRate;          // 크리 확률 (0-100)
+        public int CritPower;         // 크리 배율 (150 = 1.5x)
+
+        // 추가 스탯
+        public int AdReduce;          // 물리 저항률 (정수 퍼센트)
+        public int HealPower;         // 힐파워 (정수 퍼센트)
+        public int ImmuneType;        // 이뮨 타입
     }
 
     /// <summary>

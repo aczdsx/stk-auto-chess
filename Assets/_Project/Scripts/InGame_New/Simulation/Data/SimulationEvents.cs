@@ -234,7 +234,7 @@ namespace CookApps.AutoChess
         /// </summary>
         public void PushProjectileSpawned(int sourceId, int targetId, ProjectileType projType,
             byte col, byte row, sbyte dirCol = 0, sbyte dirRow = 0, int projectileId = 0, int skillSpecId = 0,
-            sbyte skillVfxIndex = -1, int moveInterval = 0)
+            sbyte skillVfxIndex = -1, int moveInterval = 0, bool useBezier = false)
         {
             int packed = ((moveInterval & 0xFFFF) << 16) | (skillVfxIndex & 0xFFFF);
             Push(new SimEvent
@@ -250,6 +250,7 @@ namespace CookApps.AutoChess
                 Value0 = projectileId,
                 Value1 = skillSpecId,
                 Radius = packed,
+                Flag0 = useBezier,
             });
         }
 

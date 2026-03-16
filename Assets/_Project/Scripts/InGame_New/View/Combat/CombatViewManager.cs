@@ -36,6 +36,8 @@ namespace CookApps.AutoChess.View
             public TrailRenderer[] Trails;
             public GameObject RawGo; // InGameVfx 없는 fallback VFX용
             public float MoveSpeed; // 타일 간 이동 속도 (0이면 기본 20f)
+            public int SourceId;           // 도착 VFX 조회용 시전자 ID
+            public sbyte ArrivalVfxIndex;  // 도착 시 스폰할 스킬 VFX 인덱스 (-1이면 스킵)
         }
 
         private readonly Dictionary<int, int> _projectileIdToIndex = new();
@@ -59,6 +61,9 @@ namespace CookApps.AutoChess.View
             public sbyte DirCol, DirRow;
             public GameObject VfxPrefab;
             public float MoveSpeed; // 타일 간 이동 속도 (0이면 기본 20f)
+            public float TravelTime; // 베지어 비행 시간 (초)
+            public bool UseBezier;
+            public sbyte ArrivalVfxIndex; // 도착 시 스폰할 스킬 VFX 인덱스 (-1이면 스킵)
         }
 
         private struct PendingMeleeAttack
@@ -255,11 +260,12 @@ namespace CookApps.AutoChess.View
 
             var casterView = _unitViewManager?.FindCombatView(casterId);
 
-            // 원소 타일 이펙트
+            // 원소 캐스팅 VFX + 사운드 (hasCastingVfx = false로 설정하면 VFX·사운드 모두 비활성화)
             if (_tileEffectManager != null && element != SynergyType.NONE && casterView != null && casterView.HasCastingVfx)
             {
                 var castType = TileEffectManager.SynergyToCastType(element);
                 _tileEffectManager.ShowAt(castType, casterView.transform.position, 1.0f);
+                SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_casting01);
             }
 
             // 스킬 사운드 재생
@@ -372,7 +378,7 @@ namespace CookApps.AutoChess.View
 
         public void OnProjectileSpawned(int sourceId, int targetId, ProjectileType projType,
             byte col, byte row, sbyte dirCol, sbyte dirRow, int champSpecId, int projectileId, int skillSpecId = 0,
-            sbyte skillVfxIndex = -1, int moveInterval = 0)
+            sbyte skillVfxIndex = -1, int moveInterval = 0, bool useBezier = false)
         {
             if (!_isCombatActive) return;
 
@@ -416,7 +422,13 @@ namespace CookApps.AutoChess.View
 
             // moveInterval > 0이면 타일 거리/시간 기반 속도 계산, 아니면 기본 20f
             float moveSpeed = DefaultProjectileSpeed;
-            if (moveInterval > 0)
+            float travelTime = 0f;
+            if (moveInterval > 0 && useBezier)
+            {
+                // 베지어: travelFrames 기반 비행 시간 (SpawnHomingProjectileBezier에서 distance/time으로 speed 계산)
+                travelTime = moveInterval / _simulationFPS;
+            }
+            else if (moveInterval > 0)
             {
                 Vector3 startPos = BoardWorldHelper.CombatGridToWorld(0, col, row);
                 Vector3 nextPos = BoardWorldHelper.CombatGridToWorld(0, (byte)(col + dirCol), (byte)(row + dirRow));
@@ -424,6 +436,12 @@ namespace CookApps.AutoChess.View
                 float timePerTile = moveInterval / _simulationFPS;
                 moveSpeed = tileDist / timePerTile;
             }
+
+            // 도착 VFX 인덱스: 베지어 투사체는 skillVfxIndex의 다음 인덱스를 도착 VFX로 사용
+            // 예) vfx[0]=미사일, vfx[1]=폭발 → skillVfxIndex=0이면 arrivalVfxIndex=1
+            sbyte arrivalIdx = -1;
+            if (useBezier && skillVfxIndex >= 0)
+                arrivalIdx = (sbyte)(skillVfxIndex + 1);
 
             _pendingProjectiles.Add(new PendingProjectile
             {
@@ -438,6 +456,9 @@ namespace CookApps.AutoChess.View
                 DirRow = dirRow,
                 VfxPrefab = prefab,
                 MoveSpeed = moveSpeed,
+                TravelTime = travelTime,
+                UseBezier = useBezier,
+                ArrivalVfxIndex = arrivalIdx,
             });
         }
 
@@ -663,7 +684,10 @@ namespace CookApps.AutoChess.View
             switch (p.ProjType)
             {
                 case ProjectileType.Homing:
-                    SpawnHomingProjectile(sourcePos, p.TargetId, p.VfxPrefab, p.ProjectileId);
+                    if (p.UseBezier)
+                        SpawnHomingProjectileBezier(sourcePos, p.TargetId, p.VfxPrefab, p.ProjectileId, p.TravelTime, p.SourceId, p.ArrivalVfxIndex);
+                    else
+                        SpawnHomingProjectile(sourcePos, p.TargetId, p.VfxPrefab, p.ProjectileId);
                     break;
                 case ProjectileType.Linear:
                     SpawnLinearProjectile(sourcePos, p.Col, p.Row, p.DirCol, p.DirRow, p.VfxPrefab, p.ProjectileId, p.MoveSpeed);
@@ -689,12 +713,32 @@ namespace CookApps.AutoChess.View
             var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
             movement.SetData(sourcePos, targetPos, 30f);
 
-            // 방향 설정
             Vector3 dir = (targetPos - sourcePos).normalized;
             if (dir != Vector3.zero) vfx.CachedTr.rotation = Quaternion.LookRotation(dir);
 
             vfx.Initialize(false, movement);
             RegisterProjectile(vfx, movement, projectileId);
+        }
+
+        private void SpawnHomingProjectileBezier(Vector3 sourcePos, int targetId, GameObject prefab, int projectileId, float travelTime, int sourceId, sbyte arrivalVfxIndex)
+        {
+            var targetView = _unitViewManager?.FindCombatView(targetId);
+            if (targetView == null) return;
+
+            var vfx = CreateVfx(prefab, sourcePos);
+            if (vfx == null) return;
+
+            Vector3 targetPos = targetView.transform.position + Vector3.up * 0.5f;
+
+            // 시뮬레이션 비행 시간에 맞춰 속도 계산: speed = distance / travelTime
+            float dist = Vector3.Distance(sourcePos, targetPos);
+            float speed = travelTime > 0f ? dist / travelTime : 10f;
+
+            var bezier = InGameVfxMovementPool.Get<InGameVfxMovementBezier>();
+            bezier.SetData(vfx.CachedTr, sourcePos, targetPos, speed);
+
+            vfx.Initialize(false, bezier);
+            RegisterProjectile(vfx, bezier, projectileId, sourceId: sourceId, arrivalVfxIndex: arrivalVfxIndex);
         }
 
         private void SpawnLinearProjectile(Vector3 sourcePos, byte startCol, byte startRow, sbyte dirCol, sbyte dirRow, GameObject prefab, int projectileId, float moveSpeed = 0f)
@@ -802,7 +846,7 @@ namespace CookApps.AutoChess.View
             // OnReachedTarget을 등록하지 않음: 매 타일마다 목적지가 갱신되므로
         }
 
-        private void RegisterProjectile(InGameVfx vfx, InGameVfxMovementBase movement, int projectileId = 0)
+        private void RegisterProjectile(InGameVfx vfx, InGameVfxMovementBase movement, int projectileId = 0, int sourceId = 0, sbyte arrivalVfxIndex = -1)
         {
             var ap = new ActiveProjectile
             {
@@ -811,6 +855,8 @@ namespace CookApps.AutoChess.View
                 Movement = movement,
                 Particles = vfx.GetComponentsInChildren<ParticleSystem>(),
                 Trails = vfx.GetComponentsInChildren<TrailRenderer>(),
+                SourceId = sourceId,
+                ArrivalVfxIndex = arrivalVfxIndex,
             };
             _activeProjectiles.Add(ap);
             if (projectileId != 0)
@@ -975,12 +1021,26 @@ namespace CookApps.AutoChess.View
                 ap.Vfx.CachedTr.position = ap.Movement.CurrentPosition;
             }
 
-            // 도착한 투사체 → 파티클 즉시 제거, 트레일만 페이드아웃 대기
+            // 도착한 투사체 → 도착 VFX 스폰 + 파티클 즉시 제거, 트레일만 페이드아웃 대기
             if (_projectilesToRemove.Count > 0)
             {
                 for (int i = 0; i < _projectilesToRemove.Count; i++)
                 {
                     var ap = _projectilesToRemove[i];
+
+                    // 도착 VFX: 시전자의 스킬 VFX 배열에서 ArrivalVfxIndex로 조회
+                    if (ap.ArrivalVfxIndex >= 0 && ap.Vfx != null)
+                    {
+                        var srcView = _unitViewManager?.FindCombatView(ap.SourceId);
+                        var skillPrefabs = srcView?.GetSkillEffectPrefabs();
+                        if (skillPrefabs != null && ap.ArrivalVfxIndex < skillPrefabs.Length)
+                        {
+                            var arrivalData = skillPrefabs[ap.ArrivalVfxIndex];
+                            if (arrivalData?.Prefab != null)
+                                SpawnFireAndForgetVfx(arrivalData.Prefab, ap.Vfx.CachedTr.position);
+                        }
+                    }
+
                     _activeProjectiles.Remove(ap);
 
                     // movement 풀 반환

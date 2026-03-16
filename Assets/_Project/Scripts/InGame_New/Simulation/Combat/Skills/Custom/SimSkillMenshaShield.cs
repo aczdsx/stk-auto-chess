@@ -1,9 +1,14 @@
 namespace CookApps.AutoChess
 {
-    /// <summary>멘샤: 같은 행 아군에게 실드 부여</summary>
+    /// <summary>
+    /// 멘샤: 같은 행 아군에게 실드 부여.
+    /// IsDelayedSingleApply — SkillHitFrames[0] 타이밍에 실드 적용.
+    /// </summary>
     public class SimSkillMenshaShield : SimSkillBase
     {
         private int _shieldDurationFrames;
+
+        protected override bool IsDelayedSingleApply => true;
 
         public override void Initialize(SkillParams p)
         {
@@ -17,6 +22,9 @@ namespace CookApps.AutoChess
         }
 
         public override void Execute(CombatMatchState state, ref CombatUnit caster,
+            int targetCombatId, ref DeterministicRNG rng) { }
+
+        protected override void ApplySkillEffect(CombatMatchState state, ref CombatUnit caster,
             int targetCombatId, ref DeterministicRNG rng)
         {
             int shieldAmount = caster.Attack * PowerPercent / 100;
@@ -33,6 +41,7 @@ namespace CookApps.AutoChess
 
         public override void Reset()
         {
+            base.Reset();
             _shieldDurationFrames = 180;
         }
     }

@@ -115,8 +115,8 @@ namespace CookApps.AutoChess
             unit.MoveSpeed = moveSpd;
             unit.MaxMana = mana;
             unit.CurrentMana = 0;
-            unit.CritChance = 25;
-            unit.CritMultiplier = 150;
+            unit.CritRate = 25;
+            unit.CritPower = 150;
 
             unit.SizeW = 1;
             unit.SizeH = 1;

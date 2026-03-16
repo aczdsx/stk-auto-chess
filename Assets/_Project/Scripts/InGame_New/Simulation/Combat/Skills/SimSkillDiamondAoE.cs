@@ -3,23 +3,13 @@ namespace CookApps.AutoChess
     /// <summary>
     /// 블린
     /// 다이아몬드 범위 AoE 데미지 (맨해튼 거리 기반)
-    /// 채널링 스킬 — Execute 즉시 → SkillHitFrames[0] 타이밍에 효과 적용.
-    /// - 가장 가까운 적 기준 Param0 범위 (기본 2 = 5×5 다이아몬드)
-    /// - vfx[0]: 중심 타겟 위치 (1회)
-    /// - vfx[1]: 범위 내 각 타일마다 개별 발사
-    /// - 타일이펙트: 다이아몬드 범위 표시
+    /// IsDelayedSingleApply — SkillHitFrames[0] 타이밍에 효과 적용.
     /// </summary>
     public class SimSkillDiamondAoE : SimSkillBase
     {
         private int _areaRange;
 
-        // 채널링 상태
-        private int _cachedTargetId;
-        private int _phaseTimer;
-        private bool _fired;
-
-        public override bool IsChanneling => true;
-        public override int GetCastFrames() => 0;
+        protected override bool IsDelayedSingleApply => true;
 
         public override void Initialize(SkillParams p)
         {
@@ -33,30 +23,12 @@ namespace CookApps.AutoChess
         }
 
         public override void Execute(CombatMatchState state, ref CombatUnit caster,
+            int targetCombatId, ref DeterministicRNG rng) { }
+
+        protected override void ApplySkillEffect(CombatMatchState state, ref CombatUnit caster,
             int targetCombatId, ref DeterministicRNG rng)
         {
-            _cachedTargetId = targetCombatId;
-            _fired = false;
-            _phaseTimer = SkillHitFrames != null && SkillHitFrames.Length > 0
-                ? SkillHitFrames[0]
-                : 15;
-        }
-
-        public override bool OnChannelTick(CombatMatchState state, ref CombatUnit caster, ref DeterministicRNG rng)
-        {
-            if (_fired) return false;
-
-            _phaseTimer--;
-            if (_phaseTimer > 0) return true;
-
-            _fired = true;
-            ApplyDiamondAoE(state, ref caster);
-            return false;
-        }
-
-        private void ApplyDiamondAoE(CombatMatchState state, ref CombatUnit caster)
-        {
-            int idx = state.FindUnitIndex(_cachedTargetId);
+            int idx = state.FindUnitIndex(targetCombatId);
             if (idx < 0) return;
             ref var target = ref state.Units[idx];
 
@@ -102,8 +74,8 @@ namespace CookApps.AutoChess
 
         public override void Reset()
         {
+            base.Reset();
             _areaRange = 2;
-            _fired = false;
         }
     }
 }

@@ -227,7 +227,7 @@ namespace CookApps.AutoChess.View
                     int moveInterval = (evt.Radius >> 16) & 0xFFFF;
                     _combatViewManager.OnProjectileSpawned(
                         evt.EntityId, evt.TargetEntityId, evt.ProjType,
-                        evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId, projectileId, skillSpecId, skillVfxIndex, moveInterval);
+                        evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId, projectileId, skillSpecId, skillVfxIndex, moveInterval, evt.Flag0);
                     break;
                 }
 

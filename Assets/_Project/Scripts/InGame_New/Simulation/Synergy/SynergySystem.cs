@@ -201,10 +201,10 @@ namespace CookApps.AutoChess
                     unit.MaxMana += effect.Value;
                     break;
                 case SynergyEffectType.BonusCritChance:
-                    unit.CritChance += effect.Value;
+                    unit.CritRate += effect.Value;
                     break;
                 case SynergyEffectType.BonusCritMultiplier:
-                    unit.CritMultiplier += effect.Value;
+                    unit.CritPower += effect.Value;
                     break;
                 case SynergyEffectType.StartingMana:
                     unit.CurrentMana += effect.Value;

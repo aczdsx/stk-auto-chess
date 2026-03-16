@@ -154,9 +154,11 @@ namespace CookApps.AutoChess.View
                     int champSpecId = ResolveChampSpecId(matchState, evt.EntityId);
                     int projectileId = evt.Value0;
                     int skillSpecId = evt.Value1;
+                    sbyte skillVfxIndex2 = (sbyte)(short)(evt.Radius & 0xFFFF);
+                    int moveInterval2 = (evt.Radius >> 16) & 0xFFFF;
                     _combatViewManager.OnProjectileSpawned(
                         evt.EntityId, evt.TargetEntityId, evt.ProjType,
-                        evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId, projectileId, skillSpecId);
+                        evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId, projectileId, skillSpecId, skillVfxIndex2, moveInterval2, evt.Flag0);
                     break;
                 }
 

@@ -204,7 +204,7 @@ namespace CookApps.AutoChess
                         {
                             // 근접: ATK 키프레임까지 데미지 지연
                             // 크리티컬 선행 판정 (애니메이션 결정용 — ATK/ATK2/CRIT)
-                            bool willCrit = rng.Chance(unit.CritChance);
+                            bool willCrit = rng.Chance(unit.CritRate);
                             unit.PendingAtkTargetId = target.CombatId;
                             unit.PendingAtkTimer = unit.AtkHitDelay;
                             unit.PendingAtkIsCrit = willCrit;

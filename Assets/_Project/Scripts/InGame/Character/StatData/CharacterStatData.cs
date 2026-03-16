@@ -58,7 +58,7 @@ namespace CookApps.AutoBattler
             var ResMul = 1 - AvgResist;
             
             //최종 받는 피해 비율: ---> 방어 능력치를 HP로 환산해서 얼마나 더 버틸수 이쓴ㄴ지에 대한 개념
-            var TakenMul = DefMul * ResMul ;
+            var TakenMul = DefMul * ResMul;
 
             if (TakenMul <= 0)
             {
