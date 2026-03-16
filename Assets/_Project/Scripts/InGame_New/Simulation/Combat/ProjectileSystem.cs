@@ -217,7 +217,7 @@ namespace CookApps.AutoChess
         public static void CreateHomingProjectile(
             CombatMatchState state, int sourceCombatId, int targetCombatId,
             int damage, bool isCrit, DamageType damageType, int travelFrames,
-            int skillSpecId = 0, sbyte skillVfxIndex = -1, bool useBezier = false)
+            int skillSpecId = 0, sbyte skillVfxIndex = -1, bool useBezier = false, sbyte arrivalVfxIndex = -1)
         {
             int slot = FindEmptyProjectileSlot(state);
             if (slot < 0) return;
@@ -242,7 +242,7 @@ namespace CookApps.AutoChess
             byte srcRow = srcIdx >= 0 ? state.Units[srcIdx].GridRow : (byte)0;
             state.EventQueue?.PushProjectileSpawned(sourceCombatId, targetCombatId, ProjectileType.Homing,
                 srcCol, srcRow, projectileId: proj.ProjectileId, skillSpecId: skillSpecId, skillVfxIndex: skillVfxIndex,
-                moveInterval: useBezier ? travelFrames : 0, useBezier: useBezier);
+                moveInterval: useBezier ? travelFrames : 0, useBezier: useBezier, arrivalVfxIndex: arrivalVfxIndex);
         }
 
         /// <summary>Linear 데미지 투사체 생성 (직선 관통)</summary>

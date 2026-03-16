@@ -52,8 +52,8 @@ namespace CookApps.AutoChess
                     // 기본 스탯
                     BaseHP = c.stat_hp,
                     BaseAttack = c.stat_atk,
-                    BaseArmor = c.stat_def,
-                    BaseMagicResist = (int)c.ap_reduce,
+                    BaseDef = c.stat_def,
+                    BaseApReduce = (int)(c.ap_reduce * 100),
                     AttackSpeed = Mathf.Max(1, (int)(c.atk_speed * 100)),  // float → 정수 (100 = 1.0)
                     AttackRange = c.atk_range > 0 ? c.atk_range : 1,
                     MoveSpeed = Mathf.Max(1, (int)(c.move_speed * 100)),

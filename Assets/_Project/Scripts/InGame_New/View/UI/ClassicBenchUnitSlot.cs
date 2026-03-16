@@ -56,8 +56,9 @@ namespace CookApps.AutoChess.View
                 int starMul = _currentStarLevel switch { 2 => 180, 3 => 320, _ => 100 };
                 int hp = spec.stat_hp * starMul / 100;
                 int atk = spec.stat_atk * starMul / 100;
-                int armor = spec.stat_def;
-                int magicResist = (int)spec.ap_reduce;
+                int def = spec.stat_def;
+                int adReduce = (int)(spec.ad_reduce * 100);
+                int apReduce = (int)(spec.ap_reduce * 100);
                 int atkSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
                 int critRate = Mathf.Max(0, (int)(spec.crit_rate * 100));
                 int critPower = Mathf.Max(0, (int)(spec.crit_power * 100));
@@ -66,7 +67,7 @@ namespace CookApps.AutoChess.View
                 if (critPower <= 0) critPower = 150;
 
                 int cp = CombatPowerCalculator.CalculateFromOldSpec(
-                    hp, atk, armor, magicResist, atkSpeed, critRate, critPower, atkPierce);
+                    hp, atk, def, adReduce, apReduce, atkSpeed, critRate, critPower, atkPierce);
                 _cpText.text = cp.ToString("n0");
             }
         }

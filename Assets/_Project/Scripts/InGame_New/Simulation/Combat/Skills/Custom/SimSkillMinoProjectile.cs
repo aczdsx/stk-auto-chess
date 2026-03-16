@@ -8,9 +8,12 @@ namespace CookApps.AutoChess
     /// </summary>
     public class SimSkillMinoProjectile : SimSkillBase
     {
+        public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
+
         private const int MaxMissiles = 3;
         private const float LaunchIntervalSec = 0.3f;
         private const float TravelTimeSec = 0.5f;
+        private const int DamageDelayFrames = 3; // 도착 VFX 후 데미지 지연 (시각 동기화)
 
         private int _launchIntervalFrames;
         private int _travelFrames;
@@ -26,9 +29,6 @@ namespace CookApps.AutoChess
         private int _pendingArrivals;
         private int _clipEndTimer;
         private bool _allLaunched;
-
-        public override bool IsChanneling => true;
-        public override int GetCastFrames() => 0;
 
         public override void Initialize(SkillParams p)
         {
@@ -149,9 +149,9 @@ namespace CookApps.AutoChess
             ProjectileSystem.CreateHomingProjectile(
                 state, caster.CombatId, _targetIds[idx],
                 damage: 0, isCrit: false, DamageType, _travelFrames,
-                skillSpecId: SkillId, skillVfxIndex: 0, useBezier: true);
+                skillSpecId: SkillId, skillVfxIndex: 0, useBezier: true, arrivalVfxIndex: 1);
 
-            _arrivalTimers[idx] = _travelFrames;
+            _arrivalTimers[idx] = _travelFrames + DamageDelayFrames;
             _pendingArrivals++;
         }
 

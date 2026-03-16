@@ -19,8 +19,7 @@ namespace CookApps.AutoChess
         private bool _teleported;
         private int _targetCombatId;
 
-        public override bool IsChanneling => true;
-        public override int GetCastFrames() => 0;
+        public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
 
         public override void Initialize(SkillParams p)
         {
@@ -87,7 +86,7 @@ namespace CookApps.AutoChess
                         SkillBuffHelper.ApplyTimedDebuff(state, targetIdx,
                             StatModType.Attack, _debuffPercent, _debuffDurationFrames);
                         SkillBuffHelper.ApplyTimedDebuff(state, targetIdx,
-                            StatModType.Armor, _debuffPercent, _debuffDurationFrames);
+                            StatModType.Def, _debuffPercent, _debuffDurationFrames);
 
                         // 전용 아이콘용 SkillMarker 동시 발행
                         StatusEffectSystem.AddEffect(state, targetIdx,

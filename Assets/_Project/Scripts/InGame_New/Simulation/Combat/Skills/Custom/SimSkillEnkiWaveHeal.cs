@@ -24,7 +24,7 @@ namespace CookApps.AutoChess
         private const int DefaultMoveInterval = 24; // 24프레임마다 1행 이동 (~0.4초/행, speed≈5)
         private const int WaveWidth = 5;           // 파도 폭 5칸
 
-        public override bool IsChanneling => true;
+        public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
 
         public override void Initialize(SkillParams p)
         {
@@ -32,8 +32,6 @@ namespace CookApps.AutoChess
             _hotDuration = p.Param0 > 0 ? p.Param0 : 180;
             _hotInterval = p.Param1 > 0 ? p.Param1 : 30;
         }
-
-        public override int GetCastFrames() => 0;
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
         {

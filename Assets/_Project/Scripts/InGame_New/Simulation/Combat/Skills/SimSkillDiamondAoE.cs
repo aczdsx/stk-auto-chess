@@ -9,7 +9,7 @@ namespace CookApps.AutoChess
     {
         private int _areaRange;
 
-        protected override bool IsDelayedSingleApply => true;
+        public override SkillExecutionType ExecutionType => SkillExecutionType.DelayedApply;
 
         public override void Initialize(SkillParams p)
         {

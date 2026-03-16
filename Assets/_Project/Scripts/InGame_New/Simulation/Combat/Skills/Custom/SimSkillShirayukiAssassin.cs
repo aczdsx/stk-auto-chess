@@ -24,8 +24,7 @@ namespace CookApps.AutoChess
         private readonly int[] _targetIds = new int[MaxTargets];
         private int _targetCount;
 
-        public override bool IsChanneling => true;
-        public override int GetCastFrames() => 0;
+        public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
 
         public override void Initialize(SkillParams p)
         {

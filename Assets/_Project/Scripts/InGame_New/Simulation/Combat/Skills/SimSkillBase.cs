@@ -46,9 +46,12 @@ namespace CookApps.AutoChess
     public abstract class SimSkillBase
     {
         public int SkillId { get; private set; }
+
+        /// <summary>스킬 실행 패턴. 서브클래스에서 override하여 지정.</summary>
+        public virtual SkillExecutionType ExecutionType => SkillExecutionType.Instant;
         protected int PowerPercent;
 
-        // ── IsDelayedSingleApply 지원 ──
+        // ── DelayedApply 지원 ──
         private int _delayTimer = -1;
         protected DamageType DamageType;
         protected int CastFrames;
@@ -109,9 +112,9 @@ namespace CookApps.AutoChess
         /// <summary>
         /// true이면 "지연 1회 발동" 패턴을 base가 자동 처리.
         /// SkillHitFrames[0] 프레임 대기 후 ApplySkillEffect() 1회 호출.
-        /// IsChanneling/GetCastFrames()/OnChannelTick()을 override할 필요 없음.
+        /// ExecutionType == DelayedApply일 때 자동 true.
         /// </summary>
-        protected virtual bool IsDelayedSingleApply => false;
+        protected virtual bool IsDelayedSingleApply => ExecutionType == SkillExecutionType.DelayedApply;
 
         /// <summary>IsDelayedSingleApply=true일 때, 딜레이 후 호출되는 실제 효과.</summary>
         protected virtual void ApplySkillEffect(CombatMatchState state, ref CombatUnit caster,
@@ -129,11 +132,13 @@ namespace CookApps.AutoChess
         ///   다음 프레임부터 OnChannelTick()이 매 프레임 호출된다.
         ///   → "즉시 초기화 + 프레임 단위 자유 제어" 스킬에 적합.
         ///
-        /// 기본 우선순위: IsDelayedSingleApply → 0 > CastFrames > SkillHitFrames[0] > 0
+        /// 기본 우선순위: DelayedApply/Channeling → 0 > CastFrames > SkillHitFrames[0] > 0
         /// </summary>
         public virtual int GetCastFrames()
         {
-            if (IsDelayedSingleApply) return 0;
+            if (ExecutionType == SkillExecutionType.DelayedApply ||
+                ExecutionType == SkillExecutionType.Channeling)
+                return 0;
             if (CastFrames > 0) return CastFrames;
             if (SkillHitFrames != null && SkillHitFrames.Length > 0) return SkillHitFrames[0];
             return 0;
@@ -160,7 +165,7 @@ namespace CookApps.AutoChess
         ///     OnChannelTick()에서 SkillHitFrames[] 타이밍에 맞춰 효과 적용.
         ///     지연 1회 발동, 다단히트, 반복 틱 등 자유로운 시간 제어 가능.
         /// </summary>
-        public virtual bool IsChanneling => IsDelayedSingleApply;
+        public virtual bool IsChanneling => ExecutionType != SkillExecutionType.Instant;
 
         /// <summary>
         /// 투사체를 발사하는 스킬 여부.
@@ -177,7 +182,7 @@ namespace CookApps.AutoChess
         /// <summary>채널링 틱 처리. false 반환 시 채널링 종료.</summary>
         public virtual bool OnChannelTick(CombatMatchState state, ref CombatUnit caster, ref DeterministicRNG rng)
         {
-            if (!IsDelayedSingleApply) return false;
+            if (ExecutionType != SkillExecutionType.DelayedApply) return false;
 
             if (_delayTimer < 0)
                 _delayTimer = SkillHitFrames != null && SkillHitFrames.Length > 0

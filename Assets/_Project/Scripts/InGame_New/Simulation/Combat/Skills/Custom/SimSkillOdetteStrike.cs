@@ -12,7 +12,7 @@ namespace CookApps.AutoChess
         private int _dirRow;     // 타겟 방향 row 성분 (-1, 0, +1)
         private int _targetCombatId; // 타겟 ID (페이즈간 유지)
 
-        public override bool IsChanneling => true;
+        public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
 
         public override void Initialize(SkillParams p)
         {
@@ -20,9 +20,6 @@ namespace CookApps.AutoChess
             _debuffDurationFrames = p.Param0 > 0 ? p.Param0 : 90;  // 기본 3초
             _atkSpeedDownValue = p.Param1 > 0 ? p.Param1 : 30;     // 기본 30
         }
-
-        // 채널링 스킬: Execute 즉시 호출 → 채널링 중 SkillHitFrames 타이밍으로 히트
-        public override int GetCastFrames() => 0;
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
         {

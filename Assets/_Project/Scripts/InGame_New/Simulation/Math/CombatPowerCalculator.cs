@@ -18,7 +18,7 @@ namespace CookApps.AutoChess
 
             return CalcInternal(
                 unit.Attack, unit.AttackSpeed, unit.MaxHP,
-                unit.Armor, unit.MagicResist,
+                unit.Def, unit.AdReduce, unit.ApReduce,
                 critChance, critMultiplier, unit.AtkPierce);
         }
 
@@ -29,7 +29,7 @@ namespace CookApps.AutoChess
         {
             return CalcInternal(
                 cu.Attack, cu.AttackSpeed, cu.MaxHP,
-                cu.Armor, cu.MagicResist,
+                cu.Def, cu.AdReduce, cu.ApReduce,
                 cu.CritRate, cu.CritPower, cu.AtkPierce);
         }
 
@@ -43,23 +43,23 @@ namespace CookApps.AutoChess
 
             return CalcInternal(
                 enemy.Attack, enemy.AttackSpeed, enemy.MaxHP,
-                enemy.Armor, enemy.MagicResist,
+                enemy.Def, enemy.AdReduce, enemy.ApReduce,
                 critChance, critMultiplier, enemy.AtkPierce);
         }
 
         /// <summary>
         /// 구 스펙(ISpecCharacterInfo) + 별 레벨로 CP 계산. 벤치 슬롯 UI용.
         /// </summary>
-        public static int CalculateFromOldSpec(int hp, int atk, int armor, int magicResist,
+        public static int CalculateFromOldSpec(int hp, int atk, int def, int adReduce, int apReduce,
             int attackSpeed, int critRate, int critPower, int atkPierce)
         {
-            return CalcInternal(atk, attackSpeed, hp, armor, magicResist,
+            return CalcInternal(atk, attackSpeed, hp, def, adReduce, apReduce,
                 critRate, critPower, atkPierce);
         }
 
         private static int CalcInternal(
             int attack, int attackSpeed, int maxHP,
-            int armor, int magicResist,
+            int def, int adReduce, int apReduce,
             int critRate, int critPower, int atkPierce)
         {
             // OP (공격력 지수)
@@ -71,10 +71,12 @@ namespace CookApps.AutoChess
             float op = attack * atkSpeedF * effectiveCritMul * pierceMul;
 
             // DP (방어력 지수)
-            float physMul = 100f / (100f + armor);
-            float magMul = 100f / (100f + magicResist);
-            float avgMul = (physMul + magMul) / 2f;
-            float dp = maxHP / avgMul;
+            // DEF(def) 최종 감산 + 물리/마법 저항 평균
+            float defMul = 100f / (100f + def);
+            float avgResist = Mathf.Clamp((adReduce + apReduce) / 200f, 0f, 0.7f);
+            float resistMul = 1f - avgResist;
+            float takenMul = defMul * resistMul;
+            float dp = takenMul > 0f ? maxHP / takenMul : maxHP;
 
             // CP
             return (int)Math.Round(7.0 * Math.Sqrt(op) + 5.0 * Math.Sqrt(dp) + 1.0);

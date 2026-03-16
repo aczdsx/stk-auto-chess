@@ -8,7 +8,7 @@ namespace CookApps.AutoChess
     {
         private int _shieldDurationFrames;
 
-        protected override bool IsDelayedSingleApply => true;
+        public override SkillExecutionType ExecutionType => SkillExecutionType.DelayedApply;
 
         public override void Initialize(SkillParams p)
         {
@@ -29,6 +29,11 @@ namespace CookApps.AutoChess
         {
             int shieldAmount = caster.Attack * PowerPercent / 100;
             int row = caster.GridRow;
+            int col = caster.GridCol;
+
+            // 같은 행 타일 이펙트 (fx_common_area_xxx) — 구 시스템 AddInGameTileFx 대응
+            state.EventQueue?.PushSkillAreaEffect(
+                caster.SourceEntityId, (byte)col, (byte)row, 7, isRow: true);
 
             for (int i = 0; i < state.UnitCount; i++)
             {
@@ -36,6 +41,10 @@ namespace CookApps.AutoChess
                 if (u.TeamIndex != caster.TeamIndex || !u.IsAlive) continue;
                 if (u.GridRow != row) continue;
                 SkillBuffHelper.AddShield(state, i, shieldAmount, _shieldDurationFrames);
+
+                // 타겟별 스킬 VFX (skill_vfxs[0]) — 구 시스템 AddInGameVfx 대응
+                state.EventQueue?.PushSkillPhaseVfx(
+                    caster.CombatId, SkillId, 0, targetId: u.CombatId);
             }
         }
 

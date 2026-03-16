@@ -36,8 +36,6 @@ namespace CookApps.AutoChess.View
             public TrailRenderer[] Trails;
             public GameObject RawGo; // InGameVfx 없는 fallback VFX용
             public float MoveSpeed; // 타일 간 이동 속도 (0이면 기본 20f)
-            public int SourceId;           // 도착 VFX 조회용 시전자 ID
-            public sbyte ArrivalVfxIndex;  // 도착 시 스폰할 스킬 VFX 인덱스 (-1이면 스킵)
         }
 
         private readonly Dictionary<int, int> _projectileIdToIndex = new();
@@ -378,7 +376,7 @@ namespace CookApps.AutoChess.View
 
         public void OnProjectileSpawned(int sourceId, int targetId, ProjectileType projType,
             byte col, byte row, sbyte dirCol, sbyte dirRow, int champSpecId, int projectileId, int skillSpecId = 0,
-            sbyte skillVfxIndex = -1, int moveInterval = 0, bool useBezier = false)
+            sbyte skillVfxIndex = -1, int moveInterval = 0, bool useBezier = false, sbyte arrivalVfxIndex = -1)
         {
             if (!_isCombatActive) return;
 
@@ -437,12 +435,6 @@ namespace CookApps.AutoChess.View
                 moveSpeed = tileDist / timePerTile;
             }
 
-            // 도착 VFX 인덱스: 베지어 투사체는 skillVfxIndex의 다음 인덱스를 도착 VFX로 사용
-            // 예) vfx[0]=미사일, vfx[1]=폭발 → skillVfxIndex=0이면 arrivalVfxIndex=1
-            sbyte arrivalIdx = -1;
-            if (useBezier && skillVfxIndex >= 0)
-                arrivalIdx = (sbyte)(skillVfxIndex + 1);
-
             _pendingProjectiles.Add(new PendingProjectile
             {
                 Delay = delay,
@@ -458,7 +450,7 @@ namespace CookApps.AutoChess.View
                 MoveSpeed = moveSpeed,
                 TravelTime = travelTime,
                 UseBezier = useBezier,
-                ArrivalVfxIndex = arrivalIdx,
+                ArrivalVfxIndex = arrivalVfxIndex,
             });
         }
 
@@ -720,7 +712,8 @@ namespace CookApps.AutoChess.View
             RegisterProjectile(vfx, movement, projectileId);
         }
 
-        private void SpawnHomingProjectileBezier(Vector3 sourcePos, int targetId, GameObject prefab, int projectileId, float travelTime, int sourceId, sbyte arrivalVfxIndex)
+        private void SpawnHomingProjectileBezier(Vector3 sourcePos, int targetId, GameObject prefab, int projectileId,
+            float travelTime, int sourceId, sbyte arrivalVfxIndex)
         {
             var targetView = _unitViewManager?.FindCombatView(targetId);
             if (targetView == null) return;
@@ -737,8 +730,23 @@ namespace CookApps.AutoChess.View
             var bezier = InGameVfxMovementPool.Get<InGameVfxMovementBezier>();
             bezier.SetData(vfx.CachedTr, sourcePos, targetPos, speed);
 
+            // 도착 VFX 체인: movement 완료 시 스킬 VFX[arrivalVfxIndex] 스폰
+            // !! 주의: OnReachedTarget 체인은 뷰 전용. 데미지/상태이상 등 게임로직을 절대 넣지 말 것.
+            // !! 게임로직은 시뮬레이션(OnChannelTick 등)에서 처리해야 결정론이 보장됨.
+            if (arrivalVfxIndex >= 0)
+            {
+                var srcView = _unitViewManager?.FindCombatView(sourceId);
+                var skillPrefabs = srcView?.GetSkillEffectPrefabs();
+                if (skillPrefabs != null && arrivalVfxIndex < skillPrefabs.Length && skillPrefabs[arrivalVfxIndex]?.Prefab != null)
+                {
+                    var arrivalPrefab = skillPrefabs[arrivalVfxIndex].Prefab;
+                    var cachedTr = vfx.CachedTr;
+                    bezier.OnReachedTarget += () => SpawnFireAndForgetVfx(arrivalPrefab, cachedTr.position);
+                }
+            }
+
             vfx.Initialize(false, bezier);
-            RegisterProjectile(vfx, bezier, projectileId, sourceId: sourceId, arrivalVfxIndex: arrivalVfxIndex);
+            RegisterProjectile(vfx, bezier, projectileId);
         }
 
         private void SpawnLinearProjectile(Vector3 sourcePos, byte startCol, byte startRow, sbyte dirCol, sbyte dirRow, GameObject prefab, int projectileId, float moveSpeed = 0f)
@@ -846,7 +854,7 @@ namespace CookApps.AutoChess.View
             // OnReachedTarget을 등록하지 않음: 매 타일마다 목적지가 갱신되므로
         }
 
-        private void RegisterProjectile(InGameVfx vfx, InGameVfxMovementBase movement, int projectileId = 0, int sourceId = 0, sbyte arrivalVfxIndex = -1)
+        private void RegisterProjectile(InGameVfx vfx, InGameVfxMovementBase movement, int projectileId = 0)
         {
             var ap = new ActiveProjectile
             {
@@ -855,8 +863,6 @@ namespace CookApps.AutoChess.View
                 Movement = movement,
                 Particles = vfx.GetComponentsInChildren<ParticleSystem>(),
                 Trails = vfx.GetComponentsInChildren<TrailRenderer>(),
-                SourceId = sourceId,
-                ArrivalVfxIndex = arrivalVfxIndex,
             };
             _activeProjectiles.Add(ap);
             if (projectileId != 0)
@@ -1021,26 +1027,13 @@ namespace CookApps.AutoChess.View
                 ap.Vfx.CachedTr.position = ap.Movement.CurrentPosition;
             }
 
-            // 도착한 투사체 → 도착 VFX 스폰 + 파티클 즉시 제거, 트레일만 페이드아웃 대기
+            // 도착한 투사체 → 파티클 즉시 제거, 트레일만 페이드아웃 대기
+            // (도착 VFX는 movement.OnReachedTarget 체인으로 이미 처리됨)
             if (_projectilesToRemove.Count > 0)
             {
                 for (int i = 0; i < _projectilesToRemove.Count; i++)
                 {
                     var ap = _projectilesToRemove[i];
-
-                    // 도착 VFX: 시전자의 스킬 VFX 배열에서 ArrivalVfxIndex로 조회
-                    if (ap.ArrivalVfxIndex >= 0 && ap.Vfx != null)
-                    {
-                        var srcView = _unitViewManager?.FindCombatView(ap.SourceId);
-                        var skillPrefabs = srcView?.GetSkillEffectPrefabs();
-                        if (skillPrefabs != null && ap.ArrivalVfxIndex < skillPrefabs.Length)
-                        {
-                            var arrivalData = skillPrefabs[ap.ArrivalVfxIndex];
-                            if (arrivalData?.Prefab != null)
-                                SpawnFireAndForgetVfx(arrivalData.Prefab, ap.Vfx.CachedTr.position);
-                        }
-                    }
-
                     _activeProjectiles.Remove(ap);
 
                     // movement 풀 반환

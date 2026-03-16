@@ -21,8 +21,7 @@ namespace CookApps.AutoChess
         private int _centerCol;
         private int _centerRow;
 
-        public override bool IsChanneling => true;
-        public override int GetCastFrames() => 0;
+        public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
 
         public override void Initialize(SkillParams p)
         {

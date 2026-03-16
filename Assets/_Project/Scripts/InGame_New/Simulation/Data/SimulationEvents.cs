@@ -1,5 +1,14 @@
 namespace CookApps.AutoChess
 {
+    /// <summary>CombatVfxType + StatModType 패킹/언패킹 헬퍼 (하위8비트=VfxType, 상위8비트=StatModType)</summary>
+    public static class SimEventHelper
+    {
+        public static int EncodeVfxStat(CombatVfxType vfx, StatModType stat = default)
+            => (int)vfx | ((int)stat << 8);
+        public static CombatVfxType DecodeVfxType(int packed) => (CombatVfxType)(packed & 0xFF);
+        public static StatModType DecodeStatType(int packed) => (StatModType)((packed >> 8) & 0xFF);
+    }
+
     /// <summary>시뮬레이션 이벤트 타입</summary>
     public enum SimEventType : byte
     {
@@ -83,6 +92,11 @@ namespace CookApps.AutoChess
         public byte DirCol;
         public byte DirRow;
         public int Radius;
+
+        // 투사체 VFX
+        public sbyte SkillVfxIndex;     // 투사체 VFX 인덱스
+        public sbyte ArrivalVfxIndex;   // 도착 시 스폰할 VFX 인덱스 (-1이면 없음)
+        public short MoveInterval;      // 타일 이동 간격 (프레임)
     }
 
     /// <summary>
@@ -228,15 +242,10 @@ namespace CookApps.AutoChess
             });
         }
 
-        /// <summary>
-        /// Radius 패킹: upper 16bit = moveInterval, lower 16bit = skillVfxIndex (signed).
-        /// moveInterval > 0 이면 뷰에서 타일 거리/시간 기반 속도 계산.
-        /// </summary>
         public void PushProjectileSpawned(int sourceId, int targetId, ProjectileType projType,
             byte col, byte row, sbyte dirCol = 0, sbyte dirRow = 0, int projectileId = 0, int skillSpecId = 0,
-            sbyte skillVfxIndex = -1, int moveInterval = 0, bool useBezier = false)
+            sbyte skillVfxIndex = -1, int moveInterval = 0, bool useBezier = false, sbyte arrivalVfxIndex = -1)
         {
-            int packed = ((moveInterval & 0xFFFF) << 16) | (skillVfxIndex & 0xFFFF);
             Push(new SimEvent
             {
                 Type = SimEventType.ProjectileSpawned,
@@ -249,7 +258,9 @@ namespace CookApps.AutoChess
                 DirRow = (byte)dirRow,
                 Value0 = projectileId,
                 Value1 = skillSpecId,
-                Radius = packed,
+                SkillVfxIndex = skillVfxIndex,
+                ArrivalVfxIndex = arrivalVfxIndex,
+                MoveInterval = (short)moveInterval,
                 Flag0 = useBezier,
             });
         }
@@ -386,24 +397,24 @@ namespace CookApps.AutoChess
             });
         }
 
-        public void PushStatusEffectAdded(int combatId, CombatVfxType vfxType, int totalFrames = 0)
+        public void PushStatusEffectAdded(int combatId, CombatVfxType vfxType, int totalFrames = 0, StatModType statType = default)
         {
             Push(new SimEvent
             {
                 Type = SimEventType.StatusEffectAdded,
                 EntityId = combatId,
-                Value0 = (int)vfxType,
+                Value0 = SimEventHelper.EncodeVfxStat(vfxType, statType),
                 Value1 = totalFrames,
             });
         }
 
-        public void PushStatusEffectRemoved(int combatId, CombatVfxType vfxType)
+        public void PushStatusEffectRemoved(int combatId, CombatVfxType vfxType, StatModType statType = default)
         {
             Push(new SimEvent
             {
                 Type = SimEventType.StatusEffectRemoved,
                 EntityId = combatId,
-                Value0 = (int)vfxType,
+                Value0 = SimEventHelper.EncodeVfxStat(vfxType, statType),
             });
         }
 

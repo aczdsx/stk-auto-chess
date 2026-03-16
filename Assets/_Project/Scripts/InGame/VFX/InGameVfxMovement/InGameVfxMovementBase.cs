@@ -6,6 +6,10 @@ namespace CookApps.BattleSystem
 {
     public abstract class InGameVfxMovementBase
     {
+        /// <summary>
+        /// 이동 완료 시 호출. VFX 체인(폭발 이펙트 등) 전용.
+        /// 데미지/상태이상 등 게임로직을 절대 등록하지 말 것 — 시뮬레이션 결정론이 깨짐.
+        /// </summary>
         public event Action OnReachedTarget = null;
 
         protected Vector3 srcPos;

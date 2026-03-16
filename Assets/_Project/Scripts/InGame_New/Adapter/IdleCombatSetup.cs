@@ -168,8 +168,9 @@ namespace CookApps.AutoChess
                 unit.MaxHP = (int)(spec.stat_hp * multipleHp);
                 unit.CurrentHP = unit.MaxHP;
                 unit.Attack = (int)(spec.stat_atk * multipleAtk);
-                unit.Armor = spec.stat_def;
-                unit.MagicResist = (int)spec.ap_reduce;
+                unit.Def = spec.stat_def;
+                unit.AdReduce = (int)(spec.ad_reduce * 100);
+                unit.ApReduce = (int)(spec.ap_reduce * 100);
                 unit.AttackSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
                 unit.AttackRange = spec.atk_range > 0 ? spec.atk_range : 1;
                 unit.MoveSpeed = Mathf.Max(1, (int)(spec.move_speed * 100));
@@ -184,6 +185,11 @@ namespace CookApps.AutoChess
                 unit.CritPower = Mathf.Max(0, (int)(spec.crit_power * 100));
                 if (unit.CritPower <= 0) unit.CritPower = 150;
                 unit.HitChance = 100;
+                unit.HealPower = (int)(spec.heal_power * 100);
+
+                // 마나 리젠
+                unit.ManaGainOnAttack = 10;
+                unit.ManaGainOnHit = 5;
 
                 // 스킬 ID
                 unit.SkillSpecId = GetPrimarySkillId(spec);
@@ -200,16 +206,21 @@ namespace CookApps.AutoChess
                 unit.MaxHP = 100;
                 unit.CurrentHP = 100;
                 unit.Attack = 10;
-                unit.Armor = 0;
-                unit.MagicResist = 0;
+                unit.Def = 0;
+                unit.AdReduce = 0;
+                unit.ApReduce = 0;
                 unit.AttackSpeed = 100;
                 unit.AttackRange = 1;
                 unit.MoveSpeed = 100;
                 unit.MaxMana = 100;
                 unit.CurrentMana = 0;
+                unit.AtkPierce = 0;
+                unit.ResPierce = 0;
                 unit.CritRate = 25;
                 unit.CritPower = 150;
                 unit.HitChance = 100;
+                unit.ManaGainOnAttack = 10;
+                unit.ManaGainOnHit = 5;
                 unit.AtkHitDelay = 1;
             }
 

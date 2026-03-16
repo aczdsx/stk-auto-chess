@@ -127,13 +127,25 @@ namespace CookApps.AutoChess
     /// <summary>스킬 헬퍼용 스탯 수정 대상</summary>
     public enum StatModType : byte
     {
+        None,               // 스탯 무관 (비-스탯 이펙트용)
         Attack,
-        Armor,
-        MagicResist,
+        Def,                // DEF (최종 데미지 감산)
         AttackSpeed,
         ManaRegenRate,  // 마나 리젠 속도 % 보너스
         MaxMana,        // 최대 마나 증감
         DodgeChance,    // 회피율 증감
+        
+        AtkPierce,      // 물리 관통 (0-100)
+        ResPierce,      // 마법 관통 (0-100)
+        
+        CritRate,       // 크리 확률 (0-100)
+        CritPower,      // 크리 배율 (150 = 1.5x)
+        AdReduce,       // 물리 저항률 (정수 퍼센트)
+        ApReduce,       // 마법 저항률 (정수 퍼센트)
+        HealPower,      // 힐파워 (정수 퍼센트)
+        LifeSteal,      // 생명력 흡수 (퍼센트)
+
+        HitChance,      // 명중률 (퍼센트)
     }
 
     /// <summary>상태효과 타입 (통합 StatusEffect 시스템)</summary>
@@ -178,8 +190,9 @@ namespace CookApps.AutoChess
     public enum SynergyEffectType : byte
     {
         // 스탯 보너스 (고정값)
-        BonusArmor,
-        BonusMagicResist,
+        BonusDef,
+        BonusAdReduce,
+        BonusApReduce,
         BonusAttack,
         BonusHP,
         BonusAttackSpeed,
@@ -197,15 +210,23 @@ namespace CookApps.AutoChess
         DodgeChance,
         BacklineJump,
         ShieldOnCombatStart,
-        DamageReduction,
         // 디버프 (적군 대상)
-        ReduceArmor,
-        ReduceMagicResist,
+        ReduceDef,
+        ReduceAdReduce,
+        ReduceApReduce,
     }
 
     // ═══════════════════════════════════════════════
     //  아이템 시스템
     // ═══════════════════════════════════════════════
+
+    /// <summary>스킬 실행 패턴 (base에서 IsChanneling/GetCastFrames/OnChannelTick 자동 판별)</summary>
+    public enum SkillExecutionType : byte
+    {
+        Instant,        // Execute() 즉시 완결, 채널링 없음
+        DelayedApply,   // SkillHitFrames[0] 후 ApplySkillEffect() 1회
+        Channeling,     // Execute() 초기화 + OnChannelTick() 매 프레임
+    }
 
     /// <summary>시뮬레이션 스킬 아키타입</summary>
     public enum SimSkillArchetype : byte
@@ -249,20 +270,14 @@ namespace CookApps.AutoChess
     {
         None = 0,
         // ── 버프 계열 ──
-        StatBuff_Attack     = 1,
-        StatBuff_Armor      = 2,
-        StatBuff_MagicResist = 3,
-        StatBuff_AttackSpeed = 4,
+        StatBuff            = 1,   // 스탯 버프 (StatModType으로 세분화)
         ContinuousHeal      = 5,
         CCImmunity          = 6,
         DOTImmunity         = 7,
         DebuffImmunity      = 8,
         // ── 디버프 계열 ──
-        StatDebuff_Attack      = 9,
-        StatDebuff_Armor       = 10,
-        StatDebuff_MagicResist = 11,
-        StatDebuff_AttackSpeed = 12,
-        ContinuousDamage       = 13,
+        StatDebuff          = 9,   // 스탯 디버프 (StatModType으로 세분화)
+        ContinuousDamage    = 13,
         // ── CC 계열 (기존 직렬화 값 유지) ──
         CC_Stun     = 14,
         CC_Silence  = 15,
@@ -272,10 +287,9 @@ namespace CookApps.AutoChess
         CC_Airborne = 19,
         CC_KnockBack = 20,
         CC_TargetImpossible = 21,
-        // ── 추가 (기존 SO 영향 없는 새 값) ──
+        // ── 추가 ──
         HealAmountDown = 30,
         Shield = 31,
-        StatBuff_DodgeChance = 32,
     }
 
     /// <summary>아이템 특수 효과 타입</summary>

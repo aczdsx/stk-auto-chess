@@ -23,8 +23,7 @@ namespace CookApps.AutoChess
         // 기본 스탯 (스펙에서 복사 + 별 보정 적용된 값)
         public int MaxHP;
         public int Attack;
-        public int Armor;
-        public int MagicResist;
+        public int Def;               // DEF (최종 데미지 감산)
         public int AttackSpeed;       // 100 = 1.0 공속 (정수 기반)
         public int AttackRange;       // 1 = 근접, 2+ = 원거리
         public int MoveSpeed;         // 100 = 1.0 이속
@@ -36,8 +35,9 @@ namespace CookApps.AutoChess
         public int CritRate;          // 크리 확률 (0-100)
         public int CritPower;         // 크리 배율 (150 = 1.5x)
 
-        // 추가 스탯
+        // 저항 스탯
         public int AdReduce;          // 물리 저항률 (정수 퍼센트)
+        public int ApReduce;          // 마법 저항률 (정수 퍼센트)
         public int HealPower;         // 힐파워 (정수 퍼센트)
         public int ImmuneType;        // 이뮨 타입
 
@@ -219,8 +219,8 @@ namespace CookApps.AutoChess
         // 기본 스탯
         public int BaseHP;
         public int BaseAttack;
-        public int BaseArmor;
-        public int BaseMagicResist;
+        public int BaseDef;
+        public int BaseApReduce;
         public int AttackSpeed;      // 100 = 1.0
         public int AttackRange;
         public int MoveSpeed;        // 100 = 1.0
@@ -391,8 +391,9 @@ namespace CookApps.AutoChess
         public int BonusAttackSpeedPercent;  // 퍼센트
         public int BonusSpellPowerPercent;   // 퍼센트
         public int BonusMana;
-        public int BonusArmor;
-        public int BonusMagicResist;
+        public int BonusDef;
+        public int BonusAdReduce;
+        public int BonusApReduce;
         public int BonusHP;
         public int BonusCritChance;          // 퍼센트
 
@@ -517,8 +518,7 @@ namespace CookApps.AutoChess
         public int MaxHP;
         public int CurrentHP;
         public int Attack;
-        public int Armor;
-        public int MagicResist;
+        public int Def;               // DEF (최종 데미지 감산)
         public int AttackSpeed;       // 100 = 1.0
         public int AttackRange;
         public int MoveSpeed;         // 100 = 1.0
@@ -537,15 +537,15 @@ namespace CookApps.AutoChess
         public int AtkPierce;        // 물리 관통
         public int ResPierce;        // 마법 관통
 
-        // 추가 스탯
+        // 저항 스탯
         public int AdReduce;          // 물리 저항률 (정수 퍼센트)
+        public int ApReduce;          // 마법 저항률 (정수 퍼센트)
         public int HealPower;         // 힐파워 (정수 퍼센트)
         public int ImmuneType;        // 이뮨 타입
 
         // 특수 스탯 (시너지/아이템 효과)
         public int LifeSteal;         // 퍼센트
         public int DodgeChance;       // 퍼센트
-        public int DamageReduction;   // 퍼센트
         public int ShieldAmount;      // 보호막
 
         // 타겟팅
@@ -634,8 +634,7 @@ namespace CookApps.AutoChess
         // 계산 완료된 스탯
         public int MaxHP;
         public int Attack;
-        public int Armor;
-        public int MagicResist;
+        public int Def;               // DEF (최종 데미지 감산)
         public int AttackSpeed;    // 100 = 1.0
         public int AttackRange;
         public int MoveSpeed;      // 100 = 1.0
@@ -649,8 +648,9 @@ namespace CookApps.AutoChess
         public int CritRate;          // 크리 확률 (0-100)
         public int CritPower;         // 크리 배율 (150 = 1.5x)
 
-        // 추가 스탯
+        // 저항 스탯
         public int AdReduce;          // 물리 저항률 (정수 퍼센트)
+        public int ApReduce;          // 마법 저항률 (정수 퍼센트)
         public int HealPower;         // 힐파워 (정수 퍼센트)
         public int ImmuneType;        // 이뮨 타입
     }

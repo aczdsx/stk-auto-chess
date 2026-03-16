@@ -17,7 +17,7 @@ namespace CookApps.AutoChess.View
             public float AddedTime;
             public int RefCount;
             public bool IsSkillMarker;
-            public int MarkerId;   // (int)CombatVfxType or (int)SkillMarkerType
+            public int MarkerId;   // encoded (CombatVfxType+StatModType) or (int)SkillMarkerType
         }
 
         private readonly Dictionary<int, List<ActiveBuff>> _activeBuffs = new();
@@ -32,13 +32,13 @@ namespace CookApps.AutoChess.View
 
         // ── CombatVfxType 기반 (StatusEffect/CC) ──
 
-        public void OnEffectAdded(int combatId, CombatVfxType type, int totalFrames)
+        public void OnEffectAdded(int combatId, CombatVfxType type, int totalFrames, StatModType statType = default)
         {
-            if (_config == null || !_config.TryGetEffectIcon(type, out var entry)) return;
+            if (_config == null || !_config.TryGetEffectIcon(type, statType, out var entry)) return;
             if (entry.IconSprite == null) return;
 
             var list = GetOrCreateList(combatId);
-            int key = (int)type;
+            int key = SimEventHelper.EncodeVfxStat(type, statType);
 
             for (int i = 0; i < list.Count; i++)
             {
@@ -66,10 +66,10 @@ namespace CookApps.AutoChess.View
             UpdateUnitBuffIcons(combatId);
         }
 
-        public void OnEffectRemoved(int combatId, CombatVfxType type)
+        public void OnEffectRemoved(int combatId, CombatVfxType type, StatModType statType = default)
         {
             if (!_activeBuffs.TryGetValue(combatId, out var list)) return;
-            int key = (int)type;
+            int key = SimEventHelper.EncodeVfxStat(type, statType);
 
             for (int i = 0; i < list.Count; i++)
             {
@@ -184,7 +184,7 @@ namespace CookApps.AutoChess.View
                 {
                     if (markerEntry.ReplacesEffect != CombatVfxType.None)
                     {
-                        int key = (int)markerEntry.ReplacesEffect;
+                        int key = SimEventHelper.EncodeVfxStat(markerEntry.ReplacesEffect, markerEntry.ReplacesStatType);
                         _tempReplacedCounts.TryGetValue(key, out int count);
                         _tempReplacedCounts[key] = count + buff.RefCount;
                     }

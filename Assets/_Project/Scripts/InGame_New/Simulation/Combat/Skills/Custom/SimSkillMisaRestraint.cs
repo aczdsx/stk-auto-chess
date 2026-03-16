@@ -6,7 +6,7 @@ namespace CookApps.AutoChess
     /// </summary>
     public class SimSkillMisaRestraint : SimSkillBase
     {
-        protected override bool IsDelayedSingleApply => true;
+        public override SkillExecutionType ExecutionType => SkillExecutionType.DelayedApply;
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
         {

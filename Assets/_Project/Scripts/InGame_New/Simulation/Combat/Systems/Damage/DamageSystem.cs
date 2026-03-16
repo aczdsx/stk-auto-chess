@@ -2,8 +2,10 @@ namespace CookApps.AutoChess
 {
     /// <summary>
     /// 데미지 계산 시스템.
-    /// 물리: Attack × (100 / (100 + Armor))
-    /// 마법: SpellPower × (100 / (100 + MagicResist))
+    /// 저항: damage *= 1 - clamp(Reduce/100 * (1 - Pierce/100), 0, RESIST_CAP)
+    ///   물리 → AdReduce / AtkPierce
+    ///   마법 → ApReduce / ResPierce
+    /// DEF(Armor): damage = damage * 100 / (100 + Armor) — 물/마 공통 최종 감산
     /// 고정: 감소 없이 그대로 적용
     /// </summary>
     public static partial class DamageSystem
@@ -14,36 +16,47 @@ namespace CookApps.AutoChess
 
         // ── 상수 ──
         public const int MinDamage = 1;          // 최소 데미지
+        private const int ResistCapPercent = 70;  // 저항 상한 70%
 
-        /// <summary>물리 데미지 계산 (방어력 + 관통 적용)</summary>
-        public static int CalculatePhysicalDamage(int attack, int armor, int atkPierce = 0)
+        /// <summary>저항 적용 (AdReduce/ApReduce + 관통)</summary>
+        /// <param name="damage">원본 데미지</param>
+        /// <param name="resistPercent">저항률 (정수 퍼센트, 0-100)</param>
+        /// <param name="piercePercent">관통률 (정수 퍼센트, 0-100)</param>
+        public static int ApplyResist(int damage, int resistPercent, int piercePercent = 0)
         {
-            if (armor < 0) armor = 0;
-            // 관통 적용: effectiveArmor = armor * (100 - pierce) / 100
-            int effectiveArmor = armor * (100 - atkPierce) / 100;
-            if (effectiveArmor < 0) effectiveArmor = 0;
-            return attack * 100 / (100 + effectiveArmor);
+            if (resistPercent <= 0) return damage;
+            if (piercePercent < 0) piercePercent = 0;
+            if (piercePercent > 100) piercePercent = 100;
+
+            // effectResist = resist * (100 - pierce) / 100, 상한 ResistCapPercent
+            int effectResist = resistPercent * (100 - piercePercent) / 100;
+            if (effectResist > ResistCapPercent) effectResist = ResistCapPercent;
+            if (effectResist <= 0) return damage;
+
+            return damage * (100 - effectResist) / 100;
         }
 
-        /// <summary>마법 데미지 계산 (마법저항 + 관통 적용)</summary>
-        public static int CalculateMagicDamage(int spellPower, int magicResist, int resPierce = 0)
+        /// <summary>DEF(Armor) 최종 감산 — 물/마 공통</summary>
+        public static int ApplyDef(int damage, int armor)
         {
-            if (magicResist < 0) magicResist = 0;
-            int effectiveMR = magicResist * (100 - resPierce) / 100;
-            if (effectiveMR < 0) effectiveMR = 0;
-            return spellPower * 100 / (100 + effectiveMR);
+            if (armor <= 0) return damage;
+            return damage * 100 / (100 + armor);
         }
 
-        /// <summary>타입별 데미지 계산</summary>
+        /// <summary>타입별 데미지 계산 (공격자 없음 — 관통 미적용)</summary>
         public static int CalculateDamage(int rawDamage, DamageType type, ref CombatUnit target)
         {
             int damage = type switch
             {
-                DamageType.Physical => CalculatePhysicalDamage(rawDamage, target.Armor),
-                DamageType.Magical => CalculateMagicDamage(rawDamage, target.MagicResist),
+                DamageType.Physical => ApplyResist(rawDamage, target.AdReduce),
+                DamageType.Magical => ApplyResist(rawDamage, target.ApReduce),
                 DamageType.True => rawDamage,
                 _ => rawDamage,
             };
+
+            // True 데미지가 아니면 DEF 최종 감산
+            if (type != DamageType.True)
+                damage = ApplyDef(damage, target.Def);
 
             if (damage < MinDamage) damage = MinDamage;
             return damage;
@@ -54,11 +67,15 @@ namespace CookApps.AutoChess
         {
             int damage = type switch
             {
-                DamageType.Physical => CalculatePhysicalDamage(rawDamage, target.Armor, attacker.AtkPierce),
-                DamageType.Magical => CalculateMagicDamage(rawDamage, target.MagicResist, attacker.ResPierce),
+                DamageType.Physical => ApplyResist(rawDamage, target.AdReduce, attacker.AtkPierce),
+                DamageType.Magical => ApplyResist(rawDamage, target.ApReduce, attacker.ResPierce),
                 DamageType.True => rawDamage,
                 _ => rawDamage,
             };
+
+            // True 데미지가 아니면 DEF 최종 감산
+            if (type != DamageType.True)
+                damage = ApplyDef(damage, target.Def);
 
             if (damage < MinDamage) damage = MinDamage;
             return damage;
@@ -108,13 +125,6 @@ namespace CookApps.AutoChess
                 // attackerIndex가 없으면 더미 참조 사용
                 if (attackerIndex >= 0)
                     damage = TraitSystem.InvokeModifyIncomingDamage(state, ref state.Units[attackerIndex], targetIndex, damage, damageType);
-            }
-
-            // 데미지 감소 (DamageReduction 퍼센트)
-            if (target.DamageReduction > 0)
-            {
-                damage = damage * (100 - target.DamageReduction) / 100;
-                if (damage < MinDamage) damage = MinDamage;
             }
 
             // 보호막 먼저 차감 (StatusEffectSystem으로 위임)

@@ -18,11 +18,11 @@ namespace CookApps.AutoChess.View
         private readonly CombatVfxConfigSO _config;
         private readonly UnitViewManager _unitViewManager;
 
-        // 활성 루프 VFX: (combatId, type) → 인스턴스 핸들
-        private readonly Dictionary<(int, CombatVfxType), AsyncOperationHandle<GameObject>> _activeLoopVfx = new();
+        // 활성 루프 VFX: (combatId, type, statType) → 인스턴스 핸들
+        private readonly Dictionary<(int, CombatVfxType, StatModType), AsyncOperationHandle<GameObject>> _activeLoopVfx = new();
 
         // 레퍼런스 카운팅 (같은 타입 중복 적용 대응)
-        private readonly Dictionary<(int, CombatVfxType), int> _refCounts = new();
+        private readonly Dictionary<(int, CombatVfxType, StatModType), int> _refCounts = new();
 
         private const float OneShotLifetime = 3f;
 
@@ -33,12 +33,12 @@ namespace CookApps.AutoChess.View
         }
 
         /// <summary>효과 추가 — OneShot 1회 재생 + Loop 부착</summary>
-        public void OnEffectAdded(int combatId, CombatVfxType type)
+        public void OnEffectAdded(int combatId, CombatVfxType type, StatModType statType = default)
         {
             if (_config == null) return;
-            if (!_config.TryGetEntry(type, out var entry)) return;
+            if (!_config.TryGetEntry(type, statType, out var entry)) return;
 
-            var key = (combatId, type);
+            var key = (combatId, type, statType);
 
             // 레퍼런스 카운트 증가 — 이미 VFX가 붙어있으면 스킵
             if (_refCounts.TryGetValue(key, out int count))
@@ -57,13 +57,13 @@ namespace CookApps.AutoChess.View
 
             // Loop VFX (지속 중 부착)
             if (entry.LoopVfx != null && entry.LoopVfx.RuntimeKeyIsValid())
-                SpawnLoopAsync(combatId, type, entry.LoopVfx, entry.LoopPosition, entry.LoopFollowable).Forget();
+                SpawnLoopAsync(combatId, type, statType, entry.LoopVfx, entry.LoopPosition, entry.LoopFollowable).Forget();
         }
 
         /// <summary>효과 제거 — Loop VFX 제거</summary>
-        public void OnEffectRemoved(int combatId, CombatVfxType type)
+        public void OnEffectRemoved(int combatId, CombatVfxType type, StatModType statType = default)
         {
-            var key = (combatId, type);
+            var key = (combatId, type, statType);
 
             if (_refCounts.TryGetValue(key, out int count))
             {
@@ -126,7 +126,7 @@ namespace CookApps.AutoChess.View
 
         // ── Loop: 유닛에 부착, 해제 시 제거 ──
 
-        private async UniTaskVoid SpawnLoopAsync(int combatId, CombatVfxType type, AssetReferenceGameObject assetRef,
+        private async UniTaskVoid SpawnLoopAsync(int combatId, CombatVfxType type, StatModType statType, AssetReferenceGameObject assetRef,
             SkillPosition position = SkillPosition.CUSTOM, bool followable = true)
         {
             var unitView = _unitViewManager?.FindCombatView(combatId);
@@ -137,7 +137,7 @@ namespace CookApps.AutoChess.View
                 ? (posTransform != null ? posTransform : unitView.transform)
                 : null;
 
-            var key = (combatId, type);
+            var key = (combatId, type, statType);
             AsyncOperationHandle<GameObject> handle;
             if (parent != null)
                 handle = Addressables.InstantiateAsync(assetRef, parent);
@@ -167,7 +167,7 @@ namespace CookApps.AutoChess.View
             go.transform.localPosition = Vector3.zero;
         }
 
-        private void ReleaseLoop((int, CombatVfxType) key)
+        private void ReleaseLoop((int, CombatVfxType, StatModType) key)
         {
             if (!_activeLoopVfx.TryGetValue(key, out var handle)) return;
             _activeLoopVfx.Remove(key);
@@ -197,10 +197,7 @@ namespace CookApps.AutoChess.View
             switch (type)
             {
                 // 버프
-                case CombatVfxType.StatBuff_Attack:
-                case CombatVfxType.StatBuff_Armor:
-                case CombatVfxType.StatBuff_MagicResist:
-                case CombatVfxType.StatBuff_AttackSpeed:
+                case CombatVfxType.StatBuff:
                 case CombatVfxType.ContinuousHeal:
                 case CombatVfxType.CCImmunity:
                 case CombatVfxType.DOTImmunity:
@@ -208,10 +205,7 @@ namespace CookApps.AutoChess.View
                     return SoundFX.snd_sfx_ingame_buff;
 
                 // 디버프
-                case CombatVfxType.StatDebuff_Attack:
-                case CombatVfxType.StatDebuff_Armor:
-                case CombatVfxType.StatDebuff_MagicResist:
-                case CombatVfxType.StatDebuff_AttackSpeed:
+                case CombatVfxType.StatDebuff:
                 case CombatVfxType.ContinuousDamage:
                 case CombatVfxType.HealAmountDown:
                     return SoundFX.snd_sfx_ingame_debuff;

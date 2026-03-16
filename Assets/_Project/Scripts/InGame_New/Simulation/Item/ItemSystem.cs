@@ -206,8 +206,9 @@ namespace CookApps.AutoChess
         private static void ApplySpecStats(ref CombatUnit unit, ref ItemSpec spec)
         {
             unit.Attack += spec.BonusAttack;
-            unit.Armor += spec.BonusArmor;
-            unit.MagicResist += spec.BonusMagicResist;
+            unit.Def += spec.BonusDef;
+            unit.AdReduce += spec.BonusAdReduce;
+            unit.ApReduce += spec.BonusApReduce;
 
             if (spec.BonusHP > 0)
             {

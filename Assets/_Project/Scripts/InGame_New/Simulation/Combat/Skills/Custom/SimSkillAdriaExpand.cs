@@ -22,8 +22,7 @@ namespace CookApps.AutoChess
         private const int PhaseCount = 3;
         private const int FallbackDelay = 8; // SkillHitFrames 없을 때 페이즈 간격
 
-        public override bool IsChanneling => true;
-        public override int GetCastFrames() => 0;
+        public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
 
         public override void Initialize(SkillParams p)
         {
@@ -88,7 +87,7 @@ namespace CookApps.AutoChess
             int col = caster.GridCol;
             int row = caster.GridRow;
             int attack = caster.Attack;
-            int armor = caster.Armor;
+            int def = caster.Def;
             var dmgType = DamageType;
             byte team = caster.TeamIndex;
             int power = PowerPercent;
@@ -112,8 +111,8 @@ namespace CookApps.AutoChess
                 if ((_hitMask & bit) != 0) continue;
                 _hitMask |= bit;
 
-                // 데미지: attack * damageRate% * (1 + armor / defValue)
-                int raw = attack * power / 100 * (defScale + armor) / defScale;
+                // 데미지: attack * damageRate% * (1 + def / defValue)
+                int raw = attack * power / 100 * (defScale + def) / defScale;
                 int dmg = DamageSystem.CalculateDamage(raw, dmgType, ref state.Units[casterIdx], ref unit);
                 DamageSystem.ApplyDamage(state, ref unit, dmg);
                 DamageSystem.ChargeMana(ref unit, unit.ManaGainOnHit);

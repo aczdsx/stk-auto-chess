@@ -63,7 +63,7 @@ namespace CookApps.AutoChess
             // VFX 이벤트 발행
             var vfxType = ToVfxType(type, statType);
             if (vfxType != CombatVfxType.None)
-                state.EventQueue?.PushStatusEffectAdded(unit.CombatId, vfxType, durationFrames);
+                state.EventQueue?.PushStatusEffectAdded(unit.CombatId, vfxType, durationFrames, statType);
 
             // SkillMarker 아이콘 이벤트
             if (type == StatusEffectType.SkillMarker)

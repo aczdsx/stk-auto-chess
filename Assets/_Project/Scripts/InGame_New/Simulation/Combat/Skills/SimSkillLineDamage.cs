@@ -7,8 +7,8 @@ namespace CookApps.AutoChess
         private int _moveInterval;
         private int _width;
 
+        public override SkillExecutionType ExecutionType => SkillExecutionType.DelayedApply;
         public override bool HasProjectile => true;
-        protected override bool IsDelayedSingleApply => true;
 
         public override void Initialize(SkillParams p)
         {

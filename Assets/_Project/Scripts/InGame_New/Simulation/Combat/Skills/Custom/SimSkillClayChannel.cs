@@ -9,6 +9,8 @@ namespace CookApps.AutoChess
     /// </summary>
     public class SimSkillClayChannel : SimSkillBase
     {
+        public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
+
         private int _damagePercent;
         private int _healReductionPercent;
         private int _debuffDurationFrames;
@@ -25,8 +27,6 @@ namespace CookApps.AutoChess
         private const int DefaultTickInterval = 15;
         private const int FallbackTickCount = 6; // SkillClipFrames 없을 때 폴백
 
-        public override bool IsChanneling => true;
-
         public override void Initialize(SkillParams p)
         {
             base.Initialize(p);
@@ -35,9 +35,6 @@ namespace CookApps.AutoChess
             _debuffDurationFrames = p.Param2 > 0 ? p.Param2 : 90;
             _zoneRange = p.Param3 > 0 ? p.Param3 : 2;
         }
-
-        // Execute 즉시 호출 → OnChannelTick에서 타이밍 제어
-        public override int GetCastFrames() => 0;
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
         {

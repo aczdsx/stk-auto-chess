@@ -9,7 +9,7 @@ namespace CookApps.AutoChess
         private readonly int[] _targetBuffer = new int[16];
         private int _debuffRemoveCount;
 
-        protected override bool IsDelayedSingleApply => true;
+        public override SkillExecutionType ExecutionType => SkillExecutionType.DelayedApply;
 
         public override void Initialize(SkillParams p)
         {

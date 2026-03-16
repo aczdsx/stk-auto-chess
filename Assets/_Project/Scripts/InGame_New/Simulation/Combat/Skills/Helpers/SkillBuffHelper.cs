@@ -14,13 +14,17 @@ namespace CookApps.AutoChess
                     target.Attack += value;
                     if (target.Attack < 0) target.Attack = 0;
                     break;
-                case StatModType.Armor:
-                    target.Armor += value;
-                    if (target.Armor < 0) target.Armor = 0;
+                case StatModType.Def:
+                    target.Def += value;
+                    if (target.Def < 0) target.Def = 0;
                     break;
-                case StatModType.MagicResist:
-                    target.MagicResist += value;
-                    if (target.MagicResist < 0) target.MagicResist = 0;
+                case StatModType.AdReduce:
+                    target.AdReduce += value;
+                    if (target.AdReduce < 0) target.AdReduce = 0;
+                    break;
+                case StatModType.ApReduce:
+                    target.ApReduce += value;
+                    if (target.ApReduce < 0) target.ApReduce = 0;
                     break;
                 case StatModType.AttackSpeed:
                     target.AttackSpeed += value;
@@ -38,6 +42,38 @@ namespace CookApps.AutoChess
                 case StatModType.DodgeChance:
                     target.DodgeChance += value;
                     if (target.DodgeChance < 0) target.DodgeChance = 0;
+                    break;
+                case StatModType.AtkPierce:
+                    target.AtkPierce += value;
+                    if (target.AtkPierce < 0) target.AtkPierce = 0;
+                    if (target.AtkPierce > 100) target.AtkPierce = 100;
+                    break;
+                case StatModType.ResPierce:
+                    target.ResPierce += value;
+                    if (target.ResPierce < 0) target.ResPierce = 0;
+                    if (target.ResPierce > 100) target.ResPierce = 100;
+                    break;
+                case StatModType.CritRate:
+                    target.CritRate += value;
+                    if (target.CritRate < 0) target.CritRate = 0;
+                    if (target.CritRate > 100) target.CritRate = 100;
+                    break;
+                case StatModType.CritPower:
+                    target.CritPower += value;
+                    if (target.CritPower < 0) target.CritPower = 0;
+                    break;
+                case StatModType.HealPower:
+                    target.HealPower += value;
+                    if (target.HealPower < 0) target.HealPower = 0;
+                    break;
+                case StatModType.LifeSteal:
+                    target.LifeSteal += value;
+                    if (target.LifeSteal < 0) target.LifeSteal = 0;
+                    break;
+                case StatModType.HitChance:
+                    target.HitChance += value;
+                    if (target.HitChance < 0) target.HitChance = 0;
+                    if (target.HitChance > 100) target.HitChance = 100;
                     break;
             }
         }

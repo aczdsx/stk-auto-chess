@@ -46,7 +46,7 @@ namespace CookApps.AutoChess
             // VFX 제거 이벤트 발행
             var vfxType = ToVfxType(effect.Type, effect.StatType);
             if (vfxType != CombatVfxType.None)
-                state.EventQueue?.PushStatusEffectRemoved(unit.CombatId, vfxType);
+                state.EventQueue?.PushStatusEffectRemoved(unit.CombatId, vfxType, effect.StatType);
         }
 
         /// <summary>주기적 효과 적용 (DOT/HOT)</summary>
@@ -68,7 +68,7 @@ namespace CookApps.AutoChess
             }
         }
 
-        /// <summary>StatusEffectType + StatModType → CombatVfxType 변환</summary>
+        /// <summary>StatusEffectType → CombatVfxType 변환 (StatBuff/StatDebuff는 카테고리만 반환)</summary>
         public static CombatVfxType ToVfxType(StatusEffectType type, StatModType statType = default)
         {
             switch (type)
@@ -79,25 +79,8 @@ namespace CookApps.AutoChess
                 case StatusEffectType.CCImmunity: return CombatVfxType.CCImmunity;
                 case StatusEffectType.DOTImmunity: return CombatVfxType.DOTImmunity;
                 case StatusEffectType.DebuffImmunity: return CombatVfxType.DebuffImmunity;
-                case StatusEffectType.StatBuff:
-                    switch (statType)
-                    {
-                        case StatModType.Attack: return CombatVfxType.StatBuff_Attack;
-                        case StatModType.Armor: return CombatVfxType.StatBuff_Armor;
-                        case StatModType.MagicResist: return CombatVfxType.StatBuff_MagicResist;
-                        case StatModType.AttackSpeed: return CombatVfxType.StatBuff_AttackSpeed;
-                        case StatModType.DodgeChance: return CombatVfxType.StatBuff_DodgeChance;
-                        default: return CombatVfxType.None;
-                    }
-                case StatusEffectType.StatDebuff:
-                    switch (statType)
-                    {
-                        case StatModType.Attack: return CombatVfxType.StatDebuff_Attack;
-                        case StatModType.Armor: return CombatVfxType.StatDebuff_Armor;
-                        case StatModType.MagicResist: return CombatVfxType.StatDebuff_MagicResist;
-                        case StatModType.AttackSpeed: return CombatVfxType.StatDebuff_AttackSpeed;
-                        default: return CombatVfxType.None;
-                    }
+                case StatusEffectType.StatBuff: return CombatVfxType.StatBuff;
+                case StatusEffectType.StatDebuff: return CombatVfxType.StatDebuff;
                 case StatusEffectType.HealReduction: return CombatVfxType.HealAmountDown;
                 case StatusEffectType.Silence: return CombatVfxType.CC_Silence;
                 case StatusEffectType.Slow: return CombatVfxType.CC_Slow;

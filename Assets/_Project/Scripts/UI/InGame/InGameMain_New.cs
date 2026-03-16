@@ -306,8 +306,10 @@ namespace CookApps.AutoBattler
 
                 enemy.MaxHP = (int)(spec.stat_hp * character.MultipleHp);
                 enemy.Attack = (int)(spec.stat_atk * character.MultipleAtk);
-                enemy.Armor = spec.stat_def;
-                enemy.MagicResist = (int)spec.ap_reduce;
+                enemy.Def = spec.stat_def;
+                enemy.AdReduce = (int)(spec.ad_reduce * 100);
+                enemy.ApReduce = (int)(spec.ap_reduce * 100);
+
                 enemy.AttackSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
                 enemy.AttackRange = spec.atk_range > 0 ? spec.atk_range : 1;
                 enemy.MoveSpeed = Mathf.Max(1, (int)(spec.move_speed * 100));
@@ -319,7 +321,6 @@ namespace CookApps.AutoBattler
                 enemy.ResPierce = Mathf.Clamp((int)(spec.stat_res_pierce * 100), 0, 100);
                 enemy.CritRate = Mathf.Max(0, (int)(spec.crit_rate * 100));
                 enemy.CritPower = Mathf.Max(0, (int)(spec.crit_power * 100));
-                enemy.AdReduce = (int)(spec.ad_reduce * 100);
                 enemy.HealPower = (int)(spec.heal_power * 100);
                 enemy.ImmuneType = (int)spec.immune_type;
             }
@@ -410,8 +411,10 @@ namespace CookApps.AutoBattler
 
                 enemy.MaxHP = (int)(spec.stat_hp * monster.multiple_hp);
                 enemy.Attack = (int)(spec.stat_atk * monster.multiple_atk);
-                enemy.Armor = spec.stat_def;
-                enemy.MagicResist = (int)spec.ap_reduce;
+                enemy.Def = spec.stat_def;
+                enemy.AdReduce = (int)(spec.ad_reduce * 100);
+                enemy.ApReduce = (int)(spec.ap_reduce * 100);
+
                 enemy.AttackSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
                 enemy.AttackRange = spec.atk_range > 0 ? spec.atk_range : 1;
                 enemy.MoveSpeed = Mathf.Max(1, (int)(spec.move_speed * 100));
@@ -423,7 +426,6 @@ namespace CookApps.AutoBattler
                 enemy.ResPierce = Mathf.Clamp((int)(spec.stat_res_pierce * 100), 0, 100);
                 enemy.CritRate = Mathf.Max(0, (int)(spec.crit_rate * 100));
                 enemy.CritPower = Mathf.Max(0, (int)(spec.crit_power * 100));
-                enemy.AdReduce = (int)(spec.ad_reduce * 100);
                 enemy.HealPower = (int)(spec.heal_power * 100);
                 enemy.ImmuneType = (int)spec.immune_type;
             }

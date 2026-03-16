@@ -17,7 +17,7 @@ namespace CookApps.AutoChess
         private int _clipEndTimer; // SKL 클립 끝까지 채널링 유지용
         private int _hitIndex; // 타일이펙트 주기 제어용
 
-        public override bool IsChanneling => true;
+        public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
 
         public override void Initialize(SkillParams p)
         {
@@ -26,9 +26,6 @@ namespace CookApps.AutoChess
             _rate2 = p.Param1 > 0 ? p.Param1 : PowerPercent;
             _rate3 = p.Param2 > 0 ? p.Param2 : PowerPercent;
         }
-
-        // AnimEvent 기반: Execute 즉시 호출 → OnChannelTick에서 타이밍 제어
-        public override int GetCastFrames() => 0;
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
         {
