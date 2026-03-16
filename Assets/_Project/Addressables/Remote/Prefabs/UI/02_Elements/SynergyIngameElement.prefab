@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 2920410250695454135}
   - component: {fileID: 2801864911563923489}
   m_Layer: 5
-  m_Name: Badge_Synergy_Ingame
+  m_Name: SynergyIngameElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
