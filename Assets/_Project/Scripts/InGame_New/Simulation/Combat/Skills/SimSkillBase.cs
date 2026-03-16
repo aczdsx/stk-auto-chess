@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using CookApps.AutoBattler;
+
 namespace CookApps.AutoChess
 {
     /// <summary>스킬 초기화 파라미터</summary>
@@ -101,6 +104,15 @@ namespace CookApps.AutoChess
 
             SkillHitFrames = p.SkillHitFrames;
             SkillClipFrames = p.SkillClipFrames;
+        }
+
+        /// <summary>
+        /// 스펙 리스트를 직접 받아 초기화. 커스텀 스킬이 override하여 자체 스펙 파싱.
+        /// 기본 구현은 Initialize(baseParams)만 호출하므로 미마이그레이션 스킬도 정상 동작.
+        /// </summary>
+        public virtual void InitializeFromSpec(SkillParams baseParams, List<SkillActive> specList, int tickRate)
+        {
+            Initialize(baseParams);
         }
 
         /// <summary>시전 가능 여부 (마나 외 추가 조건)</summary>

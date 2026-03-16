@@ -62,6 +62,7 @@ namespace CookApps.AutoBattler
                     Preset = preset,
                     Synergies = hasPreset ? CollectSynergies(preset) : null,
                     Characters = hasPreset ? CollectCharacters(preset) : null,
+                    TotalCP = hasPreset ? CalculateTotalCP(preset) : 0,
                     OnSave = OnSavePreset,
                     OnLoad = hasPreset ? OnLoadPreset : null,
                     OnDelete = hasPreset ? OnDeletePreset : null,
@@ -110,6 +111,7 @@ namespace CookApps.AutoBattler
                     ChampionSpecId = unit.ChampionSpecId,
                     Col = unit.BoardCol,
                     Row = unit.BoardRow,
+                    StarLevel = unit.StarLevel,
                 });
             }
 
@@ -188,6 +190,36 @@ namespace CookApps.AutoBattler
                     return entityId;
             }
             return UnitData.InvalidId;
+        }
+
+        // ── CP 계산 ──
+
+        private int CalculateTotalCP(PresetSlotData preset)
+        {
+            int totalCP = 0;
+            foreach (var unit in preset.Units)
+            {
+                var spec = SpecDataManager.Instance.GetSpecCharacter(unit.ChampionSpecId);
+                if (spec == null) continue;
+
+                int star = unit.StarLevel > 0 ? unit.StarLevel : 1;
+                int starMul = star switch { 2 => 180, 3 => 320, _ => 100 };
+                int hp = spec.stat_hp * starMul / 100;
+                int atk = spec.stat_atk * starMul / 100;
+                int def = spec.stat_def;
+                int adReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ad_reduce);
+                int apReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ap_reduce);
+                int atkSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
+                int critRate = Mathf.Max(0, (int)(spec.crit_rate * 100));
+                int critPower = Mathf.Max(0, (int)(spec.crit_power * 100));
+                int atkPierce = Mathf.Clamp((int)(spec.stat_atk_pierce * 100), 0, 100);
+                if (critRate <= 0) critRate = 25;
+                if (critPower <= 0) critPower = 150;
+
+                totalCP += CombatPowerCalculator.CalculateFromOldSpec(
+                    hp, atk, def, adReduce, apReduce, atkSpeed, critRate, critPower, atkPierce);
+            }
+            return totalCP;
         }
 
         // ── 시너지 수집 ──

@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using CookApps.AutoBattler;
+
 namespace CookApps.AutoChess
 {
     /// <summary>오데트: 2단계 채널링 — 1단계 L자형 범위공격+순간이동, 2단계 3×3 범위공격, 양쪽 공속감소 디버프</summary>
@@ -14,11 +17,13 @@ namespace CookApps.AutoChess
 
         public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
 
-        public override void Initialize(SkillParams p)
+        public override void InitializeFromSpec(SkillParams baseParams, List<SkillActive> specList, int tickRate)
         {
-            base.Initialize(p);
-            _debuffDurationFrames = p.Param0 > 0 ? p.Param0 : 90;  // 기본 3초
-            _atkSpeedDownValue = p.Param1 > 0 ? p.Param1 : 30;     // 기본 30
+            base.Initialize(baseParams);
+            // {0}=쿨타임, {1}=데미지배율(%)→PowerPercent, {2}=디버프지속(초), {3}=공속감소(%)
+            PowerPercent = SkillSpecHelper.GetInt(specList, 1, 200f);
+            _debuffDurationFrames = SkillSpecHelper.GetFrames(specList, 2, 3f, tickRate);
+            _atkSpeedDownValue = SkillSpecHelper.GetInt(specList, 3, 30f);
         }
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)

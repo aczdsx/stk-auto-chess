@@ -169,8 +169,8 @@ namespace CookApps.AutoChess
                 unit.CurrentHP = unit.MaxHP;
                 unit.Attack = (int)(spec.stat_atk * multipleAtk);
                 unit.Def = spec.stat_def;
-                unit.AdReduce = (int)(spec.ad_reduce * 100);
-                unit.ApReduce = (int)(spec.ap_reduce * 100);
+                unit.AdReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ad_reduce);
+                unit.ApReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ap_reduce);
                 unit.AttackSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
                 unit.AttackRange = spec.atk_range > 0 ? spec.atk_range : 1;
                 unit.MoveSpeed = Mathf.Max(1, (int)(spec.move_speed * 100));

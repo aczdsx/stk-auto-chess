@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using CookApps.AutoBattler;
+
 namespace CookApps.AutoChess
 {
     /// <summary>
@@ -16,13 +19,14 @@ namespace CookApps.AutoChess
 
         private const int MaxFoxFires = 9;
 
-        public override void Initialize(SkillParams p)
+        public override void InitializeFromSpec(SkillParams baseParams, List<SkillActive> specList, int tickRate)
         {
-            base.Initialize(p);
-            _foxFireIncrease = p.Param0 > 0 ? p.Param0 : 2;
-            _buffDurationFrames = p.Param1 > 0 ? p.Param1 : 90;
-            _atkSpeedRatePercent = p.Param2 > 0 ? p.Param2 : 10;
-            _foxFireDurationFrames = p.Param3 > 0 ? p.Param3 : 150;
+            base.Initialize(baseParams);
+            // {0}=쿨타임, {1}=여우불 증가량, {2}=공속버프 지속(초), {3}=공속증가율(%)
+            _foxFireIncrease = SkillSpecHelper.GetInt(specList, 1, 2f);
+            _buffDurationFrames = SkillSpecHelper.GetFrames(specList, 2, 3f, tickRate);
+            _atkSpeedRatePercent = SkillSpecHelper.GetInt(specList, 3, 10f);
+            _foxFireDurationFrames = 150;
         }
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)

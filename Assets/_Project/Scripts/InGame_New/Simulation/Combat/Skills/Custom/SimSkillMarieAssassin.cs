@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using CookApps.AutoBattler;
+
 namespace CookApps.AutoChess
 {
     /// <summary>
@@ -21,11 +24,16 @@ namespace CookApps.AutoChess
 
         public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
 
-        public override void Initialize(SkillParams p)
+        public override void InitializeFromSpec(SkillParams baseParams, List<SkillActive> specList, int tickRate)
         {
-            base.Initialize(p);
-            _debuffDurationFrames = p.Param0;
-            _debuffPercent = p.Param1;
+            base.Initialize(baseParams);
+            // {0}=쿨타임, {1}=히트수, {2}=데미지배율(%)→PowerPercent, {3}=디버프지속(초), {4}=디버프율(%)
+            PowerPercent = SkillSpecHelper.GetInt(specList, 2, 200f);
+            TargetType = SkillTargetType.HighestAttackEnemy;
+            int hitCount = SkillSpecHelper.GetInt(specList, 1, 4f);
+            HitCount = hitCount > 0 ? hitCount : 4;
+            _debuffDurationFrames = SkillSpecHelper.GetFrames(specList, 3, 3f, tickRate);
+            _debuffPercent = SkillSpecHelper.GetInt(specList, 4, 30f);
         }
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)

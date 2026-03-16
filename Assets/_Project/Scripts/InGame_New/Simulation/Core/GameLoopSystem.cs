@@ -204,6 +204,15 @@ namespace CookApps.AutoChess
 
             // 상점 갱신 (잠금된 상점은 스킵)
             ShopSystem.RefreshAllShops(world);
+
+            // 준비 페이즈 시너지 행동 정리 및 재동기화
+            for (int p = 0; p < world.Config.PlayerCount; p++)
+            {
+                if (!world.Players[p].IsAlive) continue;
+                SynergySystem.ClearPrepBehaviors(world, (byte)p);
+                SynergySystem.Recalculate(world, (byte)p);
+                SynergySystem.SyncPrepBehaviors(world, (byte)p);
+            }
         }
 
         private static void OnEnterCombat(GameWorld world)
@@ -244,6 +253,7 @@ namespace CookApps.AutoChess
                 if (matchState != null)
                 {
                     SynergySystem.ApplyEffects(world, matchState, 0, 0);
+                    SynergySystem.ApplyBehaviors(world, matchState, 0, 0);
                     SkillSystem.SetupSkills(matchState, world);
                 }
             }
@@ -265,6 +275,8 @@ namespace CookApps.AutoChess
                     {
                         SynergySystem.ApplyEffects(world, matchState, match.PlayerA, 0);
                         SynergySystem.ApplyEffects(world, matchState, match.PlayerB, 1);
+                        SynergySystem.ApplyBehaviors(world, matchState, match.PlayerA, 0);
+                        SynergySystem.ApplyBehaviors(world, matchState, match.PlayerB, 1);
                         SkillSystem.SetupSkills(matchState, world);
                     }
                 }

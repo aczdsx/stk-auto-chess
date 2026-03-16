@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using CookApps.AutoBattler;
+
 namespace CookApps.AutoChess
 {
     /// <summary>
@@ -7,6 +10,16 @@ namespace CookApps.AutoChess
     public class SimSkillMisaRestraint : SimSkillBase
     {
         public override SkillExecutionType ExecutionType => SkillExecutionType.DelayedApply;
+
+        public override void InitializeFromSpec(SkillParams baseParams, List<SkillActive> specList, int tickRate)
+        {
+            base.Initialize(baseParams);
+            // {0}=쿨타임, {1}=봉인지속(초)
+            TargetType = SkillTargetType.HighestAttackEnemy;
+            CCType = CrowdControlType.Stun;
+            CCDurationFrames = SkillSpecHelper.GetFrames(specList, 1, 3f, tickRate);
+            PowerPercent = 0;
+        }
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
         {

@@ -344,6 +344,7 @@ namespace CookApps.AutoChess
         public int TraitId;            // 비트 인덱스 (0-31)
         public TraitCategory Category;
         public SynergyTier[] Tiers;    // 단계별 효과
+        public bool HasBehavior;       // asterism처럼 행동 클래스가 필요한 시너지
 
         public bool IsValid => Tiers != null && Tiers.Length > 0;
     }
@@ -513,6 +514,14 @@ namespace CookApps.AutoChess
         // 상태
         public CombatState State;
         public bool IsAlive;
+
+        // 기본 스탯 (CombatSetup 시 복사, 퍼센트 버프의 기준값)
+        public int BaseMaxHP;
+        public int BaseAttack;
+        public int BaseDef;
+        public int BaseAttackSpeed;
+        public int BaseAdReduce;
+        public int BaseApReduce;
 
         // 전투 스탯 (시너지/아이템 보정 적용 후)
         public int MaxHP;
@@ -778,6 +787,11 @@ namespace CookApps.AutoChess
         public int[] TraitCounts;          // [MaxCombatUnits] 유닛별 부착된 특성 수
         internal bool _traitCombatStartDone; // OnCombatStart 1회 실행 플래그
 
+        // 시너지 행동 (asterism 전용)
+        public const int MaxSynergyBehaviors = 8;
+        public SynergyBehaviorBase[] SynergyBehaviors; // [MaxSynergyBehaviors]
+        public int SynergyBehaviorCount;
+
         public static CombatMatchState Create(byte matchIndex, byte playerA, byte playerB)
         {
             var state = new CombatMatchState
@@ -793,6 +807,7 @@ namespace CookApps.AutoChess
                 Skills = new SimSkillBase[MaxCombatUnits],
                 Traits = new CombatTraitBase[MaxCombatUnits][],
                 TraitCounts = new int[MaxCombatUnits],
+                SynergyBehaviors = new SynergyBehaviorBase[MaxSynergyBehaviors],
             };
 
             for (int i = 0; i < MaxCombatUnits; i++)

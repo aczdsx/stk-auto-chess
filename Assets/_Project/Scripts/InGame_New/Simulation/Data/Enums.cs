@@ -101,6 +101,7 @@ namespace CookApps.AutoChess
         EquipItem,          // 아이템 장착
         UnequipItem,        // 아이템 해제
         SpawnTutorialEnemy, // 튜토리얼 적 스폰
+        SetSynergyPrepTarget, // Param0=traitId, Param1=targetEntityId
     }
 
     /// <summary>군중제어(CC) 타입</summary>
@@ -203,6 +204,9 @@ namespace CookApps.AutoChess
         BonusAttackPercent,
         BonusHPPercent,
         BonusAttackSpeedPercent,
+        BonusDefPercent,
+        BonusAdReducePercent,
+        BonusApReducePercent,
         // 특수 효과
         StartingMana,
         SpellDamagePercent,

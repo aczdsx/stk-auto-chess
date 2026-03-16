@@ -27,6 +27,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private SynergyUI _synergyIconPrefab;
         [SerializeField] private Transform _synergyIconContainer;
 
+        [Header("CP")] 
+        [SerializeField] private TextMeshProUGUI _cpText;
+
         public struct SynergyDisplayInfo
         {
             public SynergyType Type;
@@ -39,6 +42,7 @@ namespace CookApps.AutoBattler
             public PresetSlotData Preset;
             public List<SynergyDisplayInfo> Synergies;
             public List<SynergyTooltipImageGroup.CharacterSlotData> Characters;
+            public int TotalCP;
             public Action<int> OnSave;
             public Action<int> OnLoad;
             public Action<int> OnDelete;
@@ -62,6 +66,7 @@ namespace CookApps.AutoBattler
             BindName(data);
             BindCharacters(data.Characters);
             BindSynergies(data.Synergies);
+            BindCP(data.TotalCP);
             BindDragHandler(data);
         }
 
@@ -132,6 +137,12 @@ namespace CookApps.AutoBattler
             var icon = Instantiate(_synergyIconPrefab, _synergyIconContainer);
             _iconPool.Add(icon);
             return icon;
+        }
+
+        private void BindCP(int totalCP)
+        {
+            if (_cpText == null) return;
+            _cpText.text = totalCP > 0 ? totalCP.ToString("n0") : "";
         }
 
         private void BindName(SlotData data)

@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using CookApps.AutoBattler;
+
 namespace CookApps.AutoChess
 {
     /// <summary>엔키: 파도 채널링 — 뒤에서 앞으로 보드 전체를 이동하며 아군 힐 + HoT.
@@ -26,11 +29,14 @@ namespace CookApps.AutoChess
 
         public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
 
-        public override void Initialize(SkillParams p)
+        public override void InitializeFromSpec(SkillParams baseParams, List<SkillActive> specList, int tickRate)
         {
-            base.Initialize(p);
-            _hotDuration = p.Param0 > 0 ? p.Param0 : 180;
-            _hotInterval = p.Param1 > 0 ? p.Param1 : 30;
+            base.Initialize(baseParams);
+            // {0}=쿨타임, {1}=힐배율(%)→PowerPercent, {2}=HoT지속(초), {3}=HoT위력(%)
+            PowerPercent = SkillSpecHelper.GetInt(specList, 1, 200f);
+            _hotDuration = SkillSpecHelper.GetFrames(specList, 2, 6f, tickRate);
+            _hotInterval = 30;
+            SecondaryPowerPercent = SkillSpecHelper.GetInt(specList, 3, 50f);
         }
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
