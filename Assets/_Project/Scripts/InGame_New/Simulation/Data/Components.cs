@@ -692,6 +692,7 @@ namespace CookApps.AutoChess
         public StatModType StatType;     // StatBuff/Debuff 시 대상 스탯
         public DamageType DmgType;       // DOT 데미지 타입
         public bool IsActive;
+        public int SourceSkillId;        // 동일 스킬의 효과 갱신용 (0 = 미지정)
     }
 
     /// <summary>투사체 데이터</summary>

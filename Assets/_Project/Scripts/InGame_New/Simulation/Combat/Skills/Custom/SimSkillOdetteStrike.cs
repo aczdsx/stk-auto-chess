@@ -128,9 +128,9 @@ namespace CookApps.AutoChess
                 DamageSystem.ApplyDamage(state, ref unit, dmg);
                 DamageSystem.ChargeMana(ref unit, unit.ManaGainOnHit);
 
-                // 공속감소 디버프
+                // 공속감소 디버프 (동일 스킬 갱신)
                 SkillBuffHelper.ApplyTimedDebuff(state, i,
-                    StatModType.AttackSpeed, _atkSpeedDownValue, _debuffDurationFrames);
+                    StatModType.AttackSpeed, _atkSpeedDownValue, _debuffDurationFrames, sourceSkillId: SkillId);
 
                 // 전용 아이콘용 SkillMarker 동시 발행
                 StatusEffectSystem.AddEffect(state, i,
@@ -174,9 +174,9 @@ namespace CookApps.AutoChess
                     DamageSystem.ApplyDamage(state, ref enemy, dmg);
                     DamageSystem.ChargeMana(ref enemy, enemy.ManaGainOnHit);
 
-                    // 공속감소 디버프
+                    // 공속감소 디버프 (동일 스킬 갱신)
                     SkillBuffHelper.ApplyTimedDebuff(state, idx,
-                        StatModType.AttackSpeed, _atkSpeedDownValue, _debuffDurationFrames);
+                        StatModType.AttackSpeed, _atkSpeedDownValue, _debuffDurationFrames, sourceSkillId: SkillId);
 
                     // 전용 아이콘용 SkillMarker 동시 발행
                     StatusEffectSystem.AddEffect(state, idx,

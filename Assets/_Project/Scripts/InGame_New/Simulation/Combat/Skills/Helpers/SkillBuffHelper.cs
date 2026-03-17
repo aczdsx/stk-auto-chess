@@ -80,18 +80,51 @@ namespace CookApps.AutoChess
 
         /// <summary>지속시간 있는 스탯 버프 (만료 시 자동 역산)</summary>
         public static void ApplyTimedBuff(CombatMatchState state, int unitIndex,
-            StatModType stat, int value, int durationFrames)
+            StatModType stat, int value, int durationFrames, int sourceSkillId = 0)
         {
             StatusEffectSystem.AddEffect(state, unitIndex, StatusEffectType.StatBuff,
-                value, durationFrames, statType: stat);
+                value, durationFrames, statType: stat, sourceSkillId: sourceSkillId);
         }
 
         /// <summary>지속시간 있는 스탯 디버프 (만료 시 자동 역산)</summary>
         public static void ApplyTimedDebuff(CombatMatchState state, int unitIndex,
-            StatModType stat, int value, int durationFrames)
+            StatModType stat, int value, int durationFrames, int sourceSkillId = 0)
         {
             StatusEffectSystem.AddEffect(state, unitIndex, StatusEffectType.StatDebuff,
-                value, durationFrames, statType: stat);
+                value, durationFrames, statType: stat, sourceSkillId: sourceSkillId);
+        }
+
+        /// <summary>Base 스탯 기준 퍼센트 버프 (Attack/Def/MaxHP 전용)</summary>
+        public static void ApplyPercentBuff(CombatMatchState state, int unitIndex,
+            StatModType stat, int percent, int durationFrames, int sourceSkillId = 0)
+        {
+            if (unitIndex < 0 || unitIndex >= state.UnitCount) return;
+            int baseVal = GetBaseStat(ref state.Units[unitIndex], stat);
+            int value = baseVal * percent / 100;
+            if (value <= 0) return;
+            ApplyTimedBuff(state, unitIndex, stat, value, durationFrames, sourceSkillId);
+        }
+
+        /// <summary>Base 스탯 기준 퍼센트 디버프 (Attack/Def/MaxHP 전용)</summary>
+        public static void ApplyPercentDebuff(CombatMatchState state, int unitIndex,
+            StatModType stat, int percent, int durationFrames, int sourceSkillId = 0)
+        {
+            if (unitIndex < 0 || unitIndex >= state.UnitCount) return;
+            int baseVal = GetBaseStat(ref state.Units[unitIndex], stat);
+            int value = baseVal * percent / 100;
+            if (value <= 0) return;
+            ApplyTimedDebuff(state, unitIndex, stat, value, durationFrames, sourceSkillId);
+        }
+
+        /// <summary>퍼센트 연산의 기준이 되는 Base 스탯 반환</summary>
+        private static int GetBaseStat(ref CombatUnit unit, StatModType stat)
+        {
+            return stat switch
+            {
+                StatModType.Attack => unit.BaseAttack,
+                StatModType.Def => unit.BaseDef,
+                _ => 0, // MaxHP 등 추가 시 확장
+            };
         }
 
         /// <summary>쉴드 부여 (지속시간 기반, 스태킹)</summary>
