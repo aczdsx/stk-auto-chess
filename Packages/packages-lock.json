@@ -61,7 +61,7 @@
       "hash": "33356da2c43fa28397192baee70910c978e3169f"
     },
     "com.cookapps.analytics": {
-      "version": "1.8.1",
+      "version": "1.8.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -74,8 +74,8 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.auth": {
-      "version": "1.0.7",
-      "depth": 1,
+      "version": "1.0.8",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2",
@@ -94,19 +94,19 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.build": {
-      "version": "2.0.0",
+      "version": "2.1.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.cookapps.package.window": "1.3.5",
+        "com.cookapps.package.window": "1.3.8",
         "com.unity.nuget.newtonsoft-json": "3.0.2",
-        "com.cookapps.code.obfuscator": "1.0.6",
-        "com.cookapps.package.template-helper": "1.1.0"
+        "com.cookapps.code.obfuscator": "1.0.8",
+        "com.cookapps.link-xml-resolver": "1.1.1"
       },
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.code.obfuscator": {
-      "version": "1.0.7",
+      "version": "1.0.8",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -162,14 +162,14 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.google.apis.helper": {
-      "version": "1.0.0",
+      "version": "1.0.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.iap": {
-      "version": "3.0.2",
+      "version": "3.1.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -180,14 +180,14 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.inspector": {
-      "version": "1.0.6",
+      "version": "1.0.7",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.k4os.lz4": {
-      "version": "1.0.0",
+      "version": "1.0.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -196,14 +196,14 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.link-xml-resolver": {
-      "version": "1.1.0",
-      "depth": 2,
+      "version": "1.1.1",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.litedb": {
-      "version": "1.0.2",
+      "version": "1.0.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -223,7 +223,7 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.messagepack-csharp": {
-      "version": "1.0.1",
+      "version": "1.0.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -265,7 +265,7 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.obfuscator": {
-      "version": "1.2.1",
+      "version": "1.2.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -278,7 +278,7 @@
     },
     "com.cookapps.package.template-helper": {
       "version": "1.1.0",
-      "depth": 1,
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2"
@@ -286,7 +286,7 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.package.window": {
-      "version": "1.3.6",
+      "version": "1.3.8",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -306,7 +306,7 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.postprocessor": {
-      "version": "1.1.0",
+      "version": "1.1.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -315,7 +315,7 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.scene.helper": {
-      "version": "1.0.8",
+      "version": "1.0.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -324,20 +324,20 @@
       "url": "http://packages.tech.cookapps.com"
     },
     "com.cookapps.specdatamanager.hive": {
-      "version": "2.0.3",
+      "version": "2.1.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.cookapps.package.window": "1.3.5",
+        "com.cookapps.package.window": "1.3.8",
         "com.unity.nuget.newtonsoft-json": "3.2.1",
-        "com.cookapps.obfuscator": "1.2.1",
-        "com.cookapps.google.apis.helper": "1.0.0",
-        "com.unity.editorcoroutines": "1.0.0",
-        "com.cookapps.inspector": "1.0.5",
-        "com.cookapps.litedb": "1.0.1",
+        "com.cookapps.obfuscator": "1.2.2",
+        "com.cookapps.google.apis.helper": "1.0.1",
+        "com.unity.editorcoroutines": "1.0.1",
+        "com.cookapps.inspector": "1.0.7",
+        "com.cookapps.litedb": "1.0.3",
         "com.cookapps.build": "1.4.7",
-        "com.cookapps.messagepack-csharp": "1.0.1",
-        "com.cookapps.k4os.lz4": "1.0.0"
+        "com.cookapps.messagepack-csharp": "1.0.2",
+        "com.cookapps.k4os.lz4": "1.0.1"
       },
       "url": "http://packages.tech.cookapps.com"
     },
