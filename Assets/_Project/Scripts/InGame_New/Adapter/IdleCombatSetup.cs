@@ -39,14 +39,17 @@ namespace CookApps.AutoChess
             _boardWidth = boardWidth;
             _boardHeight = boardHeight;
 
+            int halfHeight = _boardHeight / 2;
+            BoardHelper.Setup(_boardWidth, halfHeight, _boardHeight);
+
             var state = CombatMatchState.Create(0, PlayerA, PlayerB);
             state.EventQueue = eventQueue;
 
             // SkillFactory 초기화
             SkillFactory.Initialize(tickRate);
 
-            int playerMaxRow = _boardHeight - 1;
-            int enemyMinRow = _boardHeight;
+            int playerMaxRow = halfHeight - 1;
+            int enemyMinRow = halfHeight;
 
             // 아군 유닛 (team 0, row 0 ~ playerMaxRow, 최대 5개)
             if (playerChampionSpecIds != null)
@@ -92,8 +95,9 @@ namespace CookApps.AutoChess
             if (enemyChampionSpecId <= 0)
                 return false;
 
-            int enemyMinRow = _boardHeight;
-            int enemyMaxRow = _boardHeight * 2 - 1;
+            int halfHeight = _boardHeight / 2;
+            int enemyMinRow = halfHeight;
+            int enemyMaxRow = _boardHeight - 1;
             if (!FindEmptyTile(matchState, enemyMinRow, enemyMaxRow, ref rng, out int col, out int row))
                 return false;
 
@@ -181,6 +185,9 @@ namespace CookApps.AutoChess
         private static bool FindEmptyTile(CombatMatchState state, int minRow, int maxRow,
             ref DeterministicRNG rng, out int outCol, out int outRow)
         {
+            if (maxRow >= _boardHeight) maxRow = _boardHeight - 1;
+            if (minRow < 0) minRow = 0;
+
             int maxTiles = _boardWidth * (maxRow - minRow + 1);
             var emptyCols = new int[maxTiles];
             var emptyRows = new int[maxTiles];

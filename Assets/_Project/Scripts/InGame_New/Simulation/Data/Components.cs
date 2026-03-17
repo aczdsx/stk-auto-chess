@@ -761,8 +761,8 @@ namespace CookApps.AutoChess
         public int UnitCount;
         public int NextCombatId;
 
-        // 그리드
-        public int[] GridTiles;        // [CombatGrid.Size] = CombatId
+        // 그리드 (크기는 BoardHelper.CombatWidth/CombatHeight 참조)
+        public int[] GridTiles;
 
         // 투사체
         public Projectile[] Projectiles; // [MaxProjectiles]
@@ -790,6 +790,7 @@ namespace CookApps.AutoChess
 
         public static CombatMatchState Create(byte matchIndex, byte playerA, byte playerB)
         {
+            int gridSize = BoardHelper.CombatWidth * BoardHelper.CombatHeight;
             var state = new CombatMatchState
             {
                 MatchIndex = matchIndex,
@@ -797,7 +798,7 @@ namespace CookApps.AutoChess
                 PlayerB = playerB,
                 Winner = 0xFF,
                 Units = new CombatUnit[MaxCombatUnits],
-                GridTiles = new int[CombatGrid.Size],
+                GridTiles = new int[gridSize],
                 Projectiles = new Projectile[MaxProjectiles],
                 StatusEffects = new StatusEffect[MaxStatusEffects],
                 Skills = new SimSkillBase[MaxCombatUnits],
@@ -810,7 +811,7 @@ namespace CookApps.AutoChess
 
             for (int i = 0; i < MaxCombatUnits; i++)
                 state.Units[i].CombatId = CombatUnit.InvalidId;
-            for (int i = 0; i < CombatGrid.Size; i++)
+            for (int i = 0; i < gridSize; i++)
                 state.GridTiles[i] = CombatUnit.InvalidId;
             for (int i = 0; i < MaxProjectiles; i++)
                 state.Projectiles[i].IsActive = false;
@@ -833,21 +834,21 @@ namespace CookApps.AutoChess
         /// <summary>그리드 위치의 유닛 CombatId 조회</summary>
         public int GetUnitAtGrid(int col, int row)
         {
-            if (col < 0 || col >= CombatGrid.Width || row < 0 || row >= CombatGrid.Height)
+            if (col < 0 || col >= BoardHelper.CombatWidth || row < 0 || row >= BoardHelper.CombatHeight)
                 return CombatUnit.InvalidId;
-            return GridTiles[col + row * CombatGrid.Width];
+            return GridTiles[col + row * BoardHelper.CombatWidth];
         }
 
         /// <summary>그리드에 유닛 배치</summary>
         public void SetGrid(int col, int row, int combatId)
         {
-            GridTiles[col + row * CombatGrid.Width] = combatId;
+            GridTiles[col + row * BoardHelper.CombatWidth] = combatId;
         }
 
         /// <summary>그리드에서 유닛 제거</summary>
         public void ClearGrid(int col, int row)
         {
-            GridTiles[col + row * CombatGrid.Width] = CombatUnit.InvalidId;
+            GridTiles[col + row * BoardHelper.CombatWidth] = CombatUnit.InvalidId;
         }
 
         // ── Multi-Tile 헬퍼 ──
