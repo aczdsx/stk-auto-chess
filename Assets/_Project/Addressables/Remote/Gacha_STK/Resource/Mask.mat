@@ -41,10 +41,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AspectRatio: 1.7788873
+    - _AspectRatio: 2
     - _ColorMask: 15
     - _EnableExternalAlpha: 0
-    - _HoleRadius: 0
+    - _HoleRadius: 0.15
     - _HoleRadius2: 0
     - _MaskAlpha: 1
     - _SmoothWidth: 0.029
@@ -58,7 +58,7 @@ Material:
     - _BottomColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _HoleCenter: {r: 0.88909215, g: 0.09814817, b: 0, a: 0}
+    - _HoleCenter: {r: 0.9074074, g: 0.28703701, b: 0, a: 0}
     - _HoleCenter2: {r: 0.42976716, g: 0.40096647, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _TopColor: {r: 1, g: 1, b: 1, a: 1}

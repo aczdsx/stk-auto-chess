@@ -355,6 +355,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: def7ed072b78ee247ae15984c47a232e
+    m_Address: Data/DamageTextColor/00. NormalTextGradient.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: df744a128376dae4382f0ee474fa597d
     m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17523403_\uC544\uB4DC\uB9AC\uC544.asset"
     m_ReadOnly: 0
