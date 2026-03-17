@@ -69,7 +69,9 @@ namespace CookApps.AutoBattler
 
         public void SetCanvasTargetDisplay(int targetDisplay)
         {
-            GameObject.Find("MainCanvas").GetComponent<Canvas>().targetDisplay = targetDisplay;
+            var canvas = SceneUILayerManager.Instance.MainCanvas;
+            if (canvas != null)
+                canvas.targetDisplay = targetDisplay;
         }
 
         private void InitTabLayer()

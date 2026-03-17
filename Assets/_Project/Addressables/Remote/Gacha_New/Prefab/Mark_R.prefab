@@ -29366,6 +29366,7 @@ GameObject:
   - component: {fileID: 3578680953076275780}
   - component: {fileID: 5576905484048009599}
   - component: {fileID: 1153966051174985318}
+  - component: {fileID: 2019141066485595718}
   m_Layer: 6
   m_Name: Mark_R
   m_TagString: Untagged
@@ -34256,3 +34257,18 @@ MonoBehaviour:
   m_UseCustomView: 0
   m_CustomViewSize: 10
   m_TimeScaleMultiplier: 1
+--- !u!114 &2019141066485595718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7087381855260228721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 137f62f26a50b40f3946b6bbb87b09ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectionRadius: 70
+  _particleSystem: {fileID: 0}
+  _visualRoot: {fileID: 0}

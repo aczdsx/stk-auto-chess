@@ -86,6 +86,7 @@ namespace CookApps.TeamBattle.UIManagements
                 "SceneLoading" => "Assets/_Project/Addressables/Remote/0. Scenes/SceneLoading.unity",
                 "BattleReady" => "Assets/_Project/Addressables/Remote/0. Scenes/BattleReady.unity",
                 "InGameTest" => "Assets/_Project/Addressables/Remote/0. Scenes/InGameTest.unity",
+                "Gacha_New" => "Assets/_Project/Addressables/Remote/0. Scenes/Gacha_New.unity",
                 "Title" => "Assets/_Project/Addressables/BuiltIn/0. Scenes/Title.unity",
                 _ => string.Empty
             };

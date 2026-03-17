@@ -7,7 +7,10 @@ using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.EventSystems;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
+using UnityEngine.SceneManagement;
 
 namespace CookApps.AutoBattler
 {
@@ -31,15 +34,63 @@ namespace CookApps.AutoBattler
 
         public GachaType CurrentGachaType => gachaType;
 
-        private List<AsyncOperationHandle<GameObject>> _loadedGachaFxHandles = new List<AsyncOperationHandle<GameObject>>();
+        private AsyncOperationHandle<SceneInstance> _gachaSceneHandle;
+        private Camera _previousMainCamera;
+        private Canvas _mainCanvas;
 
         private void OnDestroy()
         {
-            foreach (var handle in _loadedGachaFxHandles)
+            UnloadGachaScene();
+        }
+
+        private void UnloadGachaScene()
+        {
+            // MainCanvas 복원
+            if (_mainCanvas != null)
             {
-                handle.Release();
+                _mainCanvas.gameObject.SetActive(true);
+                _mainCanvas = null;
             }
-            _loadedGachaFxHandles.Clear();
+
+            // 기존 메인 카메라 복원
+            if (_previousMainCamera != null)
+            {
+                _previousMainCamera.gameObject.SetActive(true);
+                _previousMainCamera = null;
+            }
+
+            if (_gachaSceneHandle.IsValid() && _gachaSceneHandle.IsDone
+                && _gachaSceneHandle.Status == AsyncOperationStatus.Succeeded
+                && _gachaSceneHandle.Result.Scene.isLoaded)
+            {
+                Addressables.UnloadSceneAsync(_gachaSceneHandle);
+            }
+            _gachaSceneHandle = default;
+        }
+
+        private async UniTask UnloadGachaSceneAsync()
+        {
+            // MainCanvas 복원
+            if (_mainCanvas != null)
+            {
+                _mainCanvas.gameObject.SetActive(true);
+                _mainCanvas = null;
+            }
+
+            // 기존 메인 카메라 복원
+            if (_previousMainCamera != null)
+            {
+                _previousMainCamera.gameObject.SetActive(true);
+                _previousMainCamera = null;
+            }
+
+            if (_gachaSceneHandle.IsValid() && _gachaSceneHandle.IsDone
+                && _gachaSceneHandle.Status == AsyncOperationStatus.Succeeded
+                && _gachaSceneHandle.Result.Scene.isLoaded)
+            {
+                await Addressables.UnloadSceneAsync(_gachaSceneHandle);
+            }
+            _gachaSceneHandle = default;
         }
 
         // 유효 기간이 있는 가챠 타입인 경우 체크
@@ -107,27 +158,76 @@ namespace CookApps.AutoBattler
             // ================================
 #endif
 
-            bool isOneTime = gachaCountType == GachaCountType.ONE;
-            var handle = Addressables.InstantiateAsync("Gacha_VFX_Ver_Final_01");
-            await handle.WaitUntilDone();
-            // handle.Result.GetComponent<GachaFxByTen>().SetItem(resultGachaList, isOneTime);
-            _loadedGachaFxHandles.Add(handle);
+            // 기존 씬 정리 (다시모집 시) — 언로드 완료 대기 후 새 씬 로드
+            await UnloadGachaSceneAsync();
+
+            // Additive 씬 로드
+            _gachaSceneHandle = Addressables.LoadSceneAsync("Assets/_Project/Addressables/Remote/0. Scenes/Gacha_New.unity", LoadSceneMode.Additive);
+            await _gachaSceneHandle;
+
+            if (!_gachaSceneHandle.IsValid() || !_gachaSceneHandle.Result.Scene.isLoaded)
+            {
+                Debug.LogError("[GachaBaseLayer] Failed to load Gacha_New scene.");
+                var fallbackParam = new GachaResultPopupParam
+                {
+                    ResultItems = resultGachaList,
+                    SpecGachaData = _currentSpecGachaData,
+                    OnContinueGacha = () => ProcessCharacterGacha(gachaCountType).Forget()
+                };
+                SceneUILayerManager.Instance.PushUILayerAsync<GachaResultPopup>(fallbackParam).Forget();
+                return;
+            }
+
+            // 씬에서 GachaNewController 찾기 + Additive 씬 충돌 컴포넌트 비활성화
+            GachaNewController controller = null;
+            var rootObjects = _gachaSceneHandle.Result.Scene.GetRootGameObjects();
+            for (int i = 0; i < rootObjects.Length; i++)
+            {
+                // Additive 씬의 EventSystem 비활성화 (원본 씬과 충돌 방지)
+                var eventSystem = rootObjects[i].GetComponent<EventSystem>();
+                if (eventSystem != null)
+                {
+                    eventSystem.gameObject.SetActive(false);
+                    continue;
+                }
+
+                // Additive 씬의 AudioListener 비활성화 (중복 경고 방지)
+                var listener = rootObjects[i].GetComponentInChildren<AudioListener>();
+                if (listener != null)
+                    listener.enabled = false;
+
+                if (controller == null)
+                    controller = rootObjects[i].GetComponentInChildren<GachaNewController>();
+            }
+
+            if (controller == null)
+            {
+                Debug.LogError("[GachaBaseLayer] GachaNewController not found in Gacha_New scene.");
+                UnloadGachaScene();
+                return;
+            }
+
+            // 기존 메인 카메라 비활성화 (Additive 씬 카메라와 겹침 방지)
+            _previousMainCamera = Camera.main;
+            if (_previousMainCamera != null)
+                _previousMainCamera.gameObject.SetActive(false);
 
             // 통화 변화는 GachaService에서 자동으로 적용됨 (CurrencyDeltas)
 
             SoundManager.Instance.StopBGM();
             SoundManager.Instance.IsPlayingGacha = true;
 
-            _parentGachaPopup.SetCanvasTargetDisplay(1);
+            // MainCanvas 비활성화 (GraphicRaycaster가 터치 이벤트 가로채는 것 방지)
+            _mainCanvas = SceneUILayerManager.Instance.MainCanvas;
+            if (_mainCanvas != null)
+                _mainCanvas.gameObject.SetActive(false);
 
-            // VFX 완료 후 가챠 결과 팝업 표시
-            var resultParam = new GachaResultPopupParam
-            {
-                ResultItems = resultGachaList,
-                SpecGachaData = _currentSpecGachaData,
-                OnContinueGacha = () => ProcessCharacterGacha(gachaCountType).Forget()
-            };
-            SceneUILayerManager.Instance.PushUILayerAsync<GachaResultPopup>(resultParam).Forget();
+            // Additive 씬 로드 후 Canvas 강제 리빌드 (Graphic.depth=-1 방지)
+            Canvas.ForceUpdateCanvases();
+
+            controller.SetItem(resultGachaList, _currentSpecGachaData,
+                () => ProcessCharacterGacha(gachaCountType).Forget(),
+                () => UnloadGachaScene());
         }
 
         private void SetGachaData(GachaCountType gachaCountType)
