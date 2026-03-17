@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
+using CookApps.AutoChess.View;
 using UnityEngine;
 
 namespace CookApps.AutoChess
@@ -15,6 +16,8 @@ namespace CookApps.AutoChess
         public const int TickRate = 30;
         private float _tickAccumulator;
         private const int MaxTicksPerFrame = 3;
+        private int _tickCount;
+        private const int StateDumpInterval = 60; // 2초마다 (30fps * 2)
 
         // enemy spawn
         private List<StageMonster> _enemyMonsters;
@@ -79,6 +82,10 @@ namespace CookApps.AutoChess
             {
                 CombatAISystem.Tick(_matchState, ref _rng, TickRate);
 
+                _tickCount++;
+                if (_tickCount % StateDumpInterval == 0)
+                    DumpUnitStates();
+
                 OnTick?.Invoke(_matchState);
 
                 _tickAccumulator -= tickInterval;
@@ -103,10 +110,69 @@ namespace CookApps.AutoChess
         }
 
 
+        private void DumpUnitStates()
+        {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine($"[IdleCombat][Dump] tick={_tickCount} AliveA={_matchState.AliveCountA} AliveB={_matchState.AliveCountB}");
+            for (int i = 0; i < _matchState.UnitCount; i++)
+            {
+                ref var u = ref _matchState.Units[i];
+                string team = u.TeamIndex == 0 ? "P" : "E";
+                string alive = u.IsAlive ? "O" : "X";
+                string targetStr = u.CurrentTargetId == CombatUnit.InvalidId ? "none" : u.CurrentTargetId.ToString();
+                sb.AppendLine($"  [{i}] {team} id={u.CombatId} spec={u.ChampionSpecId} {alive} " +
+                    $"state={u.State} pos=({u.GridCol},{u.GridRow}) " +
+                    $"target={targetStr} HP={u.CurrentHP}/{u.MaxHP} " +
+                    $"atkCD={u.AttackCooldown} pendAtk={u.PendingAtkTimer} moveT={u.MoveTimer}");
+            }
+            Debug.Log(sb.ToString());
+        }
+
         private float GetRandomSpawnInterval()
         {
             return _rng.Range(100, 401) / 100f;
         }
+
+        #if UNITY_EDITOR
+        private GUIStyle _debugStyle;
+
+        private void OnGUI()
+        {
+            if (!_isRunning || _matchState == null) return;
+            var cam = Camera.main;
+            if (cam == null) return;
+
+            if (_debugStyle == null)
+            {
+                _debugStyle = new GUIStyle(GUI.skin.label)
+                {
+                    fontSize = 11,
+                    fontStyle = FontStyle.Bold,
+                    alignment = TextAnchor.MiddleCenter,
+                };
+            }
+
+            for (int i = 0; i < _matchState.UnitCount; i++)
+            {
+                ref var u = ref _matchState.Units[i];
+                if (!u.IsAlive) continue;
+
+                var worldPos = BoardWorldHelper.CombatGridToWorld(0, u.GridCol, u.GridRow);
+                worldPos.y += 1.8f;
+                var screenPos = cam.WorldToScreenPoint(worldPos);
+                if (screenPos.z < 0) continue;
+
+                string team = u.TeamIndex == 0 ? "P" : "E";
+                string targetStr = u.CurrentTargetId == CombatUnit.InvalidId ? "-" : u.CurrentTargetId.ToString();
+                string label = $"{team}{u.CombatId} {u.State} ({u.GridCol},{u.GridRow})\ntgt={targetStr} cd={u.AttackCooldown}\npAtk={u.PendingAtkTimer} mv={u.MoveTimer}";
+
+                _debugStyle.normal.textColor = u.TeamIndex == 0 ? Color.cyan : Color.red;
+
+                var rect = new Rect(screenPos.x - 60, Screen.height - screenPos.y - 40, 120, 50);
+                GUI.Label(rect, label, _debugStyle);
+            }
+        }
+        #endif
 
         private void OnDestroy()
         {

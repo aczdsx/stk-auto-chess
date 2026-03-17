@@ -77,23 +77,88 @@ namespace CookApps.AutoChess
             float multipleAtk, float multipleHp,
             ref DeterministicRNG rng, int tickRate)
         {
-            if (matchState.UnitCount >= CombatMatchState.MaxCombatUnits)
-                return false;
-
             if (enemyChampionSpecId <= 0)
                 return false;
 
             if (!FindEmptyTile(matchState, 4, 7, ref rng, out int col, out int row))
                 return false;
 
-            SpawnUnit(matchState, enemyChampionSpecId, teamIndex: 1, ownerIndex: PlayerB, col, row, tickRate, multipleAtk, multipleHp);
-
-            // idle 모드: 스킬 사용 안 함 (SetupSkillForUnit 스킵)
+            // 죽은 적 슬롯 재사용 시도
+            int reuseSlot = FindDeadEnemySlot(matchState);
+            if (reuseSlot >= 0)
+            {
+                RespawnUnit(matchState, reuseSlot, enemyChampionSpecId, col, row, tickRate, multipleAtk, multipleHp);
+            }
+            else if (matchState.UnitCount < CombatMatchState.MaxCombatUnits)
+            {
+                SpawnUnit(matchState, enemyChampionSpecId, teamIndex: 1, ownerIndex: PlayerB, col, row, tickRate, multipleAtk, multipleHp);
+            }
+            else
+            {
+                return false; // 슬롯 없음
+            }
 
             // 생존 수 갱신
             matchState.AliveCountB = CombatSetupSystem.CountAliveByTeam(matchState, 1);
 
             return true;
+        }
+
+        /// <summary>죽은 적(team 1) 유닛 슬롯 인덱스 반환. 없으면 -1.</summary>
+        private static int FindDeadEnemySlot(CombatMatchState state)
+        {
+            for (int i = 0; i < state.UnitCount; i++)
+            {
+                ref var unit = ref state.Units[i];
+                if (unit.TeamIndex == 1 && !unit.IsAlive)
+                    return i;
+            }
+            return -1;
+        }
+
+        /// <summary>죽은 슬롯을 새 유닛으로 재사용</summary>
+        private static void RespawnUnit(CombatMatchState state, int slotIndex, int champSpecId,
+            int col, int row, int tickRate, float multipleAtk, float multipleHp)
+        {
+            int combatId = state.NextCombatId++;
+
+            ref var unit = ref state.Units[slotIndex];
+            // 기존 데이터 초기화
+            unit = default;
+
+            unit.CombatId = combatId;
+            unit.SourceEntityId = -1;
+            unit.ChampionSpecId = champSpecId;
+            unit.StarLevel = 1;
+            unit.OwnerIndex = PlayerB;
+            unit.TeamIndex = 1;
+            unit.GridCol = (byte)col;
+            unit.GridRow = (byte)row;
+            unit.SizeW = 1;
+            unit.SizeH = 1;
+            unit.State = CombatState.Idle;
+            unit.IsAlive = true;
+
+            ApplySpecStats(ref unit, champSpecId, multipleAtk, multipleHp, tickRate);
+
+            unit.CurrentTargetId = CombatUnit.InvalidId;
+            unit.AttackCooldown = 0;
+            unit.PendingAtkTargetId = CombatUnit.InvalidId;
+            unit.PendingAtkTimer = 0;
+            unit.MoveTimer = 0;
+
+            // 그리드 등록
+            state.SetGridMulti(col, row, unit.SizeW, unit.SizeH, combatId);
+
+            // UnitSpawned 이벤트
+            state.EventQueue?.Push(new SimEvent
+            {
+                Type = SimEventType.UnitSpawned,
+                EntityId = combatId,
+                Value0 = champSpecId,
+                Col = (byte)col,
+                Row = (byte)row,
+            });
         }
 
         /// <summary>
@@ -156,69 +221,7 @@ namespace CookApps.AutoChess
             unit.State = CombatState.Idle;
             unit.IsAlive = true;
 
-            // 스펙 데이터 조회
-            var spec = SpecDataManager.Instance.GetSpecCharacter(champSpecId);
-
-            if (spec != null)
-            {
-                unit.MaxHP = (int)(spec.stat_hp * multipleHp);
-                unit.CurrentHP = unit.MaxHP;
-                unit.Attack = (int)(spec.stat_atk * multipleAtk);
-                unit.Def = spec.stat_def;
-                unit.AdReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ad_reduce);
-                unit.ApReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ap_reduce);
-                unit.AttackSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
-                unit.AttackRange = spec.atk_range > 0 ? spec.atk_range : 1;
-                unit.MoveSpeed = Mathf.Max(1, (int)(spec.move_speed * 100));
-                unit.MaxMana = 100;
-                unit.CurrentMana = 0;
-
-                // 관통/크리
-                unit.AtkPierce = Mathf.Clamp((int)(spec.stat_atk_pierce * 100), 0, 100);
-                unit.ResPierce = Mathf.Clamp((int)(spec.stat_res_pierce * 100), 0, 100);
-                unit.CritRate = Mathf.Max(0, (int)(spec.crit_rate * 100));
-                if (unit.CritRate <= 0) unit.CritRate = 25;
-                unit.CritPower = Mathf.Max(0, (int)(spec.crit_power * 100));
-                if (unit.CritPower <= 0) unit.CritPower = 150;
-                unit.HitChance = 100;
-                unit.HealPower = (int)(spec.heal_power * 100);
-
-                // 마나 리젠
-                unit.ManaGainOnAttack = 10;
-                unit.ManaGainOnHit = 5;
-
-                // 스킬 ID
-                unit.SkillSpecId = GetPrimarySkillId(spec);
-
-                // ATK 키프레임 지연
-                unit.AtkHitDelay = ExtractAtkHitDelay(spec.prefab_id, tickRate);
-
-                // 범위 기본공격
-                unit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(champSpecId, out _);
-            }
-            else
-            {
-                // 스펙 없으면 최소 기본값 (SpawnTutorialUnit 패턴)
-                unit.MaxHP = 100;
-                unit.CurrentHP = 100;
-                unit.Attack = 10;
-                unit.Def = 0;
-                unit.AdReduce = 0;
-                unit.ApReduce = 0;
-                unit.AttackSpeed = 100;
-                unit.AttackRange = 1;
-                unit.MoveSpeed = 100;
-                unit.MaxMana = 100;
-                unit.CurrentMana = 0;
-                unit.AtkPierce = 0;
-                unit.ResPierce = 0;
-                unit.CritRate = 25;
-                unit.CritPower = 150;
-                unit.HitChance = 100;
-                unit.ManaGainOnAttack = 10;
-                unit.ManaGainOnHit = 5;
-                unit.AtkHitDelay = 1;
-            }
+            ApplySpecStats(ref unit, champSpecId, multipleAtk, multipleHp, tickRate);
 
             unit.CurrentTargetId = CombatUnit.InvalidId;
             unit.AttackCooldown = 0;
@@ -290,6 +293,66 @@ namespace CookApps.AutoChess
             if (ids != null && ids.Length > 0 && ids[0] > 0)
                 return ids[0];
             return 0;
+        }
+
+        /// <summary>스펙 데이터 기반 스탯 적용 (SpawnUnit / RespawnUnit 공용)</summary>
+        private static void ApplySpecStats(ref CombatUnit unit, int champSpecId,
+            float multipleAtk, float multipleHp, int tickRate)
+        {
+            var spec = SpecDataManager.Instance.GetSpecCharacter(champSpecId);
+
+            if (spec != null)
+            {
+                unit.MaxHP = (int)(spec.stat_hp * multipleHp);
+                unit.CurrentHP = unit.MaxHP;
+                unit.Attack = (int)(spec.stat_atk * multipleAtk);
+                unit.Def = spec.stat_def;
+                unit.AdReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ad_reduce);
+                unit.ApReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ap_reduce);
+                unit.AttackSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
+                unit.AttackRange = spec.atk_range > 0 ? spec.atk_range : 1;
+                unit.MoveSpeed = Mathf.Max(1, (int)(spec.move_speed * 100));
+                unit.MaxMana = 100;
+                unit.CurrentMana = 0;
+
+                unit.AtkPierce = Mathf.Clamp((int)(spec.stat_atk_pierce * 100), 0, 100);
+                unit.ResPierce = Mathf.Clamp((int)(spec.stat_res_pierce * 100), 0, 100);
+                unit.CritRate = Mathf.Max(0, (int)(spec.crit_rate * 100));
+                if (unit.CritRate <= 0) unit.CritRate = 25;
+                unit.CritPower = Mathf.Max(0, (int)(spec.crit_power * 100));
+                if (unit.CritPower <= 0) unit.CritPower = 150;
+                unit.HitChance = 100;
+                unit.HealPower = (int)(spec.heal_power * 100);
+
+                unit.ManaGainOnAttack = 10;
+                unit.ManaGainOnHit = 5;
+
+                unit.SkillSpecId = GetPrimarySkillId(spec);
+                unit.AtkHitDelay = ExtractAtkHitDelay(spec.prefab_id, tickRate);
+                unit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(champSpecId, out _);
+            }
+            else
+            {
+                unit.MaxHP = 100;
+                unit.CurrentHP = 100;
+                unit.Attack = 10;
+                unit.Def = 0;
+                unit.AdReduce = 0;
+                unit.ApReduce = 0;
+                unit.AttackSpeed = 100;
+                unit.AttackRange = 1;
+                unit.MoveSpeed = 100;
+                unit.MaxMana = 100;
+                unit.CurrentMana = 0;
+                unit.AtkPierce = 0;
+                unit.ResPierce = 0;
+                unit.CritRate = 25;
+                unit.CritPower = 150;
+                unit.HitChance = 100;
+                unit.ManaGainOnAttack = 10;
+                unit.ManaGainOnHit = 5;
+                unit.AtkHitDelay = 1;
+            }
         }
 
         /// <summary>ATK Execute 키프레임 지연 프레임 추출</summary>
