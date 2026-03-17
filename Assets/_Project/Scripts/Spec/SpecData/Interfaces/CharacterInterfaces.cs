@@ -156,6 +156,12 @@ namespace CookApps.AutoBattler
         /// </summary>
         int passive_skill_id { get; }
 
+        /// <summary>
+        /// 스킬 범위 이미지 이름 배열 (CharacterInfo 전용, 그 외 빈 배열 반환)
+        /// 최대 2장 (예: ["skill_self_R2", "skill_square_R1_1"])
+        /// </summary>
+        string[] skill_range { get; }
+
         //===========================================================================
         /// <summary>
         /// 성군 시너지 타입 (CharacterInfo 전용, MonsterInfo는 NONE 반환)
@@ -203,6 +209,7 @@ namespace CookApps.AutoBattler
         InGameVfxNameType ISpecCharacterInfo.projectile_vfx_name_type => projectile_vfx_name_type;
         int[] ISpecCharacterInfo.skill_ids => skill_ids;
         int ISpecCharacterInfo.passive_skill_id => passive_skill_id;
+        string[] ISpecCharacterInfo.skill_range => skill_range;
 
         // ========================================
         // CharacterInfo 전용 필드 (인터페이스에 포함되지 않음)
@@ -259,6 +266,7 @@ namespace CookApps.AutoBattler
         InGameVfxNameType ISpecCharacterInfo.projectile_vfx_name_type => projectile_vfx_name_type;
         int[] ISpecCharacterInfo.skill_ids => skill_ids;
         int ISpecCharacterInfo.passive_skill_id => passive_skill_id;
+        string[] ISpecCharacterInfo.skill_range => System.Array.Empty<string>();
 
         // ========================================
         // MonsterInfo 전용 필드 (인터페이스에 포함되지 않음)
@@ -306,5 +314,6 @@ namespace CookApps.AutoBattler
         InGameVfxNameType ISpecCharacterInfo.projectile_vfx_name_type => InGameVfxNameType.NONE;
         int[] ISpecCharacterInfo.skill_ids => new int[0];
         int ISpecCharacterInfo.passive_skill_id => 0;
+        string[] ISpecCharacterInfo.skill_range => System.Array.Empty<string>();
     }
 }

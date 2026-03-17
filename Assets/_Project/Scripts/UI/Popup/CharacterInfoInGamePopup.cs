@@ -29,13 +29,16 @@ namespace CookApps.AutoBattler
         [SerializeField] private SpriteLoader _skillIconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _skillName;
         [SerializeField] private TextMeshProUGUI _skillDesc;
-        [SerializeField] private Image _skillRangeImage;
+        [SerializeField] private GameObject _skillRangeContainer;
+        [SerializeField] private GameObject _skillRange0;
+        [SerializeField] private GameObject _skillRange1;
+        [SerializeField] private SpriteLoader _skillRangeLoader0;
+        [SerializeField] private SpriteLoader _skillRangeLoader1;
 
         [Space(5)]
         [SerializeField] private SpriteLoader _passiveIconSpriteLoader;
         [SerializeField] private TextMeshProUGUI _passiveName;
         [SerializeField] private TextMeshProUGUI _passiveDesc;
-        [SerializeField] private Image _passiveRangeImage;
 
         private ISpecCharacterInfo _specData;
 
@@ -131,6 +134,8 @@ namespace CookApps.AutoBattler
 
             string descText = LanguageManager.Instance.GetDefaultText(skill.skill_desc_token);
             _skillDesc.text = FormatDescWithBaseRates(descText, skillList);
+
+            SetRangeImages(_specData.skill_range, _skillRangeContainer, _skillRangeLoader0, _skillRangeLoader1, _skillRange0, _skillRange1);
         }
 
         private void SetPassiveInfo()
@@ -146,6 +151,33 @@ namespace CookApps.AutoBattler
 
             string descText = LanguageManager.Instance.GetDefaultText(passive.passive_desc_token);
             _passiveDesc.text = FormatDescWithBaseRates(descText, passiveList);
+
+        }
+
+        private static void SetRangeImages(string[] rangeNames, GameObject container,
+            SpriteLoader loader0, SpriteLoader loader1, GameObject go0, GameObject go1)
+        {
+            if (rangeNames == null || rangeNames.Length == 0
+                || (rangeNames.Length == 1 && rangeNames[0] == "NONE"))
+            {
+                container.SetActive(false);
+                return;
+            }
+
+            container.SetActive(true);
+
+            loader0.SetSprite(rangeNames[0]).Forget();
+            go0.SetActive(true);
+
+            if (rangeNames.Length > 1)
+            {
+                loader1.SetSprite(rangeNames[1]).Forget();
+                go1.SetActive(true);
+            }
+            else
+            {
+                go1.SetActive(false);
+            }
         }
 
         private static string FormatDescWithBaseRates<T>(string text, List<T> dataList) where T : class
@@ -188,6 +220,8 @@ namespace CookApps.AutoBattler
             _elementIconSpriteLoader.UnloadSprite();
             _asterismIconSpriteLoader.UnloadSprite();
             _skillIconSpriteLoader.UnloadSprite();
+            _skillRangeLoader0.UnloadSprite();
+            _skillRangeLoader1.UnloadSprite();
             _passiveIconSpriteLoader.UnloadSprite();
         }
 

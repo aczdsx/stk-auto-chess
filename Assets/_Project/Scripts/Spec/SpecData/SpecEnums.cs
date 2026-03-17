@@ -985,12 +985,11 @@ namespace CookApps.AutoBattler
         BATTLE_READY = 27,
         SELECT_BUILD = 28,
         FOCUS_OBJECT = 29,
-        // InGame_New 오토체스 전용 트리거
-        PREPARATION_START = 30,
-        SHOP_PURCHASE = 31,
-        UNIT_PLACED = 32,
-        SYNERGY_ACTIVATED = 33,
-        COMBAT_END = 34,
+        COMBAT_END = 30,
+        PREPARATION_START = 31,
+        SHOP_PURCHASE = 32,
+        UNIT_PLACED = 33,
+        SYNERGY_ACTIVATED = 34,
     }
 
     public enum TutorialActionType

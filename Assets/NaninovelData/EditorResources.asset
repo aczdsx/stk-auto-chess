@@ -212,18 +212,12 @@ MonoBehaviour:
     - name: Chapter1_10
       pathPrefix: Scripts
       guid: fedcc6d0399f18b4d92de41ce45406cd
-    - name: Chapter1_11
-      pathPrefix: Scripts
-      guid: 909523b307601b44bb2aea79c57723ad
     - name: Chapter1_12
       pathPrefix: Scripts
       guid: 196dac9ce6b77f640bbb06d0774e4379
     - name: Chapter1_13
       pathPrefix: Scripts
       guid: 1c90d86ed1b93a44eaec0073fee0b147
-    - name: Chapter1_14
-      pathPrefix: Scripts
-      guid: a94a863343e81a74787df8f6a7e9ba06
     - name: Chapter1_15
       pathPrefix: Scripts
       guid: b35b951c40030bb459b3d7a147321a5d
@@ -419,6 +413,18 @@ MonoBehaviour:
     - name: nani_char_get_101200
       pathPrefix: Scripts
       guid: 911c3f661a8315f40be0c48d170fa6c5
+    - name: Chapter1_14
+      pathPrefix: Scripts
+      guid: 1388e2cffa70dad44a0c0095cb754ad6
+    - name: Chapter1_11
+      pathPrefix: Scripts
+      guid: e3f6807cdd174d347826d8185614ea56
+    - name: Chapter1_13
+      pathPrefix: Scripts
+      guid: a94a863343e81a74787df8f6a7e9ba06
+    - name: Chapter1_10
+      pathPrefix: Scripts
+      guid: 909523b307601b44bb2aea79c57723ad
   - Id: CharacterAvatars
     Resources: []
   - Id: Characters/97730980-6691-4698-b6da-9388d226f1d6
