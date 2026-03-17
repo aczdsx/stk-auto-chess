@@ -343,8 +343,8 @@ namespace CookApps.AutoChess
             unit.MaxMana = 100;
             unit.CurrentMana = 0;
             unit.ManaRegenPerSec = 10;
-            unit.ManaGainOnAttack = 10;
-            unit.ManaGainOnHit = 10;
+            unit.ManaGainOnAttack = 0;
+            unit.ManaGainOnHit = 0;
             unit.ManaRegenRateBonus = 0;
             unit.AtkPierce = 0;
             unit.ResPierce = 0;

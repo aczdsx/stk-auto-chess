@@ -344,8 +344,8 @@ namespace CookApps.AutoChess
                 unit.HitChance = 100;
                 unit.HealPower = (int)(spec.heal_power * 100);
 
-                unit.ManaGainOnAttack = 10;
-                unit.ManaGainOnHit = 5;
+                unit.ManaGainOnAttack = 0;
+                unit.ManaGainOnHit = 0;
 
                 unit.SkillSpecId = GetPrimarySkillId(spec);
                 unit.AtkHitDelay = ExtractAtkHitDelay(spec.prefab_id, tickRate);
@@ -369,8 +369,8 @@ namespace CookApps.AutoChess
                 unit.CritRate = 25;
                 unit.CritPower = 150;
                 unit.HitChance = 100;
-                unit.ManaGainOnAttack = 10;
-                unit.ManaGainOnHit = 5;
+                unit.ManaGainOnAttack = 0;
+                unit.ManaGainOnHit = 0;
                 unit.AtkHitDelay = 1;
             }
         }
