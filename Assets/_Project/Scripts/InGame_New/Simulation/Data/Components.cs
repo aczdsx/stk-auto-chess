@@ -815,6 +815,7 @@ namespace CookApps.AutoChess
                 state.GridTiles[i] = CombatUnit.InvalidId;
             for (int i = 0; i < MaxProjectiles; i++)
                 state.Projectiles[i].IsActive = false;
+            state.NextProjectileId = 1; // 0은 뷰 레이어에서 무효 ID로 사용되므로 1부터 할당
 
             return state;
         }

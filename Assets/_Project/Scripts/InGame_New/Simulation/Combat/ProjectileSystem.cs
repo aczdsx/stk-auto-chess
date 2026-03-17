@@ -255,8 +255,9 @@ namespace CookApps.AutoChess
         {
             ref var proj = ref InitLinearProjectile(
                 state, sourceCombatId, startCol, startRow, dirCol, dirRow,
-                damage, isCrit, damageType, moveInterval, maxDistance, width, skillSpecId, skillVfxIndex);
-            if (proj.ProjectileId == 0) return; // 슬롯 없음
+                damage, isCrit, damageType, moveInterval, maxDistance, width, skillSpecId, skillVfxIndex,
+                out int slot);
+            if (slot < 0) return;
 
             proj.HitBehavior = ProjectileHitBehavior.DamageEnemy;
 
@@ -276,8 +277,9 @@ namespace CookApps.AutoChess
         {
             ref var proj = ref InitLinearProjectile(
                 state, sourceCombatId, startCol, startRow, dirCol, dirRow,
-                healAmount, false, damageType, moveInterval, maxDistance, 1, skillSpecId, skillVfxIndex);
-            if (proj.ProjectileId == 0) return;
+                healAmount, false, damageType, moveInterval, maxDistance, 1, skillSpecId, skillVfxIndex,
+                out int slot);
+            if (slot < 0) return;
 
             proj.HitBehavior = ProjectileHitBehavior.HealAlly;
             proj.HotPerTick = hotPerTick;
@@ -289,17 +291,17 @@ namespace CookApps.AutoChess
                 startCol, startRow, dirCol, dirRow, proj.ProjectileId, skillSpecId, skillVfxIndex, moveInterval);
         }
 
-        /// <summary>Linear 투사체 공통 초기화</summary>
+        /// <summary>Linear 투사체 공통 초기화. 슬롯 할당 실패 시 slot=-1 반환.</summary>
         private static ref Projectile InitLinearProjectile(
             CombatMatchState state, int sourceCombatId,
             byte startCol, byte startRow, sbyte dirCol, sbyte dirRow,
             int damage, bool isCrit, DamageType damageType,
-            int moveInterval, int maxDistance, int width, int skillSpecId, sbyte skillVfxIndex)
+            int moveInterval, int maxDistance, int width, int skillSpecId, sbyte skillVfxIndex,
+            out int slot)
         {
-            int slot = FindEmptyProjectileSlot(state);
+            slot = FindEmptyProjectileSlot(state);
             if (slot < 0)
             {
-                // 빈 ProjectileId=0인 더미 반환 (호출부에서 체크)
                 return ref state.Projectiles[0];
             }
 
