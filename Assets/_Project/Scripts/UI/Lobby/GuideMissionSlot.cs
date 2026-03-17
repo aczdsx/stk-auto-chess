@@ -377,13 +377,13 @@ namespace CookApps.AutoBattler
         {
             var currentSceneName = SceneManager.GetActiveScene().name;
 
-            if (currentSceneName == "Lobby")
+            if (currentSceneName == "BattleReady")
             {
-                LobbyMain.GetLobbyMain()?.OnClickDungeonButton();
+                BattleReadyMain.GetBattleReadyMain()?.OnClickDungeonButton();
             }
             else
             {
-                NavigateToLobbyAndOpenPopup(null, () => LobbyMain.GetLobbyMain()?.OnClickDungeonButton());
+                NavigateToLobbyAndOpenPopup(null, () => BattleReadyMain.GetBattleReadyMain()?.OnClickDungeonButton());
             }
         }
 
