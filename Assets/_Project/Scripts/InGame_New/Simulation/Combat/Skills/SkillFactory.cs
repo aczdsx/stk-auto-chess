@@ -11,6 +11,7 @@ namespace CookApps.AutoChess
     {
         private static readonly Dictionary<int, System.Func<SimSkillBase>> _registry = new();
         private static readonly Dictionary<int, SkillParams> _paramsCache = new();
+        private static readonly Dictionary<int, List<SkillActive>> _specListCache = new();
         private static bool _initialized;
 
         public static void Register(int skillId, System.Func<SimSkillBase> creator)
@@ -29,6 +30,12 @@ namespace CookApps.AutoChess
         public static bool TryGetParams(int skillId, out SkillParams p)
         {
             return _paramsCache.TryGetValue(skillId, out p);
+        }
+
+        /// <summary>캐시된 SkillActive 스펙 리스트 조회 (커스텀 스킬 자체 파싱용)</summary>
+        public static bool TryGetSpecList(int skillId, out List<SkillActive> specList)
+        {
+            return _specListCache.TryGetValue(skillId, out specList);
         }
 
         /// <summary>SkillActive 스펙 테이블 기반 자동 등록</summary>
@@ -63,6 +70,8 @@ namespace CookApps.AutoChess
                 var specList = specManager.GetSkillDataList(id);
                 var skillParams = SkillSpecAdapter.BuildParams(spec, specList, tickRate);
                 _paramsCache[id] = skillParams;
+                if (specList != null)
+                    _specListCache[id] = specList;
 
                 // 커스텀 스킬이 이미 등록되어 있으면 스킵
                 if (_registry.ContainsKey(id)) continue;
@@ -93,6 +102,8 @@ namespace CookApps.AutoChess
             Register(217323201, () => new SimSkillMisaRestraint());
             Register(217663506, () => new SimSkillShirayukiAssassin());
             Register(215642501, () => new SimSkillEllisAoE());
+            Register(215322201, () => new SimSkillMayCross());
+            Register(217353203, () => new SimSkillRakiyuDebuff());
         }
 
         /// <summary>팩토리 등록 해제 (테스트용)</summary>
@@ -100,6 +111,7 @@ namespace CookApps.AutoChess
         {
             _registry.Clear();
             _paramsCache.Clear();
+            _specListCache.Clear();
             _initialized = false;
         }
     }

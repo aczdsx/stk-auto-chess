@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using CookApps.AutoBattler;
+
 namespace CookApps.AutoChess
 {
     /// <summary>
@@ -11,10 +14,14 @@ namespace CookApps.AutoChess
 
         public override SkillExecutionType ExecutionType => SkillExecutionType.DelayedApply;
 
-        public override void Initialize(SkillParams p)
+        public override void InitializeFromSpec(SkillParams baseParams, List<SkillActive> specList, int tickRate)
         {
-            base.Initialize(p);
-            _debuffRemoveCount = p.Param0 > 0 ? p.Param0 : 1;
+            base.Initialize(baseParams);
+            // {0}=쿨타임, {1}=힐배율(%)→PowerPercent, {2}=디버프 제거 수
+            PowerPercent = SkillSpecHelper.GetInt(specList, 1, 200f);
+            TargetCount = 3;
+            _debuffRemoveCount = SkillSpecHelper.GetInt(specList, 2, 2f);
+            if (_debuffRemoveCount <= 0) _debuffRemoveCount = 1;
         }
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)

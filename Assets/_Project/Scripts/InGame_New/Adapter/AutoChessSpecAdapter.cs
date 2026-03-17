@@ -53,8 +53,8 @@ namespace CookApps.AutoChess
                     BaseHP = c.stat_hp,
                     BaseAttack = c.stat_atk,
                     BaseDef = c.stat_def,
-                    BaseApReduce = (int)(c.ap_reduce * 100),
-                    AttackSpeed = Mathf.Max(1, (int)(c.atk_speed * 100)),  // float → 정수 (100 = 1.0)
+                    BaseApReduce = ReduceToIntPercent(c.ap_reduce),
+                    AttackSpeed = Mathf.Max(1, (int)(c.atk_speed * 100)),
                     AttackRange = c.atk_range > 0 ? c.atk_range : 1,
                     MoveSpeed = Mathf.Max(1, (int)(c.move_speed * 100)),
                     MaxMana = 100,       // CharacterInfo에 mana 없음 → 기본값
@@ -69,7 +69,7 @@ namespace CookApps.AutoChess
                     BaseCritPower = Mathf.Max(0, (int)(c.crit_power * 100)),
 
                     // 추가 스탯
-                    BaseAdReduce = (int)(c.ad_reduce * 100),
+                    BaseAdReduce = ReduceToIntPercent(c.ad_reduce),
                     BaseHealPower = (int)(c.heal_power * 100),
                     BaseImmuneType = (int)c.immune_type,
 
@@ -84,6 +84,17 @@ namespace CookApps.AutoChess
             }
 
             return specs;
+        }
+
+        /// <summary>
+        /// ad_reduce/ap_reduce 전용: 스펙 float → 정수 퍼센트 변환.
+        /// 값이 1 이상이면 이미 퍼센트 정수로 간주, 미만이면 ×100.
+        /// 예: 29 → 29, 0.02 → 2
+        /// 주의: crit_power(1.43), atk_speed(1.10) 등 배수 필드에는 사용 금지.
+        /// </summary>
+        public static int ReduceToIntPercent(float value)
+        {
+            return value >= 1f ? (int)value : (int)(value * 100f);
         }
 
         private static int BuildTraitFlags(SynergyType element, SynergyType stella)
@@ -145,8 +156,7 @@ namespace CookApps.AutoChess
                     tiers[i] = new SynergyTier
                     {
                         RequiredCount = (byte)data.min_int,
-                        // TODO: 시너지 효과 매핑 (기존 EffectCode 기반 → 데이터 기반 전환 필요)
-                        Effects = System.Array.Empty<SynergyEffect>(),
+                        Effects = BuildEffects(synergyType, data),
                     };
                 }
 
@@ -158,10 +168,93 @@ namespace CookApps.AutoChess
                     TraitId = synergyTypeInt,
                     Category = category,
                     Tiers = tiers,
+                    HasBehavior = SynergyFactory.NeedsBehavior(synergyType),
                 });
             }
 
             return result.ToArray();
+        }
+
+        // ── 시너지 효과 매핑 ──
+
+        /// <summary>
+        /// SynergyCoverType → SynergyTarget 매핑.
+        /// SQUAD_ALL/KNIGHT_ALL: 스쿼드 전체에 적용
+        /// SQUAD_STELLA: 해당 성군(Asterism) 특성 유닛에만 적용
+        /// SYNERGY_ELEMENTAL/SYNERGY_STELLA: 레거시 시너지 시스템용 (여기서는 사용 안 함)
+        /// </summary>
+        private static SynergyTarget MapCoverType(SynergyCoverType cover)
+        {
+            switch (cover)
+            {
+                case SynergyCoverType.SQUAD_STELLA:
+                    return SynergyTarget.TraitUnits;
+                case SynergyCoverType.SQUAD_ALL:
+                case SynergyCoverType.KNIGHT_ALL:
+                    return SynergyTarget.AllAllies;
+                default:
+                    return SynergyTarget.AllAllies;
+            }
+        }
+
+        /// <summary>
+        /// SynergyType + 스펙 데이터 → SynergyEffect[].
+        /// 원소: 스탯 매핑. Asterism: 빈 배열 (행동 클래스에서 처리).
+        /// 스펙 테이블 변경 시 이 스위치만 수정.
+        /// </summary>
+        private static SynergyEffect[] BuildEffects(SynergyType type, ISpecSynergyData data)
+        {
+            var target = MapCoverType(data.synergy_cover_type);
+            int v1 = data.effect_stat_value_1;
+            int v2 = data.effect_stat_value_2;
+
+            switch (type)
+            {
+                case SynergyType.FIRE:
+                    // 공격력 {v1}% 상승, 관통력 {v2}% 상승
+                    return new[]
+                    {
+                        new SynergyEffect { Type = SynergyEffectType.BonusAttackPercent, Target = target, ValuePercent = v1 },
+                        new SynergyEffect { Type = SynergyEffectType.BonusPiercePercent, Target = target, ValuePercent = v2 },
+                    };
+
+                case SynergyType.WIND:
+                    // 공격속도 {v1}%, 회피율 {v2}
+                    return new[]
+                    {
+                        new SynergyEffect { Type = SynergyEffectType.BonusAttackSpeedPercent, Target = target, ValuePercent = v1 },
+                        new SynergyEffect { Type = SynergyEffectType.DodgeChance, Target = target, Value = v2 },
+                    };
+
+                case SynergyType.LIGHTNING:
+                    // 크리확률 {v1}, 크리파워 {v2}
+                    return new[]
+                    {
+                        new SynergyEffect { Type = SynergyEffectType.BonusCritChance, Target = target, Value = v1 },
+                        new SynergyEffect { Type = SynergyEffectType.BonusCritMultiplier, Target = target, Value = v2 },
+                    };
+
+                case SynergyType.EARTH:
+                    // 방어력 {v1}%, 저항력(물리+마법) {v2}
+                    return new[]
+                    {
+                        new SynergyEffect { Type = SynergyEffectType.BonusDefPercent, Target = target, ValuePercent = v1 },
+                        new SynergyEffect { Type = SynergyEffectType.BonusAdReduce, Target = target, Value = v2 },
+                        new SynergyEffect { Type = SynergyEffectType.BonusApReduce, Target = target, Value = v2 },
+                    };
+
+                case SynergyType.WATER:
+                    // HP {v1}%, 이동속도 {v2}%
+                    return new[]
+                    {
+                        new SynergyEffect { Type = SynergyEffectType.BonusHPPercent, Target = target, ValuePercent = v1 },
+                        new SynergyEffect { Type = SynergyEffectType.BonusMoveSpeedPercent, Target = target, ValuePercent = v2 },
+                    };
+
+                default:
+                    // asterism 등: 스탯 매핑 없음 (행동 클래스에서 처리)
+                    return System.Array.Empty<SynergyEffect>();
+            }
         }
     }
 }

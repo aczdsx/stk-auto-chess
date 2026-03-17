@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using CookApps.AutoBattler;
+
 namespace CookApps.AutoChess
 {
     /// <summary>
@@ -27,13 +30,15 @@ namespace CookApps.AutoChess
         private const int DefaultTickInterval = 15;
         private const int FallbackTickCount = 6; // SkillClipFrames 없을 때 폴백
 
-        public override void Initialize(SkillParams p)
+        public override void InitializeFromSpec(SkillParams baseParams, List<SkillActive> specList, int tickRate)
         {
-            base.Initialize(p);
-            _damagePercent = p.Param0 > 0 ? p.Param0 : 80;
-            _healReductionPercent = p.Param1 > 0 ? p.Param1 : 50;
-            _debuffDurationFrames = p.Param2 > 0 ? p.Param2 : 90;
-            _zoneRange = p.Param3 > 0 ? p.Param3 : 2;
+            base.Initialize(baseParams);
+            // {0}=쿨타임, {1}=힐배율(%)→PowerPercent, {2}=데미지배율(%), {3}=회복감소(%), {4}=디버프지속(초)
+            PowerPercent = SkillSpecHelper.GetInt(specList, 1, 200f);
+            _damagePercent = SkillSpecHelper.GetInt(specList, 2, 80f);
+            _healReductionPercent = SkillSpecHelper.GetInt(specList, 3, 50f);
+            _debuffDurationFrames = SkillSpecHelper.GetFrames(specList, 4, 3f, tickRate);
+            _zoneRange = 2;
         }
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)

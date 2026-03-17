@@ -53,6 +53,12 @@ namespace CookApps.AutoChess
         public SynergySpec[] SynergySpecs;   // 시너지 스펙 데이터 (외부에서 주입)
         public int SynergySpecCount;
 
+        // ── 준비 페이즈 시너지 행동 ──
+        public const int MaxPrepBehaviors = 8;
+        public SynergyPrepBehaviorBase[][] PrepBehaviors;  // [MaxPlayers][MaxPrepBehaviors]
+        public int[] PrepBehaviorCounts;                    // [MaxPlayers]
+        public byte[][] PrevSynergyTiers;                   // [MaxPlayers][MaxTraits] — diff 계산용
+
         // ── 아이템 ──
         public const int MaxItems = 64;
         public const int MaxItemInventory = 10;
@@ -157,6 +163,16 @@ namespace CookApps.AutoChess
             world.Synergies = new PlayerSynergy[maxPlayers];
             for (int i = 0; i < maxPlayers; i++)
                 world.Synergies[i] = new PlayerSynergy();
+
+            // 준비 페이즈 시너지 행동 초기화
+            world.PrepBehaviors = new SynergyPrepBehaviorBase[maxPlayers][];
+            world.PrepBehaviorCounts = new int[maxPlayers];
+            world.PrevSynergyTiers = new byte[maxPlayers][];
+            for (int i = 0; i < maxPlayers; i++)
+            {
+                world.PrepBehaviors[i] = new SynergyPrepBehaviorBase[MaxPrepBehaviors];
+                world.PrevSynergyTiers[i] = new byte[PlayerSynergy.MaxTraits];
+            }
 
             // 아이템 초기화
             world.Items = new ItemData[MaxItems];

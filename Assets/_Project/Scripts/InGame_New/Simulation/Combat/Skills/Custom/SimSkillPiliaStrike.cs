@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using CookApps.AutoBattler;
+
 namespace CookApps.AutoChess
 {
     /// <summary>
@@ -7,6 +10,14 @@ namespace CookApps.AutoChess
     public class SimSkillPiliaStrike : SimSkillBase
     {
         public override SkillExecutionType ExecutionType => SkillExecutionType.DelayedApply;
+
+        public override void InitializeFromSpec(SkillParams baseParams, List<SkillActive> specList, int tickRate)
+        {
+            base.Initialize(baseParams);
+            // {0}=쿨타임, {1}=데미지배율(%)→PowerPercent
+            PowerPercent = SkillSpecHelper.GetInt(specList, 1, 200f);
+            TargetType = SkillTargetType.FarthestEnemy;
+        }
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
         {

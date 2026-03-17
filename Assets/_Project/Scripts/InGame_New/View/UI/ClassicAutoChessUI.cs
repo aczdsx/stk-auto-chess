@@ -311,12 +311,26 @@ namespace CookApps.AutoChess.View
 
         protected override void FilterBenchIds()
         {
-            if (_selectedElementFilters.Count == 0 && _selectedStellaFilters.Count == 0) return;
-
-            for (int i = benchIds.Count - 1; i >= 0; i--)
+            if (_selectedElementFilters.Count > 0 || _selectedStellaFilters.Count > 0)
             {
-                if (!PassFilter(benchIds[i]))
-                    benchIds.RemoveAt(i);
+                for (int i = benchIds.Count - 1; i >= 0; i--)
+                {
+                    if (!PassFilter(benchIds[i]))
+                        benchIds.RemoveAt(i);
+                }
+            }
+
+            // CP 내림차순 정렬
+            if (CurrentWorld != null && benchIds.Count > 1)
+            {
+                benchIds.Sort((a, b) =>
+                {
+                    ref var unitA = ref CurrentWorld.GetUnit(a);
+                    ref var unitB = ref CurrentWorld.GetUnit(b);
+                    int cpA = CombatPowerCalculator.Calculate(ref unitA);
+                    int cpB = CombatPowerCalculator.Calculate(ref unitB);
+                    return cpB.CompareTo(cpA);
+                });
             }
         }
 

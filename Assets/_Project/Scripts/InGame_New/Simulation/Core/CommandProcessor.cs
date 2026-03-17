@@ -67,6 +67,9 @@ namespace CookApps.AutoChess
                 case CommandType.SpawnTutorialEnemy:
                     ProcessSpawnTutorialEnemy(world, in cmd);
                     break;
+                case CommandType.SetSynergyPrepTarget:
+                    ProcessSetSynergyPrepTarget(world, in cmd);
+                    break;
             }
         }
 
@@ -100,6 +103,14 @@ namespace CookApps.AutoChess
 
         // ── 개별 커맨드 처리 ──
 
+        /// <summary>보드 변경 시 시너지 재계산 + prep 동기화 + 이벤트 발행</summary>
+        private static void OnBoardChanged(GameWorld world, byte playerIndex)
+        {
+            SynergySystem.Recalculate(world, playerIndex);
+            SynergySystem.SyncPrepBehaviors(world, playerIndex);
+            world.EventQueue.PushSynergyUpdated(playerIndex);
+        }
+
         private static void ProcessPlaceUnit(GameWorld world, in GameCommand cmd)
         {
             int entityId = cmd.Param0;
@@ -108,8 +119,7 @@ namespace CookApps.AutoChess
 
             if (BoardSystem.PlaceUnit(world, cmd.PlayerIndex, entityId, col, row))
             {
-                SynergySystem.Recalculate(world, cmd.PlayerIndex);
-                world.EventQueue.PushSynergyUpdated(cmd.PlayerIndex);
+                OnBoardChanged(world, cmd.PlayerIndex);
             }
         }
 
@@ -128,8 +138,7 @@ namespace CookApps.AutoChess
 
             if (BoardSystem.WithdrawUnit(world, cmd.PlayerIndex, entityId))
             {
-                SynergySystem.Recalculate(world, cmd.PlayerIndex);
-                world.EventQueue.PushSynergyUpdated(cmd.PlayerIndex);
+                OnBoardChanged(world, cmd.PlayerIndex);
             }
         }
 
@@ -140,8 +149,7 @@ namespace CookApps.AutoChess
 
             if (BoardSystem.SwapUnits(world, cmd.PlayerIndex, entityA, entityB))
             {
-                SynergySystem.Recalculate(world, cmd.PlayerIndex);
-                world.EventQueue.PushSynergyUpdated(cmd.PlayerIndex);
+                OnBoardChanged(world, cmd.PlayerIndex);
             }
         }
 
@@ -194,6 +202,14 @@ namespace CookApps.AutoChess
         private static void ProcessCommanderSkill(GameWorld world, in GameCommand cmd)
         {
             // TODO: 커맨더 스킬 시스템
+        }
+
+        private static void ProcessSetSynergyPrepTarget(GameWorld world, in GameCommand cmd)
+        {
+            int traitId = cmd.Param0;
+            int idx = SynergySystem.FindPrepBehavior(world, cmd.PlayerIndex, traitId);
+            if (idx >= 0)
+                world.PrepBehaviors[cmd.PlayerIndex][idx].HandleCommand(world, in cmd);
         }
 
         private static void ProcessSpawnTutorialEnemy(GameWorld world, in GameCommand cmd)

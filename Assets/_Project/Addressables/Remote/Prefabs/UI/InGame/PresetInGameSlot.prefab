@@ -2064,6 +2064,7 @@ MonoBehaviour:
   _characterImageGroup: {fileID: 7701716363017627126}
   _synergyIconPrefab: {fileID: 5588117714458151933}
   _synergyIconContainer: {fileID: 6112490127024750552}
+  _cpText: {fileID: 314595316854374928}
 --- !u!114 &5709768267029646933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2104,6 +2105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _longPressThreshold: 0.4
   _canvasGroup: {fileID: 2749176533051861658}
+  _autoScrollEdgeRatio: 0.15
+  _autoScrollMaxSpeed: 600
 --- !u!225 &2749176533051861658
 CanvasGroup:
   m_ObjectHideFlags: 0

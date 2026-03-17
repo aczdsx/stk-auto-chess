@@ -89,6 +89,14 @@ namespace CookApps.AutoChess
                 combatUnit.AdReduce = srcUnit.AdReduce;
                 combatUnit.ApReduce = srcUnit.ApReduce;
 
+                // 퍼센트 버프 기준값 저장
+                combatUnit.BaseMaxHP = srcUnit.MaxHP;
+                combatUnit.BaseAttack = srcUnit.Attack;
+                combatUnit.BaseDef = srcUnit.Def;
+                combatUnit.BaseAttackSpeed = srcUnit.AttackSpeed;
+                combatUnit.BaseAdReduce = srcUnit.AdReduce;
+                combatUnit.BaseApReduce = srcUnit.ApReduce;
+
                 // 마나 리젠 초기화 (글로벌 기본값)
                 combatUnit.ManaRegenPerSec = world.Config.DefaultManaRegenPerSec;
                 combatUnit.ManaGainOnAttack = world.Config.DefaultManaGainOnAttack;
@@ -258,6 +266,14 @@ namespace CookApps.AutoChess
                 unit.Def = enemy.Def;
                 unit.AdReduce = enemy.AdReduce;
                 unit.ApReduce = enemy.ApReduce;
+
+                // 퍼센트 버프 기준값 저장
+                unit.BaseMaxHP = enemy.MaxHP;
+                unit.BaseAttack = enemy.Attack;
+                unit.BaseDef = enemy.Def;
+                unit.BaseAttackSpeed = enemy.AttackSpeed;
+                unit.BaseAdReduce = enemy.AdReduce;
+                unit.BaseApReduce = enemy.ApReduce;
 
                 // 마나 리젠 초기화 (글로벌 기본값)
                 unit.ManaRegenPerSec = world.Config.DefaultManaRegenPerSec;

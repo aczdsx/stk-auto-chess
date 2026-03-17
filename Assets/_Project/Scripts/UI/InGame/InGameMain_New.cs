@@ -307,8 +307,8 @@ namespace CookApps.AutoBattler
                 enemy.MaxHP = (int)(spec.stat_hp * character.MultipleHp);
                 enemy.Attack = (int)(spec.stat_atk * character.MultipleAtk);
                 enemy.Def = spec.stat_def;
-                enemy.AdReduce = (int)(spec.ad_reduce * 100);
-                enemy.ApReduce = (int)(spec.ap_reduce * 100);
+                enemy.AdReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ad_reduce);
+                enemy.ApReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ap_reduce);
 
                 enemy.AttackSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
                 enemy.AttackRange = spec.atk_range > 0 ? spec.atk_range : 1;
@@ -412,8 +412,8 @@ namespace CookApps.AutoBattler
                 enemy.MaxHP = (int)(spec.stat_hp * monster.multiple_hp);
                 enemy.Attack = (int)(spec.stat_atk * monster.multiple_atk);
                 enemy.Def = spec.stat_def;
-                enemy.AdReduce = (int)(spec.ad_reduce * 100);
-                enemy.ApReduce = (int)(spec.ap_reduce * 100);
+                enemy.AdReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ad_reduce);
+                enemy.ApReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ap_reduce);
 
                 enemy.AttackSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
                 enemy.AttackRange = spec.atk_range > 0 ? spec.atk_range : 1;

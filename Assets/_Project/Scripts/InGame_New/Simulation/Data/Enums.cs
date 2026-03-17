@@ -101,6 +101,7 @@ namespace CookApps.AutoChess
         EquipItem,          // 아이템 장착
         UnequipItem,        // 아이템 해제
         SpawnTutorialEnemy, // 튜토리얼 적 스폰
+        SetSynergyPrepTarget, // Param0=traitId, Param1=targetEntityId
     }
 
     /// <summary>군중제어(CC) 타입</summary>
@@ -171,11 +172,15 @@ namespace CookApps.AutoChess
     //  시너지 시스템
     // ═══════════════════════════════════════════════
 
-    /// <summary>특성 카테고리</summary>
+    /// <summary>
+    /// 특성 카테고리.
+    /// Origin = 속성 (FIRE, WIND, LIGHTNING, EARTH, WATER 등 원소 시너지, SynergyType 1-6)
+    /// Class  = 성군 (NOBLESSE, TROUBLESHOOTER, SUPERNOVA 등 Asterism 시너지, SynergyType 7+)
+    /// </summary>
     public enum TraitCategory : byte
     {
-        Origin,  // 출신 (Human, Elf, Dragon, ...)
-        Class,   // 직업 (Warrior, Mage, Assassin, ...)
+        Origin,  // 속성 — 원소 시너지 (스탯 버프)
+        Class,   // 성군 — Asterism 시너지 (CombatTraitBase 행동)
     }
 
     /// <summary>시너지 효과 대상</summary>
@@ -203,6 +208,11 @@ namespace CookApps.AutoChess
         BonusAttackPercent,
         BonusHPPercent,
         BonusAttackSpeedPercent,
+        BonusDefPercent,
+        BonusAdReducePercent,
+        BonusApReducePercent,
+        BonusMoveSpeedPercent,
+        BonusPiercePercent,     // 물리+마법 관통 동시 적용
         // 특수 효과
         StartingMana,
         SpellDamagePercent,

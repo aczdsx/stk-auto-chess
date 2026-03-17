@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using CookApps.AutoBattler;
+
 namespace CookApps.AutoChess
 {
     /// <summary>에이프릴: 채널링 다단히트 — 전방 확산 범위, 거리별 배율 차등</summary>
@@ -19,12 +22,14 @@ namespace CookApps.AutoChess
 
         public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
 
-        public override void Initialize(SkillParams p)
+        public override void InitializeFromSpec(SkillParams baseParams, List<SkillActive> specList, int tickRate)
         {
-            base.Initialize(p);
-            _rate1 = p.Param0 > 0 ? p.Param0 : PowerPercent;
-            _rate2 = p.Param1 > 0 ? p.Param1 : PowerPercent;
-            _rate3 = p.Param2 > 0 ? p.Param2 : PowerPercent;
+            base.Initialize(baseParams);
+            // {0}=쿨타임, {1}=회수, {2}=근거리배율(%), {3}=중거리배율(%), {4}=원거리배율(%)
+            HitCount = SkillSpecHelper.GetInt(specList, 1, 10f);
+            _rate1 = SkillSpecHelper.GetInt(specList, 2, 100f);
+            _rate2 = SkillSpecHelper.GetInt(specList, 3, 75f);
+            _rate3 = SkillSpecHelper.GetInt(specList, 4, 50f);
         }
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)

@@ -57,8 +57,8 @@ namespace CookApps.AutoChess.View
                 int hp = spec.stat_hp * starMul / 100;
                 int atk = spec.stat_atk * starMul / 100;
                 int def = spec.stat_def;
-                int adReduce = (int)(spec.ad_reduce * 100);
-                int apReduce = (int)(spec.ap_reduce * 100);
+                int adReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ad_reduce);
+                int apReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ap_reduce);
                 int atkSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
                 int critRate = Mathf.Max(0, (int)(spec.crit_rate * 100));
                 int critPower = Mathf.Max(0, (int)(spec.crit_power * 100));

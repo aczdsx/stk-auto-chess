@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using CookApps.AutoBattler;
+
 namespace CookApps.AutoChess
 {
     /// <summary>
@@ -13,12 +16,17 @@ namespace CookApps.AutoChess
 
         public override SkillExecutionType ExecutionType => SkillExecutionType.DelayedApply;
 
-        public override void Initialize(SkillParams p)
+        public override void InitializeFromSpec(SkillParams baseParams, List<SkillActive> specList, int tickRate)
         {
-            base.Initialize(p);
-            _knockbackDistance = p.Param0 > 0 ? p.Param0 : 4;
-            _stunAoERange = p.Param1 > 0 ? p.Param1 : 1;
-            _worldTickRate = p.WorldTickRate;
+            base.Initialize(baseParams);
+            // {0}=쿨타임, {1}=데미지배율(%)→PowerPercent, {2}=마방계수(미사용), {3}=후속데미지배율(%)
+            PowerPercent = SkillSpecHelper.GetInt(specList, 1, 200f);
+            _knockbackDistance = 4;
+            _stunAoERange = 1;
+            CCType = CrowdControlType.Stun;
+            CCDurationFrames = SkillSpecHelper.SecondsToFrames(1f, tickRate);
+            SecondaryPowerPercent = SkillSpecHelper.GetInt(specList, 3, 200f);
+            _worldTickRate = tickRate;
         }
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)

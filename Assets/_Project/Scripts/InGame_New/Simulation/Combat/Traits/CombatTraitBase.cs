@@ -9,6 +9,12 @@ namespace CookApps.AutoChess
     {
         public const int MaxTraitsPerUnit = 8;
 
+        // 시너지에서 생성된 trait 식별용 (-1이면 시너지 아님)
+        public int SynergyTraitId = -1;
+        public int PrepTargetEntityId = -1;
+        public int PrepParam0;
+        public int PrepParam1;
+
         /// <summary>전투 시작 시 1회 호출</summary>
         public virtual void OnCombatStart(CombatMatchState state, ref CombatUnit owner) { }
 

@@ -98,6 +98,7 @@ namespace CookApps.AutoChess
                 case 217323201: // 미사
                 case 217263103: // 루키다
                 case 215642501: // 엘리스
+                case 215322201: // 메이
                     return SimSkillArchetype.Custom;
             }
 
@@ -108,8 +109,7 @@ namespace CookApps.AutoChess
                 case 217243102: return SimSkillArchetype.DiamondAoE;       // 블린
                 case 217513401: return SimSkillArchetype.LineDamage;      // 아트레시아
                 case 1406031:   return SimSkillArchetype.Heal;            // 아란
-                case 215322201: return SimSkillArchetype.PatternDamage;   // 메이
-                case 217353203: return SimSkillArchetype.AoEDamage;       // 라키유
+                case 217353203: return SimSkillArchetype.Custom;          // 라키유
             }
 
             // 몬스터 스킬 분류
@@ -231,152 +231,25 @@ namespace CookApps.AutoChess
             return fallback;
         }
 
+        /// <summary>
+        /// 아키타입 기반 스킬의 스펙 특수 파라미터 적용.
+        /// 커스텀 스킬은 각 클래스의 InitializeFromSpec에서 직접 처리.
+        /// </summary>
         private static void ApplySkillSpecificParams(ref SkillParams p, int id,
             List<SkillActive> specList, int tickRate)
         {
             switch (id)
             {
-                case 215362202: // 시이나: 침묵
+                case 215362202: // 시이나: 침묵 (DamageCC 아키타입)
                     p.CCType = CrowdControlType.Silence;
                     p.CCDurationFrames = SecondsToFrames(GetSpecRate(specList, 2, 3f), tickRate);
                     break;
-                case 217433303: // 하티: 가장 먼 적 + 넉백
-                {
-                    // {0}=쿨타임(초), {1}=데미지배율(%) → PowerPercent 자동 반영, {2}=넉백거리(타일)
-                    p.TargetType = SkillTargetType.FarthestEnemy;
-                    p.CCType = CrowdControlType.Knockback;
-                    int knockbackDist = Mathf.RoundToInt(GetSpecRate(specList, 2, 2f));
-                    p.CCDurationFrames = knockbackDist > 0 ? knockbackDist : 2;
+                case 217243102: // 블린: 5×5 다이아몬드 AoE (DiamondAoE 아키타입)
+                    p.Param0 = 2;
                     break;
-                }
-                case 217243102: // 블린: 5×5 다이아몬드 AoE
-                    p.Param0 = 2; // 맨해튼 거리 2 (5×5 다이아몬드)
+                case 217513401: // 아트레시아: 3칸 폭 직선 관통 (LineDamage 아키타입)
+                    p.Param2 = 3;
                     break;
-                case 215532401: // 필리아: 가장 먼 적 단일강타
-                    p.TargetType = SkillTargetType.FarthestEnemy;
-                    break;
-                case 215252102: // 유니: 체력 최저 아군 3명 힐 + 디버프 제거
-                {
-                    // {0}=쿨타임(초), {1}=힐배율(%) → PowerPercent로 자동 반영, {2}=디버프 제거 수
-                    p.TargetCount = 3;
-                    p.Param0 = Mathf.RoundToInt(GetSpecRate(specList, 2, 2f)); // 디버프 제거 수
-                    break;
-                }
-                case 217433302: // 미노: 3발 + 스플래시
-                    p.TargetCount = 3;
-                    break;
-                case 217363204: // 베인: 5회 바운스 + 공속 버프
-                    p.TargetCount = 5;
-                    p.SecondaryPowerPercent = 20;
-                    p.BuffStat = StatModType.AttackSpeed;
-                    p.BuffValue = 30;
-                    p.BuffDurationFrames = 180;
-                    break;
-                case 217413301: // 테토라: 넉백 + AoE 스턴
-                {
-                    // {0}=쿨타임, {1}=데미지배율(%)→PowerPercent, {2}=마방계수(미사용),
-                    // {3}=후속데미지배율(%)
-                    p.Param0 = 4;  // 넉백 거리 (고정)
-                    p.Param1 = 1;  // AoE 범위 (고정)
-                    p.CCType = CrowdControlType.Stun;
-                    p.CCDurationFrames = SecondsToFrames(1f, tickRate); // 넉백 스턴 1초 고정
-                    p.SecondaryPowerPercent = Mathf.RoundToInt(GetSpecRate(specList, 3, 200f));
-                    break;
-                }
-                case 217553404: // 클레이: 채널링 존 (3초, 6틱)
-                {
-                    // {0}=쿨타임(초), {1}=힐배율(%) → PowerPercent로 자동 반영,
-                    // {2}=데미지배율(%), {3}=회복감소(%), {4}=디버프지속(초)
-                    p.Param0 = Mathf.RoundToInt(GetSpecRate(specList, 2, 80f));  // damagePercent
-                    p.Param1 = Mathf.RoundToInt(GetSpecRate(specList, 3, 50f));  // healReductionPercent
-                    float debuffDurSec = GetSpecRate(specList, 4, 3f);
-                    p.Param2 = SecondsToFrames(debuffDurSec, tickRate);          // debuffDurationFrames
-                    p.Param3 = 2;                                                // zoneRange (고정)
-                    break;
-                }
-                case 217563405: // 마리에: 공격력 최대 적 뒤 순간이동 + 다단히트
-                {
-                    // {0}=쿨타임(초), {1}=히트수, {2}=데미지배율(%) → PowerPercent 자동 반영,
-                    // {3}=디버프지속(초), {4}=디버프율(%)
-                    p.TargetType = SkillTargetType.HighestAttackEnemy;
-                    int hitCount = Mathf.RoundToInt(GetSpecRate(specList, 1, 4f));
-                    p.HitCount = hitCount > 0 ? hitCount : 4;
-                    float debuffDurSec = GetSpecRate(specList, 3, 3f);
-                    p.Param0 = SecondsToFrames(debuffDurSec, tickRate); // debuffDurationFrames
-                    p.Param1 = Mathf.RoundToInt(GetSpecRate(specList, 4, 30f)); // debuffPercent
-                    break;
-                }
-                case 215422301: // 멘샤: 실드
-                    p.Param0 = 180; // shieldDurationFrames
-                    break;
-                case 217653505: // 엔키: 전체 힐 + HoT
-                    p.Param0 = 180; // HoT 지속 프레임
-                    p.Param1 = 30;  // HoT 틱 간격
-                    p.SecondaryPowerPercent = 50; // HoT 틱당 배율
-                    break;
-                case 217333202: // 에이프릴: 채널링 다단히트 (AnimEvent 기반)
-                    p.HitCount = 10;     // 총 타수
-                    p.Param0 = 100;      // 근거리 배율 (1~2행)
-                    p.Param1 = 75;       // 중거리 배율 (3행)
-                    p.Param2 = 50;       // 원거리 배율 (4+행)
-                    break;
-                case 217513401: // 아트레시아: 3칸 폭 직선 관통
-                    p.Param2 = 3;  // width (진행 방향 수직 3칸)
-                    break;
-                case 217613501: // 오데트: 2단계 채널링 (L자형 + 3×3 범위공격 + 순간이동)
-                    p.Param0 = 90;       // 공속감소 디버프 지속 프레임 (3초 @ 30fps)
-                    p.Param1 = 30;       // 공속 감소량
-                    break;
-                case 217523403: // 아드리아: 3단계 확장 패턴 AoE + 방어력 비례 데미지 + 스턴
-                {
-                    // {0}=쿨타임(초), {1}=데미지배율(%) → PowerPercent 자동 반영,
-                    // {2}=방어력계수, {3}=스턴시간(초)
-                    p.Param0 = Mathf.RoundToInt(GetSpecRate(specList, 2, 100f)); // defScaleValue
-                    float stunSec = GetSpecRate(specList, 3, 2f);
-                    p.Param1 = SecondsToFrames(stunSec, tickRate); // stunDurationFrames
-                    break;
-                }
-                case 217323201: // 미사: 봉인(관) + 스턴 — 데미지 없음
-                {
-                    // {0}=쿨타임(초), {1}=봉인지속(초)
-                    p.TargetType = SkillTargetType.HighestAttackEnemy;
-                    p.CCType = CrowdControlType.Stun;
-                    float sealDurSec = GetSpecRate(specList, 1, 3f);
-                    p.CCDurationFrames = SecondsToFrames(sealDurSec, tickRate);
-                    p.PowerPercent = 0; // 데미지 없음
-                    break;
-                }
-                case 215642501: // 엘리스: 다이아몬드 AoE (맨해튼 거리 1)
-                {
-                    // {0}=쿨타임(초), {1}=데미지배율(%), {2}=추가데미지배율(%)
-                    p.PowerPercent = Mathf.RoundToInt(GetSpecRate(specList, 1, 200f));
-                    break;
-                }
-                case 217663506: // 시라유키: 최저HP 적 3명 순차 텔레포트 + 회피 버프
-                {
-                    // {0}=쿨타임(초), {1}=지정불가시간(초), {2}=데미지배율(%) → PowerPercent,
-                    // {3}=회피버프시간(초), {4}=회피증가율(%)
-                    p.TargetType = SkillTargetType.LowestHPEnemy;
-                    p.TargetCount = 3;
-                    p.HitCount = 3;
-                    float untargetableSec = GetSpecRate(specList, 1, 3f);
-                    p.Param0 = SecondsToFrames(untargetableSec, tickRate); // untargetableDurationFrames
-                    float dodgeDurSec = GetSpecRate(specList, 3, 3f);
-                    p.Param1 = SecondsToFrames(dodgeDurSec, tickRate); // dodgeDurationFrames
-                    p.Param2 = Mathf.RoundToInt(GetSpecRate(specList, 4, 30f)); // dodgePercent
-                    break;
-                }
-                case 217263103: // 루키다: 여우불 추가 + 공속 버프 (스펙 데이터 기반)
-                {
-                    // {0}=쿨타임(초), {1}=여우불 증가량, {2}=공속버프 지속(초), {3}=공속증가율(%)
-                    int foxFireIncrease = Mathf.RoundToInt(GetSpecRate(specList, 1, 2f));
-                    float buffDurationSec = GetSpecRate(specList, 2, 3f);
-                    int atkSpeedPercent = Mathf.RoundToInt(GetSpecRate(specList, 3, 10f));
-                    p.Param0 = foxFireIncrease;
-                    p.Param1 = SecondsToFrames(buffDurationSec, tickRate);
-                    p.Param2 = atkSpeedPercent;
-                    break;
-                }
             }
         }
     }

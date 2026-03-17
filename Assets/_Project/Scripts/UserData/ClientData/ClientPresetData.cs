@@ -130,5 +130,8 @@ namespace CookApps.AutoBattler
 
         /// <summary>보드 행 위치.</summary>
         [MemoryPackOrder(2)] public byte Row;
+
+        /// <summary>별 레벨 (1~3).</summary>
+        [MemoryPackOrder(3)] public byte StarLevel;
     }
 }

@@ -21,7 +21,8 @@ namespace CookApps.AutoChess
 
                 if (SkillFactory.TryGetParams(unit.SkillSpecId, out var skillParams))
                 {
-                    skill.Initialize(skillParams);
+                    SkillFactory.TryGetSpecList(unit.SkillSpecId, out var specList);
+                    skill.InitializeFromSpec(skillParams, specList, world.TickRate);
                 }
                 else
                 {
