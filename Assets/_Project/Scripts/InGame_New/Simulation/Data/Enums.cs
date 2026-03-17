@@ -233,9 +233,9 @@ namespace CookApps.AutoChess
     /// <summary>스킬 실행 패턴 (base에서 IsChanneling/GetCastFrames/OnChannelTick 자동 판별)</summary>
     public enum SkillExecutionType : byte
     {
-        Instant,        // Execute() 즉시 완결, 채널링 없음
-        DelayedApply,   // SkillHitFrames[0] 후 ApplySkillEffect() 1회
-        Channeling,     // Execute() 초기화 + OnChannelTick() 매 프레임
+        Instant,        // Execute() 즉시 완결, 채널링 없음 찍
+        DelayedApply,   // SkillHitFrames[0] 후 ApplySkillEffect() 1회 애님키프레임이벤트를 꼭 받아야한다면
+        Channeling,     // Execute() 초기화 + OnChannelTick() 매 프레임 관리를 해야한다면.. ex 미노가 프로젝타일을 날려서 데미지주는 타이밍계산
     }
 
     /// <summary>시뮬레이션 스킬 아키타입</summary>
@@ -266,6 +266,7 @@ namespace CookApps.AutoChess
         MisaRestraint = 2,
         MarieAracne = 3,
         OdetteCold = 4,
+        PiliaSkillCast = 5,   // 필리아 스킬 데미지 판별용
     }
 
     /// <summary>아이템 위치</summary>

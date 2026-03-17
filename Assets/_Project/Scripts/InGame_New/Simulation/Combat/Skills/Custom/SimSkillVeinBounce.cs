@@ -115,7 +115,7 @@ namespace CookApps.AutoChess
             ProjectileSystem.CreateHomingProjectile(
                 state, caster.CombatId, _currentTargetId,
                 damage: 0, isCrit: false, DamageType, _travelFrames,
-                skillSpecId: SkillId, skillVfxIndex: 0, useBezier: true, arrivalVfxIndex: 1);
+                skillSpecId: SkillId, skillVfxIndex: 0, useBezier: false, arrivalVfxIndex: 1);
 
             _arrivalTimer = _travelFrames + DamageDelayFrames;
             _phase = Phase.WaitArrival;

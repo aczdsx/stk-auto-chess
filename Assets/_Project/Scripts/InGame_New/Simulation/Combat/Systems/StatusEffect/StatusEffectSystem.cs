@@ -9,16 +9,51 @@ namespace CookApps.AutoChess
         /// <summary>상태효과 추가. StatBuff/Debuff는 추가 시 스탯 즉시 적용.</summary>
         public static void AddEffect(CombatMatchState state, int unitIndex,
             StatusEffectType type, int value, int durationFrames,
-            int tickInterval = 0, StatModType statType = default, DamageType dmgType = default)
+            int tickInterval = 0, StatModType statType = default, DamageType dmgType = default,
+            int sourceSkillId = 0)
         {
             if (unitIndex < 0 || unitIndex >= state.UnitCount) return;
-            if (state.StatusEffectCount >= CombatMatchState.MaxStatusEffects) return;
 
             // 면역 체크: 해당 면역이 활성화되어 있으면 효과 적용 차단
             if (type == StatusEffectType.StatDebuff && HasImmunity(state, unitIndex, StatusEffectType.DebuffImmunity))
                 return;
             if (type == StatusEffectType.DamageOverTime && HasImmunity(state, unitIndex, StatusEffectType.DOTImmunity))
                 return;
+
+            // sourceSkillId 갱신 로직: 동일 유닛 + 동일 sourceSkillId 기존 효과를 찾아 갱신
+            if (sourceSkillId > 0 && (type == StatusEffectType.StatBuff || type == StatusEffectType.StatDebuff))
+            {
+                for (int i = 0; i < state.StatusEffectCount; i++)
+                {
+                    ref var existing = ref state.StatusEffects[i];
+                    if (!existing.IsActive) continue;
+                    if (existing.OwnerUnitIndex != unitIndex) continue;
+                    if (existing.SourceSkillId != sourceSkillId) continue;
+                    if (existing.Type != type) continue;
+                    if (existing.StatType != statType) continue;
+
+                    // 기존 효과의 스탯 역산 → 새 값으로 재적용
+                    ref var renewUnit = ref state.Units[unitIndex];
+                    if (type == StatusEffectType.StatBuff)
+                        SkillBuffHelper.ModifyStat(ref renewUnit, statType, -existing.Value);
+                    else
+                        SkillBuffHelper.ModifyStat(ref renewUnit, statType, existing.Value);
+
+                    // 새 값/지속시간으로 갱신
+                    existing.Value = value;
+                    existing.RemainingFrames = durationFrames;
+
+                    // 새 스탯 적용
+                    if (type == StatusEffectType.StatBuff)
+                        SkillBuffHelper.ModifyStat(ref renewUnit, statType, value);
+                    else
+                        SkillBuffHelper.ModifyStat(ref renewUnit, statType, -value);
+
+                    return; // 갱신 완료, 새로 추가하지 않음
+                }
+            }
+
+            if (state.StatusEffectCount >= CombatMatchState.MaxStatusEffects) return;
 
             ref var effect = ref state.StatusEffects[state.StatusEffectCount++];
             effect.OwnerUnitIndex = unitIndex;
@@ -30,6 +65,7 @@ namespace CookApps.AutoChess
             effect.StatType = statType;
             effect.DmgType = dmgType;
             effect.IsActive = true;
+            effect.SourceSkillId = sourceSkillId;
 
             // 로깅
             if (CombatLogger.Enabled)

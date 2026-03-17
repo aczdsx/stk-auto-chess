@@ -35,6 +35,20 @@ namespace CookApps.AutoChess
                 }
                 state.Skills[i] = skill;
             }
+
+            RegisterCharacterTraits(state);
+        }
+
+        /// <summary>캐릭터 고유 trait 등록</summary>
+        private static void RegisterCharacterTraits(CombatMatchState state)
+        {
+            for (int i = 0; i < state.UnitCount; i++)
+            {
+                ref var unit = ref state.Units[i];
+                // 필리아 (215532401): 스킬 킬 → 마나 리셋
+                if (unit.ChampionSpecId == 215532401)
+                    TraitSystem.AddTrait(state, i, new SkillKillManaResetTrait(SkillMarkerType.PiliaSkillCast));
+            }
         }
 
         /// <summary>마나 풀 시 스킬 시전 시도. 성공 시 true.</summary>

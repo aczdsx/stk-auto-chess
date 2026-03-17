@@ -91,10 +91,10 @@ namespace CookApps.AutoChess
                     targetIdx = state.FindUnitIndex(_targetCombatId);
                     if (targetIdx >= 0 && state.Units[targetIdx].IsAlive)
                     {
-                        SkillBuffHelper.ApplyTimedDebuff(state, targetIdx,
-                            StatModType.Attack, _debuffPercent, _debuffDurationFrames);
-                        SkillBuffHelper.ApplyTimedDebuff(state, targetIdx,
-                            StatModType.Def, _debuffPercent, _debuffDurationFrames);
+                        SkillBuffHelper.ApplyPercentDebuff(state, targetIdx,
+                            StatModType.Attack, _debuffPercent, _debuffDurationFrames, sourceSkillId: SkillId);
+                        SkillBuffHelper.ApplyPercentDebuff(state, targetIdx,
+                            StatModType.Def, _debuffPercent, _debuffDurationFrames, sourceSkillId: SkillId);
 
                         // 전용 아이콘용 SkillMarker 동시 발행
                         StatusEffectSystem.AddEffect(state, targetIdx,

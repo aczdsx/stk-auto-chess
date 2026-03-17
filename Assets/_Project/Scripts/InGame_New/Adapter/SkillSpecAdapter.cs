@@ -22,7 +22,11 @@ namespace CookApps.AutoChess
         {
             var archetype = ClassifySkill(spec);
             var dmgType = spec.atk_type == AtkType.AP ? DamageType.Magical : DamageType.Physical;
-            int powerPercent = Mathf.RoundToInt(spec.base_rate * 100f);
+            // PERCENT 타입: base_rate가 이미 퍼센트 값 (20 = 20%)
+            // 그 외: base_rate가 배수 값 (3.0 = 300%)
+            int powerPercent = spec.skill_value_type == SkillValueType.PERCENT
+                ? Mathf.RoundToInt(spec.base_rate)
+                : Mathf.RoundToInt(spec.base_rate * 100f);
 
             var p = new SkillParams
             {

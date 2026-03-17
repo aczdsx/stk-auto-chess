@@ -39,6 +39,12 @@ namespace CookApps.AutoChess
         protected override void ApplySkillEffect(CombatMatchState state, ref CombatUnit caster,
             int targetCombatId, ref DeterministicRNG rng)
         {
+            // 스킬 킬 판별용 마커 (PiliaResetTrait.OnKill에서 확인)
+            int casterIdx = state.FindUnitIndex(caster.CombatId);
+            if (casterIdx >= 0)
+                StatusEffectSystem.AddEffect(state, casterIdx,
+                    StatusEffectType.SkillMarker, (int)SkillMarkerType.PiliaSkillCast, 2);
+
             // 시전자 → 타겟 방향 계산
             int targetIdx = state.FindUnitIndex(targetCombatId);
             sbyte dirCol = 0, dirRow = 0;

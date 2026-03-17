@@ -26,7 +26,7 @@ namespace CookApps.AutoChess
             // {0}=쿨타임, {1}=데미지배율(%)→PowerPercent, {2}=버프시간(초), {3}=방어력버프율(%)
             PowerPercent = SkillSpecHelper.GetInt(specList, 1, 200f);
             _buffDurationFrames = SkillSpecHelper.GetFrames(specList, 2, 4f, tickRate);
-            _defBuffPercent = SkillSpecHelper.GetInt(specList, 3, 50f) * 100;
+            _defBuffPercent = SkillSpecHelper.GetInt(specList, 3, 50f);
             _worldTickRate = tickRate;
         }
 
@@ -75,13 +75,11 @@ namespace CookApps.AutoChess
                     SkillCCHelper.Knockback(state, ref t, dirCol, dirRow, KnockbackDistance, _worldTickRate);
                 });
 
-            // 2. 자기에게 Def 버프
+            // 2. 자기에게 Def 퍼센트 버프 (BaseDef 기준)
             if (_defBuffPercent > 0 && _buffDurationFrames > 0)
             {
-                int defBonus = caster.Def * _defBuffPercent / 100;
-                if (defBonus > 0)
-                    SkillBuffHelper.ApplyTimedBuff(state, casterIdx,
-                        StatModType.Def, defBonus, _buffDurationFrames);
+                SkillBuffHelper.ApplyPercentBuff(state, casterIdx,
+                    StatModType.Def, _defBuffPercent, _buffDurationFrames, sourceSkillId: SkillId);
             }
         }
 
