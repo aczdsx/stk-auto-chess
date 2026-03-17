@@ -211,6 +211,8 @@ namespace CookApps.AutoChess
         BonusDefPercent,
         BonusAdReducePercent,
         BonusApReducePercent,
+        BonusMoveSpeedPercent,
+        BonusPiercePercent,     // 물리+마법 관통 동시 적용
         // 특수 효과
         StartingMana,
         SpellDamagePercent,

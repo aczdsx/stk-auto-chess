@@ -207,113 +207,136 @@ namespace CookApps.AutoChess
             {
                 case SynergyEffectType.BonusDef:
                     before = unit.Def; unit.Def += effect.Value;
-                    LogSynergy("Def", unitIndex, before, unit.Def);
+                    LogStat(ref unit, "Def", before, unit.Def);
                     break;
                 case SynergyEffectType.BonusAdReduce:
                     before = unit.AdReduce; unit.AdReduce += effect.Value;
-                    LogSynergy("AdReduce", unitIndex, before, unit.AdReduce);
+                    LogStat(ref unit, "AdReduce", before, unit.AdReduce);
                     break;
                 case SynergyEffectType.BonusApReduce:
                     before = unit.ApReduce; unit.ApReduce += effect.Value;
-                    LogSynergy("ApReduce", unitIndex, before, unit.ApReduce);
+                    LogStat(ref unit, "ApReduce", before, unit.ApReduce);
                     break;
                 case SynergyEffectType.BonusAttack:
                     before = unit.Attack; unit.Attack += effect.Value;
-                    LogSynergy("Attack", unitIndex, before, unit.Attack);
+                    LogStat(ref unit, "Attack", before, unit.Attack);
                     break;
                 case SynergyEffectType.BonusAttackPercent:
                     before = unit.Attack; unit.Attack += unit.BaseAttack * effect.ValuePercent / 100;
-                    LogSynergy($"Attack(+{effect.ValuePercent}%)", unitIndex, before, unit.Attack);
+                    LogStat(ref unit, $"Attack(+{effect.ValuePercent}%)", before, unit.Attack);
                     break;
                 case SynergyEffectType.BonusHP:
                     before = unit.MaxHP; unit.MaxHP += effect.Value; unit.CurrentHP += effect.Value;
-                    LogSynergy("HP", unitIndex, before, unit.MaxHP);
+                    LogStat(ref unit, "HP", before, unit.MaxHP);
                     break;
                 case SynergyEffectType.BonusHPPercent:
                     before = unit.MaxHP;
                     int hpBonus = unit.BaseMaxHP * effect.ValuePercent / 100;
                     unit.MaxHP += hpBonus; unit.CurrentHP += hpBonus;
-                    LogSynergy($"HP(+{effect.ValuePercent}%)", unitIndex, before, unit.MaxHP);
+                    LogStat(ref unit, $"HP(+{effect.ValuePercent}%)", before, unit.MaxHP);
                     break;
                 case SynergyEffectType.BonusAttackSpeed:
                     before = unit.AttackSpeed; unit.AttackSpeed += effect.Value;
-                    LogSynergy("AtkSpd", unitIndex, before, unit.AttackSpeed);
+                    LogStat(ref unit, "AtkSpd", before, unit.AttackSpeed);
                     break;
                 case SynergyEffectType.BonusAttackSpeedPercent:
                     before = unit.AttackSpeed; unit.AttackSpeed += unit.BaseAttackSpeed * effect.ValuePercent / 100;
-                    LogSynergy($"AtkSpd(+{effect.ValuePercent}%)", unitIndex, before, unit.AttackSpeed);
+                    LogStat(ref unit, $"AtkSpd(+{effect.ValuePercent}%)", before, unit.AttackSpeed);
                     break;
                 case SynergyEffectType.BonusDefPercent:
                     before = unit.Def; unit.Def += unit.BaseDef * effect.ValuePercent / 100;
-                    LogSynergy($"Def(+{effect.ValuePercent}%)", unitIndex, before, unit.Def);
+                    LogStat(ref unit, $"Def(+{effect.ValuePercent}%)", before, unit.Def);
                     break;
                 case SynergyEffectType.BonusAdReducePercent:
                     before = unit.AdReduce; unit.AdReduce += unit.BaseAdReduce * effect.ValuePercent / 100;
-                    LogSynergy($"AdReduce(+{effect.ValuePercent}%)", unitIndex, before, unit.AdReduce);
+                    LogStat(ref unit, $"AdReduce(+{effect.ValuePercent}%)", before, unit.AdReduce);
                     break;
                 case SynergyEffectType.BonusApReducePercent:
                     before = unit.ApReduce; unit.ApReduce += unit.BaseApReduce * effect.ValuePercent / 100;
-                    LogSynergy($"ApReduce(+{effect.ValuePercent}%)", unitIndex, before, unit.ApReduce);
+                    LogStat(ref unit, $"ApReduce(+{effect.ValuePercent}%)", before, unit.ApReduce);
                     break;
                 case SynergyEffectType.BonusMana:
                     before = unit.MaxMana; unit.MaxMana += effect.Value;
-                    LogSynergy("Mana", unitIndex, before, unit.MaxMana);
+                    LogStat(ref unit, "Mana", before, unit.MaxMana);
                     break;
                 case SynergyEffectType.BonusCritChance:
                     before = unit.CritRate; unit.CritRate += effect.Value;
-                    LogSynergy("CritRate", unitIndex, before, unit.CritRate);
+                    LogStat(ref unit, "CritRate", before, unit.CritRate);
                     break;
                 case SynergyEffectType.BonusCritMultiplier:
                     before = unit.CritPower; unit.CritPower += effect.Value;
-                    LogSynergy("CritPower", unitIndex, before, unit.CritPower);
+                    LogStat(ref unit, "CritPower", before, unit.CritPower);
                     break;
                 case SynergyEffectType.StartingMana:
                     before = unit.CurrentMana; unit.CurrentMana += effect.Value;
                     if (unit.CurrentMana > unit.MaxMana) unit.CurrentMana = unit.MaxMana;
-                    LogSynergy("StartMana", unitIndex, before, unit.CurrentMana);
+                    LogStat(ref unit, "StartMana", before, unit.CurrentMana);
                     break;
                 case SynergyEffectType.SpellDamagePercent:
                     break;
                 case SynergyEffectType.LifeSteal:
                     before = unit.LifeSteal; unit.LifeSteal += effect.Value;
-                    LogSynergy("LifeSteal", unitIndex, before, unit.LifeSteal);
+                    LogStat(ref unit, "LifeSteal", before, unit.LifeSteal);
                     break;
                 case SynergyEffectType.DodgeChance:
                     before = unit.DodgeChance; unit.DodgeChance += effect.Value;
-                    LogSynergy("Dodge", unitIndex, before, unit.DodgeChance);
+                    LogStat(ref unit, "Dodge", before, unit.DodgeChance);
+                    break;
+                case SynergyEffectType.BonusMoveSpeedPercent:
+                    before = unit.MoveSpeed; unit.MoveSpeed += unit.MoveSpeed * effect.ValuePercent / 100;
+                    LogStat(ref unit, $"MoveSpd(+{effect.ValuePercent}%)", before, unit.MoveSpeed);
+                    break;
+                case SynergyEffectType.BonusPiercePercent:
+                    int atkPBefore = unit.AtkPierce; int resPBefore = unit.ResPierce;
+                    unit.AtkPierce += effect.ValuePercent;
+                    unit.ResPierce += effect.ValuePercent;
+                    LogStat(ref unit, $"AtkPierce(+{effect.ValuePercent}%)", atkPBefore, unit.AtkPierce);
+                    LogStat(ref unit, $"ResPierce(+{effect.ValuePercent}%)", resPBefore, unit.ResPierce);
                     break;
                 case SynergyEffectType.BacklineJump:
                     unit.HasBacklineJump = true;
-                    UnityEngine.Debug.Log($"<color=cyan>[Synergy] unit[{unitIndex}] BacklineJump ON</color>");
+                    LogStat(ref unit, "BacklineJump", 0, 1);
                     break;
                 case SynergyEffectType.ShieldOnCombatStart:
                     int shieldAmt = unit.MaxHP * effect.ValuePercent / 100;
                     StatusEffectSystem.AddEffect(state, unitIndex, StatusEffectType.Shield, shieldAmt, -1);
-                    UnityEngine.Debug.Log($"<color=cyan>[Synergy] unit[{unitIndex}] Shield +{shieldAmt}</color>");
+                    LogStat(ref unit, "Shield", 0, shieldAmt);
                     break;
                 case SynergyEffectType.ReduceDef:
                     before = unit.Def; unit.Def -= unit.Def * effect.ValuePercent / 100;
                     if (unit.Def < 0) unit.Def = 0;
-                    LogSynergy($"Def(-{effect.ValuePercent}%)", unitIndex, before, unit.Def);
+                    LogStat(ref unit, $"Def(-{effect.ValuePercent}%)", before, unit.Def);
                     break;
                 case SynergyEffectType.ReduceAdReduce:
                     before = unit.AdReduce; unit.AdReduce -= unit.AdReduce * effect.ValuePercent / 100;
                     if (unit.AdReduce < 0) unit.AdReduce = 0;
-                    LogSynergy($"AdReduce(-{effect.ValuePercent}%)", unitIndex, before, unit.AdReduce);
+                    LogStat(ref unit, $"AdReduce(-{effect.ValuePercent}%)", before, unit.AdReduce);
                     break;
                 case SynergyEffectType.ReduceApReduce:
                     before = unit.ApReduce; unit.ApReduce -= unit.ApReduce * effect.ValuePercent / 100;
                     if (unit.ApReduce < 0) unit.ApReduce = 0;
-                    LogSynergy($"ApReduce(-{effect.ValuePercent}%)", unitIndex, before, unit.ApReduce);
+                    LogStat(ref unit, $"ApReduce(-{effect.ValuePercent}%)", before, unit.ApReduce);
                     break;
             }
         }
 
         [System.Diagnostics.Conditional("UNITY_EDITOR")]
-        private static void LogSynergy(string stat, int unitIndex, int before, int after)
+        private static void LogStat(ref CombatUnit unit, string stat, int before, int after)
         {
-            if (before != after)
-                UnityEngine.Debug.Log($"<color=cyan>[Synergy] unit[{unitIndex}] {stat}: {before} → {after}</color>");
+            if (before == after) return;
+            var charName = GetCharacterName(unit.ChampionSpecId);
+            UnityEngine.Debug.Log(
+                $"<color=cyan>[Synergy] {charName}(id:{unit.ChampionSpecId}) {stat}: {before} → {after}</color>");
+        }
+
+        private static string GetCharacterName(int championSpecId)
+        {
+#if UNITY_EDITOR
+            var info = CookApps.AutoBattler.SpecDataManager.Instance?.GetCharacterData(championSpecId);
+            if (info != null && !string.IsNullOrEmpty(info.name_token))
+                return info.name_token;
+#endif
+            return $"#{championSpecId}";
         }
 
         [System.Diagnostics.Conditional("UNITY_EDITOR")]

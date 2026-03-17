@@ -42,11 +42,11 @@ SynergyTraitFactory → CombatTraitBase 서브클래스 생성      ← 2계층
 
 | SynergyType | effect_1 매핑 | effect_2 매핑 |
 |---|---|---|
-| FIRE(2) | BonusAttackPercent | — |
-| WIND(3) | BonusAttackSpeedPercent | DodgeChance |
-| LIGHTNING(4) | BonusCritChance | BonusCritMultiplier |
-| EARTH(5) | BonusAdReduce + BonusApReduce (동일값) | — |
-| WATER(6) | BonusHPPercent | BonusDef |
+| FIRE(2) | BonusAttackPercent (공격력 +%) | BonusPiercePercent (관통력 +%) |
+| WIND(3) | BonusAttackSpeedPercent (공속 +%) | DodgeChance (회피율) |
+| LIGHTNING(4) | BonusCritChance (크리확률) | BonusCritMultiplier (크리파워) |
+| EARTH(5) | BonusDefPercent (방어력 +%) | BonusAdReduce + BonusApReduce (저항력) |
+| WATER(6) | BonusHPPercent (HP +%) | BonusMoveSpeedPercent (이동속도 +%) |
 
 ### SynergyCoverType → SynergyTarget 매핑
 
@@ -78,6 +78,7 @@ BonusAttackSpeed, BonusMana, BonusCritChance, BonusCritMultiplier,
 // 퍼센트 보너스
 BonusAttackPercent, BonusHPPercent, BonusAttackSpeedPercent,
 BonusDefPercent, BonusAdReducePercent, BonusApReducePercent,
+BonusMoveSpeedPercent, BonusPiercePercent,
 // 특수 효과
 StartingMana, SpellDamagePercent, LifeSteal, DodgeChance,
 BacklineJump, ShieldOnCombatStart,

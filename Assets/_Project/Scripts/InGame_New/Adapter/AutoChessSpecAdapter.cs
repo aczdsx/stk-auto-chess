@@ -211,14 +211,15 @@ namespace CookApps.AutoChess
             switch (type)
             {
                 case SynergyType.FIRE:
-                    // 공격력 {v1}% 상승
+                    // 공격력 {v1}% 상승, 관통력 {v2}% 상승
                     return new[]
                     {
                         new SynergyEffect { Type = SynergyEffectType.BonusAttackPercent, Target = target, ValuePercent = v1 },
+                        new SynergyEffect { Type = SynergyEffectType.BonusPiercePercent, Target = target, ValuePercent = v2 },
                     };
 
                 case SynergyType.WIND:
-                    // 공격속도 {v1}%, 회피율 {v2}%
+                    // 공격속도 {v1}%, 회피율 {v2}
                     return new[]
                     {
                         new SynergyEffect { Type = SynergyEffectType.BonusAttackSpeedPercent, Target = target, ValuePercent = v1 },
@@ -226,7 +227,7 @@ namespace CookApps.AutoChess
                     };
 
                 case SynergyType.LIGHTNING:
-                    // 크리티컬 확률 {v1}%, 크리티컬 데미지 {v2}%
+                    // 크리확률 {v1}, 크리파워 {v2}
                     return new[]
                     {
                         new SynergyEffect { Type = SynergyEffectType.BonusCritChance, Target = target, Value = v1 },
@@ -234,19 +235,20 @@ namespace CookApps.AutoChess
                     };
 
                 case SynergyType.EARTH:
-                    // 관통력 {v1}% (물리+마법 동일), 블록률 {v2} (INT)
+                    // 방어력 {v1}%, 저항력(물리+마법) {v2}
                     return new[]
                     {
-                        new SynergyEffect { Type = SynergyEffectType.BonusAdReducePercent, Target = target, ValuePercent = v1 },
-                        new SynergyEffect { Type = SynergyEffectType.BonusApReducePercent, Target = target, ValuePercent = v1 },
+                        new SynergyEffect { Type = SynergyEffectType.BonusDefPercent, Target = target, ValuePercent = v1 },
+                        new SynergyEffect { Type = SynergyEffectType.BonusAdReduce, Target = target, Value = v2 },
+                        new SynergyEffect { Type = SynergyEffectType.BonusApReduce, Target = target, Value = v2 },
                     };
 
                 case SynergyType.WATER:
-                    // HP {v1}%, 방어력 {v2}%
+                    // HP {v1}%, 이동속도 {v2}%
                     return new[]
                     {
                         new SynergyEffect { Type = SynergyEffectType.BonusHPPercent, Target = target, ValuePercent = v1 },
-                        new SynergyEffect { Type = SynergyEffectType.BonusDefPercent, Target = target, ValuePercent = v2 },
+                        new SynergyEffect { Type = SynergyEffectType.BonusMoveSpeedPercent, Target = target, ValuePercent = v2 },
                     };
 
                 default:
