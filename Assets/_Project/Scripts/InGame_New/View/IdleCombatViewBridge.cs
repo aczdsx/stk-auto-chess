@@ -124,6 +124,7 @@ namespace CookApps.AutoChess.View
             switch (evt.Type)
             {
                 case SimEventType.UnitSpawned:
+                    LogUnitSpawned(ref evt, matchState);
                     SpawnSummonVfx(ref evt, matchState);
                     break;
 
@@ -136,7 +137,12 @@ namespace CookApps.AutoChess.View
                 }
 
                 case SimEventType.UnitDamaged:
+                    LogUnitDamaged(ref evt, matchState);
                     _combatViewManager.OnUnitDamaged(evt.EntityId, evt.Value0, (DamageType)evt.Value1, evt.Flag0);
+                    break;
+
+                case SimEventType.UnitDied:
+                    LogUnitDied(ref evt, matchState);
                     break;
 
                 // UnitDied: 유휴 전투에서는 사망 무시
@@ -304,6 +310,50 @@ namespace CookApps.AutoChess.View
                     }
                     break;
             }
+        }
+
+        // ── 전투 로그 ──
+
+        private static string TeamLabel(byte teamIndex) => teamIndex == 0 ? "아군" : "적군";
+
+        private static string UnitLabel(CombatMatchState state, int combatId)
+        {
+            int idx = state.FindUnitIndex(combatId);
+            if (idx < 0) return $"?({combatId})";
+            ref var u = ref state.Units[idx];
+            return $"{TeamLabel(u.TeamIndex)}[{u.ChampionSpecId}](id={combatId})";
+        }
+
+        private static void LogUnitSpawned(ref SimEvent evt, CombatMatchState state)
+        {
+            int idx = state.FindUnitIndex(evt.EntityId);
+            if (idx < 0) return;
+            ref var u = ref state.Units[idx];
+            Debug.Log($"[IdleCombat] 생성 {TeamLabel(u.TeamIndex)}[{u.ChampionSpecId}] id={u.CombatId} " +
+                      $"HP={u.CurrentHP}/{u.MaxHP} ATK={u.Attack} DEF={u.Def} SPD={u.AttackSpeed} ({u.GridCol},{u.GridRow})");
+        }
+
+        private static void LogUnitDamaged(ref SimEvent evt, CombatMatchState state)
+        {
+            int damage = evt.Value0;
+            bool isCrit = evt.Flag0;
+            string attacker = UnitLabel(state, evt.TargetEntityId); // TargetEntityId = attacker in UnitDamaged
+            string target = UnitLabel(state, evt.EntityId);
+
+            int targetIdx = state.FindUnitIndex(evt.EntityId);
+            string hpInfo = "";
+            if (targetIdx >= 0)
+            {
+                ref var u = ref state.Units[targetIdx];
+                hpInfo = $" (남은HP={u.CurrentHP}/{u.MaxHP})";
+            }
+
+            Debug.Log($"[IdleCombat] {attacker} → {target} 데미지={damage}{(isCrit ? " CRIT" : "")}{hpInfo}");
+        }
+
+        private static void LogUnitDied(ref SimEvent evt, CombatMatchState state)
+        {
+            Debug.Log($"[IdleCombat] 사망 {UnitLabel(state, evt.EntityId)}");
         }
 
         // ── 원소 타입 조회 ──

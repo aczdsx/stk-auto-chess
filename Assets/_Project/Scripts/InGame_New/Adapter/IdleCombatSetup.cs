@@ -55,8 +55,7 @@ namespace CookApps.AutoChess
                 }
             }
 
-            // 스킬 설정
-            SetupSkillsForRange(state, 0, state.UnitCount, tickRate);
+            // idle 모드: 스킬 사용 안 함 (SetupSkillsForRange 스킵)
 
             // 생존 수 카운트
             state.AliveCountA = CombatSetupSystem.CountAliveByTeam(state, 0);
@@ -87,11 +86,9 @@ namespace CookApps.AutoChess
             if (!FindEmptyTile(matchState, 4, 7, ref rng, out int col, out int row))
                 return false;
 
-            int unitIndex = matchState.UnitCount; // 스폰될 유닛의 인덱스
             SpawnUnit(matchState, enemyChampionSpecId, teamIndex: 1, ownerIndex: PlayerB, col, row, tickRate, multipleAtk, multipleHp);
 
-            // 이 유닛의 스킬 설정
-            SetupSkillForUnit(matchState, unitIndex, tickRate);
+            // idle 모드: 스킬 사용 안 함 (SetupSkillForUnit 스킵)
 
             // 생존 수 갱신
             matchState.AliveCountB = CombatSetupSystem.CountAliveByTeam(matchState, 1);
@@ -160,11 +157,10 @@ namespace CookApps.AutoChess
             unit.IsAlive = true;
 
             // 스펙 데이터 조회
-            var charInfo = SpecDataManager.Instance.CharacterInfo.Get(champSpecId);
+            var spec = SpecDataManager.Instance.GetSpecCharacter(champSpecId);
 
-            if (charInfo != null)
+            if (spec != null)
             {
-                ISpecCharacterInfo spec = charInfo;
                 unit.MaxHP = (int)(spec.stat_hp * multipleHp);
                 unit.CurrentHP = unit.MaxHP;
                 unit.Attack = (int)(spec.stat_atk * multipleAtk);
