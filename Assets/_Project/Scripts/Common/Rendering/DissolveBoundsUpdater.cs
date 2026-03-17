@@ -1,19 +1,35 @@
 using UnityEngine;
 
 /// <summary>
-/// SpriteLitDissolve 쉐이더에 바운드 정보를 전달하는 컴포넌트
-/// SpriteRenderer 또는 MeshRenderer가 있는 오브젝트에 추가
+/// SpriteLitDissolve 셰이더의 디졸브 효과를 에디터에서 미리보기하기 위한 컴포넌트.
+/// 런타임에서는 동작하지 않음 — 런타임 바운드 세팅은 SpriteCharacterView.SetDisolveShader()에서 1회 수행.
 /// </summary>
 [ExecuteAlways, RequireComponent(typeof(SpriteRenderer))]
 public class DissolveBoundsUpdater : MonoBehaviour
 {
+#if UNITY_EDITOR
     private static readonly int BoundsMinID = Shader.PropertyToID("_BoundsMin");
     private static readonly int BoundsMaxID = Shader.PropertyToID("_BoundsMax");
+    private static readonly int DissolveID = Shader.PropertyToID("_Dissolve");
+    private static readonly int DissolveDirectionID = Shader.PropertyToID("_DissolveDirection");
+    private static readonly int DirectionStrengthID = Shader.PropertyToID("_DirectionStrength");
 
-    [Header("Settings")]
-    [Tooltip("자동으로 바운드 업데이트 (매 프레임)")]
-    public bool autoUpdate = true;
+    [Header("Editor Preview")]
+    [Tooltip("디졸브 미리보기 활성화")]
+    public bool enablePreview = false;
 
+    [Range(0f, 1f)]
+    [Tooltip("디졸브 진행도 (0 = 완전 표시, 1 = 완전 사라짐)")]
+    public float previewDissolve = 0f;
+
+    [Tooltip("디졸브 방향 (정규화됨)")]
+    public Vector2 previewDirection = new Vector2(0f, 1f);
+
+    [Range(0f, 1f)]
+    [Tooltip("방향 강도 (0 = 노이즈만, 1 = 방향만)")]
+    public float previewDirectionStrength = 0.5f;
+
+    [Header("Bounds Override")]
     [Tooltip("수동 바운드 설정 사용")]
     public bool useManualBounds = false;
 
@@ -27,43 +43,50 @@ public class DissolveBoundsUpdater : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private MaterialPropertyBlock _mpb;
 
-    private void Awake()
+    private void OnEnable()
     {
+        if (Application.isPlaying) return;
         CacheComponents();
+        UpdatePreview();
+    }
+
+    private void OnDisable()
+    {
+        if (Application.isPlaying) return;
+        ResetPreview();
+    }
+
+    private void Update()
+    {
+        if (Application.isPlaying) return;
+        if (enablePreview)
+        {
+            UpdatePreview();
+        }
+    }
+
+    private void OnValidate()
+    {
+        if (Application.isPlaying) return;
+        CacheComponents();
+        if (enablePreview)
+            UpdatePreview();
+        else
+            ResetPreview();
     }
 
     private void CacheComponents()
     {
         _renderer = GetComponent<Renderer>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _mpb = new MaterialPropertyBlock();
+        _mpb ??= new MaterialPropertyBlock();
     }
 
-    private void OnEnable()
+    private void UpdatePreview()
     {
-        UpdateBounds();
-    }
-
-    private void LateUpdate()
-    {
-        if (autoUpdate)
-        {
-            UpdateBounds();
-        }
-    }
-
-    /// <summary>
-    /// 바운드 정보를 쉐이더에 업데이트
-    /// </summary>
-    public void UpdateBounds()
-    {
-        if (_mpb == null)
-        {
-            _mpb = new MaterialPropertyBlock();
-        }
+        if (_renderer == null || _mpb == null) return;
 
         Vector4 boundsMin, boundsMax;
-
         if (useManualBounds)
         {
             boundsMin = new Vector4(manualBoundsMin.x, manualBoundsMin.y, 0, 0);
@@ -79,37 +102,26 @@ public class DissolveBoundsUpdater : MonoBehaviour
         _renderer.GetPropertyBlock(_mpb);
         _mpb.SetVector(BoundsMinID, boundsMin);
         _mpb.SetVector(BoundsMaxID, boundsMax);
+        _mpb.SetFloat(DissolveID, previewDissolve);
+        _mpb.SetVector(DissolveDirectionID, new Vector4(previewDirection.x, previewDirection.y, 0, 0));
+        _mpb.SetFloat(DirectionStrengthID, previewDirectionStrength);
         _renderer.SetPropertyBlock(_mpb);
     }
 
-    /// <summary>
-    /// 메쉬의 로컬 바운드를 가져옴 (positionOS와 일치하는 좌표계)
-    /// Sprite가 없으면 수동 바운드 또는 기본 바운드를 반환하여 NRE를 방지합니다.
-    /// </summary>
-    private Bounds GetLocalBounds()
+    private void ResetPreview()
     {
-        if (_spriteRenderer == null)
-        {
-            return GetFallbackBounds();
-        }
-
-        Sprite sprite = _spriteRenderer.sprite;
-        if (sprite == null)
-        {
-#if UNITY_EDITOR
-            Debug.LogWarning($"[DissolveBoundsUpdater] {gameObject.name}: SpriteRenderer.sprite가 할당되지 않았습니다. 수동 바운드 또는 기본값을 사용합니다.", this);
-#endif
-            return GetFallbackBounds();
-        }
-
-        return sprite.bounds;
+        if (_renderer == null) return;
+        _mpb ??= new MaterialPropertyBlock();
+        _renderer.GetPropertyBlock(_mpb);
+        _mpb.SetFloat(DissolveID, 0f);
+        _renderer.SetPropertyBlock(_mpb);
     }
 
-    /// <summary>
-    /// Sprite를 사용할 수 없을 때의 fallback 바운드 (수동 설정 우선, 없으면 단위 정육면체)
-    /// </summary>
-    private Bounds GetFallbackBounds()
+    private Bounds GetLocalBounds()
     {
+        if (_spriteRenderer != null && _spriteRenderer.sprite != null)
+            return _spriteRenderer.sprite.bounds;
+
         if (useManualBounds)
         {
             Vector3 center = new Vector3(
@@ -122,21 +134,14 @@ public class DissolveBoundsUpdater : MonoBehaviour
                 0f);
             return new Bounds(center, size);
         }
-        return new Bounds(Vector3.zero, Vector3.one);
-    }
 
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        if (!Application.isPlaying)
-        {
-            CacheComponents();
-            UpdateBounds();
-        }
+        return new Bounds(Vector3.zero, Vector3.one);
     }
 
     private void OnDrawGizmosSelected()
     {
+        if (_renderer == null) CacheComponents();
+
         Bounds bounds;
         if (useManualBounds)
         {
@@ -146,13 +151,25 @@ public class DissolveBoundsUpdater : MonoBehaviour
         }
         else
         {
-            if (_renderer == null) CacheComponents();
             bounds = GetLocalBounds();
         }
 
         Gizmos.matrix = transform.localToWorldMatrix;
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(bounds.center, bounds.size);
+
+        // 디졸브 방향 화살표 표시
+        if (enablePreview)
+        {
+            Gizmos.color = Color.cyan;
+            Vector3 dirStart = bounds.center - (Vector3)(previewDirection.normalized * bounds.extents.magnitude * 0.5f);
+            Vector3 dirEnd = bounds.center + (Vector3)(previewDirection.normalized * bounds.extents.magnitude * 0.5f);
+            Gizmos.DrawLine(dirStart, dirEnd);
+            // 화살촉
+            Vector2 perp = Vector2.Perpendicular(previewDirection.normalized) * 0.05f;
+            Gizmos.DrawLine(dirEnd, dirEnd - (Vector3)(previewDirection.normalized * 0.1f) + (Vector3)perp);
+            Gizmos.DrawLine(dirEnd, dirEnd - (Vector3)(previewDirection.normalized * 0.1f) - (Vector3)perp);
+        }
     }
 #endif
 }

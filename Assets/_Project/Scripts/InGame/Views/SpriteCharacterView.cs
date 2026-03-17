@@ -324,7 +324,24 @@ namespace CookApps.AutoBattler
             foreach (var spriteRenderer in _spriteRendererList)
             {
                 spriteRenderer.material = _disorveMaterial;
+                ApplyDissolveBounds(spriteRenderer);
             }
+        }
+
+        private static readonly int BoundsMinID = Shader.PropertyToID("_BoundsMin");
+        private static readonly int BoundsMaxID = Shader.PropertyToID("_BoundsMax");
+        private static readonly MaterialPropertyBlock _dissolveMpb = new();
+
+        private static void ApplyDissolveBounds(SpriteRenderer spriteRenderer)
+        {
+            var sprite = spriteRenderer.sprite;
+            if (sprite == null) return;
+
+            var bounds = sprite.bounds;
+            spriteRenderer.GetPropertyBlock(_dissolveMpb);
+            _dissolveMpb.SetVector(BoundsMinID, new Vector4(bounds.min.x, bounds.min.y, bounds.min.z, 0));
+            _dissolveMpb.SetVector(BoundsMaxID, new Vector4(bounds.max.x, bounds.max.y, bounds.max.z, 0));
+            spriteRenderer.SetPropertyBlock(_dissolveMpb);
         }
 
         public void SpriteRendererSetActive(bool isActive)
@@ -359,6 +376,7 @@ namespace CookApps.AutoBattler
             foreach (var spriteRenderer in _spriteRendererList)
             {
                 spriteRenderer.material = _disorveMaterial;
+                ApplyDissolveBounds(spriteRenderer);
             }
 
             float temp = 0;
