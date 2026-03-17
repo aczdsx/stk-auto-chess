@@ -50,6 +50,150 @@ MonoBehaviour:
     LoopPosition: 2
     LoopFollowable: 1
   - Type: 1
+    StatType: 3
+    OneShotVfx:
+      m_AssetGUID: d0639e3ee0a76ca49bd6f66a4fe3836f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 46120cae477e7d249877be2670e36eca
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 1
+    StatType: 4
+    OneShotVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 1
+    StatType: 5
+    OneShotVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 1
+    StatType: 6
+    OneShotVfx:
+      m_AssetGUID: f663d9cc27796584b8c5699ef32acb96
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 9228159fc8901da4e8b134cfdc69246c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 1
+    StatType: 7
+    OneShotVfx:
+      m_AssetGUID: e5dcb007348fc234583a397efa2f5d3b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 5f7ff4eebce386c46a33f652fa80d35e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 1
+    StatType: 8
+    OneShotVfx:
+      m_AssetGUID: e5dcb007348fc234583a397efa2f5d3b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 5f7ff4eebce386c46a33f652fa80d35e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 1
+    StatType: 9
+    OneShotVfx:
+      m_AssetGUID: e5dcb007348fc234583a397efa2f5d3b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 5f7ff4eebce386c46a33f652fa80d35e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 1
+    StatType: 10
+    OneShotVfx:
+      m_AssetGUID: e5dcb007348fc234583a397efa2f5d3b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 5f7ff4eebce386c46a33f652fa80d35e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 1
     StatType: 11
     OneShotVfx:
       m_AssetGUID: f663d9cc27796584b8c5699ef32acb96
@@ -86,9 +230,9 @@ MonoBehaviour:
     LoopPosition: 2
     LoopFollowable: 1
   - Type: 1
-    StatType: 3
+    StatType: 13
     OneShotVfx:
-      m_AssetGUID: d0639e3ee0a76ca49bd6f66a4fe3836f
+      m_AssetGUID: 4468277a615b12a40bc73a8c6a7976f8
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
@@ -96,7 +240,43 @@ MonoBehaviour:
     OneShotPosition: 2
     OneShotFollowable: 1
     LoopVfx:
-      m_AssetGUID: 46120cae477e7d249877be2670e36eca
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 1
+    StatType: 14
+    OneShotVfx:
+      m_AssetGUID: e5dcb007348fc234583a397efa2f5d3b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 5f7ff4eebce386c46a33f652fa80d35e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 1
+    StatType: 15
+    OneShotVfx:
+      m_AssetGUID: e5dcb007348fc234583a397efa2f5d3b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 5f7ff4eebce386c46a33f652fa80d35e
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
@@ -124,7 +304,7 @@ MonoBehaviour:
   - Type: 6
     StatType: 0
     OneShotVfx:
-      m_AssetGUID: 
+      m_AssetGUID: ffb2e6fac4cac3d418cc90bd14ec21bd
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
@@ -142,7 +322,7 @@ MonoBehaviour:
   - Type: 7
     StatType: 0
     OneShotVfx:
-      m_AssetGUID: 
+      m_AssetGUID: ffb2e6fac4cac3d418cc90bd14ec21bd
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
@@ -160,7 +340,7 @@ MonoBehaviour:
   - Type: 8
     StatType: 0
     OneShotVfx:
-      m_AssetGUID: 
+      m_AssetGUID: ffb2e6fac4cac3d418cc90bd14ec21bd
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
@@ -169,6 +349,24 @@ MonoBehaviour:
     OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 31
+    StatType: 0
+    OneShotVfx:
+      m_AssetGUID: 515e514ae6489bf46bd50e43bc6ef22d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 338c5410db8cb8449bab3611c1d94a21
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
@@ -213,6 +411,150 @@ MonoBehaviour:
     LoopPosition: 2
     LoopFollowable: 1
   - Type: 9
+    StatType: 3
+    OneShotVfx:
+      m_AssetGUID: 1eb3f387c02272141aec8a84da3490e4
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 5bc4a8f393d609842b8dcf485f76ef9b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 9
+    StatType: 4
+    OneShotVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 9
+    StatType: 5
+    OneShotVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 9
+    StatType: 6
+    OneShotVfx:
+      m_AssetGUID: 56d1cf60619485a4c92e325d43a07a33
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 826187ddccbaa294e9ca02126d023e1b
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 9
+    StatType: 7
+    OneShotVfx:
+      m_AssetGUID: 638437f2afcd75441a8a9ed4ab42f617
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 4717a51e4949740439e1db55fc2371d2
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 9
+    StatType: 8
+    OneShotVfx:
+      m_AssetGUID: 638437f2afcd75441a8a9ed4ab42f617
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 4717a51e4949740439e1db55fc2371d2
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 9
+    StatType: 9
+    OneShotVfx:
+      m_AssetGUID: 638437f2afcd75441a8a9ed4ab42f617
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 4717a51e4949740439e1db55fc2371d2
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 9
+    StatType: 10
+    OneShotVfx:
+      m_AssetGUID: 638437f2afcd75441a8a9ed4ab42f617
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 4717a51e4949740439e1db55fc2371d2
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 9
     StatType: 11
     OneShotVfx:
       m_AssetGUID: 56d1cf60619485a4c92e325d43a07a33
@@ -249,9 +591,9 @@ MonoBehaviour:
     LoopPosition: 2
     LoopFollowable: 1
   - Type: 9
-    StatType: 3
+    StatType: 13
     OneShotVfx:
-      m_AssetGUID: 1eb3f387c02272141aec8a84da3490e4
+      m_AssetGUID: 01174119a65bf7e4e8c88c10f3a891b4
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
@@ -259,7 +601,43 @@ MonoBehaviour:
     OneShotPosition: 2
     OneShotFollowable: 1
     LoopVfx:
-      m_AssetGUID: 5bc4a8f393d609842b8dcf485f76ef9b
+      m_AssetGUID: 27d1c3067f22b7843990fe6c21fa3e40
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 9
+    StatType: 14
+    OneShotVfx:
+      m_AssetGUID: 638437f2afcd75441a8a9ed4ab42f617
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 4717a51e4949740439e1db55fc2371d2
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 9
+    StatType: 15
+    OneShotVfx:
+      m_AssetGUID: 638437f2afcd75441a8a9ed4ab42f617
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 4717a51e4949740439e1db55fc2371d2
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
@@ -429,140 +807,21 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     LoopPosition: 2
     LoopFollowable: 1
-  _savedMappings:
-  - TypeName: StatBuff
-    StatTypeName: Attack
-    OneShotPrefabName: fx_common_buff_atkup_01
+  - Type: 21
+    StatType: 0
+    OneShotVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
     OneShotPosition: 2
     OneShotFollowable: 1
-    LoopPrefabName: fx_common_buff_atkup_02
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: StatBuff
-    StatTypeName: Def
-    OneShotPrefabName: fx_common_buff_dfup
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_buff_dfup_01
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: StatBuff
-    StatTypeName: AdReduce
-    OneShotPrefabName: fx_common_buff_dfup
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_buff_dfup_01
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: StatBuff
-    StatTypeName: ApReduce
-    OneShotPrefabName: fx_common_buff_dfup
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_buff_dfup_01
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: StatBuff
-    StatTypeName: AttackSpeed
-    OneShotPrefabName: fx_common_buff_spdup_01
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_buff_spdup_02
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: ContinuousHeal
-    StatTypeName: 
-    OneShotPrefabName: Skill_406011
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: 
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: StatDebuff
-    StatTypeName: Attack
-    OneShotPrefabName: fx_common_debuff_atkdown_01
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_debuff_atkdown_02
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: StatDebuff
-    StatTypeName: Def
-    OneShotPrefabName: fx_common_debuff_dfdown
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_debuff_dfdown_01
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: StatDebuff
-    StatTypeName: AdReduce
-    OneShotPrefabName: fx_common_debuff_dfdown
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_debuff_dfdown_01
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: StatDebuff
-    StatTypeName: ApReduce
-    OneShotPrefabName: fx_common_debuff_dfdown
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_debuff_dfdown_01
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: StatDebuff
-    StatTypeName: AttackSpeed
-    OneShotPrefabName: fx_common_debuff_spddown_01
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_debuff_spddown_02
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: HealAmountDown
-    StatTypeName: 
-    OneShotPrefabName: fx_common_debuff_healdown
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_debuff_healdown_01
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: CC_Stun
-    StatTypeName: 
-    OneShotPrefabName: 
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_debuff_stun
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: CC_Silence
-    StatTypeName: 
-    OneShotPrefabName: 
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_debuff_silence
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: CC_Slow
-    StatTypeName: 
-    OneShotPrefabName: 
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_debuff_spddown_02
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: CC_Taunt
-    StatTypeName: 
-    OneShotPrefabName: fx_common_debuff_provoke
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_debuff_provoke_01
-    LoopPosition: 2
-    LoopFollowable: 1
-  - TypeName: CC_Airborne
-    StatTypeName: 
-    OneShotPrefabName: 
-    OneShotPosition: 2
-    OneShotFollowable: 1
-    LoopPrefabName: fx_common_commander_skill_03
+    LoopVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
     LoopPosition: 2
     LoopFollowable: 1

@@ -21,25 +21,43 @@ MonoBehaviour:
   _buffIcons:
   - EffectType: 1
     StatType: 1
-    IconSprite: {fileID: 21300000, guid: 7f28e3ec45d649a4aa371308f4929101, type: 3}
+    IconSprite: {fileID: 21300000, guid: a33d0db38121a384b9e86a4e7e1b47f1, type: 3}
   - EffectType: 1
     StatType: 2
     IconSprite: {fileID: 21300000, guid: 7404d226a86f7194eb09bb92e4ce8fb8, type: 3}
   - EffectType: 1
-    StatType: 11
-    IconSprite: {fileID: 21300000, guid: b0f40b9b577cce94c82297e02b214520, type: 3}
-  - EffectType: 1
-    StatType: 12
-    IconSprite: {fileID: 21300000, guid: b0f40b9b577cce94c82297e02b214520, type: 3}
-  - EffectType: 1
     StatType: 3
     IconSprite: {fileID: 21300000, guid: c24bec462f1bdae4b9a88b1677b7fcc2, type: 3}
   - EffectType: 1
+    StatType: 11
+    IconSprite: {fileID: 21300000, guid: 01eb3867ae3d0ba40b10cae3b3d4234e, type: 3}
+  - EffectType: 1
+    StatType: 12
+    IconSprite: {fileID: 21300000, guid: 01eb3867ae3d0ba40b10cae3b3d4234e, type: 3}
+  - EffectType: 1
+    StatType: 7
+    IconSprite: {fileID: 21300000, guid: 79bb606641d3111408fe3b7778776e8b, type: 3}
+  - EffectType: 1
+    StatType: 8
+    IconSprite: {fileID: 21300000, guid: 79bb606641d3111408fe3b7778776e8b, type: 3}
+  - EffectType: 1
+    StatType: 13
+    IconSprite: {fileID: 21300000, guid: 94555ff801bdf4547a6245dbf20d38aa, type: 3}
+  - EffectType: 1
+    StatType: 9
+    IconSprite: {fileID: 21300000, guid: 7f4034f845c386a43867a3f6a8fa0484, type: 3}
+  - EffectType: 1
+    StatType: 10
+    IconSprite: {fileID: 21300000, guid: ec5d662ae6b16a14888be78b7fcf57b2, type: 3}
+  - EffectType: 1
     StatType: 6
-    IconSprite: {fileID: 21300000, guid: b7b7c5ca0daaa634292f8c8ddcce764d, type: 3}
+    IconSprite: {fileID: 21300000, guid: d2db2457ad6ae204dbd3ead684b06508, type: 3}
   - EffectType: 5
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: f26fe8c975a136c43b6bddd6286b2169, type: 3}
+    IconSprite: {fileID: 21300000, guid: 8dca28989f7c88f499c2bb9354cd141b, type: 3}
+  - EffectType: 31
+    StatType: 0
+    IconSprite: {fileID: 21300000, guid: b6406ecb22de3db42a3a42d5b46713d1, type: 3}
   - EffectType: 6
     StatType: 0
     IconSprite: {fileID: 21300000, guid: 1ea6c9351171b0b4a9361cb5d2318a72, type: 3}
@@ -49,31 +67,43 @@ MonoBehaviour:
   - EffectType: 8
     StatType: 0
     IconSprite: {fileID: 21300000, guid: 1ea6c9351171b0b4a9361cb5d2318a72, type: 3}
-  - EffectType: 31
-    StatType: 0
-    IconSprite: {fileID: 21300000, guid: b6406ecb22de3db42a3a42d5b46713d1, type: 3}
   _debuffIcons:
   - EffectType: 9
     StatType: 1
-    IconSprite: {fileID: 21300000, guid: 9237330da5d5227428ab0b817bd5b123, type: 3}
+    IconSprite: {fileID: 21300000, guid: 322436611d65b694bacc42fe95f94dd9, type: 3}
   - EffectType: 9
     StatType: 2
-    IconSprite: {fileID: 21300000, guid: fb3276d841f96174994965c2b73bfed5, type: 3}
-  - EffectType: 9
-    StatType: 11
-    IconSprite: {fileID: 21300000, guid: e39d88b36fbb8d447a1b8b6b0187f498, type: 3}
-  - EffectType: 9
-    StatType: 12
-    IconSprite: {fileID: 21300000, guid: e39d88b36fbb8d447a1b8b6b0187f498, type: 3}
+    IconSprite: {fileID: 21300000, guid: 5f0b8837d65b1d546a10be0df2c17455, type: 3}
   - EffectType: 9
     StatType: 3
     IconSprite: {fileID: 21300000, guid: 7827879d02b310c4586e562d2732af25, type: 3}
+  - EffectType: 9
+    StatType: 11
+    IconSprite: {fileID: 21300000, guid: cbc5cc4d145e147468ffcdb260d63626, type: 3}
+  - EffectType: 9
+    StatType: 12
+    IconSprite: {fileID: 21300000, guid: cbc5cc4d145e147468ffcdb260d63626, type: 3}
+  - EffectType: 9
+    StatType: 7
+    IconSprite: {fileID: 21300000, guid: 7c422dd9cbe0a4348bb8c861e5da3689, type: 3}
+  - EffectType: 9
+    StatType: 8
+    IconSprite: {fileID: 21300000, guid: 7c422dd9cbe0a4348bb8c861e5da3689, type: 3}
+  - EffectType: 9
+    StatType: 9
+    IconSprite: {fileID: 21300000, guid: e39d88b36fbb8d447a1b8b6b0187f498, type: 3}
+  - EffectType: 9
+    StatType: 10
+    IconSprite: {fileID: 21300000, guid: 6bc84c561af04d84d99ab4db62850c13, type: 3}
+  - EffectType: 9
+    StatType: 15
+    IconSprite: {fileID: 21300000, guid: 815b84c2e2909f84691379a27c4e3a63, type: 3}
   - EffectType: 13
     StatType: 0
     IconSprite: {fileID: 21300000, guid: 7a81fbd9252f3574e9c966d856d41d28, type: 3}
   - EffectType: 30
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: ccd894eabc714ea48b773eb5efb8f925, type: 3}
+    IconSprite: {fileID: 21300000, guid: a96f81d8603618c44bdcf3cdeadb191a, type: 3}
   _ccIcons:
   - EffectType: 14
     StatType: 0
@@ -92,7 +122,7 @@ MonoBehaviour:
     IconSprite: {fileID: 21300000, guid: d83ac39f080700a4d89ac5f4d3edef6a, type: 3}
   - EffectType: 19
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: 54ae52769ad8557459e957a6ae4ec41b, type: 3}
+    IconSprite: {fileID: 21300000, guid: 60c4f08b5bcfbed4c88cb508e91ece15, type: 3}
   - EffectType: 20
     StatType: 0
     IconSprite: {fileID: 21300000, guid: b77b6a8c284fe404599987a25f6ed607, type: 3}
@@ -129,11 +159,19 @@ MonoBehaviour:
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 0
+    IconSprite: {fileID: 21300000, guid: f26fe8c975a136c43b6bddd6286b2169, type: 3}
+    ReplacesEffect: 0
+    ReplacesStatType: 0
+  - MarkerType: 0
     IconSprite: {fileID: 21300000, guid: 608641e41b9eb764dbb2371b8d4c533d, type: 3}
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 0
     IconSprite: {fileID: 21300000, guid: faafeea34ead632499dbfb37c4ca8999, type: 3}
+    ReplacesEffect: 0
+    ReplacesStatType: 0
+  - MarkerType: 0
+    IconSprite: {fileID: 21300000, guid: b7b7c5ca0daaa634292f8c8ddcce764d, type: 3}
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 0

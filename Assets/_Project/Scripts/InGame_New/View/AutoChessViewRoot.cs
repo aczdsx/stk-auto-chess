@@ -125,6 +125,10 @@ namespace CookApps.AutoChess.View
             _viewBridge.Setup(_runner, _unitViewManager, _combatViewManager, _boardGridView,
                 _combatVfxManager, _buffIconTracker);
 
+            // 시너지 달성 VFX 설정
+            var synergyVfxConfig = SoDataProvider.Instance.Get<SynergyVfxConfigSO>();
+            _viewBridge.SetSynergyVfxConfig(synergyVfxConfig);
+
             // 튜토리얼 초기화 + 브릿지 연결
             if (TutorialManager.Instance != null && !TutorialManager.IsSkipTutorial)
             {

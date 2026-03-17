@@ -1,6 +1,8 @@
 using CookApps.AutoBattler;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CookApps.AutoChess.View
 {
@@ -19,6 +21,8 @@ namespace CookApps.AutoChess.View
         private AutoChessUIBase _autoChessUI;
         private BoardInputHandler _boardInputHandler;
         private TutorialSimBridge _tutorialBridge;
+        private SynergyVfxConfigSO _synergyVfxConfig;
+        private byte[] _prevSynergyTiers;
 
         public void Setup(
             ISimulationRunner runner,
@@ -56,6 +60,10 @@ namespace CookApps.AutoChess.View
             // View 로딩 완료 이벤트 구독
             _viewsReadySource = new UniTaskCompletionSource();
             _unitViewManager.OnAllBoardViewsReady += () => _viewsReadySource.TrySetResult();
+
+            // 시너지 VFX 스냅샷 초기화 (모드 진입 시 기존 시너지에 거짓 VFX 방지)
+            _prevSynergyTiers = new byte[PlayerSynergy.MaxTraits];
+            RefreshSynergySnapshot();
 
             // 시뮬레이션 이벤트 구독
             _runner.OnTick += HandleTick;
@@ -357,6 +365,7 @@ namespace CookApps.AutoChess.View
 
                 case SimEventType.SynergyUpdated:
                     _autoChessUI?.OnSynergyUpdated(world);
+                    HandleSynergyVfx(world, evt.PlayerIndex);
                     break;
 
                 case SimEventType.StatusEffectAdded:
@@ -401,6 +410,90 @@ namespace CookApps.AutoChess.View
                     _buffIconTracker?.OnSkillMarkerRemoved(evt.EntityId, evt.Value0, evt.Value1);
                     break;
             }
+        }
+
+        // ── 시너지 달성 VFX ──
+
+        public void SetSynergyVfxConfig(SynergyVfxConfigSO config) => _synergyVfxConfig = config;
+
+        /// <summary>현재 _localPlayerIndex 기준으로 시너지 티어 스냅샷 갱신 (관전 전환/초기화 시)</summary>
+        private void RefreshSynergySnapshot()
+        {
+            if (_prevSynergyTiers == null) return;
+            var world = _runner.GetWorld();
+            if (world == null) return;
+            var synergy = world.Synergies[_localPlayerIndex];
+            for (int i = 0; i < PlayerSynergy.MaxTraits; i++)
+                _prevSynergyTiers[i] = synergy.GetTraitTier(i);
+        }
+
+        private void HandleSynergyVfx(GameWorld world, byte playerIndex)
+        {
+            if (_synergyVfxConfig == null || _prevSynergyTiers == null) return;
+            if (playerIndex != _localPlayerIndex) return;
+
+            var synergy = world.Synergies[playerIndex];
+
+            for (int t = 0; t < world.SynergySpecCount; t++)
+            {
+                ref var spec = ref world.SynergySpecs[t];
+                if (!spec.IsValid) continue;
+
+                int traitId = spec.TraitId;
+                byte oldTier = _prevSynergyTiers[traitId];
+                byte newTier = synergy.GetTraitTier(traitId);
+
+                if (newTier > oldTier)
+                    SpawnSynergyAchieveVfx(world, playerIndex, traitId);
+            }
+
+            // 스냅샷 갱신
+            for (int i = 0; i < PlayerSynergy.MaxTraits; i++)
+                _prevSynergyTiers[i] = synergy.GetTraitTier(i);
+        }
+
+        private void SpawnSynergyAchieveVfx(GameWorld world, byte playerIndex, int traitId)
+        {
+            if (!_synergyVfxConfig.TryGetTierEntry((SynergyType)traitId, 0, out var entry)) return;
+            if (entry.AchieveVfx == null || !entry.AchieveVfx.RuntimeKeyIsValid()) return;
+
+            int traitBit = 1 << traitId;
+            var boardSlots = world.BoardSlots[playerIndex];
+
+            for (int i = 0; i < world.BoardSize; i++)
+            {
+                int entityId = boardSlots[i];
+                if (entityId == UnitData.InvalidId) continue;
+
+                ref var unit = ref world.GetUnit(entityId);
+                if ((unit.TraitFlags & traitBit) == 0) continue;
+
+                var unitView = _unitViewManager.FindBoardView(entityId);
+                if (unitView == null) continue;
+
+                SpawnSynergyOneShotAsync(unitView, entry).Forget();
+            }
+        }
+
+        private async UniTaskVoid SpawnSynergyOneShotAsync(UnitView unitView, SynergyVfxConfigSO.TierVfxEntry entry)
+        {
+            var posTransform = unitView.GetSkillPositionTransform(entry.AchievePosition);
+            AsyncOperationHandle<GameObject> handle;
+
+            if (entry.AchieveFollowable && posTransform != null)
+                handle = Addressables.InstantiateAsync(entry.AchieveVfx, posTransform);
+            else
+            {
+                var pos = posTransform != null ? posTransform.position : unitView.transform.position;
+                handle = Addressables.InstantiateAsync(entry.AchieveVfx, pos, Quaternion.identity);
+            }
+
+            var go = await handle;
+            if (go == null || !handle.IsValid()) return;
+            if (entry.AchieveFollowable) go.transform.localPosition = Vector3.zero;
+
+            await UniTask.Delay(3000);
+            if (handle.IsValid()) Addressables.ReleaseInstance(handle);
         }
 
         // ── 원소 타입 조회 ──
@@ -490,6 +583,7 @@ namespace CookApps.AutoChess.View
         {
             _localPlayerIndex = boardIndex;
             _unitViewManager.SetActiveBoard(boardIndex);
+            RefreshSynergySnapshot();
         }
 
         // ── 커맨드 전달 (View → Simulation) ──

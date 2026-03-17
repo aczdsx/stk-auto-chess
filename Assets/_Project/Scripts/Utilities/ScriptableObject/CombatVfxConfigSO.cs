@@ -10,7 +10,6 @@ namespace CookApps.AutoChess.View
     /// 전투 VFX 통합 설정. CombatVfxType별 VFX AssetReference 매핑.
     /// 효과 적용 시 유닛에 부착, 해제 시 제거.
     /// StatBuff/StatDebuff는 StatModType으로 세분화하여 (CombatVfxType, StatModType) 복합키로 관리.
-    /// _savedMappings: enum name(string) 기준 VFX 참조 저장소 — enum 값이 밀려도 안전.
     /// </summary>
     [CreateAssetMenu(fileName = "CombatVfxConfig", menuName = "AutoChess/Combat Vfx Config")]
     public class CombatVfxConfigSO : ScriptableObject
@@ -32,20 +31,6 @@ namespace CookApps.AutoChess.View
             public bool LoopFollowable;
         }
 
-        /// <summary>enum name 기준 VFX 참조 저장 레코드 (enum 값 변경에 안전, 프리팹명 저장)</summary>
-        [Serializable]
-        public struct VfxMappingRecord
-        {
-            public string TypeName;
-            public string StatTypeName;
-            public string OneShotPrefabName;
-            public SkillPosition OneShotPosition;
-            public bool OneShotFollowable;
-            public string LoopPrefabName;
-            public SkillPosition LoopPosition;
-            public bool LoopFollowable;
-        }
-
         [Header("── 버프 (Shield, StatBuff, 지속힐, 면역류) ──")]
         [SerializeField] private VfxEntry[] _buffEntries;
 
@@ -54,9 +39,6 @@ namespace CookApps.AutoChess.View
 
         [Header("── CC (Stun, Silence, Slow, Freeze …) ──")]
         [SerializeField] private VfxEntry[] _ccEntries;
-
-        [Header("── VFX 매핑 저장소 (enum name 기준, 자동 관리) ──")]
-        [SerializeField] private List<VfxMappingRecord> _savedMappings = new();
 
         private Dictionary<(CombatVfxType, StatModType), VfxEntry> _cache;
 
@@ -146,91 +128,62 @@ namespace CookApps.AutoChess.View
         }
 
 #if UNITY_EDITOR
-        /// <summary>현재 엔트리의 VFX 참조를 enum name 기준으로 저장</summary>
-        [ContextMenu("1. Save Mappings")]
-        private void SaveMappings()
+        // (CombatVfxType, StatModType) → (OneShotPrefabName, LoopPrefabName) 기본 매핑
+        // 전용 VFX가 없는 스탯은 계열이 같은 범용 VFX를 공유
+        private static readonly Dictionary<(CombatVfxType, StatModType), (string oneShot, string loop)> KnownVfxMap = new()
         {
-            var dict = new Dictionary<string, VfxMappingRecord>();
-            CollectMappings(dict, _buffEntries);
-            CollectMappings(dict, _debuffEntries);
-            CollectMappings(dict, _ccEntries);
+            // ── 버프 ──
+            { (CombatVfxType.StatBuff, StatModType.Attack),      ("fx_common_buff_atkup_01",  "fx_common_buff_atkup_02") },
+            { (CombatVfxType.StatBuff, StatModType.Def),         ("fx_common_buff_dfup",      "fx_common_buff_dfup_01") },
+            { (CombatVfxType.StatBuff, StatModType.AttackSpeed), ("fx_common_buff_spdup_01",  "fx_common_buff_spdup_02") },
+            { (CombatVfxType.StatBuff, StatModType.AdReduce),    ("fx_common_buff_dfup",      "fx_common_buff_dfup_01") },
+            { (CombatVfxType.StatBuff, StatModType.ApReduce),    ("fx_common_buff_dfup",      "fx_common_buff_dfup_01") },
+            { (CombatVfxType.StatBuff, StatModType.AtkPierce),   ("fx_common_buff_atkup_01",  "fx_common_buff_atkup_02") },
+            { (CombatVfxType.StatBuff, StatModType.ResPierce),   ("fx_common_buff_atkup_01",  "fx_common_buff_atkup_02") },
+            { (CombatVfxType.StatBuff, StatModType.HealPower),   ("fx_common_buff_heal",      null) },
+            { (CombatVfxType.StatBuff, StatModType.CritRate),    ("fx_common_buff_atkup_01",  "fx_common_buff_atkup_02") },
+            { (CombatVfxType.StatBuff, StatModType.CritPower),   ("fx_common_buff_atkup_01",  "fx_common_buff_atkup_02") },
+            { (CombatVfxType.StatBuff, StatModType.DodgeChance), ("fx_common_buff_dfup",      "fx_common_buff_dfup_01") },
+            { (CombatVfxType.StatBuff, StatModType.LifeSteal),   ("fx_common_buff_atkup_01",  "fx_common_buff_atkup_02") },
+            { (CombatVfxType.StatBuff, StatModType.HitChance),   ("fx_common_buff_atkup_01",  "fx_common_buff_atkup_02") },
+            { (CombatVfxType.ContinuousHeal, default),           ("Skill_406011",             null) },
+            { (CombatVfxType.Shield, default),                   ("fx_common_buff_shield_01", "fx_common_buff_shield_02") },
+            { (CombatVfxType.CCImmunity, default),               ("fx_common_buff_immune_02", null) },
+            { (CombatVfxType.DOTImmunity, default),              ("fx_common_buff_immune_02", null) },
+            { (CombatVfxType.DebuffImmunity, default),           ("fx_common_buff_immune_02", null) },
+            // ── 디버프 ──
+            { (CombatVfxType.StatDebuff, StatModType.Attack),      ("fx_common_debuff_atkdown_01",  "fx_common_debuff_atkdown_02") },
+            { (CombatVfxType.StatDebuff, StatModType.Def),         ("fx_common_debuff_dfdown",      "fx_common_debuff_dfdown_01") },
+            { (CombatVfxType.StatDebuff, StatModType.AttackSpeed), ("fx_common_debuff_spddown_01",  "fx_common_debuff_spddown_02") },
+            { (CombatVfxType.StatDebuff, StatModType.AdReduce),    ("fx_common_debuff_dfdown",      "fx_common_debuff_dfdown_01") },
+            { (CombatVfxType.StatDebuff, StatModType.ApReduce),    ("fx_common_debuff_dfdown",      "fx_common_debuff_dfdown_01") },
+            { (CombatVfxType.StatDebuff, StatModType.AtkPierce),   ("fx_common_debuff_atkdown_01",  "fx_common_debuff_atkdown_02") },
+            { (CombatVfxType.StatDebuff, StatModType.ResPierce),   ("fx_common_debuff_atkdown_01",  "fx_common_debuff_atkdown_02") },
+            { (CombatVfxType.StatDebuff, StatModType.CritRate),    ("fx_common_debuff_atkdown_01",  "fx_common_debuff_atkdown_02") },
+            { (CombatVfxType.StatDebuff, StatModType.CritPower),   ("fx_common_debuff_atkdown_01",  "fx_common_debuff_atkdown_02") },
+            { (CombatVfxType.StatDebuff, StatModType.HitChance),   ("fx_common_debuff_atkdown_01",  "fx_common_debuff_atkdown_02") },
+            { (CombatVfxType.StatDebuff, StatModType.DodgeChance), ("fx_common_debuff_dfdown",      "fx_common_debuff_dfdown_01") },
+            { (CombatVfxType.StatDebuff, StatModType.HealPower),   ("fx_common_debuff_healdown",    "fx_common_debuff_healdown_01") },
+            { (CombatVfxType.StatDebuff, StatModType.LifeSteal),   ("fx_common_debuff_atkdown_01",  "fx_common_debuff_atkdown_02") },
+            { (CombatVfxType.HealAmountDown, default),             ("fx_common_debuff_healdown",    "fx_common_debuff_healdown_01") },
+            // ── CC ──
+            { (CombatVfxType.CC_Stun, default),              (null, "fx_common_debuff_stun") },
+            { (CombatVfxType.CC_Silence, default),           (null, "fx_common_debuff_silence") },
+            { (CombatVfxType.CC_Slow, default),              (null, "fx_common_debuff_spddown_02") },
+            { (CombatVfxType.CC_Taunt, default),             ("fx_common_debuff_provoke", "fx_common_debuff_provoke_01") },
+            { (CombatVfxType.CC_Airborne, default),          (null, "fx_common_commander_skill_03") },
+        };
 
-            _savedMappings = new List<VfxMappingRecord>(dict.Values);
-            UnityEditor.EditorUtility.SetDirty(this);
-            Debug.Log($"[CombatVfxConfig] {_savedMappings.Count}개 매핑 저장 완료");
-        }
-
-        /// <summary>기존 엔트리의 구 byte 값을 새 카테고리 Type + StatType으로 인플레이스 변환</summary>
-        [ContextMenu("0. Migrate Entries In-Place")]
-        private void MigrateEntriesInPlace()
-        {
-            // 구 byte 값 → (새 CombatVfxType, StatModType) 매핑
-            // 삭제된 enum 값들은 Inspector에서 (CombatVfxType)2 등으로 보임
-            var byteMap = new Dictionary<byte, (CombatVfxType type, StatModType stat)>
-            {
-                { 1,  (CombatVfxType.StatBuff,   StatModType.Attack) },
-                { 2,  (CombatVfxType.StatBuff,   StatModType.Def) },
-                { 3,  (CombatVfxType.StatBuff,   StatModType.ApReduce) },
-                { 4,  (CombatVfxType.StatBuff,   StatModType.AttackSpeed) },
-                { 32, (CombatVfxType.StatBuff,   StatModType.DodgeChance) },
-                { 9,  (CombatVfxType.StatDebuff, StatModType.Attack) },
-                { 10, (CombatVfxType.StatDebuff, StatModType.Def) },
-                { 11, (CombatVfxType.StatDebuff, StatModType.ApReduce) },
-                { 12, (CombatVfxType.StatDebuff, StatModType.AttackSpeed) },
-            };
-
-            int migrated = 0;
-            migrated += MigrateArray(ref _buffEntries, byteMap);
-            migrated += MigrateArray(ref _debuffEntries, byteMap);
-            migrated += MigrateArray(ref _ccEntries, byteMap);
-
-            _cache = null;
-            UnityEditor.EditorUtility.SetDirty(this);
-            Debug.Log($"[CombatVfxConfig] 인플레이스 마이그레이션 완료: {migrated}개 변환");
-        }
-
-        private static int MigrateArray(ref VfxEntry[] entries, Dictionary<byte, (CombatVfxType type, StatModType stat)> byteMap)
-        {
-            if (entries == null) return 0;
-            int count = 0;
-            for (int i = 0; i < entries.Length; i++)
-            {
-                byte raw = (byte)entries[i].Type;
-                if (byteMap.TryGetValue(raw, out var mapped))
-                {
-                    var e = entries[i];
-                    Debug.Log($"[CombatVfxConfig]   {raw} → {mapped.type}/{mapped.stat}");
-                    e.Type = mapped.type;
-                    e.StatType = mapped.stat;
-                    entries[i] = e;
-                    count++;
-                }
-            }
-            return count;
-        }
-
-        /// <summary>저장된 매핑 기준으로 enum 재생성 + VFX 참조 복원</summary>
-        [ContextMenu("2. Generate All Entries (from Saved Mappings)")]
+        /// <summary>KnownVfxMap 기준으로 전체 엔트리 재생성 + VFX 자동 매핑</summary>
+        [ContextMenu("Generate All Entries")]
         private void GenerateAllEntries()
         {
-            // 저장된 매핑을 (typeName, statTypeName) → record 딕셔너리로 변환
-            var saved = new Dictionary<(string, string), VfxMappingRecord>();
-            if (_savedMappings != null)
-            {
-                for (int i = 0; i < _savedMappings.Count; i++)
-                {
-                    var r = _savedMappings[i];
-                    if (!string.IsNullOrEmpty(r.TypeName))
-                        saved[(r.TypeName, r.StatTypeName ?? "")] = r;
-                }
-            }
-
             var types = (CombatVfxType[])Enum.GetValues(typeof(CombatVfxType));
             var buffs = new List<VfxEntry>();
             var debuffs = new List<VfxEntry>();
             var ccs = new List<VfxEntry>();
 
-            int restored = 0;
+            int mapped = 0;
             for (int i = 0; i < types.Length; i++)
             {
                 var t = types[i];
@@ -243,12 +196,9 @@ namespace CookApps.AutoChess.View
                     for (int s = 0; s < statTypes.Length; s++)
                     {
                         var st = statTypes[s];
+                        if (st == default) continue; // None 스킵
                         var entry = CreateDefaultEntry(t, st);
-                        if (saved.TryGetValue((t.ToString(), st.ToString()), out var record))
-                        {
-                            RestoreEntry(ref entry, record);
-                            restored++;
-                        }
+                        mapped += TryApplyKnownVfx(ref entry, t, st);
 
                         if (IsBuff(t)) buffs.Add(entry);
                         else debuffs.Add(entry);
@@ -259,11 +209,7 @@ namespace CookApps.AutoChess.View
                 // 비-스탯 타입: StatModType=default
                 {
                     var entry = CreateDefaultEntry(t, default);
-                    if (saved.TryGetValue((t.ToString(), ""), out var record))
-                    {
-                        RestoreEntry(ref entry, record);
-                        restored++;
-                    }
+                    mapped += TryApplyKnownVfx(ref entry, t, default);
 
                     if (IsBuff(t)) buffs.Add(entry);
                     else if (IsDebuff(t)) debuffs.Add(entry);
@@ -277,7 +223,21 @@ namespace CookApps.AutoChess.View
             _cache = null;
 
             UnityEditor.EditorUtility.SetDirty(this);
-            Debug.Log($"[CombatVfxConfig] 버프 {buffs.Count} / 디버프 {debuffs.Count} / CC {ccs.Count} 엔트리 생성 (매핑 복원: {restored}개)");
+            Debug.Log($"[CombatVfxConfig] 버프 {buffs.Count} / 디버프 {debuffs.Count} / CC {ccs.Count} 엔트리 생성 (VFX 매핑: {mapped}개)");
+        }
+
+        /// <summary>KnownVfxMap에서 VFX 프리팹을 찾아 엔트리에 적용</summary>
+        private static int TryApplyKnownVfx(ref VfxEntry entry, CombatVfxType type, StatModType statType)
+        {
+            if (!KnownVfxMap.TryGetValue((type, statType), out var vfxNames))
+                return 0;
+
+            if (!string.IsNullOrEmpty(vfxNames.oneShot))
+                entry.OneShotVfx = FindPrefabAssetRef(vfxNames.oneShot);
+            if (!string.IsNullOrEmpty(vfxNames.loop))
+                entry.LoopVfx = FindPrefabAssetRef(vfxNames.loop);
+
+            return (entry.OneShotVfx != null || entry.LoopVfx != null) ? 1 : 0;
         }
 
         private static VfxEntry CreateDefaultEntry(CombatVfxType type, StatModType statType)
@@ -293,30 +253,13 @@ namespace CookApps.AutoChess.View
             };
         }
 
-        private static void RestoreEntry(ref VfxEntry entry, VfxMappingRecord record)
-        {
-            entry.OneShotVfx = FindPrefabAssetRef(record.OneShotPrefabName);
-            entry.OneShotPosition = record.OneShotPosition;
-            entry.OneShotFollowable = record.OneShotFollowable;
-            entry.LoopVfx = FindPrefabAssetRef(record.LoopPrefabName);
-            entry.LoopPosition = record.LoopPosition;
-            entry.LoopFollowable = record.LoopFollowable;
-        }
-
-        private static string GetPrefabName(AssetReferenceGameObject assetRef)
-        {
-            if (assetRef == null) return null;
-            string guid = assetRef.AssetGUID;
-            if (string.IsNullOrEmpty(guid)) return null;
-            string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
-            if (string.IsNullOrEmpty(path)) return null;
-            return System.IO.Path.GetFileNameWithoutExtension(path);
-        }
-
         private static AssetReferenceGameObject FindPrefabAssetRef(string prefabName)
         {
             if (string.IsNullOrEmpty(prefabName)) return null;
-            string[] guids = UnityEditor.AssetDatabase.FindAssets($"{prefabName} t:GameObject");
+            // t:Prefab 또는 t:GameObject 둘 다 시도
+            string[] guids = UnityEditor.AssetDatabase.FindAssets($"{prefabName} t:Prefab");
+            if (guids.Length == 0)
+                guids = UnityEditor.AssetDatabase.FindAssets($"{prefabName} t:GameObject");
             for (int i = 0; i < guids.Length; i++)
             {
                 string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[i]);
@@ -325,40 +268,6 @@ namespace CookApps.AutoChess.View
             }
             Debug.LogWarning($"[CombatVfxConfig] 프리팹 '{prefabName}' 를 찾을 수 없음");
             return null;
-        }
-
-        private static void CollectMappings(Dictionary<string, VfxMappingRecord> dict, VfxEntry[] entries)
-        {
-            if (entries == null) return;
-            for (int i = 0; i < entries.Length; i++)
-            {
-                var e = entries[i];
-                if (e.Type == CombatVfxType.None) continue;
-
-                string oneShotName = GetPrefabName(e.OneShotVfx);
-                string loopName = GetPrefabName(e.LoopVfx);
-                if (oneShotName == null && loopName == null) continue;
-
-                // StatBuff/StatDebuff는 StatType으로 구분된 키 사용
-                string statTypeName = (e.Type == CombatVfxType.StatBuff || e.Type == CombatVfxType.StatDebuff)
-                    ? e.StatType.ToString()
-                    : "";
-                string dictKey = string.IsNullOrEmpty(statTypeName)
-                    ? e.Type.ToString()
-                    : $"{e.Type}_{statTypeName}";
-
-                dict[dictKey] = new VfxMappingRecord
-                {
-                    TypeName = e.Type.ToString(),
-                    StatTypeName = statTypeName,
-                    OneShotPrefabName = oneShotName,
-                    OneShotPosition = e.OneShotPosition,
-                    OneShotFollowable = e.OneShotFollowable,
-                    LoopPrefabName = loopName,
-                    LoopPosition = e.LoopPosition,
-                    LoopFollowable = e.LoopFollowable,
-                };
-            }
         }
 #endif
     }

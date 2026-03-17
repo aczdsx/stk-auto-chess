@@ -42,6 +42,10 @@ namespace CookApps.AutoChess
                 var c = allChars[i];
                 int cost = GetCostFromGrade(config, c.grade_type);
 
+                // 성장 요소 반영 (레벨/돌파/초월 + 엘피스 연구소)
+                float bonusRate = CharacterGrowthHelper.CalculateLevelBonusRate(c);
+                var (labAd, labDef, labHp) = CharacterGrowthHelper.CalculateElpisLabBonus(c);
+
                 specs[i] = new ChampionSpec
                 {
                     ChampionId = c.id,
@@ -49,10 +53,10 @@ namespace CookApps.AutoChess
                     Rarity = (byte)cost,
                     TraitFlags = BuildTraitFlags(c.character_element_type, c.character_stella_type),
 
-                    // 기본 스탯
-                    BaseHP = c.stat_hp,
-                    BaseAttack = c.stat_atk,
-                    BaseDef = c.stat_def,
+                    // 기본 스탯 (성장 보정 적용)
+                    BaseHP = (int)(c.stat_hp * (1f + bonusRate) + labHp),
+                    BaseAttack = (int)(c.stat_atk * (1f + bonusRate) + labAd),
+                    BaseDef = (int)(c.stat_def * (1f + bonusRate) + labDef),
                     BaseApReduce = ReduceToIntPercent(c.ap_reduce),
                     AttackSpeed = Mathf.Max(1, (int)(c.atk_speed * 100)),
                     AttackRange = c.atk_range > 0 ? c.atk_range : 1,

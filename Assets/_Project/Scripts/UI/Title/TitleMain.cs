@@ -74,7 +74,8 @@ namespace CookApps.AutoBattler
                     (typeof(AudioConfigSO), "Data/AudioConfig.asset"),
                     (typeof(TargetLineConfig), "Data/TargetLineConfig.asset"),
                     (typeof(AutoChess.View.CombatVfxConfigSO), "Data/CombatVfxConfig.asset"),
-                    (typeof(AutoChess.View.BuffIconConfigSO), "Data/BuffIconConfig.asset")
+                    (typeof(AutoChess.View.BuffIconConfigSO), "Data/BuffIconConfig.asset"),
+                    (typeof(AutoChess.View.SynergyVfxConfigSO), "Data/SynergyVfxConfig.asset")
                 })
             };
 

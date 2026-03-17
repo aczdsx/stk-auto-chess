@@ -141,35 +141,46 @@ namespace CookApps.AutoChess.View
         private const string IconPrefix = "BuffDebuffIcon_";
 
         // (CombatVfxType, StatModType) → 스프라이트 suffix 매핑 (폴더의 실제 파일명 기준)
+        // Confluence D+0 기획문서 기준 전체 매핑
         private static readonly Dictionary<(CombatVfxType, StatModType), string> KnownEffectMap = new()
         {
             // ── 버프 ──
-            { (CombatVfxType.StatBuff, StatModType.Attack),       "BUFF_AD_PERCENT_UP" },
+            { (CombatVfxType.StatBuff, StatModType.Attack),       "BUFF_ATK_UP" },
             { (CombatVfxType.StatBuff, StatModType.Def),          "BUFF_DEF_UP" },
-            { (CombatVfxType.StatBuff, StatModType.AdReduce),     "BUFF_AD_REDUCE_UP" },
-            { (CombatVfxType.StatBuff, StatModType.ApReduce),     "BUFF_AD_REDUCE_UP" },
             { (CombatVfxType.StatBuff, StatModType.AttackSpeed),  "BUFF_ATK_SPEED_UP" },
-            { (CombatVfxType.StatBuff, StatModType.DodgeChance),  "BUFF_SPECIAL_SHIRAYUKI_AVOID_AND_ATTACK" },
-            { (CombatVfxType.ContinuousHeal, default),            "BUFF_SPECIAL_ENKI_PASSIVE_HEALUP" },
+            { (CombatVfxType.StatBuff, StatModType.AdReduce),     "BUFF_REDUCE_UP" },
+            { (CombatVfxType.StatBuff, StatModType.ApReduce),     "BUFF_REDUCE_UP" },
+            { (CombatVfxType.StatBuff, StatModType.AtkPierce),    "BUFF_PIERCE_UP" },
+            { (CombatVfxType.StatBuff, StatModType.ResPierce),    "BUFF_PIERCE_UP" },
+            { (CombatVfxType.StatBuff, StatModType.HealPower),    "BUFF_HP_RECOVERY_UP" },
+            { (CombatVfxType.StatBuff, StatModType.CritRate),     "BUFF_CRIT_UP" },
+            { (CombatVfxType.StatBuff, StatModType.CritPower),    "BUFF_CRI_POWER_UP" },
+            { (CombatVfxType.StatBuff, StatModType.DodgeChance),  "BUFF_AVOID_UP" },
+            { (CombatVfxType.ContinuousHeal, default),            "BUFF_HOT_UP" },
+            { (CombatVfxType.Shield, default),                    "SHIELD" },
             { (CombatVfxType.CCImmunity, default),                "BUFF_IMMUNE" },
             { (CombatVfxType.DOTImmunity, default),               "BUFF_IMMUNE" },
             { (CombatVfxType.DebuffImmunity, default),            "BUFF_IMMUNE" },
-            { (CombatVfxType.Shield, default),                    "SHIELD" },
             // ── 디버프 ──
-            { (CombatVfxType.StatDebuff, StatModType.Attack),     "DEBUFF_AD_PERCENT_DOWN" },
-            { (CombatVfxType.StatDebuff, StatModType.Def),        "DEBUFF_DEF_PERCENT_DOWN" },
-            { (CombatVfxType.StatDebuff, StatModType.AdReduce),   "DEBUFF_CRIT_DOWN" },
-            { (CombatVfxType.StatDebuff, StatModType.ApReduce),   "DEBUFF_CRIT_DOWN" },
+            { (CombatVfxType.StatDebuff, StatModType.Attack),     "DEBUFF_ATK_DOWN" },
+            { (CombatVfxType.StatDebuff, StatModType.Def),        "DEBUFF_DEF_DOWN" },
             { (CombatVfxType.StatDebuff, StatModType.AttackSpeed),"DEBUFF_ATK_SPEED_DOWN" },
+            { (CombatVfxType.StatDebuff, StatModType.AdReduce),   "DEBUFF_REDUCE_DOWN" },
+            { (CombatVfxType.StatDebuff, StatModType.ApReduce),   "DEBUFF_REDUCE_DOWN" },
+            { (CombatVfxType.StatDebuff, StatModType.AtkPierce),  "DEBUFF_PIERCE_DOWN" },
+            { (CombatVfxType.StatDebuff, StatModType.ResPierce),  "DEBUFF_PIERCE_DOWN" },
+            { (CombatVfxType.StatDebuff, StatModType.CritRate),   "DEBUFF_CRIT_DOWN" },
+            { (CombatVfxType.StatDebuff, StatModType.CritPower),  "DEBUFF_CRI_POWER_DOWN" },
+            { (CombatVfxType.StatDebuff, StatModType.HitChance),  "DEBUFF_HIT_DOWN" },
             { (CombatVfxType.ContinuousDamage, default),          "DEBUFF_POISON" },
-            { (CombatVfxType.HealAmountDown, default),            "DEBUFF_CHILL" },
+            { (CombatVfxType.HealAmountDown, default),            "DEBUFF_HP_RECOVERY_DOWN" },
             // ── CC ──
             { (CombatVfxType.CC_Stun, default),       "CC_STUN" },
             { (CombatVfxType.CC_Silence, default),    "CC_SLIENCE" },
             { (CombatVfxType.CC_Slow, default),       "DEBUFF_MOVE_DOWN" },
             { (CombatVfxType.CC_Freeze, default),     "CC_FREEZ" },
             { (CombatVfxType.CC_Taunt, default),      "CC_TARGET_IMPOSSIBLE" },
-            { (CombatVfxType.CC_Airborne, default),   "DEBUFF_AIRBORNE" },
+            { (CombatVfxType.CC_Airborne, default),   "CC_AIRBORNE" },
             { (CombatVfxType.CC_KnockBack, default),  "CC_KNOCKBACK" },
             { (CombatVfxType.CC_TargetImpossible, default), "CC_TARGET_IMPOSSIBLE" },
         };

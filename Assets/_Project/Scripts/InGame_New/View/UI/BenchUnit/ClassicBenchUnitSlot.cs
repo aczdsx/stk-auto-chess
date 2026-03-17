@@ -52,11 +52,12 @@ namespace CookApps.AutoChess.View
 
             if (_cpText != null)
             {
-                // ISpecCharacterInfo → 정수 스탯 변환 + 별 배율 적용 → CP 계산
-                int starMul = _currentStarLevel switch { 2 => 180, 3 => 320, _ => 100 };
-                int hp = spec.stat_hp * starMul / 100;
-                int atk = spec.stat_atk * starMul / 100;
-                int def = spec.stat_def;
+                // 성장 보정 적용 → CP 계산
+                float bonusRate = CharacterGrowthHelper.CalculateLevelBonusRate(spec);
+                var (labAd, labDef, labHp) = CharacterGrowthHelper.CalculateElpisLabBonus(spec);
+                int hp = (int)(spec.stat_hp * (1f + bonusRate) + labHp);
+                int atk = (int)(spec.stat_atk * (1f + bonusRate) + labAd);
+                int def = (int)(spec.stat_def * (1f + bonusRate) + labDef);
                 int adReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ad_reduce);
                 int apReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ap_reduce);
                 int atkSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));
