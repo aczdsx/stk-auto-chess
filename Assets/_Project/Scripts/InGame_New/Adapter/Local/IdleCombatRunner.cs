@@ -33,7 +33,8 @@ namespace CookApps.AutoChess
         public SimEventQueue EventQueue => _eventQueue;
         public bool IsRunning => _isRunning;
 
-        public void StartIdleCombat(List<int> playerChampionSpecIds, List<StageMonster> enemyMonsters, int maxEnemyCount)
+        public void StartIdleCombat(List<int> playerChampionSpecIds, List<StageMonster> enemyMonsters, int maxEnemyCount,
+            int boardWidth = 7, int boardHeight = 4)
         {
             if (playerChampionSpecIds == null || playerChampionSpecIds.Count == 0) return;
 
@@ -43,7 +44,7 @@ namespace CookApps.AutoChess
             _rng = new DeterministicRNG((ulong)DateTime.Now.Ticks);
 
             _matchState = IdleCombatSetup.CreateMatchState(
-                playerChampionSpecIds, _eventQueue, ref _rng, TickRate);
+                playerChampionSpecIds, _eventQueue, ref _rng, TickRate, boardWidth, boardHeight);
 
             _enemyMonsters = enemyMonsters;
             _maxEnemyCount = maxEnemyCount;

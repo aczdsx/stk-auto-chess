@@ -24,19 +24,31 @@ namespace CookApps.AutoChess
         /// <param name="rng">결정론적 RNG (struct, ref 전달)</param>
         /// <param name="tickRate">시뮬레이션 틱레이트</param>
         /// <returns>초기화된 CombatMatchState</returns>
+        // 스테이지 보드 크기 (CreateMatchState에서 설정, FindEmptyTile/TryAddEnemy에서 사용)
+        private static int _boardWidth = 7;
+        private static int _boardHeight = 4;
+
         public static CombatMatchState CreateMatchState(
             List<int> playerChampionSpecIds,
             SimEventQueue eventQueue,
             ref DeterministicRNG rng,
-            int tickRate)
+            int tickRate,
+            int boardWidth = 7,
+            int boardHeight = 4)
         {
+            _boardWidth = boardWidth;
+            _boardHeight = boardHeight;
+
             var state = CombatMatchState.Create(0, PlayerA, PlayerB);
             state.EventQueue = eventQueue;
 
             // SkillFactory 초기화
             SkillFactory.Initialize(tickRate);
 
-            // 아군 유닛 (team 0, row 0-3, 최대 5개)
+            int playerMaxRow = _boardHeight - 1;
+            int enemyMinRow = _boardHeight;
+
+            // 아군 유닛 (team 0, row 0 ~ playerMaxRow, 최대 5개)
             if (playerChampionSpecIds != null)
             {
                 int count = playerChampionSpecIds.Count;
@@ -48,7 +60,7 @@ namespace CookApps.AutoChess
                     if (specId <= 0) continue;
                     if (state.UnitCount >= CombatMatchState.MaxCombatUnits) break;
 
-                    if (!FindEmptyTile(state, 0, 3, ref rng, out int col, out int row))
+                    if (!FindEmptyTile(state, 0, playerMaxRow, ref rng, out int col, out int row))
                         break;
 
                     SpawnUnit(state, specId, teamIndex: 0, ownerIndex: PlayerA, col, row, tickRate);
@@ -80,7 +92,9 @@ namespace CookApps.AutoChess
             if (enemyChampionSpecId <= 0)
                 return false;
 
-            if (!FindEmptyTile(matchState, 4, 7, ref rng, out int col, out int row))
+            int enemyMinRow = _boardHeight;
+            int enemyMaxRow = _boardHeight * 2 - 1;
+            if (!FindEmptyTile(matchState, enemyMinRow, enemyMaxRow, ref rng, out int col, out int row))
                 return false;
 
             // 죽은 적 슬롯 재사용 시도
@@ -167,15 +181,14 @@ namespace CookApps.AutoChess
         private static bool FindEmptyTile(CombatMatchState state, int minRow, int maxRow,
             ref DeterministicRNG rng, out int outCol, out int outRow)
         {
-            // 최대 7열 * 4행 = 28 타일. 초기화 시에만 호출되므로 소규모 배열 허용.
-            int maxTiles = CombatGrid.Width * (maxRow - minRow + 1);
+            int maxTiles = _boardWidth * (maxRow - minRow + 1);
             var emptyCols = new int[maxTiles];
             var emptyRows = new int[maxTiles];
             int emptyCount = 0;
 
             for (int r = minRow; r <= maxRow; r++)
             {
-                for (int c = 0; c < CombatGrid.Width; c++)
+                for (int c = 0; c < _boardWidth; c++)
                 {
                     if (state.GetUnitAtGrid(c, r) == CombatUnit.InvalidId)
                     {
