@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: e57ebeb9c53254f4b853e724290b8eaa
+guid: 605dc1a1d8cf21446bb4dd22cf17e8d9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8037790969647225233
-    second: Cube1_Normal_0
+      213: -4183764471634090745
+    second: Tutorial_AlphaClippingN_0
+  - first:
+      213: 5888723328280962715
+    second: Tutorial_AlphaClippingN_1
+  - first:
+      213: -6306052848654940406
+    second: Tutorial_AlphaClippingN_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,12 +132,56 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cube1_Normal_0
+      name: Tutorial_AlphaClippingN_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 61
+        x: 388
+        y: 81
+        width: 48
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 705a95c216840f5c0800000000000000
+      internalID: -4183764471634090745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_AlphaClippingN_1
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 79
+        width: 59
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b962eb2daa2f8b150800000000000000
+      internalID: 5888723328280962715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial_AlphaClippingN_2
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 1
+        width: 60
         height: 68
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -141,8 +191,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f66a55bf2b7047090800000000000000
-      internalID: -8037790969647225233
+      spriteID: a07051558566c78a0800000000000000
+      internalID: -6306052848654940406
       vertices: []
       indices: 
       edges: []
@@ -161,7 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cube1_Normal_0: -8037790969647225233
+      Tutorial_AlphaClippingN_0: -4183764471634090745
+      Tutorial_AlphaClippingN_1: 5888723328280962715
+      Tutorial_AlphaClippingN_2: -6306052848654940406
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 925dec9e9e32b5c4889fccd862d4f08e
+guid: 5439816cee9ec8b4d8faa2a8632d579a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1086239973706175752
-    second: Cube1_0
+      213: 5014352678603792606
+    second: Tutorial_AlphaClipping_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
-    sRGBTexture: 0
+    enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
@@ -19,7 +19,7 @@ TextureImporter:
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
-    convertToNormalMap: 1
+    convertToNormalMap: 0
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
@@ -55,9 +55,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 1
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cube1_0
+      name: Tutorial_AlphaClipping_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 59
-        height: 66
+        width: 512
+        height: 256
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 805169d3089131f00800000000000000
-      internalID: 1086239973706175752
+      spriteID: ed025baa13f869540800000000000000
+      internalID: 5014352678603792606
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 055dd78b4210906499c76ac5397ccb21
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cube1_0: 1086239973706175752
+      Tutorial_AlphaClipping_0: 5014352678603792606
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
