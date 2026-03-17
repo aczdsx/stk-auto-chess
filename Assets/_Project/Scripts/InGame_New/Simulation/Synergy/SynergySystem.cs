@@ -353,7 +353,7 @@ namespace CookApps.AutoChess
                     // 활성화
                     LogPrepSync("ACTIVATED", (SynergyType)traitId, playerIndex, oldTier, newTier,
                         synergy.GetTraitCount(traitId));
-                    var b = SynergyPrepBehaviorFactory.Create(
+                    var b = SynergyFactory.CreatePrep(
                         (SynergyType)traitId, newTier, traitId, playerIndex);
                     if (b != null)
                     {
@@ -440,7 +440,7 @@ namespace CookApps.AutoChess
         // ── 전투 시작 시 시너지 행동 등록 (asterism) ──
 
         /// <summary>
-        /// HasBehavior인 시너지의 행동 클래스를 생성하여 CombatMatchState에 등록.
+        /// HasBehavior인 시너지의 CombatTraitBase를 생성하여 대상 유닛에 TraitSystem으로 부착.
         /// ApplyEffects() 이후 호출.
         /// </summary>
         public static void ApplyBehaviors(GameWorld world, CombatMatchState state,
@@ -460,71 +460,37 @@ namespace CookApps.AutoChess
                 byte tier = synergy.GetTraitTier(traitId);
                 if (tier == 0) continue;
 
-                var behavior = SynergyBehaviorFactory.Create(
-                    (SynergyType)traitId, tier, traitId, teamIndex);
-                if (behavior == null) continue;
-
-                // prep behavior에서 데이터 전달
+                // prep 데이터 가져오기
+                int prepTargetEntityId = -1;
+                int prepParam0 = 0, prepParam1 = 0;
                 int prepIdx = FindPrepBehavior(world, playerIndex, traitId);
                 if (prepIdx >= 0)
                 {
                     var prep = world.PrepBehaviors[playerIndex][prepIdx];
-                    behavior.PrepTargetEntityId = prep.PrepTargetEntityId;
-                    behavior.PrepParam0 = prep.PrepParam0;
-                    behavior.PrepParam1 = prep.PrepParam1;
+                    prepTargetEntityId = prep.PrepTargetEntityId;
+                    prepParam0 = prep.PrepParam0;
+                    prepParam1 = prep.PrepParam1;
                 }
 
-                if (state.SynergyBehaviorCount < CombatMatchState.MaxSynergyBehaviors)
+                // 대상 유닛에 trait 부착
+                for (int u = 0; u < state.UnitCount; u++)
                 {
-                    state.SynergyBehaviors[state.SynergyBehaviorCount++] = behavior;
+                    ref var unit = ref state.Units[u];
+                    if (unit.TeamIndex != teamIndex || !unit.IsAlive) continue;
+
+                    // prepTargetEntityId가 지정되면 해당 유닛에만, 아니면 팀 전체에
+                    if (prepTargetEntityId >= 0 && unit.SourceEntityId != prepTargetEntityId) continue;
+
+                    var trait = SynergyFactory.CreateTrait((SynergyType)traitId, tier);
+                    if (trait == null) continue;
+
+                    trait.SynergyTraitId = traitId;
+                    trait.PrepTargetEntityId = prepTargetEntityId;
+                    trait.PrepParam0 = prepParam0;
+                    trait.PrepParam1 = prepParam1;
+
+                    TraitSystem.AddTrait(state, u, trait);
                 }
-            }
-
-            // 등록된 행동의 OnCombatStart 호출
-            for (int i = 0; i < state.SynergyBehaviorCount; i++)
-            {
-                state.SynergyBehaviors[i].OnCombatStart(state);
-            }
-        }
-
-        // ── 시너지 행동 콜백 디스패치 ──
-
-        public static void InvokeOnTick(CombatMatchState state)
-        {
-            for (int i = 0; i < state.SynergyBehaviorCount; i++)
-                state.SynergyBehaviors[i].OnTick(state);
-        }
-
-        public static void InvokeOnAllyAttack(CombatMatchState state,
-            ref CombatUnit attacker, ref CombatUnit target)
-        {
-            for (int i = 0; i < state.SynergyBehaviorCount; i++)
-            {
-                var b = state.SynergyBehaviors[i];
-                if (b.TeamIndex == attacker.TeamIndex)
-                    b.OnAllyAttack(state, ref attacker, ref target);
-            }
-        }
-
-        public static void InvokeOnAllyDamaged(CombatMatchState state,
-            ref CombatUnit victim, ref CombatUnit attacker, int damage)
-        {
-            for (int i = 0; i < state.SynergyBehaviorCount; i++)
-            {
-                var b = state.SynergyBehaviors[i];
-                if (b.TeamIndex == victim.TeamIndex)
-                    b.OnAllyDamaged(state, ref victim, ref attacker, damage);
-            }
-        }
-
-        public static void InvokeOnAllyKill(CombatMatchState state,
-            ref CombatUnit killer, ref CombatUnit victim)
-        {
-            for (int i = 0; i < state.SynergyBehaviorCount; i++)
-            {
-                var b = state.SynergyBehaviors[i];
-                if (b.TeamIndex == killer.TeamIndex)
-                    b.OnAllyKill(state, ref killer, ref victim);
             }
         }
     }

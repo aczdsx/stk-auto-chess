@@ -169,9 +169,9 @@ namespace CookApps.AutoChess.View
                     _ghostView.SetPositionImmediate(worldPos.Value);
             }
 
-            // 타일 하이라이트는 그리드 스냅 (빈 타일만)
+            // 타일 하이라이트는 그리드 스냅 (점유 타일도 허용 — 스왑 대상)
             var grid = ScreenToGrid(screenPos);
-            if (grid.HasValue && !IsTileOccupied(grid.Value.col, grid.Value.row))
+            if (grid.HasValue)
             {
                 _ghostCol = grid.Value.col;
                 _ghostRow = grid.Value.row;
@@ -198,7 +198,6 @@ namespace CookApps.AutoChess.View
 
             var grid = ScreenToGrid(screenPos);
             if (grid.HasValue
-                && !IsTileOccupied(grid.Value.col, grid.Value.row)
                 && IsInputAllowed(BoardInputAction.Place, grid.Value.col, grid.Value.row))
                 return (grid.Value.col, grid.Value.row);
 
@@ -339,12 +338,13 @@ namespace CookApps.AutoChess.View
                 _dragUnitView.SetPositionImmediate(worldPos.Value);
             }
 
-            // 타겟 셀 하이라이트 (자기 자신은 제외하고 점유 검사)
+            // 타겟 셀 하이라이트 (자기 위치만 제외, 점유 타일은 스왑 대상으로 허용)
             var grid = ScreenToGrid(screenPos);
             int prevCol = _highlightCol;
             int prevRow = _highlightRow;
 
-            if (grid.HasValue && !IsTileOccupied(grid.Value.col, grid.Value.row, _dragEntityId))
+            if (grid.HasValue
+                && (grid.Value.col != _dragStartCol || grid.Value.row != _dragStartRow))
                 ShowHighlight(grid.Value.col, grid.Value.row);
             else
                 HideHighlight();
@@ -375,10 +375,9 @@ namespace CookApps.AutoChess.View
             }
             else
             {
-                // 보드 위 다른 셀로 이동 (빈 타일만, 자기 위치 제외)
+                // 보드 위 다른 셀로 이동 (점유 타일은 시뮬레이션이 스왑 처리)
                 var grid = ScreenToGrid(screenPos);
                 if (grid.HasValue
-                    && !IsTileOccupied(grid.Value.col, grid.Value.row, _dragEntityId)
                     && (grid.Value.col != _dragStartCol || grid.Value.row != _dragStartRow)
                     && IsInputAllowed(BoardInputAction.Move, grid.Value.col, grid.Value.row))
                 {
@@ -387,7 +386,7 @@ namespace CookApps.AutoChess.View
                 }
                 else
                 {
-                    // 같은 위치, 점유된 타일, 차단, 또는 보드 밖 → 원위치 복귀
+                    // 같은 위치, 차단, 또는 보드 밖 → 원위치 복귀
                     _dragUnitView?.SetPositionImmediate(_dragOriginalPos);
                 }
             }

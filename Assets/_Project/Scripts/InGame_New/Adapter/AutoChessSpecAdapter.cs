@@ -168,7 +168,7 @@ namespace CookApps.AutoChess
                     TraitId = synergyTypeInt,
                     Category = category,
                     Tiers = tiers,
-                    HasBehavior = SynergyBehaviorFactory.NeedsBehavior(synergyType),
+                    HasBehavior = SynergyFactory.NeedsBehavior(synergyType),
                 });
             }
 
@@ -177,12 +177,17 @@ namespace CookApps.AutoChess
 
         // ── 시너지 효과 매핑 ──
 
+        /// <summary>
+        /// SynergyCoverType → SynergyTarget 매핑.
+        /// SQUAD_ALL/KNIGHT_ALL: 스쿼드 전체에 적용
+        /// SQUAD_STELLA: 해당 성군(Asterism) 특성 유닛에만 적용
+        /// SYNERGY_ELEMENTAL/SYNERGY_STELLA: 레거시 시너지 시스템용 (여기서는 사용 안 함)
+        /// </summary>
         private static SynergyTarget MapCoverType(SynergyCoverType cover)
         {
             switch (cover)
             {
-                case SynergyCoverType.SYNERGY_ELEMENTAL:
-                case SynergyCoverType.SYNERGY_STELLA:
+                case SynergyCoverType.SQUAD_STELLA:
                     return SynergyTarget.TraitUnits;
                 case SynergyCoverType.SQUAD_ALL:
                 case SynergyCoverType.KNIGHT_ALL:

@@ -787,11 +787,6 @@ namespace CookApps.AutoChess
         public int[] TraitCounts;          // [MaxCombatUnits] 유닛별 부착된 특성 수
         internal bool _traitCombatStartDone; // OnCombatStart 1회 실행 플래그
 
-        // 시너지 행동 (asterism 전용)
-        public const int MaxSynergyBehaviors = 8;
-        public SynergyBehaviorBase[] SynergyBehaviors; // [MaxSynergyBehaviors]
-        public int SynergyBehaviorCount;
-
         public static CombatMatchState Create(byte matchIndex, byte playerA, byte playerB)
         {
             var state = new CombatMatchState
@@ -807,7 +802,6 @@ namespace CookApps.AutoChess
                 Skills = new SimSkillBase[MaxCombatUnits],
                 Traits = new CombatTraitBase[MaxCombatUnits][],
                 TraitCounts = new int[MaxCombatUnits],
-                SynergyBehaviors = new SynergyBehaviorBase[MaxSynergyBehaviors],
             };
 
             for (int i = 0; i < MaxCombatUnits; i++)

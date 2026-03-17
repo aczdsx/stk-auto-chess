@@ -1,10 +1,13 @@
 # Synergy Effect Mapping Implementation Plan
 
-> **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **상태**: ✅ 구현 완료 + 리팩터 완료 (2026-03-17)
+> **주의**: 이 플랜의 Chunk 2(ISynergyBehavior/SynergyBehaviorBase)는 **폐기**됨.
+> 후속 리팩터로 `SynergyBehaviorBase` → `CombatTraitBase`/`TraitSystem` 통합 완료.
+> 최신 아키텍처는 스펙 문서 참조: `docs/superpowers/specs/2026-03-16-synergy-effect-mapping-design.md`
 
-**Goal:** InGame_New SynergySystem에 원소 시너지 스탯 매핑을 완성하고, asterism 시너지를 위한 행동 프레임워크(ISynergyBehavior)를 구축한다.
+**Goal:** InGame_New SynergySystem에 원소 시너지 스탯 매핑을 완성하고, asterism 시너지를 위한 행동 프레임워크를 구축한다.
 
-**Architecture:** 2계층 구조. 1계층은 `AutoChessSpecAdapter.BuildSynergySpecs()`에서 `ISpecSynergyData` → `SynergyEffect[]` 변환으로 원소 시너지 완성. 2계층은 `ISynergyBehavior` 인터페이스 + `SynergyBehaviorFactory`로 asterism의 복잡한 행동(쿨감, 쉴드, 흡수 등)을 확장 가능하게 설계. 기존 `CombatTraitBase`/`TraitSystem` 패턴을 시너지 전용으로 미러링.
+**Architecture:** 3계층 구조. 1계층은 속성(원소) 시너지의 스탯 매핑. 2계층은 성군(Asterism) 시너지의 전투 행동 — `CombatTraitBase` 서브클래스를 `TraitSystem.AddTrait()`으로 유닛에 부착. 3계층은 준비 페이즈 행동 `SynergyPrepBehaviorBase`.
 
 **Tech Stack:** Unity C#, InGame_New Simulation layer (namespace: CookApps.AutoChess)
 

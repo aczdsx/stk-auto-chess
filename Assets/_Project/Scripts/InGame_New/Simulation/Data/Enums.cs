@@ -172,11 +172,15 @@ namespace CookApps.AutoChess
     //  시너지 시스템
     // ═══════════════════════════════════════════════
 
-    /// <summary>특성 카테고리</summary>
+    /// <summary>
+    /// 특성 카테고리.
+    /// Origin = 속성 (FIRE, WIND, LIGHTNING, EARTH, WATER 등 원소 시너지, SynergyType 1-6)
+    /// Class  = 성군 (NOBLESSE, TROUBLESHOOTER, SUPERNOVA 등 Asterism 시너지, SynergyType 7+)
+    /// </summary>
     public enum TraitCategory : byte
     {
-        Origin,  // 출신 (Human, Elf, Dragon, ...)
-        Class,   // 직업 (Warrior, Mage, Assassin, ...)
+        Origin,  // 속성 — 원소 시너지 (스탯 버프)
+        Class,   // 성군 — Asterism 시너지 (CombatTraitBase 행동)
     }
 
     /// <summary>시너지 효과 대상</summary>
