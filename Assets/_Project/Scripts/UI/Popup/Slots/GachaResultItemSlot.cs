@@ -130,7 +130,8 @@ namespace CookApps.AutoBattler
             _gradientBotImage.color = visual.GradientBotColor;
 
             // 2. 등급별 스프라이트
-            _sdStandSpriteLoader.SetSprite(visual.SDStandSprite).Forget();
+            // stand sprite 우선 주석처리
+            // _sdStandSpriteLoader.SetSprite(visual.SDStandSprite).Forget();
             _frameSpriteLoader.SetSprite(visual.FrameSprite).Forget();
 
             // 3. LD 일러스트 (Addressable 프리팹)
@@ -156,7 +157,7 @@ namespace CookApps.AutoBattler
             {
                 _pieceGradientImage.color = visual.PieceGradientColor;
                 _pieceIconSpriteLoader.SetSprite(
-                    SpriteNameParser.GetCharacterPieceSprite(charInfo.id)
+                    SpriteNameParser.GetCharacterPieceSprite(charInfo.prefab_id)
                 ).Forget();
                 _pieceCountText.text = $"x{rewardItem.Count}";
             }

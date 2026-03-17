@@ -151,14 +151,15 @@ namespace CookApps.AutoBattler
             LoadSDCharacter(charInfo.prefab_id).Forget();
 
             // 8. SD 스탠드 스프라이트 (등급별)
-            if (SDStandSpriteMap.TryGetValue(grade, out var sdStandSprite))
-            {
-                _sdStandSpriteLoader.SetSprite(sdStandSprite).Forget();
-            }
-            else
-            {
-                Debug.LogWarning($"[GachaGetCharacterPopup] SDStandSpriteMap에 {grade} 등록 없음");
-            }
+            // stand sprite 우선 주석처리
+            // if (SDStandSpriteMap.TryGetValue(grade, out var sdStandSprite))
+            // {
+            //     _sdStandSpriteLoader.SetSprite(sdStandSprite).Forget();
+            // }
+            // else
+            // {
+            //     Debug.LogWarning($"[GachaGetCharacterPopup] SDStandSpriteMap에 {grade} 등록 없음");
+            // }
 
             // 9. 이펙트 그룹 — LEGENDARY만 활성화
             _effectGroup.SetActive(grade == GradeType.LEGENDARY);

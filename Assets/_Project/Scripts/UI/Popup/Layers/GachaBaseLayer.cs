@@ -217,12 +217,15 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.StopBGM();
             SoundManager.Instance.IsPlayingGacha = true;
 
-            // MainCanvas 비활성화 (GraphicRaycaster가 터치 이벤트 가로채는 것 방지)
+            // MainCanvas 비활성화
+            // 이것도 비활성화 범주를 좀 책정해야 함.
             _mainCanvas = SceneUILayerManager.Instance.MainCanvas;
             if (_mainCanvas != null)
                 _mainCanvas.gameObject.SetActive(false);
 
             // Additive 씬 로드 후 Canvas 강제 리빌드 (Graphic.depth=-1 방지)
+
+            GameObject.Find("IdleCombatRunner").SetActive(false);
             Canvas.ForceUpdateCanvases();
 
             controller.SetItem(resultGachaList, _currentSpecGachaData,
