@@ -54,14 +54,14 @@ public class FlowStateStageFail : StateBase
         SceneTransition.Create<SceneTransition_FadeInOut>();
         await SceneTransition.FadeInAsync();
 
-        SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
+        SceneLoading.GoToNextScene("BattleReady", specLastStageData.chapter_id);
 
         SceneUILayerManager.OnSceneLoadedEvent += OnSceneLoadedOpenCharacterCollection;
     }
 
     private static void OnSceneLoadedOpenCharacterCollection(string scenename)
     {
-        if (scenename == "Lobby")
+        if (scenename == "BattleReady")
         {
             SceneUILayerManager.Instance.PushUILayerAsync<CharacterCollectionPopup>().Forget();
             ToastManager.Instance.ShowToastByTokenKey("MSG_GROWTH_CHARACTER");

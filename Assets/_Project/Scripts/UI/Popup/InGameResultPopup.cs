@@ -120,7 +120,7 @@ namespace CookApps.AutoBattler
             {
                 _starList[i].SetActive(calculateStar > i);
             }
-            
+
             // 하단 별+조건 상태 갱신
             if (_popupParam.IsVictory)
             {
@@ -222,7 +222,7 @@ namespace CookApps.AutoBattler
                 star++;
             if (_popupParam.IsStarNoDeath)
                 star++;
-            
+
             return star;
         }
 
@@ -234,7 +234,7 @@ namespace CookApps.AutoBattler
             SceneTransition.Create<SceneTransition_FadeInOut>();
             await SceneTransition.FadeInAsync();
 
-            string nextSceneName = (specLastStageData.chapter_id == 1) ? "Lobby" : "BattleReady";
+            string nextSceneName = "BattleReady"; // (specLastStageData.chapter_id == 1) ? "Lobby" : "BattleReady";
 
             if (_popupParam.IsVictory)
             {

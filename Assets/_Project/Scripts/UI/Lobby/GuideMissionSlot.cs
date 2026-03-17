@@ -247,7 +247,7 @@ namespace CookApps.AutoBattler
 
         private void NavigateToGacha()
         {
-            if (SceneManager.GetActiveScene().name == "Lobby")
+            if (SceneManager.GetActiveScene().name == "BattleReady")
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<GachaPopup>().Forget();
             }
@@ -288,7 +288,7 @@ namespace CookApps.AutoBattler
         {
             var currentSceneName = SceneManager.GetActiveScene().name;
 
-            if (currentSceneName == "Lobby")
+            if (currentSceneName == "BattleReady")
             {
                 if (facilityType.HasValue)
                     FocusCameraOnFacility(facilityType.Value);
@@ -314,7 +314,7 @@ namespace CookApps.AutoBattler
 
         private void OnLobbySceneLoaded(string sceneName)
         {
-            if (sceneName != "Lobby") return;
+            if (sceneName != "BattleReady") return;
 
             SceneUILayerManager.OnSceneLoadedEvent -= OnLobbySceneLoaded;
 
@@ -439,7 +439,7 @@ namespace CookApps.AutoBattler
             }
 
             // Lobby 씬에서는 LobbyMain.OnClickStartButton() 사용
-            if (currentSceneName == "Lobby")
+            if (currentSceneName == "BattleReady")
             {
                 var lobbyMain = LobbyMain.GetLobbyMain();
                 if (lobbyMain != null)

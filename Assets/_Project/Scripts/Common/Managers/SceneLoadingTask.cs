@@ -35,7 +35,7 @@ namespace CookApps.AutoBattler
                 // await UnloadLobbyResources();
                 await LoadInGameResources(defaultUIData);
             }
-            
+
             if (prevSceneName == "Title")
             {
                 await SoDataProvider.Instance.Get<VignetteSO>().LoadAssetsAsync();

@@ -64,14 +64,14 @@ namespace CookApps.AutoBattler
                 }
             }
 
-            // 3. 1챕터 모두 클리어 → 로비로 진입
+            // 3. 1챕터 모두 클리어 → BattleReady로 직행
             {
                 SceneTransition.Create<SceneTransition_FadeInOut>();
                 await SceneTransition.FadeInAsync();
 
                 var lastStageID = (int)LocalDataManager.Instance.GetLastPlayStageId();
                 var specStageData = SpecDataManager.Instance.GetStageData(lastStageID);
-                SceneLoading.GoToNextScene("Lobby", specStageData.chapter_id);
+                SceneLoading.GoToNextScene("BattleReady", specStageData.chapter_id);
             }
         }
     }

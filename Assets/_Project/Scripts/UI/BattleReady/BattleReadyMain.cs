@@ -521,7 +521,7 @@ namespace CookApps.AutoBattler
 
             // 현재 진행중인 가이드 미션으로 ENTER_ELPIS_NANI 트리거 확인
             var guideMissionId = (int)ServerDataManager.Instance.GuideMission.GuideMissionId;
-            SceneLoading.GoToNextSceneWithElpisEnterTrigger("Lobby", guideMissionId);
+            SceneLoading.GoToNextSceneWithElpisEnterTrigger("BattleReady", guideMissionId);
         }
 
         private async UniTask OnClickStartButtonAsync()
