@@ -12,8 +12,12 @@ namespace CookApps.AutoChess
         /// <summary>로그 출력 콜백. Adapter 레이어에서 설정 (예: Debug.Log).</summary>
         public static System.Action<string> LogOutput;
 
+        /// <summary>로그 파일 저장 디렉터리. null이면 파일 저장 안 함.</summary>
+        public static string LogDirectory;
+
         private static int _frame;
         private static System.Text.StringBuilder _sb;
+        private static string _sessionTimestamp;
 
         public static void Begin()
         {
@@ -23,6 +27,7 @@ namespace CookApps.AutoChess
             _sb = new System.Text.StringBuilder(8192);
             _sb.AppendLine("FRAME ACTION       UNIT  INFO");
             _sb.AppendLine("----- ------------ ----- ----------------------------------------");
+            _sessionTimestamp = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
         }
 
         public static void End()
@@ -38,12 +43,26 @@ namespace CookApps.AutoChess
 
         public static string GetLog() => _sb?.ToString() ?? "";
 
-        /// <summary>로그를 LogOutput 콜백으로 출력</summary>
+        /// <summary>로그를 LogOutput 콜백으로 출력하고, LogDirectory가 설정되어 있으면 파일로도 저장</summary>
         public static void Flush(string prefix = null)
         {
             var log = GetLog();
             if (string.IsNullOrEmpty(log)) return;
             LogOutput?.Invoke(prefix != null ? $"{prefix}\n{log}" : log);
+            SaveToFile(log, prefix);
+        }
+
+        private static void SaveToFile(string log, string prefix)
+        {
+            if (string.IsNullOrEmpty(LogDirectory)) return;
+
+            if (!System.IO.Directory.Exists(LogDirectory))
+                System.IO.Directory.CreateDirectory(LogDirectory);
+
+            var tag = string.IsNullOrEmpty(prefix) ? "combat" : prefix.Trim('[', ']', ' ');
+            var fileName = $"{tag}_{_sessionTimestamp}.log";
+            var filePath = System.IO.Path.Combine(LogDirectory, fileName);
+            System.IO.File.WriteAllText(filePath, log);
         }
 
         // ── 내부 ──
@@ -64,9 +83,18 @@ namespace CookApps.AutoChess
                 $"team={team} ({col},{row}) hp={hp} atk={atk} range={range}");
         }
 
-        public static void LogMove(int combatId, int fromCol, int fromRow, int toCol, int toRow)
+        public static void LogMove(int combatId, int fromCol, int fromRow, int toCol, int toRow,
+            int targetId = -1, int bfsDist = -1)
         {
-            Log("MOVE", combatId, $"({fromCol},{fromRow})→({toCol},{toRow})");
+            string extra = "";
+            if (targetId >= 0) extra += $" tgt={targetId}";
+            if (bfsDist >= 0) extra += $" bfs={bfsDist}";
+            Log("MOVE", combatId, $"({fromCol},{fromRow})→({toCol},{toRow}){extra}");
+        }
+
+        public static void LogMoveWait(int combatId, int targetId, int dist, string reason)
+        {
+            Log("MOVE_WAIT", combatId, $"tgt={targetId} dist={dist} {reason}");
         }
 
         public static void LogBacklineJump(int combatId, int fromCol, int fromRow, int toCol, int toRow)

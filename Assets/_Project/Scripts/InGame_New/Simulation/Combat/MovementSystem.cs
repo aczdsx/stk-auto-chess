@@ -17,7 +17,7 @@ namespace CookApps.AutoChess
         /// </summary>
         private static void BuildDistanceMap(CombatMatchState state,
             int targetCol, int targetRow, byte targetSizeW, byte targetSizeH,
-            int selfCombatId)
+            int selfCombatId, int attackRange = 1)
         {
             int gridSize = BoardHelper.CombatWidth * BoardHelper.CombatHeight;
             for (int i = 0; i < gridSize; i++)
@@ -42,6 +42,13 @@ namespace CookApps.AutoChess
                     {
                         _distMap[idx] = 0;
                         continue;
+                    }
+
+                    // range 1(근접): 직교 인접만 시드 (대각선은 BFS 확장으로 도달)
+                    if (attackRange <= 1)
+                    {
+                        bool isDiagonal = (dc < 0 || dc >= targetSizeW) && (dr < 0 || dr >= targetSizeH);
+                        if (isDiagonal) continue;
                     }
 
                     int occupant = state.GridTiles[idx];
@@ -124,18 +131,21 @@ namespace CookApps.AutoChess
                 unit.GridCol, unit.GridRow, sizeW, sizeH,
                 target.GridCol, target.GridRow, tSizeW, tSizeH);
 
-            if (currentDist <= unit.AttackRange + 2 && target.IsMoving)
+            if (currentDist <= unit.AttackRange + 1 && target.IsMoving)
             {
                 int fromDist = BoardHelper.MinManhattanDistance(
                     unit.GridCol, unit.GridRow, sizeW, sizeH,
                     target.MoveFromCol, target.MoveFromRow, tSizeW, tSizeH);
 
                 if (fromDist > currentDist)
+                {
+                    if (CombatLogger.Enabled) CombatLogger.LogMoveWait(unit.CombatId, target.CombatId, currentDist, "target_approaching");
                     return false; // 타겟이 접근 중 → 대기
+                }
             }
 
             // 타겟 기준 역방향 BFS distance map 생성
-            BuildDistanceMap(state, target.GridCol, target.GridRow, tSizeW, tSizeH, unit.CombatId);
+            BuildDistanceMap(state, target.GridCol, target.GridRow, tSizeW, tSizeH, unit.CombatId, unit.AttackRange);
 
             int bestCol = -1;
             int bestRow = -1;
@@ -192,6 +202,14 @@ namespace CookApps.AutoChess
 
             if (bestCol < 0) return false;
 
+            // 현재 위치보다 멀어지면 이동하지 않음 (대각선 BFS 초기화로 인한 진동 방지)
+            int currentFootprintDist = GetFootprintDistance(unit.GridCol, unit.GridRow, sizeW, sizeH);
+            if (bestDist >= currentFootprintDist)
+            {
+                if (CombatLogger.Enabled) CombatLogger.LogMoveWait(unit.CombatId, target.CombatId, currentDist, "no_closer_tile");
+                return false;
+            }
+
             // 출발 좌표 기록 (View 보간용)
             unit.MoveFromCol = unit.GridCol;
             unit.MoveFromRow = unit.GridRow;
@@ -207,7 +225,11 @@ namespace CookApps.AutoChess
             unit.MoveDuration = moveFrames;
             unit.MoveTimer = moveFrames;
 
-            if (CombatLogger.Enabled) CombatLogger.LogMove(unit.CombatId, unit.MoveFromCol, unit.MoveFromRow, bestCol, bestRow);
+            if (CombatLogger.Enabled)
+            {
+                int logBfsDist = GetFootprintDistance(bestCol, bestRow, sizeW, sizeH);
+                CombatLogger.LogMove(unit.CombatId, unit.MoveFromCol, unit.MoveFromRow, bestCol, bestRow, target.CombatId, logBfsDist);
+            }
 
             state.EventQueue?.PushUnitMoved(unit.SourceEntityId, (byte)bestCol, (byte)bestRow);
 

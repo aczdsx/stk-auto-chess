@@ -65,8 +65,9 @@ namespace CookApps.AutoChess
 
             GameLoopSystem.Initialize(_world, config);
 
-            // 시뮬레이션 로그 출력 콜백 설정
+            // 시뮬레이션 로그 출력 콜백 및 파일 저장 설정
             CombatLogger.LogOutput = msg => Debug.Log(msg);
+            CombatLogger.LogDirectory = System.IO.Path.Combine(Application.dataPath, "..", "battle_logs");
 
             _tickAccumulator = 0f;
             _isRunning = true;

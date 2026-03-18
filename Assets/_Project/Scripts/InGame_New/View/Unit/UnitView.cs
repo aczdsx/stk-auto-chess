@@ -379,13 +379,14 @@ namespace CookApps.AutoChess.View
         /// </summary>
         public void PrepareAttackAnimation(bool isCrit)
         {
-            if (isCrit)
+            if (isCrit && _characterView != null && _characterView.HasCritClip)
             {
                 _pendingAttackAnimKey = AnimationKey.CRIT;
             }
             else
             {
-                _pendingAttackAnimKey = _atkToggle ? AnimationKey.ATK2 : AnimationKey.ATK;
+                bool useAtk2 = _atkToggle && _characterView != null && _characterView.HasAtk2Clip;
+                _pendingAttackAnimKey = useAtk2 ? AnimationKey.ATK2 : AnimationKey.ATK;
                 _atkToggle = !_atkToggle;
             }
             _pendingAttackPrepared = true;

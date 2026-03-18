@@ -196,7 +196,7 @@ namespace CookApps.AutoChess.View
                         view.SetCombatState(unit.State, unit.AttackSpeed);
 
                         // 이동 중이면 이동 방향, 아니면 타겟 방향 바라보기
-                        if (unit.IsMoving && unit.MoveDuration > 0)
+                        if (unit.IsMoving && unit.MoveDuration > 0 && !unit.IsKnockbackMoving)
                         {
                             view.UpdateFacing(destPos);
                         }

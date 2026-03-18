@@ -136,7 +136,10 @@ namespace CookApps.AutoChess
             }
 
             // 타겟 갱신
+            int prevTargetId = unit.CurrentTargetId;
             TargetingSystem.RefreshTarget(state, ref unit);
+            if (CombatLogger.Enabled && unit.CurrentTargetId != prevTargetId)
+                CombatLogger.LogTargetSelect(unit.CombatId, unit.CurrentTargetId);
 
             // Taunt: 도발자가 생존해 있으면 타겟 강제
             int unitIdx = FindUnitSlotIndex(state, ref unit);
@@ -212,7 +215,7 @@ namespace CookApps.AutoChess
 
                             // 이벤트 발행 (View가 ATK 애니메이션 시작, isCrit 전달)
                             state.EventQueue?.PushUnitAttacked(
-                                unit.SourceEntityId, target.SourceEntityId, 0, willCrit, false, isPreTimed: true);
+                                unit.CombatId, target.CombatId, 0, willCrit, false, isPreTimed: true);
                         }
                         else
                         {
@@ -234,8 +237,25 @@ namespace CookApps.AutoChess
 
                 if (!moved)
                 {
-                    // 이동 실패 (막힘): Idle로 복귀
-                    unit.State = CombatState.Idle;
+                    // 현재 타겟으로 접근 불가 → 대체 타겟 탐색
+                    int altTargetId = TargetingSystem.FindNearestEnemyExcluding(state, ref unit, unit.CurrentTargetId);
+                    if (altTargetId != CombatUnit.InvalidId)
+                    {
+                        int altIdx = state.FindUnitIndex(altTargetId);
+                        if (altIdx >= 0)
+                        {
+                            ref var altTarget = ref state.Units[altIdx];
+                            moved = MovementSystem.TryMoveToward(state, ref unit, ref altTarget, tickRate);
+                            if (moved)
+                            {
+                                unit.CurrentTargetId = altTargetId;
+                                if (CombatLogger.Enabled) CombatLogger.LogTargetSelect(unit.CombatId, altTargetId);
+                            }
+                        }
+                    }
+
+                    if (!moved)
+                        unit.State = CombatState.Idle;
                 }
             }
         }

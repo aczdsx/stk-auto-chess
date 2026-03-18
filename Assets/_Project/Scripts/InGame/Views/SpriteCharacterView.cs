@@ -73,6 +73,8 @@ namespace CookApps.AutoBattler
         private Vector3 _viewScaleTarget = Vector3.one;
         private AutoChess.AnimKeyframeInfo _atkInfo;
         private int _characterId;
+        private bool _hasAtk2Clip;
+        private bool _hasCritClip;
 
 
         public Transform SkillRootTransform => _skillRootTransform;
@@ -98,6 +100,7 @@ namespace CookApps.AutoBattler
                 }
                 SetDisolveShader();
                 CacheAttackExecuteTimes();
+                CacheAnimationClipAvailability();
                 _animationEventListener = _animator.GetComponent<AnimationEventListener>();
                 _animationEventListener.OnAnimationEvent += OnFiredAnimationEvent;
             }
@@ -191,7 +194,9 @@ namespace CookApps.AutoBattler
                 SetFlipOrNot();
 
             if (prevCachedFront != _cachedFront && _animator != null)
-                _animator.SetBool(IsFront, _cachedFront);
+            {
+                PlayAnimation(_currentAnimationKey);
+            }
         }
 
         public void LookAt(Direction dir)
@@ -221,7 +226,9 @@ namespace CookApps.AutoBattler
                 SetFlipOrNot();
 
             if (prevCachedFront != _cachedFront && _animator != null)
-                _animator.SetBool(IsFront, _cachedFront);
+            {
+                PlayAnimation(_currentAnimationKey);
+            }
         }
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)
@@ -267,6 +274,12 @@ namespace CookApps.AutoBattler
             return tr != null ? tr.position : transform.position;
         }
 
+        /// <summary>ATK2 클립이 존재하는지 여부 (Awake에서 캐싱)</summary>
+        public bool HasAtk2Clip => _hasAtk2Clip;
+
+        /// <summary>CRIT 클립이 존재하는지 여부 (Awake에서 캐싱)</summary>
+        public bool HasCritClip => _hasCritClip;
+
         /// <summary>ATK 키프레임 정보 (ms 기반, float 없음). Awake에서 캐싱됨.</summary>
         public ref readonly AutoChess.AnimKeyframeInfo GetAtkInfo() => ref _atkInfo;
 
@@ -275,6 +288,42 @@ namespace CookApps.AutoBattler
         {
             _characterId = AutoChess.AnimKeyframeHelper.ParseCharacterId(_animator.runtimeAnimatorController.name);
             _atkInfo = AutoChess.AnimKeyframeHelper.Resolve(_characterId);
+        }
+
+        /// <summary>ATK2/CRIT 클립 존재 여부를 캐싱 (AnimatorOverrideController의 override null 대응)</summary>
+        private void CacheAnimationClipAvailability()
+        {
+            _hasAtk2Clip = false;
+            _hasCritClip = false;
+
+            var rac = _animator.runtimeAnimatorController;
+            if (rac is AnimatorOverrideController overrideController)
+            {
+                // Override가 null이면 base clip만 남아있는 것 → 실제 클립 없음
+                var overrides = new List<KeyValuePair<AnimationClip, AnimationClip>>();
+                overrideController.GetOverrides(overrides);
+                foreach (var pair in overrides)
+                {
+                    if (pair.Key == null) continue;
+                    if (!_hasAtk2Clip && pair.Key.name.EndsWith("_ATK2") && pair.Value != null)
+                        _hasAtk2Clip = true;
+                    if (!_hasCritClip && pair.Key.name.EndsWith("_CRIT") && pair.Value != null)
+                        _hasCritClip = true;
+                    if (_hasAtk2Clip && _hasCritClip) break;
+                }
+            }
+            else
+            {
+                var clips = rac.animationClips;
+                foreach (var clip in clips)
+                {
+                    if (!_hasAtk2Clip && clip.name.EndsWith("_ATK2"))
+                        _hasAtk2Clip = true;
+                    if (!_hasCritClip && clip.name.EndsWith("_CRIT"))
+                        _hasCritClip = true;
+                    if (_hasAtk2Clip && _hasCritClip) break;
+                }
+            }
         }
 
         /// <summary>지정된 클립 타입의 키프레임 정보 반환. 데이터 없으면 ATK로 폴백.</summary>
