@@ -189,6 +189,7 @@ namespace CookApps.AutoChess
         TraitUnits,  // 해당 특성을 가진 유닛만
         AllAllies,   // 모든 아군
         AllEnemies,  // 모든 적군 (디버프용)
+        PrepTarget,  // PrepBehavior가 지정한 단일 유닛
     }
 
     /// <summary>시너지 효과 타입</summary>

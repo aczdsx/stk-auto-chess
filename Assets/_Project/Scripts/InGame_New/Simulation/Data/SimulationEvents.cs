@@ -58,6 +58,20 @@ namespace CookApps.AutoChess
         // 버프 아이콘 (SkillMarker)
         SkillMarkerAdded,    // Value0=markerId(skillSpecId), Value1=totalFrames
         SkillMarkerRemoved,  // Value0=markerId(skillSpecId), Value1=remainingCount
+        // 슈퍼노바 오브젝트
+        SupernovaObjectEvent,  // Value0=traitId, Value1=subType, Col/Row, EntityId(TargetAssigned시)
+    }
+
+    /// <summary>슈퍼노바 오브젝트 이벤트 서브타입</summary>
+    public static class SupernovaSubType
+    {
+        public const byte Spawn = 0;
+        public const byte Remove = 1;
+        public const byte Move = 2;
+        public const byte TierChanged = 3;
+        public const byte TargetAssigned = 4;
+        public const byte TargetRemoved = 5;
+        public const byte InvalidDrop = 6;  // trait 불일치 유닛이 구체 위치에 배치됨
     }
 
     /// <summary>
@@ -459,6 +473,21 @@ namespace CookApps.AutoChess
                 EntityId = combatId,
                 Value0 = markerId,
                 Value1 = remainingCount,
+            });
+        }
+
+        public void PushSupernovaObjectEvent(byte playerIndex, int traitId, byte subType,
+            byte col, byte row, int entityId = 0)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.SupernovaObjectEvent,
+                PlayerIndex = playerIndex,
+                Value0 = traitId,
+                Value1 = subType,
+                Col = col,
+                Row = row,
+                EntityId = entityId,
             });
         }
     }

@@ -83,7 +83,7 @@ namespace CookApps.AutoChess.View
                     if (isActive)
                     {
                         view.SetTargetPosition(worldPos);
-                        int previewMaxHP = BoardSystem.CalcPreviewMaxHP(world, (byte)p, ref unit);
+                        int previewMaxHP = BoardSystem.CalcPreviewMaxHP(world, (byte)p, ref unit, entityId);
                         view.UpdateHP(previewMaxHP, previewMaxHP);
                     }
                     else
@@ -283,6 +283,17 @@ namespace CookApps.AutoChess.View
         {
             _combatUnitViews.TryGetValue(combatId, out var view);
             return view;
+        }
+
+        /// <summary>SourceEntityId(보드 EntityId)로 전투 UnitView 조회</summary>
+        public UnitView FindCombatViewByEntityId(int entityId)
+        {
+            foreach (var kv in _combatUnitViews)
+            {
+                if (kv.Value != null && kv.Value.EntityId == entityId)
+                    return kv.Value;
+            }
+            return null;
         }
 
         // ── 고스트 뷰 (홀로그램 드래그 프리뷰) ──

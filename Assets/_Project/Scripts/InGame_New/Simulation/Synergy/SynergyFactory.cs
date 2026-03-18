@@ -32,6 +32,43 @@ namespace CookApps.AutoChess
         public int PrepTargetEntityId = -1;
         public int PrepParam0;
         public int PrepParam1;
+
+        /// <summary>재접속 복원용 상태 스냅샷</summary>
+        public virtual PrepBehaviorSnapshot CaptureSnapshot()
+        {
+            return new PrepBehaviorSnapshot
+            {
+                TraitId = TraitId,
+                Tier = Tier,
+                PlayerIndex = PlayerIndex,
+                PrepTargetEntityId = PrepTargetEntityId,
+                PrepParam0 = PrepParam0,
+                PrepParam1 = PrepParam1,
+            };
+        }
+
+        /// <summary>스냅샷에서 상태 복원 (OnActivate 대신 호출)</summary>
+        public virtual void RestoreFromSnapshot(PrepBehaviorSnapshot snapshot)
+        {
+            PrepTargetEntityId = snapshot.PrepTargetEntityId;
+            PrepParam0 = snapshot.PrepParam0;
+            PrepParam1 = snapshot.PrepParam1;
+        }
+    }
+
+    /// <summary>PrepBehavior 재접속 복원용 스냅샷</summary>
+    public struct PrepBehaviorSnapshot
+    {
+        public int TraitId;
+        public byte Tier;
+        public byte PlayerIndex;
+        public int PrepTargetEntityId;
+        public int PrepParam0;
+        public int PrepParam1;
+
+        // 슈퍼노바 전용 (다른 Prep 타입도 확장 가능)
+        public sbyte ObjectCol;
+        public sbyte ObjectRow;
     }
 
     /// <summary>
@@ -58,7 +95,7 @@ namespace CookApps.AutoChess
         {
             SynergyPrepBehaviorBase behavior = type switch
             {
-                // SynergyType.SUPERNOVA => new SynergyPrepSupernova(),
+                SynergyType.SUPERNOVA => new SynergyPrepSupernova(),
                 // SynergyType.TROUBLESHOOTER => new SynergyPrepTroubleShooter(),
                 _ => null,
             };
@@ -73,10 +110,13 @@ namespace CookApps.AutoChess
             return behavior;
         }
 
-        /// <summary>전투 행동(CombatTraitBase) 생성. 구현체 추가 시 스위치에 케이스 추가.</summary>
+        /// <summary>
+        /// 전투 행동(CombatTraitBase) 생성. 구현체 추가 시 스위치에 케이스 추가.
+        /// SUPERNOVA: 스탯은 ApplyEffects() PrepTarget으로 처리하므로 CombatTrait 불필요. null 반환.
+        /// </summary>
         public static CombatTraitBase CreateTrait(SynergyType type, byte tier)
         {
-            // SynergyType.SUPERNOVA => new SynergyTraitSupernova(),
+            // SynergyType.SUPERNOVA => null (스탯 버프는 ApplyEffects에서 처리)
             // SynergyType.TROUBLESHOOTER => new SynergyTraitTroubleShooter(),
             return null;
         }

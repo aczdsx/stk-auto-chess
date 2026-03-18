@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CookApps.AutoBattler;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -410,6 +411,11 @@ namespace CookApps.AutoChess.View
                 case SimEventType.SkillMarkerRemoved:
                     _buffIconTracker?.OnSkillMarkerRemoved(evt.EntityId, evt.Value0, evt.Value1);
                     break;
+
+                case SimEventType.SupernovaObjectEvent:
+                    if (evt.PlayerIndex == _localPlayerIndex)
+                        HandleSupernovaObjectEvent(evt);
+                    break;
             }
         }
 
@@ -574,7 +580,11 @@ namespace CookApps.AutoChess.View
         // ── UI 연결 ──
 
         public void SetAutoChessUI(AutoChessUIBase ui) => _autoChessUI = ui;
-        public void SetBoardInputHandler(BoardInputHandler handler) => _boardInputHandler = handler;
+        public void SetBoardInputHandler(BoardInputHandler handler)
+        {
+            _boardInputHandler = handler;
+            _boardInputHandler?.SetBoardObjectFinder(FindBoardObjectAt);
+        }
         public void SetTutorialBridge(TutorialSimBridge bridge) => _tutorialBridge = bridge;
         public GameWorld GetWorld() => _runner.GetWorld();
 
@@ -592,6 +602,267 @@ namespace CookApps.AutoChess.View
         public void SendCommand(GameCommand command)
         {
             _runner.EnqueueCommand(command);
+        }
+
+        // ── 슈퍼노바 오브젝트 ──
+
+        private readonly Dictionary<(int traitId, byte playerIndex), SupernovaObjectView>
+            _supernovaObjects = new();
+
+        // 타겟 부여 VFX (유닛에 붙는 이펙트)
+        private readonly Dictionary<(int traitId, byte playerIndex), (int entityId, AsyncOperationHandle<GameObject> handle)>
+            _supernovaTargetVfx = new();
+
+        private void HandleSupernovaObjectEvent(SimEvent evt)
+        {
+            int traitId = evt.Value0;
+            byte subType = (byte)evt.Value1;
+            var key = (traitId, evt.PlayerIndex);
+
+            switch (subType)
+            {
+                case SupernovaSubType.Spawn:
+                    SpawnSupernovaObject(key, traitId, evt.Col, evt.Row);
+                    break;
+
+                case SupernovaSubType.Remove:
+                    RemoveSupernovaObject(key);
+                    break;
+
+                case SupernovaSubType.Move:
+                    if (_supernovaObjects.TryGetValue(key, out var moveView))
+                        moveView.UpdatePosition(evt.Col, evt.Row);
+                    break;
+
+                case SupernovaSubType.TierChanged:
+                    if (_supernovaTargetVfx.ContainsKey(key))
+                    {
+                        RemoveTargetVfx(key);
+                        SpawnTargetTierVfx(key, traitId, evt.EntityId);
+                    }
+                    break;
+
+                case SupernovaSubType.TargetAssigned:
+                {
+                    RemoveSupernovaObject(key);
+                    // 전투 진입 시 자동 배정된 경우 토스트
+                    var world = _runner.GetWorld();
+                    if (world != null && world.IsCombatActive)
+                        ToastManager.Instance.ShowToastByTokenKey("NOT_SUPERNOVA_ITEM_APPLY");
+                    SpawnTargetVfx(key, traitId, evt.EntityId);
+                    break;
+                }
+
+                case SupernovaSubType.TargetRemoved:
+                    RemoveTargetVfx(key);
+                    break;
+
+                case SupernovaSubType.InvalidDrop:
+                    ToastManager.Instance.ShowToastByTokenKey("NOT_SUPERNOVA_TYPE");
+                    break;
+            }
+        }
+
+        private async void SpawnSupernovaObject((int traitId, byte playerIndex) key, int traitId, byte col, byte row)
+        {
+            RemoveSupernovaObject(key); // 기존 오브젝트 정리
+
+            if (_synergyVfxConfig == null) return;
+            var synergyType = (SynergyType)traitId;
+            if (!_synergyVfxConfig.TryGetTaggedVfx(synergyType, SynergyVfxTag.BoardObject, out var boardVfx)) return;
+
+            var go = await Addressables.InstantiateAsync(boardVfx.Vfx, transform);
+            if (go == null) return;
+
+            var view = go.GetComponent<SupernovaObjectView>();
+            if (view == null)
+            {
+                Addressables.ReleaseInstance(go);
+                return;
+            }
+
+            byte tier = 1;
+            var world = _runner.GetWorld();
+            if (world != null)
+            {
+                int prepIdx = SynergySystem.FindPrepBehavior(world, key.playerIndex, traitId);
+                if (prepIdx >= 0)
+                    tier = world.PrepBehaviors[key.playerIndex][prepIdx].Tier;
+            }
+
+            view.Setup(traitId, col, row, tier,
+                () => _runner.GetWorld(),
+                cmd => SendCommand(cmd));
+
+            // 별똥별 원샷 → 0.5초 후 구체 등록 (드래그 가능해짐)
+            SpawnBoardObjectWithIntroAsync(key, view, synergyType).Forget();
+        }
+
+        private async UniTaskVoid SpawnBoardObjectWithIntroAsync(
+            (int traitId, byte playerIndex) key, SupernovaObjectView view, SynergyType synergyType)
+        {
+            // 구체는 0.5초간 숨김 (별똥별 연출 중)
+            view.gameObject.SetActive(false);
+
+            if (_synergyVfxConfig.TryGetTaggedVfx(synergyType, SynergyVfxTag.TargetVfx, out var introVfx))
+                SpawnOneShotVfxAtAsync(introVfx.Vfx, view.transform.position).Forget();
+
+            await UniTask.Delay(500);
+
+            if (view == null) return;
+            view.gameObject.SetActive(true);
+            _supernovaObjects[key] = view;
+        }
+
+        private void RemoveSupernovaObject((int traitId, byte playerIndex) key)
+        {
+            if (_supernovaObjects.TryGetValue(key, out var view))
+            {
+                if (view != null)
+                    Addressables.ReleaseInstance(view.gameObject);
+                _supernovaObjects.Remove(key);
+            }
+        }
+
+        private async void SpawnTargetVfx((int traitId, byte playerIndex) key, int traitId, int entityId)
+        {
+            RemoveTargetVfx(key);
+
+            if (_synergyVfxConfig == null) return;
+            var synergyType = (SynergyType)traitId;
+
+            // 티어 VFX를 유닛에 바로 부착 (뷰 전환 대응을 위해 약간 대기)
+            await UniTask.DelayFrame(1);
+
+            var targetView = FindUnitView(entityId);
+            if (targetView == null) return;
+
+            await UniTask.WaitUntil(() => targetView == null || targetView.IsReady);
+            if (targetView == null) return;
+
+            var world = _runner.GetWorld();
+            if (world == null) return;
+            int prepIdx = SynergySystem.FindPrepBehavior(world, key.playerIndex, traitId);
+            if (prepIdx < 0) return;
+            var prep = world.PrepBehaviors[key.playerIndex][prepIdx];
+            if (prep.PrepTargetEntityId != entityId) return;
+
+            var tierTag = SynergyVfxConfigSO.TierToTag(prep.Tier);
+            if (!_synergyVfxConfig.TryGetTaggedVfx(synergyType, tierTag, out var tierVfx)) return;
+
+            var handle = Addressables.InstantiateAsync(tierVfx.Vfx, targetView.transform);
+            var go = await handle;
+            if (go == null || !handle.IsValid()) return;
+
+            _supernovaTargetVfx[key] = (entityId, handle);
+        }
+
+        /// <summary>티어 변경 시 원샷 없이 티어 VFX만 교체</summary>
+        private async void SpawnTargetTierVfx((int traitId, byte playerIndex) key, int traitId, int entityId)
+        {
+            if (_synergyVfxConfig == null) return;
+            var synergyType = (SynergyType)traitId;
+
+            var unitView = FindUnitView(entityId);
+            if (unitView == null) return;
+
+            await UniTask.WaitUntil(() => unitView == null || unitView.IsReady);
+            if (unitView == null) return;
+
+            var world = _runner.GetWorld();
+            if (world == null) return;
+            int prepIdx = SynergySystem.FindPrepBehavior(world, key.playerIndex, traitId);
+            if (prepIdx < 0) return;
+            var prep = world.PrepBehaviors[key.playerIndex][prepIdx];
+            if (prep.PrepTargetEntityId != entityId) return;
+
+            var tierTag = SynergyVfxConfigSO.TierToTag(prep.Tier);
+            if (!_synergyVfxConfig.TryGetTaggedVfx(synergyType, tierTag, out var tierVfx)) return;
+
+            var handle = Addressables.InstantiateAsync(tierVfx.Vfx, unitView.transform);
+            var go = await handle;
+            if (go == null || !handle.IsValid()) return;
+
+            _supernovaTargetVfx[key] = (entityId, handle);
+        }
+
+        /// <summary>보드 뷰 또는 전투 뷰에서 유닛 조회 (entityId = 보드 EntityId)</summary>
+        private UnitView FindUnitView(int entityId)
+        {
+            return _unitViewManager.FindBoardView(entityId)
+                ?? _unitViewManager.FindCombatViewByEntityId(entityId);
+        }
+
+        private async UniTaskVoid SpawnOneShotVfxAsync(AssetReferenceGameObject vfxRef, Transform parent)
+        {
+            var handle = Addressables.InstantiateAsync(vfxRef, parent);
+            var go = await handle;
+            if (go == null || !handle.IsValid()) return;
+
+            await UniTask.Delay(3000);
+            if (handle.IsValid()) Addressables.ReleaseInstance(handle);
+        }
+
+        private async UniTaskVoid SpawnOneShotVfxAtAsync(AssetReferenceGameObject vfxRef, Vector3 worldPos)
+        {
+            var handle = Addressables.InstantiateAsync(vfxRef, transform);
+            var go = await handle;
+            if (go == null || !handle.IsValid()) return;
+
+            go.transform.position = worldPos;
+
+            await UniTask.Delay(3000);
+            if (handle.IsValid()) Addressables.ReleaseInstance(handle);
+        }
+
+        private void RemoveTargetVfx((int traitId, byte playerIndex) key)
+        {
+            if (_supernovaTargetVfx.TryGetValue(key, out var entry))
+            {
+                if (entry.handle.IsValid())
+                    Addressables.ReleaseInstance(entry.handle);
+                _supernovaTargetVfx.Remove(key);
+            }
+        }
+
+        /// <summary>재접속 시 기존 PrepBehavior 상태에서 슈퍼노바 비주얼 복원</summary>
+        public void RestoreSupernovaObjects()
+        {
+            var world = _runner.GetWorld();
+            if (world == null) return;
+
+            byte playerIndex = (byte)_localPlayerIndex;
+            int count = world.PrepBehaviorCounts[playerIndex];
+
+            for (int i = 0; i < count; i++)
+            {
+                var b = world.PrepBehaviors[playerIndex][i];
+                if (b is not SynergyPrepSupernova sn) continue;
+
+                var key = (sn.TraitId, playerIndex);
+
+                if (sn.PrepTargetEntityId >= 0)
+                {
+                    // 타겟 부여 상태 → 유닛에 VFX
+                    SpawnTargetVfx(key, sn.TraitId, sn.PrepTargetEntityId);
+                }
+                else if (sn.ObjectCol >= 0)
+                {
+                    // 미부여 → 구체 오브젝트
+                    SpawnSupernovaObject(key, sn.TraitId, (byte)sn.ObjectCol, (byte)sn.ObjectRow);
+                }
+            }
+        }
+
+        /// <summary>BoardInputHandler용: 좌표로 보드 오브젝트 조회</summary>
+        public IBoardDraggableObject FindBoardObjectAt(int col, int row)
+        {
+            foreach (var kv in _supernovaObjects)
+            {
+                if (kv.Value != null && kv.Value.Col == col && kv.Value.Row == row)
+                    return kv.Value;
+            }
+            return null;
         }
 
         // ── 게임 종료 ──
