@@ -78,6 +78,10 @@ namespace CookApps.AutoChess
             float tickInterval = 1f / TickRate;
             _tickAccumulator += dt;
 
+            float maxAccum = tickInterval * MaxTicksPerFrame;
+            if (_tickAccumulator > maxAccum)
+                _tickAccumulator = maxAccum;
+
             int ticksThisFrame = 0;
             while (_tickAccumulator >= tickInterval && ticksThisFrame < MaxTicksPerFrame)
             {
