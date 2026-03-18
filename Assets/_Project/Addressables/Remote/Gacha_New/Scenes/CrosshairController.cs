@@ -26,9 +26,12 @@ namespace CookApps.AutoBattler
 
         private bool _isEnabled;
         private bool _isDragging;
+        private Vector2 _prevPosition;
+        private bool _hasPrevPosition;
 
         private MotionHandle _showHandle;
         private MotionHandle _hideHandle;
+        private RectTransform[] _uiButtonRects;
 
         #endregion
 
@@ -99,8 +102,14 @@ namespace CookApps.AutoBattler
 
             if (inputBegan)
             {
+                // UI 버튼 영역 터치 시 크로스헤어 입력 무시
+                if (IsOverUIButton(inputPos)) return;
+
                 _isDragging = true;
+                _hasPrevPosition = false;
                 MoveToPosition(inputPos);
+                _prevPosition = _crosshairVisual.anchoredPosition;
+                _hasPrevPosition = true;
                 ShowCrosshair();
                 CheckOverlap();
             }
@@ -108,10 +117,12 @@ namespace CookApps.AutoBattler
             {
                 MoveToPosition(inputPos);
                 CheckOverlap();
+                _prevPosition = _crosshairVisual.anchoredPosition;
             }
             else if (inputEnded && _isDragging)
             {
                 _isDragging = false;
+                _hasPrevPosition = false;
                 HideCrosshair();
             }
         }
@@ -125,6 +136,11 @@ namespace CookApps.AutoBattler
         public void Initialize(GachaNewController controller)
         {
             _controller = controller;
+        }
+
+        public void SetUIButtonRects(RectTransform[] rects)
+        {
+            _uiButtonRects = rects;
         }
 
         public void SetEnabled(bool enabled)
@@ -149,6 +165,20 @@ namespace CookApps.AutoBattler
 
         #region Private Methods
 
+        private bool IsOverUIButton(Vector2 screenPos)
+        {
+            if (_uiButtonRects == null) return false;
+            Camera cam = _canvas != null ? _canvas.worldCamera : null;
+            for (int i = 0; i < _uiButtonRects.Length; i++)
+            {
+                if (_uiButtonRects[i] != null
+                    && _uiButtonRects[i].gameObject.activeInHierarchy
+                    && RectTransformUtility.RectangleContainsScreenPoint(_uiButtonRects[i], screenPos, cam))
+                    return true;
+            }
+            return false;
+        }
+
         private void MoveToPosition(Vector2 screenPos)
         {
             if (_crosshairVisual == null) return;
@@ -171,20 +201,46 @@ namespace CookApps.AutoBattler
             List<MarkController> marks = _controller.GetUnfoundMarks();
             if (marks == null) return;
 
+            Vector2 currentPos = _crosshairVisual.anchoredPosition;
+
             for (int i = 0; i < marks.Count; i++)
             {
                 MarkController mark = marks[i];
                 if (mark == null || mark.IsFound) continue;
 
-                float dist = Vector2.Distance(
-                    _crosshairVisual.anchoredPosition,
-                    mark.Position);
+                float dist;
+                if (_hasPrevPosition)
+                {
+                    // Line-sweep: 이전→현재 선분 위 최근접점과 마크 거리 비교
+                    Vector2 closest = ClosestPointOnSegment(_prevPosition, currentPos, mark.Position);
+                    dist = Vector2.Distance(closest, mark.Position);
+                }
+                else
+                {
+                    dist = Vector2.Distance(currentPos, mark.Position);
+                }
 
                 if (dist <= mark.DetectionRadius)
                 {
                     mark.Activate();
                 }
             }
+        }
+
+        /// <summary>
+        /// 선분(segA→segB) 위에서 point에 가장 가까운 점을 반환.
+        /// </summary>
+        private static Vector2 ClosestPointOnSegment(Vector2 segA, Vector2 segB, Vector2 point)
+        {
+            Vector2 ab = segB - segA;
+            float sqrLen = ab.sqrMagnitude;
+
+            // segA == segB (이동 없음)
+            if (sqrLen < 0.0001f) return segA;
+
+            float t = Vector2.Dot(point - segA, ab) / sqrLen;
+            t = Mathf.Clamp01(t);
+            return segA + ab * t;
         }
 
         private void ShowCrosshair()

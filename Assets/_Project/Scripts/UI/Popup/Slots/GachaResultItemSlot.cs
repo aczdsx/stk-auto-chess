@@ -78,8 +78,8 @@ namespace CookApps.AutoBattler
             [GradeType.RARE] = new GradeVisualData
             {
                 BgGroupColor      = ParseHexColor("#7287C2"),
-                ToneAdjustColor   = ParseHexColor("#69B4FF"),
-                GradientTopColor  = ParseHexColor("#B3D9FF"),
+                ToneAdjustColor   = ParseHexColor("#69B4FF40"),
+                GradientTopColor  = ParseHexColor("#B3D9FFBF"),
                 GradientBotColor  = ParseHexColor("#6A97F2"),
                 PieceGradientColor = ParseHexColor("#0095FF"),
                 SDStandSprite     = "UI_Gacha_Common_SD_Stand_R",
@@ -88,8 +88,8 @@ namespace CookApps.AutoBattler
             [GradeType.EPIC] = new GradeVisualData
             {
                 BgGroupColor      = ParseHexColor("#916CA9"),
-                ToneAdjustColor   = ParseHexColor("#CD69FF"),
-                GradientTopColor  = ParseHexColor("#E6B3FF"),
+                ToneAdjustColor   = ParseHexColor("#CD69FF40"),
+                GradientTopColor  = ParseHexColor("#E6B3FFBF"),
                 GradientBotColor  = ParseHexColor("#B84FEC"),
                 PieceGradientColor = ParseHexColor("#AA00FF"),
                 SDStandSprite     = "UI_Gacha_Common_SD_Stand_SR",
@@ -98,8 +98,8 @@ namespace CookApps.AutoBattler
             [GradeType.LEGENDARY] = new GradeVisualData
             {
                 BgGroupColor      = ParseHexColor("#DDA84B"),
-                ToneAdjustColor   = ParseHexColor("#FFC569"),
-                GradientTopColor  = ParseHexColor("#FFE5B3"),
+                ToneAdjustColor   = ParseHexColor("#FFC56940"),
+                GradientTopColor  = ParseHexColor("#FFE5B3BF"),
                 GradientBotColor  = ParseHexColor("#F29B5C"),
                 PieceGradientColor = ParseHexColor("#FFBA00"),
                 SDStandSprite     = "UI_Gacha_Common_SD_Stand_SSR",
