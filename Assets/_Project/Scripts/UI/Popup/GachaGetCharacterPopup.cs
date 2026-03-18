@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
@@ -57,6 +58,9 @@ namespace CookApps.AutoBattler
         [Header("Effect")]
         [SerializeField] private GameObject _effectGroup;
 
+        [Header("Animator")]
+        [SerializeField] private Animator _animator;
+
         [Header("Button")]
         [SerializeField] private CAButton _skipButton;
 
@@ -93,6 +97,13 @@ namespace CookApps.AutoBattler
             [GradeType.LEGENDARY] = "UI_Gacha_Common_SD_Stand_SSR",
         };
 
+        private static readonly Dictionary<GradeType, string> GradeAnimTriggerMap = new()
+        {
+            [GradeType.RARE]      = "R",
+            [GradeType.EPIC]      = "SR",
+            [GradeType.LEGENDARY] = "SSR",
+        };
+
         #endregion
 
         #region Unity Lifecycle
@@ -100,6 +111,28 @@ namespace CookApps.AutoBattler
         protected override void Awake()
         {
             base.Awake();
+
+            // 배경 터치 버튼: Inspector 미할당 시 이름으로 탐색
+            if (_bgTouchButton == null)
+            {
+                var bgTouch = transform.Find("Panel/BgTouchButton");
+                if (bgTouch != null)
+                    _bgTouchButton = bgTouch.GetComponent<CAButton>();
+            }
+
+            // 배경 터치 버튼을 Content 뒤(낮은 sibling)로 배치하여 다른 버튼 클릭을 방해하지 않도록 함
+            if (_bgTouchButton != null)
+            {
+                _bgTouchButton.transform.SetAsFirstSibling();
+
+                // alpha=0이면 CanvasRenderer가 메시를 컬링하여 depth=-1 → 레이캐스트 제외됨
+                // 극소 alpha로 설정하여 레이캐스트 수신 보장
+                var bgImg = _bgTouchButton.GetComponent<Image>();
+                if (bgImg != null)
+                    bgImg.color = new Color(0f, 0f, 0f, 0.004f);
+
+                DisableContentRaycastTargets();
+            }
 
             // SKIP 버튼: 시퀀스 모드에서 전체 스킵
             _skipButton
@@ -120,7 +153,7 @@ namespace CookApps.AutoBattler
                     .OnClickAsObservable()
                     .Subscribe(this, (_, self) =>
                     {
-                        if (self._isSequenceMode && self._characterShowElapsed >= 3f)
+                        if (self._isSequenceMode && self._characterShowElapsed >= 2f)
                             self.IsSkipPressed = true;
                     })
                     .AddTo(this);
@@ -245,6 +278,12 @@ namespace CookApps.AutoBattler
 
             // 9. 이펙트 그룹 — LEGENDARY만 활성화
             _effectGroup.SetActive(grade == GradeType.LEGENDARY);
+
+            // 10. 등급별 애니메이션 Trigger
+            if (_animator != null && GradeAnimTriggerMap.TryGetValue(grade, out var trigger))
+            {
+                _animator.SetTrigger(trigger);
+            }
         }
 
         private string GetSynergyName(SynergyType synergyType)
@@ -269,6 +308,26 @@ namespace CookApps.AutoBattler
             string prefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, prefabId);
             _sdHandle = Addressables.InstantiateAsync(prefabName, _sdPosTransform);
             await _sdHandle;
+        }
+
+        /// <summary>
+        /// Content 하위의 비버튼 Graphic들의 raycastTarget을 비활성화하여
+        /// 배경 터치 버튼이 클릭을 수신할 수 있도록 한다.
+        /// </summary>
+        private void DisableContentRaycastTargets()
+        {
+            var contentTransform = transform.Find("Panel/Content");
+            if (contentTransform == null) return;
+
+            var skipButtonTransform = _skipButton != null ? _skipButton.transform : null;
+            var graphics = contentTransform.GetComponentsInChildren<Graphic>(true);
+            for (int i = 0; i < graphics.Length; i++)
+            {
+                // ButtonSkip 하위 Graphic은 유지 (버튼 클릭 필요)
+                if (skipButtonTransform != null && graphics[i].transform.IsChildOf(skipButtonTransform))
+                    continue;
+                graphics[i].raycastTarget = false;
+            }
         }
 
         private void ReleaseResources()
