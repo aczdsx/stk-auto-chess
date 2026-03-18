@@ -83,9 +83,18 @@ namespace CookApps.AutoChess
                 $"team={team} ({col},{row}) hp={hp} atk={atk} range={range}");
         }
 
-        public static void LogMove(int combatId, int fromCol, int fromRow, int toCol, int toRow)
+        public static void LogMove(int combatId, int fromCol, int fromRow, int toCol, int toRow,
+            int targetId = -1, int bfsDist = -1)
         {
-            Log("MOVE", combatId, $"({fromCol},{fromRow})→({toCol},{toRow})");
+            string extra = "";
+            if (targetId >= 0) extra += $" tgt={targetId}";
+            if (bfsDist >= 0) extra += $" bfs={bfsDist}";
+            Log("MOVE", combatId, $"({fromCol},{fromRow})→({toCol},{toRow}){extra}");
+        }
+
+        public static void LogMoveWait(int combatId, int targetId, int dist, string reason)
+        {
+            Log("MOVE_WAIT", combatId, $"tgt={targetId} dist={dist} {reason}");
         }
 
         public static void LogBacklineJump(int combatId, int fromCol, int fromRow, int toCol, int toRow)
