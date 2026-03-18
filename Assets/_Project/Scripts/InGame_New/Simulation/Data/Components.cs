@@ -535,6 +535,7 @@ namespace CookApps.AutoChess
         public int CurrentMana;
         // ── 마나 리젠 ──
         public int ManaRegenPerSec;    // 초당 시간 리젠량
+        public int ManaRegenAccum;     // 매 프레임 누적 카운터 (tickRate 도달 시 1 충전)
         public int ManaGainOnAttack;   // 타격 시 마나 획득량
         public int ManaGainOnHit;      // 피격 시 마나 획득량
         public int ManaRegenRateBonus; // 마나 리젠 속도 보너스 % (버프/디버프 누적)
@@ -815,6 +816,7 @@ namespace CookApps.AutoChess
                 state.GridTiles[i] = CombatUnit.InvalidId;
             for (int i = 0; i < MaxProjectiles; i++)
                 state.Projectiles[i].IsActive = false;
+            state.NextProjectileId = 1; // 0은 뷰 레이어에서 무효 ID로 사용되므로 1부터 할당
 
             return state;
         }

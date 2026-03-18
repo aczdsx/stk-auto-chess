@@ -55,8 +55,8 @@ namespace CookApps.AutoChess
 
         // ── 마나 리젠 기본값 ──
         public int DefaultManaRegenPerSec = 10;
-        public int DefaultManaGainOnAttack = 10;
-        public int DefaultManaGainOnHit = 10;
+        public int DefaultManaGainOnAttack = 0;
+        public int DefaultManaGainOnHit = 0;
 
         // ── 전투 설정 ──
         public int BaseDamageOnLoss = 2;   // 패배 시 기본 데미지
