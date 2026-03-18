@@ -46,7 +46,7 @@ namespace CookApps.AutoChess
                 // 피격자 마나 충전
                 ChargeMana(ref target, target.ManaGainOnHit);
 
-                state.EventQueue?.PushUnitAttacked(attacker.SourceEntityId, target.SourceEntityId, finalDamage, isCrit, false);
+                state.EventQueue?.PushUnitAttacked(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
             }
             else
             {
@@ -67,7 +67,7 @@ namespace CookApps.AutoChess
                     state, attacker.CombatId, target.CombatId,
                     rawDamage, isCrit, DamageType.Physical, travelFrames);
 
-                state.EventQueue?.PushUnitAttacked(attacker.SourceEntityId, target.SourceEntityId, rawDamage, isCrit, true);
+                state.EventQueue?.PushUnitAttacked(attacker.CombatId, target.CombatId, rawDamage, isCrit, true);
             }
 
             // 공격자 마나 충전
@@ -128,7 +128,7 @@ namespace CookApps.AutoChess
 
             // View에 실제 데미지 전달 (isPreTimed: View가 딜레이 없이 즉시 표시)
             state.EventQueue?.PushUnitAttacked(
-                attacker.SourceEntityId, target.SourceEntityId, finalDamage, isCrit, false, isPreTimed: true);
+                attacker.CombatId, target.CombatId, finalDamage, isCrit, false, isPreTimed: true);
 
             // Trait: 공격 후 콜백
             if (attackerIndex >= 0)

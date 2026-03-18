@@ -194,7 +194,9 @@ namespace CookApps.AutoBattler
                 SetFlipOrNot();
 
             if (prevCachedFront != _cachedFront && _animator != null)
-                _animator.SetBool(IsFront, _cachedFront);
+            {
+                PlayAnimation(_currentAnimationKey);
+            }
         }
 
         public void LookAt(Direction dir)
@@ -224,7 +226,9 @@ namespace CookApps.AutoBattler
                 SetFlipOrNot();
 
             if (prevCachedFront != _cachedFront && _animator != null)
-                _animator.SetBool(IsFront, _cachedFront);
+            {
+                PlayAnimation(_currentAnimationKey);
+            }
         }
 
         public AnimationClip PlayAnimation(AnimationKey animationKey, bool isLoop = false)

@@ -196,9 +196,15 @@ namespace CookApps.AutoChess.View
                         view.SetCombatState(unit.State, unit.AttackSpeed);
 
                         // 이동 중이면 이동 방향, 아니면 타겟 방향 바라보기
-                        if (unit.IsMoving && unit.MoveDuration > 0)
+                        if (unit.IsMoving && unit.MoveDuration > 0 && !unit.IsKnockbackMoving)
                         {
                             view.UpdateFacing(destPos);
+
+                            if (CombatLogger.Enabled)
+                                CombatLogger.LogFacing(unit.CombatId, "MOVE",
+                                    unit.MoveFromCol, unit.MoveFromRow, unit.GridCol, unit.GridRow,
+                                    worldPos.x, worldPos.z, destPos.x, destPos.z,
+                                    view.DebugFlipX, view.DebugFront);
                         }
                         else if (unit.CurrentTargetId != CombatUnit.InvalidId)
                         {
@@ -211,6 +217,12 @@ namespace CookApps.AutoChess.View
                                         target.SizeW > 0 ? target.SizeW : (byte)1,
                                         target.SizeH > 0 ? target.SizeH : (byte)1);
                                 view.UpdateFacing(targetPos);
+
+                                if (CombatLogger.Enabled)
+                                    CombatLogger.LogFacing(unit.CombatId, "IDLE",
+                                        unit.GridCol, unit.GridRow, target.GridCol, target.GridRow,
+                                        worldPos.x, worldPos.z, targetPos.x, targetPos.z,
+                                        view.DebugFlipX, view.DebugFront);
                             }
                         }
                     }

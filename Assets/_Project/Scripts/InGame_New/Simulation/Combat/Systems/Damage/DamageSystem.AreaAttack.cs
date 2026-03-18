@@ -222,7 +222,7 @@ namespace CookApps.AutoChess
             ApplyLifeSteal(ref attacker, finalDamage);
             ChargeMana(ref unit, unit.ManaGainOnHit);
             // isPreTimed=true: 시뮬레이션에서 키프레임 타이밍에 맞춰 발행 → 뷰는 즉시 표시
-            state.EventQueue?.PushUnitAttacked(attacker.SourceEntityId, unit.SourceEntityId, finalDamage, isCrit, false, isPreTimed: true);
+            state.EventQueue?.PushUnitAttacked(attacker.CombatId, unit.CombatId, finalDamage, isCrit, false, isPreTimed: true);
         }
 
         private static int Sign(int value)
