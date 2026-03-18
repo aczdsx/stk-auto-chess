@@ -191,6 +191,10 @@ namespace CookApps.AutoChess
         /// </summary>
         public virtual bool HasProjectile => false;
 
+        /// <summary>첫 번째 효과 발동까지의 프레임 수 (SkillHitFrames[0] 기반)</summary>
+        public int FirstEffectFrame => SkillHitFrames != null && SkillHitFrames.Length > 0
+            ? SkillHitFrames[0] : 0;
+
         /// <summary>채널링 틱 처리. false 반환 시 채널링 종료.</summary>
         public virtual bool OnChannelTick(CombatMatchState state, ref CombatUnit caster, ref DeterministicRNG rng)
         {

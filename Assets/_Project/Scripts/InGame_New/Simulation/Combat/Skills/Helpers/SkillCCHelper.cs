@@ -3,6 +3,42 @@ namespace CookApps.AutoChess
     /// <summary>CC 적용 헬퍼</summary>
     public static class SkillCCHelper
     {
+        /// <summary>
+        /// 스킬 시전 중 CC로 중단될 때 처리.
+        /// 첫 효과 키프레임 이전이면 마나 복원, 이후면 소모 유지 (채널링만 중단).
+        ///
+        /// ■ Instant (SkillCastTimer 카운트다운): CastTimer > 0 → Execute 전 → 마나 복원
+        /// ■ Channeling/DelayedApply (SkillCastTimer 경과 카운터):
+        ///   경과 프레임 < FirstEffectFrame → 효과 발동 전 → 마나 복원
+        /// </summary>
+        private static void CancelSkillCasting(CombatMatchState state, ref CombatUnit target)
+        {
+            if (target.State != CombatState.CastingSkill) return;
+
+            bool shouldRestoreMana;
+            int idx = state.FindUnitIndex(target.CombatId);
+            var skill = idx >= 0 ? state.Skills[idx] : null;
+
+            if (skill != null && skill.IsChanneling)
+            {
+                // 채널링: SkillCastTimer = 경과 프레임 (0부터 ++), FirstEffectFrame = 첫 효과 키프레임
+                shouldRestoreMana = skill.FirstEffectFrame <= 0
+                    || target.SkillCastTimer < skill.FirstEffectFrame;
+            }
+            else
+            {
+                // Instant: SkillCastTimer = 남은 프레임 (castFrames부터 --)
+                shouldRestoreMana = target.SkillCastTimer > 0;
+            }
+
+            if (shouldRestoreMana)
+                target.CurrentMana = target.MaxMana;
+
+            target.SkillCastTimer = 0;
+            target.State = CombatState.Idle;
+            target.CurrentTargetId = CombatUnit.InvalidId;
+        }
+
         /// <summary>행동 불능(Immobilizing) CC인지 판별. Stun/Freeze/Airborne만 해당.</summary>
         public static bool IsImmobilizing(CrowdControlType type)
             => type == CrowdControlType.Stun
@@ -62,6 +98,9 @@ namespace CookApps.AutoChess
                     state.EventQueue?.PushCCRemoved(target.CombatId, oldVfx);
             }
 
+            // 스킬 시전 중이면 마나 복원 후 취소
+            CancelSkillCasting(state, ref target);
+
             target.ActiveCC = type;
             target.CCRemainingFrames = durationFrames;
             target.State = CombatState.CrowdControlled;
@@ -89,6 +128,9 @@ namespace CookApps.AutoChess
             int immuneIdx = state.FindUnitIndex(target.CombatId);
             if (immuneIdx >= 0 && StatusEffectSystem.HasImmunity(state, immuneIdx, StatusEffectType.CCImmunity))
                 return 0;
+
+            // 스킬 시전 중이면 마나 복원 후 취소
+            CancelSkillCasting(state, ref target);
 
             byte sizeW = target.SizeW > 0 ? target.SizeW : (byte)1;
             byte sizeH = target.SizeH > 0 ? target.SizeH : (byte)1;

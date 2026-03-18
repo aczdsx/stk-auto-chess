@@ -27,6 +27,15 @@ namespace CookApps.AutoChess.View
         private readonly List<ActiveProjectile> _activeProjectiles = new();
         private readonly List<ActiveProjectile> _projectilesToRemove = new();
 
+        /// <summary>투사체 소멸 시 View 동작</summary>
+        private enum ProjectileExpireBehavior : byte
+        {
+            /// <summary>목적지 도달 후 즉시 제거</summary>
+            DestroyOnArrival,
+            /// <summary>진행 방향으로 추가 비행 후 제거 (Linear 관통 투사체용)</summary>
+            FlyThrough,
+        }
+
         private struct ActiveProjectile
         {
             public int ProjectileId;
@@ -36,6 +45,7 @@ namespace CookApps.AutoChess.View
             public TrailRenderer[] Trails;
             public GameObject RawGo; // InGameVfx 없는 fallback VFX용
             public float MoveSpeed; // 타일 간 이동 속도 (0이면 기본 20f)
+            public ProjectileExpireBehavior ExpireBehavior;
         }
 
         private readonly Dictionary<int, int> _projectileIdToIndex = new();
@@ -502,8 +512,9 @@ namespace CookApps.AutoChess.View
             {
                 ap.ProjectileId = 0;
 
-                // Linear 투사체: 보드 밖으로 추가 비행하여 자연스럽게 사라지도록 목적지 연장
-                if (ap.Movement is InGameVfxMovementLinear linearMov)
+                // FlyThrough: 진행 방향으로 추가 비행 후 제거
+                if (ap.ExpireBehavior == ProjectileExpireBehavior.FlyThrough
+                    && ap.Movement is InGameVfxMovementLinear linearMov)
                 {
                     var cur = linearMov.CurrentPosition;
                     var dest = linearMov.TargetPosition;
@@ -852,12 +863,30 @@ namespace CookApps.AutoChess.View
                 if (worldDir != Vector3.zero)
                     go.transform.rotation = Quaternion.LookRotation(worldDir) * Quaternion.Euler(0, -90f, 0);
 
-                // projectileId로 추적하여 ProjectileMoved/Expired에서 위치 제어
+                // Movement를 붙여서 FlyThrough 지원
+                var movement = InGameVfxMovementPool.Get<InGameVfxMovementLinear>();
+                bool isContinuous = speed < DefaultProjectileSpeed;
+                if (isContinuous)
+                {
+                    float tileDist = Vector3.Distance(startWorldPos, nextTilePos);
+                    int maxTiles = Mathf.Max(BoardHelper.CombatWidth, BoardHelper.CombatHeight);
+                    Vector3 farDest = startWorldPos + worldDir * (tileDist * maxTiles);
+                    movement.SetData(startWorldPos, farDest, speed);
+                }
+                else
+                {
+                    movement.SetData(startWorldPos, nextTilePos, speed);
+                }
+
                 var ap = new ActiveProjectile
                 {
                     ProjectileId = projectileId,
                     RawGo = go,
+                    Movement = movement,
+                    Particles = go.GetComponentsInChildren<ParticleSystem>(),
+                    Trails = go.GetComponentsInChildren<TrailRenderer>(),
                     MoveSpeed = speed,
+                    ExpireBehavior = ProjectileExpireBehavior.FlyThrough,
                 };
                 _activeProjectiles.Add(ap);
                 _projectileIdToIndex[projectileId] = _activeProjectiles.Count - 1;
@@ -891,6 +920,7 @@ namespace CookApps.AutoChess.View
                 Particles = vfx.GetComponentsInChildren<ParticleSystem>(),
                 Trails = vfx.GetComponentsInChildren<TrailRenderer>(),
                 MoveSpeed = moveSpeed > 0f ? moveSpeed : DefaultProjectileSpeed,
+                ExpireBehavior = ProjectileExpireBehavior.FlyThrough,
             };
             _activeProjectiles.Add(ap);
             if (projectileId != 0)
@@ -960,6 +990,10 @@ namespace CookApps.AutoChess.View
             {
                 ap.Vfx.Clear();
                 Object.Destroy(ap.Vfx.CachedGo);
+            }
+            if (ap.RawGo != null)
+            {
+                Object.Destroy(ap.RawGo);
             }
         }
 
@@ -1072,9 +1106,12 @@ namespace CookApps.AutoChess.View
             for (int i = 0; i < _activeProjectiles.Count; i++)
             {
                 var ap = _activeProjectiles[i];
-                if (ap.Movement == null || ap.Vfx == null) continue;
+                if (ap.Movement == null) continue;
                 ap.Movement.ManagedUpdate(dt);
-                ap.Vfx.CachedTr.position = ap.Movement.CurrentPosition;
+                if (ap.Vfx != null)
+                    ap.Vfx.CachedTr.position = ap.Movement.CurrentPosition;
+                else if (ap.RawGo != null)
+                    ap.RawGo.transform.position = ap.Movement.CurrentPosition;
             }
 
             // 도착한 투사체 → 파티클 즉시 제거, 트레일만 페이드아웃 대기

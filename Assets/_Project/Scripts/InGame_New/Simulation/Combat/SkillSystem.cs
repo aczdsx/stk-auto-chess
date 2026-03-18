@@ -106,6 +106,7 @@ namespace CookApps.AutoChess
                 if (skill.IsChanneling)
                 {
                     unit.State = CombatState.CastingSkill;
+                    unit.SkillCastTimer = 0; // 채널링 경과 카운터 초기화
                     unit.CurrentTargetId = targetId;
                 }
                 else
@@ -129,6 +130,7 @@ namespace CookApps.AutoChess
             // 채널링 스킬: 매 틱마다 OnChannelTick 호출
             if (skill != null && skill.IsChanneling)
             {
+                unit.SkillCastTimer++; // 채널링 경과 프레임 (첫 효과 발동 시점 판단용)
                 bool continuing = skill.OnChannelTick(state, ref unit, ref rng);
                 if (!continuing)
                 {
