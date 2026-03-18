@@ -168,12 +168,25 @@ namespace CookApps.AutoChess
                 attacker.AttackRange);
         }
 
-        /// <summary>타겟 갱신: 유효하지 않으면 새 타겟 탐색</summary>
+        /// <summary>타겟 갱신: 유효하지 않으면 새 타겟 탐색, 이동 중이면 더 가까운 적으로 전환</summary>
         public static void RefreshTarget(CombatMatchState state, ref CombatUnit unit)
         {
             if (!IsTargetValid(state, unit.CurrentTargetId))
             {
                 unit.CurrentTargetId = FindNearestEnemy(state, ref unit);
+                return;
+            }
+
+            // 사거리 밖(이동 중)이면 더 가까운 적이 있는지 확인
+            int targetIdx = state.FindUnitIndex(unit.CurrentTargetId);
+            if (targetIdx < 0) return;
+
+            ref var currentTarget = ref state.Units[targetIdx];
+            if (!IsTargetInRange(ref unit, ref currentTarget))
+            {
+                int nearestId = FindNearestEnemy(state, ref unit);
+                if (nearestId != CombatUnit.InvalidId)
+                    unit.CurrentTargetId = nearestId;
             }
         }
     }

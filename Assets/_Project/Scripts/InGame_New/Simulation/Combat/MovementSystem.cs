@@ -124,7 +124,7 @@ namespace CookApps.AutoChess
                 unit.GridCol, unit.GridRow, sizeW, sizeH,
                 target.GridCol, target.GridRow, tSizeW, tSizeH);
 
-            if (currentDist <= unit.AttackRange + 2 && target.IsMoving)
+            if (currentDist <= unit.AttackRange + 1 && target.IsMoving)
             {
                 int fromDist = BoardHelper.MinManhattanDistance(
                     unit.GridCol, unit.GridRow, sizeW, sizeH,
