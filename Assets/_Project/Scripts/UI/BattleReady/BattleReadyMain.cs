@@ -90,6 +90,7 @@ namespace CookApps.AutoBattler
 
         private bool _isIdleRewardFullState = false;
         private ElpisModel elpisDataBridge;
+        private UniTaskCompletionSource preEnterTaskSource = new();
 
         // Idle Combat (InGame_New)
         private IdleCombatRunner _idleCombatRunner;
@@ -131,12 +132,26 @@ namespace CookApps.AutoBattler
         protected override void OnPreEnter(object param)
         {
             base.OnPreEnter(param);
-            PreEnterAsync().Forget();
+            preEnterTaskSource = new UniTaskCompletionSource();
+            PreEnterAsync().ContinueWith(() => preEnterTaskSource.TrySetResult()).Forget();
             SceneUILayerManager.OnUITransitionEvent += OnUITransition;
+        }
+
+        protected override void StartEnterAnimation(Action<UILayer> endCallback)
+        {
+            WaitAndInvokeCallback(endCallback).Forget();
+        }
+
+        private async UniTask WaitAndInvokeCallback(Action<UILayer> endCallback)
+        {
+            await preEnterTaskSource.Task;
+            endCallback?.Invoke(this);
         }
 
         private async UniTask PreEnterAsync()
         {
+            baseAnimator.Play("IdleExit");
+
             elpisDataBridge = ServerDataManager.Instance.Elpis;
             var simulationCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeSimulationCenter);
             _idleRewardButton.gameObject.SetActive(simulationCenter != null && simulationCenter.Level > 0);
@@ -176,6 +191,9 @@ namespace CookApps.AutoBattler
             // UI 세팅 완료 후 페이드 아웃
             await SceneTransition.FadeOutAsync();
 
+            // Enter 애니메이션 재생
+            // await PlayEnterAnimationAsync();
+
             TutorialManager.Instance.HandleTutorialAction(TutorialTriggerType.BATTLE_READY, "0");
         }
 
@@ -201,6 +219,24 @@ namespace CookApps.AutoBattler
         private void OnBecameTop()
         {
             NetManager.Instance.GuideMission.GetAsync().Forget();
+            PlayEnterAnimation();
+        }
+
+        public async UniTask PlayEnterAnimationAsync()
+        {
+            var tcs = new UniTaskCompletionSource();
+            base.StartEnterAnimation(_ => tcs.TrySetResult());
+            await tcs.Task;
+        }
+
+        public void PlayEnterAnimation()
+        {
+            PlayEnterAnimationAsync().Forget();
+        }
+
+        public void PlayExitAnimation()
+        {
+            StartExitAnimation(null);
         }
 
         public void RefreshUI(LobbyMainRefreshType refreshType)

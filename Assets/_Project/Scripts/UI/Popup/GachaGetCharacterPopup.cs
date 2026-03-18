@@ -115,7 +115,7 @@ namespace CookApps.AutoBattler
             // 배경 터치 버튼: Inspector 미할당 시 이름으로 탐색
             if (_bgTouchButton == null)
             {
-                var bgTouch = transform.Find("Panel/BgTouchButton");
+                var bgTouch = transform.Find("BgTouchButton");
                 if (bgTouch != null)
                     _bgTouchButton = bgTouch.GetComponent<CAButton>();
             }
@@ -300,7 +300,13 @@ namespace CookApps.AutoBattler
         {
             string prefabName = string.Format(Defines.CHARACTER_ILLUST_PREFEAB_NAME_FORMAT, prefabId);
             _ldHandle = Addressables.InstantiateAsync(prefabName, _ldPosTransform);
-            await _ldHandle;
+            var go = await _ldHandle;
+            if (go != null)
+            {
+                var graphics = go.GetComponentsInChildren<Graphic>(true);
+                for (int i = 0; i < graphics.Length; i++)
+                    graphics[i].raycastTarget = false;
+            }
         }
 
         private async UniTaskVoid LoadSDCharacter(int prefabId)
@@ -311,20 +317,22 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// Content 하위의 비버튼 Graphic들의 raycastTarget을 비활성화하여
+        /// 전체 하위의 비버튼 Graphic들의 raycastTarget을 비활성화하여
         /// 배경 터치 버튼이 클릭을 수신할 수 있도록 한다.
+        /// ButtonSkip과 BgTouchButton의 Graphic만 유지.
         /// </summary>
         private void DisableContentRaycastTargets()
         {
-            var contentTransform = transform.Find("Panel/Content");
-            if (contentTransform == null) return;
-
             var skipButtonTransform = _skipButton != null ? _skipButton.transform : null;
-            var graphics = contentTransform.GetComponentsInChildren<Graphic>(true);
+            var bgTouchTransform = _bgTouchButton != null ? _bgTouchButton.transform : null;
+            var graphics = GetComponentsInChildren<Graphic>(true);
             for (int i = 0; i < graphics.Length; i++)
             {
                 // ButtonSkip 하위 Graphic은 유지 (버튼 클릭 필요)
                 if (skipButtonTransform != null && graphics[i].transform.IsChildOf(skipButtonTransform))
+                    continue;
+                // BgTouchButton 하위 Graphic은 유지 (배경 터치 클릭 필요)
+                if (bgTouchTransform != null && graphics[i].transform.IsChildOf(bgTouchTransform))
                     continue;
                 graphics[i].raycastTarget = false;
             }
