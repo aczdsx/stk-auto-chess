@@ -98,6 +98,7 @@ namespace CookApps.AutoChess.View
             _atkToggle = false;
             _pendingAttackAnimKey = AnimationKey.ATK;
             _pendingAttackPrepared = false;
+            _targetPosition = transform.position;
             _isActive = true;
             ReleaseHpBar();
             gameObject.SetActive(true);

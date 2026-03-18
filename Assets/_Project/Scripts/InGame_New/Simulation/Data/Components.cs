@@ -535,6 +535,7 @@ namespace CookApps.AutoChess
         public int CurrentMana;
         // ── 마나 리젠 ──
         public int ManaRegenPerSec;    // 초당 시간 리젠량
+        public int ManaRegenAccum;     // 매 프레임 누적 카운터 (tickRate 도달 시 1 충전)
         public int ManaGainOnAttack;   // 타격 시 마나 획득량
         public int ManaGainOnHit;      // 피격 시 마나 획득량
         public int ManaRegenRateBonus; // 마나 리젠 속도 보너스 % (버프/디버프 누적)
@@ -761,8 +762,8 @@ namespace CookApps.AutoChess
         public int UnitCount;
         public int NextCombatId;
 
-        // 그리드
-        public int[] GridTiles;        // [CombatGrid.Size] = CombatId
+        // 그리드 (크기는 BoardHelper.CombatWidth/CombatHeight 참조)
+        public int[] GridTiles;
 
         // 투사체
         public Projectile[] Projectiles; // [MaxProjectiles]
@@ -790,6 +791,7 @@ namespace CookApps.AutoChess
 
         public static CombatMatchState Create(byte matchIndex, byte playerA, byte playerB)
         {
+            int gridSize = BoardHelper.CombatWidth * BoardHelper.CombatHeight;
             var state = new CombatMatchState
             {
                 MatchIndex = matchIndex,
@@ -797,7 +799,7 @@ namespace CookApps.AutoChess
                 PlayerB = playerB,
                 Winner = 0xFF,
                 Units = new CombatUnit[MaxCombatUnits],
-                GridTiles = new int[CombatGrid.Size],
+                GridTiles = new int[gridSize],
                 Projectiles = new Projectile[MaxProjectiles],
                 StatusEffects = new StatusEffect[MaxStatusEffects],
                 Skills = new SimSkillBase[MaxCombatUnits],
@@ -810,10 +812,11 @@ namespace CookApps.AutoChess
 
             for (int i = 0; i < MaxCombatUnits; i++)
                 state.Units[i].CombatId = CombatUnit.InvalidId;
-            for (int i = 0; i < CombatGrid.Size; i++)
+            for (int i = 0; i < gridSize; i++)
                 state.GridTiles[i] = CombatUnit.InvalidId;
             for (int i = 0; i < MaxProjectiles; i++)
                 state.Projectiles[i].IsActive = false;
+            state.NextProjectileId = 1; // 0은 뷰 레이어에서 무효 ID로 사용되므로 1부터 할당
 
             return state;
         }
@@ -833,21 +836,21 @@ namespace CookApps.AutoChess
         /// <summary>그리드 위치의 유닛 CombatId 조회</summary>
         public int GetUnitAtGrid(int col, int row)
         {
-            if (col < 0 || col >= CombatGrid.Width || row < 0 || row >= CombatGrid.Height)
+            if (col < 0 || col >= BoardHelper.CombatWidth || row < 0 || row >= BoardHelper.CombatHeight)
                 return CombatUnit.InvalidId;
-            return GridTiles[col + row * CombatGrid.Width];
+            return GridTiles[col + row * BoardHelper.CombatWidth];
         }
 
         /// <summary>그리드에 유닛 배치</summary>
         public void SetGrid(int col, int row, int combatId)
         {
-            GridTiles[col + row * CombatGrid.Width] = combatId;
+            GridTiles[col + row * BoardHelper.CombatWidth] = combatId;
         }
 
         /// <summary>그리드에서 유닛 제거</summary>
         public void ClearGrid(int col, int row)
         {
-            GridTiles[col + row * CombatGrid.Width] = CombatUnit.InvalidId;
+            GridTiles[col + row * BoardHelper.CombatWidth] = CombatUnit.InvalidId;
         }
 
         // ── Multi-Tile 헬퍼 ──

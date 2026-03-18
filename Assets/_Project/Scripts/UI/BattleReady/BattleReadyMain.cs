@@ -7,6 +7,7 @@ using CookApps.AutoChess.View;
 using CookApps.BattleSystem;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Text;
 using Cysharp.Threading.Tasks;
 using R3;
 using Tech.Hive.V1;
@@ -68,6 +69,20 @@ namespace CookApps.AutoBattler
         [SerializeField] private TextMeshProUGUI _idleRewardStateText;
         [SerializeField] private ParticleSystem _dropFx;
 
+        [Header("User Info")]
+        [SerializeField] private UserInfoPanel userInfoPanel;
+
+        [Header("Lobby Buttons")]
+        [SerializeField] private CAButton dungeonButton;
+        [SerializeField] private CAButton characterButton;
+        [SerializeField] private CAButton hubbleButton;
+        [SerializeField] private CAButton shopButton;
+        [SerializeField] private CAButton summonButton;
+        [SerializeField] private CAButton consumeApEventButton;
+        [SerializeField] private CAButton sessionTimeEventButton;
+        [SerializeField] private CAButton inventoryButton;
+        [SerializeField] private CAButton questButton;
+        [SerializeField] private TextMeshProUGUI _stageNameText;
 
         private List<LobbyBottomStageSlot> _stageSlotList = new();
 
@@ -97,6 +112,16 @@ namespace CookApps.AutoBattler
             _playButton.OnClickAsObservable().SubscribeAwait(this, (_, self, _) => self.OnClickStartButtonAsync(), AwaitOperation.Drop).AddTo(this);
             _stageSelectButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickChapterStageButton()).AddTo(this);
             _idleRewardButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickIdleRewardButton()).AddTo(this);
+
+            dungeonButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickDungeonButton()).AddTo(this);
+            characterButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickCharacterCollectionButton()).AddTo(this);
+            hubbleButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickHubbleButton()).AddTo(this);
+            shopButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickShopButton()).AddTo(this);
+            summonButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickGachaButton()).AddTo(this);
+            consumeApEventButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickConsumeAPEventButton()).AddTo(this);
+            sessionTimeEventButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickSessionEventButton()).AddTo(this);
+            inventoryButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickInventoryButton()).AddTo(this);
+            questButton.OnClickAsObservable().Subscribe(this, (_, self) => self.OnClickQuestButton()).AddTo(this);
         }
 
         protected override void OnBackButton(ref bool offPrevUI)
@@ -115,6 +140,10 @@ namespace CookApps.AutoBattler
             elpisDataBridge = ServerDataManager.Instance.Elpis;
             var simulationCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeSimulationCenter);
             _idleRewardButton.gameObject.SetActive(simulationCenter != null && simulationCenter.Level > 0);
+
+            userInfoPanel?.Initialize();
+            _guideMissionSlot?.InitGuideMissionSlot();
+            SetStageText();
 
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
@@ -235,6 +264,13 @@ namespace CookApps.AutoBattler
         {
             SetUserInfoLayer();
             SetBottomStageUI();
+        }
+
+        private void SetStageText()
+        {
+            if (_stageNameText == null) return;
+            var currentStageData = SpecDataManager.Instance.GetStageData(BattleModel.GetTargetStageId());
+            _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
         }
 
         private void SetUserInfoLayer()
@@ -485,7 +521,7 @@ namespace CookApps.AutoBattler
 
             // 현재 진행중인 가이드 미션으로 ENTER_ELPIS_NANI 트리거 확인
             var guideMissionId = (int)ServerDataManager.Instance.GuideMission.GuideMissionId;
-            SceneLoading.GoToNextSceneWithElpisEnterTrigger("Lobby", guideMissionId);
+            SceneLoading.GoToNextSceneWithElpisEnterTrigger("BattleReady", guideMissionId);
         }
 
         private async UniTask OnClickStartButtonAsync()
@@ -562,6 +598,50 @@ namespace CookApps.AutoBattler
         private void OnClickIdleRewardButton()
         {
             SceneUILayerManager.Instance.PushUILayerAsync<IdleRewardPopup>().Forget();
+        }
+
+        public void OnClickDungeonButton()
+        {
+            // CLEAR_BABEL 타입의 가이드 미션 중 가장 낮은 order를 가진 미션 찾기
+            var guideMissionInfos = SpecDataManager.Instance.GuideMissionInfo.All;
+            int minOrder = int.MaxValue;
+            int requiredMissionId = 0;
+
+            for (int i = 0; i < guideMissionInfos.Count; i++)
+            {
+                var missionInfo = guideMissionInfos[i];
+                if (missionInfo.guide_mission_type == GuideMissionType.CLEAR_BABEL && missionInfo.order < minOrder)
+                {
+                    minOrder = missionInfo.order;
+                    requiredMissionId = missionInfo.id;
+                }
+            }
+
+            // 유저의 현재 가이드미션 ID와 비교
+            var userGuideMissionId = ServerDataManager.Instance.GuideMission.GuideMissionId;
+
+            if (userGuideMissionId < requiredMissionId)
+            {
+                ToastManager.Instance.ShowToastByTokenKey("GUIDE_MISSION_ALERT_MSG_2");
+                return;
+            }
+
+            SceneUILayerManager.Instance.PushUILayerAsync<DungeonTrialPopup>().Forget();
+        }
+
+        private void OnClickHubbleButton()
+        {
+            // TODO: 허블 버튼 클릭 처리
+        }
+
+        private void OnClickShopButton()
+        {
+            // TODO: 상점 버튼 클릭 처리
+        }
+
+        private void OnClickInventoryButton()
+        {
+            // TODO: 인벤토리 버튼 클릭 처리
         }
 
         private void OnClickQuestButton()
@@ -734,7 +814,8 @@ namespace CookApps.AutoBattler
             if (_idleCombatRunner == null) return;
 
             Debug.Log("[BattleReadyMain] IdleCombatRunner.StartIdleCombat 호출");
-            _idleCombatRunner.StartIdleCombat(playerSpecIds, monsterList, maxEnemyCount);
+            stageSpecData.GetBoardSize(out int boardWidth, out int boardHeight);
+            _idleCombatRunner.StartIdleCombat(playerSpecIds, monsterList, maxEnemyCount, boardWidth, boardHeight);
             Debug.Log("[BattleReadyMain] IdleCombat 시작 완료");
         }
 

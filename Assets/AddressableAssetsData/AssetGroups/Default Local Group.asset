@@ -26,6 +26,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0c135ef5eab5284f97b222476d87807
+    m_Address: Assets/_Project/Addressables/Remote/0. Scenes/Gacha_New.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f94abf99adf954845a7e308b788b1a5d
     m_Address: Assets/_Project/Splash_STK/Prefab/SplashUI.prefab
     m_ReadOnly: 0

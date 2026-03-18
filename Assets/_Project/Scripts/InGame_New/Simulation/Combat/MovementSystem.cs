@@ -6,9 +6,10 @@ namespace CookApps.AutoChess
     /// </summary>
     public static class MovementSystem
     {
-        // BFS distance map 재사용 버퍼 (GC 없음)
-        private static readonly int[] _distMap = new int[CombatGrid.Size];
-        private static readonly int[] _bfsQueue = new int[CombatGrid.Size * 2]; // (col, row) 쌍
+        // BFS distance map 재사용 버퍼 (최대 크기로 할당, GC 없음)
+        private const int MaxGridSize = 256; // 충분한 최대 크기
+        private static readonly int[] _distMap = new int[MaxGridSize];
+        private static readonly int[] _bfsQueue = new int[MaxGridSize * 2]; // (col, row) 쌍
 
         /// <summary>
         /// 타겟 풋프린트 기준 역방향 BFS distance map 생성.
@@ -18,9 +19,11 @@ namespace CookApps.AutoChess
             int targetCol, int targetRow, byte targetSizeW, byte targetSizeH,
             int selfCombatId)
         {
-            for (int i = 0; i < CombatGrid.Size; i++)
+            int gridSize = BoardHelper.CombatWidth * BoardHelper.CombatHeight;
+            for (int i = 0; i < gridSize; i++)
                 _distMap[i] = int.MaxValue;
 
+            int gw = BoardHelper.CombatWidth;
             int head = 0, tail = 0;
 
             // 타겟 풋프린트 + 인접 1칸 범위를 순회
@@ -32,17 +35,15 @@ namespace CookApps.AutoChess
                     int r = targetRow + dr;
                     if (!BoardHelper.IsValidCombatPosition(c, r)) continue;
 
-                    int idx = c + r * CombatGrid.Width;
+                    int idx = c + r * gw;
                     bool isInside = dc >= 0 && dc < targetSizeW && dr >= 0 && dr < targetSizeH;
 
                     if (isInside)
                     {
-                        // 타겟 풋프린트 내부: 거리 0 (통과 불가, 사거리 판정용)
                         _distMap[idx] = 0;
                         continue;
                     }
 
-                    // 인접 타일: 비어있으면 거리 1로 BFS 시작점
                     int occupant = state.GridTiles[idx];
                     if (occupant != CombatUnit.InvalidId && occupant != selfCombatId) continue;
 
@@ -57,7 +58,7 @@ namespace CookApps.AutoChess
             {
                 int curCol = _bfsQueue[head++];
                 int curRow = _bfsQueue[head++];
-                int curDist = _distMap[curCol + curRow * CombatGrid.Width];
+                int curDist = _distMap[curCol + curRow * gw];
                 int nextDist = curDist + 1;
 
                 for (int d = 0; d < 4; d++)
@@ -66,7 +67,7 @@ namespace CookApps.AutoChess
                     int nr = curRow + BoardHelper.DirRow4[d];
                     if (!BoardHelper.IsValidCombatPosition(nc, nr)) continue;
 
-                    int nIdx = nc + nr * CombatGrid.Width;
+                    int nIdx = nc + nr * gw;
                     if (_distMap[nIdx] <= nextDist) continue;
 
                     int occupant = state.GridTiles[nIdx];
@@ -85,14 +86,15 @@ namespace CookApps.AutoChess
         /// </summary>
         private static int GetFootprintDistance(int col, int row, byte sizeW, byte sizeH)
         {
+            int gw = BoardHelper.CombatWidth;
             if (sizeW == 1 && sizeH == 1)
-                return _distMap[col + row * CombatGrid.Width];
+                return _distMap[col + row * gw];
 
             int min = int.MaxValue;
             for (int dc = 0; dc < sizeW; dc++)
                 for (int dr = 0; dr < sizeH; dr++)
                 {
-                    int idx = (col + dc) + (row + dr) * CombatGrid.Width;
+                    int idx = (col + dc) + (row + dr) * gw;
                     if (_distMap[idx] < min) min = _distMap[idx];
                 }
             return min;
@@ -230,14 +232,18 @@ namespace CookApps.AutoChess
             int bestRow = -1;
             int bestEnemyDist = int.MaxValue;
 
-            for (int expandRow = 0; expandRow < CombatGrid.Height; expandRow++)
+            int gh = BoardHelper.CombatHeight;
+            int gw = BoardHelper.CombatWidth;
+            int halfHeight = gh / 2;
+
+            for (int expandRow = 0; expandRow < gh; expandRow++)
             {
-                // 후열부터 확장: row7 → row6 → ... 또는 row0 → row1 → ...
-                int checkRow = unit.GridRow < 4
-                    ? CombatGrid.Height - 1 - expandRow
+                // 후열부터 확장: 상대 진영 끝 → 내 진영 방향
+                int checkRow = unit.GridRow < halfHeight
+                    ? gh - 1 - expandRow
                     : expandRow;
 
-                for (int col = 0; col <= CombatGrid.Width - sizeW; col++)
+                for (int col = 0; col <= gw - sizeW; col++)
                 {
                     // 풋프린트 범위 체크
                     if (!BoardHelper.IsValidCombatFootprint(col, checkRow, sizeW, sizeH)) continue;

@@ -151,6 +151,13 @@ namespace CookApps.AutoChess.View
 
         // ── 내부 ──
 
+        private static bool IsShieldType(int encodedKey)
+        {
+            var vfxType = SimEventHelper.DecodeVfxType(encodedKey);
+            // Shield + 향후 NormalAttackShield 등 쉴드 계열 추가 시 여기에 포함
+            return vfxType == CombatVfxType.Shield;
+        }
+
         private List<ActiveBuff> GetOrCreateList(int combatId)
         {
             if (!_activeBuffs.TryGetValue(combatId, out var list))
@@ -214,7 +221,7 @@ namespace CookApps.AutoChess.View
                     Duration = buff.TotalDuration,
                     ElapsedTime = Time.time - buff.AddedTime,
                     StackCount = buff.RefCount,
-                    IsSide = buff.IsSkillMarker,
+                    IsSide = !buff.IsSkillMarker && IsShieldType(buff.MarkerId),
                 });
             }
 

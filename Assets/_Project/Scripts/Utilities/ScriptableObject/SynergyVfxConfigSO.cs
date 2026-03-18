@@ -8,9 +8,7 @@ namespace CookApps.AutoChess.View
 {
     /// <summary>
     /// 시너지 VFX 통합 설정.
-    /// SynergyType별, 단계(Tier)별 VFX AssetReference 매핑.
-    /// - Achieve: 시너지 단계 달성 시 원샷 이펙트
-    /// - Apply: 해당 시너지 유닛에 적용되는 루프 이펙트
+    /// SynergyType별, 단계(Tier)별 달성 시 원샷 이펙트 매핑.
     /// </summary>
     [CreateAssetMenu(fileName = "SynergyVfxConfig", menuName = "AutoChess/Synergy Vfx Config")]
     public class SynergyVfxConfigSO : ScriptableObject
@@ -25,11 +23,6 @@ namespace CookApps.AutoChess.View
             public AssetReferenceGameObject AchieveVfx;
             public SkillPosition AchievePosition;
             public bool AchieveFollowable;
-
-            [Header("적용 이펙트 (해당 단계 동안 유닛에 루프)")]
-            public AssetReferenceGameObject ApplyVfx;
-            public SkillPosition ApplyPosition;
-            public bool ApplyFollowable;
         }
 
         [Serializable]
@@ -37,6 +30,16 @@ namespace CookApps.AutoChess.View
         {
             public SynergyType SynergyType;
             public TierVfxEntry[] Tiers;
+
+            [Header("효과 발동 시 VFX")]
+            public TaggedVfx[] EffectVfxList;
+        }
+
+        [Serializable]
+        public struct TaggedVfx
+        {
+            public string Tag;
+            public AssetReferenceGameObject Vfx;
         }
 
         [SerializeField] private SynergyVfxEntry[] _entries;

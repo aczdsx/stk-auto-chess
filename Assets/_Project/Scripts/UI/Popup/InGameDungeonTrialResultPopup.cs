@@ -164,7 +164,7 @@ namespace CookApps.AutoBattler
 
             SceneTransition.Create<SceneTransition_FadeInOut>();
             await SceneTransition.FadeInAsync();
-            SceneLoading.GoToNextScene("Lobby", specLastStageData.chapter_id);
+            SceneLoading.GoToNextScene("BattleReady", specLastStageData.chapter_id);
 
             var guideMission = ServerDataManager.Instance.GuideMission;
             if (!guideMission.IsCompleted)
@@ -173,7 +173,7 @@ namespace CookApps.AutoBattler
 
         private void OpenDungeonTrialPopupAction(string scenename)
         {
-            if (scenename == "Lobby")
+            if (scenename == "BattleReady")
             {
                 SceneUILayerManager.Instance.PushUILayerAsync<DungeonTrialPopup>().Forget();
 

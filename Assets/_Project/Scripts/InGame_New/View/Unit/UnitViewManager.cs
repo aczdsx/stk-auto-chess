@@ -152,7 +152,6 @@ namespace CookApps.AutoChess.View
                 if (unit.CombatId == CombatUnit.InvalidId) continue;
 
                 activeIds.Add(unit.CombatId);
-                var view = GetOrCreateCombatView(unit.CombatId, unit.SourceEntityId, unit.ChampionSpecId, unit.StarLevel, unit.TeamIndex == 0);
 
                 byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
                 byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
@@ -177,6 +176,9 @@ namespace CookApps.AutoChess.View
                 {
                     worldPos = destPos;
                 }
+
+                // 위치를 먼저 계산한 뒤 뷰 생성 (풀에서 꺼낸 뷰가 이전 위치에서 활성화되는 것을 방지)
+                var view = GetOrCreateCombatView(unit.CombatId, unit.SourceEntityId, unit.ChampionSpecId, unit.StarLevel, unit.TeamIndex == 0, worldPos);
 
                 if (unit.IsAlive)
                 {
@@ -322,12 +324,14 @@ namespace CookApps.AutoChess.View
             return view;
         }
 
-        private UnitView GetOrCreateCombatView(int combatId, int sourceEntityId, int champSpecId, byte starLevel, bool isPlayer = true)
+        private UnitView GetOrCreateCombatView(int combatId, int sourceEntityId, int champSpecId, byte starLevel, bool isPlayer = true, Vector3 initialPosition = default)
         {
             if (_combatUnitViews.TryGetValue(combatId, out var existing))
                 return existing;
 
             var view = GetFromPool();
+            // 풀에서 꺼낸 뷰의 위치를 먼저 보정한 뒤 초기화 (이전 위치에서 미끄러지는 현상 방지)
+            view.transform.position = initialPosition;
             view.InitializeAsCombat(combatId, sourceEntityId, starLevel, GetCharacterPrefabPath(champSpecId), champSpecId, isPlayer);
             _combatUnitViews[combatId] = view;
             return view;

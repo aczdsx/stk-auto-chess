@@ -106,32 +106,33 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
             Debug.LogColor("[TutorialManager] 가이드 미션이 없습니다.", "yellow");
             return false;
         }
+        //TODO!! 다시 가이드미션 생기면 챙길것
 
-        var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
-        if (specGuideMissionData == null)
-        {
-            Debug.LogColor($"[TutorialManager] 가이드 미션 스펙 데이터가 없습니다. id: {guideMissionId}", "yellow");
-            return false;
-        }
+        // var specGuideMissionData = SpecDataManager.Instance.GuideMissionInfo.Get(guideMissionId);
+        // if (specGuideMissionData == null)
+        // {
+        //     Debug.LogColor($"[TutorialManager] 가이드 미션 스펙 데이터가 없습니다. id: {guideMissionId}", "yellow");
+        //     return false;
+        // }
 
         if (ServerDataManager.Instance.GuideMission.IsCompleted || ServerDataManager.Instance.GuideMission.IsGoalReached) // ! GUIDE_TODO IsCompleted
         {
             return false;
         }
 
-        var result = await CheckAndInitTutorialWithGuideMissionInfo(specGuideMissionData);
-        if (result)
-        {
-            // 새 가이드 미션 시작 트리거 발동
-            HandleTutorialAction(TutorialTriggerType.GUIDE_START, guideMissionId.ToString());
+        // var result = await CheckAndInitTutorialWithGuideMissionInfo(specGuideMissionData);
+        // if (result)
+        // {
+        //     // 새 가이드 미션 시작 트리거 발동
+        //     HandleTutorialAction(TutorialTriggerType.GUIDE_START, guideMissionId.ToString());
+        //
+        //     if(guideMissionId >= 600)
+        //     {
+        //         SceneUILayerManager.Instance.PushUILayerAsync<EndTestgamePopup>().Forget();
+        //     }
+        // }
 
-            if(guideMissionId >= 600)
-            {
-                SceneUILayerManager.Instance.PushUILayerAsync<EndTestgamePopup>().Forget();
-            }
-        }
-
-        return result;
+        return true;
     }
 
     #region 아웃게임 튜토리얼
@@ -140,31 +141,32 @@ public class TutorialManager : SingletonMonoBehaviour<TutorialManager>
     /// <summary>
     /// 아웃게임 튜토리얼 확인 및 초기화
     /// </summary>
-    private GuideMissionInfo _pendingGuideMissionInfo;
+    // TODO!! 튜토리얼 살리면 다시 할것!
+    // private GuideMissionInfo _pendingGuideMissionInfo;
 
-    public async UniTask<bool> CheckAndInitTutorialWithGuideMissionInfo(GuideMissionInfo info)
-    {
-        if (IsClearedGuideMission(info.id))
-        {
-            return false;
-        }
-
-        // 가이드 미션이 변경되면 실행 기록 초기화
-        if (_currentGuideMissionId != info.id)
-        {
-            _currentGuideMissionId = info.id;
-            _executedTutorialSet.Clear();
-            Debug.LogColor($"[Tutorial] 가이드 미션 변경: {info.id}, 실행 기록 초기화", "cyan");
-        }
-
-        var result = await CheckAndInitTutorial(info.tutorial_id);
-        if (result)
-        {
-            _pendingGuideMissionInfo = info;  // 완료 대기
-        }
-
-        return result;
-    }
+    // public async UniTask<bool> CheckAndInitTutorialWithGuideMissionInfo(GuideMissionInfo info)
+    // {
+    //     if (IsClearedGuideMission(info.id))
+    //     {
+    //         return false;
+    //     }
+    //
+    //     // 가이드 미션이 변경되면 실행 기록 초기화
+    //     if (_currentGuideMissionId != info.id)
+    //     {
+    //         _currentGuideMissionId = info.id;
+    //         _executedTutorialSet.Clear();
+    //         Debug.LogColor($"[Tutorial] 가이드 미션 변경: {info.id}, 실행 기록 초기화", "cyan");
+    //     }
+    //
+    //     var result = await CheckAndInitTutorial(info.tutorial_id);
+    //     if (result)
+    //     {
+    //         _pendingGuideMissionInfo = info;  // 완료 대기
+    //     }
+    //
+    //     return result;
+    // }
 
 
     /// <summary>

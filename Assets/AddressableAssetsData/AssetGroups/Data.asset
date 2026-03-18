@@ -385,6 +385,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eee75e481346bbc45b42e46cb0c6d675
+    m_Address: Data/SynergyVfxConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ef7dfb63f6a74ba45bb856bcfd438e62
     m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30606002_\uBBF8\uC2A4\uD2B8\uACE0\uB974\uACE4.asset"
     m_ReadOnly: 0

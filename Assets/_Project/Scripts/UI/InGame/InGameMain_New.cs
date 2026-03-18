@@ -93,14 +93,9 @@ namespace CookApps.AutoBattler
         private static void ParseBoardSize(int stageId, ref int boardWidth, ref int boardHeight)
         {
             var stageInfo = SpecDataManager.Instance.GetStageData(stageId);
-            if (stageInfo != null && !string.IsNullOrEmpty(stageInfo.map_size))
+            if (stageInfo != null)
             {
-                var parts = stageInfo.map_size.Split(',');
-                if (parts.Length >= 2)
-                {
-                    int.TryParse(parts[0], out boardWidth);
-                    int.TryParse(parts[1], out boardHeight);
-                }
+                stageInfo.GetBoardSize(out boardWidth, out boardHeight);
             }
         }
 

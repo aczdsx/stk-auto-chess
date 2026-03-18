@@ -158,7 +158,7 @@ MonoBehaviour:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fee9c2850c4fb834ba5dd37c63fbb1dd
-    m_Address: SpriteAtlas/UI_AttackRange
+    m_Address: SpriteAtlas/Dynamic/UI_AttackRange
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload

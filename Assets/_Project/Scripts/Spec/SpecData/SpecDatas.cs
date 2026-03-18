@@ -401,6 +401,8 @@ namespace CookApps.AutoBattler
         public float height;
         /// 공격 범위 형태
         public global::CookApps.AutoBattler.InGameVfxNameType projectile_vfx_name_type;
+        /// 스킬레인지 형태
+        public string[] skill_range = global::System.Array.Empty<string>();
         /// 일반 스킬 id
         [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
         public int[] skill_ids = global::System.Array.Empty<int>();
@@ -787,8 +789,6 @@ namespace CookApps.AutoBattler
         public string skill_name_token;
         /// 스킬 설명 토큰
         public string skill_desc_token;
-        /// 임시
-        public string attack_range;
         /// 사용 이펙트
         public global::CookApps.AutoBattler.InGameVfxNameType[] skill_vfxs = global::System.Array.Empty<global::CookApps.AutoBattler.InGameVfxNameType>();
         /// #변수 의미
@@ -1114,6 +1114,26 @@ namespace CookApps.AutoBattler
         /// 보상 수량
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int item_count;
+    }
+
+    [GeneratorSpecData]
+    public partial class ElpisGroundInfo
+    {
+        /// #SheetIndex
+        [GeneratorId(nameof(index), typeof(int))]
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
+        public int index;
+        /// 영지의 레벨
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
+        public int elpis_lv;
+        /// 영지 확장 프리펩
+        public string ground_prefab;
+        /// 영지 혜택 시트
+        [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
+        public int growth_benefit;
+        /// 건물 혜금 리스트
+        [MessagePack.MessagePackFormatter(typeof(IntArrayFormatter))]
+        public int[] lockup_list = global::System.Array.Empty<int>();
     }
 
     [GeneratorSpecData]
@@ -2216,6 +2236,7 @@ namespace CookApps.AutoBattler
         public List<DungeonBabelInfo> DungeonBabelInfo = null;
         public List<DungeonBabelMonster> DungeonBabelMonster = null;
         public List<DungeonBabelReward> DungeonBabelReward = null;
+        public List<ElpisGroundInfo> ElpisGroundInfo = null;
         public List<ElpisCommandCenterBenefit> ElpisCommandCenterBenefit = null;
         public List<ElpisBuildInfo> ElpisBuildInfo = null;
         public List<ElpisDimensionLab> ElpisDimensionLab = null;

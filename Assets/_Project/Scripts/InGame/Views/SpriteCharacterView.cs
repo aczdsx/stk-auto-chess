@@ -330,13 +330,14 @@ namespace CookApps.AutoBattler
 
         private static readonly int BoundsMinID = Shader.PropertyToID("_BoundsMin");
         private static readonly int BoundsMaxID = Shader.PropertyToID("_BoundsMax");
-        private static readonly MaterialPropertyBlock _dissolveMpb = new();
+        private static MaterialPropertyBlock _dissolveMpb;
 
         private static void ApplyDissolveBounds(SpriteRenderer spriteRenderer)
         {
             var sprite = spriteRenderer.sprite;
             if (sprite == null) return;
 
+            _dissolveMpb ??= new MaterialPropertyBlock();
             var bounds = sprite.bounds;
             spriteRenderer.GetPropertyBlock(_dissolveMpb);
             _dissolveMpb.SetVector(BoundsMinID, new Vector4(bounds.min.x, bounds.min.y, bounds.min.z, 0));

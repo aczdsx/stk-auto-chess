@@ -196,7 +196,7 @@ namespace CookApps.AutoChess
         {
             if (ExecutionType != SkillExecutionType.DelayedApply) return false;
 
-            if (_delayTimer < 0)
+            if (_delayTimer <= 0)
                 _delayTimer = SkillHitFrames != null && SkillHitFrames.Length > 0
                     ? SkillHitFrames[0] : 10;
 
