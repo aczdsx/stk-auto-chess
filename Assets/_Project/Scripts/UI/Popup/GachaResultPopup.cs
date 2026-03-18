@@ -89,7 +89,7 @@ namespace CookApps.AutoBattler
             // 템플릿 슬롯은 항상 비활성 상태 유지
             _templateSlot.gameObject.SetActive(false);
 
-            SetResultItems(_param.ResultItems);
+            SetResultItems(_param.ResultItems).Forget();
             SetContinueButton(_param.SpecGachaData, _param.OnContinueGacha);
         }
 
@@ -103,7 +103,7 @@ namespace CookApps.AutoBattler
 
         #region Private Methods
 
-        private void SetResultItems(List<RewardItem> items)
+        private async UniTaskVoid SetResultItems(List<RewardItem> items)
         {
             ClearSlots();
 
@@ -122,7 +122,11 @@ namespace CookApps.AutoBattler
 
                 var slot = slotObj.GetComponent<GachaResultItemSlot>();
                 slot.SetData(item, charInfo);
+                slot.PlayGradeAnimation(charInfo.grade_type);
                 _spawnedSlots.Add(slot);
+
+                // 0.15초 간격으로 순차 생성
+                await UniTask.Delay(150, cancellationToken: destroyCancellationToken);
             }
         }
 

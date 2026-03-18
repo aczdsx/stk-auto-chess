@@ -39,6 +39,9 @@ namespace CookApps.AutoBattler
         [Header("Effect")]
         [SerializeField] private GameObject _effectGroup;
 
+        [Header("Animation")]
+        [SerializeField] private Animator _animator;
+
         [Header("Piece")]
         [SerializeField] private GameObject _pieceGroup;
         [SerializeField] private Image _pieceGradientImage;
@@ -160,6 +163,27 @@ namespace CookApps.AutoBattler
                     SpriteNameParser.GetCharacterPieceSprite(charInfo.prefab_id)
                 ).Forget();
                 _pieceCountText.text = $"x{rewardItem.Count}";
+            }
+        }
+
+        /// <summary>
+        /// 등급에 맞는 Animator Trigger를 설정하여 등장 애니메이션을 재생한다.
+        /// </summary>
+        public void PlayGradeAnimation(GradeType grade)
+        {
+            if (_animator == null) return;
+
+            switch (grade)
+            {
+                case GradeType.RARE:
+                    _animator.SetTrigger("R");
+                    break;
+                case GradeType.EPIC:
+                    _animator.SetTrigger("SR");
+                    break;
+                case GradeType.LEGENDARY:
+                    _animator.SetTrigger("SSR");
+                    break;
             }
         }
 

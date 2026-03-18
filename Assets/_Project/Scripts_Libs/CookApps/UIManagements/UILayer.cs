@@ -10,9 +10,9 @@ namespace CookApps.TeamBattle.UIManagements
         [SerializeField] private UILayerType uiLayerType;
         [SerializeField] protected Animator baseAnimator;
         [SerializeField] private AssetReferenceGameObject[] preloadAddressables;
-        
+
         public AssetReferenceGameObject[] PreloadAddressables => preloadAddressables;
-        
+
         protected event Action<UILayer> EnterEndCallback;
         protected internal event Action<UILayer> ExitEndCallback;
 
@@ -43,7 +43,7 @@ namespace CookApps.TeamBattle.UIManagements
 
             hasEnterAnimation = baseAnimator.runtimeAnimatorController != null && baseAnimator.HasState(0, EnterAnimationHash);
             hasExitAnimation = baseAnimator.runtimeAnimatorController != null && baseAnimator.HasState(0, ExitAnimationHash);
-            
+
         }
 
         protected internal virtual void OnPreEnter(object param)

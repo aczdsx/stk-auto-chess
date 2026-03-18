@@ -58,7 +58,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Panel/Content/C_Center/ListGroup/GachaResultItem_R/Anim
+    path: Anim
   m_FloatCurves:
   - serializedVersion: 2
     curve:
@@ -86,7 +86,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Panel/Content/C_Center/ListGroup/GachaResultItem_R/Anim/FX/Light
+    path: Anim/FX/Light
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -116,7 +116,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Panel/Content/C_Center/ListGroup/GachaResultItem_R/FX/SR
+    path: Anim/FX/SR_Aura
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -146,7 +146,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Panel/Content/C_Center/ListGroup/GachaResultItem_R/Anim/FX/SR_Aura
+    path: FX/SR
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -159,7 +159,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 1141650799
+      path: 3348745061
       attribute: 3
       script: {fileID: 0}
       typeID: 4
@@ -168,7 +168,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 3272881929
+      path: 2567930882
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -177,7 +177,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 3634118347
+      path: 201623164
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -186,7 +186,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 3180914586
+      path: 952779307
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -260,7 +260,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.x
-    path: Panel/Content/C_Center/ListGroup/GachaResultItem_R/Anim
+    path: Anim
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -308,7 +308,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.y
-    path: Panel/Content/C_Center/ListGroup/GachaResultItem_R/Anim
+    path: Anim
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -356,7 +356,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.z
-    path: Panel/Content/C_Center/ListGroup/GachaResultItem_R/Anim
+    path: Anim
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -386,7 +386,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Panel/Content/C_Center/ListGroup/GachaResultItem_R/Anim/FX/Light
+    path: Anim/FX/Light
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -416,7 +416,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Panel/Content/C_Center/ListGroup/GachaResultItem_R/FX/SR
+    path: Anim/FX/SR_Aura
     classID: 1
     script: {fileID: 0}
     flags: 0
@@ -446,7 +446,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Panel/Content/C_Center/ListGroup/GachaResultItem_R/Anim/FX/SR_Aura
+    path: FX/SR
     classID: 1
     script: {fileID: 0}
     flags: 0
