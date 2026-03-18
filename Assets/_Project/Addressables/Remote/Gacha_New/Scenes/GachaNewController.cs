@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 using UnityEngine.Timeline;
 
 namespace CookApps.AutoBattler
@@ -54,12 +54,14 @@ namespace CookApps.AutoBattler
         private GachaInfo _specGachaData;
         private Action _onContinueGacha;
         private Action _onCleanup;
+        private Action _onComplete;
 
         private readonly List<MarkController> _marks = new List<MarkController>(MAX_MARK_COUNT);
         private int _totalMarkCount;
         private int _foundCount;
-        private bool _isSkipped;
-        private bool _isShowingSequence;
+        private int _skipCount;
+        private bool _isTimelinePlaying;
+        private bool _isCompleted;
 
         #endregion
 
@@ -68,13 +70,28 @@ namespace CookApps.AutoBattler
         private void Awake()
         {
             if (_crosshair != null)
+            {
                 _crosshair.Initialize(this);
+
+                // 버튼 RectTransform을 크로스헤어에 전달 (입력 필터링용)
+                var rects = new List<RectTransform>(2);
+                if (_skipButton != null) rects.Add(_skipButton.GetComponent<RectTransform>());
+                if (_closeButton != null) rects.Add(_closeButton.GetComponent<RectTransform>());
+                _crosshair.SetUIButtonRects(rects.ToArray());
+            }
+
+            // 런타임 버튼 이벤트 연결
+            WireButton(_skipButton, OnClickSkip);
+            WireButton(_closeButton, OnClickBack);
         }
 
         private void OnDestroy()
         {
             if (_playableDirector != null)
                 _playableDirector.stopped -= OnTimelineStopped;
+
+            UnwireButton(_skipButton, OnClickSkip);
+            UnwireButton(_closeButton, OnClickBack);
         }
 
         #endregion
@@ -84,7 +101,7 @@ namespace CookApps.AutoBattler
         /// <summary>
         /// GachaBaseLayer -> SetItem.
         /// </summary>
-        public void SetItem(List<RewardItem> datas, GachaInfo specGachaData, Action onContinueGacha, Action onCleanup)
+        public void SetItem(List<RewardItem> datas, GachaInfo specGachaData, Action onContinueGacha, Action onCleanup, Action onComplete)
         {
             if (datas == null || datas.Count == 0)
             {
@@ -97,9 +114,11 @@ namespace CookApps.AutoBattler
             _specGachaData = specGachaData;
             _onContinueGacha = onContinueGacha;
             _onCleanup = onCleanup;
+            _onComplete = onComplete;
             _totalMarkCount = Mathf.Min(datas.Count, MAX_MARK_COUNT);
-            _isSkipped = false;
-            _isShowingSequence = false;
+            _skipCount = 0;
+            _isTimelinePlaying = true;
+            _isCompleted = false;
 
             // 1) Grade analysis
             GradeType highestGrade = GradeType.RARE;
@@ -141,7 +160,7 @@ namespace CookApps.AutoBattler
             float safetyDelay = (float)_playableDirector.duration + 1f;
             Run.After(safetyDelay, () =>
             {
-                if (_isSkipped || _crosshair == null) return;
+                if (_isCompleted || _crosshair == null) return;
                 if (!_crosshair.IsEnabled)
                 {
                     Debug.LogWarning($"[GachaNewController] Safety fallback → crosshair force-enabled after {safetyDelay:F1}s");
@@ -155,7 +174,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public void OnMarkFound(MarkController mark)
         {
-            if (_isSkipped) return;
+            if (_isCompleted) return;
 
             _foundCount++;
             UpdateCountUI();
@@ -176,34 +195,51 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// Skip button handler.
-        /// Timeline skip + activate all unfound marks -> completion flow.
+        /// Skip button handler (2-stage).
+        /// Stage 1: Timeline 중 → 타임라인 끝으로 점프 + 크로스헤어 활성화.
+        /// Stage 2: 탐색 중 (또는 2회차) → 전체 스킵 + 씬 릴리즈 + 결과 팝업.
         /// </summary>
         public void OnClickSkip()
         {
-            if (_isSkipped) return;
-            _isSkipped = true;
+            if (_isCompleted) return;
 
-            _skipButton.SetActive(false);
-            _crosshair.SetEnabled(false);
+            _skipCount++;
 
-            SoundManager.Instance.StopAllSound();
-
-            // Skip timeline to end
-            if (_playableDirector != null && _playableDirector.state == PlayState.Playing)
+            if (_skipCount == 1 && _isTimelinePlaying)
             {
-                _playableDirector.time = _playableDirector.duration;
-                _playableDirector.Evaluate();
-                _playableDirector.Stop();
+                // === Stage 1: Timeline 스킵 → 탐색 Phase 진입 ===
+                if (_playableDirector != null && _playableDirector.state == PlayState.Playing)
+                {
+                    _playableDirector.time = _playableDirector.duration;
+                    _playableDirector.Evaluate();
+                    _playableDirector.Stop();
+                }
+                // OnTimelineStopped에서 _isTimelinePlaying=false + crosshair 활성화 처리
+                // Skip 버튼은 유지 (2차 스킵 대비)
             }
+            else
+            {
+                // === Stage 2: 전체 스킵 → 씬 릴리즈 + 결과 팝업 ===
+                _isCompleted = true;
+                _skipButton.SetActive(false);
+                _crosshair.SetEnabled(false);
 
-            // Force count to full + activate all search count items (skip mark animations)
-            _foundCount = _totalMarkCount;
-            UpdateCountUI();
-            ActivateAllSearchCountItems();
+                SoundManager.Instance.StopAllSound();
+                SoundManager.Instance.IsPlayingGacha = false;
 
-            // Go directly to character sequence (no mark animation delay)
-            ShowCharacterSequenceAsync().Forget();
+                if (_playableDirector != null && _playableDirector.state == PlayState.Playing)
+                {
+                    _playableDirector.time = _playableDirector.duration;
+                    _playableDirector.Evaluate();
+                    _playableDirector.Stop();
+                }
+
+                _foundCount = _totalMarkCount;
+                UpdateCountUI();
+                ActivateAllSearchCountItems();
+
+                _onComplete?.Invoke();
+            }
         }
 
         /// <summary>
@@ -212,7 +248,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public void OnClickBack()
         {
-            if (_isShowingSequence) return;
+            if (_isCompleted) return;
 
             // Restore sound
             SoundManager.Instance.StopSFX(SoundFX.snd_sfx_gacha_result_ambient_001);
@@ -236,7 +272,8 @@ namespace CookApps.AutoBattler
         private void OnTimelineStopped(PlayableDirector director)
         {
             director.stopped -= OnTimelineStopped;
-            if (_isSkipped) return;
+            _isTimelinePlaying = false;
+            if (_isCompleted) return;
             Debug.Log("[GachaNewController] Timeline stopped → crosshair enabled.");
             _crosshair.SetEnabled(true);
         }
@@ -262,7 +299,7 @@ namespace CookApps.AutoBattler
             try
             {
                 await UniTask.WaitUntil(() =>
-                    _isSkipped
+                    _isCompleted
                     || _playableDirector == null
                     || _playableDirector.time >= duration - 0.1
                     || _playableDirector.state != PlayState.Playing,
@@ -274,9 +311,9 @@ namespace CookApps.AutoBattler
                 return;
             }
 
-            Debug.Log($"[GachaNewController] EnableCrosshairAfterTimeline: WaitUntil resolved. _isSkipped={_isSkipped}, time={_playableDirector?.time:F2}, state={_playableDirector?.state}");
+            Debug.Log($"[GachaNewController] EnableCrosshairAfterTimeline: WaitUntil resolved. _isCompleted={_isCompleted}, time={_playableDirector?.time:F2}, state={_playableDirector?.state}");
 
-            if (_isSkipped || token.IsCancellationRequested) return;
+            if (_isCompleted || token.IsCancellationRequested) return;
 
             // stopped 이벤트에서 이미 활성화했으면 중복 방지
             if (!_crosshair.IsEnabled)
@@ -471,55 +508,17 @@ namespace CookApps.AutoBattler
         /// </summary>
         private void OnAllMarksFound()
         {
+            _isCompleted = true;
             _crosshair.SetEnabled(false);
             _skipButton.SetActive(false);
 
+            SoundManager.Instance.StopSFX(SoundFX.snd_sfx_gacha_result_ambient_001);
+            SoundManager.Instance.IsPlayingGacha = false;
+
             Run.After(0.5f, () =>
             {
-                ShowCharacterSequenceAsync().Forget();
+                _onComplete?.Invoke();
             });
-        }
-
-        /// <summary>
-        /// Show GachaGetCharacterPopup for each result, then GachaResultPopup.
-        /// </summary>
-        private async UniTask ShowCharacterSequenceAsync()
-        {
-            _isShowingSequence = true;
-            var token = destroyCancellationToken;
-
-            for (int i = 0; i < _resultData.Count; i++)
-            {
-                if (token.IsCancellationRequested) return;
-
-                if (!_resultData[i].Id.GetCharacterId(out int charId)) continue;
-
-                var param = new GachaGetCharacterPopupParam { CharacterId = charId };
-                await SceneUILayerManager.Instance.PushUILayerAsync<GachaGetCharacterPopup>(param);
-
-                if (token.IsCancellationRequested) return;
-
-                // Wait until the popup is closed by user
-                await UniTask.WaitUntil(
-                    () => SceneUILayerManager.Instance.GetUILayer<GachaGetCharacterPopup>() == null,
-                    cancellationToken: token);
-            }
-
-            if (token.IsCancellationRequested) return;
-
-            // Show final result popup
-            var resultParam = new GachaResultPopupParam
-            {
-                ResultItems = _resultData,
-                SpecGachaData = _specGachaData,
-                OnContinueGacha = _onContinueGacha != null ? () => _onContinueGacha.Invoke() : null
-            };
-            await SceneUILayerManager.Instance.PushUILayerAsync<GachaResultPopup>(resultParam);
-
-            if (token.IsCancellationRequested) return;
-
-            _isShowingSequence = false;
-            _closeButton.SetActive(true);
         }
 
         #endregion
@@ -559,6 +558,24 @@ namespace CookApps.AutoBattler
                 if (_searchCountItems[i] != null)
                     _searchCountItems[i].SetActive(true);
             }
+        }
+
+        #endregion
+
+        #region Private Methods — Button Wiring
+
+        private static void WireButton(GameObject buttonObj, UnityEngine.Events.UnityAction action)
+        {
+            if (buttonObj == null) return;
+            var btn = buttonObj.GetComponent<Button>();
+            if (btn != null) btn.onClick.AddListener(action);
+        }
+
+        private static void UnwireButton(GameObject buttonObj, UnityEngine.Events.UnityAction action)
+        {
+            if (buttonObj == null) return;
+            var btn = buttonObj.GetComponent<Button>();
+            if (btn != null) btn.onClick.RemoveListener(action);
         }
 
         #endregion

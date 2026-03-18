@@ -79,6 +79,26 @@ namespace CookApps.AutoChess.View
             ReleaseLoop(key);
         }
 
+        /// <summary>유닛 사망 — 해당 유닛의 모든 Loop VFX 정리</summary>
+        public void OnUnitDied(int combatId)
+        {
+            // 해당 combatId의 키를 모아서 제거
+            _removeBuffer.Clear();
+            foreach (var key in _activeLoopVfx.Keys)
+            {
+                if (key.Item1 == combatId)
+                    _removeBuffer.Add(key);
+            }
+
+            foreach (var key in _removeBuffer)
+            {
+                ReleaseLoop(key);
+                _refCounts.Remove(key);
+            }
+        }
+
+        private readonly List<(int, CombatVfxType, StatModType)> _removeBuffer = new();
+
         /// <summary>전투 종료 — 모든 VFX 정리</summary>
         public void OnCombatEnd()
         {

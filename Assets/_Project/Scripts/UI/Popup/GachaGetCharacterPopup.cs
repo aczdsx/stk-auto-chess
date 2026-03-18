@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UIManagements;
@@ -17,6 +18,12 @@ namespace CookApps.AutoBattler
     {
         /// <summary>획득한 캐릭터 ID</summary>
         public int CharacterId;
+
+        /// <summary>
+        /// true면 시퀀스 모드: Skip 버튼이 Pop 대신 IsSkipPressed 플래그만 세팅.
+        /// 외부에서 WaitUntil(IsSkipPressed) 후 UpdateCharacter 호출.
+        /// </summary>
+        public bool IsSequenceMode;
     }
 
     /// <summary>
@@ -53,12 +60,27 @@ namespace CookApps.AutoBattler
         [Header("Button")]
         [SerializeField] private CAButton _skipButton;
 
+        [Header("Background Touch")]
+        [SerializeField] private CAButton _bgTouchButton;
+
         #endregion
 
         #region Private Fields
 
         private AsyncOperationHandle<GameObject> _ldHandle;
         private AsyncOperationHandle<GameObject> _sdHandle;
+        private bool _isSequenceMode;
+        private float _characterShowElapsed;
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>시퀀스 모드에서 유저가 배경 터치로 다음 캐릭터를 요청했는지 여부 (3초 후 활성화)</summary>
+        public bool IsSkipPressed { get; private set; }
+
+        /// <summary>시퀀스 모드에서 유저가 SKIP 버튼으로 전체 스킵을 요청했는지 여부</summary>
+        public bool IsSkipAllPressed { get; private set; }
 
         #endregion
 
@@ -79,10 +101,36 @@ namespace CookApps.AutoBattler
         {
             base.Awake();
 
+            // SKIP 버튼: 시퀀스 모드에서 전체 스킵
             _skipButton
                 .OnClickAsObservable()
-                .Subscribe(this, (_, self) => SceneUILayerManager.Instance.PopUILayer(self))
+                .Subscribe(this, (_, self) =>
+                {
+                    if (self._isSequenceMode)
+                        self.IsSkipAllPressed = true;
+                    else
+                        SceneUILayerManager.Instance.PopUILayer(self);
+                })
                 .AddTo(this);
+
+            // 배경 터치: 3초 경과 후 다음 캐릭터로 넘기기
+            if (_bgTouchButton != null)
+            {
+                _bgTouchButton
+                    .OnClickAsObservable()
+                    .Subscribe(this, (_, self) =>
+                    {
+                        if (self._isSequenceMode && self._characterShowElapsed >= 3f)
+                            self.IsSkipPressed = true;
+                    })
+                    .AddTo(this);
+            }
+        }
+
+        private void Update()
+        {
+            if (_isSequenceMode)
+                _characterShowElapsed += Time.deltaTime;
         }
 
         #endregion
@@ -100,6 +148,11 @@ namespace CookApps.AutoBattler
                 return;
             }
 
+            _isSequenceMode = p.IsSequenceMode;
+            IsSkipPressed = false;
+            IsSkipAllPressed = false;
+            _characterShowElapsed = 0f;
+
             var charInfo = SpecDataManager.Instance.CharacterInfo.Get(p.CharacterId);
             if (charInfo == null)
             {
@@ -112,8 +165,37 @@ namespace CookApps.AutoBattler
 
         protected override void OnPreExit()
         {
-            ReleaseResources();
             base.OnPreExit();
+        }
+
+        protected override void OnPostExit()
+        {
+            ReleaseResources();
+            base.OnPostExit();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// 시퀀스 모드에서 팝업을 유지한 채 캐릭터 데이터만 교체한다.
+        /// 기존 리소스 해제 후 새 캐릭터 세팅.
+        /// </summary>
+        public void UpdateCharacter(int charId)
+        {
+            IsSkipPressed = false;
+            _characterShowElapsed = 0f;
+            ReleaseResources();
+
+            var charInfo = SpecDataManager.Instance.CharacterInfo.Get(charId);
+            if (charInfo == null)
+            {
+                Debug.LogError($"[GachaGetCharacterPopup] UpdateCharacter: CharacterId={charId} 에 해당하는 CharacterInfo를 찾을 수 없습니다.");
+                return;
+            }
+
+            SetCharacterData(charInfo);
         }
 
         #endregion
@@ -151,14 +233,15 @@ namespace CookApps.AutoBattler
             LoadSDCharacter(charInfo.prefab_id).Forget();
 
             // 8. SD 스탠드 스프라이트 (등급별)
-            if (SDStandSpriteMap.TryGetValue(grade, out var sdStandSprite))
-            {
-                _sdStandSpriteLoader.SetSprite(sdStandSprite).Forget();
-            }
-            else
-            {
-                Debug.LogWarning($"[GachaGetCharacterPopup] SDStandSpriteMap에 {grade} 등록 없음");
-            }
+            // stand sprite 우선 주석처리
+            // if (SDStandSpriteMap.TryGetValue(grade, out var sdStandSprite))
+            // {
+            //     _sdStandSpriteLoader.SetSprite(sdStandSprite).Forget();
+            // }
+            // else
+            // {
+            //     Debug.LogWarning($"[GachaGetCharacterPopup] SDStandSpriteMap에 {grade} 등록 없음");
+            // }
 
             // 9. 이펙트 그룹 — LEGENDARY만 활성화
             _effectGroup.SetActive(grade == GradeType.LEGENDARY);

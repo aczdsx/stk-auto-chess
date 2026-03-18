@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using LitMotion;
 using LitMotion.Extensions;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
@@ -17,6 +18,13 @@ namespace CookApps.AutoBattler
         [SerializeField] private RectTransform _crosshairVisual;
         [SerializeField] private Canvas _canvas;
 
+        [Header("Direction Indicators")]
+        [SerializeField] private float _indicatorRadius = 150f;
+        [SerializeField] private float _indicatorSize = 20f;
+        [SerializeField] private Color _indicatorColor = new Color(1f, 1f, 1f, 0.7f);
+        [SerializeField] private Sprite _indicatorSprite;
+        [SerializeField] private float _indicatorMoveSpeed = 720f;
+
         #endregion
 
         #region Private Fields
@@ -26,9 +34,18 @@ namespace CookApps.AutoBattler
 
         private bool _isEnabled;
         private bool _isDragging;
+        private Vector2 _prevPosition;
+        private bool _hasPrevPosition;
 
         private MotionHandle _showHandle;
         private MotionHandle _hideHandle;
+        private RectTransform[] _uiButtonRects;
+
+        private const int MAX_INDICATOR_COUNT = 10;
+        private RectTransform[] _indicators;
+        private Image[] _indicatorImages;
+        private float _currentIndicatorAngle;
+        private bool _hasIndicatorAngle;
 
         #endregion
 
@@ -47,6 +64,8 @@ namespace CookApps.AutoBattler
                 _crosshairVisual.localScale = Vector3.zero;
                 _crosshairVisual.gameObject.SetActive(false);
             }
+
+            InitializeIndicators();
         }
 
         private void Update()
@@ -99,19 +118,29 @@ namespace CookApps.AutoBattler
 
             if (inputBegan)
             {
+                // UI 버튼 영역 터치 시 크로스헤어 입력 무시
+                if (IsOverUIButton(inputPos)) return;
+
                 _isDragging = true;
+                _hasPrevPosition = false;
                 MoveToPosition(inputPos);
+                _prevPosition = _crosshairVisual.anchoredPosition;
+                _hasPrevPosition = true;
                 ShowCrosshair();
                 CheckOverlap();
+                UpdateIndicators();
             }
             else if (inputHeld && _isDragging)
             {
                 MoveToPosition(inputPos);
                 CheckOverlap();
+                UpdateIndicators();
+                _prevPosition = _crosshairVisual.anchoredPosition;
             }
             else if (inputEnded && _isDragging)
             {
                 _isDragging = false;
+                _hasPrevPosition = false;
                 HideCrosshair();
             }
         }
@@ -125,6 +154,11 @@ namespace CookApps.AutoBattler
         public void Initialize(GachaNewController controller)
         {
             _controller = controller;
+        }
+
+        public void SetUIButtonRects(RectTransform[] rects)
+        {
+            _uiButtonRects = rects;
         }
 
         public void SetEnabled(bool enabled)
@@ -142,12 +176,27 @@ namespace CookApps.AutoBattler
                     _crosshairVisual.localScale = Vector3.zero;
                     _crosshairVisual.gameObject.SetActive(false);
                 }
+                HideAllIndicators();
             }
         }
 
         #endregion
 
         #region Private Methods
+
+        private bool IsOverUIButton(Vector2 screenPos)
+        {
+            if (_uiButtonRects == null) return false;
+            Camera cam = _canvas != null ? _canvas.worldCamera : null;
+            for (int i = 0; i < _uiButtonRects.Length; i++)
+            {
+                if (_uiButtonRects[i] != null
+                    && _uiButtonRects[i].gameObject.activeInHierarchy
+                    && RectTransformUtility.RectangleContainsScreenPoint(_uiButtonRects[i], screenPos, cam))
+                    return true;
+            }
+            return false;
+        }
 
         private void MoveToPosition(Vector2 screenPos)
         {
@@ -171,14 +220,24 @@ namespace CookApps.AutoBattler
             List<MarkController> marks = _controller.GetUnfoundMarks();
             if (marks == null) return;
 
+            Vector2 currentPos = _crosshairVisual.anchoredPosition;
+
             for (int i = 0; i < marks.Count; i++)
             {
                 MarkController mark = marks[i];
                 if (mark == null || mark.IsFound) continue;
 
-                float dist = Vector2.Distance(
-                    _crosshairVisual.anchoredPosition,
-                    mark.Position);
+                float dist;
+                if (_hasPrevPosition)
+                {
+                    // Line-sweep: 이전→현재 선분 위 최근접점과 마크 거리 비교
+                    Vector2 closest = ClosestPointOnSegment(_prevPosition, currentPos, mark.Position);
+                    dist = Vector2.Distance(closest, mark.Position);
+                }
+                else
+                {
+                    dist = Vector2.Distance(currentPos, mark.Position);
+                }
 
                 if (dist <= mark.DetectionRadius)
                 {
@@ -187,10 +246,27 @@ namespace CookApps.AutoBattler
             }
         }
 
+        /// <summary>
+        /// 선분(segA→segB) 위에서 point에 가장 가까운 점을 반환.
+        /// </summary>
+        private static Vector2 ClosestPointOnSegment(Vector2 segA, Vector2 segB, Vector2 point)
+        {
+            Vector2 ab = segB - segA;
+            float sqrLen = ab.sqrMagnitude;
+
+            // segA == segB (이동 없음)
+            if (sqrLen < 0.0001f) return segA;
+
+            float t = Vector2.Dot(point - segA, ab) / sqrLen;
+            t = Mathf.Clamp01(t);
+            return segA + ab * t;
+        }
+
         private void ShowCrosshair()
         {
             if (_crosshairVisual == null) return;
 
+            _hasIndicatorAngle = false;
             _hideHandle.TryCancel();
 
             _crosshairVisual.localScale = Vector3.zero;
@@ -223,6 +299,122 @@ namespace CookApps.AutoBattler
                 })
                 .BindToLocalScale(_crosshairVisual)
                 .AddTo(gameObject);
+        }
+
+        #endregion
+
+        #region Direction Indicators
+
+        private void InitializeIndicators()
+        {
+            if (_crosshairVisual == null) return;
+
+            _indicators = new RectTransform[MAX_INDICATOR_COUNT];
+            _indicatorImages = new Image[MAX_INDICATOR_COUNT];
+
+            for (int i = 0; i < MAX_INDICATOR_COUNT; i++)
+            {
+                var indicatorObj = new GameObject($"Indicator_{i}", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+                var rt = indicatorObj.GetComponent<RectTransform>();
+                rt.SetParent(_crosshairVisual, false);
+                rt.sizeDelta = new Vector2(_indicatorSize, _indicatorSize);
+                rt.anchorMin = new Vector2(0.5f, 0.5f);
+                rt.anchorMax = new Vector2(0.5f, 0.5f);
+                rt.pivot = new Vector2(0.5f, 0.5f);
+
+                var img = indicatorObj.GetComponent<Image>();
+                img.sprite = _indicatorSprite;
+                img.color = _indicatorColor;
+                img.raycastTarget = false;
+
+                indicatorObj.SetActive(false);
+
+                _indicators[i] = rt;
+                _indicatorImages[i] = img;
+            }
+        }
+
+        private void UpdateIndicators()
+        {
+            if (_controller == null || _indicators == null) return;
+
+            List<MarkController> marks = _controller.GetUnfoundMarks();
+            if (marks == null) return;
+
+            Vector2 crosshairPos = _crosshairVisual.anchoredPosition;
+
+            // 가장 가까운 미발견 마커 찾기
+            float closestDist = float.MaxValue;
+            MarkController closestMark = null;
+
+            for (int i = 0; i < marks.Count; i++)
+            {
+                MarkController mark = marks[i];
+                if (mark == null || mark.IsFound) continue;
+
+                float dist = Vector2.SqrMagnitude(mark.Position - crosshairPos);
+                if (dist < closestDist)
+                {
+                    closestDist = dist;
+                    closestMark = mark;
+                }
+            }
+
+            if (closestMark != null)
+            {
+                Vector2 dir = closestMark.Position - crosshairPos;
+                float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+                if (!_hasIndicatorAngle)
+                {
+                    _currentIndicatorAngle = targetAngle;
+                    _hasIndicatorAngle = true;
+                }
+                else
+                {
+                    _currentIndicatorAngle = Mathf.MoveTowardsAngle(
+                        _currentIndicatorAngle, targetAngle, _indicatorMoveSpeed * Time.deltaTime);
+                }
+
+                float rad = _currentIndicatorAngle * Mathf.Deg2Rad;
+
+                _indicators[0].anchoredPosition = new Vector2(
+                    Mathf.Cos(rad) * _indicatorRadius,
+                    Mathf.Sin(rad) * _indicatorRadius);
+                _indicators[0].localRotation = Quaternion.Euler(0f, 0f, _currentIndicatorAngle - 90f);
+
+                // 거리 기반 알파 — 가까울수록 투명
+                float distance = dir.magnitude;
+                float alpha = Mathf.Clamp01(distance / (closestMark.DetectionRadius * 2f));
+                Color c = _indicatorColor;
+                c.a = _indicatorColor.a * alpha;
+                _indicatorImages[0].color = c;
+
+                if (!_indicators[0].gameObject.activeSelf)
+                    _indicators[0].gameObject.SetActive(true);
+            }
+            else
+            {
+                if (_indicators[0].gameObject.activeSelf)
+                    _indicators[0].gameObject.SetActive(false);
+            }
+
+            // 나머지 인디케이터는 항상 비활성
+            for (int i = 1; i < MAX_INDICATOR_COUNT; i++)
+            {
+                if (_indicators[i] != null && _indicators[i].gameObject.activeSelf)
+                    _indicators[i].gameObject.SetActive(false);
+            }
+        }
+
+        private void HideAllIndicators()
+        {
+            if (_indicators == null) return;
+            for (int i = 0; i < MAX_INDICATOR_COUNT; i++)
+            {
+                if (_indicators[i] != null)
+                    _indicators[i].gameObject.SetActive(false);
+            }
         }
 
         #endregion

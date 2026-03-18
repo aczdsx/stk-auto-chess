@@ -409,7 +409,7 @@ namespace CookApps.AutoChess
             return -1;
         }
 
-        private static int FindItemSpecIndex(GameWorld world, int itemSpecId)
+        public static int FindItemSpecIndex(GameWorld world, int itemSpecId)
         {
             for (int i = 0; i < world.ItemSpecCount; i++)
             {
@@ -417,6 +417,28 @@ namespace CookApps.AutoChess
                     return i;
             }
             return -1;
+        }
+
+        /// <summary>보드 유닛의 장착 아이템으로부터 HP 보너스 합산</summary>
+        public static int CalcItemBonusHP(GameWorld world, ref UnitData unit)
+        {
+            if (!world.Config.EnableItems || world.ItemSpecs == null) return 0;
+
+            int bonus = 0;
+            for (int s = 0; s < UnitData.MaxItemSlots; s++)
+            {
+                int instId = unit.GetItemSlot(s);
+                if (instId == UnitData.InvalidId) continue;
+
+                int itemIdx = FindItemIndex(world, instId);
+                if (itemIdx < 0) continue;
+
+                int specIdx = FindItemSpecIndex(world, world.Items[itemIdx].ItemSpecId);
+                if (specIdx < 0) continue;
+
+                bonus += world.ItemSpecs[specIdx].BonusHP;
+            }
+            return bonus;
         }
 
         private static int FindEmptyItemSlot(GameWorld world)

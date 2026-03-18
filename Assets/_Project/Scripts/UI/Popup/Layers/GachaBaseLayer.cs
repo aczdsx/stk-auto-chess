@@ -37,6 +37,7 @@ namespace CookApps.AutoBattler
         private AsyncOperationHandle<SceneInstance> _gachaSceneHandle;
         private Camera _previousMainCamera;
         private Canvas _mainCanvas;
+        private GameObject _idleCombatRunner;
 
         private void OnDestroy()
         {
@@ -57,6 +58,13 @@ namespace CookApps.AutoBattler
             {
                 _previousMainCamera.gameObject.SetActive(true);
                 _previousMainCamera = null;
+            }
+
+            // IdleCombatRunner 복원
+            if (_idleCombatRunner != null)
+            {
+                _idleCombatRunner.SetActive(true);
+                _idleCombatRunner = null;
             }
 
             if (_gachaSceneHandle.IsValid() && _gachaSceneHandle.IsDone
@@ -82,6 +90,13 @@ namespace CookApps.AutoBattler
             {
                 _previousMainCamera.gameObject.SetActive(true);
                 _previousMainCamera = null;
+            }
+
+            // IdleCombatRunner 복원
+            if (_idleCombatRunner != null)
+            {
+                _idleCombatRunner.SetActive(true);
+                _idleCombatRunner = null;
             }
 
             if (_gachaSceneHandle.IsValid() && _gachaSceneHandle.IsDone
@@ -217,17 +232,101 @@ namespace CookApps.AutoBattler
             SoundManager.Instance.StopBGM();
             SoundManager.Instance.IsPlayingGacha = true;
 
-            // MainCanvas 비활성화 (GraphicRaycaster가 터치 이벤트 가로채는 것 방지)
+            // MainCanvas 비활성화
+            // 이것도 비활성화 범주를 좀 책정해야 함.
             _mainCanvas = SceneUILayerManager.Instance.MainCanvas;
             if (_mainCanvas != null)
                 _mainCanvas.gameObject.SetActive(false);
 
             // Additive 씬 로드 후 Canvas 강제 리빌드 (Graphic.depth=-1 방지)
+
+            _idleCombatRunner = GameObject.Find("IdleCombatRunner");
+            if (_idleCombatRunner != null)
+                _idleCombatRunner.SetActive(false);
             Canvas.ForceUpdateCanvases();
 
             controller.SetItem(resultGachaList, _currentSpecGachaData,
                 () => ProcessCharacterGacha(gachaCountType).Forget(),
-                () => UnloadGachaScene());
+                () => UnloadGachaScene(),
+                () => OnGachaMinigameComplete(resultGachaList, _currentSpecGachaData, gachaCountType));
+        }
+
+        private void OnGachaMinigameComplete(List<RewardItem> resultData, GachaInfo specGachaData, GachaCountType gachaCountType)
+        {
+            OnGachaMinigameCompleteAsync(resultData, specGachaData, gachaCountType).Forget();
+        }
+
+        private async UniTask OnGachaMinigameCompleteAsync(List<RewardItem> resultData, GachaInfo specGachaData, GachaCountType gachaCountType)
+        {
+            // 씬 언로드 (카메라/Canvas 복원 포함)
+            await UnloadGachaSceneAsync();
+
+            // BGM 복원
+            SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_command01);
+
+            // 캐릭터 팝업 시퀀스 시작
+            await ShowCharacterSequenceAsync(resultData, specGachaData, gachaCountType);
+        }
+
+        private async UniTask ShowCharacterSequenceAsync(List<RewardItem> resultData, GachaInfo specGachaData, GachaCountType gachaCountType)
+        {
+            var token = destroyCancellationToken;
+
+            // 유효 캐릭터 ID 수집
+            var charIds = new List<int>(resultData.Count);
+            for (int i = 0; i < resultData.Count; i++)
+            {
+                if (resultData[i].Id.GetCharacterId(out int charId))
+                    charIds.Add(charId);
+            }
+
+            if (charIds.Count > 0)
+            {
+                // 팝업 1회만 Push (시퀀스 모드)
+                var param = new GachaGetCharacterPopupParam
+                {
+                    CharacterId = charIds[0],
+                    IsSequenceMode = true
+                };
+                var popup = await SceneUILayerManager.Instance.PushUILayerAsync<GachaGetCharacterPopup>(param);
+                if (token.IsCancellationRequested) return;
+
+                // 첫 캐릭터부터 순차 표시
+                for (int i = 0; i < charIds.Count; i++)
+                {
+                    if (token.IsCancellationRequested) return;
+
+                    // 두 번째부터는 데이터만 교체 (Addressable 재로드 없음)
+                    if (i > 0)
+                        popup.UpdateCharacter(charIds[i]);
+
+                    // 유저 스킵 대기 (배경 터치 = 다음 1개, SKIP 버튼 = 전체 스킵)
+                    await UniTask.WaitUntil(() => popup.IsSkipPressed || popup.IsSkipAllPressed, cancellationToken: token);
+
+                    if (popup.IsSkipAllPressed)
+                        break;
+                }
+
+                // 시퀀스 완료 후 팝업 닫기
+                SceneUILayerManager.Instance.PopUILayer(popup);
+
+                if (token.IsCancellationRequested) return;
+
+                // 팝업 Exit 애니메이션 완료 대기
+                await UniTask.WaitUntil(
+                    () => SceneUILayerManager.Instance.GetUILayer<GachaGetCharacterPopup>() == null,
+                    cancellationToken: token);
+            }
+
+            if (token.IsCancellationRequested) return;
+
+            var resultParam = new GachaResultPopupParam
+            {
+                ResultItems = resultData,
+                SpecGachaData = specGachaData,
+                OnContinueGacha = () => ProcessCharacterGacha(gachaCountType).Forget()
+            };
+            await SceneUILayerManager.Instance.PushUILayerAsync<GachaResultPopup>(resultParam);
         }
 
         private void SetGachaData(GachaCountType gachaCountType)

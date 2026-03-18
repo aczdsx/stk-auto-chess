@@ -8,28 +8,19 @@ namespace CookApps.AutoChess.View
 {
     /// <summary>
     /// 시너지 VFX 통합 설정.
-    /// SynergyType별, 단계(Tier)별 달성 시 원샷 이펙트 매핑.
+    /// SynergyType별 달성 시 원샷 이펙트 매핑.
     /// </summary>
     [CreateAssetMenu(fileName = "SynergyVfxConfig", menuName = "AutoChess/Synergy Vfx Config")]
     public class SynergyVfxConfigSO : ScriptableObject
     {
         [Serializable]
-        public struct TierVfxEntry
+        public struct SynergyVfxEntry
         {
-            [Tooltip("시너지 단계 인덱스 (0-based, SynergySpec.Tiers 인덱스와 대응)")]
-            public int TierIndex;
+            public SynergyType SynergyType;
 
             [Header("달성 이펙트 (단계 도달 시 원샷)")]
             public AssetReferenceGameObject AchieveVfx;
             public SkillPosition AchievePosition;
-            public bool AchieveFollowable;
-        }
-
-        [Serializable]
-        public struct SynergyVfxEntry
-        {
-            public SynergyType SynergyType;
-            public TierVfxEntry[] Tiers;
 
             [Header("효과 발동 시 VFX")]
             public TaggedVfx[] EffectVfxList;
@@ -44,46 +35,26 @@ namespace CookApps.AutoChess.View
 
         [SerializeField] private SynergyVfxEntry[] _entries;
 
-        // SynergyType → (TierIndex → TierVfxEntry) 캐시
-        private Dictionary<SynergyType, Dictionary<int, TierVfxEntry>> _cache;
+        private Dictionary<SynergyType, SynergyVfxEntry> _cache;
 
-        /// <summary>특정 시너지 + 단계의 VFX 엔트리 조회</summary>
-        public bool TryGetTierEntry(SynergyType synergyType, int tierIndex, out TierVfxEntry entry)
+        /// <summary>특정 시너지의 VFX 엔트리 조회</summary>
+        public bool TryGetEntry(SynergyType synergyType, out SynergyVfxEntry entry)
         {
             if (_cache == null) BuildCache();
-
-            if (_cache.TryGetValue(synergyType, out var tierMap))
-                return tierMap.TryGetValue(tierIndex, out entry);
-
-            entry = default;
-            return false;
-        }
-
-        /// <summary>특정 시너지의 모든 단계 VFX 조회</summary>
-        public bool TryGetAllTiers(SynergyType synergyType, out Dictionary<int, TierVfxEntry> tierMap)
-        {
-            if (_cache == null) BuildCache();
-            return _cache.TryGetValue(synergyType, out tierMap);
+            return _cache.TryGetValue(synergyType, out entry);
         }
 
         private void BuildCache()
         {
-            _cache = new Dictionary<SynergyType, Dictionary<int, TierVfxEntry>>();
+            _cache = new Dictionary<SynergyType, SynergyVfxEntry>();
 
             if (_entries == null) return;
 
             for (int i = 0; i < _entries.Length; i++)
             {
                 var e = _entries[i];
-                if (e.SynergyType == SynergyType.NONE || e.Tiers == null) continue;
-
-                var tierMap = new Dictionary<int, TierVfxEntry>();
-                for (int t = 0; t < e.Tiers.Length; t++)
-                {
-                    tierMap[e.Tiers[t].TierIndex] = e.Tiers[t];
-                }
-
-                _cache[e.SynergyType] = tierMap;
+                if (e.SynergyType == SynergyType.NONE) continue;
+                _cache[e.SynergyType] = e;
             }
         }
 

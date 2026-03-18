@@ -148,10 +148,10 @@ namespace CookApps.AutoBattler
                 _costValueText.text = specGachaData.gacha_cost.ToString();
 
             // 비용 아이콘 (SpriteLoader 사용)
-            if (_costIconSpriteLoader != null)
-                _costIconSpriteLoader.SetSprite(
-                    SpriteNameParser.GetItemSprite(specGachaData.gacha_cost_item_id)
-                ).Forget();
+            // if (_costIconSpriteLoader != null)
+            //     _costIconSpriteLoader.SetSprite(
+            //         SpriteNameParser.GetItemSprite(specGachaData.gacha_cost_item_id)
+            //     ).Forget();
         }
 
         private void OnClickConfirm()

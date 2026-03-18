@@ -6,7 +6,7 @@ using UnityEngine;
 [CustomEditor(typeof(SynergyVfxConfigSO))]
 public class SynergyVfxConfigSetup : Editor
 {
-    private static readonly (SynergyType type, string baseName)[] ElementalEntries =
+    private static readonly (SynergyType type, string vfxName)[] ElementalEntries =
     {
         (SynergyType.FIRE,      "fx_common_synergy_fire"),
         (SynergyType.WATER,     "fx_common_synergy_water"),
@@ -15,8 +15,6 @@ public class SynergyVfxConfigSetup : Editor
         (SynergyType.WIND,      "fx_common_synergy_wind"),
     };
 
-    private static readonly string[] ElementalTierSuffixes = { "", "_02", "_03" };
-
     private static readonly (SynergyType type, string vfxName)[] AsterismEntries =
     {
         (SynergyType.NOBLESSE,      "fx_common_asterism_nb_Icon_01"),
@@ -24,11 +22,45 @@ public class SynergyVfxConfigSetup : Editor
         (SynergyType.SUPERNOVA,     "fx_common_asterism_sn_Icon_01"),
     };
 
+    private static readonly SynergyType[] VfxPendingTypes =
+    {
+        SynergyType.ARCANA,
+        SynergyType.UROBOROS,
+        SynergyType.ECLIPSE,
+    };
+
     private const string VfxBasePath = "Assets/_Project/Addressables/Remote/Prefabs/Fx/Common/";
+
+    private Vector2 _scrollPos;
 
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
+        serializedObject.Update();
+
+        var entriesProp = serializedObject.FindProperty("_entries");
+
+        EditorGUILayout.Space(4);
+        entriesProp.isExpanded = EditorGUILayout.Foldout(entriesProp.isExpanded, $"Entries ({entriesProp.arraySize})", true);
+
+        if (entriesProp.isExpanded)
+        {
+            EditorGUI.indentLevel++;
+            int size = EditorGUILayout.DelayedIntField("Size", entriesProp.arraySize);
+            if (size != entriesProp.arraySize)
+                entriesProp.arraySize = size;
+
+            for (int i = 0; i < entriesProp.arraySize; i++)
+            {
+                var element = entriesProp.GetArrayElementAtIndex(i);
+                var synergyTypeProp = element.FindPropertyRelative("SynergyType");
+                string label = synergyTypeProp.enumDisplayNames[synergyTypeProp.enumValueIndex];
+
+                EditorGUILayout.PropertyField(element, new GUIContent(label), true);
+            }
+            EditorGUI.indentLevel--;
+        }
+
+        serializedObject.ApplyModifiedProperties();
 
         EditorGUILayout.Space(10);
         if (GUILayout.Button("Setup Default Entries", GUILayout.Height(30)))
@@ -45,39 +77,22 @@ public class SynergyVfxConfigSetup : Editor
         int entryIndex = 0;
 
         // 원소 시너지
-        foreach (var (synergyType, baseName) in ElementalEntries)
+        foreach (var (synergyType, vfxName) in ElementalEntries)
         {
+            string prefabPath = VfxBasePath + vfxName + ".prefab";
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+            if (prefab == null)
+            {
+                Debug.LogWarning($"[SynergyVfxConfig] Prefab not found: {prefabPath}");
+                continue;
+            }
+
             entriesProp.InsertArrayElementAtIndex(entryIndex);
             var entryProp = entriesProp.GetArrayElementAtIndex(entryIndex);
             entryProp.FindPropertyRelative("SynergyType").enumValueIndex = (int)synergyType;
+            SetAssetReference(entryProp.FindPropertyRelative("AchieveVfx"), prefab);
+            entryProp.FindPropertyRelative("AchievePosition").enumValueIndex = (int)SkillPosition.SKILL_MIDDLE;
 
-            var tiersProp = entryProp.FindPropertyRelative("Tiers");
-            tiersProp.ClearArray();
-
-            string stem = baseName;
-            if (stem.EndsWith("_01"))
-                stem = stem.Substring(0, stem.Length - 3);
-
-            for (int tier = 0; tier < 3; tier++)
-            {
-                string vfxName = tier == 0 ? baseName : stem + ElementalTierSuffixes[tier];
-                string prefabPath = VfxBasePath + vfxName + ".prefab";
-
-                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-                if (prefab == null)
-                {
-                    Debug.LogWarning($"[SynergyVfxConfig] Prefab not found: {prefabPath}");
-                    continue;
-                }
-
-                tiersProp.InsertArrayElementAtIndex(tiersProp.arraySize);
-                var tierProp = tiersProp.GetArrayElementAtIndex(tiersProp.arraySize - 1);
-
-                tierProp.FindPropertyRelative("TierIndex").intValue = tier;
-                SetAssetReference(tierProp.FindPropertyRelative("AchieveVfx"), prefab);
-                tierProp.FindPropertyRelative("AchievePosition").enumValueIndex = (int)SkillPosition.SKILL_MIDDLE;
-                tierProp.FindPropertyRelative("AchieveFollowable").boolValue = true;
-            }
             entryIndex++;
         }
 
@@ -95,16 +110,19 @@ public class SynergyVfxConfigSetup : Editor
             entriesProp.InsertArrayElementAtIndex(entryIndex);
             var entryProp = entriesProp.GetArrayElementAtIndex(entryIndex);
             entryProp.FindPropertyRelative("SynergyType").enumValueIndex = (int)synergyType;
+            SetAssetReference(entryProp.FindPropertyRelative("AchieveVfx"), prefab);
+            entryProp.FindPropertyRelative("AchievePosition").enumValueIndex = (int)SkillPosition.SKILL_MIDDLE;
 
-            var tiersProp = entryProp.FindPropertyRelative("Tiers");
-            tiersProp.ClearArray();
-            tiersProp.InsertArrayElementAtIndex(0);
-            var tierProp = tiersProp.GetArrayElementAtIndex(0);
+            entryIndex++;
+        }
 
-            tierProp.FindPropertyRelative("TierIndex").intValue = 0;
-            SetAssetReference(tierProp.FindPropertyRelative("AchieveVfx"), prefab);
-            tierProp.FindPropertyRelative("AchievePosition").enumValueIndex = (int)SkillPosition.SKILL_MIDDLE;
-            tierProp.FindPropertyRelative("AchieveFollowable").boolValue = true;
+        // VFX 미정 시너지 (빈 엔트리)
+        foreach (var synergyType in VfxPendingTypes)
+        {
+            entriesProp.InsertArrayElementAtIndex(entryIndex);
+            var entryProp = entriesProp.GetArrayElementAtIndex(entryIndex);
+            entryProp.FindPropertyRelative("SynergyType").enumValueIndex = (int)synergyType;
+            entryProp.FindPropertyRelative("AchievePosition").enumValueIndex = (int)SkillPosition.SKILL_MIDDLE;
 
             entryIndex++;
         }

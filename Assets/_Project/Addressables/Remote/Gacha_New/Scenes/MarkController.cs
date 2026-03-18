@@ -14,7 +14,7 @@ namespace CookApps.AutoBattler
         #region Serialized Fields
 
         [Header("Detection")]
-        [SerializeField] private float _detectionRadius = 70f;
+        [SerializeField] private float _detectionRadius = 300f;
 
         [Header("References")]
         [SerializeField] private ParticleSystem _particleSystem;

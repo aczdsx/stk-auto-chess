@@ -80,17 +80,10 @@ namespace CookApps.AutoChess
             return state;
         }
 
-        /// <summary>
-        /// 적 유닛 1체를 동적으로 추가. row 4-7에 빈 타일을 찾아 스폰.
-        /// </summary>
-        /// <param name="matchState">전투 상태</param>
-        /// <param name="enemyChampionSpecId">적 챔피언 specId</param>
-        /// <param name="rng">결정론적 RNG (struct, ref 전달)</param>
-        /// <param name="tickRate">시뮬레이션 틱레이트</param>
-        /// <returns>스폰 성공 여부</returns>
+        /// <summary>적 유닛 1체를 동적으로 추가. row 4-7에 빈 타일을 찾아 스폰.</summary>
         public static bool TryAddEnemy(CombatMatchState matchState, int enemyChampionSpecId,
             float multipleAtk, float multipleHp,
-            ref DeterministicRNG rng, int tickRate)
+            ref DeterministicRNG rng, int tickRate, int monsterLevel = 1)
         {
             if (enemyChampionSpecId <= 0)
                 return false;
@@ -105,11 +98,11 @@ namespace CookApps.AutoChess
             int reuseSlot = FindDeadEnemySlot(matchState);
             if (reuseSlot >= 0)
             {
-                RespawnUnit(matchState, reuseSlot, enemyChampionSpecId, col, row, tickRate, multipleAtk, multipleHp);
+                RespawnUnit(matchState, reuseSlot, enemyChampionSpecId, col, row, tickRate, multipleAtk, multipleHp, monsterLevel);
             }
             else if (matchState.UnitCount < CombatMatchState.MaxCombatUnits)
             {
-                SpawnUnit(matchState, enemyChampionSpecId, teamIndex: 1, ownerIndex: PlayerB, col, row, tickRate, multipleAtk, multipleHp);
+                SpawnUnit(matchState, enemyChampionSpecId, teamIndex: 1, ownerIndex: PlayerB, col, row, tickRate, multipleAtk, multipleHp, monsterLevel);
             }
             else
             {
@@ -136,7 +129,7 @@ namespace CookApps.AutoChess
 
         /// <summary>죽은 슬롯을 새 유닛으로 재사용</summary>
         private static void RespawnUnit(CombatMatchState state, int slotIndex, int champSpecId,
-            int col, int row, int tickRate, float multipleAtk, float multipleHp)
+            int col, int row, int tickRate, float multipleAtk, float multipleHp, int monsterLevel)
         {
             int combatId = state.NextCombatId++;
 
@@ -157,7 +150,7 @@ namespace CookApps.AutoChess
             unit.State = CombatState.Idle;
             unit.IsAlive = true;
 
-            ApplySpecStats(ref unit, champSpecId, multipleAtk, multipleHp, tickRate);
+            ApplySpecStats(ref unit, champSpecId, multipleAtk, multipleHp, tickRate, monsterLevel);
 
             unit.CurrentTargetId = CombatUnit.InvalidId;
             unit.AttackCooldown = 0;
@@ -222,7 +215,7 @@ namespace CookApps.AutoChess
         /// <summary>유닛 1체를 지정 좌표에 스폰 (SpawnTutorialUnit 패턴 기반)</summary>
         private static void SpawnUnit(CombatMatchState state, int champSpecId,
             byte teamIndex, byte ownerIndex, int col, int row, int tickRate,
-            float multipleAtk = 1f, float multipleHp = 1f)
+            float multipleAtk = 1f, float multipleHp = 1f, int monsterLevel = 1)
         {
             int combatId = state.NextCombatId++;
             int slotIndex = state.UnitCount++;
@@ -241,7 +234,7 @@ namespace CookApps.AutoChess
             unit.State = CombatState.Idle;
             unit.IsAlive = true;
 
-            ApplySpecStats(ref unit, champSpecId, multipleAtk, multipleHp, tickRate);
+            ApplySpecStats(ref unit, champSpecId, multipleAtk, multipleHp, tickRate, monsterLevel);
 
             unit.CurrentTargetId = CombatUnit.InvalidId;
             unit.AttackCooldown = 0;
@@ -317,16 +310,19 @@ namespace CookApps.AutoChess
 
         /// <summary>스펙 데이터 기반 스탯 적용 (SpawnUnit / RespawnUnit 공용)</summary>
         private static void ApplySpecStats(ref CombatUnit unit, int champSpecId,
-            float multipleAtk, float multipleHp, int tickRate)
+            float multipleAtk, float multipleHp, int tickRate, int monsterLevel = 1)
         {
             var spec = SpecDataManager.Instance.GetSpecCharacter(champSpecId);
 
             if (spec != null)
             {
-                unit.MaxHP = (int)(spec.stat_hp * multipleHp);
+                float bonusRate = CharacterGrowthHelper.CalculateLevelBonusRate(spec, monsterLevel);
+                float growthMult = 1f + bonusRate;
+
+                unit.MaxHP = (int)(spec.stat_hp * growthMult * multipleHp);
                 unit.CurrentHP = unit.MaxHP;
-                unit.Attack = (int)(spec.stat_atk * multipleAtk);
-                unit.Def = spec.stat_def;
+                unit.Attack = (int)(spec.stat_atk * growthMult * multipleAtk);
+                unit.Def = (int)(spec.stat_def * growthMult);
                 unit.AdReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ad_reduce);
                 unit.ApReduce = AutoChessSpecAdapter.ReduceToIntPercent(spec.ap_reduce);
                 unit.AttackSpeed = Mathf.Max(1, (int)(spec.atk_speed * 100));

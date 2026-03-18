@@ -516,5 +516,60 @@ namespace CookApps.AutoChess
                 }
             }
         }
+        // ── 프리뷰용 시너지 HP 보너스 ──
+
+        /// <summary>보드 유닛에 적용될 시너지 HP 보너스 합산</summary>
+        public static int CalcSynergyBonusHP(GameWorld world, byte playerIndex, ref UnitData unit)
+        {
+            if (!world.Config.EnableSynergy || world.SynergySpecs == null || world.SynergySpecCount == 0)
+                return 0;
+
+            int bonus = 0;
+            var synergy = world.Synergies[playerIndex];
+
+            for (int t = 0; t < world.SynergySpecCount; t++)
+            {
+                ref var spec = ref world.SynergySpecs[t];
+                if (!spec.IsValid) continue;
+
+                byte tier = synergy.GetTraitTier(spec.TraitId);
+                if (tier == 0) continue;
+
+                int tierIndex = tier - 1;
+                if (tierIndex >= spec.Tiers.Length) continue;
+
+                ref var tierData = ref spec.Tiers[tierIndex];
+                if (tierData.Effects == null) continue;
+
+                for (int e = 0; e < tierData.Effects.Length; e++)
+                {
+                    ref var effect = ref tierData.Effects[e];
+
+                    // 대상 필터링: TraitUnits는 해당 특성 유닛만, AllAllies는 모두
+                    switch (effect.Target)
+                    {
+                        case SynergyTarget.TraitUnits:
+                            if ((unit.TraitFlags & (1 << spec.TraitId)) == 0) continue;
+                            break;
+                        case SynergyTarget.AllAllies:
+                            break;
+                        default:
+                            continue;
+                    }
+
+                    switch (effect.Type)
+                    {
+                        case SynergyEffectType.BonusHP:
+                            bonus += effect.Value;
+                            break;
+                        case SynergyEffectType.BonusHPPercent:
+                            bonus += unit.MaxHP * effect.ValuePercent / 100;
+                            break;
+                    }
+                }
+            }
+
+            return bonus;
+        }
     }
 }

@@ -142,6 +142,7 @@ namespace CookApps.AutoChess.View
                     break;
 
                 case SimEventType.UnitDied:
+                    if (evt.Value0 >= 0) _combatVfxManager?.OnUnitDied(evt.Value0);
                     LogUnitDied(ref evt, matchState);
                     break;
 
