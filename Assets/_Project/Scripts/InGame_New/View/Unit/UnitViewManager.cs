@@ -81,9 +81,15 @@ namespace CookApps.AutoChess.View
 
                     var view = GetOrCreateBoardView(entityId, unit.ChampionSpecId, unit.StarLevel);
                     if (isActive)
+                    {
                         view.SetTargetPosition(worldPos);
+                        int previewMaxHP = BoardSystem.CalcPreviewMaxHP(world, (byte)p, ref unit);
+                        view.UpdateHP(previewMaxHP, previewMaxHP);
+                    }
                     else
+                    {
                         view.SetPositionImmediate(worldPos);
+                    }
                 }
             }
 
@@ -319,7 +325,7 @@ namespace CookApps.AutoChess.View
             }
 
             var view = GetFromPool();
-            view.Initialize(entityId, starLevel, GetCharacterPrefabPath(champSpecId));
+            view.Initialize(entityId, starLevel, GetCharacterPrefabPath(champSpecId), champSpecId);
             _boardUnitViews[entityId] = view;
             return view;
         }

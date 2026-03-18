@@ -105,7 +105,7 @@ namespace CookApps.AutoChess
             int idx = _rng.Range(0, _enemyMonsters.Count);
             var monster = _enemyMonsters[idx];
 
-            IdleCombatSetup.TryAddEnemy(_matchState, monster.monster_id, monster.multiple_atk, monster.multiple_hp, ref _rng, TickRate);
+            IdleCombatSetup.TryAddEnemy(_matchState, monster.monster_id, monster.multiple_atk, monster.multiple_hp, ref _rng, TickRate, monster.monster_lv);
 
             _enemySpawnTimer = GetRandomSpawnInterval();
         }

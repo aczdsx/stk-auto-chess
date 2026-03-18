@@ -167,13 +167,14 @@ namespace CookApps.AutoChess
             });
         }
 
-        public void PushUnitDied(int entityId, int killerId)
+        public void PushUnitDied(int entityId, int killerId, int combatId = -1)
         {
             Push(new SimEvent
             {
                 Type = SimEventType.UnitDied,
                 EntityId = entityId,
                 TargetEntityId = killerId,
+                Value0 = combatId,
             });
         }
 
