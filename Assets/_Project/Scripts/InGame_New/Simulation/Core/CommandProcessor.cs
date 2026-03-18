@@ -129,7 +129,12 @@ namespace CookApps.AutoChess
             byte toCol = (byte)cmd.Param1;
             byte toRow = (byte)cmd.Param2;
 
-            BoardSystem.MoveUnit(world, cmd.PlayerIndex, entityId, toCol, toRow);
+            if (BoardSystem.MoveUnit(world, cmd.PlayerIndex, entityId, toCol, toRow))
+            {
+                // 보드 내 이동은 시너지 유닛 수 변화 없으므로 Recalculate 불필요
+                // PrepBehavior의 OnBoardChanged만 호출 (오브젝트 위치 충돌 감지)
+                SynergySystem.NotifyPrepBoardChanged(world, cmd.PlayerIndex);
+            }
         }
 
         private static void ProcessWithdrawUnit(GameWorld world, in GameCommand cmd)

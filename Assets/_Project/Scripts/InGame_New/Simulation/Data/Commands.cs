@@ -166,14 +166,17 @@ namespace CookApps.AutoChess
             };
         }
 
-        /// <summary>준비 페이즈 시너지 타겟 설정</summary>
-        public static GameCommand SetSynergyPrepTarget(byte player, int traitId, int targetEntityId)
+        /// <summary>준비 페이즈 시너지 타겟 설정 (Param1>0: 유닛 부여, Param1=-1: 오브젝트 위치 이동)</summary>
+        public static GameCommand SetSynergyPrepTarget(byte player, int traitId, int targetEntityId,
+            int col = 0, int row = 0)
             => new GameCommand
             {
                 Type = CommandType.SetSynergyPrepTarget,
                 PlayerIndex = player,
                 Param0 = traitId,
                 Param1 = targetEntityId,
+                Param2 = col,
+                Param3 = row,
             };
 
         /// <summary>튜토리얼 적 스폰 (전투 중 동적 추가)</summary>

@@ -153,16 +153,9 @@ namespace CookApps.AutoChess
                 var sorted = new List<ISpecSynergyData>(synergyList);
                 sorted.Sort((a, b) => a.grade.CompareTo(b.grade));
 
-                var tiers = new SynergyTier[sorted.Count];
-                for (int i = 0; i < sorted.Count; i++)
-                {
-                    var data = sorted[i];
-                    tiers[i] = new SynergyTier
-                    {
-                        RequiredCount = (byte)data.min_int,
-                        Effects = BuildEffects(synergyType, data),
-                    };
-                }
+                // SUPERNOVA 등: 동일 grade에 여러 행이 있으면 효과를 합산하여 하나의 티어로 묶음
+                // 기본 효과(첫 번째 grade 행)는 모든 상위 티어에도 누적 적용
+                var tiers = BuildSynergyTiers(synergyType, sorted);
 
                 // element(1-6) → Origin, stella(7-9) → Class
                 var category = synergyTypeInt <= 6 ? TraitCategory.Origin : TraitCategory.Class;
@@ -177,6 +170,89 @@ namespace CookApps.AutoChess
             }
 
             return result.ToArray();
+        }
+
+        /// <summary>
+        /// 정렬된 시너지 데이터 → SynergyTier[].
+        /// 동일 grade 행을 그룹화하여 효과를 하나의 티어로 합산.
+        /// 기본 효과(가장 낮은 grade의 첫 행)는 모든 상위 티어에도 누적 적용.
+        /// </summary>
+        private static SynergyTier[] BuildSynergyTiers(SynergyType type, List<ISpecSynergyData> sorted)
+        {
+            // grade별 그룹화
+            var gradeGroups = new List<(int grade, byte minCount, List<SynergyEffect> effects)>();
+            SynergyEffect[] baseEffects = null; // 기본 효과 (첫 grade의 첫 행)
+
+            int currentGrade = -1;
+            byte currentMinCount = 0;
+            List<SynergyEffect> currentEffects = null;
+
+            int withinGradeIdx = 0;
+
+            for (int i = 0; i < sorted.Count; i++)
+            {
+                var data = sorted[i];
+
+                if (data.grade != currentGrade)
+                {
+                    // 새 grade 시작
+                    if (currentEffects != null)
+                        gradeGroups.Add((currentGrade, currentMinCount, currentEffects));
+
+                    currentGrade = data.grade;
+                    currentMinCount = (byte)data.min_int;
+                    withinGradeIdx = 0;
+                }
+                else
+                {
+                    // 동일 grade — 인덱스 증가
+                    withinGradeIdx++;
+                }
+
+                var effects = BuildEffects(type, data, withinGradeIdx);
+
+                if (withinGradeIdx == 0)
+                    currentEffects = new List<SynergyEffect>(effects);
+                else
+                    currentEffects.AddRange(effects);
+
+                // 첫 번째 행의 효과를 기본 효과로 저장
+                if (i == 0 && effects.Length > 0)
+                    baseEffects = effects;
+            }
+
+            if (currentEffects != null)
+                gradeGroups.Add((currentGrade, currentMinCount, currentEffects));
+
+            // 동일 grade에 여러 행이 있는 경우 (SUPERNOVA 등):
+            // 첫 grade의 첫 행 = 기본 효과 (모든 티어 공통), 두번째 행 = 단계 효과
+            // 첫 grade 그룹은 이미 두 행이 합산됨
+            // 이후 grade 그룹(단일 행)에는 기본 효과를 prepend
+            // 주의: 이후 grade에도 2행 이상이 있다면 기본효과가 중복될 수 있음
+            bool hasMultiRowGrades = sorted.Count > gradeGroups.Count;
+            if (hasMultiRowGrades && baseEffects != null)
+            {
+                for (int g = 1; g < gradeGroups.Count; g++)
+                {
+                    var group = gradeGroups[g];
+                    var merged = new List<SynergyEffect>(baseEffects);
+                    merged.AddRange(group.effects);
+                    gradeGroups[g] = (group.grade, group.minCount, merged);
+                }
+            }
+
+            // SynergyTier[] 생성
+            var tiers = new SynergyTier[gradeGroups.Count];
+            for (int g = 0; g < gradeGroups.Count; g++)
+            {
+                tiers[g] = new SynergyTier
+                {
+                    RequiredCount = gradeGroups[g].minCount,
+                    Effects = gradeGroups[g].effects.ToArray(),
+                };
+            }
+
+            return tiers;
         }
 
         // ── 시너지 효과 매핑 ──
@@ -202,11 +278,41 @@ namespace CookApps.AutoChess
         }
 
         /// <summary>
+        /// SUPERNOVA 행 → SynergyEffect[].
+        /// grade 내 첫 번째 행(withinGradeIndex==0): 기본 효과 (HP%, 공속%).
+        /// grade 내 두 번째+ 행: 단계 효과 (공격력%, 흡혈).
+        /// </summary>
+        private static SynergyEffect[] BuildSupernovaRowEffects(ISpecSynergyData data, int withinGradeIndex)
+        {
+            int v1 = data.effect_stat_value_1;
+            int v2 = data.effect_stat_value_2;
+
+            if (withinGradeIndex == 0)
+            {
+                // grade 내 첫 번째 행: 기본 효과 (HP%, 공속%)
+                return new[]
+                {
+                    new SynergyEffect { Type = SynergyEffectType.BonusHPPercent, Target = SynergyTarget.PrepTarget, ValuePercent = v1 },
+                    new SynergyEffect { Type = SynergyEffectType.BonusAttackSpeedPercent, Target = SynergyTarget.PrepTarget, ValuePercent = v2 },
+                };
+            }
+            else
+            {
+                // grade 내 두 번째+ 행: 단계 효과 (공격력%, 흡혈)
+                return new[]
+                {
+                    new SynergyEffect { Type = SynergyEffectType.BonusAttackPercent, Target = SynergyTarget.PrepTarget, ValuePercent = v1 },
+                    new SynergyEffect { Type = SynergyEffectType.LifeSteal, Target = SynergyTarget.PrepTarget, Value = v2 },
+                };
+            }
+        }
+
+        /// <summary>
         /// SynergyType + 스펙 데이터 → SynergyEffect[].
         /// 원소: 스탯 매핑. Asterism: 빈 배열 (행동 클래스에서 처리).
         /// 스펙 테이블 변경 시 이 스위치만 수정.
         /// </summary>
-        private static SynergyEffect[] BuildEffects(SynergyType type, ISpecSynergyData data)
+        private static SynergyEffect[] BuildEffects(SynergyType type, ISpecSynergyData data, int withinGradeIndex = 0)
         {
             var target = MapCoverType(data.synergy_cover_type);
             int v1 = data.effect_stat_value_1;
@@ -254,6 +360,9 @@ namespace CookApps.AutoChess
                         new SynergyEffect { Type = SynergyEffectType.BonusHPPercent, Target = target, ValuePercent = v1 },
                         new SynergyEffect { Type = SynergyEffectType.BonusMoveSpeedPercent, Target = target, ValuePercent = v2 },
                     };
+
+                case SynergyType.SUPERNOVA:
+                    return BuildSupernovaRowEffects(data, withinGradeIndex);
 
                 default:
                     // asterism 등: 스탯 매핑 없음 (행동 클래스에서 처리)

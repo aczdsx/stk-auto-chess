@@ -205,13 +205,19 @@ namespace CookApps.AutoChess
             // 상점 갱신 (잠금된 상점은 스킵)
             ShopSystem.RefreshAllShops(world);
 
-            // 준비 페이즈 시너지 행동 정리 및 재동기화
+            // 준비 페이즈 시너지 행동 정리 및 재동기화 (이전 스냅샷으로 상태 보존)
             for (int p = 0; p < world.Config.PlayerCount; p++)
             {
                 if (!world.Players[p].IsAlive) continue;
+
+                // 이전 상태 캡처
+                var prevSnapshots = SynergySystem.CapturePrepSnapshots(world, (byte)p);
+
                 SynergySystem.ClearPrepBehaviors(world, (byte)p);
                 SynergySystem.Recalculate(world, (byte)p);
-                SynergySystem.SyncPrepBehaviors(world, (byte)p);
+
+                // 이전 스냅샷 전달 — 동일 traitId면 OnActivate 대신 RestoreFromSnapshot
+                SynergySystem.SyncPrepBehaviors(world, (byte)p, prevSnapshots);
             }
         }
 

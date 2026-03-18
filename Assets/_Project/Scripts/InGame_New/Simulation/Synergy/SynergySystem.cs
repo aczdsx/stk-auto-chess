@@ -158,18 +158,104 @@ namespace CookApps.AutoChess
                 ref var tierData = ref spec.Tiers[tierIndex];
                 if (tierData.Effects == null) continue;
 
+                // PrepTarget 효과가 있고 아직 대상 미지정이면 자동 배정
+                bool hasPrepTarget = false;
+                for (int e = 0; e < tierData.Effects.Length; e++)
+                {
+                    if (tierData.Effects[e].Target == SynergyTarget.PrepTarget)
+                    {
+                        hasPrepTarget = true;
+                        break;
+                    }
+                }
+
+                if (hasPrepTarget)
+                {
+                    int prepIdx = FindPrepBehavior(world, playerIndex, traitId);
+                    if (prepIdx >= 0)
+                    {
+                        var prep = world.PrepBehaviors[playerIndex][prepIdx];
+                        if (prep.PrepTargetEntityId == -1)
+                        {
+                            // SUPERNOVA TraitFlag를 가진 보드 유닛 중 랜덤 1명 선택
+                            AutoAssignPrepTarget(world, playerIndex, traitId, prep);
+
+                            // 자동 배정 성공 시 구체 제거 + 타겟 부여 이벤트
+                            if (prep.PrepTargetEntityId >= 0 && prep is SynergyPrepSupernova sn)
+                            {
+                                if (sn.ObjectCol >= 0)
+                                {
+                                    world.EventQueue.PushSupernovaObjectEvent(
+                                        playerIndex, traitId, SupernovaSubType.Remove,
+                                        (byte)sn.ObjectCol, (byte)sn.ObjectRow);
+                                    sn.ObjectCol = -1;
+                                    sn.ObjectRow = -1;
+                                }
+                                world.EventQueue.PushSupernovaObjectEvent(
+                                    playerIndex, traitId, SupernovaSubType.TargetAssigned,
+                                    0, 0, prep.PrepTargetEntityId);
+                                world.EventQueue.PushSynergyUpdated(playerIndex);
+                            }
+                        }
+                    }
+                }
+
                 for (int e = 0; e < tierData.Effects.Length; e++)
                 {
                     ref var effect = ref tierData.Effects[e];
-                    ApplySingleEffect(matchState, ref effect, traitId, teamIndex);
+                    ApplySingleEffect(world, matchState, ref effect, traitId, teamIndex, playerIndex);
                 }
             }
         }
 
-        private static void ApplySingleEffect(CombatMatchState state, ref SynergyEffect effect,
-            int traitId, byte teamIndex)
+        /// <summary>PrepTarget 미지정 시 보드 위 해당 시너지 유닛 중 랜덤 1명 자동 선택</summary>
+        private static void AutoAssignPrepTarget(GameWorld world, byte playerIndex, int traitId,
+            SynergyPrepBehaviorBase prep)
         {
             int traitBit = 1 << traitId;
+            var boardSlots = world.BoardSlots[playerIndex];
+
+            // 후보 수집 (스택 할당)
+            var candidates = new int[8];
+            int candidateCount = 0;
+
+            for (int slot = 0; slot < world.BoardSize; slot++)
+            {
+                int entityId = boardSlots[slot];
+                if (entityId == UnitData.InvalidId) continue;
+
+                int unitIdx = world.FindUnitIndex(entityId);
+                if (unitIdx < 0) continue;
+
+                ref var unit = ref world.Units[unitIdx];
+                if (!unit.IsValid) continue;
+                if ((unit.TraitFlags & traitBit) == 0) continue;
+
+                if (candidateCount < candidates.Length)
+                    candidates[candidateCount++] = entityId;
+            }
+
+            if (candidateCount > 0)
+            {
+                int pick = world.RNG.Range(0, candidateCount);
+                prep.PrepTargetEntityId = candidates[pick];
+            }
+        }
+
+        private static void ApplySingleEffect(GameWorld world, CombatMatchState state,
+            ref SynergyEffect effect, int traitId, byte teamIndex, byte playerIndex)
+        {
+            int traitBit = 1 << traitId;
+
+            // PrepTarget인 경우 대상 EntityId 조회
+            int prepTargetEntityId = -1;
+            if (effect.Target == SynergyTarget.PrepTarget)
+            {
+                int prepIdx = FindPrepBehavior(world, playerIndex, traitId);
+                if (prepIdx >= 0)
+                    prepTargetEntityId = world.PrepBehaviors[playerIndex][prepIdx].PrepTargetEntityId;
+                if (prepTargetEntityId == -1) return; // 대상 없으면 스킵
+            }
 
             for (int i = 0; i < state.UnitCount; i++)
             {
@@ -181,10 +267,6 @@ namespace CookApps.AutoChess
                 {
                     case SynergyTarget.TraitUnits:
                         if (unit.TeamIndex != teamIndex) continue;
-                        // 해당 특성 비트가 있는 유닛만
-                        // TraitFlags는 원본 UnitData에서 복사해야 하므로
-                        // CombatUnit에 TraitFlags 필드가 필요 → 일단 SourceEntityId로 조회는 비용이 크므로
-                        // CombatUnit에도 TraitFlags를 저장하도록 함
                         if ((unit.TraitFlags & traitBit) == 0) continue;
                         break;
                     case SynergyTarget.AllAllies:
@@ -192,6 +274,10 @@ namespace CookApps.AutoChess
                         break;
                     case SynergyTarget.AllEnemies:
                         if (unit.TeamIndex == teamIndex) continue;
+                        break;
+                    case SynergyTarget.PrepTarget:
+                        if (unit.TeamIndex != teamIndex) continue;
+                        if (unit.SourceEntityId != prepTargetEntityId) continue;
                         break;
                 }
 
@@ -348,13 +434,100 @@ namespace CookApps.AutoChess
                 $"| tier: {oldTier} → {newTier} | units: {unitCount}</color>");
         }
 
+        // ── 스냅샷 캡처/복원 ──
+
+        /// <summary>현재 활성 PrepBehavior 상태를 스냅샷 배열로 추출</summary>
+        public static PrepBehaviorSnapshot[] CapturePrepSnapshots(GameWorld world, byte playerIndex)
+        {
+            int count = world.PrepBehaviorCounts[playerIndex];
+            if (count == 0) return System.Array.Empty<PrepBehaviorSnapshot>();
+
+            var snapshots = new PrepBehaviorSnapshot[count];
+            for (int i = 0; i < count; i++)
+                snapshots[i] = world.PrepBehaviors[playerIndex][i].CaptureSnapshot();
+            return snapshots;
+        }
+
+        private static PrepBehaviorSnapshot? FindSnapshotByTraitId(PrepBehaviorSnapshot[] snapshots, int traitId)
+        {
+            if (snapshots == null) return null;
+            for (int i = 0; i < snapshots.Length; i++)
+            {
+                if (snapshots[i].TraitId == traitId)
+                    return snapshots[i];
+            }
+            return null;
+        }
+
+        /// <summary>복원된 PrepBehavior에 대해 View 동기화 이벤트 발행</summary>
+        private static void EmitRestoreEvents(GameWorld world, byte playerIndex, SynergyPrepBehaviorBase b, PrepBehaviorSnapshot snap)
+        {
+            if (b is not SynergyPrepSupernova sn) return;
+
+            if (sn.PrepTargetEntityId >= 0)
+            {
+                // 타겟 부여 상태 — 유닛이 아직 보드에 있는지 검증
+                if (IsEntityOnBoard(world, playerIndex, sn.PrepTargetEntityId))
+                {
+                    world.EventQueue.PushSupernovaObjectEvent(
+                        playerIndex, b.TraitId, SupernovaSubType.TargetAssigned,
+                        0, 0, sn.PrepTargetEntityId);
+                    world.EventQueue.PushSynergyUpdated(playerIndex);
+                }
+                else
+                {
+                    // 유닛이 사라짐 → 타겟 초기화 + 새로 배치
+                    sn.PrepTargetEntityId = -1;
+                    sn.ObjectCol = -1;
+                    sn.ObjectRow = -1;
+                    b.OnActivate(world); // 정상 활성화 (랜덤 배치)
+                }
+            }
+            else if (sn.ObjectCol >= 0)
+            {
+                // 미부여 상태 — 이전 오브젝트 위치가 비어있으면 복원
+                int slot = sn.ObjectRow * world.BoardWidth + sn.ObjectCol;
+                if (slot >= 0 && slot < world.BoardSize
+                    && world.BoardSlots[playerIndex][slot] == UnitData.InvalidId)
+                {
+                    world.EventQueue.PushSupernovaObjectEvent(
+                        playerIndex, b.TraitId, SupernovaSubType.Spawn,
+                        (byte)sn.ObjectCol, (byte)sn.ObjectRow);
+                }
+                else
+                {
+                    // 위치가 점유됨 → 새로 배치
+                    sn.ObjectCol = -1;
+                    sn.ObjectRow = -1;
+                    b.OnActivate(world);
+                }
+            }
+            else
+            {
+                // 스냅샷에 위치/타겟 없음 → 정상 활성화
+                b.OnActivate(world);
+            }
+        }
+
+        private static bool IsEntityOnBoard(GameWorld world, byte playerIndex, int entityId)
+        {
+            var boardSlots = world.BoardSlots[playerIndex];
+            for (int slot = 0; slot < world.BoardSize; slot++)
+            {
+                if (boardSlots[slot] == entityId)
+                    return true;
+            }
+            return false;
+        }
+
         // ── 준비 페이즈 시너지 행동 동기화 ──
 
         /// <summary>
         /// 보드 변경 시 호출. 시너지 티어 diff를 계산하여 prep behavior 생성/소멸/변경.
         /// Recalculate() 이후에 호출해야 함.
+        /// prevSnapshots가 주어지면, 동일 traitId의 이전 스냅샷에서 상태를 복원 (스테이지 전환용).
         /// </summary>
-        public static void SyncPrepBehaviors(GameWorld world, byte playerIndex)
+        public static void SyncPrepBehaviors(GameWorld world, byte playerIndex, PrepBehaviorSnapshot[] prevSnapshots = null)
         {
             if (!world.Config.EnableSynergy) return;
             if (world.SynergySpecs == null || world.SynergySpecCount == 0) return;
@@ -381,7 +554,18 @@ namespace CookApps.AutoChess
                     if (b != null)
                     {
                         AddPrepBehavior(world, playerIndex, b);
-                        b.OnActivate(world);
+
+                        // 이전 스냅샷에서 같은 traitId가 있으면 상태 복원 (OnActivate 건너뜀)
+                        var prevSnap = FindSnapshotByTraitId(prevSnapshots, traitId);
+                        if (prevSnap != null)
+                        {
+                            b.RestoreFromSnapshot(prevSnap.Value);
+                            EmitRestoreEvents(world, playerIndex, b, prevSnap.Value);
+                        }
+                        else
+                        {
+                            b.OnActivate(world); // 완전 새로운 활성화
+                        }
                     }
                 }
                 else if (oldTier > 0 && newTier == 0)
@@ -460,6 +644,13 @@ namespace CookApps.AutoChess
             world.PrepBehaviorCounts[playerIndex] = last;
         }
 
+        /// <summary>보드 내 유닛 이동 시 PrepBehavior에만 알림 (시너지 재계산 불필요)</summary>
+        public static void NotifyPrepBoardChanged(GameWorld world, byte playerIndex)
+        {
+            for (int i = 0; i < world.PrepBehaviorCounts[playerIndex]; i++)
+                world.PrepBehaviors[playerIndex][i].OnBoardChanged(world);
+        }
+
         // ── 전투 시작 시 시너지 행동 등록 (asterism) ──
 
         /// <summary>
@@ -516,10 +707,73 @@ namespace CookApps.AutoChess
                 }
             }
         }
+        // ── DeckAdditionalData 연동 (저장/로드) ──
+
+        /// <summary>현재 슈퍼노바 타겟의 ChampionSpecId 반환 (덱 저장용). 미부여 시 0.</summary>
+        public static int GetSupernovaTargetSpecId(GameWorld world, byte playerIndex)
+        {
+            int prepIdx = FindPrepBehavior(world, playerIndex, (int)SynergyType.SUPERNOVA);
+            if (prepIdx < 0) return 0;
+
+            var prep = world.PrepBehaviors[playerIndex][prepIdx];
+            if (prep.PrepTargetEntityId < 0) return 0;
+
+            int unitIdx = world.FindUnitIndex(prep.PrepTargetEntityId);
+            if (unitIdx < 0) return 0;
+
+            return world.Units[unitIdx].ChampionSpecId;
+        }
+
+        /// <summary>저장된 슈퍼노바 타겟 specId로 PrepTarget 복원 (재접속용)</summary>
+        public static void RestoreSupernovaTarget(GameWorld world, byte playerIndex, int supernovaCharacterId)
+        {
+            if (supernovaCharacterId == 0) return;
+
+            int prepIdx = FindPrepBehavior(world, playerIndex, (int)SynergyType.SUPERNOVA);
+            if (prepIdx < 0) return;
+
+            var prep = world.PrepBehaviors[playerIndex][prepIdx];
+
+            // specId로 보드 위 유닛 찾기
+            var boardSlots = world.BoardSlots[playerIndex];
+            for (int slot = 0; slot < world.BoardSize; slot++)
+            {
+                int entityId = boardSlots[slot];
+                if (entityId == UnitData.InvalidId) continue;
+
+                int unitIdx = world.FindUnitIndex(entityId);
+                if (unitIdx < 0) continue;
+
+                if (world.Units[unitIdx].ChampionSpecId != supernovaCharacterId) continue;
+
+                // TraitFlag 검증
+                int traitBit = 1 << prep.TraitId;
+                if ((world.Units[unitIdx].TraitFlags & traitBit) == 0) continue;
+
+                prep.PrepTargetEntityId = entityId;
+
+                // 오브젝트 제거 (타겟 부여됨)
+                if (prep is SynergyPrepSupernova sn && sn.ObjectCol >= 0)
+                {
+                    world.EventQueue.PushSupernovaObjectEvent(
+                        playerIndex, prep.TraitId, SupernovaSubType.Remove,
+                        (byte)sn.ObjectCol, (byte)sn.ObjectRow);
+                    sn.ObjectCol = -1;
+                    sn.ObjectRow = -1;
+                }
+
+                world.EventQueue.PushSupernovaObjectEvent(
+                    playerIndex, prep.TraitId, SupernovaSubType.TargetAssigned,
+                    0, 0, entityId);
+                world.EventQueue.PushSynergyUpdated(playerIndex);
+                break;
+            }
+        }
+
         // ── 프리뷰용 시너지 HP 보너스 ──
 
         /// <summary>보드 유닛에 적용될 시너지 HP 보너스 합산</summary>
-        public static int CalcSynergyBonusHP(GameWorld world, byte playerIndex, ref UnitData unit)
+        public static int CalcSynergyBonusHP(GameWorld world, byte playerIndex, ref UnitData unit, int entityId = -1)
         {
             if (!world.Config.EnableSynergy || world.SynergySpecs == null || world.SynergySpecCount == 0)
                 return 0;
@@ -545,13 +799,19 @@ namespace CookApps.AutoChess
                 {
                     ref var effect = ref tierData.Effects[e];
 
-                    // 대상 필터링: TraitUnits는 해당 특성 유닛만, AllAllies는 모두
                     switch (effect.Target)
                     {
                         case SynergyTarget.TraitUnits:
                             if ((unit.TraitFlags & (1 << spec.TraitId)) == 0) continue;
                             break;
                         case SynergyTarget.AllAllies:
+                            break;
+                        case SynergyTarget.PrepTarget:
+                            // entityId가 주어지고 이 유닛이 PrepTarget이면 적용
+                            if (entityId < 0) continue;
+                            int prepIdx = FindPrepBehavior(world, playerIndex, spec.TraitId);
+                            if (prepIdx < 0 || world.PrepBehaviors[playerIndex][prepIdx].PrepTargetEntityId != entityId)
+                                continue;
                             break;
                         default:
                             continue;

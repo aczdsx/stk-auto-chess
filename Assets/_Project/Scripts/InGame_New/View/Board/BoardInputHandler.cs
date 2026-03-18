@@ -34,8 +34,17 @@ namespace CookApps.AutoChess.View
         private int _dragStartCol;
         private int _dragStartRow;
 
+        // 보드 오브젝트 드래그 상태
+        private bool _isDraggingObject;
+        private IBoardDraggableObject _dragObject;
+        private Vector3 _dragObjectOriginalPos;
+
+        // 보드 오브젝트 조회 콜백
+        private System.Func<int, int, IBoardDraggableObject> _findBoardObject; // (col, row) → object
+
         // 드래그 threshold (탭과 드래그 구분)
         private bool _isPendingDrag;
+        private bool _isPendingObject; // true면 오브젝트 드래그 대기
         private int _pendingEntityId = UnitData.InvalidId;
         private UnitView _pendingUnitView;
         private Vector2 _pendingScreenPos;
@@ -91,6 +100,12 @@ namespace CookApps.AutoChess.View
             float rowDist = Vector3.Distance(p00, p01);
             float halfDiag = Mathf.Sqrt(colDist * colDist + rowDist * rowDist) * 0.5f;
             _maxSnapDistSq = halfDiag * halfDiag;
+        }
+
+        /// <summary>보드 오브젝트 조회 콜백 설정</summary>
+        public void SetBoardObjectFinder(System.Func<int, int, IBoardDraggableObject> finder)
+        {
+            _findBoardObject = finder;
         }
 
         public void SetEnabled(bool enabled)
@@ -251,8 +266,17 @@ namespace CookApps.AutoChess.View
 
                     // threshold 대기 (즉시 드래그 시작하지 않음)
                     _isPendingDrag = true;
+                    _isPendingObject = false;
                     _pendingEntityId = entityId;
                     _pendingUnitView = unitView;
+                    _pendingScreenPos = screenPos;
+                }
+                else if (TryPickBoardObject(screenPos, out var boardObj))
+                {
+                    // 보드 오브젝트 드래그 대기
+                    _isPendingDrag = true;
+                    _isPendingObject = true;
+                    _dragObject = boardObj;
                     _pendingScreenPos = screenPos;
                 }
                 else
@@ -270,14 +294,25 @@ namespace CookApps.AutoChess.View
                 if ((screenPos - _pendingScreenPos).sqrMagnitude > threshold * threshold)
                 {
                     _isPendingDrag = false;
-                    StartBoardDrag(_pendingEntityId, _pendingUnitView);
-                    UpdateBoardDrag(screenPos);
+                    if (_isPendingObject)
+                    {
+                        StartObjectDrag(_dragObject);
+                        UpdateObjectDrag(screenPos);
+                    }
+                    else
+                    {
+                        StartBoardDrag(_pendingEntityId, _pendingUnitView);
+                        UpdateBoardDrag(screenPos);
+                    }
                 }
             }
             // 드래그 중
-            else if (Input.GetMouseButton(0) && _isDraggingBoardUnit)
+            else if (Input.GetMouseButton(0) && (_isDraggingBoardUnit || _isDraggingObject))
             {
-                UpdateBoardDrag(Input.mousePosition);
+                if (_isDraggingObject)
+                    UpdateObjectDrag(Input.mousePosition);
+                else
+                    UpdateBoardDrag(Input.mousePosition);
             }
             // 터치 종료
             else if (Input.GetMouseButtonUp(0))
@@ -299,6 +334,10 @@ namespace CookApps.AutoChess.View
                         else
                             ApplyUnitTapSelection(tappedId, tapGrid.Value.col, tapGrid.Value.row);
                     }
+                }
+                else if (_isDraggingObject)
+                {
+                    EndObjectDrag(Input.mousePosition);
                 }
                 else if (_isDraggingBoardUnit)
                 {
@@ -398,10 +437,62 @@ namespace CookApps.AutoChess.View
             _targetLineManager?.ClearFocusedUnit();
         }
 
+        // ── 보드 오브젝트 드래그 ──
+
+        private bool TryPickBoardObject(Vector2 screenPos, out IBoardDraggableObject boardObj)
+        {
+            boardObj = null;
+            if (_findBoardObject == null) return false;
+
+            var grid = ScreenToGrid(screenPos);
+            if (!grid.HasValue) return false;
+
+            boardObj = _findBoardObject(grid.Value.col, grid.Value.row);
+            return boardObj != null;
+        }
+
+        private void StartObjectDrag(IBoardDraggableObject boardObj)
+        {
+            InGameCharacterPopupHelper.Close();
+            _isDraggingObject = true;
+            _dragObject = boardObj;
+            _dragObjectOriginalPos = boardObj.WorldPosition;
+        }
+
+        private void UpdateObjectDrag(Vector2 screenPos)
+        {
+            var worldPos = ScreenToWorldOnGround(screenPos);
+            if (worldPos.HasValue && _dragObject != null)
+                _dragObject.SetWorldPosition(worldPos.Value);
+
+            var grid = ScreenToGrid(screenPos);
+            if (grid.HasValue)
+                ShowHighlight(grid.Value.col, grid.Value.row);
+            else
+                HideHighlight();
+        }
+
+        private void EndObjectDrag(Vector2 screenPos)
+        {
+            _isDraggingObject = false;
+            HideHighlight();
+
+            bool handled = false;
+            var grid = ScreenToGrid(screenPos);
+            if (grid.HasValue && _dragObject != null)
+                handled = _dragObject.TryHandleDrop(grid.Value.col, grid.Value.row);
+
+            if (!handled && _dragObject != null)
+                _dragObject.SetWorldPosition(_dragObjectOriginalPos);
+
+            _dragObject = null;
+        }
+
         private void CancelDrag()
         {
             // pending 상태 정리
             _isPendingDrag = false;
+            _isPendingObject = false;
             _pendingEntityId = UnitData.InvalidId;
             _pendingUnitView = null;
 
@@ -413,6 +504,12 @@ namespace CookApps.AutoChess.View
             _isDraggingBoardUnit = false;
             _dragEntityId = UnitData.InvalidId;
             _dragUnitView = null;
+
+            // 오브젝트 드래그 취소
+            if (_isDraggingObject && _dragObject != null)
+                _dragObject.SetWorldPosition(_dragObjectOriginalPos);
+            _isDraggingObject = false;
+            _dragObject = null;
 
             // 드래그 취소 시 포커스 해제
             _targetLineManager?.ClearFocusedUnit();

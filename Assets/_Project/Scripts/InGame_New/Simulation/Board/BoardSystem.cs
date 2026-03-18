@@ -438,10 +438,10 @@ namespace CookApps.AutoChess
         // ── 프리뷰용 HP 계산 ──
 
         /// <summary>보드 유닛의 프리뷰용 MaxHP (기본 + 시너지 + 아이템)</summary>
-        public static int CalcPreviewMaxHP(GameWorld world, byte playerIndex, ref UnitData unit)
+        public static int CalcPreviewMaxHP(GameWorld world, byte playerIndex, ref UnitData unit, int entityId = -1)
         {
             return unit.MaxHP
-                + SynergySystem.CalcSynergyBonusHP(world, playerIndex, ref unit)
+                + SynergySystem.CalcSynergyBonusHP(world, playerIndex, ref unit, entityId)
                 + ItemSystem.CalcItemBonusHP(world, ref unit);
         }
     }
