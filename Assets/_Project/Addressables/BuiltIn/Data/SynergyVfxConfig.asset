@@ -14,188 +14,112 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CookApps.AutoChess.View.SynergyVfxConfigSO
   _entries:
   - SynergyType: 2
-    Tiers:
-    - TierIndex: 0
-      AchieveVfx:
-        m_AssetGUID: 9bb1a58f8b8e9a84fa7636e48daf527f
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
-    - TierIndex: 1
-      AchieveVfx:
-        m_AssetGUID: c376c7de9e1657a42922a62bed2e158e
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
-    - TierIndex: 2
-      AchieveVfx:
-        m_AssetGUID: 8d45dabfdc8317d4082c7b7fea027c85
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
+    AchieveVfx:
+      m_AssetGUID: 9bb1a58f8b8e9a84fa7636e48daf527f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    AchievePosition: 3
+    AchieveFollowable: 0
     EffectVfxList: []
   - SynergyType: 6
-    Tiers:
-    - TierIndex: 0
-      AchieveVfx:
-        m_AssetGUID: c3314f46d9d397b48a165e3367288001
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
-    - TierIndex: 1
-      AchieveVfx:
-        m_AssetGUID: e809e042355cf4543923be48749328f6
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
-    - TierIndex: 2
-      AchieveVfx:
-        m_AssetGUID: 9209c9f55270a0e499310d52f23100b5
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
+    AchieveVfx:
+      m_AssetGUID: c3314f46d9d397b48a165e3367288001
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    AchievePosition: 3
+    AchieveFollowable: 0
     EffectVfxList: []
   - SynergyType: 4
-    Tiers:
-    - TierIndex: 0
-      AchieveVfx:
-        m_AssetGUID: 4ca4f79bde3aa004abf07463a3c27ab1
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
-    - TierIndex: 1
-      AchieveVfx:
-        m_AssetGUID: 27b62db1fd112a949a6da31e7beec751
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
-    - TierIndex: 2
-      AchieveVfx:
-        m_AssetGUID: e1a5a586bc5b5934f8f89e83e641d2ec
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
+    AchieveVfx:
+      m_AssetGUID: 4ca4f79bde3aa004abf07463a3c27ab1
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    AchievePosition: 3
+    AchieveFollowable: 0
     EffectVfxList: []
   - SynergyType: 5
-    Tiers:
-    - TierIndex: 0
-      AchieveVfx:
-        m_AssetGUID: 413ba750de47b724d98e89d00fc14ab7
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
-    - TierIndex: 1
-      AchieveVfx:
-        m_AssetGUID: 40cf3519879714c4c8a7e6d2fe9eda0c
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
-    - TierIndex: 2
-      AchieveVfx:
-        m_AssetGUID: b5d5f72d7413e804b8051509ad2e950b
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
+    AchieveVfx:
+      m_AssetGUID: 413ba750de47b724d98e89d00fc14ab7
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    AchievePosition: 3
+    AchieveFollowable: 0
     EffectVfxList: []
   - SynergyType: 3
-    Tiers:
-    - TierIndex: 0
-      AchieveVfx:
-        m_AssetGUID: f7dd0fec55d04dd4881ed8b569803e7a
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
-    - TierIndex: 1
-      AchieveVfx:
-        m_AssetGUID: c3ec49649fb59d14b88ff01e1e5d3175
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
-    - TierIndex: 2
-      AchieveVfx:
-        m_AssetGUID: 201c9928435fd424b86563faa0f5200d
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
+    AchieveVfx:
+      m_AssetGUID: f7dd0fec55d04dd4881ed8b569803e7a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    AchievePosition: 3
+    AchieveFollowable: 0
     EffectVfxList: []
   - SynergyType: 7
-    Tiers:
-    - TierIndex: 0
-      AchieveVfx:
-        m_AssetGUID: 85e2bf9556861f3499d94dd1c65b4552
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
+    AchieveVfx:
+      m_AssetGUID: 85e2bf9556861f3499d94dd1c65b4552
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    AchievePosition: 3
+    AchieveFollowable: 0
     EffectVfxList: []
   - SynergyType: 8
-    Tiers:
-    - TierIndex: 0
-      AchieveVfx:
-        m_AssetGUID: a872e105a1b421e45a61d281f5e35377
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
+    AchieveVfx:
+      m_AssetGUID: a872e105a1b421e45a61d281f5e35377
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    AchievePosition: 3
+    AchieveFollowable: 0
     EffectVfxList: []
   - SynergyType: 9
-    Tiers:
-    - TierIndex: 0
-      AchieveVfx:
-        m_AssetGUID: 406403f395ee724469cf98fa28d13fb9
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_SubObjectGUID: 
-        m_EditorAssetChanged: 0
-      AchievePosition: 3
-      AchieveFollowable: 1
+    AchieveVfx:
+      m_AssetGUID: 406403f395ee724469cf98fa28d13fb9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    AchievePosition: 3
+    AchieveFollowable: 1
+    EffectVfxList: []
+  - SynergyType: 11
+    AchieveVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    AchievePosition: 3
+    AchieveFollowable: 0
+    EffectVfxList: []
+  - SynergyType: 10
+    AchieveVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    AchievePosition: 3
+    AchieveFollowable: 0
+    EffectVfxList: []
+  - SynergyType: 12
+    AchieveVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    AchievePosition: 3
+    AchieveFollowable: 0
     EffectVfxList: []

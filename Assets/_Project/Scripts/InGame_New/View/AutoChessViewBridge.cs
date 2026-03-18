@@ -94,17 +94,17 @@ namespace CookApps.AutoChess.View
 
         private void HandleTick(GameWorld world)
         {
-            // 이벤트 큐 먼저 처리 (ATK/ATK2/CRIT 애니메이션 타입 결정 → 상태 동기화에서 사용)
-            ProcessEvents(world);
-
-            // 페이즈별 동기화 (상태 → 애니메이션 반영)
             if (world.IsCombatActive)
             {
+                // 전투 중: 이벤트 먼저 처리 (ATK/ATK2/CRIT 애니메이션 타입 결정 → 상태 동기화에서 사용)
+                ProcessEvents(world);
                 SyncCombatViews(world);
             }
             else
             {
+                // 배치 단계: 보드 뷰 먼저 동기화 → 이벤트 처리 (시너지 VFX 등에서 UnitView 필요)
                 _unitViewManager.SyncBoardUnits(world);
+                ProcessEvents(world);
             }
 
             // UI 갱신 (벤치 + HUD 통합)
@@ -454,7 +454,7 @@ namespace CookApps.AutoChess.View
 
         private void SpawnSynergyAchieveVfx(GameWorld world, byte playerIndex, int traitId)
         {
-            if (!_synergyVfxConfig.TryGetTierEntry((SynergyType)traitId, 0, out var entry)) return;
+            if (!_synergyVfxConfig.TryGetEntry((SynergyType)traitId, out var entry)) return;
             if (entry.AchieveVfx == null || !entry.AchieveVfx.RuntimeKeyIsValid()) return;
 
             int traitBit = 1 << traitId;
@@ -475,22 +475,22 @@ namespace CookApps.AutoChess.View
             }
         }
 
-        private async UniTaskVoid SpawnSynergyOneShotAsync(UnitView unitView, SynergyVfxConfigSO.TierVfxEntry entry)
+        private async UniTaskVoid SpawnSynergyOneShotAsync(UnitView unitView, SynergyVfxConfigSO.SynergyVfxEntry entry)
         {
-            var posTransform = unitView.GetSkillPositionTransform(entry.AchievePosition);
-            AsyncOperationHandle<GameObject> handle;
+            // 캐릭터 프리팹 로딩 완료 대기 (async 로딩 중이면 MiddleFXTransform 등이 없음)
+            await UniTask.WaitUntil(() => unitView == null || unitView.IsReady);
+            if (unitView == null) return;
 
-            if (entry.AchieveFollowable && posTransform != null)
-                handle = Addressables.InstantiateAsync(entry.AchieveVfx, posTransform);
-            else
-            {
-                var pos = posTransform != null ? posTransform.position : unitView.transform.position;
-                handle = Addressables.InstantiateAsync(entry.AchieveVfx, pos, Quaternion.identity);
-            }
+            var posTransform = unitView.GetSkillPositionTransform(entry.AchievePosition);
+
+            // rotation은 프리팹 원본값 유지
+            var handle = Addressables.InstantiateAsync(entry.AchieveVfx);
 
             var go = await handle;
             if (go == null || !handle.IsValid()) return;
-            if (entry.AchieveFollowable) go.transform.localPosition = Vector3.zero;
+
+            var pos = posTransform != null ? posTransform.position : unitView.transform.position;
+            go.transform.position = pos;
 
             await UniTask.Delay(3000);
             if (handle.IsValid()) Addressables.ReleaseInstance(handle);
