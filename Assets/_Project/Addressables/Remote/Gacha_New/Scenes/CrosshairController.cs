@@ -141,7 +141,13 @@ namespace CookApps.AutoBattler
             {
                 _isDragging = false;
                 _hasPrevPosition = false;
-                HideCrosshair();
+                // 크로스헤어는 마지막 위치에 유지 (HideCrosshair 제거)
+            }
+
+            // 드래그 중이 아닐 때도 인디케이터는 계속 갱신
+            if (!_isDragging && _crosshairVisual != null && _crosshairVisual.gameObject.activeSelf)
+            {
+                UpdateIndicators();
             }
         }
 
@@ -177,6 +183,15 @@ namespace CookApps.AutoBattler
                     _crosshairVisual.gameObject.SetActive(false);
                 }
                 HideAllIndicators();
+            }
+            else
+            {
+                // 활성화 시 화면 중앙에 즉시 표시
+                if (_crosshairVisual != null)
+                {
+                    _crosshairVisual.anchoredPosition = Vector2.zero;
+                    ShowCrosshair();
+                }
             }
         }
 
