@@ -258,13 +258,17 @@ namespace CookApps.AutoBattler
 
         private async UniTask OnGachaMinigameCompleteAsync(List<RewardItem> resultData, GachaInfo specGachaData, GachaCountType gachaCountType)
         {
-            // 씬 언로드 (카메라/Canvas 복원 포함)
+            // 블랙 스크린으로 전환 (가챠 씬 언로드 중 로비 노출 방지)
+            SceneTransition.Create<SceneTransition_FadeInOut>();
+            await SceneTransition.FadeInAsync(playSound: false);
+
+            // 씬 언로드 (카메라/Canvas 복원 포함) — 블랙 스크린 뒤에서 수행
             await UnloadGachaSceneAsync();
 
             // BGM 복원
             SoundManager.Instance.PlayBGM(SoundBGM.snd_bgm_command01);
 
-            // 캐릭터 팝업 시퀀스 시작
+            // 캐릭터 팝업 시퀀스 시작 (내부에서 팝업 로드 완료 후 FadeOut)
             await ShowCharacterSequenceAsync(resultData, specGachaData, gachaCountType);
         }
 
@@ -291,6 +295,10 @@ namespace CookApps.AutoBattler
                 var popup = await SceneUILayerManager.Instance.PushUILayerAsync<GachaGetCharacterPopup>(param);
                 if (token.IsCancellationRequested) return;
 
+                // 팝업 로드 완료 → 블랙 스크린 제거 (Transition 1 커버)
+                if (SceneTransition.IsFadeProcessing)
+                    await SceneTransition.FadeOutAsync(playSound: false);
+
                 // 첫 캐릭터부터 순차 표시
                 for (int i = 0; i < charIds.Count; i++)
                 {
@@ -307,15 +315,25 @@ namespace CookApps.AutoBattler
                         break;
                 }
 
-                // 시퀀스 완료 후 팝업 닫기
+                // Transition 2: GachaGetCharacterPopup → GachaResultPopup 전환 커버
+                SceneTransition.Create<SceneTransition_FadeInOut>();
+                await SceneTransition.FadeInAsync(playSound: false);
+
+                // 블랙 스크린 뒤에서 팝업 닫기
                 SceneUILayerManager.Instance.PopUILayer(popup);
 
                 if (token.IsCancellationRequested) return;
 
-                // 팝업 Exit 애니메이션 완료 대기
+                // 팝업 Exit 애니메이션 완료 대기 (블랙 스크린 뒤에서)
                 await UniTask.WaitUntil(
                     () => SceneUILayerManager.Instance.GetUILayer<GachaGetCharacterPopup>() == null,
                     cancellationToken: token);
+            }
+            else
+            {
+                // 캐릭터 없을 때도 블랙 스크린 정리
+                if (SceneTransition.IsFadeProcessing)
+                    await SceneTransition.FadeOutAsync(playSound: false);
             }
 
             if (token.IsCancellationRequested) return;
@@ -327,6 +345,10 @@ namespace CookApps.AutoBattler
                 OnContinueGacha = () => ProcessCharacterGacha(gachaCountType).Forget()
             };
             await SceneUILayerManager.Instance.PushUILayerAsync<GachaResultPopup>(resultParam);
+
+            // 결과 팝업 로드 완료 → 블랙 스크린 제거 (Transition 2 커버)
+            if (SceneTransition.IsFadeProcessing)
+                await SceneTransition.FadeOutAsync(playSound: false);
         }
 
         private void SetGachaData(GachaCountType gachaCountType)
