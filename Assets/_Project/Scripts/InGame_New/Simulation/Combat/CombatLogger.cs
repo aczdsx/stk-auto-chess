@@ -167,13 +167,6 @@ namespace CookApps.AutoChess
             Log("TARGET", unitId, $"→unit={targetId}");
         }
 
-        public static void LogFacing(int combatId, string mode, int fromCol, int fromRow, int toCol, int toRow,
-            float myX, float myZ, float tgtX, float tgtZ, bool flipX, bool front)
-        {
-            Log("FACING", combatId, $"{mode} ({fromCol},{fromRow})→({toCol},{toRow}) " +
-                $"my=({myX:F2},{myZ:F2}) tgt=({tgtX:F2},{tgtZ:F2}) flip={flipX} front={front}");
-        }
-
         public static void LogResult(byte winner, int aliveA, int aliveB)
         {
             string result = winner == 0xFF ? "DRAW" : $"team={winner} wins";

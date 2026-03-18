@@ -446,10 +446,6 @@ namespace CookApps.AutoChess.View
                 new Vector2(_facingTarget.Value.z, _facingTarget.Value.x));
         }
 
-        // ── 디버그 ──
-        public bool DebugFlipX => _characterView != null && _characterView.CachedFlipX;
-        public bool DebugFront => _characterView != null && _characterView.CachedFront;
-
         // ── 모델 가시성 (미사 봉인 등) ──
 
         private bool _modelHidden;
