@@ -73,6 +73,8 @@ namespace CookApps.AutoBattler
 
         private AsyncOperationHandle<GameObject> _ldHandle;
         private AsyncOperationHandle<GameObject> _sdHandle;
+        private Graphic[] _ldGraphics;
+        private Graphic[] _sdGraphics;
         private bool _isSequenceMode;
         private float _characterShowElapsed;
 
@@ -303,9 +305,12 @@ namespace CookApps.AutoBattler
             var go = await _ldHandle;
             if (go != null)
             {
-                var graphics = go.GetComponentsInChildren<Graphic>(true);
-                for (int i = 0; i < graphics.Length; i++)
-                    graphics[i].raycastTarget = false;
+                _ldGraphics = go.GetComponentsInChildren<Graphic>(true);
+                for (int i = 0; i < _ldGraphics.Length; i++)
+                {
+                    _ldGraphics[i].raycastTarget = false;
+                    _ldGraphics[i].color = Color.black;
+                }
             }
         }
 
@@ -313,7 +318,67 @@ namespace CookApps.AutoBattler
         {
             string prefabName = string.Format(Defines.CHARACTER_UI_PREFEAB_NAME_FORMAT, prefabId);
             _sdHandle = Addressables.InstantiateAsync(prefabName, _sdPosTransform);
-            await _sdHandle;
+            var go = await _sdHandle;
+            if (go != null)
+            {
+                _sdGraphics = go.GetComponentsInChildren<Graphic>(true);
+                for (int i = 0; i < _sdGraphics.Length; i++)
+                {
+                    _sdGraphics[i].color = Color.black;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Black → White로 0.4초간 색상 전환. Animation Event에서 호출.
+        /// </summary>
+        public void RevealCharacterImages()
+        {
+            RevealCharacterImagesAsync().Forget();
+        }
+
+        private async UniTaskVoid RevealCharacterImagesAsync()
+        {
+            float duration = 0.3f;
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                Color color = Color.Lerp(Color.black, Color.white, t);
+
+                if (_ldGraphics != null)
+                {
+                    for (int i = 0; i < _ldGraphics.Length; i++)
+                    {
+                        if (_ldGraphics[i] != null)
+                            _ldGraphics[i].color = color;
+                    }
+                }
+
+                if (_sdGraphics != null)
+                {
+                    for (int i = 0; i < _sdGraphics.Length; i++)
+                    {
+                        if (_sdGraphics[i] != null)
+                            _sdGraphics[i].color = color;
+                    }
+                }
+
+                await UniTask.Yield(PlayerLoopTiming.Update);
+            }
+
+            // 최종 White 보장
+            if (_ldGraphics != null)
+                for (int i = 0; i < _ldGraphics.Length; i++)
+                    if (_ldGraphics[i] != null)
+                        _ldGraphics[i].color = Color.white;
+
+            if (_sdGraphics != null)
+                for (int i = 0; i < _sdGraphics.Length; i++)
+                    if (_sdGraphics[i] != null)
+                        _sdGraphics[i].color = Color.white;
         }
 
         /// <summary>
@@ -356,6 +421,10 @@ namespace CookApps.AutoBattler
                 Addressables.ReleaseInstance(_sdHandle);
                 _sdHandle = default;
             }
+
+            // Graphic 참조 정리
+            _ldGraphics = null;
+            _sdGraphics = null;
 
             // 자식 오브젝트 정리
             BMUtil.RemoveChildObjects(_ldPosTransform);
