@@ -36,6 +36,66 @@ namespace CookApps.AutoChess.View
 
         // ── 초기화 ──
 
+        /// <summary>config 기반 초기화 — StageInfo에서 파싱된 보드 크기 반영. 필요 시 타일을 동적 생성.</summary>
+        public void Initialize(int boardWidth, int combatHeight)
+        {
+            if (_tiles == null || _tiles.Length < 2) return;
+
+            int prefabWidth = _boardWidth;
+            int prefabHeight = _tiles.Length / prefabWidth;
+
+            // 프리팹 그리드와 동일하면 동적 생성 불필요
+            if (boardWidth == prefabWidth && combatHeight == prefabHeight)
+            {
+                _boardWidth = boardWidth;
+                _boardHeight = combatHeight;
+                Initialize();
+                return;
+            }
+
+            // 기존 타일에서 spacing 계산
+            Vector3 origin = _tiles[0].transform.position;
+            Vector3 colStep = _tiles[1].transform.position - origin;
+            Vector3 rowStep = _tiles[prefabWidth].transform.position - origin;
+
+            // 중심 정렬: 기존 그리드 중심에 새 그리드 배치
+            Vector3 oldCenter = origin
+                + colStep * (prefabWidth - 1) * 0.5f
+                + rowStep * (prefabHeight - 1) * 0.5f;
+            Vector3 newOrigin = oldCenter
+                - colStep * (boardWidth - 1) * 0.5f
+                - rowStep * (combatHeight - 1) * 0.5f;
+
+            // 기존 타일 비활성화
+            Transform parent = _tiles[0].transform.parent;
+            var template = _tiles[0].gameObject;
+            for (int i = 0; i < _tiles.Length; i++)
+                if (_tiles[i] != null) _tiles[i].gameObject.SetActive(false);
+
+            // 새 타일 동적 생성
+            int totalTiles = boardWidth * combatHeight;
+            var newTiles = new BoardTileView[totalTiles];
+
+            for (int row = 0; row < combatHeight; row++)
+            {
+                for (int col = 0; col < boardWidth; col++)
+                {
+                    int index = row * boardWidth + col;
+                    var go = Instantiate(template, parent);
+                    go.SetActive(true);
+                    go.transform.position = newOrigin + colStep * col + rowStep * row;
+                    var tv = go.GetComponent<BoardTileView>();
+                    tv.Setup(col, row);
+                    newTiles[index] = tv;
+                }
+            }
+
+            _tiles = newTiles;
+            _boardWidth = boardWidth;
+            _boardHeight = combatHeight;
+            Initialize();
+        }
+
         public void Initialize()
         {
             // 프리팹의 _boardHeight는 전투 그리드 전체 높이 (양쪽 합)

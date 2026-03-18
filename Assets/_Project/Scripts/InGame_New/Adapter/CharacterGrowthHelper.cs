@@ -54,7 +54,8 @@ namespace CookApps.AutoChess
             float levelMult = (1f + spec.inc_lv_rate * (level - 1))
                             * (1f + spec.inc_lv_bonus_rate * Mathf.FloorToInt((level - 1) * 0.1f));
 
-            // 돌파 곱 (CharacterInfo만)
+            // 돌파 곱 (CharacterInfo만) 
+            // TODO!! 다음 마일스톤엔 몬스터도 돌파까지는 받는다!~
             float breakthroughMult = 1f;
             if (spec is CharacterInfo ci)
             {

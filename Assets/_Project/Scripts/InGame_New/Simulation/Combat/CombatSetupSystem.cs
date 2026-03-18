@@ -12,10 +12,10 @@ namespace CookApps.AutoChess
             var state = CombatMatchState.Create(matchIndex, playerA, playerB);
             state.EventQueue = world.EventQueue;
 
-            // PlayerA 유닛: 하단 배치 (row 0-3)
+            // PlayerA 유닛: 하단 배치
             SpawnTeamUnits(world, state, playerA, teamIndex: 0, mirrorGrid: false);
 
-            // PlayerB 유닛: 상단 배치 (미러링, row 4-7)
+            // PlayerB 유닛: 상단 배치 (미러링)
             SpawnTeamUnits(world, state, playerB, teamIndex: 1, mirrorGrid: true);
 
             state.AliveCountA = CountAliveByTeam(state, 0);
@@ -58,6 +58,12 @@ namespace CookApps.AutoChess
                     gridCol = col;
                     gridRow = row;
                 }
+
+                // 그리드 범위 밖이면 스폰 스킵 (그리드 축소 시 보호)
+                byte sizeW = srcUnit.SizeW > 0 ? srcUnit.SizeW : (byte)1;
+                byte sizeH = srcUnit.SizeH > 0 ? srcUnit.SizeH : (byte)1;
+                if (!BoardHelper.IsValidCombatFootprint(gridCol, gridRow, sizeW, sizeH))
+                    continue;
 
                 // CombatUnit 생성
                 int combatId = state.NextCombatId++;
@@ -233,7 +239,6 @@ namespace CookApps.AutoChess
             {
                 ref var enemy = ref world.PvEEnemies[i];
 
-                // PvE 좌표는 이미 전투 그리드 기준 (예: (0,6), (3,4))
                 int gridCol = enemy.GridCol;
                 int gridRow = enemy.GridRow;
 
@@ -311,6 +316,9 @@ namespace CookApps.AutoChess
         public static void SpawnTutorialUnit(ref CombatMatchState state, int monsterSpecId, int col, int row)
         {
             if (state.UnitCount >= CombatMatchState.MaxCombatUnits) return;
+
+            // 그리드 범위 밖이면 스폰 스킵
+            if (!BoardHelper.IsValidCombatFootprint(col, row, 1, 1)) return;
 
             int combatId = state.NextCombatId++;
             int slotIndex = state.UnitCount++;

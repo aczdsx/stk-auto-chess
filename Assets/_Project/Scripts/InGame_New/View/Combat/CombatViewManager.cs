@@ -501,6 +501,21 @@ namespace CookApps.AutoChess.View
             if (ap.Movement != null)
             {
                 ap.ProjectileId = 0;
+
+                // Linear 투사체: 보드 밖으로 추가 비행하여 자연스럽게 사라지도록 목적지 연장
+                if (ap.Movement is InGameVfxMovementLinear linearMov)
+                {
+                    var cur = linearMov.CurrentPosition;
+                    var dest = linearMov.TargetPosition;
+                    var dir = (dest - cur);
+                    if (dir.sqrMagnitude > 0.001f)
+                    {
+                        var extended = dest + dir.normalized * 5f;
+                        float spd = ap.MoveSpeed > 0f ? ap.MoveSpeed : DefaultProjectileSpeed;
+                        linearMov.SetData(cur, extended, spd);
+                    }
+                }
+
                 ap.Movement.OnReachedTarget += () => _projectilesToRemove.Add(ap);
                 RebuildProjectileIdIndex();
                 return;
