@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MI_ShockWV_01 2
+  m_Shader: {fileID: 4800000, guid: 8b0630d5624432246bf73de2e27b2e31, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Base:
+        m_Texture: {fileID: 2800000, guid: d1af56905aad7a246a18a4987dce7183, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Flow:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 76b261a253dfaa34dbaf60b1046149b1, type: 3}
+        m_Scale: {x: 1, y: 0}
+        m_Offset: {x: 0, y: 0.1}
+    - _Mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 2800000, guid: b2ae57e82cd4b4d4ebfa9986f7c77c83, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Perlin21512x512:
+        m_Texture: {fileID: 2800000, guid: 3fa82b83e62af2a48a904a4c96ae2f57, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TEX:
+        m_Texture: {fileID: 2800000, guid: c7fae80a31549d641825e5bf4e212a2b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _T_Mask_01:
+        m_Texture: {fileID: 2800000, guid: f31658cf307cf4b4aa4928fcf0a9c92c, type: 3}
+        m_Scale: {x: 1, y: 2}
+        m_Offset: {x: 0, y: -0.65}
+    - _T_Trail_01Copy:
+        m_Texture: {fileID: 2800000, guid: 962cf48e18ae16a4d8b9257cea432ebf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Blend2: 1
+    - _CullMode: 0
+    - _Depthpower: 1
+    - _Emission: 3
+    - _Hardness: 1
+    - _Noise_Intensity: 0
+    - _Usecenterglow: 0
+    - _Usedepth: 0
+    - __dirty: 0
+    m_Colors:
+    - _Base_Tiling: {r: 2, g: 1, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DistortionSpeedXYPowerZ: {r: 0, g: 0, b: 0, a: 0}
+    - _Noise_Speed: {r: 0, g: 0.1, b: 0, a: 0}
+    - _Noise_Tiling: {r: 1, g: 1, b: 0, a: 0}
+    - _SpeedMainTexUVNoiseZW: {r: 0, g: 0.5, b: 0, a: 0}
+    - _Tiling: {r: 2, g: 1, b: 0, a: 0}
+    - _Tiling_Noise: {r: 2, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
