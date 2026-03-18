@@ -154,16 +154,25 @@ namespace CookApps.AutoBattler
                 case InGameType.TRIAL_BOSS:
                 case InGameType.TEST:
                     config = GameConfig.ClassicBattle();
+                    // ClassicBattle: boardHeight = 전체 전투 그리드 높이
+                    config.BoardWidth = boardWidth;
+                    config.BoardHeight = boardHeight / 2;      // 플레이어 한쪽
+                    config.CombatGridHeight = boardHeight;      // 전체
                     break;
                 case InGameType.PVP:
                     config = GameConfig.Competitive();
+                    // Competitive: boardHeight = 플레이어 한쪽 높이
+                    config.BoardWidth = boardWidth;
+                    config.BoardHeight = boardHeight;
+                    config.CombatGridHeight = boardHeight * 2;  // 양쪽 합산
                     break;
                 default:
                     config = GameConfig.ClassicBattle();
+                    config.BoardWidth = boardWidth;
+                    config.BoardHeight = boardHeight / 2;
+                    config.CombatGridHeight = boardHeight;
                     break;
             }
-            config.BoardWidth = boardWidth;
-            config.BoardHeight = boardHeight;
             return config;
         }
 
@@ -284,6 +293,16 @@ namespace CookApps.AutoBattler
             {
                 if (world.PvEEnemyCount >= GameWorld.MaxPvEEnemies) break;
 
+                // 그리드 범위 밖이면 스킵 (배치 단계에서 미리 걸러냄)
+                int testCol = character.GridX;
+                int testRow = character.GridY;
+                if (testCol < 0 || testCol >= world.Config.CombatGridWidth ||
+                    testRow < 0 || testRow >= world.Config.CombatGridHeight)
+                {
+                    Debug.LogWarning($"[InGameMain_New] Test enemy out of grid: id={character.CharacterId}, col={testCol}, row={testRow}, grid=({world.Config.CombatGridWidth},{world.Config.CombatGridHeight})");
+                    continue;
+                }
+
                 var spec = SpecDataManager.Instance.GetSpecCharacter(character.CharacterId);
                 if (spec == null)
                 {
@@ -294,8 +313,8 @@ namespace CookApps.AutoBattler
                 ref var enemy = ref world.PvEEnemies[world.PvEEnemyCount++];
                 enemy.ChampionSpecId = character.CharacterId;
                 enemy.PrefabId = spec.prefab_id;
-                enemy.GridCol = (byte)character.GridX;
-                enemy.GridRow = (byte)character.GridY;
+                enemy.GridCol = (byte)testCol;
+                enemy.GridRow = (byte)testRow;
                 enemy.SizeW = 1;
                 enemy.SizeH = 1;
 
@@ -388,6 +407,14 @@ namespace CookApps.AutoBattler
                 if (parts.Length < 2) continue;
                 int.TryParse(parts[0], out int col);
                 int.TryParse(parts[1], out int row);
+
+                // 그리드 범위 밖이면 스킵 (배치 단계에서 미리 걸러냄)
+                if (col < 0 || col >= world.Config.CombatGridWidth ||
+                    row < 0 || row >= world.Config.CombatGridHeight)
+                {
+                    Debug.LogWarning($"[InGameMain_New] Monster out of grid: monster_id={monster.monster_id}, col={col}, row={row}, grid=({world.Config.CombatGridWidth},{world.Config.CombatGridHeight})");
+                    continue;
+                }
 
                 var spec = SpecDataManager.Instance.GetSpecCharacter(monster.monster_id);
                 if (spec == null)

@@ -60,8 +60,8 @@ namespace CookApps.AutoChess
 
         // ── 전투 설정 ──
         public int BaseDamageOnLoss = 2;   // 패배 시 기본 데미지
-        public int CombatGridWidth = 7;
-        public int CombatGridHeight = 8;   // 양쪽 4행씩
+        public int CombatGridWidth => BoardWidth;
+        public int CombatGridHeight = 8;  // 전체 전투 그리드 높이 (모드별로 설정)
 
         // ── 상점 설정 ──
         public int ShopSlotCount = 5;

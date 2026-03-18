@@ -53,7 +53,7 @@ namespace CookApps.AutoChess.View
             _unitViewManager.Initialize();
             var world = _runner.GetWorld();
             _combatViewManager.Initialize(world != null ? world.TickRate : 60);
-            _boardGridView.Initialize();
+            _boardGridView.Initialize(world.BoardWidth, world.Config.CombatGridHeight);
 
             _unitViewManager.SetActiveBoard(_localPlayerIndex);
 
