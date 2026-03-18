@@ -56,7 +56,7 @@ namespace CookApps.AutoChess
 
                 if (CombatLogger.Enabled) CombatLogger.LogProjectileHit(target.CombatId, proj.SourceCombatId, finalDamage, proj.IsCrit);
 
-                DamageSystem.ApplyDamage(state, ref target, finalDamage, isCrit: proj.IsCrit);
+                DamageSystem.ApplyDamage(state, ref target, finalDamage, srcIdx, isCrit: proj.IsCrit);
                 DamageSystem.ChargeMana(ref target, target.ManaGainOnHit);
 
                 // 흡혈 적용 (발사자가 살아있으면)
@@ -196,7 +196,8 @@ namespace CookApps.AutoChess
                     finalDamage = DamageSystem.CalculateDamage(proj.Damage, proj.DamageType, ref state.Units[srcIdx], ref unit);
                 else
                     finalDamage = DamageSystem.CalculateDamage(proj.Damage, proj.DamageType, ref unit);
-                DamageSystem.ApplyDamage(state, ref unit, finalDamage, isCrit: proj.IsCrit);
+
+                DamageSystem.ApplyDamage(state, ref unit, finalDamage, srcIdx, isCrit: proj.IsCrit);
                 DamageSystem.ChargeMana(ref unit, unit.ManaGainOnHit);
             }
 
@@ -391,7 +392,8 @@ namespace CookApps.AutoChess
                 finalDamage = DamageSystem.CalculateDamage(proj.Damage, proj.DamageType, ref state.Units[srcIdx], ref occupant);
             else
                 finalDamage = DamageSystem.CalculateDamage(proj.Damage, proj.DamageType, ref occupant);
-            DamageSystem.ApplyDamage(state, ref occupant, finalDamage, isCrit: proj.IsCrit);
+
+            DamageSystem.ApplyDamage(state, ref occupant, finalDamage, srcIdx, isCrit: proj.IsCrit);
             DamageSystem.ChargeMana(ref occupant, occupant.ManaGainOnHit);
             proj.HitMask |= bit;
 

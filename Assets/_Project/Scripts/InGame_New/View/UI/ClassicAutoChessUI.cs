@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
@@ -375,13 +376,26 @@ namespace CookApps.AutoChess.View
 
         public override void OnUnitDied(int victimEntityId, int killerEntityId, GameWorld world)
         {
-            if (_killLogItemPrefab == null || _killLogRoot == null) return;
-            if (killerEntityId == CombatUnit.InvalidId) return;
+            if (_killLogItemPrefab == null || _killLogRoot == null)
+            {
+                Debug.Log($"[KillLog] SKIP: prefab={_killLogItemPrefab != null}, root={_killLogRoot != null}");
+                return;
+            }
+            if (killerEntityId == CombatUnit.InvalidId)
+            {
+                Debug.Log($"[KillLog] SKIP: killerEntityId=InvalidId, victim={victimEntityId}");
+                return;
+            }
 
             var (killerChampSpecId, killerIsPlayerSide) = FindCombatUnitInfo(world, killerEntityId);
             var (victimChampSpecId, _) = FindCombatUnitInfo(world, victimEntityId);
-            if (killerChampSpecId == 0 || victimChampSpecId == 0) return;
+            if (killerChampSpecId == 0 || victimChampSpecId == 0)
+            {
+                Debug.Log($"[KillLog] SKIP: killerSpec={killerChampSpecId}, victimSpec={victimChampSpecId}, killerId={killerEntityId}, victimId={victimEntityId}");
+                return;
+            }
 
+            Debug.Log($"[KillLog] ADD: killer={killerChampSpecId}(isPlayer={killerIsPlayerSide}), victim={victimChampSpecId}");
             AddKillLog(killerChampSpecId, victimChampSpecId, killerIsPlayerSide);
         }
 
@@ -404,26 +418,87 @@ namespace CookApps.AutoChess.View
         private void AddKillLog(int killerChampSpecId, int victimChampSpecId, bool isPlayerKill)
         {
             var item = Instantiate(_killLogItemPrefab, _killLogRoot);
+            item.transform.position = _killLogRoot.position;
             item.SetData(killerChampSpecId, victimChampSpecId, isPlayerKill);
             item.transform.SetAsFirstSibling();
             item.OnDespawn = HandleKillLogDespawn;
             _killLogItems.Insert(0, item);
-            RelayoutKillLogs();
+            RelayoutKillLogs(animated: true);
         }
 
         private void HandleKillLogDespawn(InGameKillLogItem_New item)
         {
+            item.OnDespawn = null;
             _killLogItems.Remove(item);
-            RelayoutKillLogs();
+            RelayoutKillLogs(animated: true);
         }
 
-        private void RelayoutKillLogs()
+        private CancellationTokenSource _killLogLayoutCts;
+
+        private async void RelayoutKillLogs(bool animated = false)
         {
-            for (int i = 0; i < _killLogItems.Count; i++)
+            if (_killLogRoot == null) return;
+
+            _killLogLayoutCts?.Cancel();
+            _killLogLayoutCts = new CancellationTokenSource();
+            var token = _killLogLayoutCts.Token;
+
+            var items = _killLogItems;
+            float currentY = 0f;
+
+            // 즉시 배치
+            if (!animated)
             {
-                float targetY = -(i * (_killLogItems[i].Height + KillLogGapY));
-                _killLogItems[i].RectTransform.anchoredPosition = new Vector2(
-                    _killLogItems[i].RectTransform.anchoredPosition.x, targetY);
+                for (int i = 0; i < items.Count; i++)
+                {
+                    var rt = items[i].RectTransform;
+                    if (rt == null) continue;
+                    rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, -currentY);
+                    currentY += items[i].Height + KillLogGapY;
+                }
+                return;
+            }
+
+            // 슬라이드 애니메이션
+            var startPositions = new Vector2[items.Count];
+            var targetPositions = new Vector2[items.Count];
+            for (int i = 0; i < items.Count; i++)
+            {
+                var rt = items[i].RectTransform;
+                if (rt == null) continue;
+                startPositions[i] = rt.anchoredPosition;
+                targetPositions[i] = new Vector2(rt.anchoredPosition.x, -currentY);
+                currentY += items[i].Height + KillLogGapY;
+            }
+
+            const float slideDuration = 0.2f;
+            float elapsed = 0f;
+
+            while (elapsed < slideDuration)
+            {
+                if (token.IsCancellationRequested) return;
+
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / slideDuration);
+                t = 1f - Mathf.Pow(1f - t, 3f); // easeOutCubic
+
+                for (int i = 0; i < items.Count; i++)
+                {
+                    var rt = items[i].RectTransform;
+                    if (rt == null) continue;
+                    rt.anchoredPosition = Vector2.LerpUnclamped(startPositions[i], targetPositions[i], t);
+                }
+
+                await UniTask.Yield(token).SuppressCancellationThrow();
+                if (token.IsCancellationRequested) return;
+            }
+
+            // 최종 위치 보정
+            for (int i = 0; i < items.Count; i++)
+            {
+                var rt = items[i].RectTransform;
+                if (rt == null) continue;
+                rt.anchoredPosition = targetPositions[i];
             }
         }
 

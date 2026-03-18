@@ -1863,7 +1863,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.5
-    functionName: Desytroy
+    functionName: Despawn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

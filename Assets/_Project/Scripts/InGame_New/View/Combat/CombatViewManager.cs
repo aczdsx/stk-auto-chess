@@ -104,7 +104,8 @@ namespace CookApps.AutoChess.View
             _pendingMeleeAttacks.Clear();
             _pendingMeleeTargetIds.Clear();
             _tileEffectManager?.HideAll();
-            ClearAllProjectiles();
+            // 날아가는 투사체는 계속 진행 → Update()에서 자연 소멸
+            // 대기 중인 것만 제거 (이미 _pendingProjectiles.Clear() 완료)
         }
 
         // ── 이벤트 수신 (AutoChessViewBridge에서 호출) ──
@@ -279,20 +280,30 @@ namespace CookApps.AutoChess.View
             var skillPrefabs = casterView?.GetSkillEffectPrefabs();
             if (skillPrefabs == null || skillPrefabs.Length == 0) return;
 
+            // 타겟 방향 계산 (월드 좌표 기반)
+            var targetView2 = targetId >= 0 ? _unitViewManager?.FindCombatView(targetId) : null;
+            Vector3 skillDirection = Vector3.zero;
+            if (casterView != null && targetView2 != null)
+            {
+                var dir = targetView2.transform.position - casterView.transform.position;
+                dir.y = 0f;
+                if (dir.sqrMagnitude > 0.001f)
+                    skillDirection = dir.normalized;
+            }
+
             // 첫 번째 VFX: 캐스터 위치에 재생
             if (casterView != null && skillPrefabs.Length > 0 && skillPrefabs[0]?.Prefab != null)
             {
-                SpawnSkillVfx(casterView, skillPrefabs[0]);
+                if (skillDirection != Vector3.zero)
+                    SpawnSkillVfxToward(casterView, skillPrefabs[0], skillDirection);
+                else
+                    SpawnSkillVfx(casterView, skillPrefabs[0]);
             }
 
             // 두 번째 VFX: 타겟 위치에 재생 (있으면)
-            if (skillPrefabs.Length > 1 && skillPrefabs[1]?.Prefab != null && targetId >= 0)
+            if (skillPrefabs.Length > 1 && skillPrefabs[1]?.Prefab != null && targetView2 != null)
             {
-                var targetView = _unitViewManager?.FindCombatView(targetId);
-                if (targetView != null)
-                {
-                    SpawnSkillVfx(targetView, skillPrefabs[1]);
-                }
+                SpawnSkillVfx(targetView2, skillPrefabs[1]);
             }
         }
 
@@ -631,6 +642,24 @@ namespace CookApps.AutoChess.View
             vfxObj.transform.localScale = scale;
 
  
+            Destroy(vfxObj, FireAndForgetLifetime);
+        }
+
+        /// <summary>월드 방향 벡터 기반 스킬 VFX 생성 (OnUnitCastSkill용)</summary>
+        private void SpawnSkillVfxToward(UnitView unitView, SkillViewData skillData, Vector3 direction)
+        {
+            if (skillData?.Prefab == null || unitView == null) return;
+            var posTransform = unitView.GetSkillPositionTransform(skillData.Position);
+            var vfxObj = Instantiate(skillData.Prefab, posTransform.position, Quaternion.identity);
+
+            if (skillData.Followable)
+                vfxObj.transform.SetParent(posTransform);
+            else if (_vfxRoot != null)
+                vfxObj.transform.SetParent(_vfxRoot);
+
+            var rotOffset = skillData.UseCustomRotation ? skillData.RotationOffset : DefaultRotationOffset;
+            vfxObj.transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(rotOffset);
+
             Destroy(vfxObj, FireAndForgetLifetime);
         }
 
@@ -982,43 +1011,49 @@ namespace CookApps.AutoChess.View
 
         private void Update()
         {
-            if (!_isCombatActive || _isPausedByDebugger) return;
+            bool hasRemainingProjectiles = _activeProjectiles.Count > 0 || _dyingProjectiles.Count > 0;
+            if (_isPausedByDebugger) return;
+            if (!_isCombatActive && !hasRemainingProjectiles) return;
 
             float dt = Time.unscaledDeltaTime * LocalSimulationRunner.SpeedMultiplier;
 
-            // 1-a. 대기 중인 근접 공격 지연 처리
-            for (int i = _pendingMeleeAttacks.Count - 1; i >= 0; i--)
+            // 전투 중에만 새 이벤트 처리
+            if (_isCombatActive)
             {
-                var m = _pendingMeleeAttacks[i];
-                m.Delay -= dt;
-                if (m.Delay <= 0f)
+                // 1-a. 대기 중인 근접 공격 지연 처리
+                for (int i = _pendingMeleeAttacks.Count - 1; i >= 0; i--)
                 {
-                    ExecuteMeleeHit(in m);
-                    _pendingMeleeAttacks.RemoveAt(i);
+                    var m = _pendingMeleeAttacks[i];
+                    m.Delay -= dt;
+                    if (m.Delay <= 0f)
+                    {
+                        ExecuteMeleeHit(in m);
+                        _pendingMeleeAttacks.RemoveAt(i);
+                    }
+                    else
+                    {
+                        _pendingMeleeAttacks[i] = m;
+                    }
                 }
-                else
+
+                // 1-b. 대기 중인 투사체 지연 처리
+                for (int i = _pendingProjectiles.Count - 1; i >= 0; i--)
                 {
-                    _pendingMeleeAttacks[i] = m;
+                    var p = _pendingProjectiles[i];
+                    p.Delay -= dt;
+                    if (p.Delay <= 0f)
+                    {
+                        SpawnProjectileFromPending(in p);
+                        _pendingProjectiles.RemoveAt(i);
+                    }
+                    else
+                    {
+                        _pendingProjectiles[i] = p;
+                    }
                 }
             }
 
-            // 1-b. 대기 중인 투사체 지연 처리
-            for (int i = _pendingProjectiles.Count - 1; i >= 0; i--)
-            {
-                var p = _pendingProjectiles[i];
-                p.Delay -= dt;
-                if (p.Delay <= 0f)
-                {
-                    SpawnProjectileFromPending(in p);
-                    _pendingProjectiles.RemoveAt(i);
-                }
-                else
-                {
-                    _pendingProjectiles[i] = p;
-                }
-            }
-
-            // 2. 이동 업데이트 (ManagedUpdate 중 OnReachedTarget → _projectilesToRemove에 수집)
+            // 2. 이동 업데이트 — 전투 종료 후에도 계속 진행
             for (int i = 0; i < _activeProjectiles.Count; i++)
             {
                 var ap = _activeProjectiles[i];

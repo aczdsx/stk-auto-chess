@@ -14,9 +14,19 @@ namespace CookApps.AutoChess
         /// <summary>
         /// 레벨/돌파/초월 기반 스탯 보너스 비율 계산.
         /// 반환값을 (1 + result)로 곱하면 보정된 스탯.
-        /// CharacterInfo: 레벨 + 돌파 + 초월, MonsterInfo: 레벨 + 돌파만.
+        /// CharacterInfo: 유저 데이터에서 레벨 조회 + 돌파 + 초월.
+        /// MonsterInfo: 레벨 1 고정 (외부 레벨 지정 시 오버로드 사용).
         /// </summary>
         public static float CalculateLevelBonusRate(ISpecCharacterInfo spec)
+        {
+            return CalculateLevelBonusRate(spec, -1);
+        }
+
+        /// <summary>
+        /// 레벨을 외부에서 지정하는 오버로드.
+        /// levelOverride > 0이면 해당 값 사용, 아니면 유저 데이터/기본값에서 결정.
+        /// </summary>
+        public static float CalculateLevelBonusRate(ISpecCharacterInfo spec, int levelOverride)
         {
             int level = 1;
             int transcendStar = 0;
@@ -24,7 +34,7 @@ namespace CookApps.AutoChess
             if (spec is CharacterInfo characterInfo)
             {
                 var userData = ServerDataManager.Instance.Character.GetCharacter(characterInfo.id);
-                level = Mathf.Max(1, (int)(userData?.Level ?? 1));
+                level = levelOverride > 0 ? levelOverride : Mathf.Max(1, (int)(userData?.Level ?? 1));
 
                 // 초월: (유저 초월레벨 - 초기 별) → 초월 스펙 조회
                 int userTranscendLevel = (int)(userData?.TranscendLevel ?? 0);
@@ -37,8 +47,7 @@ namespace CookApps.AutoChess
             }
             else if (spec is MonsterInfo)
             {
-                // 몬스터는 유저 데이터 없음 → 레벨 1 고정
-                level = 1;
+                level = levelOverride > 0 ? levelOverride : 1;
             }
 
             // 레벨 곱: (1 + inc_lv_rate × (level-1)) × (1 + inc_lv_bonus_rate × ⌊(level-1)/10⌋)

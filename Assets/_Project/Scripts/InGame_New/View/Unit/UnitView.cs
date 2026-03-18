@@ -43,6 +43,7 @@ namespace CookApps.AutoChess.View
         private HpBarView _hpBarView;
         private int _champSpecId;
         private bool _isPlayer;
+        private int _lastMaxHP;      // 배치 프리뷰용 최근 maxHP 캐시
 
         // ── Desired State (로딩 전 호출된 상태를 추적, 로딩 후 ApplyDeferredState로 일괄 적용) ──
         private CombatState _lastState = CombatState.Idle;
@@ -148,8 +149,8 @@ namespace CookApps.AutoChess.View
             if (_facingTarget.HasValue)
                 ApplyFacing();
 
-            // 전투 유닛이면 HP 바 부착
-            if (IsCombatUnit && _champSpecId > 0)
+            // HP 바 부착 (전투 유닛 또는 보드 유닛)
+            if (_champSpecId > 0 && (IsCombatUnit || EntityId > 0))
                 AttachHpBar();
         }
 
@@ -160,12 +161,18 @@ namespace CookApps.AutoChess.View
             _hpBarView = InGameHpBarViewPool.Instance.Get();
             if (_hpBarView == null) return;
 
-            _hpBarView.Initialize(_champSpecId, _isPlayer);
-            _hpBarView.SetHpBarType(HpBarType.HpBar | HpBarType.Buff);
+            _hpBarView.Initialize(_champSpecId, _isPlayer, _lastMaxHP);
+            _hpBarView.SetHpBarType(IsCombatUnit
+                ? HpBarType.HpBar | HpBarType.Buff
+                : HpBarType.HpBar | HpBarType.Synergy);
 
             var spec = SpecDataManager.Instance.GetSpecCharacter(_champSpecId);
             float height = spec?.height ?? 1.5f;
             _characterView.SetHpBarView(_hpBarView, height);
+
+            // 캐시된 HP가 있으면 즉시 반영 (비동기 로딩으로 인해 UpdateHP보다 늦게 부착될 수 있음)
+            if (_lastMaxHP > 0)
+                _hpBarView.SetValue(_lastMaxHP, _lastMaxHP, 0);
         }
 
         private void ReleaseHpBar()
@@ -206,6 +213,7 @@ namespace CookApps.AutoChess.View
         public void UpdateHP(int current, int max, int shield = 0)
         {
             HPRatio = max > 0 ? (float)current / max : 0f;
+            _lastMaxHP = max;
             _hpBarView?.SetValue(current, max, shield);
         }
 
