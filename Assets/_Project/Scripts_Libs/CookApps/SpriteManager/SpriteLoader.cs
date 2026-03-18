@@ -71,11 +71,13 @@ namespace CookApps.TeamBattle
         {
             if (isSpriteRenderer)
             {
-                targetRenderer.enabled = enable;
+                if (targetRenderer != null)
+                    targetRenderer.enabled = enable;
             }
             else
             {
-                targetImage.enabled = enable;
+                if (targetImage != null)
+                    targetImage.enabled = enable;
             }
         }
 
@@ -83,11 +85,13 @@ namespace CookApps.TeamBattle
         {
             if (isSpriteRenderer)
             {
-                targetRenderer.sprite = sprite;
+                if (targetRenderer != null)
+                    targetRenderer.sprite = sprite;
             }
             else
             {
-                targetImage.sprite = sprite;
+                if (targetImage != null)
+                    targetImage.sprite = sprite;
             }
         }
     }

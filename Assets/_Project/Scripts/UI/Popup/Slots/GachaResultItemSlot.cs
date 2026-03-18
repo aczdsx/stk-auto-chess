@@ -80,33 +80,33 @@ namespace CookApps.AutoBattler
         {
             [GradeType.RARE] = new GradeVisualData
             {
-                BgGroupColor      = ParseHexColor("#7287C2"),
-                ToneAdjustColor   = ParseHexColor("#69B4FF40"),
-                GradientTopColor  = ParseHexColor("#B3D9FFBF"),
-                GradientBotColor  = ParseHexColor("#6A97F2"),
+                BgGroupColor = ParseHexColor("#7287C2"),
+                ToneAdjustColor = ParseHexColor("#69B4FF40"),
+                GradientTopColor = ParseHexColor("#B3D9FFBF"),
+                GradientBotColor = ParseHexColor("#6A97F2"),
                 PieceGradientColor = ParseHexColor("#0095FF"),
-                SDStandSprite     = "UI_Gacha_Common_SD_Stand_R",
-                FrameSprite       = "UI_Gacha_Result_List_Frame_R",
+                SDStandSprite = "UI_Gacha_Common_SD_Stand_R",
+                FrameSprite = "UI_Gacha_Result_List_Frame_R",
             },
             [GradeType.EPIC] = new GradeVisualData
             {
-                BgGroupColor      = ParseHexColor("#916CA9"),
-                ToneAdjustColor   = ParseHexColor("#CD69FF40"),
-                GradientTopColor  = ParseHexColor("#E6B3FFBF"),
-                GradientBotColor  = ParseHexColor("#B84FEC"),
+                BgGroupColor = ParseHexColor("#916CA9"),
+                ToneAdjustColor = ParseHexColor("#CD69FF40"),
+                GradientTopColor = ParseHexColor("#E6B3FFBF"),
+                GradientBotColor = ParseHexColor("#B84FEC"),
                 PieceGradientColor = ParseHexColor("#AA00FF"),
-                SDStandSprite     = "UI_Gacha_Common_SD_Stand_SR",
-                FrameSprite       = "UI_Gacha_Result_List_Frame_SR",
+                SDStandSprite = "UI_Gacha_Common_SD_Stand_SR",
+                FrameSprite = "UI_Gacha_Result_List_Frame_SR",
             },
             [GradeType.LEGENDARY] = new GradeVisualData
             {
-                BgGroupColor      = ParseHexColor("#DDA84B"),
-                ToneAdjustColor   = ParseHexColor("#FFC56940"),
-                GradientTopColor  = ParseHexColor("#FFE5B3BF"),
-                GradientBotColor  = ParseHexColor("#F29B5C"),
+                BgGroupColor = ParseHexColor("#DDA84B"),
+                ToneAdjustColor = ParseHexColor("#FFC56940"),
+                GradientTopColor = ParseHexColor("#FFE5B3BF"),
+                GradientBotColor = ParseHexColor("#F29B5C"),
                 PieceGradientColor = ParseHexColor("#FFBA00"),
-                SDStandSprite     = "UI_Gacha_Common_SD_Stand_SSR",
-                FrameSprite       = "UI_Gacha_Result_List_Frame_SSR",
+                SDStandSprite = "UI_Gacha_Common_SD_Stand_SSR",
+                FrameSprite = "UI_Gacha_Result_List_Frame_SSR",
             },
         };
 
@@ -127,8 +127,8 @@ namespace CookApps.AutoBattler
             }
 
             // 1. 등급별 배경 색상
-            _bgGroupImage.color     = visual.BgGroupColor;
-            _toneAdjustImage.color  = visual.ToneAdjustColor;
+            _bgGroupImage.color = visual.BgGroupColor;
+            _toneAdjustImage.color = visual.ToneAdjustColor;
             _gradientTopImage.color = visual.GradientTopColor;
             _gradientBotImage.color = visual.GradientBotColor;
 
@@ -158,10 +158,10 @@ namespace CookApps.AutoBattler
             _pieceGroup.SetActive(isPiece);
             if (isPiece)
             {
+                Debug.LogColor($"charInfo.id : {charInfo.id}");
+                Debug.LogColor($"SpriteNameParser.GetCharacterPieceSprite(charInfo.id) : {SpriteNameParser.GetCharacterPieceSprite(charInfo.id)}");
                 _pieceGradientImage.color = visual.PieceGradientColor;
-                _pieceIconSpriteLoader.SetSprite(
-                    SpriteNameParser.GetCharacterPieceSprite(charInfo.prefab_id)
-                ).Forget();
+                _pieceIconSpriteLoader.SetSprite(SpriteNameParser.GetCharacterPieceSprite(charInfo.id)).Forget();
                 _pieceCountText.text = $"x{rewardItem.Count}";
             }
         }

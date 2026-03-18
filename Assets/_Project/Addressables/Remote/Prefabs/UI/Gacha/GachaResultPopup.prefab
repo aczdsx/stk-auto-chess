@@ -25900,7 +25900,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpriteRenderer: 0
   targetRenderer: {fileID: 0}
-  targetImage: {fileID: 0}
+  targetImage: {fileID: 3926996554823859581}
 --- !u!1 &3631039621104555324
 GameObject:
   m_ObjectHideFlags: 0
