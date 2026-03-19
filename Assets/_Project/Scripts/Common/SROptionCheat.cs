@@ -269,6 +269,13 @@ public partial class SROptions
         set => _idleCombatDebugGUI = value;
     }
 
+    [Category("Idle 전투")]
+    public bool 아군무적
+    {
+        get => CookApps.AutoChess.DamageSystem.PlayerInvincible;
+        set => CookApps.AutoChess.DamageSystem.PlayerInvincible = value;
+    }
+
     #endregion
 }
 #endif
