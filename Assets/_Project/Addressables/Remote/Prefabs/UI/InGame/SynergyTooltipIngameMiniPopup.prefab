@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7855700192764673178}
   - component: {fileID: 606115559061915816}
   - component: {fileID: 8904982496540293602}
+  - component: {fileID: 4297367172501501138}
   m_Layer: 5
-  m_Name: Highlight_BG
+  m_Name: Highlight_Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 16, y: 0}
+  m_SizeDelta: {x: -20, y: -12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &606115559061915816
 CanvasRenderer:
@@ -58,14 +59,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.7507234, b: 0.4475792, a: 0.8}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ee7ec7fe34d9ac34da0a962965608065, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7eaa3fdc9059444ab70d3ebfebfba50, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -75,6 +76,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4297367172501501138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258410524969905523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UIEffect::Coffee.UIEffects.UIShiny
+  m_EffectFactor: 0.79766923
+  m_Width: 0.5
+  m_Rotation: 135
+  m_Softness: 1
+  m_Brightness: 0.5
+  m_Gloss: 0.5
+  m_EffectArea: 0
+  m_Player:
+    play: 1
+    initialPlayDelay: 0
+    duration: 1.5
+    loop: 1
+    loopDelay: 1
+    updateMode: 0
 --- !u!1 &429104328072502390
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,7 +531,6 @@ MonoBehaviour:
   baseAnimator: {fileID: 0}
   preloadAddressables: []
   _closeButton: {fileID: 7895684120799162544}
-  _dimLayerButton: {fileID: 0}
   _body: {fileID: 8230152301426196550}
   _synergyUI: {fileID: 4507399777250037530}
   _synergyNameText: {fileID: 2519229887985395199}
@@ -592,8 +618,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4286211153
-  m_fontColor: {r: 0.31764707, g: 0.39215687, b: 0.47843137, a: 1}
+    rgba: 4280692787
+  m_fontColor: {r: 0.2, g: 0.1882353, b: 0.14901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -621,6 +647,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -671,8 +698,8 @@ MonoBehaviour:
   colors:
     keys: 0100000000000000
     values:
-    - {r: 0.48235294, g: 0.48235294, b: 0.48235294, a: 1}
-    - {r: 0.31764707, g: 0.39215687, b: 0.47843137, a: 1}
+    - {r: 0.3764706, g: 0.4, b: 0.42745098, a: 1}
+    - {r: 0.2, g: 0.19215687, b: 0.15294118, a: 1}
 --- !u!1 &2506487061009505601
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,8 +902,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4286211153
-  m_fontColor: {r: 0.31764707, g: 0.39215687, b: 0.47843137, a: 1}
+    rgba: 4285359712
+  m_fontColor: {r: 0.3764706, g: 0.4, b: 0.42745098, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -904,6 +931,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -954,8 +982,8 @@ MonoBehaviour:
   colors:
     keys: 0100000000000000
     values:
-    - {r: 0.48235294, g: 0.48235294, b: 0.48235294, a: 1}
-    - {r: 0.31764707, g: 0.39215687, b: 0.47843137, a: 1}
+    - {r: 0.3764706, g: 0.4, b: 0.42745098, a: 1}
+    - {r: 0.2, g: 0.19215687, b: 0.15294118, a: 1}
 --- !u!1 &2994022148061409544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,8 +1060,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4286211153
-  m_fontColor: {r: 0.31764707, g: 0.39215687, b: 0.47843137, a: 1}
+    rgba: 4280692787
+  m_fontColor: {r: 0.2, g: 0.18846154, b: 0.15, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1061,6 +1089,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1111,8 +1140,8 @@ MonoBehaviour:
   colors:
     keys: 0100000000000000
     values:
-    - {r: 0.48235294, g: 0.48235294, b: 0.48235294, a: 1}
-    - {r: 0.31764707, g: 0.39215687, b: 0.47843137, a: 1}
+    - {r: 0.374466, g: 0.39766562, b: 0.4245283, a: 1}
+    - {r: 0.2, g: 0.19215687, b: 0.15294118, a: 1}
 --- !u!1 &3290383512120157033
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,8 +1219,9 @@ GameObject:
   - component: {fileID: 7108481216703987848}
   - component: {fileID: 1016870488045537553}
   - component: {fileID: 8056859123634684446}
+  - component: {fileID: 2531217021977777878}
   m_Layer: 5
-  m_Name: Highlight_BG
+  m_Name: Highlight_Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1214,7 +1244,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 16, y: 0}
+  m_SizeDelta: {x: -20, y: -12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1016870488045537553
 CanvasRenderer:
@@ -1237,14 +1267,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.7507234, b: 0.4475792, a: 0.8}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ee7ec7fe34d9ac34da0a962965608065, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7eaa3fdc9059444ab70d3ebfebfba50, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1254,6 +1284,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2531217021977777878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478218800123742810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UIEffect::Coffee.UIEffects.UIShiny
+  m_EffectFactor: 0.1960724
+  m_Width: 0.5
+  m_Rotation: 135
+  m_Softness: 1
+  m_Brightness: 0.5
+  m_Gloss: 0.5
+  m_EffectArea: 0
+  m_Player:
+    play: 1
+    initialPlayDelay: 0
+    duration: 1.5
+    loop: 1
+    loopDelay: 1
+    updateMode: 0
 --- !u!1 &3746618597488374346
 GameObject:
   m_ObjectHideFlags: 0
@@ -1790,8 +1846,9 @@ GameObject:
   - component: {fileID: 4397317195058962586}
   - component: {fileID: 6858851663878659830}
   - component: {fileID: 3339456216797488349}
+  - component: {fileID: 496183829597348878}
   m_Layer: 5
-  m_Name: Highlight_BG
+  m_Name: Highlight_Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1814,7 +1871,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 16, y: 0}
+  m_SizeDelta: {x: -20, y: -12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6858851663878659830
 CanvasRenderer:
@@ -1837,14 +1894,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.7507234, b: 0.4475792, a: 0.8}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ee7ec7fe34d9ac34da0a962965608065, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7eaa3fdc9059444ab70d3ebfebfba50, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1854,6 +1911,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &496183829597348878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5021304069718733173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UIEffect::Coffee.UIEffects.UIShiny
+  m_EffectFactor: 0
+  m_Width: 0.5
+  m_Rotation: 135
+  m_Softness: 1
+  m_Brightness: 0.5
+  m_Gloss: 0.5
+  m_EffectArea: 0
+  m_Player:
+    play: 1
+    initialPlayDelay: 0
+    duration: 1.5
+    loop: 1
+    loopDelay: 1
+    updateMode: 0
 --- !u!1 &5362167258917665571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1931,8 +2014,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4286211153
-  m_fontColor: {r: 0.31764707, g: 0.39215687, b: 0.47843137, a: 1}
+    rgba: 4285359712
+  m_fontColor: {r: 0.3764706, g: 0.4, b: 0.42745098, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1960,6 +2043,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2010,8 +2094,8 @@ MonoBehaviour:
   colors:
     keys: 0100000000000000
     values:
-    - {r: 0.48235294, g: 0.48235294, b: 0.48235294, a: 1}
-    - {r: 0.31764707, g: 0.39215687, b: 0.47843137, a: 1}
+    - {r: 0.3764706, g: 0.4, b: 0.42745098, a: 1}
+    - {r: 0.2, g: 0.19215687, b: 0.15294118, a: 1}
 --- !u!1 &6325554904554721852
 GameObject:
   m_ObjectHideFlags: 0
@@ -2115,6 +2199,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: -20
   m_lineSpacingMax: 0
@@ -2397,8 +2482,9 @@ GameObject:
   - component: {fileID: 4600371581432924958}
   - component: {fileID: 8707374349943536041}
   - component: {fileID: 7998853117413920770}
+  - component: {fileID: 8867493181557040287}
   m_Layer: 5
-  m_Name: Highlight_BG
+  m_Name: Highlight_Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2421,7 +2507,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 16, y: 0}
+  m_SizeDelta: {x: -20, y: -12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8707374349943536041
 CanvasRenderer:
@@ -2444,14 +2530,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.7507234, b: 0.4475792, a: 0.8}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ee7ec7fe34d9ac34da0a962965608065, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7eaa3fdc9059444ab70d3ebfebfba50, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2461,6 +2547,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8867493181557040287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7825512520770581414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UIEffect::Coffee.UIEffects.UIShiny
+  m_EffectFactor: 0.1960724
+  m_Width: 0.5
+  m_Rotation: 135
+  m_Softness: 1
+  m_Brightness: 0.5
+  m_Gloss: 0.5
+  m_EffectArea: 0
+  m_Player:
+    play: 1
+    initialPlayDelay: 0
+    duration: 1.5
+    loop: 1
+    loopDelay: 1
+    updateMode: 0
 --- !u!1 &8113732943959803485
 GameObject:
   m_ObjectHideFlags: 0
@@ -2479,7 +2591,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2399359532355428178
 RectTransform:
   m_ObjectHideFlags: 0
