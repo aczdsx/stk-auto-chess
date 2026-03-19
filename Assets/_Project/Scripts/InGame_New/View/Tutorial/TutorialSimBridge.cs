@@ -55,7 +55,11 @@ namespace CookApps.AutoChess.View
                     _skillReadyHandler.TryHandleTutorial(evt.EntityId);
                     break;
                 case SimEventType.CombatResult:
-                    _combatEndHandler.TryHandleTutorial();
+                    // ENEMY_DEAD_ALL: 적 전멸(플레이어 승리) 시 먼저 처리, 미처리 시 COMBAT_END
+                    bool enemyDeadAllHandled = evt.Value0 == 0
+                        && _phaseHandler.TryHandleTutorial(TutorialTriggerType.ENEMY_DEAD_ALL);
+                    if (!enemyDeadAllHandled)
+                        _combatEndHandler.TryHandleTutorial();
                     break;
                 case SimEventType.UnitPurchased:
                     _phaseHandler.TryHandleTutorial(TutorialTriggerType.SHOP_PURCHASE);
