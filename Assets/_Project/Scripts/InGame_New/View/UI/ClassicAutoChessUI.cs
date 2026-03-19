@@ -80,6 +80,14 @@ namespace CookApps.AutoChess.View
             _filterButton?.onClick.AddListener(OnFilterClicked);
             _recommendButton?.onClick.AddListener(OnRecommendClicked);
             _presetButton?.onClick.AddListener(OnPresetClicked);
+
+            // 스테이지 이름 설정
+            var stageInfo = SpecDataManager.Instance.GetStageData(InGameParams.StageId);
+            if (stageInfo != null)
+            {
+                string stageString = LanguageManager.Instance.GetDefaultText("UI_STAGE");
+                SetStageName($"{stageString} {stageInfo.chapter_id}-{stageInfo.stage_number}");
+            }
         }
 
         protected override void OnSyncState(GameWorld world)

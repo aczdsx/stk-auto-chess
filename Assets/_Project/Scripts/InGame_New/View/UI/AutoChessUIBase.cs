@@ -3,6 +3,7 @@ using CookApps.AutoBattler;
 using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using LitMotion;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -44,6 +45,12 @@ namespace CookApps.AutoChess.View
         [SerializeField] protected TMP_Text hpText;
         [SerializeField] protected TMP_Text stageText;
 
+        [Header("Timer Warning")]
+        [SerializeField] protected GameObject timerWarningObj;
+
+        private MotionHandle _timerWarningHandle;
+        private bool _isTimerWarningActive;
+
         protected AutoChessViewBridge ViewBridge { get; private set; }
         protected BoardInputHandler BoardInput { get; private set; }
         protected byte PlayerIndex { get; private set; }
@@ -57,13 +64,17 @@ namespace CookApps.AutoChess.View
 
         // ── 초기화 ──
 
+        protected InGameMainParams InGameParams { get; private set; }
+
         public void Initialize(
             AutoChessViewBridge viewBridge,
             BoardInputHandler boardInput,
+            InGameMainParams inGameParams,
             byte playerIndex = 0)
         {
             ViewBridge = viewBridge;
             BoardInput = boardInput;
+            InGameParams = inGameParams;
             PlayerIndex = playerIndex;
 
             exitButton?.onClick.AddListener(OnExitClicked);
@@ -73,6 +84,12 @@ namespace CookApps.AutoChess.View
         }
 
         protected virtual void OnInitialize() { }
+
+        public void SetStageName(string name)
+        {
+            if (stageText != null)
+                stageText.text = name;
+        }
 
         // ── 애니메이션 ──
 
@@ -161,7 +178,25 @@ namespace CookApps.AutoChess.View
                 };
             }
 
+            // 타이머 경고 정리
+            if (newPhase != GamePhase.Combat)
+            {
+                StopTimerWarning();
+            }
+
             OnPhaseChangedInternal(newPhase);
+        }
+
+        private void StopTimerWarning()
+        {
+            if (_isTimerWarningActive)
+            {
+                _isTimerWarningActive = false;
+                if (_timerWarningHandle.IsActive())
+                    _timerWarningHandle.Cancel();
+                if (timerWarningObj != null)
+                    timerWarningObj.SetActive(false);
+            }
         }
 
         protected virtual void OnPhaseChangedInternal(GamePhase newPhase) { }
@@ -206,6 +241,20 @@ namespace CookApps.AutoChess.View
             {
                 float seconds = world.PhaseTimerFrames / (float)world.TickRate;
                 timerText.text = Mathf.CeilToInt(seconds).ToString();
+
+                // 10초 경고 인디케이터 (정수 프레임 비교로 부동소수점 오차 방지)
+                int warningThresholdFrames = 10 * world.TickRate;
+                if (world.CurrentPhase == GamePhase.Combat
+                    && world.PhaseTimerFrames <= warningThresholdFrames
+                    && world.PhaseTimerFrames > 0
+                    && !_isTimerWarningActive)
+                {
+                    _isTimerWarningActive = true;
+                    if (timerWarningObj != null)
+                    {
+                        timerWarningObj.SetActive(true);
+                    }
+                }
             }
 
             // 플레이어 정보
@@ -223,8 +272,7 @@ namespace CookApps.AutoChess.View
                 if (hpText != null)
                     hpText.text = $"{player.HP}/{player.MaxHP}";
 
-                if (stageText != null)
-                    stageText.text = $"{world.CurrentStage}-{world.CurrentRound}";
+                // stageText는 SetStageName()으로 초기화 시 한 번만 설정
             }
         }
 
@@ -437,6 +485,7 @@ namespace CookApps.AutoChess.View
 
         private void OnDestroy()
         {
+            StopTimerWarning();
             exitButton?.onClick.RemoveListener(OnExitClicked);
             speedButton?.onClick.RemoveListener(OnSpeedClicked);
             OnCleanup();

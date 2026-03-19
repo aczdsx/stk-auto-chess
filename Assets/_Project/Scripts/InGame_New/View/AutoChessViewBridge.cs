@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CookApps.AutoBattler;
+using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -137,6 +138,8 @@ namespace CookApps.AutoChess.View
                     _autoChessUI?.OnPhaseChanged(newPhase);
                     _autoChessUI?.PlayAnimation("SetBattleEntry");
                     _boardInputHandler?.SetEnabled(false);
+                    // 전투 시작 연출
+                    PlayBattleStartCutsceneAsync().Forget();
                     break;
 
                 case GamePhase.Result:
@@ -479,6 +482,38 @@ namespace CookApps.AutoChess.View
                 if (unitView == null) continue;
 
                 SpawnSynergyOneShotAsync(unitView, entry).Forget();
+            }
+        }
+
+        private async UniTaskVoid PlayBattleStartCutsceneAsync()
+        {
+            var world = _runner.GetWorld();
+
+            // EnableCutscenes가 false면 연출 없이 바로 진행
+            if (!world.Config.EnableCutscenes) return;
+
+            // 시뮬레이션 틱 일시정지 (컷씬 큐에 긴 duration 등록)
+            GameLoopSystem.EnqueueCutscene(world, new CutsceneRequest
+            {
+                DurationFrames = 600 * world.TickRate // 안전 타임아웃 10분
+            });
+
+            try
+            {
+                // 연출 Push & 완료 대기
+                var cutsceneUI = await SceneUILayerManager.Instance
+                    .PushUILayerAsync<BattleStartCutsceneUI>();
+                if (cutsceneUI != null)
+                {
+                    await cutsceneUI.WaitForAnimationCompleteAsync();
+                }
+            }
+            finally
+            {
+                // 컷씬 종료 → 시뮬레이션 재개 (예외 시에도 보장)
+                world.IsCutscenePlaying = false;
+                world.CutsceneCount = 0;
+                world.CutsceneCurrentIndex = 0;
             }
         }
 
