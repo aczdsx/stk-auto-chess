@@ -1701,7 +1701,7 @@
     "m_Title": "UV Offset",
     "m_Position": {
         "x": -2449.0,
-        "y": -52.0
+        "y": -52.000038146972659
     }
 }
 
@@ -1792,8 +1792,8 @@
     "m_ObjectId": "3a6a9bb75758460f8d8882a3a2d75511",
     "m_Title": "Vertex Animation",
     "m_Position": {
-        "x": -1149.0001220703125,
-        "y": -125.99993896484375
+        "x": -1148.9998779296875,
+        "y": -126.0
     }
 }
 
@@ -2224,8 +2224,8 @@
     "m_ObjectId": "4ac379af02604a30aa31e6162b1a5731",
     "m_Title": "UV Animation",
     "m_Position": {
-        "x": -1103.0001220703125,
-        "y": 410.0
+        "x": -1102.9998779296875,
+        "y": 410.0000305175781
     }
 }
 
@@ -3803,14 +3803,14 @@
         "m_Id": "412eb2d615b74a348483e052be6141ae"
     },
     "m_AllowMaterialOverride": false,
-    "m_SurfaceType": 1,
+    "m_SurfaceType": 0,
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
     "m_RenderFace": 0,
     "m_AlphaClip": true,
-    "m_CastShadows": true,
-    "m_ReceiveShadows": true,
+    "m_CastShadows": false,
+    "m_ReceiveShadows": false,
     "m_DisableTint": false,
     "m_Sort3DAs2DCompatible": false,
     "m_AdditionalMotionVectorMode": 0,

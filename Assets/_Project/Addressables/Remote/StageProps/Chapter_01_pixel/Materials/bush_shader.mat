@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: bush_shader
-  m_Shader: {fileID: -6465566751694194690, guid: 83fb7165f518386419d45c160385e279, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: b00381fa4bbdab54a8957d512f689a73, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -128,7 +128,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 0.5642357, g: 0.603, b: 0.43071428, a: 1}
-    - _Color: {r: 0.7504633, g: 0.827451, b: 0.3607843, a: 1}
+    - _Color: {r: 0.9231013, g: 1, b: 0.5424528, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.10220942, g: 0.12100001, b: 0.041139998, a: 1}
     - _Wind_Direction: {r: 1, g: 1, b: 0, a: 0}
