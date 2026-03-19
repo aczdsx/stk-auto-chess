@@ -431,8 +431,10 @@ namespace CookApps.AutoBattler
                     continue;
                 }
 
-                // Random placement with minimum distance constraint
-                Vector2 position = GetRandomPosition(minX, maxX, minY, maxY, placedPositions);
+                // Random placement with minimum distance constraint + crosshair exclusion
+                Vector2 crosshairStartPos = Vector2.zero;
+                Vector2 position = GetRandomPosition(minX, maxX, minY, maxY, placedPositions,
+                    crosshairStartPos, mark.DetectionRadius);
                 mark.RectTransform.anchoredPosition = position;
                 placedPositions.Add(position);
 
@@ -457,7 +459,8 @@ namespace CookApps.AutoBattler
         /// Get a random position within bounds, respecting minimum distance from existing positions.
         /// Retries up to MARK_PLACEMENT_MAX_RETRY times, then accepts the last position.
         /// </summary>
-        private Vector2 GetRandomPosition(float minX, float maxX, float minY, float maxY, List<Vector2> existing)
+        private Vector2 GetRandomPosition(float minX, float maxX, float minY, float maxY,
+            List<Vector2> existing, Vector2 excludeCenter, float excludeRadius)
         {
             Vector2 candidate = Vector2.zero;
 
@@ -476,6 +479,10 @@ namespace CookApps.AutoBattler
                         break;
                     }
                 }
+
+                // 크로스헤어 초기 위치와 DetectionRadius 이내면 재배치
+                if (!tooClose && Vector2.Distance(candidate, excludeCenter) < excludeRadius)
+                    tooClose = true;
 
                 if (!tooClose) return candidate;
             }
