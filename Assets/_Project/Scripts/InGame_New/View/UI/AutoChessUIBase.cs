@@ -64,13 +64,17 @@ namespace CookApps.AutoChess.View
 
         // ── 초기화 ──
 
+        protected InGameMainParams InGameParams { get; private set; }
+
         public void Initialize(
             AutoChessViewBridge viewBridge,
             BoardInputHandler boardInput,
+            InGameMainParams inGameParams,
             byte playerIndex = 0)
         {
             ViewBridge = viewBridge;
             BoardInput = boardInput;
+            InGameParams = inGameParams;
             PlayerIndex = playerIndex;
 
             exitButton?.onClick.AddListener(OnExitClicked);
@@ -80,6 +84,12 @@ namespace CookApps.AutoChess.View
         }
 
         protected virtual void OnInitialize() { }
+
+        public void SetStageName(string name)
+        {
+            if (stageText != null)
+                stageText.text = name;
+        }
 
         // ── 애니메이션 ──
 
@@ -243,15 +253,6 @@ namespace CookApps.AutoChess.View
                     if (timerWarningObj != null)
                     {
                         timerWarningObj.SetActive(true);
-                        var canvasGroup = timerWarningObj.GetComponent<CanvasGroup>();
-                        if (canvasGroup != null)
-                        {
-                            _timerWarningHandle = LMotion.Create(0.3f, 1f, 0.5f)
-                                .WithEase(Ease.InOutSine)
-                                .WithLoops(-1, LoopType.Yoyo)
-                                .Bind(canvasGroup, static (v, cg) => cg.alpha = v)
-                                .AddTo(timerWarningObj);
-                        }
                     }
                 }
             }
@@ -271,8 +272,7 @@ namespace CookApps.AutoChess.View
                 if (hpText != null)
                     hpText.text = $"{player.HP}/{player.MaxHP}";
 
-                if (stageText != null)
-                    stageText.text = $"{world.CurrentStage}-{world.CurrentRound}";
+                // stageText는 SetStageName()으로 초기화 시 한 번만 설정
             }
         }
 

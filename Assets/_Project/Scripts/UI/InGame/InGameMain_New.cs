@@ -124,7 +124,7 @@ namespace CookApps.AutoBattler
 
             if (autoChessUI != null)
             {
-                autoChessUI.Initialize(_viewRoot.ViewBridge, boardInput);
+                autoChessUI.Initialize(_viewRoot.ViewBridge, boardInput, _inGameParams);
                 _viewRoot.ViewBridge.SetAutoChessUI(autoChessUI);
             }
 
