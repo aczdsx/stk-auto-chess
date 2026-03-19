@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CookApps.AutoChess;
 using CookApps.AutoChess.View;
 using CookApps.TeamBattle.UIManagements;
+using R3;
 using UnityEngine;
 
 namespace CookApps.AutoBattler
@@ -11,6 +12,7 @@ namespace CookApps.AutoBattler
     {
         [SerializeField] private PresetInGameSlot _slotPrefab;
         [SerializeField] private Transform _slotContainer;
+        [SerializeField] private CAButton _closeButton;
 
         private readonly List<PresetInGameSlot> _slotPool = new();
         private PresetPopupParam _param;
@@ -29,6 +31,13 @@ namespace CookApps.AutoBattler
             {
                 _param = popupParam;
             }
+        }
+
+        private void Start()
+        {
+            _closeButton.OnClickAsObservable()
+                .Subscribe(this, (_, self) => SceneUILayerManager.Instance.PopUILayer(self))
+                .AddTo(this);
         }
 
         private void OnEnable()
