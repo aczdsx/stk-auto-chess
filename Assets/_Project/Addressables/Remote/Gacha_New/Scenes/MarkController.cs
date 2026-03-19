@@ -15,6 +15,7 @@ namespace CookApps.AutoBattler
 
         [Header("Detection")]
         [SerializeField] private float _detectionRadius = 300f;
+        [SerializeField] private float _subDetectionRadius = 400f;
 
         [Header("References")]
         [SerializeField] private ParticleSystem _particleSystem;
@@ -27,6 +28,10 @@ namespace CookApps.AutoBattler
         private GachaNewController _controller;
         private bool _isFound;
 
+        private GameObject _subMarkObject;
+        private MotionHandle _subMarkMotionHandle;
+        private bool _isSubMarkVisible;
+
         #endregion
 
         #region Properties
@@ -34,8 +39,16 @@ namespace CookApps.AutoBattler
         public RectTransform RectTransform { get; private set; }
         public bool IsFound => _isFound;
         public float DetectionRadius => _detectionRadius;
+        public float SubDetectionRadius => _subDetectionRadius;
         public Vector2 Position => RectTransform.anchoredPosition;
         public int ResultIndex { get; private set; }
+        public bool IsSubMarkVisible => _isSubMarkVisible;
+
+        public GameObject SubMarkObject
+        {
+            get => _subMarkObject;
+            set => _subMarkObject = value;
+        }
 
         #endregion
 
@@ -79,10 +92,47 @@ namespace CookApps.AutoBattler
 
             _isFound = true;
 
+            // SubMark 즉시 숨김
+            _subMarkMotionHandle.TryCancel();
+            _isSubMarkVisible = false;
+            if (_subMarkObject != null)
+                _subMarkObject.SetActive(false);
+
             gameObject.SetActive(true);
             _visualRoot.localScale = Vector3.zero;
 
             PlayActivateAnimationAsync().Forget();
+        }
+
+        public void ShowSubMark()
+        {
+            if (_isSubMarkVisible || _subMarkObject == null) return;
+            _isSubMarkVisible = true;
+            _subMarkMotionHandle.TryCancel();
+            _subMarkObject.SetActive(true);
+            _subMarkObject.transform.localScale = Vector3.zero;
+            _subMarkMotionHandle = LMotion.Create(Vector3.zero, Vector3.one, 0.3f)
+                .WithEase(Ease.OutBack)
+                .BindToLocalScale(_subMarkObject.transform)
+                .AddTo(_subMarkObject);
+        }
+
+        public void HideSubMark()
+        {
+            if (!_isSubMarkVisible || _subMarkObject == null) return;
+            _isSubMarkVisible = false;
+            _subMarkMotionHandle.TryCancel();
+            var subMark = _subMarkObject;
+            _subMarkMotionHandle = LMotion.Create(
+                    _subMarkObject.transform.localScale, Vector3.zero, 0.2f)
+                .WithEase(Ease.InBack)
+                .WithOnComplete(() =>
+                {
+                    if (subMark != null)
+                        subMark.SetActive(false);
+                })
+                .BindToLocalScale(_subMarkObject.transform)
+                .AddTo(_subMarkObject);
         }
 
         #endregion
