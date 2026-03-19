@@ -34,6 +34,10 @@ namespace CookApps.AutoBattler
         {
             _currentMainLayerTabType = SynergyType.NORMAL;
 
+            // OnPreEnter 시점에는 RectTransform 레이아웃이 미완료 상태이므로
+            // TableView가 viewport 크기를 정확히 읽을 수 있도록 강제 갱신
+            Canvas.ForceUpdateCanvases();
+
             SetCharacterCollectionUI();
         }
 
