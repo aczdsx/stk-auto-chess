@@ -26,7 +26,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8281903632035278510}
   - {fileID: 4034173318403783494}
@@ -50,7 +50,6 @@ GameObject:
   - component: {fileID: 394753346546868071}
   - component: {fileID: 1684682901343035725}
   - component: {fileID: 1370757861864007075}
-  - component: {fileID: 1337225699633999655}
   m_Layer: 0
   m_Name: ImageDivider
   m_TagString: Untagged
@@ -162,18 +161,6 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
---- !u!225 &1337225699633999655
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4769955316546230985}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &4867413185800670277
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,13 +171,14 @@ GameObject:
   m_Component:
   - component: {fileID: 8583990384035218821}
   - component: {fileID: 6474245885887231736}
+  - component: {fileID: 7030094163703815968}
   m_Layer: 5
   m_Name: InGameBattleStartOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8583990384035218821
 RectTransform:
   m_ObjectHideFlags: 0
@@ -221,7 +209,7 @@ Animator:
   m_GameObject: {fileID: 4867413185800670277}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c0b7f0dd7bf998841a8ef610e6c990d2, type: 2}
+  m_Controller: {fileID: 9100000, guid: d3efae459f4b24d2fb77fbaf10807677, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -233,6 +221,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7030094163703815968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867413185800670277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a05273aaca754233909b5fde7433dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CookApps.AutoBattler.BattleStartCutsceneUI
+  uiLayerType: 2
+  baseAnimator: {fileID: 6474245885887231736}
+  preloadAddressables: []
 --- !u!1 &5805655876892260547
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +264,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1016492239889319909}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
