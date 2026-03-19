@@ -226,7 +226,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 405637013148842899}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -360,6 +360,7 @@ GameObject:
   - component: {fileID: 6337853867053617973}
   - component: {fileID: 3638681359698829193}
   - component: {fileID: 8398302306995338860}
+  - component: {fileID: 7842529562325429707}
   m_Layer: 0
   m_Name: Bg
   m_TagString: Untagged
@@ -473,6 +474,18 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 3
+--- !u!225 &7842529562325429707
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3051143864763013031}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6711652591652988863
 GameObject:
   m_ObjectHideFlags: 0
