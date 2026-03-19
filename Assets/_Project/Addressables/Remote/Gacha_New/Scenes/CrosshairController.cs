@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using LitMotion;
 using LitMotion.Extensions;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace CookApps.AutoBattler
 {
@@ -18,12 +17,9 @@ namespace CookApps.AutoBattler
         [SerializeField] private RectTransform _crosshairVisual;
         [SerializeField] private Canvas _canvas;
 
-        [Header("Direction Indicators")]
-        [SerializeField] private float _indicatorRadius = 150f;
-        [SerializeField] private float _indicatorSize = 20f;
-        [SerializeField] private Color _indicatorColor = new Color(1f, 1f, 1f, 0.7f);
-        [SerializeField] private Sprite _indicatorSprite;
-        [SerializeField] private float _indicatorMoveSpeed = 720f;
+        [Header("Arrow Direction")]
+        [SerializeField] private RectTransform _arrowPivot;
+        [SerializeField] private float _arrowMoveSpeed = 720f;
 
         #endregion
 
@@ -41,11 +37,8 @@ namespace CookApps.AutoBattler
         private MotionHandle _hideHandle;
         private RectTransform[] _uiButtonRects;
 
-        private const int MAX_INDICATOR_COUNT = 10;
-        private RectTransform[] _indicators;
-        private Image[] _indicatorImages;
-        private float _currentIndicatorAngle;
-        private bool _hasIndicatorAngle;
+        private float _currentArrowAngle;
+        private bool _hasArrowAngle;
 
         #endregion
 
@@ -65,7 +58,9 @@ namespace CookApps.AutoBattler
                 _crosshairVisual.gameObject.SetActive(false);
             }
 
-            InitializeIndicators();
+            // Arrow 초기 숨김
+            if (_arrowPivot != null)
+                _arrowPivot.gameObject.SetActive(false);
         }
 
         private void Update()
@@ -128,13 +123,13 @@ namespace CookApps.AutoBattler
                 _hasPrevPosition = true;
                 ShowCrosshair();
                 CheckOverlap();
-                UpdateIndicators();
+                UpdateArrowAndSubMarks();
             }
             else if (inputHeld && _isDragging)
             {
                 MoveToPosition(inputPos);
                 CheckOverlap();
-                UpdateIndicators();
+                UpdateArrowAndSubMarks();
                 _prevPosition = _crosshairVisual.anchoredPosition;
             }
             else if (inputEnded && _isDragging)
@@ -147,7 +142,7 @@ namespace CookApps.AutoBattler
             // 드래그 중이 아닐 때도 인디케이터는 계속 갱신
             if (!_isDragging && _crosshairVisual != null && _crosshairVisual.gameObject.activeSelf)
             {
-                UpdateIndicators();
+                UpdateArrowAndSubMarks();
             }
         }
 
@@ -182,7 +177,7 @@ namespace CookApps.AutoBattler
                     _crosshairVisual.localScale = Vector3.zero;
                     _crosshairVisual.gameObject.SetActive(false);
                 }
-                HideAllIndicators();
+                HideArrowAndSubMarks();
             }
             else
             {
@@ -281,7 +276,7 @@ namespace CookApps.AutoBattler
         {
             if (_crosshairVisual == null) return;
 
-            _hasIndicatorAngle = false;
+            _hasArrowAngle = false;
             _hideHandle.TryCancel();
 
             _crosshairVisual.localScale = Vector3.zero;
@@ -318,48 +313,19 @@ namespace CookApps.AutoBattler
 
         #endregion
 
-        #region Direction Indicators
+        #region Arrow Direction & SubMark
 
-        private void InitializeIndicators()
+        private void UpdateArrowAndSubMarks()
         {
-            if (_crosshairVisual == null) return;
-
-            _indicators = new RectTransform[MAX_INDICATOR_COUNT];
-            _indicatorImages = new Image[MAX_INDICATOR_COUNT];
-
-            for (int i = 0; i < MAX_INDICATOR_COUNT; i++)
-            {
-                var indicatorObj = new GameObject($"Indicator_{i}", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
-                var rt = indicatorObj.GetComponent<RectTransform>();
-                rt.SetParent(_crosshairVisual, false);
-                rt.sizeDelta = new Vector2(_indicatorSize, _indicatorSize);
-                rt.anchorMin = new Vector2(0.5f, 0.5f);
-                rt.anchorMax = new Vector2(0.5f, 0.5f);
-                rt.pivot = new Vector2(0.5f, 0.5f);
-
-                var img = indicatorObj.GetComponent<Image>();
-                img.sprite = _indicatorSprite;
-                img.color = _indicatorColor;
-                img.raycastTarget = false;
-
-                indicatorObj.SetActive(false);
-
-                _indicators[i] = rt;
-                _indicatorImages[i] = img;
-            }
-        }
-
-        private void UpdateIndicators()
-        {
-            if (_controller == null || _indicators == null) return;
+            if (_controller == null) return;
 
             List<MarkController> marks = _controller.GetUnfoundMarks();
             if (marks == null) return;
 
             Vector2 crosshairPos = _crosshairVisual.anchoredPosition;
 
-            // 가장 가까운 미발견 마커 찾기
-            float closestDist = float.MaxValue;
+            // 가장 가까운 미발견 마크 찾기 + SubMark 범위 체크
+            float closestSqrDist = float.MaxValue;
             MarkController closestMark = null;
 
             for (int i = 0; i < marks.Count; i++)
@@ -367,68 +333,75 @@ namespace CookApps.AutoBattler
                 MarkController mark = marks[i];
                 if (mark == null || mark.IsFound) continue;
 
-                float dist = Vector2.SqrMagnitude(mark.Position - crosshairPos);
-                if (dist < closestDist)
+                float sqrDist = Vector2.SqrMagnitude(mark.Position - crosshairPos);
+
+                // 가장 가까운 마크 추적
+                if (sqrDist < closestSqrDist)
                 {
-                    closestDist = dist;
+                    closestSqrDist = sqrDist;
                     closestMark = mark;
                 }
-            }
 
-            if (closestMark != null)
-            {
-                Vector2 dir = closestMark.Position - crosshairPos;
-                float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                // SubMark 범위 체크
+                float dist = Mathf.Sqrt(sqrDist);
+                float subRadius = mark.SubDetectionRadius;
+                float mainRadius = mark.DetectionRadius;
 
-                if (!_hasIndicatorAngle)
+                if (dist <= subRadius && dist > mainRadius)
                 {
-                    _currentIndicatorAngle = targetAngle;
-                    _hasIndicatorAngle = true;
+                    mark.ShowSubMark();
                 }
                 else
                 {
-                    _currentIndicatorAngle = Mathf.MoveTowardsAngle(
-                        _currentIndicatorAngle, targetAngle, _indicatorMoveSpeed * Time.deltaTime);
+                    mark.HideSubMark();
                 }
-
-                float rad = _currentIndicatorAngle * Mathf.Deg2Rad;
-
-                _indicators[0].anchoredPosition = new Vector2(
-                    Mathf.Cos(rad) * _indicatorRadius,
-                    Mathf.Sin(rad) * _indicatorRadius);
-                _indicators[0].localRotation = Quaternion.Euler(0f, 0f, _currentIndicatorAngle - 90f);
-
-                // 거리 기반 알파 — 가까울수록 투명
-                float distance = dir.magnitude;
-                float alpha = Mathf.Clamp01(distance / (closestMark.DetectionRadius * 2f));
-                Color c = _indicatorColor;
-                c.a = _indicatorColor.a * alpha;
-                _indicatorImages[0].color = c;
-
-                if (!_indicators[0].gameObject.activeSelf)
-                    _indicators[0].gameObject.SetActive(true);
-            }
-            else
-            {
-                if (_indicators[0].gameObject.activeSelf)
-                    _indicators[0].gameObject.SetActive(false);
             }
 
-            // 나머지 인디케이터는 항상 비활성
-            for (int i = 1; i < MAX_INDICATOR_COUNT; i++)
+            // Arrow 회전
+            if (_arrowPivot != null)
             {
-                if (_indicators[i] != null && _indicators[i].gameObject.activeSelf)
-                    _indicators[i].gameObject.SetActive(false);
+                if (closestMark != null)
+                {
+                    Vector2 dir = closestMark.Position - crosshairPos;
+                    float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+                    if (!_hasArrowAngle)
+                    {
+                        _currentArrowAngle = targetAngle;
+                        _hasArrowAngle = true;
+                    }
+                    else
+                    {
+                        _currentArrowAngle = Mathf.MoveTowardsAngle(
+                            _currentArrowAngle, targetAngle, _arrowMoveSpeed * Time.deltaTime);
+                    }
+
+                    _arrowPivot.localRotation = Quaternion.Euler(0f, 0f, _currentArrowAngle - 90f);
+
+                    if (!_arrowPivot.gameObject.activeSelf)
+                        _arrowPivot.gameObject.SetActive(true);
+                }
+                else
+                {
+                    if (_arrowPivot.gameObject.activeSelf)
+                        _arrowPivot.gameObject.SetActive(false);
+                }
             }
         }
 
-        private void HideAllIndicators()
+        private void HideArrowAndSubMarks()
         {
-            if (_indicators == null) return;
-            for (int i = 0; i < MAX_INDICATOR_COUNT; i++)
+            if (_arrowPivot != null)
+                _arrowPivot.gameObject.SetActive(false);
+
+            if (_controller == null) return;
+            List<MarkController> marks = _controller.GetUnfoundMarks();
+            if (marks == null) return;
+
+            for (int i = 0; i < marks.Count; i++)
             {
-                if (_indicators[i] != null)
-                    _indicators[i].gameObject.SetActive(false);
+                if (marks[i] != null)
+                    marks[i].HideSubMark();
             }
         }
 

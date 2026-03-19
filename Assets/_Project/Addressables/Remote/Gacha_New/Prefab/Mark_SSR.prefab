@@ -53869,7 +53869,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 137f62f26a50b40f3946b6bbb87b09ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _detectionRadius: 250
+  _detectionRadius: 200
+  _subDetectionRadius: 350
   _particleSystem: {fileID: 0}
   _visualRoot: {fileID: 0}
 --- !u!1 &7160376526293511200

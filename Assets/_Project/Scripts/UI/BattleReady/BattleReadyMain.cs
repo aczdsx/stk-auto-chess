@@ -219,7 +219,7 @@ namespace CookApps.AutoBattler
         private void OnBecameTop()
         {
             NetManager.Instance.GuideMission.GetAsync().Forget();
-            PlayEnterAnimation();
+            // PlayEnterAnimation();
         }
 
         public async UniTask PlayEnterAnimationAsync()

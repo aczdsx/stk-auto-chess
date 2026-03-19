@@ -33,6 +33,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private GameObject _markPrefabR;
         [SerializeField] private GameObject _markPrefabSR;
         [SerializeField] private GameObject _markPrefabSSR;
+        [SerializeField] private GameObject _subMarkPrefab;
         [SerializeField] private RectTransform _markContainer;
 
         [Header("Crosshair")]
@@ -389,11 +390,15 @@ namespace CookApps.AutoBattler
         /// </summary>
         private void SpawnMarks(List<RewardItem> datas)
         {
-            // Clear previous marks
+            // Clear previous marks + SubMarks
             for (int i = 0; i < _marks.Count; i++)
             {
                 if (_marks[i] != null)
+                {
+                    if (_marks[i].SubMarkObject != null)
+                        Destroy(_marks[i].SubMarkObject);
                     Destroy(_marks[i].gameObject);
+                }
             }
             _marks.Clear();
 
@@ -432,6 +437,18 @@ namespace CookApps.AutoBattler
                 placedPositions.Add(position);
 
                 mark.Initialize(this, i);
+
+                // SubMark 생성 (같은 위치에 배치)
+                if (_subMarkPrefab != null)
+                {
+                    GameObject subMarkObj = Instantiate(_subMarkPrefab, _markContainer);
+                    RectTransform subMarkRect = subMarkObj.GetComponent<RectTransform>();
+                    if (subMarkRect != null)
+                        subMarkRect.anchoredPosition = position;
+                    subMarkObj.SetActive(false);
+                    mark.SubMarkObject = subMarkObj;
+                }
+
                 _marks.Add(mark);
             }
         }
