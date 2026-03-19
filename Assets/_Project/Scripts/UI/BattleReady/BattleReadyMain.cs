@@ -530,6 +530,15 @@ namespace CookApps.AutoBattler
         {
             var playerData = ServerDataManager.Instance.PlayerData;
             Debug.Log($"[CheckUserAccountLevelUp] Level: {playerData.Level}, PrevAccountLevel: {playerData.PrevAccountLevel}");
+            if (playerData.Level == 0) return;
+
+            // PrevAccountLevel 미초기화 상태(0)면 현재 레벨로 동기화만 수행
+            if (playerData.PrevAccountLevel == 0)
+            {
+                playerData.PrevAccountLevel = playerData.Level;
+                return;
+            }
+
             if (playerData.Level <= playerData.PrevAccountLevel) return;
 
             var specAccountLevelData = SpecDataManager.Instance.GetAccountLevelExpDataByLevel((int)playerData.Level);

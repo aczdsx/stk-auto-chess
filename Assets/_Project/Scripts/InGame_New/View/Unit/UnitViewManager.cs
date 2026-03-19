@@ -213,6 +213,13 @@ namespace CookApps.AutoChess.View
                                 view.UpdateFacing(targetPos);
                             }
                         }
+                        else
+                        {
+                            // 타겟 없으면 기본 방향: 아군은 상단(적진), 적은 하단(아군진)
+                            int defaultRow = unit.TeamIndex == 0 ? BoardHelper.CombatHeight - 1 : 0;
+                            var defaultTarget = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.GridCol, defaultRow);
+                            view.UpdateFacing(defaultTarget);
+                        }
                     }
                     else
                     {

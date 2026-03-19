@@ -24,7 +24,7 @@ namespace CookApps.AutoBattler
         private uint _cachedLevel;
 
         // 스테이지 진입 시점의 레벨 스냅샷 (전투 후 로비 복귀 시 레벨업 팝업 표시 비교용)
-        public uint PrevAccountLevel { get; set; } = 1;
+        public uint PrevAccountLevel { get; set; }
 
         // InventoryModel 구독
         private IDisposable _inventorySubscription;
@@ -92,8 +92,9 @@ namespace CookApps.AutoBattler
             // InventoryModel 구독 시작 (Level/Exp 변경 감지)
             EnsureSubscribed();
 
-            // 초기 레벨 캐시 (인벤토리 미로드 시 0 유지, HandleUserExpChanged에서 갱신)
+            // 초기 레벨 캐시 리셋 (인벤토리 로드 시 HandleUserExpChanged에서 갱신)
             _cachedLevel = 0;
+            PrevAccountLevel = 0;
 
             // 변경 이벤트 발생
             if (nicknameChanged)
