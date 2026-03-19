@@ -842,6 +842,11 @@ namespace CookApps.AutoBattler
             combatViewManager.Initialize(IdleCombatRunner.TickRate);
             combatViewManager.SetUnitViewManager(unitViewManager);
 
+            // 피격 VFX 프리팹 로드
+            var hitVfxHandle = Addressables.LoadAssetAsync<GameObject>("Prefabs/Fx/Common/fx_common_hit_01.prefab");
+            _idleCombatHandles.Add(hitVfxHandle);
+            combatViewManager.SetHitVfxPrefab(await hitVfxHandle);
+
             _idleCombatViewBridge.Setup(_idleCombatRunner, unitViewManager, combatViewManager);
 
             // 스폰 VFX 프리팹 로드
