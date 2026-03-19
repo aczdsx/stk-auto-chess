@@ -18,6 +18,7 @@ namespace CookApps.AutoBattler
         private int _initialBoardUnitCount;
         private CombatFrameRecorder _frameRecorder;
         private ReplayController _replayController;
+        private bool _isGameOverHandled;
 
         protected override void OnPreEnter(object param)
         {
@@ -513,6 +514,8 @@ namespace CookApps.AutoBattler
 
         private void HandleGameOver(GameWorld world)
         {
+            if (_isGameOverHandled) return;
+            _isGameOverHandled = true;
             if (_inGameParams.InGameType == InGameType.TEST) return;
             HandleGameOverAsync(world).Forget();
         }
@@ -571,22 +574,55 @@ namespace CookApps.AutoBattler
                 Debug.LogWarning($"[InGameMain_New] Battle.EndAsync failed: {e.Message}");
             }
 
-            // 전투 종료 연출 딜레이 (투사체 등 View 연출이 자연스럽게 마무리되도록)
-            await UniTask.Delay(System.TimeSpan.FromSeconds(2.5f));
+            // 1. 종료 연출 Push & 완료 대기 (기존 2.5초 딜레이 대체)
+            if (isVictory)
+            {
+                var cutscene = await SceneUILayerManager.Instance
+                    .PushUILayerAsync<BattleVictoryCutsceneUI>();
+                if (cutscene != null)
+                    await cutscene.WaitForAnimationCompleteAsync();
+            }
+            else
+            {
+                var cutscene = await SceneUILayerManager.Instance
+                    .PushUILayerAsync<BattleDefeatCutsceneUI>();
+                if (cutscene != null)
+                    await cutscene.WaitForAnimationCompleteAsync();
+            }
 
+            // 2. 이벤트 구독 해제 (Cleanup 전에 먼저)
             if (_viewRoot != null)
             {
                 _viewRoot.Runner.OnGameOver -= HandleGameOver;
                 _viewRoot.Runner.OnPhaseChanged -= HandlePhaseChanged;
-                _viewRoot.Cleanup();
-                _viewRoot = null;
             }
 
+            // 3. 결과 팝업 Push & 완전 표시 대기
             var popupParam = new AutoChessClassicResultPopupParam(
                 isVictory, isStarTime, isStarNoDeath,
                 mvpCharacter, rewards,
                 _inGameParams.StageId, _inGameParams.InGameType);
+
+            var resultPopupTcs = new UniTaskCompletionSource();
+            SceneUILayerManager.OnUITransitionEvent += OnTransition;
             SceneUILayerManager.Instance.PushUILayerAsync<AutoChessClassicResultPopup>(popupParam).Forget();
+            await resultPopupTcs.Task;
+            SceneUILayerManager.OnUITransitionEvent -= OnTransition;
+
+            void OnTransition(UILayerTransition transition, string key, UILayer layer, object data)
+            {
+                if (transition == UILayerTransition.EnterFinished && layer is AutoChessClassicResultPopup)
+                {
+                    resultPopupTcs.TrySetResult();
+                }
+            }
+
+            // 4. 시뮬레이션 정리 (팝업 완전 표시 후)
+            if (_viewRoot != null)
+            {
+                _viewRoot.Cleanup();
+                _viewRoot = null;
+            }
 
             Debug.Log($"[InGameMain_New] Game Over - Victory={isVictory}, Stars={stars}, CombatTime={combatSeconds:F1}s");
         }
