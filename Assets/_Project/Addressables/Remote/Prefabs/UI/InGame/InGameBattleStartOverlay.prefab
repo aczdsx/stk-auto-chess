@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 394753346546868071}
   - component: {fileID: 1684682901343035725}
   - component: {fileID: 1370757861864007075}
+  - component: {fileID: 1337225699633999655}
   m_Layer: 0
   m_Name: ImageDivider
   m_TagString: Untagged
@@ -161,6 +162,18 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
+--- !u!225 &1337225699633999655
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4769955316546230985}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4867413185800670277
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +221,7 @@ Animator:
   m_GameObject: {fileID: 4867413185800670277}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c0b7f0dd7bf998841a8ef610e6c990d2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -248,7 +261,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1016492239889319909}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
