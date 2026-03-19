@@ -44,7 +44,7 @@ Material:
     - _AspectRatio: 2
     - _ColorMask: 15
     - _EnableExternalAlpha: 0
-    - _HoleRadius: 0.15
+    - _HoleRadius: 0
     - _HoleRadius2: 0
     - _MaskAlpha: 1
     - _SmoothWidth: 0.029
