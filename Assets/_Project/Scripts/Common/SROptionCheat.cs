@@ -257,5 +257,18 @@ public partial class SROptions
 
 
     #endregion
+
+    #region Idle 전투
+
+    private bool _idleCombatDebugGUI;
+
+    [Category("Idle 전투")]
+    public bool Idle전투_디버그GUI
+    {
+        get => _idleCombatDebugGUI;
+        set => _idleCombatDebugGUI = value;
+    }
+
+    #endregion
 }
 #endif

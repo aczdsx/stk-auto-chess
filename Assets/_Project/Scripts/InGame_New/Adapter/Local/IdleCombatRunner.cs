@@ -144,6 +144,7 @@ namespace CookApps.AutoChess
         private void OnGUI()
         {
             if (!_isRunning || _matchState == null) return;
+            if (!SROptions.Current.Idle전투_디버그GUI) return;
             var cam = Camera.main;
             if (cam == null) return;
 
