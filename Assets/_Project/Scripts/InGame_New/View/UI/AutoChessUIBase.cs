@@ -3,6 +3,7 @@ using CookApps.AutoBattler;
 using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
+using LitMotion;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -43,6 +44,12 @@ namespace CookApps.AutoChess.View
         [SerializeField] protected TMP_Text levelText;
         [SerializeField] protected TMP_Text hpText;
         [SerializeField] protected TMP_Text stageText;
+
+        [Header("Timer Warning")]
+        [SerializeField] protected GameObject timerWarningObj;
+
+        private MotionHandle _timerWarningHandle;
+        private bool _isTimerWarningActive;
 
         protected AutoChessViewBridge ViewBridge { get; private set; }
         protected BoardInputHandler BoardInput { get; private set; }
@@ -161,7 +168,25 @@ namespace CookApps.AutoChess.View
                 };
             }
 
+            // 타이머 경고 정리
+            if (newPhase != GamePhase.Combat)
+            {
+                StopTimerWarning();
+            }
+
             OnPhaseChangedInternal(newPhase);
+        }
+
+        private void StopTimerWarning()
+        {
+            if (_isTimerWarningActive)
+            {
+                _isTimerWarningActive = false;
+                if (_timerWarningHandle.IsActive())
+                    _timerWarningHandle.Cancel();
+                if (timerWarningObj != null)
+                    timerWarningObj.SetActive(false);
+            }
         }
 
         protected virtual void OnPhaseChangedInternal(GamePhase newPhase) { }
@@ -206,6 +231,29 @@ namespace CookApps.AutoChess.View
             {
                 float seconds = world.PhaseTimerFrames / (float)world.TickRate;
                 timerText.text = Mathf.CeilToInt(seconds).ToString();
+
+                // 10초 경고 인디케이터 (정수 프레임 비교로 부동소수점 오차 방지)
+                int warningThresholdFrames = 10 * world.TickRate;
+                if (world.CurrentPhase == GamePhase.Combat
+                    && world.PhaseTimerFrames <= warningThresholdFrames
+                    && world.PhaseTimerFrames > 0
+                    && !_isTimerWarningActive)
+                {
+                    _isTimerWarningActive = true;
+                    if (timerWarningObj != null)
+                    {
+                        timerWarningObj.SetActive(true);
+                        var canvasGroup = timerWarningObj.GetComponent<CanvasGroup>();
+                        if (canvasGroup != null)
+                        {
+                            _timerWarningHandle = LMotion.Create(0.3f, 1f, 0.5f)
+                                .WithEase(Ease.InOutSine)
+                                .WithLoops(-1, LoopType.Yoyo)
+                                .Bind(canvasGroup, static (v, cg) => cg.alpha = v)
+                                .AddTo(timerWarningObj);
+                        }
+                    }
+                }
             }
 
             // 플레이어 정보
@@ -437,6 +485,7 @@ namespace CookApps.AutoChess.View
 
         private void OnDestroy()
         {
+            StopTimerWarning();
             exitButton?.onClick.RemoveListener(OnExitClicked);
             speedButton?.onClick.RemoveListener(OnSpeedClicked);
             OnCleanup();
