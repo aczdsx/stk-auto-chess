@@ -648,6 +648,8 @@ namespace CookApps.AutoBattler
         public string name_token;
         /// 시너지 효과토큰
         public string desc_token_1;
+        /// 시너지 효과토큰
+        public string desc_token_2;
         /// 시너지 단계
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int grade;
@@ -1410,6 +1412,7 @@ namespace CookApps.AutoBattler
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;
         /// 튜토리얼 ID
+/// 스테이지 ID랑 동일해야함
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int tutorial_id;
         /// 가이드미션 id
