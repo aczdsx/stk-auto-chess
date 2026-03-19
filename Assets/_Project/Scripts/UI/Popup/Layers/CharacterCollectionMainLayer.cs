@@ -3,6 +3,7 @@ using System.Linq;
 using CookApps.TeamBattle;
 using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
+using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 
@@ -34,11 +35,17 @@ namespace CookApps.AutoBattler
         {
             _currentMainLayerTabType = SynergyType.NORMAL;
 
-            // OnPreEnter 시점에는 RectTransform 레이아웃이 미완료 상태이므로
-            // TableView가 viewport 크기를 정확히 읽을 수 있도록 강제 갱신
-            Canvas.ForceUpdateCanvases();
-
             SetCharacterCollectionUI();
+
+            // OnPreEnter 시점에는 RectTransform 레이아웃이 미완료 → viewport 크기 부정확
+            // 1프레임 대기하여 레이아웃 완료 후 그리드 재계산
+            RefreshAfterLayout().Forget();
+        }
+
+        private async UniTaskVoid RefreshAfterLayout()
+        {
+            await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
+            _characterTableView.RefreshAll(resetPos: true);
         }
 
         public void RefreshLayer()
