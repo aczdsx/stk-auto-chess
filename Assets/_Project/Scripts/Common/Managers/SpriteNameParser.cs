@@ -26,6 +26,28 @@ namespace CookApps.AutoBattler
             return spriteName;
         }
 
+        public static string GetNewGradeSpriteName(GradeType GradeType, bool isActive = true)
+        {
+            string spriteName = string.Empty;
+
+            switch (GradeType)
+            {
+                // case GradeType.COMMON:
+                //     return AtlasManager.Instance.GetSprite("UI_Main", "Icon_R");
+                case GradeType.RARE:
+                    spriteName = isActive ? "Character_Icon_Class_R" : "Icon_R_Locked";
+                    break;
+                case GradeType.EPIC:
+                    spriteName = isActive ? "Character_Icon_Class_SR" : "Icon_SR_Locked";
+                    break;
+                case GradeType.LEGENDARY:
+                    spriteName = isActive ? "Character_Icon_Class_SSR" : "Icon_SSR_Locked";
+                    break;
+            }
+
+            return spriteName;
+        }
+
         public static string GetSpriteName(SynergyType synergyType, bool isActive = true)
         {
             string spriteName = string.Empty;
@@ -65,7 +87,7 @@ namespace CookApps.AutoBattler
 
             return spriteName;
         }
-        
+
         public static string GetSpriteNameInGameBadge(SynergyType synergyType)
         {
             string spriteName = string.Empty;
@@ -87,16 +109,16 @@ namespace CookApps.AutoBattler
                     spriteName = "Icon_Troubleshooter_74";
                     break;
                 case SynergyType.FIRE:
-                    spriteName =  "Icon_Property_Fire_74";
+                    spriteName = "Icon_Property_Fire_74";
                     break;
                 case SynergyType.WATER:
                     spriteName = "Icon_Property_Water_74";
                     break;
                 case SynergyType.EARTH:
-                    spriteName = "Icon_Property_Earth_74" ;
+                    spriteName = "Icon_Property_Earth_74";
                     break;
                 case SynergyType.WIND:
-                    spriteName ="Icon_Property_Wind_74" ;
+                    spriteName = "Icon_Property_Wind_74";
                     break;
                 case SynergyType.LIGHTNING:
                     spriteName = "Icon_Property_Light_74";

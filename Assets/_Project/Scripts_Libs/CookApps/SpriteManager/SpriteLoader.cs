@@ -67,6 +67,13 @@ namespace CookApps.TeamBattle
             SetTargetEnable(false);
         }
 
+        public Image SetNativeSize()
+        {
+            if (targetImage != null)
+                targetImage.SetNativeSize();
+            return targetImage;
+        }
+
         private void SetTargetEnable(bool enable)
         {
             if (isSpriteRenderer)

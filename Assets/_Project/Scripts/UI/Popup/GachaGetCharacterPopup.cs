@@ -94,15 +94,15 @@ namespace CookApps.AutoBattler
 
         private static readonly Dictionary<GradeType, string> SDStandSpriteMap = new()
         {
-            [GradeType.RARE]      = "UI_Gacha_Common_SD_Stand_R",
-            [GradeType.EPIC]      = "UI_Gacha_Common_SD_Stand_SR",
+            [GradeType.RARE] = "UI_Gacha_Common_SD_Stand_R",
+            [GradeType.EPIC] = "UI_Gacha_Common_SD_Stand_SR",
             [GradeType.LEGENDARY] = "UI_Gacha_Common_SD_Stand_SSR",
         };
 
         private static readonly Dictionary<GradeType, string> GradeAnimTriggerMap = new()
         {
-            [GradeType.RARE]      = "R",
-            [GradeType.EPIC]      = "SR",
+            [GradeType.RARE] = "R",
+            [GradeType.EPIC] = "SR",
             [GradeType.LEGENDARY] = "SSR",
         };
 
@@ -242,7 +242,8 @@ namespace CookApps.AutoBattler
             var grade = charInfo.grade_type;
 
             // 1. 등급 아이콘
-            _gradeSpriteLoader.SetSprite(SpriteNameParser.GetSpriteName(grade)).Forget();
+            _gradeSpriteLoader.SetSprite(SpriteNameParser.GetNewGradeSpriteName(grade)).Forget();
+            _gradeSpriteLoader.SetNativeSize();
 
             // 2. 별 활성화
             for (int i = 0; i < _starList.Count; i++)
