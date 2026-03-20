@@ -38,7 +38,7 @@ namespace CookApps.AutoChess
 
             // 같은 행 타일 이펙트 (fx_common_area_xxx) — 구 시스템 AddInGameTileFx 대응
             state.EventQueue?.PushSkillAreaEffect(
-                caster.SourceEntityId, (byte)col, (byte)row, 7, isRow: true);
+                caster.CombatId, (byte)col, (byte)row, 7, isRow: true);
 
             for (int i = 0; i < state.UnitCount; i++)
             {

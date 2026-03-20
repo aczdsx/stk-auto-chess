@@ -130,7 +130,7 @@ namespace CookApps.AutoChess
 
             // 타일 이펙트 (3×3 box)
             state.EventQueue?.PushSkillAreaEffect(
-                caster.SourceEntityId, (byte)col, (byte)row, AreaRange, isBox: true);
+                caster.CombatId, (byte)col, (byte)row, AreaRange, isBox: true);
 
             // 3×3 범위 내 적에게 디버프 적용
             SkillAreaHelper.ForEachEnemyInRadius(state, caster.TeamIndex, col, row, AreaRange,

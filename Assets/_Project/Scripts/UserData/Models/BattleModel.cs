@@ -284,7 +284,7 @@ namespace CookApps.AutoBattler
         /// </summary>
         public uint GetLatestClearedStageId()
         {
-            uint latestId = 10001; // 기본값
+            uint latestId = 0; // 클리어 기록 없으면 0 반환
 
             foreach (var progress in _stageProgresses.Values)
             {
@@ -394,8 +394,8 @@ namespace CookApps.AutoBattler
             var lastPlayStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
             var latestClearedStageId = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
 
-            // 마지막 플레이 == 최고 클리어인 경우 다음 스테이지로
-            if (lastPlayStageId == latestClearedStageId)
+            // 마지막 플레이 == 최고 클리어인 경우 다음 스테이지로 (클리어 기록이 있을 때만)
+            if (latestClearedStageId > 0 && lastPlayStageId == latestClearedStageId)
             {
                 var currentStageData = SpecDataManager.Instance.GetStageData(lastPlayStageId);
                 var nextStageData = SpecDataManager.Instance.GetStageData(
