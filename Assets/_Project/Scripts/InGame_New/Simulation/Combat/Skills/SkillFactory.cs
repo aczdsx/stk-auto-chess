@@ -104,6 +104,11 @@ namespace CookApps.AutoChess
             Register(215642501, () => new SimSkillEllisAoE());
             Register(215322201, () => new SimSkillMayCross());
             Register(217353203, () => new SimSkillRakiyuDebuff());
+
+            // 몬스터 커스텀 스킬
+            Register(250108001, () => new SimSkillBossTankLine());
+            Register(230101005, () => new SimSkillSingleProjectile());
+            Register(230202004, () => new SimSkillSingleProjectile());
         }
 
         /// <summary>팩토리 등록 해제 (테스트용)</summary>

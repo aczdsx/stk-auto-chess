@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -421,6 +422,15 @@ namespace CookApps.AutoChess.View
                     if (evt.PlayerIndex == _localPlayerIndex)
                         HandleSupernovaObjectEvent(evt);
                     break;
+
+                case SimEventType.CameraShake:
+                {
+                    float duration = evt.Value0 / 1000f;
+                    float magnitude = evt.Value1 / 100f;
+                    var cam = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera);
+                    cam?.ShakeCamera(duration, magnitude);
+                    break;
+                }
             }
         }
 
