@@ -22,11 +22,20 @@ namespace CookApps.AutoChess
         {
             var archetype = ClassifySkill(spec);
             var dmgType = spec.atk_type == AtkType.AP ? DamageType.Magical : DamageType.Physical;
-            // PERCENT 타입: base_rate가 이미 퍼센트 값 (20 = 20%)
-            // 그 외: base_rate가 배수 값 (3.0 = 300%)
-            int powerPercent = spec.skill_value_type == SkillValueType.PERCENT
-                ? Mathf.RoundToInt(spec.base_rate)
-                : Mathf.RoundToInt(spec.base_rate * 100f);
+
+            // specList[0]은 쿨타임 — PERCENT row를 찾아 데미지 배율로 사용
+            int powerPercent = 0;
+            if (specList != null)
+            {
+                for (int i = 1; i < specList.Count; i++)
+                {
+                    if (specList[i].skill_value_type == SkillValueType.PERCENT)
+                    {
+                        powerPercent = Mathf.RoundToInt(specList[i].base_rate);
+                        break;
+                    }
+                }
+            }
 
             var p = new SkillParams
             {
@@ -38,6 +47,8 @@ namespace CookApps.AutoChess
                 HitCount = 1,
                 TargetType = SkillTargetType.NearestEnemy,
                 WorldTickRate = tickRate,
+                CooldownSeconds = specList != null && specList.Count > 0
+                    ? specList[0].base_rate : 0f,
             };
 
             switch (archetype)
