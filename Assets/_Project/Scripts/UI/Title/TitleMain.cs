@@ -67,16 +67,6 @@ namespace CookApps.AutoBattler
                 LanguageManager.Instance.InitializeAsync(),
                 SpriteManager.Instance.Initialize("Data/SpriteManager.asset"),
                 ConnectAppsflyer(),
-                SoDataProvider.Instance.LoadSoDataBatch(new () {
-                    (typeof(VignetteSO), "Data/VignetteData.asset"),
-                    (typeof(Item_Chapter_SO), "Data/UIElementData/Item_Chapter_SO.asset"),
-                    (typeof(ColorDataScriptableObject), "Data/ColorData.asset"),
-                    (typeof(AudioConfigSO), "Data/AudioConfig.asset"),
-                    (typeof(TargetLineConfig), "Data/TargetLineConfig.asset"),
-                    (typeof(AutoChess.View.CombatVfxConfigSO), "Data/CombatVfxConfig.asset"),
-                    (typeof(AutoChess.View.BuffIconConfigSO), "Data/BuffIconConfig.asset"),
-                    (typeof(AutoChess.View.SynergyVfxConfigSO), "Data/SynergyVfxConfig.asset")
-                })
             };
 
             SceneLoading.OnStartChangeScene += SceneLoadingTask.HandleLoading;
@@ -90,6 +80,18 @@ namespace CookApps.AutoBattler
 
             // Addressables 다운로드 체크 및 진행
             await CheckAndDownloadAddressablesAsync();
+
+            await SoDataProvider.Instance.LoadSoDataBatch(new ()
+            {
+                (typeof(VignetteSO), "Data/VignetteData.asset"),
+                (typeof(Item_Chapter_SO), "Data/UIElementData/Item_Chapter_SO.asset"),
+                (typeof(ColorDataScriptableObject), "Data/ColorData.asset"),
+                (typeof(AudioConfigSO), "Data/AudioConfig.asset"),
+                (typeof(TargetLineConfig), "Data/TargetLineConfig.asset"),
+                (typeof(AutoChess.View.CombatVfxConfigSO), "Data/CombatVfxConfig.asset"),
+                (typeof(AutoChess.View.BuffIconConfigSO), "Data/BuffIconConfig.asset"),
+                (typeof(AutoChess.View.SynergyVfxConfigSO), "Data/SynergyVfxConfig.asset")
+            });
 
             _ = InGameTouchManager.Instance;
             _ = TutorialManager.Instance;
