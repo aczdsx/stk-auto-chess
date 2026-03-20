@@ -4978,7 +4978,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4557941754342688935
 Transform:
   m_ObjectHideFlags: 0
@@ -48979,7 +48979,6 @@ MonoBehaviour:
   - {fileID: 7124210923527402588}
   - {fileID: 8008696275652293787}
   - {fileID: 1137024624996469182}
-  - {fileID: 7124210923527402588}
   - {fileID: 1454744382794874910}
   - {fileID: 5430847956554146567}
   - {fileID: 8544158814436594433}
@@ -48991,6 +48990,7 @@ MonoBehaviour:
   - {fileID: 598484774532755307}
   - {fileID: 7014970682602886344}
   - {fileID: 7559028032906537507}
+  - {fileID: 6049525897926227443}
   - {fileID: 8277179318511247464}
   - {fileID: 4106345019673560772}
   - {fileID: 5830685549584486361}
@@ -49173,7 +49173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5050805267406425125
 Transform:
   m_ObjectHideFlags: 0
@@ -69130,7 +69130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3748997251519180012, guid: 7321cb4fb80f74356ba17a079329673d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.53
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3748997251519180012, guid: 7321cb4fb80f74356ba17a079329673d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -69342,6 +69342,17 @@ MonoBehaviour:
 --- !u!114 &5830685549584486361 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6497051809236715055, guid: 7321cb4fb80f74356ba17a079329673d, type: 3}
+  m_PrefabInstance: {fileID: 774878276704373238}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad26de462626421894350c0544b82da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6049525897926227443 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6427991745309096965, guid: 7321cb4fb80f74356ba17a079329673d, type: 3}
   m_PrefabInstance: {fileID: 774878276704373238}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

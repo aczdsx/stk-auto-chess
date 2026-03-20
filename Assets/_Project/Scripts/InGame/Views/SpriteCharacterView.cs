@@ -69,7 +69,10 @@ namespace CookApps.AutoBattler
         private bool _cachedFlipX;
         private bool _cachedFront;
         private static readonly int IsFront = Animator.StringToHash("IsFront");
+        private static readonly Vector3 MaxViewScale = new Vector3(1.8f, 1.8f, 1.8f);
+        private static readonly Vector3 MinViewScale = new Vector3(0.5f, 0.5f, 0.5f);
         private MotionHandle _viewScaleHandle;
+        private Vector3 _viewScaleRaw = Vector3.one;
         private Vector3 _viewScaleTarget = Vector3.one;
         private AutoChess.AnimKeyframeInfo _atkInfo;
         private int _characterId;
@@ -521,7 +524,8 @@ namespace CookApps.AutoBattler
         public void AddViewScale(float viewScale)
         {
             _viewScaleHandle.TryCancel();
-            _viewScaleTarget += new Vector3(viewScale, viewScale, viewScale);
+            _viewScaleRaw += new Vector3(viewScale, viewScale, viewScale);
+            _viewScaleTarget = Vector3.Max(MinViewScale, Vector3.Min(_viewScaleRaw, MaxViewScale));
             _viewScaleHandle = LMotion.Create(
                 _rotateionRootTransform.localScale,
                 _viewScaleTarget,
@@ -538,7 +542,8 @@ namespace CookApps.AutoBattler
         public void RemoveViewScale(float viewScale)
         {
             _viewScaleHandle.TryCancel();
-            _viewScaleTarget -= new Vector3(viewScale, viewScale, viewScale);
+            _viewScaleRaw -= new Vector3(viewScale, viewScale, viewScale);
+            _viewScaleTarget = Vector3.Max(MinViewScale, Vector3.Min(_viewScaleRaw, MaxViewScale));
             _viewScaleHandle = LMotion.Create(
                 _rotateionRootTransform.localScale,
                 _viewScaleTarget,

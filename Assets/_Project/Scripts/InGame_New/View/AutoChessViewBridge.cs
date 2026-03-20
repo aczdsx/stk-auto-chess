@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CookApps.AutoBattler;
 using CookApps.TeamBattle.UIManagements;
+using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -104,9 +105,11 @@ namespace CookApps.AutoChess.View
             }
             else
             {
-                // 배치 단계: 보드 뷰 먼저 동기화 → 이벤트 처리 (시너지 VFX 등에서 UnitView 필요)
-                _unitViewManager.SyncBoardUnits(world);
+                // 이벤트 먼저 처리 (마지막 공격 데미지 텍스트 등 전투 뷰가 필요한 이벤트 소화)
                 ProcessEvents(world);
+                // Result 페이즈에서는 보드 동기화 스킵 (전투 뷰 유지, 초기 위치 재생성 방지)
+                if (world.CurrentPhase != GamePhase.Result)
+                    _unitViewManager.SyncBoardUnits(world);
             }
 
             // UI 갱신 (벤치 + HUD 통합)
@@ -419,6 +422,15 @@ namespace CookApps.AutoChess.View
                     if (evt.PlayerIndex == _localPlayerIndex)
                         HandleSupernovaObjectEvent(evt);
                     break;
+
+                case SimEventType.CameraShake:
+                {
+                    float duration = evt.Value0 / 1000f;
+                    float magnitude = evt.Value1 / 100f;
+                    var cam = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera);
+                    cam?.ShakeCamera(duration, magnitude);
+                    break;
+                }
             }
         }
 
@@ -645,7 +657,7 @@ namespace CookApps.AutoChess.View
             _supernovaObjects = new();
 
         // 타겟 부여 VFX (유닛에 붙는 이펙트)
-        private readonly Dictionary<(int traitId, byte playerIndex), (int entityId, AsyncOperationHandle<GameObject> handle)>
+        private readonly Dictionary<(int traitId, byte playerIndex), (int entityId, AsyncOperationHandle<GameObject> handle, float appliedScale)>
             _supernovaTargetVfx = new();
 
         private void HandleSupernovaObjectEvent(SimEvent evt)
@@ -789,7 +801,10 @@ namespace CookApps.AutoChess.View
             var go = await handle;
             if (go == null || !handle.IsValid()) return;
 
-            _supernovaTargetVfx[key] = (entityId, handle);
+            var sn = prep as SynergyPrepSupernova;
+            var scaleBonus = sn?.ViewScaleBonus ?? 0f;
+            _supernovaTargetVfx[key] = (entityId, handle, scaleBonus);
+            if (scaleBonus > 0f) targetView.AddViewScale(scaleBonus);
         }
 
         /// <summary>티어 변경 시 원샷 없이 티어 VFX만 교체</summary>
@@ -818,7 +833,10 @@ namespace CookApps.AutoChess.View
             var go = await handle;
             if (go == null || !handle.IsValid()) return;
 
-            _supernovaTargetVfx[key] = (entityId, handle);
+            var sn = prep as SynergyPrepSupernova;
+            var scaleBonus = sn?.ViewScaleBonus ?? 0f;
+            _supernovaTargetVfx[key] = (entityId, handle, scaleBonus);
+            if (scaleBonus > 0f) unitView.AddViewScale(scaleBonus);
         }
 
         /// <summary>보드 뷰 또는 전투 뷰에서 유닛 조회 (entityId = 보드 EntityId)</summary>
@@ -854,6 +872,9 @@ namespace CookApps.AutoChess.View
         {
             if (_supernovaTargetVfx.TryGetValue(key, out var entry))
             {
+                var unitView = FindUnitView(entry.entityId);
+                unitView?.RemoveViewScale(entry.appliedScale);
+
                 if (entry.handle.IsValid())
                     Addressables.ReleaseInstance(entry.handle);
                 _supernovaTargetVfx.Remove(key);

@@ -60,6 +60,8 @@ namespace CookApps.AutoChess
         SkillMarkerRemoved,  // Value0=markerId(skillSpecId), Value1=remainingCount
         // 슈퍼노바 오브젝트
         SupernovaObjectEvent,  // Value0=traitId, Value1=subType, Col/Row, EntityId(TargetAssigned시)
+        // 카메라 연출
+        CameraShake,  // Value0=duration(ms), Value1=magnitude(x100)
     }
 
     /// <summary>슈퍼노바 오브젝트 이벤트 서브타입</summary>
@@ -473,6 +475,17 @@ namespace CookApps.AutoChess
                 EntityId = combatId,
                 Value0 = markerId,
                 Value1 = remainingCount,
+            });
+        }
+
+        /// <summary>카메라 쉐이킹 이벤트. duration=밀리초, magnitude=x100 정수(0.15f → 15).</summary>
+        public void PushCameraShake(int durationMs, int magnitudeX100)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.CameraShake,
+                Value0 = durationMs,
+                Value1 = magnitudeX100,
             });
         }
 
