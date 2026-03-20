@@ -240,8 +240,8 @@ namespace CookApps.AutoChess.View
 
         private void UpdateHUD(GameWorld world)
         {
-            // 타이머
-            if (timerText != null)
+            // 타이머 (Result 페이즈에서는 갱신 안 함 — 마지막 전투 타이머 유지)
+            if (timerText != null && world.CurrentPhase != GamePhase.Result)
             {
                 float seconds = world.PhaseTimerFrames / (float)world.TickRate;
                 timerText.text = Mathf.CeilToInt(seconds).ToString();

@@ -5367,6 +5367,38 @@ MonoBehaviour:
     m_Key: NPC_NAME_1007
     m_Metadata:
       m_Items: []
+  - m_Id: 23614040474378240
+    m_Key: HEROES_DESC_15252101
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23614040491155456
+    m_Key: GUIDE_MISSION_NAME_2001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23614040491155457
+    m_Key: GUIDE_MISSION_NAME_2002
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23614040491155458
+    m_Key: GUIDE_MISSION_NAME_2003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23614040491155459
+    m_Key: GUIDE_MISSION_NAME_2004
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23614040491155460
+    m_Key: GUIDE_MISSION_NAME_2005
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23614040491155461
+    m_Key: GUIDE_MISSION_NAME_2006
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23614040491155462
+    m_Key: GUIDE_MISSION_DESC_2001
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

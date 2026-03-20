@@ -1407,7 +1407,6 @@ namespace CookApps.AutoBattler
     [GeneratorSpecData]
     public partial class TutorialDialogue
     {
-        /// #SheetIndex
         [GeneratorId(nameof(id), typeof(int))]
         [MessagePack.MessagePackFormatter(typeof(IntFormatter))]
         public int id;

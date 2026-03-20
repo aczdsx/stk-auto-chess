@@ -131,8 +131,17 @@ namespace CookApps.AutoChess
                 if (unit.PendingAtkTimer <= 0)
                 {
                     DamageSystem.ExecutePendingMeleeHit(state, ref unit, ref rng, tickRate);
+                    // 히트 후 공격 모션 유지 (AtkHitDelay만큼 후속 프레임 유지)
+                    unit.PostAttackHoldTimer = unit.AtkHitDelay;
                 }
                 return; // 공격 애니메이션 중
+            }
+
+            // 공격 후 모션 유지 (Attacking 상태 유지, 타겟팅/이동 차단)
+            if (unit.PostAttackHoldTimer > 0)
+            {
+                unit.PostAttackHoldTimer--;
+                return;
             }
 
             // 타겟 갱신
@@ -221,6 +230,8 @@ namespace CookApps.AutoChess
                         {
                             // 원거리/범위: 기존 즉시 실행 (투사체가 알아서 지연)
                             DamageSystem.ExecuteBasicAttack(state, ref unit, ref target, ref rng, tickRate);
+                            // 공격 후 모션 유지
+                            unit.PostAttackHoldTimer = unit.AtkHitDelay > 0 ? unit.AtkHitDelay : tickRate / 4;
                         }
                     }
                 }
