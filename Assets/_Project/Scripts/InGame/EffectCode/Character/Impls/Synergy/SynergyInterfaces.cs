@@ -71,8 +71,7 @@ namespace CookApps.AutoBattler
         SynergyType ISpecSynergyData.synergy_type => synergy_type;
         string ISpecSynergyData.name_token => name_token;
         string ISpecSynergyData.desc_token_1 => desc_token_1;
-        // string ISpecSynergyData.desc_token_2 => desc_token_2;    // ! SPEC_TODO 임시처리입니다!
-        string ISpecSynergyData.desc_token_2 => string.Empty;       // ! SPEC_TODO 임시처리입니다!
+        string ISpecSynergyData.desc_token_2 => desc_token_2;
         int ISpecSynergyData.grade => grade;
         int ISpecSynergyData.min_int => min_int;
         int ISpecSynergyData.max_int => max_int;

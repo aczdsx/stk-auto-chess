@@ -3649,7 +3649,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3260753992736801
-    m_Localized: Pippin
+    m_Localized: .
     m_Metadata:
       m_Items: []
   - m_Id: 3260753992736800
@@ -28948,6 +28948,10 @@ MonoBehaviour:
   - m_Id: 19891471573671936
     m_Localized: If we continue like this, we'll be considered surrender. Is that
       okay?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23508781748281344
+    m_Localized: "\uC815\uAE00 \uB808\uC778\uC800"
     m_Metadata:
       m_Items: []
   references:

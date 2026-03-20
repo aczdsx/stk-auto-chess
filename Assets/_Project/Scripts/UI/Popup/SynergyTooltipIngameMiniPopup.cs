@@ -133,8 +133,8 @@ namespace CookApps.AutoBattler
         }
 
         /// <summary>
-        /// 전 단계 효과를 슬롯에 표시하고 현재 단계를 하이라이트합니다.
-        /// 성군: 달성 단계 이하 모두 활성화 (누적), 속성: 해당 단계만 활성화.
+        /// 슬롯[0]: desc_token_1 제목 (명수 표현 없음)
+        /// 슬롯[1,2,3]: desc_token_2 효과 ({0}=명수, {1},{2},{3}=effect_value_type별 포맷)
         /// </summary>
         private void SetGradeSlots()
         {
@@ -143,52 +143,46 @@ namespace CookApps.AutoBattler
             var synergyList = SpecDataManager.Instance.GetSpecSynergyList(_synergyType);
             if (synergyList == null || synergyList.Count == 0) return;
 
-            bool isAsterism = DistinguishSpecTypeHelper.IsAsterismSynergyType(_synergyType);
             int currentGrade = _synergyData.grade;
-            int nextGrade = 1;
-            int slotIndex = 0;
+            int slotCount = Mathf.Min(synergyList.Count, _gradeSlots.Count);
 
-            for (int i = 0; i < synergyList.Count && slotIndex < _gradeSlots.Count; i++)
+            for (int i = 0; i < slotCount; i++)
             {
                 var data = synergyList[i];
-                if (data.grade <= 0 || data.grade != nextGrade) continue;
-
-                // desc_token_2 우선, 비어있으면 desc_token_1 사용
-                string token = !string.IsNullOrEmpty(data.desc_token_2)
-                    ? data.desc_token_2
-                    : data.desc_token_1;
-                string text = LanguageManager.Instance.GetDefaultText(token);
-                string formatted = FormatGradeText(text, data);
-
+                string formatted;
                 bool isHighlighted;
-                if (!_isActive)
+
+                if (i == 0)
+                {
+                    // 인덱스 0: desc_token_1 제목 (명수 없음, {0},{1},{2}=효과값)
+                    string text = LanguageManager.Instance.GetDefaultText(data.desc_token_1);
+                    formatted = FormatTitleText(text, data);
                     isHighlighted = false;
-                else if (isAsterism)
-                    isHighlighted = data.grade <= currentGrade; // 성군: 누적 활성화
+                }
                 else
-                    isHighlighted = data.grade == currentGrade; // 속성: 해당 단계만
+                {
+                    // 인덱스 1,2,3: desc_token_2 — {0}=명수, {1},{2},{3}=효과값
+                    string text = LanguageManager.Instance.GetDefaultText(data.desc_token_2);
+                    formatted = FormatEffectText(text, data);
+                    isHighlighted = _isActive && data.grade <= currentGrade;
+                }
 
-                _gradeSlots[slotIndex].SetGrade(formatted, isHighlighted);
-                _gradeSlots[slotIndex].SetActive(true);
-
-                slotIndex++;
-                nextGrade++;
+                _gradeSlots[i].SetGrade(formatted, isHighlighted);
+                _gradeSlots[i].SetActive(true);
             }
 
-            for (int i = slotIndex; i < _gradeSlots.Count; i++)
+            for (int i = slotCount; i < _gradeSlots.Count; i++)
             {
                 _gradeSlots[i].SetActive(false);
             }
 
-            // stretch 앵커의 rect가 유효하도록 레이아웃 강제 갱신
             Canvas.ForceUpdateCanvases();
 
-            for (int i = 0; i < slotIndex; i++)
+            for (int i = 0; i < slotCount; i++)
             {
                 _gradeSlots[i].AdjustHeight();
             }
 
-            // 변경된 슬롯 높이를 상위 레이아웃까지 반영
             LayoutRebuilder.ForceRebuildLayoutImmediate(_body);
         }
 
@@ -217,16 +211,37 @@ namespace CookApps.AutoBattler
             _imageGroup.SetCharacters(_reusableSlotDataList);
         }
 
-        private static string FormatGradeText(string text, ISpecSynergyData data)
+        /// <summary>
+        /// 제목용: {0},{1},{2} = 효과값 (명수 없음)
+        /// </summary>
+        private static string FormatTitleText(string text, ISpecSynergyData data)
         {
-            if (string.IsNullOrEmpty(text)) return text;
-            if (text.Contains("{2}"))
-                return string.Format(text, data.min_int, data.effect_stat_value_1, data.effect_stat_value_2);
-            if (text.Contains("{1}"))
-                return string.Format(text, data.min_int, data.effect_stat_value_1);
-            if (text.Contains("{0}"))
-                return string.Format(text, data.min_int);
-            return text;
+            if (string.IsNullOrEmpty(text)) return text ?? string.Empty;
+
+            string v1 = FormatEffectValue(data.effect_stat_value_1);
+            string v2 = FormatEffectValue(data.effect_stat_value_2);
+            string v3 = FormatEffectValue(data.effect_stat_value_3);
+
+            return string.Format(text, v1, v2, v3);
+        }
+
+        /// <summary>
+        /// 효과용: {0}=명수, {1},{2},{3} = 효과값
+        /// </summary>
+        private static string FormatEffectText(string text, ISpecSynergyData data)
+        {
+            if (string.IsNullOrEmpty(text)) return text ?? string.Empty;
+
+            string v1 = FormatEffectValue(data.effect_stat_value_1);
+            string v2 = FormatEffectValue(data.effect_stat_value_2);
+            string v3 = FormatEffectValue(data.effect_stat_value_3);
+
+            return string.Format(text, data.min_int, v1, v2, v3);
+        }
+
+        private static string FormatEffectValue(int value)
+        {
+            return value.ToString();
         }
 
         protected override void OnPreExit()
