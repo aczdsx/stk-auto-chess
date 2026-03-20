@@ -79,6 +79,10 @@ namespace CookApps.AutoChess.View
 
             exitButton?.onClick.AddListener(OnExitClicked);
             speedButton?.onClick.AddListener(OnSpeedClicked);
+            if (timerWarningObj != null)
+            {
+                timerWarningObj.SetActive(false);
+            }
             InitSpeed();
             OnInitialize();
         }
