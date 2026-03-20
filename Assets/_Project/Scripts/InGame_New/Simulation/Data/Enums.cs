@@ -147,6 +147,8 @@ namespace CookApps.AutoChess
         LifeSteal,      // 생명력 흡수 (퍼센트)
 
         HitChance,      // 명중률 (퍼센트)
+        MaxHP,          // 최대 HP 증감
+        MoveSpeed,      // 이동속도 증감
     }
 
     /// <summary>상태효과 타입 (통합 StatusEffect 시스템)</summary>

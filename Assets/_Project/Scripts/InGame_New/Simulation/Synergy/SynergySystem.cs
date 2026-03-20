@@ -294,52 +294,76 @@ namespace CookApps.AutoChess
                 case SynergyEffectType.BonusDef:
                     before = unit.Def; unit.Def += effect.Value;
                     LogStat(ref unit, "Def", before, unit.Def);
+                    if (before != unit.Def)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.Def);
                     break;
                 case SynergyEffectType.BonusAdReduce:
                     before = unit.AdReduce; unit.AdReduce += effect.Value;
                     LogStat(ref unit, "AdReduce", before, unit.AdReduce);
+                    if (before != unit.AdReduce)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.AdReduce);
                     break;
                 case SynergyEffectType.BonusApReduce:
                     before = unit.ApReduce; unit.ApReduce += effect.Value;
                     LogStat(ref unit, "ApReduce", before, unit.ApReduce);
+                    if (before != unit.ApReduce)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.ApReduce);
                     break;
                 case SynergyEffectType.BonusAttack:
                     before = unit.Attack; unit.Attack += effect.Value;
                     LogStat(ref unit, "Attack", before, unit.Attack);
+                    if (before != unit.Attack)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.Attack);
                     break;
                 case SynergyEffectType.BonusAttackPercent:
                     before = unit.Attack; unit.Attack += unit.BaseAttack * effect.ValuePercent / 100;
                     LogStat(ref unit, $"Attack(+{effect.ValuePercent}%)", before, unit.Attack);
+                    if (before != unit.Attack)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.Attack);
                     break;
                 case SynergyEffectType.BonusHP:
                     before = unit.MaxHP; unit.MaxHP += effect.Value; unit.CurrentHP += effect.Value;
                     LogStat(ref unit, "HP", before, unit.MaxHP);
+                    if (before != unit.MaxHP)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.MaxHP);
                     break;
                 case SynergyEffectType.BonusHPPercent:
                     before = unit.MaxHP;
                     int hpBonus = unit.BaseMaxHP * effect.ValuePercent / 100;
                     unit.MaxHP += hpBonus; unit.CurrentHP += hpBonus;
                     LogStat(ref unit, $"HP(+{effect.ValuePercent}%)", before, unit.MaxHP);
+                    if (before != unit.MaxHP)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.MaxHP);
                     break;
                 case SynergyEffectType.BonusAttackSpeed:
                     before = unit.AttackSpeed; unit.AttackSpeed += effect.Value;
                     LogStat(ref unit, "AtkSpd", before, unit.AttackSpeed);
+                    if (before != unit.AttackSpeed)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.AttackSpeed);
                     break;
                 case SynergyEffectType.BonusAttackSpeedPercent:
                     before = unit.AttackSpeed; unit.AttackSpeed += unit.BaseAttackSpeed * effect.ValuePercent / 100;
                     LogStat(ref unit, $"AtkSpd(+{effect.ValuePercent}%)", before, unit.AttackSpeed);
+                    if (before != unit.AttackSpeed)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.AttackSpeed);
                     break;
                 case SynergyEffectType.BonusDefPercent:
                     before = unit.Def; unit.Def += unit.BaseDef * effect.ValuePercent / 100;
                     LogStat(ref unit, $"Def(+{effect.ValuePercent}%)", before, unit.Def);
+                    if (before != unit.Def)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.Def);
                     break;
                 case SynergyEffectType.BonusAdReducePercent:
                     before = unit.AdReduce; unit.AdReduce += unit.BaseAdReduce * effect.ValuePercent / 100;
                     LogStat(ref unit, $"AdReduce(+{effect.ValuePercent}%)", before, unit.AdReduce);
+                    if (before != unit.AdReduce)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.AdReduce);
                     break;
                 case SynergyEffectType.BonusApReducePercent:
                     before = unit.ApReduce; unit.ApReduce += unit.BaseApReduce * effect.ValuePercent / 100;
                     LogStat(ref unit, $"ApReduce(+{effect.ValuePercent}%)", before, unit.ApReduce);
+                    if (before != unit.ApReduce)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.ApReduce);
                     break;
                 case SynergyEffectType.BonusMana:
                     before = unit.MaxMana; unit.MaxMana += effect.Value;
@@ -348,10 +372,14 @@ namespace CookApps.AutoChess
                 case SynergyEffectType.BonusCritChance:
                     before = unit.CritRate; unit.CritRate += effect.Value;
                     LogStat(ref unit, "CritRate", before, unit.CritRate);
+                    if (before != unit.CritRate)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.CritRate);
                     break;
                 case SynergyEffectType.BonusCritMultiplier:
                     before = unit.CritPower; unit.CritPower += effect.Value;
                     LogStat(ref unit, "CritPower", before, unit.CritPower);
+                    if (before != unit.CritPower)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.CritPower);
                     break;
                 case SynergyEffectType.StartingMana:
                     before = unit.CurrentMana; unit.CurrentMana += effect.Value;
@@ -363,14 +391,20 @@ namespace CookApps.AutoChess
                 case SynergyEffectType.LifeSteal:
                     before = unit.LifeSteal; unit.LifeSteal += effect.Value;
                     LogStat(ref unit, "LifeSteal", before, unit.LifeSteal);
+                    if (before != unit.LifeSteal)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.LifeSteal);
                     break;
                 case SynergyEffectType.DodgeChance:
                     before = unit.DodgeChance; unit.DodgeChance += effect.Value;
                     LogStat(ref unit, "Dodge", before, unit.DodgeChance);
+                    if (before != unit.DodgeChance)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.DodgeChance);
                     break;
                 case SynergyEffectType.BonusMoveSpeedPercent:
                     before = unit.MoveSpeed; unit.MoveSpeed += unit.MoveSpeed * effect.ValuePercent / 100;
                     LogStat(ref unit, $"MoveSpd(+{effect.ValuePercent}%)", before, unit.MoveSpeed);
+                    if (before != unit.MoveSpeed)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.MoveSpeed);
                     break;
                 case SynergyEffectType.BonusPiercePercent:
                     int atkPBefore = unit.AtkPierce; int resPBefore = unit.ResPierce;
@@ -378,6 +412,10 @@ namespace CookApps.AutoChess
                     unit.ResPierce += effect.ValuePercent;
                     LogStat(ref unit, $"AtkPierce(+{effect.ValuePercent}%)", atkPBefore, unit.AtkPierce);
                     LogStat(ref unit, $"ResPierce(+{effect.ValuePercent}%)", resPBefore, unit.ResPierce);
+                    if (atkPBefore != unit.AtkPierce)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.AtkPierce);
+                    if (resPBefore != unit.ResPierce)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatBuff, -1, StatModType.ResPierce);
                     break;
                 case SynergyEffectType.BacklineJump:
                     unit.HasBacklineJump = true;
@@ -392,16 +430,22 @@ namespace CookApps.AutoChess
                     before = unit.Def; unit.Def -= unit.Def * effect.ValuePercent / 100;
                     if (unit.Def < 0) unit.Def = 0;
                     LogStat(ref unit, $"Def(-{effect.ValuePercent}%)", before, unit.Def);
+                    if (before != unit.Def)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatDebuff, -1, StatModType.Def);
                     break;
                 case SynergyEffectType.ReduceAdReduce:
                     before = unit.AdReduce; unit.AdReduce -= unit.AdReduce * effect.ValuePercent / 100;
                     if (unit.AdReduce < 0) unit.AdReduce = 0;
                     LogStat(ref unit, $"AdReduce(-{effect.ValuePercent}%)", before, unit.AdReduce);
+                    if (before != unit.AdReduce)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatDebuff, -1, StatModType.AdReduce);
                     break;
                 case SynergyEffectType.ReduceApReduce:
                     before = unit.ApReduce; unit.ApReduce -= unit.ApReduce * effect.ValuePercent / 100;
                     if (unit.ApReduce < 0) unit.ApReduce = 0;
                     LogStat(ref unit, $"ApReduce(-{effect.ValuePercent}%)", before, unit.ApReduce);
+                    if (before != unit.ApReduce)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatDebuff, -1, StatModType.ApReduce);
                     break;
             }
         }

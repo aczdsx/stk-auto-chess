@@ -144,6 +144,13 @@ namespace CookApps.AutoChess.View
             }
         }
 
+        /// <summary>뷰 생성 후 호출: 이미 추적 중인 버프 아이콘을 뷰에 반영</summary>
+        public void RefreshIconsForUnit(int combatId)
+        {
+            if (_activeBuffs.ContainsKey(combatId))
+                UpdateUnitBuffIcons(combatId);
+        }
+
         public void OnCombatEnd()
         {
             _activeBuffs.Clear();
