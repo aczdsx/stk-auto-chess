@@ -68,6 +68,7 @@ namespace CookApps.AutoChess
                 // CombatUnit 생성
                 int combatId = state.NextCombatId++;
                 int slotIndex = state.UnitCount++;
+                state.CombatIdToUnitIndex[combatId] = slotIndex;
 
                 ref var combatUnit = ref state.Units[slotIndex];
                 combatUnit.CombatId = combatId;
@@ -288,6 +289,7 @@ namespace CookApps.AutoChess
 
                 int combatId = state.NextCombatId++;
                 int slotIndex = state.UnitCount++;
+                state.CombatIdToUnitIndex[combatId] = slotIndex;
 
                 ref var unit = ref state.Units[slotIndex];
                 unit.CombatId = combatId;
@@ -369,6 +371,7 @@ namespace CookApps.AutoChess
 
             int combatId = state.NextCombatId++;
             int slotIndex = state.UnitCount++;
+            state.CombatIdToUnitIndex[combatId] = slotIndex;
 
             ref var unit = ref state.Units[slotIndex];
             unit.CombatId = combatId;
