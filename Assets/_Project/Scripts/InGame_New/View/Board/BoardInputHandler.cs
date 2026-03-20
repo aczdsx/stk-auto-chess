@@ -59,6 +59,8 @@ namespace CookApps.AutoChess.View
         // 타일 하이라이트 (TileEffectManager handle 기반)
         private int _placementHandle;
         private int _rangeHandle;
+        private int _canPlacementHandle;
+        private List<(int col, int row)> _canPlacementTiles;
         private int _highlightCol = -1;
         private int _highlightRow = -1;
 
@@ -167,6 +169,7 @@ namespace CookApps.AutoChess.View
                 _ghostView.SetHologram(true);
             }
 
+            ShowCanPlacement(entityId);
             UpdateGhostDrag(screenPos);
             return true;
         }
@@ -209,6 +212,7 @@ namespace CookApps.AutoChess.View
             _isGhostActive = false;
             _ghostEntityId = UnitData.InvalidId;
             HideHighlight();
+            HideCanPlacement();
             ReleaseGhostView();
 
             var grid = ScreenToGrid(screenPos);
@@ -227,6 +231,7 @@ namespace CookApps.AutoChess.View
             _ghostCol = -1;
             _ghostRow = -1;
             HideHighlight();
+            HideCanPlacement();
             ReleaseGhostView();
         }
 
@@ -366,6 +371,8 @@ namespace CookApps.AutoChess.View
                 _dragStartCol = col;
                 _dragStartRow = row;
             }
+
+            ShowCanPlacement(entityId);
         }
 
         private void UpdateBoardDrag(Vector2 screenPos)
@@ -377,13 +384,12 @@ namespace CookApps.AutoChess.View
                 _dragUnitView.SetPositionImmediate(worldPos.Value);
             }
 
-            // 타겟 셀 하이라이트 (자기 위치만 제외, 점유 타일은 스왑 대상으로 허용)
+            // 타겟 셀 하이라이트
             var grid = ScreenToGrid(screenPos);
             int prevCol = _highlightCol;
             int prevRow = _highlightRow;
 
-            if (grid.HasValue
-                && (grid.Value.col != _dragStartCol || grid.Value.row != _dragStartRow))
+            if (grid.HasValue)
                 ShowHighlight(grid.Value.col, grid.Value.row);
             else
                 HideHighlight();
@@ -397,6 +403,7 @@ namespace CookApps.AutoChess.View
         {
             _isDraggingBoardUnit = false;
             HideHighlight();
+            HideCanPlacement();
             _dragUnitView?.SetHologram(false);
 
             // UI 영역으로 드롭 → 회수
@@ -504,6 +511,7 @@ namespace CookApps.AutoChess.View
             _isDraggingBoardUnit = false;
             _dragEntityId = UnitData.InvalidId;
             _dragUnitView = null;
+            HideCanPlacement();
 
             // 오브젝트 드래그 취소
             if (_isDraggingObject && _dragObject != null)
@@ -605,17 +613,21 @@ namespace CookApps.AutoChess.View
             _placementHandle = _tileEffectManager.Show(TileEffectType.Placement, col, row);
 
             // 드래그/고스트 유닛의 공격 범위 표시
+            int curAttackRange = 0;
             int entityId = _isDraggingBoardUnit ? _dragEntityId : _isGhostActive ? _ghostEntityId : UnitData.InvalidId;
             if (entityId != UnitData.InvalidId)
             {
                 var world = _viewBridge.GetWorld();
                 if (world != null)
                 {
-                    int attackRange = world.GetUnit(entityId).AttackRange;
-                    if (attackRange > 0)
-                        _rangeHandle = _tileEffectManager.ShowRange(TileEffectType.AttackRange, col, row, attackRange);
+                    curAttackRange = world.GetUnit(entityId).AttackRange;
+                    if (curAttackRange > 0)
+                        _rangeHandle = _tileEffectManager.ShowRange(TileEffectType.AttackRange, col, row, curAttackRange);
                 }
             }
+
+            // CanPlacement를 AttackRange와 겹치지 않도록 갱신
+            RefreshCanPlacement(col, row, curAttackRange);
         }
 
         private void HideHighlight()
@@ -633,6 +645,100 @@ namespace CookApps.AutoChess.View
                 _tileEffectManager.Hide(_rangeHandle);
                 _rangeHandle = 0;
             }
+
+            // AttackRange 해제됐으므로 CanPlacement 전체 복원
+            RefreshCanPlacement(-1, -1, 0);
+        }
+
+        // ── 배치 가능 타일 표시 ──
+
+        private void ShowCanPlacement(int entityId)
+        {
+            var world = _viewBridge.GetWorld();
+            if (world == null) return;
+
+            ref var unit = ref world.GetUnit(entityId);
+            byte sizeW = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+            byte sizeH = unit.SizeH > 0 ? unit.SizeH : (byte)1;
+
+            _canPlacementTiles = new List<(int col, int row)>();
+
+            for (int r = 0; r < BoardHelper.Height; r++)
+            {
+                for (int c = 0; c < BoardHelper.Width; c++)
+                {
+                    if (!BoardHelper.IsValidBoardFootprint(c, r, sizeW, sizeH))
+                        continue;
+
+                    if (sizeW == 1 && sizeH == 1)
+                    {
+                        int index = BoardHelper.ToIndex(c, r);
+                        int occupant = world.BoardSlots[0][index];
+
+                        if (occupant == UnitData.InvalidId || occupant != entityId)
+                            _canPlacementTiles.Add((c, r));
+                    }
+                    else
+                    {
+                        bool clear = true;
+                        for (int dr = 0; dr < sizeH && clear; dr++)
+                        {
+                            for (int dc = 0; dc < sizeW && clear; dc++)
+                            {
+                                int idx = BoardHelper.ToIndex(c + dc, r + dr);
+                                int occupant = world.BoardSlots[0][idx];
+                                if (occupant != UnitData.InvalidId && occupant != entityId)
+                                    clear = false;
+                            }
+                        }
+                        if (clear)
+                            _canPlacementTiles.Add((c, r));
+                    }
+                }
+            }
+
+            RefreshCanPlacement(-1, -1, 0);
+        }
+
+        private void RefreshCanPlacement(int highlightCol, int highlightRow, int attackRange)
+        {
+            if (_canPlacementHandle != 0)
+            {
+                _tileEffectManager.Hide(_canPlacementHandle);
+                _canPlacementHandle = 0;
+            }
+
+            if (_canPlacementTiles == null || _canPlacementTiles.Count == 0)
+                return;
+
+            var filtered = new List<(int col, int row)>(_canPlacementTiles.Count);
+            for (int i = 0; i < _canPlacementTiles.Count; i++)
+            {
+                var tile = _canPlacementTiles[i];
+
+                // Placement 커서 위치 제외
+                if (tile.col == highlightCol && tile.row == highlightRow)
+                    continue;
+
+                // AttackRange 범위 내 제외
+                if (attackRange > 0 && BoardHelper.ManhattanDistance(highlightCol, highlightRow, tile.col, tile.row) <= attackRange)
+                    continue;
+
+                filtered.Add(tile);
+            }
+
+            if (filtered.Count > 0)
+                _canPlacementHandle = _tileEffectManager.ShowTiles(TileEffectType.CanPlacement, filtered);
+        }
+
+        private void HideCanPlacement()
+        {
+            if (_canPlacementHandle != 0)
+            {
+                _tileEffectManager.Hide(_canPlacementHandle);
+                _canPlacementHandle = 0;
+            }
+            _canPlacementTiles = null;
         }
 
         // ── 유닛 선택 (팝업은 InGameCharacterPopupHelper, 이펙트만 로컬) ──

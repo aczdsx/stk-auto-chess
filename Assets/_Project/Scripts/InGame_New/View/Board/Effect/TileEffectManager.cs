@@ -44,6 +44,7 @@ namespace CookApps.AutoChess.View
         {
             [TileEffectType.Placement] = "Prefabs/Fx/Common/fx_common_area_plan.prefab",
             [TileEffectType.AttackRange] = "Prefabs/Fx/Common/fx_common_area_plan_02.prefab",
+            [TileEffectType.CanPlacement] = "Prefabs/Fx/Common/fx_common_area_plan_03.prefab",
             [TileEffectType.SkillRange] = "Prefabs/Fx/Common/fx_common_area_commander_01.prefab",
             [TileEffectType.FireArea] = "Prefabs/Fx/Common/fx_common_area_fire.prefab",
             [TileEffectType.WindArea] = "Prefabs/Fx/Common/fx_common_area_wind.prefab",
@@ -127,6 +128,24 @@ namespace CookApps.AutoChess.View
             if (duration > 0f)
                 _timedEffects.Add(new TimedEffect { Handle = handle, RemainTime = duration });
 
+            return handle;
+        }
+
+        /// <summary>지정된 타일 좌표 목록에 FX 표시. 배치 보드 좌표 사용.</summary>
+        public int ShowTiles(TileEffectType type, List<(int col, int row)> tiles)
+        {
+            int handle = _nextHandle++;
+            var fxList = new List<GameObject>(tiles.Count);
+
+            for (int i = 0; i < tiles.Count; i++)
+            {
+                var pos = BoardWorldHelper.BoardGridToWorld(_boardIndex, tiles[i].col, tiles[i].row);
+                var fx = GetFromPool(type);
+                fx.transform.position = pos;
+                fxList.Add(fx);
+            }
+
+            _activeEffects[handle] = new EffectGroup { Type = type, FxList = fxList };
             return handle;
         }
 
