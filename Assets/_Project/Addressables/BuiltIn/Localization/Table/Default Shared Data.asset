@@ -5367,6 +5367,10 @@ MonoBehaviour:
     m_Key: NPC_NAME_1007
     m_Metadata:
       m_Items: []
+  - m_Id: 23612335666323456
+    m_Key: HEROES_DESC_15252101
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
