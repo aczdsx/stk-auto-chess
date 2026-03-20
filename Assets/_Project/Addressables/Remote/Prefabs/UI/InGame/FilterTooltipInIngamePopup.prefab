@@ -936,6 +936,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: -20
   m_lineSpacingMax: 0
@@ -1261,6 +1262,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: -20
   m_lineSpacingMax: 0
@@ -1549,6 +1551,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Btn_Icon (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2216166944494691278, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1567,7 +1573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1575,7 +1581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1615,11 +1621,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 335
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -71.69998
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1669,7 +1675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2216166944494691278, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Name
-      value: Btn_Icon (5)
+      value: ButtonSynergyConstellation_All
       objectReference: {fileID: 0}
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
@@ -1812,7 +1818,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2216166944494691278, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Name
-      value: Btn_Icon (2)
+      value: ButtonSynergyElement_Ground
       objectReference: {fileID: 0}
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
@@ -1832,7 +1838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1840,7 +1846,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1880,11 +1886,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 235
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -71.69998
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1947,7 +1953,7 @@ PrefabInstance:
       objectReference: {fileID: 7109706764170909366}
     - target: {fileID: 2216166944494691278, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Name
-      value: Btn_Icon (1)
+      value: ButtonSynergyElement_Water
       objectReference: {fileID: 0}
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
@@ -1967,7 +1973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1975,7 +1981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2015,11 +2021,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 135
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -71.69998
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2090,7 +2096,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2216166944494691278, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Name
-      value: Btn_Icon
+      value: ButtonSynergyElement_Wind
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Pivot.x
@@ -2106,7 +2112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2114,7 +2120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2154,11 +2160,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -71.69998
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2231,6 +2237,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Btn_Icon (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2216166944494691278, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2249,7 +2259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2257,7 +2267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2297,11 +2307,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 535
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -71.69998
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2351,7 +2361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2216166944494691278, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Name
-      value: Btn_Icon (4)
+      value: ButtonSynergyElement_Lightning
       objectReference: {fileID: 0}
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
@@ -2371,7 +2381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2379,7 +2389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2419,11 +2429,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 435
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -71.69998
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2486,7 +2496,7 @@ PrefabInstance:
       objectReference: {fileID: 7109706764170909366}
     - target: {fileID: 2216166944494691278, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Name
-      value: Btn_Icon (2)
+      value: ButtonSynergyConstellation_Troubleshooter
       objectReference: {fileID: 0}
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
@@ -2506,7 +2516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2514,7 +2524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2554,11 +2564,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 235
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -71.69998
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2621,7 +2631,7 @@ PrefabInstance:
       objectReference: {fileID: 7109706764170909366}
     - target: {fileID: 2216166944494691278, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Name
-      value: Btn_Icon (3)
+      value: ButtonSynergyElement_Fire
       objectReference: {fileID: 0}
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
@@ -2641,7 +2651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2649,7 +2659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2689,11 +2699,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 335
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -71.69998
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2764,7 +2774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2216166944494691278, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Name
-      value: Btn_Icon (5)
+      value: ButtonSynergyElement_All
       objectReference: {fileID: 0}
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
@@ -2899,7 +2909,7 @@ PrefabInstance:
       objectReference: {fileID: 7109706764170909366}
     - target: {fileID: 2216166944494691278, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Name
-      value: Btn_Icon (1)
+      value: ButtonSynergyConstellation_Supernova
       objectReference: {fileID: 0}
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
@@ -2919,7 +2929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2927,7 +2937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2967,11 +2977,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 135
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -71.69998
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3048,6 +3058,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Btn_Icon (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2216166944494691278, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -3066,7 +3080,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3074,7 +3088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3114,11 +3128,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 435
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -71.69998
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3160,7 +3174,7 @@ PrefabInstance:
       objectReference: {fileID: 7109706764170909366}
     - target: {fileID: 2216166944494691278, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Name
-      value: Btn_Icon
+      value: ButtonSynergyConstellation_Noblesse
       objectReference: {fileID: 0}
     - target: {fileID: 6165027734123387476, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_Sprite
@@ -3180,7 +3194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3188,7 +3202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3228,11 +3242,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -71.69998
       objectReference: {fileID: 0}
     - target: {fileID: 7548719462224833680, guid: 88bdfc11896b8644fb49cd0a81489915, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
