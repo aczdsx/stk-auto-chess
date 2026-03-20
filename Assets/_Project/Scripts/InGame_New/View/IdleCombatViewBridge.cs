@@ -1,4 +1,5 @@
 using CookApps.AutoBattler;
+using CookApps.TeamBattle.Utility;
 using UnityEngine;
 
 namespace CookApps.AutoChess.View
@@ -310,6 +311,15 @@ namespace CookApps.AutoChess.View
                             unitView.SetModelVisible(true);
                     }
                     break;
+
+                case SimEventType.CameraShake:
+                {
+                    float duration = evt.Value0 / 1000f;
+                    float magnitude = evt.Value1 / 100f;
+                    var cam = ObjectRegistry.GetObject<InGameCamera>(RegistryKey.InGameCamera);
+                    cam?.ShakeCamera(duration, magnitude);
+                    break;
+                }
             }
         }
 

@@ -40,6 +40,9 @@ namespace CookApps.AutoChess
 
         /// <summary>GameWorld.TickRate — 모드별 상이하므로 초→프레임 변환 시 사용</summary>
         public int WorldTickRate;
+
+        /// <summary>스킬 쿨타임(초) — specList[0] COOL base_rate</summary>
+        public float CooldownSeconds;
     }
 
     /// <summary>

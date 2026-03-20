@@ -8,10 +8,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -4033738630654589329, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: skeletonDataAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 599b415cf4ca6494a92b15ec4efb4318, type: 2}
     - target: {fileID: 2904311278150009681, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -56,30 +52,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Naninovel_17663506
       objectReference: {fileID: 0}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 5
+    - target: {fileID: 5095198891676236682, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
+      propertyPath: m_Size.x
+      value: 20.4825
       objectReference: {fileID: 0}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+    - target: {fileID: 5095198891676236682, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
+      propertyPath: m_Size.y
+      value: 27.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 5095198891676236682, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
+      propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 2100000, guid: fd6c2ba9f38886b42b441f76c11fd7c4, type: 2}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: 'm_Materials.Array.data[1]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 131e6ed762b7ace4e893a80ade209f45, type: 2}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: 'm_Materials.Array.data[2]'
-      value: 
-      objectReference: {fileID: 2100000, guid: fd6c2ba9f38886b42b441f76c11fd7c4, type: 2}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: 'm_Materials.Array.data[3]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 131e6ed762b7ace4e893a80ade209f45, type: 2}
-    - target: {fileID: 6922233389166263153, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
-      propertyPath: 'm_Materials.Array.data[4]'
-      value: 
-      objectReference: {fileID: 2100000, guid: fd6c2ba9f38886b42b441f76c11fd7c4, type: 2}
+      objectReference: {fileID: 21300000, guid: 454eaf4d4418ae2438bf8aabd1bdfaa0, type: 3}
+    - target: {fileID: 5095198891676236682, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

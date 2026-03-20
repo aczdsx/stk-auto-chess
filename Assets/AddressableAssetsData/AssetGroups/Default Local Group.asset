@@ -15,21 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: c139e0f31ed074a79bb51afa922c7ccc
   m_SerializeEntries:
-  - m_GUID: 4a8d4763766351947b026908939d2336
-    m_Address: Prefabs/UI/01_Pops/CharacterCollectionPopup/CharacterCollectionPopup.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7af6a4096c8b2b408c0f2c32c0daae6
     m_Address: Prefabs/Fx/Character/Atresia/Skill_401011_1.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f0c135ef5eab5284f97b222476d87807
-    m_Address: Assets/_Project/Addressables/Remote/0. Scenes/Gacha_New.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f94abf99adf954845a7e308b788b1a5d
     m_Address: Assets/_Project/Splash_STK/Prefab/SplashUI.prefab

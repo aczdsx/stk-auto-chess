@@ -119,7 +119,7 @@ namespace CookApps.AutoChess
                 EnableMatchmaking = false,
                 EnableCutscenes = true,
                 PreparationDuration = 0, // 준비 없음
-                StartingLevel = 5,
+                StartingLevel = 4,
                 StartingHP = 100,
                 TickRate = 60,
             };

@@ -763,7 +763,7 @@ namespace CookApps.AutoChess.View
             movement.SetData(sourcePos, targetPos, 30f);
 
             Vector3 dir = (targetPos - sourcePos).normalized;
-            if (dir != Vector3.zero) vfx.CachedTr.rotation = Quaternion.LookRotation(dir);
+            if (dir != Vector3.zero) vfx.CachedTr.rotation = Quaternion.LookRotation(dir) * Quaternion.Euler(0, -90f, 0);
 
             vfx.Initialize(false, movement);
             RegisterProjectile(vfx, movement, projectileId);

@@ -56,6 +56,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0c135ef5eab5284f97b222476d87807
+    m_Address: Assets/_Project/Addressables/Remote/0. Scenes/Gacha_New.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
   m_SchemaSet:

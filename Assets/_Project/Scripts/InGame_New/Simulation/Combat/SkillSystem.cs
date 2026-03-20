@@ -23,6 +23,7 @@ namespace CookApps.AutoChess
                 {
                     SkillFactory.TryGetSpecList(unit.SkillSpecId, out var specList);
                     skill.InitializeFromSpec(skillParams, specList, world.TickRate);
+                    unit.MaxMana = (int)System.Math.Ceiling(skillParams.CooldownSeconds * world.Config.DefaultManaRegenPerSec);
                 }
                 else
                 {
