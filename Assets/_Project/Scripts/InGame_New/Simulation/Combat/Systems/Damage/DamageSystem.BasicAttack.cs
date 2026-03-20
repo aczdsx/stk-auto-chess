@@ -44,7 +44,7 @@ namespace CookApps.AutoChess
                 state.EventQueue?.PushUnitAttacked(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
 
                 ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit);
-                ApplyLifeSteal(ref attacker, finalDamage);
+                ApplyLifeSteal(state, ref attacker, finalDamage);
 
                 // 피격자 마나 충전
                 ChargeMana(ref target, target.ManaGainOnHit);
@@ -129,7 +129,7 @@ namespace CookApps.AutoChess
                 attacker.CombatId, target.CombatId, finalDamage, isCrit, false, isPreTimed: true);
 
             ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit);
-            ApplyLifeSteal(ref attacker, finalDamage);
+            ApplyLifeSteal(state, ref attacker, finalDamage);
             ChargeMana(ref target, target.ManaGainOnHit);
             ChargeMana(ref attacker, attacker.ManaGainOnAttack);
 

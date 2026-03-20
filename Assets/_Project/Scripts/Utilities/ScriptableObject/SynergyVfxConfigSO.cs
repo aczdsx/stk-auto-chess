@@ -10,11 +10,16 @@ namespace CookApps.AutoChess.View
     public enum SynergyVfxTag
     {
         None = 0,
+        BoardObjectSpawn, // starfall
         BoardObject,   // 보드 위 드래그 가능 오브젝트 프리팹
         TargetVfx,     // 유닛 부여 시 원샷 이펙트
         Tier1,         // 티어1 이펙트
         Tier2,         // 티어2 이펙트
         Tier3,         // 티어3 이펙트
+        OnBattleStart,
+        OnBattleStart_Tier1,
+        OnBattleStart_Tier2,
+        OnBattleStart_Tier3,
     }
 
     /// <summary>
@@ -81,6 +86,15 @@ namespace CookApps.AutoChess.View
             1 => SynergyVfxTag.Tier1,
             2 => SynergyVfxTag.Tier2,
             3 => SynergyVfxTag.Tier3,
+            _ => SynergyVfxTag.None,
+        };
+
+        /// <summary>티어 번호(1~3) → OnBattleStart 티어 태그 변환</summary>
+        public static SynergyVfxTag BattleStartTierToTag(int tier) => tier switch
+        {
+            1 => SynergyVfxTag.OnBattleStart_Tier1,
+            2 => SynergyVfxTag.OnBattleStart_Tier2,
+            3 => SynergyVfxTag.OnBattleStart_Tier3,
             _ => SynergyVfxTag.None,
         };
 

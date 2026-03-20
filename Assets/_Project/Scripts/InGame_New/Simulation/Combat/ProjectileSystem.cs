@@ -62,7 +62,7 @@ namespace CookApps.AutoChess
                 // 흡혈 적용 (발사자가 살아있으면)
                 if (srcIdx >= 0 && state.Units[srcIdx].IsAlive)
                 {
-                    DamageSystem.ApplyLifeSteal(ref state.Units[srcIdx], finalDamage);
+                    DamageSystem.ApplyLifeSteal(state, ref state.Units[srcIdx], finalDamage);
                 }
             }
 
@@ -400,7 +400,7 @@ namespace CookApps.AutoChess
             // 흡혈
             if (srcIdx >= 0 && state.Units[srcIdx].IsAlive)
             {
-                DamageSystem.ApplyLifeSteal(ref state.Units[srcIdx], finalDamage);
+                DamageSystem.ApplyLifeSteal(state, ref state.Units[srcIdx], finalDamage);
             }
         }
 
