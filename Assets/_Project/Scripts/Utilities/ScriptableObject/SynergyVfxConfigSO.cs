@@ -20,6 +20,7 @@ namespace CookApps.AutoChess.View
         OnBattleStart_Tier1,
         OnBattleStart_Tier2,
         OnBattleStart_Tier3,
+        DragHighlight,  // 슈퍼노바 오브젝트 드래그 시 대상 유닛 하이라이트
     }
 
     /// <summary>

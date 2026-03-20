@@ -139,6 +139,15 @@ MonoBehaviour:
         m_EditorAssetChanged: 1
       Position: 1
       Follow: 1
+    - Tag: 11
+      Vfx:
+        m_AssetGUID: 395dd27416a4cb24689fefc711e47dba
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      Position: 1
+      Follow: 1
   - SynergyType: 11
     AchieveVfx:
       m_AssetGUID: 

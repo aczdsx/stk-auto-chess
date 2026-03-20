@@ -152,7 +152,7 @@ namespace CookApps.AutoBattler
             
             SceneTransition.Create<SceneTransition_SubTransition>(SubTransition_Animator.Address);
             await SceneTransition.FadeInAsync();
-            InGameManager.Instance.EndInGame();
+            // InGameManager.Instance.EndInGame();
             
             SceneLoading.GoToNextScene("BattleReady", _selectedChapterData.chapter_id);
 

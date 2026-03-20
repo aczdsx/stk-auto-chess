@@ -88,6 +88,12 @@ namespace CookApps.AutoChess.View
                 if (_runner is LocalSimulationRunner localRunner)
                     localRunner.OnDebuggerPauseChanged -= OnDebuggerPauseChanged;
             }
+            if (_boardInputHandler != null)
+            {
+                _boardInputHandler.OnObjectDragStarted -= HandleSupernovaDragStart;
+                _boardInputHandler.OnObjectDragEnded -= HandleSupernovaDragEnd;
+            }
+            HandleSupernovaDragEnd(); // 잔여 VFX 정리
         }
 
         private void OnDebuggerPauseChanged(bool paused)
@@ -659,8 +665,18 @@ namespace CookApps.AutoChess.View
         public void SetAutoChessUI(AutoChessUIBase ui) => _autoChessUI = ui;
         public void SetBoardInputHandler(BoardInputHandler handler)
         {
+            if (_boardInputHandler != null)
+            {
+                _boardInputHandler.OnObjectDragStarted -= HandleSupernovaDragStart;
+                _boardInputHandler.OnObjectDragEnded -= HandleSupernovaDragEnd;
+            }
             _boardInputHandler = handler;
             _boardInputHandler?.SetBoardObjectFinder(FindBoardObjectAt);
+            if (_boardInputHandler != null)
+            {
+                _boardInputHandler.OnObjectDragStarted += HandleSupernovaDragStart;
+                _boardInputHandler.OnObjectDragEnded += HandleSupernovaDragEnd;
+            }
         }
         public void SetTutorialBridge(TutorialSimBridge bridge) => _tutorialBridge = bridge;
         public GameWorld GetWorld() => _runner.GetWorld();
@@ -932,6 +948,60 @@ namespace CookApps.AutoChess.View
                     Addressables.ReleaseInstance(_battleStartVfxHandles[i]);
             }
             _battleStartVfxHandles.Clear();
+        }
+
+        // ── 슈퍼노바 오브젝트 드래그 VFX ──
+
+        private readonly List<AsyncOperationHandle<GameObject>> _dragHighlightHandles = new();
+
+        private void HandleSupernovaDragStart(IBoardDraggableObject boardObj)
+        {
+            if (boardObj is not SupernovaObjectView supernovaObj) return;
+            if (_synergyVfxConfig == null) return;
+
+            var synergyType = (SynergyType)supernovaObj.TraitId;
+            if (!_synergyVfxConfig.TryGetTaggedVfx(synergyType, SynergyVfxTag.DragHighlight, out var dragVfx)) return;
+
+            int traitBit = 1 << supernovaObj.TraitId;
+            var world = _runner.GetWorld();
+            if (world == null) return;
+
+            var boardSlots = world.BoardSlots[_localPlayerIndex];
+            for (int i = 0; i < world.BoardSize; i++)
+            {
+                int entityId = boardSlots[i];
+                if (entityId == UnitData.InvalidId) continue;
+
+                ref var unit = ref world.GetUnit(entityId);
+                if ((unit.TraitFlags & traitBit) == 0) continue;
+
+                var unitView = _unitViewManager.FindBoardView(entityId);
+                if (unitView == null) continue;
+
+                var posTransform = dragVfx.Position != SkillPosition.CUSTOM
+                    ? unitView.GetSkillPositionTransform(dragVfx.Position)
+                    : unitView.transform;
+
+                SpawnDragHighlightAsync(dragVfx.Vfx, posTransform).Forget();
+            }
+        }
+
+        private async UniTaskVoid SpawnDragHighlightAsync(AssetReferenceGameObject vfxRef, Transform parent)
+        {
+            var handle = Addressables.InstantiateAsync(vfxRef, parent);
+            var go = await handle;
+            if (go == null || !handle.IsValid()) return;
+            _dragHighlightHandles.Add(handle);
+        }
+
+        private void HandleSupernovaDragEnd()
+        {
+            for (int i = 0; i < _dragHighlightHandles.Count; i++)
+            {
+                if (_dragHighlightHandles[i].IsValid())
+                    Addressables.ReleaseInstance(_dragHighlightHandles[i]);
+            }
+            _dragHighlightHandles.Clear();
         }
 
         private void RemoveTargetVfx((int traitId, byte playerIndex) key)

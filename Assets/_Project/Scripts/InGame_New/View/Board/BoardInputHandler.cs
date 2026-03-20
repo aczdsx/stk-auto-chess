@@ -458,12 +458,18 @@ namespace CookApps.AutoChess.View
             return boardObj != null;
         }
 
+        /// <summary>오브젝트 드래그 시작 시 발행 (boardObj)</summary>
+        public event System.Action<IBoardDraggableObject> OnObjectDragStarted;
+        /// <summary>오브젝트 드래그 종료 시 발행</summary>
+        public event System.Action OnObjectDragEnded;
+
         private void StartObjectDrag(IBoardDraggableObject boardObj)
         {
             InGameCharacterPopupHelper.Close();
             _isDraggingObject = true;
             _dragObject = boardObj;
             _dragObjectOriginalPos = boardObj.WorldPosition;
+            OnObjectDragStarted?.Invoke(boardObj);
         }
 
         private void UpdateObjectDrag(Vector2 screenPos)
@@ -493,6 +499,7 @@ namespace CookApps.AutoChess.View
                 _dragObject.SetWorldPosition(_dragObjectOriginalPos);
 
             _dragObject = null;
+            OnObjectDragEnded?.Invoke();
         }
 
         private void CancelDrag()
