@@ -104,9 +104,11 @@ namespace CookApps.AutoChess.View
             }
             else
             {
-                // 배치 단계: 보드 뷰 먼저 동기화 → 이벤트 처리 (시너지 VFX 등에서 UnitView 필요)
-                _unitViewManager.SyncBoardUnits(world);
+                // 이벤트 먼저 처리 (마지막 공격 데미지 텍스트 등 전투 뷰가 필요한 이벤트 소화)
                 ProcessEvents(world);
+                // Result 페이즈에서는 보드 동기화 스킵 (전투 뷰 유지, 초기 위치 재생성 방지)
+                if (world.CurrentPhase != GamePhase.Result)
+                    _unitViewManager.SyncBoardUnits(world);
             }
 
             // UI 갱신 (벤치 + HUD 통합)
