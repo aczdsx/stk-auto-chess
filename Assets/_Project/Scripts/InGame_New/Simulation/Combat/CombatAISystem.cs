@@ -135,12 +135,14 @@ namespace CookApps.AutoChess
                 {
                     DamageSystem.ExecutePendingMeleeHit(state, ref unit, ref rng, tickRate);
                 }
+                unit.AttackCooldown--; // 모션 중에도 공격 쿨다운 감소
                 return; // 공격 애니메이션 중
             }
 
             // 공격 모션 락 유지 (Attacking 상태 유지, 타겟팅/이동 차단)
             if (unit.State == CombatState.Attacking && unit.ActionLockTimer > 0)
             {
+                unit.AttackCooldown--; // 모션 중에도 공격 쿨다운 감소
                 return;
             }
 
