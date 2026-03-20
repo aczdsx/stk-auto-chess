@@ -34,8 +34,17 @@ namespace CookApps.AutoChess.View
 
         public void OnEffectAdded(int combatId, CombatVfxType type, int totalFrames, StatModType statType = default)
         {
-            if (_config == null || !_config.TryGetEffectIcon(type, statType, out var entry)) return;
-            if (entry.IconSprite == null) return;
+            if (_config == null) return;
+            if (!_config.TryGetEffectIcon(type, statType, out var entry))
+            {
+                Debug.LogWarning($"[BuffIconTracker] Effect icon not registered: VfxType={type}, StatType={statType}, CombatId={combatId}");
+                return;
+            }
+            if (entry.IconSprite == null)
+            {
+                Debug.LogWarning($"[BuffIconTracker] Effect icon sprite is null: VfxType={type}, StatType={statType}, CombatId={combatId}");
+                return;
+            }
 
             var list = GetOrCreateList(combatId);
             int key = SimEventHelper.EncodeVfxStat(type, statType);
@@ -91,8 +100,17 @@ namespace CookApps.AutoChess.View
 
         public void OnSkillMarkerAdded(int combatId, int markerId, int totalFrames)
         {
-            if (_config == null || !_config.TryGetMarkerIcon(markerId, out var entry)) return;
-            if (entry.IconSprite == null) return;
+            if (_config == null) return;
+            if (!_config.TryGetMarkerIcon(markerId, out var entry))
+            {
+                Debug.LogWarning($"[BuffIconTracker] Marker icon not registered: MarkerId={markerId} ({(SkillMarkerType)markerId}), CombatId={combatId}");
+                return;
+            }
+            if (entry.IconSprite == null)
+            {
+                Debug.LogWarning($"[BuffIconTracker] Marker icon sprite is null: MarkerId={markerId} ({(SkillMarkerType)markerId}), CombatId={combatId}");
+                return;
+            }
 
             var list = GetOrCreateList(combatId);
 
@@ -180,7 +198,11 @@ namespace CookApps.AutoChess.View
         private void UpdateUnitBuffIcons(int combatId)
         {
             var unitView = _unitViewManager?.FindCombatView(combatId);
-            if (unitView == null) return;
+            if (unitView == null)
+            {
+                Debug.LogWarning($"[BuffIconTracker] CombatView not found for CombatId={combatId}, activeBuffs={(_activeBuffs.TryGetValue(combatId, out var dbgList) ? dbgList.Count : 0)}");
+                return;
+            }
 
             _tempBuffList.Clear();
             if (!_activeBuffs.TryGetValue(combatId, out var list))
@@ -230,6 +252,12 @@ namespace CookApps.AutoChess.View
                     StackCount = buff.RefCount,
                     IsSide = !buff.IsSkillMarker && IsShieldType(buff.MarkerId),
                 });
+            }
+
+            for (int i = 0; i < _tempBuffList.Count; i++)
+            {
+                var b = _tempBuffList[i];
+                Debug.Log($"[BuffIconTracker] CombatId={combatId} [{i}] Sprite={b.IconSprite?.name ?? "NULL"}, Stack={b.StackCount}, IsSide={b.IsSide}");
             }
 
             unitView.UpdateBuffIcons(_tempBuffList);

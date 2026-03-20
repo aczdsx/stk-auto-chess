@@ -167,7 +167,7 @@ namespace CookApps.AutoBattler
                     isHighlighted = _isActive && data.grade <= currentGrade;
                 }
 
-                _gradeSlots[i].SetGrade(formatted, isHighlighted);
+                _gradeSlots[i].SetGrade(formatted, isHighlighted, showHighlightBg: i != 0);
                 _gradeSlots[i].SetActive(true);
             }
 
