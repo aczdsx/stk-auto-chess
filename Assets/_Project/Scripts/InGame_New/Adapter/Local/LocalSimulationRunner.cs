@@ -23,6 +23,7 @@ namespace CookApps.AutoChess
         private bool _isRunning;
         private bool _isPausedByTutorial;
         private bool _isPausedByDebugger;
+        private bool _gameOverSignaled;
 
         // ── 프레임 레코더 ──
         private CombatFrameRecorder _frameRecorder;
@@ -71,6 +72,7 @@ namespace CookApps.AutoChess
 
             _tickAccumulator = 0f;
             _isRunning = true;
+            _gameOverSignaled = false;
 
             Debug.Log($"[AutoChess] Simulation started. Mode={config.GameMode}, Players={config.PlayerCount}, Seed={_randomSeed}");
         }
@@ -79,6 +81,7 @@ namespace CookApps.AutoChess
         public void StopSimulation()
         {
             _isRunning = false;
+            _gameOverSignaled = false;
             _world = null;
             _pendingCommands.Clear();
             Debug.Log("[AutoChess] Simulation stopped.");
@@ -170,7 +173,10 @@ namespace CookApps.AutoChess
                 OnTick?.Invoke(_world);
 
                 if (_world.CurrentPhase != prevPhase)
+                {
+                    Debug.Log($"[InGame_New][Runner] PhaseChanged frame={_world.FrameCount} {prevPhase} -> {_world.CurrentPhase}");
                     OnPhaseChanged?.Invoke(prevPhase, _world.CurrentPhase);
+                }
 
                 _tickAccumulator -= tickInterval;
                 ticksThisFrame++;
@@ -178,10 +184,12 @@ namespace CookApps.AutoChess
                 // 게임 종료 체크
                 if (_world.IsGameOver)
                 {
-                    Debug.Log("[AutoChess] Game Over!");
-                    _isRunning = false;
-                    OnGameOver?.Invoke(_world);
-                    break;
+                    if (!_gameOverSignaled)
+                    {
+                        _gameOverSignaled = true;
+                        Debug.Log($"[InGame_New][Runner] GameOverSignaled frame={_world.FrameCount} phase={_world.CurrentPhase}");
+                        OnGameOver?.Invoke(_world);
+                    }
                 }
             }
         }

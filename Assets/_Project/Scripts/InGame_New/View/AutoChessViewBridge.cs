@@ -156,6 +156,7 @@ namespace CookApps.AutoChess.View
 
                 case GamePhase.Result:
                 {
+                    Debug.Log($"[InGame_New][ViewBridge] EnterResult phaseSync frame={_runner.GetWorld()?.FrameCount ?? -1}");
                     // 전투→결과 전환 시 마지막 상태 동기화 (마지막 유닛 사망 애니메이션 + HP 갱신)
                     var world = _runner.GetWorld();
                     for (int i = 0; i < GameWorld.MaxCombatMatches; i++)

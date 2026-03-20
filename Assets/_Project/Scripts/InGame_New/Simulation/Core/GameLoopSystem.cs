@@ -38,8 +38,6 @@ namespace CookApps.AutoChess
         /// </summary>
         public static void Tick(GameWorld world, GameCommand[] commands, int commandCount)
         {
-            if (world.IsGameOver) return;
-
             world.FrameCount++;
 
             // 1. 커맨드 처리
@@ -291,6 +289,10 @@ namespace CookApps.AutoChess
 
         private static void OnEnterResult(GameWorld world)
         {
+            Debug.Log(
+                $"[InGame_New][Phase] EnterResult frame={world.FrameCount} alivePlayers={world.AlivePlayerCount} " +
+                $"resultTimer={world.PhaseTimerFrames} lastCombatFrames={world.LastCombatDurationFrames}");
+
             // 각 매치 결과 처리 (패배 데미지 + 탈락)
             for (int i = 0; i < GameWorld.MaxCombatMatches; i++)
             {
@@ -319,6 +321,7 @@ namespace CookApps.AutoChess
             // 게임 종료 체크
             if (world.AlivePlayerCount <= 1)
             {
+                Debug.Log($"[InGame_New][Phase] MarkGameOver frame={world.FrameCount} alivePlayers={world.AlivePlayerCount}");
                 world.IsGameOver = true;
             }
         }

@@ -174,6 +174,11 @@ namespace CookApps.AutoChess
                 else
                     state.AliveCountB = CombatSetupSystem.CountAliveByTeam(state, 1);
 
+                Debug.Log(
+                    $"[InGame_New][Death] frame={state.FrameCount} victimCombatId={target.CombatId} " +
+                    $"killerCombatId={(attackerIndex >= 0 ? state.Units[attackerIndex].CombatId : CombatUnit.InvalidId)} " +
+                    $"aliveA={state.AliveCountA} aliveB={state.AliveCountB}");
+
                 // CombatId 기반으로 전달 (SourceEntityId는 PvE 몬스터가 -1이라 식별 불가)
                 state.EventQueue?.PushUnitDied(target.CombatId,
                     attackerIndex >= 0 ? state.Units[attackerIndex].CombatId : CombatUnit.InvalidId,

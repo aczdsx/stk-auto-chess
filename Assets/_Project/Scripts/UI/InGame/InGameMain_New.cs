@@ -558,6 +558,7 @@ namespace CookApps.AutoBattler
         private async UniTaskVoid HandleGameOverAsync(GameWorld world)
         {
             bool isVictory = world.Matches[0].Winner == 0;
+            Debug.Log($"[InGame_New][UI] HandleGameOverAsync start frame={world.FrameCount} victory={isVictory} phase={world.CurrentPhase}");
 
             float combatSeconds = world.LastCombatDurationFrames / (float)world.TickRate;
             bool isStarTime = isVictory && combatSeconds <= 30f;
@@ -590,40 +591,47 @@ namespace CookApps.AutoBattler
             if (isStarTime) stars++;
             if (isStarNoDeath) stars++;
 
-            IReadOnlyList<Reward> rewards = null;
-            try
+            var battleResult = new BattleResult
             {
-                var battleResult = new BattleResult
-                {
-                    IsVictory = isVictory,
-                    Stars = isVictory ? stars : 0,
-                    ClearTime = isVictory ? (ulong)(combatSeconds * 1000) : 0
-                };
-                var resp = await NetManager.Instance.Battle.EndAsync(
-                    _inGameParams.SessionId, battleResult);
-                if (resp is { IsSuccess: true })
-                    rewards = resp.Rewards;
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogWarning($"[InGameMain_New] Battle.EndAsync failed: {e.Message}");
-            }
+                IsVictory = isVictory,
+                Stars = isVictory ? stars : 0,
+                ClearTime = isVictory ? (ulong)(combatSeconds * 1000) : 0
+            };
+            var rewardsTask = RequestBattleRewardsAsync(battleResult);
+            Debug.Log($"[InGame_New][UI] BattleEndAsync requested frame={world.FrameCount}");
+
+            // 마지막 적 사망 연출이 바로 컷신/UI에 덮이지 않도록 짧게 유지
+            await UniTask.Delay(TimeSpan.FromSeconds(0.35f), ignoreTimeScale: true);
+            Debug.Log($"[InGame_New][UI] PostDeathDelay done frame={_viewRoot?.Runner?.GetWorld()?.FrameCount ?? -1}");
 
             // 1. 종료 연출 Push & 완료 대기 (기존 2.5초 딜레이 대체)
             if (isVictory)
             {
+                Debug.Log("[InGame_New][UI] VictoryCutscene push");
                 var cutscene = await SceneUILayerManager.Instance
                     .PushUILayerAsync<BattleVictoryCutsceneUI>();
                 if (cutscene != null)
+                {
+                    Debug.Log("[InGame_New][UI] VictoryCutscene wait start");
                     await cutscene.WaitForAnimationCompleteAsync();
+                    Debug.Log("[InGame_New][UI] VictoryCutscene wait done");
+                }
             }
             else
             {
+                Debug.Log("[InGame_New][UI] DefeatCutscene push");
                 var cutscene = await SceneUILayerManager.Instance
                     .PushUILayerAsync<BattleDefeatCutsceneUI>();
                 if (cutscene != null)
+                {
+                    Debug.Log("[InGame_New][UI] DefeatCutscene wait start");
                     await cutscene.WaitForAnimationCompleteAsync();
+                    Debug.Log("[InGame_New][UI] DefeatCutscene wait done");
+                }
             }
+
+            var rewards = await rewardsTask;
+            Debug.Log($"[InGame_New][UI] BattleEndAsync completed rewardsCount={rewards?.Count ?? 0}");
 
             // 2. 이벤트 구독 해제 (Cleanup 전에 먼저)
             if (_viewRoot != null)
@@ -640,14 +648,18 @@ namespace CookApps.AutoBattler
 
             var resultPopupTcs = new UniTaskCompletionSource();
             SceneUILayerManager.OnUITransitionEvent += OnTransition;
+            Debug.Log("[InGame_New][UI] ResultPopup push");
             SceneUILayerManager.Instance.PushUILayerAsync<AutoChessClassicResultPopup>(popupParam).Forget();
+            Debug.Log("[InGame_New][UI] ResultPopup wait start");
             await resultPopupTcs.Task;
+            Debug.Log("[InGame_New][UI] ResultPopup wait done");
             SceneUILayerManager.OnUITransitionEvent -= OnTransition;
 
             void OnTransition(UILayerTransition transition, string key, UILayer layer, object data)
             {
                 if (transition == UILayerTransition.EnterFinished && layer is AutoChessClassicResultPopup)
                 {
+                    Debug.Log($"[InGame_New][UI] ResultPopup EnterFinished key={key}");
                     resultPopupTcs.TrySetResult();
                 }
             }
@@ -660,6 +672,23 @@ namespace CookApps.AutoBattler
             }
 
             Debug.Log($"[InGameMain_New] Game Over - Victory={isVictory}, Stars={stars}, CombatTime={combatSeconds:F1}s");
+
+            async UniTask<IReadOnlyList<Reward>> RequestBattleRewardsAsync(BattleResult result)
+            {
+                try
+                {
+                    var resp = await NetManager.Instance.Battle.EndAsync(
+                        _inGameParams.SessionId, result);
+                    if (resp is { IsSuccess: true })
+                        return resp.Rewards;
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogWarning($"[InGameMain_New] Battle.EndAsync failed: {e.Message}");
+                }
+
+                return null;
+            }
         }
     }
 }
