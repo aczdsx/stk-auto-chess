@@ -525,10 +525,10 @@ namespace CookApps.AutoChess.View
 
         // ── 비활성화 ──
 
-        public void AddViewScale(float scale)
+        public void AddViewScale(float scale, bool forceSet = false)
         {
             if (_characterView != null)
-                _characterView.AddViewScale(scale);
+                _characterView.AddViewScale(scale, forceSet);
         }
 
         public void RemoveViewScale(float scale)

@@ -521,11 +521,19 @@ namespace CookApps.AutoBattler
                 _animator.SetBool(IsFront, _cachedFront);
         }
 
-        public void AddViewScale(float viewScale)
+        public void AddViewScale(float viewScale, bool forceSet = false)
         {
             _viewScaleHandle.TryCancel();
             _viewScaleRaw += new Vector3(viewScale, viewScale, viewScale);
             _viewScaleTarget = Vector3.Max(MinViewScale, Vector3.Min(_viewScaleRaw, MaxViewScale));
+
+            if (forceSet)
+            {
+                if (_rotateionRootTransform != null)
+                    _rotateionRootTransform.localScale = _viewScaleTarget;
+                return;
+            }
+
             _viewScaleHandle = LMotion.Create(
                 _rotateionRootTransform.localScale,
                 _viewScaleTarget,
