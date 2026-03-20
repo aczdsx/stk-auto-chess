@@ -517,6 +517,18 @@ namespace CookApps.AutoChess.View
 
         // ── 비활성화 ──
 
+        public void AddViewScale(float scale)
+        {
+            if (_characterView != null)
+                _characterView.AddViewScale(scale);
+        }
+
+        public void RemoveViewScale(float scale)
+        {
+            if (_characterView != null)
+                _characterView.RemoveViewScale(scale);
+        }
+
         public void Deactivate()
         {
             _isActive = false;

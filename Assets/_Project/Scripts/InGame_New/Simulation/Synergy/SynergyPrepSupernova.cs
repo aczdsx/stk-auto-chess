@@ -13,6 +13,15 @@ namespace CookApps.AutoChess
         public sbyte ObjectCol = -1;
         public sbyte ObjectRow = -1;
 
+        /// <summary>티어별 유닛 뷰 스케일 보너스</summary>
+        public float ViewScaleBonus => Tier switch
+        {
+            1 => 0.3f,
+            2 => 0.4f,
+            3 => 0.5f,
+            _ => 0.3f,
+        };
+
         public override void OnActivate(GameWorld world)
         {
             // 빈 타일 랜덤 선택하여 오브젝트 배치
@@ -144,10 +153,10 @@ namespace CookApps.AutoChess
         public override void HandleCommand(GameWorld world, in GameCommand cmd)
         {
             // cmd.Param0 = traitId (이미 검증됨)
-            // cmd.Param1 > 0: 유닛에 부여 (entityId = Param1)
+            // cmd.Param1 >= 0: 유닛에 부여 (entityId = Param1)
             // cmd.Param1 == -1: 오브젝트 위치 이동 (Param2=col, Param3=row)
 
-            if (cmd.Param1 > 0)
+            if (cmd.Param1 >= 0)
             {
                 // 유닛에 부여
                 int targetEntityId = cmd.Param1;

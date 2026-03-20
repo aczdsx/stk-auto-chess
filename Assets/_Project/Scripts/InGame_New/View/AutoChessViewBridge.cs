@@ -657,7 +657,7 @@ namespace CookApps.AutoChess.View
             _supernovaObjects = new();
 
         // 타겟 부여 VFX (유닛에 붙는 이펙트)
-        private readonly Dictionary<(int traitId, byte playerIndex), (int entityId, AsyncOperationHandle<GameObject> handle)>
+        private readonly Dictionary<(int traitId, byte playerIndex), (int entityId, AsyncOperationHandle<GameObject> handle, float appliedScale)>
             _supernovaTargetVfx = new();
 
         private void HandleSupernovaObjectEvent(SimEvent evt)
@@ -801,7 +801,10 @@ namespace CookApps.AutoChess.View
             var go = await handle;
             if (go == null || !handle.IsValid()) return;
 
-            _supernovaTargetVfx[key] = (entityId, handle);
+            var sn = prep as SynergyPrepSupernova;
+            var scaleBonus = sn?.ViewScaleBonus ?? 0f;
+            _supernovaTargetVfx[key] = (entityId, handle, scaleBonus);
+            if (scaleBonus > 0f) targetView.AddViewScale(scaleBonus);
         }
 
         /// <summary>티어 변경 시 원샷 없이 티어 VFX만 교체</summary>
@@ -830,7 +833,10 @@ namespace CookApps.AutoChess.View
             var go = await handle;
             if (go == null || !handle.IsValid()) return;
 
-            _supernovaTargetVfx[key] = (entityId, handle);
+            var sn = prep as SynergyPrepSupernova;
+            var scaleBonus = sn?.ViewScaleBonus ?? 0f;
+            _supernovaTargetVfx[key] = (entityId, handle, scaleBonus);
+            if (scaleBonus > 0f) unitView.AddViewScale(scaleBonus);
         }
 
         /// <summary>보드 뷰 또는 전투 뷰에서 유닛 조회 (entityId = 보드 EntityId)</summary>
@@ -866,6 +872,9 @@ namespace CookApps.AutoChess.View
         {
             if (_supernovaTargetVfx.TryGetValue(key, out var entry))
             {
+                var unitView = FindUnitView(entry.entityId);
+                unitView?.RemoveViewScale(entry.appliedScale);
+
                 if (entry.handle.IsValid())
                     Addressables.ReleaseInstance(entry.handle);
                 _supernovaTargetVfx.Remove(key);
