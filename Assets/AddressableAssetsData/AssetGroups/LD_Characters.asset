@@ -81,6 +81,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 330f09d5156b2a0478c8616201d604f2
+    m_Address: LD_Characters/120410/Illust
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 34ee4109155dac1449f71a8a59fa2768
     m_Address: LD_Characters/UI_17643503
     m_ReadOnly: 0
@@ -231,6 +236,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 948610dc3fe6c1b4d8004b7499fa9455
+    m_Address: LD_Characters/UI_120410
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9c05a59b1d6c55e4daf505db81627b48
     m_Address: LD_Characters/UI_17213101
     m_ReadOnly: 0
@@ -246,8 +256,7 @@ MonoBehaviour:
   - m_GUID: a7248d8c16fed427cb61e2cc58e1ea06
     m_Address: LD_Characters/UI_17553404
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - preload
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a99337d3c06bf6b4b8028b1e20977bb8
     m_Address: LD_Characters/17643504/Illust

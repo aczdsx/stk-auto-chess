@@ -155,6 +155,12 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a9a65ae265519b641a837857f4200776
+    m_Address: Naninovel/Characters/Characters_120410
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ab6da8d71ac7141dea85105ad53b5758
     m_Address: Naninovel/Characters/Characters_17323201
     m_ReadOnly: 0
@@ -184,11 +190,10 @@ MonoBehaviour:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bcb60f801802647d2a0faef5c926af8d
-    m_Address: Naninovel/Character/Characters_17553404
+    m_Address: Naninovel/Characters/Characters_17553404
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
-    - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c01189304feb4284b99688eb15d7a4d7
     m_Address: Naninovel/Characters/marie_00
@@ -212,7 +217,7 @@ MonoBehaviour:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c7b6b55001f3b433ba6d4996d404ba6e
-    m_Address: Naninovel/Character/Characters_17663506
+    m_Address: Naninovel/Characters/Characters_17663506
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
