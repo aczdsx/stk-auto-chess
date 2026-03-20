@@ -175,7 +175,7 @@ namespace CookApps.AutoChess
                     state.AliveCountB = CombatSetupSystem.CountAliveByTeam(state, 1);
 
                 Debug.Log(
-                    $"[InGame_New][Death] frame={state.FrameCount} victimCombatId={target.CombatId} " +
+                    $"[InGame_New][Death] victimCombatId={target.CombatId} " +
                     $"killerCombatId={(attackerIndex >= 0 ? state.Units[attackerIndex].CombatId : CombatUnit.InvalidId)} " +
                     $"aliveA={state.AliveCountA} aliveB={state.AliveCountB}");
 
