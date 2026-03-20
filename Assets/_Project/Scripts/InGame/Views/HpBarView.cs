@@ -39,6 +39,10 @@ namespace CookApps.AutoBattler
         [Space]
         [SerializeField] private GameObject _buffObjParent;
 
+        [Range(0.01f, 2f)]
+        [Tooltip("버프 아이콘 스케일 (1 = 기본 크기)")]
+        [SerializeField] private float _buffIconScale = 1f;
+
         [System.Serializable]
         public class BuffIconLayout
         {
@@ -289,6 +293,14 @@ namespace CookApps.AutoBattler
             return new Vector2(x, y);
         }
 
+        /// <summary>
+        /// 버프 아이콘 스케일을 가져옵니다. (0~3: bottom, 4~7: top)
+        /// </summary>
+        private float GetBuffIconScale(int index)
+        {
+            return _buffIconScale;
+        }
+
         public void SetHpBarType(HpBarType type = HpBarType.None)
         {
             _hpBarObj.SetActive(type.HasFlag(HpBarType.HpBar));
@@ -430,6 +442,8 @@ namespace CookApps.AutoBattler
                 var icon = _buffDebuffList[normalIdx];
                 Vector2 position = GetBuffIconPosition(normalIdx);
                 icon.CachedTr.localPosition = new Vector3(position.x, position.y, icon.CachedTr.localPosition.z);
+                float scale = GetBuffIconScale(normalIdx);
+                icon.CachedTr.localScale = new Vector3(scale, scale, scale);
                 icon.gameObject.SetActive(true);
                 icon.Set(buffIcons[i].IconSprite, buffIcons[i].Duration, buffIcons[i].ElapsedTime, buffIcons[i].StackCount);
                 normalIdx++;
@@ -438,12 +452,14 @@ namespace CookApps.AutoBattler
             // Side 버프 (세로 배치)
             AdjustIconCount(_sideBuffDebuffList, sideCount, _buffSideBadgeParentObj.transform);
             float sideSpacing = _bottomLayout.horizontalSpacing;
+            float sideScale = _buffIconScale;
             int sideIdx = 0;
             for (int i = 0; i < buffIcons.Count && sideIdx < _sideBuffDebuffList.Count; i++)
             {
                 if (!buffIcons[i].IsSide) continue;
                 var icon = _sideBuffDebuffList[sideIdx];
                 icon.CachedTr.localPosition = new Vector3(0, sideIdx * sideSpacing, 0);
+                icon.CachedTr.localScale = new Vector3(sideScale, sideScale, sideScale);
                 icon.gameObject.SetActive(true);
                 icon.Set(buffIcons[i].IconSprite, buffIcons[i].Duration, buffIcons[i].ElapsedTime, buffIcons[i].StackCount);
                 sideIdx++;
@@ -504,12 +520,14 @@ namespace CookApps.AutoBattler
 
             // 아이콘 위치 설정 및 데이터 업데이트
             float sideSpacing = _bottomLayout.horizontalSpacing;
+            float sideScale = _buffIconScale;
             for (int i = 0; i < sideBuffs.Count && i < _sideBuffDebuffList.Count; i++)
             {
                 var inGameBuffDebuff = _sideBuffDebuffList[i];
 
                 // Side 버프는 세로로 배치 (horizontalSpacing을 Y 간격으로 사용)
                 inGameBuffDebuff.CachedTr.localPosition = new Vector3(0, i * sideSpacing, 0);
+                inGameBuffDebuff.CachedTr.localScale = new Vector3(sideScale, sideScale, sideScale);
                 inGameBuffDebuff.gameObject.SetActive(true);
                 inGameBuffDebuff.Set(sideBuffs[i]);
             }
@@ -531,9 +549,11 @@ namespace CookApps.AutoBattler
             {
                 var inGameBuffDebuff = _buffDebuffList[i];
 
-                // 위치 설정
+                // 위치 및 크기 설정
                 Vector2 position = GetBuffIconPosition(i);
                 inGameBuffDebuff.CachedTr.localPosition = new Vector3(position.x, position.y, inGameBuffDebuff.CachedTr.localPosition.z);
+                float scale = GetBuffIconScale(i);
+                inGameBuffDebuff.CachedTr.localScale = new Vector3(scale, scale, scale);
 
                 inGameBuffDebuff.gameObject.SetActive(true);
                 inGameBuffDebuff.Set(normalBuffs[i]);
