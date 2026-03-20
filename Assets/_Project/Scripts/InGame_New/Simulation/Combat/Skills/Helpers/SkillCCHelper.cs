@@ -169,7 +169,7 @@ namespace CookApps.AutoChess
                 target.MoveTimer = knockbackFrames;
                 target.IsKnockbackMoving = true;
 
-                state.EventQueue?.PushUnitMoved(target.SourceEntityId, (byte)col, (byte)row);
+                state.EventQueue?.PushUnitMoved(target.CombatId, (byte)col, (byte)row);
             }
 
             // 충돌 시 스턴 (1초 고정 — worldTickRate 프레임)

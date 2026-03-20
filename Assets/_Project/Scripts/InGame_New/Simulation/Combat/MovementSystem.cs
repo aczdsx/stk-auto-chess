@@ -231,7 +231,7 @@ namespace CookApps.AutoChess
                 CombatLogger.LogMove(unit.CombatId, unit.MoveFromCol, unit.MoveFromRow, bestCol, bestRow, target.CombatId, logBfsDist);
             }
 
-            state.EventQueue?.PushUnitMoved(unit.SourceEntityId, (byte)bestCol, (byte)bestRow);
+            state.EventQueue?.PushUnitMoved(unit.CombatId, (byte)bestCol, (byte)bestRow);
 
             return true;
         }

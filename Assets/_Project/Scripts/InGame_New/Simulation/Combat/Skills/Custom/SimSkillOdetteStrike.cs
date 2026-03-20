@@ -206,7 +206,7 @@ namespace CookApps.AutoChess
             state.SetGridMulti(destCol, destRow, 1, 1, caster.CombatId);
 
             // 뷰 동기화 이벤트
-            state.EventQueue?.PushUnitMoved(caster.SourceEntityId, (byte)destCol, (byte)destRow);
+            state.EventQueue?.PushUnitMoved(caster.CombatId, (byte)destCol, (byte)destRow);
         }
 
         public override void Reset()

@@ -53,9 +53,10 @@ namespace CookApps.AutoChess
                 }
             }
 
-            if (state.StatusEffectCount >= CombatMatchState.MaxStatusEffects) return;
+            int slotIndex = FindWritableEffectSlot(state);
+            if (slotIndex < 0) return;
 
-            ref var effect = ref state.StatusEffects[state.StatusEffectCount++];
+            ref var effect = ref state.StatusEffects[slotIndex];
             effect.OwnerUnitIndex = unitIndex;
             effect.Type = type;
             effect.Value = value;
@@ -104,6 +105,20 @@ namespace CookApps.AutoChess
             // SkillMarker 아이콘 이벤트
             if (type == StatusEffectType.SkillMarker)
                 state.EventQueue?.PushSkillMarkerAdded(unit.CombatId, value, durationFrames);
+        }
+
+        private static int FindWritableEffectSlot(CombatMatchState state)
+        {
+            for (int i = 0; i < state.StatusEffectCount; i++)
+            {
+                if (!state.StatusEffects[i].IsActive)
+                    return i;
+            }
+
+            if (state.StatusEffectCount >= CombatMatchState.MaxStatusEffects)
+                return -1;
+
+            return state.StatusEffectCount++;
         }
 
         /// <summary>매 틱 호출: 지속시간 감소, 주기적 효과 적용, 만료 처리</summary>
