@@ -15,11 +15,61 @@ MonoBehaviour:
   m_GroupName: Temp_Remote
   m_GUID: 0a41586bdd15949719a2a3d133341c48
   m_SerializeEntries:
+  - m_GUID: 01b8c49212538f842871f3b5256acf1e
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30202001_\uD50C\uB808\uC784\uD5CC\uD130.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 01ea08524c4deae48a2433facad1a29c
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30303003_\uB808\uD53C\uB4DC\uC784\uD504.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 076928fcc7ed41d468ec85e13e4d4e66
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30101009_\uACE0\uB974\uACE4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0a5cbe7fe620610419652a97eb063dd8
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30101006_\uBAA8\uB178\uC544\uC774.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0ea0a2ad3a809e947aa874efb251ea94
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17433303_\uD558\uD2F0.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1627a1b0b82fa3449a8c247ebc3dd0c4
     m_Address: Assets/_Project/Addressables/Remote/Materials/Character/HpBar.mat
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a5480d2ad947e9439a47c24c4edbbcd
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17663506_\uC2DC\uB77C\uC720\uD0A4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1cc4b3ee26394954488043c230f79e30
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30101004_\uC784\uD504.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e0bc3abe505dd74ba2ef592aadae4a8
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30303006_\uC250\uB3C4\uC6B0.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 237e184fdab810e41a17c9b16e895c3b
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30404003_\uC0CC\uB4DC\uC784\uD504.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 23d9dd80fc9248d448476f8a10911de3
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_80109001_\uACF5\uD5C8\uC758\uD1A0\uB9C8.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 277af44f55effe04bb7711cdc1e45a6c
     m_Address: Prefabs
@@ -27,11 +77,56 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29f0d54590107a048a3b5058e71a9657
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30101007_\uC250\uB3C4\uC6B0.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a9a7f81d9e5b164f91d47c7f5949a89
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30404004_\uC0CC\uB4DC\uC704\uC2A4\uD504.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2d957fcbe8898314ebfbadae7e0e3d26
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17263103_\uB8E8\uD0A4\uB2E4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e8ed18bb85dc3146aac93b13c008199
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30606003_\uBBF8\uC2A4\uD2B8\uC784\uD504.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2ed9b1c2e3bcd8344acbab0c7bdfbf39
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_15252102_\uC720\uB2C8.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36dad1c17b0ebec40b9506e43bbab9a7
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_50208101_\uD50C\uB808\uC784\uC2DD\uC2A4\uD63C.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 370a18a70a126aa4fb4eba335cab6a1b
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30606004_\uBBF8\uC2A4\uD2B8\uC704\uC2A4\uD504.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 373c7583994f84450abfe73d5a49ef33
     m_Address: Prefabs/UI/Tutorial/InGameTutorialCanvas
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d1a9568c7a627642b27a48764d752dd
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30404005_\uC0CC\uB4DC\uC250\uB3C4\uC6B0.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4379d49810ce9a04b80d591cc2b2e117
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30606005_\uBBF8\uC2A4\uD2B8\uC250\uB3C4\uC6B0.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 46f4e4165e6300e43ad44acedc6d81e8
     m_Address: Gacha_VFX_Ver_Final_01
@@ -39,11 +134,56 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 49add66b554fa344d9abeed3ce0ede93
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17413301_\uD14C\uD1A0\uB77C.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f580071b2beb384ea8ae1d09a097016
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30101010_\uC704\uC2A4\uD504.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 50195e08e2412f14d825da090929276c
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17363204_\uBCA0\uC778.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 503a537410b4a774a8d775b34811f6e6
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17563405_\uB9C8\uB9AC\uC5D0.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5100c209c431a014f9ef841f50964926
     m_Address: Assets/_Project/Addressables/Remote/SD/Template/BaseCharacterAnimController.controller
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 52df9409c8bb35048bf218901e0de082
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_15322201_\uBA54\uC774.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56a83820e4b25654889dc7f230b39072
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30606001_\uBBF8\uC2A4\uD2B8\uD5CC\uD130.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5d14881493b6b5548ad27a7a0937be59
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30303005_\uB808\uD53C\uB4DC\uBAA8\uB178\uC544\uC774.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 667cf1d035f72e644ad79afeda49cdd8
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_15362202_\uC2DC\uC774\uB098.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66f5314cf00e4fd4eb540f18bc8230f9
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_40407301_\uC0CC\uB4DC\uC2A4\uD1A0\uCEE4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 688631389097c27408afc5ed65aaffec
     m_Address: Naninovel/Camera/MainCamera.prefab
@@ -51,6 +191,41 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6d8bb193074e45c41bc7111c7b56946a
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_15232101_\uCF54\uC6B0\uCE74.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ec0c6f3ef4014040afff1ed38cea2b3
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30404001_\uC0CC\uB4DC\uD5CC\uD130.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 77fc6b1f54802364f9e6fae1a30dbedd
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30101002_\uD5CC\uD130_1.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 799fca86ef099094289ede7bd7ff4f1b
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_80109003_\uC2DC\uB828\uB358\uC804\uBCF4\uC2A41\uB2E8\uACC4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a3cb6502a3bbbc4582593d9bb1d0627
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30303001_\uB808\uD53C\uB4DC\uD5CC\uD130.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a71435baf0c247498d8769fc7702427
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17553404_\uD074\uB808\uC774.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ef02503ae6223945ba8bb5be76630d3
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30606006_\uBBF8\uC2A4\uD2B8\uBAA8\uB178\uC544\uC774.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 816322073996742478f8a80ec7c6f02a
     m_Address: Assets/_Project/Addressables/Remote/NaninovelRes/Spawn/CutScene/png/cbg_02_05.png
@@ -65,6 +240,46 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 841961c0d44c4ac409dec8cad49f5714
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30202003_\uD50C\uB808\uC784\uC784\uD504.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 845f6afee807d9d48ab1eddc56fe5b2b
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30202002_\uD50C\uB808\uC784\uACE0\uB974\uACE4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8510805eb658b9745b455f9934aab71b
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17643504_\uB7EC\uBE0C.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 85a7515b8b0f8df4eb0d65f596ad4a27
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17613501_\uC624\uB370\uD2B8.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 85f8a91097277d14f8e68cd116c0fa5d
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30303004_\uB808\uD53C\uB4DC\uC704\uC2A4\uD504.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88079f53e7e870640ae434e498ea670e
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17653505_\uC5D4\uD0A4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d89553ff756b4643892fe46b04bc0b0
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_15642501_\uC5D8\uB9AC\uC2A4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ea7eec7bb8ab10499ad04592dcb89e9
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17243102_\uBE14\uB9B0.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 947c8d30ce50a2d42800b9403c37c577
     m_Address: Naninovel/TextPrinters/CutScene
     m_ReadOnly: 0
@@ -72,11 +287,31 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9566161af16e1a74191e2a42fb20a03b
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_50608501_\uBBF8\uC2A4\uD2B8\uC2DD\uC2A4\uD63C.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 98162e135345d8d4a8376a1a055f4cbb
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17333202_\uC5D0\uC774\uD504\uB9B4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a8415e5b1e5758844ab1208786bbeb66
     m_Address: Assets/_Project/Addressables/Remote/SD/CutScene/97550013
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa8ab33b72f3d23488a81fea7585b46a
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_50308201_\uB808\uD53C\uB4DC\uC2DD\uC2A4\uD63C.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac3dd1e4d9eb50f43b7c50cf0baab82f
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30101003_\uACE0\uB974\uACE4_\uD640\uB85C\uADF8\uB7A8.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ac805a6aacd2b644dba2618dd3298ba2
     m_Address: Assets/_Project/Addressables/Remote/Materials/UI/UI_Vignette_Ingame.mat
@@ -84,17 +319,62 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0928a619d0aa6348a4237595515bece
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_15422301_\uBA58\uC0E4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b8c3b65e57b672d469e665b3892ce214
     m_Address: Assets/_Project/Addressables/Remote/Materials/Character/Character.mat
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bb26503dbcafbee498b44e540c15ab02
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_15532401_\uD544\uB9AC\uC544.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bedd7715236c96746937879977eafac7
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30404002_\uC0CC\uB4DC\uACE0\uB974\uACE4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c56ebbcc35b7c7c4bbd168754a5f9eed
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17513401_\uC544\uD2B8\uB808\uC2DC\uC544.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c720b8d2cd64306498ce611b724e24c0
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17323201_\uBBF8\uC0AC.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c72b93d35c74c1f4cb93ec7f29aa44d2
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30202004_\uD50C\uB808\uC784\uC704\uC2A4\uD504.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cb66fc5cd88444d44a2942a2244f553a
     m_Address: Assets/_Project/Addressables/Remote/Materials/UI/UI_Vignette_SimulationOnly.mat
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cbac9ca8ee6391748982eb08b3d476d8
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30101005_\uC704\uC2A4\uD504_\uD640\uB85C\uADF8\uB7A8.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cca91fa527807c143935fd6e8e573c52
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30101008_\uD5CC\uD130.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d6360a320aa06c24d8ce0e18b32b16b2
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30101001_\uD5CC\uD130_\uD640\uB85C\uADF8\uB7A8.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d78e30d97029b2e49ad4e8201d528004
     m_Address: Naninovel/Camera/UICamera.prefab
@@ -116,6 +396,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: df744a128376dae4382f0ee474fa597d
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17523403_\uC544\uB4DC\uB9AC\uC544.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e5767d31317d9ac4e99017232c96c6ad
     m_Address: GetNewCharacter
     m_ReadOnly: 0
@@ -129,11 +414,46 @@ MonoBehaviour:
     - Naninovel
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e661a88966b887943a90e2cb744fa201
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30303002_\uB808\uD53C\uB4DC\uACE0\uB974\uACE4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e66aeb8a9a754a549aae4bd5027cae85
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_40107002_\uBE45\uB9C8\uC6B0\uC2A4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e7d3f0a9e0746a64196e155b126dd19f
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_40107001_\uBCA0\uB188.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ebbb51f8dda2d40f3b7dfb84dfb5bf09
     m_Address: Assets/_Project/Addressables/Remote/Materials/Character/HpBarMark.mat
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef7dfb63f6a74ba45bb856bcfd438e62
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30606002_\uBBF8\uC2A4\uD2B8\uACE0\uB974\uACE4.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0f45e38fe95e6345a01a1f89ac57204
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_50108001_\uC2DD\uC2A4\uD63C.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4dcb21b088c9b94b9b609d56d7c4a31
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_30404006_\uC0CC\uB4DC\uBAA8\uB178\uC544\uC774.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa07ef4d62ff4164a833a571680af032
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17433302_\uBBF8\uB178.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fc807be624864cf49b09bafad771c7e5
     m_Address: Assets/_Project/Addressables/Remote/NaninovelRes/Spawn/CutScene/png/cbg_02_04.png
@@ -141,6 +461,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff1469888eb30ce428aed0454c2bde98
+    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_17353203_\uB77C\uD0A4\uC720.asset"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cb15553c4ddc430f8967985219c7747, type: 2}
