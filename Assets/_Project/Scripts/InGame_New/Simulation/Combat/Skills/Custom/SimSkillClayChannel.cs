@@ -107,7 +107,7 @@ namespace CookApps.AutoChess
             if (_tickIndex % 2 == 0)
             {
                 state.EventQueue?.PushSkillAreaEffect(
-                    caster.SourceEntityId, (byte)col, (byte)row, _zoneRange);
+                    caster.CombatId, (byte)col, (byte)row, _zoneRange);
             }
             _tickIndex++;
 

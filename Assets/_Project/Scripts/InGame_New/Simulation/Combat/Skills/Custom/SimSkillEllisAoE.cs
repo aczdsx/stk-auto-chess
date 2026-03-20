@@ -89,7 +89,7 @@ namespace CookApps.AutoChess
 
             // 타일 이펙트 (범위 표시)
             state.EventQueue?.PushSkillAreaEffect(
-                caster.SourceEntityId, (byte)_centerCol, (byte)_centerRow, Range);
+                caster.CombatId, (byte)_centerCol, (byte)_centerRow, Range);
 
             // vfx[0]: 범위 내 각 타일에 개별 스폰
             for (int r = 0; r < BoardHelper.CombatHeight; r++)

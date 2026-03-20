@@ -376,8 +376,7 @@ namespace CookApps.AutoChess.View
 
             for (int u = 0; u < matchState.UnitCount; u++)
             {
-                if (matchState.Units[u].CombatId == casterId ||
-                    matchState.Units[u].SourceEntityId == casterId)
+                if (matchState.Units[u].CombatId == casterId)
                 {
                     int champId = matchState.Units[u].ChampionSpecId;
                     return GetElementFromCharacterId(champId);

@@ -110,8 +110,9 @@ namespace CookApps.AutoBattler
             // appEventParameter.Add(AppEventStringConst.SINCE_JOIN_DATE, GetSinceJoinDate());
             // var installDateTime = TimeManager.Instance.TimeStampToDateTimeLocal(clientBasicData.UserInstallDate);
             // appEventParameter.Add(AppEventStringConst.USER_INSTALL_DATE, installDateTime.ToString("yyyyMMdd"));
-            var specBestStageData = SpecDataManager.Instance.GetStageData((int)ServerDataManager.Instance.Battle.GetLatestClearedStageId());
-            appEventParameter.Add(AppEventStringConst.BEST_STAGE, specBestStageData.id);
+            var latestClearedId = (int)ServerDataManager.Instance.Battle.GetLatestClearedStageId();
+            var specBestStageData = latestClearedId > 0 ? SpecDataManager.Instance.GetStageData(latestClearedId) : null;
+            appEventParameter.Add(AppEventStringConst.BEST_STAGE, specBestStageData?.id ?? 0);
             appEventParameter.Add(AppEventStringConst.BEST_MISSION, (int)ServerDataManager.Instance.GuideMission.Order);
             // appEventParameter.Add(AppEventStringConst.USER_POWER, UserDataManager.Instance.GetAllCharacterBattlePower());
             appEventParameter.Add(AppEventStringConst.USER_LEVEL, playerData.Level);

@@ -125,7 +125,7 @@ namespace CookApps.AutoChess
 
             // 타일 VFX
             state.EventQueue?.PushSkillAreaEffect(
-                caster.SourceEntityId, (byte)tCol, (byte)tRow, 0);
+                caster.CombatId, (byte)tCol, (byte)tRow, 0);
 
             // 스킬 VFX (vfx[0]): 해당 그리드 좌표에 생성
             state.EventQueue?.PushSkillPhaseVfx(caster.CombatId, SkillId, 0,

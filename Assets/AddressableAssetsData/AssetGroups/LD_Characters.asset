@@ -87,7 +87,7 @@ MonoBehaviour:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 330f09d5156b2a0478c8616201d604f2
-    m_Address: LD_Characters/120410/Illust
+    m_Address: LD_Characters/20410/Illust
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 948610dc3fe6c1b4d8004b7499fa9455
-    m_Address: LD_Characters/UI_120410
+    m_Address: LD_Characters/UI_20410
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
