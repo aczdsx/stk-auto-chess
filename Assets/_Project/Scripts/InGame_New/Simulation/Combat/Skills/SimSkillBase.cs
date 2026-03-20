@@ -198,6 +198,17 @@ namespace CookApps.AutoChess
         public int FirstEffectFrame => SkillHitFrames != null && SkillHitFrames.Length > 0
             ? SkillHitFrames[0] : 0;
 
+        /// <summary>스킬 시작 후 상태를 유지할 전체 모션 프레임</summary>
+        public virtual int GetActionLockFrames()
+        {
+            if (SkillClipFrames > 0) return SkillClipFrames;
+
+            int castFrames = GetCastFrames();
+            if (castFrames > 0) return castFrames;
+
+            return FirstEffectFrame > 0 ? FirstEffectFrame : 1;
+        }
+
         /// <summary>채널링 틱 처리. false 반환 시 채널링 종료.</summary>
         public virtual bool OnChannelTick(CombatMatchState state, ref CombatUnit caster, ref DeterministicRNG rng)
         {
