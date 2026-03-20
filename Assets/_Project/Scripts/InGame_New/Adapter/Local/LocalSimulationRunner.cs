@@ -213,7 +213,6 @@ namespace CookApps.AutoChess
             }
         }
 
-#if UNITY_EDITOR
         private GUIStyle _debugStyle;
 
         private void OnGUI()
@@ -293,7 +292,6 @@ namespace CookApps.AutoChess
                 }
             }
         }
-#endif
 
         [ContextMenu("Debug: Create Test Unit P0")]
         private void DebugCreateTestUnit()

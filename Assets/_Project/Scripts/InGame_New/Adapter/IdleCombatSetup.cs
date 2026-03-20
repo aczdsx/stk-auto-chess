@@ -345,6 +345,8 @@ namespace CookApps.AutoChess
 
                 unit.SkillSpecId = GetPrimarySkillId(spec);
                 unit.AtkHitDelay = ExtractAtkHitDelay(spec.prefab_id, tickRate);
+                unit.AttackActionFrames = ExtractAttackActionFrames(spec.prefab_id, tickRate);
+                unit.ActionLockTimer = 0;
                 unit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(champSpecId, out _);
             }
             else
@@ -368,6 +370,8 @@ namespace CookApps.AutoChess
                 unit.ManaGainOnAttack = 0;
                 unit.ManaGainOnHit = 0;
                 unit.AtkHitDelay = 1;
+                unit.AttackActionFrames = 1;
+                unit.ActionLockTimer = 0;
             }
         }
 
@@ -382,6 +386,29 @@ namespace CookApps.AutoChess
                 return frames > 0 ? frames : 1;
             }
             return 1;
+        }
+
+        private static int ExtractAttackActionFrames(int prefabId, int tickRate)
+        {
+            if (prefabId <= 0) return 1;
+
+            float maxLength = 0f;
+            maxLength = MaxClipLength(prefabId, false, AnimClipType.ATK, maxLength);
+            maxLength = MaxClipLength(prefabId, false, AnimClipType.ATK2, maxLength);
+            maxLength = MaxClipLength(prefabId, false, AnimClipType.CRIT, maxLength);
+
+            if (maxLength <= 0f) return 1;
+
+            int frames = (int)(maxLength * tickRate + 0.5f);
+            return frames > 0 ? frames : 1;
+        }
+
+        private static float MaxClipLength(int prefabId, bool isFront, AnimClipType clipType, float currentMax)
+        {
+            int key = AnimKeyframeData.MakeKey(prefabId, isFront, clipType);
+            return AnimKeyframeData.ClipLengths.TryGetValue(key, out float clipLength) && clipLength > currentMax
+                ? clipLength
+                : currentMax;
         }
 
     }

@@ -79,6 +79,9 @@ namespace CookApps.AutoChess
                 return;
             }
 
+            if (unit.ActionLockTimer > 0)
+                unit.ActionLockTimer--;
+
             // CC 상태 처리
             if (unit.State == CombatState.CrowdControlled)
             {
@@ -131,16 +134,13 @@ namespace CookApps.AutoChess
                 if (unit.PendingAtkTimer <= 0)
                 {
                     DamageSystem.ExecutePendingMeleeHit(state, ref unit, ref rng, tickRate);
-                    // 히트 후 공격 모션 유지 (AtkHitDelay만큼 후속 프레임 유지)
-                    unit.PostAttackHoldTimer = unit.AtkHitDelay;
                 }
                 return; // 공격 애니메이션 중
             }
 
-            // 공격 후 모션 유지 (Attacking 상태 유지, 타겟팅/이동 차단)
-            if (unit.PostAttackHoldTimer > 0)
+            // 공격 모션 락 유지 (Attacking 상태 유지, 타겟팅/이동 차단)
+            if (unit.State == CombatState.Attacking && unit.ActionLockTimer > 0)
             {
-                unit.PostAttackHoldTimer--;
                 return;
             }
 
@@ -221,6 +221,7 @@ namespace CookApps.AutoChess
                             unit.PendingAtkTimer = unit.AtkHitDelay;
                             unit.PendingAtkIsCrit = willCrit;
                             unit.AttackCooldown = unit.GetAttackInterval(tickRate);
+                            unit.ActionLockTimer = unit.AttackActionFrames > 0 ? unit.AttackActionFrames : 1;
 
                             // 이벤트 발행 (View가 ATK 애니메이션 시작, isCrit 전달)
                             state.EventQueue?.PushUnitAttacked(
@@ -229,9 +230,8 @@ namespace CookApps.AutoChess
                         else
                         {
                             // 원거리/범위: 기존 즉시 실행 (투사체가 알아서 지연)
+                            unit.ActionLockTimer = unit.AttackActionFrames > 0 ? unit.AttackActionFrames : 1;
                             DamageSystem.ExecuteBasicAttack(state, ref unit, ref target, ref rng, tickRate);
-                            // 공격 후 모션 유지
-                            unit.PostAttackHoldTimer = unit.AtkHitDelay > 0 ? unit.AtkHitDelay : tickRate / 4;
                         }
                     }
                 }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7493933612147605861}
   - component: {fileID: 2052309143241523662}
+  - component: {fileID: -3964752999038012612}
   m_Layer: 6
   m_Name: fx_common_asterism_sn_item_01
   m_TagString: Untagged
@@ -45,7 +46,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7438fe82e3e618c48b70ac28cdfdf0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 0}
+  particle: {fileID: 7195644607505954032}
+--- !u!114 &-3964752999038012612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2629642138697890514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96541eb03d1d57b4b8ee291186516875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CookApps.AutoChess.View.SupernovaObjectView
 --- !u!1 &2644051718993719241
 GameObject:
   m_ObjectHideFlags: 0

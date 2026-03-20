@@ -358,7 +358,7 @@ MonoBehaviour:
   - Type: 31
     StatType: 0
     OneShotVfx:
-      m_AssetGUID: 515e514ae6489bf46bd50e43bc6ef22d
+      m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
@@ -366,7 +366,7 @@ MonoBehaviour:
     OneShotPosition: 2
     OneShotFollowable: 1
     LoopVfx:
-      m_AssetGUID: 338c5410db8cb8449bab3611c1d94a21
+      m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 

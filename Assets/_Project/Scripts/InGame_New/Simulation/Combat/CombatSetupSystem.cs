@@ -127,12 +127,14 @@ namespace CookApps.AutoChess
                 combatUnit.AttackCooldown = 0;
                 combatUnit.PendingAtkTargetId = CombatUnit.InvalidId;
                 combatUnit.PendingAtkTimer = 0;
+                combatUnit.ActionLockTimer = 0;
                 combatUnit.MoveTimer = 0;
                 combatUnit.MoveDuration = 0;
 
                 // ATK 키프레임 지연 추출 (prefabId 기반)
                 int prefabId = FindPrefabId(world, srcUnit.ChampionSpecId);
                 combatUnit.AtkHitDelay = ExtractAtkHitDelay(prefabId, world.TickRate);
+                combatUnit.AttackActionFrames = ExtractAttackActionFrames(prefabId, world.TickRate);
 
                 // 스킬 ID 설정 (ChampionSpec에서 복사)
                 combatUnit.SkillSpecId = FindSkillId(world, srcUnit.ChampionSpecId);
@@ -198,6 +200,31 @@ namespace CookApps.AutoChess
                 return frames > 0 ? frames : 1;
             }
             return 1; // 키프레임 없으면 1프레임 최소 지연
+        }
+
+        /// <summary>공격 모션 전체 프레임 추출. ATK/ATK2/CRIT 중 최장 길이를 사용.</summary>
+        private static int ExtractAttackActionFrames(int prefabId, int tickRate)
+        {
+            if (prefabId <= 0) return 1;
+
+            float maxLength = 0f;
+            maxLength = MaxClipLength(prefabId, false, AnimClipType.ATK, maxLength);
+            maxLength = MaxClipLength(prefabId, false, AnimClipType.ATK2, maxLength);
+            maxLength = MaxClipLength(prefabId, false, AnimClipType.CRIT, maxLength);
+
+            if (maxLength <= 0f)
+                return 1;
+
+            int frames = (int)(maxLength * tickRate + 0.5f);
+            return frames > 0 ? frames : 1;
+        }
+
+        private static float MaxClipLength(int prefabId, bool isFront, AnimClipType clipType, float currentMax)
+        {
+            int key = AnimKeyframeData.MakeKey(prefabId, isFront, clipType);
+            return AnimKeyframeData.ClipLengths.TryGetValue(key, out float clipLength) && clipLength > currentMax
+                ? clipLength
+                : currentMax;
         }
 
         /// <summary>팀별 생존 유닛 수</summary>
@@ -301,7 +328,10 @@ namespace CookApps.AutoChess
                 unit.AttackCooldown = 0;
                 unit.PendingAtkTargetId = CombatUnit.InvalidId;
                 unit.PendingAtkTimer = 0;
-                unit.AtkHitDelay = ExtractAtkHitDelay(enemy.PrefabId > 0 ? enemy.PrefabId : enemy.ChampionSpecId, world.TickRate);
+                unit.ActionLockTimer = 0;
+                int enemyPrefabId = enemy.PrefabId > 0 ? enemy.PrefabId : enemy.ChampionSpecId;
+                unit.AtkHitDelay = ExtractAtkHitDelay(enemyPrefabId, world.TickRate);
+                unit.AttackActionFrames = ExtractAttackActionFrames(enemyPrefabId, world.TickRate);
                 unit.MoveTimer = 0;
                 unit.MoveDuration = 0;
                 unit.SkillCastTimer = 0;
@@ -364,7 +394,9 @@ namespace CookApps.AutoChess
             unit.AttackCooldown = 0;
             unit.PendingAtkTargetId = CombatUnit.InvalidId;
             unit.PendingAtkTimer = 0;
+            unit.ActionLockTimer = 0;
             unit.AtkHitDelay = 1;
+            unit.AttackActionFrames = 1;
             unit.MoveTimer = 0;
             unit.MoveDuration = 0;
             unit.SkillCastTimer = 0;

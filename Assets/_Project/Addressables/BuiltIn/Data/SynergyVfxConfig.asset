@@ -78,7 +78,7 @@ MonoBehaviour:
     EffectVfxList: []
   - SynergyType: 9
     AchieveVfx:
-      m_AssetGUID: 406403f395ee724469cf98fa28d13fb9
+      m_AssetGUID: 276ffbc6e97ffdf44bc8ec567a19231c
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
@@ -87,7 +87,7 @@ MonoBehaviour:
     EffectVfxList:
     - Tag: 1
       Vfx:
-        m_AssetGUID: d2182e41470a9274dbd5b55b72b5c8c5
+        m_AssetGUID: 43456eb4a4e933e4585c0aa45693fcdb
         m_SubObjectName: 
         m_SubObjectType: 
         m_SubObjectGUID: 
@@ -96,32 +96,41 @@ MonoBehaviour:
       Follow: 0
     - Tag: 2
       Vfx:
-        m_AssetGUID: 43456eb4a4e933e4585c0aa45693fcdb
+        m_AssetGUID: d2182e41470a9274dbd5b55b72b5c8c5
         m_SubObjectName: 
         m_SubObjectType: 
         m_SubObjectGUID: 
-        m_EditorAssetChanged: 1
+        m_EditorAssetChanged: 0
       Position: 0
       Follow: 0
     - Tag: 3
+      Vfx:
+        m_AssetGUID: 406403f395ee724469cf98fa28d13fb9
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      Position: 1
+      Follow: 1
+    - Tag: 8
       Vfx:
         m_AssetGUID: 76a4b0d63110e5a4bb23795b7dcedfcf
         m_SubObjectName: 
         m_SubObjectType: 
         m_SubObjectGUID: 
-        m_EditorAssetChanged: 1
+        m_EditorAssetChanged: 0
       Position: 1
       Follow: 1
-    - Tag: 4
+    - Tag: 9
       Vfx:
         m_AssetGUID: 6c9fadc84e440d74c9b3f6ad8e9989f3
         m_SubObjectName: 
         m_SubObjectType: 
         m_SubObjectGUID: 
-        m_EditorAssetChanged: 1
+        m_EditorAssetChanged: 0
       Position: 1
       Follow: 1
-    - Tag: 5
+    - Tag: 10
       Vfx:
         m_AssetGUID: 6ee59de57911a5c4ca7cdee531fd13fa
         m_SubObjectName: 

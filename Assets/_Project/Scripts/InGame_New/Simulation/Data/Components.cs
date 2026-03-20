@@ -564,14 +564,15 @@ namespace CookApps.AutoChess
         // 쿨다운 (프레임 단위)
         public int AttackCooldown;    // 다음 공격까지 남은 프레임
         public int AtkHitDelay;       // ATK Execute 키프레임까지 프레임 수 (근접 데미지 지연)
+        public int AttackActionFrames; // 공격 시작 후 상태를 유지할 전체 모션 프레임
 
         // 대기 중인 근접 공격
         public int PendingAtkTargetId;   // 대기 중인 공격 타겟 (-1 = 없음)
         public int PendingAtkTimer;      // 히트까지 남은 프레임
         public bool PendingAtkIsCrit;    // 선행 판정된 크리티컬 여부 (ATK 시작 시 확정)
 
-        // 공격 후 모션 유지 (공격 애니메이션 끊김 방지)
-        public int PostAttackHoldTimer;  // 공격 후 Attacking 상태 유지 남은 프레임
+        // 공격/스킬 액션 락 (모션 종료 전 상태 전환 방지)
+        public int ActionLockTimer;
 
         // 이동 (프레임 단위)
         public byte MoveFromCol;      // 이동 출발 열 (View 보간용)

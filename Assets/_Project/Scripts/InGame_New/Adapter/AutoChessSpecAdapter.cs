@@ -209,7 +209,7 @@ namespace CookApps.AutoChess
                     withinGradeIdx++;
                 }
 
-                var effects = BuildEffects(type, data, withinGradeIdx);
+                var effects = BuildEffects(type, data, i);
 
                 if (withinGradeIdx == 0)
                     currentEffects = new List<SynergyEffect>(effects);
@@ -282,14 +282,18 @@ namespace CookApps.AutoChess
         /// grade 내 첫 번째 행(withinGradeIndex==0): 기본 효과 (HP%, 공속%).
         /// grade 내 두 번째+ 행: 단계 효과 (공격력%, 흡혈).
         /// </summary>
-        private static SynergyEffect[] BuildSupernovaRowEffects(ISpecSynergyData data, int withinGradeIndex)
+        /// <summary>
+        /// SUPERNOVA 행 → SynergyEffect[].
+        /// isBaseRow=true (sorted 첫 행): 기본 효과 (HP%, 공속%) — 모든 티어에 누적.
+        /// isBaseRow=false (나머지): 단계 효과 (공격력%, 흡혈).
+        /// </summary>
+        private static SynergyEffect[] BuildSupernovaRowEffects(ISpecSynergyData data, bool isBaseRow)
         {
             int v1 = data.effect_stat_value_1;
             int v2 = data.effect_stat_value_2;
 
-            if (withinGradeIndex == 0)
+            if (isBaseRow)
             {
-                // grade 내 첫 번째 행: 기본 효과 (HP%, 공속%)
                 return new[]
                 {
                     new SynergyEffect { Type = SynergyEffectType.BonusHPPercent, Target = SynergyTarget.PrepTarget, ValuePercent = v1 },
@@ -298,7 +302,6 @@ namespace CookApps.AutoChess
             }
             else
             {
-                // grade 내 두 번째+ 행: 단계 효과 (공격력%, 흡혈)
                 return new[]
                 {
                     new SynergyEffect { Type = SynergyEffectType.BonusAttackPercent, Target = SynergyTarget.PrepTarget, ValuePercent = v1 },
@@ -312,7 +315,7 @@ namespace CookApps.AutoChess
         /// 원소: 스탯 매핑. Asterism: 빈 배열 (행동 클래스에서 처리).
         /// 스펙 테이블 변경 시 이 스위치만 수정.
         /// </summary>
-        private static SynergyEffect[] BuildEffects(SynergyType type, ISpecSynergyData data, int withinGradeIndex = 0)
+        private static SynergyEffect[] BuildEffects(SynergyType type, ISpecSynergyData data, int globalIndex = 0)
         {
             var target = MapCoverType(data.synergy_cover_type);
             int v1 = data.effect_stat_value_1;
@@ -362,7 +365,7 @@ namespace CookApps.AutoChess
                     };
 
                 case SynergyType.SUPERNOVA:
-                    return BuildSupernovaRowEffects(data, withinGradeIndex);
+                    return BuildSupernovaRowEffects(data, globalIndex == 0);
 
                 default:
                     // asterism 등: 스탯 매핑 없음 (행동 클래스에서 처리)

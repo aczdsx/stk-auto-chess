@@ -62,6 +62,7 @@ namespace CookApps.AutoBattler
             var world = _viewRoot.Runner.GetWorld();
             SetupUnitsAndTestFeatures(world, inGameParams, testConfig);
             SynergySystem.Recalculate(world, 0);
+            SynergySystem.SyncPrepBehaviors(world, 0);
 
             // 5. UI / 입력 / 카메라
             SetupUIAndInput(boardWidth);

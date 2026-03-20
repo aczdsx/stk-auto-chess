@@ -79,6 +79,7 @@ namespace CookApps.AutoChess
                 return false;
 
             int castFrames = skill.GetCastFrames();
+            int actionLockFrames = skill.GetActionLockFrames();
             unit.CurrentMana = 0;
             unit.HasPushedManaFull = false;
 
@@ -97,6 +98,7 @@ namespace CookApps.AutoChess
                 // 키프레임 타이밍까지 대기 후 Execute
                 unit.State = CombatState.CastingSkill;
                 unit.SkillCastTimer = castFrames;
+                unit.ActionLockTimer = actionLockFrames;
                 unit.CurrentTargetId = targetId;
             }
             else
@@ -108,12 +110,20 @@ namespace CookApps.AutoChess
                 {
                     unit.State = CombatState.CastingSkill;
                     unit.SkillCastTimer = 0; // 채널링 경과 카운터 초기화
+                    unit.ActionLockTimer = actionLockFrames;
                     unit.CurrentTargetId = targetId;
                 }
                 else
                 {
-                    unit.State = CombatState.Idle;
-                    unit.CurrentTargetId = CombatUnit.InvalidId;
+                    unit.State = CombatState.CastingSkill;
+                    unit.SkillCastTimer = -1; // Execute 완료 후 모션 락 대기
+                    unit.ActionLockTimer = actionLockFrames;
+                    if (unit.ActionLockTimer <= 0)
+                    {
+                        unit.State = CombatState.Idle;
+                        unit.CurrentTargetId = CombatUnit.InvalidId;
+                        unit.SkillCastTimer = 0;
+                    }
                 }
             }
 
@@ -128,6 +138,18 @@ namespace CookApps.AutoChess
 
             var skill = state.Skills[unitIndex];
 
+            // Execute 완료 후 남은 스킬 모션 락 유지
+            if (unit.SkillCastTimer < 0)
+            {
+                if (unit.ActionLockTimer > 0)
+                    return;
+
+                unit.State = CombatState.Idle;
+                unit.CurrentTargetId = CombatUnit.InvalidId;
+                unit.SkillCastTimer = 0;
+                return;
+            }
+
             // 채널링 스킬: 매 틱마다 OnChannelTick 호출
             if (skill != null && skill.IsChanneling)
             {
@@ -135,8 +157,16 @@ namespace CookApps.AutoChess
                 bool continuing = skill.OnChannelTick(state, ref unit, ref rng);
                 if (!continuing)
                 {
-                    unit.State = CombatState.Idle;
-                    unit.CurrentTargetId = CombatUnit.InvalidId;
+                    if (unit.ActionLockTimer > 0)
+                    {
+                        unit.SkillCastTimer = -1;
+                    }
+                    else
+                    {
+                        unit.State = CombatState.Idle;
+                        unit.CurrentTargetId = CombatUnit.InvalidId;
+                        unit.SkillCastTimer = 0;
+                    }
                 }
                 return;
             }
@@ -169,8 +199,15 @@ namespace CookApps.AutoChess
                 }
             }
 
+            if (unit.ActionLockTimer > 0)
+            {
+                unit.SkillCastTimer = -1;
+                return;
+            }
+
             unit.State = CombatState.Idle;
             unit.CurrentTargetId = CombatUnit.InvalidId;
+            unit.SkillCastTimer = 0;
         }
 
         /// <summary>매치 종료 시 정리</summary>

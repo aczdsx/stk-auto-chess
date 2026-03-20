@@ -185,7 +185,7 @@ namespace CookApps.AutoChess
         }
 
         /// <summary>흡혈 효과 적용</summary>
-        public static void ApplyLifeSteal(ref CombatUnit attacker, int damageDealt)
+        public static void ApplyLifeSteal(CombatMatchState state, ref CombatUnit attacker, int damageDealt)
         {
             if (attacker.LifeSteal <= 0) return;
 
@@ -195,6 +195,8 @@ namespace CookApps.AutoChess
             attacker.CurrentHP += heal;
             if (attacker.CurrentHP > attacker.MaxHP)
                 attacker.CurrentHP = attacker.MaxHP;
+
+            state.EventQueue?.PushUnitHealed(attacker.CombatId, heal);
         }
 
         /// <summary>마나 충전 (공격자: 공격 시, 피격자: 피격 시)</summary>

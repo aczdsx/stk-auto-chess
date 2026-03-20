@@ -171,7 +171,7 @@ namespace CookApps.AutoBattler
             // 버튼 상태
             _retryStageButton.gameObject.SetActive(true);
             _nextStageButton.gameObject.SetActive(!_isEndChapter && _popupParam.IsVictory);
-            _exitButton.gameObject.SetActive(true);
+            _exitButton.gameObject.SetActive(!(_isPlayingLastStage && _popupParam.IsVictory));
 
             string buttonStringKey = _isPlayingLastStage ? "UI_CHAPTER_NEXT_MOVE" : "UI_STAGE_NEXT_MOVE";
             _nextStageButtonText.text = LanguageManager.Instance.GetDefaultText(buttonStringKey);
@@ -217,20 +217,21 @@ namespace CookApps.AutoBattler
         {
             if (_isEndChapter || _specStage == null) return;
 
-            int targetChapterId = _specStage.chapter_id;
-            int targetStageNumber = _specStage.stage_number;
+            // 챕터 마지막 스테이지 → BattleReady로 이동
             if (_isPlayingLastStage)
             {
-                targetChapterId++;
-                targetStageNumber = 1;
-            }
-            else
-            {
-                targetStageNumber++;
+                SceneTransition.Create<SceneTransition_FadeInOut>();
+                await SceneTransition.FadeInAsync();
+                int nextChapterId = _specStage.chapter_id + 1;
+                SceneLoading.GoToNextSceneWithStageClearTrigger(
+                    "BattleReady", _specStage.stage_id, nextChapterId);
+                return;
             }
 
+            int targetStageNumber = _specStage.stage_number + 1;
+
             var nextStageData = SpecDataManager.Instance.GetStageData(
-                targetChapterId, targetStageNumber, _specStage.difficulty_type);
+                _specStage.chapter_id, targetStageNumber, _specStage.difficulty_type);
             if (nextStageData == null) return;
 
             // 행동력 검사
