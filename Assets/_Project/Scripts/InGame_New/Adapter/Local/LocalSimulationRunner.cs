@@ -68,7 +68,11 @@ namespace CookApps.AutoChess
 
             // 시뮬레이션 로그 출력 콜백 및 파일 저장 설정
             CombatLogger.LogOutput = msg => Debug.Log(msg);
+#if UNITY_EDITOR
             CombatLogger.LogDirectory = System.IO.Path.Combine(Application.dataPath, "..", "battle_logs");
+#else
+            CombatLogger.LogDirectory = null;
+#endif
 
             _tickAccumulator = 0f;
             _isRunning = true;
