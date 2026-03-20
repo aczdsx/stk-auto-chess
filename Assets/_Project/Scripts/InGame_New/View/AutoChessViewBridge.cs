@@ -145,8 +145,7 @@ namespace CookApps.AutoChess.View
                     _autoChessUI?.PlayAnimation("SetBattleEntry");
                     _boardInputHandler?.SetEnabled(false);
                     // 전투 시작 연출
-                    PlayBattleStartCutsceneAsync().Forget();
-                    PlayPrepBattleStartVfx();
+                    PlayBattleStartSequenceAsync().Forget();
                     break;
 
                 case GamePhase.Result:
@@ -508,13 +507,30 @@ namespace CookApps.AutoChess.View
 
         private async UniTaskVoid SpawnSynergyAchieveVfxDeferred(int entityId, SynergyVfxConfigSO.SynergyVfxEntry entry)
         {
-            await UniTask.Yield(); // SyncBoardUnits 완료 대기
+            await UniTask.Yield(destroyCancellationToken);
             var unitView = _unitViewManager.FindBoardView(entityId);
             if (unitView == null) return;
             SpawnSynergyOneShotAsync(unitView, entry).Forget();
         }
 
-        private async UniTaskVoid PlayBattleStartCutsceneAsync()
+        private async UniTaskVoid PlayBattleStartSequenceAsync()
+        {
+            var world = _runner.GetWorld();
+            await PlayBattleStartCutsceneAsync();
+
+            // 컷씬 후 시뮬레이션 1초간 일시정지 유지 (VFX 연출 시간 확보)
+            if (world != null && world.Config.EnableCutscenes)
+            {
+                GameLoopSystem.EnqueueCutscene(world, new CutsceneRequest
+                {
+                    DurationFrames = 1 * world.TickRate
+                });
+            }
+
+            PlayPrepBattleStartVfx();
+        }
+
+        private async UniTask PlayBattleStartCutsceneAsync()
         {
             var world = _runner.GetWorld();
 
@@ -548,22 +564,20 @@ namespace CookApps.AutoChess.View
 
         private async UniTaskVoid SpawnSynergyOneShotAsync(UnitView unitView, SynergyVfxConfigSO.SynergyVfxEntry entry)
         {
-            // 캐릭터 프리팹 로딩 완료 대기 (async 로딩 중이면 MiddleFXTransform 등이 없음)
-            await UniTask.WaitUntil(() => unitView == null || unitView.IsReady);
+            var ct = destroyCancellationToken;
+            await UniTask.WaitUntil(() => unitView == null || unitView.IsReady, cancellationToken: ct);
             if (unitView == null) return;
 
             var posTransform = unitView.GetSkillPositionTransform(entry.AchievePosition);
 
-            // rotation은 프리팹 원본값 유지
             var handle = Addressables.InstantiateAsync(entry.AchieveVfx);
-
             var go = await handle;
             if (go == null || !handle.IsValid()) return;
 
             var pos = posTransform != null ? posTransform.position : unitView.transform.position;
             go.transform.position = pos;
 
-            await UniTask.Delay(3000);
+            var canceled = await UniTask.Delay(3000, cancellationToken: ct).SuppressCancellationThrow();
             if (handle.IsValid()) Addressables.ReleaseInstance(handle);
         }
 
@@ -775,9 +789,9 @@ namespace CookApps.AutoChess.View
             if (_synergyVfxConfig.TryGetTaggedVfx(synergyType, SynergyVfxTag.BoardObjectSpawn, out var spawnVfx))
                 SpawnOneShotVfxAtAsync(spawnVfx.Vfx, view.transform.position).Forget();
 
-            await UniTask.Delay(500);
+            var canceled = await UniTask.Delay(500, cancellationToken: destroyCancellationToken).SuppressCancellationThrow();
+            if (canceled || view == null) return;
 
-            if (view == null) return;
             view.gameObject.SetActive(true);
             _supernovaObjects[key] = view;
         }
@@ -798,13 +812,14 @@ namespace CookApps.AutoChess.View
 
             if (_synergyVfxConfig == null) return;
             var synergyType = (SynergyType)traitId;
+            var ct = destroyCancellationToken;
 
-            await UniTask.DelayFrame(1);
+            await UniTask.DelayFrame(1, cancellationToken: ct);
 
             var targetView = FindUnitView(entityId);
             if (targetView == null) return;
 
-            await UniTask.WaitUntil(() => targetView == null || targetView.IsReady);
+            await UniTask.WaitUntil(() => targetView == null || targetView.IsReady, cancellationToken: ct);
             if (targetView == null) return;
 
             var world = _runner.GetWorld();
@@ -816,7 +831,10 @@ namespace CookApps.AutoChess.View
 
             if (!_synergyVfxConfig.TryGetTaggedVfx(synergyType, SynergyVfxTag.TargetVfx, out var targetVfx)) return;
 
-            var handle = Addressables.InstantiateAsync(targetVfx.Vfx, targetView.transform);
+            var parentTransform = targetVfx.Position != SkillPosition.CUSTOM
+                ? targetView.GetSkillPositionTransform(targetVfx.Position)
+                : targetView.transform;
+            var handle = Addressables.InstantiateAsync(targetVfx.Vfx, parentTransform);
             var go = await handle;
             if (go == null || !handle.IsValid()) return;
             Debug.Log($"<color=magenta>[Supernova] TargetVfx: {go.name} on entityId={entityId}</color>");
@@ -840,7 +858,7 @@ namespace CookApps.AutoChess.View
             var go = await handle;
             if (go == null || !handle.IsValid()) return;
 
-            await UniTask.Delay(3000);
+            var canceled = await UniTask.Delay(3000, cancellationToken: destroyCancellationToken).SuppressCancellationThrow();
             if (handle.IsValid()) Addressables.ReleaseInstance(handle);
         }
 
@@ -852,7 +870,7 @@ namespace CookApps.AutoChess.View
 
             go.transform.position = worldPos;
 
-            await UniTask.Delay(3000);
+            var canceled = await UniTask.Delay(3000, cancellationToken: destroyCancellationToken).SuppressCancellationThrow();
             if (handle.IsValid()) Addressables.ReleaseInstance(handle);
         }
 
@@ -875,22 +893,31 @@ namespace CookApps.AutoChess.View
                 var battleTag = SynergyVfxConfigSO.BattleStartTierToTag(tier);
                 if (!_synergyVfxConfig.TryGetTaggedVfx(synergyType, battleTag, out var battleVfx)) continue;
 
-                SpawnBattleStartVfxOnViewAsync(battleVfx.Vfx, entityId).Forget();
+                SpawnBattleStartVfxOnViewAsync(battleVfx.Vfx, entityId, kv.Key).Forget();
             }
         }
 
         /// <summary>유닛 뷰에 루프 VFX 부착 (전투 종료 시 일괄 제거)</summary>
-        private async UniTaskVoid SpawnBattleStartVfxOnViewAsync(AssetReferenceGameObject vfxRef, int entityId)
+        private async UniTaskVoid SpawnBattleStartVfxOnViewAsync(AssetReferenceGameObject vfxRef, int entityId,
+            (int traitId, byte playerIndex) targetKey)
         {
             var view = FindUnitView(entityId);
             if (view == null) return;
 
-            await UniTask.WaitUntil(() => view == null || view.IsReady);
+            await UniTask.WaitUntil(() => view == null || view.IsReady, cancellationToken: destroyCancellationToken);
             if (view == null) return;
 
             var handle = Addressables.InstantiateAsync(vfxRef, view.transform);
             var go = await handle;
             if (go == null || !handle.IsValid()) return;
+
+            // OnBattleStart VFX 생성 완료 → TargetVfx 릴리즈 (스케일 정보 유지)
+            if (_supernovaTargetVfx.TryGetValue(targetKey, out var targetEntry))
+            {
+                if (targetEntry.handle.IsValid())
+                    Addressables.ReleaseInstance(targetEntry.handle);
+                _supernovaTargetVfx[targetKey] = (targetEntry.entityId, default, targetEntry.appliedScale);
+            }
 
             Debug.Log($"<color=magenta>[Supernova] BattleStartVfx: {go.name} on entityId={entityId}</color>");
             _battleStartVfxHandles.Add(handle);
@@ -940,7 +967,7 @@ namespace CookApps.AutoChess.View
             await UniTask.WaitUntil(() => view == null || view.IsReady);
             if (view == null) return;
 
-            view.AddViewScale(scale);
+            view.AddViewScale(scale, forceSet: true);
         }
 
         /// <summary>재접속 시 기존 PrepBehavior 상태에서 슈퍼노바 비주얼 복원</summary>

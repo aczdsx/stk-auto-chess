@@ -260,15 +260,6 @@ public partial class SROptions
 
     #region Idle 전투
 
-    private bool _idleCombatDebugGUI;
-
-    [Category("Idle 전투")]
-    public bool Idle전투_디버그GUI
-    {
-        get => _idleCombatDebugGUI;
-        set => _idleCombatDebugGUI = value;
-    }
-
     [Category("Idle 전투")]
     public bool 아군무적
     {
