@@ -24,10 +24,10 @@ namespace CookApps.AutoBattler
             _slotRT = (RectTransform)transform;
         }
 
-        public void SetGrade(string text, bool isHighlighted)
+        public void SetGrade(string text, bool isHighlighted, bool showHighlightBg = true)
         {
             _text.text = text;
-            _highlightBg.enabled = isHighlighted;
+            _highlightBg.enabled = isHighlighted && showHighlightBg;
             _textColorSwapper?.Swap(isHighlighted ? SimpleSwapType.Normal : SimpleSwapType.Disabled);
         }
 

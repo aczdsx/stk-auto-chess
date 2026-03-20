@@ -3003,17 +3003,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Playground
       objectReference: {fileID: 0}
+    - target: {fileID: 713552243817888619, guid: 7321cb4fb80f74356ba17a079329673d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3748997251519180012, guid: 7321cb4fb80f74356ba17a079329673d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.06
+      value: -0.18
       objectReference: {fileID: 0}
     - target: {fileID: 3748997251519180012, guid: 7321cb4fb80f74356ba17a079329673d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.34
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 3748997251519180012, guid: 7321cb4fb80f74356ba17a079329673d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.1
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 3748997251519180012, guid: 7321cb4fb80f74356ba17a079329673d, type: 3}
       propertyPath: m_LocalRotation.w
