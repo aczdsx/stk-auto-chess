@@ -101,6 +101,7 @@ namespace CookApps.AutoChess.View
             _pendingAttackPrepared = false;
             _targetPosition = transform.position;
             _isActive = true;
+            _lastMaxHP = 0;
             ReleaseHpBar();
             gameObject.SetActive(true);
             LoadCharacterVisual(prefabPath).Forget();
@@ -171,8 +172,8 @@ namespace CookApps.AutoChess.View
             _characterView.SetHpBarView(_hpBarView, height);
 
             // 캐시된 HP가 있으면 즉시 반영 (비동기 로딩으로 인해 UpdateHP보다 늦게 부착될 수 있음)
-            if (_lastMaxHP > 0)
-                _hpBarView.SetValue(_lastMaxHP, _lastMaxHP, 0);
+            // _lastMaxHP가 0이어도 SetValue를 호출하여 CachedGo를 활성화 (ShowHpBar)
+            _hpBarView.SetValue(_lastMaxHP > 0 ? _lastMaxHP : 1, _lastMaxHP > 0 ? _lastMaxHP : 1, 0);
         }
 
         private void ReleaseHpBar()
@@ -214,6 +215,9 @@ namespace CookApps.AutoChess.View
         {
             HPRatio = max > 0 ? (float)current / max : 0f;
             _lastMaxHP = max;
+            // HP바가 해제된 상태(사망 후 부활 등)에서 캐릭터 뷰가 있으면 재부착
+            if (_hpBarView == null && _characterView != null && _champSpecId > 0)
+                AttachHpBar();
             _hpBarView?.SetValue(current, max, shield);
         }
 

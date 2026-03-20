@@ -416,7 +416,9 @@ namespace CookApps.AutoChess.View
                 for (int u = 0; u < matchState.UnitCount; u++)
                 {
                     ref var unit = ref matchState.Units[u];
-                    if (unit.SourceEntityId == entityId || unit.CombatId == entityId)
+                    // CombatId를 우선 체크 (UnitDied 이벤트는 CombatId로 전달)
+                    // SourceEntityId와 CombatId가 충돌하면 잘못된 유닛 반환 방지
+                    if (unit.CombatId == entityId || unit.SourceEntityId == entityId)
                         return (unit.ChampionSpecId, unit.TeamIndex == 0);
                 }
             }

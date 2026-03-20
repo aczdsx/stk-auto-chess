@@ -16,6 +16,7 @@ namespace CookApps.AutoChess.View
         private GameObject _autoChessUIPrefab;
         private GameObject _hpBarPrefab;
         private GameObject _damageTextPrefab;
+        private GameObject _hitVfxPrefab;
         private BuffIconConfigSO _buffIconConfig;
         private GameObject _stageInstance;
         private int _stageId;
@@ -63,6 +64,8 @@ namespace CookApps.AutoChess.View
                 "Prefabs/InGame/FloatingHpBar.prefab");
             _damageTextPrefab = await Addressables.LoadAssetAsync<GameObject>(
                 "Prefabs/InGame/DamageText.prefab");
+            _hitVfxPrefab = await Addressables.LoadAssetAsync<GameObject>(
+                "Prefabs/Fx/Common/fx_common_hit_01.prefab");
 
             // BuffIconConfigSO는 SoDataProvider에서 가져옴 (프리팹은 풀에서 직접 로드)
             _buffIconConfig = SoDataProvider.Instance.Get<BuffIconConfigSO>();
@@ -93,6 +96,7 @@ namespace CookApps.AutoChess.View
             // CombatViewManager에 의존성 전달
             _combatViewManager.SetTileEffectManager(_tileEffectManager);
             _combatViewManager.SetUnitViewManager(_unitViewManager);
+            _combatViewManager.SetHitVfxPrefab(_hitVfxPrefab);
 
             // TargetLineManager (독립적으로 시뮬레이션 이벤트 구독)
             _targetLineManager = CreateChild<TargetLineManager>("TargetLineManager");

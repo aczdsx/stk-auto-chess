@@ -213,6 +213,13 @@ namespace CookApps.AutoChess.View
                                 view.UpdateFacing(targetPos);
                             }
                         }
+                        else
+                        {
+                            // 타겟 없으면 기본 방향: 아군은 상단(적진), 적은 하단(아군진)
+                            int defaultRow = unit.TeamIndex == 0 ? BoardHelper.CombatHeight - 1 : 0;
+                            var defaultTarget = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.GridCol, defaultRow);
+                            view.UpdateFacing(defaultTarget);
+                        }
                     }
                     else
                     {
@@ -246,6 +253,9 @@ namespace CookApps.AutoChess.View
         {
             foreach (var view in _boardUnitViews.Values)
                 view.Deactivate();
+            // 딕셔너리를 정리하여 GetFromPool에서 보드 뷰가 전투 뷰로 재사용될 때
+            // 양쪽 딕셔너리에 동일 참조가 남는 오염을 방지
+            _boardUnitViews.Clear();
         }
 
         /// <summary>모든 전투 뷰를 강제 Idle 전환 (전투 종료 시)</summary>

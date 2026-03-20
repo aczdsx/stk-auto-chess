@@ -218,11 +218,12 @@ namespace CookApps.AutoChess
             int hitDamage, bool isCrit)
         {
             int finalDamage = CalculateDamage(hitDamage, DamageType.Physical, ref attacker, ref unit);
+            // UnitAttacked를 ApplyDamage보다 먼저 발행 (데미지 폰트 중복 방지)
+            // isPreTimed=true: 시뮬레이션에서 키프레임 타이밍에 맞춰 발행 → 뷰는 즉시 표시
+            state.EventQueue?.PushUnitAttacked(attacker.CombatId, unit.CombatId, finalDamage, isCrit, false, isPreTimed: true);
             ApplyDamage(state, ref unit, finalDamage, isCrit: isCrit);
             ApplyLifeSteal(ref attacker, finalDamage);
             ChargeMana(ref unit, unit.ManaGainOnHit);
-            // isPreTimed=true: 시뮬레이션에서 키프레임 타이밍에 맞춰 발행 → 뷰는 즉시 표시
-            state.EventQueue?.PushUnitAttacked(attacker.CombatId, unit.CombatId, finalDamage, isCrit, false, isPreTimed: true);
         }
 
         private static int Sign(int value)

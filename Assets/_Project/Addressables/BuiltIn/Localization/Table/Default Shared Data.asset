@@ -5363,6 +5363,10 @@ MonoBehaviour:
     m_Key: MSG_SURRENDER_CONFIRM
     m_Metadata:
       m_Items: []
+  - m_Id: 23508781748281344
+    m_Key: NPC_NAME_1007
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

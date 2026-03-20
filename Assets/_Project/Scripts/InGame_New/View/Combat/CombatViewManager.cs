@@ -15,6 +15,8 @@ namespace CookApps.AutoChess.View
         [Header("VFX Prefabs")]
         [SerializeField] private GameObject _hitVfxPrefab;
 
+        public void SetHitVfxPrefab(GameObject prefab) => _hitVfxPrefab = prefab;
+
         private bool _isCombatActive;
         private bool _isPausedByDebugger;
         private Transform _vfxRoot;

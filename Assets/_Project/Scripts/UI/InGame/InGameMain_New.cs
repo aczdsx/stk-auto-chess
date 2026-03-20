@@ -7,12 +7,15 @@ using Cysharp.Threading.Tasks;
 using Tech.Hive.V1;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using System;
+using R3;
 using UnityEngine.Pool;
 
 namespace CookApps.AutoBattler
 {
     public class InGameMain_New : UILayer
     {
+        private IDisposable _characterAddedSubscription;
         private AutoChessViewRoot _viewRoot;
         private InGameMainParams _inGameParams;
         private int _initialBoardUnitCount;
@@ -63,7 +66,16 @@ namespace CookApps.AutoBattler
             // 5. UI / 입력 / 카메라
             SetupUIAndInput(boardWidth);
 
-            // 6. 시작
+            // 6. 런타임 캐릭터 획득 구독 (대사 보상 등)
+            _characterAddedSubscription = ServerDataManager.Instance.Character.OnCharacterAdded
+                .Subscribe(charData =>
+                {
+                    var w = _viewRoot?.Runner?.GetWorld();
+                    if (w == null) return;
+                    BoardSystem.CreateUnit(w, 0, (int)charData.CharacterId, 1);
+                });
+
+            // 7. 시작
             _viewRoot.Runner.OnGameOver += HandleGameOver;
             _viewRoot.Runner.OnPhaseChanged += HandlePhaseChanged;
             Debug.Log("[InGameMain_New] AutoChess started.");
@@ -77,6 +89,9 @@ namespace CookApps.AutoBattler
         {
             LocalSimulationRunner.SpeedMultiplier = 1f;
             CleanupTestMode();
+
+            _characterAddedSubscription?.Dispose();
+            _characterAddedSubscription = null;
 
             if (_viewRoot != null)
             {

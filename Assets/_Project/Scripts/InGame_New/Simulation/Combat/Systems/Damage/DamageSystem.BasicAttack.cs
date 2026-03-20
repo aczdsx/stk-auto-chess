@@ -40,13 +40,14 @@ namespace CookApps.AutoChess
 
                 if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
 
+                // UnitAttacked를 ApplyDamage보다 먼저 발행 (데미지 폰트 중복 방지)
+                state.EventQueue?.PushUnitAttacked(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
+
                 ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit);
                 ApplyLifeSteal(ref attacker, finalDamage);
 
                 // 피격자 마나 충전
                 ChargeMana(ref target, target.ManaGainOnHit);
-
-                state.EventQueue?.PushUnitAttacked(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
             }
             else
             {
@@ -121,14 +122,16 @@ namespace CookApps.AutoChess
 
             if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
 
+            // View에 실제 데미지 전달 (isPreTimed: View가 딜레이 없이 즉시 표시)
+            // ApplyDamage보다 먼저 발행해야 View의 _pendingMeleeTargetIds에 등록된 후
+            // UnitDamaged 이벤트가 스킵됨 (데미지 폰트 중복 방지)
+            state.EventQueue?.PushUnitAttacked(
+                attacker.CombatId, target.CombatId, finalDamage, isCrit, false, isPreTimed: true);
+
             ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit);
             ApplyLifeSteal(ref attacker, finalDamage);
             ChargeMana(ref target, target.ManaGainOnHit);
             ChargeMana(ref attacker, attacker.ManaGainOnAttack);
-
-            // View에 실제 데미지 전달 (isPreTimed: View가 딜레이 없이 즉시 표시)
-            state.EventQueue?.PushUnitAttacked(
-                attacker.CombatId, target.CombatId, finalDamage, isCrit, false, isPreTimed: true);
 
             // Trait: 공격 후 콜백
             if (attackerIndex >= 0)
