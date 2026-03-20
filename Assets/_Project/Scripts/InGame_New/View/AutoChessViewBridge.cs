@@ -71,6 +71,7 @@ namespace CookApps.AutoChess.View
             // 시뮬레이션 이벤트 구독
             _runner.OnTick += HandleTick;
             _runner.OnPhaseChanged += HandlePhaseChanged;
+            _unitViewManager.OnCombatViewCreated += HandleCombatViewCreated;
 
             // 디버거 pause → VFX 업데이트 중지
             if (_runner is LocalSimulationRunner localRunner)
@@ -83,6 +84,7 @@ namespace CookApps.AutoChess.View
             {
                 _runner.OnTick -= HandleTick;
                 _runner.OnPhaseChanged -= HandlePhaseChanged;
+                _unitViewManager.OnCombatViewCreated -= HandleCombatViewCreated;
                 if (_runner is LocalSimulationRunner localRunner)
                     localRunner.OnDebuggerPauseChanged -= OnDebuggerPauseChanged;
             }
@@ -879,6 +881,29 @@ namespace CookApps.AutoChess.View
                     Addressables.ReleaseInstance(entry.handle);
                 _supernovaTargetVfx.Remove(key);
             }
+        }
+
+        /// <summary>전투 뷰 생성 시 슈퍼노바 스케일 재적용 + 버프 아이콘 갱신</summary>
+        private async void HandleCombatViewCreated(int entityId, UnitView view)
+        {
+            // 버프 아이콘: 뷰 생성 전에 이미 추적된 버프가 있으면 즉시 반영
+            _buffIconTracker?.RefreshIconsForUnit(view.CombatId);
+
+            float scale = 0f;
+            foreach (var kv in _supernovaTargetVfx)
+            {
+                if (kv.Value.entityId == entityId && kv.Value.appliedScale > 0f)
+                {
+                    scale = kv.Value.appliedScale;
+                    break;
+                }
+            }
+            if (scale <= 0f) return;
+
+            await UniTask.WaitUntil(() => view == null || view.IsReady);
+            if (view == null) return;
+
+            view.AddViewScale(scale);
         }
 
         /// <summary>재접속 시 기존 PrepBehavior 상태에서 슈퍼노바 비주얼 복원</summary>

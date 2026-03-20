@@ -213,6 +213,88 @@ namespace CookApps.AutoChess
             }
         }
 
+#if UNITY_EDITOR
+        private GUIStyle _debugStyle;
+
+        private void OnGUI()
+        {
+            if (!_isRunning || _world == null) return;
+            if (!SROptions.Current.Idle전투_디버그GUI) return;
+
+            var cam = Camera.main;
+            if (cam == null) return;
+
+            if (_debugStyle == null)
+            {
+                _debugStyle = new GUIStyle(GUI.skin.label)
+                {
+                    fontSize = 11,
+                    fontStyle = FontStyle.Bold,
+                    alignment = TextAnchor.MiddleCenter,
+                };
+            }
+
+            var matchState = _world.CombatMatchStates != null ? _world.CombatMatchStates[0] : null;
+
+            if (matchState != null)
+            {
+                // 전투 중: CombatUnit 스탯 표시
+                for (int i = 0; i < matchState.UnitCount; i++)
+                {
+                    ref var u = ref matchState.Units[i];
+                    if (!u.IsAlive) continue;
+
+                    var worldPos = View.BoardWorldHelper.CombatGridToWorld(0, u.GridCol, u.GridRow);
+                    worldPos.y += 1.8f;
+                    var screenPos = cam.WorldToScreenPoint(worldPos);
+                    if (screenPos.z < 0) continue;
+
+                    string team = u.TeamIndex == 0 ? "P" : "E";
+                    string label = $"{team}{u.CombatId} Spec={u.ChampionSpecId}\n" +
+                                   $"HP={u.CurrentHP}/{u.MaxHP} ATK={u.Attack} DEF={u.Def}\n" +
+                                   $"AS={u.AttackSpeed} Mana={u.CurrentMana}/{u.MaxMana} MR={u.ManaRegenPerSec}\n" +
+                                   $"Crit={u.CritRate}/{u.CritPower} Prc={u.AtkPierce}/{u.ResPierce}";
+
+                    _debugStyle.normal.textColor = u.TeamIndex == 0 ? Color.cyan : Color.red;
+
+                    var rect = new Rect(screenPos.x - 80, Screen.height - screenPos.y - 50, 160, 65);
+                    GUI.Label(rect, label, _debugStyle);
+                }
+            }
+            else
+            {
+                // 준비 단계: 보드 위 UnitData 스탯 표시
+                var boardSlots = _world.BoardSlots[0];
+                if (boardSlots == null) return;
+
+                for (int idx = 0; idx < PlayerBoard.BoardSize; idx++)
+                {
+                    int entityId = boardSlots[idx];
+                    if (entityId == UnitData.InvalidId) continue;
+
+                    ref var u = ref _world.Units[entityId];
+                    int col = idx % PlayerBoard.BoardWidth;
+                    int row = idx / PlayerBoard.BoardWidth;
+
+                    var worldPos = View.BoardWorldHelper.BoardGridToWorld(0, col, row);
+                    worldPos.y += 1.8f;
+                    var screenPos = cam.WorldToScreenPoint(worldPos);
+                    if (screenPos.z < 0) continue;
+
+                    string label = $"Spec={u.ChampionSpecId} ★{u.StarLevel}\n" +
+                                   $"HP={u.MaxHP} ATK={u.Attack} DEF={u.Def}\n" +
+                                   $"AS={u.AttackSpeed} Mana={u.MaxMana}\n" +
+                                   $"Crit={u.CritRate}/{u.CritPower} Prc={u.AtkPierce}/{u.ResPierce}";
+
+                    _debugStyle.normal.textColor = Color.green;
+
+                    var rect = new Rect(screenPos.x - 80, Screen.height - screenPos.y - 50, 160, 65);
+                    GUI.Label(rect, label, _debugStyle);
+                }
+            }
+        }
+#endif
+
         [ContextMenu("Debug: Create Test Unit P0")]
         private void DebugCreateTestUnit()
         {

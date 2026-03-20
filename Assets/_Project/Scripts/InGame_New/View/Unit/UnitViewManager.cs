@@ -24,6 +24,9 @@ namespace CookApps.AutoChess.View
         /// <summary>첫 보드 뷰 로딩이 모두 완료되면 발화</summary>
         public event Action OnAllBoardViewsReady;
 
+        /// <summary>전투 뷰가 새로 생성될 때 발화 (sourceEntityId, view)</summary>
+        public event Action<int, UnitView> OnCombatViewCreated;
+
         public void SetPrefab(UnitView prefab, int poolSize = 64)
         {
             _unitPrefab = prefab;
@@ -361,6 +364,7 @@ namespace CookApps.AutoChess.View
             view.transform.position = initialPosition;
             view.InitializeAsCombat(combatId, sourceEntityId, starLevel, GetCharacterPrefabPath(champSpecId), champSpecId, isPlayer);
             _combatUnitViews[combatId] = view;
+            OnCombatViewCreated?.Invoke(sourceEntityId, view);
             return view;
         }
 
