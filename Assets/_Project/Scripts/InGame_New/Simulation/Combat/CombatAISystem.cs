@@ -106,9 +106,10 @@ namespace CookApps.AutoChess
             if (unit.IsMoving)
             {
                 unit.MoveTimer--;
-                if (unit.MoveTimer <= 0)
+                if (unit.MoveTimer <= 1)
                 {
-                    // 이동 완료
+                    // 마지막 1프레임은 이동 완료로 간주해 MOVE 애니메이션이 과도하게 남지 않도록 한다.
+                    unit.MoveTimer = 0;
                     unit.State = CombatState.Idle;
                     unit.IsBacklineJumping = false;
                     unit.IsKnockbackMoving = false;
