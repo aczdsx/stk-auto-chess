@@ -5,6 +5,7 @@ namespace CookApps.AutoChess.View
         // 배치용
         Placement,          // fx_common_area_plan
         AttackRange,        // fx_common_area_plan_02
+        CanPlacement,       // fx_common_area_plan_03
         SkillRange,         // fx_common_area_commander_01
 
         // 전투용 — 원소별 영역
