@@ -152,25 +152,24 @@ namespace CookApps.AutoBattler
         {
             baseAnimator.Play("IdleExit");
 
+            // 챕터 데이터 갱신
+            await NetManager.Instance.Battle.GetCurrentChapterAsync();
+
+            int currentStageId = BattleModel.GetTargetStageId();
+
             elpisDataBridge = ServerDataManager.Instance.Elpis;
             var simulationCenter = elpisDataBridge.GetFacilityByType(ElpisFacilityType.FacilityTypeSimulationCenter);
             _idleRewardButton.gameObject.SetActive(simulationCenter != null && simulationCenter.Level > 0);
 
             userInfoPanel?.Initialize();
             _guideMissionSlot?.InitGuideMissionSlot();
-            SetStageText();
+            SetStageText(currentStageId);
 
             TopCurrencyAndMenuBar.AddToUILayer(this, TopPanelType.Gold, TopPanelType.AP);
 
-            // 챕터 데이터 갱신
-            await NetManager.Instance.Battle.GetCurrentChapterAsync();
-
-            // 목표 스테이지로 설정 (로비에서 진입 시 다음 목표 스테이지 반영)
-            int currentStageId = BattleModel.GetTargetStageId();
             LocalDataManager.Instance.SetLastPlayStageId((uint)currentStageId);
 
-            var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
-            StartIdleCombatAsync().Forget();
+            StartIdleCombatAsync(currentStageId).Forget();
 
             // 방치 보상 갱신
             SetIdleRewardLayer();
@@ -302,10 +301,10 @@ namespace CookApps.AutoBattler
             SetBottomStageUI();
         }
 
-        private void SetStageText()
+        private void SetStageText(int stageId)
         {
             if (_stageNameText == null) return;
-            var currentStageData = SpecDataManager.Instance.GetStageData(BattleModel.GetTargetStageId());
+            var currentStageData = SpecDataManager.Instance.GetStageData(stageId);
             _stageNameText.text = ZString.Format("SECTOR {0}-{1}", currentStageData.chapter_id, currentStageData.stage_number);
         }
 
@@ -766,7 +765,7 @@ namespace CookApps.AutoBattler
 
         // ── Idle Combat (InGame_New) ──
 
-        private async UniTaskVoid StartIdleCombatAsync()
+        private async UniTaskVoid StartIdleCombatAsync(int stageId)
         {
             Debug.Log("[BattleReadyMain] StartIdleCombatAsync 시작");
             // 플레이어 캐릭터 목록 가져오기
@@ -806,8 +805,7 @@ namespace CookApps.AutoBattler
             Debug.Log($"[BattleReadyMain] 플레이어 {playerSpecIds.Count}명 준비 완료");
 
             // 현재 챕터의 몬스터 목록 가져오기
-            int currentStageId = (int)LocalDataManager.Instance.GetLastPlayStageId();
-            var stageSpecData = SpecDataManager.Instance.GetStageData(currentStageId);
+            var stageSpecData = SpecDataManager.Instance.GetStageData(stageId);
             var monsterList = SpecDataManager.Instance.GetStageMonsterList(
                 stageSpecData.chapter_id, stageSpecData.stage_number, stageSpecData.difficulty_type);
 

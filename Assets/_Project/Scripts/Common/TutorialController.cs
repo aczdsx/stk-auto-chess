@@ -300,11 +300,11 @@ public class TutorialController : MonoBehaviour
         _currentStrategy?.OnClear(_actionContext);
         _actionContext.OnCompleted = null;
 
-        // 스냅샷 Default로 복귀
-        if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
-        {
-            SoundManager.Instance.TransitionToSnapshot(SoundSnapshot.Default);
-        }
+        // // 스냅샷 Default로 복귀
+        // if (InGameMainFlowManager.Instance.CurrentFlowState is FlowStateLobbyCombat)
+        // {
+        //     SoundManager.Instance.TransitionToSnapshot(SoundSnapshot.Default);
+        // }
 
         // 월드 화살표 비활성화
         if (_worldArrowRectTransform != null)

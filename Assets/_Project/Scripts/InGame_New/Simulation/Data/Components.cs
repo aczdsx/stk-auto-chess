@@ -570,6 +570,9 @@ namespace CookApps.AutoChess
         public int PendingAtkTimer;      // 히트까지 남은 프레임
         public bool PendingAtkIsCrit;    // 선행 판정된 크리티컬 여부 (ATK 시작 시 확정)
 
+        // 공격 후 모션 유지 (공격 애니메이션 끊김 방지)
+        public int PostAttackHoldTimer;  // 공격 후 Attacking 상태 유지 남은 프레임
+
         // 이동 (프레임 단위)
         public byte MoveFromCol;      // 이동 출발 열 (View 보간용)
         public byte MoveFromRow;      // 이동 출발 행 (View 보간용)
@@ -816,6 +819,7 @@ namespace CookApps.AutoChess
                 state.GridTiles[i] = CombatUnit.InvalidId;
             for (int i = 0; i < MaxProjectiles; i++)
                 state.Projectiles[i].IsActive = false;
+            state.NextCombatId = 100000; // EntityId(0~)와 겹치지 않도록 오프셋 (혼용 방지)
             state.NextProjectileId = 1; // 0은 뷰 레이어에서 무효 ID로 사용되므로 1부터 할당
 
             return state;

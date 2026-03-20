@@ -82,6 +82,10 @@ namespace CookApps.AutoBattler
 
             await _viewRoot.ViewBridge.WaitForAllViewsReady();
             _initialBoardUnitCount = _viewRoot.Runner.GetWorld().Boards[0].UnitCount;
+
+            // 8. BGM 재생 (챕터별)
+            PlayStageBGM(inGameParams.StageId);
+
             SceneTransition.FadeOutAsync();
         }
 
@@ -105,6 +109,21 @@ namespace CookApps.AutoBattler
         // ══════════════════════════════════════════
         // 초기화 헬퍼
         // ══════════════════════════════════════════
+
+        private static void PlayStageBGM(int stageId)
+        {
+            var stageInfo = SpecDataManager.Instance.GetStageData(stageId);
+            if (stageInfo == null) return;
+
+            string bgmName;
+            if (stageInfo.chapter_id == 1)
+                bgmName = $"snd_bgm_chapter{stageInfo.chapter_id - 1}";
+            else
+                bgmName = $"snd_bgm_chapter{stageInfo.chapter_id}";
+
+            if (System.Enum.TryParse<SoundBGM>(bgmName, out var bgm))
+                SoundManager.Instance.PlayBGM(bgm);
+        }
 
         private static void ParseBoardSize(int stageId, ref int boardWidth, ref int boardHeight)
         {

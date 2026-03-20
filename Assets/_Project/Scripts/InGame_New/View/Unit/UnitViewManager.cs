@@ -196,10 +196,13 @@ namespace CookApps.AutoChess.View
                         view.SetPositionImmediate(worldPos);
                         view.UpdateHP(unit.CurrentHP, unit.MaxHP, unit.ShieldAmount);
                         view.UpdateMana(unit.CurrentMana, unit.MaxMana);
-                        view.SetCombatState(unit.State, unit.AttackSpeed);
 
-                        // 이동 중이면 이동 방향, 아니면 타겟 방향 바라보기
-                        if (unit.IsMoving && unit.MoveDuration > 0 && !unit.IsKnockbackMoving)
+                        // 방향 전환 (SetCombatState보다 먼저 — 공격 시작 시 타겟을 바라본 후 공격 모션 시작)
+                        if (view.IsPlayingAttackAnim)
+                        {
+                            // 공격 모션 중이면 방향 전환 스킵
+                        }
+                        else if (unit.IsMoving && unit.MoveDuration > 0 && !unit.IsKnockbackMoving)
                         {
                             view.UpdateFacing(destPos);
                         }
@@ -223,6 +226,8 @@ namespace CookApps.AutoChess.View
                             var defaultTarget = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.GridCol, defaultRow);
                             view.UpdateFacing(defaultTarget);
                         }
+
+                        view.SetCombatState(unit.State, unit.AttackSpeed);
                     }
                     else
                     {

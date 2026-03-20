@@ -157,7 +157,7 @@ namespace CookApps.AutoBattler
                     // 인덱스 0: desc_token_1 제목 (명수 없음, {0},{1},{2}=효과값)
                     string text = LanguageManager.Instance.GetDefaultText(data.desc_token_1);
                     formatted = FormatTitleText(text, data);
-                    isHighlighted = false;
+                    isHighlighted = _isActive;
                 }
                 else
                 {
@@ -236,7 +236,15 @@ namespace CookApps.AutoBattler
             string v2 = FormatEffectValue(data.effect_stat_value_2);
             string v3 = FormatEffectValue(data.effect_stat_value_3);
 
-            return string.Format(text, data.min_int, v1, v2, v3);
+            try
+            {
+                return string.Format(text, data.min_int, v1, v2, v3);
+            }
+            catch (System.FormatException)
+            {
+                Debug.LogError($"[SynergyTooltip] FormatEffectText failed — text=\"{text}\", min_int={data.min_int}, v1={v1}, v2={v2}, v3={v3}");
+                return text;
+            }
         }
 
         private static string FormatEffectValue(int value)

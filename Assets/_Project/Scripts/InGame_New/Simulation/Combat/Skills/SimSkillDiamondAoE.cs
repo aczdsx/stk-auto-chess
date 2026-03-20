@@ -46,7 +46,7 @@ namespace CookApps.AutoChess
 
             // 타일이펙트: 다이아몬드 범위 (맨해튼 거리 기반)
             state.EventQueue?.PushSkillAreaEffect(
-                caster.SourceEntityId, (byte)centerCol, (byte)centerRow, _areaRange);
+                caster.CombatId, (byte)centerCol, (byte)centerRow, _areaRange);
 
             // vfx[1]: 범위 내 각 타일에 개별 발사
             for (int r = 0; r < BoardHelper.CombatHeight; r++)

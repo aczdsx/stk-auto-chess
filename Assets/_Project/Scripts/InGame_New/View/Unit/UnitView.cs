@@ -242,8 +242,13 @@ namespace CookApps.AutoChess.View
 
         public void SetCombatState(CombatState state, int attackSpeed = 100)
         {
-            // 공격/스킬 애니메이션 재생 중이면 Idle 전환 차단 (트리거가 애니메이션을 중단시키는 것 방지)
-            if (state == CombatState.Idle && Time.time < _attackAnimEndTime)
+            // 공격/스킬 애니메이션 재생 중이면 다른 상태 전환 차단 (공격 모션 끊김 + 방향 전환 방지)
+            // 단, 사망/CC/새 공격/스킬은 허용
+            if (IsPlayingAttackAnim
+                && state != CombatState.Dead
+                && state != CombatState.Attacking
+                && state != CombatState.CastingSkill
+                && state != CombatState.CrowdControlled)
                 return;
 
             if (state == _lastState && !(state == CombatState.Attacking && _pendingAttackPrepared)) return;
@@ -334,6 +339,9 @@ namespace CookApps.AutoChess.View
 
         /// <summary>현재 Animator 재생 속도 (슬로우 디버프 등 반영)</summary>
         public float AnimatorSpeed => _characterView != null ? _characterView.AnimatorSpeed : 1f;
+
+        /// <summary>공격/스킬 애니메이션 재생 중 여부</summary>
+        public bool IsPlayingAttackAnim => Time.time < _attackAnimEndTime;
 
 
         public Vector3 GetProjectileSpawnPosition()

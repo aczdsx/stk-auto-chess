@@ -139,7 +139,7 @@ namespace CookApps.AutoChess
                 if (_hitIndex % 3 == 0 && BoardHelper.IsValidCombatPosition(fwdCol, fwdRow))
                 {
                     state.EventQueue?.PushSkillAreaEffect(
-                        caster.SourceEntityId, (byte)fwdCol, (byte)fwdRow, halfWidth, isRow: rowMain);
+                        caster.CombatId, (byte)fwdCol, (byte)fwdRow, halfWidth, isRow: rowMain);
                 }
 
                 // 거리별 배율 결정
