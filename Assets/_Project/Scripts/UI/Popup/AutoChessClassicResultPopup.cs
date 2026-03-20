@@ -220,9 +220,10 @@ namespace CookApps.AutoBattler
             // 챕터 마지막 스테이지 → BattleReady로 이동
             if (_isPlayingLastStage)
             {
+                int nextChapterId = _specStage.chapter_id + 1;
+                Debug.Log($"[ClassicResult] 마지막스테이지 → 다음챕터 이동: stage={_specStage.stage_id}, chapter={_specStage.chapter_id}→{nextChapterId}, LastPlayStageId={LocalDataManager.Instance.GetLastPlayStageId()}, LatestCleared={ServerDataManager.Instance.Battle.GetLatestClearedStageId()}");
                 SceneTransition.Create<SceneTransition_FadeInOut>();
                 await SceneTransition.FadeInAsync();
-                int nextChapterId = _specStage.chapter_id + 1;
                 SceneLoading.GoToNextSceneWithStageClearTrigger(
                     "BattleReady", _specStage.stage_id, nextChapterId);
                 return;

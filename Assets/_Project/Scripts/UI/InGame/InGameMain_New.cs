@@ -41,6 +41,10 @@ namespace CookApps.AutoBattler
         {
             _inGameParams = inGameParams;
 
+            // 마지막 플레이 스테이지 갱신 (BattleReady를 거치지 않고 연속 진입 시에도 반영)
+            if (inGameParams.StageId > 0)
+                LocalDataManager.Instance.SetLastPlayStageId((uint)inGameParams.StageId);
+
             // 1. 보드 크기 결정
             int boardWidth = 7, boardHeight = 4;
             ParseBoardSize(inGameParams.StageId, ref boardWidth, ref boardHeight);
