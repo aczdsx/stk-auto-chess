@@ -86,7 +86,7 @@ Material:
     - _CustomFadeSmoothness: 1
     - _Depthpower: 1
     - _Distort: 0
-    - _Emission: 1
+    - _Emission: 10
     - _EnableAdjustColor: 0
     - _EnableAlphaTint: 0
     - _EnableBlackTint: 0
