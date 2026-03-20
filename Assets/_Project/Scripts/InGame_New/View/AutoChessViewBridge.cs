@@ -740,6 +740,7 @@ namespace CookApps.AutoChess.View
 
             var go = await Addressables.InstantiateAsync(boardVfx.Vfx, transform);
             if (go == null) return;
+            Debug.Log($"<color=magenta>[Supernova] SpawnObject: {go.name} at ({col},{row})</color>");
 
             var view = go.GetComponent<SupernovaObjectView>();
             if (view == null)
@@ -798,7 +799,6 @@ namespace CookApps.AutoChess.View
             if (_synergyVfxConfig == null) return;
             var synergyType = (SynergyType)traitId;
 
-            // 뷰 전환 대응을 위해 1프레임 대기
             await UniTask.DelayFrame(1);
 
             var targetView = FindUnitView(entityId);
@@ -814,12 +814,12 @@ namespace CookApps.AutoChess.View
             var prep = world.PrepBehaviors[key.playerIndex][prepIdx];
             if (prep.PrepTargetEntityId != entityId) return;
 
-            // TargetVfx 루프 이펙트 부착
             if (!_synergyVfxConfig.TryGetTaggedVfx(synergyType, SynergyVfxTag.TargetVfx, out var targetVfx)) return;
 
             var handle = Addressables.InstantiateAsync(targetVfx.Vfx, targetView.transform);
             var go = await handle;
             if (go == null || !handle.IsValid()) return;
+            Debug.Log($"<color=magenta>[Supernova] TargetVfx: {go.name} on entityId={entityId}</color>");
 
             var sn = prep as SynergyPrepSupernova;
             var scaleBonus = sn?.ViewScaleBonus ?? 0f;
@@ -892,6 +892,7 @@ namespace CookApps.AutoChess.View
             var go = await handle;
             if (go == null || !handle.IsValid()) return;
 
+            Debug.Log($"<color=magenta>[Supernova] BattleStartVfx: {go.name} on entityId={entityId}</color>");
             _battleStartVfxHandles.Add(handle);
         }
 

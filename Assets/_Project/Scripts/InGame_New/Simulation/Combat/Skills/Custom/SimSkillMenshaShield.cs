@@ -32,7 +32,7 @@ namespace CookApps.AutoChess
         protected override void ApplySkillEffect(CombatMatchState state, ref CombatUnit caster,
             int targetCombatId, ref DeterministicRNG rng)
         {
-            int shieldAmount = caster.Attack * PowerPercent / 100;
+            int shieldAmount = caster.MaxHP * PowerPercent / 100;
             int row = caster.GridRow;
             int col = caster.GridCol;
 
