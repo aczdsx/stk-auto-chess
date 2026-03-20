@@ -33,6 +33,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0c92e6119acb3884d89393c5e6f6b0a6
+    m_Address: LD_Characters/17563405/Illust
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0e2d75f92800b7a42b1f51245ee869ca
     m_Address: LD_Characters/20405/Illust
     m_ReadOnly: 0
