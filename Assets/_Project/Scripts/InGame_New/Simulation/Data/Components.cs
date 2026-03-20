@@ -570,6 +570,9 @@ namespace CookApps.AutoChess
         public int PendingAtkTimer;      // 히트까지 남은 프레임
         public bool PendingAtkIsCrit;    // 선행 판정된 크리티컬 여부 (ATK 시작 시 확정)
 
+        // 공격 후 모션 유지 (공격 애니메이션 끊김 방지)
+        public int PostAttackHoldTimer;  // 공격 후 Attacking 상태 유지 남은 프레임
+
         // 이동 (프레임 단위)
         public byte MoveFromCol;      // 이동 출발 열 (View 보간용)
         public byte MoveFromRow;      // 이동 출발 행 (View 보간용)
