@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1408962706996471244
+--- !u!1001 &2992451953931899721
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,16 +10,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 556854070072764941, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.41431826
+      value: 0.6214402
       objectReference: {fileID: 0}
     - target: {fileID: 556854070072764941, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.88773704
+      value: 0.85634124
+      objectReference: {fileID: 0}
+    - target: {fileID: 556854070072764941, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 556854070072764941, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 556854070072764941, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 725046549792645007, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -5776686928565074078, guid: 87c53906725be6e44b56576037213b71, type: 3}
+      objectReference: {fileID: 21300000, guid: 87c53906725be6e44b56576037213b71, type: 3}
     - target: {fileID: 828906667113159773, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -102,21 +114,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6791900941924675689, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
       propertyPath: m_Name
-      value: UI_120410
+      value: UI_20410
       objectReference: {fileID: 0}
     - target: {fileID: 8834443160863789351, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
       propertyPath: _pivotReferenceImage
       value: 
-      objectReference: {fileID: 1838108439890328131}
+      objectReference: {fileID: 2560492978871962822}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
---- !u!114 &1838108439890328131 stripped
+--- !u!114 &2560492978871962822 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 725046549792645007, guid: 7d16ec7c5756c48b09bc5b8d02f2aba9, type: 3}
-  m_PrefabInstance: {fileID: 1408962706996471244}
+  m_PrefabInstance: {fileID: 2992451953931899721}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1

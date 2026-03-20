@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7439338723836408708
+--- !u!1001 &2948260382780837715
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -50,20 +50,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4687676220216866382, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: m_Name
-      value: Naninovel_120410
+      value: Naninovel_20410
       objectReference: {fileID: 0}
     - target: {fileID: 5095198891676236682, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: m_Size.x
-      value: 14.06022
+      value: 15.040234
       objectReference: {fileID: 0}
     - target: {fileID: 5095198891676236682, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: m_Size.y
-      value: 26.76
+      value: 27.699999
       objectReference: {fileID: 0}
     - target: {fileID: 5095198891676236682, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -5776686928565074078, guid: 87c53906725be6e44b56576037213b71, type: 3}
+      objectReference: {fileID: 21300000, guid: 87c53906725be6e44b56576037213b71, type: 3}
     - target: {fileID: 5095198891676236682, guid: 36bdbf09561dc4e97951c7778beeed01, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
