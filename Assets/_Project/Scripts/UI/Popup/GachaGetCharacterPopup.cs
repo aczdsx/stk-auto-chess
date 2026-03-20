@@ -67,6 +67,9 @@ namespace CookApps.AutoBattler
         [Header("Background Touch")]
         [SerializeField] private CAButton _bgTouchButton;
 
+        [Header("RevealCharacterImages Duration")]
+        [SerializeField] private float _revealCharacterImagesDuration = 0.3f;
+
         #endregion
 
         #region Private Fields
@@ -340,7 +343,7 @@ namespace CookApps.AutoBattler
 
         private async UniTaskVoid RevealCharacterImagesAsync()
         {
-            float duration = 0.3f;
+            float duration = _revealCharacterImagesDuration;
             float elapsed = 0f;
 
             while (elapsed < duration)
