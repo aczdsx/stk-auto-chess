@@ -208,7 +208,7 @@ namespace CookApps.AutoChess
                     {
                         // 회피 성공: 데미지 없이 쿨다운만 재설정
                         if (CombatLogger.Enabled) CombatLogger.LogDodge(unit.CombatId, target.CombatId);
-                        state.EventQueue?.PushUnitMissed(unit.SourceEntityId, target.SourceEntityId);
+                        state.EventQueue?.PushUnitMissed(unit.CombatId, target.CombatId);
                         unit.AttackCooldown = unit.GetAttackInterval(tickRate);
                     }
                     else

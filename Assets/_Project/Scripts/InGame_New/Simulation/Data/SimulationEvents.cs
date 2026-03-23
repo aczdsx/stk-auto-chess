@@ -124,6 +124,7 @@ namespace CookApps.AutoChess
 
         public SimEvent[] Events;
         public int Count;
+        private bool _overflowLogged;
 
         public SimEventQueue()
         {
@@ -133,23 +134,33 @@ namespace CookApps.AutoChess
 
         public void Push(SimEvent evt)
         {
-            if (Count >= MaxEvents) return; // 오버플로우 방지
+            if (Count >= MaxEvents)
+            {
+                if (!_overflowLogged)
+                {
+                    UnityEngine.Debug.LogWarning(
+                        $"[SimEventQueue] Event queue overflow. MaxEvents={MaxEvents}, droppedType={evt.Type}");
+                    _overflowLogged = true;
+                }
+                return; // 오버플로우 방지
+            }
             Events[Count++] = evt;
         }
 
         public void Clear()
         {
             Count = 0;
+            _overflowLogged = false;
         }
 
         // ── 팩토리 헬퍼 ──
 
-        public void PushUnitMoved(int entityId, byte col, byte row)
+        public void PushUnitMoved(int combatId, byte col, byte row)
         {
             Push(new SimEvent
             {
                 Type = SimEventType.UnitMoved,
-                EntityId = entityId,
+                EntityId = combatId,
                 Col = col,
                 Row = row,
             });
@@ -375,13 +386,13 @@ namespace CookApps.AutoChess
             });
         }
 
-        public void PushUnitMissed(int attackerId, int targetId)
+        public void PushUnitMissed(int attackerCombatId, int targetCombatId)
         {
             Push(new SimEvent
             {
                 Type = SimEventType.UnitMissed,
-                EntityId = attackerId,
-                TargetEntityId = targetId,
+                EntityId = attackerCombatId,
+                TargetEntityId = targetCombatId,
             });
         }
 

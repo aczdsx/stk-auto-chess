@@ -375,17 +375,23 @@ namespace CookApps.AutoChess
             }
         }
 
-        /// <summary>ATK Execute 키프레임 지연 프레임 추출</summary>
+        /// <summary>공격 Execute 키프레임 지연 프레임 추출. ATK/ATK2/CRIT, front/back 중 최댓값 사용.</summary>
         private static int ExtractAtkHitDelay(int prefabId, int tickRate)
         {
             if (prefabId <= 0) return 1;
-            int atkKey = AnimKeyframeData.MakeKey(prefabId, false, AnimClipType.ATK);
-            if (AnimKeyframeData.ExecuteTimes.TryGetValue(atkKey, out float execTime))
-            {
-                int frames = (int)(execTime * tickRate + 0.5f);
-                return frames > 0 ? frames : 1;
-            }
-            return 1;
+
+            float maxExecTime = 0f;
+            maxExecTime = MaxExecuteTime(prefabId, true, AnimClipType.ATK, maxExecTime);
+            maxExecTime = MaxExecuteTime(prefabId, false, AnimClipType.ATK, maxExecTime);
+            maxExecTime = MaxExecuteTime(prefabId, true, AnimClipType.ATK2, maxExecTime);
+            maxExecTime = MaxExecuteTime(prefabId, false, AnimClipType.ATK2, maxExecTime);
+            maxExecTime = MaxExecuteTime(prefabId, true, AnimClipType.CRIT, maxExecTime);
+            maxExecTime = MaxExecuteTime(prefabId, false, AnimClipType.CRIT, maxExecTime);
+
+            if (maxExecTime <= 0f) return 1;
+
+            int frames = (int)(maxExecTime * tickRate + 0.5f);
+            return frames > 0 ? frames : 1;
         }
 
         private static int ExtractAttackActionFrames(int prefabId, int tickRate)
@@ -393,8 +399,11 @@ namespace CookApps.AutoChess
             if (prefabId <= 0) return 1;
 
             float maxLength = 0f;
+            maxLength = MaxClipLength(prefabId, true, AnimClipType.ATK, maxLength);
             maxLength = MaxClipLength(prefabId, false, AnimClipType.ATK, maxLength);
+            maxLength = MaxClipLength(prefabId, true, AnimClipType.ATK2, maxLength);
             maxLength = MaxClipLength(prefabId, false, AnimClipType.ATK2, maxLength);
+            maxLength = MaxClipLength(prefabId, true, AnimClipType.CRIT, maxLength);
             maxLength = MaxClipLength(prefabId, false, AnimClipType.CRIT, maxLength);
 
             if (maxLength <= 0f) return 1;
@@ -408,6 +417,14 @@ namespace CookApps.AutoChess
             int key = AnimKeyframeData.MakeKey(prefabId, isFront, clipType);
             return AnimKeyframeData.ClipLengths.TryGetValue(key, out float clipLength) && clipLength > currentMax
                 ? clipLength
+                : currentMax;
+        }
+
+        private static float MaxExecuteTime(int prefabId, bool isFront, AnimClipType clipType, float currentMax)
+        {
+            int key = AnimKeyframeData.MakeKey(prefabId, isFront, clipType);
+            return AnimKeyframeData.ExecuteTimes.TryGetValue(key, out float execTime) && execTime > currentMax
+                ? execTime
                 : currentMax;
         }
 

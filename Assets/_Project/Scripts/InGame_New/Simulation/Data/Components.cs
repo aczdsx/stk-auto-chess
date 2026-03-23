@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace CookApps.AutoChess
 {
     /// <summary>
@@ -765,6 +767,7 @@ namespace CookApps.AutoChess
         public CombatUnit[] Units;     // [MaxCombatUnits]
         public int UnitCount;
         public int NextCombatId;
+        public Dictionary<int, int> CombatIdToUnitIndex;
 
         // 그리드 (크기는 BoardHelper.CombatWidth/CombatHeight 참조)
         public int[] GridTiles;
@@ -803,6 +806,7 @@ namespace CookApps.AutoChess
                 PlayerB = playerB,
                 Winner = 0xFF,
                 Units = new CombatUnit[MaxCombatUnits],
+                CombatIdToUnitIndex = new Dictionary<int, int>(MaxCombatUnits),
                 GridTiles = new int[gridSize],
                 Projectiles = new Projectile[MaxProjectiles],
                 StatusEffects = new StatusEffect[MaxStatusEffects],
@@ -830,11 +834,13 @@ namespace CookApps.AutoChess
         public int FindUnitIndex(int combatId)
         {
             if (combatId == CombatUnit.InvalidId) return -1;
-            for (int i = 0; i < UnitCount; i++)
+
+            if (CombatIdToUnitIndex != null && CombatIdToUnitIndex.TryGetValue(combatId, out int unitIndex))
             {
-                if (Units[i].CombatId == combatId)
-                    return i;
+                if (unitIndex >= 0 && unitIndex < UnitCount && Units[unitIndex].CombatId == combatId)
+                    return unitIndex;
             }
+
             return -1;
         }
 
