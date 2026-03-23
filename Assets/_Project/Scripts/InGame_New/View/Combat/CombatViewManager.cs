@@ -690,9 +690,9 @@ namespace CookApps.AutoChess.View
         private async UniTaskVoid ReturnVfxAfterDelay(GameObject go, GameObject prefab, float delay)
         {
             var ct = _combatCts?.Token ?? destroyCancellationToken;
-            bool canceled = await UniTask.Delay((int)(delay * 1000), cancellationToken: ct)
+            await UniTask.Delay((int)(delay * 1000), cancellationToken: ct)
                 .SuppressCancellationThrow();
-            if (canceled || go == null) return;
+            if (go == null) return;
             _vfxPool.Return(go, prefab);
         }
 
