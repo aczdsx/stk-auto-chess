@@ -25,7 +25,6 @@ namespace CookApps.AutoChess.View
         private BoardInputHandler _boardInputHandler;
         private TutorialSimBridge _tutorialBridge;
         private SynergyVfxConfigSO _synergyVfxConfig;
-        private byte[] _prevSynergyTiers;
 
         public void Setup(
             ISimulationRunner runner,
@@ -63,10 +62,6 @@ namespace CookApps.AutoChess.View
             // View 로딩 완료 이벤트 구독
             _viewsReadySource = new UniTaskCompletionSource();
             _unitViewManager.OnAllBoardViewsReady += () => _viewsReadySource.TrySetResult();
-
-            // 시너지 VFX 스냅샷 초기화 (모드 진입 시 기존 시너지에 거짓 VFX 방지)
-            _prevSynergyTiers = new byte[PlayerSynergy.MaxTraits];
-            RefreshSynergySnapshot();
 
             // 시뮬레이션 이벤트 구독
             _runner.OnTick += HandleTick;
@@ -144,6 +139,7 @@ namespace CookApps.AutoChess.View
                     break;
 
                 case GamePhase.Combat:
+                    ParkSynergyTargetVfx(_unitViewManager.VfxParkingHolder);
                     _unitViewManager.OnCombatStart();
                     _combatViewManager.OnCombatStart();
                     _boardGridView.OnCombatStart();
@@ -383,8 +379,17 @@ namespace CookApps.AutoChess.View
 
                 case SimEventType.SynergyUpdated:
                     _autoChessUI?.OnSynergyUpdated(world);
-                    HandleSynergyVfx(world, evt.PlayerIndex);
                     break;
+
+                case SimEventType.SynergyTierChanged:
+                {
+                    if (evt.PlayerIndex != _localPlayerIndex) break;
+                    byte oldTier = (byte)(evt.Value1 & 0xFF);
+                    byte newTier = (byte)((evt.Value1 >> 8) & 0xFF);
+                    if (newTier > oldTier)
+                        SpawnSynergyAchieveVfx(world, evt.PlayerIndex, evt.Value0);
+                    break;
+                }
 
                 case SimEventType.StatusEffectAdded:
                 {
@@ -447,42 +452,6 @@ namespace CookApps.AutoChess.View
         // ── 시너지 달성 VFX ──
 
         public void SetSynergyVfxConfig(SynergyVfxConfigSO config) => _synergyVfxConfig = config;
-
-        /// <summary>현재 _localPlayerIndex 기준으로 시너지 티어 스냅샷 갱신 (관전 전환/초기화 시)</summary>
-        private void RefreshSynergySnapshot()
-        {
-            if (_prevSynergyTiers == null) return;
-            var world = _runner.GetWorld();
-            if (world == null) return;
-            var synergy = world.Synergies[_localPlayerIndex];
-            for (int i = 0; i < PlayerSynergy.MaxTraits; i++)
-                _prevSynergyTiers[i] = synergy.GetTraitTier(i);
-        }
-
-        private void HandleSynergyVfx(GameWorld world, byte playerIndex)
-        {
-            if (_synergyVfxConfig == null || _prevSynergyTiers == null) return;
-            if (playerIndex != _localPlayerIndex) return;
-
-            var synergy = world.Synergies[playerIndex];
-
-            for (int t = 0; t < world.SynergySpecCount; t++)
-            {
-                ref var spec = ref world.SynergySpecs[t];
-                if (!spec.IsValid) continue;
-
-                int traitId = spec.TraitId;
-                byte oldTier = _prevSynergyTiers[traitId];
-                byte newTier = synergy.GetTraitTier(traitId);
-
-                if (newTier > oldTier)
-                    SpawnSynergyAchieveVfx(world, playerIndex, traitId);
-            }
-
-            // 스냅샷 갱신
-            for (int i = 0; i < PlayerSynergy.MaxTraits; i++)
-                _prevSynergyTiers[i] = synergy.GetTraitTier(i);
-        }
 
         private void SpawnSynergyAchieveVfx(GameWorld world, byte playerIndex, int traitId)
         {
@@ -688,7 +657,6 @@ namespace CookApps.AutoChess.View
         {
             _localPlayerIndex = boardIndex;
             _unitViewManager.SetActiveBoard(boardIndex);
-            RefreshSynergySnapshot();
         }
 
         // ── 커맨드 전달 (View → Simulation) ──
@@ -854,7 +822,7 @@ namespace CookApps.AutoChess.View
             var handle = Addressables.InstantiateAsync(targetVfx.Vfx, parentTransform);
             var go = await handle;
             if (go == null || !handle.IsValid()) return;
-            Debug.Log($"<color=magenta>[Supernova] TargetVfx: {go.name} on entityId={entityId}</color>");
+            Debug.Log($"<color=magenta>[Supernova] TargetVfx: {go.name} on entityId={entityId} localPos={go.transform.localPosition} localRot={go.transform.localRotation.eulerAngles} worldRot={go.transform.rotation.eulerAngles} parent={parentTransform.name}</color>");
 
             var sn = prep as SynergyPrepSupernova;
             var scaleBonus = sn?.ViewScaleBonus ?? 0f;
@@ -1018,27 +986,65 @@ namespace CookApps.AutoChess.View
             }
         }
 
-        /// <summary>전투 뷰 생성 시 슈퍼노바 스케일 재적용 + 버프 아이콘 갱신</summary>
-        private async void HandleCombatViewCreated(int entityId, UnitView view)
+        /// <summary>페이즈 전환 전 시너지 타겟 VFX GO를 parking holder로 이동.
+        /// worldPositionStays:false로 localTransform을 보존.</summary>
+        private void ParkSynergyTargetVfx(Transform parkingHolder)
         {
-            // 버프 아이콘: 뷰 생성 전에 이미 추적된 버프가 있으면 즉시 반영
-            _buffIconTracker?.RefreshIconsForUnit(view.CombatId);
-
-            float scale = 0f;
             foreach (var kv in _supernovaTargetVfx)
             {
-                if (kv.Value.entityId == entityId && kv.Value.appliedScale > 0f)
-                {
-                    scale = kv.Value.appliedScale;
-                    break;
-                }
+                if (!kv.Value.handle.IsValid()) continue;
+                var go = kv.Value.handle.Result;
+                if (go == null) continue;
+                Debug.Log($"<color=yellow>[VFX] PARK SynergyVfx entityId={kv.Value.entityId} localRot={go.transform.localRotation.eulerAngles} parent={go.transform.parent?.name}</color>");
+                go.transform.SetParent(parkingHolder, worldPositionStays: false);
             }
-            if (scale <= 0f) return;
+        }
 
-            await UniTask.WaitUntil(() => view == null || view.IsReady);
-            if (view == null) return;
+        /// <summary>전투 뷰 생성 시 시너지 타겟 VFX reparent + 스케일 재적용 + 버프 아이콘 갱신</summary>
+        private async void HandleCombatViewCreated(int entityId, UnitView view)
+        {
+            _buffIconTracker?.RefreshIconsForUnit(view.CombatId);
 
-            view.AddViewScale(scale, forceSet: true);
+            // 시너지 target VFX 검색
+            float scale = 0f;
+            AsyncOperationHandle<GameObject> handle = default;
+            SkillPosition vfxPosition = SkillPosition.CUSTOM;
+
+            foreach (var kv in _supernovaTargetVfx)
+            {
+                if (kv.Value.entityId != entityId) continue;
+                scale = kv.Value.appliedScale;
+                handle = kv.Value.handle;
+                if (_synergyVfxConfig != null &&
+                    _synergyVfxConfig.TryGetTaggedVfx((SynergyType)kv.Key.traitId, SynergyVfxTag.TargetVfx, out var targetVfx))
+                    vfxPosition = targetVfx.Position;
+                break;
+            }
+
+            if (!handle.IsValid()) return;
+
+            bool canceled = await UniTask.WaitUntil(
+                () => view == null || view.IsReady,
+                cancellationToken: destroyCancellationToken).SuppressCancellationThrow();
+            if (canceled || view == null) return;
+
+            // VFX GO를 새 전투 뷰에 reparent — worldPositionStays:false로 localTransform 보존
+            var go = handle.Result;
+            if (go != null)
+            {
+                var parentTransform = vfxPosition != SkillPosition.CUSTOM
+                    ? view.GetSkillPositionTransform(vfxPosition)
+                    : view.transform;
+                Debug.Log($"<color=green>[VFX] ADOPT SynergyVfx entityId={entityId} localRot={go.transform.localRotation.eulerAngles} newParent={parentTransform.name}</color>");
+                go.transform.SetParent(parentTransform, worldPositionStays: false);
+                Debug.Log($"<color=green>[VFX] ADOPT DONE localRot={go.transform.localRotation.eulerAngles} worldRot={go.transform.rotation.eulerAngles}</color>");
+
+                // 파킹으로 인해 정지된 파티클 재개
+                var particles = go.GetComponentsInChildren<ParticleSystem>(true);
+                foreach (var ps in particles) { ps.Clear(); ps.Play(); }
+            }
+
+            if (scale > 0f) view.AddViewScale(scale, forceSet: true);
         }
 
         /// <summary>재접속 시 기존 PrepBehavior 상태에서 슈퍼노바 비주얼 복원</summary>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CookApps.AutoBattler;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CookApps.AutoChess.View
@@ -21,6 +22,13 @@ namespace CookApps.AutoChess.View
         private int _activeBoardIndex;
         private bool _initialViewsReady;
 
+        // VFX parking: 페이즈 전환 시 Persistent VFX를 파괴하지 않고 임시 보관
+        private Transform _vfxParkingHolder;
+        private readonly Dictionary<int, List<(int skillSpecId, UnityEngine.GameObject go, SkillPosition position)>>
+            _parkedPersistentVfx = new();
+
+        public Transform VfxParkingHolder => _vfxParkingHolder;
+
         /// <summary>첫 보드 뷰 로딩이 모두 완료되면 발화</summary>
         public event Action OnAllBoardViewsReady;
 
@@ -37,6 +45,11 @@ namespace CookApps.AutoChess.View
 
         public void Initialize()
         {
+            // VFX parking holder 생성 (비활성화하여 파티클 시스템 자동 중단)
+            _vfxParkingHolder = new GameObject("VfxParkingHolder").transform;
+            _vfxParkingHolder.SetParent(transform);
+            _vfxParkingHolder.gameObject.SetActive(false);
+
             // 풀 생성
             for (int i = 0; i < _poolSize; i++)
             {
@@ -256,13 +269,23 @@ namespace CookApps.AutoChess.View
 
         // ── 전투 시작/종료 ──
 
-        /// <summary>전투 시작 시 보드 뷰를 숨기고 전투 뷰 활성화</summary>
+        /// <summary>전투 시작 시 보드 뷰를 숨기고 전투 뷰 활성화. Persistent VFX는 parking하여 전투 뷰에서 재사용.</summary>
         public void OnCombatStart()
         {
-            foreach (var view in _boardUnitViews.Values)
-                view.Deactivate();
-            // 딕셔너리를 정리하여 GetFromPool에서 보드 뷰가 전투 뷰로 재사용될 때
-            // 양쪽 딕셔너리에 동일 참조가 남는 오염을 방지
+            foreach (var kvp in _boardUnitViews)
+            {
+                var view = kvp.Value;
+                int entityId = view.EntityId;
+                var detached = view.DeactivateWithParking();
+                if (detached != null && detached.Count > 0)
+                {
+                    foreach (var (_, go, _) in detached)
+                    {
+                        if (go != null) go.transform.SetParent(_vfxParkingHolder, worldPositionStays: false);
+                    }
+                    _parkedPersistentVfx[entityId] = detached;
+                }
+            }
             _boardUnitViews.Clear();
         }
 
@@ -279,6 +302,34 @@ namespace CookApps.AutoChess.View
             foreach (var view in _combatUnitViews.Values)
                 ReturnToPool(view);
             _combatUnitViews.Clear();
+            ClearParkedVfx();
+        }
+
+        private void ClearParkedVfx()
+        {
+            foreach (var list in _parkedPersistentVfx.Values)
+            {
+                foreach (var (_, go, _) in list)
+                {
+                    if (go != null) Destroy(go);
+                }
+            }
+            _parkedPersistentVfx.Clear();
+        }
+
+        private async void ScheduleVfxReparent(int entityId, UnitView view)
+        {
+            bool canceled = await UniTask.WaitUntil(
+                () => view == null || view.IsReady,
+                cancellationToken: destroyCancellationToken).SuppressCancellationThrow();
+            if (canceled || this == null || view == null) return;
+
+            if (_parkedPersistentVfx.TryGetValue(entityId, out var list))
+            {
+                foreach (var (skillSpecId, go, position) in list)
+                    view.AdoptPersistentVfx(skillSpecId, go, position);
+                _parkedPersistentVfx.Remove(entityId);
+            }
         }
 
         /// <summary>활성 보드 변경 (관전)</summary>
@@ -370,6 +421,11 @@ namespace CookApps.AutoChess.View
             view.InitializeAsCombat(combatId, sourceEntityId, starLevel, GetCharacterPrefabPath(champSpecId), champSpecId, isPlayer);
             _combatUnitViews[combatId] = view;
             OnCombatViewCreated?.Invoke(sourceEntityId, view);
+
+            // Parked VFX가 있으면 전투 뷰에 reparent 스케줄링
+            if (_parkedPersistentVfx.ContainsKey(sourceEntityId))
+                ScheduleVfxReparent(sourceEntityId, view);
+
             return view;
         }
 

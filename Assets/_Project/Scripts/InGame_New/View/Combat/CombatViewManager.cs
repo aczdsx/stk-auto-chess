@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using CookApps.AutoBattler;
 using CookApps.BattleSystem;
 using Cysharp.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace CookApps.AutoChess.View
         private Transform _vfxRoot;
         private TileEffectManager _tileEffectManager;
         private UnitViewManager _unitViewManager;
+        private VfxPool _vfxPool;
+        private CancellationTokenSource _combatCts;
 
         private const float FireAndForgetLifetime = 3f;
 
@@ -46,6 +49,7 @@ namespace CookApps.AutoChess.View
             public ParticleSystem[] Particles;
             public TrailRenderer[] Trails;
             public GameObject RawGo; // InGameVfx 없는 fallback VFX용
+            public GameObject SourcePrefab; // 풀 반환용 원본 프리팹 참조
             public float MoveSpeed; // 타일 간 이동 속도 (0이면 기본 20f)
             public ProjectileExpireBehavior ExpireBehavior;
         }
@@ -96,6 +100,12 @@ namespace CookApps.AutoChess.View
             var rootObj = new GameObject("VfxRoot");
             rootObj.transform.SetParent(transform);
             _vfxRoot = rootObj.transform;
+
+            // VFX 풀 (Instantiate/Destroy 대신 재사용)
+            var poolRoot = new GameObject("VfxPoolRoot");
+            poolRoot.transform.SetParent(transform);
+            poolRoot.SetActive(false);
+            _vfxPool = new VfxPool(poolRoot.transform);
         }
 
         public void SetTileEffectManager(TileEffectManager manager) => _tileEffectManager = manager;
@@ -103,6 +113,8 @@ namespace CookApps.AutoChess.View
 
         public void OnCombatStart()
         {
+            _combatCts?.Dispose();
+            _combatCts = new CancellationTokenSource();
             _isCombatActive = true;
         }
 
@@ -111,13 +123,17 @@ namespace CookApps.AutoChess.View
 
         public void OnCombatEnd()
         {
+            // 전투 종료 토큰 취소 — 대기 중인 ReturnVfxAfterDelay 모두 취소
+            _combatCts?.Cancel();
+            _combatCts?.Dispose();
+            _combatCts = null;
+
             _isCombatActive = false;
             _pendingProjectiles.Clear();
             _pendingMeleeAttacks.Clear();
             _pendingMeleeTargetIds.Clear();
             _tileEffectManager?.HideAll();
-            // 날아가는 투사체는 계속 진행 → Update()에서 자연 소멸
-            // 대기 중인 것만 제거 (이미 _pendingProjectiles.Clear() 완료)
+            ClearAllProjectiles();
         }
 
         // ── 이벤트 수신 (AutoChessViewBridge에서 호출) ──
@@ -537,17 +553,7 @@ namespace CookApps.AutoChess.View
             // Movement 없는 투사체: 즉시 정리
             _activeProjectiles.RemoveAt(idx);
             RebuildProjectileIdIndex();
-
-            if (ap.Movement != null) InGameVfxMovementPool.Return(ap.Movement);
-            if (ap.Vfx != null && ap.Vfx.CachedGo != null)
-            {
-                ap.Vfx.Clear();
-                Object.Destroy(ap.Vfx.CachedGo);
-            }
-            if (ap.RawGo != null)
-            {
-                Object.Destroy(ap.RawGo);
-            }
+            ReleaseProjectile(ap);
         }
 
         public void OnProjectileExploded(int col, int row, int radius, SynergyType element)
@@ -601,52 +607,47 @@ namespace CookApps.AutoChess.View
 
         // ── Fire-and-forget VFX (피격, 스킬 이펙트) ──
 
-        private void SpawnSkillVfx(UnitView unitView, SkillViewData skillData)
-        {
-            if (skillData?.Prefab == null || unitView == null) return;
-            var posTransform = unitView.GetSkillPositionTransform(skillData.Position);
-            var vfxObj = Instantiate(skillData.Prefab, posTransform.position, posTransform.rotation);
-            if (skillData.Followable)
-                vfxObj.transform.SetParent(posTransform);
-            else if (_vfxRoot != null)
-                vfxObj.transform.SetParent(_vfxRoot);
-
-            Destroy(vfxObj, FireAndForgetLifetime);
-        }
-
-        /// <summary>타겟 유닛의 SkillPosition에 부착하되, rotation은 identity로 고정.
-        /// 이소메트릭 카메라에서 VFX가 직각으로 떨어지는 연출에 사용 (미사 관짝 등).</summary>
-
-        private void SpawnSkillVfxAtPosition(SkillViewData skillData, Vector3 worldPos, Quaternion? rotation = null)
-        {
-            if (skillData?.Prefab == null) return;
-            var vfxObj = Instantiate(skillData.Prefab, worldPos, rotation ?? Quaternion.identity);
-            if (_vfxRoot != null)
-                vfxObj.transform.SetParent(_vfxRoot);
-            Destroy(vfxObj, FireAndForgetLifetime);
-        }
-
         private static readonly Vector3 DefaultRotationOffset = new Vector3(0, -90f, 0);
         private static readonly Vector3 DefaultFlipScale = new Vector3(1, 1, -1);
 
-        /// <summary>방향이 있는 스킬 VFX 생성. SkillViewData의 커스텀 회전/플립 설정을 우선 사용.</summary>
+        /// <summary>스킬 VFX 생성 공통 헬퍼. 풀에서 꺼내고 → 부모 설정 → 딜레이 후 풀 반환.</summary>
+        private GameObject SpawnSkillVfxCore(SkillViewData skillData, Vector3 position, Quaternion rotation,
+            Transform followParent = null)
+        {
+            if (skillData?.Prefab == null) return null;
+            bool isFollowable = skillData.Followable && followParent != null;
+            // Followable VFX: _vfxRoot에 Get한 뒤 수동 SetParent (원본 Instantiate + SetParent 동작 재현)
+            var vfxObj = _vfxPool.Get(skillData.Prefab, position, rotation, _vfxRoot);
+            if (isFollowable)
+                vfxObj.transform.SetParent(followParent);
+            ReturnVfxAfterDelay(vfxObj, skillData.Prefab, FireAndForgetLifetime).Forget();
+            return vfxObj;
+        }
+
+        /// <summary>유닛 위치 기반 VFX 생성 (유닛 회전 그대로)</summary>
+        private void SpawnSkillVfx(UnitView unitView, SkillViewData skillData)
+        {
+            if (unitView == null) return;
+            var posTransform = unitView.GetSkillPositionTransform(skillData.Position);
+            SpawnSkillVfxCore(skillData, posTransform.position, posTransform.rotation, posTransform);
+        }
+
+        /// <summary>월드 좌표 기반 VFX 생성 (미사 관짝 등 이소메트릭 직각 연출)</summary>
+        private void SpawnSkillVfxAtPosition(SkillViewData skillData, Vector3 worldPos, Quaternion? rotation = null)
+        {
+            SpawnSkillVfxCore(skillData, worldPos, rotation ?? Quaternion.identity);
+        }
+
+        /// <summary>그리드 방향 벡터 기반 VFX 생성 (방향 회전 + 플립 스케일 적용)</summary>
         private void SpawnSkillVfxDirectional(UnitView unitView, SkillViewData skillData, sbyte dirCol, sbyte dirRow)
         {
-            if (skillData?.Prefab == null || unitView == null) return;
+            if (unitView == null) return;
             var posTransform = unitView.GetSkillPositionTransform(skillData.Position);
-            var vfxObj = Instantiate(skillData.Prefab, posTransform.position, Quaternion.identity);
 
-            if (skillData.Followable)
-                vfxObj.transform.SetParent(posTransform);
-            else if (_vfxRoot != null)
-                vfxObj.transform.SetParent(_vfxRoot);
-
-            // 실제 타일 월드 좌표 차이로 방향 계산 (타일 중심 기준, Y축 무시)
+            // 타일 월드 좌표 차이로 방향 계산
             BoardWorldHelper.WorldToBoard(posTransform.position, out _, out int casterCol, out int casterRow);
             var casterTilePos = BoardWorldHelper.CombatGridToWorld(0, casterCol, casterRow);
-            int fwdCol = casterCol + dirCol;
-            int fwdRow = casterRow + dirRow;
-            var fwdWorldPos = BoardWorldHelper.CombatGridToWorld(0, fwdCol, fwdRow);
+            var fwdWorldPos = BoardWorldHelper.CombatGridToWorld(0, casterCol + dirCol, casterRow + dirRow);
             var dirRaw = fwdWorldPos - casterTilePos;
             dirRaw.y = 0f;
             Vector3 direction = dirRaw.normalized;
@@ -654,48 +655,45 @@ namespace CookApps.AutoChess.View
             var rotOffset = skillData.UseCustomRotation ? skillData.RotationOffset : DefaultRotationOffset;
             var flipScale = skillData.UseCustomRotation ? skillData.FlipScale : DefaultFlipScale;
 
-            if (direction != Vector3.zero)
-            {
-                vfxObj.transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(rotOffset);
-            }
+            Quaternion rot = direction != Vector3.zero
+                ? Quaternion.LookRotation(direction) * Quaternion.Euler(rotOffset)
+                : Quaternion.identity;
 
-            // scale flip: 기존 조건 dirCol > 0 || dirRow < 0
+            var vfxObj = SpawnSkillVfxCore(skillData, posTransform.position, rot, posTransform);
+            if (vfxObj == null) return;
+
+            // 플립 스케일
             bool flipped = dirCol > 0 || dirRow < 0;
             Vector3 scale = flipped ? flipScale : Vector3.one;
-
-            // followable일 때 부모(SkillRoot)의 FlipX를 상쇄
             if (skillData.Followable && posTransform.lossyScale.x < 0)
                 scale.x *= -1;
-
             vfxObj.transform.localScale = scale;
-
- 
-            Destroy(vfxObj, FireAndForgetLifetime);
         }
 
-        /// <summary>월드 방향 벡터 기반 스킬 VFX 생성 (OnUnitCastSkill용)</summary>
+        /// <summary>월드 방향 벡터 기반 VFX 생성 (OnUnitCastSkill용)</summary>
         private void SpawnSkillVfxToward(UnitView unitView, SkillViewData skillData, Vector3 direction)
         {
-            if (skillData?.Prefab == null || unitView == null) return;
+            if (unitView == null) return;
             var posTransform = unitView.GetSkillPositionTransform(skillData.Position);
-            var vfxObj = Instantiate(skillData.Prefab, posTransform.position, Quaternion.identity);
-
-            if (skillData.Followable)
-                vfxObj.transform.SetParent(posTransform);
-            else if (_vfxRoot != null)
-                vfxObj.transform.SetParent(_vfxRoot);
-
             var rotOffset = skillData.UseCustomRotation ? skillData.RotationOffset : DefaultRotationOffset;
-            vfxObj.transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(rotOffset);
-
-            Destroy(vfxObj, FireAndForgetLifetime);
+            Quaternion rot = Quaternion.LookRotation(direction) * Quaternion.Euler(rotOffset);
+            SpawnSkillVfxCore(skillData, posTransform.position, rot, posTransform);
         }
 
         private void SpawnFireAndForgetVfx(GameObject prefab, Vector3 position)
         {
             if (prefab == null) return;
-            var go = Instantiate(prefab, position, Quaternion.identity, _vfxRoot);
-            Destroy(go, FireAndForgetLifetime);
+            var go = _vfxPool.Get(prefab, position, Quaternion.identity, _vfxRoot);
+            ReturnVfxAfterDelay(go, prefab, FireAndForgetLifetime).Forget();
+        }
+
+        private async UniTaskVoid ReturnVfxAfterDelay(GameObject go, GameObject prefab, float delay)
+        {
+            var ct = _combatCts?.Token ?? destroyCancellationToken;
+            bool canceled = await UniTask.Delay((int)(delay * 1000), cancellationToken: ct)
+                .SuppressCancellationThrow();
+            if (canceled || go == null) return;
+            _vfxPool.Return(go, prefab);
         }
 
         // ── 지연 후 근접 공격 실행 ──
@@ -766,7 +764,7 @@ namespace CookApps.AutoChess.View
             if (dir != Vector3.zero) vfx.CachedTr.rotation = Quaternion.LookRotation(dir) * Quaternion.Euler(0, -90f, 0);
 
             vfx.Initialize(false, movement);
-            RegisterProjectile(vfx, movement, projectileId);
+            RegisterProjectile(vfx, movement, projectileId, prefab);
         }
 
         private void SpawnHomingProjectileBezier(Vector3 sourcePos, int targetId, GameObject prefab, int projectileId,
@@ -803,7 +801,7 @@ namespace CookApps.AutoChess.View
             }
 
             vfx.Initialize(false, bezier);
-            RegisterProjectile(vfx, bezier, projectileId);
+            RegisterProjectile(vfx, bezier, projectileId, prefab);
         }
 
         private void SpawnLinearProjectile(Vector3 sourcePos, byte startCol, byte startRow, sbyte dirCol, sbyte dirRow, GameObject prefab, int projectileId, float moveSpeed = 0f)
@@ -856,12 +854,12 @@ namespace CookApps.AutoChess.View
 
                 vfx.Initialize(false, movement);
                 // Linear 투사체는 OnReachedTarget으로 제거하지 않음 (ProjectileExpired로 제거)
-                RegisterLinearProjectile(vfx, movement, projectileId, speed);
+                RegisterLinearProjectile(vfx, movement, projectileId, speed, prefab);
             }
             else
             {
                 // InGameVfx 컴포넌트가 없는 스킬 VFX 프리팹 fallback (아트레시아 등)
-                var go = Instantiate(prefab, startWorldPos, Quaternion.identity, _vfxRoot);
+                var go = _vfxPool.Get(prefab, startWorldPos, Quaternion.identity, _vfxRoot);
                 if (worldDir != Vector3.zero)
                     go.transform.rotation = Quaternion.LookRotation(worldDir) * Quaternion.Euler(0, -90f, 0);
 
@@ -884,6 +882,7 @@ namespace CookApps.AutoChess.View
                 {
                     ProjectileId = projectileId,
                     RawGo = go,
+                    SourcePrefab = prefab,
                     Movement = movement,
                     Particles = go.GetComponentsInChildren<ParticleSystem>(),
                     Trails = go.GetComponentsInChildren<TrailRenderer>(),
@@ -908,11 +907,12 @@ namespace CookApps.AutoChess.View
             movement.SetData(vfx.CachedTr, sourcePos, targetPos, 10f);
 
             vfx.Initialize(false, movement);
-            RegisterProjectile(vfx, movement);
+            RegisterProjectile(vfx, movement, 0, prefab);
         }
 
         /// <summary>Linear 투사체 등록. OnReachedTarget으로 제거하지 않음 (ProjectileExpired로만 제거).</summary>
-        private void RegisterLinearProjectile(InGameVfx vfx, InGameVfxMovementBase movement, int projectileId, float moveSpeed = 0f)
+        private void RegisterLinearProjectile(InGameVfx vfx, InGameVfxMovementBase movement, int projectileId,
+            float moveSpeed = 0f, GameObject sourcePrefab = null)
         {
             var ap = new ActiveProjectile
             {
@@ -921,6 +921,7 @@ namespace CookApps.AutoChess.View
                 Movement = movement,
                 Particles = vfx.GetComponentsInChildren<ParticleSystem>(),
                 Trails = vfx.GetComponentsInChildren<TrailRenderer>(),
+                SourcePrefab = sourcePrefab,
                 MoveSpeed = moveSpeed > 0f ? moveSpeed : DefaultProjectileSpeed,
                 ExpireBehavior = ProjectileExpireBehavior.FlyThrough,
             };
@@ -930,7 +931,8 @@ namespace CookApps.AutoChess.View
             // OnReachedTarget을 등록하지 않음: 매 타일마다 목적지가 갱신되므로
         }
 
-        private void RegisterProjectile(InGameVfx vfx, InGameVfxMovementBase movement, int projectileId = 0)
+        private void RegisterProjectile(InGameVfx vfx, InGameVfxMovementBase movement,
+            int projectileId = 0, GameObject sourcePrefab = null)
         {
             var ap = new ActiveProjectile
             {
@@ -939,6 +941,7 @@ namespace CookApps.AutoChess.View
                 Movement = movement,
                 Particles = vfx.GetComponentsInChildren<ParticleSystem>(),
                 Trails = vfx.GetComponentsInChildren<TrailRenderer>(),
+                SourcePrefab = sourcePrefab,
             };
             _activeProjectiles.Add(ap);
             if (projectileId != 0)
@@ -965,17 +968,16 @@ namespace CookApps.AutoChess.View
         {
             if (prefab == null) return null;
 
-            var go = Instantiate(prefab, position, Quaternion.identity, _vfxRoot);
+            var go = _vfxPool.Get(prefab, position, Quaternion.identity, _vfxRoot);
             if (go == null) return null;
 
             var vfx = go.GetComponent<InGameVfx>();
             if (vfx == null)
             {
-                Destroy(go);
+                _vfxPool.Return(go, prefab);
                 return null;
             }
 
-            go.SetActive(true);
             return vfx;
         }
 
@@ -983,19 +985,24 @@ namespace CookApps.AutoChess.View
         {
             if (ap.Movement != null) InGameVfxMovementPool.Return(ap.Movement);
             ReleaseVfx(ap);
-            if (ap.RawGo != null) Object.Destroy(ap.RawGo);
         }
 
-        private static void ReleaseVfx(ActiveProjectile ap)
+        private void ReleaseVfx(ActiveProjectile ap)
         {
             if (ap.Vfx != null && ap.Vfx.CachedGo != null)
             {
                 ap.Vfx.Clear();
-                Object.Destroy(ap.Vfx.CachedGo);
+                if (ap.SourcePrefab != null)
+                    _vfxPool.Return(ap.Vfx.CachedGo, ap.SourcePrefab, ap.Particles, ap.Trails);
+                else
+                    Object.Destroy(ap.Vfx.CachedGo);
             }
-            if (ap.RawGo != null)
+            else if (ap.RawGo != null)
             {
-                Object.Destroy(ap.RawGo);
+                if (ap.SourcePrefab != null)
+                    _vfxPool.Return(ap.RawGo, ap.SourcePrefab, ap.Particles, ap.Trails);
+                else
+                    Object.Destroy(ap.RawGo);
             }
         }
 

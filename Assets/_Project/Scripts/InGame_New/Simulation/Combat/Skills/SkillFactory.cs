@@ -79,36 +79,80 @@ namespace CookApps.AutoChess
                 // Custom 아키타입인데 아직 미등록이면 스킵
                 if (archetype == SimSkillArchetype.Custom) continue;
 
-                Register(id, () => SkillSpecAdapter.CreateFromArchetype(archetype));
+                // Recipe가 있으면 SimSkillGeneric으로, 없으면 기존 아키타입 클래스로
+                if (SkillRecipeRegistry.TryGetByArchetype(archetype, out var archetypeRecipe))
+                {
+                    var capturedRecipe = archetypeRecipe;
+                    Register(id, () =>
+                    {
+                        var skill = new SimSkillGeneric();
+                        skill.SetRecipe(capturedRecipe);
+                        return skill;
+                    });
+                }
+                else
+                {
+                    Register(id, () => SkillSpecAdapter.CreateFromArchetype(archetype));
+                }
             }
         }
 
         private static void RegisterCustomSkills()
         {
-            Register(215252102, () => new SimSkillYuniHeal());
-            Register(217433302, () => new SimSkillMinoProjectile());
-            Register(217363204, () => new SimSkillVeinBounce());
-            Register(217413301, () => new SimSkillTetoraKnockback());
-            Register(217433303, () => new SimSkillHatiKnockback());
-            Register(215422301, () => new SimSkillMenshaShield());
-            Register(217553404, () => new SimSkillClayChannel());
-            Register(217563405, () => new SimSkillMarieAssassin());
-            Register(217653505, () => new SimSkillEnkiWaveHeal());
-            Register(217333202, () => new SimSkillAprilBarrage());
-            Register(217613501, () => new SimSkillOdetteStrike());
-            Register(217263103, () => new SimSkillRukidaFoxfire());
-            Register(215532401, () => new SimSkillPiliaStrike());
-            Register(217523403, () => new SimSkillAdriaExpand());
-            Register(217323201, () => new SimSkillMisaRestraint());
-            Register(217663506, () => new SimSkillShirayukiAssassin());
-            Register(215642501, () => new SimSkillEllisAoE());
-            Register(215322201, () => new SimSkillMayCross());
-            Register(217353203, () => new SimSkillRakiyuDebuff());
+            // ── 커스텀 실행 로직이 필요한 스킬 (전용 클래스 유지) ──
+            // 각 스킬의 ParamSlots는 SkillRecipeRegistry에 정의되어 있으나,
+            // Execute/OnChannelTick 로직이 복잡하여 SimSkillGeneric으로 대체 불가.
+            Register(217433302, () => new SimSkillMinoProjectile());  // 미노: 순차 미사일 + 개별 도착 타이머
+            Register(217363204, () => new SimSkillVeinBounce());      // 베인: 바운스 투사체 + 히트 추적
+            Register(217413301, () => new SimSkillTetoraKnockback()); // 테토라: 넉백 + 벽 충돌 + 착지 AoE
+            Register(217563405, () => new SimSkillMarieAssassin());   // 마리에: 텔레포트 + 순차 히트
+            Register(217653505, () => new SimSkillEnkiWaveHeal());    // 엔키: 보드 스윕 투사체
+            Register(217333202, () => new SimSkillAprilBarrage());    // 에이프릴: 확장 콘 + 거리별 배율
+            Register(217613501, () => new SimSkillOdetteStrike());    // 오데트: 2단계 텔레포트 + 다른 범위
+            Register(217523403, () => new SimSkillAdriaExpand());     // 아드리아: 3단계 확장 + 비트마스크
+            Register(217663506, () => new SimSkillShirayukiAssassin()); // 시라유키: 순차 텔레포트 암살
+            Register(217263103, () => new SimSkillRukidaFoxfire());   // 루키다: 마커 카운트 기반 동적 버프
+            Register(217353203, () => new SimSkillRakiyuDebuff());    // 라키유: 투사체 도착 후 범위 디버프
 
-            // 몬스터 커스텀 스킬
-            Register(250108001, () => new SimSkillBossTankLine());
-            Register(230101005, () => new SimSkillSingleProjectile());
-            Register(230202004, () => new SimSkillSingleProjectile());
+            // ── Recipe 기반 스킬 (SimSkillGeneric으로 완전 대체) ──
+            // Actions 데이터만으로 Execute/OnChannelTick 로직을 표현 가능한 스킬.
+            RegisterRecipeSkills();
+        }
+
+        /// <summary>
+        /// SkillRecipeRegistry에 등록된 스킬 중, 커스텀 클래스 미등록인 것만
+        /// SimSkillGeneric으로 등록. Recipe의 Actions로 실행 로직을 데이터 기반 처리.
+        /// </summary>
+        private static void RegisterRecipeSkills()
+        {
+            int[] recipeSkillIds = {
+                215532401, // 필리아: DelayedApply, Damage + 3단계 VFX + 마커
+                217433303, // 하티: DelayedApply, Damage + Knockback + 3단계 VFX
+                215252102, // 유니: DelayedApply, 최저HP 3명 Heal + RemoveDebuffs
+                215422301, // 멘샤: DelayedApply, 같은 행 아군 Shield
+                217323201, // 미사: DelayedApply, 최고공격력 적 Stun + 마커
+                217553404, // 클레이: Channeling, Zone 힐+데미지+디버프
+                215642501, // 엘리스: Channeling, 2단계 Diamond AoE
+                230101005, // 몬스터 SingleProjectile
+                230202004, // 몬스터 SingleProjectile
+                215322201, // 메이: Plus AoE + 넉백 + 방어 버프
+                250108001, // 보스탱커: 전방 10칸 순차 타격
+            };
+
+            for (int i = 0; i < recipeSkillIds.Length; i++)
+            {
+                int id = recipeSkillIds[i];
+                if (_registry.ContainsKey(id)) continue;
+                if (!SkillRecipeRegistry.TryGet(id, out var recipe)) continue;
+
+                var capturedRecipe = recipe;
+                Register(id, () =>
+                {
+                    var skill = new SimSkillGeneric();
+                    skill.SetRecipe(capturedRecipe);
+                    return skill;
+                });
+            }
         }
 
         /// <summary>팩토리 등록 해제 (테스트용)</summary>

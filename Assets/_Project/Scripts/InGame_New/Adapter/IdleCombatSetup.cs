@@ -157,6 +157,8 @@ namespace CookApps.AutoChess
             unit.PendingAtkTargetId = CombatUnit.InvalidId;
             unit.PendingAtkTimer = 0;
             unit.MoveTimer = 0;
+            unit.MoveDuration = 0;
+            unit.SkillCastTimer = 0;
 
             // 그리드 등록
             state.SetGridMulti(col, row, unit.SizeW, unit.SizeH, combatId);

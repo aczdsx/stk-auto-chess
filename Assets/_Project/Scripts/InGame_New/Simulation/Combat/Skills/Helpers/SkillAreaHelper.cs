@@ -5,91 +5,107 @@ namespace CookApps.AutoChess
     {
         public delegate void AreaAction(ref CombatUnit target, int targetIndex);
 
-        /// <summary>원형 범위(체비셰프 거리) 내 적 순회</summary>
-        public static void ForEachEnemyInRadius(CombatMatchState state, byte casterTeam,
-            int centerCol, int centerRow, int radius, AreaAction action)
+        // ══════════════════════════════
+        // 통합 순회 메서드 — 팀 필터 + 범위 형태를 파라미터로 받음
+        // ══════════════════════════════
+
+        /// <summary>범위 내 유닛 순회 (팀 필터 + 범위 형태 통합)</summary>
+        public static void ForEachInArea(CombatMatchState state, byte casterTeam,
+            int centerCol, int centerRow, int radius,
+            bool ally, SkillAreaShape shape, AreaAction action)
         {
             for (int i = 0; i < state.UnitCount; i++)
             {
                 ref var unit = ref state.Units[i];
                 if (!unit.IsAlive) continue;
-                if (unit.TeamIndex == casterTeam) continue;
 
-                int dist = BoardHelper.MinChebyshevDistance(centerCol, centerRow, 1, 1,
-                    unit.GridCol, unit.GridRow,
-                    unit.SizeW > 0 ? unit.SizeW : (byte)1,
-                    unit.SizeH > 0 ? unit.SizeH : (byte)1);
-                if (dist <= radius)
+                // 팀 필터: ally=true면 같은 팀만, false면 다른 팀만
+                if (ally ? unit.TeamIndex != casterTeam : unit.TeamIndex == casterTeam)
+                    continue;
+
+                if (!IsInArea(shape, centerCol, centerRow, radius, ref unit))
+                    continue;
+
+                action(ref unit, i);
+            }
+        }
+
+        /// <summary>유닛이 지정된 범위 형태 내에 있는지 판정</summary>
+        public static bool IsInArea(SkillAreaShape shape, int centerCol, int centerRow, int radius,
+            ref CombatUnit unit)
+        {
+            byte sw = unit.SizeW > 0 ? unit.SizeW : (byte)1;
+            byte sh = unit.SizeH > 0 ? unit.SizeH : (byte)1;
+
+            switch (shape)
+            {
+                case SkillAreaShape.Circle:
                 {
-                    action(ref unit, i);
+                    int dist = BoardHelper.MinChebyshevDistance(centerCol, centerRow, 1, 1,
+                        unit.GridCol, unit.GridRow, sw, sh);
+                    return dist <= radius;
+                }
+                case SkillAreaShape.Diamond:
+                {
+                    int dist = BoardHelper.MinManhattanDistance(centerCol, centerRow, 1, 1,
+                        unit.GridCol, unit.GridRow, sw, sh);
+                    return dist <= radius;
+                }
+                case SkillAreaShape.Plus:
+                {
+                    int dc = unit.GridCol - centerCol;
+                    int dr = unit.GridRow - centerRow;
+                    if (dc < 0) dc = -dc;
+                    if (dr < 0) dr = -dr;
+                    return (dc == 0 && dr <= radius) || (dr == 0 && dc <= radius);
+                }
+                default:
+                {
+                    // 기본: 체비셰프 (Circle)
+                    int dist = BoardHelper.MinChebyshevDistance(centerCol, centerRow, 1, 1,
+                        unit.GridCol, unit.GridRow, sw, sh);
+                    return dist <= radius;
                 }
             }
         }
+
+        // ══════════════════════════════
+        // 하위 호환 래퍼 — 기존 호출부 수정 없이 사용
+        // ══════════════════════════════
+
+        /// <summary>원형 범위(체비셰프 거리) 내 적 순회</summary>
+        public static void ForEachEnemyInRadius(CombatMatchState state, byte casterTeam,
+            int centerCol, int centerRow, int radius, AreaAction action)
+            => ForEachInArea(state, casterTeam, centerCol, centerRow, radius, false, SkillAreaShape.Circle, action);
 
         /// <summary>다이아몬드 범위(맨해튼 거리) 내 적 순회</summary>
         public static void ForEachEnemyInDiamond(CombatMatchState state, byte casterTeam,
             int centerCol, int centerRow, int radius, AreaAction action)
-        {
-            for (int i = 0; i < state.UnitCount; i++)
-            {
-                ref var unit = ref state.Units[i];
-                if (!unit.IsAlive) continue;
-                if (unit.TeamIndex == casterTeam) continue;
+            => ForEachInArea(state, casterTeam, centerCol, centerRow, radius, false, SkillAreaShape.Diamond, action);
 
-                int dist = BoardHelper.MinManhattanDistance(centerCol, centerRow, 1, 1,
-                    unit.GridCol, unit.GridRow,
-                    unit.SizeW > 0 ? unit.SizeW : (byte)1,
-                    unit.SizeH > 0 ? unit.SizeH : (byte)1);
-                if (dist <= radius)
-                {
-                    action(ref unit, i);
-                }
-            }
-        }
-
-        /// <summary>Plus(+) 형태 범위 내 적 순회 (상하좌우 십자가, 대각선 제외)</summary>
+        /// <summary>Plus(+) 형태 범위 내 적 순회</summary>
         public static void ForEachEnemyInPlus(CombatMatchState state, byte casterTeam,
             int centerCol, int centerRow, int radius, AreaAction action)
-        {
-            for (int i = 0; i < state.UnitCount; i++)
-            {
-                ref var unit = ref state.Units[i];
-                if (!unit.IsAlive) continue;
-                if (unit.TeamIndex == casterTeam) continue;
-
-                int dc = unit.GridCol - centerCol;
-                int dr = unit.GridRow - centerRow;
-                if (dc < 0) dc = -dc;
-                if (dr < 0) dr = -dr;
-
-                // Plus 형태: 같은 열(dc==0) 또는 같은 행(dr==0), 거리 ≤ radius
-                if ((dc == 0 && dr <= radius) || (dr == 0 && dc <= radius))
-                {
-                    action(ref unit, i);
-                }
-            }
-        }
+            => ForEachInArea(state, casterTeam, centerCol, centerRow, radius, false, SkillAreaShape.Plus, action);
 
         /// <summary>원형 범위 내 아군 순회</summary>
         public static void ForEachAllyInRadius(CombatMatchState state, byte casterTeam,
             int centerCol, int centerRow, int radius, AreaAction action)
-        {
-            for (int i = 0; i < state.UnitCount; i++)
-            {
-                ref var unit = ref state.Units[i];
-                if (!unit.IsAlive) continue;
-                if (unit.TeamIndex != casterTeam) continue;
+            => ForEachInArea(state, casterTeam, centerCol, centerRow, radius, true, SkillAreaShape.Circle, action);
 
-                int dist = BoardHelper.MinChebyshevDistance(centerCol, centerRow, 1, 1,
-                    unit.GridCol, unit.GridRow,
-                    unit.SizeW > 0 ? unit.SizeW : (byte)1,
-                    unit.SizeH > 0 ? unit.SizeH : (byte)1);
-                if (dist <= radius)
-                {
-                    action(ref unit, i);
-                }
-            }
-        }
+        /// <summary>다이아몬드 범위 내 아군 순회</summary>
+        public static void ForEachAllyInDiamond(CombatMatchState state, byte casterTeam,
+            int centerCol, int centerRow, int radius, AreaAction action)
+            => ForEachInArea(state, casterTeam, centerCol, centerRow, radius, true, SkillAreaShape.Diamond, action);
+
+        /// <summary>Plus(+) 형태 범위 내 아군 순회</summary>
+        public static void ForEachAllyInPlus(CombatMatchState state, byte casterTeam,
+            int centerCol, int centerRow, int radius, AreaAction action)
+            => ForEachInArea(state, casterTeam, centerCol, centerRow, radius, true, SkillAreaShape.Plus, action);
+
+        // ══════════════════════════════
+        // 직선 순회 (구조가 다르므로 별도 유지)
+        // ══════════════════════════════
 
         /// <summary>직선 범위 내 적 순회</summary>
         public static void ForEachEnemyInLine(CombatMatchState state, byte casterTeam,
@@ -118,6 +134,10 @@ namespace CookApps.AutoChess
                 action(ref unit, idx);
             }
         }
+
+        // ══════════════════════════════
+        // 타겟 검색
+        // ══════════════════════════════
 
         /// <summary>최적 AoE 타겟 찾기 (가장 많은 적을 포함하는 적 유닛의 CombatId)</summary>
         public static int FindBestAoETarget(CombatMatchState state, ref CombatUnit caster, int radius)

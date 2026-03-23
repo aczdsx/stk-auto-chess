@@ -85,6 +85,17 @@ namespace CookApps.AutoChess
             // CC 상태 처리
             if (unit.State == CombatState.CrowdControlled)
             {
+                // 넉백 이동은 CC 중에도 진행 (넉백 = CC + 강제이동)
+                if (unit.IsKnockbackMoving && unit.MoveTimer > 0)
+                {
+                    unit.MoveTimer--;
+                    if (unit.MoveTimer <= 0)
+                    {
+                        unit.MoveTimer = 0;
+                        unit.IsKnockbackMoving = false;
+                    }
+                }
+
                 unit.CCRemainingFrames--;
                 if (unit.CCRemainingFrames <= 0)
                 {

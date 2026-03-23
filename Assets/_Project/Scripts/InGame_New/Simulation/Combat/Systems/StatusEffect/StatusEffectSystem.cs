@@ -6,6 +6,10 @@ namespace CookApps.AutoChess
     /// </summary>
     public static partial class StatusEffectSystem
     {
+        // 마커 만료 수집용 pre-allocated 버퍼 (GC-free)
+        private static readonly int[] MarkerExpUnits = new int[32];
+        private static readonly int[] MarkerExpValues = new int[32];
+
         /// <summary>상태효과 추가. StatBuff/Debuff는 추가 시 스탯 즉시 적용.</summary>
         public static void AddEffect(CombatMatchState state, int unitIndex,
             StatusEffectType type, int value, int durationFrames,
@@ -130,8 +134,6 @@ namespace CookApps.AutoChess
             int markerDirtyMask = 0;
             // 만료된 마커의 (unitIndex, markerValue) 쌍을 수집
             int markerExpCount = 0;
-            int[] markerExpUnits = null;
-            int[] markerExpValues = null;
 
             for (int i = 0; i < state.StatusEffectCount; i++)
             {
@@ -164,15 +166,10 @@ namespace CookApps.AutoChess
                         if (effect.Type == StatusEffectType.SkillMarker)
                         {
                             markerDirtyMask |= (1 << effect.OwnerUnitIndex);
-                            if (markerExpUnits == null)
-                            {
-                                markerExpUnits = new int[32];
-                                markerExpValues = new int[32];
-                            }
                             if (markerExpCount < 32)
                             {
-                                markerExpUnits[markerExpCount] = effect.OwnerUnitIndex;
-                                markerExpValues[markerExpCount] = effect.Value;
+                                MarkerExpUnits[markerExpCount] = effect.OwnerUnitIndex;
+                                MarkerExpValues[markerExpCount] = effect.Value;
                                 markerExpCount++;
                             }
                         }
@@ -209,14 +206,14 @@ namespace CookApps.AutoChess
                 // 중복 (unitIndex, markerValue) 쌍 제거하며 이벤트 발행
                 for (int e = 0; e < markerExpCount; e++)
                 {
-                    int uIdx = markerExpUnits[e];
-                    int mVal = markerExpValues[e];
+                    int uIdx = MarkerExpUnits[e];
+                    int mVal = MarkerExpValues[e];
 
                     // 이미 처리한 쌍인지 확인
                     bool duplicate = false;
                     for (int prev = 0; prev < e; prev++)
                     {
-                        if (markerExpUnits[prev] == uIdx && markerExpValues[prev] == mVal)
+                        if (MarkerExpUnits[prev] == uIdx && MarkerExpValues[prev] == mVal)
                         { duplicate = true; break; }
                     }
                     if (duplicate) continue;

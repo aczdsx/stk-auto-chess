@@ -71,78 +71,27 @@ namespace CookApps.AutoChess
                 state.CombatIdToUnitIndex[combatId] = slotIndex;
 
                 ref var combatUnit = ref state.Units[slotIndex];
-                combatUnit.CombatId = combatId;
-                combatUnit.SourceEntityId = entityId;
-                combatUnit.ChampionSpecId = srcUnit.ChampionSpecId;
-                combatUnit.StarLevel = srcUnit.StarLevel;
-                combatUnit.OwnerIndex = playerIndex;
-                combatUnit.TeamIndex = teamIndex;
-                combatUnit.GridCol = (byte)gridCol;
-                combatUnit.GridRow = (byte)gridRow;
-                combatUnit.State = CombatState.Idle;
-                combatUnit.IsAlive = true;
-
-                // 스탯 복사
-                combatUnit.MaxHP = srcUnit.MaxHP;
-                combatUnit.CurrentHP = srcUnit.MaxHP;
-                combatUnit.Attack = srcUnit.Attack;
-                combatUnit.AttackSpeed = srcUnit.AttackSpeed;
-                combatUnit.AttackRange = srcUnit.AttackRange;
-                combatUnit.MoveSpeed = srcUnit.MoveSpeed;
-                combatUnit.MaxMana = srcUnit.MaxMana;
-                combatUnit.CurrentMana = 0;
-
-                combatUnit.Def = srcUnit.Def;
-                combatUnit.AdReduce = srcUnit.AdReduce;
-                combatUnit.ApReduce = srcUnit.ApReduce;
-
-                // 퍼센트 버프 기준값 저장
-                combatUnit.BaseMaxHP = srcUnit.MaxHP;
-                combatUnit.BaseAttack = srcUnit.Attack;
-                combatUnit.BaseDef = srcUnit.Def;
-                combatUnit.BaseAttackSpeed = srcUnit.AttackSpeed;
-                combatUnit.BaseAdReduce = srcUnit.AdReduce;
-                combatUnit.BaseApReduce = srcUnit.ApReduce;
-
-                // 마나 리젠 초기화 (글로벌 기본값)
-                combatUnit.ManaRegenPerSec = world.Config.DefaultManaRegenPerSec;
-                combatUnit.ManaGainOnAttack = world.Config.DefaultManaGainOnAttack;
-                combatUnit.ManaGainOnHit = world.Config.DefaultManaGainOnHit;
-                combatUnit.ManaRegenRateBonus = 0;
-
-                // 관통/크리
-                combatUnit.AtkPierce = srcUnit.AtkPierce;
-                combatUnit.ResPierce = srcUnit.ResPierce;
-                combatUnit.CritRate = srcUnit.CritRate > 0 ? srcUnit.CritRate : 25;
-                combatUnit.CritPower = srcUnit.CritPower > 0 ? srcUnit.CritPower : 150;
-                combatUnit.HitChance = 100;
-                combatUnit.HealPower = srcUnit.HealPower;
-                combatUnit.ImmuneType = srcUnit.ImmuneType;
-                combatUnit.TraitFlags = srcUnit.TraitFlags;
-
-                // 크기 복사
-                combatUnit.SizeW = srcUnit.SizeW > 0 ? srcUnit.SizeW : (byte)1;
-                combatUnit.SizeH = srcUnit.SizeH > 0 ? srcUnit.SizeH : (byte)1;
-
-                combatUnit.CurrentTargetId = CombatUnit.InvalidId;
-                combatUnit.AttackCooldown = 0;
-                combatUnit.PendingAtkTargetId = CombatUnit.InvalidId;
-                combatUnit.PendingAtkTimer = 0;
-                combatUnit.ActionLockTimer = 0;
-                combatUnit.MoveTimer = 0;
-                combatUnit.MoveDuration = 0;
-
-                // ATK 키프레임 지연 추출 (prefabId 기반)
                 int prefabId = FindPrefabId(world, srcUnit.ChampionSpecId);
-                combatUnit.AtkHitDelay = ExtractAtkHitDelay(prefabId, world.TickRate);
-                combatUnit.AttackActionFrames = ExtractAttackActionFrames(prefabId, world.TickRate);
 
-                // 스킬 ID 설정 (ChampionSpec에서 복사)
-                combatUnit.SkillSpecId = FindSkillId(world, srcUnit.ChampionSpecId);
-                combatUnit.SkillCastTimer = 0;
-
-                // 범위 기본공격 패턴 플래그
-                combatUnit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(srcUnit.ChampionSpecId, out _);
+                InitCombatUnitCommon(ref combatUnit,
+                    combatId, entityId, srcUnit.ChampionSpecId,
+                    srcUnit.StarLevel, playerIndex, teamIndex,
+                    (byte)gridCol, (byte)gridRow,
+                    srcUnit.SizeW > 0 ? srcUnit.SizeW : (byte)1,
+                    srcUnit.SizeH > 0 ? srcUnit.SizeH : (byte)1,
+                    srcUnit.MaxHP, srcUnit.Attack, srcUnit.AttackSpeed,
+                    srcUnit.AttackRange, srcUnit.MoveSpeed, srcUnit.MaxMana,
+                    srcUnit.Def, srcUnit.AdReduce, srcUnit.ApReduce,
+                    world.Config.DefaultManaRegenPerSec,
+                    world.Config.DefaultManaGainOnAttack,
+                    world.Config.DefaultManaGainOnHit,
+                    srcUnit.AtkPierce, srcUnit.ResPierce,
+                    srcUnit.CritRate, srcUnit.CritPower,
+                    srcUnit.HealPower, srcUnit.ImmuneType, srcUnit.TraitFlags,
+                    ExtractAtkHitDelay(prefabId, world.TickRate),
+                    ExtractAttackActionFrames(prefabId, world.TickRate),
+                    FindSkillId(world, srcUnit.ChampionSpecId),
+                    AreaAttackRegistry.TryGetPattern(srcUnit.ChampionSpecId, out _));
 
                 // 아이템 스탯 적용 (기본 스탯 → 아이템 순서)
                 ItemSystem.ApplyItemStats(world, ref combatUnit, ref srcUnit);
@@ -152,6 +101,89 @@ namespace CookApps.AutoChess
 
                 if (CombatLogger.Enabled) CombatLogger.LogSpawn(combatId, teamIndex, gridCol, gridRow, combatUnit.MaxHP, combatUnit.Attack, combatUnit.AttackRange);
             }
+        }
+
+        /// <summary>
+        /// CombatUnit 공통 필드 초기화. SpawnTeamUnits, SpawnPvEEnemies, SpawnTutorialUnit에서 공유.
+        /// 타이머/상태 필드를 기본값으로, 전투 스탯을 파라미터 값으로 설정.
+        /// </summary>
+        private static void InitCombatUnitCommon(ref CombatUnit unit,
+            int combatId, int sourceEntityId, int championSpecId,
+            byte starLevel, byte ownerIndex, byte teamIndex,
+            byte gridCol, byte gridRow, byte sizeW, byte sizeH,
+            int maxHP, int attack, int attackSpeed, int attackRange, int moveSpeed,
+            int maxMana, int def, int adReduce, int apReduce,
+            int manaRegenPerSec, int manaGainOnAttack, int manaGainOnHit,
+            int atkPierce, int resPierce, int critRate, int critPower,
+            int healPower, int immuneType, int traitFlags,
+            int atkHitDelay, int attackActionFrames, int skillSpecId, bool hasAreaAttack)
+        {
+            // 식별자
+            unit.CombatId = combatId;
+            unit.SourceEntityId = sourceEntityId;
+            unit.ChampionSpecId = championSpecId;
+            unit.StarLevel = starLevel;
+            unit.OwnerIndex = ownerIndex;
+            unit.TeamIndex = teamIndex;
+            unit.GridCol = gridCol;
+            unit.GridRow = gridRow;
+            unit.SizeW = sizeW;
+            unit.SizeH = sizeH;
+            unit.State = CombatState.Idle;
+            unit.IsAlive = true;
+
+            // 전투 스탯
+            unit.MaxHP = maxHP;
+            unit.CurrentHP = maxHP;
+            unit.Attack = attack;
+            unit.AttackSpeed = attackSpeed;
+            unit.AttackRange = attackRange;
+            unit.MoveSpeed = moveSpeed;
+            unit.MaxMana = maxMana;
+            unit.CurrentMana = 0;
+            unit.Def = def;
+            unit.AdReduce = adReduce;
+            unit.ApReduce = apReduce;
+
+            // 퍼센트 버프 기준값
+            unit.BaseMaxHP = maxHP;
+            unit.BaseAttack = attack;
+            unit.BaseDef = def;
+            unit.BaseAttackSpeed = attackSpeed;
+            unit.BaseAdReduce = adReduce;
+            unit.BaseApReduce = apReduce;
+
+            // 마나 리젠
+            unit.ManaRegenPerSec = manaRegenPerSec;
+            unit.ManaGainOnAttack = manaGainOnAttack;
+            unit.ManaGainOnHit = manaGainOnHit;
+            unit.ManaRegenRateBonus = 0;
+
+            // 특수 능력
+            unit.AtkPierce = atkPierce;
+            unit.ResPierce = resPierce;
+            unit.CritRate = critRate > 0 ? critRate : 25;
+            unit.CritPower = critPower > 0 ? critPower : 150;
+            unit.HitChance = 100;
+            unit.HealPower = healPower;
+            unit.ImmuneType = immuneType;
+            unit.TraitFlags = traitFlags;
+
+            // 공격/스킬
+            unit.AtkHitDelay = atkHitDelay;
+            unit.AttackActionFrames = attackActionFrames;
+            unit.SkillSpecId = skillSpecId;
+            unit.HasAreaAttack = hasAreaAttack;
+
+            // 타이머 초기화
+            unit.CurrentTargetId = CombatUnit.InvalidId;
+            unit.AttackCooldown = 0;
+            unit.PendingAtkTargetId = CombatUnit.InvalidId;
+            unit.PendingAtkTimer = 0;
+            unit.ActionLockTimer = 0;
+            unit.MoveTimer = 0;
+            unit.MoveDuration = 0;
+            unit.SkillCastTimer = 0;
         }
 
         /// <summary>ChampionSpec 전체 조회</summary>
@@ -292,68 +324,25 @@ namespace CookApps.AutoChess
                 state.CombatIdToUnitIndex[combatId] = slotIndex;
 
                 ref var unit = ref state.Units[slotIndex];
-                unit.CombatId = combatId;
-                unit.SourceEntityId = -1;
-                unit.ChampionSpecId = enemy.ChampionSpecId;
-                unit.StarLevel = 1;
-                unit.OwnerIndex = 0xFF;
-                unit.TeamIndex = 1;
-                unit.GridCol = (byte)gridCol;
-                unit.GridRow = (byte)gridRow;
-                unit.SizeW = enemy.SizeW;
-                unit.SizeH = enemy.SizeH;
-                unit.State = CombatState.Idle;
-                unit.IsAlive = true;
-
-                unit.MaxHP = enemy.MaxHP;
-                unit.CurrentHP = enemy.MaxHP;
-                unit.Attack = enemy.Attack;
-                unit.AttackSpeed = enemy.AttackSpeed;
-                unit.AttackRange = enemy.AttackRange;
-                unit.MoveSpeed = enemy.MoveSpeed;
-                unit.MaxMana = enemy.MaxMana;
-                unit.CurrentMana = 0;
-
-                unit.Def = enemy.Def;
-                unit.AdReduce = enemy.AdReduce;
-                unit.ApReduce = enemy.ApReduce;
-
-                // 퍼센트 버프 기준값 저장
-                unit.BaseMaxHP = enemy.MaxHP;
-                unit.BaseAttack = enemy.Attack;
-                unit.BaseDef = enemy.Def;
-                unit.BaseAttackSpeed = enemy.AttackSpeed;
-                unit.BaseAdReduce = enemy.AdReduce;
-                unit.BaseApReduce = enemy.ApReduce;
-
-                // 마나 리젠 초기화 (글로벌 기본값)
-                unit.ManaRegenPerSec = world.Config.DefaultManaRegenPerSec;
-                unit.ManaGainOnAttack = world.Config.DefaultManaGainOnAttack;
-                unit.ManaGainOnHit = world.Config.DefaultManaGainOnHit;
-                unit.ManaRegenRateBonus = 0;
-
-                // PvE 적: PvEEnemyData에서 복사, 없으면 기본값
-                unit.AtkPierce = enemy.AtkPierce;
-                unit.ResPierce = enemy.ResPierce;
-                unit.CritRate = enemy.CritRate > 0 ? enemy.CritRate : 25;
-                unit.CritPower = enemy.CritPower > 0 ? enemy.CritPower : 150;
-                unit.HitChance = 100;
-                unit.HealPower = enemy.HealPower;
-                unit.ImmuneType = enemy.ImmuneType;
-                unit.TraitFlags = enemy.TraitFlags;
-                unit.SkillSpecId = enemy.SkillSpecId;
-                unit.HasAreaAttack = AreaAttackRegistry.TryGetPattern(enemy.ChampionSpecId, out _);
-                unit.CurrentTargetId = CombatUnit.InvalidId;
-                unit.AttackCooldown = 0;
-                unit.PendingAtkTargetId = CombatUnit.InvalidId;
-                unit.PendingAtkTimer = 0;
-                unit.ActionLockTimer = 0;
                 int enemyPrefabId = enemy.PrefabId > 0 ? enemy.PrefabId : enemy.ChampionSpecId;
-                unit.AtkHitDelay = ExtractAtkHitDelay(enemyPrefabId, world.TickRate);
-                unit.AttackActionFrames = ExtractAttackActionFrames(enemyPrefabId, world.TickRate);
-                unit.MoveTimer = 0;
-                unit.MoveDuration = 0;
-                unit.SkillCastTimer = 0;
+
+                InitCombatUnitCommon(ref unit,
+                    combatId, -1, enemy.ChampionSpecId,
+                    1, 0xFF, 1,
+                    (byte)gridCol, (byte)gridRow, enemy.SizeW, enemy.SizeH,
+                    enemy.MaxHP, enemy.Attack, enemy.AttackSpeed,
+                    enemy.AttackRange, enemy.MoveSpeed, enemy.MaxMana,
+                    enemy.Def, enemy.AdReduce, enemy.ApReduce,
+                    world.Config.DefaultManaRegenPerSec,
+                    world.Config.DefaultManaGainOnAttack,
+                    world.Config.DefaultManaGainOnHit,
+                    enemy.AtkPierce, enemy.ResPierce,
+                    enemy.CritRate, enemy.CritPower,
+                    enemy.HealPower, enemy.ImmuneType, enemy.TraitFlags,
+                    ExtractAtkHitDelay(enemyPrefabId, world.TickRate),
+                    ExtractAttackActionFrames(enemyPrefabId, world.TickRate),
+                    enemy.SkillSpecId,
+                    AreaAttackRegistry.TryGetPattern(enemy.ChampionSpecId, out _));
 
                 state.SetGridMulti(gridCol, gridRow, enemy.SizeW, enemy.SizeH, combatId);
 
@@ -374,52 +363,20 @@ namespace CookApps.AutoChess
             state.CombatIdToUnitIndex[combatId] = slotIndex;
 
             ref var unit = ref state.Units[slotIndex];
-            unit.CombatId = combatId;
-            unit.SourceEntityId = -1;
-            unit.ChampionSpecId = monsterSpecId;
-            unit.StarLevel = 1;
-            unit.OwnerIndex = 0xFF;
-            unit.TeamIndex = 1;  // 적팀
-            unit.GridCol = (byte)col;
-            unit.GridRow = (byte)row;
-            unit.SizeW = 1;
-            unit.SizeH = 1;
-            unit.State = CombatState.Idle;
-            unit.IsAlive = true;
 
             // TODO: 하드코딩 스탯 → 스펙 테이블 조회로 교체 필요 (튜토리얼 데이터에서 monsterSpecId 기반 조회)
-            // 최소 스탯 (스펙 조회 없이 기본값)
-            unit.MaxHP = 100;
-            unit.CurrentHP = 100;
-            unit.Attack = 10;
-            unit.Def = 0;
-            unit.AdReduce = 0;
-            unit.ApReduce = 0;
-            unit.AttackSpeed = 100;
-            unit.AttackRange = 1;
-            unit.MoveSpeed = 100;
-            unit.MaxMana = 100;
-            unit.CurrentMana = 0;
-            unit.ManaRegenPerSec = 10;
-            unit.ManaGainOnAttack = 0;
-            unit.ManaGainOnHit = 0;
-            unit.ManaRegenRateBonus = 0;
-            unit.AtkPierce = 0;
-            unit.ResPierce = 0;
-            unit.CritRate = 25;
-            unit.CritPower = 150;
-            unit.HitChance = 100;
-            unit.HealPower = 0;
-            unit.CurrentTargetId = CombatUnit.InvalidId;
-            unit.AttackCooldown = 0;
-            unit.PendingAtkTargetId = CombatUnit.InvalidId;
-            unit.PendingAtkTimer = 0;
-            unit.ActionLockTimer = 0;
-            unit.AtkHitDelay = 1;
-            unit.AttackActionFrames = 1;
-            unit.MoveTimer = 0;
-            unit.MoveDuration = 0;
-            unit.SkillCastTimer = 0;
+            InitCombatUnitCommon(ref unit,
+                combatId, -1, monsterSpecId,
+                1, 0xFF, 1,
+                (byte)col, (byte)row, 1, 1,
+                maxHP: 100, attack: 10, attackSpeed: 100,
+                attackRange: 1, moveSpeed: 100, maxMana: 100,
+                def: 0, adReduce: 0, apReduce: 0,
+                manaRegenPerSec: 10, manaGainOnAttack: 0, manaGainOnHit: 0,
+                atkPierce: 0, resPierce: 0, critRate: 25, critPower: 150,
+                healPower: 0, immuneType: 0, traitFlags: 0,
+                atkHitDelay: 1, attackActionFrames: 1, skillSpecId: 0,
+                hasAreaAttack: false);
 
             // 그리드에 등록
             state.SetGridMulti(col, row, 1, 1, combatId);

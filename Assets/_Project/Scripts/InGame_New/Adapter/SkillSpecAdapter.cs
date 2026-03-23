@@ -150,27 +150,14 @@ namespace CookApps.AutoChess
             return SimSkillArchetype.SingleDamage;
         }
 
-        /// <summary>아키타입 -> SimSkillBase 인스턴스</summary>
+        /// <summary>
+        /// 아키타입 -> SimSkillBase 인스턴스.
+        /// 모든 아키타입이 Recipe로 전환되었으므로 현재 항상 null 반환.
+        /// SkillFactory에서 Recipe → SimSkillGeneric 경로를 우선 사용.
+        /// </summary>
         public static SimSkillBase CreateFromArchetype(SimSkillArchetype archetype)
         {
-            switch (archetype)
-            {
-                case SimSkillArchetype.SingleDamage: return new SimSkillSingleDamage();
-                case SimSkillArchetype.AoEDamage: return new SimSkillAoEDamage();
-                case SimSkillArchetype.LineDamage: return new SimSkillLineDamage();
-                case SimSkillArchetype.DamageCC: return new SimSkillDamageCC();
-                case SimSkillArchetype.ConeDamage: return new SimSkillConeDamage();
-                case SimSkillArchetype.PatternDamage: return new SimSkillPatternDamage();
-                case SimSkillArchetype.MultiHit: return new SimSkillMultiHit();
-                case SimSkillArchetype.Heal: return new SimSkillHeal();
-                case SimSkillArchetype.MultiTargetHeal: return new SimSkillMultiTargetHeal();
-                case SimSkillArchetype.TeleportStrike: return new SimSkillTeleportStrike();
-                case SimSkillArchetype.Buff: return new SimSkillBuff();
-                case SimSkillArchetype.Debuff: return new SimSkillDebuff();
-                case SimSkillArchetype.Stun: return new SimSkillStun();
-                case SimSkillArchetype.DiamondAoE: return new SimSkillDiamondAoE();
-                default: return null;
-            }
+            return null;
         }
 
         // ──────────────────────────────────────────────

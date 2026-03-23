@@ -582,11 +582,22 @@ namespace CookApps.AutoChess
             for (int t = 0; t < world.SynergySpecCount; t++)
             {
                 ref var spec = ref world.SynergySpecs[t];
-                if (!spec.IsValid || !spec.HasBehavior) continue;
+                if (!spec.IsValid) continue;
 
                 int traitId = spec.TraitId;
                 byte oldTier = prevTiers[traitId];
                 byte newTier = synergy.GetTraitTier(traitId);
+
+                // 티어 변경 이벤트 발행 (View VFX 용 — 모든 시너지 대상)
+                if (oldTier != newTier)
+                {
+                    world.EventQueue.PushSynergyTierChanged(playerIndex, traitId, oldTier, newTier);
+                }
+
+                prevTiers[traitId] = newTier;
+
+                // PrepBehavior 처리 (HasBehavior 시너지만)
+                if (!spec.HasBehavior) continue;
 
                 if (oldTier == 0 && newTier > 0)
                 {
@@ -637,8 +648,6 @@ namespace CookApps.AutoChess
                         b.OnTierChanged(world, oldTier, newTier);
                     }
                 }
-
-                prevTiers[traitId] = newTier;
             }
 
             // 모든 활성 행동에 보드 변경 알림

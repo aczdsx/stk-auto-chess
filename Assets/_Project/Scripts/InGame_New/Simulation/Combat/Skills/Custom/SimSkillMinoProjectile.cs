@@ -108,7 +108,6 @@ namespace CookApps.AutoChess
         private void CollectTargets(CombatMatchState state, byte myTeam)
         {
             int found = 0;
-            var used = new System.Collections.Generic.HashSet<int>();
 
             for (int c = 0; c < MaxMissiles; c++)
             {
@@ -118,12 +117,19 @@ namespace CookApps.AutoChess
                 {
                     ref var u = ref state.Units[i];
                     if (u.TeamIndex == myTeam || !u.IsAlive) continue;
-                    if (used.Contains(u.CombatId)) continue;
+
+                    // 이미 선택된 타겟인지 선형 탐색 (MaxMissiles=3이라 O(3))
+                    bool alreadyUsed = false;
+                    for (int j = 0; j < found; j++)
+                    {
+                        if (_targetIds[j] == u.CombatId) { alreadyUsed = true; break; }
+                    }
+                    if (alreadyUsed) continue;
+
                     if (u.CurrentHP < bestHP) { bestHP = u.CurrentHP; bestIdx = i; }
                 }
                 if (bestIdx < 0) break;
                 _targetIds[found] = state.Units[bestIdx].CombatId;
-                used.Add(state.Units[bestIdx].CombatId);
                 found++;
             }
 

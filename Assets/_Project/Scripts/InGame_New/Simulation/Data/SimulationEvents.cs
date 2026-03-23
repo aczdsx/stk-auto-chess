@@ -40,6 +40,7 @@ namespace CookApps.AutoChess
         UnitSold,
         // 시너지/아이템
         SynergyUpdated,
+        SynergyTierChanged,
         ItemEquipped,
         ItemUnequipped,
         ItemCombined,
@@ -422,6 +423,18 @@ namespace CookApps.AutoChess
             {
                 Type = SimEventType.SynergyUpdated,
                 PlayerIndex = playerIndex,
+            });
+        }
+
+        /// <summary>시너지 티어 변경 이벤트. Value0=traitId, Value1=oldTier|(newTier&lt;&lt;8).</summary>
+        public void PushSynergyTierChanged(byte playerIndex, int traitId, byte oldTier, byte newTier)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.SynergyTierChanged,
+                PlayerIndex = playerIndex,
+                Value0 = traitId,
+                Value1 = oldTier | (newTier << 8),
             });
         }
 

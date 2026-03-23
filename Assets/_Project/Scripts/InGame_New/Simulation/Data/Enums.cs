@@ -82,6 +82,8 @@ namespace CookApps.AutoChess
         Area,
         RandomEnemies,
         HighestAttackEnemy,
+        LowestHPAlly,       // 최저 HP 아군 (힐 스킬용)
+        BestAoETarget,      // 최다 적 포함 범위 중심 (AoE 스킬용)
     }
 
     /// <summary>커맨드 타입 (플레이어 입력)</summary>
@@ -259,6 +261,83 @@ namespace CookApps.AutoChess
         Stun,
         DiamondAoE,
         Custom,
+    }
+
+    // ═══════════════════════════════════════════════
+    //  Recipe 스킬 시스템
+    // ═══════════════════════════════════════════════
+
+    /// <summary>Recipe 액션 트리거 타이밍</summary>
+    public enum SkillTriggerType : byte
+    {
+        OnCast,             // Execute() 시점
+        AtHitFrame,         // SkillHitFrames[N] 도달 시
+        OnTick,             // 반복 틱마다
+        OnComplete,         // 채널링 종료 시
+    }
+
+    /// <summary>Recipe 액션 효과 타입</summary>
+    public enum SkillEffectType : byte
+    {
+        None,               // 효과 없음 (VFX만 스폰)
+        Damage,
+        Heal,
+        ApplyCC,
+        Knockback,
+        ApplyBuff,
+        ApplyDebuff,
+        Shield,
+        RemoveDebuffs,
+        AddMarker,
+        SpawnProjectile,
+        MultiHit,
+        ModifyStat,         // SkillBuffHelper.ModifyStat (즉시 영구 적용)
+        SpawnLinearProjectile, // ProjectileSystem.CreateLinearProjectile
+        DamageKnockbackInArea, // 범위 데미지 + 각 적에게 중심→바깥 넉백 (메이)
+        SequentialLineDamage,  // 전방 직선 순차 타일 타격 + 넉백 (보스탱커) — OnTick에서 사용
+    }
+
+    /// <summary>Recipe 액션 대상 필터</summary>
+    public enum SkillTargetFilter : byte
+    {
+        PrimaryTarget,      // SelectTarget()의 결과
+        EnemiesInArea,      // Area 내 모든 적
+        AlliesInArea,       // Area 내 모든 아군
+        Self,               // 시전자
+        LowestHpAllies,     // 최저 HP 아군 N명
+        SameRowAllies,      // 같은 행 아군
+    }
+
+    /// <summary>Recipe 범위 형태</summary>
+    public enum SkillAreaShape : byte
+    {
+        None,
+        Circle,             // 체비셰프
+        Diamond,            // 맨해튼
+        Plus,               // 십자
+        Cone,               // 부채꼴
+        Line,               // 직선
+    }
+
+    /// <summary>Recipe VFX 배치</summary>
+    public enum SkillVfxPlacement : byte
+    {
+        None,
+        AtCaster,
+        AtTarget,
+        AtGridPos,
+        AtCasterWithDir,
+        AreaEffect,
+        PerTileInDiamond,   // 맨해튼 범위 내 각 타일에 개별 VFX 스폰
+    }
+
+    /// <summary>Recipe 조건부 실행</summary>
+    public enum SkillActionCondition : byte
+    {
+        Always,
+        EveryNth2,
+        EveryNth3,
+        LastHitOnly,
     }
 
     /// <summary>스킬 전용 마커 타입 (StatusEffect.SkillMarker의 Value로 사용)</summary>

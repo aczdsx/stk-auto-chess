@@ -488,6 +488,8 @@ namespace CookApps.AutoChess.View
 
         private readonly System.Collections.Generic.Dictionary<int, GameObject> _persistentVfx
             = new System.Collections.Generic.Dictionary<int, GameObject>();
+        private readonly System.Collections.Generic.Dictionary<int, SkillPosition> _persistentVfxPositions
+            = new System.Collections.Generic.Dictionary<int, SkillPosition>();
 
         /// <summary>지속형 VFX의 자식 GO를 count만큼 활성화.
         /// 최초 호출 시 프리팹을 인스턴스화하여 유닛에 부착, 이후엔 자식 on/off만.</summary>
@@ -499,6 +501,8 @@ namespace CookApps.AutoChess.View
                 var posTransform = GetSkillPositionTransform(position);
                 vfxGo = Instantiate(prefab, posTransform.position, posTransform.rotation, posTransform);
                 _persistentVfx[skillSpecId] = vfxGo;
+                _persistentVfxPositions[skillSpecId] = position;
+                Debug.Log($"<color=cyan>[VFX] CREATE PersistentVfx skillSpecId={skillSpecId} localRot={vfxGo.transform.localRotation.eulerAngles} parent={posTransform.name}</color>");
             }
 
             // 자식 GO를 count만큼 활성화 (Fire_01, Fire_02, ...)
@@ -514,6 +518,33 @@ namespace CookApps.AutoChess.View
             return _persistentVfx.TryGetValue(skillSpecId, out var go) && go != null;
         }
 
+        /// <summary>Persistent VFX를 파괴하지 않고 분리하여 반환 (parking용).</summary>
+        public List<(int skillSpecId, GameObject go, SkillPosition position)> DetachPersistentVfx()
+        {
+            if (_persistentVfx.Count == 0) return null;
+            var result = new List<(int, GameObject, SkillPosition)>();
+            foreach (var kvp in _persistentVfx)
+            {
+                if (kvp.Value == null) continue;
+                _persistentVfxPositions.TryGetValue(kvp.Key, out var pos);
+                result.Add((kvp.Key, kvp.Value, pos));
+            }
+            _persistentVfx.Clear();
+            _persistentVfxPositions.Clear();
+            return result;
+        }
+
+        /// <summary>외부에서 전달받은 VFX GO를 이 UnitView의 적절한 Transform에 reparent.
+        /// worldPositionStays:false로 localTransform 보존.</summary>
+        public void AdoptPersistentVfx(int skillSpecId, GameObject vfxGo, SkillPosition position)
+        {
+            if (vfxGo == null) return;
+            var targetTransform = GetSkillPositionTransform(position);
+            vfxGo.transform.SetParent(targetTransform, worldPositionStays: false);
+            _persistentVfx[skillSpecId] = vfxGo;
+            _persistentVfxPositions[skillSpecId] = position;
+        }
+
         private void ClearPersistentVfx()
         {
             foreach (var kvp in _persistentVfx)
@@ -521,6 +552,7 @@ namespace CookApps.AutoChess.View
                 if (kvp.Value != null) Destroy(kvp.Value);
             }
             _persistentVfx.Clear();
+            _persistentVfxPositions.Clear();
         }
 
         // ── 비활성화 ──
@@ -544,6 +576,17 @@ namespace CookApps.AutoChess.View
             ClearPersistentVfx();
             ReleaseCharacterVisual();
             gameObject.SetActive(false);
+        }
+
+        /// <summary>Persistent VFX를 파괴하지 않고 분리한 뒤 비활성화 (parking용)</summary>
+        public List<(int skillSpecId, GameObject go, SkillPosition position)> DeactivateWithParking()
+        {
+            _isActive = false;
+            ReleaseHpBar();
+            var detached = DetachPersistentVfx();
+            ReleaseCharacterVisual();
+            gameObject.SetActive(false);
+            return detached;
         }
 
         // ── Unity Lifecycle ──
