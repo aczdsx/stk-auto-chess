@@ -81,7 +81,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 995, y: -76}
+  m_AnchoredPosition: {x: 449.5, y: -76}
   m_SizeDelta: {x: 446, y: 92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3455708766748203178
@@ -10897,7 +10897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpriteRenderer: 0
   targetRenderer: {fileID: 0}
-  targetImage: {fileID: 0}
+  targetImage: {fileID: 3404623234970009452}
 --- !u!1 &2450013496542250744
 GameObject:
   m_ObjectHideFlags: 0
@@ -41452,7 +41452,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1218, y: -486.5}
+  m_AnchoredPosition: {x: 672.5, y: -302.5}
   m_SizeDelta: {x: 160, y: 740}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5594909979065860351
@@ -41839,7 +41839,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 34
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -41976,7 +41976,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 34
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -47429,7 +47429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1441, y: -76}
+  m_AnchoredPosition: {x: 895.5, y: -76}
   m_SizeDelta: {x: 446, y: 92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3443798385226851933
@@ -52733,7 +52733,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 34
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
