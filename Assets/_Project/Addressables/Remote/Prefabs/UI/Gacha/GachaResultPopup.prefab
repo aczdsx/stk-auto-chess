@@ -41428,7 +41428,7 @@ GameObject:
   - component: {fileID: 5594909979065860351}
   - component: {fileID: 3835578263518735923}
   m_Layer: 0
-  m_Name: GachaResultItem_R
+  m_Name: GachaResultItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41689,7 +41689,7 @@ GameObject:
   - component: {fileID: 1393299673848486394}
   - component: {fileID: 7165680492049707601}
   m_Layer: 0
-  m_Name: ListGroup
+  m_Name: "ListGroup < GachaResultItem \uC0DD\uC131\uD558\uC5EC \uD45C\uC2DC"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
