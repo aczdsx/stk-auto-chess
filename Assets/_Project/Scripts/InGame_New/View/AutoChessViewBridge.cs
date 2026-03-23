@@ -995,7 +995,6 @@ namespace CookApps.AutoChess.View
                 if (!kv.Value.handle.IsValid()) continue;
                 var go = kv.Value.handle.Result;
                 if (go == null) continue;
-                Debug.Log($"<color=yellow>[VFX] PARK SynergyVfx entityId={kv.Value.entityId} localRot={go.transform.localRotation.eulerAngles} parent={go.transform.parent?.name}</color>");
                 go.transform.SetParent(parkingHolder, worldPositionStays: false);
             }
         }
@@ -1035,9 +1034,7 @@ namespace CookApps.AutoChess.View
                 var parentTransform = vfxPosition != SkillPosition.CUSTOM
                     ? view.GetSkillPositionTransform(vfxPosition)
                     : view.transform;
-                Debug.Log($"<color=green>[VFX] ADOPT SynergyVfx entityId={entityId} localRot={go.transform.localRotation.eulerAngles} newParent={parentTransform.name}</color>");
                 go.transform.SetParent(parentTransform, worldPositionStays: false);
-                Debug.Log($"<color=green>[VFX] ADOPT DONE localRot={go.transform.localRotation.eulerAngles} worldRot={go.transform.rotation.eulerAngles}</color>");
 
                 // 파킹으로 인해 정지된 파티클 재개
                 var particles = go.GetComponentsInChildren<ParticleSystem>(true);

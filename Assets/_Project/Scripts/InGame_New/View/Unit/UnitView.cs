@@ -502,7 +502,6 @@ namespace CookApps.AutoChess.View
                 vfxGo = Instantiate(prefab, posTransform.position, posTransform.rotation, posTransform);
                 _persistentVfx[skillSpecId] = vfxGo;
                 _persistentVfxPositions[skillSpecId] = position;
-                Debug.Log($"<color=cyan>[VFX] CREATE PersistentVfx skillSpecId={skillSpecId} localRot={vfxGo.transform.localRotation.eulerAngles} parent={posTransform.name}</color>");
             }
 
             // 자식 GO를 count만큼 활성화 (Fire_01, Fire_02, ...)

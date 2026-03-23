@@ -160,6 +160,9 @@ namespace CookApps.AutoChess
             unit.MoveDuration = 0;
             unit.SkillCastTimer = 0;
 
+            // CombatId → 슬롯 인덱스 매핑 등록
+            state.CombatIdToUnitIndex[combatId] = slotIndex;
+
             // 그리드 등록
             state.SetGridMulti(col, row, unit.SizeW, unit.SizeH, combatId);
 
@@ -245,6 +248,9 @@ namespace CookApps.AutoChess
             unit.MoveTimer = 0;
             unit.MoveDuration = 0;
             unit.SkillCastTimer = 0;
+
+            // CombatId → 슬롯 인덱스 매핑 등록
+            state.CombatIdToUnitIndex[combatId] = slotIndex;
 
             // 그리드에 등록
             state.SetGridMulti(col, row, unit.SizeW, unit.SizeH, combatId);

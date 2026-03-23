@@ -133,7 +133,7 @@ namespace CookApps.AutoChess.View
             _pendingMeleeAttacks.Clear();
             _pendingMeleeTargetIds.Clear();
             _tileEffectManager?.HideAll();
-            ClearAllProjectiles();
+            // 날아가는 투사체는 계속 진행 → Update()에서 자연 소멸
         }
 
         // ── 이벤트 수신 (AutoChessViewBridge에서 호출) ──
