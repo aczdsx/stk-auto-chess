@@ -19,6 +19,8 @@ namespace CookApps.AutoChess.View
         private readonly Dictionary<int, UnitView> _boardUnitViews = new();  // EntityId → View
         private readonly Dictionary<int, UnitView> _combatUnitViews = new(); // CombatId → View
         private readonly List<UnitView> _pool = new();
+        private readonly HashSet<int> _syncActiveIds = new();
+        private readonly List<int> _syncRemoveBuffer = new();
         private int _activeBoardIndex;
         private bool _initialViewsReady;
 
@@ -65,7 +67,8 @@ namespace CookApps.AutoChess.View
         public void SyncBoardUnits(GameWorld world)
         {
             // 현재 프레임에 존재하는 EntityId 수집
-            var activeIds = new HashSet<int>();
+            _syncActiveIds.Clear();
+            var activeIds = _syncActiveIds;
 
             for (int p = 0; p < world.Config.PlayerCount; p++)
             {
@@ -132,13 +135,13 @@ namespace CookApps.AutoChess.View
             }
 
             // 존재하지 않는 뷰 제거
-            var toRemove = new List<int>();
+            _syncRemoveBuffer.Clear();
             foreach (var kvp in _boardUnitViews)
             {
                 if (!activeIds.Contains(kvp.Key))
-                    toRemove.Add(kvp.Key);
+                    _syncRemoveBuffer.Add(kvp.Key);
             }
-            foreach (int id in toRemove)
+            foreach (int id in _syncRemoveBuffer)
             {
                 ReturnToPool(_boardUnitViews[id]);
                 _boardUnitViews.Remove(id);
@@ -166,7 +169,8 @@ namespace CookApps.AutoChess.View
             if (matchState == null) return;
             bool isActive = boardIndex == _activeBoardIndex;
 
-            var activeIds = new HashSet<int>();
+            _syncActiveIds.Clear();
+            var activeIds = _syncActiveIds;
 
             for (int i = 0; i < matchState.UnitCount; i++)
             {
@@ -254,13 +258,13 @@ namespace CookApps.AutoChess.View
             }
 
             // 존재하지 않는 전투 뷰 제거
-            var toRemove = new List<int>();
+            _syncRemoveBuffer.Clear();
             foreach (var kvp in _combatUnitViews)
             {
                 if (!activeIds.Contains(kvp.Key))
-                    toRemove.Add(kvp.Key);
+                    _syncRemoveBuffer.Add(kvp.Key);
             }
-            foreach (int id in toRemove)
+            foreach (int id in _syncRemoveBuffer)
             {
                 ReturnToPool(_combatUnitViews[id]);
                 _combatUnitViews.Remove(id);
