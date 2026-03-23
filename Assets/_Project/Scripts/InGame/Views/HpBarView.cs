@@ -309,7 +309,7 @@ namespace CookApps.AutoBattler
             _buffSideBadgeParentObj.SetActive(type.HasFlag(HpBarType.Buff));
         }
 
-        public async void SetValue(double currHP, double maxHP, double currShield, bool isDebugText = false)
+        public async UniTaskVoid SetValue(double currHP, double maxHP, double currShield, bool isDebugText = false)
         {
             if (!CachedGo.activeSelf)
             {
