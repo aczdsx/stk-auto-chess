@@ -19,6 +19,7 @@ namespace CookApps.AutoBattler
 
         private int codeID;
         private BuffStackData _buffStackData;
+        private int _lastStackCount = -1;
 
         public bool IsWorking { get; private set; }
 
@@ -29,11 +30,17 @@ namespace CookApps.AutoBattler
 
             if (_buffStackData.isShowValue)
             {
+                int valueInt = (int)_buffStackData.value;
                 _buffSubText.gameObject.SetActive(true);
-                _buffSubText.text = $"{(int)_buffStackData.value}";
+                if (_lastStackCount != valueInt)
+                {
+                    _lastStackCount = valueInt;
+                    _buffSubText.text = valueInt.ToString();
+                }
             }
             else
             {
+                _lastStackCount = -1;
                 _buffSubText.gameObject.SetActive(false);
             }
 
@@ -49,7 +56,7 @@ namespace CookApps.AutoBattler
         {
             gameObject.SetActive(true);
             IsWorking = true;
-            _buffStackData = new BuffStackData();
+            _buffStackData ??= new BuffStackData();
             _buffStackData.duration = duration;
             _buffStackData.elapsedTime = elapsedTime;
 
@@ -61,10 +68,15 @@ namespace CookApps.AutoBattler
             if (stackCount > 1)
             {
                 _buffSubText.gameObject.SetActive(true);
-                _buffSubText.text = stackCount.ToString();
+                if (_lastStackCount != stackCount)
+                {
+                    _lastStackCount = stackCount;
+                    _buffSubText.text = stackCount.ToString();
+                }
             }
             else
             {
+                _lastStackCount = -1;
                 _buffSubText.gameObject.SetActive(false);
             }
         }
@@ -73,7 +85,7 @@ namespace CookApps.AutoBattler
         {
             gameObject.SetActive(true);
             IsWorking = true;
-            _buffStackData = new BuffStackData();
+            _buffStackData ??= new BuffStackData();
             _buffStackData.duration = duration;
             _buffStackData.elapsedTime = elapsedTime;
 
@@ -89,10 +101,15 @@ namespace CookApps.AutoBattler
             if (stackCount > 1)
             {
                 _buffSubText.gameObject.SetActive(true);
-                _buffSubText.text = stackCount.ToString();
+                if (_lastStackCount != stackCount)
+                {
+                    _lastStackCount = stackCount;
+                    _buffSubText.text = stackCount.ToString();
+                }
             }
             else
             {
+                _lastStackCount = -1;
                 _buffSubText.gameObject.SetActive(false);
             }
         }
