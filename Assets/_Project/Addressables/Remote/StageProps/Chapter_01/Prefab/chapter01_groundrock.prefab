@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7165224612481417089}
   m_Layer: 0
-  m_Name: Ground_Rock
+  m_Name: chapter01_groundrock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
