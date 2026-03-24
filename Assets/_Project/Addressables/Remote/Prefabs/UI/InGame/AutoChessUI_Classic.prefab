@@ -92234,6 +92234,7 @@ MonoBehaviour:
   hpText: {fileID: 7260678684630200866}
   stageText: {fileID: 8879054938883534484}
   timerWarningObj: {fileID: 2403477848100842740}
+  statisticsButton: {fileID: 3988753727602484635}
   _slotPrefab: {fileID: 9125405289344595602}
   _synergySlotPrefab: {fileID: 2117931978876790537}
   _characterBattleItemTabSwapper: {fileID: 348605571267406956}

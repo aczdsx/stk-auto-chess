@@ -6,6 +6,7 @@ using CookApps.TeamBattle.UIManagements;
 using CookApps.TeamBattle.Utility;
 using Cysharp.Threading.Tasks;
 using CookApps.BattleSystem;
+using R3;
 using TMPro;
 using UnityEngine;
 
@@ -58,10 +59,11 @@ namespace CookApps.AutoChess.View
 
         protected override void OnInitialize()
         {
+
             _benchController = tableView.CreateController<int, BenchUnitSlot>()
                 .WithData(benchIds)
-                .WithCellPrefab(_slotPrefab.gameObject)
-                .WithCellSize(new Vector2(120, 172))
+                .WithCellPrefab(_slotPrefab.CachedGo)
+                .WithCellSize(new Vector2(_slotPrefab.CachedRectTr.rect.width, _slotPrefab.CachedRectTr.rect.height))
                 .OnCellCreated(cell =>
                 {
                     cell.Init(this, ViewBridge, BoardInput);
@@ -81,10 +83,18 @@ namespace CookApps.AutoChess.View
                 .OnBind((cell, synergyTypeId, index) => BindSynergyCell(cell, synergyTypeId, index))
                 .Build();
 
-            _startBattleButton?.onClick.AddListener(OnStartBattleClicked);
-            _filterButton?.onClick.AddListener(OnFilterClicked);
-            _recommendButton?.onClick.AddListener(OnRecommendClicked);
-            _presetButton?.onClick.AddListener(OnPresetClicked);
+            _startBattleButton?.OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnStartBattleClicked())
+                .AddTo(this);
+            _filterButton?.OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnFilterClicked())
+                .AddTo(this);
+            _recommendButton?.OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnRecommendClicked())
+                .AddTo(this);
+            _presetButton?.OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnPresetClicked())
+                .AddTo(this);
 
             // 스테이지 이름 설정
             var stageInfo = SpecDataManager.Instance.GetStageData(InGameParams.StageId);
@@ -549,10 +559,6 @@ namespace CookApps.AutoChess.View
         {
             _benchController?.Detach();
             _synergyController?.Detach();
-            _startBattleButton?.onClick.RemoveListener(OnStartBattleClicked);
-            _filterButton?.onClick.RemoveListener(OnFilterClicked);
-            _recommendButton?.onClick.RemoveListener(OnRecommendClicked);
-            _presetButton?.onClick.RemoveListener(OnPresetClicked);
         }
     }
 }
