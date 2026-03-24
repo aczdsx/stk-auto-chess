@@ -100,9 +100,20 @@ namespace CookApps.AutoBattler
         private MotionHandle _elementScaleHandle;
         private MotionHandle _positionShinyHandle;
         private MotionHandle _positionScaleHandle;
+        private MotionHandle _smoothBarHandle;
         private const float AnimationDuration = 0.4f; // 애니메이션 지속 시간
         private Vector2 _defalutSize;
         private Vector3 _defaultScale;
+
+        // MaterialPropertyBlock 캐싱 (material 접근에 의한 GC 방지)
+        private MaterialPropertyBlock _hpMarkMpb;
+        private static readonly int CurrentHPId = Shader.PropertyToID("_CurrentHP");
+        private static readonly int MaxHPId = Shader.PropertyToID("_MaxHP");
+
+        // LitMotion 콜백 캐싱 (클로저 GC 방지)
+        private float _smoothBarSizeX;
+        private float _smoothBarY;
+        private Action _cachedOnSmoothBarComplete;
 
         // 풀에서 재사용 시 원래 size를 복원하기 위해 Awake에서 저장
         private Vector2 _originalPlayerSize;
@@ -146,9 +157,12 @@ namespace CookApps.AutoBattler
             if (_hpMarkGuage != null)
             {
                 _hpMarkGuage.size = _defalutSize;
-                if (_hpMarkGuage.material != null && statData != null)
+                if (statData != null)
                 {
-                    _hpMarkGuage.material.SetFloat("_MaxHP", (float)statData.HP);
+                    _hpMarkMpb ??= new MaterialPropertyBlock();
+                    _hpMarkGuage.GetPropertyBlock(_hpMarkMpb);
+                    _hpMarkMpb.SetFloat(MaxHPId, (float)statData.HP);
+                    _hpMarkGuage.SetPropertyBlock(_hpMarkMpb);
                 }
             }
 
@@ -180,9 +194,12 @@ namespace CookApps.AutoBattler
             if (_hpMarkGuage != null)
             {
                 _hpMarkGuage.size = _defalutSize;
-                if (_hpMarkGuage.material != null && maxHP > 0)
+                if (maxHP > 0)
                 {
-                    _hpMarkGuage.material.SetFloat("_MaxHP", maxHP);
+                    _hpMarkMpb ??= new MaterialPropertyBlock();
+                    _hpMarkGuage.GetPropertyBlock(_hpMarkMpb);
+                    _hpMarkMpb.SetFloat(MaxHPId, maxHP);
+                    _hpMarkGuage.SetPropertyBlock(_hpMarkMpb);
                 }
             }
 
@@ -309,7 +326,7 @@ namespace CookApps.AutoBattler
             _buffSideBadgeParentObj.SetActive(type.HasFlag(HpBarType.Buff));
         }
 
-        public async UniTaskVoid SetValue(double currHP, double maxHP, double currShield, bool isDebugText = false)
+        public void SetValue(double currHP, double maxHP, double currShield, bool isDebugText = false)
         {
             if (!CachedGo.activeSelf)
             {
@@ -332,15 +349,18 @@ namespace CookApps.AutoBattler
             }
 
             // 눈금선 shader에 체력 값 전달
-            if (_hpMarkGuage != null && _hpMarkGuage.material != null)
+            if (_hpMarkGuage != null)
             {
-                _hpMarkGuage.material.SetFloat("_CurrentHP", (float)currHP);
-                _hpMarkGuage.material.SetFloat("_MaxHP", (float)maxHP);
+                _hpMarkMpb ??= new MaterialPropertyBlock();
+                _hpMarkGuage.GetPropertyBlock(_hpMarkMpb);
+                _hpMarkMpb.SetFloat(CurrentHPId, (float)currHP);
+                _hpMarkMpb.SetFloat(MaxHPId, (float)maxHP);
+                _hpMarkGuage.SetPropertyBlock(_hpMarkMpb);
             }
 
             if(isDebugText) UpdateDebugHpText(currHP, maxHP);
 
-            await AnimateHpBar(startRatio, targetRatio, AnimationDuration);
+            AnimateSmoothBar(startRatio, targetRatio);
         }
 
         public void UpdateDebugHpText(double currHP, double maxHP)
@@ -353,40 +373,34 @@ namespace CookApps.AutoBattler
             _debugHpText.text = $"{Math.Round(currHP)}";
         }
 
-        private async UniTask AnimateHpBar(float startRatio, float targetRatio, float duration)
+        private void AnimateSmoothBar(float startRatio, float targetRatio)
         {
-            if (_hpFillSmoothGuage == null)
-            {
-                return;
-            }
+            if (_hpFillSmoothGuage == null) return;
 
-            float elapsed = 0f;
+            // 이전 애니메이션 취소
+            _smoothBarHandle.TryCancel();
+            _smoothBarHandle = default;
 
-            while (elapsed < duration)
+            _smoothBarY = _hpFillSmoothGuage.size.y;
+            _smoothBarSizeX = _defalutSize.x;
+
+            // 델리게이트 캐싱 (클로저 GC 방지)
+            _cachedOnSmoothBarComplete ??= () =>
             {
-                if (_hpFillSmoothGuage == null)
+                if (_hpFillSmoothGuage != null)
+                    _hpFillSmoothGuage.size = new Vector2(0, _smoothBarY);
+            };
+
+            _smoothBarHandle = LMotion.Create(startRatio, targetRatio, AnimationDuration)
+                .WithEase(Ease.Linear)
+                .WithOnComplete(_cachedOnSmoothBarComplete)
+                .Bind(this, static (ratio, self) =>
                 {
-                    break;
-                }
-
-                elapsed += Time.deltaTime;
-                float ratio = Mathf.Lerp(startRatio, targetRatio, elapsed / duration);
-                // float hitEffectBlend = Mathf.Clamp01(1 - Mathf.Abs(2 * ratio - 1));
-
-                float defaultX = _defalutSize.x * ratio;
-                if (!float.IsNaN(defaultX))
-                    _hpFillSmoothGuage.size = new Vector2(defaultX, _hpFillSmoothGuage.size.y);
-
-                // _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", hitEffectBlend);
-
-                await UniTask.Yield();
-            }
-
-            if (_hpFillSmoothGuage != null)
-            {
-                _hpFillSmoothGuage.size = new Vector2(0, _hpFillSmoothGuage.size.y);
-                // _hpFillSmoothGuage.material.SetFloat("_HitEffectBlend", 0);
-            }
+                    if (self._hpFillSmoothGuage == null) return;
+                    float x = self._smoothBarSizeX * ratio;
+                    if (!float.IsNaN(x))
+                        self._hpFillSmoothGuage.size = new Vector2(x, self._smoothBarY);
+                });
         }
 
         private void HideHpBar()

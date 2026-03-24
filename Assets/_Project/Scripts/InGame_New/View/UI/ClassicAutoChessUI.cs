@@ -50,6 +50,7 @@ namespace CookApps.AutoChess.View
 
         private HashSet<SynergyType> _selectedElementFilters = new();
         private HashSet<SynergyType> _selectedStellaFilters = new();
+        private readonly HashSet<int> _calcBoardCpVisited = new();
 
         protected override void OnInitialize()
         {
@@ -247,12 +248,12 @@ namespace CookApps.AutoChess.View
 
             int totalCp = 0;
             var boardSlots = CurrentWorld.BoardSlots[playerIndex];
-            var visited = new HashSet<int>();
+            _calcBoardCpVisited.Clear();
 
             for (int i = 0; i < boardSlots.Length; i++)
             {
                 int entityId = boardSlots[i];
-                if (entityId == UnitData.InvalidId || !visited.Add(entityId)) continue;
+                if (entityId == UnitData.InvalidId || !_calcBoardCpVisited.Add(entityId)) continue;
 
                 ref var unit = ref CurrentWorld.GetUnit(entityId);
                 totalCp += CombatPowerCalculator.Calculate(ref unit);

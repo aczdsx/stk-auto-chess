@@ -4,6 +4,7 @@ using CookApps.TeamBattle.UI;
 using CookApps.TeamBattle.UIManagements;
 using Cysharp.Threading.Tasks;
 using LitMotion;
+using R3;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -62,6 +63,13 @@ namespace CookApps.AutoChess.View
         private readonly List<byte> _synergyCounts = new();
         private readonly HashSet<int> _inBattleChampionIds = new();
 
+        // ── HUD ReactiveProperty (값 변경 시에만 TMP_Text 갱신 → GC 방지) ──
+        private readonly ReactiveProperty<int> _rpTimer = new(-1);
+        private readonly ReactiveProperty<int> _rpGold = new(-1);
+        private readonly ReactiveProperty<int> _rpLevel = new(-1);
+        private readonly ReactiveProperty<(int hp, int maxHp)> _rpHp = new((-1, -1));
+        private readonly ReactiveProperty<(int count, int max)> _rpUnitCount = new((-1, -1));
+
         // ── 초기화 ──
 
         protected InGameMainParams InGameParams { get; private set; }
@@ -83,8 +91,23 @@ namespace CookApps.AutoChess.View
             {
                 timerWarningObj.SetActive(false);
             }
+            BindHUDReactiveProperties();
             InitSpeed();
             OnInitialize();
+        }
+
+        private void BindHUDReactiveProperties()
+        {
+            if (timerText != null)
+                _rpTimer.SubscribeToText(timerText).AddTo(this);
+            if (goldText != null)
+                _rpGold.SubscribeToText(goldText).AddTo(this);
+            if (levelText != null)
+                _rpLevel.SubscribeToText(levelText, v => $"Lv.{v}").AddTo(this);
+            if (hpText != null)
+                _rpHp.SubscribeToText(hpText, v => $"{v.hp}/{v.maxHp}").AddTo(this);
+            if (unitCountText != null)
+                _rpUnitCount.SubscribeToText(unitCountText, v => $"{v.count}/{v.max}").AddTo(this);
         }
 
         protected virtual void OnInitialize() { }
@@ -243,8 +266,7 @@ namespace CookApps.AutoChess.View
             // 타이머 (Result 페이즈에서는 갱신 안 함 — 마지막 전투 타이머 유지)
             if (timerText != null && world.CurrentPhase != GamePhase.Result)
             {
-                float seconds = world.PhaseTimerFrames / (float)world.TickRate;
-                timerText.text = Mathf.CeilToInt(seconds).ToString();
+                _rpTimer.Value = Mathf.CeilToInt(world.PhaseTimerFrames / (float)world.TickRate);
 
                 // 10초 경고 인디케이터 (정수 프레임 비교로 부동소수점 오차 방지)
                 int warningThresholdFrames = 10 * world.TickRate;
@@ -262,19 +284,14 @@ namespace CookApps.AutoChess.View
             }
 
             // 플레이어 정보
-            if (PlayerIndex >= 0 && PlayerIndex < world.MaxPlayers)
+            if (PlayerIndex < world.MaxPlayers)
             {
                 var player = world.Players[PlayerIndex];
                 var economy = world.Economies[PlayerIndex];
 
-                if (goldText != null)
-                    goldText.text = economy.Gold.ToString();
-
-                if (levelText != null)
-                    levelText.text = $"Lv.{economy.Level}";
-
-                if (hpText != null)
-                    hpText.text = $"{player.HP}/{player.MaxHP}";
+                _rpGold.Value = economy.Gold;
+                _rpLevel.Value = economy.Level;
+                _rpHp.Value = (player.HP, player.MaxHP);
 
                 // stageText는 SetStageName()으로 초기화 시 한 번만 설정
             }
@@ -381,7 +398,7 @@ namespace CookApps.AutoChess.View
                 if (count > 0)
                     _tempSynergyList.Add((i, count));
             }
-            _tempSynergyList.Sort((a, b) => b.count.CompareTo(a.count));
+            _tempSynergyList.Sort(SynergyCountDescComparer);
 
             // 변경 감지 (traitId + count 모두 비교)
             bool changed = _tempSynergyList.Count != synergyIds.Count;
@@ -412,6 +429,8 @@ namespace CookApps.AutoChess.View
         }
 
         private readonly List<(int traitId, byte count)> _tempSynergyList = new();
+        private static readonly System.Comparison<(int traitId, byte count)> SynergyCountDescComparer
+            = (a, b) => b.count.CompareTo(a.count);
 
         protected void BindSynergyCell(InGameSynergyUI cell, int synergyTypeId, int index)
         {
@@ -469,7 +488,7 @@ namespace CookApps.AutoChess.View
 
             int boardUnitCount = world.Boards[PlayerIndex].UnitCount;
             int maxUnits = world.Economies[PlayerIndex].Level;
-            unitCountText.text = $"{boardUnitCount}/{maxUnits}";
+            _rpUnitCount.Value = (boardUnitCount, maxUnits);
         }
 
         // ── UI 영역 판별 ──
