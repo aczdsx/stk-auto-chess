@@ -51,6 +51,8 @@ namespace CookApps.AutoChess.View
         private HashSet<SynergyType> _selectedElementFilters = new();
         private HashSet<SynergyType> _selectedStellaFilters = new();
         private readonly HashSet<int> _calcBoardCpVisited = new();
+        private int _lastMyCp = -1;
+        private int _lastEnemyCp = -1;
 
         protected override void OnInitialize()
         {
@@ -233,10 +235,24 @@ namespace CookApps.AutoChess.View
             if (CurrentWorld == null) return;
 
             if (_myTeamCpText != null)
-                _myTeamCpText.text = CalcBoardCp(PlayerIndex).ToString("n0");
+            {
+                int myCp = CalcBoardCp(PlayerIndex);
+                if (_lastMyCp != myCp)
+                {
+                    _lastMyCp = myCp;
+                    _myTeamCpText.text = myCp.ToString("n0");
+                }
+            }
 
             if (_enemyTeamCpText != null)
-                _enemyTeamCpText.text = CalcEnemyCp().ToString("n0");
+            {
+                int enemyCp = CalcEnemyCp();
+                if (_lastEnemyCp != enemyCp)
+                {
+                    _lastEnemyCp = enemyCp;
+                    _enemyTeamCpText.text = enemyCp.ToString("n0");
+                }
+            }
         }
 
         private int CalcBoardCp(byte playerIndex)
