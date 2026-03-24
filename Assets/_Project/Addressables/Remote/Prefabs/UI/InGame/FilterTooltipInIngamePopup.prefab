@@ -659,17 +659,17 @@ RectTransform:
   m_GameObject: {fileID: 4596751075746011607}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1559930053788873311}
   m_Father: {fileID: 6385095295153808282}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 220, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 820, y: 450}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3156981641716489664
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -735,24 +735,24 @@ MonoBehaviour:
   autoPlayMode: 2
   animationMode: 0
   components:
-  - rid: 8175457328539107412
-  - rid: 8175457328539107413
+  - rid: 8526244827462369444
+  - rid: 8526244827462369445
   playOnAwake: 1
   version: 1
   references:
     version: 2
     RefIds:
-    - rid: 8175457328539107412
-      type: {class: ImageColorAlphaAnimation, ns: LitMotion.Animation.Components, asm: LitMotion.Animation}
+    - rid: 8526244827462369444
+      type: {class: TransformScaleAnimation, ns: LitMotion.Animation.Components, asm: LitMotion.Animation}
       data:
-        displayName: Fade
+        displayName: Scale
         enabled: 1
-        target: {fileID: 0}
+        target: {fileID: 8752911445439106639}
         settings:
-          startValue: 0
-          endValue: 0.39607844
+          startValue: {x: 0, y: 0, z: 0}
+          endValue: {x: 1, y: 1, z: 1}
           duration: 0.25
-          ease: 5
+          ease: 11
           customEaseCurve:
             serializedVersion: 2
             m_Curve:
@@ -787,17 +787,17 @@ MonoBehaviour:
           schedulerType: 0
           additionalSettings: 0
         relative: 0
-    - rid: 8175457328539107413
-      type: {class: TransformPositionAnimation, ns: LitMotion.Animation.Components, asm: LitMotion.Animation}
+    - rid: 8526244827462369445
+      type: {class: CanvasGroupAlphaAnimation, ns: LitMotion.Animation.Components, asm: LitMotion.Animation}
       data:
-        displayName: LocalMove
+        displayName: Alpha
         enabled: 1
-        target: {fileID: 8752911445439106639}
+        target: {fileID: 7742424932379864197}
         settings:
-          startValue: {x: -50, y: 0, z: 0}
-          endValue: {x: 0, y: 0, z: 0}
+          startValue: 0
+          endValue: 1
           duration: 0.25
-          ease: 5
+          ease: 11
           customEaseCurve:
             serializedVersion: 2
             m_Curve:
@@ -831,8 +831,7 @@ MonoBehaviour:
           immediateBind: 0
           schedulerType: 0
           additionalSettings: 0
-        relative: 1
-        useWorldSpace: 0
+        relative: 0
 --- !u!1 &6325554904554721852
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,7 +930,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 22
   m_fontSizeMax: 36
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1257,7 +1256,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 22
   m_fontSizeMax: 36
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
