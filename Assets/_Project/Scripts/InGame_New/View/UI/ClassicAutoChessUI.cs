@@ -98,14 +98,18 @@ namespace CookApps.AutoChess.View
 
         // ── 전투 시작 ──
 
-        private async void OnStartBattleClicked()
+        private void OnStartBattleClicked()
+            => OnStartBattleClickedAsync().Forget();
+
+        private async UniTaskVoid OnStartBattleClickedAsync()
         {
             if (_isStarting) return;
             _isStarting = true;
 
             try
             {
-                if (!await IsCheckStartBattle())
+                var ct = this.GetCancellationTokenOnDestroy();
+                if (!await IsCheckStartBattle().AttachExternalCancellation(ct))
                 {
                     _isStarting = false;
                     return;
@@ -113,6 +117,10 @@ namespace CookApps.AutoChess.View
 
                 var cmd = GameCommand.Ready(PlayerIndex);
                 ViewBridge?.SendCommand(cmd);
+            }
+            catch (System.OperationCanceledException)
+            {
+                // 오브젝트 파괴로 인한 취소 — 무시
             }
             catch
             {
@@ -445,12 +453,16 @@ namespace CookApps.AutoChess.View
 
         private CancellationTokenSource _killLogLayoutCts;
 
-        private async void RelayoutKillLogs(bool animated = false)
+        private void RelayoutKillLogs(bool animated = false)
+            => RelayoutKillLogsAsync(animated).Forget();
+
+        private async UniTaskVoid RelayoutKillLogsAsync(bool animated = false)
         {
             if (_killLogRoot == null) return;
 
             _killLogLayoutCts?.Cancel();
-            _killLogLayoutCts = new CancellationTokenSource();
+            _killLogLayoutCts = CancellationTokenSource.CreateLinkedTokenSource(
+                this.GetCancellationTokenOnDestroy());
             var token = _killLogLayoutCts.Token;
 
             var items = _killLogItems;

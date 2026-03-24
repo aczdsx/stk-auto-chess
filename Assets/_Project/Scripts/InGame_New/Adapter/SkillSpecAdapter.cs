@@ -139,7 +139,6 @@ namespace CookApps.AutoChess
             {
                 case 215362202: return SimSkillArchetype.DamageCC;    // 시이나 (침묵)
                 case 217243102: return SimSkillArchetype.DiamondAoE;  // 블린
-                case 217513401: return SimSkillArchetype.LineDamage;  // 아트레시아
                 case 1406031:   return SimSkillArchetype.Heal;        // 아란
             }
 
@@ -252,10 +251,6 @@ namespace CookApps.AutoChess
                 case 217243102: // 블린: 5×5 다이아몬드 AoE (범위 2)
                     p.Param0 = 2;
                     break;
-                case 217513401: // 아트레시아: 3칸 폭 직선 관통
-                    p.Param2 = 3;
-                    break;
-
                 // ── 몬스터 스킬 ──
                 case 230202003: // 1챕터 마법사: 십자가 범위 (맨허튼 1)
                 case 230606003: // 2챕터 마법사: 십자가 범위 (맨허튼 1)

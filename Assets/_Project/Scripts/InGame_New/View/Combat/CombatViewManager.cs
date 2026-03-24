@@ -55,6 +55,7 @@ namespace CookApps.AutoChess.View
         }
 
         private readonly Dictionary<int, int> _projectileIdToIndex = new();
+        private readonly Dictionary<int, Vector3> _cachedProjectilePositions = new();
 
         // ── 트레일 페이드아웃 대기 ──
         private readonly List<ActiveProjectile> _dyingProjectiles = new();
@@ -319,8 +320,9 @@ namespace CookApps.AutoChess.View
                     skillDirection = dir.normalized;
             }
 
-            // 첫 번째 VFX: 캐스터 위치에 재생
-            if (casterView != null && skillPrefabs.Length > 0 && skillPrefabs[0]?.Prefab != null)
+            // 첫 번째 VFX: 캐스터 위치에 재생 (Persistent VFX는 SkillPhaseVfx에서 제어하므로 스킵)
+            if (casterView != null && skillPrefabs.Length > 0 && skillPrefabs[0]?.Prefab != null
+                && !skillPrefabs[0].Persistent)
             {
                 if (skillDirection != Vector3.zero)
                     SpawnSkillVfxToward(casterView, skillPrefabs[0], skillDirection);
@@ -329,10 +331,19 @@ namespace CookApps.AutoChess.View
             }
 
             // 두 번째 VFX: 타겟 위치에 재생 (있으면)
-            if (skillPrefabs.Length > 1 && skillPrefabs[1]?.Prefab != null && targetView2 != null)
+            if (skillPrefabs.Length > 1 && skillPrefabs[1]?.Prefab != null && targetView2 != null
+                && !skillPrefabs[1].Persistent)
             {
                 SpawnSkillVfx(targetView2, skillPrefabs[1]);
             }
+        }
+
+        /// <summary>마커 만료 시 persistent VFX 카운트 갱신</summary>
+        public void OnSkillMarkerRemoved(int combatId, int skillSpecId, int remainingCount)
+        {
+            if (skillSpecId <= 0) return;
+            var view = _unitViewManager?.FindCombatView(combatId);
+            view?.UpdatePersistentVfxCount(skillSpecId, remainingCount);
         }
 
         public void OnSkillPhaseVfx(int casterId, int skillSpecId, byte vfxIndex,
@@ -545,14 +556,13 @@ namespace CookApps.AutoChess.View
                     }
                 }
 
+                _activeProjectiles[idx] = ap; // struct write-back
                 ap.Movement.OnReachedTarget += () => _projectilesToRemove.Add(ap);
-                RebuildProjectileIdIndex();
                 return;
             }
 
             // Movement 없는 투사체: 즉시 정리
-            _activeProjectiles.RemoveAt(idx);
-            RebuildProjectileIdIndex();
+            SwapRemoveProjectileAt(idx);
             ReleaseProjectile(ap);
         }
 
@@ -951,6 +961,19 @@ namespace CookApps.AutoChess.View
             movement.OnReachedTarget += () => _projectilesToRemove.Add(ap);
         }
 
+        private void SwapRemoveProjectileAt(int idx)
+        {
+            int lastIdx = _activeProjectiles.Count - 1;
+            if (idx != lastIdx)
+            {
+                var swapped = _activeProjectiles[lastIdx];
+                _activeProjectiles[idx] = swapped;
+                if (swapped.ProjectileId != 0)
+                    _projectileIdToIndex[swapped.ProjectileId] = idx;
+            }
+            _activeProjectiles.RemoveAt(lastIdx);
+        }
+
         private void RebuildProjectileIdIndex()
         {
             _projectileIdToIndex.Clear();
@@ -1046,7 +1069,7 @@ namespace CookApps.AutoChess.View
 
         public Dictionary<int, Vector3> GetActiveProjectileWorldPositions()
         {
-            var result = new Dictionary<int, Vector3>(_activeProjectiles.Count);
+            _cachedProjectilePositions.Clear();
             for (int i = 0; i < _activeProjectiles.Count; i++)
             {
                 var ap = _activeProjectiles[i];
@@ -1060,9 +1083,9 @@ namespace CookApps.AutoChess.View
                 else
                     continue;
 
-                result[ap.ProjectileId] = pos;
+                _cachedProjectilePositions[ap.ProjectileId] = pos;
             }
-            return result;
+            return _cachedProjectilePositions;
         }
 
         // ── VFX 업데이트 (매 프레임) ──
@@ -1130,7 +1153,26 @@ namespace CookApps.AutoChess.View
                 for (int i = 0; i < _projectilesToRemove.Count; i++)
                 {
                     var ap = _projectilesToRemove[i];
-                    _activeProjectiles.Remove(ap);
+
+                    // RawGo/Vfx 참조 기반으로 _activeProjectiles에서 인덱스 찾기
+                    int foundIdx = -1;
+                    for (int j = 0; j < _activeProjectiles.Count; j++)
+                    {
+                        var active = _activeProjectiles[j];
+                        if ((ap.RawGo != null && active.RawGo == ap.RawGo) ||
+                            (ap.Vfx != null && active.Vfx == ap.Vfx))
+                        {
+                            foundIdx = j;
+                            break;
+                        }
+                    }
+
+                    if (foundIdx >= 0)
+                    {
+                        int pid = _activeProjectiles[foundIdx].ProjectileId;
+                        if (pid != 0) _projectileIdToIndex.Remove(pid);
+                        SwapRemoveProjectileAt(foundIdx);
+                    }
 
                     // movement 풀 반환
                     if (ap.Movement != null) InGameVfxMovementPool.Return(ap.Movement);
@@ -1150,7 +1192,6 @@ namespace CookApps.AutoChess.View
                     }
                 }
                 _projectilesToRemove.Clear();
-                RebuildProjectileIdIndex();
             }
 
             // 트레일 페이드아웃 완료 체크

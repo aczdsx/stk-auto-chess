@@ -275,8 +275,9 @@ namespace CookApps.AutoChess.View
                 if (state == CombatState.Attacking && atkSpeedF > 0f)
                 {
                     float atkTime = 1f / atkSpeedF;
-                    float animTime = clip.length * 1.5f;
-                    float animSpeed = animTime > atkTime ? animTime * atkSpeedF : 1f;
+                    float animSpeed = (clip.length > atkTime)
+                        ? clip.length * atkSpeedF
+                        : 1f;
                     _characterView.SetAnimationSpeed(animSpeed);
                     _attackAnimEndTime = Time.time + clip.length / animSpeed;
                 }
@@ -286,7 +287,13 @@ namespace CookApps.AutoChess.View
                     _attackAnimEndTime = Time.time + clip.length;
                 }
             }
-            else if (state == CombatState.Idle || state == CombatState.Moving)
+            else if (state == CombatState.Idle)
+            {
+                // 공속 버프 시 Idle 애니메이션도 비례 가속 (공격 사이 대기 체감 개선)
+                float idleSpeed = attackSpeed > 100 ? attackSpeed / 100f : 1f;
+                _characterView.SetAnimationSpeed(idleSpeed);
+            }
+            else if (state == CombatState.Moving)
             {
                 _characterView.SetAnimationSpeed(1f);
             }
@@ -509,6 +516,14 @@ namespace CookApps.AutoChess.View
             {
                 vfxGo.transform.GetChild(i).gameObject.SetActive(i < count);
             }
+        }
+
+        /// <summary>기존 persistent VFX의 자식 활성 개수만 변경. count=0이면 모두 비활성화.</summary>
+        public void UpdatePersistentVfxCount(int skillSpecId, int count)
+        {
+            if (!_persistentVfx.TryGetValue(skillSpecId, out var vfxGo) || vfxGo == null) return;
+            for (int i = 0; i < vfxGo.transform.childCount; i++)
+                vfxGo.transform.GetChild(i).gameObject.SetActive(i < count);
         }
 
         /// <summary>해당 skillSpecId의 persistent VFX가 이미 존재하는지</summary>

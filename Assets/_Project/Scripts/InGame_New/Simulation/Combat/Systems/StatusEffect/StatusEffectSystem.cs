@@ -220,7 +220,8 @@ namespace CookApps.AutoChess
 
                     int cnt = CountMarkers(state, uIdx, mVal);
                     state.EventQueue?.PushSkillMarkerRemoved(
-                        state.Units[uIdx].CombatId, mVal, cnt);
+                        state.Units[uIdx].CombatId, mVal, cnt,
+                        state.Units[uIdx].SkillSpecId);
                 }
             }
         }
