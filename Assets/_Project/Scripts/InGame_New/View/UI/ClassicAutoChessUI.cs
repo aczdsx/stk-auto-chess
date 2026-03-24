@@ -51,6 +51,8 @@ namespace CookApps.AutoChess.View
         private HashSet<SynergyType> _selectedElementFilters = new();
         private HashSet<SynergyType> _selectedStellaFilters = new();
         private readonly HashSet<int> _calcBoardCpVisited = new();
+        private readonly HashSet<int> _withdrawIds = new();
+        private readonly List<(int entityId, float cp)> _recommendCandidates = new();
         private int _lastMyCp = -1;
         private int _lastEnemyCp = -1;
 
@@ -170,41 +172,41 @@ namespace CookApps.AutoChess.View
             if (boardCount >= maxUnits) return;
 
             // 1. 보드 유닛 전부 회수 (멀티타일 중복 방지)
-            var withdrawIds = new HashSet<int>();
+            _withdrawIds.Clear();
             for (int i = 0; i < CurrentWorld.BoardSize; i++)
             {
                 int entityId = CurrentWorld.BoardSlots[PlayerIndex][i];
                 if (entityId != UnitData.InvalidId)
-                    withdrawIds.Add(entityId);
+                    _withdrawIds.Add(entityId);
             }
-            foreach (var id in withdrawIds)
+            foreach (var id in _withdrawIds)
                 ViewBridge?.SendCommand(GameCommand.WithdrawUnit(PlayerIndex, id));
 
             // 2. 전체 유닛 수집 (보드 + 벤치) → 필터 적용 → CP 내림차순 정렬
-            var candidates = new List<(int entityId, float cp)>();
+            _recommendCandidates.Clear();
 
-            foreach (var id in withdrawIds)
-                TryAddCandidate(candidates, id);
+            foreach (var id in _withdrawIds)
+                TryAddCandidate(_recommendCandidates, id);
 
             var benchSlots = CurrentWorld.BenchSlots[PlayerIndex];
             for (int i = 0; i < benchSlots.Length; i++)
             {
                 int entityId = benchSlots[i];
                 if (entityId != UnitData.InvalidId)
-                    TryAddCandidate(candidates, entityId);
+                    TryAddCandidate(_recommendCandidates, entityId);
             }
 
-            candidates.Sort((a, b) => b.cp.CompareTo(a.cp));
+            _recommendCandidates.Sort((a, b) => b.cp.CompareTo(a.cp));
 
             // 3. 상위 N명 순차 배치
             int placed = 0;
             int boardWidth = CurrentWorld.BoardWidth;
-            for (int i = 0; i < candidates.Count && placed < maxUnits; i++)
+            for (int i = 0; i < _recommendCandidates.Count && placed < maxUnits; i++)
             {
                 byte col = (byte)(placed % boardWidth);
                 byte row = (byte)(placed / boardWidth);
                 ViewBridge?.SendCommand(
-                    GameCommand.PlaceUnit(PlayerIndex, candidates[i].entityId, col, row));
+                    GameCommand.PlaceUnit(PlayerIndex, _recommendCandidates[i].entityId, col, row));
                 placed++;
             }
         }
