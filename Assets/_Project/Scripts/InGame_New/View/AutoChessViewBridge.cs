@@ -431,6 +431,7 @@ namespace CookApps.AutoChess.View
 
                 case SimEventType.SkillMarkerRemoved:
                     _buffIconTracker?.OnSkillMarkerRemoved(evt.EntityId, evt.Value0, evt.Value1);
+                    _combatViewManager.OnSkillMarkerRemoved(evt.EntityId, evt.TargetEntityId, evt.Value1);
                     break;
 
                 case SimEventType.SupernovaObjectEvent:
@@ -687,7 +688,7 @@ namespace CookApps.AutoChess.View
             switch (subType)
             {
                 case SupernovaSubType.Spawn:
-                    SpawnSupernovaObject(key, traitId, evt.Col, evt.Row);
+                    SpawnSupernovaObject(key, traitId, evt.Col, evt.Row).Forget();
                     break;
 
                 case SupernovaSubType.Remove:
@@ -704,7 +705,7 @@ namespace CookApps.AutoChess.View
                     {
                         // 루프 VFX는 동일하지만 스케일이 티어별로 다르므로 재부착
                         RemoveTargetVfx(key);
-                        SpawnTargetVfx(key, traitId, evt.EntityId);
+                        SpawnTargetVfx(key, traitId, evt.EntityId).Forget();
                     }
                     break;
 
@@ -715,7 +716,7 @@ namespace CookApps.AutoChess.View
                     var world = _runner.GetWorld();
                     if (world != null && world.IsCombatActive)
                         ToastManager.Instance.ShowToastByTokenKey("NOT_SUPERNOVA_ITEM_APPLY");
-                    SpawnTargetVfx(key, traitId, evt.EntityId);
+                    SpawnTargetVfx(key, traitId, evt.EntityId).Forget();
                     break;
                 }
 
@@ -729,7 +730,7 @@ namespace CookApps.AutoChess.View
             }
         }
 
-        private async void SpawnSupernovaObject((int traitId, byte playerIndex) key, int traitId, byte col, byte row)
+        private async UniTaskVoid SpawnSupernovaObject((int traitId, byte playerIndex) key, int traitId, byte col, byte row)
         {
             RemoveSupernovaObject(key); // 기존 오브젝트 정리
 
@@ -737,7 +738,8 @@ namespace CookApps.AutoChess.View
             var synergyType = (SynergyType)traitId;
             if (!_synergyVfxConfig.TryGetTaggedVfx(synergyType, SynergyVfxTag.BoardObject, out var boardVfx)) return;
 
-            var go = await Addressables.InstantiateAsync(boardVfx.Vfx, transform);
+            var ct = destroyCancellationToken;
+            var go = await Addressables.InstantiateAsync(boardVfx.Vfx, transform).WithCancellation(ct);
             if (go == null) return;
             Debug.Log($"<color=magenta>[Supernova] SpawnObject: {go.name} at ({col},{row})</color>");
 
@@ -791,7 +793,7 @@ namespace CookApps.AutoChess.View
             }
         }
 
-        private async void SpawnTargetVfx((int traitId, byte playerIndex) key, int traitId, int entityId)
+        private async UniTaskVoid SpawnTargetVfx((int traitId, byte playerIndex) key, int traitId, int entityId)
         {
             RemoveTargetVfx(key);
 
@@ -1000,7 +1002,10 @@ namespace CookApps.AutoChess.View
         }
 
         /// <summary>전투 뷰 생성 시 시너지 타겟 VFX reparent + 스케일 재적용 + 버프 아이콘 갱신</summary>
-        private async void HandleCombatViewCreated(int entityId, UnitView view)
+        private void HandleCombatViewCreated(int entityId, UnitView view)
+            => HandleCombatViewCreatedAsync(entityId, view).Forget();
+
+        private async UniTaskVoid HandleCombatViewCreatedAsync(int entityId, UnitView view)
         {
             _buffIconTracker?.RefreshIconsForUnit(view.CombatId);
 
@@ -1063,12 +1068,12 @@ namespace CookApps.AutoChess.View
                 if (sn.PrepTargetEntityId >= 0)
                 {
                     // 타겟 부여 상태 → 유닛에 VFX
-                    SpawnTargetVfx(key, sn.TraitId, sn.PrepTargetEntityId);
+                    SpawnTargetVfx(key, sn.TraitId, sn.PrepTargetEntityId).Forget();
                 }
                 else if (sn.ObjectCol >= 0)
                 {
                     // 미부여 → 구체 오브젝트
-                    SpawnSupernovaObject(key, sn.TraitId, (byte)sn.ObjectCol, (byte)sn.ObjectRow);
+                    SpawnSupernovaObject(key, sn.TraitId, (byte)sn.ObjectCol, (byte)sn.ObjectRow).Forget();
                 }
             }
         }

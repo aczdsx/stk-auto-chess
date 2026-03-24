@@ -10,6 +10,8 @@ namespace CookApps.AutoChess.View
     public class VfxPool
     {
         private readonly Dictionary<int, Stack<GameObject>> _pools = new();
+        private readonly Dictionary<int, ParticleSystem[]> _particleCache = new();
+        private readonly Dictionary<int, TrailRenderer[]> _trailCache = new();
         private readonly Transform _poolRoot;
 
         public VfxPool(Transform poolRoot)
@@ -117,11 +119,38 @@ namespace CookApps.AutoChess.View
                 }
             }
             _pools.Clear();
+            _particleCache.Clear();
+            _trailCache.Clear();
         }
 
-        private static void ReplayParticles(GameObject go)
+        private ParticleSystem[] GetCachedParticles(GameObject go)
         {
-            var particles = go.GetComponentsInChildren<ParticleSystem>(true);
+            int id = go.GetInstanceID();
+            if (!_particleCache.TryGetValue(id, out var particles))
+            {
+                particles = go.GetComponentsInChildren<ParticleSystem>(true);
+                _particleCache[id] = particles;
+            }
+            return particles;
+        }
+
+        private TrailRenderer[] GetCachedTrails(GameObject go)
+        {
+            int id = go.GetInstanceID();
+            if (!_trailCache.TryGetValue(id, out var trails))
+            {
+                trails = go.GetComponentsInChildren<TrailRenderer>(true);
+                _trailCache[id] = trails;
+            }
+            return trails;
+        }
+
+        public ParticleSystem[] GetParticles(GameObject go) => GetCachedParticles(go);
+        public TrailRenderer[] GetTrails(GameObject go) => GetCachedTrails(go);
+
+        private void ReplayParticles(GameObject go)
+        {
+            var particles = GetCachedParticles(go);
             for (int i = 0; i < particles.Length; i++)
             {
                 particles[i].Clear();
@@ -129,18 +158,18 @@ namespace CookApps.AutoChess.View
             }
         }
 
-        private static void StopParticles(GameObject go)
+        private void StopParticles(GameObject go)
         {
-            var particles = go.GetComponentsInChildren<ParticleSystem>(true);
+            var particles = GetCachedParticles(go);
             for (int i = 0; i < particles.Length; i++)
             {
                 particles[i].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             }
         }
 
-        private static void ClearTrails(GameObject go)
+        private void ClearTrails(GameObject go)
         {
-            var trails = go.GetComponentsInChildren<TrailRenderer>(true);
+            var trails = GetCachedTrails(go);
             for (int i = 0; i < trails.Length; i++)
             {
                 trails[i].Clear();

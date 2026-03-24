@@ -321,11 +321,12 @@ namespace CookApps.AutoChess.View
             _parkedPersistentVfx.Clear();
         }
 
-        private async void ScheduleVfxReparent(int entityId, UnitView view)
+        private async UniTaskVoid ScheduleVfxReparent(int entityId, UnitView view)
         {
+            var ct = destroyCancellationToken;
             bool canceled = await UniTask.WaitUntil(
                 () => view == null || view.IsReady,
-                cancellationToken: destroyCancellationToken).SuppressCancellationThrow();
+                cancellationToken: ct).SuppressCancellationThrow();
             if (canceled || this == null || view == null) return;
 
             if (_parkedPersistentVfx.TryGetValue(entityId, out var list))
@@ -428,7 +429,7 @@ namespace CookApps.AutoChess.View
 
             // Parked VFX가 있으면 전투 뷰에 reparent 스케줄링
             if (_parkedPersistentVfx.ContainsKey(sourceEntityId))
-                ScheduleVfxReparent(sourceEntityId, view);
+                ScheduleVfxReparent(sourceEntityId, view).Forget();
 
             return view;
         }

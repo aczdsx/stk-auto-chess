@@ -95,6 +95,12 @@ namespace CookApps.AutoChess
                     count: 1, intervalMs: EllisDamageDelayMs))
                 .Register();
 
+            // ── 아트레시아: DelayedApply, 3칸 폭 직선 관통 투사체 ──
+            Skill(217513401, E.DelayedApply, T.NearestEnemy).Projectile()
+                .Param(1, P.Int, 200f)
+                .AtHit(SpawnLinearProjectile(paramIndex: 0, width: 3))
+                .Register();
+
             // ── 메이: DelayedApply, Plus AoE + 넉백 + 방어 버프 ──
             Skill(215322201, E.DelayedApply, T.Self)
                 .Param(1, P.Int, 200f)           // [0] 데미지 배율

@@ -135,6 +135,7 @@ namespace CookApps.AutoChess
                 215642501, // 엘리스: Channeling, 2단계 Diamond AoE
                 230101005, // 몬스터 SingleProjectile
                 230202004, // 몬스터 SingleProjectile
+                217513401, // 아트레시아: 3칸 폭 직선 관통 투사체
                 215322201, // 메이: Plus AoE + 넉백 + 방어 버프
                 250108001, // 보스탱커: 전방 10칸 순차 타격
             };

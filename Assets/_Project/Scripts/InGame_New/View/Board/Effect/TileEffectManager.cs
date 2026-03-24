@@ -104,7 +104,7 @@ namespace CookApps.AutoChess.View
         public int ShowRange(TileEffectType type, int centerCol, int centerRow, int range, float duration = 0f)
         {
             int handle = _nextHandle++;
-            var fxList = new List<GameObject>();
+            var fxList = ListPool<GameObject>.Get();
 
             int width = BoardHelper.CombatWidth;
             int height = BoardHelper.CombatHeight;
@@ -135,7 +135,7 @@ namespace CookApps.AutoChess.View
         public int ShowTiles(TileEffectType type, List<(int col, int row)> tiles)
         {
             int handle = _nextHandle++;
-            var fxList = new List<GameObject>(tiles.Count);
+            var fxList = ListPool<GameObject>.Get();
 
             for (int i = 0; i < tiles.Count; i++)
             {
@@ -153,7 +153,7 @@ namespace CookApps.AutoChess.View
         public int ShowRangeBox(TileEffectType type, int centerCol, int centerRow, int range, float duration = 0f)
         {
             int handle = _nextHandle++;
-            var fxList = new List<GameObject>();
+            var fxList = ListPool<GameObject>.Get();
 
             int width = BoardHelper.CombatWidth;
             int height = BoardHelper.CombatHeight;
@@ -189,7 +189,7 @@ namespace CookApps.AutoChess.View
         public int ShowRow(TileEffectType type, int row, int centerCol, int halfWidth, float duration = 0f)
         {
             int handle = _nextHandle++;
-            var fxList = new List<GameObject>();
+            var fxList = ListPool<GameObject>.Get();
 
             for (int c = centerCol - halfWidth; c <= centerCol + halfWidth; c++)
             {
@@ -213,7 +213,7 @@ namespace CookApps.AutoChess.View
         public int ShowDirectionalRect(TileEffectType type, int centerCol, int centerRow, int dirCol, int dirRow, float duration = 0f)
         {
             int handle = _nextHandle++;
-            var fxList = new List<GameObject>();
+            var fxList = ListPool<GameObject>.Get();
 
             bool rowDominant = dirRow != 0;
 
@@ -279,7 +279,7 @@ namespace CookApps.AutoChess.View
                 if (fx != null)
                     pool.Release(fx);
             }
-            group.FxList.Clear();
+            ListPool<GameObject>.Release(group.FxList);
             _activeEffects.Remove(handle);
         }
 
@@ -287,9 +287,11 @@ namespace CookApps.AutoChess.View
         public void HideAll()
         {
             // 복사본으로 순회 (Hide에서 dictionary 수정하므로)
-            var handles = new List<int>(_activeEffects.Keys);
+            var handles = ListPool<int>.Get();
+            handles.AddRange(_activeEffects.Keys);
             for (int i = 0; i < handles.Count; i++)
                 Hide(handles[i]);
+            ListPool<int>.Release(handles);
 
             _timedEffects.Clear();
         }
@@ -337,10 +339,12 @@ namespace CookApps.AutoChess.View
             var fx = GetFromPool(type);
             fx.transform.position = worldPos;
 
+            var fxList = ListPool<GameObject>.Get();
+            fxList.Add(fx);
             _activeEffects[handle] = new EffectGroup
             {
                 Type = type,
-                FxList = new List<GameObject> { fx },
+                FxList = fxList,
             };
 
             if (duration > 0f)

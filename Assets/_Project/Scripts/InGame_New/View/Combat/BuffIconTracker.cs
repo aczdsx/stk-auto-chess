@@ -254,11 +254,11 @@ namespace CookApps.AutoChess.View
                 });
             }
 
-            for (int i = 0; i < _tempBuffList.Count; i++)
-            {
-                var b = _tempBuffList[i];
-                Debug.Log($"[BuffIconTracker] CombatId={combatId} [{i}] Sprite={b.IconSprite?.name ?? "NULL"}, Stack={b.StackCount}, IsSide={b.IsSide}");
-            }
+            // for (int i = 0; i < _tempBuffList.Count; i++)
+            // {
+            //     var b = _tempBuffList[i];
+            //     Debug.Log($"[BuffIconTracker] CombatId={combatId} [{i}] Sprite={b.IconSprite?.name ?? "NULL"}, Stack={b.StackCount}, IsSide={b.IsSide}");
+            // }
 
             unitView.UpdateBuffIcons(_tempBuffList);
         }

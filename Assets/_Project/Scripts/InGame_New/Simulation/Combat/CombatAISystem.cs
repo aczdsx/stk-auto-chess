@@ -235,7 +235,13 @@ namespace CookApps.AutoChess
                             unit.PendingAtkTimer = unit.AtkHitDelay;
                             unit.PendingAtkIsCrit = willCrit;
                             unit.AttackCooldown = unit.GetAttackInterval(tickRate);
-                            unit.ActionLockTimer = unit.AttackActionFrames > 0 ? unit.AttackActionFrames : 1;
+                            {
+                                int baseFrames = unit.AttackActionFrames > 0 ? unit.AttackActionFrames : 1;
+                                int scaledFrames = unit.AttackSpeed > 100
+                                    ? baseFrames * 100 / unit.AttackSpeed
+                                    : baseFrames;
+                                unit.ActionLockTimer = scaledFrames > 0 ? scaledFrames : 1;
+                            }
 
                             // 이벤트 발행 (View가 ATK 애니메이션 시작, isCrit 전달)
                             state.EventQueue?.PushUnitAttacked(
@@ -244,7 +250,13 @@ namespace CookApps.AutoChess
                         else
                         {
                             // 원거리/범위: 기존 즉시 실행 (투사체가 알아서 지연)
-                            unit.ActionLockTimer = unit.AttackActionFrames > 0 ? unit.AttackActionFrames : 1;
+                            {
+                                int baseFrames = unit.AttackActionFrames > 0 ? unit.AttackActionFrames : 1;
+                                int scaledFrames = unit.AttackSpeed > 100
+                                    ? baseFrames * 100 / unit.AttackSpeed
+                                    : baseFrames;
+                                unit.ActionLockTimer = scaledFrames > 0 ? scaledFrames : 1;
+                            }
                             DamageSystem.ExecuteBasicAttack(state, ref unit, ref target, ref rng, tickRate);
                         }
                     }

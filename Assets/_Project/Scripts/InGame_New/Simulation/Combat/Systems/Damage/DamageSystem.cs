@@ -170,9 +170,9 @@ namespace CookApps.AutoChess
 
                 // 생존 수 업데이트
                 if (target.TeamIndex == 0)
-                    state.AliveCountA = CombatSetupSystem.CountAliveByTeam(state, 0);
+                    state.AliveCountA--;
                 else
-                    state.AliveCountB = CombatSetupSystem.CountAliveByTeam(state, 1);
+                    state.AliveCountB--;
 
                 Debug.Log(
                     $"[InGame_New][Death] victimCombatId={target.CombatId} " +

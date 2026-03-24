@@ -50,6 +50,9 @@ namespace CookApps.AutoChess.View
 
         private HashSet<SynergyType> _selectedElementFilters = new();
         private HashSet<SynergyType> _selectedStellaFilters = new();
+        private readonly HashSet<int> _calcBoardCpVisited = new();
+        private int _lastMyCp = -1;
+        private int _lastEnemyCp = -1;
 
         protected override void OnInitialize()
         {
@@ -98,14 +101,18 @@ namespace CookApps.AutoChess.View
 
         // ── 전투 시작 ──
 
-        private async void OnStartBattleClicked()
+        private void OnStartBattleClicked()
+            => OnStartBattleClickedAsync().Forget();
+
+        private async UniTaskVoid OnStartBattleClickedAsync()
         {
             if (_isStarting) return;
             _isStarting = true;
 
             try
             {
-                if (!await IsCheckStartBattle())
+                var ct = this.GetCancellationTokenOnDestroy();
+                if (!await IsCheckStartBattle().AttachExternalCancellation(ct))
                 {
                     _isStarting = false;
                     return;
@@ -113,6 +120,10 @@ namespace CookApps.AutoChess.View
 
                 var cmd = GameCommand.Ready(PlayerIndex);
                 ViewBridge?.SendCommand(cmd);
+            }
+            catch (System.OperationCanceledException)
+            {
+                // 오브젝트 파괴로 인한 취소 — 무시
             }
             catch
             {
@@ -224,10 +235,24 @@ namespace CookApps.AutoChess.View
             if (CurrentWorld == null) return;
 
             if (_myTeamCpText != null)
-                _myTeamCpText.text = CalcBoardCp(PlayerIndex).ToString("n0");
+            {
+                int myCp = CalcBoardCp(PlayerIndex);
+                if (_lastMyCp != myCp)
+                {
+                    _lastMyCp = myCp;
+                    _myTeamCpText.text = myCp.ToString("n0");
+                }
+            }
 
             if (_enemyTeamCpText != null)
-                _enemyTeamCpText.text = CalcEnemyCp().ToString("n0");
+            {
+                int enemyCp = CalcEnemyCp();
+                if (_lastEnemyCp != enemyCp)
+                {
+                    _lastEnemyCp = enemyCp;
+                    _enemyTeamCpText.text = enemyCp.ToString("n0");
+                }
+            }
         }
 
         private int CalcBoardCp(byte playerIndex)
@@ -239,12 +264,12 @@ namespace CookApps.AutoChess.View
 
             int totalCp = 0;
             var boardSlots = CurrentWorld.BoardSlots[playerIndex];
-            var visited = new HashSet<int>();
+            _calcBoardCpVisited.Clear();
 
             for (int i = 0; i < boardSlots.Length; i++)
             {
                 int entityId = boardSlots[i];
-                if (entityId == UnitData.InvalidId || !visited.Add(entityId)) continue;
+                if (entityId == UnitData.InvalidId || !_calcBoardCpVisited.Add(entityId)) continue;
 
                 ref var unit = ref CurrentWorld.GetUnit(entityId);
                 totalCp += CombatPowerCalculator.Calculate(ref unit);
@@ -445,12 +470,16 @@ namespace CookApps.AutoChess.View
 
         private CancellationTokenSource _killLogLayoutCts;
 
-        private async void RelayoutKillLogs(bool animated = false)
+        private void RelayoutKillLogs(bool animated = false)
+            => RelayoutKillLogsAsync(animated).Forget();
+
+        private async UniTaskVoid RelayoutKillLogsAsync(bool animated = false)
         {
             if (_killLogRoot == null) return;
 
             _killLogLayoutCts?.Cancel();
-            _killLogLayoutCts = new CancellationTokenSource();
+            _killLogLayoutCts = CancellationTokenSource.CreateLinkedTokenSource(
+                this.GetCancellationTokenOnDestroy());
             var token = _killLogLayoutCts.Token;
 
             var items = _killLogItems;

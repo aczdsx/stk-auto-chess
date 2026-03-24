@@ -491,12 +491,13 @@ namespace CookApps.AutoChess
             });
         }
 
-        public void PushSkillMarkerRemoved(int combatId, int markerId, int remainingCount)
+        public void PushSkillMarkerRemoved(int combatId, int markerId, int remainingCount, int skillSpecId = 0)
         {
             Push(new SimEvent
             {
                 Type = SimEventType.SkillMarkerRemoved,
                 EntityId = combatId,
+                TargetEntityId = skillSpecId,
                 Value0 = markerId,
                 Value1 = remainingCount,
             });

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using CookApps.AutoBattler;
 
 namespace CookApps.AutoChess

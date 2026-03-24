@@ -15,7 +15,6 @@ namespace CookApps.AutoChess
         private int _foxFireIncrease;
         private int _buffDurationFrames;
         private int _atkSpeedRatePercent;
-        private int _foxFireDurationFrames;
 
         private const int MaxFoxFires = 9;
 
@@ -26,7 +25,6 @@ namespace CookApps.AutoChess
             _foxFireIncrease = SkillSpecHelper.GetInt(specList, 1, 2f);
             _buffDurationFrames = SkillSpecHelper.GetFrames(specList, 2, 3f, tickRate);
             _atkSpeedRatePercent = SkillSpecHelper.GetInt(specList, 3, 10f);
-            _foxFireDurationFrames = 150;
         }
 
         public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
@@ -53,7 +51,7 @@ namespace CookApps.AutoChess
                 }
 
                 StatusEffectSystem.AddEffect(state, casterIdx,
-                    StatusEffectType.SkillMarker, MarkerValue, _foxFireDurationFrames);
+                    StatusEffectType.SkillMarker, MarkerValue, _buffDurationFrames);
             }
 
             // 공속 버프 = 현재 여우불 수 × 공속비율
@@ -62,7 +60,8 @@ namespace CookApps.AutoChess
             if (totalAtkSpeedBonus > 0)
             {
                 SkillBuffHelper.ApplyTimedBuff(state, casterIdx,
-                    StatModType.AttackSpeed, totalAtkSpeedBonus, _buffDurationFrames);
+                    StatModType.AttackSpeed, totalAtkSpeedBonus, _buffDurationFrames,
+                    sourceSkillId: SkillId);
             }
 
             // VFX 이벤트: 본인에게 스폰 (여우불 수는 dirCol로 전달)
