@@ -81,17 +81,22 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eee75e481346bbc45b42e46cb0c6d675
-    m_Address: Data/SynergyVfxConfig.asset
+    m_Address: Data/VFX/SynergyVfxConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f5b7be119826467439d9e07a61687e25
+    m_Address: Data/VFX/JobPassiveVfxConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f6cb857cdeee97345b2252db95577dc9
-    m_Address: Data/CombatVfxConfig.asset
+    m_Address: Data/VFX/CombatVfxConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fb1c30b3f2a99c9449a20ed611aae303
-    m_Address: Data/TargetLineConfig.asset
+    m_Address: Data/VFX/TargetLineConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

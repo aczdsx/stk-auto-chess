@@ -43,11 +43,21 @@ namespace CookApps.AutoChess
                 // UnitAttacked를 ApplyDamage보다 먼저 발행 (데미지 폰트 중복 방지)
                 state.EventQueue?.PushUnitAttacked(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
 
-                ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit);
+                ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit, isBasicAttack: true);
                 ApplyLifeSteal(state, ref attacker, finalDamage);
 
                 // 피격자 마나 충전
                 ChargeMana(ref target, target.ManaGainOnHit);
+
+                // 공격자 마나 충전
+                ChargeMana(ref attacker, attacker.ManaGainOnAttack);
+
+                // 공격 쿨다운 재설정
+                attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
+
+                // Trait: 공격 후 콜백 (근접: 데미지 적용 후 즉시)
+                if (attackerIndex >= 0)
+                    TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
             }
             else
             {
@@ -64,22 +74,23 @@ namespace CookApps.AutoChess
 
                 if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, rawDamage, isCrit, true);
 
+                // 투사체 VFX 오버라이드 소비 (Sharpshooter 관통 등)
+                byte projVfxOverride = attacker.ProjectileVfxOverride;
+                if (projVfxOverride != ProjectileVfxId.None) attacker.ProjectileVfxOverride = ProjectileVfxId.None;
+
                 ProjectileSystem.CreateHomingProjectile(
                     state, attacker.CombatId, target.CombatId,
-                    rawDamage, isCrit, DamageType.Physical, travelFrames);
+                    rawDamage, isCrit, DamageType.Physical, travelFrames,
+                    projectileVfxOverride: projVfxOverride);
 
                 state.EventQueue?.PushUnitAttacked(attacker.CombatId, target.CombatId, rawDamage, isCrit, true);
+
+                // 공격자 마나 충전
+                ChargeMana(ref attacker, attacker.ManaGainOnAttack);
+
+                // 공격 쿨다운 재설정
+                attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
             }
-
-            // 공격자 마나 충전
-            ChargeMana(ref attacker, attacker.ManaGainOnAttack);
-
-            // 공격 쿨다운 재설정
-            attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
-
-            // Trait: 공격 후 콜백
-            if (attackerIndex >= 0)
-                TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
         }
 
         /// <summary>대기 중인 근접 공격 히트 적용 (ATK 키프레임 도달 시점)</summary>
@@ -128,8 +139,9 @@ namespace CookApps.AutoChess
             state.EventQueue?.PushUnitAttacked(
                 attacker.CombatId, target.CombatId, finalDamage, isCrit, false, isPreTimed: true);
 
-            ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit);
+            ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit, isBasicAttack: true);
             ApplyLifeSteal(state, ref attacker, finalDamage);
+
             ChargeMana(ref target, target.ManaGainOnHit);
             ChargeMana(ref attacker, attacker.ManaGainOnAttack);
 

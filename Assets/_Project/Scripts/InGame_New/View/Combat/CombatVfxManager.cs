@@ -17,6 +17,7 @@ namespace CookApps.AutoChess.View
     {
         private readonly CombatVfxConfigSO _config;
         private readonly UnitViewManager _unitViewManager;
+        private JobPassiveVfxConfigSO _jobPassiveVfxConfig;
 
         // 활성 루프 VFX: (combatId, type, statType) → 인스턴스 핸들
         private readonly Dictionary<(int, CombatVfxType, StatModType), AsyncOperationHandle<GameObject>> _activeLoopVfx = new();
@@ -32,9 +33,21 @@ namespace CookApps.AutoChess.View
             _unitViewManager = unitViewManager;
         }
 
+        public void InitJobPassiveVfxConfig()
+        {
+            _jobPassiveVfxConfig = SoDataProvider.Instance.Get<JobPassiveVfxConfigSO>();
+        }
+
         /// <summary>효과 추가 — OneShot 1회 재생 + Loop 부착</summary>
         public void OnEffectAdded(int combatId, CombatVfxType type, StatModType statType = default)
         {
+            // 직업 패시브 VFX → JobPassiveVfxConfigSO에서 조회
+            if (_jobPassiveVfxConfig != null && _jobPassiveVfxConfig.TryGetUnitVfx(type, out var jpEntry))
+            {
+                OnJobPassiveEffectAdded(combatId, type, ref jpEntry);
+                return;
+            }
+
             if (_config == null) return;
             if (!_config.TryGetEntry(type, statType, out var entry)) return;
 
@@ -58,6 +71,27 @@ namespace CookApps.AutoChess.View
             // Loop VFX (지속 중 부착)
             if (entry.LoopVfx != null && entry.LoopVfx.RuntimeKeyIsValid())
                 SpawnLoopAsync(combatId, type, statType, entry.LoopVfx, entry.LoopPosition, entry.LoopFollowable).Forget();
+        }
+
+        private void OnJobPassiveEffectAdded(int combatId, CombatVfxType type, ref JobPassiveVfxConfigSO.UnitVfxEntry entry)
+        {
+            var key = (combatId, type, default(StatModType));
+
+            if (_refCounts.TryGetValue(key, out int count))
+            {
+                // 차지 갱신 이벤트: refCount 누적하지 않고 무시 (VFX 재생 안 함)
+                // Removed 시 refCount 1→0으로 정상 해제, 재충전 Added 시 0→1로 VFX 재생
+                return;
+            }
+            _refCounts[key] = 1;
+
+            PlayEffectSound(type);
+
+            if (entry.OneShotVfx != null && entry.OneShotVfx.RuntimeKeyIsValid())
+                SpawnOneShotAsync(combatId, entry.OneShotVfx, entry.OneShotPosition, entry.OneShotFollowable).Forget();
+
+            if (entry.LoopVfx != null && entry.LoopVfx.RuntimeKeyIsValid())
+                SpawnLoopAsync(combatId, type, default, entry.LoopVfx, entry.LoopPosition, entry.LoopFollowable).Forget();
         }
 
         /// <summary>효과 제거 — Loop VFX 제거</summary>
@@ -243,6 +277,12 @@ namespace CookApps.AutoChess.View
                 case CombatVfxType.CC_Airborne:
                 case CombatVfxType.CC_KnockBack:
                     return SoundFX.snd_sfx_ingame_debuff;
+
+                // 직업 패시브
+                case CombatVfxType.JobStrikerBlock:
+                    return SoundFX.snd_sfx_skill_job_striker_brave;
+                case CombatVfxType.JobSharpshooter:
+                    return SoundFX.snd_sfx_skill_job_shooter_pierce;
 
                 default:
                     return SoundFX.NONE;

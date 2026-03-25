@@ -229,6 +229,7 @@ namespace CookApps.AutoChess
         ReduceDef,
         ReduceAdReduce,
         ReduceApReduce,
+        // 직업군 패시브는 SynergyEffectType이 아님 — JobPassiveSystem에서 CharacterPositionType 기반으로 처리
     }
 
     // ═══════════════════════════════════════════════
@@ -383,6 +384,27 @@ namespace CookApps.AutoChess
         // ── 추가 ──
         HealAmountDown = 30,
         Shield = 31,
+        // ── 직업 패시브 ──
+        JobSharpshooter      = 40,  // 관통 발동
+        JobGhost             = 41,  // 확정 크리 준비
+        BasicAttackShield    = 42,  // 공격 무시 베리어
+        JobStriker           = 43,  // CC 면역 부여
+        JobStrikerBlock      = 44,  // CC 면역으로 CC 방어
+        JobEsper             = 45,  // 폭발 이펙트 (타겟 위치)
+        JobGhostJumpStart    = 46,  // 백라인 점프 출발
+        JobGhostJumpEnd      = 47,  // 백라인 점프 도착
+    }
+
+    /// <summary>
+    /// 투사체 VFX 오버라이드 ID. CombatUnit.ProjectileVfxOverride에 설정.
+    /// View의 CombatViewManager._projectileOverridePrefabs[] 인덱스로 사용.
+    /// 0 = 기본 투사체, 1+ = 오버라이드 프리팹.
+    /// </summary>
+    public static class ProjectileVfxId
+    {
+        public const byte None = 0;
+        public const byte SharpshooterAD = 1;  // fx_common_job_sharpshooter_01
+        public const byte SharpshooterAP = 2;  // fx_common_job_sharpshooter_02
     }
 
     /// <summary>아이템 특수 효과 타입</summary>

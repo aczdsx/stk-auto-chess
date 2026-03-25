@@ -273,7 +273,8 @@ namespace CookApps.AutoChess
 
         public void PushProjectileSpawned(int sourceId, int targetId, ProjectileType projType,
             byte col, byte row, sbyte dirCol = 0, sbyte dirRow = 0, int projectileId = 0, int skillSpecId = 0,
-            sbyte skillVfxIndex = -1, int moveInterval = 0, bool useBezier = false, sbyte arrivalVfxIndex = -1)
+            sbyte skillVfxIndex = -1, int moveInterval = 0, bool useBezier = false, sbyte arrivalVfxIndex = -1,
+            byte projectileVfxOverride = 0)
         {
             Push(new SimEvent
             {
@@ -291,6 +292,7 @@ namespace CookApps.AutoChess
                 ArrivalVfxIndex = arrivalVfxIndex,
                 MoveInterval = (short)moveInterval,
                 Flag0 = useBezier,
+                Radius = projectileVfxOverride, // ProjectileSpawned에서 Radius 필드를 VFX 오버라이드 ID로 재활용
             });
         }
 
@@ -333,7 +335,9 @@ namespace CookApps.AutoChess
         }
 
         /// <summary>스킬 범위 타일 이펙트 (채널링 틱 등). isRow=true이면 행 단위(col±radius), false이면 맨해튼 거리 기반. isBox=true이면 체비셰프(네모) 범위.</summary>
-        public void PushSkillAreaEffect(int casterId, byte col, byte row, int radius, bool isRow = false, bool isBox = false)
+        /// <param name="areaVfxType">추가 VFX 타입 (CombatVfxType, 0이면 없음 — JobPassiveVfxConfigSO에서 조회)</param>
+        public void PushSkillAreaEffect(int casterId, byte col, byte row, int radius, bool isRow = false, bool isBox = false,
+            CombatVfxType areaVfxType = CombatVfxType.None)
         {
             Push(new SimEvent
             {
@@ -343,6 +347,7 @@ namespace CookApps.AutoChess
                 Row = row,
                 Radius = radius,
                 Flag0 = isRow,
+                Value0 = (int)areaVfxType,
                 Value1 = isBox ? 1 : 0,
             });
         }

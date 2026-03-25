@@ -48,12 +48,12 @@ namespace CookApps.AutoChess
 
         /// <summary>들어오는 데미지 보정 (피격자 기준)</summary>
         public static int InvokeModifyIncomingDamage(CombatMatchState state, ref CombatUnit attacker,
-            int targetIndex, int damage, DamageType damageType)
+            int targetIndex, int damage, DamageType damageType, bool isBasicAttack = false)
         {
             int traitCount = state.TraitCounts[targetIndex];
             for (int t = 0; t < traitCount; t++)
                 damage = state.Traits[targetIndex][t].ModifyIncomingDamage(
-                    state, ref attacker, ref state.Units[targetIndex], damage, damageType);
+                    state, ref attacker, ref state.Units[targetIndex], damage, damageType, isBasicAttack);
             return damage;
         }
 

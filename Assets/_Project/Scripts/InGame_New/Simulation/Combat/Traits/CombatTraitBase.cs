@@ -27,7 +27,7 @@ namespace CookApps.AutoChess
 
         /// <summary>피격자 측: 들어오는 데미지 보정. 데미지 값 반환.</summary>
         public virtual int ModifyIncomingDamage(CombatMatchState state, ref CombatUnit attacker,
-            ref CombatUnit target, int damage, DamageType damageType) => damage;
+            ref CombatUnit target, int damage, DamageType damageType, bool isBasicAttack = false) => damage;
 
         /// <summary>데미지를 받은 후 호출 (피격자 기준)</summary>
         public virtual void OnDamageTaken(CombatMatchState state, ref CombatUnit owner,

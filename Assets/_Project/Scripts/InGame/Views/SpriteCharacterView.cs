@@ -68,7 +68,6 @@ namespace CookApps.AutoBattler
         private GameObject _instance;
         private bool _cachedFlipX;
         private bool _cachedFront;
-        private static readonly int IsFront = Animator.StringToHash("IsFront");
         private static readonly Vector3 MaxViewScale = new Vector3(1.8f, 1.8f, 1.8f);
         private static readonly Vector3 MinViewScale = new Vector3(0.5f, 0.5f, 0.5f);
         private MotionHandle _viewScaleHandle;
@@ -253,8 +252,8 @@ namespace CookApps.AutoBattler
             {
                 if (animationClip.name == fullAnimationName)
                 {
-                    _animator.SetBool(IsFront, _cachedFront);
-                    _animator.SetTrigger(animationTrigger);
+                    AutoChess.CombatLogger.LogAnim(_characterId, _currentAnimationKey.ToString(), fullAnimationName);
+                    _animator.Play(fullAnimationName, 0, 0);
                     _currentAnimationKey = animationKey;
                     return animationClip;
                 }
@@ -516,9 +515,8 @@ namespace CookApps.AutoBattler
 
             SetFlipOrNot();
 
-            // 애니메이터에 Front/Back 상태 반영
             if (_animator != null)
-                _animator.SetBool(IsFront, _cachedFront);
+                PlayAnimation(_currentAnimationKey);
         }
 
         public void AddViewScale(float viewScale, bool forceSet = false)

@@ -283,6 +283,42 @@ MonoBehaviour:
       m_EditorAssetChanged: 0
     LoopPosition: 2
     LoopFollowable: 1
+  - Type: 1
+    StatType: 16
+    OneShotVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 1
+    StatType: 17
+    OneShotVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
   - Type: 5
     StatType: 0
     OneShotVfx:
@@ -358,7 +394,7 @@ MonoBehaviour:
   - Type: 31
     StatType: 0
     OneShotVfx:
-      m_AssetGUID: 
+      m_AssetGUID: 515e514ae6489bf46bd50e43bc6ef22d
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
@@ -366,7 +402,7 @@ MonoBehaviour:
     OneShotPosition: 2
     OneShotFollowable: 1
     LoopVfx:
-      m_AssetGUID: 
+      m_AssetGUID: 338c5410db8cb8449bab3611c1d94a21
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
@@ -638,6 +674,42 @@ MonoBehaviour:
     OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 4717a51e4949740439e1db55fc2371d2
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 9
+    StatType: 16
+    OneShotVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    LoopPosition: 2
+    LoopFollowable: 1
+  - Type: 9
+    StatType: 17
+    OneShotVfx:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    OneShotPosition: 2
+    OneShotFollowable: 1
+    LoopVfx:
+      m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 

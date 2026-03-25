@@ -172,5 +172,10 @@ namespace CookApps.AutoChess
             string result = winner == 0xFF ? "DRAW" : $"team={winner} wins";
             Log("RESULT", -1, $"{result} alive={aliveA}v{aliveB}");
         }
+
+        public static void LogAnim(int combatId, string prevAnim, string newAnim)
+        {
+            Log("ANIM", combatId, $"{prevAnim}→{newAnim}");
+        }
     }
 }
