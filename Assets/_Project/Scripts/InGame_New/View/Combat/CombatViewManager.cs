@@ -16,7 +16,20 @@ namespace CookApps.AutoChess.View
         [Header("VFX Prefabs")]
         [SerializeField] private GameObject _hitVfxPrefab;
 
+        private JobPassiveVfxConfigSO _jobPassiveVfxConfig;
+
         public void SetHitVfxPrefab(GameObject prefab) => _hitVfxPrefab = prefab;
+
+        public void InitJobPassiveVfxConfig()
+        {
+            _jobPassiveVfxConfig = SoDataProvider.Instance.Get<JobPassiveVfxConfigSO>();
+            _jobPassiveVfxConfig?.PreloadAsync().Forget();
+        }
+
+        public void ReleaseJobPassiveVfx()
+        {
+            _jobPassiveVfxConfig?.ReleaseAll();
+        }
 
         private bool _isCombatActive;
         private bool _isPausedByDebugger;
@@ -160,13 +173,15 @@ namespace CookApps.AutoChess.View
                 return;
             }
 
-            // 시뮬레이션에서 키프레임 타이밍 완료된 히트: 즉시 표시 (추가 딜레이 없음)
+            // 시뮬레이션에서 키프레임 타이밍 완료된 히트: Delay=0으로 pending 등록
+            // (같은 프레임 내 UnitDamaged에서 실제 데미지로 갱신 후 다음 Update에서 실행)
             if (isPreTimed)
             {
                 if (damage > 0)
                 {
-                    ExecuteMeleeHit(new PendingMeleeAttack
+                    _pendingMeleeAttacks.Add(new PendingMeleeAttack
                     {
+                        Delay = 0f,
                         AttackerId = attackerId,
                         TargetId = targetId,
                         Damage = damage,
@@ -223,8 +238,29 @@ namespace CookApps.AutoChess.View
         {
             if (!_isCombatActive) return;
 
-            // 근접 공격 데미지는 OnUnitAttacked에서 지연 처리하므로 스킵
-            if (_pendingMeleeTargetIds.Remove(targetId)) return;
+            // 근접 공격: pending의 데미지를 실제 값(Trait 적용 후)으로 갱신
+            if (_pendingMeleeTargetIds.Remove(targetId))
+            {
+                // 다타 공격 대응: 해당 타겟의 히트 수로 나누어 분배
+                int hitCount = 0;
+                for (int i = 0; i < _pendingMeleeAttacks.Count; i++)
+                    if (_pendingMeleeAttacks[i].TargetId == targetId) hitCount++;
+
+                if (hitCount > 0)
+                {
+                    int perHitDamage = damage / hitCount;
+                    for (int i = 0; i < _pendingMeleeAttacks.Count; i++)
+                    {
+                        if (_pendingMeleeAttacks[i].TargetId == targetId)
+                        {
+                            var m = _pendingMeleeAttacks[i];
+                            m.Damage = perHitDamage;
+                            _pendingMeleeAttacks[i] = m;
+                        }
+                    }
+                }
+                return;
+            }
 
             var unitView = _unitViewManager?.FindCombatView(targetId);
             if (unitView == null) return;
@@ -426,7 +462,8 @@ namespace CookApps.AutoChess.View
 
         public void OnProjectileSpawned(int sourceId, int targetId, ProjectileType projType,
             byte col, byte row, sbyte dirCol, sbyte dirRow, int champSpecId, int projectileId, int skillSpecId = 0,
-            sbyte skillVfxIndex = -1, int moveInterval = 0, bool useBezier = false, sbyte arrivalVfxIndex = -1)
+            sbyte skillVfxIndex = -1, int moveInterval = 0, bool useBezier = false, sbyte arrivalVfxIndex = -1,
+            byte projectileVfxOverride = 0)
         {
             if (!_isCombatActive) return;
 
@@ -435,8 +472,19 @@ namespace CookApps.AutoChess.View
 
             GameObject prefab = null;
 
+            // 투사체 VFX 오버라이드 (Sharpshooter 관통 등)
+            if (projectileVfxOverride > 0 && _jobPassiveVfxConfig != null)
+            {
+                var overridePrefab = _jobPassiveVfxConfig.GetProjectileOverride(projectileVfxOverride);
+                if (overridePrefab != null)
+                {
+                    prefab = overridePrefab;
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_job_shooter_pierce);
+                }
+            }
+
             // skillVfxIndex >= 0: skillPrefabs[index] 사용 (엔키 파도 등)
-            if (skillVfxIndex >= 0)
+            if (prefab == null && skillVfxIndex >= 0)
             {
                 var skillPrefabs = sourceView.GetSkillEffectPrefabs();
                 if (skillPrefabs != null && skillVfxIndex < skillPrefabs.Length && skillPrefabs[skillVfxIndex]?.Prefab != null)
@@ -578,12 +626,17 @@ namespace CookApps.AutoChess.View
             }
         }
 
-        public void OnSkillAreaEffect(int col, int row, int radius, SynergyType element, bool isRow, bool isBox = false)
+        public void OnSkillAreaEffect(int col, int row, int radius, SynergyType element, bool isRow, bool isBox = false,
+            CombatVfxType areaVfxType = CombatVfxType.None)
         {
             if (!_isCombatActive) return;
-            if (_tileEffectManager == null) return;
 
-            if (element != SynergyType.NONE)
+            // 직업 패시브 위치 기반 VFX 조회 (1회)
+            GameObject areaVfxPrefab = (areaVfxType != CombatVfxType.None && _jobPassiveVfxConfig != null)
+                ? _jobPassiveVfxConfig.GetAreaVfx(areaVfxType) : null;
+
+            // 전용 VFX가 있으면 타일 하이라이트 스킵, 없으면 기존 타일 이펙트
+            if (areaVfxPrefab == null && _tileEffectManager != null && element != SynergyType.NONE)
             {
                 var areaType = TileEffectManager.SynergyToAreaType(element);
                 if (isRow)
@@ -592,6 +645,16 @@ namespace CookApps.AutoChess.View
                     _tileEffectManager.ShowRangeBox(areaType, col, row, radius, 0.5f);
                 else
                     _tileEffectManager.ShowRange(areaType, col, row, radius, 0.5f);
+            }
+
+            // 직업 패시브 위치 기반 VFX 소환 (Esper 폭발 등)
+            if (areaVfxPrefab != null)
+            {
+                var worldPos = BoardWorldHelper.CombatGridToWorld(0, col, row);
+                SpawnFireAndForgetVfx(areaVfxPrefab, worldPos);
+
+                if (areaVfxType == CombatVfxType.JobEsper)
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_skill_job_esper_esp);
             }
         }
 

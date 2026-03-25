@@ -4,6 +4,7 @@ namespace CookApps.AutoChess
     {
         /// <summary>
         /// 기본 공격 실행 (근접: 즉시 데미지, 원거리: 투사체 생성)
+        /// Oracle 힐러가 아군 타겟일 경우 힐 경로로 분기.
         /// </summary>
         public static void ExecuteBasicAttack(
             CombatMatchState state, ref CombatUnit attacker, ref CombatUnit target,
@@ -25,6 +26,46 @@ namespace CookApps.AutoChess
             if (attackerIndex >= 0)
                 TraitSystem.InvokeOnPreAttack(state, attackerIndex, ref target);
 
+            // ── Oracle 힐러: 아군 타겟이면 힐 경로 ──
+            if (attacker.IsHealer && target.TeamIndex == attacker.TeamIndex)
+            {
+                var healTrait = attackerIndex >= 0
+                    ? TraitSystem.FindTrait<OracleHealerTrait>(state, attackerIndex)
+                    : null;
+                if (healTrait == null) return;
+
+                int healAmount = healTrait.CalculateHealAmount(ref attacker, ref target);
+
+                if (attacker.AttackRange <= 1)
+                {
+                    // 근접 힐: 즉시 적용
+                    SkillDamageHelper.Heal(state, ref target, healAmount);
+                    if (CombatLogger.Enabled) CombatLogger.LogHeal(target.CombatId, healAmount, target.CurrentHP, target.MaxHP);
+
+                    state.EventQueue?.PushUnitAttacked(attacker.CombatId, target.CombatId, 0, false, false);
+                }
+                else
+                {
+                    // 원거리 힐: 투사체 생성 (도착 시 힐 적용)
+                    int travelFrames = CalcProjectileTravelFrames(ref attacker, ref target, tickRate);
+                    ProjectileSystem.CreateHomingProjectile(
+                        state, attacker.CombatId, target.CombatId,
+                        healAmount, false, DamageType.Physical, travelFrames,
+                        hitBehavior: ProjectileHitBehavior.HealAlly);
+
+                    state.EventQueue?.PushUnitAttacked(attacker.CombatId, target.CombatId, 0, false, true);
+                }
+
+                // 공통: 마나 충전, 쿨다운, PostAttack
+                ChargeMana(ref attacker, attacker.ManaGainOnAttack);
+                attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
+
+                if (attackerIndex >= 0)
+                    TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
+                return;
+            }
+
+            // ── 통상 데미지 경로 ──
             int rawDamage = attacker.Attack;
             bool isCrit;
             rawDamage = ApplyCritical(rawDamage, ref attacker, ref rng, out isCrit);
@@ -43,43 +84,46 @@ namespace CookApps.AutoChess
                 // UnitAttacked를 ApplyDamage보다 먼저 발행 (데미지 폰트 중복 방지)
                 state.EventQueue?.PushUnitAttacked(attacker.CombatId, target.CombatId, finalDamage, isCrit, false);
 
-                ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit);
+                ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit, isBasicAttack: true);
                 ApplyLifeSteal(state, ref attacker, finalDamage);
 
                 // 피격자 마나 충전
                 ChargeMana(ref target, target.ManaGainOnHit);
+
+                // 공격자 마나 충전
+                ChargeMana(ref attacker, attacker.ManaGainOnAttack);
+
+                // 공격 쿨다운 재설정
+                attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
+
+                // Trait: 공격 후 콜백 (근접: 데미지 적용 후 즉시)
+                if (attackerIndex >= 0)
+                    TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
             }
             else
             {
-                // 원거리: 투사체 생성 (풋프린트 기반 거리)
-                int dist = BoardHelper.MinManhattanDistance(
-                    attacker.GridCol, attacker.GridRow,
-                    attacker.SizeW > 0 ? attacker.SizeW : (byte)1,
-                    attacker.SizeH > 0 ? attacker.SizeH : (byte)1,
-                    target.GridCol, target.GridRow,
-                    target.SizeW > 0 ? target.SizeW : (byte)1,
-                    target.SizeH > 0 ? target.SizeH : (byte)1);
-                int travelFrames = dist * tickRate / 8; // ~0.125초/타일
-                if (travelFrames < 1) travelFrames = 1;
+                // 원거리: 투사체 생성
+                int travelFrames = CalcProjectileTravelFrames(ref attacker, ref target, tickRate);
 
                 if (CombatLogger.Enabled) CombatLogger.LogAttack(attacker.CombatId, target.CombatId, rawDamage, isCrit, true);
 
+                // 투사체 VFX 오버라이드 소비 (Sharpshooter 관통 등)
+                byte projVfxOverride = attacker.ProjectileVfxOverride;
+                if (projVfxOverride != ProjectileVfxId.None) attacker.ProjectileVfxOverride = ProjectileVfxId.None;
+
                 ProjectileSystem.CreateHomingProjectile(
                     state, attacker.CombatId, target.CombatId,
-                    rawDamage, isCrit, DamageType.Physical, travelFrames);
+                    rawDamage, isCrit, DamageType.Physical, travelFrames,
+                    projectileVfxOverride: projVfxOverride);
 
                 state.EventQueue?.PushUnitAttacked(attacker.CombatId, target.CombatId, rawDamage, isCrit, true);
+
+                // 공격자 마나 충전
+                ChargeMana(ref attacker, attacker.ManaGainOnAttack);
+
+                // 공격 쿨다운 재설정
+                attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
             }
-
-            // 공격자 마나 충전
-            ChargeMana(ref attacker, attacker.ManaGainOnAttack);
-
-            // 공격 쿨다운 재설정
-            attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
-
-            // Trait: 공격 후 콜백
-            if (attackerIndex >= 0)
-                TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
         }
 
         /// <summary>대기 중인 근접 공격 히트 적용 (ATK 키프레임 도달 시점)</summary>
@@ -106,6 +150,28 @@ namespace CookApps.AutoChess
             if (attackerIndex >= 0)
                 TraitSystem.InvokeOnPreAttack(state, attackerIndex, ref target);
 
+            // ── Oracle 힐러: 아군 타겟이면 힐 경로 ──
+            if (attacker.IsHealer && target.TeamIndex == attacker.TeamIndex)
+            {
+                var healTrait = attackerIndex >= 0
+                    ? TraitSystem.FindTrait<OracleHealerTrait>(state, attackerIndex)
+                    : null;
+                if (healTrait == null) return;
+
+                int healAmount = healTrait.CalculateHealAmount(ref attacker, ref target);
+                SkillDamageHelper.Heal(state, ref target, healAmount);
+
+                if (CombatLogger.Enabled) CombatLogger.LogHeal(target.CombatId, healAmount, target.CurrentHP, target.MaxHP);
+
+                // 공격자 마나만 충전 (힐은 피격이 아님)
+                ChargeMana(ref attacker, attacker.ManaGainOnAttack);
+
+                if (attackerIndex >= 0)
+                    TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
+                return;
+            }
+
+            // ── 통상 데미지 경로 ──
             // 크리티컬은 CombatAISystem에서 선행 판정 완료 (PendingAtkIsCrit)
             bool isCrit = attacker.PendingAtkIsCrit;
             attacker.PendingAtkIsCrit = false;
@@ -128,8 +194,9 @@ namespace CookApps.AutoChess
             state.EventQueue?.PushUnitAttacked(
                 attacker.CombatId, target.CombatId, finalDamage, isCrit, false, isPreTimed: true);
 
-            ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit);
+            ApplyDamage(state, ref target, finalDamage, attackerIndex, DamageType.Physical, isCrit, isBasicAttack: true);
             ApplyLifeSteal(state, ref attacker, finalDamage);
+
             ChargeMana(ref target, target.ManaGainOnHit);
             ChargeMana(ref attacker, attacker.ManaGainOnAttack);
 

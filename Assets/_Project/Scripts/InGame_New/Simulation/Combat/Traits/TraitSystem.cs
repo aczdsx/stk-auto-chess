@@ -5,6 +5,18 @@ namespace CookApps.AutoChess
     /// </summary>
     public static class TraitSystem
     {
+        /// <summary>유닛에 부착된 특정 타입의 Trait 검색. 없으면 null.</summary>
+        public static T FindTrait<T>(CombatMatchState state, int unitIndex) where T : CombatTraitBase
+        {
+            int count = state.TraitCounts[unitIndex];
+            for (int t = 0; t < count; t++)
+            {
+                if (state.Traits[unitIndex][t] is T found)
+                    return found;
+            }
+            return null;
+        }
+
         /// <summary>유닛에 Trait 부착. 성공 시 true.</summary>
         public static bool AddTrait(CombatMatchState state, int unitIndex, CombatTraitBase trait)
         {
@@ -48,12 +60,12 @@ namespace CookApps.AutoChess
 
         /// <summary>들어오는 데미지 보정 (피격자 기준)</summary>
         public static int InvokeModifyIncomingDamage(CombatMatchState state, ref CombatUnit attacker,
-            int targetIndex, int damage, DamageType damageType)
+            int targetIndex, int damage, DamageType damageType, bool isBasicAttack = false)
         {
             int traitCount = state.TraitCounts[targetIndex];
             for (int t = 0; t < traitCount; t++)
                 damage = state.Traits[targetIndex][t].ModifyIncomingDamage(
-                    state, ref attacker, ref state.Units[targetIndex], damage, damageType);
+                    state, ref attacker, ref state.Units[targetIndex], damage, damageType, isBasicAttack);
             return damage;
         }
 

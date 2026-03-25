@@ -41,8 +41,6 @@ namespace CookApps.AutoBattler
 
         private List<BattleStatSlot> _battleStatSlotList = new List<BattleStatSlot>();
 
-        private InGameBottomUI _parentUI;
-        
         private BattleStatisticsTabType _currentTabType = BattleStatisticsTabType.GIVENDAMAGE;
 
         protected override void Awake()
@@ -59,12 +57,9 @@ namespace CookApps.AutoBattler
 
             SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ui_btn_popup);
 
-            _parentUI = param as InGameBottomUI;
-
             _currentTabType = BattleStatisticsTabType.GIVENDAMAGE;
             SetBattleStatisticsPopup();
             PlayPopupOpenAnimation();
-            _parentUI?.ChangeStatisticsButtonActiveState(false);
         }
 
         protected override void OnPreExit()
@@ -74,8 +69,6 @@ namespace CookApps.AutoBattler
             ClearPopup();
 
             PlayPopupCloseAnimation();
-
-            _parentUI?.ChangeStatisticsButtonActiveState(true);
         }
         
         public void OnClickTabToggleButton(int tabIndex)

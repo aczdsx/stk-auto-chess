@@ -15,8 +15,6 @@ namespace CookApps.AutoChess
         /// <summary>엘리스: 얼음 VFX 스폰 후 데미지까지 딜레이. 얼음이 깨지는 연출 대기.</summary>
         private const short EllisDamageDelayMs = 800;
 
-        /// <summary>보스탱커: 타일 간 순차 타격 간격.</summary>
-        private const short BossTankLineIntervalMs = 200;
 
         /// <summary>플레이어 스킬 Recipe 등록</summary>
         private static void RegisterPlayerRecipes()

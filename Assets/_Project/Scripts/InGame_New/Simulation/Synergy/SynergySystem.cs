@@ -447,6 +447,9 @@ namespace CookApps.AutoChess
                     if (before != unit.ApReduce)
                         state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.StatDebuff, -1, StatModType.ApReduce);
                     break;
+
+                // 직업군 패시브는 시너지가 아닌 캐릭터 고유 능력
+                // → JobPassiveSystem.SetupJobPassives()에서 처리
             }
         }
 

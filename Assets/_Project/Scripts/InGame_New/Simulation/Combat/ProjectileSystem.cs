@@ -42,9 +42,25 @@ namespace CookApps.AutoChess
 
             if (proj.RemainingFrames > 0) return;
 
-            // 도착: 타겟이 살아있으면 데미지 적용
             int targetIdx = state.FindUnitIndex(proj.TargetCombatId);
             int srcIdx = state.FindUnitIndex(proj.SourceCombatId);
+
+            if (proj.HitBehavior == ProjectileHitBehavior.HealAlly)
+            {
+                // 힐 투사체 도착: 아군 힐 적용
+                if (targetIdx >= 0 && state.Units[targetIdx].IsAlive)
+                {
+                    ref var target = ref state.Units[targetIdx];
+                    SkillDamageHelper.Heal(state, ref target, proj.Damage);
+
+                    if (CombatLogger.Enabled) CombatLogger.LogHeal(target.CombatId, proj.Damage, target.CurrentHP, target.MaxHP);
+                }
+
+                proj.IsActive = false;
+                return;
+            }
+
+            // 도착: 타겟이 살아있으면 데미지 적용
             if (targetIdx >= 0 && state.Units[targetIdx].IsValidTarget)
             {
                 ref var target = ref state.Units[targetIdx];
@@ -56,13 +72,20 @@ namespace CookApps.AutoChess
 
                 if (CombatLogger.Enabled) CombatLogger.LogProjectileHit(target.CombatId, proj.SourceCombatId, finalDamage, proj.IsCrit);
 
-                DamageSystem.ApplyDamage(state, ref target, finalDamage, srcIdx, isCrit: proj.IsCrit);
+                DamageSystem.ApplyDamage(state, ref target, finalDamage, srcIdx, isCrit: proj.IsCrit,
+                    isBasicAttack: proj.SkillSpecId == 0);
                 DamageSystem.ChargeMana(ref target, target.ManaGainOnHit);
 
                 // 흡혈 적용 (발사자가 살아있으면)
                 if (srcIdx >= 0 && state.Units[srcIdx].IsAlive)
                 {
                     DamageSystem.ApplyLifeSteal(state, ref state.Units[srcIdx], finalDamage);
+                }
+
+                // Trait: 기본공격 투사체 히트 후 공격 후 콜백
+                if (proj.SkillSpecId == 0 && srcIdx >= 0)
+                {
+                    TraitSystem.InvokeOnPostAttack(state, srcIdx, ref target);
                 }
             }
 
@@ -218,7 +241,9 @@ namespace CookApps.AutoChess
         public static void CreateHomingProjectile(
             CombatMatchState state, int sourceCombatId, int targetCombatId,
             int damage, bool isCrit, DamageType damageType, int travelFrames,
-            int skillSpecId = 0, sbyte skillVfxIndex = -1, bool useBezier = false, sbyte arrivalVfxIndex = -1)
+            int skillSpecId = 0, sbyte skillVfxIndex = -1, bool useBezier = false, sbyte arrivalVfxIndex = -1,
+            byte projectileVfxOverride = 0,
+            ProjectileHitBehavior hitBehavior = ProjectileHitBehavior.DamageEnemy)
         {
             int slot = FindEmptyProjectileSlot(state);
             if (slot < 0) return;
@@ -232,6 +257,7 @@ namespace CookApps.AutoChess
             proj.Damage = damage;
             proj.IsCrit = isCrit;
             proj.RemainingFrames = travelFrames;
+            proj.HitBehavior = hitBehavior;
             proj.IsActive = true;
 
             if (slot >= state.ProjectileCount)
@@ -243,7 +269,8 @@ namespace CookApps.AutoChess
             byte srcRow = srcIdx >= 0 ? state.Units[srcIdx].GridRow : (byte)0;
             state.EventQueue?.PushProjectileSpawned(sourceCombatId, targetCombatId, ProjectileType.Homing,
                 srcCol, srcRow, projectileId: proj.ProjectileId, skillSpecId: skillSpecId, skillVfxIndex: skillVfxIndex,
-                moveInterval: useBezier ? travelFrames : 0, useBezier: useBezier, arrivalVfxIndex: arrivalVfxIndex);
+                moveInterval: useBezier ? travelFrames : 0, useBezier: useBezier, arrivalVfxIndex: arrivalVfxIndex,
+                projectileVfxOverride: projectileVfxOverride);
         }
 
         /// <summary>Linear 데미지 투사체 생성 (직선 관통)</summary>

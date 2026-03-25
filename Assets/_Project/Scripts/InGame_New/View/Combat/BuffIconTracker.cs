@@ -12,7 +12,7 @@ namespace CookApps.AutoChess.View
 
         private struct ActiveBuff
         {
-            public Sprite IconSprite;
+            public string SpriteName;
             public float TotalDuration;
             public float AddedTime;
             public int RefCount;
@@ -23,11 +23,11 @@ namespace CookApps.AutoChess.View
         private readonly Dictionary<int, List<ActiveBuff>> _activeBuffs = new();
         private readonly List<HpBarView.NewBuffIconData> _tempBuffList = new();
 
-        public BuffIconTracker(UnitViewManager unitViewManager, int tickRate, BuffIconConfigSO config)
+        public BuffIconTracker(UnitViewManager unitViewManager, int tickRate)
         {
             _unitViewManager = unitViewManager;
             _secondsPerFrame = 1f / tickRate;
-            _config = config;
+            _config = SoDataProvider.Instance.Get<BuffIconConfigSO>();
         }
 
         // ── CombatVfxType 기반 (StatusEffect/CC) ──
@@ -35,27 +35,23 @@ namespace CookApps.AutoChess.View
         public void OnEffectAdded(int combatId, CombatVfxType type, int totalFrames, StatModType statType = default)
         {
             if (_config == null) return;
-            if (!_config.TryGetEffectIcon(type, statType, out var entry))
+            if (!_config.TryGetEffectSpriteName(type, statType, out var spriteName))
             {
                 Debug.LogWarning($"[BuffIconTracker] Effect icon not registered: VfxType={type}, StatType={statType}, CombatId={combatId}");
-                return;
-            }
-            if (entry.IconSprite == null)
-            {
-                Debug.LogWarning($"[BuffIconTracker] Effect icon sprite is null: VfxType={type}, StatType={statType}, CombatId={combatId}");
                 return;
             }
 
             var list = GetOrCreateList(combatId);
             int key = SimEventHelper.EncodeVfxStat(type, statType);
+            bool isChargeType = type == CombatVfxType.BasicAttackShield;
 
             for (int i = 0; i < list.Count; i++)
             {
                 if (!list[i].IsSkillMarker && list[i].MarkerId == key)
                 {
                     var e = list[i];
-                    e.RefCount++;
-                    e.TotalDuration = totalFrames * _secondsPerFrame;
+                    e.RefCount = isChargeType ? totalFrames : e.RefCount + 1;
+                    e.TotalDuration = isChargeType ? -1f : totalFrames * _secondsPerFrame;
                     e.AddedTime = Time.time;
                     list[i] = e;
                     UpdateUnitBuffIcons(combatId);
@@ -65,10 +61,10 @@ namespace CookApps.AutoChess.View
 
             list.Add(new ActiveBuff
             {
-                IconSprite = entry.IconSprite,
-                TotalDuration = totalFrames * _secondsPerFrame,
+                SpriteName = spriteName,
+                TotalDuration = isChargeType ? -1f : totalFrames * _secondsPerFrame,
                 AddedTime = Time.time,
-                RefCount = 1,
+                RefCount = isChargeType ? totalFrames : 1,
                 IsSkillMarker = false,
                 MarkerId = key,
             });
@@ -101,14 +97,9 @@ namespace CookApps.AutoChess.View
         public void OnSkillMarkerAdded(int combatId, int markerId, int totalFrames)
         {
             if (_config == null) return;
-            if (!_config.TryGetMarkerIcon(markerId, out var entry))
+            if (!_config.TryGetMarkerSpriteName(markerId, out var spriteName))
             {
                 Debug.LogWarning($"[BuffIconTracker] Marker icon not registered: MarkerId={markerId} ({(SkillMarkerType)markerId}), CombatId={combatId}");
-                return;
-            }
-            if (entry.IconSprite == null)
-            {
-                Debug.LogWarning($"[BuffIconTracker] Marker icon sprite is null: MarkerId={markerId} ({(SkillMarkerType)markerId}), CombatId={combatId}");
                 return;
             }
 
@@ -130,7 +121,7 @@ namespace CookApps.AutoChess.View
 
             list.Add(new ActiveBuff
             {
-                IconSprite = entry.IconSprite,
+                SpriteName = spriteName,
                 TotalDuration = totalFrames * _secondsPerFrame,
                 AddedTime = Time.time,
                 RefCount = 1,
@@ -179,8 +170,9 @@ namespace CookApps.AutoChess.View
         private static bool IsShieldType(int encodedKey)
         {
             var vfxType = SimEventHelper.DecodeVfxType(encodedKey);
-            // Shield + 향후 NormalAttackShield 등 쉴드 계열 추가 시 여기에 포함
-            return vfxType == CombatVfxType.Shield;
+            // Shield + 기본공격 방어(Guardian) 등 쉴드 계열
+            return vfxType == CombatVfxType.Shield
+                || vfxType == CombatVfxType.BasicAttackShield;
         }
 
         private List<ActiveBuff> GetOrCreateList(int combatId)
@@ -198,11 +190,7 @@ namespace CookApps.AutoChess.View
         private void UpdateUnitBuffIcons(int combatId)
         {
             var unitView = _unitViewManager?.FindCombatView(combatId);
-            if (unitView == null)
-            {
-                Debug.LogWarning($"[BuffIconTracker] CombatView not found for CombatId={combatId}, activeBuffs={(_activeBuffs.TryGetValue(combatId, out var dbgList) ? dbgList.Count : 0)}");
-                return;
-            }
+            if (unitView == null) return;
 
             _tempBuffList.Clear();
             if (!_activeBuffs.TryGetValue(combatId, out var list))
@@ -235,7 +223,7 @@ namespace CookApps.AutoChess.View
                     if (buff.RefCount <= replaceCount) continue;
                     _tempBuffList.Add(new HpBarView.NewBuffIconData
                     {
-                        IconSprite = buff.IconSprite,
+                        SpriteName = buff.SpriteName,
                         Duration = buff.TotalDuration,
                         ElapsedTime = Time.time - buff.AddedTime,
                         StackCount = 1,
@@ -246,19 +234,13 @@ namespace CookApps.AutoChess.View
 
                 _tempBuffList.Add(new HpBarView.NewBuffIconData
                 {
-                    IconSprite = buff.IconSprite,
+                    SpriteName = buff.SpriteName,
                     Duration = buff.TotalDuration,
                     ElapsedTime = Time.time - buff.AddedTime,
                     StackCount = buff.RefCount,
                     IsSide = !buff.IsSkillMarker && IsShieldType(buff.MarkerId),
                 });
             }
-
-            // for (int i = 0; i < _tempBuffList.Count; i++)
-            // {
-            //     var b = _tempBuffList[i];
-            //     Debug.Log($"[BuffIconTracker] CombatId={combatId} [{i}] Sprite={b.IconSprite?.name ?? "NULL"}, Stack={b.StackCount}, IsSide={b.IsSide}");
-            // }
 
             unitView.UpdateBuffIcons(_tempBuffList);
         }

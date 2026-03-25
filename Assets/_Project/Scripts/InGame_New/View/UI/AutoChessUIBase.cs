@@ -49,6 +49,9 @@ namespace CookApps.AutoChess.View
         [Header("Timer Warning")]
         [SerializeField] protected GameObject timerWarningObj;
 
+        [Header("Statistics")]
+        [SerializeField] protected CAButton statisticsButton;
+
         private MotionHandle _timerWarningHandle;
         private bool _isTimerWarningActive;
 
@@ -85,8 +88,15 @@ namespace CookApps.AutoChess.View
             InGameParams = inGameParams;
             PlayerIndex = playerIndex;
 
-            exitButton?.onClick.AddListener(OnExitClicked);
-            speedButton?.onClick.AddListener(OnSpeedClicked);
+            exitButton?.OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnExitClicked())
+                .AddTo(this);
+            speedButton?.OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnSpeedClicked())
+                .AddTo(this);
+            statisticsButton?.OnClickAsObservable()
+                .Subscribe(this, (_, self) => self.OnStatisticsClicked())
+                .AddTo(this);
             if (timerWarningObj != null)
             {
                 timerWarningObj.SetActive(false);
@@ -124,6 +134,13 @@ namespace CookApps.AutoChess.View
         {
             if (animator != null)
                 animator.SetTrigger(trigger);
+        }
+
+        // ── 통계 ──
+
+        private void OnStatisticsClicked()
+        {
+            SceneUILayerManager.Instance.PushUILayerAsync<BattleStatisticsPopup>().Forget();
         }
 
         // ── 나가기 ──
@@ -509,8 +526,6 @@ namespace CookApps.AutoChess.View
         private void OnDestroy()
         {
             StopTimerWarning();
-            exitButton?.onClick.RemoveListener(OnExitClicked);
-            speedButton?.onClick.RemoveListener(OnSpeedClicked);
             OnCleanup();
         }
 

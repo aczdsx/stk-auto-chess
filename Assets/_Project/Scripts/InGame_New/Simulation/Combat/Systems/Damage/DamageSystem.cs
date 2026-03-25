@@ -99,19 +99,10 @@ namespace CookApps.AutoChess
         /// attackerIndex: Trait 콜백용 공격자 인덱스 (-1이면 Trait 콜백 생략)
         /// </summary>
         public static bool ApplyDamage(CombatMatchState state, ref CombatUnit target, int damage,
-            int attackerIndex = -1, DamageType damageType = DamageType.Physical, bool isCrit = false)
+            int attackerIndex = -1, DamageType damageType = DamageType.Physical, bool isCrit = false,
+            bool isBasicAttack = false)
         {
             if (!target.IsAlive) return false;
-
-            // 테스트 무적: 데미지 이벤트 발행 + HP 감소 스킵
-            if ((PlayerInvincible && target.TeamIndex == 0)
-                || (EnemyInvincible && target.TeamIndex == 1))
-            {
-                state.EventQueue?.PushUnitDamaged(target.CombatId,
-                    attackerIndex >= 0 ? state.Units[attackerIndex].CombatId : CombatUnit.InvalidId,
-                    damage, damageType, isCrit);
-                return false;
-            }
 
             int targetIndex = state.FindUnitIndex(target.CombatId);
 
@@ -122,9 +113,37 @@ namespace CookApps.AutoChess
             // Trait: 들어오는 데미지 보정 (피격자)
             if (targetIndex >= 0)
             {
-                // attackerIndex가 없으면 더미 참조 사용
                 if (attackerIndex >= 0)
-                    damage = TraitSystem.InvokeModifyIncomingDamage(state, ref state.Units[attackerIndex], targetIndex, damage, damageType);
+                    damage = TraitSystem.InvokeModifyIncomingDamage(state, ref state.Units[attackerIndex], targetIndex, damage, damageType, isBasicAttack);
+            }
+
+            // Trait에 의해 데미지가 0 이하가 된 경우 (예: GuardianEndure 블록)
+            // 이벤트 발행 + OnDamageTaken 콜백 후 HP 차감 스킵
+            // TODO: 기획 확정 후 damage=0 시 데미지 텍스트 표현 변경 (예: "Block", "면역" 등)
+            if (damage <= 0)
+            {
+                state.EventQueue?.PushUnitDamaged(target.CombatId,
+                    attackerIndex >= 0 ? state.Units[attackerIndex].CombatId : CombatUnit.InvalidId,
+                    0, damageType, isCrit);
+
+                if (targetIndex >= 0 && attackerIndex >= 0)
+                    TraitSystem.InvokeOnDamageTaken(state, targetIndex, ref state.Units[attackerIndex], 0);
+
+                return false;
+            }
+
+            // 테스트 무적: Trait 콜백은 실행하되 HP 감소만 스킵
+            if ((PlayerInvincible && target.TeamIndex == 0)
+                || (EnemyInvincible && target.TeamIndex == 1))
+            {
+                state.EventQueue?.PushUnitDamaged(target.CombatId,
+                    attackerIndex >= 0 ? state.Units[attackerIndex].CombatId : CombatUnit.InvalidId,
+                    damage, damageType, isCrit);
+
+                if (targetIndex >= 0 && attackerIndex >= 0)
+                    TraitSystem.InvokeOnDamageTaken(state, targetIndex, ref state.Units[attackerIndex], damage);
+
+                return false;
             }
 
             // 보호막 먼저 차감 (StatusEffectSystem으로 위임)
@@ -202,6 +221,20 @@ namespace CookApps.AutoChess
                 attacker.CurrentHP = attacker.MaxHP;
 
             state.EventQueue?.PushUnitHealed(attacker.CombatId, heal);
+        }
+
+        /// <summary>투사체 비행 프레임 계산 (풋프린트 기반 맨해튼 거리, ~0.125초/타일)</summary>
+        public static int CalcProjectileTravelFrames(ref CombatUnit source, ref CombatUnit target, int tickRate)
+        {
+            int dist = BoardHelper.MinManhattanDistance(
+                source.GridCol, source.GridRow,
+                source.SizeW > 0 ? source.SizeW : (byte)1,
+                source.SizeH > 0 ? source.SizeH : (byte)1,
+                target.GridCol, target.GridRow,
+                target.SizeW > 0 ? target.SizeW : (byte)1,
+                target.SizeH > 0 ? target.SizeH : (byte)1);
+            int frames = dist * tickRate / 8;
+            return frames < 1 ? 1 : frames;
         }
 
         /// <summary>마나 충전 (공격자: 공격 시, 피격자: 피격 시)</summary>

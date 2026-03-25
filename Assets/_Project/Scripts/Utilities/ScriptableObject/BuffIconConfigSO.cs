@@ -17,14 +17,14 @@ namespace CookApps.AutoChess.View
         {
             public CombatVfxType EffectType;
             public StatModType StatType;
-            public Sprite IconSprite;
+            public string SpriteName;
         }
 
         [Serializable]
         public struct SkillMarkerIconEntry
         {
             public SkillMarkerType MarkerType;
-            public Sprite IconSprite;
+            public string SpriteName;
             [Tooltip("이 마커가 활성일 때 숨길 범용 이펙트 아이콘 (None이면 대체 안 함)")]
             public CombatVfxType ReplacesEffect;
             public StatModType ReplacesStatType;
@@ -42,36 +42,72 @@ namespace CookApps.AutoChess.View
         [Header("스킬마커 아이콘 (루키다 도깨비불, 테토라 분노 등)")]
         [SerializeField] private SkillMarkerIconEntry[] _skillMarkerIcons;
 
-        private Dictionary<(CombatVfxType, StatModType), EffectIconEntry> _effectCache;
+        // ── 마커 메타데이터 캐시 (ReplacesEffect 조회용) ──
         private Dictionary<int, SkillMarkerIconEntry> _markerCache;
 
-        public bool TryGetEffectIcon(CombatVfxType type, StatModType statType, out EffectIconEntry entry)
+        // ── 공개 API ──
+
+        // 이름 캐시 (직렬화 데이터에서 직접 조회, Preload 불필요)
+        private Dictionary<(CombatVfxType, StatModType), string> _effectNameCache;
+        private Dictionary<int, string> _markerNameCache;
+
+        private void BuildNameCaches()
         {
-            BuildCacheIfNeeded();
-            return _effectCache.TryGetValue((type, statType), out entry);
+            if (_effectNameCache != null) return;
+            _effectNameCache = new Dictionary<(CombatVfxType, StatModType), string>();
+            BuildEffectNameCache(_buffIcons);
+            BuildEffectNameCache(_debuffIcons);
+            BuildEffectNameCache(_ccIcons);
+
+            _markerNameCache = new Dictionary<int, string>();
+            if (_skillMarkerIcons != null)
+            {
+                for (int i = 0; i < _skillMarkerIcons.Length; i++)
+                {
+                    var e = _skillMarkerIcons[i];
+                    if (e.MarkerType != SkillMarkerType.None && !string.IsNullOrEmpty(e.SpriteName))
+                        _markerNameCache[(int)e.MarkerType] = e.SpriteName;
+                }
+            }
         }
 
-        // 하위호환: statType 없이 호출 시 default 사용
-        public bool TryGetEffectIcon(CombatVfxType type, out EffectIconEntry entry)
+        private void BuildEffectNameCache(EffectIconEntry[] entries)
         {
-            return TryGetEffectIcon(type, default, out entry);
+            if (entries == null) return;
+            for (int i = 0; i < entries.Length; i++)
+            {
+                var e = entries[i];
+                if (e.EffectType != CombatVfxType.None && !string.IsNullOrEmpty(e.SpriteName))
+                    _effectNameCache[(e.EffectType, e.StatType)] = e.SpriteName;
+            }
+        }
+
+        public bool TryGetEffectSpriteName(CombatVfxType type, StatModType statType, out string spriteName)
+        {
+            BuildNameCaches();
+            return _effectNameCache.TryGetValue((type, statType), out spriteName);
+        }
+
+        public bool TryGetEffectSpriteName(CombatVfxType type, out string spriteName)
+        {
+            return TryGetEffectSpriteName(type, default, out spriteName);
+        }
+
+        public bool TryGetMarkerSpriteName(int markerValue, out string spriteName)
+        {
+            BuildNameCaches();
+            return _markerNameCache.TryGetValue(markerValue, out spriteName);
         }
 
         public bool TryGetMarkerIcon(int markerValue, out SkillMarkerIconEntry entry)
         {
-            BuildCacheIfNeeded();
+            BuildMarkerCache();
             return _markerCache.TryGetValue(markerValue, out entry);
         }
 
-        private void BuildCacheIfNeeded()
+        private void BuildMarkerCache()
         {
-            if (_effectCache != null) return;
-
-            _effectCache = new Dictionary<(CombatVfxType, StatModType), EffectIconEntry>();
-            AddToCache(_buffIcons);
-            AddToCache(_debuffIcons);
-            AddToCache(_ccIcons);
-
+            if (_markerCache != null) return;
             _markerCache = new Dictionary<int, SkillMarkerIconEntry>();
             if (_skillMarkerIcons != null)
             {
@@ -84,35 +120,24 @@ namespace CookApps.AutoChess.View
             }
         }
 
-        private void AddToCache(EffectIconEntry[] entries)
-        {
-            if (entries == null) return;
-            for (int i = 0; i < entries.Length; i++)
-            {
-                var e = entries[i];
-                if (e.EffectType != CombatVfxType.None)
-                    _effectCache[(e.EffectType, e.StatType)] = e;
-            }
-        }
-
         private void OnEnable()
         {
-            _effectCache = null;
             _markerCache = null;
+            _effectNameCache = null;
+            _markerNameCache = null;
         }
 
         private void OnValidate()
         {
-            _effectCache = null;
             _markerCache = null;
+            _effectNameCache = null;
+            _markerNameCache = null;
 
-            // EffectIcons 중복 체크 (전체 카테고리)
             var seen = new HashSet<(CombatVfxType, StatModType)>();
             ValidateArray(_buffIcons, "Buff", seen);
             ValidateArray(_debuffIcons, "Debuff", seen);
             ValidateArray(_ccIcons, "CC", seen);
 
-            // SkillMarkerIcons 중복 체크
             if (_skillMarkerIcons != null)
             {
                 var markerSeen = new HashSet<SkillMarkerType>();
@@ -140,8 +165,6 @@ namespace CookApps.AutoChess.View
         private const string IconFolder = "Assets/_Project/Addressables/Remote/Textures/Icon/Icon_Buffs";
         private const string IconPrefix = "BuffDebuffIcon_";
 
-        // (CombatVfxType, StatModType) → 스프라이트 suffix 매핑 (폴더의 실제 파일명 기준)
-        // Confluence D+0 기획문서 기준 전체 매핑
         private static readonly Dictionary<(CombatVfxType, StatModType), string> KnownEffectMap = new()
         {
             // ── 버프 ──
@@ -161,6 +184,7 @@ namespace CookApps.AutoChess.View
             { (CombatVfxType.StatBuff, StatModType.MoveSpeed),    "BUFF_MOVE_SPEED_UP" },
             { (CombatVfxType.ContinuousHeal, default),            "BUFF_HOT_UP" },
             { (CombatVfxType.Shield, default),                    "SHIELD" },
+            { (CombatVfxType.BasicAttackShield, default),          "BUFF_NORMAL_ATTACK_SHIELD" },
             { (CombatVfxType.CCImmunity, default),                "BUFF_IMMUNE" },
             { (CombatVfxType.DOTImmunity, default),               "BUFF_IMMUNE" },
             { (CombatVfxType.DebuffImmunity, default),            "BUFF_IMMUNE" },
@@ -188,41 +212,19 @@ namespace CookApps.AutoChess.View
             { (CombatVfxType.CC_TargetImpossible, default), "CC_TARGET_IMPOSSIBLE" },
         };
 
-        private static Sprite FindSpriteInFolder(string suffix)
-        {
-            string targetName = IconPrefix + suffix;
-            var guids = UnityEditor.AssetDatabase.FindAssets(targetName + " t:Sprite", new[] { IconFolder });
-            foreach (var guid in guids)
-            {
-                var path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
-                var fileName = System.IO.Path.GetFileNameWithoutExtension(path);
-                if (string.Equals(fileName, targetName, System.StringComparison.OrdinalIgnoreCase))
-                    return UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(path);
-            }
-            return null;
-        }
-
-        /// <summary>Icon_Buffs 폴더를 스캔하여 카테고리별 배열에 Sprite 직접 매핑</summary>
         [ContextMenu("Auto-Map from Icon Folder")]
         private void AutoMapFromFolder()
         {
-            // 1) 폴더 내 존재하는 스프라이트 suffix → Sprite 수집
-            var spriteMap = new Dictionary<string, Sprite>();
+            var existingSuffixes = new HashSet<string>();
             var guids = UnityEditor.AssetDatabase.FindAssets("t:Sprite", new[] { IconFolder });
             foreach (var guid in guids)
             {
                 var path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
                 var fileName = System.IO.Path.GetFileNameWithoutExtension(path);
                 if (fileName.StartsWith(IconPrefix))
-                {
-                    var suffix = fileName.Substring(IconPrefix.Length);
-                    var sprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(path);
-                    if (sprite != null)
-                        spriteMap[suffix] = sprite;
-                }
+                    existingSuffixes.Add(fileName.Substring(IconPrefix.Length));
             }
 
-            // 2) KnownEffectMap 기준으로 카테고리별 리스트 생성
             var buffList = new List<EffectIconEntry>();
             var debuffList = new List<EffectIconEntry>();
             var ccList = new List<EffectIconEntry>();
@@ -230,17 +232,15 @@ namespace CookApps.AutoChess.View
 
             foreach (var kv in KnownEffectMap)
             {
-                Sprite sprite = null;
-                if (!spriteMap.TryGetValue(kv.Value, out sprite))
-                {
-                    Debug.LogWarning($"[BuffIconConfig] 스프라이트 없음: {IconPrefix}{kv.Value} (CombatVfxType.{kv.Key.Item1}/{kv.Key.Item2})");
-                }
+                string spriteName = IconPrefix + kv.Value;
+                if (!existingSuffixes.Contains(kv.Value))
+                    Debug.LogWarning($"[BuffIconConfig] 스프라이트 없음: {spriteName} (CombatVfxType.{kv.Key.Item1}/{kv.Key.Item2})");
 
                 var entry = new EffectIconEntry
                 {
                     EffectType = kv.Key.Item1,
                     StatType = kv.Key.Item2,
-                    IconSprite = sprite,
+                    SpriteName = spriteName,
                 };
 
                 if (CombatVfxConfigSO.IsBuff(kv.Key.Item1))
@@ -257,9 +257,8 @@ namespace CookApps.AutoChess.View
             _debuffIcons = debuffList.ToArray();
             _ccIcons = ccList.ToArray();
 
-            // 3) 매핑되지 않은 스프라이트 로그 출력
             int unmapped = 0;
-            foreach (var suffix in spriteMap.Keys)
+            foreach (var suffix in existingSuffixes)
             {
                 if (!usedSuffixes.Contains(suffix))
                 {
@@ -268,11 +267,9 @@ namespace CookApps.AutoChess.View
                 }
             }
 
-            // 4) SkillMarker 자동 탐색: BUFF_SPECIAL_*, DEBUFF_SPECIAL_*, CC_MISA_* 패턴
             var markerList = new List<SkillMarkerIconEntry>();
             if (_skillMarkerIcons != null)
             {
-                // 기존 항목 유지 (MarkerType이 이미 설정된 것들)
                 foreach (var existing in _skillMarkerIcons)
                 {
                     if (existing.MarkerType != SkillMarkerType.None)
@@ -280,34 +277,33 @@ namespace CookApps.AutoChess.View
                 }
             }
 
-            foreach (var kv in spriteMap)
+            foreach (var suffix in existingSuffixes)
             {
-                bool isMarkerCandidate = kv.Key.StartsWith("BUFF_SPECIAL_") ||
-                                         kv.Key.StartsWith("DEBUFF_SPECIAL_") ||
-                                         kv.Key.StartsWith("CC_MISA_");
-                if (!isMarkerCandidate || usedSuffixes.Contains(kv.Key)) continue;
+                bool isMarkerCandidate = suffix.StartsWith("BUFF_SPECIAL_") ||
+                                         suffix.StartsWith("DEBUFF_SPECIAL_") ||
+                                         suffix.StartsWith("CC_MISA_");
+                if (!isMarkerCandidate || usedSuffixes.Contains(suffix)) continue;
 
-                // 기존에 같은 Sprite로 등록된 항목이 있으면 스킵
+                string spriteName = IconPrefix + suffix;
                 bool alreadyRegistered = false;
                 foreach (var m in markerList)
                 {
-                    if (m.IconSprite == kv.Value) { alreadyRegistered = true; break; }
+                    if (m.SpriteName == spriteName) { alreadyRegistered = true; break; }
                 }
                 if (alreadyRegistered) continue;
 
                 markerList.Add(new SkillMarkerIconEntry
                 {
-                    MarkerType = SkillMarkerType.None, // 인스펙터에서 드롭다운 선택
-                    IconSprite = kv.Value,
+                    MarkerType = SkillMarkerType.None,
+                    SpriteName = spriteName,
                     ReplacesEffect = CombatVfxType.None,
                     ReplacesStatType = default,
                 });
-                Debug.Log($"[BuffIconConfig] SkillMarker 후보 추가: {IconPrefix}{kv.Key} (MarkerType 미설정)");
+                Debug.Log($"[BuffIconConfig] SkillMarker 후보 추가: {spriteName} (MarkerType 미설정)");
             }
 
             _skillMarkerIcons = markerList.ToArray();
 
-            _effectCache = null;
             _markerCache = null;
             UnityEditor.EditorUtility.SetDirty(this);
             Debug.Log($"[BuffIconConfig] 자동 매핑 완료: 버프 {buffList.Count} / 디버프 {debuffList.Count} / CC {ccList.Count} / SkillMarker {markerList.Count}개, 미매핑 {unmapped}개");

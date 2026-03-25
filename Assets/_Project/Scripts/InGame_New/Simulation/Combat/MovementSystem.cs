@@ -305,16 +305,19 @@ namespace CookApps.AutoChess
             unit.GridRow = (byte)bestRow;
             state.SetGridMulti(bestCol, bestRow, sizeW, sizeH, unit.CombatId);
 
-            // 이동 시간 적용 (이동 중 타겟팅 제외)
+            // 이동 시간 적용 (포물선 연출이 보이도록 0.5초 고정)
             unit.MoveFromCol = (byte)jumpFromCol;
             unit.MoveFromRow = (byte)jumpFromRow;
-            int moveFrames = unit.GetMoveFrames(tickRate);
+            int moveFrames = (int)(0.5f * tickRate + 0.5f);
             unit.MoveDuration = moveFrames;
             unit.MoveTimer = moveFrames;
             unit.IsBacklineJumping = true;
             unit.State = CombatState.Moving;
 
             if (CombatLogger.Enabled) CombatLogger.LogBacklineJump(unit.CombatId, jumpFromCol, jumpFromRow, bestCol, bestRow);
+
+            // 출발 VFX
+            state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.JobGhostJumpStart);
 
             return true;
         }

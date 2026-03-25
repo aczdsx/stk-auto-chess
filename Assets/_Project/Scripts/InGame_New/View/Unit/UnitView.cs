@@ -497,6 +497,7 @@ namespace CookApps.AutoChess.View
             = new System.Collections.Generic.Dictionary<int, GameObject>();
         private readonly System.Collections.Generic.Dictionary<int, SkillPosition> _persistentVfxPositions
             = new System.Collections.Generic.Dictionary<int, SkillPosition>();
+        private readonly List<(int skillSpecId, GameObject go, SkillPosition position)> _detachedVfxBuffer = new();
 
         /// <summary>지속형 VFX의 자식 GO를 count만큼 활성화.
         /// 최초 호출 시 프리팹을 인스턴스화하여 유닛에 부착, 이후엔 자식 on/off만.</summary>
@@ -535,17 +536,17 @@ namespace CookApps.AutoChess.View
         /// <summary>Persistent VFX를 파괴하지 않고 분리하여 반환 (parking용).</summary>
         public List<(int skillSpecId, GameObject go, SkillPosition position)> DetachPersistentVfx()
         {
-            if (_persistentVfx.Count == 0) return null;
-            var result = new List<(int, GameObject, SkillPosition)>();
+            _detachedVfxBuffer.Clear();
+            if (_persistentVfx.Count == 0) return _detachedVfxBuffer;
             foreach (var kvp in _persistentVfx)
             {
                 if (kvp.Value == null) continue;
                 _persistentVfxPositions.TryGetValue(kvp.Key, out var pos);
-                result.Add((kvp.Key, kvp.Value, pos));
+                _detachedVfxBuffer.Add((kvp.Key, kvp.Value, pos));
             }
             _persistentVfx.Clear();
             _persistentVfxPositions.Clear();
-            return result;
+            return _detachedVfxBuffer;
         }
 
         /// <summary>외부에서 전달받은 VFX GO를 이 UnitView의 적절한 Transform에 reparent.

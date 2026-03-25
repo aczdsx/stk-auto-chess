@@ -241,6 +241,11 @@ namespace CookApps.AutoChess
         public int BaseAdReduce;      // 물리 저항률 (정수 퍼센트)
         public int BaseHealPower;     // 힐파워 (정수 퍼센트)
         public int BaseImmuneType;    // 이뮨 타입
+        public byte PositionType;    // CharacterPositionType (직업군 패시브 결정용)
+
+        // 직업 패시브 파라미터 (SpecDataManager.GetJobPassiveList → SkillJob에서 추출)
+        public int JobPassiveParam0; // 주 계수 (확률%, 스택수, 쿨타임 프레임 등)
+        public int JobPassiveParam1; // 부 계수 (데미지%, 면역 지속 프레임 등)
 
         // 유닛 크기 (타일 수)
         public byte SizeW;           // 가로 (기본 1)
@@ -591,6 +596,9 @@ namespace CookApps.AutoChess
         // CC 상태
         public CrowdControlType ActiveCC;
         public int CCRemainingFrames;
+        public byte CCImmuneCharges;    // 직업 패시브: CC 면역 횟수 (Striker)
+        public bool IsHealer;              // 직업 패시브: Oracle 평타 힐러 (타겟팅/AI 분기용)
+        public byte ProjectileVfxOverride; // 투사체 VFX 오버라이드 (0=기본, 1+=View 프리팹 인덱스, 1회 소비)
 
         // 스킬
         public int SkillSpecId;       // 사용 스킬 ID
@@ -787,6 +795,9 @@ namespace CookApps.AutoChess
 
         // 이벤트 큐 (GameWorld.EventQueue 참조)
         public SimEventQueue EventQueue;
+
+        // RNG (Trait에서 접근용 — CombatAISystem.Tick 시작 시 저장)
+        public DeterministicRNG Rng;
 
         // 스킬 인스턴스 (매치별 관리, SkillSystem에서 사용)
         public SimSkillBase[] Skills;  // [MaxCombatUnits]

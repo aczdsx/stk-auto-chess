@@ -165,7 +165,7 @@ namespace CookApps.AutoChess.View
                     _combatViewManager.OnProjectileSpawned(
                         evt.EntityId, evt.TargetEntityId, evt.ProjType,
                         evt.Col, evt.Row, (sbyte)evt.DirCol, (sbyte)evt.DirRow, champSpecId, projectileId, skillSpecId,
-                        evt.SkillVfxIndex, evt.MoveInterval, evt.Flag0, evt.ArrivalVfxIndex);
+                        evt.SkillVfxIndex, evt.MoveInterval, evt.Flag0, evt.ArrivalVfxIndex, (byte)evt.Radius);
                     break;
                 }
 
@@ -263,7 +263,8 @@ namespace CookApps.AutoChess.View
                 {
                     var element = ResolveElementFromCaster(matchState, evt.EntityId);
                     bool isBox = evt.Value1 != 0;
-                    _combatViewManager.OnSkillAreaEffect(evt.Col, evt.Row, evt.Radius, element, evt.Flag0, isBox);
+                    _combatViewManager.OnSkillAreaEffect(evt.Col, evt.Row, evt.Radius, element, evt.Flag0, isBox,
+                        (CombatVfxType)evt.Value0);
                     break;
                 }
 

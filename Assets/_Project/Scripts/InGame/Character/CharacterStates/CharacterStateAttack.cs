@@ -21,6 +21,11 @@ public class CharacterStateAttack : CharacterStateBase
     {
         base.StateStart();
         isAttackAnimRunning = false;
+
+        if (characCtrl.Target != null && characCtrl.Target.IsAlive)
+        {
+            characCtrl.LookAtTarget();
+        }
     }
 
     public override CharacterStateRunningResult CharacterStateRunning(float dt)

@@ -197,6 +197,10 @@ namespace CookApps.AutoChess.View
 
                     Vector3 fromPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.MoveFromCol, unit.MoveFromRow) + centerOffset;
                     worldPos = Vector3.Lerp(fromPos, destPos, progress);
+
+                    // 백라인 점프: 포물선 높이
+                    if (unit.IsBacklineJumping)
+                        worldPos.y += Mathf.Sin(progress * Mathf.PI) * 1.5f;
                 }
                 else
                 {
@@ -215,9 +219,9 @@ namespace CookApps.AutoChess.View
                         view.UpdateMana(unit.CurrentMana, unit.MaxMana);
 
                         // 방향 전환 (SetCombatState보다 먼저 — 공격 시작 시 타겟을 바라본 후 공격 모션 시작)
-                        if (view.IsPlayingAttackAnim)
+                        if (view.IsPlayingAttackAnim && unit.State != CombatState.Attacking)
                         {
-                            // 공격 모션 중이면 방향 전환 스킵
+                            // 공격 모션 중이면 방향 전환 스킵 (단, 새 공격 시작 시에는 방향 갱신)
                         }
                         else if (unit.IsMoving && unit.MoveDuration > 0 && !unit.IsKnockbackMoving)
                         {

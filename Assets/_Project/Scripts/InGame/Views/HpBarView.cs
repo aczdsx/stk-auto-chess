@@ -428,7 +428,7 @@ namespace CookApps.AutoBattler
 
         public struct NewBuffIconData
         {
-            public Sprite IconSprite;
+            public string SpriteName;
             public float Duration;
             public float ElapsedTime;
             public int StackCount;
@@ -459,7 +459,7 @@ namespace CookApps.AutoBattler
                 float scale = GetBuffIconScale(normalIdx);
                 icon.CachedTr.localScale = new Vector3(scale, scale, scale);
                 icon.gameObject.SetActive(true);
-                icon.Set(buffIcons[i].IconSprite, buffIcons[i].Duration, buffIcons[i].ElapsedTime, buffIcons[i].StackCount);
+                icon.Set(buffIcons[i].SpriteName, buffIcons[i].Duration, buffIcons[i].ElapsedTime, buffIcons[i].StackCount);
                 normalIdx++;
             }
 
@@ -475,7 +475,7 @@ namespace CookApps.AutoBattler
                 icon.CachedTr.localPosition = new Vector3(0, sideIdx * sideSpacing, 0);
                 icon.CachedTr.localScale = new Vector3(sideScale, sideScale, sideScale);
                 icon.gameObject.SetActive(true);
-                icon.Set(buffIcons[i].IconSprite, buffIcons[i].Duration, buffIcons[i].ElapsedTime, buffIcons[i].StackCount);
+                icon.Set(buffIcons[i].SpriteName, buffIcons[i].Duration, buffIcons[i].ElapsedTime, buffIcons[i].StackCount);
                 sideIdx++;
             }
         }

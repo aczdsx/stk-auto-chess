@@ -15,7 +15,7 @@ namespace CookApps.AutoChess.View
     /// 벤치 유닛 UI 슬롯. ScrollRect 내에서 가로 스크롤과 보드 드래그를 동시 지원.
     /// 보드 영역 진입 시 BoardInputHandler의 고스트 드래그로 전환.
     /// </summary>
-    public class BenchUnitSlot : MonoBehaviour,
+    public class BenchUnitSlot : CachedMonoBehaviour,
         IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [Header("Character Icon")]

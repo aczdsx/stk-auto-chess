@@ -15,6 +15,8 @@ namespace CookApps.AutoChess
         {
             if (state.IsFinished) return true;
 
+            state.Rng = rng; // Trait에서 RNG 접근 가능하도록 저장
+
             if (CombatLogger.Enabled) CombatLogger.NextFrame();
 
             // 0. 전투 시작 시 Trait OnCombatStart (첫 프레임에서 1회)
@@ -45,7 +47,10 @@ namespace CookApps.AutoChess
             // 3.5. 상태효과 틱 (쉴드 만료, DOT, 버프 지속시간)
             StatusEffectSystem.Tick(state);
 
-            // 4. 종료 조건 체크
+            // 4. Trait에서 소비한 RNG 상태 동기화
+            rng = state.Rng;
+
+            // 5. 종료 조건 체크
             if (CheckEndCondition(state))
             {
                 state.IsFinished = true;
@@ -122,6 +127,8 @@ namespace CookApps.AutoChess
                     // 마지막 1프레임은 이동 완료로 간주해 MOVE 애니메이션이 과도하게 남지 않도록 한다.
                     unit.MoveTimer = 0;
                     unit.State = CombatState.Idle;
+                    if (unit.IsBacklineJumping)
+                        state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.JobGhostJumpEnd);
                     unit.IsBacklineJumping = false;
                     unit.IsKnockbackMoving = false;
                 }
@@ -214,8 +221,9 @@ namespace CookApps.AutoChess
 
                 if (unit.AttackCooldown <= 0)
                 {
-                    // 회피 판정 (명중률 - 회피율)
-                    if (DamageSystem.TryDodge(ref unit, ref target, ref rng))
+                    // 회피 판정 (힐러가 아군 타겟일 때 스킵)
+                    bool isHealingAlly = unit.IsHealer && target.TeamIndex == unit.TeamIndex;
+                    if (!isHealingAlly && DamageSystem.TryDodge(ref unit, ref target, ref rng))
                     {
                         // 회피 성공: 데미지 없이 쿨다운만 재설정
                         if (CombatLogger.Enabled) CombatLogger.LogDodge(unit.CombatId, target.CombatId);
@@ -229,8 +237,8 @@ namespace CookApps.AutoChess
                         if (unit.AttackRange <= 1 && !unit.HasAreaAttack)
                         {
                             // 근접: ATK 키프레임까지 데미지 지연
-                            // 크리티컬 선행 판정 (애니메이션 결정용 — ATK/ATK2/CRIT)
-                            bool willCrit = rng.Chance(unit.CritRate);
+                            // 크리티컬 선행 판정 (힐은 크리 불가)
+                            bool willCrit = isHealingAlly ? false : rng.Chance(unit.CritRate);
                             unit.PendingAtkTargetId = target.CombatId;
                             unit.PendingAtkTimer = unit.AtkHitDelay;
                             unit.PendingAtkIsCrit = willCrit;
