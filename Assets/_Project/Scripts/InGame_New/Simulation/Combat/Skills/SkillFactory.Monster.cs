@@ -1,15 +1,15 @@
-using static CookApps.AutoChess.SkillRecipeBuilder;
+using static CookApps.AutoChess.SkillFactory.SkillRecipeBuilder;
 using E = CookApps.AutoChess.SkillExecutionType;
 using T = CookApps.AutoChess.SkillTargetType;
 using P = CookApps.AutoChess.ParamValueType;
 
 namespace CookApps.AutoChess
 {
-    public static partial class SkillRecipeRegistry
+    public static partial class SkillFactory
     {
         /// <summary>보스탱커: 타일 간 순차 타격 간격.</summary>
         private const short BossTankLineIntervalMs = 200;
-        
+
         /// <summary>몬스터 커스텀 스킬 Recipe 등록</summary>
         private static void RegisterMonsterRecipes()
         {

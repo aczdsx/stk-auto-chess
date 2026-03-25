@@ -1,4 +1,4 @@
-using static CookApps.AutoChess.SkillRecipeBuilder;
+using static CookApps.AutoChess.SkillFactory.SkillRecipeBuilder;
 using E = CookApps.AutoChess.SkillExecutionType;
 using T = CookApps.AutoChess.SkillTargetType;
 using F = CookApps.AutoChess.SkillTargetFilter;
@@ -8,7 +8,7 @@ using P = CookApps.AutoChess.ParamValueType;
 
 namespace CookApps.AutoChess
 {
-    public static partial class SkillRecipeRegistry
+    public static partial class SkillFactory
     {
         // ── 스킬별 타이밍 상수 (ms) ──
 
@@ -110,12 +110,15 @@ namespace CookApps.AutoChess
                 .Register();
 
             // ── SingleProjectile (230101005, 230202004): Homing 투사체 ──
-            var sp = Skill(230101005, E.DelayedApply, T.NearestEnemy).Projectile()
+            Skill(230101005, E.DelayedApply, T.NearestEnemy).Projectile()
                 .Param(1, P.Int, 200f)
                 .AtHit(SpawnProjectile(paramIndex: 0, vfxIndex: 1))
-                .Build();
-            _recipes[230101005] = sp;
-            _recipes[230202004] = sp;
+                .Register();
+
+            Skill(230202004, E.DelayedApply, T.NearestEnemy).Projectile()
+                .Param(1, P.Int, 200f)
+                .AtHit(SpawnProjectile(paramIndex: 0, vfxIndex: 1))
+                .Register();
 
             // ══════════════════════════════
             // 커스텀 클래스 유지 — ParamSlots만 Recipe에서 관리

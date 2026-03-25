@@ -1,4 +1,4 @@
-using static CookApps.AutoChess.SkillRecipeBuilder;
+using static CookApps.AutoChess.SkillFactory.SkillRecipeBuilder;
 using E = CookApps.AutoChess.SkillExecutionType;
 using T = CookApps.AutoChess.SkillTargetType;
 using F = CookApps.AutoChess.SkillTargetFilter;
@@ -6,7 +6,7 @@ using S = CookApps.AutoChess.SkillAreaShape;
 
 namespace CookApps.AutoChess
 {
-    public static partial class SkillRecipeRegistry
+    public static partial class SkillFactory
     {
         /// <summary>아키타입 Recipe 등록. 기존 아키타입 클래스를 대체.</summary>
         private static void RegisterArchetypeRecipes()

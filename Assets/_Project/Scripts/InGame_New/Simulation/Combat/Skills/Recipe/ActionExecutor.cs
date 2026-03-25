@@ -42,6 +42,18 @@ namespace CookApps.AutoChess
         }
 
         // ══════════════════════════════
+        // 오버라이드 해결 (Recipe 불변 유지 — 오버라이드는 컨텍스트에서 적용)
+        // ══════════════════════════════
+
+        /// <summary>AreaRange 실효값: 컨텍스트 오버라이드가 있으면 사용, 없으면 Recipe 값</summary>
+        private static byte GetAreaRange(ref SkillAction action, SkillExecuteContext ctx)
+        {
+            if (action.AreaRange > 0 && ctx.AreaRangeOverride > 0)
+                return (byte)ctx.AreaRangeOverride;
+            return action.AreaRange;
+        }
+
+        // ══════════════════════════════
         // 개별 이펙트 실행 (모두 GC-free: 직접 for-loop, lambda 없음)
         // ══════════════════════════════
 
@@ -67,7 +79,7 @@ namespace CookApps.AutoChess
                 {
                     ref var caster = ref state.Units[casterIdx];
                     int dirCol = caster.TeamIndex == 0 ? 1 : -1;
-                    int range = action.AreaRange;
+                    int range = GetAreaRange(ref action, ctx);
 
                     int col = caster.GridCol;
                     int row = caster.GridRow;
@@ -100,7 +112,7 @@ namespace CookApps.AutoChess
                     {
                         ref var unit = ref state.Units[i];
                         if (!unit.IsAlive || unit.TeamIndex == ctx.CasterTeam) continue;
-                        if (!SkillAreaHelper.IsInArea(action.AreaShape, centerCol, centerRow, action.AreaRange, ref unit))
+                        if (!SkillAreaHelper.IsInArea(action.AreaShape, centerCol, centerRow, GetAreaRange(ref action, ctx), ref unit))
                             continue;
 
                         int raw = attack * power / 100;
@@ -132,7 +144,7 @@ namespace CookApps.AutoChess
                 {
                     ref var unit = ref ctx.State.Units[i];
                     if (!unit.IsAlive || unit.TeamIndex != ctx.CasterTeam) continue;
-                    if (!SkillAreaHelper.IsInArea(action.AreaShape, centerCol, centerRow, action.AreaRange, ref unit))
+                    if (!SkillAreaHelper.IsInArea(action.AreaShape, centerCol, centerRow, GetAreaRange(ref action, ctx), ref unit))
                         continue;
 
                     SkillDamageHelper.Heal(ctx.State, ref unit, healAmount);
@@ -140,7 +152,8 @@ namespace CookApps.AutoChess
             }
             else if (action.TargetFilter == SkillTargetFilter.LowestHpAllies)
             {
-                int count = action.AreaRange > 0 ? action.AreaRange : 1;
+                int count = ctx.TargetCountOverride > 0 ? ctx.TargetCountOverride
+                    : action.AreaRange > 0 ? action.AreaRange : 1;
                 if (count > LowestHpBuffer.Length) count = LowestHpBuffer.Length;
                 int found = SkillAreaHelper.FindLowestHPAllies(ctx.State, ctx.CasterTeam, count, LowestHpBuffer);
                 for (int i = 0; i < found; i++)
@@ -154,12 +167,16 @@ namespace CookApps.AutoChess
 
         private static void ExecuteCC(ref SkillAction action, SkillExecuteContext ctx)
         {
-            int durationFrames = ctx.GetParamValue(action.SecondaryParamIndex);
+            int durationFrames = ctx.CCDurationOverride > 0
+                ? ctx.CCDurationOverride
+                : ctx.GetParamValue(action.SecondaryParamIndex);
             if (durationFrames <= 0) durationFrames = 60;
+
+            var ccType = ctx.CCTypeOverride != CrowdControlType.None ? ctx.CCTypeOverride : action.CCType;
 
             int idx = ctx.State.FindUnitIndex(ctx.TargetCombatId);
             if (idx < 0) return;
-            SkillCCHelper.ApplyCC(ctx.State, ref ctx.State.Units[idx], action.CCType, durationFrames);
+            SkillCCHelper.ApplyCC(ctx.State, ref ctx.State.Units[idx], ccType, durationFrames);
         }
 
         private static void ExecuteKnockback(ref SkillAction action, SkillExecuteContext ctx)
@@ -235,7 +252,7 @@ namespace CookApps.AutoChess
                 {
                     ref var unit = ref ctx.State.Units[i];
                     if (!unit.IsAlive || unit.TeamIndex == ctx.CasterTeam) continue;
-                    if (!SkillAreaHelper.IsInArea(action.AreaShape, centerCol, centerRow, action.AreaRange, ref unit))
+                    if (!SkillAreaHelper.IsInArea(action.AreaShape, centerCol, centerRow, GetAreaRange(ref action, ctx), ref unit))
                         continue;
 
                     if (isStatusEffect)
@@ -289,7 +306,7 @@ namespace CookApps.AutoChess
                 {
                     ref var unit = ref ctx.State.Units[i];
                     if (!unit.IsAlive || unit.TeamIndex != ctx.CasterTeam) continue;
-                    if (!SkillAreaHelper.IsInArea(action.AreaShape, centerCol, centerRow, action.AreaRange, ref unit))
+                    if (!SkillAreaHelper.IsInArea(action.AreaShape, centerCol, centerRow, GetAreaRange(ref action, ctx), ref unit))
                         continue;
 
                     StatusEffectSystem.RemoveAllDebuffs(ctx.State, i);
@@ -329,7 +346,8 @@ namespace CookApps.AutoChess
         private static void ExecuteMultiHit(ref SkillAction action, SkillExecuteContext ctx)
         {
             int power = ctx.GetParamValue(action.ParamIndex);
-            int hitCount = action.RepeatCount > 0 ? action.RepeatCount : 3;
+            int hitCount = ctx.HitCountOverride > 0 ? ctx.HitCountOverride
+                : action.RepeatCount > 0 ? action.RepeatCount : 3;
 
             for (int i = 0; i < hitCount; i++)
             {
@@ -424,7 +442,7 @@ namespace CookApps.AutoChess
             {
                 ref var unit = ref state.Units[i];
                 if (!unit.IsAlive || unit.TeamIndex == team) continue;
-                if (!SkillAreaHelper.IsInArea(action.AreaShape, casterCol, casterRow, action.AreaRange, ref unit))
+                if (!SkillAreaHelper.IsInArea(action.AreaShape, casterCol, casterRow, GetAreaRange(ref action, ctx), ref unit))
                     continue;
 
                 // 데미지
@@ -566,14 +584,14 @@ namespace CookApps.AutoChess
                     int centerCol, centerRow;
                     GetAreaCenter(ctx, out centerCol, out centerRow);
                     eq.PushSkillAreaEffect(ctx.CasterCombatId,
-                        (byte)centerCol, (byte)centerRow, action.AreaRange);
+                        (byte)centerCol, (byte)centerRow, GetAreaRange(ref action, ctx));
                     break;
                 }
                 case SkillVfxPlacement.PerTileInDiamond:
                 {
                     int centerCol, centerRow;
                     GetAreaCenter(ctx, out centerCol, out centerRow);
-                    int range = action.AreaRange;
+                    int range = GetAreaRange(ref action, ctx);
                     for (int r = 0; r < BoardHelper.CombatHeight; r++)
                     {
                         for (int c = 0; c < BoardHelper.CombatWidth; c++)
@@ -628,6 +646,14 @@ namespace CookApps.AutoChess
         public int BasePowerPercent;
         /// <summary>SkillParams.CCDurationFrames 오버라이드 (SecondaryParamIndex == -2일 때 사용)</summary>
         public int CCDurationOverride;
+        /// <summary>SkillParams.CCType 오버라이드 (None이면 Recipe 기본값 사용)</summary>
+        public CrowdControlType CCTypeOverride;
+        /// <summary>SkillParams.Param0 → AreaRange 오버라이드 (0이면 Recipe 기본값 사용)</summary>
+        public int AreaRangeOverride;
+        /// <summary>SkillParams.TargetCount → LowestHpAllies 대상 수 오버라이드 (0이면 Recipe 기본값 사용)</summary>
+        public int TargetCountOverride;
+        /// <summary>SkillParams.HitCount → MultiHit 횟수 오버라이드 (0이면 Recipe 기본값 사용)</summary>
+        public int HitCountOverride;
         /// <summary>현재 채널링 틱 번호 (SequentialLineDamage 등에서 step으로 사용)</summary>
         public int TickCount;
 

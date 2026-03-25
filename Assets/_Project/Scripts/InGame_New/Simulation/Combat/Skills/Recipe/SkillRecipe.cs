@@ -5,7 +5,7 @@ namespace CookApps.AutoChess
     /// 밸런스 수치(PowerPercent, CC 지속시간 등)는 SpecData에서 ParamSlots를 통해 주입.
     ///
     /// 사용 흐름:
-    /// 1. SkillRecipeRegistry에 static으로 정의
+    /// 1. SkillFactory에 static으로 정의
     /// 2. SkillFactory에서 SimSkillGeneric에 주입
     /// 3. SimSkillGeneric.InitializeFromSpec()에서 ParamSlots 기반으로 specList에서 수치 추출
     /// 4. SimSkillGeneric.Execute()/OnChannelTick()에서 Actions를 타이밍에 따라 디스패치

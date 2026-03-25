@@ -4,15 +4,37 @@ using CookApps.AutoBattler;
 namespace CookApps.AutoChess
 {
     /// <summary>
-    /// 스킬 팩토리. SkillId -> SimSkillBase 인스턴스 생성.
-    /// Reflection 금지 원칙에 따라 수동 등록 + 스펙 기반 자동 등록.
+    /// 스킬 팩토리 + Recipe 레지스트리 통합.
+    /// SkillId → SimSkillBase 인스턴스 생성, Recipe 정의 및 조회를 모두 담당.
+    ///
+    /// partial class로 분리:
+    /// - SkillFactory.cs — Core (딕셔너리, Create, Initialize, Builder)
+    /// - SkillFactory.Archetypes.cs — 아키타입 Recipe 정의
+    /// - SkillFactory.Character.cs — 플레이어 스킬 Recipe 정의
+    /// - SkillFactory.Monster.cs — 몬스터 스킬 Recipe 정의
     /// </summary>
-    public static class SkillFactory
+    public static partial class SkillFactory
     {
+        // ── 인스턴스 생성 ──
         private static readonly Dictionary<int, System.Func<SimSkillBase>> _registry = new();
         private static readonly Dictionary<int, SkillParams> _paramsCache = new();
         private static readonly Dictionary<int, List<SkillActive>> _specListCache = new();
         private static bool _initialized;
+
+        // ── Recipe 레지스트리 ──
+        private static readonly Dictionary<int, SkillRecipe> _recipes = new();
+        private static readonly Dictionary<SimSkillArchetype, SkillRecipe> _archetypeRecipes = new();
+
+        static SkillFactory()
+        {
+            RegisterArchetypeRecipes();
+            RegisterPlayerRecipes();
+            RegisterMonsterRecipes();
+        }
+
+        // ══════════════════════════════
+        // Public API
+        // ══════════════════════════════
 
         public static void Register(int skillId, System.Func<SimSkillBase> creator)
         {
@@ -37,6 +59,20 @@ namespace CookApps.AutoChess
         {
             return _specListCache.TryGetValue(skillId, out specList);
         }
+
+        // ══════════════════════════════
+        // Recipe 조회 (내부용)
+        // ══════════════════════════════
+
+        private static bool TryGetRecipe(int skillGroupId, out SkillRecipe recipe)
+            => _recipes.TryGetValue(skillGroupId, out recipe);
+
+        private static bool TryGetByArchetype(SimSkillArchetype archetype, out SkillRecipe recipe)
+            => _archetypeRecipes.TryGetValue(archetype, out recipe);
+
+        // ══════════════════════════════
+        // 초기화
+        // ══════════════════════════════
 
         /// <summary>SkillActive 스펙 테이블 기반 자동 등록</summary>
         public static void Initialize(int tickRate)
@@ -80,7 +116,7 @@ namespace CookApps.AutoChess
                 if (archetype == SimSkillArchetype.Custom) continue;
 
                 // Recipe가 있으면 SimSkillGeneric으로, 없으면 기존 아키타입 클래스로
-                if (SkillRecipeRegistry.TryGetByArchetype(archetype, out var archetypeRecipe))
+                if (TryGetByArchetype(archetype, out var archetypeRecipe))
                 {
                     var capturedRecipe = archetypeRecipe;
                     Register(id, () =>
@@ -100,7 +136,6 @@ namespace CookApps.AutoChess
         private static void RegisterCustomSkills()
         {
             // ── 커스텀 실행 로직이 필요한 스킬 (전용 클래스 유지) ──
-            // 각 스킬의 ParamSlots는 SkillRecipeRegistry에 정의되어 있으나,
             // Execute/OnChannelTick 로직이 복잡하여 SimSkillGeneric으로 대체 불가.
             Register(217433302, () => new SimSkillMinoProjectile());  // 미노: 순차 미사일 + 개별 도착 타이머
             Register(217363204, () => new SimSkillVeinBounce());      // 베인: 바운스 투사체 + 히트 추적
@@ -115,13 +150,12 @@ namespace CookApps.AutoChess
             Register(217353203, () => new SimSkillRakiyuDebuff());    // 라키유: 투사체 도착 후 범위 디버프
 
             // ── Recipe 기반 스킬 (SimSkillGeneric으로 완전 대체) ──
-            // Actions 데이터만으로 Execute/OnChannelTick 로직을 표현 가능한 스킬.
             RegisterRecipeSkills();
         }
 
         /// <summary>
-        /// SkillRecipeRegistry에 등록된 스킬 중, 커스텀 클래스 미등록인 것만
-        /// SimSkillGeneric으로 등록. Recipe의 Actions로 실행 로직을 데이터 기반 처리.
+        /// Recipe가 등록된 스킬 중, 커스텀 클래스 미등록인 것만
+        /// SimSkillGeneric으로 등록.
         /// </summary>
         private static void RegisterRecipeSkills()
         {
@@ -144,7 +178,7 @@ namespace CookApps.AutoChess
             {
                 int id = recipeSkillIds[i];
                 if (_registry.ContainsKey(id)) continue;
-                if (!SkillRecipeRegistry.TryGet(id, out var recipe)) continue;
+                if (!TryGetRecipe(id, out var recipe)) continue;
 
                 var capturedRecipe = recipe;
                 Register(id, () =>
@@ -156,13 +190,385 @@ namespace CookApps.AutoChess
             }
         }
 
-        /// <summary>팩토리 등록 해제 (테스트용)</summary>
+        /// <summary>팩토리 등록 해제 (테스트/재시작용)</summary>
         public static void Clear()
         {
             _registry.Clear();
             _paramsCache.Clear();
             _specListCache.Clear();
             _initialized = false;
+            // _recipes, _archetypeRecipes는 static constructor에서 1회 초기화되는 불변 데이터 — Clear 대상 아님
+        }
+
+        // ══════════════════════════════
+        // Recipe Builder 헬퍼
+        // ══════════════════════════════
+
+        /// <summary>스킬 Recipe Builder 시작. Register()로 _recipes에 자동 등록.</summary>
+        private static SkillRecipeBuilder Skill(int skillId, SkillExecutionType exec, SkillTargetType target)
+            => new SkillRecipeBuilder(_recipes, skillId, exec, target);
+
+        /// <summary>아키타입 Recipe Builder. Build()로 SkillRecipe 반환.</summary>
+        private static SkillRecipeBuilder ArchetypeBuilder(SkillExecutionType exec, SkillTargetType target)
+            => new SkillRecipeBuilder(null, 0, exec, target);
+
+        /// <summary>아키타입 Recipe 등록</summary>
+        private static void DefineArchetype(SimSkillArchetype archetype, SkillRecipe recipe)
+            => _archetypeRecipes[archetype] = recipe;
+
+        // ══════════════════════════════
+        // Recipe Builder (inner struct)
+        // ══════════════════════════════
+
+        /// <summary>
+        /// SkillRecipe를 간결하게 선언하기 위한 Builder.
+        /// new SkillAction { ... } 반복을 제거하고 체이닝 API 제공.
+        /// </summary>
+        internal struct SkillRecipeBuilder
+        {
+            private readonly Dictionary<int, SkillRecipe> _target;
+            private readonly int _skillId;
+            private SkillExecutionType _execType;
+            private SkillTargetType _targetRule;
+            private bool _hasProjectile;
+            private readonly List<ParamSlot> _params;
+            private readonly List<SkillAction> _actions;
+
+            public SkillRecipeBuilder(Dictionary<int, SkillRecipe> target, int skillId,
+                SkillExecutionType execType, SkillTargetType targetRule)
+            {
+                _target = target;
+                _skillId = skillId;
+                _execType = execType;
+                _targetRule = targetRule;
+                _hasProjectile = false;
+                _params = new List<ParamSlot>(4);
+                _actions = new List<SkillAction>(6);
+            }
+
+            // ── 기본 설정 ──
+
+            public SkillRecipeBuilder Projectile()
+            {
+                _hasProjectile = true;
+                return this;
+            }
+
+            /// <summary>specList 파라미터 슬롯 추가</summary>
+            public SkillRecipeBuilder Param(byte specIndex, ParamValueType type, float fallback)
+            {
+                _params.Add(new ParamSlot(specIndex, type, fallback));
+                return this;
+            }
+
+            // ── 액션 추가 (트리거별) ──
+
+            public SkillRecipeBuilder OnCast(SkillAction action)
+            {
+                action.Trigger = SkillTriggerType.OnCast;
+                _actions.Add(action);
+                return this;
+            }
+
+            public SkillRecipeBuilder AtHit(SkillAction action, byte hitFrameIndex = 0)
+            {
+                action.Trigger = SkillTriggerType.AtHitFrame;
+                action.HitFrameIndex = hitFrameIndex;
+                _actions.Add(action);
+                return this;
+            }
+
+            public SkillRecipeBuilder OnTick(SkillAction action)
+            {
+                action.Trigger = SkillTriggerType.OnTick;
+                _actions.Add(action);
+                return this;
+            }
+
+            public SkillRecipeBuilder OnComplete(SkillAction action)
+            {
+                action.Trigger = SkillTriggerType.OnComplete;
+                _actions.Add(action);
+                return this;
+            }
+
+            // ── 빌드 + 등록 ──
+
+            public void Register()
+            {
+                _target[_skillId] = Build();
+            }
+
+            public SkillRecipe Build()
+            {
+                return new SkillRecipe
+                {
+                    ExecutionType = _execType,
+                    TargetRule = _targetRule,
+                    HasProjectile = _hasProjectile,
+                    ParamSlots = _params.Count > 0 ? _params.ToArray() : null,
+                    Actions = _actions.Count > 0 ? _actions.ToArray() : null,
+                };
+            }
+
+            // ══════════════════════════════
+            // 액션 팩토리 (static) — 체이닝에서 사용
+            // ══════════════════════════════
+
+            /// <summary>데미지 (단일 타겟 또는 범위)</summary>
+            public static SkillAction Damage(sbyte paramIndex = -1,
+                SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget,
+                SkillAreaShape area = SkillAreaShape.None, byte range = 0)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.Damage,
+                    TargetFilter = filter,
+                    AreaShape = area,
+                    AreaRange = range,
+                    ParamIndex = paramIndex,
+                };
+            }
+
+            /// <summary>힐</summary>
+            public static SkillAction Heal(sbyte paramIndex = -1,
+                SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget,
+                SkillAreaShape area = SkillAreaShape.None, byte range = 0)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.Heal,
+                    TargetFilter = filter,
+                    AreaShape = area,
+                    AreaRange = range,
+                    ParamIndex = paramIndex,
+                };
+            }
+
+            /// <summary>CC 적용</summary>
+            public static SkillAction CC(CrowdControlType ccType, sbyte durationParamIndex = -2)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.ApplyCC,
+                    TargetFilter = SkillTargetFilter.PrimaryTarget,
+                    CCType = ccType,
+                    SecondaryParamIndex = durationParamIndex,
+                };
+            }
+
+            /// <summary>범위 CC</summary>
+            public static SkillAction AreaCC(CrowdControlType ccType,
+                SkillAreaShape area, byte range, sbyte durationParamIndex = -2)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.ApplyCC,
+                    TargetFilter = SkillTargetFilter.EnemiesInArea,
+                    AreaShape = area,
+                    AreaRange = range,
+                    CCType = ccType,
+                    SecondaryParamIndex = durationParamIndex,
+                };
+            }
+
+            /// <summary>넉백</summary>
+            public static SkillAction Knockback(sbyte distParamIndex = -1)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.Knockback,
+                    TargetFilter = SkillTargetFilter.PrimaryTarget,
+                    SecondaryParamIndex = distParamIndex,
+                };
+            }
+
+            /// <summary>버프 (지속시간 기반)</summary>
+            public static SkillAction Buff(StatModType stat, sbyte valueParamIndex,
+                sbyte durationParamIndex, SkillTargetFilter filter = SkillTargetFilter.Self)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.ApplyBuff,
+                    TargetFilter = filter,
+                    BuffStat = stat,
+                    ParamIndex = valueParamIndex,
+                    SecondaryParamIndex = durationParamIndex,
+                };
+            }
+
+            /// <summary>디버프 (StatusEffect 기반)</summary>
+            public static SkillAction Debuff(StatusEffectType statusEffect,
+                sbyte valueParamIndex, sbyte durationParamIndex,
+                SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget,
+                SkillAreaShape area = SkillAreaShape.None, byte range = 0)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.ApplyDebuff,
+                    TargetFilter = filter,
+                    AreaShape = area,
+                    AreaRange = range,
+                    StatusEffect = statusEffect,
+                    ParamIndex = valueParamIndex,
+                    SecondaryParamIndex = durationParamIndex,
+                };
+            }
+
+            /// <summary>실드</summary>
+            public static SkillAction Shield(sbyte percentParamIndex, sbyte durationParamIndex,
+                SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.Shield,
+                    TargetFilter = filter,
+                    ParamIndex = percentParamIndex,
+                    SecondaryParamIndex = durationParamIndex,
+                };
+            }
+
+            /// <summary>디버프 제거</summary>
+            public static SkillAction RemoveDebuffs(SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget,
+                SkillAreaShape area = SkillAreaShape.None, byte range = 0)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.RemoveDebuffs,
+                    TargetFilter = filter,
+                    AreaShape = area,
+                    AreaRange = range,
+                };
+            }
+
+            /// <summary>마커 추가</summary>
+            public static SkillAction AddMarker(SkillMarkerType marker)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.AddMarker,
+                    TargetFilter = SkillTargetFilter.PrimaryTarget,
+                    MarkerType = (byte)marker,
+                };
+            }
+
+            /// <summary>다단히트</summary>
+            public static SkillAction MultiHit(sbyte paramIndex = -1, byte hitCount = 3)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.MultiHit,
+                    TargetFilter = SkillTargetFilter.PrimaryTarget,
+                    ParamIndex = paramIndex,
+                    RepeatCount = hitCount,
+                };
+            }
+
+            /// <summary>Homing 투사체 스폰</summary>
+            public static SkillAction SpawnProjectile(sbyte paramIndex = -1,
+                sbyte vfxIndex = -1, short travelFrames = 30)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.SpawnProjectile,
+                    TargetFilter = SkillTargetFilter.PrimaryTarget,
+                    ParamIndex = paramIndex,
+                    VfxIndex = vfxIndex,
+                    RepeatIntervalFrames = travelFrames,
+                };
+            }
+
+            /// <summary>Linear 투사체 스폰</summary>
+            public static SkillAction SpawnLinearProjectile(sbyte paramIndex = -1,
+                byte length = 4, short moveInterval = 3, byte width = 1)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.SpawnLinearProjectile,
+                    TargetFilter = SkillTargetFilter.PrimaryTarget,
+                    ParamIndex = paramIndex,
+                    AreaRange = length,
+                    RepeatIntervalFrames = moveInterval,
+                    RepeatCount = width,
+                };
+            }
+
+            /// <summary>즉시 영구 스탯 변경</summary>
+            public static SkillAction ModifyStat(SkillTargetFilter filter = SkillTargetFilter.Self,
+                sbyte paramIndex = -1)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.ModifyStat,
+                    TargetFilter = filter,
+                    ParamIndex = paramIndex,
+                };
+            }
+
+            /// <summary>범위 데미지 + 중심→바깥 넉백 (메이)</summary>
+            public static SkillAction DamageKnockback(SkillAreaShape area, byte range,
+                sbyte paramIndex = -1)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.DamageKnockbackInArea,
+                    TargetFilter = SkillTargetFilter.EnemiesInArea,
+                    AreaShape = area,
+                    AreaRange = range,
+                    ParamIndex = paramIndex,
+                };
+            }
+
+            /// <summary>순차 직선 타격 (보스탱커)</summary>
+            public static SkillAction SequentialLine(sbyte paramIndex, byte lineLength,
+                short intervalMs, byte repeatCount)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.SequentialLineDamage,
+                    TargetFilter = SkillTargetFilter.EnemiesInArea,
+                    AreaRange = lineLength,
+                    ParamIndex = paramIndex,
+                    RepeatCount = repeatCount,
+                    RepeatIntervalMs = intervalMs,
+                };
+            }
+
+            /// <summary>VFX만 스폰 (효과 없음)</summary>
+            public static SkillAction Vfx(sbyte vfxIndex, SkillVfxPlacement at)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.None,
+                    VfxIndex = vfxIndex,
+                    VfxAt = at,
+                };
+            }
+
+            /// <summary>범위 VFX (AreaEffect 또는 PerTileInDiamond)</summary>
+            public static SkillAction AreaVfx(SkillVfxPlacement at, byte range,
+                sbyte vfxIndex = -1, SkillActionCondition condition = SkillActionCondition.Always)
+            {
+                return new SkillAction
+                {
+                    Effect = SkillEffectType.None,
+                    VfxIndex = vfxIndex,
+                    VfxAt = at,
+                    AreaRange = range,
+                    Condition = condition,
+                };
+            }
+
+            /// <summary>OnTick용: 반복 설정을 액션에 적용</summary>
+            public static SkillAction WithRepeat(SkillAction action, byte count = 0,
+                short intervalFrames = 0, short intervalMs = 0, bool dynamicFromClip = false)
+            {
+                action.RepeatCount = count;
+                action.RepeatIntervalFrames = intervalFrames;
+                action.RepeatIntervalMs = intervalMs;
+                action.DynamicFromClip = dynamicFromClip;
+                return action;
+            }
         }
     }
 }

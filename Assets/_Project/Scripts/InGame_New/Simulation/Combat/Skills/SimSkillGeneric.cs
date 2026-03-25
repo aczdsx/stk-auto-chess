@@ -26,7 +26,13 @@ namespace CookApps.AutoChess
 
         // ── 캐시 ──
         private int _cachedTargetId;
+
+        // ── SkillParams 오버라이드 (Recipe 불변 유지, 컨텍스트로 전달) ──
         private int _ccDurationFramesOverride;
+        private CrowdControlType _ccTypeOverride;
+        private int _areaRangeOverride;
+        private int _targetCountOverride;
+        private int _hitCountOverride;
 
         public override SkillExecutionType ExecutionType => _recipe.ExecutionType;
         public override bool HasProjectile => _recipe.HasProjectile;
@@ -64,46 +70,20 @@ namespace CookApps.AutoChess
                     PowerPercent = _paramValues[0];
             }
 
-            // SkillParams의 Param0~3, HitCount 등을 Recipe Actions에 오버라이드
-            // 아키타입 스킬에서 SkillSpecAdapter가 설정한 값을 Recipe에 반영
-            ApplyParamOverrides(baseParams);
+            // SkillParams의 오버라이드 값을 인스턴스에 저장 (Recipe 불변 유지)
+            StoreParamOverrides(baseParams);
         }
 
         /// <summary>
-        /// SkillParams의 Param0~3 값을 Recipe Actions의 AreaRange/RepeatCount 등에 반영.
-        /// 아키타입 스킬의 SkillSpecAdapter 기본값을 Recipe가 사용할 수 있게 함.
+        /// SkillParams의 Param0~3 값을 인스턴스 필드에 저장.
+        /// Recipe를 변경하지 않고, MakeContext에서 SkillExecuteContext에 전달.
         /// </summary>
-        private void ApplyParamOverrides(SkillParams p)
+        private void StoreParamOverrides(SkillParams p)
         {
-            if (_recipe?.Actions == null) return;
-
-            for (int i = 0; i < _recipe.Actions.Length; i++)
-            {
-                ref var action = ref _recipe.Actions[i];
-
-                // AreaRange: Param0이 설정되어 있으면 오버라이드
-                if (action.AreaRange > 0 && p.Param0 > 0)
-                    action.AreaRange = (byte)p.Param0;
-
-                // MultiHit RepeatCount: HitCount가 설정되어 있으면 오버라이드
-                if (action.Effect == SkillEffectType.MultiHit && p.HitCount > 0)
-                    action.RepeatCount = (byte)p.HitCount;
-
-                // LowestHpAllies AreaRange: TargetCount가 설정되어 있으면 오버라이드
-                if (action.TargetFilter == SkillTargetFilter.LowestHpAllies && p.TargetCount > 0)
-                    action.AreaRange = (byte)p.TargetCount;
-
-                // CC: SkillParams에서 CCType/Duration이 설정되어 있으면 오버라이드
-                if (action.Effect == SkillEffectType.ApplyCC)
-                {
-                    if (p.CCType != CrowdControlType.None)
-                        action.CCType = p.CCType;
-                    if (p.CCDurationFrames > 0)
-                        action.SecondaryParamIndex = -2; // 특수값: CCDurationFrames 직접 사용
-                }
-            }
-
-            // CCDurationFrames를 직접 참조할 수 있도록 저장
+            _areaRangeOverride = p.Param0;
+            _targetCountOverride = p.TargetCount;
+            _hitCountOverride = p.HitCount;
+            _ccTypeOverride = p.CCType;
             _ccDurationFramesOverride = p.CCDurationFrames;
         }
 
@@ -313,6 +293,10 @@ namespace CookApps.AutoChess
                 ParamValues = _paramValues,
                 BasePowerPercent = PowerPercent,
                 CCDurationOverride = _ccDurationFramesOverride,
+                CCTypeOverride = _ccTypeOverride,
+                AreaRangeOverride = _areaRangeOverride,
+                TargetCountOverride = _targetCountOverride,
+                HitCountOverride = _hitCountOverride,
                 TickCount = _tickCount,
             };
         }
@@ -323,7 +307,7 @@ namespace CookApps.AutoChess
             for (int i = 0; i < _recipe.Actions.Length; i++)
             {
                 if (_recipe.Actions[i].AreaRange > 0)
-                    return _recipe.Actions[i].AreaRange;
+                    return _areaRangeOverride > 0 ? _areaRangeOverride : _recipe.Actions[i].AreaRange;
             }
             return 1;
         }
