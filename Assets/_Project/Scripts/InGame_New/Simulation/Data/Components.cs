@@ -597,6 +597,7 @@ namespace CookApps.AutoChess
         public CrowdControlType ActiveCC;
         public int CCRemainingFrames;
         public byte CCImmuneCharges;    // 직업 패시브: CC 면역 횟수 (Striker)
+        public bool IsHealer;              // 직업 패시브: Oracle 평타 힐러 (타겟팅/AI 분기용)
         public byte ProjectileVfxOverride; // 투사체 VFX 오버라이드 (0=기본, 1+=View 프리팹 인덱스, 1회 소비)
 
         // 스킬

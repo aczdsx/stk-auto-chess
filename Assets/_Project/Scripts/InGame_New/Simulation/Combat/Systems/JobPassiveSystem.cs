@@ -1,3 +1,5 @@
+using CookApps.AutoBattler;
+
 namespace CookApps.AutoChess
 {
     /// <summary>
@@ -6,13 +8,6 @@ namespace CookApps.AutoChess
     /// </summary>
     public static class JobPassiveSystem
     {
-        // CharacterPositionType 값 (SpecEnums.cs 참조)
-        private const byte PosGuardian = 1;
-        private const byte PosEsper = 7;
-        private const byte PosSharpshooter = 8;
-        private const byte PosGhost = 9;
-        private const byte PosStriker = 12;
-
         /// <summary>
         /// 매치 내 모든 유닛에 직업 패시브 Trait 부착.
         /// CombatSetupSystem.SetupMatch / SetupPvEMatch 직후에 호출.
@@ -27,27 +22,26 @@ namespace CookApps.AutoChess
                 ref var unit = ref state.Units[i];
                 if (!unit.IsAlive) continue;
 
-                // ChampionSpec에서 PositionType과 파라미터 조회
                 var spec = FindSpec(world, unit.ChampionSpecId);
                 if (spec.PositionType == 0) continue;
 
-                AttachJobPassive(state, i, spec.PositionType, spec.JobPassiveParam0, spec.JobPassiveParam1,
-                    world.TickRate);
+                AttachJobPassive(state, i, (CharacterPositionType)spec.PositionType,
+                    spec.JobPassiveParam0, spec.JobPassiveParam1, world.TickRate);
             }
         }
 
         private static void AttachJobPassive(CombatMatchState state, int unitIndex,
-            byte positionType, int param0, int param1, int tickRate)
+            CharacterPositionType positionType, int param0, int param1, int tickRate)
         {
             switch (positionType)
             {
-                case PosSharpshooter:
+                case CharacterPositionType.SHARPSHOOTER:
                     // param0 = 확률 (정수 퍼센트)
                     if (param0 > 0)
                         TraitSystem.AddTrait(state, unitIndex, new SharpshooterPierceTrait(param0));
                     break;
 
-                case PosGhost:
+                case CharacterPositionType.GHOST:
                     // 백라인 점프 (시너지와 무관하게 고유)
                     state.Units[unitIndex].HasBacklineJump = true;
                     // param0 = N타마다 확정 크리 (정수, ×100 되어있으므로 /100)
@@ -56,14 +50,14 @@ namespace CookApps.AutoChess
                         TraitSystem.AddTrait(state, unitIndex, new GhostCritStackTrait(maxStack));
                     break;
 
-                case PosStriker:
+                case CharacterPositionType.STRIKER:
                     // param0 = 쿨타임 (초 × 100 → 프레임 변환)
                     int cooldownFrames = param0 * tickRate / 100;
                     if (cooldownFrames > 0)
                         TraitSystem.AddTrait(state, unitIndex, new StrikerCCImmuneTrait(cooldownFrames));
                     break;
 
-                case PosGuardian:
+                case CharacterPositionType.GUARDIAN:
                     // param0 = 쿨타임 (초 × 100 → 프레임 변환), param1 = 충전 횟수 (×100이므로 /100, 기본 3)
                     int guardCooldown = param0 * tickRate / 100;
                     int charges = param1 > 0 ? param1 / 100 : 3;
@@ -71,7 +65,14 @@ namespace CookApps.AutoChess
                         TraitSystem.AddTrait(state, unitIndex, new GuardianEndureTrait(guardCooldown, charges));
                     break;
 
-                case PosEsper:
+                case CharacterPositionType.ORACLE:
+                    // param0 = 회복 비율 (정수 퍼센트)
+                    state.Units[unitIndex].IsHealer = true;
+                    if (param0 > 0)
+                        TraitSystem.AddTrait(state, unitIndex, new OracleHealerTrait(param0));
+                    break;
+
+                case CharacterPositionType.ESPER:
                     // param0 = 확률 (정수 퍼센트), param1 = 데미지 퍼센트
                     int dmgPercent = param1 > 0 ? param1 : 100;
                     if (param0 > 0)

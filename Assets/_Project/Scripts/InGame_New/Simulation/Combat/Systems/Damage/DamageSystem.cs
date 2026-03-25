@@ -223,6 +223,20 @@ namespace CookApps.AutoChess
             state.EventQueue?.PushUnitHealed(attacker.CombatId, heal);
         }
 
+        /// <summary>투사체 비행 프레임 계산 (풋프린트 기반 맨해튼 거리, ~0.125초/타일)</summary>
+        public static int CalcProjectileTravelFrames(ref CombatUnit source, ref CombatUnit target, int tickRate)
+        {
+            int dist = BoardHelper.MinManhattanDistance(
+                source.GridCol, source.GridRow,
+                source.SizeW > 0 ? source.SizeW : (byte)1,
+                source.SizeH > 0 ? source.SizeH : (byte)1,
+                target.GridCol, target.GridRow,
+                target.SizeW > 0 ? target.SizeW : (byte)1,
+                target.SizeH > 0 ? target.SizeH : (byte)1);
+            int frames = dist * tickRate / 8;
+            return frames < 1 ? 1 : frames;
+        }
+
         /// <summary>마나 충전 (공격자: 공격 시, 피격자: 피격 시)</summary>
         public static void ChargeMana(ref CombatUnit unit, int amount)
         {

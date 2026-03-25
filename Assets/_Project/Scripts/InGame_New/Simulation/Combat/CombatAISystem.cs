@@ -221,8 +221,9 @@ namespace CookApps.AutoChess
 
                 if (unit.AttackCooldown <= 0)
                 {
-                    // 회피 판정 (명중률 - 회피율)
-                    if (DamageSystem.TryDodge(ref unit, ref target, ref rng))
+                    // 회피 판정 (힐러가 아군 타겟일 때 스킵)
+                    bool isHealingAlly = unit.IsHealer && target.TeamIndex == unit.TeamIndex;
+                    if (!isHealingAlly && DamageSystem.TryDodge(ref unit, ref target, ref rng))
                     {
                         // 회피 성공: 데미지 없이 쿨다운만 재설정
                         if (CombatLogger.Enabled) CombatLogger.LogDodge(unit.CombatId, target.CombatId);
@@ -236,8 +237,8 @@ namespace CookApps.AutoChess
                         if (unit.AttackRange <= 1 && !unit.HasAreaAttack)
                         {
                             // 근접: ATK 키프레임까지 데미지 지연
-                            // 크리티컬 선행 판정 (애니메이션 결정용 — ATK/ATK2/CRIT)
-                            bool willCrit = rng.Chance(unit.CritRate);
+                            // 크리티컬 선행 판정 (힐은 크리 불가)
+                            bool willCrit = isHealingAlly ? false : rng.Chance(unit.CritRate);
                             unit.PendingAtkTargetId = target.CombatId;
                             unit.PendingAtkTimer = unit.AtkHitDelay;
                             unit.PendingAtkIsCrit = willCrit;
