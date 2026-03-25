@@ -90,6 +90,7 @@ namespace CookApps.AutoChess.View
                 case CombatVfxType.DOTImmunity:
                 case CombatVfxType.DebuffImmunity:
                 case CombatVfxType.Shield:
+                case CombatVfxType.BasicAttackShield:
                     return true;
                 default:
                     return false;
@@ -188,6 +189,8 @@ namespace CookApps.AutoChess.View
             {
                 var t = types[i];
                 if (t == CombatVfxType.None) continue;
+                // 직업 패시브는 JobPassiveVfxConfigSO에서 관리
+                if (IsJobPassive(t)) continue;
 
                 // StatBuff/StatDebuff는 StatModType 전체를 순회하며 엔트리 복수 생성
                 if (t == CombatVfxType.StatBuff || t == CombatVfxType.StatDebuff)
@@ -224,6 +227,25 @@ namespace CookApps.AutoChess.View
 
             UnityEditor.EditorUtility.SetDirty(this);
             Debug.Log($"[CombatVfxConfig] 버프 {buffs.Count} / 디버프 {debuffs.Count} / CC {ccs.Count} 엔트리 생성 (VFX 매핑: {mapped}개)");
+        }
+
+        /// <summary>직업 패시브 VFX인지 판별 (JobPassiveVfxConfigSO에서 관리하므로 여기서 스킵)</summary>
+        private static bool IsJobPassive(CombatVfxType type)
+        {
+            switch (type)
+            {
+                case CombatVfxType.JobSharpshooter:
+                case CombatVfxType.JobGhost:
+                case CombatVfxType.BasicAttackShield:
+                case CombatVfxType.JobStriker:
+                case CombatVfxType.JobStrikerBlock:
+                case CombatVfxType.JobEsper:
+                case CombatVfxType.JobGhostJumpStart:
+                case CombatVfxType.JobGhostJumpEnd:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         /// <summary>KnownVfxMap에서 VFX 프리팹을 찾아 엔트리에 적용</summary>

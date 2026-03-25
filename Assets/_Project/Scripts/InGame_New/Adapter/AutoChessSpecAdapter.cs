@@ -76,6 +76,9 @@ namespace CookApps.AutoChess
                     BaseAdReduce = ReduceToIntPercent(c.ad_reduce),
                     BaseHealPower = (int)(c.heal_power * 100),
                     BaseImmuneType = (int)c.immune_type,
+                    PositionType = (byte)c.character_position_type,
+                    JobPassiveParam0 = GetJobPassiveParam0(c.character_position_type),
+                    JobPassiveParam1 = GetJobPassiveParam1(c.character_position_type),
 
                     // 크기 (기본 1x1, 추후 스펙 데이터에 크기 필드 추가 시 매핑)
                     SizeW = 1,
@@ -126,6 +129,26 @@ namespace CookApps.AutoChess
             if (idx >= 0 && idx < config.GradeCostMap.Length)
                 return config.GradeCostMap[idx];
             return 1;
+        }
+
+        // ── 직업 패시브 파라미터 추출 ──
+
+        /// <summary>직업 패시브 주 계수 (passive_rate → 정수 퍼센트 또는 프레임)</summary>
+        private static int GetJobPassiveParam0(CharacterPositionType positionType)
+        {
+            var passiveList = SpecDataManager.Instance?.GetJobPassiveList(positionType);
+            if (passiveList == null || passiveList.Count == 0) return 0;
+            var data = passiveList[0][0]; // grade 0
+            return (int)(data.passive_rate * 100); // float 확률 → 정수 퍼센트
+        }
+
+        /// <summary>직업 패시브 부 계수 (passive_rate_2 → 정수 퍼센트 또는 프레임)</summary>
+        private static int GetJobPassiveParam1(CharacterPositionType positionType)
+        {
+            var passiveList = SpecDataManager.Instance?.GetJobPassiveList(positionType);
+            if (passiveList == null || passiveList.Count == 0) return 0;
+            var data = passiveList[0][0]; // grade 0
+            return (int)(data.passive_rate_2 * 100);
         }
 
         // ── 시너지 스펙 변환 ──

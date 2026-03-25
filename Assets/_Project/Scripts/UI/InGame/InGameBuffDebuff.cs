@@ -60,42 +60,8 @@ namespace CookApps.AutoBattler
             _buffStackData.duration = duration;
             _buffStackData.elapsedTime = elapsedTime;
 
-            var sprite = SpriteNameParser.GetBuffDebuffSprite(spriteName);
-            _baseSpriteLoader.SetSprite(sprite).Forget();
-            _elapsedCheckSpriteLoader.SetSprite(sprite).Forget();
-            _elapsedCheckMask.alphaCutoff = 1.0f;
-
-            if (stackCount > 1)
-            {
-                _buffSubText.gameObject.SetActive(true);
-                if (_lastStackCount != stackCount)
-                {
-                    _lastStackCount = stackCount;
-                    _buffSubText.text = stackCount.ToString();
-                }
-            }
-            else
-            {
-                _lastStackCount = -1;
-                _buffSubText.gameObject.SetActive(false);
-            }
-        }
-
-        public void Set(Sprite iconSprite, float duration, float elapsedTime, int stackCount = 1)
-        {
-            gameObject.SetActive(true);
-            IsWorking = true;
-            _buffStackData ??= new BuffStackData();
-            _buffStackData.duration = duration;
-            _buffStackData.elapsedTime = elapsedTime;
-
-            // SpriteLoader의 이전 비동기 로드를 취소하고, 직접 스프라이트 설정
-            _baseSpriteLoader.UnloadSprite();
-            _elapsedCheckSpriteLoader.UnloadSprite();
-            _baseSprite.sprite = iconSprite;
-            _baseSprite.enabled = true;
-            _elapsedCheckSprite.sprite = iconSprite;
-            _elapsedCheckSprite.enabled = true;
+            _baseSpriteLoader.SetSprite(spriteName).Forget();
+            _elapsedCheckSpriteLoader.SetSprite(spriteName).Forget();
             _elapsedCheckMask.alphaCutoff = 1.0f;
 
             if (stackCount > 1)

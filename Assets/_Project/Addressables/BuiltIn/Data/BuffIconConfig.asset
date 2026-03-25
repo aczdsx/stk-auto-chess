@@ -21,169 +21,188 @@ MonoBehaviour:
   _buffIcons:
   - EffectType: 1
     StatType: 1
-    IconSprite: {fileID: 21300000, guid: a33d0db38121a384b9e86a4e7e1b47f1, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_ATK_UP
   - EffectType: 1
     StatType: 2
-    IconSprite: {fileID: 21300000, guid: 7404d226a86f7194eb09bb92e4ce8fb8, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_DEF_UP
   - EffectType: 1
     StatType: 3
-    IconSprite: {fileID: 21300000, guid: c24bec462f1bdae4b9a88b1677b7fcc2, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_ATK_SPEED_UP
   - EffectType: 1
     StatType: 11
-    IconSprite: {fileID: 21300000, guid: 01eb3867ae3d0ba40b10cae3b3d4234e, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_REDUCE_UP
   - EffectType: 1
     StatType: 12
-    IconSprite: {fileID: 21300000, guid: 01eb3867ae3d0ba40b10cae3b3d4234e, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_REDUCE_UP
   - EffectType: 1
     StatType: 7
-    IconSprite: {fileID: 21300000, guid: 79bb606641d3111408fe3b7778776e8b, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_PIERCE_UP
   - EffectType: 1
     StatType: 8
-    IconSprite: {fileID: 21300000, guid: 79bb606641d3111408fe3b7778776e8b, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_PIERCE_UP
   - EffectType: 1
     StatType: 13
-    IconSprite: {fileID: 21300000, guid: 94555ff801bdf4547a6245dbf20d38aa, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_HP_RECOVERY_UP
   - EffectType: 1
     StatType: 9
-    IconSprite: {fileID: 21300000, guid: 7f4034f845c386a43867a3f6a8fa0484, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_CRIT_UP
   - EffectType: 1
     StatType: 10
-    IconSprite: {fileID: 21300000, guid: ec5d662ae6b16a14888be78b7fcf57b2, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_CRI_POWER_UP
   - EffectType: 1
     StatType: 6
-    IconSprite: {fileID: 21300000, guid: d2db2457ad6ae204dbd3ead684b06508, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_AVOID_UP
   - EffectType: 1
     StatType: 14
-    IconSprite: {fileID: 21300000, guid: 315f81160cb2b0f45bb19716b2db03b8, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_LIFE_STEAL_UP
   - EffectType: 1
     StatType: 16
-    IconSprite: {fileID: 21300000, guid: f432eb5767b7f14419149bfcc1a28a86, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_MAX_HP_UP
   - EffectType: 1
     StatType: 17
-    IconSprite: {fileID: 21300000, guid: 7fce63cde5b772a4bbff2f264ff96b74, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_MOVE_SPEED_UP
   - EffectType: 5
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: d07488060656fc5488ad590cc22a3497, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_HOT_UP
   - EffectType: 31
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: b6406ecb22de3db42a3a42d5b46713d1, type: 3}
+    SpriteName: BuffDebuffIcon_SHIELD
+  - EffectType: 42
+    StatType: 0
+    SpriteName: BuffDebuffIcon_BUFF_NORMAL_ATTACK_SHIELD
   - EffectType: 6
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: 1ea6c9351171b0b4a9361cb5d2318a72, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_IMMUNE
   - EffectType: 7
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: 1ea6c9351171b0b4a9361cb5d2318a72, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_IMMUNE
   - EffectType: 8
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: 1ea6c9351171b0b4a9361cb5d2318a72, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_IMMUNE
   _debuffIcons:
   - EffectType: 9
     StatType: 1
-    IconSprite: {fileID: 21300000, guid: 322436611d65b694bacc42fe95f94dd9, type: 3}
+    SpriteName: BuffDebuffIcon_DEBUFF_ATK_DOWN
   - EffectType: 9
     StatType: 2
-    IconSprite: {fileID: 21300000, guid: 5f0b8837d65b1d546a10be0df2c17455, type: 3}
+    SpriteName: BuffDebuffIcon_DEBUFF_DEF_DOWN
   - EffectType: 9
     StatType: 3
-    IconSprite: {fileID: 21300000, guid: 7827879d02b310c4586e562d2732af25, type: 3}
+    SpriteName: BuffDebuffIcon_DEBUFF_ATK_SPEED_DOWN
   - EffectType: 9
     StatType: 11
-    IconSprite: {fileID: 21300000, guid: cbc5cc4d145e147468ffcdb260d63626, type: 3}
+    SpriteName: BuffDebuffIcon_DEBUFF_REDUCE_DOWN
   - EffectType: 9
     StatType: 12
-    IconSprite: {fileID: 21300000, guid: cbc5cc4d145e147468ffcdb260d63626, type: 3}
+    SpriteName: BuffDebuffIcon_DEBUFF_REDUCE_DOWN
   - EffectType: 9
     StatType: 7
-    IconSprite: {fileID: 21300000, guid: 7c422dd9cbe0a4348bb8c861e5da3689, type: 3}
+    SpriteName: BuffDebuffIcon_DEBUFF_PIERCE_DOWN
   - EffectType: 9
     StatType: 8
-    IconSprite: {fileID: 21300000, guid: 7c422dd9cbe0a4348bb8c861e5da3689, type: 3}
+    SpriteName: BuffDebuffIcon_DEBUFF_PIERCE_DOWN
   - EffectType: 9
     StatType: 9
-    IconSprite: {fileID: 21300000, guid: e39d88b36fbb8d447a1b8b6b0187f498, type: 3}
+    SpriteName: BuffDebuffIcon_DEBUFF_CRIT_DOWN
   - EffectType: 9
     StatType: 10
-    IconSprite: {fileID: 21300000, guid: 6bc84c561af04d84d99ab4db62850c13, type: 3}
+    SpriteName: BuffDebuffIcon_DEBUFF_CRI_POWER_DOWN
   - EffectType: 9
     StatType: 15
-    IconSprite: {fileID: 21300000, guid: 815b84c2e2909f84691379a27c4e3a63, type: 3}
+    SpriteName: BuffDebuffIcon_DEBUFF_HIT_DOWN
   - EffectType: 13
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: 7a81fbd9252f3574e9c966d856d41d28, type: 3}
+    SpriteName: BuffDebuffIcon_DEBUFF_POISON
   - EffectType: 30
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: a96f81d8603618c44bdcf3cdeadb191a, type: 3}
+    SpriteName: BuffDebuffIcon_DEBUFF_HP_RECOVERY_DOWN
   _ccIcons:
   - EffectType: 14
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: c08c1569e3dbe8f478279c89061e05a7, type: 3}
+    SpriteName: BuffDebuffIcon_CC_STUN
   - EffectType: 15
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: 7503297469637b54985200dd6a47fb50, type: 3}
+    SpriteName: BuffDebuffIcon_CC_SLIENCE
   - EffectType: 16
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: 04ac399d2b88e06478182a54718292f4, type: 3}
+    SpriteName: BuffDebuffIcon_DEBUFF_MOVE_DOWN
   - EffectType: 17
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: ef4130b806fc16b449e32e6f9c5da521, type: 3}
+    SpriteName: BuffDebuffIcon_CC_FREEZ
   - EffectType: 18
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: d83ac39f080700a4d89ac5f4d3edef6a, type: 3}
+    SpriteName: BuffDebuffIcon_CC_TARGET_IMPOSSIBLE
   - EffectType: 19
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: 60c4f08b5bcfbed4c88cb508e91ece15, type: 3}
+    SpriteName: BuffDebuffIcon_CC_AIRBORNE
   - EffectType: 20
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: b77b6a8c284fe404599987a25f6ed607, type: 3}
+    SpriteName: BuffDebuffIcon_CC_KNOCKBACK
   - EffectType: 21
     StatType: 0
-    IconSprite: {fileID: 21300000, guid: d83ac39f080700a4d89ac5f4d3edef6a, type: 3}
+    SpriteName: BuffDebuffIcon_CC_TARGET_IMPOSSIBLE
   _skillMarkerIcons:
   - MarkerType: 1
-    IconSprite: {fileID: 21300000, guid: 9e2dea37ff6dd0c468edf60ebfcc8b83, type: 3}
+    SpriteName: 
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 2
-    IconSprite: {fileID: 21300000, guid: 82240f2cd388a3b40be5581f64e138fb, type: 3}
+    SpriteName: 
     ReplacesEffect: 14
     ReplacesStatType: 0
   - MarkerType: 3
-    IconSprite: {fileID: 21300000, guid: e53b5890132468e4da4e09de00495bcd, type: 3}
+    SpriteName: 
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 4
-    IconSprite: {fileID: 21300000, guid: 4b6304579590fe147aa4a9f76eca6c4a, type: 3}
+    SpriteName: 
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 0
-    IconSprite: {fileID: 21300000, guid: f271aaaa96ae93a47a7a264369f565f7, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_SPECIAL_ADRIA_PASSIVE_TEAM_HELP
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 0
-    IconSprite: {fileID: 21300000, guid: 8f59092061a43364ea441f8332446efd, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_SPECIAL_APRIL_STANDER
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 0
-    IconSprite: {fileID: 21300000, guid: 9071d4dfc31c89a43b42e1e89a2b92cc, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_SPECIAL_BLIN_HEAT
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 0
-    IconSprite: {fileID: 21300000, guid: f26fe8c975a136c43b6bddd6286b2169, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_SPECIAL_ENKI_PASSIVE_HEALUP
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 0
-    IconSprite: {fileID: 21300000, guid: 608641e41b9eb764dbb2371b8d4c533d, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_SPECIAL_MEDITATION
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 0
-    IconSprite: {fileID: 21300000, guid: faafeea34ead632499dbfb37c4ca8999, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_SPECIAL_NO_DAMAGE_SHIELD
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 0
-    IconSprite: {fileID: 21300000, guid: b7b7c5ca0daaa634292f8c8ddcce764d, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_SPECIAL_RUKIDA_FOXFIRE
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 0
-    IconSprite: {fileID: 21300000, guid: 13b2f55f890c8c04daa5d4eff322dce2, type: 3}
+    SpriteName: BuffDebuffIcon_BUFF_SPECIAL_SHIRAYUKI_AVOID_AND_ATTACK
+    ReplacesEffect: 0
+    ReplacesStatType: 0
+  - MarkerType: 0
+    SpriteName: BuffDebuffIcon_BUFF_SPECIAL_TETORRA_ANGER
+    ReplacesEffect: 0
+    ReplacesStatType: 0
+  - MarkerType: 0
+    SpriteName: BuffDebuffIcon_CC_MISA_RESTRAINT
+    ReplacesEffect: 0
+    ReplacesStatType: 0
+  - MarkerType: 0
+    SpriteName: BuffDebuffIcon_DEBUFF_SPECIAL_MARIE_ARACNE
+    ReplacesEffect: 0
+    ReplacesStatType: 0
+  - MarkerType: 0
+    SpriteName: BuffDebuffIcon_DEBUFF_SPECIAL_ODETTE_COLD
     ReplacesEffect: 0
     ReplacesStatType: 0

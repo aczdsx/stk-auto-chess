@@ -55,10 +55,21 @@ namespace CookApps.AutoChess
             if (!target.IsAlive) return;
             if (target.State == CombatState.Dead) return;
 
-            // CC 면역 체크
+            // CC 면역 체크 (StatusEffect 기반)
             int idx = state.FindUnitIndex(target.CombatId);
             if (idx >= 0 && StatusEffectSystem.HasImmunity(state, idx, StatusEffectType.CCImmunity))
                 return;
+
+            // CC 면역 체크 (직업 패시브: CCImmuneCharges)
+            if (target.CCImmuneCharges > 0)
+            {
+                target.CCImmuneCharges--;
+                if (CombatLogger.Enabled) CombatLogger.LogCC(target.CombatId, type, 0); // 0 = 면역으로 무시됨
+                // Striker 전용 VFX: 면역 버프 제거 + CC 방어 이펙트
+                state.EventQueue?.PushStatusEffectRemoved(target.CombatId, CombatVfxType.JobStriker);
+                state.EventQueue?.PushStatusEffectAdded(target.CombatId, CombatVfxType.JobStrikerBlock);
+                return;
+            }
 
             // ── 비행동불능 CC → StatusEffect 디버프 ──
             if (!IsImmobilizing(type))

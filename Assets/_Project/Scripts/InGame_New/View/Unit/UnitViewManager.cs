@@ -197,6 +197,10 @@ namespace CookApps.AutoChess.View
 
                     Vector3 fromPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.MoveFromCol, unit.MoveFromRow) + centerOffset;
                     worldPos = Vector3.Lerp(fromPos, destPos, progress);
+
+                    // 백라인 점프: 포물선 높이
+                    if (unit.IsBacklineJumping)
+                        worldPos.y += Mathf.Sin(progress * Mathf.PI) * 1.5f;
                 }
                 else
                 {
