@@ -143,19 +143,19 @@ MonoBehaviour:
     SpriteName: BuffDebuffIcon_CC_TARGET_IMPOSSIBLE
   _skillMarkerIcons:
   - MarkerType: 1
-    SpriteName: 
+    SpriteName: BuffDebuffIcon_BUFF_SPECIAL_RUKIDA_FOXFIRE
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 2
-    SpriteName: 
+    SpriteName: BuffDebuffIcon_DEBUFF_MISA
     ReplacesEffect: 14
     ReplacesStatType: 0
   - MarkerType: 3
-    SpriteName: 
+    SpriteName: BuffDebuffIcon_DEBUFF_SPECIAL_MARIE_ARACNE
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 4
-    SpriteName: 
+    SpriteName: BuffDebuffIcon_DEBUFF_SPECIAL_ODETTE_COLD
     ReplacesEffect: 0
     ReplacesStatType: 0
   - MarkerType: 0
@@ -196,13 +196,5 @@ MonoBehaviour:
     ReplacesStatType: 0
   - MarkerType: 0
     SpriteName: BuffDebuffIcon_CC_MISA_RESTRAINT
-    ReplacesEffect: 0
-    ReplacesStatType: 0
-  - MarkerType: 0
-    SpriteName: BuffDebuffIcon_DEBUFF_SPECIAL_MARIE_ARACNE
-    ReplacesEffect: 0
-    ReplacesStatType: 0
-  - MarkerType: 0
-    SpriteName: BuffDebuffIcon_DEBUFF_SPECIAL_ODETTE_COLD
     ReplacesEffect: 0
     ReplacesStatType: 0
