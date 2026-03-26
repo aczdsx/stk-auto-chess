@@ -300,13 +300,25 @@ namespace CookApps.AutoChess
             _tickCount = 0;
 
             // Recipe에서 OnTick 액션을 찾아 틱 설정
+            // RepeatCount/DynamicFromClip/RepeatIntervalMs가 있는 액션 우선 (미노: Retarget보다 SpawnProjectile 우선)
             if (_recipe.Actions != null)
             {
+                int bestTickIdx = -1;
                 for (int i = 0; i < _recipe.Actions.Length; i++)
                 {
                     ref var action = ref _recipe.Actions[i];
                     if (action.Trigger != SkillTriggerType.OnTick) continue;
+                    if (bestTickIdx < 0) bestTickIdx = i; // 첫 번째 백업
+                    if (action.RepeatCount > 0 || action.DynamicFromClip || action.RepeatIntervalMs > 0)
+                    {
+                        bestTickIdx = i;
+                        break;
+                    }
+                }
 
+                if (bestTickIdx >= 0)
+                {
+                    ref var action = ref _recipe.Actions[bestTickIdx];
                     int interval;
                     if (action.RepeatIntervalMs > 0)
                         interval = (int)(action.RepeatIntervalMs * _worldTickRate / 1000f + 0.5f);
@@ -328,7 +340,6 @@ namespace CookApps.AutoChess
                         _remainingTicks = action.RepeatCount > 0
                             ? action.RepeatCount : 1;
                     }
-                    break;
                 }
             }
 
@@ -352,6 +363,7 @@ namespace CookApps.AutoChess
             {
                 _currentHitFrameIndex = 0;
                 _hitFrameTimer = SkillHitFrames[0];
+                _startDelay = 0; // multi-hitframe이 타이밍 관리 → _startDelay 이중 발동 방지
             }
         }
 
@@ -438,22 +450,37 @@ namespace CookApps.AutoChess
                     continue;
                 }
 
-                // ── Retarget: ctx.TargetCombatId 동기화 ──
+                // ── Retarget: _cachedTargetId 갱신 + ctx 재구성 ──
                 if (action.Effect == SkillEffectType.Retarget)
                 {
-                    ActionExecutor.Execute(ref action, ctx);
-                    _cachedTargetId = ctx.TargetCombatId;
+                    // struct 복사 문제 우회: Retarget 결과를 직접 추출
+                    var retargetCtx = ctx; // 복사본에서 실행
+                    ActionExecutor.Execute(ref action, retargetCtx);
+                    int newTarget = retargetCtx.TargetCombatId;
 
-                    // Retarget 실패 시 바운스 루프 종료
-                    if (ctx.TargetCombatId == CombatUnit.InvalidId && _bounceCount > 0)
+                    if (newTarget != CombatUnit.InvalidId)
                     {
+                        _cachedTargetId = newTarget;
+                        ctx.TargetCombatId = newTarget; // 이후 액션에 반영
+                    }
+                    else if (_bounceCount > 0)
+                    {
+                        // Retarget 실패 시 바운스 루프 종료
                         DispatchActions(SkillTriggerType.OnComplete, 0, ctx);
-                        _projectileArrivalTimer = 0; // 루프 중단
+                        _projectileArrivalTimer = 0;
                     }
                     continue;
                 }
 
                 ActionExecutor.Execute(ref action, ctx);
+
+                // 비투사체 Damage 실행 후 히트 추적 (시라유키 등 Retarget excludeHit 지원)
+                if (action.Effect == SkillEffectType.Damage &&
+                    action.TargetFilter == SkillTargetFilter.PrimaryTarget &&
+                    _hitIdCount < _hitIds.Length)
+                {
+                    _hitIds[_hitIdCount++] = ctx.TargetCombatId;
+                }
             }
         }
 
@@ -510,8 +537,14 @@ namespace CookApps.AutoChess
 
                 if (action.Effect == SkillEffectType.Retarget)
                 {
-                    ActionExecutor.Execute(ref action, ctx);
-                    _cachedTargetId = ctx.TargetCombatId;
+                    var retargetCtx = ctx;
+                    ActionExecutor.Execute(ref action, retargetCtx);
+                    int newTarget = retargetCtx.TargetCombatId;
+                    if (newTarget != CombatUnit.InvalidId)
+                    {
+                        _cachedTargetId = newTarget;
+                        ctx.TargetCombatId = newTarget;
+                    }
                     continue;
                 }
 

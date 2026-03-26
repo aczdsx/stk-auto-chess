@@ -100,6 +100,14 @@ namespace CookApps.AutoChess
         /// <summary>SkillMarkerType 값 (StatusEffect.SkillMarker의 하위 분류)</summary>
         public byte MarkerType;
 
+        // ── 투사체 확장 ──
+        /// <summary>SpawnProjectile: 베지어 곡선 사용 여부</summary>
+        public bool UseBezier;
+        /// <summary>SpawnProjectile: 도착 시 VFX 인덱스 (-1이면 없음)</summary>
+        public sbyte ArrivalVfxIndex;
+        /// <summary>AreaEffect VFX: 체비셰프(box) 범위 사용 여부 (false=맨해튼)</summary>
+        public bool IsBoxArea;
+
         // ── 체이닝 확장 ──
         /// <summary>Teleport: 전방 이동 거리 (0이면 타겟 뒤로)</summary>
         public byte TeleportDistance;

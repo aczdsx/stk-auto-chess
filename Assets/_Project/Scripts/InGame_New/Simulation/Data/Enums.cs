@@ -280,6 +280,24 @@ namespace CookApps.AutoChess
         OnProjectileArrive, // 투사체 도착 시
     }
 
+    /// <summary>
+    /// Recipe 빌더용 이벤트 트리거.
+    /// Execute1~4 = SKL 애니메이션 키프레임 이벤트 (SkillHitFrames[N] 타이밍).
+    /// Cast/Tick/Complete/KnockbackWall/ProjectileArrive = 런타임 이벤트.
+    /// </summary>
+    public enum SkillEvent : byte
+    {
+        Cast,               // 스킬 시전 시
+        Execute1,           // SKL 애니메이션 1번째 Execute 이벤트
+        Execute2,           // SKL 애니메이션 2번째 Execute 이벤트
+        Execute3,           // SKL 애니메이션 3번째 Execute 이벤트
+        Execute4,           // SKL 애니메이션 4번째 Execute 이벤트
+        Tick,               // 반복 틱마다
+        Complete,           // 채널링/스킬 종료 시
+        KnockbackWall,      // 넉백 벽 충돌 시
+        ProjectileArrive,   // 투사체 도착 시
+    }
+
     /// <summary>Recipe 액션 효과 타입</summary>
     public enum SkillEffectType : byte
     {
@@ -302,6 +320,7 @@ namespace CookApps.AutoChess
         Teleport,              // GridSystem으로 순간이동
         Retarget,              // TargetingSystem으로 타겟 재선택
         ApplyStatusEffect,     // StatusEffectSystem으로 상태이상 적용 (CC와 별도)
+        TileEffect,            // 타일 이펙트 발행 (PushSkillAreaEffect/PushSkillRectAreaEffect)
     }
 
     /// <summary>Recipe 액션 대상 필터</summary>
@@ -338,6 +357,7 @@ namespace CookApps.AutoChess
         AtCasterWithDir,
         AreaEffect,
         PerTileInDiamond,   // 맨해튼 범위 내 각 타일에 개별 VFX 스폰
+        RectAreaEffect,     // 방향 기반 직사각형 타일 이펙트 (오데트 ㄷ자형)
     }
 
     /// <summary>Recipe 조건부 실행</summary>

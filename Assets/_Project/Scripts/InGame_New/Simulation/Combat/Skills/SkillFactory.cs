@@ -119,23 +119,49 @@ namespace CookApps.AutoChess
                     });
                 }
             }
+
+            // Recipe는 있지만 _registry에 미등록된 스킬 fallback 등록
+            // (SpecData에 SkillActive 엔트리가 없는 경우 — Custom에서 전환된 스킬)
+            foreach (var kv in _recipes)
+            {
+                if (_registry.ContainsKey(kv.Key)) continue;
+
+                // 기본 SkillParams 생성 (InitializeFromSpec 경로 보장)
+                if (!_paramsCache.ContainsKey(kv.Key))
+                {
+                    var recipe = kv.Value;
+                    _paramsCache[kv.Key] = new SkillParams
+                    {
+                        SkillId = kv.Key,
+                        PowerPercent = 200,
+                        DamageType = DamageType.Physical,
+                        WorldTickRate = tickRate,
+                        TargetCount = 1,
+                        HitCount = 1,
+                        TargetType = recipe.TargetRule,
+                        FaceTarget = recipe.TargetRule != SkillTargetType.Self
+                            && recipe.TargetRule != SkillTargetType.LowestHPAlly,
+                    };
+                }
+
+                var captured = kv.Value;
+                Register(kv.Key, () =>
+                {
+                    var skill = new SimSkillGeneric();
+                    skill.SetRecipe(captured);
+                    return skill;
+                });
+            }
         }
 
         private static void RegisterCustomSkills()
         {
             // ── 커스텀 실행 로직이 필요한 스킬 (전용 클래스 유지) ──
             // Execute/OnChannelTick 로직이 복잡하여 SimSkillGeneric으로 대체 불가.
-            Register(217433302, () => new SimSkillMinoProjectile());  // 미노: 순차 미사일 + 개별 도착 타이머
-            Register(217363204, () => new SimSkillVeinBounce());      // 베인: 바운스 투사체 + 히트 추적
-            Register(217413301, () => new SimSkillTetoraKnockback()); // 테토라: 넉백 + 벽 충돌 + 착지 AoE
-            Register(217563405, () => new SimSkillMarieAssassin());   // 마리에: 텔레포트 + 순차 히트
             Register(217653505, () => new SimSkillEnkiWaveHeal());    // 엔키: 보드 스윕 투사체
             Register(217333202, () => new SimSkillAprilBarrage());    // 에이프릴: 확장 콘 + 거리별 배율
-            Register(217613501, () => new SimSkillOdetteStrike());    // 오데트: 2단계 텔레포트 + 다른 범위
             Register(217523403, () => new SimSkillAdriaExpand());     // 아드리아: 3단계 확장 + 비트마스크
-            Register(217663506, () => new SimSkillShirayukiAssassin()); // 시라유키: 순차 텔레포트 암살
             Register(217263103, () => new SimSkillRukidaFoxfire());   // 루키다: 마커 카운트 기반 동적 버프
-            Register(217353203, () => new SimSkillRakiyuDebuff());    // 라키유: 투사체 도착 후 범위 디버프
         }
 
         /// <summary>팩토리 등록 해제 (테스트/재시작용)</summary>
@@ -174,6 +200,8 @@ namespace CookApps.AutoChess
             private readonly List<ParamSlot> _params;
             private readonly List<SkillAction> _actions;
             private TraitTag _explicitTags;
+            private SkillTriggerType _currentTrigger;
+            private byte _currentHitFrameIndex;
 
             public SkillRecipeBuilder(Dictionary<int, SkillRecipe> target, int skillId,
                 SkillExecutionType execType, SkillTargetType targetRule)
@@ -184,6 +212,8 @@ namespace CookApps.AutoChess
                 _targetRule = targetRule;
                 _hasProjectile = false;
                 _explicitTags = TraitTag.None;
+                _currentTrigger = SkillTriggerType.OnCast;
+                _currentHitFrameIndex = 0;
                 _params = new List<ParamSlot>(4);
                 _actions = new List<SkillAction>(6);
             }
@@ -214,50 +244,76 @@ namespace CookApps.AutoChess
                 return this;
             }
 
-            // ── 액션 추가 (트리거별) ──
+            // ── 이벤트 트리거 + 액션 ──
 
-            public SkillRecipeBuilder OnCast(SkillAction action)
+            /// <summary>
+            /// 이벤트 트리거 설정. 이후 Do() 호출에 자동 적용.
+            /// Execute1~4 = SKL 애니메이션 키프레임 이벤트 (SkillHitFrames[N] 타이밍).
+            /// Cast/Tick/Complete = 런타임 이벤트.
+            /// KnockbackWall/ProjectileArrive = 조건부 이벤트.
+            /// </summary>
+            public SkillRecipeBuilder On(SkillEvent evt)
             {
-                action.Trigger = SkillTriggerType.OnCast;
+                switch (evt)
+                {
+                    case SkillEvent.Cast:
+                        _currentTrigger = SkillTriggerType.OnCast;
+                        _currentHitFrameIndex = 0;
+                        break;
+                    case SkillEvent.Execute1:
+                        _currentTrigger = SkillTriggerType.AtHitFrame;
+                        _currentHitFrameIndex = 0;
+                        break;
+                    case SkillEvent.Execute2:
+                        _currentTrigger = SkillTriggerType.AtHitFrame;
+                        _currentHitFrameIndex = 1;
+                        break;
+                    case SkillEvent.Execute3:
+                        _currentTrigger = SkillTriggerType.AtHitFrame;
+                        _currentHitFrameIndex = 2;
+                        break;
+                    case SkillEvent.Execute4:
+                        _currentTrigger = SkillTriggerType.AtHitFrame;
+                        _currentHitFrameIndex = 3;
+                        break;
+                    case SkillEvent.Tick:
+                        _currentTrigger = SkillTriggerType.OnTick;
+                        _currentHitFrameIndex = 0;
+                        break;
+                    case SkillEvent.Complete:
+                        _currentTrigger = SkillTriggerType.OnComplete;
+                        _currentHitFrameIndex = 0;
+                        break;
+                    case SkillEvent.KnockbackWall:
+                        _currentTrigger = SkillTriggerType.OnKnockbackWall;
+                        _currentHitFrameIndex = 0;
+                        break;
+                    case SkillEvent.ProjectileArrive:
+                        _currentTrigger = SkillTriggerType.OnProjectileArrive;
+                        _currentHitFrameIndex = 0;
+                        break;
+                }
+                return this;
+            }
+
+            /// <summary>현재 On() 이벤트에 액션 추가</summary>
+            public SkillRecipeBuilder Do(SkillAction action)
+            {
+                action.Trigger = _currentTrigger;
+                if (_currentTrigger == SkillTriggerType.AtHitFrame)
+                    action.HitFrameIndex = _currentHitFrameIndex;
                 _actions.Add(action);
                 return this;
             }
 
-            public SkillRecipeBuilder AtHit(SkillAction action, byte hitFrameIndex = 0)
-            {
-                action.Trigger = SkillTriggerType.AtHitFrame;
-                action.HitFrameIndex = hitFrameIndex;
-                _actions.Add(action);
-                return this;
-            }
+            // ── 하위 호환 (기존 코드 지원) ──
 
-            public SkillRecipeBuilder OnTick(SkillAction action)
-            {
-                action.Trigger = SkillTriggerType.OnTick;
-                _actions.Add(action);
-                return this;
-            }
-
-            public SkillRecipeBuilder OnComplete(SkillAction action)
-            {
-                action.Trigger = SkillTriggerType.OnComplete;
-                _actions.Add(action);
-                return this;
-            }
-
-            public SkillRecipeBuilder OnKnockbackWall(SkillAction action)
-            {
-                action.Trigger = SkillTriggerType.OnKnockbackWall;
-                _actions.Add(action);
-                return this;
-            }
-
-            public SkillRecipeBuilder OnProjectileArrive(SkillAction action)
-            {
-                action.Trigger = SkillTriggerType.OnProjectileArrive;
-                _actions.Add(action);
-                return this;
-            }
+            public SkillRecipeBuilder OnCast(SkillAction action) => On(SkillEvent.Cast).Do(action);
+            public SkillRecipeBuilder AtHit(SkillAction action) => On(SkillEvent.Execute1).Do(action);
+            public SkillRecipeBuilder OnTick(SkillAction action) => On(SkillEvent.Tick).Do(action);
+            public SkillRecipeBuilder OnComplete(SkillAction action) => On(SkillEvent.Complete).Do(action);
+            public SkillRecipeBuilder OnKnockbackWall(SkillAction action) => On(SkillEvent.KnockbackWall).Do(action);
+            public SkillRecipeBuilder OnProjectileArrive(SkillAction action) => On(SkillEvent.ProjectileArrive).Do(action);
 
             // ── 빌드 + 등록 ──
 
@@ -335,6 +391,10 @@ namespace CookApps.AutoChess
                 SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget, SkillAreaShape area = SkillAreaShape.None, byte range = 0)
                 => new SkillAction { Effect = SkillEffectType.ApplyDebuff, TargetFilter = filter, AreaShape = area, AreaRange = range, StatusEffect = statusEffect, ParamIndex = valueParamIndex, SecondaryParamIndex = durationParamIndex };
 
+            public static SkillAction Debuff(StatModType stat, sbyte valueParamIndex, sbyte durationParamIndex,
+                SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget, SkillAreaShape area = SkillAreaShape.None, byte range = 0)
+                => new SkillAction { Effect = SkillEffectType.ApplyDebuff, TargetFilter = filter, AreaShape = area, AreaRange = range, BuffStat = stat, ParamIndex = valueParamIndex, SecondaryParamIndex = durationParamIndex };
+
             public static SkillAction Shield(sbyte percentParamIndex, sbyte durationParamIndex, SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget)
                 => new SkillAction { Effect = SkillEffectType.Shield, TargetFilter = filter, ParamIndex = percentParamIndex, SecondaryParamIndex = durationParamIndex };
 
@@ -347,8 +407,11 @@ namespace CookApps.AutoChess
             public static SkillAction MultiHit(sbyte paramIndex = -1, byte hitCount = 3)
                 => new SkillAction { Effect = SkillEffectType.MultiHit, TargetFilter = SkillTargetFilter.PrimaryTarget, ParamIndex = paramIndex, RepeatCount = hitCount };
 
-            public static SkillAction SpawnProjectile(sbyte paramIndex = -1, sbyte vfxIndex = -1, short travelFrames = 30)
-                => new SkillAction { Effect = SkillEffectType.SpawnProjectile, TargetFilter = SkillTargetFilter.PrimaryTarget, ParamIndex = paramIndex, VfxIndex = vfxIndex, RepeatIntervalFrames = travelFrames };
+            public static SkillAction SpawnProjectile(sbyte paramIndex = -1, sbyte vfxIndex = -1, short travelFrames = 30,
+                bool useBezier = false, sbyte arrivalVfxIndex = -1)
+                => new SkillAction { Effect = SkillEffectType.SpawnProjectile, TargetFilter = SkillTargetFilter.PrimaryTarget,
+                    ParamIndex = paramIndex, VfxIndex = vfxIndex, RepeatIntervalFrames = travelFrames,
+                    UseBezier = useBezier, ArrivalVfxIndex = arrivalVfxIndex };
 
             public static SkillAction SpawnLinearProjectile(sbyte paramIndex = -1, byte length = 4, short moveInterval = 3, byte width = 1)
                 => new SkillAction { Effect = SkillEffectType.SpawnLinearProjectile, TargetFilter = SkillTargetFilter.PrimaryTarget, ParamIndex = paramIndex, AreaRange = length, RepeatIntervalFrames = moveInterval, RepeatCount = width };
@@ -365,8 +428,15 @@ namespace CookApps.AutoChess
             public static SkillAction Vfx(sbyte vfxIndex, SkillVfxPlacement at)
                 => new SkillAction { Effect = SkillEffectType.None, VfxIndex = vfxIndex, VfxAt = at };
 
-            public static SkillAction AreaVfx(SkillVfxPlacement at, byte range, sbyte vfxIndex = -1, SkillActionCondition condition = SkillActionCondition.Always)
-                => new SkillAction { Effect = SkillEffectType.None, VfxIndex = vfxIndex, VfxAt = at, AreaRange = range, Condition = condition };
+            public static SkillAction AreaVfx(SkillVfxPlacement at, byte range, sbyte vfxIndex = -1,
+                SkillActionCondition condition = SkillActionCondition.Always, bool isBox = false)
+                => new SkillAction { Effect = SkillEffectType.None, VfxIndex = vfxIndex, VfxAt = at, AreaRange = range, Condition = condition, IsBoxArea = isBox };
+
+            /// <summary>타일 이펙트 발행 (PushSkillAreaEffect/PushSkillRectAreaEffect).
+            /// at으로 위치 기준 지정: Self=시전자, PrimaryTarget=타겟.</summary>
+            public static SkillAction TileEffect(SkillAreaShape shape = SkillAreaShape.Circle, byte range = 1,
+                SkillTargetFilter at = SkillTargetFilter.Self, bool isBox = false, byte rectDepth = 0)
+                => new SkillAction { Effect = SkillEffectType.TileEffect, AreaShape = shape, AreaRange = range, TargetFilter = at, IsBoxArea = isBox, RectDepth = rectDepth };
 
             public static SkillAction WithRepeat(SkillAction action, byte count = 0, short intervalFrames = 0, short intervalMs = 0, bool dynamicFromClip = false)
             {

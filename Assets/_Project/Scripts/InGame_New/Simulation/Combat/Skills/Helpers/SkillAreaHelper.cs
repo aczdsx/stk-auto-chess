@@ -59,6 +59,12 @@ namespace CookApps.AutoChess
                     if (dr < 0) dr = -dr;
                     return (dc == 0 && dr <= radius) || (dr == 0 && dc <= radius);
                 }
+                case SkillAreaShape.Rect:
+                {
+                    // Rect는 방향 기반 — IsInArea로는 판정 불가, 항상 false 반환
+                    // ExecuteDamage/ExecuteDebuff에서 Rect 전용 순회 사용
+                    return false;
+                }
                 default:
                 {
                     // 기본: 체비셰프 (Circle)

@@ -41,6 +41,7 @@ namespace CookApps.AutoChess
                 case SkillEffectType.Teleport: ExecuteTeleport(ref action, ctx); break;
                 case SkillEffectType.Retarget: ExecuteRetarget(ref action, ctx); break;
                 case SkillEffectType.ApplyStatusEffect: ExecuteApplyStatusEffect(ref action, ctx); break;
+                case SkillEffectType.TileEffect: ExecuteTileEffect(ref action, ctx); break;
             }
         }
 
@@ -94,6 +95,56 @@ namespace CookApps.AutoChess
                         int dmg = DamageSystem.CalculateDamage(raw, type, ref state.Units[casterIdx], ref t);
                         DamageSystem.ApplyDamage(state, ref t, dmg);
                         DamageSystem.ChargeMana(ref t, t.ManaGainOnHit);
+                    }
+                }
+                else if (action.AreaShape == SkillAreaShape.Rect)
+                {
+                    // Rect: 방향 기반 직사각형 (시전자 전방)
+                    ref var casterUnit = ref state.Units[casterIdx];
+                    int targetIdx2 = ctx.State.FindUnitIndex(ctx.TargetCombatId);
+                    int dirCol = 0, dirRow = 0;
+                    if (targetIdx2 >= 0)
+                    {
+                        int dc = state.Units[targetIdx2].GridCol - casterUnit.GridCol;
+                        int dr = state.Units[targetIdx2].GridRow - casterUnit.GridRow;
+                        dirCol = dc > 0 ? 1 : dc < 0 ? -1 : 0;
+                        dirRow = dr > 0 ? 1 : dr < 0 ? -1 : 0;
+                    }
+                    if (dirCol == 0 && dirRow == 0)
+                        dirRow = ctx.CasterTeam == 0 ? 1 : -1;
+
+                    int halfWidth = action.AreaRange;
+                    int depth = action.RectDepth > 0 ? action.RectDepth : 1;
+                    bool rowDominant = dirRow != 0;
+
+                    for (int i = 0; i < state.UnitCount; i++)
+                    {
+                        ref var unit = ref state.Units[i];
+                        if (!unit.IsAlive || unit.TeamIndex == ctx.CasterTeam) continue;
+
+                        bool inRange;
+                        if (rowDominant)
+                        {
+                            // 가로(col) halfWidth, 세로(row) 전방 depth
+                            int dc = unit.GridCol - casterUnit.GridCol;
+                            if (dc < -halfWidth || dc > halfWidth) continue;
+                            int rd = (unit.GridRow - casterUnit.GridRow) * dirRow;
+                            inRange = rd >= 0 && rd <= depth;
+                        }
+                        else
+                        {
+                            // 세로(row) halfWidth, 가로(col) 전방 depth
+                            int dr = unit.GridRow - casterUnit.GridRow;
+                            if (dr < -halfWidth || dr > halfWidth) continue;
+                            int cd = (unit.GridCol - casterUnit.GridCol) * dirCol;
+                            inRange = cd >= 0 && cd <= depth;
+                        }
+                        if (!inRange) continue;
+
+                        int raw = attack * power / 100;
+                        int dmg = DamageSystem.CalculateDamage(raw, type, ref state.Units[casterIdx], ref unit);
+                        DamageSystem.ApplyDamage(state, ref unit, dmg, casterIdx, type);
+                        DamageSystem.ChargeMana(ref unit, unit.ManaGainOnHit);
                     }
                 }
                 else
@@ -232,27 +283,77 @@ namespace CookApps.AutoChess
                     if (isStatusEffect)
                         StatusEffectSystem.AddEffect(ctx.State, idx, action.StatusEffect, value, duration);
                     else
-                        SkillBuffHelper.ApplyPercentDebuff(ctx.State, idx, action.BuffStat, value, duration);
+                        SkillBuffHelper.ApplyTimedDebuff(ctx.State, idx, action.BuffStat, value, duration, sourceSkillId: ctx.SkillSpecId);
                 }
             }
             else if (action.TargetFilter == SkillTargetFilter.EnemiesInArea)
             {
-                int centerCol, centerRow;
-                GetAreaCenter(ctx, out centerCol, out centerRow);
                 var statusEffect = action.StatusEffect;
                 var buffStat = action.BuffStat;
+
+                // Rect 전용: 방향 사전 계산
+                int rectDirCol = 0, rectDirRow = 0;
+                int rectCasterCol = 0, rectCasterRow = 0;
+                if (action.AreaShape == SkillAreaShape.Rect)
+                {
+                    int cIdx = ctx.State.FindUnitIndex(ctx.CasterCombatId);
+                    if (cIdx >= 0)
+                    {
+                        rectCasterCol = ctx.State.Units[cIdx].GridCol;
+                        rectCasterRow = ctx.State.Units[cIdx].GridRow;
+                        int tIdx = ctx.State.FindUnitIndex(ctx.TargetCombatId);
+                        if (tIdx >= 0)
+                        {
+                            rectDirCol = ctx.State.Units[tIdx].GridCol - rectCasterCol;
+                            rectDirRow = ctx.State.Units[tIdx].GridRow - rectCasterRow;
+                            rectDirCol = rectDirCol > 0 ? 1 : rectDirCol < 0 ? -1 : 0;
+                            rectDirRow = rectDirRow > 0 ? 1 : rectDirRow < 0 ? -1 : 0;
+                        }
+                        if (rectDirCol == 0 && rectDirRow == 0)
+                            rectDirRow = ctx.CasterTeam == 0 ? 1 : -1;
+                    }
+                }
+
+                int areaCol, areaRow;
+                GetAreaCenter(ctx, out areaCol, out areaRow);
 
                 for (int i = 0; i < ctx.State.UnitCount; i++)
                 {
                     ref var unit = ref ctx.State.Units[i];
                     if (!unit.IsAlive || unit.TeamIndex == ctx.CasterTeam) continue;
-                    if (!SkillAreaHelper.IsInArea(action.AreaShape, centerCol, centerRow, action.AreaRange, ref unit))
-                        continue;
+
+                    if (action.AreaShape == SkillAreaShape.Rect)
+                    {
+                        int hw = action.AreaRange;
+                        int dp = action.RectDepth > 0 ? action.RectDepth : 1;
+                        bool rowDom = rectDirRow != 0;
+                        bool inR;
+                        if (rowDom)
+                        {
+                            int dc2 = unit.GridCol - rectCasterCol;
+                            if (dc2 < -hw || dc2 > hw) continue;
+                            int rd = (unit.GridRow - rectCasterRow) * rectDirRow;
+                            inR = rd >= 0 && rd <= dp;
+                        }
+                        else
+                        {
+                            int dr2 = unit.GridRow - rectCasterRow;
+                            if (dr2 < -hw || dr2 > hw) continue;
+                            int cd = (unit.GridCol - rectCasterCol) * rectDirCol;
+                            inR = cd >= 0 && cd <= dp;
+                        }
+                        if (!inR) continue;
+                    }
+                    else
+                    {
+                        if (!SkillAreaHelper.IsInArea(action.AreaShape, areaCol, areaRow, action.AreaRange, ref unit))
+                            continue;
+                    }
 
                     if (isStatusEffect)
                         StatusEffectSystem.AddEffect(ctx.State, i, statusEffect, value, duration);
                     else
-                        SkillBuffHelper.ApplyPercentDebuff(ctx.State, i, buffStat, value, duration);
+                        SkillBuffHelper.ApplyTimedDebuff(ctx.State, i, buffStat, value, duration, sourceSkillId: ctx.SkillSpecId);
                 }
             }
         }
@@ -345,8 +446,8 @@ namespace CookApps.AutoChess
                 ctx.State, ctx.CasterCombatId, ctx.TargetCombatId,
                 raw, false, ctx.DamageType,
                 action.RepeatIntervalFrames > 0 ? action.RepeatIntervalFrames : 30,
-                ctx.SkillSpecId, action.VfxIndex, false,
-                action.SecondaryParamIndex >= 0 ? (sbyte)ctx.GetParamValue(action.SecondaryParamIndex) : (sbyte)-1);
+                ctx.SkillSpecId, action.VfxIndex, action.UseBezier,
+                action.ArrivalVfxIndex);
         }
 
         private static void ExecuteMultiHit(ref SkillAction action, SkillExecuteContext ctx)
@@ -550,8 +651,13 @@ namespace CookApps.AutoChess
             switch (action.VfxAt)
             {
                 case SkillVfxPlacement.AtCaster:
-                    eq.PushSkillPhaseVfx(ctx.CasterCombatId, ctx.SkillSpecId, (byte)action.VfxIndex);
+                {
+                    // 시전자 현재 그리드 좌표를 명시 전달 (텔레포트 후에도 올바른 위치에 VFX 보장)
+                    ref var c = ref ctx.GetCaster();
+                    eq.PushSkillPhaseVfx(ctx.CasterCombatId, ctx.SkillSpecId, (byte)action.VfxIndex,
+                        col: c.GridCol, row: c.GridRow, useGridPos: true);
                     break;
+                }
                 case SkillVfxPlacement.AtTarget:
                     eq.PushSkillPhaseVfx(ctx.CasterCombatId, ctx.SkillSpecId, (byte)action.VfxIndex,
                         targetId: ctx.TargetCombatId);
@@ -589,7 +695,24 @@ namespace CookApps.AutoChess
                     int centerCol, centerRow;
                     GetAreaCenter(ctx, out centerCol, out centerRow);
                     eq.PushSkillAreaEffect(ctx.CasterCombatId,
-                        (byte)centerCol, (byte)centerRow, action.AreaRange);
+                        (byte)centerCol, (byte)centerRow, action.AreaRange, isBox: action.IsBoxArea);
+                    break;
+                }
+                case SkillVfxPlacement.RectAreaEffect:
+                {
+                    ref var caster = ref ctx.GetCaster();
+                    int targetIdx = ctx.State.FindUnitIndex(ctx.TargetCombatId);
+                    sbyte dirCol = 0, dirRow = 0;
+                    if (targetIdx >= 0)
+                    {
+                        ref var t = ref ctx.State.Units[targetIdx];
+                        int dc = t.GridCol - caster.GridCol;
+                        int dr = t.GridRow - caster.GridRow;
+                        dirCol = (sbyte)(dc > 0 ? 1 : (dc < 0 ? -1 : 0));
+                        dirRow = (sbyte)(dr > 0 ? 1 : (dr < 0 ? -1 : 0));
+                    }
+                    eq.PushSkillRectAreaEffect(ctx.CasterCombatId,
+                        (byte)caster.GridCol, (byte)caster.GridRow, dirCol, dirRow);
                     break;
                 }
                 case SkillVfxPlacement.PerTileInDiamond:
@@ -750,6 +873,51 @@ namespace CookApps.AutoChess
 
             if (targetIdx >= 0)
                 StatusEffectSystem.AddEffect(ctx.State, targetIdx, action.StatusEffect, value, duration);
+        }
+
+        /// <summary>타일 이펙트 발행 — 기존 EventQueue의 PushSkillAreaEffect/PushSkillRectAreaEffect 호출</summary>
+        private static void ExecuteTileEffect(ref SkillAction action, SkillExecuteContext ctx)
+        {
+            var eq = ctx.State.EventQueue;
+            if (eq == null) return;
+
+            if (action.AreaShape == SkillAreaShape.Rect)
+            {
+                // ㄷ자형 타일 이펙트 (오데트 Phase1)
+                ref var caster = ref ctx.GetCaster();
+                int targetIdx = ctx.State.FindUnitIndex(ctx.TargetCombatId);
+                sbyte dirCol = 0, dirRow = 0;
+                if (targetIdx >= 0)
+                {
+                    ref var t = ref ctx.State.Units[targetIdx];
+                    int dc = t.GridCol - caster.GridCol;
+                    int dr = t.GridRow - caster.GridRow;
+                    dirCol = (sbyte)(dc > 0 ? 1 : (dc < 0 ? -1 : 0));
+                    dirRow = (sbyte)(dr > 0 ? 1 : (dr < 0 ? -1 : 0));
+                }
+                if (dirCol == 0 && dirRow == 0)
+                    dirRow = (sbyte)(caster.TeamIndex == 0 ? 1 : -1);
+
+                eq.PushSkillRectAreaEffect(ctx.CasterCombatId,
+                    (byte)caster.GridCol, (byte)caster.GridRow, dirCol, dirRow);
+            }
+            else
+            {
+                // 일반 범위 타일 이펙트 — TargetFilter로 위치 기준 결정
+                int centerCol, centerRow;
+                if (action.TargetFilter == SkillTargetFilter.Self)
+                {
+                    ref var caster = ref ctx.GetCaster();
+                    centerCol = caster.GridCol;
+                    centerRow = caster.GridRow;
+                }
+                else
+                {
+                    GetAreaCenter(ctx, out centerCol, out centerRow);
+                }
+                eq.PushSkillAreaEffect(ctx.CasterCombatId,
+                    (byte)centerCol, (byte)centerRow, action.AreaRange, isBox: action.IsBoxArea);
+            }
         }
 
         // ══════════════════════════════
