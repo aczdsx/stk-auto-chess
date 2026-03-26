@@ -245,6 +245,20 @@ namespace CookApps.AutoChess
                 return this;
             }
 
+            public SkillRecipeBuilder OnKnockbackWall(SkillAction action)
+            {
+                action.Trigger = SkillTriggerType.OnKnockbackWall;
+                _actions.Add(action);
+                return this;
+            }
+
+            public SkillRecipeBuilder OnProjectileArrive(SkillAction action)
+            {
+                action.Trigger = SkillTriggerType.OnProjectileArrive;
+                _actions.Add(action);
+                return this;
+            }
+
             // ── 빌드 + 등록 ──
 
             public void Register()
@@ -296,8 +310,9 @@ namespace CookApps.AutoChess
 
             public static SkillAction Damage(sbyte paramIndex = -1,
                 SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget,
-                SkillAreaShape area = SkillAreaShape.None, byte range = 0)
-                => new SkillAction { Effect = SkillEffectType.Damage, TargetFilter = filter, AreaShape = area, AreaRange = range, ParamIndex = paramIndex };
+                SkillAreaShape area = SkillAreaShape.None, byte range = 0,
+                bool excludePrimary = false, byte rectDepth = 0)
+                => new SkillAction { Effect = SkillEffectType.Damage, TargetFilter = filter, AreaShape = area, AreaRange = range, ParamIndex = paramIndex, ExcludePrimary = excludePrimary, RectDepth = rectDepth };
 
             public static SkillAction Heal(sbyte paramIndex = -1,
                 SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget,
@@ -310,8 +325,8 @@ namespace CookApps.AutoChess
             public static SkillAction AreaCC(CrowdControlType ccType, SkillAreaShape area, byte range, sbyte durationParamIndex = -2)
                 => new SkillAction { Effect = SkillEffectType.ApplyCC, TargetFilter = SkillTargetFilter.EnemiesInArea, AreaShape = area, AreaRange = range, CCType = ccType, SecondaryParamIndex = durationParamIndex };
 
-            public static SkillAction Knockback(sbyte distParamIndex = -1)
-                => new SkillAction { Effect = SkillEffectType.Knockback, TargetFilter = SkillTargetFilter.PrimaryTarget, SecondaryParamIndex = distParamIndex };
+            public static SkillAction Knockback(sbyte distParamIndex = -1, byte fixedDistance = 0)
+                => new SkillAction { Effect = SkillEffectType.Knockback, TargetFilter = SkillTargetFilter.PrimaryTarget, SecondaryParamIndex = distParamIndex, KnockbackDistance = fixedDistance };
 
             public static SkillAction Buff(StatModType stat, sbyte valueParamIndex, sbyte durationParamIndex, SkillTargetFilter filter = SkillTargetFilter.Self)
                 => new SkillAction { Effect = SkillEffectType.ApplyBuff, TargetFilter = filter, BuffStat = stat, ParamIndex = valueParamIndex, SecondaryParamIndex = durationParamIndex };
@@ -361,6 +376,26 @@ namespace CookApps.AutoChess
                 action.DynamicFromClip = dynamicFromClip;
                 return action;
             }
+
+            // ── 체이닝 팩토리 ──
+
+            public static SkillAction Teleport(byte distance = 0)
+                => new SkillAction { Effect = SkillEffectType.Teleport, TeleportDistance = distance };
+
+            public static SkillAction Retarget(SkillTargetFilter filter, bool excludeHit = false)
+                => new SkillAction { Effect = SkillEffectType.Retarget, TargetFilter = filter, ExcludeHit = excludeHit };
+
+            public static SkillAction ApplyStatusEffect(StatusEffectType statusType, SkillTargetFilter filter,
+                sbyte durationParamIndex = -1, sbyte valueParamIndex = -1)
+                => new SkillAction { Effect = SkillEffectType.ApplyStatusEffect, TargetFilter = filter,
+                    StatusEffect = statusType, SecondaryParamIndex = durationParamIndex, ParamIndex = valueParamIndex };
+
+            public static SkillAction DamageWithDecay(sbyte paramIndex = -1, sbyte decayParamIndex = -1)
+                => new SkillAction { Effect = SkillEffectType.Damage, ParamIndex = paramIndex, DecayParamIndex = decayParamIndex };
+
+            public static SkillAction BuffScaled(StatModType stat, sbyte valueIdx, sbyte durIdx, bool scaleByHitCount = false)
+                => new SkillAction { Effect = SkillEffectType.ApplyBuff, BuffStat = stat, TargetFilter = SkillTargetFilter.Self,
+                    ParamIndex = valueIdx, SecondaryParamIndex = durIdx, ScaleByHitCount = scaleByHitCount };
         }
     }
 }

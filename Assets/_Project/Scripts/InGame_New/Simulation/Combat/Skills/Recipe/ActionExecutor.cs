@@ -38,6 +38,9 @@ namespace CookApps.AutoChess
                 case SkillEffectType.SpawnLinearProjectile: ExecuteSpawnLinearProjectile(ref action, ctx); break;
                 case SkillEffectType.DamageKnockbackInArea: ExecuteDamageKnockbackInArea(ref action, ctx); break;
                 case SkillEffectType.SequentialLineDamage: ExecuteSequentialLineDamage(ref action, ctx); break;
+                case SkillEffectType.Teleport: ExecuteTeleport(ref action, ctx); break;
+                case SkillEffectType.Retarget: ExecuteRetarget(ref action, ctx); break;
+                case SkillEffectType.ApplyStatusEffect: ExecuteApplyStatusEffect(ref action, ctx); break;
             }
         }
 
@@ -47,7 +50,10 @@ namespace CookApps.AutoChess
 
         private static void ExecuteDamage(ref SkillAction action, SkillExecuteContext ctx)
         {
-            int power = ctx.GetParamValue(action.ParamIndex);
+            // DecayParamIndex가 있으면 감쇠된 CurrentPower 사용 (베인 바운스)
+            int power = action.DecayParamIndex >= 0
+                ? ctx.CurrentPower
+                : ctx.GetParamValue(action.ParamIndex);
 
             if (action.TargetFilter == SkillTargetFilter.PrimaryTarget)
             {
@@ -100,6 +106,7 @@ namespace CookApps.AutoChess
                     {
                         ref var unit = ref state.Units[i];
                         if (!unit.IsAlive || unit.TeamIndex == ctx.CasterTeam) continue;
+                        if (action.ExcludePrimary && unit.CombatId == ctx.TargetCombatId) continue;
                         if (!SkillAreaHelper.IsInArea(action.AreaShape, centerCol, centerRow, action.AreaRange, ref unit))
                             continue;
 
@@ -190,6 +197,8 @@ namespace CookApps.AutoChess
         private static void ExecuteBuff(ref SkillAction action, SkillExecuteContext ctx)
         {
             int value = ctx.GetParamValue(action.ParamIndex);
+            if (action.ScaleByHitCount && ctx.BounceCount > 0)
+                value *= ctx.BounceCount;
             int duration = action.SecondaryParamIndex >= 0
                 ? ctx.GetParamValue(action.SecondaryParamIndex) : 0;
 
@@ -607,6 +616,146 @@ namespace CookApps.AutoChess
         // 유틸리티
         // ══════════════════════════════
 
+        // ══════════════════════════════
+        // 체이닝 이펙트 (Teleport, Retarget, ApplyStatusEffect)
+        // ══════════════════════════════
+
+        private static void ExecuteTeleport(ref SkillAction action, SkillExecuteContext ctx)
+        {
+            ref var caster = ref ctx.GetCaster();
+
+            if (action.TeleportDistance > 0)
+            {
+                // 전방 N칸 (오데트)
+                int targetIdx = ctx.State.FindUnitIndex(ctx.TargetCombatId);
+                int dirCol, dirRow;
+                if (targetIdx >= 0)
+                {
+                    ref var t = ref ctx.State.Units[targetIdx];
+                    int dc = t.GridCol - caster.GridCol;
+                    int dr = t.GridRow - caster.GridRow;
+                    dirCol = dc > 0 ? 1 : dc < 0 ? -1 : 0;
+                    dirRow = dr > 0 ? 1 : dr < 0 ? -1 : 0;
+                }
+                else
+                {
+                    dirCol = 0;
+                    dirRow = caster.TeamIndex == 0 ? 1 : -1;
+                }
+
+                int destCol = caster.GridCol + dirCol * action.TeleportDistance;
+                int destRow = caster.GridRow + dirRow * action.TeleportDistance;
+                TryTeleport(ctx.State, ref caster, destCol, destRow);
+            }
+            else
+            {
+                // 타겟 뒤로 (마리에/시라유키)
+                int targetIdx = ctx.State.FindUnitIndex(ctx.TargetCombatId);
+                if (targetIdx >= 0)
+                    TeleportBehindTarget(ctx.State, ref caster, ref ctx.State.Units[targetIdx]);
+            }
+        }
+
+        private static void TeleportBehindTarget(CombatMatchState state, ref CombatUnit caster, ref CombatUnit target)
+        {
+            int dirCol = target.GridCol - caster.GridCol;
+            int dirRow = target.GridRow - caster.GridRow;
+            if (dirCol != 0) dirCol = dirCol > 0 ? 1 : -1;
+            if (dirRow != 0) dirRow = dirRow > 0 ? 1 : -1;
+
+            int behindCol = target.GridCol + dirCol;
+            int behindRow = target.GridRow + dirRow;
+            if (TryTeleport(state, ref caster, behindCol, behindRow)) return;
+
+            for (int d = 1; d <= 2; d++)
+                for (int dc = -d; dc <= d; dc++)
+                    for (int dr = -d; dr <= d; dr++)
+                    {
+                        if (dc == 0 && dr == 0) continue;
+                        if (TryTeleport(state, ref caster, target.GridCol + dc, target.GridRow + dr))
+                            return;
+                    }
+        }
+
+        private static bool TryTeleport(CombatMatchState state, ref CombatUnit caster, int col, int row)
+        {
+            if (!BoardHelper.IsValidCombatPosition(col, row)) return false;
+            if (state.GetUnitAtGrid(col, row) != CombatUnit.InvalidId) return false;
+            state.ClearGrid(caster.GridCol, caster.GridRow);
+            caster.GridCol = (byte)col;
+            caster.GridRow = (byte)row;
+            state.SetGrid(col, row, caster.CombatId);
+            state.EventQueue?.PushUnitMoved(caster.CombatId, (byte)col, (byte)row);
+            return true;
+        }
+
+        private static void ExecuteRetarget(ref SkillAction action, SkillExecuteContext ctx)
+        {
+            ref var caster = ref ctx.GetCaster();
+            byte enemyTeam = (byte)(1 - ctx.CasterTeam);
+            int newTarget = CombatUnit.InvalidId;
+
+            if (action.TargetFilter == SkillTargetFilter.NearestEnemy)
+            {
+                // 가장 가까운 미피격 적 (베인 바운스)
+                int bestDist = int.MaxValue;
+                int refCol = 0, refRow = 0;
+                int curIdx = ctx.State.FindUnitIndex(ctx.TargetCombatId);
+                if (curIdx >= 0) { refCol = ctx.State.Units[curIdx].GridCol; refRow = ctx.State.Units[curIdx].GridRow; }
+
+                for (int i = 0; i < ctx.State.UnitCount; i++)
+                {
+                    ref var u = ref ctx.State.Units[i];
+                    if (!u.IsAlive || u.TeamIndex != enemyTeam) continue;
+                    if (action.ExcludeHit && IsInHitList(u.CombatId, ctx.HitIds, ctx.HitIdCount)) continue;
+                    int dist = System.Math.Abs(u.GridCol - refCol) + System.Math.Abs(u.GridRow - refRow);
+                    if (dist < bestDist) { bestDist = dist; newTarget = u.CombatId; }
+                }
+            }
+            else
+            {
+                // 최저HP 적 (미노/시라유키)
+                int bestHp = int.MaxValue;
+                for (int i = 0; i < ctx.State.UnitCount; i++)
+                {
+                    ref var u = ref ctx.State.Units[i];
+                    if (!u.IsAlive || u.TeamIndex != enemyTeam) continue;
+                    if (action.ExcludeHit && IsInHitList(u.CombatId, ctx.HitIds, ctx.HitIdCount)) continue;
+                    if (u.CurrentHP < bestHp) { bestHp = u.CurrentHP; newTarget = u.CombatId; }
+                }
+            }
+
+            if (newTarget != CombatUnit.InvalidId)
+                ctx.TargetCombatId = newTarget;
+        }
+
+        private static bool IsInHitList(int combatId, int[] hitIds, int hitIdCount)
+        {
+            if (hitIds == null) return false;
+            for (int i = 0; i < hitIdCount; i++)
+                if (hitIds[i] == combatId) return true;
+            return false;
+        }
+
+        private static void ExecuteApplyStatusEffect(ref SkillAction action, SkillExecuteContext ctx)
+        {
+            int duration = action.SecondaryParamIndex >= 0 ? ctx.GetParamValue(action.SecondaryParamIndex) : 0;
+            int value = action.ParamIndex >= 0 ? ctx.GetParamValue(action.ParamIndex) : 0;
+
+            int targetIdx;
+            if (action.TargetFilter == SkillTargetFilter.Self)
+                targetIdx = ctx.State.FindUnitIndex(ctx.CasterCombatId);
+            else
+                targetIdx = ctx.State.FindUnitIndex(ctx.TargetCombatId);
+
+            if (targetIdx >= 0)
+                StatusEffectSystem.AddEffect(ctx.State, targetIdx, action.StatusEffect, value, duration);
+        }
+
+        // ══════════════════════════════
+        // 유틸리티
+        // ══════════════════════════════
+
         private static void GetAreaCenter(SkillExecuteContext ctx, out int col, out int row)
         {
             int idx = ctx.State.FindUnitIndex(ctx.TargetCombatId);
@@ -642,6 +791,16 @@ namespace CookApps.AutoChess
         public int BasePowerPercent;
         /// <summary>현재 채널링 틱 번호 (SequentialLineDamage 등에서 step으로 사용)</summary>
         public int TickCount;
+
+        // ── 체이닝 ──
+        /// <summary>감쇠 적용된 현재 파워 (베인 바운스)</summary>
+        public int CurrentPower;
+        /// <summary>현재 바운스/히트 횟수</summary>
+        public int BounceCount;
+        /// <summary>히트한 타겟 ID 배열 참조 (GC-free: SimSkillGeneric의 고정 배열)</summary>
+        public int[] HitIds;
+        /// <summary>HitIds 유효 개수</summary>
+        public int HitIdCount;
 
         public ref CombatUnit GetCaster()
         {

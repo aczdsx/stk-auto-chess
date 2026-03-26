@@ -276,6 +276,8 @@ namespace CookApps.AutoChess
         AtHitFrame,         // SkillHitFrames[N] 도달 시
         OnTick,             // 반복 틱마다
         OnComplete,         // 채널링 종료 시
+        OnKnockbackWall,    // 넉백 벽 충돌 시
+        OnProjectileArrive, // 투사체 도착 시
     }
 
     /// <summary>Recipe 액션 효과 타입</summary>
@@ -297,6 +299,9 @@ namespace CookApps.AutoChess
         SpawnLinearProjectile, // ProjectileSystem.CreateLinearProjectile
         DamageKnockbackInArea, // 범위 데미지 + 각 적에게 중심→바깥 넉백 (메이)
         SequentialLineDamage,  // 전방 직선 순차 타일 타격 + 넉백 (보스탱커) — OnTick에서 사용
+        Teleport,              // GridSystem으로 순간이동
+        Retarget,              // TargetingSystem으로 타겟 재선택
+        ApplyStatusEffect,     // StatusEffectSystem으로 상태이상 적용 (CC와 별도)
     }
 
     /// <summary>Recipe 액션 대상 필터</summary>
@@ -308,6 +313,7 @@ namespace CookApps.AutoChess
         Self,               // 시전자
         LowestHpAllies,     // 최저 HP 아군 N명
         SameRowAllies,      // 같은 행 아군
+        NearestEnemy,       // 가장 가까운 적 (Retarget 바운스용)
     }
 
     /// <summary>Recipe 범위 형태</summary>
@@ -319,6 +325,7 @@ namespace CookApps.AutoChess
         Plus,               // 십자
         Cone,               // 부채꼴
         Line,               // 직선
+        Rect,               // 방향 기반 직사각형 (AreaRange=좌우, RectDepth=전방)
     }
 
     /// <summary>Recipe VFX 배치</summary>

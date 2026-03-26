@@ -99,6 +99,22 @@ namespace CookApps.AutoChess
         // ── 마커 전용 ──
         /// <summary>SkillMarkerType 값 (StatusEffect.SkillMarker의 하위 분류)</summary>
         public byte MarkerType;
+
+        // ── 체이닝 확장 ──
+        /// <summary>Teleport: 전방 이동 거리 (0이면 타겟 뒤로)</summary>
+        public byte TeleportDistance;
+        /// <summary>Rect: 전방 깊이 (시전자 행 기준 추가 행 수)</summary>
+        public byte RectDepth;
+        /// <summary>Knockback: 고정 거리 (0이면 SecondaryParamIndex 사용)</summary>
+        public byte KnockbackDistance;
+        /// <summary>Retarget: 이미 히트한 타겟 제외</summary>
+        public bool ExcludeHit;
+        /// <summary>Damage(Area): 메인 타겟 제외 (미노 스플래시)</summary>
+        public bool ExcludePrimary;
+        /// <summary>Buff: 값에 히트수를 곱함</summary>
+        public bool ScaleByHitCount;
+        /// <summary>Damage: 바운스 감쇠율 ParamSlots 인덱스 (-1=없음)</summary>
+        public sbyte DecayParamIndex;
     }
 
     /// <summary>
