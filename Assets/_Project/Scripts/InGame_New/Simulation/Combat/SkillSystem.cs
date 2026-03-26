@@ -99,7 +99,8 @@ namespace CookApps.AutoChess
                 unit.State = CombatState.CastingSkill;
                 unit.SkillCastTimer = castFrames;
                 unit.ActionLockTimer = actionLockFrames;
-                unit.CurrentTargetId = targetId;
+                if (skill.FaceTarget)
+                    unit.CurrentTargetId = targetId;
             }
             else
             {
@@ -111,7 +112,8 @@ namespace CookApps.AutoChess
                     unit.State = CombatState.CastingSkill;
                     unit.SkillCastTimer = 0; // 채널링 경과 카운터 초기화
                     unit.ActionLockTimer = actionLockFrames;
-                    unit.CurrentTargetId = targetId;
+                    if (skill.FaceTarget)
+                        unit.CurrentTargetId = targetId;
                 }
                 else
                 {

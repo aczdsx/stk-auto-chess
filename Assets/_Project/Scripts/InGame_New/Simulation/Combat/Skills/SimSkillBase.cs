@@ -43,6 +43,9 @@ namespace CookApps.AutoChess
 
         /// <summary>스킬 쿨타임(초) — specList[0] COOL base_rate</summary>
         public float CooldownSeconds;
+
+        /// <summary>스킬 시전 시 타겟 방향으로 전환할지 여부 (false면 직전 방향 유지)</summary>
+        public bool FaceTarget;
     }
 
     /// <summary>
@@ -81,6 +84,9 @@ namespace CookApps.AutoChess
         // 타겟팅
         protected SkillTargetType TargetType;
 
+        /// <summary>스킬 시전 시 타겟 방향으로 전환할지 여부</summary>
+        public bool FaceTarget { get; private set; }
+
         // SKL 클립 타이밍 (프레임 단위, SkillParams에서 미리 변환됨)
         protected int[] SkillHitFrames;
         protected int SkillClipFrames;
@@ -107,6 +113,7 @@ namespace CookApps.AutoChess
 
             SkillHitFrames = p.SkillHitFrames;
             SkillClipFrames = p.SkillClipFrames;
+            FaceTarget = p.FaceTarget;
         }
 
         /// <summary>

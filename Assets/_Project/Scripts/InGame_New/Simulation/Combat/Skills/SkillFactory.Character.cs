@@ -175,7 +175,7 @@ namespace CookApps.AutoChess
                 .Register();
 
             // ── 엔키: 보드 스윕 힐 투사체 ──
-            Skill(217653505, E.Channeling, T.NearestEnemy)
+            Skill(217653505, E.Channeling, T.Self)
                 .Param(1, P.Int, 200f)           // [0] 힐 배율
                 .Param(2, P.Frames, 6f)          // [1] HoT 지속
                 .Param(3, P.Int, 50f)            // [2] HoT 위력%

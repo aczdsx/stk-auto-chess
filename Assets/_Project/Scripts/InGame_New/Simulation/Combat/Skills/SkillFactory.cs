@@ -105,6 +105,17 @@ namespace CookApps.AutoChess
 
                 var specList = specManager.GetSkillDataList(id);
                 var skillParams = SkillSpecAdapter.BuildParams(spec, specList, tickRate);
+
+                // Recipe의 TargetRule로 TargetType/FaceTarget 동기화 (스킬ID Recipe > 아키타입 Recipe)
+                SkillTargetType resolvedTarget = skillParams.TargetType;
+                if (TryGetRecipe(id, out var idRecipe))
+                    resolvedTarget = idRecipe.TargetRule;
+                else if (TryGetByArchetype(archetype, out var archRecipe))
+                    resolvedTarget = archRecipe.TargetRule;
+                skillParams.TargetType = resolvedTarget;
+                skillParams.FaceTarget = resolvedTarget != SkillTargetType.Self
+                    && resolvedTarget != SkillTargetType.LowestHPAlly;
+
                 _paramsCache[id] = skillParams;
                 if (specList != null)
                     _specListCache[id] = specList;
