@@ -259,7 +259,6 @@ namespace CookApps.AutoChess
         TeleportStrike,
         Buff,
         Debuff,
-        Stun,
         DiamondAoE,
         Custom,
     }

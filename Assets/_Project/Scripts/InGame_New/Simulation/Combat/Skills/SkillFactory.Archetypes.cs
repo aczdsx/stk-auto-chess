@@ -42,12 +42,6 @@ namespace CookApps.AutoChess
                     .OnCast(CC(CrowdControlType.Stun))
                     .Build());
 
-            DefineArchetype(SimSkillArchetype.Stun,
-                ArchetypeBuilder(E.Instant, T.NearestEnemy)
-                    .OnCast(Damage())
-                    .OnCast(CC(CrowdControlType.Stun))
-                    .Build());
-
             DefineArchetype(SimSkillArchetype.LineDamage,
                 ArchetypeBuilder(E.DelayedApply, T.NearestEnemy).Projectile()
                     .AtHit(SpawnLinearProjectile())

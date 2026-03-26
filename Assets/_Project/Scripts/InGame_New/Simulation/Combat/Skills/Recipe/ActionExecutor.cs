@@ -45,7 +45,10 @@ namespace CookApps.AutoChess
         // 오버라이드 해결 (Recipe 불변 유지 — 오버라이드는 컨텍스트에서 적용)
         // ══════════════════════════════
 
-        /// <summary>AreaRange 실효값: 컨텍스트 오버라이드가 있으면 사용, 없으면 Recipe 값</summary>
+        /// <summary>
+        /// AreaRange 실효값: 컨텍스트 오버라이드가 있으면 사용, 없으면 Recipe 값.
+        /// action.AreaRange == 0이면 오버라이드도 적용 안 함 (Recipe에서 범위를 지정하지 않은 액션).
+        /// </summary>
         private static byte GetAreaRange(ref SkillAction action, SkillExecuteContext ctx)
         {
             if (action.AreaRange > 0 && ctx.AreaRangeOverride > 0)
@@ -310,6 +313,19 @@ namespace CookApps.AutoChess
                         continue;
 
                     StatusEffectSystem.RemoveAllDebuffs(ctx.State, i);
+                }
+            }
+            else if (action.TargetFilter == SkillTargetFilter.LowestHpAllies)
+            {
+                int count = ctx.TargetCountOverride > 0 ? ctx.TargetCountOverride
+                    : action.AreaRange > 0 ? action.AreaRange : 1;
+                if (count > LowestHpBuffer.Length) count = LowestHpBuffer.Length;
+                int found = SkillAreaHelper.FindLowestHPAllies(ctx.State, ctx.CasterTeam, count, LowestHpBuffer);
+                for (int i = 0; i < found; i++)
+                {
+                    int idx = ctx.State.FindUnitIndex(LowestHpBuffer[i]);
+                    if (idx >= 0)
+                        StatusEffectSystem.RemoveAllDebuffs(ctx.State, idx);
                 }
             }
             else if (action.TargetFilter == SkillTargetFilter.PrimaryTarget)

@@ -103,6 +103,8 @@ namespace CookApps.AutoChess
                     return SkillAreaHelper.FindLowestHPAlly(state, caster.TeamIndex);
                 case SkillTargetType.HighestAttackEnemy:
                     return TargetingSystem.FindTarget(state, ref caster, SkillTargetType.HighestAttackEnemy);
+                case SkillTargetType.LowestHPEnemy:
+                    return TargetingSystem.FindTarget(state, ref caster, SkillTargetType.LowestHPEnemy);
                 case SkillTargetType.BestAoETarget:
                     int radius = FindAoERadius();
                     return SkillAreaHelper.FindBestAoETarget(state, ref caster, radius);
