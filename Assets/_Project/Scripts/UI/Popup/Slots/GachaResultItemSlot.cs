@@ -78,7 +78,7 @@ namespace CookApps.AutoBattler
 
         private static readonly Dictionary<GradeType, GradeVisualData> GradeVisuals = new()
         {
-            [GradeType.RARE] = new GradeVisualData
+            [GradeType.R] = new GradeVisualData
             {
                 BgGroupColor = ParseHexColor("#7287C2"),
                 ToneAdjustColor = ParseHexColor("#69B4FF40"),
@@ -88,7 +88,7 @@ namespace CookApps.AutoBattler
                 SDStandSprite = "UI_Gacha_Common_SD_Stand_R",
                 FrameSprite = "UI_Gacha_Result_List_Frame_R",
             },
-            [GradeType.EPIC] = new GradeVisualData
+            [GradeType.SR] = new GradeVisualData
             {
                 BgGroupColor = ParseHexColor("#916CA9"),
                 ToneAdjustColor = ParseHexColor("#CD69FF40"),
@@ -98,7 +98,7 @@ namespace CookApps.AutoBattler
                 SDStandSprite = "UI_Gacha_Common_SD_Stand_SR",
                 FrameSprite = "UI_Gacha_Result_List_Frame_SR",
             },
-            [GradeType.LEGENDARY] = new GradeVisualData
+            [GradeType.SSR] = new GradeVisualData
             {
                 BgGroupColor = ParseHexColor("#DDA84B"),
                 ToneAdjustColor = ParseHexColor("#FFC56940"),
@@ -151,7 +151,7 @@ namespace CookApps.AutoBattler
             _synergy2.SetSynergyUI(charInfo.character_stella_type);
 
             // 7. 이펙트 그룹 — LEGENDARY만 활성화
-            _effectGroup.SetActive(grade == GradeType.LEGENDARY);
+            _effectGroup.SetActive(grade == GradeType.SSR);
 
             // 8. 조각 그룹
             bool isPiece = rewardItem.Id.IsCharacterPiece();
@@ -175,13 +175,13 @@ namespace CookApps.AutoBattler
 
             switch (grade)
             {
-                case GradeType.RARE:
+                case GradeType.R:
                     _animator.SetTrigger("R");
                     break;
-                case GradeType.EPIC:
+                case GradeType.SR:
                     _animator.SetTrigger("SR");
                     break;
-                case GradeType.LEGENDARY:
+                case GradeType.SSR:
                     _animator.SetTrigger("SSR");
                     break;
             }

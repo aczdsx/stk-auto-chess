@@ -112,17 +112,14 @@ namespace CookApps.AutoBattler
 
             switch (_specCharacter.grade_type)
             {
-                case GradeType.LEGENDARY:
+                case GradeType.SSR:
                     GradeImage[3].SetActive(true);
                     break;
-                case GradeType.EPIC:
+                case GradeType.SR:
                     GradeImage[2].SetActive(true);
                     break;
-                case GradeType.RARE:
+                case GradeType.R:
                     GradeImage[1].SetActive(true);
-                    break;
-                case GradeType.COMMON:
-                    GradeImage[0].SetActive(true);
                     break;
             }
 
@@ -250,7 +247,7 @@ namespace CookApps.AutoBattler
             // }
             switch (_specCharacter.grade_type)
             {
-                case GradeType.LEGENDARY:
+                case GradeType.SSR:
                     timeLineIdx = 0;
                     aniTime = 6f;
                     // string bgmName = dataManager.GetCharacterBGMName(characterID);
@@ -262,16 +259,12 @@ namespace CookApps.AutoBattler
                     // }
                     //PlayVoice();
                     break;
-                case GradeType.EPIC:
+                case GradeType.SR:
                     timeLineIdx = 5;
                     aniTime = 1.2f;
                     break;
-                case GradeType.RARE:
+                case GradeType.R:
                     timeLineIdx = 6;
-                    aniTime = 1.2f;
-                    break;
-                case GradeType.COMMON:
-                    timeLineIdx = 7;
                     aniTime = 1.2f;
                     break;
             }
@@ -436,20 +429,16 @@ namespace CookApps.AutoBattler
 
             switch (_specCharacter.grade_type)
             {
-                case GradeType.LEGENDARY:
+                case GradeType.SSR:
                     timeLineIdx = 0;
                     aniTime = 6f;
                     break;
-                case GradeType.EPIC:
+                case GradeType.SR:
                     timeLineIdx = 1;
                     aniTime = 3.2f;
                     break;
-                case GradeType.RARE:
+                case GradeType.R:
                     timeLineIdx = 2;
-                    aniTime = 3.2f;
-                    break;
-                case GradeType.COMMON:
-                    timeLineIdx = 3;
                     aniTime = 3.2f;
                     break;
             }

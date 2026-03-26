@@ -344,10 +344,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3fc477bcebd441f8fd93c1816dd26d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentType: 0
+  currentType: 10
   image: {fileID: 3899047847416187589}
   colors:
-    keys: 0b0000000c0000000d0000000e000000
+    keys: 0a0000000b0000000c0000000d000000
     values:
     - {r: 0.5424528, g: 1, b: 0.59001344, a: 1}
     - {r: 0.495283, g: 0.7904948, b: 1, a: 1}

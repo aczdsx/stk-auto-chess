@@ -10,15 +10,15 @@ namespace CookApps.AutoBattler
 
             switch (GradeType)
             {
-                // case GradeType.COMMON:
+                // case GradeType.R:
                 //     return AtlasManager.Instance.GetSprite("UI_Main", "Icon_R");
-                case GradeType.RARE:
+                case GradeType.R:
                     spriteName = isActive ? "Icon_R" : "Icon_R_Locked";
                     break;
-                case GradeType.EPIC:
+                case GradeType.SR:
                     spriteName = isActive ? "Icon_SR" : "Icon_SR_Locked";
                     break;
-                case GradeType.LEGENDARY:
+                case GradeType.SSR:
                     spriteName = isActive ? "Icon_SSR" : "Icon_SSR_Locked";
                     break;
             }
@@ -32,15 +32,15 @@ namespace CookApps.AutoBattler
 
             switch (GradeType)
             {
-                // case GradeType.COMMON:
+                // case GradeType.R:
                 //     return AtlasManager.Instance.GetSprite("UI_Main", "Icon_R");
-                case GradeType.RARE:
+                case GradeType.R:
                     spriteName = isActive ? "Character_Icon_Class_R" : "Icon_R_Locked";
                     break;
-                case GradeType.EPIC:
+                case GradeType.SR:
                     spriteName = isActive ? "Character_Icon_Class_SR" : "Icon_SR_Locked";
                     break;
-                case GradeType.LEGENDARY:
+                case GradeType.SSR:
                     spriteName = isActive ? "Character_Icon_Class_SSR" : "Icon_SSR_Locked";
                     break;
             }

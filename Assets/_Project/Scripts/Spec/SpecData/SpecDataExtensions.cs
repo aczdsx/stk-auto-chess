@@ -41,7 +41,7 @@ namespace CookApps.AutoBattler
     {
         public static SimpleSwapType ToSimpleSwapType(this GradeType grade)
         {
-            return SimpleSwapType.Grade_0 + ((int) grade - 1);
+            return SimpleSwapType.Grade_0 + (int) grade;
         }
 
         public static SimpleSwapType ToSimpleSwapType(this SynergyType type)
@@ -116,10 +116,10 @@ namespace CookApps.AutoBattler
             Color color = Color.white;
             _ = gradeType switch
             {
-                GradeType.COMMON => ColorUtility.TryParseHtmlString("#4EA82E", out color),
-                GradeType.RARE => ColorUtility.TryParseHtmlString("#0A9AE0", out color),
-                GradeType.EPIC => ColorUtility.TryParseHtmlString("#7C11DC", out color),
-                GradeType.LEGENDARY => ColorUtility.TryParseHtmlString("#FFEA7E", out color),
+                GradeType.R => ColorUtility.TryParseHtmlString("#0A9AE0", out color),
+                GradeType.SR => ColorUtility.TryParseHtmlString("#7C11DC", out color),
+                GradeType.SSR => ColorUtility.TryParseHtmlString("#FFEA7E", out color),
+                GradeType.UR => ColorUtility.TryParseHtmlString("#FF4E4E", out color),
                 _ => false
             };
 

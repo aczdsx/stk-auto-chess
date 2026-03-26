@@ -109,7 +109,7 @@ namespace CookApps.AutoBattler
             //     this.transform.localScale = new Vector3(1, 1, 1);
             // });
 
-            GradeType resultGradeType = GradeType.COMMON;
+            GradeType resultGradeType = GradeType.R;
             if (characterData != null)
             {
                 resultGradeType = characterData.grade_type;
@@ -117,26 +117,19 @@ namespace CookApps.AutoBattler
 
             if (_rewardItemData.Id.IsCharacter())
             {
-                if (resultGradeType == GradeType.COMMON)
-                {
-                    BackImageSpriteLoader.SetSprite("Gacha_Img_Green").Forget();
-                    KnightImageSpriteLoader.SetSprite("Gacha_Img_Icon_Green").Forget();
-                    KnighBackImageSpriteLoader.SetSprite("Gacha_Img_GreenOn_Bg").Forget();
-
-                }
-                else if (resultGradeType == GradeType.RARE)
+                if (resultGradeType == GradeType.R)
                 {
                     BackImageSpriteLoader.SetSprite("Gacha_Img_Blue").Forget();
                     KnightImageSpriteLoader.SetSprite("Gacha_Img_Icon_Blue").Forget();
                     KnighBackImageSpriteLoader.SetSprite("Gacha_Img_BlueOn_Bg").Forget();
                 }
-                else if (resultGradeType == GradeType.EPIC)
+                else if (resultGradeType == GradeType.SR)
                 {
                     BackImageSpriteLoader.SetSprite("Gacha_Img_Purple").Forget();
                     KnightImageSpriteLoader.SetSprite("Gacha_Img_Icon_Purple").Forget();
                     KnighBackImageSpriteLoader.SetSprite("Gacha_Img_PurpleOn_Bg").Forget();
                 }
-                else if (resultGradeType == GradeType.LEGENDARY)
+                else if (resultGradeType == GradeType.SSR)
                 {
                     BackImageSpriteLoader.SetSprite("Gacha_Img_Gold").Forget();
                     KnightImageSpriteLoader.SetSprite("Gacha_Img_Icon_Gold").Forget();
@@ -145,15 +138,7 @@ namespace CookApps.AutoBattler
             }
             else
             {
-                if (resultGradeType == GradeType.COMMON)
-                {
-                    BackImageSpriteLoader.SetSprite("Gacha_Img_Green").Forget();
-                    PieceImageSpriteLoader.SetSprite("Gacha_Img_Icon_Green").Forget();
-                    PieceBackImageSpriteLoader.SetSprite("Gacha_Img_Piece_Green").Forget();
-
-                    PieceOnBackImageSpriteLoader.SetSprite("Gacha_Img_Piece_Green").Forget();
-                }
-                else if (resultGradeType == GradeType.RARE)
+                if (resultGradeType == GradeType.R)
                 {
                     BackImageSpriteLoader.SetSprite("Gacha_Img_Blue").Forget();
                     PieceImageSpriteLoader.SetSprite("Gacha_Img_Icon_Blue").Forget();
@@ -161,7 +146,7 @@ namespace CookApps.AutoBattler
 
                     PieceOnBackImageSpriteLoader.SetSprite("Gacha_Img_Piece_Blue").Forget();
                 }
-                else if (resultGradeType == GradeType.EPIC)
+                else if (resultGradeType == GradeType.SR)
                 {
                     BackImageSpriteLoader.SetSprite("Gacha_Img_Purple").Forget();
                     PieceImageSpriteLoader.SetSprite("Gacha_Img_Icon_Purple").Forget();
@@ -169,7 +154,7 @@ namespace CookApps.AutoBattler
 
                     PieceOnBackImageSpriteLoader.SetSprite("Gacha_Img_Piece_Purple").Forget();
                 }
-                else if (resultGradeType == GradeType.LEGENDARY)
+                else if (resultGradeType == GradeType.SSR)
                 {
                     BackImageSpriteLoader.SetSprite("Gacha_Img_Gold").Forget();
                     PieceImageSpriteLoader.SetSprite("Gacha_Img_Icon_Gold").Forget();
@@ -255,14 +240,14 @@ namespace CookApps.AutoBattler
                 //     starObjects[i].SetActive(true);
                 // }
 
-                if (characterData.grade_type == GradeType.LEGENDARY)
+                if (characterData.grade_type == GradeType.SSR)
                 {
                     for (int i = 0; i < SSRFxObjects.Length; i++)
                     {
                         SSRFxObjects[i].SetActive(true);
                     }
                 }
-                else if (characterData.grade_type == GradeType.EPIC)
+                else if (characterData.grade_type == GradeType.SR)
                 {
                     for (int i = 0; i < SRFxObjects.Length; i++)
                     {

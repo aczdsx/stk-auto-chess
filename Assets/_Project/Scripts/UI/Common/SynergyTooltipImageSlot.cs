@@ -64,22 +64,18 @@ namespace CookApps.AutoBattler
             SimpleSwapType retVal = SimpleSwapType.Grade_0;
             switch (grade)
             {
-                case GradeType.RARE:
+                case GradeType.R:
+                    retVal = SimpleSwapType.Grade_0;
+                    break;
+                case GradeType.SR:
+                    retVal = SimpleSwapType.Grade_1;
+                    break;
+                case GradeType.SSR:
                     retVal = SimpleSwapType.Grade_2;
                     break;
-                case GradeType.EPIC:
+                case GradeType.UR:
                     retVal = SimpleSwapType.Grade_3;
                     break;
-                case GradeType.LEGENDARY:
-                    retVal = SimpleSwapType.Grade_4;
-                    break;
-                case GradeType.UNIQUE:
-                case GradeType.ANCIENT:
-                case GradeType.MYTHIC:
-                case GradeType.MAGIC:
-                case GradeType.NORMAL:
-                case GradeType.COMMON:
-                case GradeType.UNCOMMON:
                 default:
                     Debug.LogError("Unknown grade type: " + grade);
                     break;
