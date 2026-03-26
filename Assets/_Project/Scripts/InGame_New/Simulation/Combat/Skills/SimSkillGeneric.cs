@@ -36,10 +36,12 @@ namespace CookApps.AutoChess
         private readonly int[] _hitIds = new int[8];
         private int _hitIdCount;
 
-        // ── 복수 HitFrame (오데트 2페이즈) ──
+        // ── 복수 HitFrame (오데트/시라유키) ──
         private int _currentHitFrameIndex;
         private int _hitFrameTimer;
         private bool _hasMultiHitFrames;
+        private int _postCompleteTimer;     // 모든 hitframe 완료 후 클립 끝까지 대기
+        private bool _completeFired;        // OnComplete 이미 발동했는지
 
         public override SkillExecutionType ExecutionType => _recipe.ExecutionType;
         public override bool HasProjectile => _recipe.HasProjectile;
@@ -120,6 +122,15 @@ namespace CookApps.AutoChess
             _hitIdCount = 0;
             _knockbackHitWall = false;
             _projectileArrivalTimer = 0;
+            _completeFired = false;
+            _postCompleteTimer = 0;
+            _currentHitFrameIndex = 0;
+            _hitFrameTimer = 0;
+            _startDelay = 0;
+            _tickTimer = 0;
+            _tickInterval = 0;
+            _remainingTicks = 0;
+            _tickCount = 0;
 
             // Recipe에서 DecayParamIndex가 있는 액션 찾아서 감쇠율 캐시
             _decayPercent = 0;
@@ -192,9 +203,16 @@ namespace CookApps.AutoChess
                         }
                         else
                         {
-                            // 모든 hitframe 처리 완료
-                            DispatchActions(SkillTriggerType.OnComplete, 0, ctx);
-                            return false;
+                            // 모든 hitframe 처리 완료 → OnComplete + 클립 끝까지 대기
+                            if (!_completeFired)
+                            {
+                                _completeFired = true;
+                                DispatchActions(SkillTriggerType.OnComplete, 0, ctx);
+                                // 남은 클립 프레임 계산
+                                int lastHitFrame = SkillHitFrames[_currentHitFrameIndex - 1];
+                                _postCompleteTimer = SkillClipFrames > lastHitFrame
+                                    ? SkillClipFrames - lastHitFrame : 0;
+                            }
                         }
                     }
                 }
@@ -205,6 +223,13 @@ namespace CookApps.AutoChess
                     _projectileArrivalTimer--;
                     if (_projectileArrivalTimer <= 0)
                         HandleProjectileArrival(ctx);
+                }
+
+                // post-complete 대기 (클립 끝까지)
+                if (_completeFired)
+                {
+                    _postCompleteTimer--;
+                    return _postCompleteTimer > 0;
                 }
 
                 return true;
@@ -286,6 +311,8 @@ namespace CookApps.AutoChess
             _currentHitFrameIndex = 0;
             _hitFrameTimer = 0;
             _hasMultiHitFrames = false;
+            _postCompleteTimer = 0;
+            _completeFired = false;
             for (int i = 0; i < _hitIds.Length; i++) _hitIds[i] = CombatUnit.InvalidId;
         }
 

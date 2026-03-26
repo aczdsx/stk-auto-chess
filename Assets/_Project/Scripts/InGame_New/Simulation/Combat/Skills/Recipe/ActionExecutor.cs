@@ -257,13 +257,13 @@ namespace CookApps.AutoChess
             {
                 int casterIdx = ctx.State.FindUnitIndex(ctx.CasterCombatId);
                 if (casterIdx >= 0)
-                    SkillBuffHelper.ApplyPercentBuff(ctx.State, casterIdx, action.BuffStat, value, duration);
+                    SkillBuffHelper.ApplyTimedBuff(ctx.State, casterIdx, action.BuffStat, value, duration);
             }
             else if (action.TargetFilter == SkillTargetFilter.PrimaryTarget)
             {
                 int idx = ctx.State.FindUnitIndex(ctx.TargetCombatId);
                 if (idx >= 0)
-                    SkillBuffHelper.ApplyPercentBuff(ctx.State, idx, action.BuffStat, value, duration);
+                    SkillBuffHelper.ApplyTimedBuff(ctx.State, idx, action.BuffStat, value, duration);
             }
         }
 
@@ -651,13 +651,8 @@ namespace CookApps.AutoChess
             switch (action.VfxAt)
             {
                 case SkillVfxPlacement.AtCaster:
-                {
-                    // 시전자 현재 그리드 좌표를 명시 전달 (텔레포트 후에도 올바른 위치에 VFX 보장)
-                    ref var c = ref ctx.GetCaster();
-                    eq.PushSkillPhaseVfx(ctx.CasterCombatId, ctx.SkillSpecId, (byte)action.VfxIndex,
-                        col: c.GridCol, row: c.GridRow, useGridPos: true);
+                    eq.PushSkillPhaseVfx(ctx.CasterCombatId, ctx.SkillSpecId, (byte)action.VfxIndex);
                     break;
-                }
                 case SkillVfxPlacement.AtTarget:
                     eq.PushSkillPhaseVfx(ctx.CasterCombatId, ctx.SkillSpecId, (byte)action.VfxIndex,
                         targetId: ctx.TargetCombatId);
