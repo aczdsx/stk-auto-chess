@@ -10,10 +10,6 @@ namespace CookApps.AutoChess
         public int PowerPercent;
         public DamageType DamageType;
         public int CastFrames;
-        public int Param0;
-        public int Param1;
-        public int Param2;
-        public int Param3;
         public SkillTargetType TargetType;
 
         // CC
@@ -32,7 +28,7 @@ namespace CookApps.AutoChess
         public int TargetCount;
         public int HitCount;
 
-        // SKL 클립 타이밍 (프레임 단위, SkillSpecAdapter에서 변환)
+        // SKL 클립 타이밍 (프레임 단위, SkillFactory.BuildParams에서 변환)
         /// <summary>SKL 클립 Execute 이벤트 타이밍 (프레임)</summary>
         public int[] SkillHitFrames;
         /// <summary>SKL 클립 전체 길이 (프레임)</summary>

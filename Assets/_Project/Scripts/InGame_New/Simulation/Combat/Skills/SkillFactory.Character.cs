@@ -121,6 +121,33 @@ namespace CookApps.AutoChess
                 .Register();
 
             // ══════════════════════════════
+            // 아키타입 의존 스킬 → 개별 Recipe 전환
+            // ══════════════════════════════
+
+            // ── 시이나: Damage + CC(Silence) ──
+            Skill(215362202, E.Instant, T.NearestEnemy)
+                .Param(1, P.Int, 200f)           // [0] 데미지 배율
+                .Param(2, P.Frames, 3f)          // [1] 침묵 지속
+                .OnCast(Damage(paramIndex: 0))
+                .OnCast(CC(CrowdControlType.Silence, durationParamIndex: 1))
+                .Register();
+
+            // ── 블린: Diamond AoE (범위 2) ──
+            Skill(217243102, E.DelayedApply, T.NearestEnemy)
+                .Param(1, P.Int, 200f)
+                .AtHit(Vfx(0, V.AtGridPos))
+                .AtHit(AreaVfx(V.AreaEffect, 2))
+                .AtHit(AreaVfx(V.PerTileInDiamond, 2, vfxIndex: 1))
+                .AtHit(Damage(paramIndex: 0, filter: F.EnemiesInArea, area: S.Diamond, range: 2))
+                .Register();
+
+            // ── 아란: 단일 대상 Heal ──
+            Skill(1406031, E.Instant, T.LowestHPAlly)
+                .Param(1, P.Int, 200f)
+                .OnCast(Heal(paramIndex: 0))
+                .Register();
+
+            // ══════════════════════════════
             // 커스텀 클래스 유지 — ParamSlots만 Recipe에서 관리
             // ══════════════════════════════
 
@@ -128,6 +155,7 @@ namespace CookApps.AutoChess
             Skill(217413301, E.DelayedApply, T.NearestEnemy)
                 .Param(1, P.Int, 200f)           // [0] 주 데미지 배율
                 .Param(3, P.Int, 200f)           // [1] 후속 데미지 배율
+                .WithTags(TraitTag.Damage | TraitTag.Knockback | TraitTag.CC | TraitTag.AoE)
                 .Register();
 
             // ── 루키다: 여우불 마커 + 공속 버프 ──
@@ -135,6 +163,7 @@ namespace CookApps.AutoChess
                 .Param(1, P.Int, 2f)             // [0] 여우불 증가량
                 .Param(2, P.Frames, 3f)          // [1] 버프 지속
                 .Param(3, P.Int, 10f)            // [2] 공속 증가율%
+                .WithTags(TraitTag.Buff)
                 .Register();
 
             // ── 라키유: 베지어 투사체 → 범위 디버프 ──
@@ -142,11 +171,13 @@ namespace CookApps.AutoChess
                 .Param(1, P.Frames, 3f)          // [0] 디버프 지속
                 .Param(2, P.Int, 50f)            // [1] 회복감소%
                 .Param(3, P.Int, 30f)            // [2] 방어감소%
+                .WithTags(TraitTag.Projectile | TraitTag.Debuff | TraitTag.AoE)
                 .Register();
 
             // ── 미노: 순차 미사일 ──
             Skill(217433302, E.Channeling, T.NearestEnemy).Projectile()
                 .Param(1, P.Int, 200f)
+                .WithTags(TraitTag.Damage | TraitTag.Projectile | TraitTag.MultiHit)
                 .Register();
 
             // ── 베인: 바운스 투사체 ──
@@ -156,6 +187,7 @@ namespace CookApps.AutoChess
                 .Param(3, P.Frames, 3f)          // [2] 공속 버프 지속
                 .Param(4, P.Int, 30f)            // [3] 공속 증가율%
                 .Param(5, P.Int, 5f)             // [4] 최대 바운스
+                .WithTags(TraitTag.Damage | TraitTag.Projectile | TraitTag.Buff)
                 .Register();
 
             // ── 마리에: 텔레포트 + 다단히트 ──
@@ -164,6 +196,7 @@ namespace CookApps.AutoChess
                 .Param(1, P.Int, 4f)             // [1] 히트수
                 .Param(3, P.Frames, 3f)          // [2] 디버프 지속
                 .Param(4, P.Int, 30f)            // [3] 디버프%
+                .WithTags(TraitTag.Damage | TraitTag.Teleport | TraitTag.Debuff | TraitTag.MultiHit)
                 .Register();
 
             // ── 에이프릴: 확장 콘 바라지 ──
@@ -172,6 +205,7 @@ namespace CookApps.AutoChess
                 .Param(1, P.Int, 10f)            // [1] 히트 회수
                 .Param(3, P.Int, 75f)            // [2] 중거리 배율
                 .Param(4, P.Int, 50f)            // [3] 원거리 배율
+                .WithTags(TraitTag.Damage | TraitTag.AoE)
                 .Register();
 
             // ── 엔키: 보드 스윕 힐 투사체 ──
@@ -179,6 +213,7 @@ namespace CookApps.AutoChess
                 .Param(1, P.Int, 200f)           // [0] 힐 배율
                 .Param(2, P.Frames, 6f)          // [1] HoT 지속
                 .Param(3, P.Int, 50f)            // [2] HoT 위력%
+                .WithTags(TraitTag.Heal)
                 .Register();
 
             // ── 오데트: 2단계 텔레포트 ──
@@ -186,6 +221,7 @@ namespace CookApps.AutoChess
                 .Param(1, P.Int, 200f)
                 .Param(2, P.Frames, 3f)
                 .Param(3, P.Int, 30f)
+                .WithTags(TraitTag.Damage | TraitTag.Teleport | TraitTag.Debuff | TraitTag.AoE)
                 .Register();
 
             // ── 아드리아: 3단계 확장 패턴 ──
@@ -193,6 +229,7 @@ namespace CookApps.AutoChess
                 .Param(1, P.Int, 200f)
                 .Param(2, P.Int, 100f)
                 .Param(3, P.Frames, 2f)
+                .WithTags(TraitTag.Damage | TraitTag.AoE)
                 .Register();
 
             // ── 시라유키: 순차 텔레포트 암살 ──
@@ -201,6 +238,7 @@ namespace CookApps.AutoChess
                 .Param(1, P.Frames, 3f)          // [1] 지정불가 시간
                 .Param(3, P.Frames, 3f)          // [2] 회피 버프 지속
                 .Param(4, P.Int, 30f)            // [3] 회피 증가율%
+                .WithTags(TraitTag.Damage | TraitTag.Teleport | TraitTag.Buff)
                 .Register();
         }
     }

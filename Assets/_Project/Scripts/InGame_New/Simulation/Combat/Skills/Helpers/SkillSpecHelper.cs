@@ -6,7 +6,7 @@ namespace CookApps.AutoChess
 {
     /// <summary>
     /// SkillActive 스펙 리스트에서 타입별 값을 읽는 헬퍼.
-    /// 기존 SkillSpecAdapter.GetSpecRate + SecondsToFrames를 통합하여
+    /// GetSpecRate + SecondsToFrames를 통합하여
     /// 각 커스텀 스킬이 자체 스펙 파싱에 사용.
     /// </summary>
     public static class SkillSpecHelper

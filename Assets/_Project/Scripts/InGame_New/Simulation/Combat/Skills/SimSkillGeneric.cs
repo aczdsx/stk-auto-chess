@@ -27,13 +27,6 @@ namespace CookApps.AutoChess
         // ── 캐시 ──
         private int _cachedTargetId;
 
-        // ── SkillParams 오버라이드 (Recipe 불변 유지, 컨텍스트로 전달) ──
-        private int _ccDurationFramesOverride;
-        private CrowdControlType _ccTypeOverride;
-        private int _areaRangeOverride;
-        private int _targetCountOverride;
-        private int _hitCountOverride;
-
         public override SkillExecutionType ExecutionType => _recipe.ExecutionType;
         public override bool HasProjectile => _recipe.HasProjectile;
 
@@ -70,21 +63,6 @@ namespace CookApps.AutoChess
                     PowerPercent = _paramValues[0];
             }
 
-            // SkillParams의 오버라이드 값을 인스턴스에 저장 (Recipe 불변 유지)
-            StoreParamOverrides(baseParams);
-        }
-
-        /// <summary>
-        /// SkillParams의 Param0~3 값을 인스턴스 필드에 저장.
-        /// Recipe를 변경하지 않고, MakeContext에서 SkillExecuteContext에 전달.
-        /// </summary>
-        private void StoreParamOverrides(SkillParams p)
-        {
-            _areaRangeOverride = p.Param0;
-            _targetCountOverride = p.TargetCount;
-            _hitCountOverride = p.HitCount;
-            _ccTypeOverride = p.CCType;
-            _ccDurationFramesOverride = p.CCDurationFrames;
         }
 
         // ══════════════════════════════
@@ -294,11 +272,6 @@ namespace CookApps.AutoChess
                 Rng = rng,
                 ParamValues = _paramValues,
                 BasePowerPercent = PowerPercent,
-                CCDurationOverride = _ccDurationFramesOverride,
-                CCTypeOverride = _ccTypeOverride,
-                AreaRangeOverride = _areaRangeOverride,
-                TargetCountOverride = _targetCountOverride,
-                HitCountOverride = _hitCountOverride,
                 TickCount = _tickCount,
             };
         }
@@ -309,7 +282,7 @@ namespace CookApps.AutoChess
             for (int i = 0; i < _recipe.Actions.Length; i++)
             {
                 if (_recipe.Actions[i].AreaRange > 0)
-                    return _areaRangeOverride > 0 ? _areaRangeOverride : _recipe.Actions[i].AreaRange;
+                    return _recipe.Actions[i].AreaRange;
             }
             return 1;
         }

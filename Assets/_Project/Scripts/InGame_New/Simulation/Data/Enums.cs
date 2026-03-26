@@ -245,22 +245,24 @@ namespace CookApps.AutoChess
     }
 
     /// <summary>시뮬레이션 스킬 아키타입</summary>
-    public enum SimSkillArchetype : byte
+    /// <summary>스킬 기능 태그 비트마스크. 시너지/아이템 쿼리용 메타데이터.</summary>
+    [System.Flags]
+    public enum TraitTag : ulong
     {
-        SingleDamage,
-        AoEDamage,
-        LineDamage,
-        DamageCC,
-        ConeDamage,
-        PatternDamage,
-        MultiHit,
-        Heal,
-        MultiTargetHeal,
-        TeleportStrike,
-        Buff,
-        Debuff,
-        DiamondAoE,
-        Custom,
+        None          = 0,
+        Damage        = 1 << 0,
+        AoE           = 1 << 1,
+        CC            = 1 << 2,
+        Heal          = 1 << 3,
+        Shield        = 1 << 4,
+        Buff          = 1 << 5,
+        Debuff        = 1 << 6,
+        Knockback     = 1 << 7,
+        Projectile    = 1 << 8,
+        Teleport      = 1 << 9,
+        MultiHit      = 1 << 10,
+        Channeling    = 1 << 11,
+        RemoveDebuffs = 1 << 12,
     }
 
     // ═══════════════════════════════════════════════

@@ -21,6 +21,9 @@ namespace CookApps.AutoChess
         /// <summary>투사체 발사 스킬 여부 (true이면 View에서 정적 VFX 생성 스킵)</summary>
         public bool HasProjectile;
 
+        /// <summary>기능 태그 비트마스크 (시너지/아이템 쿼리용)</summary>
+        public TraitTag Tags;
+
         /// <summary>액션 배열 — 스킬이 하는 모든 것의 시퀀스</summary>
         public SkillAction[] Actions;
 
