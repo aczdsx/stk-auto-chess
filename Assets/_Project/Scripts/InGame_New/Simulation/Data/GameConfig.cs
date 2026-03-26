@@ -68,8 +68,8 @@ namespace CookApps.AutoChess
         public bool SharedPool = true; // 4인 공유 풀 (PvE는 false)
 
         // ── GradeType → 코스트 매핑 ──
-        // 인덱스: GradeType enum 값 (UNCOMMON=0 ~ MYTHIC=9) → 1~5코스트
-        public int[] GradeCostMap = { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5 };
+        // 인덱스: GradeType enum 값 (R=0, SR=1, SSR=2, UR=3)
+        public int[] GradeCostMap = { 1, 2, 3, 4 };
 
         // ── 챔피언 풀 사이즈 (레어리티별) ──
         // 인덱스: [0]=미사용, [1]=1코스트, [2]=2코스트, ..., [5]=5코스트

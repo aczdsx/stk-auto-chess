@@ -267,7 +267,7 @@ namespace CookApps.AutoBattler
                 var spec = SpecDataManager.Instance.GetSpecCharacter(unit.ChampionSpecId);
                 if (spec == null) continue;
 
-                var grade = spec is CharacterInfo charInfo ? charInfo.grade_type : GradeType.COMMON;
+                var grade = spec is CharacterInfo charInfo ? charInfo.grade_type : GradeType.R;
                 var synergyTypes = new List<SynergyType>();
                 if (spec.character_element_type != SynergyType.NONE)
                     synergyTypes.Add(spec.character_element_type);

@@ -169,16 +169,10 @@ namespace CookApps.AutoBattler
 
     public enum GradeType
     {
-        UNCOMMON = 0,
-        COMMON = 1,
-        NORMAL = 2,
-        MAGIC = 3,
-        RARE = 4,
-        EPIC = 5,
-        UNIQUE = 6,
-        LEGENDARY = 7,
-        ANCIENT = 8,
-        MYTHIC = 9,
+        R = 0,
+        SR = 1,
+        SSR = 2,
+        UR = 3,
     }
 
     public enum SynergyType

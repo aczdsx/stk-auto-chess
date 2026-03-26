@@ -451,14 +451,14 @@ namespace CookApps.AutoBattler
         {
             switch (type)
             {
-                case GradeType.COMMON:
-                    return "N";
-                case GradeType.RARE:
+                case GradeType.R:
                     return "R";
-                case GradeType.EPIC:
+                case GradeType.SR:
                     return "SR";
-                case GradeType.LEGENDARY:
+                case GradeType.SSR:
                     return "SSR";
+                case GradeType.UR:
+                    return "UR";
                 default:
                     return string.Empty;
             }

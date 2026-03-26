@@ -5,7 +5,7 @@ namespace CookApps.AutoChess
     /// 밸런스 수치(PowerPercent, CC 지속시간 등)는 SpecData에서 ParamSlots를 통해 주입.
     ///
     /// 사용 흐름:
-    /// 1. SkillRecipeRegistry에 static으로 정의
+    /// 1. SkillFactory에 static으로 정의
     /// 2. SkillFactory에서 SimSkillGeneric에 주입
     /// 3. SimSkillGeneric.InitializeFromSpec()에서 ParamSlots 기반으로 specList에서 수치 추출
     /// 4. SimSkillGeneric.Execute()/OnChannelTick()에서 Actions를 타이밍에 따라 디스패치
@@ -20,6 +20,9 @@ namespace CookApps.AutoChess
 
         /// <summary>투사체 발사 스킬 여부 (true이면 View에서 정적 VFX 생성 스킵)</summary>
         public bool HasProjectile;
+
+        /// <summary>기능 태그 비트마스크 (시너지/아이템 쿼리용)</summary>
+        public TraitTag Tags;
 
         /// <summary>액션 배열 — 스킬이 하는 모든 것의 시퀀스</summary>
         public SkillAction[] Actions;
@@ -96,6 +99,30 @@ namespace CookApps.AutoChess
         // ── 마커 전용 ──
         /// <summary>SkillMarkerType 값 (StatusEffect.SkillMarker의 하위 분류)</summary>
         public byte MarkerType;
+
+        // ── 투사체 확장 ──
+        /// <summary>SpawnProjectile: 베지어 곡선 사용 여부</summary>
+        public bool UseBezier;
+        /// <summary>SpawnProjectile: 도착 시 VFX 인덱스 (-1이면 없음)</summary>
+        public sbyte ArrivalVfxIndex;
+        /// <summary>AreaEffect VFX: 체비셰프(box) 범위 사용 여부 (false=맨해튼)</summary>
+        public bool IsBoxArea;
+
+        // ── 체이닝 확장 ──
+        /// <summary>Teleport: 전방 이동 거리 (0이면 타겟 뒤로)</summary>
+        public byte TeleportDistance;
+        /// <summary>Rect: 전방 깊이 (시전자 행 기준 추가 행 수)</summary>
+        public byte RectDepth;
+        /// <summary>Knockback: 고정 거리 (0이면 SecondaryParamIndex 사용)</summary>
+        public byte KnockbackDistance;
+        /// <summary>Retarget: 이미 히트한 타겟 제외</summary>
+        public bool ExcludeHit;
+        /// <summary>Damage(Area): 메인 타겟 제외 (미노 스플래시)</summary>
+        public bool ExcludePrimary;
+        /// <summary>Buff: 값에 히트수를 곱함</summary>
+        public bool ScaleByHitCount;
+        /// <summary>Damage: 바운스 감쇠율 ParamSlots 인덱스 (-1=없음)</summary>
+        public sbyte DecayParamIndex;
     }
 
     /// <summary>

@@ -245,23 +245,24 @@ namespace CookApps.AutoChess
     }
 
     /// <summary>시뮬레이션 스킬 아키타입</summary>
-    public enum SimSkillArchetype : byte
+    /// <summary>스킬 기능 태그 비트마스크. 시너지/아이템 쿼리용 메타데이터.</summary>
+    [System.Flags]
+    public enum TraitTag : ulong
     {
-        SingleDamage,
-        AoEDamage,
-        LineDamage,
-        DamageCC,
-        ConeDamage,
-        PatternDamage,
-        MultiHit,
-        Heal,
-        MultiTargetHeal,
-        TeleportStrike,
-        Buff,
-        Debuff,
-        Stun,
-        DiamondAoE,
-        Custom,
+        None          = 0,
+        Damage        = 1 << 0,
+        AoE           = 1 << 1,
+        CC            = 1 << 2,
+        Heal          = 1 << 3,
+        Shield        = 1 << 4,
+        Buff          = 1 << 5,
+        Debuff        = 1 << 6,
+        Knockback     = 1 << 7,
+        Projectile    = 1 << 8,
+        Teleport      = 1 << 9,
+        MultiHit      = 1 << 10,
+        Channeling    = 1 << 11,
+        RemoveDebuffs = 1 << 12,
     }
 
     // ═══════════════════════════════════════════════
@@ -275,6 +276,26 @@ namespace CookApps.AutoChess
         AtHitFrame,         // SkillHitFrames[N] 도달 시
         OnTick,             // 반복 틱마다
         OnComplete,         // 채널링 종료 시
+        OnKnockbackWall,    // 넉백 벽 충돌 시
+        OnProjectileArrive, // 투사체 도착 시
+    }
+
+    /// <summary>
+    /// Recipe 빌더용 이벤트 트리거.
+    /// Execute1~4 = SKL 애니메이션 키프레임 이벤트 (SkillHitFrames[N] 타이밍).
+    /// Cast/Tick/Complete/KnockbackWall/ProjectileArrive = 런타임 이벤트.
+    /// </summary>
+    public enum SkillEvent : byte
+    {
+        Cast,               // 스킬 시전 시
+        Execute1,           // SKL 애니메이션 1번째 Execute 이벤트
+        Execute2,           // SKL 애니메이션 2번째 Execute 이벤트
+        Execute3,           // SKL 애니메이션 3번째 Execute 이벤트
+        Execute4,           // SKL 애니메이션 4번째 Execute 이벤트
+        Tick,               // 반복 틱마다
+        Complete,           // 채널링/스킬 종료 시
+        KnockbackWall,      // 넉백 벽 충돌 시
+        ProjectileArrive,   // 투사체 도착 시
     }
 
     /// <summary>Recipe 액션 효과 타입</summary>
@@ -296,6 +317,10 @@ namespace CookApps.AutoChess
         SpawnLinearProjectile, // ProjectileSystem.CreateLinearProjectile
         DamageKnockbackInArea, // 범위 데미지 + 각 적에게 중심→바깥 넉백 (메이)
         SequentialLineDamage,  // 전방 직선 순차 타일 타격 + 넉백 (보스탱커) — OnTick에서 사용
+        Teleport,              // GridSystem으로 순간이동
+        Retarget,              // TargetingSystem으로 타겟 재선택
+        ApplyStatusEffect,     // StatusEffectSystem으로 상태이상 적용 (CC와 별도)
+        TileEffect,            // 타일 이펙트 발행 (PushSkillAreaEffect/PushSkillRectAreaEffect)
     }
 
     /// <summary>Recipe 액션 대상 필터</summary>
@@ -307,6 +332,7 @@ namespace CookApps.AutoChess
         Self,               // 시전자
         LowestHpAllies,     // 최저 HP 아군 N명
         SameRowAllies,      // 같은 행 아군
+        NearestEnemy,       // 가장 가까운 적 (Retarget 바운스용)
     }
 
     /// <summary>Recipe 범위 형태</summary>
@@ -318,6 +344,7 @@ namespace CookApps.AutoChess
         Plus,               // 십자
         Cone,               // 부채꼴
         Line,               // 직선
+        Rect,               // 방향 기반 직사각형 (AreaRange=좌우, RectDepth=전방)
     }
 
     /// <summary>Recipe VFX 배치</summary>
@@ -330,6 +357,7 @@ namespace CookApps.AutoChess
         AtCasterWithDir,
         AreaEffect,
         PerTileInDiamond,   // 맨해튼 범위 내 각 타일에 개별 VFX 스폰
+        RectAreaEffect,     // 방향 기반 직사각형 타일 이펙트 (오데트 ㄷ자형)
     }
 
     /// <summary>Recipe 조건부 실행</summary>

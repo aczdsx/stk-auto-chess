@@ -43,8 +43,8 @@ namespace CookApps.AutoChess.View
             {
                 var gradeSwapType = charInfo.grade_type switch
                 {
-                    GradeType.EPIC => SimpleSwapType.Grade_1,
-                    GradeType.LEGENDARY => SimpleSwapType.Grade_2,
+                    GradeType.SR => SimpleSwapType.Grade_1,
+                    GradeType.SSR => SimpleSwapType.Grade_2,
                     _ => SimpleSwapType.Grade_0, // Rare 및 기본값
                 };
                 _boardImageSwapper.Swap(gradeSwapType);

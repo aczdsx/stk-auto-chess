@@ -164,7 +164,7 @@ namespace CookApps.AutoBattler
 
             // UR 등급 캐릭터
             var urCharacters = new List<CharacterData>();
-            _characterModel.GetCharactersByRarity(urCharacters, GradeType.LEGENDARY);
+            _characterModel.GetCharactersByRarity(urCharacters, GradeType.SSR);
             Debug.Log($"UR 등급 캐릭터: {urCharacters.Count}명");
         }
 

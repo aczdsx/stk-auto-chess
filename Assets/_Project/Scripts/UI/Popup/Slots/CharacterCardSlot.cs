@@ -178,9 +178,9 @@ namespace CookApps.AutoBattler
             _lockBGLayerObject.SetActive(!haveCharacter);
 
             var grade = _specCharacterData.grade_type;
-            bool isNormal = haveCharacter && grade == GradeType.RARE;
-            bool isSR     = haveCharacter && grade == GradeType.EPIC;
-            bool isSSR    = haveCharacter && grade == GradeType.LEGENDARY;
+            bool isNormal = haveCharacter && grade == GradeType.R;
+            bool isSR     = haveCharacter && grade == GradeType.SR;
+            bool isSSR    = haveCharacter && grade == GradeType.SSR;
 
             _normalBGLayerObject.SetActive(isNormal);
             if (_SRBGLayerObject != null) _SRBGLayerObject.SetActive(isSR);

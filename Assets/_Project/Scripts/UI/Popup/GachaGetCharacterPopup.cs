@@ -97,16 +97,16 @@ namespace CookApps.AutoBattler
 
         private static readonly Dictionary<GradeType, string> SDStandSpriteMap = new()
         {
-            [GradeType.RARE] = "UI_Gacha_Common_SD_Stand_R",
-            [GradeType.EPIC] = "UI_Gacha_Common_SD_Stand_SR",
-            [GradeType.LEGENDARY] = "UI_Gacha_Common_SD_Stand_SSR",
+            [GradeType.R] = "UI_Gacha_Common_SD_Stand_R",
+            [GradeType.SR] = "UI_Gacha_Common_SD_Stand_SR",
+            [GradeType.SSR] = "UI_Gacha_Common_SD_Stand_SSR",
         };
 
         private static readonly Dictionary<GradeType, string> GradeAnimTriggerMap = new()
         {
-            [GradeType.RARE] = "R",
-            [GradeType.EPIC] = "SR",
-            [GradeType.LEGENDARY] = "SSR",
+            [GradeType.R] = "R",
+            [GradeType.SR] = "SR",
+            [GradeType.SSR] = "SSR",
         };
 
         #endregion
@@ -283,7 +283,7 @@ namespace CookApps.AutoBattler
             // }
 
             // 9. 이펙트 그룹 — LEGENDARY만 활성화
-            _effectGroup.SetActive(grade == GradeType.LEGENDARY);
+            _effectGroup.SetActive(grade == GradeType.SSR);
 
             // 10. 등급별 애니메이션 Trigger
             if (_animator != null && GradeAnimTriggerMap.TryGetValue(grade, out var trigger))

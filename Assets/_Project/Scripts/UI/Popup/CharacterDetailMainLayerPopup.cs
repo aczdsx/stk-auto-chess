@@ -216,9 +216,9 @@ namespace CookApps.AutoBattler
             _characterNameText.text = LanguageManager.Instance.GetDefaultText(_specCharacterData.name_token);
             _characterPositionTypeText.text = _specCharacterData.character_position_type.ToString();
 
-            _characterGradeImageObject_R.SetActive(_specCharacterData.grade_type == GradeType.RARE);
-            _characterGradeImageObject_SR.SetActive(_specCharacterData.grade_type == GradeType.EPIC);
-            _characterGradeImageObject_SSR.SetActive(_specCharacterData.grade_type == GradeType.LEGENDARY);
+            _characterGradeImageObject_R.SetActive(_specCharacterData.grade_type == GradeType.R);
+            _characterGradeImageObject_SR.SetActive(_specCharacterData.grade_type == GradeType.SR);
+            _characterGradeImageObject_SSR.SetActive(_specCharacterData.grade_type == GradeType.SSR);
 
             _elementSynergyUI.SetSynergyUI(_specCharacterData.character_element_type);
             _classSynergyUI.SetSynergyUI(_specCharacterData.character_stella_type);

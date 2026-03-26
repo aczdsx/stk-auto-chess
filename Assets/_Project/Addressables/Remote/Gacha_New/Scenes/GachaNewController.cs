@@ -122,12 +122,12 @@ namespace CookApps.AutoBattler
             _isCompleted = false;
 
             // 1) Grade analysis
-            GradeType highestGrade = GradeType.RARE;
+            GradeType highestGrade = GradeType.R;
             bool hasSSR = false;
             for (int i = 0; i < datas.Count; i++)
             {
                 GradeType grade = GetGradeFromRewardItem(datas[i]);
-                if (grade == GradeType.LEGENDARY) hasSSR = true;
+                if (grade == GradeType.SSR) hasSSR = true;
                 if (grade > highestGrade) highestGrade = grade;
             }
 
@@ -330,9 +330,9 @@ namespace CookApps.AutoBattler
         private void ConfigureTimeline(bool hasSSR, GradeType highestGrade)
         {
             // Star sub-tracks: mute all except the highest grade
-            SetTimelineTrackMute("SSR", highestGrade != GradeType.LEGENDARY);
-            SetTimelineTrackMute("SR", highestGrade != GradeType.EPIC);
-            SetTimelineTrackMute("R", highestGrade != GradeType.RARE);
+            SetTimelineTrackMute("SSR", highestGrade != GradeType.SSR);
+            SetTimelineTrackMute("SR", highestGrade != GradeType.SR);
+            SetTimelineTrackMute("R", highestGrade != GradeType.R);
 
             // Legend/Normal group tracks: mute based on SSR presence
             SetTimelineTrackMute("Legend", !hasSSR);
@@ -498,9 +498,9 @@ namespace CookApps.AutoBattler
         {
             switch (grade)
             {
-                case GradeType.LEGENDARY:
+                case GradeType.SSR:
                     return _markPrefabSSR;
-                case GradeType.EPIC:
+                case GradeType.SR:
                     return _markPrefabSR;
                 default:
                     return _markPrefabR;
@@ -517,9 +517,9 @@ namespace CookApps.AutoBattler
         /// </summary>
         private GradeType GetGradeFromRewardItem(RewardItem item)
         {
-            if (!item.Id.GetCharacterId(out int charId)) return GradeType.RARE;
+            if (!item.Id.GetCharacterId(out int charId)) return GradeType.R;
             CharacterInfo charInfo = SpecDataManager.Instance.GetCharacterData(charId);
-            if (charInfo == null) return GradeType.RARE;
+            if (charInfo == null) return GradeType.R;
             return charInfo.grade_type;
         }
 
