@@ -17,10 +17,10 @@ namespace CookApps.AutoChess
 
             bool shouldRestoreMana;
             int idx = state.FindUnitIndex(target.CombatId);
-            var skill = idx >= 0 ? state.Skills[idx] : null;
 
-            if (skill != null && skill.IsChanneling)
+            if (idx >= 0 && state.Skills[idx].IsInitialized && state.Skills[idx].IsChanneling)
             {
+                ref var skill = ref state.Skills[idx];
                 // 채널링: SkillCastTimer = 경과 프레임 (0부터 ++), FirstEffectFrame = 첫 효과 키프레임
                 shouldRestoreMana = skill.FirstEffectFrame <= 0
                     || target.SkillCastTimer < skill.FirstEffectFrame;

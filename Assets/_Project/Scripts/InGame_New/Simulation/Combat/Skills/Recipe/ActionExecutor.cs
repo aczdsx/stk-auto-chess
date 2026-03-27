@@ -73,14 +73,37 @@ namespace CookApps.AutoChess
                 if (action.AreaShape == SkillAreaShape.Line)
                 {
                     ref var caster = ref state.Units[casterIdx];
-                    int dirCol = caster.TeamIndex == 0 ? 1 : -1;
+                    // 타겟 방향 계산 (팀 기본 방향 대신 실제 타겟 방향)
+                    int targetIdx3 = ctx.State.FindUnitIndex(ctx.TargetCombatId);
+                    int dirCol, dirRow;
+                    if (targetIdx3 >= 0)
+                    {
+                        int dc = state.Units[targetIdx3].GridCol - caster.GridCol;
+                        int dr = state.Units[targetIdx3].GridRow - caster.GridRow;
+                        if (System.Math.Abs(dc) >= System.Math.Abs(dr))
+                        { dirCol = dc > 0 ? 1 : -1; dirRow = 0; }
+                        else
+                        { dirRow = dr > 0 ? 1 : -1; dirCol = 0; }
+                    }
+                    else
+                    {
+                        dirCol = caster.TeamIndex == 0 ? 1 : -1;
+                        dirRow = 0;
+                    }
+
+                    // range 0 = 타겟까지 거리 (대쉬형 스킬)
                     int range = action.AreaRange;
+                    if (range == 0 && targetIdx3 >= 0)
+                        range = System.Math.Abs(state.Units[targetIdx3].GridCol - caster.GridCol)
+                              + System.Math.Abs(state.Units[targetIdx3].GridRow - caster.GridRow);
+                    if (range <= 0) range = 1;
 
                     int col = caster.GridCol;
                     int row = caster.GridRow;
                     for (int step = 0; step < range; step++)
                     {
                         col += dirCol;
+                        row += dirRow;
                         if (!BoardHelper.IsValidCombatPosition(col, row)) break;
 
                         int combatId = state.GetUnitAtGrid(col, row);
@@ -668,6 +691,24 @@ namespace CookApps.AutoChess
                     }
                     break;
                 }
+                case SkillVfxPlacement.AtTargetWithDir:
+                {
+                    // 타겟 위치 + 시전자→타겟 방향 회전 (빅마우스 포탈 등)
+                    int tIdx = ctx.State.FindUnitIndex(ctx.TargetCombatId);
+                    if (tIdx >= 0)
+                    {
+                        ref var tgt = ref ctx.State.Units[tIdx];
+                        ref var src = ref ctx.GetCaster();
+                        int dc = tgt.GridCol - src.GridCol;
+                        int dr = tgt.GridRow - src.GridRow;
+                        sbyte dC = (sbyte)(dc > 0 ? 1 : (dc < 0 ? -1 : 0));
+                        sbyte dR = (sbyte)(dr > 0 ? 1 : (dr < 0 ? -1 : 0));
+                        eq.PushSkillPhaseVfx(ctx.CasterCombatId, ctx.SkillSpecId, (byte)action.VfxIndex,
+                            col: tgt.GridCol, row: tgt.GridRow, useGridPos: true,
+                            dirCol: dC, dirRow: dR);
+                    }
+                    break;
+                }
                 case SkillVfxPlacement.AtCasterWithDir:
                 {
                     ref var caster = ref ctx.GetCaster();
@@ -978,11 +1019,23 @@ namespace CookApps.AutoChess
             return idx >= 0 && State.Units[idx].CurrentHP > 0;
         }
 
+        /// <summary>ParamSlots 참조 (AtkPercent 변환용)</summary>
+        public ParamSlot[] ParamSlots;
+
         public int GetParamValue(int paramIndex)
         {
             if (paramIndex < 0) return BasePowerPercent;
             if (ParamValues != null && paramIndex < ParamValues.Length)
-                return ParamValues[paramIndex];
+            {
+                int val = ParamValues[paramIndex];
+                // AtkPercent: 비율값을 공격력 기반 절대값으로 변환
+                if (ParamSlots != null && paramIndex < ParamSlots.Length
+                    && ParamSlots[paramIndex].ValueType == ParamValueType.AtkPercent)
+                {
+                    val = GetCaster().Attack * val / 100;
+                }
+                return val;
+            }
             return BasePowerPercent;
         }
     }

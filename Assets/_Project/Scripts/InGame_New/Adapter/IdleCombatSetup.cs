@@ -288,23 +288,23 @@ namespace CookApps.AutoChess
             ref var unit = ref state.Units[unitIndex];
             if (unit.SkillSpecId <= 0) return;
 
-            var skill = SkillFactory.Create(unit.SkillSpecId);
-            if (skill == null) return;
+            state.Skills[unitIndex] = SkillFactory.Create(unit.SkillSpecId);
+            ref var skill = ref state.Skills[unitIndex];
 
             if (SkillFactory.TryGetParams(unit.SkillSpecId, out var skillParams))
             {
-                skill.Initialize(skillParams);
+                SkillFactory.TryGetSpecList(unit.SkillSpecId, out var specList);
+                SkillDispatcher.InitializeFromSpec(ref skill, skillParams, specList, tickRate);
             }
             else
             {
-                skill.Initialize(new SkillParams
+                skill.InitializeBase(new SkillParams
                 {
                     SkillId = unit.SkillSpecId,
                     PowerPercent = 200,
                     DamageType = DamageType.Magical,
                 });
             }
-            state.Skills[unitIndex] = skill;
         }
 
         /// <summary>ISpecCharacterInfo에서 첫 번째 스킬 ID 추출</summary>

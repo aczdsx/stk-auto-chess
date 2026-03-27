@@ -153,5 +153,7 @@ namespace CookApps.AutoChess
         Int,
         /// <summary>base_rate(초)를 tickRate 기반 프레임으로 변환</summary>
         Frames,
+        /// <summary>base_rate(%)를 공격력 기반 절대값으로 변환 (attack * rate / 100). 런타임에 적용.</summary>
+        AtkPercent,
     }
 }

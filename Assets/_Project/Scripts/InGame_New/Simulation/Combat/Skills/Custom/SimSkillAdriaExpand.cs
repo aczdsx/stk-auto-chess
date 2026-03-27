@@ -8,96 +8,80 @@ namespace CookApps.AutoChess
     /// Phase 0: +(범위1), Phase 1: X(범위1), Phase 2: +(범위2)
     /// 각 Phase는 SkillHitFrames 타이밍에 발동, 이미 맞은 적은 중복 히트 안 함.
     /// 스펙: {0}=쿨타임, {1}=데미지배율(%), {2}=방어력계수, {3}=스턴시간(초)
-    /// Params: Param0=defScaleValue, Param1=stunDurationFrames
     /// </summary>
-    public class SimSkillAdriaExpand : SimSkillBase
+    public static class AdriaSkillLogic
     {
-        private int _defScaleValue;
-        private int _stunDurationFrames;
-
-        private int _currentPhase;
-        private int _phaseTimer;
-        private bool _done;
-
-        // 이미 맞은 적 추적 (비트마스크, 최대 64유닛)
-        private long _hitMask;
-
         private const int PhaseCount = 3;
         private const int FallbackDelay = 8; // SkillHitFrames 없을 때 페이즈 간격
 
-        public override SkillExecutionType ExecutionType => SkillExecutionType.Channeling;
-
-        public override void InitializeFromSpec(SkillParams baseParams, List<SkillActive> specList, int tickRate)
+        public static void InitializeFromSpec(ref SimSkillInstance skill, List<SkillActive> specList, int tickRate)
         {
-            base.Initialize(baseParams);
+            skill.ExecutionType = SkillExecutionType.Channeling;
             // {0}=쿨타임, {1}=데미지배율(%)→PowerPercent, {2}=방어력계수, {3}=스턴시간(초)
-            PowerPercent = SkillSpecHelper.GetInt(specList, 1, 200f);
-            _defScaleValue = SkillSpecHelper.GetInt(specList, 2, 100f);
-            _stunDurationFrames = SkillSpecHelper.GetFrames(specList, 3, 2f, tickRate);
+            skill.PowerPercent = SkillSpecHelper.GetInt(specList, 1, 200f);
+            skill.DefScaleValue = SkillSpecHelper.GetInt(specList, 2, 100f);
+            skill.StunDurationFrames = SkillSpecHelper.GetFrames(specList, 3, 2f, tickRate);
         }
 
-        public override int SelectTarget(CombatMatchState state, ref CombatUnit caster)
+        public static void Execute(ref SimSkillInstance skill, CombatMatchState state,
+            ref CombatUnit caster, int targetCombatId, ref DeterministicRNG rng)
         {
-            return caster.CombatId; // 자기 중심
-        }
-
-        public override void Execute(CombatMatchState state, ref CombatUnit caster,
-            int targetCombatId, ref DeterministicRNG rng)
-        {
-            _currentPhase = 0;
-            _done = false;
-            _hitMask = 0;
+            skill.CurrentPhase = 0;
+            skill.Done = false;
+            skill.HitMask = 0;
 
             // 첫 Phase 타이밍 대기 (SkillHitFrames[0])
-            _phaseTimer = SkillHitFrames != null && SkillHitFrames.Length > 0
-                ? SkillHitFrames[0]
+            skill.PhaseTimer = skill.SkillHitFrames != null && skill.SkillHitFrames.Length > 0
+                ? skill.SkillHitFrames[0]
                 : FallbackDelay;
         }
 
-        public override bool OnChannelTick(CombatMatchState state, ref CombatUnit caster, ref DeterministicRNG rng)
+        public static bool OnChannelTick(ref SimSkillInstance skill, CombatMatchState state,
+            ref CombatUnit caster, ref DeterministicRNG rng)
         {
-            if (_done) return false;
+            if (skill.Done) return false;
 
-            _phaseTimer--;
-            if (_phaseTimer > 0) return true;
+            skill.PhaseTimer--;
+            if (skill.PhaseTimer > 0) return true;
 
             // 현재 Phase 실행
-            DoPhase(state, ref caster, _currentPhase);
+            DoPhase(ref skill, state, ref caster, skill.CurrentPhase);
 
-            _currentPhase++;
-            if (_currentPhase >= PhaseCount)
+            skill.CurrentPhase++;
+            if (skill.CurrentPhase >= PhaseCount)
             {
-                _done = true;
+                skill.Done = true;
                 return false;
             }
 
             // 다음 Phase 타이밍 설정
-            if (SkillHitFrames != null && _currentPhase < SkillHitFrames.Length)
+            if (skill.SkillHitFrames != null && skill.CurrentPhase < skill.SkillHitFrames.Length)
             {
                 // SkillHitFrames[n]은 절대 프레임 → 이전 프레임과의 차이가 대기 시간
-                int prevFrame = SkillHitFrames[_currentPhase - 1];
-                int nextFrame = SkillHitFrames[_currentPhase];
-                _phaseTimer = nextFrame > prevFrame ? nextFrame - prevFrame : FallbackDelay;
+                int prevFrame = skill.SkillHitFrames[skill.CurrentPhase - 1];
+                int nextFrame = skill.SkillHitFrames[skill.CurrentPhase];
+                skill.PhaseTimer = nextFrame > prevFrame ? nextFrame - prevFrame : FallbackDelay;
             }
             else
             {
-                _phaseTimer = FallbackDelay;
+                skill.PhaseTimer = FallbackDelay;
             }
 
             return true;
         }
 
-        private void DoPhase(CombatMatchState state, ref CombatUnit caster, int phase)
+        private static void DoPhase(ref SimSkillInstance skill, CombatMatchState state,
+            ref CombatUnit caster, int phase)
         {
             int col = caster.GridCol;
             int row = caster.GridRow;
             int attack = caster.Attack;
             int def = caster.Def;
-            var dmgType = DamageType;
+            var dmgType = skill.DamageType;
             byte team = caster.TeamIndex;
-            int power = PowerPercent;
-            int defScale = _defScaleValue;
-            int stunFrames = _stunDurationFrames;
+            int power = skill.PowerPercent;
+            int defScale = skill.DefScaleValue;
+            int stunFrames = skill.StunDurationFrames;
             int casterIdx = state.FindUnitIndex(caster.CombatId);
 
             // Phase별 패턴으로 적 순회
@@ -113,8 +97,8 @@ namespace CookApps.AutoChess
                 // 중복 히트 방지
                 int bitIndex = i % 64;
                 long bit = 1L << bitIndex;
-                if ((_hitMask & bit) != 0) continue;
-                _hitMask |= bit;
+                if ((skill.HitMask & bit) != 0) continue;
+                skill.HitMask |= bit;
 
                 // 데미지: attack * damageRate% * (1 + def / defValue)
                 int raw = attack * power / 100 * (defScale + def) / defScale;
@@ -128,11 +112,12 @@ namespace CookApps.AutoChess
             }
 
             // 패턴 내 모든 타일에 vfx[0] 스폰 (타일이펙트 없음)
-            EmitPatternVfx(state, ref caster, col, row, phase);
+            EmitPatternVfx(state, ref caster, col, row, phase, skill.SkillId);
         }
 
         /// <summary>패턴에 해당하는 모든 그리드 좌표에 vfx[0] 발행</summary>
-        private void EmitPatternVfx(CombatMatchState state, ref CombatUnit caster, int cx, int cy, int phase)
+        private static void EmitPatternVfx(CombatMatchState state, ref CombatUnit caster,
+            int cx, int cy, int phase, int skillId)
         {
             int range = GetPhaseRadius(phase);
             for (int dx = -range; dx <= range; dx++)
@@ -147,7 +132,7 @@ namespace CookApps.AutoChess
                     if (!BoardHelper.IsValidCombatPosition(tx, ty)) continue;
 
                     state.EventQueue?.PushSkillPhaseVfx(
-                        caster.CombatId, SkillId, 0,
+                        caster.CombatId, skillId, 0,
                         col: (byte)tx, row: (byte)ty, useGridPos: true);
                 }
             }
@@ -187,16 +172,6 @@ namespace CookApps.AutoChess
                 case 2: return 2;
                 default: return 1;
             }
-        }
-
-        public override void Reset()
-        {
-            _defScaleValue = 100;
-            _stunDurationFrames = 60;
-            _currentPhase = 0;
-            _phaseTimer = 0;
-            _done = false;
-            _hitMask = 0;
         }
     }
 }

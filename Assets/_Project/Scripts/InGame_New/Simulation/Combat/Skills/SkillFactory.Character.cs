@@ -270,6 +270,7 @@ namespace CookApps.AutoChess
                 .On(Evt.Complete)
                     .Do(Buff(StatModType.DodgeChance,
                         value: Spec(4, 30f), duration: Spec(3, P.Frames, 3f)))
+                        // value: Fixed(100f), duration: Spec(3, P.Frames, 3f)))
                 .WithTags(TraitTag.Damage | TraitTag.Teleport | TraitTag.Buff)
                 .Register();
         }

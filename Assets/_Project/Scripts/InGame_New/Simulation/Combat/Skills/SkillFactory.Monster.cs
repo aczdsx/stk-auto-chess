@@ -5,6 +5,7 @@ using T = CookApps.AutoChess.SkillTargetType;
 using F = CookApps.AutoChess.SkillTargetFilter;
 using S = CookApps.AutoChess.SkillAreaShape;
 using V = CookApps.AutoChess.SkillVfxPlacement;
+using P = CookApps.AutoChess.ParamValueType;
 using Evt = CookApps.AutoChess.SkillEvent;
 
 namespace CookApps.AutoChess
@@ -36,16 +37,39 @@ namespace CookApps.AutoChess
         {
             // ── DamageCC (데미지 + 스턴) ──
             // 1102061=5챕터 탱커, 230404002/230505002/230606002=4/5/2챕터 탱커
-            // 240107001=베놈, 240407301=사막 전갈, 250208101=1챕터 보스
+            // 240407301=사막 전갈, 250208101=1챕터 보스
             foreach (var id in new[] { 1102061, 230404002, 230505002, 230606002,
-                                        240107001, 240407301, 250208101 })
+                                        240407301, 250208101 })
                 Skill(id, E.Instant, T.NearestEnemy).Apply(PresetDamageStun).Register();
+
+            // ── 베놈 (240107001): Damage + DOT(독) ──
+            // 원본: {1}% 데미지 + {2}초간 공격력×{3}% DOT
+            Skill(240107001, E.Instant, T.NearestEnemy)
+                .On(Evt.Cast)
+                    .Do(Damage(power: Spec(1, 200f)))
+                    .Do(Debuff(StatusEffectType.DamageOverTime,
+                        value: AtkPercent(3, 10f),
+                        duration: Spec(2, P.Frames, 3f)))
+                .Register();
 
             // ── ConeDamage (전방 직선 데미지) ──
             // 230101002=0챕터 가디언, 230404001/230505001/230606001=4/5/3챕터 가디언
-            // 280109001=공허의 토마
-            foreach (var id in new[] { 230101002, 230404001, 230505001, 230606001, 280109001 })
+            foreach (var id in new[] { 230101002, 230404001, 230505001, 230606001 })
                 Skill(id, E.Instant, T.NearestEnemy).Apply(PresetConeDamage).Register();
+
+            // ── 공허의 토마 (280109001): 텔레포트 + 3×3 AoE + 방어/공속 감소 ──
+            // 원본: 공격력 최고 적 근처 빈 타일 텔레포트 → 3×3 {1}% 데미지 + {2}초 {3}% 방어/공속 감소
+            Skill(280109001, E.DelayedApply, T.HighestAttackEnemy)
+                .On(Evt.Execute1)
+                    .Do(Teleport())
+                    .Do(TileEffect(S.Circle, range: 1, isBox: true))
+                    .Do(Vfx(2, V.AtCaster))
+                    .Do(Damage(power: Spec(1, 200f), filter: F.EnemiesInArea, area: S.Circle, range: 1))
+                    .Do(Debuff(StatModType.Def, value: Spec(3, 10f), duration: Spec(2, P.Frames, 3f),
+                        filter: F.EnemiesInArea, area: S.Circle, range: 1))
+                    .Do(Debuff(StatModType.AttackSpeed, value: Spec(3, 10f), duration: Spec(2, P.Frames, 3f),
+                        filter: F.EnemiesInArea, area: S.Circle, range: 1))
+                .Register();
 
             // ── DiamondAoE (맨허튼 거리 범위, range=1) ──
             // 230202003=1챕터 마법사, 230606003=2챕터 마법사
@@ -70,12 +94,25 @@ namespace CookApps.AutoChess
 
             // ── LineDamage (직선 관통 투사체) ──
             // 1104081=6챕터 저격수, 230404004/230505004/230606004=4/5/3챕터 저격수
-            // 240107002=빅마우스
-            foreach (var id in new[] { 1104081, 230404004, 230505004, 230606004, 240107002 })
+            foreach (var id in new[] { 1104081, 230404004, 230505004, 230606004 })
                 Skill(id, E.DelayedApply, T.NearestEnemy).Projectile()
                     .On(Evt.Execute1)
                         .Do(SpawnLinearProjectile())
                     .Register();
+
+            // ── 빅마우스 (240107002): 대쉬 돌진 + 경로 관통 데미지 + 기절 ──
+            // 원본 3단계: Execute0=대쉬+데미지+기절, Execute1=오버슈트+포탈VFX, Execute2=원위치복귀
+            // range 0 = 타겟까지 거리 동적 계산
+            Skill(240107002, E.Channeling, T.NearestEnemy)
+                .On(Evt.Execute1)  // 대쉬 돌진 + 관통 데미지 + 기절
+                    .Do(Vfx(0, V.AtTargetWithDir))
+                    .Do(Vfx(1, V.AtCasterWithDir))
+                    .Do(Damage(power: Spec(1, 200f), filter: F.EnemiesInArea, area: S.Line))
+                    .Do(CC(CrowdControlType.Stun, duration: Spec(2, P.Frames, 3f)))
+                .On(Evt.Execute2)  // 오버슈트 + 돌아오는 포탈
+                    .Do(Vfx(0, V.AtCasterWithDir))
+                .On(Evt.Execute3)  // 원위치 복귀
+                .Register();
 
             // ── TeleportStrike (이동 후 범위 공격 + 스턴) ──
             // 1202091=6챕터 버팔로, 240407302=샌드웜

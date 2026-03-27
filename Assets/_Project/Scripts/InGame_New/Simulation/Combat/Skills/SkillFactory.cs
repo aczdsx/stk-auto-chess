@@ -5,7 +5,7 @@ namespace CookApps.AutoChess
 {
     /// <summary>
     /// 스킬 팩토리 + Recipe 레지스트리 + 스펙 어댑터 통합.
-    /// SkillId → SimSkillBase 인스턴스 생성, Recipe 정의/조회, 스펙 변환을 모두 담당.
+    /// SkillId → SimSkillInstance 생성, Recipe 정의/조회, 스펙 변환을 모두 담당.
     ///
     /// partial class로 분리:
     /// - SkillFactory.cs — Core (딕셔너리, Create, Initialize, SkillRecipeBuilder)
@@ -15,8 +15,8 @@ namespace CookApps.AutoChess
     /// </summary>
     public static partial class SkillFactory
     {
-        // ── 인스턴스 생성 ──
-        private static readonly Dictionary<int, System.Func<SimSkillBase>> _registry = new();
+        // ── 타입 레지스트리 ──
+        private static readonly Dictionary<int, SkillImplType> _typeRegistry = new();
         private static readonly Dictionary<int, SkillParams> _paramsCache = new();
         private static readonly Dictionary<int, List<SkillActive>> _specListCache = new();
         private static bool _initialized;
@@ -34,16 +34,19 @@ namespace CookApps.AutoChess
         // Public API
         // ══════════════════════════════
 
-        public static void Register(int skillId, System.Func<SimSkillBase> creator)
+        public static void RegisterType(int skillId, SkillImplType type)
         {
-            _registry[skillId] = creator;
+            _typeRegistry[skillId] = type;
         }
 
-        public static SimSkillBase Create(int skillId)
+        public static SimSkillInstance Create(int skillId)
         {
-            if (_registry.TryGetValue(skillId, out var creator))
-                return creator();
-            return null;
+            var skill = new SimSkillInstance();
+            skill.Type = _typeRegistry.TryGetValue(skillId, out var type) ? type : SkillImplType.Generic;
+            // Recipe 설정 (Generic 스킬)
+            if (skill.Type == SkillImplType.Generic && _recipes.TryGetValue(skillId, out var recipe))
+                skill.Recipe = recipe;
+            return skill;
         }
 
         /// <summary>캐시된 SkillParams 조회</summary>
@@ -105,28 +108,18 @@ namespace CookApps.AutoChess
                     _specListCache[id] = specList;
 
                 // 커스텀 스킬이 이미 등록되어 있으면 스킵
-                if (_registry.ContainsKey(id)) continue;
+                if (_typeRegistry.ContainsKey(id)) continue;
 
-                // 개별 Recipe로 등록
-                if (TryGetRecipe(id, out var recipe))
-                {
-                    var captured = recipe;
-                    Register(id, () =>
-                    {
-                        var skill = new SimSkillGeneric();
-                        skill.SetRecipe(captured);
-                        return skill;
-                    });
-                }
+                // 개별 Recipe가 있으면 Generic으로 등록
+                if (TryGetRecipe(id, out _))
+                    _typeRegistry[id] = SkillImplType.Generic;
             }
 
-            // Recipe는 있지만 _registry에 미등록된 스킬 fallback 등록
-            // (SpecData에 SkillActive 엔트리가 없는 경우 — Custom에서 전환된 스킬)
+            // Recipe는 있지만 미등록된 스킬 fallback 등록
             foreach (var kv in _recipes)
             {
-                if (_registry.ContainsKey(kv.Key)) continue;
+                if (_typeRegistry.ContainsKey(kv.Key)) continue;
 
-                // 기본 SkillParams 생성 (InitializeFromSpec 경로 보장)
                 if (!_paramsCache.ContainsKey(kv.Key))
                 {
                     var recipe = kv.Value;
@@ -144,30 +137,22 @@ namespace CookApps.AutoChess
                     };
                 }
 
-                var captured = kv.Value;
-                Register(kv.Key, () =>
-                {
-                    var skill = new SimSkillGeneric();
-                    skill.SetRecipe(captured);
-                    return skill;
-                });
+                _typeRegistry[kv.Key] = SkillImplType.Generic;
             }
         }
 
         private static void RegisterCustomSkills()
         {
-            // ── 커스텀 실행 로직이 필요한 스킬 (전용 클래스 유지) ──
-            // Execute/OnChannelTick 로직이 복잡하여 SimSkillGeneric으로 대체 불가.
-            Register(217653505, () => new SimSkillEnkiWaveHeal());    // 엔키: 보드 스윕 투사체
-            Register(217333202, () => new SimSkillAprilBarrage());    // 에이프릴: 확장 콘 + 거리별 배율
-            Register(217523403, () => new SimSkillAdriaExpand());     // 아드리아: 3단계 확장 + 비트마스크
-            Register(217263103, () => new SimSkillRukidaFoxfire());   // 루키다: 마커 카운트 기반 동적 버프
+            RegisterType(217653505, SkillImplType.Enki);     // 엔키: 보드 스윕 투사체
+            RegisterType(217333202, SkillImplType.April);    // 에이프릴: 확장 콘 + 거리별 배율
+            RegisterType(217523403, SkillImplType.Adria);    // 아드리아: 3단계 확장 + 비트마스크
+            RegisterType(217263103, SkillImplType.Rukida);   // 루키다: 마커 카운트 기반 동적 버프
         }
 
         /// <summary>팩토리 등록 해제 (테스트/재시작용)</summary>
         public static void Clear()
         {
-            _registry.Clear();
+            _typeRegistry.Clear();
             _paramsCache.Clear();
             _specListCache.Clear();
             _initialized = false;
@@ -210,6 +195,12 @@ namespace CookApps.AutoChess
                 => new ValueRef(255, ParamValueType.Int, value, false);
             public static ValueRef FixedFrames(float seconds)
                 => new ValueRef(255, ParamValueType.Frames, seconds, false);
+
+            /// <summary>공격력 기반 비율 — 런타임에 attack * value / 100 절대값으로 변환</summary>
+            public static ValueRef AtkPercent(byte specIndex, float fallback)
+                => new ValueRef(specIndex, ParamValueType.AtkPercent, fallback, false);
+            public static ValueRef AtkPercentFixed(float percent)
+                => new ValueRef(255, ParamValueType.AtkPercent, percent, false);
 
             /// <summary>PowerPercent 참조 (기본 데미지 배율)</summary>
             public static readonly ValueRef Power = new ValueRef(254, ParamValueType.Int, 0, true);

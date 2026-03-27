@@ -357,6 +357,7 @@ namespace CookApps.AutoChess
         AtCasterWithDir,
         AreaEffect,
         PerTileInDiamond,   // 맨해튼 범위 내 각 타일에 개별 VFX 스폰
+        AtTargetWithDir,    // 타겟 위치 + 시전자→타겟 방향 회전
         RectAreaEffect,     // 방향 기반 직사각형 타일 이펙트 (오데트 ㄷ자형)
     }
 

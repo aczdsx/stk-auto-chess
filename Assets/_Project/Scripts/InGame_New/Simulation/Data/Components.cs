@@ -800,7 +800,7 @@ namespace CookApps.AutoChess
         public DeterministicRNG Rng;
 
         // 스킬 인스턴스 (매치별 관리, SkillSystem에서 사용)
-        public SimSkillBase[] Skills;  // [MaxCombatUnits]
+        public SimSkillInstance[] Skills;  // [MaxCombatUnits]
 
         // 특성 인스턴스 (유닛별 최대 MaxTraitsPerUnit개)
         public CombatTraitBase[][] Traits; // [MaxCombatUnits][CombatTraitBase.MaxTraitsPerUnit]
@@ -821,7 +821,7 @@ namespace CookApps.AutoChess
                 GridTiles = new int[gridSize],
                 Projectiles = new Projectile[MaxProjectiles],
                 StatusEffects = new StatusEffect[MaxStatusEffects],
-                Skills = new SimSkillBase[MaxCombatUnits],
+                Skills = new SimSkillInstance[MaxCombatUnits],
                 Traits = new CombatTraitBase[MaxCombatUnits][],
                 TraitCounts = new int[MaxCombatUnits],
             };
