@@ -69,9 +69,19 @@ namespace CookApps.AutoChess
                 for (int i = 0; i < _recipe.ParamSlots.Length; i++)
                 {
                     var slot = _recipe.ParamSlots[i];
-                    _paramValues[i] = slot.ValueType == ParamValueType.Frames
-                        ? SkillSpecHelper.GetFrames(specList, slot.SpecIndex, slot.Fallback, tickRate)
-                        : SkillSpecHelper.GetInt(specList, slot.SpecIndex, slot.Fallback);
+                    if (slot.SpecIndex == 255)
+                    {
+                        // 고정값 (ValueRef.Fixed) — specData 무시
+                        _paramValues[i] = slot.ValueType == ParamValueType.Frames
+                            ? (int)(slot.Fallback * tickRate + 0.5f)
+                            : UnityEngine.Mathf.RoundToInt(slot.Fallback);
+                    }
+                    else
+                    {
+                        _paramValues[i] = slot.ValueType == ParamValueType.Frames
+                            ? SkillSpecHelper.GetFrames(specList, slot.SpecIndex, slot.Fallback, tickRate)
+                            : SkillSpecHelper.GetInt(specList, slot.SpecIndex, slot.Fallback);
+                    }
                 }
 
                 // 첫 번째 슬롯은 관례적으로 PowerPercent

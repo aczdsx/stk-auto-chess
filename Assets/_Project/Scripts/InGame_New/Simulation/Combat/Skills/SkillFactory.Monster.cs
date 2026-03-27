@@ -1,9 +1,11 @@
 using static CookApps.AutoChess.SkillFactory.SkillRecipeBuilder;
+using static CookApps.AutoChess.SkillFactory.ValueRef;
 using E = CookApps.AutoChess.SkillExecutionType;
 using T = CookApps.AutoChess.SkillTargetType;
 using F = CookApps.AutoChess.SkillTargetFilter;
 using S = CookApps.AutoChess.SkillAreaShape;
-using P = CookApps.AutoChess.ParamValueType;
+using V = CookApps.AutoChess.SkillVfxPlacement;
+using Evt = CookApps.AutoChess.SkillEvent;
 
 namespace CookApps.AutoChess
 {
@@ -15,19 +17,19 @@ namespace CookApps.AutoChess
         // ── Preset 함수 (파라미터 없는 고정 패턴) ──
 
         static SkillRecipeBuilder PresetDamageStun(SkillRecipeBuilder b)
-            => b.OnCast(Damage()).OnCast(CC(CrowdControlType.Stun));
+            => b.On(Evt.Cast).Do(Damage()).Do(CC(CrowdControlType.Stun));
 
         static SkillRecipeBuilder PresetSingleDamage(SkillRecipeBuilder b)
-            => b.OnCast(Damage());
+            => b.On(Evt.Cast).Do(Damage());
 
         static SkillRecipeBuilder PresetConeDamage(SkillRecipeBuilder b)
-            => b.OnCast(Damage(filter: F.EnemiesInArea, area: S.Line, range: 2));
+            => b.On(Evt.Cast).Do(Damage(filter: F.EnemiesInArea, area: S.Line, range: 2));
 
         static SkillRecipeBuilder PresetMultiHit(SkillRecipeBuilder b)
-            => b.OnCast(MultiHit());
+            => b.On(Evt.Cast).Do(MultiHit());
 
         static SkillRecipeBuilder PresetMultiTargetHeal(SkillRecipeBuilder b)
-            => b.OnCast(Heal(filter: F.LowestHpAllies, range: 3));
+            => b.On(Evt.Cast).Do(Heal(filter: F.LowestHpAllies, range: 3));
 
         /// <summary>몬스터 스킬 Recipe 등록</summary>
         private static void RegisterMonsterRecipes()
@@ -49,10 +51,11 @@ namespace CookApps.AutoChess
             // 230202003=1챕터 마법사, 230606003=2챕터 마법사
             foreach (var id in new[] { 230202003, 230606003 })
                 Skill(id, E.DelayedApply, T.NearestEnemy)
-                    .AtHit(Vfx(0, SkillVfxPlacement.AtGridPos))
-                    .AtHit(AreaVfx(SkillVfxPlacement.AreaEffect, 1))
-                    .AtHit(AreaVfx(SkillVfxPlacement.PerTileInDiamond, 1, vfxIndex: 1))
-                    .AtHit(Damage(filter: F.EnemiesInArea, area: S.Diamond, range: 1))
+                    .On(Evt.Execute1)
+                        .Do(Vfx(0, V.AtGridPos))
+                        .Do(AreaVfx(V.AreaEffect, 1))
+                        .Do(AreaVfx(V.PerTileInDiamond, 1, vfxIndex: 1))
+                        .Do(Damage(filter: F.EnemiesInArea, area: S.Diamond, range: 1))
                     .Register();
 
             // ── PatternDamage (범위 데미지 + 스턴) ──
@@ -60,8 +63,9 @@ namespace CookApps.AutoChess
             // 250608501=2챕터 보스, 280109002=라플라스마녀
             foreach (var id in new[] { 1103041, 1203021, 230505003, 250608501, 280109002 })
                 Skill(id, E.Instant, T.BestAoETarget)
-                    .OnCast(Damage(filter: F.EnemiesInArea, area: S.Circle, range: 1))
-                    .OnCast(AreaCC(CrowdControlType.Stun, S.Circle, 1))
+                    .On(Evt.Cast)
+                        .Do(Damage(filter: F.EnemiesInArea, area: S.Circle, range: 1))
+                        .Do(AreaCC(CrowdControlType.Stun, S.Circle, 1))
                     .Register();
 
             // ── LineDamage (직선 관통 투사체) ──
@@ -69,7 +73,8 @@ namespace CookApps.AutoChess
             // 240107002=빅마우스
             foreach (var id in new[] { 1104081, 230404004, 230505004, 230606004, 240107002 })
                 Skill(id, E.DelayedApply, T.NearestEnemy).Projectile()
-                    .AtHit(SpawnLinearProjectile())
+                    .On(Evt.Execute1)
+                        .Do(SpawnLinearProjectile())
                     .Register();
 
             // ── TeleportStrike (이동 후 범위 공격 + 스턴) ──
@@ -77,8 +82,9 @@ namespace CookApps.AutoChess
             // 250108002/250108003=정글 버팔로/샌드웜
             foreach (var id in new[] { 1202091, 240407302, 250108002, 250108003 })
                 Skill(id, E.Instant, T.NearestEnemy)
-                    .OnCast(Damage(filter: F.EnemiesInArea, area: S.Circle, range: 1))
-                    .OnCast(AreaCC(CrowdControlType.Stun, S.Circle, 1))
+                    .On(Evt.Cast)
+                        .Do(Damage(filter: F.EnemiesInArea, area: S.Circle, range: 1))
+                        .Do(AreaCC(CrowdControlType.Stun, S.Circle, 1))
                     .Register();
 
             // ── MultiHit (다단히트) ──
@@ -93,9 +99,9 @@ namespace CookApps.AutoChess
 
             // ── 보스 탱커 (250108001): 전방 10칸 순차 타격 + 넉백 ──
             Skill(250108001, E.Channeling, T.NearestEnemy)
-                .Param(1, P.Int, 200f)
-                .OnTick(SequentialLine(0, lineLength: 10,
-                    intervalMs: BossTankLineIntervalMs, repeatCount: 10))
+                .On(Evt.Tick)
+                    .Do(WithRepeat(SequentialLine(power: Spec(1, 200f), lineLength: 10,
+                        intervalMs: BossTankLineIntervalMs, repeatCount: 10)))
                 .Register();
         }
     }

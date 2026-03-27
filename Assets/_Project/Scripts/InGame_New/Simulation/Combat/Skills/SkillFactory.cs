@@ -183,12 +183,68 @@ namespace CookApps.AutoChess
             => new SkillRecipeBuilder(_recipes, skillId, exec, target);
 
         // ══════════════════════════════
+        // ValueRef — 값 참조 (빌드 시점 전용)
+        // ══════════════════════════════
+
+        /// <summary>값 참조 — specData 또는 고정값. 빌드 시점에만 사용, 런타임에는 ParamIndex로 변환됨.</summary>
+        public readonly struct ValueRef
+        {
+            public readonly byte SpecIndex;        // specData 인덱스 (255 = 고정값, 254 = 미지정)
+            public readonly ParamValueType Type;
+            public readonly float Value;           // fallback 또는 고정값
+            public readonly bool IsDefault;        // true = PowerPercent 사용
+
+            private ValueRef(byte specIndex, ParamValueType type, float value, bool isDefault)
+            {
+                SpecIndex = specIndex; Type = type; Value = value; IsDefault = isDefault;
+            }
+
+            /// <summary>specData에서 값 읽기 (fallback: specData 없을 때 기본값)</summary>
+            public static ValueRef Spec(byte specIndex, float fallback)
+                => new ValueRef(specIndex, ParamValueType.Int, fallback, false);
+            public static ValueRef Spec(byte specIndex, ParamValueType type, float fallback)
+                => new ValueRef(specIndex, type, fallback, false);
+
+            /// <summary>고정값 (specData 무시)</summary>
+            public static ValueRef Fixed(float value)
+                => new ValueRef(255, ParamValueType.Int, value, false);
+            public static ValueRef FixedFrames(float seconds)
+                => new ValueRef(255, ParamValueType.Frames, seconds, false);
+
+            /// <summary>PowerPercent 참조 (기본 데미지 배율)</summary>
+            public static readonly ValueRef Power = new ValueRef(254, ParamValueType.Int, 0, true);
+
+            /// <summary>미지정 (ParamIndex = -1)</summary>
+            internal static readonly ValueRef None = new ValueRef(254, ParamValueType.Int, 0, true);
+
+            internal bool IsNone => SpecIndex == 254;
+        }
+
+        /// <summary>빌드 전 액션 + 값 참조. Do()에서 ParamIndex로 자동 변환됨.</summary>
+        public readonly struct ActionTemplate
+        {
+            public readonly SkillAction Action;
+            public readonly ValueRef PrimaryValue;
+            public readonly ValueRef SecondaryValue;
+            public readonly ValueRef DecayValue;
+
+            public ActionTemplate(SkillAction action,
+                ValueRef primary = default, ValueRef secondary = default, ValueRef decay = default)
+            {
+                Action = action;
+                PrimaryValue = primary.SpecIndex == 0 && !primary.IsDefault && primary.Value == 0 ? ValueRef.None : primary;
+                SecondaryValue = secondary.SpecIndex == 0 && !secondary.IsDefault && secondary.Value == 0 ? ValueRef.None : secondary;
+                DecayValue = decay.SpecIndex == 0 && !decay.IsDefault && decay.Value == 0 ? ValueRef.None : decay;
+            }
+        }
+
+        // ══════════════════════════════
         // Recipe Builder (inner struct)
         // ══════════════════════════════
 
         /// <summary>
         /// SkillRecipe를 간결하게 선언하기 위한 Builder.
-        /// new SkillAction { ... } 반복을 제거하고 체이닝 API 제공.
+        /// 액션 팩토리가 ActionTemplate(값 참조 포함)을 반환, Do()에서 ParamSlots 자동 할당.
         /// </summary>
         internal struct SkillRecipeBuilder
         {
@@ -226,77 +282,54 @@ namespace CookApps.AutoChess
                 return this;
             }
 
-            /// <summary>기능 태그 수동 부여 (자동 추론 + OR 합산)</summary>
             public SkillRecipeBuilder WithTags(TraitTag tags)
             {
                 _explicitTags |= tags;
                 return this;
             }
 
-            /// <summary>Preset 함수 적용 (파라미터 없는 고정 패턴)</summary>
             public SkillRecipeBuilder Apply(System.Func<SkillRecipeBuilder, SkillRecipeBuilder> preset)
                 => preset(this);
 
-            /// <summary>specList 파라미터 슬롯 추가</summary>
-            public SkillRecipeBuilder Param(byte specIndex, ParamValueType type, float fallback)
-            {
-                _params.Add(new ParamSlot(specIndex, type, fallback));
-                return this;
-            }
+            // ── 이벤트 트리거 ──
 
-            // ── 이벤트 트리거 + 액션 ──
-
-            /// <summary>
-            /// 이벤트 트리거 설정. 이후 Do() 호출에 자동 적용.
-            /// Execute1~4 = SKL 애니메이션 키프레임 이벤트 (SkillHitFrames[N] 타이밍).
-            /// Cast/Tick/Complete = 런타임 이벤트.
-            /// KnockbackWall/ProjectileArrive = 조건부 이벤트.
-            /// </summary>
             public SkillRecipeBuilder On(SkillEvent evt)
             {
                 switch (evt)
                 {
-                    case SkillEvent.Cast:
-                        _currentTrigger = SkillTriggerType.OnCast;
-                        _currentHitFrameIndex = 0;
-                        break;
-                    case SkillEvent.Execute1:
-                        _currentTrigger = SkillTriggerType.AtHitFrame;
-                        _currentHitFrameIndex = 0;
-                        break;
-                    case SkillEvent.Execute2:
-                        _currentTrigger = SkillTriggerType.AtHitFrame;
-                        _currentHitFrameIndex = 1;
-                        break;
-                    case SkillEvent.Execute3:
-                        _currentTrigger = SkillTriggerType.AtHitFrame;
-                        _currentHitFrameIndex = 2;
-                        break;
-                    case SkillEvent.Execute4:
-                        _currentTrigger = SkillTriggerType.AtHitFrame;
-                        _currentHitFrameIndex = 3;
-                        break;
-                    case SkillEvent.Tick:
-                        _currentTrigger = SkillTriggerType.OnTick;
-                        _currentHitFrameIndex = 0;
-                        break;
-                    case SkillEvent.Complete:
-                        _currentTrigger = SkillTriggerType.OnComplete;
-                        _currentHitFrameIndex = 0;
-                        break;
-                    case SkillEvent.KnockbackWall:
-                        _currentTrigger = SkillTriggerType.OnKnockbackWall;
-                        _currentHitFrameIndex = 0;
-                        break;
-                    case SkillEvent.ProjectileArrive:
-                        _currentTrigger = SkillTriggerType.OnProjectileArrive;
-                        _currentHitFrameIndex = 0;
-                        break;
+                    case SkillEvent.Cast:             _currentTrigger = SkillTriggerType.OnCast; _currentHitFrameIndex = 0; break;
+                    case SkillEvent.Execute1:          _currentTrigger = SkillTriggerType.AtHitFrame; _currentHitFrameIndex = 0; break;
+                    case SkillEvent.Execute2:          _currentTrigger = SkillTriggerType.AtHitFrame; _currentHitFrameIndex = 1; break;
+                    case SkillEvent.Execute3:          _currentTrigger = SkillTriggerType.AtHitFrame; _currentHitFrameIndex = 2; break;
+                    case SkillEvent.Execute4:          _currentTrigger = SkillTriggerType.AtHitFrame; _currentHitFrameIndex = 3; break;
+                    case SkillEvent.Tick:              _currentTrigger = SkillTriggerType.OnTick; _currentHitFrameIndex = 0; break;
+                    case SkillEvent.Complete:          _currentTrigger = SkillTriggerType.OnComplete; _currentHitFrameIndex = 0; break;
+                    case SkillEvent.KnockbackWall:    _currentTrigger = SkillTriggerType.OnKnockbackWall; _currentHitFrameIndex = 0; break;
+                    case SkillEvent.ProjectileArrive:  _currentTrigger = SkillTriggerType.OnProjectileArrive; _currentHitFrameIndex = 0; break;
                 }
                 return this;
             }
 
-            /// <summary>현재 On() 이벤트에 액션 추가</summary>
+            // ── 액션 추가 ──
+
+            /// <summary>ValueRef가 있는 액션 (값 참조 → ParamSlot 자동 할당)</summary>
+            public SkillRecipeBuilder Do(ActionTemplate template)
+            {
+                var action = template.Action;
+                action.Trigger = _currentTrigger;
+                if (_currentTrigger == SkillTriggerType.AtHitFrame)
+                    action.HitFrameIndex = _currentHitFrameIndex;
+
+                action.ParamIndex = AllocateSlot(template.PrimaryValue);
+                action.SecondaryParamIndex = AllocateSlot(template.SecondaryValue);
+                if (!template.DecayValue.IsNone)
+                    action.DecayParamIndex = AllocateSlot(template.DecayValue);
+
+                _actions.Add(action);
+                return this;
+            }
+
+            /// <summary>값 참조가 없는 액션 (VFX, Teleport, Retarget 등)</summary>
             public SkillRecipeBuilder Do(SkillAction action)
             {
                 action.Trigger = _currentTrigger;
@@ -306,14 +339,34 @@ namespace CookApps.AutoChess
                 return this;
             }
 
-            // ── 하위 호환 (기존 코드 지원) ──
+            // ── 하위 호환 ──
 
             public SkillRecipeBuilder OnCast(SkillAction action) => On(SkillEvent.Cast).Do(action);
+            public SkillRecipeBuilder OnCast(ActionTemplate t) => On(SkillEvent.Cast).Do(t);
             public SkillRecipeBuilder AtHit(SkillAction action) => On(SkillEvent.Execute1).Do(action);
             public SkillRecipeBuilder OnTick(SkillAction action) => On(SkillEvent.Tick).Do(action);
+            public SkillRecipeBuilder OnTick(ActionTemplate t) => On(SkillEvent.Tick).Do(t);
             public SkillRecipeBuilder OnComplete(SkillAction action) => On(SkillEvent.Complete).Do(action);
-            public SkillRecipeBuilder OnKnockbackWall(SkillAction action) => On(SkillEvent.KnockbackWall).Do(action);
-            public SkillRecipeBuilder OnProjectileArrive(SkillAction action) => On(SkillEvent.ProjectileArrive).Do(action);
+            public SkillRecipeBuilder OnComplete(ActionTemplate t) => On(SkillEvent.Complete).Do(t);
+
+            // ── 슬롯 할당 ──
+
+            private sbyte AllocateSlot(ValueRef vref)
+            {
+                if (vref.IsNone) return -1;
+
+                // 같은 Spec 참조가 이미 있으면 재사용
+                for (int i = 0; i < _params.Count; i++)
+                {
+                    var existing = _params[i];
+                    if (existing.SpecIndex == vref.SpecIndex && existing.ValueType == vref.Type
+                        && System.Math.Abs(existing.Fallback - vref.Value) < 0.001f)
+                        return (sbyte)i;
+                }
+
+                _params.Add(new ParamSlot(vref.SpecIndex, vref.Type, vref.Value));
+                return (sbyte)(_params.Count - 1);
+            }
 
             // ── 빌드 + 등록 ──
 
@@ -361,69 +414,104 @@ namespace CookApps.AutoChess
             }
 
             // ══════════════════════════════
-            // 액션 팩토리 (static) — 체이닝에서 사용
+            // 액션 팩토리 — ActionTemplate 반환 (값 참조 포함)
             // ══════════════════════════════
 
-            public static SkillAction Damage(sbyte paramIndex = -1,
+            public static ActionTemplate Damage(ValueRef power = default,
                 SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget,
                 SkillAreaShape area = SkillAreaShape.None, byte range = 0,
                 bool excludePrimary = false, byte rectDepth = 0)
-                => new SkillAction { Effect = SkillEffectType.Damage, TargetFilter = filter, AreaShape = area, AreaRange = range, ParamIndex = paramIndex, ExcludePrimary = excludePrimary, RectDepth = rectDepth };
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.Damage, TargetFilter = filter, AreaShape = area, AreaRange = range, ExcludePrimary = excludePrimary, RectDepth = rectDepth },
+                    primary: power.IsNone ? ValueRef.Power : power);
 
-            public static SkillAction Heal(sbyte paramIndex = -1,
+            public static ActionTemplate Heal(ValueRef power = default,
                 SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget,
                 SkillAreaShape area = SkillAreaShape.None, byte range = 0)
-                => new SkillAction { Effect = SkillEffectType.Heal, TargetFilter = filter, AreaShape = area, AreaRange = range, ParamIndex = paramIndex };
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.Heal, TargetFilter = filter, AreaShape = area, AreaRange = range },
+                    primary: power.IsNone ? ValueRef.Power : power);
 
-            public static SkillAction CC(CrowdControlType ccType, sbyte durationParamIndex = -2)
-                => new SkillAction { Effect = SkillEffectType.ApplyCC, TargetFilter = SkillTargetFilter.PrimaryTarget, CCType = ccType, SecondaryParamIndex = durationParamIndex };
+            public static ActionTemplate CC(CrowdControlType ccType, ValueRef duration = default)
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.ApplyCC, TargetFilter = SkillTargetFilter.PrimaryTarget, CCType = ccType },
+                    secondary: duration);
 
-            public static SkillAction AreaCC(CrowdControlType ccType, SkillAreaShape area, byte range, sbyte durationParamIndex = -2)
-                => new SkillAction { Effect = SkillEffectType.ApplyCC, TargetFilter = SkillTargetFilter.EnemiesInArea, AreaShape = area, AreaRange = range, CCType = ccType, SecondaryParamIndex = durationParamIndex };
+            public static ActionTemplate AreaCC(CrowdControlType ccType, SkillAreaShape area, byte range, ValueRef duration = default)
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.ApplyCC, TargetFilter = SkillTargetFilter.EnemiesInArea, AreaShape = area, AreaRange = range, CCType = ccType },
+                    secondary: duration);
 
-            public static SkillAction Knockback(sbyte distParamIndex = -1, byte fixedDistance = 0)
-                => new SkillAction { Effect = SkillEffectType.Knockback, TargetFilter = SkillTargetFilter.PrimaryTarget, SecondaryParamIndex = distParamIndex, KnockbackDistance = fixedDistance };
+            public static ActionTemplate Buff(StatModType stat, ValueRef value, ValueRef duration, SkillTargetFilter filter = SkillTargetFilter.Self, bool scaleByHitCount = false)
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.ApplyBuff, TargetFilter = filter, BuffStat = stat, ScaleByHitCount = scaleByHitCount },
+                    primary: value, secondary: duration);
 
-            public static SkillAction Buff(StatModType stat, sbyte valueParamIndex, sbyte durationParamIndex, SkillTargetFilter filter = SkillTargetFilter.Self)
-                => new SkillAction { Effect = SkillEffectType.ApplyBuff, TargetFilter = filter, BuffStat = stat, ParamIndex = valueParamIndex, SecondaryParamIndex = durationParamIndex };
-
-            public static SkillAction Debuff(StatusEffectType statusEffect, sbyte valueParamIndex, sbyte durationParamIndex,
+            public static ActionTemplate Debuff(StatusEffectType statusEffect, ValueRef value, ValueRef duration,
                 SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget, SkillAreaShape area = SkillAreaShape.None, byte range = 0)
-                => new SkillAction { Effect = SkillEffectType.ApplyDebuff, TargetFilter = filter, AreaShape = area, AreaRange = range, StatusEffect = statusEffect, ParamIndex = valueParamIndex, SecondaryParamIndex = durationParamIndex };
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.ApplyDebuff, TargetFilter = filter, AreaShape = area, AreaRange = range, StatusEffect = statusEffect },
+                    primary: value, secondary: duration);
 
-            public static SkillAction Debuff(StatModType stat, sbyte valueParamIndex, sbyte durationParamIndex,
+            public static ActionTemplate Debuff(StatModType stat, ValueRef value, ValueRef duration,
                 SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget, SkillAreaShape area = SkillAreaShape.None, byte range = 0)
-                => new SkillAction { Effect = SkillEffectType.ApplyDebuff, TargetFilter = filter, AreaShape = area, AreaRange = range, BuffStat = stat, ParamIndex = valueParamIndex, SecondaryParamIndex = durationParamIndex };
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.ApplyDebuff, TargetFilter = filter, AreaShape = area, AreaRange = range, BuffStat = stat },
+                    primary: value, secondary: duration);
 
-            public static SkillAction Shield(sbyte percentParamIndex, sbyte durationParamIndex, SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget)
-                => new SkillAction { Effect = SkillEffectType.Shield, TargetFilter = filter, ParamIndex = percentParamIndex, SecondaryParamIndex = durationParamIndex };
+            public static ActionTemplate Shield(ValueRef percent, ValueRef duration, SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget)
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.Shield, TargetFilter = filter },
+                    primary: percent, secondary: duration);
 
-            public static SkillAction RemoveDebuffs(SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget, SkillAreaShape area = SkillAreaShape.None, byte range = 0)
-                => new SkillAction { Effect = SkillEffectType.RemoveDebuffs, TargetFilter = filter, AreaShape = area, AreaRange = range };
+            public static ActionTemplate MultiHit(ValueRef power = default, byte hitCount = 3)
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.MultiHit, TargetFilter = SkillTargetFilter.PrimaryTarget, RepeatCount = hitCount },
+                    primary: power.IsNone ? ValueRef.Power : power);
 
-            public static SkillAction AddMarker(SkillMarkerType marker)
-                => new SkillAction { Effect = SkillEffectType.AddMarker, TargetFilter = SkillTargetFilter.PrimaryTarget, MarkerType = (byte)marker };
-
-            public static SkillAction MultiHit(sbyte paramIndex = -1, byte hitCount = 3)
-                => new SkillAction { Effect = SkillEffectType.MultiHit, TargetFilter = SkillTargetFilter.PrimaryTarget, ParamIndex = paramIndex, RepeatCount = hitCount };
-
-            public static SkillAction SpawnProjectile(sbyte paramIndex = -1, sbyte vfxIndex = -1, short travelFrames = 30,
+            public static ActionTemplate SpawnProjectile(ValueRef power = default, sbyte vfxIndex = -1, short travelFrames = 30,
                 bool useBezier = false, sbyte arrivalVfxIndex = -1)
-                => new SkillAction { Effect = SkillEffectType.SpawnProjectile, TargetFilter = SkillTargetFilter.PrimaryTarget,
-                    ParamIndex = paramIndex, VfxIndex = vfxIndex, RepeatIntervalFrames = travelFrames,
-                    UseBezier = useBezier, ArrivalVfxIndex = arrivalVfxIndex };
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.SpawnProjectile, TargetFilter = SkillTargetFilter.PrimaryTarget,
+                        VfxIndex = vfxIndex, RepeatIntervalFrames = travelFrames, UseBezier = useBezier, ArrivalVfxIndex = arrivalVfxIndex },
+                    primary: power.IsNone ? ValueRef.Power : power);
 
-            public static SkillAction SpawnLinearProjectile(sbyte paramIndex = -1, byte length = 4, short moveInterval = 3, byte width = 1)
-                => new SkillAction { Effect = SkillEffectType.SpawnLinearProjectile, TargetFilter = SkillTargetFilter.PrimaryTarget, ParamIndex = paramIndex, AreaRange = length, RepeatIntervalFrames = moveInterval, RepeatCount = width };
+            public static ActionTemplate SpawnLinearProjectile(ValueRef power = default, byte length = 4, short moveInterval = 3, byte width = 1)
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.SpawnLinearProjectile, TargetFilter = SkillTargetFilter.PrimaryTarget,
+                        AreaRange = length, RepeatIntervalFrames = moveInterval, RepeatCount = width },
+                    primary: power.IsNone ? ValueRef.Power : power);
 
-            public static SkillAction ModifyStat(SkillTargetFilter filter = SkillTargetFilter.Self, sbyte paramIndex = -1)
-                => new SkillAction { Effect = SkillEffectType.ModifyStat, TargetFilter = filter, ParamIndex = paramIndex };
+            public static ActionTemplate ModifyStat(ValueRef value = default, SkillTargetFilter filter = SkillTargetFilter.Self)
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.ModifyStat, TargetFilter = filter },
+                    primary: value);
 
-            public static SkillAction DamageKnockback(SkillAreaShape area, byte range, sbyte paramIndex = -1)
-                => new SkillAction { Effect = SkillEffectType.DamageKnockbackInArea, TargetFilter = SkillTargetFilter.EnemiesInArea, AreaShape = area, AreaRange = range, ParamIndex = paramIndex };
+            public static ActionTemplate DamageKnockback(SkillAreaShape area, byte range, ValueRef power = default)
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.DamageKnockbackInArea, TargetFilter = SkillTargetFilter.EnemiesInArea, AreaShape = area, AreaRange = range },
+                    primary: power.IsNone ? ValueRef.Power : power);
 
-            public static SkillAction SequentialLine(sbyte paramIndex, byte lineLength, short intervalMs, byte repeatCount)
-                => new SkillAction { Effect = SkillEffectType.SequentialLineDamage, TargetFilter = SkillTargetFilter.EnemiesInArea, AreaRange = lineLength, ParamIndex = paramIndex, RepeatCount = repeatCount, RepeatIntervalMs = intervalMs };
+            public static ActionTemplate SequentialLine(ValueRef power, byte lineLength, short intervalMs, byte repeatCount)
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.SequentialLineDamage, TargetFilter = SkillTargetFilter.EnemiesInArea,
+                        AreaRange = lineLength, RepeatCount = repeatCount, RepeatIntervalMs = intervalMs },
+                    primary: power);
+
+            public static ActionTemplate DamageWithDecay(ValueRef power, ValueRef decayPercent)
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.Damage },
+                    primary: power.IsNone ? ValueRef.Power : power, decay: decayPercent);
+
+            public static ActionTemplate ApplyStatusEffect(StatusEffectType statusType, SkillTargetFilter filter,
+                ValueRef duration = default, ValueRef value = default)
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.ApplyStatusEffect, TargetFilter = filter, StatusEffect = statusType },
+                    primary: value, secondary: duration);
+
+            // ══════════════════════════════
+            // 액션 팩토리 — SkillAction 반환 (값 참조 없음)
+            // ══════════════════════════════
 
             public static SkillAction Vfx(sbyte vfxIndex, SkillVfxPlacement at)
                 => new SkillAction { Effect = SkillEffectType.None, VfxIndex = vfxIndex, VfxAt = at };
@@ -432,11 +520,29 @@ namespace CookApps.AutoChess
                 SkillActionCondition condition = SkillActionCondition.Always, bool isBox = false)
                 => new SkillAction { Effect = SkillEffectType.None, VfxIndex = vfxIndex, VfxAt = at, AreaRange = range, Condition = condition, IsBoxArea = isBox };
 
-            /// <summary>타일 이펙트 발행 (PushSkillAreaEffect/PushSkillRectAreaEffect).
-            /// at으로 위치 기준 지정: Self=시전자, PrimaryTarget=타겟.</summary>
             public static SkillAction TileEffect(SkillAreaShape shape = SkillAreaShape.Circle, byte range = 1,
                 SkillTargetFilter at = SkillTargetFilter.Self, bool isBox = false, byte rectDepth = 0)
                 => new SkillAction { Effect = SkillEffectType.TileEffect, AreaShape = shape, AreaRange = range, TargetFilter = at, IsBoxArea = isBox, RectDepth = rectDepth };
+
+            public static SkillAction Teleport(byte distance = 0)
+                => new SkillAction { Effect = SkillEffectType.Teleport, TeleportDistance = distance };
+
+            public static SkillAction Retarget(SkillTargetFilter filter, bool excludeHit = false)
+                => new SkillAction { Effect = SkillEffectType.Retarget, TargetFilter = filter, ExcludeHit = excludeHit };
+
+            public static SkillAction Knockback(byte fixedDistance = 0)
+                => new SkillAction { Effect = SkillEffectType.Knockback, TargetFilter = SkillTargetFilter.PrimaryTarget, KnockbackDistance = fixedDistance };
+
+            public static ActionTemplate Knockback(ValueRef distance)
+                => new ActionTemplate(
+                    new SkillAction { Effect = SkillEffectType.Knockback, TargetFilter = SkillTargetFilter.PrimaryTarget },
+                    secondary: distance);
+
+            public static SkillAction RemoveDebuffs(SkillTargetFilter filter = SkillTargetFilter.PrimaryTarget, SkillAreaShape area = SkillAreaShape.None, byte range = 0)
+                => new SkillAction { Effect = SkillEffectType.RemoveDebuffs, TargetFilter = filter, AreaShape = area, AreaRange = range };
+
+            public static SkillAction AddMarker(SkillMarkerType marker)
+                => new SkillAction { Effect = SkillEffectType.AddMarker, TargetFilter = SkillTargetFilter.PrimaryTarget, MarkerType = (byte)marker };
 
             public static SkillAction WithRepeat(SkillAction action, byte count = 0, short intervalFrames = 0, short intervalMs = 0, bool dynamicFromClip = false)
             {
@@ -447,25 +553,15 @@ namespace CookApps.AutoChess
                 return action;
             }
 
-            // ── 체이닝 팩토리 ──
-
-            public static SkillAction Teleport(byte distance = 0)
-                => new SkillAction { Effect = SkillEffectType.Teleport, TeleportDistance = distance };
-
-            public static SkillAction Retarget(SkillTargetFilter filter, bool excludeHit = false)
-                => new SkillAction { Effect = SkillEffectType.Retarget, TargetFilter = filter, ExcludeHit = excludeHit };
-
-            public static SkillAction ApplyStatusEffect(StatusEffectType statusType, SkillTargetFilter filter,
-                sbyte durationParamIndex = -1, sbyte valueParamIndex = -1)
-                => new SkillAction { Effect = SkillEffectType.ApplyStatusEffect, TargetFilter = filter,
-                    StatusEffect = statusType, SecondaryParamIndex = durationParamIndex, ParamIndex = valueParamIndex };
-
-            public static SkillAction DamageWithDecay(sbyte paramIndex = -1, sbyte decayParamIndex = -1)
-                => new SkillAction { Effect = SkillEffectType.Damage, ParamIndex = paramIndex, DecayParamIndex = decayParamIndex };
-
-            public static SkillAction BuffScaled(StatModType stat, sbyte valueIdx, sbyte durIdx, bool scaleByHitCount = false)
-                => new SkillAction { Effect = SkillEffectType.ApplyBuff, BuffStat = stat, TargetFilter = SkillTargetFilter.Self,
-                    ParamIndex = valueIdx, SecondaryParamIndex = durIdx, ScaleByHitCount = scaleByHitCount };
+            public static ActionTemplate WithRepeat(ActionTemplate template, byte count = 0, short intervalFrames = 0, short intervalMs = 0, bool dynamicFromClip = false)
+            {
+                var action = template.Action;
+                action.RepeatCount = count;
+                action.RepeatIntervalFrames = intervalFrames;
+                action.RepeatIntervalMs = intervalMs;
+                action.DynamicFromClip = dynamicFromClip;
+                return new ActionTemplate(action, template.PrimaryValue, template.SecondaryValue, template.DecayValue);
+            }
         }
     }
 }
