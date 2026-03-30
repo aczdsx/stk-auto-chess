@@ -341,6 +341,10 @@ namespace CookApps.AutoChess.View
                     _combatViewManager.OnSkillVfxRemove(evt.EntityId, (byte)evt.Value1);
                     break;
 
+                case SimEventType.PlaySound:
+                    SoundManager.Instance.PlaySFX((SoundFX)evt.Value0);
+                    break;
+
                 case SimEventType.SkillRectAreaEffect:
                 {
                     var element = ResolveElementFromCaster(world, evt.EntityId);

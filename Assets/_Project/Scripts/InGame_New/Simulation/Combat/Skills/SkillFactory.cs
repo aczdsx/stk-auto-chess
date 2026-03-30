@@ -510,6 +510,10 @@ namespace CookApps.AutoChess
             public static SkillAction RemoveVfx(sbyte vfxIndex)
                 => new SkillAction { Effect = SkillEffectType.RemoveVfx, VfxIndex = vfxIndex };
 
+            /// <summary>사운드 재생</summary>
+            public static SkillAction Sound(SoundFX sfx)
+                => new SkillAction { Effect = SkillEffectType.PlaySound, SoundId = (int)sfx };
+
             public static SkillAction AreaVfx(SkillVfxPlacement at, byte range, sbyte vfxIndex = -1,
                 SkillActionCondition condition = SkillActionCondition.Always, bool isBox = false)
                 => new SkillAction { Effect = SkillEffectType.None, VfxIndex = vfxIndex, VfxAt = at, AreaRange = range, Condition = condition, IsBoxArea = isBox };

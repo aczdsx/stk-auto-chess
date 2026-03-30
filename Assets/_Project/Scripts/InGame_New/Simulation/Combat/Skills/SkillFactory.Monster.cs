@@ -103,7 +103,8 @@ namespace CookApps.AutoChess
             // ── 빅마우스 (240107002): 3×DashForward (돌진→오버슈트→복귀) ──
             // VFX: Rush=목적지에 전방포탈(vfxs[0]), Overshoot=원위치에 복귀포탈(vfxs[0], -1.8f offset)
             Skill(240107002, E.Channeling, T.NearestEnemy)
-                .On(Evt.Execute1)  // 돌진: 3타일 대쉬 + 목적지에 전방포탈
+                .On(Evt.Execute1)  // 돌진: 사운드 + 3타일 대쉬 + 목적지에 전방포탈
+                    .Do(Sound(SoundFX.snd_sfx_mon_skill_7002_01))
                     .Do(Vfx(1, V.AtCasterWithDir))
                     .Do(DashForward(DashPhase.Rush, distance: 3, durationMs: 500, ease: MoveEaseType.OutQuad,
                         power: Spec(1, 200f), cc: CrowdControlType.Stun, ccDuration: Spec(2, P.Frames, 3f),

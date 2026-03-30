@@ -326,6 +326,7 @@ namespace CookApps.AutoChess
         DashReturn,            // 스킬 시전 시작 위치로 Lerp 복귀
         DashForward,           // 타겟 방향으로 N칸 돌진 (DashSystem 3페이즈)
         RemoveVfx,             // 추적된 VFX 제거 (FIFO, vfxIndex 기준)
+        PlaySound,             // 사운드 재생 (SoundFX enum 값)
     }
 
     /// <summary>대쉬 페이즈 (DashSystem)</summary>

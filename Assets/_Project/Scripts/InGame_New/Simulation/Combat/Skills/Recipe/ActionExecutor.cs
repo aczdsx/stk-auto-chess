@@ -49,6 +49,9 @@ namespace CookApps.AutoChess
                 case SkillEffectType.RemoveVfx:
                     ctx.State.EventQueue?.PushSkillVfxRemove(ctx.CasterCombatId, ctx.SkillSpecId, (byte)action.VfxIndex);
                     break;
+                case SkillEffectType.PlaySound:
+                    ctx.State.EventQueue?.PushPlaySound(action.SoundId);
+                    break;
             }
         }
 

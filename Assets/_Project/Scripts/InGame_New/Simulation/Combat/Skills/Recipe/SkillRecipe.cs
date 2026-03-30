@@ -133,6 +133,10 @@ namespace CookApps.AutoChess
         public short DashDurationMs;
         /// <summary>이 페이즈 Ease 타입</summary>
         public MoveEaseType DashEaseType;
+
+        // ── PlaySound ──
+        /// <summary>재생할 사운드 ID (SoundFX enum 캐스팅)</summary>
+        public int SoundId;
     }
 
     /// <summary>

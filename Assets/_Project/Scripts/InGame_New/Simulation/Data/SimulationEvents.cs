@@ -65,6 +65,8 @@ namespace CookApps.AutoChess
         CameraShake,  // Value0=duration(ms), Value1=magnitude(x100)
         // VFX 제거
         SkillVfxRemove,  // EntityId=casterId, Value0=skillSpecId, Value1=vfxIndex
+        // 사운드
+        PlaySound,  // Value0=SoundFX enum 값
     }
 
     /// <summary>슈퍼노바 오브젝트 이벤트 서브타입</summary>
@@ -407,6 +409,15 @@ namespace CookApps.AutoChess
                 EntityId = casterId,
                 Value0 = skillSpecId,
                 Value1 = vfxIndex,
+            });
+        }
+
+        public void PushPlaySound(int soundId)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.PlaySound,
+                Value0 = soundId,
             });
         }
 
