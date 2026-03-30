@@ -132,6 +132,14 @@ namespace CookApps.AutoChess.View
         // ── 내부 헬퍼 ──
 
         /// <summary>인접 타일 간 간격 벡터 (col 방향, row 방향)</summary>
+        /// <summary>그리드 방향(sbyte)을 월드 방향 벡터로 변환 (크기 = 타일 1칸 간격)</summary>
+        public static Vector3 GridDirToWorld(sbyte dirCol, sbyte dirRow)
+        {
+            if (!_initialized) return new Vector3(dirCol, 0f, dirRow);
+            Vector3 spacing = GetTileSpacing(0);
+            return new Vector3(dirCol * spacing.x, 0f, dirRow * spacing.z);
+        }
+
         private static Vector3 GetTileSpacing(int boardIndex)
         {
             int baseIdx = boardIndex * _tilesPerBoard;

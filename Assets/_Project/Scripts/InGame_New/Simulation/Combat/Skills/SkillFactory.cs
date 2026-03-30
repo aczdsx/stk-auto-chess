@@ -5,7 +5,7 @@ namespace CookApps.AutoChess
 {
     /// <summary>
     /// 스킬 팩토리 + Recipe 레지스트리 + 스펙 어댑터 통합.
-    /// SkillId → SimSkillInstance 생성, Recipe 정의/조회, 스펙 변환을 모두 담당.
+    /// SkillId → SkillConfig 생성, Recipe 정의/조회, 스펙 변환을 모두 담당.
     ///
     /// partial class로 분리:
     /// - SkillFactory.cs — Core (딕셔너리, Create, Initialize, SkillRecipeBuilder)
@@ -39,14 +39,13 @@ namespace CookApps.AutoChess
             _typeRegistry[skillId] = type;
         }
 
-        public static SimSkillInstance Create(int skillId)
+        public static SkillConfig Create(int skillId)
         {
-            var skill = new SimSkillInstance();
-            skill.Type = _typeRegistry.TryGetValue(skillId, out var type) ? type : SkillImplType.Generic;
-            // Recipe 설정 (Generic 스킬)
-            if (skill.Type == SkillImplType.Generic && _recipes.TryGetValue(skillId, out var recipe))
-                skill.Recipe = recipe;
-            return skill;
+            var config = new SkillConfig();
+            config.Type = _typeRegistry.TryGetValue(skillId, out var type) ? type : SkillImplType.Generic;
+            if (config.Type == SkillImplType.Generic && _recipes.TryGetValue(skillId, out var recipe))
+                config.Recipe = recipe;
+            return config;
         }
 
         /// <summary>캐시된 SkillParams 조회</summary>
@@ -504,8 +503,12 @@ namespace CookApps.AutoChess
             // 액션 팩토리 — SkillAction 반환 (값 참조 없음)
             // ══════════════════════════════
 
-            public static SkillAction Vfx(sbyte vfxIndex, SkillVfxPlacement at)
-                => new SkillAction { Effect = SkillEffectType.None, VfxIndex = vfxIndex, VfxAt = at };
+            public static SkillAction Vfx(sbyte vfxIndex, SkillVfxPlacement at, short vfxDirOffset = 0)
+                => new SkillAction { Effect = SkillEffectType.None, VfxIndex = vfxIndex, VfxAt = at, VfxDirOffset = vfxDirOffset };
+
+            /// <summary>추적된 VFX 제거 (FIFO). 해당 vfxIndex로 스폰된 가장 오래된 VFX를 숨김.</summary>
+            public static SkillAction RemoveVfx(sbyte vfxIndex)
+                => new SkillAction { Effect = SkillEffectType.RemoveVfx, VfxIndex = vfxIndex };
 
             public static SkillAction AreaVfx(SkillVfxPlacement at, byte range, sbyte vfxIndex = -1,
                 SkillActionCondition condition = SkillActionCondition.Always, bool isBox = false)
@@ -517,6 +520,41 @@ namespace CookApps.AutoChess
 
             public static SkillAction Teleport(byte distance = 0)
                 => new SkillAction { Effect = SkillEffectType.Teleport, TeleportDistance = distance };
+
+            public static SkillAction TeleportReturn()
+                => new SkillAction { Effect = SkillEffectType.TeleportReturn };
+
+            public static SkillAction Dash()
+                => new SkillAction { Effect = SkillEffectType.Dash };
+
+            public static SkillAction DashReturn()
+                => new SkillAction { Effect = SkillEffectType.DashReturn };
+
+            /// <summary>대쉬 단일 페이즈. Rush/Overshoot/Return을 각 Execute에서 독립 호출.</summary>
+            /// <param name="vfxIndex">DashSystem이 페이즈 시작 시 스폰할 VFX 인덱스 (-1이면 없음)</param>
+            /// <param name="vfxDirOffset">VFX 방향 오프셋 (0.1단위, 18=1.8f)</param>
+            public static ActionTemplate DashForward(DashPhase phase,
+                byte distance = 0,
+                short durationMs = 0,
+                MoveEaseType ease = MoveEaseType.None,
+                ValueRef power = default,
+                CrowdControlType cc = default,
+                ValueRef ccDuration = default,
+                sbyte vfxIndex = -1,
+                short vfxDirOffset = 0)
+                => new ActionTemplate(
+                    new SkillAction
+                    {
+                        Effect = SkillEffectType.DashForward,
+                        DashPhaseType = phase,
+                        AreaRange = distance,
+                        DashDurationMs = durationMs,
+                        DashEaseType = ease,
+                        CCType = cc,
+                        VfxIndex = vfxIndex,
+                        VfxDirOffset = vfxDirOffset,
+                    },
+                    primary: power, secondary: ccDuration);
 
             public static SkillAction Retarget(SkillTargetFilter filter, bool excludeHit = false)
                 => new SkillAction { Effect = SkillEffectType.Retarget, TargetFilter = filter, ExcludeHit = excludeHit };

@@ -332,9 +332,14 @@ namespace CookApps.AutoChess.View
                     }
 
                     _combatViewManager.OnSkillPhaseVfx(casterId, skillSpecId, vfxIndex, dirCol, dirRow,
-                        targetId, useGridPos ? evt.Col : (byte)0, useGridPos ? evt.Row : (byte)0, useGridPos);
+                        targetId, useGridPos ? evt.Col : (byte)0, useGridPos ? evt.Row : (byte)0, useGridPos,
+                        evt.VfxDirOffset);
                     break;
                 }
+
+                case SimEventType.SkillVfxRemove:
+                    _combatViewManager.OnSkillVfxRemove(evt.EntityId, (byte)evt.Value1);
+                    break;
 
                 case SimEventType.SkillRectAreaEffect:
                 {

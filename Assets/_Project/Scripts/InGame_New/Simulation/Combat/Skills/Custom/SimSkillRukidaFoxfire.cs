@@ -13,15 +13,15 @@ namespace CookApps.AutoChess
         private const int MarkerValue = (int)SkillMarkerType.RukidaFoxfire;
         private const int MaxFoxFires = 9;
 
-        public static void InitializeFromSpec(ref SimSkillInstance skill, List<SkillActive> specList, int tickRate)
+        public static void InitializeFromSpec(ref SkillConfig config, List<SkillActive> specList, int tickRate)
         {
             // {0}=쿨타임, {1}=여우불 증가량, {2}=공속버프 지속(초), {3}=공속증가율(%)
-            skill.FoxFireIncrease = SkillSpecHelper.GetInt(specList, 1, 2f);
-            skill.BuffDurationFrames = SkillSpecHelper.GetFrames(specList, 2, 3f, tickRate);
-            skill.AtkSpeedRatePercent = SkillSpecHelper.GetInt(specList, 3, 10f);
+            config.FoxFireIncrease = SkillSpecHelper.GetInt(specList, 1, 2f);
+            config.BuffDurationFrames = SkillSpecHelper.GetFrames(specList, 2, 3f, tickRate);
+            config.AtkSpeedRatePercent = SkillSpecHelper.GetInt(specList, 3, 10f);
         }
 
-        public static void Execute(ref SimSkillInstance skill, CombatMatchState state,
+        public static void Execute(ref SkillConfig config, CombatMatchState state,
             ref CombatUnit caster, int targetCombatId, ref DeterministicRNG rng)
         {
             int casterIdx = state.FindUnitIndex(caster.CombatId);
@@ -30,7 +30,7 @@ namespace CookApps.AutoChess
             int currentCount = StatusEffectSystem.CountMarkers(state, casterIdx, MarkerValue);
 
             // 여우불 추가 (최대 9개, 초과 시 가장 오래된 것 제거 후 추가)
-            for (int i = 0; i < skill.FoxFireIncrease; i++)
+            for (int i = 0; i < config.FoxFireIncrease; i++)
             {
                 if (currentCount >= MaxFoxFires)
                 {
@@ -42,22 +42,22 @@ namespace CookApps.AutoChess
                 }
 
                 StatusEffectSystem.AddEffect(state, casterIdx,
-                    StatusEffectType.SkillMarker, MarkerValue, skill.BuffDurationFrames);
+                    StatusEffectType.SkillMarker, MarkerValue, config.BuffDurationFrames);
             }
 
             // 공속 버프 = 현재 여우불 수 × 공속비율
             int foxCount = StatusEffectSystem.CountMarkers(state, casterIdx, MarkerValue);
-            int totalAtkSpeedBonus = skill.AtkSpeedRatePercent * foxCount;
+            int totalAtkSpeedBonus = config.AtkSpeedRatePercent * foxCount;
             if (totalAtkSpeedBonus > 0)
             {
                 SkillBuffHelper.ApplyTimedBuff(state, casterIdx,
-                    StatModType.AttackSpeed, totalAtkSpeedBonus, skill.BuffDurationFrames,
-                    sourceSkillId: skill.SkillId);
+                    StatModType.AttackSpeed, totalAtkSpeedBonus, config.BuffDurationFrames,
+                    sourceSkillId: config.SkillId);
             }
 
             // VFX 이벤트: 본인에게 스폰 (여우불 수는 dirCol로 전달)
             state.EventQueue?.PushSkillPhaseVfx(
-                caster.CombatId, skill.SkillId, 0, dirCol: (sbyte)foxCount);
+                caster.CombatId, config.SkillId, 0, dirCol: (sbyte)foxCount);
         }
     }
 }

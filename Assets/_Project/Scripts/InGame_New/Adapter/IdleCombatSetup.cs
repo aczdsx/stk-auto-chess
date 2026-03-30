@@ -288,17 +288,19 @@ namespace CookApps.AutoChess
             ref var unit = ref state.Units[unitIndex];
             if (unit.SkillSpecId <= 0) return;
 
-            state.Skills[unitIndex] = SkillFactory.Create(unit.SkillSpecId);
-            ref var skill = ref state.Skills[unitIndex];
+            state.SkillConfigs[unitIndex] = SkillFactory.Create(unit.SkillSpecId);
+            ref var config = ref state.SkillConfigs[unitIndex];
+            ref var skillState = ref state.SkillStates[unitIndex];
+            skillState.Reset();
 
             if (SkillFactory.TryGetParams(unit.SkillSpecId, out var skillParams))
             {
                 SkillFactory.TryGetSpecList(unit.SkillSpecId, out var specList);
-                SkillDispatcher.InitializeFromSpec(ref skill, skillParams, specList, tickRate);
+                SkillDispatcher.InitializeFromSpec(ref config, ref skillState, skillParams, specList, tickRate);
             }
             else
             {
-                skill.InitializeBase(new SkillParams
+                config.InitializeBase(new SkillParams
                 {
                     SkillId = unit.SkillSpecId,
                     PowerPercent = 200,

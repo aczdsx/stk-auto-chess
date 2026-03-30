@@ -124,8 +124,13 @@ namespace CookApps.AutoChess
                 unit.MoveTimer--;
                 if (unit.MoveTimer <= 1)
                 {
-                    // 마지막 1프레임은 이동 완료로 간주해 MOVE 애니메이션이 과도하게 남지 않도록 한다.
                     unit.MoveTimer = 0;
+
+                    // 대쉬 중이면 이동 완료 처리 스킵 (채널링 틱에서 DashSystem 처리)
+                    if (unit.DashPhase != DashPhase.None)
+                        return;
+
+                    // 기존 이동 완료 처리
                     unit.State = CombatState.Idle;
                     if (unit.IsBacklineJumping)
                         state.EventQueue?.PushStatusEffectAdded(unit.CombatId, CombatVfxType.JobGhostJumpEnd);

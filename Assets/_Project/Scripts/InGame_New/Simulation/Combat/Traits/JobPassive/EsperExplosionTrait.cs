@@ -23,7 +23,7 @@ namespace CookApps.AutoChess
 
             if (state.Rng.Chance(_chancePercent))
             {
-                int dmgPct = _damagePercent > 255 ? 255 : _damagePercent;
+                int dmgPct = _damagePercent > 255 ? 255 : _damagePercent; // byte 범위(0~255) 클램핑 — Quantum struct 전환 시 byte 압축 저장 대비
                 JobPassiveSystem.ProcessEsperExplosion(state, ref attacker, ref target, dmgPct);
             }
         }

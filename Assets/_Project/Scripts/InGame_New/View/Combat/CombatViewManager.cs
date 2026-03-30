@@ -41,6 +41,15 @@ namespace CookApps.AutoChess.View
 
         private const float FireAndForgetLifetime = 3f;
 
+        // ── 스킬 VFX 추적 (RemoveVfx 지원) ──
+        private struct TrackedVfx
+        {
+            public int CasterId;
+            public byte VfxIndex;
+            public GameObject Go;
+        }
+        private readonly List<TrackedVfx> _trackedVfx = new();
+
         // ── 투사체 VFX 추적 ──
         private readonly List<ActiveProjectile> _activeProjectiles = new();
         private readonly List<ActiveProjectile> _projectilesToRemove = new();
@@ -384,7 +393,8 @@ namespace CookApps.AutoChess.View
 
         public void OnSkillPhaseVfx(int casterId, int skillSpecId, byte vfxIndex,
             sbyte dirCol = 0, sbyte dirRow = 0, int targetId = 0,
-            byte col = 0, byte row = 0, bool useGridPos = false)
+            byte col = 0, byte row = 0, bool useGridPos = false,
+            short vfxDirOffset = 0)
         {
             if (!_isCombatActive) return;
 
@@ -414,15 +424,22 @@ namespace CookApps.AutoChess.View
                         // 방향이 있으면 인접 타일 월드 좌표로 회전 계산
                         var nextPos = BoardWorldHelper.CombatGridToWorld(0, col + dirCol, row + dirRow);
                         var dir = (nextPos - worldPos).normalized;
+
+                        // 방향 오프셋 적용 (0.1 단위: 18 = 1.8f)
+                        if (vfxDirOffset != 0)
+                            worldPos += dir * (vfxDirOffset * 0.1f);
+
                         var rotOffset = skillData.UseCustomRotation ? skillData.RotationOffset : DefaultRotationOffset;
                         var rot = dir != Vector3.zero
                             ? Quaternion.LookRotation(dir) * Quaternion.Euler(rotOffset)
                             : Quaternion.identity;
-                        SpawnSkillVfxAtPosition(skillData, worldPos, rot);
+                        var vfxGo = SpawnSkillVfxCore(skillData, worldPos, rot);
+                        TrackVfx(casterId, vfxIndex, vfxGo);
                     }
                     else
                     {
-                        SpawnSkillVfxAtPosition(skillData, worldPos);
+                        var vfxGo = SpawnSkillVfxCore(skillData, worldPos, Quaternion.identity);
+                        TrackVfx(casterId, vfxIndex, vfxGo);
                     }
                 }
                 return;
@@ -766,7 +783,44 @@ namespace CookApps.AutoChess.View
             await UniTask.Delay((int)(delay * 1000), cancellationToken: ct)
                 .SuppressCancellationThrow();
             if (go == null) return;
+            UntrackVfx(go); // 자동 만료 시 추적에서도 제거
             _vfxPool.Return(go, prefab);
+        }
+
+        // ── 스킬 VFX 추적/제거 ──
+
+        private void TrackVfx(int casterId, byte vfxIndex, GameObject go)
+        {
+            if (go == null) return;
+            _trackedVfx.Add(new TrackedVfx { CasterId = casterId, VfxIndex = vfxIndex, Go = go });
+        }
+
+        private void UntrackVfx(GameObject go)
+        {
+            for (int i = _trackedVfx.Count - 1; i >= 0; i--)
+            {
+                if (_trackedVfx[i].Go == go)
+                {
+                    _trackedVfx.RemoveAt(i);
+                    return;
+                }
+            }
+        }
+
+        /// <summary>추적된 VFX 제거 (FIFO — 가장 먼저 스폰된 것부터)</summary>
+        public void OnSkillVfxRemove(int casterId, byte vfxIndex)
+        {
+            for (int i = 0; i < _trackedVfx.Count; i++)
+            {
+                if (_trackedVfx[i].CasterId == casterId && _trackedVfx[i].VfxIndex == vfxIndex)
+                {
+                    var go = _trackedVfx[i].Go;
+                    _trackedVfx.RemoveAt(i);
+                    if (go != null && go.activeSelf)
+                        go.SetActive(false); // 숨김만, 풀 반환은 자동 만료가 처리
+                    return;
+                }
+            }
         }
 
         // ── 지연 후 근접 공격 실행 ──

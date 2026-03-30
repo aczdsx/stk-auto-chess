@@ -243,10 +243,6 @@ namespace CookApps.AutoChess
         public int BaseImmuneType;    // 이뮨 타입
         public byte PositionType;    // CharacterPositionType (직업군 패시브 결정용)
 
-        // 직업 패시브 파라미터 (SpecDataManager.GetJobPassiveList → SkillJob에서 추출)
-        public int JobPassiveParam0; // 주 계수 (확률%, 스택수, 쿨타임 프레임 등)
-        public int JobPassiveParam1; // 부 계수 (데미지%, 면역 지속 프레임 등)
-
         // 유닛 크기 (타일 수)
         public byte SizeW;           // 가로 (기본 1)
         public byte SizeH;           // 세로 (기본 1)
@@ -593,6 +589,10 @@ namespace CookApps.AutoChess
         public bool IsBacklineJumping;    // 백라인 점프 이동 중 (타겟 불가)
         public bool IsKnockbackMoving;   // 넉백 이동 중 (View에서 OutExpo 이징 적용)
 
+        // 대쉬 (빅마우스 등 — DashSystem 관리, 런타임 상태는 SkillState.Custom.Dash)
+        public MoveEaseType DashEase;       // 현재 페이즈 Ease (None이면 대쉬 아님)
+        public DashPhase DashPhase;         // 현재 대쉬 페이즈 (None이면 대쉬 아님)
+
         // CC 상태
         public CrowdControlType ActiveCC;
         public int CCRemainingFrames;
@@ -799,8 +799,9 @@ namespace CookApps.AutoChess
         // RNG (Trait에서 접근용 — CombatAISystem.Tick 시작 시 저장)
         public DeterministicRNG Rng;
 
-        // 스킬 인스턴스 (매치별 관리, SkillSystem에서 사용)
-        public SimSkillInstance[] Skills;  // [MaxCombatUnits]
+        // 스킬 (매치별 관리, SkillSystem에서 사용)
+        public SkillConfig[] SkillConfigs;    // [MaxCombatUnits] 초기화 후 읽기전용
+        public SkillState[] SkillStates;      // [MaxCombatUnits] 매 시전마다 Reset
 
         // 특성 인스턴스 (유닛별 최대 MaxTraitsPerUnit개)
         public CombatTraitBase[][] Traits; // [MaxCombatUnits][CombatTraitBase.MaxTraitsPerUnit]
@@ -821,7 +822,8 @@ namespace CookApps.AutoChess
                 GridTiles = new int[gridSize],
                 Projectiles = new Projectile[MaxProjectiles],
                 StatusEffects = new StatusEffect[MaxStatusEffects],
-                Skills = new SimSkillInstance[MaxCombatUnits],
+                SkillConfigs = new SkillConfig[MaxCombatUnits],
+                SkillStates = new SkillState[MaxCombatUnits],
                 Traits = new CombatTraitBase[MaxCombatUnits][],
                 TraitCounts = new int[MaxCombatUnits],
             };

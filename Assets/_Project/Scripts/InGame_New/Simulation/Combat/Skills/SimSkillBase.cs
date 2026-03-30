@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using CookApps.AutoBattler;
 
 namespace CookApps.AutoChess
@@ -56,16 +55,16 @@ namespace CookApps.AutoChess
     }
 
     /// <summary>
-    /// 스킬 인스턴스 (값 타입). 모든 스킬의 공통 상태 + Custom union 필드를 flat으로 보유.
-    /// 행위는 SkillDispatcher에서 SkillType 기반 static dispatch.
+    /// 스킬 설정 (초기화 후 읽기전용).
+    /// 참조 타입(Recipe, ParamValues, SkillHitFrames)은 여기에 격리.
     /// </summary>
-    public struct SimSkillInstance
+    public struct SkillConfig
     {
-        // ── Dispatch key ──
+        // ── Dispatch ──
         public SkillImplType Type;
         public bool IsInitialized;
 
-        // ── 공통 (현 SimSkillBase 필드) ──
+        // ── 공통 ──
         public int SkillId;
         public int PowerPercent;
         public DamageType DamageType;
@@ -79,64 +78,18 @@ namespace CookApps.AutoChess
         public int SecondaryPowerPercent;
         public int TargetCount;
         public int HitCount;
-        public SkillExecutionType ExecutionType;
         public bool FaceTarget;
+        public SkillExecutionType ExecutionType;
         public bool HasProjectile;
-        public int[] SkillHitFrames;
         public int SkillClipFrames;
+        public int WorldTickRate;
 
-        // ── Generic 런타임 상태 ──
+        // ── 참조 타입 (Config에 격리) ──
         public SkillRecipe Recipe;
         public int[] ParamValues;
-        public int StartDelay;
-        public int TickTimer;
-        public int TickInterval;
-        public int RemainingTicks;
-        public int TickCount;
-        public int WorldTickRate;
-        public int CachedTargetId;
-        public bool KnockbackHitWall;
-        public int ProjectileArrivalTimer;
-        public int CurrentPower;
-        public int BounceCount;
-        public int DecayPercent;
-        public int CurrentHitFrameIndex;
-        public int HitFrameTimer;
-        public bool HasMultiHitFrames;
-        public int PostCompleteTimer;
-        public bool CompleteFired;
-        public int DelayTimer;
+        public int[] SkillHitFrames;
 
-        // ── 히트 추적 ──
-        public int[] HitIds;
-        public int HitIdCount;
-
-        // ── Custom: Rukida ──
-        public int FoxFireIncrease;
-        public int AtkSpeedRatePercent;
-
-        // ── Custom: April ──
-        public int Rate1, Rate2, Rate3;
-        public int DirCol, DirRow;
-        public bool Started;
-        public int ClipEndTimer;
-        public int HitIndex;
-
-        // ── Custom: Enki ──
-        public int HotDuration, HotInterval;
-        public int PhaseTimer;
-        public int ChannelFramesRemaining;
-        public bool Fired, Channeling;
-        public int CachedCasterCombatId, CachedAttack;
-        public int StartRow, CenterCol, HalfWidth, WaveDirRow;
-
-        // ── Custom: Adria ──
-        public int DefScaleValue, StunDurationFrames;
-        public int CurrentPhase;
-        public bool Done;
-        public long HitMask;
-
-        // ── 읽기 전용 프로퍼티 ──
+        // ── 읽기전용 프로퍼티 ──
         public readonly bool IsChanneling => ExecutionType != SkillExecutionType.Instant;
         public readonly int FirstEffectFrame => SkillHitFrames != null && SkillHitFrames.Length > 0
             ? SkillHitFrames[0] : 0;
@@ -177,26 +130,141 @@ namespace CookApps.AutoChess
             SkillHitFrames = p.SkillHitFrames;
             SkillClipFrames = p.SkillClipFrames;
             FaceTarget = p.FaceTarget;
+            WorldTickRate = p.WorldTickRate;
             IsInitialized = true;
-            DelayTimer = -1;
-            HitIds = new int[8];
         }
+
+        // ── Custom Config (타입별, flat — 총 9개 int로 union 불필요) ──
+        // Rukida
+        public int FoxFireIncrease;
+        public int AtkSpeedRatePercent;
+        // April
+        public int Rate1, Rate2, Rate3;
+        // Enki
+        public int HotDuration, HotInterval;
+        // Adria
+        public int DefScaleValue, StunDurationFrames;
+    }
+
+    // ── 타입별 State structs ──
+
+    public struct AprilState
+    {
+        public int DirCol, DirRow;
+        public byte Started;  // bool 대신 byte (Explicit Layout 호환)
+        public int ClipEndTimer;
+        public int HitIndex;
+    }
+
+    public struct EnkiState
+    {
+        public int PhaseTimer;
+        public int ChannelFramesRemaining;
+        public byte Fired, Channeling;  // bool 대신 byte
+        public int CachedCasterCombatId, CachedAttack;
+        public int StartRow, CenterCol, HalfWidth, WaveDirRow;
+    }
+
+    public struct AdriaState
+    {
+        public int CurrentPhase;
+        public byte Done;  // bool 대신 byte
+        public long HitMask;
+    }
+
+    public struct DashState
+    {
+        public byte DashTilesRemaining;
+        public sbyte DashDirCol, DashDirRow;
+        public int DashHitDamage;
+        public short DashStunFrames;
+        public int DashFramesPerTile;
+        public byte DashHitFrameIndex;  // 현재 대쉬가 시작된 hitframe 인덱스
+    }
+
+    [System.Runtime.InteropServices.StructLayout(
+        System.Runtime.InteropServices.LayoutKind.Explicit)]
+    public struct SkillCustomState
+    {
+        [System.Runtime.InteropServices.FieldOffset(0)] public AprilState April;
+        [System.Runtime.InteropServices.FieldOffset(0)] public EnkiState Enki;
+        [System.Runtime.InteropServices.FieldOffset(0)] public AdriaState Adria;
+        [System.Runtime.InteropServices.FieldOffset(0)] public DashState Dash;
+    }
+
+    /// <summary>
+    /// 스킬 런타임 상태 (매 시전마다 Reset).
+    /// 참조 타입 없음 — HitIds는 inline 필드 8개.
+    /// </summary>
+    public struct SkillState
+    {
+        // ── 공통 타이머/런타임 ──
+        public int StartDelay;
+        public int TickTimer;
+        public int TickInterval;
+        public int RemainingTicks;
+        public int TickCount;
+        public int CachedTargetId;
+        public byte KnockbackHitWall;  // bool → byte
+        public int ProjectileArrivalTimer;
+        public int CurrentPower;
+        public int BounceCount;
+        public int DecayPercent;
+        public int CurrentHitFrameIndex;
+        public int HitFrameTimer;
+        public byte HasMultiHitFrames;  // bool → byte
+        public int PostCompleteTimer;
+        public byte CompleteFired;  // bool → byte
+        public int DelayTimer;
+
+        // ── 위치 저장 ──
+        public byte SavedGridCol;
+        public byte SavedGridRow;
+
+        // ── 히트 추적 (고정 크기, 힙 할당 없음) ──
+        public const int MaxHitIds = 8;
+        public int HitId0, HitId1, HitId2, HitId3, HitId4, HitId5, HitId6, HitId7;
+        public int HitIdCount;
+
+        // ── 타입별 런타임 (union) ──
+        public SkillCustomState Custom;
 
         public void Reset()
         {
             StartDelay = 0; TickTimer = 0; TickInterval = 0;
             RemainingTicks = 0; TickCount = 0;
             CachedTargetId = CombatUnit.InvalidId;
-            KnockbackHitWall = false; ProjectileArrivalTimer = 0;
+            KnockbackHitWall = 0; ProjectileArrivalTimer = 0;
             CurrentPower = 0; BounceCount = 0; DecayPercent = 0;
             HitIdCount = 0; CurrentHitFrameIndex = 0; HitFrameTimer = 0;
-            HasMultiHitFrames = false; PostCompleteTimer = 0; CompleteFired = false;
+            HasMultiHitFrames = 0; PostCompleteTimer = 0; CompleteFired = 0;
             DelayTimer = -1;
-            if (HitIds != null)
-                for (int i = 0; i < HitIds.Length; i++) HitIds[i] = CombatUnit.InvalidId;
-            Started = false; ClipEndTimer = 0; HitIndex = 0; DirCol = 0; DirRow = 0;
-            Channeling = false; Fired = false; PhaseTimer = 0; ChannelFramesRemaining = 0;
-            CurrentPhase = 0; Done = false; HitMask = 0;
+            HitId0 = HitId1 = HitId2 = HitId3 = CombatUnit.InvalidId;
+            HitId4 = HitId5 = HitId6 = HitId7 = CombatUnit.InvalidId;
+            Custom = default;
+        }
+
+        public readonly int GetHitId(int index)
+        {
+            switch (index)
+            {
+                case 0: return HitId0; case 1: return HitId1;
+                case 2: return HitId2; case 3: return HitId3;
+                case 4: return HitId4; case 5: return HitId5;
+                case 6: return HitId6; case 7: return HitId7;
+                default: return CombatUnit.InvalidId;
+            }
+        }
+
+        public void SetHitId(int index, int value)
+        {
+            switch (index)
+            {
+                case 0: HitId0 = value; break; case 1: HitId1 = value; break;
+                case 2: HitId2 = value; break; case 3: HitId3 = value; break;
+                case 4: HitId4 = value; break; case 5: HitId5 = value; break;
+                case 6: HitId6 = value; break; case 7: HitId7 = value; break;
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ namespace CookApps.AutoChess
     /// 스킬 오케스트레이션 시스템.
     /// 매치 시작 시 유닛별 스킬 인스턴스를 생성하고,
     /// 마나 풀 시 스킬 시전 → 시전 시간 경과 → 효과 적용 흐름을 관리.
-    /// 스킬 인스턴스는 CombatMatchState.Skills[]에 매치별로 저장.
+    /// 스킬 설정은 CombatMatchState.SkillConfigs[], 런타임 상태는 SkillStates[]에 저장.
     /// </summary>
     public static class SkillSystem
     {
@@ -16,18 +16,20 @@ namespace CookApps.AutoChess
                 ref var unit = ref state.Units[i];
                 if (unit.SkillSpecId <= 0) continue;
 
-                state.Skills[i] = SkillFactory.Create(unit.SkillSpecId);
-                ref var skill = ref state.Skills[i];
+                state.SkillConfigs[i] = SkillFactory.Create(unit.SkillSpecId);
+                ref var config = ref state.SkillConfigs[i];
+                ref var skillState = ref state.SkillStates[i];
+                skillState.Reset();
 
                 if (SkillFactory.TryGetParams(unit.SkillSpecId, out var skillParams))
                 {
                     SkillFactory.TryGetSpecList(unit.SkillSpecId, out var specList);
-                    SkillDispatcher.InitializeFromSpec(ref skill, skillParams, specList, world.TickRate);
+                    SkillDispatcher.InitializeFromSpec(ref config, ref skillState, skillParams, specList, world.TickRate);
                     unit.MaxMana = (int)System.Math.Ceiling(skillParams.CooldownSeconds * world.Config.DefaultManaRegenPerSec);
                 }
                 else
                 {
-                    skill.InitializeBase(new SkillParams
+                    config.InitializeBase(new SkillParams
                     {
                         SkillId = unit.SkillSpecId,
                         PowerPercent = 200,
@@ -62,20 +64,20 @@ namespace CookApps.AutoChess
             if (StatusEffectSystem.HasSilence(state, unitIndex))
                 return false;
 
-            ref var skill = ref state.Skills[unitIndex];
-            if (!skill.IsInitialized)
+            ref var config = ref state.SkillConfigs[unitIndex];
+            if (!config.IsInitialized)
             {
                 // 스킬이 없으면 마나만 리셋
                 unit.CurrentMana = 0;
                 return false;
             }
 
-            int targetId = SkillDispatcher.SelectTarget(ref skill, state, ref unit);
+            int targetId = SkillDispatcher.SelectTarget(ref config, state, ref unit);
             if (targetId == CombatUnit.InvalidId)
                 return false;
 
-            int castFrames = skill.GetCastFrames();
-            int actionLockFrames = skill.GetActionLockFrames();
+            int castFrames = config.GetCastFrames();
+            int actionLockFrames = config.GetActionLockFrames();
             unit.CurrentMana = 0;
             unit.HasPushedManaFull = false;
 
@@ -86,8 +88,10 @@ namespace CookApps.AutoChess
                 unit.CombatId,
                 targetId,
                 unit.SkillSpecId,
-                skill.IsChanneling,
-                skill.HasProjectile);
+                config.IsChanneling,
+                config.HasProjectile);
+
+            ref var skillState = ref state.SkillStates[unitIndex];
 
             if (castFrames > 0)
             {
@@ -95,19 +99,19 @@ namespace CookApps.AutoChess
                 unit.State = CombatState.CastingSkill;
                 unit.SkillCastTimer = castFrames;
                 unit.ActionLockTimer = actionLockFrames;
-                if (skill.FaceTarget)
+                if (config.FaceTarget)
                     unit.CurrentTargetId = targetId;
             }
             else
             {
                 // 방향 전환을 Execute 전에 설정 (View가 첫 프레임부터 올바른 방향 사용)
-                if (skill.FaceTarget)
+                if (config.FaceTarget)
                     unit.CurrentTargetId = targetId;
 
                 // 즉시 시전
-                SkillDispatcher.Execute(ref skill, state, ref unit, targetId, ref rng);
+                SkillDispatcher.Execute(ref config, ref skillState, state, ref unit, targetId, ref rng);
 
-                if (skill.IsChanneling)
+                if (config.IsChanneling)
                 {
                     unit.State = CombatState.CastingSkill;
                     unit.SkillCastTimer = 0; // 채널링 경과 카운터 초기화
@@ -136,7 +140,8 @@ namespace CookApps.AutoChess
         {
             if (unit.State != CombatState.CastingSkill) return;
 
-            ref var skill = ref state.Skills[unitIndex];
+            ref var config = ref state.SkillConfigs[unitIndex];
+            ref var skillState = ref state.SkillStates[unitIndex];
 
             // Execute 완료 후 남은 스킬 모션 락 유지
             if (unit.SkillCastTimer < 0)
@@ -151,10 +156,10 @@ namespace CookApps.AutoChess
             }
 
             // 채널링 스킬: 매 틱마다 OnChannelTick 호출
-            if (skill.IsInitialized && skill.IsChanneling)
+            if (config.IsInitialized && config.IsChanneling)
             {
                 unit.SkillCastTimer++; // 채널링 경과 프레임 (첫 효과 발동 시점 판단용)
-                bool continuing = SkillDispatcher.OnChannelTick(ref skill, state, ref unit, ref rng);
+                bool continuing = SkillDispatcher.OnChannelTick(ref config, ref skillState, state, ref unit, ref rng);
                 if (!continuing)
                 {
                     if (unit.ActionLockTimer > 0)
@@ -175,24 +180,24 @@ namespace CookApps.AutoChess
             if (unit.SkillCastTimer > 0) return;
 
             // 시전 완료: 효과 적용
-            if (skill.IsInitialized)
+            if (config.IsInitialized)
             {
                 int targetId = unit.CurrentTargetId;
 
                 // 타겟 유효성 재검증
                 if (!TargetingSystem.IsTargetValid(state, targetId))
                 {
-                    targetId = SkillDispatcher.SelectTarget(ref skill, state, ref unit);
+                    targetId = SkillDispatcher.SelectTarget(ref config, state, ref unit);
                 }
 
                 if (targetId != CombatUnit.InvalidId)
                 {
                     if (CombatLogger.Enabled) CombatLogger.LogSkillExecute(unit.CombatId, targetId, unit.SkillSpecId);
 
-                    SkillDispatcher.Execute(ref skill, state, ref unit, targetId, ref rng);
+                    SkillDispatcher.Execute(ref config, ref skillState, state, ref unit, targetId, ref rng);
 
                     // Execute 후 채널링이 시작됐으면 CastingSkill 유지 → 다음 틱부터 OnChannelTick 호출
-                    if (skill.IsChanneling)
+                    if (config.IsChanneling)
                     {
                         return;
                     }
@@ -213,13 +218,13 @@ namespace CookApps.AutoChess
         /// <summary>매치 종료 시 정리</summary>
         public static void Cleanup(CombatMatchState state)
         {
-            if (state?.Skills == null) return;
+            if (state?.SkillConfigs == null) return;
             for (int i = 0; i < CombatMatchState.MaxCombatUnits; i++)
             {
-                if (state.Skills[i].IsInitialized)
+                if (state.SkillConfigs[i].IsInitialized)
                 {
-                    state.Skills[i].Reset();
-                    state.Skills[i] = default;
+                    state.SkillStates[i].Reset();
+                    state.SkillConfigs[i] = default;
                 }
             }
         }

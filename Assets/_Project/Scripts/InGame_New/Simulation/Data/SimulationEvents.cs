@@ -63,6 +63,8 @@ namespace CookApps.AutoChess
         SupernovaObjectEvent,  // Value0=traitId, Value1=subType, Col/Row, EntityId(TargetAssigned시)
         // 카메라 연출
         CameraShake,  // Value0=duration(ms), Value1=magnitude(x100)
+        // VFX 제거
+        SkillVfxRemove,  // EntityId=casterId, Value0=skillSpecId, Value1=vfxIndex
     }
 
     /// <summary>슈퍼노바 오브젝트 이벤트 서브타입</summary>
@@ -114,6 +116,9 @@ namespace CookApps.AutoChess
         public sbyte SkillVfxIndex;     // 투사체 VFX 인덱스
         public sbyte ArrivalVfxIndex;   // 도착 시 스폰할 VFX 인덱스 (-1이면 없음)
         public short MoveInterval;      // 타일 이동 간격 (프레임)
+
+        // VFX 방향 오프셋 (0.1 단위, 예: 18 = 1.8f). 방향벡터 * offset으로 위치 조정.
+        public short VfxDirOffset;
     }
 
     /// <summary>
@@ -361,7 +366,8 @@ namespace CookApps.AutoChess
         /// </summary>
         public void PushSkillPhaseVfx(int casterId, int skillSpecId, byte vfxIndex,
             sbyte dirCol = 0, sbyte dirRow = 0, int targetId = 0,
-            byte col = 0, byte row = 0, bool useGridPos = false)
+            byte col = 0, byte row = 0, bool useGridPos = false,
+            short vfxDirOffset = 0)
         {
             Push(new SimEvent
             {
@@ -375,6 +381,7 @@ namespace CookApps.AutoChess
                 Col = col,
                 Row = row,
                 Flag0 = useGridPos,
+                VfxDirOffset = vfxDirOffset,
             });
         }
 
@@ -389,6 +396,17 @@ namespace CookApps.AutoChess
                 Row = row,
                 DirCol = (byte)dirCol,
                 DirRow = (byte)dirRow,
+            });
+        }
+
+        public void PushSkillVfxRemove(int casterId, int skillSpecId, byte vfxIndex)
+        {
+            Push(new SimEvent
+            {
+                Type = SimEventType.SkillVfxRemove,
+                EntityId = casterId,
+                Value0 = skillSpecId,
+                Value1 = vfxIndex,
             });
         }
 

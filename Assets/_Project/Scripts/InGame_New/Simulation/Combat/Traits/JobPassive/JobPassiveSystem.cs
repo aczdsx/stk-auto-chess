@@ -1,4 +1,5 @@
 using CookApps.AutoBattler;
+using UnityEngine;
 
 namespace CookApps.AutoChess
 {
@@ -11,7 +12,7 @@ namespace CookApps.AutoChess
         /// <summary>
         /// 매치 내 모든 유닛에 직업 패시브 Trait 부착.
         /// CombatSetupSystem.SetupMatch / SetupPvEMatch 직후에 호출.
-        /// ChampionSpec.PositionType과 JobPassiveParam0/1로 Trait 생성.
+        /// ChampionSpec.PositionType으로 SpecDataManager에서 직접 조회.
         /// </summary>
         public static void SetupJobPassives(CombatMatchState state, GameWorld world)
         {
@@ -25,9 +26,28 @@ namespace CookApps.AutoChess
                 var spec = FindSpec(world, unit.ChampionSpecId);
                 if (spec.PositionType == 0) continue;
 
-                AttachJobPassive(state, i, (CharacterPositionType)spec.PositionType,
-                    spec.JobPassiveParam0, spec.JobPassiveParam1, world.TickRate);
+                var posType = (CharacterPositionType)spec.PositionType;
+                GetJobPassiveParams(posType, out int param0, out int param1);
+                AttachJobPassive(state, i, posType, param0, param1, world.TickRate);
             }
+        }
+
+        /// <summary>SpecDataManager에서 직업 패시브 파라미터 직접 조회</summary>
+        private static void GetJobPassiveParams(CharacterPositionType posType, out int param0, out int param1)
+        {
+            param0 = 0;
+            param1 = 0;
+
+            var specMgr = SpecDataManager.Instance;
+            if (specMgr == null) return;
+
+            var passiveList = specMgr.GetJobPassiveList(posType);
+            if (passiveList == null || passiveList.Count == 0) return;
+            if (passiveList[0] == null || passiveList[0].Count == 0) return;
+
+            var data = passiveList[0][0]; // grade 0
+            param0 = (int)(data.passive_rate * 100);
+            param1 = (int)(data.passive_rate_2 * 100);
         }
 
         private static void AttachJobPassive(CombatMatchState state, int unitIndex,

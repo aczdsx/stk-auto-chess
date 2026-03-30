@@ -14,80 +14,85 @@ namespace CookApps.AutoChess
         private const int PhaseCount = 3;
         private const int FallbackDelay = 8; // SkillHitFrames 없을 때 페이즈 간격
 
-        public static void InitializeFromSpec(ref SimSkillInstance skill, List<SkillActive> specList, int tickRate)
+        public static void InitializeFromSpec(ref SkillConfig config, List<SkillActive> specList, int tickRate)
         {
-            skill.ExecutionType = SkillExecutionType.Channeling;
+            config.ExecutionType = SkillExecutionType.Channeling;
             // {0}=쿨타임, {1}=데미지배율(%)→PowerPercent, {2}=방어력계수, {3}=스턴시간(초)
-            skill.PowerPercent = SkillSpecHelper.GetInt(specList, 1, 200f);
-            skill.DefScaleValue = SkillSpecHelper.GetInt(specList, 2, 100f);
-            skill.StunDurationFrames = SkillSpecHelper.GetFrames(specList, 3, 2f, tickRate);
+            config.PowerPercent = SkillSpecHelper.GetInt(specList, 1, 200f);
+            config.DefScaleValue = SkillSpecHelper.GetInt(specList, 2, 100f);
+            config.StunDurationFrames = SkillSpecHelper.GetFrames(specList, 3, 2f, tickRate);
         }
 
-        public static void Execute(ref SimSkillInstance skill, CombatMatchState state,
+        public static void Execute(ref SkillConfig config, ref SkillState state, CombatMatchState matchState,
             ref CombatUnit caster, int targetCombatId, ref DeterministicRNG rng)
         {
-            skill.CurrentPhase = 0;
-            skill.Done = false;
-            skill.HitMask = 0;
+            ref var adria = ref state.Custom.Adria;
+            adria.CurrentPhase = 0;
+            adria.Done = 0;
+            adria.HitMask = 0;
 
             // 첫 Phase 타이밍 대기 (SkillHitFrames[0])
-            skill.PhaseTimer = skill.SkillHitFrames != null && skill.SkillHitFrames.Length > 0
-                ? skill.SkillHitFrames[0]
+            state.TickTimer = config.SkillHitFrames != null && config.SkillHitFrames.Length > 0
+                ? config.SkillHitFrames[0]
                 : FallbackDelay;
         }
 
-        public static bool OnChannelTick(ref SimSkillInstance skill, CombatMatchState state,
+        public static bool OnChannelTick(ref SkillConfig config, ref SkillState state, CombatMatchState matchState,
             ref CombatUnit caster, ref DeterministicRNG rng)
         {
-            if (skill.Done) return false;
+            ref var adria = ref state.Custom.Adria;
+            if (adria.Done != 0) return false;
 
-            skill.PhaseTimer--;
-            if (skill.PhaseTimer > 0) return true;
+            // PhaseTimer는 Adria에 없으므로 Enki union의 PhaseTimer 사용 (같은 offset)
+            // 주의: Explicit Layout union이므로 Enki.PhaseTimer와 Adria는 같은 메모리
+            // 더 안전한 방법: SkillState 공통 필드 사용
+            state.TickTimer--;
+            if (state.TickTimer > 0) return true;
 
             // 현재 Phase 실행
-            DoPhase(ref skill, state, ref caster, skill.CurrentPhase);
+            DoPhase(ref config, ref state, matchState, ref caster, adria.CurrentPhase);
 
-            skill.CurrentPhase++;
-            if (skill.CurrentPhase >= PhaseCount)
+            adria.CurrentPhase++;
+            if (adria.CurrentPhase >= PhaseCount)
             {
-                skill.Done = true;
+                adria.Done = 1;
                 return false;
             }
 
             // 다음 Phase 타이밍 설정
-            if (skill.SkillHitFrames != null && skill.CurrentPhase < skill.SkillHitFrames.Length)
+            if (config.SkillHitFrames != null && adria.CurrentPhase < config.SkillHitFrames.Length)
             {
-                // SkillHitFrames[n]은 절대 프레임 → 이전 프레임과의 차이가 대기 시간
-                int prevFrame = skill.SkillHitFrames[skill.CurrentPhase - 1];
-                int nextFrame = skill.SkillHitFrames[skill.CurrentPhase];
-                skill.PhaseTimer = nextFrame > prevFrame ? nextFrame - prevFrame : FallbackDelay;
+                int prevFrame = config.SkillHitFrames[adria.CurrentPhase - 1];
+                int nextFrame = config.SkillHitFrames[adria.CurrentPhase];
+                state.TickTimer = nextFrame > prevFrame ? nextFrame - prevFrame : FallbackDelay;
             }
             else
             {
-                skill.PhaseTimer = FallbackDelay;
+                state.TickTimer = FallbackDelay;
             }
 
             return true;
         }
 
-        private static void DoPhase(ref SimSkillInstance skill, CombatMatchState state,
-            ref CombatUnit caster, int phase)
+        private static void DoPhase(ref SkillConfig config, ref SkillState state,
+            CombatMatchState matchState, ref CombatUnit caster, int phase)
         {
+            ref var adria = ref state.Custom.Adria;
             int col = caster.GridCol;
             int row = caster.GridRow;
             int attack = caster.Attack;
             int def = caster.Def;
-            var dmgType = skill.DamageType;
+            var dmgType = config.DamageType;
             byte team = caster.TeamIndex;
-            int power = skill.PowerPercent;
-            int defScale = skill.DefScaleValue;
-            int stunFrames = skill.StunDurationFrames;
-            int casterIdx = state.FindUnitIndex(caster.CombatId);
+            int power = config.PowerPercent;
+            int defScale = config.DefScaleValue;
+            int stunFrames = config.StunDurationFrames;
+            int casterIdx = matchState.FindUnitIndex(caster.CombatId);
 
             // Phase별 패턴으로 적 순회
-            for (int i = 0; i < state.UnitCount; i++)
+            for (int i = 0; i < matchState.UnitCount; i++)
             {
-                ref var unit = ref state.Units[i];
+                ref var unit = ref matchState.Units[i];
                 if (!unit.IsAlive) continue;
                 if (unit.TeamIndex == team) continue;
 
@@ -97,22 +102,22 @@ namespace CookApps.AutoChess
                 // 중복 히트 방지
                 int bitIndex = i % 64;
                 long bit = 1L << bitIndex;
-                if ((skill.HitMask & bit) != 0) continue;
-                skill.HitMask |= bit;
+                if ((adria.HitMask & bit) != 0) continue;
+                adria.HitMask |= bit;
 
                 // 데미지: attack * damageRate% * (1 + def / defValue)
                 int raw = attack * power / 100 * (defScale + def) / defScale;
-                int dmg = DamageSystem.CalculateDamage(raw, dmgType, ref state.Units[casterIdx], ref unit);
-                DamageSystem.ApplyDamage(state, ref unit, dmg);
+                int dmg = DamageSystem.CalculateDamage(raw, dmgType, ref matchState.Units[casterIdx], ref unit);
+                DamageSystem.ApplyDamage(matchState, ref unit, dmg);
                 DamageSystem.ChargeMana(ref unit, unit.ManaGainOnHit);
 
                 // 스턴
                 if (stunFrames > 0)
-                    SkillCCHelper.ApplyCC(state, ref unit, CrowdControlType.Stun, stunFrames);
+                    SkillCCHelper.ApplyCC(matchState, ref unit, CrowdControlType.Stun, stunFrames);
             }
 
-            // 패턴 내 모든 타일에 vfx[0] 스폰 (타일이펙트 없음)
-            EmitPatternVfx(state, ref caster, col, row, phase, skill.SkillId);
+            // 패턴 내 모든 타일에 vfx[0] 스폰
+            EmitPatternVfx(matchState, ref caster, col, row, phase, config.SkillId);
         }
 
         /// <summary>패턴에 해당하는 모든 그리드 좌표에 vfx[0] 발행</summary>

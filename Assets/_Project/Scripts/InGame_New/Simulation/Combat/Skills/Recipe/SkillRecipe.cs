@@ -123,6 +123,16 @@ namespace CookApps.AutoChess
         public bool ScaleByHitCount;
         /// <summary>Damage: 바운스 감쇠율 ParamSlots 인덱스 (-1=없음)</summary>
         public sbyte DecayParamIndex;
+        /// <summary>VFX 방향 오프셋 (0.1 단위, 18=1.8f). 방향벡터 × offset으로 위치 조정.</summary>
+        public short VfxDirOffset;
+
+        // ── DashForward ──
+        /// <summary>이 액션이 수행할 대쉬 페이즈 (Rush/Overshoot/Return)</summary>
+        public DashPhase DashPhaseType;
+        /// <summary>이 페이즈 지속 시간 (ms)</summary>
+        public short DashDurationMs;
+        /// <summary>이 페이즈 Ease 타입</summary>
+        public MoveEaseType DashEaseType;
     }
 
     /// <summary>

@@ -57,7 +57,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    OneShotPosition: 2
+    OneShotPosition: 1
     OneShotFollowable: 1
     LoopVfx:
       m_AssetGUID: 46120cae477e7d249877be2670e36eca
@@ -65,7 +65,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    LoopPosition: 2
+    LoopPosition: 1
     LoopFollowable: 1
   - Type: 1
     StatType: 4

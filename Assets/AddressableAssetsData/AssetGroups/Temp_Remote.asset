@@ -419,11 +419,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e66aeb8a9a754a549aae4bd5027cae85
-    m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_40107002_\uBE45\uB9C8\uC6B0\uC2A4.asset"
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7d3f0a9e0746a64196e155b126dd19f
     m_Address: "Data/CharacterVfxConfigs/CharacterVfxConfig_40107001_\uBCA0\uB188.asset"
     m_ReadOnly: 0

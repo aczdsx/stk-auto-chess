@@ -10,89 +10,93 @@ namespace CookApps.AutoChess
         private const int DefaultMoveInterval = 24; // 24프레임마다 1행 이동 (~0.4초/행, speed≈5)
         private const int WaveWidth = 5;           // 파도 폭 5칸
 
-        public static void InitializeFromSpec(ref SimSkillInstance skill, List<SkillActive> specList, int tickRate)
+        public static void InitializeFromSpec(ref SkillConfig config, List<SkillActive> specList, int tickRate)
         {
-            skill.ExecutionType = SkillExecutionType.Channeling;
+            config.ExecutionType = SkillExecutionType.Channeling;
             // {0}=쿨타임, {1}=힐배율(%)→PowerPercent, {2}=HoT지속(초), {3}=HoT위력(%)
-            skill.PowerPercent = SkillSpecHelper.GetInt(specList, 1, 200f);
-            skill.HotDuration = SkillSpecHelper.GetFrames(specList, 2, 6f, tickRate);
-            skill.HotInterval = 30;
-            skill.SecondaryPowerPercent = SkillSpecHelper.GetInt(specList, 3, 50f);
+            config.PowerPercent = SkillSpecHelper.GetInt(specList, 1, 200f);
+            config.HotDuration = SkillSpecHelper.GetFrames(specList, 2, 6f, tickRate);
+            config.HotInterval = 30;
+            config.SecondaryPowerPercent = SkillSpecHelper.GetInt(specList, 3, 50f);
         }
 
-        public static int SelectTarget(ref SimSkillInstance skill, CombatMatchState state, ref CombatUnit caster)
+        public static int SelectTarget(ref SkillConfig config, CombatMatchState state, ref CombatUnit caster)
         {
             // 적이 존재할 때만 시전, 자기 자신을 반환하여 facing 유지
             int nearestEnemy = TargetingSystem.FindNearestEnemy(state, ref caster);
             return nearestEnemy != CombatUnit.InvalidId ? caster.CombatId : CombatUnit.InvalidId;
         }
 
-        public static void Execute(ref SimSkillInstance skill, CombatMatchState state,
+        public static void Execute(ref SkillConfig config, ref SkillState state, CombatMatchState matchState,
             ref CombatUnit caster, int targetCombatId, ref DeterministicRNG rng)
         {
+            ref var enki = ref state.Custom.Enki;
+
             // 준비만: 상태 저장 + 타이머 설정 (LineDamage 패턴)
-            skill.WaveDirRow = caster.TeamIndex == 0 ? 1 : -1;
-            skill.StartRow = skill.WaveDirRow > 0 ? 0 : BoardHelper.CombatHeight - 1;
-            skill.CenterCol = caster.GridCol;
-            skill.HalfWidth = WaveWidth / 2;
-            skill.CachedCasterCombatId = caster.CombatId;
-            skill.CachedAttack = caster.Attack;
-            skill.Fired = false;
-            skill.Channeling = true;
-            skill.PhaseTimer = skill.SkillHitFrames != null && skill.SkillHitFrames.Length > 0
-                ? skill.SkillHitFrames[0]
+            enki.WaveDirRow = caster.TeamIndex == 0 ? 1 : -1;
+            enki.StartRow = enki.WaveDirRow > 0 ? 0 : BoardHelper.CombatHeight - 1;
+            enki.CenterCol = caster.GridCol;
+            enki.HalfWidth = WaveWidth / 2;
+            enki.CachedCasterCombatId = caster.CombatId;
+            enki.CachedAttack = caster.Attack;
+            enki.Fired = 0;
+            enki.Channeling = 1;
+            enki.PhaseTimer = config.SkillHitFrames != null && config.SkillHitFrames.Length > 0
+                ? config.SkillHitFrames[0]
                 : DefaultMoveInterval;
         }
 
-        public static bool OnChannelTick(ref SimSkillInstance skill, CombatMatchState state,
+        public static bool OnChannelTick(ref SkillConfig config, ref SkillState state, CombatMatchState matchState,
             ref CombatUnit caster, ref DeterministicRNG rng)
         {
-            if (!skill.Channeling) return false;
+            ref var enki = ref state.Custom.Enki;
+            if (enki.Channeling == 0) return false;
 
             // 발사 전: SkillHitFrames[0] 대기
-            if (!skill.Fired)
+            if (enki.Fired == 0)
             {
-                skill.PhaseTimer--;
-                if (skill.PhaseTimer > 0) return true;
+                enki.PhaseTimer--;
+                if (enki.PhaseTimer > 0) return true;
 
-                skill.Fired = true;
-                SpawnWaveProjectiles(ref skill, state);
-                skill.ChannelFramesRemaining = (BoardHelper.CombatHeight - 1) * DefaultMoveInterval;
+                enki.Fired = 1;
+                SpawnWaveProjectiles(ref config, ref state, matchState);
+                enki.ChannelFramesRemaining = (BoardHelper.CombatHeight - 1) * DefaultMoveInterval;
                 return true;
             }
 
             // 발사 후: 투사체가 보드 끝까지 이동할 때까지 채널링 유지
-            skill.ChannelFramesRemaining--;
-            if (skill.ChannelFramesRemaining <= 0)
+            enki.ChannelFramesRemaining--;
+            if (enki.ChannelFramesRemaining <= 0)
             {
-                skill.Channeling = false;
+                enki.Channeling = 0;
                 return false;
             }
 
             return true;
         }
 
-        private static void SpawnWaveProjectiles(ref SimSkillInstance skill, CombatMatchState state)
+        private static void SpawnWaveProjectiles(ref SkillConfig config, ref SkillState state, CombatMatchState matchState)
         {
-            int healAmount = skill.CachedAttack * skill.PowerPercent / 100;
-            int hotPerTick = skill.CachedAttack * skill.SecondaryPowerPercent / 100;
+            ref var enki = ref state.Custom.Enki;
+            int healAmount = enki.CachedAttack * config.PowerPercent / 100;
+            int hotPerTick = enki.CachedAttack * config.SecondaryPowerPercent / 100;
 
-            int minCol = skill.CenterCol - skill.HalfWidth;
-            int maxCol = skill.CenterCol + skill.HalfWidth;
+            int minCol = enki.CenterCol - enki.HalfWidth;
+            int maxCol = enki.CenterCol + enki.HalfWidth;
 
             for (int c = minCol; c <= maxCol; c++)
             {
-                if (!BoardHelper.IsValidCombatPosition(c, skill.StartRow)) continue;
+                if (!BoardHelper.IsValidCombatPosition(c, enki.StartRow)) continue;
 
                 ProjectileSystem.CreateLinearHealProjectile(
-                    state, skill.CachedCasterCombatId,
-                    (byte)c, (byte)skill.StartRow,
-                    0, (sbyte)skill.WaveDirRow,
+                    matchState, enki.CachedCasterCombatId,
+                    (byte)c, (byte)enki.StartRow,
+                    0, (sbyte)enki.WaveDirRow,
                     healAmount, DamageType.Physical,
-                    DefaultMoveInterval, BoardHelper.CombatHeight, skill.SkillId,
+                    DefaultMoveInterval, BoardHelper.CombatHeight, config.SkillId,
                     skillVfxIndex: 1,
-                    hotPerTick: hotPerTick, hotDuration: skill.HotDuration, hotInterval: skill.HotInterval,
-                    areaEffectHalfWidth: c == skill.CenterCol ? (byte)skill.HalfWidth : (byte)0);
+                    hotPerTick: hotPerTick, hotDuration: config.HotDuration, hotInterval: config.HotInterval,
+                    areaEffectHalfWidth: c == enki.CenterCol ? (byte)enki.HalfWidth : (byte)0);
             }
         }
     }

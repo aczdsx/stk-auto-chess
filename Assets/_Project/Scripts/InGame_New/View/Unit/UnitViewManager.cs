@@ -191,12 +191,24 @@ namespace CookApps.AutoChess.View
                 {
                     float progress = 1f - (float)unit.MoveTimer / unit.MoveDuration;
 
-                    // 넉백 이동은 OutExpo ease 적용
-                    if (unit.IsKnockbackMoving)
+                    // Ease 적용
+                    if (unit.DashEase != MoveEaseType.None)
+                        progress = ApplyEase(progress, unit.DashEase);
+                    else if (unit.IsKnockbackMoving)
                         progress = EaseOutExpo(progress);
 
                     Vector3 fromPos = BoardWorldHelper.CombatGridToWorld(boardIndex, unit.MoveFromCol, unit.MoveFromRow) + centerOffset;
-                    worldPos = Vector3.Lerp(fromPos, destPos, progress);
+
+                    // 오버슈트 페이즈: 그리드 안 바뀜, MoveFrom→GridPos 방향으로 1.8유닛 오프셋
+                    if (unit.DashPhase == DashPhase.Overshoot)
+                    {
+                        Vector3 dir = (destPos - fromPos).normalized;
+                        worldPos = Vector3.Lerp(destPos, destPos + dir * 1.8f, progress);
+                    }
+                    else
+                    {
+                        worldPos = Vector3.Lerp(fromPos, destPos, progress);
+                    }
 
                     // 백라인 점프: 포물선 높이
                     if (unit.IsBacklineJumping)
@@ -465,6 +477,24 @@ namespace CookApps.AutoChess.View
         private static float EaseOutExpo(float t)
         {
             return t >= 1f ? 1f : 1f - UnityEngine.Mathf.Pow(2f, -10f * t);
+        }
+
+        /// <summary>MoveEaseType에 따른 보간 커브 적용</summary>
+        private static float ApplyEase(float t, MoveEaseType ease)
+        {
+            switch (ease)
+            {
+                case MoveEaseType.OutQuad:
+                    return 1f - (1f - t) * (1f - t);
+                case MoveEaseType.Linear:
+                    return t;
+                case MoveEaseType.OutExpo:
+                    return EaseOutExpo(t);
+                case MoveEaseType.InExpo:
+                    return t >= 1f ? 1f : Mathf.Pow(2f, 10f * (t - 1f));
+                default:
+                    return t;
+            }
         }
     }
 }

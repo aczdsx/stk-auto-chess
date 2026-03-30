@@ -321,6 +321,30 @@ namespace CookApps.AutoChess
         Retarget,              // TargetingSystem으로 타겟 재선택
         ApplyStatusEffect,     // StatusEffectSystem으로 상태이상 적용 (CC와 별도)
         TileEffect,            // 타일 이펙트 발행 (PushSkillAreaEffect/PushSkillRectAreaEffect)
+        TeleportReturn,        // 스킬 시전 시작 위치로 즉시 복귀
+        Dash,                  // 타겟 인접으로 Lerp 이동 (넉백 시스템 재사용)
+        DashReturn,            // 스킬 시전 시작 위치로 Lerp 복귀
+        DashForward,           // 타겟 방향으로 N칸 돌진 (DashSystem 3페이즈)
+        RemoveVfx,             // 추적된 VFX 제거 (FIFO, vfxIndex 기준)
+    }
+
+    /// <summary>대쉬 페이즈 (DashSystem)</summary>
+    public enum DashPhase : byte
+    {
+        None = 0,
+        Rush = 1,       // 돌진 (타일 단위 이동 + 타일별 데미지/CC)
+        Overshoot = 2,  // 오버슈트 (그리드 변경 없이 방향 오프셋)
+        Return = 3,     // 복귀 (원위치 텔레포트 + 착지 슬라이드)
+    }
+
+    /// <summary>이동 Ease 타입 (View 보간용)</summary>
+    public enum MoveEaseType : byte
+    {
+        None = 0,       // Ease 없음 (기본 Linear)
+        OutQuad = 1,    // 빠른 출발 → 감속 (돌진)
+        Linear = 2,     // 일정 속도 (오버슈트)
+        OutExpo = 3,    // 기존 넉백
+        InExpo = 4,     // 느린 시작 → 빠른 도착 (착지)
     }
 
     /// <summary>Recipe 액션 대상 필터</summary>
@@ -359,6 +383,7 @@ namespace CookApps.AutoChess
         PerTileInDiamond,   // 맨해튼 범위 내 각 타일에 개별 VFX 스폰
         AtTargetWithDir,    // 타겟 위치 + 시전자→타겟 방향 회전
         RectAreaEffect,     // 방향 기반 직사각형 타일 이펙트 (오데트 ㄷ자형)
+        AtCasterToSaved,    // 현재 위치에 VFX, 방향은 저장 위치(스킬 시작 위치)를 향함
     }
 
     /// <summary>Recipe 조건부 실행</summary>

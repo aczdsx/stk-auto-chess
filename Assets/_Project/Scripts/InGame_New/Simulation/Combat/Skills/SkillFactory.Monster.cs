@@ -100,18 +100,22 @@ namespace CookApps.AutoChess
                         .Do(SpawnLinearProjectile())
                     .Register();
 
-            // ── 빅마우스 (240107002): 대쉬 돌진 + 경로 관통 데미지 + 기절 ──
-            // 원본 3단계: Execute0=대쉬+데미지+기절, Execute1=오버슈트+포탈VFX, Execute2=원위치복귀
-            // range 0 = 타겟까지 거리 동적 계산
+            // ── 빅마우스 (240107002): 3×DashForward (돌진→오버슈트→복귀) ──
+            // VFX: Rush=목적지에 전방포탈(vfxs[0]), Overshoot=원위치에 복귀포탈(vfxs[0], -1.8f offset)
             Skill(240107002, E.Channeling, T.NearestEnemy)
-                .On(Evt.Execute1)  // 대쉬 돌진 + 관통 데미지 + 기절
-                    .Do(Vfx(0, V.AtTargetWithDir))
+                .On(Evt.Execute1)  // 돌진: 3타일 대쉬 + 목적지에 전방포탈
                     .Do(Vfx(1, V.AtCasterWithDir))
-                    .Do(Damage(power: Spec(1, 200f), filter: F.EnemiesInArea, area: S.Line))
-                    .Do(CC(CrowdControlType.Stun, duration: Spec(2, P.Frames, 3f)))
-                .On(Evt.Execute2)  // 오버슈트 + 돌아오는 포탈
-                    .Do(Vfx(0, V.AtCasterWithDir))
-                .On(Evt.Execute3)  // 원위치 복귀
+                    .Do(DashForward(DashPhase.Rush, distance: 3, durationMs: 500, ease: MoveEaseType.OutQuad,
+                        power: Spec(1, 200f), cc: CrowdControlType.Stun, ccDuration: Spec(2, P.Frames, 3f),
+                        vfxIndex: 0))
+                .On(Evt.Execute2)  // 오버슈트: 관성 미끄러짐 + 원위치에 복귀포탈
+                    .Do(DashForward(DashPhase.Overshoot, durationMs: 300, ease: MoveEaseType.Linear,
+                        vfxIndex: 0, vfxDirOffset: 18))
+                .On(Evt.Execute3)  // 복귀: 전방포탈 제거 + 텔레포트 + 착지 슬라이드
+                    .Do(RemoveVfx(0))
+                    .Do(DashForward(DashPhase.Return, durationMs: 100, ease: MoveEaseType.InExpo))
+                .On(Evt.Complete)  // 복귀포탈 제거
+                    .Do(RemoveVfx(0))
                 .Register();
 
             // ── TeleportStrike (이동 후 범위 공격 + 스턴) ──
