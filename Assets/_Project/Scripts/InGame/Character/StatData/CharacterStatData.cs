@@ -283,14 +283,6 @@ namespace CookApps.AutoBattler
                     return characterStellaType == SynergyType.SUPERNOVA;
                 case CoreResearchType.Troubleshooter:
                     return characterStellaType == SynergyType.TROUBLESHOOTER;
-                // VIGILANTE, ARCANA, ECLIPSE는 현재 SynergyType enum에 없음
-                // 추후 추가될 경우 아래 주석을 해제
-                // case CoreResearchType.Vigilante:
-                //     return characterStellaType == SynergyType.VIGILANTE;
-                // case CoreResearchType.Arcana:
-                //     return characterStellaType == SynergyType.ARCANA;
-                // case CoreResearchType.Eclipse:
-                //     return characterStellaType == SynergyType.ECLIPSE;
                 default:
                     return false;
             }

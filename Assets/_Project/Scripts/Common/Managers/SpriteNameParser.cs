@@ -50,82 +50,45 @@ namespace CookApps.AutoBattler
 
         public static string GetSpriteName(SynergyType synergyType, bool isActive = true)
         {
-            string spriteName = string.Empty;
+            string suffix = isActive ? "On" : "Off";
 
-            switch (synergyType)
+            return synergyType switch
             {
-                case SynergyType.NOBLESSE:
-                    spriteName = isActive ? "Icon_Constellation_Noblesse_Active" : "Icon_Constellation_Noblesse_Locked";
-                    break;
-                case SynergyType.SUPERNOVA:
-                    spriteName = isActive ? "Icon_Constellation_Supernova_Active" : "Icon_Constellation_Supernova_Locked";
-                    break;
-                case SynergyType.TROUBLESHOOTER:
-                    spriteName = isActive ? "Icon_Constellation_TroubleShooter_Active" : "Icon_Constellation_TroubleShooter_Locked";
-                    break;
-                case SynergyType.NORMAL:
-                    spriteName = "Icon_Enemy_Normal_Active";
-                    break;
+                // Element
+                SynergyType.FIRE      => $"Synergy_Element_Fire_{suffix}",
+                SynergyType.WIND      => $"Synergy_Element_Wind_{suffix}",
+                SynergyType.WATER     => $"Synergy_Element_Water_{suffix}",
+                SynergyType.EARTH     => $"Synergy_Element_Ground_{suffix}",
+                SynergyType.LIGHTNING => $"Synergy_Element_Lightning_{suffix}",
 
+                // Constellation
+                SynergyType.NOBLESSE  => $"Synergy_Constellation_Berserker_{suffix}",
+                SynergyType.SUPERNOVA => $"Synergy_Constellation_Superstar_{suffix}",
 
-                case SynergyType.FIRE:
-                    spriteName = isActive ? "Icon_Fire_Active" : "Icon_Fire_Locked";
-                    break;
-                case SynergyType.WATER:
-                    spriteName = isActive ? "Icon_Water_Active" : "Icon_Water_Locked";
-                    break;
-                case SynergyType.EARTH:
-                    spriteName = isActive ? "Icon_Ground_Active" : "Icon_Ground_Locked";
-                    break;
-                case SynergyType.WIND:
-                    spriteName = isActive ? "Icon_Wind_Active" : "Icon_Wind_Locked";
-                    break;
-                case SynergyType.LIGHTNING:
-                    spriteName = isActive ? "Icon_Lightning_Active" : "Icon_Lightning_Locked";
-                    break;
-            }
+                // Enemy
+                SynergyType.NORMAL    => "Synergy_Enemy_On",
 
-            return spriteName;
+                _ => string.Empty,
+            };
         }
 
         public static string GetSpriteNameInGameBadge(SynergyType synergyType)
         {
-            string spriteName = string.Empty;
-
-            switch (synergyType)
+            return synergyType switch
             {
-                case SynergyType.NOBLESSE:
-                    spriteName = "Icon_Noblesse_74";
-                    break;
-                case SynergyType.SUPERNOVA:
-                    spriteName = "Icon_Supernova_74";
-                    break;
-                case SynergyType.TROUBLESHOOTER:
-                    spriteName = "Icon_Troubleshooter_74";
-                    break;
-                case SynergyType.ARCANA:
-                case SynergyType.ECLIPSE:
-                case SynergyType.UROBOROS:
-                    spriteName = "Icon_Troubleshooter_74";
-                    break;
-                case SynergyType.FIRE:
-                    spriteName = "Icon_Property_Fire_74";
-                    break;
-                case SynergyType.WATER:
-                    spriteName = "Icon_Property_Water_74";
-                    break;
-                case SynergyType.EARTH:
-                    spriteName = "Icon_Property_Earth_74";
-                    break;
-                case SynergyType.WIND:
-                    spriteName = "Icon_Property_Wind_74";
-                    break;
-                case SynergyType.LIGHTNING:
-                    spriteName = "Icon_Property_Light_74";
-                    break;
-            }
+                // Element
+                SynergyType.FIRE      => "Property_Synergy_Fire",
+                SynergyType.WIND      => "Property_Synergy_Wind",
+                SynergyType.WATER     => "Property_Synergy_Water",
+                SynergyType.EARTH     => "Property_Synergy_Earth",
+                SynergyType.LIGHTNING => "Property_Synergy_Lightning",
 
-            return spriteName;
+                // Constellation
+                SynergyType.NOBLESSE  => "Property_Synergy_Berserker",
+                SynergyType.SUPERNOVA => "Property_Synergy_Superstar",
+
+                _ => string.Empty,
+            };
         }
 
         public static string GetSpriteName(TrialType type, bool isCompete)

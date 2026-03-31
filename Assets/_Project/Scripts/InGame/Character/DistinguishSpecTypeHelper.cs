@@ -12,9 +12,6 @@ public static class DistinguishSpecTypeHelper
             SynergyType.NOBLESSE,
             SynergyType.SUPERNOVA,
             SynergyType.TROUBLESHOOTER,
-            SynergyType.ARCANA,
-            SynergyType.ECLIPSE,
-            SynergyType.UROBOROS,
     };
     private static readonly SynergyType[] _elementSynergyTypes = new SynergyType[]
     {
@@ -59,9 +56,6 @@ public static class DistinguishSpecTypeHelper
             SynergyType.NOBLESSE => SimpleSwapType.Noblesse,
             SynergyType.TROUBLESHOOTER => SimpleSwapType.Troubleshooter,
             SynergyType.SUPERNOVA => SimpleSwapType.Supernova,
-            SynergyType.UROBOROS => SimpleSwapType.Uroboros,
-            SynergyType.ARCANA => SimpleSwapType.Arcana,
-            SynergyType.ECLIPSE => SimpleSwapType.Eclipse,
             _ => SimpleSwapType.Normal,
         };
     }

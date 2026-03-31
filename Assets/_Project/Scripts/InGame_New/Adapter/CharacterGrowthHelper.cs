@@ -158,8 +158,6 @@ namespace CookApps.AutoChess
                 case CoreResearchType.Noblesse:      return stellaType == SynergyType.NOBLESSE;
                 case CoreResearchType.Supernova:     return stellaType == SynergyType.SUPERNOVA;
                 case CoreResearchType.Troubleshooter: return stellaType == SynergyType.TROUBLESHOOTER;
-                case CoreResearchType.Arcana:        return stellaType == SynergyType.ARCANA;
-                case CoreResearchType.Eclipse:       return stellaType == SynergyType.ECLIPSE;
                 default: return false;
             }
         }

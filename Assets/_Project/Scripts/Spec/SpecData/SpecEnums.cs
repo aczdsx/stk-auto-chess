@@ -187,9 +187,6 @@ namespace CookApps.AutoBattler
         NOBLESSE = 7,
         TROUBLESHOOTER = 8,
         SUPERNOVA = 9,
-        UROBOROS = 10,
-        ARCANA = 11,
-        ECLIPSE = 12,
     }
 
     public enum CharacterPositionType

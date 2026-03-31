@@ -24,9 +24,6 @@ public class SynergyVfxConfigSetup : Editor
 
     private static readonly SynergyType[] VfxPendingTypes =
     {
-        SynergyType.ARCANA,
-        SynergyType.UROBOROS,
-        SynergyType.ECLIPSE,
     };
 
     private const string VfxBasePath = "Assets/_Project/Addressables/Remote/Prefabs/Fx/Common/";
