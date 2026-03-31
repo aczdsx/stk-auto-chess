@@ -122,7 +122,7 @@ namespace CookApps.BattleSystem
             InGameSynergyManager.Instance.Initialize();
 
             // 시너지 UI 이전 상태 초기화 (인게임 시작 시)
-            InGameSynergyUI.ClearPreviousSynergyStates();
+            SynergyInGameElement.ClearPreviousSynergyStates();
         }
 
         public void EndInGame()
@@ -189,12 +189,12 @@ namespace CookApps.BattleSystem
             // InGameSynergyManager.Instance.ClearSynergyFx();
 
             // 상승한 시너지 타입 수집 시작
-            InGameSynergyUI.BeginCollectUpgradedSynergies();
+            SynergyInGameElement.BeginCollectUpgradedSynergies();
 
             InGameMain.GetInGameMain().RefreshInGameTopUI(false);
 
             // 상승한 시너지 타입 수집 종료 및 캐릭터 HpBarView 효과 재생
-            var upgradedSynergies = InGameSynergyUI.EndCollectUpgradedSynergies();
+            var upgradedSynergies = SynergyInGameElement.EndCollectUpgradedSynergies();
             if (upgradedSynergies.Count > 0)
             {
                 PlayCharacterSynergyEffects(upgradedSynergies);

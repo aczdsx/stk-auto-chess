@@ -39,6 +39,7 @@ namespace CookApps.TeamBattle.Utility
         Impossible = 201,
         
         Selected = 300,
+        MAX = 301,
         AD =401,
         AP = 402,
         
@@ -50,9 +51,6 @@ namespace CookApps.TeamBattle.Utility
         Noblesse = 506,
         Troubleshooter = 507,
         Supernova = 508,
-        Uroboros = 509,
-        Arcana = 510,
-        Eclipse = 511,
         
         Elemental = 550,
         Constellation = 551,

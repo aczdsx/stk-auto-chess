@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 4979843352898594887}
   - component: {fileID: 1384075919008301262}
   - component: {fileID: 865234166019154548}
+  - component: {fileID: 5126788993864003014}
   m_Layer: 5
   m_Name: ImageBgGradient
   m_TagString: Untagged
@@ -287,6 +288,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5126788993864003014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997293789364935341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d53d366c0ab644c29ace76bec2f4351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CookApps.Library::CookApps.TeamBattle.Utility.SimpleImageSwapper
+  currentType: 0
+  image: {fileID: 865234166019154548}
+  sprites:
+    keys: 000000002d010000
+    values:
+    - {fileID: 21300000, guid: da2b52614fd9cb744ad74efc37aaad5b, type: 3}
+    - {fileID: 21300000, guid: e15030271e1ea4e47b4f2ee9644c628c, type: 3}
 --- !u!1 &1029224395530231083
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +392,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 2
   m_WholeNumbers: 1
-  m_Value: 2
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -432,19 +452,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _iconImage: {fileID: 7592417782030692362}
   _IconSpriteLoader: {fileID: 1379368477518083137}
-  _countText: {fileID: 960056435627584700}
   _synergyNameText: {fileID: 3437976839345170495}
   _countMaxGameObject: {fileID: 1401289358727230721}
   _countParentGameObject: {fileID: 6485151141017197831}
+  _countText: {fileID: 960056435627584700}
   _gradeGuageImage: {fileID: 2006867457073808630}
   _buttonRect: {fileID: 4574578607074434446}
   _shiny: {fileID: 3483703279910246362}
-  _stepGameObject: {fileID: 4077987589555498634}
-  _stepText: {fileID: 3945735809165412126}
-  _splitLine: {fileID: 0}
-  _gradeImageSwapper: {fileID: 0}
-  _iconMaskSwapper: {fileID: 0}
-  _iconColorSwapper: {fileID: 895893957375464839}
+  _fillSlider: {fileID: 476241543192326484}
+  _imageBgGradient: {fileID: 865234166019154548}
+  _bgGradientSwapper: {fileID: 5126788993864003014}
+  _sliderBGImgaeSwapper: {fileID: 2485008462272119519}
+  _sliderFillImgaeSwapper: {fileID: 4209923143196321789}
 --- !u!222 &8558791173702313410
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -914,6 +933,7 @@ GameObject:
   - component: {fileID: 9176612879831450037}
   - component: {fileID: 254051196794708308}
   - component: {fileID: 2006867457073808630}
+  - component: {fileID: 4209923143196321789}
   m_Layer: 5
   m_Name: RF_Image_SliderFill
   m_TagString: Untagged
@@ -961,7 +981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.27450982, g: 0.29411766, b: 0.3254902, a: 1}
+  m_Color: {r: 0, g: 0.38461542, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -973,11 +993,30 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 1
+  m_FillAmount: 0.5
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
+--- !u!114 &4209923143196321789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4389886846466128808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d53d366c0ab644c29ace76bec2f4351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CookApps.Library::CookApps.TeamBattle.Utility.SimpleImageSwapper
+  currentType: 550
+  image: {fileID: 2006867457073808630}
+  sprites:
+    keys: 2602000027020000
+    values:
+    - {fileID: 21300000, guid: a0891a6a72de68c4d83dd5cb0f6fb9e9, type: 3}
+    - {fileID: 21300000, guid: 3110d1231b0d9804b86b987a8e0aafd2, type: 3}
 --- !u!1 &4662987179861773287
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,6 +1028,7 @@ GameObject:
   - component: {fileID: 7920159076966407208}
   - component: {fileID: 5331978547923179350}
   - component: {fileID: 9211257656881020807}
+  - component: {fileID: 2485008462272119519}
   m_Layer: 5
   m_Name: RF_ImageSynergyBg
   m_TagString: Untagged
@@ -1053,6 +1093,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2485008462272119519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4662987179861773287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d53d366c0ab644c29ace76bec2f4351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CookApps.Library::CookApps.TeamBattle.Utility.SimpleImageSwapper
+  currentType: 550
+  image: {fileID: 9211257656881020807}
+  sprites:
+    keys: 2602000027020000
+    values:
+    - {fileID: 21300000, guid: 7efdb61d34528614d869f020553519c2, type: 3}
+    - {fileID: 21300000, guid: a9a8a6ebb38186a41b4050f6daaf41e0, type: 3}
 --- !u!1 &6485151141017197831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,7 +1301,6 @@ GameObject:
   - component: {fileID: 7592417782030692362}
   - component: {fileID: 1379368477518083137}
   - component: {fileID: 3483703279910246362}
-  - component: {fileID: 895893957375464839}
   m_Layer: 5
   m_Name: RF_ImageSynergyIcon
   m_TagString: Untagged
@@ -1348,34 +1406,6 @@ MonoBehaviour:
     loop: 0
     loopDelay: 0
     updateMode: 0
---- !u!114 &895893957375464839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8470463507226890954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f3fc477bcebd441f8fd93c1816dd26d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentType: 1
-  image: {fileID: 7592417782030692362}
-  colors:
-    keys: 01000000f5010000f6010000f7010000f9010000fa010000fb010000fc010000fd010000fe010000ff010000
-    values:
-    - {r: 0.27450982, g: 0.29411766, b: 0.3254902, a: 1}
-    - {r: 1, g: 1, b: 1, a: 1}
-    - {r: 1, g: 1, b: 1, a: 1}
-    - {r: 1, g: 1, b: 1, a: 1}
-    - {r: 1, g: 1, b: 1, a: 1}
-    - {r: 1, g: 1, b: 1, a: 1}
-    - {r: 1, g: 1, b: 1, a: 1}
-    - {r: 1, g: 1, b: 1, a: 1}
-    - {r: 1, g: 1, b: 1, a: 1}
-    - {r: 1, g: 1, b: 1, a: 1}
-    - {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &8583223129610836138
 GameObject:
   m_ObjectHideFlags: 0
