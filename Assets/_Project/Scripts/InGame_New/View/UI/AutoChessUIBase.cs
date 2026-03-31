@@ -449,7 +449,7 @@ namespace CookApps.AutoChess.View
         private static readonly System.Comparison<(int traitId, byte count)> SynergyCountDescComparer
             = (a, b) => b.count.CompareTo(a.count);
 
-        protected void BindSynergyCell(InGameSynergyUI cell, int synergyTypeId, int index)
+        protected void BindSynergyCell(SynergyInGameElement cell, int synergyTypeId, int index)
         {
             if (CurrentWorld == null) return;
 
@@ -477,9 +477,6 @@ namespace CookApps.AutoChess.View
                 cell.SetSynergy(synergyType, count, nextData, nextData, isActive: false);
             }
 
-            // 활성화된 마지막 항목에만 split line 표시 (하단에 비활성 항목이 있을 때)
-            bool showSplit = isActive && IsNextSynergyInactive(index + 1);
-            cell.SetSplitLine(showSplit);
         }
 
         private bool IsNextSynergyInactive(int index)

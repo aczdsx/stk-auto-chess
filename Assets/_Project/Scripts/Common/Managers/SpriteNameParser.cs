@@ -62,8 +62,9 @@ namespace CookApps.AutoBattler
                 SynergyType.LIGHTNING => $"Synergy_Element_Lightning_{suffix}",
 
                 // Constellation
-                SynergyType.NOBLESSE  => $"Synergy_Constellation_Berserker_{suffix}",
+                SynergyType.NOBLESSE  => $"Synergy_Constellation_Noblesse_{suffix}",
                 SynergyType.SUPERNOVA => $"Synergy_Constellation_Superstar_{suffix}",
+                SynergyType.TROUBLESHOOTER => $"Synergy_Constellation_Tactical_{suffix}",
 
                 // Enemy
                 SynergyType.NORMAL    => "Synergy_Enemy_On",
@@ -84,8 +85,9 @@ namespace CookApps.AutoBattler
                 SynergyType.LIGHTNING => "Property_Synergy_Lightning",
 
                 // Constellation
-                SynergyType.NOBLESSE  => "Property_Synergy_Berserker",
+                SynergyType.NOBLESSE  => "Property_Synergy_Noblesse",
                 SynergyType.SUPERNOVA => "Property_Synergy_Superstar",
+                SynergyType.TROUBLESHOOTER => "Property_Synergy_Tactical",
 
                 _ => string.Empty,
             };

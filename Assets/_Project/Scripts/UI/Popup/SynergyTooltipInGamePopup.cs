@@ -16,7 +16,7 @@ namespace CookApps.AutoBattler
         [SerializeField] private CAButton _dimLayerButton;
 
         [Header("Synergy Info")]
-        [SerializeField] private InGameSynergyUI _synergyUI;
+        [SerializeField] private SynergyInGameElement element;
         [SerializeField] private TextMeshProUGUI _synergyNameText;
         [SerializeField] private TextMeshProUGUI _synergyNameTitleText;
         [SerializeField] private TextMeshProUGUI _synergyDescText;
@@ -78,9 +78,9 @@ namespace CookApps.AutoBattler
             if (_synergyData == null) return;
 
             // 시너지 UI 아이콘 설정
-            if (_synergyUI != null)
+            if (element != null)
             {
-                _synergyUI.SetSynergy(_synergyType, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
+                element.SetSynergy(_synergyType, _count, _synergyData, _nextSynergyData, _synergyData.grade > 0);
             }
 
             // 시너지 이름 설정 (예: "바람 속성 2단계")

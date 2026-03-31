@@ -22,7 +22,7 @@ namespace CookApps.AutoChess.View
         [SerializeField] private BenchUnitSlot _slotPrefab;
 
         [Header("Synergy Unit")]
-        [SerializeField] private InGameSynergyUI _synergySlotPrefab;
+        [SerializeField] private SynergyInGameElement _synergySlotPrefab;
 
         [Header("Tab")]
         [SerializeField] private SimpleTabSwapper _characterBattleItemTabSwapper;
@@ -43,7 +43,7 @@ namespace CookApps.AutoChess.View
         private bool _presetLoading;
 
         private TableViewController<int, BenchUnitSlot> _benchController;
-        private TableViewController<int, InGameSynergyUI> _synergyController;
+        private TableViewController<int, SynergyInGameElement> _synergyController;
         private bool _isStarting;
 
         private readonly List<InGameKillLogItem_New> _killLogItems = new();
@@ -76,7 +76,7 @@ namespace CookApps.AutoChess.View
                 })
                 .Build();
 
-            _synergyController = synergyTableView.CreateController<int, InGameSynergyUI>()
+            _synergyController = synergyTableView.CreateController<int, SynergyInGameElement>()
                 .WithData(synergyIds)
                 .WithCellPrefab(_synergySlotPrefab.gameObject)
                 .WithCellSize(new Vector2(400, 70))
