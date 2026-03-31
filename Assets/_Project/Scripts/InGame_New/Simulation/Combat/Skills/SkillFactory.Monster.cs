@@ -15,23 +15,6 @@ namespace CookApps.AutoChess
         /// <summary>보스탱커: 타일 간 순차 타격 간격.</summary>
         private const short BossTankLineIntervalMs = 200;
 
-        // ── Preset 함수 (파라미터 없는 고정 패턴) ──
-
-        static SkillRecipeBuilder PresetDamageStun(SkillRecipeBuilder b)
-            => b.On(Evt.Cast).Do(Damage()).Do(CC(CrowdControlType.Stun));
-
-        static SkillRecipeBuilder PresetSingleDamage(SkillRecipeBuilder b)
-            => b.On(Evt.Cast).Do(Damage());
-
-        static SkillRecipeBuilder PresetConeDamage(SkillRecipeBuilder b)
-            => b.On(Evt.Cast).Do(Damage(filter: F.EnemiesInArea, area: S.Line, range: 2));
-
-        static SkillRecipeBuilder PresetMultiHit(SkillRecipeBuilder b)
-            => b.On(Evt.Cast).Do(MultiHit());
-
-        static SkillRecipeBuilder PresetMultiTargetHeal(SkillRecipeBuilder b)
-            => b.On(Evt.Cast).Do(Heal(filter: F.LowestHpAllies, range: 3));
-
         /// <summary>몬스터 스킬 Recipe 등록</summary>
         private static void RegisterMonsterRecipes()
         {
@@ -61,6 +44,7 @@ namespace CookApps.AutoChess
             // 원본: 공격력 최고 적 근처 빈 타일 텔레포트 → 3×3 {1}% 데미지 + {2}초 {3}% 방어/공속 감소
             Skill(280109001, E.DelayedApply, T.HighestAttackEnemy)
                 .On(Evt.Execute1)
+                    .Do(Sound(SoundFX.snd_sfx_mon_skill_toma_02))
                     .Do(Teleport())
                     .Do(TileEffect(S.Circle, range: 1, isBox: true))
                     .Do(Vfx(2, V.AtCaster))

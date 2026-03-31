@@ -341,8 +341,8 @@ namespace CookApps.AutoChess.View
                 SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_ingame_casting01);
             }
 
-            // 스킬 사운드 재생
-            PlaySkillSound(casterView);
+            // 스킬 사운드 재생 (SuppressAutoSound 레시피는 Sound() 액션으로 직접 제어)
+            PlaySkillSound(casterView, skillSpecId);
 
             // 채널링 스킬은 SkillPhaseVfx로 VFX를 제어하므로 여기서 스킵
             if (skipVfx) return;
@@ -683,8 +683,12 @@ namespace CookApps.AutoChess.View
 
         // ── 스킬 사운드 ──
 
-        private static void PlaySkillSound(UnitView casterView)
+        private static void PlaySkillSound(UnitView casterView, int skillSpecId)
         {
+            // SuppressAutoSound 레시피: Sound() 액션으로 사운드를 직접 제어하므로 자동 재생 스킵
+            if (SkillFactory.TryGetRecipe(skillSpecId, out var recipe) && recipe.SuppressAutoSound)
+                return;
+
             if (casterView == null || casterView.ChampSpecId <= 0) return;
             var spec = SpecDataManager.Instance.GetSpecCharacter(casterView.ChampSpecId);
             if (spec == null) return;

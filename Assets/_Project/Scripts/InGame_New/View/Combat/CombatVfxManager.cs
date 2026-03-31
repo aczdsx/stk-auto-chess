@@ -250,6 +250,11 @@ namespace CookApps.AutoChess.View
         {
             switch (type)
             {
+                // 쉴드
+                case CombatVfxType.Shield:
+                case CombatVfxType.BasicAttackShield:
+                    return SoundFX.snd_sfx_ingame_shield;
+
                 // 버프
                 case CombatVfxType.StatBuff:
                 case CombatVfxType.ContinuousHeal:

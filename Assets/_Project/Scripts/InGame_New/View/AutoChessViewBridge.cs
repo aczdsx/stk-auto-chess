@@ -397,7 +397,10 @@ namespace CookApps.AutoChess.View
                     byte oldTier = (byte)(evt.Value1 & 0xFF);
                     byte newTier = (byte)((evt.Value1 >> 8) & 0xFF);
                     if (newTier > oldTier)
+                    {
+                        SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_ticker);
                         SpawnSynergyAchieveVfx(world, evt.PlayerIndex, evt.Value0);
+                    }
                     break;
                 }
 
@@ -698,6 +701,7 @@ namespace CookApps.AutoChess.View
             switch (subType)
             {
                 case SupernovaSubType.Spawn:
+                    SoundManager.Instance.PlaySFX(SoundFX.snd_sfx_synergy_nova_spirit);
                     SpawnSupernovaObject(key, traitId, evt.Col, evt.Row).Forget();
                     break;
 

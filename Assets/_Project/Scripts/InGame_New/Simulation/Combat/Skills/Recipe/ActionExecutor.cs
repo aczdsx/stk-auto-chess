@@ -45,13 +45,13 @@ namespace CookApps.AutoChess
                 case SkillEffectType.TeleportReturn: ExecuteTeleportReturn(ref action, ctx); break;
                 case SkillEffectType.Dash: ExecuteDash(ref action, ctx); break;
                 case SkillEffectType.DashReturn: ExecuteDashReturn(ref action, ctx); break;
-                case SkillEffectType.DashForward: break;
                 case SkillEffectType.RemoveVfx:
                     ctx.State.EventQueue?.PushSkillVfxRemove(ctx.CasterCombatId, ctx.SkillSpecId, (byte)action.VfxIndex);
                     break;
                 case SkillEffectType.PlaySound:
                     ctx.State.EventQueue?.PushPlaySound(action.SoundId);
                     break;
+                case SkillEffectType.DashForward: break;
             }
         }
 

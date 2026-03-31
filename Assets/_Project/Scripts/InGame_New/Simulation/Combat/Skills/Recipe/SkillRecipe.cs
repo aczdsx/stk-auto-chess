@@ -21,6 +21,9 @@ namespace CookApps.AutoChess
         /// <summary>투사체 발사 스킬 여부 (true이면 View에서 정적 VFX 생성 스킵)</summary>
         public bool HasProjectile;
 
+        /// <summary>true이면 UnitCastSkill 시 SkillSoundResolver 자동 재생 억제 (Sound() 액션으로 직접 제어)</summary>
+        public bool SuppressAutoSound;
+
         /// <summary>기능 태그 비트마스크 (시너지/아이템 쿼리용)</summary>
         public TraitTag Tags;
 

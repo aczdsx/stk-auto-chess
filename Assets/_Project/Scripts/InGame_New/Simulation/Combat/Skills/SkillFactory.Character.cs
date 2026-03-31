@@ -75,6 +75,7 @@ namespace CookApps.AutoChess
                     .Do(Debuff(StatusEffectType.HealReduction, value: Spec(3, 50f), duration: Spec(4, P.Frames, 3f),
                         filter: F.EnemiesInArea, area: S.Diamond, range: 2))
                     .Do(AreaVfx(V.AreaEffect, 2, condition: SkillActionCondition.EveryNth2))
+                    .Do(Sound(SoundFX.snd_sfx_skill_a_3404_tile))
                 .Register();
 
             // ── 엘리스: 2단계 Diamond AoE ──
@@ -200,7 +201,11 @@ namespace CookApps.AutoChess
 
             // ── 마리에: 텔레포트 + 다단히트 + 디버프 ──
             Skill(217563405, E.Channeling, T.HighestAttackEnemy)
+                .SuppressAutoSound()
+                .On(Evt.Cast)
+                    .Do(Sound(SoundFX.snd_sfx_skill_a_3405_01))
                 .On(Evt.Execute1)
+                    .Do(Sound(SoundFX.snd_sfx_skill_a_3405_02))
                     .Do(Teleport())
                     .Do(Vfx(0, V.AtTarget))
                 .On(Evt.Tick)
@@ -224,7 +229,9 @@ namespace CookApps.AutoChess
 
             // ── 오데트: 2단계 — Execute1 Rect AoE + Execute2 텔레포트 3×3 ──
             Skill(217613501, E.Channeling, T.NearestEnemy)
+                .SuppressAutoSound()
                 .On(Evt.Execute1)
+                    .Do(Sound(SoundFX.snd_sfx_skill_a_3501_01))
                     .Do(TileEffect(S.Rect))
                     .Do(Damage(power: Spec(1, 200f), filter: F.EnemiesInArea, area: S.Rect, range: 1, rectDepth: 1))
                     .Do(Debuff(StatModType.AttackSpeed, value: Spec(3, 30f), duration: Spec(2, P.Frames, 3f),
@@ -232,6 +239,7 @@ namespace CookApps.AutoChess
                     .Do(AddMarker(SkillMarkerType.OdetteCold))
                     .Do(Vfx(0, V.AtCasterWithDir))
                 .On(Evt.Execute2)
+                    .Do(Sound(SoundFX.snd_sfx_skill_a_3501_02))
                     .Do(Teleport(distance: 2))
                     .Do(TileEffect(S.Circle, range: 1, isBox: true))
                     .Do(Damage(power: Spec(1, 200f), filter: F.EnemiesInArea, area: S.Circle, range: 1))

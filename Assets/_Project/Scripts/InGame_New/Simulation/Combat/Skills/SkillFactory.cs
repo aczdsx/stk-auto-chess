@@ -64,7 +64,7 @@ namespace CookApps.AutoChess
         // Recipe 조회 (내부용)
         // ══════════════════════════════
 
-        private static bool TryGetRecipe(int skillGroupId, out SkillRecipe recipe)
+        internal static bool TryGetRecipe(int skillGroupId, out SkillRecipe recipe)
             => _recipes.TryGetValue(skillGroupId, out recipe);
 
         // ══════════════════════════════
@@ -166,6 +166,23 @@ namespace CookApps.AutoChess
         private static SkillRecipeBuilder Skill(int skillId, SkillExecutionType exec, SkillTargetType target)
             => new SkillRecipeBuilder(_recipes, skillId, exec, target);
 
+        // ── Preset 함수 (파라미터 없는 고정 패턴) ──
+
+        static SkillRecipeBuilder PresetDamageStun(SkillRecipeBuilder b)
+            => b.On(SkillEvent.Cast).Do(SkillRecipeBuilder.Damage()).Do(SkillRecipeBuilder.CC(CrowdControlType.Stun));
+
+        static SkillRecipeBuilder PresetSingleDamage(SkillRecipeBuilder b)
+            => b.On(SkillEvent.Cast).Do(SkillRecipeBuilder.Damage());
+
+        static SkillRecipeBuilder PresetConeDamage(SkillRecipeBuilder b)
+            => b.On(SkillEvent.Cast).Do(SkillRecipeBuilder.Damage(filter: SkillTargetFilter.EnemiesInArea, area: SkillAreaShape.Line, range: 2));
+
+        static SkillRecipeBuilder PresetMultiHit(SkillRecipeBuilder b)
+            => b.On(SkillEvent.Cast).Do(SkillRecipeBuilder.MultiHit());
+
+        static SkillRecipeBuilder PresetMultiTargetHeal(SkillRecipeBuilder b)
+            => b.On(SkillEvent.Cast).Do(SkillRecipeBuilder.Heal(filter: SkillTargetFilter.LowestHpAllies, range: 3));
+
         // ══════════════════════════════
         // ValueRef — 값 참조 (빌드 시점 전용)
         // ══════════════════════════════
@@ -243,6 +260,7 @@ namespace CookApps.AutoChess
             private SkillExecutionType _execType;
             private SkillTargetType _targetRule;
             private bool _hasProjectile;
+            private bool _suppressAutoSound;
             private readonly List<ParamSlot> _params;
             private readonly List<SkillAction> _actions;
             private TraitTag _explicitTags;
@@ -257,6 +275,7 @@ namespace CookApps.AutoChess
                 _execType = execType;
                 _targetRule = targetRule;
                 _hasProjectile = false;
+                _suppressAutoSound = false;
                 _explicitTags = TraitTag.None;
                 _currentTrigger = SkillTriggerType.OnCast;
                 _currentHitFrameIndex = 0;
@@ -269,6 +288,13 @@ namespace CookApps.AutoChess
             public SkillRecipeBuilder Projectile()
             {
                 _hasProjectile = true;
+                return this;
+            }
+
+            /// <summary>Cast 시 SkillSoundResolver 자동 재생을 억제하고 Sound() 액션으로 직접 제어</summary>
+            public SkillRecipeBuilder SuppressAutoSound()
+            {
+                _suppressAutoSound = true;
                 return this;
             }
 
@@ -372,6 +398,7 @@ namespace CookApps.AutoChess
                     ExecutionType = _execType,
                     TargetRule = _targetRule,
                     HasProjectile = _hasProjectile,
+                    SuppressAutoSound = _suppressAutoSound,
                     Tags = _explicitTags | InferTags(),
                     ParamSlots = _params.Count > 0 ? _params.ToArray() : null,
                     Actions = _actions.Count > 0 ? _actions.ToArray() : null,
