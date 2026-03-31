@@ -82,11 +82,9 @@ namespace CookApps.AutoChess
                     DamageSystem.ApplyLifeSteal(state, ref state.Units[srcIdx], finalDamage);
                 }
 
-                // Trait: 기본공격 투사체 히트 후 공격 후 콜백
+                // 직업 패시브: 기본공격 투사체 히트 후 공격 후 콜백
                 if (proj.SkillSpecId == 0 && srcIdx >= 0)
-                {
-                    TraitSystem.InvokeOnPostAttack(state, srcIdx, ref target);
-                }
+                    JobPassiveLogic.OnPostAttack(state, srcIdx, ref target);
             }
 
             proj.IsActive = false;

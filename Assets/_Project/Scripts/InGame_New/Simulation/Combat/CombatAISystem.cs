@@ -19,11 +19,15 @@ namespace CookApps.AutoChess
 
             if (CombatLogger.Enabled) CombatLogger.NextFrame();
 
-            // 0. 전투 시작 시 Trait OnCombatStart (첫 프레임에서 1회)
-            if (!state._traitCombatStartDone)
+            // 0. 전투 시작 시 직업 패시브 OnCombatStart (첫 프레임에서 1회)
+            if (!state._jobPassiveCombatStartDone)
             {
-                TraitSystem.InvokeCombatStart(state);
-                state._traitCombatStartDone = true;
+                for (int j = 0; j < state.UnitCount; j++)
+                {
+                    if (!state.Units[j].IsAlive) continue;
+                    JobPassiveLogic.OnCombatStart(state, j);
+                }
+                state._jobPassiveCombatStartDone = true;
             }
 
             // 1. 전투 첫 프레임: 백라인 점프 처리
@@ -35,8 +39,8 @@ namespace CookApps.AutoChess
                 ref var unit = ref state.Units[i];
                 if (!unit.IsAlive) continue;
 
-                // Trait: 매 틱 콜백
-                TraitSystem.InvokeOnTick(state, i, tickRate);
+                // 직업 패시브: 매 틱 콜백
+                JobPassiveLogic.OnTick(state, i);
 
                 UpdateUnit(state, ref unit, ref rng, tickRate);
             }

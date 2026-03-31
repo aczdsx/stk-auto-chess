@@ -184,7 +184,7 @@ namespace CookApps.AutoChess
     public enum TraitCategory : byte
     {
         Origin,  // 속성 — 원소 시너지 (스탯 버프)
-        Class,   // 성군 — Asterism 시너지 (CombatTraitBase 행동)
+        Class,   // 성군 — Asterism 시너지 (전투 행동)
     }
 
     /// <summary>시너지 효과 대상</summary>

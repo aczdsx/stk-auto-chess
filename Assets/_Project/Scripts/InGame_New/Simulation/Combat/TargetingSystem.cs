@@ -256,7 +256,7 @@ namespace CookApps.AutoChess
             // 힐러: 아군 힐 타겟 우선, 없으면 적 공격
             if (unit.IsHealer)
             {
-                int healTarget = FindHealTarget(state, ref unit, OracleHealerTrait.HealTargetHPThreshold, OracleHealerTrait.HealRangeBonus);
+                int healTarget = FindHealTarget(state, ref unit, JobPassiveLogic.OracleHealTargetHPThreshold, JobPassiveLogic.OracleHealRangeBonus);
                 if (healTarget != CombatUnit.InvalidId)
                 {
                     unit.CurrentTargetId = healTarget;

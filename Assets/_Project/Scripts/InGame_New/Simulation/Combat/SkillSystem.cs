@@ -41,7 +41,7 @@ namespace CookApps.AutoChess
             RegisterCharacterTraits(state);
         }
 
-        /// <summary>캐릭터 고유 trait 등록</summary>
+        /// <summary>캐릭터 고유 패시브 등록 (SOA 방식)</summary>
         private static void RegisterCharacterTraits(CombatMatchState state)
         {
             for (int i = 0; i < state.UnitCount; i++)
@@ -49,7 +49,13 @@ namespace CookApps.AutoChess
                 ref var unit = ref state.Units[i];
                 // 필리아 (215532401): 스킬 킬 → 마나 리셋
                 if (unit.ChampionSpecId == 215532401)
-                    TraitSystem.AddTrait(state, i, new SkillKillManaResetTrait(SkillMarkerType.PiliaSkillCast));
+                {
+                    state.SkillKillManaPassives[i] = new SkillKillManaData
+                    {
+                        Active = true,
+                        MarkerType = (int)SkillMarkerType.PiliaSkillCast,
+                    };
+                }
             }
         }
 
