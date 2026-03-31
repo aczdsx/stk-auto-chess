@@ -257,7 +257,6 @@ namespace CookApps.AutoChess
                 if (matchState != null)
                 {
                     SynergySystem.ApplyEffects(world, matchState, 0, 0);
-                    SynergySystem.ApplyBehaviors(world, matchState, 0, 0);
                     JobPassiveSystem.SetupJobPassives(matchState, world);
                     SkillSystem.SetupSkills(matchState, world);
                 }
@@ -280,8 +279,6 @@ namespace CookApps.AutoChess
                     {
                         SynergySystem.ApplyEffects(world, matchState, match.PlayerA, 0);
                         SynergySystem.ApplyEffects(world, matchState, match.PlayerB, 1);
-                        SynergySystem.ApplyBehaviors(world, matchState, match.PlayerA, 0);
-                        SynergySystem.ApplyBehaviors(world, matchState, match.PlayerB, 1);
                         JobPassiveSystem.SetupJobPassives(matchState, world);
                         SkillSystem.SetupSkills(matchState, world);
                     }

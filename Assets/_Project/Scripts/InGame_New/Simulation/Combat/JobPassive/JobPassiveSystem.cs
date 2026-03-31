@@ -1,18 +1,16 @@
 using CookApps.AutoBattler;
-using UnityEngine;
 
 namespace CookApps.AutoChess
 {
     /// <summary>
-    /// 직업군 패시브 로직 집중 static 클래스.
-    /// Trait 클래스는 얇은 디스패처 역할만 하고, 실제 로직은 여기서 처리.
+    /// 직업군 패시브 초기화 + Esper 폭발 처리 static 클래스.
+    /// SOA 배열(CombatMatchState)에 직업별 패시브 데이터를 직접 설정.
     /// </summary>
     public static class JobPassiveSystem
     {
         /// <summary>
-        /// 매치 내 모든 유닛에 직업 패시브 Trait 부착.
+        /// 매치 내 모든 유닛에 직업 패시브 SOA 데이터 설정.
         /// CombatSetupSystem.SetupMatch / SetupPvEMatch 직후에 호출.
-        /// ChampionSpec.PositionType으로 SpecDataManager에서 직접 조회.
         /// </summary>
         public static void SetupJobPassives(CombatMatchState state, GameWorld world)
         {
@@ -58,7 +56,13 @@ namespace CookApps.AutoChess
                 case CharacterPositionType.SHARPSHOOTER:
                     // param0 = 확률 (정수 퍼센트)
                     if (param0 > 0)
-                        TraitSystem.AddTrait(state, unitIndex, new SharpshooterPierceTrait(param0));
+                    {
+                        state.SharpshooterPassives[unitIndex] = new SharpshooterPassive
+                        {
+                            Active = true,
+                            ChancePercent = param0,
+                        };
+                    }
                     break;
 
                 case CharacterPositionType.GHOST:
@@ -67,37 +71,75 @@ namespace CookApps.AutoChess
                     // param0 = N타마다 확정 크리 (정수, ×100 되어있으므로 /100)
                     int maxStack = param0 / 100;
                     if (maxStack > 0)
-                        TraitSystem.AddTrait(state, unitIndex, new GhostCritStackTrait(maxStack));
+                    {
+                        state.GhostPassives[unitIndex] = new GhostPassive
+                        {
+                            Active = true,
+                            MaxStack = maxStack,
+                        };
+                    }
                     break;
 
                 case CharacterPositionType.STRIKER:
+                {
                     // param0 = 쿨타임 (초 × 100 → 프레임 변환)
                     int cooldownFrames = param0 * tickRate / 100;
                     if (cooldownFrames > 0)
-                        TraitSystem.AddTrait(state, unitIndex, new StrikerCCImmuneTrait(cooldownFrames));
+                    {
+                        state.StrikerPassives[unitIndex] = new StrikerPassive
+                        {
+                            Active = true,
+                            CooldownFrames = cooldownFrames,
+                        };
+                    }
                     break;
+                }
 
                 case CharacterPositionType.GUARDIAN:
+                {
                     // param0 = 쿨타임 (초 × 100 → 프레임 변환), param1 = 충전 횟수 (×100이므로 /100, 기본 3)
                     int guardCooldown = param0 * tickRate / 100;
                     int charges = param1 > 0 ? param1 / 100 : 3;
                     if (guardCooldown > 0)
-                        TraitSystem.AddTrait(state, unitIndex, new GuardianEndureTrait(guardCooldown, charges));
+                    {
+                        state.GuardianPassives[unitIndex] = new GuardianPassive
+                        {
+                            Active = true,
+                            CooldownFrames = guardCooldown,
+                            MaxCharges = charges,
+                        };
+                    }
                     break;
+                }
 
                 case CharacterPositionType.ORACLE:
                     // param0 = 회복 비율 (정수 퍼센트)
                     state.Units[unitIndex].IsHealer = true;
                     if (param0 > 0)
-                        TraitSystem.AddTrait(state, unitIndex, new OracleHealerTrait(param0));
+                    {
+                        state.OraclePassives[unitIndex] = new OraclePassive
+                        {
+                            Active = true,
+                            HealPercent = param0,
+                        };
+                    }
                     break;
 
                 case CharacterPositionType.ESPER:
+                {
                     // param0 = 확률 (정수 퍼센트), param1 = 데미지 퍼센트
                     int dmgPercent = param1 > 0 ? param1 : 100;
                     if (param0 > 0)
-                        TraitSystem.AddTrait(state, unitIndex, new EsperExplosionTrait(param0, dmgPercent));
+                    {
+                        state.EsperPassives[unitIndex] = new EsperPassive
+                        {
+                            Active = true,
+                            ChancePercent = param0,
+                            DamagePercent = dmgPercent,
+                        };
+                    }
                     break;
+                }
             }
         }
 

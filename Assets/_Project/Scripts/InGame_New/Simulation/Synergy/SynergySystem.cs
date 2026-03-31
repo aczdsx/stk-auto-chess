@@ -707,62 +707,6 @@ namespace CookApps.AutoChess
                 world.PrepBehaviors[playerIndex][i].OnBoardChanged(world);
         }
 
-        // ── 전투 시작 시 시너지 행동 등록 (asterism) ──
-
-        /// <summary>
-        /// HasBehavior인 시너지의 CombatTraitBase를 생성하여 대상 유닛에 TraitSystem으로 부착.
-        /// ApplyEffects() 이후 호출.
-        /// </summary>
-        public static void ApplyBehaviors(GameWorld world, CombatMatchState state,
-            byte playerIndex, byte teamIndex)
-        {
-            if (!world.Config.EnableSynergy) return;
-            if (world.SynergySpecs == null) return;
-
-            var synergy = world.Synergies[playerIndex];
-
-            for (int t = 0; t < world.SynergySpecCount; t++)
-            {
-                ref var spec = ref world.SynergySpecs[t];
-                if (!spec.IsValid || !spec.HasBehavior) continue;
-
-                int traitId = spec.TraitId;
-                byte tier = synergy.GetTraitTier(traitId);
-                if (tier == 0) continue;
-
-                // prep 데이터 가져오기
-                int prepTargetEntityId = -1;
-                int prepParam0 = 0, prepParam1 = 0;
-                int prepIdx = FindPrepBehavior(world, playerIndex, traitId);
-                if (prepIdx >= 0)
-                {
-                    var prep = world.PrepBehaviors[playerIndex][prepIdx];
-                    prepTargetEntityId = prep.PrepTargetEntityId;
-                    prepParam0 = prep.PrepParam0;
-                    prepParam1 = prep.PrepParam1;
-                }
-
-                // 대상 유닛에 trait 부착
-                for (int u = 0; u < state.UnitCount; u++)
-                {
-                    ref var unit = ref state.Units[u];
-                    if (unit.TeamIndex != teamIndex || !unit.IsAlive) continue;
-
-                    // prepTargetEntityId가 지정되면 해당 유닛에만, 아니면 팀 전체에
-                    if (prepTargetEntityId >= 0 && unit.SourceEntityId != prepTargetEntityId) continue;
-
-                    var trait = SynergyFactory.CreateTrait((SynergyType)traitId, tier);
-                    if (trait == null) continue;
-
-                    trait.SynergyTraitId = traitId;
-                    trait.PrepTargetEntityId = prepTargetEntityId;
-                    trait.PrepParam0 = prepParam0;
-                    trait.PrepParam1 = prepParam1;
-
-                    TraitSystem.AddTrait(state, u, trait);
-                }
-            }
-        }
         // ── DeckAdditionalData 연동 (저장/로드) ──
 
         /// <summary>현재 슈퍼노바 타겟의 ChampionSpecId 반환 (덱 저장용). 미부여 시 0.</summary>

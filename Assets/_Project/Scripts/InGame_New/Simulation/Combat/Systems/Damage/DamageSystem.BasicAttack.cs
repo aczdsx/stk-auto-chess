@@ -22,19 +22,18 @@ namespace CookApps.AutoChess
 
             // 회피 판정은 CombatAISystem에서 처리 (공격 시작 전 판정)
 
-            // Trait: 공격 전 콜백
+            // 직업 패시브: 공격 전 콜백
             if (attackerIndex >= 0)
-                TraitSystem.InvokeOnPreAttack(state, attackerIndex, ref target);
+                JobPassiveLogic.OnPreAttack(state, attackerIndex);
 
             // ── Oracle 힐러: 아군 타겟이면 힐 경로 ──
             if (attacker.IsHealer && target.TeamIndex == attacker.TeamIndex)
             {
-                var healTrait = attackerIndex >= 0
-                    ? TraitSystem.FindTrait<OracleHealerTrait>(state, attackerIndex)
-                    : null;
-                if (healTrait == null) return;
+                bool isOracleHealer = attackerIndex >= 0
+                    && JobPassiveLogic.IsOracleHealer(state, attackerIndex);
+                if (!isOracleHealer) return;
 
-                int healAmount = healTrait.CalculateHealAmount(ref attacker, ref target);
+                int healAmount = JobPassiveLogic.OracleCalculateHealAmount(state, attackerIndex, ref target);
 
                 if (attacker.AttackRange <= 1)
                 {
@@ -61,7 +60,7 @@ namespace CookApps.AutoChess
                 attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
 
                 if (attackerIndex >= 0)
-                    TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
+                    JobPassiveLogic.OnPostAttack(state, attackerIndex, ref target);
                 return;
             }
 
@@ -69,10 +68,6 @@ namespace CookApps.AutoChess
             int rawDamage = attacker.Attack;
             bool isCrit;
             rawDamage = ApplyCritical(rawDamage, ref attacker, ref rng, out isCrit);
-
-            // Trait: 크리티컬 콜백
-            if (isCrit && attackerIndex >= 0)
-                TraitSystem.InvokeOnCritical(state, attackerIndex, ref target, rawDamage);
 
             if (attacker.AttackRange <= 1)
             {
@@ -96,9 +91,9 @@ namespace CookApps.AutoChess
                 // 공격 쿨다운 재설정
                 attacker.AttackCooldown = attacker.GetAttackInterval(tickRate);
 
-                // Trait: 공격 후 콜백 (근접: 데미지 적용 후 즉시)
+                // 직업 패시브: 공격 후 콜백 (근접: 데미지 적용 후 즉시)
                 if (attackerIndex >= 0)
-                    TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
+                    JobPassiveLogic.OnPostAttack(state, attackerIndex, ref target);
             }
             else
             {
@@ -146,19 +141,18 @@ namespace CookApps.AutoChess
 
             // 회피 판정은 CombatAISystem에서 처리 (공격 시작 전 판정)
 
-            // Trait: 공격 전 콜백
+            // 직업 패시브: 공격 전 콜백
             if (attackerIndex >= 0)
-                TraitSystem.InvokeOnPreAttack(state, attackerIndex, ref target);
+                JobPassiveLogic.OnPreAttack(state, attackerIndex);
 
             // ── Oracle 힐러: 아군 타겟이면 힐 경로 ──
             if (attacker.IsHealer && target.TeamIndex == attacker.TeamIndex)
             {
-                var healTrait = attackerIndex >= 0
-                    ? TraitSystem.FindTrait<OracleHealerTrait>(state, attackerIndex)
-                    : null;
-                if (healTrait == null) return;
+                bool isOracleHealer = attackerIndex >= 0
+                    && JobPassiveLogic.IsOracleHealer(state, attackerIndex);
+                if (!isOracleHealer) return;
 
-                int healAmount = healTrait.CalculateHealAmount(ref attacker, ref target);
+                int healAmount = JobPassiveLogic.OracleCalculateHealAmount(state, attackerIndex, ref target);
                 SkillDamageHelper.Heal(state, ref target, healAmount);
 
                 if (CombatLogger.Enabled) CombatLogger.LogHeal(target.CombatId, healAmount, target.CurrentHP, target.MaxHP);
@@ -167,7 +161,7 @@ namespace CookApps.AutoChess
                 ChargeMana(ref attacker, attacker.ManaGainOnAttack);
 
                 if (attackerIndex >= 0)
-                    TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
+                    JobPassiveLogic.OnPostAttack(state, attackerIndex, ref target);
                 return;
             }
 
@@ -179,10 +173,6 @@ namespace CookApps.AutoChess
             int rawDamage = attacker.Attack;
             if (isCrit)
                 rawDamage = rawDamage * attacker.CritPower / 100;
-
-            // Trait: 크리티컬 콜백
-            if (isCrit && attackerIndex >= 0)
-                TraitSystem.InvokeOnCritical(state, attackerIndex, ref target, rawDamage);
 
             int finalDamage = CalculateDamage(rawDamage, DamageType.Physical, ref attacker, ref target);
 
@@ -200,9 +190,9 @@ namespace CookApps.AutoChess
             ChargeMana(ref target, target.ManaGainOnHit);
             ChargeMana(ref attacker, attacker.ManaGainOnAttack);
 
-            // Trait: 공격 후 콜백
+            // 직업 패시브: 공격 후 콜백
             if (attackerIndex >= 0)
-                TraitSystem.InvokeOnPostAttack(state, attackerIndex, ref target);
+                JobPassiveLogic.OnPostAttack(state, attackerIndex, ref target);
         }
 
         /// <summary>

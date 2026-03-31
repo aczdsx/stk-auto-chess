@@ -803,10 +803,15 @@ namespace CookApps.AutoChess
         public SkillConfig[] SkillConfigs;    // [MaxCombatUnits] 초기화 후 읽기전용
         public SkillState[] SkillStates;      // [MaxCombatUnits] 매 시전마다 Reset
 
-        // 특성 인스턴스 (유닛별 최대 MaxTraitsPerUnit개)
-        public CombatTraitBase[][] Traits; // [MaxCombatUnits][CombatTraitBase.MaxTraitsPerUnit]
-        public int[] TraitCounts;          // [MaxCombatUnits] 유닛별 부착된 특성 수
-        internal bool _traitCombatStartDone; // OnCombatStart 1회 실행 플래그
+        // 직업 패시브 SOA 배열 (유닛별 1:1 매핑, Active == false 면 해당 패시브 없음)
+        public GuardianPassive[] GuardianPassives;         // [MaxCombatUnits]
+        public GhostPassive[] GhostPassives;               // [MaxCombatUnits]
+        public StrikerPassive[] StrikerPassives;           // [MaxCombatUnits]
+        public SharpshooterPassive[] SharpshooterPassives; // [MaxCombatUnits]
+        public EsperPassive[] EsperPassives;               // [MaxCombatUnits]
+        public OraclePassive[] OraclePassives;             // [MaxCombatUnits]
+        public SkillKillManaData[] SkillKillManaPassives;  // [MaxCombatUnits]
+        internal bool _jobPassiveCombatStartDone; // OnCombatStart 1회 실행 플래그
 
         public static CombatMatchState Create(byte matchIndex, byte playerA, byte playerB)
         {
@@ -824,12 +829,14 @@ namespace CookApps.AutoChess
                 StatusEffects = new StatusEffect[MaxStatusEffects],
                 SkillConfigs = new SkillConfig[MaxCombatUnits],
                 SkillStates = new SkillState[MaxCombatUnits],
-                Traits = new CombatTraitBase[MaxCombatUnits][],
-                TraitCounts = new int[MaxCombatUnits],
+                GuardianPassives = new GuardianPassive[MaxCombatUnits],
+                GhostPassives = new GhostPassive[MaxCombatUnits],
+                StrikerPassives = new StrikerPassive[MaxCombatUnits],
+                SharpshooterPassives = new SharpshooterPassive[MaxCombatUnits],
+                EsperPassives = new EsperPassive[MaxCombatUnits],
+                OraclePassives = new OraclePassive[MaxCombatUnits],
+                SkillKillManaPassives = new SkillKillManaData[MaxCombatUnits],
             };
-
-            for (int i = 0; i < MaxCombatUnits; i++)
-                state.Traits[i] = new CombatTraitBase[CombatTraitBase.MaxTraitsPerUnit];
 
             for (int i = 0; i < MaxCombatUnits; i++)
                 state.Units[i].CombatId = CombatUnit.InvalidId;

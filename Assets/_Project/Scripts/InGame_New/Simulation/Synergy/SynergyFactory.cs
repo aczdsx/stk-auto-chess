@@ -5,7 +5,7 @@ namespace CookApps.AutoChess
     /// <summary>
     /// 준비 페이즈 시너지 행동 추상 베이스.
     /// Asterism 시너지(Supernova/Troubleshooter 등)의 준비 페이즈 상호작용을 정의.
-    /// 전투 시작 시 prep 데이터 → CombatTraitBase로 전달.
+    /// 전투 시작 시 prep 데이터 → 시너지 전투 행동 시스템로 전달.
     /// </summary>
     public abstract class SynergyPrepBehaviorBase
     {
@@ -28,7 +28,7 @@ namespace CookApps.AutoChess
         /// <summary>플레이어 커맨드 처리 (SetSynergyPrepTarget 등)</summary>
         public virtual void HandleCommand(GameWorld world, in GameCommand cmd) { }
 
-        /// <summary>전투 행동(CombatTraitBase)에 전달할 데이터</summary>
+        /// <summary>전투 행동(시너지 전투 행동 시스템)에 전달할 데이터</summary>
         public int PrepTargetEntityId = -1;
         public int PrepParam0;
         public int PrepParam1;
@@ -73,7 +73,7 @@ namespace CookApps.AutoChess
 
     /// <summary>
     /// 성군(Asterism) 시너지 통합 팩토리.
-    /// 준비 페이즈 행동(SynergyPrepBehaviorBase) + 전투 행동(CombatTraitBase) 모두 여기서 생성.
+    /// 준비 페이즈 행동(SynergyPrepBehaviorBase) + 전투 행동(시너지 전투 행동 시스템) 모두 여기서 생성.
     /// 새 Asterism 시너지 추가 시 이 파일만 수정.
     /// </summary>
     public static class SynergyFactory
@@ -110,15 +110,5 @@ namespace CookApps.AutoChess
             return behavior;
         }
 
-        /// <summary>
-        /// 전투 행동(CombatTraitBase) 생성. 구현체 추가 시 스위치에 케이스 추가.
-        /// SUPERNOVA: 스탯은 ApplyEffects() PrepTarget으로 처리하므로 CombatTrait 불필요. null 반환.
-        /// </summary>
-        public static CombatTraitBase CreateTrait(SynergyType type, byte tier)
-        {
-            // SynergyType.SUPERNOVA => null (스탯 버프는 ApplyEffects에서 처리)
-            // SynergyType.TROUBLESHOOTER => new SynergyTraitTroubleShooter(),
-            return null;
-        }
     }
 }

@@ -106,16 +106,9 @@ namespace CookApps.AutoChess
 
             int targetIndex = state.FindUnitIndex(target.CombatId);
 
-            // Trait: 나가는 데미지 보정 (공격자)
-            if (attackerIndex >= 0)
-                damage = TraitSystem.InvokeModifyOutgoingDamage(state, attackerIndex, ref target, damage, damageType);
-
-            // Trait: 들어오는 데미지 보정 (피격자)
+            // 직업 패시브: 들어오는 데미지 보정 (피격자 — Guardian 쉴드)
             if (targetIndex >= 0)
-            {
-                if (attackerIndex >= 0)
-                    damage = TraitSystem.InvokeModifyIncomingDamage(state, ref state.Units[attackerIndex], targetIndex, damage, damageType, isBasicAttack);
-            }
+                damage = JobPassiveLogic.ModifyIncomingDamage(state, targetIndex, damage, isBasicAttack);
 
             // Trait에 의해 데미지가 0 이하가 된 경우 (예: GuardianEndure 블록)
             // 이벤트 발행 + OnDamageTaken 콜백 후 HP 차감 스킵
@@ -126,22 +119,16 @@ namespace CookApps.AutoChess
                     attackerIndex >= 0 ? state.Units[attackerIndex].CombatId : CombatUnit.InvalidId,
                     0, damageType, isCrit);
 
-                if (targetIndex >= 0 && attackerIndex >= 0)
-                    TraitSystem.InvokeOnDamageTaken(state, targetIndex, ref state.Units[attackerIndex], 0);
-
                 return false;
             }
 
-            // 테스트 무적: Trait 콜백은 실행하되 HP 감소만 스킵
+            // 테스트 무적: HP 감소만 스킵
             if ((PlayerInvincible && target.TeamIndex == 0)
                 || (EnemyInvincible && target.TeamIndex == 1))
             {
                 state.EventQueue?.PushUnitDamaged(target.CombatId,
                     attackerIndex >= 0 ? state.Units[attackerIndex].CombatId : CombatUnit.InvalidId,
                     damage, damageType, isCrit);
-
-                if (targetIndex >= 0 && attackerIndex >= 0)
-                    TraitSystem.InvokeOnDamageTaken(state, targetIndex, ref state.Units[attackerIndex], damage);
 
                 return false;
             }
@@ -162,10 +149,6 @@ namespace CookApps.AutoChess
                 attackerIndex >= 0 ? state.Units[attackerIndex].CombatId : CombatUnit.InvalidId,
                 damage, damageType, isCrit);
 
-            // Trait: 피격 후 콜백 (피격자)
-            if (targetIndex >= 0 && attackerIndex >= 0)
-                TraitSystem.InvokeOnDamageTaken(state, targetIndex, ref state.Units[attackerIndex], damage);
-
             if (target.CurrentHP <= 0)
             {
                 target.CurrentHP = 0;
@@ -174,13 +157,9 @@ namespace CookApps.AutoChess
 
                 if (CombatLogger.Enabled) CombatLogger.LogDeath(target.CombatId, target.TeamIndex);
 
-                // Trait: 사망 콜백 (사망자)
-                if (targetIndex >= 0 && attackerIndex >= 0)
-                    TraitSystem.InvokeOnDeath(state, targetIndex, ref state.Units[attackerIndex]);
-
-                // Trait: 처치 콜백 (공격자)
+                // 직업 패시브: 처치 콜백 (스킬 킬 마나 리셋)
                 if (attackerIndex >= 0)
-                    TraitSystem.InvokeOnKill(state, attackerIndex, ref target);
+                    JobPassiveLogic.OnKill(state, attackerIndex, ref target);
 
                 // 그리드에서 제거 (multi-tile)
                 state.ClearGridMulti(target.GridCol, target.GridRow,
