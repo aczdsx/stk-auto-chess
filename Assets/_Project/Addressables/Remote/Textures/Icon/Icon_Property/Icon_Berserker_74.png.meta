@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: c44630ff70fe79248bb6767d73f5b24c
+guid: 9f363c3f51eabed4eaf7f5278589c047
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5587173827912263673
-    second: Icon_Uroboros_74_0
-  - first:
-      213: 6366769728072301556
-    second: Icon_Uroboros_74_1
-  - first:
-      213: 6460153211037391574
-    second: Icon_Uroboros_74_2
+      213: 6005406531118674671
+    second: Icon_Noblesse_74_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -132,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_Uroboros_74_0
+      name: Icon_Noblesse_74_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 38
-        width: 17
-        height: 8
+        x: 5
+        y: 11
+        width: 65
+        height: 51
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,52 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9f7e11f8ef0a98d40800000000000000
-      internalID: 5587173827912263673
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Uroboros_74_1
-      rect:
-        serializedVersion: 2
-        x: 10
-        y: 8
-        width: 38
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4fbb578c55f4b5850800000000000000
-      internalID: 6366769728072301556
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Uroboros_74_2
-      rect:
-        serializedVersion: 2
-        x: 25
-        y: 28
-        width: 43
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6da9b7a3e1317a950800000000000000
-      internalID: 6460153211037391574
+      spriteID: fe2b32b0c6d775350800000000000000
+      internalID: 6005406531118674671
       vertices: []
       indices: 
       edges: []
@@ -211,9 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Icon_Uroboros_74_0: 5587173827912263673
-      Icon_Uroboros_74_1: 6366769728072301556
-      Icon_Uroboros_74_2: 6460153211037391574
+      Icon_Noblesse_74_0: 6005406531118674671
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
