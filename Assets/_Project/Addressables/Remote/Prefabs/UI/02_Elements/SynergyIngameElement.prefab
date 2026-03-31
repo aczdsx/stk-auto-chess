@@ -934,6 +934,7 @@ GameObject:
   - component: {fileID: 254051196794708308}
   - component: {fileID: 2006867457073808630}
   - component: {fileID: 4209923143196321789}
+  - component: {fileID: 1532393740758006422}
   m_Layer: 5
   m_Name: RF_Image_SliderFill
   m_TagString: Untagged
@@ -1017,6 +1018,32 @@ MonoBehaviour:
     values:
     - {fileID: 21300000, guid: a0891a6a72de68c4d83dd5cb0f6fb9e9, type: 3}
     - {fileID: 21300000, guid: 3110d1231b0d9804b86b987a8e0aafd2, type: 3}
+--- !u!114 &1532393740758006422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4389886846466128808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19b7e2285c104f6ca47d583f3e5444f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UIEffect::Coffee.UIEffects.UIShiny
+  m_EffectFactor: 0.5134112
+  m_Width: 0.446
+  m_Rotation: 0
+  m_Softness: 1
+  m_Brightness: 0.6
+  m_Gloss: 0.3
+  m_EffectArea: 0
+  m_Player:
+    play: 1
+    initialPlayDelay: 0
+    duration: 2
+    loop: 1
+    loopDelay: 1
+    updateMode: 0
 --- !u!1 &4662987179861773287
 GameObject:
   m_ObjectHideFlags: 0
